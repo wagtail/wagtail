@@ -6,6 +6,7 @@ from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
 from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.rich_text.rewriters import LinkRewriter, extract_attrs
+from wagtail.tests.testapp.models import EventPage
 
 
 class TestPageLinktypeHandler(TestCase):
@@ -159,3 +160,17 @@ class TestLinkRewriterTagReplacing(TestCase):
         # Also call the rule if a custom linktype is mentioned.
         link_with_custom_linktype = rewriter('<a linktype="custom" href="tel:+4917640206387">')
         self.assertEqual(link_with_custom_linktype, '<a data-phone="true" href="tel:+4917640206387">')
+
+
+class TestRichTextField(TestCase):
+    fixtures = ['test.json']
+
+    def test_get_searchable_content(self):
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_page.body = '<p><b>Merry Christmas from <a href="https://wagtail.io/">Wagtail!</a></b> &amp; co.</p>'
+        christmas_page.save_revision(submitted_for_moderation=False)
+
+        body_field = christmas_page._meta.get_field('body')
+        value = body_field.value_from_object(christmas_page)
+        result = body_field.get_searchable_content(value)
+        self.assertEqual(result, ['Merry Christmas from Wagtail! & co.'])
