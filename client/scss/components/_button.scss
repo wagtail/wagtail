@@ -240,6 +240,22 @@
         border: 0;
     }
 
+    &.button-strokeonhover {
+        border: 1px solid transparent;
+
+        &:hover {
+            border-color: $color-grey-2;
+        }
+
+        &.button-nobg:hover {
+            background-color: transparent;
+        }
+    }
+
+    &.text-notransform {
+        text-transform: initial;
+    }
+
     @include media-breakpoint-up(sm) {
         font-size: 0.95em;
         padding: 0 1.4em;
