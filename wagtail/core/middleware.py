@@ -7,7 +7,7 @@ from wagtail.utils.deprecation import RemovedInWagtail211Warning
 
 warnings.warn(
     'wagtail.core.middleware.SiteMiddleware and the use of request.site is deprecated. '
-    'Please update your code to use Site.get_for_request(request) in place of request.site, '
+    'Please update your code to use Site.find_for_request(request) in place of request.site, '
     'and remove wagtail.core.middleware.SiteMiddleware from MIDDLEWARES',
     RemovedInWagtail211Warning
 )
