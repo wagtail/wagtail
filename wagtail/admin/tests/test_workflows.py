@@ -737,6 +737,21 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(task_state.task.specific, self.task_1)
         self.assertEqual(task_state.status, task_state.STATUS_IN_PROGRESS)
 
+    def test_submit_for_approval_changes_status_in_header_meta(self):
+        edit_url = reverse('wagtailadmin_pages:edit', args=(self.page.id, ))
+
+        response = self.client.get(edit_url)
+        self.assertContains(response, 'Draft', count=1)
+
+        # submit for approval
+        self.submit()
+
+        response = self.client.get(edit_url)
+        workflow_status_url = reverse('wagtailadmin_pages:workflow_status', args=(self.page.id, ))
+        self.assertContains(response, workflow_status_url)
+        self.assertContains(response, 'Awaiting\n        \n        {}'.format(self.page.current_workflow_task.name))
+        self.assertNotContains(response, 'Draft')
+
     @mock.patch.object(EmailMultiAlternatives, 'send', side_effect=IOError('Server down'))
     def test_email_send_error(self, mock_fn):
         logging.disable(logging.CRITICAL)
