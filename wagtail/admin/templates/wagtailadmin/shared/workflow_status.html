@@ -1,43 +1,11 @@
-{% load wagtailadmin_tags i18n %}
-{% if workflow_state %}
-    {% with workflow_state.workflow as workflow %}
-
-    <h2>
-        <a href="{% url 'wagtailadmin_pages:workflow_history_detail' page.id workflow_state.id %}">
-            {{ workflow.name }}
-        </a>
-    </h2>
-
-    {% if current_task_state %}
-        {% with current_task_state.task as task %}
-
-        {% if current_task_number %}
-            {% blocktrans with workflow_tasks|length as total_tasks %} Task {{ current_task_number }} of {{ total_tasks }}{% endblocktrans %}: {{ task.name }}
+{% load i18n %}
+{% if workflow_state and page.current_workflow_task %}
+    <button data-url="{% url 'wagtailadmin_pages:workflow_status' page.id %}" class="button button-small button-nobg button-strokeonhover text-notransform action-workflow-status">
+        {% if workflow_state.status == "in_progress" %}
+            {% trans "Awaiting" %}
         {% else %}
-            {% trans 'Task' %}: {{ task.name }}
+            {{ workflow_state.status_display }}
         {% endif %}
-
-        {% endwith %}
-    {% endif %}
-
-    <div>
-        {% trans 'Incomplete task' as incomplete_title %}
-        {% for task in workflow_tasks %}
-            <span data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}">
-                {% if task.status == 'approved' %}
-                    {% icon "success" title=task.status_display class_name="icon uniform" %}
-                {% elif task.status == 'rejected' %}
-                    {% icon "failure" title=task.status_display class_name="icon uniform" %}
-                {% else %}
-                    {% icon "radio-empty" title=incomplete_title class_name="icon uniform" %}
-                {% endif %}
-            </span>
-        {% endfor %}
-    </div>
-
-    {% endwith %}
-
-    <a href="{% url 'wagtailadmin_pages:workflow_history' page.id %}">
-        {% trans "Workflow history" %}
-    </a>
+        {{ page.current_workflow_task.name }}
+    </button>
 {% endif %}

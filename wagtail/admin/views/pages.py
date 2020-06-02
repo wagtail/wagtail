@@ -1,7 +1,6 @@
 from datetime import timedelta
 from time import time
 
-from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
@@ -417,60 +416,8 @@ def edit(request, page_id):
 
         messages.warning(request, _("This page is currently awaiting moderation"), buttons=buttons)
 
-    workflow_tasks = []
-    workflow_state = page.current_workflow_state
-    current_task_number = None
-    if workflow_state:
-        workflow = workflow_state.workflow
-        task = workflow_state.current_task_state.task
-        workflow_tasks = workflow_state.all_tasks_with_status()
-
-        current_task_number = None
-        for i, workflow_task in enumerate(workflow_tasks):
-            if workflow_task == task:
-                current_task_number = i + 1
-
-        task = task.specific
-
-        # add a warning message if tasks have been approved and may need to be re-approved
-        task_has_been_approved = any(filter(lambda task: task.status == TaskState.STATUS_APPROVED, workflow_tasks))
-
-        if request.method == 'GET':
-            buttons = []
-
-            if page.live:
-                buttons.append(messages.button(
-                    reverse('wagtailadmin_pages:revisions_compare', args=(page.id, 'live', latest_revision.id)),
-                    _('Compare with live version')
-                ))
-
-            if workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
-                workflow_info = _("Changes were requested on this page")
-                buttons = [messages.button(reverse('wagtailadmin_pages:workflow_history_detail', args=(page.id, workflow_state.id,)), _('See comments / history')), ] + buttons
-                messages.warning(request, workflow_info, buttons=buttons, extra_tags='workflow')
-            else:
-
-                # Check for revisions still undergoing moderation and warn
-                if len(workflow_tasks) == 1:
-                    # If only one task in workflow, show simple message
-                    workflow_info = _("This page is currently awaiting moderation")
-                elif current_task_number:
-                    workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
-                else:
-                    workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
-
-                if task.page_locked_for_user(page, request.user):
-                    messages.error(request, mark_safe(workflow_info + _("Only reviewers for this task can edit the page.")), buttons=buttons, extra_tags="lock")
-                elif task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', False):
-                    messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons, extra_tags="workflow")
-                else:
-                    messages.success(request, workflow_info, buttons=buttons, extra_tags="workflow")
-    else:
-        # Show last workflow state
-        workflow_state = page.workflow_states.order_by('created_at').last()
-
-        if workflow_state:
-            workflow_tasks = workflow_state.all_tasks_with_status()
+    # Show current workflow state if set, default to last workflow state
+    workflow_state = page.current_workflow_state or page.workflow_states.order_by('created_at').last()
 
     errors_debug = None
 
@@ -754,10 +701,7 @@ def edit(request, page_id):
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_perms.page_locked(),
         'workflow_state': workflow_state,
-        'workflow_actions': page.current_workflow_task.get_actions(page, request.user) if page.current_workflow_task else [],
         'current_task_state': page.current_workflow_task_state,
-        'workflow_tasks': workflow_tasks,
-        'current_task_number': current_task_number,
     })
 
 
