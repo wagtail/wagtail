@@ -67,6 +67,7 @@ Bug fixes
  * Prevent date/time picker from losing an hour on losing focus when 12-hour times are in use (Jacob Topp-Mugglestone)
  * Strip out HTML tags from ``RichTextField`` & ``RichTextBlock`` search index content (Timothy Bautista)
  * Avoid using null on string ``Site.site_name`` blank values to avoid different values for no name (Coen van der Kamp)
+ * Fix deprecation warnings on Elasticsearch 7 (Yngve Høiseth)
 
 
 Upgrade considerations

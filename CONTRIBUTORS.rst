@@ -464,6 +464,7 @@ Contributors
 * Lacey Williams Henschel
 * Dan Bentley
 * GTpyro
+* Yngve Høiseth
 
 Translators
 ===========

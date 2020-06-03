@@ -49,6 +49,7 @@ Changelog
  * Fix: Prevent date/time picker from losing an hour on losing focus when 12-hour times are in use (Jacob Topp-Mugglestone)
  * Fix: Strip out HTML tags from `RichTextField` & `RichTextBlock` search index content (Timothy Bautista)
  * Fix: Avoid using null on string `Site.site_name` blank values to avoid different values for no name (Coen van der Kamp)
+ * Fix: Fix deprecation warnings on Elasticsearch 7 (Yngve Høiseth)
 
 
 2.9 (04.05.2020)
