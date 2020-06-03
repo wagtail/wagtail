@@ -10,7 +10,7 @@
     <header class="merged tab-merged">
         {% explorer_breadcrumb page %}
 
-        <div class="row row-flush">
+        <div class="row">
             <h1 class="left col9 header-title" title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
                 {{ page.get_admin_display_title }}
             </h1>
@@ -20,21 +20,21 @@
                 {% include "wagtailadmin/pages/_privacy_switch.html" with page=page page_perms=page_perms only %}
             </div>
         </div>
-        <ul class="row row-flush header-meta">
-            {% if current_task_state %}
-            <li>
+        <ul class="row header-meta">
+            <li data-wagtail-tooltip="{% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}">
                 {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}
             </li>
-            {% endif %}
             {% if page.get_latest_revision %}
             <li>
-                <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg button-strokeonhover text-notransform">
-                {% trans "View page history" %}
-            </a>
+                <a href="{% url 'wagtailadmin_pages:history' page.id %}"
+                   target="_blank" rel="noopener noreferrer"
+                   class="button button-small button-nobg button-strokeonhover text-notransform">
+                    {% trans "Page history" %}
+                </a>
             </li>
             {% endif %}
             <li>
-                {% icon "doc-empty-inverse" class_name="uniform" %}
+                {% icon "doc-empty-inverse" %}
                 {{ content_type.model_class.get_verbose_name }}
             </li>
         </ul>
@@ -88,7 +88,6 @@
                                     {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username %}by {{ modified_by }}{% endblocktrans %}
                                     <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
                                 {% endif %}
-                                <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="underlined">{% trans 'Page history' %}</a>
                             {% endif %}
                         </p>
                     </li>
