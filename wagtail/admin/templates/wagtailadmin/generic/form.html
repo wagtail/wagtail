@@ -1,12 +1,16 @@
 {% extends "wagtailadmin/generic/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block main_content %}
     {% block before_form %}{% endblock %}
     <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
 
-        {{ form.non_field_errors }}
+        {% block non_field_errors %}
+            {% for error in form.non_field_errors %}
+                {% help_block status="critical" %}{{ error }}{% endhelp_block %}
+            {% endfor %}
+        {% endblock %}
 
         {% block hidden_fields %}
             {% for field in form.hidden_fields %}{{ field }}{% endfor %}
