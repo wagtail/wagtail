@@ -154,9 +154,12 @@ class TestSiteCreateView(WagtailTestUtils, TestCase):
             {"hostname": "localhost", "port": "80", "root_page": str(self.home_page.id)}
         )
         expected_html = """
-            <ul class="errorlist nonfield">
-                <li>Site with this Hostname and Port already exists.</li>
-            </ul>
+            <div class="help-block help-critical">
+                <svg class="icon icon-warning icon" aria-hidden="true">
+                    <use href="#icon-warning"></use>
+                </svg>
+                Site with this Hostname and Port already exists.
+            </div>
         """
         self.assertTagInHTML(expected_html, str(response.content))
 
@@ -283,13 +286,13 @@ class TestSiteEditView(WagtailTestUtils, TestCase):
             hostname="something_different",
             port=80,
             is_default_site=False,
-            root_page=self.home_page
+            root_page=self.home_page,
         )
         response = self.post(
             {
-                'hostname': "Localhost",
+                "hostname": "Localhost",
             },
-            site_id=second_site.id
+            site_id=second_site.id,
         )
 
         # Should return the form with errors
@@ -304,18 +307,21 @@ class TestSiteEditView(WagtailTestUtils, TestCase):
             hostname="something_different",
             port=80,
             is_default_site=False,
-            root_page=self.home_page
+            root_page=self.home_page,
         )
         response = self.post(
             {
-                'hostname': "Localhost",
+                "hostname": "Localhost",
             },
-            site_id=second_site.id
+            site_id=second_site.id,
         )
         expected_html = """
-            <ul class="errorlist nonfield">
-                <li>Site with this Hostname and Port already exists.</li>
-            </ul>
+            <div class="help-block help-critical">
+                <svg class="icon icon-warning icon" aria-hidden="true">
+                    <use href="#icon-warning"></use>
+                </svg>
+                Site with this Hostname and Port already exists.
+            </div>
         """
         self.assertTagInHTML(expected_html, str(response.content))
 
