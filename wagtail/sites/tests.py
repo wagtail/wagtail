@@ -129,6 +129,37 @@ class TestSiteCreateView(WagtailTestUtils, TestCase):
         # Check that the site was not created, still only one localhost entry
         self.assertEqual(Site.objects.filter(hostname="localhost").count(), 1)
 
+    def test_duplicate_hostnames_case_variant_not_allowed(self):
+        # Confirm there's one localhost already
+        self.assertEqual(Site.objects.filter(hostname="localhost").count(), 1)
+
+        response = self.post(
+            {"hostname": "Localhost", "port": "80", "root_page": str(self.home_page.id)}
+        )
+
+        # Should return the form with errors
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context["form"].errors,
+            {"__all__": ["Site with this Hostname and Port already exists."]},
+        )
+
+        # Check that the site was not created, still only one localhost entry
+        self.assertEqual(Site.objects.filter(hostname="localhost").count(), 1)
+
+    def test_non_field_errors_are_displayed(self):
+        self.assertEqual(Site.objects.filter(hostname="localhost").count(), 1)
+
+        response = self.post(
+            {"hostname": "localhost", "port": "80", "root_page": str(self.home_page.id)}
+        )
+        expected_html = """
+            <ul class="errorlist nonfield">
+                <li>Site with this Hostname and Port already exists.</li>
+            </ul>
+        """
+        self.assertTagInHTML(expected_html, str(response.content))
+
 
 class TestSiteEditView(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -246,6 +277,47 @@ class TestSiteEditView(WagtailTestUtils, TestCase):
         # Check that the site was not editd
 
         self.assertIs(Site.objects.get(id=second_site.id).is_default_site, False)
+
+    def test_duplicate_hostnames_case_variant_not_allowed(self):
+        second_site = Site.objects.create(
+            hostname="something_different",
+            port=80,
+            is_default_site=False,
+            root_page=self.home_page
+        )
+        response = self.post(
+            {
+                'hostname': "Localhost",
+            },
+            site_id=second_site.id
+        )
+
+        # Should return the form with errors
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context["form"].errors,
+            {"__all__": ["Site with this Hostname and Port already exists."]},
+        )
+
+    def test_non_field_errors_are_displayed(self):
+        second_site = Site.objects.create(
+            hostname="something_different",
+            port=80,
+            is_default_site=False,
+            root_page=self.home_page
+        )
+        response = self.post(
+            {
+                'hostname': "Localhost",
+            },
+            site_id=second_site.id
+        )
+        expected_html = """
+            <ul class="errorlist nonfield">
+                <li>Site with this Hostname and Port already exists.</li>
+            </ul>
+        """
+        self.assertTagInHTML(expected_html, str(response.content))
 
 
 class TestSiteDeleteView(WagtailTestUtils, TestCase):
