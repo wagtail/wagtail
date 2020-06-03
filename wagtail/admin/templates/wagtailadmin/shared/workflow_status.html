@@ -8,4 +8,6 @@
         {% endif %}
         {{ page.current_workflow_task.name }}
     </button>
+{% else %}
+    {% trans "Draft" %}
 {% endif %}
