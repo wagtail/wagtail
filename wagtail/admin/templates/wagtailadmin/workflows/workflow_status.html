@@ -15,7 +15,7 @@
             <p>{{ workflow_state.current_task_state.get_comment }}</p>
         {% endif %}
         <p>
-            <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button">
+            <a href="{% url 'wagtailadmin_pages:history' page.id %}" target="_blank" rel="noopener noreferrer" class="button">
                 {% trans "View page history" %}
             </a>
         </p>
