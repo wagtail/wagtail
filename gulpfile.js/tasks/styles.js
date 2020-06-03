@@ -1,11 +1,12 @@
 var path = require('path');
 var gulp = require('gulp');
 var sass = require('gulp-dart-sass');
-var cssnano = require('gulp-cssnano');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
+var cssnano = require('cssnano');
 var sourcemaps = require('gulp-sourcemaps');
 var size = require('gulp-size');
 var config = require('../config');
-var autoprefixer = require('gulp-autoprefixer');
 var simpleCopyTask = require('../lib/simplyCopy');
 var normalizePath = require('../lib/normalize-path');
 var renameSrcToDest = require('../lib/rename-src-to-dest');
@@ -37,8 +38,10 @@ gulp.task('styles:css', function() {
     });
 
     return gulp.src(sources, {base: '.'})
-        .pipe(cssnano(cssnanoConfig))
-        .pipe(autoprefixer(autoprefixerConfig))
+        .pipe(postcss([
+          cssnano(cssnanoConfig),
+          autoprefixer(autoprefixerConfig),
+        ]))
         .pipe(renameSrcToDest())
         .pipe(size({ title: 'Vendor CSS' }))
         .pipe(gulp.dest('.'))
@@ -63,8 +66,10 @@ gulp.task('styles:sass', function () {
             includePaths: includePaths,
             outputStyle: 'expanded'
         }).on('error', sass.logError))
-        .pipe(cssnano(cssnanoConfig))
-        .pipe(autoprefixer(autoprefixerConfig))
+        .pipe(postcss([
+          cssnano(cssnanoConfig),
+          autoprefixer(autoprefixerConfig),
+        ]))
         .pipe(size({ title: 'Wagtail CSS' }))
         .pipe(config.isProduction ? gutil.noop() : sourcemaps.write())
         .pipe(gulp.dest(function (file) {
