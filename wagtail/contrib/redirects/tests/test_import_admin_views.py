@@ -5,7 +5,6 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.contrib.redirects.utils import get_import_formats
 from wagtail.core.models import Site
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -23,11 +22,15 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse("wagtailredirects:start_import"), params)
 
-    def post(self, post_data={}):
-        return self.client.post(reverse("wagtailredirects:start_import"), post_data)
+    def post(self, post_data={}, follow=False):
+        return self.client.post(
+            reverse("wagtailredirects:start_import"), post_data, follow=follow
+        )
 
-    def post_import(self, post_data={}):
-        return self.client.post(reverse("wagtailredirects:process_import"), post_data)
+    def post_import(self, post_data={}, follow=False):
+        return self.client.post(
+            reverse("wagtailredirects:process_import"), post_data, follow=follow
+        )
 
     def test_request_start_with_get_returns_initial_form(self):
         response = self.get()
@@ -43,6 +46,24 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
 
         self.assertTrue("import_file" in response.context["form"].errors)
 
+    def test_non_valid_format_returns_error(self):
+        f = "{}/files/example.yaml".format(TEST_ROOT)
+        (_, filename) = os.path.split(f)
+
+        with open(f, "rb") as infile:
+            upload_file = SimpleUploadedFile(filename, infile.read())
+
+            response = self.post(
+                {
+                    "import_file": upload_file,
+                },
+                follow=True,
+            )
+
+            self.assertContains(
+                response, 'File format of type &quot;yaml&quot; is not supported'
+            )
+
     def test_valid_csv_triggers_confirm_view(self):
         f = "{}/files/example.csv".format(TEST_ROOT)
         (_, filename) = os.path.split(f)
@@ -53,7 +74,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("CSV"),
                 }
             )
 
@@ -75,7 +95,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("CSV"),
                 }
             )
 
@@ -107,7 +126,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("CSV"),
                 }
             )
 
@@ -144,7 +162,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("CSV"),
                 }
             )
 
@@ -178,7 +195,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("XLS"),
                 }
             )
 
@@ -193,12 +209,13 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                     "from_index": 0,
                     "to_index": 1,
                     "permanent": True,
-                }
+                },
+                follow=True,
             )
 
             self.assertEqual(
                 import_response.templates[0].name,
-                "wagtailredirects/import_summary.html",
+                "wagtailredirects/index.html",
             )
 
             self.assertEqual(Redirect.objects.all().count(), 3)
@@ -215,7 +232,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("XLSX"),
                 }
             )
 
@@ -230,12 +246,13 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                     "from_index": 0,
                     "to_index": 1,
                     "permanent": True,
-                }
+                },
+                follow=True,
             )
 
             self.assertEqual(
                 import_response.templates[0].name,
-                "wagtailredirects/import_summary.html",
+                "wagtailredirects/index.html",
             )
 
             self.assertEqual(Redirect.objects.all().count(), 3)
@@ -252,11 +269,11 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("CSV"),
-                }
+                },
+                follow=True,
             )
             self.assertTrue(
-                b"<h1>Imported file has a wrong encoding:" in response.content
+                b"Imported file has a wrong encoding:" in response.content
             )
 
     def test_not_valid_method_for_import_file(self):
@@ -273,7 +290,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("CSV"),
                 }
             )
 
@@ -291,43 +307,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 "wagtailredirects/confirm_import.html",
             )
 
-    def test_import_json(self):
-        f = "{}/files/example.json".format(TEST_ROOT)
-        (_, filename) = os.path.split(f)
-
-        with open(f, "rb") as infile:
-            upload_file = SimpleUploadedFile(filename, infile.read())
-
-            self.assertEqual(Redirect.objects.all().count(), 0)
-
-            response = self.post(
-                {
-                    "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("JSON"),
-                }
-            )
-
-            self.assertEqual(
-                response.templates[0].name,
-                "wagtailredirects/confirm_import.html",
-            )
-
-            import_response = self.post_import(
-                {
-                    **response.context["form"].initial,
-                    "from_index": 0,
-                    "to_index": 1,
-                    "permanent": True,
-                }
-            )
-
-            self.assertEqual(
-                import_response.templates[0].name,
-                "wagtailredirects/import_summary.html",
-            )
-
-            self.assertEqual(Redirect.objects.all().count(), 2)
-
     def test_import_tsv(self):
         f = "{}/files/example.tsv".format(TEST_ROOT)
         (_, filename) = os.path.split(f)
@@ -340,7 +319,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("TSV"),
                 }
             )
 
@@ -378,7 +356,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("XLSX"),
                 }
             )
 
@@ -393,12 +370,13 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                     "from_index": 0,
                     "to_index": 1,
                     "permanent": True,
-                }
+                },
+                follow=True,
             )
 
             self.assertEqual(
                 import_response.templates[0].name,
-                "wagtailredirects/import_summary.html",
+                "wagtailredirects/index.html",
             )
 
             self.assertEqual(Redirect.objects.all().count(), 3)
@@ -416,7 +394,6 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             response = self.post(
                 {
                     "import_file": upload_file,
-                    "input_format": get_input_format_index_by_name("CSV"),
                 }
             )
 
@@ -436,12 +413,3 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 import_response.templates[0].name,
                 "wagtailredirects/confirm_import.html",
             )
-
-
-def get_input_format_index_by_name(name):
-    import_formats = get_import_formats()
-    for index, input_format in enumerate(import_formats):
-        if input_format.__name__ == name:
-            return index
-
-    return -1

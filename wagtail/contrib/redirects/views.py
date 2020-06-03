@@ -1,6 +1,7 @@
+import os
+
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -17,8 +18,8 @@ from wagtail.contrib.redirects.base_formats import DEFAULT_FORMATS
 from wagtail.contrib.redirects.forms import ConfirmImportForm, ImportForm, RedirectForm
 from wagtail.contrib.redirects.permissions import permission_policy
 from wagtail.contrib.redirects.utils import (
-    get_file_storage, get_import_formats, write_to_file_storage
-)
+    get_file_storage, get_format_cls_by_extension, get_import_formats, get_supported_extensions,
+    write_to_file_storage)
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
@@ -137,14 +138,23 @@ def add(request):
 
 @permission_checker.require_any("add")
 def start_import(request):
+    supported_extensions = get_supported_extensions()
     from_encoding = "utf-8"
+
     query_string = request.GET.get('q', "")
 
-    if not request.POST:
-        SUPPORTED_FORMATS = ["CSV", "TSV", "XLS", "XLSX"]
-        accepted_formats = [
-            x for x in DEFAULT_FORMATS if x.__name__ in SUPPORTED_FORMATS
-        ]
+    if request.POST or request.FILES:
+        form_kwargs = {}
+        form = ImportForm(
+            supported_extensions,
+            request.POST or None,
+            request.FILES or None,
+            **form_kwargs
+        )
+    else:
+        form = ImportForm(supported_extensions)
+
+    if not request.FILES or not form.is_valid():
         return render(
             request,
             "wagtailredirects/choose_import_file.html",
@@ -152,29 +162,24 @@ def start_import(request):
                 'search_form': SearchForm(
                     data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")
                 ),
-                "form": ImportForm(accepted_formats),
+                "form": form,
             },
         )
 
-    form_kwargs = {}
-    form = ImportForm(
-        DEFAULT_FORMATS, request.POST or None, request.FILES or None, **form_kwargs
-    )
-
-    if not form.is_valid():
-        return render(
-            request,
-            "wagtailredirects/choose_import_file.html", {
-                'search_form': SearchForm(
-                    data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")
-                ),
-                "form": form,
-            }
-        )
-
-    import_formats = get_import_formats()
-    input_format = import_formats[int(form.cleaned_data["input_format"])]()
     import_file = form.cleaned_data["import_file"]
+
+    _name, extension = os.path.splitext(import_file.name)
+    extension = extension.lstrip(".")
+
+    if extension not in supported_extensions:
+        messages.error(
+            request,
+            _('File format of type "{}" is not supported'.format(extension))
+        )
+        return redirect('wagtailredirects:start_import')
+
+    import_format_cls = get_format_cls_by_extension(extension)
+    input_format = import_format_cls()
     file_storage = write_to_file_storage(import_file, input_format)
 
     try:
@@ -183,19 +188,25 @@ def start_import(request):
             data = force_str(data, from_encoding)
         dataset = input_format.create_dataset(data)
     except UnicodeDecodeError as e:
-        return HttpResponse(_(u"<h1>Imported file has a wrong encoding: %s</h1>" % e))
+        messages.error(
+            request,
+            _(u"Imported file has a wrong encoding: %s" % e)
+        )
+        return redirect('wagtailredirects:start_import')
     except Exception as e:  # pragma: no cover
-        return HttpResponse(
+        messages.error(
+            request,
             _(
-                u"<h1>%s encountered while trying to read file: %s</h1>"
+                u"%s encountered while trying to read file: %s"
                 % (type(e).__name__, import_file.name)
             )
         )
+        return redirect('wagtailredirects:start_import')
 
     initial = {
         "import_file_name": file_storage.name,
         "original_file_name": import_file.name,
-        "input_format": form.cleaned_data["input_format"],
+        "input_format": get_import_formats().index(import_format_cls),
     }
 
     return render(
@@ -211,7 +222,9 @@ def start_import(request):
 @permission_checker.require_any("add")
 @require_http_methods(["POST"])
 def process_import(request):
+    supported_extensions = get_supported_extensions()
     from_encoding = "utf-8"
+
     form_kwargs = {}
     form = ConfirmImportForm(
         DEFAULT_FORMATS, request.POST or None, request.FILES or None, **form_kwargs
@@ -234,7 +247,6 @@ def process_import(request):
         initial = {
             "import_file_name": file_storage.name,
             "original_file_name": form.cleaned_data["import_file_name"],
-            "input_format": form.cleaned_data["input_format"],
         }
 
         return render(
@@ -268,14 +280,23 @@ def process_import(request):
 
     file_storage.remove()
 
-    return render(
+    if import_summary["errors_count"] > 0:
+        return render(
+            request,
+            "wagtailredirects/import_summary.html",
+            {
+                "form": ImportForm(supported_extensions),
+                "import_summary": import_summary,
+            },
+        )
+
+    messages.success(
         request,
-        "wagtailredirects/import_summary.html",
-        {
-            "form": ImportForm(DEFAULT_FORMATS),
-            "import_summary": import_summary,
-        },
+        _(
+            "Imported {} redirexts".format(import_summary["total"])
+        )
     )
+    return redirect('wagtailredirects:index')
 
 
 def create_redirects_from_dataset(dataset, config):
@@ -300,7 +321,7 @@ def create_redirects_from_dataset(dataset, config):
 
         form = RedirectForm(data)
         if not form.is_valid():
-            error = form.errors.as_text().replace("\n", "")
+            error = to_readable_errors(form.errors.as_text())
             errors.append([from_link, to_link, error])
             continue
 
@@ -313,3 +334,11 @@ def create_redirects_from_dataset(dataset, config):
         "successes": successes,
         "total": total,
     }
+
+
+def to_readable_errors(error):
+    errors = error.split("\n")
+    errors = errors[1::2]
+    errors = [x.lstrip('* ') for x in errors]
+    errors = ", ".join(errors)
+    return errors

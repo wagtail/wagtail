@@ -102,7 +102,7 @@ class TestImportCommand(TestCase):
     def test_site_id_does_not_exist(self):
         with self.assertRaisesMessage(Exception, "Site matching query does not exist"):
             out = StringIO()
-            call_command("import_redirects", src="random", site_id=5, stdout=out)
+            call_command("import_redirects", src="random", site=5, stdout=out)
 
     def test_redirect_gets_added_to_site(self):
         invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
@@ -119,7 +119,7 @@ class TestImportCommand(TestCase):
         call_command(
             "import_redirects",
             src=invalid_file.name,
-            site_id=site.pk,
+            site=site.pk,
             stdout=out,
             format="csv",
         )
@@ -210,10 +210,10 @@ class TestImportCommand(TestCase):
         out = StringIO()
         call_command(
             "import_redirects",
-            src=invalid_file.name,
-            from_index=1,
-            to_index=3,
-            format="csv",
+            "--src={}".format(invalid_file.name),
+            "--from=1",
+            "--to=3",
+            "--format=csv",
             stdout=out,
         )
 

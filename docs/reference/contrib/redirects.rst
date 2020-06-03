@@ -74,7 +74,7 @@ Options:
    Lets you run a import without doing any changes.
 
  - **ask**
-   Lets you inspect and approve before a redirect is created.
+   Lets you inspect and approve each redirect before it is created.
 
 
 

@@ -14,8 +14,17 @@
 {% endblock %}
 
 {% block content %}
-    {% trans "Import redirects" as import_str %}
-    {% include "wagtailadmin/shared/header.html" with title=import_str icon="redirect" %}
+    {% trans "Import redirects" as header_title %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title icon="redirect" %}
+
+    <div class="nice-padding">
+        <div class="help-block help-info">
+            {% blocktrans %}
+            <p>Select a file where redirects are separated into rows and contains the columns representing <code>from</code> and <code>to</code> (they can be named anything).</p>
+            <p>After submitting you will be taken to a confirmation view where you can customize your redirects before import.</p>
+            {% endblocktrans %}
+        </div>
+    </div>
 
     {% if form.non_field_errors %}
         <div class="messages">

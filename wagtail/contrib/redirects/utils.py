@@ -16,6 +16,21 @@ def write_to_file_storage(import_file, input_format):
     return file_storage
 
 
+def get_supported_extensions():
+    return ("csv", "tsv", "xls", "xlsx")
+
+
+def get_format_cls_by_extension(extension):
+    formats = get_import_formats()
+
+    available_formats = [x for x in formats if x.__name__ == extension.upper()]
+
+    if not available_formats:
+        return None
+
+    return available_formats[0]
+
+
 def get_import_formats():
     formats = [f for f in DEFAULT_FORMATS if f().can_import()]
     return formats

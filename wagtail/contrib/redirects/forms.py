@@ -47,19 +47,28 @@ class RedirectForm(forms.ModelForm):
 
 
 class ImportForm(forms.Form):
-    import_file = forms.FileField(label=_("File to import"))
-    input_format = forms.ChoiceField(label=_("Format"), choices=[],)
+    import_file = forms.FileField(
+        label=_("File to import"),
+    )
 
-    def __init__(self, import_formats, *args, **kwargs):
+    def __init__(self, allowed_extensions, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        choices = []
-        for i, f in enumerate(import_formats):
-            choices.append((str(i), f().get_title(),))
-        if len(import_formats) > 1:
-            choices.insert(0, ("", "---"))
+        accept = ",".join(
+            [".{}".format(x) for x in allowed_extensions]
+        )
+        self.fields["import_file"].widget = forms.FileInput(
+            attrs={"accept": accept}
+        )
 
-        self.fields["input_format"].choices = choices
+        uppercased_extensions = [x.upper() for x in allowed_extensions]
+        allowed_extensions_text = ", ".join(uppercased_extensions)
+        help_text = _(
+            "Supported formats: %(supported_formats)s."
+        ) % {
+            'supported_formats': allowed_extensions_text,
+        }
+        self.fields["import_file"].help_text = help_text
 
 
 class ConfirmImportForm(forms.Form):

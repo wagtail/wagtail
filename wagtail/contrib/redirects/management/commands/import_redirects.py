@@ -2,8 +2,9 @@ import os
 
 import tablib
 from django.core.management.base import BaseCommand
-from tablib.formats import registry
+
 from wagtail.contrib.redirects.forms import RedirectForm
+from wagtail.contrib.redirects.utils import get_format_cls_by_extension, get_supported_extensions
 from wagtail.core.models import Site
 
 
@@ -15,7 +16,7 @@ class Command(BaseCommand):
             "--src", help="Path to file", type=str, required=True,
         )
         parser.add_argument(
-            "--site_id", help="The site where redirects will be associated", type=int,
+            "--site", help="The site where redirects will be associated", type=int,
         )
         parser.add_argument(
             "--permanent",
@@ -24,46 +25,50 @@ class Command(BaseCommand):
             default=True,
         )
         parser.add_argument(
-            "--from_index",
+            "--from",
             help="The column where to read from link",
             default=0,
             type=int,
         )
         parser.add_argument(
-            "--to_index", help="The column where to read to link", default=1, type=int,
+            "--to", help="The column where to read to link", default=1, type=int,
         )
         parser.add_argument(
             "--dry_run",
-            default=False,
+            action="store_true",
             help="Run only in test mode, will not create redirects",
-            type=bool,
         )
         parser.add_argument(
-            "--ask", help="Ask before creating", default=False, type=bool,
+            "--dry-run",
+            action="store_true",
+            help="Run only in test mode, will not create redirects",
         )
-
-        available_formats = [key for key in registry._formats]
+        parser.add_argument(
+            "--ask",
+            help="Ask before creating",
+            action="store_true",
+        )
         parser.add_argument(
             "--format",
-            help="Source file format (.csv, .xls etc)",
-            choices=available_formats,
+            help="Source file format (example: .csv, .xls etc)",
+            choices=get_supported_extensions(),
             type=str,
         )
-
         parser.add_argument(
-            "--offset", help="Import starting with index", type=int, default=-1
+            "--offset", help="Import starting with index", type=int, default=None
         )
         parser.add_argument(
-            "--limit", help="Limit import to num items", type=int, default=-1
+            "--limit", help="Limit import to num items", type=int, default=None
         )
 
     def handle(self, *args, **options):
         src = options["src"]
-        from_index = options.pop("from_index")
-        to_index = options.pop("to_index")
-        site_id = options.pop("site_id", None)
+        from_index = options.pop("from")
+        to_index = options.pop("to")
+        site_id = options.pop("site", None)
         permament = options.pop("permanent")
-        dry_run = options.pop("dry_run")
+
+        dry_run = options.pop("dry_run", False) or options.pop("dry-run", False)
         format_ = options.pop("format", None)
         ask = options.pop("ask")
         offset = options.pop("offset")
@@ -86,13 +91,12 @@ class Command(BaseCommand):
 
         _, extension = os.path.splitext(src)
         extension = extension.lstrip(".")
-        available_formats = [key for key in registry._formats]
-
-        if not format_ and extension not in available_formats:
-            raise Exception("Invalid format '{}'".format(extension))
 
         if not format_:
             format_ = extension
+
+        if not get_format_cls_by_extension(format_):
+            raise Exception("Invalid format '{0}'".format(extension))
 
         if extension in ["xls", "xlsx"]:
             mode = "rb"
@@ -116,13 +120,13 @@ class Command(BaseCommand):
             self.stdout.write("--------------")
 
             if site:
-                self.stdout.write("Using site: {}".format(site.hostname))
+                self.stdout.write("Using site: {0}".format(site.hostname))
 
             self.stdout.write("Importing redirects:")
 
-            if offset != -1:
+            if offset:
                 imported_data = imported_data[offset:]
-            if limit != -1:
+            if limit:
                 imported_data = imported_data[:limit]
 
             for row in imported_data:

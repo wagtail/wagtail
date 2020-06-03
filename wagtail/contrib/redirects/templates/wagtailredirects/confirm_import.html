@@ -3,8 +3,9 @@
 
 {% block titletag %}{% trans "Confirm import" %}{% endblock %}
 {% block content %}
-    {% trans "Confirm import" as confirm_str %}
-    {% include "wagtailadmin/shared/header.html" with title=confirm_str icon="redirect" %}
+    {% trans "Import redirects" as header_title %}
+    {% trans "Confirm import" as header_subtitle %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title subtitle=header_subtitle icon="redirect" %}
 
     {% if form.non_field_errors %}
         <div class="messages">
