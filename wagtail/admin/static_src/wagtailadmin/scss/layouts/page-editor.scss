@@ -30,31 +30,49 @@
         }
     }
 
-    .header-title {
-        padding-left: 2em;
-    }
-
     .header-meta {
-        padding-left: 1.6em;
         list-style: none;
+        margin-top: 0;
+        margin-bottom: 0;
 
         li {
             float: left;
-            height: 2em;
-            padding: 0 $padding;
-        }
-        li + li {
-            border-left: 1px solid $color-white;
+            height: 1.5em;
+            line-height: 1.5em;
+            margin-top: 1em;
+            padding: 0 .5em;
+            border-right: 1px solid rgba(255, 255, 255, 0.5);
+
+            > .icon {
+                width: 1.25em;
+                height: 1.5em;
+                vertical-align: text-bottom;
+            }
+
+            &:first-child .button {
+                margin-left: -1em;
+            }
+
+            &:first-child {
+                margin-left: -.5em;  // offset the padding
+            }
+            &:last-child {
+                border: none;
+            }
         }
 
         .button {
-            font-weight: 700;
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: -0.25em; // Account for the button border
         }
     }
 
-    @include media-breakpoint-down(xs) {
-        .header-title,
-        .header-meta {
+    .header-title,
+    .header-meta {
+        padding-left: 25px;
+
+        @include media-breakpoint-down(xs) {
             padding-left: 0;
             margin-left: -28px;
             // Because it's nested within tab-merged which we've given padding
