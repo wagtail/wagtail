@@ -456,9 +456,9 @@ class PagesAPIViewSet(BaseAPIViewSet):
         if 'html_path' in request.GET and site is not None:
             path = request.GET['html_path']
 
-            # Check whether there is a matching redirect and set path accordingly.
+            # Check whether there is a matching page redirect and set path accordingly.
             try:
-                redirect = Redirect.objects.get(old_path=path)
+                redirect = Redirect.objects.exclude(redirect_page__isnull=True).get(old_path=path)
                 path = urlparse(redirect.link).path
             except Redirect.DoesNotExist:
                 pass
