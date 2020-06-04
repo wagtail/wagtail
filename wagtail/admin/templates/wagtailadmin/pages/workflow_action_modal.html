@@ -1,0 +1,12 @@
+{% load i18n %}
+{% include "wagtailadmin/shared/header.html" with title=action_verbose icon="clipboard-list" %}
+
+<div class="nice-padding">
+    <form action="{% url 'wagtailadmin_pages:workflow_action' page.id action task_state.id %}" method="POST" novalidate>
+        {% csrf_token %}
+        <ul class="fields">
+            {{ form.as_ul }}
+            <li><input type="submit" value="{{ action_verbose }}" class="button" /></li>
+        </ul>
+    </form>
+</div>

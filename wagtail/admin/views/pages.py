@@ -28,6 +28,7 @@ from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
+from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
 from wagtail.core.models import (
@@ -1267,8 +1268,9 @@ def reject_moderation(request, revision_id):
     return redirect('wagtailadmin_home')
 
 
-@require_POST
-def workflow_action(request, page_id):
+def workflow_action(request, page_id, action_name, task_state_id):
+    """Provides a modal view to enter additional data for the specified workflow action on GET,
+    or perform the specified action on POST"""
     page = get_object_or_404(Page, id=page_id)
 
     redirect_to = request.POST.get('next', None)
@@ -1279,25 +1281,63 @@ def workflow_action(request, page_id):
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(page.get_admin_display_title()))
         return redirect(redirect_to)
 
-    task_state_id = request.POST.get('task_state_id', None)
-
-    task_state = TaskState.objects.get(id=task_state_id) if task_state_id else page.current_workflow_task_state
+    task_state = get_object_or_404(TaskState, id=task_state_id) if task_state_id else page.current_workflow_task_state
     task_state = task_state.specific
 
     task = task_state.task.specific
 
     actions = task.get_actions(page, request.user)
+    action_verbose_name = ''
+    action_available = False
+    action_modal = False
 
-    action_name = request.POST.get('action')
-
-    if action_name not in set(action[0] for action in actions):
+    for name, verbose_name, modal in actions:
+        if name == action_name:
+            action_available = True
+            if modal:
+                action_modal = True
+                # if two actions have the same name, use the verbose name of the one allowing modal data entry
+                # within the modal
+                action_verbose_name = verbose_name
+    if not action_available:
         raise PermissionDenied
 
-    response = task.on_action(task_state, request.user, action_name)
-    if response:
-        return response
+    form_class = task.get_form_for_action(action_name)
 
-    return redirect(redirect_to)
+    if request.method == 'POST':
+        if form_class:
+            form = form_class(request.POST)
+            if form.is_valid():
+                response = task.on_action(task_state, request.user, action_name, **form.cleaned_data)
+            elif action_modal:
+                return render_modal_workflow(
+                    request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
+                        'page': page,
+                        'form': form,
+                        'action': action_name,
+                        'action_verbose': action_verbose_name,
+                        'task_state': task_state,
+                    },
+                    json_data={'step': 'action'}
+                )
+        else:
+            response = task.on_action(task_state, request.user, action_name)
+        if response:
+            return response
+        return redirect(redirect_to)
+    else:
+        form = form_class()
+    return render_modal_workflow(
+        request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
+            'page': page,
+            'form': form,
+            'action': action_name,
+            'action_verbose': action_verbose_name,
+            'task_state': task_state,
+        },
+        json_data={'step': 'action'}
+    )
+
 
 
 @require_GET
