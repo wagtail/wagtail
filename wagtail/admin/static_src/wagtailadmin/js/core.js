@@ -539,16 +539,21 @@ wagtail = (function(document, window, wagtail) {
     wagtail.ui.initDropDowns = initDropDowns;
     wagtail.ui.DropDownController = DropDownController;
 
+    // provide a workaround for NodeList#forEach not being available in IE 11 
+    function qsa(element, selector) {
+      return [].slice.call(element.querySelectorAll(selector));
+    }
+
     // Initialise button selectors
     function initButtonSelects() {
-        document.querySelectorAll('.button-select').forEach(function(element) {
+        qsa(document, '.button-select').forEach(function(element) {
             var inputElement = element.querySelector('input[type="hidden"]');
-            element.querySelectorAll('.button-select__option').forEach(function(buttonElement) {
+            qsa(element, '.button-select__option').forEach(function(buttonElement) {
                 buttonElement.addEventListener('click', function(e) {
                     e.preventDefault();
                     inputElement.value = buttonElement.value;
 
-                    element.querySelectorAll('.button-select__option--selected').forEach(function(selectedButtonElement) {
+                    qsa(element, '.button-select__option--selected').forEach(function(selectedButtonElement) {
                         selectedButtonElement.classList.remove('button-select__option--selected');
                     });
 

@@ -68,6 +68,7 @@ Bug fixes
  * Strip out HTML tags from ``RichTextField`` & ``RichTextBlock`` search index content (Timothy Bautista)
  * Avoid using null on string ``Site.site_name`` blank values to avoid different values for no name (Coen van der Kamp)
  * Fix deprecation warnings on Elasticsearch 7 (Yngve Høiseth)
+ * Remove use of Node.forEach for IE 11 compatibility in admin menu items (Thibaud Colas)
 
 
 Upgrade considerations
