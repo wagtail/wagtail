@@ -766,6 +766,29 @@ class PublishingPanel(MultiFieldPanel):
         super().__init__(**updated_kwargs)
 
 
+class PrivacyModalPanel(EditHandler):
+    def __init__(self, **kwargs):
+        updated_kwargs = {
+            'heading': gettext_lazy('Privacy'),
+            'classname': 'privacy'
+        }
+        updated_kwargs.update(kwargs)
+        super().__init__(**updated_kwargs)
+
+    def render(self):
+        content = render_to_string('wagtailadmin/pages/privacy_switch_panel.html', {
+            'self': self,
+            'page': self.instance,
+            'request': self.request
+        })
+
+        from wagtail.admin.staticfiles import versioned_static
+        return mark_safe('{0}<script type="text/javascript" src="{1}"></script>'.format(
+            content,
+            versioned_static('wagtailadmin/js/privacy-switch.js'))
+        )
+
+
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
 Page.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -781,7 +804,8 @@ Page.promote_panels = [
 ]
 
 Page.settings_panels = [
-    PublishingPanel()
+    PublishingPanel(),
+    PrivacyModalPanel(),
 ]
 
 Page.base_form_class = WagtailAdminPageForm
