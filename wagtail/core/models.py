@@ -3057,6 +3057,7 @@ class TaskState(MultiTableCopyMixin, models.Model):
             raise PermissionDenied
         self.status = self.STATUS_APPROVED
         self.finished_at = timezone.now()
+        self.finished_by = user
         self.comment = comment
         self.save()
         if update:
@@ -3071,6 +3072,7 @@ class TaskState(MultiTableCopyMixin, models.Model):
             raise PermissionDenied
         self.status = self.STATUS_REJECTED
         self.finished_at = timezone.now()
+        self.finished_by = user
         self.comment = comment
         self.save()
         if update:
@@ -3097,6 +3099,7 @@ class TaskState(MultiTableCopyMixin, models.Model):
         self.status = self.STATUS_CANCELLED
         self.finished_at = timezone.now()
         self.comment = comment
+        self.finished_by = user
         self.save()
         if resume:
             self.workflow_state.update(user=user, next_task=self.task.specific)
