@@ -59,12 +59,28 @@
             &:last-child {
                 border: none;
             }
+
+            .avatar {
+                margin-left: 0;
+            }
         }
 
         .button {
             font-size: 1em;
-            font-weight: 600;
             margin-top: -0.25em; // Account for the button border
+            overflow: auto;
+        }
+
+        .action-workflow-status {
+            font-weight: 700;
+
+            span {
+                font-weight: 500;
+            }
+        }
+
+        .human-readable-date {
+            display: inline;
         }
     }
 

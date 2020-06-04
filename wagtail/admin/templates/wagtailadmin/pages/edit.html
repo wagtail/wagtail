@@ -20,7 +20,7 @@
             </div>
         </div>
         <ul class="row header-meta">
-            <li data-wagtail-tooltip="{% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}">
+            <li>
                 {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}
             </li>
             {% if page.get_latest_revision %}
@@ -80,15 +80,6 @@
                     {% endif %}
 
                     <li class="meta">
-                        <p class="modified">
-                            {% if page.get_latest_revision %}
-                                {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
-                                {% if page.get_latest_revision.user %}
-                                    {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username %}by {{ modified_by }}{% endblocktrans %}
-                                    <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
-                                {% endif %}
-                            {% endif %}
-                        </p>
                     </li>
                     {% block extra_footer_actions %}
                     {% endblock %}
