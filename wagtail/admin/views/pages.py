@@ -1684,7 +1684,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
         }
     ]
 
-    if workflow_state.status != WorkflowState.STATUS_IN_PROGRESS:
+    if workflow_state.status not in (WorkflowState.STATUS_IN_PROGRESS, WorkflowState.STATUS_NEEDS_CHANGES):
         last_task = completed_task_states.order_by('finished_at').last()
         if last_task:
             timeline.append({
