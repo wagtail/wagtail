@@ -1,8 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
-from django.http import Http404
+from django.db.models.functions import Lower
+from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import is_safe_url
@@ -11,13 +13,19 @@ from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
 
 from wagtail.admin import messages
+from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.edit_handlers import Workflow
-from wagtail.admin.forms.workflows import AddWorkflowToPageForm
+from wagtail.admin.forms.workflows import AddWorkflowToPageForm, TaskChooserSearchForm
+from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.models import Page, Task, TaskState, WorkflowState
 from wagtail.core.permissions import task_permission_policy, workflow_permission_policy
+from wagtail.core.utils import resolve_model_string
 from wagtail.core.workflows import get_task_types
+
+
+task_permission_checker = PermissionPolicyChecker(task_permission_policy)
 
 
 class Index(IndexView):
@@ -62,7 +70,13 @@ class Create(CreateView):
         return self.edit_handler
 
     def get_form_class(self):
-        return self.get_edit_handler().get_form_class()
+        form_class = self.get_edit_handler().get_form_class()
+
+        # TODO Unhack
+        from wagtail.admin.widgets.workflows import AdminTaskChooser
+        form_class.formsets['workflow_tasks'].form.base_fields['task'].widget = AdminTaskChooser(show_clear_link=False)
+
+        return form_class
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -99,7 +113,13 @@ class Edit(EditView):
         return self.edit_handler
 
     def get_form_class(self):
-        return self.get_edit_handler().get_form_class()
+        form_class = self.get_edit_handler().get_form_class()
+
+        # TODO Unhack
+        from wagtail.admin.widgets.workflows import AdminTaskChooser
+        form_class.formsets['workflow_tasks'].form.base_fields['task'].widget = AdminTaskChooser(show_clear_link=False)
+
+        return form_class
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -313,7 +333,7 @@ class CreateTask(CreateView):
         model = content_type.model_class()
 
         # Make sure the class is a descendant of Task
-        if not issubclass(model, Task):
+        if not issubclass(model, Task) or model is Task:
             raise Http404
 
         return model
@@ -452,3 +472,147 @@ def enable_task(request, pk):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_workflows:edit_task', task.id)
+
+
+def get_chooser_context():
+    """construct context variables needed by the chooser JS"""
+    return {
+        'step': 'chooser',
+        'error_label': _("Server Error"),
+        'error_message': _("Report this error to your webmaster with the following information:"),
+        'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
+    }
+
+
+def get_task_result_data(task):
+    """
+    helper function: given a task, return the json data to pass back to the
+    chooser panel
+    """
+
+    return {
+        'id': task.id,
+        'name': task.name,
+        'edit_url': reverse('wagtailadmin_workflows:edit_task', args=[task.id]),
+    }
+
+
+def task_chooser(request):
+    task_models = get_task_types()
+    create_model = None
+    can_create = False
+
+    if task_permission_policy.user_has_permission(request.user, 'add'):
+        can_create = len(task_models) != 0
+
+        if len(task_models) == 1:
+            create_model = task_models[0]
+
+        elif 'create_model' in request.GET:
+            create_model = resolve_model_string(request.GET['create_model'])
+
+            if create_model not in task_models:
+                raise Http404
+
+    # Build task types list for "select task type" view
+    task_types = [
+        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
+        for model in task_models
+    ]
+    # sort by lower-cased version of verbose name
+    task_types.sort(key=lambda task_type: task_type[0].lower())
+
+    # Build task type choices for filter on "existing task" tab
+    task_type_choices = [
+        (model, model.get_verbose_name())
+        for model in task_models
+    ]
+    task_type_choices.sort(key=lambda task_type: task_type[1].lower())
+    task_type_choices += [(Page, "Page")]
+
+    if create_model:
+        edit_handler = create_model.get_edit_handler()
+        edit_handler = edit_handler.bind_to(request=request)
+        createform_class = edit_handler.get_form_class()
+    else:
+        createform_class = None
+
+    # TODO
+    #  # allow hooks to modify the queryset
+    # for hook in hooks.get_hooks('construct_document_chooser_queryset'):
+    #     documents = hook(documents, request)
+
+    q = None
+    if 'q' in request.GET or 'p' in request.GET or 'task_type' in request.GET:
+        searchform = TaskChooserSearchForm(request.GET, task_type_choices=task_type_choices)
+        tasks = all_tasks = searchform.task_model.objects.order_by(Lower('name'))
+        q = ''
+
+        if searchform.is_searching():
+            # Note: I decided not to use wagtailsearch here. This is because
+            # wagtailsearch creates a new index for each model you make
+            # searchable and this might affect someone's quota. I doubt there
+            # would ever be enough tasks to require using anything more than
+            # an icontains anyway.
+            q = searchform.cleaned_data['q']
+            tasks = tasks.filter(name__icontains=q)
+
+        # Pagination
+        paginator = Paginator(tasks, per_page=10)
+        tasks = paginator.get_page(request.GET.get('p'))
+
+        return TemplateResponse(request, "wagtailadmin/workflows/task_chooser/includes/results.html", {
+            'task_types': task_types,
+            'searchform': searchform,
+            'tasks': tasks,
+            'all_tasks': all_tasks,
+            'query_string': q,
+        })
+    else:
+        if createform_class:
+            if request.method == 'POST':
+                createform = createform_class(request.POST, request.FILES, prefix='create-task')
+
+                if createform.is_valid():
+                    task = createform.save()
+
+                    response = render_modal_workflow(
+                        request, None, None,
+                        None, json_data={'step': 'task_chosen', 'result': get_task_result_data(task)}
+                    )
+
+                    # Use a different status code so we can tell the difference between validation errors and successful creations
+                    response.status_code = 201
+
+                    return response
+            else:
+                createform = createform_class(prefix='create-task')
+        else:
+            if request.method == 'POST':
+                return HttpResponseBadRequest()
+
+            createform = None
+
+        searchform = TaskChooserSearchForm(task_type_choices=task_type_choices)
+        tasks = searchform.task_model.objects.order_by(Lower('name'))
+
+        paginator = Paginator(tasks, per_page=10)
+        tasks = paginator.get_page(request.GET.get('p'))
+
+        return render_modal_workflow(request, 'wagtailadmin/workflows/task_chooser/chooser.html', None, {
+            'task_types': task_types,
+            'tasks': tasks,
+            'searchform': searchform,
+            'createform': createform,
+            'can_create': can_create,
+            'add_url': reverse('wagtailadmin_workflows:task_chooser') + '?' + request.GET.urlencode() if create_model else None
+        }, json_data=get_chooser_context())
+
+
+def task_chosen(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+
+    return render_modal_workflow(
+        request, None, None,
+        None, json_data={'step': 'task_chosen', 'result': get_task_result_data(task)}
+    )

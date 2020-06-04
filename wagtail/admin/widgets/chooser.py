@@ -17,6 +17,7 @@ class AdminChooser(WidgetWithScript, widgets.Input):
     clear_choice_text = _("Clear choice")
     link_to_chosen_text = _("Edit this item")
     show_edit_link = True
+    show_clear_link = True
 
     # when looping over form fields, this one should appear in visible_fields, not hidden_fields
     # despite the underlying input being type="hidden"
@@ -63,6 +64,8 @@ class AdminChooser(WidgetWithScript, widgets.Input):
             self.link_to_chosen_text = kwargs.pop('link_to_chosen_text')
         if 'show_edit_link' in kwargs:
             self.show_edit_link = kwargs.pop('show_edit_link')
+        if 'show_clear_link' in kwargs:
+            self.show_clear_link = kwargs.pop('show_clear_link')
         super().__init__(**kwargs)
 
 
