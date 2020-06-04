@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from urllib.parse import urlparse
 
 from django.conf.urls import url
 from django.core.exceptions import FieldDoesNotExist
@@ -13,6 +14,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
 from wagtail.core.models import Page, Site
+from wagtail.contrib.redirects.models import Redirect
 
 from .filters import ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter
 from .pagination import WagtailPagination
@@ -453,6 +455,14 @@ class PagesAPIViewSet(BaseAPIViewSet):
         site = Site.find_for_request(request)
         if 'html_path' in request.GET and site is not None:
             path = request.GET['html_path']
+
+            # Check whether there is a matching redirect and set path accordingly.
+            try:
+                redirect = Redirect.objects.get(old_path=path)
+                path = urlparse(redirect.link).path
+            except Redirect.DoesNotExist:
+                pass
+
             path_components = [component for component in path.split('/') if component]
 
             try:
