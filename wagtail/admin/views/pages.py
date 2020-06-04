@@ -429,8 +429,10 @@ def edit(request, page_id):
                     reverse('wagtailadmin_pages:revisions_compare', args=(page.id, 'live', latest_revision.id)),
                     _('Compare with live version')
                 ))
+
             if workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
                 workflow_info = _("Changes were requested on this page")
+                buttons = [messages.button(reverse('wagtailadmin_pages:workflow_history_detail', args=(page.id, workflow_state.id,)), _('See comments / history')), ] + buttons
             # Check for revisions still undergoing moderation and warn
             elif len(workflow_tasks) == 1:
                 # If only one task in workflow, show simple message
