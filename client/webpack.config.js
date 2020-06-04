@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 
 // Generates a path to an entry file to be compiled by Webpack.
 const getEntryPath = (app, filename) => path.resolve('wagtail', app, 'static_src', `wagtail${app}`, 'app', filename);
@@ -18,11 +17,14 @@ const exposedDependencies = {
 module.exports = function exports() {
   const entry = {};
 
-  // Create a vendor chunk that will contain polyfills, and all third-party dependencies.
-  entry[getOutputPath('admin', 'vendor')] = ['./client/src/utils/polyfills.js'];
-
-  entry[getOutputPath('admin', 'wagtailadmin')] = getEntryPath('admin', 'wagtailadmin.entry.js');
-  entry[getOutputPath('admin', 'draftail')] = getEntryPath('admin', 'draftail.entry.js');
+  entry[getOutputPath('admin', 'wagtailadmin')] = [
+    './client/src/utils/polyfills.js',
+    getEntryPath('admin', 'wagtailadmin.entry.js'),
+  ];
+  entry[getOutputPath('admin', 'draftail')] = [
+    './client/src/utils/polyfills.js',
+    getEntryPath('admin', 'draftail.entry.js'),
+  ];
 
   return {
     entry: entry,
