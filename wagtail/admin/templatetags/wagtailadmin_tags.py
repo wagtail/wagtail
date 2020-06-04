@@ -1,7 +1,8 @@
 import itertools
 import json
-
 import warnings
+from datetime import datetime
+
 from urllib.parse import urljoin
 
 from django import template
@@ -12,6 +13,7 @@ from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
+from django.utils import timezone
 from django.utils.html import avoid_wrapping, format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
@@ -564,6 +566,25 @@ def timesince_simple(d):
     if time_period == avoid_wrapping(_('0 minutes')):
         return _("Just now")
     return _("%(time_period)s ago" % {'time_period': time_period})
+
+
+@register.simple_tag
+def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
+    """
+    Returns:
+         - the time of update if last_update is today, if any prefix is supplied, the output will use it
+         - time since last update othewise. Defaults to the simplified timesince,
+           but can return the full string if needed
+    """
+    if last_update.date() == datetime.today().date():
+        time_str = timezone.localtime(last_update).strftime("%H:%M")
+        return time_str if not time_prefix else '%(prefix)s %(formatted_time)s' % {
+            'prefix': time_prefix, 'formatted_time': time_str
+        }
+    else:
+        if use_shorthand:
+            return timesince_simple(last_update)
+        return _("%(time_period)s ago" % {'time_period': timesince(last_update)})
 
 
 @register.filter
