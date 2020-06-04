@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% if workflow_state and page.current_workflow_task %}
     <button data-url="{% url 'wagtailadmin_pages:workflow_status' page.id %}" class="button button-small button-nobg button-strokeonhover text-notransform action-workflow-status">
         {% if workflow_state.status == "in_progress" %}
@@ -7,7 +7,21 @@
             {{ workflow_state.status_display }}
         {% endif %}
         {{ page.current_workflow_task.name }}
+        {% trans "since" as since_text %}
+        {% include "wagtailadmin/shared/last_updated.html" with since_text=since_text last_updated=workflow_state.current_task_state.started_at %}
     </button>
 {% else %}
-    {% trans "Draft" %}
+    {% if page.get_latest_revision %}
+        {% if page.get_latest_revision.user %}
+            <span class="avatar small" data-wagtail-tooltip="{{ page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username }}"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
+        {% endif %}
+        {% if page.get_latest_revision == page.live_revision %}
+            {% trans "Published" %}
+        {% else %}
+            {% trans "Draft saved" %}
+        {% endif %}
+        {% include "wagtailadmin/shared/last_updated.html" with last_updated=page.get_latest_revision.created_at time_prefix="at" %}
+    {% else %}
+        {% trans "Draft" %}
+    {% endif %}
 {% endif %}
