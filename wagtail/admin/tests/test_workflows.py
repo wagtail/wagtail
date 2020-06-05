@@ -443,7 +443,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         logging.disable(logging.NOTSET)
 
         # An email that fails to send should return a message rather than crash the page
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         response = self.client.get(reverse('wagtailadmin_home'))
 
     def test_resume_rejected_workflow(self):

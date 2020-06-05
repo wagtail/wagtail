@@ -439,7 +439,7 @@ def edit(request, page_id):
             else:
                 workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
 
-            if not task.user_can_access_editor(page, request.user):
+            if task.page_locked_for_user(page, request.user):
                 messages.error(request, mark_safe(workflow_info + _("Only reviewers for this task can edit the page.")), buttons=buttons, extra_tags="lock")
             elif task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', False):
                 messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons, extra_tags="workflow")
@@ -462,7 +462,7 @@ def edit(request, page_id):
         is_submitting = False
         is_restarting_workflow = False
         is_reverting = False
-        is_saving_only = False
+        is_saving = False
         is_cancelling_workflow = bool(request.POST.get('action-cancel-workflow')) and workflow_state and workflow_state.user_can_cancel(request.user)
         if is_cancelling_workflow:
             workflow_state.cancel(user=request.user)
@@ -475,7 +475,7 @@ def edit(request, page_id):
             is_submitting = bool(request.POST.get('action-submit')) and page_perms.can_submit_for_moderation()
             is_restarting_workflow = bool(request.POST.get('action-restart-workflow')) and page_perms.can_submit_for_moderation() and workflow_state and workflow_state.user_can_cancel(request.user)
             is_reverting = bool(request.POST.get('revision'))
-            is_saving_only = not (is_publishing or is_cancelling_workflow or is_restarting_workflow or is_submitting or is_reverting)
+            is_saving = True
 
             if is_restarting_workflow:
                 workflow_state.cancel(user=request.user)
@@ -643,7 +643,7 @@ def edit(request, page_id):
             )
 
             messages.success(request, message)
-        elif is_saving_only:
+        elif is_saving:
             message = _(
                 "Page '{0}' has been updated."
             ).format(
@@ -652,13 +652,13 @@ def edit(request, page_id):
 
             messages.success(request, message)
 
-        if form.is_valid() and not page_perms.page_locked():
+        if is_saving:
             for fn in hooks.get_hooks('after_edit_page'):
                 result = fn(request, page)
                 if hasattr(result, 'status_code'):
                     return result
 
-            if is_publishing or is_submitting:
+            if is_publishing or is_submitting or is_restarting_workflow:
                 # we're done here - redirect back to the explorer
                 if next_url:
                     # redirect back to 'next' url if present

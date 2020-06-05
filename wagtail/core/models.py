@@ -2088,7 +2088,7 @@ class PagePermissionTester:
 
     def page_locked(self):
         if self.page.current_workflow_task:
-            if not self.page.current_workflow_task.user_can_access_editor(self.page, self.user):
+            if self.page.current_workflow_task.page_locked_for_user(self.page, self.user):
                 return True
 
         if not self.page.locked:
@@ -2646,6 +2646,10 @@ class Task(models.Model):
         Note that returning False does not remove permissions from users who would otherwise have them."""
         return False
 
+    def page_locked_for_user(self, page, user):
+        """Returns True if the page should be locked to a given user's edits. This can be used to prevent editing by non-reviewers."""
+        return False
+
     def user_can_lock(self, page, user):
         """Returns True if a user who would not normally be able to lock the page should be able to if the page is currently on this task.
         Note that returning False does not remove permissions from users who would otherwise have them."""
@@ -2743,6 +2747,9 @@ class GroupApprovalTask(Task):
 
     def user_can_access_editor(self, page, user):
         return self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
+
+    def page_locked_for_user(self, page, user):
+        return not (self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser)
 
     def user_can_lock(self, page, user):
         return self.groups.filter(id__in=user.groups.all()).exists()
