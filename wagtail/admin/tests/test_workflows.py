@@ -602,7 +602,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         page_published.connect(mock_handler)
 
         # Post
-        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'approve'})
+        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
 
         # Check that the workflow was approved
 
@@ -638,7 +638,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         This tests that the workflow action view handles invalid page ids correctly
         """
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(124567, )), {'action': 'approve'})
+        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(127777777777, 'approve', self.page.current_workflow_task_state.id)))
 
         # Check that the user received a 404 response
         self.assertEqual(response.status_code, 404)
@@ -652,8 +652,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.login(user=self.submitter)
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'approve'})
-
+        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
 
@@ -679,7 +678,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         This posts to the reject task view and checks that the page was rejected and not published
         """
         # Post
-        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'reject'})
+        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'reject', self.page.current_workflow_task_state.id)))
 
         # Check that the workflow was marked as needing changes
 
@@ -707,7 +706,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.login(user=self.submitter)
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'reject'})
+        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'reject', self.page.current_workflow_task_state.id)))
 
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
@@ -791,10 +790,10 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         return self.client.post(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), post_data)
 
     def approve(self):
-        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'approve'})
+        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
 
     def reject(self):
-        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'reject'})
+        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'reject', self.page.current_workflow_task_state.id)))
 
     def test_vanilla_profile(self):
         # Check that the vanilla profile has rejected notifications on
@@ -997,7 +996,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         return self.client.post(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), post_data)
 
     def approve(self):
-        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'approve'})
+        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
 
     def test_disable_workflow(self):
         """Test that deactivating a workflow sets it to inactive and cancels in progress states"""
