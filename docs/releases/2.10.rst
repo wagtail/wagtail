@@ -50,6 +50,7 @@ Other features
  * Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas)
  * Remove markup around rich text rendering by default, provide a way to use old behaviour via ``wagtail.contrib.legacy.richtext``. See :ref:`legacy_richtext`. (Coen van der Kamp, Dan Braghis)
  * Add ``WAGTAIL_TIME_FORMAT`` setting (Jacob Topp-Mugglestone)
+ * Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
 
 
 Bug fixes

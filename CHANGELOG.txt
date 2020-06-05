@@ -36,6 +36,7 @@ Changelog
  * Replace `gulp-sass` with `gulp-dart-sass` to improve core development across different platforms (Thibaud Colas)
  * Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas)
  * Remove markup around rich text rendering by default, provide a way to use old behaviour via `wagtail.contrib.legacy.richtext` (Coen van der Kamp, Dan Braghis)
+ * Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
  * Add `WAGTAIL_TIME_FORMAT` setting (Jacob Topp-Mugglestone)
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
