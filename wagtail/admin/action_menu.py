@@ -97,7 +97,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
         page = context.get('page')
         workflow_state = page.current_workflow_state if page else None
         if workflow_state and workflow_state.status == workflow_state.STATUS_NEEDS_CHANGES:
-            context['label'] = _(f"Resubmit to {workflow_state.current_task_state.task.name}")
+            context['label'] = _("Resubmit to {}").format(workflow_state.current_task_state.task.name)
         return context
 
 
