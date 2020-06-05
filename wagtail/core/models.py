@@ -1737,7 +1737,7 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
     def current_workflow_state(self):
         """Returns the in progress or needs changes workflow state on this page, if it exists"""
         try:
-            return WorkflowState.objects.get(Q(status=WorkflowState.STATUS_IN_PROGRESS) | Q(status=WorkflowState.STATUS_NEEDS_CHANGES), page=self)
+            return WorkflowState.objects.active().get(page=self)
         except WorkflowState.DoesNotExist:
             return
 
@@ -2770,6 +2770,14 @@ class GroupApprovalTask(Task):
         verbose_name_plural = _('Group approval tasks')
 
 
+class WorkflowStateManager(models.Manager):
+    def active(self):
+        """
+        Filters to only STATUS_IN_PROGRESS and STATUS_NEEDS_CHANGES WorkflowStates
+        """
+        return self.filter(Q(status=WorkflowState.STATUS_IN_PROGRESS) | Q(status=WorkflowState.STATUS_NEEDS_CHANGES))
+
+
 class WorkflowState(models.Model):
     """Tracks the status of a started Workflow on a Page."""
     STATUS_IN_PROGRESS = 'in_progress'
@@ -2800,12 +2808,14 @@ class WorkflowState(models.Model):
     # allows a custom function to be called on finishing the Workflow successfully.
     on_finish = import_string(getattr(settings, 'WAGTAIL_FINISH_WORKFLOW_ACTION', 'wagtail.core.workflows.publish_workflow_state'))
 
+    objects = WorkflowStateManager()
+
     def clean(self):
         super().clean()
 
         if self.status in (self.STATUS_IN_PROGRESS, self.STATUS_NEEDS_CHANGES):
             # The unique constraint is conditional, and so not supported on the MySQL backend - so an additional check is done here
-            if WorkflowState.objects.filter(Q(status=self.STATUS_IN_PROGRESS) | Q(status=self.STATUS_NEEDS_CHANGES), page=self.page).exclude(pk=self.pk).exists():
+            if WorkflowState.objects.active().filter(page=self.page).exclude(pk=self.pk).exists():
                 raise ValidationError(_('There may only be one in progress or needs changes workflow state per page.'))
 
     def save(self, *args, **kwargs):
