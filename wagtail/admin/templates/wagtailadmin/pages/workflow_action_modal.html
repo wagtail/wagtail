@@ -6,7 +6,7 @@
         {% csrf_token %}
         <ul class="fields">
             {{ form.as_ul }}
-            <li><input type="submit" value="{{ action_verbose }}" class="button" /></li>
+            <li><button type="submit" class="button button-longrunning"><span class="icon icon-spinner"></span>{{ action_verbose }}</button></li>
         </ul>
     </form>
 </div>
