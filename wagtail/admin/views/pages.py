@@ -380,6 +380,8 @@ def edit(request, page_id):
             messages.warning(request, lock_message, extra_tags='lock')
 
         elif page.locked and page_perms.page_locked():
+            # the page can also be locked at a permissions level if in a workflow, on a task the user is not a reviewer for
+            # this should be indicated separately
             if page.locked_by and page.locked_at:
                 lock_message = format_html(_("<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."), page.get_admin_display_title(), str(page.locked_by), page.locked_at.strftime("%d %b %Y %H:%M"))
             else:
