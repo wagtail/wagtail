@@ -109,7 +109,7 @@ class TestEditCollection(TestCase, WagtailTestUtils):
     def post(self, post_data={}, collection_id=None):
         return self.client.post(
             reverse('wagtailadmin_collections:edit', args=(collection_id or self.collection.id,)),
-            post_data,
+            post_data
         )
 
     def test_get(self):
