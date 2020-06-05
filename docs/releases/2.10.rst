@@ -76,10 +76,14 @@ Bug fixes
 Upgrade considerations
 ======================
 
- * Rich text will now be rendered without any markup, to use the old behaviour where a wrapper ``<div class="rich-text">`` is used see :ref:`legacy_richtext`.
-
-
 Removed support for Python 3.5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python 3.5 is no longer supported as of this release; please upgrade to Python 3.6 or above before upgrading Wagtail.
+
+
+``<div class="rich-text">`` wrappers removed from rich text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, rich text values were enclosed in a ``<div class="rich-text">`` element when rendered; this element has now been removed.
+To restore the old behaviour, see :ref:`legacy_richtext`.
