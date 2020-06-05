@@ -544,11 +544,14 @@ footer .preview {
 }
 
 .lock-status {
-    margin: 0 0.5em 0.5em 0;
+    display: inline-block;
+    margin: 0 .5em;
+    text-transform: uppercase;
+    width: 4em;
 }
 
-.lock-status.status-tag {
-    color: $color-teal;
+.lock-indicator .button-toggle--on .icon {
+    fill: $color-red;
 }
 
 

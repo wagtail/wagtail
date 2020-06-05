@@ -80,6 +80,7 @@
                     {% endif %}
 
                     <li class="meta">
+                        {% include "wagtailadmin/pages/_lock_switch.html" %}
                     </li>
                     {% block extra_footer_actions %}
                     {% endblock %}
@@ -128,7 +129,6 @@
             );
         });
 
-
         /* Tooltips used by the workflow status component */
         $(function() {
             $('[data-wagtail-tooltip]').tooltip({
@@ -143,6 +143,7 @@
 
         $(function() {
             document.addEventListener('DOMContentLoaded', ActivateWorkflowActions('{{ csrf_token|escapejs }}'));
+            document.addEventListener('DOMContentLoaded', LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}'));
         })
     </script>
 {% endblock %}
