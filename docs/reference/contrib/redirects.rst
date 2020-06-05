@@ -58,16 +58,16 @@ Options:
  - **src**
    This is the path to the file you wish to import redirects from.
 
- - **site_id**
-   This is the **site_id** for the site you wish to save redirects to.
+ - **site**
+   This is the **site** for the site you wish to save redirects to.
 
  - **permanent**
-   If the redirects imported should be **permanent** (True) or not (False).
+   If the redirects imported should be **permanent** (True) or not (False). It's True by default.
 
- - **from_index**
+ - **from**
    The column index you want to use as redirect from value.
 
- - **to_index**
+ - **to**
    The column index you want to use as redirect to value.
 
  - **dry_run**
