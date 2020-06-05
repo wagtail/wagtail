@@ -1,3 +1,4 @@
+import json
 import logging
 from unittest import mock
 
@@ -602,7 +603,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         page_published.connect(mock_handler)
 
         # Post
-        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
+        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)), {'comment': 'my comment'})
 
         # Check that the workflow was approved
 
@@ -615,6 +616,10 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         task_state = workflow_state.current_task_state
 
         self.assertEqual(task_state.status, task_state.STATUS_APPROVED)
+
+        # Check that the comment was added to the task state correctly
+
+        self.assertEqual(task_state.comment, 'my comment')
 
         page = Page.objects.get(id=self.page.id)
         # Page must be live
@@ -632,6 +637,18 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(mock_call['sender'], self.page.specific_class)
         self.assertEqual(mock_call['instance'], self.page)
         self.assertIsInstance(mock_call['instance'], self.page.specific_class)
+
+    def test_workflow_action_get(self):
+        """
+        This tests that a GET request to the workflow action view (for the approve action) returns a modal with a form for extra data entry:
+        adding a comment
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/workflow_action_modal.html')
+        html = json.loads(response.content)['html']
+        self.assertTagInHTML('<form action="' + reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)) + '" method="POST" novalidate>', html)
+        self.assertIn('Comment', html)
 
     def test_workflow_action_view_bad_page_id(self):
         """
