@@ -392,6 +392,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
             has_unpublished_changes=True,
         )
         root_page.add_child(instance=self.page)
+        self.page.save_revision()
 
         self.workflow, self.task_1, self.task_2 = self.create_workflow_and_tasks()
 
@@ -447,12 +448,15 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
     def test_resume_rejected_workflow(self):
         # test that an existing workflow can be resumed by submitting when rejected
-        self.submit()
+        self.workflow.start(self.page, user=self.submitter)
         workflow_state = self.page.current_workflow_state
         workflow_state.current_task_state.approve(user=self.superuser)
         workflow_state.refresh_from_db()
         workflow_state.current_task_state.reject(user=self.superuser)
         workflow_state.refresh_from_db()
+        self.assertEqual(workflow_state.current_task_state.task.specific, self.task_2)
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_NEEDS_CHANGES)
+
         self.submit()
         workflow_state.refresh_from_db()
 
@@ -464,12 +468,15 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
     def test_restart_rejected_workflow(self):
         # test that an existing workflow can be restarted when rejected
-        self.submit()
+        self.workflow.start(self.page, user=self.submitter)
         workflow_state = self.page.current_workflow_state
         workflow_state.current_task_state.approve(user=self.superuser)
         workflow_state.refresh_from_db()
         workflow_state.current_task_state.reject(user=self.superuser)
         workflow_state.refresh_from_db()
+        self.assertEqual(workflow_state.current_task_state.task.specific, self.task_2)
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_NEEDS_CHANGES)
+
         post_data = {
             'title': str(self.page.title),
             'slug': str(self.page.slug),
@@ -490,8 +497,10 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 
     def test_cancel_workflow(self):
         # test that an existing workflow can be cancelled after submission by the submitter
-        self.submit()
+        self.workflow.start(self.page, user=self.submitter)
         workflow_state = self.page.current_workflow_state
+        self.assertEqual(workflow_state.current_task_state.task.specific, self.task_1)
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_IN_PROGRESS)
         post_data = {
             'title': str(self.page.title),
             'slug': str(self.page.slug),
