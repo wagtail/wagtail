@@ -467,7 +467,7 @@ def edit(request, page_id):
         if is_cancelling_workflow:
             workflow_state.cancel(user=request.user)
             # do this here so even if the page is locked due to not having permissions, the original submitter can still cancel the workflow
-        
+
         if form.is_valid() and not page_perms.page_locked():
             page = form.save(commit=False)
 
