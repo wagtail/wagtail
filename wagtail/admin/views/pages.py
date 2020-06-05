@@ -458,27 +458,16 @@ def edit(request, page_id):
         form = form_class(request.POST, request.FILES, instance=page,
                           parent_page=parent)
 
+        is_publishing = False
+        is_submitting = False
+        is_restarting_workflow = False
+        is_reverting = False
+        is_saving_only = False
         is_cancelling_workflow = bool(request.POST.get('action-cancel-workflow')) and workflow_state and workflow_state.user_can_cancel(request.user)
-        # do this here so even if the page is locked due to not having permissions, the original submitter can still cancel the workflow
         if is_cancelling_workflow:
             workflow_state.cancel(user=request.user)
-            message = _(
-                "Workflow on page '{0}' has been cancelled."
-            ).format(
-                page.get_admin_display_title()
-            )
-
-            messages.success(request, message, buttons=[
-                messages.button(
-                    reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
-                    _('View draft'),
-                    new_window=True
-                ),
-                messages.button(
-                    reverse('wagtailadmin_pages:edit', args=(page_id,)),
-                    _('Edit')
-                )
-            ])
+            # do this here so even if the page is locked due to not having permissions, the original submitter can still cancel the workflow
+        
         if form.is_valid() and not page_perms.page_locked():
             page = form.save(commit=False)
 
@@ -486,6 +475,7 @@ def edit(request, page_id):
             is_submitting = bool(request.POST.get('action-submit')) and page_perms.can_submit_for_moderation()
             is_restarting_workflow = bool(request.POST.get('action-restart-workflow')) and page_perms.can_submit_for_moderation() and workflow_state and workflow_state.user_can_cancel(request.user)
             is_reverting = bool(request.POST.get('revision'))
+            is_saving_only = not (is_publishing or is_cancelling_workflow or is_restarting_workflow or is_submitting or is_reverting)
 
             if is_restarting_workflow:
                 workflow_state.cancel(user=request.user)
@@ -529,124 +519,140 @@ def edit(request, page_id):
                     workflow = page.get_workflow()
                     workflow.start(page, request.user)
 
-            # Notifications
-            if is_publishing:
-                if go_live_at and go_live_at > timezone.now():
-                    # Page has been scheduled for publishing in the future
-
-                    if is_reverting:
-                        message = _(
-                            "Revision from {0} of page '{1}' has been scheduled for publishing."
-                        ).format(
-                            previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-                            page.get_admin_display_title()
-                        )
-                    else:
-                        if page.live:
-                            message = _(
-                                "Page '{0}' is live and this revision has been scheduled for publishing."
-                            ).format(
-                                page.get_admin_display_title()
-                            )
-                        else:
-                            message = _(
-                                "Page '{0}' has been scheduled for publishing."
-                            ).format(
-                                page.get_admin_display_title()
-                            )
-
-                    messages.success(request, message, buttons=[
-                        messages.button(
-                            reverse('wagtailadmin_pages:edit', args=(page.id,)),
-                            _('Edit')
-                        )
-                    ])
-
-                else:
-                    # Page is being published now
-
-                    if is_reverting:
-                        message = _(
-                            "Revision from {0} of page '{1}' has been published."
-                        ).format(
-                            previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-                            page.get_admin_display_title()
-                        )
-                    else:
-                        message = _(
-                            "Page '{0}' has been published."
-                        ).format(
-                            page.get_admin_display_title()
-                        )
-
-                    buttons = []
-                    if page.url is not None:
-                        buttons.append(messages.button(page.url, _('View live'), new_window=True))
-                    buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit')))
-                    messages.success(request, message, buttons=buttons)
-
-            elif is_submitting:
-
-                message = _(
-                    "Page '{0}' has been submitted for moderation."
-                ).format(
-                    page.get_admin_display_title()
-                )
-
-                messages.success(request, message, buttons=[
-                    messages.button(
-                        reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
-                        _('View draft'),
-                        new_window=True
-                    ),
-                    messages.button(
-                        reverse('wagtailadmin_pages:edit', args=(page_id,)),
-                        _('Edit')
-                    )
-                ])
-
-            elif is_cancelling_workflow:
-                # message has already been added
-                pass
-
-            elif is_restarting_workflow:
-
-                message = _(
-                    "Workflow on page '{0}' has been restarted."
-                ).format(
-                    page.get_admin_display_title()
-                )
-
-                messages.success(request, message, buttons=[
-                    messages.button(
-                        reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
-                        _('View draft'),
-                        new_window=True
-                    ),
-                    messages.button(
-                        reverse('wagtailadmin_pages:edit', args=(page_id,)),
-                        _('Edit')
-                    )
-                ])
-
-            else:  # Saving
+        # Notifications
+        if is_publishing:
+            if go_live_at and go_live_at > timezone.now():
+                # Page has been scheduled for publishing in the future
 
                 if is_reverting:
                     message = _(
-                        "Page '{0}' has been replaced with revision from {1}."
+                        "Revision from {0} of page '{1}' has been scheduled for publishing."
                     ).format(
-                        page.get_admin_display_title(),
-                        previous_revision.created_at.strftime("%d %b %Y %H:%M")
+                        previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                        page.get_admin_display_title()
+                    )
+                else:
+                    if page.live:
+                        message = _(
+                            "Page '{0}' is live and this revision has been scheduled for publishing."
+                        ).format(
+                            page.get_admin_display_title()
+                        )
+                    else:
+                        message = _(
+                            "Page '{0}' has been scheduled for publishing."
+                        ).format(
+                            page.get_admin_display_title()
+                        )
+
+                messages.success(request, message, buttons=[
+                    messages.button(
+                        reverse('wagtailadmin_pages:edit', args=(page.id,)),
+                        _('Edit')
+                    )
+                ])
+
+            else:
+                # Page is being published now
+
+                if is_reverting:
+                    message = _(
+                        "Revision from {0} of page '{1}' has been published."
+                    ).format(
+                        previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                        page.get_admin_display_title()
                     )
                 else:
                     message = _(
-                        "Page '{0}' has been updated."
+                        "Page '{0}' has been published."
                     ).format(
                         page.get_admin_display_title()
                     )
 
-                messages.success(request, message)
+                buttons = []
+                if page.url is not None:
+                    buttons.append(messages.button(page.url, _('View live'), new_window=True))
+                buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(page_id,)), _('Edit')))
+                messages.success(request, message, buttons=buttons)
 
+        elif is_submitting:
+
+            message = _(
+                "Page '{0}' has been submitted for moderation."
+            ).format(
+                page.get_admin_display_title()
+            )
+
+            messages.success(request, message, buttons=[
+                messages.button(
+                    reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
+                    _('View draft'),
+                    new_window=True
+                ),
+                messages.button(
+                    reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                    _('Edit')
+                )
+            ])
+
+        elif is_cancelling_workflow:
+            message = _(
+                "Workflow on page '{0}' has been cancelled."
+            ).format(
+                page.get_admin_display_title()
+            )
+
+            messages.success(request, message, buttons=[
+                messages.button(
+                    reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
+                    _('View draft'),
+                    new_window=True
+                ),
+                messages.button(
+                    reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                    ('Edit')
+                )
+            ])
+
+        elif is_restarting_workflow:
+
+            message = _(
+                "Workflow on page '{0}' has been restarted."
+            ).format(
+                page.get_admin_display_title()
+            )
+
+            messages.success(request, message, buttons=[
+                messages.button(
+                    reverse('wagtailadmin_pages:view_draft', args=(page_id,)),
+                    _('View draft'),
+                    new_window=True
+                ),
+                messages.button(
+                    reverse('wagtailadmin_pages:edit', args=(page_id,)),
+                    _('Edit')
+                )
+            ])
+
+        elif is_reverting:
+            message = _(
+                "Page '{0}' has been replaced with revision from {1}."
+            ).format(
+                page.get_admin_display_title(),
+                previous_revision.created_at.strftime("%d %b %Y %H:%M")
+            )
+
+            messages.success(request, message)
+        elif is_saving_only:
+            message = _(
+                "Page '{0}' has been updated."
+            ).format(
+                page.get_admin_display_title()
+            )
+
+            messages.success(request, message)
+
+        if form.is_valid() and not page_perms.page_locked():
             for fn in hooks.get_hooks('after_edit_page'):
                 result = fn(request, page)
                 if hasattr(result, 'status_code'):
