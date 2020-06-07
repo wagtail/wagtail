@@ -21,7 +21,7 @@
     <header class="nice-padding">
         <div class="row row-flush">
             <div class="left col6 header-title">
-                <h1 class="icon icon-snippet">
+                <h1>{% icon name="snippet" class_name="header-title-icon" %}
                 {% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
 
                 {% if is_searchable %}
