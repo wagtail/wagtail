@@ -1,6 +1,7 @@
 from urllib.parse import urlparse
 
 from django.conf import settings
+from django.utils.module_loading import import_string
 
 from wagtail.core.models import Page, Site
 from wagtail.core.utils import resolve_model_string
@@ -241,3 +242,16 @@ def parse_boolean(value):
         return False
     else:
         raise ValueError("expected 'true' or 'false', got '%s'" % value)
+
+
+def get_default_renderer_classes():
+    rendered_classes = getattr(
+        settings,
+        'WAGTAILAPI_DEFAULT_RENDERER_CLASSES',
+        [
+            'rest_framework.renderers.JSONRenderer',
+            'rest_framework.renderers.BrowsableAPIRenderer',
+        ]
+    )
+
+    return [import_string(x) for x in rendered_classes]

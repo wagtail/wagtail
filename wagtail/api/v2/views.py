@@ -7,7 +7,6 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from modelcluster.fields import ParentalKey
 from rest_framework import status
-from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -18,12 +17,12 @@ from .filters import ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFi
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
-    BadRequestError, filter_page_type, get_object_detail_url, page_models_from_string,
-    parse_fields_parameter)
+    BadRequestError, filter_page_type, get_default_renderer_classes, get_object_detail_url,
+    page_models_from_string, parse_fields_parameter)
 
 
 class BaseAPIViewSet(GenericViewSet):
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
+    renderer_classes = get_default_renderer_classes()
 
     pagination_class = WagtailPagination
     base_serializer_class = BaseSerializer
