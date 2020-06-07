@@ -28,32 +28,40 @@ class WagtailRegisterable:
     exclude_from_explorer = False
 
     def register_with_wagtail(self):
+        self.register_permissions()
+        self.register_admin_urls()
+        self.register_admin_menu_item()
+        self.register_explorer_page_queryset()
+        self.register_checks()
 
-        @hooks.register('register_permissions')
-        def register_permissions():
-            return self.get_permissions_for_registration()
+    def register_permissions(self):
+        hooks.register('register_permissions', self.get_permissions_for_registration)
 
-        @hooks.register('register_admin_urls')
-        def register_admin_urls():
-            return self.get_admin_urls_for_registration()
+    def register_admin_urls(self):
+        hooks.register('register_admin_urls', self.get_admin_urls_for_registration)
 
-        menu_hook = (
-            'register_settings_menu_item' if self.add_to_settings_menu else
-            'register_admin_menu_item'
-        )
+    def register_admin_menu_item(self, register_hook_name=None):
+        if not register_hook_name:
+            register_hook_name = (
+                'register_settings_menu_item' if self.add_to_settings_menu else
+                'register_admin_menu_item'
+            )
 
-        @hooks.register(menu_hook)
-        def register_admin_menu_item():
-            return self.get_menu_item()
+        hooks.register(register_hook_name, self.get_menu_item)
 
+    def register_explorer_page_queryset(self):
         # Overriding the explorer page queryset is a somewhat 'niche' / experimental
         # operation, so only attach that hook if we specifically opt into it
         # by returning True from will_modify_explorer_page_queryset
         if self.will_modify_explorer_page_queryset():
-            @hooks.register('construct_explorer_page_queryset')
             def construct_explorer_page_queryset(parent_page, queryset, request):
                 return self.modify_explorer_page_queryset(
                     parent_page, queryset, request)
+
+            hooks.register('construct_explorer_page_queryset', construct_explorer_page_queryset)
+
+    def register_checks(self):
+        pass
 
     def will_modify_explorer_page_queryset(self):
         return False
@@ -71,6 +79,7 @@ class ModelAdmin(WagtailRegisterable):
     model = None
     menu_label = None
     menu_icon = None
+    menu_hook = None
     menu_order = None
     list_display = ('__str__',)
     list_display_add_buttons = None
@@ -554,13 +563,20 @@ class ModelAdmin(WagtailRegisterable):
             queryset = queryset.not_type(self.model)
         return queryset
 
-    def register_with_wagtail(self):
-        super().register_with_wagtail()
+    def register_admin_menu_item(self, register_hook_name=None):
+        # Allow custom menu item hook for the ModelAdmin instances.
+        # This is not allowed on ModelAdminGroup as Wagtail admin does not
+        # support a third column in the menu.
+        if not register_hook_name and self.menu_hook:
+            register_hook_name = self.menu_hook
+        return super().register_admin_menu_item(register_hook_name=register_hook_name)
 
-        @checks.register('panels')
+    def register_checks(self):
         def modeladmin_model_check(app_configs, **kwargs):
             errors = check_panels_in_model(self.model, 'modeladmin')
             return errors
+
+        checks.register(modeladmin_model_check, 'panels')
 
 
 class ModelAdminGroup(WagtailRegisterable):
@@ -649,15 +665,15 @@ class ModelAdminGroup(WagtailRegisterable):
                 parent_page, queryset, request)
         return queryset
 
-    def register_with_wagtail(self):
-        super().register_with_wagtail()
-
-        @checks.register('panels')
+    def register_checks(self):
         def modeladmin_model_check(app_configs, **kwargs):
             errors = []
             for modeladmin_class in self.items:
                 errors.extend(check_panels_in_model(modeladmin_class.model))
             return errors
+
+        checks.register(modeladmin_model_check, 'panels')
+
 
 
 def modeladmin_register(modeladmin_class):

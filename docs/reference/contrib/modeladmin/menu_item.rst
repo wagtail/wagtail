@@ -69,7 +69,19 @@ If you'd like the menu item for your model to appear in Wagtail's 'Settings'
 sub-menu instead of at the top level, add ``add_to_settings_menu = True`` to
 your ``ModelAdmin`` class.
 
-This will only work for indivdual ``ModelAdmin`` classes registered with their
+This will only work for individual ``ModelAdmin`` classes registered with their
 own ``modeladmin_register`` call. It won't work for members of a
 ``ModelAdminGroup``.
 
+------------------------
+``ModelAdmin.menu_hook``
+------------------------
+
+**Expected value**: A hook name for registering the new menu item.
+
+If you'd like menu item to be registered in a custom ``Menu``, set
+``menu_hook`` to the value from Menu's ``register_hook_name``.
+
+This will only work for individual ``ModelAdmin`` classes registered with their
+own ``modeladmin_register`` call. It won't work for members of a
+``ModelAdminGroup``.
