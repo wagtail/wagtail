@@ -31,7 +31,15 @@
                 {% if messages %}
                     <ul>
                         {% for message in messages %}
-                            <li class="{% message_tags message %}">{{ message|safe }}</li>
+                            <li class="{% message_tags message %}">
+                              {% if message.level_tag == "error" %}
+                                {# There is no error icon, use warning icon instead #}
+                                {% icon name="warning" class_name="messages-icon" %}
+                              {% else %}
+                                {% icon name=message.level_tag class_name="messages-icon" %}
+                              {% endif %}
+                              {{ message|safe }}
+                            </li>
                         {% endfor %}
                     </ul>
                 {% endif %}

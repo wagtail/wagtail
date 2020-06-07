@@ -31,31 +31,23 @@
         vertical-align: middle;
     }
 
+    &-icon {
+        vertical-align: text-top;
+        margin-right: 0.5em;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
     .error {
         background-color: $color-red-dark;
-
-        &:before {
-            font-family: wagtail;
-            content: map-get($icons, 'warning');
-        }
     }
 
     .warning {
         background-color: $color-orange-dark;
-
-        &:before {
-            font-family: wagtail;
-            content: map-get($icons, 'warning');
-        }
     }
 
     .success {
         background-color: $color-green-dark;
-
-        &:before {
-            font-family: wagtail;
-            content: map-get($icons, 'success');
-        }
     }
 
     .success .button:hover {
