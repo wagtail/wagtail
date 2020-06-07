@@ -53,6 +53,7 @@ Other features
  * Add ``WAGTAIL_TIME_FORMAT`` setting (Jacob Topp-Mugglestone)
  * Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
  * Add ability to import redirects from an uploaded file (CSV, TSV, XLS, and XLSX) (Martin Sandström)
+ * Allow omitting the default editor from ``WAGTAILADMIN_RICH_TEXT_EDITORS`` (Gassan Gousseinov)
 
 
 Bug fixes

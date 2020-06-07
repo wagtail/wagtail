@@ -68,6 +68,7 @@ class TestGetRichTextEditorWidget(TestCase):
         },
     })
     def test_custom_editor_without_default(self):
+        self.assertIsInstance(get_rich_text_editor_widget(), DraftailRichTextArea)
         self.assertIsInstance(get_rich_text_editor_widget('custom'), CustomRichTextArea)
 
     @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
