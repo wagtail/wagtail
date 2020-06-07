@@ -164,4 +164,9 @@ header {
     @include media-breakpoint-down(xs) {
         padding-left: $mobile-nav-indent;
     }
+
+    &-icon {
+        @include svg-icon();
+        margin-right: 0.5em;
+    }
 }
