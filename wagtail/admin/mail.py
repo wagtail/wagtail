@@ -307,6 +307,13 @@ class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
 
         return recipients
 
+    def get_context(self, workflow_state, **kwargs):
+        context = super().get_context(workflow_state, **kwargs)
+        task_state = workflow_state.current_task_state.specific
+        context['task'] = task_state.task
+        context['task_state'] = task_state
+        return context
+
 
 class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
     """A notifier to send email updates for WorkflowState submission events"""
