@@ -101,6 +101,11 @@ $positions: (
     border: 0;
     width: auto;
     height: auto;
+
+    &-icon {
+        width: 2.5em;
+        height: 2.5em;
+    }
 }
 
 
