@@ -333,8 +333,7 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
 
     def can_handle(self, instance, **kwargs):
         if super().can_handle(instance, **kwargs) and isinstance(instance.task.specific, GroupApprovalTask):
-            # Don't send notifications if a Task has been cancelled and then resumed - ie page was updated to a new revision
-            return not TaskState.objects.filter(workflow_state=instance.workflow_state, task=instance.task, status=TaskState.STATUS_CANCELLED).exists()
+            return True
         return False
 
     def get_context(self, task_state, **kwargs):
