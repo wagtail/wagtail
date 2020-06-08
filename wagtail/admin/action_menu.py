@@ -18,6 +18,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
 
     label = ''
     name = None
+    classname = ''
 
     def __init__(self, order=None):
         if order is not None:
@@ -45,6 +46,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
             'label': self.label,
             'url': self.get_url(request, context),
             'name': self.name,
+            'classname': self.classname,
         })
         return context
 
@@ -140,6 +142,7 @@ class RestartWorkflowMenuItem(ActionMenuItem):
 class CancelWorkflowMenuItem(ActionMenuItem):
     label = _("Cancel workflow ")
     name = 'action-cancel-workflow'
+    classname = 'no'
 
     def is_shown(self, request, context):
         if context['view'] == 'edit':
@@ -151,6 +154,7 @@ class CancelWorkflowMenuItem(ActionMenuItem):
 class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
     name = 'action-unpublish'
+    classname = 'no'
 
     def is_shown(self, request, context):
         return (
@@ -166,6 +170,7 @@ class UnpublishMenuItem(ActionMenuItem):
 class DeleteMenuItem(ActionMenuItem):
     name = 'action-delete'
     label = _("Delete")
+    classname = 'no'
 
     def is_shown(self, request, context):
         return (
