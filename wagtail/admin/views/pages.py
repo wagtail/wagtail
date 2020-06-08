@@ -433,21 +433,24 @@ def edit(request, page_id):
             if workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
                 workflow_info = _("Changes were requested on this page")
                 buttons = [messages.button(reverse('wagtailadmin_pages:workflow_history_detail', args=(page.id, workflow_state.id,)), _('See comments / history')), ] + buttons
-            # Check for revisions still undergoing moderation and warn
-            elif len(workflow_tasks) == 1:
-                # If only one task in workflow, show simple message
-                workflow_info = _("This page is currently awaiting moderation")
-            elif current_task_number:
-                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
+                messages.warning(request, workflow_info, buttons=buttons, extra_tags='workflow')
             else:
-                workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
 
-            if task.page_locked_for_user(page, request.user):
-                messages.error(request, mark_safe(workflow_info + _("Only reviewers for this task can edit the page.")), buttons=buttons, extra_tags="lock")
-            elif task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', False):
-                messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons, extra_tags="workflow")
-            else:
-                messages.success(request, workflow_info, buttons=buttons, extra_tags="workflow")
+                # Check for revisions still undergoing moderation and warn
+                if len(workflow_tasks) == 1:
+                    # If only one task in workflow, show simple message
+                    workflow_info = _("This page is currently awaiting moderation")
+                elif current_task_number:
+                    workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task {} of {}: '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
+                else:
+                    workflow_info = format_html(_("<b>Page '{}'</b> is on <b>Task '{}'</b> in <b>Workflow '{}'</b>. "), page.get_admin_display_title(), current_task_number, len(workflow_tasks), task.name, workflow.name)
+
+                if task.page_locked_for_user(page, request.user):
+                    messages.error(request, mark_safe(workflow_info + _("Only reviewers for this task can edit the page.")), buttons=buttons, extra_tags="lock")
+                elif task_has_been_approved and getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', False):
+                    messages.warning(request, mark_safe(workflow_info + _("Editing this Page will cause completed Tasks to need re-approval.")), buttons=buttons, extra_tags="workflow")
+                else:
+                    messages.success(request, workflow_info, buttons=buttons, extra_tags="workflow")
     else:
         # Show last workflow state
         workflow_state = page.workflow_states.order_by('created_at').last()
@@ -1644,7 +1647,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
     page_revisions = PageRevision.objects.filter(
         page=page,
         id__in=TaskState.objects.filter(workflow_state=workflow_state).values_list('page_revision_id', flat=True)
-    ).order_by('created_at')
+    ).order_by('-created_at')
 
     # Now get QuerySet of tasks completed for each revision
     task_states_by_revision_task = [
@@ -1710,6 +1713,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
         })
 
     timeline.sort(key=lambda t: t['time'])
+    timeline.reverse()
 
     return TemplateResponse(request, 'wagtailadmin/pages/workflow_history/detail.html', {
         'page': page,
