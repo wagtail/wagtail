@@ -101,6 +101,10 @@ $positions: (
     border: 0;
     width: auto;
     height: auto;
+
+    &-icon {
+        @include svg-icon(2.5em);
+    }
 }
 
 
