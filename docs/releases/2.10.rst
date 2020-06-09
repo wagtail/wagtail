@@ -19,7 +19,7 @@ Search queries can now be constructed as structured expressions in the manner of
 Other features
 ~~~~~~~~~~~~~~
 
- * Added ``webpquality`` and ``format-webp-lossless`` image filters and ``WAGTAILIMAGES_WEBP_QUALITY`` setting. See :ref:`output_image_format` and :ref:`image_quality` (@mozgsml)
+ * Added ``webpquality`` and ``format-webp-lossless`` image filters and ``WAGTAILIMAGES_WEBP_QUALITY`` setting. See :ref:`output_image_format` and :ref:`image_quality` (Nikolay Lukyanov)
  * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
  * Added filtering to locked pages report (Karl Hobley)
  * Adds ability to view a group's users via standalone admin URL and a link to this on the group edit view (Karran Besen)
