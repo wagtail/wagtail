@@ -6,6 +6,7 @@ Changelog
 
  * Removed support for Python 3.5
  * Implemented phrase searching and structured search query expressions (Karl Hobley)
+ * Added `webpquality` and `format-webp-lossless` image filters and `WAGTAILIMAGES_WEBP_QUALITY` setting (@mozgsml)
  * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
  * Added filtering to locked pages report (Karl Hobley)
  * Adds ability to view a group's users via standalone admin URL and a link to this on the group edit view (Karran Besen)

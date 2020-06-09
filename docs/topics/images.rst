@@ -325,10 +325,10 @@ representing the color you would like to use:
     {# Sets the image background to black #}
     {% image page.photo width-400 bgcolor-000 format-jpeg %}
 
-.. __image_quality:
+.. _image_quality:
 
 Image quality
-------------------
+-------------
 
 Wagtail's JPEG and WebP image quality settings default to 85 (which is quite high).
 This can be changed either globally or on a per-tag basis.

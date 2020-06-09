@@ -466,6 +466,7 @@ Contributors
 * GTpyro
 * Yngve Høiseth
 * Andrew Bunker
+* mozgsml
 
 Translators
 ===========
