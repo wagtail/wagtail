@@ -43,7 +43,7 @@
             padding: 0 .5em;
             border-right: 1px solid rgba(255, 255, 255, 0.5);
 
-            > .icon {
+            .icon {
                 width: 1.25em;
                 height: 1.5em;
                 vertical-align: text-bottom;
@@ -576,9 +576,6 @@ footer .preview {
 
     .icon {
         fill: $color-grey-3;
-        width: 1.5em;
-        height: 1.5em;
-        vertical-align: text-bottom;
     }
 
     .in_progress {

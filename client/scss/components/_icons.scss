@@ -141,7 +141,13 @@
     }
 }
 
-.icon.uniform {
-    width: 1em;
-    height: 1em;
+.icon {
+    &.initial {
+        @include svg-icon(1em);
+        vertical-align: initial;
+    }
+
+    &.default {
+        @include svg-icon(1.5em);
+    }
 }
