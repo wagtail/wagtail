@@ -25,9 +25,7 @@
             </li>
             {% if page.get_latest_revision %}
             <li>
-                <a href="{% url 'wagtailadmin_pages:history' page.id %}"
-                   target="_blank" rel="noopener noreferrer"
-                   class="button button-small button-nobg button-strokeonhover text-notransform">
+                <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg button-strokeonhover text-notransform">
                     {% trans "Page history" %}
                 </a>
             </li>
