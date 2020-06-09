@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans %}Editing {{ setting_type_name}} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}menu-settings{% endblock %}
 {% block content %}
@@ -7,7 +7,8 @@
         <div class="row">
             <div class="left">
                 <div class="col">
-                    <h1 class="icon icon-cogs">
+                    <h1>
+                        {% icon name="icon-cogs" class_name="header-title-icon" %}
                         {% trans "Editing" %}
                         <span>{{ setting_type_name|capfirst }}</span>
                     </h1>

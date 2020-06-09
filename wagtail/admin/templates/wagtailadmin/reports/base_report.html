@@ -8,7 +8,10 @@
         <div class="row nice-padding">
             <div class="left">
                 <div class="col header-title">
-                    <h1 class="icon icon-{{ header_icon }}">{{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
+                    <h1>
+                      {% icon header_icon class_name="header-title-icon" %}
+                      {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}
+                    </h1>
                 </div>
             </div>
             <div class="right report__actions">
