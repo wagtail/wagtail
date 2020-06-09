@@ -513,10 +513,10 @@ def icon(name=None, class_name='icon', title=None):
     Usage:
         {% load wagtailadmin_tags %}
         ...
-        {% icon name="cogs" classname="icon--red" title="Settings" %}
+        {% icon name="cogs" class_name="icon--red" title="Settings" %}
 
     :param name: the icon name/id, required (string)
-    :param classname: default 'icon' (string)
+    :param class_name: default 'icon' (string)
     :param title: accessible label intended for screen readers (string)
     :return: Rendered template snippet (string)
     """
