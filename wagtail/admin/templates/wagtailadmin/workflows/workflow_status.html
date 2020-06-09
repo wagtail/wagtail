@@ -24,7 +24,7 @@
     <ul class="workflow-timeline">
     {% for task in workflow_tasks %}
         <li data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}" {% if task.status %}class="{{ task.status }}"{% endif %}>
-            {% icon "success" %} {{ task.name }}
+            {% icon name="success" class_name="default" %} {{ task.name }}
         </li>
     {% endfor %}
     </ul>

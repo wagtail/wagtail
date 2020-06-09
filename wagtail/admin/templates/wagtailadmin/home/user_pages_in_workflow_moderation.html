@@ -33,7 +33,7 @@
                     </td>
                     <td class="task" valign="top">
                         {% if workflow_state.current_task_state.status == 'rejected' %}
-                            {% icon name="warning" class_name="uniform" %}
+                            {% icon name="warning" class_name="default" %}
                             {% trans "Changes requested at" %}
                         {% elif workflow_state.current_task_state.status == 'in_progress' %}
                             {% trans "Awaiting" %}
