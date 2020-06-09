@@ -312,6 +312,7 @@ class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
         task_state = workflow_state.current_task_state.specific
         context['task'] = task_state.task
         context['task_state'] = task_state
+        context['comment'] = task_state.get_comment()
         return context
 
 
