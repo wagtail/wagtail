@@ -154,3 +154,14 @@ svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
         border: 1px solid currentColor;
     }
 }
+
+.icon {
+    &.initial {
+        @include svg-icon(1em);
+        vertical-align: initial;
+    }
+
+    &.default {
+        @include svg-icon(1.5em);
+    }
+}
