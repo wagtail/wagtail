@@ -50,24 +50,6 @@
                         </div>
                     </li>
 
-                    {% if page.workflow_in_progress and workflow_actions %}
-                        <li class="actions">
-                            <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
-                                {% with action_name=workflow_actions.0.0 action_label=workflow_actions.0.1 %}
-                                    <button class="button action-save button-longrunning" data-workflow-action="{{ action_name }}"><span class="icon icon-spinner"></span><em>{{ action_label }}</em></button>
-                                {% endwith %}
-                                {% if workflow_actions|length > 1 %}
-                                    <div class="dropdown-toggle icon icon-arrow-up"></div>
-                                    <ul>
-                                        {% for action_name, action_label in workflow_actions|slice:"1:" %}
-                                            <li><button class="button" data-workflow-action="{{ action_name }}">{{ action_label }}</button></li>
-                                        {% endfor %}
-                                    </ul>
-                                {% endif %}
-                            </div>
-                        </li>
-                    {% endif %}
-
                     {% if preview_modes %}
                         <li class="preview">
                             {% trans 'Preview' as preview_label %}
