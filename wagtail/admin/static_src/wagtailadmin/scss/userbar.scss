@@ -103,7 +103,7 @@ $positions: (
     height: auto;
 
     &-icon {
-        @include svg-icon(2.5em);
+        @include svg-icon(2em);
     }
 }
 
