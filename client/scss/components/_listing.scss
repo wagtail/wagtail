@@ -231,6 +231,12 @@ ul.listing {
         }
     }
 
+    &--inline-actions .actions {
+        display: inline-block;
+        margin-top: 0;
+        vertical-align: inherit;
+    }
+
     .button-secondary {
         border-color: $color-grey-3;
         background: $color-white;
