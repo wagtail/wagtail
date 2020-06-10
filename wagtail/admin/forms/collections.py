@@ -236,6 +236,12 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         )
 
 
+# TODO: This needs to be able to handle Collection permissions that don't include every Collection.
+class CollectionChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return format_collection(obj)
+
+
 def collection_member_permission_formset_factory(
     model, permission_types, template, default_prefix=None
 ):
@@ -265,7 +271,8 @@ def collection_member_permission_formset_factory(
         defines the permissions that are assigned to an entity
         (i.e. group or user) for a specific collection
         """
-        collection = forms.ModelChoiceField(
+        collection = CollectionChoiceField(
+            # TODO: This needs to be able to handle Collection permissions that don't include every Collection.
             queryset=Collection.objects.all().prefetch_related('group_permissions')
         )
         permissions = PermissionMultipleChoiceField(

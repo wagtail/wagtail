@@ -5,7 +5,8 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.collections import (
-    BaseCollectionMemberForm, collection_member_permission_formset_factory)
+    BaseCollectionMemberForm, collection_member_permission_formset_factory, CollectionChoiceField)
+from wagtail.core.models import Collection
 from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
 from wagtail.images.models import Image
@@ -17,6 +18,9 @@ def formfield_for_dbfield(db_field, **kwargs):
     # Check if this is the file field
     if db_field.name == 'file':
         return WagtailImageField(label=capfirst(db_field.verbose_name), **kwargs)
+    elif db_field.name == 'collection':
+        # TODO: This needs to be able to handle Collection permissions that don't include every Collection.
+        return CollectionChoiceField(queryset=Collection.objects.all(), **kwargs)
 
     # For all other fields, just call its formfield() method.
     return db_field.formfield(**kwargs)

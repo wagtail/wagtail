@@ -32,7 +32,15 @@
                         <div class="field-content">
                             <select id="id_adddocument_collection" name="collection">
                                 {% for collection in collections %}
-                                    <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
+                                    <option value="{{ collection.id|unlocalize }}">
+                                      {% if request.user.is_superuser %}
+                                          {# Superuser may see all collections. #}
+                                          {% format_collection collection %}
+                                      {% else %}
+                                          {# Pass the permitted collections since user isn't a superuser. #}
+                                          {% format_collection collection collections %}
+                                      {% endif %}
+                                    </option>
                                 {% endfor %}
                             </select>
                         </div>
