@@ -471,20 +471,18 @@ class PagesAPIViewSet(BaseAPIViewSet):
                     page, _, _ = site.root_page.specific.route(request, path_components)
                     return page
                 except Http404:
-                    pass # return None
+                    pass  # return None
 
             # First try to find the page without following redirects.
             page = find_page(path, request)
 
             # If there is no page and we follow redirects, try again this time following redirects.
             if not page and follow_redirects:
-                try:
-                    redirect = get_redirect(request, path)
+                redirect = get_redirect(request, path)
+                if redirect:
                     path = urlparse(redirect.link).path
                     page = find_page(path, request)
                     # TODO: We need to set the 'X-Wagtail-Redirected-To-HTML-Path' header somehow.
-                except Redirect.DoesNotExist:
-                    pass
 
             # Return if we do not find a page.
             if not page:
