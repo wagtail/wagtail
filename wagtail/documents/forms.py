@@ -13,7 +13,6 @@ from wagtail.documents.permissions import permission_policy as documents_permiss
 # Callback to allow us to override the default form field for the image file field
 def formfield_for_dbfield(db_field, **kwargs):
     if db_field.name == 'collection':
-        # TODO: This needs to be able to handle Collection permissions that don't include every Collection.
         return CollectionChoiceField(queryset=Collection.objects.all(), **kwargs)
 
     # For all other fields, just call its formfield() method.
