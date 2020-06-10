@@ -14,8 +14,16 @@
     &__results {
         grid-column-start: col-start 1 col-end 2;
 
+        &--text {
+            margin: 0 0.5em 0.5em 0;
+
+            + .status-tag {
+                margin-left: 0;
+            }
+        }
+
         &--comment {
-            display: inline-block;
+            display: block;
         }
     }
 
@@ -31,6 +39,10 @@
         label {
             display: unset;
             width: unset;
+        }
+
+        label {
+            padding-top: 1.2em;
         }
     }
 
