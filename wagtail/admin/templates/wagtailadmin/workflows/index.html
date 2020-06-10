@@ -13,7 +13,6 @@
             <div class="right">
                 <div class="addbutton">
                     <a href="{% url view.add_url_name %}" class="button bicolor icon icon-plus">{{ view.add_item_label }}</a>
-                    <a href="{% url 'wagtailadmin_workflows:task_index' %}" class="button">{% trans 'Edit workflow tasks' %}</a>
                 </div>
             </div>
         </div>
@@ -69,6 +68,5 @@
         {% else %}
             <a href="?show_disabled" class="button secondary">{% trans "Show disabled workflows" %}</a>
         {% endif %}
-        <a href="{% url 'wagtailadmin_workflows:task_index' %}" class="button">{% trans "Edit workflow tasks" %}</a>
     </div>
 {% endblock %}
