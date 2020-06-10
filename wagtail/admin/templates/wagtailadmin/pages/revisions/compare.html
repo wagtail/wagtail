@@ -10,8 +10,8 @@
     <div class="nice-padding">
 
         <p>
-            <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small">{% trans "Edit this page" %}</a>
-            <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="button button-small button-secondary">{% trans "View revisions" %}</a>
+            <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small">{% trans "Page history" %}</a>
+            <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit this page" %}</a>
         </p>
 
 

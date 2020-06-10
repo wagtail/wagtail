@@ -251,7 +251,7 @@ class PageReportView(ReportView):
 class LockedPagesView(PageReportView):
     template_name = "wagtailadmin/reports/locked_pages.html"
     title = _("Locked pages")
-    header_icon = "locked"
+    header_icon = "lock"
     list_export = PageReportView.list_export + [
         "locked_at",
         "locked_by",
@@ -348,7 +348,7 @@ class WorkflowTasksView(ReportView):
 class LogEntriesView(ReportView):
     template_name = 'wagtailadmin/reports/site_history.html'
     title = _('Site history')
-    header_icon = 'cogs'
+    header_icon = 'history'
     filterset_class = SiteHistoryReportFilterSet
 
     export_headings = {

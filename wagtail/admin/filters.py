@@ -175,10 +175,19 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
         fields = ['reviewable', 'workflow', 'task', 'status', 'started_at', 'finished_at']
 
 
+def get_audit_log_users_queryset(request):
+    return get_user_model().objects.filter(
+        pk__in=set(PageLogEntry.objects.values_list('user__pk', flat=True))
+    ).order_by('username')
+
+
 class SiteHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(choices=log_action_registry.get_choices)
     timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
     label = django_filters.CharFilter(label=_('Title'), lookup_expr='icontains')
+    user = django_filters.ModelChoiceFilter(
+        field_name='user', queryset=get_audit_log_users_queryset
+    )
 
     class Meta:
         model = PageLogEntry
@@ -187,21 +196,10 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
 
 class PageHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(choices=log_action_registry.get_choices)
-    timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
-    has_revision = django_filters.BooleanFilter(
-        label=_('Revision'), field_name='revision', method='filter_has_revision', widget=BooleanButtonSelect
+    user = django_filters.ModelChoiceFilter(
+        field_name='user', queryset=get_audit_log_users_queryset
     )
-
-    def filter_has_revision(self, queryset, name, value):
-        lookup = '__'.join([name, 'isnull'])
-        # has_revision means the revision FK must not null, but the value passed is True, so negate
-        qs = queryset.filter(**{lookup: not value})
-        if value:
-            # additionally, filter on those entries that have content changes as there may be actions
-            # that relate to a revision (such as starting workflow, or approving), but we don't consider them a revision
-            qs = qs.filter(content_changed=True)
-
-        return qs
+    timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
 
     class Meta:
         model = PageLogEntry
