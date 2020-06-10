@@ -849,12 +849,6 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         if submitted_for_moderation:
             logger.info("Page submitted for moderation: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
 
-        if self.current_workflow_task_state:
-            # Cancel the current task state, but start it again on the same task: this will now be attached to the new revision
-            self.current_workflow_task_state.cancel(user=user, resume=True)
-            if not getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', True):
-                self.current_workflow_state.copy_approved_task_states_to_revision(revision)
-
         return revision
 
     def get_latest_revision(self):
@@ -1740,16 +1734,16 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
 
     @property
     def current_workflow_state(self):
-        """Returns the in progress workflow state on this page, if it exists"""
+        """Returns the in progress or needs changes workflow state on this page, if it exists"""
         try:
-            return WorkflowState.objects.get(page=self, status=WorkflowState.STATUS_IN_PROGRESS)
+            return WorkflowState.objects.active().get(page=self)
         except WorkflowState.DoesNotExist:
             return
 
     @property
     def current_workflow_task_state(self):
         """Returns (specific class of) the current task state of the workflow on this page, if it exists"""
-        if self.current_workflow_state and self.current_workflow_state.current_task_state:
+        if self.current_workflow_state and self.current_workflow_state.status == WorkflowState.STATUS_IN_PROGRESS and self.current_workflow_state.current_task_state:
             return self.current_workflow_state.current_task_state.specific
 
     @property
@@ -2092,6 +2086,10 @@ class PagePermissionTester:
         return self.page.locked_by_id == self.user.pk
 
     def page_locked(self):
+        if self.page.current_workflow_task:
+            if self.page.current_workflow_task.page_locked_for_user(self.page, self.user):
+                return True
+
         if not self.page.locked:
             # Page is not locked
             return False
@@ -2647,6 +2645,10 @@ class Task(models.Model):
         Note that returning False does not remove permissions from users who would otherwise have them."""
         return False
 
+    def page_locked_for_user(self, page, user):
+        """Returns True if the page should be locked to a given user's edits. This can be used to prevent editing by non-reviewers."""
+        return False
+
     def user_can_lock(self, page, user):
         """Returns True if a user who would not normally be able to lock the page should be able to if the page is currently on this task.
         Note that returning False does not remove permissions from users who would otherwise have them."""
@@ -2743,7 +2745,10 @@ class GroupApprovalTask(Task):
         return super().start(workflow_state, user=user)
 
     def user_can_access_editor(self, page, user):
-        return self.groups.filter(id__in=user.groups.all()).exists()
+        return self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser
+
+    def page_locked_for_user(self, page, user):
+        return not (self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser)
 
     def user_can_lock(self, page, user):
         return self.groups.filter(id__in=user.groups.all()).exists()
@@ -2771,16 +2776,24 @@ class GroupApprovalTask(Task):
         verbose_name_plural = _('Group approval tasks')
 
 
+class WorkflowStateManager(models.Manager):
+    def active(self):
+        """
+        Filters to only STATUS_IN_PROGRESS and STATUS_NEEDS_CHANGES WorkflowStates
+        """
+        return self.filter(Q(status=WorkflowState.STATUS_IN_PROGRESS) | Q(status=WorkflowState.STATUS_NEEDS_CHANGES))
+
+
 class WorkflowState(models.Model):
     """Tracks the status of a started Workflow on a Page."""
     STATUS_IN_PROGRESS = 'in_progress'
     STATUS_APPROVED = 'approved'
-    STATUS_REJECTED = 'rejected'
+    STATUS_NEEDS_CHANGES = 'needs_changes'
     STATUS_CANCELLED = 'cancelled'
     STATUS_CHOICES = (
         (STATUS_IN_PROGRESS, _("In progress")),
         (STATUS_APPROVED, _("Approved")),
-        (STATUS_REJECTED, _("Rejected")),
+        (STATUS_NEEDS_CHANGES, _("Needs changes")),
         (STATUS_CANCELLED, _("Cancelled")),
     )
 
@@ -2801,13 +2814,15 @@ class WorkflowState(models.Model):
     # allows a custom function to be called on finishing the Workflow successfully.
     on_finish = import_string(getattr(settings, 'WAGTAIL_FINISH_WORKFLOW_ACTION', 'wagtail.core.workflows.publish_workflow_state'))
 
+    objects = WorkflowStateManager()
+
     def clean(self):
         super().clean()
 
-        if self.status == self.STATUS_IN_PROGRESS:
+        if self.status in (self.STATUS_IN_PROGRESS, self.STATUS_NEEDS_CHANGES):
             # The unique constraint is conditional, and so not supported on the MySQL backend - so an additional check is done here
-            if WorkflowState.objects.filter(status=self.STATUS_IN_PROGRESS, page=self.page).exclude(pk=self.pk).exists():
-                raise ValidationError(_('There may only be one in progress workflow state per page.'))
+            if WorkflowState.objects.active().filter(page=self.page).exclude(pk=self.pk).exists():
+                raise ValidationError(_('There may only be one in progress or needs changes workflow state per page.'))
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -2815,6 +2830,21 @@ class WorkflowState(models.Model):
 
     def __str__(self):
         return _("Workflow '{0}' on Page '{1}': {2}").format(self.workflow, self.page, self.status)
+
+    def resume(self, user=None):
+        """Put a STATUS_NEEDS_CHANGES workflow state back into STATUS_IN_PROGRESS, and restart the current task"""
+        if self.status != self.STATUS_NEEDS_CHANGES:
+            raise PermissionDenied
+        next_task = self.current_task_state.task
+        self.current_task_state = None
+        self.status = self.STATUS_IN_PROGRESS
+        self.save()
+        return self.update(user=user, next_task=next_task)
+
+    def user_can_cancel(self, user):
+        if self.page.locked and self.page.locked_by != user:
+            return False
+        return user == self.requested_by or user == self.page.owner or (self.current_task_state and self.current_task_state.status == self.current_task_state.STATUS_IN_PROGRESS and 'approve' in [action[0] for action in self.current_task_state.task.get_actions(self.page, user)])
 
     def update(self, user=None, next_task=None):
         """Checks the status of the current task, and progresses (or ends) the workflow if appropriate. If the workflow progresses,
@@ -2826,8 +2856,8 @@ class WorkflowState(models.Model):
             current_status = self.current_task_state.status
         except AttributeError:
             current_status = None
-        if current_status == self.STATUS_REJECTED:
-            self.status = current_status
+        if current_status == TaskState.STATUS_REJECTED:
+            self.status = self.STATUS_NEEDS_CHANGES
             self.save()
             workflow_rejected.send(sender=self.__class__, instance=self, user=user)
         else:
@@ -2848,20 +2878,22 @@ class WorkflowState(models.Model):
                 self.finish(user=user)
 
     def get_next_task(self):
-        """Returns the next active task associated with the latest page revision, which has not been either approved or skipped"""
+        """Returns the next active task, which has not been either approved or skipped"""
+        successful_task_states = self.task_states.filter(
+            Q(status=TaskState.STATUS_APPROVED) | Q(status=TaskState.STATUS_SKIPPED)
+        )
+        if getattr(settings, "WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT", False):
+            successful_task_states = successful_task_states.filter(page_revision=self.page.get_latest_revision())
         return (
             Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True)
             .exclude(
-                task_states__in=TaskState.objects.filter(
-                    Q(page_revision=self.page.get_latest_revision()),
-                    Q(status=TaskState.STATUS_APPROVED) | Q(status=TaskState.STATUS_SKIPPED)
-                )
+                task_states__in=successful_task_states
             ).order_by('workflow_tasks__sort_order').first()
         )
 
     def cancel(self, user=None):
         """Cancels the workflow state"""
-        if self.status != self.STATUS_IN_PROGRESS:
+        if self.status not in (self.STATUS_IN_PROGRESS, self.STATUS_NEEDS_CHANGES):
             raise PermissionDenied
         self.status = self.STATUS_CANCELLED
         self.save()
@@ -2903,15 +2935,18 @@ class WorkflowState(models.Model):
         This is different to querying TaskState as it also returns tasks that haven't
         been started yet (so won't have a TaskState).
         """
-        latest_revision_id = self.revisions().order_by('-created_at', '-id').values_list('id', flat=True).first()
+        # Get the set of task states whose status applies to the current revision
+        task_states = TaskState.objects.filter(workflow_state_id=self.id)
+        if getattr(settings, "WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT", False):
+            # If WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=True, this is only task states created on the current revision
+            latest_revision_id = self.revisions().order_by('-created_at', '-id').values_list('id', flat=True).first()
+            task_states = task_states.filter(page_revision_id=latest_revision_id)
 
         tasks = list(
             self.workflow.tasks.annotate(
                 status=Subquery(
-                    TaskState.objects.filter(
+                    task_states.filter(
                         task_id=OuterRef('id'),
-                        workflow_state_id=self.id,
-                        page_revision_id=latest_revision_id
                     ).values('status')
                 ),
             )
@@ -2927,9 +2962,9 @@ class WorkflowState(models.Model):
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
-        # prevent multiple STATUS_IN_PROGRESS workflows for the same page. This is not supported by MySQL, so is checked additionally on save.
+        # prevent multiple STATUS_IN_PROGRESS/STATUS_NEEDS_CHANGES workflows for the same page. This is not supported by MySQL, so is checked additionally on save.
         constraints = [
-            models.UniqueConstraint(fields=['page'], condition=Q(status='in_progress'), name='unique_in_progress_workflow')
+            models.UniqueConstraint(fields=['page'], condition=(Q(status='in_progress') | Q(status='needs_changes')), name='unique_in_progress_workflow')
         ]
 
 
