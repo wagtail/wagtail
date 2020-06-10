@@ -103,6 +103,26 @@ class TestAuditLog(TestCase):
         self.assertEqual(LogEntry.objects.count(), 2)
         self.assertEqual(LogEntry.objects.filter(action='wagtail.publish').count(), 1)
 
+    def test_page_rename(self):
+        # Should not log a name change when publishing the first revision
+        revision = self.home_page.save_revision()
+        self.home_page.title = "Old title"
+        self.home_page.save()
+        revision.publish()
+
+        self.assertEqual(LogEntry.objects.filter(action='wagtail.publish').count(), 1)
+        self.assertEqual(LogEntry.objects.filter(action='wagtail.rename').count(), 0)
+
+        # Now, check the rename is logged
+        revision = self.home_page.save_revision()
+        self.home_page.title = "New title"
+        self.home_page.save()
+        revision.publish()
+
+        self.assertEqual(LogEntry.objects.count(), 4)
+        self.assertEqual(LogEntry.objects.filter(action='wagtail.publish').count(), 2)
+        self.assertEqual(LogEntry.objects.filter(action='wagtail.rename').count(), 1)
+
     def test_page_unpublish(self):
         self.home_page.unpublish()
         self.assertEqual(LogEntry.objects.count(), 2)
@@ -155,7 +175,10 @@ class TestAuditLog(TestCase):
         self.assertEqual(LogEntry.objects.filter(action__in=['wagtail.lock', 'wagtail.unlock']).count(), 2)
 
     def test_page_copy(self):
+        create_entries = LogEntry.objects.filter(action='wagtail.create').count()
+
         self.home_page.copy(update_attrs={'title': "About us", 'slug': 'about-us'})
+        self.assertEqual(LogEntry.objects.filter(action='wagtail.create').count(), create_entries + 1)
         self.assertEqual(LogEntry.objects.filter(action='wagtail.copy').count(), 1)
 
     def test_page_move(self):
@@ -167,19 +190,31 @@ class TestAuditLog(TestCase):
         self.assertEqual(LogEntry.objects.filter(action='wagtail.move').count(), 1)
 
     def test_page_delete(self):
-        self.home_page.delete()
+        self.home_page.add_child(
+            instance=SimplePage(title="Child", slug="child-page", content="hello")
+        )
+        child = self.home_page.add_child(
+            instance=SimplePage(title="Another child", slug="child-page-2", content="hello")
+        )
+
+        child.delete()
         self.assertEqual(LogEntry.objects.filter(action='wagtail.delete').count(), 1)
 
-    def _create_workflow_and_tasks(self):
+        # check deleting a parent page logs child deletion
+        self.home_page.delete()
+        self.assertEqual(LogEntry.objects.filter(action='wagtail.delete').count(), 3)
+        self.assertListEqual(
+            list(LogEntry.objects.filter(action='wagtail.delete').values_list('object_title', flat=True)),
+            ['Homepage (simple page)', 'Child (simple page)', 'Another child (simple page)']
+        )
+
+    def test_workflow_actions(self):
         workflow = Workflow.objects.create(name='test_workflow')
         task_1 = Task.objects.create(name='test_task_1')
         task_2 = Task.objects.create(name='test_task_2')
         WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
         WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
-        return workflow, task_1, task_2
 
-    def test_workflow_actions(self):
-        workflow, _, _ = self._create_workflow_and_tasks()
         self.home_page.save_revision()
         user = get_user_model().objects.first()
         workflow_state = workflow.start(self.home_page, user)
@@ -191,6 +226,7 @@ class TestAuditLog(TestCase):
                 'id': workflow.id,
                 'title': workflow.name,
                 'status': workflow_state.status,
+                'task_state_id': workflow_state.current_task_state_id,
                 'next': {
                     'id': workflow_state.current_task_state.task.id,
                     'title': workflow_state.current_task_state.task.name,
@@ -212,6 +248,7 @@ class TestAuditLog(TestCase):
                         'id': workflow.id,
                         'title': workflow.name,
                         'status': task_state.status,
+                        'task_state_id': task_state.id,
                         'task': {
                             'id': task_state.task.id,
                             'title': task_state.task.name,
@@ -220,8 +257,26 @@ class TestAuditLog(TestCase):
                             'id': workflow_state.current_task_state.task.id,
                             'title': workflow_state.current_task_state.task.name,
                         },
-                    }
+                    },
+                    'comment': '',
                 })
+
+    def test_workflow_completions_logs_publishing_user(self):
+        workflow = Workflow.objects.create(name='test_workflow')
+        task_1 = Task.objects.create(name='test_task_1')
+        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+
+        self.assertFalse(LogEntry.objects.filter(action='wagtail.publish').exists())
+
+        self.home_page.save_revision()
+        user = get_user_model().objects.first()
+        workflow_state = workflow.start(self.home_page, user)
+
+        publisher = get_user_model().objects.last()
+        task_state = workflow_state.current_task_state
+        task_state.task.on_action(task_state, user=None, action_name='approve')
+
+        self.assertEqual(LogEntry.objects.get(action='wagtail.publish').user, publisher)
 
     def test_page_privacy(self):
         restriction = PageViewRestriction.objects.create(page=self.home_page)

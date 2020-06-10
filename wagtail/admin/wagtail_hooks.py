@@ -894,6 +894,17 @@ def register_core_log_actions(actions):
         except KeyError:
             return _('Removed view restriction')
 
+    def rename_message(data):
+        try:
+            return format_lazy(
+                _("Renamed from '{old}' to '{new}'"),
+                old=data['title']['old'],
+                new=data['title']['new'],
+            )
+        except KeyError:
+            return _('Renamed')
+
+    actions.register_action('wagtail.rename', _('Rename'), rename_message)
     actions.register_action('wagtail.revert', _('Revert'), revert_message)
     actions.register_action('wagtail.schedule.revert', _('Schedule revert'), schedule_revert_message)
     actions.register_action('wagtail.copy', _('Copy'), copy_message)
@@ -937,12 +948,33 @@ def register_workflow_log_actions(actions):
     def workflow_reject_message(data):
         try:
             return format_lazy(
-                _("Rejected at '{task}'. Workflow complete"),
+                _("Rejected at '{task}'. Changes requested"),
                 task=data['workflow']['task']['title'],
             )
         except (KeyError, TypeError):
             return _('Workflow task rejected. Workflow complete')
 
+    def workflow_resume_message(data):
+        try:
+            return format_lazy(
+                _("Resubmitted '{task}'. Workflow resumed'"),
+                task=data['workflow']['task']['title'],
+            )
+        except (KeyError, TypeError):
+            return _('Workflow task resubmitted. Workflow resumed')
+
+    def workflow_cancel_message(data):
+        try:
+            return format_lazy(
+                _("Cancelled '{workflow}' at '{task}'"),
+                workflow=data['workflow']['title'],
+                task=data['workflow']['task']['title'],
+            )
+        except (KeyError, TypeError):
+            return _('Workflow cancelled')
+
     actions.register_action('wagtail.workflow.start', _('Workflow: start'), workflow_start_message)
     actions.register_action('wagtail.workflow.approve', _('Workflow: approve task'), workflow_approve_message)
     actions.register_action('wagtail.workflow.reject', _('Workflow: reject task'), workflow_reject_message)
+    actions.register_action('wagtail.workflow.resume', _('Workflow: resume task'), workflow_resume_message)
+    actions.register_action('wagtail.workflow.cancel', _('Workflow: cancel'), workflow_cancel_message)

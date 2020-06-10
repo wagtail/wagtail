@@ -142,7 +142,7 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
             )
 
         self.assertContains(response, 'system', 2)  # create without a user + remove restriction
-        self.assertContains(response, 'the_editor', 8)  # entries by editor + 1 in sidebar menu + 1 in filter
+        self.assertContains(response, 'the_editor', 9)  # entries by editor + 1 in sidebar menu + 1 in filter
         self.assertContains(response, 'administrator', 2)  # the final restriction change + filter
 
     def test_page_history_filters(self):
@@ -188,7 +188,7 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertNotContains(response, 'About')
-        self.assertContains(response, "Draft saved", 1)
+        self.assertContains(response, "Draft saved", 2)
         self.assertNotContains(response, 'Deleted')
 
         # once a page is deleted, its log entries are only visible to super admins or users with
@@ -221,3 +221,45 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         history_url = reverse('wagtailadmin_pages:history', args=[self.hello_page.id])
         self.assertContains(response, history_url)
+
+    def test_create_and_publish_does_not_log_revision_save(self):
+        self.login(user=self.administrator)
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world-redux',
+            'action-publish': 'action-publish',
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)),
+            post_data, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+
+        page_id = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world-redux').id
+
+        self.assertListEqual(
+            list(LogEntry.objects.filter(object_id=str(page_id)).values_list('action', flat=True)),
+            ['wagtail.publish', 'wagtail.create']
+        )
+
+    def test_revert_and_publish_logs_reversion_and_publish(self):
+        revision = self.hello_page.save_revision(user=self.editor)
+        self.hello_page.save_revision(user=self.editor)
+
+        self.login(user=self.administrator)
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(self.hello_page.id, )),
+            {
+                'title': "Hello World!",
+                'content': "another hello",
+                'slug': 'hello-world',
+                'revision': revision.id, 'action-publish': 'action-publish'}, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+
+        entries = LogEntry.objects.filter(object_id=str(self.hello_page.id)).values_list('action', flat=True)
+        self.assertListEqual(
+            list(entries),
+            ['wagtail.publish', 'wagtail.rename', 'wagtail.revert', 'wagtail.create']
+        )

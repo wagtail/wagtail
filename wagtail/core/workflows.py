@@ -23,9 +23,9 @@ def get_task_types(task_class=None):
     return TASK_TYPES
 
 
-def publish_workflow_state(workflow_state):
+def publish_workflow_state(workflow_state, user=None):
     # publish the Page associated with a WorkflowState
     if workflow_state.current_task_state:
-        workflow_state.current_task_state.page_revision.publish()
+        workflow_state.current_task_state.page_revision.publish(user=user)
     else:
-        workflow_state.page.get_latest_revision().publish()
+        workflow_state.page.get_latest_revision().publish(user=user)
