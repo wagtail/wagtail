@@ -142,7 +142,7 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
             )
 
         self.assertContains(response, 'system', 2)  # create without a user + remove restriction
-        self.assertContains(response, 'the_editor', 9)  # entries by editor + 1 in sidebar menu + 1 in filter
+        self.assertContains(response, 'the_editor', 9)  # 7 entries by editor + 1 in sidebar menu + 1 in filter
         self.assertContains(response, 'administrator', 2)  # the final restriction change + filter
 
     def test_page_history_filters(self):
@@ -157,22 +157,6 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "Unlocked")
         self.assertNotContains(response, "Page scheduled for publishing")
         self.assertNotContains(response, "Published")
-
-        response = self.client.get(history_url + '?has_revision=true')
-        self.assertContains(response, "Draft saved", count=2)
-        self.assertContains(response, "Published")
-        self.assertNotContains(response, "Created")
-        self.assertNotContains(response, "Locked")
-        self.assertNotContains(response, "Unlocked")
-        self.assertContains(response, "Page scheduled for publishing")
-
-        response = self.client.get(history_url + '?has_revision=false')
-        self.assertContains(response, "Created")
-        self.assertContains(response, "Locked")
-        self.assertContains(response, "Unlocked")
-        self.assertNotContains(response, "Draft saved")
-        self.assertNotContains(response, "Published")
-        self.assertNotContains(response, "Page scheduled for publishing")
 
     def test_site_history(self):
         self._update_page(self.hello_page)

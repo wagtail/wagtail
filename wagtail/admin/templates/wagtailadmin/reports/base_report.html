@@ -9,7 +9,7 @@
             <div class="left">
                 <div class="col header-title">
                     <h1>
-                      {% icon header_icon class_name="header-title-icon" %}
+                      {% if header_icon %}{% icon name=header_icon class_name="header-title-icon" %}{% endif %}
                       {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}
                     </h1>
                 </div>

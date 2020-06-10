@@ -1754,7 +1754,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
 class PageHistoryView(ReportView):
     template_name = 'wagtailadmin/pages/history.html'
     title = _('Page history')
-    header_icon = 'doc-empty-inverse'
+    header_icon = 'history'
     paginate_by = 20
     filterset_class = PageHistoryReportFilterSet
 
