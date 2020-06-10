@@ -13,7 +13,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.contrib.redirects.models import Redirect
+from wagtail.contrib.redirects.middleware import get_redirect
 from wagtail.core.models import Page, Site
 
 from .filters import ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter
@@ -21,7 +21,7 @@ from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
     BadRequestError, filter_page_type, get_object_detail_url, page_models_from_string,
-    parse_fields_parameter)
+    parse_boolean, parse_fields_parameter)
 
 
 class BaseAPIViewSet(GenericViewSet):
@@ -453,25 +453,48 @@ class PagesAPIViewSet(BaseAPIViewSet):
 
     def find_object(self, queryset, request):
         site = Site.find_for_request(request)
+
         if 'html_path' in request.GET and site is not None:
             path = request.GET['html_path']
 
-            # Check whether there is a matching page redirect and set path accordingly.
-            try:
-                redirect = Redirect.objects.exclude(redirect_page__isnull=True).get(old_path=path)
-                path = urlparse(redirect.link).path
-            except Redirect.DoesNotExist:
-                pass
+            follow_redirects = False
+            if 'follow_redirects' in request.GET:
+                try:
+                    follow_redirects = parse_boolean(request.GET['follow_redirects'])
+                except ValueError:
+                    raise BadRequestError("follow_redirects must be 'true' or 'false'")
 
-            path_components = [component for component in path.split('/') if component]
+            # Putting this logic in a helper function, is a decent way to prevent code duplication.
+            def find_page(path, request):
+                path_components = [component for component in path.split('/') if component]
+                try:
+                    page, _, _ = site.root_page.specific.route(request, path_components)
+                    return page
+                except Http404:
+                    pass # return None
 
-            try:
-                page, _, _ = site.root_page.specific.route(request, path_components)
-            except Http404:
+            # First try to find the page without following redirects.
+            page = find_page(path, request)
+
+            # If there is no page and we follow redirects, try again this time following redirects.
+            if not page and follow_redirects:
+                try:
+                    redirect = get_redirect(request, path)
+                    path = urlparse(redirect.link).path
+                    page = find_page(path, request)
+                    # TODO: We need to set the 'X-Wagtail-Redirected-To-HTML-Path' header somehow.
+                except Redirect.DoesNotExist:
+                    pass
+
+            # Return if we do not find a page.
+            if not page:
                 return
 
+            # Return the page only when it exists in the queryset.
             if queryset.filter(id=page.id).exists():
                 return page
+
+            # NOTE: Here is an intentional? fallthrough in case the page does not exist in the queryset.
 
         return super().find_object(queryset, request)
 
