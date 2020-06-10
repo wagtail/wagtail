@@ -46,7 +46,7 @@ urlpatterns = [
     url(r'^tag-autocomplete/(\w+)/(\w+)/$', tags.autocomplete, name='wagtailadmin_tag_model_autocomplete'),
 
     url(r'^collections/', include(wagtailadmin_collections_urls, namespace='wagtailadmin_collections')),
-    url(r'^workflows/', include(wagtailadmin_workflows_urls, namespace='wagtailadmin_workflows')),
+    url(r'^workflow/', include(wagtailadmin_workflows_urls, namespace='wagtailadmin_workflows')),
 
     url(r'^reports/', include(wagtailadmin_reports_urls, namespace='wagtailadmin_reports')),
 
