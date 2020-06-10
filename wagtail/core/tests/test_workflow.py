@@ -8,7 +8,9 @@ from django.db.utils import IntegrityError
 from django.test import TestCase, override_settings
 
 from freezegun import freeze_time
-from wagtail.core.models import GroupApprovalTask, Page, Task, Workflow, WorkflowPage, WorkflowTask
+from wagtail.core.models import (
+    GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowState, WorkflowTask)
+
 from wagtail.tests.testapp.models import SimplePage
 
 
@@ -157,7 +159,7 @@ class TestWorkflows(TestCase):
 
     @override_settings(WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=False)
     def test_workflow_does_not_reset_when_new_revision_created_if_reapproval_turned_off(self):
-        # test that a Workflow on its second Task does not return to its first task (upon WorkflowState.update()) if a new revision is created
+        # test that a Workflow on its second Task does not return to its first task (upon approval) if a new revision is created
         data = self.start_workflow_on_homepage()
         workflow_state = data['workflow_state']
         task_1 = data['task_1']
@@ -176,10 +178,35 @@ class TestWorkflows(TestCase):
         self.assertEqual(workflow_state.status, workflow_state.STATUS_APPROVED)
 
     def test_reject_workflow(self):
-        # test that both WorkflowState and TaskState are marked as rejected upon Task.on_action with action=reject
+        # test that TaskState is marked as rejected upon Task.on_action with action=reject
+        # and the WorkflowState as needs changes
         data = self.start_workflow_on_homepage()
         workflow_state = data['workflow_state']
         task_state = workflow_state.current_task_state
         task_state.task.on_action(task_state, user=None, action_name='reject')
-        self.assertEqual(task_state.status, 'rejected')
-        self.assertEqual(workflow_state.status, 'rejected')
+        self.assertEqual(task_state.status, task_state.STATUS_REJECTED)
+        self.assertEqual(workflow_state.status, workflow_state.STATUS_NEEDS_CHANGES)
+
+    def test_resume_workflow(self):
+        # test that a Workflow rejected on its second Task can be resumed on the second task
+        data = self.start_workflow_on_homepage()
+        workflow_state = data['workflow_state']
+        task_2 = data['task_2']
+        workflow_state.current_task_state.approve(user=None)
+        workflow_state.refresh_from_db()
+        workflow_state.current_task_state.reject(user=None)
+        workflow_state.refresh_from_db()
+        workflow_state.resume(user=None)
+
+        self.assertEqual(workflow_state.status, workflow_state.STATUS_IN_PROGRESS)
+        self.assertEqual(workflow_state.current_task_state.status, workflow_state.current_task_state.STATUS_IN_PROGRESS)
+        self.assertEqual(workflow_state.current_task_state.task, task_2)
+
+    def cancel_workflow(self):
+        # test that cancelling a workflow state sets both current task state and its own statuses to cancelled, and cancels all in progress states
+        data = self.start_workflow_on_homepage()
+        workflow_state = data['workflow_state']
+        workflow_state.cancel(user=None)
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
+        self.assertEqual(workflow_state.current_task_state.status, TaskState.STATUS_CANCELLED)
+        self.assertFalse(TaskState.objects.filter(workflow_state=workflow_state, status=TaskState.STATUS_IN_PROGRESS).exists())
