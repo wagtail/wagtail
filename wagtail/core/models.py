@@ -13,7 +13,7 @@ from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
-from django.db.models import Case, Q, Value, When
+from django.db.models import Q, Value
 from django.db.models.functions import Concat, Lower, Substr
 from django.http import Http404
 from django.http.request import split_domain_port

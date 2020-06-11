@@ -1,6 +1,5 @@
 import itertools
 import json
-
 from urllib.parse import urljoin
 
 from django import template
@@ -24,8 +23,7 @@ from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
 from wagtail.core.models import (
-    CollectionViewRestriction, Page, PageViewRestriction,
-    UserPagePermissionsProxy, Collection)
+    Collection, CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url

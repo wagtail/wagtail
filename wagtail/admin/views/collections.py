@@ -70,9 +70,7 @@ class Edit(EditView):
             inclusive=True).values_list('pk', flat=True)
         )
         if new_parent_pk in old_descendants:
-            form.add_error(
-                'parent', ugettext_lazy('Please select another parent')
-            )
+            form.add_error('parent', gettext_lazy('Please select another parent'))
             return self.form_invalid(form)
         return super().form_valid(form)
 

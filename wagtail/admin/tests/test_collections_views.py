@@ -125,18 +125,14 @@ class TestEditCollection(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
     def test_move_collection(self):
-        response = self.post(
-            {'name': "Level 2", 'parent': self.root_collection.pk}, self.l2.pk
-        )
+        self.post({'name': "Level 2", 'parent': self.root_collection.pk}, self.l2.pk)
         self.assertEqual(
             Collection.objects.get(pk=self.l2.pk).get_parent().pk,
             self.root_collection.pk,
         )
 
     def test_cannot_move_parent_collection_to_descendant(self):
-        response = self.post(
-            {'name': "Level 2", 'parent': self.l3.pk}, self.l2.pk
-        )
+        self.post({'name': "Level 2", 'parent': self.l3.pk}, self.l2.pk)
         self.assertEqual(
             Collection.objects.get(pk=self.l2.pk).get_parent().pk,
             self.l1.pk
