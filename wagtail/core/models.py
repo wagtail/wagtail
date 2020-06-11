@@ -3361,6 +3361,10 @@ class WorkflowState(models.Model):
 
         return tasks
 
+    @property
+    def is_active(self):
+        return self.status not in [self.STATUS_APPROVED, self.STATUS_CANCELLED]
+
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')

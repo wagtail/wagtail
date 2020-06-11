@@ -10,12 +10,9 @@
     <header class="merged tab-merged">
         {% explorer_breadcrumb parent_page include_self=1 %}
 
-        <div class="row row-flush">
+        <div class="row">
             <div class="left col9 header-title">
-                <h1>
-                    {% icon "doc-empty-inverse" class_name="header-title-icon" %}
-                    {% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span>
-                </h1>
+                <h1>{% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
             </div>
         </div>
     </header>
