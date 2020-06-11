@@ -36,18 +36,21 @@ class Index(IndexView):
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
     page_title = _("Workflows")
-    add_item_label = _("Create a new workflow")
+    add_item_label = _("Add a workflow")
     header_icon = 'clipboard-list'
+
+    def show_disabled(self):
+        return self.request.GET.get('show_disabled', 'false') == 'true'
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        if 'show_disabled' not in self.request.GET:
+        if not self.show_disabled():
             queryset = queryset.filter(active=True)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['showing_disabled'] = 'show_disabled' in self.request.GET
+        context['showing_disabled'] = self.show_disabled()
         return context
 
 
