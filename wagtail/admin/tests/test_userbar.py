@@ -111,9 +111,15 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
 
         # page allows subpages, so the 'add page' button should show
         expected_url = reverse('wagtailadmin_pages:add_subpage', args=(self.event_index.id, ))
-        expected_link = '<a href="%s" target="_parent">Add a child page</a>' \
-            % expected_url
-        self.assertContains(response, expected_link)
+        needle = f"""
+            <a href="{expected_url}" target="_parent">
+                <svg class="icon icon-plus wagtail-action-icon" aria-hidden="true" focusable="false">
+                    <use href="#icon-plus"></use>
+                </svg>
+                Add a child page
+            </a>
+            """
+        self.assertTagInHTML(needle, str(response.content))
 
     def test_page_disallowing_subpages(self):
         response = self.client.get(reverse('wagtailadmin_userbar_frontend', args=(self.business_child.id, )))
