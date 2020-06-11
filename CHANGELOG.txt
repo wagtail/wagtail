@@ -39,7 +39,7 @@ Changelog
  * Remove markup around rich text rendering by default, provide a way to use old behaviour via `wagtail.contrib.legacy.richtext` (Coen van der Kamp, Dan Braghis)
  * Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
  * Add `WAGTAIL_TIME_FORMAT` setting (Jacob Topp-Mugglestone)
- * Add ability to import redirects from an uploaded file (CSV, TSV, XLX, and XLXS) (Martin Sandström)
+ * Add ability to import redirects from an uploaded file (CSV, TSV, XLS, and XLSX) (Martin Sandström)
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)

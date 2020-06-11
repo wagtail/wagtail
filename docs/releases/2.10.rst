@@ -52,7 +52,7 @@ Other features
  * Remove markup around rich text rendering by default, provide a way to use old behaviour via ``wagtail.contrib.legacy.richtext``. See :ref:`legacy_richtext`. (Coen van der Kamp, Dan Braghis)
  * Add ``WAGTAIL_TIME_FORMAT`` setting (Jacob Topp-Mugglestone)
  * Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
- * Add ability to import redirects from an uploaded file (CSV, TSV, XLX, and XLXS) (Martin Sandström)
+ * Add ability to import redirects from an uploaded file (CSV, TSV, XLS, and XLSX) (Martin Sandström)
 
 
 Bug fixes
