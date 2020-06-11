@@ -57,7 +57,7 @@ def format_permissions(permission_bound_field):
             # identify the three main categories of permission, and assign to
             # the relevant dict key, else bung in the 'other_perms' list
             permission_action = perm.codename.split('_')[0]
-            if permission_action in ['add', 'change', 'delete']:
+            if permission_action in ['add', 'change', 'delete', 'view']:
                 content_perms_dict['object'] = perm.content_type.name
                 content_perms_dict[permission_action] = {
                     'perm': perm, 'checkbox': checkbox,

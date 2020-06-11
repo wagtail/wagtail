@@ -911,7 +911,7 @@ class InspectView(InstanceSpecificView):
         context = {
             'fields': self.get_fields_dict(),
             'buttons': self.button_helper.get_buttons_for_obj(
-                self.instance, exclude=['inspect']),
+                self.instance, exclude=['inspect', 'submissions']),
         }
         context.update(kwargs)
         return super().get_context_data(**context)

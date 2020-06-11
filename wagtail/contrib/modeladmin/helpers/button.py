@@ -98,10 +98,6 @@ class ButtonHelper:
         usr = self.request.user
         pk = getattr(obj, self.opts.pk.attname)
         btns = []
-        if('inspect' not in exclude and ph.user_can_inspect_obj(usr, obj)):
-            btns.append(
-                self.inspect_button(pk, classnames_add, classnames_exclude)
-            )
         if('edit' not in exclude and ph.user_can_edit_obj(usr, obj)):
             btns.append(
                 self.edit_button(pk, classnames_add, classnames_exclude)
@@ -109,6 +105,10 @@ class ButtonHelper:
         if('delete' not in exclude and ph.user_can_delete_obj(usr, obj)):
             btns.append(
                 self.delete_button(pk, classnames_add, classnames_exclude)
+            )
+        if('inspect' not in exclude and ph.user_can_inspect_obj(usr, obj)):
+            btns.append(
+                self.inspect_button(pk, classnames_add, classnames_exclude)
             )
         return btns
 
@@ -158,10 +158,6 @@ class PageButtonHelper(ButtonHelper):
         usr = self.request.user
         pk = getattr(obj, self.opts.pk.attname)
         btns = []
-        if('inspect' not in exclude and ph.user_can_inspect_obj(usr, obj)):
-            btns.append(
-                self.inspect_button(pk, classnames_add, classnames_exclude)
-            )
         if('edit' not in exclude and ph.user_can_edit_obj(usr, obj)):
             btns.append(
                 self.edit_button(pk, classnames_add, classnames_exclude)
@@ -177,5 +173,9 @@ class PageButtonHelper(ButtonHelper):
         if('delete' not in exclude and ph.user_can_delete_obj(usr, obj)):
             btns.append(
                 self.delete_button(pk, classnames_add, classnames_exclude)
+            )
+        if('inspect' not in exclude and ph.user_can_inspect_obj(usr, obj)):
+            btns.append(
+                self.inspect_button(pk, classnames_add, classnames_exclude)
             )
         return btns
