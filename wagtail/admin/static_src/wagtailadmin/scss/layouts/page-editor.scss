@@ -590,11 +590,11 @@ footer .preview {
         fill: $color-teal;
     }
 
-    .needs_changes .icon {
+    .needs_changes .icon,
+    .rejected .icon {
         fill: $color-orange;
     }
 
-    .rejected .icon,
     .cancelled .icon {
         fill: $color-red-dark;
     }

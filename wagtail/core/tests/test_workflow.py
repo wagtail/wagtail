@@ -208,6 +208,7 @@ class TestWorkflows(TestCase):
         self.assertEqual(workflow_state.status, workflow_state.STATUS_IN_PROGRESS)
         self.assertEqual(workflow_state.current_task_state.status, workflow_state.current_task_state.STATUS_IN_PROGRESS)
         self.assertEqual(workflow_state.current_task_state.task, task_2)
+        self.assertTrue(workflow_state.is_active)
 
     def test_tasks_with_status_on_resubmission(self):
         # test that a Workflow rejected and resumed shows the status of the latest tasks when _`all_tasks_with_status` is called
@@ -242,6 +243,7 @@ class TestWorkflows(TestCase):
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
         self.assertEqual(workflow_state.current_task_state.status, TaskState.STATUS_CANCELLED)
         self.assertFalse(TaskState.objects.filter(workflow_state=workflow_state, status=TaskState.STATUS_IN_PROGRESS).exists())
+        self.assertFalse(workflow_state.is_active)
 
     def test_task_workflows(self):
         workflow = Workflow.objects.create(name='test_workflow')
