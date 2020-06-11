@@ -202,6 +202,31 @@ class TestWorkflows(TestCase):
         self.assertEqual(workflow_state.current_task_state.status, workflow_state.current_task_state.STATUS_IN_PROGRESS)
         self.assertEqual(workflow_state.current_task_state.task, task_2)
 
+    def test_tasks_with_status_on_resubmission(self):
+        # test that a Workflow rejected and resumed shows the status of the latest tasks when _`all_tasks_with_status` is called
+        data = self.start_workflow_on_homepage()
+        workflow_state = data['workflow_state']
+
+        tasks = workflow_state.all_tasks_with_status()
+        self.assertEqual(tasks[0].status, TaskState.STATUS_IN_PROGRESS)
+        self.assertEqual(tasks[1].status_display, 'Not started')
+
+        workflow_state.current_task_state.approve(user=None)
+        workflow_state.refresh_from_db()
+
+        workflow_state.current_task_state.reject(user=None)
+        workflow_state.refresh_from_db()
+
+        tasks = workflow_state.all_tasks_with_status()
+        self.assertEqual(tasks[0].status, TaskState.STATUS_APPROVED)
+        self.assertEqual(tasks[1].status, TaskState.STATUS_REJECTED)
+
+        workflow_state.resume(user=None)
+
+        tasks = workflow_state.all_tasks_with_status()
+        self.assertEqual(tasks[0].status, TaskState.STATUS_APPROVED)
+        self.assertEqual(tasks[1].status, TaskState.STATUS_IN_PROGRESS)
+
     def cancel_workflow(self):
         # test that cancelling a workflow state sets both current task state and its own statuses to cancelled, and cancels all in progress states
         data = self.start_workflow_on_homepage()
