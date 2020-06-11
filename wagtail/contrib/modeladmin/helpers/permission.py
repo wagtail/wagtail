@@ -159,7 +159,7 @@ class PagePermissionHelper(PermissionHelper):
 
     def user_can_inspect_obj(self, user, obj):
         perms = obj.permissions_for_user(user)
-        return perms.can_inspect()
+        return perms.can_view()
 
     def user_can_publish_obj(self, user, obj):
         perms = obj.permissions_for_user(user)
