@@ -2969,6 +2969,15 @@ class WorkflowState(models.Model):
         ]
 
 
+class TaskStateManager(models.Manager):
+    def reviewable_by(self, user):
+        tasks = Task.objects.filter(active=True)
+        states = TaskState.objects.none()
+        for task in tasks:
+            states = states | task.specific.get_task_states_user_can_moderate(user=user)
+        return states
+
+
 class TaskState(MultiTableCopyMixin, models.Model):
     """Tracks the status of a given Task for a particular page revision."""
     STATUS_IN_PROGRESS = 'in_progress'
@@ -3005,6 +3014,8 @@ class TaskState(MultiTableCopyMixin, models.Model):
         on_delete=models.CASCADE
     )
     exclude_fields_in_copy = []
+
+    objects = TaskStateManager()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
