@@ -4,6 +4,7 @@ from collections import defaultdict
 from io import StringIO
 from urllib.parse import urlparse
 
+from django import forms
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -2571,6 +2572,9 @@ class Task(models.Model):
         "Active tasks can be added to workflows. Deactivating a task does not remove it from existing workflows."))
     objects = TaskManager()
 
+    admin_form_fields = ['name']
+    admin_form_readonly_on_edit_fields = []
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if not self.id:
@@ -2737,6 +2741,12 @@ class Workflow(ClusterableModel):
 
 class GroupApprovalTask(Task):
     groups = models.ManyToManyField(Group, verbose_name=_('groups'), help_text=_('Pages at this step in a workflow will be moderated or approved by these groups of users'))
+
+    admin_form_fields = Task.admin_form_fields + ['groups']
+    admin_form_readonly_on_edit_fields = ['groups']
+    admin_form_widgets = {
+        'groups': forms.CheckboxSelectMultiple,
+    }
 
     def start(self, workflow_state, user=None):
         if workflow_state.page.locked_by:
