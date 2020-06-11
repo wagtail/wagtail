@@ -446,10 +446,8 @@ class Filter:
                 # Allow changing of JPEG compression quality
                 if 'jpeg-quality' in env:
                     quality = env['jpeg-quality']
-                elif hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
-                    quality = settings.WAGTAILIMAGES_JPEG_QUALITY
                 else:
-                    quality = 85
+                    quality = getattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY', 85)
 
                 # If the image has an alpha channel, give it a white background
                 if willow.has_alpha():
@@ -461,7 +459,16 @@ class Filter:
             elif output_format == 'gif':
                 return willow.save_as_gif(output)
             elif output_format == 'webp':
-                return willow.save_as_webp(output)
+                # Allow changing of WebP compression quality
+                if ('output-format-options' in env
+                        and 'lossless' in env['output-format-options']):
+                    return willow.save_as_webp(output, lossless=True)
+                elif 'webp-quality' in env:
+                    quality = env['webp-quality']
+                else:
+                    quality = getattr(settings, 'WAGTAILIMAGES_WEBP_QUALITY', 85)
+
+                return willow.save_as_webp(output, quality=quality)
 
     def get_cache_key(self, image):
         vary_parts = []

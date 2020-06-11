@@ -1,4 +1,5 @@
 import datetime
+from html import unescape
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
@@ -7,7 +8,7 @@ from django.template.loader import render_to_string
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
-from django.utils.html import format_html
+from django.utils.html import format_html, strip_tags
 from django.utils.safestring import mark_safe
 
 from wagtail.core.rich_text import RichText
@@ -572,7 +573,9 @@ class RichTextBlock(FieldBlock):
         return RichText(value)
 
     def get_searchable_content(self, value):
-        return [force_str(value.source)]
+        # Strip HTML tags to prevent search backend earch backend from indexing them
+        source = force_str(value.source)
+        return [unescape(strip_tags(source))]
 
     class Meta:
         icon = "doc-full"

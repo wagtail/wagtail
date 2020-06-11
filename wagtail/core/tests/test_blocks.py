@@ -549,6 +549,20 @@ class TestRichTextBlock(TestCase):
         with self.assertRaises(ValidationError):
             block.clean(RichText('<p>bar</p>'))
 
+    def test_get_searchable_content(self):
+        block = blocks.RichTextBlock()
+        value = RichText(
+            '<p>Merry <a linktype="page" id="4">Christmas</a>! &amp; a happy new year</p>\n'
+            '<p>Our Santa pet <b>Wagtail</b> has some cool stuff in store for you all!</p>'
+        )
+        result = block.get_searchable_content(value)
+        self.assertEqual(
+            result, [
+                'Merry Christmas! & a happy new year\n'
+                'Our Santa pet Wagtail has some cool stuff in store for you all!'
+            ]
+        )
+
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
     def setUp(self):

@@ -187,6 +187,30 @@ class BackendTests(WagtailTestUtils):
             "Learning Python",
         ])
 
+    def test_autocomplete_uses_autocompletefield(self):
+        # Autocomplete should only require an AutocompleteField, not a SearchField with
+        # partial_match=True
+        results = self.backend.autocomplete("Georg", models.Author)
+        self.assertUnsortedListEqual([r.name for r in results], [
+            "George R.R. Martin",
+        ])
+
+    def test_autocomplete_with_fields_arg(self):
+        results = self.backend.autocomplete("Georg", models.Author, fields=['name'])
+        self.assertUnsortedListEqual([r.name for r in results], [
+            "George R.R. Martin",
+        ])
+
+    def test_autocomplete_not_affected_by_stemming(self):
+        # If SEARCH_CONFIG is set, stemming will be enabled.
+        # But we want to disable this for autocomplete as stemmed words don't always match on prefixes
+        # See: https://www.postgresql.org/docs/9.1/datatype-textsearch.html#DATATYPE-TSQUERY
+        results = self.backend.autocomplete("Learni", models.Book)
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "Learning Python",
+        ])
+
     # FILTERING TESTS
 
     def test_filter_exact_value(self):

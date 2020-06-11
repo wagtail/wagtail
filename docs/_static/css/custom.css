@@ -34,8 +34,7 @@ div.wy-side-nav-search {
 }
 
 .logo:hover {
-    transform: rotate(8deg);
-    transition: transform 1.2s ease;
+    transform: rotate(4deg);
 }
 
 /* Wagtail Space */

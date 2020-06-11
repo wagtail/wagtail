@@ -171,6 +171,7 @@ if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     WAGTAILSEARCH_BACKENDS['postgresql'] = {
         'BACKEND': 'wagtail.contrib.postgres_search.backend',
         'AUTO_UPDATE': False,
+        'SEARCH_CONFIG': 'english'
     }
 
 if 'ELASTICSEARCH_URL' in os.environ:

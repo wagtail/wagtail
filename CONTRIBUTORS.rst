@@ -464,6 +464,9 @@ Contributors
 * Lacey Williams Henschel
 * Dan Bentley
 * GTpyro
+* Yngve Høiseth
+* Andrew Bunker
+* Nikolay Lukyanov (mozgsml)
 
 Translators
 ===========

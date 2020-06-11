@@ -19,6 +19,7 @@ Search queries can now be constructed as structured expressions in the manner of
 Other features
 ~~~~~~~~~~~~~~
 
+ * Added ``webpquality`` and ``format-webp-lossless`` image filters and ``WAGTAILIMAGES_WEBP_QUALITY`` setting. See :ref:`output_image_format` and :ref:`image_quality` (Nikolay Lukyanov)
  * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
  * Added filtering to locked pages report (Karl Hobley)
  * Adds ability to view a group's users via standalone admin URL and a link to this on the group edit view (Karran Besen)
@@ -50,6 +51,8 @@ Other features
  * Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas)
  * Remove markup around rich text rendering by default, provide a way to use old behaviour via ``wagtail.contrib.legacy.richtext``. See :ref:`legacy_richtext`. (Coen van der Kamp, Dan Braghis)
  * Add ``WAGTAIL_TIME_FORMAT`` setting (Jacob Topp-Mugglestone)
+ * Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
+ * Add ability to import redirects from an uploaded file (CSV, TSV, XLX, and XLXS) (Martin Sandström)
 
 
 Bug fixes
@@ -65,18 +68,20 @@ Bug fixes
  * Add Wagtail User Bar back to page previews and ensure moderation actions are available (Coen van der Kamp)
  * Fix issue where queryset annotations were lost (e.g. ``.annotate_score()``) when using specific models in page query (Dan Bentley)
  * Prevent date/time picker from losing an hour on losing focus when 12-hour times are in use (Jacob Topp-Mugglestone)
+ * Strip out HTML tags from ``RichTextField`` & ``RichTextBlock`` search index content (Timothy Bautista)
+ * Avoid using null on string ``Site.site_name`` blank values to avoid different values for no name (Coen van der Kamp)
+ * Fix deprecation warnings on Elasticsearch 7 (Yngve Høiseth)
+ * Remove use of Node.forEach for IE 11 compatibility in admin menu items (Thibaud Colas)
 
 
 Upgrade considerations
 ======================
 
- * Rich text will now be rendered without any markup, to use the old behaviour where a wrapper ``<div class="rich-text">`` is used see :ref:`legacy_richtext`.
-
-
 Removed support for Python 3.5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Python 3.5 is no longer supported as of this release; please upgrade to Python 3.6 or above before upgrading Wagtail.
+
 
 
 Move to new configurable moderation system (workflow)
@@ -101,3 +106,10 @@ Key points:
   for the entire page tree. However, if you have a complex nested set of publish page permissions, the created set of workflows will be more complex as well - you may wish to
   inspect the created workflows and tasks in the new ``Settings/Workflows`` admin area and potentially simplify them.
   See :ref:`managing_workflows` for the administrator guide.
+
+``<div class="rich-text">`` wrappers removed from rich text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, rich text values were enclosed in a ``<div class="rich-text">`` element when rendered; this element has now been removed.
+To restore the old behaviour, see :ref:`legacy_richtext`.
+

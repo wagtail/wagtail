@@ -556,6 +556,20 @@ class TestFormatFilter(TestCase):
 
         self.assertEqual(out.format_name, 'webp')
 
+    def test_webp_lossless(self):
+        fil = Filter(spec='width-400|format-webp-lossless')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        # quality=80 is default for Williw and PIL libs
+        save.assert_called_with(f, 'WEBP', quality=80, lossless=True)
+
     def test_invalid(self):
         fil = Filter(spec='width-400|format-foo')
         image = Image.objects.create(
@@ -647,6 +661,90 @@ class TestJPEGQualityFilter(TestCase):
             fil.run(image, f)
 
         save.assert_called_with(f, 'JPEG', quality=40, optimize=True, progressive=True)
+
+
+class TestWebPQualityFilter(TestCase):
+    def test_default_quality(self):
+        fil = Filter(spec='width-400|format-webp')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'WEBP', quality=85, lossless=False)
+
+    def test_webp_quality_filter(self):
+        fil = Filter(spec='width-400|webpquality-40|format-webp')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'WEBP', quality=40, lossless=False)
+
+    def test_webp_quality_filter_invalid(self):
+        fil = Filter(spec='width-400|webpquality-abc|format-webp')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    def test_webp_quality_filter_no_value(self):
+        fil = Filter(spec='width-400|webpquality')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    def test_webp_quality_filter_too_big(self):
+        fil = Filter(spec='width-400|webpquality-101|format-webp')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+        self.assertRaises(InvalidFilterSpecError, fil.run, image, BytesIO())
+
+    @override_settings(
+        WAGTAILIMAGES_WEBP_QUALITY=50
+    )
+    def test_webp_quality_setting(self):
+        fil = Filter(spec='width-400|format-webp')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'WEBP', quality=50, lossless=False)
+
+    @override_settings(
+        WAGTAILIMAGES_WEBP_QUALITY=50
+    )
+    def test_jpeg_quality_filter_overrides_setting(self):
+        fil = Filter(spec='width-400|webpquality-40|format-webp')
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file_jpeg(),
+        )
+
+        f = BytesIO()
+        with patch('PIL.Image.Image.save') as save:
+            fil.run(image, f)
+
+        save.assert_called_with(f, 'WEBP', quality=40, lossless=False)
 
 
 class TestBackgroundColorFilter(TestCase):

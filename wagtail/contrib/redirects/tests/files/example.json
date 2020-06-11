@@ -1,0 +1,14 @@
+[
+    {
+        "from": "/hello-from-json",
+        "to": "http://hello.com/random/"
+    },
+    {
+        "from": "/goodbye-from-json",
+        "to": "http://hello.com/goodbye/"
+    },
+    {
+        "from": "/goodbye-from-json",
+        "to": "/goodbye-not-working/"
+    }
+]
