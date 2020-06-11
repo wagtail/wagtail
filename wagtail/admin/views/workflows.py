@@ -36,7 +36,7 @@ class Index(IndexView):
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
     page_title = _("Workflows")
-    add_item_label = _("Create a new workflow")
+    add_item_label = _("Add a workflow")
     header_icon = 'clipboard-list'
 
     def get_queryset(self):
