@@ -700,7 +700,7 @@ def edit(request, page_id):
         'next': next_url,
         'has_unsaved_changes': has_unsaved_changes,
         'page_locked': page_perms.page_locked(),
-        'workflow_state': workflow_state,
+        'workflow_state': workflow_state if workflow_state and workflow_state.is_active else None,
         'current_task_state': page.current_workflow_task_state,
     })
 
@@ -1321,7 +1321,7 @@ def workflow_action(request, page_id, action_name, task_state_id):
 def workflow_status(request, page_id):
     page = get_object_or_404(Page, id=page_id)
 
-    if not page.workflow_in_progress:
+    if not page.current_workflow_state:
         raise PermissionDenied
 
     workflow_tasks = []
