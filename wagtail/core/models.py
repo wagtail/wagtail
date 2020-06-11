@@ -2948,7 +2948,9 @@ class WorkflowState(models.Model):
                 status=Subquery(
                     task_states.filter(
                         task_id=OuterRef('id'),
-                    ).values('status')
+                    ).order_by(
+                        '-started_at', '-id'
+                    ).values('status')[:1]
                 ),
             )
         )
