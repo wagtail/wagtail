@@ -14,7 +14,7 @@
             <a href="{% url 'wagtailadmin_pages:workflow_history' page.id %}" class="button button-small button-secondary">{% trans "Workflow history" %}</a>
         </p>
 
-        <h2 class="icon icon-placeholder">{{ workflow_state.workflow.name }}</h2>
+        <h2 class="icon icon-clipboard-list">{{ workflow_state.workflow.name }}</h2>
 
         <p>
             {% blocktrans with modified_by=workflow_state.requested_by.get_full_name|default:workflow_state.requested_by.get_username %}Requested by <b>{{ modified_by }}</b>{% endblocktrans %}
@@ -30,12 +30,12 @@
         </p>
 
         <div class="workflow-progress-tabs__buttons">
-            <button data-tab-button="tasks" class="workflow-progress-tabs__button workflow-progress-tabs__button--active">{% trans "Tasks" %}</button>
-            <button data-tab-button="timeline" class="workflow-progress-tabs__button">{% trans "Timeline" %}</button>
+            <button data-tab-button="tasks" class="workflow-progress-tabs__button">{% trans "Tasks" %}</button>
+            <button data-tab-button="timeline" class="workflow-progress-tabs__button workflow-progress-tabs__button--active">{% trans "Timeline" %}</button>
         </div>
     </div>
 
-    <div class="workflow-progress-tabs__tab workflow-progress-tabs__tab--active" data-tab="tasks">
+    <div class="workflow-progress-tabs__tab" data-tab="tasks">
         <table class="workflow-progress-table workflow-progress-table--tasks">
             <colgroup width="20%"></colgroup>
             {% for task in tasks %}
@@ -83,8 +83,9 @@
                                 {% else %}
                                     <div class="status-tag primary">{{ task_state.get_status_display }}</div>
                                 {% endif %}
-
-                                <p>{{ task_state.specific.get_comment }}</p>
+                                {% if task_state.specific.get_comment %}
+                                    <p>{% trans 'with comment:' %} <b>"{{ task_state.specific.get_comment }}"</b></p>
+                                {% endif %}
                             </td>
                         {% endfor %}
                     </tr>
@@ -93,7 +94,7 @@
         </table>
     </div>
 
-    <div class="workflow-progress-tabs__tab" data-tab="timeline">
+    <div class="workflow-progress-tabs__tab workflow-progress-tabs__tab--active" data-tab="timeline">
         <table class="workflow-progress-table workflow-progress-table--timeline">
             <colgroup width="20%"></colgroup>
             <colgroup width="80%"></colgroup>
@@ -129,7 +130,9 @@
                                     <div class="status-tag primary">{{ timeline_item.task_state.get_status_display }}</div>
                                 {% endif %}
 
-                                <p>{{ task_state.specific.get_comment }}</p>
+                                {% if timeline_item.task_state.specific.get_comment %}
+                                    {% trans 'with comment:' %} <b>"{{ timeline_item.task_state.specific.get_comment }}"</b>
+                                {% endif %}
                             {% endif %}
                         </td>
                     </tr>

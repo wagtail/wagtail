@@ -1,3 +1,4 @@
+import json
 import logging
 from unittest import mock
 
@@ -602,7 +603,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         page_published.connect(mock_handler)
 
         # Post
-        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'approve'})
+        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)), {'comment': 'my comment'})
 
         # Check that the workflow was approved
 
@@ -615,6 +616,10 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         task_state = workflow_state.current_task_state
 
         self.assertEqual(task_state.status, task_state.STATUS_APPROVED)
+
+        # Check that the comment was added to the task state correctly
+
+        self.assertEqual(task_state.comment, 'my comment')
 
         page = Page.objects.get(id=self.page.id)
         # Page must be live
@@ -633,12 +638,24 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(mock_call['instance'], self.page)
         self.assertIsInstance(mock_call['instance'], self.page.specific_class)
 
+    def test_workflow_action_get(self):
+        """
+        This tests that a GET request to the workflow action view (for the approve action) returns a modal with a form for extra data entry:
+        adding a comment
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/workflow_action_modal.html')
+        html = json.loads(response.content)['html']
+        self.assertTagInHTML('<form action="' + reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)) + '" method="POST" novalidate>', html)
+        self.assertIn('Comment', html)
+
     def test_workflow_action_view_bad_page_id(self):
         """
         This tests that the workflow action view handles invalid page ids correctly
         """
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(124567, )), {'action': 'approve'})
+        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(127777777777, 'approve', self.page.current_workflow_task_state.id)))
 
         # Check that the user received a 404 response
         self.assertEqual(response.status_code, 404)
@@ -652,8 +669,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.login(user=self.submitter)
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'approve'})
-
+        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
 
@@ -679,7 +695,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         This posts to the reject task view and checks that the page was rejected and not published
         """
         # Post
-        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'reject'})
+        self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'reject', self.page.current_workflow_task_state.id)))
 
         # Check that the workflow was marked as needing changes
 
@@ -707,7 +723,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.login(user=self.submitter)
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'reject'})
+        response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'reject', self.page.current_workflow_task_state.id)))
 
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
@@ -817,10 +833,10 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         return self.client.post(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), post_data)
 
     def approve(self):
-        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'approve'})
+        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
 
     def reject(self):
-        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'reject'})
+        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'reject', self.page.current_workflow_task_state.id)))
 
     def test_vanilla_profile(self):
         # Check that the vanilla profile has rejected notifications on
@@ -1023,7 +1039,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         return self.client.post(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), post_data)
 
     def approve(self):
-        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, )), {'action': 'approve'})
+        return self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
 
     def test_disable_workflow(self):
         """Test that deactivating a workflow sets it to inactive and cancels in progress states"""
