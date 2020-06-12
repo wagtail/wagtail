@@ -1286,7 +1286,7 @@ def workflow_action(request, page_id, action_name, task_state_id):
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(page.get_admin_display_title()))
         return redirect(redirect_to)
 
-    task_state = get_object_or_404(TaskState, id=task_state_id) if task_state_id else page.current_workflow_task_state
+    task_state = get_object_or_404(TaskState, id=task_state_id)
     task_state = task_state.specific
 
     task = task_state.task.specific
