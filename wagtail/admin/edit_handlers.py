@@ -795,9 +795,6 @@ Task.panels = [
     FieldPanel("name", heading=gettext_lazy("Give your task a name")),
 ]
 GroupApprovalTask.panels = Task.panels + [FieldPanel('groups', heading=gettext_lazy("Choose approval groups"))]
-# do not allow editing of group post creation - this could lead to confusing history if a group is changed after tasks
-# are started/completed
-GroupApprovalTask.exclude_on_edit = {'groups'}
 
 Workflow.base_form_class = WagtailAdminModelForm
 Task.base_form_class = WagtailAdminModelForm
