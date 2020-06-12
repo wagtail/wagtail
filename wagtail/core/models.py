@@ -2963,7 +2963,7 @@ class WorkflowState(models.Model):
         )
 
         # Manually annotate status_display
-        status_choices = dict(self.STATUS_CHOICES)
+        status_choices = dict(TaskState.STATUS_CHOICES)
         for task in tasks:
             task.status_display = status_choices.get(task.status, _("Not started"))
 
