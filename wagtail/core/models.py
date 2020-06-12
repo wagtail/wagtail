@@ -30,6 +30,7 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
+from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import (
     page_published, page_unpublished, post_page_move, pre_page_move,
@@ -2656,12 +2657,12 @@ class Task(models.Model):
         return task_state
 
     @transaction.atomic
-    def on_action(self, task_state, user, action_name):
+    def on_action(self, task_state, user, action_name, **kwargs):
         """Performs an action on a task state determined by the ``action_name`` string passed"""
         if action_name == 'approve':
-            task_state.approve(user=user)
+            task_state.approve(user=user, **kwargs)
         elif action_name == 'reject':
-            task_state.reject(user=user)
+            task_state.reject(user=user, **kwargs)
 
     def user_can_access_editor(self, page, user):
         """Returns True if a user who would not normally be able to access the editor for the page should be able to if the page is currently on this task.
@@ -2683,9 +2684,15 @@ class Task(models.Model):
         return False
 
     def get_actions(self, page, user):
-        """Get the list of action strings for actions the current user can perform for this task on the given page. These strings should be
-        the same as those able to be passed to ``on_action``"""
+        """Get the list of action strings (name, verbose_name, whether the action requires additional data - see ``get_form_for_action``)
+        for actions the current user can perform for this task on the given page. These strings should be the same as those able to be passed to ``on_action``"""
         return []
+
+    def get_form_for_action(self, action):
+        return TaskStateCommentForm
+
+    def get_template_for_action(self, action):
+        return ''
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
         """Returns a ``QuerySet`` of the task states the current user can moderate"""
@@ -2782,8 +2789,9 @@ class GroupApprovalTask(Task):
     def get_actions(self, page, user):
         if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
             return [
-                ('approve', _("Approve")),
-                ('reject', _("Reject"))
+                ('approve', _("Approve"), False),
+                ('approve', _("Approve with comment"), True),
+                ('reject', _("Reject"), True)
             ]
         else:
             return []
@@ -3031,6 +3039,7 @@ class TaskState(MultiTableCopyMixin, models.Model):
         on_delete=models.SET_NULL,
         related_name='finished_task_states'
     )
+    comment = models.TextField(blank=True)
     content_type = models.ForeignKey(
         ContentType,
         verbose_name=_('content type'),
@@ -3077,12 +3086,14 @@ class TaskState(MultiTableCopyMixin, models.Model):
             return content_type.get_object_for_this_type(id=self.id)
 
     @transaction.atomic
-    def approve(self, user=None, update=True):
+    def approve(self, user=None, update=True, comment=''):
         """Approve the task state and update the workflow state"""
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
         self.status = self.STATUS_APPROVED
         self.finished_at = timezone.now()
+        self.finished_by = user
+        self.comment = comment
         self.save()
         if update:
             self.workflow_state.update(user=user)
@@ -3090,12 +3101,14 @@ class TaskState(MultiTableCopyMixin, models.Model):
         return self
 
     @transaction.atomic
-    def reject(self, user=None, update=True):
+    def reject(self, user=None, update=True, comment=''):
         """Reject the task state and update the workflow state"""
         if self.status != self.STATUS_IN_PROGRESS:
             raise PermissionDenied
         self.status = self.STATUS_REJECTED
         self.finished_at = timezone.now()
+        self.finished_by = user
+        self.comment = comment
         self.save()
         if update:
             self.workflow_state.update(user=user)
@@ -3115,11 +3128,13 @@ class TaskState(MultiTableCopyMixin, models.Model):
         return started_at
 
     @transaction.atomic
-    def cancel(self, user=None, resume=False):
+    def cancel(self, user=None, resume=False, comment=''):
         """Cancel the task state and update the workflow state. If ``resume`` is set to True, then upon update the workflow state
         is passed the current task as ``next_task``, causing it to start a new task state on the current task if possible"""
         self.status = self.STATUS_CANCELLED
         self.finished_at = timezone.now()
+        self.comment = comment
+        self.finished_by = user
         self.save()
         if resume:
             self.workflow_state.update(user=user, next_task=self.task.specific)
@@ -3145,7 +3160,7 @@ class TaskState(MultiTableCopyMixin, models.Model):
         This could be a comment by the reviewer, or generated.
         Use mark_safe to return HTML.
         """
-        return ""
+        return self.comment
 
     class Meta:
         verbose_name = _('Task state')
