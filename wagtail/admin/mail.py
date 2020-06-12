@@ -336,14 +336,11 @@ class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
 class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
     """A base notifier to send email updates for GroupApprovalTask events"""
 
-    task_classes = {GroupApprovalTask, }
-
     def __init__(self):
         super().__init__((TaskState,))
 
     def can_handle(self, instance, **kwargs):
-        if super().can_handle(instance, **kwargs) and instance.task.specific.__class__ in self.task_classes:
-            # do not use isinstance so subclasses of GroupApprovalTask can define their own Notifiers if wanted
+        if super().can_handle(instance, **kwargs) and isinstance(instance.task.specific, GroupApprovalTask):
             return True
         return False
 
