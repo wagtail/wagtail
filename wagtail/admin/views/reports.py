@@ -207,7 +207,7 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
         filters = None
 
         if self.filterset_class:
-            filters = self.filterset_class(self.request.GET, queryset=queryset)
+            filters = self.filterset_class(self.request.GET, queryset=queryset, request=self.request)
             queryset = filters.qs
 
         return filters, queryset
