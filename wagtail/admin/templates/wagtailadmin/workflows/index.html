@@ -37,7 +37,7 @@
                             {% trans "Name" %}
                         </th>
                         <th>
-                            {% trans "Linked pages" %}
+                            {% trans "Used by" %}
                         </th>
                         <th>
                             {% trans "Tasks" %}
@@ -57,7 +57,13 @@
                             </td>
                             <td class="title">
                                 <div class="title-wrapper">
-                                    {{ workflow.workflow_pages.count }}
+                                    <a href="{% url 'wagtailadmin_workflows:usage' workflow.pk %}">
+                                        {% blocktrans count counter=workflow.all_pages.count %}
+                                            1 page
+                                        {% plural %}
+                                            {{ counter }} pages
+                                        {% endblocktrans %}
+                                    </a>
                                 </div>
                             </td>
                             <td>

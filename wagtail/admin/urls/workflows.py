@@ -10,6 +10,7 @@ urlpatterns = [
     path('workflows/enable/<int:pk>/', workflows.enable_workflow, name='enable'),
     path('workflows/disable/<int:pk>/', workflows.Disable.as_view(), name='disable'),
     path('workflows/edit/<int:pk>/', workflows.Edit.as_view(), name='edit'),
+    path('workflows/usage/<int:pk>/', workflows.usage, name='usage'),
     path('workflows/remove/<int:page_pk>/', workflows.remove_workflow, name='remove'),
     path('workflows/remove/<int:page_pk>/<int:workflow_pk>/', workflows.remove_workflow, name='remove'),
     path('tasks/add/<str:app_label>/<str:model_name>/', workflows.CreateTask.as_view(), name='add_task'),
