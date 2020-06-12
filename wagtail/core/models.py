@@ -2982,8 +2982,11 @@ class Task(models.Model):
         return False
 
     def get_actions(self, page, user):
-        """Get the list of action strings (name, verbose_name, whether the action requires additional data - see ``get_form_for_action``)
-        for actions the current user can perform for this task on the given page. These strings should be the same as those able to be passed to ``on_action``"""
+        """
+        Get the list of action strings (name, verbose_name, whether the action requires additional data - see
+        ``get_form_for_action``) for actions the current user can perform for this task on the given page.
+        These strings should be the same as those able to be passed to ``on_action``
+        """
         return []
 
     def get_form_for_action(self, action):
@@ -3126,12 +3129,12 @@ class GroupApprovalTask(Task):
     def get_actions(self, page, user):
         if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
             return [
+                ('reject', _("Request changes"), True),
                 ('approve', _("Approve"), False),
                 ('approve', _("Approve with comment"), True),
-                ('reject', _("Reject"), True)
             ]
-        else:
-            return []
+
+        return []
 
     def get_task_states_user_can_moderate(self, user, **kwargs):
         if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
@@ -3269,17 +3272,23 @@ class WorkflowState(models.Model):
                 # if there is no uncompleted task, finish the workflow.
                 self.finish(user=user)
 
-    def get_next_task(self):
-        """Returns the next active task, which has not been either approved or skipped"""
+    @property
+    def successful_task_states(self):
         successful_task_states = self.task_states.filter(
             Q(status=TaskState.STATUS_APPROVED) | Q(status=TaskState.STATUS_SKIPPED)
         )
         if getattr(settings, "WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT", False):
             successful_task_states = successful_task_states.filter(page_revision=self.page.get_latest_revision())
+
+        return successful_task_states
+
+    def get_next_task(self):
+        """Returns the next active task, which has not been either approved or skipped"""
+
         return (
             Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True)
             .exclude(
-                task_states__in=successful_task_states
+                task_states__in=self.successful_task_states
             ).order_by('workflow_tasks__sort_order').first()
         )
 
@@ -3376,6 +3385,16 @@ class WorkflowState(models.Model):
     @property
     def is_active(self):
         return self.status not in [self.STATUS_APPROVED, self.STATUS_CANCELLED]
+
+    @property
+    def is_at_final_task(self):
+        """Returns the next active task, which has not been either approved or skipped"""
+
+        last_task = Task.objects.filter(workflow_tasks__workflow=self.workflow, active=True)\
+            .exclude(task_states__in=self.successful_task_states)\
+            .order_by('workflow_tasks__sort_order').last()
+
+        return self.get_next_task() == last_task
 
     class Meta:
         verbose_name = _('Workflow state')
