@@ -78,6 +78,7 @@ class TestWorkflows(TestCase):
         hello_page = SimplePage(title="Hello world", slug='hello-world', content="hello")
         homepage.add_child(instance=hello_page)
         self.assertEqual(hello_page.get_workflow(), workflow)
+        self.assertTrue(workflow.all_pages().filter(id=hello_page.id).exists())
 
     def test_get_workflow_from_closest_ancestor(self):
         # test that using Page.get_workflow() tries to get the workflow from itself, then the closest ancestor, and does
@@ -93,6 +94,12 @@ class TestWorkflows(TestCase):
         hello_page.add_child(instance=goodbye_page)
         self.assertEqual(hello_page.get_workflow(), workflow_2)
         self.assertEqual(goodbye_page.get_workflow(), workflow_2)
+
+        # Check the .all_pages() method
+        self.assertFalse(workflow_1.all_pages().filter(id=hello_page.id).exists())
+        self.assertFalse(workflow_1.all_pages().filter(id=goodbye_page.id).exists())
+        self.assertTrue(workflow_2.all_pages().filter(id=hello_page.id).exists())
+        self.assertTrue(workflow_2.all_pages().filter(id=goodbye_page.id).exists())
 
     @freeze_time("2017-01-01 12:00:00")
     def test_start_workflow_on_page(self):

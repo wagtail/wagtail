@@ -23,7 +23,22 @@
 
 {% block content %}
 
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 %}
+    <header role="banner" class="merged">
+        <div class="row nice-padding">
+            <div class="left">
+                <div class="col header-title">
+                    <h1 class="icon icon-{{ view.header_icon }}">
+                    {{ view.page_title }}{% if view.subtitle %} <span>{{ view.subtitle }}</span>{% endif %}</h1>
+                </div>
+            </div>
+            <div class="right">
+                {% if object.active %}
+                    <a href="{% url 'wagtailadmin_workflows:usage' object.pk %}" class="button">{% trans "Pages" %}</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
 
     <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}

@@ -32,6 +32,9 @@
                             {% trans "Name" %}
                         </th>
                         <th>
+                            {% trans "Used by" %}
+                        </th>
+                        <th>
                             {% trans "Tasks" %}
                         </th>
                     </tr>
@@ -45,6 +48,17 @@
                                     {% if not workflow.active %}
                                         <span class="status-tag">Disabled</span>
                                     {% endif %}
+                                </div>
+                            </td>
+                            <td class="title">
+                                <div class="title-wrapper">
+                                    <a href="{% url 'wagtailadmin_workflows:usage' workflow.pk %}">
+                                        {% blocktrans count counter=workflow.all_pages.count %}
+                                            1 page
+                                        {% plural %}
+                                            {{ counter }} pages
+                                        {% endblocktrans %}
+                                    </a>
                                 </div>
                             </td>
                             <td>
