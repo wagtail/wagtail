@@ -191,6 +191,13 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/collections/delete_not_empty.html')
 
+    def test_get_collection_with_descendent(self):
+        self.collection.add_child(instance=Collection(name='Test collection'))
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/collections/delete_not_empty.html')
+
     def test_post(self):
         response = self.post()
 
@@ -205,6 +212,15 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
         Document.objects.create(
             title="Test document", collection=self.collection
         )
+
+        response = self.post()
+        self.assertEqual(response.status_code, 403)
+
+        # Check that the collection was not deleted
+        self.assertTrue(Collection.objects.get(id=self.collection.id))
+
+    def test_post_collection_with_descendant(self):
+        self.collection.add_child(instance=Collection(name='Test collection'))
 
         response = self.post()
         self.assertEqual(response.status_code, 403)
