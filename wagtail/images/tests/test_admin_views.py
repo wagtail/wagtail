@@ -791,6 +791,40 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['images']), 1)
         self.assertEqual(response.context['images'][0], image)
 
+    @override_settings(WAGTAILIMAGES_CHOOSER_PAGE_SIZE=4)
+    def test_stored_params_q_and_p(self):
+        for i in range(1, 15):
+            self.image = Image.objects.create(
+                title="Very nice image %i" % i,
+                file=get_test_image_file(size=(1, 1)),
+            )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        response = self.get({'q': "Very nice image", 'p': 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query_string'], "Very nice image")
+
+        # open modal chooser again, q was recovered from session
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertIn('value="Very nice image"', response_json['html'])
+        self.assertIn("Page 2 of 2", response_json['html'])
+
+        # response_json = json.loads(response.content.decode())
+        # self.assertEqual(response_json['step'], 'chooser')
+        # self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # # draftail should NOT be a standard JS include on this page
+        # self.assertNotIn('wagtailadmin/js/draftail.js', response_json['html'])
+
 
 class TestImageChooserChosenView(TestCase, WagtailTestUtils):
     def setUp(self):

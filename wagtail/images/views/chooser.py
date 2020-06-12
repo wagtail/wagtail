@@ -21,6 +21,8 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 
 CHOOSER_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_CHOOSER_PAGE_SIZE', 12)
 
+CHOOSER_STORE_GET_PARAMS = getattr(settings, 'WAGTAILIMAGES_CHOOSER_STORE_GET_PARAMS', True)
+
 
 def get_chooser_js_data():
     """construct context variables needed by the chooser JS"""
@@ -85,47 +87,61 @@ def chooser(request):
     for hook in hooks.get_hooks('construct_image_chooser_queryset'):
         images = hook(images, request)
 
-    if (
-        'q' in request.GET or 'p' in request.GET or 'tag' in request.GET
-        or 'collection_id' in request.GET
-    ):
-        # this request is triggered from search, pagination or 'popular tags';
-        # we will just render the results.html fragment
-        collection_id = request.GET.get('collection_id')
-        if collection_id:
-            images = images.filter(collection=collection_id)
+    expected_query_param_keys = ['q', 'p', 'tag', 'collection_id']
 
-        searchform = SearchForm(request.GET)
-        if searchform.is_valid():
-            q = searchform.cleaned_data['q']
+    chooser_modal_is_opened = any([p in request.GET for p in expected_query_param_keys])  # if any param set
 
-            images = images.search(q)
-            is_searching = True
+    image_chooser_params = {k: request.GET.get(k) for k in expected_query_param_keys}
+
+    if CHOOSER_STORE_GET_PARAMS and request.method == 'GET':
+        if chooser_modal_is_opened:
+            request.session['_wagtailimage_chooser_store_get_params'] = image_chooser_params
         else:
-            is_searching = False
-            q = None
+            image_chooser_params.update(request.session.get('_wagtailimage_chooser_store_get_params', {}))
 
-            tag_name = request.GET.get('tag')
-            if tag_name:
-                images = images.filter(tags__name=tag_name)
+    # this request is triggered from search, pagination or 'popular tags';
+    # we will just render the results.html fragment
+    collection_id = image_chooser_params['collection_id']
+    if collection_id:
+        images = images.filter(collection=collection_id)
 
-        # Pagination
-        paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
-        images = paginator.get_page(request.GET.get('p'))
+    searchform = SearchForm(image_chooser_params)
+    if searchform.is_valid():
+        q = searchform.cleaned_data['q']
+        is_searching = True
 
+        images = images.search(q)
+    else:
+        searchform = SearchForm()
+        q = None
+        is_searching = False
+
+        tag_name = image_chooser_params['tag']
+        if tag_name:
+            images = images.filter(tags__name=tag_name)
+
+    # Pagination
+    paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
+    images = paginator.get_page(image_chooser_params['p'])
+
+    if chooser_modal_is_opened:
         return TemplateResponse(request, "wagtailimages/chooser/results.html", {
             'images': images,
+            'searchform': searchform,
             'is_searching': is_searching,
             'query_string': q,
             'will_select_format': request.GET.get('select_format')
         })
     else:
-        paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
-        images = paginator.get_page(request.GET.get('p'))
-
         context = get_chooser_context(request)
+        collections = context['collections']
+        current_collection = collections and collections.get(pk=collection_id) if collection_id else None
+
         context.update({
             'images': images,
+            'searchform': searchform,
+            'is_searching': is_searching,
+            'current_collection': current_collection,
             'uploadform': uploadform,
         })
         return render_modal_workflow(
