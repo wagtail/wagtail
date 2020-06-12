@@ -128,45 +128,6 @@
             );
         });
 
-        {% if current_task_state %}
-        /* When a workflow action button is pressed, trigger a POST request to the workflow_action view */
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('[data-workflow-action]').forEach(function (buttonElement) {
-                buttonElement.addEventListener('click', function (e) {
-                    // Stop the button from submitting the form
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    var formElement = document.createElement('form');
-
-                    {% url 'wagtailadmin_pages:workflow_action' page.id as form_action %}
-                    formElement.action = '{{ form_action|escapejs }}';
-                    formElement.method = 'POST';
-
-                    var csrftokenElement = document.createElement('input');
-                    csrftokenElement.type = 'hidden';
-                    csrftokenElement.name = 'csrfmiddlewaretoken';
-                    csrftokenElement.value = '{{ csrf_token|escapejs }}';
-                    formElement.appendChild(csrftokenElement);
-
-                    var actionFieldElement = document.createElement('input');
-                    actionFieldElement.type = 'hidden';
-                    actionFieldElement.name = 'action';
-                    actionFieldElement.value = buttonElement.dataset.workflowAction;
-                    formElement.appendChild(actionFieldElement);
-
-                    var taskFieldElement = document.createElement('input');
-                    taskFieldElement.type = 'hidden';
-                    taskFieldElement.name = 'task_id';
-                    taskFieldElement.value = {{ current_task_state.id }};
-                    formElement.appendChild(taskFieldElement);
-
-                    document.body.appendChild(formElement);
-                    formElement.submit();
-                }, {capture: true});
-            });
-        });
-        {% endif %}
 
         /* Tooltips used by the workflow status component */
         $(function() {
@@ -178,6 +139,10 @@
                 trigger: 'hover',
                 placement: 'bottom',
             });
+        })
+
+        $(function() {
+            document.addEventListener('DOMContentLoaded', ActivateWorkflowActions('{{ csrf_token|escapejs }}'));
         })
     </script>
 {% endblock %}
