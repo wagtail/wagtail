@@ -104,10 +104,17 @@ class SubmitForModerationMenuItem(ActionMenuItem):
 class WorkflowMenuItem(ActionMenuItem):
     template = 'wagtailadmin/pages/action_menu/workflow_menu_item.html'
 
-    def __init__(self, name, label, *args, **kwargs):
+    def __init__(self, name, label, launch_modal, *args, **kwargs):
         self.name = name
         self.label = label
+        self.launch_modal = launch_modal
         super().__init__(*args, **kwargs)
+
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        context['launch_modal'] = self.launch_modal
+        context['current_task_state'] = context['page'].current_workflow_task_state
+        return context
 
     def is_shown(self, request, context):
         if context['view'] == 'edit':
@@ -238,7 +245,7 @@ class PageActionMenu:
             task = page.current_workflow_task
             if task:
                 actions = task.get_actions(page, request.user)
-                workflow_menu_items = [WorkflowMenuItem(name, label) for name, label in actions]
+                workflow_menu_items = [WorkflowMenuItem(name, label, launch_modal) for name, label, launch_modal in actions]
                 workflow_menu_items = [item for item in workflow_menu_items if item.is_shown(self.request, self.context)]
                 self.menu_items.extend(workflow_menu_items)
 

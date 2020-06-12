@@ -18,3 +18,7 @@ class PasswordViewRestrictionForm(forms.Form):
             raise forms.ValidationError(_("The password you have entered is not correct. Please try again."))
 
         return data
+
+
+class TaskStateCommentForm(forms.Form):
+    comment = forms.CharField(label=_('Comment'), required=False, widget=forms.Textarea({'rows': 2}))
