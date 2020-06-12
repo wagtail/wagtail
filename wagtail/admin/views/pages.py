@@ -1314,7 +1314,7 @@ def workflow_action(request, page_id, action_name, task_state_id):
             form = form_class(request.POST)
             if form.is_valid():
                 redirect_to = task.on_action(task_state, request.user, action_name, **form.cleaned_data) or redirect_to
-            elif action_modal and request.is_ajax:
+            elif action_modal and request.is_ajax():
                 # show form errors
                 return render_modal_workflow(
                     request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
@@ -1329,7 +1329,7 @@ def workflow_action(request, page_id, action_name, task_state_id):
         else:
             redirect_to = task.on_action(task_state, request.user, action_name) or redirect_to
 
-        if request.is_ajax:
+        if request.is_ajax():
             return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
         return redirect(redirect_to)
     else:
