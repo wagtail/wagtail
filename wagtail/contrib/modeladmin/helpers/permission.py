@@ -71,7 +71,7 @@ class PermissionHelper:
         """
         perm_codename = self.get_perm_codename('view')
         return self.user_has_specific_permission(user, perm_codename) or \
-               self.inspect_view_enabled and self.user_has_any_permissions(user)
+               (self.inspect_view_enabled and self.user_has_any_permissions(user))
 
     def user_can_edit_obj(self, user, obj):
         """
