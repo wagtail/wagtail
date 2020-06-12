@@ -111,10 +111,24 @@ class LockedPagesReportFilterSet(WagtailFilterSet):
 
 class WorkflowReportFilterSet(WagtailFilterSet):
     created_at = django_filters.DateFromToRangeFilter(label=_("Started at"), widget=DateRangePickerWidget)
+    reviewable = django_filters.ChoiceFilter(
+        label=_("Show"),
+        method='filter_reviewable',
+        choices=(
+            ('true', _("Awaiting my review")),
+        ),
+        empty_label=_("All"),
+        widget=ButtonSelect
+    )
+
+    def filter_reviewable(self, queryset, name, value):
+        if value and self.request and self.request.user:
+            queryset = queryset.filter(current_task_state__in=TaskState.objects.reviewable_by(self.request.user))
+        return queryset
 
     class Meta:
         model = WorkflowState
-        fields = ['workflow', 'status', 'created_at']
+        fields = ['reviewable', 'workflow', 'status', 'created_at']
 
 
 class WorkflowTasksReportFilterSet(WagtailFilterSet):
@@ -130,6 +144,21 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
         queryset=Task.objects.all(), filter_field='id_workflow', filter_accessor='get_workflows'
     )
 
+    reviewable = django_filters.ChoiceFilter(
+        label=_("Show"),
+        method='filter_reviewable',
+        choices=(
+            ('true', _("Awaiting my review")),
+        ),
+        empty_label=_("All"),
+        widget=ButtonSelect
+    )
+
+    def filter_reviewable(self, queryset, name, value):
+        if value and self.request and self.request.user:
+            queryset = queryset.filter(id__in=TaskState.objects.reviewable_by(self.request.user).values_list('id', flat=True))
+        return queryset
+
     class Meta:
         model = TaskState
-        fields = ['workflow', 'task', 'status', 'started_at', 'finished_at']
+        fields = ['reviewable', 'workflow', 'task', 'status', 'started_at', 'finished_at']

@@ -11,7 +11,7 @@ from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.core import hooks
 from wagtail.core.models import (
-    Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState)
+    Page, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState)
 
 User = get_user_model()
 
@@ -74,11 +74,7 @@ class WorkflowPagesToModeratePanel:
 
     def __init__(self, request):
         self.request = request
-        tasks = Task.objects.filter(active=True)
-        states = TaskState.objects.none()
-        for task in tasks:
-            states = states | task.specific.get_task_states_user_can_moderate(user=request.user).select_related('page_revision', 'task', 'page_revision__page')
-
+        states = TaskState.objects.reviewable_by(request.user).select_related('page_revision', 'task', 'page_revision__page')
         self.states = [(state, state.task.specific.get_actions(page=state.page_revision.page, user=request.user)) for state in states]
 
     def render(self):
