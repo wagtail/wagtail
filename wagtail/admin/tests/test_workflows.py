@@ -724,6 +724,32 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Hello world!")
 
+    def test_workflow_report_filtered(self):
+        # the moderator can review the task, so the workflow state should show up even when reports are filtered by reviewable
+        response = self.client.get(reverse('wagtailadmin_reports:workflow'), {'reviewable': 'true'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Hello world!")
+        self.assertContains(response, "test_workflow")
+        self.assertContains(response, "Sebastian Mitter")
+        self.assertContains(response, "March 31, 2020")
+
+        response = self.client.get(reverse('wagtailadmin_reports:workflow_tasks'), {'reviewable': 'true'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Hello world!")
+
+        # the submitter cannot review the task, so the workflow state shouldn't show up when reports are filtered by reviewable
+        self.login(self.submitter)
+        response = self.client.get(reverse('wagtailadmin_reports:workflow'), {'reviewable': 'true'})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Hello world!")
+        self.assertNotContains(response, "Sebastian Mitter")
+        self.assertNotContains(response, "March 31, 2020")
+
+        response = self.client.get(reverse('wagtailadmin_reports:workflow_tasks'), {'reviewable': 'true'})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Hello world!")
+
+
 
 class TestNotificationPreferences(TestCase, WagtailTestUtils):
     def setUp(self):
