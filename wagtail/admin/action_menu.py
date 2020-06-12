@@ -5,6 +5,7 @@ from django.forms import Media, MediaDefiningClass
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.core import hooks
@@ -224,8 +225,8 @@ def _get_base_page_action_menu_items():
             UnpublishMenuItem(order=10),
             DeleteMenuItem(order=20),
             PublishMenuItem(order=30),
-            RestartWorkflowMenuItem(order=40),
-            CancelWorkflowMenuItem(order=50),
+            CancelWorkflowMenuItem(order=40),
+            RestartWorkflowMenuItem(order=50),
             SubmitForModerationMenuItem(order=60),
             PageLockedMenuItem(order=10000),
         ]
@@ -248,10 +249,16 @@ class PageActionMenu:
         page = self.context.get('page')
         if page:
             task = page.current_workflow_task
+            is_final_task = page.current_workflow_state and page.current_workflow_state.is_at_final_task
             if task:
                 actions = task.get_actions(page, request.user)
-                workflow_menu_items = [WorkflowMenuItem(name, label, launch_modal) for name, label, launch_modal in actions]
-                workflow_menu_items = [item for item in workflow_menu_items if item.is_shown(self.request, self.context)]
+                workflow_menu_items = []
+                for name, label, launch_modal in actions:
+                    if name == "approve" and is_final_task:
+                        label = format_lazy(_("{label} and Publish"), label=label)
+                    item = WorkflowMenuItem(name, label, launch_modal)
+                    if item.is_shown(self.request, self.context):
+                        workflow_menu_items.append(item)
                 self.menu_items.extend(workflow_menu_items)
 
         self.menu_items.extend([
@@ -264,7 +271,6 @@ class PageActionMenu:
 
         for hook in hooks.get_hooks('construct_page_action_menu'):
             hook(self.menu_items, self.request, self.context)
-
 
         try:
             self.default_item = self.menu_items.pop(0)
