@@ -1313,8 +1313,9 @@ def workflow_action(request, page_id, action_name, task_state_id):
         if form_class:
             form = form_class(request.POST)
             if form.is_valid():
-                response = task.on_action(task_state, request.user, action_name, **form.cleaned_data)
-            elif action_modal:
+                redirect_to = task.on_action(task_state, request.user, action_name, **form.cleaned_data) or redirect_to
+            elif action_modal and request.is_ajax:
+                # show form errors
                 return render_modal_workflow(
                     request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
                         'page': page,
@@ -1326,22 +1327,23 @@ def workflow_action(request, page_id, action_name, task_state_id):
                     json_data={'step': 'action'}
                 )
         else:
-            response = task.on_action(task_state, request.user, action_name)
-        if response:
-            return response
+            redirect_to = task.on_action(task_state, request.user, action_name) or redirect_to
+
+        if request.is_ajax:
+            return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
         return redirect(redirect_to)
     else:
         form = form_class()
-    return render_modal_workflow(
-        request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
-            'page': page,
-            'form': form,
-            'action': action_name,
-            'action_verbose': action_verbose_name,
-            'task_state': task_state,
-        },
-        json_data={'step': 'action'}
-    )
+        return render_modal_workflow(
+            request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
+                'page': page,
+                'form': form,
+                'action': action_name,
+                'action_verbose': action_verbose_name,
+                'task_state': task_state,
+            },
+            json_data={'step': 'action'}
+        )
 
 
 
