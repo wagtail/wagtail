@@ -1426,6 +1426,15 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             str(response.content),
             allow_extra_attrs=True)
 
+    def test_group_edit_displays_collection_nesting(self):
+        # Add a child collection to Evil Plans.
+        self.evil_plans_collection.add_child(instance=Collection(name='Eviler Plans'))
+        # "Eviler Plans" should be prefixed with ↳.
+        response = self.get()
+
+        # There are 3 instances because it appears twice in the form template javascript.
+        self.assertContains(response, '↳ Eviler Plans', count=3)
+
     def test_group_edit_loads_with_page_permissions_shown(self):
         # The test group has one page permission to begin with
         self.assertEqual(self.test_group.page_permissions.count(), 1)
