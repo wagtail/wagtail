@@ -111,10 +111,11 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
         self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
         # test register_page_action_menu_item hook
-        self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
+        self.assertContains(response, '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>')
         self.assertContains(response, 'testapp/js/siren.js')
         # test construct_page_action_menu hook
-        self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')
+        self.assertContains(response, '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>')
+
 
     def test_create_multipart(self):
         """
@@ -716,7 +717,12 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         Tests that by default the "Submit for Moderation" button is shown in the action menu.
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
-        self.assertContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
+        self.assertContains(
+            response,
+            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">'
+            '<svg class="icon icon-resubmit icon" aria-hidden="true" focusable="false"><use href="#icon-resubmit"></use></svg>\n'
+            'Submit for moderation</button>'
+        )
 
     @override_settings(WAGTAIL_MODERATION_ENABLED=False)
     def test_hide_moderation_button(self):
@@ -724,7 +730,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         Tests that if WAGTAIL_MODERATION_ENABLED is set to False, the "Submit for Moderation" button is not shown.
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
-        self.assertNotContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
+        self.assertNotContains(response, '<button type="submit" name="action-submit" value="Submit for moderation" class="button">Submit for moderation</button>')
 
 
 class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
