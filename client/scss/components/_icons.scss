@@ -164,4 +164,9 @@ svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
     &.default {
         @include svg-icon(1.5em);
     }
+
+    &--flipped {
+        transform: scaleX(-1);
+    }
 }
+
