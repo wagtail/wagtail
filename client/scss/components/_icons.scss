@@ -90,7 +90,7 @@
     font-size: 1.5em;
 }
 
-.icon.text-replace {
+.icon.text-replace { // iconfont
     font-size: 0;
     line-height: 0;
     overflow: hidden;
@@ -103,6 +103,16 @@
         line-height: 1.2em;
         text-align: center;
         vertical-align: middle;
+    }
+}
+
+.text-replace {
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+
+    .icon {
+        @include svg-icon(1rem, middle);
     }
 }
 

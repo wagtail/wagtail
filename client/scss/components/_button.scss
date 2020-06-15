@@ -142,9 +142,10 @@
             &:before {
                 display: none;  // TODO: remove once the icon font styles are gone
             }
+
             .icon {
                 @include svg-icon(1rem);
-                padding: .75em;
+                padding: 0.75em;
             }
         }
 
@@ -159,9 +160,10 @@
         .icon-wrapper {
             width: 2em;
         }
+
         &.button--icon .icon {
             @include svg-icon(0.9rem);
-            padding: .25em;
+            padding: 0.25em;
         }
     }
 
@@ -277,27 +279,6 @@
         padding: 0 1.4em;
         height: 3em;
 
-        &.icon.text-replace {
-            width: 2.2rem;
-            height: 2.2rem;
-
-            &:before {
-                line-height: 2.1em;
-            }
-        }
-
-        &.button-small {
-            &.icon.text-replace {
-                height: 1.8rem;
-                width: 1.8rem;
-
-                // stylelint-disable-next-line max-nesting-depth
-                &:before {
-                    line-height: 1.7em;
-                }
-            }
-        }
-
         &.bicolor {
             padding-left: 3.7em;
 
@@ -333,13 +314,62 @@
 }
 
 // Buttons which are only an icon
-.button.icon.text-replace {
+.button.icon.text-replace {  // iconfont
     font-size: 0; // unavoidable duplication of setting in icons.scss
     width: 1.8rem;
     height: 1.8rem;
 
     &:before {
         line-height: 1.7em;
+    }
+
+    @include media-breakpoint-up(sm) {
+        width: 2.2rem;
+        height: 2.2rem;
+
+        &:before {
+            line-height: 2.1em;
+        }
+
+
+        &.button-small {
+            height: 1.8rem;
+            width: 1.8rem;
+
+            // stylelint-disable-next-line max-nesting-depth
+            &:before {
+                line-height: 1.7em;
+            }
+        }
+    }
+}
+
+.button--icon.text-replace {
+    font-size: 0;
+    text-align: center;
+
+    .icon {
+        font-size: initial;
+        @include svg-icon(1rem, middle);
+        padding: 0.5em;
+    }
+
+    &.button-small {
+        line-height: 1.7rem;
+
+        .icon {
+            padding: 0.25em;
+        }
+    }
+
+    @include media-breakpoint-up(sm) {
+        width: 2.2rem;
+        height: 2.2rem;
+
+        &.button-small {
+            height: 1.8rem;
+            width: 1.8rem;
+        }
     }
 }
 
