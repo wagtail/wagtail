@@ -22,7 +22,7 @@
 
             <form action="{% url 'wagtailimages:add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">
-                    <button class="button bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
+                    <button class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{% trans "Or choose from your computer" %}</button>
                     <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages:add_multiple' %}" multiple>
                 </div>
                 {% csrf_token %}
