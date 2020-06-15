@@ -88,11 +88,13 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Add speakers')
 
         # test register_page_action_menu_item hook
-        self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
+        self.assertContains(response,
+                            '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>')
         self.assertContains(response, 'testapp/js/siren.js')
 
         # test construct_page_action_menu hook
-        self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')
+        self.assertContains(response,
+                            '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>')
 
     def test_edit_draft_page_with_no_revisions(self):
         # Tests that the edit page loads
@@ -787,7 +789,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
 
-        link_to_live = '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="button button-small button-nostroke live" title="Visit the live page">\n' \
+        link_to_live = '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n' \
                        '<svg class="icon icon-link-external initial" aria-hidden="true" focusable="false"><use href="#icon-link-external"></use></svg>\n\n        ' \
                        'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
@@ -811,7 +813,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.single_event_page.id, )))
 
-        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="button button-small button-nostroke live" title="Visit the live page">\n' \
+        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n' \
                        '<svg class="icon icon-link-external initial" aria-hidden="true" focusable="false"><use href="#icon-link-external"></use></svg>\n\n        ' \
                        'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
@@ -946,12 +948,17 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         publish_button = '''
             <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-clicked-text="Publishing…">
+                <svg class="icon icon-upload button-longrunning__icon" aria-hidden="true" focusable="false"><use href="#icon-upload"></use></svg>
+
                 <svg class="icon icon-spinner icon" aria-hidden="true" focusable="false"><use href="#icon-spinner"></use></svg><em>Publish</em>
             </button>
         '''
         save_button = '''
             <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" >
-                <svg class="icon icon-spinner icon" aria-hidden="true" focusable="false"><use href="#icon-spinner"></use></svg><em>Save draft</em>
+                <svg class="icon icon-draft button-longrunning__icon" aria-hidden="true" focusable="false"><use href="#icon-draft"></use></svg>
+
+                <svg class="icon icon-spinner icon" aria-hidden="true" focusable="false"><use href="#icon-spinner"></use></svg>
+                <em>Save draft</em>
             </button>
         '''
 
