@@ -1,5 +1,5 @@
 {% extends "modeladmin/create.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block form_action %}{{ view.edit_url }}{% endblock %}
 
@@ -10,7 +10,7 @@
         </button>
 
         {% if user_can_delete %}
-            <div class="dropdown-toggle icon icon-arrow-up"></div>
+            <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
             <ul>
                 <li><a href="{{ view.delete_url }}" class="shortcut">{% trans "Delete" %}</a></li>
             </ul>
