@@ -431,13 +431,13 @@
 
             <h3>Icon buttons without text</h3>
 
-            <a href="#" class="button text-replace icon icon-cog">button link</a>
-            <button class="button text-replace icon icon-cog">button element</button>
+            <a href="#" class="button text-replace button--icon">{% icon name="cog" %}button link</a>
+            <button class="button text-replace button--icon">{% icon name="cog" %}button element</button>
 
             <h4>(small)</h4>
 
-            <a href="#" class="button button-small text-replace icon icon-cog">button link</a>
-            <button class="button button-small text-replace icon icon-cog">button element</button>
+            <a href="#" class="button button-small text-replace button--icon">{% icon name="cog" %}button link</a>
+            <button class="button button-small text-replace button--icon">{% icon name="cog" %}button element</button>
 
             <h3>Colour signifiers</h3>
 
@@ -476,10 +476,10 @@
 
             <h3>Mixtures</h3>
 
-            <button class="button icon text-replace yes icon-tick">A proper button</button>
-            <a href="#" class="button icon text-replace white icon-cog">A link button</a>
-            <span class="button icon text-replace no icon-bin">A non-link button</span>
-            <a href="#" class="button bicolor disabled icon icon-tick">button link</a>
+            <button class="button button--icon text-replace yes">{% icon name="tick" %}A proper button</button>
+            <a href="#" class="button button--icon text-replace white">{% icon name="cog" %}A link button</a>
+            <span class="button button--icon text-replace no ">{% icon name="bin" %}A non-link button</span>
+            <a href="#" class="button button--icon bicolor disabled">{% icon name="tick" wrapped=1 %}button link</a>
 
         </section>
 
@@ -493,9 +493,9 @@
             </div>
             <br />
             <div class="button-group">
-                <button class="button icon text-replace yes icon-tick">A proper button</button>
-                <a href="#" class="button icon text-replace white icon-cog">A link button</a>
-                <span class="button icon text-replace no icon-bin">A non-link button</span>
+                <button class="button button--icon text-replace yes">{% icon name="tick" %}A proper button</button>
+                <a href="#" class="button button--icon text-replace white">{% icon name="cog" %}A link button</a>
+                <span class="button button--icon text-replace no">{% icon name="bin" %}A non-link button</span>
             </div>
         </section>
 

@@ -21,7 +21,8 @@ function ModalWorkflow(opts) {
     $('body > .modal').remove();
 
     // set default contents of container
-    var container = $('<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <button type="button" class="button close icon text-replace icon-cross" data-dismiss="modal">' + wagtailConfig.STRINGS.CLOSE + '</button>\n            <div class="modal-body"></div>\n        </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog -->\n</div>');
+    var iconClose = '<svg class="icon icon-cross" aria-hidden="true" focusable="false"><use href="#icon-cross"></use></svg>';
+    var container = $('<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n    <div class="modal-dialog">\n        <div class="modal-content">\n            <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' + iconClose + wagtailConfig.STRINGS.CLOSE + '</button>\n            <div class="modal-body"></div>\n        </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog -->\n</div>');
 
     // add container to body and hide it, so content can be added to it before display
     $('body').append(container);
