@@ -44,7 +44,7 @@
                         {{ filter }}
                         {{ filter.errors }}
                     {% endfor %}
-                    <button class="button button-longrunning" type="submit">{% trans 'Apply filters' %}</button>
+                    <button class="button button-longrunning" type="submit">{% icon name="spinner" %}{% trans 'Apply filters' %}</button>
                 </form>
             </div>
         {% endif %}

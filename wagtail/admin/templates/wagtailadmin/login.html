@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load wagtailadmin_tags i18n %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% trans "Sign in" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
@@ -76,7 +76,7 @@
                 {% endblock %}
                 <li class="submit">
                     {% block submit_buttons %}
-                    <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
+                    <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}">{% icon name="spinner" %}<em>{% trans 'Sign in' %}</em></button>
                     {% endblock %}
                 </li>
             </ul>

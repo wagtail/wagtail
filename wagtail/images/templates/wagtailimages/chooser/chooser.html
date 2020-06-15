@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags wagtailadmin_tags %}
 {% load i18n %}
 {% trans "Choose an image" as choose_str %}
 {% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 tabbed=1 icon="image" %}
@@ -51,7 +51,7 @@
                         {% endif %}
                     {% endfor %}
                     <li>
-                        <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Uploading…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Upload' %}</em></button>
+                        <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Uploading…' %}">{% icon name="spinner" %}<em>{% trans 'Upload' %}</em></button>
                     </li>
                 </ul>
             </form>
