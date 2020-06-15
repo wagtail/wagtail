@@ -453,16 +453,16 @@
 
             <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
             <p class="help-block help-warning">Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
-            <button class="button button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Secondary</h4>
-            <button class="button button-secondary button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-secondary button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Small</h4>
-            <button class="button button-small button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-small button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Buttons where the text is replaced on click</h4>
-            <button class="button button-longrunning" data-clicked-text="Test"><span class="icon icon-spinner"></span><em>Click me</em></button>
+            <button class="button button-longrunning" data-clicked-text="Test">{% icon name="spinner" %}<em>Click me</em></button>
 
             <h4>Arbitrarily bigger</h4>
             <style>
@@ -472,7 +472,7 @@
                     height:3.5em;
                 }
             </style>
-            <button class="button button-longrunning" id="button-arbitrarily-bigger"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-longrunning" id="button-arbitrarily-bigger">{% icon name="spinner" %}Click me</button>
 
             <h3>Mixtures</h3>
 

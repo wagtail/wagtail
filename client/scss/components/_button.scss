@@ -211,7 +211,7 @@
     }
 
     &.button-longrunning {
-        span {
+        span {  // iconfont
             @include transition(all 0.3s ease);
             transform: scale(0.9);
             display: inline-block;
@@ -228,15 +228,16 @@
             font-style: normal;
         }
 
-        &.button-longrunning-active span {
+        &.button-longrunning-active span { // iconfont
             transform: scale(1);
             visibility: visible;
             width: 1em;
+            height: 1em;
             opacity: 0.8;
             padding-right: 0.5em;
         }
 
-        .icon-spinner:after {
+        span.icon-spinner:after { // iconfont
             text-align: center;
             position: absolute;
             left: 0;
@@ -244,6 +245,24 @@
             line-height: 1em;
             display: inline-block;
             font-size: 1em;
+        }
+
+        svg.icon-spinner {
+            @include transition(all 0.3s ease);
+            opacity: 0;
+            visibility: hidden;
+            width: 0;
+            height: 0;
+        }
+
+        &.button-longrunning-active svg.icon-spinner {
+            transform: scale(1);
+            visibility: visible;
+            width: 1em;
+            height: 1em;
+            opacity: 0.8;
+            padding: 0;
+            margin-right: 0.5em;
         }
     }
 

@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}New  {{ snippet_type_name }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "New" as new_str %}
@@ -14,7 +14,7 @@
                 <li class="actions">
                     <div class="dropdown dropup dropdown-button match-width">
                         <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
-                            <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                            {% icon name="spinner" %}<em>{% trans 'Save' %}</em>
                         </button>
                     </div>
                 </li>
