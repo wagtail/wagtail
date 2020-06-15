@@ -193,6 +193,46 @@ class DeleteMenuItem(ActionMenuItem):
         return reverse('wagtailadmin_pages:delete', args=(context['page'].id,))
 
 
+class LockMenuItem(ActionMenuItem):
+    name = 'action-lock'
+    label = _("Lock")
+    aria_label = _("Apply editor lock")
+    icon_name = 'lock'
+    template = 'wagtailadmin/pages/action_menu/lock_unlock_menu_item.html'
+
+    def is_shown(self, request, context):
+        return (
+            context['view'] == 'edit'
+            and not context['page'].locked
+            and context['user_page_permissions'].for_page(context['page']).can_lock()
+        )
+
+    def get_url(self, request, context):
+        return reverse('wagtailadmin_pages:lock', args=(context['page'].id,))
+
+    def render_html(self, request, parent_context):
+        context = self.get_context(request, parent_context)
+        context['aria_label'] = self.aria_label
+        return render_to_string(self.template, context, request=request)
+
+
+class UnlockMenuItem(LockMenuItem):
+    name = 'action-unlock'
+    label = _("Unlock")
+    aria_label = _("Apply editor lock")
+    icon_name = 'lock-open'
+
+    def is_shown(self, request, context):
+        return (
+            context['view'] == 'edit'
+            and context['page'].locked
+            and context['user_page_permissions'].for_page(context['page']).can_unlock()
+        )
+
+    def get_url(self, request, context):
+        return reverse('wagtailadmin_pages:unlock', args=(context['page'].id,))
+
+
 class SaveDraftMenuItem(ActionMenuItem):
     name = 'action-save-draft'
     label = _("Save Draft")
@@ -231,8 +271,10 @@ def _get_base_page_action_menu_items():
     if BASE_PAGE_ACTION_MENU_ITEMS is None:
         BASE_PAGE_ACTION_MENU_ITEMS = [
             SaveDraftMenuItem(order=0),
-            UnpublishMenuItem(order=10),
-            DeleteMenuItem(order=20),
+            DeleteMenuItem(order=10),
+            LockMenuItem(order=15),
+            UnlockMenuItem(order=15),
+            UnpublishMenuItem(order=20),
             PublishMenuItem(order=30),
             CancelWorkflowMenuItem(order=40),
             RestartWorkflowMenuItem(order=50),
