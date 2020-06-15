@@ -52,7 +52,7 @@
             <nav aria-label="{% trans 'Actions' %}">
                 <ul>
                     <li class="actions">
-                        <div class="dropdown dropup dropdown-button dropdown-button--white match-width {% if is_revision %}warning{% endif %}">
+                        <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
                             {{ action_menu.render_html }}
                         </div>
                     </li>
@@ -78,9 +78,6 @@
                         </li>
                     {% endif %}
 
-                    <li class="meta">
-                        {% include "wagtailadmin/pages/_lock_switch.html" %}
-                    </li>
                     {% block extra_footer_actions %}
                     {% endblock %}
                 </ul>
