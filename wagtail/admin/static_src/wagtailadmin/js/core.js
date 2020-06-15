@@ -539,7 +539,7 @@ wagtail = (function(document, window, wagtail) {
     wagtail.ui.initDropDowns = initDropDowns;
     wagtail.ui.DropDownController = DropDownController;
 
-    // provide a workaround for NodeList#forEach not being available in IE 11 
+    // provide a workaround for NodeList#forEach not being available in IE 11
     function qsa(element, selector) {
       return [].slice.call(element.querySelectorAll(selector));
     }

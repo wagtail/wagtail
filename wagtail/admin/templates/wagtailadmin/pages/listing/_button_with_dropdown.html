@@ -1,7 +1,10 @@
+{% load wagtailadmin_tags %}
 <div {{ self.attrs }} class="c-dropdown  {% if is_parent %}t-inverted{% else %}t-default{% endif %}" data-dropdown>
     <a href="javascript:void(0)" aria-label="{{ title }}" class="c-dropdown__button  u-btn-current">
         {{ label }}
-        <div data-dropdown-toggle class="o-icon c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+        <div data-dropdown-toggle class="o-icon c-dropdown__toggle c-dropdown__togle--icon [ icon icon-arrow-down ]">
+            {% icon name="arrow-down" %}{% icon name="arrow-up" %}
+        </div>
     </a>
     <div class="t-dark">
         <ul class="c-dropdown__menu u-toggle  u-arrow u-arrow--tl u-background">
