@@ -109,7 +109,7 @@
         border: 1px solid transparent;
         padding-left: 3.5em;
 
-        &:before {
+        &:before {  // iconfont
             font-size: 1rem;
             position: absolute;
             left: 0;
@@ -124,6 +124,30 @@
             border-bottom-left-radius: inherit;
         }
 
+        .icon-wrapper {
+            background-color: rgba(0, 0, 0, 0.2);
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3em;
+            line-height: 1.85em;
+            height: 100%;
+            text-align: center;
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
+        }
+
+        &.button--icon {
+            &:before {
+                display: none;  // TODO: remove once the icon font styles are gone
+            }
+            .icon {
+                @include svg-icon(1rem);
+                padding: .75em;
+            }
+        }
+
         &.button-secondary {
             border: 1px solid rgba(0, 0, 0, 0.2);
         }
@@ -132,10 +156,12 @@
     &.button-small.bicolor {
         padding-left: 3.5em;
 
-        &:before {
+        .icon-wrapper {
             width: 2em;
-            font-size: 0.9rem;
-            line-height: 1.65em;
+        }
+        &.button--icon .icon {
+            @include svg-icon(0.9rem);
+            padding: .25em;
         }
     }
 
@@ -240,6 +266,12 @@
         border: 0;
     }
 
+    &.button--icon {
+        .icon {
+            @include svg-icon(1.5em);
+        }
+    }
+
     @include media-breakpoint-up(sm) {
         font-size: 0.95em;
         padding: 0 1.4em;
@@ -309,6 +341,10 @@
     &:before {
         line-height: 1.7em;
     }
+}
+
+button.button.bicolor .icon-wrapper {
+    line-height: 1.65em;  // work around differences in a and button elements
 }
 
 .button-neutral {

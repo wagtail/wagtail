@@ -1,5 +1,6 @@
 {% spaceless %}
 {# Reference implementation: components/Icon.js #}
+{% if wrapped %}<span class="icon-wrapper">{% endif %}
 <svg class="icon icon-{{ name }} {{ class_name }}" aria-hidden="true" focusable="false">
   <use href="#icon-{{ name }}"></use>
 </svg>
@@ -8,4 +9,5 @@
     {{ title }}
   </span>
 {% endif %}
+{% if wrapped %}</span>{% endif %}
 {% endspaceless %}

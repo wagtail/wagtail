@@ -506,7 +506,7 @@ def versioned_static(path):
 
 
 @register.inclusion_tag("wagtailadmin/shared/icon.html", takes_context=False)
-def icon(name=None, class_name='icon', title=None):
+def icon(name=None, class_name='icon', title=None, wrapped=False):
     """
     Abstracts away the actual icon implementation.
 
@@ -527,6 +527,7 @@ def icon(name=None, class_name='icon', title=None):
         'name': name,
         'class_name': class_name,
         'title': title,
+        'wrapped': wrapped
     }
 
 

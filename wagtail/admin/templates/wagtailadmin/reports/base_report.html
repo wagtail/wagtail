@@ -18,10 +18,10 @@
                 {% block actions %}
                     {% if view.list_export %}
                         <div class="dropdown dropdown-button match-width">
-                            <a href="{{ view.xlsx_export_url }}" class="button bicolor icon icon-download">{% trans 'Download XLSX' %}</a>
+                            <a href="{{ view.xlsx_export_url }}" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
                             <div class="dropdown-toggle icon icon-arrow-down"></div>
                             <ul>
-                                <li><a  class="button bicolor icon icon-download" href="{{ view.csv_export_url }}">{% trans 'Download CSV' %}</a></li>
+                                <li><a  class="button bicolor button--icon" href="{{ view.csv_export_url }}">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
                             </ul>
                         </div>
                     {% endif %}

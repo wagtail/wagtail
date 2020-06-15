@@ -15,7 +15,7 @@
     {% trans "Editing" as editing_str %}
     {% trans "View users of this group" as users_str %}
     {% url 'wagtailusers_groups:users' group.id as group_users_url %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str action_icon="icon-user" action_url=group_users_url action_text=users_str subtitle=group.name icon="group" %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str action_icon="user" action_url=group_users_url action_text=users_str subtitle=group.name icon="group" %}
 
     <div class="nice-padding">
         <form action="{% url 'wagtailusers_groups:edit' group.id %}" method="POST" novalidate>
