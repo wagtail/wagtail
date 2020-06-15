@@ -70,6 +70,6 @@ footer {
         width: calc(100% - #{$menu-width} - #{2 * $desktop-nice-padding});
         position: fixed;
         bottom: 0;
-        padding: 0.5em;
+        padding: 1em;
     }
 }

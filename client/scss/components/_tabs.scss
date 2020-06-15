@@ -9,10 +9,11 @@
         float: left;
         padding: 0;
         position: relative;
-        margin-right: 1px;
+        margin-right: 2px;
 
         &:first-of-type {
-            padding-left: 1.2em;
+            padding-left: $desktop-nice-padding;
+            margin-left: 0;
         }
     }
 
@@ -117,7 +118,6 @@
         li {
             width: auto;
             padding: 0;
-            margin-left: 0.7em;
         }
 
         a {

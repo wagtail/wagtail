@@ -6,7 +6,10 @@
     }
 
     .breadcrumb {
-        margin: -1.2em 0 2em;
+        margin: -1.2em 0 2em;  // sass linter complains about $desktop-nice-padding here because of unit mismatch
+        margin-left: -$desktop-nice-padding;
+        margin-right: -$desktop-nice-padding;
+        padding-left: calc(#{$desktop-nice-padding} - 2em);
 
         @include media-breakpoint-up(sm) {
             margin-top: -1.8em;
@@ -84,21 +87,10 @@
         }
     }
 
-    .header-title,
-    .header-meta {
-        padding-left: 25px;
-
-        @include media-breakpoint-down(xs) {
-            padding-left: 0;
-            margin-left: -28px;
-            // Because it's nested within tab-merged which we've given padding
-            // on mobile viewports due to snippets
-        }
+    .header-title {
+        padding-left: 0;
     }
 
-    .live {
-        margin-right: 1em;
-    }
 }
 
 // An object is the basic wrapper around any field or group of fields in the editor interface
@@ -157,7 +149,7 @@
         background: $color-salmon-light;
         color: #200200;
         text-transform: uppercase;
-        padding: 0.9em 0 0.9em 4.1em;
+        padding: 0.9em 0 0.9em 5em;
         font-size: 0.95em;
         margin: 0;
         line-height: 1.5em;
@@ -193,7 +185,7 @@
             top: 0;
             line-height: 1.8em;
             left: 0;
-            width: 1.7em;
+            width: $desktop-nice-padding;
             color: $color-white;
             padding: 0;
             margin: 0;
