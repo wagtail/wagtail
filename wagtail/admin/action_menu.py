@@ -20,6 +20,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
     label = ''
     name = None
     classname = ''
+    icon_name = ''
 
     def __init__(self, order=None):
         if order is not None:
@@ -48,6 +49,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
             'url': self.get_url(request, context),
             'name': self.name,
             'classname': self.classname,
+            'icon_name': self.icon_name,
         })
         return context
 
@@ -63,6 +65,7 @@ class PublishMenuItem(ActionMenuItem):
     label = _("Publish")
     name = 'action-publish'
     template = 'wagtailadmin/pages/action_menu/publish.html'
+    icon_name = 'upload'
 
     def is_shown(self, request, context):
         if context['view'] == 'create':
@@ -82,6 +85,7 @@ class PublishMenuItem(ActionMenuItem):
 class SubmitForModerationMenuItem(ActionMenuItem):
     label = _("Submit for moderation")
     name = 'action-submit'
+    icon_name = 'resubmit'
 
     def is_shown(self, request, context):
         WAGTAIL_MODERATION_ENABLED = getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True)
@@ -111,6 +115,10 @@ class WorkflowMenuItem(ActionMenuItem):
         self.name = name
         self.label = label
         self.launch_modal = launch_modal
+
+        if kwargs.get('icon_name'):
+            self.icon_name = kwargs.pop('icon_name')
+
         super().__init__(*args, **kwargs)
 
     def get_context(self, request, parent_context):
@@ -127,10 +135,11 @@ class WorkflowMenuItem(ActionMenuItem):
 class RestartWorkflowMenuItem(ActionMenuItem):
     label = _("Restart workflow ")
     name = 'action-restart-workflow'
+    classname = 'button--icon-flipped'
+    icon_name = 'login'
 
     def is_shown(self, request, context):
-        WAGTAIL_MODERATION_ENABLED = getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True)
-        if not WAGTAIL_MODERATION_ENABLED:
+        if not getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True):
             return False
         elif context['view'] == 'edit':
             workflow_state = context['page'].current_workflow_state
@@ -143,7 +152,7 @@ class RestartWorkflowMenuItem(ActionMenuItem):
 class CancelWorkflowMenuItem(ActionMenuItem):
     label = _("Cancel workflow ")
     name = 'action-cancel-workflow'
-    classname = 'no'
+    icon_name = 'error'
 
     def is_shown(self, request, context):
         if context['view'] == 'edit':
@@ -155,7 +164,7 @@ class CancelWorkflowMenuItem(ActionMenuItem):
 class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
     name = 'action-unpublish'
-    classname = 'no'
+    icon_name = 'download-alt'
 
     def is_shown(self, request, context):
         return (
@@ -171,7 +180,7 @@ class UnpublishMenuItem(ActionMenuItem):
 class DeleteMenuItem(ActionMenuItem):
     name = 'action-delete'
     label = _("Delete")
-    classname = 'no'
+    icon_name = 'bin'
 
     def is_shown(self, request, context):
         return (
@@ -254,9 +263,14 @@ class PageActionMenu:
                 actions = task.get_actions(page, request.user)
                 workflow_menu_items = []
                 for name, label, launch_modal in actions:
-                    if name == "approve" and is_final_task:
-                        label = format_lazy(_("{label} and Publish"), label=label)
-                    item = WorkflowMenuItem(name, label, launch_modal)
+                    icon_name = 'edit'
+                    if name == "approve":
+                        if is_final_task:
+                            label = format_lazy(_("{label} and Publish"), label=label)
+                        icon_name = 'success'
+
+                    item = WorkflowMenuItem(name, label, launch_modal, icon_name=icon_name)
+
                     if item.is_shown(self.request, self.context):
                         workflow_menu_items.append(item)
                 self.menu_items.extend(workflow_menu_items)

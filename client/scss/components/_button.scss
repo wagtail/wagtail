@@ -149,6 +149,12 @@
             }
         }
 
+        &.button--icon-flipped {
+            .icon {
+                transform: scaleX(-1);
+            }
+        }
+
         &.button-secondary {
             border: 1px solid rgba(0, 0, 0, 0.2);
         }
@@ -249,20 +255,21 @@
 
         svg.icon-spinner {
             @include transition(all 0.3s ease);
-            opacity: 0;
-            visibility: hidden;
-            width: 0;
-            height: 0;
+            display: none;
         }
 
         &.button-longrunning-active svg.icon-spinner {
+            @include svg-icon();
+
             transform: scale(1);
-            visibility: visible;
-            width: 1em;
-            height: 1em;
+            display: inline-block;
             opacity: 0.8;
             padding: 0;
             margin-right: 0.5em;
+        }
+
+        &.button-longrunning-active .button-longrunning__icon {
+            display: none;
         }
     }
 
