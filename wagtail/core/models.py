@@ -2202,12 +2202,11 @@ class PagePermissionTester:
         if self.user.is_superuser:
             return True
 
+        if self.page.current_workflow_task:
+            return self.page.current_workflow_task.user_can_lock(self.page, self.user)
+
         if 'lock' in self.permissions:
             return True
-
-        if self.page.current_workflow_task:
-            if self.page.current_workflow_task.user_can_lock(self.page, self.user):
-                return True
 
         return False
 
@@ -2218,12 +2217,11 @@ class PagePermissionTester:
         if self.user_has_lock():
             return True
 
+        if self.page.current_workflow_task:
+            return self.page.current_workflow_task.user_can_unlock(self.page, self.user)
+
         if 'unlock' in self.permissions:
             return True
-
-        if self.page.current_workflow_task:
-            if self.page.current_workflow_task.user_can_unlock(self.page, self.user):
-                return True
 
         return False
 
