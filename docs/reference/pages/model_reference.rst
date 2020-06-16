@@ -182,14 +182,14 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. attribute:: subpage_types
 
-        A whitelist of page models which can be created as children of this page type. For example, a ``BlogIndex`` page might allow a ``BlogPage`` as a child, but not a ``JobPage``:
+        A list of page models which can be created as children of this page type. For example, a ``BlogIndex`` page might allow a ``BlogPage`` as a child, but not a ``JobPage``:
 
         .. code-block:: python
 
             class BlogIndex(Page):
                 subpage_types = ['mysite.BlogPage', 'mysite.BlogArchivePage']
 
-        The creation of child pages can be blocked altogether for a given page by setting it's subpage_types attribute to an empty array:
+        The creation of child pages can be blocked altogether for a given page by setting its subpage_types attribute to an empty array:
 
         .. code-block:: python
 
@@ -198,7 +198,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. attribute:: parent_page_types
 
-        A whitelist of page models which are allowed as parent page types. For example, a ``BlogPage`` may only allow itself to be created below the ``BlogIndex`` page:
+        A list of page models which are allowed as parent page types. For example, a ``BlogPage`` may only allow itself to be created below the ``BlogIndex`` page:
 
         .. code-block:: python
 
