@@ -37,7 +37,7 @@
                             {% if preview_modes|length > 1 %}
                                 <div class="dropdown dropup dropdown-button match-width">
                                     {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
-                                    <div class="dropdown-toggle icon icon-arrow-up"></div>
+                                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
                                     <ul>
                                         {% for mode_name, mode_display_name in preview_modes %}
                                             <li>

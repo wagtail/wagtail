@@ -69,16 +69,20 @@
 }
 
 .icon-view:before,
-.icon-no-view:before {
+.icon-no-view:before {  // icon-font
     vertical-align: -3.5px;
     font-size: 1.1rem;
 }
 
 .icon-spinner:after,
-.icon-spinner:before {
+.icon-spinner:before {  // iconfont
     width: 1em;
     animation: spin 0.5s infinite linear;
     display: inline-block;
+}
+
+svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
+    animation: spin 0.5s infinite linear;
 }
 
 .icon-horizontalrule:before {
@@ -90,7 +94,7 @@
     font-size: 1.5em;
 }
 
-.icon.text-replace {
+.icon.text-replace { // iconfont
     font-size: 0;
     line-height: 0;
     overflow: hidden;
@@ -103,6 +107,16 @@
         line-height: 1.2em;
         text-align: center;
         vertical-align: middle;
+    }
+}
+
+.text-replace {
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+
+    .icon {
+        @include svg-icon(1rem, middle);
     }
 }
 

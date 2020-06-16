@@ -89,6 +89,11 @@
     position: initial;
 }
 
+@mixin svg-icon ($size: 1.5em, $position: text-top) {
+    width: $size;
+    height: $size;
+    vertical-align: $position;
+}
 
 @mixin icon () {
     @include font-smoothing;
