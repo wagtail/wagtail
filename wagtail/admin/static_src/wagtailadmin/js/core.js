@@ -177,7 +177,8 @@ $(function() {
 
     /* tabs */
     if (window.location.hash) {
-      $('a[href="' + window.location.hash + '"]').tab('show');
+        var cleanedHash = window.location.hash.replace(/[^\w\-\#]/g, '');
+        $('a[href="' + cleanedHash + '"]').tab('show');
     }
 
     $(document).on('click', '.tab-nav a', function(e) {
