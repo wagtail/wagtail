@@ -20,18 +20,16 @@
             </div>
         </div>
         <ul class="row header-meta">
-            <li>
-                {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}
-            </li>
+            {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}
             {% if page.get_latest_revision %}
             <li>
-                <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg button-strokeonhover text-notransform">
+                <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg text-notransform">
                     {% icon "history" class_name="default" %}
                     {% trans "Page history" %}
                 </a>
             </li>
             {% endif %}
-            <li>
+            <li class="header-meta--type">
                 {% icon name="doc-empty-inverse" class_name="default" %}
                 {{ content_type.model_class.get_verbose_name }}
             </li>
