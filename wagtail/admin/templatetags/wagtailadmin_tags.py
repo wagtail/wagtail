@@ -540,15 +540,22 @@ def icons():
 @register.simple_tag
 def format_collection(col: Collection, permitted: QuerySet = None) -> str:
     """
-    A template tag that receives a collection and returns a formatted string,
-    taking into account its hierarchical depth, and optionally its relative
-    depth if a filtered queryset is supplied
+    Renders a given Collection's name as a formatted string that displays its
+    hierachrical depth via indenation. If a filtered queryset is supplied,
+    the Collection's depth relative to that queryset is used.
+
     Example usage: {% format_collection collection collections %}
+    Example output: "        ↳ Grandchild Collection"
     """
     def _depth(cur_col, count=0):
         if cur_col.get_parent() in permitted:
             return _depth(cur_col.get_parent(), count + 1)
         return count
+    # Subtract 2 from the colection's depth to account for the Root collection
+    # and its base depth of 1.
     depth = _depth(col) if permitted else col.depth - 2
-    prefix = ('   ' * depth) + ' ↳ ' if depth > 0 else ''
-    return prefix + col.name
+    if depth == 0:
+        return col.name
+    # Indent each level of descendence by 4 spaces (the width of the ↳
+    # character in our font), then add ↳ before the name.
+    return "{indent}↳ {name}".format(indent='    ' * depth, name=col.name)
