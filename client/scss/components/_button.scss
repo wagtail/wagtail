@@ -309,6 +309,12 @@
         text-transform: initial;
     }
 
+    &.button--icon {
+        .icon {
+            @include svg-icon(1.5em);
+        }
+    }
+
     @include media-breakpoint-up(sm) {
         font-size: 0.95em;
         padding: 0 1.4em;
