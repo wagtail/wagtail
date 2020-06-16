@@ -1,7 +1,8 @@
 {% load i18n wagtailadmin_tags %}
 {% if workflow_state %}
+<li>
     <button data-url="{% url 'wagtailadmin_pages:workflow_status' page.id %}"
-            class="button button-small button-nobg button-strokeonhover text-notransform action-workflow-status">
+            class="button button-small button-nobg text-notransform action-workflow-status">
         {% if workflow_state.status == 'needs_changes' %}
             {% icon name="warning" %}
             {% trans "Changes requested" %}
@@ -17,7 +18,9 @@
             {% include "wagtailadmin/shared/last_updated.html" with since_text=since_text last_updated=workflow_state.current_task_state.started_at %}
         {% endif %}
     </button>
+</li>
 {% else %}
+<li class="header-meta--status">
     {% if page.get_latest_revision %}
         {% if page.get_latest_revision.user %}
             <span class="avatar small" data-wagtail-tooltip="{{ page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username }}"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
@@ -31,4 +34,5 @@
     {% else %}
         {% trans "Draft" %}
     {% endif %}
+</li>
 {% endif %}

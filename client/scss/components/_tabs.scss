@@ -26,14 +26,13 @@
         @include transition(border-color 0.2s ease);
         background-color: $color-teal-darker;
         text-transform: uppercase;
-        font-weight: 700;
-        font-size: 1.2em;
+        font-weight: 600;
         text-decoration: none;
         display: block;
         padding: 0.7em;
         color: $color-white;
         border-top: 0.3em solid $color-teal-darker;
-        max-height: 1.2em;
+        max-height: 1.44em;
         overflow: hidden;
 
         &:hover {
@@ -66,19 +65,6 @@
         color: $color-grey-1;
         background-color: $color-white;
         border-top: 0.3em solid $color-grey-1;
-    }
-
-    li.settings a {
-        &:before {
-            @include font-smoothing;
-            font-family: wagtail;
-            vertical-align: middle;
-            text-transform: none;
-            content: map-get($icons, 'cog');
-            margin-right: 0.5em;
-            font-size: 1.2em;
-            font-weight: normal;
-        }
     }
 
     // For cases where tab-nav should merge with header
@@ -121,8 +107,8 @@
         }
 
         a {
-            padding-left: $desktop-nice-padding - 10;
-            padding-right: $desktop-nice-padding - 10;
+            padding-left: $mobile-nice-padding;
+            padding-right: $mobile-nice-padding;
         }
 
         li.settings a {
@@ -136,7 +122,7 @@
         min-width: 0;
 
         &:first-of-type {
-            padding-left: 2.5em;
+            padding-left: $desktop-nice-padding;
         }
     }
 }
