@@ -421,23 +421,23 @@
             <h3>Bi-color icon buttons with text</h3>
             <p>Note that <code>input</code> elements are not supported by any icon buttons.</p>
 
-            <a href="#" class="button bicolor icon icon-plus">button link</a>
-            <button class="button bicolor icon icon-plus">button element</button>
+            <a href="#" class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}button link</a>
+            <button class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}button element</button>
 
             <h4>(small)</h4>
 
-            <a href="#" class="button button-small bicolor icon icon-plus">button link</a>
-            <button class="button button-small bicolor icon icon-plus">button element</button>
+            <a href="#" class="button button-small bicolor button--icon">{% icon name="plus" wrapped=1 %}button link</a>
+            <button class="button button-small bicolor button--icon">{% icon name="plus" wrapped=1 %}button element</button>
 
             <h3>Icon buttons without text</h3>
 
-            <a href="#" class="button text-replace icon icon-cog">button link</a>
-            <button class="button text-replace icon icon-cog">button element</button>
+            <a href="#" class="button text-replace button--icon">{% icon name="cog" %}button link</a>
+            <button class="button text-replace button--icon">{% icon name="cog" %}button element</button>
 
             <h4>(small)</h4>
 
-            <a href="#" class="button button-small text-replace icon icon-cog">button link</a>
-            <button class="button button-small text-replace icon icon-cog">button element</button>
+            <a href="#" class="button button-small text-replace button--icon">{% icon name="cog" %}button link</a>
+            <button class="button button-small text-replace button--icon">{% icon name="cog" %}button element</button>
 
             <h3>Colour signifiers</h3>
 
@@ -453,16 +453,16 @@
 
             <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
             <p class="help-block help-warning">Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
-            <button class="button button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Secondary</h4>
-            <button class="button button-secondary button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-secondary button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Small</h4>
-            <button class="button button-small button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-small button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Buttons where the text is replaced on click</h4>
-            <button class="button button-longrunning" data-clicked-text="Test"><span class="icon icon-spinner"></span><em>Click me</em></button>
+            <button class="button button-longrunning" data-clicked-text="Test">{% icon name="spinner" %}<em>Click me</em></button>
 
             <h4>Arbitrarily bigger</h4>
             <style>
@@ -472,14 +472,14 @@
                     height:3.5em;
                 }
             </style>
-            <button class="button button-longrunning" id="button-arbitrarily-bigger"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-longrunning" id="button-arbitrarily-bigger">{% icon name="spinner" %}Click me</button>
 
             <h3>Mixtures</h3>
 
-            <button class="button icon text-replace yes icon-tick">A proper button</button>
-            <a href="#" class="button icon text-replace white icon-cog">A link button</a>
-            <span class="button icon text-replace no icon-bin">A non-link button</span>
-            <a href="#" class="button bicolor disabled icon icon-tick">button link</a>
+            <button class="button button--icon text-replace yes">{% icon name="tick" %}A proper button</button>
+            <a href="#" class="button button--icon text-replace white">{% icon name="cog" %}A link button</a>
+            <span class="button button--icon text-replace no ">{% icon name="bin" %}A non-link button</span>
+            <a href="#" class="button button--icon bicolor disabled">{% icon name="tick" wrapped=1 %}button link</a>
 
         </section>
 
@@ -493,9 +493,9 @@
             </div>
             <br />
             <div class="button-group">
-                <button class="button icon text-replace yes icon-tick">A proper button</button>
-                <a href="#" class="button icon text-replace white icon-cog">A link button</a>
-                <span class="button icon text-replace no icon-bin">A non-link button</span>
+                <button class="button button--icon text-replace yes">{% icon name="tick" %}A proper button</button>
+                <a href="#" class="button button--icon text-replace white">{% icon name="cog" %}A link button</a>
+                <span class="button button--icon text-replace no">{% icon name="bin" %}A non-link button</span>
             </div>
         </section>
 
@@ -506,7 +506,7 @@
                 <div class="col3">
                     <div class="dropdown dropdown-button match-width">
                         <input type="button" value="drop down" class="button" />
-                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
                         <ul>
                             <li><a href="#">items should not exceed button width</a></li>
                             <li><a href="#">item 2</a></li>
@@ -517,7 +517,7 @@
                 <div class="col3">
                     <div class="dropdown dropdown-button">
                         <input type="button" value="drop down" class="button" />
-                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
                         <ul>
                             <li><a href="#">Items in this list do not match button width</a></li>
                             <li><a href="#">item 2</a></li>
@@ -528,7 +528,7 @@
                 <div class="col3">
                     <div class="dropdown dropup dropdown-button match-width">
                         <input type="button" value="drop up" class="button" />
-                        <div class="dropdown-toggle icon icon-arrow-up"></div>
+                        <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
                         <ul>
                             <li><a href="#">item 1</a></li>
                             <li><a href="#">item 2</a></li>
@@ -539,7 +539,7 @@
                 <div class="col3">
                     <div class="dropdown dropup dropdown-button match-width">
                         <button value="drop up" class="button icon icon-view">icon dropup</button>
-                        <div class="dropdown-toggle icon icon-arrow-up"></div>
+                        <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
                         <ul>
                             <li><a href="#">item 1</a></li>
                             <li><a href="#">item 2</a></li>
@@ -553,7 +553,7 @@
                 <div class="col3">
                     <div class="dropdown dropdown-button match-width">
                         <a href="#" class="button" value="drop down">Link button</a>
-                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
                         <ul>
                             <li><a href="#">items should not exceed button width</a></li>
                             <li><a href="#">item 2</a></li>
@@ -588,7 +588,10 @@
                 <div class="c-dropdown u-para t-default" data-dropdown="">
                     <a class="c-dropdown__button  u-btn-current">
                         More
-                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle c-dropdown__togle--icon  [ icon icon-arrow-down ]">
+                            {% icon name="arrow-down" %}
+                            {% icon name="arrow-up" %}
+                        </div>
                     </a>
                     <div class="t-dark">
                         <nav aria-label="Inline dropdown menu example">
@@ -651,7 +654,10 @@
                 <div class="c-dropdown  t-inverted" data-dropdown="">
                     <a class="c-dropdown__button  u-btn-current">
                         More
-                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle c-dropdown__togle--icon  [ icon icon-arrow-down ]">
+                            {% icon name="arrow-down" %}
+                            {% icon name="arrow-up" %}
+                        </div>
                     </a>
                     <div class="t-dark">
                         <nav aria-label="Dark inline dropdown menu example">

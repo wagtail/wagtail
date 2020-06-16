@@ -940,12 +940,12 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         publish_button = '''
             <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-clicked-text="Publishing…">
-                <span class="icon icon-spinner"></span><em>Publish</em>
+                <svg class="icon icon-spinner icon" aria-hidden="true" focusable="false"><use href="#icon-spinner"></use></svg><em>Publish</em>
             </button>
         '''
         save_button = '''
             <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" >
-                <span class="icon icon-spinner"></span><em>Save draft</em>
+                <svg class="icon icon-spinner icon" aria-hidden="true" focusable="false"><use href="#icon-spinner"></use></svg><em>Save draft</em>
             </button>
         '''
 

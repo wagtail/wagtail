@@ -47,13 +47,13 @@
                     <legend>{% trans 'Popular Tags:' %}</legend>
                       {% for tag in popular_tags %}
                           {% if tag.name != current_tag %}
-                              <a class="button button-small button-secondary bicolor icon icon-tag" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{{ tag.name }}</a>
+                              <a class="button button-small button-secondary bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
                           {% else %}
-                              <a class="button button-small bicolor icon icon-tag" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{{ tag.name }}</a>
+                              <a class="button button-small bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
                           {% endif %}
                       {% endfor %}
                       {% if current_tag %}
-                          <a class="button button-small bicolor button-secondary icon icon-cross" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% trans 'Clear choice' %}</a>
+                          <a class="button button-small bicolor button-secondary button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% icon name="cross" wrapped=1 %}{% trans 'Clear choice' %}</a>
                       {% endif %}
                     </fieldset>
                 </li>

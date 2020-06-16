@@ -23,6 +23,30 @@
     display: inline-block;
 }
 
+.c-dropdown__togle--icon {
+    &:before {
+        display: none; // TODO: remove when iconfont styles are removed
+    }
+
+    .icon {
+        @include svg-icon(1em, middle);
+    }
+
+    .icon-arrow-up {
+        display: none;
+    }
+}
+
+.is-open .c-dropdown__togle--icon {
+    .icon-arrow-up {
+        display: inline-block;
+    }
+
+    .icon-arrow-down {
+        display: none;
+    }
+}
+
 .c-dropdown__menu.c-dropdown__menu {
     margin-top: 0.75rem;
     padding: 0.75rem 1rem;
