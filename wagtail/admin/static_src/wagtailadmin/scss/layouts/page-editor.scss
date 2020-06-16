@@ -33,34 +33,47 @@
         }
     }
 
+    h1 {
+        font-size: 1.915em;  // approximately 26px
+
+        &.header-title {
+            text-transform: initial;
+        }
+    }
+
+    .header-title {
+        padding-left: 0;
+    }
+
+    .modal-body .header-title h1 {
+        font-size: 1.5em;
+    }
+
     .header-meta {
         list-style: none;
         margin-top: 0;
         margin-bottom: 0;
+        padding: 0;
 
         li {
+            border: 0;
             float: left;
             height: 1.5em;
-            line-height: 1.5em;
-            margin-top: 1em;
-            padding: 0 .5em;
-            border-right: 1px solid rgba(255, 255, 255, 0.5);
+            line-height: 2em;
+            margin: 1em 0 1.5em;
 
             .icon {
-                width: 1.25em;
-                height: 1.5em;
-                vertical-align: text-bottom;
+                @include svg-icon(1.25em, text-bottom);
+
+                margin-right: 0.4em;
+            }
+
+            .icon-warning {
+                @include svg-icon();
             }
 
             &:first-child .button {
-                margin-left: -1em;
-            }
-
-            &:first-child {
-                margin-left: -.5em;  // offset the padding
-            }
-            &:last-child {
-                border: none;
+                margin-left: -0.8em;
             }
 
             .avatar {
@@ -71,11 +84,13 @@
         .button {
             font-size: 1em;
             margin-top: -0.25em; // Account for the button border
-            overflow: auto;
+            overflow: initial;
+            height: 2.5em;
+            line-height: 2.5em;
         }
 
         .action-workflow-status {
-            font-weight: 700;
+            font-weight: 600;
 
             span {
                 font-weight: 500;
@@ -85,10 +100,14 @@
         .human-readable-date {
             display: inline;
         }
-    }
 
-    .header-title {
-        padding-left: 0;
+        &--status {
+            padding-right: 0.8em;
+        }
+
+        &--type {
+            padding: 0 0.8em;
+        }
     }
 
 }
@@ -541,17 +560,25 @@ footer .preview {
     }
 }
 
-.lock-status {
-    display: inline-block;
-    margin: 0 .5em;
-    text-transform: uppercase;
-    width: 4em;
-}
+.button.button--live {
+    background-color: $color-white;
+    color: $color-teal;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 2.3em;
+    padding: 0 0.75em;
 
-.lock-indicator .button-toggle--on .icon {
-    fill: $color-red;
-}
+    .icon {
+        @include svg-icon(1.25em);
+        margin-right: 0.25em;
+    }
 
+    &:hover {
+        background-color: $color-teal-darker;
+        color: $color-white;
+    }
+}
 
 .workflow-timeline {
     list-style: none;
