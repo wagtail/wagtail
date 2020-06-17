@@ -98,6 +98,15 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
             [collection.name for collection in response.context['collections']],
             ['Root', 'Evil plans', 'Good plans'])
 
+    def test_collection_nesting(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans = root_collection.add_child(name="Evil plans")
+        evil_plans.add_child(name="Eviler plans")
+
+        response = self.client.get(reverse('wagtaildocs:index'))
+        # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
+        self.assertContains(response, '&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans')
+
 
 class TestDocumentAddView(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -128,6 +137,15 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '<label for="id_collection">')
         self.assertContains(response, "Evil plans")
+
+    def test_get_with_collection_nesting(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans = root_collection.add_child(name="Evil plans")
+        evil_plans.add_child(name="Eviler plans")
+
+        response = self.client.get(reverse('wagtaildocs:add'))
+        # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
+        self.assertContains(response, '&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans')
 
     @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
     def test_get_with_custom_document_model(self):
@@ -235,6 +253,16 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
         # is displayed on the form
         self.assertNotContains(response, '<label for="id_collection">')
 
+    def test_get_with_collection_nesting(self):
+        self.evil_plans_collection.add_child(name="Eviler plans")
+
+        response = self.client.get(reverse('wagtaildocs:add'))
+        self.assertEqual(response.status_code, 200)
+        # Unlike the above test, the user should have access to multiple Collections.
+        self.assertContains(response, '<label for="id_collection">')
+        # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
+        self.assertContains(response, '&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans')
+
     def test_post(self):
         # Build a fake file
         fake_file = get_test_document_file()
@@ -281,6 +309,15 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         # (see TestDocumentEditViewWithCustomDocumentModel - this confirms that form media
         # definitions are being respected)
         self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
+    def test_simple_with_collection_nesting(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans = root_collection.add_child(name="Evil plans")
+        evil_plans.add_child(name="Eviler plans")
+
+        response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id,)))
+        # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
+        self.assertContains(response, '&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans')
 
     def test_post(self):
         # Build a fake file
@@ -775,6 +812,15 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
 
         # draftail should NOT be a standard JS include on this page
         self.assertNotIn('wagtailadmin/js/draftail.js', response_json['html'])
+
+    def test_simple_with_collection_nesting(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans = root_collection.add_child(name="Evil plans")
+        evil_plans.add_child(name="Eviler plans")
+
+        response = self.client.get(reverse('wagtaildocs:chooser'))
+        # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
+        self.assertContains(response, '&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans')
 
     @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
     def test_with_custom_document_model(self):

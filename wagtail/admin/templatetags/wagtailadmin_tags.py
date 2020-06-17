@@ -545,7 +545,7 @@ def format_collection(col: Collection, permitted: QuerySet = None) -> str:
     the Collection's depth relative to that queryset is used.
 
     Example usage: {% format_collection collection collections %}
-    Example output: "&nbsp;&nbsp;&nbsp;&nbsp;↳ Child Collection"
+    Example output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Child Collection"
     """
     def _depth(cur_col, count=0):
         if cur_col.get_parent() in permitted:
@@ -556,14 +556,14 @@ def format_collection(col: Collection, permitted: QuerySet = None) -> str:
     depth = _depth(col) if permitted else col.depth - 2
     if depth == 0:
         return col.name
-    # Indent each level of descendence by 4 non-breaking spaces (the width of
-    # the ↳ character in our font), then add ↳ before the name.
+    # Indent each level of descendence by 4 non-breaking spaces (the width of the
+    # ↳ character in our font), then add ↳ before the name. We don't output an
+    # actual ↳ character because actual unicode characters make testing a hassle.
+    # &#x21b3 is the hex HTML entity for ↳.
     output = format_html(
-        "{indent}↳ {name}",
+        "{indent}{icon} {name}",
+        icon=mark_safe('&#x21b3'),
         indent=mark_safe('&nbsp;' * 4 * depth),
         name=col.name
     )
-    # If we want to move away from using the ↳ unicode character, this is
-    # how to print the same symbol in ascii HTML:
-    # <span style="transform:scale(-1, 1);display:inline-block;">&crarr;</span>
     return output
