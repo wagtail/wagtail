@@ -16,10 +16,9 @@ from django.views.decorators.http import require_POST
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.edit_handlers import Workflow
-from wagtail.admin.forms.workflows import AddWorkflowToPageForm, TaskChooserSearchForm, WorkflowPagesFormSet
+from wagtail.admin.forms.workflows import TaskChooserSearchForm, WorkflowPagesFormSet
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.models import Page, Task, TaskState, WorkflowState
 from wagtail.core.permissions import task_permission_policy, workflow_permission_policy
 from wagtail.core.utils import resolve_model_string
@@ -294,38 +293,6 @@ def remove_workflow(request, page_pk, workflow_pk=None):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.id)
-
-
-def add_to_page(request, workflow_pk):
-    # Assign a workflow to a Page, including a confirmation step if the Page has a different Workflow assigned already.
-
-    if not workflow_permission_policy.user_has_permission(request.user, 'change'):
-        raise PermissionDenied
-
-    workflow = get_object_or_404(Workflow, pk=workflow_pk)
-    form_class = AddWorkflowToPageForm
-
-    next_url = get_valid_next_url_from_request(request)
-    if request.method == 'POST':
-        form = form_class(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Workflow '{0}' added to Page '{1}'.").format(workflow, form.cleaned_data['page']))
-            form = form_class(initial={'workflow': workflow.pk, 'overwrite_existing': False})
-
-    else:
-        form = form_class(initial={'workflow': workflow.pk, 'overwrite_existing': False})
-
-    confirm = form.has_error('page', 'needs_confirmation')
-
-    return render(request, 'wagtailadmin/workflows/add_to_page.html', {
-        'workflow': workflow,
-        'form': form,
-        'icon': 'clipboard-list',
-        'title': _("Workflows"),
-        'next': next_url,
-        'confirm': confirm
-    })
 
 
 class TaskIndex(IndexView):
