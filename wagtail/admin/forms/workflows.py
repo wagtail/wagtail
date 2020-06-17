@@ -5,6 +5,9 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as __
 
 from wagtail.admin import widgets
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, ObjectList
+from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin.widgets.workflows import AdminTaskChooser
 from wagtail.core.models import Page, Task, Workflow, WorkflowPage
 from wagtail.core.utils import get_model_string
 
@@ -176,3 +179,22 @@ def get_task_form_class(task_model, for_edit=False):
             form_class.base_fields[field_name].disabled = True
 
     return form_class
+
+
+def get_workflow_edit_handler():
+    """
+    Returns an edit handler which provides the "name" and "tasks" fields for workflow.
+    """
+    # Note. It's a bit of a hack that we use edit handlers here. Ideally, it should be
+    # made easier to reuse the inline panel templates for any formset.
+    # Since this form is internal, we're OK with this for now. We might want to revisit
+    # this decision later if we decide to allow custom fields on Workflows.
+
+    panels = [
+        FieldPanel("name", heading=_("Give your workflow a name")),
+        InlinePanel("workflow_tasks", [
+            FieldPanel('task', widget=AdminTaskChooser(show_clear_link=False)),
+        ], heading=_("Add tasks to your workflow")),
+    ]
+    edit_handler = ObjectList(panels, base_form_class=WagtailAdminModelForm)
+    return edit_handler.bind_to(model=Workflow)
