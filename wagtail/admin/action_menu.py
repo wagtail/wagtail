@@ -88,16 +88,17 @@ class SubmitForModerationMenuItem(ActionMenuItem):
     icon_name = 'resubmit'
 
     def is_shown(self, request, context):
-        WAGTAIL_MODERATION_ENABLED = getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True)
-        if not WAGTAIL_MODERATION_ENABLED:
+        if not getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True):
             return False
-        elif context['view'] == 'create':
+
+        if context['view'] == 'create':
             return context['parent_page'].has_workflow
-        elif context['view'] == 'edit':
+
+        if context['view'] == 'edit':
             permissions = context['user_page_permissions'].for_page(context['page'])
             return permissions.can_submit_for_moderation() and not permissions.page_locked()
-        else:  # context == revisions_revert
-            return False
+        # context == revisions_revert
+        return False
 
     def get_context(self, request, parent_context):
         context = super().get_context(request, parent_context)
@@ -105,6 +106,10 @@ class SubmitForModerationMenuItem(ActionMenuItem):
         workflow_state = page.current_workflow_state if page else None
         if workflow_state and workflow_state.status == workflow_state.STATUS_NEEDS_CHANGES:
             context['label'] = _("Resubmit to {}").format(workflow_state.current_task_state.task.name)
+        elif page:
+            workflow = page.get_workflow()
+            if workflow:
+                context['label'] = _("Submit to {}").format(workflow.name)
         return context
 
 
