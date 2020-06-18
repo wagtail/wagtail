@@ -23,7 +23,7 @@ from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
-from wagtail.core.permissions import collection_permission_policy
+from wagtail.core.permissions import collection_permission_policy, workflow_permission_policy
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
@@ -103,9 +103,16 @@ def register_collections_menu_item():
     return CollectionsMenuItem(_('Collections'), reverse('wagtailadmin_collections:index'), icon_name='folder-open-1', order=700)
 
 
+class WorkflowsMenuItem(MenuItem):
+    def is_shown(self, request):
+        return workflow_permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
+
+
 @hooks.register('register_settings_menu_item')
 def register_workflows_menu_item():
-    return MenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), icon_name='clipboard-list', order=100)
+    return WorkflowsMenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), icon_name='clipboard-list', order=100)
 
 
 @hooks.register('register_page_listing_buttons')
