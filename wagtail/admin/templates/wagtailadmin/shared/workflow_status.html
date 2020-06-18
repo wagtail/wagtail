@@ -21,12 +21,13 @@
     {% endif %}
 
     <div>
-        {% trans 'Approved task' as approved_title %}
         {% trans 'Incomplete task' as incomplete_title %}
         {% for task in workflow_tasks %}
             <span data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}">
                 {% if task.status == 'approved' %}
-                    {% icon "success" title=approved_title class_name="icon uniform" %}
+                    {% icon "success" title=task.status_display class_name="icon uniform" %}
+                {% elif task.status == 'rejected' %}
+                    {% icon "failure" title=task.status_display class_name="icon uniform" %}
                 {% else %}
                     {% icon "radio-empty" title=incomplete_title class_name="icon uniform" %}
                 {% endif %}
