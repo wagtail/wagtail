@@ -134,12 +134,6 @@ header {
     display: flex;
     flex-flow: row-reverse wrap;
 
-    thead {
-        display: table-caption;
-        height: $object-title-height;
-        margin-bottom: 2em;
-    }
-
     .listing--push-top {
         margin-top: 3em;
 
@@ -147,6 +141,14 @@ header {
             display: table-row-group;
             margin-bottom: 0;
         }
+    }
+
+    .listing {
+        margin-bottom: 0;
+    }
+
+    .listing tbody {
+        border-bottom: 0;
     }
 }
 
