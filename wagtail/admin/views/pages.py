@@ -379,6 +379,11 @@ def edit(request, page_id):
             else:
                 lock_message = format_html(_("<b>Page '{}' is locked</b> by <b>you</b>."), page.get_admin_display_title())
 
+            lock_message += format_html(
+                '<span class="buttons"><button class="button button-small button-secondary" data-locking-action="{}">{}</button></span>',
+                reverse('wagtailadmin_pages:unlock', args=(page.id,)),
+                _("Unlock")
+            )
             messages.warning(request, lock_message, extra_tags='lock')
 
         elif page.locked and page_perms.page_locked():
@@ -390,6 +395,12 @@ def edit(request, page_id):
                 # Page was probably locked with an old version of Wagtail, or a script
                 lock_message = format_html(_("<b>Page '{}' is locked</b>."), page.get_admin_display_title())
 
+            if page_perms.can_unlock():
+                lock_message += format_html(
+                    '<span class="buttons"><button class="button button-small button-secondary" data-locking-action="{}">{}</button></span>',
+                    reverse('wagtailadmin_pages:unlock', args=(page.id,)),
+                    _("Unlock")
+                )
             messages.error(request, lock_message, extra_tags='lock')
 
     # Check for revisions still undergoing moderation and warn - this is for the old moderation system
