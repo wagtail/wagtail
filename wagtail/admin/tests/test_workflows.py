@@ -4,7 +4,7 @@ from unittest import mock
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
@@ -31,6 +31,23 @@ class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
         delete_existing_workflows()
         self.login()
+
+        self.editor = get_user_model().objects.create_user(
+            username='editor',
+            email='editor@email.com',
+            password='password',
+        )
+        editors = Group.objects.get(name='Editors')
+        editors.user_set.add(self.editor)
+
+        self.moderator = get_user_model().objects.create_user(
+            username='moderator',
+            email='moderator@email.com',
+            password='password',
+        )
+        moderators = Group.objects.get(name='Moderators')
+        moderators.user_set.add(self.moderator)
+        moderators.permissions.add(Permission.objects.get(codename="add_workflow"))
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_workflows:index'), params)
@@ -67,6 +84,17 @@ class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "There are no enabled workflows.")
 
+    def test_permissions(self):
+        self.login(user=self.editor)
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        full_context = {key: value for context in response.context for key, value in context.items()}
+        self.assertEqual(full_context['message'], 'Sorry, you do not have permission to access this area.')
+
+        self.login(user=self.moderator)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
 
 class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
 
@@ -75,6 +103,23 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
         self.login()
         self.task_1 = SimpleTask.objects.create(name="first_task")
         self.task_2 = SimpleTask.objects.create(name="second_task")
+
+        self.editor = get_user_model().objects.create_user(
+            username='editor',
+            email='editor@email.com',
+            password='password',
+        )
+        editors = Group.objects.get(name='Editors')
+        editors.user_set.add(self.editor)
+
+        self.moderator = get_user_model().objects.create_user(
+            username='moderator',
+            email='moderator@email.com',
+            password='password',
+        )
+        moderators = Group.objects.get(name='Moderators')
+        moderators.user_set.add(self.moderator)
+        moderators.permissions.add(Permission.objects.get(codename="add_workflow"))
 
 
     def get(self, params={}):
@@ -113,6 +158,17 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(WorkflowTask.objects.get(workflow=workflow, task=self.task_1.task_ptr).sort_order, 0)
         self.assertEqual(WorkflowTask.objects.get(workflow=workflow, task=self.task_2.task_ptr).sort_order, 1)
 
+    def test_permissions(self):
+        self.login(user=self.editor)
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        full_context = {key: value for context in response.context for key, value in context.items()}
+        self.assertEqual(full_context['message'], 'Sorry, you do not have permission to access this area.')
+
+        self.login(user=self.moderator)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
 
 class TestWorkflowsEditView(TestCase, WagtailTestUtils):
 
@@ -126,6 +182,23 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
         self.workflow_task = WorkflowTask.objects.create(workflow=self.workflow, task=self.task_1.task_ptr, sort_order=0)
         self.page = Page.objects.first()
         WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
+
+        self.editor = get_user_model().objects.create_user(
+            username='editor',
+            email='editor@email.com',
+            password='password',
+        )
+        editors = Group.objects.get(name='Editors')
+        editors.user_set.add(self.editor)
+
+        self.moderator = get_user_model().objects.create_user(
+            username='moderator',
+            email='moderator@email.com',
+            password='password',
+        )
+        moderators = Group.objects.get(name='Moderators')
+        moderators.user_set.add(self.moderator)
+        moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
 
 
     def get(self, params={}):
@@ -181,6 +254,17 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
         self.assertEqual(WorkflowTask.objects.get(workflow=workflow, task=self.task_1.task_ptr).sort_order, 0)
         self.assertEqual(WorkflowTask.objects.get(workflow=workflow, task=self.task_2.task_ptr).sort_order, 1)
 
+    def test_permissions(self):
+        self.login(user=self.editor)
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        full_context = {key: value for context in response.context for key, value in context.items()}
+        self.assertEqual(full_context['message'], 'Sorry, you do not have permission to access this area.')
+
+        self.login(user=self.moderator)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
 
 class TestAddWorkflowToPage(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
@@ -193,6 +277,23 @@ class TestAddWorkflowToPage(TestCase, WagtailTestUtils):
         self.other_workflow = Workflow.objects.create(name="other_workflow")
         self.other_page = Page.objects.last()
         WorkflowPage.objects.create(workflow=self.other_workflow, page=self.other_page)
+
+        self.editor = get_user_model().objects.create_user(
+            username='editor',
+            email='editor@email.com',
+            password='password',
+        )
+        editors = Group.objects.get(name='Editors')
+        editors.user_set.add(self.editor)
+
+        self.moderator = get_user_model().objects.create_user(
+            username='moderator',
+            email='moderator@email.com',
+            password='password',
+        )
+        moderators = Group.objects.get(name='Moderators')
+        moderators.user_set.add(self.moderator)
+        moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_workflows:add_to_page', args=[self.workflow.id]), params)
@@ -218,6 +319,15 @@ class TestAddWorkflowToPage(TestCase, WagtailTestUtils):
         self.post({'page': str(self.other_page.id), 'overwrite_existing': 'True', 'workflow': str(self.workflow.id)})
         self.assertEqual(WorkflowPage.objects.filter(workflow=self.workflow, page=self.other_page).count(), 1)
 
+    def test_permissions(self):
+        self.login(user=self.editor)
+        response = self.get()
+        self.assertEqual(response.status_code, 403)
+
+        self.login(user=self.moderator)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
 
 class TestRemoveWorkflow(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
@@ -229,6 +339,23 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
         self.page = Page.objects.first()
         WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
 
+        self.editor = get_user_model().objects.create_user(
+            username='editor',
+            email='editor@email.com',
+            password='password',
+        )
+        editors = Group.objects.get(name='Editors')
+        editors.user_set.add(self.editor)
+
+        self.moderator = get_user_model().objects.create_user(
+            username='moderator',
+            email='moderator@email.com',
+            password='password',
+        )
+        moderators = Group.objects.get(name='Moderators')
+        moderators.user_set.add(self.moderator)
+        moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
+
     def post(self, post_data={}):
         return self.client.post(reverse('wagtailadmin_workflows:remove', args=[self.page.id, self.workflow.id]), post_data)
 
@@ -237,12 +364,39 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
         self.post()
         self.assertEqual(WorkflowPage.objects.filter(workflow=self.workflow, page=self.page).count(), 0)
 
+    def test_no_permissions(self):
+        self.login(user=self.editor)
+        response = self.post()
+        self.assertEqual(response.status_code, 403)
+
+    def test_post_with_permission(self):
+        self.login(user=self.moderator)
+        response = self.post()
+        self.assertEqual(response.status_code, 302)
+
 
 class TestTaskIndexView(TestCase, WagtailTestUtils):
 
     def setUp(self):
         delete_existing_workflows()
         self.login()
+
+        self.editor = get_user_model().objects.create_user(
+            username='editor',
+            email='editor@email.com',
+            password='password',
+        )
+        editors = Group.objects.get(name='Editors')
+        editors.user_set.add(self.editor)
+
+        self.moderator = get_user_model().objects.create_user(
+            username='moderator',
+            email='moderator@email.com',
+            password='password',
+        )
+        moderators = Group.objects.get(name='Moderators')
+        moderators.user_set.add(self.moderator)
+        moderators.permissions.add(Permission.objects.get(codename="change_task"))
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_workflows:task_index'), params)
@@ -280,12 +434,40 @@ class TestTaskIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, "There are no enabled tasks")
         self.assertNotContains(response, "test_task")
 
+    def test_permissions(self):
+        self.login(user=self.editor)
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        full_context = {key: value for context in response.context for key, value in context.items()}
+        self.assertEqual(full_context['message'], 'Sorry, you do not have permission to access this area.')
+
+        self.login(user=self.moderator)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
 
 class TestCreateTaskView(TestCase, WagtailTestUtils):
 
     def setUp(self):
         delete_existing_workflows()
         self.login()
+
+        self.editor = get_user_model().objects.create_user(
+            username='editor',
+            email='editor@email.com',
+            password='password',
+        )
+        editors = Group.objects.get(name='Editors')
+        editors.user_set.add(self.editor)
+
+        self.moderator = get_user_model().objects.create_user(
+            username='moderator',
+            email='moderator@email.com',
+            password='password',
+        )
+        moderators = Group.objects.get(name='Moderators')
+        moderators.user_set.add(self.moderator)
+        moderators.permissions.add(Permission.objects.get(codename="add_task"))
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_workflows:add_task', kwargs={'app_label': SimpleTask._meta.app_label, 'model_name': SimpleTask._meta.model_name}), params)
@@ -307,6 +489,18 @@ class TestCreateTaskView(TestCase, WagtailTestUtils):
         # Check that the task was created
         tasks = Task.objects.filter(name="test_task", active=True)
         self.assertEqual(tasks.count(), 1)
+
+    def test_permissions(self):
+        self.login(user=self.editor)
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        full_context = {key: value for context in response.context for key, value in context.items()}
+        self.assertEqual(full_context['message'], 'Sorry, you do not have permission to access this area.')
+
+        self.login(user=self.moderator)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+
 
 
 class TestSelectTaskTypeView(TestCase, WagtailTestUtils):
@@ -335,6 +529,23 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
         self.login()
         self.task = SimpleTask.objects.create(name="test_task")
 
+        self.editor = get_user_model().objects.create_user(
+            username='editor',
+            email='editor@email.com',
+            password='password',
+        )
+        editors = Group.objects.get(name='Editors')
+        editors.user_set.add(self.editor)
+
+        self.moderator = get_user_model().objects.create_user(
+            username='moderator',
+            email='moderator@email.com',
+            password='password',
+        )
+        moderators = Group.objects.get(name='Moderators')
+        moderators.user_set.add(self.moderator)
+        moderators.permissions.add(Permission.objects.get(codename="change_task"))
+
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_workflows:edit_task', args=[self.task.id]), params)
 
@@ -355,6 +566,17 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
         # Check that the task was updated
         task = Task.objects.get(id=self.task.id)
         self.assertEqual(task.name, "test_task_modified")
+
+    def test_permissions(self):
+        self.login(user=self.editor)
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
+        full_context = {key: value for context in response.context for key, value in context.items()}
+        self.assertEqual(full_context['message'], 'Sorry, you do not have permission to access this area.')
+
+        self.login(user=self.moderator)
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
 
 
 class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
