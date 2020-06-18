@@ -1,8 +1,6 @@
 deployments:
   default:
     dockerimage: python:3.7.4-stretch
-    environment:
-      - CI=true
     build_steps:
       - apt-get update && apt-get install -y libssl-dev libpq-dev git build-essential libfontconfig1 libfontconfig1-dev curl
       - RUN bash -c "curl -sL https://deb.nodesource.com/setup_10.x | bash -"
@@ -10,8 +8,8 @@ deployments:
       - pip install setuptools pip --upgrade --force-reinstall
       - cd /code
     post_build_steps:  
-      - npm install --no-save --no-optional --no-audit --no-fund --progress=false
-      - npm run dist
+      - CI=true npm install --no-save --no-optional --no-audit --no-fund --progress=false
+      - CI=true npm run dist
       - pip install /code
       - mkdir /myproject
       - cd /myproject
