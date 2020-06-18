@@ -652,6 +652,27 @@ class TestPagePermission(TestCase):
         # be locked for them
         self.assertTrue(editor_perms.page_locked())
 
+    def test_page_lock_in_workflow(self):
+        workflow, task = self.create_workflow_and_task()
+        editor = get_user_model().objects.get(username='eventeditor')
+        moderator = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_page.save_revision()
+        workflow.start(christmas_page, editor)
+
+        moderator_perms = UserPagePermissionsProxy(moderator).for_page(christmas_page)
+
+        # the moderator is in the group assigned to moderate the task, so they can lock the page, but can't unlock it
+        # unless they're the locker
+        self.assertTrue(moderator_perms.can_lock())
+        self.assertFalse(moderator_perms.can_unlock())
+
+        editor_perms = UserPagePermissionsProxy(editor).for_page(christmas_page)
+
+        # the editor is not in the group assigned to moderate the task, so they can't lock or unlock the page
+        self.assertFalse(editor_perms.can_lock())
+        self.assertFalse(editor_perms.can_unlock())
+
 
 class TestPagePermissionTesterCanCopyTo(TestCase):
     """Tests PagePermissionTester.can_copy_to()"""
