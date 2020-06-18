@@ -170,6 +170,7 @@ class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
     name = 'action-unpublish'
     icon_name = 'download-alt'
+    classname = 'action-secondary'
 
     def is_shown(self, request, context):
         return (
@@ -186,6 +187,7 @@ class DeleteMenuItem(ActionMenuItem):
     name = 'action-delete'
     label = _("Delete")
     icon_name = 'bin'
+    classname = 'action-secondary'
 
     def is_shown(self, request, context):
         return (
@@ -203,6 +205,7 @@ class LockMenuItem(ActionMenuItem):
     label = _("Lock")
     aria_label = _("Apply editor lock")
     icon_name = 'lock'
+    classname = 'action-secondary'
     template = 'wagtailadmin/pages/action_menu/lock_unlock_menu_item.html'
 
     def is_shown(self, request, context):
