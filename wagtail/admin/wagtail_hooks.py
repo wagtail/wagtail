@@ -692,6 +692,7 @@ def register_icons(icons):
         'doc-full.svg',  # aka file-text-alt
         'download.svg',
         'edit.svg',
+        'failure.svg',
         'folder-inverse.svg',
         'folder-open-1.svg',
         'folder-open-inverse.svg',
