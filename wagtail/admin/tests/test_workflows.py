@@ -1663,6 +1663,7 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
     def workflow_action(self, action):
         post_data = {
             'action': action,
+            'comment': 'good work' if action == 'approve' else 'needs some changes',
             'next': self.edit_url
         }
         return self.client.post(
@@ -1734,3 +1735,17 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         self.submit('action-restart-workflow')
         response = self.client.get(self.edit_url)
         self.assertRegex(response.content.decode('utf-8'), r'Awaiting[\s|\n]+{}'.format(self.task_1.name))
+
+    def test_workflow_status_modal_task_comments(self):
+        workflow_status_url = reverse('wagtailadmin_pages:workflow_status', args=(self.page.id,))
+
+        self.submit()
+        self.workflow_action('reject')
+
+        response = self.client.get(workflow_status_url)
+        self.assertIn('needs some changes', response.json().get('html'))
+
+        self.submit()
+        self.workflow_action('approve')
+        response = self.client.get(workflow_status_url)
+        self.assertIn('good work', response.json().get('html'))
