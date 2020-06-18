@@ -269,3 +269,30 @@ class TestWorkflows(TestCase):
         workflow_state.current_task_state.approve(user=None)
         workflow_state.refresh_from_db()
         self.assertTrue(workflow_state.is_at_final_task)
+
+    def test_tasks_with_state(self):
+        data = self.start_workflow_on_homepage()
+        workflow_state = data['workflow_state']
+
+        tasks = workflow_state.all_tasks_with_state()
+        self.assertEqual(tasks[0].task_state.status, TaskState.STATUS_IN_PROGRESS)
+
+        workflow_state.current_task_state.approve(user=None)
+        workflow_state.refresh_from_db()
+
+        workflow_state.current_task_state.reject(user=None)
+        workflow_state.refresh_from_db()
+
+        tasks = workflow_state.all_tasks_with_state()
+        self.assertEqual(tasks[0].task_state.status, TaskState.STATUS_APPROVED)
+        self.assertEqual(tasks[1].task_state.status, TaskState.STATUS_REJECTED)
+
+        workflow_state.resume(user=None)
+
+        tasks = workflow_state.all_tasks_with_state()
+        self.assertEqual(tasks[0].task_state.status, TaskState.STATUS_APPROVED)
+        self.assertEqual(tasks[1].task_state.status, TaskState.STATUS_IN_PROGRESS)
+        self.assertEqual(
+            tasks[1].task_state,
+            TaskState.objects.filter(workflow_state=workflow_state).order_by('-started_at', '-id')[0]
+        )

@@ -3346,6 +3346,16 @@ class WorkflowState(models.Model):
             id__in=self.task_states.values_list('page_revision_id', flat=True)
         ).defer('content_json')
 
+    def _get_applicable_task_states(self):
+        """Returns the set of task states whose status applies to the current revision"""
+
+        task_states = TaskState.objects.filter(workflow_state_id=self.id)
+        # If WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=True, this is only task states created on the current revision
+        if getattr(settings, "WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT", False):
+            latest_revision_id = self.revisions().order_by('-created_at', '-id').values_list('id', flat=True).first()
+            task_states = task_states.filter(page_revision_id=latest_revision_id)
+        return task_states
+
     def all_tasks_with_status(self):
         """
         Returns a list of Task objects that are linked with this workflow state's
@@ -3357,11 +3367,7 @@ class WorkflowState(models.Model):
         been started yet (so won't have a TaskState).
         """
         # Get the set of task states whose status applies to the current revision
-        task_states = TaskState.objects.filter(workflow_state_id=self.id)
-        if getattr(settings, "WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT", False):
-            # If WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT=True, this is only task states created on the current revision
-            latest_revision_id = self.revisions().order_by('-created_at', '-id').values_list('id', flat=True).first()
-            task_states = task_states.filter(page_revision_id=latest_revision_id)
+        task_states = self._get_applicable_task_states()
 
         tasks = list(
             self.workflow.tasks.annotate(
@@ -3379,6 +3385,35 @@ class WorkflowState(models.Model):
         status_choices = dict(TaskState.STATUS_CHOICES)
         for task in tasks:
             task.status_display = status_choices.get(task.status, _("Not started"))
+
+        return tasks
+
+    def all_tasks_with_state(self):
+        """
+        Returns a list of Task objects that are linked with this WorkflowState's
+        workflow, and have the latest task state.
+
+        In a "Submit for moderation -> reject at step 1 -> resubmit -> accept" workflow, this ensures
+        the task list reflects the accept, rather than the reject.
+        """
+        task_states = self._get_applicable_task_states()
+
+        tasks = list(
+            self.workflow.tasks.annotate(
+                task_state_id=Subquery(
+                    task_states.filter(
+                        task_id=OuterRef('id'),
+                    ).order_by(
+                        '-started_at', '-id'
+                    ).values('id')[:1]
+                ),
+            )
+        )
+
+        task_states = {task_state.id: task_state for task_state in task_states}
+        # Manually annotate task_state
+        for task in tasks:
+            task.task_state = task_states.get(task.task_state_id)
 
         return tasks
 
