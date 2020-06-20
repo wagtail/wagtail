@@ -49,7 +49,7 @@ class BaseSetting(models.Model):
         Get or create an instance of this setting for the site.
         """
         queryset = cls.base_queryset()
-        instance, created = queryset.get_or_create(site=site)
+        instance, _ = queryset.get_or_create(site=site)
         return instance
 
     @classmethod

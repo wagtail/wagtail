@@ -20,7 +20,7 @@ class Query(models.Model):
     def add_hit(self, date=None):
         if date is None:
             date = timezone.now().date()
-        daily_hits, created = QueryDailyHits.objects.get_or_create(query=self, date=date)
+        daily_hits, _ = QueryDailyHits.objects.get_or_create(query=self, date=date)
         daily_hits.hits = models.F('hits') + 1
         daily_hits.save()
 

@@ -48,7 +48,7 @@ def pytest_configure(config):
     shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
 
 
-def pytest_unconfigure(config):
+def pytest_unconfigure(_config):
     from wagtail.tests.settings import MEDIA_ROOT, STATIC_ROOT
     shutil.rmtree(STATIC_ROOT, ignore_errors=True)
     shutil.rmtree(MEDIA_ROOT, ignore_errors=True)

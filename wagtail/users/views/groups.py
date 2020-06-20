@@ -21,7 +21,7 @@ def get_permission_panel_classes():
 
 
 class PermissionPanelFormsMixin:
-    def get_permission_panel_form_kwargs(self, cls):
+    def get_permission_panel_form_kwargs(self, _cls):
         kwargs = {}
 
         if self.request.method in ('POST', 'PUT'):

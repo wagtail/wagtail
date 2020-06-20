@@ -36,13 +36,11 @@ def br(props):
 def block_fallback(props):
     type_ = props['block']['type']
     logging.error('Missing config for "%s". Deleting block.' % type_)
-    return None
 
 
 def entity_fallback(props):
     type_ = props['entity']['type']
     logging.warn('Missing config for "%s". Deleting entity' % type_)
-    return None
 
 
 class ContentstateConverter():

@@ -48,7 +48,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
         })
         return context
 
-    def get_url(self, request, context):
+    def get_url(self, request, _context):
         return None
 
     def render_html(self, request, parent_context):

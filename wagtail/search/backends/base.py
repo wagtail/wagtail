@@ -303,7 +303,7 @@ class BaseSearchBackend:
     def __init__(self, params):
         pass
 
-    def get_index_for_model(self, model):
+    def get_index_for_model(self, _model):
         return NullIndex()
 
     def get_rebuilder(self):

@@ -2,14 +2,14 @@
 from django.db import migrations
 
 
-def create_admin_access_permissions(apps, schema_editor):
+def create_admin_access_permissions(apps, _schema_editor):
     ContentType = apps.get_model('contenttypes.ContentType')
     Permission = apps.get_model('auth.Permission')
     Group = apps.get_model('auth.Group')
 
     # Add a fake content type to hang the 'can access Wagtail admin' permission off.
     # The fact that this doesn't correspond to an actual defined model shouldn't matter, I hope...
-    wagtailadmin_content_type, created = ContentType.objects.get_or_create(
+    wagtailadmin_content_type, _ = ContentType.objects.get_or_create(
         app_label='wagtailadmin',
         model='admin'
     )
@@ -26,7 +26,7 @@ def create_admin_access_permissions(apps, schema_editor):
         group.permissions.add(admin_permission)
 
 
-def remove_admin_access_permissions(apps, schema_editor):
+def remove_admin_access_permissions(apps, _schema_editor):
     """Reverse the above additions of permissions."""
     ContentType = apps.get_model('contenttypes.ContentType')
     Permission = apps.get_model('auth.Permission')

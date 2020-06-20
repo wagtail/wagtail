@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import get_language
 
 
-def upload_avatar_to(instance, filename):
+def upload_avatar_to(_instance, filename):
     filename, ext = os.path.splitext(filename)
     return os.path.join(
         'avatar_images',

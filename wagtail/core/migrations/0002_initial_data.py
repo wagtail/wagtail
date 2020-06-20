@@ -10,7 +10,7 @@ def initial_data(apps, schema_editor):
     GroupPagePermission = apps.get_model('wagtailcore.GroupPagePermission')
 
     # Create page content type
-    page_content_type, created = ContentType.objects.get_or_create(
+    page_content_type, _ = ContentType.objects.get_or_create(
         model='page',
         app_label='wagtailcore'
     )
