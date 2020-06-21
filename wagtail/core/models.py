@@ -658,6 +658,11 @@ class AbstractPage(TranslatableMixin, TreebeardPathFixMixin, MP_Node):
 
 
 class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
+    uuid = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
+        unique=True,
+    )
     title = models.CharField(
         verbose_name=_('title'),
         max_length=255,
@@ -779,6 +784,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         index.AutocompleteField('title'),
         index.FilterField('title'),
         index.FilterField('id'),
+        index.FilterField('uuid'),
         index.FilterField('live'),
         index.FilterField('owner'),
         index.FilterField('content_type'),
@@ -2525,9 +2531,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         page revision).
 
         Certain field values are preserved in order to prevent errors if the returned
-        page is saved, such as ``id``, ``content_type`` and some tree-related values.
-        The following field values are also preserved, as they are considered to be
-        meaningful to the page as a whole, rather than to a specific revision:
+        page is saved, such as ``id``, ``uuid``, ``content_type`` and some tree-related
+        values. The following field values are also preserved, as they are considered to
+        be meaningful to the page as a whole, rather than to a specific revision:
 
         * ``draft_title``
         * ``live``
@@ -2546,6 +2552,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # These should definitely never change between revisions
         obj.id = self.id
         obj.pk = self.pk
+        obj.uuid = self.uuid
         obj.content_type = self.content_type
 
         # Override possibly-outdated tree parameter fields
