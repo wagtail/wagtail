@@ -19,6 +19,7 @@ from wagtail.admin.datetimepicker import to_datetimepicker_format
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core import hooks
 from wagtail.core.models import Page
+from wagtail.utils import formats
 from wagtail.utils.widgets import WidgetWithScript
 
 DEFAULT_DATE_FORMAT = '%Y-%m-%d'
@@ -109,10 +110,16 @@ class AdminDateTimeInput(widgets.DateTimeInput):
         if attrs:
             default_attrs.update(attrs)
         if fmt is None:
-            fmt = getattr(settings, 'WAGTAIL_DATETIME_FORMAT', DEFAULT_DATETIME_FORMAT)
+            fmt = formats.get_format_lazy('WAGTAIL_DATETIME_FORMAT')
+            # Django get_format_lazy returns the variable name if it can't find the format.
+            if fmt == "WAGTAIL_DATETIME_FORMAT":
+                fmt = DEFAULT_DATETIME_FORMAT
         time_fmt = time_format
         if time_fmt is None:
-            time_fmt = getattr(settings, 'WAGTAIL_TIME_FORMAT', DEFAULT_TIME_FORMAT)
+            time_fmt = formats.get_format_lazy('WAGTAIL_TIME_FORMAT')
+            # Django get_format_lazy returns the variable name if it can't find the format.
+            if time_fmt == "WAGTAIL_TIME_FORMAT":
+                time_fmt = DEFAULT_TIME_FORMAT
         self.js_format = to_datetimepicker_format(fmt)
         self.js_time_format = to_datetimepicker_format(time_fmt)
         super().__init__(attrs=default_attrs, format=fmt)
