@@ -42,12 +42,13 @@
             <div class="report__filters">
                 <h2>{% trans 'Filter' %}</h2>
                 <form method="get">
+                    <button class="button button-longrunning" type="submit">{% icon name="spinner" %}{% trans 'Apply filters' %}</button>
+
                     {% for filter in filters.form %}
                         {{ filter.label_tag }}
                         {{ filter }}
                         {{ filter.errors }}
                     {% endfor %}
-                    <button class="button button-longrunning" type="submit">{% icon name="spinner" %}{% trans 'Apply filters' %}</button>
                 </form>
             </div>
         {% endif %}
