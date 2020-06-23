@@ -1,4 +1,5 @@
 import django_filters
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
@@ -109,6 +110,12 @@ class LockedPagesReportFilterSet(WagtailFilterSet):
         fields = ['locked_by', 'locked_at', 'live']
 
 
+def get_requested_by_queryset(request):
+    return get_user_model().objects.filter(
+        pk__in=set(WorkflowState.objects.values_list('requested_by__pk', flat=True))
+    ).order_by('username')
+
+
 class WorkflowReportFilterSet(WagtailFilterSet):
     created_at = django_filters.DateFromToRangeFilter(label=_("Started at"), widget=DateRangePickerWidget)
     reviewable = django_filters.ChoiceFilter(
@@ -120,6 +127,9 @@ class WorkflowReportFilterSet(WagtailFilterSet):
         empty_label=_("All"),
         widget=ButtonSelect
     )
+    requested_by = django_filters.ModelChoiceFilter(
+        field_name='requested_by', queryset=get_requested_by_queryset
+    )
 
     def filter_reviewable(self, queryset, name, value):
         if value and self.request and self.request.user:
@@ -128,7 +138,7 @@ class WorkflowReportFilterSet(WagtailFilterSet):
 
     class Meta:
         model = WorkflowState
-        fields = ['reviewable', 'workflow', 'status', 'created_at']
+        fields = ['reviewable', 'workflow', 'status', 'requested_by', 'created_at']
 
 
 class WorkflowTasksReportFilterSet(WagtailFilterSet):
