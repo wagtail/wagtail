@@ -309,7 +309,7 @@ class WorkflowView(ReportView):
 
 class WorkflowTasksView(ReportView):
     template_name = 'wagtailadmin/reports/workflow_tasks.html'
-    title = _('Workflows')
+    title = _('Workflow tasks')
     header_icon = 'clipboard-list'
     filterset_class = WorkflowTasksReportFilterSet
 

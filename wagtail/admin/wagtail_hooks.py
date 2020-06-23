@@ -660,6 +660,11 @@ def register_workflow_report_menu_item():
     return WorkflowReportMenuItem(_('Workflows'), reverse('wagtailadmin_reports:workflow'), classnames='icon icon-clipboard-list', order=800)
 
 
+@hooks.register('register_reports_menu_item')
+def register_workflow_tasks_report_menu_item():
+    return WorkflowReportMenuItem(_('Workflow tasks'), reverse('wagtailadmin_reports:workflow_tasks'), classnames='icon icon-clipboard-list', order=900)
+
+
 @hooks.register('register_admin_menu_item')
 def register_reports_menu():
     return ReportsMenuItem(
