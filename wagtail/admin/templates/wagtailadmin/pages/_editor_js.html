@@ -12,6 +12,7 @@
         'emailLinkChooser': '{% url "wagtailadmin_choose_page_email_link" %}',
         'phoneLinkChooser': '{% url "wagtailadmin_choose_page_phone_link" %}',
         'anchorLinkChooser': '{% url "wagtailadmin_choose_page_anchor_link" %}',
+        'taskChooser': '{% url "wagtailadmin_workflows:task_chooser" %}',
     };
     window.unicodeSlugsEnabled = {% if unicode_slugs_enabled %}true{% else %}false{% endif %};
 </script>
