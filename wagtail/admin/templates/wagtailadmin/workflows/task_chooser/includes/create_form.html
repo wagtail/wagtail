@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{{ form.media.css }}
+{{ form.media.js }}
+
+<form class="task-create" action="{{ add_url }}" enctype="multipart/form-data" method="POST" novalidate>
+    {% csrf_token %}
+
+    {{ form }}
+
+    <div>
+        <button type="submit" class="button">{% trans "Create" %}</button>
+    </div>
+</form>
