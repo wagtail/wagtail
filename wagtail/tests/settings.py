@@ -156,7 +156,7 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
 )
 
-ALLOWED_HOSTS = ['localhost', 'testserver']
+ALLOWED_HOSTS = ['localhost', 'testserver', 'other.example.com']
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
