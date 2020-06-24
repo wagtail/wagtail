@@ -528,7 +528,6 @@ def task_chooser(request):
         for model in task_models
     ]
     task_type_choices.sort(key=lambda task_type: task_type[1].lower())
-    task_type_choices += [(Page, "Page")]
 
     if create_model:
         edit_handler = create_model.get_edit_handler()
