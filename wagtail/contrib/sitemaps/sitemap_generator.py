@@ -1,4 +1,5 @@
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
+from wagtail.core.models import Site
 
 
 class Sitemap(DjangoSitemap):
@@ -15,9 +16,8 @@ class Sitemap(DjangoSitemap):
         return (obj.last_published_at or obj.latest_revision_created_at)
 
     def get_wagtail_site(self):
-        site = getattr(self.request, 'site', None)
+        site = Site.find_for_request(self.request)
         if site is None:
-            from wagtail.core.models import Site
             return Site.objects.select_related(
                 'root_page'
             ).get(is_default_site=True)
