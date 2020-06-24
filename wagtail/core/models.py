@@ -2573,7 +2573,7 @@ class Task(models.Model):
     objects = TaskManager()
 
     admin_form_fields = ['name']
-    admin_form_readonly_on_edit_fields = []
+    admin_form_readonly_on_edit_fields = ['name']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -2743,7 +2743,6 @@ class GroupApprovalTask(Task):
     groups = models.ManyToManyField(Group, verbose_name=_('groups'), help_text=_('Pages at this step in a workflow will be moderated or approved by these groups of users'))
 
     admin_form_fields = Task.admin_form_fields + ['groups']
-    admin_form_readonly_on_edit_fields = ['groups']
     admin_form_widgets = {
         'groups': forms.CheckboxSelectMultiple,
     }
