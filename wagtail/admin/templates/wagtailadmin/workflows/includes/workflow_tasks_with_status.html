@@ -1,0 +1,12 @@
+{% load wagtailadmin_tags %}
+{% for task in workflow_tasks %}
+    <span data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}">
+        {% if task.status == 'approved' %}
+            {% icon name="success" title=task.status_display class_name="uniform" %}
+        {% elif task.status == 'rejected' %}
+            {% icon name="failure" title=task.status_display class_name="uniform" %}
+        {% else %}
+            {% icon name="radio-empty" title=incomplete_title|default:status_display class_name="uniform" %}
+        {% endif %}
+    </span>
+{% endfor %}
