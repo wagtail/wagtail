@@ -480,7 +480,6 @@ def get_chooser_context():
         'step': 'chooser',
         'error_label': _("Server Error"),
         'error_message': _("Report this error to your webmaster with the following information:"),
-        'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
     }
 
 
@@ -535,11 +534,6 @@ def task_chooser(request):
         createform_class = edit_handler.get_form_class()
     else:
         createform_class = None
-
-    # TODO
-    #  # allow hooks to modify the queryset
-    # for hook in hooks.get_hooks('construct_document_chooser_queryset'):
-    #     documents = hook(documents, request)
 
     q = None
     if 'q' in request.GET or 'p' in request.GET or 'task_type' in request.GET:

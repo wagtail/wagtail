@@ -17,9 +17,9 @@
                 <a href="{% url 'wagtailadmin_workflows:task_chooser' %}" class="choose-different-task-type">{% trans "Choose a different task type" %}</a>
             {% endif %}
 
-            {% include "./includes/create_form.html" with form=createform %}
+            {% include "wagtailadmin/workflows/task_chooser/includes/create_form.html" with form=createform %}
         {% else %}
-            {% include "./includes/select_task_type.html" %}
+            {% include "wagtailadmin/workflows/task_chooser/includes/select_task_type.html" %}
         {% endif %}
     </section>
     {% endif %}
@@ -32,7 +32,7 @@
             </ul>
         </form>
         <div id="search-results" class="listing tasks">
-            {% include "./includes/results.html" %}
+            {% include "wagtailadmin/workflows/task_chooser/includes/results.html" %}
         </div>
     </section>
 </div>
