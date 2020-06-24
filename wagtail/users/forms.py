@@ -83,11 +83,11 @@ class UserForm(UsernameForm):
 
     password1 = forms.CharField(
         label=_('Password'), required=False,
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
         help_text=_("Leave blank if not changing."))
     password2 = forms.CharField(
         label=_("Password confirmation"), required=False,
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
         help_text=_("Enter the same password as above, for verification."))
 
     is_superuser = forms.BooleanField(
