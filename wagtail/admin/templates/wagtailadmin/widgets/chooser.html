@@ -12,12 +12,16 @@
         {% block chosen_state_view %}{% endblock %}
 
         <ul class="actions">
-            {% if not widget.is_required %}
+            {% if not widget.is_required and widget.show_clear_link %}
                 <li><button type="button" class="button action-clear button-small button-secondary">{{ widget.clear_choice_text }}</button></li>
             {% endif %}
             <li><button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_another_text }}</button></li>
             {% if widget.show_edit_link %}
-                <li><a href="{% block edit_chosen_item_url %}#{% endblock %}" class="edit-link button button-small button-secondary" target="_blank" rel="noopener noreferrer">{{ widget.link_to_chosen_text }}</a></li>
+                <li>
+                    {% block edit_link %}
+                        <a href="{% block edit_chosen_item_url %}#{% endblock %}" class="edit-link button button-small button-secondary" target="_blank" rel="noopener noreferrer">{{ widget.link_to_chosen_text }}</a>
+                    {% endblock %}
+                </li>
             {% endif %}
         </ul>
     </div>
