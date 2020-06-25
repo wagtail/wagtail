@@ -42,8 +42,6 @@
     }
 }
 
-$object-title-height: 40px;
-
 // An object is the basic wrapper around any field or group of fields in the editor interface
 .object {
     @include nice-padding();
