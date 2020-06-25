@@ -60,6 +60,8 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix incorrect method name in SiteMiddleware deprecation warning (LB (Ben Johnston))
+ * Fix: ``wagtail.contrib.sitemaps`` no longer depends on SiteMiddleware (Matt Westcott)
+
 
 2.9 (04.05.2020)
 ~~~~~~~~~~~~~~~~
