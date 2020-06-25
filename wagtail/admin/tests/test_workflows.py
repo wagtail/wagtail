@@ -121,6 +121,7 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
         moderators.user_set.add(self.moderator)
         moderators.permissions.add(Permission.objects.get(codename="add_workflow"))
 
+        self.root_page = Page.objects.get(depth=1)
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_workflows:add'), params)
@@ -135,11 +136,29 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
 
     def test_post(self):
         response = self.post({
-            'name': ['test_workflow'], 'active': ['on'], 'workflow_tasks-TOTAL_FORMS': ['2'],
-            'workflow_tasks-INITIAL_FORMS': ['0'], 'workflow_tasks-MIN_NUM_FORMS': ['0'],
-            'workflow_tasks-MAX_NUM_FORMS': ['1000'], 'workflow_tasks-0-task': [str(self.task_1.id)], 'workflow_tasks-0-id': [''],
-            'workflow_tasks-0-ORDER': ['1'], 'workflow_tasks-0-DELETE': [''], 'workflow_tasks-1-task': [str(self.task_2.id)],
-            'workflow_tasks-1-id': [''], 'workflow_tasks-1-ORDER': ['2'], 'workflow_tasks-1-DELETE': ['']})
+            'name': ['test_workflow'],
+            'active': ['on'],
+            'workflow_tasks-TOTAL_FORMS': ['2'],
+            'workflow_tasks-INITIAL_FORMS': ['0'],
+            'workflow_tasks-MIN_NUM_FORMS': ['0'],
+            'workflow_tasks-MAX_NUM_FORMS': ['1000'],
+            'workflow_tasks-0-task': [str(self.task_1.id)],
+            'workflow_tasks-0-id': [''],
+            'workflow_tasks-0-ORDER': ['1'],
+            'workflow_tasks-0-DELETE': [''],
+            'workflow_tasks-1-task': [str(self.task_2.id)],
+            'workflow_tasks-1-id': [''],
+            'workflow_tasks-1-ORDER': ['2'],
+            'workflow_tasks-1-DELETE': [''],
+            'pages-TOTAL_FORMS': ['2'],
+            'pages-INITIAL_FORMS': ['1'],
+            'pages-MIN_NUM_FORMS': ['0'],
+            'pages-MAX_NUM_FORMS': ['1000'],
+            'pages-0-page': [str(self.root_page.id)],
+            'pages-0-DELETE': [''],
+            'pages-1-page': [''],
+            'pages-1-DELETE': [''],
+        })
 
 
         # Should redirect back to index
@@ -168,6 +187,38 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
         self.login(user=self.moderator)
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_page_already_has_workflow_check(self):
+        workflow = Workflow.objects.create(name="existing_workflow")
+        WorkflowPage.objects.create(workflow=workflow, page=self.root_page)
+
+        response = self.post({
+            'name': ['test_workflow'],
+            'active': ['on'],
+            'workflow_tasks-TOTAL_FORMS': ['2'],
+            'workflow_tasks-INITIAL_FORMS': ['0'],
+            'workflow_tasks-MIN_NUM_FORMS': ['0'],
+            'workflow_tasks-MAX_NUM_FORMS': ['1000'],
+            'workflow_tasks-0-task': [str(self.task_1.id)],
+            'workflow_tasks-0-id': [''],
+            'workflow_tasks-0-ORDER': ['1'],
+            'workflow_tasks-0-DELETE': [''],
+            'workflow_tasks-1-task': [str(self.task_2.id)],
+            'workflow_tasks-1-id': [''],
+            'workflow_tasks-1-ORDER': ['2'],
+            'workflow_tasks-1-DELETE': [''],
+            'pages-TOTAL_FORMS': ['2'],
+            'pages-INITIAL_FORMS': ['1'],
+            'pages-MIN_NUM_FORMS': ['0'],
+            'pages-MAX_NUM_FORMS': ['1000'],
+            'pages-0-page': [str(self.root_page.id)],
+            'pages-0-DELETE': [''],
+            'pages-1-page': [''],
+            'pages-1-DELETE': [''],
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormsetError(response, 'pages_formset', 0, 'page', ["This page already has workflow 'existing_workflow' assigned."])
 
 
 class TestWorkflowsEditView(TestCase, WagtailTestUtils):
@@ -230,7 +281,16 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
             'workflow_tasks-1-task': [str(self.task_2.id)],
             'workflow_tasks-1-id': [''],
             'workflow_tasks-1-ORDER': ['2'],
-            'workflow_tasks-1-DELETE': ['']})
+            'workflow_tasks-1-DELETE': [''],
+            'pages-TOTAL_FORMS': ['2'],
+            'pages-INITIAL_FORMS': ['1'],
+            'pages-MIN_NUM_FORMS': ['0'],
+            'pages-MAX_NUM_FORMS': ['1000'],
+            'pages-0-page': [str(self.page.id)],
+            'pages-0-DELETE': [''],
+            'pages-1-page': [''],
+            'pages-1-DELETE': [''],
+        })
 
 
         # Should redirect back to index
@@ -260,68 +320,71 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+    def test_duplicate_page_check(self):
+        response = self.post({
+            'name': [str(self.workflow.name)],
+            'active': ['on'],
+            'workflow_tasks-TOTAL_FORMS': ['2'],
+            'workflow_tasks-INITIAL_FORMS': ['1'],
+            'workflow_tasks-MIN_NUM_FORMS': ['0'],
+            'workflow_tasks-MAX_NUM_FORMS': ['1000'],
+            'workflow_tasks-0-task': [str(self.task_1.id)],
+            'workflow_tasks-0-id': [str(self.workflow_task.id)],
+            'workflow_tasks-0-ORDER': ['1'],
+            'workflow_tasks-0-DELETE': [''],
+            'workflow_tasks-1-task': [str(self.task_2.id)],
+            'workflow_tasks-1-id': [''],
+            'workflow_tasks-1-ORDER': ['2'],
+            'workflow_tasks-1-DELETE': [''],
+            'pages-TOTAL_FORMS': ['2'],
+            'pages-INITIAL_FORMS': ['1'],
+            'pages-MIN_NUM_FORMS': ['0'],
+            'pages-MAX_NUM_FORMS': ['1000'],
+            'pages-0-page': [str(self.page.id)],
+            'pages-0-DELETE': [''],
+            'pages-1-page': [str(self.page.id)],
+            'pages-1-DELETE': [''],
+        })
 
-class TestAddWorkflowToPage(TestCase, WagtailTestUtils):
-    fixtures = ['test.json']
-
-    def setUp(self):
-        delete_existing_workflows()
-        self.login()
-        self.workflow = Workflow.objects.create(name="workflow")
-        self.page = Page.objects.first()
-        self.other_workflow = Workflow.objects.create(name="other_workflow")
-        self.other_page = Page.objects.last()
-        WorkflowPage.objects.create(workflow=self.other_workflow, page=self.other_page)
-
-        self.editor = get_user_model().objects.create_user(
-            username='editor',
-            email='editor@email.com',
-            password='password',
-        )
-        editors = Group.objects.get(name='Editors')
-        editors.user_set.add(self.editor)
-
-        self.moderator = get_user_model().objects.create_user(
-            username='moderator',
-            email='moderator@email.com',
-            password='password',
-        )
-        moderators = Group.objects.get(name='Moderators')
-        moderators.user_set.add(self.moderator)
-        moderators.permissions.add(Permission.objects.get(codename="change_workflow"))
-
-    def get(self, params={}):
-        return self.client.get(reverse('wagtailadmin_workflows:add_to_page', args=[self.workflow.id]), params)
-
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailadmin_workflows:add_to_page', args=[self.workflow.id]), post_data)
-
-    def test_get(self):
-        response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/workflows/add_to_page.html')
+        self.assertFormsetError(response, 'pages_formset', None, None, ['You cannot assign this workflow to the same page multiple times.'])
 
-    def test_post(self):
-        # Check that a WorkflowPage instance is created correctly when a page with no existing workflow is created
-        self.post({'page': str(self.page.id), 'workflow': str(self.workflow.id)})
-        self.assertEqual(WorkflowPage.objects.filter(workflow=self.workflow, page=self.page).count(), 1)
+    def test_pages_ignored_if_workflow_disabled(self):
+        self.workflow.active = False
+        self.workflow.save()
+        self.workflow.workflow_pages.all().delete()
 
-        # Check that trying to add a WorkflowPage for a page with an existing workflow does not create
-        self.post({'page': str(self.other_page.id), 'workflow': str(self.workflow.id)})
-        self.assertEqual(WorkflowPage.objects.filter(workflow=self.workflow, page=self.other_page).count(), 0)
+        response = self.post({
+            'name': [str(self.workflow.name)],
+            'active': ['on'],
+            'workflow_tasks-TOTAL_FORMS': ['2'],
+            'workflow_tasks-INITIAL_FORMS': ['1'],
+            'workflow_tasks-MIN_NUM_FORMS': ['0'],
+            'workflow_tasks-MAX_NUM_FORMS': ['1000'],
+            'workflow_tasks-0-task': [str(self.task_1.id)],
+            'workflow_tasks-0-id': [str(self.workflow_task.id)],
+            'workflow_tasks-0-ORDER': ['1'],
+            'workflow_tasks-0-DELETE': [''],
+            'workflow_tasks-1-task': [str(self.task_2.id)],
+            'workflow_tasks-1-id': [''],
+            'workflow_tasks-1-ORDER': ['2'],
+            'workflow_tasks-1-DELETE': [''],
+            'pages-TOTAL_FORMS': ['2'],
+            'pages-INITIAL_FORMS': ['1'],
+            'pages-MIN_NUM_FORMS': ['0'],
+            'pages-MAX_NUM_FORMS': ['1000'],
+            'pages-0-page': [str(self.page.id)],
+            'pages-0-DELETE': [''],
+            'pages-1-page': [''],
+            'pages-1-DELETE': [''],
+        })
 
-        # Check that this can be overridden by setting overwrite_existing to true
-        self.post({'page': str(self.other_page.id), 'overwrite_existing': 'True', 'workflow': str(self.workflow.id)})
-        self.assertEqual(WorkflowPage.objects.filter(workflow=self.workflow, page=self.other_page).count(), 1)
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailadmin_workflows:index'))
 
-    def test_permissions(self):
-        self.login(user=self.editor)
-        response = self.get()
-        self.assertEqual(response.status_code, 403)
-
-        self.login(user=self.moderator)
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
+        # Check that the pages weren't added to the workflow
+        self.workflow.refresh_from_db()
+        self.assertFalse(self.workflow.workflow_pages.exists())
 
 
 class TestRemoveWorkflow(TestCase, WagtailTestUtils):
