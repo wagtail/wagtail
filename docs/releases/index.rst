@@ -5,6 +5,7 @@ Release notes
    :maxdepth: 1
 
    upgrading
+   2.9.1
    2.9
    2.8.2
    2.8.1
