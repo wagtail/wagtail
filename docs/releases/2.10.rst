@@ -62,6 +62,7 @@ Other features
  * Allow omitting the default editor from ``WAGTAILADMIN_RICH_TEXT_EDITORS`` (Gassan Gousseinov)
  * Disable password auto-completion on user creation form (Samir Shah)
  * Upgrade jQuery to version 3.5.1 to reduce penetration testing false positives (Matt Westcott)
+ * Add ability to extend ``EditHandler`` without a children attribute (Seb Brown)
 
 
 Bug fixes
