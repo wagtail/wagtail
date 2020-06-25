@@ -191,7 +191,7 @@ def get_workflow_edit_handler():
     # this decision later if we decide to allow custom fields on Workflows.
 
     panels = [
-        FieldPanel("name", heading=_("Give your workflow a name")),
+        FieldPanel("name", heading=_("Give your workflow a name"), classname="full title"),
         InlinePanel("workflow_tasks", [
             FieldPanel('task', widget=AdminTaskChooser(show_clear_link=False)),
         ], heading=_("Add tasks to your workflow")),
