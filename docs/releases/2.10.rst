@@ -72,6 +72,8 @@ Bug fixes
  * Avoid using null on string ``Site.site_name`` blank values to avoid different values for no name (Coen van der Kamp)
  * Fix deprecation warnings on Elasticsearch 7 (Yngve Høiseth)
  * Remove use of Node.forEach for IE 11 compatibility in admin menu items (Thibaud Colas)
+ * Fix incorrect method name in SiteMiddleware deprecation warning (LB (Ben Johnston))
+ * ``wagtail.contrib.sitemaps`` no longer depends on SiteMiddleware (Matt Westcott)
 
 
 Upgrade considerations

@@ -54,13 +54,15 @@ Changelog
  * Fix: Avoid using null on string `Site.site_name` blank values to avoid different values for no name (Coen van der Kamp)
  * Fix: Fix deprecation warnings on Elasticsearch 7 (Yngve Høiseth)
  * Fix: Remove use of Node.forEach for IE 11 compatibility in admin menu items (Thibaud Colas)
+ * Fix: Fix incorrect method name in SiteMiddleware deprecation warning (LB (Ben Johnston))
+ * Fix: `wagtail.contrib.sitemaps` no longer depends on SiteMiddleware (Matt Westcott)
 
 
 2.9.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix incorrect method name in SiteMiddleware deprecation warning (LB (Ben Johnston))
- * Fix: ``wagtail.contrib.sitemaps`` no longer depends on SiteMiddleware (Matt Westcott)
+ * Fix: `wagtail.contrib.sitemaps` no longer depends on SiteMiddleware (Matt Westcott)
 
 
 2.9 (04.05.2020)
