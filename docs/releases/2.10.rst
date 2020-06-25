@@ -16,6 +16,12 @@ Search query expressions
 Search queries can now be constructed as structured expressions in the manner of the Django ORM's ``Q()`` values, allowing for complex queries that combine individual terms, phrases and boosting. A helper function ``parse_query_string`` is provided to convert "natural" queries containing quoted phrases into these expressions. For complete documentation, see :ref:`wagtailsearch_complex_queries`. This feature was developed by Karl Hobley and sponsored by `The Motley Fool <https://www.fool.com/>`_.
 
 
+Redirect importing
+~~~~~~~~~~~~~~~~~~
+
+Redirects can now be imported from an uploaded CSV, TSV, XLS or XLSX file. This feature was developed by Martin Sandström.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
@@ -52,7 +58,6 @@ Other features
  * Remove markup around rich text rendering by default, provide a way to use old behaviour via ``wagtail.contrib.legacy.richtext``. See :ref:`legacy_richtext`. (Coen van der Kamp, Dan Braghis)
  * Add ``WAGTAIL_TIME_FORMAT`` setting (Jacob Topp-Mugglestone)
  * Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
- * Add ability to import redirects from an uploaded file (CSV, TSV, XLS, and XLSX) (Martin Sandström)
  * Allow omitting the default editor from ``WAGTAILADMIN_RICH_TEXT_EDITORS`` (Gassan Gousseinov)
 
 
