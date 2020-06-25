@@ -25,7 +25,6 @@
 
     {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 %}
 
-
     <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}
 
@@ -54,17 +53,21 @@
             </li>
         </ul>
 
-        <div class="object">
-            <ul class="object-layout">
-                <li class="object-layout_big-part">
-                    <p class="actions">
-                        <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
-                            <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
-                        </button>
-                    </p>
-                </li>
-            </ul>
-        </div>
+        {% block footer %}
+            <footer role="contentinfo">
+                <ul>
+                    <li class="actions">
+                        {% block form_actions %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
+                                    <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                                </button>
+                            </div>
+                        {% endblock %}
+                    </li>
+                </ul>
+            </footer>
+        {% endblock %}
     </form>
 
     {% if can_enable or can_disable %}
