@@ -116,6 +116,11 @@ def register_workflows_menu_item():
     return WorkflowsMenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), icon_name='clipboard-list', order=100)
 
 
+@hooks.register('register_settings_menu_item')
+def register_workflow_tasks_menu_item():
+    return MenuItem(_('Workflow tasks'), reverse('wagtailadmin_workflows:task_index'), icon_name='clipboard-list', order=150)
+
+
 @hooks.register('register_page_listing_buttons')
 def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
     if page_perms.can_edit():
