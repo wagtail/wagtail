@@ -1,10 +1,13 @@
 from django import forms
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as __
 
 from wagtail.admin import widgets
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, ObjectList
+from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin.widgets.workflows import AdminTaskChooser
 from wagtail.core.models import Page, Task, Workflow, WorkflowPage
 from wagtail.core.utils import get_model_string
 
@@ -141,3 +144,57 @@ class BaseWorkflowPagesFormSet(forms.BaseInlineFormSet):
 WorkflowPagesFormSet = forms.inlineformset_factory(
     Workflow, WorkflowPage, form=WorkflowPageForm, formset=BaseWorkflowPagesFormSet, extra=1, can_delete=True, fields=['page']
 )
+
+
+class BaseTaskForm(forms.ModelForm):
+    pass
+
+
+def get_task_form_class(task_model, for_edit=False):
+    """
+    Generates a form class for the given task model.
+
+    If the form is to edit an existing task, set for_edit to True. This applies
+    the readonly restrictions on fields defined in admin_form_readonly_on_edit_fields.
+    """
+    fields = task_model.admin_form_fields
+
+    form_class = forms.modelform_factory(
+        task_model,
+        form=BaseTaskForm,
+        fields=fields,
+        widgets=getattr(task_model, 'admin_form_widgets', {})
+    )
+
+    if for_edit:
+        for field_name in getattr(task_model, 'admin_form_readonly_on_edit_fields', []):
+            if field_name not in form_class.base_fields:
+                raise ImproperlyConfigured(
+                    "`%s.admin_form_readonly_on_edit_fields` contains the field "
+                    "'%s' that doesn't exist. Did you forget to add "
+                    "it to `%s.admin_form_fields`?"
+                    % (task_model.__name__, field_name, task_model.__name__)
+                )
+
+            form_class.base_fields[field_name].disabled = True
+
+    return form_class
+
+
+def get_workflow_edit_handler():
+    """
+    Returns an edit handler which provides the "name" and "tasks" fields for workflow.
+    """
+    # Note. It's a bit of a hack that we use edit handlers here. Ideally, it should be
+    # made easier to reuse the inline panel templates for any formset.
+    # Since this form is internal, we're OK with this for now. We might want to revisit
+    # this decision later if we decide to allow custom fields on Workflows.
+
+    panels = [
+        FieldPanel("name", heading=_("Give your workflow a name")),
+        InlinePanel("workflow_tasks", [
+            FieldPanel('task', widget=AdminTaskChooser(show_clear_link=False)),
+        ], heading=_("Add tasks to your workflow")),
+    ]
+    edit_handler = ObjectList(panels, base_form_class=WagtailAdminModelForm)
+    return edit_handler.bind_to(model=Workflow)
