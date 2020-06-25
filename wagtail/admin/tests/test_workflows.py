@@ -73,7 +73,7 @@ class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
         Workflow.objects.create(name="test_workflow", active=False)
 
         # The listing should contain our workflow, as well as marking it as disabled
-        response = self.get(params={'show_disabled': 'True'})
+        response = self.get(params={'show_disabled': 'true'})
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "No workflows have been created.")
         self.assertContains(response, "test_workflow")
@@ -480,7 +480,7 @@ class TestTaskIndexView(TestCase, WagtailTestUtils):
         Task.objects.create(name="test_task", active=False)
 
         # The listing should contain our task, as well as marking it as disabled
-        response = self.get(params={'show_disabled': 'True'})
+        response = self.get(params={'show_disabled': 'true'})
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "No tasks have been created.")
         self.assertContains(response, "test_task")
