@@ -17,7 +17,13 @@
             </div>
         </div>
     </header>
+
     <div class="nice-padding">
+        <label>
+            <input class="js-show-disabled" type="checkbox"{% if showing_disabled %} checked{% endif %}>
+            {% trans "Show disabled tasks" %}
+        </label>
+
         {% if tasks %}
             <table class="listing">
                 <thead>
@@ -56,10 +62,23 @@
                 <p>{% blocktrans %}There are no enabled tasks. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
             {% endif %}
         {% endif %}
-        {% if showing_disabled %}
-            <a href="." class="button secondary">{% trans "Hide disabled tasks" %}</a>
-        {% else %}
-            <a href="?show_disabled" class="button secondary">{% trans "Show disabled tasks" %}</a>
-        {% endif %}
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+        $(function() {
+            $('.js-show-disabled').change(function() {
+                this.setAttribute('disabled', 'true');
+
+                if (this.checked) {
+                    window.location.href = '?show_disabled=true';
+                } else {
+                    window.location.href = '?show_disabled=false';
+                }
+            });
+        });
+    </script>
 {% endblock %}

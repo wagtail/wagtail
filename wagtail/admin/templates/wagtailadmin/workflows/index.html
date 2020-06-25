@@ -19,12 +19,12 @@
     </header>
 
     <div class="nice-padding">
-        {% if workflows %}
-            <label>
-                <input class="js-show-disabled" type="checkbox"{% if showing_disabled %} checked{% endif %}>
-                {% trans "Show disabled workflows" %}
-            </label>
+        <label>
+            <input class="js-show-disabled" type="checkbox"{% if showing_disabled %} checked{% endif %}>
+            {% trans "Show disabled workflows" %}
+        </label>
 
+        {% if workflows %}
             <table class="listing">
                 <thead>
                     <tr>
