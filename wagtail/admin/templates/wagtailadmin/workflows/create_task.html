@@ -25,7 +25,15 @@
     <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
 
-        {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+        <ul class="fields nice-padding">
+            {% for field in form %}
+                {% if not field.is_hidden %}
+                    {% include "wagtailadmin/shared/field_as_li.html" %}
+                {% else %}
+                    {{ field }}
+                {% endif %}
+            {% endfor %}
+        </ul>
 
         {% block footer %}
             <footer role="contentinfo">
