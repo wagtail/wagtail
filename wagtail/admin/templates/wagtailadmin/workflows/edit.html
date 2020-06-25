@@ -6,13 +6,16 @@
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
     {{ edit_handler.form.media.css }}
+    {{ pages_formset.media.css }}
 
     {{ view.media.css }}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/workflow-edit.css' %}" type="text/css" />
 {% endblock %}
 
 {% block extra_js %}
     {% include "wagtailadmin/pages/_editor_js.html" %}
     {{ edit_handler.form.media.js }}
+    {{ pages_formset.media.js }}
     {{ edit_handler.html_declarations }}
 
     {{ view.media.js }}
@@ -22,10 +25,34 @@
 
     {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 %}
 
+
     <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}
 
         {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+
+        <ul class="objects">
+            <li class="object">
+                <div class="title-wrapper">
+                    <label>
+                        {% trans "Assign your workflow to pages" %}
+                    </label>
+                </div>
+                <div class="object-layout">
+                    <div class="object-layout_big-part">
+                        {% if workflow.active %}
+                            {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
+                        {% else %}
+                            <div class="top-padding">
+                                <p class="help-block help-info">
+                                    {% trans "This workflow is disabled so it cannot be assigned to any pages." %}
+                                </p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+        </ul>
 
         <div class="object">
             <ul class="object-layout">
@@ -39,6 +66,7 @@
             </ul>
         </div>
     </form>
+
     {% if can_enable or can_disable %}
         <div class="nice-padding">
             <form action="{{ view.get_enable_url }}" method="POST" novalidate>
@@ -54,21 +82,4 @@
             </form>
         </div>
     {% endif %}
-    <div class="object">
-        <div class="title-wrapper">{% trans 'Select page(s) to link workflow to' %}</div>
-        <div class="object-layout">
-            <div class="object-layout_big-part">
-                <div class="multiple">
-                    <p>{% trans 'Child pages will also use this workflow' %}</p>
-                    {% if pages %}
-                        {% include "wagtailadmin/workflows/listing/_list_workflow_pages.html" %}
-                        {% paginate pages base_url=request.path %}
-                    {% endif %}
-                    <p class="add">
-                        <a class="button bicolor icon icon-plus" href="{% url 'wagtailadmin_workflows:add_to_page' workflow.pk %}">Add</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}

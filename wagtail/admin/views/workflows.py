@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.db.models.functions import Lower
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
@@ -15,10 +16,9 @@ from django.views.decorators.http import require_POST
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.edit_handlers import Workflow
-from wagtail.admin.forms.workflows import AddWorkflowToPageForm, TaskChooserSearchForm
+from wagtail.admin.forms.workflows import TaskChooserSearchForm, WorkflowPagesFormSet
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.admin.views.pages import get_valid_next_url_from_request
 from wagtail.core.models import Page, Task, TaskState, WorkflowState
 from wagtail.core.permissions import task_permission_policy, workflow_permission_policy
 from wagtail.core.utils import resolve_model_string
@@ -83,10 +83,39 @@ class Create(CreateView):
         self.edit_handler = self.edit_handler.bind_to(form=form)
         return form
 
+    def get_pages_formset(self):
+        if self.request.method == 'POST':
+            return WorkflowPagesFormSet(self.request.POST, instance=self.object, prefix='pages')
+        else:
+            return WorkflowPagesFormSet(instance=self.object, prefix='pages')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['edit_handler'] = self.edit_handler
+        context['pages_formset'] = self.get_pages_formset()
         return context
+
+    def form_valid(self, form):
+        self.form = form
+
+        with transaction.atomic():
+            self.object = self.save_instance()
+
+            pages_formset = self.get_pages_formset()
+            if pages_formset.is_valid():
+                pages_formset.save()
+
+                success_message = self.get_success_message(self.object)
+                if success_message is not None:
+                    messages.success(self.request, success_message, buttons=[
+                        messages.button(reverse(self.edit_url_name, args=(self.object.id,)), _('Edit'))
+                    ])
+                return redirect(self.get_success_url())
+
+            else:
+                transaction.set_rollback(True)
+
+        return self.form_invalid(form)
 
 
 class Edit(EditView):
@@ -126,6 +155,12 @@ class Edit(EditView):
         self.edit_handler = self.edit_handler.bind_to(form=form)
         return form
 
+    def get_pages_formset(self):
+        if self.request.method == 'POST':
+            return WorkflowPagesFormSet(self.request.POST, instance=self.get_object(), prefix='pages')
+        else:
+            return WorkflowPagesFormSet(instance=self.get_object(), prefix='pages')
+
     def get_paginated_pages(self):
         # Get the (paginated) list of Pages to which this Workflow is assigned.
         pages = Page.objects.filter(workflowpage__workflow=self.get_object())
@@ -138,6 +173,7 @@ class Edit(EditView):
         context = super().get_context_data(**kwargs)
         context['edit_handler'] = self.edit_handler
         context['pages'] = self.get_paginated_pages()
+        context['pages_formset'] = self.get_pages_formset()
         context['can_disable'] = (self.permission_policy is None or self.permission_policy.user_has_permission(self.request.user, 'delete')) and self.object.active
         context['can_enable'] = (self.permission_policy is None or self.permission_policy.user_has_permission(
             self.request.user, 'create')) and not self.object.active
@@ -146,6 +182,34 @@ class Edit(EditView):
     @property
     def get_enable_url(self):
         return reverse(self.enable_url_name, args=(self.object.pk,))
+
+    @transaction.atomic()
+    def form_valid(self, form):
+        self.form = form
+
+        with transaction.atomic():
+            self.object = self.save_instance()
+            successful = True
+
+            # Save pages formset
+            # Note: The pages formset is hidden when the page is inactive
+            if self.object.active:
+                pages_formset = self.get_pages_formset()
+                if pages_formset.is_valid():
+                    pages_formset.save()
+                else:
+                    transaction.set_rollback(True)
+                    successful = False
+
+            if successful:
+                success_message = self.get_success_message()
+                if success_message is not None:
+                    messages.success(self.request, success_message, buttons=[
+                        messages.button(reverse(self.edit_url_name, args=(self.object.id,)), _('Edit'))
+                    ])
+                return redirect(self.get_success_url())
+
+        return self.form_invalid(form)
 
 
 class Disable(DeleteView):
@@ -229,38 +293,6 @@ def remove_workflow(request, page_pk, workflow_pk=None):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.id)
-
-
-def add_to_page(request, workflow_pk):
-    # Assign a workflow to a Page, including a confirmation step if the Page has a different Workflow assigned already.
-
-    if not workflow_permission_policy.user_has_permission(request.user, 'change'):
-        raise PermissionDenied
-
-    workflow = get_object_or_404(Workflow, pk=workflow_pk)
-    form_class = AddWorkflowToPageForm
-
-    next_url = get_valid_next_url_from_request(request)
-    if request.method == 'POST':
-        form = form_class(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Workflow '{0}' added to Page '{1}'.").format(workflow, form.cleaned_data['page']))
-            form = form_class(initial={'workflow': workflow.pk, 'overwrite_existing': False})
-
-    else:
-        form = form_class(initial={'workflow': workflow.pk, 'overwrite_existing': False})
-
-    confirm = form.has_error('page', 'needs_confirmation')
-
-    return render(request, 'wagtailadmin/workflows/add_to_page.html', {
-        'workflow': workflow,
-        'form': form,
-        'icon': 'clipboard-list',
-        'title': _("Workflows"),
-        'next': next_url,
-        'confirm': confirm
-    })
 
 
 class TaskIndex(IndexView):
