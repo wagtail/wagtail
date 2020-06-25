@@ -171,7 +171,7 @@ def get_task_form_class(task_model, for_edit=False):
             if field_name not in form_class.base_fields:
                 raise ImproperlyConfigured(
                     "`%s.admin_form_readonly_on_edit_fields` contains the field "
-                    "'%s' but this field doesn't exist. Have you forgotten to add "
+                    "'%s' that doesn't exist. Did you forget to add "
                     "it to `%s.admin_form_fields`?"
                     % (task_model.__name__, field_name, task_model.__name__)
                 )
