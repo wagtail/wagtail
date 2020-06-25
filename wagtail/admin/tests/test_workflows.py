@@ -596,7 +596,7 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
     def setUp(self):
         delete_existing_workflows()
         self.login()
-        self.task = SimpleTask.objects.create(name="test_task")
+        self.task = GroupApprovalTask.objects.create(name="test_task")
 
         self.editor = get_user_model().objects.create_user(
             username='editor',
@@ -627,14 +627,23 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/workflows/edit_task.html')
 
     def test_post(self):
-        response = self.post({'name': 'test_task_modified', 'active': 'on'})
+        self.assertEqual(self.task.groups.count(), 0)
+        editors = Group.objects.get(name='Editors')
+
+        response = self.post({'name': 'test_task_modified', 'active': 'on', 'groups': [str(editors.id)]})
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailadmin_workflows:task_index'))
 
         # Check that the task was updated
-        task = Task.objects.get(id=self.task.id)
-        self.assertEqual(task.name, "test_task_modified")
+        task = GroupApprovalTask.objects.get(id=self.task.id)
+
+        # The task name cannot be changed
+        self.assertEqual(task.name, "test_task")
+
+        # This request should've added a group to the task
+        self.assertEqual(task.groups.count(), 1)
+        self.assertTrue(task.groups.filter(id=editors.id).exists())
 
     def test_permissions(self):
         self.login(user=self.editor)

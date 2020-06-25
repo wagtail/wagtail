@@ -26,7 +26,7 @@ All custom tasks must be models inheriting from ``wagtailcore.Task``. In this se
 
 Subclassed Tasks follow the same approach as Pages: they are concrete models, with the specific subclass instance accessible by calling ``Task.specific()``.
 
-You can now add any custom fields. To make these editable in the admin, they must also be added as panels.
+You can now add any custom fields. To make these editable in the admin, add the names of the fields into the `admin_form_fields` attribute:
 
 For example:
 
@@ -36,18 +36,17 @@ For example:
 
     from django.conf import settings
     from django.db import models
-    from wagtail.admin.edit_handlers import FieldPanel
     from wagtail.core.models import Task
 
 
     class UserApprovalTask(Task):
         user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False)
 
-        panels = Task.panels + [FieldPanel('user')]
+        admin_form_fields = Task.admin_form_fields + ['user']
 
 
-Any fields that shouldn't be edited after task creation - for example, anything that would fundamentally change the meaning of the task in any history logs - 
-can be added to ``exclude_on_edit``. For example:
+Any fields that shouldn't be edited after task creation - for example, anything that would fundamentally change the meaning of the task in any history logs -
+can be added to ``admin_form_readonly_on_edit_fields``. For example:
 
 .. code-block:: python
 
@@ -55,24 +54,48 @@ can be added to ``exclude_on_edit``. For example:
 
     from django.conf import settings
     from django.db import models
-    from wagtail.admin.edit_handlers import FieldPanel
     from wagtail.core.models import Task
 
 
     class UserApprovalTask(Task):
         user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False)
 
-        panels = Task.panels + [FieldPanel('user')]
+        admin_form_fields = Task.admin_form_fields + ['user']
 
         # prevent editing of ``user`` after the task is created
-        exclude_on_edit = {'user'}
+        # by default, this attribute contains the 'name' field to prevent tasks from being renamed
+        admin_form_readonly_on_edit_fields = Task.admin_form_readonly_on_edit_fields + ['user']
+
+
+Wagtail will choose a default form widget to use based on the field type. But you can override the form widget using the `admin_form_widgets` attribute:
+
+
+.. code-block:: python
+
+    # <project>/models.py
+
+    from django.conf import settings
+    from django.db import models
+    from wagtail.core.models import Task
+
+    from .widgets import CustomUserChooserWidget
+
+
+    class UserApprovalTask(Task):
+        user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False)
+
+        admin_form_fields = Task.admin_form_fields + ['user']
+
+        admin_form_widgets = {
+            'user': CustomUserChooserWidget,
+        }
 
 
 Custom TaskState models
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 You might also need to store custom state information for the task: for example, a comment left by an approving user.
-Normally, this is done on an instance of ``TaskState``, which is created when a page starts the task. However, this can 
+Normally, this is done on an instance of ``TaskState``, which is created when a page starts the task. However, this can
 also be subclassed equivalently to ``Task``:
 
 .. code-block:: python
@@ -93,7 +116,6 @@ Your custom task must then be instructed to generate an instance of your custom 
 
     from django.conf import settings
     from django.db import models
-    from wagtail.admin.edit_handlers import FieldPanel
     from wagtail.core.models import Task, TaskState
 
 
@@ -104,12 +126,9 @@ Your custom task must then be instructed to generate an instance of your custom 
     class UserApprovalTask(Task):
         user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=False)
 
-        panels = Task.panels + [FieldPanel('user')]
+        admin_form_fields = Task.admin_form_fields + ['user']
 
         task_state_class = UserApprovalTaskState
-
-        # prevent editing of ``user`` after the task is created
-        exclude_on_edit = {'user'}
 
 
 Customising behaviour
@@ -148,7 +167,7 @@ For example:
 ``Task.on_action(task_state, user, action_name)``:
 
 This performs the actions specified in ``Task.get_actions(page, user)``: it is passed an action name, eg ``approve``, and the relevant task state. By default,
-it calls ``approve`` and ``reject`` methods on the task state when the corresponding action names are passed through. 
+it calls ``approve`` and ``reject`` methods on the task state when the corresponding action names are passed through.
 
 For example,  let's say we wanted to add an additional option: cancelling the entire workflow:
 
@@ -251,7 +270,7 @@ Next, you need to instantiate the notifier, and connect it to the ``task_submitt
     def register_signal_handlers():
         task_submitted.connect(user_approval_task_submission_email_notifier, dispatch_uid='user_approval_task_submitted_email_notification')
 
-``register_signal_handlers()`` should then be run on loading the app: for example, by adding it to the ``ready()`` method in your ``AppConfig`` 
+``register_signal_handlers()`` should then be run on loading the app: for example, by adding it to the ``ready()`` method in your ``AppConfig``
 (and making sure this config is set as ``default_app_config`` in ``<project>/__init__.py``).
 
 .. code-block:: python
