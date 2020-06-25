@@ -18,6 +18,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
+from wagtail.admin.site_summary import PagesSummaryItem
 from wagtail.admin.views.account import email_management_enabled, password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
@@ -725,3 +726,8 @@ def register_icons(icons):
     ]:
         icons.append('wagtailadmin/icons/{}'.format(icon))
     return icons
+
+
+@hooks.register('construct_homepage_summary_items')
+def add_pages_summary_item(request, items):
+    items.insert(0, PagesSummaryItem(request))
