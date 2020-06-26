@@ -13,7 +13,7 @@ from wagtail.images.models import Image
 from wagtail.images.permissions import permission_policy as images_permission_policy
 
 
-# Callback to allow us to override the default form field for the image file field
+# Callback to allow us to override the default form field for the image file field and collection field.
 def formfield_for_dbfield(db_field, **kwargs):
     # Check if this is the file field
     if db_field.name == 'file':

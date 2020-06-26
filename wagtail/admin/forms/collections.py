@@ -25,16 +25,8 @@ class SelectWidget(forms.Select):
     """
 
     def __init__(self, *args, **kwargs):
-        self._disabled_choices = []
+        self.disabled_choices = []
         super().__init__(*args, **kwargs)
-
-    @property
-    def disabled_choices(self):
-        return self._disabled_choices
-
-    @disabled_choices.setter
-    def disabled_choices(self, other):
-        self._disabled_choices = other
 
     def create_option(self, name, value, *args, **kwargs):
         option_dict = super().create_option(name, value, *args, **kwargs)

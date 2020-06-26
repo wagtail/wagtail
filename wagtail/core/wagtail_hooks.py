@@ -70,8 +70,8 @@ def describe_collection_children(collection):
         return {
             'count': descendant_count,
             'count_text': ngettext(
-                "%(count)s descendant Collection",
-                "%(count)s descendant Collections",
+                "%(count)s descendant collection",
+                "%(count)s descendant collections",
                 descendant_count
             ) % {'count': descendant_count},
             'url': url,
