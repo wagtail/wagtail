@@ -34,6 +34,9 @@
                         <th>
                             {% trans "Type" %}
                         </th>
+                        <th>
+                            {% trans "Used on Workflows" %}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +52,24 @@
                             </td>
                             <td>
                                 {{ task.specific.get_verbose_name }}
+                            </td>
+                            <td>
+                                <ul class="task-workflows">
+                                    {% for workflow in task.workflows|slice:":5" %}
+                                        <a href="{% url 'wagtailadmin_workflows:edit_task' task.pk %}">
+                                            <li class="task-workflows__workflow">
+                                               {{ workflow.name }}
+                                            </li>
+                                        </a>
+                                    {% empty %}
+                                        <li>{% trans "Not used" %}</li>
+                                    {% endfor %}
+                                    {% if task.workflows.count > 5 %}
+                                        <li class="task-workflows__extra">
+                                            {% blocktrans count counter=workflow.tasks.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+                                        </li>
+                                    {% endif %}
+                                </ul>
                             </td>
                         </tr>
                     {% endfor %}

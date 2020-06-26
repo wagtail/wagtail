@@ -2602,6 +2602,11 @@ class Task(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def workflows(self):
+        """Returns all ``Workflow`` instances that use this task"""
+        return Workflow.objects.filter(workflow_tasks__task=self)
+
     @classmethod
     def get_verbose_name(cls):
         """

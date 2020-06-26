@@ -25,6 +25,9 @@
                         {% trans "Task type" %}
                     </th>
                 {% endif %}
+                <th>
+                    {% trans "Used on Workflows" %}
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -40,6 +43,16 @@
                             {{ task.content_type.name }}
                         </td>
                     {% endif %}
+                    <td>
+                        {% for workflow in task.workflows|slice:":5" %}
+                            {{ workflow.name }}{% if not forloop.last %},{% endif %}
+                        {% empty %}
+                            {% trans "Not used" %}
+                        {% endfor %}
+                        {% if task.workflows.count > 5 %}
+                            {% blocktrans count counter=workflow.tasks.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
