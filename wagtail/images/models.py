@@ -278,12 +278,12 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             filter = Filter(spec=filter)
 
         cache_key = filter.get_cache_key(self)
-
+        Rendition = self.get_rendition_model()
 
         try:
             rendition_caching = True
             cache = caches['renditions']
-            rendition_cache_key = "image-{}-{}-{}".format(
+            rendition_cache_key = Rendition.construct_cache_key(
                 self.id,
                 cache_key,
                 filter.spec
@@ -293,8 +293,6 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
                 return cached_rendition
         except InvalidCacheBackendError:
             rendition_caching = False
-
-        Rendition = self.get_rendition_model()
 
         try:
             rendition = self.renditions.get(
@@ -567,6 +565,24 @@ class AbstractRendition(models.Model):
                 )
 
         return errors
+
+    @staticmethod
+    def construct_cache_key(image_id, filter_cache_key, filter_spec):
+        return "image-{}-{}-{}".format(
+            image_id,
+            filter_cache_key,
+            filter_spec
+        )
+
+    def purge_from_cache(self):
+        try:
+            cache = caches['renditions']
+            cache.delete(self.construct_cache_key(
+                self.image_id, self.focal_point_key, self.filter_spec
+            ))
+        except InvalidCacheBackendError:
+            pass
+
 
     class Meta:
         abstract = True
