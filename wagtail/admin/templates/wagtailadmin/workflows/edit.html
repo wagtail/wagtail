@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+{% block titletag %}{{ view.page_title }}{% endblock %}
 
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
@@ -23,7 +23,17 @@
 
 {% block content %}
 
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 %}
+    <header role="banner" class="merged">
+        <div class="row nice-padding">
+            <div class="left">
+                <div class="col header-title">
+                    <h1 class="icon icon-{{ view.header_icon }}">
+                    {{ view.page_title }}{% if view.subtitle %} <span>{{ view.subtitle }}</span>{% endif %}</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
 
     <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}
@@ -33,13 +43,21 @@
         <ul class="objects">
             <li class="object">
                 <div class="title-wrapper">
-                    <label>
-                        {% trans "Assign your workflow to pages" %}
-                    </label>
+                    <label>{% trans "Assign your workflow to pages" %}</label>
                 </div>
                 <div class="object-layout">
                     <div class="object-layout_big-part">
                         {% if workflow.active %}
+                            <div class="top-padding">
+                                <p class="help-block help-info">
+                                {% url 'wagtailadmin_workflows:usage' workflow.pk as workflow_pages_url %}
+                                    {% blocktrans trimmed %}
+                                        Workflows apply to child pages too. If you select a parent page here, its child pages will also use this workflow.
+                                        See <a href="{{ workflow_pages_url }}">the list of the pages</a> your workflow applies to.
+                                    {% endblocktrans %}
+                                </p>
+                            </div>
+
                             {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
                         {% else %}
                             <div class="top-padding">
