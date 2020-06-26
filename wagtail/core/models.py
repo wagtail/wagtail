@@ -2538,6 +2538,20 @@ class WorkflowPage(models.Model):
         on_delete=models.CASCADE,
     )
 
+    def get_pages(self):
+        """
+        Returns a queryset of pages that are affected by this WorkflowPage link.
+
+        This includes all descendants of the page excluding any that have other WorkflowPages.
+        """
+        descendant_pages = Page.objects.descendant_of(self.page, inclusive=True)
+        descendant_workflow_pages = WorkflowPage.objects.filter(page_id__in=descendant_pages.values_list('id', flat=True)).exclude(pk=self.pk)
+
+        for path, depth in descendant_workflow_pages.values_list('page__path', 'page__depth'):
+            descendant_pages = descendant_pages.exclude(path__startswith=path, depth__gte=depth)
+
+        return descendant_pages
+
     class Meta:
         verbose_name = _('workflow page')
         verbose_name_plural = _('workflow pages')
@@ -2733,6 +2747,17 @@ class Workflow(ClusterableModel):
             state.cancel(user=user)
         WorkflowPage.objects.filter(workflow=self).delete()
         self.save()
+
+    def all_pages(self):
+        """
+        Returns a queryset of all the pages that this Workflow applies to.
+        """
+        pages = Page.objects.none()
+
+        for workflow_page in self.workflow_pages.all():
+            pages |= workflow_page.get_pages()
+
+        return pages
 
     class Meta:
         verbose_name = _('workflow')
