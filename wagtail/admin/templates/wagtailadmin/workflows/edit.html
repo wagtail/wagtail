@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+{% block titletag %}{{ view.page_title }}{% endblock %}
 
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
@@ -31,11 +31,6 @@
                     {{ view.page_title }}{% if view.subtitle %} <span>{{ view.subtitle }}</span>{% endif %}</h1>
                 </div>
             </div>
-            <div class="right">
-                {% if object.active %}
-                    <a href="{% url 'wagtailadmin_workflows:usage' object.pk %}" class="button">{% trans "Pages" %}</a>
-                {% endif %}
-            </div>
         </div>
     </header>
 
@@ -48,13 +43,21 @@
         <ul class="objects">
             <li class="object">
                 <div class="title-wrapper">
-                    <label>
-                        {% trans "Assign your workflow to pages" %}
-                    </label>
+                    <label>{% trans "Assign your workflow to pages" %}</label>
                 </div>
                 <div class="object-layout">
                     <div class="object-layout_big-part">
                         {% if workflow.active %}
+                            <div class="top-padding">
+                                <p class="help-block help-info">
+                                {% url 'wagtailadmin_workflows:usage' workflow.pk as workflow_pages_url %}
+                                    {% blocktrans trimmed %}
+                                        Workflows apply to child pages too. If you select a parent page here, its child pages will also use this workflow.
+                                        See <a href="{{ workflow_pages_url }}">the list of the pages</a> your workflow applies to.
+                                    {% endblocktrans %}
+                                </p>
+                            </div>
+
                             {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
                         {% else %}
                             <div class="top-padding">
