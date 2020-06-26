@@ -1562,3 +1562,26 @@ class TestTaskChooserChosenView(TestCase, WagtailTestUtils):
             },
             'step': 'task_chosen'
         })
+
+
+class TestWorkflowUsageView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+        self.workflow = Workflow.objects.get()
+
+        self.root_page = Page.objects.get(depth=1)
+        self.home_page = Page.objects.get(depth=2)
+
+        self.child_page_with_another_workflow = self.home_page.add_child(instance=SimplePage(title="Another page", content="I'm another page"))
+        self.another_workflow = Workflow.objects.create(name="Another workflow")
+        self.another_workflow.workflow_pages.create(page=self.child_page_with_another_workflow)
+
+    def test_get(self):
+        response = self.client.get(reverse('wagtailadmin_workflows:usage', args=[self.workflow.id]))
+
+        self.assertEqual(response.status_code, 200)
+
+        object_set = set(page.id for page in response.context['used_by'].object_list)
+        self.assertIn(self.root_page.id, object_set)
+        self.assertIn(self.home_page.id, object_set)
+        self.assertNotIn(self.child_page_with_another_workflow.id, object_set)
