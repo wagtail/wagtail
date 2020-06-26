@@ -242,6 +242,11 @@ li.focused > .help {
     }
 }
 
+.daterange_field {
+    input:last-of-type {
+        margin-top: 1.2em; // Mirrors the label 1.2em top padding.
+    }
+}
 
 // This is specifically for model that are a generated set of checkboxes/radios
 .model_multiple_choice_field .input li,
