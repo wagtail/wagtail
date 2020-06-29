@@ -33,6 +33,16 @@
                     {{ field }}
                 {% endif %}
             {% endfor %}
+                <li>
+                    <div class="help-block help-info">
+                        {% for workflow in object.workflows %}
+                            {% if forloop.first %}<strong>{% trans "Used on" %}:</strong> {% endif %}
+                            <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}">{{ workflow.name }}</a>{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            {% trans "Not used" %}
+                        {% endfor %}
+                    </div>
+            </li>
         </ul>
 
         {% block footer %}
