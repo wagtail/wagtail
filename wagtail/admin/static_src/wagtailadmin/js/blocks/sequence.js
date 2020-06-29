@@ -352,6 +352,11 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             }
         }
 
-        return self;
+        if (members.length >= opts.maxNumChildBlocks){
+          /* block capacity is already reached on initialization */
+          opts.onDisableAdd(members)
+        }
+
+      return self;
     };
 })(jQuery);
