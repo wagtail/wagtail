@@ -58,7 +58,7 @@ class Index(IndexView):
 class Create(CreateView):
     permission_policy = workflow_permission_policy
     model = Workflow
-    page_title = _("Create a new workflow")
+    page_title = _("New workflow")
     template_name = 'wagtailadmin/workflows/create.html'
     success_message = _("Workflow '{0}' created.")
     add_url_name = 'wagtailadmin_workflows:add'
@@ -118,7 +118,7 @@ class Create(CreateView):
 class Edit(EditView):
     permission_policy = workflow_permission_policy
     model = Workflow
-    page_title = _("Edit workflow")
+    page_title = _("Editing workflow")
     template_name = 'wagtailadmin/workflows/edit.html'
     success_message = _("Workflow '{0}' updated.")
     add_url_name = 'wagtailadmin_workflows:add'
@@ -308,7 +308,7 @@ class TaskIndex(IndexView):
     add_url_name = 'wagtailadmin_workflows:select_task_type'
     edit_url_name = 'wagtailadmin_workflows:edit_task'
     page_title = _("Workflow tasks")
-    add_item_label = _("Create a workflow task")
+    add_item_label = _("New workflow task")
     header_icon = 'thumbtack'
 
     def show_disabled(self):
@@ -353,7 +353,7 @@ def select_task_type(request):
 class CreateTask(CreateView):
     permission_policy = task_permission_policy
     model = None
-    page_title = _("Create a workflow task")
+    page_title = _("New workflow task")
     template_name = 'wagtailadmin/workflows/create_task.html'
     success_message = _("Task '{0}' created.")
     add_url_name = 'wagtailadmin_workflows:add_task'
@@ -387,7 +387,7 @@ class CreateTask(CreateView):
 class EditTask(EditView):
     permission_policy = task_permission_policy
     model = None
-    page_title = _("Edit workflow task")
+    page_title = _("Editing workflow task")
     template_name = 'wagtailadmin/workflows/edit_task.html'
     success_message = _("Task '{0}' updated.")
     add_url_name = 'wagtailadmin_workflows:select_task_type'
@@ -402,6 +402,10 @@ class EditTask(EditView):
     @cached_property
     def model(self):
         return type(self.get_object())
+
+    @cached_property
+    def page_title(self):
+        return _("Editing {task_type}".format(task_type=self.get_object().content_type.name))
 
     def get_queryset(self):
         if self.queryset is None:
