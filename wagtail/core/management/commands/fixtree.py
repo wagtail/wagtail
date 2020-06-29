@@ -16,6 +16,9 @@ class Command(BaseCommand):
         parser.add_argument(
             '--noinput', action='store_false', dest='interactive', default=True,
             help='If provided, any fixes requiring user interaction will be skipped.')
+        parser.add_argument(
+            '--full', action='store_true', dest='full', default=False,
+            help='If provided, uses a more thorough but slower method that also fixes path ordering issues.')
 
     def numberlist_to_string(self, numberlist):
         # Converts a list of numbers into a string
@@ -24,6 +27,7 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         any_problems_fixed = False
+        fix_paths = options.get('full', False)
 
         for page in Page.objects.all():
             try:
@@ -39,10 +43,6 @@ class Command(BaseCommand):
             self.stdout.write("Incorrect depth value found for pages: %s" % self.numberlist_to_string(bad_depth))
         if bad_numchild:
             self.stdout.write("Incorrect numchild value found for pages: %s" % self.numberlist_to_string(bad_numchild))
-
-        if bad_depth or bad_numchild:
-            Page.fix_tree(destructive=False)
-            any_problems_fixed = True
 
         if orphans:
             # The 'orphans' list as returned by treebeard only includes pages that are
@@ -83,6 +83,13 @@ class Command(BaseCommand):
                     "%d orphaned page%s deleted." % (deletion_count, "s" if deletion_count != 1 else "")
                 )
                 any_problems_fixed = True
+
+        # fix_paths will fix problems not identified by find_problems, so if that option has been
+        # passed, run it regardless (and set any_problems_fixed=True, since we don't have a way to
+        # test whether anything was actually fixed in that process)
+        if bad_depth or bad_numchild or fix_paths:
+            Page.fix_tree(destructive=False, fix_paths=fix_paths)
+            any_problems_fixed = True
 
         if any_problems_fixed:
             # re-run find_problems to see if any new ones have surfaced
