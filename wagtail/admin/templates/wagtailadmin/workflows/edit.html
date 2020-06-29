@@ -19,6 +19,8 @@
     {{ edit_handler.html_declarations }}
 
     {{ view.media.js }}
+
+    {% include "wagtailadmin/workflows/includes/_edit_js.html" %}
 {% endblock %}
 
 {% block content %}
@@ -78,8 +80,20 @@
                         {% block form_actions %}
                             <div class="dropdown dropup dropdown-button match-width">
                                 <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
-                                    <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                                    {% icon name="spinner" %}<em>{% trans 'Save' %}</em>
                                 </button>
+                                <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+                                <ul>
+                                    {% if can_enable %}
+                                        <li>
+                                            <button type="submit" class="button no" data-enable-action>{{ view.enable_item_label }}</button>
+                                        </li>
+                                    {% elif can_disable %}
+                                        <li>
+                                            <a href="{{ view.get_delete_url }}" class="button no">{{ view.delete_item_label }}</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
                             </div>
                         {% endblock %}
                     </li>
@@ -87,20 +101,4 @@
             </footer>
         {% endblock %}
     </form>
-
-    {% if can_enable or can_disable %}
-        <div class="nice-padding">
-            <form action="{{ view.get_enable_url }}" method="POST" novalidate>
-                {% csrf_token %}
-                <p class="actions">
-                    {% if can_enable %}
-                        <button type="submit" class="button button-secondary no">{{ view.enable_item_label }}</button>
-                    {% endif %}
-                    {% if can_disable %}
-                        <a href="{{ view.get_delete_url }}" class="button button-secondary no">{{ view.delete_item_label }}</a>
-                    {% endif %}
-                </p>
-            </form>
-        </div>
-    {% endif %}
 {% endblock %}
