@@ -357,6 +357,6 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
           opts.onDisableAdd(members)
         }
 
-      return self;
+        return self;
     };
 })(jQuery);
