@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% include "wagtailadmin/shared/header.html" with title=action_verbose icon="clipboard-list" %}
 
 <div class="nice-padding">
@@ -6,7 +6,7 @@
         {% csrf_token %}
         <ul class="fields">
             {% include 'wagtailadmin/shared/form_as_ul.html' %}
-            <li><button type="submit" class="button button-longrunning"><span class="icon icon-spinner"></span>{{ action_verbose }}</button></li>
+            <li><button type="submit" class="button button-longrunning">{% icon name="spinner" %}{{ action_verbose }}</button></li>
         </ul>
     </form>
 </div>
