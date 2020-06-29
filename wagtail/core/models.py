@@ -39,6 +39,7 @@ from wagtail.core.signals import (
     task_approved, task_cancelled, task_rejected, task_submitted,
     workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted)
 from wagtail.core.sites import get_site_for_hostname
+from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
@@ -372,7 +373,7 @@ class PageBase(models.base.ModelBase):
             PAGE_MODEL_CLASSES.append(cls)
 
 
-class AbstractPage(MP_Node):
+class AbstractPage(TreebeardPathFixMixin, MP_Node):
     """
     Abstract superclass for Page. According to Django's inheritance rules, managers set on
     abstract models are inherited by subclasses, but managers set on concrete models that are extended
@@ -2730,7 +2731,7 @@ class CollectionViewRestriction(BaseViewRestriction):
         verbose_name_plural = _('collection view restrictions')
 
 
-class Collection(MP_Node):
+class Collection(TreebeardPathFixMixin, MP_Node):
     """
     A location in which resources such as images and documents can be grouped
     """

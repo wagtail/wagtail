@@ -8,7 +8,7 @@ from django.db import models
 from django.test import TestCase
 from django.utils import timezone
 
-from wagtail.core.models import Page, PageLogEntry, PageRevision
+from wagtail.core.models import Collection, Page, PageLogEntry, PageRevision
 from wagtail.core.signals import page_published, page_unpublished
 from wagtail.tests.testapp.models import EventPage, SimplePage
 
@@ -57,14 +57,21 @@ class TestFixTreeCommand(TestCase):
         homepage.depth = 12345
         homepage.save()
 
+        # also break the root collection's depth
+        root_collection = Collection.get_first_root_node()
+        root_collection.depth = 42
+        root_collection.save()
+
         # Check that its broken
         self.assertEqual(Page.objects.get(url_path='/home/').depth, 12345)
+        self.assertEqual(Collection.objects.get(id=root_collection.id).depth, 42)
 
         # Call command
         self.run_command()
 
         # Check if its fixed
         self.assertEqual(Page.objects.get(url_path='/home/').depth, old_depth)
+        self.assertEqual(Collection.objects.get(id=root_collection.id).depth, 1)
 
     def test_detects_orphans(self):
         events_index = Page.objects.get(url_path='/home/events/')
@@ -110,6 +117,16 @@ class TestFixTreeCommand(TestCase):
 
         # Check that christmas_page has been deleted
         self.assertFalse(Page.objects.filter(id=christmas_page.id).exists())
+
+    def test_remove_path_holes(self):
+        events_index = Page.objects.get(url_path='/home/events/')
+        # Delete the event page in path position 0001
+        Page.objects.get(path=events_index.path + '0001').delete()
+
+        self.run_command(full=True)
+        # the gap at position 0001 should have been closed
+        events_index = Page.objects.get(url_path='/home/events/')
+        self.assertTrue(Page.objects.filter(path=events_index.path + '0001').exists())
 
 
 class TestMovePagesCommand(TestCase):
