@@ -112,12 +112,12 @@ class WorkflowsMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_workflows_menu_item():
-    return WorkflowsMenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), icon_name='clipboard-list', order=100)
+    return WorkflowsMenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), icon_name='tasks', order=100)
 
 
 @hooks.register('register_settings_menu_item')
 def register_workflow_tasks_menu_item():
-    return MenuItem(_('Workflow tasks'), reverse('wagtailadmin_workflows:task_index'), icon_name='clipboard-list', order=150)
+    return MenuItem(_('Workflow tasks'), reverse('wagtailadmin_workflows:task_index'), icon_name='thumbtack', order=150)
 
 
 @hooks.register('register_page_listing_buttons')
@@ -661,12 +661,12 @@ def register_locked_pages_menu_item():
 
 @hooks.register('register_reports_menu_item')
 def register_workflow_report_menu_item():
-    return WorkflowReportMenuItem(_('Workflows'), reverse('wagtailadmin_reports:workflow'), classnames='icon icon-clipboard-list', order=800)
+    return WorkflowReportMenuItem(_('Workflows'), reverse('wagtailadmin_reports:workflow'), icon_name='tasks', order=800)
 
 
 @hooks.register('register_reports_menu_item')
 def register_workflow_tasks_report_menu_item():
-    return WorkflowReportMenuItem(_('Workflow tasks'), reverse('wagtailadmin_reports:workflow_tasks'), classnames='icon icon-clipboard-list', order=900)
+    return WorkflowReportMenuItem(_('Workflow tasks'), reverse('wagtailadmin_reports:workflow_tasks'), icon_name='thumbtack', order=900)
 
 
 @hooks.register('register_admin_menu_item')
@@ -745,6 +745,8 @@ def register_icons(icons):
         'success.svg',
         'table.svg',
         'tag.svg',
+        'tasks.svg',
+        'thumbtack.svg',
         'tick-inverse.svg',
         'tick.svg',
         'time.svg',

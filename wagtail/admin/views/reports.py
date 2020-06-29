@@ -277,7 +277,7 @@ class LockedPagesView(PageReportView):
 class WorkflowView(ReportView):
     template_name = 'wagtailadmin/reports/workflow.html'
     title = _('Workflows')
-    header_icon = 'clipboard-list'
+    header_icon = 'tasks'
     filterset_class = WorkflowReportFilterSet
 
     export_headings = {
@@ -310,7 +310,7 @@ class WorkflowView(ReportView):
 class WorkflowTasksView(ReportView):
     template_name = 'wagtailadmin/reports/workflow_tasks.html'
     title = _('Workflow tasks')
-    header_icon = 'clipboard-list'
+    header_icon = 'thumbtack'
     filterset_class = WorkflowTasksReportFilterSet
 
     export_headings = {
