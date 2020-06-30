@@ -468,6 +468,7 @@ Contributors
 * Andrew Bunker
 * Nikolay Lukyanov (mozgsml)
 * Jean Zombie
+* Pascal Widdershoven
 
 Translators
 ===========
