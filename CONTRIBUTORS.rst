@@ -447,6 +447,7 @@ Contributors
 * Vlad Gerasimenko
 * Tomonori Tanabe
 * Tomas Walch
+* Pascal Widdershoven
 
 Translators
 ===========

@@ -15,3 +15,4 @@ Bug fixes
 
  * Fix incorrect method name in SiteMiddleware deprecation warning (LB (Ben Johnston))
  * ``wagtail.contrib.sitemaps`` no longer depends on SiteMiddleware (Matt Westcott)
+ * Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
