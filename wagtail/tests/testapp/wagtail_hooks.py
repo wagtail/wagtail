@@ -8,8 +8,11 @@ from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
+from wagtail.admin.views.pages import (
+    CreatePageView, EditPageView, register_create_page_view, register_edit_page_view)
 from wagtail.admin.widgets import Button
 from wagtail.core import hooks
+from wagtail.tests.testapp.models import SingleEventPage
 
 
 # Register one hook using decorators...
@@ -160,3 +163,29 @@ def register_page_listing_button_item(buttons, page, page_perms, is_parent=False
         priority=10,
     )
     buttons.append(item)
+
+
+# Custom page creation view for SingleEventPage -
+# allows passing a location in the URL
+class SingleEventPageCreateView(CreatePageView):
+    def get_page_instance(self):
+        page = super().get_page_instance()
+        page.location = self.request.GET.get('location', '')
+        return page
+
+
+register_create_page_view(SingleEventPage, SingleEventPageCreateView.as_view())
+
+
+# Custom page edit view for SingleEventPage -
+# adds [UPDATED] to the title if 'updated' URL parameter passed
+class SingleEventPageEditView(EditPageView):
+    def get_page_instance(self):
+        page = super().get_page_instance()
+        if self.request.GET.get('updated'):
+            page.title += ' [UPDATED]'
+
+        return page
+
+
+register_edit_page_view(SingleEventPage, SingleEventPageEditView.as_view())
