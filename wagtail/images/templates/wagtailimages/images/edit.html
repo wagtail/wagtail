@@ -34,6 +34,7 @@
 {% block content %}
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" %}
+    {% include "wagtailadmin/shared/non_field_errors.html" %}
 
     <form action="{% url 'wagtailimages:edit' image.id %}" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
