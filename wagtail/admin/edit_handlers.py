@@ -864,7 +864,7 @@ class ReadOnlyPanel(EditHandler):
         value = getattr(self.instance, self.attr)
         if callable(value):
             value = value()
-        return format_html('<div style="padding-top: 1.2em;">{}</div>', value)
+        return format_html('<div>{}</div>', value)
 
     def render_as_object(self):
         return format_html(
