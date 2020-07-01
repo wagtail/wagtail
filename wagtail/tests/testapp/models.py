@@ -923,6 +923,11 @@ class CustomImage(AbstractImage):
         'fancy_caption',
     )
 
+    class Meta:
+        unique_together = [
+            ('title', 'collection')
+        ]
+
 
 class CustomRendition(AbstractRendition):
     image = models.ForeignKey(CustomImage, related_name='renditions', on_delete=models.CASCADE)
@@ -958,6 +963,11 @@ class CustomDocument(AbstractDocument):
         'description',
         'fancy_description'
     )
+
+    class Meta:
+        unique_together = [
+            ('title', 'collection')
+        ]
 
 
 class StreamModel(models.Model):
