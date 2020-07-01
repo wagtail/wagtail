@@ -276,6 +276,13 @@ SnippetChooserPanel
 
     See :ref:`snippets` for more information.
 
+ReadOnlyPanel
+----------
+
+.. class:: ReadOnlyPanel(field_name)
+
+    This panel will render a read-only representation of a field. E.g. when you don't expect user input.
+
 
 Built-in Fields and Choosers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
