@@ -26,6 +26,7 @@
 {% block content %}
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=document.title icon="doc-full-inverse" %}
+    {% include "wagtailadmin/shared/non_field_errors.html" %}
 
     <div class="row row-flush nice-padding">
 
