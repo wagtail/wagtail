@@ -283,10 +283,6 @@ ReadOnlyPanel
 
     This panel will render a read-only representation of a field. E.g. when you don't expect user input.
 
-    .. attribute:: FieldPanel.field_name
-
-        This is the name of the class property used in your model definition.
-
 
 Built-in Fields and Choosers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
