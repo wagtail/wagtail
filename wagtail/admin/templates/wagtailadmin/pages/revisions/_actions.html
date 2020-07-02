@@ -6,14 +6,14 @@
     {% if revision == page.get_latest_revision %}
         <li><a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
     {% else %}
-        <li><a href="{% url 'wagtailadmin_pages:revisions_revert' page.id revision.id %}" class="button button-small button-secondary">{% trans 'Review this revision' %}</a></li>
+        <li><a href="{% url 'wagtailadmin_pages:revisions_revert' page.id revision.id %}" class="button button-small button-secondary">{% trans 'Review this version' %}</a></li>
     {% endif %}
     {% with revision.get_previous as previous_revision %}
     {% if previous_revision %}
-        <li><a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id revision.id %}" class="button button-small button-secondary">{% trans 'Compare with previous revision' %}</a></li>
+        <li><a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id revision.id %}" class="button button-small button-secondary">{% trans 'Compare with previous version' %}</a></li>
     {% endif %}
     {% if revision != page.get_latest_revision %}
-        <li><a href="{% url 'wagtailadmin_pages:revisions_compare' page.id revision.id 'latest' %}" class="button button-small button-secondary">{% trans 'Compare with current revision' %}</a></li>
+        <li><a href="{% url 'wagtailadmin_pages:revisions_compare' page.id revision.id 'latest' %}" class="button button-small button-secondary">{% trans 'Compare with current version' %}</a></li>
     {% endif %}
     {% endwith %}
     {% if revision.approved_go_live_at and page_perms.can_unschedule %}

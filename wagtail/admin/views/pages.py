@@ -512,7 +512,7 @@ def edit(request, page_id):
 
                 if is_reverting:
                     message = _(
-                        "Revision from {0} of page '{1}' has been scheduled for publishing."
+                        "Version from {0} of page '{1}' has been scheduled for publishing."
                     ).format(
                         previous_revision.created_at.strftime("%d %b %Y %H:%M"),
                         page.get_admin_display_title()
@@ -520,7 +520,7 @@ def edit(request, page_id):
                 else:
                     if page.live:
                         message = _(
-                            "Page '{0}' is live and this revision has been scheduled for publishing."
+                            "Page '{0}' is live and this version has been scheduled for publishing."
                         ).format(
                             page.get_admin_display_title()
                         )
@@ -544,7 +544,7 @@ def edit(request, page_id):
 
                 if is_reverting:
                     message = _(
-                        "Revision from {0} of page '{1}' has been published."
+                        "Version from {0} of page '{1}' has been published."
                     ).format(
                         previous_revision.created_at.strftime("%d %b %Y %H:%M"),
                         page.get_admin_display_title()
@@ -623,7 +623,7 @@ def edit(request, page_id):
 
         elif is_reverting:
             message = _(
-                "Page '{0}' has been replaced with revision from {1}."
+                "Page '{0}' has been replaced with version from {1}."
             ).format(
                 page.get_admin_display_title(),
                 previous_revision.created_at.strftime("%d %b %Y %H:%M")
@@ -1496,7 +1496,7 @@ def revisions_revert(request, page_id, revision_id):
     user_avatar = render_to_string('wagtailadmin/shared/user_avatar.html', {'user': revision.user})
 
     messages.warning(request, mark_safe(
-        _("You are viewing a previous revision of this page from <b>%(created_at)s</b> by %(user)s") % {
+        _("You are viewing a previous version of this page from <b>%(created_at)s</b> by %(user)s") % {
             'created_at': revision.created_at.strftime("%d %b %Y %H:%M"),
             'user': user_avatar,
         }
@@ -1604,7 +1604,7 @@ def revisions_unschedule(request, page_id, revision_id):
         revision.approved_go_live_at = None
         revision.save(user=request.user, update_fields=['approved_go_live_at'])
 
-        messages.success(request, _('Revision {0} of "{1}" unscheduled.').format(revision.id, page.get_admin_display_title()), buttons=[
+        messages.success(request, _('Version {0} of "{1}" unscheduled.').format(revision.id, page.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
         ])
 

@@ -123,7 +123,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertContains(response, "Editing Event page")
-        self.assertContains(response, "You are viewing a previous revision of this page")
+        self.assertContains(response, "You are viewing a previous version of this page")
 
         # Form should show the content of the revision, not the current draft
         self.assertContains(response, "Last Christmas I gave you my heart")
@@ -137,7 +137,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
 
         # Buttons should be relabelled
         self.assertContains(response, "Replace current draft")
-        self.assertContains(response, "Publish this revision")
+        self.assertContains(response, "Publish this version")
 
     def test_scheduled_revision(self):
         self.last_christmas_revision.publish()
