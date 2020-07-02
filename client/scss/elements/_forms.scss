@@ -64,6 +64,27 @@ label,
     }
 }
 
+// Provide a way to "unfloat" all form elements
+.no-float-elements {
+    label,
+    .label {
+        display: block;
+        float: none;
+        padding: 1.2em 0 0.8em;
+        width: auto;
+    }
+
+    li > label,
+    li > .label {
+        padding-top: 0;
+    }
+
+    .helptext {
+        display: inline-block;
+        margin-bottom: 0.8em;
+    }
+}
+
 input,
 textarea,
 select,
