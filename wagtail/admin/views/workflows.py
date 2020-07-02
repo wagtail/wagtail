@@ -331,7 +331,7 @@ def select_task_type(request):
         raise PermissionDenied
 
     task_types = [
-        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
+        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name, model.get_description())
         for model in get_task_types()
     ]
     # sort by lower-cased version of verbose name
@@ -340,7 +340,7 @@ def select_task_type(request):
     if len(task_types) == 1:
         # Only one task type is available - redirect straight to the create form rather than
         # making the user choose
-        verbose_name, app_label, model_name = task_types[0]
+        verbose_name, app_label, model_name, description = task_types[0]
         return redirect('wagtailadmin_workflows:add_task', app_label, model_name)
 
     return render(request, 'wagtailadmin/workflows/select_task_type.html', {
@@ -525,7 +525,7 @@ def task_chooser(request):
 
     # Build task types list for "select task type" view
     task_types = [
-        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
+        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name, model.get_description())
         for model in task_models
     ]
     # sort by lower-cased version of verbose name
