@@ -59,7 +59,7 @@
 
             {% with latest_revision.get_previous as previous_revision %}
             {% if previous_revision %}
-                <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id latest_revision.id %}" class="button button-small button-secondary">{% trans 'Compare with previous revision' %}</a>
+                <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id latest_revision.id %}" class="button button-small button-secondary">{% trans 'Compare with previous version' %}</a>
             {% endif %}
             {% endwith %}
         {% endwith %}
