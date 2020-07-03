@@ -66,6 +66,12 @@ Changelog
  * Fix: Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
 
 
+2.9.2 (03.07.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent startup failure when `wagtail.contrib.sitemaps` is in `INSTALLED_APPS` (Matt Westcott)
+
+
 2.9.1 (30.06.2020)
 ~~~~~~~~~~~~~~~~~~
 
