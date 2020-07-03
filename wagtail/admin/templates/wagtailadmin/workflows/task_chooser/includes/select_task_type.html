@@ -4,11 +4,14 @@
 
 {% if task_types %}
     <ul class="listing">
-        {% for verbose_name, app_label, model_name in task_types %}
+        {% for verbose_name, app_label, model_name, description in task_types %}
             <li>
                 <div class="row row-flush">
                     <div class="col6">
                         <a href="{% url 'wagtailadmin_workflows:task_chooser' %}?create_model={{ app_label|urlencode }}.{{ model_name|urlencode }}" class="icon icon-plus-inverse icon-larger task-type-choice">{{ verbose_name }}</a>
+                    </div>
+                    <div class="col6">
+                        {{ description }}
                     </div>
                 </div>
             </li>
