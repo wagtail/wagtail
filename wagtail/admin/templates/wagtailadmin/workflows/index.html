@@ -1,12 +1,12 @@
 {% extends "wagtailadmin/generic/index.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block content %}
     <header role="banner">
         <div class="row nice-padding">
             <div class="left">
                 <div class="col header-title">
-                    <h1 class="icon icon-{{ view.header_icon }}">
+                    <h1>{% if view.header_icon %}{% icon name=view.header_icon class_name="header-title-icon" %}{% endif %}
                     {{ view.page_title }}{% if view.subtitle %} <span>{{ view.subtitle }}</span>{% endif %}</h1>
                 </div>
             </div>
