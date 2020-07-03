@@ -21,6 +21,8 @@ matrix:
      python: 3.8
    - env: TOXENV=py38-dj30stable-postgres-noelasticsearch
      python: 3.8
+   - env: TOXENV=py38-dj31stable-postgres-noelasticsearch
+     python: 3.8
    - env: TOXENV=py38-djmaster-postgres-noelasticsearch
      python: 3.8
    - env: TOXENV=py36-dj22-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -40,9 +42,9 @@ matrix:
     - env: TOXENV=py37-dj22-postgres-elasticsearch6 INSTALL_ELASTICSEARCH6=yes
     - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
     - env: TOXENV=py38-dj30-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
-    # allow failures against Django 3.0.x stable branch
+    # allow failures against Django pre-releases on git
     - env: TOXENV=py38-dj30stable-postgres-noelasticsearch
-    # allow failures against Django master
+    - env: TOXENV=py38-dj31stable-postgres-noelasticsearch
     - env: TOXENV=py38-djmaster-postgres-noelasticsearch
 
 # Services
