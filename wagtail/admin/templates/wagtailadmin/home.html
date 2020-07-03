@@ -7,11 +7,12 @@
     {{ block.super }}
 
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/home.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/page-editor.css' %}" />
 {% endblock %}
 
 {% block content %}
     <header class="merged nice-padding">
-        <div class="row row-flush">
+        <div class="row">
             <div class="col1">
                 <div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
             </div>
@@ -29,4 +30,28 @@
     {% else %}
         <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
     {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(function() {
+    $('.object.collapsible').each(function() {
+        var $target = $(this);
+        var $content = $target.find('.object-layout');
+        if ($target.hasClass('collapsed') && $target.find('.error-message').length == 0) {
+            $content.hide();
+        }
+
+        $target.find('> .title-wrapper').on('click', function() {
+            if (!$target.hasClass('collapsed')) {
+                $target.addClass('collapsed');
+                $content.hide('slow');
+            } else {
+                $target.removeClass('collapsed');
+                $content.show('show');
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

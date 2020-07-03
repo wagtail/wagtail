@@ -56,10 +56,12 @@ class UserPagesInWorkflowModerationPanel:
         self.request = request
         # Find in progress workflow states which are either requested by the user or on pages owned by the user
         self.workflow_states = (
-            WorkflowState.objects
-            .filter(status=WorkflowState.STATUS_IN_PROGRESS)
+            WorkflowState.objects.active()
             .filter(Q(page__owner=request.user) | Q(requested_by=request.user))
-            .select_related('page', 'current_task_state', 'current_task_state__task', 'current_task_state__page_revision')
+            .select_related(
+                'page', 'current_task_state', 'current_task_state__task', 'current_task_state__page_revision'
+            )
+            .order_by('-current_task_state__started_at')
         )
 
     def render(self):
@@ -74,8 +76,15 @@ class WorkflowPagesToModeratePanel:
 
     def __init__(self, request):
         self.request = request
-        states = TaskState.objects.reviewable_by(request.user).select_related('page_revision', 'task', 'page_revision__page')
-        self.states = [(state, state.task.specific.get_actions(page=state.page_revision.page, user=request.user)) for state in states]
+        states = (
+            TaskState.objects.reviewable_by(request.user)
+            .select_related('page_revision', 'task', 'page_revision__page')
+            .order_by('-started_at')
+        )
+        self.states = [
+            (state, state.task.specific.get_actions(page=state.page_revision.page, user=request.user), state.workflow_state.all_tasks_with_status())
+            for state in states
+        ]
 
     def render(self):
         return render_to_string('wagtailadmin/home/workflow_pages_to_moderate.html', {
@@ -85,7 +94,7 @@ class WorkflowPagesToModeratePanel:
 
 class LockedPagesPanel:
     name = 'locked_pages'
-    order = 250
+    order = 300
 
     def __init__(self, request):
         self.request = request
@@ -102,7 +111,7 @@ class LockedPagesPanel:
 
 class RecentEditsPanel:
     name = 'recent_edits'
-    order = 300
+    order = 250
 
     def __init__(self, request):
         self.request = request
@@ -147,11 +156,11 @@ def home(request):
     panels = [
         SiteSummaryPanel(request),
         UpgradeNotificationPanel(request),
-        PagesForModerationPanel(request),
-        LockedPagesPanel(request),
-        RecentEditsPanel(request),
-        UserPagesInWorkflowModerationPanel(request),
         WorkflowPagesToModeratePanel(request),
+        PagesForModerationPanel(request),
+        UserPagesInWorkflowModerationPanel(request),
+        RecentEditsPanel(request),
+        LockedPagesPanel(request),
     ]
 
     for fn in hooks.get_hooks('construct_homepage_panels'):

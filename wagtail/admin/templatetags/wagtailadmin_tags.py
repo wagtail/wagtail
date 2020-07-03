@@ -12,8 +12,9 @@ from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
-from django.utils.html import format_html, format_html_join
+from django.utils.html import avoid_wrapping, format_html, format_html_join
 from django.utils.safestring import mark_safe
+from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_js_translation_strings
@@ -548,3 +549,17 @@ def icons():
     icon_hooks = hooks.get_hooks('register_icons')
     icons = sorted(itertools.chain.from_iterable(hook([]) for hook in icon_hooks))
     return {'icons': icons}
+
+
+@register.filter()
+def timesince_simple(d):
+    """
+    Returns a simplified timesince:
+    19 hours, 48 minutes ago -> 19 hours ago
+    1 week, 1 day ago -> 1 week ago
+    0 minutes ago -> just now
+    """
+    time_period = timesince(d).split(',')[0]
+    if time_period == avoid_wrapping(_('0 minutes')):
+        return _("Just now")
+    return _("%(time_period)s ago" % {'time_period': time_period})
