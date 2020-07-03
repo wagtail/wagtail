@@ -44,13 +44,13 @@
                         </td>
                     {% endif %}
                     <td>
-                        {% for workflow in task.workflows|slice:":5" %}
+                        {% for workflow in task.active_workflows|slice:":5" %}
                             {{ workflow.name }}{% if not forloop.last %}, {% endif %}
                         {% empty %}
                             {% trans "Not used" %}
                         {% endfor %}
-                        {% if task.workflows.count > 5 %}
-                            {% blocktrans count counter=task.workflows.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+                        {% if task.active_workflows.count > 5 %}
+                            {% blocktrans count counter=task.active_workflows.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
                         {% endif %}
                     </td>
                 </tr>
