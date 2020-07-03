@@ -1,5 +1,9 @@
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
-from wagtail.core.models import Site
+
+# Note: avoid importing models here. This module is imported from __init__.py
+# which causes it to be loaded early in startup if wagtail.contrib.sitemaps is
+# included in INSTALLED_APPS (not required, but developers are likely to add it
+# anyhow) leading to an AppRegistryNotReady exception.
 
 
 class Sitemap(DjangoSitemap):
@@ -16,6 +20,7 @@ class Sitemap(DjangoSitemap):
         return (obj.last_published_at or obj.latest_revision_created_at)
 
     def get_wagtail_site(self):
+        from wagtail.core.models import Site
         site = Site.find_for_request(self.request)
         if site is None:
             return Site.objects.select_related(
