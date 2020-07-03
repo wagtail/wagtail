@@ -2630,6 +2630,11 @@ class Task(models.Model):
         """Returns all ``Workflow`` instances that use this task"""
         return Workflow.objects.filter(workflow_tasks__task=self)
 
+    @property
+    def active_workflows(self):
+        """Return a ``QuerySet``` of active workflows that this task is part of"""
+        return Workflow.objects.active().filter(workflow_tasks__task=self)
+
     @classmethod
     def get_verbose_name(cls):
         """
@@ -2723,11 +2728,6 @@ class Task(models.Model):
     def get_description(cls):
         """Returns the task description."""
         return ''
-
-    @property
-    def get_workflows(self):
-        """Returns a ``QuerySet`` of the workflows that this task is part of """
-        return Workflow.objects.filter(workflow_tasks__task=self)
 
     @transaction.atomic
     def deactivate(self, user=None):

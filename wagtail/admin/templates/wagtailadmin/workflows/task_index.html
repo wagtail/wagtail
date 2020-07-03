@@ -54,13 +54,13 @@
                                 {{ task.specific.get_verbose_name }}
                             </td>
                             <td>
-                                {% for workflow in task.workflows|slice:":5" %}
+                                {% for workflow in task.active_workflows|slice:":5" %}
                                     <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}">{{ workflow.name }}{% if not forloop.last %}, {% endif %}</a>
                                 {% empty %}
                                     {% trans "Not used" %}
                                 {% endfor %}
-                                {% if task.workflows.count > 5 %}
-                                    {% blocktrans count counter=task.workflows.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+                                {% if task.active_workflows.count > 5 %}
+                                    {% blocktrans count counter=task.active_workflows.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
                                 {% endif %}
                             </td>
                         </tr>
