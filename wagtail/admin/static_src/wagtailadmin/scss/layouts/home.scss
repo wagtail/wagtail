@@ -36,7 +36,6 @@ header {
 
 .summary {
     @include clearfix();
-    background-color: $color-grey-5;
     margin-bottom: 2em;
     padding-top: 2em;
 
@@ -44,6 +43,7 @@ header {
         @include clearfix();
         @include unlist();
         width: 100%;
+        margin-left: -$padding;
 
         li {
             @include column(4);
@@ -116,11 +116,40 @@ header {
         }
 
         label {
-            display: inline-blo;
+            display: inline-block;
         }
 
         input {
             background-color: $color-white;
         }
     }
+}
+
+.object.collapsible .object-layout .title-wrapper::before {
+    display: none;
+}
+
+.object-layout {
+    // enforce flex display at all screen sizes
+    display: flex;
+    flex-flow: row-reverse wrap;
+
+    thead {
+        display: table-caption;
+        height: $object-title-height;
+        margin-bottom: 2em;
+    }
+
+    .listing--push-top {
+        margin-top: 3em;
+
+        thead {
+            display: table-row-group;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.task .icon {
+    margin-left: -1.75em; // pull out the icon so it aligns with no-icon text
 }
