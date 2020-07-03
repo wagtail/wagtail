@@ -242,3 +242,18 @@ class TestWorkflows(TestCase):
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
         self.assertEqual(workflow_state.current_task_state.status, TaskState.STATUS_CANCELLED)
         self.assertFalse(TaskState.objects.filter(workflow_state=workflow_state, status=TaskState.STATUS_IN_PROGRESS).exists())
+
+    def test_task_workflows(self):
+        workflow = Workflow.objects.create(name='test_workflow')
+        disabled_workflow = Workflow.objects.create(name="disabled_workflow", active=False)
+        task = Task.objects.create(name='test_task')
+
+        WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
+        WorkflowTask.objects.create(workflow=disabled_workflow, task=task, sort_order=1)
+
+        self.assertEqual(
+            list(task.workflows), [workflow, disabled_workflow]
+        )
+        self.assertEqual(
+            list(task.active_workflows), [workflow]
+        )
