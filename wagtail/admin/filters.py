@@ -149,9 +149,9 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
     )
 
     # When a workflow is chosen in the 'id_workflow' selector, filter this list of tasks
-    # to just the ones whose get_workflows() includes the selected workflow.
+    # to just the ones whose workflows attribute includes the selected workflow.
     task = FilteredModelChoiceFilter(
-        queryset=Task.objects.all(), filter_field='id_workflow', filter_accessor='get_workflows'
+        queryset=Task.objects.all(), filter_field='id_workflow', filter_accessor='workflows'
     )
 
     reviewable = django_filters.ChoiceFilter(
