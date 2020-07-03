@@ -15,8 +15,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for state, actions, workflow_tasks in states %}
-                        {% with state.page_revision as revision %}
+                    {% for task_state, actions, workflow_tasks in states %}
+                        {% with task_state.page_revision as revision %}
                         {% page_permissions revision.page as page_perms %}
                         <tr>
                             <td class="title" valign="top">
@@ -34,7 +34,7 @@
                                     <ul class="actions">
                                         {% for action_name, action_label, modal in actions %}
                                             <li>
-                                                <button class="button button-small button-secondary" data-workflow-action-url="{% url 'wagtailadmin_pages:workflow_action' revision.page.id action_name state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
+                                                <button class="button button-small button-secondary" data-workflow-action-url="{% url 'wagtailadmin_pages:workflow_action' revision.page.id action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
                                             </li>
                                         {% endfor %}
                                         {% if page_perms.can_edit %}
@@ -43,7 +43,7 @@
                                             </li>
                                         {% endif %}
                                         <li>
-                                            <a href="{% url 'wagtailadmin_pages:workflow_preview' revision.page.id state.task.id %}" class="button button-small button-secondary">{% trans 'Preview' %}</a>
+                                            <a href="{% url 'wagtailadmin_pages:workflow_preview' revision.page.id task_state.task.id %}" class="button button-small button-secondary">{% trans 'Preview' %}</a>
                                         </li>
                                     </ul>
                                 {% endif %}
@@ -62,7 +62,7 @@
                                 {% endfor %}
                             </td>
                             <td valign="top">
-                                <div class="human-readable-date" title="{{ state.task_type_started_at|date:"d M Y H:i" }}">{% blocktrans with time_period=state.task_type_started_at|timesince_simple %}{{ time_period }}{% endblocktrans %} </div>
+                                <div class="human-readable-date" title="{{ task_state.started_at|date:"d M Y H:i" }}">{% blocktrans with time_period=task_state.started_at|timesince_simple %}{{ time_period }}{% endblocktrans %}</div>
                             </td>
                         </tr>
                         {% endwith %}

@@ -15,33 +15,33 @@
             </tr>
         </thead>
         <tbody>
-            {% for state in workflow_states %}
-                {% with state.current_task_state.page_revision as revision %}
-                {% page_permissions state.page as page_perms %}
+            {% for workflow_state in workflow_states %}
+                {% with workflow_state.current_task_state.page_revision as revision %}
+                {% page_permissions workflow_state.page as page_perms %}
                 <tr>
                     <td class="title" valign="top">
                         <div class="title-wrapper">
                             {% if page_perms.can_edit %}
-                                <a href="{% url 'wagtailadmin_pages:edit' state.page.id %}" title="{% trans 'Edit this page' %}">{{ state.page.get_admin_display_title }}</a>
+                                <a href="{% url 'wagtailadmin_pages:edit' workflow_state.page.id %}" title="{% trans 'Edit this page' %}">{{ workflow_state.page.get_admin_display_title }}</a>
                             {% else %}
-                                {{ state.page.get_admin_display_title }}
+                                {{ workflow_state.page.get_admin_display_title }}
                             {% endif %}
 
-                            {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=state.page %}
-                            {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=state.page %}
+                            {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=workflow_state.page %}
+                            {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=workflow_state.page %}
                         </div>
                     </td>
                     <td class="task" valign="top">
-                        {% if state.current_task_state.status == 'rejected' %}
+                        {% if workflow_state.current_task_state.status == 'rejected' %}
                             {% icon name="warning" class_name="uniform" %}
                             {% trans "Changes requested at" %}
-                        {% elif state.current_task_state.status == 'in_progress' %}
+                        {% elif workflow_state.current_task_state.status == 'in_progress' %}
                             {% trans "Awaiting" %}
                         {% endif %}
-                        {{ state.current_task_state.task.name }}
+                        {{ workflow_state.current_task_state.task.name }}
                     </td>
                     <td valign="top">
-                        <div class="human-readable-date" title="{{ state.current_task_state.task_type_started_at|date:"d M Y H:i" }}">{% blocktrans with time_period=state.current_task_state.task_type_started_at|timesince_simple %}{{ time_period }}{% endblocktrans %} </div>
+                        <div class="human-readable-date" title="{{ workflow_state.current_task_state.started_at|date:"d M Y H:i" }}">{% blocktrans with time_period=workflow_state.current_task_state.started_at|timesince_simple %}{{ time_period }}{% endblocktrans %} </div>
                     </td>
                 </tr>
                 {% endwith %}
