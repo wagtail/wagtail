@@ -62,7 +62,7 @@
                                 {% endfor %}
                             </td>
                             <td valign="top">
-                                <div class="human-readable-date" title="{{ state.task_type_started_at|date:"d M Y H:i" }}">{% blocktrans with time_period=state.task_type_started_at|timesince %}{{ time_period }} ago{% endblocktrans %} </div>
+                                <div class="human-readable-date" title="{{ state.task_type_started_at|date:"d M Y H:i" }}">{% blocktrans with time_period=state.task_type_started_at|timesince_simple %}{{ time_period }}{% endblocktrans %} </div>
                             </td>
                         </tr>
                         {% endwith %}
