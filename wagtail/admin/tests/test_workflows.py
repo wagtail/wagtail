@@ -589,6 +589,7 @@ class TestSelectTaskTypeView(TestCase, WagtailTestUtils):
         # Check that the list of available task types includes SimpleTask and GroupApprovalTask
         self.assertContains(response, SimpleTask.get_verbose_name())
         self.assertContains(response, GroupApprovalTask.get_verbose_name())
+        self.assertContains(response, GroupApprovalTask.get_description())
 
 
 class TestEditTaskView(TestCase, WagtailTestUtils):

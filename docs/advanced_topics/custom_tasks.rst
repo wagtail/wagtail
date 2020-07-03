@@ -195,6 +195,19 @@ For example:
             return TaskState.objects.none()
 
 
+``Task.get_description()```
+
+A class method that returns the human-readable description for the task.
+
+For example:
+
+.. code-block:: python
+
+    @classmethod
+    def get_description(cls):
+        return _("Members of the chosen Wagtail Groups can approve this task")
+
+
 Adding notifications
 ~~~~~~~~~~~~~~~~~~~~
 
