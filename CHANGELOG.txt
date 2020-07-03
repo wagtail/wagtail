@@ -64,6 +64,7 @@ Changelog
  * Fix: Fix incorrect method name in SiteMiddleware deprecation warning (LB (Ben Johnston))
  * Fix: `wagtail.contrib.sitemaps` no longer depends on SiteMiddleware (Matt Westcott)
  * Fix: Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
+ * Fix: Image / document forms now display non-field errors such as `unique_together` constraints (Matt Westcott)
 
 
 2.9.2 (03.07.2020)
