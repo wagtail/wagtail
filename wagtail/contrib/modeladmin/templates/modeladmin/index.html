@@ -22,6 +22,21 @@
                         {% block h1 %}<h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>{{ view.get_page_title }}<span></span></h1>{% endblock %}
                     </div>
                     {% block search %}{% search_form %}{% endblock %}
+
+                    {% if locales %}
+                    <select id="locales" name="lang">
+                        {% for locale in locales %}
+                            <option value="{{ locale.language_code }}"{% if locale == chosen_locale %} selected{% endif %}>{{ locale.get_display_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <script type="text/javascript">
+                        $(function() {
+                            $('#locales').change(function() {
+                                window.location.href = '?lang=' + $(this).val();
+                            });
+                        });
+                    </script>
+                {% endif %}
                 </div>
                 {% block header_extra %}
                     <div class="right">

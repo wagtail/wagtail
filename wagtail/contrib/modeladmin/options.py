@@ -9,7 +9,7 @@ from django.utils.safestring import mark_safe
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.core import hooks
-from wagtail.core.models import Page
+from wagtail.core.models import Page, TranslatableMixin
 
 from .helpers import (
     AdminURLHelper, ButtonHelper, DjangoORMSearchHandler, PageAdminURLHelper, PageButtonHelper,
@@ -222,7 +222,12 @@ class ModelAdmin(WagtailRegisterable):
         Returns a sequence containing the fields to be displayed as filters in
         the right sidebar in the list view.
         """
-        return self.list_filter
+        list_filter = self.list_filter
+
+        if issubclass(self.model, TranslatableMixin):
+            list_filter += ('locale', )
+
+        return list_filter
 
     def get_ordering(self, request):
         """

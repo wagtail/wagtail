@@ -16,6 +16,7 @@ from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.forms.search import SearchForm
 from wagtail.core import hooks
+from wagtail.core.models import TranslatableMixin, Locale
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.action_menu import SnippetActionMenu
@@ -84,6 +85,22 @@ def list(request, app_label, model_name):
 
     items = model.objects.all()
 
+    if issubclass(model, TranslatableMixin):
+        if 'lang' in request.GET:
+            try:
+                locale = Locale.objects.get(language_code=request.GET['lang'])
+            except Locale.DoesNotExist:
+                # Redirect to snippet without language
+                return redirect('wagtailsnippets:list', app_label, model_name)
+        else:
+            # Default to active locale (this will take into account the user's chosen admin language)
+            locale = Locale.get_active()
+
+        items = items.filter(locale=locale)
+
+    else:
+        locale = None
+
     # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
     # (to ensure pagination is consistent)
     if not items.ordered:
@@ -128,6 +145,8 @@ def list(request, app_label, model_name):
         'search_form': search_form,
         'is_searching': is_searching,
         'query_string': search_query,
+        'locales': Locale.objects.all() if issubclass(model, TranslatableMixin) else [],
+        'chosen_locale': locale,
     })
 
 
