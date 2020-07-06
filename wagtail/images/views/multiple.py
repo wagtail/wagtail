@@ -207,7 +207,7 @@ def create_from_uploaded_image(request, uploaded_image_id):
 
     image = Image()
     form = ImageForm(
-        request.POST, request.FILES, instance=image, prefix='uploaded-image-' + uploaded_image_id, user=request.user
+        request.POST, request.FILES, instance=image, prefix='uploaded-image-%d' % uploaded_image_id, user=request.user
     )
 
     if form.is_valid():
