@@ -147,7 +147,7 @@ def edit(request, image_id, callback=None):
         raise PermissionDenied
 
     form = ImageForm(
-        request.POST, request.FILES, instance=image, prefix='image-' + image_id, user=request.user
+        request.POST, request.FILES, instance=image, prefix='image-%d' % image_id, user=request.user
     )
 
     if form.is_valid():
