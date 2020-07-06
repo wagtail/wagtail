@@ -166,5 +166,5 @@ class GroupViewSet(ModelViewSet):
 
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
-            re_path('(\d+)/users/$', self.users_view, name='users'),
+            re_path(r'(\d+)/users/$', self.users_view, name='users'),
         ]

@@ -92,7 +92,7 @@ Next, register the URLs so Django can route requests into the API:
         ...
 
         # Ensure that the api_router line appears above the default Wagtail page serving route
-        re_path('^', include(wagtail_urls)),
+        re_path(r'^', include(wagtail_urls)),
     ]
 
 With this configuration, pages will be available at ``/api/v2/pages/``, images
