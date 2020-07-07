@@ -140,6 +140,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. autoattribute:: specific_class
 
+    .. autoattribute:: cached_content_type
+
     .. automethod:: get_url
 
     .. autoattribute:: full_url

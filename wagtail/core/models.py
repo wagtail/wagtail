@@ -614,39 +614,62 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 Value(new_url_path),
                 Substr('url_path', len(old_url_path) + 1))))
 
-    #: Return this page in its most specific subclassed form.
     @cached_property
     def specific(self):
         """
         Return this page in its most specific subclassed form.
+
+        If called on a page object that is already an instance of the most
+        specific class (e.g. an ``EventPage``), the object will be returned
+        as is, and no database queries or other operations will be triggered.
+
+        If the page was originally created using a page type that has since
+        been removed from the codebase, a generic ``Page`` object will be
+        returned (without any custom field values or other functionality
+        present on the orginal class). Usually, deleting these pages is the
+        best course of action, but there is currently no safe way for Wagtail
+        to do that at migration time.
         """
-        # the ContentType.objects manager keeps a cache, so this should potentially
-        # avoid a database lookup over doing self.content_type. I think.
-        content_type = ContentType.objects.get_for_id(self.content_type_id)
-        model_class = content_type.model_class()
+        model_class = self.specific_class
+
         if model_class is None:
-            # Cannot locate a model class for this content type. This might happen
-            # if the codebase and database are out of sync (e.g. the model exists
-            # on a different git branch and we haven't rolled back migrations before
-            # switching branches); if so, the best we can do is return the page
-            # unchanged.
+            # The codebase and database are out of sync (e.g. the model exists
+            # on a different git branch and migrations were not applied or
+            # reverted before switching branches). So, the best we can do is
+            # return the page in it's current form.
             return self
-        elif isinstance(self, model_class):
+        if isinstance(self, model_class):
             # self is already the an instance of the most specific class
             return self
-        else:
-            return content_type.get_object_for_this_type(id=self.id)
+        return self.cached_content_type.get_object_for_this_type(id=self.id)
 
-    #: Return the class that this page would be if instantiated in its
-    #: most specific form
     @cached_property
     def specific_class(self):
         """
         Return the class that this page would be if instantiated in its
-        most specific form
+        most specific form.
+
+        If the model class can no longer be found in the codebase, and the
+        relevant ``ContentType`` has been removed by a database migration,
+        the return value will be ``Page``.
+
+        If the model class can no longer be found in the codebase, but the
+        relevant ``ContentType`` is still present in the database (usually a
+        result of switching between git branches without running or reverting
+        database migrations beforehand), the return value will be ``None``.
         """
-        content_type = ContentType.objects.get_for_id(self.content_type_id)
-        return content_type.model_class()
+        return self.cached_content_type.model_class()
+
+    @property
+    def cached_content_type(self):
+        """
+        versionadded:: 2.10
+
+        Return this page's ``content_type`` value from the ``ContentType``
+        model's cached manager, which will avoid a database query if the
+        object is already in memory.
+        """
+        return ContentType.objects.get_for_id(self.content_type_id)
 
     def route(self, request, path_components):
         if path_components:
