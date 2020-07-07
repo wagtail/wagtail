@@ -2324,6 +2324,13 @@ class CollectionMember(models.Model):
         abstract = True
 
 
+class GroupCollectionPermissionManager(models.Manager):
+    def get_by_natural_key(self, group, collection, permission):
+        return self.get(group=group,
+                        collection=collection,
+                        permission=permission)
+
+
 class GroupCollectionPermission(models.Model):
     """
     A rule indicating that a group has permission for some action (e.g. "create document")
@@ -2353,6 +2360,11 @@ class GroupCollectionPermission(models.Model):
             self.permission,
             self.collection.id, self.collection
         )
+
+    def natural_key(self):
+        return (self.group, self.collection, self.permission)
+
+    objects = GroupCollectionPermissionManager()
 
     class Meta:
         unique_together = ('group', 'collection', 'permission')
