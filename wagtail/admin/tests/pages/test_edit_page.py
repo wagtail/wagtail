@@ -14,6 +14,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
+from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import Page, PageRevision, Site
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
@@ -113,6 +114,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.file_page.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'enctype="multipart/form-data"')
+
+    @mock.patch('wagtail.core.models.ContentType.model_class', return_value=None)
+    def test_edit_when_specific_class_cannot_be_found(self, mocked_method):
+        with self.assertRaises(PageClassNotFoundError):
+            self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
 
     def test_upload_file_publish(self):
         """
