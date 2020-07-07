@@ -28,6 +28,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
+from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
@@ -343,11 +344,22 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
 def edit(request, page_id):
     real_page_record = get_object_or_404(Page, id=page_id)
     latest_revision = real_page_record.get_latest_revision()
+    content_type = real_page_record.cached_content_type
+    page_class = real_page_record.specific_class
+
+    if page_class is None:
+        raise PageClassNotFoundError(
+            f"The page '{real_page_record}' cannot be edited because the "
+            f"model class used to create it ({content_type.app_label}."
+            f"{content_type.model}) can no longer be found in the codebase. "
+            "This usually happens as a result of switching between git "
+            "branches without running migrations to trigger the removal of "
+            "unused ContentTypes. To edit the page, you will need to switch "
+            "back to a branch where the model class is still present."
+        )
+
     page = real_page_record.get_latest_revision_as_page()
     parent = page.get_parent()
-
-    content_type = ContentType.objects.get_for_model(page)
-    page_class = content_type.model_class()
 
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_edit():
