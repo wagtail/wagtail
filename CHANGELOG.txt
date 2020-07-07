@@ -28,6 +28,7 @@ Changelog
  * Add `register_snippet_action_menu_item` and `construct_snippet_action_menu` hooks to modify the actions available when creating / editing a snippet (Karl Hobley)
  * Moved `generate_signature` and `verify_signature` functions into `wagtail.images.utils` (Noah H)
  * Implement `bulk_to_python` on all structural StreamField block types (Matt Westcott)
+ * Add natural key support to `GroupCollectionPermission` (Jim Jazwiecki)
  * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
  * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
