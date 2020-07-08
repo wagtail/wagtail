@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext as _
@@ -7,7 +8,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.rich_text import get_rich_text_editor_widget
 from wagtail.admin.widgets import (
-    AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput)
+    AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput, AutocompleteWidget)
 from wagtail.core.models import Page
 from wagtail.documents.widgets import AdminDocumentChooser
 from wagtail.images.widgets import AdminImageChooser
@@ -26,6 +27,7 @@ class ExampleForm(forms.Form):
         self.fields['datetime'].widget = AdminDateTimeInput()
         self.fields['auto_height_text'].widget = AdminAutoHeightTextInput()
         self.fields['default_rich_text'].widget = get_rich_text_editor_widget('default')
+        self.fields['autocomplete'].widget = AutocompleteWidget(get_user_model(), lookup_field='username')
 
     CHOICES = (
         ('choice1', 'choice 1'),
@@ -47,6 +49,7 @@ class ExampleForm(forms.Form):
     image_chooser = forms.BooleanField(required=True)
     document_chooser = forms.BooleanField(required=True)
     snippet_chooser = forms.BooleanField(required=True)
+    autocomplete = forms.ModelChoiceField(queryset=get_user_model().objects.all())
 
 
 def index(request):

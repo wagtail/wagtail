@@ -1,5 +1,6 @@
 import itertools
 import json
+
 from functools import total_ordering
 
 from django import forms
@@ -11,6 +12,7 @@ from django.urls import reverse
 from django.utils.formats import get_format
 from django.utils.functional import cached_property
 from django.utils.html import format_html
+from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 from taggit.forms import TagWidget
 from taggit.models import Tag
@@ -382,3 +384,46 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
         return sorted(itertools.chain.from_iterable(
             hook(self.page, self.page_perms, self.is_parent, self.next_url)
             for hook in button_hooks))
+
+
+class AutocompleteWidget(WidgetWithScript, widgets.Input):
+    input_type = 'hidden'
+    template_name = 'wagtailadmin/widgets/autocomplete_widget.html'
+    limit = 10
+
+    def __init__(self, target_model, lookup_field='title', limit=10, attrs=None):
+        super().__init__(attrs)
+        self.target_model = target_model
+        self.lookup_field = lookup_field
+        self.limit = limit
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+
+        url = reverse('wagtailadmin_model_autocomplete')
+        querydict = {
+            'type': self.target_model._meta.label,
+            'lookup_field': self.lookup_field,
+            'limit': self.limit
+        }
+        context['widget']['autocomplete_url'] = url + "?" + urlencode(querydict)
+
+        if context['widget']['value']:
+            item = self.target_model.objects.get(pk=context['widget']['value'])
+            context['widget']['lookup_value'] = getattr(item, self.lookup_field)
+        else:
+            context['widget']['lookup_value'] = ''
+
+        return context
+
+    def render_js_init(self, id_, name, value):
+        return 'initializeAutocompleteWidget({id});'.format(
+            id=json.dumps(id_)
+        )
+
+    @property
+    def media(self):
+        return forms.Media(
+            js=[versioned_static('wagtailadmin/js/autocomplete.js')],
+            css={'all': [versioned_static('wagtailadmin/css/autocomplete.css')]}
+        )

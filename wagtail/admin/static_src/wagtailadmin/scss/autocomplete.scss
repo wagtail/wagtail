@@ -1,0 +1,33 @@
+@import 'wagtailadmin/scss/helpers';
+
+
+.autocomplete-wrapper {
+    position: relative;
+}
+
+.autocomplete-suggestions {
+    display: none;
+
+    &--active {
+        background-color: $color-grey-5;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: $nav-wrapper-inner-z-index;
+        box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+
+        li {
+            background-color: $color-fieldset-hover;
+            border: 1px solid $color-input-border;
+            border-top: 0;
+            box-sizing: border-box;
+            padding: 0.9em 1.2em;
+
+            &:hover {
+                background-color: $color-input-focus;
+                cursor: pointer;
+            }
+        }
+    }
+}

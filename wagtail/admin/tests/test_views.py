@@ -2,6 +2,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.core.models import Page
+from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -60,3 +61,63 @@ class TestLoginView(TestCase, WagtailTestUtils):
     def test_bidi_language_changes_dir_attribute(self):
         response = self.client.get(reverse('wagtailadmin_login'))
         self.assertContains(response, '<html class="no-js" lang="he" dir="rtl">')
+
+
+class TestAutocompleteView(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.autocomplete_url = reverse('wagtailadmin_model_autocomplete')
+
+    def test_response(self):
+        url = self.autocomplete_url + "?type=tests.SimplePage"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+        self.client.login(username='siteeditor', password='password')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertJSONEqual(response.content, {
+            'items': [
+                {'pk': page.pk, 'label': page.title} for page in SimplePage.objects.order_by('title')
+            ]
+        })
+
+        page = SimplePage.objects.order_by('title').first()
+
+        # check limits
+        response = self.client.get(url + "&limit=1")
+        self.assertJSONEqual(response.content, {'items': [
+            {'pk': page.pk, 'label': page.title}
+        ]})
+
+        # check query
+        response = self.client.get(url + "&query=about")
+        self.assertJSONEqual(response.content, {'items': [
+            {'pk': page.pk, 'label': page.title}
+        ]})
+
+        response = self.client.get(url + "&query=a+random+string+that+should+not+exist")
+        self.assertJSONEqual(response.content, {'items': []})
+
+        # test the non-default lookup field.
+        response = self.client.get(url + "&lookup_field=content&query=really+good")
+        self.assertJSONEqual(response.content, {'items': [
+            {'pk': page.pk, 'label': "We are really good."}
+        ]})
+
+    def test_invalid_model_raises_bad_http_request(self):
+        self.client.login(username='siteeditor', password='password')
+
+        # no query params
+        response = self.client.get(self.autocomplete_url)
+        self.assertEqual(response.status_code, 400)
+
+        # bad model string
+        response = self.client.get(self.autocomplete_url + "?type=foo")
+        self.assertEqual(response.status_code, 400)
+
+        # finally, a good one
+        response = self.client.get(self.autocomplete_url + "?type=tests.SimplePage")
+        self.assertEqual(response.status_code, 200)

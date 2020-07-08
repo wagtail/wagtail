@@ -1,0 +1,9 @@
+<div class="autocomplete-wrapper">
+    <input type="text"
+           data-autocomplete-id="{{ widget.attrs.id }}"
+           data-autocomplete-url="{{ widget.autocomplete_url }}"
+           value="{{ widget.lookup_value }}"
+           class="autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" />
+    {% include "django/forms/widgets/hidden.html" %}
+    <ul class="autocomplete-suggestions" data-target-id="{{ widget.attrs.id }}" aria-hidden="true"></ul>
+</div>

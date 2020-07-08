@@ -3,6 +3,7 @@ import json
 from django import forms
 from django.test import TestCase
 from django.test.utils import override_settings
+from django.urls import reverse
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
@@ -302,3 +303,32 @@ class TestTagField(TestCase):
         form = RestaurantTagForm({'tags': "Italian, delicious"})
         self.assertTrue(form.is_valid())
         self.assertEqual(set(form.cleaned_data['tags']), {"Italian", "delicious"})
+
+
+class TestAutocompleteWidget(TestCase):
+
+    def test_render_js_init(self):
+        widget = widgets.AutocompleteWidget(SimplePage)
+
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+
+        autocomplete_url = reverse(
+            'wagtailadmin_model_autocomplete'
+        ) + "?type=tests.SimplePage&amp;lookup_field=title&amp;limit=10"
+
+        needle = f"""
+        <input type="text"
+           data-autocomplete-id="test-id"
+           data-autocomplete-url="{autocomplete_url}"
+           value=""
+           class="autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" />
+        """
+        self.assertInHTML(needle, html)
+        self.assertInHTML('<input type="hidden" name="test" id="test-id">', html)
+
+        # we should see the suggestions container
+        self.assertInHTML(
+            '<ul class="autocomplete-suggestions" data-target-id="test-id" aria-hidden="true"></ul>', html
+        )
+        # we should see the JS initialiser code:
+        self.assertIn('initializeAutocompleteWidget("test-id");', html)
