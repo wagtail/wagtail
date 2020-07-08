@@ -1,3 +1,9 @@
+function hideAutocompleteSuggestions() {
+  setTimeout(function() {
+    $('.autocomplete-suggestions--active').removeClass('autocomplete-suggestions--active').attr('aria-hidden', true);
+  }, 100);
+}
+
 (function($) {
   window.wagtailAutocomplete = function ($input) {
     var lookupIndex = 0,
@@ -41,6 +47,12 @@
       });
     }
   };
+
+  $(document).on('click', function(event) {
+    if (!$(event.target).closest('.autocomplete-suggestions--active').length) {
+      hideAutocompleteSuggestions();
+    }
+  });
 })(jQuery);
 
 function initializeAutocompleteWidget(id) {
@@ -49,4 +61,6 @@ function initializeAutocompleteWidget(id) {
     clearTimeout($input.data('timer'));
     $input.data('timer', setTimeout(window.wagtailAutocomplete($input), 200));
   });
+
+  $input.on('blur focusout', hideAutocompleteSuggestions);
 }
