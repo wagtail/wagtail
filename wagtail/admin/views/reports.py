@@ -247,7 +247,7 @@ class PageReportView(ReportView):
 
 class LockedPagesView(PageReportView):
     template_name = "wagtailadmin/reports/locked_pages.html"
-    title = _("Locked Pages")
+    title = _("Locked pages")
     header_icon = "locked"
     list_export = PageReportView.list_export + [
         "locked_at",
