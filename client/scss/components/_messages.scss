@@ -78,12 +78,6 @@
             content: map-get($icons, 'unlocked');
         }
     }
-
-    .workflow {
-        &:before {
-            content: map-get($icons, 'clipboard-list');
-        }
-    }
 }
 
 .messages.new > ul {
