@@ -1,11 +1,12 @@
 import django_filters
 from django import forms
+from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
 from wagtail.core.models import Page
 
-from .widgets import AdminDateInput
+from .widgets import AdminDateInput, AutocompleteWidget
 
 
 class ButtonSelect(forms.Select):
@@ -90,6 +91,11 @@ class WagtailFilterSet(django_filters.FilterSet):
 
 
 class LockedPagesReportFilterSet(WagtailFilterSet):
+    locked_by = django_filters.ModelChoiceFilter(
+        field_name='locked_by',
+        queryset=get_user_model().objects.all(),
+        widget=AutocompleteWidget(get_user_model(), lookup_field='username')
+    )
     locked_at = django_filters.DateFromToRangeFilter(widget=DateRangePickerWidget)
 
     class Meta:
