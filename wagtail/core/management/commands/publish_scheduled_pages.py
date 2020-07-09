@@ -105,4 +105,4 @@ class Command(BaseCommand):
             for rp in revs_for_publishing:
                 # just run publish for the revision -- since the approved go
                 # live datetime is before now it will make the page live
-                rp.publish()
+                rp.publish(user=rp.user)
