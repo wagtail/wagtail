@@ -536,3 +536,17 @@ Page locking
 
 ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
 from editing pages that they have locked.
+
+
+Form builder
+============
+
+.. versionadded:: 2.7.5/2.9.3
+
+    The ``WAGTAILFORMS_HELP_TEXT_ALLOW_HTML`` option was added.
+
+.. code-block:: python
+
+    WAGTAILFORMS_HELP_TEXT_ALLOW_HTML = True
+
+When true, HTML tags in form field help text will be rendered unescaped (default: False).
