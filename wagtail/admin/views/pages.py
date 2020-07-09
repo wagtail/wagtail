@@ -14,6 +14,7 @@ from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.utils.html import format_html
 from django.utils.http import is_safe_url, urlquote
 from django.utils.safestring import mark_safe
@@ -25,15 +26,17 @@ from django.views.generic import View
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
+from wagtail.admin.filters import PageHistoryReportFilterSet
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.navigation import get_explorable_root_page
+from wagtail.admin.views.reports import ReportView
 from wagtail.core import hooks
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
-    Page, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState)
+    Page, PageLogEntry, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState)
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
@@ -244,6 +247,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             # Save revision
             revision = page.save_revision(
                 user=request.user,
+                log_action=not (is_publishing and is_submitting)
             )
 
             # Publish
@@ -253,7 +257,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                     if hasattr(result, 'status_code'):
                         return result
 
-                revision.publish()
+                revision.publish(user=request.user)
 
                 for fn in hooks.get_hooks('after_publish_page'):
                     result = fn(request, page)
@@ -277,6 +281,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
                         buttons.append(messages.button(page.url, _('View live'), new_window=True))
                     buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit')))
                     messages.success(request, _("Page '{0}' created and published.").format(page.get_admin_display_title()), buttons=buttons)
+
             elif is_submitting:
                 buttons = []
                 if page.is_previewable():
@@ -494,6 +499,7 @@ def edit(request, page_id):
             is_restarting_workflow = bool(request.POST.get('action-restart-workflow')) and page_perms.can_submit_for_moderation() and workflow_state and workflow_state.user_can_cancel(request.user)
             is_reverting = bool(request.POST.get('revision'))
             is_saving = True
+            has_content_changes = form.has_changed()
 
             if is_restarting_workflow:
                 workflow_state.cancel(user=request.user)
@@ -506,6 +512,8 @@ def edit(request, page_id):
             # Save revision
             revision = page.save_revision(
                 user=request.user,
+                log_action=not (is_publishing or is_submitting),
+                previous_revision=(previous_revision if is_reverting else None)
             )
             # store submitted go_live_at for messaging below
             go_live_at = page.go_live_at
@@ -517,7 +525,12 @@ def edit(request, page_id):
                     if hasattr(result, 'status_code'):
                         return result
 
-                revision.publish()
+                revision.publish(
+                    user=request.user,
+                    changed=has_content_changes,
+                    previous_revision=(previous_revision if is_reverting else None)
+                )
+
                 # Need to reload the page because the URL may have changed, and we
                 # need the up-to-date URL for the "View Live" button.
                 page = page.specific_class.objects.get(pk=page.pk)
@@ -535,7 +548,7 @@ def edit(request, page_id):
                 else:
                     # Otherwise start a new workflow
                     workflow = page.get_workflow()
-                    workflow.start(page, request.user)
+                    workflow.start(page, request.user, has_content_changes=has_content_changes)
 
         # Notifications
         if is_publishing:
@@ -556,6 +569,7 @@ def edit(request, page_id):
                         ).format(
                             page.get_admin_display_title()
                         )
+
                     else:
                         message = _(
                             "Page '{0}' has been scheduled for publishing."
@@ -765,7 +779,7 @@ def delete(request, page_id):
 
         if request.method == 'POST':
             parent_id = page.get_parent().id
-            page.delete()
+            page.delete(user=request.user)
 
             messages.success(request, _("Page '{0}' deleted.").format(page.get_admin_display_title()))
 
@@ -919,7 +933,7 @@ def unpublish(request, page_id):
             if hasattr(result, 'status_code'):
                 return result
 
-        page.unpublish()
+        page.unpublish(user=request.user)
 
         if include_descendants:
             live_descendant_pages = page.get_descendants().live().specific()
@@ -1005,7 +1019,7 @@ def move_confirm(request, page_to_move_id, destination_id):
     if request.method == 'POST':
         # any invalid moves *should* be caught by the permission check above,
         # so don't bother to catch InvalidMoveToDescendant
-        page_to_move.move(destination, pos='last-child')
+        page_to_move.move(destination, pos='last-child', user=request.user)
 
         messages.success(request, _("Page '{0}' moved.").format(page_to_move.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page_to_move.id,)), _('Edit'))
@@ -1100,6 +1114,7 @@ def copy(request, page_id):
 
             # Re-check if the user has permission to publish subpages on the new parent
             can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
+            keep_live = can_publish and form.cleaned_data.get('publish_copies')
 
             # Copy the page
             new_page = page.specific.copy(
@@ -1109,7 +1124,7 @@ def copy(request, page_id):
                     'title': form.cleaned_data['new_title'],
                     'slug': form.cleaned_data['new_slug'],
                 },
-                keep_live=(can_publish and form.cleaned_data.get('publish_copies')),
+                keep_live=keep_live,
                 user=request.user,
             )
 
@@ -1250,7 +1265,7 @@ def approve_moderation(request, revision_id):
         return redirect('wagtailadmin_home')
 
     if request.method == 'POST':
-        revision.approve_moderation()
+        revision.approve_moderation(user=request.user)
 
         message = _("Page '{0}' published.").format(revision.page.get_admin_display_title())
         buttons = []
@@ -1275,7 +1290,8 @@ def reject_moderation(request, revision_id):
         return redirect('wagtailadmin_home')
 
     if request.method == 'POST':
-        revision.reject_moderation()
+        revision.reject_moderation(user=request.user)
+
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
@@ -1359,7 +1375,6 @@ def workflow_action(request, page_id, action_name, task_state_id):
         )
 
 
-
 @require_GET
 def preview_for_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
@@ -1423,7 +1438,7 @@ def lock(request, page_id):
         page.locked = True
         page.locked_by = request.user
         page.locked_at = timezone.now()
-        page.save()
+        page.save(user=request.user, log_action='wagtail.lock')
 
     # Redirect
     redirect_to = request.POST.get('next', None)
@@ -1447,7 +1462,7 @@ def unlock(request, page_id):
         page.locked = False
         page.locked_by = None
         page.locked_at = None
-        page.save()
+        page.save(user=request.user, log_action='wagtail.unlock')
 
         messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()), extra_tags='unlock')
 
@@ -1610,7 +1625,7 @@ def revisions_unschedule(request, page_id, revision_id):
 
     if request.method == 'POST':
         revision.approved_go_live_at = None
-        revision.save(update_fields=['approved_go_live_at'])
+        revision.save(user=request.user, update_fields=['approved_go_live_at'])
 
         messages.success(request, _('Revision {0} of "{1}" unscheduled.').format(revision.id, page.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
@@ -1737,3 +1752,27 @@ def workflow_history_detail(request, page_id, workflow_state_id):
         'task_states_by_revision': task_states_by_revision,
         'timeline': timeline,
     })
+
+
+class PageHistoryView(ReportView):
+    template_name = 'wagtailadmin/pages/history.html'
+    title = _('Page history')
+    header_icon = 'doc-empty-inverse'
+    paginate_by = 20
+    filterset_class = PageHistoryReportFilterSet
+
+    @method_decorator(user_passes_test(user_has_any_page_permission))
+    def dispatch(self, request, *args, **kwargs):
+        self.page = get_object_or_404(Page, id=kwargs.pop('page_id')).specific
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, *args, object_list=None, **kwargs):
+        context = super().get_context_data(*args, object_list=object_list, **kwargs)
+        context['page'] = self.page
+        context['subtitle'] = self.page.get_admin_display_title()
+
+        return context
+
+    def get_queryset(self):
+        return PageLogEntry.objects.filter(page=self.page)
