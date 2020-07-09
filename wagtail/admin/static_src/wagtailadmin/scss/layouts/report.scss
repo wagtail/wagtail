@@ -1,3 +1,5 @@
+@import 'wagtailadmin/scss/helpers';
+
 .report {
     display: grid;
     grid-template-columns: auto;
@@ -32,5 +34,19 @@
         float: right;
         display: block;
         margin-right: 10px;
+    }
+
+    @include media-breakpoint-down(sm) {
+        &--has-filters {
+            grid-template-columns: auto;
+        }
+
+        &__filters {
+            grid-row: 1;
+        }
+
+        form {
+            margin-bottom: 1em;
+        }
     }
 }
