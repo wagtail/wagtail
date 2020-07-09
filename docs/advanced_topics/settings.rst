@@ -660,6 +660,18 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
 
  * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but both ``DraftailRichTextArea`` and ``HalloRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
 
+Form builder
+============
+
+.. versionadded:: 2.7.5/2.9.3
+
+    The ``WAGTAILFORMS_HELP_TEXT_ALLOW_HTML`` option was added.
+
+.. code-block:: python
+
+    WAGTAILFORMS_HELP_TEXT_ALLOW_HTML = True
+
+When true, HTML tags in form field help text will be rendered unescaped (default: False).
 
 
 URL Patterns

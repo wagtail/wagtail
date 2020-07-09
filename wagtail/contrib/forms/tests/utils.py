@@ -28,6 +28,7 @@ def make_form_page(**kwargs):
         label="Your message",
         field_type='multiline',
         required=True,
+        help_text="<em>please</em> be polite"
     )
     FormField.objects.create(
         page=form_page,
