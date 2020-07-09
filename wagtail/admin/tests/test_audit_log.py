@@ -221,3 +221,45 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         history_url = reverse('wagtailadmin_pages:history', args=[self.hello_page.id])
         self.assertContains(response, history_url)
+
+    def test_create_and_publish_does_not_log_revision_save(self):
+        self.login(user=self.administrator)
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world-redux',
+            'action-publish': 'action-publish',
+        }
+        response = self.client.post(
+            reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)),
+            post_data, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+
+        page_id = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world-redux').id
+
+        self.assertListEqual(
+            list(PageLogEntry.objects.filter(page=page_id).values_list('action', flat=True)),
+            ['wagtail.publish', 'wagtail.create']
+        )
+
+    def test_revert_and_publish_logs_reversion_and_publish(self):
+        revision = self.hello_page.save_revision(user=self.editor)
+        self.hello_page.save_revision(user=self.editor)
+
+        self.login(user=self.administrator)
+        response = self.client.post(
+            reverse('wagtailadmin_pages:edit', args=(self.hello_page.id, )),
+            {
+                'title': "Hello World!",
+                'content': "another hello",
+                'slug': 'hello-world',
+                'revision': revision.id, 'action-publish': 'action-publish'}, follow=True
+        )
+        self.assertEqual(response.status_code, 200)
+
+        entries = PageLogEntry.objects.filter(page=self.hello_page).values_list('action', flat=True)
+        self.assertListEqual(
+            list(entries),
+            ['wagtail.publish', 'wagtail.rename', 'wagtail.revert', 'wagtail.create']
+        )
