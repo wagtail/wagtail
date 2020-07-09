@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Permission
 from django.urls import reverse
+from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext
 from draftjs_exporter.dom import DOM
@@ -219,6 +220,14 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             _('Revisions'),
             reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
             attrs={'title': _("View revision history for '%(title)s'") % {'title': page.get_admin_display_title()}},
+            priority=50
+        )
+
+    if page_perms.can_view_revisions():
+        yield Button(
+            _('History'),
+            reverse('wagtailadmin_pages:history', args=[page.id]),
+            attrs={'title': _("View page history for '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=50
         )
 
@@ -655,6 +664,11 @@ class WorkflowReportMenuItem(MenuItem):
         return True
 
 
+class SiteHistoryReportMenuItem(MenuItem):
+    def is_shown(self, request):
+        return UserPagePermissionsProxy(request.user).explorable_pages().exists()
+
+
 @hooks.register('register_reports_menu_item')
 def register_locked_pages_menu_item():
     return LockedPagesMenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), classnames='icon icon-locked', order=700)
@@ -668,6 +682,11 @@ def register_workflow_report_menu_item():
 @hooks.register('register_reports_menu_item')
 def register_workflow_tasks_report_menu_item():
     return WorkflowReportMenuItem(_('Workflow tasks'), reverse('wagtailadmin_reports:workflow_tasks'), icon_name='thumbtack', order=900)
+
+
+@hooks.register('register_reports_menu_item')
+def register_site_history_report_menu_item():
+    return SiteHistoryReportMenuItem(_('Site history'), reverse('wagtailadmin_reports:site_history'), classnames='icon icon-cogs', order=1000)
 
 
 @hooks.register('register_admin_menu_item')
@@ -767,3 +786,170 @@ def register_icons(icons):
 @hooks.register('construct_homepage_summary_items')
 def add_pages_summary_item(request, items):
     items.insert(0, PagesSummaryItem(request))
+
+
+@hooks.register('register_log_actions')
+def register_core_log_actions(actions):
+    actions.register_action('wagtail.create', _('Create'), _('Created'))
+    actions.register_action('wagtail.edit', _('Save draft'), _('Draft saved'))
+    actions.register_action('wagtail.delete', _('Delete'), _('Deleted'))
+    actions.register_action('wagtail.publish', _('Publish'), _('Published'))
+    actions.register_action('wagtail.unpublish', _('Unpublish'), _('Unpublished'))
+    actions.register_action('wagtail.lock', _('Lock'), _('Locked'))
+    actions.register_action('wagtail.unlock', _('Unlock'), _('Unlocked'))
+    actions.register_action('wagtail.moderation.approve', _('Approve'), _('Approved'))
+    actions.register_action('wagtail.moderation.reject', _('Reject'), _('Rejected'))
+
+    def revert_message(data):
+        try:
+            return format_lazy(
+                _('Reverted to previous revision with id {revision_id} from {created_at}'),
+                revision_id=data['revision']['id'],
+                created_at=data['revision']['created']
+            )
+        except KeyError:
+            return _('Reverted to previous revision')
+
+    def schedule_revert_message(data):
+        try:
+            return format_lazy(
+                _('Scheduled revision {revision_id} from {created_at} for publishing at {go_live_at}.'),
+                revision_id=data['revision']['id'],
+                created_at=data['revision']['created'],
+                go_live_at=data['revision']['go_live_at']
+            )
+        except KeyError:
+            return _('Revision scheduled for publishing')
+
+    def copy_message(data):
+        try:
+            return format_lazy(
+                _('Copied from {title}'),
+                title=data['source']['title']
+            )
+        except KeyError:
+            return _("Copied")
+
+    def move_message(data):
+        try:
+            return format_lazy(
+                _("Moved from '{old_parent}' to '{new_parent}'"),
+                old_parent=data['source']['title'],
+                new_parent=data['destination']['title']
+            )
+        except KeyError:
+            return _('Moved')
+
+    def schedule_publish_message(data):
+        try:
+            if data['revision']['has_live_version']:
+                return format_lazy(
+                    _('Revision {revision_id} from {created_at} scheduled for publishing at {go_live_at}.'),
+                    revision_id=data['revision']['id'],
+                    created_at=data['revision']['created'],
+                    go_live_at=data['revision']['go_live_at']
+                )
+            else:
+                return format_lazy(
+                    _('Page scheduled for publishing at {go_live_at}'),
+                    go_live_at=data['revision']['go_live_at']
+                )
+        except KeyError:
+            return _('Page scheduled for publishing')
+
+    def unschedule_publish_message(data):
+        try:
+            if data['revision']['has_live_version']:
+                return format_lazy(
+                    _('Revision {revision_id} from {created_at} unscheduled from publishing at {go_live_at}.'),
+                    revision_id=data['revision']['id'],
+                    created_at=data['revision']['created'],
+                    go_live_at=data['revision']['go_live_at']
+                )
+            else:
+                return format_lazy(
+                    _('Page unscheduled for publishing at {go_live_at}'),
+                    go_live_at=data['revision']['go_live_at']
+                )
+        except KeyError:
+            return _('Page unscheduled from publishing')
+
+    def add_view_restriction(data):
+        try:
+            return format_lazy(
+                _("Added the '{restriction}' view restriction"),
+                restriction=data['restriction']['title']
+            )
+        except KeyError:
+            return _('Added view restriction')
+
+    def edit_view_restriction(data):
+        try:
+            return format_lazy(
+                _("Updated the view restriction to '{restriction}'"),
+                restriction=data['restriction']['title']
+            )
+        except KeyError:
+            return _('Updated view restriction')
+
+    def delete_view_restriction(data):
+        try:
+            return format_lazy(
+                _("Removed the view restriction to '{restriction}'"),
+                restriction=data['restriction']['title']
+            )
+        except KeyError:
+            return _('Removed view restriction')
+
+    actions.register_action('wagtail.revert', _('Revert'), revert_message)
+    actions.register_action('wagtail.schedule.revert', _('Schedule revert'), schedule_revert_message)
+    actions.register_action('wagtail.copy', _('Copy'), copy_message)
+    actions.register_action('wagtail.move', _('Move'), move_message)
+    actions.register_action('wagtail.schedule.publish', _("Schedule publication"), schedule_publish_message)
+    actions.register_action('wagtail.schedule.cancel', _("Unschedule publication"), unschedule_publish_message)
+    actions.register_action('wagtail.view_restriction.create', _("Add view restrictions"), add_view_restriction)
+    actions.register_action('wagtail.view_restriction.edit', _("Update view restrictions"), edit_view_restriction)
+    actions.register_action('wagtail.view_restriction.delete', _("Remove view restrictions"), delete_view_restriction)
+
+
+@hooks.register('register_log_actions')
+def register_workflow_log_actions(actions):
+    def workflow_start_message(data):
+        try:
+            return format_lazy(
+                _("'{workflow}' started. Next step '{task}'"),
+                workflow=data['workflow']['title'],
+                task=data['workflow']['next']['title'],
+            )
+        except (KeyError, TypeError):
+            return _('Workflow started')
+
+    def workflow_approve_message(data):
+        try:
+            if data['workflow']['next']:
+                return format_lazy(
+                    _("Approved at '{task}'. Next step '{next_task}'"),
+                    task=data['workflow']['task']['title'],
+                    next_task=data['workflow']['next']['title']
+                )
+            else:
+                return format_lazy(
+                    _("Approved at '{task}'. '{workflow}' complete"),
+                    task=data['workflow']['task']['title'],
+                    workflow=data['workflow']['title']
+                )
+        except (KeyError, TypeError):
+            return _('Workflow task approved')
+
+    def workflow_reject_message(data):
+        try:
+            return format_lazy(
+                _("Rejected at '{task}'. Workflow complete"),
+                task=data['workflow']['task']['title'],
+            )
+        except (KeyError, TypeError):
+            return _('Workflow task rejected. Workflow complete')
+
+    actions.register_action('wagtail.workflow.start', _('Workflow: start'), workflow_start_message)
+    actions.register_action('wagtail.workflow.approve', _('Workflow: approve task'), workflow_approve_message)
+    actions.register_action('wagtail.workflow.reject', _('Workflow: reject task'), workflow_reject_message)

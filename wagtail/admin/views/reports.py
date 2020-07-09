@@ -3,6 +3,7 @@ import datetime
 from collections import OrderedDict
 
 from django.core.exceptions import FieldDoesNotExist
+from django.db.models import Q, Subquery
 from django.http import HttpResponse, StreamingHttpResponse
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
@@ -12,8 +13,10 @@ from xlsxwriter.workbook import Workbook
 
 from wagtail.admin.auth import permission_denied
 from wagtail.admin.filters import (
-    LockedPagesReportFilterSet, WorkflowReportFilterSet, WorkflowTasksReportFilterSet)
-from wagtail.core.models import Page, TaskState, UserPagePermissionsProxy, WorkflowState
+    LockedPagesReportFilterSet, SiteHistoryReportFilterSet, WorkflowReportFilterSet,
+    WorkflowTasksReportFilterSet)
+from wagtail.core.models import (
+    Page, PageLogEntry, Site, TaskState, UserPagePermissionsProxy, WorkflowState)
 
 
 class Echo:
@@ -340,3 +343,57 @@ class WorkflowTasksView(ReportView):
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
         return TaskState.objects.filter(workflow_state__page__in=pages).order_by('-started_at')
+
+
+class LogEntriesView(ReportView):
+    template_name = 'wagtailadmin/reports/site_history.html'
+    title = _('Site history')
+    header_icon = 'cogs'
+    filterset_class = SiteHistoryReportFilterSet
+
+    export_headings = {
+        "object_id": _("ID"),
+        "title": _("Title"),
+        "object_verbose_name": _("Type"),
+        "action": _("Action type"),
+        "timestamp": _("Date/Time")
+    }
+    list_export = [
+        "object_id",
+        "label",
+        "object_verbose_name",
+        "action",
+        "timestamp"
+    ]
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.custom_field_preprocess['action'] = {
+            self.FORMAT_CSV: self.get_action_label, self.FORMAT_XLSX: self.get_action_label
+        }
+
+    def get_filename(self):
+        return "audit-log-{}".format(
+            datetime.datetime.today().strftime("%Y-%m-%d")
+        )
+
+    def get_queryset(self):
+        q = Q(
+            page__in=UserPagePermissionsProxy(self.request.user).explorable_pages().values_list('pk', flat=True)
+        )
+        root_page_permissions = Site.find_for_request(self.request).root_page.permissions_for_user(self.request.user)
+        if (
+            self.request.user.is_superuser
+            or root_page_permissions.can_add_subpage() or root_page_permissions.can_edit()
+        ):
+            # Include deleted entries
+            q = q | Q(page_id__in=Subquery(
+                PageLogEntry.objects.filter(deleted=True).values('page_id')
+            ))
+
+        return PageLogEntry.objects.filter(q)
+
+    def get_action_label(self, action):
+        from wagtail.admin.log_action_registry import registry as log_action_registry
+        return force_str(log_action_registry.get_action_label(action))
