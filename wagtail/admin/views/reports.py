@@ -370,7 +370,8 @@ class LogEntriesView(ReportView):
         super().__init__(**kwargs)
 
         self.custom_field_preprocess['action'] = {
-            self.FORMAT_CSV: self.get_action_label, self.FORMAT_XLSX: self.get_action_label
+            self.FORMAT_CSV: self.get_action_label,
+            self.FORMAT_XLSX: self.get_action_label
         }
 
     def get_filename(self):
