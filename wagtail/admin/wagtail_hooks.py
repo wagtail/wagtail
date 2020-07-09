@@ -899,7 +899,7 @@ def register_core_log_actions(actions):
     def delete_view_restriction(data):
         try:
             return format_lazy(
-                _("Removed the view restriction to '{restriction}'"),
+                _("Removed the '{restriction}' view restriction"),
                 restriction=data['restriction']['title']
             )
         except KeyError:

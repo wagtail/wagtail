@@ -1935,8 +1935,8 @@ class PageRevision(models.Model):
             self.page.revisions.exclude(id=self.id).update(submitted_for_moderation=False)
 
         if (
-            'update_fields' in kwargs
-            and 'approved_go_live_at' in kwargs['update_fields'] and self.approved_go_live_at is None
+            self.approved_go_live_at is None
+            and 'update_fields' in kwargs and 'approved_go_live_at' in kwargs['update_fields']
         ):
             # Log scheduled revision publish cancellation
             page = self.as_page_object()
@@ -2637,7 +2637,7 @@ class BaseViewRestriction(models.Model):
         if specific_instance:
             PageLogEntry.objects.log_action(
                 instance=specific_instance,
-                action='wagtail.view_restriction.remove',
+                action='wagtail.view_restriction.delete',
                 user=user,
                 data={
                     'restriction': {
