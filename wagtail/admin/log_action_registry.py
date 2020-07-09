@@ -47,7 +47,7 @@ class LogActionRegistry:
         return self.messages
 
     def format_message(self, log_entry):
-        message = self.get_messages().get(log_entry.action, _('Unkown {action}').format(action=log_entry.action))
+        message = self.get_messages().get(log_entry.action, _('Unknown {action}').format(action=log_entry.action))
         if callable(message):
             message = message(log_entry.data)
 
