@@ -29,8 +29,17 @@ class TestFormSubmission(TestCase):
         self.assertTemplateUsed(response, 'tests/form_page.html')
         self.assertTemplateNotUsed(response, 'tests/form_page_landing.html')
 
+        # HTML in help text should be escaped
+        self.assertContains(response, "&lt;em&gt;please&lt;/em&gt; be polite")
+
         # check that variables defined in get_context are passed through to the template (#1429)
         self.assertContains(response, "<p>hello world</p>")
+
+    @override_settings(WAGTAILFORMS_HELP_TEXT_ALLOW_HTML=True)
+    def test_get_form_without_help_text_escaping(self):
+        response = self.client.get('/contact-us/')
+        # HTML in help text should not be escaped
+        self.assertContains(response, "<em>please</em> be polite")
 
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {

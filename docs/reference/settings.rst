@@ -547,3 +547,16 @@ By default the redirect importer keeps track of the uploaded file as a temp file
 .. code-block:: python
 
    WAGTAIL_REDIRECTS_FILE_STORAGE = 'cache'
+
+Form builder
+============
+
+.. versionadded:: 2.7.4/2.9.3
+
+    The ``WAGTAILFORMS_HELP_TEXT_ALLOW_HTML`` option was added.
+
+.. code-block:: python
+
+    WAGTAILFORMS_HELP_TEXT_ALLOW_HTML = True
+
+When true, HTML tags in form field help text will be rendered unescaped (default: False).
