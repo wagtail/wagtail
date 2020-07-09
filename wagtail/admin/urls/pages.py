@@ -45,4 +45,6 @@ urlpatterns = [
 
     path('<int:page_id>/workflow_history/', pages.workflow_history, name='workflow_history'),
     path('<int:page_id>/workflow_history/detail/<int:workflow_state_id>/', pages.workflow_history_detail, name='workflow_history_detail'),
+
+    path('<int:page_id>/history/', pages.PageHistoryView.as_view(), name='history'),
 ]
