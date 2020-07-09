@@ -780,3 +780,97 @@ Database fields
     .. attribute:: page
 
         (foreign key to ``Page``)
+
+``BaseLogEntry``
+================
+
+An abstract base class that represents a record of an action performed on an object.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: BaseLogEntry
+
+    .. attribute:: content_type
+
+        (foreign key to ``django.contrib.contenttypes.models.ContentType``)
+
+        A foreign key to the :class:`~django.contrib.contenttypes.models.ContentType` object that represents the specific model of this model.
+
+    .. attribute:: label
+
+        (text)
+
+        The object title at the time of the entry creation
+
+        Note: Wagtail will attempt to use ``get_admin_display_title`` or the string representation of the object passed to :meth:`~LogEntryManger.log_action`
+
+    .. attribute:: user
+
+        (foreign key to user model)
+
+        A foreign key to the user that triggered the action.
+
+    .. attribute:: data_json
+
+        (text)
+
+        The JSON representation of any additional details for each action.
+        e.g. source page id and title when copying from a page. Or workflow id/name and next step id/name on a workflow transition
+
+    .. attribute:: timestamp
+
+        (date/time)
+
+        The date/time when the entry was created.
+
+    .. attribute:: content_changed
+
+        (boolean)
+
+        A boolean that can set to ``True`` when the content has changed.
+
+    .. attribute:: deleted
+
+        (boolean)
+
+        A boolean that can set to ``True`` when the object is deleted. Used to filter entries in the Site History report.
+
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. class:: BaseLogEntry
+
+    .. automethod:: username
+
+    .. automethod:: data
+
+    .. automethod:: comment
+
+    .. automethod:: object_verbose_name
+
+    .. automethod:: object_id
+
+
+
+``PageLogEntry``
+================
+
+Represents a record of an action performed on an :class:`Page`, subclasses :class:`BaseLogEntry`.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: PageLogEntry
+
+    .. attribute:: page
+
+        (foreign key to :class:`Page`)
+
+        A foreign key to the page the action is performed on.
+
+    .. attribute:: revision
+
+        (foreign key to :class:`PageRevision`)
+
+        A foreign key to the current page revision.

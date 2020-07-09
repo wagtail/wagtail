@@ -1026,3 +1026,34 @@ Hooks for working with registered Snippets.
         # "instances" is a QuerySet
         total = len(instances)
         return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
+
+
+Audit log
+---------
+
+.. _register_log_actions:
+
+``register_log_actions``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+    See :ref:`audit_log`
+
+    To add new actions to the registry, call the ``register_action`` method with the action type, its label and the message to be displayed in administrative listings.
+
+    .. code-block:: python
+
+        from django.utils.text import format_lazy
+        from django.utils.translation import gettext_lazy as _
+
+        from wagtail.core import hooks
+
+        @hook.register('register_log_actions')
+        def additional_log_actions(actions):
+            actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
+
+            def callback_message(data):
+                return format_lazy(
+                    _('Hello {audience}'),
+                    audience=data['audience'],
+                )
+            actions.register_action('wagtail_package.with_callback', _('Callback'), callback_message)
