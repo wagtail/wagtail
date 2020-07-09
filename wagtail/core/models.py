@@ -671,18 +671,23 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
                 self.url_path
             )
 
-            PageLogEntry.objects.log_action(
-                instance=self,
-                action='wagtail.create',
-                user=user or self.owner,
-                content_changed=True,
-            )
-        elif log_action and isinstance(log_action, str):
-            PageLogEntry.objects.log_action(
-                instance=self,
-                action=log_action,
-                user=user
-            )
+        if log_action is not None:
+            # The default for log_action is False. i.e. don't log unless specifically instructed
+            # Page creation is a special case that we want logged by default, but allow skipping it
+            # explicitly by passing log_action=None
+            if is_new:
+                PageLogEntry.objects.log_action(
+                    instance=self,
+                    action='wagtail.create',
+                    user=user or self.owner,
+                    content_changed=True,
+                )
+            elif log_action:
+                PageLogEntry.objects.log_action(
+                    instance=self,
+                    action=log_action,
+                    user=user
+                )
 
         return result
 
@@ -693,13 +698,19 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         if type(self) is Page:
             user = kwargs.pop('user', None)
 
+            def log_deletion(page, user):
+                PageLogEntry.objects.log_action(
+                    instance=page,
+                    action='wagtail.delete',
+                    user=user,
+                    deleted=True,
+                )
+            if self.get_children().exists():
+                for child in self.get_children():
+                    log_deletion(child.specific, user)
+            log_deletion(self.specific, user)
+
             # this is a Page instance, so carry on as we were
-            PageLogEntry.objects.log_action(
-                instance=self.specific,
-                action='wagtail.delete',
-                user=user,
-                deleted=True,
-            )
             return super().delete(*args, **kwargs)
         else:
             # retrieve an actual Page instance and delete that instead of self
@@ -905,7 +916,6 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         # Log
         logger.info("Page edited: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
         if log_action:
-
             if not previous_revision:
                 PageLogEntry.objects.log_action(
                     instance=self,
@@ -1409,10 +1419,10 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
-             process_child_object=None, exclude_fields=None, log_action=True):
+             process_child_object=None, exclude_fields=None, log_action='wagtail.copy'):
         """
         Copies a given page
-        :param log_action flag for logging the action. Pass False to skip logging.
+        :param log_action flag for logging the action. Pass None to skip logging.
             Can be passed an action string. Defaults to 'wagtail.copy'
         """
 
@@ -1493,7 +1503,7 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
             parent = specific_self.get_parent()
             PageLogEntry.objects.log_action(
                 instance=page_copy,
-                action=log_action if isinstance(log_action, str) else 'wagtail.copy',
+                action=log_action,
                 user=user,
                 data={
                     'page': {
@@ -1505,6 +1515,14 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
                     'keep_live': page_copy.live and keep_live
                 },
             )
+            if page_copy.live and keep_live:
+                # Log the publish if the use chose to keep the copied page live
+                PageLogEntry.objects.log_action(
+                    instance=page_copy,
+                    action='wagtail.publish',
+                    user=user,
+                    revision=latest_revision_as_page_revision,
+                )
         logger.info("Page copied: \"%s\" id=%d from=%d", page_copy.title, page_copy.id, self.id)
 
         # Copy child pages
@@ -2004,22 +2022,15 @@ class PageRevision(models.Model):
         """
         page = self.as_page_object()
 
-        def log_scheduling_action(revision, previous_revision=None, user=None, changed=changed):
-            if not previous_revision:
-                action = 'wagtail.schedule.publish'
-                revision_for_data = self
-            else:
-                action = 'wagtail.schedule.revert'
-                revision_for_data = previous_revision
-
+        def log_scheduling_action(revision, user=None, changed=changed):
             PageLogEntry.objects.log_action(
                 instance=page,
-                action=action,
+                action='wagtail.publish.schedule',
                 user=user,
                 data={
                     'revision': {
-                        'id': revision_for_data.id,
-                        'created': revision_for_data.created_at.strftime("%d %b %Y %H:%M"),
+                        'id': revision.id,
+                        'created': revision.created_at.strftime("%d %b %Y %H:%M"),
                         'go_live_at': page.go_live_at.strftime("%d %b %Y %H:%M"),
                         'has_live_version': page.live,
                     }
@@ -2039,7 +2050,7 @@ class PageRevision(models.Model):
             if page.live_revision:
                 # Log scheduled publishing
                 if log_action:
-                    log_scheduling_action(self, previous_revision, user, changed)
+                    log_scheduling_action(self, user, changed)
 
                 return
             # if we have a go_live in the future don't make the page live
@@ -2061,6 +2072,16 @@ class PageRevision(models.Model):
 
             if page.first_published_at is None:
                 page.first_published_at = now
+
+            if previous_revision:
+                previous_revision_page = previous_revision.as_page_object()
+                old_page_title = previous_revision_page.title if page.title != previous_revision_page.title else None
+            else:
+                try:
+                    previous = self.get_previous()
+                except PageRevision.DoesNotExist:
+                    previous = None
+                old_page_title = previous.page.title if previous and page.title != previous.page.title else None
         else:
             # Unset live_revision if the page is going live in the future
             page.live_revision = None
@@ -2073,20 +2094,33 @@ class PageRevision(models.Model):
             page_published.send(sender=page.specific_class, instance=page.specific, revision=self)
 
             if log_action:
-                if not previous_revision:
-                    action = 'wagtail.publish'
-                    data = None
-                else:
-                    action = 'wagtail.revert'
+                data = None
+                if previous_revision:
                     data = {
                         'revision': {
                             'id': previous_revision.id,
                             'created': previous_revision.created_at.strftime("%d %b %Y %H:%M")
                         }
                     }
+
+                if old_page_title:
+                    data = data or {}
+                    data['title'] = {
+                        'old': old_page_title,
+                        'new': page.title,
+                    }
+
+                    PageLogEntry.objects.log_action(
+                        instance=page,
+                        action='wagtail.rename',
+                        user=user,
+                        data=data,
+                        revision=self,
+                    )
+
                 PageLogEntry.objects.log_action(
                     instance=page,
-                    action=action,
+                    action='wagtail.publish',
                     user=user,
                     data=data,
                     revision=self,
@@ -2104,7 +2138,7 @@ class PageRevision(models.Model):
             )
 
             if log_action:
-                log_scheduling_action(self, previous_revision, user, changed)
+                log_scheduling_action(self, user, changed)
 
     def get_previous(self):
         return self.get_previous_by_created_at(page=self.page)
@@ -3012,7 +3046,7 @@ class Workflow(ClusterableModel):
         return Task.objects.filter(workflow_tasks__workflow=self).order_by('workflow_tasks__sort_order')
 
     @transaction.atomic
-    def start(self, page, user, has_content_changes=True):
+    def start(self, page, user):
         """Initiates a workflow by creating an instance of ``WorkflowState``"""
         state = WorkflowState(page=page, workflow=self, status=WorkflowState.STATUS_IN_PROGRESS, requested_by=user)
         state.save()
@@ -3034,11 +3068,11 @@ class Workflow(ClusterableModel):
                     'title': self.name,
                     'status': state.status,
                     'next': next_task_data,
+                    'task_state_id': state.current_task_state.id if state.current_task_state else None,
                 }
             },
             revision=page.get_latest_revision(),
             user=user,
-            content_changed=has_content_changes,
         )
 
         return state
@@ -3184,11 +3218,31 @@ class WorkflowState(models.Model):
         """Put a STATUS_NEEDS_CHANGES workflow state back into STATUS_IN_PROGRESS, and restart the current task"""
         if self.status != self.STATUS_NEEDS_CHANGES:
             raise PermissionDenied
-        next_task = self.current_task_state.task
+        revision = self.current_task_state.page_revision
+        current_task_state = self.current_task_state
         self.current_task_state = None
         self.status = self.STATUS_IN_PROGRESS
         self.save()
-        return self.update(user=user, next_task=next_task)
+
+        PageLogEntry.objects.log_action(
+            instance=self.page.specific,
+            action='wagtail.workflow.resume',
+            data={
+                'workflow': {
+                    'id': self.workflow_id,
+                    'title': self.workflow.name,
+                    'status': self.status,
+                    'task_state_id': current_task_state.id,
+                    'task': {
+                        'id': current_task_state.task.id,
+                        'title': current_task_state.task.name,
+                    },
+                }
+            },
+            revision=revision,
+            user=user,
+        )
+        return self.update(user=user, next_task=current_task_state.task)
 
     def user_can_cancel(self, user):
         if self.page.locked and self.page.locked_by != user:
@@ -3246,6 +3300,26 @@ class WorkflowState(models.Model):
             raise PermissionDenied
         self.status = self.STATUS_CANCELLED
         self.save()
+
+        PageLogEntry.objects.log_action(
+            instance=self.page.specific,
+            action='wagtail.workflow.cancel',
+            data={
+                'workflow': {
+                    'id': self.workflow_id,
+                    'title': self.workflow.name,
+                    'status': self.status,
+                    'task_state_id': self.current_task_state.id,
+                    'task': {
+                        'id': self.current_task_state.task.id,
+                        'title': self.current_task_state.task.name,
+                    },
+                }
+            },
+            revision=self.current_task_state.page_revision,
+            user=user,
+        )
+
         for state in self.task_states.filter(status=TaskState.STATUS_IN_PROGRESS):
             # Cancel all in progress task states
             state.specific.cancel(user=user)
@@ -3258,7 +3332,7 @@ class WorkflowState(models.Model):
             raise PermissionDenied
         self.status = self.STATUS_APPROVED
         self.save()
-        self.on_finish()
+        self.on_finish(user=user)
         workflow_approved.send(sender=self.__class__, instance=self, user=user)
 
     def copy_approved_task_states_to_revision(self, revision):
@@ -3414,7 +3488,7 @@ class TaskState(MultiTableCopyMixin, models.Model):
         self.comment = comment
         self.save()
 
-        self.log_action(user, 'approve')
+        self.log_state_change_action(user, 'approve')
         if update:
             self.workflow_state.update(user=user)
         task_approved.send(sender=self.specific.__class__, instance=self.specific, user=user)
@@ -3431,7 +3505,7 @@ class TaskState(MultiTableCopyMixin, models.Model):
         self.comment = comment
         self.save()
 
-        self.log_action(user, 'reject')
+        self.log_state_change_action(user, 'reject')
         if update:
             self.workflow_state.update(user=user)
         task_rejected.send(sender=self.specific.__class__, instance=self.specific, user=user)
@@ -3485,7 +3559,7 @@ class TaskState(MultiTableCopyMixin, models.Model):
         """
         return self.comment
 
-    def log_action(self, user, action):
+    def log_state_change_action(self, user, action):
         """Log the approval/rejection action"""
         page = self.page_revision.as_page_object()
         next_task = self.workflow_state.get_next_task()
@@ -3504,12 +3578,14 @@ class TaskState(MultiTableCopyMixin, models.Model):
                     'id': self.workflow_state.workflow.id,
                     'title': self.workflow_state.workflow.name,
                     'status': self.status,
+                    'task_state_id': self.id,
                     'task': {
                         'id': self.task.id,
                         'title': self.task.name,
                     },
                     'next': next_task_data,
-                }
+                },
+                'comment': self.get_comment()
             },
             revision=self.page_revision
         )

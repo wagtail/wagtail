@@ -245,10 +245,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             parent_page.add_child(instance=page)
 
             # Save revision
-            revision = page.save_revision(
-                user=request.user,
-                log_action=not (is_publishing and is_submitting)
-            )
+            revision = page.save_revision(user=request.user, log_action=False)
 
             # Publish
             if is_publishing:
@@ -512,7 +509,7 @@ def edit(request, page_id):
             # Save revision
             revision = page.save_revision(
                 user=request.user,
-                log_action=not (is_publishing or is_submitting),
+                log_action=True,  # Always log the new revision on edit
                 previous_revision=(previous_revision if is_reverting else None)
             )
             # store submitted go_live_at for messaging below
@@ -548,7 +545,7 @@ def edit(request, page_id):
                 else:
                     # Otherwise start a new workflow
                     workflow = page.get_workflow()
-                    workflow.start(page, request.user, has_content_changes=has_content_changes)
+                    workflow.start(page, request.user)
 
         # Notifications
         if is_publishing:
