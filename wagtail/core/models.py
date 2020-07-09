@@ -1992,10 +1992,12 @@ class PageRevision(models.Model):
     def publish(self, user=None, changed=True, log_action=True, previous_revision=None):
         """
         Publishes or schedules revision for publishing.
+
         :param user: the publishing user
         :param changed: indicated whether content has changed
-        :param log_action: flag for the logging action. Pass False to skip logging. Cannot pass an action string
-            as the method performs several actions: "publish", "revert" (and publish the reverted revision),
+        :param log_action:
+            flag for the logging action. Pass False to skip logging. Cannot pass an action string as the method
+            performs several actions: "publish", "revert" (and publish the reverted revision),
             "schedule publishing with a live revision", "schedule revision reversal publishing, with a live revision",
             "schedule publishing", "schedule revision reversal publishing"
         :param previous_revision: indicates a revision reversal. Should be set to the previous revision instance
@@ -3608,6 +3610,9 @@ class BaseLogEntry(models.Model):
 
     @cached_property
     def username(self):
+        """
+        Returns the associated username. Defaults to 'system' when none is provided
+        """
         if self.user_id:
             try:
                 return self.user.get_username()
@@ -3619,6 +3624,9 @@ class BaseLogEntry(models.Model):
 
     @cached_property
     def data(self):
+        """
+        Provides deserialized data
+        """
         if self.data_json:
             return json.loads(self.data_json)
         else:
