@@ -673,6 +673,9 @@ Form builder
 
 When true, HTML tags in form field help text will be rendered unescaped (default: False).
 
+.. WARNING::
+   Enabling this option will allow editors to insert arbitrary HTML into the page, such as scripts that could allow the editor to acquire administrator privileges when another administrator views the page. Do not enable this setting unless your editors are fully trusted.
+
 
 URL Patterns
 ~~~~~~~~~~~~
