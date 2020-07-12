@@ -140,6 +140,7 @@ class RelatedLink(LinkFields):
 # Simple page
 class SimplePage(Page):
     content = models.TextField()
+    page_description = "A simple page description"
 
     content_panels = [
         FieldPanel('title', classname="full title"),

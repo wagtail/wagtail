@@ -34,6 +34,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(response, "Simple page")
         target_url = reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id))
         self.assertContains(response, 'href="%s"' % target_url)
+        self.assertContains(response, "A simple page description")
         # List of available page types should not contain pages with is_creatable = False
         self.assertNotContains(response, "MTI base page")
         # List of available page types should not contain abstract pages

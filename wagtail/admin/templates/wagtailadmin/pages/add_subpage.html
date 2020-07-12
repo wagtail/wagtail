@@ -13,7 +13,7 @@
 
         {% if page_types %}
             <ul class="listing">
-                {% for verbose_name, app_label, model_name in page_types %}
+                {% for verbose_name, app_label, model_name, page_description in page_types %}
                     <li>
                         <div class="row row-flush">
                             <div class="col6">
