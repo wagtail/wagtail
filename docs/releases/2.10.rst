@@ -106,3 +106,9 @@ Python 3.5 is no longer supported as of this release; please upgrade to Python 3
 
 In previous releases, rich text values were enclosed in a ``<div class="rich-text">`` element when rendered; this element has now been removed.
 To restore the old behaviour, see :ref:`legacy_richtext`.
+
+
+Hooks functions ``register_page_listing_buttons`` & ``register_page_listing_more_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Page listing button hook functions now accept an additional kwarg ``next_url``. Please update your hook function definitions to accept the new ``next_url`` kwarg.
