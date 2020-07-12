@@ -1,5 +1,5 @@
-import itertools
 import json
+import warnings
 from functools import total_ordering
 
 from django import forms
@@ -19,6 +19,8 @@ from wagtail.admin.datetimepicker import to_datetimepicker_format
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core import hooks
 from wagtail.core.models import Page
+from wagtail.core.utils import accepts_kwarg
+from wagtail.utils.deprecation import RemovedInWagtail212Warning
 from wagtail.utils.widgets import WidgetWithScript
 
 DEFAULT_DATE_FORMAT = '%Y-%m-%d'
@@ -379,6 +381,17 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
     @cached_property
     def dropdown_buttons(self):
         button_hooks = hooks.get_hooks(self.hook_name)
-        return sorted(itertools.chain.from_iterable(
-            hook(self.page, self.page_perms, self.is_parent, self.next_url)
-            for hook in button_hooks))
+
+        buttons = []
+        for hook in button_hooks:
+            if accepts_kwarg(hook, 'next_url'):
+                buttons.extend(hook(self.page, self.page_perms, self.is_parent, self.next_url))
+            else:
+                warnings.warn(
+                    '%s hooks will require an additional kwarg `next_url` in a future release. Please update your hook function to accept `next_url`.' % self.hook_name,
+                    RemovedInWagtail212Warning
+                )
+                buttons.extend(hook(self.page, self.page_perms, self.is_parent))
+
+        buttons.sort()
+        return buttons
