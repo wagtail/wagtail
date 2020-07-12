@@ -1502,9 +1502,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @classmethod
     def get_page_description(cls):
         """
-        Returns a page description, or nothing if it's not set. eg "A multi-purpose website".
+        Returns a page description if it's not set. eg "A multi-purpose web page".
         """
-        return getattr(cls, 'page_description', None)
+        return getattr(cls, 'page_description', '')
 
     @property
     def status_string(self):
