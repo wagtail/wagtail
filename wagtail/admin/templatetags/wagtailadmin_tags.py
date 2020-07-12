@@ -1,6 +1,7 @@
 import itertools
 import json
 
+import warnings
 from urllib.parse import urljoin
 
 from django import template
@@ -25,8 +26,9 @@ from wagtail.core import hooks
 from wagtail.core.models import (
     CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
-from wagtail.core.utils import camelcase_to_underscore, escape_script
+from wagtail.core.utils import accepts_kwarg, camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
+from wagtail.utils.deprecation import RemovedInWagtail212Warning
 
 register = template.Library()
 
@@ -430,9 +432,21 @@ def paginate(context, page, base_url='', page_key='p',
 def page_listing_buttons(context, page, page_perms, is_parent=False):
     next_url = urlencode({"next": context.request.path})
     button_hooks = hooks.get_hooks('register_page_listing_buttons')
-    buttons = sorted(itertools.chain.from_iterable(
-        hook(page, page_perms, is_parent, next_url)
-        for hook in button_hooks))
+
+    buttons = []
+    for hook in button_hooks:
+        if accepts_kwarg(hook, 'next_url'):
+            button = hook(page, page_perms, is_parent, next_url)
+        else:
+            warnings.warn(
+                'register_page_listing_buttons hooks will require an additional kwarg `next_url` in a future release. '
+                'Please update your hook function accept `next_url`.',
+                RemovedInWagtail212Warning
+            )
+            button = hook(page, page_perms, is_parent)
+        buttons.append(button)
+
+    buttons = sorted(itertools.chain.from_iterable(buttons))
 
     for hook in hooks.get_hooks('construct_page_listing_buttons'):
         hook(buttons, page, page_perms, is_parent, context)
