@@ -223,6 +223,7 @@ def create(request, content_type_app_name, content_type_model_name, parent_page_
             return result
 
     page = page_class(owner=request.user)
+    page.locale = parent_page.locale
     edit_handler = page_class.get_edit_handler()
     edit_handler = edit_handler.bind_to(request=request, instance=page)
     form_class = edit_handler.get_form_class()
