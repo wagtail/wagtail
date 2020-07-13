@@ -168,3 +168,30 @@ class InvokeViaAttributeShortcut:
     def __getattr__(self, name):
         method = getattr(self.obj, self.method_name)
         return method(name)
+
+
+def find_available_slug(parent, requested_slug):
+    """
+    Finds an available slug within the specified parent.
+
+    If the requested slug is not available, this adds a number on the end, for example:
+
+     - 'requested-slug'
+     - 'requested-slug-1'
+     - 'requested-slug-2'
+
+    And so on, until an available slug is found.
+    """
+    existing_slugs = set(
+        parent.get_children()
+        .filter(slug__startswith=requested_slug)
+        .values_list("slug", flat=True)
+    )
+    slug = requested_slug
+    number = 1
+
+    while slug in existing_slugs:
+        slug = requested_slug + "-" + str(number)
+        number += 1
+
+    return slug
