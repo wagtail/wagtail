@@ -2,9 +2,10 @@
 from django.test import TestCase
 from django.utils.text import slugify
 
+from wagtail.core.models import Page
 from wagtail.core.utils import (
-    accepts_kwarg, camelcase_to_underscore, cautious_slugify,
-    safe_snake_case, string_to_ascii)
+    accepts_kwarg, camelcase_to_underscore, cautious_slugify, find_available_slug, safe_snake_case,
+    string_to_ascii)
 
 
 class TestCamelCaseToUnderscore(TestCase):
@@ -116,3 +117,24 @@ class TestAcceptsKwarg(TestCase):
         self.assertFalse(accepts_kwarg(func_without_banana, 'banana'))
         self.assertTrue(accepts_kwarg(func_with_banana, 'banana'))
         self.assertTrue(accepts_kwarg(func_with_kwargs, 'banana'))
+
+
+class TestFindAvailableSlug(TestCase):
+    def setUp(self):
+        self.root_page = Page.objects.get(depth=1)
+        self.home_page = Page.objects.get(depth=2)
+
+        self.root_page.add_child(instance=Page(title="Second homepage", slug="home-1"))
+
+    def test_find_available_slug(self):
+        with self.assertNumQueries(1):
+            slug = find_available_slug(self.root_page, "unique-slug")
+
+        self.assertEqual(slug, "unique-slug")
+
+    def test_find_available_slug_already_used(self):
+        # Even though the first two slugs are already used, this still requires only one query to find a unique one
+        with self.assertNumQueries(1):
+            slug = find_available_slug(self.root_page, "home")
+
+        self.assertEqual(slug, "home-2")

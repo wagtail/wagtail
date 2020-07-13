@@ -32,7 +32,7 @@ from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import CharBlock, RawHTMLBlock, RichTextBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet, Task
+from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet, Task, TranslatableMixin
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.documents.models import AbstractDocument, Document
 from wagtail.images.blocks import ImageChooserBlock
@@ -191,15 +191,21 @@ FilePage.content_panels = [
 
 # Event page
 
-class EventPageCarouselItem(Orderable, CarouselItem):
+class EventPageCarouselItem(TranslatableMixin, Orderable, CarouselItem):
     page = ParentalKey('tests.EventPage', related_name='carousel_items', on_delete=models.CASCADE)
 
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
-class EventPageRelatedLink(Orderable, RelatedLink):
+
+class EventPageRelatedLink(TranslatableMixin, Orderable, RelatedLink):
     page = ParentalKey('tests.EventPage', related_name='related_links', on_delete=models.CASCADE)
 
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
-class EventPageSpeakerAward(Orderable, models.Model):
+
+class EventPageSpeakerAward(TranslatableMixin, Orderable, models.Model):
     speaker = ParentalKey('tests.EventPageSpeaker', related_name='awards', on_delete=models.CASCADE)
     name = models.CharField("Award name", max_length=255)
     date_awarded = models.DateField(null=True, blank=True)
@@ -209,8 +215,11 @@ class EventPageSpeakerAward(Orderable, models.Model):
         FieldPanel('date_awarded'),
     ]
 
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
-class EventPageSpeaker(Orderable, LinkFields, ClusterableModel):
+
+class EventPageSpeaker(TranslatableMixin, Orderable, LinkFields, ClusterableModel):
     page = ParentalKey('tests.EventPage', related_name='speakers', related_query_name='speaker', on_delete=models.CASCADE)
     first_name = models.CharField("Name", max_length=255, blank=True)
     last_name = models.CharField("Surname", max_length=255, blank=True)
@@ -234,8 +243,11 @@ class EventPageSpeaker(Orderable, LinkFields, ClusterableModel):
         InlinePanel('awards', label="Awards"),
     ]
 
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass
 
-class EventCategory(models.Model):
+
+class EventCategory(TranslatableMixin, models.Model):
     name = models.CharField("Name", max_length=255)
 
     def __str__(self):
