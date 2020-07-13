@@ -102,9 +102,19 @@ class TestAutocompleteView(TestCase):
         self.assertJSONEqual(response.content, {'items': []})
 
         # test the non-default lookup field.
-        response = self.client.get(url + "&lookup_field=content&query=really+good")
+        response = self.client.get(url + "&lookup_fields=content&query=really+good")
         self.assertJSONEqual(response.content, {'items': [
-            {'pk': page.pk, 'label': "We are really good."}
+            {'pk': page.pk, 'label': "About us"}
+        ]})
+
+        home_page = Page.objects.get(id=2)
+        really_good_page = home_page.add_child(instance=SimplePage(title='Really good', content='random content'))
+
+        # test the non-default lookup field.
+        response = self.client.get(url + "&lookup_fields=title,content&query=really+good")
+        self.assertJSONEqual(response.content, {'items': [
+            {'pk': page.pk, 'label': "About us"},
+            {'pk': really_good_page.pk, 'label': 'Really good'}
         ]})
 
     def test_invalid_model_raises_bad_http_request(self):
@@ -117,6 +127,12 @@ class TestAutocompleteView(TestCase):
         # bad model string
         response = self.client.get(self.autocomplete_url + "?type=foo")
         self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.content, b'Invalid model')
+
+        # bad model lookup
+        response = self.client.get(self.autocomplete_url + "?type=tests.SimplePage&lookup_fields=foo")
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.content, b'Invalid lookup field(s)')
 
         # finally, a good one
         response = self.client.get(self.autocomplete_url + "?type=tests.SimplePage")

@@ -391,10 +391,10 @@ class AutocompleteWidget(WidgetWithScript, widgets.Input):
     template_name = 'wagtailadmin/widgets/autocomplete_widget.html'
     limit = 10
 
-    def __init__(self, target_model, lookup_field='title', limit=10, attrs=None):
+    def __init__(self, target_model, lookup_fields='title', limit=10, attrs=None):
         super().__init__(attrs)
         self.target_model = target_model
-        self.lookup_field = lookup_field
+        self.lookup_fields = lookup_fields.join(',') if isinstance(lookup_fields, list) else lookup_fields
         self.limit = limit
 
     def get_context(self, name, value, attrs):
@@ -403,14 +403,14 @@ class AutocompleteWidget(WidgetWithScript, widgets.Input):
         url = reverse('wagtailadmin_model_autocomplete')
         querydict = {
             'type': self.target_model._meta.label,
-            'lookup_field': self.lookup_field,
+            'lookup_fields': self.lookup_fields,
             'limit': self.limit
         }
         context['widget']['autocomplete_url'] = url + "?" + urlencode(querydict)
 
         if context['widget']['value']:
             item = self.target_model.objects.get(pk=context['widget']['value'])
-            context['widget']['lookup_value'] = getattr(item, self.lookup_field)
+            context['widget']['lookup_value'] = str(item)
         else:
             context['widget']['lookup_value'] = ''
 

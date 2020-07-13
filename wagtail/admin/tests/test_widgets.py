@@ -314,7 +314,7 @@ class TestAutocompleteWidget(TestCase):
 
         autocomplete_url = reverse(
             'wagtailadmin_model_autocomplete'
-        ) + "?type=tests.SimplePage&amp;lookup_field=title&amp;limit=10"
+        ) + "?type=tests.SimplePage&amp;lookup_fields=title&amp;limit=10"
 
         needle = f"""
         <input type="text"

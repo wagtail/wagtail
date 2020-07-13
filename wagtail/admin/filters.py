@@ -94,7 +94,7 @@ class LockedPagesReportFilterSet(WagtailFilterSet):
     locked_by = django_filters.ModelChoiceFilter(
         field_name='locked_by',
         queryset=get_user_model().objects.all(),
-        widget=AutocompleteWidget(get_user_model(), lookup_field='username')
+        widget=AutocompleteWidget(get_user_model(), lookup_fields='username')
     )
     locked_at = django_filters.DateFromToRangeFilter(widget=DateRangePickerWidget)
 

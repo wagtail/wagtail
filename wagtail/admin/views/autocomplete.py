@@ -1,5 +1,5 @@
-from bs4 import BeautifulSoup
 from django.apps import apps
+from django.db.models import Q
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.views.decorators.http import require_GET
 
@@ -15,20 +15,21 @@ def lookup(request):
         return HttpResponseBadRequest("Invalid model")
 
     limit = int(request.GET.get('limit', 10))
-    search_field = request.GET.get('lookup_field', 'title')
 
-    if not hasattr(model, search_field):
-        return HttpResponseBadRequest('Invalid lookup field')
-    filter_kwargs = {
-        search_field + '__icontains': search_query,
-    }
-    queryset = model.objects.filter(**filter_kwargs).order_by(search_field)
+    q = Q()
+    search_fields = []
+    for search_field in request.GET.get('lookup_fields', 'title').split(','):
+        search_field = search_field.strip()
+        if hasattr(model, search_field):
+            q |= Q(**{search_field + '__icontains': search_query})
+            search_fields.append(search_field)
+
+    if not search_fields:
+        return HttpResponseBadRequest("Invalid lookup field(s)")
+    queryset = model.objects.filter(q).order_by(*search_fields)
 
     results = []
     for result in queryset[:limit]:
-        label = BeautifulSoup(
-            getattr(result, search_field, str(result)).strip(), 'html.parser'
-        ).text
-        results.append(dict(pk=result.pk, label=label))
+        results.append(dict(pk=result.pk, label=str(result)))
 
     return JsonResponse(dict(items=results))

@@ -1,7 +1,7 @@
 function hideAutocompleteSuggestions() {
   setTimeout(function() {
     $('.autocomplete-suggestions--active').removeClass('autocomplete-suggestions--active').attr('aria-hidden', true);
-  }, 100);
+  }, 200);
 }
 
 (function($) {

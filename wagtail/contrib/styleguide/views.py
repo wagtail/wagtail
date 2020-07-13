@@ -27,7 +27,7 @@ class ExampleForm(forms.Form):
         self.fields['datetime'].widget = AdminDateTimeInput()
         self.fields['auto_height_text'].widget = AdminAutoHeightTextInput()
         self.fields['default_rich_text'].widget = get_rich_text_editor_widget('default')
-        self.fields['autocomplete'].widget = AutocompleteWidget(get_user_model(), lookup_field='username')
+        self.fields['autocomplete'].widget = AutocompleteWidget(get_user_model(), lookup_fields='username')
 
     CHOICES = (
         ('choice1', 'choice 1'),
