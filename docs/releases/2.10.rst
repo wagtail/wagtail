@@ -65,6 +65,8 @@ Other features
  * Add ability to extend ``EditHandler`` without a children attribute (Seb Brown)
  * ``Page.objects.specific`` now gracefully handles pages with missing specific records (Andy Babic)
  * StreamField 'add' buttons are now disabled when maximum count is reached (Max Gabrielsson)
+ * Use underscores for form builder field names to allow use as template variables (Ashia Zawaduk, LB (Ben Johnston))
+ * Deprecate use of unidecode within form builder field names (Michael van Tellingen, LB (Ben Johnston))
 
 
 Bug fixes

@@ -47,6 +47,8 @@ Changelog
  * Add ability to extend `EditHandler` without a children attribute (Seb Brown)
  * `Page.objects.specific` now gracefully handles pages with missing specific records (Andy Babic)
  * StreamField 'add' buttons are now disabled when maximum count is reached (Max Gabrielsson)
+ * Use underscores for form builder field names to allow use as template variables (Ashia Zawaduk, LB (Ben Johnston))
+ * Deprecate use of unidecode within form builder field names (Michael van Tellingen, LB (Ben Johnston))
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)
