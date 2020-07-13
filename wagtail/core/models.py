@@ -324,11 +324,17 @@ class Site(models.Model):
         result = cache.get('wagtail_site_root_paths')
 
         if result is None:
-            result = [
-                (site.id, site.root_page.url_path, site.root_url)
-                for site in Site.objects.select_related('root_page').order_by(
-                    '-root_page__url_path', '-is_default_site', 'hostname')
-            ]
+            result = []
+
+            for site in Site.objects.select_related('root_page', 'root_page__locale').order_by('-root_page__url_path', '-is_default_site', 'hostname'):
+                if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+                    result.extend([
+                        (site.id, root_page.url_path, site.root_url, root_page.locale.language_code)
+                        for root_page in site.root_page.get_translations(inclusive=True).select_related('locale')
+                    ])
+                else:
+                    result.append((site.id, site.root_page.url_path, site.root_url, site.root_page.locale.language_code))
+
             cache.set('wagtail_site_root_paths', result, 3600)
 
         return result
@@ -887,6 +893,14 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         if not Page._slug_is_available(self.slug, self.get_parent(), self):
             raise ValidationError({'slug': _("This slug is already in use")})
 
+    def is_site_root(self):
+        """
+        Returns True if this page is the root of any site.
+
+        This includes translations of site root pages as well.
+        """
+        return Site.objects.filter(root_page__translation_key=self.translation_key).exists()
+
     @transaction.atomic
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
     def save(self, clean=True, user=None, log_action=False, **kwargs):
@@ -935,7 +949,7 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
             self._update_descendant_url_paths(old_url_path, new_url_path)
 
         # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
-        if Site.objects.filter(root_page=self).exists():
+        if self.is_site_root():
             cache.delete('wagtail_site_root_paths')
 
         # Log
@@ -1343,29 +1357,30 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         """
 
         possible_sites = [
-            (pk, path, url)
-            for pk, path, url in self._get_site_root_paths(request)
+            (pk, path, url, language_code)
+            for pk, path, url, language_code in self._get_site_root_paths(request)
             if self.url_path.startswith(path)
         ]
 
         if not possible_sites:
             return None
 
-        site_id, root_path, root_url = possible_sites[0]
+        site_id, root_path, root_url, language_code = possible_sites[0]
 
         site = Site.find_for_request(request)
         if site:
-            for site_id, root_path, root_url in possible_sites:
+            for site_id, root_path, root_url, language_code in possible_sites:
                 if site_id == site.pk:
                     break
             else:
-                site_id, root_path, root_url = possible_sites[0]
+                site_id, root_path, root_url, language_code = possible_sites[0]
 
         # The page may not be routable because wagtail_serve is not registered
         # This may be the case if Wagtail is used headless
         try:
-            page_path = reverse(
-                'wagtail_serve', args=(self.url_path[len(root_path):],))
+            with translation.override(language_code):
+                page_path = reverse(
+                    'wagtail_serve', args=(self.url_path[len(root_path):],))
         except NoReverseMatch:
             return (site_id, None, None)
 
@@ -1419,7 +1434,11 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
 
         site_id, root_url, page_path = url_parts
 
-        if (current_site is not None and site_id == current_site.id) or len(self._get_site_root_paths(request)) == 1:
+        # Get number of unique sites in root paths
+        # Note: there may be more root paths to sites if there are multiple languages
+        num_sites = len(set(root_path[0] for root_path in self._get_site_root_paths(request)))
+
+        if (current_site is not None and site_id == current_site.id) or num_sites == 1:
             # the site matches OR we're only running a single site, so a local URL is sufficient
             return page_path
         else:

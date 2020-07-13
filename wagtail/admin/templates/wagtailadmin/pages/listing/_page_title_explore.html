@@ -3,7 +3,7 @@
 {# The title field for a page in the page listing, when in 'explore' mode #}
 
 <div class="title-wrapper">
-    {% if page.sites_rooted_here.exists %}
+    {% if page.is_site_root %}
         {% if perms.wagtailcore.add_site or perms.wagtailcore.change_site or perms.wagtailcore.delete_site %}
             <a href="{% url 'wagtailsites:index' %}" class="icon icon-site" title="{% trans 'Sites menu' %}"></a>
         {% endif %}
