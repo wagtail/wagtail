@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.checks import Info
 from django.core.exceptions import FieldError
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import models, DatabaseError
+from django.db import DatabaseError, models
 from django.template.response import TemplateResponse
 from django.utils.formats import date_format
 from django.utils.text import slugify
