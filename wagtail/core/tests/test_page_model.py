@@ -431,6 +431,39 @@ class TestRouting(TestCase):
         with self.assertNumQueries(0):
             self.assertEqual(christmas_page.get_url(request=request), '/events/christmas/')
 
+    # Override CACHES so we don't generate any cache-related SQL queries (tests use DatabaseCache
+    # otherwise) and so cache.get will always return None.
+    @override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
+    @override_settings(ALLOWED_HOSTS=['dummy'])
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_request_scope_site_root_paths_cache_with_i18n(self):
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # without a request, get_url should only issue 2 SQL queries
+        with self.assertNumQueries(2):
+            self.assertEqual(homepage.get_url(), '/')
+        # subsequent calls with the same page should generate no SQL queries
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.get_url(), '/')
+        # subsequent calls with a different page will still generate 2 SQL queries
+        with self.assertNumQueries(2):
+            self.assertEqual(christmas_page.get_url(), '/events/christmas/')
+
+        # with a request, the first call to get_url should issue 1 SQL query
+        request = HttpRequest()
+        request.META['HTTP_HOST'] = "dummy"
+        request.META['SERVER_PORT'] = "8888"
+        # first call with "balnk" request issues a extra query for the Site.find_for_request() call
+        with self.assertNumQueries(3):
+            self.assertEqual(homepage.get_url(request=request), '/')
+        # subsequent calls should issue no SQL queries
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.get_url(request=request), '/')
+        # even if called on a different page
+        with self.assertNumQueries(0):
+            self.assertEqual(christmas_page.get_url(request=request), '/events/christmas/')
+
 
 class TestServeView(TestCase):
     fixtures = ['test.json']

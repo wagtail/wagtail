@@ -156,7 +156,7 @@ class TestSiteRootPathsCache(TestCase):
         _ = homepage.url  # noqa
 
         # Check that the cache has been set correctly
-        self.assertEqual(cache.get('wagtail_site_root_paths'), [(1, '/home/', 'http://localhost')])
+        self.assertEqual(cache.get('wagtail_site_root_paths'), [(1, 'en', '/home/', 'http://localhost')])
 
     def test_cache_clears_when_site_saved(self):
         """

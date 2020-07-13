@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from wagtail.core import hooks
 from wagtail.core.forms import PasswordViewRestrictionForm
-from wagtail.core.models import Page, PageViewRestriction, Site
+from wagtail.core.models import Locale, Page, PageViewRestriction, Site
 
 
 def serve(request, path):
@@ -13,8 +13,17 @@ def serve(request, path):
     if not site:
         raise Http404
 
+    root_page = site.root_page
+
+    # Attempt to find translation of root page if active locale differs with default root page's locale
+    locale = Locale.get_active()
+    if root_page.locale is not locale:
+        root_page = root_page.get_translation(locale) or root_page
+
+    root_page = root_page.specific
+
     path_components = [component for component in path.split('/') if component]
-    page, args, kwargs = site.root_page.specific.route(request, path_components)
+    page, args, kwargs = root_page.specific.route(request, path_components)
 
     for fn in hooks.get_hooks('before_serve_page'):
         result = fn(page, request, args, kwargs)
