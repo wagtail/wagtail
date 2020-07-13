@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.checks import Info
 from django.core.exceptions import FieldError
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import models
+from django.db import models, DatabaseError
 from django.template.response import TemplateResponse
 from django.utils.formats import date_format
 from django.utils.text import slugify
@@ -143,12 +143,11 @@ class AbstractFormField(Orderable):
 
         try:
             objects = cls.objects.filter(clean_name__exact='')
+            if objects.count() == 0:
+                return None
 
-        except FieldError:
+        except (FieldError, DatabaseError):
             # attempting to query on clean_name before field has been added
-            return None
-
-        if objects.count() == 0:
             return None
 
         try:
