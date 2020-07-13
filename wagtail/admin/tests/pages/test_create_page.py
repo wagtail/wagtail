@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
-from wagtail.core.models import GroupPagePermission, Page, PageRevision
+from wagtail.core.models import GroupPagePermission, Locale, Page, PageRevision
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     BusinessChild, BusinessIndex, BusinessSubIndex, DefaultStreamPage, PersonPage,
@@ -729,6 +729,20 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
         self.assertNotContains(response, '<button type="submit" name="action-submit" value="Submit for moderation" class="button">Submit for moderation</button>')
+
+    def test_create_sets_locale_to_parent_locale(self):
+        # We need to make sure the page's locale it set to the parent in the create view so that any customisations
+        # for that language will take effect.
+        fr_locale = Locale.objects.create(language_code="fr")
+        fr_homepage = self.root_page.add_child(instance=Page(
+            title="Home",
+            slug="home-fr",
+            locale=fr_locale,
+        ))
+
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', fr_homepage.id)))
+
+        self.assertEqual(response.context['page'].locale, fr_locale)
 
 
 class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
