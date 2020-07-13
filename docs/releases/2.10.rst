@@ -67,6 +67,7 @@ Other features
  * StreamField 'add' buttons are now disabled when maximum count is reached (Max Gabrielsson)
  * Use underscores for form builder field names to allow use as template variables (Ashia Zawaduk, LB (Ben Johnston))
  * Deprecate use of unidecode within form builder field names (Michael van Tellingen, LB (Ben Johnston))
+ * Improve error feedback when editing a page with a missing model class (Andy Babic)
 
 
 Bug fixes
