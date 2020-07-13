@@ -470,6 +470,7 @@ Contributors
 * Jean Zombie
 * Pascal Widdershoven
 * Max Gabrielsson
+* Steven Wood
 
 Translators
 ===========
