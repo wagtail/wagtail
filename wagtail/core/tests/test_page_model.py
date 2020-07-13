@@ -12,7 +12,7 @@ from django.http import Http404, HttpRequest
 from django.test import Client, TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
-from django.utils import timezone
+from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.core.models import (
@@ -432,6 +432,160 @@ class TestRouting(TestCase):
         # even if called on a different page
         with self.assertNumQueries(0):
             self.assertEqual(christmas_page.get_url(request=request), '/events/christmas/')
+
+
+@override_settings(ROOT_URLCONF='wagtail.tests.urls_multilang',
+                   LANGUAGE_CODE='en',
+                   WAGTAIL_I18N_ENABLED=True,
+                   WAGTAIL_CONTENT_LANGUAGES=[('en', "English"), ('fr', "French")])
+class TestRoutingWithI18N(TestRouting):
+    # This inherits from TestRouting so contains all the same test cases
+    # Only the test cases that behave differently under internationalisation are overridden here
+
+    def test_urls(self):
+        default_site = Site.objects.get(is_default_site=True)
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+
+        # Basic installation only has one site configured, so page.url will return local URLs
+        self.assertEqual(
+            homepage.get_url_parts(),
+            (default_site.id, 'http://localhost', '/en/')
+        )
+        self.assertEqual(homepage.full_url, 'http://localhost/en/')
+        self.assertEqual(homepage.url, '/en/')
+        self.assertEqual(homepage.relative_url(default_site), '/en/')
+        self.assertEqual(homepage.get_site(), default_site)
+
+        self.assertEqual(
+            christmas_page.get_url_parts(),
+            (default_site.id, 'http://localhost', '/en/events/christmas/')
+        )
+        self.assertEqual(christmas_page.full_url, 'http://localhost/en/events/christmas/')
+        self.assertEqual(christmas_page.url, '/en/events/christmas/')
+        self.assertEqual(christmas_page.relative_url(default_site), '/en/events/christmas/')
+        self.assertEqual(christmas_page.get_site(), default_site)
+
+    def test_urls_with_translation_activated(self):
+        # This should have no effect as the URL is determined from the page's locale
+        # and not the active locale
+        with translation.override("fr"):
+            self.test_urls()
+
+    def test_urls_with_different_language_tree(self):
+        default_site = Site.objects.get(is_default_site=True)
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+
+        fr_locale = Locale.objects.create(language_code="fr")
+        fr_homepage = homepage.copy_for_translation(fr_locale)
+        fr_christmas_page = christmas_page.copy_for_translation(fr_locale, copy_parents=True)
+        fr_christmas_page.slug = 'noel'
+        fr_christmas_page.save(update_fields=['slug'])
+
+        # Basic installation only has one site configured, so page.url will return local URLs
+        self.assertEqual(
+            fr_homepage.get_url_parts(),
+            (default_site.id, 'http://localhost', '/fr/')
+        )
+        self.assertEqual(fr_homepage.full_url, 'http://localhost/fr/')
+        self.assertEqual(fr_homepage.url, '/fr/')
+        self.assertEqual(fr_homepage.relative_url(default_site), '/fr/')
+        self.assertEqual(fr_homepage.get_site(), default_site)
+
+        self.assertEqual(
+            fr_christmas_page.get_url_parts(),
+            (default_site.id, 'http://localhost', '/fr/events/noel/')
+        )
+        self.assertEqual(fr_christmas_page.full_url, 'http://localhost/fr/events/noel/')
+        self.assertEqual(fr_christmas_page.url, '/fr/events/noel/')
+        self.assertEqual(fr_christmas_page.relative_url(default_site), '/fr/events/noel/')
+        self.assertEqual(fr_christmas_page.get_site(), default_site)
+
+    @override_settings(ALLOWED_HOSTS=['localhost', 'testserver', 'events.example.com', 'second-events.example.com'])
+    def test_urls_with_multiple_sites(self):
+        events_page = Page.objects.get(url_path='/home/events/')
+        events_site = Site.objects.create(hostname='events.example.com', root_page=events_page)
+
+        # An underscore is not valid according to RFC 1034/1035
+        # and will raise a DisallowedHost Exception
+        second_events_site = Site.objects.create(
+            hostname='second-events.example.com', root_page=events_page)
+
+        default_site = Site.objects.get(is_default_site=True)
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+
+        # with multiple sites, page.url will return full URLs to ensure that
+        # they work across sites
+        self.assertEqual(
+            homepage.get_url_parts(),
+            (default_site.id, 'http://localhost', '/en/')
+        )
+        self.assertEqual(homepage.full_url, 'http://localhost/en/')
+        self.assertEqual(homepage.url, 'http://localhost/en/')
+        self.assertEqual(homepage.relative_url(default_site), '/en/')
+        self.assertEqual(homepage.relative_url(events_site), 'http://localhost/en/')
+        self.assertEqual(homepage.get_site(), default_site)
+
+        self.assertEqual(
+            christmas_page.get_url_parts(),
+            (events_site.id, 'http://events.example.com', '/en/christmas/')
+        )
+        self.assertEqual(christmas_page.full_url, 'http://events.example.com/en/christmas/')
+        self.assertEqual(christmas_page.url, 'http://events.example.com/en/christmas/')
+        self.assertEqual(christmas_page.relative_url(default_site), 'http://events.example.com/en/christmas/')
+        self.assertEqual(christmas_page.relative_url(events_site), '/en/christmas/')
+        self.assertEqual(christmas_page.get_site(), events_site)
+
+        request = HttpRequest()
+        request.META['HTTP_HOST'] = events_site.hostname
+        request.META['SERVER_PORT'] = events_site.port
+
+        self.assertEqual(
+            christmas_page.get_url_parts(request=request),
+            (events_site.id, 'http://events.example.com', '/en/christmas/')
+        )
+
+        request2 = HttpRequest()
+        request2.META['HTTP_HOST'] = second_events_site.hostname
+        request2.META['SERVER_PORT'] = second_events_site.port
+        self.assertEqual(
+            christmas_page.get_url_parts(request=request2),
+            (second_events_site.id, 'http://second-events.example.com', '/en/christmas/')
+        )
+
+    # Override CACHES so we don't generate any cache-related SQL queries (tests use DatabaseCache
+    # otherwise) and so cache.get will always return None.
+    @override_settings(CACHES={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}})
+    @override_settings(ALLOWED_HOSTS=['dummy'])
+    def test_request_scope_site_root_paths_cache(self):
+        homepage = Page.objects.get(url_path='/home/')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # without a request, get_url should only issue 2 SQL queries
+        with self.assertNumQueries(2):
+            self.assertEqual(homepage.get_url(), '/en/')
+        # subsequent calls with the same page should generate no SQL queries
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.get_url(), '/en/')
+        # subsequent calls with a different page will still generate 2 SQL queries
+        with self.assertNumQueries(2):
+            self.assertEqual(christmas_page.get_url(), '/en/events/christmas/')
+
+        # with a request, the first call to get_url should issue 1 SQL query
+        request = HttpRequest()
+        request.META['HTTP_HOST'] = "dummy"
+        request.META['SERVER_PORT'] = "8888"
+        # first call with "balnk" request issues a extra query for the Site.find_for_request() call
+        with self.assertNumQueries(3):
+            self.assertEqual(homepage.get_url(request=request), '/en/')
+        # subsequent calls should issue no SQL queries
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.get_url(request=request), '/en/')
+        # even if called on a different page
+        with self.assertNumQueries(0):
+            self.assertEqual(christmas_page.get_url(request=request), '/en/events/christmas/')
 
 
 class TestServeView(TestCase):
