@@ -15,14 +15,15 @@ from django.test.utils import override_settings
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.core.models import Page, PageManager, Site, get_page_models
+from wagtail.core.models import (
+    Locale, Page, PageManager, ParentNotTranslatedError, Site, get_page_models, get_translatable_models)
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
-    CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
-    MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
-    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, StreamPage,
-    TaggedPage)
+    CustomPageQuerySet, EventCategory, EventIndex, EventPage, EventPageSpeaker, GenericSnippetPage,
+    ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
+    PageWithExcludedCopyField, SimpleChildPage, SimplePage, SimpleParentPage, SingleEventPage,
+    SingletonPage, StandardIndex, StreamPage, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -1255,14 +1256,13 @@ class TestCopyPage(TestCase):
         self.assertNotEqual(page.id, new_page.id)
 
     def test_copy_page_with_additional_excluded_fields(self):
-
         homepage = Page.objects.get(url_path='/home/')
-        page = PageWithExcludedCopyField(
+        page = homepage.add_child(instance=PageWithExcludedCopyField(
             title='Discovery',
             slug='disco',
             content='NCC-1031',
-            special_field='Context is for Kings')
-        new_page = page.copy(to=homepage)
+            special_field='Context is for Kings'))
+        new_page = page.copy(to=homepage, update_attrs={'slug': 'disco-2'})
 
         self.assertEqual(page.title, new_page.title)
         self.assertNotEqual(page.id, new_page.id)
@@ -1329,6 +1329,121 @@ class TestCopyPage(TestCase):
         finally:
             # reset excluded fields for future tests
             EventPage.exclude_fields_in_copy = []
+
+
+class TestCopyForTranslation(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.en_homepage = Page.objects.get(url_path='/home/').specific
+        self.en_eventindex = EventIndex.objects.get(url_path='/home/events/')
+        self.en_eventpage = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.root_page = self.en_homepage.get_parent()
+        self.fr_locale = Locale.objects.create(language_code="fr")
+
+    def test_copy_homepage(self):
+        fr_homepage = self.en_homepage.copy_for_translation(self.fr_locale)
+
+        self.assertNotEqual(self.en_homepage.id, fr_homepage.id)
+        self.assertEqual(fr_homepage.locale, self.fr_locale)
+        self.assertEqual(fr_homepage.translation_key, self.en_homepage.translation_key)
+
+        # At the top level, the langauge code should be appended to the slug
+        self.assertEqual(fr_homepage.slug, "home-fr")
+
+        # Translation must be in draft
+        self.assertFalse(fr_homepage.live)
+        self.assertTrue(fr_homepage.has_unpublished_changes)
+
+    def test_copy_homepage_slug_exists(self):
+        # This test is the same as test_copy_homepage, but we will create another page with
+        # the slug "home-fr" before translating. copy_for_translation should pick a different slug
+        self.root_page.add_child(instance=SimplePage(title="Old french homepage", slug="home-fr", content="Test content"))
+
+        fr_homepage = self.en_homepage.copy_for_translation(self.fr_locale)
+        self.assertEqual(fr_homepage.slug, "home-fr-1")
+
+    def test_copy_childpage(self):
+        # Create translated homepage manually
+        fr_homepage = self.root_page.add_child(instance=Page(
+            title="french homepage",
+            slug="home-fr",
+            locale=self.fr_locale,
+            translation_key=self.en_homepage.translation_key
+        ))
+
+        fr_eventindex = self.en_eventindex.copy_for_translation(self.fr_locale)
+
+        self.assertNotEqual(self.en_eventindex.id, fr_eventindex.id)
+        self.assertEqual(fr_eventindex.locale, self.fr_locale)
+        self.assertEqual(fr_eventindex.translation_key, self.en_eventindex.translation_key)
+
+        # Check that the fr event index was created under the fr homepage
+        self.assertEqual(fr_eventindex.get_parent(), fr_homepage)
+
+        # The slug should be the same when copying to another tree
+        self.assertEqual(self.en_eventindex.slug, fr_eventindex.slug)
+
+    def test_copy_childpage_without_parent(self):
+        # This test is the same as test_copy_childpage but we won't create the parent page first
+
+        with self.assertRaises(ParentNotTranslatedError):
+            self.en_eventindex.copy_for_translation(self.fr_locale)
+
+    def test_copy_childpage_with_copy_parents(self):
+        # This time we will set copy_parents
+        fr_eventindex = self.en_eventindex.copy_for_translation(self.fr_locale, copy_parents=True)
+
+        self.assertNotEqual(self.en_eventindex.id, fr_eventindex.id)
+        self.assertEqual(fr_eventindex.locale, self.fr_locale)
+        self.assertEqual(fr_eventindex.translation_key, self.en_eventindex.translation_key)
+        self.assertEqual(self.en_eventindex.slug, fr_eventindex.slug)
+
+        # This should create the homepage as well
+        fr_homepage = fr_eventindex.get_parent()
+
+        self.assertNotEqual(self.en_homepage.id, fr_homepage.id)
+        self.assertEqual(fr_homepage.locale, self.fr_locale)
+        self.assertEqual(fr_homepage.translation_key, self.en_homepage.translation_key)
+        self.assertEqual(fr_homepage.slug, "home-fr")
+
+    def test_copy_page_with_translatable_child_objects(self):
+        # Create translated homepage and event index manually
+        fr_homepage = self.root_page.add_child(instance=Page(
+            title="french homepage",
+            slug="home-fr",
+            locale=self.fr_locale,
+            translation_key=self.en_homepage.translation_key
+        ))
+
+        fr_homepage.add_child(instance=EventIndex(
+            title="Events",
+            slug="events",
+            locale=self.fr_locale,
+            translation_key=self.en_eventindex.translation_key
+        ))
+
+        # Add an award to the speaker
+        # TODO: Nested child objects not supported by page copy
+        en_speaker = self.en_eventpage.speakers.get()
+        # en_award = EventPageSpeakerAward.objects.create(
+        #     speaker=en_speaker,
+        #     name="Golden Globe"
+        # )
+
+        fr_eventpage = self.en_eventpage.copy_for_translation(self.fr_locale)
+
+        # Check that the speakers and awards were copied for translation properly
+        fr_speaker = fr_eventpage.speakers.get()
+        self.assertEqual(fr_speaker.locale, self.fr_locale)
+        self.assertEqual(fr_speaker.translation_key, en_speaker.translation_key)
+        self.assertEqual(list(fr_speaker.get_translations()), [en_speaker])
+
+        # TODO: Nested child objects not supported by page copy
+        # fr_award = fr_speaker.awards.get()
+        # self.assertEqual(ffr_award.locale, self.fr_locale)
+        # self.assertEqual(ffr_award.translation_key, en_award.translation_key)
+        # self.assertEqual(list(fr_award.get_translations()), [en_award])
 
 
 class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
@@ -1896,3 +2011,60 @@ class TestCachedContentType(TestCase):
         self.assertEqual(
             result, ContentType.objects.get(id=self.page.content_type_id)
         )
+
+
+class TestGetTranslatableModels(TestCase):
+    def test_get_translatable_models(self):
+        translatable_models = get_translatable_models()
+
+        # Only root translatable models should be included by default
+        self.assertNotIn(EventPage, translatable_models)
+
+        self.assertIn(Page, translatable_models)
+        self.assertIn(EventPageSpeaker, translatable_models)
+        self.assertNotIn(Site, translatable_models)
+        self.assertNotIn(Advert, translatable_models)
+
+    def test_get_translatable_models_include_subclasses(self):
+        translatable_models = get_translatable_models(include_subclasses=True)
+
+        self.assertIn(EventPage, translatable_models)
+
+        self.assertIn(Page, translatable_models)
+        self.assertIn(EventPageSpeaker, translatable_models)
+        self.assertNotIn(Site, translatable_models)
+        self.assertNotIn(Advert, translatable_models)
+
+
+class TestDefaultLocale(TestCase):
+    def setUp(self):
+        self.root_page = Page.objects.first()
+
+    def test_default_locale(self):
+        page = self.root_page.add_child(
+            instance=SimplePage(title="Test1", slug="test1", content="test")
+        )
+
+        self.assertEqual(page.locale, self.root_page.locale)
+
+    def test_override_default_locale(self):
+        fr_locale = Locale.objects.create(language_code="fr")
+
+        page = self.root_page.add_child(
+            instance=SimplePage(title="Test1", slug="test1", content="test", locale=fr_locale)
+        )
+
+        self.assertEqual(page.locale, fr_locale)
+
+    def test_always_defaults_to_parent_locale(self):
+        fr_locale = Locale.objects.create(language_code="fr")
+
+        fr_page = self.root_page.add_child(
+            instance=SimplePage(title="Test1", slug="test1", content="test", locale=fr_locale)
+        )
+
+        page = fr_page.add_child(
+            instance=SimplePage(title="Test1", slug="test1", content="test")
+        )
+
+        self.assertEqual(page.locale, fr_locale)
