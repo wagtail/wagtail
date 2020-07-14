@@ -13,7 +13,6 @@ from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.utils.html import format_html, format_html_join
-from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
@@ -430,7 +429,7 @@ def paginate(context, page, base_url='', page_key='p',
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
                         takes_context=True)
 def page_listing_buttons(context, page, page_perms, is_parent=False):
-    next_url = urlencode({"next": context.request.path})
+    next_url = context.request.path
     button_hooks = hooks.get_hooks('register_page_listing_buttons')
 
     buttons = []
