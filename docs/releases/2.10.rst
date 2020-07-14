@@ -30,6 +30,7 @@ Other features
  * Added filtering to locked pages report (Karl Hobley)
  * Adds ability to view a group's users via standalone admin URL and a link to this on the group edit view (Karran Besen)
  * Redirect to previous url when deleting/copying/unpublish a page and modify this url via the relevant hooks (Ascani Carlo)
+ * Added ``next_url`` keyword argument on ``register_page_listing_buttons`` and ``register_page_listing_more_buttons`` hooks (Ascani Carlo, Matt Westcott, LB (Ben Johnston))
  * ``AbstractEmailForm`` will use ``SHORT_DATETIME_FORMAT`` and ``SHORT_DATE_FORMAT`` Django settings to format date/time values in email (Haydn Greatnews)
  * ``AbstractEmailForm`` now has a separate method (``render_email``) to build up email content on submission emails. See :ref:`form_builder_render_email`. (Haydn Greatnews)
  * Add ``pre_page_move`` and ``post_page_move`` signals. (Andy Babic)
@@ -109,7 +110,27 @@ In previous releases, rich text values were enclosed in a ``<div class="rich-tex
 To restore the old behaviour, see :ref:`legacy_richtext`.
 
 
-Hooks functions ``register_page_listing_buttons`` & ``register_page_listing_more_buttons``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+New ``next_url`` keyword argument on ``register_page_listing_buttons`` and ``register_page_listing_more_buttons`` hooks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Page listing button hook functions now accept an additional kwarg ``next_url``. Please update your hook function definitions to accept the new ``next_url`` kwarg.
+Functions registered through the hooks ``register_page_listing_buttons`` and ``register_page_listing_more_buttons`` now accept an additional keyword argument ``next_url``. A hook function currently written as:
+
+.. code-block:: python
+
+    @hooks.register('register_page_listing_buttons')
+    def page_listing_more_buttons(page, page_perms, is_parent=False):
+        yield wagtailadmin_widgets.Button(
+            'My button', '/goes/to/a/url/', priority=60
+        )
+
+should now become:
+
+.. code-block:: python
+
+    @hooks.register('register_page_listing_buttons')
+    def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
+        yield wagtailadmin_widgets.Button(
+            'My button', '/goes/to/a/url/', priority=60
+        )
+
+The ``next_url`` argument specifies a URL to redirect back to after the action is complete, and can be passed as a query parameter to the linked URL, if the view supports it.
