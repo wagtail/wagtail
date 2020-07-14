@@ -28,7 +28,7 @@ class:
 ------------------------------------------
 
 **Expected value:** A list or tuple, where each item is the name of a field
-or attribute on the instance that you'd like ``InpectView`` to render.
+or attribute on the instance that you'd like ``InspectView`` to render.
 
 A sensible value will be rendered for most field types.
 
@@ -49,7 +49,7 @@ rendered, along with the document title, file extension and size.
 ------------------------------------------
 
 **Expected value:** A list or tuple, where each item is the name of a field
-that you'd like to exclude from ``InpectView``
+that you'd like to exclude from ``InspectView``
 
 **Note:** If both ``inspect_view_fields`` and ``inspect_view_fields_exclude``
 are set, ``inspect_view_fields_exclude`` will be ignored.
