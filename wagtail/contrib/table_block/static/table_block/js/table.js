@@ -21,9 +21,6 @@ function initTable(id, tableOptions) {
     var dataForForm = null;
     var isInitialized = false;
 
-    var getWidth = function() {
-        return $('.widget-table_input').closest('.sequence-member-inner').width();
-    };
     var getHeight = function() {
         var tableParent = $('#' + id).parent();
         return tableParent.find('.htCore').height() + (tableParent.find('.input').height() * 2);
