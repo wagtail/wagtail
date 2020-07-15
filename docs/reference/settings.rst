@@ -542,7 +542,7 @@ Redirects
 
    WAGTAIL_REDIRECTS_FILE_STORAGE = 'tmp_file'
 
-By default the the redirect importer keeps track of the uploaded file as a temp file, but on certain environments (load balanced/cloud environments), you cannot keep a shared file between environments. For those cases you can use the build in cache to store the file instead.
+By default the redirect importer keeps track of the uploaded file as a temp file, but on certain environments (load balanced/cloud environments), you cannot keep a shared file between environments. For those cases you can use the built-in cache to store the file instead.
 
 .. code-block:: python
 
