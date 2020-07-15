@@ -2120,7 +2120,7 @@ class PageRevision(models.Model):
 
                 PageLogEntry.objects.log_action(
                     instance=page,
-                    action='wagtail.publish',
+                    action=log_action if isinstance(log_action, str) else 'wagtail.publish',
                     user=user,
                     data=data,
                     revision=self,
