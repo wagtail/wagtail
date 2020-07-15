@@ -85,21 +85,43 @@ class TestDocumentFilenameProperties(TestCase):
         self.document = models.Document(title="Test document")
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
+        self.pdf_document = models.Document(title="Test document")
+        self.pdf_document.file.save('example.pdf', ContentFile("A boring example document"))
+
         self.extensionless_document = models.Document(title="Test document")
         self.extensionless_document.file.save('example', ContentFile("A boring example document"))
 
     def test_filename(self):
         self.assertEqual('example.doc', self.document.filename)
+        self.assertEqual('example.pdf', self.pdf_document.filename)
         self.assertEqual('example', self.extensionless_document.filename)
 
     def test_file_extension(self):
         self.assertEqual('doc', self.document.file_extension)
+        self.assertEqual('pdf', self.pdf_document.file_extension)
         self.assertEqual('', self.extensionless_document.file_extension)
+
+    def test_content_type(self):
+        self.assertEqual('application/msword', self.document.content_type)
+        self.assertEqual('application/pdf', self.pdf_document.content_type)
+        self.assertEqual('application/octet-stream', self.extensionless_document.content_type)
+
+    def test_content_disposition(self):
+        self.assertEqual(
+            '''attachment; filename=example.doc; filename*=UTF-8''example.doc''',
+            self.document.content_disposition
+        )
+        self.assertEqual('inline', self.pdf_document.content_disposition)
+        self.assertEqual(
+            '''attachment; filename=example; filename*=UTF-8''example''',
+            self.extensionless_document.content_disposition
+        )
 
     def tearDown(self):
         # delete the FieldFile directly because the TestCase does not commit
         # transactions to trigger transaction.on_commit() in the signal handler
         self.document.file.delete()
+        self.pdf_document.file.delete()
         self.extensionless_document.file.delete()
 
 

@@ -1,6 +1,8 @@
 import hashlib
 import os.path
+import urllib
 from contextlib import contextmanager
+from mimetypes import guess_type
 
 from django.conf import settings
 from django.db import models
@@ -146,6 +148,27 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     def is_editable_by_user(self, user):
         from wagtail.documents.permissions import permission_policy
         return permission_policy.user_has_permission_for_instance(user, 'change', self)
+
+    @property
+    def content_type(self):
+        content_types_lookup = getattr(settings, 'WAGTAILDOCS_CONTENT_TYPES', {})
+        return (
+            content_types_lookup.get(self.file_extension.lower())
+            or guess_type(self.filename)[0]
+            or 'application/octet-stream'
+        )
+
+    @property
+    def content_disposition(self):
+        inline_content_types = getattr(
+            settings, 'WAGTAILDOCS_INLINE_CONTENT_TYPES', ['application/pdf']
+        )
+        if self.content_type in inline_content_types:
+            return 'inline'
+        else:
+            return "attachment; filename={0}; filename*=UTF-8''{0}".format(
+                urllib.parse.quote(self.filename)
+            )
 
     class Meta:
         abstract = True
