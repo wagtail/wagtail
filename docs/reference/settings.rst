@@ -180,6 +180,26 @@ For this reason, Wagtail provides a number of serving methods which trade some o
 
 If ``WAGTAILDOCS_SERVE_METHOD`` is unspecified or set to ``None``, the default method is ``'redirect'`` when a remote storage backend is in use (i.e. one that exposes a URL but not a local filesystem path), and ``'serve_view'`` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for ``'serve_view'``.
 
+.. _wagtaildocs_content_types:
+
+.. code-block:: python
+
+  WAGTAILDOCS_CONTENT_TYPES = {
+      'pdf': 'application/pdf',
+      'txt': 'text/plain',
+  }
+
+Specifies the MIME content type that will be returned for the given file extension, when using the ``serve_view`` method. Content types not listed here will be guessed using the Python ``mimetypes.guess_type`` function, or ``application/octet-stream`` if unsuccessful.
+
+.. _wagtaildocs_inline_content_types:
+
+.. code-block:: python
+
+  WAGTAILDOCS_INLINE_CONTENT_TYPES = ['application/pdf', 'text/plain']
+
+A list of MIME content types that will be shown inline in the browser (by serving the HTTP header ``Content-Disposition: inline``) rather than served as a download, when using the ``serve_view`` method. Defaults to ``application/pdf``.
+
+
 Password Management
 ===================
 

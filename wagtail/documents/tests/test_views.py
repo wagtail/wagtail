@@ -18,6 +18,8 @@ class TestServeView(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document", file_hash="123456")
         self.document.file.save('example.doc', ContentFile("A boring example document"))
+        self.pdf_document = models.Document(title="Test document", file_hash="123456")
+        self.pdf_document.file.save('example.pdf', ContentFile("A boring example document"))
 
     def tearDown(self):
         if hasattr(self, 'response'):
@@ -30,9 +32,11 @@ class TestServeView(TestCase):
         # delete the FieldFile directly because the TestCase does not commit
         # transactions to trigger transaction.on_commit() in the signal handler
         self.document.file.delete()
+        self.pdf_document.file.delete()
 
-    def get(self):
-        self.response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
+    def get(self, document=None):
+        document = document or self.document
+        self.response = self.client.get(reverse('wagtaildocs_serve', args=(document.id, document.filename)))
         return self.response
 
     def test_response_code(self):
@@ -40,8 +44,13 @@ class TestServeView(TestCase):
 
     def test_content_disposition_header(self):
         self.assertEqual(
-            self.get()['Content-Disposition'],
+            self.get(self.document)['Content-Disposition'],
             'attachment; filename="{}"'.format(self.document.filename))
+
+    def test_inline_content_disposition_header(self):
+        self.assertEqual(
+            self.get(self.pdf_document)['Content-Disposition'],
+            'inline')
 
     @mock.patch('wagtail.documents.views.serve.hooks')
     @mock.patch('wagtail.documents.views.serve.get_object_or_404')
@@ -55,6 +64,8 @@ class TestServeView(TestCase):
         # Create a mock document with no local file to hit the correct code path
         mock_doc = mock.Mock()
         mock_doc.filename = self.document.filename
+        mock_doc.content_type = self.document.content_type
+        mock_doc.content_disposition = self.document.content_disposition
         mock_doc.file = StringIO('file-like object' * 10)
         mock_doc.file.path = None
         mock_doc.file.url = None
@@ -73,6 +84,38 @@ class TestServeView(TestCase):
             "attachment; filename={0}; filename*=UTF-8''{0}".format(
                 urllib.parse.quote(self.document.filename)
             )
+        )
+
+    @mock.patch('wagtail.documents.views.serve.hooks')
+    @mock.patch('wagtail.documents.views.serve.get_object_or_404')
+    def test_non_local_filesystem_inline_content_disposition_header(
+        self, mock_get_object_or_404, mock_hooks
+    ):
+        """
+        Tests the 'Content-Disposition' header in a response when using a
+        storage backend that doesn't expose filesystem paths.
+        """
+        # Create a mock document with no local file to hit the correct code path
+        mock_doc = mock.Mock()
+        mock_doc.filename = self.pdf_document.filename
+        mock_doc.content_type = self.pdf_document.content_type
+        mock_doc.content_disposition = self.pdf_document.content_disposition
+        mock_doc.file = StringIO('file-like object' * 10)
+        mock_doc.file.path = None
+        mock_doc.file.url = None
+        mock_doc.file.size = 30
+        mock_get_object_or_404.return_value = mock_doc
+
+        # Bypass 'before_serve_document' hooks
+        mock_hooks.get_hooks.return_value = []
+
+        response = self.get(self.pdf_document)
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(
+            response['Content-Disposition'],
+            "inline"
         )
 
     def test_content_length_header(self):
