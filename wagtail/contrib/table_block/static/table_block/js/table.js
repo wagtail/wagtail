@@ -63,13 +63,11 @@ function initTable(id, tableOptions) {
     }
 
     if (!tableOptions.hasOwnProperty('width') || !tableOptions.hasOwnProperty('height')) {
-        // Size to parent .sequence-member-inner width if width is not given in tableOptions
         $(window).on('resize', function() {
             hot.updateSettings({
-                width: getWidth(),
+                width: '100%',
                 height: getHeight()
             });
-            resizeWidth('100%');
         });
     }
 

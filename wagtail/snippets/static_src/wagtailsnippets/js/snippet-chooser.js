@@ -4,17 +4,21 @@ function createSnippetChooser(id, modelString) {
     var input = $('#' + id);
     var editLink = chooserElement.find('.edit-link');
 
+    function snippetChosen(snippetData, isInitial) {
+        if (!isInitial) {
+          input.val(snippetData.id);
+        }
+        docTitle.text(snippetData.string);
+        chooserElement.removeClass('blank');
+        editLink.attr('href', snippetData.edit_link);
+    }
+
     $('.action-choose', chooserElement).on('click', function() {
         ModalWorkflow({
             url: window.chooserUrls.snippetChooser + modelString + '/',
             onload: SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS,
             responses: {
-                snippetChosen: function(snippetData) {
-                    input.val(snippetData.id);
-                    docTitle.text(snippetData.string);
-                    chooserElement.removeClass('blank');
-                    editLink.attr('href', snippetData.edit_link);
-                }
+                snippetChosen: snippetChosen,
             }
         });
     });
@@ -23,4 +27,12 @@ function createSnippetChooser(id, modelString) {
         input.val('');
         chooserElement.addClass('blank');
     });
+
+    if (input.val()) {
+        $.ajax(window.chooserUrls.snippetChooser + modelString + '/'
+               + encodeURIComponent(input.val()) + '/')
+            .done(function (data) {
+                snippetChosen(data.result, true);
+            });
+    }
 }
