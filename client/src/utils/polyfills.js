@@ -8,3 +8,10 @@ import 'core-js/shim';
 import 'whatwg-fetch';
 // IE11.
 import 'element-closest';
+// IE11.
+import { IS_IE11 } from '../config/wagtailConfig';
+import svg4everybody from 'svg4everybody';
+
+if (IS_IE11) {
+  svg4everybody();
+}

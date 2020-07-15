@@ -13,6 +13,7 @@
     <script src="{% versioned_static 'wagtailadmin/js/vendor/modernizr-2.6.2.min.js' %}"></script>
 
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/normalize.css' %}" />
+    <link rel="preload" href="{% url 'wagtailadmin_sprite' %}">
 
     {% block css %}{% endblock %}
 
@@ -28,8 +29,6 @@
             Here are the <a href="https://www.enable-javascript.com/" target="_blank" rel="noopener noreferrer">instructions how to enable JavaScript in your web browser</a>.
         {% endblocktrans %}
     </noscript>
-
-    {% icons %}
 
     {% block js %}{% endblock %}
 

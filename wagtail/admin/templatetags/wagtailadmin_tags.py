@@ -12,6 +12,7 @@ from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
+from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -518,7 +519,7 @@ def versioned_static(path):
 
 
 @register.inclusion_tag("wagtailadmin/shared/icon.html", takes_context=False)
-def icon(name=None, class_name='icon', title=None, wrapped=False):
+def icon(name=None, class_name='icon', title=None, wrapped=False, sprite=True):
     """
     Abstracts away the actual icon implementation.
 
@@ -530,16 +531,21 @@ def icon(name=None, class_name='icon', title=None, wrapped=False):
     :param name: the icon name/id, required (string)
     :param class_name: default 'icon' (string)
     :param title: accessible label intended for screen readers (string)
+    :param sprite: a sprite location (string), set empty string for no sprite, Defaults to Wagtail admin sprite
     :return: Rendered template snippet (string)
     """
     if not name:
         raise ValueError("You must supply an icon name")
 
+    if sprite is True:
+        sprite = reverse("wagtailadmin_sprite")
+
     return {
         'name': name,
         'class_name': class_name,
         'title': title,
-        'wrapped': wrapped
+        'wrapped': wrapped,
+        'sprite': sprite,
     }
 
 

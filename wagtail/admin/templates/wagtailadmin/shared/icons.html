@@ -1,11 +1,9 @@
 {% spaceless %}
-<div style="display: none">
-  <svg>
-      <defs>
+<svg xmlns="http://www.w3.org/2000/svg">
+    <defs>
         {% for icon in icons %}
             {% include icon %}
         {% endfor %}
-      </defs>
-  </svg>
-</div>
+    </defs>
+</svg>
 {% endspaceless %}

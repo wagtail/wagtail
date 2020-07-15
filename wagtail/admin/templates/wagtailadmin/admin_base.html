@@ -30,7 +30,8 @@
             wagtailConfig.STRINGS = {% js_translation_strings %};
 
             wagtailConfig.ADMIN_URLS = {
-                PAGES: '{% url "wagtailadmin_explore_root" %}'
+                PAGES: '{% url "wagtailadmin_explore_root" %}',
+                SPRITE: '{% url "wagtailadmin_sprite" %}',
             };
         })(document, window);
     </script>

@@ -1,6 +1,7 @@
 import functools
 
 from django.urls import include, path, re_path
+from django.utils.crypto import get_random_string
 from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
 from django.http import Http404
@@ -121,3 +122,13 @@ urlpatterns = decorate_urlpatterns(
     urlpatterns,
     never_cache
 )
+
+random_string = get_random_string(length=8).lower()
+
+# Prepend sprite pattern to come before 404 and allow caching.
+urlpatterns = [
+    # Random string invalidates browser cache.
+    path(f"sprite-{random_string}.svg", home.sprite, name="wagtailadmin_sprite"),
+    # Allow multi instance setup. Serve the sprite no matter the filename.
+    path(f"sprite-<slug:slug>.svg", home.sprite),
+] + urlpatterns

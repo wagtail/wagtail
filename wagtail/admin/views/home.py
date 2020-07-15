@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import permission_required
 from django.db import connection
 from django.db.models import Max
 from django.http import Http404
+from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
+from django.views.decorators.cache import cache_page
 
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
@@ -144,3 +146,11 @@ def default(request):
     redirected to the login page.
     """
     raise Http404
+
+
+@cache_page(31536000)  # 1 year
+def sprite(request, **kwargs):
+    response = render(request, "wagtailadmin/icons/sprite.svg")
+    response["Content-Type"] = "image/svg+xml"
+    response["Cache-Control"] = "max-age=31536000"  # 1 year
+    return response

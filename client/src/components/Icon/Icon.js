@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { ADMIN_URLS } from '../../config/wagtailConfig';
 
 /**
  * Provide a `title` as an accessible label intended for screen readers.
@@ -7,7 +8,7 @@ import React from 'react';
 const Icon = ({ name, className, title }) => (
   <span>
     <svg className={`icon icon-${name} ${className || ''}`} aria-hidden="true">
-      <use href={`#icon-${name}`}></use>
+      <use href={`${ADMIN_URLS.SPRITE}#icon-${name}`}></use>
     </svg>
     {title ? (
       <span className="visuallyhidden">
