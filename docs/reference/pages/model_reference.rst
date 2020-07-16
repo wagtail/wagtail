@@ -530,6 +530,8 @@ Methods and properties
 
     .. automethod:: deactivate
 
+    .. automethod:: all_pages
+
 
 ``WorkflowState``
 =================
@@ -586,7 +588,7 @@ Methods and properties
     .. attribute:: STATUS_CHOICES
 
         A tuple of the possible options for the ``status`` field, and their verbose names. Options are ``STATUS_IN_PROGRESS``, ``STATUS_APPROVED``,
-        ``STATUS_CANCELLED`` and ``STATUS_REJECTED``.
+        ``STATUS_CANCELLED`` and ``STATUS_NEEDS_CHANGES``.
 
     .. automethod:: update
 
@@ -595,6 +597,8 @@ Methods and properties
     .. automethod:: cancel
 
     .. automethod:: finish
+
+    .. automethod:: resume
 
     .. automethod:: copy_approved_task_states_to_revision
 
@@ -639,6 +643,10 @@ Methods and properties
 .. class:: Task
     :noindex:
 
+    .. autoattribute:: workflows
+
+    .. autoattribute:: active_workflows
+
     .. attribute:: task_state_class
 
         The specific task state class to generate to store state information for this task. If not specified, this will be ``TaskState``.
@@ -657,11 +665,19 @@ Methods and properties
 
     .. automethod:: user_can_unlock
 
+    .. automethod:: page_locked_for_user
+
     .. automethod:: get_actions
 
     .. automethod:: get_task_states_user_can_moderate
 
     .. automethod:: deactivate
+
+    .. automethod:: get_form_for_action
+
+    .. automethod:: get_template_for_action
+
+    .. automethod:: get_description
 
 
 ``TaskState``
@@ -684,8 +700,7 @@ Database fields
 
         (foreign key to ``PageRevision``)
 
-        Whether or not the task is active: active workflows can be added to workflows, and started. Inactive workflows cannot, and are skipped when in
-        an existing workflow.
+        The page revision this task state was created on.
 
     .. attribute:: task
 
@@ -717,6 +732,18 @@ Database fields
 
         When this task state was cancelled, rejected, or approved.
 
+    .. attribute:: finished_by
+
+        (foreign key to user model)
+
+        The user who completed (cancelled, rejected, approved) the task.
+
+    .. attribute:: comment
+
+        (text)
+
+        A text comment, typically added by a user when the task is completed.
+
 
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -744,6 +771,8 @@ Methods and properties
     .. automethod:: cancel
 
     .. automethod:: copy
+
+    .. automethod:: get_comment
 
 ``WorkflowTask``
 ================
