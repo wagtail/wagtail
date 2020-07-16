@@ -187,6 +187,37 @@ class DescendantOfFilter(BaseFilterBackend):
         return queryset
 
 
+class TranslationOfFilter(BaseFilterBackend):
+    """
+    Implements the ?translation_of filter which limits the set of pages to translations
+    of a page.
+    """
+    def filter_queryset(self, request, queryset, view):
+        if 'translation_of' in request.GET:
+            try:
+                page_id = int(request.GET['translation_of'])
+                if page_id < 0:
+                    raise ValueError()
+
+                page = view.get_base_queryset().get(id=page_id)
+            except ValueError:
+                if request.GET['translation_of'] == 'root':
+                    page = view.get_root_page()
+                else:
+                    raise BadRequestError("translation_of must be a positive integer")
+            except Page.DoesNotExist:
+                raise BadRequestError("translation_of page doesn't exist")
+
+            _filtered_by_child_of = getattr(queryset, '_filtered_by_child_of', None)
+
+            queryset = queryset.translation_of(page)
+
+            if _filtered_by_child_of:
+                queryset._filtered_by_child_of = _filtered_by_child_of
+
+        return queryset
+
+
 class LocaleFilter(BaseFilterBackend):
     """
     Implements the ?locale filter which limits the set of pages to a
@@ -194,7 +225,12 @@ class LocaleFilter(BaseFilterBackend):
     """
     def filter_queryset(self, request, queryset, view):
         if 'locale' in request.GET:
+            _filtered_by_child_of = getattr(queryset, '_filtered_by_child_of', None)
+
             locale = get_object_or_404(Locale, language_code=request.GET['locale'])
             queryset = queryset.filter(locale=locale)
+
+            if _filtered_by_child_of:
+                queryset._filtered_by_child_of = _filtered_by_child_of
 
         return queryset
