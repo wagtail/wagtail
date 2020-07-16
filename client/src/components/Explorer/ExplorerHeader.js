@@ -23,7 +23,7 @@ const ExplorerHeader = ({ page, depth, onClick }) => {
           name={isRoot ? 'home' : 'arrow-left'}
           className="icon--explorer-header"
         />
-        <span>{page.admin_display_title || STRINGS.PAGES}</span>
+        <span>{page.data && page.data.admin_display_title || STRINGS.PAGES}</span>
       </div>
     </Button>
   );

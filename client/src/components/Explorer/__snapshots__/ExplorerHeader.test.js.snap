@@ -46,7 +46,7 @@ exports[`ExplorerHeader #page 1`] = `
       title={null}
     />
     <span>
-      test
+      Pages
     </span>
   </div>
 </Button>

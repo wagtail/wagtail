@@ -6,7 +6,6 @@ import ExplorerHeader from './ExplorerHeader';
 const mockProps = {
   page: {},
   depth: 2,
-  transitionName: 'pop',
   onClick: jest.fn(),
 };
 

@@ -52,11 +52,9 @@ exports[`Explorer visible 1`] = `
           "count": 0,
           "items": Array [],
         },
+        "data": null,
         "isError": false,
         "isFetching": true,
-        "meta": Object {
-          "children": Object {},
-        },
       },
     }
   }
@@ -109,11 +107,9 @@ exports[`Explorer visible 2`] = `
           "count": 0,
           "items": Array [],
         },
+        "data": null,
         "isError": false,
         "isFetching": true,
-        "meta": Object {
-          "children": Object {},
-        },
       },
     }
   }
@@ -124,11 +120,9 @@ exports[`Explorer visible 2`] = `
         "count": 0,
         "items": Array [],
       },
+      "data": null,
       "isError": false,
       "isFetching": true,
-      "meta": Object {
-        "children": Object {},
-      },
     }
   }
   path={

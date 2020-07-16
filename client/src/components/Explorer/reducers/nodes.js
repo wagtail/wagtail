@@ -5,9 +5,7 @@ const defaultPageState = {
     items: [],
     count: 0,
   },
-  meta: {
-    children: {},
-  },
+  data: null,
 };
 
 /**
@@ -19,8 +17,9 @@ const node = (state = defaultPageState, { type, payload }) => {
     return state || defaultPageState;
 
   case 'GET_PAGE_SUCCESS':
-    return Object.assign({}, state, payload.data, {
+    return Object.assign({}, state, {
       isError: false,
+      data: payload.data,
     });
 
   case 'GET_CHILDREN_START':
@@ -74,7 +73,7 @@ export default function nodes(state = defaultState, { type, payload }) {
     });
 
     payload.items.forEach((item) => {
-      newState[item.id] = Object.assign({}, defaultPageState, item);
+      newState[item.id] = Object.assign({}, defaultPageState, { data: item });
     });
 
     return newState;

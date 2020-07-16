@@ -7,11 +7,9 @@ Object {
       "count": 0,
       "items": Array [],
     },
+    "data": null,
     "isError": true,
     "isFetching": false,
-    "meta": Object {
-      "children": Object {},
-    },
   },
 }
 `;
@@ -23,11 +21,9 @@ Object {
       "count": 0,
       "items": Array [],
     },
+    "data": null,
     "isError": false,
     "isFetching": true,
-    "meta": Object {
-      "children": Object {},
-    },
   },
 }
 `;
@@ -43,47 +39,42 @@ Object {
         5,
       ],
     },
+    "data": null,
     "isError": false,
     "isFetching": false,
-    "meta": Object {
-      "children": Object {},
-    },
   },
   "3": Object {
     "children": Object {
       "count": 0,
       "items": Array [],
     },
-    "id": 3,
+    "data": Object {
+      "id": 3,
+    },
     "isError": false,
     "isFetching": false,
-    "meta": Object {
-      "children": Object {},
-    },
   },
   "4": Object {
     "children": Object {
       "count": 0,
       "items": Array [],
     },
-    "id": 4,
+    "data": Object {
+      "id": 4,
+    },
     "isError": false,
     "isFetching": false,
-    "meta": Object {
-      "children": Object {},
-    },
   },
   "5": Object {
     "children": Object {
       "count": 0,
       "items": Array [],
     },
-    "id": 5,
+    "data": Object {
+      "id": 5,
+    },
     "isError": false,
     "isFetching": false,
-    "meta": Object {
-      "children": Object {},
-    },
   },
 }
 `;
@@ -95,11 +86,9 @@ Object {
       "count": 0,
       "items": Array [],
     },
+    "data": null,
     "isError": true,
     "isFetching": false,
-    "meta": Object {
-      "children": Object {},
-    },
   },
 }
 `;
@@ -111,11 +100,9 @@ Object {
       "count": 0,
       "items": Array [],
     },
+    "data": Object {},
     "isError": false,
     "isFetching": false,
-    "meta": Object {
-      "children": Object {},
-    },
   },
 }
 `;
@@ -127,11 +114,9 @@ Object {
       "count": 0,
       "items": Array [],
     },
+    "data": null,
     "isError": false,
     "isFetching": false,
-    "meta": Object {
-      "children": Object {},
-    },
   },
 }
 `;
