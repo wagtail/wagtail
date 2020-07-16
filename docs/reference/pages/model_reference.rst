@@ -520,12 +520,15 @@ Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: Workflow
+    :noindex:
 
     .. automethod:: start
 
     .. autoattribute:: tasks
 
     .. automethod:: deactivate
+
+    .. automethod:: all_pages
 
 
 ``WorkflowState``
@@ -578,11 +581,12 @@ Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: WorkflowState
+    :noindex:
 
     .. attribute:: STATUS_CHOICES
 
         A tuple of the possible options for the ``status`` field, and their verbose names. Options are ``STATUS_IN_PROGRESS``, ``STATUS_APPROVED``,
-        ``STATUS_CANCELLED`` and ``STATUS_REJECTED``.
+        ``STATUS_CANCELLED`` and ``STATUS_NEEDS_CHANGES``.
 
     .. automethod:: update
 
@@ -591,6 +595,8 @@ Methods and properties
     .. automethod:: cancel
 
     .. automethod:: finish
+
+    .. automethod:: resume
 
     .. automethod:: copy_approved_task_states_to_revision
 
@@ -633,6 +639,11 @@ Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: Task
+    :noindex:
+
+    .. autoattribute:: workflows
+
+    .. autoattribute:: active_workflows
 
     .. attribute:: task_state_class
 
@@ -640,7 +651,7 @@ Methods and properties
 
     .. automethod:: get_verbose_name
 
-    .. automethod:: specific
+    .. autoattribute:: specific
 
     .. automethod:: start
 
@@ -652,11 +663,19 @@ Methods and properties
 
     .. automethod:: user_can_unlock
 
+    .. automethod:: page_locked_for_user
+
     .. automethod:: get_actions
 
     .. automethod:: get_task_states_user_can_moderate
 
     .. automethod:: deactivate
+
+    .. automethod:: get_form_for_action
+
+    .. automethod:: get_template_for_action
+
+    .. automethod:: get_description
 
 
 ``TaskState``
@@ -679,8 +698,7 @@ Database fields
 
         (foreign key to ``PageRevision``)
 
-        Whether or not the task is active: active workflows can be added to workflows, and started. Inactive workflows cannot, and are skipped when in
-        an existing workflow.
+        The page revision this task state was created on. 
 
     .. attribute:: task
 
@@ -712,11 +730,24 @@ Database fields
 
         When this task state was cancelled, rejected, or approved.
 
+    .. attribute:: finished_by
+
+        (foreign key to user model)
+
+        The user who completed (cancelled, rejected, approved) the task.
+
+    .. attribute:: comment
+
+        (text)
+
+        A text comment, typically added by a user when the task is completed.
+
 
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: TaskState
+    :noindex:
 
     .. attribute:: STATUS_CHOICES
 
@@ -727,17 +758,19 @@ Methods and properties
 
         A list of fields not to copy when the ``TaskState.copy()`` method is called.
 
-    .. automethod:: specific
+    .. autoattribute:: specific
 
     .. automethod:: approve
 
     .. automethod:: reject
 
-    .. automethod:: task_type_started_at
+    .. autoattribute:: task_type_started_at
 
     .. automethod:: cancel
 
     .. automethod:: copy
+
+    .. automethod:: get_comment
 
 ``WorkflowTask``
 ================

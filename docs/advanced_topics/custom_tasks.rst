@@ -26,7 +26,7 @@ All custom tasks must be models inheriting from ``wagtailcore.Task``. In this se
 
 Subclassed Tasks follow the same approach as Pages: they are concrete models, with the specific subclass instance accessible by calling ``Task.specific()``.
 
-You can now add any custom fields. To make these editable in the admin, add the names of the fields into the `admin_form_fields` attribute:
+You can now add any custom fields. To make these editable in the admin, add the names of the fields into the ``admin_form_fields`` attribute:
 
 For example:
 
@@ -67,7 +67,7 @@ can be added to ``admin_form_readonly_on_edit_fields``. For example:
         admin_form_readonly_on_edit_fields = Task.admin_form_readonly_on_edit_fields + ['user']
 
 
-Wagtail will choose a default form widget to use based on the field type. But you can override the form widget using the `admin_form_widgets` attribute:
+Wagtail will choose a default form widget to use based on the field type. But you can override the form widget using the ``admin_form_widgets`` attribute:
 
 
 .. code-block:: python
@@ -94,7 +94,7 @@ Wagtail will choose a default form widget to use based on the field type. But yo
 Custom TaskState models
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-You might also need to store custom state information for the task: for example, a comment left by an approving user.
+You might also need to store custom state information for the task: for example, a rating left by an approving user.
 Normally, this is done on an instance of ``TaskState``, which is created when a page starts the task. However, this can
 also be subclassed equivalently to ``Task``:
 
@@ -146,9 +146,21 @@ Note that returning ``False`` will not prevent users who would normally be able 
     def user_can_access_editor(self, page, user):
         return user == self.user
 
+``Task.page_locked_for_user(page, user)``:
+
+This returns ``True`` if the page should be locked and uneditable by the user. It is
+used by `GroupApprovalTask` to lock the page to any users not in the approval group. 
+
+.. code-block:: python
+
+    def page_locked_for_user(self, page, user):
+        return user != self.user
+
 ``Task.get_actions(page, user)``:
 
-This returns a list of ``(action_name, action_verbose_name)`` tuples, corresponding to the actions available for the task in the edit view menu.
+This returns a list of ``(action_name, action_verbose_name, action_requires_additional_data_from_modal)`` tuples, corresponding to the actions available for the task in the edit view menu.
+``action_requires_additional_data_from_modal`` should be a boolean, returning ``True`` if choosing the action should open a modal for
+additional data input - for example, entering a comment.
 
 For example:
 
@@ -157,17 +169,27 @@ For example:
     def get_actions(self, page, user):
         if user == self.user:
             return [
-                ('approve', "Approve"),
-                ('reject', "Reject"),
-                ('cancel', "Cancel"),
+                ('approve', "Approve", False),
+                ('reject', "Reject", False),
+                ('cancel', "Cancel", False),
             ]
         else:
             return []
 
-``Task.on_action(task_state, user, action_name)``:
+``Task.get_form_for_action(action)``:
+
+Returns a form to be used for additional data input for the given action modal. By default,
+returns ``TaskStateCommentForm``, with a single comment field.
+
+``Task.get_template_for_action(action)``:
+
+Returns the name of a custom template to be used in rendering the data entry modal for that action.
+
+``Task.on_action(task_state, user, action_name, **kwargs)``:
 
 This performs the actions specified in ``Task.get_actions(page, user)``: it is passed an action name, eg ``approve``, and the relevant task state. By default,
-it calls ``approve`` and ``reject`` methods on the task state when the corresponding action names are passed through.
+it calls ``approve`` and ``reject`` methods on the task state when the corresponding action names are passed through. Any additional data entered in a modal
+(see ``get_form_for_action`` and ``get_actions``) is supplied as kwargs.
 
 For example,  let's say we wanted to add an additional option: cancelling the entire workflow:
 
