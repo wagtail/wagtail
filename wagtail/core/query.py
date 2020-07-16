@@ -366,6 +366,32 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.descendant_of(site.root_page, inclusive=True)
 
+    def translation_of_q(self, page, inclusive):
+        q = Q(translation_key=page.translation_key)
+
+        if not inclusive:
+            q &= ~Q(pk=page.pk)
+
+        return q
+
+    def translation_of(self, page, inclusive=False):
+        """
+        This filters the QuerySet to only contain pages that are translations of the specified page.
+
+        If inclusive is True, the page itself is returned.
+        """
+        return self.filter(self.translation_of_q(page, inclusive))
+
+    def not_translation_of(self, page, inclusive=False):
+        """
+        This filters the QuerySet to only contain pages that are not translations of the specified page.
+
+        Note, this will include the page itself as the page is technically not a translation of itself.
+        If inclusive is True, we consider the page to be a translation of itself so this excludes the page
+        from the results.
+        """
+        return self.exclude(self.translation_of_q(page, inclusive))
+
 
 def specific_iterator(qs, defer=False):
     """

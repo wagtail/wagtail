@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count, Q
 from django.test import TestCase
 
-from wagtail.core.models import Page, PageViewRestriction, Site
+from wagtail.core.models import Locale, Page, PageViewRestriction, Site
 from wagtail.core.signals import page_unpublished
 from wagtail.search.query import MATCH_ALL
 from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage, StreamPage
@@ -417,6 +417,62 @@ class TestPageQuerySet(TestCase):
     def test_delete_is_not_available_on_manager(self):
         with self.assertRaises(AttributeError):
             Page.objects.delete()
+
+    def test_translation_of(self):
+        en_homepage = Page.objects.get(url_path='/home/')
+
+        # Create a translation of the homepage
+        fr_locale = Locale.objects.create(language_code="fr")
+        root_page = Page.objects.get(depth=1)
+        fr_homepage = root_page.add_child(instance=Page(
+            title="French homepage",
+            slug="home-fr",
+            locale=fr_locale,
+            translation_key=en_homepage.translation_key,
+        ))
+
+        with self.assertNumQueries(1):
+            translations = Page.objects.translation_of(en_homepage)
+            self.assertListEqual(list(translations), [fr_homepage])
+
+        # Now test with inclusive
+        with self.assertNumQueries(1):
+            translations = Page.objects.translation_of(en_homepage, inclusive=True).order_by('id')
+            self.assertListEqual(list(translations), [en_homepage, fr_homepage])
+
+    def test_not_translation_of(self):
+        en_homepage = Page.objects.get(url_path='/home/')
+
+        # Create a translation of the homepage
+        fr_locale = Locale.objects.create(language_code="fr")
+        root_page = Page.objects.get(depth=1)
+        fr_homepage = root_page.add_child(instance=Page(
+            title="French homepage",
+            slug="home-fr",
+            locale=fr_locale,
+            translation_key=en_homepage.translation_key,
+        ))
+
+        with self.assertNumQueries(1):
+            translations = list(Page.objects.not_translation_of(en_homepage))
+
+        # Check that every single page is in the queryset, except for fr_homepage
+        for page in Page.objects.all():
+            if page in [fr_homepage]:
+                self.assertNotIn(page, translations)
+            else:
+                self.assertIn(page, translations)
+
+        # Test with inclusive
+        with self.assertNumQueries(1):
+            translations = list(Page.objects.not_translation_of(en_homepage, inclusive=True))
+
+        # Check that every single page is in the queryset, except for fr_homepage and en_homepage
+        for page in Page.objects.all():
+            if page in [en_homepage, fr_homepage]:
+                self.assertNotIn(page, translations)
+            else:
+                self.assertIn(page, translations)
 
 
 class TestPageQueryInSite(TestCase):
