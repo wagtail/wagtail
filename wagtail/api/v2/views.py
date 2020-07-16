@@ -15,7 +15,8 @@ from wagtail.api import APIField
 from wagtail.core.models import Page, Site
 
 from .filters import (
-    ChildOfFilter, DescendantOfFilter, FieldsFilter, LocaleFilter, OrderingFilter, SearchFilter)
+    ChildOfFilter, DescendantOfFilter, FieldsFilter, LocaleFilter, OrderingFilter, SearchFilter,
+    TranslationOfFilter)
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
@@ -369,12 +370,14 @@ class PagesAPIViewSet(BaseAPIViewSet):
         DescendantOfFilter,
         OrderingFilter,
         SearchFilter,
+        TranslationOfFilter,
         LocaleFilter,
     ]
     known_query_parameters = BaseAPIViewSet.known_query_parameters.union([
         'type',
         'child_of',
         'descendant_of',
+        'translation_of',
         'locale',
     ])
     body_fields = BaseAPIViewSet.body_fields + [

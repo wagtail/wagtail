@@ -160,6 +160,21 @@ class TestPageListing(TestCase):
         self.assertEqual(len(content['items']), 1)
         self.assertEqual(content['items'][0]['id'], french_homepage.id)
 
+    # TRANSLATION OF FILTER
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_translation_of_filter(self):
+        french = Locale.objects.create(language_code='fr')
+        homepage = Page.objects.get(depth=2)
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+
+        response = self.get_response(translation_of=homepage.id)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(len(content['items']), 1)
+        self.assertEqual(content['items'][0]['id'], french_homepage.id)
+
     # FIELDS
 
     def test_fields_default(self):
