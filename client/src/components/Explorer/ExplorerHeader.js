@@ -9,32 +9,27 @@ import Icon from '../../components/Icon/Icon';
  * The bar at the top of the explorer, displaying the current level
  * and allowing access back to the parent level.
  */
-const ExplorerHeader = ({ page, depth, onClick }) => {
-  const isRoot = depth === 1;
-
-  return (
-    <Button
-      href={page.id ? `${ADMIN_URLS.PAGES}${page.id}/` : ADMIN_URLS.PAGES}
-      className="c-explorer__header"
-      onClick={onClick}
-    >
-      <div className="c-explorer__header__inner">
-        <Icon
-          name={isRoot ? 'home' : 'arrow-left'}
-          className="icon--explorer-header"
-        />
-        <span>{page.data && page.data.admin_display_title || STRINGS.PAGES}</span>
-      </div>
-    </Button>
-  );
-};
+const ExplorerHeader = ({ page, onClick }) => (
+  <Button
+    href={page.id ? `${ADMIN_URLS.PAGES}${page.id}/` : ADMIN_URLS.PAGES}
+    className="c-explorer__header"
+    onClick={onClick}
+  >
+    <div className="c-explorer__header__inner">
+      <Icon
+        name={page.parent ? 'arrow-left' : 'home'}
+        className="icon--explorer-header"
+      />
+      <span>{page.data && page.data.admin_display_title || STRINGS.PAGES}</span>
+    </div>
+  </Button>
+);
 
 ExplorerHeader.propTypes = {
   page: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     admin_display_title: PropTypes.string,
   }).isRequired,
-  depth: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 

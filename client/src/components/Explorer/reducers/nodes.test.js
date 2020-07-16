@@ -17,7 +17,13 @@ describe('nodes', () => {
   });
 
   it('GET_PAGE_SUCCESS', () => {
-    const action = { type: 'GET_PAGE_SUCCESS', payload: { id: 1, data: {} } };
+    const action = { type: 'GET_PAGE_SUCCESS', payload: { id: 1, data: {
+      meta: {
+        parent: {
+          id: 2,
+        }
+      }
+    } } };
     expect(nodes(initialState, action)).toMatchSnapshot();
   });
 

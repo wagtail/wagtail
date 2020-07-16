@@ -2,12 +2,12 @@
 
 exports[`Explorer renders 1`] = `
 <Explorer
+  depth={0}
+  gotoPage={[Function]}
   isVisible={false}
   nodes={Object {}}
   onClose={[Function]}
-  path={Array []}
-  popPage={[Function]}
-  pushPage={[Function]}
+  page={null}
   store={
     Object {
       "dispatch": [Function],
@@ -44,6 +44,8 @@ exports[`Explorer renders 2`] = `<Connect(Explorer) />`;
 
 exports[`Explorer visible 1`] = `
 <Explorer
+  depth={0}
+  gotoPage={[Function]}
   isVisible={true}
   nodes={
     Object {
@@ -55,17 +57,12 @@ exports[`Explorer visible 1`] = `
         "data": null,
         "isError": false,
         "isFetching": true,
+        "parent": null,
       },
     }
   }
   onClose={[Function]}
-  path={
-    Array [
-      1,
-    ]
-  }
-  popPage={[Function]}
-  pushPage={[Function]}
+  page={1}
   store={
     Object {
       "dispatch": [Function],
@@ -100,6 +97,8 @@ exports[`Explorer visible 1`] = `
 
 exports[`Explorer visible 2`] = `
 <ExplorerPanel
+  depth={0}
+  gotoPage={[Function]}
   nodes={
     Object {
       "1": Object {
@@ -110,6 +109,7 @@ exports[`Explorer visible 2`] = `
         "data": null,
         "isError": false,
         "isFetching": true,
+        "parent": null,
       },
     }
   }
@@ -123,14 +123,8 @@ exports[`Explorer visible 2`] = `
       "data": null,
       "isError": false,
       "isFetching": true,
+      "parent": null,
     }
   }
-  path={
-    Array [
-      1,
-    ]
-  }
-  popPage={[Function]}
-  pushPage={[Function]}
 />
 `;

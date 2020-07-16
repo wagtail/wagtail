@@ -1,6 +1,7 @@
 const defaultState = {
   isVisible: false,
-  path: [],
+  depth: 0,
+  page: null,
 };
 
 /**
@@ -14,22 +15,18 @@ export default function explorer(prevState = defaultState, { type, payload }) {
     // Provide a starting page when opening the explorer.
     return {
       isVisible: true,
-      path: [payload.id],
+      depth: 0,
+      page: payload.id,
     };
 
   case 'CLOSE_EXPLORER':
     return defaultState;
 
-  case 'PUSH_PAGE':
+  case 'GOTO_PAGE':
     return {
       isVisible: prevState.isVisible,
-      path: prevState.path.concat([payload.id]),
-    };
-
-  case 'POP_PAGE':
-    return {
-      isVisible: prevState.isVisible,
-      path: prevState.path.slice(0, -1),
+      depth: prevState.depth + payload.transition,
+      page: payload.id,
     };
 
   default:

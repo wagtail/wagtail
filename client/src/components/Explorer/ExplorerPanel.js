@@ -30,8 +30,8 @@ class ExplorerPanel extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const { path } = this.props;
-    const isPush = newProps.path.length > path.length;
+    const { depth } = this.props;
+    const isPush = newProps.depth > depth;
 
     this.setState({
       transition: isPush ? PUSH : POP,
@@ -70,23 +70,22 @@ class ExplorerPanel extends React.Component {
   }
 
   onItemClick(id, e) {
-    const { pushPage } = this.props;
+    const { gotoPage } = this.props;
 
     e.preventDefault();
     e.stopPropagation();
 
-    pushPage(id);
+    gotoPage(id, 1);
   }
 
   onHeaderClick(e) {
-    const { path, popPage } = this.props;
-    const hasBack = path.length > 1;
+    const { page, gotoPage } = this.props;
 
-    if (hasBack) {
+    if (page.parent) {
       e.preventDefault();
       e.stopPropagation();
 
-      popPage();
+      gotoPage(page.parent, -1);
     }
   }
 
@@ -132,7 +131,7 @@ class ExplorerPanel extends React.Component {
   }
 
   render() {
-    const { page, onClose, path } = this.props;
+    const { page, depth, onClose } = this.props;
     const { transition, paused } = this.state;
 
     return (
@@ -150,9 +149,8 @@ class ExplorerPanel extends React.Component {
           {STRINGS.CLOSE_EXPLORER}
         </Button>
         <Transition name={transition} className="c-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
-          <div key={path.length} className="c-transition-group">
+          <div key={depth} className="c-transition-group">
             <ExplorerHeader
-              depth={path.length}
               page={page}
               onClick={this.onHeaderClick}
             />
@@ -171,7 +169,6 @@ class ExplorerPanel extends React.Component {
 
 ExplorerPanel.propTypes = {
   nodes: PropTypes.object.isRequired,
-  path: PropTypes.array.isRequired,
   page: PropTypes.shape({
     isFetching: PropTypes.bool,
     children: PropTypes.shape({
@@ -179,9 +176,9 @@ ExplorerPanel.propTypes = {
       items: PropTypes.array,
     }),
   }).isRequired,
+  depth: PropTypes.number.isRequired,
   onClose: PropTypes.func.isRequired,
-  popPage: PropTypes.func.isRequired,
-  pushPage: PropTypes.func.isRequired,
+  gotoPage: PropTypes.func.isRequired,
 };
 
 export default ExplorerPanel;

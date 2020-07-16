@@ -1,6 +1,7 @@
 const defaultPageState = {
   isFetching: false,
   isError: false,
+  parent: null,
   children: {
     items: [],
     count: 0,
@@ -19,6 +20,7 @@ const node = (state = defaultPageState, { type, payload }) => {
   case 'GET_PAGE_SUCCESS':
     return Object.assign({}, state, {
       isError: false,
+      parent: (payload.data.meta.parent && payload.data.meta.parent.id) || null,
       data: payload.data,
     });
 
@@ -73,7 +75,7 @@ export default function nodes(state = defaultState, { type, payload }) {
     });
 
     payload.items.forEach((item) => {
-      newState[item.id] = Object.assign({}, defaultPageState, { data: item });
+      newState[item.id] = Object.assign({}, defaultPageState, { data: item, parent: payload.id });
     });
 
     return newState;

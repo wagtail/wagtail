@@ -8,45 +8,40 @@ import ExplorerPanel from './ExplorerPanel';
 
 const Explorer = ({
   isVisible,
+  page,
   nodes,
-  path,
-  pushPage,
-  popPage,
+  depth,
+  gotoPage,
   onClose,
-}) => {
-  const page = nodes[path[path.length - 1]];
-
-  return isVisible ? (
-    <ExplorerPanel
-      path={path}
-      page={page}
-      nodes={nodes}
-      onClose={onClose}
-      popPage={popPage}
-      pushPage={pushPage}
-    />
-  ) : null;
-};
+}) => (isVisible ? (
+  <ExplorerPanel
+    page={nodes[page]}
+    nodes={nodes}
+    depth={depth}
+    onClose={onClose}
+    gotoPage={gotoPage}
+  />
+) : null);
 
 Explorer.propTypes = {
   isVisible: PropTypes.bool.isRequired,
-  path: PropTypes.array.isRequired,
+  page: PropTypes.number.isRequired,
   nodes: PropTypes.object.isRequired,
+  depth: PropTypes.number.isRequired,
 
-  pushPage: PropTypes.func.isRequired,
-  popPage: PropTypes.func.isRequired,
+  gotoPage: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isVisible: state.explorer.isVisible,
-  path: state.explorer.path,
+  page: state.explorer.page,
   nodes: state.nodes,
+  depth: state.explorer.depth,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  pushPage: (id) => dispatch(actions.pushPage(id)),
-  popPage: () => dispatch(actions.popPage()),
+  gotoPage: (id, transition) => dispatch(actions.gotoPage(id, transition)),
   onClose: () => dispatch(actions.closeExplorer()),
 });
 

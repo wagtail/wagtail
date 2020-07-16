@@ -10,6 +10,7 @@ Object {
     "data": null,
     "isError": true,
     "isFetching": false,
+    "parent": null,
   },
 }
 `;
@@ -24,6 +25,7 @@ Object {
     "data": null,
     "isError": false,
     "isFetching": true,
+    "parent": null,
   },
 }
 `;
@@ -42,6 +44,7 @@ Object {
     "data": null,
     "isError": false,
     "isFetching": false,
+    "parent": null,
   },
   "3": Object {
     "children": Object {
@@ -53,6 +56,7 @@ Object {
     },
     "isError": false,
     "isFetching": false,
+    "parent": 1,
   },
   "4": Object {
     "children": Object {
@@ -64,6 +68,7 @@ Object {
     },
     "isError": false,
     "isFetching": false,
+    "parent": 1,
   },
   "5": Object {
     "children": Object {
@@ -75,6 +80,7 @@ Object {
     },
     "isError": false,
     "isFetching": false,
+    "parent": 1,
   },
 }
 `;
@@ -89,6 +95,7 @@ Object {
     "data": null,
     "isError": true,
     "isFetching": false,
+    "parent": null,
   },
 }
 `;
@@ -100,9 +107,16 @@ Object {
       "count": 0,
       "items": Array [],
     },
-    "data": Object {},
+    "data": Object {
+      "meta": Object {
+        "parent": Object {
+          "id": 2,
+        },
+      },
+    },
     "isError": false,
     "isFetching": false,
+    "parent": 2,
   },
 }
 `;
@@ -117,6 +131,7 @@ Object {
     "data": null,
     "isError": false,
     "isFetching": false,
+    "parent": null,
   },
 }
 `;
