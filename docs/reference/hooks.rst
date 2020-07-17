@@ -1044,7 +1044,6 @@ Audit log
 
     .. code-block:: python
 
-        from django.utils.text import format_lazy
         from django.utils.translation import gettext_lazy as _
 
         from wagtail.core import hooks
@@ -1054,8 +1053,7 @@ Audit log
             actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
 
             def callback_message(data):
-                return format_lazy(
-                    _('Hello {audience}'),
-                    audience=data['audience'],
-                )
+                return _('Hello {audience}') % {
+                    'audience': data['audience'],
+                }
             actions.register_action('wagtail_package.with_callback', _('Callback'), callback_message)
