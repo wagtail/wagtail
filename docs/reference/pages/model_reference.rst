@@ -522,6 +522,7 @@ Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: Workflow
+    :noindex:
 
     .. automethod:: start
 
@@ -580,6 +581,7 @@ Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: WorkflowState
+    :noindex:
 
     .. attribute:: STATUS_CHOICES
 
@@ -635,6 +637,7 @@ Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: Task
+    :noindex:
 
     .. attribute:: task_state_class
 
@@ -642,7 +645,7 @@ Methods and properties
 
     .. automethod:: get_verbose_name
 
-    .. automethod:: specific
+    .. autoattribute:: specific
 
     .. automethod:: start
 
@@ -719,6 +722,7 @@ Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: TaskState
+    :noindex:
 
     .. attribute:: STATUS_CHOICES
 
@@ -729,13 +733,13 @@ Methods and properties
 
         A list of fields not to copy when the ``TaskState.copy()`` method is called.
 
-    .. automethod:: specific
+    .. autoattribute:: specific
 
     .. automethod:: approve
 
     .. automethod:: reject
 
-    .. automethod:: task_type_started_at
+    .. autoattribute:: task_type_started_at
 
     .. automethod:: cancel
 
@@ -842,14 +846,15 @@ Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. class:: BaseLogEntry
+    :noindex:
 
-    .. automethod:: username
+    .. autoattribute:: username
 
-    .. automethod:: data
+    .. autoattribute:: data
 
-    .. automethod:: comment
+    .. autoattribute:: comment
 
-    .. automethod:: object_verbose_name
+    .. autoattribute:: object_verbose_name
 
     .. automethod:: object_id
 
