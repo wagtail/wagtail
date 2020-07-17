@@ -106,6 +106,12 @@ In previous releases, rich text values were enclosed in a ``<div class="rich-tex
 To restore the old behaviour, see :ref:`legacy_richtext`.
 
 
+Prepopulating data for site history report
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release introduces logging of user actions, viewable through the "Site history" report. To pre-populate these logs with data from page revision history, run the management command: ``./manage.py create_log_entries_from_revisions``.
+
+
 Move to new configurable moderation system (workflow)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
