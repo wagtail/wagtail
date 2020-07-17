@@ -589,6 +589,8 @@ Hooks for customising the way users are directed through the process of creating
   :label: the displayed text of the menu item
   :get_url: a method which returns a URL for the menu item to link to; by default, returns ``None`` which causes the menu item to behave as a form submit button instead
   :name: value of the ``name`` attribute of the submit button, if no URL is specified
+  :icon_name: icon to display against the menu item
+  :classname: a ``class`` attribute value to add to the button element
   :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
   :template: path to a template to render to produce the menu item HTML
   :get_context: a method that returns a context dictionary to pass to the template
