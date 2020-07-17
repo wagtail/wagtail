@@ -122,6 +122,22 @@ class TestWorkflows(TestCase):
         self.assertEqual(task_state.started_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
         self.assertEqual(task_state.finished_at, None)
 
+    @override_settings(WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH=True)
+    def test_publishing_page_cancels_workflow_when_cancel_on_publish_true(self):
+        data = self.start_workflow_on_homepage()
+        data['page'].get_latest_revision().publish()
+        workflow_state = data['workflow_state']
+        workflow_state.refresh_from_db()
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
+
+    @override_settings(WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH=False)
+    def test_publishing_page_does_not_cancel_workflow_when_cancel_on_publish_false(self):
+        data = self.start_workflow_on_homepage()
+        data['page'].get_latest_revision().publish()
+        workflow_state = data['workflow_state']
+        workflow_state.refresh_from_db()
+        self.assertEqual(workflow_state.status, WorkflowState.STATUS_IN_PROGRESS)
+
     def test_error_when_starting_multiple_in_progress_workflows(self):
         # test trying to start multiple status='in_progress' workflows on a single page will trigger an IntegrityError
         self.start_workflow_on_homepage()

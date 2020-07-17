@@ -556,3 +556,9 @@ set ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False``.
 
 This sets the function to be called when a workflow completes successfully - by default, ``wagtail.core.workflows.publish_workflow_state``,
 which publishes the page. The function must accept a ``WorkflowState`` object as its only positional argument.
+
+.. code-block:: python
+
+  WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH = True
+
+This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).

@@ -2067,6 +2067,10 @@ class PageRevision(models.Model):
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
+        workflow_state = page.current_workflow_state
+        if workflow_state and getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True):
+            workflow_state.cancel(user=user)
+
         if page.live:
             page_published.send(sender=page.specific_class, instance=page.specific, revision=self)
 

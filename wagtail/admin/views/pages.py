@@ -746,6 +746,7 @@ def edit(request, page_id):
         'current_task_state': page.current_workflow_task_state,
         'workflow_tasks': workflow_tasks,
         'current_task_number': current_task_number,
+        'publishing_will_cancel_workflow': workflow_tasks and getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True)
     })
 
 
@@ -1358,6 +1359,24 @@ def workflow_action(request, page_id, action_name, task_state_id):
             },
             json_data={'step': 'action'}
         )
+
+
+def confirm_workflow_cancellation(request, page_id):
+    """Provides a modal view to confirm that the user wants to publish the page even though it will cancel the current workflow"""
+    page = get_object_or_404(Page, id=page_id)
+    workflow_state = page.current_workflow_state
+
+    if (not workflow_state) or not getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True):
+        return render_modal_workflow(request, '', None, {}, json_data={'step': 'no_confirmation_needed'})
+
+    return render_modal_workflow(
+        request, 'wagtailadmin/pages/confirm_workflow_cancellation.html', None, {
+            'needs_changes': workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES,
+            'task': workflow_state.current_task_state.task.name,
+            'workflow': workflow_state.workflow.name,
+        },
+        json_data={'step': 'confirm'}
+    )
 
 
 @require_GET
