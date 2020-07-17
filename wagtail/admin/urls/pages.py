@@ -26,6 +26,7 @@ urlpatterns = [
     path('<int:page_id>/copy/', pages.copy, name='copy'),
 
     path('workflow/action/<int:page_id>/<slug:action_name>/<int:task_state_id>/', pages.workflow_action, name='workflow_action'),
+    path('workflow/confirm_cancellation/<int:page_id>/', pages.confirm_workflow_cancellation, name='confirm_workflow_cancellation'),
     path('workflow/preview/<int:page_id>/<int:task_id>/', pages.preview_revision_for_task, name='workflow_preview'),
     path('workflow/status/<int:page_id>/', pages.workflow_status, name='workflow_status'),
 
