@@ -1,6 +1,7 @@
 from datetime import timedelta
 from time import time
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
@@ -429,6 +430,10 @@ def edit(request, page_id):
 
     # Show current workflow state if set, default to last workflow state
     workflow_state = page.current_workflow_state or page.workflow_states.order_by('created_at').last()
+    if workflow_state:
+        workflow_tasks = workflow_state.all_tasks_with_status()
+    else:
+        workflow_tasks = []
 
     errors_debug = None
 
@@ -713,6 +718,7 @@ def edit(request, page_id):
         'page_locked': page_perms.page_locked(),
         'workflow_state': workflow_state if workflow_state and workflow_state.is_active else None,
         'current_task_state': page.current_workflow_task_state,
+        'publishing_will_cancel_workflow': workflow_tasks and getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True)
     })
 
 
@@ -1325,6 +1331,24 @@ def workflow_action(request, page_id, action_name, task_state_id):
             },
             json_data={'step': 'action'}
         )
+
+
+def confirm_workflow_cancellation(request, page_id):
+    """Provides a modal view to confirm that the user wants to publish the page even though it will cancel the current workflow"""
+    page = get_object_or_404(Page, id=page_id)
+    workflow_state = page.current_workflow_state
+
+    if (not workflow_state) or not getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True):
+        return render_modal_workflow(request, '', None, {}, json_data={'step': 'no_confirmation_needed'})
+
+    return render_modal_workflow(
+        request, 'wagtailadmin/pages/confirm_workflow_cancellation.html', None, {
+            'needs_changes': workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES,
+            'task': workflow_state.current_task_state.task.name,
+            'workflow': workflow_state.workflow.name,
+        },
+        json_data={'step': 'confirm'}
+    )
 
 
 @require_GET

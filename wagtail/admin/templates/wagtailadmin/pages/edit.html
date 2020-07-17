@@ -108,6 +108,39 @@
     {{ edit_handler.html_declarations }}
 
     <script>
+        {% if publishing_will_cancel_workflow %}
+        $(function() {
+            /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
+            let cancellationConfirmed = false;
+            $('[name=action-publish]').click((e) => {
+                if (!cancellationConfirmed) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    ModalWorkflow({
+                    'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
+                    'onload': {
+                        'confirm': function(modal, jsonData) {
+                            $('[data-confirm-cancellation]', modal.body).click((event) => {
+                                cancellationConfirmed = true;
+                                modal.close();
+                                e.currentTarget.click();
+                            })
+                            $('[data-cancel-dialog]', modal.body).click((event) => {
+                                modal.close();
+                            })
+                        },
+                        'no_confirmation_needed': function(modal, jsonData) {
+                            modal.close();
+                            cancellationConfirmed = true;
+                            e.currentTarget.click();
+                        }
+                    },
+                });
+                }
+                });
+        });
+        {% endif %}
+
         $(function() {
             /* Make user confirm before leaving the editor if there are unsaved changes */
             {% trans "This page has unsaved changes." as confirmation_message %}
