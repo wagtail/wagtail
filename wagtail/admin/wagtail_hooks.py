@@ -1,6 +1,5 @@
 from django.contrib.auth.models import Permission
 from django.urls import reverse
-from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext
 from draftjs_exporter.dom import DOM
@@ -805,101 +804,90 @@ def register_core_log_actions(actions):
 
     def revert_message(data):
         try:
-            return format_lazy(
-                _('Reverted to previous revision with id {revision_id} from {created_at}'),
-                revision_id=data['revision']['id'],
-                created_at=data['revision']['created']
-            )
+            return _('Reverted to previous revision with id %(revision_id)s from %(created_at)s') % {
+                'revision_id': data['revision']['id'],
+                'created_at': data['revision']['created'],
+            }
         except KeyError:
             return _('Reverted to previous revision')
 
     def copy_message(data):
         try:
-            return format_lazy(
-                _('Copied from {title}'),
-                title=data['source']['title']
-            )
+            return _('Copied from %(title)s') % {
+                'title': data['source']['title'],
+            }
         except KeyError:
             return _("Copied")
 
     def move_message(data):
         try:
-            return format_lazy(
-                _("Moved from '{old_parent}' to '{new_parent}'"),
-                old_parent=data['source']['title'],
-                new_parent=data['destination']['title']
-            )
+            return _("Moved from '%(old_parent)s' to '%(new_parent)s'") % {
+                'old_parent': data['source']['title'],
+                'new_parent': data['destination']['title'],
+            }
         except KeyError:
             return _('Moved')
 
     def schedule_publish_message(data):
         try:
             if data['revision']['has_live_version']:
-                return format_lazy(
-                    _('Revision {revision_id} from {created_at} scheduled for publishing at {go_live_at}.'),
-                    revision_id=data['revision']['id'],
-                    created_at=data['revision']['created'],
-                    go_live_at=data['revision']['go_live_at']
-                )
+                return _('Revision %(revision_id)s from %(created_at)s scheduled for publishing at %(go_live_at)s.') % {
+                    'revision_id': data['revision']['id'],
+                    'created_at': data['revision']['created'],
+                    'go_live_at': data['revision']['go_live_at'],
+                }
             else:
-                return format_lazy(
-                    _('Page scheduled for publishing at {go_live_at}'),
-                    go_live_at=data['revision']['go_live_at']
-                )
+                return _('Page scheduled for publishing at %(go_live_at)s') % {
+                    'go_live_at': data['revision']['go_live_at'],
+                }
         except KeyError:
             return _('Page scheduled for publishing')
 
     def unschedule_publish_message(data):
         try:
             if data['revision']['has_live_version']:
-                return format_lazy(
-                    _('Revision {revision_id} from {created_at} unscheduled from publishing at {go_live_at}.'),
-                    revision_id=data['revision']['id'],
-                    created_at=data['revision']['created'],
-                    go_live_at=data['revision']['go_live_at']
-                )
+                return _('Revision %(revision_id)s from %(created_at)s unscheduled from publishing at %(go_live_at)s.') % {
+                    'revision_id': data['revision']['id'],
+                    'created_at': data['revision']['created'],
+                    'go_live_at': data['revision']['go_live_at'],
+                }
             else:
-                return format_lazy(
-                    _('Page unscheduled for publishing at {go_live_at}'),
-                    go_live_at=data['revision']['go_live_at']
-                )
+                return _('Page unscheduled for publishing at %(go_live_at)s') % {
+                    'go_live_at': data['revision']['go_live_at'],
+                }
         except KeyError:
             return _('Page unscheduled from publishing')
 
     def add_view_restriction(data):
         try:
-            return format_lazy(
-                _("Added the '{restriction}' view restriction"),
-                restriction=data['restriction']['title']
-            )
+            return _("Added the '%(restriction)s' view restriction") % {
+                'restriction': data['restriction']['title'],
+            }
         except KeyError:
             return _('Added view restriction')
 
     def edit_view_restriction(data):
         try:
-            return format_lazy(
-                _("Updated the view restriction to '{restriction}'"),
-                restriction=data['restriction']['title']
-            )
+            return _("Updated the view restriction to '%(restriction)s'") % {
+                'restriction': data['restriction']['title'],
+            }
         except KeyError:
             return _('Updated view restriction')
 
     def delete_view_restriction(data):
         try:
-            return format_lazy(
-                _("Removed the '{restriction}' view restriction"),
-                restriction=data['restriction']['title']
-            )
+            return _("Removed the '%(restriction)s' view restriction") % {
+                'restriction': data['restriction']['title'],
+            }
         except KeyError:
             return _('Removed view restriction')
 
     def rename_message(data):
         try:
-            return format_lazy(
-                _("Renamed from '{old}' to '{new}'"),
-                old=data['title']['old'],
-                new=data['title']['new'],
-            )
+            return _("Renamed from '%(old)s' to '%(new)s'") % {
+                'old': data['title']['old'],
+                'new': data['title']['new'],
+            }
         except KeyError:
             return _('Renamed')
 
@@ -918,56 +906,50 @@ def register_core_log_actions(actions):
 def register_workflow_log_actions(actions):
     def workflow_start_message(data):
         try:
-            return format_lazy(
-                _("'{workflow}' started. Next step '{task}'"),
-                workflow=data['workflow']['title'],
-                task=data['workflow']['next']['title'],
-            )
+            return _("'%(workflow)s' started. Next step '%(task)s'") % {
+                'workflow': data['workflow']['title'],
+                'task': data['workflow']['next']['title'],
+            }
         except (KeyError, TypeError):
             return _('Workflow started')
 
     def workflow_approve_message(data):
         try:
             if data['workflow']['next']:
-                return format_lazy(
-                    _("Approved at '{task}'. Next step '{next_task}'"),
-                    task=data['workflow']['task']['title'],
-                    next_task=data['workflow']['next']['title']
-                )
+                return _("Approved at '%(task)s'. Next step '%(next_task)s'") % {
+                    'task': data['workflow']['task']['title'],
+                    'next_task': data['workflow']['next']['title'],
+                }
             else:
-                return format_lazy(
-                    _("Approved at '{task}'. '{workflow}' complete"),
-                    task=data['workflow']['task']['title'],
-                    workflow=data['workflow']['title']
-                )
+                return _("Approved at '%(task)s'. '%(workflow)s' complete") % {
+                    'task': data['workflow']['task']['title'],
+                    'workflow': data['workflow']['title'],
+                }
         except (KeyError, TypeError):
             return _('Workflow task approved')
 
     def workflow_reject_message(data):
         try:
-            return format_lazy(
-                _("Rejected at '{task}'. Changes requested"),
-                task=data['workflow']['task']['title'],
-            )
+            return _("Rejected at '%(task)s'. Changes requested") % {
+                'task': data['workflow']['task']['title'],
+            }
         except (KeyError, TypeError):
             return _('Workflow task rejected. Workflow complete')
 
     def workflow_resume_message(data):
         try:
-            return format_lazy(
-                _("Resubmitted '{task}'. Workflow resumed'"),
-                task=data['workflow']['task']['title'],
-            )
+            return _("Resubmitted '%(task)s'. Workflow resumed'") % {
+                'task': data['workflow']['task']['title'],
+            }
         except (KeyError, TypeError):
             return _('Workflow task resubmitted. Workflow resumed')
 
     def workflow_cancel_message(data):
         try:
-            return format_lazy(
-                _("Cancelled '{workflow}' at '{task}'"),
-                workflow=data['workflow']['title'],
-                task=data['workflow']['task']['title'],
-            )
+            return _("Cancelled '%(workflow)s' at '%(task)s'") % {
+                'workflow': data['workflow']['title'],
+                'task': data['workflow']['task']['title'],
+            }
         except (KeyError, TypeError):
             return _('Workflow cancelled')
 

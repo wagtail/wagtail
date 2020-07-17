@@ -5,7 +5,6 @@ from django.forms import Media, MediaDefiningClass
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.core import hooks
@@ -316,7 +315,7 @@ class PageActionMenu:
                     icon_name = 'edit'
                     if name == "approve":
                         if is_final_task:
-                            label = format_lazy(_("{label} and Publish"), label=label)
+                            label = _("%(label)s and Publish") % {'label': label}
                         icon_name = 'success'
 
                     item = WorkflowMenuItem(name, label, launch_modal, icon_name=icon_name)
