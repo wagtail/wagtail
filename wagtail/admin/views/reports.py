@@ -383,7 +383,8 @@ class LogEntriesView(ReportView):
         q = Q(
             page__in=UserPagePermissionsProxy(self.request.user).explorable_pages().values_list('pk', flat=True)
         )
-        root_page_permissions = Site.find_for_request(self.request).root_page.permissions_for_user(self.request.user)
+
+        root_page_permissions = Page.get_first_root_node().permissions_for_user(self.request.user)
         if (
             self.request.user.is_superuser
             or root_page_permissions.can_add_subpage() or root_page_permissions.can_edit()
