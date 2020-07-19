@@ -818,13 +818,6 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         self.assertIn('value="Very nice image"', response_json['html'])
         self.assertIn("Page 2 of 2", response_json['html'])
 
-        # response_json = json.loads(response.content.decode())
-        # self.assertEqual(response_json['step'], 'chooser')
-        # self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
-
-        # # draftail should NOT be a standard JS include on this page
-        # self.assertNotIn('wagtailadmin/js/draftail.js', response_json['html'])
-
 
 class TestImageChooserChosenView(TestCase, WagtailTestUtils):
     def setUp(self):
