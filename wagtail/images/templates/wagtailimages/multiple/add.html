@@ -27,14 +27,17 @@
                 </div>
                 {% csrf_token %}
                 {% if collections %}
-                    <div class="field">
+                    <div class="field choice_field select">
                         <label for="id_addimage_collection">{% trans "Add to collection:" %}</label>
                         <div class="field-content">
-                            <select id="id_addimage_collection" name="collection">
-                                {% for collection in collections %}
-                                    <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
-                                {% endfor %}
-                            </select>
+                            <div class="input">
+                                <select id="id_addimage_collection" name="collection">
+                                    {% for collection in collections %}
+                                        <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <span></span>
+                            </div>
                         </div>
                     </div>
                 {% endif %}
