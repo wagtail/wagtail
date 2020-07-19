@@ -1,0 +1,3 @@
+{% load wagtailadmin_tags %}
+
+{% icons %}
