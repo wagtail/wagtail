@@ -37,6 +37,7 @@ install_requires = [
     "l18n>=2018.5",
     "xlsxwriter>=1.2.8,<2.0",
     "tablib[xls,xlsx]>=0.14.0",
+    "anyascii>=0.1.5",
 ]
 
 # Testing dependencies

@@ -1,14 +1,13 @@
 import inspect
 import re
 import unicodedata
+from anyascii import anyascii
 
 from django.apps import apps
 from django.conf import settings
 from django.db.models import Model
 from django.utils.encoding import force_str
 from django.utils.text import slugify
-
-from unidecode import unidecode
 
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
 
@@ -21,11 +20,9 @@ def camelcase_to_underscore(str):
 def string_to_ascii(value):
     """
     Convert a string to ascii.
-    Note: Conversion relies on unidecode, to be replaced in a future release.
-    Important: Consider AbstractFormField _migrate_legacy_clean_name before replcaing unidecode.
     """
 
-    return str(unidecode(value))
+    return str(anyascii(value))
 
 
 def resolve_model_string(model_string, default_app=None):
