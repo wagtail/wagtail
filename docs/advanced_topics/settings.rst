@@ -663,7 +663,7 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
 Form builder
 ============
 
-.. versionadded:: 2.7.5/2.9.3
+.. versionadded:: 2.7.4/2.9.3
 
     The ``WAGTAILFORMS_HELP_TEXT_ALLOW_HTML`` option was added.
 
