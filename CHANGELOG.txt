@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.7.4 (20.07.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-15118 - prevent HTML injection through form field help text (Timothy Bautista, Matt Westcott)
+ * Fix: Expand Pillow dependency range to include 7.x (Harris Lapiroff, Matt Westcott)
+
+
 2.7.3 (04.05.2020)
 ~~~~~~~~~~~~~~~~~~
 
