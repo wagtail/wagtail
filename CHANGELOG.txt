@@ -72,6 +72,12 @@ Changelog
  * Fix: Image / document forms now display non-field errors such as `unique_together` constraints (Matt Westcott)
 
 
+2.9.3 (20.07.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-15118 - prevent HTML injection through form field help text (Timothy Bautista, Matt Westcott)
+
+
 2.9.2 (03.07.2020)
 ~~~~~~~~~~~~~~~~~~
 
