@@ -473,6 +473,7 @@ Contributors
 * Steven Wood
 * Gabriel Peracio
 * Jesse Menn
+* Robbie Mackay
 
 Translators
 ===========

@@ -17,6 +17,7 @@ Other features
  * Add ``register_snippet_listing_buttons`` and ``construct_snippet_listing_buttons`` hooks and documentation (Karl Hobley. Sponsored by the Mozilla Foundation)
  * Add ``wagtail --version`` to available Wagtail CLI commands (Kalob Taulien)
  * Add ``hooks.register_temporarily`` utility function for testing hooks (Karl Hobley. Sponsored by the Mozilla Foundation)
+ * Remove unidecode and use anyascii in for Unicode to ASCII conversion (Robbie Mackay)
 
 
 Bug fixes

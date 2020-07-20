@@ -31,12 +31,16 @@ install_requires = [
     "Pillow>=4.0.0,<8.0.0",
     "beautifulsoup4>=4.8,<4.9",
     "html5lib>=0.999,<2",
+    # RemovedInWagtail212Warning: unidecode is only used by _migrate_legacy_clean_name in wagtail.contrib.forms
+    # and will be made a non-default dependency once enough time has passed from the 2.10 release to allow old
+    # data to be migrated.
     "Unidecode>=0.04.14,<2.0",
     "Willow>=1.4,<1.5",
     "requests>=2.11.1,<3.0",
     "l18n>=2018.5",
     "xlsxwriter>=1.2.8,<2.0",
     "tablib[xls,xlsx]>=0.14.0",
+    "anyascii>=0.1.5",
 ]
 
 # Testing dependencies

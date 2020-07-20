@@ -24,14 +24,14 @@ class TestStringToAscii(TestCase):
     def test_string_to_ascii(self):
         test_cases = [
             (u'30 \U0001d5c4\U0001d5c6/\U0001d5c1', '30 km/h'),
-            (u'\u5317\u4EB0', 'Bei Jing '),
+            (u'\u5317\u4EB0', 'BeiJing'),
             ('ぁ あ ぃ い ぅ う ぇ', 'a a i i u u e'),
-            ('Ա Բ Գ Դ Ե Զ Է Ը Թ Ժ Ի Լ Խ Ծ Կ Հ Ձ Ղ Ճ Մ Յ Ն', 'A B G D E Z E E T` Zh I L Kh Ts K H Dz Gh Ch M Y N'),
+            ('Ա Բ Գ Դ Ե Զ Է Ը Թ Ժ Ի Լ Խ Ծ Կ Հ Ձ Ղ Ճ Մ Յ Ն', 'A B G D E Z E Y T\' Zh I L Kh Ts K H Dz Gh Ch M Y N'),
             ('Спорт!', 'Sport!'),
             ('Straßenbahn', 'Strassenbahn'),
             ('Hello world', 'Hello world'),
             ('Ā ā Ă ă Ą ą Ć ć Ĉ ĉ Ċ ċ Č č Ď ď Đ', 'A a A a A a C c C c C c C c D d D'),
-            ('〔山脈〕', '[Shan Mo ] '),
+            ('〔山脈〕', '[ShanMai]'),
         ]
 
         for (original, expected_result) in test_cases:
