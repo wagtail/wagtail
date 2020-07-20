@@ -44,7 +44,7 @@ class TestFormSubmission(TestCase):
     def test_label_escaping(self):
         FormField.objects.filter(label="Your message").update(label="Your <em>wonderful</em> message")
         response = self.client.get('/contact-us/')
-        self.assertContains(response, """<label for="id_your-emwonderfulem-message">Your &lt;em&gt;wonderful&lt;/em&gt; message</label>""")
+        self.assertContains(response, """<label for="id_your_message">Your &lt;em&gt;wonderful&lt;/em&gt; message</label>""")
 
     def test_post_invalid_form(self):
         response = self.client.post('/contact-us/', {
