@@ -12,6 +12,7 @@ import PublicationStatus from './components/PublicationStatus/PublicationStatus'
 import Transition from './components/Transition/Transition';
 import { initFocusOutline } from './utils/focus';
 import { initSubmenus } from './includes/initSubmenus';
+import { initSkipLink } from './includes/initSkipLink';
 import { initUpgradeNotification } from './components/UpgradeNotification';
 
 export {
@@ -26,5 +27,6 @@ export {
   initExplorer,
   initFocusOutline,
   initSubmenus,
+  initSkipLink,
   initUpgradeNotification,
 };
