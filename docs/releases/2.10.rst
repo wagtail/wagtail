@@ -96,6 +96,7 @@ Bug fixes
  * Image / document forms now display non-field errors such as ``unique_together`` constraints (Matt Westcott)
  * Make "Site" chooser in site settings translateable (Andreas Bernacca)
  * Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
+ * Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
 
 
 Upgrade considerations
