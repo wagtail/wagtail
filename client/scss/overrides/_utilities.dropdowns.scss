@@ -21,6 +21,7 @@
 
 // }
 .t-default .u-btn-current {
+    background: $color-white;
     border-color: rgba(0, 0, 0, 0.15);
     color: $color-teal;
 }
@@ -38,6 +39,7 @@
 }
 
 .t-inverted .u-btn-current {
+    background: $color-teal;
     border-color: rgba(0, 0, 0, 0.35);
     color: #fff;
 }

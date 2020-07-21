@@ -95,6 +95,10 @@ ul.listing {
                 border-top: 1px dashed $color-input-border;
             }
 
+            &:last-child {
+                border-bottom: 1px dashed $color-input-border;
+            }
+
             &:hover {
                 background-color: #fcfcfc;
             }
@@ -365,8 +369,14 @@ ul.listing {
         padding-left: 20px;
     }
 
-    .unpublished .title-wrapper {
-        opacity: 0.7;
+    .unpublished {
+        background: #fff url('#{$images-root}bg-dark-diag.svg');
+
+        .status-tag {
+            color: $color-grey-2;
+            border: 1px solid $color-grey-2;
+            background: #fff;
+        }
     }
 
     .index {
@@ -544,7 +554,6 @@ table.listing {
 
 .listing.full-width + .pagination {
     margin-top: 3em;
-    border-top: 1px dashed #d9d9d9;
     padding: 2em 50px 0;
 }
 
