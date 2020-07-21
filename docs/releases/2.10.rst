@@ -97,6 +97,7 @@ Bug fixes
  * Make "Site" chooser in site settings translateable (Andreas Bernacca)
  * Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
  * Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
+ * Fix group permission checkboxes not being clickable in IE11 (LB (Ben Johnston))
 
 
 Upgrade considerations

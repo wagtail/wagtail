@@ -74,6 +74,7 @@ Changelog
  * Fix: Make "Site" chooser in site settings translateable (Andreas Bernacca)
  * Fix: Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
  * Fix: Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
+ * Fix: Fix group permission checkboxes not being clickable in IE11 (LB (Ben Johnston))
 
 
 2.9.3 (20.07.2020)
