@@ -51,7 +51,7 @@ def create_default_workflows(apps, schema_editor):
             # if no such task exists, create it
             group_names = ' '.join([group.name for group in groups])
             task = GroupApprovalTask.objects.create(
-                name=group_names + " Approval",
+                name=group_names + " approval",
                 content_type=group_approval_content_type,
                 active=True,
             )
@@ -61,7 +61,7 @@ def create_default_workflows(apps, schema_editor):
         workflow = Workflow.objects.annotate(task_number=Count('workflow_tasks')).filter(task_number=1).filter(workflow_tasks__task=task).filter(active=True).first()
         if not workflow:
             workflow = Workflow.objects.create(
-                name=task.name + " Workflow",
+                name=task.name,
                 active=True
             )
 
