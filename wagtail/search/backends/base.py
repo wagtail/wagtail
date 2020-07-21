@@ -299,6 +299,7 @@ class BaseSearchBackend:
     autocomplete_query_compiler_class = None
     results_class = None
     rebuilder_class = None
+    catch_indexing_errors = False
 
     def __init__(self, params):
         pass
