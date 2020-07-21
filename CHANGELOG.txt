@@ -52,6 +52,7 @@ Changelog
  * Deprecate use of unidecode within form builder field names (Michael van Tellingen, LB (Ben Johnston))
  * Improve error feedback when editing a page with a missing model class (Andy Babic)
  * Change Wagtail tabs implementation to only allow slug-formatted tab identifiers, reducing false positives from security audits (Matt Westcott)
+ * Add skip link for keyboard users to bypass Wagtail navigation in the admin (Martin Coote)
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)
