@@ -162,7 +162,7 @@ class Index:
     def refresh(self):
         pass
 
-    def _refresh_title_norms(self):
+    def _refresh_title_norms(self, full=False):
         """
         Refreshes the value of the title_norm field.
 
@@ -171,8 +171,21 @@ class Index:
          - ld is the length of the title field in this document (in terms)
         """
 
-        lavg = self.entries.annotate(title_length=Length('title')).aggregate(Avg('title_length'))['title_length__avg']
-        self.entries.annotate(title_length=Length('title')).filter(title_length__gt=0).update(title_norm=lavg / F('title_length'))
+        lavg = self.entries.annotate(title_length=Length('title')).filter(title_length__gt=0).aggregate(Avg('title_length'))['title_length__avg']
+
+        if full:
+            # Update the whole table
+            # This is the most accurate option but requires a full table rewrite
+            # so we can't do it too often as it could lead to locking issues.
+            entries = self.entries
+
+        else:
+            # Only update entries where title_norm is 1.0
+            # This is the default value set on new entries.
+            # It's possible that other entries could have this exact value but there shouldn't be too many of those
+            entries = self.entries.filter(title_norm=1.0)
+
+        entries.annotate(title_length=Length('title')).filter(title_length__gt=0).update(title_norm=lavg / F('title_length'))
 
     def delete_stale_model_entries(self, model):
         existing_pks = (
@@ -236,6 +249,7 @@ class Index:
                 (VALUES %s)
                 ON CONFLICT (content_type_id, object_id)
                 DO UPDATE SET title = EXCLUDED.title,
+                              title_norm = 1.0,
                               autocomplete = EXCLUDED.autocomplete,
                               body = EXCLUDED.body
                 """ % (IndexEntry._meta.db_table, data_sql), data_params)
@@ -608,7 +622,7 @@ class PostgresSearchRebuilder:
         return self.index
 
     def finish(self):
-        pass
+        self.index._refresh_title_norms(full=True)
 
 
 class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
@@ -623,6 +637,8 @@ class PostgresSearchAtomicRebuilder(PostgresSearchRebuilder):
         return super().start()
 
     def finish(self):
+        self.index._refresh_title_norms(full=True)
+
         self.transaction.__exit__(None, None, None)
         self.transaction_opened = False
 
