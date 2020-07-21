@@ -73,6 +73,7 @@ Changelog
  * Fix: Image / document forms now display non-field errors such as `unique_together` constraints (Matt Westcott)
  * Fix: Make "Site" chooser in site settings translateable (Andreas Bernacca)
  * Fix: Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
+ * Fix: Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
 
 
 2.9.3 (20.07.2020)
