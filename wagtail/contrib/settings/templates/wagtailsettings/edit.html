@@ -16,12 +16,17 @@
             </div>
             <div class="right">
                 {% if site_switcher %}
-                <form method="get" id="settings-site-switch" novalidate>
-                    <label for="{{ site_switcher.site.id_for_label }}">
-                        Site:
-                    </label>
-                    {{ site_switcher.site }}
-                </form>
+                <div class="field choice_field">
+                    <form method="get" class="setting-site-switch-form" id="settings-site-switch" novalidate>
+                        <label for="{{ site_switcher.site.id_for_label }}">
+                            {% trans "Site" %}:
+                        </label>
+                        <div class="input">
+                            {{ site_switcher.site }}
+                            <span></span>
+                        </div>
+                    </form>
+                </div>
                 {% endif %}
             </div>
         </div>
