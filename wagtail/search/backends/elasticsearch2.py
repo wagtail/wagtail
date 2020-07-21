@@ -1006,6 +1006,7 @@ class Elasticsearch2SearchBackend(BaseSearchBackend):
     mapping_class = Elasticsearch2Mapping
     basic_rebuilder_class = ElasticsearchIndexRebuilder
     atomic_rebuilder_class = ElasticsearchAtomicIndexRebuilder
+    catch_indexing_errors = True
 
     settings = {
         'settings': {
