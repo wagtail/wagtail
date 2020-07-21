@@ -24,7 +24,8 @@ from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
-from wagtail.core.permissions import collection_permission_policy, workflow_permission_policy
+from wagtail.core.permissions import (
+    collection_permission_policy, task_permission_policy, workflow_permission_policy)
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
@@ -111,6 +112,13 @@ class WorkflowsMenuItem(MenuItem):
         )
 
 
+class WorkflowTasksMenuItem(MenuItem):
+    def is_shown(self, request):
+        return task_permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
+
+
 @hooks.register('register_settings_menu_item')
 def register_workflows_menu_item():
     return WorkflowsMenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), icon_name='tasks', order=100)
@@ -118,7 +126,7 @@ def register_workflows_menu_item():
 
 @hooks.register('register_settings_menu_item')
 def register_workflow_tasks_menu_item():
-    return MenuItem(_('Workflow tasks'), reverse('wagtailadmin_workflows:task_index'), icon_name='thumbtack', order=150)
+    return WorkflowTasksMenuItem(_('Workflow tasks'), reverse('wagtailadmin_workflows:task_index'), icon_name='thumbtack', order=150)
 
 
 @hooks.register('register_page_listing_buttons')
