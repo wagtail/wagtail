@@ -538,32 +538,40 @@ def icons():
 
 
 @register.simple_tag
-def format_collection(col: Collection, permitted: QuerySet = None) -> str:
+def format_collection(coll: Collection, min_depth: int = 2) -> str:
     """
     Renders a given Collection's name as a formatted string that displays its
-    hierachrical depth via indenation. If a filtered queryset is supplied,
-    the Collection's depth relative to that queryset is used.
+    hierarchical depth via indentation. If min_depth is supplied, the
+    Collection's depth is rendered relative to that depth. min_depth defaults
+    to 2, the depth of the first non-Root Collection.
 
-    Example usage: {% format_collection collection collections %}
+    Example usage: {% format_collection collection min_depth %}
     Example output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Child Collection"
     """
-    def _depth(cur_col, count=0):
-        if cur_col.get_parent() in permitted:
-            return _depth(cur_col.get_parent(), count + 1)
-        return count
-    # Subtract 2 from the colection's depth to account for the Root collection
-    # and its base depth of 1.
-    depth = _depth(col) if permitted else col.depth - 2
-    if depth == 0:
-        return col.name
-    # Indent each level of descendence by 4 non-breaking spaces (the width of the
-    # ↳ character in our font), then add ↳ before the name. We don't output an
-    # actual ↳ character because actual unicode characters make testing a hassle.
-    # &#x21b3 is the hex HTML entity for ↳.
+    display_depth = coll.depth - min_depth
+    # A Collection with a display depth of 0 or less (Root's can be -1),
+    # should have no indent.
+    if display_depth <= 0:
+        return coll.name
+
+    # Indent each level of depth by 4 non-breaking spaces (the width of the
+    # ↳ character in our font), then add ↳ before the name. We don't output
+    # an actual ↳ character because they make testing a hassle. '&#x21b3' is
+    # the hex HTML entity for ↳.
     output = format_html(
         "{indent}{icon} {name}",
+        indent=mark_safe('&nbsp;' * 4 * display_depth),
         icon=mark_safe('&#x21b3'),
-        indent=mark_safe('&nbsp;' * 4 * depth),
-        name=col.name
+        name=coll.name
     )
     return output
+
+
+@register.simple_tag
+def minimum_collection_depth(collections: QuerySet) -> int:
+    """
+    Returns the minimum depth of the Collections in the given queryset.
+    Call this before beginning a loop through Collections that will
+    use {% format_collection collection min_depth %}.
+    """
+    return collections.values_list('depth', flat=True).order_by('depth')[0]

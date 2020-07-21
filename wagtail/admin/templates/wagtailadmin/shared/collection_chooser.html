@@ -7,6 +7,7 @@
             <div class="input">
                 <select id="collection_chooser_collection_id" name="collection_id">
                     <option value="">{% trans "All collections" %}</option>
+                    {% minimum_collection_depth collections as min_depth %}
                     {% for collection in collections %}
                         <option value="{{ collection.id|unlocalize }}"
                                 {% if collection == current_collection %}selected="selected"{% endif %}>
@@ -14,8 +15,8 @@
                                 {# Superuser may see all collections #}
                                 {% format_collection collection %}
                             {% else %}
-                                {# Pass the permitted collections since user isn't a superuser #}
-                                {% format_collection collection collections %}
+                                {# Pass the minimum depth of the permitted collections, since user isn't a superuser #}
+                                {% format_collection collection min_depth %}
                             {% endif %}
                         </option>
                     {% endfor %}
