@@ -23,7 +23,7 @@ exports[`ImageBlock alt 1`] = `
   </p>
   <button
     className="button Tooltip__button"
-    onClick={[Function]}
+    type="button"
   >
     Edit
   </button>
@@ -58,7 +58,7 @@ exports[`ImageBlock no data 1`] = `
   </p>
   <button
     className="button Tooltip__button"
-    onClick={[Function]}
+    type="button"
   >
     Edit
   </button>
@@ -93,7 +93,7 @@ exports[`ImageBlock renders 1`] = `
   </p>
   <button
     className="button Tooltip__button"
-    onClick={[Function]}
+    type="button"
   >
     Edit
   </button>

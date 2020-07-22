@@ -18,7 +18,7 @@ exports[`EmbedBlock no data 1`] = `
 >
   <button
     className="button Tooltip__button"
-    onClick={[Function]}
+    type="button"
   >
     Edit
   </button>
@@ -57,7 +57,7 @@ exports[`EmbedBlock renders 1`] = `
   </a>
   <button
     className="button Tooltip__button"
-    onClick={[Function]}
+    type="button"
   >
     Edit
   </button>

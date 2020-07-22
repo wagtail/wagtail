@@ -12,12 +12,6 @@ const EmbedBlock = props => {
   const { entity, onEditEntity, onRemoveEntity } = props.blockProps;
   const { url, title, thumbnail } = entity.getData();
 
-  const onBlockEditEntity = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    onEditEntity(entity);
-  };
-
   return (
     <MediaBlock {...props} src={thumbnail} alt="">
       {url ? (
@@ -31,7 +25,7 @@ const EmbedBlock = props => {
           {title}
         </a>
       ) : null}
-      <button className="button Tooltip__button" onClick={onBlockEditEntity}>
+      <button className="button Tooltip__button" type="button" onClick={onEditEntity}>
         {STRINGS.EDIT}
       </button>
       <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
