@@ -1749,3 +1749,15 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         self.workflow_action('approve')
         response = self.client.get(workflow_status_url)
         self.assertIn('good work', response.json().get('html'))
+
+    def test_workflow_edit_locked_message(self):
+        self.submit()
+        self.login(self.submitter)
+        response = self.client.get(self.edit_url)
+
+        needle = "This page is awaiting <b>\'test_task_1\'</b> in the <b>\'test_workflow\'</b> workflow. Only reviewers for this task can edit the page."
+        self.assertTagInHTML(needle, str(response.content), count=1)
+
+        self.login(self.moderator)
+        response = self.client.get(self.edit_url)
+        self.assertNotInHTML(needle, str(response.content))
