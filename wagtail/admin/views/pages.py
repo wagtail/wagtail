@@ -1280,77 +1280,79 @@ def reject_moderation(request, revision_id):
     return redirect('wagtailadmin_home')
 
 
-def workflow_action(request, page_id, action_name, task_state_id):
+class WorkflowAction(View):
     """Provides a modal view to enter additional data for the specified workflow action on GET,
     or perform the specified action on POST"""
-    page = get_object_or_404(Page, id=page_id)
 
-    redirect_to = request.POST.get('next', None)
-    if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
-        redirect_to = reverse('wagtailadmin_pages:edit', args=[page_id])
+    def dispatch(self, request, page_id, action_name, task_state_id):
+        page = get_object_or_404(Page, id=page_id)
 
-    if not page.workflow_in_progress:
-        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(page.get_admin_display_title()))
-        return redirect(redirect_to)
+        redirect_to = request.POST.get('next', None)
+        if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+            redirect_to = reverse('wagtailadmin_pages:edit', args=[page_id])
 
-    task_state = get_object_or_404(TaskState, id=task_state_id)
-    task_state = task_state.specific
+        if not page.workflow_in_progress:
+            messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(page.get_admin_display_title()))
+            return redirect(redirect_to)
 
-    task = task_state.task.specific
+        task_state = get_object_or_404(TaskState, id=task_state_id)
+        task_state = task_state.specific
 
-    actions = task.get_actions(page, request.user)
-    action_verbose_name = ''
-    action_available = False
-    action_modal = False
+        task = task_state.task.specific
 
-    for name, verbose_name, modal in actions:
-        if name == action_name:
-            action_available = True
-            if modal:
-                action_modal = True
-                # if two actions have the same name, use the verbose name of the one allowing modal data entry
-                # within the modal
-                action_verbose_name = verbose_name
-    if not action_available:
-        raise PermissionDenied
+        actions = task.get_actions(page, request.user)
+        action_verbose_name = ''
+        action_available = False
+        action_modal = False
 
-    form_class = task.get_form_for_action(action_name)
+        for name, verbose_name, modal in actions:
+            if name == action_name:
+                action_available = True
+                if modal:
+                    action_modal = True
+                    # if two actions have the same name, use the verbose name of the one allowing modal data entry
+                    # within the modal
+                    action_verbose_name = verbose_name
+        if not action_available:
+            raise PermissionDenied
 
-    if request.method == 'POST':
-        if form_class:
-            form = form_class(request.POST)
-            if form.is_valid():
-                redirect_to = task.on_action(task_state, request.user, action_name, **form.cleaned_data) or redirect_to
-            elif action_modal and request.is_ajax():
-                # show form errors
-                return render_modal_workflow(
-                    request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
-                        'page': page,
-                        'form': form,
-                        'action': action_name,
-                        'action_verbose': action_verbose_name,
-                        'task_state': task_state,
-                    },
-                    json_data={'step': 'action'}
-                )
+        form_class = task.get_form_for_action(action_name)
+
+        if request.method == 'POST':
+            if form_class:
+                form = form_class(request.POST)
+                if form.is_valid():
+                    redirect_to = task.on_action(task_state, request.user, action_name, **form.cleaned_data) or redirect_to
+                elif action_modal and request.is_ajax():
+                    # show form errors
+                    return render_modal_workflow(
+                        request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
+                            'page': page,
+                            'form': form,
+                            'action': action_name,
+                            'action_verbose': action_verbose_name,
+                            'task_state': task_state,
+                        },
+                        json_data={'step': 'action'}
+                    )
+            else:
+                redirect_to = task.on_action(task_state, request.user, action_name) or redirect_to
+
+            if request.is_ajax():
+                return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
+            return redirect(redirect_to)
         else:
-            redirect_to = task.on_action(task_state, request.user, action_name) or redirect_to
-
-        if request.is_ajax():
-            return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
-        return redirect(redirect_to)
-    else:
-        form = form_class()
-        return render_modal_workflow(
-            request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
-                'page': page,
-                'form': form,
-                'action': action_name,
-                'action_verbose': action_verbose_name,
-                'task_state': task_state,
-            },
-            json_data={'step': 'action'}
-        )
+            form = form_class()
+            return render_modal_workflow(
+                request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
+                    'page': page,
+                    'form': form,
+                    'action': action_name,
+                    'action_verbose': action_verbose_name,
+                    'task_state': task_state,
+                },
+                json_data={'step': 'action'}
+            )
 
 
 def confirm_workflow_cancellation(request, page_id):
