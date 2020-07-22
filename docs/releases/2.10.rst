@@ -21,6 +21,17 @@ Redirect importing
 
 Redirects can now be imported from an uploaded CSV, TSV, XLS or XLSX file. This feature was developed by Martin Sandström.
 
+Accessibility and usability
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release contains a number of improvements to the accessibility and general usability of the Wagtail admin, fixing long-standing issues. Some of the changes come from our January 2020 sprint in Bristol, and some from our brand new `accessibility team <https://github.com/wagtail/wagtail/wiki/Accessibility-team>`_:
+
+ * Remove sticky footer on small devices, so that content is not blocked and more easily editable (Saeed Tahmasebi)
+ * Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas, Dan Braghis)
+ * Switch userbar and header H1s to use SVG icons (Coen van der Kamp)
+ * Add skip link for keyboard users to bypass Wagtail navigation in the admin (Martin Coote)
+ * Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
+ * Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
 
 Other features
 ~~~~~~~~~~~~~~
@@ -41,7 +52,6 @@ Other features
  * Show more granular error messages from Pillow when uploading images (Rick van Hattem)
  * Add ordering to ``Site`` object, so that index page and ``Site`` switcher will be sorted consistently (Coen van der Kamp, Tim Leguijt)
  * Add Reddit to oEmbed provider list (Luke Hardwick)
- * Remove sticky footer on small devices, so that content is not blocked and more easily editable (Saeed Tahmasebi)
  * Add ability to replace the default Wagtail logo in the userbar, via ``branding_logo`` block (Meteor0id)
  * Add ``alt`` property to ``ImageRenditionField`` api representation (Liam Mullens)
  * Add ``purge_revisions`` management command to purge old page revisions (Jacob Topp-Mugglestone, Tom Dyson)
@@ -55,8 +65,6 @@ Other features
  * Add ``after_edit_snippet``, ``after_create_snippet`` and ``after_delete_snippet`` hooks and documentation (Kalob Taulien)
  * Improve performance of empty search results by avoiding downloading the entire search index in these scenarios (Lars van de Kerkhof, Coen van der Kamp)
  * Replace ``gulp-sass`` with ``gulp-dart-sass`` to improve core development across different platforms (Thibaud Colas)
- * Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas, Dan Braghis)
- * Switch userbar and header H1s to use SVG icons (Coen van der Kamp)
  * Remove markup around rich text rendering by default, provide a way to use old behaviour via ``wagtail.contrib.legacy.richtext``. See :ref:`legacy_richtext`. (Coen van der Kamp, Dan Braghis)
  * Add ``WAGTAIL_TIME_FORMAT`` setting (Jacob Topp-Mugglestone)
  * Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
@@ -70,7 +78,6 @@ Other features
  * Deprecate use of unidecode within form builder field names (Michael van Tellingen, LB (Ben Johnston))
  * Improve error feedback when editing a page with a missing model class (Andy Babic)
  * Change Wagtail tabs implementation to only allow slug-formatted tab identifiers, reducing false positives from security audits (Matt Westcott)
- * Add skip link for keyboard users to bypass Wagtail navigation in the admin (Martin Coote)
 
 
 Bug fixes
@@ -95,8 +102,6 @@ Bug fixes
  * Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
  * Image / document forms now display non-field errors such as ``unique_together`` constraints (Matt Westcott)
  * Make "Site" chooser in site settings translateable (Andreas Bernacca)
- * Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
- * Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
  * Fix group permission checkboxes not being clickable in IE11 (LB (Ben Johnston))
 
 
