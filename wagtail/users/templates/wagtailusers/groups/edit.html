@@ -13,7 +13,7 @@
 {% block content %}
 
     {% trans "Editing" as editing_str %}
-    {% trans "View users of this group" as users_str %}
+    {% trans "View users in this group" as users_str %}
     {% url 'wagtailusers_groups:users' group.id as group_users_url %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str action_icon="user" action_url=group_users_url action_text=users_str subtitle=group.name icon="group" %}
 

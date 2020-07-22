@@ -67,16 +67,6 @@
     padding: 0;
     position: absolute;
     width: 1px;
-
-    &:active,
-    &:focus {
-        clip: auto;
-        height: auto;
-        margin: 0;
-        overflow: visible;
-        position: static;
-        width: auto;
-    }
 }
 
 

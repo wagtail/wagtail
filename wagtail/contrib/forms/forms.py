@@ -1,6 +1,8 @@
 from collections import OrderedDict
 
 import django.forms
+from django.conf import settings
+from django.utils.html import conditional_escape
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms import WagtailAdminPageForm
@@ -114,7 +116,10 @@ class FormBuilder:
     def get_field_options(self, field):
         options = {}
         options['label'] = field.label
-        options['help_text'] = field.help_text
+        if getattr(settings, 'WAGTAILFORMS_HELP_TEXT_ALLOW_HTML', False):
+            options['help_text'] = field.help_text
+        else:
+            options['help_text'] = conditional_escape(field.help_text)
         options['required'] = field.required
         options['initial'] = field.default_value
         return options

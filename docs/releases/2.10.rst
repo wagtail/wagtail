@@ -70,6 +70,7 @@ Other features
  * Deprecate use of unidecode within form builder field names (Michael van Tellingen, LB (Ben Johnston))
  * Improve error feedback when editing a page with a missing model class (Andy Babic)
  * Change Wagtail tabs implementation to only allow slug-formatted tab identifiers, reducing false positives from security audits (Matt Westcott)
+ * Add skip link for keyboard users to bypass Wagtail navigation in the admin (Martin Coote)
 
 
 Bug fixes
@@ -93,6 +94,10 @@ Bug fixes
  * ``wagtail.contrib.sitemaps`` no longer depends on SiteMiddleware (Matt Westcott)
  * Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
  * Image / document forms now display non-field errors such as ``unique_together`` constraints (Matt Westcott)
+ * Make "Site" chooser in site settings translateable (Andreas Bernacca)
+ * Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
+ * Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
+ * Fix group permission checkboxes not being clickable in IE11 (LB (Ben Johnston))
 
 
 Upgrade considerations

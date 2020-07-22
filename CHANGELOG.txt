@@ -52,6 +52,7 @@ Changelog
  * Deprecate use of unidecode within form builder field names (Michael van Tellingen, LB (Ben Johnston))
  * Improve error feedback when editing a page with a missing model class (Andy Babic)
  * Change Wagtail tabs implementation to only allow slug-formatted tab identifiers, reducing false positives from security audits (Matt Westcott)
+ * Add skip link for keyboard users to bypass Wagtail navigation in the admin (Martin Coote)
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)
@@ -70,8 +71,16 @@ Changelog
  * Fix: `wagtail.contrib.sitemaps` no longer depends on SiteMiddleware (Matt Westcott)
  * Fix: Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
  * Fix: Image / document forms now display non-field errors such as `unique_together` constraints (Matt Westcott)
+ * Fix: Make "Site" chooser in site settings translateable (Andreas Bernacca)
+ * Fix: Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
+ * Fix: Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
+ * Fix: Fix group permission checkboxes not being clickable in IE11 (LB (Ben Johnston))
  * Remove unidecode and use anyascii in wagtail.core.utils.string_to_ascii
 
+2.9.3 (20.07.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-15118 - prevent HTML injection through form field help text (Timothy Bautista, Matt Westcott)
 
 
 2.9.2 (03.07.2020)
@@ -190,6 +199,13 @@ Changelog
  * Fix: Prevent `update_index` failures and incorrect front-end rendering on blank `TableBlock` (Carlo Ascani)
  * Fix: Dropdown initialisation on the search page after AJAX call (Eric Sherman)
  * Fix: Make sure all modal chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
+
+
+2.7.4 (20.07.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-15118 - prevent HTML injection through form field help text (Timothy Bautista, Matt Westcott)
+ * Fix: Expand Pillow dependency range to include 7.x (Harris Lapiroff, Matt Westcott)
 
 
 2.7.3 (04.05.2020)
