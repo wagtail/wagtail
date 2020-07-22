@@ -404,6 +404,26 @@ def edit(request, page_id):
                 )
             messages.error(request, lock_message, extra_tags='lock')
 
+        if page.current_workflow_state:
+            workflow_state = page.current_workflow_state
+            workflow = workflow_state.workflow
+            workflow_tasks = workflow_state.all_tasks_with_status()
+            task = workflow_state.current_task_state.task
+            if (
+                workflow_state.status != WorkflowState.STATUS_NEEDS_CHANGES
+                and task.specific.page_locked_for_user(page, request.user)
+            ):
+                # Check for revisions still undergoing moderation and warn
+                if len(workflow_tasks) == 1:
+                    # If only one task in workflow, show simple message
+                    workflow_info = _("This page is currently awaiting moderation")
+                else:
+                    workflow_info = format_html(
+                        _("This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow. "),
+                        task.name, workflow.name
+                    )
+                messages.error(request, mark_safe(workflow_info + _("Only reviewers for this task can edit the page.")),
+                               extra_tags="lock")
     # Check for revisions still undergoing moderation and warn - this is for the old moderation system
     if latest_revision and latest_revision.submitted_for_moderation:
         buttons = []
