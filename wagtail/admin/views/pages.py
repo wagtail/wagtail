@@ -1319,41 +1319,44 @@ class WorkflowAction(View):
 
         self.form_class = self.task.get_form_for_action(self.action_name)
 
-        if request.method == 'POST':
-            if self.form_class:
-                form = self.form_class(request.POST)
-                if form.is_valid():
-                    redirect_to = self.task.on_action(self.task_state, request.user, self.action_name, **form.cleaned_data) or self.redirect_to
-                elif self.action_modal and request.is_ajax():
-                    # show form errors
-                    return render_modal_workflow(
-                        request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
-                            'page': self.page,
-                            'form': form,
-                            'action': self.action_name,
-                            'action_verbose': self.action_verbose_name,
-                            'task_state': self.task_state,
-                        },
-                        json_data={'step': 'action'}
-                    )
-            else:
-                redirect_to = self.task.on_action(self.task_state, request.user, self.action_name) or self.redirect_to
+        return super().dispatch(request, page_id, action_name, task_state_id)
 
-            if request.is_ajax():
-                return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
-            return redirect(redirect_to)
+    def post(self, request, page_id, action_name, task_state_id):
+        if self.form_class:
+            form = self.form_class(request.POST)
+            if form.is_valid():
+                redirect_to = self.task.on_action(self.task_state, request.user, self.action_name, **form.cleaned_data) or self.redirect_to
+            elif self.action_modal and request.is_ajax():
+                # show form errors
+                return render_modal_workflow(
+                    request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
+                        'page': self.page,
+                        'form': form,
+                        'action': self.action_name,
+                        'action_verbose': self.action_verbose_name,
+                        'task_state': self.task_state,
+                    },
+                    json_data={'step': 'action'}
+                )
         else:
-            form = self.form_class()
-            return render_modal_workflow(
-                request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
-                    'page': self.page,
-                    'form': form,
-                    'action': self.action_name,
-                    'action_verbose': self.action_verbose_name,
-                    'task_state': self.task_state,
-                },
-                json_data={'step': 'action'}
-            )
+            redirect_to = self.task.on_action(self.task_state, request.user, self.action_name) or self.redirect_to
+
+        if request.is_ajax():
+            return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
+        return redirect(redirect_to)
+
+    def get(self, request, page_id, action_name, task_state_id):
+        form = self.form_class()
+        return render_modal_workflow(
+            request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
+                'page': self.page,
+                'form': form,
+                'action': self.action_name,
+                'action_verbose': self.action_verbose_name,
+                'task_state': self.task_state,
+            },
+            json_data={'step': 'action'}
+        )
 
 
 def confirm_workflow_cancellation(request, page_id):
