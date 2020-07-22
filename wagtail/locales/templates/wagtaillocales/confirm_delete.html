@@ -1,0 +1,22 @@
+{% extends "wagtailadmin/generic/confirm_delete.html" %}
+{% load i18n %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+
+    <div class="nice-padding">
+        {% if can_delete %}
+            <p>{{ view.confirmation_message }}</p>
+
+            <form action="{{ view.get_delete_url }}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+                <a href="{% url 'wagtaillocales:edit' locale.id %}" class="button button-secondary">{% trans "Back" %}</a>
+            </form>
+        {% else %}
+            <p>{{ view.cannot_delete_message }}</p>
+
+            <a href="{% url 'wagtaillocales:edit' locale.id %}" class="button button-secondary">{% trans "Back" %}</a>
+        {% endif %}
+    </div>
+{% endblock %}
