@@ -1328,16 +1328,7 @@ class WorkflowAction(View):
                 redirect_to = self.task.on_action(self.task_state, request.user, self.action_name, **form.cleaned_data) or self.redirect_to
             elif self.action_modal and request.is_ajax():
                 # show form errors
-                return render_modal_workflow(
-                    request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
-                        'page': self.page,
-                        'form': form,
-                        'action': self.action_name,
-                        'action_verbose': self.action_verbose_name,
-                        'task_state': self.task_state,
-                    },
-                    json_data={'step': 'action'}
-                )
+                return self.render_modal_form(request, form)
         else:
             redirect_to = self.task.on_action(self.task_state, request.user, self.action_name) or self.redirect_to
 
@@ -1347,6 +1338,9 @@ class WorkflowAction(View):
 
     def get(self, request, page_id, action_name, task_state_id):
         form = self.form_class()
+        return self.render_modal_form(request, form)
+
+    def render_modal_form(self, request, form):
         return render_modal_workflow(
             request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
                 'page': self.page,
