@@ -107,3 +107,30 @@ class TestTranslatableMixin(TestCase):
         # test with a model that inherits from `TestModel`
         inherited_model = make_test_instance(model=InheritedTestModel)
         self.assertEqual(inherited_model.get_translation_model(), TestModel)
+
+
+class TestLocalized(TestCase):
+    def setUp(self):
+        self.en_locale = Locale.objects.get()
+        self.fr_locale = Locale.objects.create(language_code="fr")
+
+        self.en_instance = make_test_instance(
+            locale=self.en_locale, title="Main Model"
+        )
+        self.fr_instance = make_test_instance(
+            locale=self.fr_locale, translation_key=self.en_instance.translation_key, title="Main Model"
+        )
+
+    def test_localized_same_language(self):
+        # Shouldn't run an extra query if the instances locale matches the active language
+        # FIXME: Cache active locale record so this is zero
+        with self.assertNumQueries(1):
+            instance = self.en_instance.localized
+
+        self.assertEqual(instance, self.en_instance)
+
+    def test_localized_different_language(self):
+        with self.assertNumQueries(2):
+            instance = self.fr_instance.localized
+
+        self.assertEqual(instance, self.en_instance)
