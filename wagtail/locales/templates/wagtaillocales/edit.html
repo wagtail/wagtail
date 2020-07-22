@@ -1,0 +1,10 @@
+{% extends "wagtailadmin/generic/edit.html" %}
+{% load i18n %}
+
+{% block before_form %}
+    {% if not locale.language_code_is_valid %}
+        <p class="help-block help-warning">
+            {% trans "This locale's current language code is not supported. Please choose a new language or delete this locale." %}
+        </p>
+    {% endif %}
+{% endblock %}

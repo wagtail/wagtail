@@ -170,3 +170,10 @@ svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
     }
 }
 
+.icon.locale-error {
+    vertical-align: text-top;
+    margin-right: 0.5em;
+    width: 1.5em;
+    height: 1.5em;
+    color: $color-red;
+}

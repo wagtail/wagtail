@@ -124,6 +124,7 @@ INSTALLED_APPS = [
     'wagtail.embeds',
     'wagtail.images',
     'wagtail.sites',
+    'wagtail.locales',
     'wagtail.users',
     'wagtail.snippets',
     'wagtail.documents',
