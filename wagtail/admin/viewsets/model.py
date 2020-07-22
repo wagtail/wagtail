@@ -90,5 +90,5 @@ class ModelViewSet(ViewSet):
             path('', self.index_view, name='index'),
             path('new/', self.add_view, name='add'),
             path('<int:pk>/', self.edit_view, name='edit'),
-            path('<int:pk>delete/', self.delete_view, name='delete'),
+            path('<int:pk>/delete/', self.delete_view, name='delete'),
         ]
