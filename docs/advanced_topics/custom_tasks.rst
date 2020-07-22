@@ -179,7 +179,8 @@ For example:
 ``Task.get_form_for_action(action)``:
 
 Returns a form to be used for additional data input for the given action modal. By default,
-returns ``TaskStateCommentForm``, with a single comment field.
+returns ``TaskStateCommentForm``, with a single comment field. The form data returned in
+``form.cleaned_data`` must be fully serializable as JSON.
 
 ``Task.get_template_for_action(action)``:
 
