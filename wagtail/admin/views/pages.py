@@ -1253,71 +1253,72 @@ class WorkflowAction(View):
     or perform the specified action on POST"""
 
     def dispatch(self, request, page_id, action_name, task_state_id):
-        page = get_object_or_404(Page, id=page_id)
+        self.page = get_object_or_404(Page, id=page_id)
+        self.action_name = action_name
 
-        redirect_to = request.POST.get('next', None)
-        if not redirect_to or not is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
-            redirect_to = reverse('wagtailadmin_pages:edit', args=[page_id])
+        self.redirect_to = request.POST.get('next', None)
+        if not self.redirect_to or not is_safe_url(url=self.redirect_to, allowed_hosts={request.get_host()}):
+            self.redirect_to = reverse('wagtailadmin_pages:edit', args=[page_id])
 
-        if not page.workflow_in_progress:
-            messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(page.get_admin_display_title()))
-            return redirect(redirect_to)
+        if not self.page.workflow_in_progress:
+            messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(self.page.get_admin_display_title()))
+            return redirect(self.redirect_to)
 
-        task_state = get_object_or_404(TaskState, id=task_state_id)
-        task_state = task_state.specific
+        self.task_state = get_object_or_404(TaskState, id=task_state_id)
+        self.task_state = self.task_state.specific
 
-        task = task_state.task.specific
+        self.task = self.task_state.task.specific
 
-        actions = task.get_actions(page, request.user)
-        action_verbose_name = ''
+        actions = self.task.get_actions(self.page, request.user)
+        self.action_verbose_name = ''
         action_available = False
-        action_modal = False
+        self.action_modal = False
 
         for name, verbose_name, modal in actions:
-            if name == action_name:
+            if name == self.action_name:
                 action_available = True
                 if modal:
-                    action_modal = True
+                    self.action_modal = True
                     # if two actions have the same name, use the verbose name of the one allowing modal data entry
                     # within the modal
-                    action_verbose_name = verbose_name
+                    self.action_verbose_name = verbose_name
         if not action_available:
             raise PermissionDenied
 
-        form_class = task.get_form_for_action(action_name)
+        self.form_class = self.task.get_form_for_action(self.action_name)
 
         if request.method == 'POST':
-            if form_class:
-                form = form_class(request.POST)
+            if self.form_class:
+                form = self.form_class(request.POST)
                 if form.is_valid():
-                    redirect_to = task.on_action(task_state, request.user, action_name, **form.cleaned_data) or redirect_to
-                elif action_modal and request.is_ajax():
+                    redirect_to = self.task.on_action(self.task_state, request.user, self.action_name, **form.cleaned_data) or self.redirect_to
+                elif self.action_modal and request.is_ajax():
                     # show form errors
                     return render_modal_workflow(
                         request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
-                            'page': page,
+                            'page': self.page,
                             'form': form,
-                            'action': action_name,
-                            'action_verbose': action_verbose_name,
-                            'task_state': task_state,
+                            'action': self.action_name,
+                            'action_verbose': self.action_verbose_name,
+                            'task_state': self.task_state,
                         },
                         json_data={'step': 'action'}
                     )
             else:
-                redirect_to = task.on_action(task_state, request.user, action_name) or redirect_to
+                redirect_to = self.task.on_action(self.task_state, request.user, self.action_name) or self.redirect_to
 
             if request.is_ajax():
                 return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
             return redirect(redirect_to)
         else:
-            form = form_class()
+            form = self.form_class()
             return render_modal_workflow(
                 request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
-                    'page': page,
+                    'page': self.page,
                     'form': form,
-                    'action': action_name,
-                    'action_verbose': action_verbose_name,
-                    'task_state': task_state,
+                    'action': self.action_name,
+                    'action_verbose': self.action_verbose_name,
+                    'task_state': self.task_state,
                 },
                 json_data={'step': 'action'}
             )
