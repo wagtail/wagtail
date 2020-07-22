@@ -3,7 +3,10 @@
 {% block titletag %}{% blocktrans with title=page_to_move.get_admin_display_title %}Select a new parent page for {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     <header class="nice-padding">
-        <h1 class="icon icon-doc-empty-inverse">{% blocktrans with title=page_to_move.get_admin_display_title %}Select a new parent page for <span>{{ title }}</span>{% endblocktrans %}</h1>
+        <h1>
+          {% icon name="doc-empty-inverse" class_name="header-title-icon" %}
+          {% blocktrans with title=page_to_move.get_admin_display_title %}Select a new parent page for <span>{{ title }}</span>{% endblocktrans %}
+        </h1>
     </header>
 
     <div class="nice-padding">

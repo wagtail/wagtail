@@ -193,7 +193,7 @@ This specifies whether users are allowed to change their passwords (enabled by d
 
   WAGTAIL_PASSWORD_RESET_ENABLED = True
 
-This specifies whether users are allowed to reset their passwords. Defaults to the same as ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``.
+This specifies whether users are allowed to reset their passwords. Defaults to the same as ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``. Password reset emails will be sent from the address specified in Django's ``DEFAULT_FROM_EMAIL`` setting.
 
 .. code-block:: python
 
@@ -222,7 +222,7 @@ Email Notifications
 
   WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@myhost.io'
 
-Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Django will fall back to using the ``DEFAULT_FROM_EMAIL`` variable if set, and ``webmaster@localhost`` if not.
+Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Wagtail will fall back to using Django's ``DEFAULT_FROM_EMAIL`` setting if set, or ``webmaster@localhost`` if not.
 
 .. code-block:: python
 
@@ -520,6 +520,12 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
 
  * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but both ``DraftailRichTextArea`` and ``HalloRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
 
+If a ``'default'`` editor is not specified, rich text fields that do not specify an ``editor`` argument will use the Draftail editor with the default feature set enabled.
+
+.. versionchanged:: 2.10
+
+    Omitting the ``'default'`` editor now leaves the original default editor intact, so it is no longer necessary to redefine ``'default'`` when adding alternative editors.
+
 
 .. _WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK:
 
@@ -528,3 +534,32 @@ Page locking
 
 ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
 from editing pages that they have locked.
+
+Redirects
+=========
+
+.. code-block:: python
+
+   WAGTAIL_REDIRECTS_FILE_STORAGE = 'tmp_file'
+
+By default the redirect importer keeps track of the uploaded file as a temp file, but on certain environments (load balanced/cloud environments), you cannot keep a shared file between environments. For those cases you can use the built-in cache to store the file instead.
+
+.. code-block:: python
+
+   WAGTAIL_REDIRECTS_FILE_STORAGE = 'cache'
+
+Form builder
+============
+
+.. versionadded:: 2.7.4/2.9.3
+
+    The ``WAGTAILFORMS_HELP_TEXT_ALLOW_HTML`` option was added.
+
+.. code-block:: python
+
+    WAGTAILFORMS_HELP_TEXT_ALLOW_HTML = True
+
+When true, HTML tags in form field help text will be rendered unescaped (default: False).
+
+.. WARNING::
+   Enabling this option will allow editors to insert arbitrary HTML into the page, such as scripts that could allow the editor to acquire administrator privileges when another administrator views the page. Do not enable this setting unless your editors are fully trusted.

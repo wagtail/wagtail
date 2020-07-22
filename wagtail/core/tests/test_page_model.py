@@ -1810,3 +1810,27 @@ class TestUnpublish(TestCase):
         home_page.save(clean=False)
         # This shouldn't fail with a ValidationError.
         home_page.unpublish()
+
+
+class TestCachedContentType(TestCase):
+    """Tests for Page.cached_content_type"""
+
+    def setUp(self):
+        root_page = Page.objects.first()
+        self.page = root_page.add_child(
+            instance=SimplePage(title="Test1", slug="test1", content="test")
+        )
+        self.specific_page_ctype = ContentType.objects.get_for_model(SimplePage)
+
+    def test_golden_path(self):
+        """
+        The return value should match the value you'd get
+        if fetching the ContentType from the database,
+        and shouldn't trigger any database queries when
+        the ContentType is already in memory.
+        """
+        with self.assertNumQueries(0):
+            result = self.page.cached_content_type
+        self.assertEqual(
+            result, ContentType.objects.get(id=self.page.content_type_id)
+        )

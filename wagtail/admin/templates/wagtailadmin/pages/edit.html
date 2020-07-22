@@ -12,8 +12,10 @@
 
         <div class="row row-flush">
             <div class="left col9 header-title">
-                <h1 class="icon icon-doc-empty-inverse">
-                {% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
+                <h1>
+                  {% icon name="doc-empty-inverse" class_name="header-title-icon" %}
+                  {% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}
+                </h1>
             </div>
             <div class="right col3">
                 {% trans "Status" %}
@@ -49,7 +51,7 @@
                             {% if preview_modes|length > 1 %}
                                 <div class="dropdown dropup dropdown-button match-width">
                                     {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                                    <div class="dropdown-toggle icon icon-arrow-up"></div>
+                                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
                                     <ul>
                                         {% for mode_name, mode_display_name in preview_modes %}
                                             <li>

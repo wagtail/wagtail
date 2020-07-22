@@ -1,7 +1,6 @@
-from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
 from django.db.models import Q
-from django.urls import reverse
+from django.urls import include, path, reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
@@ -17,7 +16,7 @@ from wagtail.users.widgets import UserListingButton
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^users/', include(users, namespace='wagtailusers_users')),
+        path('users/', include(users, namespace='wagtailusers_users')),
     ]
 
 

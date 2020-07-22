@@ -467,6 +467,10 @@ Contributors
 * Yngve Høiseth
 * Andrew Bunker
 * Nikolay Lukyanov (mozgsml)
+* Jean Zombie
+* Pascal Widdershoven
+* Max Gabrielsson
+* Steven Wood
 
 Translators
 ===========

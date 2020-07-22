@@ -14,6 +14,10 @@
         line-height: 1;
         padding: $controls-spacing * 2 $controls-spacing * 3;
         pointer-events: none;
+
+        .icon {
+            @include svg-icon();
+        }
     }
 
     &__icon {

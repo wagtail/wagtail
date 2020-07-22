@@ -115,6 +115,11 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             }
 
             newMember._markAdded();
+
+            if (members.length >= opts.maxNumChildBlocks && opts.onDisableAdd) {
+                /* maximum block capacity has been reached */
+                opts.onDisableAdd(members)
+            }
         }
 
         function elementFromTemplate(template, newPrefix) {
@@ -247,6 +252,11 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
                 /* deleting the last member; the new last member cannot move down now */
                 opts.onDisableMoveDown(members[members.length - 1]);
             }
+
+            if (members.length + 1 >= opts.maxNumChildBlocks && members.length < opts.maxNumChildBlocks && opts.onEnableAdd) {
+                /* there is now capacity left for another block */
+                opts.onEnableAdd(members)
+            }
         };
 
         self.moveMemberUp = function(member) {
@@ -342,6 +352,11 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             }
         }
 
+        if (members.length >= opts.maxNumChildBlocks && opts.onDisableAdd) {
+            /* block capacity is already reached on initialization */
+            opts.onDisableAdd(members)
+        }
+      
         return self;
     };
 })(jQuery);

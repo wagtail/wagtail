@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Permission
 from django.urls import reverse
+from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext
 from draftjs_exporter.dom import DOM
@@ -18,6 +19,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
+from wagtail.admin.site_summary import PagesSummaryItem
 from wagtail.admin.views.account import email_management_enabled, password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
@@ -25,10 +27,6 @@ from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.core.permissions import collection_permission_policy
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
-
-
-def append_querystring(path, querystring=None):
-    return '%s%s' % (path, '?%s' % querystring if querystring else '')
 
 
 class ExplorerMenuItem(MenuItem):
@@ -176,23 +174,36 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=10
         )
     if page_perms.can_copy():
+        url = reverse('wagtailadmin_pages:copy', args=[page.id])
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
+        urlencode
         yield Button(
             _('Copy'),
-            append_querystring(reverse('wagtailadmin_pages:copy', args=[page.id]), next_url),
+            url,
             attrs={'title': _("Copy page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=20
         )
     if page_perms.can_delete():
+        url = reverse('wagtailadmin_pages:delete', args=[page.id])
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
         yield Button(
             _('Delete'),
-            append_querystring(reverse('wagtailadmin_pages:delete', args=[page.id]), next_url),
+            url,
             attrs={'title': _("Delete page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=30
         )
     if page_perms.can_unpublish():
+        url = reverse('wagtailadmin_pages:unpublish', args=[page.id])
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
         yield Button(
             _('Unpublish'),
-            append_querystring(reverse('wagtailadmin_pages:unpublish', args=[page.id]), next_url),
+            url,
             attrs={'title': _("Unpublish page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=40
         )
@@ -668,6 +679,7 @@ def register_icons(icons):
         'doc-full-inverse.svg',
         'doc-full.svg',  # aka file-text-alt
         'download.svg',
+        'duplicate.svg',
         'edit.svg',
         'folder-inverse.svg',
         'folder-open-1.svg',
@@ -725,3 +737,8 @@ def register_icons(icons):
     ]:
         icons.append('wagtailadmin/icons/{}'.format(icon))
     return icons
+
+
+@hooks.register('construct_homepage_summary_items')
+def add_pages_summary_item(request, items):
+    items.insert(0, PagesSummaryItem(request))

@@ -5,15 +5,7 @@
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=redirect.title icon="redirect" %}
 
-    {% if form.non_field_errors %}
-        <div class="messages">
-            <ul>
-                {% for error in form.non_field_errors %}
-                    <li class="error">{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+    {% include "wagtailadmin/shared/non_field_errors.html" %}
 
     <form action="{% url 'wagtailredirects:edit' redirect.id %}" method="POST" class="nice-padding" novalidate>
         {% csrf_token %}

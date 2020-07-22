@@ -71,15 +71,19 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
             attachment_filename = os.path.basename(filename)
         parts = ['attachment']
         if attachment_filename:
-            from unidecode import unidecode
             from django.utils.encoding import force_str
+            from wagtail.core.utils import string_to_ascii
+
             attachment_filename = force_str(attachment_filename)
-            ascii_filename = unidecode(attachment_filename)
+            ascii_filename = string_to_ascii(attachment_filename)
             parts.append('filename="%s"' % ascii_filename)
+
             if ascii_filename != attachment_filename:
                 from django.utils.http import urlquote
+
                 quoted_filename = urlquote(attachment_filename)
                 parts.append('filename*=UTF-8\'\'%s' % quoted_filename)
+
         response['Content-Disposition'] = '; '.join(parts)
 
     response['Content-length'] = os.path.getsize(filename)

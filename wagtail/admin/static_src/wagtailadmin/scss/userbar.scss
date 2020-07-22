@@ -101,6 +101,10 @@ $positions: (
     border: 0;
     width: auto;
     height: auto;
+
+    &-icon {
+        @include svg-icon(2em);
+    }
 }
 
 
@@ -242,6 +246,13 @@ $positions: (
             color: $color-white;
             background-color: rgba(100, 100, 100, 0.15);
         }
+
+        &-icon {
+            @include svg-icon(1.1em, middle);
+            margin-right: 0.5em;
+            fill: currentColor;
+        }
+
     }
 
     .#{$namespace}-icon {
@@ -256,16 +267,17 @@ $positions: (
     }
 
     a,
-    input {
+    button {
         font-size: 14px !important;
         text-align: left;
-        padding: 0.8em 1.7em 0.8em 2.7em;
+        padding: 0.8em;
     }
 
-    input {
+    button {
         border: 0;
-        background: none;
         width: 100%;
+        background-color: transparent;
+        outline: none;
     }
 }
 

@@ -49,6 +49,17 @@ class TestSitemapGenerator(TestCase):
 
         self.site = Site.objects.get(is_default_site=True)
 
+        root_page = Page.objects.get(depth=1)
+        self.other_site_homepage = root_page.add_child(instance=SimplePage(
+            title="Another site",
+            slug="another-site",
+            content="bonjour",
+            live=True
+        ))
+        Site.objects.create(
+            hostname='other.example.com', port=80, root_page=self.other_site_homepage
+        )
+
         # Clear the cache to that runs are deterministic regarding the sql count
         ContentType.objects.clear_cache()
 
@@ -88,7 +99,7 @@ class TestSitemapGenerator(TestCase):
         # pre-seed find_for_request cache, so that it's not counted towards the query count
         Site.find_for_request(request)
 
-        with self.assertNumQueries(15):
+        with self.assertNumQueries(14):
             urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage
@@ -157,6 +168,17 @@ class TestSitemapGenerator(TestCase):
 
         self.assertFalse(hasattr(sitemap, 'latest_lastmod'))
 
+    def test_non_default_site(self):
+        request = RequestFactory().get('/sitemap.xml')
+        request.META['HTTP_HOST'] = 'other.example.com'
+        request.META['SERVER_PORT'] = 80
+
+        sitemap = Sitemap(request)
+        pages = sitemap.items()
+
+        self.assertIn(self.other_site_homepage.page_ptr.specific, pages)
+        self.assertNotIn(self.child_page.page_ptr.specific, pages)
+
 
 class TestIndexView(TestCase):
     def test_index_view(self):
@@ -169,6 +191,16 @@ class TestIndexView(TestCase):
 class TestSitemapView(TestCase):
     def test_sitemap_view(self):
         response = self.client.get('/sitemap.xml')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/xml')
+
+
+    def test_sitemap_view_with_current_site_middleware(self):
+        with self.modify_settings(MIDDLEWARE={
+            'append': 'django.contrib.sites.middleware.CurrentSiteMiddleware',
+        }):
+            response = self.client.get('/sitemap.xml')
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/xml')

@@ -6,11 +6,13 @@ Changelog
 
  * Removed support for Python 3.5
  * Implemented phrase searching and structured search query expressions (Karl Hobley)
+ * Add ability to import redirects from an uploaded file (CSV, TSV, XLS, and XLSX) (Martin Sandström)
  * Added `webpquality` and `format-webp-lossless` image filters and `WAGTAILIMAGES_WEBP_QUALITY` setting (Nikolay Lukyanov)
  * Reorganised Dockerfile in project template to follow best practices (Tomasz Knapik, Jannik Wempe)
  * Added filtering to locked pages report (Karl Hobley)
  * Adds ability to view a group's users via standalone admin URL and a link to this on the group edit view (Karran Besen)
  * Redirect to previous url when deleting/copying/unpublish a page and modify this url via the relevant hooks (Ascani Carlo)
+ * Added `next_url` keyword argument on `register_page_listing_buttons` and `register_page_listing_more_buttons` hooks (Ascani Carlo, Matt Westcott, LB (Ben Johnston))
  * `AbstractEmailForm` will use `SHORT_DATETIME_FORMAT` and `SHORT_DATE_FORMAT` Django settings to format date/time values in email (Haydn Greatnews)
  * `AbstractEmailForm` now has a separate method (`render_email`) to build up email content on submission emails (Haydn Greatnews)
  * Add `pre_page_move` and `post_page_move` signals (Andy Babic)
@@ -35,11 +37,23 @@ Changelog
  * Add `after_edit_snippet`, `after_create_snippet` and `after_delete_snippet` hooks and documentation (Kalob Taulien)
  * Improve performance of empty search results by avoiding downloading the entire search index in these scenarios (Lars van de Kerkhof, Coen van der Kamp)
  * Replace `gulp-sass` with `gulp-dart-sass` to improve core development across different platforms (Thibaud Colas)
- * Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas)
+ * Add SVG icons to resolve accessibility and customisation issues and start using them in a subset of Wagtail's admin (Coen van der Kamp, Scott Cranfill, Thibaud Colas, Dan Braghis)
+ * Switch userbar and header H1s to use SVG icons (Coen van der Kamp)
  * Remove markup around rich text rendering by default, provide a way to use old behaviour via `wagtail.contrib.legacy.richtext` (Coen van der Kamp, Dan Braghis)
  * Apply title length normalisation to improve ranking on PostgreSQL search (Karl Hobley)
  * Add `WAGTAIL_TIME_FORMAT` setting (Jacob Topp-Mugglestone)
- * Add ability to import redirects from an uploaded file (CSV, TSV, XLX, and XLXS) (Martin Sandström)
+ * Allow omitting the default editor from `WAGTAILADMIN_RICH_TEXT_EDITORS` (Gassan Gousseinov)
+ * Disable password auto-completion on user creation form (Samir Shah)
+ * Upgrade jQuery to version 3.5.1 to reduce penetration testing false positives (Matt Westcott)
+ * Add ability to extend `EditHandler` without a children attribute (Seb Brown)
+ * `Page.objects.specific` now gracefully handles pages with missing specific records (Andy Babic)
+ * StreamField 'add' buttons are now disabled when maximum count is reached (Max Gabrielsson)
+ * Use underscores for form builder field names to allow use as template variables (Ashia Zawaduk, LB (Ben Johnston))
+ * Deprecate use of unidecode within form builder field names (Michael van Tellingen, LB (Ben Johnston))
+ * Improve error feedback when editing a page with a missing model class (Andy Babic)
+ * Change Wagtail tabs implementation to only allow slug-formatted tab identifiers, reducing false positives from security audits (Matt Westcott)
+ * Add skip link for keyboard users to bypass Wagtail navigation in the admin (Martin Coote)
+ * Ensure errors during Postgres search indexing are left uncaught to assist troubleshooting (Karl Hobley)
  * Fix: Support IPv6 domain (Alex Gleason, Coen van der Kamp)
  * Fix: Ensure link to add a new user works when no users are visible in the users list (LB (Ben Johnston))
  * Fix: `AbstractEmailForm` saved submission fields are now aligned with the email content fields, `form.cleaned_data` will be used instead of `form.fields` (Haydn Greatnews)
@@ -54,6 +68,34 @@ Changelog
  * Fix: Avoid using null on string `Site.site_name` blank values to avoid different values for no name (Coen van der Kamp)
  * Fix: Fix deprecation warnings on Elasticsearch 7 (Yngve Høiseth)
  * Fix: Remove use of Node.forEach for IE 11 compatibility in admin menu items (Thibaud Colas)
+ * Fix: Fix incorrect method name in SiteMiddleware deprecation warning (LB (Ben Johnston))
+ * Fix: `wagtail.contrib.sitemaps` no longer depends on SiteMiddleware (Matt Westcott)
+ * Fix: Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
+ * Fix: Image / document forms now display non-field errors such as `unique_together` constraints (Matt Westcott)
+ * Fix: Make "Site" chooser in site settings translateable (Andreas Bernacca)
+ * Fix: Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
+ * Fix: Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
+ * Fix: Fix group permission checkboxes not being clickable in IE11 (LB (Ben Johnston))
+
+
+2.9.3 (20.07.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-15118 - prevent HTML injection through form field help text (Timothy Bautista, Matt Westcott)
+
+
+2.9.2 (03.07.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent startup failure when `wagtail.contrib.sitemaps` is in `INSTALLED_APPS` (Matt Westcott)
+
+
+2.9.1 (30.06.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix incorrect method name in SiteMiddleware deprecation warning (LB (Ben Johnston))
+ * Fix: `wagtail.contrib.sitemaps` no longer depends on SiteMiddleware (Matt Westcott)
+ * Fix: Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
 
 
 2.9 (04.05.2020)
@@ -158,6 +200,13 @@ Changelog
  * Fix: Prevent `update_index` failures and incorrect front-end rendering on blank `TableBlock` (Carlo Ascani)
  * Fix: Dropdown initialisation on the search page after AJAX call (Eric Sherman)
  * Fix: Make sure all modal chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
+
+
+2.7.4 (20.07.2020)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2020-15118 - prevent HTML injection through form field help text (Timothy Bautista, Matt Westcott)
+ * Fix: Expand Pillow dependency range to include 7.x (Harris Lapiroff, Matt Westcott)
 
 
 2.7.3 (04.05.2020)

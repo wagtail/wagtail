@@ -15,12 +15,12 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
-from unidecode import unidecode
 from willow.image import Image as WillowImage
 
 from wagtail.admin.models import get_object_usage
 from wagtail.core import hooks
 from wagtail.core.models import CollectionMember
+from wagtail.core.utils import string_to_ascii
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.rect import Rect
 from wagtail.search import index
@@ -131,7 +131,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
         # do a unidecode in the filename and then
         # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+        filename = "".join((i if ord(i) < 128 else '_') for i in string_to_ascii(filename))
 
         # Truncate filename so it fits in the 100 character limit
         # https://code.djangoproject.com/ticket/9893
@@ -278,12 +278,12 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             filter = Filter(spec=filter)
 
         cache_key = filter.get_cache_key(self)
-
+        Rendition = self.get_rendition_model()
 
         try:
             rendition_caching = True
             cache = caches['renditions']
-            rendition_cache_key = "image-{}-{}-{}".format(
+            rendition_cache_key = Rendition.construct_cache_key(
                 self.id,
                 cache_key,
                 filter.spec
@@ -293,8 +293,6 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
                 return cached_rendition
         except InvalidCacheBackendError:
             rendition_caching = False
-
-        Rendition = self.get_rendition_model()
 
         try:
             rendition = self.renditions.get(
@@ -567,6 +565,24 @@ class AbstractRendition(models.Model):
                 )
 
         return errors
+
+    @staticmethod
+    def construct_cache_key(image_id, filter_cache_key, filter_spec):
+        return "image-{}-{}-{}".format(
+            image_id,
+            filter_cache_key,
+            filter_spec
+        )
+
+    def purge_from_cache(self):
+        try:
+            cache = caches['renditions']
+            cache.delete(self.construct_cache_key(
+                self.image_id, self.focal_point_key, self.filter_spec
+            ))
+        except InvalidCacheBackendError:
+            pass
+
 
     class Meta:
         abstract = True

@@ -1,4 +1,4 @@
-{% load wagtailimages_tags %}
+{% load wagtailimages_tags wagtailadmin_tags %}
 {% load i18n %}
 {% trans "Insert embed" as ins_emb_str %}
 {% include "wagtailadmin/shared/header.html" with title=ins_emb_str merged=1 %}
@@ -11,7 +11,7 @@
                 {% for field in form %}
                     {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
                 {% endfor %}
-                <li><button type="submit" class="button  button-longrunning"><span class="icon icon-spinner"></span><em>{% trans 'Insert' %}</em></button></li>
+                <li><button type="submit" class="button  button-longrunning">{% icon name="spinner" %}<em>{% trans 'Insert' %}</em></button></li>
             </ul>
         </form>
     </section>

@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% load static %}
+{% load static wagtailadmin_tags %}
 
 {% block titletag %}{% trans "Redirects" %}{% endblock %}
 
@@ -43,10 +43,10 @@
                 </div>
                 <div class="right has-multiple-actions">
                     <div class="actionbutton">
-                        <a href="{{ add_link }}" class="button bicolor icon icon-plus">{{ add_str }}</a>
+                        <a href="{{ add_link }}" class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{{ add_str }}</a>
                     </div>
                     <div class="actionbutton">
-                        <a href="{{ import_link }}" class="button bicolor icon icon-doc-full-inverse">{{ import_str }}</a>
+                        <a href="{{ import_link }}" class="button bicolor button--icon">{% icon name="doc-full-inverse" wrapped=1 %}{{ import_str }}</a>
                     </div>
                 </div>
             </div>

@@ -57,7 +57,7 @@ class ServeView(View):
 
         return super(ServeView, cls).as_view(**initkwargs)
 
-    def get(self, request, signature, image_id, filter_spec):
+    def get(self, request, signature, image_id, filter_spec, filename=None):
         if not verify_signature(signature.encode(), image_id, filter_spec, key=self.key):
             raise PermissionDenied
 

@@ -93,7 +93,7 @@ def inline_panel_model_panels_check(app_configs, **kwargs):
 def check_panels_in_model(cls, context='model'):
     """Check panels configuration uses `panels` when `edit_handler` not in use."""
     from wagtail.core.models import Page
-    from wagtail.admin.edit_handlers import InlinePanel
+    from wagtail.admin.edit_handlers import BaseCompositeEditHandler, InlinePanel
 
     errors = []
 
@@ -101,13 +101,14 @@ def check_panels_in_model(cls, context='model'):
         # must check the InlinePanel related models
         edit_handler = cls.get_edit_handler()
         for tab in edit_handler.children:
-            inline_panel_children = [
-                panel for panel in tab.children if isinstance(panel, InlinePanel)]
-            for inline_panel_child in inline_panel_children:
-                errors.extend(check_panels_in_model(
-                    inline_panel_child.db_field.related_model,
-                    context='InlinePanel model',
-                ))
+            if isinstance(tab, BaseCompositeEditHandler):
+                inline_panel_children = [
+                    panel for panel in tab.children if isinstance(panel, InlinePanel)]
+                for inline_panel_child in inline_panel_children:
+                    errors.extend(check_panels_in_model(
+                        inline_panel_child.db_field.related_model,
+                        context='InlinePanel model',
+                    ))
 
     if issubclass(cls, Page) or hasattr(cls, 'edit_handler'):
         # Pages do not need to be checked for standalone tabbed_panel usage

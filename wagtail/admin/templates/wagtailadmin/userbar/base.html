@@ -6,7 +6,19 @@
         <div class="wagtail-userbar-nav">
             <div class="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
                 {% block branding_logo %}
-                <i class="wagtail-icon wagtail-icon-wagtail"></i>
+                  <div style="display: none">
+                    <svg>
+                        <defs>
+                          {% include "wagtailadmin/icons/wagtail.svg" %}
+                          {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
+                          {% include "wagtailadmin/icons/edit.svg" %}
+                          {% include "wagtailadmin/icons/plus.svg" %}
+                          {% include "wagtailadmin/icons/tick.svg" %}
+                          {% include "wagtailadmin/icons/cross.svg" %}
+                        </defs>
+                    </svg>
+                  </div>
+                  {% icon name="wagtail-icon" class_name="wagtail-userbar-icon" %}
                 {% endblock %}
                 <span class="wagtail-userbar-help-text">{% trans 'Go to Wagtail admin interface' %}</span>
             </div>

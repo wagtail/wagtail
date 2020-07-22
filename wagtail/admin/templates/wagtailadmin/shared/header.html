@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% comment %}
 
     Variables accepted by this template:
@@ -24,7 +24,7 @@
     <div class="row nice-padding">
         <div class="left">
             <div class="col header-title">
-                <h1 class="icon icon-{{ icon }}">
+                <h1>{% if icon %}{% icon name=icon class_name="header-title-icon" %}{% endif %}
                 {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
             </div>
             {% if search_url %}
@@ -41,7 +41,9 @@
         <div class="right">
             {% if action_url %}
                 <div class="actionbutton">
-                    <a href="{{ action_url }}" class="button bicolor icon {{ action_icon|default:'icon-plus' }}">{{ action_text }}</a>
+                    {% with action_icon|default:'plus' as action_icon_name %}
+                    <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text }}</a>
+                    {% endwith %}
                 </div>
             {% endif %}
         </div>

@@ -1,7 +1,8 @@
 import itertools
 import json
-from urllib.parse import urljoin
+import warnings
 
+from urllib.parse import urljoin
 from django import template
 from django.conf import settings
 from django.contrib.admin.utils import quote
@@ -12,7 +13,6 @@ from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.utils.html import format_html, format_html_join
-from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
@@ -25,8 +25,9 @@ from wagtail.core import hooks
 from wagtail.core.models import (
     Collection, CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
-from wagtail.core.utils import camelcase_to_underscore, escape_script
+from wagtail.core.utils import accepts_kwarg, camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
+from wagtail.utils.deprecation import RemovedInWagtail212Warning
 
 register = template.Library()
 
@@ -428,11 +429,22 @@ def paginate(context, page, base_url='', page_key='p',
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
                         takes_context=True)
 def page_listing_buttons(context, page, page_perms, is_parent=False):
-    next_url = urlencode({"next": context.request.path})
+    next_url = context.request.path
     button_hooks = hooks.get_hooks('register_page_listing_buttons')
-    buttons = sorted(itertools.chain.from_iterable(
-        hook(page, page_perms, is_parent, next_url)
-        for hook in button_hooks))
+
+    buttons = []
+    for hook in button_hooks:
+        if accepts_kwarg(hook, 'next_url'):
+            buttons.extend(hook(page, page_perms, is_parent, next_url))
+        else:
+            warnings.warn(
+                'register_page_listing_buttons hooks will require an additional kwarg `next_url` in a future release. '
+                'Please update your hook function to accept `next_url`.',
+                RemovedInWagtail212Warning
+            )
+            buttons.extend(hook(page, page_perms, is_parent))
+
+    buttons.sort()
 
     for hook in hooks.get_hooks('construct_page_listing_buttons'):
         hook(buttons, page, page_perms, is_parent, context)
@@ -506,17 +518,17 @@ def versioned_static(path):
 
 
 @register.inclusion_tag("wagtailadmin/shared/icon.html", takes_context=False)
-def icon(name=None, class_name='icon', title=None):
+def icon(name=None, class_name='icon', title=None, wrapped=False):
     """
     Abstracts away the actual icon implementation.
 
     Usage:
         {% load wagtailadmin_tags %}
         ...
-        {% icon name="cogs" classname="icon--red" title="Settings" %}
+        {% icon name="cogs" class_name="icon--red" title="Settings" %}
 
     :param name: the icon name/id, required (string)
-    :param classname: default 'icon' (string)
+    :param class_name: default 'icon' (string)
     :param title: accessible label intended for screen readers (string)
     :return: Rendered template snippet (string)
     """
@@ -527,6 +539,7 @@ def icon(name=None, class_name='icon', title=None):
         'name': name,
         'class_name': class_name,
         'title': title,
+        'wrapped': wrapped
     }
 
 

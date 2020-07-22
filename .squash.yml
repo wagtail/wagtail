@@ -8,7 +8,7 @@ deployments:
       - pip install setuptools pip --upgrade --force-reinstall
       - cd /code
     post_build_steps:  
-      - npm install --no-save
+      - npm install --no-save --no-audit --progress=false
       - npm run dist
       - pip install /code
       - mkdir /myproject
