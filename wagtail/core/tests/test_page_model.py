@@ -2222,3 +2222,33 @@ class TestDefaultLocale(TestCase):
         )
 
         self.assertEqual(page.locale, fr_locale)
+
+
+class TestLocalized(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.fr_locale = Locale.objects.create(language_code="fr")
+        self.event_page = Page.objects.get(url_path='/home/events/christmas/')
+        self.fr_event_page = self.event_page.copy_for_translation(self.fr_locale, copy_parents=True)
+        self.fr_event_page.title = 'Noël'
+        self.fr_event_page.save(update_fields=['title'])
+        self.fr_event_page.save_revision().publish()
+
+    def test_localized_same_language(self):
+        self.assertEqual(self.event_page.localized, self.event_page)
+        self.assertEqual(self.event_page.localized_draft, self.event_page)
+
+    def test_localized_different_language(self):
+        with translation.override("fr"):
+            self.assertEqual(self.event_page.localized, self.fr_event_page.page_ptr)
+            self.assertEqual(self.event_page.localized_draft, self.fr_event_page.page_ptr)
+
+    def test_localized_different_language_unpublished(self):
+        # We shouldn't autolocalize if the translation is unpublished
+        self.fr_event_page.unpublish()
+        self.fr_event_page.save()
+
+        with translation.override("fr"):
+            self.assertEqual(self.event_page.localized, self.event_page)
+            self.assertEqual(self.event_page.localized_draft, self.fr_event_page.page_ptr)

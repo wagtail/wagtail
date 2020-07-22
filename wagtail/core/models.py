@@ -404,6 +404,15 @@ class TranslatableMixin(models.Model):
         abstract = True
         unique_together = [("translation_key", "locale")]
 
+    @property
+    def localized(self):
+        locale = Locale.get_active()
+
+        if locale.id == self.locale_id:
+            return self
+
+        return self.get_translation_or_none(locale) or self
+
     def get_translations(self, inclusive=False):
         translations = self.__class__.objects.filter(
             translation_key=self.translation_key
@@ -1137,6 +1146,23 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         object is already in memory.
         """
         return ContentType.objects.get_for_id(self.content_type_id)
+
+    @property
+    def localized_draft(self):
+        locale = Locale.get_active()
+
+        if locale.id == self.locale_id:
+            return self
+
+        return self.get_translation_or_none(locale) or self
+
+    @property
+    def localized(self):
+        localized = self.localized_draft
+        if not localized.live:
+            return self
+
+        return localized
 
     def route(self, request, path_components):
         if path_components:
