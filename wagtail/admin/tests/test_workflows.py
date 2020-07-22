@@ -1038,6 +1038,31 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
 
+    def test_collect_workflow_action_data_get(self):
+        """
+        This tests that a GET request to the collect_workflow_action_data view (for the approve action) returns a modal with a form for extra data entry:
+        adding a comment
+        """
+        response = self.client.get(reverse('wagtailadmin_pages:collect_workflow_action_data', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/workflow_action_modal.html')
+        html = json.loads(response.content)['html']
+        self.assertTagInHTML('<form action="' + reverse('wagtailadmin_pages:collect_workflow_action_data', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)) + '" method="POST" novalidate>', html)
+        self.assertIn('Comment', html)
+
+    def test_collect_workflow_action_data_post(self):
+        """
+        This tests that a POST request to the collect_workflow_action_data view (for the approve action) returns a modal response with the validated data
+        """
+        response = self.client.post(
+            reverse('wagtailadmin_pages:collect_workflow_action_data', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)),
+            {'comment': "This is my comment"}
+        )
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content)
+        self.assertEqual(response_json['step'], 'success')
+        self.assertEqual(response_json['cleaned_data'], {'comment': "This is my comment"})
+
     def test_workflow_report(self):
         response = self.client.get(reverse('wagtailadmin_reports:workflow'))
         self.assertEqual(response.status_code, 200)

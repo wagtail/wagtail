@@ -2,7 +2,7 @@
 {% include "wagtailadmin/shared/header.html" with title=action_verbose icon="clipboard-list" %}
 
 <div class="nice-padding">
-    <form action="{% url 'wagtailadmin_pages:workflow_action' page.id action task_state.id %}" method="POST" novalidate>
+    <form action="{{ submit_url }}" method="POST" novalidate>
         {% csrf_token %}
         <ul class="fields">
             {% include 'wagtailadmin/shared/form_as_ul.html' %}

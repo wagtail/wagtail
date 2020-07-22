@@ -1280,9 +1280,11 @@ def reject_moderation(request, revision_id):
     return redirect('wagtailadmin_home')
 
 
-class WorkflowAction(View):
-    """Provides a modal view to enter additional data for the specified workflow action on GET,
-    or perform the specified action on POST"""
+class BaseWorkflowFormView(View):
+    """
+    Shared functionality for views that need to render the modal form to collect extra details
+    for a workflow task
+    """
 
     def dispatch(self, request, page_id, action_name, task_state_id):
         self.page = get_object_or_404(Page, id=page_id)
@@ -1322,6 +1324,33 @@ class WorkflowAction(View):
         return super().dispatch(request, page_id, action_name, task_state_id)
 
     def post(self, request, page_id, action_name, task_state_id):
+        raise NotImplementedError
+
+    def get(self, request, page_id, action_name, task_state_id):
+        form = self.form_class()
+        return self.render_modal_form(request, form)
+
+    def get_submit_url(self):
+        raise NotImplementedError
+
+    def render_modal_form(self, request, form):
+        return render_modal_workflow(
+            request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
+                'page': self.page,
+                'form': form,
+                'action': self.action_name,
+                'action_verbose': self.action_verbose_name,
+                'task_state': self.task_state,
+                'submit_url': self.get_submit_url(),
+            },
+            json_data={'step': 'action'}
+        )
+
+
+class WorkflowAction(BaseWorkflowFormView):
+    """Provides a modal view to enter additional data for the specified workflow action on GET,
+    or perform the specified action on POST"""
+    def post(self, request, page_id, action_name, task_state_id):
         if self.form_class:
             form = self.form_class(request.POST)
             if form.is_valid():
@@ -1336,21 +1365,27 @@ class WorkflowAction(View):
             return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
         return redirect(redirect_to)
 
-    def get(self, request, page_id, action_name, task_state_id):
-        form = self.form_class()
-        return self.render_modal_form(request, form)
+    def get_submit_url(self):
+        return reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, self.action_name, self.task_state.id))
 
-    def render_modal_form(self, request, form):
-        return render_modal_workflow(
-            request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
-                'page': self.page,
-                'form': form,
-                'action': self.action_name,
-                'action_verbose': self.action_verbose_name,
-                'task_state': self.task_state,
-            },
-            json_data={'step': 'action'}
-        )
+
+class CollectWorkflowActionData(BaseWorkflowFormView):
+    """
+    On GET, provides a modal view to enter additional data for the specified workflow action;
+    on POST, return the validated form data back to the modal's caller via a JSON response, so that
+    the calling view can subsequently perform the action as part of its own processing
+    (for example, approving moderation while making an edit).
+    """
+    def post(self, request, page_id, action_name, task_state_id):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'cleaned_data': form.cleaned_data})
+        elif self.action_modal and request.is_ajax():
+            # show form errors
+            return self.render_modal_form(request, form)
+
+    def get_submit_url(self):
+        return reverse('wagtailadmin_pages:collect_workflow_action_data', args=(self.page.id, self.action_name, self.task_state.id))
 
 
 def confirm_workflow_cancellation(request, page_id):
