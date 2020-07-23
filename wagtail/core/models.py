@@ -2287,6 +2287,8 @@ class Collection(MP_Node):
     name = models.CharField(max_length=255, verbose_name=_('name'))
 
     objects = CollectionManager()
+    # Tell treebeard to order Collections' paths such that they are also ordered by name at the top level.
+    node_order_by = ['name']
 
     def __str__(self):
         return self.name
