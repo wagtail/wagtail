@@ -1047,7 +1047,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/workflow_action_modal.html')
         html = json.loads(response.content)['html']
-        self.assertTagInHTML('<form action="' + reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)) + '" method="POST" novalidate>', html)
+        self.assertTagInHTML('<form action="' + reverse('wagtailadmin_pages:collect_workflow_action_data', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)) + '" method="POST" novalidate>', html)
         self.assertIn('Comment', html)
 
     def test_collect_workflow_action_data_post(self):
