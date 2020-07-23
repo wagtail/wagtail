@@ -76,7 +76,7 @@
     <script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', ActivateWorkflowActions('{{ csrf_token|escapejs }}'));
+        document.addEventListener('DOMContentLoaded', ActivateWorkflowActionsForDashboard('{{ csrf_token|escapejs }}'));
         /* Tooltips used by the workflow status component */
         $(function() {
             $('[data-wagtail-tooltip]').tooltip({
