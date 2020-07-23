@@ -4,6 +4,7 @@ import { Icon } from 'draftail';
 
 import Tooltip from '../Tooltip/Tooltip';
 import Portal from '../../Portal/Portal';
+import { SelectionState, EditorState } from 'draft-js';
 
 // Constraints the maximum size of the tooltip.
 const OPTIONS_MAX_WIDTH = 300;
@@ -21,12 +22,14 @@ class MediaBlock extends Component {
       showTooltipAt: null,
     };
 
+    this.onClick = this.onClick.bind(this);
+    this.selectCurrentBlock = this.selectCurrentBlock.bind(this);
     this.openTooltip = this.openTooltip.bind(this);
     this.closeTooltip = this.closeTooltip.bind(this);
     this.renderTooltip = this.renderTooltip.bind(this);
   }
 
-  openTooltip(e) {
+  onClick(e) {
     const trigger = e.target.closest('[data-draftail-trigger]');
 
     // Click is within the tooltip.
@@ -34,6 +37,24 @@ class MediaBlock extends Component {
       return;
     }
 
+    this.selectCurrentBlock();
+    this.openTooltip(trigger);
+  }
+
+  selectCurrentBlock() {
+    const { block, blockProps } = this.props;
+    const { editorState, onChange } = blockProps;
+    const selection = new SelectionState({
+      anchorKey: block.getKey(),
+      anchorOffset: 0,
+      focusKey: block.getKey(),
+      focusOffset: block.getLength(),
+      hasFocus: true,
+    });
+    onChange(EditorState.forceSelection(editorState, selection));
+  }
+
+  openTooltip(trigger) {
     const container = trigger.closest('[data-draftail-editor-wrapper]');
     const containerRect = container.getBoundingClientRect();
     const rect = trigger.getBoundingClientRect();
@@ -84,7 +105,7 @@ class MediaBlock extends Component {
         type="button"
         tabIndex={-1}
         className="MediaBlock"
-        onClick={this.openTooltip}
+        onClick={this.onClick}
         data-draftail-trigger
       >
         <span className="MediaBlock__icon-wrapper" aria-hidden>
@@ -102,7 +123,10 @@ class MediaBlock extends Component {
 MediaBlock.propTypes = {
   blockProps: PropTypes.shape({
     entityType: PropTypes.object.isRequired,
+    editorState: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
   }).isRequired,
+  block: PropTypes.object.isRequired,
   src: PropTypes.string,
   alt: PropTypes.string,
   children: PropTypes.node.isRequired,

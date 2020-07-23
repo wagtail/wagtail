@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { DraftUtils } from 'draftail';
+import React from 'react';
 
 import { STRINGS } from '../../../config/wagtailConfig';
 
@@ -9,41 +8,25 @@ import MediaBlock from '../blocks/MediaBlock';
 /**
  * Editor block to preview and edit images.
  */
-class ImageBlock extends Component {
-  constructor(props) {
-    super(props);
+const ImageBlock = props => {
+  const { blockProps } = props;
+  const { entity, onEditEntity, onRemoveEntity } = blockProps;
+  const { src, alt } = entity.getData();
+  const altLabel = `${STRINGS.ALT_TEXT}: “${alt || ''}”`;
 
-    this.changeAlt = this.changeAlt.bind(this);
-  }
+  return (
+    <MediaBlock {...props} src={src} alt="">
+      <p className="ImageBlock__alt">{altLabel}</p>
 
-  changeAlt(e) {
-    const { block, blockProps } = this.props;
-    const { editorState, onChange } = blockProps;
-
-    const data = {
-      alt: e.target.value,
-    };
-
-    onChange(DraftUtils.updateBlockEntity(editorState, block, data));
-  }
-
-  render() {
-    const { blockProps } = this.props;
-    const { entity, onRemoveEntity } = blockProps;
-    const { src, alt } = entity.getData();
-    const altLabel = `${STRINGS.ALT_TEXT}: “${alt || ''}”`;
-
-    return (
-      <MediaBlock {...this.props} src={src} alt="">
-        <p className="ImageBlock__alt">{altLabel}</p>
-
-        <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
-          {STRINGS.DELETE}
-        </button>
-      </MediaBlock>
-    );
-  }
-}
+      <button className="button Tooltip__button" type="button" onClick={onEditEntity}>
+        {STRINGS.EDIT}
+      </button>
+      <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
+        {STRINGS.DELETE}
+      </button>
+    </MediaBlock>
+  );
+};
 
 ImageBlock.propTypes = {
   block: PropTypes.object.isRequired,
