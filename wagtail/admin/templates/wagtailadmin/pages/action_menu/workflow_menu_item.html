@@ -1,4 +1,4 @@
 {% load wagtailadmin_tags %}
-<button class="button" data-workflow-action-url="{% url 'wagtailadmin_pages:workflow_action' page.id name current_task_state.id %}" {% if launch_modal %}data-launch-modal{% endif %}>
+<button class="button" data-workflow-action-name="{{ name }}" {% if launch_modal %}data-workflow-action-modal-url="{% url 'wagtailadmin_pages:collect_workflow_action_data' page.id name current_task_state.id %}"{% endif %}>
     {% if icon_name %}{% icon name=icon_name %}{% endif %}{{ label }}
 </button>
