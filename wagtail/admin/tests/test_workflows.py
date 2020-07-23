@@ -1063,6 +1063,40 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['step'], 'success')
         self.assertEqual(response_json['cleaned_data'], {'comment': "This is my comment"})
 
+    def test_workflow_action_via_edit_view(self):
+        """
+        Posting to the 'edit' view with 'action-workflow-action' set should perform the given workflow action in addition to updating page content
+        """
+        # Post
+        self.client.post(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), {
+            'title': "This title was edited while approving",
+            'slug': str(self.page.slug),
+            'content': str(self.page.content),
+            'action-workflow-action': "True",
+            'workflow-action-name': 'approve',
+            'workflow-action-extra-data': '{"comment": "my comment"}'
+        })
+
+        # Check that the workflow was approved
+
+        workflow_state = WorkflowState.objects.get(page=self.page, requested_by=self.submitter)
+
+        self.assertEqual(workflow_state.status, workflow_state.STATUS_APPROVED)
+
+        # Check that the task was approved
+
+        task_state = workflow_state.current_task_state
+
+        self.assertEqual(task_state.status, task_state.STATUS_APPROVED)
+
+        # Check that the comment was added to the task state correctly
+
+        self.assertEqual(task_state.comment, 'my comment')
+
+        # Check that page edits made at the same time as the action have been saved
+        page = Page.objects.get(id=self.page.id)
+        self.assertEqual(page.get_latest_revision_as_page().title, "This title was edited while approving")
+
     def test_workflow_report(self):
         response = self.client.get(reverse('wagtailadmin_reports:workflow'))
         self.assertEqual(response.status_code, 200)
