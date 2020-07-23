@@ -169,7 +169,7 @@
         });
 
         $(function() {
-            document.addEventListener('DOMContentLoaded', ActivateWorkflowActions('{{ csrf_token|escapejs }}'));
+            document.addEventListener('DOMContentLoaded', ActivateWorkflowActionsForEditView('#page-edit-form'));
             document.addEventListener('DOMContentLoaded', LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}'));
         })
     </script>
