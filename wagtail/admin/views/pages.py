@@ -1,3 +1,4 @@
+import json
 from datetime import timedelta
 from time import time
 
@@ -478,6 +479,16 @@ def edit(request, page_id):
             is_submitting = bool(request.POST.get('action-submit')) and page_perms.can_submit_for_moderation()
             is_restarting_workflow = bool(request.POST.get('action-restart-workflow')) and page_perms.can_submit_for_moderation() and workflow_state and workflow_state.user_can_cancel(request.user)
             is_reverting = bool(request.POST.get('revision'))
+
+            is_performing_workflow_action = bool(request.POST.get('action-workflow-action'))
+            if is_performing_workflow_action:
+                workflow_action = request.POST['workflow-action-name']
+                available_actions = page.current_workflow_task.get_actions(page, request.user)
+                available_action_names = [name for name, verbose_name, modal in available_actions]
+                if workflow_action not in available_action_names:
+                    # prevent this action
+                    is_performing_workflow_action = False
+
             is_saving = True
             has_content_changes = form.has_changed()
 
@@ -489,12 +500,18 @@ def edit(request, page_id):
             if is_reverting:
                 previous_revision = get_object_or_404(page.revisions, id=request.POST.get('revision'))
 
-            # Save revision
-            revision = page.save_revision(
-                user=request.user,
-                log_action=True,  # Always log the new revision on edit
-                previous_revision=(previous_revision if is_reverting else None)
-            )
+            if is_performing_workflow_action and not has_content_changes:
+                # don't save a new revision, as we're just going to update the page's
+                # workflow state with no content changes
+                revision = latest_revision
+            else:
+                # Save revision
+                revision = page.save_revision(
+                    user=request.user,
+                    log_action=True,  # Always log the new revision on edit
+                    previous_revision=(previous_revision if is_reverting else None)
+                )
+
             # store submitted go_live_at for messaging below
             go_live_at = page.go_live_at
 
@@ -529,6 +546,11 @@ def edit(request, page_id):
                     # Otherwise start a new workflow
                     workflow = page.get_workflow()
                     workflow.start(page, request.user)
+
+            if is_performing_workflow_action:
+                extra_workflow_data_json = request.POST.get('workflow-action-extra-data', '{}')
+                extra_workflow_data = json.loads(extra_workflow_data_json)
+                page.current_workflow_task.on_action(page.current_workflow_task_state, request.user, workflow_action, **extra_workflow_data)
 
         # Notifications
         if is_publishing:
@@ -670,7 +692,7 @@ def edit(request, page_id):
                 if hasattr(result, 'status_code'):
                     return result
 
-            if is_publishing or is_submitting or is_restarting_workflow:
+            if is_publishing or is_submitting or is_restarting_workflow or is_performing_workflow_action:
                 # we're done here - redirect back to the explorer
                 if next_url:
                     # redirect back to 'next' url if present
