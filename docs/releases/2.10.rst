@@ -79,6 +79,7 @@ Other features
  * Improve error feedback when editing a page with a missing model class (Andy Babic)
  * Change Wagtail tabs implementation to only allow slug-formatted tab identifiers, reducing false positives from security audits (Matt Westcott)
  * Ensure errors during Postgres search indexing are left uncaught to assist troubleshooting (Karl Hobley)
+ * Add ability to edit images and embeds in rich text editor (Maylon Pedroso, Samuel Mendes, Gabriel Peracio)
 
 
 Bug fixes
