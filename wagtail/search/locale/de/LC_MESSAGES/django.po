@@ -11,7 +11,7 @@
 # pcraston <patrick@craston.com>, 2014
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
-# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

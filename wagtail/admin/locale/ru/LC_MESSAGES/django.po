@@ -4,7 +4,7 @@
 #
 # Translators:
 # ajk, 2014
-# ajk, 2014
+# eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Alexandr <alexromantsov@gmail.com>, 2016
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Arseni M <arseni+transifex@mouchinski.com>, 2017

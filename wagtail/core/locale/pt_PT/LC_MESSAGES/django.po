@@ -4,16 +4,17 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
-# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
-# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Luís Favas <al62006@utad.eu>, 2020
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-07-07 22:55+0000\n"
+"Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -22,8 +23,26 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail core"
+msgstr "Núcleo Wagtail"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: este bloco não contêm opções"
+
 msgid "This block has no options."
 msgstr "Este bloco não tem opções."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "O número mínimo de itens é %d"
+
+msgid "This field is required."
+msgstr "Este campo é obrigatório"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "O numero máximo de itens é %d"
 
 msgid "Password"
 msgstr "Senha"
@@ -145,8 +164,17 @@ msgstr "expirado"
 msgid "locked"
 msgstr "trancado"
 
+msgid "locked at"
+msgstr "trancado a"
+
+msgid "locked by"
+msgstr "trancado por"
+
 msgid "first published at"
 msgstr "primeira publicação em"
+
+msgid "last published at"
+msgstr "ultima alteração a"
 
 msgid "latest revision created at"
 msgstr "última versão criada em"
@@ -159,6 +187,9 @@ msgstr "agendado"
 
 msgid "draft"
 msgstr "rascunho"
+
+msgid "live + scheduled"
+msgstr "publicada + agendada"
 
 msgid "live + draft"
 msgstr "publicada + rascunho"
@@ -220,6 +251,15 @@ msgstr "Apagar páginas com filhas"
 msgid "Lock"
 msgstr "Trancar"
 
+msgid "Lock/unlock pages you've locked"
+msgstr "Trancar/destrancar páginas que tu trancaste"
+
+msgid "Unlock"
+msgstr "Destrancada"
+
+msgid "Unlock any page"
+msgstr "Destrancar qualquer página"
+
 msgid "group"
 msgstr "grupo"
 
@@ -247,6 +287,15 @@ msgstr "Privado, acessível aos utilizadores de grupos específicos"
 msgid "password"
 msgstr "senha"
 
+msgid "groups"
+msgstr "grupos"
+
+msgid "view restriction"
+msgstr "ver restrição"
+
+msgid "view restrictions"
+msgstr "ver restrições"
+
 msgid "page view restriction"
 msgstr "restrição de visualização de página"
 
@@ -255,6 +304,12 @@ msgstr "restrições de visualização de página"
 
 msgid "collection"
 msgstr "coleção"
+
+msgid "collection view restriction"
+msgstr "restrição de visualização da coleção"
+
+msgid "collection view restrictions"
+msgstr "restrições de visualização da coleção"
 
 msgid "name"
 msgstr "nome"
@@ -267,6 +322,9 @@ msgstr "permissão"
 
 msgid "group collection permission"
 msgstr "permissão de coleção de grupo"
+
+msgid "group collection permissions"
+msgstr "permissões de grupo da coleção"
 
 msgid "Log in"
 msgstr "Entrar"

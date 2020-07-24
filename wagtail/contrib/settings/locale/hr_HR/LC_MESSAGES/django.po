@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@gmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020
 # Ivica Dosen <idosen71@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-02-11 06:49+0000\n"
-"Last-Translator: Dino Aljević <dino8890@gmail.com>\n"
+"PO-Revision-Date: 2020-05-23 14:18+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -36,3 +37,13 @@ msgstr "Spremi"
 
 msgid "Settings"
 msgstr "Postavke"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Postavku nije moguće otvoriti budući da nema definiranog sjedišta."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "Ažurirano %(setting_type)s"
+
+msgid "The setting could not be saved due to errors."
+msgstr "Postavku nije moguće sačuvati zbog grešaka."

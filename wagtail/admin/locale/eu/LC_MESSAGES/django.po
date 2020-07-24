@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

@@ -6,6 +6,7 @@
 # Basitlik İyidir, 2020
 # Basitlik İyidir <basitlikiyidir@gmail.com>, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2019
+# Halim Turan <halim_turan_61@hotmail.com>, 2020
 # José Luis <alagunajs@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Py Data Geek <pydatageek@gmail.com>, 2019
@@ -17,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-06-15 10:50+0000\n"
+"Last-Translator: Halim Turan <halim_turan_61@hotmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -825,6 +826,24 @@ msgstr ""
 msgid "This page is locked"
 msgstr "Sayfa kilitli"
 
+msgid "This page is unlocked"
+msgstr "Bu sayfa kilitli değil"
+
+msgid "Remove editor lock"
+msgstr "Editör kilidini kaldır"
+
+msgid "Unlock"
+msgstr "Kilidi kaldır"
+
+msgid "You don't have permission to unlock"
+msgstr "Kilit açma yetkiniz bulunmamaktadır"
+
+msgid "Lock"
+msgstr "Kilitle"
+
+msgid "You don't have permission to lock"
+msgstr "Kilitleme yetkiniz bulunmamaktadır"
+
 msgid "Set page privacy. Current status: Public"
 msgstr "Sayfa gizliliğini ayarla. Şimdiki durum: Genel"
 
@@ -1312,6 +1331,9 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Sayfa türleri"
 
+msgid "All"
+msgstr "Hepsi"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Üzgünüm, <em>\"%(query_string)s\"</em> ile eşleşen sayfa yok"
@@ -1325,8 +1347,45 @@ msgstr "Hiçbir sayfa kullanmıyor"
 msgid "Collection"
 msgstr "Koleksiyon"
 
+msgid "No pages match this report's criteria."
+msgstr "Rapor kriteriyle eşleşen sayfa bulunamadı."
+
+msgid "Download XLSX"
+msgstr "XLSX İndir"
+
+msgid "Download CSV"
+msgstr "CSV İndir"
+
+msgid "No pages found."
+msgstr "Sayfa bulunamadı."
+
+msgid "Locking status"
+msgstr "Kilitli durum"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"<b>Sizin</b> tarafınızdan %(locking_date)s tarihinde kilitlendi"
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"<b>%(locking_date)s</b> tarihinde kilitlendi"
+
 msgid "Locked"
 msgstr "Kilitlendi"
+
+msgid "No locked pages found."
+msgstr "Kilitli sayfa bulunamadı."
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."

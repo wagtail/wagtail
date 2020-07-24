@@ -7,7 +7,7 @@
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014,2016
-# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 # Yiannis Inglessis <negtheone@gmail.com>, 2016
 msgid ""
 msgstr ""

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Stas Rudakou <stas@garage22.net>, 2018
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-06-09 18:46+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +43,9 @@ msgstr "Назва"
 msgid "file"
 msgstr "Файл"
 
+msgid "created at"
+msgstr "створана"
+
 msgid "uploaded by user"
 msgstr "Запампована карыстальнікам"
 
@@ -50,6 +54,9 @@ msgstr "Тэгі"
 
 msgid "document"
 msgstr "дакумент"
+
+msgid "documents"
+msgstr "дакументы"
 
 msgid "Choose a document"
 msgstr "Абраць дакумент"
@@ -63,8 +70,52 @@ msgstr "Запампаваць"
 msgid "Uploading…"
 msgstr "Запампоўваецца..."
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Знойдзена %(counter)s супадзенне"
+msgstr[1] ""
+"\n"
+"Знойдзена %(counter)s супадзенняў"
+msgstr[2] ""
+"\n"
+"Знойдзена %(counter)s супадзенняў"
+msgstr[3] ""
+"\n"
+"Знойдзена %(counter)s супадзенняў"
+
 msgid "Latest documents"
 msgstr "Апошнія дакументы"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Выбачайце, падыходных дакументаў не знойдзена \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Вы не загрузілі дакументы ў гэтую калекцыю."
+
+msgid "You haven't uploaded any documents."
+msgstr "Вы не загрузілі ніякіх дакументаў."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"Можа <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
+"\">загрузіць зараз</a>?"
 
 msgid "Change document:"
 msgstr "Змяніць дакумент:"
@@ -96,6 +147,9 @@ msgstr "Вы ўпэўнены, што хочаце выдаліць гэты д�
 msgid "Yes, delete"
 msgstr "Так, выдаліць"
 
+msgid "No, don't delete"
+msgstr "Не, не выдаляць"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Рэдагаванне %(title)s"
@@ -124,13 +178,41 @@ msgstr "Назва"
 msgid "File"
 msgstr "Файл"
 
+msgid "Collection"
+msgstr "Калекцыя"
+
+msgid "Created"
+msgstr "Створаны"
+
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s таму"
 
 #, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы яшчэ не загрузілі ніводнага дакумента ў гэтую калекцыю. Чаму б не <a href="
+"\"%(wagtaildocs_add_document_url)s\">зрабіць гэта зараз</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Вы яшчэ не загрузілі ніводнага дакумента. Чаму б не <a href="
+"\"%(wagtaildocs_add_document_url)s\">зрабіць гэта зараз</a>?"
+
+#, python-format
 msgid "Usage of %(title)s"
 msgstr "Выкарыстоўванне %(title)s"
+
+msgid "Usage of"
+msgstr "Выкарыстанне"
+
+msgid "Parent"
+msgstr "Бацькоўскі элемент"
 
 msgid "Type"
 msgstr "Тып"
@@ -141,14 +223,57 @@ msgstr "Статус"
 msgid "Edit this page"
 msgstr "Рэдагаваць гэтую старонку"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Дакумент <span class=\"visuallyhidden\">створаны ў "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span>Дакументаў <span class=\"visuallyhidden\">створана ў "
+"%(site_name)s</span>"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span>Дакументаў <span class=\"visuallyhidden\">створана ў "
+"%(site_name)s</span>"
+msgstr[3] ""
+"\n"
+"<span>%(total)s</span>Дакументаў <span class=\"visuallyhidden\">створана ў "
+"(%(site_name)s</span>"
+
 msgid "Add multiple documents"
 msgstr "Дадаць некалькі дакументаў"
 
 msgid "Add documents"
 msgstr "Дадаць дакументы"
 
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr "Перацягні дакументы ў гэтую вобласць для неадкладнай загрузкі."
+
+msgid "Or choose from your computer"
+msgstr "Або абярыце на вашым кампутары"
+
 msgid "Add to collection:"
 msgstr "Дадаць да калекцыі:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Паспяховая загрузка. Калі ласка, абновіце загаловак для гэтага дакумента на "
+"больш прыдатны, калі гэта неабходна. Таксама вы можаце цалкам выдаліць "
+"дакумент, калі яго запампоўка не патрэбна."
 
 msgid "Sorry, upload failed."
 msgstr "На жаль, не атрымалася запампаваць."
@@ -162,8 +287,18 @@ msgstr "Выдаліць"
 msgid "You need a password to access this document."
 msgstr "Патрэбны пароль, каб атрымаць доступ да гэтага дакумента."
 
+msgid "Document permissions"
+msgstr "Доступ да дакумента"
+
+msgid "Add a document permission"
+msgstr "Дадаць правы доступу да дакумента"
+
 msgid "Server Error"
 msgstr "Памылка сервера"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Паведаміце аб гэтай памылцы адміністратару і пакажыце наступную інфармацыю:"
 
 msgid "Search documents"
 msgstr "Пошул дакументаў"
