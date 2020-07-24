@@ -10,6 +10,16 @@ Wagtail 2.10 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Moderation workflow
+~~~~~~~~~~~~~~~~~~~
+
+This release introduces a configurable moderation workflow system to replace the single-step "submit for moderation" feature. Workflows can be set up on specific subsections of the page tree and consist of any number of tasks to be completed by designated user groups. To support this, numerous UI improvements have been made to Wagtail's page editor, including a new log viewer to track page history.
+
+For further details, see :ref:`managing_workflows` and :doc:`../advanced_topics/custom_tasks`.
+
+This feature was developed by Jacob Topp-Mugglestone, Karl Hobley, Matt Westcott and Dan Braghis, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
+
 Search query expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -116,19 +126,6 @@ Removed support for Python 3.5
 Python 3.5 is no longer supported as of this release; please upgrade to Python 3.6 or above before upgrading Wagtail.
 
 
-``<div class="rich-text">`` wrappers removed from rich text
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-In previous releases, rich text values were enclosed in a ``<div class="rich-text">`` element when rendered; this element has now been removed.
-To restore the old behaviour, see :ref:`legacy_richtext`.
-
-
-Prepopulating data for site history report
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This release introduces logging of user actions, viewable through the "Site history" report. To pre-populate these logs with data from page revision history, run the management command: ``./manage.py create_log_entries_from_revisions``.
-
-
 Move to new configurable moderation system (workflow)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -151,6 +148,19 @@ Key points:
   for the entire page tree. However, if you have a complex nested set of publish page permissions, the created set of workflows will be more complex as well - you may wish to
   inspect the created workflows and tasks in the new ``Settings/Workflows`` admin area and potentially simplify them.
   See :ref:`managing_workflows` for the administrator guide.
+
+
+``<div class="rich-text">`` wrappers removed from rich text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In previous releases, rich text values were enclosed in a ``<div class="rich-text">`` element when rendered; this element has now been removed.
+To restore the old behaviour, see :ref:`legacy_richtext`.
+
+
+Prepopulating data for site history report
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release introduces logging of user actions, viewable through the "Site history" report. To pre-populate these logs with data from page revision history, run the management command: ``./manage.py create_log_entries_from_revisions``.
 
 
 New ``next_url`` keyword argument on ``register_page_listing_buttons`` and ``register_page_listing_more_buttons`` hooks

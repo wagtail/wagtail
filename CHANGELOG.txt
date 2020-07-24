@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~
 
  * Removed support for Python 3.5
+ * Implemented configurable moderation workflow (Jacob Topp-Mugglestone, Karl Hobley, Matt Westcott, Dan Braghis)
  * Implemented phrase searching and structured search query expressions (Karl Hobley)
  * Add ability to import redirects from an uploaded file (CSV, TSV, XLS, and XLSX) (Martin Sandström)
  * Added `webpquality` and `format-webp-lossless` image filters and `WAGTAILIMAGES_WEBP_QUALITY` setting (Nikolay Lukyanov)
