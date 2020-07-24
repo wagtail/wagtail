@@ -175,7 +175,7 @@ def start_import(request):
     if extension not in supported_extensions:
         messages.error(
             request,
-            _('File format of type "{}" is not supported'.format(extension))
+            _('File format of type "{}" is not supported').format(extension)
         )
         return redirect('wagtailredirects:start_import')
 
@@ -191,16 +191,15 @@ def start_import(request):
     except UnicodeDecodeError as e:
         messages.error(
             request,
-            _(u"Imported file has a wrong encoding: %s" % e)
+            _("Imported file has a wrong encoding: %s") % e
         )
         return redirect('wagtailredirects:start_import')
     except Exception as e:  # pragma: no cover
         messages.error(
             request,
-            _(
-                u"%s encountered while trying to read file: %s"
-                % (type(e).__name__, import_file.name)
-            )
+            _("%(error)s encountered while trying to read file: %(filename)s") % {
+                'error': type(e).__name__, 'filename': import_file.name
+            }
         )
         return redirect('wagtailredirects:start_import')
 
