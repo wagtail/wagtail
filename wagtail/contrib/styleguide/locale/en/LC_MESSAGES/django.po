@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,15 +22,15 @@ msgid "Wagtail style guide"
 msgstr ""
 
 #: templates/wagtailstyleguide/base.html:12
-#: templates/wagtailstyleguide/base.html:16 wagtail_hooks.py:21
+#: templates/wagtailstyleguide/base.html:16 wagtail_hooks.py:20
 msgid "Styleguide"
 msgstr ""
 
-#: templates/wagtailstyleguide/base.html:681
+#: templates/wagtailstyleguide/base.html:700
 msgid "Save"
 msgstr ""
 
-#: templates/wagtailstyleguide/base.html:681
+#: templates/wagtailstyleguide/base.html:700
 msgid "Delete image"
 msgstr ""
 

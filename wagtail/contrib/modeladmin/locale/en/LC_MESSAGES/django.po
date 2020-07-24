@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Parent page"
 msgstr ""
 
-#: helpers/button.py:42 views.py:699
+#: helpers/button.py:42 views.py:703
 #, python-format
 msgid "Add %s"
 msgstr ""
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Edit this %s"
 msgstr ""
 
-#: helpers/button.py:84 templates/modeladmin/edit.html:15 views.py:730
+#: helpers/button.py:84 templates/modeladmin/edit.html:15 views.py:734
 msgid "Delete"
 msgstr ""
 
@@ -220,56 +220,56 @@ msgstr ""
 msgid "The %s could not be created due to errors."
 msgstr ""
 
-#: views.py:620
+#: views.py:624
 msgid "New"
 msgstr ""
 
-#: views.py:645
+#: views.py:649
 #, python-format
 msgid "Create new %s"
 msgstr ""
 
-#: views.py:655
+#: views.py:659
 msgid "Editing"
 msgstr ""
 
-#: views.py:669
+#: views.py:673
 #, python-format
 msgid "Editing %s"
 msgstr ""
 
-#: views.py:672
+#: views.py:676
 #, python-format
 msgid "%(model_name)s '%(instance)s' updated."
 msgstr ""
 
-#: views.py:686
+#: views.py:690
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr ""
 
-#: views.py:746
+#: views.py:750
 #, python-format
 msgid "Confirm deletion of %s"
 msgstr ""
 
-#: views.py:750
+#: views.py:754
 #, python-format
 msgid ""
 "Are you sure you want to delete this %s? If other things in your site are "
 "related to it, they may also be affected."
 msgstr ""
 
-#: views.py:759
+#: views.py:763
 #, python-format
 msgid "%(model_name)s '%(instance)s' deleted."
 msgstr ""
 
-#: views.py:795
+#: views.py:799
 msgid "Inspecting"
 msgstr ""
 
-#: views.py:808
+#: views.py:812
 #, python-format
 msgid "Inspecting %s"
 msgstr ""
