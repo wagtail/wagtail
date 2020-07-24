@@ -6,6 +6,7 @@
 # Basitlik İyidir, 2020
 # Basitlik İyidir, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016
+# Halim Turan <halim_turan_61@hotmail.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-06-15 10:31+0000\n"
+"Last-Translator: Halim Turan <halim_turan_61@hotmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -835,6 +836,15 @@ msgstr "Kilidini aç"
 msgid "You don't have permission to unlock"
 msgstr "Kilidi açma izniniz yok"
 
+msgid "Apply editor lock"
+msgstr "Editör kilidini kaldır"
+
+msgid "Lock"
+msgstr "Kilitle"
+
+msgid "You don't have permission to lock"
+msgstr "Kilitleme yetkiniz bulunmamaktadır"
+
 msgid "Set page privacy. Current status: Public"
 msgstr "Sayfa gizliliğini ayarla. Şimdiki durum: Genel"
 
@@ -1322,6 +1332,9 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Sayfa türleri"
 
+msgid "All"
+msgstr "Hepsi"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Üzgünüm, <em>\"%(query_string)s\"</em> ile eşleşen sayfa yok"
@@ -1334,6 +1347,21 @@ msgstr "Hiçbir sayfa kullanmıyor"
 
 msgid "Collection"
 msgstr "Koleksiyon"
+
+msgid "No pages match this report's criteria."
+msgstr "Rapor kriterine göre eşleşen sayfa bulunmamaktadır."
+
+msgid "Download XLSX"
+msgstr "XLSX İndir"
+
+msgid "Download CSV"
+msgstr "CSV İndir"
+
+msgid "No pages found."
+msgstr "Sayfa bulunamadı."
+
+msgid "Locking status"
+msgstr "Kilitli durum"
 
 msgid "Locked"
 msgstr "Kilitlendi"

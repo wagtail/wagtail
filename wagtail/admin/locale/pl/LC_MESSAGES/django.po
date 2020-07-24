@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-06-16 11:07+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -1398,6 +1398,9 @@ msgstr[3] ""
 msgid "Page types"
 msgstr "Typy stron"
 
+msgid "All"
+msgstr "Wszystkie"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr "Przepraszamy, żadna strona nie pasuje do <em>\"%(query_string)s\"</em>"
@@ -1413,6 +1416,18 @@ msgstr "Kolekcja"
 
 msgid "No pages match this report's criteria."
 msgstr "Żadne strony nie pasują do kryteriów raportu."
+
+msgid "Download XLSX"
+msgstr "Pobierz XLSX"
+
+msgid "Download CSV"
+msgstr "Pobierz CSV"
+
+msgid "No pages found."
+msgstr "Nie znaleziono żadnych stron."
+
+msgid "Locking status"
+msgstr "Status blokowania"
 
 #, python-format
 msgid ""

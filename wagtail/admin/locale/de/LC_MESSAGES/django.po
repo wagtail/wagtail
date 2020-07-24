@@ -24,16 +24,17 @@
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
+# Tibor L <tibor@lpld.io>, 2020
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
 # Vorlif <flori@vorlif.org>, 2016
-# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-06-07 23:22+0000\n"
+"Last-Translator: Tibor L <tibor@lpld.io>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -1373,6 +1374,9 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Seitentypen"
 
+msgid "All"
+msgstr "Alle"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1389,6 +1393,18 @@ msgstr "Sammlung"
 
 msgid "No pages match this report's criteria."
 msgstr "Es gibt keine Seiten welche den Kriterien dieses Reports entsprechen"
+
+msgid "Download XLSX"
+msgstr "XLSX herunterladen"
+
+msgid "Download CSV"
+msgstr "CSV herunterladen"
+
+msgid "No pages found."
+msgstr "Keine Seiten gefunden"
+
+msgid "Locking status"
+msgstr "Sperr-Status"
 
 #, python-format
 msgid ""

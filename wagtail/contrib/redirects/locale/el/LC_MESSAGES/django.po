@@ -5,12 +5,12 @@
 # Translators:
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # jim dal <dimitrisdal@gmail.com>, 2014
-# Yiannis Inglessis <inactive+ne0the0ne@transifex.com>, 2015
+# 1259f43d2c72e728d4123828a064d8b1_a0361b9 <bfb4ec0fd0f356e078a4985d0184dff2_285455>, 2015
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
-# Yiannis Inglessis <inactive+ne0the0ne@transifex.com>, 2015
+# 1259f43d2c72e728d4123828a064d8b1_a0361b9 <bfb4ec0fd0f356e078a4985d0184dff2_285455>, 2015
 # Yiannis Inglessis <negtheone@gmail.com>, 2016
 msgid ""
 msgstr ""

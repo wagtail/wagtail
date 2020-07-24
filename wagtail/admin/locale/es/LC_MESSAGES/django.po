@@ -6,13 +6,13 @@
 # fooflare <amos.oviedo@gmail.com>, 2014,2016
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # fooflare <amos.oviedo@gmail.com>, 2014
-# Joaquín Tita <carpincho@gmail.com>, 2014
+# Joaquín T <joaquintita@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2017-2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mauricio Baeza <python@amigos.email>, 2015
 # Oscar Luciano Espirilla Flores, 2020
-# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
