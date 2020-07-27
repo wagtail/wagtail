@@ -1,0 +1,7 @@
+{% extends 'wagtailadmin/notifications/base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <p>{% blocktrans with title=page.get_admin_display_title workflow=workflow.name %}The page "{{ title }}" has been approved in workflow "{{ workflow }}".{% endblocktrans %}</p>
+    <p>{% trans "You can view the page here:" %} <a href="{{ page.full_url }}">{{ page.full_url }}</a></p>
+{% endblock %}

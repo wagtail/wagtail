@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -119,7 +119,7 @@ msgstr ""
 msgid "Search Terms"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/index.html:17 wagtail_hooks.py:30
+#: templates/wagtailsearchpromotions/index.html:17 wagtail_hooks.py:29
 msgid "Promoted search results"
 msgstr ""
 
@@ -127,23 +127,41 @@ msgstr ""
 msgid "Add new promoted result"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/list.html:8
+#: templates/wagtailsearchpromotions/list.html:9
 msgid "Search term(s)"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/list.html:9
+#: templates/wagtailsearchpromotions/list.html:11
+#: templates/wagtailsearchpromotions/list.html:13
+msgid "Order by search term alphabetically"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/list.html:11
+msgid "Order by search term reverse alphabetically"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/list.html:16
 msgid "Promoted results"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/list.html:10
+#: templates/wagtailsearchpromotions/list.html:18
 msgid "Views (past week)"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/list.html:17
+#: templates/wagtailsearchpromotions/list.html:20
+#: templates/wagtailsearchpromotions/list.html:22
+msgid "Order by views (lowest first)"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/list.html:20
+msgid "Order by views (highest first)"
+msgstr ""
+
+#: templates/wagtailsearchpromotions/list.html:31
 msgid "Edit this promotion"
 msgstr ""
 
-#: templates/wagtailsearchpromotions/list.html:23
+#: templates/wagtailsearchpromotions/list.html:37
 msgid "None"
 msgstr ""
 
@@ -172,30 +190,30 @@ msgid ""
 "\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:48
+#: views.py:65
 msgid "Search promoted results"
 msgstr ""
 
-#: views.py:85
+#: views.py:102
 msgid "Editor's picks for '{0}' created."
 msgstr ""
 
-#: views.py:86 views.py:125
+#: views.py:103 views.py:142
 msgid "Edit"
 msgstr ""
 
-#: views.py:95
+#: views.py:112
 msgid "Recommendations have not been created due to errors"
 msgstr ""
 
-#: views.py:124
+#: views.py:141
 msgid "Editor's picks for '{0}' updated."
 msgstr ""
 
-#: views.py:133
+#: views.py:150
 msgid "Recommendations have not been saved due to errors"
 msgstr ""
 
-#: views.py:154
+#: views.py:171
 msgid "Editor's picks deleted."
 msgstr ""

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -51,6 +51,9 @@ msgstr "ไม่มี"
 msgid "Scheduled publishing"
 msgstr "การจัดพิมพ์ตาราง"
 
+msgid "Privacy"
+msgstr "ความเป็นส่วนตัว , ข้อมูลส่วนตัว"
+
 msgid "Common page configuration"
 msgstr ""
 "หน้าที่ใช้ร่วมกัน\n"
@@ -64,6 +67,12 @@ msgstr "โปรโมท"
 
 msgid "Settings"
 msgstr "การตั้งค่า"
+
+msgid "Date"
+msgstr "วันที่"
+
+msgid "Title"
+msgstr "หัวข้อ,หัวเรื่อง"
 
 msgid "Enter password"
 msgstr "ใส่รหัสผ่าน"
@@ -226,6 +235,9 @@ msgstr "ภาษาสโลวาเกีย"
 
 msgid "Ukrainian"
 msgstr "ภาษายูเครเนี่ยน"
+
+msgid "Edit"
+msgstr "แก้ไข"
 
 msgid "Page"
 msgstr "หน้า"
@@ -538,9 +550,6 @@ msgstr "การตั้งค่าข้อมูลส่วนตัวว
 msgid "Save"
 msgstr "เซฟ , เก็บรักษาข้อมูล"
 
-msgid "Privacy"
-msgstr "ความเป็นส่วนตัว , ข้อมูลส่วนตัว"
-
 msgid "Public"
 msgstr "สาธารณะ"
 
@@ -578,24 +587,14 @@ msgid ""
 "created will be displayed."
 msgstr "นี่คือหน้าจอที่ช่วยในการให้ข้อมูลเกี่ยวกับการแสดงเนื้อหาที่คุณสร้าง"
 
-msgid "Title"
-msgstr "หัวข้อ,หัวเรื่อง"
-
 msgid "Edit this page"
 msgstr "แก้ไขหน้านี้"
-
-msgid "Edit"
-msgstr "แก้ไข"
 
 msgid "Draft"
 msgstr "ร่าง , ข้อความที่เก็บเอาไว้ทำใหม่"
 
 msgid "Live"
 msgstr "กำลังแสดงสดอยู่,ถ่ายทอดสด"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s ที่ผ่านมา"
 
 msgid "Pages awaiting moderation"
 msgstr "หน้าที่กำลังรอทำการตรวจอยู่"
@@ -623,9 +622,6 @@ msgstr "ภาพตัวอย่าง"
 
 msgid "Your most recent edits"
 msgstr "ที่คุณแก้ไขล่าสุด"
-
-msgid "Date"
-msgstr "วันที่"
 
 msgid "Status"
 msgstr "สถานะ"
@@ -700,9 +696,6 @@ msgstr "การเปลี่ยนความเป็นส่วนตั
 
 msgid "Publishing…"
 msgstr "กำลังพิมพ์"
-
-msgid "Publish this revision"
-msgstr "จัดพิมพ์การแก้ไขนี้"
 
 msgid "Saving…"
 msgstr "กำลังเซฟ, กำลังเก็บข้อมูล"
@@ -847,20 +840,15 @@ msgstr "หน้านี้มีการเปลี่ยนแปลงท
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "กำลังแก้ไข %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "กำลังแก้ไข %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "รุ่นถ่ายทอดสด"
+
+msgid "Current draft"
+msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "ปรับปรุงครั้งล่าสุด: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "โดย %(modified_by)s"
-
-msgid "Revisions"
-msgstr "การแก้ไข"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s ที่ผ่านมา"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1005,15 +993,15 @@ msgstr ""
 "ไม่สามารถแสดงภาพตัวอย่างของหน้านี้,มีบางอย่างเกิดข้อผิดพลาด กรุณาปิดหน้าต่างนี้,"
 "เพื่อแก้ไขข้อผิดพลาด,จากนั้นใช้ภาพตัวอย่างอีกครั้งหนึ่ง"
 
+msgid "Cancel scheduled publish"
+msgstr "ยกเลิกการจัดพิมพ์ตาราง"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "กำลังเปรียบเทียบ %(title)s"
 
 msgid "Comparing"
 msgstr "กำลังเปรียบเทียบ"
-
-msgid "View revisions"
-msgstr "ดูผลการแก้ไข"
 
 msgid "Fields"
 msgstr "หัวข้อ"
@@ -1055,9 +1043,6 @@ msgstr[0] ""
 "%(counter)s ที่\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "ไม่มีความแตกต่างระหว่างการแก้ไขสองเอกสารนี้"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "ยกเลิกการแก้ไขตาราง %(revision.id)s สำหรับ %(title)s"
@@ -1090,23 +1075,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "โดย"
 
-msgid "Current draft"
-msgstr "ร่างปัจจุบันที่กำลังใช้อยู่"
-
-msgid "Live version"
-msgstr "รุ่นถ่ายทอดสด"
-
 msgid "Scheduled for"
 msgstr "ตารางสำหรับ"
-
-msgid "Review this revision"
-msgstr "ทบทวนรุ่นนี้"
-
-msgid "Compare with previous revision"
-msgstr "เปรียบเทียบกับการแก้ไขคราวที่แล้ว"
-
-msgid "Cancel scheduled publish"
-msgstr "ยกเลิกการจัดพิมพ์ตาราง"
 
 msgid "No revisions of this page exist"
 msgstr "ไม่มีการแก้ไขของหน้านี้"
@@ -1130,10 +1100,6 @@ msgstr[0] ""
 
 msgid "Page types"
 msgstr "รูปแบบหน้า"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "ขออภัย,ไม่มีหน้าที่ตรงกัน <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "เข้าสู่การค้นหาคำที่หาอยู่"
@@ -1180,6 +1146,13 @@ msgstr "เพิ่มหน้ารองลงมา"
 
 msgid "Show in Explorer"
 msgstr "โชว์ในอินเตอร์เน็ตเอ็กซ์โปรเล่อร์"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "โดย %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "เปรียบเทียบกับรุ่นถ่ายทอดสด"
 
 msgid "Test"
 msgstr "ทดสอบ"
@@ -1238,14 +1211,11 @@ msgstr "ดูถ่ายทอดสด"
 msgid "Page '{0}' created and published."
 msgstr "หน้า'{0}'ถูกสร้างและตีพิมพ์"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "หน้า'{0}'ถูกสร้างและถูกส่งสำหรับตรวจ"
-
 msgid "View draft"
 msgstr "ดูข้อความที่เก็บเอาไว้ทำใหม่"
 
-msgid "Failed to send notifications to moderators"
-msgstr "ข้อผิดพลาดถูกส่งการแจ้งเตือนไปยังผู้ตรวจสอบ"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "หน้า'{0}'ถูกสร้างและถูกส่งสำหรับตรวจ"
 
 msgid "Page '{0}' created."
 msgstr "หน้า'{0}'ถูกสร้าง"
@@ -1253,26 +1223,17 @@ msgstr "หน้า'{0}'ถูกสร้าง"
 msgid "The page could not be created due to validation errors"
 msgstr "หน้านี้ไม่สามารถถูกสร้างในระหว่างที่การยืนยันเกิดข้อผิดพลาด"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "ทบทวนจาก{0}ของหน้า'{1}'กำลังตีพิมพ์ตาราง"
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "หน้า'{0}'กำลังถ่ายทอดสดและการแก้ไขสำหรับการตีพิมพ์ตาราง"
+msgid "This page is currently awaiting moderation"
+msgstr "หน้าที่กำลังแสดงอยู่นี้กำลังรอคอยการตรวจอยู่"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "หน้า{0}ได้จัดตารางในการพิมพ์เรียบร้อยแล้ว"
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "ทบทวนจากหน้า{0}ของหน้า'{1}'ได้ถูกพิมพ์แล้ว"
 
 msgid "Page '{0}' has been published."
 msgstr "หน้า{0} ได้จัดพิมพ์เรียบร้อยแล้ว"
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "หน้า'{0}'ถูกส่งสำหรับตรวจแล้ว"
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "หน้า'{0}'ถูกเปลี่ยนกับการแก้ไขจาก{1}"
 
 msgid "Page '{0}' has been updated."
 msgstr "หน้า{0}ได้อัพเดทแล้ว"
@@ -1282,12 +1243,6 @@ msgstr "หน้านี้ไม่สามารถเซฟได้เน
 
 msgid "The page could not be saved due to validation errors"
 msgstr "หน้านี้ไม่สามารถถูกเซฟระหว่างการยืนยันที่เกิดข้อผิดพลาด"
-
-msgid "Compare with live version"
-msgstr "เปรียบเทียบกับรุ่นถ่ายทอดสด"
-
-msgid "This page is currently awaiting moderation"
-msgstr "หน้าที่กำลังแสดงอยู่นี้กำลังรอคอยการตรวจอยู่"
 
 msgid "Page '{0}' deleted."
 msgstr ""
@@ -1326,12 +1281,6 @@ msgstr "ข้อผิดพลาดถูกส่งแจ้งเตือ
 msgid "Page '{0}' is now unlocked."
 msgstr "หน้า'{0}'ตอนนี้ได้ถูกปลดล็อกแล้ว"
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr "คุณกำลังดูหน้าก่อนการแก้ไขของหน้านี้จาก <b>%(created_at)s</b> โดย %(user)s"
-
 msgid "Earliest"
 msgstr "ที่เก่าแก่ที่สุด"
 
@@ -1340,9 +1289,6 @@ msgstr "ล่าสุด"
 
 msgid "revision {0} of \"{1}\""
 msgstr "การแก้ไข{0}ของหน้า{1}"
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "การแก้ไข{0}ของ\"{1}\"ไม่ใช่ตาราง"
 
 msgid "More"
 msgstr "เพิ่ม"

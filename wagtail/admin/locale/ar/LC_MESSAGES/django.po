@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -39,6 +39,12 @@ msgstr "غير منشور"
 msgid "Delete"
 msgstr "احذف"
 
+msgid "Lock"
+msgstr "قفل"
+
+msgid "Unlock"
+msgstr "إزالة القفل"
+
 msgid "Save Draft"
 msgstr "حفظ مسودة"
 
@@ -60,6 +66,9 @@ msgstr "فارغ"
 msgid "Scheduled publishing"
 msgstr "نشر مجدول زمنيا"
 
+msgid "Privacy"
+msgstr "نظام السرية"
+
 msgid "Common page configuration"
 msgstr "تهيئة الصفحات المشتركة"
 
@@ -71,6 +80,12 @@ msgstr "ترويج"
 
 msgid "Settings"
 msgstr "إعدادات"
+
+msgid "Date"
+msgstr "تاريخ"
+
+msgid "Title"
+msgstr "عنوان"
 
 msgid "Enter password"
 msgstr "ادخل كلمة المرور"
@@ -267,6 +282,9 @@ msgstr "الصينية (مبسطة)"
 
 msgid "Chinese (Traditional)"
 msgstr "الصينية (تقليدية)"
+
+msgid "Edit"
+msgstr "تحرير"
 
 msgid "Page"
 msgstr "صفحة"
@@ -597,9 +615,6 @@ msgstr "تحدد إعدادات الخصوصية من يمكنه عرض المس
 msgid "Save"
 msgstr "احفظ"
 
-msgid "Privacy"
-msgstr "نظام السرية"
-
 msgid "Public"
 msgstr "عمومي"
 
@@ -639,24 +654,14 @@ msgstr ""
 "هذه هي لوحة التحكم الخاصة بك والتي سيتم عرض معلومات مفيدة حول المحتوى الذي "
 "قمت بإنشائها."
 
-msgid "Title"
-msgstr "عنوان"
-
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
-
-msgid "Edit"
-msgstr "تحرير"
 
 msgid "Draft"
 msgstr "مسودة"
 
 msgid "Live"
 msgstr "مباشر"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "قبل %(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "صفحات في انتظار الاشراف عليها"
@@ -684,9 +689,6 @@ msgstr "نظر مقدم"
 
 msgid "Your most recent edits"
 msgstr "أحدث تعديلاتك"
-
-msgid "Date"
-msgstr "تاريخ"
 
 msgid "Status"
 msgstr "رتبة"
@@ -760,23 +762,8 @@ msgstr "لقد تم جعل هذه الصفحة خاصة بواسطة صفحة ر
 msgid "Privacy changes apply to all children of this page too."
 msgstr "تنطبق تغييرات الخصوصية على جميع أطفال هذه الصفحة أيضًا."
 
-msgid "Unlock"
-msgstr "إزالة القفل"
-
-msgid "You don't have permission to unlock"
-msgstr "ليست لك صلاحيات إزالة القفل"
-
-msgid "Lock"
-msgstr "قفل"
-
-msgid "You don't have permission to lock"
-msgstr "ليست لك صلاحيات القفل"
-
 msgid "Publishing…"
 msgstr "يتم النشر..."
-
-msgid "Publish this revision"
-msgstr "نشر النسخه السابقه"
 
 msgid "Saving…"
 msgstr "يتم الحفظ..."
@@ -890,20 +877,15 @@ msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "قيد التعديل %(page_type)s :%(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "تحرير %(page_type)s <span> %(title)s </span>"
+msgid "Live version"
+msgstr "نسخة حية"
+
+msgid "Current draft"
+msgstr "المسودة الحالية"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "اخر تعديل: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "بواسطة %(modified_by)s"
-
-msgid "Revisions"
-msgstr "التنقيحات"
+msgid "%(time_period)s ago"
+msgstr "قبل %(time_period)s"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1055,6 +1037,9 @@ msgstr ""
 "الرجاء إغلاق علامة التبويب هذه وتحرير الصفحة لإصلاح هذه الأخطاء ،\n"
 "ثم استخدم المعاينة مرة أخرى."
 
+msgid "Cancel scheduled publish"
+msgstr "إلغاء النشر المجدول"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "مقارنة %(title)s"
@@ -1062,17 +1047,11 @@ msgstr "مقارنة %(title)s"
 msgid "Comparing"
 msgstr "مقارنة"
 
-msgid "View revisions"
-msgstr "عرض المراجعات"
-
 msgid "Fields"
 msgstr "حقل"
 
 msgid "Changes"
 msgstr "تغيرات"
-
-msgid "There are no differences between these two revisions"
-msgstr "لا توجد فروق بين هاتين المراجعتين"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1104,23 +1083,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "بواسطة"
 
-msgid "Current draft"
-msgstr "المسودة الحالية"
-
-msgid "Live version"
-msgstr "نسخة حية"
-
 msgid "Scheduled for"
 msgstr "المقرر لـ"
-
-msgid "Review this revision"
-msgstr "مراجعة هذه المراجعة"
-
-msgid "Compare with previous revision"
-msgstr "قارن مع المراجعة السابقة"
-
-msgid "Cancel scheduled publish"
-msgstr "إلغاء النشر المجدول"
 
 msgid "No revisions of this page exist"
 msgstr "لا توجد مراجعات لهذه الصفحة"
@@ -1130,10 +1094,6 @@ msgstr "لا توجد مراجعة لهذه الصفحة"
 
 msgid "Page types"
 msgstr "انواع الصفحة"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "عذرًا ، لا توجد صفحات تطابق <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "أدخل مصطلح البحث أعلاه"
@@ -1180,6 +1140,13 @@ msgstr "إضافة صفحة فرعية"
 
 msgid "Show in Explorer"
 msgstr "اعرض في المستكشف"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "بواسطة %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "مقارنة مع النسخة الحية"
 
 msgid "Test"
 msgstr "اختبار"
@@ -1238,14 +1205,11 @@ msgstr "انظر في الواقع"
 msgid "Page '{0}' created and published."
 msgstr "صفحة '{0}' تم إنشاؤها ونشرها."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "صفحة '{0}' تم إنشاؤها وتقديمها للإشراف."
-
 msgid "View draft"
 msgstr "عرض المسودة"
 
-msgid "Failed to send notifications to moderators"
-msgstr "فشل إرسال إشعارات للمشرفين"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "صفحة '{0}' تم إنشاؤها وتقديمها للإشراف."
 
 msgid "Page '{0}' created."
 msgstr "صفحة '{0}' تم إنشائها."
@@ -1253,26 +1217,17 @@ msgstr "صفحة '{0}' تم إنشائها."
 msgid "The page could not be created due to validation errors"
 msgstr "لا يمكن إنشاء الصفحة بسبب أخطاء التحقق من الصحة"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "تمت جدولة المراجعة من {0} من الصفحة '{1}' للنشر."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "الصفحة '{0}' مباشرة وقد تمت جدولة هذه النسخة للنشر."
+msgid "This page is currently awaiting moderation"
+msgstr "هذه الصفحة تنتظر حاليا المراقب"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "تمت جدولة الصفحة '{0}' للنشر."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "تم نشر مراجعة من {0} من الصفحة '{1}'."
 
 msgid "Page '{0}' has been published."
 msgstr "تم نشر الصفحة '{0}'."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "الصفحة '{0}' تم تقديمها للإشراف."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "تم استبدال الصفحة '{0}' بمراجعة من {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "تم تحديث الصفحة '{0}'."
@@ -1282,12 +1237,6 @@ msgstr "لا يمكن حفظ الصفحة لأنها مقفلة"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "لا يمكن حفظ الصفحة بسبب أخطاء التحقق من الصحة"
-
-msgid "Compare with live version"
-msgstr "مقارنة مع النسخة الحية"
-
-msgid "This page is currently awaiting moderation"
-msgstr "هذه الصفحة تنتظر حاليا المراقب"
 
 msgid "Page '{0}' deleted."
 msgstr "الصفحة '{0}' محذوفة."
@@ -1322,14 +1271,6 @@ msgstr "فشل إرسال إشعارات الرفض"
 msgid "Page '{0}' is now unlocked."
 msgstr "الصفحة '{0}' غير مقفلة الآن."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"أنت تشاهد مراجعة سابقة لهذه الصفحة في تاريخ <b>%(created_at)s</b>  من قبل "
-"%(user)s"
-
 msgid "Earliest"
 msgstr "السابقة"
 
@@ -1338,9 +1279,6 @@ msgstr "اللاحقة"
 
 msgid "revision {0} of \"{1}\""
 msgstr "مراجعة {0} من \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "مراجعة {0} من \"{1}\" غير المجدولة."
 
 msgid "More"
 msgstr "المزيد"

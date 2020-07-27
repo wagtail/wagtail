@@ -1,0 +1,67 @@
+{% load wagtailadmin_tags i18n %}
+
+{% include "wagtailadmin/shared/header.html" with title=workflow_state.workflow.name icon="tasks" %}
+
+<div class="nice-padding">
+    {% if page.get_latest_revision %}
+        <p>
+        {% blocktrans trimmed with workflow_name=workflow_state.workflow.name started_at=workflow_state.created_at %}
+            Submitted to <em>{{ workflow_name }}</em> at {{ started_at }}
+        {% endblocktrans %}
+        {% if workflow_state.requested_by %}
+            {% blocktrans with modified_by=workflow_state.requested_by.get_full_name|default:workflow_state.requested_by.get_username %}by {{ modified_by }}{% endblocktrans %}
+            <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
+        {% endif %}
+        </p>
+    {% endif %}
+
+    <ul class="workflow-timeline">
+        <li class="approved">{% icon name="success" class_name="default" %}{% trans "Submitted" %}</li>
+    {% trans "Not started" as not_started_text %}
+    {% for task in workflow_tasks %}
+        <li data-wagtail-tooltip="{{ task.name }}: {{ task.task_state.get_status_display|default:not_started_text }}" {% if task.task_state and task.task_state.status %}class="{{ task.task_state.status }}"{% endif %}>
+            {% if task.task_state.status == "rejected" %}
+                {% icon name="warning" class_name="default" %}<strong>{{ task.name }}</strong>
+
+                {% if task.task_state.finished_by %}
+                    {% blocktrans trimmed with requested_by=task.task_state.finished_by.get_full_name|default:task.task_state.finished_by.get_username %}
+                        Changes requested by {{ requested_by }}
+                    {% endblocktrans %}
+                {% else %}
+                    {% trans "Changes requested" %}
+                {% endif %}
+            {% else %}
+                {% icon name="success" class_name="default" %}{{ task.name }}
+                {% if task.task_state.finished_by %}
+                    {% blocktrans trimmed with approved_by=task.task_state.finished_by.get_full_name|default:task.task_state.finished_by.get_username %}
+                        Approved by {{ approved_by }}
+                    {% endblocktrans %}
+                {% endif %}
+            {% endif %}
+            {% if task.task_state and task.task_state.get_comment %}
+                {% trans "with comment:" %} <em>"{{ task.task_state.get_comment }}"</em>
+            {% endif %}
+        </li>
+    {% endfor %}
+        <li>{% icon name="success" class_name="default" %}{% trans "Published" %}</li>
+    </ul>
+
+    <p>
+        <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small">
+            {% trans "See full history" %}
+        </a>
+        {% with page.get_latest_revision as latest_revision %}
+            {% if page.live_revision %}
+                <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id 'live' latest_revision.id %}" class="button button-small button-secondary">
+                    {% trans "Compare with live version" %}
+                </a>
+            {% endif %}
+
+            {% with latest_revision.get_previous as previous_revision %}
+            {% if previous_revision %}
+                <a href="{% url 'wagtailadmin_pages:revisions_compare' page.id previous_revision.id latest_revision.id %}" class="button button-small button-secondary">{% trans 'Compare with previous version' %}</a>
+            {% endif %}
+            {% endwith %}
+        {% endwith %}
+    </p>
+</div>

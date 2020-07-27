@@ -8,6 +8,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2020
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2018-12-27 14:51+0000\n"
-"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-27 07:24+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +38,13 @@ msgstr "Tous les sites"
 
 msgid "A redirect with this path already exists."
 msgstr "Une redirection avec ce chemin existe déjà."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formats supportés : %(supported_formats)s."
+
+msgid "From field"
+msgstr "Champ de formulaire"
 
 msgid "redirect from"
 msgstr "redirige depuis"
@@ -73,6 +81,12 @@ msgstr "Ajouter une redirection"
 msgid "Save"
 msgstr "Enregistrer"
 
+msgid "Redirects"
+msgstr "Redirections"
+
+msgid "Import"
+msgstr "Importer"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Supprimer la redirection %(title)s"
@@ -86,6 +100,18 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer cette redirection ?"
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
 
+msgid "Confirm import"
+msgstr "Confirmer l'import"
+
+msgid "Confirm"
+msgstr "Confirmer"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Preview"
+msgstr "Prévisualisation"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Modification de %(title)s"
@@ -96,17 +122,23 @@ msgstr "Modification"
 msgid "Delete redirect"
 msgstr "Supprimer la redirection"
 
-msgid "Redirects"
-msgstr "Redirections"
+msgid "Summary"
+msgstr "Sommaire"
 
 msgid "From"
 msgstr "Depuis"
 
-msgid "Site"
-msgstr "Site"
-
 msgid "To"
 msgstr "Vers"
+
+msgid "Error"
+msgstr "Erreur"
+
+msgid "Continue"
+msgstr "Continuer"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Type"
 msgstr "Type"

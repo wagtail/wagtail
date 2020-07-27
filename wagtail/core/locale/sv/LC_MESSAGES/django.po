@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-02-13 09:45+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-27 08:17+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -48,6 +48,9 @@ msgstr "Lösenord"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Lösenordet du angav är inte korrekt. Vänligen försök igen."
+
+msgid "Comment"
+msgstr "Kommentar"
 
 msgid "hostname"
 msgstr "värdnamn"
@@ -89,6 +92,9 @@ msgstr "sajt"
 
 msgid "sites"
 msgstr "sajter"
+
+msgid "default"
+msgstr "standard"
 
 #, python-format
 msgid ""
@@ -178,17 +184,26 @@ msgstr "senast publicerad"
 msgid "latest revision created at"
 msgstr "senaste revision skapad vid"
 
+msgid "live revision"
+msgstr "publicerad revision"
+
 msgid "This slug is already in use"
 msgstr "Den här sluggen är redan i användning"
 
 msgid "scheduled"
 msgstr "schemalagd"
 
+msgid "in moderation"
+msgstr "under moderering"
+
 msgid "draft"
 msgstr "utkast"
 
 msgid "live + scheduled"
 msgstr "live + schemalagd"
+
+msgid "live + in moderation"
+msgstr "publicerad + under moderering"
 
 msgid "live + draft"
 msgstr "publicerad + utkast"
@@ -324,6 +339,162 @@ msgstr "gruppsamlingsrättighet"
 
 msgid "group collection permissions"
 msgstr "gruppsamlingsbehörigheter"
+
+msgid "workflow"
+msgstr "arbetsflöde"
+
+msgid "workflow page"
+msgstr "arbetsflödessida"
+
+msgid "workflow pages"
+msgstr "arbetsflödessidor"
+
+msgid "workflow_tasks"
+msgstr "Arbetsflödesuppgifter"
+
+msgid "task"
+msgstr "uppgift"
+
+msgid "workflow task order"
+msgstr "arbetsflöde uppgiftsuppdrag"
+
+msgid "workflow task orders"
+msgstr "arbetsflöde uppgiftsuppdrag"
+
+msgid "active"
+msgstr "aktiv"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktiva uppgifter kan läggas till på arbetsflöden. Inaktivering av en uppgift "
+"tar inte bort den från existerande arbetsflöden."
+
+msgid "tasks"
+msgstr "uppgifter"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Aktiva arbetsflöden kan läggas till på sidor. Inaktivering av ett "
+"arbetsflöde tar inte bort det från existerande sidor."
+
+msgid "workflows"
+msgstr "arbetsflöden"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Sidor i detta steg i ett arbetsflöde kommer modereras eller godkännas av "
+"dessa användargrupper"
+
+msgid "Request changes"
+msgstr "Begär ändringar"
+
+msgid "Approve"
+msgstr "Godkänn"
+
+msgid "Approve with comment"
+msgstr "Godkänn med kommentar"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Medlemmar i de valda Wagtail Grupperna kan godkänna denna uppgift"
+
+msgid "Group approval task"
+msgstr "Grupp godkännande uppgift"
+
+msgid "Group approval tasks"
+msgstr "Grupp godkännande uppgifter"
+
+msgid "In progress"
+msgstr "pågående"
+
+msgid "Approved"
+msgstr "Godkänd"
+
+msgid "Needs changes"
+msgstr "Behöver förändringar"
+
+msgid "Cancelled"
+msgstr "Avbruten"
+
+msgid "status"
+msgstr "status"
+
+msgid "requested by"
+msgstr "begärdes av"
+
+msgid "current task state"
+msgstr "nuvarande uppgiftsstatus"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Det kan bara finnas en pågående eller behöver förändringar "
+"arbetsflödesstatus per sida."
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Arbetsflöde '{0}' på Sida '{1}': {2}"
+
+msgid "Not started"
+msgstr "Ej påbörjad"
+
+msgid "Workflow state"
+msgstr "Arbetsflöde status"
+
+msgid "Workflow states"
+msgstr "Arbetsflöde status"
+
+msgid "Rejected"
+msgstr "Avvisad"
+
+msgid "Skipped"
+msgstr "Hoppade över"
+
+msgid "workflow state"
+msgstr "arbetsflöde status"
+
+msgid "started at"
+msgstr "påbörjades vid"
+
+msgid "finished at"
+msgstr "färdigställdes vid"
+
+msgid "finished by"
+msgstr "färdigställdes av"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Uppgift '{0}' på Sidorevision '{1}': {2}"
+
+msgid "Task state"
+msgstr "Uppgiftsstatus"
+
+msgid "Task states"
+msgstr "Uppgift status"
+
+msgid "timestamp (UTC)"
+msgstr "tidsstämpel (UTC)"
+
+msgid "log entry"
+msgstr "loggpost"
+
+msgid "log entries"
+msgstr "loggposter"
+
+msgid "user {id} (deleted)"
+msgstr "användare {id} (deleted)"
+
+msgid "system"
+msgstr "system"
+
+msgid "page log entry"
+msgstr "sidloggpost"
+
+msgid "page log entries"
+msgstr "sidloggposter"
 
 msgid "Log in"
 msgstr "Logga in"

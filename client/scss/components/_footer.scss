@@ -13,11 +13,30 @@ footer {
 
     li {
         float: left;
+        margin-right: 1em;
+
+        li,  // dropdown li
+        &:last-child {
+            margin-right: 0;
+        }
     }
 
     .actions {
         width: 250px;
-        margin-right: $grid-gutter-width / 2;
+
+        &--primary {
+            width: 350px;
+        }
+
+        .dropdown {
+            input[type=submit],
+            input[type=reset],
+            input[type=button],
+            button,
+            .button {
+                padding-right: 2.6em;
+            }
+        }
     }
 
     .preview .dropdown {
@@ -65,11 +84,11 @@ footer {
     }
 
     @include media-breakpoint-up(sm) {
-        margin-left: $desktop-nice-padding;
+        margin-left: calc(#{$desktop-nice-padding} - 0.75em);
         margin-right: $desktop-nice-padding;
-        width: calc(100% - #{$menu-width} - #{2 * $desktop-nice-padding});
+        width: auto;
         position: fixed;
         bottom: 0;
-        padding: 0.5em;
+        padding: 0.75em;
     }
 }

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# ajk, 2014
+# eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Eugene <eugene.mechanism@gmail.com>, 2017
@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2020-04-21 17:40+0000\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-24 17:28+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -188,6 +188,9 @@ msgstr "Добавить группу"
 msgid "Editing"
 msgstr "Редактирование"
 
+msgid "View users in this group"
+msgstr "Просмотр пользователей группы"
+
 msgid "Save"
 msgstr "Сохранить"
 
@@ -315,11 +318,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Группа %(group_name)s не содержит пользователей. Вы можете <a href="
+"\"%(wagtailusers_add_url)s\">добавить пользователей</a>."
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Нет настроенных пользователей. Почему бы не <a href="
-"\"%(wagtailusers_create_url)s\">добавить</a>?"
+"Пользователи не сконфигурированы. <a href=\"%(wagtailusers_add_url)s"
+"\">Добавить пользователя</a>."
 
 msgid "Groups"
 msgstr "Группы"

@@ -589,6 +589,8 @@ Hooks for customising the way users are directed through the process of creating
   :label: the displayed text of the menu item
   :get_url: a method which returns a URL for the menu item to link to; by default, returns ``None`` which causes the menu item to behave as a form submit button instead
   :name: value of the ``name`` attribute of the submit button, if no URL is specified
+  :icon_name: icon to display against the menu item
+  :classname: a ``class`` attribute value to add to the button element
   :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
   :template: path to a template to render to produce the menu item HTML
   :get_context: a method that returns a context dictionary to pass to the template
@@ -1041,3 +1043,32 @@ Hooks for working with registered Snippets.
         # "instances" is a QuerySet
         total = len(instances)
         return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
+
+
+Audit log
+---------
+
+.. _register_log_actions:
+
+``register_log_actions``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+    See :ref:`audit_log`
+
+    To add new actions to the registry, call the ``register_action`` method with the action type, its label and the message to be displayed in administrative listings.
+
+    .. code-block:: python
+
+        from django.utils.translation import gettext_lazy as _
+
+        from wagtail.core import hooks
+
+        @hook.register('register_log_actions')
+        def additional_log_actions(actions):
+            actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
+
+            def callback_message(data):
+                return _('Hello {audience}') % {
+                    'audience': data['audience'],
+                }
+            actions.register_action('wagtail_package.with_callback', _('Callback'), callback_message)

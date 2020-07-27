@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -46,6 +46,9 @@ msgstr "Puudub"
 msgid "Scheduled publishing"
 msgstr "Plaaniline avaldamine"
 
+msgid "Privacy"
+msgstr "Privaatsus"
+
 msgid "Common page configuration"
 msgstr "Ühine lehekonfiguratsioon"
 
@@ -57,6 +60,9 @@ msgstr "Tõsta esile"
 
 msgid "Settings"
 msgstr "Seaded"
+
+msgid "Title"
+msgstr "Pealkiri"
 
 msgid "Enter password"
 msgstr "Sisesta salasõna"
@@ -181,6 +187,9 @@ msgstr "Tai"
 
 msgid "Ukrainian"
 msgstr "ukraina"
+
+msgid "Edit"
+msgstr "Muuda"
 
 msgid "Page"
 msgstr "Leht"
@@ -410,9 +419,6 @@ msgstr "Lisa telefoni link"
 msgid "Save"
 msgstr "Salvesta"
 
-msgid "Privacy"
-msgstr "Privaatsus"
-
 msgid "Public"
 msgstr "Avalik"
 
@@ -425,14 +431,8 @@ msgstr "Nimi"
 msgid "Yes, delete"
 msgstr "Jah, kustuta"
 
-msgid "Title"
-msgstr "Pealkiri"
-
 msgid "Edit this page"
 msgstr "Muuda seda lehte"
-
-msgid "Edit"
-msgstr "Muuda"
 
 msgid "Draft"
 msgstr "Mustand"

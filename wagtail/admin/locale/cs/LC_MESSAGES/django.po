@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-22 07:28+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,15 @@ msgstr "Zrušit publikaci"
 
 msgid "Delete"
 msgstr "Smazat"
+
+msgid "Lock"
+msgstr "Uzamknout"
+
+msgid "Apply editor lock"
+msgstr "Uzamknout pro úpravy"
+
+msgid "Unlock"
+msgstr "Odemknout"
 
 msgid "Save Draft"
 msgstr "Uložit Koncept"
@@ -63,6 +72,9 @@ msgstr "Nic"
 msgid "Scheduled publishing"
 msgstr "Naplánovaná publikace"
 
+msgid "Privacy"
+msgstr "Viditelnost"
+
 msgid "Common page configuration"
 msgstr "Nastavení stránky"
 
@@ -74,6 +86,15 @@ msgstr "Propagovat"
 
 msgid "Settings"
 msgstr "Nastavení"
+
+msgid "All"
+msgstr "Vše"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Title"
+msgstr "Název"
 
 msgid "Enter password"
 msgstr "Zadejte heslo"
@@ -281,6 +302,9 @@ msgstr "čínština (zjednodušená)"
 
 msgid "Chinese (Traditional)"
 msgstr "čínština (tradiční)"
+
+msgid "Edit"
+msgstr "Upravit"
 
 msgid "Page"
 msgstr "Stránka"
@@ -650,9 +674,6 @@ msgstr "Nastavení soukromí určuje kdo má přístup k dokumentům v této kol
 msgid "Save"
 msgstr "Uložit"
 
-msgid "Privacy"
-msgstr "Viditelnost"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Nastavení viditelnosti kolekce. Aktuální stav: Veřejná"
 
@@ -699,30 +720,17 @@ msgstr "Na tomto dashboardu najdete základní přehled spravovaného obsahu."
 msgid "Your locked pages"
 msgstr "Vámi uzamčené stránky"
 
-msgid "See all locked pages"
-msgstr "Zobrazit všechny uzamčené stránky"
-
-msgid "Title"
-msgstr "Název"
-
 msgid "Locked at"
 msgstr "Uzamčeno: "
 
 msgid "Edit this page"
 msgstr "Upravit stránku"
 
-msgid "Edit"
-msgstr "Upravit"
-
 msgid "Draft"
 msgstr "Koncept"
 
 msgid "Live"
 msgstr "Publikováno"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "před %(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Stránky čekající na schválení"
@@ -750,9 +758,6 @@ msgstr "Náhled"
 
 msgid "Your most recent edits"
 msgstr "Vaše poslední úpravy"
-
-msgid "Date"
-msgstr "Datum"
 
 msgid "Status"
 msgstr "Stav"
@@ -857,29 +862,8 @@ msgstr "Stránka je neveřejná kvůli nastavení nadřazené stránky."
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavení viditelnosti ovlivní i všechny podstránky."
 
-msgid "This page is locked"
-msgstr "Tato stránka je uzamčena"
-
-msgid "This page is unlocked"
-msgstr "Tato stránka je odemknuta"
-
-msgid "Remove editor lock"
-msgstr "Zrušit uzamčení pro úpravy"
-
-msgid "Unlock"
-msgstr "Odemknout"
-
-msgid "You don't have permission to unlock"
-msgstr "Nemáte oprávnění k odemknutí"
-
-msgid "Apply editor lock"
-msgstr "Uzamknout pro úpravy"
-
-msgid "Lock"
-msgstr "Uzamknout"
-
-msgid "You don't have permission to lock"
-msgstr "Nemáte oprávnění k uzamčení"
+msgid "Visit the live page"
+msgstr "Navštívit publikovanou stránku"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Nastavení viditelnosti stránky. Aktuální stav: Veřejná"
@@ -895,9 +879,6 @@ msgstr "Viditelnosti stránky. Aktuální stav: Privátní"
 
 msgid "Publishing…"
 msgstr "Publikování..."
-
-msgid "Publish this revision"
-msgstr "Publikovat tuto revizi"
 
 msgid "Saving…"
 msgstr "Ukládání..."
@@ -1063,20 +1044,15 @@ msgstr "Na této stránce jsou neuložené změny."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Upravit %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Upravit %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Publikovaná verze"
+
+msgid "Current draft"
+msgstr "Aktuální koncept"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Naposledy upraveno: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "uživatelem %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revize"
+msgid "%(time_period)s ago"
+msgstr "před %(time_period)s"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1234,15 +1210,15 @@ msgstr ""
 "Není možné zobrazit náhled této stránky protože zbývají nějaké chyby.\n"
 "Zavřete tuto kartu, opravte chyby ve stránce a znovu použijte náhled."
 
+msgid "Cancel scheduled publish"
+msgstr "Zrušit naplánované publikování"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Porovnání %(title)s"
 
 msgid "Comparing"
 msgstr "Porovnání"
-
-msgid "View revisions"
-msgstr "Zobrazit revize"
 
 msgid "Fields"
 msgstr "Pole"
@@ -1298,9 +1274,6 @@ msgstr[3] ""
 "\n"
 "Přesunuto nahoru o %(counter)s pozic."
 
-msgid "There are no differences between these two revisions"
-msgstr "Mezi těmito revizemi nejsou žádné rozdíly"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Zruš plánovanou publikaci verze %(revision.id)s %(title)s"
@@ -1331,23 +1304,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "uživatelem"
 
-msgid "Current draft"
-msgstr "Aktuální koncept"
-
-msgid "Live version"
-msgstr "Publikovaná verze"
-
 msgid "Scheduled for"
 msgstr "Naplánováno pro"
-
-msgid "Review this revision"
-msgstr "Posoudit tuto revizi"
-
-msgid "Compare with previous revision"
-msgstr "Porovnat s předchozí revizí"
-
-msgid "Cancel scheduled publish"
-msgstr "Zrušit naplánované publikování"
 
 msgid "No revisions of this page exist"
 msgstr "Pro tuto stránku neexistují žádné revize"
@@ -1379,14 +1337,6 @@ msgstr[3] ""
 
 msgid "Page types"
 msgstr "Typy stránky"
-
-msgid "All"
-msgstr "Vše"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádné stránky"
 
 msgid "Enter a search term above"
 msgstr "Zadejte hledaný výraz"
@@ -1475,9 +1425,6 @@ msgstr "Nastavení účtu"
 msgid "Log out"
 msgstr "Odhlásit"
 
-msgid "Visit the live page"
-msgstr "Navštívit publikovanou stránku"
-
 msgid "Current page status:"
 msgstr "Aktuální stav stránky:"
 
@@ -1518,6 +1465,13 @@ msgstr "Přidat podstránku"
 
 msgid "Show in Explorer"
 msgstr "Zobrazit v exploreru"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "uživatelem %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Porovnat s publikovánou verzí"
 
 #, python-format
 msgid ""
@@ -1593,14 +1547,11 @@ msgstr "Zobrazit publikovanou verzi"
 msgid "Page '{0}' created and published."
 msgstr "Stránka '{0}' byla vytvořena a publikována."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Stránka '{0}' byla vytvořena a odeslána ke schválení."
-
 msgid "View draft"
 msgstr "Zobrazit koncept"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Selhalo odeslání upozornění moderátorům"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Stránka '{0}' byla vytvořena a odeslána ke schválení."
 
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' byla vytvořena."
@@ -1620,28 +1571,17 @@ msgstr "<b>Stránka '{}' byla uzamčena</b> uživatelem <b>{}</b>: <b>{}</b>."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Stránka '{}' je uzamčena</b>."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Revize z {0} stránky '{1}' byla naplánovaná k publikování."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr ""
-"Původní stránka '{0}' je nadále publikována a tato verze byla naplánována k "
-"publikaci."
+msgid "This page is currently awaiting moderation"
+msgstr "Stránka nyní čeká na schválení"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stránka '{0}' byla naplánována pro publikování."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Verze {0} stránky '{1}' byla zveřejněna."
 
 msgid "Page '{0}' has been published."
 msgstr "Stránka '{0}' byla zveřejněna."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stránka '{0}' byla uložena ke schválení."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Stránka '{0}' byla nahrazena verzí {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Stránka '{0}' byla aktualizována."
@@ -1651,12 +1591,6 @@ msgstr "Stránku nelze uložit, protože je uzamčena"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
-
-msgid "Compare with live version"
-msgstr "Porovnat s publikovánou verzí"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Stránka nyní čeká na schválení"
 
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' byla smazána."
@@ -1698,14 +1632,6 @@ msgstr "Selhalo odeslání zamítavých notifikací"
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' je nyní odemknuta."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Prohlížíte si předchozí verzi této stránky z <b>%(created_at)s</b>, "
-"vytvořenou uživatelem %(user)s"
-
 msgid "Earliest"
 msgstr "Nejstarší"
 
@@ -1714,12 +1640,6 @@ msgstr "Nejnovější"
 
 msgid "revision {0} of \"{1}\""
 msgstr "verze {0} \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Verze {0} \"{1}\" - naplánování bylo zrušeno."
-
-msgid "Locked Pages"
-msgstr "Uzamčené stránky"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1759,10 +1679,6 @@ msgstr "Smazat stránku %(title)s"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Zrušit publikaci stránky %(title)s"
-
-#, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "Zobrazit historii verzí pro '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Nastavit profilovou fotografii"
@@ -1827,6 +1743,9 @@ msgstr "Přeškrtnuté"
 
 msgid "Code"
 msgstr "Kód"
+
+msgid "Locked Pages"
+msgstr "Uzamčené stránky"
 
 msgid "Reports"
 msgstr "Výkazy"

@@ -1,0 +1,25 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('[data-enable-action]').forEach(function (buttonElement) {
+            buttonElement.addEventListener('click', function (e) {
+                // Stop the button from submitting the form
+                e.preventDefault();
+                e.stopPropagation();
+
+                var formElement = document.createElement('form');
+
+                formElement.action = '{{ view.get_enable_url }}';
+                formElement.method = 'POST';
+
+                var csrftokenElement = document.createElement('input');
+                csrftokenElement.type = 'hidden';
+                csrftokenElement.name = 'csrfmiddlewaretoken';
+                csrftokenElement.value = '{{ csrf_token|escapejs }}';
+                formElement.appendChild(csrftokenElement);
+
+                document.body.appendChild(formElement);
+                formElement.submit();
+            }, {capture: true});
+        })
+    });
+</script>

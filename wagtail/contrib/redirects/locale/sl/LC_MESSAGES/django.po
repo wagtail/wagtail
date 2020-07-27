@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -60,6 +60,9 @@ msgstr "Dodaj preusmeritev"
 msgid "Save"
 msgstr "Shrani"
 
+msgid "Redirects"
+msgstr "Preusmeritve"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Izbriši preusmeritev %(title)s"
@@ -83,17 +86,14 @@ msgstr "Urejanje"
 msgid "Delete redirect"
 msgstr "Izbriši preusmeritev"
 
-msgid "Redirects"
-msgstr "Preusmeritve"
-
 msgid "From"
 msgstr "Iz"
 
-msgid "Site"
-msgstr "Spletno mesto"
-
 msgid "To"
 msgstr "Na"
+
+msgid "Site"
+msgstr "Spletno mesto"
 
 msgid "Type"
 msgstr "Tip"

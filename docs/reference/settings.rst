@@ -563,3 +563,32 @@ When true, HTML tags in form field help text will be rendered unescaped (default
 
 .. WARNING::
    Enabling this option will allow editors to insert arbitrary HTML into the page, such as scripts that could allow the editor to acquire administrator privileges when another administrator views the page. Do not enable this setting unless your editors are fully trusted.
+
+
+.. _workflow_settings:
+
+Workflow
+========
+
+.. code-block:: python
+
+  WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True
+
+Moderation workflows can be used in two modes. The first is to require that all tasks must approve a specific page revision for the workflow to complete. As a result,
+if edits are made to a page while it is in moderation, any approved tasks will need to be re-approved for the new revision before the workflow finishes.
+This is the default, ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`` . The second mode does not require reapproval: if edits are made when 
+tasks have already been approved, those tasks do not need to be reapproved. This is more suited to a hierarchical workflow system. To use workflows in this mode,
+set ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False``.
+
+.. code-block:: python
+
+  WAGTAIL_FINISH_WORKFLOW_ACTION = 'wagtail.core.workflows.publish_workflow_state'
+
+This sets the function to be called when a workflow completes successfully - by default, ``wagtail.core.workflows.publish_workflow_state``,
+which publishes the page. The function must accept a ``WorkflowState`` object as its only positional argument.
+
+.. code-block:: python
+
+  WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH = True
+
+This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).

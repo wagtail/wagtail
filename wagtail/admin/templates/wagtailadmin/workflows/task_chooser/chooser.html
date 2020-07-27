@@ -1,0 +1,38 @@
+{% load i18n %}
+{% trans "Choose a task" as  choose_str %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str tabbed=1 merged=1 icon="thumbtack" %}
+
+{% if can_create %}
+<ul class="tab-nav merged">
+    <li class="active"><a href="#new">{% trans "New" %}</a></li>
+    <li><a href="#existing">{% trans "Existing" %}</a></li>
+</ul>
+{% endif %}
+
+<div class="tab-content">
+    {% if can_create %}
+    <section id="new" class="active nice-padding">
+        {% if createform %}
+            {% if task_types|length > 1 %}
+                <a href="{% url 'wagtailadmin_workflows:task_chooser' %}" class="choose-different-task-type">{% trans "Choose a different task type" %}</a>
+            {% endif %}
+
+            {% include "wagtailadmin/workflows/task_chooser/includes/create_form.html" with form=createform %}
+        {% else %}
+            {% include "wagtailadmin/workflows/task_chooser/includes/select_task_type.html" %}
+        {% endif %}
+    </section>
+    {% endif %}
+    <section id="existing" class="nice-padding{% if not can_create %} active{% endif %}">
+        <form class="task-search search-bar" action="{% url 'wagtailadmin_workflows:task_chooser' %}" method="GET" novalidate>
+            <ul class="fields">
+                {% for field in searchform %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% endfor %}
+            </ul>
+        </form>
+        <div id="search-results" class="listing tasks">
+            {% include "wagtailadmin/workflows/task_chooser/includes/results.html" %}
+        </div>
+    </section>
+</div>

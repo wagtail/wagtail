@@ -4,17 +4,18 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2015-2016
-# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
-# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Luís Favas <al62006@utad.eu>, 2020
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-26 18:38+0000\n"
+"Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail redirects"
+msgstr "Redirecionamentos do Wagtail"
 
 msgid "From site"
 msgstr "Do site"
@@ -31,6 +35,19 @@ msgstr "Todos os sites"
 
 msgid "A redirect with this path already exists."
 msgstr "Já existe um redirecionamento com esse caminho."
+
+msgid "File to import"
+msgstr "Ficheiro a importar"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formatos permitidos: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Do campo"
+
+msgid "To field"
+msgstr "Para o campo"
 
 msgid "redirect from"
 msgstr "redirecionar de"
@@ -66,6 +83,15 @@ msgstr "Adicionar redirecionamento"
 msgid "Save"
 msgstr "Guardar"
 
+msgid "Redirects"
+msgstr "Redirecionamentos"
+
+msgid "Import redirects"
+msgstr "Importar redirecionamentos"
+
+msgid "Import"
+msgstr "Importar"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Apagar redirecionamento %(title)s"
@@ -79,6 +105,18 @@ msgstr "Tem a certeza que quer apagar este redirecionamento?"
 msgid "Yes, delete"
 msgstr "Sim, apagar"
 
+msgid "Confirm import"
+msgstr "Confirmar a importação"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Preview"
+msgstr "Prever"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "A alterar %(title)s"
@@ -89,23 +127,54 @@ msgstr "A alterar"
 msgid "Delete redirect"
 msgstr "Apagar redirecionamento"
 
-msgid "Redirects"
-msgstr "Redirecionamentos"
+msgid "Summary"
+msgstr "Sumário"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Encontrados %(total)s redirecionamentos, criados %(successes)s e foram "
+"encontrados %(errors)s erros."
 
 msgid "From"
 msgstr "De"
 
-msgid "Site"
-msgstr "Site"
-
 msgid "To"
 msgstr "Para"
+
+msgid "Error"
+msgstr "Erro"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Type"
 msgstr "Tipo"
 
 msgid "Edit this redirect"
 msgstr "Alterar este redirecionamento"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Existe %(counter)s correspondência\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Existem %(counter)s correspondências\n"
+"        "
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -140,3 +209,20 @@ msgstr "Redirecionamento '{0}' adicionado."
 
 msgid "The redirect could not be created due to errors."
 msgstr "O redirecionamento não pôde ser criado devido a erros."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "O formato do ficheiro com extensão \"{}\" não é suportado"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "O ficheiro importado têm uma codificação errada: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s erros encontrados a tentar ler o ficheiro: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Importado no total %(total)d redirecionamento"
+msgstr[1] "Importados no total %(total)d redirecionamentos"

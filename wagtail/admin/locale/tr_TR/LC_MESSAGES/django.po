@@ -6,6 +6,7 @@
 # Basitlik İyidir, 2020
 # Basitlik İyidir <basitlikiyidir@gmail.com>, 2020
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2019
+# Halim Turan <halim_turan_61@hotmail.com>, 2020
 # José Luis <alagunajs@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Py Data Geek <pydatageek@gmail.com>, 2019
@@ -16,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -38,6 +39,12 @@ msgstr "Yayından Kaldır"
 
 msgid "Delete"
 msgstr "Sil"
+
+msgid "Lock"
+msgstr "Kilitle"
+
+msgid "Unlock"
+msgstr "Kilidi kaldır"
 
 msgid "Save Draft"
 msgstr "Taslak Olarak Kaydet"
@@ -60,6 +67,9 @@ msgstr "Yok"
 msgid "Scheduled publishing"
 msgstr "Planlanmış yayın"
 
+msgid "Privacy"
+msgstr "Gizlilik"
+
 msgid "Common page configuration"
 msgstr "Genel sayfa ayarları"
 
@@ -71,6 +81,15 @@ msgstr "Tanıtımını yap"
 
 msgid "Settings"
 msgstr "Ayarlar"
+
+msgid "All"
+msgstr "Hepsi"
+
+msgid "Date"
+msgstr "Tarih"
+
+msgid "Title"
+msgstr "Başlık"
 
 msgid "Enter password"
 msgstr "Şifre girin"
@@ -269,6 +288,9 @@ msgstr "Çince (Basitleştirilmiş)"
 
 msgid "Chinese (Traditional)"
 msgstr "Çince (Geleneksel)"
+
+msgid "Edit"
+msgstr "Düzenle"
 
 msgid "Page"
 msgstr "Sayfa"
@@ -621,9 +643,6 @@ msgstr ""
 msgid "Save"
 msgstr "Kaydet"
 
-msgid "Privacy"
-msgstr "Gizlilik"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Koleksiyon gizliliğini ayarla. Şimdiki durum: Genel"
 
@@ -672,30 +691,17 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Kilitli sayfalarınız"
 
-msgid "See all locked pages"
-msgstr "Tüm kilitli sayfalara bak"
-
-msgid "Title"
-msgstr "Başlık"
-
 msgid "Locked at"
 msgstr "Kilitli"
 
 msgid "Edit this page"
 msgstr "Bu sayfayı düzenle"
 
-msgid "Edit"
-msgstr "Düzenle"
-
 msgid "Draft"
 msgstr "Taslak"
 
 msgid "Live"
 msgstr "Yayında"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s önce"
 
 msgid "Pages awaiting moderation"
 msgstr "Denetlenmeyi bekleyen sayfalar"
@@ -723,9 +729,6 @@ msgstr "Önizleme"
 
 msgid "Your most recent edits"
 msgstr "En son düzenlemeleriniz"
-
-msgid "Date"
-msgstr "Tarih"
 
 msgid "Status"
 msgstr "Durum"
@@ -822,8 +825,8 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Gizlilik değişiklikleri, bu sayfanın tüm alt elemanları için de geçerlidir."
 
-msgid "This page is locked"
-msgstr "Sayfa kilitli"
+msgid "Visit the live page"
+msgstr "Yayındaki sayfayı gör"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Sayfa gizliliğini ayarla. Şimdiki durum: Genel"
@@ -839,9 +842,6 @@ msgstr "Sayfa gizliliği. Şimdiki durum: Gizli"
 
 msgid "Publishing…"
 msgstr "Yayınlanıyor…"
-
-msgid "Publish this revision"
-msgstr "Bu düzeltmeyi yayınla"
 
 msgid "Saving…"
 msgstr "Kaydediliyor…"
@@ -999,20 +999,15 @@ msgstr "Bu sayfadaki düzenlemeler kaydedilmedi."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "%(page_type)s: %(title)s düzenleniyor"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "%(page_type)s <span>%(title)s</span> düzenleniyor"
+msgid "Live version"
+msgstr "Canlı sürüm"
+
+msgid "Current draft"
+msgstr "Şimdiki taslak"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Son düzenleme: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "%(modified_by)s tarafından"
-
-msgid "Revisions"
-msgstr "Düzeltmeler"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s önce"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1176,15 +1171,15 @@ msgstr ""
 "                sonra tekrar önizleme yapın.\n"
 "            "
 
+msgid "Cancel scheduled publish"
+msgstr "Zamanlanmış yayını iptal et"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "%(title)s karşılaştırılıyor"
 
 msgid "Comparing"
 msgstr "Karşılaştırılıyor"
-
-msgid "View revisions"
-msgstr "Düzeltme geçmişini gör"
 
 msgid "Fields"
 msgstr "Alanlar"
@@ -1234,9 +1229,6 @@ msgstr[1] ""
 "                                                            %(counter)s "
 "kademe yukarı alındı"
 
-msgid "There are no differences between these two revisions"
-msgstr "İki değişiklik arasında fark bulunmuyor."
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "%(title)s için %(revision.id)s değişiklik planını kaldır."
@@ -1267,23 +1259,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "tarafından"
 
-msgid "Current draft"
-msgstr "Şimdiki taslak"
-
-msgid "Live version"
-msgstr "Canlı sürüm"
-
 msgid "Scheduled for"
 msgstr "Bunun için zamanlandı:"
-
-msgid "Review this revision"
-msgstr "Bu düzeltmeyi gözden geçir"
-
-msgid "Compare with previous revision"
-msgstr "Önceki düzeltmeyle karşılaştır"
-
-msgid "Cancel scheduled publish"
-msgstr "Zamanlanmış yayını iptal et"
 
 msgid "No revisions of this page exist"
 msgstr "Bu sayfa için düzeltme geçmişi yok"
@@ -1312,10 +1289,6 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Sayfa türleri"
 
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Üzgünüm, <em>\"%(query_string)s\"</em> ile eşleşen sayfa yok"
-
 msgid "Enter a search term above"
 msgstr "Bir arama kelimesi girin"
 
@@ -1325,8 +1298,45 @@ msgstr "Hiçbir sayfa kullanmıyor"
 msgid "Collection"
 msgstr "Koleksiyon"
 
+msgid "No pages match this report's criteria."
+msgstr "Rapor kriteriyle eşleşen sayfa bulunamadı."
+
+msgid "Download XLSX"
+msgstr "XLSX İndir"
+
+msgid "Download CSV"
+msgstr "CSV İndir"
+
+msgid "No pages found."
+msgstr "Sayfa bulunamadı."
+
+msgid "Locking status"
+msgstr "Kilitli durum"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"<b>Sizin</b> tarafınızdan %(locking_date)s tarihinde kilitlendi"
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"<b>%(locking_date)s</b> tarihinde kilitlendi"
+
 msgid "Locked"
 msgstr "Kilitlendi"
+
+msgid "No locked pages found."
+msgstr "Kilitli sayfa bulunamadı."
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1353,9 +1363,6 @@ msgstr "Hesap ayarları"
 msgid "Log out"
 msgstr "Çıkış yap"
 
-msgid "Visit the live page"
-msgstr "Yayındaki sayfayı gör"
-
 msgid "Current page status:"
 msgstr "Şimdiki sayfa durumu:"
 
@@ -1370,6 +1377,13 @@ msgstr "Alt sayfa ekle"
 
 msgid "Show in Explorer"
 msgstr "Araştırıcıda göster"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "%(modified_by)s tarafından"
+
+msgid "Compare with live version"
+msgstr "Canlı sürümüyle karşılaştır"
 
 #, python-format
 msgid ""
@@ -1447,14 +1461,11 @@ msgstr "Canlı gör"
 msgid "Page '{0}' created and published."
 msgstr "Sayfa '{0}' oluşturuldu ve yayınlandı."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Sayfa '{0}' oluşturuldu ve kontrol edilmek üzere gönderildi."
-
 msgid "View draft"
 msgstr "Taslak görüntüle"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Bildirimler moderatöre gönderilemedi"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Sayfa '{0}' oluşturuldu ve kontrol edilmek üzere gönderildi."
 
 msgid "Page '{0}' created."
 msgstr "Page '{0}' oluşturuldu."
@@ -1465,26 +1476,17 @@ msgstr "Sayfa, doğrulama hataları nedeniyle oluşturulamadı"
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Sayfa '{}' kilitli </b>."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "'{1}' sayfasının {0} revizyonu yayınlanmak üzere planlandı."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "Sayfa '{0}' canlı ve bu revizyon yayınlanmak için planlandı."
+msgid "This page is currently awaiting moderation"
+msgstr "Bu sayfa kontrol edilmek üzere bekliyor"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sayfa '{0}' yayınlanmak için planlandı."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "'{1}' sayfasının {0} revizyonu yayınlandı."
 
 msgid "Page '{0}' has been published."
 msgstr "Sayfa '{0}' yayınlandı."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sayfa '{0}' kontrol için gönderildi."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Sayfa '{0}', {1} revisyonu ile değiştirildi."
 
 msgid "Page '{0}' has been updated."
 msgstr "Sayfa '{0}' güncellendi."
@@ -1494,12 +1496,6 @@ msgstr "Sayfa kilitli olduğu için kaydedilemedi"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Sayfa doğrulama hatalarından dolayı kaydedilemedi"
-
-msgid "Compare with live version"
-msgstr "Canlı sürümüyle karşılaştır"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Bu sayfa kontrol edilmek üzere bekliyor"
 
 msgid "Page '{0}' deleted."
 msgstr "Sayfa '{0}' silindi."
@@ -1541,14 +1537,6 @@ msgstr "Red bildirimleri gönderilemedi"
 msgid "Page '{0}' is now unlocked."
 msgstr "Sayfa '{0}' şuan kilitli değil."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"%(user)s tarafından <b>%(created_at)s</b> tarihinde oluşturulan önceki "
-"sürümü görüyorsunuz"
-
 msgid "Earliest"
 msgstr "En eski"
 
@@ -1557,12 +1545,6 @@ msgstr "En yeni"
 
 msgid "revision {0} of \"{1}\""
 msgstr "sürüm {0} / \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "{0} / \"{1}\" sürümünün planlaması kaldırıldı."
-
-msgid "Locked Pages"
-msgstr "Kilitli Sayfalar"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1602,10 +1584,6 @@ msgstr "'%(title)s' sayfasını sil"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "'%(title)s' sayfasını yayından kaldır"
-
-#, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "'%(title)s' sayfasının düzeltme geçmişini gör"
 
 msgid "Set profile picture"
 msgstr "Profil resmini ayarla"
@@ -1670,6 +1648,9 @@ msgstr "Üstü çizgili"
 
 msgid "Code"
 msgstr "Kod"
+
+msgid "Locked Pages"
+msgstr "Kilitli Sayfalar"
 
 msgid "Reports"
 msgstr "Raporlar"

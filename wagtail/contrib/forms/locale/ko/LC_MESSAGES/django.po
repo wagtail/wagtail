@@ -5,13 +5,13 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2017,2019
+# Kyungil Choi <hanpama@gmail.com>, 2017,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:53+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -85,6 +85,9 @@ msgstr "제출 시간"
 msgid "form submission"
 msgstr "양식 제출"
 
+msgid "form submissions"
+msgstr "양식 제출"
+
 msgid "label"
 msgstr "레이블"
 
@@ -118,6 +121,12 @@ msgstr "도움말"
 
 msgid "Submission date"
 msgstr "제출일"
+
+msgid "Form"
+msgstr "양식"
+
+msgid "Landing page"
+msgstr "랜딩 페이지"
 
 msgid "to address"
 msgstr "받는 주소"
@@ -179,6 +188,9 @@ msgstr "<span>%(form_title)s</span> 양식 데이터"
 
 msgid "Filter"
 msgstr "필터"
+
+msgid "Download XLSX"
+msgstr "XLSX 다운로드"
 
 msgid "Download CSV"
 msgstr "CSV 다운로드"

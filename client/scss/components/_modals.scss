@@ -99,6 +99,10 @@ $zindex-modal-background: 500;
     header {
         padding-left: 2em;
         padding-right: 100px;
+
+        &.tab-merged {
+            padding-left: 1.6em;
+        }
     }
 
     .header-title {
@@ -106,11 +110,21 @@ $zindex-modal-background: 500;
         padding-left: 0 !important;
         margin-left: -36px;
     }
+
+    .tab-merged .header-title {
+        margin-left: 0;
+    }
 }
 
 @include media-breakpoint-up(sm) {
     .modal-dialog {
         padding: 0 0 2em $menu-width;
+    }
+
+    .modal-body {
+        header.tab-merged {
+            padding-left: $desktop-nice-padding;
+        }
     }
 }
 

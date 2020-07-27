@@ -1,0 +1,12 @@
+{% load i18n wagtailadmin_tags %}
+{% include "wagtailadmin/shared/header.html" with title=action_verbose icon="clipboard-list" %}
+
+<div class="nice-padding">
+    <form action="{{ submit_url }}" method="POST" novalidate>
+        {% csrf_token %}
+        <ul class="fields">
+            {% include 'wagtailadmin/shared/form_as_ul.html' %}
+            <li><button type="submit" class="button button-longrunning">{% icon name="spinner" %}{{ action_verbose }}</button></li>
+        </ul>
+    </form>
+</div>

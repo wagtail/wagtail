@@ -3,7 +3,6 @@ from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.core import mail
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -112,10 +111,11 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
         self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
         # test register_page_action_menu_item hook
-        self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
+        self.assertContains(response, '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>')
         self.assertContains(response, 'testapp/js/siren.js')
         # test construct_page_action_menu hook
-        self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')
+        self.assertContains(response, '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>')
+
 
     def test_create_multipart(self):
         """
@@ -451,13 +451,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(page.live)
         self.assertFalse(page.first_published_at)
 
-        # The latest revision for the page should now be in moderation
-        self.assertTrue(page.get_latest_revision().submitted_for_moderation)
+        # The page should now be in moderation
+        self.assertEqual(page.current_workflow_state.status, page.current_workflow_state.STATUS_IN_PROGRESS)
 
-        # Check that the moderator got an email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "New page!" has been submitted for moderation')
 
     def test_create_simplepage_post_existing_slug(self):
         # This tests the existing slug checking on page save
@@ -721,7 +717,12 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         Tests that by default the "Submit for Moderation" button is shown in the action menu.
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
-        self.assertContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
+        self.assertContains(
+            response,
+            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">'
+            '<svg class="icon icon-resubmit icon" aria-hidden="true" focusable="false"><use href="#icon-resubmit"></use></svg>'
+            'Submit for moderation</button>'
+        )
 
     @override_settings(WAGTAIL_MODERATION_ENABLED=False)
     def test_hide_moderation_button(self):
@@ -729,7 +730,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         Tests that if WAGTAIL_MODERATION_ENABLED is set to False, the "Submit for Moderation" button is not shown.
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
-        self.assertNotContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
+        self.assertNotContains(response, '<button type="submit" name="action-submit" value="Submit for moderation" class="button">Submit for moderation</button>')
 
 
 class TestPerRequestEditHandler(TestCase, WagtailTestUtils):

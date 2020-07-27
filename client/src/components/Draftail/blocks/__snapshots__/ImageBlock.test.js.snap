@@ -22,6 +22,12 @@ exports[`ImageBlock alt 1`] = `
     Alt text: “Test”
   </p>
   <button
+    className="button Tooltip__button"
+    type="button"
+  >
+    Edit
+  </button>
+  <button
     className="button button-secondary no Tooltip__button"
   >
     Delete
@@ -51,6 +57,12 @@ exports[`ImageBlock no data 1`] = `
     Alt text: “”
   </p>
   <button
+    className="button Tooltip__button"
+    type="button"
+  >
+    Edit
+  </button>
+  <button
     className="button button-secondary no Tooltip__button"
   >
     Delete
@@ -79,6 +91,12 @@ exports[`ImageBlock renders 1`] = `
   >
     Alt text: “”
   </p>
+  <button
+    className="button Tooltip__button"
+    type="button"
+  >
+    Edit
+  </button>
   <button
     className="button button-secondary no Tooltip__button"
   >

@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 
 import ModalWorkflowSource, { getChooserConfig, filterEntityData } from './ModalWorkflowSource';
 import * as DraftUtils from '../DraftUtils';
+import { DraftUtils as DraftailUtils } from 'draftail';
 import { EditorState, convertFromRaw, AtomicBlockUtils, RichUtils, Modifier } from 'draft-js';
 
 global.ModalWorkflow = () => {};
@@ -30,7 +31,7 @@ describe('ModalWorkflowSource', () => {
   });
 
   describe('#getChooserConfig', () => {
-    it('IMAGE', () => {
+    it('IMAGE without entity', () => {
       expect(getChooserConfig({ type: 'IMAGE' }, null, '')).toEqual({
         url: '/admin/images/chooser/?select_format=true',
         urlParams: {},
@@ -38,10 +39,31 @@ describe('ModalWorkflowSource', () => {
       });
     });
 
-    it('EMBED', () => {
+    it('IMAGE with entity', () => {
+      const entity = { getData: () => ({ id: 1, format: 'left', alt: 'alt' }) };
+      expect(getChooserConfig({ type: 'IMAGE' }, entity, '')).toEqual({
+        url: '/admin/images/chooser/1/select_format/',
+        urlParams: {
+          format: 'left',
+          alt_text: 'alt',
+        },
+        onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      });
+    });
+
+    it('EMBED without entity', () => {
       expect(getChooserConfig({ type: 'EMBED' }, null, '')).toEqual({
         url: '/admin/embeds/chooser/',
         urlParams: {},
+        onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      });
+    });
+
+    it('EMBED with entity', () => {
+      const entity = { getData: () => ({ url: 'http://example.org/content' }) };
+      expect(getChooserConfig({ type: 'EMBED' }, entity, '')).toEqual({
+        url: '/admin/embeds/chooser/',
+        urlParams: { url: 'http://example.org/content' },
         onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
@@ -265,7 +287,7 @@ describe('ModalWorkflowSource', () => {
       RichUtils.toggleLink.mockRestore();
     });
 
-    it('block', () => {
+    it('block for new entity', () => {
       jest.spyOn(AtomicBlockUtils, 'insertAtomicBlock');
 
       const onComplete = jest.fn();
@@ -305,6 +327,57 @@ describe('ModalWorkflowSource', () => {
       expect(close).toHaveBeenCalled();
 
       AtomicBlockUtils.insertAtomicBlock.mockRestore();
+    });
+
+    it('block for existing entity', () => {
+      jest.spyOn(DraftailUtils, 'updateBlockEntity');
+      const onComplete = jest.fn();
+      const close = jest.fn();
+
+      let editorState = EditorState.createWithContent(convertFromRaw({
+        blocks: [
+          {
+            key: 'a',
+            text: ' ',
+            type: 'atomic',
+            entityRanges: [{ offset: 0, length: 1, key: 'first' }],
+            data: {},
+          }
+        ],
+        entityMap: {
+          first: {
+            type: 'IMAGE',
+            mutability: 'IMMUTABLE',
+            data: {},
+          }
+        }
+      }));
+      let selection = editorState.getSelection();
+      selection = selection.merge({
+        anchorKey: 'a',
+      });
+      editorState = EditorState.acceptSelection(editorState, selection);
+      const wrapper = shallow((
+        <ModalWorkflowSource
+          editorState={editorState}
+          entityType={{
+            block: () => {},
+          }}
+          entity={{}}
+          entityKey={'first'}
+          onComplete={onComplete}
+          onClose={() => {}}
+        />
+      ));
+
+      wrapper.instance().workflow = { close };
+      wrapper.instance().onChosen({});
+
+      expect(onComplete).toHaveBeenCalled();
+      expect(DraftailUtils.updateBlockEntity).toHaveBeenCalled();
+      expect(close).toHaveBeenCalled();
+
+      DraftailUtils.updateBlockEntity.mockRestore();
     });
 
     it('prefer_this_title_as_link_text', () => {

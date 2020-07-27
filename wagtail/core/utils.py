@@ -28,6 +28,17 @@ def string_to_ascii(value):
     return str(unidecode(value))
 
 
+def get_model_string(model):
+    """
+    Returns a string that can be used to identify the specified model.
+
+    The format is: `app_label.ModelName`
+
+    This an be reversed with the `resolve_model_string` function
+    """
+    return model._meta.app_label + '.' + model.__name__
+
+
 def resolve_model_string(model_string, default_app=None):
     """
     Resolve an 'app_label.model_name' string into an actual model class.

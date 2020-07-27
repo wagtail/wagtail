@@ -1,0 +1,79 @@
+{% extends "wagtailadmin/generic/index.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block content %}
+    <header role="banner">
+        <div class="row nice-padding">
+            <div class="left">
+                <div class="col header-title">
+                    <h1>{% if view.header_icon %}{% icon name=view.header_icon class_name="header-title-icon" %}{% endif %}
+                    {{ view.page_title }}{% if view.subtitle %} <span>{{ view.subtitle }}</span>{% endif %}</h1>
+                </div>
+            </div>
+            <div class="right">
+                <a href="{% url "wagtailadmin_workflows:task_index" %}?show_disabled={% if showing_disabled %}false{% else %}true{% endif %}" class="button button-nobg button--icon">
+                    {% if showing_disabled %}
+                        {% icon name="no-view" %}{% trans "Hide disabled tasks" %}
+                    {% else %}
+                        {% icon name="view" %}{% trans "Show disabled tasks" %}
+                    {% endif %}
+                </a>
+                <a href="{% url view.add_url_name %}" class="button bicolor icon icon-plus">{{ view.add_item_label }}</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="nice-padding">
+        {% if tasks %}
+            <table class="listing">
+                <thead>
+                    <tr>
+                        <th>
+                            {% trans "Name" %}
+                        </th>
+                        <th>
+                            {% trans "Type" %}
+                        </th>
+                        <th>
+                            {% trans "Used on" %}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <td class="title">
+                                <div class="title-wrapper">
+                                    <a href="{% url view.edit_url_name task.pk %}">{{ task }}</a>
+                                    {% if not task.active %}
+                                        <span class="status-tag">Disabled</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                {{ task.specific.get_verbose_name }}
+                            </td>
+                            <td>
+                                {% for workflow in task.active_workflows|slice:":5" %}
+                                    <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}">{{ workflow.name }}{% if not forloop.last %}, {% endif %}</a>
+                                {% empty %}
+                                    {% trans "Not used" %}
+                                {% endfor %}
+                                {% if task.active_workflows.count > 5 %}
+                                    {% blocktrans count counter=task.active_workflows.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            {% url view.add_url_name as add_url %}
+            {% if showing_disabled %}
+                <p>{% blocktrans %}No tasks have been created. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
+            {% else %}
+                <p>{% blocktrans %}There are no enabled tasks. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

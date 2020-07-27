@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -51,6 +51,9 @@ msgstr "Brez"
 msgid "Scheduled publishing"
 msgstr "Načrtovanje objave"
 
+msgid "Privacy"
+msgstr "Zasebnost"
+
 msgid "Common page configuration"
 msgstr "Splošne nastavitve strani"
 
@@ -62,6 +65,12 @@ msgstr "Promocija"
 
 msgid "Settings"
 msgstr "Nastavitve"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Title"
+msgstr "Naziv"
 
 msgid "Enter password"
 msgstr "Vnesite geslo"
@@ -160,6 +169,9 @@ msgstr "Polje je obvezno."
 
 msgid "Please select at least one group."
 msgstr "Izberite vsaj eno skupino"
+
+msgid "Edit"
+msgstr "Uredi"
 
 msgid "Page"
 msgstr "Stran"
@@ -376,9 +388,6 @@ msgstr "Nastavitve zasebnosti lahko uredite tukaj:"
 msgid "Save"
 msgstr "Shrani"
 
-msgid "Privacy"
-msgstr "Zasebnost"
-
 msgid "Public"
 msgstr "Javno"
 
@@ -414,14 +423,8 @@ msgstr ""
 "To je vaša nadzorna plošča, kjer boste našli prikazane koristne informacije "
 "o vaših vsebinah."
 
-msgid "Title"
-msgstr "Naziv"
-
 msgid "Edit this page"
 msgstr "Uredi stran"
-
-msgid "Edit"
-msgstr "Uredi"
 
 msgid "Draft"
 msgstr "Osnutek"
@@ -452,9 +455,6 @@ msgstr "Predogled"
 
 msgid "Your most recent edits"
 msgstr "Zadnja urejanja vsebine"
-
-msgid "Date"
-msgstr "Datum"
 
 msgid "Status"
 msgstr "Status"
@@ -524,9 +524,6 @@ msgstr "Stran je zasebna, ker je kot zasebna označena nadrejena stran."
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavitve zasebnosti veljajo tudi za vse podrejene strani."
-
-msgid "Publish this revision"
-msgstr "Objavi to različico"
 
 msgid "Replace current draft"
 msgstr "Nadomesti trenutni osnutek"
@@ -614,17 +611,8 @@ msgstr "Na strani so ne shranjene spremembe."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Urejanje %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Urejanje %(page_type)s <span>%(title)s</span>"
-
-#, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Zadnja sprememba: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "avtor %(modified_by)s"
+msgid "Current draft"
+msgstr "Trenutni osnutek"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -741,18 +729,8 @@ msgstr "Različice od %(title)s"
 msgid "Revisions of"
 msgstr "Različice od"
 
-msgid "Current draft"
-msgstr "Trenutni osnutek"
-
-msgid "Review this revision"
-msgstr "Poglej različico"
-
 msgid "No revision of this page exist"
 msgstr "Druge različice strani ne obstajajo"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Žal ni strani, ki bi ustrezala nizu <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Vnesite iskalni niz v zgornje polje"
@@ -794,6 +772,10 @@ msgstr "Dodaj podrejeno stran"
 msgid "Show in Explorer"
 msgstr "Prikaži v Raziskovalcu"
 
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "avtor %(modified_by)s"
+
 msgid "Test"
 msgstr "Test"
 
@@ -812,11 +794,11 @@ msgstr "Ogled v živo"
 msgid "Page '{0}' created and published."
 msgstr "Stran '{0}' ustvarjena in objavljena."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Stran '{0}' ustvarjena in oddana v potrditev."
-
 msgid "View draft"
 msgstr "Poglej osnutek"
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Stran '{0}' ustvarjena in oddana v potrditev."
 
 msgid "Page '{0}' created."
 msgstr "Stran '{0}' ustvarjena."
@@ -824,23 +806,17 @@ msgstr "Stran '{0}' ustvarjena."
 msgid "The page could not be created due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno ustvariti"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Različica iz {0} strani '{1}' je načrtovana za objavo."
+msgid "This page is currently awaiting moderation"
+msgstr "Stran trenutno čaka na potrditev"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stran '{0}' je načrtovana za objavo."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Različica iz {0} strani '{1}' je objavljena."
 
 msgid "Page '{0}' has been published."
 msgstr "Stran '{0}' je objavljena."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stran '{0}' je bila oddana v potrditev."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Stran '{0}' je bila nadomeščena z različico iz {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Stran '{0}' je posodobljena."
@@ -850,9 +826,6 @@ msgstr "Strani ni bilo možno shraniti, ker je zaklenjena"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno shraniti"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Stran trenutno čaka na potrditev"
 
 msgid "Page '{0}' deleted."
 msgstr "Stran '{0}' izbrisana."

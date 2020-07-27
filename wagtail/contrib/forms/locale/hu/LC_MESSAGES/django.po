@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 15:33+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 17:34+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -87,6 +87,12 @@ msgstr "Form beküldés"
 
 msgid "form submissions"
 msgstr "űrlap beküldések"
+
+msgid "name"
+msgstr "név"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "Biztonságos név a mezőnek, a megjelenített elnevezés konvertálva"
 
 msgid "label"
 msgstr "címke"

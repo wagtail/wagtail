@@ -1,6 +1,7 @@
 import itertools
 import json
 import warnings
+from datetime import datetime
 
 from urllib.parse import urljoin
 from django import template
@@ -12,18 +13,21 @@ from django.db.models import QuerySet
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
-from django.utils.html import format_html, format_html_join
+from django.utils import timezone
+from django.utils.html import avoid_wrapping, format_html, format_html_join
 from django.utils.safestring import mark_safe
+from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_js_translation_strings
+from wagtail.admin.log_action_registry import registry as log_action_registry
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
 from wagtail.core.models import (
-    Collection, CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
+    Collection, CollectionViewRestriction, Page, PageLogEntry, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import accepts_kwarg, camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
@@ -588,3 +592,43 @@ def minimum_collection_depth(collections: QuerySet) -> int:
     use {% format_collection collection min_depth %}.
     """
     return collections.values_list('depth', flat=True).order_by('depth')[0]
+
+
+@register.filter()
+def timesince_simple(d):
+    """
+    Returns a simplified timesince:
+    19 hours, 48 minutes ago -> 19 hours ago
+    1 week, 1 day ago -> 1 week ago
+    0 minutes ago -> just now
+    """
+    time_period = timesince(d).split(',')[0]
+    if time_period == avoid_wrapping(_('0 minutes')):
+        return _("Just now")
+    return _("%(time_period)s ago" % {'time_period': time_period})
+
+
+@register.simple_tag
+def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
+    """
+    Returns:
+         - the time of update if last_update is today, if any prefix is supplied, the output will use it
+         - time since last update othewise. Defaults to the simplified timesince,
+           but can return the full string if needed
+    """
+    if last_update.date() == datetime.today().date():
+        time_str = timezone.localtime(last_update).strftime("%H:%M")
+        return time_str if not time_prefix else '%(prefix)s %(formatted_time)s' % {
+            'prefix': time_prefix, 'formatted_time': time_str
+        }
+    else:
+        if use_shorthand:
+            return timesince_simple(last_update)
+        return _("%(time_period)s ago" % {'time_period': timesince(last_update)})
+
+
+@register.filter
+def format_action_log_message(log_entry):
+    if not isinstance(log_entry, PageLogEntry):
+        return ''
+    return log_action_registry.format_message(log_entry)

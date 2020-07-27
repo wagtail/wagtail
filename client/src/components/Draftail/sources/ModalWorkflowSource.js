@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { AtomicBlockUtils, Modifier, RichUtils, EditorState } from 'draft-js';
-import { ENTITY_TYPE } from 'draftail';
+import { ENTITY_TYPE, DraftUtils } from 'draftail';
 
 import { STRINGS } from '../../../config/wagtailConfig';
 import { getSelectionText } from '../DraftUtils';
@@ -23,16 +23,31 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
 
   switch (entityType.type) {
   case ENTITY_TYPE.IMAGE:
+    if (entity) {
+      const data = entity.getData();
+      url = `${global.chooserUrls.imageChooser}${data.id}/select_format/`;
+      urlParams = {
+        format: data.format,
+        alt_text: data.alt,
+      };
+    } else {
+      url = `${global.chooserUrls.imageChooser}?select_format=true`;
+      urlParams = {};
+    }
     return {
-      url: `${global.chooserUrls.imageChooser}?select_format=true`,
-      urlParams: {},
+      url,
+      urlParams,
       onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
     };
 
   case EMBED:
+    urlParams = {};
+    if (entity) {
+      urlParams.url = entity.getData().url;
+    }
     return {
       url: global.chooserUrls.embedsChooser,
-      urlParams: {},
+      urlParams,
       onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
     };
 
@@ -180,33 +195,38 @@ class ModalWorkflowSource extends Component {
   }
 
   onChosen(data) {
-    const { editorState, entityType, onComplete } = this.props;
+    const { editorState, entity, entityKey, entityType, onComplete } = this.props;
     const content = editorState.getCurrentContent();
     const selection = editorState.getSelection();
-
     const entityData = filterEntityData(entityType, data);
     const mutability = MUTABILITY[entityType.type];
-    const contentWithEntity = content.createEntity(entityType.type, mutability, entityData);
-    const entityKey = contentWithEntity.getLastCreatedEntityKey();
 
     let nextState;
-
     if (entityType.block) {
-      // Only supports adding entities at the moment, not editing existing ones.
-      // See https://github.com/springload/draftail/blob/cdc8988fe2e3ac32374317f535a5338ab97e8637/examples/sources/ImageSource.js#L44-L62.
-      // See https://github.com/springload/draftail/blob/cdc8988fe2e3ac32374317f535a5338ab97e8637/examples/sources/EmbedSource.js#L64-L91
-      nextState = AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ');
+      if (entity && entityKey) {
+        // Replace the data for the currently selected block
+        const blockKey = selection.getAnchorKey();
+        const block = content.getBlockForKey(blockKey);
+        nextState = DraftUtils.updateBlockEntity(editorState, block, entityData);
+      } else {
+        // Add new entity if there is none selected
+        const contentWithEntity = content.createEntity(entityType.type, mutability, entityData);
+        const newEntityKey = contentWithEntity.getLastCreatedEntityKey();
+        nextState = AtomicBlockUtils.insertAtomicBlock(editorState, newEntityKey, ' ');
+      }
     } else {
+      const contentWithEntity = content.createEntity(entityType.type, mutability, entityData);
+      const newEntityKey = contentWithEntity.getLastCreatedEntityKey();
+
       // Replace text if the chooser demands it, or if there is no selected text in the first place.
       const shouldReplaceText = data.prefer_this_title_as_link_text || selection.isCollapsed();
-
       if (shouldReplaceText) {
         // If there is a title attribute, use it. Otherwise we inject the URL.
         const newText = data.title || data.url;
-        const newContent = Modifier.replaceText(content, selection, newText, null, entityKey);
+        const newContent = Modifier.replaceText(content, selection, newText, null, newEntityKey);
         nextState = EditorState.push(editorState, newContent, 'insert-characters');
       } else {
-        nextState = RichUtils.toggleLink(editorState, selection, entityKey);
+        nextState = RichUtils.toggleLink(editorState, selection, newEntityKey);
       }
     }
 
@@ -234,6 +254,7 @@ ModalWorkflowSource.propTypes = {
   editorState: PropTypes.object.isRequired,
   entityType: PropTypes.object.isRequired,
   entity: PropTypes.object,
+  entityKey: PropTypes.string,
   onComplete: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };

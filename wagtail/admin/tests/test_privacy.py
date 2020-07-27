@@ -348,9 +348,9 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/_privacy_switch.html')
-        self.assertContains(response, '<div class="privacy-indicator public">')
-        self.assertNotContains(response, '<div class="privacy-indicator private">')
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/privacy_switch_panel.html')
+        self.assertContains(response, '<div class="field-row privacy-indicator public">')
+        self.assertNotContains(response, '<div class="field-row privacy-indicator private">')
 
     def test_edit_private(self):
         """
@@ -362,9 +362,9 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/_privacy_switch.html')
-        self.assertContains(response, '<div class="privacy-indicator private">')
-        self.assertNotContains(response, '<div class="privacy-indicator public">')
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/privacy_switch_panel.html')
+        self.assertContains(response, '<div class="field-row privacy-indicator private">')
+        self.assertNotContains(response, '<div class="field-row privacy-indicator public">')
 
     def test_edit_private_child(self):
         """
@@ -376,6 +376,6 @@ class TestPrivacyIndicators(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check the privacy indicator is public
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/_privacy_switch.html')
-        self.assertContains(response, '<div class="privacy-indicator private">')
-        self.assertNotContains(response, '<div class="privacy-indicator public">')
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/privacy_switch_panel.html')
+        self.assertContains(response, '<div class="field-row privacy-indicator private">')
+        self.assertNotContains(response, '<div class="field-row privacy-indicator public">')

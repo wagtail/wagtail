@@ -21,7 +21,7 @@ def pre_delete_page_unpublish(sender, instance, **kwargs):
     # Make sure pages are unpublished before deleting
     if instance.live:
         # Don't bother to save, this page is just about to be deleted!
-        instance.unpublish(commit=False)
+        instance.unpublish(commit=False, log_action=None)
 
 
 def post_delete_page_log_deletion(sender, instance, **kwargs):

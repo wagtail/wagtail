@@ -1,0 +1,53 @@
+{% load i18n wagtailadmin_tags %}
+{% if workflow_states %}
+<section class="object collapsible">
+    <h2 class="title-wrapper">{% trans 'Your pages in a workflow' %}</h2>
+    <div class="object-layout">
+        <table class="listing">
+        <col />
+        <col width="30%"/>
+        <col width="15%"/>
+        <thead>{# Note: the header is visually hidden behind .title-wrapper #}
+            <tr>
+                <th class="title">{% trans "Title" %}</th>
+                <th>{% trans "Task" %}</th>
+                <th>{% trans "Task started" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for workflow_state in workflow_states %}
+                {% with workflow_state.current_task_state.page_revision as revision %}
+                {% page_permissions workflow_state.page as page_perms %}
+                <tr>
+                    <td class="title" valign="top">
+                        <div class="title-wrapper">
+                            {% if page_perms.can_edit %}
+                                <a href="{% url 'wagtailadmin_pages:edit' workflow_state.page.id %}" title="{% trans 'Edit this page' %}">{{ workflow_state.page.get_admin_display_title }}</a>
+                            {% else %}
+                                {{ workflow_state.page.get_admin_display_title }}
+                            {% endif %}
+
+                            {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=workflow_state.page %}
+                            {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=workflow_state.page %}
+                        </div>
+                    </td>
+                    <td class="task" valign="top">
+                        {% if workflow_state.current_task_state.status == 'rejected' %}
+                            {% icon name="warning" class_name="default" %}
+                            {% trans "Changes requested at" %}
+                        {% elif workflow_state.current_task_state.status == 'in_progress' %}
+                            {% trans "Awaiting" %}
+                        {% endif %}
+                        {{ workflow_state.current_task_state.task.name }}
+                    </td>
+                    <td valign="top">
+                        <div class="human-readable-date" title="{{ workflow_state.current_task_state.started_at|date:"d M Y H:i" }}">{% blocktrans with time_period=workflow_state.current_task_state.started_at|timesince_simple %}{{ time_period }}{% endblocktrans %} </div>
+                    </td>
+                </tr>
+                {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</section>
+{% endif %}

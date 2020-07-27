@@ -1,0 +1,63 @@
+{% extends 'wagtailadmin/reports/base_report.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{% blocktrans with title=subtitle %}Page history for {{ subtitle }}{% endblocktrans %}{% endblock %}
+
+{% block actions %}
+    <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button bicolor icon icon-edit">{% trans "Edit this page" %}</a>
+{% endblock %}
+
+{% block results %}
+    {% if object_list %}
+        <table class="listing listing--inline-actions">
+            <thead>
+                <tr>
+                    <th>
+                        {% trans 'Action' %}
+                    </th>
+                    <th>
+                        {% trans 'User' %}
+                    </th>
+                    <th class="updated">
+                        {% trans 'Date / Time' %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% page_permissions page as page_perms %}
+                {% for entry in object_list %}
+                    <tr>
+                        <td>
+                            {% if entry.revision %}<span class="report__results--text">{% endif %}
+                            {{ entry|format_action_log_message }}
+                            {% if entry.revision %}</span>{% endif %}
+                            {% if entry.comment %}
+                                <span class="report__results--comment">{% trans "Comment" %}: "<em>{{ entry.comment }}</em>"</span>
+                            {% endif %}
+                            {% if entry.revision %}
+                                {% if entry.action == 'wagtail.publish' %}
+                                    {% if entry.revision == page.live_revision %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}
+                                {% elif entry.content_changed %}
+                                    {% if entry.revision == page.get_latest_revision %}<span class="status-tag primary">{% trans 'Current draft' %}</span>{% endif %}
+                                    {% include "wagtailadmin/pages/revisions/_actions.html" with revision=entry.revision %}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% include "wagtailadmin/shared/user_avatar.html" with user=entry.user username=entry.username %}
+                        </td>
+                        <td class="updated">
+                            <div class="human-readable-date" title="{{ entry.timestamp|date:"d M Y H:i" }}">{% blocktrans with time_period=entry.timestamp|timesince %}{{ time_period }} ago{% endblocktrans %}</div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "No log entries found." %}</p>
+    {% endif %}
+{% endblock %}
+
+{% block no_results %}
+    <p>{% trans "No log entries found." %}</p>
+{% endblock %}

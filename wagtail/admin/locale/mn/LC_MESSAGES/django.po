@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -51,6 +51,9 @@ msgstr "Хоосон"
 msgid "Scheduled publishing"
 msgstr "Төлөвлөгөөт нийтлэл"
 
+msgid "Privacy"
+msgstr "Нууцлал"
+
 msgid "Common page configuration"
 msgstr "Нийтлэг хуудасны тохиргоо"
 
@@ -62,6 +65,12 @@ msgstr "Бусад тохиргоо"
 
 msgid "Settings"
 msgstr "Тохиргоо"
+
+msgid "Date"
+msgstr "Огноо"
+
+msgid "Title"
+msgstr "Гарчиг"
 
 msgid "Enter password"
 msgstr "Нууц үг оруулна уу"
@@ -216,6 +225,9 @@ msgstr "Словак"
 
 msgid "Ukrainian"
 msgstr "Украйн"
+
+msgid "Edit"
+msgstr "Засах"
 
 msgid "Page"
 msgstr "Хуудас"
@@ -514,9 +526,6 @@ msgstr "Нууцлалын тохиргоог өөрчлөх боломжтой:
 msgid "Save"
 msgstr "Хадгалах"
 
-msgid "Privacy"
-msgstr "Нууцлал"
-
 msgid "Public"
 msgstr "Нийтэд нээлттэй"
 
@@ -544,24 +553,14 @@ msgstr ""
 "Энэ хянах самбар дээр таны үүсгэсэн контентын талаар хэрэгцээт мэдээлэл "
 "харагдана."
 
-msgid "Title"
-msgstr "Гарчиг"
-
 msgid "Edit this page"
 msgstr "Энэ хуудсыг засах"
-
-msgid "Edit"
-msgstr "Засах"
 
 msgid "Draft"
 msgstr "Ноорог"
 
 msgid "Live"
 msgstr "Нийтлэгдсэн"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s-н өмнө"
 
 msgid "Pages awaiting moderation"
 msgstr "Хянагдахаар хүлээгдэж буй хуудсууд"
@@ -589,9 +588,6 @@ msgstr "Урдчилж харах"
 
 msgid "Your most recent edits"
 msgstr "Таны сүүлийн засварууд"
-
-msgid "Date"
-msgstr "Огноо"
 
 msgid "Status"
 msgstr "Төлөв"
@@ -797,20 +793,15 @@ msgstr "Хуудсанд хадгалаагүй өөрчлөлт байна."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Засч байна %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Засч байна %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Нийтлэгдсэн хувилбар"
+
+msgid "Current draft"
+msgstr "Одоогийн ноорог"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Сүүлд өөрчлөгдсөн: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "%(modified_by)s-р"
-
-msgid "Revisions"
-msgstr "Хувилбарууд"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s-н өмнө"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -863,15 +854,15 @@ msgstr "Дэд хуудсуудыг эрэмбэлэх"
 msgid "Preview error"
 msgstr "Урдчилж харахад алдаа гарлаа"
 
+msgid "Cancel scheduled publish"
+msgstr "Нийтлэлийн төлөвлөгөөг цуцлах"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "%(title)s-г харьцуулж байна"
 
 msgid "Comparing"
 msgstr "Харьцуулж байна"
-
-msgid "View revisions"
-msgstr "Өмнөх өөрчлөлтүүдийг үзэх"
 
 msgid "Fields"
 msgstr "Талбарууд"
@@ -923,9 +914,6 @@ msgstr[1] ""
 "дээшлүүллээ.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Хоёр хувилбарын хооронд ялгаа олдсонгүй"
-
 msgid "Unschedule"
 msgstr "Төлөвлөгөөг болиулах"
 
@@ -941,23 +929,8 @@ msgstr "Үгүй, төлөвлөгөөг болиулахгүй"
 msgid "Revision date"
 msgstr "Хувилбарын огноо"
 
-msgid "Current draft"
-msgstr "Одоогийн ноорог"
-
-msgid "Live version"
-msgstr "Нийтлэгдсэн хувилбар"
-
 msgid "Scheduled for"
 msgstr "Нийтлэхээр төлөвлөсөн"
-
-msgid "Review this revision"
-msgstr "Энэ хувилбарыг хянах"
-
-msgid "Compare with previous revision"
-msgstr "Өмнөх хувилбартай харьцуулах"
-
-msgid "Cancel scheduled publish"
-msgstr "Нийтлэлийн төлөвлөгөөг цуцлах"
 
 msgid "No revisions of this page exist"
 msgstr "Хуудсанд өмнөх хувилбар үүсээгүй байна"
@@ -985,11 +958,6 @@ msgstr[1] ""
 
 msgid "Page types"
 msgstr "Хуудасны төрөл"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Уучлаарай, <em>\"%(query_string)s\"</em> хайлтад тохирох хуудас олдсонгүй"
 
 msgid "Enter a search term above"
 msgstr "Хайлтын утгаа дээд хэсэгт оруулна уу"
@@ -1029,6 +997,13 @@ msgstr "Админ панел руу шилжих"
 
 msgid "Add a child page"
 msgstr "Шинэ мэдээ нэмэх"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "%(modified_by)s-р"
+
+msgid "Compare with live version"
+msgstr "Нийтлэгдсэн хувилбартай харьцуулах"
 
 msgid "Test"
 msgstr "Тест"
@@ -1084,14 +1059,11 @@ msgstr "Нийтлэгдсэн хувилбарыг үзэх"
 msgid "Page '{0}' created and published."
 msgstr "'{0}' хуудас үүсч, нийтлэгдлээ."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "'{0}' хуудас үүсч, хянуулахаар илгээгдлээ."
-
 msgid "View draft"
 msgstr "Ноорог харах"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Хяналтын мэдэгдэл илгээхэд алдаа гарлаа"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "'{0}' хуудас үүсч, хянуулахаар илгээгдлээ."
 
 msgid "Page '{0}' created."
 msgstr "'{0}' хуудас үүслээ."
@@ -1099,14 +1071,14 @@ msgstr "'{0}' хуудас үүслээ."
 msgid "The page could not be created due to validation errors"
 msgstr "Баталгаажуулалтын алдаанаас болж хуудас үүсгэж чадсангүй"
 
+msgid "This page is currently awaiting moderation"
+msgstr "Энэ хуудас хянуулахаар хүлээгдэж байна"
+
 msgid "Page '{0}' has been published."
 msgstr "'{0}' хуудас нийтлэгдлээ."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "'{0}' хуудас хянуулахаар илгээгдлээ."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "'{0}' хуудсыг {1} хувилбараар нь сэргээлээ."
 
 msgid "Page '{0}' has been updated."
 msgstr "'{0}' хуудас шинэчлэгдлээ."
@@ -1116,12 +1088,6 @@ msgstr "Түгжигдсэн хуудсыг засах хадгалах боло
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Баталгаажуулалтын алдаанаас болж хуудас хадгалагдсангүй"
-
-msgid "Compare with live version"
-msgstr "Нийтлэгдсэн хувилбартай харьцуулах"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Энэ хуудас хянуулахаар хүлээгдэж байна"
 
 msgid "Page '{0}' deleted."
 msgstr "'{0}' хуудас устлаа."
@@ -1164,9 +1130,6 @@ msgstr "Хамгийн сүүлийн"
 
 msgid "revision {0} of \"{1}\""
 msgstr "\"{1}\"-с {0} дэх хувилбар"
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "\"{1}\"-с {0} дэх хувилбар төлөвлөгдсөнгүй."
 
 msgid "More"
 msgstr "Дэлгэрэнгүй"

@@ -25,6 +25,12 @@ urlpatterns = [
 
     path('<int:page_id>/copy/', pages.copy, name='copy'),
 
+    path('workflow/action/<int:page_id>/<slug:action_name>/<int:task_state_id>/', pages.WorkflowAction.as_view(), name='workflow_action'),
+    path('workflow/collect_action_data/<int:page_id>/<slug:action_name>/<int:task_state_id>/', pages.CollectWorkflowActionData.as_view(), name='collect_workflow_action_data'),
+    path('workflow/confirm_cancellation/<int:page_id>/', pages.confirm_workflow_cancellation, name='confirm_workflow_cancellation'),
+    path('workflow/preview/<int:page_id>/<int:task_id>/', pages.preview_revision_for_task, name='workflow_preview'),
+    path('workflow/status/<int:page_id>/', pages.workflow_status, name='workflow_status'),
+
     path('moderation/<int:revision_id>/approve/', pages.approve_moderation, name='approve_moderation'),
     path('moderation/<int:revision_id>/reject/', pages.reject_moderation, name='reject_moderation'),
     path('moderation/<int:revision_id>/preview/', pages.preview_for_moderation, name='preview_for_moderation'),
@@ -39,4 +45,9 @@ urlpatterns = [
     path('<int:page_id>/revisions/<int:revision_id>/revert/', pages.revisions_revert, name='revisions_revert'),
     path('<int:page_id>/revisions/<int:revision_id>/unschedule/', pages.revisions_unschedule, name='revisions_unschedule'),
     re_path(r'^(\d+)/revisions/compare/(live|earliest|\d+)\.\.\.(live|latest|\d+)/$', pages.revisions_compare, name='revisions_compare'),
+
+    path('<int:page_id>/workflow_history/', pages.workflow_history, name='workflow_history'),
+    path('<int:page_id>/workflow_history/detail/<int:workflow_state_id>/', pages.workflow_history_detail, name='workflow_history_detail'),
+
+    path('<int:page_id>/history/', pages.PageHistoryView.as_view(), name='history'),
 ]
