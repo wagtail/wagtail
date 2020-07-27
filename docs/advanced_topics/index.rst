@@ -22,3 +22,4 @@ Advanced topics
     adding_reports
     custom_tasks
     audit_log
+    accessibility_considerations
