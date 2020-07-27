@@ -36,27 +36,31 @@ class TestCollectionsIndexView(TestCase, WagtailTestUtils):
         root_collection = Collection.get_first_root_node()
         root_collection.add_child(name="Milk")
         root_collection.add_child(name="Bread")
-        root_collection.add_child(name="Avacado")
+        root_collection.add_child(name="Avocado")
         response = self.get()
+        # Note that the Collections have been automatically sorted by name.
         self.assertEqual(
             [collection.name for collection in response.context['object_list']],
-            ['Milk', 'Bread', 'Avacado'])
+            ['Avocado', 'Bread', 'Milk'])
 
     def test_nested_ordering(self):
         root_collection = Collection.get_first_root_node()
 
-        animals = root_collection.add_child(name="Animal")
-        animals.add_child(name="Cat")
-        animals.add_child(name="Dogs")
-
         vegetables = root_collection.add_child(name="Vegetable")
         vegetables.add_child(name="Spinach")
-        vegetables.add_child(name="Dogs")
+        vegetables.add_child(name="Cucumber")
+
+        animals = root_collection.add_child(name="Animal")
+        animals.add_child(name="Dog")
+        animals.add_child(name="Cat")
 
         response = self.get()
+        # Note that while we added the collections at level 1 in reverse-alpha order, they come back out in alpha order.
+        # And we added the Collections at level 2 in reverse-alpha order as well, but they were also alphabetized
+        # within their respective trees. This is the result of setting Collection.node_order_by = ['name'].
         self.assertEqual(
             [collection.name for collection in response.context['object_list']],
-            ['Animal', 'Cat', 'Dogs', 'Vegetable', 'Spinach', 'Dogs'])
+            ['Animal', 'Cat', 'Dog', 'Vegetable', 'Cucumber', 'Spinach'])
 
 
 class TestAddCollection(TestCase, WagtailTestUtils):

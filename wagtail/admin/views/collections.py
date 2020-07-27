@@ -61,7 +61,7 @@ class Edit(EditView):
         instance = self.form.save()
         parent_pk = self.form.data.get('parent')
         if parent_pk and parent_pk != instance.get_parent().pk:
-            instance.move(Collection.objects.get(pk=parent_pk), 'last-child')
+            instance.move(Collection.objects.get(pk=parent_pk), 'sorted-child')
         return instance
 
     def form_valid(self, form):
