@@ -8,6 +8,7 @@
 # Ed <724195301@qq.com>, 2018
 # Ed <724195301@qq.com>, 2018
 # First Last <abc+github@mynook.info>, 2019
+# Ford Guo <agile.guo@gmail.com>, 2020
 # Fred Zeng <979738295@qq.com>, 2016
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Aosp T, 2016
@@ -20,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 15:55+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-26 02:44+0000\n"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -37,17 +38,42 @@ msgstr "发布"
 msgid "Submit for moderation"
 msgstr "提交审核"
 
+msgid "Resubmit to {}"
+msgstr "重新提交给{}"
+
+msgid "Submit to {}"
+msgstr "提交给{}"
+
+msgid "Restart workflow "
+msgstr "重启工作流"
+
+msgid "Cancel workflow "
+msgstr "取消工作流"
+
 msgid "Unpublish"
 msgstr "取消发布"
 
 msgid "Delete"
 msgstr "删除"
 
+msgid "Lock"
+msgstr "锁定"
+
+msgid "Apply editor lock"
+msgstr "应用编辑锁定"
+
+msgid "Unlock"
+msgstr "解锁"
+
 msgid "Save Draft"
 msgstr "保存草稿"
 
 msgid "Page locked"
 msgstr "页面已锁定"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s 和发布"
 
 msgid "Wagtail admin"
 msgstr "Wagtail 管理"
@@ -64,6 +90,9 @@ msgstr "无"
 msgid "Scheduled publishing"
 msgstr "定时发布"
 
+msgid "Privacy"
+msgstr "私有设置"
+
 msgid "Common page configuration"
 msgstr "常用页面配置"
 
@@ -75,6 +104,36 @@ msgstr "推荐"
 
 msgid "Settings"
 msgstr "设置"
+
+msgid "Date from"
+msgstr "起始日期"
+
+msgid "Date to"
+msgstr "结束日期"
+
+msgid "All"
+msgstr "所有"
+
+msgid "Started at"
+msgstr "开始于"
+
+msgid "Show"
+msgstr "显示"
+
+msgid "Awaiting my review"
+msgstr "等待我的审核"
+
+msgid "Completed at"
+msgstr "完成于"
+
+msgid "Workflow"
+msgstr "工作流"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Title"
+msgstr "标题"
 
 msgid "Enter password"
 msgstr "输入密码"
@@ -165,6 +224,21 @@ msgstr "必需字段"
 
 msgid "Please select at least one group."
 msgstr "请至少选择一个组。"
+
+msgid "All types"
+msgstr "所有类型"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "此页面已经被分配给工作流'{0}'."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "你不能将此工作流多次分配给同一个页面."
+
+msgid "Give your workflow a name"
+msgstr "请给你的工作流一个名称"
+
+msgid "Add tasks to your workflow"
+msgstr "增加任务到你的工作流"
 
 msgid "Arabic"
 msgstr "阿拉伯语"
@@ -267,6 +341,9 @@ msgstr "中文（简体）"
 
 msgid "Chinese (Traditional)"
 msgstr "中文（繁体）"
+
+msgid "Edit"
+msgstr "编辑"
 
 msgid "Page"
 msgstr "页面"
@@ -418,6 +495,9 @@ msgstr "周五"
 
 msgid "Sat"
 msgstr "周六"
+
+msgid "Unknown {action}"
+msgstr "未知{操作}"
 
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"
@@ -607,9 +687,6 @@ msgstr "私有设置决定谁可以查看这个集合中的文档。"
 msgid "Save"
 msgstr "保存"
 
-msgid "Privacy"
-msgstr "私有设置"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "设置选集的隐私状态。当前状态：公开"
 
@@ -655,20 +732,11 @@ msgstr "这是您的主控台，将会显示您创建的内容的帮助信息。
 msgid "Your locked pages"
 msgstr "你锁定的页面"
 
-msgid "See all locked pages"
-msgstr "查看所有已锁定的页面"
-
-msgid "Title"
-msgstr "标题"
-
 msgid "Locked at"
 msgstr "锁定于"
 
 msgid "Edit this page"
 msgstr "编辑此页"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Draft"
 msgstr "草稿"
@@ -677,8 +745,8 @@ msgid "Live"
 msgstr "发布"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
+msgid "%(time_period)s"
+msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "页面等待审核中"
@@ -707,9 +775,6 @@ msgstr "预览"
 msgid "Your most recent edits"
 msgstr "最近编辑"
 
-msgid "Date"
-msgstr "日期"
-
 msgid "Status"
 msgstr "状态"
 
@@ -731,6 +796,27 @@ msgstr[0] ""
 "\n"
 "在<span class=\"visuallyhidden\">%(site_name)s</span>中共创建了<span>"
 "%(total)s</span>个页面"
+
+msgid "Your pages in a workflow"
+msgstr "工作流中的页面"
+
+msgid "Task"
+msgstr "任务"
+
+msgid "Task started"
+msgstr "任务已启动"
+
+msgid "Changes requested at"
+msgstr "请求的更改"
+
+msgid "Awaiting"
+msgstr "等待"
+
+msgid "Awaiting your review"
+msgstr "等待你的审查"
+
+msgid "Tasks"
+msgstr "任务"
 
 msgid "Sign in"
 msgstr "登录"
@@ -788,6 +874,71 @@ msgstr "可以在此预览页面："
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "页面\"%(page)s\"已提交审核"
 
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr "页面“%(title)s”已在审核阶段“%(task)s”获得批准。"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "页面“%(title)s”已在“%(task)s”中批准。"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "页面“%(title)s”已在审核阶段“%(task)s”被拒绝。"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "页面“%(title)s”在“%(task)s”期间被拒绝。"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr "页面“%(title)s”已在审核阶段“%(task)s”提交审批。"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr "页面“%(title)s”已提交到审核阶段“%(task)s”审批。"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\" "
+msgstr "页面“%(title)s”已在审核阶段“%(task)s”提交审批"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr "页面“%(title)s”已在工作流“%(workflow)s”中批准。"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "页面“%(title)s”已在“%(workflow)s”中批准。"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"页面“%(title)s”在“%(task)s”期间的工作流“%(workflow)s”中被%(rejector)s拒绝。"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr "页面“%(title)s”在“%(task)s”期间的工作流“%(workflow)s”中被拒绝。"
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "留下了以下评论：“%(comment)s”"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "页面“%(title)s”在“%(workflow)s”期间被拒绝。"
+
 msgid "Page privacy"
 msgstr "页面私有设置"
 
@@ -797,29 +948,11 @@ msgstr "此页面已被父节点设置为私有。"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "私有设置也会应用到此页面的所有子页面。"
 
-msgid "This page is locked"
-msgstr "此页面已锁定"
+msgid "Visit the live page"
+msgstr "查看已发布的页面"
 
-msgid "This page is unlocked"
-msgstr "此页面已解锁"
-
-msgid "Remove editor lock"
-msgstr "移除编辑锁定"
-
-msgid "Unlock"
-msgstr "解锁"
-
-msgid "You don't have permission to unlock"
-msgstr "你没有权限解锁"
-
-msgid "Apply editor lock"
-msgstr "应用编辑锁定"
-
-msgid "Lock"
-msgstr "锁定"
-
-msgid "You don't have permission to lock"
-msgstr "你没有权限锁定"
+msgid "restricted"
+msgstr "受限的"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "设置页面的隐私状态。当前状态：公开"
@@ -836,8 +969,8 @@ msgstr "页面的隐私状态。当前状态：私密"
 msgid "Publishing…"
 msgstr "正在发布..."
 
-msgid "Publish this revision"
-msgstr "发布这个版本"
+msgid "Publish this version"
+msgstr "发布此版本"
 
 msgid "Saving…"
 msgstr "正在保存..."
@@ -947,6 +1080,18 @@ msgstr "是，取消发布"
 msgid "No, don't unpublish"
 msgstr "否，不取消发布"
 
+msgid "Publish page"
+msgstr "发布页面"
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "发布此页面将会取消当前工作流."
+
+msgid "Would you still like to publish this page?"
+msgstr "你确定仍然要发布此页面吗?"
+
+msgid "Cancel"
+msgstr "取消"
+
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "使用%(page_class_verbose_name)s的页面"
@@ -982,19 +1127,40 @@ msgid "Editing %(page_type)s: %(title)s"
 msgstr "编辑 %(page_type)s: %(title)s"
 
 #, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "编辑 %(page_type)s <span>%(title)s</span>"
+msgid "Editing %(page_type)s"
+msgstr "编辑 %(page_type)s"
+
+msgid "History"
+msgstr "历史"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "上一次编辑： %(last_mod)s"
+msgid "Page history for %(subtitle)s"
+msgstr "%(subtitle)s的页面历史"
+
+msgid "Action"
+msgstr "行为"
+
+msgid "User"
+msgstr "用户"
+
+msgid "Date / Time"
+msgstr "日期/时间"
+
+msgid "Comment"
+msgstr "评论"
+
+msgid "Live version"
+msgstr "发布版本"
+
+msgid "Current draft"
+msgstr "当前草稿"
 
 #, python-format
-msgid "by %(modified_by)s"
-msgstr "由%(modified_by)s"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
 
-msgid "Revisions"
-msgstr "修订"
+msgid "No log entries found."
+msgstr "未找到日志记录"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1145,6 +1311,24 @@ msgstr ""
 "                然后再进行预览。\n"
 "            "
 
+msgid "Current status:"
+msgstr "当前状态:"
+
+msgid "Set page privacy"
+msgstr "设置页面隐私"
+
+msgid "Review this version"
+msgstr "审核这个修订"
+
+msgid "Compare with previous version"
+msgstr "与上一个版本进行比较"
+
+msgid "Compare with current version"
+msgstr "与当前版本进行比较"
+
+msgid "Cancel scheduled publish"
+msgstr "取消预定的发布"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "比较 %(title)s"
@@ -1152,8 +1336,8 @@ msgstr "比较 %(title)s"
 msgid "Comparing"
 msgstr "正在比较"
 
-msgid "View revisions"
-msgstr "查看修订版本"
+msgid "Page history"
+msgstr "页面历史"
 
 msgid "Fields"
 msgstr "字段"
@@ -1191,9 +1375,6 @@ msgstr[0] ""
 "\n"
 "上移 %(counter)s 位。"
 
-msgid "There are no differences between these two revisions"
-msgstr "这两个修订版本内容一致。"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "取消%(title)s修订版本%(revision.id)s的预定发布"
@@ -1224,23 +1405,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "修订人"
 
-msgid "Current draft"
-msgstr "当前草稿"
-
-msgid "Live version"
-msgstr "发布版本"
-
 msgid "Scheduled for"
 msgstr "定时发布"
-
-msgid "Review this revision"
-msgstr "查看这个修订"
-
-msgid "Compare with previous revision"
-msgstr "与上一个修订版本进行比较"
-
-msgid "Cancel scheduled publish"
-msgstr "取消预定的发布"
 
 msgid "No revisions of this page exist"
 msgstr "当前页面没有修订记录"
@@ -1264,18 +1430,20 @@ msgstr[0] ""
 msgid "Page types"
 msgstr "页面类型"
 
-msgid "All"
-msgstr "所有"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "对不起，没有符合<em>\"%(query_string)s\"</em>的页面"
-
 msgid "Enter a search term above"
 msgstr "输入上面的搜索条件"
 
 msgid "No pages use"
 msgstr "没有页面使用"
+
+msgid "Workflow progress"
+msgstr "工作流进展"
+
+msgid "Edit / Review"
+msgstr "编辑 / 审核"
+
+msgid "Workflow history"
+msgstr "工作流历史"
 
 msgid "Collection"
 msgstr "集合"
@@ -1359,9 +1527,6 @@ msgstr "帐号设置"
 msgid "Log out"
 msgstr "注销"
 
-msgid "Visit the live page"
-msgstr "查看已发布的页面"
-
 msgid "Current page status:"
 msgstr "当前页面状态："
 
@@ -1400,6 +1565,13 @@ msgstr "添加子页面"
 
 msgid "Show in Explorer"
 msgstr "在资源管理器中显示"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "由%(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "与发布版本进行比较"
 
 #, python-format
 msgid ""
@@ -1473,14 +1645,11 @@ msgstr "实时查看"
 msgid "Page '{0}' created and published."
 msgstr "页面'{0}'已创建并发布。"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "页面 '{0}' 已创建并提交审核。"
-
 msgid "View draft"
 msgstr "查看草稿"
 
-msgid "Failed to send notifications to moderators"
-msgstr "向版主发送通知失败"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "页面 '{0}' 已创建并提交审核。"
 
 msgid "Page '{0}' created."
 msgstr "页面'{0}'已创建"
@@ -1500,26 +1669,17 @@ msgstr "<b>页面 '{}' </b> 已被 <b>{}</b> 锁定于<b>{}</b>。"
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>页面 '{}' 已被锁定</b>。"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "页面 {1} 的版本 {0} 正在计划发布中。"
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "页面 {0} 正在使用，这个修订版本已预定发布时间。"
+msgid "This page is currently awaiting moderation"
+msgstr "页面等待审核中"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "页面 {0} 已预定发布时间。"
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "页面 '{1}' 的修订版本 {0} 已经发布。"
 
 msgid "Page '{0}' has been published."
 msgstr "页面 '{0}' 已经发布。"
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "页面 '{0}' 已经提交给版主。"
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "页面 '{0}' 的修订版本 {1} 已经被替换。"
 
 msgid "Page '{0}' has been updated."
 msgstr "页面 '{0}' 已被更新。"
@@ -1529,12 +1689,6 @@ msgstr "页面无法保存，已被锁定。"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "页面无法保存。出现验证错误。"
-
-msgid "Compare with live version"
-msgstr "与发布版本进行比较"
-
-msgid "This page is currently awaiting moderation"
-msgstr "页面等待审核中"
 
 msgid "Page '{0}' deleted."
 msgstr "页面'{0}'已删除"
@@ -1574,14 +1728,6 @@ msgstr "发送拒绝通知失败。"
 msgid "Page '{0}' is now unlocked."
 msgstr "页面 '{0}'已解锁。"
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"你正在查看当前页面的修订版本，版本时间：<b>%(created_at)s</b> 版本编辑： "
-"%(user)s"
-
 msgid "Earliest"
 msgstr "最早的"
 
@@ -1590,12 +1736,6 @@ msgstr "最近的"
 
 msgid "revision {0} of \"{1}\""
 msgstr " \"{1}\"的修订版本{0}"
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr " \"{1}\"的修订版本{0}已取消预定的发布。"
-
-msgid "Locked Pages"
-msgstr "已锁定的页面"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1635,10 +1775,6 @@ msgstr "删除页面“%(title)s”"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "取消发布页面“%(title)s”"
-
-#, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "查看“%(title)s”的版本历史"
 
 msgid "Set profile picture"
 msgstr "头像设置"
@@ -1703,6 +1839,9 @@ msgstr "中划线"
 
 msgid "Code"
 msgstr "代码"
+
+msgid "Locked Pages"
+msgstr "已锁定的页面"
 
 msgid "Reports"
 msgstr "报告"

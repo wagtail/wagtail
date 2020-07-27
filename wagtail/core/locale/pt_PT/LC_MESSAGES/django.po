@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-07-07 22:55+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 17:28+0000\n"
 "Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -49,6 +49,9 @@ msgstr "Senha"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Introduziu uma senha incorreta. Por favor tente novamente."
+
+msgid "Comment"
+msgstr "Comentário"
 
 msgid "hostname"
 msgstr "nome do servidor"
@@ -90,6 +93,9 @@ msgstr "site"
 
 msgid "sites"
 msgstr "sites"
+
+msgid "default"
+msgstr "padrão"
 
 #, python-format
 msgid ""
@@ -179,17 +185,26 @@ msgstr "ultima alteração a"
 msgid "latest revision created at"
 msgstr "última versão criada em"
 
+msgid "live revision"
+msgstr "revisão ao vivo"
+
 msgid "This slug is already in use"
 msgstr "Este “slug” já está a ser utilizado"
 
 msgid "scheduled"
 msgstr "agendado"
 
+msgid "in moderation"
+msgstr "em moderação"
+
 msgid "draft"
 msgstr "rascunho"
 
 msgid "live + scheduled"
 msgstr "publicada + agendada"
+
+msgid "live + in moderation"
+msgstr "ao vivo + em moderação"
 
 msgid "live + draft"
 msgstr "publicada + rascunho"
@@ -325,6 +340,72 @@ msgstr "permissão de coleção de grupo"
 
 msgid "group collection permissions"
 msgstr "permissões de grupo da coleção"
+
+msgid "workflow"
+msgstr "fluxo de trabalho"
+
+msgid "workflow page"
+msgstr "página de fluxo de trabalho"
+
+msgid "workflow pages"
+msgstr "páginas de fluxo de trabalho"
+
+msgid "workflow_tasks"
+msgstr "tarefas_de_fluxo_de_trabalho"
+
+msgid "task"
+msgstr "tarefa"
+
+msgid "workflow task order"
+msgstr "ordem das tarefas do fluxo de trabalho"
+
+msgid "workflow task orders"
+msgstr "ordens das tarefas do fluxo de trabalho"
+
+msgid "active"
+msgstr "ativo"
+
+msgid "tasks"
+msgstr "tarefas"
+
+msgid "Approve"
+msgstr "Aprovar"
+
+msgid "Approve with comment"
+msgstr "Aprovar com comentário"
+
+msgid "Approved"
+msgstr "Aprovado"
+
+msgid "Needs changes"
+msgstr "Necessita alterações"
+
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgid "status"
+msgstr "estado"
+
+msgid "requested by"
+msgstr "requisitado por"
+
+msgid "Not started"
+msgstr "Não iniciado"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
+msgid "Skipped"
+msgstr "Passado à frente"
+
+msgid "started at"
+msgstr "iniciado a"
+
+msgid "finished at"
+msgstr "acabado a"
+
+msgid "finished by"
+msgstr "acabado por"
 
 msgid "Log in"
 msgstr "Entrar"

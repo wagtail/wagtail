@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2020-03-06 01:10+0000\n"
-"Last-Translator: IT Management <info@itmanagement.cz>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -68,6 +68,9 @@ msgstr "Přidat přesměrování"
 msgid "Save"
 msgstr "Uložit"
 
+msgid "Redirects"
+msgstr "Přesměrování"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Smazat přesměrování %(title)s"
@@ -91,17 +94,14 @@ msgstr "Úprava"
 msgid "Delete redirect"
 msgstr "Smazat přesměrování"
 
-msgid "Redirects"
-msgstr "Přesměrování"
-
 msgid "From"
 msgstr "Z"
 
-msgid "Site"
-msgstr "Web"
-
 msgid "To"
 msgstr "na"
+
+msgid "Site"
+msgstr "Web"
 
 msgid "Type"
 msgstr "Typ"

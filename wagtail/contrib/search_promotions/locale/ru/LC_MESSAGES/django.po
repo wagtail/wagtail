@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2020-04-21 17:09+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 17:31+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -128,11 +128,23 @@ msgstr "Добавить новый продвигаемый результат"
 msgid "Search term(s)"
 msgstr "Критерии поиска"
 
+msgid "Order by search term alphabetically"
+msgstr "Упорядочить по алфавиту"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Упорядочить по алфавиту в обратном порядке"
+
 msgid "Promoted results"
 msgstr "Продвигаемые результаты"
 
 msgid "Views (past week)"
 msgstr "Просмотров (прошлая неделя)"
+
+msgid "Order by views (lowest first)"
+msgstr "Упорядочить по видам (нижние первые)"
+
+msgid "Order by views (highest first)"
+msgstr "Упорядочить по видам (высшие первые)"
 
 msgid "Edit this promotion"
 msgstr "Редактировать это продвижение"

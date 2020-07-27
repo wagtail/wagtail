@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -59,6 +59,9 @@ msgstr "Mamuk"
 msgid "Scheduled publishing"
 msgstr "Horariu Publikasaun"
 
+msgid "Privacy"
+msgstr "Privasidade"
+
 msgid "Common page configuration"
 msgstr "Konfigurasaun pagina hotu-hotu"
 
@@ -70,6 +73,12 @@ msgstr "Promove"
 
 msgid "Settings"
 msgstr "Konfigurasaun"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Title"
+msgstr "Titlu"
 
 msgid "Enter password"
 msgstr "Hatama seña"
@@ -255,6 +264,9 @@ msgstr "Chinese (Simplified)"
 
 msgid "Chinese (Traditional)"
 msgstr "Chinese (Traditional)"
+
+msgid "Edit"
+msgstr "Hadia"
 
 msgid "Page"
 msgstr "Pajina"
@@ -601,9 +613,6 @@ msgstr ""
 msgid "Save"
 msgstr "Rai"
 
-msgid "Privacy"
-msgstr "Privasidade"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Troka koleksaun privadu. Status agora: Publiku"
 
@@ -648,24 +657,14 @@ msgid ""
 msgstr ""
 "Nee ita boot nia pajina analisa no informasaun konaba pjaina nia conteudu."
 
-msgid "Title"
-msgstr "Titlu"
-
 msgid "Edit this page"
 msgstr "Hadia pájina ida ne'e"
-
-msgid "Edit"
-msgstr "Hadia"
 
 msgid "Draft"
 msgstr "Esbosu"
 
 msgid "Live"
 msgstr "Ativu"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s liubá"
 
 msgid "Pages awaiting moderation"
 msgstr "Pajina sira hein ba moderasaun"
@@ -693,9 +692,6 @@ msgstr "Haree"
 
 msgid "Your most recent edits"
 msgstr "Ita boot nia troka sira"
-
-msgid "Date"
-msgstr "Data"
 
 msgid "Status"
 msgstr "Estadu"
@@ -784,6 +780,9 @@ msgstr "Pájina ida ne'e, sai privadu husi pájina hun ida."
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Pajina privasidade mos aplika ba pajina nee nia oan sira."
 
+msgid "Visit the live page"
+msgstr "Vizita pajina publiku"
+
 msgid "Set page privacy. Current status: Public"
 msgstr "Troka pajina privadu: Status agora publiku"
 
@@ -798,9 +797,6 @@ msgstr "Pajina privadu: Status agora Publiku"
 
 msgid "Publishing…"
 msgstr "Publika hela..."
-
-msgid "Publish this revision"
-msgstr "Publika revizaun ida-ne'e"
 
 msgid "Saving…"
 msgstr "Rai hela..."
@@ -944,20 +940,15 @@ msgstr "Pajina ne'e iha sasan troka la salva ona."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Hadia hela %(page_type)s:%(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Hadia hela %(page_type)s<span>%(title)s</span>"
+msgid "Live version"
+msgstr "revisaun publiku"
+
+msgid "Current draft"
+msgstr "Esbosu agora dadaun"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Modifika ikus  %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "Husi  %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revizaun sira"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s liubá"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1108,15 +1099,15 @@ msgstr ""
 "Labele halo visualisasaun pajina nee, iha erru.\n"
 "Favor ida taka tab nee, no hadia pajina erru sira nee"
 
+msgid "Cancel scheduled publish"
+msgstr "Kansela orariu publiku"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Comparasaun %(title)s"
 
 msgid "Comparing"
 msgstr "Comparasaun"
-
-msgid "View revisions"
-msgstr "Haree revizaun sira"
 
 msgid "Fields"
 msgstr "Attributu sira"
@@ -1154,9 +1145,6 @@ msgstr[0] ""
 "\n"
 "Muda fatin %(counter)s leten"
 
-msgid "There are no differences between these two revisions"
-msgstr "Iha nebaa laiha differensia sira entre revizaun rua"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Hamoos orariu revizaun %(revision.id)s ba %(title)s"
@@ -1187,23 +1175,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "husi"
 
-msgid "Current draft"
-msgstr "Esbosu agora dadaun"
-
-msgid "Live version"
-msgstr "revisaun publiku"
-
 msgid "Scheduled for"
 msgstr "Orariu ba"
-
-msgid "Review this revision"
-msgstr "Haree revizaun nee"
-
-msgid "Compare with previous revision"
-msgstr "Halo comparasaun revizaun kotuk"
-
-msgid "Cancel scheduled publish"
-msgstr "Kansela orariu publiku"
 
 msgid "No revisions of this page exist"
 msgstr "Laiha revizaun ba pajina nee"
@@ -1226,10 +1199,6 @@ msgstr[0] ""
 
 msgid "Page types"
 msgstr "Tipu pajina sira"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Deskulpa laiha pajina maka hanesan <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Hatama termu buka iha leten"
@@ -1268,9 +1237,6 @@ msgstr "Konfigurasaun konta"
 msgid "Log out"
 msgstr "Sai"
 
-msgid "Visit the live page"
-msgstr "Vizita pajina publiku"
-
 msgid "Current page status:"
 msgstr "Status pajina dadaun"
 
@@ -1285,6 +1251,10 @@ msgstr "Hatama pajina oan"
 
 msgid "Show in Explorer"
 msgstr "Hatudu iha Esplorador"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "Husi  %(modified_by)s"
 
 msgid "Test"
 msgstr "Test"
@@ -1345,6 +1315,3 @@ msgstr " Mak tardi liu"
 
 msgid "revision {0} of \"{1}\""
 msgstr " revizaun {0} hosi \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "  Revizaun {0} hosi \"{1}\"  oráriu laiha"

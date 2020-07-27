@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -56,6 +56,9 @@ msgstr "存在しない"
 msgid "Scheduled publishing"
 msgstr "予定公開日"
 
+msgid "Privacy"
+msgstr "公開設定"
+
 msgid "Common page configuration"
 msgstr "ページの一般設定"
 
@@ -67,6 +70,12 @@ msgstr "プロモート"
 
 msgid "Settings"
 msgstr "設定"
+
+msgid "Date"
+msgstr "日付"
+
+msgid "Title"
+msgstr "タイトル"
 
 msgid "Enter password"
 msgstr "パスワードを入力してください"
@@ -249,6 +258,9 @@ msgstr "中国語（簡体字）"
 
 msgid "Chinese (Traditional)"
 msgstr "中国語（繁体字）"
+
+msgid "Edit"
+msgstr "編集"
 
 msgid "Page"
 msgstr "ページ"
@@ -577,9 +589,6 @@ msgstr ""
 msgid "Save"
 msgstr "保存"
 
-msgid "Privacy"
-msgstr "公開設定"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "コレクションのプライバシーを設定する。現在の状態：公開"
 
@@ -626,24 +635,14 @@ msgstr ""
 "これがあなたのダッシュボードです。ここにあなたが作成したコンテンツに関する役"
 "立つ情報が表示されます。"
 
-msgid "Title"
-msgstr "タイトル"
-
 msgid "Edit this page"
 msgstr "ページを編集"
-
-msgid "Edit"
-msgstr "編集"
 
 msgid "Draft"
 msgstr "下書き"
 
 msgid "Live"
 msgstr "公開"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s前"
 
 msgid "Pages awaiting moderation"
 msgstr "承認待ちのページ"
@@ -671,9 +670,6 @@ msgstr "プレビュー"
 
 msgid "Your most recent edits"
 msgstr "最近の編集"
-
-msgid "Date"
-msgstr "日付"
 
 msgid "Status"
 msgstr "ステータス"
@@ -764,6 +760,9 @@ msgstr "このページは親ページにより非公開に設定されていま
 msgid "Privacy changes apply to all children of this page too."
 msgstr "公開設定の変更はすべての孫ページに反映されます。"
 
+msgid "Visit the live page"
+msgstr "ライブページを訪れる。"
+
 msgid "Set page privacy. Current status: Public"
 msgstr "ページプライバシーを設定する。現在の状態：公開"
 
@@ -778,9 +777,6 @@ msgstr "ページプライバシーの現在の状態：非公開"
 
 msgid "Publishing…"
 msgstr "公開中..."
-
-msgid "Publish this revision"
-msgstr "このリビジョンを公開"
 
 msgid "Saving…"
 msgstr "保存中"
@@ -925,20 +921,15 @@ msgstr "このページは変更が保存されなかった"
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "%(page_type)s: %(title)sを編集"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "%(page_type)s <span>%(title)s</span>を編集"
+msgid "Live version"
+msgstr "ライブ版"
+
+msgid "Current draft"
+msgstr "現在の下書き"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "最終編集日：%(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "編集者：%(modified_by)s"
-
-msgid "Revisions"
-msgstr "改定"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s前"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1092,15 +1083,15 @@ msgstr ""
 "ビューを使用してください。\n"
 "            "
 
+msgid "Cancel scheduled publish"
+msgstr "予定された公開を取り消す"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "%(title)sを比較"
 
 msgid "Comparing"
 msgstr "比較"
-
-msgid "View revisions"
-msgstr "修正を見る"
 
 msgid "Fields"
 msgstr "フィールド"
@@ -1138,9 +1129,6 @@ msgstr[0] ""
 "\n"
 "%(counter)sつ上げた"
 
-msgid "There are no differences between these two revisions"
-msgstr "これら２つの改定には差異はありません。"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "%(title)sのリビジョン%(revision.id)sのスケジュールを解除"
@@ -1171,23 +1159,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "によって"
 
-msgid "Current draft"
-msgstr "現在の下書き"
-
-msgid "Live version"
-msgstr "ライブ版"
-
 msgid "Scheduled for"
 msgstr "のために予定されている"
-
-msgid "Review this revision"
-msgstr "この改定をレビューする"
-
-msgid "Compare with previous revision"
-msgstr "前の改定と比較する"
-
-msgid "Cancel scheduled publish"
-msgstr "予定された公開を取り消す"
 
 msgid "No revisions of this page exist"
 msgstr "このページの改定は存在しません。"
@@ -1210,12 +1183,6 @@ msgstr[0] ""
 
 msgid "Page types"
 msgstr "ページタイプ"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"申し訳ございません、<em>\"%(query_string)s\"</em>に一致するページは見つかりま"
-"せんでした。"
 
 msgid "Enter a search term above"
 msgstr "検索語を入力"
@@ -1254,9 +1221,6 @@ msgstr "アカウント設定"
 msgid "Log out"
 msgstr "ログアウト"
 
-msgid "Visit the live page"
-msgstr "ライブページを訪れる。"
-
 msgid "Current page status:"
 msgstr "現在のページ状況："
 
@@ -1271,6 +1235,13 @@ msgstr "子ページを追加"
 
 msgid "Show in Explorer"
 msgstr "エクスプローラーに表示"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "編集者：%(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "ライブ版と比較する"
 
 #, python-format
 msgid ""
@@ -1341,14 +1312,11 @@ msgstr "閲覧"
 msgid "Page '{0}' created and published."
 msgstr "ページ：'{0}' が作成され、公開されました。"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "'{0}' が作成され、承認待ちです。"
-
 msgid "View draft"
 msgstr "下書きを閲覧"
 
-msgid "Failed to send notifications to moderators"
-msgstr "調整者に通知送信できない"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "'{0}' が作成され、承認待ちです。"
 
 msgid "Page '{0}' created."
 msgstr "ページ：'{0}' が作成されました。"
@@ -1356,17 +1324,11 @@ msgstr "ページ：'{0}' が作成されました。"
 msgid "The page could not be created due to validation errors"
 msgstr "このページはエラーにより作成できませんでした。"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "ページ'{1}'のリビジョン{0}が公開される予定です。"
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "ページ'{0}' が公開され、このリビジョンの公開も予定されました。"
+msgid "This page is currently awaiting moderation"
+msgstr "このページは現在承認待ちです。"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "ページ'{0}'の公開が予定されました。"
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "ページ'{1}'のリビジョン{0}が公開されました。"
 
 msgid "Page '{0}' has been published."
 msgstr "ページ：'{0}' が公開されました。"
@@ -1376,11 +1338,6 @@ msgstr ""
 "88%match\n"
 "ページ：'{0}' が調整のために提出されました。"
 
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr ""
-"62%match\n"
-"ページ：'{0}' のが改訂版{1}と置き換えられました。"
-
 msgid "Page '{0}' has been updated."
 msgstr "ページ：'{0}' の更新が完了しました。"
 
@@ -1389,12 +1346,6 @@ msgstr "このページはロックされているため、保存できません
 
 msgid "The page could not be saved due to validation errors"
 msgstr "このページはエラーにより保存できませんでした。"
-
-msgid "Compare with live version"
-msgstr "ライブ版と比較する"
-
-msgid "This page is currently awaiting moderation"
-msgstr "このページは現在承認待ちです。"
 
 msgid "Page '{0}' deleted."
 msgstr "ページ：'{0}' が削除されました。"
@@ -1436,14 +1387,6 @@ msgstr "拒否通信を送信できない"
 msgid "Page '{0}' is now unlocked."
 msgstr "ページ：'{0}' のロックが解除されました。"
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"%(user)sによりこのページの<b>%(created_at)s</b>以前のリビジョンを表示していま"
-"す"
-
 msgid "Earliest"
 msgstr "最も早い"
 
@@ -1452,9 +1395,6 @@ msgstr "最新"
 
 msgid "revision {0} of \"{1}\""
 msgstr "\"{1}\"のリビジョン{0}"
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "\"{1}\"のリビジョン{0}の公開予定が取り消されました。"
 
 msgid "More"
 msgstr "詳細表示"

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benjamin VR <benjaaa.vr@gmail.com>, 2020
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2020
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 21:08+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-25 14:06+0000\n"
+"Last-Translator: Benjamin VR <benjaaa.vr@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -29,17 +30,42 @@ msgstr "Publiceer"
 msgid "Submit for moderation"
 msgstr "Dien in ter controle"
 
+msgid "Resubmit to {}"
+msgstr "Stuur opnieuw door naar {}"
+
+msgid "Submit to {}"
+msgstr "Stuur door naar {}"
+
+msgid "Restart workflow "
+msgstr "Workflow herstarten"
+
+msgid "Cancel workflow "
+msgstr "Workflow annuleren"
+
 msgid "Unpublish"
 msgstr "Publicatie intrekken"
 
 msgid "Delete"
 msgstr "Verwijder"
 
+msgid "Lock"
+msgstr "Blokkeren"
+
+msgid "Apply editor lock"
+msgstr "Pas bewerkingsblokkering toe"
+
+msgid "Unlock"
+msgstr "Deblokkeer"
+
 msgid "Save Draft"
 msgstr "Concept opslaan"
 
 msgid "Page locked"
 msgstr "Pagina is geblokkeerd"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s en Publiceren"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -56,6 +82,9 @@ msgstr "Geen"
 msgid "Scheduled publishing"
 msgstr "Geplande publicatie"
 
+msgid "Privacy"
+msgstr "Privacy"
+
 msgid "Common page configuration"
 msgstr "Algemene pagina-instellingen"
 
@@ -67,6 +96,30 @@ msgstr "Eigenschappen"
 
 msgid "Settings"
 msgstr "Instellingen"
+
+msgid "Date from"
+msgstr "Datum vanaf"
+
+msgid "Date to"
+msgstr "Datum tot"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Started at"
+msgstr "Gestart op"
+
+msgid "Show"
+msgstr "Toon"
+
+msgid "Awaiting my review"
+msgstr "Wachten op mijn beoordeling"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Enter password"
 msgstr "Voer wachtwoord in"
@@ -273,6 +326,9 @@ msgstr "Chinees (Vereenvoudigd)"
 
 msgid "Chinese (Traditional)"
 msgstr "Chinees (Traditioneel)"
+
+msgid "Edit"
+msgstr "Wijzig"
 
 msgid "Page"
 msgstr "Pagina"
@@ -631,9 +687,6 @@ msgstr ""
 msgid "Save"
 msgstr "Opslaan"
 
-msgid "Privacy"
-msgstr "Privacy"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Privacy-status van deze collectie. Huidige status: Openbaar"
 
@@ -684,30 +737,17 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Jouw geblokkeerde pagina's"
 
-msgid "See all locked pages"
-msgstr "Bekijk alle geblokkeerde pagina's"
-
-msgid "Title"
-msgstr "Titel"
-
 msgid "Locked at"
 msgstr "Geblokkeerd op"
 
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
 
-msgid "Edit"
-msgstr "Wijzig"
-
 msgid "Draft"
 msgstr "Concept"
 
 msgid "Live"
 msgstr "Live"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s geleden"
 
 msgid "Pages awaiting moderation"
 msgstr "Pagina's die op goedkeuring wachten"
@@ -735,9 +775,6 @@ msgstr "Voorbeeld"
 
 msgid "Your most recent edits"
 msgstr "Laatste wijzigingen"
-
-msgid "Date"
-msgstr "Datum"
 
 msgid "Status"
 msgstr "Status"
@@ -835,29 +872,8 @@ msgstr ""
 "Wijzigingen in de zichtbaarheid hebben ook effect op alle onderliggende "
 "pagina's van deze pagina."
 
-msgid "This page is locked"
-msgstr "Deze pagina is geblokkeerd"
-
-msgid "This page is unlocked"
-msgstr "Deze pagina is gedeblokkeerd"
-
-msgid "Remove editor lock"
-msgstr "Hef bewerkingsblokkering op"
-
-msgid "Unlock"
-msgstr "Deblokkeer"
-
-msgid "You don't have permission to unlock"
-msgstr "Je hebt geen rechten om te deblokkeren"
-
-msgid "Apply editor lock"
-msgstr "Pas bewerkingsblokkering toe"
-
-msgid "Lock"
-msgstr "Blokkeren"
-
-msgid "You don't have permission to lock"
-msgstr "Je hebt geen rechten om te blokkeren"
+msgid "Visit the live page"
+msgstr "Bezoek de live pagina"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Privacy-status van deze pagina. Huidige status: Openbaar"
@@ -873,9 +889,6 @@ msgstr "Privacy-status van deze pagina. Huidige status: Privé "
 
 msgid "Publishing…"
 msgstr "Bezig met publiceren..."
-
-msgid "Publish this revision"
-msgstr "Publiceer deze versie"
 
 msgid "Saving…"
 msgstr "Bezig met opslaan…"
@@ -1027,20 +1040,15 @@ msgstr "Deze pagina heeft wijzigingen die nog niet zijn opgeslagen."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Bewerk %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Live versie"
+
+msgid "Current draft"
+msgstr "Huidig concept"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Laatst gewijzigd: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "door %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revisies"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s geleden"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1201,15 +1209,15 @@ msgstr ""
 "Sluit dit tab, bewerk de pagina om de fouten te verbeteren,\n"
 "en bekijk daarna het voorbeeld opnieuw."
 
+msgid "Cancel scheduled publish"
+msgstr "Cancel geplande publicatie"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Vergelijk %(title)s"
 
 msgid "Comparing"
 msgstr "Vergelijk"
-
-msgid "View revisions"
-msgstr "Bekijk revisies"
 
 msgid "Fields"
 msgstr "Velden"
@@ -1253,9 +1261,6 @@ msgstr[1] ""
 "\n"
 "%(counter)s plekken naar boven verplaatst."
 
-msgid "There are no differences between these two revisions"
-msgstr "Er zijn geen verschillen tussen deze twee revisies"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Stop geplande publicatie versie %(revision.id)s voor %(title)s"
@@ -1286,23 +1291,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "door"
 
-msgid "Current draft"
-msgstr "Huidig concept"
-
-msgid "Live version"
-msgstr "Live versie"
-
 msgid "Scheduled for"
 msgstr "Gepland voor"
-
-msgid "Review this revision"
-msgstr "Herzie deze versie"
-
-msgid "Compare with previous revision"
-msgstr "Vergelijk met vorige revisie"
-
-msgid "Cancel scheduled publish"
-msgstr "Cancel geplande publicatie"
 
 msgid "No revisions of this page exist"
 msgstr "Er bestaan geen vorige versies van deze pagina"
@@ -1328,14 +1318,6 @@ msgstr[1] ""
 
 msgid "Page types"
 msgstr "Pagina types"
-
-msgid "All"
-msgstr "Alle"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Sorry, geen enkele pagina komt overeen met <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Voer hierboven een zoekterm in."
@@ -1426,9 +1408,6 @@ msgstr "Accountinstellingen"
 msgid "Log out"
 msgstr "Uitloggen"
 
-msgid "Visit the live page"
-msgstr "Bezoek de live pagina"
-
 msgid "Current page status:"
 msgstr "Huidige paginastatus:"
 
@@ -1469,6 +1448,13 @@ msgstr "Voeg een onderliggende pagina toe"
 
 msgid "Show in Explorer"
 msgstr "Toon in verkenner"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "door %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Vergelijk met live versie"
 
 #, python-format
 msgid ""
@@ -1546,14 +1532,11 @@ msgstr "Bekijk live"
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Pagina '{0}' aangemaakt en ingediend voor controle."
-
 msgid "View draft"
 msgstr "Bekijk concept"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Het versturen van notificaties aan moderators is mislukt."
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Pagina '{0}' aangemaakt en ingediend voor controle."
 
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' is aangemaakt."
@@ -1573,26 +1556,17 @@ msgstr "<b>De pagina '{}' is geblokkeerd</b> door <b>{}</b> op <b>{}</b>."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "De pagina '{}' is geblokkeerd."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "De versie van {0} van de pagina '{1}' is ingepland voor publicatie."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "Pagina  '{0}' is live en de versie is gepland voor publicatie"
+msgid "This page is currently awaiting moderation"
+msgstr "Deze pagina is in afwachting van content goedkeuring"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "De pagina '{0}' is ingepland voor publicatie."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "De versie van {0} van de pagina '{1}' is gepubliceerd."
 
 msgid "Page '{0}' has been published."
 msgstr "Pagina '{0}' is gepubliceerd."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Pagina '{0}' is voor moderatie ingediend."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Pagina '{0}' is vervangen met de versie van {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Pagina '{0}' is gewijzigd."
@@ -1602,12 +1576,6 @@ msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten."
-
-msgid "Compare with live version"
-msgstr "Vergelijk met live versie"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Deze pagina is in afwachting van content goedkeuring"
 
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' verwijderd."
@@ -1649,14 +1617,6 @@ msgstr "Het versturen van afkeuringsnotificaties is mislukt"
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"U bekijkt nu een vorige versie van deze pagina van <b>%(created_at)s</b> "
-"door %(user)s"
-
 msgid "Earliest"
 msgstr "Eerste"
 
@@ -1665,12 +1625,6 @@ msgstr "Laatste"
 
 msgid "revision {0} of \"{1}\""
 msgstr "Versie {0} van \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Versie {0} of \"{1}\" gestopt met plannen"
-
-msgid "Locked Pages"
-msgstr "Blokkeer pagina's"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1710,10 +1664,6 @@ msgstr "Verwijder pagina '%(title)s'"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Trek publicatie van pagina '%(title)s' in."
-
-#, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "Bekijk de versiegeschiedenis van '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Profielfoto instellen"
@@ -1778,6 +1728,9 @@ msgstr "Doorgestreept"
 
 msgid "Code"
 msgstr "Code"
+
+msgid "Locked Pages"
+msgstr "Blokkeer pagina's"
 
 msgid "Reports"
 msgstr "Rapporten"

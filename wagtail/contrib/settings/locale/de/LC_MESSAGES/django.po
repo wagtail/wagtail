@@ -6,13 +6,14 @@
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Matthias Martin, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Tibor <tibor@lpld.io>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2019-10-18 06:59+0000\n"
-"Last-Translator: Matthias Martin\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 19:03+0000\n"
+"Last-Translator: Tibor <tibor@lpld.io>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +28,9 @@ msgstr "%(setting_type_name)s - %(instance)s bearbeiten"
 
 msgid "Editing"
 msgstr "Bearbeiten"
+
+msgid "Site"
+msgstr "Seite"
 
 msgid "Saving…"
 msgstr "Speichern…"

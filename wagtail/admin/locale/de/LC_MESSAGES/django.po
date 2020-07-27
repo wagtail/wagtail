@@ -24,7 +24,7 @@
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Tibor L <tibor@lpld.io>, 2020
+# Tibor <tibor@lpld.io>, 2020
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
 # Vorlif <flori@vorlif.org>, 2016
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
@@ -32,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-06-07 23:22+0000\n"
-"Last-Translator: Tibor L <tibor@lpld.io>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +54,15 @@ msgstr "Veröffentlichung aufheben"
 
 msgid "Delete"
 msgstr "Löschen"
+
+msgid "Lock"
+msgstr "Sperren"
+
+msgid "Apply editor lock"
+msgstr "Editor-Sperre anwenden"
+
+msgid "Unlock"
+msgstr "Entsperren"
 
 msgid "Save Draft"
 msgstr "Entwurf speichern"
@@ -76,6 +85,9 @@ msgstr "Nichts"
 msgid "Scheduled publishing"
 msgstr "Geplante Veröffentlichung"
 
+msgid "Privacy"
+msgstr "Privatsphäre"
+
 msgid "Common page configuration"
 msgstr "Allgemeine Seitenkonfiguration"
 
@@ -87,6 +99,15 @@ msgstr "Veröffentlichung"
 
 msgid "Settings"
 msgstr "Einstellungen"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Enter password"
 msgstr "Bitte geben Sie Ihr Passwort ein"
@@ -295,6 +316,9 @@ msgstr "Chinesisch (vereinfacht)"
 
 msgid "Chinese (Traditional)"
 msgstr "Chinesisch (traditionell)"
+
+msgid "Edit"
+msgstr "Bearbeiten"
 
 msgid "Page"
 msgstr "Seite"
@@ -657,9 +681,6 @@ msgstr ""
 msgid "Save"
 msgstr "Speichern"
 
-msgid "Privacy"
-msgstr "Privatsphäre"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Privatsphäre der Sammlung einstellen. Aktueller Status: Öffentlich"
 
@@ -710,30 +731,17 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Ihre gesperrte Seiten"
 
-msgid "See all locked pages"
-msgstr "Alle gesperrten Seiten anzeigen"
-
-msgid "Title"
-msgstr "Titel"
-
 msgid "Locked at"
 msgstr "Gesperrt um"
 
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"
 
-msgid "Edit"
-msgstr "Bearbeiten"
-
 msgid "Draft"
 msgstr "Entwurf"
 
 msgid "Live"
 msgstr "Seite anzeigen"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "vor %(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Seiten, die auf Freischaltung warten"
@@ -761,9 +769,6 @@ msgstr "Vorschau"
 
 msgid "Your most recent edits"
 msgstr "Ihre letzen Änderungen"
-
-msgid "Date"
-msgstr "Datum"
 
 msgid "Status"
 msgstr "Status"
@@ -864,29 +869,8 @@ msgstr ""
 "Die Privatsphäre-Einstellungen gelten ebenfalls für alle Unterseiten dieser "
 "Seite."
 
-msgid "This page is locked"
-msgstr "Diese Seite ist gesperrt"
-
-msgid "This page is unlocked"
-msgstr "Diese Seite ist entsperrt"
-
-msgid "Remove editor lock"
-msgstr "Editor-Sperre aufheben"
-
-msgid "Unlock"
-msgstr "Entsperren"
-
-msgid "You don't have permission to unlock"
-msgstr "Sie haben nicht die nötige Berechtigung um die Sperre aufzuheben"
-
-msgid "Apply editor lock"
-msgstr "Editor-Sperre anwenden"
-
-msgid "Lock"
-msgstr "Sperren"
-
-msgid "You don't have permission to lock"
-msgstr "Sie haben keine Berechtigung zum Sperren"
+msgid "Visit the live page"
+msgstr "Live-Seite besuchen"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Seiten-Privatsphäre einstellen. Aktueller Status: Öffentlich"
@@ -902,9 +886,6 @@ msgstr "Seiten-Privatsphäre. Aktueller Status: Privat"
 
 msgid "Publishing…"
 msgstr "Veröffentlichen..."
-
-msgid "Publish this revision"
-msgstr "Diese Revision veröffentlichen"
 
 msgid "Saving…"
 msgstr "Speichern…"
@@ -1062,20 +1043,15 @@ msgstr "Diese Seite hat ungesicherte Änderungen."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Bearbeite %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Wird bearbeitet %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Veröffentlichte Version"
+
+msgid "Current draft"
+msgstr "Aktueller Entwurf"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Zuletzt geändert: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "von %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revisionen"
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1233,15 +1209,15 @@ msgstr ""
 "Seite, um die Fehler zu beheben, und verwenden Sie dann\n"
 "erneut die Vorschau."
 
+msgid "Cancel scheduled publish"
+msgstr "Geplante Veröffentlichung aufheben"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "%(title)s vergleichen"
 
 msgid "Comparing"
 msgstr "Vergleichen"
-
-msgid "View revisions"
-msgstr "Revisionen ansehen"
 
 msgid "Fields"
 msgstr "Felder"
@@ -1293,9 +1269,6 @@ msgstr[1] ""
 "%(counter)s Stellen nach oben verschoben.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Diese zwei Revisionen weisen keine Unterschiede auf"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr ""
@@ -1329,23 +1302,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "von"
 
-msgid "Current draft"
-msgstr "Aktueller Entwurf"
-
-msgid "Live version"
-msgstr "Veröffentlichte Version"
-
 msgid "Scheduled for"
 msgstr "Geplant für"
-
-msgid "Review this revision"
-msgstr "Diese Revision begutachten"
-
-msgid "Compare with previous revision"
-msgstr "Mit vorheriger Revision vergleichen"
-
-msgid "Cancel scheduled publish"
-msgstr "Geplante Veröffentlichung aufheben"
 
 msgid "No revisions of this page exist"
 msgstr "Es existieren keine Revisionen dieser Seite"
@@ -1373,14 +1331,6 @@ msgstr[1] ""
 
 msgid "Page types"
 msgstr "Seitentypen"
-
-msgid "All"
-msgstr "Alle"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Es gibt leider keine Seiten zum Suchbegriff <em>„%(query_string)s“</em>"
 
 msgid "Enter a search term above"
 msgstr "Geben Sie oben einen Suchbegriff ein"
@@ -1466,9 +1416,6 @@ msgstr "Kontoeinstellungen"
 msgid "Log out"
 msgstr "Abmelden"
 
-msgid "Visit the live page"
-msgstr "Live-Seite besuchen"
-
 msgid "Current page status:"
 msgstr "Status der aktuellen Seite"
 
@@ -1508,6 +1455,13 @@ msgstr "Unterseite hinzufügen"
 
 msgid "Show in Explorer"
 msgstr "Im Explorer anzeigen"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "von %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Mit veröffentlichter Revision vergleichen"
 
 #, python-format
 msgid ""
@@ -1587,14 +1541,11 @@ msgstr "Live anzeigen"
 msgid "Page '{0}' created and published."
 msgstr "Die Seite ‚{0}‘ wurde erstellt und veröffentlicht."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Die Seite ‚{0}‘ wurde erstellt und zur Freischaltung eingereicht."
-
 msgid "View draft"
 msgstr "Entwurf anzeigen"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Benachrichtigungen an die Moderatoren konnten nicht versendet werden"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Die Seite ‚{0}‘ wurde erstellt und zur Freischaltung eingereicht."
 
 msgid "Page '{0}' created."
 msgstr "Seite ‚{0}‘ erstellt."
@@ -1614,31 +1565,18 @@ msgstr "<b>Die Seite '{}'</b> wurde von <b>{}</b>um <b>{}</b> gesperrt."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Die Seite '{}' ist gesperrt</b>."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr ""
-"Revision von {0} von Seite '{1}' wurde zur Veröffentlichung (zu einem "
-"Termin) eingeplant."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr ""
-"Seite '{0}' ist veröffentlicht und diese Revision wurde zur Veröffentlichung "
-"(zu einem Termin) eingeplant. "
+msgid "This page is currently awaiting moderation"
+msgstr "Diese Seite wartet derzeit auf Freischaltung"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr ""
 "Die Seite „{0}“ wurde zur Veröffentlichung (zu einem Termin) eingeplant."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Revision von {0} von Seite '{1}' wurde veröffentlicht."
 
 msgid "Page '{0}' has been published."
 msgstr "Seite ‚{0}‘ wurde veröffentlicht."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Seite '{0}' wurde zur Moderation eingereicht."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Seite '{0}' wurde auf Version von {1} zurückgesetzt."
 
 msgid "Page '{0}' has been updated."
 msgstr "Seite '{0}' wurde aktualisiert."
@@ -1650,12 +1588,6 @@ msgid "The page could not be saved due to validation errors"
 msgstr ""
 "Aufgrund von Fehlern bei der Validierung konnte die Seite nicht gespeichert "
 "werden."
-
-msgid "Compare with live version"
-msgstr "Mit veröffentlichter Revision vergleichen"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Diese Seite wartet derzeit auf Freischaltung"
 
 msgid "Page '{0}' deleted."
 msgstr "Seite ‚{0}‘ gelöscht."
@@ -1697,14 +1629,6 @@ msgstr "Ablehnungsbenachrichtigungen konnten nicht versendet werden"
 msgid "Page '{0}' is now unlocked."
 msgstr "Die Seite ‚{0}‘ ist jetzt entsperrt."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Sie betrachten eine frühere Version dieser Seite vom <b>%(created_at)s</b> "
-"von %(user)s"
-
 msgid "Earliest"
 msgstr "Früheste"
 
@@ -1713,12 +1637,6 @@ msgstr "Späteste"
 
 msgid "revision {0} of \"{1}\""
 msgstr "Revision {0} von \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Geplante Veröffentlichung der Revision {0} von \"{1}\" aufgehoben."
-
-msgid "Locked Pages"
-msgstr "Gesperrte Seiten"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1758,10 +1676,6 @@ msgstr "Seite '%(title)s' löschen"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Veröffentlichung der Seite '%(title)s' aufheben"
-
-#, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "Revisionsgeschichte von '%(title)s' anzeigen"
 
 msgid "Set profile picture"
 msgstr "Profilbild einstellen"
@@ -1826,6 +1740,9 @@ msgstr "Durchgestrichen"
 
 msgid "Code"
 msgstr "Code"
+
+msgid "Locked Pages"
+msgstr "Gesperrte Seiten"
 
 msgid "Reports"
 msgstr "Berichte"

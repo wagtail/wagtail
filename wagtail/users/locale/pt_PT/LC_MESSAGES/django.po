@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Hugo Cachitas <hcachitas@gmail.com>, 2020
+# Hugo Cachitas, 2020
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
 # Luís Favas <al62006@utad.eu>, 2020
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2020-07-11 21:39+0000\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-24 17:17+0000\n"
 "Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -169,6 +169,9 @@ msgstr "Adicionar grupo"
 msgid "Editing"
 msgstr "A alterar"
 
+msgid "View users in this group"
+msgstr "Ver os utilizadores neste grupo"
+
 msgid "Save"
 msgstr "Guardar"
 
@@ -291,11 +294,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"O grupo %(group_name)s ainda não tem utilizadores configurados. Porque não "
+"<a href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Não existem utilizadores configurados. Por que não <a href="
-"\"%(wagtailusers_create_url)s\">criar um</a>?"
+"Não existem utilizadores configurados. Porque não <a href="
+"\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
 
 msgid "Groups"
 msgstr "Grupos"

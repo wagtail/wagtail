@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2020-07-11 21:48+0000\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-26 18:38+0000\n"
 "Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -35,6 +35,19 @@ msgstr "Todos os sites"
 
 msgid "A redirect with this path already exists."
 msgstr "Já existe um redirecionamento com esse caminho."
+
+msgid "File to import"
+msgstr "Ficheiro a importar"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formatos permitidos: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Do campo"
+
+msgid "To field"
+msgstr "Para o campo"
 
 msgid "redirect from"
 msgstr "redirecionar de"
@@ -70,6 +83,15 @@ msgstr "Adicionar redirecionamento"
 msgid "Save"
 msgstr "Guardar"
 
+msgid "Redirects"
+msgstr "Redirecionamentos"
+
+msgid "Import redirects"
+msgstr "Importar redirecionamentos"
+
+msgid "Import"
+msgstr "Importar"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Apagar redirecionamento %(title)s"
@@ -83,6 +105,18 @@ msgstr "Tem a certeza que quer apagar este redirecionamento?"
 msgid "Yes, delete"
 msgstr "Sim, apagar"
 
+msgid "Confirm import"
+msgstr "Confirmar a importação"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Preview"
+msgstr "Prever"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "A alterar %(title)s"
@@ -93,17 +127,30 @@ msgstr "A alterar"
 msgid "Delete redirect"
 msgstr "Apagar redirecionamento"
 
-msgid "Redirects"
-msgstr "Redirecionamentos"
+msgid "Summary"
+msgstr "Sumário"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Encontrados %(total)s redirecionamentos, criados %(successes)s e foram "
+"encontrados %(errors)s erros."
 
 msgid "From"
 msgstr "De"
 
-msgid "Site"
-msgstr "Site"
-
 msgid "To"
 msgstr "Para"
+
+msgid "Error"
+msgstr "Erro"
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Type"
 msgstr "Tipo"
@@ -162,3 +209,20 @@ msgstr "Redirecionamento '{0}' adicionado."
 
 msgid "The redirect could not be created due to errors."
 msgstr "O redirecionamento não pôde ser criado devido a erros."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "O formato do ficheiro com extensão \"{}\" não é suportado"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "O ficheiro importado têm uma codificação errada: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s erros encontrados a tentar ler o ficheiro: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Importado no total %(total)d redirecionamento"
+msgstr[1] "Importados no total %(total)d redirecionamentos"

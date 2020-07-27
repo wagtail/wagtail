@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 16:39+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 17:23+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -28,12 +28,18 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "default"
+msgstr "по умолчанию"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Редактирование %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Редактирование"
+
+msgid "Site"
+msgstr "Сайт"
 
 msgid "Saving…"
 msgstr "Сохранение…"

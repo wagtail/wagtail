@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-05-05 18:41+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +34,15 @@ msgstr "Адмяніць публікацыю"
 msgid "Delete"
 msgstr "Выдаліць"
 
+msgid "Lock"
+msgstr "Заблакаваць"
+
+msgid "Apply editor lock"
+msgstr "Заблакаваць рэдактар"
+
+msgid "Unlock"
+msgstr "Разблакаваць"
+
 msgid "Save Draft"
 msgstr "Захаваць чарнавік"
 
@@ -55,6 +64,9 @@ msgstr "Некалькі"
 msgid "Scheduled publishing"
 msgstr "Адкладзеная публікацыя"
 
+msgid "Privacy"
+msgstr "Сакрэтнасць"
+
 msgid "Common page configuration"
 msgstr "Агульныя настройкі старонкі"
 
@@ -66,6 +78,15 @@ msgstr "Прасоўванне"
 
 msgid "Settings"
 msgstr "Налады"
+
+msgid "All"
+msgstr "Усе"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Title"
+msgstr "Назва"
 
 msgid "Enter password"
 msgstr "Увядзіце пароль"
@@ -271,6 +292,9 @@ msgstr "Кітайская (Спрошчаны)"
 
 msgid "Chinese (Traditional)"
 msgstr "Кітайская (Традыцыйная)"
+
+msgid "Edit"
+msgstr "Рэдактаваць"
 
 msgid "Page"
 msgstr "Старонка"
@@ -640,9 +664,6 @@ msgstr ""
 msgid "Save"
 msgstr "Захаваць"
 
-msgid "Privacy"
-msgstr "Сакрэтнасць"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Усталяваны статус прыватнасці: грамадскі"
 
@@ -692,30 +713,17 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Заблакаваныя старонкі"
 
-msgid "See all locked pages"
-msgstr "Паглядзець усе заблакаваныя старонкі"
-
-msgid "Title"
-msgstr "Назва"
-
 msgid "Locked at"
 msgstr "Зачынены ў"
 
 msgid "Edit this page"
 msgstr "Змяніць гэтую старонку"
 
-msgid "Edit"
-msgstr "Рэдактаваць"
-
 msgid "Draft"
 msgstr "Чарнавік"
 
 msgid "Live"
 msgstr "Размешчана"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s таму назад"
 
 msgid "Pages awaiting moderation"
 msgstr "Старонкі, якія чакаюць мадэрацыі"
@@ -743,9 +751,6 @@ msgstr "Папярэдні прагляд"
 
 msgid "Your most recent edits"
 msgstr "Самыя апошнія змены"
-
-msgid "Date"
-msgstr "Дата"
 
 msgid "Status"
 msgstr "Статус"
@@ -845,29 +850,8 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Канфідэнцыяльнасць інфармацыі распаўсюджваецца на ўсе дзіцячыя старонкі."
 
-msgid "This page is locked"
-msgstr "Старонка заблакавана"
-
-msgid "This page is unlocked"
-msgstr "Старонка разблакавана"
-
-msgid "Remove editor lock"
-msgstr "Выдаліць блакаванне рэдактара"
-
-msgid "Unlock"
-msgstr "Разблакаваць"
-
-msgid "You don't have permission to unlock"
-msgstr "Не дастаткова правоў для разблакоўкі"
-
-msgid "Apply editor lock"
-msgstr "Заблакаваць рэдактар"
-
-msgid "Lock"
-msgstr "Заблакаваць"
-
-msgid "You don't have permission to lock"
-msgstr "Не дастаткова правоў для блакавання"
+msgid "Visit the live page"
+msgstr "Наведаць старонку"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Усталяваць статус канфідэнцыяльнасці старонкі: грамадскі"
@@ -883,9 +867,6 @@ msgstr "Статус канфідэнцыяльнасці старонкі: пр
 
 msgid "Publishing…"
 msgstr "Апублікаваць..."
-
-msgid "Publish this revision"
-msgstr "Апублікаваць версію"
 
 msgid "Saving…"
 msgstr "Захаваць..."
@@ -1050,20 +1031,15 @@ msgstr "На гэтай старонцы засталіся незахаваны
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Рэдагаванне %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Рэдагаванне %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Апублікаваная версія"
+
+msgid "Current draft"
+msgstr "Чарнавік"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Апошняе змяненне: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "ад %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Перагляды"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s таму назад"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1217,15 +1193,15 @@ msgstr ""
 "выправіць памылкі.\n"
 "Пасля выпраўлення памылак - паспрабуйце яшчэ раз"
 
+msgid "Cancel scheduled publish"
+msgstr "Адмяніць запланаваную публікацыю"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Параўноўваем %(title)s"
 
 msgid "Comparing"
 msgstr "Параўноўваем"
-
-msgid "View revisions"
-msgstr "Паглядзець версіі"
 
 msgid "Fields"
 msgstr "Палі"
@@ -1281,9 +1257,6 @@ msgstr[3] ""
 "\n"
 "Перамешчана уверх на %(counter)s пазіцый."
 
-msgid "There are no differences between these two revisions"
-msgstr "Параўноўваныя версіі ідэнтычныя"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Адмена версіі %(revision.id)s для %(title)s"
@@ -1314,23 +1287,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "стварыў"
 
-msgid "Current draft"
-msgstr "Чарнавік"
-
-msgid "Live version"
-msgstr "Апублікаваная версія"
-
 msgid "Scheduled for"
 msgstr "Запланавана на"
-
-msgid "Review this revision"
-msgstr "Ревью гэтай версіі"
-
-msgid "Compare with previous revision"
-msgstr "Параўнаць з папярэдняй версіяй"
-
-msgid "Cancel scheduled publish"
-msgstr "Адмяніць запланаваную публікацыю"
 
 msgid "No revisions of this page exist"
 msgstr "Няма іншых версій гэтай старонкі"
@@ -1362,14 +1320,6 @@ msgstr[3] ""
 
 msgid "Page types"
 msgstr "Тыпы старонак"
-
-msgid "All"
-msgstr "Усе"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Выбачайце, для <em>\"%(query_string)s\"</em> падыходных старонак не знойдзена"
 
 msgid "Enter a search term above"
 msgstr "Калі ласка, увядзіце крытэр пошуку вышэй"
@@ -1455,9 +1405,6 @@ msgstr "Наладкі акаўнта"
 msgid "Log out"
 msgstr "Выйсці"
 
-msgid "Visit the live page"
-msgstr "Наведаць старонку"
-
 msgid "Current page status:"
 msgstr "Бягучы статус старонкі:"
 
@@ -1496,6 +1443,13 @@ msgstr "Дадаць даччыную старонку"
 
 msgid "Show in Explorer"
 msgstr "Паказаць Правадыр"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "ад %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Параўнаць з апублікаванай версіяй"
 
 #, python-format
 msgid ""
@@ -1573,14 +1527,11 @@ msgstr "Глядзець на сайце"
 msgid "Page '{0}' created and published."
 msgstr "Старонка '{0}' створана і апублікаваная."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Старонка '{0}' створана і адпраўлена на мадэрацыю."
-
 msgid "View draft"
 msgstr "Глядзець чарнавік"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Не атрымалася адправіць апавяшчэння мадэратарам"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Старонка '{0}' створана і адпраўлена на мадэрацыю."
 
 msgid "Page '{0}' created."
 msgstr "Старонка '{0}' створана."
@@ -1600,26 +1551,17 @@ msgstr "<b>Старонка '{}' была заблакавана <b>{}</b> у <b
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Старонка '{}' заблакавана</b>."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Версія {0} старонкі '{1}' запланаваная да публікацыі."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "Старонка '{0}' актыўная, і гэтая версія запланавана для публікацыі."
+msgid "This page is currently awaiting moderation"
+msgstr "Гэтая старонка ў дадзены момант чакае мадэрацыі"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Старонка '{0}' запланаваная да публікацыі."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Версія {0} старонкі '{1}' апублікаваная."
 
 msgid "Page '{0}' has been published."
 msgstr "Старонка '{0}' апублікаваная."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Старонка '{0}' была адпраўлена на мадэрацыю."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Старонка '{0}' заменена версіяй з {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Старонка '{0}' абноўлена."
@@ -1629,12 +1571,6 @@ msgstr "Старонка не можа быць захавана, таму шт�
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Старонка не можа быць захавана з-за памылак пры праверцы"
-
-msgid "Compare with live version"
-msgstr "Параўнаць з апублікаванай версіяй"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Гэтая старонка ў дадзены момант чакае мадэрацыі"
 
 msgid "Page '{0}' deleted."
 msgstr "Старонка '{0}' выдаленая."
@@ -1676,14 +1612,6 @@ msgstr "Не атрымалася адправіць апавяшчэння аб
 msgid "Page '{0}' is now unlocked."
 msgstr "Старонка '{0}' адмыкнутая."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Вы праглядаеце папярэднюю версію гэтай старонкі ад <b>%(created_at)s</b> "
-"створаную карыстальнікам %(user)s"
-
 msgid "Earliest"
 msgstr "Ранні"
 
@@ -1692,12 +1620,6 @@ msgstr "Апошні"
 
 msgid "revision {0} of \"{1}\""
 msgstr "версія {0} старонкі \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Версія {0} старонкі '{1}' перастала быць заплянаванай да публікацыі."
-
-msgid "Locked Pages"
-msgstr "Заблякаваныя старонкі"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1737,10 +1659,6 @@ msgstr "Выдаліць старонку '%(title)s'"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Выдаліць з публікацыі '%(title)s'"
-
-#, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "Паглядзець гісторыю версій '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Ўсталяваць фота профілю"
@@ -1805,6 +1723,9 @@ msgstr "Закрэслены"
 
 msgid "Code"
 msgstr "Код"
+
+msgid "Locked Pages"
+msgstr "Заблякаваныя старонкі"
 
 msgid "Reports"
 msgstr "Справаздачы"

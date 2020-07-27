@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-07-20 13:00+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,15 @@ msgstr "게시 해제"
 
 msgid "Delete"
 msgstr "삭제"
+
+msgid "Lock"
+msgstr "잠금"
+
+msgid "Apply editor lock"
+msgstr "편집자 잠금 적용"
+
+msgid "Unlock"
+msgstr "잠금 풀기"
 
 msgid "Save Draft"
 msgstr "초안 저장"
@@ -55,6 +64,9 @@ msgstr "없음"
 msgid "Scheduled publishing"
 msgstr "예약 게시"
 
+msgid "Privacy"
+msgstr "공개 범위"
+
 msgid "Common page configuration"
 msgstr "페이지 공통설정"
 
@@ -66,6 +78,15 @@ msgstr "홍보"
 
 msgid "Settings"
 msgstr "설정"
+
+msgid "All"
+msgstr "모두"
+
+msgid "Date"
+msgstr "날짜"
+
+msgid "Title"
+msgstr "제목"
 
 msgid "Enter password"
 msgstr "패스워드 입력"
@@ -261,6 +282,9 @@ msgstr "중국어 (간체)"
 
 msgid "Chinese (Traditional)"
 msgstr "중국어 (번체)"
+
+msgid "Edit"
+msgstr "수정"
 
 msgid "Page"
 msgstr "페이지"
@@ -606,9 +630,6 @@ msgstr "공개 범위를 설정하여 누가 이 모음을 볼 수 있는지 정
 msgid "Save"
 msgstr "저장"
 
-msgid "Privacy"
-msgstr "공개 범위"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "프라이버시 설정. 현재 상태: 공개"
 
@@ -655,30 +676,17 @@ msgstr "대시보드는 여러분이 생성한 컨텐츠들에 대한 유용한 
 msgid "Your locked pages"
 msgstr "잠긴 페이지"
 
-msgid "See all locked pages"
-msgstr "잠긴 페이지 모두 보기"
-
-msgid "Title"
-msgstr "제목"
-
 msgid "Locked at"
 msgstr "잠긴 시간:"
 
 msgid "Edit this page"
 msgstr "페이지 변경"
 
-msgid "Edit"
-msgstr "수정"
-
 msgid "Draft"
 msgstr "초안"
 
 msgid "Live"
 msgstr "라이브"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 전"
 
 msgid "Pages awaiting moderation"
 msgstr "검토를 기다리는 페이지"
@@ -706,9 +714,6 @@ msgstr "미리보기"
 
 msgid "Your most recent edits"
 msgstr "최신 수정된 기록"
-
-msgid "Date"
-msgstr "날짜"
 
 msgid "Status"
 msgstr "상태"
@@ -798,29 +803,8 @@ msgstr "이 페이지는 상위 페이지에 의해 비공개로 설정되었습
 msgid "Privacy changes apply to all children of this page too."
 msgstr "공개 범위를 바꾸면 모든 하위페이지에도 함께 적용됩니다."
 
-msgid "This page is locked"
-msgstr "이 페이지는 잠겼습니다"
-
-msgid "This page is unlocked"
-msgstr "이 페이지의 잠금을 풀었습니다"
-
-msgid "Remove editor lock"
-msgstr "편집자 잠금 제거"
-
-msgid "Unlock"
-msgstr "잠금 풀기"
-
-msgid "You don't have permission to unlock"
-msgstr "잠금을 풀 권한이 없습니다"
-
-msgid "Apply editor lock"
-msgstr "편집자 잠금 적용"
-
-msgid "Lock"
-msgstr "잠금"
-
-msgid "You don't have permission to lock"
-msgstr "잠금 권한이 없습니다"
+msgid "Visit the live page"
+msgstr "활성 페이지 보기"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "페이지 프라이버시 설정. 현재 상태: 공개"
@@ -836,9 +820,6 @@ msgstr "페이지 프라이버시. 현재 상태: 비공개"
 
 msgid "Publishing…"
 msgstr "게시 중..."
-
-msgid "Publish this revision"
-msgstr "이 수정안을 게시하기"
 
 msgid "Saving…"
 msgstr "저장 중..."
@@ -981,20 +962,15 @@ msgstr "이 페이지는 저장되지 않은 변경사항이 있습니다."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "%(page_type)s: %(title)s 수정"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "%(page_type)s <span>%(title)s</span> 수정"
+msgid "Live version"
+msgstr "라이브 버전"
+
+msgid "Current draft"
+msgstr "현재 원고"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "마지막 수정: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "%(modified_by)s 에 의한"
-
-msgid "Revisions"
-msgstr "수정안"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 전"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1145,15 +1121,15 @@ msgstr ""
 "오류가 남아있어서 페이지의 미리보기가 불가능합니다. 이 탭을 닫고 페이지를 수"
 "정하여 오류를 고친 후에 다시 미리보기 해 주세요."
 
+msgid "Cancel scheduled publish"
+msgstr "예약 게시 취소"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "%(title)s와 비교"
 
 msgid "Comparing"
 msgstr "비교"
-
-msgid "View revisions"
-msgstr "수정안 보기"
 
 msgid "Fields"
 msgstr "필드"
@@ -1191,9 +1167,6 @@ msgstr[0] ""
 "\n"
 "%(counter)s 위치만큼 올리기"
 
-msgid "There are no differences between these two revisions"
-msgstr "두 수정안에는 차이점이 없습니다."
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "%(title)s에 수정안 %(revision.id)s 예약 취소"
@@ -1224,23 +1197,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "작성자:"
 
-msgid "Current draft"
-msgstr "현재 원고"
-
-msgid "Live version"
-msgstr "라이브 버전"
-
 msgid "Scheduled for"
 msgstr "예약 게시:"
-
-msgid "Review this revision"
-msgstr "이 수정안 살펴보기"
-
-msgid "Compare with previous revision"
-msgstr "지난 수정안과 비교"
-
-msgid "Cancel scheduled publish"
-msgstr "예약 게시 취소"
 
 msgid "No revisions of this page exist"
 msgstr "이 페이지는 수정안이 없습니다"
@@ -1263,13 +1221,6 @@ msgstr[0] ""
 
 msgid "Page types"
 msgstr "페이지 타입"
-
-msgid "All"
-msgstr "모두"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "죄송합니다. <em>\"%(query_string)s\"</em> 와 연관된 결과가 없습니다"
 
 msgid "Enter a search term above"
 msgstr "위의 검색어를 입력하세요"
@@ -1360,9 +1311,6 @@ msgstr "계정 설정"
 msgid "Log out"
 msgstr "로그아웃"
 
-msgid "Visit the live page"
-msgstr "활성 페이지 보기"
-
 msgid "Current page status:"
 msgstr "현재 페이지 상태:"
 
@@ -1403,6 +1351,13 @@ msgstr "하위페이지 추가"
 
 msgid "Show in Explorer"
 msgstr "탐색기에 표시"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "%(modified_by)s 에 의한"
+
+msgid "Compare with live version"
+msgstr "라이브 버전과 비교"
 
 #, python-format
 msgid ""
@@ -1480,14 +1435,11 @@ msgstr "라이브 보기"
 msgid "Page '{0}' created and published."
 msgstr "'{0}' 페이지가 생성 및 게시되었습니다"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "'{0}' 페이지가 생성되고 검토에 의해 제출되었습니다"
-
 msgid "View draft"
 msgstr "임시저장 보기"
 
-msgid "Failed to send notifications to moderators"
-msgstr "검토자에게 알림 보내기 실패"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "'{0}' 페이지가 생성되고 검토에 의해 제출되었습니다"
 
 msgid "Page '{0}' created."
 msgstr "'{0}' 페이지가 생성되었습니다"
@@ -1507,26 +1459,17 @@ msgstr "<b>'{}' 페이지의 잠금</b>이 <b>{}</b>에 의해 <b>{}</b>에 적�
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>'{}' 페이지가 잠김</b>."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "'{1}' 페이지의 {0}로부터의 수정안을 게시하도록 예약했습니다."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "'{0}' 페이지가 활성화되었고 이 수정안을 게시하도록 예약했습니다."
+msgid "This page is currently awaiting moderation"
+msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "'{0}' 페이지를 게시하도록 예약했습니다."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "페이지 '{1}'의 {0}로부터의 수정안이 게시되었습니다."
 
 msgid "Page '{0}' has been published."
 msgstr "'{0}' 페이지가 게시되었습니다."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "'{0}' 페이지를 검토할 수 있도록 제출했습니다."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "'{0}' 페이지는 {1}로부터의 수정안으로 대체되었습니다."
 
 msgid "Page '{0}' has been updated."
 msgstr "'{0}' 페이지가 수정되었습니다."
@@ -1536,12 +1479,6 @@ msgstr "이 페이지는 잠겨 있으므로 저장할 수 없습니다"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "이 페이지는 오류에 의해 저장할 수 없습니다"
-
-msgid "Compare with live version"
-msgstr "라이브 버전과 비교"
-
-msgid "This page is currently awaiting moderation"
-msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
 
 msgid "Page '{0}' deleted."
 msgstr "'{0}' 페이지가 삭제되었습니다"
@@ -1583,14 +1520,6 @@ msgstr "거절 알림 보내기 실패"
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' 페이지의 잠금을 풀었습니다."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"%(user)s 사용자가 %(created_at)s에 만든 이 페이지의 이전 수정안을 보고 있습니"
-"다."
-
 msgid "Earliest"
 msgstr "최초"
 
@@ -1599,12 +1528,6 @@ msgstr "최근"
 
 msgid "revision {0} of \"{1}\""
 msgstr "\"{1}\"의 수정안 {0}"
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "\"{1}\"의 수정안 {0}의 게시가 취소되었습니다."
-
-msgid "Locked Pages"
-msgstr "잠긴 페이지"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1644,10 +1567,6 @@ msgstr "'%(title)s' 페이지 삭제"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "'%(title)s' 페이지 게시 해제"
-
-#, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "'%(title)s'의 수정 히스토리 보기"
 
 msgid "Set profile picture"
 msgstr "프로필 사진 설정"
@@ -1712,6 +1631,9 @@ msgstr "취소선"
 
 msgid "Code"
 msgstr "코드"
+
+msgid "Locked Pages"
+msgstr "잠긴 페이지"
 
 msgid "Reports"
 msgstr "리포트"

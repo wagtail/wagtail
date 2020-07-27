@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-05-24 11:21+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,12 @@ msgstr "Promoviraj"
 
 msgid "Settings"
 msgstr "Postavke"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Title"
+msgstr "Naslov"
 
 msgid "Enter password"
 msgstr "Unesite lozinku"
@@ -182,6 +188,9 @@ msgstr "Tajlandski"
 
 msgid "Ukrainian"
 msgstr "Ukrajinski"
+
+msgid "Edit"
+msgstr "Uredi"
 
 msgid "Page"
 msgstr "Stranica"
@@ -342,17 +351,11 @@ msgstr "Dodaj vanjsku poveznicu"
 msgid "Public"
 msgstr "Javno"
 
-msgid "Title"
-msgstr "Naslov"
-
 msgid "Locked at"
 msgstr "Zaključano u"
 
 msgid "Edit this page"
 msgstr "Uredi ovu stranicu"
-
-msgid "Edit"
-msgstr "Uredi"
 
 msgid "Draft"
 msgstr "Skica"
@@ -374,9 +377,6 @@ msgstr "Pregled"
 
 msgid "Your most recent edits"
 msgstr "Vaša nedavna uređivanja"
-
-msgid "Date"
-msgstr "Datum"
 
 msgid "Status"
 msgstr "Status"
@@ -402,6 +402,9 @@ msgstr "Postavke računa"
 msgid "Other searches"
 msgstr "Ostale pretrage"
 
+msgid "Compare with live version"
+msgstr "Usporedi sa verzijom uživo"
+
 msgid "Test"
 msgstr "Test"
 
@@ -410,9 +413,6 @@ msgstr "Pogledaj uživo"
 
 msgid "View draft"
 msgstr "Pogledaj skicu"
-
-msgid "Compare with live version"
-msgstr "Usporedi sa verzijom uživo"
 
 msgid "Earliest"
 msgstr "Najranije"

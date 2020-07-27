@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -48,6 +48,9 @@ msgstr "Joks"
 msgid "Scheduled publishing"
 msgstr "Planuotas publikavimas"
 
+msgid "Privacy"
+msgstr "Privatumas"
+
 msgid "Common page configuration"
 msgstr "Bendra puslapio konfigūracija"
 
@@ -59,6 +62,12 @@ msgstr "Skelbti"
 
 msgid "Settings"
 msgstr "Nustatymai"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Title"
+msgstr "Pavadinimas"
 
 msgid "Enter password"
 msgstr "Įveskite slaptažodį"
@@ -230,6 +239,9 @@ msgstr "Švedų"
 
 msgid "Slovak"
 msgstr "Slovakų"
+
+msgid "Edit"
+msgstr "Redaguoti"
 
 msgid "Page"
 msgstr "Puslapis"
@@ -478,9 +490,6 @@ msgstr ""
 msgid "Save"
 msgstr "Išsaugoti"
 
-msgid "Privacy"
-msgstr "Privatumas"
-
 msgid "Public"
 msgstr "Viešas"
 
@@ -520,24 +529,14 @@ msgstr ""
 "Tai yra jūsų valdymo pultas kuriame bus atvaizduojama naudinga informacija "
 "apie jūsų sukurtą turinį."
 
-msgid "Title"
-msgstr "Pavadinimas"
-
 msgid "Edit this page"
 msgstr "Redaguoti šį puslapį"
-
-msgid "Edit"
-msgstr "Redaguoti"
 
 msgid "Draft"
 msgstr "Juodraštis"
 
 msgid "Live"
 msgstr "Veikiantis"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "prieš %(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Puslapiai laukiantys moderacijos"
@@ -562,9 +561,6 @@ msgstr "Peržiūrėti"
 
 msgid "Your most recent edits"
 msgstr "Jūsų paskutiniai redagavimai"
-
-msgid "Date"
-msgstr "Data"
 
 msgid "Status"
 msgstr "Statusas"
@@ -639,9 +635,6 @@ msgstr "Privatumo pakeitimai pritaikomi ir visiems vidiniams puslapiams."
 
 msgid "Publishing…"
 msgstr "Publikuojama..."
-
-msgid "Publish this revision"
-msgstr "Publikuoti šia reviziją"
 
 msgid "Saving…"
 msgstr "Saugoma..."
@@ -804,20 +797,15 @@ msgstr "Šis puslapis turi neišsaugotų pakeitimų."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Redaguojamas %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Redaguojamas %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Publikuota versija"
+
+msgid "Current draft"
+msgstr "Dabartinis juodraštis"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Paskutinį kartą keistas: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "pagal %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revizijos"
+msgid "%(time_period)s ago"
+msgstr "prieš %(time_period)s"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -965,15 +953,15 @@ msgstr ""
 "klaidas,\n"
 "ir tik tada bandyti peržiūrėti puslapį dar karta."
 
+msgid "Cancel scheduled publish"
+msgstr "Atšaukti suplanuotą publikavimą"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Lyginami %(title)s"
 
 msgid "Comparing"
 msgstr "Palyginama"
-
-msgid "View revisions"
-msgstr "Peržiūrėti revizijas"
 
 msgid "Fields"
 msgstr "Laukai"
@@ -1029,9 +1017,6 @@ msgstr[3] ""
 "\n"
 "Perkelta %(counter)s vietų aukštyn."
 
-msgid "There are no differences between these two revisions"
-msgstr "Nėra jokių skirtumų tarp šių dviejų revizijų"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Neplanuoti revizijos %(revision.id)s %(title)s"
@@ -1062,23 +1047,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "pagal"
 
-msgid "Current draft"
-msgstr "Dabartinis juodraštis"
-
-msgid "Live version"
-msgstr "Publikuota versija"
-
 msgid "Scheduled for"
 msgstr "Planuoti"
-
-msgid "Review this revision"
-msgstr "Peržiūrėti šią reviziją"
-
-msgid "Compare with previous revision"
-msgstr "Palyginti su buvusiomis revizijomis"
-
-msgid "Cancel scheduled publish"
-msgstr "Atšaukti suplanuotą publikavimą"
 
 msgid "No revisions of this page exist"
 msgstr "Jokios šio puslapio revizijos neegzistuoja"
@@ -1107,10 +1077,6 @@ msgstr[2] ""
 msgstr[3] ""
 "\n"
 " Yra %(counter)s atitinkančių puslapių"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Atsiprašome, jokie puslapiai neatitiko <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Aukščiau įveskite paieškos frazę"
@@ -1157,6 +1123,13 @@ msgstr "Pridėti vidinį puslapį"
 
 msgid "Show in Explorer"
 msgstr "Rodyti naršyklėje"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "pagal %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Palyginti su veikiančia versija"
 
 msgid "Test"
 msgstr "Testas"
@@ -1209,14 +1182,11 @@ msgstr "Žiūrėti veikiantį"
 msgid "Page '{0}' created and published."
 msgstr "Puslapis '{0}' sukurtas ir publikuotas."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Puslapis '{0}' sukurtas ir pateiktas moderavimui."
-
 msgid "View draft"
 msgstr "Žiūrėti juodraštį"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Nepavyko nusiųsti pranešimų moderatoriams"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Puslapis '{0}' sukurtas ir pateiktas moderavimui."
 
 msgid "Page '{0}' created."
 msgstr "Puslapis '{0}' sukurtas."
@@ -1224,27 +1194,17 @@ msgstr "Puslapis '{0}' sukurtas."
 msgid "The page could not be created due to validation errors"
 msgstr "Puslapis negalėjo būti sukurtas dėl validavimo klaidų"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Puslapio '{1}' revizija iš {0} buvo suplanuota publikavimui."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr ""
-"Puslapis '{0}' yra veikiantis ir ši revizija buvo suplanuota publikavimui."
+msgid "This page is currently awaiting moderation"
+msgstr "Šis puslapis laukia moderavimo"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Puslapis '{0}' buvo suplanuotas publikavimui."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Puslapio '{1}' revizija iš {0} buvo publikuota."
 
 msgid "Page '{0}' has been published."
 msgstr "Puslapis '{0}' buvo publikuotas."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Puslapis '{0}' buvo pateiktas moderavimui."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Puslapis '{0}' buvo pakeistas į reviziją iš {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Puslapis '{0}' buvo atnaujintas."
@@ -1254,12 +1214,6 @@ msgstr "Puslapis negalėjo būti išsaugotas nes yra užrakintas"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Puslapis negalėjo būti išsaugotas dėl validavimo klaidų"
-
-msgid "Compare with live version"
-msgstr "Palyginti su veikiančia versija"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Šis puslapis laukia moderavimo"
 
 msgid "Page '{0}' deleted."
 msgstr "Puslapis '{0}' ištrintas."
@@ -1294,14 +1248,6 @@ msgstr "Nepavyko nusiųsti atmetimo pranešimų"
 msgid "Page '{0}' is now unlocked."
 msgstr "Puslapis '{0}' dabar atrakintas."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Jūs žiūrite buvusią šio puslapio revizija iš <b>%(created_at)s</b> pagal "
-"%(user)s"
-
 msgid "Earliest"
 msgstr "Naujausias"
 
@@ -1310,9 +1256,6 @@ msgstr "Vėliausias"
 
 msgid "revision {0} of \"{1}\""
 msgstr "revizija {0} iš \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Revizija {0} iš \"{1}\" neplanuojama."
 
 msgid "More"
 msgstr "Daugiau"

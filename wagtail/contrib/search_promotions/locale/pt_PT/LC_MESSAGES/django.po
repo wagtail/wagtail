@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2020-07-11 22:04+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 17:15+0000\n"
 "Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -127,11 +127,23 @@ msgstr "Adicionar novo resultado promovido"
 msgid "Search term(s)"
 msgstr "Pesquisar termo(s)"
 
+msgid "Order by search term alphabetically"
+msgstr "Ordenar a pesquisa alfabeticamente A-Z"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Ordenar a pesquisa alfabeticamente Z-A"
+
 msgid "Promoted results"
 msgstr "Resultados promovidos"
 
 msgid "Views (past week)"
 msgstr "Visualizações (última semana)"
+
+msgid "Order by views (lowest first)"
+msgstr "Ordenar por número de visitas (menos primeiro)"
+
+msgid "Order by views (highest first)"
+msgstr "Ordenar por número de visitas (mais primeiro)"
 
 msgid "Edit this promotion"
 msgstr "Alterar esta promoção"

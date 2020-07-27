@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-23 09:35+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,15 @@ msgstr "Anulează publicarea"
 
 msgid "Delete"
 msgstr "Șterge"
+
+msgid "Lock"
+msgstr "Blochează"
+
+msgid "Apply editor lock"
+msgstr "Aplică bloc editorial"
+
+msgid "Unlock"
+msgstr "Deblochează"
 
 msgid "Save Draft"
 msgstr "Salvează ciornă"
@@ -54,6 +63,9 @@ msgstr "Nici una"
 msgid "Scheduled publishing"
 msgstr "Publicare programată"
 
+msgid "Privacy"
+msgstr "Confidențialitate"
+
 msgid "Common page configuration"
 msgstr "Configurație de pagini generală"
 
@@ -65,6 +77,15 @@ msgstr "Promovează"
 
 msgid "Settings"
 msgstr "Setări"
+
+msgid "All"
+msgstr "Toate"
+
+msgid "Date"
+msgstr "Dată"
+
+msgid "Title"
+msgstr "Titlu"
 
 msgid "Enter password"
 msgstr "Introduceți parola"
@@ -269,6 +290,9 @@ msgstr "Chineza (Simplificată)"
 
 msgid "Chinese (Traditional)"
 msgstr "Chineza (Tradițională)"
+
+msgid "Edit"
+msgstr "Editează"
 
 msgid "Page"
 msgstr "Pagină"
@@ -633,9 +657,6 @@ msgstr ""
 msgid "Save"
 msgstr "Salvează"
 
-msgid "Privacy"
-msgstr "Confidențialitate"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Setați confidențialitatea colecției. Starea actuală: Public"
 
@@ -682,30 +703,17 @@ msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs.
 msgid "Your locked pages"
 msgstr "Paginile Dvs. blocate"
 
-msgid "See all locked pages"
-msgstr "Vezi toate paginile blocate"
-
-msgid "Title"
-msgstr "Titlu"
-
 msgid "Locked at"
 msgstr "Blocat la"
 
 msgid "Edit this page"
 msgstr "Editează această pagină"
 
-msgid "Edit"
-msgstr "Editează"
-
 msgid "Draft"
 msgstr "Ciornă"
 
 msgid "Live"
 msgstr "Activată"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s în urmă"
 
 msgid "Pages awaiting moderation"
 msgstr "Pagini în moderație"
@@ -733,9 +741,6 @@ msgstr "Examinare"
 
 msgid "Your most recent edits"
 msgstr "Modificările cele mai recente"
-
-msgid "Date"
-msgstr "Dată"
 
 msgid "Status"
 msgstr "Status"
@@ -839,29 +844,8 @@ msgstr ""
 "Schimbările setărilor de confidențialitate se aplică și pentru toate "
 "paginile descendente."
 
-msgid "This page is locked"
-msgstr "Această pagină este blocată"
-
-msgid "This page is unlocked"
-msgstr "Acestă pagină este deblocată"
-
-msgid "Remove editor lock"
-msgstr "Elimină blocul editorial"
-
-msgid "Unlock"
-msgstr "Deblochează"
-
-msgid "You don't have permission to unlock"
-msgstr "Nu aveți permisiunea de a debloca"
-
-msgid "Apply editor lock"
-msgstr "Aplică bloc editorial"
-
-msgid "Lock"
-msgstr "Blochează"
-
-msgid "You don't have permission to lock"
-msgstr "Nu aveți permisiunea de a bloca"
+msgid "Visit the live page"
+msgstr "Accesați pagina live"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Setați confidențialitatea paginii. Starea actuală: Public"
@@ -877,9 +861,6 @@ msgstr "Confidențialitatea paginii. Starea actuală: Privat"
 
 msgid "Publishing…"
 msgstr "În curs de publicare…"
-
-msgid "Publish this revision"
-msgstr "Publică această revizie"
 
 msgid "Saving…"
 msgstr "În curs de salvare..."
@@ -1037,20 +1018,15 @@ msgstr "Această pagină conține modificări nesalvate."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Editare %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Editare %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Versiune live"
+
+msgid "Current draft"
+msgstr "Ciornă curentă"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Ultima modificare: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "de către %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revizii"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s în urmă"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1208,15 +1184,15 @@ msgstr ""
 "                folosiți din nou funcția de previzualizare.\n"
 "            "
 
+msgid "Cancel scheduled publish"
+msgstr "Anulează publicarea programată"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Comparare %(title)s"
 
 msgid "Comparing"
 msgstr "Comparare"
-
-msgid "View revisions"
-msgstr "Vezi revizii"
 
 msgid "Fields"
 msgstr "Câmpuri"
@@ -1278,9 +1254,6 @@ msgstr[2] ""
 "%(counter)s de poziții în sus.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Aceste două revizii nu au nici o diferență"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Anulează programarea reviziei %(revision.id)s pentru %(title)s"
@@ -1311,23 +1284,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "de către"
 
-msgid "Current draft"
-msgstr "Ciornă curentă"
-
-msgid "Live version"
-msgstr "Versiune live"
-
 msgid "Scheduled for"
 msgstr "Programat pentru"
-
-msgid "Review this revision"
-msgstr "Revezi această revizie"
-
-msgid "Compare with previous revision"
-msgstr "Compară cu revizia precedentă"
-
-msgid "Cancel scheduled publish"
-msgstr "Anulează publicarea programată"
 
 msgid "No revisions of this page exist"
 msgstr "Această pagină nu are nici o revizie."
@@ -1356,14 +1314,6 @@ msgstr[2] ""
 
 msgid "Page types"
 msgstr "Tipuri pagini"
-
-msgid "All"
-msgstr "Toate"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici o pagină"
 
 msgid "Enter a search term above"
 msgstr "Introduceți termenii de căutare mai sus"
@@ -1454,9 +1404,6 @@ msgstr "Setări cont"
 msgid "Log out"
 msgstr "Deconectare"
 
-msgid "Visit the live page"
-msgstr "Accesați pagina live"
-
 msgid "Current page status:"
 msgstr "Starea paginii curente:"
 
@@ -1497,6 +1444,13 @@ msgstr "Adaugă o pagină dependentă"
 
 msgid "Show in Explorer"
 msgstr "Arată în Explorator"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "de către %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Compară cu revizia publicată"
 
 #, python-format
 msgid ""
@@ -1574,14 +1528,11 @@ msgstr "Vezi în direct"
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' a fost creată și publicată."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Pagina '{0}' a fost creată și trimisă pentru moderare."
-
 msgid "View draft"
 msgstr "Vezi ciornă"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Trimiterea notificarărilor pentru moderatori au eșuat."
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Pagina '{0}' a fost creată și trimisă pentru moderare."
 
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' a fost creată."
@@ -1601,27 +1552,17 @@ msgstr "<b>Pagina '{}' a fost blocată</b> de <b>{}</b> la <b>{}</b>."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Pagina '{}' este blocată</b>."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Revizia din {0} a paginii '{1}' a fost programată pentru publicare."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr ""
-"Pagina '{0}' este live. Această  revizie a fost programată pentru publicare."
+msgid "This page is currently awaiting moderation"
+msgstr "Această pagină este în moderare"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Pagina '{0}' a fost programată pentru publicare."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Revizia din {0} a paginii '{1}' a fost publicată."
 
 msgid "Page '{0}' has been published."
 msgstr "Pagina '{0}' a fost publicată."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Pagina '{0}' a fost trimisă pentru moderare."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Pagina '{0}' a fost schimbată cu revizia {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Pagina '{0}' a fost actualizată."
@@ -1631,12 +1572,6 @@ msgstr "Pagina nu a fost salvată pentru că este blocată"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
-
-msgid "Compare with live version"
-msgstr "Compară cu revizia publicată"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Această pagină este în moderare"
 
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' a fost ștearsă."
@@ -1678,14 +1613,6 @@ msgstr "Trimiterea notificărilor de respingere au eșuat."
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is fost deblocată."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Sunteți în process de vizualizare a revizie precedente a paginii din <b>"
-"%(created_at)s</b> de către %(user)s"
-
 msgid "Earliest"
 msgstr "Cea mai veche"
 
@@ -1694,12 +1621,6 @@ msgstr "Cea mai recentă"
 
 msgid "revision {0} of \"{1}\""
 msgstr "revizia {0} pentru \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Programare anulată pentru revizia {0} a \"{1}\""
-
-msgid "Locked Pages"
-msgstr "Pagini blocate"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1739,10 +1660,6 @@ msgstr "Șterge pagina '%(title)s'"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Pagină nepublicată '%(title)s'"
-
-#, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "Vezi istoria reviziilor pentru '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Setează poză profil"
@@ -1807,6 +1724,9 @@ msgstr "Text tăiat"
 
 msgid "Code"
 msgstr "Cod"
+
+msgid "Locked Pages"
+msgstr "Pagini blocate"
 
 msgid "Reports"
 msgstr "Rapoarte"

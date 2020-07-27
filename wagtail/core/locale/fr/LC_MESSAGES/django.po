@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-01-26 08:16+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-27 07:49+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -57,6 +57,9 @@ msgid "The password you have entered is not correct. Please try again."
 msgstr ""
 "Le mot de passe que vous avez saisi est incorrect. Merci de bien vouloir "
 "réessayer."
+
+msgid "Comment"
+msgstr "Commentaire"
 
 msgid "hostname"
 msgstr "nom d'hôte"
@@ -98,6 +101,9 @@ msgstr "site"
 
 msgid "sites"
 msgstr "sites"
+
+msgid "default"
+msgstr "défaut"
 
 #, python-format
 msgid ""
@@ -333,6 +339,21 @@ msgstr "permission de collection de groupe"
 
 msgid "group collection permissions"
 msgstr "permission de collection de groupe"
+
+msgid "task"
+msgstr "tâche"
+
+msgid "tasks"
+msgstr "tâches"
+
+msgid "started at"
+msgstr "commencé à"
+
+msgid "finished at"
+msgstr "terminé à"
+
+msgid "finished by"
+msgstr "terminé par"
 
 msgid "Log in"
 msgstr "Connexion"

@@ -4,7 +4,7 @@
 #
 # Translators:
 # aaao <aron.santa@gmail.com>, 2019
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # B N <biczoxd@gmail.com>, 2018
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2019-10-21 01:26+0000\n"
-"Last-Translator: aaao <aron.santa@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 17:14+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -23,12 +23,18 @@ msgstr ""
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "default"
+msgstr "alapértelmezett"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "%(setting_type_name)s-%(instance)s szerkesztése"
 
 msgid "Editing"
 msgstr "Szerkesztés"
+
+msgid "Site"
+msgstr "Weboldal"
 
 msgid "Saving…"
 msgstr "Mentés folyamatban…"

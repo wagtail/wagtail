@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 15:31+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 17:24+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -29,17 +29,42 @@ msgstr "Közzététel"
 msgid "Submit for moderation"
 msgstr "Beküldés moderálásra"
 
+msgid "Resubmit to {}"
+msgstr "Újraküldés ide: {}"
+
+msgid "Submit to {}"
+msgstr "Beküldés ide: {}"
+
+msgid "Restart workflow "
+msgstr "Munkafolyamat újraindítása"
+
+msgid "Cancel workflow "
+msgstr "Munkafolyamat felfüggesztése"
+
 msgid "Unpublish"
 msgstr "Visszavonás"
 
 msgid "Delete"
 msgstr "Törlés"
 
+msgid "Lock"
+msgstr "Zárol"
+
+msgid "Apply editor lock"
+msgstr "Szerkesztői zárolás"
+
+msgid "Unlock"
+msgstr "Feloldás"
+
 msgid "Save Draft"
 msgstr "Vázlat mentése"
 
 msgid "Page locked"
 msgstr "Zárolt oldal"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s és közzététel"
 
 msgid "Wagtail admin"
 msgstr "Wagtail Admin"
@@ -57,6 +82,9 @@ msgstr "Üres"
 msgid "Scheduled publishing"
 msgstr "Oldal közzététele későbbi időpontban"
 
+msgid "Privacy"
+msgstr "Láthatóság"
+
 msgid "Common page configuration"
 msgstr "Az oldal általános beállításai"
 
@@ -68,6 +96,36 @@ msgstr "Marketing"
 
 msgid "Settings"
 msgstr "Beállítások"
+
+msgid "Date from"
+msgstr "Dátumtól"
+
+msgid "Date to"
+msgstr "Dátumig"
+
+msgid "All"
+msgstr "Összes"
+
+msgid "Started at"
+msgstr "Elindítva: "
+
+msgid "Show"
+msgstr "Megtekintés"
+
+msgid "Awaiting my review"
+msgstr "Átnézésre vár"
+
+msgid "Completed at"
+msgstr "Befejezve: "
+
+msgid "Workflow"
+msgstr "Munkamenet"
+
+msgid "Date"
+msgstr "Dátum"
+
+msgid "Title"
+msgstr "Cím"
 
 msgid "Enter password"
 msgstr "Adja meg a jelszavát"
@@ -164,6 +222,23 @@ msgstr "Egy mező megadása szükséges."
 
 msgid "Please select at least one group."
 msgstr "Kérjük válasszon ki legalább egy csoportot."
+
+msgid "All types"
+msgstr "Összes típus"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Ez az oldal már a következő munkamenetbe tartozik: '{0}'"
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"Ezt a munkafolyamatot nem lehet többször hozzárendelni ugyanahhoz az "
+"oldalhoz."
+
+msgid "Give your workflow a name"
+msgstr "Munkafolyamat elnevezése"
+
+msgid "Add tasks to your workflow"
+msgstr "Feladatok hozzáadása a munkafolyamathoz"
 
 msgid "Arabic"
 msgstr "arab"
@@ -266,6 +341,9 @@ msgstr "kínai (egyszerűsített)"
 
 msgid "Chinese (Traditional)"
 msgstr "kínai (hagyományos)"
+
+msgid "Edit"
+msgstr "Szerkeszt"
 
 msgid "Page"
 msgstr "Oldal"
@@ -419,6 +497,9 @@ msgstr "P"
 
 msgid "Sat"
 msgstr "Szo"
+
+msgid "Unknown {action}"
+msgstr "Ismeretlen {action}"
 
 msgid "Error 404: Page not found"
 msgstr "404-es hiba: az oldal nem található"
@@ -621,9 +702,6 @@ msgstr ""
 msgid "Save"
 msgstr "Mentés"
 
-msgid "Privacy"
-msgstr "Láthatóság"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Gyűjtemény láthatóságának beállítása. Jelenlegi státusz: publikus"
 
@@ -672,20 +750,11 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Zárolt oldalai"
 
-msgid "See all locked pages"
-msgstr "Összes zárolt oldal megtekintése"
-
-msgid "Title"
-msgstr "Cím"
-
 msgid "Locked at"
 msgstr "Zárolva ekkor: "
 
 msgid "Edit this page"
 msgstr "Oldal szerkesztése"
-
-msgid "Edit"
-msgstr "Szerkeszt"
 
 msgid "Draft"
 msgstr "Vázlat"
@@ -694,7 +763,7 @@ msgid "Live"
 msgstr "Közzétett oldal"
 
 #, python-format
-msgid "%(time_period)s ago"
+msgid "%(time_period)s"
 msgstr "%(time_period)s "
 
 msgid "Pages awaiting moderation"
@@ -724,9 +793,6 @@ msgstr "Előnézet"
 msgid "Your most recent edits"
 msgstr "A legutóbbi szerkesztések"
 
-msgid "Date"
-msgstr "Dátum"
-
 msgid "Status"
 msgstr "Állapot"
 
@@ -752,6 +818,27 @@ msgstr[1] ""
 "\n"
 "            <span>%(total)s</span> oldal <span class=\"visuallyhidden"
 "\">létrehozva itt: %(site_name)s</span>"
+
+msgid "Your pages in a workflow"
+msgstr "Munkafolyamatban lévő oldalak"
+
+msgid "Task"
+msgstr "Feladat"
+
+msgid "Task started"
+msgstr "Feladat elindítva"
+
+msgid "Changes requested at"
+msgstr "Változtatások kérése:"
+
+msgid "Awaiting"
+msgstr "Várakozik"
+
+msgid "Awaiting your review"
+msgstr "Ellenőrzésre vár"
+
+msgid "Tasks"
+msgstr "Feladatok"
 
 msgid "Sign in"
 msgstr "Bejelentkezés"
@@ -811,6 +898,17 @@ msgstr "Az oldal előnézetét itt tekintheti meg:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "A \"%(page)s\" oldalt benyújtotta moderálásra"
 
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"A(z) \"%(title)s\" jóvá lett hagyva a következő engedélyezési lépésben: "
+"\"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "A(z) \"%(title)s\" jóvá lett hagyva itt: \"%(task)s\"."
+
 msgid "Page privacy"
 msgstr "Az oldal láthatósága"
 
@@ -822,29 +920,14 @@ msgstr ""
 "A láthatóság beállításai érvényesek lesznek az összes ez alatti tartalomra "
 "is."
 
-msgid "This page is locked"
-msgstr "Az oldal zárolva van"
+msgid "Visit the live page"
+msgstr "Élő oldal megtekintése"
 
-msgid "This page is unlocked"
-msgstr "Az oldal nincs zárolva"
+msgid "This page is live but only available to certain users"
+msgstr "Az oldal közzé van téve, de csak bizonyos felhasználók láthatják"
 
-msgid "Remove editor lock"
-msgstr "Szerkesztői zárolás feloldása"
-
-msgid "Unlock"
-msgstr "Feloldás"
-
-msgid "You don't have permission to unlock"
-msgstr "Nincs jogosultsága feloldani"
-
-msgid "Apply editor lock"
-msgstr "Szerkesztői zárolás"
-
-msgid "Lock"
-msgstr "Zárol"
-
-msgid "You don't have permission to lock"
-msgstr "Nincs jogosultsága zárolni"
+msgid "restricted"
+msgstr "korlátozott"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Oldal láthatóságának beállítása. Jelenlegi státusz: publikus"
@@ -861,8 +944,8 @@ msgstr "Oldal láthatóság. Jelenlegi: privát"
 msgid "Publishing…"
 msgstr "Közzététel folyamatban..."
 
-msgid "Publish this revision"
-msgstr "Változat közzététele"
+msgid "Publish this version"
+msgstr "Verzió közzététele"
 
 msgid "Saving…"
 msgstr "Mentés..."
@@ -980,6 +1063,18 @@ msgstr "Igen, visszavonom"
 msgid "No, don't unpublish"
 msgstr "Nem, mégsem vonom vissza"
 
+msgid "Publish page"
+msgstr "Oldal közzététele"
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "Az oldal közzététele felfüggeszti a jelenlegi munkafolyamatot."
+
+msgid "Would you still like to publish this page?"
+msgstr "Biztosan közzéteszi ezt az oldalt?"
+
+msgid "Cancel"
+msgstr "Mégsem"
+
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Oldalak, amik használják ezt: %(page_class_verbose_name)s"
@@ -1014,20 +1109,18 @@ msgstr "Ezen az oldalon mentetlen változtatások vannak."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "%(page_type)s szerkesztése: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "%(page_type)s szerkesztése <span>%(title)s</span>"
+msgid "History"
+msgstr "Történet"
+
+msgid "Live version"
+msgstr "Élő verzió"
+
+msgid "Current draft"
+msgstr "Jelenlegi vázlat"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Utoljára módosítva: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "szerző: %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Verziók"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s "
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1181,15 +1274,15 @@ msgstr ""
 "Kérjük zárja be ezt a fület, és szerkessze tovább az oldalt,\n"
 "majd próbálja meg újra."
 
+msgid "Cancel scheduled publish"
+msgstr "Időzített közzététel visszavonása"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "%(title)s összevetése"
 
 msgid "Comparing"
 msgstr "Összevetés"
-
-msgid "View revisions"
-msgstr "Verziók megtekintése"
 
 msgid "Fields"
 msgstr "Mezők"
@@ -1233,9 +1326,6 @@ msgstr[1] ""
 "\n"
 "Felfelé mozgatva %(counter)s helyet."
 
-msgid "There are no differences between these two revisions"
-msgstr "A két verzió tartalma között nincs különbség."
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "%(title)s oldal %(revision.id)s verziója időzítésének visszavonása"
@@ -1266,23 +1356,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "szerző"
 
-msgid "Current draft"
-msgstr "Jelenlegi vázlat"
-
-msgid "Live version"
-msgstr "Élő verzió"
-
 msgid "Scheduled for"
 msgstr "Időzítve: "
-
-msgid "Review this revision"
-msgstr "Verzió áttekintése"
-
-msgid "Compare with previous revision"
-msgstr "Hasonlítás előző verzióval"
-
-msgid "Cancel scheduled publish"
-msgstr "Időzített közzététel visszavonása"
 
 msgid "No revisions of this page exist"
 msgstr "Ennek az oldalnak nincsenek verziói"
@@ -1308,15 +1383,6 @@ msgstr[1] ""
 
 msgid "Page types"
 msgstr "Oldal típusok"
-
-msgid "All"
-msgstr "Összes"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Sajnáljuk, de egy oldal sem felel meg a <em>\"%(query_string)s\"</"
-"em>kifejezésnek"
 
 msgid "Enter a search term above"
 msgstr "Kérjük adja meg a keresett kifejezést"
@@ -1402,9 +1468,6 @@ msgstr "Fiók beállítások"
 msgid "Log out"
 msgstr "Kijelentkezés"
 
-msgid "Visit the live page"
-msgstr "Élő oldal megtekintése"
-
 msgid "Current page status:"
 msgstr "Oldal jelenlegi státusza:"
 
@@ -1443,6 +1506,13 @@ msgstr "Gyermek oldal hozzáadása"
 
 msgid "Show in Explorer"
 msgstr "Megtekintés az intézőben"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "szerző: %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Hasonlítás az éles verzióval"
 
 #, python-format
 msgid ""
@@ -1520,14 +1590,11 @@ msgstr "Megtekintés az oldalon"
 msgid "Page '{0}' created and published."
 msgstr " '{0}' létrehozva és közzétéve."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr " '{0}' be lett nyújtva moderálásra."
-
 msgid "View draft"
 msgstr "Vázlat megtekintése"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Nem sikerült értesíteni a moderátorokat"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr " '{0}' be lett nyújtva moderálásra."
 
 msgid "Page '{0}' created."
 msgstr " '{0}' oldal létrehozva."
@@ -1549,26 +1616,17 @@ msgstr ""
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>A(z) '{}' oldal zárolva van</b>."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "'{1}' oldal {0} verziójának közzététele időzítve lett."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "'{0}' oldal közzé van téve, és ez a verzió időzítve lett."
+msgid "This page is currently awaiting moderation"
+msgstr "Ez az oldal jelenleg moderálásra vár"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "'{0}' oldal közzététele időzítve."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "'{1}' oldal {0} verziója közzétéve."
 
 msgid "Page '{0}' has been published."
 msgstr "'{0}' oldal közzétéve."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "'{0}' be lett nyújtva moderálásra."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "'{0}' oldal le lett cserélve a következő verzióra: {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "'{0}' oldal frissítve."
@@ -1578,12 +1636,6 @@ msgstr "Az oldal mentése nem sikerült, mert zárolva van."
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Az oldal mentése nem sikerült az űrlapon található hibák miatt"
-
-msgid "Compare with live version"
-msgstr "Hasonlítás az éles verzióval"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Ez az oldal jelenleg moderálásra vár"
 
 msgid "Page '{0}' deleted."
 msgstr "'{0}' oldal törölve."
@@ -1625,14 +1677,6 @@ msgstr "Nem sikerült értesítést küldeni az elutasításról."
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' oldal zárolása fel lett oldva."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Jelenleg az oldal korábbi verzióját látja, dátuma <b>%(created_at)s</b>, "
-"szerzője %(user)s"
-
 msgid "Earliest"
 msgstr "Legkorábbi"
 
@@ -1641,12 +1685,6 @@ msgstr "Legkésőbbi"
 
 msgid "revision {0} of \"{1}\""
 msgstr "'{1}' {0}. verziója"
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "'{1}' {0}. verziójának időzítése visszavonva. "
-
-msgid "Locked Pages"
-msgstr "Zárolt oldalak"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1686,10 +1724,6 @@ msgstr "'%(title)s' oldal törlése"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "'%(title)s' oldal visszavonása"
-
-#, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "'%(title)s' oldal korábbi verzióinak megtekintése"
 
 msgid "Set profile picture"
 msgstr "Profilkép beállítása"
@@ -1754,6 +1788,9 @@ msgstr "Áthúzott"
 
 msgid "Code"
 msgstr "Kód"
+
+msgid "Locked Pages"
+msgstr "Zárolt oldalak"
 
 msgid "Reports"
 msgstr "Kimutatások"

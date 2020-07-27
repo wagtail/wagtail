@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-12-02 17:48+0000\n"
-"Last-Translator: Py Data Geek <pydatageek@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -68,6 +68,9 @@ msgstr "Yönlendirme ekle"
 msgid "Save"
 msgstr "Kaydet"
 
+msgid "Redirects"
+msgstr "Yönlendirmeler"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "%(title)s yönlendirmesini sil"
@@ -91,17 +94,14 @@ msgstr "Düzenleniyor"
 msgid "Delete redirect"
 msgstr "Yönlendirmeyi sil"
 
-msgid "Redirects"
-msgstr "Yönlendirmeler"
-
 msgid "From"
 msgstr "Yönlendiren"
 
-msgid "Site"
-msgstr "Site"
-
 msgid "To"
 msgstr "Yönlendirilen"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Type"
 msgstr "Tür"

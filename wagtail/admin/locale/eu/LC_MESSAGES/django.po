@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Basque (http://www.transifex.com/torchbox/wagtail/language/"
 "eu/)\n"
@@ -21,6 +21,12 @@ msgstr ""
 
 msgid "Delete"
 msgstr "Ezabatu"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Title"
+msgstr "Izenburua"
 
 msgid "Enter your email address to reset your password"
 msgstr "Idatzi zure eposta helbidea zure pasahitza berrezartzeko"
@@ -107,9 +113,6 @@ msgstr ""
 "Kontrol panel honetan sortu duzun edukiekin erlazionaturiko informazio "
 "baliagarria agertuko da."
 
-msgid "Title"
-msgstr "Izenburua"
-
 msgid "Edit this page"
 msgstr "Orrialde hau editatu"
 
@@ -130,9 +133,6 @@ msgstr "Aurrikusi"
 
 msgid "Your most recent edits"
 msgstr "Zure edizio berrienak"
-
-msgid "Date"
-msgstr "Data"
 
 msgid "Status"
 msgstr "Egoera"

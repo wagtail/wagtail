@@ -7,6 +7,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2020
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
 # Tom Dyson <tom@torchbox.com>, 2015
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2018-12-27 14:52+0000\n"
-"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-27 07:19+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -130,11 +131,23 @@ msgstr "Ajouter un nouveau résultat amélioré"
 msgid "Search term(s)"
 msgstr "Terme(s) de recherche"
 
+msgid "Order by search term alphabetically"
+msgstr "Trier par terme de recherche (ordre alphabétique)"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Trier par terme de recherche (ordre alphabétique inverse)"
+
 msgid "Promoted results"
 msgstr "Résultats améliorés"
 
 msgid "Views (past week)"
 msgstr "Vues (semaine dernière)"
+
+msgid "Order by views (lowest first)"
+msgstr "Trier par vues (croissant)"
+
+msgid "Order by views (highest first)"
+msgstr "Trier par vues (décroissant)"
 
 msgid "Edit this promotion"
 msgstr "Éditer cette promotion"

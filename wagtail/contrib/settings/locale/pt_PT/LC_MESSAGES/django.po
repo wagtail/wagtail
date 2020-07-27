@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-07-07 22:39+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 17:13+0000\n"
 "Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -21,12 +21,18 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "default"
+msgstr "Padrão"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "A alterar %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "A alterar"
+
+msgid "Site"
+msgstr "Sítio"
 
 msgid "Saving…"
 msgstr "A guardar…"
