@@ -314,7 +314,7 @@ class PageActionMenu:
                 for name, label, launch_modal in actions:
                     icon_name = 'edit'
                     if name == "approve":
-                        if is_final_task:
+                        if is_final_task and not getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', False):
                             label = _("%(label)s and Publish") % {'label': label}
                         icon_name = 'success'
 
