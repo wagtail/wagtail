@@ -227,8 +227,6 @@ Or, alternately, using the ``set`` tag:
 Utilising ``select_related`` to improve efficiency
 --------------------------------------------------
 
-.. versionadded:: 2.9
-
 For models with foreign key relationships to other objects (e.g. pages),
 which are very often needed to output values in templates, you can set
 the ``select_related`` attribute on your model to have Wagtail utilise

@@ -280,10 +280,6 @@ The ``Site`` model is useful for multi-site installations as it allows an admini
 
 The :meth:`~wagtail.core.models.Site.find_for_request` function returns the Site object that will handle the given HTTP request.
 
-.. versionchanged:: 2.9
-
-  Previous versions of Wagtail required the middleware class :class:`~wagtail.core.middleware.SiteMiddleware`, which pre-populated ``request.site`` with the site object. This is now deprecated, to avoid redundant database queries and potential clashes with Django's Sites framework.
-
 
 Database fields
 ~~~~~~~~~~~~~~~

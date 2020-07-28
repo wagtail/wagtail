@@ -231,10 +231,6 @@ Returns the Site object corresponding to the current request.
 
     {% wagtail_site as current_site %}
 
-.. versionadded:: 2.9
-
-  In previous versions, the recommended way to refer to the current site was through the ``request.site`` attribute provided by :class:`~wagtail.core.middleware.SiteMiddleware`; this is now deprecated.
-
 .. _wagtailuserbar_tag:
 
 Wagtail User Bar

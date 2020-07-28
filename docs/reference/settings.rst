@@ -551,10 +551,6 @@ By default the redirect importer keeps track of the uploaded file as a temp file
 Form builder
 ============
 
-.. versionadded:: 2.7.4/2.9.3
-
-    The ``WAGTAILFORMS_HELP_TEXT_ALLOW_HTML`` option was added.
-
 .. code-block:: python
 
     WAGTAILFORMS_HELP_TEXT_ALLOW_HTML = True
