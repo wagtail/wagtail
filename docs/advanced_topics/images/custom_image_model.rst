@@ -47,10 +47,6 @@ Here's an example:
             )
 
 
-.. versionchanged:: 2.9
-
-    Fields on a custom image model can now be defined as required (``blank=False``).
-
 Then set the ``WAGTAILIMAGES_IMAGE_MODEL`` setting to point to it:
 
 .. code-block:: python
