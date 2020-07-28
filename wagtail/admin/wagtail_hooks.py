@@ -841,6 +841,18 @@ def register_core_log_actions(actions):
         except KeyError:
             return _("Copied")
 
+    def copy_for_translation_message(data):
+        try:
+            source_locale = Locale.objects.filter(id=data['source_locale']['id']).first()
+            locale = Locale.objects.filter(id=data['locale']['id']).first()
+            return _('Copied from %(title)s (%(source_locale)s) into %(locale)s') % {
+                'title': data['source']['title'],
+                'source_locale': source_locale.get_display_name() if source_locale else _('Deleted locale'),
+                'locale': locale.get_display_name() if locale else _('Deleted locale'),
+            }
+        except KeyError:
+            return _("Copied for translation")
+
     def move_message(data):
         try:
             return _("Moved from '%(old_parent)s' to '%(new_parent)s'") % {
@@ -916,6 +928,7 @@ def register_core_log_actions(actions):
     actions.register_action('wagtail.rename', _('Rename'), rename_message)
     actions.register_action('wagtail.revert', _('Revert'), revert_message)
     actions.register_action('wagtail.copy', _('Copy'), copy_message)
+    actions.register_action('wagtail.copy_for_translation', _('Copy for translation'), copy_for_translation_message)
     actions.register_action('wagtail.move', _('Move'), move_message)
     actions.register_action('wagtail.publish.schedule', _("Schedule publication"), schedule_publish_message)
     actions.register_action('wagtail.schedule.cancel', _("Unschedule publication"), unschedule_publish_message)

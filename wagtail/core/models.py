@@ -1757,7 +1757,7 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
-             process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True):
+             process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True, log_extra=None):
         """
         Copies a given page
         :param log_action flag for logging the action. Pass None to skip logging.
@@ -1849,19 +1849,24 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         # Log
         if log_action:
             parent = specific_self.get_parent()
+            log_data = {
+                'page': {
+                    'id': page_copy.id,
+                    'title': page_copy.get_admin_display_title()
+                },
+                'source': {'id': parent.id, 'title': parent.get_admin_display_title()} if parent else None,
+                'destination': {'id': to.id, 'title': to.get_admin_display_title()} if to else None,
+                'keep_live': page_copy.live and keep_live
+            }
+
+            if log_extra:
+                log_data.update(log_extra)
+
             PageLogEntry.objects.log_action(
                 instance=page_copy,
                 action=log_action,
                 user=user,
-                data={
-                    'page': {
-                        'id': page_copy.id,
-                        'title': page_copy.get_admin_display_title()
-                    },
-                    'source': {'id': parent.id, 'title': parent.get_admin_display_title()} if parent else None,
-                    'destination': {'id': to.id, 'title': to.get_admin_display_title()} if to else None,
-                    'keep_live': page_copy.live and keep_live
-                },
+                data=log_data,
             )
             if page_copy.live and keep_live:
                 # Log the publish if the use chose to keep the copied page live
@@ -1946,6 +1951,17 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
             reset_translation_key=False,
             process_child_object=process_child_object,
             exclude_fields=exclude_fields,
+            log_action='wagtail.copy_for_translation',
+            log_extra={
+                'source_locale': {
+                    'id': self.locale_id,
+                    'language_code': self.locale.language_code
+                },
+                'locale': {
+                    'id': locale.id,
+                    'language_code': locale.language_code
+                },
+            }
         )
 
     copy_for_translation.alters_data = True

@@ -71,6 +71,7 @@ Action                               Notes
 ``wagtail.rename``                   A page was renamed
 ``wagtail.revert``                   The page was reverted to a previous draft
 ``wagtail.copy``                     The page was copied to a new location
+``wagtail.copy_for_translation``     The page was copied into a new locale for translation
 ``wagtail.move``                     The page was moved to a new location
 ``wagtail.view_restriction.create``  The page was restricted
 ``wagtail.view_restriction.edit``    The page restrictions were updated
