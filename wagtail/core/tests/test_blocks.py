@@ -2417,6 +2417,23 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(list(block.child_blocks.keys()),
                          ['heading', 'paragraph', 'intro', 'by_line'])
 
+    def test_field_has_changed(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())])
+        initial_value = blocks.StreamValue(block, [('paragraph', 'test')])
+        initial_value[0].id = 'a'
+
+        data_value = blocks.StreamValue(block, [('paragraph', 'test')])
+        data_value[0].id = 'a'
+
+        # identical ids and content, so has_changed should return False
+        self.assertFalse(blocks.BlockField(block).has_changed(initial_value, data_value))
+
+        changed_data_value = blocks.StreamValue(block, [('paragraph', 'not a test')])
+        changed_data_value[0].id = 'a'
+
+        # identical ids but changed content, so has_changed should return True
+        self.assertTrue(blocks.BlockField(block).has_changed(initial_value, changed_data_value))
+
     def test_required_raises_an_exception_if_empty(self):
         block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=True)
         value = blocks.StreamValue(block, [])
