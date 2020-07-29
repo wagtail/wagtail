@@ -1081,6 +1081,51 @@ Hooks for working with registered Snippets.
         return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
 
 
+.. _register_snippet_listing_buttons:
+
+``register_snippet_listing_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add buttons to the actions list for a snippet in the snippets listing. This is useful when adding custom actions to the listing, such as translations or a complex workflow.
+
+  This example will add a simple button to the listing:
+
+  .. code-block:: python
+
+    from wagtail.snippets import widgets as wagtailsnippets_widgets
+
+    @hooks.register('register_snippet_listing_buttons')
+    def snippet_listing_buttons(snippet, user, next_url=None):
+        yield wagtailsnippets_widgets.SnippetListingButton(
+            'A page listing button',
+            '/goes/to/a/url/',
+            priority=10
+        )
+
+  The arguments passed to the hook are as follows:
+
+  * ``snippet`` - the snippet object to generate the button for
+  * ``user`` - the user who is viewing the snippets listing
+  * ``next_url`` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
+
+  The ``priority`` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
+
+.. construct_snippet_listing_buttons:
+
+``construct_snippet_listing_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Modify the final list of snippet listing buttons. The
+  callable passed to this hook receives a list of ``SnippetListingButton`` objects, a user,
+  and a context dictionary as per ``register_snippet_listing_buttons``,
+  and should modify the list of menu items in-place.
+
+  .. code-block:: python
+
+    @hooks.register('construct_snippet_listing_buttons')
+    def remove_snippet_listing_button_item(buttons, snippet, user, context=None):
+        buttons.pop()  # Removes the 'delete' button
+
 Audit log
 ---------
 
