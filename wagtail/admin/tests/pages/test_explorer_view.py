@@ -150,7 +150,7 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         page_ids = [page.id for page in response.context['pages']]
         self.assertEqual(page_ids, [self.child_page.id])
 
-    def test_construct_construct_page_listing_buttons_hook(self):
+    def test_construct_page_listing_buttons_hook(self):
         # testapp implements a construct_page_listing_buttons hook
         # that add's an dummy button with the label 'Dummy Button' which points
         # to '/dummy-button'
