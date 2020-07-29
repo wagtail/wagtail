@@ -390,17 +390,19 @@ class Filter:
     @cached_property
     def operations(self):
         # Search for operations
-        self._search_for_operations()
+        registered_operations = {}
+        for fn in hooks.get_hooks('register_image_operations'):
+            registered_operations.update(dict(fn()))
 
         # Build list of operation objects
         operations = []
         for op_spec in self.spec.split('|'):
             op_spec_parts = op_spec.split('-')
 
-            if op_spec_parts[0] not in self._registered_operations:
+            if op_spec_parts[0] not in registered_operations:
                 raise InvalidFilterSpecError("Unrecognised operation: %s" % op_spec_parts[0])
 
-            op_class = self._registered_operations[op_spec_parts[0]]
+            op_class = registered_operations[op_spec_parts[0]]
             operations.append(op_class(*op_spec_parts))
         return operations
 
@@ -483,19 +485,6 @@ class Filter:
             return ''
 
         return hashlib.sha1(vary_string.encode('utf-8')).hexdigest()[:8]
-
-    _registered_operations = None
-
-    @classmethod
-    def _search_for_operations(cls):
-        if cls._registered_operations is not None:
-            return
-
-        operations = []
-        for fn in hooks.get_hooks('register_image_operations'):
-            operations.extend(fn())
-
-        cls._registered_operations = dict(operations)
 
 
 class AbstractRendition(models.Model):
