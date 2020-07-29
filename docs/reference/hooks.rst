@@ -1016,6 +1016,24 @@ Hooks for working with registered Snippets.
     def after_snippet_update(request, instance):
         return HttpResponse(f"Congrats on editing a snippet with id {instance.pk}", content_type="text/plain")
 
+.. _before_edit_snippet:
+
+``before_edit_snippet``
+~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the edit snippet view. The callable passed into the hook will receive the model instance, the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``redirect()`` to the listing view.
+
+  .. code-block:: python
+
+    from django.http import HttpResponse
+
+    from wagtail.core import hooks
+
+    @hooks.register('before_edit_snippet')
+    def block_snippet_edit(request, instance):
+        if isinstance(instance, RestrictedSnippet) and instance.prevent_edit:
+            return HttpResponse(f"Sorry, you can't edit this snippet", content_type="text/plain")
+
 .. _after_create_snippet:
 
 ``after_create_snippet``
@@ -1024,6 +1042,13 @@ Hooks for working with registered Snippets.
   Called when a Snippet is created. ``after_create_snippet`` and
   ``after_edit_snippet`` work in identical ways. The only difference is where
   the hook is called.
+
+.. _before_create_snippet:
+
+``before_create_snippet``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the create snippet view. Works in a similar way to `before_edit_snippet` except the model is passed as an argument instead of an instance.
 
 .. _after_delete_snippet:
 
@@ -1044,6 +1069,29 @@ Hooks for working with registered Snippets.
         total = len(instances)
         return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
 
+.. _before_delete_snippet:
+
+``before_delete_snippet``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the delete snippet view. The callable passed into the hook will receive the model instance(s) as a queryset along with the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``redirect()`` to the listing view.
+
+  .. code-block:: python
+
+    from django.http import HttpResponse
+
+    from wagtail.core import hooks
+
+    @hooks.register('before_delete_snippet')
+    def before_snippet_delete(request, instances):
+        # "instances" is a QuerySet
+        total = len(instances)
+
+        if request.method == 'POST':
+          # Override the deletion behaviour
+          instances.delete()
+
+          return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
 
 Audit log
 ---------
