@@ -43,6 +43,42 @@ If you need your hooks to run in a particular order, you can pass the ``order`` 
   def yet_another_hook_function(arg1, arg2...)
       # your code here
 
+Unit testing hooks
+------------------
+
+Hooks are usually registered on startup and can't be changed at runtime. But when writing unit tests, you might want to register a hook
+function just for a single test or block of code and unregister it so that it doesn't run when other tests are run.
+
+You can register hooks temporarily using the ``hooks.register_temporarily`` function, this can be used as both a decorator and a context
+manager. Here's an example of how to register a hook function for just a single test:
+
+.. code-block:: python
+
+  def my_hook_function():
+      ...
+
+  class MyHookTest(TestCase):
+
+      @hooks.register_temporarily('name_of_hook', my_hook_function)
+      def test_my_hook_function(self):
+          # Test with the hook registered here
+          ...
+
+And here's an example of registering a hook function for a single block of code:
+
+.. code-block:: python
+
+
+  def my_hook_function():
+      ...
+
+  with hooks.register_temporarily('name_of_hook', my_hook_function):
+      # Hook is registered here
+      ..
+
+  # Hook is unregistered here
+
+
 The available hooks are listed below.
 
 .. contents::
