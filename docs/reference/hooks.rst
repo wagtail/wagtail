@@ -657,9 +657,9 @@ Hooks for customising the way users are directed through the process of creating
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Modify the final list of page listing buttons in the page explorer. The
-  callable passed to this hook receives a list of ``Button`` objects, a request
-  object and a context dictionary as per ``register_page_action_menu_item``,
-  and should modify the list of menu items in-place.
+  callable passed to this hook receives a list of ``PageListingButton`` objects, a page,
+  a page perms object, and a context dictionary as per ``register_page_listing_buttons``,
+  and should modify the list of listing items in-place.
 
   .. code-block:: python
 
