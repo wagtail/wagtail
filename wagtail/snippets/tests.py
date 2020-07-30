@@ -228,6 +228,37 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         snippet = FileUploadSnippet.objects.get()
         self.assertEqual(snippet.file.read(), b"Uploaded file")
 
+    def test_before_create_snippet_hook_get(self):
+        def hook_func(request, model):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(model, Advert)
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_create_snippet', hook_func):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_create_snippet_hook_post(self):
+        def hook_func(request, model):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(model, Advert)
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_create_snippet', hook_func):
+            post_data = {
+                'text': 'Hook test',
+                'url': 'http://www.example.com/'
+            }
+            response = self.post(post_data=post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was created
+        self.assertFalse(Advert.objects.exists())
+
     def test_after_create_snippet_hook(self):
         def hook_func(request, instance):
             self.assertIsInstance(request, HttpRequest)
@@ -244,6 +275,9 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted after advert was created
+        self.assertTrue(Advert.objects.exists())
 
 
 class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
@@ -318,6 +352,38 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             list(snippet.tags.order_by('name')),
             expected_tags)
 
+    def test_before_edit_snippet_hook_get(self):
+
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, 'test_advert')
+            self.assertEqual(instance.url, 'http://www.example.com')
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_edit_snippet', hook_func):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_edit_snippet_hook_post(self):
+
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, 'test_advert')
+            self.assertEqual(instance.url, 'http://www.example.com')
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_edit_snippet', hook_func):
+            response = self.post(post_data={'text': 'Edited and runs hook',
+                                            'url': 'http://www.example.com/hook-enabled-edited'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was updated
+        self.assertEqual(Advert.objects.get().text, "test_advert")
+
     def test_after_edit_snippet_hook(self):
 
         def hook_func(request, instance):
@@ -332,6 +398,9 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted after advert was updated
+        self.assertEqual(Advert.objects.get().text, "Edited and runs hook")
 
 
 class TestEditTabbedSnippet(BaseTestSnippetEditView):
@@ -402,6 +471,45 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Used 2 times')
         self.assertContains(response, self.test_snippet.usage_url())
 
+    def test_before_delete_snippet_hook_get(self):
+        advert = Advert.objects.create(
+            url='http://www.example.com/',
+            text='Test hook',
+        )
+
+        def hook_func(request, instances):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"])
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_delete_snippet', hook_func):
+            response = self.client.get(reverse('wagtailsnippets:delete', args=['tests', 'advert', quote(advert.pk)]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_delete_snippet_hook_post(self):
+        advert = Advert.objects.create(
+            url='http://www.example.com/',
+            text='Test hook',
+        )
+
+        def hook_func(request, instances):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"])
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_delete_snippet', hook_func):
+            response = self.client.post(
+                reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(advert.pk), ))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was deleted
+        self.assertTrue(Advert.objects.filter(pk=advert.pk).exists())
+
     def test_after_delete_snippet_hook(self):
         advert = Advert.objects.create(
             url='http://www.example.com/',
@@ -420,6 +528,9 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted after advert was deleted
+        self.assertFalse(Advert.objects.filter(pk=advert.pk).exists())
 
 
 class TestSnippetDeleteMultipleWithOne(TestCase, WagtailTestUtils):
