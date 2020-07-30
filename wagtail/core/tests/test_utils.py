@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*
-from django.test import TestCase
+from django.core.exceptions import ImproperlyConfigured
+from django.test import TestCase, override_settings
 from django.utils.text import slugify
 
 from wagtail.core.models import Page
 from wagtail.core.utils import (
-    accepts_kwarg, camelcase_to_underscore, cautious_slugify, find_available_slug, safe_snake_case,
-    string_to_ascii)
+    accepts_kwarg, camelcase_to_underscore, cautious_slugify, find_available_slug,
+    get_content_languages, get_supported_content_language_variant, safe_snake_case, string_to_ascii)
 
 
 class TestCamelCaseToUnderscore(TestCase):
@@ -138,3 +139,115 @@ class TestFindAvailableSlug(TestCase):
             slug = find_available_slug(self.root_page, "home")
 
         self.assertEqual(slug, "home-2")
+
+
+@override_settings(
+    USE_I18N=True,
+    WAGTAIL_I18N_ENABLED=True,
+    LANGUAGES=[
+        ('en', 'English'),
+        ('de', 'German'),
+        ('de-at', 'Austrian German'),
+        ('pt-br', 'Portuguese (Brazil)'),
+    ],
+    WAGTAIL_CONTENT_LANGUAGES=[
+        ('en', 'English'),
+        ('de', 'German'),
+        ('de-at', 'Austrian German'),
+        ('pt-br', 'Portuguese (Brazil)'),
+    ],
+)
+class TestGetContentLanguages(TestCase):
+    def test_get_content_languages(self):
+        self.assertEqual(get_content_languages(), {
+            'de': 'German',
+            'de-at': 'Austrian German',
+            'en': 'English',
+            'pt-br': 'Portuguese (Brazil)'
+        })
+
+    @override_settings(
+        WAGTAIL_CONTENT_LANGUAGES=[
+            ('en', 'English'),
+            ('de', 'German'),
+        ],
+    )
+    def test_can_be_different_to_django_languages(self):
+        self.assertEqual(get_content_languages(), {
+            'de': 'German',
+            'en': 'English',
+        })
+
+    @override_settings(
+        WAGTAIL_CONTENT_LANGUAGES=[
+            ('en', 'English'),
+            ('de', 'German'),
+            ('zh', 'Chinese'),
+        ],
+    )
+    def test_must_be_subset_of_django_languages(self):
+        with self.assertRaises(ImproperlyConfigured) as e:
+            get_content_languages()
+
+        self.assertEqual(e.exception.args, ("The language zh is specified in WAGTAIL_CONTENT_LANGUAGES but not LANGUAGES. WAGTAIL_CONTENT_LANGUAGES must be a subset of LANGUAGES.", ))
+
+
+@override_settings(
+    USE_I18N=True,
+    WAGTAIL_I18N_ENABLED=True,
+    LANGUAGES=[
+        ('en', 'English'),
+        ('de', 'German'),
+        ('de-at', 'Austrian German'),
+        ('pt-br', 'Portuguese (Brazil)'),
+    ],
+    WAGTAIL_CONTENT_LANGUAGES=[
+        ('en', 'English'),
+        ('de', 'German'),
+        ('de-at', 'Austrian German'),
+        ('pt-br', 'Portuguese (Brazil)'),
+    ],
+)
+class TestGetSupportedContentLanguageVariant(TestCase):
+    # From: https://github.com/django/django/blob/9e57b1efb5205bd94462e9de35254ec5ea6eb04e/tests/i18n/tests.py#L1481
+    def test_get_supported_content_language_variant(self):
+        g = get_supported_content_language_variant
+        self.assertEqual(g('en'), 'en')
+        self.assertEqual(g('en-gb'), 'en')
+        self.assertEqual(g('de'), 'de')
+        self.assertEqual(g('de-at'), 'de-at')
+        self.assertEqual(g('de-ch'), 'de')
+        self.assertEqual(g('pt-br'), 'pt-br')
+        self.assertEqual(g('pt'), 'pt-br')
+        self.assertEqual(g('pt-pt'), 'pt-br')
+        with self.assertRaises(LookupError):
+            g('pt', strict=True)
+        with self.assertRaises(LookupError):
+            g('pt-pt', strict=True)
+        with self.assertRaises(LookupError):
+            g('xyz')
+        with self.assertRaises(LookupError):
+            g('xy-zz')
+
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[
+        ('en', 'English'),
+        ('de', 'German'),
+    ])
+    def test_uses_wagtail_content_languages(self):
+        # be sure it's not using Django's LANGUAGES
+        g = get_supported_content_language_variant
+        self.assertEqual(g('en'), 'en')
+        self.assertEqual(g('en-gb'), 'en')
+        self.assertEqual(g('de'), 'de')
+        self.assertEqual(g('de-at'), 'de')
+        self.assertEqual(g('de-ch'), 'de')
+        with self.assertRaises(LookupError):
+            g('pt-br')
+        with self.assertRaises(LookupError):
+            g('pt')
+        with self.assertRaises(LookupError):
+            g('pt-pt')
+        with self.assertRaises(LookupError):
+            g('xyz')
+        with self.assertRaises(LookupError):
+            g('xy-zz')

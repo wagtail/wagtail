@@ -49,8 +49,8 @@ from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
 from wagtail.search import index
 
-from .compat import get_languages, get_supported_language_variant
-from .utils import find_available_slug
+from .utils import (
+    find_available_slug, get_content_languages, get_supported_content_language_variant)
 
 logger = logging.getLogger('wagtail.core')
 
@@ -296,13 +296,13 @@ def pk(obj):
 class LocaleManager(models.Manager):
     def get_queryset(self):
         # Exclude any locales that have an invalid language code
-        return super().get_queryset().filter(language_code__in=get_languages().keys())
+        return super().get_queryset().filter(language_code__in=get_content_languages().keys())
 
     def get_for_language(self, language_code):
         """
         Gets a Locale from a language code.
         """
-        return self.get(language_code=get_supported_language_variant(language_code))
+        return self.get(language_code=get_supported_content_language_variant(language_code))
 
 
 class Locale(models.Model):
@@ -336,7 +336,7 @@ class Locale(models.Model):
             return cls.get_default()
 
     def get_display_name(self):
-        return get_languages().get(self.language_code)
+        return get_content_languages().get(self.language_code)
 
     def __str__(self):
         return self.get_display_name() or self.language_code
@@ -448,7 +448,7 @@ def bootstrap_translatable_model(model, locale):
 class BootstrapTranslatableModel(migrations.RunPython):
     def __init__(self, model_string, language_code=None):
         if language_code is None:
-            language_code = get_supported_language_variant(settings.LANGUAGE_CODE)
+            language_code = get_supported_content_language_variant(settings.LANGUAGE_CODE)
 
         def forwards(apps, schema_editor):
             model = apps.get_model(model_string)
