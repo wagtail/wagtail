@@ -254,6 +254,8 @@ Within the editor widget, the plugin definition for a given feature can be retri
 For details of the plugin formats for Wagtail's built-in editors, see :doc:`./extending_draftail` and :doc:`./extending_hallo`.
 
 
+.. _rich_text_format_converters:
+
 Format converters
 -----------------
 
