@@ -13,7 +13,7 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
- * ...
+ * Add ``before_edit_snippet``, ``before_create_snippet`` and ``before_delete_snippet`` hooks and documentation (Karl Hobley. Sponsored by the Mozilla Foundation)
 
 
 Bug fixes
