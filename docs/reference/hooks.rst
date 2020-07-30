@@ -1032,7 +1032,7 @@ Hooks for working with registered Snippets.
     @hooks.register('before_edit_snippet')
     def block_snippet_edit(request, instance):
         if isinstance(instance, RestrictedSnippet) and instance.prevent_edit:
-            return HttpResponse(f"Sorry, you can't edit this snippet", content_type="text/plain")
+            return HttpResponse("Sorry, you can't edit this snippet", content_type="text/plain")
 
 .. _after_create_snippet:
 
