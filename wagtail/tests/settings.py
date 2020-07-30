@@ -222,6 +222,12 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 }
 
 
+WAGTAIL_CONTENT_LANGUAGES = [
+    ("en", "English"),
+    ("fr", "French"),
+]
+
+
 # Set a non-standard DEFAULT_AUTHENTICATION_CLASSES value, to verify that the
 # admin API still works with session-based auth regardless of this setting
 # (see https://github.com/wagtail/wagtail/issues/5585)

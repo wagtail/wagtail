@@ -3,14 +3,14 @@
 from django.conf import settings
 from django.db import migrations
 
-from wagtail.core.compat import get_supported_language_variant
+from wagtail.core.utils import get_supported_content_language_variant
 
 
 def initial_locale(apps, schema_editor):
     Locale = apps.get_model("wagtailcore.Locale")
 
     Locale.objects.create(
-        language_code=get_supported_language_variant(settings.LANGUAGE_CODE),
+        language_code=get_supported_content_language_variant(settings.LANGUAGE_CODE),
     )
 
 
