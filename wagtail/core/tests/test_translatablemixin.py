@@ -1,9 +1,10 @@
 from unittest.mock import patch
 
 from django.conf import settings
+from django.core import checks
 from django.test import TestCase
 
-from wagtail.core.models import Locale
+from wagtail.core.models import Locale, TranslatableMixin
 
 from wagtail.tests.i18n.models import InheritedTestModel, TestModel
 
@@ -134,3 +135,16 @@ class TestLocalized(TestCase):
             instance = self.fr_instance.localized
 
         self.assertEqual(instance, self.en_instance)
+
+
+class TestSystemChecks(TestCase):
+    def test_raises_error_if_unique_together_constraint_missing(self):
+        class TranslatableModel(TranslatableMixin):
+            class Meta:
+                unique_together = []
+
+        errors = TranslatableModel.check()
+
+        self.assertEqual(len(errors), 1)
+        self.assertIsInstance(errors[0], checks.Error)
+        self.assertEqual(errors[0].id, 'wagtailcore.E003')

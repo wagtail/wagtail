@@ -350,6 +350,27 @@ class TranslatableMixin(models.Model):
         abstract = True
         unique_together = [("translation_key", "locale")]
 
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super(TranslatableMixin, cls).check(**kwargs)
+        is_translation_model = cls.get_translation_model() is cls
+
+        # Raise error if subclass has removed the unique_together constraint
+        # No need to check this on multi-table-inheritance children though as it only needs to be applied to
+        # the table that has the translation_key/locale fields
+        if is_translation_model and ("translation_key", "locale") not in cls._meta.unique_together:
+            errors.append(
+                checks.Error(
+                    "{0}.{1} is missing a unique_together constraint for the translation key and locale fields"
+                    .format(cls._meta.app_label, cls.__name__),
+                    hint="Add ('translation_key', 'locale') to {}.Meta.unique_together".format(cls.__name__),
+                    obj=cls,
+                    id='wagtailcore.E003',
+                )
+            )
+
+        return errors
+
     @property
     def localized(self):
         locale = Locale.get_active()
