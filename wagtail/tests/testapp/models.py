@@ -1447,6 +1447,7 @@ class Address(index.Indexed, ClusterableModel, Orderable):
     class Meta:
         verbose_name = 'Address'
         verbose_name_plural = 'Addresses'
+        ordering = ['sort_order']
 
 
 class AddressTag(TaggedItemBase):

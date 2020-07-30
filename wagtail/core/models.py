@@ -1907,6 +1907,24 @@ class Orderable(models.Model):
     sort_order = models.IntegerField(null=True, blank=True, editable=False)
     sort_order_field = 'sort_order'
 
+    @classmethod
+    def check(cls, **kwargs):
+        errors = super(Orderable, cls).check(**kwargs)
+
+        if 'sort_order' not in cls._meta.ordering:
+            errors.append(
+                checks.Warning(
+                    "{0}.{1} inherits from Orderable, but this has no effect because "
+                    "{1}.Meta.ordering does not include the 'sort_order' field"
+                    .format(cls._meta.app_label, cls.__name__),
+                    hint="Add 'sort_order' to {}.Meta.ordering or remove inheritance from Orderable.".format(cls.__name__),
+                    obj=cls,
+                    id='wagtailcore.W002',
+                )
+            )
+
+        return errors
+
     class Meta:
         abstract = True
         ordering = ['sort_order']
