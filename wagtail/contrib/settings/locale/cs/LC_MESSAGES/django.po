@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# IT Management <info@itmanagement.cz>, 2018
-# Marek Turnovec <aesculap@gmail.com>, 2016
+# IT Management <hudan@itmanagement.cz>, 2018
+# Marek Turnovec <aesculap@gmail.com>, 2016,2020
 # Mirek Zvolský <zvolsky@seznam.cz>, 2020
-# IT Management <info@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:52+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-07-27 21:24+0000\n"
+"Last-Translator: Marek Turnovec <aesculap@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -23,12 +23,18 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
+msgid "default"
+msgstr "výchozí"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Upravování %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Úprava"
+
+msgid "Site"
+msgstr "Web"
 
 msgid "Saving…"
 msgstr "Ukládání…"

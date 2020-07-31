@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-01-26 08:46+0000\n"
+"PO-Revision-Date: 2020-07-28 12:19+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -54,7 +54,7 @@ msgstr[1] ""
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr "Désolé, aucun bloc ne correspond à <em>\"%(query_string)s\"</em>"
+msgstr "Désolé, aucun bloc ne correspond à « <em>%(query_string)s</em> »"
 
 #, python-format
 msgid ""
@@ -111,7 +111,7 @@ msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Modification de %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
-msgstr "Rédaction"
+msgstr "Modification"
 
 msgid "Actions"
 msgstr "Actions"
@@ -145,7 +145,7 @@ msgid ""
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
 "Aucun %(snippet_type_name_plural)s n'a été créé. Pourquoi ne pas <a href="
-"\"%(wagtailsnippets_create_url)s\">en ajouter un</a> ?"
+"\"%(wagtailsnippets_create_url)s\">en ajouter un</a> ?"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"

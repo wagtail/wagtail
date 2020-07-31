@@ -521,7 +521,7 @@ Translators
 * Slovak (Slovakia): Stevo Backor, dellax, Martin Janšto, Jozef Karabelly
 * Slovenian: Mitja Pagon, Matej Stavanja
 * Spanish: Mauricio Baeza, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, fooflare, José Luis, Joaquín Tita, Unai Zalakain
-* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander, Martin Sandström
+* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander, Martin Sandström
 * Tetum: Alessandro, Joanico Barros, Peter Coward, Mariano de Deus, Onorio de Jesus Afonso, Mario Alves Pinto
 * Thai: Amawalee Combe, Jon Combe, Walaksawan Vervoort
 * Turkish: Saadettin Yasir Akel, Umut Bektaş, Zafer Cengiz, Cihad Gündoǧdu, Basitlik İyidir, José Luis, Py Data, Ahmet Sarıcan, Halim Turan, Ragıp Ünal

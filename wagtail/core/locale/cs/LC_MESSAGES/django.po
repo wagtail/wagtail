@@ -4,8 +4,8 @@
 #
 # Translators:
 # Ales Dvorak <mail@alesdvorak.cz>, 2017
-# IT Management <info@itmanagement.cz>, 2018
-# IT Management <info@itmanagement.cz>, 2020
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019
 msgid ""

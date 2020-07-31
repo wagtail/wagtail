@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-27 07:34+0000\n"
+"PO-Revision-Date: 2020-07-27 12:23+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -97,6 +97,9 @@ msgstr "Soumissions de formulaire"
 
 msgid "name"
 msgstr "nom"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "Nom sûr du champ de formulaire, le label converti en ascii_snake_case"
 
 msgid "label"
 msgstr "étiquette"

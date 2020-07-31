@@ -4,23 +4,23 @@
 #
 # Translators:
 # Eva Mikesova <eva.mikesova@tul.cz>, 2018
-# IT Management <info@itmanagement.cz>, 2018
-# IT Management <info@itmanagement.cz>, 2020
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2020
 # Ivan Pomykacz <mist@alastify.cz>, 2015
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
-# Marek Turnovec <aesculap@gmail.com>, 2016
+# Marek Turnovec <aesculap@gmail.com>, 2016,2020
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2018
 # Martin Galda <martingalda9@gmail.com>, 2017-2018
 # Matt Westcott <matthew@torchbox.com>, 2018
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
-# IT Management <info@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-07-29 19:17+0000\n"
+"Last-Translator: IT Management <hudan@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -87,8 +87,17 @@ msgstr "Propagovat"
 msgid "Settings"
 msgstr "Nastavení"
 
+msgid "Date from"
+msgstr "Datum od"
+
+msgid "Date to"
+msgstr "Datum do"
+
 msgid "All"
 msgstr "Vše"
+
+msgid "Show"
+msgstr "Zobrazit"
 
 msgid "Date"
 msgstr "Datum"
@@ -166,7 +175,7 @@ msgstr[3] ""
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
-msgstr "Nemáte oprávnění kopírovat stránku \"%(page_title)s\""
+msgstr "Nemáte oprávnění kopírovat do stránky \"%(page_title)s\""
 
 #, python-format
 msgid ""
@@ -200,6 +209,9 @@ msgstr "Toto pole je povinné."
 
 msgid "Please select at least one group."
 msgstr "Zvolte prosím alespoň jednu skupinu."
+
+msgid "All types"
+msgstr "Všechny typy"
 
 msgid "Arabic"
 msgstr "Arabic"
@@ -797,6 +809,15 @@ msgstr[3] ""
 "\">vytvořených v %(site_name)s</span>\n"
 "        "
 
+msgid "Task"
+msgstr "Úkol"
+
+msgid "Task started"
+msgstr "Úkol spuštěn"
+
+msgid "Tasks"
+msgstr "Úkoly"
+
 msgid "Sign in"
 msgstr "Přihlásit se"
 
@@ -1010,6 +1031,9 @@ msgstr "Ano, zrušit publikaci"
 msgid "No, don't unpublish"
 msgstr "Ne, nerušit publikaci"
 
+msgid "Publish page"
+msgstr "Publikovat stránku"
+
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Stránky, které používají %(page_class_verbose_name)s"
@@ -1220,6 +1244,9 @@ msgstr "Porovnání %(title)s"
 msgid "Comparing"
 msgstr "Porovnání"
 
+msgid "Page history"
+msgstr "Historie stránky"
+
 msgid "Fields"
 msgstr "Pole"
 
@@ -1344,6 +1371,15 @@ msgstr "Zadejte hledaný výraz"
 msgid "No pages use"
 msgstr "Žádné stránky typu"
 
+msgid "Timeline"
+msgstr "Časová osa"
+
+msgid "Initial Revision"
+msgstr "První revize"
+
+msgid "Edit page"
+msgstr "Upravit stránku"
+
 msgid "Collection"
 msgstr "Kolekce"
 
@@ -1355,6 +1391,12 @@ msgstr "Stáhnout XLSX"
 
 msgid "Download CSV"
 msgstr "Stáhnout CSV"
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "Apply filters"
+msgstr "Použít filtry"
 
 msgid "No pages found."
 msgstr "Nebyla nalezena žádná stránka."
@@ -1431,6 +1473,12 @@ msgstr "Aktuální stav stránky:"
 msgid "Other searches"
 msgstr "Další hledání"
 
+msgid "Published"
+msgstr "Publikováno"
+
+msgid "Draft saved"
+msgstr "Koncept uložen"
+
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
 "software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
@@ -1457,6 +1505,9 @@ msgstr ""
 "Javascript ve vašem prohlížeči</a>.\n"
 "        "
 
+msgid "Skip to main content"
+msgstr "Přeskočit na hlavní obsah"
+
 msgid "Go to Wagtail admin interface"
 msgstr "Přejít do redakčního systému"
 
@@ -1465,6 +1516,27 @@ msgstr "Přidat podstránku"
 
 msgid "Show in Explorer"
 msgstr "Zobrazit v exploreru"
+
+msgid "Creating…"
+msgstr "Vytváření..."
+
+msgid "Create"
+msgstr "Vytvořit"
+
+msgid "Assigned pages"
+msgstr "Přiřazené stránky"
+
+msgid "Assign to another page"
+msgstr "Přiřadit k jiné stránce"
+
+msgid "Choose a task"
+msgstr "Vybrat úlohu"
+
+msgid "Existing"
+msgstr "Existující"
+
+msgid "Task type"
+msgstr "Typ úlohy"
 
 #, python-format
 msgid "by %(modified_by)s"
@@ -1486,6 +1558,12 @@ msgid ""
 "descending order."
 msgstr ""
 "Seřadit podstránky z '%(parent)s' podle '%(label)s' v sestupném pořadí."
+
+msgid "0 minutes"
+msgstr "0 minut"
+
+msgid "Just now"
+msgstr "Právě teď"
 
 msgid "Test"
 msgstr "Test"
