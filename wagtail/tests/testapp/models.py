@@ -27,6 +27,7 @@ from wagtail.admin.mail import send_mail
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
+from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
@@ -461,6 +462,13 @@ class FormPage(AbstractEmailForm):
         context = super().get_context(request)
         context['greeting'] = "hello world"
         return context
+
+    # This is redundant (SubmissionsListView is the default view class), but importing
+    # SubmissionsListView in this models.py helps us to confirm that this recipe
+    # https://docs.wagtail.io/en/stable/reference/contrib/forms/customisation.html#customise-form-submissions-listing-in-wagtail-admin
+    # works without triggering circular dependency issues -
+    # see https://github.com/wagtail/wagtail/issues/6265
+    submissions_list_view_class = SubmissionsListView
 
 
 FormPage.content_panels = [

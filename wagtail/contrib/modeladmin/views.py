@@ -24,7 +24,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
-from wagtail.admin.views.reports import SpreadsheetExportMixin
+from wagtail.admin.views.mixins import SpreadsheetExportMixin
 
 from .forms import ParentChooserForm
 
