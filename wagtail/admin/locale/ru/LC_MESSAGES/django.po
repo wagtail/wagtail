@@ -31,7 +31,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 18:34+0000\n"
+"PO-Revision-Date: 2020-07-31 17:25+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -48,6 +48,18 @@ msgstr "Опубликовать"
 
 msgid "Submit for moderation"
 msgstr "Отправить на модерацию"
+
+msgid "Resubmit to {}"
+msgstr "Обновить {}"
+
+msgid "Submit to {}"
+msgstr "Отправить в {}"
+
+msgid "Restart workflow "
+msgstr "Перезапустить рабочий процесс"
+
+msgid "Cancel workflow "
+msgstr "Отменить рабочий процесс"
 
 msgid "Unpublish"
 msgstr "Отменить публикацию"
@@ -104,8 +116,29 @@ msgstr "Продвижение"
 msgid "Settings"
 msgstr "Настройки"
 
+msgid "Date from"
+msgstr "С"
+
+msgid "Date to"
+msgstr "До"
+
 msgid "All"
 msgstr "Все"
+
+msgid "Started at"
+msgstr "Запущен в"
+
+msgid "Show"
+msgstr "Показать"
+
+msgid "Awaiting my review"
+msgstr "В ожидании моего отзыва"
+
+msgid "Completed at"
+msgstr "Завершен в"
+
+msgid "Workflow"
+msgstr "Рабочий процесс"
 
 msgid "Date"
 msgstr "Дата"
@@ -223,6 +256,9 @@ msgstr "Требуется заполнить это поле."
 
 msgid "Please select at least one group."
 msgstr "Пожалуйста, выберите хотя бы одну группу."
+
+msgid "All types"
+msgstr "Все типы"
 
 msgid "Arabic"
 msgstr "Арабский"
@@ -758,6 +794,10 @@ msgstr "Черновик"
 msgid "Live"
 msgstr "Опубликовано"
 
+#, python-format
+msgid "%(time_period)s"
+msgstr "%(time_period)s"
+
 msgid "Pages awaiting moderation"
 msgstr "Страницы ожидающие модерации"
 
@@ -823,8 +863,26 @@ msgstr[3] ""
 "\">создано в %(site_name)s</span>\n"
 "        "
 
+msgid "Your pages in a workflow"
+msgstr "Ваши страницы в рабочем процессе"
+
 msgid "Task"
 msgstr "Задача"
+
+msgid "Task started"
+msgstr "Задача запущена"
+
+msgid "Changes requested at"
+msgstr "Изменения запрошены в"
+
+msgid "Awaiting"
+msgstr "В ожидании"
+
+msgid "Awaiting your review"
+msgstr "В ожидании вашего отзыва"
+
+msgid "Tasks"
+msgstr "Задачи"
 
 msgid "Sign in"
 msgstr "Войти"
@@ -1863,15 +1921,63 @@ msgstr "Разблокировано"
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Перемещен из '%(old_parent)s' в '%(new_parent)s'"
 
+msgid "Added view restriction"
+msgstr "Добавленно ограничение просмотра"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Обновлены ограничение просмотра в '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Обновлены ограничение просмотра"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "Удалено '%(restriction)s' запрет просмотра"
 
+msgid "Removed view restriction"
+msgstr "Удалено ограничение просмотра"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Переименован из '%(old)s' в '%(new)s'"
+
+msgid "Renamed"
+msgstr "Переименован"
+
 msgid "Rename"
 msgstr "Переименовать"
 
+msgid "Revert"
+msgstr "Вернуть назад"
+
+msgid "Schedule publication"
+msgstr "Запланированная публикация"
+
+msgid "Unschedule publication"
+msgstr "Внеплановая публикация "
+
+msgid "Add view restrictions"
+msgstr "Добавить ограничение просмотра"
+
+msgid "Update view restrictions"
+msgstr "Обновить ограничения просмотра"
+
+msgid "Remove view restrictions"
+msgstr "Убрать ограничения просмотра"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Отменен '%(workflow)s' в '%(task)s'"
+
 msgid "Workflow: cancel"
 msgstr "Рабочий процесс: отменен"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
 
 msgid "Choose an item"
 msgstr "Выбрать элемент"
@@ -1887,3 +1993,9 @@ msgstr "Редактировать этот элемент"
 
 msgid "Choose another page"
 msgstr "Выбрать другую страницу"
+
+msgid "Choose another task"
+msgstr "Выбрать другую задачу"
+
+msgid "Edit this task"
+msgstr "Редактировать эту задачу"

@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2016-2017
+# Roger Pons <rogerpons@gmail.com>, 2016-2017,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-07-29 09:30+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -69,6 +69,9 @@ msgstr "lloc"
 
 msgid "sites"
 msgstr "llocs"
+
+msgid "default"
+msgstr "per defecte"
 
 #, python-format
 msgid ""
@@ -244,6 +247,15 @@ msgstr "Privada, accessible a usuaris de grups específics"
 msgid "password"
 msgstr "contrasenya"
 
+msgid "groups"
+msgstr "grups"
+
+msgid "view restriction"
+msgstr "restricció de visualització"
+
+msgid "view restrictions"
+msgstr "restriccions de visualització"
+
 msgid "page view restriction"
 msgstr "restrició de visualització de pàgina"
 
@@ -264,6 +276,39 @@ msgstr "permís"
 
 msgid "group collection permission"
 msgstr "permís de col·lecció de grups"
+
+msgid "workflow page"
+msgstr "pàgina de fluxe de treball"
+
+msgid "workflow pages"
+msgstr "pàgines de fluxes de treball"
+
+msgid "task"
+msgstr "tasca"
+
+msgid "tasks"
+msgstr "tasques"
+
+msgid "workflows"
+msgstr "fluxes de treball"
+
+msgid "Approve"
+msgstr "Aprovar"
+
+msgid "status"
+msgstr "estat"
+
+msgid "Not started"
+msgstr "No iniciat"
+
+msgid "Rejected"
+msgstr "Rebutjat"
+
+msgid "Task state"
+msgstr "Estat de la tasca"
+
+msgid "Task states"
+msgstr "Estat de les tasques"
 
 msgid "Log in"
 msgstr "Iniciar sessió"

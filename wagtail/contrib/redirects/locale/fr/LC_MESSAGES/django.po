@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 17:48+0100\n"
-"PO-Revision-Date: 2020-07-27 07:24+0000\n"
+"PO-Revision-Date: 2020-07-28 14:09+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -39,12 +39,18 @@ msgstr "Tous les sites"
 msgid "A redirect with this path already exists."
 msgstr "Une redirection avec ce chemin existe déjà."
 
+msgid "File to import"
+msgstr "Fichier à importer"
+
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Formats supportés : %(supported_formats)s."
 
 msgid "From field"
-msgstr "Champ de formulaire"
+msgstr "Champ source"
+
+msgid "To field"
+msgstr "Champ destination"
 
 msgid "redirect from"
 msgstr "redirige depuis"
@@ -60,7 +66,7 @@ msgid ""
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "Recommandé. Les redirections permanentes vous assurent que les moteurs de "
-"recherche oublies la vieille page (la \"Redirection depuis\") et indexe la "
+"recherche oublies la vieille page (la « Redirection depuis ») et indexe la "
 "nouvelle à la place."
 
 msgid "redirect to a page"
@@ -83,6 +89,26 @@ msgstr "Enregistrer"
 
 msgid "Redirects"
 msgstr "Redirections"
+
+msgid "Import redirects"
+msgstr "Importer des redirections"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>Selectionnez un ficher dans lequel chaque ligne représente une "
+"redirection et où chaque ligne est composé de deux colonnes représentant la "
+"<code>source</code> et <code>destination</code> (le nom des colonnes est "
+"libre).</p>\n"
+"<p>Après soumission du formulaire, vous pourrez personnaliser les "
+"redirections lors de l'étape de confirmation.</p>"
 
 msgid "Import"
 msgstr "Importer"
@@ -124,6 +150,12 @@ msgstr "Supprimer la redirection"
 
 msgid "Summary"
 msgstr "Sommaire"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"%(total)s redirections trouvées, %(successes)s créées et %(errors)s erreurs."
 
 msgid "From"
 msgstr "Depuis"
@@ -173,7 +205,7 @@ msgid ""
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 "Aucune redirection n'a été créée. Pourquoi ne pas <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">en ajouter une</a> ?"
+"\"%(wagtailredirects_add_redirect_url)s\">en ajouter une</a> ?"
 
 msgid "Search redirects"
 msgstr "Rechercher une redirection"
@@ -195,3 +227,20 @@ msgstr "Rediredtion '{0}' ajoutée."
 
 msgid "The redirect could not be created due to errors."
 msgstr "La redirection ne peut être créée du fait d'erreurs."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "Le format de fichier « {} » n'est pas supporté"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "L'encodage du fichier importé est incorrect : %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s erreurs lors de la lecture du fichier : %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "%(total)d redirection importée"
+msgstr[1] "%(total)d redirections importées"

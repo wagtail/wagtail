@@ -6,6 +6,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2020
 # Loic Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 17:49+0100\n"
-"PO-Revision-Date: 2018-12-27 14:51+0000\n"
-"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
+"PO-Revision-Date: 2020-07-28 08:34+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +39,7 @@ msgid "Please enter a valid URL"
 msgstr "Entrez une URL valide"
 
 msgid "embed"
-msgstr "intègration"
+msgstr "intégration"
 
 msgid "embeds"
 msgstr "intégrations"

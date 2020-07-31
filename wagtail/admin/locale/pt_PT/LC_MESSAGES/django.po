@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-26 18:33+0000\n"
+"PO-Revision-Date: 2020-07-27 18:11+0000\n"
 "Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -772,6 +772,10 @@ msgstr "Rascunho"
 msgid "Live"
 msgstr "Publicada"
 
+#, python-format
+msgid "%(time_period)s"
+msgstr "%(time_period)s"
+
 msgid "Pages awaiting moderation"
 msgstr "Páginas a aguardar moderação"
 
@@ -928,6 +932,77 @@ msgstr ""
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
 msgstr "A página \"%(title)s\" foi rejeitada devido a \"%(task)s\"."
 
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"A página \"%(title)s\" foi submetida para aprovação no estado de moderação "
+"\"%(task)s\" ."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"A página \"%(title)s\" foi submetida para aprovação para estado de moderação "
+"\"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\" "
+msgstr ""
+"A página \"%(title)s\" foi submetida para aprovação no estado de moderação "
+"\"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr ""
+"A página \"%(title)s\" foi aprovada no fluxo de trabalho \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "A página \"%(title)s\" foi aprovada no \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"A página \"%(title)s\" foi rejeitada durante \"%(task)s\" no fluxo de "
+"trabalho \"%(workflow)s\" por %(rejector)s."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"A página \"%(title)s\" foi rejeitada durante \"%(task)s\" no fluxo de "
+"trabalho \"%(workflow)s\"."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "O seguinte comentário foi deixado: \"%(comment)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "A página \"%(title)s\" foi rejeitada durante \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"A página \"%(title)s\" foi submetida para moderação no fluxo de trabalho "
+"\"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
+msgstr ""
+"A página \"%(title)s\" foi submetida para o fluxo de trabalho \"%(workflow)s"
+"\""
+
 msgid "Page privacy"
 msgstr "Privacidade da página"
 
@@ -946,6 +1021,9 @@ msgid "This page is live but only available to certain users"
 msgstr ""
 "Esta página está ao vivo, no entanto apenas alguns utilizadores têm acesso à "
 "mesma"
+
+msgid "restricted"
+msgstr "restrito"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Definir a privacidade da página. Estado atual: Público"
@@ -1089,6 +1167,30 @@ msgstr "Não. Não despublicar"
 
 msgid "Publish page"
 msgstr "Publicar página"
+
+#, python-format
+msgid ""
+"\n"
+"            This page was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"            Esta página foi sinalizada e necessita alterações na tarefa "
+"<strong>%(task)s</strong> do fluxo <strong>%(workflow)s</strong>.\n"
+"        "
+
+#, python-format
+msgid ""
+"\n"
+"            This page is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"            A página encontra-se atualmente na tarefa <strong>%(task)s</"
+"strong> do fluxo de trabalho <strong>%(workflow)s</strong>.\n"
+"        "
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Publicar esta página vai cancelar o fluxo de trabalho atual."
@@ -1711,6 +1813,9 @@ msgstr ""
 "JavaScript no seu browser.\n"
 "        "
 
+msgid "Skip to main content"
+msgstr "Passar à frente para o conteúdo principal"
+
 msgid "Go to Wagtail admin interface"
 msgstr "Ir para a interface de administração do Wagtail"
 
@@ -2047,17 +2152,42 @@ msgstr "Esta página aguarda moderação"
 msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
 msgstr "A página está à espera <b>'{}'</b> no fluxo de trabalho <b>'{}'</b>."
 
+msgid "Only reviewers for this task can edit the page."
+msgstr "Apenas revisores desta tarefa podem editar esta página"
+
 msgid "This page is currently awaiting moderation"
 msgstr "Esta página aguarda moderação"
 
+msgid "Version from {0} of page '{1}' has been scheduled for publishing."
+msgstr ""
+"A atualização da página da versão {0} para a '{1}' foi agendada para "
+"publicação."
+
+msgid "Page '{0}' is live and this version has been scheduled for publishing."
+msgstr ""
+"A página '{0}' está ao vivo e esta versão encontra-se agendada para "
+"publicação."
+
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "A página '{0}' foi agendada para publicação."
+
+msgid "Version from {0} of page '{1}' has been published."
+msgstr "A versão {0} da página '{1}' foi publicada."
 
 msgid "Page '{0}' has been published."
 msgstr "A página '{0}' foi publicada."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "A página '{0}' foi enviada para moderação."
+
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "O fluxo de trabalho na página '{0}' foi cancelado."
+
+msgid "Workflow on page '{0}' has been restarted."
+msgstr "O fluxo de trabalho na página '{0}' foi reiniciado."
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "A página '{0}' foi substituída com a versão de {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "A página '{0}' foi atualizada."
@@ -2105,8 +2235,21 @@ msgstr "Página '{0}' rejeitada para publicação."
 msgid "Failed to send rejection notifications"
 msgstr "Não foi possível enviar as notificações de rejeição"
 
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr ""
+"A página '{0}' não se encontra atualmente em espera para moderação na tarefa "
+"'{1}'."
+
 msgid "Page '{0}' is now unlocked."
 msgstr "A página '{0}' foi destrancada."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Você está a ver a versão anterior da página a<b>%(created_at)s</b> por "
+"%(user)s"
 
 msgid "Earliest"
 msgstr "Primeiros"
@@ -2116,6 +2259,15 @@ msgstr "Últimos"
 
 msgid "revision {0} of \"{1}\""
 msgstr "revisão {0} de \"{1}\""
+
+msgid "Version {0} of \"{1}\" unscheduled."
+msgstr "A versão {0} de \"{1}\" retirada da agenda de publicação."
+
+msgid "Locked pages"
+msgstr "Páginas trancadas"
+
+msgid "Workflows"
+msgstr "Fluxos de trabalho"
 
 msgid "Page ID"
 msgstr "ID da página"
@@ -2168,6 +2320,74 @@ msgstr "Ativar"
 msgid "Disable workflow"
 msgstr "Desativar fluxo de trabalho"
 
+msgid "Workflow '{0}' disabled."
+msgstr "Fluxo de trabalho '{0}' desativado."
+
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page. Disabling this "
+"workflow will cancel moderation on this page."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
+"workflow will cancel moderation on these pages."
+msgstr[0] ""
+"O fluxo de trabalho encontrar-se em progresso na página "
+"%(states_in_progress)d. Desativar este fluxo vai cancelar a moderação nessa "
+"página."
+msgstr[1] ""
+"O fluxo de trabalho encontrar-se em progresso nas páginas "
+"%(states_in_progress)d. Desativar este fluxo vai cancelar a moderação nessas "
+"páginas."
+
+msgid "Workflow '{0}' enabled."
+msgstr "Fluxo de trabalho '{0}' ativado."
+
+msgid "Workflow removed from Page '{0}'."
+msgstr "Fluxo de trabalho removido da Página '{0}'."
+
+msgid "New workflow task"
+msgstr "Nova tarefa para o fluxo de trabalho"
+
+msgid "Task '{0}' created."
+msgstr "Tarefa '{0}' criada."
+
+msgid "Editing workflow task"
+msgstr "A editar a tarefa do fluxo de trabalho"
+
+msgid "Task '{0}' updated."
+msgstr "Tarefa '{0}' atualizada."
+
+msgid "Editing {task_type}"
+msgstr "A editar {task_type}"
+
+msgid "Disable task"
+msgstr "Desativar tarefa"
+
+msgid "Task '{0}' disabled."
+msgstr "Tarefa '{0}' desativada."
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow."
+msgstr[0] ""
+"Esta tarefa encontra-se em progresso em %(states_in_progress)d página. "
+"Desativar a mesma irá fazer com que seja ignorada na moderação do fluxo de "
+"trabalho"
+msgstr[1] ""
+"Esta tarefa encontra-se em progresso em %(states_in_progress)d páginas. "
+"Desativar a mesma irá fazer com que seja ignorada na moderação do fluxo de "
+"trabalho"
+
+msgid "Task '{0}' enabled."
+msgstr "Tarefa '{0}' ativada."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Informe o seu webmaster com a seguinte informação do erro:"
+
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Editar '%(title)s'"
@@ -2206,6 +2426,10 @@ msgstr "Eliminar página '%(title)s'"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Retirar da publicação a página '%(title)s'"
+
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "Ver histórico da página para '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Definir foto de perfil"
@@ -2283,12 +2507,190 @@ msgstr "Criado"
 msgid "Deleted"
 msgstr "Eliminado"
 
+msgid "Publish scheduled draft"
+msgstr "Publicar rascunho agendado"
+
+msgid "Published scheduled draft"
+msgstr "Rascunho agendado publicado"
+
+msgid "Unpublished"
+msgstr "Retirar de publicação"
+
+msgid "Unpublish scheduled draft"
+msgstr "Retirar de publicação o rascunho agendado"
+
+msgid "Unpublished scheduled draft"
+msgstr "Rascunho agendado para publicação retirado"
+
+msgid "Unlocked"
+msgstr "Destrancar"
+
+msgid "Approved"
+msgstr "Aprovado"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Reverter para a versão anterior com id %(revision_id)s de %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Voltar para a versão anterior"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Copiado de %(title)s"
+
+msgid "Copied"
+msgstr "Copiado"
+
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Movido de '%(old_parent)s' para '%(new_parent)s'"
 
+msgid "Moved"
+msgstr "Movido"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisão %(revision_id)s por %(created_at)s agendado para publicação a "
+"%(go_live_at)s"
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Página agendada para publicação a %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Página agendada para publicação"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisão %(revision_id)s de %(created_at)s retiradada do agendamento de "
+"publicação a %(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Página retirada de agenda de publicação a %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Página retirada da agenda de publicação"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Adicionada uma restrição de visualização para '%(restriction)s'"
+
+msgid "Added view restriction"
+msgstr "Restrição de visualização adicionada"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Atualizada a restrição de visualização para '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Restrição de visualização atualizada"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Removida restrição de visualização '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "Remover restrição de visualização"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Nome alterado de '%(old)s' para '%(new)s'"
+
+msgid "Renamed"
+msgstr "Nome alterado"
+
 msgid "Rename"
 msgstr "Renomear"
+
+msgid "Revert"
+msgstr "Reverter"
+
+msgid "Schedule publication"
+msgstr "Agendar publicação"
+
+msgid "Unschedule publication"
+msgstr "Retirar da agenda a publicação"
+
+msgid "Add view restrictions"
+msgstr "Adicionar restrições de visualização"
+
+msgid "Update view restrictions"
+msgstr "Atualizar restrições de visualização"
+
+msgid "Remove view restrictions"
+msgstr "Remover restrições de visualização"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' iniciado. Próximo passo '%(task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Aprovado '%(task)s'. Próximo passo '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Aprovado a '%(task)s'. Completo '%(workflow)s'"
+
+msgid "Workflow task approved"
+msgstr "Tarefa do fluxo de trabalho aprovada"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Rejeitado '%(task)s'. Alterações requisitadas"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr ""
+"Tarefa do fluxo de trabalho rejeitada. O fluxo de trabalho está completo"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "Submissão repetida '%(task)s'. Fluxo de trabalho resumido'"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr ""
+"Tarefa do fluxo de trabalho submetida novamente. Fluxo de trabalho resumido"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "'%(workflow)s' cancelado devido a '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Fluxo de trabalho cancelado"
+
+msgid "Workflow: start"
+msgstr "Fluxo de trabalho: iniciado"
+
+msgid "Workflow: approve task"
+msgstr "Fluxo de trabalho: aprovar tarefa"
+
+msgid "Workflow: reject task"
+msgstr "Fluxo de trabalho: rejeitar tarefa"
+
+msgid "Workflow: resume task"
+msgstr "Fluxo de trabalho: resumir tarefa"
+
+msgid "Workflow: cancel"
+msgstr "Fluxo de trabalho: cancelar"
+
+msgid "Yes"
+msgstr "Sim"
+
+msgid "No"
+msgstr "Não"
 
 msgid "Choose an item"
 msgstr "Escolher um item"
@@ -2304,3 +2706,9 @@ msgstr "Alterar este item"
 
 msgid "Choose another page"
 msgstr "Escolher outra página"
+
+msgid "Choose another task"
+msgstr "Escolher outra tarefa"
+
+msgid "Edit this task"
+msgstr "Editar esta tarefa"

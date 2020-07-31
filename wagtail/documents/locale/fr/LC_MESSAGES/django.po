@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-24 17:49+0100\n"
-"PO-Revision-Date: 2020-01-26 08:18+0000\n"
+"PO-Revision-Date: 2020-07-31 11:14+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -149,7 +149,7 @@ msgstr "Non, ne pas supprimer"
 
 #, python-format
 msgid "Editing %(title)s"
-msgstr "Édition de %(title)s"
+msgstr "Modification de %(title)s"
 
 msgid "Editing"
 msgstr "Modification"
@@ -291,7 +291,7 @@ msgstr "Erreur du serveur"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr ""
-"Signaler cette erreur à votre webmaster avec les informations suivantes :"
+"Signalez cette erreur à votre webmaster avec les informations suivantes :"
 
 msgid "Search documents"
 msgstr "Rechercher des documents"
