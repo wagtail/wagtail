@@ -115,9 +115,6 @@ class MultiTableCopyMixin:
 
         return copy_instance
 
-    def _save_copy_instance(self, instance, **kwargs):
-        raise NotImplementedError
-
     def _set_m2m_relations(self, instance, specific_m2m_dict, update_attrs=None):
         """Set non-ParentalManyToMany m2m relations"""
         if not update_attrs:
@@ -128,14 +125,14 @@ class MultiTableCopyMixin:
 
         return instance
 
-    def _copy(self, exclude_fields=None, update_attrs=None, commit_child_objects=True, **kwargs):
+    def _copy(self, copy_fn, exclude_fields=None, update_attrs=None, commit_child_objects=True, **kwargs):
         exclude_fields = self.default_exclude_fields_in_copy + self.specific.exclude_fields_in_copy + (exclude_fields or [])
 
         specific_dict, specific_m2m_dict = self._get_field_dictionaries(exclude_fields=exclude_fields)
 
         copy_instance = self._get_copy_instance(specific_dict, specific_m2m_dict, update_attrs=update_attrs)
 
-        copy_instance = self._save_copy_instance(copy_instance, **kwargs)
+        copy_instance = copy_fn(copy_instance, **kwargs)
 
         copy_instance = self._set_m2m_relations(copy_instance, specific_m2m_dict, update_attrs)
 
@@ -1413,7 +1410,17 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         if update_attrs:
             base_update_attrs.update(update_attrs)
 
-        page_copy, child_object_map = self._copy(exclude_fields=exclude_fields, update_attrs=base_update_attrs, to=to, recursive=recursive, commit_child_objects=False)
+        def _save_copy_instance(instance, to=None, recursive=False):
+            # Called from self._copy when it's ready to save an instance
+            if to:
+                if recursive and (to == self or to.is_descendant_of(self)):
+                    raise Exception("You cannot copy a tree branch recursively into itself")
+                instance = to.add_child(instance=instance)
+            else:
+                instance = self.add_sibling(instance=instance)
+            return instance
+
+        page_copy, child_object_map = self._copy(_save_copy_instance, exclude_fields=exclude_fields, update_attrs=base_update_attrs, to=to, recursive=recursive, commit_child_objects=False)
 
         # Save copied child objects and run process_child_object on them if we need to
         for (child_relation, old_pk), child_object in child_object_map.items():
@@ -1515,15 +1522,6 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
                 )
 
         return page_copy
-
-    def _save_copy_instance(self, instance, to=None, recursive=False, **kwargs):
-        if to:
-            if recursive and (to == self or to.is_descendant_of(self)):
-                raise Exception("You cannot copy a tree branch recursively into itself")
-            instance = to.add_child(instance=instance)
-        else:
-            instance = self.add_sibling(instance=instance)
-        return instance
 
     copy.alters_data = True
 
@@ -3604,12 +3602,13 @@ class TaskState(MultiTableCopyMixin, models.Model):
     def copy(self, update_attrs=None, exclude_fields=None):
         """Copy this task state, excluding the attributes in the ``exclude_fields`` list and updating any attributes to values
         specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs"""
+        def _save_copy_instance(instance):
+            # Called from self._copy when it's ready to save an instance
+            instance.save()
+            return instance
+
         copy_instance, _ = self._copy(exclude_fields, update_attrs)
         return copy_instance
-
-    def _save_copy_instance(self, instance, **kwargs):
-        instance.save()
-        return instance
 
     def get_comment(self):
         """
