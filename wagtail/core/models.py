@@ -51,8 +51,6 @@ PAGE_TEMPLATE_VAR = 'page'
 
 
 class CopyMixin:
-    default_exclude_fields_in_copy = ['id']
-
     def _get_field_dictionaries(self, exclude_fields=None):
         """Get dictionaries representing the model: one with all non m2m fields, and one containing the m2m fields"""
         exclude_fields = exclude_fields or []
@@ -125,8 +123,6 @@ class CopyMixin:
         return instance
 
     def _copy(self, copy_fn, exclude_fields=None, update_attrs=None, commit_child_objects=True, **kwargs):
-        exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
-
         data_dict, m2m_dict = self._get_field_dictionaries(exclude_fields=exclude_fields)
 
         copy_instance = self._get_copy_instance(data_dict, m2m_dict, update_attrs=update_attrs)
@@ -1390,7 +1386,7 @@ class Page(CopyMixin, AbstractPage, index.Indexed, ClusterableModel, metaclass=P
         :param log_action flag for logging the action. Pass None to skip logging.
             Can be passed an action string. Defaults to 'wagtail.copy'
         """
-
+        exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
         specific_self = self.specific
         if keep_live:
             base_update_attrs = {}
@@ -3497,6 +3493,7 @@ class TaskState(CopyMixin, models.Model):
         on_delete=models.CASCADE
     )
     exclude_fields_in_copy = []
+    default_exclude_fields_in_copy = ['id']
 
     objects = TaskStateManager()
 
@@ -3601,6 +3598,8 @@ class TaskState(CopyMixin, models.Model):
     def copy(self, update_attrs=None, exclude_fields=None):
         """Copy this task state, excluding the attributes in the ``exclude_fields`` list and updating any attributes to values
         specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs"""
+        exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
+
         def _save_copy_instance(instance):
             # Called from self._copy when it's ready to save an instance
             instance.save()
