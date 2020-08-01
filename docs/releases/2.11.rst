@@ -19,7 +19,7 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
- * ...
+ * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
 
 
 Upgrade considerations
