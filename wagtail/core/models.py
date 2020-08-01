@@ -87,6 +87,8 @@ class MultiTableCopyMixin:
                             continue
                     except AttributeError:
                         pass
+
+                    # TODO: Wouldn't this reassign the objects to the new page rather than copy them?
                     specific_m2m_dict[field.name] = getattr(specific_self, field.name).all()
                 continue
 
@@ -104,9 +106,7 @@ class MultiTableCopyMixin:
         if not update_attrs:
             update_attrs = {}
 
-        specific_class = self.specific.__class__
-
-        copy_instance = specific_class(**specific_dict)
+        copy_instance = self.specific_class(**specific_dict)
 
         if update_attrs:
             for field, value in update_attrs.items():
