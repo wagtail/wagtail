@@ -131,34 +131,18 @@ class MultiTableCopyMixin:
 
     def _copy_child_objects_to_instance(self, instance, exclude_fields=None, process_child_object=None):
         """Copy objects linked to the model by a ParentalKey, and set this to the new revision"""
-
-        # A dict that maps child objects to their new ids
-        # Used to remap child object ids in revisions
-        child_object_id_map = defaultdict(dict)
-        exclude_fields = exclude_fields or []
         specific_self = self.specific
-        for child_relation in get_all_child_relations(specific_self):
-            accessor_name = child_relation.get_accessor_name()
 
-            if accessor_name in exclude_fields:
-                continue
+        child_object_map = specific_self.copy_all_child_relations(instance, exclude=exclude_fields)
 
-            parental_key_name = child_relation.field.attname
-            child_objects = getattr(specific_self, accessor_name, None)
+        # Save copied child objects and run process_child_object on them if we need to
+        child_object_id_map = defaultdict(dict)
+        for (child_relation, old_pk), child_object in child_object_map.items():
+            if process_child_object:
+                process_child_object(specific_self, instance, child_relation, child_object)
 
-            if child_objects:
-                for child_object in child_objects.all():
-                    old_pk = child_object.pk
-                    child_object.pk = None
-                    setattr(child_object, parental_key_name, instance.id)
-
-                    if process_child_object is not None:
-                        process_child_object(specific_self, instance, child_relation, child_object)
-
-                    child_object.save()
-
-                    # Add mapping to new primary key (so we can apply this change to revisions)
-                    child_object_id_map[accessor_name][old_pk] = child_object.pk
+            child_object.save()
+            child_object_id_map[child_relation.get_accessor_name()][old_pk] = child_object.pk
 
         return child_object_id_map
 
