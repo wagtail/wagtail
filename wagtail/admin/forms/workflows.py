@@ -1,8 +1,8 @@
 from django import forms
 from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy as __
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as __
 
 from wagtail.admin import widgets
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, ObjectList
