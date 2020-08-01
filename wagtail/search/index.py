@@ -154,8 +154,18 @@ def insert_or_update_object(instance):
             try:
                 backend.add(indexed_instance)
             except Exception:
-                # Catch and log all errors
+                # Log all errors
                 logger.exception("Exception raised while adding %r into the '%s' search backend", indexed_instance, backend_name)
+
+                # Catch exceptions for backends that use an external service like Elasticsearch
+                # This is to prevent data loss if that external service was to go down and the user's
+                # save request was to fail.
+                # But note that we don't want this for database backends though as an error during a
+                # database transaction will require the transaction to be rolled back anyway. So If
+                # we caught the error here, the request will only crash again when the next database
+                # query is made but then the error message wouldn't be very informative.
+                if not backend.catch_indexing_errors:
+                    raise
 
 
 def remove_object(instance):
@@ -166,8 +176,13 @@ def remove_object(instance):
             try:
                 backend.delete(indexed_instance)
             except Exception:
-                # Catch and log all errors
+                # Log all errors
                 logger.exception("Exception raised while deleting %r from the '%s' search backend", indexed_instance, backend_name)
+
+                # Only catch the exception if the backend requires this
+                # See the comments in insert_or_update_object for an explanation
+                if not backend.catch_indexing_errors:
+                    raise
 
 
 class BaseField:

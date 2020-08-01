@@ -10,6 +10,7 @@ class Author(index.Indexed, models.Model):
 
     search_fields = [
         index.SearchField('name'),
+        index.AutocompleteField('name'),
         index.FilterField('date_of_birth'),
     ]
 

@@ -1,5 +1,7 @@
 import itertools
 import json
+import warnings
+from datetime import datetime
 
 from urllib.parse import urljoin
 
@@ -11,21 +13,25 @@ from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
-from django.utils.html import format_html, format_html_join
+from django.utils import timezone
+from django.utils.html import avoid_wrapping, format_html, format_html_join
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.timesince import timesince
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_js_translation_strings
+from wagtail.admin.log_action_registry import registry as log_action_registry
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
 from wagtail.core.models import (
-    CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
+    CollectionViewRestriction, Page, PageLogEntry, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
-from wagtail.core.utils import camelcase_to_underscore, escape_script
+from wagtail.core.utils import accepts_kwarg, camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
+from wagtail.utils.deprecation import RemovedInWagtail212Warning
 
 register = template.Library()
 
@@ -427,10 +433,22 @@ def paginate(context, page, base_url='', page_key='p',
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
                         takes_context=True)
 def page_listing_buttons(context, page, page_perms, is_parent=False):
+    next_url = context.request.path
     button_hooks = hooks.get_hooks('register_page_listing_buttons')
-    buttons = sorted(itertools.chain.from_iterable(
-        hook(page, page_perms, is_parent)
-        for hook in button_hooks))
+
+    buttons = []
+    for hook in button_hooks:
+        if accepts_kwarg(hook, 'next_url'):
+            buttons.extend(hook(page, page_perms, is_parent, next_url))
+        else:
+            warnings.warn(
+                'register_page_listing_buttons hooks will require an additional kwarg `next_url` in a future release. '
+                'Please update your hook function to accept `next_url`.',
+                RemovedInWagtail212Warning
+            )
+            buttons.extend(hook(page, page_perms, is_parent))
+
+    buttons.sort()
 
     for hook in hooks.get_hooks('construct_page_listing_buttons'):
         hook(buttons, page, page_perms, is_parent, context)
@@ -501,3 +519,76 @@ def versioned_static(path):
     that updates on each Wagtail version
     """
     return versioned_static_func(path)
+
+
+@register.inclusion_tag("wagtailadmin/shared/icon.html", takes_context=False)
+def icon(name=None, class_name='icon', title=None, wrapped=False):
+    """
+    Abstracts away the actual icon implementation.
+
+    Usage:
+        {% load wagtailadmin_tags %}
+        ...
+        {% icon name="cogs" class_name="icon--red" title="Settings" %}
+
+    :param name: the icon name/id, required (string)
+    :param class_name: default 'icon' (string)
+    :param title: accessible label intended for screen readers (string)
+    :return: Rendered template snippet (string)
+    """
+    if not name:
+        raise ValueError("You must supply an icon name")
+
+    return {
+        'name': name,
+        'class_name': class_name,
+        'title': title,
+        'wrapped': wrapped
+    }
+
+
+@register.inclusion_tag("wagtailadmin/shared/icons.html")
+def icons():
+    icon_hooks = hooks.get_hooks('register_icons')
+    icons = sorted(itertools.chain.from_iterable(hook([]) for hook in icon_hooks))
+    return {'icons': icons}
+
+
+@register.filter()
+def timesince_simple(d):
+    """
+    Returns a simplified timesince:
+    19 hours, 48 minutes ago -> 19 hours ago
+    1 week, 1 day ago -> 1 week ago
+    0 minutes ago -> just now
+    """
+    time_period = timesince(d).split(',')[0]
+    if time_period == avoid_wrapping(_('0 minutes')):
+        return _("Just now")
+    return _("%(time_period)s ago" % {'time_period': time_period})
+
+
+@register.simple_tag
+def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
+    """
+    Returns:
+         - the time of update if last_update is today, if any prefix is supplied, the output will use it
+         - time since last update othewise. Defaults to the simplified timesince,
+           but can return the full string if needed
+    """
+    if last_update.date() == datetime.today().date():
+        time_str = timezone.localtime(last_update).strftime("%H:%M")
+        return time_str if not time_prefix else '%(prefix)s %(formatted_time)s' % {
+            'prefix': time_prefix, 'formatted_time': time_str
+        }
+    else:
+        if use_shorthand:
+            return timesince_simple(last_update)
+        return _("%(time_period)s ago" % {'time_period': timesince(last_update)})
+
+
+@register.filter
+def format_action_log_message(log_entry):
+    if not isinstance(log_entry, PageLogEntry):
+        return ''
+    return log_action_registry.format_message(log_entry)

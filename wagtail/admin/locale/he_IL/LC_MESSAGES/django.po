@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -46,6 +46,9 @@ msgstr "אין לך הרשאות גישה לממשק הניהול"
 msgid "Scheduled publishing"
 msgstr "פרסום מתוזמן"
 
+msgid "Privacy"
+msgstr "פרטיות"
+
 msgid "Common page configuration"
 msgstr "הגדרת עמוד בסיסית"
 
@@ -57,6 +60,12 @@ msgstr "קידום"
 
 msgid "Settings"
 msgstr "הגדרות"
+
+msgid "Date"
+msgstr "תאריך"
+
+msgid "Title"
+msgstr "כותרת"
 
 msgid "Enter password"
 msgstr "הזינו סיסמה"
@@ -141,6 +150,9 @@ msgstr "ערך לחיפוש"
 
 msgid "This field is required."
 msgstr "שדה חובה"
+
+msgid "Edit"
+msgstr "עריכה"
 
 msgid "January"
 msgstr "ינואר"
@@ -281,9 +293,6 @@ msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
 msgid "Save"
 msgstr "שמור"
 
-msgid "Privacy"
-msgstr "פרטיות"
-
 msgid "Public"
 msgstr "ציבורי"
 
@@ -309,14 +318,8 @@ msgid ""
 "created will be displayed."
 msgstr "זהו לוח המחוונים, על גביו יופיע מידע מועיל לגבי תוכן שתצרו"
 
-msgid "Title"
-msgstr "כותרת"
-
 msgid "Edit this page"
 msgstr "ערכו עמוד זה"
-
-msgid "Edit"
-msgstr "עריכה"
 
 msgid "Draft"
 msgstr "טיוטה"
@@ -348,9 +351,6 @@ msgstr "תצוגה מקדימה"
 msgid "Your most recent edits"
 msgstr "עריכות אחרונות"
 
-msgid "Date"
-msgstr "תאריך"
-
 msgid "Status"
 msgstr "מצב"
 
@@ -367,11 +367,11 @@ msgstr "%(username_field)s שלכם והסיסמה לא תאמו. אנא נסו 
 msgid "Sign in to Wagtail"
 msgstr "התחברות לWagtail"
 
-msgid "Forgotten it?"
-msgstr "שכחתם את זה?"
-
 msgid "Signing in…"
 msgstr "מתחבר..."
+
+msgid "Forgotten it?"
+msgstr "שכחתם את זה?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -519,18 +519,6 @@ msgid "Editing %(page_type)s: %(title)s"
 msgstr "עריכת %(page_type)s: %(title)s"
 
 #, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "עריכת %(page_type)s <span>%(title)s</span>"
-
-#, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "שינוי אחרון: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "מאת %(modified_by)s"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "מסייר ב%(title)s"
 
@@ -584,10 +572,6 @@ msgstr "בחירת עמוד הורה חדש עבור %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "בחירת עמוד הורה חדש עבור <span>%(title)s</span>"
 
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "מצערים, לא נמצאו עמודים שתואמים <em>\"%(query_string)s\"</em>"
-
 msgid "Enter a search term above"
 msgstr "הכנס מונח לחיפוש"
 
@@ -619,6 +603,10 @@ msgstr "כניסה למערך המנהל של Wagtail "
 msgid "Add a child page"
 msgstr "הוספת תת-עמוד"
 
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "מאת %(modified_by)s"
+
 msgid "Your password has been changed successfully!"
 msgstr "סיסמתכם שונתה בהצלחה!"
 
@@ -628,11 +616,11 @@ msgstr "תצוגה בחי"
 msgid "Page '{0}' created and published."
 msgstr "עמוד {0} נוצר ופורסם"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "עמוד {0} נוצר והוזן לעריכה"
-
 msgid "View draft"
 msgstr "הצג טיוטה"
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "עמוד {0} נוצר והוזן לעריכה"
 
 msgid "Page '{0}' created."
 msgstr "עמוד {0} נוצר"
@@ -640,14 +628,14 @@ msgstr "עמוד {0} נוצר"
 msgid "The page could not be created due to validation errors"
 msgstr "העמוד לא יכל להיווצר עקב שגיאות אישור "
 
+msgid "This page is currently awaiting moderation"
+msgstr "העמוד ממתין לעריכה"
+
 msgid "The page could not be saved as it is locked"
 msgstr "העמוד לא ניתן לשמירה מכיוון שהוא נעול "
 
 msgid "The page could not be saved due to validation errors"
 msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
-
-msgid "This page is currently awaiting moderation"
-msgstr "העמוד ממתין לעריכה"
 
 msgid "Page '{0}' deleted."
 msgstr "עמוד {0} נמחק"

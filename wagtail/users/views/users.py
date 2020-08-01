@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.contrib.auth.models import Group
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
+from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
@@ -44,9 +46,15 @@ def get_user_edit_form():
 
 @any_permission_required(add_user_perm, change_user_perm, delete_user_perm)
 @vary_on_headers('X-Requested-With')
-def index(request):
+def index(request, *args):
     q = None
     is_searching = False
+
+    group = None
+    group_filter = Q()
+    if args:
+        group = get_object_or_404(Group, id=args[0])
+        group_filter = Q(groups=group) if args else Q()
 
     model_fields = [f.name for f in User._meta.get_fields()]
 
@@ -70,12 +78,12 @@ def index(request):
                 if 'email' in model_fields:
                     conditions |= Q(email__icontains=term)
 
-            users = User.objects.filter(conditions)
+            users = User.objects.filter(group_filter & conditions)
     else:
         form = SearchForm(placeholder=_("Search users"))
 
     if not is_searching:
-        users = User.objects.all()
+        users = User.objects.filter(group_filter)
 
     if 'last_name' in model_fields and 'first_name' in model_fields:
         users = users.order_by('last_name', 'first_name')
@@ -92,14 +100,15 @@ def index(request):
     users = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():
-        return render(request, "wagtailusers/users/results.html", {
+        return TemplateResponse(request, "wagtailusers/users/results.html", {
             'users': users,
             'is_searching': is_searching,
             'query_string': q,
             'ordering': ordering,
         })
     else:
-        return render(request, "wagtailusers/users/index.html", {
+        return TemplateResponse(request, "wagtailusers/users/index.html", {
+            'group': group,
             'search_form': form,
             'users': users,
             'is_searching': is_searching,
@@ -131,7 +140,7 @@ def create(request):
     else:
         form = get_user_creation_form()()
 
-    return render(request, 'wagtailusers/users/create.html', {
+    return TemplateResponse(request, 'wagtailusers/users/create.html', {
         'form': form,
     })
 
@@ -168,7 +177,7 @@ def edit(request, user_id):
     else:
         form = get_user_edit_form()(instance=user, editing_self=editing_self)
 
-    return render(request, 'wagtailusers/users/edit.html', {
+    return TemplateResponse(request, 'wagtailusers/users/edit.html', {
         'user': user,
         'form': form,
         'can_delete': can_delete,
@@ -195,6 +204,6 @@ def delete(request, user_id):
                 return result
         return redirect('wagtailusers_users:index')
 
-    return render(request, "wagtailusers/users/confirm_delete.html", {
+    return TemplateResponse(request, "wagtailusers/users/confirm_delete.html", {
         'user': user,
     })

@@ -5,6 +5,7 @@ from django.test import TestCase
 
 from wagtail.core.models import Page
 from wagtail.search.backends import get_search_backend
+from wagtail.search.backends.base import BaseSearchQueryCompiler, BaseSearchResults
 
 
 class PageSearchTests:
@@ -47,3 +48,13 @@ class PageSearchTests:
 for backend_name in settings.WAGTAILSEARCH_BACKENDS.keys():
     test_name = str("Test%sBackend" % backend_name.title())
     globals()[test_name] = type(test_name, (PageSearchTests, TestCase,), {'backend_name': backend_name})
+
+
+class TestBaseSearchResults(TestCase):
+
+    def test_get_item_no_results(self):
+        # Ensure that, if there are no results, we do not attempt to get the entire search index.
+        base_search_results = BaseSearchResults("BackendIrrelevant", BaseSearchQueryCompiler)
+        obj = base_search_results[0:0]
+        self.assertEqual(obj.start, 0)
+        self.assertEqual(obj.stop, 0)

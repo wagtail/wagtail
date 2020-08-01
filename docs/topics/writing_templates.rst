@@ -38,6 +38,8 @@ Page content
 
 The data/content entered into each page is accessed/output through Django's ``{{ double-brace }}`` notation. Each field from the model must be accessed by prefixing ``page.``. e.g the page title ``{{ page.title }}`` or another field ``{{ page.author }}``.
 
+A custom variable name can be :attr:`configured on the page model <wagtail.core.models.Page.context_object_name>`. If a custom name is defined, ``page`` is still available for use in shared templates.
+
 Additionally ``request.`` is available and contains Django's request object.
 
 Static assets
@@ -149,11 +151,6 @@ By default, Wagtail includes embeds and images at their full width, which may ov
     }
 
 
-.. versionchanged:: 2.8
-
-  The ``WAGTAILEMBEDS_RESPONSIVE_HTML`` setting was added. Previous versions always added the class and style attributes.
-
-
 Internal links (tag)
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -234,16 +231,14 @@ Returns the Site object corresponding to the current request.
 
     {% wagtail_site as current_site %}
 
-.. versionadded:: 2.9
-
-  In previous versions, the recommended way to refer to the current site was through the ``request.site`` attribute provided by :class:`~wagtail.core.middleware.SiteMiddleware`; this is now deprecated.
-
 .. _wagtailuserbar_tag:
 
 Wagtail User Bar
 ================
 
 This tag provides a contextual flyout menu for logged-in users. The menu gives editors the ability to edit the current page or add a child page, besides the options to show the page in the Wagtail page explorer or jump to the Wagtail admin dashboard. Moderators are also given the ability to accept or reject a page being previewed as part of content moderation.
+
+This tag may be used on regular Django views, without page object. The user bar will contain one item pointing to the admin.
 
 .. code-block:: html+django
 

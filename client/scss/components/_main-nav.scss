@@ -75,7 +75,7 @@
 
         &:before {
             font-size: 1rem;
-            vertical-align: -20%;
+            vertical-align: -15%;
             margin-right: 0.5em;
         }
 
@@ -125,22 +125,42 @@
     }
 }
 
-.submenu-trigger:after {
+.icon--menuitem {
+    width: 1.25em;
+    height: 1.25em;
+    margin-right: 0.25em;
+    vertical-align: text-top;
+}
+
+.icon--submenu-trigger {
+    // The menus are collapsible on desktop only.
+    display: none;
     @include media-breakpoint-up(sm) {
-        // The menus are collapsible on desktop only.
-        content: map-get($icons, arrow-right);
-        width: auto;
+        display: block;
+        width: 1.5em;
+        height: 1.5em;
+        position: absolute;
+        top: 0.8125em;
+        right: 0.5em;
         @include transition(transform 0.3s ease);
 
-        .submenu-active > & {
+        .menu-item.submenu-active & {
             transform-origin: 50% 50%;
             transform: rotate(180deg);
         }
     }
 }
 
+.icon--submenu-header {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 0.8em;
+    opacity: 0.15;
+}
+
 .nav-submenu {
-    background: $submenu-bg;
+    background: $nav-submenu-bg;
 
     h2 {
         display: none;
@@ -154,6 +174,10 @@
             margin-left: -1.5em;
         }
 
+        .icon--menuitem {
+            margin-left: -1.75em;
+        }
+
         &:hover {
             background-color: rgba(100, 100, 100, 0.2);
         }
@@ -163,8 +187,9 @@
         border: 0;
     }
 
-    .wagtail-version {
-        padding: 1.2em 1.7em;
+    &__footer {
+        margin: 0;
+        padding: 0.9em 1.7em;
         text-align: center;
         color: $color-menu-text;
     }
@@ -299,18 +324,15 @@ body.explorer-open {
     }
 
     .nav-main {
-        $footer-closed-height: 50px;
-        $footer-submenu-height: 77px;
-        $footer-open-height: $footer-closed-height + $footer-submenu-height;
         overflow: auto;
-        margin-bottom: $footer-closed-height;
+        margin-bottom: $nav-footer-closed-height;
         @include transition(margin-bottom 0.2s ease);
 
         .footer {
             position: fixed;
             width: $menu-width;
             bottom: 0;
-            background-color: $footer-submenu;
+            background-color: $nav-footer-submenu-bg;
         }
 
         .footer-submenu {
@@ -319,16 +341,16 @@ body.explorer-open {
         }
 
         &--open-footer {
-            margin-bottom: $footer-open-height;
+            margin-bottom: $nav-footer-open-height;
 
             .footer-submenu {
-                max-height: $footer-submenu-height;
+                max-height: $nav-footer-submenu-height;
             }
         }
 
         .account {
             @include clearfix;
-            background: $footer-account;
+            background: $nav-footer-account-bg;
             color: $color-menu-text;
             text-transform: uppercase;
             display: block;
@@ -374,17 +396,17 @@ body.explorer-open {
     .nav-submenu {
         transform: translate3d(0, 0, 0);
         position: fixed;
-        height: 100%;
+        height: 100vh;
         width: 0;
         padding: 0;
         top: 0;
         left: $menu-width;
-        overflow: auto;
-        max-height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
 
         h2,
-        ul {
-            float: right;
+        &__list {
             width: $menu-width;
         }
 
@@ -407,14 +429,20 @@ body.explorer-open {
             }
         }
 
-        .footer {
-            position: absolute;
+        &__list {
+            overflow: auto;
+            flex-grow: 1;
+        }
+
+        &__footer {
+            line-height: $nav-footer-closed-height;
+            padding: 0;
         }
 
     }
 
     li.submenu-active {
-        background: $submenu-bg;
+        background: $nav-submenu-bg;
 
         > a {
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
@@ -428,7 +456,6 @@ body.explorer-open {
             @include transition(width 0.2s ease);
             box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
             width: $menu-width;
-            padding: 0 0 1.5em;
 
             a {
                 padding-left: 3.5em;

@@ -5,15 +5,16 @@
 # Translators:
 # Andreas Bergström <andreas.bergstrom@gmail.com>, 2018
 # André Karlsson <andre@sess.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2019-12-02 08:50+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-25 06:42+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +23,18 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "default"
+msgstr "standard"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Redigerar %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editerar"
+
+msgid "Site"
+msgstr "Webbplats"
 
 msgid "Saving…"
 msgstr "Sparar…"

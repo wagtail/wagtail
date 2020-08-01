@@ -2,6 +2,7 @@ import unittest
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
+from django.core.cache import caches
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
 from django.test import TestCase
@@ -14,7 +15,6 @@ from wagtail.images.models import Rendition, SourceImageIOError
 from wagtail.images.rect import Rect
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
 from wagtail.tests.utils import WagtailTestUtils
-
 from .utils import Image, get_test_image_file
 
 
@@ -23,7 +23,7 @@ class TestImage(TestCase):
         # Create an image for running tests on
         self.image = Image.objects.create(
             title="Test image",
-            file=get_test_image_file(),
+            file=get_test_image_file(colour='white'),
         )
 
     def test_is_portrait(self):
@@ -252,6 +252,51 @@ class TestRenditions(TestCase):
         rendition = self.image.get_rendition('width-400')
         self.assertEqual(rendition.alt, "Test image")
 
+    @override_settings(
+        CACHES={
+            'renditions': {
+                'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            },
+        },
+    )
+    def test_renditions_cache_backend(self):
+        cache = caches['renditions']
+        rendition = self.image.get_rendition('width-500')
+        rendition_cache_key = "image-{}-{}-{}".format(
+            rendition.image.id,
+            rendition.focal_point_key,
+            rendition.filter_spec
+        )
+
+        # Check rendition is saved to cache
+        self.assertEqual(cache.get(rendition_cache_key), rendition)
+
+        # Mark a rendition to check it comes from cache
+        rendition._from_cache = 'original'
+        cache.set(rendition_cache_key, rendition)
+
+        # Check if get_rendition returns the rendition from cache
+        with self.assertNumQueries(0):
+            new_rendition = self.image.get_rendition('width-500')
+        self.assertEqual(new_rendition._from_cache, 'original')
+
+        # changing the image file should invalidate the cache
+        self.image.file = get_test_image_file(colour='green')
+        self.image.save()
+        # deleting renditions would normally happen within the 'edit' view on file change -
+        # we're bypassing that here, so have to do it manually
+        self.image.renditions.all().delete()
+        new_rendition = self.image.get_rendition('width-500')
+        self.assertFalse(hasattr(new_rendition, '_from_cache'))
+
+        # changing it back should also generate a new rendition and not re-use
+        # the original one (because that file has now been deleted in the change)
+        self.image.file = get_test_image_file(colour='white')
+        self.image.save()
+        self.image.renditions.all().delete()
+        new_rendition = self.image.get_rendition('width-500')
+        self.assertFalse(hasattr(new_rendition, '_from_cache'))
+
 
 class TestUsageCount(TestCase):
     fixtures = ['test.json']
@@ -360,6 +405,7 @@ class TestIssue573(TestCase):
     This tests for a bug which causes filename limit on Renditions to be reached
     when the Image has a long original filename and a big focal point key
     """
+
     def test_issue_573(self):
         # Create an image with a big filename and focal point
         image = Image.objects.create(
@@ -384,15 +430,10 @@ class TestIssue613(TestCase, WagtailTestUtils):
         from django.conf import settings
         from wagtail.search.backends import get_search_backend
 
-        backend_path = 'wagtail.search.backends.elasticsearch'
+        if 'elasticsearch' not in settings.WAGTAILSEARCH_BACKENDS:
+            raise unittest.SkipTest("No elasticsearch backend active")
 
-        # Search WAGTAILSEARCH_BACKENDS for an entry that uses the given backend path
-        for backend_name, backend_conf in settings.WAGTAILSEARCH_BACKENDS.items():
-            if backend_conf['BACKEND'] == backend_path:
-                return get_search_backend(backend_name)
-        else:
-            # no conf entry found - skip tests for this backend
-            raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % backend_path)
+        return get_search_backend('elasticsearch')
 
     def setUp(self):
         self.search_backend = self.get_elasticsearch_backend()
@@ -505,6 +546,7 @@ class TestFilenameReduction(TestCase):
     This tests for a bug which results in filenames without extensions
     causing an infinite loop
     """
+
     def test_filename_reduction_no_ext(self):
         # Create an image with a big filename and no extension
         image = Image.objects.create(

@@ -4,7 +4,22 @@
     <div class="wagtail-userbar wagtail-userbar--{{ position|default:'bottom-right' }}" data-wagtail-userbar>
         <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
         <div class="wagtail-userbar-nav">
-            <div class="wagtail-icon wagtail-icon-wagtail wagtail-userbar-trigger" data-wagtail-userbar-trigger>
+            <div class="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
+                {% block branding_logo %}
+                  <div style="display: none">
+                    <svg>
+                        <defs>
+                          {% include "wagtailadmin/icons/wagtail.svg" %}
+                          {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
+                          {% include "wagtailadmin/icons/edit.svg" %}
+                          {% include "wagtailadmin/icons/plus.svg" %}
+                          {% include "wagtailadmin/icons/tick.svg" %}
+                          {% include "wagtailadmin/icons/cross.svg" %}
+                        </defs>
+                    </svg>
+                  </div>
+                  {% icon name="wagtail-icon" class_name="wagtail-userbar-icon" %}
+                {% endblock %}
                 <span class="wagtail-userbar-help-text">{% trans 'Go to Wagtail admin interface' %}</span>
             </div>
             <div class='wagtail-userbar-items'>

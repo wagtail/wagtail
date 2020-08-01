@@ -310,12 +310,31 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Check that a form error was raised
         if DJANGO_VERSION >= (3, 0):
             self.assertFormError(
-                response, 'form', 'new_slug', "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+                response, 'form', 'new_slug', "Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or hyphens."
             )
         else:
             self.assertFormError(
-                response, 'form', 'new_slug', "Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
+                response, 'form', 'new_slug', "Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or hyphens."
             )
+
+    def test_page_copy_post_valid_unicode_slug(self):
+        post_data = {
+            'new_title': "Hello wɜːld",
+            'new_slug': 'hello-wɜːld',
+            'new_parent_page': str(self.test_page.id),
+            'copy_subpages': False,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
+
+        # Check response
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.test_page.id, )))
+
+        # Get copy
+        page_copy = self.test_page.get_children().filter(slug=post_data['new_slug']).first()
+
+        # Check that the copy exists with the good slug
+        self.assertNotEqual(page_copy, None)
+        self.assertEqual(page_copy.slug, post_data['new_slug'])
 
     def test_page_copy_no_publish_permission(self):
         # Turn user into an editor who can add pages but not publish them

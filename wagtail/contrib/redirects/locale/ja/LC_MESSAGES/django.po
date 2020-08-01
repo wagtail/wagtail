@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-05 02:25+0000\n"
-"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -67,6 +67,9 @@ msgstr "リダイレクトを追加"
 msgid "Save"
 msgstr "保存"
 
+msgid "Redirects"
+msgstr "リダイレクト"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "リダイレクト：%(title)sを削除"
@@ -90,17 +93,14 @@ msgstr "編集"
 msgid "Delete redirect"
 msgstr "リダイレクトを削除"
 
-msgid "Redirects"
-msgstr "リダイレクト"
-
 msgid "From"
 msgstr "リダイレクト元"
 
-msgid "Site"
-msgstr "サイト"
-
 msgid "To"
 msgstr "リダイレクト先"
+
+msgid "Site"
+msgstr "サイト"
 
 msgid "Type"
 msgstr "タイプ"

@@ -15,7 +15,8 @@ DEFAULT_RICH_TEXT_EDITORS = {
 
 
 def get_rich_text_editor_widget(name='default', features=None):
-    editor_settings = getattr(settings, 'WAGTAILADMIN_RICH_TEXT_EDITORS', DEFAULT_RICH_TEXT_EDITORS)
+    editor_settings = DEFAULT_RICH_TEXT_EDITORS.copy()
+    editor_settings.update(getattr(settings, 'WAGTAILADMIN_RICH_TEXT_EDITORS', {}))
 
     editor = editor_settings[name]
     options = editor.get('OPTIONS', None)

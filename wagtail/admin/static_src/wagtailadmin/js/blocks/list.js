@@ -9,6 +9,7 @@
         return function(elementPrefix) {
             var sequence = Sequence({
                 prefix: elementPrefix,
+                maxNumChildBlocks: Infinity,
                 onInitializeMember: function(sequenceMember) {
                     /* initialize child block's JS behaviour */
                     if (opts.childInitializer) {

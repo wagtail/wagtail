@@ -3,7 +3,7 @@
 {% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" tabbed=1 %}
+    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" tabbed=1 merged=1 %}
 
     <div class="row row-flush">
 
@@ -12,15 +12,15 @@
             <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 {% csrf_token %}
                 {{ edit_handler.render_form_content }}
-                <footer role="contentinfo">
+                <footer>
                     <nav aria-label="{% trans 'Actions' %}">
                     <ul>
                         <li class="actions">
                             <div class="dropdown dropup dropdown-button match-width">
                                 <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
-                                    <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                                    {% icon name="spinner" %}<em>{% trans 'Save' %}</em>
                                 </button>
-                                <div class="dropdown-toggle icon icon-arrow-up"></div>
+                                <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
                                 <ul>
                                     <li><a href="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}" class="shortcut">{% trans "Delete" %}</a></li>
                                 </ul>

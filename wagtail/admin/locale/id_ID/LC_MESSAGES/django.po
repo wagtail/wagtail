@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -53,6 +53,9 @@ msgstr "Tidak ada"
 msgid "Scheduled publishing"
 msgstr "Penerbitan terjadwal"
 
+msgid "Privacy"
+msgstr "Privasi"
+
 msgid "Common page configuration"
 msgstr "Konfigurasi halaman umum"
 
@@ -64,6 +67,12 @@ msgstr "Promosikan"
 
 msgid "Settings"
 msgstr "Pengaturan"
+
+msgid "Date"
+msgstr "Tanggal"
+
+msgid "Title"
+msgstr "Judul"
 
 msgid "Enter password"
 msgstr "Masukkan kata sandi"
@@ -226,6 +235,9 @@ msgstr "Slowakia"
 
 msgid "Ukrainian"
 msgstr "Ukraina"
+
+msgid "Edit"
+msgstr "Ubah"
 
 msgid "Page"
 msgstr "Halaman"
@@ -547,9 +559,6 @@ msgstr ""
 msgid "Save"
 msgstr "Simpan"
 
-msgid "Privacy"
-msgstr "Privasi"
-
 msgid "Public"
 msgstr "Publik"
 
@@ -590,24 +599,14 @@ msgstr ""
 "Ini adalah dasbor Anda. Di sini akan ditampilkan informasi yang berguna "
 "mengenai konten yang Anda buat,"
 
-msgid "Title"
-msgstr "Judul"
-
 msgid "Edit this page"
 msgstr "Ubah halaman ini"
-
-msgid "Edit"
-msgstr "Ubah"
 
 msgid "Draft"
 msgstr "Konsep"
 
 msgid "Live"
 msgstr "Terpublikasi"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s yang lalu"
 
 msgid "Pages awaiting moderation"
 msgstr "Halaman yang sedang menunggu moderasi"
@@ -636,9 +635,6 @@ msgstr "Pratinjau"
 msgid "Your most recent edits"
 msgstr "Perubahan terakhir yang anda lakukan"
 
-msgid "Date"
-msgstr "Tanggal"
-
 msgid "Status"
 msgstr "Status"
 
@@ -656,11 +652,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Masuk ke Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Apakah anda lupa?"
-
 msgid "Signing in…"
 msgstr "Melakukan Sign In..."
+
+msgid "Forgotten it?"
+msgstr "Apakah anda lupa?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -715,9 +711,6 @@ msgstr ""
 
 msgid "Publishing…"
 msgstr "Mempublikasikan..."
-
-msgid "Publish this revision"
-msgstr "Publikasi revisi ini"
 
 msgid "Saving…"
 msgstr "Menyimpan..."
@@ -862,20 +855,15 @@ msgstr "Terdapat perubahan yang belum disimpan dalam halaman ini."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Mengubah %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Mengubah %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Versi aktif"
+
+msgid "Current draft"
+msgstr "Konsep saat ini"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Terakhir diubah: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "oleh %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revisi"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yang lalu"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1035,15 +1023,15 @@ msgstr ""
 "                setelah itu tampilkan pratinjau lagi.\n"
 "            "
 
+msgid "Cancel scheduled publish"
+msgstr "Batalkan publikasi terjadwal"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Membandingkan %(title)s"
 
 msgid "Comparing"
 msgstr "Membandingkan"
-
-msgid "View revisions"
-msgstr "Tampilkan revisi"
 
 msgid "Fields"
 msgstr "Kolom-kolom"
@@ -1085,9 +1073,6 @@ msgstr[0] ""
 "%(counter)s kali.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Tidak ada perbedaan di antara kedua revisi"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Hapus Jadwal Revisi %(revision.id)s untuk %(title)s"
@@ -1118,23 +1103,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "oleh"
 
-msgid "Current draft"
-msgstr "Konsep saat ini"
-
-msgid "Live version"
-msgstr "Versi aktif"
-
 msgid "Scheduled for"
 msgstr "Dijadwalkan untuk"
-
-msgid "Review this revision"
-msgstr "Tinjau revisi ini"
-
-msgid "Compare with previous revision"
-msgstr "Bandingkan dengan revisi sebelumnya"
-
-msgid "Cancel scheduled publish"
-msgstr "Batalkan publikasi terjadwal"
 
 msgid "No revisions of this page exist"
 msgstr "Halaman ini tidak memiliki revisi"
@@ -1158,11 +1128,6 @@ msgstr[0] ""
 
 msgid "Page types"
 msgstr "Jenis Halaman"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Maaf, tidak ada halaman yang sesuai dengan <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Masukkan kata kunci pencarian di atas"
@@ -1209,6 +1174,13 @@ msgstr "Tambah turunan halaman"
 
 msgid "Show in Explorer"
 msgstr "Tampilkan di Penjelajah"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "oleh %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Bandingkan dengan versi aktif"
 
 msgid "Test"
 msgstr "Uji"
@@ -1267,14 +1239,11 @@ msgstr "Tampilkan yang aktif"
 msgid "Page '{0}' created and published."
 msgstr "Halaman '{0}' telah dibuat dan dipublikasi."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Halaman '{0}' telah dibuat dan dikirim untuk dimoderasi."
-
 msgid "View draft"
 msgstr "Tampilkan konsep"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Gagal mengirim notifikasi ke moderator"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Halaman '{0}' telah dibuat dan dikirim untuk dimoderasi."
 
 msgid "Page '{0}' created."
 msgstr "Halaman '{0}' telah dibuat."
@@ -1282,26 +1251,17 @@ msgstr "Halaman '{0}' telah dibuat."
 msgid "The page could not be created due to validation errors"
 msgstr "Halaman tersebut tidak dapat dibuat karena tidak lolos validasi."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Revisi oleh {0} untuk halaman '{1}' telah dijadwalkan untuk publikasi."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "Halaman '{0}' hidup dan revisi ini telah dijadwalkan untuk publikasi."
+msgid "This page is currently awaiting moderation"
+msgstr "Halaman ini menunggu proses moderasi"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Halaman '{0}' telah dijadwalkan untuk publikasi."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Revisi oleh {0} untuk halaman '{1}' telah dipublikasi."
 
 msgid "Page '{0}' has been published."
 msgstr "Halaman '{0}' telah dipublikasi."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Halaman '{0}' telah dikirim untuk moderasi."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Halaman '{0}' telah diganti dengan revisi dari {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Halaman '{0}' telah diperbarui."
@@ -1311,12 +1271,6 @@ msgstr "Halaman ini tidak dapat disimpan karena terkunci"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Halaman ini tidak dapat disimpan karena tidak lolos validasi"
-
-msgid "Compare with live version"
-msgstr "Bandingkan dengan versi aktif"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Halaman ini menunggu proses moderasi"
 
 msgid "Page '{0}' deleted."
 msgstr "Halaman '{0}' dihapus."
@@ -1351,14 +1305,6 @@ msgstr "Gagal mengirim notifikasi penolakan"
 msgid "Page '{0}' is now unlocked."
 msgstr "Halaman '{0}' sekarang tidak dikunci."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Saat ini Anda sedang melihat revisi halaman sebelumnya yang dibuat pada <b>"
-"%(created_at)s</b> oleh %(user)s"
-
 msgid "Earliest"
 msgstr "Paling awal"
 
@@ -1367,9 +1313,6 @@ msgstr "Paling akhir"
 
 msgid "revision {0} of \"{1}\""
 msgstr "revisi {0} dari \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Jadwal revisi {0} dari \"{1}\" dihapus."
 
 msgid "More"
 msgstr "Lainnya"

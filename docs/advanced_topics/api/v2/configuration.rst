@@ -87,12 +87,12 @@ Next, register the URLs so Django can route requests into the API:
     urlpatterns = [
         ...
 
-        url(r'^api/v2/', api_router.urls),
+        path('api/v2/', api_router.urls),
 
         ...
 
         # Ensure that the api_router line appears above the default Wagtail page serving route
-        url(r'', include(wagtail_urls)),
+        re_path(r'^', include(wagtail_urls)),
     ]
 
 With this configuration, pages will be available at ``/api/v2/pages/``, images
@@ -240,7 +240,8 @@ This would add the following to the JSON:
         "feed_image_thumbnail": {
             "url": "/media/images/a_test_image.fill-100x100.jpg",
             "width": 100,
-            "height": 100
+            "height": 100,
+            "alt": "image alt text"
         }
     }
 

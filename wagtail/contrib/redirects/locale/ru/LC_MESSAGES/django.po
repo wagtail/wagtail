@@ -6,13 +6,14 @@
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2014-2015
 # Никита Викторович <hnknta@gmail.com>, 2014
+# sergeybe <sergeybe@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 17:49+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +24,9 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "Wagtail redirects"
+msgstr "Перенаправления Wagtail"
+
 msgid "From site"
 msgstr "С сайта"
 
@@ -31,6 +35,19 @@ msgstr "Все сайты"
 
 msgid "A redirect with this path already exists."
 msgstr "Перенаправление с этим путем уже существует."
+
+msgid "File to import"
+msgstr "Файл для импорта"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Поддерживаемые форматы: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Из поля"
+
+msgid "To field"
+msgstr "В поле"
 
 msgid "redirect from"
 msgstr "перенаправить от"
@@ -66,6 +83,30 @@ msgstr "Добавить перенаправление"
 msgid "Save"
 msgstr "Сохранить"
 
+msgid "Redirects"
+msgstr "Перенаправления"
+
+msgid "Import redirects"
+msgstr "Импорт перенаправлений"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>Выберите файл с перенаправлениями который содержит строки и колонки "
+"<code>от</code> и <code>до</code>(они могут названы как угодно).</p>\n"
+" <p>После отправки формы откроется окно подтверждения, где вы можете "
+"настроить перенаправления перед импортом.</p>"
+
+msgid "Import"
+msgstr "Импорт"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Удалить перенаправление %(title)s"
@@ -79,6 +120,18 @@ msgstr "Вы уверены, что хотите удалить это пере�
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
+msgid "Confirm import"
+msgstr "Подтвердить импорт"
+
+msgid "Confirm"
+msgstr "Подтвердить"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Preview"
+msgstr "Предпросмотр"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Редактирование %(title)s"
@@ -89,23 +142,58 @@ msgstr "Редактирование"
 msgid "Delete redirect"
 msgstr "Удалить перенаправление"
 
-msgid "Redirects"
-msgstr "Перенаправления"
+msgid "Summary"
+msgstr "Информация"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Найдено %(total)s перенаправлений, созданных %(successes)s и с ошибками "
+"%(errors)s."
 
 msgid "From"
 msgstr "От"
 
-msgid "Site"
-msgstr "Сайт"
-
 msgid "To"
 msgstr "На"
+
+msgid "Error"
+msgstr "Ошибка"
+
+msgid "Continue"
+msgstr "Продолжить"
+
+msgid "Site"
+msgstr "Сайт"
 
 msgid "Type"
 msgstr "Тип"
 
 msgid "Edit this redirect"
 msgstr "Редактировать это перенаправление"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[1] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[2] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[3] ""
+"\n"
+"Найдено %(counter)s совпадений"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
@@ -140,3 +228,22 @@ msgstr "Перенаправление '{0}' добавлено."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Перенаправление не может быть создано из-за ошибок."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "Формат файла \"{}\" не поддерживается"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "Импортированный файл имеет некорректную кодировку: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s ошибок при чтении файла: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Импотрировано %(total)d перенаправление"
+msgstr[1] "Импортировано %(total)d перенаправлений "
+msgstr[2] "Имортировано %(total)d перенаправлений"
+msgstr[3] "Импортровано %(total)d перенаправлений"

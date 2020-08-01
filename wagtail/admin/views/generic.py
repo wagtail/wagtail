@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdateView
 from django.views.generic.list import BaseListView
@@ -123,11 +123,11 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
     index_url_name = None
     edit_url_name = None
     delete_url_name = None
-    page_title = ugettext_lazy("Editing")
+    page_title = gettext_lazy("Editing")
     context_object_name = None
     template_name = 'wagtailadmin/generic/edit.html'
     permission_required = 'change'
-    delete_item_label = ugettext_lazy("Delete")
+    delete_item_label = gettext_lazy("Delete")
     success_message = None
     error_message = None
 

@@ -11,7 +11,8 @@ from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
+from django.template.response import TemplateResponse
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -26,12 +27,13 @@ from wagtail.admin.mail import send_mail
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
+from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import CharBlock, RichTextBlock, StructBlock
+from wagtail.core.blocks import CharBlock, RawHTMLBlock, RichTextBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet
+from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet, Task
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.documents.models import AbstractDocument, Document
 from wagtail.images.blocks import ImageChooserBlock
@@ -43,7 +45,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail.utils.decorators import cached_classmethod
 
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
-from .views import CustomSubmissionsListView
+
 
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
@@ -461,6 +463,13 @@ class FormPage(AbstractEmailForm):
         context['greeting'] = "hello world"
         return context
 
+    # This is redundant (SubmissionsListView is the default view class), but importing
+    # SubmissionsListView in this models.py helps us to confirm that this recipe
+    # https://docs.wagtail.io/en/stable/reference/contrib/forms/customisation.html#customise-form-submissions-listing-in-wagtail-admin
+    # works without triggering circular dependency issues -
+    # see https://github.com/wagtail/wagtail/issues/6265
+    submissions_list_view_class = SubmissionsListView
+
 
 FormPage.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -585,7 +594,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
 
     def serve(self, request, *args, **kwargs):
         if self.get_submission_class().objects.filter(page=self, user__pk=request.user.pk).exists():
-            return render(
+            return TemplateResponse(
                 request,
                 self.template,
                 self.get_context(request)
@@ -639,7 +648,9 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
 
-    submissions_list_view_class = CustomSubmissionsListView
+    def get_submissions_list_view_class(self):
+        from .views import CustomSubmissionsListView
+        return CustomSubmissionsListView
 
     def get_submission_class(self):
         return CustomFormPageSubmission
@@ -920,9 +931,32 @@ class CustomImage(AbstractImage):
         'fancy_caption',
     )
 
+    class Meta:
+        unique_together = [
+            ('title', 'collection')
+        ]
+
 
 class CustomRendition(AbstractRendition):
     image = models.ForeignKey(CustomImage, related_name='renditions', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (
+            ('image', 'filter_spec', 'focal_point_key'),
+        )
+
+
+# Custom image model with a required field
+class CustomImageWithAuthor(AbstractImage):
+    author = models.CharField(max_length=255)
+
+    admin_form_fields = Image.admin_form_fields + (
+        'author',
+    )
+
+
+class CustomRenditionWithAuthor(AbstractRendition):
+    image = models.ForeignKey(CustomImageWithAuthor, related_name='renditions', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (
@@ -937,6 +971,11 @@ class CustomDocument(AbstractDocument):
         'description',
         'fancy_description'
     )
+
+    class Meta:
+        unique_together = [
+            ('title', 'collection')
+        ]
 
 
 class StreamModel(models.Model):
@@ -972,6 +1011,7 @@ class StreamPage(Page):
             ('name', CharBlock()),
             ('price', CharBlock()),
         ])),
+        ('raw_html', RawHTMLBlock()),
     ])
 
     api_fields = ('body',)
@@ -980,6 +1020,8 @@ class StreamPage(Page):
         FieldPanel('title'),
         StreamFieldPanel('body'),
     ]
+
+    preview_modes = []
 
 
 class DefaultStreamPage(Page):
@@ -1016,6 +1058,16 @@ class AbstractPage(Page):
 class TestSetting(BaseSetting):
     title = models.CharField(max_length=100)
     email = models.EmailField(max_length=50)
+
+
+@register_setting
+class ImportantPages(BaseSetting):
+    sign_up_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
+    general_terms_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
+    privacy_policy_page = models.ForeignKey(
+        'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
 
 
 @register_setting(icon="tag")
@@ -1422,6 +1474,8 @@ class RestaurantPage(Page):
 
 
 class RestaurantTag(TagBase):
+    free_tagging = False
+
     class Meta:
         verbose_name = "Tag"
         verbose_name_plural = "Tags"
@@ -1436,3 +1490,7 @@ class TaggedRestaurant(ItemBase):
         on_delete=models.CASCADE,
         related_name='tagged_items'
     )
+
+
+class SimpleTask(Task):
+    pass

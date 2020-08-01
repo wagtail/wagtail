@@ -33,7 +33,7 @@ class TestCoreGlobalsAndFilters(TestCase):
         richtext = '<p>Merry <a linktype="page" id="2">Christmas</a>!</p>'
         self.assertEqual(
             self.render('{{ text|richtext }}', {'text': richtext}),
-            '<div class="rich-text"><p>Merry <a href="/">Christmas</a>!</p></div>')
+            '<p>Merry <a href="/">Christmas</a>!</p>')
 
     def test_pageurl(self):
         page = Page.objects.get(pk=2)
@@ -95,7 +95,7 @@ class TestJinjaEscaping(TestCase):
             'value': stream_value,
         })
 
-        self.assertIn('<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>', result)
+        self.assertIn('<p>Merry <a href="/events/christmas/">Christmas</a>!</p>', result)
 
 
 class TestIncludeBlockTag(TestCase):
@@ -127,7 +127,7 @@ class TestIncludeBlockTag(TestCase):
         })
 
         self.assertIn(
-            """<body><h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div></body>""",
+            """<body><h1 lang="fr">Bonjour</h1>monde <i>italique</i></body>""",
             result
         )
 

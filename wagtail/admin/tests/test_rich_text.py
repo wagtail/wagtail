@@ -68,6 +68,7 @@ class TestGetRichTextEditorWidget(TestCase):
         },
     })
     def test_custom_editor_without_default(self):
+        self.assertIsInstance(get_rich_text_editor_widget(), DraftailRichTextArea)
         self.assertIsInstance(get_rich_text_editor_widget('custom'), CustomRichTextArea)
 
     @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
@@ -323,8 +324,7 @@ class TestRichTextValue(TestCase):
         value = RichText(text)
         result = str(value)
         expected = (
-            '<div class="rich-text"><p>To the <a href="'
-            '/foo/pointless-suffix/">moon</a>!</p></div>')
+            '<p>To the <a href="/foo/pointless-suffix/">moon</a>!</p>')
         self.assertEqual(result, expected)
 
 

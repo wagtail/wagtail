@@ -6,6 +6,7 @@ source = wagtail
 
 omit =
     */migrations/*
+    */tests/*
     docs/conf.py
 
 

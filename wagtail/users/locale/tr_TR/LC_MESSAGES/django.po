@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Basitlik İyidir, 2020
 # José Luis <alagunajs@gmail.com>, 2015
 # José Luis <alagunajs@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2020
-# Py Data <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 19:42+0000\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -37,7 +38,7 @@ msgid "A user with that username already exists."
 msgstr "Bu kullanıcı adı daha önce alınmış."
 
 msgid "The two password fields didn't match."
-msgstr "İki şifre alanı eşleşmiyor."
+msgstr "Parolalar eşleşmiyor"
 
 msgid "Email"
 msgstr "Eposta"
@@ -49,13 +50,13 @@ msgid "Last Name"
 msgstr "Soyad"
 
 msgid "Password"
-msgstr "Şifre"
+msgstr "Parola"
 
 msgid "Leave blank if not changing."
 msgstr "Aynı kalması için boş bırakın."
 
 msgid "Password confirmation"
-msgstr "Şifre doğrulama"
+msgstr "Parola doğrulama"
 
 msgid "Enter the same password as above, for verification."
 msgstr "Doğrulama yapmak için yukarıdaki şifrenin aynısını girin."
@@ -282,14 +283,6 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen kullanıcı yok"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
-"\">add some</a>?"
-msgstr ""
-"Hiç kullanıcı ayarlanmadı. Neden <a href=\"%(wagtailusers_create_url)s\">bir "
-"kaç tane eklemiyorsunuz</a>?"
 
 msgid "Groups"
 msgstr "Gruplar"

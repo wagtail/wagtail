@@ -28,7 +28,6 @@ function initTable(id, tableOptions) {
         var tableParent = $('#' + id).parent();
         return tableParent.find('.htCore').height() + (tableParent.find('.input').height() * 2);
     };
-    var height = getHeight();
     var resizeTargets = ['.input > .handsontable', '.wtHider', '.wtHolder'];
     var resizeHeight = function(height) {
         var currTable = $('#' + id);

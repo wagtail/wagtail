@@ -8,7 +8,7 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.utils import escape_script
@@ -118,6 +118,7 @@ class BaseStreamBlock(Block):
         opts = {
             'definitionPrefix': "'%s'" % self.definition_prefix,
             'childBlocks': '[\n%s\n]' % ',\n'.join(child_blocks),
+            'maxNumChildBlocks': 'Infinity' if self.meta.max_num is None else ('%s' % self.meta.max_num),
         }
 
         return "StreamBlock(%s)" % js_dict(opts)
@@ -152,6 +153,7 @@ class BaseStreamBlock(Block):
             'child_blocks': self.sorted_child_blocks(),
             'header_menu_prefix': '%s-before' % prefix,
             'block_errors': error_dict.get(NON_FIELD_ERRORS),
+            'classname': getattr(self.meta, 'form_classname', None),
         })
 
     def value_from_datadict(self, data, files, prefix):

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
@@ -48,6 +48,9 @@ msgstr "Intet"
 msgid "Scheduled publishing"
 msgstr "Planlagt udgivning"
 
+msgid "Privacy"
+msgstr "Privatliv"
+
 msgid "Common page configuration"
 msgstr "Konfiguration af standardside"
 
@@ -59,6 +62,12 @@ msgstr "Promover"
 
 msgid "Settings"
 msgstr "Indstillinger"
+
+msgid "Date"
+msgstr "Dato"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Enter password"
 msgstr "Skriv adgangskode"
@@ -221,6 +230,9 @@ msgstr "Slovakisk"
 
 msgid "Ukrainian"
 msgstr "Ukrainsk"
+
+msgid "Edit"
+msgstr "Rediger"
 
 msgid "Page"
 msgstr "Side"
@@ -527,9 +539,6 @@ msgstr ""
 msgid "Save"
 msgstr "Gem"
 
-msgid "Privacy"
-msgstr "Privatliv"
-
 msgid "Public"
 msgstr "Offentlig"
 
@@ -550,24 +559,14 @@ msgstr "Ja, slet"
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Velkommen til %(site_name)s Wagtail CMS"
 
-msgid "Title"
-msgstr "Titel"
-
 msgid "Edit this page"
 msgstr "Rediger denne side"
-
-msgid "Edit"
-msgstr "Rediger"
 
 msgid "Draft"
 msgstr "Skitse"
 
 msgid "Live"
 msgstr "Live"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s siden"
 
 msgid "Parent"
 msgstr "Forældre"
@@ -590,9 +589,6 @@ msgstr "Forhåndsvis"
 msgid "Your most recent edits"
 msgstr "Dine seneste redigeringer"
 
-msgid "Date"
-msgstr "Dato"
-
 msgid "Status"
 msgstr "Status"
 
@@ -610,11 +606,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Log ind i Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Glemt det?"
-
 msgid "Signing in…"
 msgstr "Logger ind..."
+
+msgid "Forgotten it?"
+msgstr "Glemt det?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -645,9 +641,6 @@ msgstr "Denne side er blevet lavet privat af en forældreside."
 
 msgid "Publishing…"
 msgstr "Udgiver..."
-
-msgid "Publish this revision"
-msgstr "Udgiv denne revision"
 
 msgid "Saving…"
 msgstr "Gemmer..."
@@ -787,20 +780,15 @@ msgstr "Denne side har ugemte ændringer."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Redigerer %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Redigerer %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Live version"
+
+msgid "Current draft"
+msgstr "Nuværende skitse"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Sidst ændret: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "af %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revisioner"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -886,9 +874,6 @@ msgstr "Sammenligner %(title)s"
 msgid "Comparing"
 msgstr "Sammenligner"
 
-msgid "View revisions"
-msgstr "Vis revisioner"
-
 msgid "Fields"
 msgstr "Felter"
 
@@ -939,18 +924,9 @@ msgstr[1] ""
 "%(counter)s felter op.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Der er ingen forskelle på de to revisioner"
-
 msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "af"
-
-msgid "Current draft"
-msgstr "Nuværende skitse"
-
-msgid "Live version"
-msgstr "Live version"
 
 msgid "Locked"
 msgstr "Låst"
@@ -978,6 +954,10 @@ msgstr "Tilføj en underside"
 
 msgid "Show in Explorer"
 msgstr "Vis i Udforsker"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "af %(modified_by)s"
 
 msgid "Test"
 msgstr "Test"

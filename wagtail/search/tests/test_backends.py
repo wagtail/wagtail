@@ -15,7 +15,7 @@ from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import FieldError, FilterFieldError
 from wagtail.search.backends.db import DatabaseSearchBackend
-from wagtail.search.query import MATCH_ALL, And, Boost, Not, Or, PlainText
+from wagtail.search.query import MATCH_ALL, MATCH_NONE, And, Boost, Not, Or, Phrase, PlainText
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -68,6 +68,10 @@ class BackendTests(WagtailTestUtils):
     def test_search_all(self):
         results = self.backend.search(MATCH_ALL, models.Book)
         self.assertSetEqual(set(results), set(models.Book.objects.all()))
+
+    def test_search_none(self):
+        results = self.backend.search(MATCH_NONE, models.Book)
+        self.assertFalse(list(results))
 
     def test_ranking(self):
         # Note: also tests the "or" operator
@@ -183,6 +187,30 @@ class BackendTests(WagtailTestUtils):
             "Learning Python",
         ])
 
+    def test_autocomplete_uses_autocompletefield(self):
+        # Autocomplete should only require an AutocompleteField, not a SearchField with
+        # partial_match=True
+        results = self.backend.autocomplete("Georg", models.Author)
+        self.assertUnsortedListEqual([r.name for r in results], [
+            "George R.R. Martin",
+        ])
+
+    def test_autocomplete_with_fields_arg(self):
+        results = self.backend.autocomplete("Georg", models.Author, fields=['name'])
+        self.assertUnsortedListEqual([r.name for r in results], [
+            "George R.R. Martin",
+        ])
+
+    def test_autocomplete_not_affected_by_stemming(self):
+        # If SEARCH_CONFIG is set, stemming will be enabled.
+        # But we want to disable this for autocomplete as stemmed words don't always match on prefixes
+        # See: https://www.postgresql.org/docs/9.1/datatype-textsearch.html#DATATYPE-TSQUERY
+        results = self.backend.autocomplete("Learni", models.Book)
+
+        self.assertUnsortedListEqual([r.title for r in results], [
+            "Learning Python",
+        ])
+
     # FILTERING TESTS
 
     def test_filter_exact_value(self):
@@ -233,7 +261,8 @@ class BackendTests(WagtailTestUtils):
             "A Clash of Kings",
             "A Game of Thrones",
             "Two Scoops of Django 1.11",
-            "A Storm of Swords"
+            "A Storm of Swords",
+            "Programming Rust",
         ])
 
     def test_filter_gte(self):
@@ -247,7 +276,8 @@ class BackendTests(WagtailTestUtils):
             "A Clash of Kings",
             "A Game of Thrones",
             "Two Scoops of Django 1.11",
-            "A Storm of Swords"
+            "A Storm of Swords",
+            "Programming Rust",
         ])
 
     def test_filter_in_list(self):
@@ -292,7 +322,9 @@ class BackendTests(WagtailTestUtils):
             "Daniel Roy Greenfeld",
             "Audrey Roy Greenfeld",
             "Carol Nichols",
-            "Steve Klabnik"
+            "Steve Klabnik",
+            "Jim Blandy",
+            "Jason Orendorff",
         ])
 
     def test_filter_isnull_false(self):
@@ -441,7 +473,7 @@ class BackendTests(WagtailTestUtils):
 
         self.assertEqual(results, OrderedDict([
             (fantasy_tag.id, 7),
-            (None, 5),
+            (None, 6),
             (scifi_tag.id, 1),
         ]))
 
@@ -576,7 +608,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_match_all(self):
         results = self.backend.search(MATCH_ALL, models.Book.objects.all())
-        self.assertEqual(len(results), 13)
+        self.assertEqual(len(results), 14)
 
     def test_and(self):
         results = self.backend.search(And([PlainText('javascript'),
@@ -614,6 +646,7 @@ class BackendTests(WagtailTestUtils):
             'The Return of the King',
             'The Rust Programming Language',
             'Two Scoops of Django 1.11',
+            'Programming Rust',
         }
 
         results = self.backend.search(Not(PlainText('javascript')),
@@ -642,7 +675,15 @@ class BackendTests(WagtailTestUtils):
                              'Learning Python',
                              'The Two Towers',
                              'The Rust Programming Language',
-                             'Two Scoops of Django 1.11'})
+                             'Two Scoops of Django 1.11',
+                             'Programming Rust'})
+
+    def test_phrase(self):
+        results = self.backend.search(Phrase('rust programming'), models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, {'The Rust Programming Language'})
+
+        results = self.backend.search(Phrase('programming rust'), models.Book.objects.all())
+        self.assertSetEqual({r.title for r in results}, {'Programming Rust'})
 
 
 @override_settings(

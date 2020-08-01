@@ -8,7 +8,7 @@ from django.test import TestCase
 from elasticsearch.serializer import JSONSerializer
 
 from wagtail.search.backends.elasticsearch5 import Elasticsearch5SearchBackend
-from wagtail.search.query import MATCH_ALL
+from wagtail.search.query import MATCH_ALL, Phrase
 from wagtail.tests.search import models
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
@@ -316,6 +316,22 @@ class TestElasticsearch5SearchQuery(TestCase):
         expected_result = [{'publication_date_filter': 'asc'}, {'number_of_pages_filter': 'asc'}]
         self.assertDictEqual(query_compiler.get_sort(), expected_result)
 
+    def test_phrase_query(self):
+        # Create a query
+        query_compiler = self.query_compiler_class(models.Book.objects.all(), Phrase("Hello world"))
+
+        # Check it
+        expected_result = {'multi_match': {'fields': ['_all', '_partials'], 'query': "Hello world", 'type': 'phrase'}}
+        self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
+
+    def test_phrase_query_single_field(self):
+        # Create a query
+        query_compiler = self.query_compiler_class(models.Book.objects.all(), Phrase("Hello world"), fields=['title'])
+
+        # Check it
+        expected_result = {'match_phrase': {'title': "Hello world"}}
+        self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
+
 
 class TestElasticsearch5SearchResults(TestCase):
     fixtures = ['search']
@@ -529,6 +545,7 @@ class TestElasticsearch5Mapping(TestCase):
                         'type': 'nested',
                         'properties': {
                             'name': {'type': 'text', 'include_in_all': True},
+                            'name_edgengrams': {'analyzer': 'edgengram_analyzer', 'include_in_all': False, 'search_analyzer': 'standard', 'type': 'text'},
                             'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
                         },
                     },
@@ -564,13 +581,14 @@ class TestElasticsearch5Mapping(TestCase):
         expected_result = {
             'pk': '4',
             'content_type': ["searchtests.Book"],
-            '_partials': ['The Fellowship of the Ring', 'The Fellowship of the Ring'],
+            '_partials': ['J. R. R. Tolkien', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
             'title': 'The Fellowship of the Ring',
             'title_edgengrams': 'The Fellowship of the Ring',
             'title_filter': 'The Fellowship of the Ring',
             'authors': [
                 {
                     'name': 'J. R. R. Tolkien',
+                    'name_edgengrams': 'J. R. R. Tolkien',
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],
@@ -638,6 +656,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
                         'type': 'nested',
                         'properties': {
                             'name': {'type': 'text', 'include_in_all': True},
+                            'name_edgengrams': {'analyzer': 'edgengram_analyzer', 'include_in_all': False, 'search_analyzer': 'standard', 'type': 'text'},
                             'date_of_birth_filter': {'type': 'date', 'include_in_all': False},
                         },
                     },
@@ -699,7 +718,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
 
             # Changed
             'content_type': ["searchtests.Novel", "searchtests.Book"],
-            '_partials': ['Middle Earth', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
+            '_partials': ['J. R. R. Tolkien', 'Middle Earth', 'The Fellowship of the Ring', 'The Fellowship of the Ring'],
 
             # Inherited
             'pk': '4',
@@ -709,6 +728,7 @@ class TestElasticsearch5MappingInheritance(TestCase):
             'authors': [
                 {
                     'name': 'J. R. R. Tolkien',
+                    'name_edgengrams': 'J. R. R. Tolkien',
                     'date_of_birth_filter': datetime.date(1892, 1, 3)
                 }
             ],

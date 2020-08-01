@@ -4,4 +4,4 @@
     <img src="{% avatar_url user size=25 %}" alt="" />
 </span>
 
-{{ user }}
+{% if not username %}{{ user }}{% else %}{{ username }}{% endif %}

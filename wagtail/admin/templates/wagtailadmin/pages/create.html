@@ -7,13 +7,12 @@
 
 {% block content %}
 
-    <header class="merged tab-merged" role="banner">
+    <header class="merged tab-merged">
         {% explorer_breadcrumb parent_page include_self=1 %}
 
-        <div class="row row-flush">
+        <div class="row">
             <div class="left col9 header-title">
-                <h1 class="icon icon-doc-empty-inverse">
-                {% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
+                <h1>{% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
             </div>
         </div>
     </header>
@@ -23,33 +22,35 @@
         <input type="hidden" name="next" value="{{ next }}">
         {{ edit_handler.render_form_content }}
 
-        <footer role="contentinfo">
+        <footer>
             <nav aria-label="{% trans 'Actions' %}">
                 <ul>
-                  <li class="actions">
-                      <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
-                          {{ action_menu.render_html }}
-                      </div>
-                  </li>
-
-                    <li class="preview">
-                        {% trans 'Preview' as preview_label %}
-                        {% if preview_modes|length > 1 %}
-                            <div class="dropdown dropup dropdown-button match-width">
-                                {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
-                                <div class="dropdown-toggle icon icon-arrow-up"></div>
-                                <ul>
-                                    {% for mode_name, mode_display_name in preview_modes %}
-                                        <li>
-                                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with mode=mode_name label=mode_display_name %}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% else %}
-                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
-                        {% endif %}
+                    <li class="actions actions--primary">
+                        <div class="dropdown dropup dropdown-button dropdown-button--white match-width {% if is_revision %}warning{% endif %}">
+                            {{ action_menu.render_html }}
+                        </div>
                     </li>
+
+                    {% if preview_modes %}
+                        <li class="preview">
+                            {% trans 'Preview' as preview_label %}
+                            {% if preview_modes|length > 1 %}
+                                <div class="dropdown dropup dropdown-button match-width">
+                                    {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+                                    <ul>
+                                        {% for mode_name, mode_display_name in preview_modes %}
+                                            <li>
+                                                {% include "wagtailadmin/pages/_preview_button_on_create.html" with mode=mode_name label=mode_display_name %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% else %}
+                                {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                            {% endif %}
+                        </li>
+                    {% endif %}
                     {% block extra_footer_actions %}
                     {% endblock %}
                 </ul>

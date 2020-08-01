@@ -1,0 +1,95 @@
+{% extends 'wagtailadmin/reports/base_report.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block actions %}
+    <div class="addbutton">
+        <a href="{% url 'wagtailadmin_reports:workflow_tasks' %}" class="button">{% trans "By Task" %}</a>
+    </div>
+    {{ block.super }}
+{% endblock %}
+
+{% block results %}
+    {% if object_list %}
+        <table class="listing">
+            <thead>
+                <tr>
+                    <th>
+                        {% trans 'Workflow' %}
+                    </th>
+                    <th>
+                        {% trans 'Page' %}
+                    </th>
+                    <th>
+                        {% trans 'Status' %}
+                    </th>
+                    <th>
+                        {% trans 'Tasks' %}
+                    </th>
+                    <th>
+                        {% trans 'Requested by' %}
+                    </th>
+                    <th>
+                        {% trans 'Started at' %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for workflow_state in object_list %}
+                    <tr>
+                        <td>
+                            <b>{{ workflow_state.workflow }}</b>
+                        </td>
+                        <td>
+                            <a href="{% url 'wagtailadmin_pages:edit' workflow_state.page.id %}">
+                                {{ workflow_state.page.get_admin_display_title }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'wagtailadmin_pages:workflow_history_detail' workflow_state.page.id workflow_state.id %}" class="status-tag primary">
+                                {{ workflow_state.get_status_display }}
+                            </a>
+                        </td>
+                        <td>
+                            <h2>{{ workflow_name }}</h2>
+                            {% trans 'Incomplete task' as incomplete_title %}
+                            {% for task in workflow_state.all_tasks_with_status %}
+                                <span data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}">
+                                    {% if task.status == 'approved' %}
+                                        {% icon "success" title=task.status_display class_name="initial" %}
+                                    {% elif task.status == 'rejected' %}
+                                        {% icon "error" title=task.status_display class_name="initial" %}
+                                    {% else %}
+                                        {% icon "radio-empty" title=incomplete_title class_name="initial" %}
+                                    {% endif %}
+                                </span>
+                            {% endfor %}
+                        </td>
+                        <td>{{ workflow_state.requested_by.get_full_name|default:workflow_state.requested_by.get_username }}</td>
+                        <td>{{ workflow_state.created_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "No pages have been submitted for moderation yet" %}</p>
+    {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
+
+    <script>
+        $(function() {
+            $('[data-wagtail-tooltip]').tooltip({
+                animation: false,
+                title: function() {
+                    return $(this).attr('data-wagtail-tooltip');
+                },
+                trigger: 'hover',
+                placement: 'bottom',
+            });
+        })
+    </script>
+{% endblock %}

@@ -70,6 +70,57 @@ class TestUserFormHelpers(TestCase):
         self.assertRaises(ImproperlyConfigured, get_user_edit_form)
 
 
+class TestGroupUsersView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # create a user that should be visible in the listing
+        self.test_user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@email.com',
+            password='password',
+            first_name='First Name',
+            last_name='Last Name'
+        )
+        self.test_group = Group.objects.create(name='Test Group')
+        self.test_user.groups.add(self.test_group)
+        self.login()
+
+    def get(self, params={}, group_id=None):
+        return self.client.get(reverse('wagtailusers_groups:users', args=(group_id or self.test_group.pk, )), params)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailusers/users/index.html')
+        self.assertContains(response, 'testuser')
+
+    def test_inexisting_group(self):
+        response = self.get(group_id=9999)
+        self.assertEqual(response.status_code, 404)
+
+    def test_search(self):
+        response = self.get({'q': "Hello"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['query_string'], "Hello")
+
+    def test_search_query_one_field(self):
+        response = self.get({'q': "first name"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context['users'].object_list
+        self.assertIn(self.test_user, results)
+
+    def test_search_query_multiple_fields(self):
+        response = self.get({'q': "first name last name"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context['users'].object_list
+        self.assertIn(self.test_user, results)
+
+    def test_pagination(self):
+        pages = ['0', '1', '-1', '9999', 'Not a page']
+        for page in pages:
+            response = self.get({'p': page})
+            self.assertEqual(response.status_code, 200)
+
+
 class TestUserIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a user that should be visible in the listing

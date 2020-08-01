@@ -1,7 +1,11 @@
+import json
+
+from django import forms
 from django.test import TestCase
 from django.test.utils import override_settings
 
 from wagtail.admin import widgets
+from wagtail.admin.forms.tags import TagField
 from wagtail.core.models import Page
 from wagtail.tests.testapp.forms import AdminStarDateInput
 from wagtail.tests.testapp.models import EventPage, RestaurantTag, SimplePage
@@ -95,7 +99,7 @@ class TestAdminDateInput(TestCase):
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
 
-        self.assertInHTML('<input type="text" name="test" autocomplete="new-date" id="test-id" />', html)
+        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
 
         # we should see the JS initialiser code:
         # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
@@ -141,7 +145,7 @@ class TestAdminDateTimeInput(TestCase):
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
 
-        self.assertInHTML('<input type="text" name="test" autocomplete="new-date-time" id="test-id" />', html)
+        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
 
         # we should see the JS initialiser code:
         # initDateTimeChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d H:i"});
@@ -149,17 +153,22 @@ class TestAdminDateTimeInput(TestCase):
         self.assertIn('initDateTimeChooser("test\\u002Did", {', html)
         self.assertIn('"dayOfWeekStart": 0', html)
         self.assertIn('"format": "Y-m-d H:i"', html)
+        self.assertIn('"formatTime": "H:i"', html)
 
     def test_render_js_init_with_format(self):
-        widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M')
+        widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M', time_format='%H:%M %p')
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y. H:i"',
             html,
         )
+        self.assertIn(
+            '"formatTime": "H:i A"',
+            html,
+        )
 
-    @override_settings(WAGTAIL_DATETIME_FORMAT='%d.%m.%Y. %H:%M')
+    @override_settings(WAGTAIL_DATETIME_FORMAT='%d.%m.%Y. %H:%M', WAGTAIL_TIME_FORMAT='%H:%M %p')
     def test_render_js_init_with_format_from_settings(self):
         widget = widgets.AdminDateTimeInput()
 
@@ -168,20 +177,25 @@ class TestAdminDateTimeInput(TestCase):
             '"format": "d.m.Y. H:i"',
             html,
         )
+        self.assertIn(
+            '"formatTime": "H:i A"',
+            html,
+        )
 
 
 class TestAdminTagWidget(TestCase):
 
     def get_js_init_params(self, html):
         """Returns a list of the params passed in to initTagField from the supplied HTML"""
-        # Eg. ["'test\\u002Did'", "'/admin/tag\\u002Dautocomplete/'", 'true', 'null']
+        # Eg. ["test_id", "/admin/tag-autocomplete/", {'allowSpaces': True}]
         start = 'initTagField('
         end = ');'
         items_after_init = html.split(start)[1]
         if items_after_init:
             params_raw = items_after_init.split(end)[0]
             if params_raw:
-                return [part.strip() for part in params_raw.split(',')]
+                # stuff parameter string into an array so that we can unpack it as JSON
+                return json.loads('[%s]' % params_raw)
         return []
 
 
@@ -192,11 +206,10 @@ class TestAdminTagWidget(TestCase):
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[0], "'alpha'")  # id
-        self.assertEqual(params[1], "'/admin/tag\\u002Dautocomplete/'")  # autocomplete url
-        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
-        self.assertEqual(params[3], 'null')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': False}]
+        )
 
 
     @override_settings(TAG_SPACES_ALLOWED=False)
@@ -207,9 +220,10 @@ class TestAdminTagWidget(TestCase):
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[2], 'false')  # tag_spaces_allowed
-        self.assertEqual(params[3], 'null')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': False, 'tagLimit': None, 'autocompleteOnly': False}]
+        )
 
 
     @override_settings(TAG_LIMIT=5)
@@ -220,19 +234,125 @@ class TestAdminTagWidget(TestCase):
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
-        self.assertEqual(params[3], '5')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': 5, 'autocompleteOnly': False}]
+        )
 
     def test_render_js_init_with_tag_model(self):
-        """Checks that 'initTagField' is passed the correct autocomplete URL for the custom model"""
+        """
+        Checks that 'initTagField' is passed the correct autocomplete URL for the custom model,
+        and sets autocompleteOnly according to that model's free_tagging attribute
+        """
         widget = widgets.AdminTagWidget(tag_model=RestaurantTag)
 
         html = widget.render('tags', None, attrs={'id': 'alpha'})
         params = self.get_js_init_params(html)
 
-        self.assertEqual(len(params), 4)
-        self.assertEqual(params[0], "'alpha'")  # id
-        self.assertEqual(params[1], "'/admin/tag\\u002Dautocomplete/tests/restauranttag/'")  # autocomplete url
-        self.assertEqual(params[2], 'true')  # tag_spaces_allowed
-        self.assertEqual(params[3], 'null')  # tag_limit
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/tests/restauranttag/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': True}]
+        )
+
+    def test_render_with_free_tagging_false(self):
+        """Checks that free_tagging=False is passed to the inline script"""
+        widget = widgets.AdminTagWidget(free_tagging=False)
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': True}]
+        )
+
+    def test_render_with_free_tagging_true(self):
+        """free_tagging=True on the widget can also override the tag model setting free_tagging=False"""
+        widget = widgets.AdminTagWidget(tag_model=RestaurantTag, free_tagging=True)
+
+        html = widget.render('tags', None, attrs={'id': 'alpha'})
+        params = self.get_js_init_params(html)
+
+        self.assertEqual(
+            params,
+            ['alpha', '/admin/tag-autocomplete/tests/restauranttag/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': False}]
+        )
+
+
+class TestTagField(TestCase):
+    def setUp(self):
+        RestaurantTag.objects.create(name='Italian', slug='italian')
+        RestaurantTag.objects.create(name='Indian', slug='indian')
+
+    def test_tag_whitelisting(self):
+
+        class RestaurantTagForm(forms.Form):
+            # RestaurantTag sets free_tagging=False at the model level
+            tags = TagField(tag_model=RestaurantTag)
+
+        form = RestaurantTagForm({'tags': "Italian, delicious"})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['tags'], ["Italian"])
+
+    def test_override_free_tagging(self):
+
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag, free_tagging=True)
+
+        form = RestaurantTagForm({'tags': "Italian, delicious"})
+        self.assertTrue(form.is_valid())
+        self.assertEqual(set(form.cleaned_data['tags']), {"Italian", "delicious"})
+
+
+class TestFilteredSelect(TestCase):
+    def test_render(self):
+        widget = widgets.FilteredSelect(choices=[
+            (None, '----'),
+            ('FR', 'France', ['EU']),
+            ('JP', 'Japan', ['AS']),
+            ('RU', 'Russia', ['AS', 'EU']),
+        ], filter_field='id_continent')
+
+        html = widget.render('country', 'JP')
+        self.assertHTMLEqual(html, '''
+            <select name="country" data-widget="filtered-select" data-filter-field="id_continent">
+                <option value="">----</option>
+                <option value="FR" data-filter-value="EU">France</option>
+                <option value="JP" selected data-filter-value="AS">Japan</option>
+                <option value="RU" data-filter-value="AS,EU">Russia</option>
+            </select>
+        ''')
+
+    def test_optgroups(self):
+        widget = widgets.FilteredSelect(choices=[
+            (None, '----'),
+            ('Big countries', [
+                ('FR', 'France', ['EU']),
+                ('JP', 'Japan', ['AS']),
+                ('RU', 'Russia', ['AS', 'EU']),
+                ('MOON', 'The moon'),
+            ]),
+            ('Small countries', [
+                ('AZ', 'Azerbaijan', ['AS']),
+                ('LI', 'Liechtenstein', ['EU']),
+            ]),
+            ('SK', 'Slovakia', ['EU'])
+        ], filter_field='id_continent')
+
+        html = widget.render('country', 'JP')
+        self.assertHTMLEqual(html, '''
+            <select name="country" data-widget="filtered-select" data-filter-field="id_continent">
+                <option value="">----</option>
+                <optgroup label="Big countries">
+                    <option value="FR" data-filter-value="EU">France</option>
+                    <option value="JP" selected data-filter-value="AS">Japan</option>
+                    <option value="RU" data-filter-value="AS,EU">Russia</option>
+                    <option value="MOON">The moon</option>
+                </optgroup>
+                <optgroup label="Small countries">
+                    <option value="AZ" data-filter-value="AS">Azerbaijan</option>
+                    <option value="LI" data-filter-value="EU">Liechtenstein</option>
+                </optgroup>
+                <option value="SK" data-filter-value="EU">Slovakia</option>
+            </select>
+        ''')

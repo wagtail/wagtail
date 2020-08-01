@@ -1,8 +1,7 @@
-from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
 from django.db.models import Q
-from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.urls import include, path, reverse
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.search import SearchArea
@@ -17,7 +16,7 @@ from wagtail.users.widgets import UserListingButton
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^users/', include(users, namespace='wagtailusers_users')),
+        path('users/', include(users, namespace='wagtailusers_users')),
     ]
 
 
@@ -48,7 +47,7 @@ def register_users_menu_item():
     return UsersMenuItem(
         _('Users'),
         reverse('wagtailusers_users:index'),
-        classnames='icon icon-user',
+        icon_name='user',
         order=600
     )
 
@@ -67,7 +66,7 @@ def register_groups_menu_item():
     return GroupsMenuItem(
         _('Groups'),
         reverse('wagtailusers_groups:index'),
-        classnames='icon icon-group',
+        icon_name='group',
         order=601
     )
 

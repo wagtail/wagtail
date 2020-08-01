@@ -4,7 +4,7 @@
 PostgreSQL search engine
 ========================
 
-This contrib module provides a search engine backend for Wagtail using
+This contrib module provides a search engine backend using
 `PostgreSQL full-text search capabilities <https://www.postgresql.org/docs/current/static/textsearch.html>`_.
 
 .. warning::
@@ -13,23 +13,16 @@ This contrib module provides a search engine backend for Wagtail using
 
 **Features**:
 
-- Supports all the search features available in Wagtail.
+- It supports all the search features available in Wagtail.
 - Easy to install and adds no external dependency or service.
-- Excellent performance for sites with up to 200 000 pages.
-  Stays decent for sites up to a million pages.
-- Faster to reindex than Elasticsearch if you use PostgreSQL 9.5 or more.
+- Excellent performance for sites with up to 200 000 pages and stays decent for sites up to a million pages.
+- Faster to reindex than Elasticsearch, if you use PostgreSQL 9.5 or higher.
 
-The only known **downsides** concern :
+**Drawbacks**:
 
-**Downsides**:
-
-- ``SearchField(partial_match=True)`` is not handled.
-- Due to a PostgreSQL limitation, ``SearchField(boost=…)`` is only partially
-  respected. It is changed so that there can only be 4 different boosts.
-  If you define 4 or less different boosts,
-  everything will be perfectly accurate.
-  However, your search will be a little less accurate if you define more than
-  4 different boosts. That being said, it will work and be roughly the same.
+- Partial matching (``SearchField(partial_match=True)``) is not supported
+- ``SearchField(boost=…)`` is only partially respected as PostgreSQL only supports four different boosts.
+  So if you use five or more distinct values for the boost in your site, slight inaccuracies may occur.
 - When :ref:`wagtailsearch_specifying_fields`, the index is not used,
   so it will be slow on huge sites.
 - Still when :ref:`wagtailsearch_specifying_fields`, you cannot search
@@ -99,7 +92,7 @@ or by using this SQL query: ``SELECT cfgname FROM pg_catalog.pg_ts_config``.
 
 These already-defined search configurations are decent, but they’re basic
 compared to commercial search engines.
-If you want a nicer support of your language, you will have to create
+If you want better support for your language, you will have to create
 your own PostgreSQL search configuration. See the PostgreSQL documentation for
 `an example <https://www.postgresql.org/docs/current/static/textsearch-configuration.html>`_,
 `the list of parsers <https://www.postgresql.org/docs/current/static/textsearch-parsers.html>`_,
@@ -129,4 +122,4 @@ However, if you want to be extra sure that nothing wrong happens while updating
 the index, you can use atomic rebuild. The index will be rebuilt, but nobody
 will have access to it until reindexing is complete. If any error occurs during
 the operation, all changes to the index are reverted
-as if reindexing never happened.
+as if reindexing was never started.

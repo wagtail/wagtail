@@ -1,6 +1,6 @@
 var path = require('path');
 var gulp = require('gulp');
-var sass = require('gulp-sass');
+var sass = require('gulp-dart-sass');
 var cssnano = require('gulp-cssnano');
 var sourcemaps = require('gulp-sourcemaps');
 var size = require('gulp-size');
@@ -18,16 +18,6 @@ var flatten = function(arrOfArr) {
 };
 
 var autoprefixerConfig = {
-    browsers: [
-      'Firefox ESR',
-      'ie 11',
-      'last 2 Chrome versions',
-      'last 2 ChromeAndroid versions',
-      'last 2 Edge versions',
-      'last 1 Firefox version',
-      'last 2 iOS versions',
-      'last 2 Safari versions',
-    ],
     cascade: false,
 };
 
@@ -37,8 +27,6 @@ var cssnanoConfig = {
     },
     zindex: false,
 };
-
-gulp.task('styles', ['styles:sass', 'styles:css', 'styles:assets']);
 
 // Copy all assets that are not CSS files.
 gulp.task('styles:assets', simpleCopyTask('css/**/!(*.css)'));
@@ -87,7 +75,9 @@ gulp.task('styles:sass', function () {
                     '/' + config.srcDir + '/',
                     '/' + config.destDir + '/'
                 )
-                .replace('/scss/', '/css/');
+                .replace('/scss', '/css');
         }))
         .on('error', gutil.log);
 });
+
+gulp.task('styles', gulp.series('styles:sass', 'styles:css', 'styles:assets'));

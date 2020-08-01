@@ -1,9 +1,11 @@
+from io import BytesIO
 from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import checks
 from django.test import TestCase
+from openpyxl import load_workbook
 
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
@@ -42,6 +44,41 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         # User has add permission
         self.assertEqual(response.context['user_can_create'], True)
 
+    def test_csv_export(self):
+        # Export the whole queryset
+        response = self.get(export='csv')
+
+        self.assertEqual(response.status_code, 200)
+        # Check attachment is present and named correctly using the modeladmin export_filename
+        self.assertEqual(response.get('content-disposition'), 'attachment; filename="books-export.csv"')
+
+        # Check response - all books should be in it
+        data_lines = response.getvalue().decode().split("\n")
+        self.assertEqual(data_lines[0], 'Title,Author,Author Date Of Birth\r')
+        self.assertEqual(data_lines[1], 'Charlie and the Chocolate Factory,Roald Dahl,1916-09-13\r')
+        self.assertEqual(data_lines[2], 'The Chronicles of Narnia,Roald Dahl,1898-11-29\r')
+        self.assertEqual(data_lines[3], 'The Hobbit,J. R. R. Tolkien,1892-01-03\r')
+        self.assertEqual(data_lines[4], 'The Lord of the Rings,J. R. R. Tolkien,1892-01-03\r')
+
+    def test_xlsx_export(self):
+        # Export the whole queryset
+        response = self.get(export='xlsx')
+
+        self.assertEqual(response.status_code, 200)
+        # Check attachment is present and named correctly using the modeladmin export_filename
+        self.assertEqual(response.get('content-disposition'), 'attachment; filename="books-export.xlsx"')
+
+        # Check response - all books should be in it
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data))['Sheet1']
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+        self.assertEqual(cell_array[0], ['Title', 'Author', 'Author Date Of Birth'])
+        self.assertEqual(cell_array[1], ['Charlie and the Chocolate Factory', 'Roald Dahl', '1916-09-13'])
+        self.assertEqual(cell_array[2], ['The Chronicles of Narnia', 'Roald Dahl', '1898-11-29'])
+        self.assertEqual(cell_array[3], ['The Hobbit', 'J. R. R. Tolkien', '1892-01-03'])
+        self.assertEqual(cell_array[4], ['The Lord of the Rings', 'J. R. R. Tolkien', '1892-01-03'])
+        self.assertEqual(len(cell_array), 5)
+
     def test_tr_attributes(self):
         response = self.get()
 
@@ -66,6 +103,18 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
 
         for book in response.context['object_list']:
             self.assertEqual(book.author_id, 1)
+
+    def test_filtered_csv_export(self):
+        # Filter by author 1 (JRR Tolkien) and export the current selection
+        response = self.get(author__id__exact=1, export='csv')
+
+        # Check response - only books by JRR Tolkien should be in it
+        self.assertEqual(response.status_code, 200)
+        data_lines = response.getvalue().decode().split("\n")
+        self.assertEqual(data_lines[0], 'Title,Author,Author Date Of Birth\r')
+        self.assertEqual(data_lines[1], 'The Hobbit,J. R. R. Tolkien,1892-01-03\r')
+        self.assertEqual(data_lines[2], 'The Lord of the Rings,J. R. R. Tolkien,1892-01-03\r')
+        self.assertEqual(data_lines[3], '')
 
     def test_search_indexed(self):
         response = self.get(q='of')

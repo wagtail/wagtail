@@ -1,6 +1,6 @@
 var updateRow = function(id, newValue) {
-    $row = $('table.listing tr#snippet-row-' + id);
-    $checklist = $row.find('input[type=checkbox].toggle-select-row');
+    var $row = $('table.listing tr#snippet-row-' + id);
+    var $checklist = $row.find('input[type=checkbox].toggle-select-row');
     $checklist.prop('checked', newValue);
     if (newValue) {
         $row.addClass('selected');
@@ -18,14 +18,14 @@ var updateDeleteButton = function(anySelected, newState) {
         }
     });
     if (anySelected) {
-        // enable button and add url
-        $deleteButton.removeClass('visuallyhidden');
+        // hide button and add url
+        $deleteButton.removeClass('u-hidden');
         var url = $deleteButton.data('url');
         url = url + $.param({id: ids}, true);
         $deleteButton.attr('href', url);
     } else {
-        // disable button and remove url
-        $deleteButton.addClass('visuallyhidden');
+        // show button and remove url
+        $deleteButton.addClass('u-hidden');
         $deleteButton.attr('href', null);
     }
 };
@@ -37,8 +37,8 @@ var updateSelectAllCheckbox = function(value) {
 
 var buildSelectedState = function() {
     // prepare the selected state -- {3: true, 4: false}
-    state = {};
-    $rows = $('table.listing tbody tr input[type=checkbox].toggle-select-row');
+    var state = {};
+    var $rows = $('table.listing tbody tr input[type=checkbox].toggle-select-row');
     $.each($rows, function (index, row) {
         var $row = $(row);
         var selected = $row.prop('checked');

@@ -6,20 +6,21 @@ from io import BytesIO
 
 from django.conf import settings
 from django.core import checks
+from django.core.cache import InvalidCacheBackendError, caches
 from django.core.files import File
 from django.db import models
 from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
-from unidecode import unidecode
 from willow.image import Image as WillowImage
 
 from wagtail.admin.models import get_object_usage
 from wagtail.core import hooks
 from wagtail.core.models import CollectionMember
+from wagtail.core.utils import string_to_ascii
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.rect import Rect
 from wagtail.search import index
@@ -130,7 +131,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
         # do a unidecode in the filename and then
         # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
-        filename = "".join((i if ord(i) < 128 else '_') for i in unidecode(filename))
+        filename = "".join((i if ord(i) < 128 else '_') for i in string_to_ascii(filename))
 
         # Truncate filename so it fits in the 100 character limit
         # https://code.djangoproject.com/ticket/9893
@@ -280,6 +281,20 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         Rendition = self.get_rendition_model()
 
         try:
+            rendition_caching = True
+            cache = caches['renditions']
+            rendition_cache_key = Rendition.construct_cache_key(
+                self.id,
+                cache_key,
+                filter.spec
+            )
+            cached_rendition = cache.get(rendition_cache_key)
+            if cached_rendition:
+                return cached_rendition
+        except InvalidCacheBackendError:
+            rendition_caching = False
+
+        try:
             rendition = self.renditions.get(
                 filter_spec=filter.spec,
                 focal_point_key=cache_key,
@@ -313,6 +328,9 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
                 focal_point_key=cache_key,
                 defaults={'file': File(generated_image.f, name=output_filename)}
             )
+
+        if rendition_caching:
+            cache.set(rendition_cache_key, rendition)
 
         return rendition
 
@@ -426,10 +444,8 @@ class Filter:
                 # Allow changing of JPEG compression quality
                 if 'jpeg-quality' in env:
                     quality = env['jpeg-quality']
-                elif hasattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY'):
-                    quality = settings.WAGTAILIMAGES_JPEG_QUALITY
                 else:
-                    quality = 85
+                    quality = getattr(settings, 'WAGTAILIMAGES_JPEG_QUALITY', 85)
 
                 # If the image has an alpha channel, give it a white background
                 if willow.has_alpha():
@@ -441,7 +457,16 @@ class Filter:
             elif output_format == 'gif':
                 return willow.save_as_gif(output)
             elif output_format == 'webp':
-                return willow.save_as_webp(output)
+                # Allow changing of WebP compression quality
+                if ('output-format-options' in env
+                        and 'lossless' in env['output-format-options']):
+                    return willow.save_as_webp(output, lossless=True)
+                elif 'webp-quality' in env:
+                    quality = env['webp-quality']
+                else:
+                    quality = getattr(settings, 'WAGTAILIMAGES_WEBP_QUALITY', 85)
+
+                return willow.save_as_webp(output, quality=quality)
 
     def get_cache_key(self, image):
         vary_parts = []
@@ -486,7 +511,7 @@ class AbstractRendition(models.Model):
 
     @property
     def alt(self):
-        return self.image.title
+        return self.image.default_alt_text
 
     @property
     def attrs(self):
@@ -541,6 +566,24 @@ class AbstractRendition(models.Model):
 
         return errors
 
+    @staticmethod
+    def construct_cache_key(image_id, filter_cache_key, filter_spec):
+        return "image-{}-{}-{}".format(
+            image_id,
+            filter_cache_key,
+            filter_spec
+        )
+
+    def purge_from_cache(self):
+        try:
+            cache = caches['renditions']
+            cache.delete(self.construct_cache_key(
+                self.image_id, self.focal_point_key, self.filter_spec
+            ))
+        except InvalidCacheBackendError:
+            pass
+
+
     class Meta:
         abstract = True
 
@@ -552,3 +595,17 @@ class Rendition(AbstractRendition):
         unique_together = (
             ('image', 'filter_spec', 'focal_point_key'),
         )
+
+
+class UploadedImage(models.Model):
+    """
+    Temporary storage for images uploaded through the multiple image uploader, when validation rules (e.g.
+    required metadata fields) prevent creating an Image object from the image file alone. In this case,
+    the image file is stored against this model, to be turned into an Image object once the full form
+    has been filled in.
+    """
+    file = models.ImageField(upload_to='uploaded_images', max_length=200)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+    )

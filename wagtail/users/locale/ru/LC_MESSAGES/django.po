@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# ajk, 2014
+# eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Eugene <eugene.mechanism@gmail.com>, 2017
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
+# sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2017
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-12-11 11:00+0000\n"
-"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-24 17:28+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -130,6 +131,9 @@ msgstr "изображение профиля"
 msgid "user profile"
 msgstr "профиль пользователя"
 
+msgid "user profiles"
+msgstr "профили пользователя"
+
 msgid "Delete group"
 msgstr "Удалить группу"
 
@@ -184,11 +188,17 @@ msgstr "Добавить группу"
 msgid "Editing"
 msgstr "Редактирование"
 
+msgid "View users in this group"
+msgstr "Просмотр пользователей группы"
+
 msgid "Save"
 msgstr "Сохранить"
 
+msgid "Permissions"
+msgstr "Разрешения"
+
 msgid "Object permissions"
-msgstr "Разрешения на объекты"
+msgstr "Разрешения объекта"
 
 msgid "Name"
 msgstr "Имя"
@@ -222,7 +232,7 @@ msgstr "Добавить группу"
 
 #, python-format
 msgid "Sorry, no groups match \"%(query)s\""
-msgstr "Извините, подходящих страниц не найдено \"%(query)s\""
+msgstr "Извините, подходящих групп не найдено \"%(query)s\""
 
 #, python-format
 msgid ""
@@ -279,17 +289,48 @@ msgid "%(time_period)s ago"
 msgstr "%(time_period)s назад"
 
 #, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Найдено %(counter)s совпадение"
+msgstr[1] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[2] ""
+"\n"
+"Найдено %(counter)s совпадений"
+msgstr[3] ""
+"\n"
+"Найдено %(counter)s совпадений"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Извините, пользователей, подходящих \"<em>%(query_string)s</em>\", не найдено"
+"Извините, не найдены пользователи удовлетворяющие условию \"<em>"
+"%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Группа %(group_name)s не содержит пользователей. Вы можете <a href="
+"\"%(wagtailusers_add_url)s\">добавить пользователей</a>."
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Нету настроенных пользователей. Почему бы не <a href="
-"\"%(wagtailusers_create_url)s\">добавить</a>?"
+"Пользователи не сконфигурированы. <a href=\"%(wagtailusers_add_url)s"
+"\">Добавить пользователя</a>."
 
 msgid "Groups"
 msgstr "Группы"

@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import SimplePage
+from wagtail.tests.testapp.models import SimplePage, StreamPage
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -23,6 +23,10 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
         )
         self.root_page.add_child(instance=self.child_page)
 
+        # Add stream page (which has empty preview_modes, and so doesn't allow viewing draft)
+        self.stream_page = StreamPage(title='stream page', body=[('text', 'hello')])
+        self.root_page.add_child(instance=self.stream_page)
+
         # create user with admin access (but not draft_view access)
         user = get_user_model().objects.create_user(username='bob', email='bob@email.com', password='password')
         user.user_permissions.add(
@@ -39,6 +43,16 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
 
         # User can view
         self.assertEqual(response.status_code, 200)
+
+    def test_page_without_preview_modes_is_unauthorized(self):
+        # Login as admin
+        self.user = self.login()
+
+        # Try getting page draft
+        response = self.client.get(reverse('wagtailadmin_pages:view_draft', args=(self.stream_page.id, )))
+
+        # Unauthorized response (because this page type has previewing disabled)
+        self.assertEqual(response.status_code, 403)
 
     def test_draft_access_unauthorized(self):
         """Test that user without edit/publish permission can't view draft."""

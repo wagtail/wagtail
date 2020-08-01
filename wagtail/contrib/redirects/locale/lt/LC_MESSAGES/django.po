@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -64,6 +64,9 @@ msgstr "Pridėti peradresavimą"
 msgid "Save"
 msgstr "Išsaugoti"
 
+msgid "Redirects"
+msgstr "Peradresavimai"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Ištrinti %(title)s peradresavimą"
@@ -87,17 +90,14 @@ msgstr "Redagavimas"
 msgid "Delete redirect"
 msgstr "Ištrinti peradresavimą"
 
-msgid "Redirects"
-msgstr "Peradresavimai"
-
 msgid "From"
 msgstr "Forma"
 
-msgid "Site"
-msgstr "Tinklalapis"
-
 msgid "To"
 msgstr "Į"
+
+msgid "Site"
+msgstr "Tinklalapis"
 
 msgid "Type"
 msgstr "Tipas"

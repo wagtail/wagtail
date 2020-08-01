@@ -22,7 +22,7 @@
     </span>
 {% endif %}
 
-<div class="c-sf-container">
+<div class="c-sf-container{% if classname %} {{ classname }}{% endif %}">
     <input type="hidden" name="{{ prefix }}-count" id="{{ prefix }}-count" value="{{ list_members_html|length }}">
 
     {% block header %}{% endblock %}

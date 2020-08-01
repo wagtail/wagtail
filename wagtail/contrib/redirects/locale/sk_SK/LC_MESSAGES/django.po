@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -66,6 +66,9 @@ msgstr "Pridať presmerovanie"
 msgid "Save"
 msgstr "Uložiť"
 
+msgid "Redirects"
+msgstr "Presmerovania"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Zmazať presmerovanie %(title)s"
@@ -89,17 +92,14 @@ msgstr "Upraviť obrázok"
 msgid "Delete redirect"
 msgstr "Zmazať presmerovanie"
 
-msgid "Redirects"
-msgstr "Presmerovania"
-
 msgid "From"
 msgstr "Od"
 
-msgid "Site"
-msgstr "Stránka"
-
 msgid "To"
 msgstr "Komu"
+
+msgid "Site"
+msgstr "Stránka"
 
 msgid "Type"
 msgstr "Typ"

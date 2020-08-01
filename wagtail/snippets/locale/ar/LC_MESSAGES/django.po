@@ -5,15 +5,16 @@
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
 # ultraify media <ultraify@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-04-09 11:10+0000\n"
+"Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +25,7 @@ msgstr ""
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 msgid "Wagtail snippets"
-msgstr "قصاصات"
+msgstr "قصاصات Wagtail"
 
 msgid "Choose"
 msgstr "اختر"
@@ -62,7 +63,10 @@ msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
 msgstr "هل أنت متأكد أنك تريد حذف%(count)s %(snippet_type_name)s ؟"
 
 msgid "Yes, delete"
-msgstr "نعم احذف"
+msgstr "نعم, احذف"
+
+msgid "No, don't delete"
+msgstr "لا, لا تذف"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"
@@ -84,6 +88,9 @@ msgstr "تحرير %(snippet_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "تحرير"
 
+msgid "Actions"
+msgstr "النشاطات"
+
 msgid "Delete"
 msgstr "احذف"
 
@@ -95,6 +102,9 @@ msgstr "قصاصات"
 
 msgid "Title"
 msgstr "عنوان"
+
+msgid "Edit"
+msgstr "تحرير"
 
 #, python-format
 msgid ""
@@ -138,9 +148,6 @@ msgstr "حرر هذه الصفحة"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "بحث %(snippet_type_name)s"
-
-msgid "Edit"
-msgstr "تحرير"
 
 msgid "The snippet could not be created due to errors."
 msgstr "لم تنشئ القصااصة بسبب أخطاء"

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2019
+# Dan Braghis, 2014-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-27 20:29+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,9 @@ msgstr "Parolă"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Parola introdusă nu este corectă. Vă rugăm să încercați din nou."
+
+msgid "Comment"
+msgstr "Comentariu"
 
 msgid "hostname"
 msgstr "nume gazdă"
@@ -88,6 +91,9 @@ msgstr "Sait"
 
 msgid "sites"
 msgstr "saituri"
+
+msgid "default"
+msgstr "implicit"
 
 #, python-format
 msgid ""
@@ -162,6 +168,12 @@ msgstr "expirat"
 msgid "locked"
 msgstr "blocat"
 
+msgid "locked at"
+msgstr "blocat la"
+
+msgid "locked by"
+msgstr "blocat de"
+
 msgid "first published at"
 msgstr "publicată pentru prima dată la"
 
@@ -171,17 +183,26 @@ msgstr "publicată pentru prima dată la"
 msgid "latest revision created at"
 msgstr "ultima revizie creată la"
 
+msgid "live revision"
+msgstr "revizie live"
+
 msgid "This slug is already in use"
 msgstr "Slug-ul acesta a fost deja folosit"
 
 msgid "scheduled"
 msgstr "programată"
 
+msgid "in moderation"
+msgstr "în moderație"
+
 msgid "draft"
 msgstr "ciornă"
 
 msgid "live + scheduled"
 msgstr "live + programată"
+
+msgid "live + in moderation"
+msgstr "live + în moderație"
 
 msgid "live + draft"
 msgstr "live + ciornă"
@@ -242,6 +263,15 @@ msgstr "Șterge pagini cu descendenți"
 
 msgid "Lock"
 msgstr "Încuie"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Blochează/deblochează paginile tale blocate"
+
+msgid "Unlock"
+msgstr "Deblochează"
+
+msgid "Unlock any page"
+msgstr "Deblochează orice pagină"
 
 msgid "group"
 msgstr "grup"
@@ -308,6 +338,102 @@ msgstr "permisiune grup colecție"
 
 msgid "group collection permissions"
 msgstr "permisiuni grup colecție"
+
+msgid "task"
+msgstr "sarcină"
+
+msgid "active"
+msgstr "activ"
+
+msgid "tasks"
+msgstr "sarcini"
+
+msgid "Request changes"
+msgstr "Solicită modificări"
+
+msgid "Approve"
+msgstr "Aprobă"
+
+msgid "Approve with comment"
+msgstr "Aprobă cu comentariu"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Mebrii Grupurilor Wagtail selectați pot aproba această sarcină"
+
+msgid "Group approval task"
+msgstr "Sarcină de aprobare de grup"
+
+msgid "Group approval tasks"
+msgstr "Sarcini de aprobare de grup"
+
+msgid "In progress"
+msgstr "În progres"
+
+msgid "Approved"
+msgstr "Aprobat"
+
+msgid "Needs changes"
+msgstr "Necesită modificări"
+
+msgid "Cancelled"
+msgstr "Anulat"
+
+msgid "status"
+msgstr "stare"
+
+msgid "requested by"
+msgstr "solicitat de"
+
+msgid "current task state"
+msgstr "starea sarcinii curente"
+
+msgid "Not started"
+msgstr "Neînceput"
+
+msgid "Rejected"
+msgstr "Respins"
+
+msgid "Skipped"
+msgstr "Omis"
+
+msgid "started at"
+msgstr "început la"
+
+msgid "finished at"
+msgstr "terminat la"
+
+msgid "finished by"
+msgstr "terminat de"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Sarcina '{0}' la revizia paginii '{1}': {2}"
+
+msgid "Task state"
+msgstr "Stare sarcină"
+
+msgid "Task states"
+msgstr "Stări de sarcină"
+
+msgid "timestamp (UTC)"
+msgstr "timestamp (UTC)"
+
+msgid "log entry"
+msgstr "intrare jurnal"
+
+msgid "log entries"
+msgstr "intrări jurnal"
+
+msgid "user {id} (deleted)"
+msgstr "utilizator {id} (șters)"
+
+msgid "system"
+msgstr "sistem"
+
+msgid "page log entry"
+msgstr "intrare jurnal de pagină"
+
+msgid "page log entries"
+msgstr "intrări jurnal de pagină"
 
 msgid "Log in"
 msgstr "Logare"

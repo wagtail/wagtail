@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Roger Pons <rogerpons@gmail.com>, 2016-2017
+# Roger Pons <rogerpons@gmail.com>, 2016-2017,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2020-01-20 20:15+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-29 09:45+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail forms"
+msgstr "Formularis de Wagtail"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s enviaments"
+
+msgid "Date from"
+msgstr "Data d'inici"
+
+msgid "Date to"
+msgstr "Data de fi"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -47,6 +60,9 @@ msgstr "Caselles de selecció"
 msgid "Drop down"
 msgstr "Desplegable"
 
+msgid "Multiple select"
+msgstr "Selecció múltiple"
+
 msgid "Radio buttons"
 msgstr "Botons d'opció"
 
@@ -56,11 +72,24 @@ msgstr "Data"
 msgid "Date/time"
 msgstr "Data/hora"
 
+msgid "Hidden field"
+msgstr "Camp ocult"
+
 msgid "submit time"
 msgstr "Hora de l'enviament"
 
 msgid "form submission"
 msgstr "enviament de formulari"
+
+msgid "form submissions"
+msgstr "enviaments de formulari"
+
+msgid "name"
+msgstr "nom"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr ""
+"Nom segur del camp de formulari, etiqueta convertida a ascii_snake_case"
 
 msgid "label"
 msgstr "etiqueta"
@@ -97,6 +126,12 @@ msgstr "text d'ajuda"
 
 msgid "Submission date"
 msgstr "Data d'enviament"
+
+msgid "Form"
+msgstr "Formulari"
+
+msgid "Landing page"
+msgstr "Pàgina inicial"
 
 msgid "to address"
 msgstr "a l'adreça"
@@ -164,6 +199,9 @@ msgstr "Dades del formulari <span>%(form_title)s</span>"
 msgid "Filter"
 msgstr "Filtrar"
 
+msgid "Download XLSX"
+msgstr "Descarregar XLSX"
+
 msgid "Download CSV"
 msgstr "Baixar CSV"
 
@@ -176,6 +214,9 @@ msgstr "Títol"
 
 msgid "Origin"
 msgstr "Orígen"
+
+msgid "Delete selected submissions"
+msgstr "Esborrar els enviaments seleccionats"
 
 msgid "No form pages have been created."
 msgstr "No s'han creat pàgines de formulari"

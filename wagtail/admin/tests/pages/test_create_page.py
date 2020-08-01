@@ -3,12 +3,12 @@ from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.core import mail
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.models import GroupPagePermission, Page, PageRevision
@@ -111,10 +111,11 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
         self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
         # test register_page_action_menu_item hook
-        self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
+        self.assertContains(response, '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>')
         self.assertContains(response, 'testapp/js/siren.js')
         # test construct_page_action_menu hook
-        self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')
+        self.assertContains(response, '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>')
+
 
     def test_create_multipart(self):
         """
@@ -450,13 +451,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(page.live)
         self.assertFalse(page.first_published_at)
 
-        # The latest revision for the page should now be in moderation
-        self.assertTrue(page.get_latest_revision().submitted_for_moderation)
+        # The page should now be in moderation
+        self.assertEqual(page.current_workflow_state.status, page.current_workflow_state.STATUS_IN_PROGRESS)
 
-        # Check that the moderator got an email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "New page!" has been submitted for moderation')
 
     def test_create_simplepage_post_existing_slug(self):
         # This tests the existing slug checking on page save
@@ -667,12 +664,65 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())
 
+    def test_after_publish_page(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.title, "New page!")
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("after_publish_page", hook_func):
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+                "action-publish": "Publish",
+            }
+            response = self.client.post(
+                reverse("wagtailadmin_pages:add", args=("tests", "simplepage", self.root_page.id)),
+                post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+        self.root_page.refresh_from_db()
+        self.assertEqual(self.root_page.get_children()[0].status_string, _("live"))
+
+    def test_before_publish_page(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.title, "New page!")
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_publish_page", hook_func):
+            post_data = {
+                "title": "New page!",
+                "content": "Some content",
+                "slug": "hello-world",
+                "action-publish": "Publish",
+            }
+            response = self.client.post(
+                reverse("wagtailadmin_pages:add", args=("tests", "simplepage", self.root_page.id)),
+                post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+        self.root_page.refresh_from_db()
+        self.assertEqual(self.root_page.get_children()[0].status_string, _("live + draft"))
+
     def test_display_moderation_button_by_default(self):
         """
         Tests that by default the "Submit for Moderation" button is shown in the action menu.
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
-        self.assertContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
+        self.assertContains(
+            response,
+            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">'
+            '<svg class="icon icon-resubmit icon" aria-hidden="true" focusable="false"><use href="#icon-resubmit"></use></svg>'
+            'Submit for moderation</button>'
+        )
 
     @override_settings(WAGTAIL_MODERATION_ENABLED=False)
     def test_hide_moderation_button(self):
@@ -680,7 +730,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         Tests that if WAGTAIL_MODERATION_ENABLED is set to False, the "Submit for Moderation" button is not shown.
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
-        self.assertNotContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
+        self.assertNotContains(response, '<button type="submit" name="action-submit" value="Submit for moderation" class="button">Submit for moderation</button>')
 
 
 class TestPerRequestEditHandler(TestCase, WagtailTestUtils):

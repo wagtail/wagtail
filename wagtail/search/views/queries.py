@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.template.response import TemplateResponse
 
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
@@ -26,7 +26,7 @@ def chooser(request, get_results=False):
 
     # Render
     if get_results:
-        return render(request, "wagtailsearch/queries/chooser/results.html", {
+        return TemplateResponse(request, "wagtailsearch/queries/chooser/results.html", {
             'queries': queries,
         })
     else:

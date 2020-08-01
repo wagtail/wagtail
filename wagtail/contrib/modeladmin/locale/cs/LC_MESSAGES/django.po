@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# IT Management <info@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2020
 # Marek Turnovec <aesculap@gmail.com>, 2016
-# Mirek Zvolský <zvolsky@seznam.cz>, 2019
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-04-22 07:34+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +63,7 @@ msgstr "Zrušit publikaci"
 
 #, python-format
 msgid "Unpublish this %s"
-msgstr "Zrušit publikování %s"
+msgstr "Zrušit publikaci %s"
 
 msgid "Copy"
 msgstr "Kopírovat"
@@ -114,6 +115,9 @@ msgstr "Zpět na seznam"
 msgid "Yes, delete"
 msgstr "Ano, zrušit"
 
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
 msgid "Home"
 msgstr "Domů"
 
@@ -133,6 +137,12 @@ msgstr "Hledat.."
 #, python-format
 msgid "Search %(name)s"
 msgstr "Hledat %(name)s"
+
+msgid "Download XLSX"
+msgstr "Stáhnout XLSX"
+
+msgid "Download CSV"
+msgstr "Stáhnout CSV"
 
 msgid "Filter"
 msgstr "Filtr"
@@ -161,6 +171,9 @@ msgstr ""
 "\">nějaký(ou/é) přidat</a>?\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "Stránkování"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Stránka %(current_page)s z %(num_pages)s."
@@ -174,6 +187,10 @@ msgstr "Předchozí"
 
 msgid "Next"
 msgstr "Další"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' vytvořeno."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -194,6 +211,10 @@ msgid "Editing %s"
 msgstr "Editování %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' aktualizováno."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s nemohlo být uloženo kvůli chybám."
 
@@ -208,6 +229,10 @@ msgid ""
 msgstr ""
 "Jste si jistý/á, že chcete zrušit %s? Jestliže se k tomu vztahují další věci "
 "na Vašem webu, mohou být rovněž ovlivněny."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' zrušeno."
 
 msgid "Inspecting"
 msgstr "Prohlíží se.."

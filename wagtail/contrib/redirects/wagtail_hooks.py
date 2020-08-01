@@ -1,7 +1,6 @@
-from django.conf.urls import include, url
 from django.contrib.auth.models import Permission
-from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.urls import include, path, reverse
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
 from wagtail.contrib.redirects import urls
@@ -12,7 +11,7 @@ from wagtail.core import hooks
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^redirects/', include(urls, namespace='wagtailredirects')),
+        path('redirects/', include(urls, namespace='wagtailredirects')),
     ]
 
 
@@ -26,7 +25,7 @@ class RedirectsMenuItem(MenuItem):
 @hooks.register('register_settings_menu_item')
 def register_redirects_menu_item():
     return RedirectsMenuItem(
-        _('Redirects'), reverse('wagtailredirects:index'), classnames='icon icon-redirect', order=800
+        _('Redirects'), reverse('wagtailredirects:index'), icon_name='redirect', order=800
     )
 
 

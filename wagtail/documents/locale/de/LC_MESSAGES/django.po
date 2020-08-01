@@ -16,12 +16,12 @@
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
-# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
 "PO-Revision-Date: 2020-01-27 09:52+0000\n"
 "Last-Translator: Benedikt Willi <ben.willi@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"

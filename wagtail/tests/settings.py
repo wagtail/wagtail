@@ -156,7 +156,7 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',  # don't use the intentionally slow default password hasher
 )
 
-ALLOWED_HOSTS = ['localhost', 'testserver']
+ALLOWED_HOSTS = ['localhost', 'testserver', 'other.example.com']
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
@@ -171,6 +171,7 @@ if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     WAGTAILSEARCH_BACKENDS['postgresql'] = {
         'BACKEND': 'wagtail.contrib.postgres_search.backend',
         'AUTO_UPDATE': False,
+        'SEARCH_CONFIG': 'english'
     }
 
 if 'ELASTICSEARCH_URL' in os.environ:

@@ -46,6 +46,7 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             return false;
         };
         function setPage(page) {
+            var dataObj;
 
             if($('#id_q').val().length){
                 dataObj = {q: $('#id_q').val(), p: page};
@@ -82,7 +83,7 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 dataType: 'text',
                 success: modal.loadResponseText,
                 error: function(response, textStatus, errorThrown) {
-                    message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
+                    var message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
                     $('#upload').append(
                         '<div class="help-block help-critical">' +
                         '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');

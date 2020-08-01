@@ -4,10 +4,11 @@
 #
 # Translators:
 # ajk, 2014
-# ajk, 2014
+# eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
+# sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Мирон Левицкий <miron200504@gmail.com>, 2018
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 18:19+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,10 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: у этого блока нет опций."
 
 msgid "This block has no options."
 msgstr "Этот блок не имеет опций."
@@ -51,6 +56,9 @@ msgstr "Пароль"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Введённый вами пароль неверный. Попробуйте еще раз."
+
+msgid "Comment"
+msgstr "Комментарий"
 
 msgid "hostname"
 msgstr "имя хоста"
@@ -91,6 +99,9 @@ msgstr "сайт"
 
 msgid "sites"
 msgstr "сайты"
+
+msgid "default"
+msgstr "по умолчанию"
 
 #, python-format
 msgid ""
@@ -165,6 +176,12 @@ msgstr "истекло"
 msgid "locked"
 msgstr "заблокировано"
 
+msgid "locked at"
+msgstr "заблокирован в"
+
+msgid "locked by"
+msgstr "заблокирован"
+
 msgid "first published at"
 msgstr "впервые опубликовано"
 
@@ -174,17 +191,26 @@ msgstr "последний раз публиковалась"
 msgid "latest revision created at"
 msgstr "последняя версия создана"
 
+msgid "live revision"
+msgstr "опубликованная версия"
+
 msgid "This slug is already in use"
 msgstr "Этот слаг уже используется"
 
 msgid "scheduled"
 msgstr "запланированное"
 
+msgid "in moderation"
+msgstr "на модерации"
+
 msgid "draft"
 msgstr "черновик"
 
 msgid "live + scheduled"
 msgstr "размещена + запланированна"
+
+msgid "live + in moderation"
+msgstr "опубликовано + на модерации"
 
 msgid "live + draft"
 msgstr "опубликовано + черновик"
@@ -245,6 +271,15 @@ msgstr "Удалить вместе с дочерними страницами"
 
 msgid "Lock"
 msgstr "Заблокировать"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Ваши заблокированные/разблокированные страницы"
+
+msgid "Unlock"
+msgstr "Разблокировать"
+
+msgid "Unlock any page"
+msgstr "Разблокировать любую страницу"
 
 msgid "group"
 msgstr "группа"
@@ -311,6 +346,162 @@ msgstr "право доступа к коллекции у группы"
 
 msgid "group collection permissions"
 msgstr "права доступа к коллекции у группы"
+
+msgid "workflow"
+msgstr "рабочий процесс"
+
+msgid "workflow page"
+msgstr "страница рабочего процесса"
+
+msgid "workflow pages"
+msgstr "страницы рабочего процесса"
+
+msgid "workflow_tasks"
+msgstr "workflow_tasks"
+
+msgid "task"
+msgstr "задача"
+
+msgid "workflow task order"
+msgstr "порядок задачи рабочего процесса"
+
+msgid "workflow task orders"
+msgstr "порядки задач рабочего процесса"
+
+msgid "active"
+msgstr "активный"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Активные задачи могут быть добавлены в рабочий процесс. Неактивная задача не "
+"удаляется из существующего рабочего процесса."
+
+msgid "tasks"
+msgstr "задачи"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Активные рабочие процессы могут быть добавлены к страницам. Деактивация "
+"рабочего процесса не удаляет её из существующих страниц."
+
+msgid "workflows"
+msgstr "рабочие процессы"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Страницы на этом шаге в рабочем процессе будут промодерированы и "
+"утвержденный этой группой пользователей"
+
+msgid "Request changes"
+msgstr "Запрос изменений"
+
+msgid "Approve"
+msgstr "Одобрить"
+
+msgid "Approve with comment"
+msgstr "Одобрить с комментарием"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Члены выбранных Wagtail групп могут одобрить эту задачу"
+
+msgid "Group approval task"
+msgstr "Группа одобрения задачи"
+
+msgid "Group approval tasks"
+msgstr "Группа одобрения задач"
+
+msgid "In progress"
+msgstr "В ходе выролнения"
+
+msgid "Approved"
+msgstr "Одобрено"
+
+msgid "Needs changes"
+msgstr "Нужные изменения"
+
+msgid "Cancelled"
+msgstr "Отменено"
+
+msgid "status"
+msgstr "статус"
+
+msgid "requested by"
+msgstr "запрощен"
+
+msgid "current task state"
+msgstr "текущее состояние задачи"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Только один прогресс выполнения или нужно изменить состояние для каждой "
+"страницы."
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Процесс выполнения '{0}' на Странице '{1}': {2} "
+
+msgid "Not started"
+msgstr "Не запущен"
+
+msgid "Workflow state"
+msgstr "Состояние процесса выполнения"
+
+msgid "Workflow states"
+msgstr "Состояния процесса выполнения"
+
+msgid "Rejected"
+msgstr "Отклонено"
+
+msgid "Skipped"
+msgstr "Пропущено"
+
+msgid "workflow state"
+msgstr "состояние процесса выполнения"
+
+msgid "started at"
+msgstr "запущен в"
+
+msgid "finished at"
+msgstr "завершен в"
+
+msgid "finished by"
+msgstr "закончен"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Задача '{0}' на Ревизии Страницы '{1}': {2}"
+
+msgid "Task state"
+msgstr "Статус задачи"
+
+msgid "Task states"
+msgstr "Статусы задачи"
+
+msgid "timestamp (UTC)"
+msgstr "отметка времени (UTC)"
+
+msgid "log entry"
+msgstr "запись в журнале"
+
+msgid "log entries"
+msgstr "записи в журнале"
+
+msgid "user {id} (deleted)"
+msgstr "пользователь {id} (удален)"
+
+msgid "system"
+msgstr "система"
+
+msgid "page log entry"
+msgstr "страница записи журнала"
+
+msgid "page log entries"
+msgstr "страница записей журнала"
 
 msgid "Log in"
 msgstr "Войти"

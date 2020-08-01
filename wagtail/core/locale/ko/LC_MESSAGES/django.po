@@ -5,13 +5,13 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -23,6 +23,10 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "웨그테일 코어"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: 이 블록에는 옵션이 없습니다."
 
 msgid "This block has no options."
 msgstr "이 블록에는 옵션이 없습니다."
@@ -155,6 +159,12 @@ msgstr "만료"
 msgid "locked"
 msgstr "잠김"
 
+msgid "locked at"
+msgstr "잠긴 시간:"
+
+msgid "locked by"
+msgstr "잠근 사람:"
+
 msgid "first published at"
 msgstr "최초 게시일시:"
 
@@ -235,6 +245,15 @@ msgstr "하위 페이지들과 함께 지우기"
 
 msgid "Lock"
 msgstr "잠금"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "잠긴 페이지 잠금/잠금 해제"
+
+msgid "Unlock"
+msgstr "잠금 풀기"
+
+msgid "Unlock any page"
+msgstr "모든 페이지 잠금 풀기"
 
 msgid "group"
 msgstr "그룹"

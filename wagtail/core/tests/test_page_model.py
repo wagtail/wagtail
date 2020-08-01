@@ -19,7 +19,8 @@ from wagtail.tests.testapp.models import (
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
     CustomPageQuerySet, EventCategory, EventIndex, EventPage, GenericSnippetPage, ManyToManyBlogPage,
     MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage, PageWithExcludedCopyField, SimpleChildPage,
-    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, TaggedPage)
+    SimplePage, SimpleParentPage, SingleEventPage, SingletonPage, StandardIndex, StreamPage,
+    TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -498,6 +499,17 @@ class TestServeView(TestCase):
         c = Client()
         response = c.get('/christmas/', HTTP_HOST='localhost')
         self.assertEqual(response.status_code, 404)
+
+    def test_serve_with_custom_context_name(self):
+        EventPage.context_object_name = 'event_page'
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        response = self.client.get('/events/christmas/')
+
+        # Context should contain context_object_name key along with standard page keys
+        self.assertEqual(response.context['event_page'], christmas_page)
+        self.assertEqual(response.context['page'], christmas_page)
+        self.assertEqual(response.context['self'], christmas_page)
 
     def test_serve_with_custom_context(self):
         response = self.client.get('/events/')
@@ -1195,6 +1207,67 @@ class TestCopyPage(TestCase):
         # special_field is in the list to be excluded
         self.assertNotEqual(page.special_field, new_page.special_field)
 
+    def test_copy_page_with_excluded_parental_and_child_relations(self):
+        """Test that a page will be copied with parental and child relations removed if excluded."""
+
+        try:
+            # modify excluded fields for this test
+            EventPage.exclude_fields_in_copy = ['advert_placements', 'categories', 'signup_link']
+
+            # set up data
+            christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+            summer_category = EventCategory.objects.create(name='Summer')
+            holiday_category = EventCategory.objects.create(name='Holidays')
+
+            # add URL (to test excluding a basic field)
+            christmas_event.signup_link = "https://christmas-is-awesome.com/rsvp"
+
+            # add parental many to many relations
+            christmas_event.categories = (summer_category, holiday_category)
+            christmas_event.save()
+
+            # Copy it
+            new_christmas_event = christmas_event.copy(
+                update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+            )
+
+            # check that the signup_link was NOT copied
+            self.assertEqual(christmas_event.signup_link, "https://christmas-is-awesome.com/rsvp")
+            self.assertEqual(new_christmas_event.signup_link, '')
+
+            # check that original event is untouched
+            self.assertEqual(
+                christmas_event.categories.count(),
+                2,
+                "Child objects (parental many to many) defined on the superclass were removed from the original page"
+            )
+
+            # check that parental many to many are NOT copied
+            self.assertEqual(
+                new_christmas_event.categories.count(),
+                0,
+                "Child objects (parental many to many) were copied but should be excluded"
+            )
+
+            # check that child objects on original event were left untouched
+            self.assertEqual(
+                christmas_event.advert_placements.count(),
+                1,
+                "Child objects defined on the original superclass were edited when copied"
+            )
+
+            # check that child objects were NOT copied
+            self.assertEqual(
+                new_christmas_event.advert_placements.count(),
+                0,
+                "Child objects defined on the superclass were copied and should not be"
+            )
+
+        finally:
+            # reset excluded fields for future tests
+            EventPage.exclude_fields_in_copy = []
+
+
 
 class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
     def test_allowed_subpage_models(self):
@@ -1621,6 +1694,26 @@ class TestMakePreviewRequest(TestCase):
         # '*' is not a valid hostname, so ensure that we replace it with something sensible
         self.assertNotEqual(request.META['HTTP_HOST'], '*')
 
+    def test_is_previewable(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+        stream_page = StreamPage(title='stream page', body=[('text', 'hello')])
+        event_index.add_child(instance=stream_page)
+        plain_stream_page = Page.objects.get(id=stream_page.id)
+
+        # StreamPage sets preview_modes to an empty list, so stream_page is not previewable
+        with self.assertNumQueries(0):
+            self.assertFalse(stream_page.is_previewable())
+
+        # is_previewable should also cope with being called on a base Page object, at the
+        # cost of an extra query to access the specific object
+        with self.assertNumQueries(1):
+            self.assertFalse(plain_stream_page.is_previewable())
+
+        # event_index is a plain Page object, but we should recognise that preview_modes
+        # has not been overridden on EventIndexPage and avoid the extra query
+        with self.assertNumQueries(0):
+            self.assertTrue(event_index.is_previewable())
+
 
 class TestShowInMenusDefaultOption(TestCase):
     """
@@ -1717,3 +1810,27 @@ class TestUnpublish(TestCase):
         home_page.save(clean=False)
         # This shouldn't fail with a ValidationError.
         home_page.unpublish()
+
+
+class TestCachedContentType(TestCase):
+    """Tests for Page.cached_content_type"""
+
+    def setUp(self):
+        root_page = Page.objects.first()
+        self.page = root_page.add_child(
+            instance=SimplePage(title="Test1", slug="test1", content="test")
+        )
+        self.specific_page_ctype = ContentType.objects.get_for_model(SimplePage)
+
+    def test_golden_path(self):
+        """
+        The return value should match the value you'd get
+        if fetching the ContentType from the database,
+        and shouldn't trigger any database queries when
+        the ContentType is already in memory.
+        """
+        with self.assertNumQueries(0):
+            result = self.page.cached_content_type
+        self.assertEqual(
+            result, ContentType.objects.get(id=self.page.content_type_id)
+        )

@@ -1,0 +1,63 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{{ view.page_title }}{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/workflow-edit.css' %}" type="text/css" />
+    {{ edit_handler.form.media.css }}
+    {{ pages_formset.media.css }}
+
+    {{ view.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ edit_handler.form.media.js }}
+    {{ pages_formset.media.js }}
+    {{ edit_handler.html_declarations }}
+
+    {{ view.media.js }}
+{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 %}
+
+    <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
+        {% csrf_token %}
+
+        {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+
+        <ul class="objects">
+            <li class="object">
+                <div class="title-wrapper">
+                    <label>
+                        {% trans "Assign your workflow to pages" %}
+                    </label>
+                </div>
+                <div class="object-layout">
+                    <div class="object-layout_big-part">
+                        {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        {% block footer %}
+            <footer role="contentinfo">
+                <ul>
+                    <li class="actions">
+                        {% block form_actions %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Creating…' %}">
+                                    {% icon name="spinner" %}<em>{% trans 'Create' %}</em>
+                                </button>
+                            </div>
+                        {% endblock %}
+                    </li>
+                </ul>
+            </footer>
+        {% endblock %}
+    </form>
+{% endblock %}

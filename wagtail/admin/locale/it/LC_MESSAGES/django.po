@@ -12,12 +12,13 @@
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
 # LB (Ben Johnston) <mail@lb.ee>, 2019
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
+# Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -39,6 +40,15 @@ msgstr "Annulla pubblicazione"
 msgid "Delete"
 msgstr "Elimina"
 
+msgid "Lock"
+msgstr "Blocca"
+
+msgid "Unlock"
+msgstr "Sblocca"
+
+msgid "Save Draft"
+msgstr "Salva Bozza"
+
 msgid "Page locked"
 msgstr "Pagina bloccata"
 
@@ -57,6 +67,9 @@ msgstr "Nessuno"
 msgid "Scheduled publishing"
 msgstr "Data pubblicazione"
 
+msgid "Privacy"
+msgstr "Privacy"
+
 msgid "Common page configuration"
 msgstr "Configurazione pagina"
 
@@ -69,6 +82,12 @@ msgstr "Promuovi"
 msgid "Settings"
 msgstr "Impostazioni"
 
+msgid "Date"
+msgstr "Data"
+
+msgid "Title"
+msgstr "Titolo"
+
 msgid "Enter password"
 msgstr "Inserisci password"
 
@@ -78,6 +97,9 @@ msgstr "Inserisci il tuo %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Digita la tua email per resettare la password"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -167,6 +189,9 @@ msgstr "Arabo"
 msgid "Catalan"
 msgstr "Catalano"
 
+msgid "Czech"
+msgstr "Ceco"
+
 msgid "German"
 msgstr "Tedesco"
 
@@ -188,6 +213,9 @@ msgstr "Francese"
 msgid "Galician"
 msgstr "Galician"
 
+msgid "Hungarian"
+msgstr "Ungherese"
+
 msgid "Indonesian"
 msgstr "Indonesiano"
 
@@ -196,6 +224,9 @@ msgstr "Icelandic"
 
 msgid "Italian"
 msgstr "Italiano"
+
+msgid "Japanese"
+msgstr "Giapponese"
 
 msgid "Korean"
 msgstr "Koreano"
@@ -239,6 +270,12 @@ msgstr "Slovacco"
 msgid "Thai"
 msgstr "Tailandese"
 
+msgid "Turkish"
+msgstr "Turco"
+
+msgid "Turkish (Turkey)"
+msgstr "Turco (Turchia)"
+
 msgid "Ukrainian"
 msgstr "Ucraino"
 
@@ -247,6 +284,9 @@ msgstr "Cinese (semplificato)"
 
 msgid "Chinese (Traditional)"
 msgstr "Cinese (tradizionale)"
+
+msgid "Edit"
+msgstr "Modifica"
 
 msgid "Page"
 msgstr "Pagina"
@@ -316,6 +356,12 @@ msgstr "Chiudi"
 
 msgid "Edit '{title}'"
 msgstr "Modifica '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Mostra sotto-pagine di '{title}'"
+
+msgid "Page explorer"
+msgstr "Esplora pagine"
 
 msgid "January"
 msgstr "Gennaio"
@@ -587,9 +633,6 @@ msgstr ""
 msgid "Save"
 msgstr "Salva"
 
-msgid "Privacy"
-msgstr "Privacy"
-
 msgid "Public"
 msgstr "Pubblico"
 
@@ -630,24 +673,14 @@ msgstr ""
 "Questa è la tua dashboard nella quale verranno mostrate informazioni utili "
 "riguardo i contenuti"
 
-msgid "Title"
-msgstr "Titolo"
-
 msgid "Edit this page"
 msgstr "Modifica questa pagina"
-
-msgid "Edit"
-msgstr "Modifica"
 
 msgid "Draft"
 msgstr "Bozza"
 
 msgid "Live"
 msgstr "Live"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s fa"
 
 msgid "Pages awaiting moderation"
 msgstr "Pagine in attesa di moderazione"
@@ -676,9 +709,6 @@ msgstr "Anteprima"
 msgid "Your most recent edits"
 msgstr "Le tue modifiche recenti"
 
-msgid "Date"
-msgstr "Data"
-
 msgid "Status"
 msgstr "Stato"
 
@@ -697,11 +727,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Loggati in Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Dimenticato?"
-
 msgid "Signing in…"
 msgstr "Autenticazione in corso..."
+
+msgid "Forgotten it?"
+msgstr "Dimenticato?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -755,11 +785,23 @@ msgstr ""
 "Modifiche della privacy applicate anche a tutte le pagine figlio di questa "
 "pagina."
 
+msgid "Visit the live page"
+msgstr "Vai alla pagina sul sito"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Imposta visibilità della pagina. Stato attuale: Pubblica"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Imposta visibilità della pagina. Stato attuale: Privata"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Visibilità della pagina. Stato attuale: Pubblica"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Visibilità della pagina. Stato attuale: Privata"
+
 msgid "Publishing…"
 msgstr "Pubblicazione in corso..."
-
-msgid "Publish this revision"
-msgstr "Pubblica questa revisione"
 
 msgid "Saving…"
 msgstr "Salvataggio in corso…"
@@ -906,6 +948,9 @@ msgstr "Nuovo %(page_type)s"
 msgid "New"
 msgstr "Nuovo"
 
+msgid "Actions"
+msgstr "Azioni"
+
 msgid "This page has unsaved changes."
 msgstr "Questa pagina ha delle modifiche non salvate."
 
@@ -913,20 +958,15 @@ msgstr "Questa pagina ha delle modifiche non salvate."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Modifica %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Modifica %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Live version"
+
+msgid "Current draft"
+msgstr "La bozza corrente"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Ultima modifica: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "di %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revisioni"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s fa"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1033,6 +1073,9 @@ msgstr "Aggiungi pagina figlio"
 msgid "Sites menu"
 msgstr "Menu sito"
 
+msgid "Pagination"
+msgstr "Paginazione"
+
 #, python-format
 msgid ""
 "\n"
@@ -1087,15 +1130,15 @@ msgstr ""
 "                e riprova l'anteprima.\n"
 "            "
 
+msgid "Cancel scheduled publish"
+msgstr "Cancella programma pubblicazione"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Compara %(title)s"
 
 msgid "Comparing"
 msgstr "Compara"
-
-msgid "View revisions"
-msgstr "Vedi revisioni"
 
 msgid "Fields"
 msgstr "Campi"
@@ -1147,9 +1190,6 @@ msgstr[1] ""
 "di %(counter)s posizioni.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Non ci sono differenze tra queste due revisioni"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Annulla programmazione per la revisione %(revision.id)s di %(title)s"
@@ -1180,23 +1220,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "da"
 
-msgid "Current draft"
-msgstr "La bozza corrente"
-
-msgid "Live version"
-msgstr "Live version"
-
 msgid "Scheduled for"
 msgstr "Programmato per"
-
-msgid "Review this revision"
-msgstr "Controlla questa revisione"
-
-msgid "Compare with previous revision"
-msgstr "Compara con la revisione precedente"
-
-msgid "Cancel scheduled publish"
-msgstr "Cancella programma pubblicazione"
 
 msgid "No revisions of this page exist"
 msgstr "Nessuna revisione esistente per questa pagina"
@@ -1223,12 +1248,6 @@ msgstr[1] ""
 
 msgid "Page types"
 msgstr "Tipi di pagina"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Spiacente, non ci sono pagine che corrispondono a <em>\"%(query_string)s\"</"
-"em>"
 
 msgid "Enter a search term above"
 msgstr "Inserisce un termine di ricerca sopra"
@@ -1264,8 +1283,37 @@ msgstr "Impostazioni dell 'account"
 msgid "Log out"
 msgstr "Esci"
 
+msgid "Current page status:"
+msgstr "Stato attuale della pagina:"
+
 msgid "Other searches"
 msgstr "Altre ricerche"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Stai usando un browser <strong>non aggiornato</strong> che non è compatibile "
+"con questo software. Per favore <a href=\"https://browsehappy.com/"
+"\">aggiorna il tuo browser</a>."
+
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail necessita Javascript per essere usato, ma al momento è "
+"disabilitato.<br />\n"
+"            Qua trovi le <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">istruzioni su come abilitare "
+"JavaScript nel tuo browser</a>.\n"
+"        "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Vai all'interfaccia admin di Wagtail"
@@ -1276,6 +1324,13 @@ msgstr "Aggiungi pagina figlio"
 msgid "Show in Explorer"
 msgstr "Mostra nell' Explorer"
 
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "di %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Compara con la versione live"
+
 msgid "Test"
 msgstr "Test"
 
@@ -1284,6 +1339,9 @@ msgstr "La tua password è stato modificata con successo"
 
 msgid "Your email has been changed successfully!"
 msgstr "La tua email è stata cambiata con successo!"
+
+msgid "Your name has been changed successfully!"
+msgstr "Hai cambiato nome con successo!"
 
 msgid "Your preferences have been updated."
 msgstr "Le tue impostazioni sono state aggiornate."
@@ -1333,14 +1391,11 @@ msgstr "Guarda live"
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' creata e pubblicata."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Page '{0}' creata e inviata per moderazione"
-
 msgid "View draft"
 msgstr "Guarda bozza"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Invio notifiche ai moderatori fallito"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Page '{0}' creata e inviata per moderazione"
 
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' creata."
@@ -1348,28 +1403,17 @@ msgstr "Pagina '{0}' creata."
 msgid "The page could not be created due to validation errors"
 msgstr "La pagina non può esser creata a causa di errori di validazione"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Revisione da {0} di pagina '{1}' prevista per la pubblicazione."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr ""
-"Pagina '{0}' è online e questa revisione è stata programmata per la "
-"pubblicazione."
+msgid "This page is currently awaiting moderation"
+msgstr "Questa pagina è attualmente in attesa di moderazione"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Pagina '{0}' prevista per la pubblicazione."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Revisione da {0} di pagina '{1}' è stata pubblicata"
 
 msgid "Page '{0}' has been published."
 msgstr "Pagina '{0}' è stata pubblicata"
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La pagina '{0}' è stata inviata per moderazione"
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Pagina '{0}' è stato sostituito con la revisione da {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Pagina '{0}' è stata aggiornata."
@@ -1379,12 +1423,6 @@ msgstr "La pagina non può esser salvata perché è bloccata"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "La pagina non può esser salvata a causa di errori di validazione"
-
-msgid "Compare with live version"
-msgstr "Compara con la versione live"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Questa pagina è attualmente in attesa di moderazione"
 
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' eliminata."
@@ -1426,14 +1464,6 @@ msgstr "Invio notifiche di rifiuto fallito "
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' sbloccata."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Stai vedendo una revisione precedente di questa pagina <b>%(created_at)s</b> "
-"da %(user)s"
-
 msgid "Earliest"
 msgstr "Precedenti"
 
@@ -1443,14 +1473,46 @@ msgstr "Ultimi"
 msgid "revision {0} of \"{1}\""
 msgstr "revisione {0} di \"{1}\""
 
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Revisione {0} di \"{1}\", annulata programmazione. "
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Mostra anteprima di '%(title)s'"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Mostra versione attuale di '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Aggiungi una sotto-pagina a '%(title)s' "
 
 msgid "More"
 msgstr "Altro"
 
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Mostra altre opzioni per '%(title)s'"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Sposta pagina '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Copia pagina '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Elimina pagina '%(title)s'"
+
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Depubblica '%(title)s'"
+
 msgid "Set profile picture"
 msgstr "Imposta la foto del profilo"
+
+msgid "Change your profile picture."
+msgstr "Modifica la tua immagine del profilo."
 
 msgid "Change the email address linked to your account."
 msgstr "Cambia l'indirizzo email collegato al tuo account."
@@ -1473,6 +1535,13 @@ msgstr "Fuso orario attuale"
 msgid "Choose your current time zone."
 msgstr "Scegli il tuo fuso orario corrente."
 
+msgid "Change your first and last name on your account."
+msgstr "Modifica nome e cognome del tuo account."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Titolo %(level)d"
+
 msgid "Bulleted list"
 msgstr "Elenco puntato"
 
@@ -1488,8 +1557,14 @@ msgstr "Corsivo"
 msgid "Link"
 msgstr "Link"
 
+msgid "Strikethrough"
+msgstr "Sbarrato"
+
 msgid "Code"
 msgstr "Codice"
+
+msgid "Reports"
+msgstr "Report"
 
 msgid "Choose an item"
 msgstr "Scegli un elemento"

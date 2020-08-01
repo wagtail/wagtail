@@ -5,14 +5,15 @@ from unittest import mock
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
-from django.core import mail
 from django.core.files.base import ContentFile
 from django.http import HttpRequest, HttpResponse
-from django.test import TestCase, modify_settings
+from django.test import TestCase, modify_settings, override_settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
+from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import Page, PageRevision, Site
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
@@ -87,11 +88,13 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Add speakers')
 
         # test register_page_action_menu_item hook
-        self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
+        self.assertContains(response,
+                            '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>')
         self.assertContains(response, 'testapp/js/siren.js')
 
         # test construct_page_action_menu hook
-        self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')
+        self.assertContains(response,
+                            '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>')
 
     def test_edit_draft_page_with_no_revisions(self):
         # Tests that the edit page loads
@@ -112,6 +115,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.file_page.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'enctype="multipart/form-data"')
+
+    @mock.patch('wagtail.core.models.ContentType.model_class', return_value=None)
+    def test_edit_when_specific_class_cannot_be_found(self, mocked_method):
+        with self.assertRaises(PageClassNotFoundError):
+            self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
 
     def test_upload_file_publish(self):
         """
@@ -619,14 +627,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertTrue(child_page_new.has_unpublished_changes)
 
         # The latest revision for the page should now be in moderation
-        self.assertTrue(child_page_new.get_latest_revision().submitted_for_moderation)
+        self.assertEqual(child_page_new.current_workflow_state.status, child_page_new.current_workflow_state.STATUS_IN_PROGRESS)
 
-        # Check that the moderator got an email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
-        self.assertEqual(
-            mail.outbox[0].subject, 'The page "Hello world!" has been submitted for moderation'
-        )  # Note: should this be "I've been edited!"?
 
     def test_page_edit_post_existing_slug(self):
         # This tests the existing slug checking on page edit
@@ -694,6 +696,35 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             html=True
         )
 
+    @override_settings(CACHES={
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        }})
+    @modify_settings(MIDDLEWARE={
+        'append': 'django.middleware.cache.FetchFromCacheMiddleware',
+        'prepend': 'django.middleware.cache.UpdateCacheMiddleware',
+    })
+    def test_preview_does_not_cache(self):
+        '''
+        Tests solution to issue #5975
+        '''
+        post_data = {
+            'title': "I've been edited one time!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'action-submit': "Submit",
+        }
+        preview_url = reverse('wagtailadmin_pages:preview_on_edit',
+                              args=(self.child_page.id,))
+        self.client.post(preview_url, post_data)
+        response = self.client.get(preview_url)
+        self.assertContains(response, "I&#39;ve been edited one time!", html=True)
+
+        post_data['title'] = "I've been edited two times!"
+        self.client.post(preview_url, post_data)
+        response = self.client.get(preview_url)
+        self.assertContains(response, "I&#39;ve been edited two times!", html=True)
+
     @modify_settings(ALLOWED_HOSTS={'append': 'childpage.example.com'})
     def test_preview_uses_correct_site(self):
         # create a Site record for the child page
@@ -758,14 +789,15 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
 
-        link_to_draft = '<a href="/revised-slug-in-draft-only/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
-        link_to_live = '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
+        link_to_live = '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n' \
+                       '<svg class="icon icon-link-external initial" aria-hidden="true" focusable="false"><use href="#icon-link-external"></use></svg>\n\n        ' \
+                       'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertContains(response, link_to_live, html=True)
-        self.assertNotContains(response, link_to_draft, html=True)
+        self.assertNotContains(response, 'href="/revised-slug-in-draft-only/"', html=True)
 
         # Editing input for slug should be the draft revision
         self.assertContains(response, input_field_for_draft_slug, html=True)
@@ -781,14 +813,15 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.single_event_page.id, )))
 
-        link_to_draft = '<a href="/revised-slug-in-draft-only/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
-        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
+        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n' \
+                       '<svg class="icon icon-link-external initial" aria-hidden="true" focusable="false"><use href="#icon-link-external"></use></svg>\n\n        ' \
+                       'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertContains(response, link_to_live, html=True)
-        self.assertNotContains(response, link_to_draft, html=True)
+        self.assertNotContains(response, 'href="/revised-slug-in-draft-only/pointless-suffix/"', html=True)
 
         # Editing input for slug should be the draft revision
         self.assertContains(response, input_field_for_draft_slug, html=True)
@@ -855,6 +888,52 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # page should be edited
         self.assertEqual(Page.objects.get(id=self.child_page.id).title, "I've been edited!")
 
+    def test_after_publish_page(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("after_publish_page", hook_func):
+            post_data = {
+                'title': "I've been edited!",
+                'content': "Some content",
+                'slug': 'hello-world-new',
+                'action-publish': "Publish",
+            }
+            response = self.client.post(
+                reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.status_string, _("live"))
+
+    def test_before_publish_page(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(page.id, self.child_page.id)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook("before_publish_page", hook_func):
+            post_data = {
+                'title': "I've been edited!",
+                'content': "Some content",
+                'slug': 'hello-world-new',
+                'action-publish': "Publish",
+            }
+            response = self.client.post(
+                reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+        self.child_page.refresh_from_db()
+        self.assertEqual(self.child_page.status_string, _("live + draft"))
+
     def test_override_default_action_menu_item(self):
         def hook_func(menu_items, request, context):
             for (index, item) in enumerate(menu_items):
@@ -869,12 +948,17 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         publish_button = '''
             <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-clicked-text="Publishing…">
-                <span class="icon icon-spinner"></span><em>Publish</em>
+                <svg class="icon icon-upload button-longrunning__icon" aria-hidden="true" focusable="false"><use href="#icon-upload"></use></svg>
+
+                <svg class="icon icon-spinner icon" aria-hidden="true" focusable="false"><use href="#icon-spinner"></use></svg><em>Publish</em>
             </button>
         '''
         save_button = '''
             <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" >
-                <span class="icon icon-spinner"></span><em>Save draft</em>
+                <svg class="icon icon-draft button-longrunning__icon" aria-hidden="true" focusable="false"><use href="#icon-draft"></use></svg>
+
+                <svg class="icon icon-spinner icon" aria-hidden="true" focusable="false"><use href="#icon-spinner"></use></svg>
+                <em>Save draft</em>
             </button>
         '''
 
@@ -1311,12 +1395,13 @@ class TestIssue3982(TestCase, WagtailTestUtils):
     def _approve_page(self, parent):
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', parent.pk)),
-            {'title': "Hello, world!", 'content': "Some content", 'slug': 'hello-world', 'action-submit': "submit"},
+            {'title': "Hello, world!", 'content': "Some content", 'slug': 'hello-world'},
             follow=True)
-        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(parent.pk,)))
         page = SimplePage.objects.get()
         self.assertFalse(page.live)
         revision = PageRevision.objects.get(page=page)
+        revision.submitted_for_moderation = True
+        revision.save()
         response = self.client.post(reverse('wagtailadmin_pages:approve_moderation', args=(revision.pk,)), follow=True)
         page = SimplePage.objects.get()
         self.assertTrue(page.live)
@@ -1674,7 +1759,7 @@ class TestNestedInlinePanel(TestCase, WagtailTestUtils):
         # date field should use AdminDatePicker
         self.assertContains(
             response,
-            """<input type="text" name="speakers-0-awards-0-date_awarded" value="1997-12-25" autocomplete="new-date" id="id_speakers-0-awards-0-date_awarded">""",
+            """<input type="text" name="speakers-0-awards-0-date_awarded" value="1997-12-25" autocomplete="off" id="id_speakers-0-awards-0-date_awarded">""",
             count=1, html=True
         )
 

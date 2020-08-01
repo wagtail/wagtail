@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2018-10-31 19:26+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -70,6 +70,9 @@ msgstr "اضف اعادة التوجية"
 msgid "Save"
 msgstr "احفظ"
 
+msgid "Redirects"
+msgstr "اعادة التوجيهات"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "حذف اعادة التوجية %(title)s"
@@ -93,17 +96,14 @@ msgstr "تحرير"
 msgid "Delete redirect"
 msgstr "احذف غير الاتجاه"
 
-msgid "Redirects"
-msgstr "اعادة التوجيهات"
-
 msgid "From"
 msgstr "من"
 
-msgid "Site"
-msgstr "موقع"
-
 msgid "To"
 msgstr "إلى"
+
+msgid "Site"
+msgstr "موقع"
 
 msgid "Type"
 msgstr "نوع"

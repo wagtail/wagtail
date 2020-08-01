@@ -5,14 +5,14 @@
 # Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Jihan Chung <jihanchung20@gmail.com>, 2015
-# Kyungil Choi <hanpama@gmail.com>, 2017,2019
+# Kyungil Choi <hanpama@gmail.com>, 2017,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-20 13:07+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -81,6 +81,9 @@ msgstr "%(count)s개의 %(snippet_type_name)s 스니펫을 정말 삭제할까�
 msgid "Yes, delete"
 msgstr "네, 지우겠습니다."
 
+msgid "No, don't delete"
+msgstr "아니오, 지우지 않습니다"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "새로운 %(snippet_type_name)s"
@@ -101,6 +104,9 @@ msgstr "%(snippet_type_name)s - %(instance)s 수정"
 msgid "Editing"
 msgstr "수정중"
 
+msgid "Actions"
+msgstr "액션"
+
 msgid "Delete"
 msgstr "삭제"
 
@@ -110,8 +116,19 @@ msgstr "사용"
 msgid "Snippets"
 msgstr "스니펫"
 
+#, python-format
+msgid "Select all %(snippet_type_name_plural)s"
+msgstr "%(snippet_type_name_plural)s 모두 선택"
+
 msgid "Title"
 msgstr "제목"
+
+#, python-format
+msgid "Select %(snippet)s"
+msgstr "%(snippet)s 선택"
+
+msgid "Edit"
+msgstr "수정"
 
 #, python-format
 msgid ""
@@ -156,14 +173,28 @@ msgstr "페이지 변경"
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s 검색"
 
-msgid "Edit"
-msgstr "수정"
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' created."
+msgstr "%(snippet_type)s '%(instance)s' 생성됨."
 
 msgid "The snippet could not be created due to errors."
 msgstr "에러로 인해 스니펫을 생성할 수 없습니다."
 
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' updated."
+msgstr "%(snippet_type)s '%(instance)s' 수정됨."
+
 msgid "The snippet could not be saved due to errors."
 msgstr "에러로 인해 스니펫을 저장할 수 없습니다."
+
+#, python-format
+msgid "%(snippet_type)s '%(instance)s' deleted."
+msgstr "%(snippet_type)s '%(instance)s' 삭제됨."
+
+#, python-format
+msgid "%(count)d %(snippet_type)s deleted."
+msgid_plural "%(count)d %(snippet_type)s deleted."
+msgstr[0] "%(count)d개의 %(snippet_type)s 삭제됨."
 
 #, python-format
 msgid "Choose %s"

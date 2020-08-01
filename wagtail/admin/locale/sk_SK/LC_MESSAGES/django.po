@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -52,6 +52,9 @@ msgstr "Nič"
 msgid "Scheduled publishing"
 msgstr "Naplánovať publikovanie"
 
+msgid "Privacy"
+msgstr "Súkromie"
+
 msgid "Common page configuration"
 msgstr "Základné nastavenia stránky"
 
@@ -63,6 +66,12 @@ msgstr "Propagovať"
 
 msgid "Settings"
 msgstr "Nastavenia"
+
+msgid "Date"
+msgstr "Dátum"
+
+msgid "Title"
+msgstr "Titulok"
 
 msgid "Enter password"
 msgstr "Zadajte heslo"
@@ -227,6 +236,9 @@ msgstr "Rusky"
 
 msgid "Swedish"
 msgstr "Švédsky"
+
+msgid "Edit"
+msgstr "Upraviť"
 
 msgid "Page"
 msgstr "Stránka"
@@ -456,9 +468,6 @@ msgstr ""
 msgid "Save"
 msgstr "Uložiť"
 
-msgid "Privacy"
-msgstr "Súkromie"
-
 msgid "Public"
 msgstr "Verejná"
 
@@ -494,24 +503,14 @@ msgstr ""
 "Toto je vaša nástenka, na ktorej sa budú zobrazovať informácie o obsahu, "
 "ktorý ste vytvorili."
 
-msgid "Title"
-msgstr "Titulok"
-
 msgid "Edit this page"
 msgstr "Upraviť túto stránku"
-
-msgid "Edit"
-msgstr "Upraviť"
 
 msgid "Draft"
 msgstr "Koncept"
 
 msgid "Live"
 msgstr "Live"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s dozadu"
 
 msgid "Pages awaiting moderation"
 msgstr "Stránky čakajúce na moderáciu"
@@ -536,9 +535,6 @@ msgstr "Náhľad"
 
 msgid "Your most recent edits"
 msgstr "Vaše posledné úpravy"
-
-msgid "Date"
-msgstr "Dátum"
 
 msgid "Status"
 msgstr "Stav"
@@ -607,9 +603,6 @@ msgstr "Táto stránka bola zmenená na súkromnú svojou rodičovskou stránkou
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
-
-msgid "Publish this revision"
-msgstr "Publikovať túto revíziu"
 
 msgid "Replace current draft"
 msgstr "Prepísať aktuálny koncept"
@@ -772,20 +765,15 @@ msgstr "Táto stránka má neuložené zmeny."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Upravujete %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Upravujete %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Živá verzia"
+
+msgid "Current draft"
+msgstr "Aktuálny koncept"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Naposledy upravené: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "od %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revízie"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s dozadu"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -946,9 +934,6 @@ msgstr "Porovnať %(title)s"
 msgid "Comparing"
 msgstr "Porovnať"
 
-msgid "View revisions"
-msgstr "Zobraziť revízie"
-
 msgid "Fields"
 msgstr "Polia"
 
@@ -1017,9 +1002,6 @@ msgstr[3] ""
 "%(counter)s miest.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Medzi týmito dvoma revíziami nie sú rozdiely."
-
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revízie %(title)s"
@@ -1033,18 +1015,6 @@ msgstr "Dátum revízie"
 msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "od"
-
-msgid "Current draft"
-msgstr "Aktuálny koncept"
-
-msgid "Live version"
-msgstr "Živá verzia"
-
-msgid "Review this revision"
-msgstr "Posúdiť túto revíziu"
-
-msgid "Compare with previous revision"
-msgstr "Porovnaj s predošlou revíziou"
 
 msgid "No revisions of this page exist"
 msgstr "Pre túto stránku neexistujú žiadne revízie"
@@ -1073,12 +1043,6 @@ msgstr[2] ""
 msgstr[3] ""
 "\n"
 "%(counter)s výsledkov hľadania"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Prepáčte, žiadne stránky nevyhovujú hľadanému výrazu <em>\"%(query_string)s"
-"\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Zadajte hľadaný výraz"
@@ -1125,6 +1089,13 @@ msgstr "Pridať podstránku"
 
 msgid "Show in Explorer"
 msgstr "Zobraziť v prehliadači"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "od %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Porovnaj s live verziou"
 
 msgid "Test"
 msgstr "Test"
@@ -1177,14 +1148,11 @@ msgstr "Zobraziť live"
 msgid "Page '{0}' created and published."
 msgstr "Stránka '{0}' bola úspešne vytvorená a publikovaná."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Stránka '{0}' bola úspešne vytvorená a odoslaná na moderáciu."
-
 msgid "View draft"
 msgstr "Zobraziť koncept"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Odoslanie upozornenia pre moderátorov zlyhalo"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Stránka '{0}' bola úspešne vytvorená a odoslaná na moderáciu."
 
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' bola vytvorená."
@@ -1192,23 +1160,17 @@ msgstr "Stránka '{0}' bola vytvorená."
 msgid "The page could not be created due to validation errors"
 msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Revízia z {0} stránky '{1}' bola naplánovaná pre publikáciu."
+msgid "This page is currently awaiting moderation"
+msgstr "Táto stránka momentálne čaká na moderáciu"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stránka '{0}' bola naplánovaná pre publikáciu."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Revízia z {0} stránky '{1}' bola publikovaná."
 
 msgid "Page '{0}' has been published."
 msgstr "Stránka '{0}' bola publikovaná."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stránka '{0}' bola odoslaná na moderáciu."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Stránka '{0}' bola nahradená revíziou z {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Stránka '{0}' bola aktualizovaná."
@@ -1218,12 +1180,6 @@ msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
-
-msgid "Compare with live version"
-msgstr "Porovnaj s live verziou"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Táto stránka momentálne čaká na moderáciu"
 
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' bola zmazaná."
@@ -1257,14 +1213,6 @@ msgstr "Odoslanie notifikácií o zamietnutí zlyhalo"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' bola odomknutá."
-
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Prezeráte si predchádzajúcu revíziu tejto stránky z <b>%(created_at)s</b> "
-"vytvorenú používateľom %(user)s"
 
 msgid "Earliest"
 msgstr "Najstaršie"

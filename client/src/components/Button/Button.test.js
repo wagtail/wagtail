@@ -24,20 +24,8 @@ describe('Button', () => {
     expect(shallow(<Button dialogTrigger />)).toMatchSnapshot();
   });
 
-  it('#icon', () => {
-    expect(shallow(<Button icon="test-icon" />)).toMatchSnapshot();
-  });
-
   it('#target', () => {
     expect(shallow(<Button target="_blank" rel="noopener noreferrer" />)).toMatchSnapshot();
-  });
-
-  it('#multiple icons', () => {
-    expect(shallow(<Button icon={['test-icon', 'secondary-icon']} />)).toMatchSnapshot();
-  });
-
-  it('#icon changes with #isLoading', () => {
-    expect(shallow(<Button icon="test-icon" isLoading={true} />)).toMatchSnapshot();
   });
 
   it('is clickable', () => {

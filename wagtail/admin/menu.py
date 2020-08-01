@@ -10,10 +10,11 @@ from wagtail.core import hooks
 class MenuItem(metaclass=MediaDefiningClass):
     template = 'wagtailadmin/shared/menu_item.html'
 
-    def __init__(self, label, url, name=None, classnames='', attrs=None, order=1000):
+    def __init__(self, label, url, name=None, classnames='', icon_name='', attrs=None, order=1000):
         self.label = label
         self.url = url
         self.classnames = classnames
+        self.icon_name = icon_name
         self.name = (name or slugify(str(label)))
         self.order = order
 
@@ -38,6 +39,7 @@ class MenuItem(metaclass=MediaDefiningClass):
             'name': self.name,
             'url': self.url,
             'classnames': self.classnames,
+            'icon_name': self.icon_name,
             'attr_string': self.attr_string,
             'label': self.label,
             'active': self.is_active(request)
@@ -111,6 +113,13 @@ class SubmenuMenuItem(MenuItem):
         context['menu_html'] = self.menu.render_html(request)
         context['request'] = request
         return context
+
+
+class AdminOnlyMenuItem(MenuItem):
+    """A MenuItem which is only shown to superusers"""
+
+    def is_shown(self, request):
+        return request.user.is_superuser
 
 
 admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')

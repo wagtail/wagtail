@@ -7,14 +7,14 @@
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # serafeim <serafeim@torchbox.com>, 2014
 # serafeim <serafeim@torchbox.com>, 2014,2016
-# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 # Yiannis Inglessis <negtheone@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -51,6 +51,9 @@ msgstr "None"
 msgid "Scheduled publishing"
 msgstr "Προγραμματισμενη δημοσιευση"
 
+msgid "Privacy"
+msgstr "Ιδιωτικότητα"
+
 msgid "Common page configuration"
 msgstr "Κοινές ρυθμίσεις σελίδων"
 
@@ -62,6 +65,12 @@ msgstr "Προωθηση"
 
 msgid "Settings"
 msgstr "Ρυθμισεις"
+
+msgid "Date"
+msgstr "Ημερομηνία"
+
+msgid "Title"
+msgstr "Τίτλος"
 
 msgid "Enter password"
 msgstr "Εισάγετε τον κωδικό σας"
@@ -149,6 +158,9 @@ msgstr "Το πεδίο αυτό είναι απαραίτητο"
 
 msgid "Please select at least one group."
 msgstr "Παρακαλούμε επιλέξτε τουλάχιστον μια ομάδα."
+
+msgid "Edit"
+msgstr "Διόρθωση"
 
 msgid "Pages"
 msgstr "Σελίδες"
@@ -328,9 +340,6 @@ msgstr "Μπορείτε να επεξεργαστείτε τις ρυθμίσε
 msgid "Save"
 msgstr "Αποθηκευση"
 
-msgid "Privacy"
-msgstr "Ιδιωτικότητα"
-
 msgid "Public"
 msgstr "Δημοσιο"
 
@@ -368,24 +377,14 @@ msgstr ""
 "Αυτός είναι ο πίνακας ελέγχου στον οποίο εμφανίζονται πληροφορίες σχετικές "
 "με το περιεχόμενου που έχετε δημιουργήσει."
 
-msgid "Title"
-msgstr "Τίτλος"
-
 msgid "Edit this page"
 msgstr "Διόρθωση της σελίδας"
-
-msgid "Edit"
-msgstr "Διόρθωση"
 
 msgid "Draft"
 msgstr "Draft"
 
 msgid "Live"
 msgstr "Live"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "πριν από %(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Σελίδες προς έλεγχο"
@@ -410,9 +409,6 @@ msgstr "Προεπισκόπηση"
 
 msgid "Your most recent edits"
 msgstr "Οι πιο πρόσφατες διορθώσεις σας"
-
-msgid "Date"
-msgstr "Ημερομηνία"
 
 msgid "Status"
 msgstr "Κατάσταση"
@@ -486,9 +482,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Τυχόν αλλαγές Προστασίας Προσωπικών Δεδομένων θα ισχύουν για όλες τις "
 "υποσελίδες αυτής της σελίδας."
-
-msgid "Publish this revision"
-msgstr "Δημοσίευση της αναθεώρησης"
 
 msgid "Replace current draft"
 msgstr "Αντικατάσταση του τρέχοντος draft"
@@ -636,20 +629,12 @@ msgstr "Η σελίδα έχει μη αποθηκευμένες αλλαγές.
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Επεξεργασία %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Επεξεργασία %(page_type)s <span>%(title)s</span>"
+msgid "Current draft"
+msgstr "Τρέχον σχέδιο"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Τελευταία τροποποίηση: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "από %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Αναθεωρήσεις"
+msgid "%(time_period)s ago"
+msgstr "πριν από %(time_period)s"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -788,9 +773,6 @@ msgstr "Σύγκριση %(title)s"
 msgid "Comparing"
 msgstr "Σύγκριση"
 
-msgid "View revisions"
-msgstr "Προβολή αναθεωρήσεων"
-
 msgid "Fields"
 msgstr "Πεδία"
 
@@ -841,9 +823,6 @@ msgstr[1] ""
 "πάνω κατά %(counter)s.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Δεν υπάρχουν διαφορές μεταξύ αυτών των δύο αναθεωρήσεων"
-
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Αναθεωρήσεις του %(title)s"
@@ -857,15 +836,6 @@ msgstr "Ημερομηνία αναθεώρησης"
 msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "από"
-
-msgid "Current draft"
-msgstr "Τρέχον σχέδιο"
-
-msgid "Review this revision"
-msgstr "Εμφάνιση της αναθεωρησης"
-
-msgid "Compare with previous revision"
-msgstr "Σύγκριση με προηγούμενη αναθεώρηση"
 
 msgid "No revisions of this page exist"
 msgstr "Δεν υπάρχουν αναθεωρήσεις της σελίδας"
@@ -888,11 +858,6 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "Υπάρχουν %(counter)s σελίδες που ταιριάζουν"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Λυπούμαστε, καμία σελίδα δε ταιριάζει με το <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Εισάγετε όρο αναζήτησης"
@@ -936,6 +901,13 @@ msgstr "Προσθέστε μια υποσελίδα"
 
 msgid "Show in Explorer"
 msgstr "Εμφάνιση στον εξερευνητή"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "από %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Σύγκριση με την live έκδοση"
 
 msgid "Test"
 msgstr "Δοκιμή"
@@ -985,14 +957,11 @@ msgstr "Εμφανιση στο site"
 msgid "Page '{0}' created and published."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε και δημοσιεύθηκε."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Η σελίδα '{0}' δημιουργήθηκε και στάλθηκε προς έλεγχο."
-
 msgid "View draft"
 msgstr "Εμφάνιση προσχεδίου"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Δεν ήταν δυνατή η αποστολή της ειδοποίησης"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Η σελίδα '{0}' δημιουργήθηκε και στάλθηκε προς έλεγχο."
 
 msgid "Page '{0}' created."
 msgstr "Η σελίδα '{0}' δημιουργήθηκε."
@@ -1000,24 +969,17 @@ msgstr "Η σελίδα '{0}' δημιουργήθηκε."
 msgid "The page could not be created due to validation errors"
 msgstr "Η σελίδα δεν δημιοιυργήθηκε λόγω σφαλμάτων"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr ""
-"Η αναθεωρηση της {0} της σελίδας '{1}' προγραμματίστηκε για δημοσίευση."
+msgid "This page is currently awaiting moderation"
+msgstr "Η σελίδα είναι προς έλεγχο"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Η σελίδα '{0}' προγραμματίστηκε για δημοσίευση."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Η έκδοση της {0} της σελίδας '{1}' εκδόθηκε."
 
 msgid "Page '{0}' has been published."
 msgstr "Η σελίδα '{0}' εκδόθηκε."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Η σελίδα '{0}' υποβλήθηκε για έλεγχο."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Η σελίδα '{0}' αντικαταστάθηκε με την αναθεώρηση της {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Η σελίδα '{0}' ενημερώθηκε."
@@ -1027,12 +989,6 @@ msgstr "Η σελίδα δεν μπορεί να αποθηκευτεί καθώ
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Δε ήταν δυνατή η αποθήκευση της σελίδας λόγω σφαλμάτων ελέγχου"
-
-msgid "Compare with live version"
-msgstr "Σύγκριση με την live έκδοση"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Η σελίδα είναι προς έλεγχο"
 
 msgid "Page '{0}' deleted."
 msgstr "Έγινε διαγραφή της σελίδας '{0}'."
@@ -1066,14 +1022,6 @@ msgstr "Δεν ήταν δυνατή η αποστολή των ειδοποιή
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Η σελίδα '{0}' είναι τώρα ξεκλειδωμένη."
-
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Εμφανίζεται παλαιά αναθεώρηση της σελίδας που δημιουργήθηκε στις <b>"
-"%(created_at)s</b> από το χρήστη %(user)s"
 
 msgid "Earliest"
 msgstr "Πιο πρόσφατες"

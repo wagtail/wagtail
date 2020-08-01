@@ -1,16 +1,16 @@
 {% extends "modeladmin/create.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block form_action %}{{ view.edit_url }}{% endblock %}
 
 {% block form_actions %}
     <div class="dropdown dropup dropdown-button match-width">
         <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
-            <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+            {% icon name="spinner" %}<em>{% trans 'Save' %}</em>
         </button>
 
         {% if user_can_delete %}
-            <div class="dropdown-toggle icon icon-arrow-up"></div>
+            <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
             <ul>
                 <li><a href="{{ view.delete_url }}" class="shortcut">{% trans "Delete" %}</a></li>
             </ul>

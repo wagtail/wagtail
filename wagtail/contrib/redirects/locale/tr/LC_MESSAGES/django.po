@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Py Data <pydatageek@gmail.com>, 2019
+# Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-12-02 17:43+0000\n"
-"Last-Translator: Py Data <pydatageek@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,9 @@ msgstr "Yönlendirme ekle"
 msgid "Save"
 msgstr "Kaydet"
 
+msgid "Redirects"
+msgstr "Yönlendirmeler"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "%(title)s yönlendirmesini sil"
@@ -89,17 +92,14 @@ msgstr "Düzenleniyor"
 msgid "Delete redirect"
 msgstr "Yönlendirmeyi sil"
 
-msgid "Redirects"
-msgstr "Yönlendirmeler"
-
 msgid "From"
 msgstr "Yönlendiren"
 
-msgid "Site"
-msgstr "Site"
-
 msgid "To"
 msgstr "Yönlendirilen"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Type"
 msgstr "Tür"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2019-01-25 07:07+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -55,6 +55,9 @@ msgstr "Чиглүүлэлт нэмэх"
 msgid "Save"
 msgstr "Хадгалах"
 
+msgid "Redirects"
+msgstr "Redirect-үүд"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "%(title)sredirect-ийг устгах"
@@ -78,17 +81,14 @@ msgstr "Засч байна"
 msgid "Delete redirect"
 msgstr "Redirect-ийг устгах"
 
-msgid "Redirects"
-msgstr "Redirect-үүд"
-
 msgid "From"
 msgstr "Хэнээс"
 
-msgid "Site"
-msgstr "Сайт"
-
 msgid "To"
 msgstr "Руу"
+
+msgid "Site"
+msgstr "Сайт"
 
 msgid "Type"
 msgstr "Төрөл"

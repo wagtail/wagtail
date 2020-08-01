@@ -1,0 +1,78 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{{ view.page_title }}{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ edit_handler.form.media.css }}
+
+    {{ view.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ edit_handler.form.media.js }}
+    {{ edit_handler.html_declarations }}
+
+    {{ view.media.js }}
+
+    {% include "wagtailadmin/workflows/includes/_edit_js.html" %}
+{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=object.name icon=view.header_icon merged=1 %}
+
+    <form action="{{ view.edit_url }}" enctype="multipart/form-data" method="POST" novalidate>
+        {% csrf_token %}
+
+        <ul class="fields nice-padding">
+            {% for field in form %}
+                {% if not field.is_hidden %}
+                    {% include "wagtailadmin/shared/field_as_li.html" %}
+                {% else %}
+                    {{ field }}
+                {% endif %}
+            {% endfor %}
+                <li>
+                    <div class="help-block help-info">
+                        {% for workflow in object.active_workflows %}
+                            {% if forloop.first %}<strong>{% trans "Used on the following active workflows" %}:</strong> {% endif %}
+                            <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}">{{ workflow.name }}</a>{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            {% trans "Not used" %}
+                        {% endfor %}
+                    </div>
+            </li>
+        </ul>
+
+        {% block footer %}
+            <footer role="contentinfo">
+                <ul>
+                    <li class="actions">
+                        {% block form_actions %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
+                                    {% icon name="spinner" %}<em>{% trans 'Save' %}</em>
+                                </button>
+
+                                <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+                                <ul>
+                                    {% if can_enable %}
+                                        <li>
+                                            <button type="submit" class="button no" data-enable-action>{{ view.enable_item_label }}</button>
+                                        </li>
+                                    {% elif can_disable %}
+                                        <li>
+                                            <a href="{{ view.get_delete_url }}" class="button no">{{ view.delete_item_label }}</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        {% endblock %}
+                    </li>
+                </ul>
+            </footer>
+        {% endblock %}
+    </form>
+{% endblock %}

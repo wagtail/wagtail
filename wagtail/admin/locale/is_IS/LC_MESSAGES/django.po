@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-25 11:08+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,15 @@ msgstr "Taka úr loftinu"
 
 msgid "Delete"
 msgstr "Eyða"
+
+msgid "Lock"
+msgstr "Læsa"
+
+msgid "Apply editor lock"
+msgstr "Kveikja á skriflás"
+
+msgid "Unlock"
+msgstr "Aflæsa"
 
 msgid "Save Draft"
 msgstr "Vista uppkast"
@@ -55,6 +64,9 @@ msgstr "Ekkert"
 msgid "Scheduled publishing"
 msgstr "Tímasetning birtingar"
 
+msgid "Privacy"
+msgstr "Aðgengi"
+
 msgid "Common page configuration"
 msgstr "Algengar síðustillingar"
 
@@ -66,6 +78,15 @@ msgstr "Sýnileiki"
 
 msgid "Settings"
 msgstr "Stillingar"
+
+msgid "All"
+msgstr "Allt"
+
+msgid "Date"
+msgstr "Dagsetning"
+
+msgid "Title"
+msgstr "Titill"
 
 msgid "Enter password"
 msgstr "Sláðu inn lykilorð"
@@ -269,6 +290,9 @@ msgstr "Einfölduð kínverska"
 
 msgid "Chinese (Traditional)"
 msgstr "Hefðbundin kínverska"
+
+msgid "Edit"
+msgstr "Breyta"
 
 msgid "Page"
 msgstr "Síða"
@@ -628,9 +652,6 @@ msgstr "Aðgengisstillingar ákvarða hver getur skoðað skjöl í þessu safni
 msgid "Save"
 msgstr "Vista"
 
-msgid "Privacy"
-msgstr "Aðgengi"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Stilla aðgengi safns. Núverandi staða: Opið"
 
@@ -679,30 +700,17 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Þínar læstu síður"
 
-msgid "See all locked pages"
-msgstr "Sjá allar læstar síður"
-
-msgid "Title"
-msgstr "Titill"
-
 msgid "Locked at"
 msgstr "Læst"
 
 msgid "Edit this page"
 msgstr "Breyta þessari síðu"
 
-msgid "Edit"
-msgstr "Breyta"
-
 msgid "Draft"
 msgstr "Uppkast"
 
 msgid "Live"
 msgstr "Í birtingu"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s síðan"
 
 msgid "Pages awaiting moderation"
 msgstr "Síður sem bíða samþykktar"
@@ -730,9 +738,6 @@ msgstr "Forskoða"
 
 msgid "Your most recent edits"
 msgstr "Síðustu breytingar sem þú hefur gert"
-
-msgid "Date"
-msgstr "Dagsetning"
 
 msgid "Status"
 msgstr "Staða"
@@ -773,11 +778,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Skrá inn í Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Búin(n) að gleyma því?"
-
 msgid "Signing in…"
 msgstr "Skrái inn..."
+
+msgid "Forgotten it?"
+msgstr "Búin(n) að gleyma því?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -828,29 +833,8 @@ msgstr "Þessi síða hefur verið gerð prívat af yfirsíðu sinni."
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Aðgengisstillingar eiga við allar undirsíður þessarar síðu líka."
 
-msgid "This page is locked"
-msgstr "Þessi síða er læst"
-
-msgid "This page is unlocked"
-msgstr "Þessi síða er ólæst"
-
-msgid "Remove editor lock"
-msgstr "Fjarlægja skriflás"
-
-msgid "Unlock"
-msgstr "Aflæsa"
-
-msgid "You don't have permission to unlock"
-msgstr "Þú hefur ekki réttindi til að aflæsa"
-
-msgid "Apply editor lock"
-msgstr "Kveikja á skriflás"
-
-msgid "Lock"
-msgstr "Læsa"
-
-msgid "You don't have permission to lock"
-msgstr "Þú hefur ekki réttindi til að læsa"
+msgid "Visit the live page"
+msgstr "Skoða birta útgáfu síðunnar"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Stilla aðgengi síðu. Núverandi staða: Í birtingu"
@@ -866,9 +850,6 @@ msgstr "Aðgengi síðu. Núverandi staða: Læst"
 
 msgid "Publishing…"
 msgstr "Set í birtingu..."
-
-msgid "Publish this revision"
-msgstr "Setja þessa útgáfu í loftið"
 
 msgid "Saving…"
 msgstr "Vista..."
@@ -1024,20 +1005,15 @@ msgstr "Þessi síða er með óvistaðar breytingar."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Breyti %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Breyti %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Útgáfa í birtingu"
+
+msgid "Current draft"
+msgstr "Núverandi vinnuskjal"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Síðast breytt: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "af %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Útgáfur"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s síðan"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1195,15 +1171,15 @@ msgstr ""
 "Vinsamlegast lokið þessum flipa, lagið villur á síðunni, \n"
 "og forskoðið svo aftur."
 
+msgid "Cancel scheduled publish"
+msgstr "Hætta við tímasetta birtingu"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Bera saman %(title)s"
 
 msgid "Comparing"
 msgstr "Ber saman"
-
-msgid "View revisions"
-msgstr "Skoða útgáfur"
 
 msgid "Fields"
 msgstr "Reitir"
@@ -1255,9 +1231,6 @@ msgstr[1] ""
 "%(counter)s sæti.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Það eru engar breytingar milli þessara útgáfa"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Hætta við tímasetta birtingu útgáfu %(revision.id)s fyrir %(title)s"
@@ -1288,23 +1261,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "eftir"
 
-msgid "Current draft"
-msgstr "Núverandi vinnuskjal"
-
-msgid "Live version"
-msgstr "Útgáfa í birtingu"
-
 msgid "Scheduled for"
 msgstr "Tímasett fyrir"
-
-msgid "Review this revision"
-msgstr "Skoða þessa útgáfu"
-
-msgid "Compare with previous revision"
-msgstr "Bera saman við fyrri útgáfur"
-
-msgid "Cancel scheduled publish"
-msgstr "Hætta við tímasetta birtingu"
 
 msgid "No revisions of this page exist"
 msgstr "Engar útgáfur til af þessari síðu"
@@ -1333,10 +1291,6 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Síðutegundir"
 
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Því miður passa engar síður við <em>\"%(query_string)s\"</em>"
-
 msgid "Enter a search term above"
 msgstr "Sláðu inn leitarorð hér að ofan"
 
@@ -1348,6 +1302,18 @@ msgstr "Safn"
 
 msgid "No pages match this report's criteria."
 msgstr "Engar síður passa við forsendur þessarar skýrslu."
+
+msgid "Download XLSX"
+msgstr "Sækja XLSX"
+
+msgid "Download CSV"
+msgstr "Sækja CSV"
+
+msgid "No pages found."
+msgstr "Engar síður fundust."
+
+msgid "Locking status"
+msgstr "Staða á læsingu"
 
 #, python-format
 msgid ""
@@ -1414,9 +1380,6 @@ msgstr "Stillingar reiknings"
 msgid "Log out"
 msgstr "Útskrá"
 
-msgid "Visit the live page"
-msgstr "Skoða birta útgáfu síðunnar"
-
 msgid "Current page status:"
 msgstr "Núverandi staða síðu:"
 
@@ -1457,6 +1420,13 @@ msgstr "Bæta við undirsíðu"
 
 msgid "Show in Explorer"
 msgstr "Sýna í veftré"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "af %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Bera saman við útgáfu í birtingu"
 
 #, python-format
 msgid ""
@@ -1531,14 +1501,11 @@ msgstr "Skoða á vef"
 msgid "Page '{0}' created and published."
 msgstr "Síða '{0}' vistuð og birt."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Síða '{0}' vistuð og send til samþykkis."
-
 msgid "View draft"
 msgstr "Skoða uppkast"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Ekki tókst að senda tilkynningar til skoðunaraðila"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Síða '{0}' vistuð og send til samþykkis."
 
 msgid "Page '{0}' created."
 msgstr "Síða '{0}' vistuð."
@@ -1558,29 +1525,17 @@ msgstr "<b>Síðu '{}' var læst</b> af <b>{}</b> á <b>{}</b>."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Síða '{}' er læst</b>."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr ""
-"Útgáfa frá {0} af síðu '{1}' hefur verið tímastillt til að setja í loftið."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr ""
-"Síða '{0}' er í birtingu og þessi útgáfa hefur verið tímastillt til að setja "
-"í loftið."
+msgid "This page is currently awaiting moderation"
+msgstr "Þessi síða bíður samþykkis til birtingar."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Síða '{0}' hefur verið tímastillt til að setja í loftið."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Útgáfa frá {0} af síðu '{1}' hefur verið sett í loftið."
 
 msgid "Page '{0}' has been published."
 msgstr "Síða '{0}' hefur verið birt."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Síða '{0}' hefur verið send inn til samþykkis."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Síða '{0}' hefur verið skipt út fyrir útgáfu frá {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Síða '{0}' hefur verið uppfærð."
@@ -1590,12 +1545,6 @@ msgstr "Ekki var hægt að vista síðuna, hún er læst"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
-
-msgid "Compare with live version"
-msgstr "Bera saman við útgáfu í birtingu"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Þessi síða bíður samþykkis til birtingar."
 
 msgid "Page '{0}' deleted."
 msgstr "Síðu '{0}' eytt."
@@ -1637,14 +1586,6 @@ msgstr "Ekki tókst að senda höfnunar tilkynningar"
 msgid "Page '{0}' is now unlocked."
 msgstr "Síða '{0}' er nú ólæst."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Þú ert að skoða útgáfu af þessari síðu frá <b>%(created_at)s</b> eftir "
-"%(user)s"
-
 msgid "Earliest"
 msgstr "Fyrsta"
 
@@ -1653,12 +1594,6 @@ msgstr "Nýjasta"
 
 msgid "revision {0} of \"{1}\""
 msgstr "útgáfa {0} af \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Útgáfa {0} af \"{1}\" ekki tímastillt."
-
-msgid "Locked Pages"
-msgstr "Læstar síður"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1698,10 +1633,6 @@ msgstr "Eyða síðu '%(title)s'"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Taka '%(title)s' úr loftinu"
-
-#, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "Skoða útgáfusögu fyrir '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Setja sem prófílmynd"
@@ -1766,6 +1697,9 @@ msgstr "Yfirstrikað"
 
 msgid "Code"
 msgstr "Kóði"
+
+msgid "Locked Pages"
+msgstr "Læstar síður"
 
 msgid "Reports"
 msgstr "Skýrslur"

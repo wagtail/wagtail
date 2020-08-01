@@ -116,6 +116,14 @@ $menu-footer-height: 50px;
         font-size: 1rem;
     }
 
+    .icon--explorer-header {
+        width: 1.25em;
+        height: 1.25em;
+        margin-right: 0.25rem;
+        vertical-align: text-top;
+        color: $c-explorer-secondary;
+    }
+
     @include media-breakpoint-up(sm) {
         padding: 1em 1.5em;
     }

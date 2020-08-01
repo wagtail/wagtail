@@ -1,19 +1,19 @@
-from django.conf.urls import url
+from django.urls import path
 
 from wagtail.admin.views import account
 
 urlpatterns = [
-    url(
-        r'^$', account.PasswordResetView.as_view(), name='wagtailadmin_password_reset'
+    path(
+        '', account.PasswordResetView.as_view(), name='wagtailadmin_password_reset'
     ),
-    url(
-        r'^done/$', account.PasswordResetDoneView.as_view(), name='wagtailadmin_password_reset_done'
+    path(
+        'done/', account.PasswordResetDoneView.as_view(), name='wagtailadmin_password_reset_done'
     ),
-    url(
-        r'^confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    path(
+        'confirm/<uidb64>/<token>/',
         account.PasswordResetConfirmView.as_view(), name='wagtailadmin_password_reset_confirm',
     ),
-    url(
-        r'^complete/$', account.PasswordResetCompleteView.as_view(), name='wagtailadmin_password_reset_complete'
+    path(
+        'complete/', account.PasswordResetCompleteView.as_view(), name='wagtailadmin_password_reset_complete'
     ),
 ]

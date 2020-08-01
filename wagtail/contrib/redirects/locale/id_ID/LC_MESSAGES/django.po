@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:13+0000\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -65,6 +65,9 @@ msgstr "Tambah pengalihan"
 msgid "Save"
 msgstr "Simpan"
 
+msgid "Redirects"
+msgstr "Pengalihan"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Hapus pengalihan %(title)s"
@@ -88,17 +91,14 @@ msgstr "Mengubah"
 msgid "Delete redirect"
 msgstr "Hapus pengalihan"
 
-msgid "Redirects"
-msgstr "Pengalihan"
-
 msgid "From"
 msgstr "Dari"
 
-msgid "Site"
-msgstr "Situs"
-
 msgid "To"
 msgstr "Ke"
+
+msgid "Site"
+msgstr "Situs"
 
 msgid "Type"
 msgstr "Tipe"

@@ -154,6 +154,70 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
         # "aargh snake" should be the first result alphabetically
         self.assertEqual(response.context['queries'][0].query_string, "aaargh snake")
 
+    def test_results_ordering(self):
+        self.make_search_picks()
+        url = reverse('wagtailsearchpromotions:index')
+        SearchPromotion.objects.create(
+            query=Query.get("zyzzyvas"),
+            page_id=1,
+            sort_order=0,
+            description="no definition found, this is a valid scrabble word though",
+        )
+
+        SearchPromotion.objects.create(
+            query=Query.get("aardwolf"),
+            page_id=1,
+            sort_order=22,
+            description="Striped hyena of southeast Africa that feeds chiefly on insects",
+        )
+
+        popularQuery = Query.get("optimal")
+        for i in range(50):
+            popularQuery.add_hit()
+        SearchPromotion.objects.create(
+            query=popularQuery,
+            page_id=1,
+            sort_order=15,
+            description="An odly popular search term?",
+        )
+
+        popularQuery = Query.get("suboptimal")
+        for i in range(25):
+            popularQuery.add_hit()
+        SearchPromotion.objects.create(
+            query=popularQuery,
+            page_id=1,
+            sort_order=15,
+            description="Not as popular",
+        )
+
+        # ordered by querystring (reversed)
+        response = self.client.get(url + '?ordering=-query_string')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['queries'][0].query_string, "zyzzyvas")
+
+        # last page, still ordered by query string (reversed)
+        response = self.client.get(url + '?ordering=-query_string&p=3')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['queries'][-1].query_string, "aardwolf")
+
+        # ordered by querystring (not reversed)
+        response = self.client.get(url + '?ordering=query_string')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['queries'][0].query_string, "aardwolf")
+
+        # ordered by sum of daily hits (reversed)
+        response = self.client.get(url + '?ordering=-views')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['queries'][0].query_string, "optimal")
+        self.assertEqual(response.context['queries'][1].query_string, "suboptimal")
+
+        # ordered by sum of daily hits, last page (not reversed)
+        response = self.client.get(url + '?ordering=views&p=3')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['queries'][-1].query_string, "optimal")
+        self.assertEqual(response.context['queries'][-2].query_string, "suboptimal")
+
 
 class TestSearchPromotionsAddView(TestCase, WagtailTestUtils):
     def setUp(self):

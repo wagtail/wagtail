@@ -1,8 +1,8 @@
 from django import template
 from django.shortcuts import reverse
 from django.template.defaulttags import token_kwargs
+from django.template.loader import render_to_string
 from django.utils.encoding import force_str
-from django.utils.safestring import mark_safe
 
 from wagtail import VERSION, __version__
 from wagtail.core.models import Page, Site
@@ -104,8 +104,7 @@ def richtext(value):
             html = expand_db_html(value)
         else:
             raise TypeError("'richtext' template filter received an invalid value; expected string, got {}.".format(type(value)))
-
-    return mark_safe('<div class="rich-text">' + html + '</div>')
+    return render_to_string('wagtailcore/shared/richtext.html', {'html': html})
 
 
 class IncludeBlockNode(template.Node):

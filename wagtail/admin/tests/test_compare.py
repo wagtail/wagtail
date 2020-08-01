@@ -247,36 +247,151 @@ class TestStreamFieldComparison(TestCase):
         self.assertIsInstance(comparison.htmldiff(), SafeString)
         self.assertTrue(comparison.has_changed())
 
-    def test_htmldiff_escapes_value(self):
+    def test_htmldiff_escapes_value_on_change(self):
         field = StreamPage._meta.get_field('body')
 
         comparison = self.comparison_class(
             field,
             StreamPage(body=StreamValue(field.stream_block, [
-                ('text', "Original content", '1'),
+                ('text', "I <b>really</b> like original<i>ish</i> content", '1'),
             ])),
             StreamPage(body=StreamValue(field.stream_block, [
-                ('text', '<script type="text/javascript">doSomethingBad();</script>', '1'),
+                ('text', 'I <b>really</b> like evil code <script type="text/javascript">doSomethingBad();</script>', '1'),
             ])),
         )
 
-        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object"><span class="deletion">Original content</span><span class="addition">&lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</span></div>')
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">I &lt;b&gt;really&lt;/b&gt; like <span class="deletion">original&lt;i&gt;ish&lt;/i&gt; content</span><span class="addition">evil code &lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</span></div>')
         self.assertIsInstance(comparison.htmldiff(), SafeString)
 
-    def test_htmldiff_escapes_value_richtext(self):
+    def test_htmldiff_escapes_value_on_addition(self):
         field = StreamPage._meta.get_field('body')
 
         comparison = self.comparison_class(
             field,
             StreamPage(body=StreamValue(field.stream_block, [
-                ('rich_text', "Original content", '1'),
+                ('text', "Original <em>and unchanged</em> content", '1'),
             ])),
             StreamPage(body=StreamValue(field.stream_block, [
-                ('rich_text', '<script type="text/javascript">doSomethingBad();</script>', '1'),
+                ('text', "Original <em>and unchanged</em> content", '1'),
+                ('text', '<script type="text/javascript">doSomethingBad();</script>', '2'),
             ])),
         )
 
-        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object"><span class="deletion">Original content</span><span class="addition">doSomethingBad();</span></div>')
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">Original &lt;em&gt;and unchanged&lt;/em&gt; content</div>\n<div class="comparison__child-object addition">&lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</div>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+
+    def test_htmldiff_escapes_value_on_deletion(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('text', "Original <em>and unchanged</em> content", '1'),
+                ('text', '<script type="text/javascript">doSomethingBad();</script>', '2'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('text', "Original <em>and unchanged</em> content", '1'),
+            ])),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">Original &lt;em&gt;and unchanged&lt;/em&gt; content</div>\n<div class="comparison__child-object deletion">&lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</div>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+
+    def test_htmldiff_richtext_strips_tags_on_change(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('rich_text', "I <b>really</b> like Wagtail &lt;3", '1'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('rich_text', 'I <b>really</b> like evil code &gt;_&lt; <script type="text/javascript">doSomethingBad();</script>', '1'),
+            ])),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">I really like <span class="deletion">Wagtail &lt;3</span><span class="addition">evil code &gt;_&lt; doSomethingBad();</span></div>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+
+    def test_htmldiff_richtext_strips_tags_on_addition(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('rich_text', "Original <em>and unchanged</em> content", '1'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('rich_text', "Original <em>and unchanged</em> content", '1'),
+                ('rich_text', 'I <b>really</b> like evil code &gt;_&lt; <script type="text/javascript">doSomethingBad();</script>', '2'),
+            ])),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">Original and unchanged content</div>\n<div class="comparison__child-object addition">I really like evil code &gt;_&lt; doSomethingBad();</div>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+
+    def test_htmldiff_richtext_strips_tags_on_deletion(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('rich_text', "Original <em>and unchanged</em> content", '1'),
+                ('rich_text', 'I <b>really</b> like evil code &gt;_&lt; <script type="text/javascript">doSomethingBad();</script>', '2'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('rich_text', "Original <em>and unchanged</em> content", '1'),
+            ])),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">Original and unchanged content</div>\n<div class="comparison__child-object deletion">I really like evil code &gt;_&lt; doSomethingBad();</div>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+
+    def test_htmldiff_raw_html_escapes_value_on_change(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('raw_html', "Original<i>ish</i> content", '1'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('raw_html', '<script type="text/javascript">doSomethingBad();</script>', '1'),
+            ])),
+        )
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object"><span class="deletion">Original&lt;i&gt;ish&lt;/i&gt; content</span><span class="addition">&lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</span></div>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+
+    def test_htmldiff_raw_html_escapes_value_on_addition(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('raw_html', "Original <em>and unchanged</em> content", '1'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('raw_html', "Original <em>and unchanged</em> content", '1'),
+                ('raw_html', '<script type="text/javascript">doSomethingBad();</script>', '2'),
+            ])),
+        )
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">Original &lt;em&gt;and unchanged&lt;/em&gt; content</div>\n<div class="comparison__child-object addition">&lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</div>')
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+
+    def test_htmldiff_raw_html_escapes_value_on_deletion(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('raw_html', "Original <em>and unchanged</em> content", '1'),
+                ('raw_html', '<script type="text/javascript">doSomethingBad();</script>', '2'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('raw_html', "Original <em>and unchanged</em> content", '1'),
+            ])),
+        )
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">Original &lt;em&gt;and unchanged&lt;/em&gt; content</div>\n<div class="comparison__child-object deletion">&lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</div>')
         self.assertIsInstance(comparison.htmldiff(), SafeString)
 
     def test_compare_structblock(self):

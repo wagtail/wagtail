@@ -5,14 +5,14 @@
 # Translators:
 # Antoni Aloy <aaloy@apsl.net>, 2016
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017-2018
+# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2020-01-20 20:13+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-29 09:26+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -27,14 +27,42 @@ msgstr "Publica"
 msgid "Submit for moderation"
 msgstr "Envia per moderació"
 
+msgid "Resubmit to {}"
+msgstr "Tornar a enviar a {}"
+
+msgid "Submit to {}"
+msgstr "Enviar a {}"
+
+msgid "Restart workflow "
+msgstr "Reiniciar fluxe de treball"
+
+msgid "Cancel workflow "
+msgstr "Cancel·lar fluxe de treball"
+
 msgid "Unpublish"
 msgstr "Despublica"
 
 msgid "Delete"
 msgstr "Esborra"
 
+msgid "Lock"
+msgstr "Bloquejar"
+
+msgid "Apply editor lock"
+msgstr "Aplicar bloqueig d'editor"
+
+msgid "Unlock"
+msgstr "Desbloquejar"
+
+msgid "Save Draft"
+msgstr "Desar esborrany"
+
 msgid "Page locked"
 msgstr "Pàgina bloquejada"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)si Publicar"
 
 msgid "Wagtail admin"
 msgstr "Administració de Wagtail"
@@ -51,6 +79,9 @@ msgstr "Cap"
 msgid "Scheduled publishing"
 msgstr "Planificar la publicació"
 
+msgid "Privacy"
+msgstr "Privadesa"
+
 msgid "Common page configuration"
 msgstr "Configuració de la pàgina comú"
 
@@ -63,15 +94,48 @@ msgstr "Promoure"
 msgid "Settings"
 msgstr "Configuració"
 
+msgid "Date from"
+msgstr "Data d'inici"
+
+msgid "Date to"
+msgstr "Data de fi"
+
+msgid "All"
+msgstr "Tot"
+
+msgid "Started at"
+msgstr "Iniciat el"
+
+msgid "Show"
+msgstr "Mostrar"
+
+msgid "Awaiting my review"
+msgstr "Esperant la meva revisió"
+
+msgid "Completed at"
+msgstr "Completat el"
+
+msgid "Workflow"
+msgstr "Fluxe de treball"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Title"
+msgstr "Títol"
+
 msgid "Enter password"
 msgstr "Introdueix la contrassenya"
 
 #, python-format
 msgid "Enter your %s"
-msgstr "Introdueix el teu %s"
+msgstr "Introduïu el vostre %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -156,6 +220,98 @@ msgstr "Aquest camp és obligatori"
 
 msgid "Please select at least one group."
 msgstr "Seleccioneu com a mínim un grup."
+
+msgid "All types"
+msgstr "Tots els tipus"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Aquesta pàgina ja té el fluxe de treball '{0}' assignat."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"No podeu assignar aquest fluxe de treball més d'una vegada a la mateixa "
+"pàgina."
+
+msgid "Give your workflow a name"
+msgstr "Poseu-li un nom al fluxe de treball"
+
+msgid "Add tasks to your workflow"
+msgstr "Afegiu tasques al fluxe de treball"
+
+msgid "Arabic"
+msgstr "Aràbic"
+
+msgid "Catalan"
+msgstr "Català"
+
+msgid "Czech"
+msgstr "Txec"
+
+msgid "German"
+msgstr "Alemany"
+
+msgid "Greek"
+msgstr "Grec"
+
+msgid "English"
+msgstr "Anglès"
+
+msgid "Spanish"
+msgstr "Espanyol"
+
+msgid "Finnish"
+msgstr "Finès"
+
+msgid "French"
+msgstr "Francès"
+
+msgid "Galician"
+msgstr "Gallec"
+
+msgid "Hungarian"
+msgstr "Hongarès"
+
+msgid "Indonesian"
+msgstr "Indonesi"
+
+msgid "Icelandic"
+msgstr "Islandès"
+
+msgid "Italian"
+msgstr "Italià"
+
+msgid "Japanese"
+msgstr "Japonès"
+
+msgid "Korean"
+msgstr "Coreà"
+
+msgid "Lithuanian"
+msgstr "Lituà"
+
+msgid "Mongolian"
+msgstr "Mongol"
+
+msgid "Persian"
+msgstr "Persa"
+
+msgid "Polish"
+msgstr "Polonès"
+
+msgid "Portuguese"
+msgstr "Portuguès"
+
+msgid "Romanian"
+msgstr "Romanès"
+
+msgid "Russian"
+msgstr "Rus"
+
+msgid "Swedish"
+msgstr "Suec"
+
+msgid "Edit"
+msgstr "Edita"
 
 msgid "Pages"
 msgstr "Pàgines"
@@ -355,9 +511,6 @@ msgstr "Podeu editar la configuració de privadesa a:"
 msgid "Save"
 msgstr "Desar"
 
-msgid "Privacy"
-msgstr "Privadesa"
-
 msgid "Public"
 msgstr "Publica"
 
@@ -394,24 +547,14 @@ msgstr ""
 "Aquest es el teu tauler de control on es mostrarà informació útil sobre el "
 "contingut que has creat"
 
-msgid "Title"
-msgstr "Títol"
-
 msgid "Edit this page"
 msgstr "Edita aquesta pàgina"
-
-msgid "Edit"
-msgstr "Edita"
 
 msgid "Draft"
 msgstr "Esborrany"
 
 msgid "Live"
 msgstr "En viu"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "fa %(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Pàgines a l'espera de moderació"
@@ -436,9 +579,6 @@ msgstr "Vista prèvia"
 
 msgid "Your most recent edits"
 msgstr "Edicions més recents"
-
-msgid "Date"
-msgstr "Data"
 
 msgid "Status"
 msgstr "Estat"
@@ -510,9 +650,6 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Els canvis a la privadesa s'apliquen també a totes les pàgines filles "
 "d'aquesta pàgina."
-
-msgid "Publish this revision"
-msgstr "Publicar aquesta revisió"
 
 msgid "Replace current draft"
 msgstr "Reemplaçar l'esborrany actual"
@@ -656,20 +793,12 @@ msgstr "Aquesta pàgina té modificacions no desades"
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Editant %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Editant %(page_type)s <span>%(title)s</span>"
+msgid "Current draft"
+msgstr "Esborrany actual"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Darrera modificació: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "per %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revisions"
+msgid "%(time_period)s ago"
+msgstr "fa %(time_period)s"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -813,9 +942,6 @@ msgstr "Comparant %(title)s"
 msgid "Comparing"
 msgstr "Comparant"
 
-msgid "View revisions"
-msgstr "Veure revisions"
-
 msgid "Fields"
 msgstr "Camps"
 
@@ -866,9 +992,6 @@ msgstr[1] ""
 "%(counter)s llocs.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "No hi ha diferències entre aquestes dues revisions"
-
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Revisions de %(title)s"
@@ -882,15 +1005,6 @@ msgstr "Data de revisió"
 msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "per"
-
-msgid "Current draft"
-msgstr "Esborrany actual"
-
-msgid "Review this revision"
-msgstr "Revisar aquest revisió"
-
-msgid "Compare with previous revision"
-msgstr "Comparar amb la revisió anterior"
 
 msgid "No revisions of this page exist"
 msgstr "No existeix cap revisió per aquesta pàgina"
@@ -915,10 +1029,6 @@ msgstr[1] ""
 "\n"
 "                Hi ha %(counter)s pàgines coincidents\n"
 "            "
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Ho sentim, cap pàgina coincideix amb <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Introdueix un terme de cerca abaix"
@@ -962,6 +1072,13 @@ msgstr "Afegir una pàgina filla"
 
 msgid "Show in Explorer"
 msgstr "Mostrar a l'Explorer"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "per %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Comparar amb la versió en viu"
 
 msgid "Test"
 msgstr "Provar"
@@ -1011,14 +1128,11 @@ msgstr "Veure en viu"
 msgid "Page '{0}' created and published."
 msgstr "Pàgina '{0}' creada i publicada."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Pàgina '{0}' creada i enviada a moderació."
-
 msgid "View draft"
 msgstr "Veure esborrany"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Ha fallat l'enviament de notificacions als moderadors"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Pàgina '{0}' creada i enviada a moderació."
 
 msgid "Page '{0}' created."
 msgstr "Pàgina '{0}' creada."
@@ -1026,25 +1140,17 @@ msgstr "Pàgina '{0}' creada."
 msgid "The page could not be created due to validation errors"
 msgstr "No es pot crear la pàgina per causa d'errors de validació"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr ""
-"La tevisió des de {0} de la pàgina '{1}' ha estat programada per a la seva "
-"publicació."
+msgid "This page is currently awaiting moderation"
+msgstr "Aquesta pàgina està esperant moderació"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "La pàgina '{0}' ha estat programada per a la seva publicació."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "La revisió des de {0} de la pàgina '{1}' ha estat publicada."
 
 msgid "Page '{0}' has been published."
 msgstr "La pàgina '{0}' ha estat publicada."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La pàgina '{0}' ha estat enviada a moderació."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "La pàgina '{0}' ha estat reemplaçada per una revisió des de {1}"
 
 msgid "Page '{0}' has been updated."
 msgstr "La pàgina '{0}' ha estat actualitzada."
@@ -1054,12 +1160,6 @@ msgstr "No s'ha pogut desar la pàgina donat que està bloquejada"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
-
-msgid "Compare with live version"
-msgstr "Comparar amb la versió en viu"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Aquesta pàgina està esperant moderació"
 
 msgid "Page '{0}' deleted."
 msgstr "Pàgina '{0}' eliminada."
@@ -1093,14 +1193,6 @@ msgstr "Ha fallat l'enviament de notificacions de rebuig"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "La pàgina '{0}' ara està desbloquejada."
-
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Esteu visualitzant una revisió anterior d'aquesta pàgina de  <b>"
-"%(created_at)s</b> de %(user)s"
 
 msgid "Earliest"
 msgstr "La més antiga"

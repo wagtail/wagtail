@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{{ view.get_meta_title }}{% endblock %}
 
@@ -34,13 +34,13 @@
         {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
 
         {% block footer %}
-            <footer role="contentinfo">
+            <footer>
                 <ul>
                     <li class="actions">
                         {% block form_actions %}
                             <div class="dropdown dropup dropdown-button match-width">
                                 <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
-                                    <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                                    {% icon name="spinner" %}<em>{% trans 'Save' %}</em>
                                 </button>
                             </div>
                         {% endblock %}

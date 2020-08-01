@@ -11,6 +11,7 @@ Advanced topics
     add_to_django_project
     deploying
     performance
+    i18n
     privacy
     customisation/index
     third_party_tutorials
@@ -18,3 +19,6 @@ Advanced topics
     testing
     api/index
     amp
+    adding_reports
+    custom_tasks
+    audit_log

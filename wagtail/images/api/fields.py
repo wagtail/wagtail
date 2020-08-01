@@ -14,7 +14,8 @@ class ImageRenditionField(Field):
     "thumbnail": {
         "url": "/media/images/myimage.max-165x165.jpg",
         "width": 165,
-        "height": 100
+        "height": 100,
+        "alt": "Image alt text"
     }
 
     If there is an error with the source image. The dict will only contain a single
@@ -36,6 +37,7 @@ class ImageRenditionField(Field):
                 ('url', thumbnail.url),
                 ('width', thumbnail.width),
                 ('height', thumbnail.height),
+                ('alt', thumbnail.alt),
             ])
         except SourceImageIOError:
             return OrderedDict([

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benjamin VR <benjaaa.vr@gmail.com>, 2020
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2019
 # Maarten Kling <kling.maarten@gmail.com>, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2016
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-20 20:12+0000\n"
-"PO-Revision-Date: 2019-10-16 20:19+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-25 14:03+0000\n"
+"Last-Translator: Benjamin VR <benjaaa.vr@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -21,12 +22,18 @@ msgstr ""
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "default"
+msgstr "standaard"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Wijzigen %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Wijzigen"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Saving…"
 msgstr "Bezig met opslaan…"

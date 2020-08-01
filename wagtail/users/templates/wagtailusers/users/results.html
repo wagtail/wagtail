@@ -21,7 +21,13 @@
 
          {% search_other %}
     {% else %}
-        {% url 'wagtailusers_create' as wagtailusers_create_url %}
-        <p>{% blocktrans %}There are no users configured. Why not <a href="{{ wagtailusers_create_url }}">add some</a>?{% endblocktrans %}</p>
+        {% url 'wagtailusers_users:add' as wagtailusers_add_url %}
+        {% if group %}
+            {% with group.name as group_name %}
+                <p>{% blocktrans %}The {{ group_name }} group has no users configured. Why not <a href="{{ wagtailusers_add_url }}">add some</a>?{% endblocktrans %}</p>
+            {% endwith %}
+        {% else %}
+            <p>{% blocktrans %}There are no users configured. Why not <a href="{{ wagtailusers_add_url }}">add some</a>?{% endblocktrans %}</p>
+        {% endif %}
     {% endif %}
 {% endif %}

@@ -1,6 +1,5 @@
-from django.conf.urls import include, url
-from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.urls import include, path, reverse
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
 from wagtail.contrib.forms import urls
@@ -11,7 +10,7 @@ from wagtail.core import hooks
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^forms/', include(urls, namespace='wagtailforms')),
+        path('forms/', include(urls, namespace='wagtailforms')),
     ]
 
 
@@ -25,5 +24,5 @@ class FormsMenuItem(MenuItem):
 def register_forms_menu_item():
     return FormsMenuItem(
         _('Forms'), reverse('wagtailforms:index'),
-        name='forms', classnames='icon icon-form', order=700
+        name='forms', icon_name='form', order=700
     )

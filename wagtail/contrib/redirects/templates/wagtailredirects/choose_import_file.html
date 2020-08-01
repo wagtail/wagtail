@@ -1,0 +1,44 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% trans "Redirects" %}{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        window.headerSearch = {
+            url: "{% url 'wagtailredirects:index' %}",
+            termInput: "#id_q",
+            targetOutput: "#redirects-results"
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    {% trans "Import redirects" as header_title %}
+    {% include "wagtailadmin/shared/header.html" with title=header_title icon="redirect" %}
+
+    <div class="nice-padding">
+        <div class="help-block help-info">
+            {% blocktrans %}
+                <p>Select a file where redirects are separated into rows and contains the columns representing <code>from</code> and <code>to</code> (they can be named anything).</p>
+                <p>After submitting you will be taken to a confirmation view where you can customize your redirects before import.</p>
+            {% endblocktrans %}
+        </div>
+    </div>
+
+    {% include "wagtailadmin/shared/non_field_errors.html" %}
+
+    <form action="" method="POST" class="nice-padding" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <ul class="fields">
+            {% for field in form.visible_fields %}
+                {% include "wagtailadmin/shared/field_as_li.html" %}
+            {% endfor %}
+
+            <li>
+                <input type="submit" value="{% trans 'Import' %}" class="button" />
+            </li>
+        </ul>
+    </form>
+{% endblock %}

@@ -14,7 +14,7 @@
 
 {% block content %}
     {% trans "Styleguide" as title_trans %}
-    {% include "wagtailadmin/shared/header.html" with title=title_trans %}
+    {% include "wagtailadmin/shared/header.html" with title=title_trans icon='image' %}
 
     <div class="nice-padding">
         <h2>Contents</h2>
@@ -421,23 +421,23 @@
             <h3>Bi-color icon buttons with text</h3>
             <p>Note that <code>input</code> elements are not supported by any icon buttons.</p>
 
-            <a href="#" class="button bicolor icon icon-plus">button link</a>
-            <button class="button bicolor icon icon-plus">button element</button>
+            <a href="#" class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}button link</a>
+            <button class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}button element</button>
 
             <h4>(small)</h4>
 
-            <a href="#" class="button button-small bicolor icon icon-plus">button link</a>
-            <button class="button button-small bicolor icon icon-plus">button element</button>
+            <a href="#" class="button button-small bicolor button--icon">{% icon name="plus" wrapped=1 %}button link</a>
+            <button class="button button-small bicolor button--icon">{% icon name="plus" wrapped=1 %}button element</button>
 
             <h3>Icon buttons without text</h3>
 
-            <a href="#" class="button text-replace icon icon-cog">button link</a>
-            <button class="button text-replace icon icon-cog">button element</button>
+            <a href="#" class="button text-replace button--icon">{% icon name="cog" %}button link</a>
+            <button class="button text-replace button--icon">{% icon name="cog" %}button element</button>
 
             <h4>(small)</h4>
 
-            <a href="#" class="button button-small text-replace icon icon-cog">button link</a>
-            <button class="button button-small text-replace icon icon-cog">button element</button>
+            <a href="#" class="button button-small text-replace button--icon">{% icon name="cog" %}button link</a>
+            <button class="button button-small text-replace button--icon">{% icon name="cog" %}button element</button>
 
             <h3>Colour signifiers</h3>
 
@@ -453,16 +453,16 @@
 
             <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
             <p class="help-block help-warning">Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
-            <button class="button button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Secondary</h4>
-            <button class="button button-secondary button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-secondary button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Small</h4>
-            <button class="button button-small button-longrunning"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-small button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Buttons where the text is replaced on click</h4>
-            <button class="button button-longrunning" data-clicked-text="Test"><span class="icon icon-spinner"></span><em>Click me</em></button>
+            <button class="button button-longrunning" data-clicked-text="Test">{% icon name="spinner" %}<em>Click me</em></button>
 
             <h4>Arbitrarily bigger</h4>
             <style>
@@ -472,14 +472,14 @@
                     height:3.5em;
                 }
             </style>
-            <button class="button button-longrunning" id="button-arbitrarily-bigger"><span class="icon icon-spinner"></span>Click me</button>
+            <button class="button button-longrunning" id="button-arbitrarily-bigger">{% icon name="spinner" %}Click me</button>
 
             <h3>Mixtures</h3>
 
-            <button class="button icon text-replace yes icon-tick">A proper button</button>
-            <a href="#" class="button icon text-replace white icon-cog">A link button</a>
-            <span class="button icon text-replace no icon-bin">A non-link button</span>
-            <a href="#" class="button bicolor disabled icon icon-tick">button link</a>
+            <button class="button button--icon text-replace yes">{% icon name="tick" %}A proper button</button>
+            <a href="#" class="button button--icon text-replace white">{% icon name="cog" %}A link button</a>
+            <span class="button button--icon text-replace no ">{% icon name="bin" %}A non-link button</span>
+            <a href="#" class="button button--icon bicolor disabled">{% icon name="tick" wrapped=1 %}button link</a>
 
         </section>
 
@@ -493,9 +493,9 @@
             </div>
             <br />
             <div class="button-group">
-                <button class="button icon text-replace yes icon-tick">A proper button</button>
-                <a href="#" class="button icon text-replace white icon-cog">A link button</a>
-                <span class="button icon text-replace no icon-bin">A non-link button</span>
+                <button class="button button--icon text-replace yes">{% icon name="tick" %}A proper button</button>
+                <a href="#" class="button button--icon text-replace white">{% icon name="cog" %}A link button</a>
+                <span class="button button--icon text-replace no">{% icon name="bin" %}A non-link button</span>
             </div>
         </section>
 
@@ -506,7 +506,7 @@
                 <div class="col3">
                     <div class="dropdown dropdown-button match-width">
                         <input type="button" value="drop down" class="button" />
-                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
                         <ul>
                             <li><a href="#">items should not exceed button width</a></li>
                             <li><a href="#">item 2</a></li>
@@ -517,7 +517,7 @@
                 <div class="col3">
                     <div class="dropdown dropdown-button">
                         <input type="button" value="drop down" class="button" />
-                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
                         <ul>
                             <li><a href="#">Items in this list do not match button width</a></li>
                             <li><a href="#">item 2</a></li>
@@ -528,7 +528,7 @@
                 <div class="col3">
                     <div class="dropdown dropup dropdown-button match-width">
                         <input type="button" value="drop up" class="button" />
-                        <div class="dropdown-toggle icon icon-arrow-up"></div>
+                        <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
                         <ul>
                             <li><a href="#">item 1</a></li>
                             <li><a href="#">item 2</a></li>
@@ -539,7 +539,7 @@
                 <div class="col3">
                     <div class="dropdown dropup dropdown-button match-width">
                         <button value="drop up" class="button icon icon-view">icon dropup</button>
-                        <div class="dropdown-toggle icon icon-arrow-up"></div>
+                        <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
                         <ul>
                             <li><a href="#">item 1</a></li>
                             <li><a href="#">item 2</a></li>
@@ -553,10 +553,22 @@
                 <div class="col3">
                     <div class="dropdown dropdown-button match-width">
                         <a href="#" class="button" value="drop down">Link button</a>
-                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
                         <ul>
                             <li><a href="#">items should not exceed button width</a></li>
                             <li><a href="#">item 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col3">
+                    <div class="dropdown dropdown-button dropdown-button--white">
+                        <a href="#" class="button" value="drop down">White drop down</a>
+                        <div class="dropdown-toggle icon icon-arrow-down"></div>
+                        <ul>
+                            <li><a href="#">items should not exceed button match-width</a></li>
+                            <li><a href="#">item 2</a></li>
+                            <li><a href="#" class="button no">item with destructive action</a></li>
                         </ul>
                     </div>
                 </div>
@@ -576,7 +588,10 @@
                 <div class="c-dropdown u-para t-default" data-dropdown="">
                     <a class="c-dropdown__button  u-btn-current">
                         More
-                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle c-dropdown__togle--icon  [ icon icon-arrow-down ]">
+                            {% icon name="arrow-down" %}
+                            {% icon name="arrow-up" %}
+                        </div>
                     </a>
                     <div class="t-dark">
                         <nav aria-label="Inline dropdown menu example">
@@ -635,11 +650,14 @@
             </div>
 
             <p>These can also have an inverted  theme:</p>
-            <header class="nice-padding" role="banner">
+            <header class="nice-padding">
                 <div class="c-dropdown  t-inverted" data-dropdown="">
                     <a class="c-dropdown__button  u-btn-current">
                         More
-                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle  [ icon icon-arrow-down ]"></div>
+                        <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle c-dropdown__togle--icon  [ icon icon-arrow-down ]">
+                            {% icon name="arrow-down" %}
+                            {% icon name="arrow-up" %}
+                        </div>
                     </a>
                     <div class="t-dark">
                         <nav aria-label="Dark inline dropdown menu example">
@@ -663,7 +681,8 @@
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans %}
 
-            {% include "wagtailadmin/shared/header.html" with title=title_trans add_link="wagtailstyleguide" icon="image" add_text="button" search_url="wagtailimages:index" %}
+            {% url "wagtailstyleguide" as add_link %}
+            {% include "wagtailadmin/shared/header.html" with title=title_trans action_url=add_link icon="image" action_text="button" search_url="wagtailimages:index" %}
         </section>
 
         <section id="forms">
@@ -764,92 +783,121 @@
         </section>
 
         <section id="icons" class="icons">
-            <h2>Icons</h2>
+            <h2>SVG Icons</h2>
+
+          <style>
+            .spinning {
+              animation-name: spin;
+              animation-duration: 500ms;
+              animation-iteration-count: infinite;
+              animation-timing-function: linear;
+            }
+            @keyframes spin {
+                from {
+                    transform: translateY(0.6em) rotate(0deg);
+                } to {
+                    transform: translateY(0.6em) rotate(360deg);
+                }
+            }
+          </style>
 
             <ul class="unlist">
-                <li class="icon icon-arrow-down-big">arrow-down-big</li>
-                <li class="icon icon-arrow-down">arrow-down</li>
-                <li class="icon icon-arrow-left">arrow-left</li>
-                <li class="icon icon-arrow-right">arrow-right</li>
-                <li class="icon icon-arrow-up-big">arrow-up-big</li>
-                <li class="icon icon-arrow-up">arrow-up</li>
-                <li class="icon icon-arrows-up-down">arrows-up-down</li>
-                <li class="icon icon-bin">bin</li>
-                <li class="icon icon-bold">bold</li>
-                <li class="icon icon-chain-broken">chain-broken</li>
-                <li class="icon icon-code">code</li>
-                <li class="icon icon-cog">cog</li>
-                <li class="icon icon-cogs">cogs</li>
-                <li class="icon icon-collapse-down">collapse-down</li>
-                <li class="icon icon-collapse-up">collapse-up</li>
-                <li class="icon icon-cross">cross</li>
-                <li class="icon icon-date">date</li>
-                <li class="icon icon-doc-empty-inverse">doc-empty-inverse</li>
-                <li class="icon icon-doc-empty">doc-empty</li>
-                <li class="icon icon-doc-full-inverse">doc-full-inverse</li>
-                <li class="icon icon-doc-full">doc-full</li>
-                <li class="icon icon-download">download</li>
-                <li class="icon icon-edit">edit</li>
-                <li class="icon icon-folder-inverse">folder-inverse</li>
-                <li class="icon icon-folder-open-1">folder-open-1</li>
-                <li class="icon icon-folder-open-inverse">folder-open-inverse</li>
-                <li class="icon icon-folder">folder</li>
-                <li class="icon icon-form">form</li>
-                <li class="icon icon-grip">grip</li>
-                <li class="icon icon-group">group</li>
-                <li class="icon icon-help">help</li>
-                <li class="icon icon-help-inverse">help-inverse</li>
-                <li class="icon icon-home">home</li>
-                <li class="icon icon-horizontalrule">horizontalrule</li>
-                <li class="icon icon-image">image</li>
-                <li class="icon icon-italic">italic</li>
-                <li class="icon icon-link">link</li>
-                <li class="icon icon-list-ol">list-ol</li>
-                <li class="icon icon-list-ul">list-ul</li>
-                <li class="icon icon-locked">locked</li>
-                <li class="icon icon-logout">logout</li>
-                <li class="icon icon-mail">mail</li>
-                <li class="icon icon-media">media</li>
-                <li class="icon icon-no-view">no-view</li>
-                <li class="icon icon-openquote">openquote</li>
-                <li class="icon icon-order-down">order-down</li>
-                <li class="icon icon-order-up">order-up</li>
-                <li class="icon icon-order">order</li>
-                <li class="icon icon-password">password</li>
-                <li class="icon icon-pick">pick</li>
-                <li class="icon icon-pilcrow">pilcrow</li>
-                <li class="icon icon-placeholder">placeholder</li>
-                <li class="icon icon-plus-inverse">plus-inverse</li>
-                <li class="icon icon-plus">plus</li>
-                <li class="icon icon-radio-empty">radio-empty</li>
-                <li class="icon icon-radio-full">radio-full</li>
-                <li class="icon icon-redirect">redirect</li>
-                <li class="icon icon-repeat">repeat</li>
-                <li class="icon icon-search">search</li>
-                <li class="icon icon-site">site</li>
-                <li class="icon icon-snippet">snippet</li>
-                <li class="spinner"><div class="icon icon-spinner">spinner</div> spinner</li>
-                <li class="icon icon-strikethrough">strikethrough</li>
-                <li class="icon icon-subscript">subscript</li>
-                <li class="icon icon-success">success</li>
-                <li class="icon icon-superscript">superscript</li>
-                <li class="icon icon-table">table</li>
-                <li class="icon icon-tag">tag</li>
-                <li class="icon icon-tick-inverse">tick-inverse</li>
-                <li class="icon icon-tick">tick</li>
-                <li class="icon icon-time">time</li>
-                <li class="icon icon-title">title</li>
-                <li class="icon icon-undo">undo</li>
-                <li class="icon icon-unlocked">unlocked</li>
-                <li class="icon icon-user">user</li>
-                <li class="icon icon-view">view</li>
-                <li class="icon icon-wagtail-inverse">wagtail-inverse</li>
-                <li class="icon icon-wagtail">wagtail</li>
-                <li class="icon icon-warning">warning</li>
+                <li>{% icon 'wagtail-icon' %} wagtail</li>
+                <li>{% icon 'wagtail-inverse' %} wagtail-inverse</li>
+                <li>{% icon 'cogs' %} cogs</li>
+                <li>{% icon 'doc-empty-inverse' %} doc-empty-inverse</li>
+                <li>{% icon 'doc-empty' %} doc-empty</li>
+                <li>{% icon 'edit' %} edit</li>
+                <li>{% icon 'arrow-up' %} arrow-up</li>
+                <li>{% icon 'arrow-down' %} arrow-down</li>
+                <li>{% icon 'search' %} search</li>
+                <li>{% icon 'cross' %} cross</li>
+                <li>{% icon 'folder-open-1' %} folder-open-1</li>
+                <li>{% icon 'folder-inverse' %} folder-inverse</li>
+                <li>{% icon 'mail' %} mail</li>
+                <li>{% icon 'arrows-up-down' %} arrows-up-down</li>
+                <li>{% icon 'lock' %} lock (locked)</li>
+                <li>{% icon 'lock-open' %} lock-open (unlocked)</li>
+                <li>{% icon 'arrow-right' %} arrow-right</li>
+                <li>{% icon 'doc-full' %} doc-full / file-text-alt</li>
+                <li>{% icon 'image' %} image / picture</li>
+                <li>{% icon 'doc-full-inverse' %} doc-full-inverse</li>
+                <li>{% icon 'draft' %} draft</li>
+                <li>{% icon 'folder' %} folder</li>
+                <li>{% icon 'plus' %} plus</li>
+                <li>{% icon 'tag' %} tag</li>
+                <li>{% icon 'folder-open-inverse' %} folder-open-inverse</li>
+                <li>{% icon 'clipboard-list' %} clipboard-list</li>
+                <li>{% icon 'tasks' %} tasks</li>
+                <li>{% icon 'cog' %} cog</li>
+                <li>{% icon 'tick' %} tick</li>
+                <li>{% icon 'user' %} user</li>
+                <li>{% icon 'arrow-left' %} arrow-left</li>
+                <li>{% icon 'tick-inverse' %} tick-inverse</li>
+                <li>{% icon 'plus-inverse' %} plus-inverse</li>
+                <li>{% icon 'snippet' %} snippet</li>
+                <li>{% icon 'bold' %} bold</li>
+                <li>{% icon 'italic' %} italic</li>
+                <li>{% icon 'undo' %} undo</li>
+                <li>{% icon 'history' %} history</li>
+                <li>{% icon 'repeat' %} repeat</li>
+                <li>{% icon 'list-ol' %} list-ol</li>
+                <li>{% icon 'list-ul' %} list-ul</li>
+                <li>{% icon 'link' %} link</li>
+                <li>{% icon 'link-external' %} link-external</li>
+                <li>{% icon 'superscript' %} superscript</li>
+                <li>{% icon 'subscript' %} subscript</li>
+                <li>{% icon 'strikethrough' %} strikethrough</li>
+                <li>{% icon 'radio-full' %} radio-full</li>
+                <li>{% icon 'radio-empty' %} radio-empty</li>
+                <li>{% icon 'arrow-up-big' %} arrow-up-big</li>
+                <li>{% icon 'arrow-down-big' %} arrow-down-big</li>
+                <li>{% icon 'group' %} group</li>
+                <li>{% icon 'media' %} media</li>
+                <li>{% icon 'horizontalrule' %} horizontalrule</li>
+                <li>{% icon 'password' %} password</li>
+                <li>{% icon 'download' %} download</li>
+                <li>{% icon 'duplicate' %} duplicate</li>
+                <li>{% icon 'download-alt' %} download-alt</li>
+                <li>{% icon 'upload' %} upload</li>
+                <li>{% icon 'order' %} order</li>
+                <li>{% icon 'grip' %} grip</li>
+                <li>{% icon 'home' %} home</li>
+                <li>{% icon 'order-down' %} order-down</li>
+                <li>{% icon 'order-up' %} order-up</li>
+                <li>{% icon 'bin' %} bin</li>
+
+                <li>{% icon 'spinner' 'icon spinning' %} spinner</li>
+
+                <li>{% icon 'pick' %} pick</li>
+                <li>{% icon 'redirect' %} redirect</li>
+                <li>{% icon 'view' %} view</li>
+                <li>{% icon 'no-view' %} no-view</li>
+                <li>{% icon 'collapse-up' %} collapse-up</li>
+                <li>{% icon 'collapse-down' %} collapse-down</li>
+                <li>{% icon 'help' %} help</li>
+                <li>{% icon 'warning' %} warning</li>
+                <li>{% icon 'error' %} error</li>
+                <li>{% icon 'success' %} success</li>
+                <li>{% icon 'date' %} date</li>
+                <li>{% icon 'time' %} time</li>
+                <li>{% icon 'form' %} form</li>
+                <li>{% icon 'site' %} site</li>
+                <li>{% icon 'placeholder' %} placeholder</li>
+                <li>{% icon 'pilcrow' %} pilcrow</li>
+                <li>{% icon 'title' %} title</li>
+                <li>{% icon 'code' %} code</li>
+                <li>{% icon 'openquote' %} openquote</li>
+                <li>{% icon 'chain-broken' %} chain-broken</li>
+                <li>{% icon 'table' %} table</li>
+                <li>{% icon 'login' %} login</li>
+                <li>{% icon 'logout' %} logout</li>
+
+                <li>{% icon 'thumbtack' %} thumbtack</li>
+                <li>{% icon 'resubmit' %} resubmit</li>
+                <li>{% icon 'uni52' %} uni52</li>
             </ul>
-
         </section>
-
     </div>
 
 {% endblock %}
@@ -867,7 +915,7 @@
                 var to = setTimeout(function(){
                     runprogress();
                     clearTimeout(to);
-                    var to2 = setTimeout(function(){
+                    setTimeout(function(){
                         $('#progress-example .bar').css('width', '20%');
                     }, 2000);
                 }, 3000);

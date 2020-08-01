@@ -101,6 +101,10 @@ $positions: (
     border: 0;
     width: auto;
     height: auto;
+
+    &-icon {
+        @include svg-icon(2em);
+    }
 }
 
 
@@ -141,7 +145,7 @@ $positions: (
         left: 0;
     }
 
-    &.#{$namespace}-icon:before {
+    .#{$namespace}-icon:before {
         transition: color 0.2s ease;
         font-size: 32px;
         width: auto;
@@ -242,6 +246,13 @@ $positions: (
             color: $color-white;
             background-color: rgba(100, 100, 100, 0.15);
         }
+
+        &-icon {
+            @include svg-icon(1.1em, middle);
+            margin-right: 0.5em;
+            fill: currentColor;
+        }
+
     }
 
     .#{$namespace}-icon {
@@ -256,16 +267,17 @@ $positions: (
     }
 
     a,
-    input {
+    button {
         font-size: 14px !important;
         text-align: left;
-        padding: 0.8em 1.7em 0.8em 2.7em;
+        padding: 0.8em;
     }
 
-    input {
+    button {
         border: 0;
-        background: none;
         width: 100%;
+        background-color: transparent;
+        outline: none;
     }
 }
 
@@ -314,17 +326,18 @@ $positions: (
 
         &.is-active .#{$namespace}-userbar__item {
             @for $i from 1 through $max-items {
+                // stylelint-disable max-nesting-depth
 
                 @if $vertical == 'bottom' {
-                    $prop: 'nth-last-child' !global;
+                    &:nth-last-child(#{$i}) {
+                        transition-delay: 0.05s * $i;
+                    }
                 }
 
                 @if $vertical == 'top' {
-                    $prop: 'nth-child' !global;
-                }
-
-                &:#{unquote($prop)}(#{$i}) {
-                    transition-delay: 0.05s * $i;
+                    &:nth-child(#{$i}) {
+                        transition-delay: 0.05s * $i;
+                    }
                 }
             }
         }

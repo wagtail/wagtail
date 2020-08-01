@@ -1,4 +1,4 @@
-from django.conf.urls import url, include
+from django.urls import re_path, include
 
 from wagtail.core import hooks
 
@@ -23,7 +23,7 @@ class ViewSetRegistry:
             vs_urlpatterns = viewset.get_urlpatterns()
 
             if vs_urlpatterns:
-                urlpatterns.append(url(
+                urlpatterns.append(re_path(
                     r'^{}/'.format(viewset.url_prefix),
                     include((vs_urlpatterns, viewset.name), namespace=viewset.name)
                 ))

@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.models import modelform_factory
 from django.utils.text import capfirst
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.collections import (

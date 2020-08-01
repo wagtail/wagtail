@@ -1,9 +1,9 @@
-from django.conf.urls import url
 from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Model
+from django.urls import re_path
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.checks import check_panels_in_model
@@ -74,6 +74,7 @@ class ModelAdmin(WagtailRegisterable):
     menu_order = None
     list_display = ('__str__',)
     list_display_add_buttons = None
+    list_export = ()
     inspect_view_fields = []
     inspect_view_fields_exclude = []
     inspect_view_enabled = False
@@ -201,6 +202,13 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.list_display_add_buttons or self.get_list_display(
             request)[0]
+
+    def get_list_export(self, request):
+        """
+        Return a sequence containing the fields/method output to be displayed
+        in spreadsheet exports.
+        """
+        return self.list_export
 
     def get_empty_value_display(self, field_name=None):
         """
@@ -421,7 +429,7 @@ class ModelAdmin(WagtailRegisterable):
 
     def get_templates(self, action='index'):
         """
-        Utility funtion that provides a list of templates to try for a given
+        Utility function that provides a list of templates to try for a given
         view, when the template isn't overridden by one of the template
         attributes on the class.
         """
@@ -511,28 +519,34 @@ class ModelAdmin(WagtailRegisterable):
         our the views that class offers.
         """
         urls = (
-            url(self.url_helper.get_action_url_pattern('index'),
+            re_path(
+                self.url_helper.get_action_url_pattern('index'),
                 self.index_view,
                 name=self.url_helper.get_action_url_name('index')),
-            url(self.url_helper.get_action_url_pattern('create'),
+            re_path(
+                self.url_helper.get_action_url_pattern('create'),
                 self.create_view,
                 name=self.url_helper.get_action_url_name('create')),
-            url(self.url_helper.get_action_url_pattern('edit'),
+            re_path(
+                self.url_helper.get_action_url_pattern('edit'),
                 self.edit_view,
                 name=self.url_helper.get_action_url_name('edit')),
-            url(self.url_helper.get_action_url_pattern('delete'),
+            re_path(
+                self.url_helper.get_action_url_pattern('delete'),
                 self.delete_view,
                 name=self.url_helper.get_action_url_name('delete')),
         )
         if self.inspect_view_enabled:
             urls = urls + (
-                url(self.url_helper.get_action_url_pattern('inspect'),
+                re_path(
+                    self.url_helper.get_action_url_pattern('inspect'),
                     self.inspect_view,
                     name=self.url_helper.get_action_url_name('inspect')),
             )
         if self.is_pagemodel:
             urls = urls + (
-                url(self.url_helper.get_action_url_pattern('choose_parent'),
+                re_path(
+                    self.url_helper.get_action_url_pattern('choose_parent'),
                     self.choose_parent_view,
                     name=self.url_helper.get_action_url_name('choose_parent')),
             )

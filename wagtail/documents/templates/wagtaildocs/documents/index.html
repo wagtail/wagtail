@@ -23,7 +23,8 @@
 
     {% if user_can_add %}
         {% trans "Add a document" as add_doc_str %}
-        {% include "wagtailadmin/shared/header.html" with title=doc_str add_link="wagtaildocs:add_multiple" icon="doc-full-inverse" add_text=add_doc_str search_url="wagtaildocs:index" %}
+        {% url "wagtaildocs:add_multiple" as add_link %}
+        {% include "wagtailadmin/shared/header.html" with title=doc_str action_url=add_link icon="doc-full-inverse" action_text=add_doc_str search_url="wagtaildocs:index" %}
     {% else %}
         {% include "wagtailadmin/shared/header.html" with title=doc_str icon="doc-full-inverse" search_url="wagtaildocs:index" %}
     {% endif %}

@@ -1,0 +1,117 @@
+{% extends "wagtailadmin/generic/index.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block content %}
+    <header role="banner">
+        <div class="row nice-padding">
+            <div class="left">
+                <div class="col header-title">
+                    <h1>{% if view.header_icon %}{% icon name=view.header_icon class_name="header-title-icon" %}{% endif %}
+                    {{ view.page_title }}{% if view.subtitle %} <span>{{ view.subtitle }}</span>{% endif %}</h1>
+                </div>
+            </div>
+            <div class="right">
+                <a href="{% url "wagtailadmin_workflows:index" %}?show_disabled={% if showing_disabled %}false{% else %}true{% endif %}" class="button button-nobg button--icon">
+                    {% if showing_disabled %}
+                        {% icon name="no-view" %}{% trans "Hide disabled workflows" %}
+                    {% else %}
+                        {% icon name="view" %}{% trans "Show disabled workflows" %}
+                    {% endif %}
+                </a>
+                <a href="{% url view.add_url_name %}" class="button bicolor icon icon-plus">{{ view.add_item_label }}</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="nice-padding">
+        {% if workflows %}
+            <table class="listing">
+                <thead>
+                    <tr>
+                        <th>
+                            {% trans "Name" %}
+                        </th>
+                        <th>
+                            {% trans "Used by" %}
+                        </th>
+                        <th>
+                            {% trans "Tasks" %}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for workflow in workflows %}
+                        <tr>
+                            <td class="title">
+                                <div class="title-wrapper">
+                                    <a href="{% url view.edit_url_name workflow.pk %}">{{ workflow }}</a>
+                                    {% if not workflow.active %}
+                                        <span class="status-tag">Disabled</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td class="title">
+                                <div class="title-wrapper">
+                                    <a href="{% url 'wagtailadmin_workflows:usage' workflow.pk %}">
+                                        {% blocktrans count counter=workflow.all_pages.count %}
+                                            1 page
+                                        {% plural %}
+                                            {{ counter }} pages
+                                        {% endblocktrans %}
+                                    </a>
+                                </div>
+                            </td>
+                            <td>
+                                <ul class="workflow-tasks">
+                                    {% for task in workflow.tasks|slice:":5" %}
+                                        <a href="{% url 'wagtailadmin_workflows:edit_task' task.pk %}">
+                                            <li class="workflow-tasks__task" data-wagtail-tooltip="{% blocktrans with forloop.counter as step_number %}Step {{ step_number }}{% endblocktrans %}: {{ task.name }}">
+                                                <div class="workflow-tasks__step">{% blocktrans with forloop.counter as step_number %}Step {{ step_number }}{% endblocktrans %}</div>
+                                                <h4 class="workflow-tasks__name">{{ task.name }}</h4>
+                                            </li>
+                                        </a>
+                                    {% endfor %}
+                                    {% if workflow.tasks.count > 5 %}
+                                        <li class="workflow-tasks__extra-tasks">
+                                            {% blocktrans count counter=workflow.tasks.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            {% url view.add_url_name as add_url %}
+            {% if showing_disabled %}
+                <p>{% blocktrans %}No workflows have been created. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
+            {% else %}
+                <p>{% blocktrans %}There are no enabled workflows. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+
+    <script>
+        $(function() {
+            $('[data-wagtail-tooltip]').tooltip({
+                animation: false,
+                title: function() {
+                    return $(this).attr('data-wagtail-tooltip');
+                },
+                trigger: 'hover',
+                placement: 'bottom',
+            });
+        });
+    </script>
+{% endblock %}

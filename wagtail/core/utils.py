@@ -8,12 +8,35 @@ from django.db.models import Model
 from django.utils.encoding import force_str
 from django.utils.text import slugify
 
+from unidecode import unidecode
+
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
 
 
 def camelcase_to_underscore(str):
     # https://djangosnippets.org/snippets/585/
     return re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', str).lower().strip('_')
+
+
+def string_to_ascii(value):
+    """
+    Convert a string to ascii.
+    Note: Conversion relies on unidecode, to be replaced in a future release.
+    Important: Consider AbstractFormField _migrate_legacy_clean_name before replcaing unidecode.
+    """
+
+    return str(unidecode(value))
+
+
+def get_model_string(model):
+    """
+    Returns a string that can be used to identify the specified model.
+
+    The format is: `app_label.ModelName`
+
+    This an be reversed with the `resolve_model_string` function
+    """
+    return model._meta.app_label + '.' + model.__name__
 
 
 def resolve_model_string(model_string, default_app=None):
@@ -93,6 +116,22 @@ def cautious_slugify(value):
     return slugify(value)
 
 
+def safe_snake_case(value):
+    """
+    Convert a string to ASCII similar to Django's slugify, with catious handling of
+    non-ASCII alphanumeric characters. See `cautious_slugify`.
+
+    Any inner whitespace, hyphens or dashes will be converted to underscores and
+    will be safe for Django template or filename usage.
+    """
+
+    slugified_ascii_string = cautious_slugify(value)
+
+    snake_case_string = slugified_ascii_string.replace("-", "_")
+
+    return snake_case_string
+
+
 def accepts_kwarg(func, kwarg):
     """
     Determine whether the callable `func` has a signature that accepts the keyword argument `kwarg`
@@ -103,3 +142,32 @@ def accepts_kwarg(func, kwarg):
         return True
     except TypeError:
         return False
+
+
+class InvokeViaAttributeShortcut:
+    """
+    Used to create a shortcut that allows an object's named
+    single-argument method to be invoked using a simple
+    attribute reference syntax. For example, adding the
+    following to an object:
+
+    obj.page_url = InvokeViaAttributeShortcut(obj, 'get_page_url')
+
+    Would allow you to invoke get_page_url() like so:
+
+    obj.page_url.terms_and_conditions
+
+    As well as the usual:
+
+    obj.get_page_url('terms_and_conditions')
+    """
+
+    __slots__ = 'obj', 'method_name'
+
+    def __init__(self, obj, method_name):
+        self.obj = obj
+        self.method_name = method_name
+
+    def __getattr__(self, name):
+        method = getattr(self.obj, self.method_name)
+        return method(name)
