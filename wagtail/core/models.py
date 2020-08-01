@@ -1,6 +1,5 @@
 import json
 import logging
-from collections import defaultdict
 from io import StringIO
 from urllib.parse import urlparse
 
@@ -136,15 +135,13 @@ class MultiTableCopyMixin:
         child_object_map = specific_self.copy_all_child_relations(instance, exclude=exclude_fields)
 
         # Save copied child objects and run process_child_object on them if we need to
-        child_object_id_map = defaultdict(dict)
         for (child_relation, old_pk), child_object in child_object_map.items():
             if process_child_object:
                 process_child_object(specific_self, instance, child_relation, child_object)
 
             child_object.save()
-            child_object_id_map[child_relation.get_accessor_name()][old_pk] = child_object.pk
 
-        return child_object_id_map
+        return child_object_map
 
     def _copy(self, exclude_fields=None, update_attrs=None, process_child_object=None, **kwargs):
         exclude_fields = self.default_exclude_fields_in_copy + self.specific.exclude_fields_in_copy + (exclude_fields or [])
@@ -157,9 +154,9 @@ class MultiTableCopyMixin:
 
         copy_instance = self._set_m2m_relations(copy_instance, specific_m2m_dict, update_attrs)
 
-        child_object_id_map = self._copy_child_objects_to_instance(copy_instance, exclude_fields=exclude_fields, process_child_object=process_child_object)
+        child_object_map = self._copy_child_objects_to_instance(copy_instance, exclude_fields=exclude_fields, process_child_object=process_child_object)
 
-        return copy_instance, child_object_id_map
+        return copy_instance, child_object_map
 
 
 class SiteManager(models.Manager):
@@ -1431,7 +1428,7 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         if update_attrs:
             base_update_attrs.update(update_attrs)
 
-        page_copy, child_object_id_map = self._copy(exclude_fields=exclude_fields, update_attrs=base_update_attrs, to=to, recursive=recursive, process_child_object=process_child_object)
+        page_copy, child_object_map = self._copy(exclude_fields=exclude_fields, update_attrs=base_update_attrs, to=to, recursive=recursive, process_child_object=process_child_object)
 
         # Copy revisions
         if copy_revisions:
@@ -1460,7 +1457,8 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
                         # Remap primary key to copied versions
                         # If the primary key is not recognised (eg, the child object has been deleted from the database)
                         # set the primary key to None
-                        child_object['pk'] = child_object_id_map[accessor_name].get(child_object['pk'], None)
+                        copied_child_object = child_object_map.get((child_relation, child_object['pk']))
+                        child_object['pk'] = copied_child_object.pk if copied_child_object else None
 
                 revision.content_json = json.dumps(revision_content)
 
