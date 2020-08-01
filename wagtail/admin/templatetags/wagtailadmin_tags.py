@@ -20,12 +20,12 @@ from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_js_translation_strings
-from wagtail.admin.log_action_registry import registry as log_action_registry
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
+from wagtail.core.logging import page_log_action_registry
 from wagtail.core.models import (
     Collection, CollectionViewRestriction, Locale, Page, PageLogEntry, PageViewRestriction,
     UserPagePermissionsProxy)
@@ -583,7 +583,7 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
 def format_action_log_message(log_entry):
     if not isinstance(log_entry, PageLogEntry):
         return ''
-    return log_action_registry.format_message(log_entry)
+    return page_log_action_registry.format_message(log_entry)
 
 
 @register.simple_tag

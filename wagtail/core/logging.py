@@ -57,4 +57,4 @@ class LogActionRegistry:
         return self.get_actions()[action][0]
 
 
-registry = LogActionRegistry()
+page_log_action_registry = LogActionRegistry()
