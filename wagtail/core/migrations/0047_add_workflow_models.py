@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Task state',
                 'verbose_name_plural': 'Task states',
             },
-            bases=(wagtail.core.models.MultiTableCopyMixin, models.Model),
+            bases=(wagtail.core.models.CopyMixin, models.Model),
         ),
         migrations.CreateModel(
             name='Workflow',
