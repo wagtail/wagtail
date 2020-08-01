@@ -20,7 +20,7 @@
                                 <a href="{% url 'wagtailadmin_pages:add' app_label model_name parent_page.id %}{% if next %}?next={{ next }}{% endif %}" class="icon icon-plus-inverse icon-larger">
                                     {{ verbose_name }}
                                     {% if page_description %}
-                                        <div><small>{{ page_description }}</small></div>
+                                        <div><span class="visuallyhidden">.</span><small>{{ page_description }}</small></div>
                                     {% endif %}
                                 </a>
                             </div>
