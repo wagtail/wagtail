@@ -35,6 +35,14 @@
                 {% icon name="doc-empty-inverse" class_name="default" %}
                 {{ content_type.model_class.get_verbose_name }}
             </li>
+            {% if content_type.model_class.get_page_description %}
+                <li class="header-meta--type">
+                    {% icon name="help" class_name="default" %}
+                    <span data-wagtail-tooltip="{{ content_type.model_class.get_page_description }}">
+                        {{ content_type.model_class.get_page_description|truncatewords:4 }}
+                    </span>
+                </li>
+            {% endif %}
         </ul>
     </header>
 

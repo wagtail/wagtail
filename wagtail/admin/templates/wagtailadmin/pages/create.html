@@ -6,7 +6,6 @@
 {% block bodyclass %}page-editor create model-{{ content_type.model }}{% endblock %}
 
 {% block content %}
-
     <header class="merged tab-merged">
         {% explorer_breadcrumb parent_page include_self=1 %}
 
@@ -15,10 +14,10 @@
                 <h1>
                     {% icon "doc-empty-inverse" class_name="header-title-icon" %}
                     {% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span>
-                    {% if content_type.model_class.get_page_description %}
-                        <span><small>{{ content_type.model_class.get_page_description }}</small></span>
-                    {% endif %}
                 </h1>
+                {% if content_type.model_class.get_page_description %}
+                    <h3>{{ content_type.model_class.get_page_description }}</h3>
+                {% endif %}
             </div>
         </div>
     </header>

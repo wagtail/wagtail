@@ -1317,7 +1317,7 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
     @classmethod
     def get_page_description(cls):
         """
-        Returns a page description if it's not set. eg "A multi-purpose web page".
+        Returns a page description if it's set. For example "A multi-purpose web page".
         """
         return getattr(cls, 'page_description', '')
 
