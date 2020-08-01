@@ -243,7 +243,7 @@ class UpdateModulePaths(Command):
 
 
 class Version(Command):
-    description = "List which version of watch you are using"
+    description = "List which version of Wagtail you are using"
 
     def run(self):
         import wagtail
@@ -255,7 +255,7 @@ class Version(Command):
 COMMANDS = {
     'start': CreateProject(),
     'updatemodulepaths': UpdateModulePaths(),
-    '--version': Version()
+    'version': Version()
 }
 
 
