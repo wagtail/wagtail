@@ -8,8 +8,10 @@ class LogActionRegistry:
     A central store for log actions.
     The expected format for registered log actions: Namespaced action, Action label, Action message (or callable)
     """
-    def __init__(self):
-        # Has the register_log_actions hook been run for this registry?
+    def __init__(self, hook_name):
+        self.hook_name = hook_name
+
+        # Has the hook been run for this registry?
         self.has_scanned_for_actions = False
 
         # Holds the actions.
@@ -23,7 +25,7 @@ class LogActionRegistry:
 
     def scan_for_actions(self):
         if not self.has_scanned_for_actions:
-            for fn in hooks.get_hooks('register_log_actions'):
+            for fn in hooks.get_hooks(self.hook_name):
                 fn(self)
 
             self.has_scanned_for_actions = True
@@ -57,4 +59,5 @@ class LogActionRegistry:
         return self.get_actions()[action][0]
 
 
-page_log_action_registry = LogActionRegistry()
+# For historical reasons, pages use the 'register_log_actions' hook
+page_log_action_registry = LogActionRegistry('register_log_actions')
