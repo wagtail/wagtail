@@ -642,7 +642,8 @@ table.listing {
 
 
 
-        td:hover .actions {
+        td:hover .actions,
+        td:focus-within .actions {
             visibility: visible;
         }
 
