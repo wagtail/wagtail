@@ -5,8 +5,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
-from wagtail.admin.log_action_registry import registry as log_action_registry
 from wagtail.admin.widgets import AdminDateInput, BooleanButtonSelect, ButtonSelect, FilteredSelect
+from wagtail.core.logging import page_log_action_registry
 from wagtail.core.models import Page, PageLogEntry, Task, TaskState, Workflow, WorkflowState
 
 
@@ -185,7 +185,7 @@ def get_audit_log_users_queryset(request):
 
 
 class SiteHistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(choices=log_action_registry.get_choices)
+    action = django_filters.ChoiceFilter(choices=page_log_action_registry.get_choices)
     timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
     label = django_filters.CharFilter(label=_('Title'), lookup_expr='icontains')
     user = django_filters.ModelChoiceFilter(
@@ -198,7 +198,7 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
 
 
 class PageHistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(choices=log_action_registry.get_choices)
+    action = django_filters.ChoiceFilter(choices=page_log_action_registry.get_choices)
     user = django_filters.ModelChoiceFilter(
         field_name='user', queryset=get_audit_log_users_queryset
     )

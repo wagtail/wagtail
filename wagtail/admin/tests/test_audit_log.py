@@ -7,39 +7,9 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.log_action_registry import LogActionRegistry
 from wagtail.core.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
 from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
-
-
-def test_hook(actions):
-    return actions.register_action('test.custom_action', 'Custom action', 'Tested!')
-
-
-class TestAuditLogHooks(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.root_page = Page.objects.get(id=2)
-
-    def test_register_log_actions_hook(self):
-        # testapp/wagtail_hooks.py defines a 'blockquote' rich text feature with a hallo.js
-        # plugin, via the register_rich_text_features hook; test that we can retrieve it here
-        log_actions = LogActionRegistry()
-        actions = log_actions.get_actions()
-        self.assertIn('wagtail.create', actions)
-
-    def test_action_format_message(self):
-        log_entry = PageLogEntry.objects.log_action(self.root_page, action='test.custom_action')
-
-        log_actions = LogActionRegistry()
-        self.assertEqual(log_actions.format_message(log_entry), "Unknown test.custom_action")
-        self.assertNotIn('test.custom_action', log_actions.get_actions())
-
-        with self.register_hook('register_log_actions', test_hook):
-            log_actions = LogActionRegistry()
-            self.assertIn('test.custom_action', log_actions.get_actions())
-            self.assertEqual(log_actions.format_message(log_entry), "Tested!")
-            self.assertEqual(log_actions.get_action_label('test.custom_action'), 'Custom action')
 
 
 class TestAuditLogAdmin(TestCase, WagtailTestUtils):
