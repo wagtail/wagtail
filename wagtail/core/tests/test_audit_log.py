@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
@@ -30,7 +31,7 @@ class TestAuditLogManager(TestCase, WagtailTestUtils):
 
         with freeze_time(now):
             entry = PageLogEntry.objects.log_action(
-                self.page, 'test', user=self.user
+                self.page, 'wagtail.edit', user=self.user
             )
 
         self.assertEqual(entry.content_type, self.page.content_type)
@@ -38,8 +39,8 @@ class TestAuditLogManager(TestCase, WagtailTestUtils):
         self.assertEqual(entry.timestamp, now)
 
     def test_get_for_model(self):
-        PageLogEntry.objects.log_action(self.page, 'test')
-        PageLogEntry.objects.log_action(self.simple_page, 'test')
+        PageLogEntry.objects.log_action(self.page, 'wagtail.edit')
+        PageLogEntry.objects.log_action(self.simple_page, 'wagtail.edit')
 
         entries = PageLogEntry.objects.get_for_model(SimplePage)
         self.assertEqual(entries.count(), 2)
@@ -86,8 +87,8 @@ class TestAuditLog(TestCase):
         self.assertEqual(PageLogEntry.objects.filter(action='wagtail.edit').count(), 1)
 
         # passing a string for the action should log this.
-        self.home_page.save_revision(log_action='wagtail.custom_action')
-        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.custom_action').count(), 1)
+        self.home_page.save_revision(log_action='wagtail.revert')
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.revert').count(), 1)
 
     def test_page_publish(self):
         revision = self.home_page.save_revision()
@@ -325,8 +326,23 @@ class TestAuditLogHooks(TestCase, WagtailTestUtils):
         actions = log_actions.get_actions()
         self.assertIn('wagtail.create', actions)
 
+    def test_action_must_be_registered(self):
+        # We check actions are registered to let developers know if they have forgotten to register
+        # a new action or made a spelling mistake. It's not intended as a database-level constraint.
+        with self.assertRaises(ValidationError) as e:
+            PageLogEntry.objects.log_action(self.root_page, action='test.custom_action')
+
+        self.assertEqual(e.exception.message_dict, {
+            'action': ["The log action 'test.custom_action' has not been registered."]
+        })
+
     def test_action_format_message(self):
-        log_entry = PageLogEntry.objects.log_action(self.root_page, action='test.custom_action')
+        # All new logs should pass our validation, but older logs or logs that were added in bulk
+        # may be invalid.
+        # Using LogEntry.objects.update, we can bypass the on save validation.
+        log_entry = PageLogEntry.objects.log_action(self.root_page, action='wagtail.create')
+        PageLogEntry.objects.update(action='test.custom_action')
+        log_entry.refresh_from_db()
 
         log_actions = LogActionRegistry('register_log_actions')
         self.assertEqual(log_actions.format_message(log_entry), "Unknown test.custom_action")

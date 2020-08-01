@@ -43,6 +43,7 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
+from wagtail.core.logging import page_log_action_registry
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import (
     page_published, page_unpublished, post_page_move, pre_page_move, task_approved, task_cancelled,
@@ -4720,6 +4721,7 @@ class BaseLogEntry(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,  # Null if actioned by system
+        blank=True,
         on_delete=models.DO_NOTHING,
         db_constraint=False,
         related_name='+',
@@ -4731,11 +4733,23 @@ class BaseLogEntry(models.Model):
 
     objects = BaseLogEntryManager()
 
+    action_registry = None
+
     class Meta:
         abstract = True
         verbose_name = _('log entry')
         verbose_name_plural = _('log entries')
         ordering = ['-timestamp']
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
+
+    def clean(self):
+        self.action_registry.scan_for_actions()
+
+        if self.action not in self.action_registry.actions:
+            raise ValidationError({'action': _("The log action '{}' has not been registered.").format(self.action)})
 
     def __str__(self):
         return "LogEntry %d: '%s' on '%s'" % (
@@ -4804,12 +4818,15 @@ class PageLogEntry(BaseLogEntry):
     revision = models.ForeignKey(
         'wagtailcore.PageRevision',
         null=True,
+        blank=True,
         on_delete=models.DO_NOTHING,
         db_constraint=False,
         related_name='+',
     )
 
     objects = PageLogEntryManager()
+
+    action_registry = page_log_action_registry
 
     class Meta:
         ordering = ['-timestamp', '-id']
