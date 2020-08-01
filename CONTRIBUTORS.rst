@@ -472,6 +472,7 @@ Contributors
 * Max Gabrielsson
 * Steven Wood
 * Gabriel Peracio
+* Jesse Menn
 
 Translators
 ===========

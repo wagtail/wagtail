@@ -175,6 +175,7 @@ IE 11 is gradually falling out of use, and specific features are unsupported in 
 * Rich text copy-paste in the rich text editor.
 * Sticky toolbar in the rich text editor.
 * Focus outline styles in the main menu & explorer menu.
+* Keyboard access to the actions in page listing tables.
 
 **Unsupported browsers / devices include:**
 
