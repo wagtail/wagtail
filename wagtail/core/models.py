@@ -128,22 +128,7 @@ class MultiTableCopyMixin:
 
         return instance
 
-    def _copy_child_objects_to_instance(self, instance, exclude_fields=None, process_child_object=None):
-        """Copy objects linked to the model by a ParentalKey, and set this to the new revision"""
-        specific_self = self.specific
-
-        child_object_map = specific_self.copy_all_child_relations(instance, exclude=exclude_fields)
-
-        # Save copied child objects and run process_child_object on them if we need to
-        for (child_relation, old_pk), child_object in child_object_map.items():
-            if process_child_object:
-                process_child_object(specific_self, instance, child_relation, child_object)
-
-            child_object.save()
-
-        return child_object_map
-
-    def _copy(self, exclude_fields=None, update_attrs=None, process_child_object=None, **kwargs):
+    def _copy(self, exclude_fields=None, update_attrs=None, commit_child_objects=True, **kwargs):
         exclude_fields = self.default_exclude_fields_in_copy + self.specific.exclude_fields_in_copy + (exclude_fields or [])
 
         specific_dict, specific_m2m_dict = self._get_field_dictionaries(exclude_fields=exclude_fields)
@@ -154,7 +139,7 @@ class MultiTableCopyMixin:
 
         copy_instance = self._set_m2m_relations(copy_instance, specific_m2m_dict, update_attrs)
 
-        child_object_map = self._copy_child_objects_to_instance(copy_instance, exclude_fields=exclude_fields, process_child_object=process_child_object)
+        child_object_map = self.specific.copy_all_child_relations(copy_instance, exclude=exclude_fields, commit=commit_child_objects)
 
         return copy_instance, child_object_map
 
@@ -1428,7 +1413,14 @@ class Page(MultiTableCopyMixin, AbstractPage, index.Indexed, ClusterableModel, m
         if update_attrs:
             base_update_attrs.update(update_attrs)
 
-        page_copy, child_object_map = self._copy(exclude_fields=exclude_fields, update_attrs=base_update_attrs, to=to, recursive=recursive, process_child_object=process_child_object)
+        page_copy, child_object_map = self._copy(exclude_fields=exclude_fields, update_attrs=base_update_attrs, to=to, recursive=recursive, commit_child_objects=False)
+
+        # Save copied child objects and run process_child_object on them if we need to
+        for (child_relation, old_pk), child_object in child_object_map.items():
+            if process_child_object:
+                process_child_object(specific_self, page_copy, child_relation, child_object)
+
+            child_object.save()
 
         # Copy revisions
         if copy_revisions:
