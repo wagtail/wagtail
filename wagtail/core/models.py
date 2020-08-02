@@ -124,18 +124,11 @@ def _set_m2m_relations(source, target, m2m_dict, update_attrs=None):
     return target
 
 
-def _copy(source, copy_fn, exclude_fields=None, update_attrs=None, commit_child_objects=True, **kwargs):
+def _copy(source, exclude_fields=None, update_attrs=None):
     data_dict, m2m_dict = _extract_field_data(source, exclude_fields=exclude_fields)
-
     target = _make_copy(source, data_dict, m2m_dict, update_attrs=update_attrs)
-
-    target = copy_fn(target, **kwargs)
-
-    target = _set_m2m_relations(source, target, m2m_dict, update_attrs)
-
-    child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields, commit=commit_child_objects)
-
-    return target, child_object_map
+    child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
+    return target, child_object_map, m2m_dict
 
 
 class SiteManager(models.Manager):
@@ -1407,24 +1400,22 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if update_attrs:
             base_update_attrs.update(update_attrs)
 
-        def _save_copy_instance(instance, to=None, recursive=False):
-            # Called from _copy when it's ready to save an instance
-            if to:
-                if recursive and (to == self or to.is_descendant_of(self)):
-                    raise Exception("You cannot copy a tree branch recursively into itself")
-                instance = to.add_child(instance=instance)
-            else:
-                instance = self.add_sibling(instance=instance)
-            return instance
-
-        page_copy, child_object_map = _copy(specific_self, _save_copy_instance, exclude_fields=exclude_fields, update_attrs=base_update_attrs, to=to, recursive=recursive, commit_child_objects=False)
+        page_copy, child_object_map, m2m_dict = _copy(specific_self, exclude_fields=exclude_fields, update_attrs=base_update_attrs)
 
         # Save copied child objects and run process_child_object on them if we need to
         for (child_relation, old_pk), child_object in child_object_map.items():
             if process_child_object:
                 process_child_object(specific_self, page_copy, child_relation, child_object)
 
-            child_object.save()
+        # Save the new page
+        if to:
+            if recursive and (to == self or to.is_descendant_of(self)):
+                raise Exception("You cannot copy a tree branch recursively into itself")
+            page_copy = to.add_child(instance=page_copy)
+        else:
+            page_copy = self.add_sibling(instance=page_copy)
+
+        _set_m2m_relations(specific_self, page_copy, m2m_dict, update_attrs=base_update_attrs)
 
         # Copy revisions
         if copy_revisions:
@@ -3601,14 +3592,10 @@ class TaskState(models.Model):
         """Copy this task state, excluding the attributes in the ``exclude_fields`` list and updating any attributes to values
         specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs"""
         exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
-
-        def _save_copy_instance(instance):
-            # Called from _copy when it's ready to save an instance
-            instance.save()
-            return instance
-
-        copy_instance, _ = _copy(self.specific, exclude_fields, update_attrs)
-        return copy_instance
+        instance, _, m2m_dict = _copy(self.specific, exclude_fields, update_attrs)
+        instance.save()
+        _set_m2m_relations(self, instance, m2m_dict)
+        return instance
 
     def get_comment(self):
         """
