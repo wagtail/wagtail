@@ -255,7 +255,7 @@ class Version(Command):
 COMMANDS = {
     'start': CreateProject(),
     'updatemodulepaths': UpdateModulePaths(),
-    'version': Version()
+    '--version': Version()
 }
 
 
