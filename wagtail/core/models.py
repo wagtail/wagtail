@@ -54,7 +54,6 @@ def _extract_field_data(source, exclude_fields=None):
     """Get dictionaries representing the model: one with all non m2m fields, and one containing the m2m fields"""
     exclude_fields = exclude_fields or []
     data_dict = {}
-    m2m_dict = {}
 
     for field in source._meta.get_fields():
         # Ignore explicitly excluded fields
@@ -74,17 +73,6 @@ def _extract_field_data(source, exclude_fields=None):
                     values = parental_field.all()
                     if values:
                         data_dict[field.name] = values
-            else:
-                try:
-                    # Do not copy m2m links with a through model that has a ParentalKey to the model being copied - these will be copied as child objects
-                    through_model_parental_links = [field for field in field.through._meta.get_fields() if isinstance(field, ParentalKey) and (field.related_model == source.__class__ or field.related_model in source._meta.parents)]
-                    if through_model_parental_links:
-                        continue
-                except AttributeError:
-                    pass
-
-                # TODO: Wouldn't this reassign the objects to the new page rather than copy them?
-                m2m_dict[field.name] = getattr(source, field.name).all()
             continue
 
         # Ignore parent links (page_ptr)
@@ -93,10 +81,10 @@ def _extract_field_data(source, exclude_fields=None):
 
         data_dict[field.name] = getattr(source, field.name)
 
-    return data_dict, m2m_dict
+    return data_dict
 
 
-def _make_copy(source, data_dict, m2m_dict, update_attrs=None):
+def _make_copy(source, data_dict, update_attrs=None):
     """Create a copy instance (without saving) from dictionaries of the model's fields, and update any attributes in update_attrs"""
 
     if not update_attrs:
@@ -106,29 +94,41 @@ def _make_copy(source, data_dict, m2m_dict, update_attrs=None):
 
     if update_attrs:
         for field, value in update_attrs.items():
-            if field in m2m_dict:
-                continue
             setattr(target, field, value)
 
     return target
 
 
-def _set_m2m_relations(source, target, m2m_dict, update_attrs=None):
-    """Set non-ParentalManyToMany m2m relations"""
-    if not update_attrs:
-        update_attrs = {}
-    for field_name, value in m2m_dict.items():
-        value = update_attrs.get(field_name, value)
-        getattr(target, field_name).set(value)
+def _copy_m2m_relations(source, target, exclude_fields=None, update_attrs=None):
+    """Copy non-ParentalManyToMany m2m relations"""
+    update_attrs = update_attrs or {}
+    exclude_fields = exclude_fields or []
 
-    return target
+    for field in source._meta.get_fields():
+        # Copy m2m relations. Ignore explicitly excluded fields, reverse relations, and Parental m2m fields.
+        if field.many_to_many and field.name not in exclude_fields and not field.auto_created and not isinstance(field, ParentalManyToManyField):
+            try:
+                # Do not copy m2m links with a through model that has a ParentalKey to the model being copied - these will be copied as child objects
+                through_model_parental_links = [field for field in field.through._meta.get_fields() if isinstance(field, ParentalKey) and (field.related_model == source.__class__ or field.related_model in source._meta.parents)]
+                if through_model_parental_links:
+                    continue
+            except AttributeError:
+                pass
+
+            if field.name in update_attrs:
+                value = update_attrs[field.name]
+
+            else:
+                value = getattr(source, field.name).all()
+
+            getattr(target, field.name).set(value)
 
 
 def _copy(source, exclude_fields=None, update_attrs=None):
-    data_dict, m2m_dict = _extract_field_data(source, exclude_fields=exclude_fields)
-    target = _make_copy(source, data_dict, m2m_dict, update_attrs=update_attrs)
+    data_dict = _extract_field_data(source, exclude_fields=exclude_fields)
+    target = _make_copy(source, data_dict, update_attrs=update_attrs)
     child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
-    return target, child_object_map, m2m_dict
+    return target, child_object_map
 
 
 class SiteManager(models.Manager):
@@ -1400,7 +1400,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if update_attrs:
             base_update_attrs.update(update_attrs)
 
-        page_copy, child_object_map, m2m_dict = _copy(specific_self, exclude_fields=exclude_fields, update_attrs=base_update_attrs)
+        page_copy, child_object_map = _copy(specific_self, exclude_fields=exclude_fields, update_attrs=base_update_attrs)
 
         # Save copied child objects and run process_child_object on them if we need to
         for (child_relation, old_pk), child_object in child_object_map.items():
@@ -1415,7 +1415,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         else:
             page_copy = self.add_sibling(instance=page_copy)
 
-        _set_m2m_relations(specific_self, page_copy, m2m_dict, update_attrs=base_update_attrs)
+        _copy_m2m_relations(specific_self, page_copy, exclude_fields=exclude_fields, update_attrs=base_update_attrs)
 
         # Copy revisions
         if copy_revisions:
@@ -3592,9 +3592,9 @@ class TaskState(models.Model):
         """Copy this task state, excluding the attributes in the ``exclude_fields`` list and updating any attributes to values
         specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs"""
         exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
-        instance, _, m2m_dict = _copy(self.specific, exclude_fields, update_attrs)
+        instance, _ = _copy(self.specific, exclude_fields, update_attrs)
         instance.save()
-        _set_m2m_relations(self, instance, m2m_dict)
+        _copy_m2m_relations(self, instance, exclude_fields=exclude_fields)
         return instance
 
     def get_comment(self):
