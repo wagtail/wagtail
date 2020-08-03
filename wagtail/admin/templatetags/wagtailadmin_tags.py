@@ -565,7 +565,7 @@ def timesince_simple(d):
     time_period = timesince(d).split(',')[0]
     if time_period == avoid_wrapping(_('0 minutes')):
         return _("Just now")
-    return _("%(time_period)s ago" % {'time_period': time_period})
+    return _("%(time_period)s ago") % {'time_period': time_period}
 
 
 @register.simple_tag
@@ -584,7 +584,7 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
     else:
         if use_shorthand:
             return timesince_simple(last_update)
-        return _("%(time_period)s ago" % {'time_period': timesince(last_update)})
+        return _("%(time_period)s ago") % {'time_period': timesince(last_update)}
 
 
 @register.filter

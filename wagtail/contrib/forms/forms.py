@@ -161,5 +161,5 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
                         if idx != i and clean_name == ff_clean_name:
                             form.add_error(
                                 'label',
-                                django.forms.ValidationError(_('There is another field with the label %s, please change one of them.' % label))
+                                django.forms.ValidationError(_('There is another field with the label %s, please change one of them.') % label)
                             )
