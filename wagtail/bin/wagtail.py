@@ -242,9 +242,20 @@ class UpdateModulePaths(Command):
         return change_count
 
 
+class Version(Command):
+    description = "List which version of Wagtail you are using"
+
+    def run(self):
+        import wagtail
+        version = wagtail.get_version(wagtail.VERSION)
+
+        print("You are using Wagtail %(version)s" % {'version': version})
+
+
 COMMANDS = {
     'start': CreateProject(),
     'updatemodulepaths': UpdateModulePaths(),
+    '--version': Version()
 }
 
 
