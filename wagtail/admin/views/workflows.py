@@ -405,7 +405,7 @@ class EditTask(EditView):
 
     @cached_property
     def page_title(self):
-        return _("Editing {task_type}".format(task_type=self.get_object().content_type.name))
+        return _("Editing %(task_type)s") % {'task_type': self.get_object().content_type.name}
 
     def get_queryset(self):
         if self.queryset is None:
