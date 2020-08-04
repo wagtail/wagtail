@@ -19,6 +19,54 @@
     {% block branding_favicon %}{% endblock %}
 </head>
 <body id="wagtail" class="{% block bodyclass %}{% endblock %} {% if messages %}has-messages{% endif %} focus-outline-on">
+    <div data-sprite></div>
+    <script>
+        function loadIconSprite() {
+            var spriteURL = '{% url "wagtailadmin_sprite" %}';
+            var revisionKey = 'spriteRevision';
+            var dataKey = 'spriteData';
+            var isLocalStorage = 'localStorage' in window && typeof window.localStorage !== 'undefined';
+
+            var insertIt = function (data) {
+                var spriteContainer = document.body.querySelector('[data-sprite]');
+                spriteContainer.innerHTML = data;
+            }
+
+            var insert = function (data) {
+                if (document.body) {
+                    insertIt(data)
+                } else {
+                    document.addEventListener('DOMContentLoaded', insertIt.bind(null, data));
+                }
+            }
+
+            if (isLocalStorage && localStorage.getItem(revisionKey) === spriteURL) {
+                var data = localStorage.getItem(dataKey);
+                if (data) {
+                    insert(data);
+                    return true;
+                }
+            }
+
+            try {
+                var request = new XMLHttpRequest();
+                request.open('GET', spriteURL, true);
+                request.onload = function () {
+                    if (request.status >= 200 && request.status < 400) {
+                        data = request.responseText;
+                        insert(data);
+                        if (isLocalStorage) {
+                            localStorage.setItem(dataKey, data);
+                            localStorage.setItem(revisionKey, spriteURL);
+                        }
+                    }
+                }
+                request.send();
+            } catch (e) {}
+        }
+        loadIconSprite();
+    </script>
+
     <!--[if lt IE 9]>
         <p class="capabilitymessage">{% blocktrans %}You are using an <strong>outdated</strong> browser not supported by this software. Please <a href="https://browsehappy.com/">upgrade your browser</a>.{% endblocktrans %}</p>
     <![endif]-->

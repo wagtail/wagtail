@@ -83,57 +83,6 @@ function enableDirtyFormCheck(formSelector, options) {
 }
 
 $(function() {
-    // Load icon sprite and cache it in local storage.
-    function loadIconSprite() {
-        var spriteURL = wagtailConfig.ADMIN_URLS.SPRITE;
-        var revisionKey = 'spriteRevision';
-        var dataKey = 'spriteData';
-
-        // Feature check
-        if (!document.createElementNS || !document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect) {
-            return true;
-        }
-
-
-        var isLocalStorage = 'localStorage' in window && window.localStorage !== null;
-        var request;
-        var data;
-        var insertIt = function () {
-            document.body.insertAdjacentHTML('afterbegin', data);
-        }
-        var insert = function () {
-            if (document.body) insertIt();
-            else document.addEventListener('DOMContentLoaded', insertIt);
-        }
-
-        if (isLocalStorage && localStorage.getItem(revisionKey) === spriteURL) {
-            data = localStorage.getItem(dataKey);
-            if (data) {
-                insert();
-                return true;
-            }
-        }
-
-        try {
-            request = new XMLHttpRequest();
-            request.open('GET', spriteURL, true);
-            request.onload = function () {
-                if (request.status >= 200 && request.status < 400) {
-                    data = request.responseText;
-                    insert();
-                    if (isLocalStorage) {
-                        localStorage.setItem(dataKey, data);
-                        localStorage.setItem(revisionKey, spriteURL);
-                    }
-                }
-            }
-            request.send();
-        } catch (e) {
-        }
-    }
-
-    loadIconSprite();
-
     // Add class to the body from which transitions may be hung so they don't appear to transition as the page loads
     $('body').addClass('ready');
 
