@@ -20,7 +20,8 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
- * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
+ * Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
+ * ``WAGTAILFRONTENDCACHE_LANGUAGES`` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
 
 
 Upgrade considerations

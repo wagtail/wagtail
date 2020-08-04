@@ -7,6 +7,7 @@ Changelog
  * Add `before_edit_snippet`, `before_create_snippet` and `before_delete_snippet` hooks and documentation (Karl Hobley. Sponsored by the Mozilla Foundation)
  * Add `wagtail --version` to available Wagtail CLI commands (Kalob Taulien)
  * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
+ * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
 
 2.10 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
