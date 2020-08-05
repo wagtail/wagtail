@@ -993,6 +993,40 @@ For block types that simply wrap an existing Django form field, Wagtail provides
             super().__init__(**kwargs)
 
 
+.. note::
+
+    It is not possible to use ``FileField``, ``ImageField`` or any other field
+    that relies on files being sent. It is currently impossible to store files
+    inside a ``StreamField``, you should instead use ``DocumentChooserBlock``
+    or ``ImageChooserBlock``.
+
+
+Required JavaScript behaviour
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you create a block containing JavaScript, it is expected to behave
+in a certain way in order to fully work when creating new blocks
+and duplicating existing ones.
+
+Here are the rules to follow:
+
+- The block widget must render a ``<script>`` tag at the end of its HTML
+  to initialize the JavaScript of that block. That inline script must identify
+  the block field using ``"{{ widget.attrs.id|escapejs }}"``.
+  Note that the script can simply run a function from an already loaded
+  library. See the source for Wagtail dynamic blocks like ``DateBlock``
+  or ``PageChooserBlock``.
+- The HTML & JavaScript state of ``YourBlock.render_form(some_value)``
+  interpreted by the browser (script included) must be perfectly equivalent
+  to the HTML & JavaScript state of ``YourBlock.render_form(None)``
+  interpreted by the browser (script included) followed by
+  a ``document.getElementById('your-block').value = some_value;`` call.
+- Each block input value change must either:
+    - change the ``value`` attribute of the input for ``type="hidden"`` inputs
+    - trigger a JavaScript ``change`` event for other input types,
+      with the new value attached to the event.
+
+
 Migrations
 ----------
 
