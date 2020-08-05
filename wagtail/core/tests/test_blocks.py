@@ -3550,6 +3550,18 @@ class TestDateTimeBlock(TestCase):
 
 
 class TestSystemCheck(TestCase):
+    def test_name_cannot_contain_non_alphanumeric(self):
+        block = blocks.StreamBlock([
+            ('heading', blocks.CharBlock()),
+            ('rich+text', blocks.RichTextBlock()),
+        ])
+
+        errors = block.check()
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0].id, 'wagtailcore.E001')
+        self.assertEqual(errors[0].hint, "Block names should follow standard Python conventions for variable names: alpha-numeric and underscores, and cannot begin with a digit")
+        self.assertEqual(errors[0].obj, block.child_blocks['rich+text'])
+
     def test_name_must_be_nonempty(self):
         block = blocks.StreamBlock([
             ('heading', blocks.CharBlock()),
