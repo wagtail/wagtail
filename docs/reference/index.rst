@@ -10,4 +10,5 @@ Reference
     management_commands
     hooks
     signals
+    settings
     project_template

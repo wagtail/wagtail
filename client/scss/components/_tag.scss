@@ -29,9 +29,33 @@ a.tag:hover {
 .taglist {
     font-size: 0.9em;
     line-height: 2.4em;
+}
 
-    h3 {
-        display: inline;
-        margin-right: 1em;
+.tagfilter {
+    legend {
+        @include visuallyvisible;
+
+        @include media-breakpoint-up(sm) {
+            @include column(2);
+            padding-left: 0;
+        }
+
+        font-weight: 700;
+        color: #333;
+        font-size: 1.1em;
+        display: block;
+        padding: 0 0 0.8em;
+    }
+
+    a {
+        font-size: 0.9em;
+    }
+
+    .button.bicolor.icon-cross {
+        padding-left: 2em;
+
+        &:before {
+            background-color: transparent;
+        }
     }
 }

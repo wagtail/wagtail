@@ -67,7 +67,7 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         function ajaxifySearchResults() {
             $('.page-results a.choose-page', modal.body).on('click', function() {
                 var pageData = $(this).data();
-                modal.respond('pageChosen', $(this).data());
+                modal.respond('pageChosen', pageData);
                 modal.close();
 
                 return false;
@@ -96,7 +96,7 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             $('a.choose-page', modal.body).on('click', function() {
                 var pageData = $(this).data();
                 pageData.parentId = jsonData['parent_page_id'];
-                modal.respond('pageChosen', $(this).data());
+                modal.respond('pageChosen', pageData);
                 modal.close();
 
                 return false;
@@ -110,7 +110,30 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         */
         $('#id_q', modal.body).trigger('focus');
     },
+
+    'anchor_link': function(modal, jsonData) {
+        $('p.link-types a', modal.body).on('click', function() {
+            modal.loadUrl(this.href);
+            return false;
+        });
+
+        $('form', modal.body).on('submit', function() {
+            modal.postForm(this.action, $(this).serialize());
+            return false;
+        });
+    },
     'email_link': function(modal, jsonData) {
+        $('p.link-types a', modal.body).on('click', function() {
+            modal.loadUrl(this.href);
+            return false;
+        });
+
+        $('form', modal.body).on('submit', function() {
+            modal.postForm(this.action, $(this).serialize());
+            return false;
+        });
+    },
+    'phone_link': function(modal, jsonData) {
         $('p.link-types a', modal.body).on('click', function() {
             modal.loadUrl(this.href);
             return false;
@@ -135,5 +158,5 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'external_link_chosen': function(modal, jsonData) {
         modal.respond('pageChosen', jsonData['result']);
         modal.close();
-    }
+    },
 };

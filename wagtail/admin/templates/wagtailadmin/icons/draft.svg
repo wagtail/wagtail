@@ -1,0 +1,3 @@
+<symbol id="icon-draft" viewBox="0 0 23 21">
+    <g fill-rule="evenodd"><path d="M18 18v1.11a.88.88 0 01-.875.89H4.875A.88.88 0 014 19.11V18h14zM12.167 1v5.047c0 .49.393.89.875.89H18V9H4V1.89c0-.455.332-.828.765-.883L4.875 1h7.292zm1.071 0c.25 0 .489.098.664.273l3.825 3.829a.935.935 0 01.273.66V6h-5V1h.238z" fill-rule="nonzero"/><text font-family="Open Sans, Arial, sans-serif" font-size="7" font-weight="bold" transform="translate(0 .333)"><tspan x="0" y="15.667">DRAFT</tspan></text></g>
+</symbol>

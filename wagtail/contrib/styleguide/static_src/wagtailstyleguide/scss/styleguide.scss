@@ -202,6 +202,10 @@ section {
         font-size: 2em;
     }
 
+    .icon {
+        @include svg-icon(1.5em);
+    }
+
     ul {
         column-count: 3;
     }

@@ -275,7 +275,7 @@ class TestPageListing(TestCase):
                 self.assertIsInstance(feed_image['meta'], dict)
                 self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url', 'download_url'})
                 self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
-                self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % feed_image['id'])
+                self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/api/main/images/%d/' % feed_image['id'])
 
     def test_fields_tags(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='tags')
@@ -819,7 +819,7 @@ class TestPageDetail(TestCase):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v2beta/pages/16/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/main/pages/16/')
 
         # Check the meta html_url
         self.assertIn('html_url', content['meta'])
@@ -833,7 +833,7 @@ class TestPageDetail(TestCase):
         self.assertIsInstance(content['meta']['parent']['meta'], dict)
         self.assertEqual(set(content['meta']['parent']['meta'].keys()), {'type', 'detail_url', 'html_url'})
         self.assertEqual(content['meta']['parent']['meta']['type'], 'demosite.BlogIndexPage')
-        self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/api/v2beta/pages/5/')
+        self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/api/main/pages/5/')
         self.assertEqual(content['meta']['parent']['meta']['html_url'], 'http://localhost/blog-index/')
 
         # Check that the custom fields are included
@@ -857,7 +857,7 @@ class TestPageDetail(TestCase):
         self.assertIsInstance(content['feed_image']['meta'], dict)
         self.assertEqual(set(content['feed_image']['meta'].keys()), {'type', 'detail_url', 'download_url'})
         self.assertEqual(content['feed_image']['meta']['type'], 'wagtailimages.Image')
-        self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/api/v2beta/images/7/')
+        self.assertEqual(content['feed_image']['meta']['detail_url'], 'http://localhost/api/main/images/7/')
 
         # Check that the feed images' thumbnail was serialised properly
         self.assertEqual(content['feed_image_thumbnail'], {
@@ -1008,7 +1008,7 @@ class TestPageDetail(TestCase):
         self.assertIsInstance(feed_image['meta'], dict)
         self.assertEqual(set(feed_image['meta'].keys()), {'type', 'detail_url', 'download_url'})
         self.assertEqual(feed_image['meta']['type'], 'wagtailimages.Image')
-        self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % feed_image['id'])
+        self.assertEqual(feed_image['meta']['detail_url'], 'http://localhost/api/main/images/%d/' % feed_image['id'])
 
     def test_star_in_wrong_position_gives_error(self):
         response = self.get_response(16, fields='title,*')
@@ -1198,17 +1198,17 @@ class TestPageCacheInvalidation(TestCase):
     def test_republish_page_purges(self, purge):
         Page.objects.get(id=2).save_revision().publish()
 
-        purge.assert_any_call('http://api.example.com/api/v2beta/pages/2/')
+        purge.assert_any_call('http://api.example.com/api/main/pages/2/')
 
     def test_unpublish_page_purges(self, purge):
         Page.objects.get(id=2).unpublish()
 
-        purge.assert_any_call('http://api.example.com/api/v2beta/pages/2/')
+        purge.assert_any_call('http://api.example.com/api/main/pages/2/')
 
     def test_delete_page_purges(self, purge):
         Page.objects.get(id=16).delete()
 
-        purge.assert_any_call('http://api.example.com/api/v2beta/pages/16/')
+        purge.assert_any_call('http://api.example.com/api/main/pages/16/')
 
     def test_save_draft_doesnt_purge(self, purge):
         Page.objects.get(id=2).save_revision()

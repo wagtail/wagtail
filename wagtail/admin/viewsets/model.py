@@ -1,6 +1,6 @@
-from django.conf.urls import url
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
+from django.urls import path
 
 from wagtail.admin.views import generic
 from wagtail.core.permissions import ModelPermissionPolicy
@@ -87,8 +87,8 @@ class ModelViewSet(ViewSet):
 
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
-            url(r'^$', self.index_view, name='index'),
-            url(r'^new/$', self.add_view, name='add'),
-            url(r'^(\d+)/$', self.edit_view, name='edit'),
-            url(r'^(\d+)/delete/$', self.delete_view, name='delete'),
+            path('', self.index_view, name='index'),
+            path('new/', self.add_view, name='add'),
+            path('<int:pk>/', self.edit_view, name='edit'),
+            path('<int:pk>/delete/', self.delete_view, name='delete'),
         ]

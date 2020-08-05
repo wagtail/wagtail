@@ -6,13 +6,13 @@
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
 # Kjartan Sverrisson <kjartan@wow.is>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2018
-# saevarom <saevar@saevar.is>, 2015,2017-2019
+# saevarom <saevar@saevar.is>, 2015,2017-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: is_IS\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Publish"
+msgstr "Setja í birtingu"
 
 msgid "Submit for moderation"
 msgstr "Senda inn til samþykktar"
@@ -31,17 +34,38 @@ msgstr "Taka úr loftinu"
 msgid "Delete"
 msgstr "Eyða"
 
+msgid "Lock"
+msgstr "Læsa"
+
+msgid "Apply editor lock"
+msgstr "Kveikja á skriflás"
+
+msgid "Unlock"
+msgstr "Aflæsa"
+
+msgid "Save Draft"
+msgstr "Vista uppkast"
+
+msgid "Page locked"
+msgstr "Síða læst"
+
 msgid "Wagtail admin"
 msgstr "Stjórnborð Wagtail"
 
-msgid "None"
-msgstr "Ekkert"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."
 
 msgid "You do not have permission to access the admin"
 msgstr "Þú ert ekki með réttindi til þess að skoða umsjónarsvæðið"
 
+msgid "None"
+msgstr "Ekkert"
+
 msgid "Scheduled publishing"
 msgstr "Tímasetning birtingar"
+
+msgid "Privacy"
+msgstr "Aðgengi"
 
 msgid "Common page configuration"
 msgstr "Algengar síðustillingar"
@@ -55,6 +79,15 @@ msgstr "Sýnileiki"
 msgid "Settings"
 msgstr "Stillingar"
 
+msgid "All"
+msgstr "Allt"
+
+msgid "Date"
+msgstr "Dagsetning"
+
+msgid "Title"
+msgstr "Titill"
+
 msgid "Enter password"
 msgstr "Sláðu inn lykilorð"
 
@@ -66,7 +99,7 @@ msgid "Enter your email address to reset your password"
 msgstr "Sláðu inn netfangið þitt til að endursetja lykilorðið þitt."
 
 msgid "URL"
-msgstr "Slóð"
+msgstr "Vefslóð"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sama safnið"
@@ -156,99 +189,110 @@ msgstr "Þennan reit þarf að fylla út."
 msgid "Please select at least one group."
 msgstr "Vinsamlegast veljið amk eina grúppu."
 
-msgid "Error 404: Page not found"
-msgstr "404: Síðan fannst ekki"
+msgid "Arabic"
+msgstr "Arabíska"
 
-msgid "Error 404"
-msgstr "Villa 404"
+msgid "Catalan"
+msgstr "Catalan"
 
-msgid "The requested page could not be found."
-msgstr "Síðan sem þú baðst um fannst ekki."
+msgid "Czech"
+msgstr "Tékkneska"
 
-msgid "Go to Wagtail admin"
-msgstr "Fara í stjórnkerfi Wagtail"
+msgid "German"
+msgstr "Þýska"
 
-msgid "Account"
-msgstr "Reikningur"
+msgid "Greek"
+msgstr "Gríska"
 
-msgid "Change profile picture"
-msgstr "Breyta prófílmynd"
+msgid "English"
+msgstr "Enska"
 
-msgid "Your current profile picture:"
-msgstr "Núverandi prófílmynd:"
+msgid "Spanish"
+msgstr "Spænska"
 
-msgid "Update"
-msgstr "Uppfæra"
+msgid "Finnish"
+msgstr "Finnska"
 
-msgid "Change email"
-msgstr "Breyta netfangi"
+msgid "French"
+msgstr "Franska"
 
-msgid "Change password"
-msgstr "Breyta lykilorði"
+msgid "Galician"
+msgstr "Galiska"
 
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Ekki er hægt að breyta lykilorðinu þínu hér. Vinsamlegast hafðu samband við "
-"vefstjóra."
+msgid "Hungarian"
+msgstr "Ungverska"
 
-msgid "Set Time Zone"
-msgstr "Stilla tímabelti"
+msgid "Indonesian"
+msgstr "Indónesíska"
 
-msgid "Language Preferences"
-msgstr "Tungumálastiliingar"
+msgid "Icelandic"
+msgstr "Íslenska"
 
-msgid "Notification preferences"
-msgstr "Stillingar tilkynninga"
+msgid "Italian"
+msgstr "Ítalska"
 
-msgid "Reset password"
-msgstr "Endursetja lykilorð"
+msgid "Japanese"
+msgstr "Japanska"
 
-msgid "Password change successful"
-msgstr "Tókst að breyta lykilorði"
+msgid "Korean"
+msgstr "Kóreyska"
 
-msgid "Login"
-msgstr "Innskrá"
+msgid "Lithuanian"
+msgstr "Litháenska"
 
-msgid "Set your new password"
-msgstr "Sláðu inn nýtt lykilorð"
+msgid "Mongolian"
+msgstr "Mongólska"
 
-msgid "Invalid password reset link"
-msgstr "Ógildur hlekkur"
+msgid "Norwegian Bokmål"
+msgstr "Norska"
 
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
-msgstr ""
-"Þessi hlekkur til að endursetja lykilorð er ógildur, mögulega hefur hann "
-"þegar verið notaður."
+msgid "Netherlands Dutch"
+msgstr "Hollenska"
 
-msgid "Request a new password reset"
-msgstr "Endursetja lykilorð"
+msgid "Persian"
+msgstr "Persneska"
 
-msgid "Check your email"
-msgstr "Athugaðu tölvupósthólfið þitt"
+msgid "Polish"
+msgstr "Pólska"
 
-msgid ""
-"A link to reset your password has been emailed to you if an account exists "
-"for this address."
-msgstr ""
-"Hlekkur til þess að endursetja lykilorðið þitt hefur verið sent á netfangið "
-"þitt ef aðgangur er til fyrir þetta netfang."
+msgid "Brazilian Portuguese"
+msgstr "Brasilísk Portúgalska"
 
-msgid "Please follow the link below to reset your password:"
-msgstr ""
-"Vinsamlegast smelltu á hlekkinn hér fyrir neðan til að endursetja lykilorðið "
-"þitt."
+msgid "Portuguese"
+msgstr "Portúgalska"
 
-msgid "Your username (in case you've forgotten):"
-msgstr "Notendanafnið þitt (bara ef þú skildir hafa gleymt því):"
+msgid "Romanian"
+msgstr "Rúmenska"
 
-msgid "Password reset"
-msgstr "Endursetja lykilorð"
+msgid "Russian"
+msgstr "Rússneska"
 
-msgid "Reset your password"
-msgstr "Endursettu lykilorðið þitt"
+msgid "Swedish"
+msgstr "Sænska"
+
+msgid "Slovak"
+msgstr "Slóveska"
+
+msgid "Thai"
+msgstr "Tælenska"
+
+msgid "Turkish"
+msgstr "Tyrkneska"
+
+msgid "Turkish (Turkey)"
+msgstr "Tyrkneska (Tyrkland)"
+
+msgid "Ukrainian"
+msgstr "Úkraínska"
+
+msgid "Chinese (Simplified)"
+msgstr "Einfölduð kínverska"
+
+msgid "Chinese (Traditional)"
+msgstr "Hefðbundin kínverska"
+
+msgid "Edit"
+msgstr "Breyta"
 
 msgid "Page"
 msgstr "Síða"
@@ -307,8 +351,23 @@ msgstr ""
 "Ritillinn lenti í villu. Efnið hefur verið endurstillt í síðustu vistuðu "
 "útgáfu."
 
+msgid "Broken link"
+msgstr "Brotinn hlekkur"
+
+msgid "Missing document"
+msgstr "Vantar skrá"
+
 msgid "Close"
 msgstr "Loka"
+
+msgid "Edit '{title}'"
+msgstr "Breyta '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Skoða undirsíður '{title}'"
+
+msgid "Page explorer"
+msgstr "Veftré"
 
 msgid "January"
 msgstr "Janúar"
@@ -388,14 +447,108 @@ msgstr "Fös"
 msgid "Sat"
 msgstr "Lau"
 
+msgid "Error 404: Page not found"
+msgstr "404: Síðan fannst ekki"
+
+msgid "Error 404"
+msgstr "Villa 404"
+
+msgid "The requested page could not be found."
+msgstr "Síðan sem þú baðst um fannst ekki."
+
+msgid "Go to Wagtail admin"
+msgstr "Fara í stjórnkerfi Wagtail"
+
+msgid "Account"
+msgstr "Reikningur"
+
+msgid "Change profile picture"
+msgstr "Breyta prófílmynd"
+
+msgid "Your current profile picture:"
+msgstr "Núverandi prófílmynd:"
+
+msgid "Update"
+msgstr "Uppfæra"
+
+msgid "Change email"
+msgstr "Breyta netfangi"
+
+msgid "Change name"
+msgstr "Breyta nafni"
+
+msgid "Change password"
+msgstr "Breyta lykilorði"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Ekki er hægt að breyta lykilorðinu þínu hér. Vinsamlegast hafðu samband við "
+"vefstjóra."
+
+msgid "Set Time Zone"
+msgstr "Stilla tímabelti"
+
+msgid "Language Preferences"
+msgstr "Tungumálastiliingar"
+
+msgid "Notification preferences"
+msgstr "Stillingar tilkynninga"
+
+msgid "Reset password"
+msgstr "Endursetja lykilorð"
+
+msgid "Password change successful"
+msgstr "Tókst að breyta lykilorði"
+
+msgid "Login"
+msgstr "Innskrá"
+
+msgid "Set your new password"
+msgstr "Sláðu inn nýtt lykilorð"
+
+msgid "Invalid password reset link"
+msgstr "Ógildur hlekkur"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Þessi hlekkur til að endursetja lykilorð er ógildur, mögulega hefur hann "
+"þegar verið notaður."
+
+msgid "Request a new password reset"
+msgstr "Endursetja lykilorð"
+
+msgid "Check your email"
+msgstr "Athugaðu tölvupósthólfið þitt"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Hlekkur til þess að endursetja lykilorðið þitt hefur verið sent á netfangið "
+"þitt ef aðgangur er til fyrir þetta netfang."
+
+msgid "Please follow the link below to reset your password:"
+msgstr ""
+"Vinsamlegast smelltu á hlekkinn hér fyrir neðan til að endursetja lykilorðið "
+"þitt."
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Notendanafnið þitt (bara ef þú skildir hafa gleymt því):"
+
+msgid "Password reset"
+msgstr "Endursetja lykilorð"
+
+msgid "Reset your password"
+msgstr "Endursettu lykilorðið þitt"
+
 msgid "Dashboard"
 msgstr "Yfirlitssíða"
 
 msgid "Menu"
 msgstr "Valmynd"
-
-msgid "Add another"
-msgstr "Bæta við annarri"
 
 msgid "Move up"
 msgstr "Færa upp"
@@ -415,6 +568,12 @@ msgstr "Ytri hlekkur"
 msgid "Email link"
 msgstr "Netfangs hlekkur"
 
+msgid "Phone link"
+msgstr "Síma hlekkur"
+
+msgid "Anchor link"
+msgstr "Hlekkur innan síðu"
+
 #, python-format
 msgid ""
 "\n"
@@ -432,6 +591,12 @@ msgstr[1] ""
 "\n"
 "            Það eru %(counter)s niðurstöður\n"
 "        "
+
+msgid "Add an anchor link"
+msgstr "Bæta við hlekk innan síðu"
+
+msgid "Insert anchor"
+msgstr "Setja inn hlekk"
 
 msgid "Choose"
 msgstr "Veldu"
@@ -468,6 +633,9 @@ msgstr "Setja inn hlekk"
 msgid "Add an external link"
 msgstr "Bæta við ytri hlekk"
 
+msgid "Add a phone link"
+msgstr "Bæta við símahlekk"
+
 msgid "Collection privacy"
 msgstr "Aðgengisstillingar safns"
 
@@ -484,11 +652,14 @@ msgstr "Aðgengisstillingar ákvarða hver getur skoðað skjöl í þessu safni
 msgid "Save"
 msgstr "Vista"
 
-msgid "Privacy"
-msgstr "Aðgengi"
+msgid "Set collection privacy. Current status: Public"
+msgstr "Stilla aðgengi safns. Núverandi staða: Opið"
 
 msgid "Public"
 msgstr "Í birtingu"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Stilla aðgengi safns. Núverandi staða: Takmarkað aðgengi"
 
 msgid "Private"
 msgstr "Prívat"
@@ -526,11 +697,23 @@ msgstr ""
 "Þetta er yfirlitssíðan þín sem sýnir hjálplegar upplýsingar um efni sem þú "
 "hefur búið til"
 
+msgid "Your locked pages"
+msgstr "Þínar læstu síður"
+
+msgid "Locked at"
+msgstr "Læst"
+
+msgid "Edit this page"
+msgstr "Breyta þessari síðu"
+
+msgid "Draft"
+msgstr "Uppkast"
+
+msgid "Live"
+msgstr "Í birtingu"
+
 msgid "Pages awaiting moderation"
 msgstr "Síður sem bíða samþykktar"
-
-msgid "Title"
-msgstr "Titill"
 
 msgid "Parent"
 msgstr "Yfirsíða"
@@ -541,9 +724,6 @@ msgstr "Tegund"
 msgid "Edited"
 msgstr "Breytt"
 
-msgid "Edit this page"
-msgstr "Breyta þessari síðu"
-
 msgid "Preview this page"
 msgstr "Forskoða þessa síðu"
 
@@ -553,33 +733,39 @@ msgstr "Samþykkja"
 msgid "Reject"
 msgstr "Hafna"
 
-msgid "Edit"
-msgstr "Breyta"
-
 msgid "Preview"
 msgstr "Forskoða"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s síðan"
 
 msgid "Your most recent edits"
 msgstr "Síðustu breytingar sem þú hefur gert"
 
-msgid "Date"
-msgstr "Dagsetning"
-
 msgid "Status"
 msgstr "Staða"
 
-msgid "Draft"
-msgstr "Uppkast"
-
-msgid "Live"
-msgstr "Í birtingu"
-
 msgid "Site summary"
 msgstr "Upplýsingar um vef"
+
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"            <span>%(total)s</span> síða <span class=\"visuallyhidden\">búin "
+"til undir %(site_name)s</span>\n"
+"        "
+msgstr[1] ""
+"\n"
+"            <span>%(total)s</span> síður <span class=\"visuallyhidden"
+"\">búnar til undir %(site_name)s</span>\n"
+"        "
 
 msgid "Sign in"
 msgstr "Innskrá"
@@ -592,11 +778,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Skrá inn í Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Búin(n) að gleyma því?"
-
 msgid "Signing in…"
 msgstr "Skrái inn..."
+
+msgid "Forgotten it?"
+msgstr "Búin(n) að gleyma því?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -647,23 +833,32 @@ msgstr "Þessi síða hefur verið gerð prívat af yfirsíðu sinni."
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Aðgengisstillingar eiga við allar undirsíður þessarar síðu líka."
 
-msgid "Edit lock"
-msgstr "Breyta læsingu"
+msgid "Visit the live page"
+msgstr "Skoða birta útgáfu síðunnar"
 
-msgid "Locked"
-msgstr "Læst"
+msgid "Set page privacy. Current status: Public"
+msgstr "Stilla aðgengi síðu. Núverandi staða: Í birtingu"
 
-msgid "Unlocked"
-msgstr "Aflæst"
+msgid "Set page privacy. Current status: Private"
+msgstr "Stilla aðgengi síðu. Núverandi staða: Læst"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Aðgengi síðu. Núverandi staða: Í birtingu"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Aðgengi síðu. Núverandi staða: Læst"
 
 msgid "Publishing…"
 msgstr "Set í birtingu..."
 
-msgid "Publish this revision"
-msgstr "Setja þessa útgáfu í loftið"
+msgid "Saving…"
+msgstr "Vista..."
 
-msgid "Publish"
-msgstr "Setja í birtingu"
+msgid "Replace current draft"
+msgstr "Skipta út núverandi vinnuskjali"
+
+msgid "Save draft"
+msgstr "Vista uppkast"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -800,11 +995,8 @@ msgstr "Ný %(page_type)s"
 msgid "New"
 msgstr "Ný"
 
-msgid "Saving…"
-msgstr "Vista..."
-
-msgid "Save draft"
-msgstr "Vista uppkast"
+msgid "Actions"
+msgstr "Aðgerðir"
 
 msgid "This page has unsaved changes."
 msgstr "Þessi síða er með óvistaðar breytingar."
@@ -813,26 +1005,15 @@ msgstr "Þessi síða er með óvistaðar breytingar."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Breyti %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Breyti %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Útgáfa í birtingu"
 
-msgid "Page locked"
-msgstr "Síða læst"
-
-msgid "Replace current draft"
-msgstr "Skipta út núverandi vinnuskjali"
+msgid "Current draft"
+msgstr "Núverandi vinnuskjal"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Síðast breytt: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "af %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Útgáfur"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s síðan"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -936,6 +1117,9 @@ msgstr "Bæta við undirsíðu"
 msgid "Sites menu"
 msgstr "Síðuvalmynd"
 
+msgid "Pagination"
+msgstr "Síðuskipting"
+
 #, python-format
 msgid ""
 "\n"
@@ -957,6 +1141,9 @@ msgstr "Þessi síða er ekki aðgengileg almenningi"
 
 msgid "Disable ordering of child pages"
 msgstr "Óvirkja röðun á undirsíðum"
+
+msgid "Sort"
+msgstr "Raða"
 
 msgid "Enable ordering of child pages"
 msgstr "Virkja röðun á undirsíðum"
@@ -984,15 +1171,15 @@ msgstr ""
 "Vinsamlegast lokið þessum flipa, lagið villur á síðunni, \n"
 "og forskoðið svo aftur."
 
+msgid "Cancel scheduled publish"
+msgstr "Hætta við tímasetta birtingu"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Bera saman %(title)s"
 
 msgid "Comparing"
 msgstr "Ber saman"
-
-msgid "View revisions"
-msgstr "Skoða útgáfur"
 
 msgid "Fields"
 msgstr "Reitir"
@@ -1044,9 +1231,6 @@ msgstr[1] ""
 "%(counter)s sæti.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Það eru engar breytingar milli þessara útgáfa"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Hætta við tímasetta birtingu útgáfu %(revision.id)s fyrir %(title)s"
@@ -1077,23 +1261,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "eftir"
 
-msgid "Current draft"
-msgstr "Núverandi vinnuskjal"
-
-msgid "Live version"
-msgstr "Útgáfa í birtingu"
-
 msgid "Scheduled for"
 msgstr "Tímasett fyrir"
-
-msgid "Review this revision"
-msgstr "Skoða þessa útgáfu"
-
-msgid "Compare with previous revision"
-msgstr "Bera saman við fyrri útgáfur"
-
-msgid "Cancel scheduled publish"
-msgstr "Hætta við tímasetta birtingu"
 
 msgid "No revisions of this page exist"
 msgstr "Engar útgáfur til af þessari síðu"
@@ -1122,10 +1291,6 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Síðutegundir"
 
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Því miður passa engar síður við <em>\"%(query_string)s\"</em>"
-
 msgid "Enter a search term above"
 msgstr "Sláðu inn leitarorð hér að ofan"
 
@@ -1135,9 +1300,67 @@ msgstr "Engar síður nota"
 msgid "Collection"
 msgstr "Safn"
 
+msgid "No pages match this report's criteria."
+msgstr "Engar síður passa við forsendur þessarar skýrslu."
+
+msgid "Download XLSX"
+msgstr "Sækja XLSX"
+
+msgid "Download CSV"
+msgstr "Sækja CSV"
+
+msgid "No pages found."
+msgstr "Engar síður fundust."
+
+msgid "Locking status"
+msgstr "Staða á læsingu"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Læst af <b>þér</b> á <b>%(locking_date)s</"
+"b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Læst af <b>%(locked_by)s</b> á <b>"
+"%(locking_date)s</b>\n"
+"                            "
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"                            Læst á <b>%(locking_date)s</b>\n"
+"                        "
+
+msgid "Locked"
+msgstr "Læst"
+
+msgid "No locked pages found."
+msgstr "Engar læstar síður fundust"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Síða %(page_num)s af %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Brauðmolar"
 
 msgid "Root"
 msgstr "Rót"
@@ -1157,34 +1380,36 @@ msgstr "Stillingar reiknings"
 msgid "Log out"
 msgstr "Útskrá"
 
+msgid "Current page status:"
+msgstr "Núverandi staða síðu:"
+
 msgid "Other searches"
 msgstr "Aðrar leitir"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
 "a>."
 msgstr ""
-"Þú ert að nota <strong>úreldan</strong> vafra sem ekki er studdur af þessum "
-"hugbúnaði. Vinsamlegast <a href=\"http://browsehappy.com/\">uppfærðu vafrann "
-"þinn</a>."
+"Þú ert að nota <strong>útrunninn </strong> vafra sem er ekki studdur af "
+"þessum hugbúnaði. Vinsamlegast <a href=\"https://browsehappy.com/\">uppfærðu "
+"vafrann þinn</a>."
 
 msgid ""
 "\n"
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
 "JavaScript in your web browser</a>.\n"
 "        "
 msgstr ""
 "\n"
-"            Wagtail þarfnast Javascript til að virka, en það er óvirkjað í "
-"vafranum þínum.<br />\n"
-"            Hérna eru <a href=\"http://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener\">leiðbeiningar um hvernig á að virkja Javascript "
-"í vafranum.</a>\n"
-"\n"
+"            Javascript er krafa til þess að nota Wagtail, en það er ekki "
+"kveikt á því.<br />\n"
+"            Hér eru <a href=\"https://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">leiðbeiningar um hvernig á að kveikja "
+"á JavaScript í vafranum þínum</a>.\n"
 "        "
 
 msgid "Go to Wagtail admin interface"
@@ -1196,92 +1421,37 @@ msgstr "Bæta við undirsíðu"
 msgid "Show in Explorer"
 msgstr "Sýna í veftré"
 
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "af %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Bera saman við útgáfu í birtingu"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr "Raða undirsíðum fyrir '%(parent)s' eftir '%(label)s' í stafrófsröð."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Raða undirsíðum fyrir '%(parent)s' eftir '%(label)s' í öfugri stafrófsröð."
+
 msgid "Test"
 msgstr "Prufa"
-
-msgid "Arabic"
-msgstr "Arabíska"
-
-msgid "Catalan"
-msgstr "Catalan"
-
-msgid "German"
-msgstr "Þýska"
-
-msgid "Greek"
-msgstr "Gríska"
-
-msgid "English"
-msgstr "Enska"
-
-msgid "Spanish"
-msgstr "Spænska"
-
-msgid "Finnish"
-msgstr "Finnska"
-
-msgid "French"
-msgstr "Franska"
-
-msgid "Galician"
-msgstr "Galiska"
-
-msgid "Indonesian"
-msgstr "Indónesíska"
-
-msgid "Icelandic"
-msgstr "Íslenska"
-
-msgid "Italian"
-msgstr "Ítalska"
-
-msgid "Korean"
-msgstr "Kóreyska"
-
-msgid "Lithuanian"
-msgstr "Litháenska"
-
-msgid "Norwegian Bokmål"
-msgstr "Norska"
-
-msgid "Netherlands Dutch"
-msgstr "Hollenska"
-
-msgid "Persian"
-msgstr "Persneska"
-
-msgid "Polish"
-msgstr "Pólska"
-
-msgid "Brazilian Portuguese"
-msgstr "Brasilísk Portúgalska"
-
-msgid "Portuguese"
-msgstr "Portúgalska"
-
-msgid "Romanian"
-msgstr "Rúmenska"
-
-msgid "Russian"
-msgstr "Rússneska"
-
-msgid "Swedish"
-msgstr "Sænska"
-
-msgid "Slovak"
-msgstr "Slóveska"
-
-msgid "Ukrainian"
-msgstr "Úkraínska"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Því miður, þú hefur ekki heimildir til að skoða þetta svæði."
 
 msgid "Your password has been changed successfully!"
 msgstr "Tókst að breyta lykilorðinu þínu!"
 
 msgid "Your email has been changed successfully!"
 msgstr "Netfangi þínu hefur verið breytt"
+
+msgid "Your name has been changed successfully!"
+msgstr "Nafninu þínu hefur verið breytt!"
 
 msgid "Your preferences have been updated."
 msgstr "Tókst að breyta stillingunum þínum!"
@@ -1331,14 +1501,11 @@ msgstr "Skoða á vef"
 msgid "Page '{0}' created and published."
 msgstr "Síða '{0}' vistuð og birt."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Síða '{0}' vistuð og send til samþykkis."
-
 msgid "View draft"
 msgstr "Skoða uppkast"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Ekki tókst að senda tilkynningar til skoðunaraðila"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Síða '{0}' vistuð og send til samþykkis."
 
 msgid "Page '{0}' created."
 msgstr "Síða '{0}' vistuð."
@@ -1346,29 +1513,29 @@ msgstr "Síða '{0}' vistuð."
 msgid "The page could not be created due to validation errors"
 msgstr "Ekki var hægt að búa síðuna til þar sem hún stóðst ekki villuprófanir"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr ""
-"Útgáfa frá {0} af síðu '{1}' hefur verið tímastillt til að setja í loftið."
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Síðu '{}' var læst</b> af <b>þér</b> á <b>{}</b>."
 
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr ""
-"Síða '{0}' er í birtingu og þessi útgáfa hefur verið tímastillt til að setja "
-"í loftið."
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Síðu '{}' er læst</b> af <b>þér</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Síðu '{}' var læst</b> af <b>{}</b> á <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Síða '{}' er læst</b>."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Þessi síða bíður samþykkis til birtingar."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Síða '{0}' hefur verið tímastillt til að setja í loftið."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Útgáfa frá {0} af síðu '{1}' hefur verið sett í loftið."
 
 msgid "Page '{0}' has been published."
 msgstr "Síða '{0}' hefur verið birt."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Síða '{0}' hefur verið send inn til samþykkis."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Síða '{0}' hefur verið skipt út fyrir útgáfu frá {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Síða '{0}' hefur verið uppfærð."
@@ -1379,17 +1546,18 @@ msgstr "Ekki var hægt að vista síðuna, hún er læst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
 
-msgid "Compare with live version"
-msgstr "Bera saman við útgáfu í birtingu"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Þessi síða bíður samþykkis til birtingar."
-
 msgid "Page '{0}' deleted."
 msgstr "Síðu '{0}' eytt."
 
 msgid "Page '{0}' unpublished."
 msgstr "Síða '{0}' tekin úr birtingu."
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Vefslóðin '{0}' er þegar í notkun. Breyttu slóðinni svo hún sé einkvæm og "
+"reyndu aftur."
 
 msgid "Page '{0}' moved."
 msgstr "Síða '{0}' færð."
@@ -1415,19 +1583,8 @@ msgstr "Birtingu '{0}' var hafnað."
 msgid "Failed to send rejection notifications"
 msgstr "Ekki tókst að senda höfnunar tilkynningar"
 
-msgid "Page '{0}' is now locked."
-msgstr "Síða '{0}' er nú læst."
-
 msgid "Page '{0}' is now unlocked."
 msgstr "Síða '{0}' er nú ólæst."
-
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Þú ert að skoða útgáfu af þessari síðu frá <b>%(created_at)s</b> eftir "
-"%(user)s"
 
 msgid "Earliest"
 msgstr "Fyrsta"
@@ -1438,46 +1595,49 @@ msgstr "Nýjasta"
 msgid "revision {0} of \"{1}\""
 msgstr "útgáfa {0} af \"{1}\""
 
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Útgáfa {0} af \"{1}\" ekki tímastillt."
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Breyta '%(title)s'"
 
-msgid "Edit '{title}'"
-msgstr "Breyta '{title}'"
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Forskoða uppkastsútgáfu af '%(title)s'"
 
-msgid "Preview draft version of '{title}'"
-msgstr "Forskoða uppkast af '{title}'"
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Skoða birta útgáfu af '%(title)s'"
 
-msgid "View live version of '{title}'"
-msgstr "Skoða útgáfu af '{title}' í birtingu"
-
-msgid "Add a child page to '{title}' "
-msgstr "Bæta undirsíðu við '{title}'"
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Bæta við undirsíðu undir '%(title)s' "
 
 msgid "More"
 msgstr "Meira"
 
-msgid "View more options for '{title}'"
-msgstr "Skoða fleiri valkosti fyrir '{title}'"
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Skoða fleiri valkosti fyrir '%(title)s'"
 
-msgid "Move page '{title}'"
-msgstr "Færa síðu '{title}'"
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Færa síðu '%(title)s'"
 
-msgid "Copy page '{title}'"
-msgstr "Afrita síðu '{title}'"
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Afrita síðu '%(title)s'"
 
-msgid "Delete page '{title}'"
-msgstr "Eyða síðu '{title}'"
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Eyða síðu '%(title)s'"
 
-msgid "Unpublish page '{title}'"
-msgstr "Taka '{title}' úr loftinu"
-
-msgid "View revision history for '{title}'"
-msgstr "Skoða útgáfusögu '{title}'"
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Taka '%(title)s' úr loftinu"
 
 msgid "Set profile picture"
 msgstr "Setja sem prófílmynd"
 
-msgid "Change your profile picture"
+msgid "Change your profile picture."
 msgstr "Breyttu prófílmynd þinni"
 
 msgid "Change the email address linked to your account."
@@ -1501,14 +1661,21 @@ msgstr "Núverandi tímabelti"
 msgid "Choose your current time zone."
 msgstr "Veldu þitt tímabelti"
 
-msgid "Heading {level}"
-msgstr "Millifyrirsögn {level}"
+msgid "Change your first and last name on your account."
+msgstr "Breyta fornafni og eftirnafni á aðgangi þínum."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Fyrirsögn %(level)d"
 
 msgid "Bulleted list"
 msgstr "Ónúmeraður listi"
 
 msgid "Numbered list"
 msgstr "Númeraður listi"
+
+msgid "Blockquote"
+msgstr "Inndregin textablokk"
 
 msgid "Bold"
 msgstr "Feitletrun"
@@ -1518,6 +1685,24 @@ msgstr "Skáletrun"
 
 msgid "Link"
 msgstr "Hlekkur"
+
+msgid "Superscript"
+msgstr "Yfirskrift"
+
+msgid "Subscript"
+msgstr "Undirskrift"
+
+msgid "Strikethrough"
+msgstr "Yfirstrikað"
+
+msgid "Code"
+msgstr "Kóði"
+
+msgid "Locked Pages"
+msgstr "Læstar síður"
+
+msgid "Reports"
+msgstr "Skýrslur"
 
 msgid "Choose an item"
 msgstr "Veldu"

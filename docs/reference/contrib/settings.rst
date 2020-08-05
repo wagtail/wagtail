@@ -108,13 +108,19 @@ Settings are designed to be used both in Python code, and in templates.
 Using in Python
 ---------------
 
-If access to a setting is required in the code, the :func:`~wagtail.contrib.settings.models.BaseSetting.for_site` method will retrieve the setting for the supplied site:
+If you require access to a setting in a view, the :func:`~wagtail.contrib.settings.models.BaseSetting.for_request` method allows you to retrieve the relevant settings for the current request:
 
 .. code-block:: python
 
     def view(request):
-        social_media_settings = SocialMediaSettings.for_site(request.site)
+        social_media_settings = SocialMediaSettings.for_request(request)
         ...
+
+In places where the request is unavailable, but you know the ``Site`` you wish to retrieve settings for, you can use :func:`~wagtail.contrib.settings.models.BaseSetting.for_site` instead:
+
+.. code-block:: python
+
+    social_media_settings =  SocialMediaSettings.for_site(user.origin_site)
 
 Using in Django templates
 -------------------------
@@ -216,3 +222,97 @@ Or, alternately, using the ``set`` tag:
 .. code-block:: html+jinja
 
     {% set social_settings=settings("app_label.SocialMediaSettings") %}
+
+
+Utilising ``select_related`` to improve efficiency
+--------------------------------------------------
+
+For models with foreign key relationships to other objects (e.g. pages),
+which are very often needed to output values in templates, you can set
+the ``select_related`` attribute on your model to have Wagtail utilise
+Django's `QuerySet.select_related() <https://docs.djangoproject.com/en/stable/ref/models/querysets/#select-related>`_
+method to fetch the settings object and related objects in a single query.
+With this, the initial query is more complex, but you will be able to
+freely access the foreign key values without any additional queries,
+making things more efficient overall.
+
+Building on the ``ImportantPages`` example from the previous section, the
+following shows how ``select_related`` can be set to improve efficiency:
+
+.. code-block:: python
+    :emphasize-lines: 4,5
+
+    @register_setting
+    class ImportantPages(BaseSetting):
+
+        # Fetch these pages when looking up ImportantPages for or a site
+        select_related = ["donate_page", "sign_up_page"]
+
+        donate_page = models.ForeignKey(
+            'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+')
+        sign_up_page = models.ForeignKey(
+            'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+')
+
+        panels = [
+            PageChooserPanel('donate_page'),
+            PageChooserPanel('sign_up_page'),
+        ]
+
+With these additions, the following template code will now trigger
+a single database query instead of three (one to fetch the settings,
+and two more to fetch each page):
+
+.. code-block:: html
+
+    {% load wagtailcore_tags %}
+    {% pageurl settings.app_label.ImportantPages.donate_page %}
+    {% pageurl settings.app_label.ImportantPages.sign_up_page %}
+
+
+Utilising the ``page_url`` setting shortcut
+-------------------------------------------
+
+.. versionadded:: 2.10
+
+If, like in the previous section, your settings model references pages,
+and you regularly need to output the URLs of those pages in your project,
+you can likely use the setting model's ``page_url`` shortcut to do that more
+cleanly. For example, instead of doing the following:
+
+.. code-block:: html
+
+    {% load wagtailcore_tags %}
+    {% pageurl settings.app_label.ImportantPages.donate_page %}
+    {% pageurl settings.app_label.ImportantPages.sign_up_page %}
+
+You could write:
+
+.. code-block:: html
+
+    {{ settings.app_label.ImportantPages.page_url.donate_page }}
+    {{ settings.app_label.ImportantPages.page_url.sign_up_page }}
+
+Using the ``page_url`` shortcut has a few of advantages over using the tag:
+
+1.  The 'specific' page is automatically fetched to generate the URL,
+    so you don't have to worry about doing this (or forgetting to do this)
+    yourself.
+2.  The results are cached, so if you need to access the same page URL
+    in more than one place (e.g. in a form and in footer navigation), using
+    the ``page_url`` shortcut will be more efficient.
+3.  It's more concise, and the syntax is the same whether using it in templates
+    or views (or other Python code), allowing you to write more more consistent
+    code.
+
+When using the ``page_url`` shortcut, there are a couple of points worth noting:
+
+1.  The same limitations that apply to the `{% pageurl %}` tag apply to the
+    shortcut: If the settings are accessed from a template context where the
+    current request is not available, all URLs returned will include the
+    site's scheme/domain, and URL generation will not be quite as efficient.
+2.  If using the shortcut in views or other Python code, the method will
+    raise an ``AttributeError`` if the attribute you request from ``page_url``
+    is not an attribute on the settings object.
+3.  If the settings object DOES have the attribute, but the attribute returns
+    a value of ``None`` (or something that is not a ``Page``), the shortcut
+    will return an empty string.

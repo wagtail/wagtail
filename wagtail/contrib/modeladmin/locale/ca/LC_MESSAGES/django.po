@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Roger Pons <rogerpons@gmail.com>, 2017
+# Roger Pons <rogerpons@gmail.com>, 2017,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-29 09:38+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "ModelAdmin de Wagtail"
 
 msgid "Parent page"
 msgstr "Pàgina pare"
@@ -109,6 +112,9 @@ msgstr "Tornar a la llista"
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
 
+msgid "No, don't delete"
+msgstr "No, no esborrar"
+
 msgid "Home"
 msgstr "Inici"
 
@@ -126,6 +132,12 @@ msgstr "Cercar per"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Cercar %(name)s"
+
+msgid "Download XLSX"
+msgstr "Descarregar XLSX"
+
+msgid "Download CSV"
+msgstr "Descarregar CSV"
 
 msgid "Filter"
 msgstr "Filtrar"
@@ -168,9 +180,6 @@ msgstr "Anterior"
 msgid "Next"
 msgstr "Següent"
 
-msgid "{model_name} '{instance}' created."
-msgstr "S'ha creat {model_name} '{instance}'."
-
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr "No s'ha pogut crear el %s a causa d'errors."
@@ -189,9 +198,6 @@ msgstr "Editant"
 msgid "Editing %s"
 msgstr "Editant %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' actualitzat."
-
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "No s'ha pogut desar el %s a causa d'errors."
@@ -207,9 +213,6 @@ msgid ""
 msgstr ""
 "Segur que voleu eliminar aquest %s? Si hi ha altres elements del vostre lloc "
 "relacionats amb ell podrien veure's afectats."
-
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' eliminat."
 
 msgid "Inspecting"
 msgstr "Inspeccionant"

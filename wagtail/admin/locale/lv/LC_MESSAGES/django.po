@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
+msgid "Publish"
+msgstr "Publicēt"
+
 msgid "Submit for moderation"
 msgstr "Iesniegt moderācijai"
 
@@ -30,14 +33,23 @@ msgstr "Atsaukt publicēšanu"
 msgid "Delete"
 msgstr "Dzēst"
 
-msgid "None"
-msgstr "Nav"
+msgid "Page locked"
+msgstr "Lapa slēgta"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
 
 msgid "You do not have permission to access the admin"
 msgstr "Jums nav tiesību pieklūt administrācijas videi"
 
+msgid "None"
+msgstr "Nav"
+
 msgid "Scheduled publishing"
 msgstr "Plānota publicēšana"
+
+msgid "Privacy"
+msgstr "Privātums"
 
 msgid "Common page configuration"
 msgstr "Lapas kopējie iestatījumi"
@@ -51,6 +63,12 @@ msgstr "Veicināšana"
 msgid "Settings"
 msgstr "Iestatījumi"
 
+msgid "Date"
+msgstr "Datums"
+
+msgid "Title"
+msgstr "Virsraksts"
+
 msgid "Enter password"
 msgstr "Ievadīt paroli"
 
@@ -60,9 +78,6 @@ msgstr "Ievadiet jūsu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
-
-msgid "URL"
-msgstr "Norāde (URL)"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
@@ -150,63 +165,8 @@ msgstr "Šis lauks ir nepieciešams"
 msgid "Please select at least one group."
 msgstr "Lūdzu izvēlieties vismaz vienu grupu"
 
-msgid "Error 404: Page not found"
-msgstr "Kļūda 404: lapa nav atrasta"
-
-msgid "Error 404"
-msgstr "Kļūda 404"
-
-msgid "The requested page could not be found."
-msgstr "Pieprasīto lapu nav iespējams atrast"
-
-msgid "Go to Wagtail admin"
-msgstr "Doties uz Wagtail administrāciju"
-
-msgid "Account"
-msgstr "Konts"
-
-msgid "Update"
-msgstr "Atjaunot"
-
-msgid "Change password"
-msgstr "Mainīt paroli"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr "Šeit nav iespējams mainīt jūsu paroli. Sazinieties are administratoru."
-
-msgid "Language Preferences"
-msgstr "Valodas uzstādījumi"
-
-msgid "Notification preferences"
-msgstr "Paziņojumu iestatījumi"
-
-msgid "Reset password"
-msgstr "Mainīt paroli"
-
-msgid "Password change successful"
-msgstr "Paroles maiņa izdevusies"
-
-msgid "Login"
-msgstr "Lietotājvārds"
-
-msgid "Set your new password"
-msgstr "Izvēlieties jaunu paroli"
-
-msgid "Check your email"
-msgstr "Pārbaudiet savu e-pastu"
-
-msgid "Please follow the link below to reset your password:"
-msgstr "Lūdzu sekojiet norādei lai atiestatītu jūsu paroli:"
-
-msgid "Your username (in case you've forgotten):"
-msgstr "Jūsu lietotājvārds (ja gadījumā to esat aizmirsis/-usi):"
-
-msgid "Password reset"
-msgstr "Atjaunot paroli"
-
-msgid "Reset your password"
-msgstr "Atjaunot paroli"
+msgid "Edit"
+msgstr "Labot"
 
 msgid "Page"
 msgstr "Lapa"
@@ -304,14 +264,69 @@ msgstr "Pk"
 msgid "Sat"
 msgstr "S"
 
+msgid "Error 404: Page not found"
+msgstr "Kļūda 404: lapa nav atrasta"
+
+msgid "Error 404"
+msgstr "Kļūda 404"
+
+msgid "The requested page could not be found."
+msgstr "Pieprasīto lapu nav iespējams atrast"
+
+msgid "Go to Wagtail admin"
+msgstr "Doties uz Wagtail administrāciju"
+
+msgid "Account"
+msgstr "Konts"
+
+msgid "Update"
+msgstr "Atjaunot"
+
+msgid "Change password"
+msgstr "Mainīt paroli"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr "Šeit nav iespējams mainīt jūsu paroli. Sazinieties are administratoru."
+
+msgid "Language Preferences"
+msgstr "Valodas uzstādījumi"
+
+msgid "Notification preferences"
+msgstr "Paziņojumu iestatījumi"
+
+msgid "Reset password"
+msgstr "Mainīt paroli"
+
+msgid "Password change successful"
+msgstr "Paroles maiņa izdevusies"
+
+msgid "Login"
+msgstr "Lietotājvārds"
+
+msgid "Set your new password"
+msgstr "Izvēlieties jaunu paroli"
+
+msgid "Check your email"
+msgstr "Pārbaudiet savu e-pastu"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Lūdzu sekojiet norādei lai atiestatītu jūsu paroli:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Jūsu lietotājvārds (ja gadījumā to esat aizmirsis/-usi):"
+
+msgid "Password reset"
+msgstr "Atjaunot paroli"
+
+msgid "Reset your password"
+msgstr "Atjaunot paroli"
+
 msgid "Dashboard"
 msgstr "Informācijas panelis"
 
 msgid "Menu"
 msgstr "Izvēlne"
-
-msgid "Add another"
-msgstr "Pievienot jaunu"
 
 msgid "Move up"
 msgstr "Uz augšu"
@@ -352,9 +367,6 @@ msgstr "Mainīt privātuma iestatījumus:"
 msgid "Save"
 msgstr "Saglabāt"
 
-msgid "Privacy"
-msgstr "Privātums"
-
 msgid "Public"
 msgstr "Publisks"
 
@@ -382,11 +394,17 @@ msgstr ""
 "Šis ir jūsu informācijas panelis, kurā saņemsiet noderīgu informāciju par "
 "saturu ko esat izveidojis."
 
+msgid "Edit this page"
+msgstr "Labot šo lapu"
+
+msgid "Draft"
+msgstr "Melnraksts"
+
+msgid "Live"
+msgstr "Aktīva"
+
 msgid "Pages awaiting moderation"
 msgstr "Lapām nepieciešama moderācija"
-
-msgid "Title"
-msgstr "Virsraksts"
 
 msgid "Type"
 msgstr "Veids"
@@ -394,17 +412,11 @@ msgstr "Veids"
 msgid "Edited"
 msgstr "Labots"
 
-msgid "Edit this page"
-msgstr "Labot šo lapu"
-
 msgid "Approve"
 msgstr "Apstiprināt"
 
 msgid "Reject"
 msgstr "Noraidīt"
-
-msgid "Edit"
-msgstr "Labot"
 
 msgid "Preview"
 msgstr "Priekšskatīt"
@@ -412,17 +424,8 @@ msgstr "Priekšskatīt"
 msgid "Your most recent edits"
 msgstr "Neseni labojumi"
 
-msgid "Date"
-msgstr "Datums"
-
 msgid "Status"
 msgstr "Statuss"
-
-msgid "Draft"
-msgstr "Melnraksts"
-
-msgid "Live"
-msgstr "Aktīva"
 
 msgid "Site summary"
 msgstr "Kopsavilkums"
@@ -484,20 +487,11 @@ msgstr "Lapa \"%(page)s\" tika iesniegta moderācijai"
 msgid "Page privacy"
 msgstr "Lapas privātuma iestatījumi"
 
-msgid "Edit lock"
-msgstr "Rediģēt bloķēšanu"
+msgid "Replace current draft"
+msgstr "Aizvietot pašreizējo melnrakstu"
 
-msgid "Locked"
-msgstr "Slēgts"
-
-msgid "Unlocked"
-msgstr "Atslēgts"
-
-msgid "Publish this revision"
-msgstr "Publicēt šo versiju"
-
-msgid "Publish"
-msgstr "Publicēt"
+msgid "Save draft"
+msgstr "Saglabāt melnrakstu"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -564,9 +558,6 @@ msgstr "Jauns %(page_type)s"
 msgid "New"
 msgstr "Jauns"
 
-msgid "Save draft"
-msgstr "Saglabāt melnrakstu"
-
 msgid "This page has unsaved changes."
 msgstr "Šai lapai ir nesaglabātas izmaiņas"
 
@@ -574,26 +565,8 @@ msgstr "Šai lapai ir nesaglabātas izmaiņas"
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Labo %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Labo %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Lapa slēgta"
-
-msgid "Replace current draft"
-msgstr "Aizvietot pašreizējo melnrakstu"
-
-#, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Labots: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "autors %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Versijas"
+msgid "Current draft"
+msgstr "Patreizējā sagatave"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -673,21 +646,11 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "veidotājs"
 
-msgid "Current draft"
-msgstr "Patreizējā sagatave"
-
-msgid "Review this revision"
-msgstr "Pārskatīt šo versiju"
-
 msgid "No revisions of this page exist"
 msgstr "Šai lapai versiju nav."
 
 msgid "No revision of this page exist"
 msgstr "Šai lapai versiju nav."
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Nav atbilstošu lapu <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Lūdzu ievadiet meklēšanas terminu"
@@ -697,6 +660,9 @@ msgstr "Neviena lapa nelieto"
 
 msgid "Collection"
 msgstr "Kolekcija"
+
+msgid "Locked"
+msgstr "Slēgts"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -717,15 +683,6 @@ msgstr "Iziet"
 msgid "Other searches"
 msgstr "Citi meklējumi"
 
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Jūs lietojat <strong>novecojušu</strong> interneta pārlūku, kas neatbalsta "
-"šo programmatūru. Lūdzu <a href=\"http://browsehappy.com/\">atjaunojiet savu "
-"pārlūku</a>."
-
 msgid "Go to Wagtail admin interface"
 msgstr "Doties uz Wagtail administrācijas intefeisu"
 
@@ -735,11 +692,12 @@ msgstr "Pievienot apakšlapu"
 msgid "Show in Explorer"
 msgstr "Parādīt pārlūkā"
 
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "autors %(modified_by)s"
+
 msgid "Test"
 msgstr "Test"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
 
 msgid "Your password has been changed successfully!"
 msgstr "Parole mainīta veiksmīgi."
@@ -786,14 +744,11 @@ msgstr "Skatīt tekošo versiju"
 msgid "Page '{0}' created and published."
 msgstr "Lapa '{0}' izveidota un publicēta."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Lapa '{0}' izveidota un iesniegta moderācijai."
-
 msgid "View draft"
 msgstr "Skatīt melnrakstu"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Neizdevās nosūtīt paziņojumus moderatoriem"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Lapa '{0}' izveidota un iesniegta moderācijai."
 
 msgid "Page '{0}' created."
 msgstr "Lapa '{0}' izveidota."
@@ -801,23 +756,17 @@ msgstr "Lapa '{0}' izveidota."
 msgid "The page could not be created due to validation errors"
 msgstr "Validācijas kļūdas dēļ šo lapu nav iespējams izveidot"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Lapas '{1}' versija no {0} ir ieplānota publicēšanai."
+msgid "This page is currently awaiting moderation"
+msgstr "Šī lapa gaida moderāciju"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Lapa '{0}' ir ieplānota publicēšanai."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Lapas '{1}' versija no {0} ir publicēta."
 
 msgid "Page '{0}' has been published."
 msgstr "Lapa '{0}' ir publicēta."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Lapa '{0}' ir nosūtīta moderācijai."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Lapa '{0}' ir aizstāta ar versiju no {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Lapa '{0}' ir atjaunota."
@@ -827,9 +776,6 @@ msgstr "Lapu nav iespējams saglabāt jo tā ir bloķēta"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Validācijas kļūdu dēļ lapu nav iespējams saglabāt"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Šī lapa gaida moderāciju"
 
 msgid "Page '{0}' deleted."
 msgstr "Lapa '{0}' dzēsta."
@@ -861,19 +807,8 @@ msgstr "Lapas '{0}' publicēšana noraidīta."
 msgid "Failed to send rejection notifications"
 msgstr "Neizdevās nosūtīt atteikuma paziņojumus"
 
-msgid "Page '{0}' is now locked."
-msgstr "Lapa '{0} ir bloķēta."
-
 msgid "Page '{0}' is now unlocked."
 msgstr "Lapa '{0} ir atbloķēta."
-
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Jūs skatāt autora %(user)s <b>%(created_at)s</b> veidotās šīs lapas "
-"iepriekšējās versijas"
 
 msgid "More"
 msgstr "Vairāk"

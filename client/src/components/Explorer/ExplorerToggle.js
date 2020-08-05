@@ -5,18 +5,19 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 
 import Button from '../../components/Button/Button';
+import Icon from '../../components/Icon/Icon';
 
 /**
  * A Button which toggles the explorer.
  */
 const ExplorerToggle = ({ children, onToggle }) => (
   <Button
-    className="submenu-trigger"
-    icon="folder-open-inverse"
     dialogTrigger={true}
     onClick={onToggle}
   >
+    <Icon name="folder-open-inverse" className="icon--menuitem" />
     {children}
+    <Icon name="arrow-right" className="icon--submenu-trigger" />
   </Button>
 );
 

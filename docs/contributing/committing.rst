@@ -77,8 +77,7 @@ The ``CHANGELOG.txt`` contains a short summary of each new feature, refactoring,
 Each summary should be a single line.
 Bug fixes should be grouped together at the end of the list for each release,
 and be prefixed with "Fix:".
-The name of the contributor should be added at the end of the summary,
-in brackets, if they are not a core committer.
+The name of the contributor should be added at the end of the summary, in brackets.
 For example:
 
 .. code-block:: text
@@ -139,3 +138,23 @@ It's ok! Everyone makes mistakes. If you realise that recent merged changes
 have a negative impact, create a new pull request with a revert of the changes
 and merge it without waiting for a review. The PR will serve as additional
 documentation for the changes, and will run through the CI tests.
+
+
+Add commits to someone else's pull request
+==========================================
+
+Github users with write access to wagtail/wagtail (core members) can add
+commits to the pull request branch of the contributor.
+
+Given that the contributor username is johndoe and his pull request branch is called foo:
+
+.. code-block:: console
+
+    $ git clone git@github.com:wagtail/wagtail.git
+    $ cd wagtail
+    $ git remote add johndoe git@github.com:johndoe/wagtail.git
+    $ git fetch johndoe foo
+    $ git checkout johndoe/foo
+    # Make changes
+    # Commit changes
+    $ git push johndoe HEAD:foo

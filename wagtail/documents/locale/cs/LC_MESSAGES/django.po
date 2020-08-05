@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# IT Management <info@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
-# Stanislav Vasko <stanislav.vasko@gmail.com>, 2017
+# Mirek Zvolský <zvolsky@seznam.cz>, 2020
+# Mořeplavec <stanislav.vasko@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-04-22 07:30+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +52,7 @@ msgid "uploaded by user"
 msgstr "nahráno uživatelem"
 
 msgid "tags"
-msgstr "šťítky"
+msgstr "štítky"
 
 msgid "document"
 msgstr "dokument"
@@ -147,6 +149,9 @@ msgstr "Opravdu chcete smazat tento dokument?"
 msgid "Yes, delete"
 msgstr "Ano, smazat"
 
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Úprava %(title)s"
@@ -178,8 +183,8 @@ msgstr "Soubor"
 msgid "Collection"
 msgstr "Kolekce"
 
-msgid "Uploaded"
-msgstr "Nahráno"
+msgid "Created"
+msgstr "Vytvořeno"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -219,6 +224,38 @@ msgstr "Stav"
 
 msgid "Edit this page"
 msgstr "Upravit stránku"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Dokument <span class=\"visuallyhidden"
+"\">vytvořený v %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Dokumenty <span class=\"visuallyhidden"
+"\">vytvořené v%(site_name)s</span>\n"
+"    "
+msgstr[2] ""
+"\n"
+"        <span>%(total)s</span> Dokumentů <span class=\"visuallyhidden"
+"\">vytvořených v%(site_name)s</span>\n"
+"    "
+msgstr[3] ""
+"\n"
+"        <span>%(total)s</span> Dokumentů <span class=\"visuallyhidden"
+"\">vytvořených v %(site_name)s</span>\n"
+"    "
 
 msgid "Add multiple documents"
 msgstr "Přidat více dokumentů"

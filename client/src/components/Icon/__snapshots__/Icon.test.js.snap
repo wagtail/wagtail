@@ -2,28 +2,40 @@
 
 exports[`Icon #className 1`] = `
 <span>
-  <span
-    aria-hidden={true}
+  <svg
+    aria-hidden="true"
     className="icon icon-test u-test"
-  />
+  >
+    <use
+      href="#icon-test"
+    />
+  </svg>
 </span>
 `;
 
 exports[`Icon #name 1`] = `
 <span>
-  <span
-    aria-hidden={true}
+  <svg
+    aria-hidden="true"
     className="icon icon-test "
-  />
+  >
+    <use
+      href="#icon-test"
+    />
+  </svg>
 </span>
 `;
 
 exports[`Icon #title 1`] = `
 <span>
-  <span
-    aria-hidden={true}
+  <svg
+    aria-hidden="true"
     className="icon icon-test "
-  />
+  >
+    <use
+      href="#icon-test"
+    />
+  </svg>
   <span
     className="visuallyhidden"
   >

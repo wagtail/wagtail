@@ -8,7 +8,8 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira <hello@lta.me>, 2018
+# Loic Teixeira, 2020
+# Loic Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-31 11:14+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +32,8 @@ msgstr ""
 msgid "Wagtail images"
 msgstr "Images Wagtail"
 
-msgid "GIF, JPEG, PNG"
-msgstr "GIF, JPEG, PNG"
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP "
 
 #, python-format
 msgid ""
@@ -187,6 +188,28 @@ msgstr "Choisissez un format"
 msgid "Insert image"
 msgstr "Insérer l'image"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">créée "
+"dans %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">créées "
+"dans %(site_name)s</span>\n"
+"    "
+
 msgid "Change image file:"
 msgstr "Changer le fichier d'image"
 
@@ -214,9 +237,12 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer cette image ?"
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
 
+msgid "No, don't delete"
+msgstr "Non, ne pas supprimer"
+
 #, python-format
 msgid "Editing image %(title)s"
-msgstr "Édition de l'image %(title)s"
+msgstr "Modification de l'image %(title)s"
 
 msgid "Editing"
 msgstr "Modification"
@@ -257,6 +283,15 @@ msgstr "Utilisation"
 
 msgid "Images"
 msgstr "Images"
+
+msgid "Popular Tags:"
+msgstr "Mots-clés populaires :"
+
+msgid "Clear choice"
+msgstr "Effacer ce choix"
+
+msgid "pixels"
+msgstr "pixels"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -350,7 +385,7 @@ msgstr "Erreur du serveur"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr ""
-"Signaler cette erreur à votre webmaster avec les informations suivantes :"
+"Signalez cette erreur à votre webmaster avec les informations suivantes :"
 
 msgid "Image updated."
 msgstr "Image mise à jour."

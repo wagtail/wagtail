@@ -1,17 +1,19 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% load l10n %}
-{% load static %}
+{% load wagtailadmin_tags %}
 {% block titletag %}{% trans "Add multiple documents" %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% static 'wagtaildocs/css/add-multiple.css' %}" type="text/css" />
+    {{ form_media.css }}
+
+    <link rel="stylesheet" href="{% versioned_static 'wagtaildocs/css/add-multiple.css' %}" type="text/css" />
 {% endblock %}
 
 {% block content %}
     {% trans "Add documents" as add_str %}
-    {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc" %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
 
     <div class="nice-padding">
         <div class="drop-zone">
@@ -20,19 +22,22 @@
 
             <form action="{% url 'wagtaildocs:add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">
-                    <button class="button bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
+                    <button class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{% trans "Or choose from your computer" %}</button>
                     <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtaildocs:add_multiple' %}" multiple>
                 </div>
                 {% csrf_token %}
                 {% if collections %}
-                    <div class="field">
+                    <div class="field choice_field select">
                         <label for="id_adddocument_collection">{% trans "Add to collection:" %}</label>
                         <div class="field-content">
-                            <select id="id_adddocument_collection" name="collection">
-                                {% for collection in collections %}
-                                    <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
-                                {% endfor %}
-                            </select>
+                            <div class="input">
+                                <select id="id_adddocument_collection" name="collection">
+                                    {% for collection in collections %}
+                                        <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <span></span>
+                            </div>
                         </div>
                     </div>
                 {% endif %}
@@ -67,14 +72,16 @@
 {% block extra_js %}
     {{ block.super }}
 
+    {{ form_media.js }}
+
     <!-- this exact order of plugins is vital -->
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
 
     <!-- Main script -->
-    <script src="{% static 'wagtaildocs/js/add-multiple.js' %}"></script>
+    <script src="{% versioned_static 'wagtaildocs/js/add-multiple.js' %}"></script>
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>

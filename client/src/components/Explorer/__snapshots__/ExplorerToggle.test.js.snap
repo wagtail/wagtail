@@ -3,17 +3,26 @@
 exports[`ExplorerToggle basic 1`] = `
 <Button
   accessibleLabel={null}
-  className="submenu-trigger"
+  className=""
   dialogTrigger={true}
   href="#"
-  icon="folder-open-inverse"
   isLoading={false}
   onClick={[Function]}
   preventDefault={true}
   target={null}
 >
+  <Icon
+    className="icon--menuitem"
+    name="folder-open-inverse"
+    title={null}
+  />
   <span>
     To infinity and beyond!
   </span>
+  <Icon
+    className="icon--submenu-trigger"
+    name="arrow-right"
+    title={null}
+  />
 </Button>
 `;

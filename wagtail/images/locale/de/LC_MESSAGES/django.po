@@ -6,6 +6,8 @@
 # Benjamin Thurm, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2019
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Bohreromir, 2020
+# Bohreromir, 2019
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
@@ -15,14 +17,14 @@
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Wasilis Mandratzis-Walz, 2015
-# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-01-21 11:05+0000\n"
+"Last-Translator: Bohreromir\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -34,8 +36,8 @@ msgstr ""
 msgid "Wagtail images"
 msgstr "Wagtail Bilder"
 
-msgid "GIF, JPEG, PNG"
-msgstr "GIF, JPEG, PNG"
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -189,6 +191,26 @@ msgstr "Format wählen"
 msgid "Insert image"
 msgstr "Bild einfügen"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Bild <span class=\"visuallyhidden\">erstellt in "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Bilder <span class=\"visuallyhidden\">erstellt in "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Bild-Datei ändern: "
 
@@ -215,6 +237,9 @@ msgstr "Sind Sie sicher, dass Sie dieses Bild löschen wollen?"
 
 msgid "Yes, delete"
 msgstr "Ja, löschen"
+
+msgid "No, don't delete"
+msgstr "Nein, nicht löschen"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -259,6 +284,15 @@ msgstr "Benutzung"
 
 msgid "Images"
 msgstr "Bilder"
+
+msgid "Popular Tags:"
+msgstr "Häufig verwendete Schlagwörter:"
+
+msgid "Clear choice"
+msgstr "Auswahl löschen"
+
+msgid "pixels"
+msgstr "Pixel"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

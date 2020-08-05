@@ -6,8 +6,9 @@ from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 from django.utils.html import format_html_join
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks.utils import BlockData
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
 
@@ -353,19 +354,21 @@ class StreamValue(Sequence):
                 # value (stream_data_item here) is still valid
                 prep_value_item = stream_data_item
 
+                # As this method is preparing this value to be saved to the database,
+                # this is an appropriate place to ensure that each block has a unique id.
+                prep_value_item['id'] = prep_value_item.get('id', str(uuid.uuid4()))
+
             else:
                 # convert the bound block back into JSONish data
                 child = self[i]
+                # As this method is preparing this value to be saved to the database,
+                # this is an appropriate place to ensure that each block has a unique id.
+                child.id = child.id or str(uuid.uuid4())
                 prep_value_item = {
                     'type': child.block.name,
                     'value': child.block.get_prep_value(child.value),
                     'id': child.id,
                 }
-
-            # As this method is preparing this value to be saved to the database,
-            # this is an appropriate place to ensure that each block has a unique id.
-            if not prep_value_item.get('id'):
-                prep_value_item['id'] = str(uuid.uuid4())
 
             prep_value.append(prep_value_item)
 

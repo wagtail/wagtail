@@ -6,20 +6,21 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Ed <724195301@qq.com>, 2018
 # Feng Wang <wangfeng.w@gmail.com>, 2015
+# First Last <abc+github@mynook.info>, 2019
 # hanfeng <appweb.cn@gmail.com>, 2014
 # jszsj <zhushajun@gmail.com>, 2017
 # listeng, 2016
 # Aosp T, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017-2018
+# 汇民 王 <whuim@qq.com>, 2017-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-06-30 00:21+0000\n"
-"Last-Translator: Ed <724195301@qq.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -90,6 +91,9 @@ msgstr "提交时间"
 msgid "form submission"
 msgstr "提交表格"
 
+msgid "form submissions"
+msgstr "提交表单"
+
 msgid "label"
 msgstr "标签"
 
@@ -121,6 +125,12 @@ msgstr "帮助文本"
 
 msgid "Submission date"
 msgstr "提交日期"
+
+msgid "Form"
+msgstr "表单"
+
+msgid "Landing page"
+msgstr "着陆页"
 
 msgid "to address"
 msgstr "收件人"
@@ -181,6 +191,9 @@ msgstr "表格数据 <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "过滤器"
+
+msgid "Download XLSX"
+msgstr "下载XLSX"
 
 msgid "Download CSV"
 msgstr "下载为CSV"

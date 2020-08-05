@@ -5,17 +5,18 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Ed <724195301@qq.com>, 2018
+# First Last <abc+github@mynook.info>, 2019
 # jszsj <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017-2019
+# 汇民 王 <whuim@qq.com>, 2017-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-04-21 15:58+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -137,6 +138,9 @@ msgstr "确定删除此文档？"
 msgid "Yes, delete"
 msgstr "是，删除"
 
+msgid "No, don't delete"
+msgstr "否，不删除"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "编辑%(title)s"
@@ -168,8 +172,8 @@ msgstr "文件"
 msgid "Collection"
 msgstr "集合"
 
-msgid "Uploaded"
-msgstr "已上传"
+msgid "Created"
+msgstr "创建时间"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -209,6 +213,22 @@ msgstr "状态"
 
 msgid "Edit this page"
 msgstr "编辑此页面"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"在<span class=\"visuallyhidden\">%(site_name)s</span>中共创建了<span>"
+"%(total)s</span>个文档"
 
 msgid "Add multiple documents"
 msgstr "添加多个文档"

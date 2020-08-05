@@ -1,3 +1,4 @@
+import urllib
 from wsgiref.util import FileWrapper
 
 from django.conf import settings
@@ -5,15 +6,26 @@ from django.http import Http404, HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.views.decorators.cache import cache_control
+from django.views.decorators.http import etag
 
 from wagtail.core import hooks
 from wagtail.core.forms import PasswordViewRestrictionForm
 from wagtail.core.models import CollectionViewRestriction
-from wagtail.documents.models import document_served, get_document_model
+from wagtail.documents import get_document_model
+from wagtail.documents.models import document_served
 from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile
 
 
+def document_etag(request, document_id, document_filename):
+    Document = get_document_model()
+    if hasattr(Document, 'file_hash'):
+        return Document.objects.filter(id=document_id).values_list('file_hash', flat=True).first()
+
+
+@etag(document_etag)
+@cache_control(max_age=3600, public=True)
 def serve(request, document_id, document_filename):
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
@@ -37,6 +49,31 @@ def serve(request, document_id, document_filename):
     except NotImplementedError:
         local_path = None
 
+    try:
+        direct_url = doc.file.url
+    except NotImplementedError:
+        direct_url = None
+
+    serve_method = getattr(settings, 'WAGTAILDOCS_SERVE_METHOD', None)
+
+    # If no serve method has been specified, select an appropriate default for the storage backend:
+    # redirect for remote storages (i.e. ones that provide a url but not a local path) and
+    # serve_view for all other cases
+    if serve_method is None:
+        if direct_url and not local_path:
+            serve_method = 'redirect'
+        else:
+            serve_method = 'serve_view'
+
+    if serve_method in ('redirect', 'direct') and direct_url:
+        # Serve the file by redirecting to the URL provided by the underlying storage;
+        # this saves the cost of delivering the file via Python.
+        # For serve_method == 'direct', this view should not normally be reached
+        # (the document URL as used in links should point directly to the storage URL instead)
+        # but we handle it as a redirect to provide sensible fallback /
+        # backwards compatibility behaviour.
+        return redirect(direct_url)
+
     if local_path:
 
         # Use wagtail.utils.sendfile to serve the file;
@@ -57,14 +94,17 @@ def serve(request, document_id, document_filename):
     else:
 
         # We are using a storage backend which does not expose filesystem paths
-        # (e.g. storages.backends.s3boto.S3BotoStorage).
+        # (e.g. storages.backends.s3boto.S3BotoStorage) AND the developer has not allowed
+        # redirecting to the file url directly.
         # Fall back on pre-sendfile behaviour of reading the file content and serving it
         # as a StreamingHttpResponse
 
         wrapper = FileWrapper(doc.file)
         response = StreamingHttpResponse(wrapper, content_type='application/octet-stream')
 
-        response['Content-Disposition'] = 'attachment; filename=%s' % doc.filename
+        # set filename and filename* to handle non-ascii characters in filename
+        # see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+        response['Content-Disposition'] = "attachment; filename={0}; filename*=UTF-8''{0}".format(urllib.parse.quote(doc.filename))
 
         # FIXME: storage backends are not guaranteed to implement 'size'
         response['Content-Length'] = doc.file.size

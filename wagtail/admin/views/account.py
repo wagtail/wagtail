@@ -4,15 +4,17 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
+from django.template.response import TemplateResponse
 from django.urls import reverse, reverse_lazy
-from django.utils.translation import ugettext as _
-from django.utils.translation import activate
+from django.utils.translation import gettext as _
+from django.utils.translation import override
+from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.core import hooks
 from wagtail.users.forms import (
-    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NotificationPreferencesForm, PreferredLanguageForm)
+    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NameForm, NotificationPreferencesForm, PreferredLanguageForm)
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -33,6 +35,10 @@ def password_management_enabled():
     return getattr(settings, 'WAGTAIL_PASSWORD_MANAGEMENT_ENABLED', True)
 
 
+def email_management_enabled():
+    return getattr(settings, 'WAGTAIL_EMAIL_MANAGEMENT_ENABLED', True)
+
+
 def password_reset_enabled():
     return getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', password_management_enabled())
 
@@ -47,11 +53,12 @@ def account(request):
         if item:
             items.append(item)
 
-    return render(request, 'wagtailadmin/account/account.html', {
+    return TemplateResponse(request, 'wagtailadmin/account/account.html', {
         'items': items,
     })
 
 
+@sensitive_post_parameters()
 def change_password(request):
     if not password_management_enabled():
         raise Http404
@@ -73,13 +80,15 @@ def change_password(request):
     else:
         form = None
 
-    return render(request, 'wagtailadmin/account/change_password.html', {
+    return TemplateResponse(request, 'wagtailadmin/account/change_password.html', {
         'form': form,
         'can_change_password': can_change_password,
     })
 
 
 def change_email(request):
+    if not email_management_enabled():
+        raise Http404
     if request.method == 'POST':
         form = EmailForm(request.POST, instance=request.user)
 
@@ -90,7 +99,23 @@ def change_email(request):
     else:
         form = EmailForm(instance=request.user)
 
-    return render(request, 'wagtailadmin/account/change_email.html', {
+    return TemplateResponse(request, 'wagtailadmin/account/change_email.html', {
+        'form': form,
+    })
+
+
+def change_name(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Your name has been changed successfully!"))
+            return redirect('wagtailadmin_account')
+    else:
+        form = NameForm(instance=request.user)
+
+    return TemplateResponse(request, 'wagtailadmin/account/change_name.html', {
         'form': form,
     })
 
@@ -145,7 +170,7 @@ def notification_preferences(request):
     if not form.fields:
         return redirect('wagtailadmin_account')
 
-    return render(request, 'wagtailadmin/account/notification_preferences.html', {
+    return TemplateResponse(request, 'wagtailadmin/account/notification_preferences.html', {
         'form': form,
     })
 
@@ -158,13 +183,13 @@ def language_preferences(request):
             user_profile = form.save()
             # This will set the language only for this request/thread
             # (so that the 'success' messages is in the right language)
-            activate(user_profile.get_preferred_language())
-            messages.success(request, _("Your preferences have been updated."))
+            with override(user_profile.get_preferred_language()):
+                messages.success(request, _("Your preferences have been updated."))
             return redirect('wagtailadmin_account')
     else:
         form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
 
-    return render(request, 'wagtailadmin/account/language_preferences.html', {
+    return TemplateResponse(request, 'wagtailadmin/account/language_preferences.html', {
         'form': form,
     })
 
@@ -180,7 +205,7 @@ def current_time_zone(request):
     else:
         form = CurrentTimeZoneForm(instance=UserProfile.get_for_user(request.user))
 
-    return render(request, 'wagtailadmin/account/current_time_zone.html', {
+    return TemplateResponse(request, 'wagtailadmin/account/current_time_zone.html', {
         'form': form,
     })
 
@@ -196,7 +221,7 @@ def change_avatar(request):
     else:
         form = AvatarPreferencesForm(instance=UserProfile.get_for_user(request.user))
 
-    return render(request, 'wagtailadmin/account/change_avatar.html', {'form': form})
+    return TemplateResponse(request, 'wagtailadmin/account/change_avatar.html', {'form': form})
 
 
 class LoginView(auth_views.LoginView):

@@ -2,14 +2,14 @@ import functools
 import re
 
 from django import forms
-from django.core.exceptions import ImproperlyConfigured
-from django.db.models.fields import FieldDoesNotExist
+from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.db.models.fields import CharField, TextField
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext_lazy
 from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
@@ -501,6 +501,10 @@ class FieldPanel(EditHandler):
 
             if isinstance(field, RichTextField):
                 return compare.RichTextFieldComparison
+
+            if isinstance(field, (CharField, TextField)):
+                return compare.TextFieldComparison
+
         except FieldDoesNotExist:
             pass
 
@@ -527,7 +531,7 @@ class FieldPanel(EditHandler):
 
     def on_form_bound(self):
         self.bound_field = self.form[self.field_name]
-        self.heading = self.bound_field.label
+        self.heading = self.heading or self.bound_field.label
         self.help_text = self.bound_field.help_text
 
     def __repr__(self):
@@ -755,11 +759,34 @@ class PublishingPanel(MultiFieldPanel):
                     FieldPanel('expire_at'),
                 ], classname="label-above"),
             ],
-            'heading': ugettext_lazy('Scheduled publishing'),
+            'heading': gettext_lazy('Scheduled publishing'),
             'classname': 'publishing',
         }
         updated_kwargs.update(kwargs)
         super().__init__(**updated_kwargs)
+
+
+class PrivacyModalPanel(EditHandler):
+    def __init__(self, **kwargs):
+        updated_kwargs = {
+            'heading': gettext_lazy('Privacy'),
+            'classname': 'privacy'
+        }
+        updated_kwargs.update(kwargs)
+        super().__init__(**updated_kwargs)
+
+    def render(self):
+        content = render_to_string('wagtailadmin/pages/privacy_switch_panel.html', {
+            'self': self,
+            'page': self.instance,
+            'request': self.request
+        })
+
+        from wagtail.admin.staticfiles import versioned_static
+        return mark_safe('{0}<script type="text/javascript" src="{1}"></script>'.format(
+            content,
+            versioned_static('wagtailadmin/js/privacy-switch.js'))
+        )
 
 
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
@@ -773,11 +800,12 @@ Page.promote_panels = [
         FieldPanel('seo_title'),
         FieldPanel('show_in_menus'),
         FieldPanel('search_description'),
-    ], ugettext_lazy('Common page configuration')),
+    ], gettext_lazy('Common page configuration')),
 ]
 
 Page.settings_panels = [
-    PublishingPanel()
+    PublishingPanel(),
+    PrivacyModalPanel(),
 ]
 
 Page.base_form_class = WagtailAdminPageForm
@@ -797,13 +825,13 @@ def get_edit_handler(cls):
 
         if cls.content_panels:
             tabs.append(ObjectList(cls.content_panels,
-                                   heading=ugettext_lazy('Content')))
+                                   heading=gettext_lazy('Content')))
         if cls.promote_panels:
             tabs.append(ObjectList(cls.promote_panels,
-                                   heading=ugettext_lazy('Promote')))
+                                   heading=gettext_lazy('Promote')))
         if cls.settings_panels:
             tabs.append(ObjectList(cls.settings_panels,
-                                   heading=ugettext_lazy('Settings'),
+                                   heading=gettext_lazy('Settings'),
                                    classname='settings'))
 
         edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)

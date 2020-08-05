@@ -13,7 +13,7 @@ Dependencies needed for installation
 
 * `Python 3 <https://www.python.org/downloads/>`_
 * **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
-  See Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+  See Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 
 Quick install

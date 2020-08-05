@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
 {% block extra_js %}
     {{ block.super }}
@@ -24,7 +24,6 @@
 
             var selectAllCheckbox = document.getElementById('select-all');
             var deleteButton = document.getElementById('delete-submissions');
-            var selectedSubmissions = {};
 
             function updateActions() {
                 var submissionCheckboxes = $('input[type=checkbox].select-submission');
@@ -82,13 +81,14 @@
     </script>
 {% endblock %}
 {% block content %}
-    <header class="nice-padding" role="banner">
+    <header class="nice-padding">
         <form action="" method="get" novalidate>
             <div class="row">
                 <div class="left">
                     <div class="col header-title">
-                        <h1 class="icon icon-form">
-                        {% blocktrans with form_title=form_page.title|capfirst %}Form data <span>{{ form_title }}</span>{% endblocktrans %}
+                        <h1>
+                          {% icon name="form" class_name="header-title-icon" %}
+                          {% blocktrans with form_title=form_page.title|capfirst %}Form data <span>{{ form_title }}</span>{% endblocktrans %}
                         </h1>
                     </div>
                     <div class="col search-bar">
@@ -103,7 +103,13 @@
                     </div>
                 </div>
                 <div class="right">
-                   <button name="action" value="CSV" class="button bicolor icon icon-download">{% trans 'Download CSV' %}</button>
+                    <div class="dropdown dropdown-button match-width">
+                        <a href="?export=xlsx" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                        <ul>
+                            <li><a  class="button bicolor button--icon" href="?export=csv">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </form>

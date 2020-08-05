@@ -18,7 +18,6 @@ def sitemap(request, sitemaps=None, **kwargs):
 
 
 def prepare_sitemaps(request, sitemaps):
-    """Intialize the wagtail Sitemap by passing the request.site value. """
     initialised_sitemaps = {}
     for name, sitemap_cls in sitemaps.items():
         if inspect.isclass(sitemap_cls) and issubclass(sitemap_cls, Sitemap):

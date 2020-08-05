@@ -52,7 +52,7 @@ class TestImageListing(TestCase):
             self.assertEqual(image['meta']['type'], 'wagtailimages.Image')
 
             # Check detail url
-            self.assertEqual(image['meta']['detail_url'], 'http://localhost/api/v2beta/images/%d/' % image['id'])
+            self.assertEqual(image['meta']['detail_url'], 'http://localhost/api/main/images/%d/' % image['id'])
 
     #  FIELDS
 
@@ -380,7 +380,7 @@ class TestImageDetail(TestCase):
 
         # Check the meta detail_url
         self.assertIn('detail_url', content['meta'])
-        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/v2beta/images/5/')
+        self.assertEqual(content['meta']['detail_url'], 'http://localhost/api/main/images/5/')
 
         # Check the title field
         self.assertIn('title', content)
@@ -537,9 +537,9 @@ class TestImageCacheInvalidation(TestCase):
     def test_resave_image_purges(self, purge):
         get_image_model().objects.get(id=5).save()
 
-        purge.assert_any_call('http://api.example.com/api/v2beta/images/5/')
+        purge.assert_any_call('http://api.example.com/api/main/images/5/')
 
     def test_delete_image_purges(self, purge):
         get_image_model().objects.get(id=5).delete()
 
-        purge.assert_any_call('http://api.example.com/api/v2beta/images/5/')
+        purge.assert_any_call('http://api.example.com/api/main/images/5/')

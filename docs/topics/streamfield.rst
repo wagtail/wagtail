@@ -241,6 +241,9 @@ A dropdown select box for choosing from a list of choices. The following keyword
 ``validators``
   A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
 
+``widget``
+  The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
+
 ``ChoiceBlock`` can also be subclassed to produce a reusable block with the same list of choices everywhere it is used. For example, a block definition such as:
 
 .. code-block:: python
@@ -266,6 +269,32 @@ could be rewritten as a subclass of ChoiceBlock:
 
 
 ``StreamField`` definitions can then refer to ``DrinksChoiceBlock()`` in place of the full ``ChoiceBlock`` definition. Note that this only works when ``choices`` is a fixed list, not a callable.
+
+
+.. _streamfield_multiplechoiceblock:
+
+MultipleChoiceBlock
+~~~~~~~~~~~~~~~~~~~
+
+``wagtail.core.blocks.MultipleChoiceBlock``
+
+A multiple select box for choosing from a list of choices. The following keyword arguments are accepted:
+
+``choices``
+  A list of choices, in any format accepted by Django's :attr:`~django.db.models.Field.choices` parameter for model fields, or a callable returning such a list.
+
+``required`` (default: True)
+  If true, the field cannot be left blank.
+
+``help_text``
+  Help text to display alongside the field.
+
+``validators``
+  A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
+
+``widget``
+  The form widget to render the field with (see `Django Widgets <https://docs.djangoproject.com/en/stable/ref/forms/widgets/>`__).
+
 
 PageChooserBlock
 ~~~~~~~~~~~~~~~~
@@ -418,6 +447,28 @@ Any block type is valid as the sub-block type, including structural types:
         ('amount', blocks.CharBlock(required=False)),
     ])))
 
+To customise the class name of a ``ListBlock`` as it appears in the page editor, you can specify a ``form_classname`` attribute as a keyword argument to the ``ListBlock`` constructor:
+
+.. code-block:: python
+    :emphasize-lines: 4
+
+    ('ingredients_list', blocks.ListBlock(blocks.StructBlock([
+        ('ingredient', blocks.CharBlock()),
+        ('amount', blocks.CharBlock(required=False)),
+    ]), form_classname='ingredients-list'))
+
+Alternatively, you can add ``form_classname`` in a subclass's ``Meta``:
+
+.. code-block:: python
+    :emphasize-lines: 6
+
+    class IngredientsListBlock(blocks.ListBlock):
+        ingredient = blocks.CharBlock()
+        amount = blocks.CharBlock(required=False)
+
+        class Meta:
+            form_classname = 'ingredients-list'
+    
 
 StreamBlock
 ~~~~~~~~~~~
@@ -477,6 +528,27 @@ Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in 
 
 ``block_counts``
   Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
+
+``form_classname``
+  Customise the class name added to a ``StreamBlock`` form in the page editor.
+
+    .. code-block:: python
+        :emphasize-lines: 4
+
+        ('event_promotions', blocks.StreamBlock([
+            ('hashtag', blocks.CharBlock()),
+            ('post_date', blocks.DateBlock()),
+        ], form_classname='event-promotions'))
+
+    .. code-block:: python
+        :emphasize-lines: 6
+
+        class EventPromotionsBlock(blocks.StreamBlock):
+            hashtag = blocks.CharBlock()
+            post_date = blocks.DateBlock()
+
+            class Meta:
+                form_classname = 'event-promotions'
 
 
 .. _streamfield_personblock_example:

@@ -10,7 +10,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira <hello@lta.me>, 2018
+# Loic Teixeira, 2018,2020
 # nahuel, 2014
 # nahuel, 2014
 # pierre marfoure <pierre@onoffdesign.com>, 2016
@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-28 14:27+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -174,8 +174,14 @@ msgstr "Ajouter un groupe"
 msgid "Editing"
 msgstr "Modification"
 
+msgid "View users in this group"
+msgstr "Voir les utilisateurs dans ce groupe"
+
 msgid "Save"
 msgstr "Enregistrer"
+
+msgid "Permissions"
+msgstr "Permissions"
 
 msgid "Object permissions"
 msgstr "Permissions d'objets"
@@ -220,7 +226,7 @@ msgid ""
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
 "Il n'y a pas de groupe configuré. Pourquoi ne pas <a href="
-"\"%(wagtailusers_create_group_url)s\">en ajouter un</a> ?"
+"\"%(wagtailusers_create_group_url)s\">en ajouter un</a> ?"
 
 msgid "Delete user"
 msgstr "Supprimer l'utilisateur"
@@ -291,11 +297,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Le groupe %(group_name)s n'a pas d'utilisateur configuré. Pourquoi ne pas <a "
+"href=\"%(wagtailusers_add_url)s\">en ajouter</a> ?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
 "Il n'y a pas d'utilisateur configuré. Pourquoi ne pas <a href="
-"\"%(wagtailusers_create_url)s\">en ajouter</a> ?"
+"\"%(wagtailusers_add_url)s\">en ajouter</a> ?"
 
 msgid "Groups"
 msgstr "Groupes"

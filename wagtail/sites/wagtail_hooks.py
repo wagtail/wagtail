@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Permission
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
 from wagtail.core import hooks
@@ -24,7 +24,7 @@ class SitesMenuItem(MenuItem):
 @hooks.register('register_settings_menu_item')
 def register_sites_menu_item():
     return SitesMenuItem(_('Sites'), reverse('wagtailsites:index'),
-                         classnames='icon icon-site', order=602)
+                         icon_name='site', order=602)
 
 
 @hooks.register('register_permissions')

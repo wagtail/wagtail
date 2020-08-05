@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load static i18n %}
+{% load wagtailadmin_tags i18n %}
 {% block titletag %}
     {% if validlink %}
         {% trans "Set your new password" %}
@@ -12,7 +12,7 @@
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
 {% endblock %}
 
 {% block furniture %}

@@ -1,9 +1,12 @@
 from collections import OrderedDict
 
 import django.forms
-from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+from django.utils.html import conditional_escape
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.contrib.forms.utils import get_field_clean_name
 
 
 class BaseForm(django.forms.Form):
@@ -113,7 +116,10 @@ class FormBuilder:
     def get_field_options(self, field):
         options = {}
         options['label'] = field.label
-        options['help_text'] = field.help_text
+        if getattr(settings, 'WAGTAILFORMS_HELP_TEXT_ALLOW_HTML', False):
+            options['help_text'] = field.help_text
+        else:
+            options['help_text'] = conditional_escape(field.help_text)
         options['required'] = field.required
         options['initial'] = field.default_value
         return options
@@ -148,10 +154,12 @@ class WagtailAdminFormPageForm(WagtailAdminPageForm):
             for i, form in enumerate(_forms):
                 if 'label' in form.changed_data:
                     label = form.cleaned_data.get('label')
+                    clean_name = get_field_clean_name(label)
                     for idx, ff in enumerate(_forms):
                         # Exclude self
-                        if idx != i and label == ff.cleaned_data.get('label'):
+                        ff_clean_name = get_field_clean_name(ff.cleaned_data.get('label'))
+                        if idx != i and clean_name == ff_clean_name:
                             form.add_error(
                                 'label',
-                                django.forms.ValidationError(_('There is another field with the label %s, please change one of them.' % label))
+                                django.forms.ValidationError(_('There is another field with the label %s, please change one of them.') % label)
                             )

@@ -5,13 +5,15 @@
 # Translators:
 # Andrey Avdey <talkerbox@live.com>, 2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
+# sergeybe <sergeybe@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-04-21 16:37+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +23,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Управление моделями Wagtail"
 
 msgid "Parent page"
 msgstr "Родительская страница"
@@ -112,6 +117,9 @@ msgstr "Вернуться к списку"
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
+
 msgid "Home"
 msgstr "Главная"
 
@@ -130,6 +138,12 @@ msgstr "Искать"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Искать %(name)s"
+
+msgid "Download XLSX"
+msgstr "Скачать XLSX"
+
+msgid "Download CSV"
+msgstr "Скачать CSV"
 
 msgid "Filter"
 msgstr "Фильтр"
@@ -157,6 +171,9 @@ msgstr ""
 "                                                Почему бы не <a href="
 "\"%(url)s\">создать</a>?                                            "
 
+msgid "Pagination"
+msgstr "Паджинация"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Страница %(current_page)s из %(num_pages)s."
@@ -171,8 +188,9 @@ msgstr "Предыдущая"
 msgid "Next"
 msgstr "Следующая"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' создан."
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' создана."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -192,8 +210,9 @@ msgstr "Редактирование"
 msgid "Editing %s"
 msgstr "Редактирование %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' обновлен."
+#, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' обновлена"
 
 #, python-format
 msgid "The %s could not be saved due to errors."
@@ -211,8 +230,9 @@ msgstr ""
 "Вы уверены, что хотите удалить %s? Если другие объекты на вашем сайте "
 "связаны с удаляемым объектом, они тоже могут быть затронуты."
 
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' удален."
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' удалена."
 
 msgid "Inspecting"
 msgstr "Просмотр"

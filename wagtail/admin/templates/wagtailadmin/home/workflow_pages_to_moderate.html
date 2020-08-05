@@ -1,0 +1,92 @@
+{% load i18n wagtailadmin_tags %}
+{% if states %}
+<section class="object collapsible">
+    <h2 class="title-wrapper">{% trans 'Awaiting your review' %}</h2>
+        <div class="object-layout">
+            <table class="listing">
+                <col />
+                <col width="30%"/>
+                <col width="15%"/>
+                <thead>{# Note: the header is visually hidden behind .title-wrapper #}
+                    <tr>
+                        <th class="title">{% trans "Title" %}</th>
+                        <th>{% trans "Tasks" %}</th>
+                        <th>{% trans "Task started" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task_state, actions, workflow_tasks in states %}
+                        {% with task_state.page_revision as revision %}
+                        {% page_permissions revision.page as page_perms %}
+                        <tr>
+                            <td class="title" valign="top">
+                                <div class="title-wrapper">
+                                    {% if page_perms.can_edit %}
+                                        <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                    {% else %}
+                                        {{ revision.page.get_admin_display_title }}
+                                    {% endif %}
+
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}
+                                </div>
+                                {% if actions %}
+                                    <ul class="actions">
+                                        {% for action_name, action_label, modal in actions %}
+                                            <li>
+                                                <button class="button button-small button-secondary" data-workflow-action-url="{% url 'wagtailadmin_pages:workflow_action' revision.page.id action_name task_state.id %}" {% if modal %}data-launch-modal{% endif %}>{{ action_label }}</button>
+                                            </li>
+                                        {% endfor %}
+                                        {% if page_perms.can_edit %}
+                                            <li>
+                                                <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a>
+                                            </li>
+                                        {% endif %}
+                                        <li>
+                                            <a href="{% url 'wagtailadmin_pages:workflow_preview' revision.page.id task_state.task.id %}" class="button button-small button-secondary">{% trans 'Preview' %}</a>
+                                        </li>
+                                    </ul>
+                                {% endif %}
+                            </td>
+                            <td class="tasks" valign="top">
+                                {% for task in workflow_tasks %}
+                                    <span data-wagtail-tooltip="{{ task.name }}: {{ task.status_display }}">
+                                        {% if task.status == 'approved' %}
+                                            {% icon "success" title=task.status_display class_name="default" %}
+                                        {% elif task.status == 'rejected' %}
+                                            {% icon "error" title=task.status_display class_name="default" %}
+                                        {% else %}
+                                            {% icon "radio-empty" title=status_display class_name="default" %}
+                                        {% endif %}
+                                    </span>
+                                {% endfor %}
+                            </td>
+                            <td valign="top">
+                                <div class="human-readable-date" title="{{ task_state.started_at|date:"d M Y H:i" }}">{% blocktrans with time_period=task_state.started_at|timesince_simple %}{{ time_period }}{% endblocktrans %}</div>
+                            </td>
+                        </tr>
+                        {% endwith %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</section>
+
+    <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/workflow-action.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', ActivateWorkflowActionsForDashboard('{{ csrf_token|escapejs }}'));
+        /* Tooltips used by the workflow status component */
+        $(function() {
+            $('[data-wagtail-tooltip]').tooltip({
+                animation: false,
+                title: function() {
+                    return $(this).attr('data-wagtail-tooltip');
+                },
+                trigger: 'hover',
+                placement: 'bottom',
+            });
+        });
+    </script>
+{% endif %}

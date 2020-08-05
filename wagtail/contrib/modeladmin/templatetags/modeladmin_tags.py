@@ -7,10 +7,10 @@ from django.db import models
 from django.forms.utils import flatatt
 from django.template import Library
 from django.template.loader import get_template
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 register = Library()
 
@@ -59,7 +59,7 @@ def items_for_result(view, result):
                     models.DateField, models.TimeField, models.ForeignKey)
                 ):
                     row_classes.append('nowrap')
-        if force_text(result_repr) == '':
+        if force_str(result_repr) == '':
             result_repr = mark_safe('&nbsp;')
         row_classes.extend(
             modeladmin.get_extra_class_names_for_field_col(result, field_name)

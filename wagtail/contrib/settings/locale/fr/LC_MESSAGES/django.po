@@ -5,13 +5,14 @@
 # Translators:
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2016,2018
 # Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-05-07 14:23+0000\n"
-"Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-27 07:11+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +21,18 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "default"
+msgstr "défaut"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Modification de %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Modification"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Saving…"
 msgstr "Enregistrement…"
@@ -39,8 +46,9 @@ msgstr "Paramètres"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Ce paramètre ne peut être ouvert car aucun site n’est défini."
 
-msgid "{setting_type} updated."
-msgstr "{setting_type} mis à jour."
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "1 %(setting_type)s mis à jour."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Ce paramètre ne peut être enregistré du fait d’erreurs."

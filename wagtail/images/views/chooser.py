@@ -1,11 +1,14 @@
+from django.conf import settings
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
+from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
+from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.utils import PermissionPolicyChecker, popular_tags_for_model
+from wagtail.admin.models import popular_tags_for_model
 from wagtail.core import hooks
 from wagtail.core.models import Collection
 from wagtail.images import get_image_model
@@ -15,6 +18,8 @@ from wagtail.images.permissions import permission_policy
 from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
+
+CHOOSER_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_CHOOSER_PAGE_SIZE', 12)
 
 
 def get_chooser_js_data():
@@ -105,17 +110,17 @@ def chooser(request):
                 images = images.filter(tags__name=tag_name)
 
         # Pagination
-        paginator = Paginator(images, per_page=12)
+        paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
         images = paginator.get_page(request.GET.get('p'))
 
-        return render(request, "wagtailimages/chooser/results.html", {
+        return TemplateResponse(request, "wagtailimages/chooser/results.html", {
             'images': images,
             'is_searching': is_searching,
             'query_string': q,
             'will_select_format': request.GET.get('select_format')
         })
     else:
-        paginator = Paginator(images, per_page=12)
+        paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
         images = paginator.get_page(request.GET.get('p'))
 
         context = get_chooser_context(request)
@@ -186,7 +191,7 @@ def chooser_upload(request):
     for hook in hooks.get_hooks('construct_image_chooser_queryset'):
         images = hook(images, request)
 
-    paginator = Paginator(images, per_page=12)
+    paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
     images = paginator.get_page(request.GET.get('p'))
 
     context = get_chooser_context(request)

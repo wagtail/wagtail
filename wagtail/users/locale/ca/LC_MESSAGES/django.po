@@ -6,14 +6,14 @@
 # David Llop, 2014
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017
+# Roger Pons <rogerpons@gmail.com>, 2017,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-29 09:35+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Usuaris de Wagtail"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "Requerit. 30 caràcters o menys. Lletres, números i només @/./+/-/_."
@@ -70,6 +73,15 @@ msgstr "Ja existeix un grup amb aquest nom."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "No podeu tenir diversos registres de permisos per la mateixa pàgina."
 
+msgid "Preferred language"
+msgstr "Llengua preferida"
+
+msgid "Current time zone"
+msgstr "Zona horària actual"
+
+msgid "Upload a profile picture"
+msgstr "Carregar una imatge de perfil"
+
 msgid "submitted notifications"
 msgstr "notificacions enviades"
 
@@ -88,8 +100,26 @@ msgstr "notificacions rebutjades"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Rebre una notificació quan l'edició de la teva pàgina és rebutjada"
 
+msgid "preferred language"
+msgstr "llengua preferida"
+
+msgid "Select language for the admin"
+msgstr "Escolliu llengua per l'admin"
+
+msgid "current time zone"
+msgstr "zona horària actual"
+
+msgid "Select your current time zone"
+msgstr "Escolliu la vostra zona horària"
+
+msgid "profile picture"
+msgstr "Imatge de perfil"
+
 msgid "user profile"
 msgstr "perfil d'usuari"
+
+msgid "user profiles"
+msgstr "imatges de perfil"
 
 msgid "Delete group"
 msgstr "Eliminar grup"
@@ -135,8 +165,14 @@ msgstr "Afegir grup"
 msgid "Editing"
 msgstr "Editant"
 
+msgid "View users in this group"
+msgstr "Veure usuaris d'aquest grup"
+
 msgid "Save"
 msgstr "Desa"
+
+msgid "Permissions"
+msgstr "Permisos"
 
 msgid "Object permissions"
 msgstr "Permisos d'objecte"
@@ -209,6 +245,9 @@ msgstr "Nivell"
 msgid "Status"
 msgstr "Estat"
 
+msgid "Last Login"
+msgstr "Últim inici de sessió"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -219,16 +258,12 @@ msgid "Inactive"
 msgstr "Inactiu"
 
 #, python-format
-msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
-msgstr "Ho sentim, cap usuari coincideix amb \"<em>%(query_string)s</em>\""
+msgid "%(time_period)s ago"
+msgstr "Fa %(time_period)s"
 
 #, python-format
-msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
-"\">add some</a>?"
-msgstr ""
-"No hi han usuaris configurats. Per què no <a href="
-"\"%(wagtailusers_create_url)s\">afegeixes un</a>?"
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Ho sentim, cap usuari coincideix amb \"<em>%(query_string)s</em>\""
 
 msgid "Groups"
 msgstr "Grups"
@@ -259,6 +294,9 @@ msgstr "Editar"
 
 msgid "The user could not be created due to errors."
 msgstr "No s'ha pogut crear l'usuari degut a errors."
+
+msgid "User '{0}' updated."
+msgstr "Usuari '{0}' actualitzat."
 
 msgid "The user could not be saved due to errors."
 msgstr "No s'ha pogut desar l'usuari degut a errors."

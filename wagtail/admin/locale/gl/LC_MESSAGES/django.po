@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Publish"
+msgstr "Publicar"
 
 msgid "Submit for moderation"
 msgstr "Enviar para ser moderado"
@@ -30,11 +33,20 @@ msgstr "Non publicar"
 msgid "Delete"
 msgstr "Eliminar"
 
+msgid "Page locked"
+msgstr "Páxina bloqueada"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Síntoo, non tes permiso para acceder a esta área"
+
 msgid "You do not have permission to access the admin"
 msgstr "Non tes permisos para acceder ao administrador."
 
 msgid "Scheduled publishing"
 msgstr "Publicación programada"
+
+msgid "Privacy"
+msgstr "Privacidade"
 
 msgid "Common page configuration"
 msgstr "Configuración común de páxina"
@@ -48,6 +60,12 @@ msgstr "Promocionar"
 msgid "Settings"
 msgstr "Propiedades"
 
+msgid "Date"
+msgstr "Data"
+
+msgid "Title"
+msgstr "Título"
+
 msgid "Enter password"
 msgstr "Introduce contrasinal"
 
@@ -57,9 +75,6 @@ msgstr "Introduce o teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escribe a túa dirección de correo para restaurar o teu contrasinal"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
@@ -132,53 +147,8 @@ msgstr "Procurar termo"
 msgid "This field is required."
 msgstr "Este campo é requirido."
 
-msgid "Go to Wagtail admin"
-msgstr "Ir ao administrador de Wagtail"
-
-msgid "Account"
-msgstr "Conta"
-
-msgid "Update"
-msgstr "Actualizar"
-
-msgid "Change password"
-msgstr "Cambiar contrasinal"
-
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"O teu contrasinal non pode cambiarse aquí. Por favor, contacta co "
-"administrador."
-
-msgid "Notification preferences"
-msgstr "Preferencias de notificacións"
-
-msgid "Reset password"
-msgstr "Restablecer contrasinal"
-
-msgid "Password change successful"
-msgstr "Cambiouse o contrasinal correctamente"
-
-msgid "Login"
-msgstr "Login"
-
-msgid "Set your new password"
-msgstr "Establece o teu novo contrasinal"
-
-msgid "Check your email"
-msgstr "Revisa o teu correo electrónico"
-
-msgid "Please follow the link below to reset your password:"
-msgstr "Por favor, segue a seguinte ligazón para restablecer o contrasinal:"
-
-msgid "Your username (in case you've forgotten):"
-msgstr "O teu nome de usuario (no caso de que che esqueceses):"
-
-msgid "Password reset"
-msgstr "Restablecer contrasinal"
-
-msgid "Reset your password"
-msgstr "Restablecer o teu contrasinal"
+msgid "Edit"
+msgstr "Editar"
 
 msgid "Pages"
 msgstr "Páxinas"
@@ -240,14 +210,59 @@ msgstr "Ve"
 msgid "Sat"
 msgstr "Sa"
 
+msgid "Go to Wagtail admin"
+msgstr "Ir ao administrador de Wagtail"
+
+msgid "Account"
+msgstr "Conta"
+
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "Change password"
+msgstr "Cambiar contrasinal"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"O teu contrasinal non pode cambiarse aquí. Por favor, contacta co "
+"administrador."
+
+msgid "Notification preferences"
+msgstr "Preferencias de notificacións"
+
+msgid "Reset password"
+msgstr "Restablecer contrasinal"
+
+msgid "Password change successful"
+msgstr "Cambiouse o contrasinal correctamente"
+
+msgid "Login"
+msgstr "Login"
+
+msgid "Set your new password"
+msgstr "Establece o teu novo contrasinal"
+
+msgid "Check your email"
+msgstr "Revisa o teu correo electrónico"
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Por favor, segue a seguinte ligazón para restablecer o contrasinal:"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "O teu nome de usuario (no caso de que che esqueceses):"
+
+msgid "Password reset"
+msgstr "Restablecer contrasinal"
+
+msgid "Reset your password"
+msgstr "Restablecer o teu contrasinal"
+
 msgid "Dashboard"
 msgstr "Panel de control"
 
 msgid "Menu"
 msgstr "Menú"
-
-msgid "Add another"
-msgstr "Engadir outro"
 
 msgid "Move up"
 msgstr "Subir"
@@ -310,9 +325,6 @@ msgstr "Podes editar a configuración de privacidade en:"
 msgid "Save"
 msgstr "Gardar"
 
-msgid "Privacy"
-msgstr "Privacidade"
-
 msgid "Public"
 msgstr "Público"
 
@@ -349,11 +361,17 @@ msgstr ""
 "Este é o teu panel de control onde aparecerá información útil sobre o "
 "contido que creaches."
 
+msgid "Edit this page"
+msgstr "Editar esta páxina"
+
+msgid "Draft"
+msgstr "Borrador"
+
+msgid "Live"
+msgstr "En vivo"
+
 msgid "Pages awaiting moderation"
 msgstr "Páxinas en espera de ser moderadas"
-
-msgid "Title"
-msgstr "Título"
 
 msgid "Parent"
 msgstr "Padre"
@@ -364,17 +382,11 @@ msgstr "Tipo"
 msgid "Edited"
 msgstr "Editado"
 
-msgid "Edit this page"
-msgstr "Editar esta páxina"
-
 msgid "Approve"
 msgstr "Aprobar"
 
 msgid "Reject"
 msgstr "Rexeitar"
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "Preview"
 msgstr "Previsualizar"
@@ -382,17 +394,8 @@ msgstr "Previsualizar"
 msgid "Your most recent edits"
 msgstr "As túas edicións máis recentes"
 
-msgid "Date"
-msgstr "Data"
-
 msgid "Status"
 msgstr "Estado"
-
-msgid "Draft"
-msgstr "Borrador"
-
-msgid "Live"
-msgstr "En vivo"
 
 msgid "Site summary"
 msgstr "Resumo do sitio"
@@ -462,20 +465,11 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Os cambios de privacidade aplícanse a todas as fillas desta páxina tamén."
 
-msgid "Edit lock"
-msgstr "Editar bloqueo"
+msgid "Replace current draft"
+msgstr "Substituír borrador actual"
 
-msgid "Locked"
-msgstr "Bloqueada"
-
-msgid "Unlocked"
-msgstr "Desbloqueada"
-
-msgid "Publish this revision"
-msgstr "Publicar esta revisión"
-
-msgid "Publish"
-msgstr "Publicar"
+msgid "Save draft"
+msgstr "Gardar borrador"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -570,9 +564,6 @@ msgstr "Nova %(page_type)s"
 msgid "New"
 msgstr "Nova"
 
-msgid "Save draft"
-msgstr "Gardar borrador"
-
 msgid "This page has unsaved changes."
 msgstr "Esta páxina ten cambios sen gardar."
 
@@ -580,26 +571,8 @@ msgstr "Esta páxina ten cambios sen gardar."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Editando %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Editando %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "Páxina bloqueada"
-
-msgid "Replace current draft"
-msgstr "Substituír borrador actual"
-
-#, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Última modificación: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "por %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revisións"
+msgid "Current draft"
+msgstr "Borrador actual"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -750,12 +723,6 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "Por"
 
-msgid "Current draft"
-msgstr "Borrador actual"
-
-msgid "Review this revision"
-msgstr "Revisar esta revisión"
-
 msgid "No revisions of this page exist"
 msgstr "Non existen revisións desta páxina"
 
@@ -780,10 +747,6 @@ msgstr[1] ""
 "                Hai %(counter)s páxinas coincidentes\n"
 "            "
 
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Sentímolo, ningunha páxina contén <em>\"%(query_string)s\"</em>"
-
 msgid "Enter a search term above"
 msgstr "Introduce o termo de procura arriba"
 
@@ -792,6 +755,9 @@ msgstr "Non hay uso de páxinas"
 
 msgid "Collection"
 msgstr "Colección"
+
+msgid "Locked"
+msgstr "Bloqueada"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -812,15 +778,6 @@ msgstr "Cerrar sesión"
 msgid "Other searches"
 msgstr "Outras procuras"
 
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Estás a usar un navegador <strong>anticuado</strong> non soportado por este "
-"software. Por favor, <a href=\"http://browsehappy.com/\">actualiza o teu "
-"navegador</a>."
-
 msgid "Go to Wagtail admin interface"
 msgstr "Ir á interfaz de administrador de Wagtail"
 
@@ -830,11 +787,12 @@ msgstr "Engadir unha páxina filla"
 msgid "Show in Explorer"
 msgstr "Mostrar no Navegador"
 
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "por %(modified_by)s"
+
 msgid "Test"
 msgstr "Test"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Síntoo, non tes permiso para acceder a esta área"
 
 msgid "Your password has been changed successfully!"
 msgstr "¡O teu contrasinal foi cambiado correctamente!"
@@ -881,14 +839,11 @@ msgstr "Ver en vivo"
 msgid "Page '{0}' created and published."
 msgstr "Páxina '{0}' creada e publicada."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Páxina '{0}' creada e enviada para ser moderada."
-
 msgid "View draft"
 msgstr "Ver borrador"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Fallo no envío de notificacións aos moderadores"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Páxina '{0}' creada e enviada para ser moderada."
 
 msgid "Page '{0}' created."
 msgstr "Páxina '{0}' creada."
@@ -896,23 +851,17 @@ msgstr "Páxina '{0}' creada."
 msgid "The page could not be created due to validation errors"
 msgstr "A páxina non pudo ser creada debido a errores de validación"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Revisión dende {0} de páxina '{1}' foi programada para publicación."
+msgid "This page is currently awaiting moderation"
+msgstr "A páxina está á espera de ser moderada"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Páxina '{0}' foi programada para publicación."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Revisión dende {0} de páxina '{1}' foi publicada."
 
 msgid "Page '{0}' has been published."
 msgstr "Páxina '{0}' foi publicada."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Páxina '{0}' foi enviada para ser moderada."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Páxina '{0}' foi reemplazada con revisión dende {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Páxina '{0}' foi actualizada."
@@ -922,9 +871,6 @@ msgstr "A páxina non pudo ser gardada xa que está bloqueada"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "A páxina non puido ser gardada debido a erros de validación"
-
-msgid "This page is currently awaiting moderation"
-msgstr "A páxina está á espera de ser moderada"
 
 msgid "Page '{0}' deleted."
 msgstr "Páxina '{0}' eliminada."
@@ -956,19 +902,8 @@ msgstr "Rexeitada a publicación da página '{0}'."
 msgid "Failed to send rejection notifications"
 msgstr "Fallo ao enviar notificacións de rexeitamento"
 
-msgid "Page '{0}' is now locked."
-msgstr "Páxina '{0}' está agora bloqueada."
-
 msgid "Page '{0}' is now unlocked."
 msgstr "A páxina '{0}' está agora desbloqueada."
-
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Estás a ver unha revisión previa desta páxina dende <b>%(created_at)s</b> "
-"por %(user)s"
 
 msgid "More"
 msgstr "Máis"

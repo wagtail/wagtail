@@ -17,10 +17,9 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close u-hidden"
+    className="c-explorer__close"
     dialogTrigger={false}
     href="#"
-    icon=""
     isLoading={false}
     onClick={[MockFunction]}
     preventDefault={true}
@@ -96,10 +95,9 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close u-hidden"
+    className="c-explorer__close"
     dialogTrigger={false}
     href="#"
-    icon=""
     isLoading={false}
     onClick={[MockFunction]}
     preventDefault={true}
@@ -165,10 +163,9 @@ exports[`ExplorerPanel general rendering #items 1`] = `
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close u-hidden"
+    className="c-explorer__close"
     dialogTrigger={false}
     href="#"
-    icon=""
     isLoading={false}
     onClick={[MockFunction]}
     preventDefault={true}
@@ -259,10 +256,9 @@ exports[`ExplorerPanel general rendering no children 1`] = `
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close u-hidden"
+    className="c-explorer__close"
     dialogTrigger={false}
     href="#"
-    icon=""
     isLoading={false}
     onClick={[MockFunction]}
     preventDefault={true}
@@ -322,10 +318,9 @@ exports[`ExplorerPanel general rendering renders 1`] = `
 >
   <Button
     accessibleLabel={null}
-    className="c-explorer__close u-hidden"
+    className="c-explorer__close"
     dialogTrigger={false}
     href="#"
-    icon=""
     isLoading={false}
     onClick={[MockFunction]}
     preventDefault={true}

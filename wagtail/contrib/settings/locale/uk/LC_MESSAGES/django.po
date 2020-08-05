@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ivan Tyshchenko <iv.tihon@gmail.com>, 2020
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
 # Николай Инкогнито <mmmsvit@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-06-14 21:56+0000\n"
-"Last-Translator: Николай Инкогнито <mmmsvit@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-30 18:47+0000\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -24,12 +26,18 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
+msgid "default"
+msgstr "за замовчуванням"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Редагування %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Редагування"
+
+msgid "Site"
+msgstr "Сайт"
 
 msgid "Saving…"
 msgstr "Йде зберігання..."
@@ -43,8 +51,9 @@ msgstr "Налаштування"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Налаштування не буде відчинене тому, що не призначено сайт."
 
-msgid "{setting_type} updated."
-msgstr "{setting_type} оновлено."
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)sоновлено."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Неможливо зберегти налаштування через помилки."

@@ -1,4 +1,5 @@
 import posixpath
+import warnings
 from collections import defaultdict
 
 from django.apps import apps
@@ -15,6 +16,12 @@ class TreeQuerySet(MP_NodeQuerySet):
     """
     Extends Treebeard's MP_NodeQuerySet with additional useful tree-related operations.
     """
+    def delete(self):
+        """Redefine the delete method unbound, so we can set the queryset_only parameter. """
+        super().delete()
+
+    delete.queryset_only = True
+
     def descendant_of_q(self, other, inclusive=False):
         q = Q(path__startswith=other.path) & Q(depth__gte=other.depth)
 
@@ -214,7 +221,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         from wagtail.core.models import PageViewRestriction
 
         q = Q()
-        for restriction in PageViewRestriction.objects.all():
+        for restriction in PageViewRestriction.objects.select_related('page').all():
             q &= ~self.descendant_of_q(restriction.page, inclusive=True)
         return q
 
@@ -367,7 +374,18 @@ def specific_iterator(qs, defer=False):
 
     This should be called from ``PageQuerySet.specific``
     """
-    pks_and_types = qs.values_list('pk', 'content_type')
+    from wagtail.core.models import Page
+
+    annotation_aliases = qs.query.annotations.keys()
+    values = qs.values('pk', 'content_type', *annotation_aliases)
+
+    annotations_by_pk = defaultdict(list)
+    if annotation_aliases:
+        # Extract annotation results keyed by pk so we can reapply to fetched pages.
+        for data in values:
+            annotations_by_pk[data['pk']] = {k: v for k, v in data.items() if k in annotation_aliases}
+
+    pks_and_types = [[v['pk'], v['content_type']] for v in values]
     pks_by_type = defaultdict(list)
     for pk, content_type in pks_and_types:
         pks_by_type[content_type].append(pk)
@@ -378,6 +396,8 @@ def specific_iterator(qs, defer=False):
 
     # Get the specific instances of all pages, one model class at a time.
     pages_by_type = {}
+    missing_pks = []
+
     for content_type, pks in pks_by_type.items():
         # look up model class for this content type, falling back on the original
         # model (i.e. Page) if the more specific one is missing
@@ -386,15 +406,40 @@ def specific_iterator(qs, defer=False):
 
         if defer:
             # Defer all specific fields
-            from wagtail.core.models import Page
             fields = [field.attname for field in Page._meta.get_fields() if field.concrete]
             pages = pages.only(*fields)
 
-        pages_by_type[content_type] = {page.pk: page for page in pages}
+        pages_for_type = {page.pk: page for page in pages}
+        pages_by_type[content_type] = pages_for_type
+        missing_pks.extend(
+            pk for pk in pks if pk not in pages_for_type
+        )
 
-    # Yield all of the pages, in the order they occurred in the original query.
+    # Fetch generic pages to supplement missing items
+    if missing_pks:
+        generic_pages = Page.objects.filter(pk__in=missing_pks).select_related('content_type').in_bulk()
+        warnings.warn(
+            "Specific versions of the following pages could not be found. "
+            "This is most likely because a database migration has removed "
+            "the relevant table or record since the page was created:\n{}".format([
+                {'id': p.id, 'title': p.title, 'type': p.content_type}
+                for p in generic_pages.values()
+            ]), category=RuntimeWarning
+        )
+    else:
+        generic_pages = {}
+
+    # Yield all pages in the order they occurred in the original query.
     for pk, content_type in pks_and_types:
-        yield pages_by_type[content_type][pk]
+        try:
+            page = pages_by_type[content_type][pk]
+        except KeyError:
+            page = generic_pages[pk]
+        if annotation_aliases:
+            # Reapply annotations before returning
+            for annotation, value in annotations_by_pk.get(page.pk, {}).items():
+                setattr(page, annotation, value)
+        yield page
 
 
 class SpecificIterable(BaseIterable):

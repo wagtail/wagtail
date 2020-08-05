@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Publish"
+msgstr "Publikuoti"
+
 msgid "Submit for moderation"
 msgstr "Pateikti moderavimui"
 
@@ -30,14 +33,23 @@ msgstr "Nebepublikuoti"
 msgid "Delete"
 msgstr "Ištrinti"
 
-msgid "None"
-msgstr "Joks"
+msgid "Page locked"
+msgstr "Puslapis užrakintas"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Atsiprašome, jūs neturite leidimo pasiekti šios zonos."
 
 msgid "You do not have permission to access the admin"
 msgstr "Jūs neturite leidimo pasiekti administravimo sąsajos"
 
+msgid "None"
+msgstr "Joks"
+
 msgid "Scheduled publishing"
 msgstr "Planuotas publikavimas"
+
+msgid "Privacy"
+msgstr "Privatumas"
 
 msgid "Common page configuration"
 msgstr "Bendra puslapio konfigūracija"
@@ -51,6 +63,12 @@ msgstr "Skelbti"
 msgid "Settings"
 msgstr "Nustatymai"
 
+msgid "Date"
+msgstr "Data"
+
+msgid "Title"
+msgstr "Pavadinimas"
+
 msgid "Enter password"
 msgstr "Įveskite slaptažodį"
 
@@ -61,9 +79,6 @@ msgstr "Įveskite savo %s"
 msgid "Enter your email address to reset your password"
 msgstr ""
 "Įveskite savo elektroninio pašto adresą kad atstatytumėte savo slaptažodį"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
@@ -159,6 +174,177 @@ msgstr "Šis laukas yra privalomas."
 msgid "Please select at least one group."
 msgstr "Prašome pasirinkti bent vieną grupę."
 
+msgid "Catalan"
+msgstr "Katalonų"
+
+msgid "German"
+msgstr "Vokiečių"
+
+msgid "Greek"
+msgstr "Graikų"
+
+msgid "English"
+msgstr "Anglų"
+
+msgid "Spanish"
+msgstr "Ispanų"
+
+msgid "Finnish"
+msgstr "Suomių"
+
+msgid "French"
+msgstr "Prancūzų"
+
+msgid "Galician"
+msgstr "Galisų"
+
+msgid "Icelandic"
+msgstr "Islandų"
+
+msgid "Italian"
+msgstr "Italų"
+
+msgid "Korean"
+msgstr "Korėjiečių"
+
+msgid "Lithuanian"
+msgstr "Lietuvių"
+
+msgid "Norwegian Bokmål"
+msgstr "Norvegų Bokmål"
+
+msgid "Netherlands Dutch"
+msgstr "Nyderlandų olandų"
+
+msgid "Persian"
+msgstr "Persų"
+
+msgid "Polish"
+msgstr "Lenkų"
+
+msgid "Brazilian Portuguese"
+msgstr "Brazilų portugalų"
+
+msgid "Portuguese"
+msgstr "Portugalų"
+
+msgid "Romanian"
+msgstr "Rumunų"
+
+msgid "Russian"
+msgstr "Rusų"
+
+msgid "Swedish"
+msgstr "Švedų"
+
+msgid "Slovak"
+msgstr "Slovakų"
+
+msgid "Edit"
+msgstr "Redaguoti"
+
+msgid "Page"
+msgstr "Puslapis"
+
+msgid "Pages"
+msgstr "Puslapiai"
+
+msgid "Loading…"
+msgstr "Kraunama..."
+
+msgid "No results"
+msgstr "Nėra rezultatų"
+
+msgid "Server Error"
+msgstr "Serverio klaida"
+
+msgid "See all"
+msgstr "Žiūrėti viską"
+
+msgid "Close explorer"
+msgstr "Uždaryti naršyklę"
+
+msgid "Alt text"
+msgstr "Alternatyvus tekstas"
+
+msgid "Write here…"
+msgstr "Rašyti čia..."
+
+msgid "Horizontal line"
+msgstr "Horizontali linija"
+
+msgid "Line break"
+msgstr "Lūžis"
+
+msgid "Undo"
+msgstr "Anuliuoti"
+
+msgid "Redo"
+msgstr "Atgrąžinti"
+
+msgid "Close"
+msgstr "Uždaryti"
+
+msgid "Edit '{title}'"
+msgstr "Redaguoti '{title}'"
+
+msgid "January"
+msgstr "Sausis"
+
+msgid "February"
+msgstr "Vasaris"
+
+msgid "March"
+msgstr "Kovas"
+
+msgid "April"
+msgstr "Balandis"
+
+msgid "May"
+msgstr "Gegužė"
+
+msgid "June"
+msgstr "Birželis"
+
+msgid "July"
+msgstr "Liepa"
+
+msgid "August"
+msgstr "Rugpjūtis"
+
+msgid "September"
+msgstr "Rugsėjis"
+
+msgid "October"
+msgstr "Spalis"
+
+msgid "November"
+msgstr "Lapkritis"
+
+msgid "December"
+msgstr "Gruodis"
+
+msgid "Sun"
+msgstr "Sek"
+
+msgid "Mon"
+msgstr "Pir"
+
+msgid "Tue"
+msgstr "Antr"
+
+msgid "Wed"
+msgstr "Tre"
+
+msgid "Thu"
+msgstr "Ketv"
+
+msgid "Fri"
+msgstr "Pen"
+
+msgid "Sat"
+msgstr "Šeš"
+
 msgid "Error 404: Page not found"
 msgstr "Klaida 404: Puslapis nerastas"
 
@@ -219,113 +405,11 @@ msgstr "Slaptažodžio atstatymas"
 msgid "Reset your password"
 msgstr "Atstatyti savo slaptažodį"
 
-msgid "Page"
-msgstr "Puslapis"
-
-msgid "Pages"
-msgstr "Puslapiai"
-
-msgid "Loading…"
-msgstr "Kraunama..."
-
-msgid "No results"
-msgstr "Nėra rezultatų"
-
-msgid "Server Error"
-msgstr "Serverio klaida"
-
-msgid "See all"
-msgstr "Žiūrėti viską"
-
-msgid "Close explorer"
-msgstr "Uždaryti naršyklę"
-
-msgid "Alt text"
-msgstr "Alternatyvus tekstas"
-
-msgid "Write here…"
-msgstr "Rašyti čia..."
-
-msgid "Horizontal line"
-msgstr "Horizontali linija"
-
-msgid "Line break"
-msgstr "Lūžis"
-
-msgid "Undo"
-msgstr "Anuliuoti"
-
-msgid "Redo"
-msgstr "Atgrąžinti"
-
-msgid "Close"
-msgstr "Uždaryti"
-
-msgid "January"
-msgstr "Sausis"
-
-msgid "February"
-msgstr "Vasaris"
-
-msgid "March"
-msgstr "Kovas"
-
-msgid "April"
-msgstr "Balandis"
-
-msgid "May"
-msgstr "Gegužė"
-
-msgid "June"
-msgstr "Birželis"
-
-msgid "July"
-msgstr "Liepa"
-
-msgid "August"
-msgstr "Rugpjūtis"
-
-msgid "September"
-msgstr "Rugsėjis"
-
-msgid "October"
-msgstr "Spalis"
-
-msgid "November"
-msgstr "Lapkritis"
-
-msgid "December"
-msgstr "Gruodis"
-
-msgid "Sun"
-msgstr "Sek"
-
-msgid "Mon"
-msgstr "Pir"
-
-msgid "Tue"
-msgstr "Antr"
-
-msgid "Wed"
-msgstr "Tre"
-
-msgid "Thu"
-msgstr "Ketv"
-
-msgid "Fri"
-msgstr "Pen"
-
-msgid "Sat"
-msgstr "Šeš"
-
 msgid "Dashboard"
 msgstr "Prietaisų skydas"
 
 msgid "Menu"
 msgstr "Meniu"
-
-msgid "Add another"
-msgstr "Pridėti kitą"
 
 msgid "Move up"
 msgstr "Perkelti aukštyn"
@@ -406,9 +490,6 @@ msgstr ""
 msgid "Save"
 msgstr "Išsaugoti"
 
-msgid "Privacy"
-msgstr "Privatumas"
-
 msgid "Public"
 msgstr "Viešas"
 
@@ -448,11 +529,17 @@ msgstr ""
 "Tai yra jūsų valdymo pultas kuriame bus atvaizduojama naudinga informacija "
 "apie jūsų sukurtą turinį."
 
+msgid "Edit this page"
+msgstr "Redaguoti šį puslapį"
+
+msgid "Draft"
+msgstr "Juodraštis"
+
+msgid "Live"
+msgstr "Veikiantis"
+
 msgid "Pages awaiting moderation"
 msgstr "Puslapiai laukiantys moderacijos"
-
-msgid "Title"
-msgstr "Pavadinimas"
 
 msgid "Parent"
 msgstr "Tėvas"
@@ -463,39 +550,20 @@ msgstr "Tipas"
 msgid "Edited"
 msgstr "Redaguotas"
 
-msgid "Edit this page"
-msgstr "Redaguoti šį puslapį"
-
 msgid "Approve"
 msgstr "Patvirtinti"
 
 msgid "Reject"
 msgstr "Atmesti"
 
-msgid "Edit"
-msgstr "Redaguoti"
-
 msgid "Preview"
 msgstr "Peržiūrėti"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "prieš %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Jūsų paskutiniai redagavimai"
 
-msgid "Date"
-msgstr "Data"
-
 msgid "Status"
 msgstr "Statusas"
-
-msgid "Draft"
-msgstr "Juodraštis"
-
-msgid "Live"
-msgstr "Veikiantis"
 
 msgid "Site summary"
 msgstr "Tinklalapio suvestinė"
@@ -510,11 +578,11 @@ msgstr "Jūsų %(username_field)s ir slaptažodis nesutapo. Bandykite dar kartą
 msgid "Sign in to Wagtail"
 msgstr "Prisijungti prie Wagtail"
 
-msgid "Forgotten it?"
-msgstr "Pamiršote?"
-
 msgid "Signing in…"
 msgstr "Prisijungiama..."
+
+msgid "Forgotten it?"
+msgstr "Pamiršote?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -565,23 +633,17 @@ msgstr "Šis puslapis buvo padarytas privačiu pagal tėvinį puslapį."
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Privatumo pakeitimai pritaikomi ir visiems vidiniams puslapiams."
 
-msgid "Edit lock"
-msgstr "Redaguoti užraktą"
-
-msgid "Locked"
-msgstr "Užrakinta"
-
-msgid "Unlocked"
-msgstr "Atrakinta"
-
 msgid "Publishing…"
 msgstr "Publikuojama..."
 
-msgid "Publish this revision"
-msgstr "Publikuoti šia reviziją"
+msgid "Saving…"
+msgstr "Saugoma..."
 
-msgid "Publish"
-msgstr "Publikuoti"
+msgid "Replace current draft"
+msgstr "Pakeisti dabartinį juodraštį"
+
+msgid "Save draft"
+msgstr "Išsaugoti juodraštį"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -728,12 +790,6 @@ msgstr "Naujas %(page_type)s"
 msgid "New"
 msgstr "Naujas"
 
-msgid "Saving…"
-msgstr "Saugoma..."
-
-msgid "Save draft"
-msgstr "Išsaugoti juodraštį"
-
 msgid "This page has unsaved changes."
 msgstr "Šis puslapis turi neišsaugotų pakeitimų."
 
@@ -741,26 +797,15 @@ msgstr "Šis puslapis turi neišsaugotų pakeitimų."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Redaguojamas %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Redaguojamas %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Publikuota versija"
 
-msgid "Page locked"
-msgstr "Puslapis užrakintas"
-
-msgid "Replace current draft"
-msgstr "Pakeisti dabartinį juodraštį"
+msgid "Current draft"
+msgstr "Dabartinis juodraštis"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Paskutinį kartą keistas: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "pagal %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revizijos"
+msgid "%(time_period)s ago"
+msgstr "prieš %(time_period)s"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -908,15 +953,15 @@ msgstr ""
 "klaidas,\n"
 "ir tik tada bandyti peržiūrėti puslapį dar karta."
 
+msgid "Cancel scheduled publish"
+msgstr "Atšaukti suplanuotą publikavimą"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Lyginami %(title)s"
 
 msgid "Comparing"
 msgstr "Palyginama"
-
-msgid "View revisions"
-msgstr "Peržiūrėti revizijas"
 
 msgid "Fields"
 msgstr "Laukai"
@@ -972,9 +1017,6 @@ msgstr[3] ""
 "\n"
 "Perkelta %(counter)s vietų aukštyn."
 
-msgid "There are no differences between these two revisions"
-msgstr "Nėra jokių skirtumų tarp šių dviejų revizijų"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Neplanuoti revizijos %(revision.id)s %(title)s"
@@ -1005,23 +1047,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "pagal"
 
-msgid "Current draft"
-msgstr "Dabartinis juodraštis"
-
-msgid "Live version"
-msgstr "Publikuota versija"
-
 msgid "Scheduled for"
 msgstr "Planuoti"
-
-msgid "Review this revision"
-msgstr "Peržiūrėti šią reviziją"
-
-msgid "Compare with previous revision"
-msgstr "Palyginti su buvusiomis revizijomis"
-
-msgid "Cancel scheduled publish"
-msgstr "Atšaukti suplanuotą publikavimą"
 
 msgid "No revisions of this page exist"
 msgstr "Jokios šio puslapio revizijos neegzistuoja"
@@ -1051,10 +1078,6 @@ msgstr[3] ""
 "\n"
 " Yra %(counter)s atitinkančių puslapių"
 
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Atsiprašome, jokie puslapiai neatitiko <em>\"%(query_string)s\"</em>"
-
 msgid "Enter a search term above"
 msgstr "Aukščiau įveskite paieškos frazę"
 
@@ -1063,6 +1086,9 @@ msgstr "Jokie puslapiai nenaudoja"
 
 msgid "Collection"
 msgstr "Kolekcija"
+
+msgid "Locked"
+msgstr "Užrakinta"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1089,15 +1115,6 @@ msgstr "Atsijungti"
 msgid "Other searches"
 msgstr "Kitos paieškos"
 
-msgid ""
-"You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
-"a>."
-msgstr ""
-"Jūs naudojate <strong>pasenusią</strong> naršyklę, kuri yra nepalaikoma "
-"programinės įrangos. Prašome <a href=\"http://browsehappy.com/\">atnaujinti "
-"naršyklę</a>."
-
 msgid "Go to Wagtail admin interface"
 msgstr "Eiti į Wagtail administravimo sąsają."
 
@@ -1107,77 +1124,15 @@ msgstr "Pridėti vidinį puslapį"
 msgid "Show in Explorer"
 msgstr "Rodyti naršyklėje"
 
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "pagal %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Palyginti su veikiančia versija"
+
 msgid "Test"
 msgstr "Testas"
-
-msgid "Catalan"
-msgstr "Katalonų"
-
-msgid "German"
-msgstr "Vokiečių"
-
-msgid "Greek"
-msgstr "Graikų"
-
-msgid "English"
-msgstr "Anglų"
-
-msgid "Spanish"
-msgstr "Ispanų"
-
-msgid "Finnish"
-msgstr "Suomių"
-
-msgid "French"
-msgstr "Prancūzų"
-
-msgid "Galician"
-msgstr "Galisų"
-
-msgid "Icelandic"
-msgstr "Islandų"
-
-msgid "Italian"
-msgstr "Italų"
-
-msgid "Korean"
-msgstr "Korėjiečių"
-
-msgid "Lithuanian"
-msgstr "Lietuvių"
-
-msgid "Norwegian Bokmål"
-msgstr "Norvegų Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Nyderlandų olandų"
-
-msgid "Persian"
-msgstr "Persų"
-
-msgid "Polish"
-msgstr "Lenkų"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilų portugalų"
-
-msgid "Portuguese"
-msgstr "Portugalų"
-
-msgid "Romanian"
-msgstr "Rumunų"
-
-msgid "Russian"
-msgstr "Rusų"
-
-msgid "Swedish"
-msgstr "Švedų"
-
-msgid "Slovak"
-msgstr "Slovakų"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Atsiprašome, jūs neturite leidimo pasiekti šios zonos."
 
 msgid "Your password has been changed successfully!"
 msgstr "Jūsų slaptažodis buvo sėkmingai atnaujintas!"
@@ -1227,14 +1182,11 @@ msgstr "Žiūrėti veikiantį"
 msgid "Page '{0}' created and published."
 msgstr "Puslapis '{0}' sukurtas ir publikuotas."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Puslapis '{0}' sukurtas ir pateiktas moderavimui."
-
 msgid "View draft"
 msgstr "Žiūrėti juodraštį"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Nepavyko nusiųsti pranešimų moderatoriams"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Puslapis '{0}' sukurtas ir pateiktas moderavimui."
 
 msgid "Page '{0}' created."
 msgstr "Puslapis '{0}' sukurtas."
@@ -1242,27 +1194,17 @@ msgstr "Puslapis '{0}' sukurtas."
 msgid "The page could not be created due to validation errors"
 msgstr "Puslapis negalėjo būti sukurtas dėl validavimo klaidų"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Puslapio '{1}' revizija iš {0} buvo suplanuota publikavimui."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr ""
-"Puslapis '{0}' yra veikiantis ir ši revizija buvo suplanuota publikavimui."
+msgid "This page is currently awaiting moderation"
+msgstr "Šis puslapis laukia moderavimo"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Puslapis '{0}' buvo suplanuotas publikavimui."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Puslapio '{1}' revizija iš {0} buvo publikuota."
 
 msgid "Page '{0}' has been published."
 msgstr "Puslapis '{0}' buvo publikuotas."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Puslapis '{0}' buvo pateiktas moderavimui."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Puslapis '{0}' buvo pakeistas į reviziją iš {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Puslapis '{0}' buvo atnaujintas."
@@ -1272,12 +1214,6 @@ msgstr "Puslapis negalėjo būti išsaugotas nes yra užrakintas"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Puslapis negalėjo būti išsaugotas dėl validavimo klaidų"
-
-msgid "Compare with live version"
-msgstr "Palyginti su veikiančia versija"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Šis puslapis laukia moderavimo"
 
 msgid "Page '{0}' deleted."
 msgstr "Puslapis '{0}' ištrintas."
@@ -1309,19 +1245,8 @@ msgstr "Puslapis '{0}' publikavimui atmestas."
 msgid "Failed to send rejection notifications"
 msgstr "Nepavyko nusiųsti atmetimo pranešimų"
 
-msgid "Page '{0}' is now locked."
-msgstr "Puslapis '{0}' dabar užrakintas."
-
 msgid "Page '{0}' is now unlocked."
 msgstr "Puslapis '{0}' dabar atrakintas."
-
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Jūs žiūrite buvusią šio puslapio revizija iš <b>%(created_at)s</b> pagal "
-"%(user)s"
 
 msgid "Earliest"
 msgstr "Naujausias"
@@ -1332,41 +1257,8 @@ msgstr "Vėliausias"
 msgid "revision {0} of \"{1}\""
 msgstr "revizija {0} iš \"{1}\""
 
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Revizija {0} iš \"{1}\" neplanuojama."
-
-msgid "Edit '{title}'"
-msgstr "Redaguoti '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "Peržiūrėti '{title}' juodraščio versiją"
-
-msgid "View live version of '{title}'"
-msgstr "Peržiūrėti veikiančią '{title}' versiją"
-
-msgid "Add a child page to '{title}' "
-msgstr "Pridėti vidinį puslapį į '{title}'"
-
 msgid "More"
 msgstr "Daugiau"
-
-msgid "View more options for '{title}'"
-msgstr "Peržiūrėti daugiau '{title}' nustatymų"
-
-msgid "Move page '{title}'"
-msgstr "Perkelti puslapį '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "Kopijuoti puslapį '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "Ištrinti psualpį '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "Nebepublikuoti puslapio '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "Peržiūrėti '{title}' revizijų istoriją "
 
 msgid "Change the password you use to log in."
 msgstr "Pakeiskite slaptažodį kurį naudojate prisijungimui."
@@ -1379,9 +1271,6 @@ msgstr "Kalbos nustatymai"
 
 msgid "Choose the language you want to use here."
 msgstr "Pasirinkite kuria kalbą norite naudoti čia."
-
-msgid "Heading {level}"
-msgstr "Antraštė {level}"
 
 msgid "Bulleted list"
 msgstr "Pažymėtas sąrašas"

@@ -1,3 +1,4 @@
+from django import VERSION as DJANGO_VERSION
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
@@ -65,13 +66,21 @@ class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
     def test_attribute_effects_explorer(self):
         # The two VenuePages should appear in the venuepage list
         response = self.client.get('/admin/modeladmintest/venuepage/')
-        self.assertContains(response, "Santa&#39;s Grotto")
-        self.assertContains(response, "Santa&#39;s Workshop")
+        if DJANGO_VERSION >= (3, 0):
+            self.assertContains(response, "Santa&#x27;s Grotto")
+            self.assertContains(response, "Santa&#x27;s Workshop")
+        else:
+            self.assertContains(response, "Santa&#39;s Grotto")
+            self.assertContains(response, "Santa&#39;s Workshop")
 
         # But when viewing the children of 'Christmas' event in explorer
         response = self.client.get('/admin/pages/4/')
-        self.assertNotContains(response, "Santa&#39;s Grotto")
-        self.assertNotContains(response, "Santa&#39;s Workshop")
+        if DJANGO_VERSION >= (3, 0):
+            self.assertNotContains(response, "Santa&#x27;s Grotto")
+            self.assertNotContains(response, "Santa&#x27;s Workshop")
+        else:
+            self.assertNotContains(response, "Santa&#39;s Grotto")
+            self.assertNotContains(response, "Santa&#39;s Workshop")
 
         # But the other test page should...
         self.assertContains(response, "Claim your free present!")

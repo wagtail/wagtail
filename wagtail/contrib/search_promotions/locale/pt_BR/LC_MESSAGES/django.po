@@ -4,6 +4,7 @@
 #
 # Translators:
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
+# Daniel Carvalho <dnc331@gmail.com>, 2019
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016,2018
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-10-30 02:05+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail search promotions"
+msgstr "Wagtail promoção de pesquisa"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Especifique pelo menos uma recomendação para este termo de busca."

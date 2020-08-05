@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Publish"
+msgstr "Публикувай"
+
 msgid "Submit for moderation"
 msgstr "Предостави за модерация"
 
@@ -28,6 +31,12 @@ msgstr "Отмени публикуването"
 
 msgid "Delete"
 msgstr "Изтрий"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Title"
+msgstr "Заглавие"
 
 msgid "Enter your email address to reset your password"
 msgstr "Въведете вашият имейл адрес за да си възстановите паролата"
@@ -40,6 +49,9 @@ msgstr "Търсене"
 
 msgid "Search term"
 msgstr "Фраза за търсене"
+
+msgid "Edit"
+msgstr "Редакция"
 
 msgid "Account"
 msgstr "Профил"
@@ -121,11 +133,11 @@ msgstr ""
 "Това е вашето работно табло, където ще бъде показана полезна информация за "
 "контент, който сте създали."
 
+msgid "Edit this page"
+msgstr "Редактирайте тази страница"
+
 msgid "Pages awaiting moderation"
 msgstr "Страници очакващи модерация"
-
-msgid "Title"
-msgstr "Заглавие"
 
 msgid "Parent"
 msgstr "Родител"
@@ -133,26 +145,17 @@ msgstr "Родител"
 msgid "Type"
 msgstr "Вид"
 
-msgid "Edit this page"
-msgstr "Редактирайте тази страница"
-
 msgid "Approve"
 msgstr "Одобрете"
 
 msgid "Reject"
 msgstr "Отхвърлете"
 
-msgid "Edit"
-msgstr "Редакция"
-
 msgid "Preview"
 msgstr "Преглед"
 
 msgid "Your most recent edits"
 msgstr "Вашите последни редакции"
-
-msgid "Date"
-msgstr "Дата"
 
 msgid "Status"
 msgstr "Статус"
@@ -198,8 +201,8 @@ msgstr "Можете да прегледате страницата тук:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Страницата \"%(page)s\" бе предоставена за модериране"
 
-msgid "Publish"
-msgstr "Публикувай"
+msgid "Save draft"
+msgstr "Запази като чернова"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -283,17 +286,6 @@ msgstr "Нова %(page_type)s"
 msgid "New"
 msgstr "Ново"
 
-msgid "Save draft"
-msgstr "Запази като чернова"
-
-#, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Последно редактиран: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "по %(modified_by)s"
-
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Преглед на %(title)s"
@@ -344,17 +336,21 @@ msgstr "Начало"
 msgid "Log out"
 msgstr "Излез"
 
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "по %(modified_by)s"
+
 msgid "Your password has been changed successfully!"
 msgstr "Паролата ви бе променена успешно!"
 
 msgid "Page '{0}' created."
 msgstr "Страница '{0}' е създадена."
 
-msgid "The page could not be saved due to validation errors"
-msgstr "Тази страница не можеше да бъде запазена поради валидационни грешки"
-
 msgid "This page is currently awaiting moderation"
 msgstr "Тази страница очаква да бъде модерирана"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "Тази страница не можеше да бъде запазена поради валидационни грешки"
 
 msgid "Page '{0}' deleted."
 msgstr "Страница '{0}' е изтрита."

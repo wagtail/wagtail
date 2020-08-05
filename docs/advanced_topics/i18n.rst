@@ -1,0 +1,49 @@
+====================	
+Internationalisation	
+====================	
+
+Multi-language content
+======================
+
+In its basic configuration, Wagtail does not provide specific support for multi-language content. This is because there is no single preferred approach to handling translations that works for all scenarios - various approaches are possible, depending on factors such as:
+
+* The number of languages you intend to support
+* Whether the available site content can differ from one language to another, or is the same for all languages
+* Whether the type of content you're working with is most naturally modelled as one language per item (e.g. a blog post), or multiple languages per item (e.g. descriptions of a product in a web store)
+
+Several add-on packages for Wagtail providing multi-language support are available:
+
+* `Wagtailtrans <https://github.com/wagtail/wagtailtrans>`_
+* `wagtail-modeltranslation <https://github.com/infoportugal/wagtail-modeltranslation>`_
+
+For a comparison of these options, see AccordBox's blog post `How to support multi-language in Wagtail CMS <https://www.accordbox.com/blog/how-support-multi-language-wagtail-cms/>`_.
+
+
+Wagtail admin translations	
+==========================	
+
+The Wagtail admin backend has been translated into many different languages. You can find a list of currently available translations on Wagtail's `Transifex page <https://www.transifex.com/torchbox/wagtail/>`_. (Note: if you're using an old version of Wagtail, this page may not accurately reflect what languages you have available).	
+
+If your language isn't listed on that page, you can easily contribute new languages or correct mistakes. Sign up and submit changes to `Transifex <https://www.transifex.com/torchbox/wagtail/>`_. Translation updates are typically merged into an official release within one month of being submitted.	
+
+Change Wagtail admin language on a per user basis	
+=================================================	
+
+Logged-in users can set their preferred language from ``/admin/account/``.	
+By default, Wagtail provides a list of languages that have a >= 90% translation coverage.	
+It is possible to override this list via the :ref:`WAGTAILADMIN_PERMITTED_LANGUAGES <WAGTAILADMIN_PERMITTED_LANGUAGES>` setting.	
+
+In case there is zero or one language permitted, the form will be hidden.	
+
+If there is no language selected by the user, the ``LANGUAGE_CODE`` wil be used.	
+
+
+Changing the primary language of your Wagtail installation	
+==========================================================	
+
+The default language of Wagtail is ``en-us`` (American English). You can change this by tweaking a couple of Django settings:	
+
+ - Make sure `USE_I18N <https://docs.djangoproject.com/en/stable/ref/settings/#use-i18n>`_ is set to ``True``	
+ - Set `LANGUAGE_CODE <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-LANGUAGE_CODE>`_ to your websites' primary language	
+
+If there is a translation available for your language, the Wagtail admin backend should now be in the language you've chosen.

@@ -3,25 +3,37 @@
 {% load i18n %}
 {% load l10n %}
 {% block titletag %}{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
-{% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page.locked %}page-locked{% endif %}{% endblock %}
+{% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page_locked %}page-locked{% endif %}{% endblock %}
 
 {% block content %}
     {% page_permissions page as page_perms %}
-    <header class="merged tab-merged" role="banner">
+    <header class="merged tab-merged">
         {% explorer_breadcrumb page %}
 
-        <div class="row row-flush">
-            <div class="left col9 header-title">
-                <h1 class="icon icon-doc-empty-inverse">
-                {% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} <span>{{ title }}</span>{% endblocktrans %}</h1>
-            </div>
-            <div class="right col3">
-                {% trans "Status" %}
-                {% include "wagtailadmin/shared/page_status_tag.html" with page=page_for_status %}
+        <div class="row">
+            <h1 class="left col9 header-title" title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
+                {{ page.get_admin_display_title }}
+            </h1>
 
-                {% include "wagtailadmin/pages/_edit_switches.html" %}
+            <div class="right col3">
+                {% include "wagtailadmin/pages/_page_view_live_tag.html" with page=page_for_status %}
             </div>
         </div>
+        <ul class="row header-meta">
+            {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}
+            {% if page.get_latest_revision %}
+            <li>
+                <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg text-notransform">
+                    {% icon "history" class_name="default" %}
+                    {% trans "History" %}
+                </a>
+            </li>
+            {% endif %}
+            <li class="header-meta--type">
+                {% icon name="doc-empty-inverse" class_name="default" %}
+                {{ content_type.model_class.get_verbose_name }}
+            </li>
+        </ul>
     </header>
 
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
@@ -34,48 +46,36 @@
             <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
         {% endif %}
 
-        <footer role="contentinfo">
+        <footer>
             <nav aria-label="{% trans 'Actions' %}">
                 <ul>
-                    <li class="actions">
+                    <li class="actions actions--primary">
                         <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
-                            <button type="submit" class="button action-save button-longrunning {% if is_revision %}warning{% endif %}" data-clicked-text="{% trans 'Saving…' %}" {% if page.locked %}disabled {% endif %}><span class="icon icon-spinner"></span><em>{% if page.locked %}{% trans 'Page locked' %}{% else %}{% if is_revision %}{% trans 'Replace current draft' %}{% else %}{% trans 'Save draft' %}{% endif %}{% endif %}</em></button>
-
                             {{ action_menu.render_html }}
                         </div>
                     </li>
 
-                    <li class="preview">
-                        {% trans 'Preview' as preview_label %}
-                        {% if preview_modes|length > 1 %}
-                            <div class="dropdown dropup dropdown-button match-width">
+                    {% if preview_modes %}
+                        <li class="preview">
+                            {% trans 'Preview' as preview_label %}
+                            {% if preview_modes|length > 1 %}
+                                <div class="dropdown dropup dropdown-button match-width">
+                                    {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
+                                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+                                    <ul>
+                                        {% for mode_name, mode_display_name in preview_modes %}
+                                            <li>
+                                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% else %}
                                 {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                                <div class="dropdown-toggle icon icon-arrow-up"></div>
-                                <ul>
-                                    {% for mode_name, mode_display_name in preview_modes %}
-                                        <li>
-                                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% else %}
-                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                        {% endif %}
-                    </li>
-
-                    <li class="meta">
-                        <p class="modified">
-                            {% if page.get_latest_revision %}
-                                {% blocktrans with last_mod=page.get_latest_revision.created_at %}Last modified: {{ last_mod }}{% endblocktrans %}
-                                {% if page.get_latest_revision.user %}
-                                    {% blocktrans with modified_by=page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username %}by {{ modified_by }}{% endblocktrans %}
-                                    <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
-                                {% endif %}
-                                <a href="{% url 'wagtailadmin_pages:revisions_index' page.id %}" class="underlined">{% trans 'Revisions' %}</a>
                             {% endif %}
-                        </p>
-                    </li>
+                        </li>
+                    {% endif %}
+
                     {% block extra_footer_actions %}
                     {% endblock %}
                 </ul>
@@ -108,6 +108,39 @@
     {{ edit_handler.html_declarations }}
 
     <script>
+        {% if publishing_will_cancel_workflow %}
+        $(function() {
+            /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
+            let cancellationConfirmed = false;
+            $('[name=action-publish]').click((e) => {
+                if (!cancellationConfirmed) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    ModalWorkflow({
+                    'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
+                    'onload': {
+                        'confirm': function(modal, jsonData) {
+                            $('[data-confirm-cancellation]', modal.body).click((event) => {
+                                cancellationConfirmed = true;
+                                modal.close();
+                                e.currentTarget.click();
+                            })
+                            $('[data-cancel-dialog]', modal.body).click((event) => {
+                                modal.close();
+                            })
+                        },
+                        'no_confirmation_needed': function(modal, jsonData) {
+                            modal.close();
+                            cancellationConfirmed = true;
+                            e.currentTarget.click();
+                        }
+                    },
+                });
+                }
+                });
+        });
+        {% endif %}
+
         $(function() {
             /* Make user confirm before leaving the editor if there are unsaved changes */
             {% trans "This page has unsaved changes." as confirmation_message %}
@@ -122,5 +155,22 @@
                 }
             );
         });
+
+        /* Tooltips used by the workflow status component */
+        $(function() {
+            $('[data-wagtail-tooltip]').tooltip({
+                animation: false,
+                title: function() {
+                    return $(this).attr('data-wagtail-tooltip');
+                },
+                trigger: 'hover',
+                placement: 'bottom',
+            });
+        });
+
+        $(function() {
+            document.addEventListener('DOMContentLoaded', ActivateWorkflowActionsForEditView('#page-edit-form'));
+            document.addEventListener('DOMContentLoaded', LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}'));
+        })
     </script>
 {% endblock %}

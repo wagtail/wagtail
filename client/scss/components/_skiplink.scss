@@ -1,0 +1,16 @@
+.skiplink {
+    display: block;
+    position: fixed;
+    top: -1000rem;
+    left: 1rem;
+    z-index: 30;
+
+    &:focus {
+        top: 1rem;
+    }
+
+    &.button {
+        background: $color-green-darker;
+        border: $color-green-darker;
+    }
+}

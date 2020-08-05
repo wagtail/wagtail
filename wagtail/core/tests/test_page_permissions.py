@@ -2,15 +2,24 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from django.test import Client, TestCase
+from django.test import Client, TestCase, override_settings
+from django.utils import timezone
 
-from wagtail.core.models import GroupPagePermission, Page, UserPagePermissionsProxy
+from wagtail.core.models import (
+    GroupApprovalTask, GroupPagePermission, Page, UserPagePermissionsProxy, Workflow, WorkflowTask)
 from wagtail.tests.testapp.models import (
     BusinessSubIndex, EventIndex, EventPage, SingletonPageViaMaxCount)
 
 
 class TestPagePermission(TestCase):
     fixtures = ['test.json']
+
+    def create_workflow_and_task(self):
+        workflow = Workflow.objects.create(name='test_workflow')
+        task_1 = GroupApprovalTask.objects.create(name='test_task_1')
+        task_1.groups.add(Group.objects.get(name="Event moderators"))
+        WorkflowTask.objects.create(workflow=workflow, task=task_1.task_ptr, sort_order=1)
+        return workflow, task_1
 
     def test_nonpublisher_page_permissions(self):
         event_editor = get_user_model().objects.get(username='eventeditor')
@@ -350,7 +359,7 @@ class TestPagePermission(TestCase):
         client.force_login(event_editor)
 
         homepage = Page.objects.get(url_path='/home/')
-        explorer_response = client.get('/admin/api/v2beta/pages/?child_of={}&for_explorer=1'.format(homepage.pk))
+        explorer_response = client.get('/admin/api/main/pages/?child_of={}&for_explorer=1'.format(homepage.pk))
         explorer_json = json.loads(explorer_response.content.decode('utf-8'))
 
         events_page = Page.objects.get(url_path='/home/events/')
@@ -492,6 +501,7 @@ class TestPagePermission(TestCase):
 
         self.assertTrue(perms.can_lock())
         self.assertFalse(locked_perms.can_unpublish())  # locked pages can't be unpublished
+        self.assertTrue(perms.can_unlock())
 
     def test_lock_page_for_moderator(self):
         user = get_user_model().objects.get(username='eventmoderator')
@@ -500,6 +510,36 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertTrue(perms.can_lock())
+        self.assertTrue(perms.can_unlock())
+
+    def test_lock_page_for_moderator_without_unlock_permission(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        GroupPagePermission.objects.filter(group__name='Event moderators', permission_type='unlock').delete()
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        self.assertTrue(perms.can_lock())
+        self.assertFalse(perms.can_unlock())
+
+    def test_lock_page_for_moderator_whole_locked_page_without_unlock_permission(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Lock the page
+        christmas_page.locked = True
+        christmas_page.locked_by = user
+        christmas_page.locked_at = timezone.now()
+        christmas_page.save()
+
+        GroupPagePermission.objects.filter(group__name='Event moderators', permission_type='unlock').delete()
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        # Unlike in the previous test, the user can unlock this page as it was them who locked
+        self.assertTrue(perms.can_lock())
+        self.assertTrue(perms.can_unlock())
 
     def test_lock_page_for_editor(self):
         user = get_user_model().objects.get(username='eventeditor')
@@ -508,6 +548,7 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertFalse(perms.can_lock())
+        self.assertFalse(perms.can_unlock())
 
     def test_lock_page_for_non_editing_user(self):
         user = get_user_model().objects.get(username='admin_only_user')
@@ -516,6 +557,121 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         self.assertFalse(perms.can_lock())
+        self.assertFalse(perms.can_unlock())
+
+    def test_lock_page_for_editor_with_lock_permission(self):
+        user = get_user_model().objects.get(username='eventeditor')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Event editors"),
+            page=christmas_page,
+            permission_type='lock'
+        )
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        self.assertTrue(perms.can_lock())
+
+        # Still shouldn't have unlock permission
+        self.assertFalse(perms.can_unlock())
+
+    def test_page_locked_for_unlocked_page(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        self.assertFalse(perms.page_locked())
+
+    def test_page_locked_for_locked_page(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Lock the page
+        christmas_page.locked = True
+        christmas_page.locked_by = user
+        christmas_page.locked_at = timezone.now()
+        christmas_page.save()
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        # The user who locked the page shouldn't see the page as locked
+        self.assertFalse(perms.page_locked())
+
+        # Other users should see the page as locked
+        other_user = get_user_model().objects.get(username='eventeditor')
+        other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
+        self.assertTrue(other_perms.page_locked())
+
+    @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
+    def test_page_locked_for_locked_page_with_global_lock_enabled(self):
+        user = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Lock the page
+        christmas_page.locked = True
+        christmas_page.locked_by = user
+        christmas_page.locked_at = timezone.now()
+        christmas_page.save()
+
+        perms = UserPagePermissionsProxy(user).for_page(christmas_page)
+
+        # The user who locked the page should now also see the page as locked
+        self.assertTrue(perms.page_locked())
+
+        # Other users should see the page as locked, like before
+        other_user = get_user_model().objects.get(username='eventeditor')
+        other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
+        self.assertTrue(other_perms.page_locked())
+
+    def test_page_locked_in_workflow(self):
+        workflow, task = self.create_workflow_and_task()
+        editor = get_user_model().objects.get(username='eventeditor')
+        moderator = get_user_model().objects.get(username='eventmoderator')
+        superuser = get_user_model().objects.get(username='superuser')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_page.save_revision()
+        workflow.start(christmas_page, editor)
+
+        moderator_perms = UserPagePermissionsProxy(moderator).for_page(christmas_page)
+
+        # the moderator is in the group assigned to moderate the task, so the page should
+        # not be locked for them
+        self.assertFalse(moderator_perms.page_locked())
+
+        superuser_perms = UserPagePermissionsProxy(superuser).for_page(christmas_page)
+
+        # superusers can moderate any GroupApprovalTask, so the page should not be locked
+        # for them
+        self.assertFalse(superuser_perms.page_locked())
+
+        editor_perms = UserPagePermissionsProxy(editor).for_page(christmas_page)
+
+        # the editor is not in the group assigned to moderate the task, so the page should
+        # be locked for them
+        self.assertTrue(editor_perms.page_locked())
+
+    def test_page_lock_in_workflow(self):
+        workflow, task = self.create_workflow_and_task()
+        editor = get_user_model().objects.get(username='eventeditor')
+        moderator = get_user_model().objects.get(username='eventmoderator')
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_page.save_revision()
+        workflow.start(christmas_page, editor)
+
+        moderator_perms = UserPagePermissionsProxy(moderator).for_page(christmas_page)
+
+        # the moderator is in the group assigned to moderate the task, so they can lock the page, but can't unlock it
+        # unless they're the locker
+        self.assertTrue(moderator_perms.can_lock())
+        self.assertFalse(moderator_perms.can_unlock())
+
+        editor_perms = UserPagePermissionsProxy(editor).for_page(christmas_page)
+
+        # the editor is not in the group assigned to moderate the task, so they can't lock or unlock the page
+        self.assertFalse(editor_perms.can_lock())
+        self.assertFalse(editor_perms.can_unlock())
 
 
 class TestPagePermissionTesterCanCopyTo(TestCase):

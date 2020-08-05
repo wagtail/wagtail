@@ -1,14 +1,14 @@
 from django import forms
 from django.contrib.auth.models import Group
-from django.utils.translation import ugettext as _
-from django.utils.translation import ugettext_lazy
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 from wagtail.core.models import BaseViewRestriction
 
 
 class BaseViewRestrictionForm(forms.ModelForm):
     restriction_type = forms.ChoiceField(
-        label=ugettext_lazy("Visibility"), choices=BaseViewRestriction.RESTRICTION_CHOICES,
+        label=gettext_lazy("Visibility"), choices=BaseViewRestriction.RESTRICTION_CHOICES,
         widget=forms.RadioSelect)
 
     def __init__(self, *args, **kwargs):

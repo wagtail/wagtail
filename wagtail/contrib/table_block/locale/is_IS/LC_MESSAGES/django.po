@@ -4,13 +4,13 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016
-# saevarom <saevar@saevar.is>, 2018
+# saevarom <saevar@saevar.is>, 2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-05-07 10:18+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-01-25 11:15+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -34,3 +34,13 @@ msgstr "Fyrirsagnadálkur"
 
 msgid "Display the first column as a header."
 msgstr "Birta fyrsta dálk sem fyrirsagnadálk"
+
+msgid "Table caption"
+msgstr "Töflufyrirsögn"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Fyrirsögn sem lýsir almennu innihaldi töflunnar, og er gagnleg fyrir "
+"notendur skjálesara"

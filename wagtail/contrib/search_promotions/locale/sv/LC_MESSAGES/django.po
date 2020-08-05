@@ -4,15 +4,16 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-11-27 21:51+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-25 07:49+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -120,11 +121,23 @@ msgstr "Lägg till ett nytt premierat resultat"
 msgid "Search term(s)"
 msgstr "Sökterm(er)"
 
+msgid "Order by search term alphabetically"
+msgstr "Sortera efter sökterm alfabetiskt"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Sortera efter sökterm alfabetiskt i fallande ordning"
+
 msgid "Promoted results"
 msgstr "Premierade resultat"
 
 msgid "Views (past week)"
 msgstr "Visningar (förra veckan)"
+
+msgid "Order by views (lowest first)"
+msgstr "Sortera efter antal visningar (lägst först)"
+
+msgid "Order by views (highest first)"
+msgstr "Sortera efter antal visningar (högst först)"
 
 msgid "Edit this promotion"
 msgstr "Redigera denna premiering"

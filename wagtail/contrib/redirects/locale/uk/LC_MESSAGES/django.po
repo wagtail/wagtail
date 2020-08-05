@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -69,6 +69,9 @@ msgstr "Додати перенарпавлення"
 msgid "Save"
 msgstr "Зберегти"
 
+msgid "Redirects"
+msgstr "Список перенаправлень"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Видалити перенаправлення %(title)s"
@@ -92,17 +95,14 @@ msgstr "Редагування"
 msgid "Delete redirect"
 msgstr "Видалити перенаправлення"
 
-msgid "Redirects"
-msgstr "Список перенаправлень"
-
 msgid "From"
 msgstr "З"
 
-msgid "Site"
-msgstr "Сайт"
-
 msgid "To"
 msgstr "До"
+
+msgid "Site"
+msgstr "Сайт"
 
 msgid "Type"
 msgstr "Тип"

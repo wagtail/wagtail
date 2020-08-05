@@ -5,14 +5,14 @@
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016
 # saevarom <saevar@saevar.is>, 2016
-# saevarom <saevar@saevar.is>, 2016,2018
+# saevarom <saevar@saevar.is>, 2016,2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-04-22 10:32+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -113,6 +113,9 @@ msgstr "Til baka í lista"
 msgid "Yes, delete"
 msgstr "Já, eyða"
 
+msgid "No, don't delete"
+msgstr "Nei, ekki eyða"
+
 msgid "Home"
 msgstr "Heim"
 
@@ -130,6 +133,12 @@ msgstr "Leita að"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Leita að %(name)s"
+
+msgid "Download XLSX"
+msgstr "Sækja XLSX"
+
+msgid "Download CSV"
+msgstr "Sækja CSV"
 
 msgid "Filter"
 msgstr "Sía"
@@ -158,6 +167,9 @@ msgstr ""
 "\">bæta einu við</a>?\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "Síðuskipting"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Síða %(current_page)s af %(num_pages)s."
@@ -172,8 +184,9 @@ msgstr "Fyrra"
 msgid "Next"
 msgstr "Næsta"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' búið til."
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' búið til."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -193,8 +206,9 @@ msgstr "Breyti"
 msgid "Editing %s"
 msgstr "Breyti %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' uppfært."
+#, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' uppfært."
 
 #, python-format
 msgid "The %s could not be saved due to errors."
@@ -212,8 +226,9 @@ msgstr ""
 "Ertu viss um að þú viljir eyða þessu %s? Ef aðrir hlutir á síðunni eru háðir "
 "þessu þá gæti þetta haft áhrif á þá."
 
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' eytt."
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' eytt."
 
 msgid "Inspecting"
 msgstr "Skoða"

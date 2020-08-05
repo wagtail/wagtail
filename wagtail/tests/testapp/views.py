@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 
 from wagtail.admin import messages
-from wagtail.admin.utils import user_passes_test
+from wagtail.admin.auth import user_passes_test
 from wagtail.contrib.forms.views import SubmissionsListView
 
 

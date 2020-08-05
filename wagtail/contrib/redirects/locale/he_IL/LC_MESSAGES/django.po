@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -27,6 +27,9 @@ msgstr "הוסף הפנייה"
 
 msgid "Save"
 msgstr "שמור"
+
+msgid "Redirects"
+msgstr "הפניות"
 
 msgid "Delete"
 msgstr "מחק"
@@ -47,17 +50,14 @@ msgstr "עריכה"
 msgid "Delete redirect"
 msgstr "מחק הפנייה"
 
-msgid "Redirects"
-msgstr "הפניות"
-
 msgid "From"
 msgstr "מ:"
 
-msgid "Site"
-msgstr "אתר"
-
 msgid "To"
 msgstr "אל"
+
+msgid "Site"
+msgstr "אתר"
 
 msgid "Type"
 msgstr "סוג"

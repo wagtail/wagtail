@@ -5,13 +5,14 @@
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-30 18:52+0000\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -122,6 +123,9 @@ msgstr "зображення профілю користувача"
 msgid "user profile"
 msgstr "профіль користувача"
 
+msgid "user profiles"
+msgstr "профілі користувачів"
+
 msgid "Delete group"
 msgstr "Видалити групу"
 
@@ -176,8 +180,14 @@ msgstr "Додати групу"
 msgid "Editing"
 msgstr "Редагування"
 
+msgid "View users in this group"
+msgstr "Переглянути користувачів у цій групі"
+
 msgid "Save"
 msgstr "Зберегти"
+
+msgid "Permissions"
+msgstr "Дозволи"
 
 msgid "Object permissions"
 msgstr "Дозволи для об'єктів"
@@ -254,6 +264,9 @@ msgstr "Рівень"
 msgid "Status"
 msgstr "Статус"
 
+msgid "Last Login"
+msgstr "Останній логін"
+
 msgid "Admin"
 msgstr "Адмін"
 
@@ -266,14 +279,6 @@ msgstr "Неактивний"
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Вибачте, жоден користувач не відповідає \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
-"\">add some</a>?"
-msgstr ""
-"Немає сконфігурованих користувачів. Чому б не <a href="
-"\"%(wagtailusers_create_url)s\">додати одного</a>?"
 
 msgid "Groups"
 msgstr "Групи"

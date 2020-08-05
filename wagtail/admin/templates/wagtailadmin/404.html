@@ -1,17 +1,17 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load wagtailadmin_tags wagtailcore_tags static i18n %}
+{% load wagtailadmin_tags wagtailcore_tags i18n %}
 {% block titletag %}{% trans "Error 404: Page not found" %}{% endblock %}
 
 
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/404.css' %}" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/404.css' %}" />
 {% endblock %}
 
 
 {% block furniture %}
-    <div class="page404__bg">
+    <main class="page404__bg">
         <div class="page404__wrapper">
             {% block branding_logo %}
                 {% include "wagtailadmin/shared/animated_logo.html" %}
@@ -29,5 +29,5 @@
                 <a class="page404__button button" href="{% url 'wagtailadmin_home' %}">{% trans "Go to Wagtail admin" %}</a>
             </div>
         </div>
-    </div>
+    </main>
 {% endblock %}

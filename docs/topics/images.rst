@@ -86,7 +86,7 @@ The available resizing methods are as follows:
 
             {% image page.photo height-480 %}
 
-        Resize the height of the image to the dimension specified.
+        Reduces the height of the image to the dimension specified.
 
     ``scale``
         (takes percentage)
@@ -214,6 +214,39 @@ You can also use the ``attrs`` property as a shorthand to output the attributes 
     <img {{ tmp_photo.attrs }} class="my-custom-class" />
 
 
+Alternative HTML tags
+---------------------
+
+The ``as`` keyword allows alternative HTML image tags (such as ``<picture>`` or ``<amp-img>``) to be used.
+For example, to use the ``<picture>`` tag:
+
+.. code-block:: html+django
+
+    <picture>
+        {% image page.photo width-800 as wide_photo %}
+        <source srcset="{{ wide_photo.url }}" media="(min-width: 800px)">
+        {% image page.photo width-400 %}
+    </picture>
+
+And to use the ``<amp-img>`` tag (based on the `Mountains example <https://amp.dev/documentation/components/amp-img/#example:-specifying-a-fallback-image>`_ from the AMP docs):
+
+.. code-block:: html+django
+
+    {% image image width-550 format-webp as webp_image %}
+    {% image image width-550 format-jpeg as jpeg_image %}
+
+    <amp-img alt="{{ image.alt }}"
+        width="{{ webp_image.width }}"
+        height="{{ webp_image.height }}"
+        src="{{ webp_image.url }}">
+        <amp-img alt="{{ image.alt }}"
+            fallback
+            width="{{ jpeg_image.width }}"
+            height="{{ jpeg_image.height }}"
+            src="{{ jpeg_image.url }}"></amp-img>
+    </amp-img>
+
+
 Images embedded in rich text
 ----------------------------
 
@@ -250,6 +283,7 @@ Wagtail may automatically change the format of some images when they are resized
  - PNG and JPEG images don't change format
  - GIF images without animation are converted to PNGs
  - BMP images are converted to PNGs
+ - WebP images are converted to PNGs
 
 It is also possible to override the output format on a per-tag basis by using the
 ``format`` filter after the resize rule.
@@ -261,6 +295,15 @@ For example, to make the tag always convert the image to a JPEG, use ``format-jp
     {% image page.photo width-400 format-jpeg %}
 
 You may also use ``format-png`` or ``format-gif``.
+
+Lossless WebP
+^^^^^^^^^^^^^
+
+You can encode the image into lossless WebP format by using the ``format-webp-lossless`` filter:
+
+.. code-block:: html+Django
+
+    {% image page.photo width-400 format-webp-lossless %}
 
 .. _image_background_color:
 
@@ -282,19 +325,19 @@ representing the color you would like to use:
     {# Sets the image background to black #}
     {% image page.photo width-400 bgcolor-000 format-jpeg %}
 
-.. _jpeg_image_quality:
+.. _image_quality:
 
-JPEG image quality
-------------------
+Image quality
+-------------
 
-Wagtail's JPEG image quality setting defaults to 85 (which is quite high). This
-can be changed either globally or on a per-tag basis.
+Wagtail's JPEG and WebP image quality settings default to 85 (which is quite high).
+This can be changed either globally or on a per-tag basis.
 
 Changing globally
 ^^^^^^^^^^^^^^^^^
 
-Use the ``WAGTAILIMAGES_JPEG_QUALITY`` setting to change the global default JPEG
-quality:
+Use the ``WAGTAILIMAGES_JPEG_QUALITY`` and ``WAGTAILIMAGES_WEBP_QUALITY`` settings
+to change the global defaults of JPEG and WebP quality:
 
 .. code-block:: python
 
@@ -302,6 +345,7 @@ quality:
 
     # Make low-quality but small images
     WAGTAILIMAGES_JPEG_QUALITY = 40
+    WAGTAILIMAGES_WEBP_QUALITY = 45
 
 Note that this won't affect any previously generated images so you may want to
 delete all renditions so they can regenerate with the new setting. This can be
@@ -316,20 +360,23 @@ done from the Django shell:
 Changing per-tag
 ^^^^^^^^^^^^^^^^
 
-It's also possible to have different JPEG qualities on individual tags by using
-the ``jpegquality`` filter. This will always override the default setting:
+It's also possible to have different JPEG and WebP qualities on individual tags
+by using ``jpegquality`` and ``webpquality`` filters. This will always override
+the default setting:
 
 .. code-block:: html+Django
 
-    {% image page.photo width-400 jpegquality-40 %}
+    {% image page.photo_jpeg width-400 jpegquality-40 %}
+    {% image page.photo_webp width-400 webpquality-50 %}
 
 Note that this will have no effect on PNG or GIF files. If you want all images
-to be low quality, you can use this filter with ``format-jpeg`` (which forces
-all images to output in JPEG format):
+to be low quality, you can use this filter with ``format-jpeg`` or ``format-webp``
+(which forces all images to output in JPEG or WebP format):
 
 .. code-block:: html+Django
 
     {% image page.photo width-400 format-jpeg jpegquality-40 %}
+    {% image page.photo width-400 format-webp webpquality-50 %}
 
 Generating image renditions in Python
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

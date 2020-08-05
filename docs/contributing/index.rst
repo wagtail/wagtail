@@ -6,6 +6,8 @@ Issues
 
 The easiest way to contribute to Wagtail is to tell us how to improve it! First, check to see if your bug or feature request has already been submitted at `github.com/wagtail/wagtail/issues <https://github.com/wagtail/wagtail/issues>`_. If it has, and you have some supporting information which may help us deal with it, comment on the existing issue. If not, please `create a new one <https://github.com/wagtail/wagtail/issues/new>`_, providing as much relevant context as possible. For example, if you're experiencing problems with installation, detail your environment and the steps you've already taken. If something isn't displaying correctly, tell us what browser you're using, and include a screenshot if possible.
 
+If your bug report is a security issue, **do not** report it with an issue. Please read our ​guide to :doc:`reporting security issues <security>`.
+
 .. toctree::
     :maxdepth: 2
 
@@ -63,4 +65,5 @@ More information
     html_guidelines
     css_guidelines
     javascript_guidelines
+    security
     release_process

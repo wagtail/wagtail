@@ -1,16 +1,20 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags wagtailadmin_tags static i18n l10n %}
+{% load wagtailimages_tags wagtailadmin_tags i18n l10n %}
 {% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
 
+    {{ form.media.css }}
+
     <!-- Focal point chooser -->
-    <link rel="stylesheet" href="{% static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% versioned_static 'wagtailimages/css/vendor/jquery.Jcrop.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% versioned_static 'wagtailimages/css/focal-point-chooser.css' %}" type="text/css">
 {% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
+
+    {{ form.media.js }}
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
@@ -22,14 +26,15 @@
     </script>
 
     <!-- Focal point chooser -->
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/vendor/jquery.Jcrop.min.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/focal-point-chooser.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.ba-throttle-debounce.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/jquery.Jcrop.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/focal-point-chooser.js' %}"></script>
 {% endblock %}
 
 {% block content %}
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=image.title icon="image" %}
+    {% include "wagtailadmin/shared/non_field_errors.html" %}
 
     <form action="{% url 'wagtailimages:edit' image.id %}" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
@@ -69,14 +74,14 @@
                 </div>
 
                 {% if url_generator_enabled %}
-                    <a href="{% url 'wagtailimages:url_generator' image.id %}" class="button bicolor icon icon-link">{% trans "URL Generator" %}</a>
+                    <a href="{% url 'wagtailimages:url_generator' image.id %}" class="button bicolor button--icon">{% icon name="link" wrapped=1 %}{% trans "URL Generator" %}</a>
                     <hr />
                 {% endif %}
 
                 <div class="row">
                     <div class="col8 divider-after">
                         <h2 class="label no-float u-text-transform-uppercase">{% trans "Focal point" %} <span class="u-text-weight-normal">{% trans "(optional)" %}</span></h2>
-                        <p>{% trans "To define this image's most important region, drag a box over the image above." %} {% if image.focal_point %}({% trans "Current focal point shown" %}){% endif %}</p>
+                        <p>{% trans "To define this image's most important region, drag a box over the image above." %} {% if image.has_focal_point %}({% trans "Current focal point shown" %}){% endif %}</p>
 
                         <button class="button button-secondary no remove-focal-point" type="button">{% trans "Remove focal area" %}</button>
                     </div>

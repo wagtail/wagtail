@@ -14,7 +14,7 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
 
     def test_register_page_listing_buttons(self):
         @hooks.register('register_page_listing_buttons')
-        def page_listing_buttons(page, page_perms, is_parent=False):
+        def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             yield wagtailadmin_widgets.PageListingButton(
                 'Another useless page listing button',
                 '/custom-url',
@@ -33,7 +33,7 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
 
     def test_register_page_listing_more_buttons(self):
         @hooks.register('register_page_listing_more_buttons')
-        def page_listing_more_buttons(page, page_perms, is_parent=False):
+        def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             yield wagtailadmin_widgets.Button(
                 'Another useless button in default "More" dropdown',
                 '/custom-url',
@@ -52,19 +52,20 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
 
     def test_custom_button_with_dropdown(self):
         @hooks.register('register_page_listing_buttons')
-        def page_custom_listing_buttons(page, page_perms, is_parent=False):
+        def page_custom_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             yield wagtailadmin_widgets.ButtonWithDropdownFromHook(
                 'One more more button',
                 hook_name='register_page_listing_one_more_more_buttons',
                 page=page,
                 page_perms=page_perms,
                 is_parent=is_parent,
+                next_url=next_url,
                 attrs={'target': '_blank', 'rel': 'noopener noreferrer'},
                 priority=50
             )
 
         @hooks.register('register_page_listing_one_more_more_buttons')
-        def page_custom_listing_more_buttons(page, page_perms, is_parent=False):
+        def page_custom_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             yield wagtailadmin_widgets.Button(
                 'Another useless dropdown button in "One more more button" dropdown',
                 '/custom-url',

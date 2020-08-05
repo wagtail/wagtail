@@ -1,15 +1,16 @@
 $editor-z-index: $draftail-editor-z-index;
 
 $draftail-editor-text: $color-text-input;
-$draftail-editor-chrome: $color-grey-1;
-$draftail-editor-chrome-text: $color-white;
-$draftail-editor-chrome-active: $color-white;
-$draftail-editor-chrome-accent: lighten($draftail-editor-chrome, 20%);
+$draftail-editor-chrome: $color-white;
+$draftail-editor-chrome-text: $color-grey-2;
+$draftail-editor-chrome-active: $color-grey-2;
+$draftail-editor-chrome-accent: transparent;
 
 $draftail-editor-border: 0;
 $draftail-editor-padding: 0;
 $draftail-editor-background: transparent;
 $draftail-toolbar-radius: 3px;
+$draftail-toolbar-icon-size: 1em;
 
 $draftail-editor-font-family: $font-serif;
 
@@ -75,6 +76,12 @@ $draftail-editor-font-family: $font-serif;
     }
 }
 
+.Draftail-ToolbarButton .icon {
+    width: $draftail-toolbar-icon-size;
+    height: $draftail-toolbar-icon-size;
+    vertical-align: middle;
+}
+
 // When in a .full container, the editor has a specific appearance
 // so the whole area appears like a focusable area, and the editor
 // receives focus on click.
@@ -97,6 +104,17 @@ $draftail-editor-font-family: $font-serif;
 
 .full .Draftail-Toolbar {
     @include nice-margin;
+}
+
+.Draftail-Toolbar {
+    border: 1px solid $color-grey-3;
+}
+
+.Draftail-ToolbarButton {
+    &:hover,
+    &:active {
+        border: 1px solid $color-grey-3;
+    }
 }
 
 .title .Draftail-Editor .public-DraftEditor-content,

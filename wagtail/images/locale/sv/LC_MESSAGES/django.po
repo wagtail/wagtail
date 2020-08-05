@@ -4,15 +4,17 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2020
+# Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-05-24 18:55+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +26,8 @@ msgstr ""
 msgid "Wagtail images"
 msgstr "Wagtail bilder"
 
-msgid "GIF, JPEG, PNG"
-msgstr "GIF, JPEG, PNG"
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -144,7 +146,7 @@ msgid "Search"
 msgstr "Sök"
 
 msgid "Upload"
-msgstr "Ladda up"
+msgstr "Ladda upp"
 
 msgid "Popular tags"
 msgstr "Populära taggar"
@@ -179,6 +181,26 @@ msgstr "Välj ett format"
 msgid "Insert image"
 msgstr "Lägg in bild"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Dokument <span class=\"visuallyhidden\"> skapade i "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Bilder <span class=\"visuallyhidden\"> skapade i "
+"%(site_name)s</span>"
+
 msgid "Change image file:"
 msgstr "Byt bildfil:"
 
@@ -205,6 +227,9 @@ msgstr "Är du säker på att du vill radera den här bilden?"
 
 msgid "Yes, delete"
 msgstr "Ja, radera"
+
+msgid "No, don't delete"
+msgstr "Nej, radera inte"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -249,6 +274,15 @@ msgstr "Användning"
 
 msgid "Images"
 msgstr "Bilder"
+
+msgid "Popular Tags:"
+msgstr "Populära Taggar:"
+
+msgid "Clear choice"
+msgstr "Rensa val"
+
+msgid "pixels"
+msgstr "pixlar"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

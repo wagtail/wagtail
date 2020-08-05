@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2019
+# Dan Braghis, 2014-2020
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-27 20:17+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -140,13 +141,13 @@ msgstr[0] ""
 "            "
 msgstr[1] ""
 "\n"
-"                Grupul '%(group_name)s' are 1%(group_user_count)s1 "
-"utilizatori alocați.\n"
+"                Grupul '%(group_name)s' are <strong>%(group_user_count)s</"
+"strong> membri.\n"
 "            "
 msgstr[2] ""
 "\n"
-"                Grupul '%(group_name)s' are 1%(group_user_count)s1 "
-"utilizatori alocați.\n"
+"                Grupul '%(group_name)s' are <strong>%(group_user_count)s</"
+"strong>de membri.\n"
 "            "
 
 msgid ""
@@ -167,8 +168,14 @@ msgstr "Adaugă grup"
 msgid "Editing"
 msgstr "Editare"
 
+msgid "View users in this group"
+msgstr "Vezi utilizatorii în acest grup"
+
 msgid "Save"
 msgstr "Salvează"
+
+msgid "Permissions"
+msgstr "Permisiuni"
 
 msgid "Object permissions"
 msgstr "Permisiuni obiecte"
@@ -288,11 +295,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Grupul %(group_name)s nu conține nici un utilizator. De ce să nu <a href="
+"\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Nu există nici un utilizator. De ce să nu <a href="
-"\"%(wagtailusers_create_url)s\">adăugați câțiva</a>?"
+"Nu există nici un utilizator. De ce să nu <a href=\"%(wagtailusers_add_url)s"
+"\">adăugați câțiva</a>?"
 
 msgid "Groups"
 msgstr "Grupuri"

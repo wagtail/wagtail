@@ -4,16 +4,17 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
-# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
-# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Luís Favas <al62006@utad.eu>, 2020
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-27 18:12+0000\n"
+"Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -22,17 +23,35 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "{label}: this block has no options."
-msgstr "{label}: este bloco não tem opções."
+msgid "Wagtail core"
+msgstr "Núcleo Wagtail"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: este bloco não contêm opções"
 
 msgid "This block has no options."
 msgstr "Este bloco não tem opções."
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "O número mínimo de itens é %d"
+
+msgid "This field is required."
+msgstr "Este campo é obrigatório"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "O numero máximo de itens é %d"
 
 msgid "Password"
 msgstr "Senha"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Introduziu uma senha incorreta. Por favor tente novamente."
+
+msgid "Comment"
+msgstr "Comentário"
 
 msgid "hostname"
 msgstr "nome do servidor"
@@ -74,6 +93,9 @@ msgstr "site"
 
 msgid "sites"
 msgstr "sites"
+
+msgid "default"
+msgstr "padrão"
 
 #, python-format
 msgid ""
@@ -148,11 +170,23 @@ msgstr "expirado"
 msgid "locked"
 msgstr "trancado"
 
+msgid "locked at"
+msgstr "trancado a"
+
+msgid "locked by"
+msgstr "trancado por"
+
 msgid "first published at"
 msgstr "primeira publicação em"
 
+msgid "last published at"
+msgstr "ultima alteração a"
+
 msgid "latest revision created at"
 msgstr "última versão criada em"
+
+msgid "live revision"
+msgstr "revisão ao vivo"
 
 msgid "This slug is already in use"
 msgstr "Este “slug” já está a ser utilizado"
@@ -160,8 +194,17 @@ msgstr "Este “slug” já está a ser utilizado"
 msgid "scheduled"
 msgstr "agendado"
 
+msgid "in moderation"
+msgstr "em moderação"
+
 msgid "draft"
 msgstr "rascunho"
+
+msgid "live + scheduled"
+msgstr "publicada + agendada"
+
+msgid "live + in moderation"
+msgstr "ao vivo + em moderação"
 
 msgid "live + draft"
 msgstr "publicada + rascunho"
@@ -223,8 +266,14 @@ msgstr "Apagar páginas com filhas"
 msgid "Lock"
 msgstr "Trancar"
 
-msgid "Lock/unlock any page"
-msgstr "Trancar/destrancar qualquer página"
+msgid "Lock/unlock pages you've locked"
+msgstr "Trancar/destrancar páginas que tu trancaste"
+
+msgid "Unlock"
+msgstr "Destrancada"
+
+msgid "Unlock any page"
+msgstr "Destrancar qualquer página"
 
 msgid "group"
 msgstr "grupo"
@@ -253,6 +302,15 @@ msgstr "Privado, acessível aos utilizadores de grupos específicos"
 msgid "password"
 msgstr "senha"
 
+msgid "groups"
+msgstr "grupos"
+
+msgid "view restriction"
+msgstr "ver restrição"
+
+msgid "view restrictions"
+msgstr "ver restrições"
+
 msgid "page view restriction"
 msgstr "restrição de visualização de página"
 
@@ -261,6 +319,12 @@ msgstr "restrições de visualização de página"
 
 msgid "collection"
 msgstr "coleção"
+
+msgid "collection view restriction"
+msgstr "restrição de visualização da coleção"
+
+msgid "collection view restrictions"
+msgstr "restrições de visualização da coleção"
 
 msgid "name"
 msgstr "nome"
@@ -273,6 +337,165 @@ msgstr "permissão"
 
 msgid "group collection permission"
 msgstr "permissão de coleção de grupo"
+
+msgid "group collection permissions"
+msgstr "permissões de grupo da coleção"
+
+msgid "workflow"
+msgstr "fluxo de trabalho"
+
+msgid "workflow page"
+msgstr "página de fluxo de trabalho"
+
+msgid "workflow pages"
+msgstr "páginas de fluxo de trabalho"
+
+msgid "workflow_tasks"
+msgstr "tarefas_de_fluxo_de_trabalho"
+
+msgid "task"
+msgstr "tarefa"
+
+msgid "workflow task order"
+msgstr "ordem das tarefas do fluxo de trabalho"
+
+msgid "workflow task orders"
+msgstr "ordens das tarefas do fluxo de trabalho"
+
+msgid "active"
+msgstr "ativo"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Tarefas ativas podem ser adicionadas a fluxos de trabalho. Desativar uma "
+"tarefa não a remove de fluxos de trabalho existentes."
+
+msgid "tasks"
+msgstr "tarefas"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Fluxos de trabalho ativos podem ser adicionados a páginas. Desativar um "
+"fluxo de trabalho não o remove de páginas existentes."
+
+msgid "workflows"
+msgstr "fluxos de trabalho"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Páginas neste estado do fluxo de trabalho serão moderadas ou aprovadas por "
+"estes grupos de utilizadores"
+
+msgid "Request changes"
+msgstr "Requisitar alterações"
+
+msgid "Approve"
+msgstr "Aprovar"
+
+msgid "Approve with comment"
+msgstr "Aprovar com comentário"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Membros escolhidos dos grupos Wagtail podem aprovar esta tarefa"
+
+msgid "Group approval task"
+msgstr "Aprovação da tarefa de grupo"
+
+msgid "Group approval tasks"
+msgstr "Aprovação de tarefas de grupo"
+
+msgid "In progress"
+msgstr "Em progresso"
+
+msgid "Approved"
+msgstr "Aprovado"
+
+msgid "Needs changes"
+msgstr "Necessita alterações"
+
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgid "status"
+msgstr "estado"
+
+msgid "requested by"
+msgstr "requisitado por"
+
+msgid "current task state"
+msgstr "estado atual da tarefa"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Apenas pode existir um em progresso ou necessita alterações no estado do "
+"fluxo de trabalho por página"
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Fluxo de trabalho '{0}' na Página '{1}': {2}"
+
+msgid "Not started"
+msgstr "Não iniciado"
+
+msgid "Workflow state"
+msgstr "Estado do fluxo de trabalho"
+
+msgid "Workflow states"
+msgstr "Estados do fluxo de trabalho"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
+msgid "Skipped"
+msgstr "Passado à frente"
+
+msgid "workflow state"
+msgstr "estado do fluxo de trabalho"
+
+msgid "started at"
+msgstr "iniciado a"
+
+msgid "finished at"
+msgstr "acabado a"
+
+msgid "finished by"
+msgstr "acabado por"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Tarefa '{0}' na Página Revista '{1}': {2}"
+
+msgid "Task state"
+msgstr "Estado da tarefa"
+
+msgid "Task states"
+msgstr "Estados da tarefa"
+
+msgid "timestamp (UTC)"
+msgstr "marca temporal (UTC)"
+
+msgid "log entry"
+msgstr "entrada no diário"
+
+msgid "log entries"
+msgstr "entradas no diário"
+
+msgid "user {id} (deleted)"
+msgstr "utilizador {id} (deleted)"
+
+msgid "system"
+msgstr "sistema"
+
+msgid "page log entry"
+msgstr "entrada no diário da página"
+
+msgid "page log entries"
+msgstr "entradas no diário da página"
 
 msgid "Log in"
 msgstr "Entrar"

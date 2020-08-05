@@ -3,8 +3,8 @@ import logging
 
 from django.apps import apps
 from django.core import checks
+from django.core.exceptions import FieldDoesNotExist
 from django.db import models
-from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
 
 from modelcluster.fields import ParentalManyToManyField
@@ -97,7 +97,7 @@ class Indexed:
         try:
             cls._meta.get_field(name)
             return True
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             return hasattr(cls, name)
 
     @classmethod
@@ -154,8 +154,18 @@ def insert_or_update_object(instance):
             try:
                 backend.add(indexed_instance)
             except Exception:
-                # Catch and log all errors
+                # Log all errors
                 logger.exception("Exception raised while adding %r into the '%s' search backend", indexed_instance, backend_name)
+
+                # Catch exceptions for backends that use an external service like Elasticsearch
+                # This is to prevent data loss if that external service was to go down and the user's
+                # save request was to fail.
+                # But note that we don't want this for database backends though as an error during a
+                # database transaction will require the transaction to be rolled back anyway. So If
+                # we caught the error here, the request will only crash again when the next database
+                # query is made but then the error message wouldn't be very informative.
+                if not backend.catch_indexing_errors:
+                    raise
 
 
 def remove_object(instance):
@@ -166,8 +176,13 @@ def remove_object(instance):
             try:
                 backend.delete(indexed_instance)
             except Exception:
-                # Catch and log all errors
+                # Log all errors
                 logger.exception("Exception raised while deleting %r from the '%s' search backend", indexed_instance, backend_name)
+
+                # Only catch the exception if the backend requires this
+                # See the comments in insert_or_update_object for an explanation
+                if not backend.catch_indexing_errors:
+                    raise
 
 
 class BaseField:
@@ -182,14 +197,14 @@ class BaseField:
         try:
             field = self.get_field(cls)
             return field.attname
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             return self.field_name
 
     def get_definition_model(self, cls):
         try:
             field = self.get_field(cls)
             return field.model
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             # Find where it was defined by walking the inheritance tree
             for base_cls in inspect.getmro(cls):
                 if self.field_name in base_cls.__dict__:
@@ -213,7 +228,7 @@ class BaseField:
 
             return field.get_internal_type()
 
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             return 'CharField'
 
     def get_value(self, obj):
@@ -225,9 +240,9 @@ class BaseField:
             if hasattr(field, 'get_searchable_content'):
                 value = field.get_searchable_content(value)
             elif isinstance(field, TaggableManager):
-                # Special case for tags fields. Convert QuerySet of TaggedItems into QuerySet of Tags
-                Tag = field.remote_field.model
-                value = Tag.objects.filter(id__in=value.values_list('tag_id', flat=True))
+                # As of django-taggit 1.0, value_from_object returns a list of Tag objects,
+                # which matches what we want
+                pass
             elif isinstance(field, RelatedField):
                 # The type of the ForeignKey may have a get_searchable_content method that we should
                 # call. Firstly we need to find the field its referencing but it may be referencing
@@ -240,7 +255,7 @@ class BaseField:
                 if hasattr(remote_field, 'get_searchable_content'):
                     value = remote_field.get_searchable_content(value)
             return value
-        except models.fields.FieldDoesNotExist:
+        except FieldDoesNotExist:
             value = getattr(obj, self.field_name, None)
             if hasattr(value, '__call__'):
                 value = value()

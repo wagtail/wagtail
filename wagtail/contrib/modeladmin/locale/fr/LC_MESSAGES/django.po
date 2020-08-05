@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benoît Vogel <contact@spicy-informatique.com>, 2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2018
 # Léo <leo@naeka.fr>, 2016
+# Loic Teixeira, 2020
 # Tom Dyson <tom@torchbox.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-04-21 17:03+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -114,6 +116,9 @@ msgstr "Retourner à la liste"
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
 
+msgid "No, don't delete"
+msgstr "Non, ne pas supprimer"
+
 msgid "Home"
 msgstr "Accueil"
 
@@ -133,6 +138,12 @@ msgstr "Rechercher"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Rechercher %(name)s"
+
+msgid "Download XLSX"
+msgstr "Télécharger en XLSX"
+
+msgid "Download CSV"
+msgstr "Télécharger en CSV"
 
 msgid "Filter"
 msgstr "Filtrer"
@@ -161,6 +172,9 @@ msgstr ""
 "\"%(url)s\">en ajouter un(e)</a> ?\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "Pagination"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Page %(current_page)s sur %(num_pages)s."
@@ -175,8 +189,9 @@ msgstr "Précédent"
 msgid "Next"
 msgstr "Suivant"
 
-msgid "{model_name} '{instance}' created."
-msgstr "{model_name} '{instance}' créé(e)."
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' créé(e)."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -196,8 +211,9 @@ msgstr "Modification"
 msgid "Editing %s"
 msgstr "Modification de %s"
 
-msgid "{model_name} '{instance}' updated."
-msgstr "{model_name} '{instance}' modifié(e)."
+#, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' modifié(e)."
 
 #, python-format
 msgid "The %s could not be saved due to errors."
@@ -215,8 +231,9 @@ msgstr ""
 "Êtes-vous sûr(e) de vouloir supprimer ce/cette %s ? Si d'autres éléments de "
 "votre site y sont liés, il se peut qu'ils soient également affectés."
 
-msgid "{model} '{instance}' deleted."
-msgstr "{model} '{instance}' supprimé(e)."
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' supprimé(e)."
 
 msgid "Inspecting"
 msgstr "Inspection"

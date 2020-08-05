@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-05-03 17:26+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 17:28+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -119,11 +119,23 @@ msgstr "Új kiemelt keresés találat hozzáadása"
 msgid "Search term(s)"
 msgstr "Keresési kifejezés(ek)"
 
+msgid "Order by search term alphabetically"
+msgstr "Rendezés keresési szó alapján ABC-sorrendben"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Rendezés keresési szó alapján fordított ABC-sorrendben"
+
 msgid "Promoted results"
 msgstr "Kiemelt találatok"
 
 msgid "Views (past week)"
 msgstr "Megtekintések (elmúlt héten)"
+
+msgid "Order by views (lowest first)"
+msgstr "Rendezés megtekintések alapján (kevesebb elöl)"
+
+msgid "Order by views (highest first)"
+msgstr "Rendezés megtekintések alapján (több elöl)"
 
 msgid "Edit this promotion"
 msgstr "Kiemelt keresés szerkesztése"
@@ -165,7 +177,7 @@ msgid "Search promoted results"
 msgstr "Kiemelt találatok keresése"
 
 msgid "Editor's picks for '{0}' created."
-msgstr "Szerkesztői ajánlat létrehozva ehhez: \"{0}\""
+msgstr "Szerkesztői ajánlat létrehozva ehhez: '{0}'"
 
 msgid "Edit"
 msgstr "Szerkeszt"
@@ -174,7 +186,7 @@ msgid "Recommendations have not been created due to errors"
 msgstr "Hiba történt a javaslatok mentése közben"
 
 msgid "Editor's picks for '{0}' updated."
-msgstr "Szerkesztői ajánlat frissítve ehhez: \"{0}\""
+msgstr "Szerkesztői ajánlat frissítve ehhez: '{0}'"
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Hiba történt a javaslatok mentése közben"

@@ -7,20 +7,21 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # fooflare <amos.oviedo@gmail.com>, 2014
-# Joaquín Tita <carpincho@gmail.com>, 2014
+# Joaquín T <joaquintita@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2017-2018
-# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
-# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
-# Unai Zalakain <inactive+unaizalakain@transifex.com>, 2014
+# Oscar Luciano Espirilla Flores, 2020
+# 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
+# 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
+# 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-12-08 14:51+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -32,8 +33,9 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Núcleo Wagtail"
 
-msgid "{label}: this block has no options."
-msgstr "{label}: este bloque no tiene opciones."
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: Este bloque no tiene opciones."
 
 msgid "This block has no options."
 msgstr "Este bloque no tiene opciones."
@@ -167,6 +169,12 @@ msgstr "expiró"
 msgid "locked"
 msgstr "bloqueado"
 
+msgid "locked at"
+msgstr "Bloqueado en"
+
+msgid "locked by"
+msgstr "Bloqueado por"
+
 msgid "first published at"
 msgstr "Publicado por primera vez a las"
 
@@ -248,8 +256,14 @@ msgstr "Eliminar páginas con hijos."
 msgid "Lock"
 msgstr "Bloquear"
 
-msgid "Lock/unlock any page"
-msgstr "Bloquear/desbloquear cualquier página"
+msgid "Lock/unlock pages you've locked"
+msgstr "Bloquear/desbloquear páginas que usted bloqueó"
+
+msgid "Unlock"
+msgstr "Desbloquear"
+
+msgid "Unlock any page"
+msgstr "Desbloquear cualquier página"
 
 msgid "group"
 msgstr "grupo"

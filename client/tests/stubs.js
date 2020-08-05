@@ -7,9 +7,9 @@ import 'element-closest';
 
 global.wagtailConfig = {
   ADMIN_API: {
-    DOCUMENTS: '/admin/api/v2beta/documents/',
-    IMAGES: '/admin/api/v2beta/images/',
-    PAGES: '/admin/api/v2beta/pages/',
+    DOCUMENTS: '/admin/api/main/documents/',
+    IMAGES: '/admin/api/main/images/',
+    PAGES: '/admin/api/main/pages/',
     EXTRA_CHILDREN_PARAMETERS: '',
   },
   ADMIN_URLS: {
@@ -21,6 +21,7 @@ global.wagtailConfig = {
   },
   STRINGS: {
     DELETE: 'Delete',
+    EDIT: 'Edit',
     PAGE: 'Page',
     PAGES: 'Pages',
     LOADING: 'Loading…',
@@ -55,6 +56,7 @@ global.wagtail = {};
 global.chooserUrls = {
   documentChooser: '/admin/documents/chooser/',
   emailLinkChooser: '/admin/choose-email-link/',
+  anchorLinkChooser: '/admin/choose-anchor-link',
   embedsChooser: '/admin/embeds/chooser/',
   externalLinkChooser: '/admin/choose-external-link/',
   imageChooser: '/admin/images/chooser/',

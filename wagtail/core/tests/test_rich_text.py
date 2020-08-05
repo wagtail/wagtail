@@ -6,6 +6,7 @@ from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
 from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.rich_text.rewriters import LinkRewriter, extract_attrs
+from wagtail.tests.testapp.models import EventPage
 
 
 class TestPageLinktypeHandler(TestCase):
@@ -67,7 +68,7 @@ class TestRichTextValue(TestCase):
         result = str(value)
         self.assertEqual(
             result,
-            '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>'
+            '<p>Merry <a href="/events/christmas/">Christmas</a>!</p>'
         )
 
     def test_evaluate_value(self):
@@ -108,11 +109,13 @@ class TestLinkRewriterTagReplacing(TestCase):
         self.assertEqual(page_type_link, '<a href="/article/3">')
 
         # but it should also be able to handle other supported
-        # link types (email, external) even if no rules is provided
+        # link types (email, external, anchor) even if no rules is provided
         external_type_link = rewriter('<a href="https://wagtail.io/">')
         self.assertEqual(external_type_link, '<a href="https://wagtail.io/">')
         email_type_link = rewriter('<a href="mailto:test@wagtail.io">')
         self.assertEqual(email_type_link, '<a href="mailto:test@wagtail.io">')
+        anchor_type_link = rewriter('<a href="#test">')
+        self.assertEqual(anchor_type_link, '<a href="#test">')
 
         # As well as link which don't have any linktypes
         link_without_linktype = rewriter('<a data-link="https://wagtail.io">')
@@ -131,6 +134,7 @@ class TestLinkRewriterTagReplacing(TestCase):
             'page': lambda attrs: '<a href="/article/{}">'.format(attrs['id']),
             'external': lambda attrs: '<a rel="nofollow" href="{}">'.format(attrs['href']),
             'email': lambda attrs: '<a data-email="true" href="{}">'.format(attrs['href']),
+            'anchor': lambda attrs: '<a data-anchor="true" href="{}">'.format(attrs['href']),
             'custom': lambda attrs: '<a data-phone="true" href="{}">'.format(attrs['href']),
         }
         rewriter = LinkRewriter(rules)
@@ -146,6 +150,8 @@ class TestLinkRewriterTagReplacing(TestCase):
         self.assertEqual(external_type_link_http, '<a rel="nofollow" href="http://wagtail.io/">')
         email_type_link = rewriter('<a href="mailto:test@wagtail.io">')
         self.assertEqual(email_type_link, '<a data-email="true" href="mailto:test@wagtail.io">')
+        anchor_type_link = rewriter('<a href="#test">')
+        self.assertEqual(anchor_type_link, '<a data-anchor="true" href="#test">')
 
         # But not the unsupported ones.
         link_with_no_linktype = rewriter('<a href="tel:+4917640206387">')
@@ -154,3 +160,17 @@ class TestLinkRewriterTagReplacing(TestCase):
         # Also call the rule if a custom linktype is mentioned.
         link_with_custom_linktype = rewriter('<a linktype="custom" href="tel:+4917640206387">')
         self.assertEqual(link_with_custom_linktype, '<a data-phone="true" href="tel:+4917640206387">')
+
+
+class TestRichTextField(TestCase):
+    fixtures = ['test.json']
+
+    def test_get_searchable_content(self):
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_page.body = '<p><b>Merry Christmas from <a href="https://wagtail.io/">Wagtail!</a></b> &amp; co.</p>'
+        christmas_page.save_revision(submitted_for_moderation=False)
+
+        body_field = christmas_page._meta.get_field('body')
+        value = body_field.value_from_object(christmas_page)
+        result = body_field.get_searchable_content(value)
+        self.assertEqual(result, ['Merry Christmas from Wagtail! & co.'])

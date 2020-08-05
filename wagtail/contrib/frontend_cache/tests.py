@@ -42,8 +42,9 @@ class TestBackendConfiguration(TestCase):
             'cloudflare': {
                 'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
-                'TOKEN': 'this is the token',
+                'API_KEY': 'this is the api key',
                 'ZONEID': 'this is a zone id',
+                'BEARER_TOKEN': 'this is a bearer token'
             },
         })
 
@@ -51,7 +52,8 @@ class TestBackendConfiguration(TestCase):
         self.assertIsInstance(backends['cloudflare'], CloudflareBackend)
 
         self.assertEqual(backends['cloudflare'].cloudflare_email, 'test@test.com')
-        self.assertEqual(backends['cloudflare'].cloudflare_token, 'this is the token')
+        self.assertEqual(backends['cloudflare'].cloudflare_api_key, 'this is the api key')
+        self.assertEqual(backends['cloudflare'].cloudflare_token, 'this is a bearer token')
 
     def test_cloudfront(self):
         backends = get_backends(backend_settings={
@@ -152,7 +154,7 @@ class TestBackendConfiguration(TestCase):
             'cloudflare': {
                 'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
-                'TOKEN': 'this is the token',
+                'API_KEY': 'this is the api key',
                 'ZONEID': 'this is a zone id',
             }
         })
@@ -168,7 +170,7 @@ class TestBackendConfiguration(TestCase):
             'cloudflare': {
                 'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
-                'TOKEN': 'this is the token',
+                'API_KEY': 'this is the api key',
                 'ZONEID': 'this is a zone id',
             }
         }, backends=['cloudflare'])
@@ -194,6 +196,17 @@ class MockBackend(BaseBackend):
 
     def purge(self, url):
         PURGED_URLS.append(url)
+
+
+class MockCloudflareBackend(CloudflareBackend):
+    def __init__(self, config):
+        pass
+
+    def _purge_urls(self, urls):
+        if len(urls) > self.CHUNK_SIZE:
+            raise Exception("Cloudflare backend is not chunking requests as expected")
+
+        PURGED_URLS.extend(urls)
 
 
 @override_settings(WAGTAILFRONTENDCACHE={
@@ -237,6 +250,25 @@ class TestCachePurgingFunctions(TestCase):
 
 
 @override_settings(WAGTAILFRONTENDCACHE={
+    'cloudflare': {
+        'BACKEND': 'wagtail.contrib.frontend_cache.tests.MockCloudflareBackend',
+    },
+})
+class TestCloudflareCachePurgingFunctions(TestCase):
+    def setUp(self):
+        # Reset PURGED_URLS to an empty list
+        PURGED_URLS[:] = []
+
+    def test_cloudflare_purge_batch_chunked(self):
+        batch = PurgeBatch()
+        urls = ['https://localhost/foo{}'.format(i) for i in range(1, 65)]
+        batch.add_urls(urls)
+        batch.purge()
+
+        self.assertCountEqual(PURGED_URLS, urls)
+
+
+@override_settings(WAGTAILFRONTENDCACHE={
     'varnish': {
         'BACKEND': 'wagtail.contrib.frontend_cache.tests.MockBackend',
     },
@@ -268,15 +300,20 @@ class TestCachePurgingSignals(TestCase):
 
     @override_settings(ROOT_URLCONF='wagtail.tests.urls_multilang',
                        LANGUAGE_CODE='en',
-                       WAGTAILFRONTENDCACHE_LANGUAGES=['en'])
+                       WAGTAILFRONTENDCACHE_LANGUAGES=['en', 'fr', 'pt-br'])
     def test_purge_on_publish_in_multilang_env(self):
-        from django.conf import settings
         PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         page = EventIndex.objects.get(url_path='/home/events/')
         page.save_revision().publish()
-        self.assertEqual(len(PURGED_URLS), len(settings.WAGTAILFRONTENDCACHE_LANGUAGES) * 2)
-        for isocode, description in settings.WAGTAILFRONTENDCACHE_LANGUAGES:
-            self.assertIn('http://localhost/%s/events/' % isocode, PURGED_URLS)
+
+        self.assertEqual(PURGED_URLS, [
+            'http://localhost/en/events/',
+            'http://localhost/en/events/past/',
+            'http://localhost/fr/events/',
+            'http://localhost/fr/events/past/',
+            'http://localhost/pt-br/events/',
+            'http://localhost/pt-br/events/past/',
+        ])
 
 
 class TestPurgeBatchClass(TestCase):
@@ -327,7 +364,7 @@ class TestPurgeBatchClass(TestCase):
             'cloudflare': {
                 'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
                 'EMAIL': 'test@test.com',
-                'TOKEN': 'this is the token',
+                'API_KEY': 'this is the api key',
                 'ZONEID': 'this is a zone id',
             },
         }

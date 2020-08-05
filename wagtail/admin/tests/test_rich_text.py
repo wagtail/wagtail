@@ -1,12 +1,14 @@
 from bs4 import BeautifulSoup
 from django.conf import settings
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.admin.rich_text import (
     DraftailRichTextArea, HalloRichTextArea, get_rich_text_editor_widget)
 from wagtail.admin.rich_text.converters.editor_html import PageLinkHandler
+from wagtail.admin.rich_text.editors.draftail.features import Feature
+from wagtail.admin.rich_text.editors.hallo import HalloPlugin
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.models import Page, get_page_models
 from wagtail.core.rich_text import features as feature_registry
@@ -80,6 +82,7 @@ class TestGetRichTextEditorWidget(TestCase):
         },
     })
     def test_custom_editor_without_default(self):
+        self.assertIsInstance(get_rich_text_editor_widget(), DraftailRichTextArea)
         self.assertIsInstance(get_rich_text_editor_widget('custom'), CustomRichTextArea)
 
     @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
@@ -335,8 +338,7 @@ class TestRichTextValue(TestCase):
         value = RichText(text)
         result = str(value)
         expected = (
-            '<div class="rich-text"><p>To the <a href="'
-            '/foo/pointless-suffix/">moon</a>!</p></div>')
+            '<p>To the <a href="/foo/pointless-suffix/">moon</a>!</p>')
         self.assertEqual(result, expected)
 
 
@@ -756,3 +758,37 @@ class TestPageLinkHandler(TestCase):
             result,
             '<a data-linktype="page" data-id="%d" data-parent-id="2" href="/events/">' % events_page_id
         )
+
+
+class TestWidgetNotHidden(SimpleTestCase):
+    def test_draftail(self):
+        self.assertIs(
+            DraftailRichTextArea().is_hidden,
+            False,
+        )
+
+    def test_hallo(self):
+        self.assertIs(
+            HalloRichTextArea().is_hidden,
+            False,
+        )
+
+
+class TestDraftailFeature(SimpleTestCase):
+    def test_versioned_static_media(self):
+        feature = Feature(js=['wagtailadmin/js/example/feature.js'], css={
+            'all': ['wagtailadmin/css/example/feature.css'],
+        })
+        media_html = str(feature.media)
+        self.assertRegex(media_html, r'feature.js\?v=(\w+)')
+        self.assertRegex(media_html, r'feature.css\?v=(\w+)')
+
+
+class TestHalloPlugin(SimpleTestCase):
+    def test_versioned_static_media(self):
+        plugin = HalloPlugin(js=['wagtailadmin/js/vendor/hallo.js'], css={
+            'all': ['wagtailadmin/css/panels/hallo.css'],
+        })
+        media_html = str(plugin.media)
+        self.assertRegex(media_html, r'hallo.js\?v=(\w+)')
+        self.assertRegex(media_html, r'hallo.css\?v=(\w+)')

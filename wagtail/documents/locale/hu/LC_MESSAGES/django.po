@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-16 11:18+0000\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-04-21 15:33+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -170,8 +170,8 @@ msgstr "Fájl"
 msgid "Collection"
 msgstr "Gyűjtemény"
 
-msgid "Uploaded"
-msgstr "Feltöltve"
+msgid "Created"
+msgstr "Létrehozva"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -299,7 +299,7 @@ msgstr ""
 "dokumentumot"
 
 msgid "Document '{0}' deleted."
-msgstr "\"{0}\" dokumentum törölve."
+msgstr "'{0}' dokumentum törölve."
 
 msgid "Document"
 msgstr "Dokumentum"

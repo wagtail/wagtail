@@ -1,13 +1,14 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 {% load l10n %}
-{% load static %}
-{% load wagtailimages_tags %}
+{% load wagtailadmin_tags wagtailimages_tags %}
 {% block titletag %}{% trans "Add multiple images" %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% static 'wagtailimages/css/add-multiple.css' %}" type="text/css" />
+    {{ form_media.css }}
+
+    <link rel="stylesheet" href="{% versioned_static 'wagtailimages/css/add-multiple.css' %}" type="text/css" />
 {% endblock %}
 
 {% block content %}
@@ -21,19 +22,22 @@
 
             <form action="{% url 'wagtailimages:add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">
-                    <button class="button bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
+                    <button class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{% trans "Or choose from your computer" %}</button>
                     <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages:add_multiple' %}" multiple>
                 </div>
                 {% csrf_token %}
                 {% if collections %}
-                    <div class="field">
+                    <div class="field choice_field select">
                         <label for="id_addimage_collection">{% trans "Add to collection:" %}</label>
                         <div class="field-content">
-                            <select id="id_addimage_collection" name="collection">
-                                {% for collection in collections %}
-                                    <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
-                                {% endfor %}
-                            </select>
+                            <div class="input">
+                                <select id="id_addimage_collection" name="collection">
+                                    {% for collection in collections %}
+                                        <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <span></span>
+                            </div>
                         </div>
                     </div>
                 {% endif %}
@@ -75,18 +79,20 @@
 {% block extra_js %}
     {{ block.super }}
 
+    {{ form_media.js }}
+
     <!-- this exact order of plugins is vital -->
-    <script src="{% static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/vendor/canvas-to-blob.min.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/vendor/jquery.fileupload-image.js' %}"></script>
-    <script src="{% static 'wagtailimages/js/vendor/jquery.fileupload-validate.js' %}"></script>
-    <script src="{% static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/load-image.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/canvas-to-blob.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.iframe-transport.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.fileupload-process.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/jquery.fileupload-image.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/vendor/jquery.fileupload-validate.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
 
     <!-- Main script -->
-    <script src="{% static 'wagtailimages/js/add-multiple.js' %}"></script>
+    <script src="{% versioned_static 'wagtailimages/js/add-multiple.js' %}"></script>
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>

@@ -188,6 +188,8 @@ ul.listing {
     }
 
     .title {
+        word-break: break-word;
+
         .title-wrapper,
         h2 {
             text-transform: none;
@@ -227,6 +229,12 @@ ul.listing {
 
             // line-height: 1em;
         }
+    }
+
+    &--inline-actions .actions {
+        display: inline-block;
+        margin-top: 0;
+        vertical-align: inherit;
     }
 
     .button-secondary {
@@ -297,7 +305,9 @@ ul.listing {
         text-align: center;
 
         .icon {
-            opacity: 0.5;
+            width: 15px;
+            height: 18px;
+            vertical-align: middle;
 
             &::before {
                 margin-right: 2px;
@@ -632,7 +642,8 @@ table.listing {
 
 
 
-        td:hover .actions {
+        td:hover .actions,
+        td:focus-within .actions {
             visibility: visible;
         }
 

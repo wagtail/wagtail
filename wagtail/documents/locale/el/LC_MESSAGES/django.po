@@ -10,13 +10,13 @@
 # serafeim <serafeim@torchbox.com>, 2014,2016
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
-# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-01-20 20:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -122,9 +122,6 @@ msgstr "Τίτλος"
 
 msgid "File"
 msgstr "Αρχείο"
-
-msgid "Uploaded"
-msgstr "Ανεβασμένο"
 
 #, python-format
 msgid "%(time_period)s ago"

@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-02-26 23:45+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -67,6 +67,9 @@ msgstr "增加重定向"
 msgid "Save"
 msgstr "保存"
 
+msgid "Redirects"
+msgstr "重定向"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "删除重定向%(title)s"
@@ -90,17 +93,14 @@ msgstr "编辑"
 msgid "Delete redirect"
 msgstr "删除重定向"
 
-msgid "Redirects"
-msgstr "重定向"
-
 msgid "From"
 msgstr "从"
 
-msgid "Site"
-msgstr "站点"
-
 msgid "To"
 msgstr " 到"
+
+msgid "Site"
+msgstr "站点"
 
 msgid "Type"
 msgstr "类型"

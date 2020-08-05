@@ -1,0 +1,3 @@
+{% load i18n %}
+
+{% blocktrans with title=page.get_admin_display_title|safe task=task.name|safe %}The page "{{ title }}" has been submitted for approval in moderation stage "{{ task }}" {% endblocktrans %}

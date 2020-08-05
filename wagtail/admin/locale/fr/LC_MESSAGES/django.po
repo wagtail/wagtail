@@ -13,8 +13,8 @@
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira <hello@lta.me>, 2018
-# Loic Teixeira <hello@lta.me>, 2018
+# Loic Teixeira, 2018,2020
+# Loic Teixeira, 2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # nahuel, 2014
 # nahuel, 2014
@@ -27,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:29+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-31 17:21+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -41,23 +41,56 @@ msgstr ""
 msgid "Submit for moderation"
 msgstr "Soumettre pour modération"
 
+msgid "Resubmit to {}"
+msgstr "Resoumettre à {}"
+
+msgid "Submit to {}"
+msgstr "Soumettre à {}"
+
+msgid "Restart workflow "
+msgstr "Relancer le workflow"
+
+msgid "Cancel workflow "
+msgstr "Annuler le workflow"
+
 msgid "Unpublish"
 msgstr "Dépublier"
 
 msgid "Delete"
 msgstr "Supprimer"
 
+msgid "Lock"
+msgstr "Verrouiller"
+
+msgid "Apply editor lock"
+msgstr "Ajouter un verrou éditeur"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+msgid "Save Draft"
+msgstr "Enregistrer le brouillon"
+
+msgid "Page locked"
+msgstr "Page verrouillée"
+
 msgid "Wagtail admin"
 msgstr "Administration Wagtail"
 
-msgid "None"
-msgstr "Aucun(e)"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Désolé, vous n'avez pas les autorisations pour accéder à cette zone."
 
 msgid "You do not have permission to access the admin"
 msgstr "Vous n’avez pas l’autorisation d’accéder à l’administration"
 
+msgid "None"
+msgstr "Aucun(e)"
+
 msgid "Scheduled publishing"
 msgstr "Publication programmée"
+
+msgid "Privacy"
+msgstr "Confidentialité"
 
 msgid "Common page configuration"
 msgstr "Configuration générale"
@@ -70,6 +103,36 @@ msgstr "Promotion"
 
 msgid "Settings"
 msgstr "Paramètres"
+
+msgid "Date from"
+msgstr "Date depuis le"
+
+msgid "Date to"
+msgstr "Date jusqu’au"
+
+msgid "All"
+msgstr "Tous"
+
+msgid "Started at"
+msgstr "Commencé à"
+
+msgid "Show"
+msgstr "Afficher"
+
+msgid "Awaiting my review"
+msgstr "En attente de ma vérification"
+
+msgid "Completed at"
+msgstr "Terminé à"
+
+msgid "Workflow"
+msgstr "Workflow"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Title"
+msgstr "Titre"
 
 msgid "Enter password"
 msgstr "Entrez un mot de passe"
@@ -168,96 +231,125 @@ msgstr "Champ requis."
 msgid "Please select at least one group."
 msgstr "Vous devez sélectionner au moins un groupe."
 
-msgid "Error 404: Page not found"
-msgstr "Erreur 404 : Page introuvable"
+msgid "All types"
+msgstr "Tous les types"
 
-msgid "Error 404"
-msgstr "Erreur 404"
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Cette page a déjà le workflow '{0}' d'associé"
 
-msgid "The requested page could not be found."
-msgstr "La page demandée est introuvable."
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "Vous ne pouvez pas assigner plusieurs fois ce workflow à la même page."
 
-msgid "Go to Wagtail admin"
-msgstr "Aller sur l’administration de Wagtail"
+msgid "Give your workflow a name"
+msgstr "Donnez un nom à votre workflow"
 
-msgid "Account"
-msgstr "Compte"
+msgid "Add tasks to your workflow"
+msgstr "Ajoutez des tâches à votre workflow"
 
-msgid "Change profile picture"
-msgstr "Changer la photo de profil"
+msgid "Arabic"
+msgstr "Arabe"
 
-msgid "Your current profile picture:"
-msgstr "Votre photo de profil actuelle :"
+msgid "Catalan"
+msgstr "catalan"
 
-msgid "Update"
-msgstr "Mettre à jour"
+msgid "Czech"
+msgstr "Tchèque"
 
-msgid "Change email"
-msgstr "Changer l’e-mail"
+msgid "German"
+msgstr "allemand"
 
-msgid "Change password"
-msgstr "Changer le mot de passe"
+msgid "Greek"
+msgstr "grec"
 
-msgid ""
-"Your password can't be changed here. Please contact a site administrator."
-msgstr ""
-"Votre mot de passe ne peut être changé ici. Contactez un administrateur."
+msgid "English"
+msgstr "anglais"
 
-msgid "Set Time Zone"
-msgstr "Définir le fuseau horaire"
+msgid "Spanish"
+msgstr "espagnol"
 
-msgid "Language Preferences"
-msgstr "Préférences de langue"
+msgid "Finnish"
+msgstr "finnois"
 
-msgid "Notification preferences"
-msgstr "Préférences de notifications"
+msgid "French"
+msgstr "français"
 
-msgid "Reset password"
-msgstr "Réinitialiser le mot de passe"
+msgid "Galician"
+msgstr "galicien"
 
-msgid "Password change successful"
-msgstr "Mot de passe changé avec succès"
+msgid "Hungarian"
+msgstr "Hongrois"
 
-msgid "Login"
-msgstr "Identifiant"
+msgid "Indonesian"
+msgstr "Indonésien"
 
-msgid "Set your new password"
-msgstr "Définissez votre nouveau mot de passe"
+msgid "Icelandic"
+msgstr "islandais"
 
-msgid "Invalid password reset link"
-msgstr "Lien de réinitialisation de mot de passe invalide"
+msgid "Italian"
+msgstr "italien"
 
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
-msgstr ""
-"Le lien de réinitialisation de mot de passe était invalide, probablement "
-"parce qu’il a déjà été utilisé."
+msgid "Japanese"
+msgstr "Japonais"
 
-msgid "Request a new password reset"
-msgstr "Demander une nouvelle réinitialisation de mot de passe"
+msgid "Korean"
+msgstr "coréen"
 
-msgid "Check your email"
-msgstr "Consultez vos e-mails"
+msgid "Lithuanian"
+msgstr "lituanien"
 
-msgid ""
-"A link to reset your password has been emailed to you if an account exists "
-"for this address."
-msgstr ""
-"Un lien pour réinitialiser votre mot de passe vous a été envoyé par e-mail "
-"si un compte existe pour cette adresse."
+msgid "Mongolian"
+msgstr "Mongol"
 
-msgid "Please follow the link below to reset your password:"
-msgstr "Suivez le lien ci-dessous pour réinitialiser votre mot de passe :"
+msgid "Norwegian Bokmål"
+msgstr "norvégien bokmål"
 
-msgid "Your username (in case you've forgotten):"
-msgstr "Votre nom d'utilisateur (au cas où vous l'auriez perdu) :"
+msgid "Netherlands Dutch"
+msgstr "néerlandais"
 
-msgid "Password reset"
-msgstr "Réinitialisation de mot de passe"
+msgid "Persian"
+msgstr "Persan"
 
-msgid "Reset your password"
-msgstr "Réinitialisez votre mot de passe"
+msgid "Polish"
+msgstr "polonais"
+
+msgid "Brazilian Portuguese"
+msgstr "portugais brésilien"
+
+msgid "Portuguese"
+msgstr "portugais"
+
+msgid "Romanian"
+msgstr "roumain"
+
+msgid "Russian"
+msgstr "russe"
+
+msgid "Swedish"
+msgstr "suédois"
+
+msgid "Slovak"
+msgstr "Slovaque"
+
+msgid "Thai"
+msgstr "Thaï"
+
+msgid "Turkish"
+msgstr "Turc"
+
+msgid "Turkish (Turkey)"
+msgstr "Turc (Turquie)"
+
+msgid "Ukrainian"
+msgstr "Ukrainien"
+
+msgid "Chinese (Simplified)"
+msgstr "Chinois (Simplifié)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinois (Traditionnel)"
+
+msgid "Edit"
+msgstr "Modifier"
 
 msgid "Page"
 msgstr "Page"
@@ -324,6 +416,15 @@ msgstr "Document manquant"
 
 msgid "Close"
 msgstr "Fermer"
+
+msgid "Edit '{title}'"
+msgstr "Modifier '{title}'"
+
+msgid "View child pages of '{title}'"
+msgstr "Voir les sous-pages de '{title}'"
+
+msgid "Page explorer"
+msgstr "Explorateur"
 
 msgid "January"
 msgstr "Janvier"
@@ -403,14 +504,108 @@ msgstr "Ven"
 msgid "Sat"
 msgstr "Sam"
 
+msgid "Unknown {action}"
+msgstr "{action} inconnu(e)"
+
+msgid "Error 404: Page not found"
+msgstr "Erreur 404 : Page introuvable"
+
+msgid "Error 404"
+msgstr "Erreur 404"
+
+msgid "The requested page could not be found."
+msgstr "La page demandée est introuvable."
+
+msgid "Go to Wagtail admin"
+msgstr "Aller sur l’administration de Wagtail"
+
+msgid "Account"
+msgstr "Compte"
+
+msgid "Change profile picture"
+msgstr "Changer la photo de profil"
+
+msgid "Your current profile picture:"
+msgstr "Votre photo de profil actuelle :"
+
+msgid "Update"
+msgstr "Mettre à jour"
+
+msgid "Change email"
+msgstr "Changer l’e-mail"
+
+msgid "Change name"
+msgstr "Changer le nom"
+
+msgid "Change password"
+msgstr "Changer le mot de passe"
+
+msgid ""
+"Your password can't be changed here. Please contact a site administrator."
+msgstr ""
+"Votre mot de passe ne peut être changé ici. Contactez un administrateur."
+
+msgid "Set Time Zone"
+msgstr "Définir le fuseau horaire"
+
+msgid "Language Preferences"
+msgstr "Préférences de langue"
+
+msgid "Notification preferences"
+msgstr "Préférences de notifications"
+
+msgid "Reset password"
+msgstr "Réinitialiser le mot de passe"
+
+msgid "Password change successful"
+msgstr "Mot de passe changé avec succès"
+
+msgid "Login"
+msgstr "Identifiant"
+
+msgid "Set your new password"
+msgstr "Définissez votre nouveau mot de passe"
+
+msgid "Invalid password reset link"
+msgstr "Lien de réinitialisation de mot de passe invalide"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr ""
+"Le lien de réinitialisation de mot de passe était invalide, probablement "
+"parce qu’il a déjà été utilisé."
+
+msgid "Request a new password reset"
+msgstr "Demander une nouvelle réinitialisation de mot de passe"
+
+msgid "Check your email"
+msgstr "Consultez vos e-mails"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Un lien pour réinitialiser votre mot de passe vous a été envoyé par e-mail "
+"si un compte existe pour cette adresse."
+
+msgid "Please follow the link below to reset your password:"
+msgstr "Suivez le lien ci-dessous pour réinitialiser votre mot de passe :"
+
+msgid "Your username (in case you've forgotten):"
+msgstr "Votre nom d'utilisateur (au cas où vous l'auriez perdu) :"
+
+msgid "Password reset"
+msgstr "Réinitialisation de mot de passe"
+
+msgid "Reset your password"
+msgstr "Réinitialisez votre mot de passe"
+
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Add another"
-msgstr "Ajouter un nouveau"
 
 msgid "Move up"
 msgstr "Monter"
@@ -430,6 +625,12 @@ msgstr "Lien externe"
 msgid "Email link"
 msgstr "E-mail"
 
+msgid "Phone link"
+msgstr "Lien vers un téléphone"
+
+msgid "Anchor link"
+msgstr "Lien d'ancrage"
+
 #, python-format
 msgid ""
 "\n"
@@ -446,6 +647,12 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "        Il y a %(counter)s correspondances"
+
+msgid "Add an anchor link"
+msgstr "Ajouter un lien d'ancrage"
+
+msgid "Insert anchor"
+msgstr "Insérer le lien d'ancrage"
 
 msgid "Choose"
 msgstr "Choisir"
@@ -482,6 +689,9 @@ msgstr "Insérer un lien"
 msgid "Add an external link"
 msgstr "Ajouter un lien externe"
 
+msgid "Add a phone link"
+msgstr "Ajouter un lien vers un téléphone"
+
 msgid "Collection privacy"
 msgstr "Confidentialité de la collection"
 
@@ -500,11 +710,14 @@ msgstr ""
 msgid "Save"
 msgstr "Sauvegarder"
 
-msgid "Privacy"
-msgstr "Confidentialité"
+msgid "Set collection privacy. Current status: Public"
+msgstr "Définir la confidentialité de la collection. Statut actuel : Public"
 
 msgid "Public"
 msgstr "Public"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Définir la confidentialité de la collection. Statut actuel : Privé"
 
 msgid "Private"
 msgstr "Privée"
@@ -524,7 +737,7 @@ msgid ""
 "\">add one</a>?"
 msgstr ""
 "Aucune collection n’a été créée. Pourquoi ne pas <a href="
-"\"%(add_collection_url)s\">en ajouter une</a> ?"
+"\"%(add_collection_url)s\">en ajouter une</a> ?"
 
 #, python-format
 msgid "Add %(label)s"
@@ -544,11 +757,27 @@ msgstr ""
 "Ceci est votre tableau de bord sur lequel des informations importantes sur "
 "le contenu que vous avez créé seront affichées."
 
+msgid "Your locked pages"
+msgstr "Vos pages verrouillées"
+
+msgid "Locked at"
+msgstr "Verrouillé à"
+
+msgid "Edit this page"
+msgstr "Modifier cette page"
+
+msgid "Draft"
+msgstr "Brouillon"
+
+msgid "Live"
+msgstr "Publié"
+
+#, python-format
+msgid "%(time_period)s"
+msgstr "%(time_period)s"
+
 msgid "Pages awaiting moderation"
 msgstr "Pages en attente de modération"
-
-msgid "Title"
-msgstr "Titre"
 
 msgid "Parent"
 msgstr "Parent"
@@ -559,9 +788,6 @@ msgstr "Type"
 msgid "Edited"
 msgstr "Modifié"
 
-msgid "Edit this page"
-msgstr "Modifier cette page"
-
 msgid "Preview this page"
 msgstr "Prévisualiser cette page"
 
@@ -571,33 +797,60 @@ msgstr "Approuver"
 msgid "Reject"
 msgstr "Rejeter"
 
-msgid "Edit"
-msgstr "Modifier"
-
 msgid "Preview"
 msgstr "Prévisualisation"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "il y a %(time_period)s"
 
 msgid "Your most recent edits"
 msgstr "Vos modifications les plus récentes"
 
-msgid "Date"
-msgstr "Date"
-
 msgid "Status"
 msgstr "Statut"
 
-msgid "Draft"
-msgstr "Brouillon"
-
-msgid "Live"
-msgstr "Publié"
-
 msgid "Site summary"
 msgstr "Sommaire du site"
+
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"           <span>%(total)s</span> Page <span class=\"visuallyhidden\">créée "
+"dans %(site_name)s</span>\n"
+"        "
+msgstr[1] ""
+"\n"
+"           <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">créées dans %(site_name)s</span>\n"
+"        "
+
+msgid "Your pages in a workflow"
+msgstr "Vos pages dans un workflow"
+
+msgid "Task"
+msgstr "Tâche"
+
+msgid "Task started"
+msgstr "Tâche commencée"
+
+msgid "Changes requested at"
+msgstr "Modifications demandées à"
+
+msgid "Awaiting"
+msgstr "En attente"
+
+msgid "Awaiting your review"
+msgstr "En attende de votre vérification"
+
+msgid "Tasks"
+msgstr "Tâches"
 
 msgid "Sign in"
 msgstr "S'identifier"
@@ -611,11 +864,11 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "S'identifier"
 
-msgid "Forgotten it?"
-msgstr "Oublié?"
-
 msgid "Signing in…"
 msgstr "Connexion..."
+
+msgid "Forgotten it?"
+msgstr "Oublié?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -657,6 +910,93 @@ msgstr "Vous pouvez prévisualiser la page ici :"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "La page \"%(page)s\" a été soumise pour modération"
 
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr "La page « %(title)s » a été approuvée dans la tâche « %(task)s »."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "La page « %(title)s » a été approuvée dans « %(task)s »."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "La page « %(title)s » a été rejetée dans la tâche « %(task)s »."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "La page « %(title)s » a été rejetée dans « %(task)s »."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"La page « %(title)s » a été soumise pour validation via la tâche "
+"« %(task)s »."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"La page « %(title)s » a été soumise pour validation vers la tâche "
+"« %(task)s »."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\" "
+msgstr ""
+"La page « %(title)s » a été soumise pour validation dans la tâche "
+"« %(task)s »."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr ""
+"La page « %(title)s » a été approuvée dans le workflow « %(workflow)s »."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "La page « %(title)s » a été approuvée dans « %(workflow)s »."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"La page « %(title)s » a été rejetée pendant « %(task)s » dans le workflow  "
+"« %(workflow)s »  par %(rejector)s."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"La page « %(title)s » a été rejetée pendant « %(task)s » dans le workflow  "
+"« %(workflow)s »."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "Le commentaire suivant a été saisi : « %(comment)s »"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "La page « %(title)s » a été rejeté dans le workflow « %(workflow)s »."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"La page « %(title)s » a été soumise pour modération dans le workflow "
+"« %(workflow)s »."
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
+msgstr "La page « %(title)s » a été soumise dans le workflow « %(workflow)s »."
+
 msgid "Page privacy"
 msgstr "Page privée"
 
@@ -668,23 +1008,43 @@ msgstr ""
 "Les changements de confidentialité s'appliquent également à toutes les sous-"
 "pages de cette page."
 
-msgid "Edit lock"
-msgstr "Modifier le verrou"
+msgid "Visit the live page"
+msgstr "Voir la page publiée"
 
-msgid "Locked"
-msgstr "Verrouillé"
+msgid "This page is live but only available to certain users"
+msgstr ""
+"Cette page a été publiée mais est seulement disponible pour certains "
+"utilisateurs"
 
-msgid "Unlocked"
-msgstr "Déverrouillé"
+msgid "restricted"
+msgstr "accès limité"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Définir la confidentialité de la page. Statut actuel : Public"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Définir la confidentialité de la page. Statut actuel : Privé"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Confidentialité de la page. Statut actuel : Public"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Confidentialité de la page. Statut actuel : Privé"
 
 msgid "Publishing…"
 msgstr "Publication..."
 
-msgid "Publish this revision"
+msgid "Publish this version"
 msgstr "Publier cette version"
 
-msgid "Publish"
-msgstr "Publier"
+msgid "Saving…"
+msgstr "Enregistrement…"
+
+msgid "Replace current draft"
+msgstr "Remplacer le brouillon actuel"
+
+msgid "Save draft"
+msgstr "Enregistrer le brouillon"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -798,6 +1158,43 @@ msgstr "Oui, la dépublier"
 msgid "No, don't unpublish"
 msgstr "Non, ne pas dépublier"
 
+msgid "Publish page"
+msgstr "Publier la page"
+
+#, python-format
+msgid ""
+"\n"
+"            This page was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"            Des modifications ont été demandée pour cette page dans la tâche "
+"« <strong>%(task)s</strong> » du workflow « <strong>%(workflow)s</"
+"strong> ».\n"
+"        "
+
+#, python-format
+msgid ""
+"\n"
+"            This page is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"            Cette page est actuellement à  <strong>%(task)s</strong> dans "
+"<strong>%(workflow)s</strong>.\n"
+"        "
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "Publier cette page annulera le workflow actuel."
+
+msgid "Would you still like to publish this page?"
+msgstr "Êtes vous sûr(e) de toujours vouloir publier cette page ?"
+
+msgid "Cancel"
+msgstr "Annuler"
+
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Pages utilisant %(page_class_verbose_name)s"
@@ -822,11 +1219,8 @@ msgstr "Nouveau %(page_type)s"
 msgid "New"
 msgstr "Nouveau"
 
-msgid "Saving…"
-msgstr "Enregistrement…"
-
-msgid "Save draft"
-msgstr "Enregistrer le brouillon"
+msgid "Actions"
+msgstr "Actions"
 
 msgid "This page has unsaved changes."
 msgstr "Cette page contient des changements non enregistrés."
@@ -836,25 +1230,40 @@ msgid "Editing %(page_type)s: %(title)s"
 msgstr "Modification de %(page_type)s: %(title)s"
 
 #, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Modification de %(page_type)s <span>%(title)s</span>"
+msgid "Editing %(page_type)s"
+msgstr "Modification de %(page_type)s"
 
-msgid "Page locked"
-msgstr "Page vérouillée"
-
-msgid "Replace current draft"
-msgstr "Remplacer le brouillon actuel"
+msgid "History"
+msgstr "Historique"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Dernière modification : %(last_mod)s"
+msgid "Page history for %(subtitle)s"
+msgstr "Historique de page pour %(subtitle)s"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "User"
+msgstr "Utilisateur"
+
+msgid "Date / Time"
+msgstr "Date/Heure"
+
+msgid "Comment"
+msgstr "Commentaire"
+
+msgid "Live version"
+msgstr "Version publique"
+
+msgid "Current draft"
+msgstr "Brouillon actuel"
 
 #, python-format
-msgid "by %(modified_by)s"
-msgstr "par %(modified_by)s"
+msgid "%(time_period)s ago"
+msgstr "il y a %(time_period)s"
 
-msgid "Revisions"
-msgstr "Versions"
+msgid "No log entries found."
+msgstr "Aucune entrée de journal trouvée."
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -956,6 +1365,9 @@ msgstr "Ajouter une sous-page"
 msgid "Sites menu"
 msgstr "Menu des sites"
 
+msgid "Pagination"
+msgstr "Pagination"
+
 #, python-format
 msgid ""
 "\n"
@@ -1007,6 +1419,24 @@ msgstr ""
 "Veuillez fermer cet onglet, modifier la page pour corriger ces erreurs,\n"
 "puis utiliser à nouveau la prévisualisation."
 
+msgid "Current status:"
+msgstr "Status actuel :"
+
+msgid "Set page privacy"
+msgstr "Définir les règles de confidentialité de la page"
+
+msgid "Review this version"
+msgstr "Passer en revue cette version"
+
+msgid "Compare with previous version"
+msgstr "Comparer avec la version précédente"
+
+msgid "Compare with current version"
+msgstr "Comparer avec la version actuelle"
+
+msgid "Cancel scheduled publish"
+msgstr "Annuler la publication programmée"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Comparaison de %(title)s"
@@ -1014,8 +1444,8 @@ msgstr "Comparaison de %(title)s"
 msgid "Comparing"
 msgstr "Comparaison"
 
-msgid "View revisions"
-msgstr "Voir les révisions"
+msgid "Page history"
+msgstr "Historique de la page"
 
 msgid "Fields"
 msgstr "Champs"
@@ -1059,8 +1489,8 @@ msgstr[1] ""
 "\n"
 "Déplacé %(counter)s fois vers le haut."
 
-msgid "There are no differences between these two revisions"
-msgstr "Il n’y a pas de différence entre ces deux révisions"
+msgid "There are no differences between these two versions"
+msgstr "Il n'y a aucune différence entre les deux versions"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1092,23 +1522,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "par"
 
-msgid "Current draft"
-msgstr "Brouillon actuel"
-
-msgid "Live version"
-msgstr "Version publique"
-
 msgid "Scheduled for"
 msgstr "Programmé pour"
-
-msgid "Review this revision"
-msgstr "Passer en revue cette version"
-
-msgid "Compare with previous revision"
-msgstr "comparer avec la révision précédente"
-
-msgid "Cancel scheduled publish"
-msgstr "Annuler la publication programmée"
 
 msgid "No revisions of this page exist"
 msgstr "Aucune version n’existe pour cette page"
@@ -1137,8 +1552,8 @@ msgid "Page types"
 msgstr "Type de pages"
 
 #, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Désolé, aucune page ne correspond à <em>\"%(query_string)s\"</em>"
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Désolé, aucune page ne correspond à « <em>%(query_string)s</em> »"
 
 msgid "Enter a search term above"
 msgstr "Entrez un terme de recherche ci-dessus"
@@ -1146,12 +1561,175 @@ msgstr "Entrez un terme de recherche ci-dessus"
 msgid "No pages use"
 msgstr "Aucune page utilisée"
 
+msgid "Workflow progress"
+msgstr "Avancée du workflow"
+
+msgid "Edit / Review"
+msgstr "Modifier / Vérifier"
+
+msgid "Workflow history"
+msgstr "Historique du workflow"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Demandé par <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Commencé à <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Statut <span class=\"status-tag primary\">%(status)s</span>"
+
+msgid "Timeline"
+msgstr "Timeline"
+
+msgid "Initial Revision"
+msgstr "Version initiale"
+
+msgid "Page edited"
+msgstr "Page modifiée"
+
+#, python-format
+msgid ""
+"\n"
+"                                            %(action)s by <b>%(who)s</b> at "
+"<b>%(at)s</b>\n"
+"                                        "
+msgstr ""
+"\n"
+"                                            %(action)s par <b>%(who)s</b> à "
+"<b>%(at)s</b>\n"
+"                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                            %(action)s at <b>%(at)s</b>\n"
+"                                        "
+msgstr ""
+"\n"
+"                                            %(action)s à <b>%(at)s</b>\n"
+"                                        "
+
+msgid "with comment:"
+msgstr "avec commentaire :"
+
+msgid "Workflow started"
+msgstr "Workflow commencé"
+
+msgid "Workflow completed"
+msgstr "Workflow terminé"
+
+#, python-format
+msgid ""
+"\n"
+"                                        %(action)s by <b>%(who)s</b>\n"
+"                                    "
+msgstr ""
+"\n"
+"                                        %(action)s par <b>%(who)s</b>\n"
+"                                    "
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Historique du workflow pour %(title)s"
+
+msgid "Workflow history for"
+msgstr "Historique du workflow pour"
+
+msgid "Edit page"
+msgstr "Modifier la page"
+
+msgid "Requested by"
+msgstr "Demandé par"
+
+msgid "Approved task"
+msgstr "Tâche approuvée"
+
+msgid "Incomplete task"
+msgstr "Tâche incomplète"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Cette page n'as pas encore été soumise pour modération"
+
 msgid "Collection"
 msgstr "Collection"
+
+msgid "No pages match this report's criteria."
+msgstr "Aucune page ne correspond aux critères de ce rapport."
+
+msgid "Download XLSX"
+msgstr "Télécharger en XLSX"
+
+msgid "Download CSV"
+msgstr "Télécharger en CSV"
+
+msgid "Filter"
+msgstr "Filtres"
+
+msgid "Apply filters"
+msgstr "Appliquer les filtres"
+
+msgid "No pages found."
+msgstr "Aucune page trouvée."
+
+msgid "Locking status"
+msgstr "Status de verrouillage"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"                               Verrouillé(e) par <b>vous</b> à <b>"
+"%(locking_date)s</b>\n"
+"                           "
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"                               Verrouillé(e) par <b>%(locked_by)s</b> à <b>"
+"%(locking_date)s</b>\n"
+"                               "
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"                            Verrouillé(e) à <b>%(locking_date)s</b>\n"
+"                        "
+
+msgid "Locked"
+msgstr "Verrouillé"
+
+msgid "No locked pages found."
+msgstr "Aucune page verrouillée trouvée"
+
+msgid "By Task"
+msgstr "Par tâche"
+
+msgid "No pages have been submitted for moderation yet"
+msgstr "Aucune page n'as encore été soumise pour modération"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Page %(page_num)s sur %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Fil d'Ariane"
 
 msgid "Root"
 msgstr "Racine"
@@ -1171,22 +1749,38 @@ msgstr "Paramètres du compte"
 msgid "Log out"
 msgstr "Se déconnecter"
 
+msgid "Current page status:"
+msgstr "Status actuel de la page :"
+
 msgid "Other searches"
 msgstr "Autres recherches"
 
+msgid "Changes requested"
+msgstr "Modifications demandées"
+
+msgid "since"
+msgstr "depuis"
+
+msgid "Published"
+msgstr "Publié(e)"
+
+msgid "Draft saved"
+msgstr "Brouillon sauvegardé"
+
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
-"software. Please <a href=\"http://browsehappy.com/\">upgrade your browser</"
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
 "a>."
 msgstr ""
-"Vous utilisez un navigateur non pris en charge par ce logiciel. Veuillez <a "
-"href=\"http://browsehappy.com/\">mettre à jour votre navigateur</a>."
+"Vous utilisez un navigateur <strong>obsolète</strong> et non-supporté par ce "
+"logiciel. Veuillez <a href=\"https://browsehappy.com/\">mettre à jour votre "
+"navigateur</a>."
 
 msgid ""
 "\n"
 "            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
-"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
 "JavaScript in your web browser</a>.\n"
 "        "
@@ -1194,10 +1788,13 @@ msgstr ""
 "\n"
 "            Javascript est nécessaire pour utiliser Wagtail, mais est "
 "actuellement désactivé.<br />\n"
-"            Voici les <a href=\"http://www.enable-javascript.com/\" target="
+"            Voici les <a href=\"https://www.enable-javascript.com/\" target="
 "\"_blank\" rel=\"noopener noreferrer\">instructions à suivre pour activer "
 "JavaScript dans votre navigateur</a>.\n"
 "        "
+
+msgid "Skip to main content"
+msgstr "Aller à contenu principal"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Aller sur l'interface d'administration de Wagtail"
@@ -1208,104 +1805,250 @@ msgstr "Ajouter une sous-page"
 msgid "Show in Explorer"
 msgstr "Montrer dans l’explorateur"
 
+msgid "Are you sure you want to disable this workflow?"
+msgstr "Êtes-vous sûr(e) de vouloir désactiver ce workflow ?"
+
+msgid "Yes, disable"
+msgstr "Oui, désactiver"
+
+msgid "Are you sure you want to disable this task?"
+msgstr "Êtes-vous sûr(e) de vouloir désactiver cette tâche ?"
+
+msgid "Assign your workflow to pages"
+msgstr "Assignez votre workflow à des pages"
+
+msgid "Creating…"
+msgstr "En cours de création..."
+
+msgid "Create"
+msgstr "Créer"
+
+#, python-format
+msgid ""
+"Workflows apply to child pages too. If you select a parent page here, its "
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
+msgstr ""
+"Les workflows s'appliquent également aux sous-pages. Si vous sélectionnez "
+"une page parente, ses sous-pages utiliseront également ce workflow. Voir <a "
+"href=\"%(workflow_pages_url)s\">la liste des pages</a> affectées par ce "
+"workflow."
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr "Ce workflow est désactivé et ne peut pas être assigné à des pages."
+
+msgid "Used on the following active workflows"
+msgstr "Utilisée dans les workflows actifs suivant"
+
+msgid "Not used"
+msgstr "Pas utilisé"
+
+msgid "Assigned pages"
+msgstr "Pages assignées"
+
+msgid "Assign to another page"
+msgstr "Assigner à une autre page"
+
+msgid "Hide disabled workflows"
+msgstr "Cacher les workflow désactivés"
+
+msgid "Show disabled workflows"
+msgstr "Afficher les workflows désactivés"
+
+msgid "Used by"
+msgstr "Utilisé par"
+
+#, python-format
+msgid ""
+"\n"
+"                                            1 page\n"
+"                                        "
+msgid_plural ""
+"\n"
+"                                            %(counter)s pages\n"
+"                                        "
+msgstr[0] ""
+"\n"
+"                                            1 page\n"
+"                                        "
+msgstr[1] ""
+"\n"
+"                                            %(counter)s pages\n"
+"                                        "
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Étape %(step_number)s"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s de plus"
+msgstr[1] "+%(counter)s de plus"
+
+#, python-format
+msgid ""
+"No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Aucun workflow n'a été créé. Pourquoi ne pas <a href=\"%(add_url)s\">en "
+"ajouter un</a> ?"
+
+#, python-format
+msgid ""
+"There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Il n'y a pas de workflow d'activer. Pourquoi ne pas <a href=\"%(add_url)s"
+"\">en ajouter un</a> ?"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "Choisissez quel type de tâche vous souhaiteriez créer."
+
+msgid "Choose a task"
+msgstr "Choisir une tâche"
+
+msgid "Existing"
+msgstr "Existant"
+
+msgid "Choose a different task type"
+msgstr "Choisir un type de tâche différent"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Il y a %(counter)s correspondance\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Il y a %(counter)s correspondance\n"
+"        "
+
+msgid "Task type"
+msgstr "Type de tâche"
+
+msgid "Used on"
+msgstr "Utilisé sur"
+
+#, python-format
+msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
+msgstr "Désolé, aucune tâche ne correspond à « <em>%(query_string)s</em> »"
+
+msgid "You haven't created any tasks."
+msgstr "Vous n’avez pas encore transféré de tâches."
+
+msgid ""
+"\n"
+"                Why not <a class=\"create-one-now\" href=\"#\">create one "
+"now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"                Pourquoi ne pas <a class=\"create-one-now\" href=\"#\">en "
+"créer une</a> ?\n"
+"            "
+
+msgid "Hide disabled tasks"
+msgstr "Cacher les tâches désactivées"
+
+msgid "Show disabled tasks"
+msgstr "Afficher les tâches désactivées"
+
+#, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Aucune tâche n'a été créé. Pourquoi ne pas <a href=\"%(add_url)s\">en "
+"ajouter une</a> ?"
+
+#, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Il n'y a pas de tâche d'activer. Pourquoi ne pas <a href=\"%(add_url)s\">en "
+"ajouter une</a> ?"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "Pages qui utilisent ce workflow « %(name)s »"
+
+msgid "Pages that use workflow"
+msgstr "Pages qui utilisent un workflow"
+
+#, python-format
+msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
+msgstr "Soumis dans <em>%(workflow_name)s</em> à %(started_at)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "par %(modified_by)s"
+
+msgid "Submitted"
+msgstr "Soumis"
+
+msgid "Not started"
+msgstr "Pas commencé"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "Modifications demandées par %(requested_by)s"
+
+#, python-format
+msgid "Approved by %(approved_by)s"
+msgstr "Approuvé par %(approved_by)s"
+
+msgid "See full history"
+msgstr "Voir l'historique complet"
+
+msgid "Compare with live version"
+msgstr "Comparer avec la version publiée"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Trier les sous-pages de '%(parent)s' par '%(label)s' par ordre croissant."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Trier les sous-pages de '%(parent)s' par '%(label)s' par ordre décroissant."
+
+msgid "0 minutes"
+msgstr "0 minutes"
+
+msgid "Just now"
+msgstr "À l'instant"
+
+msgid "live"
+msgstr "publié"
+
+msgid "live + draft"
+msgstr "publiée + brouillon"
+
+msgid "draft"
+msgstr "brouillon"
+
 msgid "Test"
 msgstr "Test"
 
-msgid "Arabic"
-msgstr "Arabe"
-
-msgid "Catalan"
-msgstr "catalan"
-
-msgid "German"
-msgstr "allemand"
-
-msgid "Greek"
-msgstr "grec"
-
-msgid "English"
-msgstr "anglais"
-
-msgid "Spanish"
-msgstr "espagnol"
-
-msgid "Finnish"
-msgstr "finnois"
-
-msgid "French"
-msgstr "français"
-
-msgid "Galician"
-msgstr "galicien"
-
-msgid "Indonesian"
-msgstr "Indonésien"
-
-msgid "Icelandic"
-msgstr "islandais"
-
-msgid "Italian"
-msgstr "italien"
-
-msgid "Korean"
-msgstr "coréen"
-
-msgid "Lithuanian"
-msgstr "lituanien"
-
-msgid "Mongolian"
-msgstr "Mongol"
-
-msgid "Norwegian Bokmål"
-msgstr "norvégien bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "néerlandais"
-
-msgid "Persian"
-msgstr "Persan"
-
-msgid "Polish"
-msgstr "polonais"
-
-msgid "Brazilian Portuguese"
-msgstr "portugais brésilien"
-
-msgid "Portuguese"
-msgstr "portugais"
-
-msgid "Romanian"
-msgstr "roumain"
-
-msgid "Russian"
-msgstr "russe"
-
-msgid "Swedish"
-msgstr "suédois"
-
-msgid "Slovak"
-msgstr "Slovaque"
-
-msgid "Thai"
-msgstr "Thaï"
-
-msgid "Ukrainian"
-msgstr "Ukrainien"
-
-msgid "Chinese (Simplified)"
-msgstr "Chinois (Simplifié)"
-
-msgid "Chinese (Traditional)"
-msgstr "Chinois (Traditionnel)"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "Désolé, vous n'avez pas les autorisations pour accéder à cette zone."
-
 msgid "Your password has been changed successfully!"
-msgstr "Votre mot de passe a été changé avec succès !"
+msgstr "Votre mot de passe a été changé avec succès !"
 
 msgid "Your email has been changed successfully!"
-msgstr "Votre e-mail a été changé avec succès !"
+msgstr "Votre e-mail a été changé avec succès !"
+
+msgid "Your name has been changed successfully!"
+msgstr "Votre nom a été changé avec succès !"
 
 msgid "Your preferences have been updated."
 msgstr "Vos préférences ont été mises à jour."
@@ -1344,7 +2087,7 @@ msgid "Are you sure you want to delete this collection?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer cette collection ?"
 
 msgid "Editing"
-msgstr "Édition"
+msgstr "Modification"
 
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Page  '{0}' créée et planifiée pour la publication."
@@ -1355,14 +2098,11 @@ msgstr "Visualiser en direct"
 msgid "Page '{0}' created and published."
 msgstr "Page '{0}' créée et publiée."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Page '{0}' créée et soumise pour modération."
-
 msgid "View draft"
 msgstr "Voir le brouillon"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Échec de l'envoi des notifications aux modérateurs"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Page '{0}' créée et soumise pour modération."
 
 msgid "Page '{0}' created."
 msgstr "Page '{0}' créée."
@@ -1370,20 +2110,46 @@ msgstr "Page '{0}' créée."
 msgid "The page could not be created due to validation errors"
 msgstr "La page ne peut être créée du fait d'erreurs de validation"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr ""
-"La version du {0} de la page '{1}' a été planifiée pour la publication."
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Cette page '{}' a été verrouillée</b> par <b>vous</b> le <b>{}</b>."
 
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Cette page '{}' est verrouillée</b> par <b>vous</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Cette page '{}' a été verrouillée</b> par <b>{}</b> le <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Cette page '{}' est verrouillée</b>."
+
+msgid "This page is currently awaiting moderation."
+msgstr "Cette page est actuellement en attente de modération."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
 msgstr ""
-"La page '{0}' est publiée et cette révision a été planifiée pour la "
-"publication"
+"Cette page est en attente « <b>{}</b> » dans le workflow « <b>{}</b> »."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Seul les modérateurs pour cette tâche peuvent modifier cette page."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Cette page est actuellement en attente de modération"
+
+msgid "Version from {0} of page '{1}' has been scheduled for publishing."
+msgstr ""
+"La version depuis « {0} » de la page « {1} » a été planifiée pour la "
+"publication."
+
+msgid "Page '{0}' is live and this version has been scheduled for publishing."
+msgstr ""
+"La page « {0} » est publiée et cette version a été planifiée pour la "
+"publication."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "La page '{0}' a été planifiée pour publication."
 
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "La version du {0} de la page '{1}' a été publiée."
+msgid "Version from {0} of page '{1}' has been published."
+msgstr "La version depuis « {0} » de la page « {1} » a été publiée."
 
 msgid "Page '{0}' has been published."
 msgstr "La page '{0}' a été publiée."
@@ -1391,8 +2157,14 @@ msgstr "La page '{0}' a été publiée."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La page '{0}' a été soumise pour modération."
 
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "La page '{0}' a été remplacée par la version du {1}."
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Le workflow sur la page « {0} » a été annulé."
+
+msgid "Workflow on page '{0}' has been restarted."
+msgstr "Le workflow de la page « {0} » a été relancé."
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "La page « {0} » a été remplacé par la version « {1} »."
 
 msgid "Page '{0}' has been updated."
 msgstr "La page '{0}' a été mise à jour."
@@ -1402,12 +2174,6 @@ msgstr "La page n'a pu être enregistrée car elle est verrouillée"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "La page ne peut être enregistrée du fait d'erreurs de validation."
-
-msgid "Compare with live version"
-msgstr "Comparer avec la version publiée"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Cette page est actuellement en attente de modération"
 
 msgid "Page '{0}' deleted."
 msgstr "Page '{0}' supprimée."
@@ -1446,15 +2212,16 @@ msgstr "Page '{0}' refusée à la publication."
 msgid "Failed to send rejection notifications"
 msgstr "Échec de l'envoi des notifications de rejet"
 
-msgid "Page '{0}' is now locked."
-msgstr "La page '{0}' est maintenant verrouillée."
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr ""
+"La page « {0} » n'est pas en attente de modération dans la tâche « {1} »."
 
 msgid "Page '{0}' is now unlocked."
 msgstr "La page '{0}' est maintenant déverrouillée."
 
 #, python-format
 msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
 "Vous passez en revue une version passée de cette page du <b>%(created_at)s</"
@@ -1467,48 +2234,180 @@ msgid "Latest"
 msgstr "Dernière"
 
 msgid "revision {0} of \"{1}\""
-msgstr "révision {0} sur \"{1}\""
+msgstr "version {0} sur \"{1}\""
 
-msgid "Revision {0} of \"{1}\" unscheduled."
+msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "La version {0} de \"{1}\" a été déprogrammée."
 
-msgid "Edit '{title}'"
-msgstr "Modifier '{title}'"
+msgid "Locked pages"
+msgstr "Pages verrouillées"
 
-msgid "Preview draft version of '{title}'"
-msgstr "Prévisualiser la version brouillon de '{title}'"
+msgid "Workflows"
+msgstr "Workflows"
 
-msgid "View live version of '{title}'"
-msgstr "Voir la version publiée de '{title}'"
+msgid "Page ID"
+msgstr "ID de Page"
 
-msgid "Add a child page to '{title}' "
-msgstr "Ajouter une sous-page à '{title}'"
+msgid "Page Type"
+msgstr "Type de page"
+
+msgid "Page Title"
+msgstr "Titre de la Page"
+
+msgid "Workflow tasks"
+msgstr "Tâches de workflow"
+
+msgid "Requested By"
+msgstr "Demandé par"
+
+msgid "Site history"
+msgstr "Historique du Site"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Type d'action"
+
+msgid "Date/Time"
+msgstr "Date/Heure"
+
+msgid "Add a workflow"
+msgstr "Ajouter un workflow"
+
+msgid "New workflow"
+msgstr "Nouveau workflow"
+
+msgid "Workflow '{0}' created."
+msgstr "Workflow '{0}' commencé."
+
+msgid "Editing workflow"
+msgstr "Modification de workflow"
+
+msgid "Workflow '{0}' updated."
+msgstr "Le workflow « {0} » a été mis à jour."
+
+msgid "Disable"
+msgstr "Désactiver"
+
+msgid "Enable"
+msgstr "Activer"
+
+msgid "Disable workflow"
+msgstr "Désactiver le workflow"
+
+msgid "Workflow '{0}' disabled."
+msgstr "Le workflow « {0} » a été désactivé."
+
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page. Disabling this "
+"workflow will cancel moderation on this page."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
+"workflow will cancel moderation on these pages."
+msgstr[0] ""
+"Ce workflow est en cours sur %(states_in_progress)d page. Le désactiver "
+"annulera les étapes de modération sur cette page."
+msgstr[1] ""
+"Ce workflow est en cours sur %(states_in_progress)d pages. Le désactiver "
+"annulera les étapes de modération sur ces pages."
+
+msgid "Workflow '{0}' enabled."
+msgstr "Le workflow « {0} » a été activé."
+
+msgid "Workflow removed from Page '{0}'."
+msgstr "Workflow supprimé pour la page « {0} »."
+
+msgid "New workflow task"
+msgstr "Nouvelle tâche de workflow"
+
+msgid "Task '{0}' created."
+msgstr "La tâche « {0} » a été créée."
+
+msgid "Editing workflow task"
+msgstr "Modification de tâche de workflow"
+
+msgid "Task '{0}' updated."
+msgstr "La tâche « {0} » a été mise à jour."
+
+msgid "Editing {task_type}"
+msgstr "Modification de {task_type}"
+
+msgid "Disable task"
+msgstr "Désactiver la tâche"
+
+msgid "Task '{0}' disabled."
+msgstr "La tâche « {0} » a été désactivée."
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow."
+msgstr[0] ""
+"Cette tâche est en cours sur %(states_in_progress)d page. La désactiver "
+"passera à l'étape suivante du workflow sur cette page."
+msgstr[1] ""
+"Cette tâche est en cours sur %(states_in_progress)d pages. La désactiver "
+"passera à l'étape suivante du workflow sur ces pages."
+
+msgid "Task '{0}' enabled."
+msgstr "La tâche « {0} » a été activée."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Signalez cette erreur à votre webmaster avec les informations suivantes :"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Modifier '%(title)s'"
+
+#, python-format
+msgid "Preview draft version of '%(title)s'"
+msgstr "Prévisualiser la version brouillon de '%(title)s'"
+
+#, python-format
+msgid "View live version of '%(title)s'"
+msgstr "Voir la version publiée de '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "Ajouter une sous-page à '%(title)s'"
 
 msgid "More"
 msgstr "Plus"
 
-msgid "View more options for '{title}'"
-msgstr "Voir plus d’options pour '{title}'"
+#, python-format
+msgid "View more options for '%(title)s'"
+msgstr "Voir plus d’options pour '%(title)s'"
 
-msgid "Move page '{title}'"
-msgstr "Déplacer la page '{title}'"
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Déplacer la page '%(title)s'"
 
-msgid "Copy page '{title}'"
-msgstr "Copier la page '{title}'"
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Copier la page '%(title)s'"
 
-msgid "Delete page '{title}'"
-msgstr "Supprimer la page '{title}'"
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Supprimer la page '%(title)s'"
 
-msgid "Unpublish page '{title}'"
-msgstr "Dépublier la page '{title}'"
+#, python-format
+msgid "Unpublish page '%(title)s'"
+msgstr "Dépublier la page '%(title)s'"
 
-msgid "View revision history for '{title}'"
-msgstr "Voir l’historique des révisions pour '{title}'"
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "Voir l'historique de la page pour « %(title)s »"
 
 msgid "Set profile picture"
 msgstr "Définir une photo de profil"
 
-msgid "Change your profile picture"
+msgid "Change your profile picture."
 msgstr "Changer votre photo de profil"
 
 msgid "Change the email address linked to your account."
@@ -1532,8 +2431,12 @@ msgstr "Fuseau horaire actuel"
 msgid "Choose your current time zone."
 msgstr "Choisissez votre fuseau horaire actuel."
 
-msgid "Heading {level}"
-msgstr "En-tête {level}"
+msgid "Change your first and last name on your account."
+msgstr "Changer le nom et prénom liés à votre compte."
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "En-tête %(level)d "
 
 msgid "Bulleted list"
 msgstr "List à puce"
@@ -1565,6 +2468,205 @@ msgstr "Barré"
 msgid "Code"
 msgstr "Code"
 
+msgid "Locked Pages"
+msgstr "Pages Verrouillées"
+
+msgid "Reports"
+msgstr "Rapports"
+
+msgid "Created"
+msgstr "Créée"
+
+msgid "Deleted"
+msgstr "Supprimée"
+
+msgid "Publish scheduled draft"
+msgstr "Publier le brouillon programmé"
+
+msgid "Published scheduled draft"
+msgstr "Le brouillon programmé à été publié"
+
+msgid "Unpublished"
+msgstr "Dépubliée"
+
+msgid "Unpublish scheduled draft"
+msgstr "Dépublier le brouillon programmé"
+
+msgid "Unpublished scheduled draft"
+msgstr "Le brouillon programmé à été dépublié"
+
+msgid "Unlocked"
+msgstr "Déverrouillé(e)"
+
+msgid "Approved"
+msgstr "Approuvée"
+
+msgid "Rejected"
+msgstr "Rejeté(e)"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Revenu à la version précédente avec l'ID %(revision_id)s depuis la version "
+"avec l'ID %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Revenu à la version précédente"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Copiée depuis %(title)s"
+
+msgid "Copied"
+msgstr "Copiée"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Déplacé de '%(old_parent)s' à '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Déplacé(e)"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Version %(revision_id)s du %(created_at)s programmée pour publication à "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Page planifiée pour la publication à %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Page planifiée pour la publication"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Version %(revision_id)s du %(created_at)s déprogrammée pour publication à "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Page planifiée pour la publication à %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "La publication de la page a été déplanifiée"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "La règle de confidentialité « %(restriction)s » a été ajoutée"
+
+msgid "Added view restriction"
+msgstr "Règle de confidentialité ajoutée"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr ""
+"Mettre à jour la règle de confidentialité et utiliser « %(restriction)s »"
+
+msgid "Updated view restriction"
+msgstr "Mettre à jour la règle de confidentialité"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "La règle de confidentialité « %(restriction)s » a été supprimée"
+
+msgid "Removed view restriction"
+msgstr "Règle de confidentialité supprimée"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Renommé de '%(old)s' à '%(new)s'"
+
+msgid "Renamed"
+msgstr "Renommée"
+
+msgid "Rename"
+msgstr "Renommer"
+
+msgid "Revert"
+msgstr "Revenir en arrière"
+
+msgid "Schedule publication"
+msgstr "Programmer la publication"
+
+msgid "Unschedule publication"
+msgstr "Déprogrammer la publication"
+
+msgid "Add view restrictions"
+msgstr "Ajouter des règles de confidentialité"
+
+msgid "Update view restrictions"
+msgstr "Mettre à jour les règles de confidentialité"
+
+msgid "Remove view restrictions"
+msgstr "Supprimer les règles de confidentialité"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr ""
+"Le workflow « %(workflow)s » a été commencé. La prochaine étape est "
+"« %(task)s »"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Approuvé à « %(task)s ». La prochaine étape est « %(next_task)s »"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Approuvé à « %(task)s ». Workflow « %(workflow)s » terminé"
+
+msgid "Workflow task approved"
+msgstr "Tâche de workflow annulée"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Rejeté à « %(task)s ». Modifications demandées"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "La tâche de workflow a été rejetée. Le workflow est terminé"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "La tâche « %(task)s » à été resoumisse. Le workflow a repris"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "La tâche du workflow à été resoumisse. Le workflow a repris"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Le workflow « %(workflow)s » a été annulé à « %(task)s »"
+
+msgid "Workflow cancelled"
+msgstr "Workflow annulé"
+
+msgid "Workflow: start"
+msgstr "Workflow : commencer"
+
+msgid "Workflow: approve task"
+msgstr "Workflow : approuver la tâche"
+
+msgid "Workflow: reject task"
+msgstr "Workflow : rejeter la tâche"
+
+msgid "Workflow: resume task"
+msgstr "Workflow : reprendre la tâche"
+
+msgid "Workflow: cancel"
+msgstr "Workflow : annuler"
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
 msgid "Choose an item"
 msgstr "Choisissez un élément"
 
@@ -1579,3 +2681,9 @@ msgstr "Modifier cet item"
 
 msgid "Choose another page"
 msgstr "Choisissez une autre page"
+
+msgid "Choose another task"
+msgstr "Choisir une autre tâche"
+
+msgid "Edit this task"
+msgstr "Modifier cette tâche"

@@ -8,14 +8,16 @@
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
+# Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
+# sergeybe <sergeybe@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-07-15 15:29+0000\n"
-"Last-Translator: Nikita Tonkoshkur <humapen@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 17:23+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -26,12 +28,18 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "default"
+msgstr "по умолчанию"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Редактирование %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Редактирование"
+
+msgid "Site"
+msgstr "Сайт"
 
 msgid "Saving…"
 msgstr "Сохранение…"
@@ -43,10 +51,11 @@ msgid "Settings"
 msgstr "Настройки"
 
 msgid "This setting could not be opened because there is no site defined."
-msgstr "Настройка не может быть открыта так как сайт не определён."
+msgstr "Эта настройка не может быть открыта так как сайт не определён."
 
-msgid "{setting_type} updated."
-msgstr "{setting_type} обновлен."
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s обновлено."
 
 msgid "The setting could not be saved due to errors."
-msgstr "Настройки не могут быть сохранены из-за ошибок."
+msgstr "Эта настройка не может быть сохранены из-за ошибок."

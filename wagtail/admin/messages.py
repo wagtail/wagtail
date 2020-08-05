@@ -12,24 +12,24 @@ def render(message, buttons, detail=''):
     })
 
 
-def debug(request, message, buttons=None):
-    return messages.debug(request, render(message, buttons))
+def debug(request, message, buttons=None, extra_tags=''):
+    return messages.debug(request, render(message, buttons), extra_tags=extra_tags)
 
 
-def info(request, message, buttons=None):
-    return messages.info(request, render(message, buttons))
+def info(request, message, buttons=None, extra_tags=''):
+    return messages.info(request, render(message, buttons), extra_tags=extra_tags)
 
 
-def success(request, message, buttons=None):
-    return messages.success(request, render(message, buttons))
+def success(request, message, buttons=None, extra_tags=''):
+    return messages.success(request, render(message, buttons), extra_tags=extra_tags)
 
 
-def warning(request, message, buttons=None):
-    return messages.warning(request, render(message, buttons))
+def warning(request, message, buttons=None, extra_tags=''):
+    return messages.warning(request, render(message, buttons), extra_tags=extra_tags)
 
 
-def error(request, message, buttons=None):
-    return messages.error(request, render(message, buttons))
+def error(request, message, buttons=None, extra_tags=''):
+    return messages.error(request, render(message, buttons), extra_tags=extra_tags)
 
 
 def validation_error(request, message, form, buttons=None):

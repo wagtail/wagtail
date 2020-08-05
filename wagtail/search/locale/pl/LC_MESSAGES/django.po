@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# utek <mail@utek.pl>, 2014
+# Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016
 # Miłosz Miśkiewicz, 2018
 # Miłosz Miśkiewicz, 2016
-# utek <mail@utek.pl>, 2014
+# Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
 "PO-Revision-Date: 2018-05-15 08:29+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"

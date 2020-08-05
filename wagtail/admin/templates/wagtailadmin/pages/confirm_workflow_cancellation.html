@@ -1,0 +1,21 @@
+{% load i18n %}
+{% trans 'Publish page' as publish_title %}
+{% include "wagtailadmin/shared/header.html" with title=publish_title icon="clipboard-list" %}
+
+<div class="nice-padding">
+    <p>
+    {% if needs_changes %}
+        {% blocktrans %}
+            This page was marked as needing changes at <strong>{{ task }}</strong> in <strong>{{ workflow }}</strong>.
+        {% endblocktrans %}
+    {% else %}
+        {% blocktrans %}
+            This page is currently at <strong>{{ task }}</strong> in <strong>{{ workflow }}</strong>.
+        {% endblocktrans %}
+    {% endif %}
+    </p>
+    <p>{% trans 'Publishing this page will cancel the current workflow.' %}</p>
+    <p>{% trans 'Would you still like to publish this page?' %}</p>
+    <button type="submit" class="button" data-confirm-cancellation>{% trans 'Publish' %}</button>
+    <button type="submit" class="button button-secondary no" data-cancel-dialog>{% trans 'Cancel' %}</button>
+</div>

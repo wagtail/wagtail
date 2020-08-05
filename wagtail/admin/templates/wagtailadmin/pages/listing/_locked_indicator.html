@@ -7,5 +7,6 @@
 {% endcomment %}
 
 {% if page.locked %}
+    {# TODO: Different look when it's locked by current user? #}
     <span class="indicator locked-indicator icon icon-locked" title="{% trans 'This page is locked to further editing' %}"></span>
 {% endif %}

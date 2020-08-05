@@ -27,6 +27,8 @@
     // stylelint-disable-next-line property-no-vendor-prefix
     -moz-appearance: none;
 
+    transition: background-color 0.1s ease;
+
     &:hover {
         color: $color-teal;
     }
@@ -106,10 +108,10 @@
     }
 
     &.bicolor {
-        border: 0;
+        border: 1px solid transparent;
         padding-left: 3.5em;
 
-        &:before {
+        &:before {  // iconfont
             font-size: 1rem;
             position: absolute;
             left: 0;
@@ -123,15 +125,53 @@
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
         }
+
+        .icon-wrapper {
+            background-color: rgba(0, 0, 0, 0.2);
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3em;
+            line-height: 1.85em;
+            height: 100%;
+            text-align: center;
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
+        }
+
+        &.button--icon {
+            &:before {
+                display: none;  // TODO: remove once the icon font styles are gone
+            }
+
+            .icon {
+                @include svg-icon(1rem);
+                padding: 0.75em;
+            }
+        }
+
+        &.button--icon-flipped {
+            .icon {
+                transform: scaleX(-1);
+            }
+        }
+
+        &.button-secondary {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
     }
 
     &.button-small.bicolor {
         padding-left: 3.5em;
 
-        &:before {
+        .icon-wrapper {
             width: 2em;
-            font-size: 0.9rem;
-            line-height: 1.65em;
+        }
+
+        &.button--icon .icon {
+            @include svg-icon(0.9rem);
+            padding: 0.25em;
         }
     }
 
@@ -179,7 +219,7 @@
     }
 
     &.button-longrunning {
-        span {
+        span {  // iconfont
             @include transition(all 0.3s ease);
             transform: scale(0.9);
             display: inline-block;
@@ -196,15 +236,16 @@
             font-style: normal;
         }
 
-        &.button-longrunning-active span {
+        &.button-longrunning-active span { // iconfont
             transform: scale(1);
             visibility: visible;
             width: 1em;
+            height: 1em;
             opacity: 0.8;
             padding-right: 0.5em;
         }
 
-        .icon-spinner:after {
+        span.icon-spinner:after { // iconfont
             text-align: center;
             position: absolute;
             left: 0;
@@ -212,6 +253,25 @@
             line-height: 1em;
             display: inline-block;
             font-size: 1em;
+        }
+
+        svg.icon-spinner {
+            @include transition(all 0.3s ease);
+            display: none;
+        }
+
+        &.button-longrunning-active svg.icon-spinner {
+            @include svg-icon();
+
+            transform: scale(1);
+            display: inline-block;
+            opacity: 0.8;
+            padding: 0;
+            margin-right: 0.5em;
+        }
+
+        &.button-longrunning-active .button-longrunning__icon {
+            display: none;
         }
     }
 
@@ -236,31 +296,38 @@
         border: 0;
     }
 
+    &.button--icon {
+        .icon {
+            @include svg-icon(1.5em);
+        }
+    }
+
+    &.button-strokeonhover {
+        border: 1px solid transparent;
+
+        &:hover {
+            border-color: $color-grey-2;
+        }
+
+        &.button-nobg:hover {
+            background-color: transparent;
+        }
+    }
+
+    &.text-notransform {
+        text-transform: initial;
+    }
+
+    &.button--icon {
+        .icon {
+            @include svg-icon(1.5em);
+        }
+    }
+
     @include media-breakpoint-up(sm) {
         font-size: 0.95em;
         padding: 0 1.4em;
         height: 3em;
-
-        &.icon.text-replace {
-            width: 2.2rem;
-            height: 2.2rem;
-
-            &:before {
-                line-height: 2.1em;
-            }
-        }
-
-        &.button-small {
-            &.icon.text-replace {
-                height: 1.8rem;
-                width: 1.8rem;
-
-                // stylelint-disable-next-line max-nesting-depth
-                &:before {
-                    line-height: 1.7em;
-                }
-            }
-        }
 
         &.bicolor {
             padding-left: 3.7em;
@@ -297,7 +364,7 @@
 }
 
 // Buttons which are only an icon
-.button.icon.text-replace {
+.button.icon.text-replace {  // iconfont
     font-size: 0; // unavoidable duplication of setting in icons.scss
     width: 1.8rem;
     height: 1.8rem;
@@ -305,6 +372,59 @@
     &:before {
         line-height: 1.7em;
     }
+
+    @include media-breakpoint-up(sm) {
+        width: 2.2rem;
+        height: 2.2rem;
+
+        &:before {
+            line-height: 2.1em;
+        }
+
+
+        &.button-small {
+            height: 1.8rem;
+            width: 1.8rem;
+
+            // stylelint-disable-next-line max-nesting-depth
+            &:before {
+                line-height: 1.7em;
+            }
+        }
+    }
+}
+
+.button--icon.text-replace {
+    font-size: 0;
+    text-align: center;
+
+    .icon {
+        font-size: initial;
+        @include svg-icon(1rem, middle);
+        padding: 0.5em;
+    }
+
+    &.button-small {
+        line-height: 1.7rem;
+
+        .icon {
+            padding: 0.25em;
+        }
+    }
+
+    @include media-breakpoint-up(sm) {
+        width: 2.2rem;
+        height: 2.2rem;
+
+        &.button-small {
+            height: 1.8rem;
+            width: 1.8rem;
+        }
+    }
+}
+
+button.button.bicolor .icon-wrapper {
+    line-height: 1.65em;  // work around differences in a and button elements
 }
 
 .button-neutral {

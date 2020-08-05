@@ -8,14 +8,14 @@
 # Gilson Filho <me@gilsondev.in>, 2014
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-06-19 13:35+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,9 @@ msgstr "data do envio"
 msgid "form submission"
 msgstr "envio do formulário"
 
+msgid "form submissions"
+msgstr "envios de formulários"
+
 msgid "label"
 msgstr "rótulo"
 
@@ -119,6 +122,9 @@ msgstr "texto de ajuda"
 
 msgid "Submission date"
 msgstr "Data de envio"
+
+msgid "Form"
+msgstr "Formulário"
 
 msgid "to address"
 msgstr "para endereço"
@@ -186,6 +192,9 @@ msgstr "Dados do formulário <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "Filtro"
+
+msgid "Download XLSX"
+msgstr "Baixar XLSX"
 
 msgid "Download CSV"
 msgstr "Baixar CSV"

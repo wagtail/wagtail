@@ -1,5 +1,5 @@
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .base import Block
 
@@ -13,7 +13,7 @@ class StaticBlock(Block):
     def render_form(self, value, prefix='', errors=None):
         if self.meta.admin_text is None:
             if self.label:
-                return _('{label}: this block has no options.').format(label=self.label)
+                return _('%(label)s: this block has no options.') % {'label': self.label}
             else:
                 return _('This block has no options.')
         return self.meta.admin_text

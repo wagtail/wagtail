@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n static %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans with query=query.query_string %}Editing {{ query }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
@@ -31,7 +31,7 @@
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    <script src="{% static 'wagtailsearch/js/query-chooser-modal.js' %}"></script>
+    <script src="{% versioned_static 'wagtailsearch/js/query-chooser-modal.js' %}"></script>
     {{ form_media.js }}
 
     <script type="text/javascript">

@@ -1,4 +1,5 @@
 from django.db.models import Model
+from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
@@ -43,14 +44,13 @@ class RichText:
         self.source = (source or '')
 
     def __html__(self):
-        return '<div class="rich-text">' + expand_db_html(self.source) + '</div>'
+        return render_to_string('wagtailcore/shared/richtext.html', {'html': expand_db_html(self.source)})
 
     def __str__(self):
         return mark_safe(self.__html__())
 
     def __bool__(self):
         return bool(self.source)
-    __nonzero__ = __bool__
 
 
 class EntityHandler:

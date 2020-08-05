@@ -8,7 +8,7 @@ Theory
 Introduction to Trees
 ~~~~~~~~~~~~~~~~~~~~~
 
-If you're unfamiliar with trees as an abstract data type, you might want to `review the concepts involved. <http://en.wikipedia.org/wiki/Tree_(data_structure)>`_
+If you're unfamiliar with trees as an abstract data type, you might want to `review the concepts involved. <https://en.wikipedia.org/wiki/Tree_(data_structure)>`_
 
 As a web developer, though, you probably already have a good understanding of trees as filesystem directories or paths. Wagtail pages can create the same structure, as each page in the tree has its own URL path, like so::
 

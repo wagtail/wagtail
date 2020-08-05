@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-10-27 12:57+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:52+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -40,8 +40,9 @@ msgstr "Налады"
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Гэты параметр не магчыма адчыніць, бо сайт не вызначаны."
 
-msgid "{setting_type} updated."
-msgstr "{setting_type} абноўлена"
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)sабноўлена"
 
 msgid "The setting could not be saved due to errors."
 msgstr "Не атрымалася захаваць наладку з-за памылкі"

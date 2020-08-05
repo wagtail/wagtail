@@ -10,13 +10,13 @@
 # serafeim <serafeim@torchbox.com>, 2014,2016
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # Wasilis Mandratzis-Walz, 2015
-# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -25,9 +25,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "{label}: this block has no options."
-msgstr "{label}: αυτό το block δεν έχει επιλογές."
 
 msgid "This block has no options."
 msgstr "Αυτό το block δεν έχει επιλογές."
@@ -226,9 +223,6 @@ msgstr "Διαγραφή σελιδών με υποσελίδες"
 
 msgid "Lock"
 msgstr "Κλείδωμα"
-
-msgid "Lock/unlock any page"
-msgstr "Κλείδωμα/ξεκλείδωμα κάθε σελίδας"
 
 msgid "group"
 msgstr "ομάδα"

@@ -13,13 +13,14 @@
 # Mauricio Baeza <python@amigos.email>, 2014-2015
 # Mauricio Baeza <python@amigos.email>, 2015
 # Mauricio Baeza <python@amigos.email>, 2014
+# Oscar Luciano Espirilla Flores, 2020
 # José Luis <alagunajs@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -176,6 +177,9 @@ msgstr "Editando"
 msgid "Save"
 msgstr "Guardar"
 
+msgid "Permissions"
+msgstr "Permisos"
+
 msgid "Object permissions"
 msgstr "Permisos del objeto"
 
@@ -288,14 +292,6 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Lo sentimos, ningún usuario coincide con \"<em>%(query_string)s</em>\""
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
-"\">add some</a>?"
-msgstr ""
-"No hay usuarios configurados. ¿Por qué no <a href="
-"\"%(wagtailusers_create_url)s\">añadir alguno</a>?"
 
 msgid "Groups"
 msgstr "Grupos"

@@ -204,8 +204,10 @@ and a common video playback API which is useful if your site allows videos to
 be hosted on different providers and you need to implement custom controls for
 them.
 
-Wagtail has built in support for fetching embeds from Embed.ly.  To use it, add
-an embed finder to your ``WAGTAILEMBEDS_FINDERS`` setting that uses the
+Wagtail has built in support for fetching embeds from Embed.ly. To use it,
+first pip install the ``Embedly`` `python package <https://pypi.org/project/Embedly/>`_.
+
+Now add an embed finder to your ``WAGTAILEMBEDS_FINDERS`` setting that uses the
 ``wagtail.embeds.finders.oembed`` class and pass it your API key:
 
 .. code-block:: python

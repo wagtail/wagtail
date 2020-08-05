@@ -4,27 +4,27 @@ from django import forms
 from django.contrib.admin import FieldListFilter
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
-    get_fields_from_path, label_for_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
+    get_fields_from_path, label_for_field, lookup_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import (
-    ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied, SuspiciousOperation)
+    FieldDoesNotExist, ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied, SuspiciousOperation)
 from django.core.paginator import InvalidPage, Paginator
 from django.db import models
-from django.db.models.fields import FieldDoesNotExist
 from django.db.models.fields.related import ManyToManyField, OneToOneRel
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils.decorators import method_decorator
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
+from wagtail.admin.views.mixins import SpreadsheetExportMixin
 
 from .forms import ParentChooserForm
 
@@ -53,10 +53,10 @@ class WMABaseView(TemplateView):
         self.model_admin = model_admin
         self.model = model_admin.model
         self.opts = self.model._meta
-        self.app_label = force_text(self.opts.app_label)
-        self.model_name = force_text(self.opts.model_name)
-        self.verbose_name = force_text(self.opts.verbose_name)
-        self.verbose_name_plural = force_text(self.opts.verbose_name_plural)
+        self.app_label = force_str(self.opts.app_label)
+        self.model_name = force_str(self.opts.model_name)
+        self.verbose_name = force_str(self.opts.verbose_name)
+        self.verbose_name_plural = force_str(self.opts.verbose_name_plural)
         self.pk_attname = self.opts.pk.attname
         self.is_pagemodel = model_admin.is_pagemodel
         self.permission_helper = model_admin.permission_helper
@@ -151,8 +151,9 @@ class ModelFormView(WMABaseView, FormView):
         return super().get_context_data(**context)
 
     def get_success_message(self, instance):
-        return _("{model_name} '{instance}' created.").format(
-            model_name=capfirst(self.opts.verbose_name), instance=instance)
+        return _("%(model_name)s '%(instance)s' created.") % {
+            'model_name': capfirst(self.opts.verbose_name), 'instance': instance
+        }
 
     def get_success_message_buttons(self, instance):
         button_url = self.url_helper.get_action_url('edit', quote(instance.pk))
@@ -212,14 +213,15 @@ class InstanceSpecificView(WMABaseView):
         return super().get_context_data(**context)
 
 
-class IndexView(WMABaseView):
+class IndexView(SpreadsheetExportMixin, WMABaseView):
 
     ORDER_VAR = 'o'
     ORDER_TYPE_VAR = 'ot'
     PAGE_VAR = 'p'
     SEARCH_VAR = 'q'
     ERROR_FLAG = 'e'
-    IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR)
+    EXPORT_VAR = 'export'
+    IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR, EXPORT_VAR)
 
     # sortable_by is required by the django.contrib.admin.templatetags.admin_list.result_headers
     # template tag as of Django 2.1 - see https://docs.djangoproject.com/en/2.1/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
@@ -231,12 +233,14 @@ class IndexView(WMABaseView):
         if not self.permission_helper.user_can_list(request.user):
             raise PermissionDenied
 
+        self.list_export = self.model_admin.get_list_export(request)
         self.list_display = self.model_admin.get_list_display(request)
         self.list_filter = self.model_admin.get_list_filter(request)
         self.search_fields = self.model_admin.get_search_fields(request)
         self.items_per_page = self.model_admin.list_per_page
         self.select_related = self.model_admin.list_select_related
         self.search_handler = self.model_admin.get_search_handler(request, self.search_fields)
+        self.export = (request.GET.get(self.EXPORT_VAR))
 
         # Get search parameters from the query string.
         try:
@@ -249,11 +253,39 @@ class IndexView(WMABaseView):
             del self.params[self.PAGE_VAR]
         if self.ERROR_FLAG in self.params:
             del self.params[self.ERROR_FLAG]
+        if self.EXPORT_VAR in self.params:
+            del self.params[self.EXPORT_VAR]
 
         self.query = request.GET.get(self.SEARCH_VAR, '')
+
         self.queryset = self.get_queryset(request)
 
+        if self.export in self.FORMATS:
+            return self.as_spreadsheet(self.queryset, self.export)
+
         return super().dispatch(request, *args, **kwargs)
+
+    def get_filename(self):
+        """ Get filename for exported spreadsheet, without extension """
+        return getattr(self.model_admin, 'export_filename', super().get_filename())
+
+    def get_heading(self, queryset, field):
+        """ Get headings for exported spreadsheet column for the relevant field """
+        heading_override = self.export_headings.get(field)
+        if heading_override:
+            return force_str(heading_override)
+        return force_str(label_for_field(field, model=self.model, model_admin=self.model_admin).title())
+
+    def to_row_dict(self, item):
+        """ Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""
+        row_dict = OrderedDict()
+        for field in self.list_export:
+            f, attr, value = lookup_field(field, item, self.model_admin)
+            if not value:
+                value = getattr(attr, 'empty_value_display', self.model_admin.get_empty_value_display(field))
+            row_dict[field] = value
+
+        return row_dict
 
     @property
     def media(self):
@@ -641,8 +673,9 @@ class EditView(ModelFormView, InstanceSpecificView):
         return _('Editing %s') % self.verbose_name
 
     def get_success_message(self, instance):
-        return _("{model_name} '{instance}' updated.").format(
-            model_name=capfirst(self.verbose_name), instance=instance)
+        return _("%(model_name)s '%(instance)s' updated.") % {
+            'model_name': capfirst(self.verbose_name), 'instance': instance
+        }
 
     def get_context_data(self, **kwargs):
         context = {
@@ -727,8 +760,9 @@ class DeleteView(InstanceSpecificView):
 
     def post(self, request, *args, **kwargs):
         try:
-            msg = _("{model} '{instance}' deleted.").format(
-                model=self.verbose_name, instance=self.instance)
+            msg = _("%(model_name)s '%(instance)s' deleted.") % {
+                'model_name': self.verbose_name, 'instance': self.instance
+            }
             self.delete_instance()
             messages.success(request, msg)
             return redirect(self.index_url)

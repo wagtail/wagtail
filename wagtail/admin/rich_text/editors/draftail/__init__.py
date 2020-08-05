@@ -1,14 +1,17 @@
 import json
 
 from django.forms import Media, widgets
+from django.utils.functional import cached_property
 
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import features as feature_registry
 
 
 class DraftailRichTextArea(widgets.HiddenInput):
     template_name = 'wagtailadmin/widgets/draftail_rich_text_area.html'
+    is_hidden = False
 
     # this class's constructor accepts a 'features' kwarg
     accepts_features = True
@@ -21,12 +24,7 @@ class DraftailRichTextArea(widgets.HiddenInput):
         # but we don't currently recognise any options from there (other than 'features', which is passed here as a separate kwarg)
         kwargs.pop('options', None)
         self.options = {}
-
-        self._media = Media(js=[
-            'wagtailadmin/js/draftail.js',
-        ], css={
-            'all': ['wagtailadmin/css/panels/draftail.css']
-        })
+        self.plugins = []
 
         self.features = kwargs.pop('features', None)
         if self.features is None:
@@ -36,7 +34,7 @@ class DraftailRichTextArea(widgets.HiddenInput):
             plugin = feature_registry.get_editor_plugin('draftail', feature)
             if plugin:
                 plugin.construct_options(self.options)
-                self._media += plugin.media
+                self.plugins.append(plugin)
 
         self.converter = ContentstateConverter(self.features)
 
@@ -69,6 +67,15 @@ class DraftailRichTextArea(widgets.HiddenInput):
             return None
         return self.converter.to_database_format(original_value)
 
-    @property
+    @cached_property
     def media(self):
-        return self._media
+        media = Media(js=[
+            versioned_static('wagtailadmin/js/draftail.js'),
+        ], css={
+            'all': [versioned_static('wagtailadmin/css/panels/draftail.css')]
+        })
+
+        for plugin in self.plugins:
+            media += plugin.media
+
+        return media

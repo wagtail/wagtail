@@ -1,4 +1,4 @@
-window.$ = require('./vendor/jquery-3.2.1.min');
+window.$ = require('./vendor/jquery-3.5.1.min');
 require('./vendor/urlify').default;
 
 const cleanForSlug = require('./page-editor').cleanForSlug;

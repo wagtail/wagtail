@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import MediaBlock from '../blocks/MediaBlock';
+import { EditorState } from 'draft-js';
 
 describe('MediaBlock', () => {
   it('renders', () => {
@@ -10,7 +11,9 @@ describe('MediaBlock', () => {
         <MediaBlock
           src="example.png"
           alt=""
+          block={{}}
           blockProps={{
+            editorState: {},
             entityType: {
               icon: '#icon-test',
             },
@@ -19,6 +22,7 @@ describe('MediaBlock', () => {
                 src: 'example.png',
               }),
             },
+            onChange: () => {},
           }}
         >
           Test
@@ -33,13 +37,16 @@ describe('MediaBlock', () => {
         <MediaBlock
           src=""
           alt=""
+          block={{}}
           blockProps={{
+            editorState: {},
             entityType: {
               icon: '#icon-test',
             },
             entity: {
               getData: () => ({}),
             },
+            onChange: () => {},
           }}
         >
           Test
@@ -48,37 +55,61 @@ describe('MediaBlock', () => {
     ).toMatchSnapshot();
   });
 
-  describe('tooltip', () => {
+  describe('on click', () => {
     let target;
     let wrapper;
+    let blockProps;
 
     beforeEach(() => {
       target = document.createElement('div');
       target.setAttribute('data-draftail-trigger', true);
       document.body.appendChild(target);
       document.body.setAttribute('data-draftail-editor-wrapper', true);
-
+      blockProps = {
+        editorState: EditorState.createEmpty(),
+        entityType: {
+          icon: '#icon-test',
+        },
+        entity: {
+          getData: () => ({
+            src: 'example.png',
+          }),
+        },
+        onChange: () => {},
+      };
       wrapper = mount(
         <MediaBlock
           src="example.png"
           alt=""
-          blockProps={{
-            entityType: {
-              icon: '#icon-test',
-            },
-            entity: {
-              getData: () => ({
-                src: 'example.png',
-              }),
-            },
+          block={{
+            getKey: () => 'abcde',
+            getLength: () => 1,
           }}
+          blockProps={blockProps}
         >
           <div id="test">Test</div>
         </MediaBlock>
       );
     });
 
-    it('opens', () => {
+    it('selected', () => {
+      blockProps.onChange = (editorState) => {
+        const selecttion = editorState.getSelection();
+
+        expect(selecttion.getAnchorKey()).toEqual('abcde');
+        expect(selecttion.getAnchorOffset()).toEqual(0);
+        expect(selecttion.getFocusKey()).toEqual('abcde');
+        expect(selecttion.getFocusOffset()).toEqual(1);
+      };
+
+      jest.spyOn(blockProps, 'onChange');
+
+      wrapper.simulate('click', { target });
+
+      expect(blockProps.onChange).toHaveBeenCalled();
+    });
+
+    it('tooltip opens', () => {
       wrapper.simulate('click', { target });
 
       expect(
@@ -97,7 +128,7 @@ describe('MediaBlock', () => {
       expect(target.getBoundingClientRect).not.toHaveBeenCalled();
     });
 
-    it('large viewport', () => {
+    it('tooltip in large viewport', () => {
       target.getBoundingClientRect = () => ({
         top: 0,
         left: 0,
@@ -114,7 +145,7 @@ describe('MediaBlock', () => {
       ).toBe('Tooltip Tooltip--left');
     });
 
-    it('closes', () => {
+    it('tooltip closes', () => {
       jest.spyOn(target, 'getBoundingClientRect');
 
       expect(wrapper.state('showTooltipAt')).toBe(null);

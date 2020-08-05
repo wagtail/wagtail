@@ -8,7 +8,8 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira <hello@lta.me>, 2018
+# Loic Teixeira, 2020
+# Loic Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-12-27 13:53+0000\n"
-"Last-Translator: fpoulain <fpoulain@metrodore.fr>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-27 13:57+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +32,9 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Noyau de Wagtail"
 
-msgid "{label}: this block has no options."
-msgstr "{label}: ce bloc n'a aucune option."
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s : ce bloc n'a aucune option."
 
 msgid "This block has no options."
 msgstr "Ce bloc n'a aucune option."
@@ -55,6 +57,9 @@ msgid "The password you have entered is not correct. Please try again."
 msgstr ""
 "Le mot de passe que vous avez saisi est incorrect. Merci de bien vouloir "
 "réessayer."
+
+msgid "Comment"
+msgstr "Commentaire"
 
 msgid "hostname"
 msgstr "nom d'hôte"
@@ -96,6 +101,9 @@ msgstr "site"
 
 msgid "sites"
 msgstr "sites"
+
+msgid "default"
+msgstr "défaut"
 
 #, python-format
 msgid ""
@@ -170,6 +178,12 @@ msgstr "expirée"
 msgid "locked"
 msgstr "verrouillé"
 
+msgid "locked at"
+msgstr "Verrouillé à"
+
+msgid "locked by"
+msgstr "Verrouillé par"
+
 msgid "first published at"
 msgstr "première publication le"
 
@@ -179,17 +193,26 @@ msgstr "dernière publication le"
 msgid "latest revision created at"
 msgstr "dernière version créée le"
 
+msgid "live revision"
+msgstr "version publiée"
+
 msgid "This slug is already in use"
 msgstr "Ce slug est déjà utilisé"
 
 msgid "scheduled"
 msgstr "programmée"
 
+msgid "in moderation"
+msgstr "en cours de modération"
+
 msgid "draft"
 msgstr "brouillon"
 
 msgid "live + scheduled"
 msgstr "publiée + programmée"
+
+msgid "live + in moderation"
+msgstr "publiée + en cours de modération"
 
 msgid "live + draft"
 msgstr "publiée + brouillon"
@@ -251,8 +274,14 @@ msgstr "Supprimer des pages avec leurs enfants"
 msgid "Lock"
 msgstr "Verrouiller"
 
-msgid "Lock/unlock any page"
-msgstr "Verrouiller/déverrouiller n'importe quelle page"
+msgid "Lock/unlock pages you've locked"
+msgstr "Verrouiller / Déverrouiller les pages que vous avez verrouillés"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+msgid "Unlock any page"
+msgstr "Déverrouiller n'importe quelle page"
 
 msgid "group"
 msgstr "groupe"
@@ -319,6 +348,163 @@ msgstr "permission de collection de groupe"
 
 msgid "group collection permissions"
 msgstr "permission de collection de groupe"
+
+msgid "workflow"
+msgstr "workflow"
+
+msgid "workflow page"
+msgstr "page de workflow"
+
+msgid "workflow pages"
+msgstr "pages de workflow"
+
+msgid "workflow_tasks"
+msgstr "tâche de workflow"
+
+msgid "task"
+msgstr "tâche"
+
+msgid "workflow task order"
+msgstr "ordre de tâche de workflow"
+
+msgid "workflow task orders"
+msgstr "ordres de tâche de workflow"
+
+msgid "active"
+msgstr "actif"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Les tâches actives peuvent être ajoutées aux workflows. Désactiver une tâche "
+"ne la supprime pas des workflows existants."
+
+msgid "tasks"
+msgstr "tâches"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Les workflows actifs peuvent être ajoutés aux pages. Désactivé un workflow "
+"ne le supprime pas des pages existantes."
+
+msgid "workflows"
+msgstr "workflows"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Les pages à cette étape du workflow seront modérées ou approuvées par ces "
+"groupes d'utilisateurs"
+
+msgid "Request changes"
+msgstr "Demander des modifications"
+
+msgid "Approve"
+msgstr "Approuver"
+
+msgid "Approve with comment"
+msgstr "Approuver avec un commentaire"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr ""
+"Les membres des groupes Wagtails sélectionnés peuvent approuver cette tâche"
+
+msgid "Group approval task"
+msgstr "Groupe d'approbation de tâche"
+
+msgid "Group approval tasks"
+msgstr "Groupe d'approbation de tâches"
+
+msgid "In progress"
+msgstr "en cours"
+
+msgid "Approved"
+msgstr "Approuvé"
+
+msgid "Needs changes"
+msgstr "Modifications nécessaires"
+
+msgid "Cancelled"
+msgstr "Annulé"
+
+msgid "status"
+msgstr "statut"
+
+msgid "requested by"
+msgstr "demandé par"
+
+msgid "current task state"
+msgstr "État actuel de la tâche"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Il ne peut y avoir qu'un seul état de workflow « en cours » ou « "
+"modifications nécessaires » par page"
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Workflow '{0}' sur la page '{1}' : {2}"
+
+msgid "Not started"
+msgstr "Pas commencé"
+
+msgid "Workflow state"
+msgstr "État de workflow"
+
+msgid "Workflow states"
+msgstr "États de workflow"
+
+msgid "Rejected"
+msgstr "Rejeté"
+
+msgid "Skipped"
+msgstr "Ignoré"
+
+msgid "workflow state"
+msgstr "état de workflow"
+
+msgid "started at"
+msgstr "commencé à"
+
+msgid "finished at"
+msgstr "terminé à"
+
+msgid "finished by"
+msgstr "terminé par"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Tâche '{0}' sur la version de page '{1}' : {2}"
+
+msgid "Task state"
+msgstr "État de tâche"
+
+msgid "Task states"
+msgstr "États de tâche"
+
+msgid "timestamp (UTC)"
+msgstr "horodatage (UTC)"
+
+msgid "log entry"
+msgstr "entrée de journal"
+
+msgid "log entries"
+msgstr "entrées de journal"
+
+msgid "user {id} (deleted)"
+msgstr "utilisateur {id} (supprimer)"
+
+msgid "system"
+msgstr "système"
+
+msgid "page log entry"
+msgstr "entrée de journal de page"
+
+msgid "page log entries"
+msgstr "entrées de journal de page"
 
 msgid "Log in"
 msgstr "Connexion"

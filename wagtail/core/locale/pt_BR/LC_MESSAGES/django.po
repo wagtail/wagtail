@@ -9,16 +9,16 @@
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018,2020
 # Marcio Mazza <marciomazza@gmail.com>, 2016
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-10-30 02:06+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -30,8 +30,9 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Núcleo de Wagtail"
 
-msgid "{label}: this block has no options."
-msgstr "{label}: este bloco não possui opções."
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: este bloco não tem opções."
 
 msgid "This block has no options."
 msgstr "Este bloco não possui opções."
@@ -166,6 +167,12 @@ msgstr "expirado"
 msgid "locked"
 msgstr "trancado"
 
+msgid "locked at"
+msgstr "bloqueado em"
+
+msgid "locked by"
+msgstr "bloqueado por"
+
 msgid "first published at"
 msgstr "publicado pela primeira vez em"
 
@@ -247,8 +254,14 @@ msgstr "Deletar páginas com filhos"
 msgid "Lock"
 msgstr "Travar"
 
-msgid "Lock/unlock any page"
-msgstr "Bloquear/desbloquear qualquer página"
+msgid "Lock/unlock pages you've locked"
+msgstr "Bloquear/desbloquear páginas bloqueadas"
+
+msgid "Unlock"
+msgstr "Desbloquear"
+
+msgid "Unlock any page"
+msgstr "Desbloquear qualquer página"
 
 msgid "group"
 msgstr "grupo"

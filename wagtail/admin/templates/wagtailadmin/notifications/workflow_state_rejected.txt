@@ -1,0 +1,14 @@
+{% extends 'wagtailadmin/notifications/base.txt' %}
+{% load i18n %}
+
+{% block content %}
+{% if task_state.finished_by %}
+    {% blocktrans with title=page.get_admin_display_title|safe workflow=workflow.name|safe task=task.name|safe rejector=task_state.finished_by.get_full_name|default:task_state.finished_by.get_username %}The page "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}" by {{ rejector }}.{% endblocktrans %}
+{% else %}
+    {% blocktrans with title=page.get_admin_display_title|safe workflow=workflow.name|safe task=task.name|safe %}The page "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}".{% endblocktrans %}
+{% endif %}
+{% if comment %}
+    {% blocktrans with comment=comment|safe %}The following comment was left: "{{ comment }}"{% endblocktrans %}</p>
+{% endif %}
+{% trans "You can edit the page here:"%} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}
+{% endblock %}

@@ -1,5 +1,7 @@
 import os.path
 import unittest
+import urllib
+from io import StringIO
 from unittest import mock
 
 from django.conf import settings
@@ -11,18 +13,27 @@ from django.urls import reverse
 from wagtail.documents import models
 
 
+@override_settings(WAGTAILDOCS_SERVE_METHOD=None)
 class TestServeView(TestCase):
     def setUp(self):
-        self.document = models.Document(title="Test document")
+        self.document = models.Document(title="Test document", file_hash="123456")
         self.document.file.save('example.doc', ContentFile("A boring example document"))
 
     def tearDown(self):
+        if hasattr(self, 'response'):
+            # Make sure the response is fully read before deleting the document so
+            # that the file is closed by the view.
+            # This is required on Windows as the below line that deletes the file
+            # will crash if the file is still open.
+            b"".join(self.response.streaming_content)
+
         # delete the FieldFile directly because the TestCase does not commit
         # transactions to trigger transaction.on_commit() in the signal handler
         self.document.file.delete()
 
     def get(self):
-        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
+        self.response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
+        return self.response
 
     def test_response_code(self):
         self.assertEqual(self.get().status_code, 200)
@@ -31,6 +42,38 @@ class TestServeView(TestCase):
         self.assertEqual(
             self.get()['Content-Disposition'],
             'attachment; filename="{}"'.format(self.document.filename))
+
+    @mock.patch('wagtail.documents.views.serve.hooks')
+    @mock.patch('wagtail.documents.views.serve.get_object_or_404')
+    def test_non_local_filesystem_content_disposition_header(
+        self, mock_get_object_or_404, mock_hooks
+    ):
+        """
+        Tests the 'Content-Disposition' header in a response when using a
+        storage backend that doesn't expose filesystem paths.
+        """
+        # Create a mock document with no local file to hit the correct code path
+        mock_doc = mock.Mock()
+        mock_doc.filename = self.document.filename
+        mock_doc.file = StringIO('file-like object' * 10)
+        mock_doc.file.path = None
+        mock_doc.file.url = None
+        mock_doc.file.size = 30
+        mock_get_object_or_404.return_value = mock_doc
+
+        # Bypass 'before_serve_document' hooks
+        mock_hooks.get_hooks.return_value = []
+
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(
+            response['Content-Disposition'],
+            "attachment; filename={0}; filename*=UTF-8''{0}".format(
+                urllib.parse.quote(self.document.filename)
+            )
+        )
 
     def test_content_length_header(self):
         self.assertEqual(self.get()['Content-Length'], '25')
@@ -62,11 +105,87 @@ class TestServeView(TestCase):
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, 'incorrectfilename')))
         self.assertEqual(response.status_code, 404)
 
+    def test_has_etag_header(self):
+        self.assertEqual(self.get()['ETag'], '"123456"')
+
+    def test_has_cache_control_header(self):
+        self.assertIn(self.get()['Cache-Control'], ['max-age=3600, public', 'public, max-age=3600'])
+
     def clear_sendfile_cache(self):
         from wagtail.utils.sendfile import _get_sendfile
         _get_sendfile.clear()
 
 
+@override_settings(WAGTAILDOCS_SERVE_METHOD='redirect')
+class TestServeViewWithRedirect(TestCase):
+    def setUp(self):
+        self.document = models.Document(title="Test document")
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
+        self.serve_view_url = reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename))
+
+    def tearDown(self):
+        self.document.delete()
+
+    def get(self):
+        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
+
+    def test_document_url_should_point_to_serve_view(self):
+        self.assertEqual(self.document.url, self.serve_view_url)
+
+    def test_redirect(self):
+        response = self.get()
+        self.assertRedirects(response, self.document.file.url, fetch_redirect_response=False)
+
+
+@override_settings(WAGTAILDOCS_SERVE_METHOD='direct')
+class TestDirectDocumentUrls(TestCase):
+    def setUp(self):
+        self.document = models.Document(title="Test document")
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
+
+    def tearDown(self):
+        self.document.delete()
+
+    def get(self):
+        return self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename)))
+
+    def test_url_should_point_directly_to_file_storage_url(self):
+        self.assertEqual(self.document.url, self.document.file.url)
+
+    def test_redirect(self):
+        # The serve view will not normally be linked to in 'direct' mode, but we should ensure it
+        # still works by redirecting
+        response = self.get()
+        self.assertRedirects(response, self.document.file.url, fetch_redirect_response=False)
+
+
+@override_settings(
+    WAGTAILDOCS_SERVE_METHOD=None,
+    DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage'
+)
+class TestServeWithExternalStorage(TestCase):
+    """
+    Test the behaviour of the default serve method when used with a remote storage backend
+    (i.e. one that throws NotImplementedError for the path() method).
+    """
+    def setUp(self):
+        self.document = models.Document(title="Test document")
+        self.document.file.save('example.doc', ContentFile("A boring example document"))
+        self.serve_view_url = reverse('wagtaildocs_serve', args=(self.document.id, self.document.filename))
+
+    def tearDown(self):
+        self.document.delete()
+
+    def test_document_url_should_point_to_serve_view(self):
+        self.assertEqual(self.document.url, self.serve_view_url)
+
+    def test_redirect(self):
+        # serve view should redirect to the remote URL
+        response = self.client.get(self.serve_view_url)
+        self.assertRedirects(response, self.document.file.url, fetch_redirect_response=False)
+
+
+@override_settings(WAGTAILDOCS_SERVE_METHOD=None)
 class TestServeViewWithSendfile(TestCase):
     def setUp(self):
         # Import using a try-catch block to prevent crashes if the
@@ -124,6 +243,7 @@ class TestServeViewWithSendfile(TestCase):
         self.assertEqual(response['X-Accel-Redirect'], os.path.join(settings.MEDIA_URL, self.document.file.name))
 
 
+@override_settings(WAGTAILDOCS_SERVE_METHOD=None)
 class TestServeWithUnicodeFilename(TestCase):
     def setUp(self):
         self.document = models.Document(title="Test document")
@@ -135,6 +255,47 @@ class TestServeWithUnicodeFilename(TestCase):
         except UnicodeEncodeError:
             raise unittest.SkipTest("Filesystem doesn't support unicode filenames")
 
+    def tearDown(self):
+        # delete the FieldFile directly because the TestCase does not commit
+        # transactions to trigger transaction.on_commit() in the signal handler
+        self.document.file.delete()
+
     def test_response_code(self):
         response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, self.filename)))
         self.assertEqual(response.status_code, 200)
+
+    @mock.patch('wagtail.documents.views.serve.hooks')
+    @mock.patch('wagtail.documents.views.serve.get_object_or_404')
+    def test_non_local_filesystem_unicode_content_disposition_header(
+        self, mock_get_object_or_404, mock_hooks
+    ):
+        """
+        Tests that a unicode 'Content-Disposition' header (for a response using
+        a storage backend that doesn't expose filesystem paths) doesn't cause an
+        error if encoded differently.
+        """
+        # Create a mock document to hit the correct code path.
+        mock_doc = mock.Mock()
+        mock_doc.filename = 'TÈST.doc'
+        mock_doc.file = StringIO('file-like object' * 10)
+        mock_doc.file.path = None
+        mock_doc.file.url = None
+        mock_doc.file.size = 30
+        mock_get_object_or_404.return_value = mock_doc
+
+        # Bypass 'before_serve_document' hooks
+        mock_hooks.get_hooks.return_value = []
+
+        response = self.client.get(reverse('wagtaildocs_serve', args=(self.document.id, mock_doc.filename)))
+
+        self.assertEqual(response.status_code, 200)
+
+        try:
+            response['Content-Disposition'].encode('ascii')
+        except UnicodeDecodeError:
+            self.fail('Content-Disposition with unicode characters failed ascii encoding.')
+
+        try:
+            response['Content-Disposition'].encode('latin-1')
+        except UnicodeDecodeError:
+            self.fail('Content-Disposition with unicode characters failed latin-1 encoding.')

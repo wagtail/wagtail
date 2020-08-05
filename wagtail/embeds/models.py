@@ -1,5 +1,6 @@
+from django.conf import settings
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 EMBED_TYPES = (
     ('video', 'Video'),
@@ -50,6 +51,8 @@ class Embed(models.Model):
 
     @property
     def is_responsive(self):
+        if not getattr(settings, 'WAGTAILEMBEDS_RESPONSIVE_HTML', False):
+            return False
         return self.ratio is not None
 
     def __str__(self):

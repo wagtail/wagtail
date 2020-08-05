@@ -20,7 +20,7 @@ if [ -z "${AWS_CLI}" ]; then
 
     if [ -z "${AWS_CLI}" ]; then
         printf >&2 -- '%s: cannot find AWS CLI binary "aws"\n' "$0"
-        printf >&2 -- '%s: please install AWS from http://aws.amazon.com/documentation/cli/\n' "$0"
+        printf >&2 -- '%s: please install AWS from https://aws.amazon.com/documentation/cli/\n' "$0"
         exit 1
     fi
 fi

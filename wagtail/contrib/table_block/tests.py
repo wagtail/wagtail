@@ -63,7 +63,7 @@ class TestTableBlock(TestCase):
         expected = """
             <table>
                 <thead>
-                    <tr><th>Test 1</th><th class="htLeft">Test 2</th><th>Test 3</th></tr>
+                    <tr><th scope="col">Test 1</th><th scope="col" class="htLeft">Test 2</th><th scope="col">Test 3</th></tr>
                 </thead>
                 <tbody>
                     <tr><td></td><td class="htRight"></td><td></td></tr>
@@ -133,7 +133,7 @@ class TestTableBlock(TestCase):
         expected = """
             <table>
                 <thead>
-                    <tr><th>Foo</th><th>Bar</th><th>Baz</th></tr>
+                    <tr><th scope="col">Foo</th><th scope="col">Bar</th><th scope="col">Baz</th></tr>
                 </thead>
                 <tbody>
                     <tr><td></td><td></td><td></td></tr>
@@ -155,9 +155,9 @@ class TestTableBlock(TestCase):
         expected = """
             <table>
                 <tbody>
-                    <tr><th>Foo</th><td>Bar</td><td>Baz</td></tr>
-                    <tr><th>one</th><td>two</td><td>three</td></tr>
-                    <tr><th>four</th><td>five</td><td>six</td></tr>
+                    <tr><th scope="row">Foo</th><td>Bar</td><td>Baz</td></tr>
+                    <tr><th scope="row">one</th><td>two</td><td>three</td></tr>
+                    <tr><th scope="row">four</th><td>five</td><td>six</td></tr>
                 </tbody>
             </table>
         """
@@ -175,11 +175,11 @@ class TestTableBlock(TestCase):
         expected = """
             <table>
                 <thead>
-                    <tr><th>Foo</th><th>Bar</th><th>Baz</th></tr>
+                    <tr><th scope="col">Foo</th><th scope="col">Bar</th><th scope="col">Baz</th></tr>
                 </thead>
                 <tbody>
-                    <tr><th>one</th><td>two</td><td>three</td></tr>
-                    <tr><th>four</th><td>five</td><td>six</td></tr>
+                    <tr><th scope="row">one</th><td>two</td><td>three</td></tr>
+                    <tr><th scope="row">four</th><td>five</td><td>six</td></tr>
                 </tbody>
             </table>
         """
@@ -224,6 +224,12 @@ class TestTableBlock(TestCase):
         content = block.get_searchable_content(value)
         self.assertEqual(content, ['Test 1', 'Test 2', 'Test 3', 'Bar', 'Foo', ])
 
+    def test_searchable_content_for_null_block(self):
+        value = None
+        block = TableBlock()
+        content = block.get_searchable_content(value)
+        self.assertEqual(content, [])
+
     def test_render_with_extra_context(self):
         """
         Test that extra context variables passed in block.render are passed through
@@ -239,6 +245,42 @@ class TestTableBlock(TestCase):
         })
         self.assertIn("Test 1", result)
         self.assertIn("<div>A fascinating table.</div>", result)
+
+
+    def test_table_block_caption_render(self):
+        """
+        Test a generic render with caption.
+        """
+        value = {'table_caption': 'caption', 'first_row_is_table_header': False,
+                 'first_col_is_header': False,
+                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
+                          [None, None, None]]}
+        block = TableBlock()
+        result = block.render(value)
+        expected = """
+            <table>
+                <caption>caption</caption>
+                <tbody>
+                    <tr><td>Test 1</td><td>Test 2</td><td>Test 3</td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
+        self.assertHTMLEqual(result, expected)
+        self.assertIn('Test 2', result)
+
+    def test_empty_table_block_is_not_rendered(self):
+        """
+        Test an empty table is not rendered.
+        """
+        value = None
+        block = TableBlock()
+        result = block.render(value)
+        expected = ''
+
+        self.assertHTMLEqual(result, expected)
+        self.assertNotIn('None', result)
 
 
 class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):

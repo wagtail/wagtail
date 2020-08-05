@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -28,6 +28,9 @@ msgstr "添加转向"
 
 msgid "Save"
 msgstr "保存"
+
+msgid "Redirects"
+msgstr "转向"
 
 #, python-format
 msgid "Delete redirect %(title)s"
@@ -51,9 +54,6 @@ msgstr "编辑"
 
 msgid "Delete redirect"
 msgstr "删除转向"
-
-msgid "Redirects"
-msgstr "转向"
 
 msgid "To"
 msgstr "到"

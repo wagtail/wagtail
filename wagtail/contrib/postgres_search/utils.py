@@ -5,13 +5,6 @@ from django.db import connections
 
 from wagtail.search.index import Indexed, RelatedFields, SearchField
 
-try:
-    # Only use the GPLv2 licensed unidecode if it's installed.
-    from unidecode import unidecode
-except ImportError:
-    def unidecode(value):
-        return value
-
 
 def get_postgresql_connections():
     return [connection for connection in connections.all()

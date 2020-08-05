@@ -1,13 +1,14 @@
 import datetime
+from html import unescape
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.forms.fields import CallableChoiceIterator
 from django.template.loader import render_to_string
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
-from django.utils.html import format_html
+from django.utils.html import format_html, strip_tags
 from django.utils.safestring import mark_safe
 
 from wagtail.core.rich_text import RichText
@@ -144,7 +145,7 @@ class CharBlock(FieldBlock):
         super().__init__(**kwargs)
 
     def get_searchable_content(self, value):
-        return [force_text(value)]
+        return [force_str(value)]
 
 
 class TextBlock(FieldBlock):
@@ -168,7 +169,7 @@ class TextBlock(FieldBlock):
         return forms.CharField(**field_kwargs)
 
     def get_searchable_content(self, value):
-        return [force_text(value)]
+        return [force_str(value)]
 
     class Meta:
         icon = "pilcrow"
@@ -394,11 +395,16 @@ class IntegerBlock(FieldBlock):
         icon = "plus-inverse"
 
 
-class ChoiceBlock(FieldBlock):
-
+class BaseChoiceBlock(FieldBlock):
     choices = ()
 
-    def __init__(self, choices=None, default=None, required=True, help_text=None, validators=(), **kwargs):
+    def __init__(
+            self, choices=None, default=None, required=True,
+            help_text=None, widget=None, validators=(), **kwargs):
+
+        self._required = required
+        self._default = default
+
         if choices is None:
             # no choices specified, so pick up the choice defined at the class level
             choices = self.choices
@@ -415,6 +421,8 @@ class ChoiceBlock(FieldBlock):
             choices_for_constructor = choices = list(choices)
 
         # keep a copy of all kwargs (including our normalised choices list) for deconstruct()
+        # Note: we omit the `widget` kwarg, as widgets do not provide a serialization method
+        # for migrations, and they are unlikely to be useful within the frozen ORM anyhow
         self._constructor_kwargs = kwargs.copy()
         self._constructor_kwargs['choices'] = choices_for_constructor
         if required is not True:
@@ -427,18 +435,17 @@ class ChoiceBlock(FieldBlock):
         # than having separate code paths for static vs dynamic lists, we'll _always_ pass a callable
         # to ChoiceField to perform this step at render time.
 
-        # If we have a default choice and the field is required, we don't need to add a blank option.
-        callable_choices = self.get_callable_choices(choices, blank_choice=not(default and required))
-
-        self.field = forms.ChoiceField(
+        callable_choices = self._get_callable_choices(choices)
+        self.field = self.get_field(
             choices=callable_choices,
             required=required,
             help_text=help_text,
             validators=validators,
+            widget=widget,
         )
         super().__init__(default=default, **kwargs)
 
-    def get_callable_choices(self, choices, blank_choice=True):
+    def _get_callable_choices(self, choices, blank_choice=True):
         """
         Return a callable that we can pass into `forms.ChoiceField`, which will provide the
         choices list with the addition of a blank choice (if blank_choice=True and one does not
@@ -477,6 +484,23 @@ class ChoiceBlock(FieldBlock):
             return local_choices
         return choices_callable
 
+    class Meta:
+        # No icon specified here, because that depends on the purpose that the
+        # block is being used for. Feel encouraged to specify an icon in your
+        # descendant block type
+        icon = "placeholder"
+
+
+class ChoiceBlock(BaseChoiceBlock):
+    def get_field(self, **kwargs):
+        return forms.ChoiceField(**kwargs)
+
+    def _get_callable_choices(self, choices, blank_choice=None):
+        # If we have a default choice and the field is required, we don't need to add a blank option.
+        if blank_choice is None:
+            blank_choice = not(self._default and self._required)
+        return super()._get_callable_choices(choices, blank_choice=blank_choice)
+
     def deconstruct(self):
         """
         Always deconstruct ChoiceBlock instances as if they were plain ChoiceBlocks with their
@@ -488,23 +512,54 @@ class ChoiceBlock(FieldBlock):
 
     def get_searchable_content(self, value):
         # Return the display value as the searchable value
-        text_value = force_text(value)
+        text_value = force_str(value)
         for k, v in self.field.choices:
             if isinstance(v, (list, tuple)):
                 # This is an optgroup, so look inside the group for options
                 for k2, v2 in v:
-                    if value == k2 or text_value == force_text(k2):
-                        return [force_text(k), force_text(v2)]
+                    if value == k2 or text_value == force_str(k2):
+                        return [force_str(k), force_str(v2)]
             else:
-                if value == k or text_value == force_text(k):
-                    return [force_text(v)]
+                if value == k or text_value == force_str(k):
+                    return [force_str(v)]
         return []  # Value was not found in the list of choices
 
-    class Meta:
-        # No icon specified here, because that depends on the purpose that the
-        # block is being used for. Feel encouraged to specify an icon in your
-        # descendant block type
-        icon = "placeholder"
+
+class MultipleChoiceBlock(BaseChoiceBlock):
+    def get_field(self, **kwargs):
+        return forms.MultipleChoiceField(**kwargs)
+
+    def _get_callable_choices(self, choices, blank_choice=False):
+        """ Override to default blank choice to False
+        """
+        return super()._get_callable_choices(choices, blank_choice=blank_choice)
+
+    def deconstruct(self):
+        """
+        Always deconstruct MultipleChoiceBlock instances as if they were plain
+        MultipleChoiceBlocks with their choice list passed in the constructor,
+        even if they are actually subclasses. This allows users to define
+        subclasses of MultipleChoiceBlock in their models.py, with specific choice
+        lists passed in, without references to those classes ending up frozen
+        into migrations.
+        """
+        return ('wagtail.core.blocks.MultipleChoiceBlock', [], self._constructor_kwargs)
+
+    def get_searchable_content(self, value):
+        # Return the display value as the searchable value
+        content = []
+        text_value = force_str(value)
+        for k, v in self.field.choices:
+            if isinstance(v, (list, tuple)):
+                # This is an optgroup, so look inside the group for options
+                for k2, v2 in v:
+                    if value == k2 or text_value == force_str(k2):
+                        content.append(force_str(k))
+                        content.append(force_str(v2))
+            else:
+                if value == k or text_value == force_str(k):
+                    content.append(force_str(v))
+        return content
 
 
 class RichTextBlock(FieldBlock):
@@ -553,7 +608,9 @@ class RichTextBlock(FieldBlock):
         return RichText(value)
 
     def get_searchable_content(self, value):
-        return [force_text(value.source)]
+        # Strip HTML tags to prevent search backend earch backend from indexing them
+        source = force_str(value.source)
+        return [unescape(strip_tags(source))]
 
     class Meta:
         icon = "doc-full"
@@ -576,7 +633,7 @@ class RawHTMLBlock(FieldBlock):
 
     def get_prep_value(self, value):
         # explicitly convert to a plain string, just in case we're using some serialisation method
-        # that doesn't cope with SafeText values correctly
+        # that doesn't cope with SafeString values correctly
         return str(value) + ''
 
     def value_for_form(self, value):
@@ -741,7 +798,7 @@ class PageChooserBlock(ChooserBlock):
 block_classes = [
     FieldBlock, CharBlock, URLBlock, RichTextBlock, RawHTMLBlock, ChooserBlock,
     PageChooserBlock, TextBlock, BooleanBlock, DateBlock, TimeBlock,
-    DateTimeBlock, ChoiceBlock, EmailBlock, IntegerBlock, FloatBlock,
+    DateTimeBlock, ChoiceBlock, MultipleChoiceBlock, EmailBlock, IntegerBlock, FloatBlock,
     DecimalBlock, RegexBlock, BlockQuoteBlock
 ]
 DECONSTRUCT_ALIASES = {

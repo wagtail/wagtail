@@ -1,11 +1,13 @@
+from unittest import mock
+
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.test import TestCase
 
 from wagtail.core.models import Page, PageViewRestriction, Site
 from wagtail.core.signals import page_unpublished
 from wagtail.search.query import MATCH_ALL
-from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage
+from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage, StreamPage
 
 
 class TestPageQuerySet(TestCase):
@@ -366,17 +368,18 @@ class TestPageQuerySet(TestCase):
         # Add PageViewRestriction to events_index
         PageViewRestriction.objects.create(page=events_index, password='hello')
 
-        # Get public pages
-        pages = Page.objects.public()
+        with self.assertNumQueries(4):
+            # Get public pages
+            pages = Page.objects.public()
 
-        # Check that the homepage is in the results
-        self.assertTrue(pages.filter(id=homepage.id).exists())
+            # Check that the homepage is in the results
+            self.assertTrue(pages.filter(id=homepage.id).exists())
 
-        # Check that the events index is not in the results
-        self.assertFalse(pages.filter(id=events_index.id).exists())
+            # Check that the events index is not in the results
+            self.assertFalse(pages.filter(id=events_index.id).exists())
 
-        # Check that the event is not in the results
-        self.assertFalse(pages.filter(id=event.id).exists())
+            # Check that the event is not in the results
+            self.assertFalse(pages.filter(id=event.id).exists())
 
     def test_not_public(self):
         events_index = Page.objects.get(url_path='/home/events/')
@@ -386,17 +389,18 @@ class TestPageQuerySet(TestCase):
         # Add PageViewRestriction to events_index
         PageViewRestriction.objects.create(page=events_index, password='hello')
 
-        # Get public pages
-        pages = Page.objects.not_public()
+        with self.assertNumQueries(4):
+            # Get public pages
+            pages = Page.objects.not_public()
 
-        # Check that the homepage is not in the results
-        self.assertFalse(pages.filter(id=homepage.id).exists())
+            # Check that the homepage is not in the results
+            self.assertFalse(pages.filter(id=homepage.id).exists())
 
-        # Check that the events index is in the results
-        self.assertTrue(pages.filter(id=events_index.id).exists())
+            # Check that the events index is in the results
+            self.assertTrue(pages.filter(id=events_index.id).exists())
 
-        # Check that the event is in the results
-        self.assertTrue(pages.filter(id=event.id).exists())
+            # Check that the event is in the results
+            self.assertTrue(pages.filter(id=event.id).exists())
 
     def test_merge_queries(self):
         type_q = Page.objects.type_q(EventPage)
@@ -405,6 +409,14 @@ class TestPageQuerySet(TestCase):
         query |= type_q
 
         self.assertTrue(Page.objects.filter(query).exists())
+
+    def test_delete_queryset(self):
+        Page.objects.all().delete()
+        self.assertEqual(Page.objects.count(), 0)
+
+    def test_delete_is_not_available_on_manager(self):
+        with self.assertRaises(AttributeError):
+            Page.objects.delete()
 
 
 class TestPageQueryInSite(TestCase):
@@ -597,6 +609,38 @@ class TestSpecificQuery(TestCase):
             Page.objects.get(url_path='/home/events/').specific,
             Page.objects.get(url_path='/home/about-us/').specific])
 
+    def test_specific_query_with_annotations_performs_no_additional_queries(self):
+
+        with self.assertNumQueries(5):
+            pages = list(Page.objects.live().specific())
+
+            self.assertEqual(len(pages), 7)
+
+        with self.assertNumQueries(5):
+            pages = list(Page.objects.live().specific().annotate(count=Count('pk')))
+
+            self.assertEqual(len(pages), 7)
+
+    def test_specific_query_with_annotation(self):
+        # Ensure annotations are reapplied to specific() page queries
+
+        pages = Page.objects.live()
+        pages.first().save_revision()
+        pages.last().save_revision()
+
+        results = Page.objects.live().specific().annotate(revision_count=Count('revisions'))
+
+        self.assertEqual(results.first().revision_count, 1)
+        self.assertEqual(results.last().revision_count, 1)
+
+    def test_specific_query_with_search_and_annotation(self):
+        # Ensure annotations are reapplied to specific() page queries
+
+        results = Page.objects.live().specific().search(MATCH_ALL).annotate_score('_score')
+
+        for result in results:
+            self.assertTrue(hasattr(result, '_score'))
+
     def test_specific_query_with_search(self):
         # 1276 - The database search backend didn't return results with the
         # specific type when searching a specific queryset.
@@ -628,23 +672,48 @@ class TestSpecificQuery(TestCase):
             Page.objects.get(url_path='/home/other/').specific,
         ])
 
+    def test_specific_gracefully_handles_missing_rows(self):
+        # 5928 - PageQuerySet.specific should gracefully handle pages whose ContentType
+        # row in the specific table no longer exists
+
+        # Trick specific_iterator into always looking for EventPages
+        with mock.patch(
+            'wagtail.core.query.ContentType.objects.get_for_id',
+            return_value=ContentType.objects.get_for_model(EventPage),
+        ):
+            with self.assertWarnsRegex(RuntimeWarning, "Specific versions of the following pages could not be found"):
+                pages = list(Page.objects.get(url_path='/home/').get_children().specific())
+
+            # All missing pages should be supplemented with generic pages
+            self.assertEqual(pages, [
+                Page.objects.get(url_path='/home/events/'),
+                Page.objects.get(url_path='/home/about-us/'),
+                Page.objects.get(url_path='/home/other/'),
+            ])
+
     def test_deferred_specific_query(self):
         # Tests the "defer" keyword argument, which defers all specific fields
         root = Page.objects.get(url_path='/home/')
+        stream_page = StreamPage(
+            title='stream page',
+            slug='stream-page',
+            body='[{"type": "text", "value": "foo"}]',
+        )
+        root.add_child(instance=stream_page)
 
         with self.assertNumQueries(0):
             # The query should be lazy.
             qs = root.get_descendants().specific(defer=True)
 
-        with self.assertNumQueries(4):
-            # This still performs 4 queries (one for each specific class)
+        with self.assertNumQueries(5):
+            # This still performs 5 queries (one for each specific class)
             # even though we're only pulling in fields from the base Page
             # model.
             # TODO: Find a way to make this perform a single query
             pages = list(qs)
 
         self.assertIsInstance(pages, list)
-        self.assertEqual(len(pages), 7)
+        self.assertEqual(len(pages), 8)
 
         for page in pages:
             # An instance of the specific page type should be returned,
@@ -660,8 +729,11 @@ class TestSpecificQuery(TestCase):
 
         # Unlike before, the content fields should be now deferred. This means
         # that accessing them will generate a new query.
-        with self.assertNumQueries(1):
+        with self.assertNumQueries(2):
+            # <EventPage: Christmas>
             pages[1].body
+            # <StreamPage: stream page>
+            pages[-1].body
 
 
 class TestFirstCommonAncestor(TestCase):

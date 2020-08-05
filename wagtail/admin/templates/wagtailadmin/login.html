@@ -1,12 +1,12 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load static i18n %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% trans "Sign in" %}{% endblock %}
 {% block bodyclass %}login{% endblock %}
 
 {% block extra_css %}
     {{ block.super }}
 
-    <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/login.css' %}" type="text/css" />
 {% endblock %}
 
 {% block furniture %}
@@ -52,9 +52,6 @@
                             {{ form.password }}
                         </div>
                     </div>
-                    {% if show_password_reset %}
-                        <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten it?" %}</a></p>
-                    {% endif %}
                 </li>
 
                 {% block extra_fields %}
@@ -79,10 +76,14 @@
                 {% endblock %}
                 <li class="submit">
                     {% block submit_buttons %}
-                    <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in' %}</em></button>
+                    <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}">{% icon name="spinner" %}<em>{% trans 'Sign in' %}</em></button>
                     {% endblock %}
                 </li>
             </ul>
+
+            {% if show_password_reset %}
+                <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}" aria-label="{% trans 'Reset your password' %}">{% trans "Forgotten it?" %}</a></p>
+            {% endif %}
         {% endblock %}
         </form>
 

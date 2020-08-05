@@ -3,18 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Hugo Cachitas, 2020
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
-# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
-# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Luís Favas <al62006@utad.eu>, 2020
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-24 17:17+0000\n"
+"Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +24,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Utilizadores do Wagtail"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -72,6 +77,15 @@ msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 "Não é permitido ter múltiplos registos de permissão para a mesma página. "
 
+msgid "Preferred language"
+msgstr "Idioma preferido"
+
+msgid "Current time zone"
+msgstr "Fuso horário atual"
+
+msgid "Upload a profile picture"
+msgstr "Carregue uma foto de perfil"
+
 msgid "submitted notifications"
 msgstr "notificações enviadas"
 
@@ -90,11 +104,51 @@ msgstr "notificações rejeitadas"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Receber notificação quando a sua alteração de página for rejeitada"
 
+msgid "preferred language"
+msgstr "linguagem preferida"
+
+msgid "Select language for the admin"
+msgstr "Selecione uma linguagem para a administração"
+
+msgid "current time zone"
+msgstr "fuso horário atual"
+
+msgid "Select your current time zone"
+msgstr "Seleciona o teu fuso horário atual"
+
+msgid "profile picture"
+msgstr "foto de perfil"
+
 msgid "user profile"
 msgstr "perfil do utilizador"
 
+msgid "user profiles"
+msgstr "perfis de utilizador"
+
 msgid "Delete group"
 msgstr "Apagar grupo"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                O grupo '%(group_name)s' tem <strong>%(group_user_count)s</"
+"strong> membro.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                O grupo '%(group_name)s' tem <strong>%(group_user_count)s</"
+"strong> membros.\n"
+"            "
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -115,8 +169,14 @@ msgstr "Adicionar grupo"
 msgid "Editing"
 msgstr "A alterar"
 
+msgid "View users in this group"
+msgstr "Ver os utilizadores neste grupo"
+
 msgid "Save"
 msgstr "Guardar"
+
+msgid "Permissions"
+msgstr "Permissões"
 
 msgid "Object permissions"
 msgstr "Permissões de objeto"
@@ -150,6 +210,10 @@ msgstr "grupos"
 
 msgid "Add a group"
 msgstr "Adicionar um grupo"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Desculpe, nenhum grupo corresponde a \"%(query)s\""
 
 #, python-format
 msgid ""
@@ -189,6 +253,9 @@ msgstr "Nível"
 msgid "Status"
 msgstr "Estado"
 
+msgid "Last Login"
+msgstr "Último início de sessão"
+
 msgid "Admin"
 msgstr "Administração"
 
@@ -199,17 +266,47 @@ msgid "Inactive"
 msgstr "Inativo"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s atrás"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Existe %(counter)s correspondência\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Existem %(counter)s correspondências\n"
+"        "
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Desculpe, nenhum utilizador corresponde a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"O grupo %(group_name)s ainda não tem utilizadores configurados. Porque não "
+"<a href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Não existem utilizadores configurados. Por que não <a href="
-"\"%(wagtailusers_create_url)s\">criar um</a>?"
+"Não existem utilizadores configurados. Porque não <a href="
+"\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
 
 msgid "Groups"
 msgstr "Grupos"
@@ -240,6 +337,9 @@ msgstr "Alterar"
 
 msgid "The user could not be created due to errors."
 msgstr "O utilizador não pôde ser criado devido a erros."
+
+msgid "User '{0}' updated."
+msgstr "Utilizador '{0}' atualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "O utilizador não pôde ser guardado devido a erros."

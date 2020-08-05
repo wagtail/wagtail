@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-05-03 15:10+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-07-24 18:35+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -25,8 +25,9 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Alapok"
 
-msgid "{label}: this block has no options."
-msgstr "{label}: ehhez az elemhez nincsenek beállítások."
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: ehhez a blokkhoz nincsenek beállítások."
 
 msgid "This block has no options."
 msgstr "Ehhez az elemhez nincsenek beállítások."
@@ -47,6 +48,9 @@ msgstr "Jelszó"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "A megadott jelszó érvénytelen. Kérjük próbálja újra."
+
+msgid "Comment"
+msgstr "Megjegyzés"
 
 msgid "hostname"
 msgstr "hosztnév"
@@ -87,6 +91,9 @@ msgstr "webhely"
 
 msgid "sites"
 msgstr "webhelyek"
+
+msgid "default"
+msgstr "alapértelmezett"
 
 #, python-format
 msgid ""
@@ -159,8 +166,14 @@ msgstr "lejárt"
 msgid "locked"
 msgstr "zárolt"
 
+msgid "locked at"
+msgstr "zárolva ekkor: "
+
+msgid "locked by"
+msgstr "zároló: "
+
 msgid "first published at"
-msgstr "első közététel időpontja"
+msgstr "első közzététel időpontja"
 
 msgid "last published at"
 msgstr "utolsó közzététel időpontja"
@@ -168,17 +181,26 @@ msgstr "utolsó közzététel időpontja"
 msgid "latest revision created at"
 msgstr "a legutóbbi verzió letrehozásának időpontja"
 
+msgid "live revision"
+msgstr "közzétett verzió"
+
 msgid "This slug is already in use"
 msgstr "Ez a rövidítés már használatban van"
 
 msgid "scheduled"
 msgstr "időzítve"
 
+msgid "in moderation"
+msgstr "jóváhagyás alatt"
+
 msgid "draft"
 msgstr "vázlat"
 
 msgid "live + scheduled"
 msgstr "közzétéve + időzítve"
+
+msgid "live + in moderation"
+msgstr "közzétéve + moderálás alatt"
 
 msgid "live + draft"
 msgstr "közzétéve + vázlat"
@@ -240,8 +262,14 @@ msgstr "Oldalak törlése a gyermek oldalakkal együtt"
 msgid "Lock"
 msgstr "Zárolás"
 
-msgid "Lock/unlock any page"
-msgstr "Bármelyik oldal zárolása/feloldása"
+msgid "Lock/unlock pages you've locked"
+msgstr "Saját zárolt oldalaim feloldása"
+
+msgid "Unlock"
+msgstr "Felold"
+
+msgid "Unlock any page"
+msgstr "Bármely oldal feloldása"
 
 msgid "group"
 msgstr "csoport"
@@ -308,6 +336,162 @@ msgstr "csoportos gyűjtemény engedély"
 
 msgid "group collection permissions"
 msgstr "csoportos gyűjtemény engedélyek"
+
+msgid "workflow"
+msgstr "munkafolyamat"
+
+msgid "workflow page"
+msgstr "munkafolyamat oldal"
+
+msgid "workflow pages"
+msgstr "munkafolyamat oldalak"
+
+msgid "workflow_tasks"
+msgstr "munkafolyamat feladatok"
+
+msgid "task"
+msgstr "feladat"
+
+msgid "workflow task order"
+msgstr "munkafolyamat feladat sorrend"
+
+msgid "workflow task orders"
+msgstr "munkafolyamat feladat sorrendek"
+
+msgid "active"
+msgstr "aktív"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Az aktív feladatokat hozzá lehet adni a munkafolyamatokhoz. Az inaktivált "
+"feladatok nem fognak törlődni a meglévő munkafolyamatokból."
+
+msgid "tasks"
+msgstr "feladatok"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Az aktív munkafolyamatokat hozzá lehet rendelni az oldalakhoz. A "
+"munkafolyamat inaktiválása nem fogja azt törölni a meglévő oldalakból."
+
+msgid "workflows"
+msgstr "munkafolyamatok"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Az adott lépésnél tartó oldalakat ezek a felhasználók fogják moderálni vagy "
+"jóváhagyni"
+
+msgid "Request changes"
+msgstr "Változtatások kérése"
+
+msgid "Approve"
+msgstr "Jóváhagyás"
+
+msgid "Approve with comment"
+msgstr "Jóváhagyás megjegyzéssel"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "A kiválasztott csoport tagjai tudják ezt a feladatot jóváhagyni"
+
+msgid "Group approval task"
+msgstr "Csoport jóváhagyás feladat"
+
+msgid "Group approval tasks"
+msgstr "Csoport jóváhagyás feladatok"
+
+msgid "In progress"
+msgstr "Folyamatban"
+
+msgid "Approved"
+msgstr "Jóváhagyva"
+
+msgid "Needs changes"
+msgstr "Változtatás szükséges"
+
+msgid "Cancelled"
+msgstr "Megszakítva"
+
+msgid "status"
+msgstr "státusz"
+
+msgid "requested by"
+msgstr "kérelmező "
+
+msgid "current task state"
+msgstr "jelenlegi feladat állapot"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Egy oldal esetén csak egyetlen folyamatban vagy változtatás szükséges "
+"munkafolyamat állapot lehet"
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "'{0}' munkafolyamat a(z) '{1}' oldalon: {2}"
+
+msgid "Not started"
+msgstr "Nincs elindítva"
+
+msgid "Workflow state"
+msgstr "Munkafolyamat állapot"
+
+msgid "Workflow states"
+msgstr "Munkafolyamat állapotok"
+
+msgid "Rejected"
+msgstr "Elutasítva"
+
+msgid "Skipped"
+msgstr "Átlépve"
+
+msgid "workflow state"
+msgstr "munkafolyamat állapot"
+
+msgid "started at"
+msgstr "elindítva: "
+
+msgid "finished at"
+msgstr "befejezve: "
+
+msgid "finished by"
+msgstr "befejező: "
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "'{0}' feladat a(z) '{1}' oldal verzión: {2}"
+
+msgid "Task state"
+msgstr "Feladat állapot"
+
+msgid "Task states"
+msgstr "Feladat állapotok"
+
+msgid "timestamp (UTC)"
+msgstr "Időbélyeg (UTC)"
+
+msgid "log entry"
+msgstr "napló bejegyzés"
+
+msgid "log entries"
+msgstr "napló bejegyzések"
+
+msgid "user {id} (deleted)"
+msgstr "{id}. felhasználó (törölt)"
+
+msgid "system"
+msgstr "rendszer"
+
+msgid "page log entry"
+msgstr "oldal naplóbejegyzés"
+
+msgid "page log entries"
+msgstr "oldal naplóbejegyzések"
 
 msgid "Log in"
 msgstr "Bejelentkezés"

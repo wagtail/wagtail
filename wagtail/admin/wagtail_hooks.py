@@ -1,11 +1,14 @@
 from django.contrib.auth.models import Permission
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
+from django.utils.http import urlencode
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext
 from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
-from wagtail.admin.menu import MenuItem, SubmenuMenuItem, settings_menu
+from wagtail.admin.auth import user_has_any_page_permission
+from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
+from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
     HalloFormatPlugin, HalloHeadingPlugin, HalloListPlugin, HalloPlugin)
@@ -16,15 +19,14 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
-from wagtail.admin.utils import (
-    get_available_admin_languages, get_available_admin_time_zones,
-    user_has_any_page_permission)
-from wagtail.admin.views.account import password_management_enabled
+from wagtail.admin.site_summary import PagesSummaryItem
+from wagtail.admin.views.account import email_management_enabled, password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
-from wagtail.core.permissions import collection_permission_policy
+from wagtail.core.permissions import (
+    collection_permission_policy, task_permission_policy, workflow_permission_policy)
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
@@ -49,7 +51,7 @@ def register_explorer_menu_item():
     return ExplorerMenuItem(
         _('Pages'), reverse('wagtailadmin_explore_root'),
         name='explorer',
-        classnames='icon icon-folder-open-inverse',
+        icon_name='folder-open-inverse',
         order=100)
 
 
@@ -60,7 +62,10 @@ class SettingsMenuItem(SubmenuMenuItem):
 @hooks.register('register_admin_menu_item')
 def register_settings_menu():
     return SettingsMenuItem(
-        _('Settings'), settings_menu, classnames='icon icon-cogs', order=10000)
+        _('Settings'),
+        settings_menu,
+        icon_name='cogs',
+        order=10000)
 
 
 @hooks.register('register_permissions')
@@ -94,23 +99,50 @@ class CollectionsMenuItem(MenuItem):
 
 @hooks.register('register_settings_menu_item')
 def register_collections_menu_item():
-    return CollectionsMenuItem(_('Collections'), reverse('wagtailadmin_collections:index'), classnames='icon icon-folder-open-1', order=700)
+    return CollectionsMenuItem(_('Collections'), reverse('wagtailadmin_collections:index'), icon_name='folder-open-1', order=700)
+
+
+class WorkflowsMenuItem(MenuItem):
+    def is_shown(self, request):
+        return workflow_permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
+
+
+class WorkflowTasksMenuItem(MenuItem):
+    def is_shown(self, request):
+        return task_permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
+
+
+@hooks.register('register_settings_menu_item')
+def register_workflows_menu_item():
+    return WorkflowsMenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), icon_name='tasks', order=100)
+
+
+@hooks.register('register_settings_menu_item')
+def register_workflow_tasks_menu_item():
+    return WorkflowTasksMenuItem(_('Workflow tasks'), reverse('wagtailadmin_workflows:task_index'), icon_name='thumbtack', order=150)
 
 
 @hooks.register('register_page_listing_buttons')
-def page_listing_buttons(page, page_perms, is_parent=False):
+def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
     if page_perms.can_edit():
         yield PageListingButton(
             _('Edit'),
             reverse('wagtailadmin_pages:edit', args=[page.id]),
-            attrs={'aria-label': _("Edit '{title}'").format(title=page.get_admin_display_title())},
+            attrs={'aria-label': _("Edit '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=10
         )
-    if page.has_unpublished_changes:
+    if page.has_unpublished_changes and page.is_previewable():
         yield PageListingButton(
             _('View draft'),
             reverse('wagtailadmin_pages:view_draft', args=[page.id]),
-            attrs={'aria-label': _("Preview draft version of '{title}'").format(title=page.get_admin_display_title()), 'target': '_blank', 'rel': 'noopener noreferrer'},
+            attrs={
+                'aria-label': _("Preview draft version of '%(title)s'") % {'title': page.get_admin_display_title()},
+                'target': '_blank', 'rel': 'noopener noreferrer'
+            },
             priority=20
         )
     if page.live and page.url:
@@ -119,7 +151,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
             page.url,
             attrs={
                 'target': "_blank", 'rel': 'noopener noreferrer',
-                'aria-label': _("View live version of '{title}'").format(title=page.get_admin_display_title()),
+                'aria-label': _("View live version of '%(title)s'") % {'title': page.get_admin_display_title()},
             },
             priority=30
         )
@@ -129,7 +161,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
                 _('Add child page'),
                 reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
                 attrs={
-                    'aria-label': _("Add a child page to '{title}' ").format(title=page.get_admin_display_title()),
+                    'aria-label': _("Add a child page to '%(title)s' ") % {'title': page.get_admin_display_title()},
                 },
                 classes={'button', 'button-small', 'bicolor', 'icon', 'white', 'icon-plus'},
                 priority=40
@@ -138,7 +170,7 @@ def page_listing_buttons(page, page_perms, is_parent=False):
             yield PageListingButton(
                 _('Add child page'),
                 reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
-                attrs={'aria-label': _("Add a child page to '{title}' ").format(title=page.get_admin_display_title())},
+                attrs={'aria-label': _("Add a child page to '%(title)s' ") % {'title': page.get_admin_display_title()}},
                 priority=40
             )
 
@@ -148,46 +180,64 @@ def page_listing_buttons(page, page_perms, is_parent=False):
         page=page,
         page_perms=page_perms,
         is_parent=is_parent,
-        attrs={'target': '_blank', 'rel': 'noopener noreferrer', 'title': _("View more options for '{title}'").format(title=page.get_admin_display_title())},
+        next_url=next_url,
+        attrs={
+            'target': '_blank', 'rel': 'noopener noreferrer',
+            'title': _("View more options for '%(title)s'") % {'title': page.get_admin_display_title()}
+        },
         priority=50
     )
 
 
 @hooks.register('register_page_listing_more_buttons')
-def page_listing_more_buttons(page, page_perms, is_parent=False):
+def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
     if page_perms.can_move():
         yield Button(
             _('Move'),
             reverse('wagtailadmin_pages:move', args=[page.id]),
-            attrs={"title": _("Move page '{title}'").format(title=page.get_admin_display_title())},
+            attrs={"title": _("Move page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=10
         )
     if page_perms.can_copy():
+        url = reverse('wagtailadmin_pages:copy', args=[page.id])
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
+        urlencode
         yield Button(
             _('Copy'),
-            reverse('wagtailadmin_pages:copy', args=[page.id]),
-            attrs={'title': _("Copy page '{title}'").format(title=page.get_admin_display_title())},
+            url,
+            attrs={'title': _("Copy page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=20
         )
     if page_perms.can_delete():
+        url = reverse('wagtailadmin_pages:delete', args=[page.id])
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
         yield Button(
             _('Delete'),
-            reverse('wagtailadmin_pages:delete', args=[page.id]),
-            attrs={'title': _("Delete page '{title}'").format(title=page.get_admin_display_title())},
+            url,
+            attrs={'title': _("Delete page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=30
         )
     if page_perms.can_unpublish():
+        url = reverse('wagtailadmin_pages:unpublish', args=[page.id])
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
         yield Button(
             _('Unpublish'),
-            reverse('wagtailadmin_pages:unpublish', args=[page.id]),
-            attrs={'title': _("Unpublish page '{title}'").format(title=page.get_admin_display_title())},
+            url,
+            attrs={'title': _("Unpublish page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=40
         )
+
     if page_perms.can_view_revisions():
         yield Button(
-            _('Revisions'),
-            reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
-            attrs={'title': _("View revision history for '{title}'").format(title=page.get_admin_display_title())},
+            _('History'),
+            reverse('wagtailadmin_pages:history', args=[page.id]),
+            attrs={'title': _("View page history for '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=50
         )
 
@@ -203,17 +253,18 @@ def register_account_set_profile_picture(request):
     return {
         'url': reverse('wagtailadmin_account_change_avatar'),
         'label': _('Set profile picture'),
-        'help_text': _("Change your profile picture")
+        'help_text': _("Change your profile picture.")
     }
 
 
 @hooks.register('register_account_menu_item')
 def register_account_change_email(request):
-    return {
-        'url': reverse('wagtailadmin_account_change_email'),
-        'label': _('Change email'),
-        'help_text': _('Change the email address linked to your account.'),
-    }
+    if email_management_enabled():
+        return {
+            'url': reverse('wagtailadmin_account_change_email'),
+            'label': _('Change email'),
+            'help_text': _('Change the email address linked to your account.'),
+        }
 
 
 @hooks.register('register_account_menu_item')
@@ -255,6 +306,15 @@ def register_account_current_time_zone(request):
             'label': _('Current Time Zone'),
             'help_text': _('Choose your current time zone.'),
         }
+
+
+@hooks.register('register_account_menu_item')
+def register_account_change_name(request):
+    return {
+        'url': reverse('wagtailadmin_account_change_name'),
+        'label': _('Change name'),
+        'help_text': _('Change your first and last name on your account.'),
+    }
 
 
 @hooks.register('register_rich_text_features')
@@ -346,7 +406,7 @@ def register_core_features(features):
         'draftail', 'h1', draftail_features.BlockFeature({
             'label': 'H1',
             'type': 'header-one',
-            'description': ugettext('Heading {level}').format(level=1),
+            'description': gettext('Heading %(level)d') % {'level': 1},
         })
     )
     features.register_converter_rule('contentstate', 'h1', {
@@ -361,7 +421,7 @@ def register_core_features(features):
         'draftail', 'h2', draftail_features.BlockFeature({
             'label': 'H2',
             'type': 'header-two',
-            'description': ugettext('Heading {level}').format(level=2),
+            'description': gettext('Heading %(level)d') % {'level': 2},
         })
     )
     features.register_converter_rule('contentstate', 'h2', {
@@ -376,7 +436,7 @@ def register_core_features(features):
         'draftail', 'h3', draftail_features.BlockFeature({
             'label': 'H3',
             'type': 'header-three',
-            'description': ugettext('Heading {level}').format(level=3),
+            'description': gettext('Heading %(level)d') % {'level': 3},
         })
     )
     features.register_converter_rule('contentstate', 'h3', {
@@ -391,7 +451,7 @@ def register_core_features(features):
         'draftail', 'h4', draftail_features.BlockFeature({
             'label': 'H4',
             'type': 'header-four',
-            'description': ugettext('Heading {level}').format(level=4),
+            'description': gettext('Heading %(level)d') % {'level': 4},
         })
     )
     features.register_converter_rule('contentstate', 'h4', {
@@ -406,7 +466,7 @@ def register_core_features(features):
         'draftail', 'h5', draftail_features.BlockFeature({
             'label': 'H5',
             'type': 'header-five',
-            'description': ugettext('Heading {level}').format(level=5),
+            'description': gettext('Heading %(level)d') % {'level': 5},
         })
     )
     features.register_converter_rule('contentstate', 'h5', {
@@ -421,7 +481,7 @@ def register_core_features(features):
         'draftail', 'h6', draftail_features.BlockFeature({
             'label': 'H6',
             'type': 'header-six',
-            'description': ugettext('Heading {level}').format(level=6),
+            'description': gettext('Heading %(level)d') % {'level': 6},
         })
     )
     features.register_converter_rule('contentstate', 'h6', {
@@ -436,7 +496,7 @@ def register_core_features(features):
         'draftail', 'ul', draftail_features.BlockFeature({
             'type': 'unordered-list-item',
             'icon': 'list-ul',
-            'description': ugettext('Bulleted list'),
+            'description': gettext('Bulleted list'),
         })
     )
     features.register_converter_rule('contentstate', 'ul', {
@@ -452,7 +512,7 @@ def register_core_features(features):
         'draftail', 'ol', draftail_features.BlockFeature({
             'type': 'ordered-list-item',
             'icon': 'list-ol',
-            'description': ugettext('Numbered list'),
+            'description': gettext('Numbered list'),
         })
     )
     features.register_converter_rule('contentstate', 'ol', {
@@ -468,7 +528,7 @@ def register_core_features(features):
         'draftail', 'blockquote', draftail_features.BlockFeature({
             'type': 'blockquote',
             'icon': 'openquote',
-            'description': ugettext('Blockquote'),
+            'description': gettext('Blockquote'),
         })
     )
     features.register_converter_rule('contentstate', 'blockquote', {
@@ -484,7 +544,7 @@ def register_core_features(features):
         'draftail', 'bold', draftail_features.InlineStyleFeature({
             'type': 'BOLD',
             'icon': 'bold',
-            'description': ugettext('Bold'),
+            'description': gettext('Bold'),
         })
     )
     features.register_converter_rule('contentstate', 'bold', {
@@ -500,7 +560,7 @@ def register_core_features(features):
         'draftail', 'italic', draftail_features.InlineStyleFeature({
             'type': 'ITALIC',
             'icon': 'italic',
-            'description': ugettext('Italic'),
+            'description': gettext('Italic'),
         })
     )
     features.register_converter_rule('contentstate', 'italic', {
@@ -517,7 +577,7 @@ def register_core_features(features):
         'draftail', 'link', draftail_features.EntityFeature({
             'type': 'LINK',
             'icon': 'link',
-            'description': ugettext('Link'),
+            'description': gettext('Link'),
             # We want to enforce constraints on which links can be pasted into rich text.
             # Keep only the attributes Wagtail needs.
             'attributes': ['url', 'id', 'parentId'],
@@ -542,7 +602,7 @@ def register_core_features(features):
         'draftail', 'superscript', draftail_features.InlineStyleFeature({
             'type': 'SUPERSCRIPT',
             'icon': 'superscript',
-            'description': ugettext('Superscript'),
+            'description': gettext('Superscript'),
         })
     )
     features.register_converter_rule('contentstate', 'superscript', {
@@ -557,7 +617,7 @@ def register_core_features(features):
         'draftail', 'subscript', draftail_features.InlineStyleFeature({
             'type': 'SUBSCRIPT',
             'icon': 'subscript',
-            'description': ugettext('Subscript'),
+            'description': gettext('Subscript'),
         })
     )
     features.register_converter_rule('contentstate', 'subscript', {
@@ -572,7 +632,7 @@ def register_core_features(features):
         'draftail', 'strikethrough', draftail_features.InlineStyleFeature({
             'type': 'STRIKETHROUGH',
             'icon': 'strikethrough',
-            'description': ugettext('Strikethrough'),
+            'description': gettext('Strikethrough'),
         })
     )
     features.register_converter_rule('contentstate', 'strikethrough', {
@@ -587,7 +647,7 @@ def register_core_features(features):
         'draftail', 'code', draftail_features.InlineStyleFeature({
             'type': 'CODE',
             'icon': 'code',
-            'description': ugettext('Code'),
+            'description': gettext('Code'),
         })
     )
     features.register_converter_rule('contentstate', 'code', {
@@ -598,3 +658,325 @@ def register_core_features(features):
             'style_map': {'CODE': 'code'}
         }
     })
+
+
+class ReportsMenuItem(SubmenuMenuItem):
+    template = 'wagtailadmin/shared/menu_submenu_item.html'
+
+
+class LockedPagesMenuItem(MenuItem):
+    def is_shown(self, request):
+        return UserPagePermissionsProxy(request.user).can_remove_locks()
+
+
+class WorkflowReportMenuItem(MenuItem):
+    def is_shown(self, request):
+        return True
+
+
+class SiteHistoryReportMenuItem(MenuItem):
+    def is_shown(self, request):
+        return UserPagePermissionsProxy(request.user).explorable_pages().exists()
+
+
+@hooks.register('register_reports_menu_item')
+def register_locked_pages_menu_item():
+    return LockedPagesMenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), icon_name='lock', order=700)
+
+
+@hooks.register('register_reports_menu_item')
+def register_workflow_report_menu_item():
+    return WorkflowReportMenuItem(_('Workflows'), reverse('wagtailadmin_reports:workflow'), icon_name='tasks', order=800)
+
+
+@hooks.register('register_reports_menu_item')
+def register_workflow_tasks_report_menu_item():
+    return WorkflowReportMenuItem(_('Workflow tasks'), reverse('wagtailadmin_reports:workflow_tasks'), icon_name='thumbtack', order=900)
+
+
+@hooks.register('register_reports_menu_item')
+def register_site_history_report_menu_item():
+    return SiteHistoryReportMenuItem(_('Site history'), reverse('wagtailadmin_reports:site_history'), icon_name='history', order=1000)
+
+
+@hooks.register('register_admin_menu_item')
+def register_reports_menu():
+    return ReportsMenuItem(
+        _('Reports'), reports_menu, classnames='icon icon-site', order=9000)
+
+
+@hooks.register('register_icons')
+def register_icons(icons):
+    for icon in [
+        'arrow-down-big.svg',
+        'arrow-down.svg',
+        'arrow-left.svg',
+        'arrow-right.svg',
+        'arrow-up-big.svg',
+        'arrow-up.svg',
+        'arrows-up-down.svg',
+        'bin.svg',
+        'bold.svg',
+        'chain-broken.svg',
+        'clipboard-list.svg',
+        'code.svg',
+        'cog.svg',
+        'cogs.svg',
+        'collapse-down.svg',
+        'collapse-up.svg',
+        'cross.svg',
+        'date.svg',
+        'doc-empty-inverse.svg',
+        'doc-empty.svg',
+        'doc-full-inverse.svg',
+        'doc-full.svg',  # aka file-text-alt
+        'download-alt.svg',
+        'download.svg',
+        'draft.svg',
+        'duplicate.svg',
+        'edit.svg',
+        'error.svg',
+        'folder-inverse.svg',
+        'folder-open-1.svg',
+        'folder-open-inverse.svg',
+        'folder.svg',
+        'form.svg',
+        'grip.svg',
+        'group.svg',
+        'help.svg',
+        'history.svg',
+        'home.svg',
+        'horizontalrule.svg',
+        'image.svg',  # aka picture
+        'italic.svg',
+        'link.svg',
+        'link-external.svg',
+        'list-ol.svg',
+        'list-ul.svg',
+        'lock-open.svg',
+        'lock.svg',
+        'login.svg',
+        'logout.svg',
+        'mail.svg',
+        'media.svg',
+        'no-view.svg',
+        'openquote.svg',
+        'order-down.svg',
+        'order-up.svg',
+        'order.svg',
+        'password.svg',
+        'pick.svg',
+        'pilcrow.svg',
+        'placeholder.svg',  # aka marquee
+        'plus-inverse.svg',
+        'plus.svg',
+        'radio-empty.svg',
+        'radio-full.svg',
+        'redirect.svg',
+        'repeat.svg',
+        'reset.svg',
+        'resubmit.svg',
+        'search.svg',
+        'site.svg',
+        'snippet.svg',
+        'spinner.svg',
+        'strikethrough.svg',
+        'success.svg',
+        'subscript.svg',
+        'superscript.svg',
+        'table.svg',
+        'tag.svg',
+        'tasks.svg',
+        'thumbtack.svg',
+        'tick-inverse.svg',
+        'tick.svg',
+        'time.svg',
+        'title.svg',
+        'undo.svg',
+        'uni52.svg',  # Is this a redundant icon?
+        'upload.svg',
+        'user.svg',
+        'view.svg',
+        'wagtail-inverse.svg',
+        'wagtail.svg',
+        'warning.svg',
+    ]:
+        icons.append('wagtailadmin/icons/{}'.format(icon))
+    return icons
+
+
+@hooks.register('construct_homepage_summary_items')
+def add_pages_summary_item(request, items):
+    items.insert(0, PagesSummaryItem(request))
+
+
+@hooks.register('register_log_actions')
+def register_core_log_actions(actions):
+    actions.register_action('wagtail.create', _('Create'), _('Created'))
+    actions.register_action('wagtail.edit', _('Save draft'), _('Draft saved'))
+    actions.register_action('wagtail.delete', _('Delete'), _('Deleted'))
+    actions.register_action('wagtail.publish', _('Publish'), _('Published'))
+    actions.register_action('wagtail.publish.scheduled', _("Publish scheduled draft"), _('Published scheduled draft'))
+    actions.register_action('wagtail.unpublish', _('Unpublish'), _('Unpublished'))
+    actions.register_action('wagtail.unpublish.scheduled', _('Unpublish scheduled draft'), _('Unpublished scheduled draft'))
+    actions.register_action('wagtail.lock', _('Lock'), _('Locked'))
+    actions.register_action('wagtail.unlock', _('Unlock'), _('Unlocked'))
+    actions.register_action('wagtail.moderation.approve', _('Approve'), _('Approved'))
+    actions.register_action('wagtail.moderation.reject', _('Reject'), _('Rejected'))
+
+    def revert_message(data):
+        try:
+            return _('Reverted to previous revision with id %(revision_id)s from %(created_at)s') % {
+                'revision_id': data['revision']['id'],
+                'created_at': data['revision']['created'],
+            }
+        except KeyError:
+            return _('Reverted to previous revision')
+
+    def copy_message(data):
+        try:
+            return _('Copied from %(title)s') % {
+                'title': data['source']['title'],
+            }
+        except KeyError:
+            return _("Copied")
+
+    def move_message(data):
+        try:
+            return _("Moved from '%(old_parent)s' to '%(new_parent)s'") % {
+                'old_parent': data['source']['title'],
+                'new_parent': data['destination']['title'],
+            }
+        except KeyError:
+            return _('Moved')
+
+    def schedule_publish_message(data):
+        try:
+            if data['revision']['has_live_version']:
+                return _('Revision %(revision_id)s from %(created_at)s scheduled for publishing at %(go_live_at)s.') % {
+                    'revision_id': data['revision']['id'],
+                    'created_at': data['revision']['created'],
+                    'go_live_at': data['revision']['go_live_at'],
+                }
+            else:
+                return _('Page scheduled for publishing at %(go_live_at)s') % {
+                    'go_live_at': data['revision']['go_live_at'],
+                }
+        except KeyError:
+            return _('Page scheduled for publishing')
+
+    def unschedule_publish_message(data):
+        try:
+            if data['revision']['has_live_version']:
+                return _('Revision %(revision_id)s from %(created_at)s unscheduled from publishing at %(go_live_at)s.') % {
+                    'revision_id': data['revision']['id'],
+                    'created_at': data['revision']['created'],
+                    'go_live_at': data['revision']['go_live_at'],
+                }
+            else:
+                return _('Page unscheduled for publishing at %(go_live_at)s') % {
+                    'go_live_at': data['revision']['go_live_at'],
+                }
+        except KeyError:
+            return _('Page unscheduled from publishing')
+
+    def add_view_restriction(data):
+        try:
+            return _("Added the '%(restriction)s' view restriction") % {
+                'restriction': data['restriction']['title'],
+            }
+        except KeyError:
+            return _('Added view restriction')
+
+    def edit_view_restriction(data):
+        try:
+            return _("Updated the view restriction to '%(restriction)s'") % {
+                'restriction': data['restriction']['title'],
+            }
+        except KeyError:
+            return _('Updated view restriction')
+
+    def delete_view_restriction(data):
+        try:
+            return _("Removed the '%(restriction)s' view restriction") % {
+                'restriction': data['restriction']['title'],
+            }
+        except KeyError:
+            return _('Removed view restriction')
+
+    def rename_message(data):
+        try:
+            return _("Renamed from '%(old)s' to '%(new)s'") % {
+                'old': data['title']['old'],
+                'new': data['title']['new'],
+            }
+        except KeyError:
+            return _('Renamed')
+
+    actions.register_action('wagtail.rename', _('Rename'), rename_message)
+    actions.register_action('wagtail.revert', _('Revert'), revert_message)
+    actions.register_action('wagtail.copy', _('Copy'), copy_message)
+    actions.register_action('wagtail.move', _('Move'), move_message)
+    actions.register_action('wagtail.publish.schedule', _("Schedule publication"), schedule_publish_message)
+    actions.register_action('wagtail.schedule.cancel', _("Unschedule publication"), unschedule_publish_message)
+    actions.register_action('wagtail.view_restriction.create', _("Add view restrictions"), add_view_restriction)
+    actions.register_action('wagtail.view_restriction.edit', _("Update view restrictions"), edit_view_restriction)
+    actions.register_action('wagtail.view_restriction.delete', _("Remove view restrictions"), delete_view_restriction)
+
+
+@hooks.register('register_log_actions')
+def register_workflow_log_actions(actions):
+    def workflow_start_message(data):
+        try:
+            return _("'%(workflow)s' started. Next step '%(task)s'") % {
+                'workflow': data['workflow']['title'],
+                'task': data['workflow']['next']['title'],
+            }
+        except (KeyError, TypeError):
+            return _('Workflow started')
+
+    def workflow_approve_message(data):
+        try:
+            if data['workflow']['next']:
+                return _("Approved at '%(task)s'. Next step '%(next_task)s'") % {
+                    'task': data['workflow']['task']['title'],
+                    'next_task': data['workflow']['next']['title'],
+                }
+            else:
+                return _("Approved at '%(task)s'. '%(workflow)s' complete") % {
+                    'task': data['workflow']['task']['title'],
+                    'workflow': data['workflow']['title'],
+                }
+        except (KeyError, TypeError):
+            return _('Workflow task approved')
+
+    def workflow_reject_message(data):
+        try:
+            return _("Rejected at '%(task)s'. Changes requested") % {
+                'task': data['workflow']['task']['title'],
+            }
+        except (KeyError, TypeError):
+            return _('Workflow task rejected. Workflow complete')
+
+    def workflow_resume_message(data):
+        try:
+            return _("Resubmitted '%(task)s'. Workflow resumed'") % {
+                'task': data['workflow']['task']['title'],
+            }
+        except (KeyError, TypeError):
+            return _('Workflow task resubmitted. Workflow resumed')
+
+    def workflow_cancel_message(data):
+        try:
+            return _("Cancelled '%(workflow)s' at '%(task)s'") % {
+                'workflow': data['workflow']['title'],
+                'task': data['workflow']['task']['title'],
+            }
+        except (KeyError, TypeError):
+            return _('Workflow cancelled')
+
+    actions.register_action('wagtail.workflow.start', _('Workflow: start'), workflow_start_message)
+    actions.register_action('wagtail.workflow.approve', _('Workflow: approve task'), workflow_approve_message)
+    actions.register_action('wagtail.workflow.reject', _('Workflow: reject task'), workflow_reject_message)
+    actions.register_action('wagtail.workflow.resume', _('Workflow: resume task'), workflow_resume_message)
+    actions.register_action('wagtail.workflow.cancel', _('Workflow: cancel'), workflow_cancel_message)

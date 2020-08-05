@@ -1,6 +1,7 @@
 from datetime import timedelta
 from io import StringIO
 
+from django.contrib.auth import get_user_model
 from django.core import management
 from django.db import models
 from django.test import TestCase
@@ -332,3 +333,92 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         p = Page.objects.get(slug='hello-world')
         self.assertFalse(PageRevision.objects.filter(page=p, submitted_for_moderation=True).exists())
+
+
+class TestPurgeRevisionsCommand(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+        self.page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="hello",
+            live=False,
+        )
+        self.root_page.add_child(instance=self.page)
+        self.page.refresh_from_db()
+
+    def run_command(self, days=None):
+        if days:
+            days_input = '--days=' + str(days)
+            return management.call_command('purge_revisions', days_input, stdout=StringIO())
+        return management.call_command('purge_revisions', stdout=StringIO())
+
+    def test_latest_revision_not_purged(self):
+
+        revision_1 = self.page.save_revision()
+
+        revision_2 = self.page.save_revision()
+
+        self.run_command()
+
+        # revision 1 should be deleted, revision 2 should not be
+        self.assertNotIn(revision_1, PageRevision.objects.filter(page=self.page))
+        self.assertIn(revision_2, PageRevision.objects.filter(page=self.page))
+
+
+    def test_revisions_in_moderation_not_purged(self):
+
+        self.page.save_revision(submitted_for_moderation=True)
+
+        revision = self.page.save_revision()
+
+        self.run_command()
+
+        self.assertTrue(PageRevision.objects.filter(page=self.page, submitted_for_moderation=True).exists())
+
+        try:
+            from wagtail.core.models import Task, Workflow, WorkflowTask
+            workflow = Workflow.objects.create(name='test_workflow')
+            task_1 = Task.objects.create(name='test_task_1')
+            user = get_user_model().objects.first()
+            WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+            workflow.start(self.page, user)
+            self.page.save_revision()
+            self.run_command()
+            # even though no longer the latest revision, the old revision should stay as it is
+            # attached to an in progress workflow
+            self.assertIn(revision, PageRevision.objects.filter(page=self.page))
+        except ImportError:
+            pass
+
+    def test_revisions_with_approve_go_live_not_purged(self):
+
+        approved_revision = self.page.save_revision(approved_go_live_at=timezone.now() + timedelta(days=1))
+
+        self.page.save_revision()
+
+        self.run_command()
+
+        self.assertIn(approved_revision, PageRevision.objects.filter(page=self.page))
+
+    def test_purge_revisions_with_date_cutoff(self):
+
+        old_revision = self.page.save_revision()
+
+        self.page.save_revision()
+
+        self.run_command(days=30)
+
+        # revision should not be deleted, as it is younger than 30 days
+        self.assertIn(old_revision, PageRevision.objects.filter(page=self.page))
+
+        old_revision.created_at = timezone.now() - timedelta(days=31)
+        old_revision.save()
+
+        self.run_command(days=30)
+
+        # revision is now older than 30 days, so should be deleted
+        self.assertNotIn(old_revision, PageRevision.objects.filter(page=self.page))

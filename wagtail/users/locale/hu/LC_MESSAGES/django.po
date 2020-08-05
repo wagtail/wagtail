@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2020
 # B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-16 11:20+0000\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-24 17:26+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -136,12 +136,12 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"A(z) \"%(group_name)s\" csoportnak <strong>%(group_user_count)s</strong>  "
+"A(z) '%(group_name)s' csoportnak <strong>%(group_user_count)s</strong>  "
 "tagja van."
 msgstr[1] ""
 "\n"
-"A(z) \"%(group_name)s\" csoportnak <strong>%(group_user_count)s</strong> "
-"tagja van."
+"A(z) '%(group_name)s' csoportnak <strong>%(group_user_count)s</strong> tagja "
+"van."
 
 msgid ""
 "Deleting this group will revoke this group's permissions from all member "
@@ -160,6 +160,9 @@ msgstr "Csoport hozzáadása"
 
 msgid "Editing"
 msgstr "Szerkesztés"
+
+msgid "View users in this group"
+msgstr "Csoport tagjainak megtekintése"
 
 msgid "Save"
 msgstr "Mentés"
@@ -284,11 +287,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"A(z) %(group_name)s csoporba nem tartozik felhasználó. Miért nem <a href="
+"\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Nincs még felhasználó hozzáadva. Miért nem <a href="
-"\"%(wagtailusers_create_url)s\">hoz létre egyet</a>?"
+"Nincs felhasználó létrehozva. Miért nem <a href=\"%(wagtailusers_add_url)s"
+"\">ad hozzá egyet</a>?"
 
 msgid "Groups"
 msgstr "Csoportok"
@@ -297,22 +308,22 @@ msgid "Search groups"
 msgstr "Csoportok keresése"
 
 msgid "Group '{0}' created."
-msgstr "Csoport létrehozva: \"{0}\""
+msgstr "Csoport létrehozva: '{0}'"
 
 msgid "Group '{0}' updated."
-msgstr "Csoport frissítve: \"{0}\""
+msgstr "Csoport frissítve: '{0}'"
 
 msgid "The group could not be saved due to errors."
 msgstr "Hiba történt a csoport mentése közben."
 
 msgid "Group '{0}' deleted."
-msgstr "Csoport törölve: \"{0}\""
+msgstr "Csoport törölve: '{0}'"
 
 msgid "Search users"
 msgstr "Felhasználók keresése"
 
 msgid "User '{0}' created."
-msgstr "Felhasználó létrehozva: \"{0}\""
+msgstr "Felhasználó létrehozva: '{0}'"
 
 msgid "Edit"
 msgstr "Szerkeszt"
@@ -321,13 +332,13 @@ msgid "The user could not be created due to errors."
 msgstr "Hiba történt a felhasználó létrehozása közben."
 
 msgid "User '{0}' updated."
-msgstr "Felhasználó frissítve: \"{0}\""
+msgstr "Felhasználó frissítve: '{0}'"
 
 msgid "The user could not be saved due to errors."
 msgstr "Hiba történt a felhasználó mentése közben."
 
 msgid "User '{0}' deleted."
-msgstr "Felhasználó törölve: \"{0}\""
+msgstr "Felhasználó törölve: '{0}'"
 
 msgid "Edit this user"
 msgstr "Felhasználó szerkesztése"

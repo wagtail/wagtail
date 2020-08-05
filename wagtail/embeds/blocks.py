@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.core import blocks
 from wagtail.embeds.format import embed_to_frontend_html

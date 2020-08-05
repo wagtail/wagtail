@@ -6,7 +6,10 @@
     }
 
     .breadcrumb {
-        margin: -1.2em 0 2em;
+        margin: -1.2em 0 2em;  // sass linter complains about $desktop-nice-padding here because of unit mismatch
+        margin-left: -$desktop-nice-padding;
+        margin-right: -$desktop-nice-padding;
+        padding-left: calc(#{$desktop-nice-padding} - 2em);
 
         @include media-breakpoint-up(sm) {
             margin-top: -1.8em;
@@ -30,19 +33,85 @@
         }
     }
 
-    .header-title {
-        padding-left: 3.1em;
+    h1 {
+        font-size: 1.915em;  // approximately 26px
 
-        @include media-breakpoint-down(xs) {
-            padding-left: 0;
-            margin-left: -28px;
-            // Because it's nested within tab-merged which we've given padding
-            // on mobile viewports due to snippets
+        &.header-title {
+            text-transform: initial;
         }
     }
-}
 
-$object-title-height: 40px;
+    .header-title {
+        padding-left: 0;
+    }
+
+    .modal-body .header-title h1 {
+        font-size: 1.5em;
+    }
+
+    .header-meta {
+        list-style: none;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0;
+
+        li {
+            border: 0;
+            float: left;
+            height: 1.5em;
+            line-height: 2em;
+            margin: 1em 0.75em 1.5em 0;
+
+            .icon {
+                @include svg-icon(1.25em, text-bottom);
+
+                margin-right: 0.2em;
+            }
+
+            .icon-warning {
+                @include svg-icon();
+            }
+
+            &:first-child .button {
+                margin-left: -0.8em;
+            }
+
+            .avatar {
+                margin-left: 0;
+            }
+        }
+
+        .button {
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: -0.25em; // Account for the button border
+            overflow: initial;
+            height: 2.5em;
+            line-height: 2.5em;
+        }
+
+        .action-workflow-status {
+            font-weight: 600;
+
+            span {
+                font-weight: 300;
+            }
+        }
+
+        .human-readable-date {
+            display: inline;
+        }
+
+        &--status {
+            padding-right: 0.8em;
+        }
+
+        &--type {
+            padding: 0 0.8em;
+        }
+    }
+
+}
 
 // An object is the basic wrapper around any field or group of fields in the editor interface
 .object {
@@ -57,10 +126,18 @@ $object-title-height: 40px;
         border-color: $color-input-focus-border;
     }
 
-    fieldset {
+    fieldset,
+    .field-row {
         padding-top: $object-title-height + 12px;
+    }
+
+    fieldset {
         padding-left: 0;
         padding-right: 0;
+
+        .field-row {
+            padding-top: 0;
+        }
     }
 
     .object-help {
@@ -92,7 +169,7 @@ $object-title-height: 40px;
         background: $color-salmon-light;
         color: #200200;
         text-transform: uppercase;
-        padding: 0.9em 0 0.9em 4.1em;
+        padding: 0.9em 0 0.9em 5em;
         font-size: 0.95em;
         margin: 0;
         line-height: 1.5em;
@@ -128,7 +205,7 @@ $object-title-height: 40px;
             top: 0;
             line-height: 1.8em;
             left: 0;
-            width: 1.7em;
+            width: $desktop-nice-padding;
             color: $color-white;
             padding: 0;
             margin: 0;
@@ -193,7 +270,7 @@ $object-title-height: 40px;
         }
     }
 
-    // cursory styling for streamfield. Main styling in components/streamfield.scss
+    // cursory styling for streamfield. Main styling in client/src/components/StreamField/StreamField.scss
     &.stream-field {
         background-color: #f6f6f6;
         padding-left: 20px;
@@ -226,6 +303,12 @@ $object-title-height: 40px;
             font-size: 1.8rem;
             line-height: 1.4em;
             width: 1.4em;
+        }
+    }
+
+    &.privacy {
+        > .title-wrapper:before {
+            content: map-get($icons, 'view');
         }
     }
 
@@ -327,8 +410,8 @@ $object-title-height: 40px;
 .full .halloeditor {
     @include nice-padding;
     border-radius: 0;
-    padding-top: 2em;
-    padding-bottom: 2em;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
     font-size: 1.2em;
     line-height: 1.6em;
 }
@@ -341,9 +424,22 @@ $object-title-height: 40px;
 }
 
 // Footer control bar for perfoming actions on the page
+footer .actions {
+    .button {
+        font-weight: 600;
+        text-overflow: ellipsis;
+    }
+}
+
 footer .preview {
     button,
     .button {
+        padding: 0 1em;
+
+        .icon {
+            margin-right: 0.5em;
+        }
+
         @include media-breakpoint-down(xs) {
             width: 100%;
             margin-top: 2px;
@@ -469,5 +565,70 @@ footer .preview {
         &.empty .add {
             margin: 0 0 0 -50px;
         }
+    }
+}
+
+.button.button--live {
+    background-color: $color-white;
+    color: $color-teal;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 2.3em;
+    padding: 0 0.75em;
+
+    .icon {
+        @include svg-icon(1.25em);
+        margin-right: 0.25em;
+    }
+
+    &:hover {
+        background-color: $color-teal-darker;
+        color: $color-white;
+    }
+}
+
+.workflow-timeline {
+    list-style: none;
+    padding: 0;
+
+    li {
+        margin-bottom: 1.25em;
+        position: relative;
+    }
+
+    li:not(:last-child)::after {
+        content: '';
+        color: $color-grey-3;
+        position: absolute;
+        top: 1.5em;
+        left: calc(0.75em - 1px);
+        height: 100%;
+        border-left: 2px dotted;
+    }
+
+    .icon {
+        fill: $color-grey-3;
+    }
+
+    .in_progress {
+        font-weight: 700;
+
+        .icon {
+            fill: $color-text-base;
+        }
+    }
+
+    .approved .icon {
+        fill: $color-teal;
+    }
+
+    .needs_changes .icon,
+    .rejected .icon {
+        fill: $color-orange;
+    }
+
+    .cancelled .icon {
+        fill: $color-red-dark;
     }
 }

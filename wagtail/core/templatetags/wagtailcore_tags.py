@@ -1,11 +1,11 @@
 from django import template
 from django.shortcuts import reverse
 from django.template.defaulttags import token_kwargs
-from django.utils.encoding import force_text
-from django.utils.safestring import mark_safe
+from django.template.loader import render_to_string
+from django.utils.encoding import force_str
 
 from wagtail import VERSION, __version__
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Site
 from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.utils.version import get_main_version
 
@@ -26,9 +26,14 @@ def pageurl(context, page, fallback=None):
         raise ValueError("pageurl tag expected a Page object, got %r" % page)
 
     try:
-        current_site = context['request'].site
-    except (KeyError, AttributeError):
-        # request.site not available in the current context; fall back on page.url
+        site = Site.find_for_request(context['request'])
+        current_site = site
+    except KeyError:
+        # request not available in the current context; fall back on page.url
+        return page.url
+
+    if current_site is None:
+        # request does not correspond to a recognised site; fall back on page.url
         return page.url
 
     # Pass page.relative_url the request object, which may contain a cached copy of
@@ -48,13 +53,16 @@ def slugurl(context, slug):
     that matches the slug on any site.
     """
 
+    page = None
     try:
-        current_site = context['request'].site
-    except (KeyError, AttributeError):
+        site = Site.find_for_request(context['request'])
+        current_site = site
+    except KeyError:
         # No site object found - allow the fallback below to take place.
-        page = None
+        pass
     else:
-        page = Page.objects.in_site(current_site).filter(slug=slug).first()
+        if current_site is not None:
+            page = Page.objects.in_site(current_site).filter(slug=slug).first()
 
     # If no page is found, fall back to searching the whole tree.
     if page is None:
@@ -96,8 +104,7 @@ def richtext(value):
             html = expand_db_html(value)
         else:
             raise TypeError("'richtext' template filter received an invalid value; expected string, got {}.".format(type(value)))
-
-    return mark_safe('<div class="rich-text">' + html + '</div>')
+    return render_to_string('wagtailcore/shared/richtext.html', {'html': html})
 
 
 class IncludeBlockNode(template.Node):
@@ -124,7 +131,7 @@ class IncludeBlockNode(template.Node):
 
             return value.render_as_block(context=new_context)
         else:
-            return force_text(value)
+            return force_str(value)
 
 
 @register.tag
@@ -158,3 +165,16 @@ def include_block(parser, token):
         raise template.TemplateSyntaxError("Unexpected argument to %r tag: %r" % (tag_name, tokens[0]))
 
     return IncludeBlockNode(block_var, extra_context, use_parent_context)
+
+
+@register.simple_tag(takes_context=True)
+def wagtail_site(context):
+    """
+        Returns the Site object for the given request
+    """
+    try:
+        request = context['request']
+    except KeyError:
+        return None
+
+    return Site.find_for_request(request=request)

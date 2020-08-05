@@ -182,6 +182,10 @@ class MinMaxOperation(Operation):
             # Unknown method
             return
 
+        # prevent zero width or height, it causes a ValueError on willow.resize
+        width = width if width > 0 else 1
+        height = height if height > 0 else 1
+
         return willow.resize((width, height))
 
 
@@ -214,6 +218,10 @@ class WidthHeightOperation(Operation):
             # Unknown method
             return
 
+        # prevent zero width or height, it causes a ValueError on willow.resize
+        width = width if width > 0 else 1
+        height = height if height > 0 else 1
+
         return willow.resize((width, height))
 
 
@@ -227,6 +235,10 @@ class ScaleOperation(Operation):
         scale = self.percent / 100
         width = int(image_width * scale)
         height = int(image_height * scale)
+
+        # prevent zero width or height, it causes a ValueError on willow.resize
+        width = width if width > 0 else 1
+        height = height if height > 0 else 1
 
         return willow.resize((width, height))
 
@@ -242,15 +254,29 @@ class JPEGQualityOperation(Operation):
         env['jpeg-quality'] = self.quality
 
 
-class FormatOperation(Operation):
-    def construct(self, fmt):
-        self.format = fmt
+class WebPQualityOperation(Operation):
+    def construct(self, quality):
+        self.quality = int(quality)
 
-        if self.format not in ['jpeg', 'png', 'gif']:
-            raise ValueError("Format must be either 'jpeg', 'png' or 'gif'")
+        if self.quality > 100:
+            raise ValueError("WebP quality must not be higher than 100")
+
+    def run(self, willow, image, env):
+        env['webp-quality'] = self.quality
+
+
+class FormatOperation(Operation):
+    def construct(self, format, *options):
+        self.format = format
+        self.options = options
+
+        if self.format not in ['jpeg', 'png', 'gif', 'webp']:
+            raise ValueError(
+                "Format must be either 'jpeg', 'png', 'gif', or 'webp'")
 
     def run(self, willow, image, env):
         env['output-format'] = self.format
+        env['output-format-options'] = self.options
 
 
 class BackgroundColorOperation(Operation):

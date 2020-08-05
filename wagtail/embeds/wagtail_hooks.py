@@ -1,7 +1,6 @@
-from django.conf.urls import include, url
-from django.urls import reverse
+from django.urls import include, path, reverse
 from django.utils.html import format_html
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text import HalloPlugin
@@ -15,7 +14,7 @@ from wagtail.embeds.rich_text.editor_html import EditorHTMLEmbedConversionRule
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^embeds/', include(urls, namespace='wagtailembeds')),
+        path('embeds/', include(urls, namespace='wagtailembeds')),
     ]
 
 

@@ -6,6 +6,8 @@
 {% block extra_js %}
     {{ block.super }}
 
+    {{ form.media.js }}
+
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
         $(function() {
@@ -16,11 +18,18 @@
     </script>
 {% endblock %}
 
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+
 {% block content %}
     {% trans "Add image" as add_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="image" %}
 
     <div class="nice-padding">
+        {% include "wagtailadmin/shared/non_field_errors.html" %}
+
         <form action="{% url 'wagtailimages:add' %}" method="POST" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <ul class="fields">

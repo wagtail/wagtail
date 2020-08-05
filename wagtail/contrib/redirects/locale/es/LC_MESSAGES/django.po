@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-12-08 14:58+0000\n"
-"Last-Translator: José Luis <alagunajs@gmail.com>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -76,6 +76,9 @@ msgstr "Añadir redirección"
 msgid "Save"
 msgstr "Guardar"
 
+msgid "Redirects"
+msgstr "Redireccionamientos"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Eliminar redirección %(title)s"
@@ -99,17 +102,14 @@ msgstr "Editando"
 msgid "Delete redirect"
 msgstr "Eliminar redirección"
 
-msgid "Redirects"
-msgstr "Redireccionamientos"
-
 msgid "From"
 msgstr "Desde"
 
-msgid "Site"
-msgstr "Sitio"
-
 msgid "To"
 msgstr "A"
+
+msgid "Site"
+msgstr "Sitio"
 
 msgid "Type"
 msgstr "Tipo"

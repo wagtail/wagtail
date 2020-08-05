@@ -1,0 +1,66 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{{ title }}{% endblock %}
+
+{% block content %}
+    <header role="banner">
+        <div class="row nice-padding">
+            <div class="left">
+                <div class="col header-title">
+                    <h1>
+                      {% if header_icon %}{% icon name=header_icon class_name="header-title-icon" %}{% endif %}
+                      {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}
+                    </h1>
+                </div>
+            </div>
+            <div class="right report__actions">
+                {% block actions %}
+                    {% if view.list_export %}
+                        <div class="dropdown dropdown-button match-width">
+                            <a href="{{ view.xlsx_export_url }}" class="button bicolor button--icon">{% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}</a>
+                            <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                            <ul>
+                                <li><a  class="button bicolor button--icon" href="{{ view.csv_export_url }}">{% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+    </header>
+
+    <div class="report{% if filters %} report--has-filters{% endif %}">
+        <div class="report__results">
+            {% block results %}
+            {% endblock %}
+            {% if page_obj %}
+                {% paginate page_obj base_url=request.path %}
+            {% endif %}
+        </div>
+        {% if filters %}
+            <div class="report__filters">
+                <h2>{% trans 'Filter' %}</h2>
+                <form method="get">
+                    <button class="button button-longrunning" type="submit">{% icon name="spinner" %}{% trans 'Apply filters' %}</button>
+
+                    {% for filter in filters.form %}
+                        {{ filter.label_tag }}
+                        {{ filter }}
+                        {{ filter.errors }}
+                    {% endfor %}
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/report.css' %}" type="text/css" />
+
+    {{ filters.form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+    {{ filters.form.media.js }}
+{% endblock %}

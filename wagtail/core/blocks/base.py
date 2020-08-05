@@ -7,15 +7,12 @@ from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.forms import Media
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 
-# unicode_literals ensures that any render / __str__ methods returning HTML via calls to mark_safe / format_html
-# return a SafeText, not SafeBytes; necessary so that it doesn't get re-encoded when the template engine
-# calls force_text, which would cause it to lose its 'safe' flag
 from .utils import InputJSONEncoder, get_non_block_errors, to_json_script
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
@@ -85,8 +82,20 @@ class Block(metaclass=BaseBlock):
 
     def all_media(self):
         media = forms.Media()
+
+        # In cases where the same block definition appears multiple times within different
+        # container blocks (e.g. a RichTextBlock appearing at the top level of a StreamField as
+        # well as both sides of a StructBlock for producing two-column layouts), we will encounter
+        # identical media declarations. Adding these to the final combined media declaration would
+        # be redundant and add processing time when determining the final media ordering. To avoid
+        # this, we keep a cache of previously-seen declarations and only add unique ones.
+        media_cache = set()
+
         for block in self.all_blocks():
-            media += block.media
+            key = block.media.__repr__()
+            if key not in media_cache:
+                media += block.media
+                media_cache.add(key)
         return media
 
     def __init__(self, **kwargs):
@@ -105,7 +114,7 @@ class Block(metaclass=BaseBlock):
     def set_name(self, name):
         self.name = name
         if not self.meta.label:
-            self.label = capfirst(force_text(name).replace('_', ' '))
+            self.label = capfirst(force_str(name).replace('_', ' '))
 
     @property
     def media(self):
@@ -263,7 +272,7 @@ class Block(metaclass=BaseBlock):
         Return a text rendering of 'value', suitable for display on templates. render() will fall back on
         this if the block does not define a 'template' property.
         """
-        return force_text(value)
+        return force_str(value)
 
     def get_searchable_content(self, value):
         """
@@ -548,7 +557,8 @@ class BlockWidget(forms.Widget):
             js=['wagtailadmin/js/streamfield.js'],
             css={'all': [
                 'wagtailadmin/css/panels/streamfield.css',
-            ]})
+            ]},
+        )
 
     def value_from_datadict(self, data, files, name):
         stream_field_data = json.loads(data.get(name))
@@ -570,6 +580,9 @@ class BlockField(forms.Field):
 
     def clean(self, value):
         return self.block.clean(value)
+
+    def has_changed(self, initial_value, data_value):
+        return self.block.get_prep_value(initial_value) != self.block.get_prep_value(data_value)
 
 
 DECONSTRUCT_ALIASES = {

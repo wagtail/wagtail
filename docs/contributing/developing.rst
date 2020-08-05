@@ -5,9 +5,9 @@ Development
 
 Setting up a local copy of `the Wagtail git repository <https://github.com/wagtail/wagtail>`_ is slightly more involved than running a release package of Wagtail, as it requires `Node.js <https://nodejs.org/>`_ and NPM for building Javascript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
-If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <https://github.com/wagtail/vagrant-wagtail-develop>`_ setup script is the fastest way to get up and running. This will provide you with a running instance of the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_, with the Wagtail and bakerydemo codebases available as shared folders for editing on your host machine.
+If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <https://github.com/wagtail/vagrant-wagtail-develop>`_ and `docker-wagtail-develop <https://github.com/wagtail/docker-wagtail-develop>`_ setup scripts are the fastest way to get up and running. They will provide you with a running instance of the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_, with the Wagtail and bakerydemo codebases available as shared folders for editing on your host machine.
 
-(Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the `Wagtail Developers group <https://groups.google.com/forum/#!forum/wagtail-developers>`_!)
+(Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the `Slack workspace <https://github.com/wagtail/wagtail/wiki/Slack>`_!)
 
 If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and virtualenv to manage Python packages.
 
@@ -15,10 +15,10 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install Node.js, version 8. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_.
+Install Node.js, version 10. Instructions for installing Node.js can be found on the `Node.js download page <https://nodejs.org/download/>`_.
 You can also use Node version manager (nvm) since Wagtail supplies a ``.nvmrc`` file in the root of the project with the minimum required Node version - see nvm's `installation instructions <https://github.com/creationix/nvm>`_.
 
-You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <http://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
 Clone a copy of `the Wagtail codebase <https://github.com/wagtail/wagtail>`_:
 
@@ -77,7 +77,7 @@ an argument to ``runtests.py`` or ``tox``:
     $ python runtests.py wagtail.core
 
     $ # Running in a specified Tox environment
-    $ tox -e py36-dj20-sqlite-noelasticsearch wagtail.core
+    $ tox -e py36-dj22-sqlite-noelasticsearch wagtail.core
 
     $ # See a list of available Tox environments
     $ tox -l
@@ -91,7 +91,7 @@ an argument to ``runtests.py``
     $ python runtests.py wagtail.core.tests.test_blocks.TestIntegerBlock
 
     $ # Running in a specified Tox environment
-    $ tox -e py36-dj20-sqlite-noelasticsearch wagtail.core.tests.test_blocks.TestIntegerBlock
+    $ tox -e py36-dj22-sqlite-noelasticsearch wagtail.core.tests.test_blocks.TestIntegerBlock
 
 Running migrations for the test app models
 ------------------------------------------
@@ -175,6 +175,7 @@ IE 11 is gradually falling out of use, and specific features are unsupported in 
 * Rich text copy-paste in the rich text editor.
 * Sticky toolbar in the rich text editor.
 * Focus outline styles in the main menu & explorer menu.
+* Keyboard access to the actions in page listing tables.
 
 **Unsupported browsers / devices include:**
 

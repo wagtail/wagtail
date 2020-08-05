@@ -7,16 +7,18 @@ Custom user forms example
 This example shows how to add a text field and foreign key field to a custom user model
 and configure Wagtail user forms to allow the fields values to be updated.
 
-Create a custom user model. In this case we extend the ``AbstractUser`` class and add
-two fields. The foreign key references another model (not shown).
+Create a custom user model. This must at minimum inherit from ``AbstractBaseUser`` and ``PermissionsMixin``. In this case we extend the ``AbstractUser`` class and add two fields. The foreign key references another model (not shown).
 
 .. code-block:: python
 
+  from django.contrib.auth.models import AbstractUser
+  
   class User(AbstractUser):
       country = models.CharField(verbose_name='country', max_length=255)
       status = models.ForeignKey(MembershipStatus, on_delete=models.SET_NULL, null=True, default=1)
 
-Add the app containing your user model to ``INSTALLED_APPS`` and set AUTH_USER_MODEL_ to reference
+Add the app containing your user model to ``INSTALLED_APPS`` - it must be above the ``'wagtail.users'`` line,
+in order to override Wagtail's built-in templates - and set AUTH_USER_MODEL_ to reference
 your model. In this example the app is called ``users`` and the model is ``User``
 
 .. code-block:: python
@@ -28,7 +30,7 @@ Create your custom user 'create' and 'edit' forms in your app:
 .. code-block:: python
 
   from django import forms
-  from django.utils.translation import ugettext_lazy as _
+  from django.utils.translation import gettext_lazy as _
 
   from wagtail.users.forms import UserEditForm, UserCreationForm
 
@@ -84,4 +86,4 @@ Add the wagtail settings to your project to reference the user form additions:
   WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'status']
 
 
-.. _AUTH_USER_MODEL: https://docs.djangoproject.com/en/dev/topics/auth/customizing/#substituting-a-custom-user-model
+.. _AUTH_USER_MODEL: https://docs.djangoproject.com/en/stable/topics/auth/customizing/#substituting-a-custom-user-model

@@ -94,7 +94,8 @@ class TestEmbeds(TestCase):
             'html': "<p>Blah blah blah</p>",
         }
 
-    def test_get_embed(self):
+    @override_settings(WAGTAILEMBEDS_RESPONSIVE_HTML=True)
+    def test_get_embed_responsive(self):
         embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder)
 
         # Check that the embed is correct
@@ -121,6 +122,15 @@ class TestEmbeds(TestCase):
         # Look for the same embed with a different width, this should also increase hit count
         embed = get_embed('www.test.com/4321', finder=self.dummy_finder)
         self.assertEqual(self.hit_count, 3)
+
+    def test_get_embed_nonresponsive(self):
+        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder)
+
+        # Check that the embed is correct
+        self.assertEqual(embed.title, "Test: www.test.com/1234")
+        self.assertEqual(embed.type, 'video')
+        self.assertEqual(embed.width, 400)
+        self.assertFalse(embed.is_responsive)
 
     def dummy_finder_invalid_width(self, url, max_width=None):
         # Return a record with an invalid width

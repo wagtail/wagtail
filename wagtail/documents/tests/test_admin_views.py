@@ -3,15 +3,15 @@ from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.core.models import Collection, GroupCollectionPermission, Page
-from wagtail.documents import models
-from wagtail.tests.testapp.models import EventPage, EventPageRelatedLink
+from wagtail.documents import get_document_model, models
+from wagtail.documents.tests.utils import get_test_document_file
+from wagtail.tests.testapp.models import CustomDocument, EventPage, EventPageRelatedLink
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -115,6 +115,9 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
     def test_get_with_collections(self):
         root_collection = Collection.get_first_root_node()
         root_collection.add_child(name="Evil plans")
@@ -126,10 +129,24 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         self.assertContains(response, '<label for="id_collection">')
         self.assertContains(response, "Evil plans")
 
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+    def test_get_with_custom_document_model(self):
+        response = self.client.get(reverse('wagtaildocs:add'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
+
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
+        # custom fields should be included
+        self.assertContains(response, 'name="fancy_description"')
+
+        # form media should be imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile(b"A boring example document")
-        fake_file.name = 'test.txt'
+        fake_file = get_test_document_file()
 
         # Submit
         post_data = {
@@ -158,8 +175,7 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
         evil_plans_collection = root_collection.add_child(name="Evil plans")
 
         # Build a fake file
-        fake_file = ContentFile(b"A boring example document")
-        fake_file.name = 'test.txt'
+        fake_file = get_test_document_file()
 
         # Submit
         post_data = {
@@ -179,6 +195,32 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
             models.Document.objects.get(title="Test document").collection,
             evil_plans_collection
         )
+
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+    def test_unique_together_validation_error(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        # another document with a title to collide with
+        CustomDocument.objects.create(
+            title="Test document",
+            file=get_test_document_file(),
+            collection=evil_plans_collection
+        )
+
+        post_data = {
+            'title': "Test document",
+            'file': get_test_document_file(),
+            'collection': evil_plans_collection.id,
+        }
+        response = self.client.post(reverse('wagtaildocs:add'), post_data)
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
+
+        # error message should be output on the page as a non-field error
+        self.assertContains(response, "Custom document with this Title and Collection already exists.")
 
 
 class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtils):
@@ -221,8 +263,7 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile(b"A boring example document")
-        fake_file.name = 'test.txt'
+        fake_file = get_test_document_file()
 
         # Submit
         post_data = {
@@ -249,8 +290,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.login()
 
         # Build a fake file
-        fake_file = ContentFile(b"A boring example document")
-        fake_file.name = 'test.txt'
+        fake_file = get_test_document_file()
 
         # Create a document to edit
         self.document = models.Document.objects.create(title="Test document", file=fake_file)
@@ -263,10 +303,14 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         # Ensure the form supports file uploads
         self.assertContains(response, 'enctype="multipart/form-data"')
 
+        # draftail should NOT be a standard JS include on this page
+        # (see TestDocumentEditViewWithCustomDocumentModel - this confirms that form media
+        # definitions are being respected)
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile(b"A boring example document")
-        fake_file.name = 'test.txt'
+        fake_file = get_test_document_file()
 
         # Submit title change
         post_data = {
@@ -283,8 +327,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
 
     def test_with_missing_source_file(self):
         # Build a fake file
-        fake_file = ContentFile(b"An ephemeral document")
-        fake_file.name = 'to-be-deleted.txt'
+        fake_file = get_test_document_file()
 
         # Create a new document to delete the source for
         document = models.Document.objects.create(title="Test missing source document", file=fake_file)
@@ -303,6 +346,34 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
         self.assertContains(response, self.document.usage_url)
         self.assertContains(response, 'Used 0 times')
+
+    def test_reupload_different_file_size_and_file_hash(self):
+        """
+        Checks that reuploading the document file with a different file
+        changes the file size and file hash (see #5704).
+        """
+        # Build a fake file, and create it through the admin view
+        # since self.document doesn't have a file_size set.
+        fake_file = SimpleUploadedFile('some_file.txt', b'this is the content')
+        post_data = {
+            'title': "My doc",
+            'file': fake_file,
+        }
+        self.client.post(reverse('wagtaildocs:add'), post_data)
+
+        document = models.Document.objects.get(title="My doc")
+        old_file_size, old_file_hash = document.file_size, document.file_hash
+
+        new_file = SimpleUploadedFile(document.filename, b'less content')
+
+        self.client.post(reverse('wagtaildocs:edit', args=(document.pk,)), {
+            'title': document.title, 'file': new_file,
+        })
+
+        document.refresh_from_db()
+
+        self.assertNotEqual(document.file_size, old_file_size)
+        self.assertNotEqual(document.file_hash, old_file_hash)
 
     def test_reupload_same_name(self):
         """
@@ -343,6 +414,58 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.assertEqual(self.document.file.name, 'documents/' + new_name)
         self.assertEqual(self.document.file.read(),
                          b'An updated test content.')
+
+
+@override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+class TestDocumentEditViewWithCustomDocumentModel(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        # Create a document to edit
+        self.document = CustomDocument.objects.create(
+            title="Test document",
+            file=get_test_document_file(),
+        )
+
+        self.storage = self.document.file.storage
+
+    def get(self, params={}):
+        return self.client.get(reverse('wagtaildocs:edit', args=(self.document.id,)), params)
+
+    def test_get_with_custom_document_model(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
+
+        # Ensure the form supports file uploads
+        self.assertContains(response, 'enctype="multipart/form-data"')
+
+        # form media should be imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
+    def test_unique_together_validation_error(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        # another document with a title to collide with
+        CustomDocument.objects.create(
+            title="Updated",
+            file=get_test_document_file(),
+            collection=evil_plans_collection
+        )
+
+        post_data = {
+            'title': "Updated",
+            'collection': evil_plans_collection.id,
+        }
+        response = self.client.post(reverse('wagtaildocs:edit', args=(self.document.id,)), post_data)
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
+
+        # error message should be output on the page as a non-field error
+        self.assertContains(response, "Custom document with this Title and Collection already exists.")
 
 
 class TestDocumentDeleteView(TestCase, WagtailTestUtils):
@@ -389,15 +512,19 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.login()
 
         # Create a document for running tests on
-        self.doc = models.get_document_model().objects.create(
+        self.doc = get_document_model().objects.create(
             title="Test document",
-            file=ContentFile(b"Simple text document"),
+            file=get_test_document_file(),
         )
 
     def check_doc_after_edit(self):
         self.doc.refresh_from_db()
         self.assertEqual(self.doc.title, "New title!")
         self.assertFalse(self.doc.tags.all())
+
+    def check_form_media_in_response(self, response):
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
 
     def test_add(self):
         """
@@ -412,6 +539,8 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
 
         # no collection chooser when only one collection exists
         self.assertNotContains(response, '<label for="id_adddocument_collection">')
+
+        self.check_form_media_in_response(response)
 
     def test_add_with_collections(self):
         root_collection = Collection.get_first_root_node()
@@ -448,7 +577,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['doc'].file_hash)
 
         # check that it is in the root collection
-        doc = models.get_document_model().objects.get(title='test.png')
+        doc = get_document_model().objects.get(title='test.png')
         root_collection = Collection.get_first_root_node()
         self.assertEqual(doc.collection, root_collection)
 
@@ -456,7 +585,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertIn('form', response.context)
         self.assertEqual(
             set(response.context['form'].fields),
-            set(models.get_document_model().admin_form_fields) - {'file', 'collection'},
+            set(get_document_model().admin_form_fields) - {'file', 'collection'},
         )
         self.assertEqual(response.context['form'].initial['title'], 'test.png')
 
@@ -497,7 +626,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['doc'].file_hash)
 
         # check that it is in the 'evil plans' collection
-        doc = models.get_document_model().objects.get(title='test.png')
+        doc = get_document_model().objects.get(title='test.png')
         root_collection = Collection.get_first_root_node()
         self.assertEqual(doc.collection, evil_plans_collection)
 
@@ -505,7 +634,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertIn('form', response.context)
         self.assertEqual(
             set(response.context['form'].fields),
-            set(models.get_document_model().admin_form_fields) - {'file'} | {'collection'},
+            set(get_document_model().admin_form_fields) - {'file'} | {'collection'},
         )
         self.assertEqual(response.context['form'].initial['title'], 'test.png')
 
@@ -635,7 +764,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertEqual(response['Content-Type'], 'application/json')
 
         # Make sure the document is deleted
-        self.assertFalse(models.get_document_model().objects.filter(id=self.doc.id).exists())
+        self.assertFalse(get_document_model().objects.filter(id=self.doc.id).exists())
 
         # Check JSON
         response_json = json.loads(response.content.decode())
@@ -663,12 +792,16 @@ class TestMultipleCustomDocumentUploader(TestMultipleDocumentUploader):
         super().check_doc_after_edit()
         self.assertEqual(self.doc.description, "New description.")
 
+    def check_form_media_in_response(self, response):
+        # form media should be imported
+        self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
 
 class TestMultipleCustomDocumentUploaderNoCollection(TestMultipleCustomDocumentUploader):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        Document = models.get_document_model()
+        Document = get_document_model()
         fields = tuple(f for f in Document.admin_form_fields if f != 'collection')
         cls.__patcher = mock.patch.object(Document, 'admin_form_fields', fields)
         cls.__patcher.start()
@@ -689,6 +822,23 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
         response_json = json.loads(response.content.decode())
         self.assertEqual(response_json['step'], 'chooser')
+
+        # draftail should NOT be a standard JS include on this page
+        self.assertNotIn('wagtailadmin/js/draftail.js', response_json['html'])
+
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+    def test_with_custom_document_model(self):
+        response = self.client.get(reverse('wagtaildocs:chooser'))
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'chooser')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+
+        # custom form fields should be present
+        self.assertIn('name="document-chooser-upload-fancy_description"', response_json['html'])
+
+        # form media imports should appear on the page
+        self.assertIn('wagtailadmin/js/draftail.js', response_json['html'])
 
     def test_search(self):
         response = self.client.get(reverse('wagtaildocs:chooser'), {'q': "Hello"})
@@ -819,8 +969,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile(b"A boring example document")
-        fake_file.name = 'test.txt'
+        fake_file = get_test_document_file()
 
         # Submit
         post_data = {
@@ -835,6 +984,30 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
 
         # Document should be created
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
+
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+    def test_unique_together_validation(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+        # another document with a title to collide with
+        CustomDocument.objects.create(
+            title="Test document",
+            file=get_test_document_file(),
+            collection=evil_plans_collection
+        )
+
+        response = self.client.post(reverse('wagtaildocs:chooser_upload'), {
+            'document-chooser-upload-title': "Test document",
+            'document-chooser-upload-file': get_test_document_file(),
+            'document-chooser-upload-collection': evil_plans_collection.id
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+
+        # The form should have an error
+        self.assertContains(response, "Custom document with this Title and Collection already exists.")
 
 
 class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtils):
@@ -889,8 +1062,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
 
     def test_post(self):
         # Build a fake file
-        fake_file = ContentFile(b"A boring example document")
-        fake_file.name = 'test.txt'
+        fake_file = get_test_document_file()
 
         # Submit
         post_data = {
@@ -1013,8 +1185,7 @@ class TestGetUsage(TestCase, WagtailTestUtils):
 class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
         # Build a fake file
-        fake_file = ContentFile(b"A boring example document")
-        fake_file.name = 'test.txt'
+        fake_file = get_test_document_file()
 
         self.root_collection = Collection.get_first_root_node()
         self.evil_plans_collection = self.root_collection.add_child(name="Evil plans")

@@ -6,6 +6,7 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015,2018
 # Ed <724195301@qq.com>, 2018
 # Ed <724195301@qq.com>, 2018
+# First Last <abc+github@mynook.info>, 2019
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Jian Li <kdlijian@gmail.com>, 2015
 # jszsj <zhushajun@gmail.com>, 2016-2017
@@ -20,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-09 13:30+0000\n"
+"POT-Creation-Date: 2020-07-24 17:49+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -167,6 +168,9 @@ msgstr "编辑"
 msgid "Save"
 msgstr "保存"
 
+msgid "Permissions"
+msgstr "权限"
+
 msgid "Object permissions"
 msgstr "对象权限"
 
@@ -274,13 +278,6 @@ msgstr[0] ""
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的用户"
-
-#, python-format
-msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
-"\">add some</a>?"
-msgstr ""
-"还没用户呢。为啥不<a href=\"%(wagtailusers_create_url)s\">创建</a>试试?"
 
 msgid "Groups"
 msgstr "组"

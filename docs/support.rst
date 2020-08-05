@@ -9,7 +9,7 @@ If you have any problems or questions about working with Wagtail, you are invite
 Stack Overflow
 ~~~~~~~~~~~~~~
 
-`Stack Overflow <http://stackoverflow.com/questions/tagged/wagtail>`_ is the best place to find answers to your questions about working with Wagtail - there is an active community of Wagtail users and developers responding to questions there. When posting questions, please read Stack Overflow's advice on `how to ask questions <http://stackoverflow.com/help/how-to-ask>`_ and remember to tag your question with "wagtail".
+`Stack Overflow <https://stackoverflow.com/questions/tagged/wagtail>`_ is the best place to find answers to your questions about working with Wagtail - there is an active community of Wagtail users and developers responding to questions there. When posting questions, please read Stack Overflow's advice on `how to ask questions <https://stackoverflow.com/help/how-to-ask>`_ and remember to tag your question with "wagtail".
 
 Mailing list
 ~~~~~~~~~~~~
@@ -29,7 +29,9 @@ Issues
 
 If you think you've found a bug in Wagtail, or you'd like to suggest a new feature, please check the current list at `github.com/wagtail/wagtail/issues <https://github.com/wagtail/wagtail/issues>`_. If your bug or suggestion isn't there, raise a new issue, providing as much relevant context as possible.
 
+If your bug report is a security issue, **do not** report it with an issue. Please read our ​guide to :doc:`reporting security issues <../contributing/security>`.
+
 Torchbox
 ~~~~~~~~
 
-Finally, if you have a query which isn't relevant for any of the above forums, feel free to contact the Wagtail team at Torchbox directly, on `hello@wagtail.io <mailto:hello@wagtail.io>`_ or `@wagtailcms <http://twitter.com/wagtailcms>`_.
+Finally, if you have a query which isn't relevant for any of the above forums, feel free to contact the Wagtail team at Torchbox directly, on `hello@wagtail.io <mailto:hello@wagtail.io>`_ or `@wagtailcms <https://twitter.com/wagtailcms>`_.

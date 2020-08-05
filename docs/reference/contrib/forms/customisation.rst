@@ -707,17 +707,18 @@ Example:
         form_builder = CustomFormBuilder
 
 
-Custom ``send_mail`` method
----------------------------
+.. _form_builder_render_email:
 
-If you want to change the content of the email that is sent when a form submits you can override the ``send_mail`` method.
+Custom ``render_email`` method
+------------------------------
+
+If you want to change the content of the email that is sent when a form submits you can override the ``render_email`` method.
 
 
 To do this, you need to:
 
 * Ensure you have your form model defined that extends ``wagtail.contrib.forms.models.AbstractEmailForm``.
-* In your models.py file, import the ``wagtail.admin.utils.send_mail`` function.
-* Override the ``send_mail`` method in your page model.
+* Override the ``render_email`` method in your page model.
 
 Example:
 
@@ -725,7 +726,54 @@ Example:
 
     from datetime import date
     # ... additional wagtail imports
-    from wagtail.admin.utils import send_mail
+    from wagtail.contrib.forms.models import AbstractEmailForm
+
+
+    class FormPage(AbstractEmailForm):
+        # ... fields, content_panels, etc
+
+        def render_email(self, form):
+            # Get the original content (string)
+            email_content = super().render_email(form)
+
+            # Add a title (not part of original method)
+            title = '{}: {}'.format('Form', self.title)
+
+            content = [title, '', email_content, '']
+
+            # Add a link to the form page
+            content.append('{}: {}'.format('Submitted Via', self.full_url))
+
+            # Add the date the form was submitted
+            submitted_date_str = date.today().strftime('%x')
+            content.append('{}: {}'.format('Submitted on', submitted_date_str))
+
+            # Content is joined with a new line to separate each text line
+            content = '\n'.join(content)
+
+            return content
+
+
+Custom ``send_mail`` method
+---------------------------
+
+If you want to change the subject or some other part of how an email is sent when a form submits you can override the ``send_mail`` method.
+
+
+To do this, you need to:
+
+* Ensure you have your form model defined that extends ``wagtail.contrib.forms.models.AbstractEmailForm``.
+* In your models.py file, import the ``wagtail.admin.mail.send_mail`` function.
+* Override the ``send_mail`` method in your page model.
+
+
+Example:
+
+.. code-block:: python
+
+    from datetime import date
+    # ... additional wagtail imports
+    from wagtail.admin.mail import send_mail
     from wagtail.contrib.forms.models import AbstractEmailForm
 
 
@@ -738,31 +786,9 @@ Example:
             # Email addresses are parsed from the FormPage's addresses field
             addresses = [x.strip() for x in self.to_address.split(',')]
 
-            # Subject can be adjusted, be sure to include the form's defined subject field
+            # Subject can be adjusted (adding submitted date), be sure to include the form's defined subject field
             submitted_date_str = date.today().strftime('%x')
-            subject = self.subject + " - " + submitted_date_str # add date to email subject
+            subject = f"{self.subject} - {submitted_date_str}"
 
-            content = []
+            send_mail(subject, self.render_email(form), addresses, self.from_address,)
 
-            # Add a title (not part of original method)
-            content.append('{}: {}'.format('Form', self.title))
-
-            for field in form:
-                # add the value of each field as a new line
-                value = field.value()
-                if isinstance(value, list):
-                    value = ', '.join(value)
-                content.append('{}: {}'.format(field.label, value))
-
-            # Add a link to the form page
-            content.append('{}: {}'.format('Submitted Via', self.full_url))
-
-            # Add the date the form was submitted
-            content.append('{}: {}'.format('Submitted on', submitted_date_str))
-
-            # Content is joined with a new line to separate each text line
-            content = '\n'.join(content)
-
-            # wagtail.wagtailadmin.utils - send_mail function is called
-            # This function extends the Django default send_mail function
-            send_mail(subject, content, addresses, self.from_address)

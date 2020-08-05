@@ -6,12 +6,13 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
+# Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail redirects"
+msgstr "Wagtailin uudelleenohjaukset"
 
 msgid "From site"
 msgstr "Sivustolta"
@@ -65,6 +69,9 @@ msgstr "Lisää uudelleenohjaus"
 msgid "Save"
 msgstr "Tallenna"
 
+msgid "Redirects"
+msgstr "Uudelleenohjaukset"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Poista uudelleenohjaus %(title)s"
@@ -88,23 +95,36 @@ msgstr "Muokataan"
 msgid "Delete redirect"
 msgstr "Poista uudelleenohjaus"
 
-msgid "Redirects"
-msgstr "Uudelleenohjaukset"
-
 msgid "From"
 msgstr "Lähde"
 
-msgid "Site"
-msgstr "Sivusto"
-
 msgid "To"
 msgstr "Kohde"
+
+msgid "Site"
+msgstr "Sivusto"
 
 msgid "Type"
 msgstr "Tyyppi"
 
 msgid "Edit this redirect"
 msgstr "Muokkaa tätä edelleenohjausta"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Löytyi %(counter)s osuma"
+msgstr[1] ""
+"\n"
+"Löytyi %(counter)s osumaa"
 
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""

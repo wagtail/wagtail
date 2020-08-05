@@ -47,12 +47,12 @@ sitemap:
     urlpatterns = [
         ...
 
-        url('^sitemap\.xml$', sitemap),
+        path('sitemap.xml', sitemap),
 
         ...
 
         # Ensure that the 'sitemap' line appears above the default Wagtail page serving route
-        url(r'', include(wagtail_urls)),
+        re_path(r'', include(wagtail_urls)),
     ]
 
 
@@ -88,6 +88,7 @@ a valid, crawlable hostname. If you change the site's hostname from
     </url>
 
 
+If you change the site's port to ``443``, the ``https`` scheme will be used.
 Find out more about :ref:`working with Sites<site-model-ref>`.
 
 

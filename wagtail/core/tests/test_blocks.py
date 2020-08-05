@@ -5,14 +5,14 @@ import unittest
 from datetime import date, datetime
 from decimal import Decimal
 
-# non-standard import name for ugettext_lazy, to prevent strings from being picked up for translation
+# non-standard import name for gettext_lazy, to prevent strings from being picked up for translation
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
-from django.utils.safestring import SafeData, mark_safe
-from django.utils.translation import ugettext_lazy as __
+from django.utils.safestring import SafeData, SafeText, mark_safe
+from django.utils.translation import gettext_lazy as __
 
 from wagtail.core import blocks
 from wagtail.core.blocks import BlockWidget, StreamValue
@@ -624,7 +624,7 @@ class TestRichTextBlock(TestCase):
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
         result = block.render(value)
         self.assertEqual(
-            result, '<div class="rich-text"><p>Merry <a href="/events/christmas/">Christmas</a>!</p></div>'
+            result, '<p>Merry <a href="/events/christmas/">Christmas</a>!</p>'
         )
 
     def test_render_form(self):
@@ -664,6 +664,20 @@ class TestRichTextBlock(TestCase):
 
         with self.assertRaises(ValidationError):
             block.clean(RichText('<p>bar</p>'))
+
+    def test_get_searchable_content(self):
+        block = blocks.RichTextBlock()
+        value = RichText(
+            '<p>Merry <a linktype="page" id="4">Christmas</a>! &amp; a happy new year</p>\n'
+            '<p>Our Santa pet <b>Wagtail</b> has some cool stuff in store for you all!</p>'
+        )
+        result = block.get_searchable_content(value)
+        self.assertEqual(
+            result, [
+                'Merry Christmas! & a happy new year\n'
+                'Our Santa pet Wagtail has some cool stuff in store for you all!'
+            ]
+        )
 
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
@@ -987,6 +1001,290 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             block.clean('coffee')
 
 
+class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
+    def setUp(self):
+        from django.db.models.fields import BLANK_CHOICE_DASH
+        self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
+
+    def test_render_required_multiple_choice_block(self):
+        block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_render_required_multiple_choice_block_with_default(self):
+        block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], default='tea')
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_render_required_multiple_choice_block_with_callable_choices(self):
+        def callable_choices():
+            return [('tea', 'Tea'), ('coffee', 'Coffee')]
+
+        block = blocks.MultipleChoiceBlock(choices=callable_choices)
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_validate_required_multiple_choice_block(self):
+        block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
+        self.assertEqual(block.clean(['coffee']), ['coffee'])
+
+        with self.assertRaises(ValidationError):
+            block.clean(['whisky'])
+
+        with self.assertRaises(ValidationError):
+            block.clean('')
+
+        with self.assertRaises(ValidationError):
+            block.clean(None)
+
+    def test_render_non_required_multiple_choice_block(self):
+        block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_render_non_required_multiple_choice_block_with_callable_choices(self):
+        def callable_choices():
+            return [('tea', 'Tea'), ('coffee', 'Coffee')]
+
+        block = blocks.MultipleChoiceBlock(choices=callable_choices, required=False)
+        html = block.render_form('coffee', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+    def test_validate_non_required_multiple_choice_block(self):
+        block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
+        self.assertEqual(block.clean(['coffee']), ['coffee'])
+
+        with self.assertRaises(ValidationError):
+            block.clean(['whisky'])
+
+        self.assertEqual(block.clean(''), [])
+        self.assertEqual(block.clean(None), [])
+
+    def test_render_multiple_choice_block_with_existing_blank_choice(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')],
+            required=False)
+        html = block.render_form("", prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertInHTML('<option value="coffee">Coffee</option>', html)
+
+    def test_render_multiple_choice_block_with_existing_blank_choice_and_with_callable_choices(self):
+        def callable_choices():
+            return [('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')]
+
+        block = blocks.MultipleChoiceBlock(
+            choices=callable_choices,
+            required=False)
+        html = block.render_form("", prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+        self.assertIn('<option value="coffee">Coffee</option>', html)
+
+    def test_named_groups_without_blank_option(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                ('Alcoholic', [
+                    ('gin', 'Gin'),
+                    ('whisky', 'Whisky'),
+                ]),
+                ('Non-alcoholic', [
+                    ('tea', 'Tea'),
+                    ('coffee', 'Coffee'),
+                ]),
+            ])
+
+        # test rendering with the blank option selected
+        html = block.render_form(None, prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+
+        # test rendering with a non-blank option selected
+        html = block.render_form('tea', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+
+    def test_named_groups_with_blank_option(self):
+        block = blocks.MultipleChoiceBlock(
+            choices=[
+                ('Alcoholic', [
+                    ('gin', 'Gin'),
+                    ('whisky', 'Whisky'),
+                ]),
+                ('Non-alcoholic', [
+                    ('tea', 'Tea'),
+                    ('coffee', 'Coffee'),
+                ]),
+                ('Not thirsty', [
+                    ('', 'No thanks')
+                ]),
+            ],
+            required=False)
+
+        # test rendering with the blank option selected
+        html = block.render_form(None, prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertIn('<option value="tea">Tea</option>', html)
+
+        # test rendering with a non-blank option selected
+        html = block.render_form('tea', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertNotInHTML('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
+        self.assertIn('<optgroup label="Alcoholic">', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+
+    def test_subclassing(self):
+        class BeverageMultipleChoiceBlock(blocks.MultipleChoiceBlock):
+            choices = [
+                ('tea', 'Tea'),
+                ('coffee', 'Coffee'),
+            ]
+
+        block = BeverageMultipleChoiceBlock(required=False)
+        html = block.render_form('tea', prefix='beverage')
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+
+        # subclasses of ChoiceBlock should deconstruct to a basic ChoiceBlock for migrations
+        self.assertEqual(
+            block.deconstruct(),
+            (
+                'wagtail.core.blocks.MultipleChoiceBlock',
+                [],
+                {
+                    'choices': [('tea', 'Tea'), ('coffee', 'Coffee')],
+                    'required': False,
+                },
+            )
+        )
+
+    def test_searchable_content(self):
+        block = blocks.MultipleChoiceBlock(choices=[
+            ('choice-1', "Choice 1"),
+            ('choice-2', "Choice 2"),
+        ])
+        self.assertEqual(block.get_searchable_content("choice-1"),
+                         ["Choice 1"])
+
+    def test_searchable_content_with_callable_choices(self):
+        def callable_choices():
+            return [
+                ('choice-1', "Choice 1"),
+                ('choice-2', "Choice 2"),
+            ]
+
+        block = blocks.MultipleChoiceBlock(choices=callable_choices)
+        self.assertEqual(block.get_searchable_content("choice-1"),
+                         ["Choice 1"])
+
+    def test_optgroup_searchable_content(self):
+        block = blocks.MultipleChoiceBlock(choices=[
+            ('Section 1', [
+                ('1-1', "Block 1"),
+                ('1-2', "Block 2"),
+            ]),
+            ('Section 2', [
+                ('2-1', "Block 1"),
+                ('2-2', "Block 2"),
+            ]),
+        ])
+        self.assertEqual(block.get_searchable_content("2-2"),
+                         ["Section 2", "Block 2"])
+
+    def test_invalid_searchable_content(self):
+        block = blocks.MultipleChoiceBlock(choices=[
+            ('one', 'One'),
+            ('two', 'Two'),
+        ])
+        self.assertEqual(block.get_searchable_content('three'), [])
+
+    def test_searchable_content_with_lazy_translation(self):
+        block = blocks.MultipleChoiceBlock(choices=[
+            ('choice-1', __("Choice 1")),
+            ('choice-2', __("Choice 2")),
+        ])
+        result = block.get_searchable_content("choice-1")
+        # result must survive JSON (de)serialisation, which is not the case for
+        # lazy translation objects
+        result = json.loads(json.dumps(result))
+        self.assertEqual(result, ["Choice 1"])
+
+    def test_optgroup_searchable_content_with_lazy_translation(self):
+        block = blocks.MultipleChoiceBlock(choices=[
+            (__('Section 1'), [
+                ('1-1', __("Block 1")),
+                ('1-2', __("Block 2")),
+            ]),
+            (__('Section 2'), [
+                ('2-1', __("Block 1")),
+                ('2-2', __("Block 2")),
+            ]),
+        ])
+        result = block.get_searchable_content("2-2")
+        # result must survive JSON (de)serialisation, which is not the case for
+        # lazy translation objects
+        result = json.loads(json.dumps(result))
+        self.assertEqual(result, ["Section 2", "Block 2"])
+
+    def test_deconstruct_with_callable_choices(self):
+        def callable_choices():
+            return [
+                ('tea', 'Tea'),
+                ('coffee', 'Coffee'),
+            ]
+
+        block = blocks.MultipleChoiceBlock(choices=callable_choices, required=False)
+        html = block.render_form('tea', prefix='beverage')
+
+        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
+        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+
+        self.assertEqual(
+            block.deconstruct(),
+            (
+                'wagtail.core.blocks.MultipleChoiceBlock',
+                [],
+                {
+                    'choices': callable_choices,
+                    'required': False,
+                },
+            )
+        )
+
+    def test_render_with_validator(self):
+        choices = [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee'),
+        ]
+
+        def validate_tea_is_selected(value):
+            raise ValidationError("You must select 'tea'")
+
+        block = blocks.MultipleChoiceBlock(choices=choices, validators=[validate_tea_is_selected])
+
+        with self.assertRaises(ValidationError):
+            block.clean('coffee')
+
+
 class TestRawHTMLBlock(TestCase):
     def test_definition(self):
         block = blocks.RawHTMLBlock()
@@ -1002,7 +1300,6 @@ class TestRawHTMLBlock(TestCase):
             'icon': '<i class="icon icon-code"></i>',
             'dangerouslyRunInnerScripts': True,
         })
-
     def test_get_default_with_fallback_value(self):
         default_value = blocks.RawHTMLBlock().get_default()
         self.assertEqual(default_value, '')
@@ -1337,8 +1634,91 @@ class TestStructBlock(SimpleTestCase):
             'body': '<b>world</b>',
         })
         body_bound_block = struct_value.bound_blocks['body']
-        expected = '<div class="rich-text"><b>world</b></div>'
+        expected = '<b>world</b>'
         self.assertEqual(str(body_bound_block), expected)
+
+    def test_get_form_context(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = LinkBlock()
+        context = block.get_form_context(block.to_python({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }), prefix='mylink')
+
+        self.assertTrue(isinstance(context['children'], collections.OrderedDict))
+        self.assertEqual(len(context['children']), 2)
+        self.assertTrue(isinstance(context['children']['title'], blocks.BoundBlock))
+        self.assertEqual(context['children']['title'].value, "Wagtail site")
+        self.assertTrue(isinstance(context['children']['link'], blocks.BoundBlock))
+        self.assertEqual(context['children']['link'].value, 'http://www.wagtail.io')
+        self.assertEqual(context['block_definition'], block)
+        self.assertEqual(context['prefix'], 'mylink')
+
+    def test_render_form(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+        block = LinkBlock()
+        html = block.render_form(block.to_python({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }), prefix='mylink')
+
+        self.assertIn('<div class="struct-block">', html)
+        self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
+        self.assertIn('<label class="field__label" for="mylink-title">Title</label>', html)
+        self.assertInHTML(
+            '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html
+        )
+        self.assertIn('<div class="field url_field widget-url_input fieldname-link">', html)
+        self.assertInHTML(
+            (
+                '<input id="mylink-link" name="mylink-link" placeholder="Link"'
+                ' type="url" value="http://www.wagtail.io" />'
+            ),
+            html
+        )
+        self.assertNotIn('<li class="required">', html)
+
+    def test_custom_render_form_template(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+            class Meta:
+                form_template = 'tests/block_forms/struct_block_form_template.html'
+
+        block = LinkBlock()
+        html = block.render_form(block.to_python({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }), prefix='mylink')
+
+        self.assertIn('<div>Hello</div>', html)
+        self.assertHTMLEqual('<div>Hello</div>', html)
+        self.assertTrue(isinstance(html, SafeText))
+
+    def test_custom_render_form_template_jinja(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(required=False)
+            link = blocks.URLBlock(required=False)
+
+            class Meta:
+                form_template = 'tests/jinja2/struct_block_form_template.html'
+
+        block = LinkBlock()
+        html = block.render_form(block.to_python({
+            'title': "Wagtail site",
+            'link': 'http://www.wagtail.io',
+        }), prefix='mylink')
+
+        self.assertIn('<div>Hello</div>', html)
+        self.assertHTMLEqual('<div>Hello</div>', html)
+        self.assertTrue(isinstance(html, SafeText))
 
     def test_definition_contains_required_field(self):
         class LinkBlock(blocks.StructBlock):
@@ -1389,13 +1769,13 @@ class TestStructBlock(SimpleTestCase):
         block = LinkBlock()
         html = block.definition['html']
 
-        self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is encouraged</div>', html)
+        self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span> Self-promotion is encouraged</div>', html)
 
         # check it can be overridden in the block constructor
         block = LinkBlock(help_text="Self-promotion is discouraged")
         html = block.definition['html']
 
-        self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span>Self-promotion is discouraged</div>', html)
+        self.assertInHTML('<div class="help"><span class="icon-help-inverse" aria-hidden="true"></span> Self-promotion is discouraged</div>', html)
 
     def test_media_inheritance(self):
         class ScriptedCharBlock(blocks.CharBlock):
@@ -1481,13 +1861,13 @@ class TestStructBlock(SimpleTestCase):
         block = SectionBlock()
         value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
         result = block.render(value)
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+        self.assertEqual(result, """<h1>Hello</h1><i>italic</i> world""")
 
     def test_render_block_with_extra_context(self):
         block = SectionBlock()
         value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
         result = block.render(value, context={'language': 'fr'})
-        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
+        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1>monde <i>italique</i>""")
 
     def test_render_structvalue(self):
         """
@@ -1496,11 +1876,11 @@ class TestStructBlock(SimpleTestCase):
         block = SectionBlock()
         value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'})
         result = value.__html__()
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+        self.assertEqual(result, """<h1>Hello</h1><i>italic</i> world""")
 
         # value.render_as_block() should be equivalent to value.__html__()
         result = value.render_as_block()
-        self.assertEqual(result, """<h1>Hello</h1><div class="rich-text"><i>italic</i> world</div>""")
+        self.assertEqual(result, """<h1>Hello</h1><i>italic</i> world""")
 
     def test_str_structvalue(self):
         """
@@ -1525,7 +1905,7 @@ class TestStructBlock(SimpleTestCase):
         block = SectionBlock()
         value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
         result = value.render_as_block(context={'language': 'fr'})
-        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div>""")
+        self.assertEqual(result, """<h1 lang="fr">Bonjour</h1>monde <i>italique</i>""")
 
 
 class TestStructBlockWithCustomStructValue(SimpleTestCase):
@@ -1929,6 +2309,71 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(len(react_value[1]['value']), 1)
         self.assertEqual(react_value[1]['value'][0]['value'], 'chocolate')
 
+    def test_render_with_classname_via_kwarg(self):
+        """form_classname from kwargs to be used as an additional class when rendering list block"""
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = blocks.ListBlock(LinkBlock, form_classname='special-list-class')
+
+        html = block.render_form([
+            {
+                'title': "Wagtail",
+                'link': 'http://www.wagtail.io',
+            },
+            {
+                'title': "Django",
+                'link': 'http://www.djangoproject.com',
+            },
+        ], prefix='links')
+
+        # including leading space to ensure class name gets added correctly
+        self.assertEqual(html.count(' special-list-class'), 1)
+
+    def test_render_with_classname_via_class_meta(self):
+        """form_classname from meta to be used as an additional class when rendering list block"""
+
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        class CustomListBlock(blocks.ListBlock):
+
+            class Meta:
+                form_classname = 'custom-list-class'
+
+        block = CustomListBlock(LinkBlock)
+
+        html = block.render_form([
+            {
+                'title': "Wagtail",
+                'link': 'http://www.wagtail.io',
+            },
+            {
+                'title': "Django",
+                'link': 'http://www.djangoproject.com',
+            },
+        ], prefix='links')
+
+        # including leading space to ensure class name gets added correctly
+        self.assertEqual(html.count(' custom-list-class'), 1)
+
+
+class TestListBlockWithFixtures(TestCase):
+    fixtures = ['test.json']
+
+    def test_calls_child_bulk_to_python_when_available(self):
+        page_ids = [2, 3, 4, 5]
+        expected_pages = Page.objects.filter(pk__in=page_ids)
+        block = blocks.ListBlock(blocks.PageChooserBlock())
+
+        with self.assertNumQueries(1):
+            pages = block.to_python(page_ids)
+
+        self.assertSequenceEqual(pages, expected_pages)
+
 
 class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_definition(self):
@@ -2031,6 +2476,23 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(list(block.child_blocks.keys()),
                          ['heading', 'paragraph', 'intro', 'by_line'])
 
+    def test_field_has_changed(self):
+        block = blocks.StreamBlock([('paragraph', blocks.CharBlock())])
+        initial_value = blocks.StreamValue(block, [('paragraph', 'test')])
+        initial_value[0].id = 'a'
+
+        data_value = blocks.StreamValue(block, [('paragraph', 'test')])
+        data_value[0].id = 'a'
+
+        # identical ids and content, so has_changed should return False
+        self.assertFalse(blocks.BlockField(block).has_changed(initial_value, data_value))
+
+        changed_data_value = blocks.StreamValue(block, [('paragraph', 'not a test')])
+        changed_data_value[0].id = 'a'
+
+        # identical ids but changed content, so has_changed should return True
+        self.assertTrue(blocks.BlockField(block).has_changed(initial_value, changed_data_value))
+
     def test_required_raises_an_exception_if_empty(self):
         block = blocks.StreamBlock([('paragraph', blocks.CharBlock())], required=True)
         value = blocks.StreamValue(block, [])
@@ -2121,8 +2583,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         ])
 
         self.assertIn('<div class="block-heading">My title</div>', html)
-        self.assertIn('<div class="block-paragraph"><div class="rich-text">My <i>first</i> paragraph</div></div>', html)
-        self.assertIn('<div class="block-paragraph"><div class="rich-text">My second paragraph</div></div>', html)
+        self.assertIn('<div class="block-paragraph">My <i>first</i> paragraph</div>', html)
+        self.assertIn('<div class="block-paragraph">My second paragraph</div>', html)
 
     def test_render_unknown_type(self):
         # This can happen if a developer removes a type from their StreamBlock
@@ -2138,7 +2600,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         ])
         self.assertNotIn('foo', html)
         self.assertNotIn('Hello', html)
-        self.assertIn('<div class="block-paragraph"><div class="rich-text">My first paragraph</div></div>', html)
+        self.assertIn('<div class="block-paragraph">My first paragraph</div>', html)
 
     def test_render_calls_block_render_on_children(self):
         """
@@ -2528,7 +2990,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertTrue(value1 != value3)
 
     def test_definition_considers_group_attribute(self):
-        """If group attributes are set in Block Meta classes, render a <h3> for each different block"""
+        """If group attributes are set in Block Meta classes, render a <h4> for each different block"""
 
         class Group1Block1(blocks.CharBlock):
             class Meta:
@@ -2606,6 +3068,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         # ID to this block, as it didn't have one already.
         self.assertTrue(jsonish_value[1]['id'])
 
+        # Calling get_prep_value again should preserve existing IDs, including the one
+        # just assigned to block 1
+        jsonish_value_again = block.get_prep_value(value)
+        self.assertEqual(jsonish_value[0]['id'], jsonish_value_again[0]['id'])
+        self.assertEqual(jsonish_value[1]['id'], jsonish_value_again[1]['id'])
+
     def test_get_prep_value_not_lazy(self):
         stream_data = [
             ('heading', 'this is my heading', '0000'),
@@ -2667,6 +3135,56 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             }],
         }
         self.check_get_prep_value_nested_streamblocks(stream_data, is_lazy=True)
+
+    def test_render_with_classname_via_kwarg(self):
+        """form_classname from kwargs to be used as an additional class when rendering stream block"""
+
+        block = blocks.StreamBlock([
+            (b'heading', blocks.CharBlock()),
+            (b'paragraph', blocks.CharBlock()),
+        ], form_classname='rocket-section')
+
+        value = block.to_python([
+            {
+                'type': 'heading',
+                'value': "Falcon Heavy",
+                'id': '2',
+            },
+            {
+                'type': 'paragraph',
+                'value': "Ultra heavy launch capability",
+                'id': '3',
+            }
+        ])
+
+        html = block.render_form(value)
+
+        # including leading space to ensure class name gets added correctly
+        self.assertEqual(html.count(' rocket-section'), 1)
+
+
+    def test_render_with_classname_via_class_meta(self):
+        """form_classname from meta to be used as an additional class when rendering stream block"""
+
+        class ProfileBlock(blocks.StreamBlock):
+            username = blocks.CharBlock()
+
+            class Meta:
+                form_classname = 'profile-block-large'
+
+        block = ProfileBlock()
+        value = block.to_python([
+            {
+                'type': 'username',
+                'value': "renegadeM@ster",
+                'id': '789',
+            }
+        ])
+
+        html = block.render_form(value, prefix='profiles')
+
+        # including leading space to ensure class name gets added correctly
+        self.assertEqual(html.count(' profile-block-large'), 1)
 
 
 class TestPageChooserBlock(TestCase):
@@ -2823,6 +3341,16 @@ class TestPageChooserBlock(TestCase):
             'wagtail.core.blocks.PageChooserBlock',
             (), {'page_type': ['tests.SimplePage', 'tests.EventPage']}))
 
+    def test_bulk_to_python(self):
+        page_ids = [2, 3, 4, 5]
+        expected_pages = Page.objects.filter(pk__in=page_ids)
+        block = blocks.PageChooserBlock()
+
+        with self.assertNumQueries(1):
+            pages = block.bulk_to_python(page_ids)
+
+        self.assertSequenceEqual(pages, expected_pages)
+
 
 class TestStaticBlock(TestCase):
     def test_definition(self):
@@ -2946,7 +3474,7 @@ class TestDateBlock(TestCase):
         self.assertIn('"format": "Y-m-d"', result)
 
         self.assertInHTML(
-            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" autocomplete="new-date" />',
+            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" autocomplete="off" />',
             result
         )
 
@@ -2959,7 +3487,7 @@ class TestDateBlock(TestCase):
         self.assertIn('"dayOfWeekStart": 0', result)
         self.assertIn('"format": "d.m.Y"', result)
         self.assertInHTML(
-            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" autocomplete="new-date" />',
+            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" autocomplete="off" />',
             result
         )
 
@@ -2996,7 +3524,7 @@ class TestDateTimeBlock(TestCase):
             result
         )
         self.assertInHTML(
-            '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" autocomplete="new-date-time" />',
+            '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" autocomplete="off" />',
             result
         )
 
@@ -3149,7 +3677,7 @@ class TestIncludeBlockTag(TestCase):
         })
 
         self.assertIn(
-            """<body><h1 lang="fr">Bonjour</h1><div class="rich-text">monde <i>italique</i></div></body>""",
+            """<body><h1 lang="fr">Bonjour</h1>monde <i>italique</i></body>""",
             result
         )
 

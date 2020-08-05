@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-01-18 08:40+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2020-07-24 17:48+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,9 @@ msgstr "Bæta við tilvísun"
 msgid "Save"
 msgstr "Vista"
 
+msgid "Redirects"
+msgstr "Tilvísanir"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Eyða tilvísun %(title)s"
@@ -89,17 +92,14 @@ msgstr "Breyti"
 msgid "Delete redirect"
 msgstr "Eyða tilvísun"
 
-msgid "Redirects"
-msgstr "Tilvísanir"
-
 msgid "From"
 msgstr "Frá"
 
-msgid "Site"
-msgstr "Síðu"
-
 msgid "To"
 msgstr "Til"
+
+msgid "Site"
+msgstr "Síðu"
 
 msgid "Type"
 msgstr "Tegund"

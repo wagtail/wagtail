@@ -2,17 +2,20 @@
 
 import json
 
+from django import VERSION as DJANGO_VERSION
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse, reverse_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from taggit.models import Tag
 
+from wagtail.admin.auth import user_has_any_page_permission
+from wagtail.admin.mail import send_mail
 from wagtail.admin.menu import MenuItem
-from wagtail.admin.utils import send_mail, user_has_any_page_permission
 from wagtail.core.models import Page
+from wagtail.tests.testapp.models import RestaurantTag
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -30,14 +33,24 @@ class TestHome(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
         # check that media attached to menu items is correctly pulled in
-        self.assertContains(
-            response,
-            '<script type="text/javascript" src="/static/testapp/js/kittens.js"></script>'
-        )
+        if DJANGO_VERSION >= (3, 1):
+            self.assertContains(
+                response,
+                '<script src="/static/testapp/js/kittens.js"></script>',
+                html=True
+            )
+        else:
+            self.assertContains(
+                response,
+                '<script type="text/javascript" src="/static/testapp/js/kittens.js"></script>',
+                html=True
+            )
+
         # check that custom menu items (including classname / attrs parameters) are pulled in
         self.assertContains(
             response,
-            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
+            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>',
+            html=True
         )
 
         # Check that the explorer menu item is here, with the right start page.
@@ -169,6 +182,8 @@ class TestTagsAutocomplete(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
         Tag.objects.create(name="Test", slug="test")
+        RestaurantTag.objects.create(name="Italian", slug="italian")
+        RestaurantTag.objects.create(name="Indian", slug="indian")
 
     def test_tags_autocomplete(self):
         response = self.client.get(reverse('wagtailadmin_tag_autocomplete'), {
@@ -209,6 +224,30 @@ class TestTagsAutocomplete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
         data = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(data, [])
+
+    def test_tags_autocomplete_custom_model(self):
+        response = self.client.get(
+            reverse('wagtailadmin_tag_model_autocomplete', args=('tests', 'restauranttag')),
+            {'term': 'ital'}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        data = json.loads(response.content.decode('utf-8'))
+
+        self.assertEqual(data, ['Italian'])
+
+        # should not return results from the standard Tag model
+        response = self.client.get(
+            reverse('wagtailadmin_tag_model_autocomplete', args=('tests', 'restauranttag')),
+            {'term': 'test'}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        data = json.loads(response.content.decode('utf-8'))
+
         self.assertEqual(data, [])
 
 

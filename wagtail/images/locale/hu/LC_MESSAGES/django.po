@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# aaao <aron.santa@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-16 11:19+0000\n"
+"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"PO-Revision-Date: 2020-04-21 15:34+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -22,8 +23,8 @@ msgstr ""
 msgid "Wagtail images"
 msgstr "Képek"
 
-msgid "GIF, JPEG, PNG"
-msgstr "GIF, JPEG, PNG"
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -95,7 +96,7 @@ msgid "Height"
 msgstr "Magasság"
 
 msgid "Closeness"
-msgstr "Közeliség"
+msgstr "Közelség"
 
 msgid "Add"
 msgstr "Hozzáadás"
@@ -270,6 +271,12 @@ msgstr "Használat"
 msgid "Images"
 msgstr "Képek"
 
+msgid "Popular Tags:"
+msgstr "Gyakori címkék:"
+
+msgid "Clear choice"
+msgstr "Kiválasztás törlése"
+
 msgid "pixels"
 msgstr "pixel"
 
@@ -385,7 +392,7 @@ msgid "Search images"
 msgstr "Képek keresése"
 
 msgid "Image '{0}' updated."
-msgstr "\"{0}\" kép frissítve."
+msgstr "'{0}' kép frissítve."
 
 msgid "Edit again"
 msgstr "Újraszerkesztés"
@@ -401,10 +408,10 @@ msgstr ""
 "törölje a képet."
 
 msgid "Image '{0}' deleted."
-msgstr "\"{0}\" kép törölve."
+msgstr "'{0}' kép törölve."
 
 msgid "Image '{0}' added."
-msgstr "\"{0}\" kép hozzáadva."
+msgstr "'{0}' kép hozzáadva."
 
 msgid "The image could not be created due to errors."
 msgstr "Hiba történt a kép létrehozása közben."
