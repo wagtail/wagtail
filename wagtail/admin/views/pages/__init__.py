@@ -7,7 +7,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Count
 from django.http import Http404, HttpResponse, JsonResponse
 from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404, redirect
@@ -32,7 +31,6 @@ from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.mail import send_notification
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.views.reports import ReportView
 from wagtail.core import hooks
 from wagtail.core.exceptions import PageClassNotFoundError
@@ -41,104 +39,14 @@ from wagtail.core.models import (
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
+from wagtail.admin.views.pages.listing import *  # noqa
+
 
 def get_valid_next_url_from_request(request):
     next_url = request.POST.get('next') or request.GET.get('next')
     if not next_url or not is_safe_url(url=next_url, allowed_hosts={request.get_host()}):
         return ''
     return next_url
-
-
-@user_passes_test(user_has_any_page_permission)
-def index(request, parent_page_id=None):
-    if parent_page_id:
-        parent_page = get_object_or_404(Page, id=parent_page_id)
-    else:
-        parent_page = Page.get_first_root_node()
-
-    # This will always succeed because of the @user_passes_test above.
-    root_page = get_explorable_root_page(request.user)
-
-    # If this page isn't a descendant of the user's explorable root page,
-    # then redirect to that explorable root page instead.
-    if not (
-        parent_page.pk == root_page.pk
-        or parent_page.is_descendant_of(root_page)
-    ):
-        return redirect('wagtailadmin_explore', root_page.pk)
-
-    parent_page = parent_page.specific
-
-    user_perms = UserPagePermissionsProxy(request.user)
-    pages = (
-        parent_page.get_children().prefetch_related(
-            "content_type", "sites_rooted_here"
-        )
-        & user_perms.explorable_pages()
-    )
-
-    # Get page ordering
-    ordering = request.GET.get('ordering', '-latest_revision_created_at')
-    if ordering not in [
-        'title',
-        '-title',
-        'content_type',
-        '-content_type',
-        'live', '-live',
-        'latest_revision_created_at',
-        '-latest_revision_created_at',
-        'ord'
-    ]:
-        ordering = '-latest_revision_created_at'
-
-    if ordering == 'ord':
-        # preserve the native ordering from get_children()
-        pass
-    elif ordering == 'latest_revision_created_at':
-        # order by oldest revision first.
-        # Special case NULL entries - these should go at the top of the list.
-        # Do this by annotating with Count('latest_revision_created_at'),
-        # which returns 0 for these
-        pages = pages.annotate(
-            null_position=Count('latest_revision_created_at')
-        ).order_by('null_position', 'latest_revision_created_at')
-    elif ordering == '-latest_revision_created_at':
-        # order by oldest revision first.
-        # Special case NULL entries - these should go at the end of the list.
-        pages = pages.annotate(
-            null_position=Count('latest_revision_created_at')
-        ).order_by('-null_position', '-latest_revision_created_at')
-    else:
-        pages = pages.order_by(ordering)
-
-    # Don't paginate if sorting by page order - all pages must be shown to
-    # allow drag-and-drop reordering
-    do_paginate = ordering != 'ord'
-
-    if do_paginate or pages.count() < 100:
-        # Retrieve pages in their most specific form, so that custom
-        # get_admin_display_title and get_url_parts methods on subclasses are respected.
-        # However, skip this on unpaginated listings with >100 child pages as this could
-        # be a significant performance hit. (This should only happen on the reorder view,
-        # and hopefully no-one is having to do manual reordering on listings that large...)
-        pages = pages.specific(defer=True)
-
-    # allow hooks to modify the queryset
-    for hook in hooks.get_hooks('construct_explorer_page_queryset'):
-        pages = hook(parent_page, pages, request)
-
-    # Pagination
-    if do_paginate:
-        paginator = Paginator(pages, per_page=50)
-        pages = paginator.get_page(request.GET.get('p'))
-
-    return TemplateResponse(request, 'wagtailadmin/pages/index.html', {
-        'parent_page': parent_page.specific,
-        'ordering': ordering,
-        'pagination_query_params': "ordering=%s" % ordering,
-        'pages': pages,
-        'do_paginate': do_paginate,
-    })
 
 
 def add_subpage(request, parent_page_id):
