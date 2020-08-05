@@ -74,6 +74,8 @@ def get_comparison_class_for_block(block):
         return RichTextBlockComparison
     elif isinstance(block, blocks.StructBlock):
         return StructBlockComparison
+    elif isinstance(block, blocks.StreamBlock):
+        return StreamBlockComparison
     else:
         # As all stream field blocks have a HTML representation, fall back to diffing that.
         return RichTextBlockComparison

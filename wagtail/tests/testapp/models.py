@@ -31,7 +31,7 @@ from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import CharBlock, RawHTMLBlock, RichTextBlock, StructBlock
+from wagtail.core.blocks import CharBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet, Task
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -1012,6 +1012,10 @@ class StreamPage(Page):
             ('price', CharBlock()),
         ])),
         ('raw_html', RawHTMLBlock()),
+        ('books', StreamBlock([
+            ('title', CharBlock()),
+            ('author', CharBlock()),
+        ])),
     ])
 
     api_fields = ('body',)
