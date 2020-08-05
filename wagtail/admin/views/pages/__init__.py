@@ -1,14 +1,8 @@
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect
-from django.template.response import TemplateResponse
-from django.urls import reverse
-from django.utils.translation import gettext as _
+from django.shortcuts import get_object_or_404
 
-from wagtail.admin import messages
-from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core import hooks
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.core.models import Page
 
 from wagtail.admin.views.pages.copy import *  # noqa
 from wagtail.admin.views.pages.create import *  # noqa
@@ -22,53 +16,9 @@ from wagtail.admin.views.pages.move import *  # noqa
 from wagtail.admin.views.pages.preview import *  # noqa
 from wagtail.admin.views.pages.revisions import *  # noqa
 from wagtail.admin.views.pages.search import *  # noqa
+from wagtail.admin.views.pages.unpublish import *  # noqa
 from wagtail.admin.views.pages.usage import *  # noqa
 from wagtail.admin.views.pages.workflow import *  # noqa
-
-
-def unpublish(request, page_id):
-    page = get_object_or_404(Page, id=page_id).specific
-
-    user_perms = UserPagePermissionsProxy(request.user)
-    if not user_perms.for_page(page).can_unpublish():
-        raise PermissionDenied
-
-    next_url = get_valid_next_url_from_request(request)
-
-    if request.method == 'POST':
-        include_descendants = request.POST.get("include_descendants", False)
-
-        for fn in hooks.get_hooks('before_unpublish_page'):
-            result = fn(request, page)
-            if hasattr(result, 'status_code'):
-                return result
-
-        page.unpublish(user=request.user)
-
-        if include_descendants:
-            live_descendant_pages = page.get_descendants().live().specific()
-            for live_descendant_page in live_descendant_pages:
-                if user_perms.for_page(live_descendant_page).can_unpublish():
-                    live_descendant_page.unpublish()
-
-        for fn in hooks.get_hooks('after_unpublish_page'):
-            result = fn(request, page)
-            if hasattr(result, 'status_code'):
-                return result
-
-        messages.success(request, _("Page '{0}' unpublished.").format(page.get_admin_display_title()), buttons=[
-            messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-        ])
-
-        if next_url:
-            return redirect(next_url)
-        return redirect('wagtailadmin_explore', page.get_parent().id)
-
-    return TemplateResponse(request, 'wagtailadmin/pages/confirm_unpublish.html', {
-        'page': page,
-        'next': next_url,
-        'live_descendant_count': page.get_descendants().live().count(),
-    })
 
 
 def set_page_position(request, page_to_move_id):
