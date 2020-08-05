@@ -189,7 +189,6 @@ class BaseStructBlock(Block):
     class Meta:
         default = {}
         form_classname = 'struct-block'
-        form_template = 'wagtailadmin/block_forms/struct.html'
         value_class = StructValue
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your

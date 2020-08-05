@@ -468,7 +468,7 @@ Alternatively, you can add ``form_classname`` in a subclass's ``Meta``:
 
         class Meta:
             form_classname = 'ingredients-list'
-    
+
 
 StreamBlock
 ~~~~~~~~~~~
@@ -901,42 +901,6 @@ You can then provide custom CSS for this block, targeted at the specified classn
 
 .. Note::
     Wagtail's editor styling has some built in styling for the ``struct-block`` class and other related elements. If you specify a value for ``form_classname``, it will overwrite the classes that are already applied to ``StructBlock``, so you must remember to specify the ``struct-block`` as well.
-
-For more extensive customisations that require changes to the HTML markup as well, you can override the ``form_template`` attribute in ``Meta`` to specify your own template path. The following variables are available on this template:
-
-``children``
-  An ``OrderedDict`` of ``BoundBlock``\s for all of the child blocks making up this ``StructBlock``; typically your template will call ``render_form`` on each of these.
-
-``help_text``
-  The help text for this block, if specified.
-
-``classname``
-  The class name passed as ``form_classname`` (defaults to ``struct-block``).
-
-``block_definition``
-  The ``StructBlock`` instance that defines this block.
-
-``prefix``
-  The prefix used on form fields for this block instance, guaranteed to be unique across the form.
-
-To add additional variables, you can override the block's ``get_form_context`` method:
-
-.. code-block:: python
-
-    class PersonBlock(blocks.StructBlock):
-        first_name = blocks.CharBlock()
-        surname = blocks.CharBlock()
-        photo = ImageChooserBlock(required=False)
-        biography = blocks.RichTextBlock()
-
-        def get_form_context(self, value, prefix='', errors=None):
-            context = super().get_form_context(value, prefix=prefix, errors=errors)
-            context['suggested_first_names'] = ['John', 'Paul', 'George', 'Ringo']
-            return context
-
-        class Meta:
-            icon = 'user'
-            form_template = 'myapp/block_forms/person.html'
 
 
 .. _custom_value_class_for_structblock:

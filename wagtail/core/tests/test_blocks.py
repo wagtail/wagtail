@@ -11,14 +11,13 @@ from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
-from django.utils.safestring import SafeData, SafeText, mark_safe
+from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import gettext_lazy as __
 
 from wagtail.core import blocks
 from wagtail.core.blocks import BlockWidget, StreamValue
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText
-from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
 from wagtail.tests.testapp.blocks import SectionBlock
 from wagtail.tests.testapp.models import EventPage, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
@@ -1465,7 +1464,7 @@ class TestStructBlock(SimpleTestCase):
         del definition['children'][0]['html']
         del definition['children'][1]['html']
         self.assertDictEqual(definition, {
-            'isStruct': True,
+            'isStruct': True, 'className': 'struct-block',
             'key': 'test', 'label': 'Test', 'required': False, 'closed': False,
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${title}',
             'children': [
@@ -1636,89 +1635,6 @@ class TestStructBlock(SimpleTestCase):
         body_bound_block = struct_value.bound_blocks['body']
         expected = '<b>world</b>'
         self.assertEqual(str(body_bound_block), expected)
-
-    def test_get_form_context(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock()
-            link = blocks.URLBlock()
-
-        block = LinkBlock()
-        context = block.get_form_context(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
-
-        self.assertTrue(isinstance(context['children'], collections.OrderedDict))
-        self.assertEqual(len(context['children']), 2)
-        self.assertTrue(isinstance(context['children']['title'], blocks.BoundBlock))
-        self.assertEqual(context['children']['title'].value, "Wagtail site")
-        self.assertTrue(isinstance(context['children']['link'], blocks.BoundBlock))
-        self.assertEqual(context['children']['link'].value, 'http://www.wagtail.io')
-        self.assertEqual(context['block_definition'], block)
-        self.assertEqual(context['prefix'], 'mylink')
-
-    def test_render_form(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock(required=False)
-            link = blocks.URLBlock(required=False)
-
-        block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
-
-        self.assertIn('<div class="struct-block">', html)
-        self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
-        self.assertIn('<label class="field__label" for="mylink-title">Title</label>', html)
-        self.assertInHTML(
-            '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html
-        )
-        self.assertIn('<div class="field url_field widget-url_input fieldname-link">', html)
-        self.assertInHTML(
-            (
-                '<input id="mylink-link" name="mylink-link" placeholder="Link"'
-                ' type="url" value="http://www.wagtail.io" />'
-            ),
-            html
-        )
-        self.assertNotIn('<li class="required">', html)
-
-    def test_custom_render_form_template(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock(required=False)
-            link = blocks.URLBlock(required=False)
-
-            class Meta:
-                form_template = 'tests/block_forms/struct_block_form_template.html'
-
-        block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
-
-        self.assertIn('<div>Hello</div>', html)
-        self.assertHTMLEqual('<div>Hello</div>', html)
-        self.assertTrue(isinstance(html, SafeText))
-
-    def test_custom_render_form_template_jinja(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock(required=False)
-            link = blocks.URLBlock(required=False)
-
-            class Meta:
-                form_template = 'tests/jinja2/struct_block_form_template.html'
-
-        block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
-
-        self.assertIn('<div>Hello</div>', html)
-        self.assertHTMLEqual('<div>Hello</div>', html)
-        self.assertTrue(isinstance(html, SafeText))
 
     def test_definition_contains_required_field(self):
         class LinkBlock(blocks.StructBlock):
@@ -1923,7 +1839,7 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         del definition['children'][0]['html']
         del definition['children'][1]['html']
         self.assertDictEqual(definition, {
-            'isStruct': True,
+            'isStruct': True, 'className': 'struct-block',
             'key': 'test', 'label': 'Test', 'required': False, 'closed': False,
             'dangerouslyRunInnerScripts': True, 'titleTemplate': '${title}',
             'children': [
@@ -2317,20 +2233,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             link = blocks.URLBlock()
 
         block = blocks.ListBlock(LinkBlock, form_classname='special-list-class')
-
-        html = block.render_form([
-            {
-                'title': "Wagtail",
-                'link': 'http://www.wagtail.io',
-            },
-            {
-                'title': "Django",
-                'link': 'http://www.djangoproject.com',
-            },
-        ], prefix='links')
-
-        # including leading space to ensure class name gets added correctly
-        self.assertEqual(html.count(' special-list-class'), 1)
+        self.assertEqual(block.definition['className'], 'special-list-class')
 
     def test_render_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering list block"""
@@ -2345,20 +2248,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 form_classname = 'custom-list-class'
 
         block = CustomListBlock(LinkBlock)
-
-        html = block.render_form([
-            {
-                'title': "Wagtail",
-                'link': 'http://www.wagtail.io',
-            },
-            {
-                'title': "Django",
-                'link': 'http://www.djangoproject.com',
-            },
-        ], prefix='links')
-
-        # including leading space to ensure class name gets added correctly
-        self.assertEqual(html.count(' custom-list-class'), 1)
+        self.assertEqual(block.definition['className'], 'custom-list-class')
 
 
 class TestListBlockWithFixtures(TestCase):
@@ -3143,25 +3033,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             (b'heading', blocks.CharBlock()),
             (b'paragraph', blocks.CharBlock()),
         ], form_classname='rocket-section')
-
-        value = block.to_python([
-            {
-                'type': 'heading',
-                'value': "Falcon Heavy",
-                'id': '2',
-            },
-            {
-                'type': 'paragraph',
-                'value': "Ultra heavy launch capability",
-                'id': '3',
-            }
-        ])
-
-        html = block.render_form(value)
-
-        # including leading space to ensure class name gets added correctly
-        self.assertEqual(html.count(' rocket-section'), 1)
-
+        self.assertEqual(block.definition['className'], 'rocket-section')
 
     def test_render_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering stream block"""
@@ -3173,18 +3045,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 form_classname = 'profile-block-large'
 
         block = ProfileBlock()
-        value = block.to_python([
-            {
-                'type': 'username',
-                'value': "renegadeM@ster",
-                'id': '789',
-            }
-        ])
-
-        html = block.render_form(value, prefix='profiles')
-
-        # including leading space to ensure class name gets added correctly
-        self.assertEqual(html.count(' profile-block-large'), 1)
+        self.assertEqual(block.definition['className'], 'profile-block-large')
 
 
 class TestPageChooserBlock(TestCase):
@@ -3444,17 +3305,12 @@ class TestDateBlock(TestCase):
         block = blocks.DateBlock()
         block.set_name('test')
         definition = block.definition
-        try:
-            self.assertInHTML(
-                '<script>initDateChooser("field\\u002D__ID__", '
-                '{"dayOfWeekStart": 0, "format": "Y-m-d"});</script>',
-                definition['html'])
-        except AssertionError:
-            self.assertInHTML(
-                '<script>initDateChooser("field\\u002D__ID__", '
-                '{"format": "Y-m-d", "dayOfWeekStart": 0});</script>',
-                definition['html'])
-        del definition['html']
+        self.assertInHTML(
+            '<script>initDateChooser("field\\u002D__ID__", {'
+            '"dayOfWeekStart": 0, '
+            '"format": "Y-m-d"});</script>',
+            definition.pop('html'),
+        )
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-date"></i>',
@@ -3466,12 +3322,12 @@ class TestDateBlock(TestCase):
         value = date(2015, 8, 13)
         result = block.render_form(value, prefix='dateblock')
 
-        # we should see the JS initialiser code:
-        # <script>initDateChooser("dateblock", {"dayOfWeekStart": 0, "format": "Y-m-d"});</script>
-        # except that we can't predict the order of the config options
-        self.assertIn('<script>initDateChooser("dateblock", {', result)
-        self.assertIn('"dayOfWeekStart": 0', result)
-        self.assertIn('"format": "Y-m-d"', result)
+        self.assertInHTML(
+            '<script>initDateChooser("dateblock", {'
+            '"dayOfWeekStart": 0, '
+            '"format": "Y-m-d"});</script>',
+            result,
+        )
 
         self.assertInHTML(
             '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" autocomplete="off" />',
@@ -3483,9 +3339,12 @@ class TestDateBlock(TestCase):
         value = date(2015, 8, 13)
         result = block.render_form(value, prefix='dateblock')
 
-        self.assertIn('<script>initDateChooser("dateblock", {', result)
-        self.assertIn('"dayOfWeekStart": 0', result)
-        self.assertIn('"format": "d.m.Y"', result)
+        self.assertInHTML(
+            '<script>initDateChooser("dateblock", {'
+            '"dayOfWeekStart": 0, '
+            '"format": "d.m.Y"});</script>',
+            result,
+        )
         self.assertInHTML(
             '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" autocomplete="off" />',
             result
@@ -3497,17 +3356,13 @@ class TestDateTimeBlock(TestCase):
         block = blocks.DateTimeBlock(format='%d.%m.%Y %H:%M')
         block.set_name('test')
         definition = block.definition
-        try:
-            self.assertInHTML(
-                '<script>initDateTimeChooser("field\\u002D__ID__", '
-                '{"dayOfWeekStart": 0, "format": "d.m.Y H:i"});</script>',
-                definition['html'])
-        except AssertionError:
-            self.assertInHTML(
-                '<script>initDateTimeChooser("field\\u002D__ID__", '
-                '{"format": "d.m.Y H:i", "dayOfWeekStart": 0});</script>',
-                definition['html'])
-        del definition['html']
+        self.assertInHTML(
+            '<script>initDateTimeChooser("field\\u002D__ID__", {'
+            '"dayOfWeekStart": 0, '
+            '"format": "d.m.Y H:i", '
+            '"formatTime": "H:i"});</script>',
+            definition.pop('html'),
+        )
         self.assertDictEqual(definition, {
             'key': 'test', 'label': 'Test', 'required': True, 'closed': False,
             'icon': '<i class="icon icon-date"></i>',
@@ -3519,9 +3374,12 @@ class TestDateTimeBlock(TestCase):
         block = blocks.DateTimeBlock(format='%d.%m.%Y %H:%M')
         value = datetime(2015, 8, 13, 10, 0)
         result = block.render_form(value, prefix='datetimeblock')
-        self.assertIn(
-            '"format": "d.m.Y H:i"',
-            result
+        self.assertInHTML(
+            '<script>initDateTimeChooser("datetimeblock", {'
+            '"dayOfWeekStart": 0, '
+            '"format": "d.m.Y H:i", '
+            '"formatTime": "H:i"});</script>',
+            result,
         )
         self.assertInHTML(
             '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" autocomplete="off" />',
@@ -3636,16 +3494,6 @@ class TestSystemCheck(TestCase):
         self.assertEqual(errors[1].id, 'wagtailcore.E001')
         self.assertEqual(errors[1].hint, "Block names cannot contain spaces")
         self.assertEqual(errors[1].obj, failing_block_2)
-
-
-class TestTemplateRendering(TestCase):
-    def test_render_with_custom_context(self):
-        block = CustomLinkBlock()
-        value = block.to_python({'title': 'Torchbox', 'url': 'http://torchbox.com/'})
-        context = {'classname': 'important'}
-        result = block.render(value, context)
-
-        self.assertEqual(result, '<a href="http://torchbox.com/" class="important">Torchbox</a>')
 
 
 class TestIncludeBlockTag(TestCase):

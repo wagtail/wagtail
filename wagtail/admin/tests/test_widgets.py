@@ -101,12 +101,12 @@ class TestAdminDateInput(TestCase):
 
         self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
 
-        # we should see the JS initialiser code:
-        # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
-        # except that we can't predict the order of the config options
-        self.assertIn('initDateChooser("test\\u002Did", {', html)
-        self.assertIn('"dayOfWeekStart": 0', html)
-        self.assertIn('"format": "Y-m-d"', html)
+        self.assertInHTML(
+            '<script>initDateChooser("test\\u002Did", {'
+            '"dayOfWeekStart": 0, '
+            '"format": "Y-m-d"});</script>',
+            html,
+        )
 
     def test_render_js_init_with_format(self):
         widget = widgets.AdminDateInput(format='%d.%m.%Y.')
@@ -147,13 +147,13 @@ class TestAdminDateTimeInput(TestCase):
 
         self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
 
-        # we should see the JS initialiser code:
-        # initDateTimeChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d H:i"});
-        # except that we can't predict the order of the config options
-        self.assertIn('initDateTimeChooser("test\\u002Did", {', html)
-        self.assertIn('"dayOfWeekStart": 0', html)
-        self.assertIn('"format": "Y-m-d H:i"', html)
-        self.assertIn('"formatTime": "H:i"', html)
+        self.assertInHTML(
+            '<script>initDateTimeChooser("test\\u002Did", {'
+            '"dayOfWeekStart": 0, '
+            '"format": "Y-m-d H:i", '
+            '"formatTime": "H:i"});</script>',
+            html,
+        )
 
     def test_render_js_init_with_format(self):
         widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M', time_format='%H:%M %p')

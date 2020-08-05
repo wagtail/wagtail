@@ -1,4 +1,5 @@
 import json
+from collections import OrderedDict
 
 from django import forms
 from django.conf import settings
@@ -30,11 +31,10 @@ class AdminDateInput(widgets.DateInput):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
 
-        config = {
-            'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
-            'format': self.js_format,
-        }
-        context['widget']['config_json'] = json.dumps(config)
+        context['widget']['config_json'] = json.dumps(OrderedDict((
+            ('dayOfWeekStart', get_format('FIRST_DAY_OF_WEEK')),
+            ('format', self.js_format),
+        )))
 
         return context
 
@@ -61,11 +61,10 @@ class AdminTimeInput(widgets.TimeInput):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
 
-        config = {
-            'format': self.js_format,
-            'formatTime': self.js_format
-        }
-        context['widget']['config_json'] = json.dumps(config)
+        context['widget']['config_json'] = json.dumps(OrderedDict((
+            ('format', self.js_format),
+            ('formatTime', self.js_format),
+        )))
 
         return context
 
@@ -96,12 +95,11 @@ class AdminDateTimeInput(widgets.DateTimeInput):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
 
-        config = {
-            'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
-            'format': self.js_format,
-            'formatTime': self.js_time_format
-        }
-        context['widget']['config_json'] = json.dumps(config)
+        context['widget']['config_json'] = json.dumps(OrderedDict((
+            ('dayOfWeekStart', get_format('FIRST_DAY_OF_WEEK')),
+            ('format', self.js_format),
+            ('formatTime', self.js_time_format),
+        )))
 
         return context
 
