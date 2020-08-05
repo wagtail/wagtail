@@ -1,40 +1,40 @@
 speakerdeck = {
     "endpoint": "https://speakerdeck.com/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://speakerdeck\.com/.+$',
+        r'^https?://speakerdeck\.com/.+$',
     ],
 }
 
 app_net = {
     "endpoint": "https://alpha-api.app.net/oembed",
     "urls": [
-        r'^http(?:s)?://alpha\.app\.net/[^#?/]+/post/.+$',
-        r'^http(?:s)?://photos\.app\.net/[^#?/]+/.+$',
+        r'^https?://alpha\.app\.net/[^#?/]+/post/.+$',
+        r'^https?://photos\.app\.net/[^#?/]+/.+$',
     ],
 }
 
 youtube = {
-    "endpoint": "http://www.youtube.com/oembed",
+    "endpoint": "https://www.youtube.com/oembed",
     "urls": [
-        r'^http(?:s)?://(?:[-\w]+\.)?youtube\.com/watch.+$',
-        r'^http(?:s)?://(?:[-\w]+\.)?youtube\.com/v/.+$',
-        r'^http(?:s)?://youtu\.be/.+$',
-        r'^http(?:s)?://(?:[-\w]+\.)?youtube\.com/user/.+$',
-        r'^http(?:s)?://(?:[-\w]+\.)?youtube\.com/[^#?/]+#[^#?/]+/.+$',
-        r'^http(?:s)?://m\.youtube\.com/index.+$',
-        r'^http(?:s)?://(?:[-\w]+\.)?youtube\.com/profile.+$',
-        r'^http(?:s)?://(?:[-\w]+\.)?youtube\.com/view_play_list.+$',
-        r'^http(?:s)?://(?:[-\w]+\.)?youtube\.com/playlist.+$',
+        r'^https?://(?:[-\w]+\.)?youtube\.com/watch.+$',
+        r'^https?://(?:[-\w]+\.)?youtube\.com/v/.+$',
+        r'^https?://youtu\.be/.+$',
+        r'^https?://(?:[-\w]+\.)?youtube\.com/user/.+$',
+        r'^https?://(?:[-\w]+\.)?youtube\.com/[^#?/]+#[^#?/]+/.+$',
+        r'^https?://m\.youtube\.com/index.+$',
+        r'^https?://(?:[-\w]+\.)?youtube\.com/profile.+$',
+        r'^https?://(?:[-\w]+\.)?youtube\.com/view_play_list.+$',
+        r'^https?://(?:[-\w]+\.)?youtube\.com/playlist.+$',
     ],
 }
 
 deviantart = {
-    "endpoint": "http://backend.deviantart.com/oembed",
+    "endpoint": "https://backend.deviantart.com/oembed",
     "urls": [
-        r'^http://(?:[-\w]+\.)?deviantart\.com/art/.+$',
-        r'^http://fav\.me/.+$',
-        r'^http://sta\.sh/.+$',
-        r'^http://(?:[-\w]+\.)?deviantart\.com/[^#?/]+#/d.+$',
+        r'^https?://(?:[-\w]+\.)?deviantart\.com/art/.+$',
+        r'^https?://fav\.me/.+$',
+        r'^https?://sta\.sh/.+$',
+        r'^https?://(?:[-\w]+\.)?deviantart\.com/[^#?/]+#/d.+$',
     ],
 }
 
@@ -46,24 +46,24 @@ blip_tv = {
 }
 
 dailymotion = {
-    "endpoint": "http://www.dailymotion.com/api/oembed/",
+    "endpoint": "https://www.dailymotion.com/api/oembed/",
     "urls": [
-        r'^http://[-\w]+\.dailymotion\.com/.+$',
+        r'^https?://[-\w]+\.dailymotion\.com/.+$',
     ],
 }
 
 flikr = {
-    "endpoint": "http://www.flickr.com/services/oembed/",
+    "endpoint": "https://www.flickr.com/services/oembed/",
     "urls": [
-        r'^http(?:s)?://[-\w]+\.flickr\.com/photos/.+$',
-        r'^http(?:s)?://flic\.kr\.com/.+$',
+        r'^https?://[-\w]+\.flickr\.com/photos/.+$',
+        r'^https?://flic\.kr\.com/.+$',
     ],
 }
 
 hulu = {
-    "endpoint": "http://www.hulu.com/api/oembed.{format}",
+    "endpoint": "https://www.hulu.com/api/oembed.{format}",
     "urls": [
-        r'^http://www\.hulu\.com/watch/.+$',
+        r'^https?://www\.hulu\.com/watch/.+$',
     ],
 }
 
@@ -90,54 +90,54 @@ revision3 = {
 }
 
 scribd = {
-    "endpoint": "http://www.scribd.com/services/oembed",
+    "endpoint": "https://www.scribd.com/services/oembed",
     "urls": [
-        r'^http(?:s)?://[-\w]+\.scribd\.com/.+$',
+        r'^https?://[-\w]+\.scribd\.com/.+$',
     ],
 }
 
 viddler = {
-    "endpoint": "http://www.viddler.com/oembed/",
+    "endpoint": "https://www.viddler.com/oembed/",
     "urls": [
-        r'^http://[-\w]+\.viddler\.com/v/.+$',
-        r'^http://[-\w]+\.viddler\.com/explore/.+$',
+        r'^https?://[-\w]+\.viddler\.com/v/.+$',
+        r'^https?://[-\w]+\.viddler\.com/explore/.+$',
     ],
 }
 
 vimeo = {
-    "endpoint": "http://www.vimeo.com/api/oembed.{format}",
+    "endpoint": "https://www.vimeo.com/api/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?vimeo\.com/.+$',
-        r'^http(?:s)?://player\.vimeo\.com/.+$',
+        r'^https?://(?:www\.)?vimeo\.com/.+$',
+        r'^https?://player\.vimeo\.com/.+$',
     ],
 }
 
 dotsub = {
-    "endpoint": "http://dotsub.com/services/oembed",
+    "endpoint": "https://dotsub.com/services/oembed",
     "urls": [
-        r'^http://dotsub\.com/view/.+$',
+        r'^https?://dotsub\.com/view/.+$',
     ],
 }
 
 yfrog = {
     "endpoint": "http://www.yfrog.com/api/oembed",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?yfrog\.com/.+$',
-        r'^http(?:s)?://(?:www\.)?yfrog\.us/.+$',
+        r'^https?://(?:www\.)?yfrog\.com/.+$',
+        r'^https?://(?:www\.)?yfrog\.us/.+$',
     ],
 }
 
 clickthrough = {
     "endpoint": "http://clikthrough.com/services/oembed",
     "urls": [
-        r'^http(?:s)?://(?:[-\w]+\.)?clikthrough\.com/.+$',
+        r'^https?://(?:[-\w]+\.)?clikthrough\.com/.+$',
     ],
 }
 
 kinomap = {
-    "endpoint": "http://www.kinomap.com/oembed",
+    "endpoint": "https://www.kinomap.com/oembed",
     "urls": [
-        r'^http://[-\w]+\.kinomap\.com/.+$',
+        r'^https?://[-\w]+\.kinomap\.com/.+$',
     ],
 }
 
@@ -150,10 +150,10 @@ photobucket = {
 }
 
 instagram = {
-    "endpoint": "http://api.instagram.com/oembed",
+    "endpoint": "https://api.instagram.com/oembed",
     "urls": [
-        r'^http://instagr\.am/p/.+$',
-        r'^http[s]?://(?:www\.)?instagram\.com/p/.+$',
+        r'^https?://instagr\.am/p/.+$',
+        r'^https?://(?:www\.)?instagram\.com/p/.+$',
     ],
 }
 
@@ -184,7 +184,7 @@ facebook_post = {
 slideshare = {
     "endpoint": "https://www.slideshare.net/api/oembed/2",
     "urls": [
-        r'^http://www\.slideshare\.net/.+$',
+        r'^https?://www\.slideshare\.net/.+$',
     ],
 }
 
@@ -206,7 +206,7 @@ opera = {
 skitch = {
     "endpoint": "http://skitch.com/oembed",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?skitch\.com/.+$',
+        r'^https?://(?:www\.)?skitch\.com/.+$',
         r'^http://skit\.ch/.+$',
     ],
 }
@@ -214,7 +214,7 @@ skitch = {
 twitter = {
     "endpoint": "https://api.twitter.com/1/statuses/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://twitter\.com/(?:#!)?[^#?/]+/status/.+$',
+        r'^https?://twitter\.com/(?:#!)?[^#?/]+/status/.+$',
     ],
 }
 
@@ -234,39 +234,39 @@ collegehumor = {
 }
 
 polleverywhere = {
-    "endpoint": "http://www.polleverywhere.com/services/oembed/",
+    "endpoint": "https://www.polleverywhere.com/services/oembed/",
     "urls": [
-        r'^http://www\.polleverywhere\.com/polls/.+$',
-        r'^http://www\.polleverywhere\.com/multiple_choice_polls/.+$',
-        r'^http://www\.polleverywhere\.com/free_text_polls/.+$',
+        r'^https?://www\.polleverywhere\.com/polls/.+$',
+        r'^https?://www\.polleverywhere\.com/multiple_choice_polls/.+$',
+        r'^https?://www\.polleverywhere\.com/free_text_polls/.+$',
     ],
 }
 
 ifixit = {
-    "endpoint": "http://www.ifixit.com/Embed",
+    "endpoint": "https://www.ifixit.com/Embed",
     "urls": [
-        r'^http://www\.ifixit\.com/[^#?/]+/[^#?/]+/.+$',
+        r'^https?://www\.ifixit\.com/[^#?/]+/[^#?/]+/.+$',
     ],
 }
 
 smugmug = {
-    "endpoint": "http://api.smugmug.com/services/oembed/",
+    "endpoint": "https://api.smugmug.com/services/oembed/",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?smugmug\.com/[^#?/]+/.+$',
+        r'^https?://(?:www\.)?smugmug\.com/[^#?/]+/.+$',
     ],
 }
 
 github_gist = {
     "endpoint": "https://github.com/api/oembed",
     "urls": [
-        r'^http(?:s)?://gist\.github\.com/.+$',
+        r'^https?://gist\.github\.com/.+$',
     ],
 }
 
 animoto = {
-    "endpoint": "http://animoto.com/services/oembed",
+    "endpoint": "https://animoto.com/services/oembed",
     "urls": [
-        r'^http://animoto\.com/play/.+$',
+        r'^https?://animoto\.com/play/.+$',
     ],
 }
 
@@ -286,9 +286,9 @@ five_min = {
 }
 
 five_hundred_px = {
-    "endpoint": "http://500px.com/photo/{1}/oembed.{format}",
+    "endpoint": "https://500px.com/photo/{1}/oembed.{format}",
     "urls": [
-        r'^http://500px\.com/photo/([^#?/]+)(?:.+)?$',
+        r'^https?://500px\.com/photo/([^#?/]+)(?:.+)?$',
     ],
 }
 
@@ -300,9 +300,9 @@ dipdive = {
 }
 
 yandex = {
-    "endpoint": "http://video.yandex.ru/oembed.{format}",
+    "endpoint": "https://video.yandex.ru/oembed.{format}",
     "urls": [
-        r'^http://video\.yandex\.ru/users/[^#?/]+/view/.+$',
+        r'^https?://video\.yandex\.ru/users/[^#?/]+/view/.+$',
     ],
 }
 
@@ -314,17 +314,17 @@ mixcloud = {
 }
 
 kickstarter = {
-    "endpoint": "http://www.kickstarter.com/services/oembed",
+    "endpoint": "https://www.kickstarter.com/services/oembed",
     "urls": [
-        r'^http(?:s)://[-\w]+\.kickstarter\.com/projects/.+$',
+        r'^https?://[-\w]+\.kickstarter\.com/projects/.+$',
     ],
 }
 
 coub = {
     "endpoint": "http://coub.com/api/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://coub\.com/view/.+$',
-        r'^http(?:s)?://coub\.com/embed/.+$',
+        r'^https?://coub\.com/view/.+$',
+        r'^https?://coub\.com/embed/.+$',
     ],
 }
 
@@ -336,9 +336,9 @@ screenr = {
 }
 
 funny_or_die = {
-    "endpoint": "http://www.funnyordie.com/oembed.{format}",
+    "endpoint": "https://www.funnyordie.com/oembed.{format}",
     "urls": [
-        r'^http://www\.funnyordie\.com/videos/.+$',
+        r'^https?://www\.funnyordie\.com/videos/.+$',
     ],
 }
 
@@ -352,23 +352,23 @@ wistia = {
 ustream = {
     "endpoint": "http://www.ustream.tv/oembed",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?ustream\.tv/.+$',
-        r'^http(?:s)?://(?:www\.)?ustream\.com/.+$',
+        r'^https?://(?:www\.)?ustream\.tv/.+$',
+        r'^https?://(?:www\.)?ustream\.com/.+$',
         r'^http://ustre\.am/.+$',
     ],
 }
 
 wordpress = {
-    "endpoint": "http://wordpress.tv/oembed/",
+    "endpoint": "https://wordpress.tv/oembed/",
     "urls": [
-        r'^http://wordpress\.tv/.+$',
+        r'^https?://wordpress\.tv/.+$',
     ],
 }
 
 polldaddy = {
-    "endpoint": "http://polldaddy.com/oembed/",
+    "endpoint": "https://polldaddy.com/oembed/",
     "urls": [
-        r'^http(?:s)?://(?:[-\w]+\.)?polldaddy\.com/.+$',
+        r'^https?://(?:[-\w]+\.)?polldaddy\.com/.+$',
     ],
 }
 
@@ -382,55 +382,55 @@ bambuser = {
 }
 
 ted = {
-    "endpoint": "http://www.ted.com/talks/oembed.{format}",
+    "endpoint": "https://www.ted.com/talks/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?ted\.com/talks/.+$',
-        r'^http(?:s)?://(?:www\.)?ted\.com/talks/lang/[^#?/]+/.+$',
-        r'^http(?:s)?://(?:www\.)?ted\.com/index\.php/talks/.+$',
-        r'^http(?:s)?://(?:www\.)?ted\.com/index\.php/talks/lang/[^#?/]+/.+$',
+        r'^https?://(?:www\.)?ted\.com/talks/.+$',
+        r'^https?://(?:www\.)?ted\.com/talks/lang/[^#?/]+/.+$',
+        r'^https?://(?:www\.)?ted\.com/index\.php/talks/.+$',
+        r'^https?://(?:www\.)?ted\.com/index\.php/talks/lang/[^#?/]+/.+$',
     ],
 }
 
 chirb = {
-    "endpoint": "http://chirb.it/oembed.{format}",
+    "endpoint": "https://chirb.it/oembed.{format}",
     "urls": [
-        r'^http://chirb\.it/.+$',
+        r'^https?://chirb\.it/.+$',
     ],
 }
 
 circuitlab = {
     "endpoint": "https://www.circuitlab.com/circuit/oembed/",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?circuitlab\.com/circuit/.+$',
+        r'^https?://(?:www\.)?circuitlab\.com/circuit/.+$',
     ],
 }
 
 geograph_uk = {
     "endpoint": "http://api.geograph.org.uk/api/oembed",
     "urls": [
-        r'^http://(?:[-\w]+\.)?geograph\.org\.uk/.+$',
-        r'^http://(?:[-\w]+\.)?geograph\.co\.uk/.+$',
-        r'^http://(?:[-\w]+\.)?geograph\.ie/.+$',
+        r'^https?://(?:[-\w]+\.)?geograph\.org\.uk/.+$',
+        r'^https?://(?:[-\w]+\.)?geograph\.co\.uk/.+$',
+        r'^https?://(?:[-\w]+\.)?geograph\.ie/.+$',
     ],
 }
 
 hlipp = {
     "endpoint": "http://geo.hlipp.de/restapi.php/api/oembed",
     "urls": [
-        r'^http://geo-en\.hlipp\.de/.+$',
-        r'^http://geo\.hlipp\.de/.+$',
-        r'^http://germany\.geograph\.org/.+$',
+        r'^https?://geo-en\.hlipp\.de/.+$',
+        r'^https?://geo\.hlipp\.de/.+$',
+        r'^https?://germany\.geograph\.org/.+$',
     ],
 }
 
 geograph_gg = {
     "endpoint": "http://www.geograph.org.gg/api/oembed",
     "urls": [
-        r'^http://(?:[-\w]+\.)?geograph\.org\.gg/.+$',
-        r'^http://(?:[-\w]+\.)?geograph\.org\.je/.+$',
-        r'^http://channel-islands\.geograph\.org/.+$',
-        r'^http://channel-islands\.geographs\.org/.+$',
-        r'^http://(?:[-\w]+\.)?channel\.geographs\.org/.+$',
+        r'^https?://(?:[-\w]+\.)?geograph\.org\.gg/.+$',
+        r'^https?://(?:[-\w]+\.)?geograph\.org\.je/.+$',
+        r'^https?://channel-islands\.geograph\.org/.+$',
+        r'^https?://channel-islands\.geographs\.org/.+$',
+        r'^https?://(?:[-\w]+\.)?channel\.geographs\.org/.+$',
     ],
 }
 
@@ -457,159 +457,159 @@ minoto = {
 videojug = {
     "endpoint": "http://www.videojug.com/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://(?:[-\w]+\.)?videojug\.com/film/.+$',
-        r'^http(?:s)?://(?:[-\w]+\.)?videojug\.com/payer/.+$',
-        r'^http(?:s)?://(?:[-\w]+\.)?videojug\.com/interview/.+$',
+        r'^https?://(?:[-\w]+\.)?videojug\.com/film/.+$',
+        r'^https?://(?:[-\w]+\.)?videojug\.com/payer/.+$',
+        r'^https?://(?:[-\w]+\.)?videojug\.com/interview/.+$',
     ],
 }
 
 sapo = {
     "endpoint": "http://videos.sapo.pt/oembed",
     "urls": [
-        r'^http(?:s)?://videos\.sapo\.pt/.+$',
+        r'^https?://videos\.sapo\.pt/.+$',
     ],
 }
 
 vhx_tv = {
     "endpoint": "http://vhx.tv/services/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?vhx\.tv/.+$',
+        r'^https?://(?:www\.)?vhx\.tv/.+$',
     ],
 }
 
 justin_tv = {
     "endpoint": "http://api.justin.tv/api/embed/from_url.{format}",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?justin\.tv/.+$',
+        r'^https?://(?:www\.)?justin\.tv/.+$',
     ],
 }
 
 official_fm = {
     "endpoint": "http://official.fm/services/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://official\.fm/.+$',
+        r'^https?://official\.fm/.+$',
     ],
 }
 
 huffduffer = {
-    "endpoint": "http://huffduffer.com/oembed",
+    "endpoint": "https://huffduffer.com/oembed",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?huffduffer\.com/[^#?/]+/.+$',
+        r'^https?://(?:www\.)?huffduffer\.com/[^#?/]+/.+$',
     ],
 }
 
 spotify = {
     "endpoint": "https://embed.spotify.com/oembed/",
     "urls": [
-        r'^http(?:s)?://open\.spotify\.com/.+$',
-        r'^http(?:s)?://spoti\.fi/.+$',
+        r'^https?://open\.spotify\.com/.+$',
+        r'^https?://spoti\.fi/.+$',
     ],
 }
 
 shoudio = {
-    "endpoint": "http://shoudio.com/api/oembed",
+    "endpoint": "https://shoudio.com/api/oembed",
     "urls": [
-        r'^http://shoudio\.com/.+$',
-        r'^http://shoud\.io/.+$',
+        r'^https?://shoudio\.com/.+$',
+        r'^https?://shoud\.io/.+$',
     ],
 }
 
 mobypicture = {
     "endpoint": "http://api.mobypicture.com/oEmbed",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?mobypicture\.com/user/[^#?/]+/view/.+$',
-        r'^http(?:s)?://(?:www\.)?moby\.to/.+$',
+        r'^https?://(?:www\.)?mobypicture\.com/user/[^#?/]+/view/.+$',
+        r'^https?://(?:www\.)?moby\.to/.+$',
     ],
 }
 
 twenty_three_hq = {
     "endpoint": "http://www.23hq.com/23/oembed",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?23hq\.com/[^#?/]+/photo/.+$',
+        r'^https?://(?:www\.)?23hq\.com/[^#?/]+/photo/.+$',
     ],
 }
 
 gmep = {
     "endpoint": "http://gmep.org/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?gmep\.org/.+$',
-        r'^http(?:s)?://gmep\.imeducate\.com/.+$',
+        r'^https?://(?:www\.)?gmep\.org/.+$',
+        r'^https?://gmep\.imeducate\.com/.+$',
     ],
 }
 
 urtak = {
     "endpoint": "http://oembed.urtak.com/1/oembed",
     "urls": [
-        r'^http(?:s)?://(?:[-\w]+\.)?urtak\.com/.+$',
+        r'^https?://(?:[-\w]+\.)?urtak\.com/.+$',
     ],
 }
 
 cacoo = {
     "endpoint": "http://cacoo.com/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://cacoo\.com/.+$',
+        r'^https?://cacoo\.com/.+$',
     ],
 }
 
 dailymile = {
     "endpoint": "http://api.dailymile.com/oembed",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?dailymile\.com/people/[^#?/]+/entries/.+$',
+        r'^https?://(?:www\.)?dailymile\.com/people/[^#?/]+/entries/.+$',
     ],
 }
 
 dipity = {
     "endpoint": "http://www.dipity.com/oembed/timeline/",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?dipity\.com/timeline/.+$',
-        r'^http(?:s)?://(?:www\.)?dipity\.com/voaweb/.+$',
+        r'^https?://(?:www\.)?dipity\.com/timeline/.+$',
+        r'^https?://(?:www\.)?dipity\.com/voaweb/.+$',
     ],
 }
 
 sketchfab = {
     "endpoint": "https://sketchfab.com/oembed",
     "urls": [
-        r'^http(?:s)?://sketchfab\.com/show/.+$',
+        r'^https?://sketchfab\.com/show/.+$',
     ],
 }
 
 meetup = {
     "endpoint": "https://api.meetup.com/oembed",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?meetup\.com/.+$',
-        r'^http(?:s)?://(?:www\.)?meetup\.ps/.+$',
+        r'^https?://(?:www\.)?meetup\.com/.+$',
+        r'^https?://(?:www\.)?meetup\.ps/.+$',
     ],
 }
 
 roomshare = {
     "endpoint": "https://roomshare.jp/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?roomshare\.jp/(?:en/)?post/.+$',
+        r'^https?://(?:www\.)?roomshare\.jp/(?:en/)?post/.+$',
     ],
 }
 
 crowd_ranking = {
     "endpoint": "http://crowdranking.com/api/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://crowdranking\.com/crowdrankings/.+$',
-        r'^http(?:s)?://crowdranking\.com/rankings/.+$',
-        r'^http(?:s)?://crowdranking\.com/topics/.+$',
-        r'^http(?:s)?://crowdranking\.com/widgets/.+$',
-        r'^http(?:s)?://crowdranking\.com/r/.+$',
+        r'^https?://crowdranking\.com/crowdrankings/.+$',
+        r'^https?://crowdranking\.com/rankings/.+$',
+        r'^https?://crowdranking\.com/topics/.+$',
+        r'^https?://crowdranking\.com/widgets/.+$',
+        r'^https?://crowdranking\.com/r/.+$',
     ],
 }
 
 etsy = {
-    "endpoint": "http://openapi.etsy.com/svc/oembed/",
+    "endpoint": "https://openapi.etsy.com/svc/oembed/",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?etsy\.com/listing/.+$',
+        r'^https?://(?:www\.)?etsy\.com/listing/.+$',
     ],
 }
 
 audioboom = {
     "endpoint": "https://audioboom.com/publishing/oembed.{format}",
     "urls": [
-        r'^http(?:s)?://audioboom\.com/boos/.+$',
+        r'^https?://audioboom\.com/boos/.+$',
         r'^https?://audioboom\.com/posts/.+$',
     ],
 }
@@ -617,45 +617,45 @@ audioboom = {
 clikthrough = {
     "endpoint": "http://demo.clikthrough.com/services/oembed/",
     "urls": [
-        r'^http(?:s)?://demo\.clikthrough\.com/theater/video/.+$',
+        r'^https?://demo\.clikthrough\.com/theater/video/.+$',
     ],
 }
 
 ifttt = {
-    "endpoint": "http://www.ifttt.com/oembed/",
+    "endpoint": "https://www.ifttt.com/oembed/",
     "urls": [
-        r'^http(?:s)?://ifttt\.com/recipes/.+$',
+        r'^https?://ifttt\.com/recipes/.+$',
     ],
 }
 
 issuu = {
-    "endpoint": "http://issuu.com/oembed",
+    "endpoint": "https://issuu.com/oembed",
     "urls": [
-        r'^http(?:s)?://(?:www\.)?issuu\.com/[^#?/]+/docs/.+$',
+        r'^https?://(?:www\.)?issuu\.com/[^#?/]+/docs/.+$',
     ],
 }
 
 tumblr = {
     "endpoint": "https://www.tumblr.com/oembed/1.0",
     "urls": [
-        r'^http(?:s)?://.+?\.tumblr\.com/post/.+$',
+        r'^https?://.+?\.tumblr\.com/post/.+$',
     ]
 }
 
 vidyard = {
     "endpoint": "https://api.vidyard.com/dashboard/v1.1/oembed",
     "urls": [
-        r'^http(?:s)?://play\.vidyard\.com/.+$',
-        r'^http(?:s)?://embed\.vidyard\.com/.+$',
-        r'^http(?:s)?://share\.vidyard\.com/.+$',
-        r'^http(?:s)?://.+?\.hubs\.vidyard\.com/.+$'
+        r'^https?://play\.vidyard\.com/.+$',
+        r'^https?://embed\.vidyard\.com/.+$',
+        r'^https?://share\.vidyard\.com/.+$',
+        r'^https?://.+?\.hubs\.vidyard\.com/.+$'
     ]
 }
 
 reddit = {
     'endpoint': 'https://www.reddit.com/oembed',
     'urls': [
-        '^http(?:s)?://(?:www\\.)?reddit\\.com/r/+[^#?/]+/comments/+[^#?/]+[^#?/].+$',
+        '^https?://(?:www\\.)?reddit\\.com/r/+[^#?/]+/comments/+[^#?/]+[^#?/].+$',
     ]
 }
 
