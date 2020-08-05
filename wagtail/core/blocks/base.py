@@ -1,4 +1,5 @@
 import collections
+import re
 from importlib import import_module
 
 from django import forms
@@ -314,6 +315,16 @@ class Block(metaclass=BaseBlock):
             errors.append(checks.Error(
                 "Block name %r is invalid" % self.name,
                 "Block names cannot begin with a digit",
+                obj=kwargs.get('field', self),
+                id='wagtailcore.E001',
+            ))
+
+        if not errors and not re.match(r'^[_a-zA-Z][_a-zA-Z0-9]*$', self.name):
+            errors.append(checks.Error(
+                "Block name %r is invalid" % self.name,
+                "Block names should follow standard Python conventions for "
+                "variable names: alpha-numeric and underscores, and cannot "
+                "begin with a digit",
                 obj=kwargs.get('field', self),
                 id='wagtailcore.E001',
             ))
