@@ -28,6 +28,7 @@ Other features
  * Serve PDFs inline in the browser (Matt Westcott)
  * Make document ``content-type`` and ``content-disposition`` configurable via ``WAGTAILDOCS_CONTENT_TYPES`` and ``WAGTAILDOCS_INLINE_CONTENT_TYPES`` (Matt Westcott)
  * Slug generation no longer removes stopwords (Andy Chosak, Scott Cranfill)
+ * Add check to disallow StreamField block names that do not match Python variable syntax (François Poulain)
 
 
 Bug fixes
