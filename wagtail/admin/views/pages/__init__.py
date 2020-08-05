@@ -12,7 +12,6 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
-from django.views.decorators.http import require_GET
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
@@ -22,7 +21,7 @@ from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.admin.views.reports import ReportView
 from wagtail.core import hooks
 from wagtail.core.models import (
-    Page, PageLogEntry, PageRevision, Task, TaskState, UserPagePermissionsProxy, WorkflowState)
+    Page, PageLogEntry, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState)
 
 from wagtail.admin.views.pages.copy import *  # noqa
 from wagtail.admin.views.pages.create import *  # noqa
@@ -178,55 +177,6 @@ def set_page_position(request, page_to_move_id):
             page_to_move.move(parent_page, pos='last-child')
 
     return HttpResponse('')
-
-
-@require_GET
-def preview_for_moderation(request, revision_id):
-    revision = get_object_or_404(PageRevision, id=revision_id)
-    if not revision.page.permissions_for_user(request.user).can_publish():
-        raise PermissionDenied
-
-    if not revision.submitted_for_moderation:
-        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.get_admin_display_title()))
-        return redirect('wagtailadmin_home')
-
-    page = revision.as_page_object()
-
-    try:
-        preview_mode = page.default_preview_mode
-    except IndexError:
-        raise PermissionDenied
-
-    return page.make_preview_request(request, preview_mode, extra_request_attrs={
-        'revision_id': revision_id
-    })
-
-
-@require_GET
-def preview_revision_for_task(request, page_id, task_id):
-    """Preview the revision linked to the in-progress TaskState of a specified Task. This enables pages in moderation
-    to be edited and new TaskStates linked to the new revisions created, with preview links remaining valid"""
-
-    page = get_object_or_404(Page, id=page_id)
-    task = get_object_or_404(Task, id=task_id).specific
-    try:
-        task_state = TaskState.objects.get(page_revision__page=page, task=task, status=TaskState.STATUS_IN_PROGRESS)
-    except TaskState.DoesNotExist:
-        messages.error(request, _("The page '{0}' is not currently awaiting moderation in task '{1}'.").format(page.get_admin_display_title(), task.name))
-        return redirect('wagtailadmin_home')
-
-    revision = task_state.page_revision
-
-    if not task.get_actions(page, request.user):
-        raise PermissionDenied
-
-    page_to_view = revision.as_page_object()
-
-    # TODO: provide workflow actions within this view
-
-    return page_to_view.make_preview_request(request, page.default_preview_mode, extra_request_attrs={
-        'revision_id': revision.id
-    })
 
 
 @user_passes_test(user_has_any_page_permission)

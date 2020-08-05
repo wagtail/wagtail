@@ -2,6 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django.views.decorators.http import require_GET
 
 from wagtail.admin import messages
 from wagtail.admin.mail import send_notification
@@ -53,3 +54,25 @@ def reject_moderation(request, revision_id):
             messages.error(request, _("Failed to send rejection notifications"))
 
     return redirect('wagtailadmin_home')
+
+
+@require_GET
+def preview_for_moderation(request, revision_id):
+    revision = get_object_or_404(PageRevision, id=revision_id)
+    if not revision.page.permissions_for_user(request.user).can_publish():
+        raise PermissionDenied
+
+    if not revision.submitted_for_moderation:
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.get_admin_display_title()))
+        return redirect('wagtailadmin_home')
+
+    page = revision.as_page_object()
+
+    try:
+        preview_mode = page.default_preview_mode
+    except IndexError:
+        raise PermissionDenied
+
+    return page.make_preview_request(request, preview_mode, extra_request_attrs={
+        'revision_id': revision_id
+    })

@@ -10,7 +10,7 @@ from django.views.generic import View
 from wagtail.admin import messages
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.core.models import Page, TaskState, WorkflowState
+from wagtail.core.models import Page, Task, TaskState, WorkflowState
 
 
 class BaseWorkflowFormView(View):
@@ -161,4 +161,31 @@ def workflow_status(request, page_id):
         'workflow_state': workflow_state,
         'current_task_state': workflow_state.current_task_state if workflow_state else None,
         'workflow_tasks': workflow_tasks,
+    })
+
+
+@require_GET
+def preview_revision_for_task(request, page_id, task_id):
+    """Preview the revision linked to the in-progress TaskState of a specified Task. This enables pages in moderation
+    to be edited and new TaskStates linked to the new revisions created, with preview links remaining valid"""
+
+    page = get_object_or_404(Page, id=page_id)
+    task = get_object_or_404(Task, id=task_id).specific
+    try:
+        task_state = TaskState.objects.get(page_revision__page=page, task=task, status=TaskState.STATUS_IN_PROGRESS)
+    except TaskState.DoesNotExist:
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation in task '{1}'.").format(page.get_admin_display_title(), task.name))
+        return redirect('wagtailadmin_home')
+
+    revision = task_state.page_revision
+
+    if not task.get_actions(page, request.user):
+        raise PermissionDenied
+
+    page_to_view = revision.as_page_object()
+
+    # TODO: provide workflow actions within this view
+
+    return page_to_view.make_preview_request(request, page.default_preview_mode, extra_request_attrs={
+        'revision_id': revision.id
     })
