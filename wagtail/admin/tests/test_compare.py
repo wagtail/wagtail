@@ -419,6 +419,28 @@ class TestStreamFieldComparison(TestCase):
         self.assertIsInstance(comparison.htmldiff(), SafeString)
         self.assertTrue(comparison.has_changed())
 
+    def test_compare_nested_streamblock_uses_comparison_class(self):
+        field = StreamPage._meta.get_field('body')
+        stream_block = field.stream_block.child_blocks['books']
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('books', StreamValue(stream_block, [('title', 'The Old Man and the Sea', '10')]), '1'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('books', StreamValue(stream_block, [('author', 'Oscar Wilde', '11')]), '1'),
+            ])),
+        )
+        expected = """
+            <div class="comparison__child-object">
+                <div class="comparison__child-object addition">Oscar Wilde</div>\n
+                <div class="comparison__child-object deletion">The Old Man and the Sea</div>
+            </div>
+        """
+        self.assertHTMLEqual(comparison.htmldiff(), expected)
+        self.assertIsInstance(comparison.htmldiff(), SafeString)
+        self.assertTrue(comparison.has_changed())
+
     def test_compare_imagechooserblock(self):
         image_model = get_image_model()
         test_image_1 = image_model.objects.create(
