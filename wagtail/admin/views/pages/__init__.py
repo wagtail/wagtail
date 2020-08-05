@@ -10,12 +10,11 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
-from django.views.decorators.http import require_GET, require_POST
+from django.views.decorators.http import require_GET
 from django.views.generic import View
 
 from wagtail.admin import messages
@@ -34,6 +33,7 @@ from wagtail.admin.views.pages.copy import *  # noqa
 from wagtail.admin.views.pages.create import *  # noqa
 from wagtail.admin.views.pages.edit import *  # noqa
 from wagtail.admin.views.pages.listing import *  # noqa
+from wagtail.admin.views.pages.lock import *  # noqa
 from wagtail.admin.views.pages.move import *  # noqa
 from wagtail.admin.views.pages.preview import *  # noqa
 from wagtail.admin.views.pages.search import *  # noqa
@@ -181,8 +181,6 @@ def set_page_position(request, page_to_move_id):
             page_to_move.move(parent_page, pos='last-child')
 
     return HttpResponse('')
-
-
 
 
 def approve_moderation(request, revision_id):
@@ -430,56 +428,6 @@ def preview_revision_for_task(request, page_id, task_id):
     return page_to_view.make_preview_request(request, page.default_preview_mode, extra_request_attrs={
         'revision_id': revision.id
     })
-
-
-@require_POST
-def lock(request, page_id):
-    # Get the page
-    page = get_object_or_404(Page, id=page_id).specific
-
-    # Check permissions
-    if not page.permissions_for_user(request.user).can_lock():
-        raise PermissionDenied
-
-    # Lock the page
-    if not page.locked:
-        page.locked = True
-        page.locked_by = request.user
-        page.locked_at = timezone.now()
-        page.save(user=request.user, log_action='wagtail.lock')
-
-    # Redirect
-    redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
-        return redirect(redirect_to)
-    else:
-        return redirect('wagtailadmin_explore', page.get_parent().id)
-
-
-@require_POST
-def unlock(request, page_id):
-    # Get the page
-    page = get_object_or_404(Page, id=page_id).specific
-
-    # Check permissions
-    if not page.permissions_for_user(request.user).can_unlock():
-        raise PermissionDenied
-
-    # Unlock the page
-    if page.locked:
-        page.locked = False
-        page.locked_by = None
-        page.locked_at = None
-        page.save(user=request.user, log_action='wagtail.unlock')
-
-        messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()), extra_tags='unlock')
-
-    # Redirect
-    redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
-        return redirect(redirect_to)
-    else:
-        return redirect('wagtailadmin_explore', page.get_parent().id)
 
 
 @user_passes_test(user_has_any_page_permission)
