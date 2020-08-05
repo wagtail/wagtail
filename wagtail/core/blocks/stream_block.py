@@ -8,7 +8,6 @@ from django.utils.functional import cached_property
 from django.utils.html import format_html_join
 from django.utils.translation import gettext as _
 
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks.utils import BlockData
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
 

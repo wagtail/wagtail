@@ -1299,6 +1299,7 @@ class TestRawHTMLBlock(TestCase):
             'icon': '<i class="icon icon-code"></i>',
             'dangerouslyRunInnerScripts': True,
         })
+
     def test_get_default_with_fallback_value(self):
         default_value = blocks.RawHTMLBlock().get_default()
         self.assertEqual(default_value, '')
