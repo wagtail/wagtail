@@ -1,12 +1,11 @@
 from datetime import timedelta
-from time import time
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse
 from django.http.request import QueryDict
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -40,6 +39,7 @@ from wagtail.search.utils import parse_query_string
 from wagtail.admin.views.pages.create import *  # noqa
 from wagtail.admin.views.pages.edit import *  # noqa
 from wagtail.admin.views.pages.listing import *  # noqa
+from wagtail.admin.views.pages.preview import *  # noqa
 
 
 def content_type_use(request, content_type_app_name, content_type_model_name):
@@ -100,123 +100,6 @@ def delete(request, page_id):
         'descendant_count': page.get_descendant_count(),
         'next': next_url,
     })
-
-
-def view_draft(request, page_id):
-    page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
-    perms = page.permissions_for_user(request.user)
-    if not (perms.can_publish() or perms.can_edit()):
-        raise PermissionDenied
-
-    try:
-        preview_mode = page.default_preview_mode
-    except IndexError:
-        raise PermissionDenied
-
-    return page.make_preview_request(request, preview_mode)
-
-
-class PreviewOnEdit(View):
-    http_method_names = ('post', 'get')
-    preview_expiration_timeout = 60 * 60 * 24  # seconds
-    session_key_prefix = 'wagtail-preview-'
-
-    def remove_old_preview_data(self):
-        expiration = time() - self.preview_expiration_timeout
-        expired_keys = [
-            k for k, v in self.request.session.items()
-            if k.startswith(self.session_key_prefix) and v[1] < expiration]
-        # Removes the session key gracefully
-        for k in expired_keys:
-            self.request.session.pop(k)
-
-    @property
-    def session_key(self):
-        return self.session_key_prefix + ','.join(self.args)
-
-    def get_page(self):
-        return get_object_or_404(Page,
-                                 id=self.kwargs["page_id"]).get_latest_revision_as_page()
-
-    def get_form(self, page, query_dict):
-        form_class = page.get_edit_handler().get_form_class()
-        parent_page = page.get_parent().specific
-
-        if self.session_key not in self.request.session:
-            # Session key not in session, returning null form
-            return form_class(instance=page, parent_page=parent_page)
-
-        return form_class(query_dict, instance=page, parent_page=parent_page)
-
-    def post(self, request, *args, **kwargs):
-        # TODO: Handle request.FILES.
-        request.session[self.session_key] = request.POST.urlencode(), time()
-        self.remove_old_preview_data()
-        form = self.get_form(self.get_page(), request.POST)
-        return JsonResponse({'is_valid': form.is_valid()})
-
-    def error_response(self, page):
-        return TemplateResponse(
-            self.request, 'wagtailadmin/pages/preview_error.html',
-            {'page': page}
-        )
-
-    def get(self, request, *args, **kwargs):
-        page = self.get_page()
-
-        post_data, timestamp = self.request.session.get(self.session_key,
-                                                        (None, None))
-        if not isinstance(post_data, str):
-            post_data = ''
-        form = self.get_form(page, QueryDict(post_data))
-
-        if not form.is_valid():
-            return self.error_response(page)
-
-        form.save(commit=False)
-
-        try:
-            preview_mode = request.GET.get('mode', page.default_preview_mode)
-        except IndexError:
-            raise PermissionDenied
-
-        return page.make_preview_request(request, preview_mode)
-
-
-class PreviewOnCreate(PreviewOnEdit):
-    def get_page(self):
-        content_type_app_name = self.kwargs["content_type_app_name"]
-        content_type_model_name = self.kwargs["content_type_model_name"]
-        parent_page_id = self.kwargs["parent_page_id"]
-        try:
-            content_type = ContentType.objects.get_by_natural_key(
-                content_type_app_name, content_type_model_name)
-        except ContentType.DoesNotExist:
-            raise Http404
-
-        page = content_type.model_class()()
-        parent_page = get_object_or_404(Page, id=parent_page_id).specific
-        # We need to populate treebeard's path / depth fields in order to
-        # pass validation. We can't make these 100% consistent with the rest
-        # of the tree without making actual database changes (such as
-        # incrementing the parent's numchild field), but by calling treebeard's
-        # internal _get_path method, we can set a 'realistic' value that will
-        # hopefully enable tree traversal operations
-        # to at least partially work.
-        page.depth = parent_page.depth + 1
-        # Puts the page at the maximum possible path
-        # for a child of `parent_page`.
-        page.path = Page._get_children_path_interval(parent_page.path)[1]
-        return page
-
-    def get_form(self, page, query_dict):
-        form = super().get_form(page, query_dict)
-        if form.is_valid():
-            # Ensures our unsaved page has a suitable url.
-            form.instance.set_url_path(form.parent_page)
-
-            form.instance.full_clean()
-        return form
 
 
 def unpublish(request, page_id):
