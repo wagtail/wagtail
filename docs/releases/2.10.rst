@@ -20,6 +20,12 @@ For further details, see :ref:`managing_workflows` and :doc:`../advanced_topics/
 This feature was developed by Jacob Topp-Mugglestone, Karl Hobley, Matt Westcott and Dan Braghis, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
 
 
+Django 3.1 support
+~~~~~~~~~~~~~~~~~~
+
+This release adds support for Django 3.1. Compatibility fixes were contributed by Matt Westcott and Karl Hobley.
+
+
 Search query expressions
 ~~~~~~~~~~~~~~~~~~~~~~~~
 

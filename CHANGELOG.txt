@@ -12,6 +12,7 @@ Changelog
 2.10 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Added Django 3.1 support (Matt Westcott, Karl Hobley)
  * Removed support for Python 3.5
  * Implemented configurable moderation workflow (Jacob Topp-Mugglestone, Karl Hobley, Matt Westcott, Dan Braghis)
  * Implemented phrase searching and structured search query expressions (Karl Hobley)
