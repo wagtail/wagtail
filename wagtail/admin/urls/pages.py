@@ -8,7 +8,7 @@ from wagtail.admin.views.pages import (
 
 app_name = 'wagtailadmin_pages'
 urlpatterns = [
-    path('add/<slug:content_type_app_name>/<slug:content_type_model_name>/<int:parent_page_id>/', create.create, name='add'),
+    path('add/<slug:content_type_app_name>/<slug:content_type_model_name>/<int:parent_page_id>/', create.CreateView.as_view(), name='add'),
     path('add/<slug:content_type_app_name>/<slug:content_type_model_name>/<int:parent_page_id>/preview/', preview.PreviewOnCreate.as_view(), name='preview_on_add'),
     path('usage/<slug:content_type_app_name>/<slug:content_type_model_name>/', usage.content_type_use, name='type_use'),
 
