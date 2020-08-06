@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.http import urlquote
 from django.utils.translation import gettext as _
-from django.views.generic.base import View
+from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
@@ -42,7 +42,9 @@ def add_subpage(request, parent_page_id):
     })
 
 
-class CreateView(View):
+class CreateView(TemplateResponseMixin, ContextMixin, View):
+    template_name = 'wagtailadmin/pages/create.html'
+
     def dispatch(self, request, content_type_app_name, content_type_model_name, parent_page_id):
         self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
         self.parent_page_perms = self.parent_page.permissions_for_user(self.request.user)
@@ -197,7 +199,11 @@ class CreateView(View):
 
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
-        return TemplateResponse(self.request, 'wagtailadmin/pages/create.html', {
+        return self.render_to_response(self.get_context_data())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
             'content_type': self.content_type,
             'page_class': self.page_class,
             'parent_page': self.parent_page,
@@ -208,3 +214,4 @@ class CreateView(View):
             'next': self.next_url,
             'has_unsaved_changes': self.has_unsaved_changes,
         })
+        return context
