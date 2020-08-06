@@ -12,7 +12,7 @@ urlpatterns = [
     path('add/<slug:content_type_app_name>/<slug:content_type_model_name>/<int:parent_page_id>/preview/', preview.PreviewOnCreate.as_view(), name='preview_on_add'),
     path('usage/<slug:content_type_app_name>/<slug:content_type_model_name>/', usage.content_type_use, name='type_use'),
 
-    path('<int:page_id>/edit/', edit.edit, name='edit'),
+    path('<int:page_id>/edit/', edit.EditView.as_view(), name='edit'),
     path('<int:page_id>/edit/preview/', preview.PreviewOnEdit.as_view(), name='preview_on_edit'),
 
     path('<int:page_id>/view_draft/', preview.view_draft, name='view_draft'),
