@@ -369,6 +369,16 @@ class BackendTests(WagtailTestUtils):
         with self.assertRaises(FieldError):
             list(self.backend.search(MATCH_ALL, models.Author.objects.filter(name__startswith="Issac")))
 
+    def test_filter_on_child_class_id(self):
+        titles = ['A Game of Thrones', 'Foundation']
+        book_ids = list(models.Book.objects.filter(title__in=titles).values_list('id', flat=True))
+        results = self.backend.search(MATCH_ALL, models.Novel.objects.filter(id__in=book_ids))
+
+        # Check count before evaluating results so that we're aren't just checking the length of the results cache
+        self.assertEqual(results.count(), len(titles))
+
+        self.assertUnsortedListEqual([r.title for r in results], titles)
+
     # ORDER BY RELEVANCE
 
     def test_order_by_relevance(self):
