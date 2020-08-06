@@ -44,99 +44,108 @@ def add_subpage(request, parent_page_id):
 
 class CreateView(View):
     def dispatch(self, request, content_type_app_name, content_type_model_name, parent_page_id):
-        parent_page = get_object_or_404(Page, id=parent_page_id).specific
-        parent_page_perms = parent_page.permissions_for_user(request.user)
-        if not parent_page_perms.can_add_subpage():
+        self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
+        self.parent_page_perms = self.parent_page.permissions_for_user(self.request.user)
+        if not self.parent_page_perms.can_add_subpage():
             raise PermissionDenied
 
         try:
-            content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
+            self.content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
         except ContentType.DoesNotExist:
             raise Http404
 
         # Get class
-        page_class = content_type.model_class()
+        self.page_class = self.content_type.model_class()
 
         # Make sure the class is a descendant of Page
-        if not issubclass(page_class, Page):
+        if not issubclass(self.page_class, Page):
             raise Http404
 
         # page must be in the list of allowed subpage types for this parent ID
-        if page_class not in parent_page.creatable_subpage_models():
+        if self.page_class not in self.parent_page.creatable_subpage_models():
             raise PermissionDenied
 
-        if not page_class.can_create_at(parent_page):
+        if not self.page_class.can_create_at(self.parent_page):
             raise PermissionDenied
 
         for fn in hooks.get_hooks('before_create_page'):
-            result = fn(request, parent_page, page_class)
+            result = fn(self.request, self.parent_page, self.page_class)
             if hasattr(result, 'status_code'):
                 return result
 
-        page = page_class(owner=request.user)
-        edit_handler = page_class.get_edit_handler()
-        edit_handler = edit_handler.bind_to(request=request, instance=page)
-        form_class = edit_handler.get_form_class()
+        self.page = self.page_class(owner=self.request.user)
+        self.edit_handler = self.page_class.get_edit_handler()
+        self.edit_handler = self.edit_handler.bind_to(request=self.request, instance=self.page)
+        self.form_class = self.edit_handler.get_form_class()
 
-        next_url = get_valid_next_url_from_request(request)
+        self.next_url = get_valid_next_url_from_request(self.request)
 
-        if request.method == 'POST':
-            form = form_class(request.POST, request.FILES, instance=page,
-                              parent_page=parent_page)
+        if self.request.method == 'POST':
+            self.form = self.form_class(
+                self.request.POST, self.request.FILES, instance=self.page, parent_page=self.parent_page
+            )
 
-            if form.is_valid():
-                page = form.save(commit=False)
+            if self.form.is_valid():
+                self.page = self.form.save(commit=False)
 
-                is_publishing = bool(request.POST.get('action-publish')) and parent_page_perms.can_publish_subpage()
-                is_submitting = bool(request.POST.get('action-submit')) and parent_page.has_workflow
+                is_publishing = bool(self.request.POST.get('action-publish')) and self.parent_page_perms.can_publish_subpage()
+                is_submitting = bool(self.request.POST.get('action-submit')) and self.parent_page.has_workflow
 
                 if not is_publishing:
-                    page.live = False
+                    self.page.live = False
 
                 # Save page
-                parent_page.add_child(instance=page)
+                self.parent_page.add_child(instance=self.page)
 
                 # Save revision
-                revision = page.save_revision(user=request.user, log_action=False)
+                revision = self.page.save_revision(user=self.request.user, log_action=False)
 
                 # Publish
                 if is_publishing:
                     for fn in hooks.get_hooks('before_publish_page'):
-                        result = fn(request, page)
+                        result = fn(self.request, self.page)
                         if hasattr(result, 'status_code'):
                             return result
 
-                    revision.publish(user=request.user)
+                    revision.publish(user=self.request.user)
 
                     for fn in hooks.get_hooks('after_publish_page'):
-                        result = fn(request, page)
+                        result = fn(self.request, self.page)
                         if hasattr(result, 'status_code'):
                             return result
 
                 # Submit
                 if is_submitting:
-                    workflow = page.get_workflow()
-                    workflow.start(page, request.user)
+                    workflow = self.page.get_workflow()
+                    workflow.start(self.page, self.request.user)
 
                 # Notifications
                 if is_publishing:
-                    if page.go_live_at and page.go_live_at > timezone.now():
-                        messages.success(request, _("Page '{0}' created and scheduled for publishing.").format(page.get_admin_display_title()), buttons=[
-                            messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-                        ])
+                    if self.page.go_live_at and self.page.go_live_at > timezone.now():
+                        messages.success(
+                            self.request,
+                            _("Page '{0}' created and scheduled for publishing.").format(self.page.get_admin_display_title()),
+                            buttons=[
+                                messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit'))
+                            ]
+                        )
                     else:
                         buttons = []
-                        if page.url is not None:
-                            buttons.append(messages.button(page.url, _('View live'), new_window=True))
-                        buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit')))
-                        messages.success(request, _("Page '{0}' created and published.").format(page.get_admin_display_title()), buttons=buttons)
+                        if self.page.url is not None:
+                            buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
+                        buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit')))
+                        messages.success(
+                            self.request,
+                            _("Page '{0}' created and published.").format(self.page.get_admin_display_title()),
+                            buttons=buttons
+                        )
 
                 elif is_submitting:
                     buttons = []
-                    if page.is_previewable():
+                    if self.page.is_previewable():
                         buttons.append(
                             messages.button(
-                                reverse('wagtailadmin_pages:view_draft', args=(page.id,)),
+                                reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
                                 _('View draft'),
                                 new_window=True
                             ),
@@ -144,58 +153,58 @@ class CreateView(View):
 
                     buttons.append(
                         messages.button(
-                            reverse('wagtailadmin_pages:edit', args=(page.id,)),
+                            reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
                             _('Edit')
                         )
                     )
 
                     messages.success(
-                        request,
-                        _("Page '{0}' created and submitted for moderation.").format(page.get_admin_display_title()),
+                        self.request,
+                        _("Page '{0}' created and submitted for moderation.").format(self.page.get_admin_display_title()),
                         buttons=buttons
                     )
                 else:
-                    messages.success(request, _("Page '{0}' created.").format(page.get_admin_display_title()))
+                    messages.success(self.request, _("Page '{0}' created.").format(self.page.get_admin_display_title()))
 
                 for fn in hooks.get_hooks('after_create_page'):
-                    result = fn(request, page)
+                    result = fn(self.request, self.page)
                     if hasattr(result, 'status_code'):
                         return result
 
                 if is_publishing or is_submitting:
                     # we're done here
-                    if next_url:
+                    if self.next_url:
                         # redirect back to 'next' url if present
-                        return redirect(next_url)
+                        return redirect(self.next_url)
                     # redirect back to the explorer
-                    return redirect('wagtailadmin_explore', page.get_parent().id)
+                    return redirect('wagtailadmin_explore', self.page.get_parent().id)
                 else:
                     # Just saving - remain on edit page for further edits
-                    target_url = reverse('wagtailadmin_pages:edit', args=[page.id])
-                    if next_url:
+                    target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
+                    if self.next_url:
                         # Ensure the 'next' url is passed through again if present
-                        target_url += '?next=%s' % urlquote(next_url)
+                        target_url += '?next=%s' % urlquote(self.next_url)
                     return redirect(target_url)
             else:
                 messages.validation_error(
-                    request, _("The page could not be created due to validation errors"), form
+                    self.request, _("The page could not be created due to validation errors"), self.form
                 )
-                has_unsaved_changes = True
+                self.has_unsaved_changes = True
         else:
-            signals.init_new_page.send(sender=CreateView, page=page, parent=parent_page)
-            form = form_class(instance=page, parent_page=parent_page)
-            has_unsaved_changes = False
+            signals.init_new_page.send(sender=CreateView, page=self.page, parent=self.parent_page)
+            self.form = self.form_class(instance=self.page, parent_page=self.parent_page)
+            self.has_unsaved_changes = False
 
-        edit_handler = edit_handler.bind_to(form=form)
+        self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
-        return TemplateResponse(request, 'wagtailadmin/pages/create.html', {
-            'content_type': content_type,
-            'page_class': page_class,
-            'parent_page': parent_page,
-            'edit_handler': edit_handler,
-            'action_menu': PageActionMenu(request, view='create', parent_page=parent_page),
-            'preview_modes': page.preview_modes,
-            'form': form,
-            'next': next_url,
-            'has_unsaved_changes': has_unsaved_changes,
+        return TemplateResponse(self.request, 'wagtailadmin/pages/create.html', {
+            'content_type': self.content_type,
+            'page_class': self.page_class,
+            'parent_page': self.parent_page,
+            'edit_handler': self.edit_handler,
+            'action_menu': PageActionMenu(self.request, view='create', parent_page=self.parent_page),
+            'preview_modes': self.page.preview_modes,
+            'form': self.form,
+            'next': self.next_url,
+            'has_unsaved_changes': self.has_unsaved_changes,
         })
