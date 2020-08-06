@@ -188,18 +188,25 @@ class CreateView(TemplateResponseMixin, ContextMixin, View):
 
         if is_publishing or is_submitting:
             # we're done here
-            if self.next_url:
-                # redirect back to 'next' url if present
-                return redirect(self.next_url)
-            # redirect back to the explorer
-            return redirect('wagtailadmin_explore', self.page.get_parent().id)
+            return self.redirect_away()
         else:
             # Just saving - remain on edit page for further edits
-            target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
-            if self.next_url:
-                # Ensure the 'next' url is passed through again if present
-                target_url += '?next=%s' % urlquote(self.next_url)
-            return redirect(target_url)
+            return self.redirect_and_remain()
+
+    def redirect_away(self):
+        if self.next_url:
+            # redirect back to 'next' url if present
+            return redirect(self.next_url)
+        else:
+            # redirect back to the explorer
+            return redirect('wagtailadmin_explore', self.page.get_parent().id)
+
+    def redirect_and_remain(self):
+        target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
+        if self.next_url:
+            # Ensure the 'next' url is passed through again if present
+            target_url += '?next=%s' % urlquote(self.next_url)
+        return redirect(target_url)
 
     def form_invalid(self, form):
         messages.validation_error(
