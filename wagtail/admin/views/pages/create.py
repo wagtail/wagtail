@@ -45,6 +45,16 @@ def add_subpage(request, parent_page_id):
 class CreateView(TemplateResponseMixin, ContextMixin, View):
     template_name = 'wagtailadmin/pages/create.html'
 
+    def run_hook(self, hook_name, *args, **kwargs):
+        """
+        Run the named hook, passing args and kwargs to each function registered under that hook name.
+        If any return an HttpResponse, stop processing and return that response
+        """
+        for fn in hooks.get_hooks(hook_name):
+            result = fn(*args, **kwargs)
+            if hasattr(result, 'status_code'):
+                return result
+
     def dispatch(self, request, content_type_app_name, content_type_model_name, parent_page_id):
         self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
         self.parent_page_perms = self.parent_page.permissions_for_user(self.request.user)
@@ -70,10 +80,9 @@ class CreateView(TemplateResponseMixin, ContextMixin, View):
         if not self.page_class.can_create_at(self.parent_page):
             raise PermissionDenied
 
-        for fn in hooks.get_hooks('before_create_page'):
-            result = fn(self.request, self.parent_page, self.page_class)
-            if hasattr(result, 'status_code'):
-                return result
+        response = self.run_hook('before_create_page', self.request, self.parent_page, self.page_class)
+        if response:
+            return response
 
         self.page = self.page_class(owner=self.request.user)
         self.edit_handler = self.page_class.get_edit_handler()
@@ -111,17 +120,15 @@ class CreateView(TemplateResponseMixin, ContextMixin, View):
 
         # Publish
         if is_publishing:
-            for fn in hooks.get_hooks('before_publish_page'):
-                result = fn(self.request, self.page)
-                if hasattr(result, 'status_code'):
-                    return result
+            response = self.run_hook('before_publish_page', self.request, self.page)
+            if response:
+                return response
 
             revision.publish(user=self.request.user)
 
-            for fn in hooks.get_hooks('after_publish_page'):
-                result = fn(self.request, self.page)
-                if hasattr(result, 'status_code'):
-                    return result
+            response = self.run_hook('after_publish_page', self.request, self.page)
+            if response:
+                return response
 
         # Submit
         if is_submitting:
@@ -175,10 +182,9 @@ class CreateView(TemplateResponseMixin, ContextMixin, View):
         else:
             messages.success(self.request, _("Page '{0}' created.").format(self.page.get_admin_display_title()))
 
-        for fn in hooks.get_hooks('after_create_page'):
-            result = fn(self.request, self.page)
-            if hasattr(result, 'status_code'):
-                return result
+        response = self.run_hook('after_create_page', self.request, self.page)
+        if response:
+            return response
 
         if is_publishing or is_submitting:
             # we're done here
