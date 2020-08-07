@@ -202,9 +202,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return self.restart_workflow_action()
         elif self.request.POST.get('action-workflow-action') and self.workflow_action_is_valid():
             return self.perform_workflow_action()
-
-        if self.is_cancelling_workflow:
-            self.workflow_state.cancel(user=self.request.user)
+        elif self.is_cancelling_workflow:
+            return self.cancel_workflow_action()
 
         self.page = self.form.save(commit=False)
 
@@ -216,10 +215,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
 
         # Notifications
-        if self.is_cancelling_workflow:
-            self.add_cancel_workflow_confirmation_message()
-
-        elif self.is_reverting:
+        if self.is_reverting:
             message = _(
                 "Page '{0}' has been replaced with version from {1}."
             ).format(
@@ -459,6 +455,27 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         # we're done here - redirect back to the explorer
         return self.redirect_away()
+
+    def cancel_workflow_action(self):
+        self.workflow_state.cancel(user=self.request.user)
+        self.page = self.form.save(commit=False)
+
+        # Save revision
+        self.page.save_revision(
+            user=self.request.user,
+            log_action=True,  # Always log the new revision on edit
+            previous_revision=(self.previous_revision if self.is_reverting else None)
+        )
+
+        # Notifications
+        self.add_cancel_workflow_confirmation_message()
+
+        response = self.run_hook('after_edit_page', self.request, self.page)
+        if response:
+            return response
+
+        # Just saving - remain on edit page for further edits
+        return self.redirect_and_remain()
 
     def redirect_away(self):
         if self.next_url:
