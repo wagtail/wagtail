@@ -22,6 +22,26 @@ from wagtail.core.models import Page, WorkflowState
 class EditView(TemplateResponseMixin, ContextMixin, View):
     template_name = 'wagtailadmin/pages/edit.html'
 
+    def add_legacy_moderation_warning(self):
+        # Check for revisions still undergoing moderation and warn - this is for the old moderation system
+        if self.latest_revision and self.latest_revision.submitted_for_moderation:
+            buttons = []
+
+            if self.page.live:
+                buttons.append(messages.button(
+                    reverse('wagtailadmin_pages:revisions_compare', args=(self.page.id, 'live', self.latest_revision.id)),
+                    _('Compare with live version')
+                ))
+
+            messages.warning(self.request, _("This page is currently awaiting moderation"), buttons=buttons)
+
+    def get_page_for_status(self):
+        if self.page.live and self.page.has_unpublished_changes:
+            # Page status needs to present the version of the page containing the correct live URL
+            return self.real_page_record.specific
+        else:
+            return self.page
+
     def dispatch(self, request, page_id):
         self.real_page_record = get_object_or_404(Page, id=page_id)
         self.latest_revision = self.real_page_record.get_latest_revision()
@@ -387,24 +407,8 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
             self.has_unsaved_changes = False
 
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
-
-        # Check for revisions still undergoing moderation and warn - this is for the old moderation system
-        if self.latest_revision and self.latest_revision.submitted_for_moderation:
-            buttons = []
-
-            if self.page.live:
-                buttons.append(messages.button(
-                    reverse('wagtailadmin_pages:revisions_compare', args=(self.page.id, 'live', self.latest_revision.id)),
-                    _('Compare with live version')
-                ))
-
-            messages.warning(self.request, _("This page is currently awaiting moderation"), buttons=buttons)
-
-        if self.page.live and self.page.has_unpublished_changes:
-            # Page status needs to present the version of the page containing the correct live URL
-            self.page_for_status = self.real_page_record.specific
-        else:
-            self.page_for_status = self.page
+        self.add_legacy_moderation_warning()
+        self.page_for_status = self.get_page_for_status()
 
         return self.render_to_response(self.get_context_data())
 
