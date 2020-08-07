@@ -35,6 +35,23 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
             messages.warning(self.request, _("This page is currently awaiting moderation"), buttons=buttons)
 
+    def add_save_confirmation_message(self):
+        if self.is_reverting:
+            message = _(
+                "Page '{0}' has been replaced with version from {1}."
+            ).format(
+                self.page.get_admin_display_title(),
+                self.previous_revision.created_at.strftime("%d %b %Y %H:%M")
+            )
+        else:
+            message = _(
+                "Page '{0}' has been updated."
+            ).format(
+                self.page.get_admin_display_title()
+            )
+
+        messages.success(self.request, message)
+
     def get_page_for_status(self):
         if self.page.live and self.page.has_unpublished_changes:
             # Page status needs to present the version of the page containing the correct live URL
@@ -217,24 +234,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
 
-        # Notifications
-        if self.is_reverting:
-            message = _(
-                "Page '{0}' has been replaced with version from {1}."
-            ).format(
-                self.page.get_admin_display_title(),
-                self.previous_revision.created_at.strftime("%d %b %Y %H:%M")
-            )
-
-            messages.success(self.request, message)
-        else:
-            message = _(
-                "Page '{0}' has been updated."
-            ).format(
-                self.page.get_admin_display_title()
-            )
-
-            messages.success(self.request, message)
+        self.add_save_confirmation_message()
 
         response = self.run_hook('after_edit_page', self.request, self.page)
         if response:
@@ -434,23 +434,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         extra_workflow_data = json.loads(extra_workflow_data_json)
         self.page.current_workflow_task.on_action(self.page.current_workflow_task_state, self.request.user, self.workflow_action, **extra_workflow_data)
 
-        if self.is_reverting:
-            message = _(
-                "Page '{0}' has been replaced with version from {1}."
-            ).format(
-                self.page.get_admin_display_title(),
-                self.previous_revision.created_at.strftime("%d %b %Y %H:%M")
-            )
-
-            messages.success(self.request, message)
-        else:
-            message = _(
-                "Page '{0}' has been updated."
-            ).format(
-                self.page.get_admin_display_title()
-            )
-
-            messages.success(self.request, message)
+        self.add_save_confirmation_message()
 
         response = self.run_hook('after_edit_page', self.request, self.page)
         if response:
