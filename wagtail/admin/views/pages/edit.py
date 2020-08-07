@@ -204,7 +204,10 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return self.perform_workflow_action()
         elif self.is_cancelling_workflow:
             return self.cancel_workflow_action()
+        else:
+            return self.save_action()
 
+    def save_action(self):
         self.page = self.form.save(commit=False)
 
         # Save revision
