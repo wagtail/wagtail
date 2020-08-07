@@ -3,7 +3,7 @@
 
 {% block actions %}
     <div class="addbutton">
-        <a href="{% url 'wagtailadmin_reports:workflow' %}" class="button">By Workflow</a>
+        <a href="{% url 'wagtailadmin_reports:workflow' %}" class="button">{% trans 'By Workflow' %}</a>
     </div>
     {{ block.super }}
 {% endblock %}
