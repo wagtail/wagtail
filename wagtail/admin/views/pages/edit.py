@@ -3,14 +3,13 @@ import json
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
-from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.http import urlquote
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
-from django.views.generic.base import View
+from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
@@ -20,7 +19,9 @@ from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import Page, WorkflowState
 
 
-class EditView(View):
+class EditView(TemplateResponseMixin, ContextMixin, View):
+    template_name = 'wagtailadmin/pages/edit.html'
+
     def dispatch(self, request, page_id):
         self.real_page_record = get_object_or_404(Page, id=page_id)
         self.latest_revision = self.real_page_record.get_latest_revision()
@@ -418,7 +419,11 @@ class EditView(View):
         else:
             self.page_for_status = self.page
 
-        return TemplateResponse(self.request, 'wagtailadmin/pages/edit.html', {
+        return self.render_to_response(self.get_context_data())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
             'page': self.page,
             'page_for_status': self.page_for_status,
             'content_type': self.content_type,
@@ -434,3 +439,4 @@ class EditView(View):
             'current_task_state': self.page.current_workflow_task_state,
             'publishing_will_cancel_workflow': self.workflow_tasks and getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True)
         })
+        return context
