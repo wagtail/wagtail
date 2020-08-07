@@ -28,10 +28,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             buttons = []
 
             if self.page.live:
-                buttons.append(messages.button(
-                    reverse('wagtailadmin_pages:revisions_compare', args=(self.page.id, 'live', self.latest_revision.id)),
-                    _('Compare with live version')
-                ))
+                buttons.append(self.get_compare_with_live_message_button())
 
             messages.warning(self.request, _("This page is currently awaiting moderation"), buttons=buttons)
 
@@ -51,6 +48,28 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             )
 
         messages.success(self.request, message)
+
+    def get_edit_message_button(self):
+        return messages.button(
+            reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
+            _('Edit')
+        )
+
+    def get_view_draft_message_button(self):
+        return messages.button(
+            reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
+            _('View draft'),
+            new_window=True
+        )
+
+    def get_view_live_message_button(self):
+        return messages.button(self.page.url, _('View live'), new_window=True)
+
+    def get_compare_with_live_message_button(self):
+        return messages.button(
+            reverse('wagtailadmin_pages:revisions_compare', args=(self.page.id, 'live', self.latest_revision.id)),
+            _('Compare with live version')
+        )
 
     def get_page_for_status(self):
         if self.page.live and self.page.has_unpublished_changes:
@@ -173,15 +192,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
 
         messages.success(self.request, message, buttons=[
-            messages.button(
-                reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
-                _('View draft'),
-                new_window=True
-            ),
-            messages.button(
-                reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                ('Edit')
-            )
+            self.get_view_draft_message_button(),
+            self.get_edit_message_button(),
         ])
 
     def post(self, request):
@@ -301,12 +313,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                         self.page.get_admin_display_title()
                     )
 
-            messages.success(self.request, message, buttons=[
-                messages.button(
-                    reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                    _('Edit')
-                )
-            ])
+            messages.success(self.request, message, buttons=[self.get_edit_message_button()])
 
         else:
             # Page is being published now
@@ -327,8 +334,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
             buttons = []
             if self.page.url is not None:
-                buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
-            buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit')))
+                buttons.append(self.get_view_live_message_button())
+            buttons.append(self.get_edit_message_button())
             messages.success(self.request, message, buttons=buttons)
 
         response = self.run_hook('after_edit_page', self.request, self.page)
@@ -363,15 +370,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
 
         messages.success(self.request, message, buttons=[
-            messages.button(
-                reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
-                _('View draft'),
-                new_window=True
-            ),
-            messages.button(
-                reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                _('Edit')
-            )
+            self.get_view_draft_message_button(),
+            self.get_edit_message_button(),
         ])
 
         response = self.run_hook('after_edit_page', self.request, self.page)
@@ -401,15 +401,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
 
         messages.success(self.request, message, buttons=[
-            messages.button(
-                reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
-                _('View draft'),
-                new_window=True
-            ),
-            messages.button(
-                reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                _('Edit')
-            )
+            self.get_view_draft_message_button(),
+            self.get_edit_message_button(),
         ])
 
         response = self.run_hook('after_edit_page', self.request, self.page)
