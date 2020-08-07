@@ -149,22 +149,47 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
 
         return self.render_to_response(self.get_context_data())
 
+    def add_cancel_workflow_confirmation_message(self):
+        message = _(
+            "Workflow on page '{0}' has been cancelled."
+        ).format(
+            self.page.get_admin_display_title()
+        )
+
+        messages.success(self.request, message, buttons=[
+            messages.button(
+                reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
+                _('View draft'),
+                new_window=True
+            ),
+            messages.button(
+                reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
+                ('Edit')
+            )
+        ])
+
     def post(self, request):
         self.form = self.form_class(
             self.request.POST, self.request.FILES, instance=self.page, parent_page=self.parent
         )
 
+        is_valid = self.form.is_valid() and not self.page_perms.page_locked()
+
         is_publishing = False
         is_submitting = False
         is_restarting_workflow = False
         is_reverting = False
-        is_saving = False
         is_cancelling_workflow = bool(self.request.POST.get('action-cancel-workflow')) and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
-        if is_cancelling_workflow:
-            self.workflow_state.cancel(user=self.request.user)
-            # do this here so even if the page is locked due to not having permissions, the original submitter can still cancel the workflow
 
-        if self.form.is_valid() and not self.page_perms.page_locked():
+        if is_valid:
+            if is_cancelling_workflow:
+                self.workflow_state.cancel(user=self.request.user)
+        else:
+            # even if the page is locked due to not having permissions, the original submitter can still cancel the workflow
+            if is_cancelling_workflow:
+                self.workflow_state.cancel(user=self.request.user)
+
+        if is_valid:
             self.page = self.form.save(commit=False)
 
             is_publishing = bool(self.request.POST.get('action-publish')) and self.page_perms.can_publish()
@@ -181,7 +206,6 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
                     # prevent this action
                     is_performing_workflow_action = False
 
-            is_saving = True
             has_content_changes = self.form.has_changed()
 
             if is_restarting_workflow:
@@ -245,7 +269,7 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
                 self.page.current_workflow_task.on_action(self.page.current_workflow_task_state, self.request.user, workflow_action, **extra_workflow_data)
 
         # Notifications
-        if is_publishing:
+        if is_valid and is_publishing:
             if go_live_at and go_live_at > timezone.now():
                 # Page has been scheduled for publishing in the future
 
@@ -301,7 +325,7 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
                 buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit')))
                 messages.success(self.request, message, buttons=buttons)
 
-        elif is_submitting:
+        elif is_valid and is_submitting:
 
             message = _(
                 "Page '{0}' has been submitted for moderation."
@@ -321,26 +345,13 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
                 )
             ])
 
-        elif is_cancelling_workflow:
-            message = _(
-                "Workflow on page '{0}' has been cancelled."
-            ).format(
-                self.page.get_admin_display_title()
-            )
+        elif is_valid and is_cancelling_workflow:
+            self.add_cancel_workflow_confirmation_message()
 
-            messages.success(self.request, message, buttons=[
-                messages.button(
-                    reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
-                    _('View draft'),
-                    new_window=True
-                ),
-                messages.button(
-                    reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                    ('Edit')
-                )
-            ])
+        elif (not is_valid) and is_cancelling_workflow:
+            self.add_cancel_workflow_confirmation_message()
 
-        elif is_restarting_workflow:
+        elif is_valid and is_restarting_workflow:
 
             message = _(
                 "Workflow on page '{0}' has been restarted."
@@ -360,7 +371,7 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
                 )
             ])
 
-        elif is_reverting:
+        elif is_valid and is_reverting:
             message = _(
                 "Page '{0}' has been replaced with version from {1}."
             ).format(
@@ -369,7 +380,7 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
             )
 
             messages.success(self.request, message)
-        elif is_saving:
+        elif is_valid:
             message = _(
                 "Page '{0}' has been updated."
             ).format(
@@ -378,7 +389,7 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
 
             messages.success(self.request, message)
 
-        if is_saving:
+        if is_valid:
             for fn in hooks.get_hooks('after_edit_page'):
                 result = fn(self.request, self.page)
                 if hasattr(result, 'status_code'):
