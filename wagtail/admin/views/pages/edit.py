@@ -188,15 +188,17 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         self.has_content_changes = self.form.has_changed()
 
+        if self.request.POST.get('action-publish') and self.page_perms.can_publish():
+            return self.publish_action()
+
+        is_submitting = bool(self.request.POST.get('action-submit')) and self.page_perms.can_submit_for_moderation()
+        is_restarting_workflow = bool(self.request.POST.get('action-restart-workflow')) and self.page_perms.can_submit_for_moderation() and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
+        is_performing_workflow_action = bool(self.request.POST.get('action-workflow-action'))
+
         if self.is_cancelling_workflow:
             self.workflow_state.cancel(user=self.request.user)
 
         self.page = self.form.save(commit=False)
-
-        is_publishing = bool(self.request.POST.get('action-publish')) and self.page_perms.can_publish()
-        is_submitting = bool(self.request.POST.get('action-submit')) and self.page_perms.can_submit_for_moderation()
-        is_restarting_workflow = bool(self.request.POST.get('action-restart-workflow')) and self.page_perms.can_submit_for_moderation() and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
-        is_performing_workflow_action = bool(self.request.POST.get('action-workflow-action'))
 
         if is_performing_workflow_action:
             workflow_action = self.request.POST['workflow-action-name']
@@ -212,37 +214,14 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if is_performing_workflow_action and not self.has_content_changes:
             # don't save a new revision, as we're just going to update the page's
             # workflow state with no content changes
-            revision = self.latest_revision
+            pass
         else:
             # Save revision
-            revision = self.page.save_revision(
+            self.page.save_revision(
                 user=self.request.user,
                 log_action=True,  # Always log the new revision on edit
                 previous_revision=(self.previous_revision if self.is_reverting else None)
             )
-
-        # Publish
-        if is_publishing:
-            # store submitted go_live_at for messaging below
-            go_live_at = self.page.go_live_at
-
-            response = self.run_hook('before_publish_page', self.request, self.page)
-            if response:
-                return response
-
-            revision.publish(
-                user=self.request.user,
-                changed=self.has_content_changes,
-                previous_revision=(self.previous_revision if self.is_reverting else None)
-            )
-
-            # Need to reload the page because the URL may have changed, and we
-            # need the up-to-date URL for the "View Live" button.
-            self.page = self.page.specific_class.objects.get(pk=self.page.pk)
-
-            response = self.run_hook('after_publish_page', self.request, self.page)
-            if response:
-                return response
 
         # Submit
         if is_submitting or is_restarting_workflow:
@@ -260,63 +239,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             self.page.current_workflow_task.on_action(self.page.current_workflow_task_state, self.request.user, workflow_action, **extra_workflow_data)
 
         # Notifications
-        if is_publishing:
-            if go_live_at and go_live_at > timezone.now():
-                # Page has been scheduled for publishing in the future
-
-                if self.is_reverting:
-                    message = _(
-                        "Version from {0} of page '{1}' has been scheduled for publishing."
-                    ).format(
-                        self.previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-                        self.page.get_admin_display_title()
-                    )
-                else:
-                    if self.page.live:
-                        message = _(
-                            "Page '{0}' is live and this version has been scheduled for publishing."
-                        ).format(
-                            self.page.get_admin_display_title()
-                        )
-
-                    else:
-                        message = _(
-                            "Page '{0}' has been scheduled for publishing."
-                        ).format(
-                            self.page.get_admin_display_title()
-                        )
-
-                messages.success(self.request, message, buttons=[
-                    messages.button(
-                        reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                        _('Edit')
-                    )
-                ])
-
-            else:
-                # Page is being published now
-
-                if self.is_reverting:
-                    message = _(
-                        "Version from {0} of page '{1}' has been published."
-                    ).format(
-                        self.previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-                        self.page.get_admin_display_title()
-                    )
-                else:
-                    message = _(
-                        "Page '{0}' has been published."
-                    ).format(
-                        self.page.get_admin_display_title()
-                    )
-
-                buttons = []
-                if self.page.url is not None:
-                    buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
-                buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit')))
-                messages.success(self.request, message, buttons=buttons)
-
-        elif is_submitting:
+        if is_submitting:
 
             message = _(
                 "Page '{0}' has been submitted for moderation."
@@ -381,12 +304,107 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if response:
             return response
 
-        if is_publishing or is_submitting or is_restarting_workflow or is_performing_workflow_action:
+        if is_submitting or is_restarting_workflow or is_performing_workflow_action:
             # we're done here - redirect back to the explorer
             return self.redirect_away()
         else:
             # Just saving - remain on edit page for further edits
             return self.redirect_and_remain()
+
+    def publish_action(self):
+        self.page = self.form.save(commit=False)
+
+        # Save revision
+        revision = self.page.save_revision(
+            user=self.request.user,
+            log_action=True,  # Always log the new revision on edit
+            previous_revision=(self.previous_revision if self.is_reverting else None)
+        )
+
+        # store submitted go_live_at for messaging below
+        go_live_at = self.page.go_live_at
+
+        response = self.run_hook('before_publish_page', self.request, self.page)
+        if response:
+            return response
+
+        revision.publish(
+            user=self.request.user,
+            changed=self.has_content_changes,
+            previous_revision=(self.previous_revision if self.is_reverting else None)
+        )
+
+        # Need to reload the page because the URL may have changed, and we
+        # need the up-to-date URL for the "View Live" button.
+        self.page = self.page.specific_class.objects.get(pk=self.page.pk)
+
+        response = self.run_hook('after_publish_page', self.request, self.page)
+        if response:
+            return response
+
+
+        # Notifications
+        if go_live_at and go_live_at > timezone.now():
+            # Page has been scheduled for publishing in the future
+
+            if self.is_reverting:
+                message = _(
+                    "Version from {0} of page '{1}' has been scheduled for publishing."
+                ).format(
+                    self.previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                    self.page.get_admin_display_title()
+                )
+            else:
+                if self.page.live:
+                    message = _(
+                        "Page '{0}' is live and this version has been scheduled for publishing."
+                    ).format(
+                        self.page.get_admin_display_title()
+                    )
+
+                else:
+                    message = _(
+                        "Page '{0}' has been scheduled for publishing."
+                    ).format(
+                        self.page.get_admin_display_title()
+                    )
+
+            messages.success(self.request, message, buttons=[
+                messages.button(
+                    reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
+                    _('Edit')
+                )
+            ])
+
+        else:
+            # Page is being published now
+
+            if self.is_reverting:
+                message = _(
+                    "Version from {0} of page '{1}' has been published."
+                ).format(
+                    self.previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                    self.page.get_admin_display_title()
+                )
+            else:
+                message = _(
+                    "Page '{0}' has been published."
+                ).format(
+                    self.page.get_admin_display_title()
+                )
+
+            buttons = []
+            if self.page.url is not None:
+                buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
+            buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit')))
+            messages.success(self.request, message, buttons=buttons)
+
+        response = self.run_hook('after_edit_page', self.request, self.page)
+        if response:
+            return response
+
+        # we're done here - redirect back to the explorer
+        return self.redirect_away()
 
     def redirect_away(self):
         if self.next_url:
