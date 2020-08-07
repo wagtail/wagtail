@@ -181,6 +181,14 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
             return self.form_invalid(self.form)
 
     def form_valid(self, form):
+        self.is_reverting = bool(self.request.POST.get('revision'))
+        # If a revision ID was passed in the form, get that revision so its
+        # date can be referenced in notification messages
+        if self.is_reverting:
+            self.previous_revision = get_object_or_404(self.page.revisions, id=self.request.POST.get('revision'))
+
+        self.has_content_changes = self.form.has_changed()
+
         if self.is_cancelling_workflow:
             self.workflow_state.cancel(user=self.request.user)
 
@@ -189,9 +197,8 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
         is_publishing = bool(self.request.POST.get('action-publish')) and self.page_perms.can_publish()
         is_submitting = bool(self.request.POST.get('action-submit')) and self.page_perms.can_submit_for_moderation()
         is_restarting_workflow = bool(self.request.POST.get('action-restart-workflow')) and self.page_perms.can_submit_for_moderation() and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
-        is_reverting = bool(self.request.POST.get('revision'))
-
         is_performing_workflow_action = bool(self.request.POST.get('action-workflow-action'))
+
         if is_performing_workflow_action:
             workflow_action = self.request.POST['workflow-action-name']
             available_actions = self.page.current_workflow_task.get_actions(self.page, self.request.user)
@@ -200,17 +207,10 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
                 # prevent this action
                 is_performing_workflow_action = False
 
-        has_content_changes = self.form.has_changed()
-
         if is_restarting_workflow:
             self.workflow_state.cancel(user=self.request.user)
 
-        # If a revision ID was passed in the form, get that revision so its
-        # date can be referenced in notification messages
-        if is_reverting:
-            previous_revision = get_object_or_404(self.page.revisions, id=self.request.POST.get('revision'))
-
-        if is_performing_workflow_action and not has_content_changes:
+        if is_performing_workflow_action and not self.has_content_changes:
             # don't save a new revision, as we're just going to update the page's
             # workflow state with no content changes
             revision = self.latest_revision
@@ -219,14 +219,14 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
             revision = self.page.save_revision(
                 user=self.request.user,
                 log_action=True,  # Always log the new revision on edit
-                previous_revision=(previous_revision if is_reverting else None)
+                previous_revision=(self.previous_revision if self.is_reverting else None)
             )
-
-        # store submitted go_live_at for messaging below
-        go_live_at = self.page.go_live_at
 
         # Publish
         if is_publishing:
+            # store submitted go_live_at for messaging below
+            go_live_at = self.page.go_live_at
+
             for fn in hooks.get_hooks('before_publish_page'):
                 result = fn(self.request, self.page)
                 if hasattr(result, 'status_code'):
@@ -234,8 +234,8 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
 
             revision.publish(
                 user=self.request.user,
-                changed=has_content_changes,
-                previous_revision=(previous_revision if is_reverting else None)
+                changed=self.has_content_changes,
+                previous_revision=(self.previous_revision if self.is_reverting else None)
             )
 
             # Need to reload the page because the URL may have changed, and we
@@ -267,11 +267,11 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
             if go_live_at and go_live_at > timezone.now():
                 # Page has been scheduled for publishing in the future
 
-                if is_reverting:
+                if self.is_reverting:
                     message = _(
                         "Version from {0} of page '{1}' has been scheduled for publishing."
                     ).format(
-                        previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                        self.previous_revision.created_at.strftime("%d %b %Y %H:%M"),
                         self.page.get_admin_display_title()
                     )
                 else:
@@ -299,11 +299,11 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
             else:
                 # Page is being published now
 
-                if is_reverting:
+                if self.is_reverting:
                     message = _(
                         "Version from {0} of page '{1}' has been published."
                     ).format(
-                        previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                        self.previous_revision.created_at.strftime("%d %b %Y %H:%M"),
                         self.page.get_admin_display_title()
                     )
                 else:
@@ -362,12 +362,12 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
                 )
             ])
 
-        elif is_reverting:
+        elif self.is_reverting:
             message = _(
                 "Page '{0}' has been replaced with version from {1}."
             ).format(
                 self.page.get_admin_display_title(),
-                previous_revision.created_at.strftime("%d %b %Y %H:%M")
+                self.previous_revision.created_at.strftime("%d %b %Y %H:%M")
             )
 
             messages.success(self.request, message)
