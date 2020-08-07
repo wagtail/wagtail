@@ -192,8 +192,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return self.publish_action()
         elif self.request.POST.get('action-submit') and self.page_perms.can_submit_for_moderation():
             return self.submit_action()
+        elif self.request.POST.get('action-restart-workflow') and self.page_perms.can_submit_for_moderation() and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user):
+            return self.restart_workflow_action()
 
-        is_restarting_workflow = bool(self.request.POST.get('action-restart-workflow')) and self.page_perms.can_submit_for_moderation() and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
         is_performing_workflow_action = bool(self.request.POST.get('action-workflow-action'))
 
         if self.is_cancelling_workflow:
@@ -209,9 +210,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 # prevent this action
                 is_performing_workflow_action = False
 
-        if is_restarting_workflow:
-            self.workflow_state.cancel(user=self.request.user)
-
         if is_performing_workflow_action and not self.has_content_changes:
             # don't save a new revision, as we're just going to update the page's
             # workflow state with no content changes
@@ -224,16 +222,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 previous_revision=(self.previous_revision if self.is_reverting else None)
             )
 
-        # Submit
-        if is_restarting_workflow:
-            if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
-                # If the workflow was in the needs changes state, resume the existing workflow on submission
-                self.workflow_state.resume(self.request.user)
-            else:
-                # Otherwise start a new workflow
-                workflow = self.page.get_workflow()
-                workflow.start(self.page, self.request.user)
-
         if is_performing_workflow_action:
             extra_workflow_data_json = self.request.POST.get('workflow-action-extra-data', '{}')
             extra_workflow_data = json.loads(extra_workflow_data_json)
@@ -242,26 +230,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         # Notifications
         if self.is_cancelling_workflow:
             self.add_cancel_workflow_confirmation_message()
-
-        elif is_restarting_workflow:
-
-            message = _(
-                "Workflow on page '{0}' has been restarted."
-            ).format(
-                self.page.get_admin_display_title()
-            )
-
-            messages.success(self.request, message, buttons=[
-                messages.button(
-                    reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
-                    _('View draft'),
-                    new_window=True
-                ),
-                messages.button(
-                    reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                    _('Edit')
-                )
-            ])
 
         elif self.is_reverting:
             message = _(
@@ -285,7 +253,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if response:
             return response
 
-        if is_restarting_workflow or is_performing_workflow_action:
+        if is_performing_workflow_action:
             # we're done here - redirect back to the explorer
             return self.redirect_away()
         else:
@@ -407,6 +375,44 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         message = _(
             "Page '{0}' has been submitted for moderation."
+        ).format(
+            self.page.get_admin_display_title()
+        )
+
+        messages.success(self.request, message, buttons=[
+            messages.button(
+                reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
+                _('View draft'),
+                new_window=True
+            ),
+            messages.button(
+                reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
+                _('Edit')
+            )
+        ])
+
+        response = self.run_hook('after_edit_page', self.request, self.page)
+        if response:
+            return response
+
+        # we're done here - redirect back to the explorer
+        return self.redirect_away()
+
+    def restart_workflow_action(self):
+        self.page = self.form.save(commit=False)
+
+        self.workflow_state.cancel(user=self.request.user)
+
+        if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
+            # If the workflow was in the needs changes state, resume the existing workflow on submission
+            self.workflow_state.resume(self.request.user)
+        else:
+            # Otherwise start a new workflow
+            workflow = self.page.get_workflow()
+            workflow.start(self.page, self.request.user)
+
+        message = _(
+            "Workflow on page '{0}' has been restarted."
         ).format(
             self.page.get_admin_display_title()
         )
