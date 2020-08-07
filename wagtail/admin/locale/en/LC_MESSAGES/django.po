@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"POT-Creation-Date: 2020-08-07 16:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1698,7 +1698,7 @@ msgstr ""
 #: templates/wagtailadmin/pages/listing/_list.html:68
 #: templates/wagtailadmin/pages/workflow_history/list.html:48
 #: templates/wagtailadmin/reports/site_history.html:45
-#: templatetags/wagtailadmin_tags.py:568 templatetags/wagtailadmin_tags.py:587
+#: templatetags/wagtailadmin_tags.py:575 templatetags/wagtailadmin_tags.py:594
 #, python-format
 msgid "%(time_period)s ago"
 msgstr ""
@@ -2240,6 +2240,10 @@ msgstr ""
 msgid "No pages have been submitted for moderation yet"
 msgstr ""
 
+#: templates/wagtailadmin/reports/workflow_tasks.html:6
+msgid "By Workflow"
+msgstr ""
+
 #: templates/wagtailadmin/shared/ajax_pagination_nav.html:5
 #: templates/wagtailadmin/shared/pagination_nav.html:17
 #, python-format
@@ -2588,11 +2592,11 @@ msgid ""
 "descending order."
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:566
+#: templatetags/wagtailadmin_tags.py:573
 msgid "0 minutes"
 msgstr ""
 
-#: templatetags/wagtailadmin_tags.py:567
+#: templatetags/wagtailadmin_tags.py:574
 msgid "Just now"
 msgstr ""
 
@@ -2609,7 +2613,7 @@ msgstr ""
 msgid "draft"
 msgstr ""
 
-#: tests/tests.py:251
+#: tests/tests.py:261
 msgid "Test"
 msgstr ""
 
