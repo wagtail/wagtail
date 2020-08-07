@@ -1055,7 +1055,7 @@ Hooks for working with registered Snippets.
 .. _before_edit_snippet:
 
 ``before_edit_snippet``
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
   Called at the beginning of the edit snippet view. The callable passed into the hook will receive the model instance, the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``redirect()`` to the listing view.
 
@@ -1082,7 +1082,7 @@ Hooks for working with registered Snippets.
 .. _before_create_snippet:
 
 ``before_create_snippet``
-~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Called at the beginning of the create snippet view. Works in a similar way to `before_edit_snippet` except the model is passed as an argument instead of an instance.
 
@@ -1108,7 +1108,7 @@ Hooks for working with registered Snippets.
 .. _before_delete_snippet:
 
 ``before_delete_snippet``
-~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Called at the beginning of the delete snippet view. The callable passed into the hook will receive the model instance(s) as a queryset along with the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``redirect()`` to the listing view.
 
@@ -1132,7 +1132,7 @@ Hooks for working with registered Snippets.
 .. _register_snippet_listing_buttons:
 
 ``register_snippet_listing_buttons``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Add buttons to the actions list for a snippet in the snippets listing. This is useful when adding custom actions to the listing, such as translations or a complex workflow.
 
@@ -1161,7 +1161,7 @@ Hooks for working with registered Snippets.
 .. construct_snippet_listing_buttons:
 
 ``construct_snippet_listing_buttons``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Modify the final list of snippet listing buttons. The
   callable passed to this hook receives a list of ``SnippetListingButton`` objects, a user,
