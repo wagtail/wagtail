@@ -179,6 +179,12 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         else:
             return self.form_invalid(self.form)
 
+    def workflow_action_is_valid(self):
+        self.workflow_action = self.request.POST['workflow-action-name']
+        available_actions = self.page.current_workflow_task.get_actions(self.page, self.request.user)
+        available_action_names = [name for name, verbose_name, modal in available_actions]
+        return (self.workflow_action in available_action_names)
+
     def form_valid(self, form):
         self.is_reverting = bool(self.request.POST.get('revision'))
         # If a revision ID was passed in the form, get that revision so its
@@ -194,38 +200,20 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return self.submit_action()
         elif self.request.POST.get('action-restart-workflow') and self.page_perms.can_submit_for_moderation() and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user):
             return self.restart_workflow_action()
-
-        is_performing_workflow_action = bool(self.request.POST.get('action-workflow-action'))
+        elif self.request.POST.get('action-workflow-action') and self.workflow_action_is_valid():
+            return self.perform_workflow_action()
 
         if self.is_cancelling_workflow:
             self.workflow_state.cancel(user=self.request.user)
 
         self.page = self.form.save(commit=False)
 
-        if is_performing_workflow_action:
-            workflow_action = self.request.POST['workflow-action-name']
-            available_actions = self.page.current_workflow_task.get_actions(self.page, self.request.user)
-            available_action_names = [name for name, verbose_name, modal in available_actions]
-            if workflow_action not in available_action_names:
-                # prevent this action
-                is_performing_workflow_action = False
-
-        if is_performing_workflow_action and not self.has_content_changes:
-            # don't save a new revision, as we're just going to update the page's
-            # workflow state with no content changes
-            pass
-        else:
-            # Save revision
-            self.page.save_revision(
-                user=self.request.user,
-                log_action=True,  # Always log the new revision on edit
-                previous_revision=(self.previous_revision if self.is_reverting else None)
-            )
-
-        if is_performing_workflow_action:
-            extra_workflow_data_json = self.request.POST.get('workflow-action-extra-data', '{}')
-            extra_workflow_data = json.loads(extra_workflow_data_json)
-            self.page.current_workflow_task.on_action(self.page.current_workflow_task_state, self.request.user, workflow_action, **extra_workflow_data)
+        # Save revision
+        self.page.save_revision(
+            user=self.request.user,
+            log_action=True,  # Always log the new revision on edit
+            previous_revision=(self.previous_revision if self.is_reverting else None)
+        )
 
         # Notifications
         if self.is_cancelling_workflow:
@@ -253,12 +241,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if response:
             return response
 
-        if is_performing_workflow_action:
-            # we're done here - redirect back to the explorer
-            return self.redirect_away()
-        else:
-            # Just saving - remain on edit page for further edits
-            return self.redirect_and_remain()
+        # Just saving - remain on edit page for further edits
+        return self.redirect_and_remain()
 
     def publish_action(self):
         self.page = self.form.save(commit=False)
@@ -428,6 +412,46 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 _('Edit')
             )
         ])
+
+        response = self.run_hook('after_edit_page', self.request, self.page)
+        if response:
+            return response
+
+        # we're done here - redirect back to the explorer
+        return self.redirect_away()
+
+    def perform_workflow_action(self):
+        self.page = self.form.save(commit=False)
+
+        if self.has_content_changes:
+            # Save revision
+            self.page.save_revision(
+                user=self.request.user,
+                log_action=True,  # Always log the new revision on edit
+                previous_revision=(self.previous_revision if self.is_reverting else None)
+            )
+
+        extra_workflow_data_json = self.request.POST.get('workflow-action-extra-data', '{}')
+        extra_workflow_data = json.loads(extra_workflow_data_json)
+        self.page.current_workflow_task.on_action(self.page.current_workflow_task_state, self.request.user, self.workflow_action, **extra_workflow_data)
+
+        if self.is_reverting:
+            message = _(
+                "Page '{0}' has been replaced with version from {1}."
+            ).format(
+                self.page.get_admin_display_title(),
+                self.previous_revision.created_at.strftime("%d %b %Y %H:%M")
+            )
+
+            messages.success(self.request, message)
+        else:
+            message = _(
+                "Page '{0}' has been updated."
+            ).format(
+                self.page.get_admin_display_title()
+            )
+
+            messages.success(self.request, message)
 
         response = self.run_hook('after_edit_page', self.request, self.page)
         if response:
