@@ -173,250 +173,254 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
             self.request.POST, self.request.FILES, instance=self.page, parent_page=self.parent
         )
 
-        is_valid = self.form.is_valid() and not self.page_perms.page_locked()
+        self.is_cancelling_workflow = bool(self.request.POST.get('action-cancel-workflow')) and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
 
-        is_cancelling_workflow = bool(self.request.POST.get('action-cancel-workflow')) and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
+        if self.form.is_valid() and not self.page_perms.page_locked():
+            return self.form_valid(self.form)
+        else:
+            return self.form_invalid(self.form)
 
-        if is_valid:
-            if is_cancelling_workflow:
-                self.workflow_state.cancel(user=self.request.user)
+    def form_valid(self, form):
+        if self.is_cancelling_workflow:
+            self.workflow_state.cancel(user=self.request.user)
 
-            self.page = self.form.save(commit=False)
+        self.page = self.form.save(commit=False)
 
-            is_publishing = bool(self.request.POST.get('action-publish')) and self.page_perms.can_publish()
-            is_submitting = bool(self.request.POST.get('action-submit')) and self.page_perms.can_submit_for_moderation()
-            is_restarting_workflow = bool(self.request.POST.get('action-restart-workflow')) and self.page_perms.can_submit_for_moderation() and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
-            is_reverting = bool(self.request.POST.get('revision'))
+        is_publishing = bool(self.request.POST.get('action-publish')) and self.page_perms.can_publish()
+        is_submitting = bool(self.request.POST.get('action-submit')) and self.page_perms.can_submit_for_moderation()
+        is_restarting_workflow = bool(self.request.POST.get('action-restart-workflow')) and self.page_perms.can_submit_for_moderation() and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
+        is_reverting = bool(self.request.POST.get('revision'))
 
-            is_performing_workflow_action = bool(self.request.POST.get('action-workflow-action'))
-            if is_performing_workflow_action:
-                workflow_action = self.request.POST['workflow-action-name']
-                available_actions = self.page.current_workflow_task.get_actions(self.page, self.request.user)
-                available_action_names = [name for name, verbose_name, modal in available_actions]
-                if workflow_action not in available_action_names:
-                    # prevent this action
-                    is_performing_workflow_action = False
+        is_performing_workflow_action = bool(self.request.POST.get('action-workflow-action'))
+        if is_performing_workflow_action:
+            workflow_action = self.request.POST['workflow-action-name']
+            available_actions = self.page.current_workflow_task.get_actions(self.page, self.request.user)
+            available_action_names = [name for name, verbose_name, modal in available_actions]
+            if workflow_action not in available_action_names:
+                # prevent this action
+                is_performing_workflow_action = False
 
-            has_content_changes = self.form.has_changed()
+        has_content_changes = self.form.has_changed()
 
-            if is_restarting_workflow:
-                self.workflow_state.cancel(user=self.request.user)
+        if is_restarting_workflow:
+            self.workflow_state.cancel(user=self.request.user)
 
-            # If a revision ID was passed in the form, get that revision so its
-            # date can be referenced in notification messages
-            if is_reverting:
-                previous_revision = get_object_or_404(self.page.revisions, id=self.request.POST.get('revision'))
+        # If a revision ID was passed in the form, get that revision so its
+        # date can be referenced in notification messages
+        if is_reverting:
+            previous_revision = get_object_or_404(self.page.revisions, id=self.request.POST.get('revision'))
 
-            if is_performing_workflow_action and not has_content_changes:
-                # don't save a new revision, as we're just going to update the page's
-                # workflow state with no content changes
-                revision = self.latest_revision
-            else:
-                # Save revision
-                revision = self.page.save_revision(
-                    user=self.request.user,
-                    log_action=True,  # Always log the new revision on edit
-                    previous_revision=(previous_revision if is_reverting else None)
-                )
+        if is_performing_workflow_action and not has_content_changes:
+            # don't save a new revision, as we're just going to update the page's
+            # workflow state with no content changes
+            revision = self.latest_revision
+        else:
+            # Save revision
+            revision = self.page.save_revision(
+                user=self.request.user,
+                log_action=True,  # Always log the new revision on edit
+                previous_revision=(previous_revision if is_reverting else None)
+            )
 
-            # store submitted go_live_at for messaging below
-            go_live_at = self.page.go_live_at
+        # store submitted go_live_at for messaging below
+        go_live_at = self.page.go_live_at
 
-            # Publish
-            if is_publishing:
-                for fn in hooks.get_hooks('before_publish_page'):
-                    result = fn(self.request, self.page)
-                    if hasattr(result, 'status_code'):
-                        return result
-
-                revision.publish(
-                    user=self.request.user,
-                    changed=has_content_changes,
-                    previous_revision=(previous_revision if is_reverting else None)
-                )
-
-                # Need to reload the page because the URL may have changed, and we
-                # need the up-to-date URL for the "View Live" button.
-                self.page = self.page.specific_class.objects.get(pk=self.page.pk)
-
-                for fn in hooks.get_hooks('after_publish_page'):
-                    result = fn(self.request, self.page)
-                    if hasattr(result, 'status_code'):
-                        return result
-
-            # Submit
-            if is_submitting or is_restarting_workflow:
-                if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
-                    # If the workflow was in the needs changes state, resume the existing workflow on submission
-                    self.workflow_state.resume(self.request.user)
-                else:
-                    # Otherwise start a new workflow
-                    workflow = self.page.get_workflow()
-                    workflow.start(self.page, self.request.user)
-
-            if is_performing_workflow_action:
-                extra_workflow_data_json = self.request.POST.get('workflow-action-extra-data', '{}')
-                extra_workflow_data = json.loads(extra_workflow_data_json)
-                self.page.current_workflow_task.on_action(self.page.current_workflow_task_state, self.request.user, workflow_action, **extra_workflow_data)
-
-            # Notifications
-            if is_publishing:
-                if go_live_at and go_live_at > timezone.now():
-                    # Page has been scheduled for publishing in the future
-
-                    if is_reverting:
-                        message = _(
-                            "Version from {0} of page '{1}' has been scheduled for publishing."
-                        ).format(
-                            previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-                            self.page.get_admin_display_title()
-                        )
-                    else:
-                        if self.page.live:
-                            message = _(
-                                "Page '{0}' is live and this version has been scheduled for publishing."
-                            ).format(
-                                self.page.get_admin_display_title()
-                            )
-
-                        else:
-                            message = _(
-                                "Page '{0}' has been scheduled for publishing."
-                            ).format(
-                                self.page.get_admin_display_title()
-                            )
-
-                    messages.success(self.request, message, buttons=[
-                        messages.button(
-                            reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                            _('Edit')
-                        )
-                    ])
-
-                else:
-                    # Page is being published now
-
-                    if is_reverting:
-                        message = _(
-                            "Version from {0} of page '{1}' has been published."
-                        ).format(
-                            previous_revision.created_at.strftime("%d %b %Y %H:%M"),
-                            self.page.get_admin_display_title()
-                        )
-                    else:
-                        message = _(
-                            "Page '{0}' has been published."
-                        ).format(
-                            self.page.get_admin_display_title()
-                        )
-
-                    buttons = []
-                    if self.page.url is not None:
-                        buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
-                    buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit')))
-                    messages.success(self.request, message, buttons=buttons)
-
-            elif is_submitting:
-
-                message = _(
-                    "Page '{0}' has been submitted for moderation."
-                ).format(
-                    self.page.get_admin_display_title()
-                )
-
-                messages.success(self.request, message, buttons=[
-                    messages.button(
-                        reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
-                        _('View draft'),
-                        new_window=True
-                    ),
-                    messages.button(
-                        reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                        _('Edit')
-                    )
-                ])
-
-            elif is_cancelling_workflow:
-                self.add_cancel_workflow_confirmation_message()
-
-            elif is_restarting_workflow:
-
-                message = _(
-                    "Workflow on page '{0}' has been restarted."
-                ).format(
-                    self.page.get_admin_display_title()
-                )
-
-                messages.success(self.request, message, buttons=[
-                    messages.button(
-                        reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
-                        _('View draft'),
-                        new_window=True
-                    ),
-                    messages.button(
-                        reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                        _('Edit')
-                    )
-                ])
-
-            elif is_reverting:
-                message = _(
-                    "Page '{0}' has been replaced with version from {1}."
-                ).format(
-                    self.page.get_admin_display_title(),
-                    previous_revision.created_at.strftime("%d %b %Y %H:%M")
-                )
-
-                messages.success(self.request, message)
-            else:
-                message = _(
-                    "Page '{0}' has been updated."
-                ).format(
-                    self.page.get_admin_display_title()
-                )
-
-                messages.success(self.request, message)
-
-            for fn in hooks.get_hooks('after_edit_page'):
+        # Publish
+        if is_publishing:
+            for fn in hooks.get_hooks('before_publish_page'):
                 result = fn(self.request, self.page)
                 if hasattr(result, 'status_code'):
                     return result
 
-            if is_publishing or is_submitting or is_restarting_workflow or is_performing_workflow_action:
-                # we're done here - redirect back to the explorer
-                if self.next_url:
-                    # redirect back to 'next' url if present
-                    return redirect(self.next_url)
-                # redirect back to the explorer
-                return redirect('wagtailadmin_explore', self.page.get_parent().id)
-            else:
-                # Just saving - remain on edit page for further edits
-                target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
-                if self.next_url:
-                    # Ensure the 'next' url is passed through again if present
-                    target_url += '?next=%s' % urlquote(self.next_url)
-                return redirect(target_url)
-        else:
-            # even if the page is locked due to not having permissions, the original submitter can still cancel the workflow
-            if is_cancelling_workflow:
-                self.workflow_state.cancel(user=self.request.user)
-                self.add_cancel_workflow_confirmation_message()
-
-            if self.page_perms.page_locked():
-                messages.error(self.request, _("The page could not be saved as it is locked"))
-            else:
-                messages.validation_error(
-                    self.request, _("The page could not be saved due to validation errors"), self.form
-                )
-            self.errors_debug = (
-                repr(self.form.errors)
-                + repr([
-                    (name, formset.errors)
-                    for (name, formset) in self.form.formsets.items()
-                    if formset.errors
-                ])
+            revision.publish(
+                user=self.request.user,
+                changed=has_content_changes,
+                previous_revision=(previous_revision if is_reverting else None)
             )
-            self.has_unsaved_changes = True
+
+            # Need to reload the page because the URL may have changed, and we
+            # need the up-to-date URL for the "View Live" button.
+            self.page = self.page.specific_class.objects.get(pk=self.page.pk)
+
+            for fn in hooks.get_hooks('after_publish_page'):
+                result = fn(self.request, self.page)
+                if hasattr(result, 'status_code'):
+                    return result
+
+        # Submit
+        if is_submitting or is_restarting_workflow:
+            if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
+                # If the workflow was in the needs changes state, resume the existing workflow on submission
+                self.workflow_state.resume(self.request.user)
+            else:
+                # Otherwise start a new workflow
+                workflow = self.page.get_workflow()
+                workflow.start(self.page, self.request.user)
+
+        if is_performing_workflow_action:
+            extra_workflow_data_json = self.request.POST.get('workflow-action-extra-data', '{}')
+            extra_workflow_data = json.loads(extra_workflow_data_json)
+            self.page.current_workflow_task.on_action(self.page.current_workflow_task_state, self.request.user, workflow_action, **extra_workflow_data)
+
+        # Notifications
+        if is_publishing:
+            if go_live_at and go_live_at > timezone.now():
+                # Page has been scheduled for publishing in the future
+
+                if is_reverting:
+                    message = _(
+                        "Version from {0} of page '{1}' has been scheduled for publishing."
+                    ).format(
+                        previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                        self.page.get_admin_display_title()
+                    )
+                else:
+                    if self.page.live:
+                        message = _(
+                            "Page '{0}' is live and this version has been scheduled for publishing."
+                        ).format(
+                            self.page.get_admin_display_title()
+                        )
+
+                    else:
+                        message = _(
+                            "Page '{0}' has been scheduled for publishing."
+                        ).format(
+                            self.page.get_admin_display_title()
+                        )
+
+                messages.success(self.request, message, buttons=[
+                    messages.button(
+                        reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
+                        _('Edit')
+                    )
+                ])
+
+            else:
+                # Page is being published now
+
+                if is_reverting:
+                    message = _(
+                        "Version from {0} of page '{1}' has been published."
+                    ).format(
+                        previous_revision.created_at.strftime("%d %b %Y %H:%M"),
+                        self.page.get_admin_display_title()
+                    )
+                else:
+                    message = _(
+                        "Page '{0}' has been published."
+                    ).format(
+                        self.page.get_admin_display_title()
+                    )
+
+                buttons = []
+                if self.page.url is not None:
+                    buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
+                buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit')))
+                messages.success(self.request, message, buttons=buttons)
+
+        elif is_submitting:
+
+            message = _(
+                "Page '{0}' has been submitted for moderation."
+            ).format(
+                self.page.get_admin_display_title()
+            )
+
+            messages.success(self.request, message, buttons=[
+                messages.button(
+                    reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
+                    _('View draft'),
+                    new_window=True
+                ),
+                messages.button(
+                    reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
+                    _('Edit')
+                )
+            ])
+
+        elif self.is_cancelling_workflow:
+            self.add_cancel_workflow_confirmation_message()
+
+        elif is_restarting_workflow:
+
+            message = _(
+                "Workflow on page '{0}' has been restarted."
+            ).format(
+                self.page.get_admin_display_title()
+            )
+
+            messages.success(self.request, message, buttons=[
+                messages.button(
+                    reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
+                    _('View draft'),
+                    new_window=True
+                ),
+                messages.button(
+                    reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
+                    _('Edit')
+                )
+            ])
+
+        elif is_reverting:
+            message = _(
+                "Page '{0}' has been replaced with version from {1}."
+            ).format(
+                self.page.get_admin_display_title(),
+                previous_revision.created_at.strftime("%d %b %Y %H:%M")
+            )
+
+            messages.success(self.request, message)
+        else:
+            message = _(
+                "Page '{0}' has been updated."
+            ).format(
+                self.page.get_admin_display_title()
+            )
+
+            messages.success(self.request, message)
+
+        for fn in hooks.get_hooks('after_edit_page'):
+            result = fn(self.request, self.page)
+            if hasattr(result, 'status_code'):
+                return result
+
+        if is_publishing or is_submitting or is_restarting_workflow or is_performing_workflow_action:
+            # we're done here - redirect back to the explorer
+            if self.next_url:
+                # redirect back to 'next' url if present
+                return redirect(self.next_url)
+            # redirect back to the explorer
+            return redirect('wagtailadmin_explore', self.page.get_parent().id)
+        else:
+            # Just saving - remain on edit page for further edits
+            target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
+            if self.next_url:
+                # Ensure the 'next' url is passed through again if present
+                target_url += '?next=%s' % urlquote(self.next_url)
+            return redirect(target_url)
+
+    def form_invalid(self, form):
+        # even if the page is locked due to not having permissions, the original submitter can still cancel the workflow
+        if self.is_cancelling_workflow:
+            self.workflow_state.cancel(user=self.request.user)
+            self.add_cancel_workflow_confirmation_message()
+
+        if self.page_perms.page_locked():
+            messages.error(self.request, _("The page could not be saved as it is locked"))
+        else:
+            messages.validation_error(
+                self.request, _("The page could not be saved due to validation errors"), self.form
+            )
+        self.errors_debug = (
+            repr(self.form.errors)
+            + repr([
+                (name, formset.errors)
+                for (name, formset) in self.form.formsets.items()
+                if formset.errors
+            ])
+        )
+        self.has_unsaved_changes = True
 
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
         self.add_legacy_moderation_warning()
