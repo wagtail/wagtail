@@ -111,6 +111,17 @@ class CreateView(TemplateResponseMixin, ContextMixin, View):
         else:
             return self.save_action()
 
+    def get_edit_message_button(self):
+        return messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit'))
+
+    def get_view_draft_message_button(self):
+        return messages.button(
+            reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)), _('View draft'), new_window=True
+        )
+
+    def get_view_live_message_button(self):
+        return messages.button(self.page.url, _('View live'), new_window=True)
+
     def save_action(self):
         self.page = self.form.save(commit=False)
         self.page.live = False
@@ -156,15 +167,13 @@ class CreateView(TemplateResponseMixin, ContextMixin, View):
             messages.success(
                 self.request,
                 _("Page '{0}' created and scheduled for publishing.").format(self.page.get_admin_display_title()),
-                buttons=[
-                    messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit'))
-                ]
+                buttons=[self.get_edit_message_button()]
             )
         else:
             buttons = []
             if self.page.url is not None:
-                buttons.append(messages.button(self.page.url, _('View live'), new_window=True))
-            buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit')))
+                buttons.append(self.get_view_live_message_button())
+            buttons.append(self.get_edit_message_button())
             messages.success(
                 self.request,
                 _("Page '{0}' created and published.").format(self.page.get_admin_display_title()),
@@ -194,20 +203,9 @@ class CreateView(TemplateResponseMixin, ContextMixin, View):
         # Notification
         buttons = []
         if self.page.is_previewable():
-            buttons.append(
-                messages.button(
-                    reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
-                    _('View draft'),
-                    new_window=True
-                ),
-            )
+            buttons.append(self.get_view_draft_message_button())
 
-        buttons.append(
-            messages.button(
-                reverse('wagtailadmin_pages:edit', args=(self.page.id,)),
-                _('Edit')
-            )
-        )
+        buttons.append(self.get_edit_message_button())
 
         messages.success(
             self.request,
