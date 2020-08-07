@@ -13,13 +13,13 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
+from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core import hooks
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import Page, WorkflowState
 
 
-class EditView(TemplateResponseMixin, ContextMixin, View):
+class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
     template_name = 'wagtailadmin/pages/edit.html'
 
     def add_legacy_moderation_warning(self):
@@ -69,10 +69,9 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
 
         self.next_url = get_valid_next_url_from_request(self.request)
 
-        for fn in hooks.get_hooks('before_edit_page'):
-            result = fn(self.request, self.page)
-            if hasattr(result, 'status_code'):
-                return result
+        response = self.run_hook('before_edit_page', self.request, self.page)
+        if response:
+            return response
 
         self.edit_handler = self.page_class.get_edit_handler()
         self.edit_handler = self.edit_handler.bind_to(instance=self.page, request=self.request)
@@ -227,10 +226,9 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
             # store submitted go_live_at for messaging below
             go_live_at = self.page.go_live_at
 
-            for fn in hooks.get_hooks('before_publish_page'):
-                result = fn(self.request, self.page)
-                if hasattr(result, 'status_code'):
-                    return result
+            response = self.run_hook('before_publish_page', self.request, self.page)
+            if response:
+                return response
 
             revision.publish(
                 user=self.request.user,
@@ -242,10 +240,9 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
             # need the up-to-date URL for the "View Live" button.
             self.page = self.page.specific_class.objects.get(pk=self.page.pk)
 
-            for fn in hooks.get_hooks('after_publish_page'):
-                result = fn(self.request, self.page)
-                if hasattr(result, 'status_code'):
-                    return result
+            response = self.run_hook('after_publish_page', self.request, self.page)
+            if response:
+                return response
 
         # Submit
         if is_submitting or is_restarting_workflow:
@@ -380,10 +377,9 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
 
             messages.success(self.request, message)
 
-        for fn in hooks.get_hooks('after_edit_page'):
-            result = fn(self.request, self.page)
-            if hasattr(result, 'status_code'):
-                return result
+        response = self.run_hook('after_edit_page', self.request, self.page)
+        if response:
+            return response
 
         if is_publishing or is_submitting or is_restarting_workflow or is_performing_workflow_action:
             # we're done here - redirect back to the explorer

@@ -11,8 +11,8 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
+from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core import hooks
 from wagtail.core.models import Page
 
 
@@ -42,18 +42,8 @@ def add_subpage(request, parent_page_id):
     })
 
 
-class CreateView(TemplateResponseMixin, ContextMixin, View):
+class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
     template_name = 'wagtailadmin/pages/create.html'
-
-    def run_hook(self, hook_name, *args, **kwargs):
-        """
-        Run the named hook, passing args and kwargs to each function registered under that hook name.
-        If any return an HttpResponse, stop processing and return that response
-        """
-        for fn in hooks.get_hooks(hook_name):
-            result = fn(*args, **kwargs)
-            if hasattr(result, 'status_code'):
-                return result
 
     def dispatch(self, request, content_type_app_name, content_type_model_name, parent_page_id):
         self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
