@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin_tags wagtailsnippets_admin_tags %}
 <table class="listing">
     {% if can_delete_snippets %}<col width="5%" />{% endif %}
     <col />
@@ -7,11 +7,11 @@
     <thead>
         <tr class="table-headers">
             {% if can_delete_snippets %}
-            <th>
-                <input type="checkbox" class="toggle-select-all" id="toggle-select-all-snippets" />
-                <label for="toggle-select-all-snippets" class="visuallyhidden">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural %}Select all {{ snippet_type_name_plural }}{% endblocktrans %}</label>
-            </th>
-        {% endif %}
+                <th>
+                    <input type="checkbox" class="toggle-select-all" id="toggle-select-all-snippets" />
+                    <label for="toggle-select-all-snippets" class="visuallyhidden">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural %}Select all {{ snippet_type_name_plural }}{% endblocktrans %}</label>
+                </th>
+            {% endif %}
             <th>{% trans "Title" %}</th>
         </tr>
     </thead>
@@ -30,14 +30,7 @@
                     {% else %}
                         <div class="title-wrapper"><a href="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}">{{ snippet }}</a></div>
                          <ul class="actions">
-                            <li>
-                                <a href="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}" class="button button-secondary button-small">{% trans "Edit" %}</a>
-                            </li>
-                            {% if can_delete_snippets %}
-                                <li>
-                                    <a href="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}" class="button button-secondary button-small">{% trans "Delete" %}</a>
-                                </li>
-                            {% endif %}
+                            {% snippet_listing_buttons snippet %}
                         </ul>
                     {% endif %}
                 </td>

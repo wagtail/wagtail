@@ -15,11 +15,13 @@ from taggit.models import Tag
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.core import hooks
 from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
+from wagtail.snippets.widgets import SnippetListingButton
 from wagtail.tests.snippets.forms import FancySnippetForm
 from wagtail.tests.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
@@ -49,6 +51,8 @@ class TestSnippetIndexView(TestCase, WagtailTestUtils):
 class TestSnippetListView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
+        user_model = get_user_model()
+        self.user = user_model.objects.get()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets:list',
@@ -83,6 +87,40 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
 
     def test_not_searchable(self):
         self.assertFalse(self.get().context['is_searchable'])
+
+    def test_register_snippet_listing_buttons_hook(self):
+        advert = Advert.objects.create(text="My Lovely advert")
+
+        def page_listing_buttons(snippet, user, next_url=None):
+            self.assertEqual(snippet, advert)
+            self.assertEqual(user, self.user)
+            self.assertEqual(next_url, reverse('wagtailsnippets:list', args=('tests', 'advert')))
+
+            yield SnippetListingButton(
+                'Another useless snippet listing button',
+                '/custom-url',
+                priority=10
+            )
+
+        with hooks.register_temporarily('register_snippet_listing_buttons', page_listing_buttons):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/listing_buttons.html')
+
+        self.assertContains(response, 'Another useless snippet listing button')
+
+    def test_construct_snippet_listing_buttons_hook(self):
+        Advert.objects.create(text="My Lovely advert")
+
+        # testapp implements a construct_snippetlisting_buttons hook
+        # that add's an dummy button with the label 'Dummy Button' which points
+        # to '/dummy-button'
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/listing_buttons.html')
+        self.assertContains(response, 'Dummy Button')
+        self.assertContains(response, '/dummy-button')
 
 
 class TestModelOrdering(TestCase, WagtailTestUtils):
