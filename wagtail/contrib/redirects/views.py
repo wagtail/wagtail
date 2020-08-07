@@ -14,8 +14,10 @@ from django.views.decorators.vary import vary_on_headers
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker, permission_denied
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.views.reports import ReportView
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.base_formats import DEFAULT_FORMATS
+from wagtail.contrib.redirects.filters import RedirectsReportFilterSet
 from wagtail.contrib.redirects.forms import ConfirmImportForm, ImportForm, RedirectForm
 from wagtail.contrib.redirects.permissions import permission_policy
 from wagtail.contrib.redirects.utils import (
@@ -346,3 +348,27 @@ def to_readable_errors(error):
     errors = [x.lstrip('* ') for x in errors]
     errors = ", ".join(errors)
     return errors
+
+
+class RedirectsReportView(ReportView):
+    header_icon = "redirect"
+    title = _("Export Redirects")
+    template_name = "wagtailredirects/reports/redirects_report.html"
+    filterset_class = RedirectsReportFilterSet
+
+    list_export = [
+        "old_path",
+        "site",
+        "link",
+        "get_is_permanent_display",
+    ]
+
+    export_headings = {
+        "old_path": _("From"),
+        "site": _("Site"),
+        "link": _("To"),
+        "get_is_permanent_display": _("Type"),
+    }
+
+    def get_queryset(self):
+        return models.Redirect.objects.all().order_by("old_path")

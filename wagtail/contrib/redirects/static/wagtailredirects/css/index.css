@@ -15,3 +15,7 @@ header .has-multiple-actions {
 header .has-multiple-actions .actionbutton {
     margin-left: 10px;
 }
+
+header .has-multiple-actions .dropdown {
+    margin-left: 10px;
+}

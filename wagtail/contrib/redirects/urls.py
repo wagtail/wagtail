@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:redirect_id>/delete/', views.delete, name='delete'),
     path('import/', views.start_import, name="start_import"),
     path('import/process/', views.process_import, name="process_import"),
+    path('report', views.RedirectsReportView.as_view(), name="report"),
 ]
