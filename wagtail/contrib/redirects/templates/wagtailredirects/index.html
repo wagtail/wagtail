@@ -23,7 +23,9 @@
         {% url "wagtailredirects:add" as add_link %}
         {% trans "Add redirect" as add_str %}
         {% url "wagtailredirects:start_import" as import_link %}
+        {% url "wagtailredirects:report" as report_link %}
         {% trans "Import redirects" as import_str %}
+        {% trans "Export redirects" as export_str %}
 
         <header class="hasform">
             {% block breadcrumb %}{% endblock %}
@@ -45,8 +47,13 @@
                     <div class="actionbutton">
                         <a href="{{ add_link }}" class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{{ add_str }}</a>
                     </div>
-                    <div class="actionbutton">
+
+                    <div class="dropdown dropdown-button match-width">
                         <a href="{{ import_link }}" class="button bicolor button--icon">{% icon name="doc-full-inverse" wrapped=1 %}{{ import_str }}</a>
+                        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+                        <ul>
+                            <li><a class="button bicolor button--icon" href="{{ report_link }}">{% icon name="download" wrapped=1 %}{{ export_str }}</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
