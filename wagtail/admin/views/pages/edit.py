@@ -58,6 +58,15 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
         self.edit_handler = self.edit_handler.bind_to(instance=self.page, request=self.request)
         self.form_class = self.edit_handler.get_form_class()
 
+        # Retrieve current workflow state if set, default to last workflow state
+        self.workflow_state = self.page.current_workflow_state or self.page.workflow_states.order_by('created_at').last()
+        if self.workflow_state:
+            self.workflow_tasks = self.workflow_state.all_tasks_with_status()
+        else:
+            self.workflow_tasks = []
+
+        self.errors_debug = None
+
         if self.request.method == 'GET':
             if self.page_perms.user_has_lock():
                 if self.page.locked_at:
@@ -90,9 +99,7 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
                 messages.error(self.request, lock_message, extra_tags='lock')
 
             if self.page.current_workflow_state:
-                self.workflow_state = self.page.current_workflow_state
                 workflow = self.workflow_state.workflow
-                self.workflow_tasks = self.workflow_state.all_tasks_with_status()
                 task = self.workflow_state.current_task_state.task
                 if (
                     self.workflow_state.status != WorkflowState.STATUS_NEEDS_CHANGES
@@ -109,26 +116,6 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
                         )
                     messages.error(self.request, mark_safe(workflow_info + " " + _("Only reviewers for this task can edit the page.")),
                                    extra_tags="lock")
-        # Check for revisions still undergoing moderation and warn - this is for the old moderation system
-        if self.latest_revision and self.latest_revision.submitted_for_moderation:
-            buttons = []
-
-            if self.page.live:
-                buttons.append(messages.button(
-                    reverse('wagtailadmin_pages:revisions_compare', args=(self.page.id, 'live', self.latest_revision.id)),
-                    _('Compare with live version')
-                ))
-
-            messages.warning(self.request, _("This page is currently awaiting moderation"), buttons=buttons)
-
-        # Show current workflow state if set, default to last workflow state
-        self.workflow_state = self.page.current_workflow_state or self.page.workflow_states.order_by('created_at').last()
-        if self.workflow_state:
-            self.workflow_tasks = self.workflow_state.all_tasks_with_status()
-        else:
-            self.workflow_tasks = []
-
-        self.errors_debug = None
 
         if self.request.method == 'POST':
             self.form = self.form_class(
@@ -401,7 +388,7 @@ class EditView(TemplateResponseMixin, ContextMixin, View):
 
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
-        # Check for revisions still undergoing moderation and warn
+        # Check for revisions still undergoing moderation and warn - this is for the old moderation system
         if self.latest_revision and self.latest_revision.submitted_for_moderation:
             buttons = []
 
