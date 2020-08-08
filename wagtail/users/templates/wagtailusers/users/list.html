@@ -4,77 +4,47 @@
         <tr>
             <th class="name">
                 {% if ordering == "name" %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-name" class="icon icon-arrow-up-after teal">
-                        {% trans "Name" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-name" class="icon icon-arrow-up-after teal">{% trans "Name" %}</a>
                 {% elif ordering == "-name" %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=name" class="icon icon-arrow-down-after teal">
-                        {% trans "Name" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=name" class="icon icon-arrow-down-after teal">{% trans "Name" %}</a>
                 {% else %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=name" class="icon icon-arrow-down-after">
-                        {% trans "Name" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=name" class="icon icon-arrow-down-after">{% trans "Name" %}</a>
                 {% endif %}
             </th>
             <th class="username">
                 {% if ordering == "username" %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-username" class="icon icon-arrow-up-after teal">
-                        {% trans "Username" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-username" class="icon icon-arrow-up-after teal">{% trans "Username" %}</a>
                 {% elif ordering == "-username" %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=username" class="icon icon-arrow-down-after teal">
-                        {% trans "Username" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=username" class="icon icon-arrow-down-after teal">{% trans "Username" %}</a>
                 {% else %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=username" class="icon icon-arrow-down-after">
-                        {% trans "Username" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=username" class="icon icon-arrow-down-after">{% trans "Username" %}</a>
                 {% endif %}
             </th>
             <th class="level">
                 {% if ordering == "level" %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-level" class="icon icon-arrow-down-after teal">
-                        {% trans "Level" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-level" class="icon icon-arrow-down-after teal">{% trans "Level" %}</a>
                 {% elif ordering == "-level" %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=level" class="icon icon-arrow-up-after teal">
-                        {% trans "Level" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=level" class="icon icon-arrow-up-after teal">{% trans "Level" %}</a>
                 {% else %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=level" class="icon icon-arrow-down-after">
-                        {% trans "Level" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=level" class="icon icon-arrow-down-after">{% trans "Level" %}</a>
                 {% endif %}
             </th>
             <th class="status">
                 {% if ordering == "status" %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-status" class="icon icon-arrow-down-after teal">
-                        {% trans "Status" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-status" class="icon icon-arrow-down-after teal">{% trans "Status" %}</a>
                 {% elif ordering == "-status" %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=status" class="icon icon-arrow-up-after teal">
-                        {% trans "Status" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=status" class="icon icon-arrow-up-after teal">{% trans "Status" %}</a>
                 {% else %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=status" class="icon icon-arrow-down-after">
-                        {% trans "Status" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=status" class="icon icon-arrow-down-after">{% trans "Status" %}</a>
                 {% endif %}
             </th>
             <th class="last-login">
                 {% if ordering == "last_login" %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-last_login" class="icon icon-arrow-up-after teal">
-                        {% trans "Last Login" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-last_login" class="icon icon-arrow-up-after teal">{% trans "Last Login" %}</a>
                 {% elif ordering == "-last_login" %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=last_login" class="icon icon-arrow-down-after teal">
-                        {% trans "Last Login" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=last_login" class="icon icon-arrow-down-after teal">{% trans "Last Login" %}</a>
                 {% else %}
-                    <a href="{% url 'wagtailusers_users:index' %}?ordering=last_login" class="icon icon-arrow-down-after">
-                        {% trans "Last Login" %}
-                    </a>
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=last_login" class="icon icon-arrow-down-after">{% trans "Last Login" %}</a>
                 {% endif %}
             </th>
         </tr>
