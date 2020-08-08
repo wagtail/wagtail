@@ -290,6 +290,45 @@ Field Customisation
 
 By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there. (See :doc:`Django model field reference <ref/models/fields>`).
 
+
+Placeholder Text
+~~~~~~~~~~~~~~~~
+
+By default, Wagtail will use the Label as the placeholder text in FieldPanels. To change it, you can give the FieldPanel a widget with a placeholder attribute set to your desired text. You can select from :doc:`Django's form widgets <django:ref/forms/widgets>`, or any of the Wagtail widgets found in wagtail.admin.widgets. 
+
+For example, to customize several placeholders on a Book model you intend site-admins to create and edit in a BookAdmin View:
+
+.. code-block:: python
+
+    # models.py
+    from django import forms            # the default Django widgets live here
+    from wagtail.admin import widgets   # to use Wagtail's special datetime widget
+
+    class Book(models.Model):
+        title = models.CharField(max_length=256)
+        release_date = models.DateField()
+        price = models.DecimalField(max_digits=5, decimal_places=2)
+
+        # you can create them separately
+        title_widget = forms.TextInput(
+            attrs = {
+                'placeholder': 'Enter Full Title'
+            }
+        )
+        # using the correct widget for your field type and desired effect
+        date_widget = widgets.AdminDateInput( 
+            attrs = {
+                'placeholder': 'dd-mm-yyyy'
+            }
+        )
+
+        panels = [
+            FieldPanel('title', widget=title_widget), # then add them as a variable
+            FieldPanel('release_date', widget=date_widget), 
+            FieldPanel('price', widget=forms.NumberInput(attrs={'placeholder': 'Retail price on release'})) # or directly inline
+        ]
+
+
 Full-Width Input
 ----------------
 
