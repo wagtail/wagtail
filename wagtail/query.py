@@ -4,6 +4,7 @@ from collections import defaultdict
 from typing import Any, Dict, Iterable, Tuple
 
 from django.apps import apps
+from django.contrib.auth.models import AnonymousUser
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import CharField, Prefetch, Q
 from django.db.models.expressions import Exists, OuterRef
@@ -13,6 +14,7 @@ from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.models.sites import Site
 from wagtail.search.queryset import SearchableQuerySetMixin
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 class TreeQuerySet(MP_NodeQuerySet):
@@ -235,25 +237,88 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.exclude(self.exact_type_q(*types))
 
-    def public_q(self):
-        from wagtail.models import PageViewRestriction
+    def not_view_restricted_q(self, cache_target=None):
+        from wagtail.core.models import PageViewRestriction
 
         q = Q()
-        for restriction in PageViewRestriction.objects.select_related("page").all():
+        for restriction in PageViewRestriction.get_all(cache_target):
             q &= ~self.descendant_of_q(restriction.page, inclusive=True)
         return q
 
-    def public(self):
+    def not_view_restricted(self, cache_target=None):
         """
-        This filters the QuerySet to only contain pages that are not in a private section
+        Filters the queryset to only include pages unaffected by page view restrictions.
+        This differs from ``public()`` in that the result will not include pages
+        affected by restrictions of type ``BaseViewRestriction.NONE``.
         """
-        return self.filter(self.public_q())
+        return self.filter(self.not_view_restricted_q(cache_target))
 
-    def not_public(self):
+    def view_restricted(self, cache_target=None):
         """
-        This filters the QuerySet to only contain pages that are in a private section
+        Filters the queryset to only include pages affected by page view restrictions.
+        This differs from ``not_public()`` in that it will exclude pages affected by
+        restrictions of type ``BaseViewRestriction.NONE``.
         """
-        return self.exclude(self.public_q())
+        return self.exclude(self.not_view_restricted_q(cache_target))
+
+    def viewable_by_user_q(self, user, request=None):
+        from wagtail.core.models import PageViewRestriction
+
+        return self.not_view_restricted_q(
+            request or user
+        ) | PageViewRestriction.get_permitted_objects_q(user, request)
+
+    def viewable_by_user(self, user, request=None):
+        """
+        Filters the queryset to only include pages that are viewable by ``user``, taking
+        into account their authentication/active status and group memberships.
+
+        ``request`` should be a ``HttpRequest`` instance. Typically, it will represent a
+        request being made by ``user``. However, in contexts where a different user is
+        making the request, or where no request is available, any mutable object capable
+        of supporting ad hoc attribute assignment can be provided to improve efficiency
+        when using the method multiple times.
+        """
+        return self.filter(self.viewable_by_user_q(user, request))
+
+    def not_viewable_by_user(self, user, request=None):
+        """
+        Filters the queryset to only include pages that are NOT viewable by ``user``,
+        taking into account their athentication/active status and group memberships.
+
+        ``request`` should be a ``HttpRequest`` instance. Typically, it will represent a
+        request being made by ``user``. However, in contexts where a different user is
+        making the request, or where no request is available, any mutable object capable
+        of supporting ad hoc attribute assignment can be provided to improve efficiency
+        when using the method multiple times.
+        """
+        return self.exclude(self.viewable_by_user_q(user, request))
+
+    def public_q(self):
+        warnings.warn(
+            "PageQuerySet.public_q() is deprecated. To identify pages unaffected by view "
+            "restrictions (regardless of type), use PageQuerySet.not_view_restricted_q() instead.",
+            category=RemovedInWagtail50Warning,
+        )
+        return self.not_view_restricted_q()
+
+    def public(self, request=None):
+        """
+        This filters the QuerySet to only contain pages that are not in a private section.
+
+        An optional ``request`` parameter can be supplied to improve the performance of
+        repeat calls to this method within the context of the same ``HttpRequest``.
+        """
+        return self.viewable_by_user(AnonymousUser(), request)
+
+    def not_public(self, request=None):
+        """
+        This filters the QuerySet to only contain pages that are in a private section.
+
+        An optional ``request`` parameter can be supplied to improve the performance of
+        repeat calls to this method within the context of the same ``HttpRequest``.
+        """
+        return self.not_viewable_by_user(AnonymousUser(), request)
 
     def first_common_ancestor(self, include_self=False, strict=False):
         """
