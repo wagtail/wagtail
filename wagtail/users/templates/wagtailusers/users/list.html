@@ -4,7 +4,11 @@
         <tr>
             <th class="name">
                 {% if ordering == "name" %}
-                    <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal">
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-name" class="icon icon-arrow-up-after teal">
+                        {% trans "Name" %}
+                    </a>
+                {% elif ordering == "-name" %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=name" class="icon icon-arrow-down-after teal">
                         {% trans "Name" %}
                     </a>
                 {% else %}
@@ -15,7 +19,11 @@
             </th>
             <th class="username">
                 {% if ordering == "username" %}
-                    <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal">
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-username" class="icon icon-arrow-up-after teal">
+                        {% trans "Username" %}
+                    </a>
+                {% elif ordering == "-username" %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=username" class="icon icon-arrow-down-after teal">
                         {% trans "Username" %}
                     </a>
                 {% else %}
@@ -24,9 +32,51 @@
                     </a>
                 {% endif %}
             </th>
-            <th class="level">{% trans "Level" %}</th>
-            <th class="status">{% trans "Status" %}</th>
-            <th class="last-login">{% trans "Last Login" %}</th>
+            <th class="level">
+                {% if ordering == "level" %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-level" class="icon icon-arrow-down-after teal">
+                        {% trans "Level" %}
+                    </a>
+                {% elif ordering == "-level" %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=level" class="icon icon-arrow-up-after teal">
+                        {% trans "Level" %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=level" class="icon icon-arrow-down-after">
+                        {% trans "Level" %}
+                    </a>
+                {% endif %}
+            </th>
+            <th class="status">
+                {% if ordering == "status" %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-status" class="icon icon-arrow-down-after teal">
+                        {% trans "Status" %}
+                    </a>
+                {% elif ordering == "-status" %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=status" class="icon icon-arrow-up-after teal">
+                        {% trans "Status" %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=status" class="icon icon-arrow-down-after">
+                        {% trans "Status" %}
+                    </a>
+                {% endif %}
+            </th>
+            <th class="last-login">
+                {% if ordering == "last_login" %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=-last_login" class="icon icon-arrow-up-after teal">
+                        {% trans "Last Login" %}
+                    </a>
+                {% elif ordering == "-last_login" %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=last_login" class="icon icon-arrow-down-after teal">
+                        {% trans "Last Login" %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'wagtailusers_users:index' %}?ordering=last_login" class="icon icon-arrow-down-after">
+                        {% trans "Last Login" %}
+                    </a>
+                {% endif %}
+            </th>
         </tr>
     </thead>
     <tbody>
