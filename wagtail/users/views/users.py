@@ -91,35 +91,35 @@ def index(request, *args):
         users = users.order_by('last_name', 'first_name')
 
     if 'ordering' in request.GET:
-		ordering = request.GET['ordering']
-		if ordering == "-name":
-			users = users.order_by('-last_name', '-first_name')
-		elif ordering == 'username':
-			users = users.order_by(User.USERNAME_FIELD)
-		elif ordering == '-username':
-			users = users.order_by('-'+User.USERNAME_FIELD)
-		elif ordering == 'level':
-			superusers = users.filter(is_superuser=True)
-			staff = users.filter(is_staff=True).exclude(id__in=superusers)
-			others = users.filter(is_superuser=False, is_staff=False)
-			users = list(chain(superusers, staff, others))
-		elif ordering == '-level':
-			superusers = users.filter(is_superuser=True)
-			staff = users.filter(is_staff=True).exclude(id__in=superusers)
-			others = users.filter(is_superuser=False, is_staff=False)
-			users = list(chain(others, staff, superusers))
-		elif ordering == 'status':
-			users = users.order_by('is_active')
-		elif ordering == '-status':
-			users = users.order_by('-is_active')
-		if ordering == 'last_login':
-			all_users = users.order_by('-last_login')
-			users = list(chain(all_users.filter(last_login__isnull=False), all_users.filter(last_login__isnull=True)))
-		if ordering == '-last_login':
-			all_users = users.order_by('last_login')
-			users = list(chain(all_users.filter(last_login__isnull=False), all_users.filter(last_login__isnull=True)))
-	else:
-		ordering = 'name'
+        ordering = request.GET['ordering']
+        if ordering == "-name":
+            users = users.order_by('-last_name', '-first_name')
+        elif ordering == 'username':
+            users = users.order_by(User.USERNAME_FIELD)
+        elif ordering == '-username':
+            users = users.order_by('-'+User.USERNAME_FIELD)
+        elif ordering == 'level':
+            superusers = users.filter(is_superuser=True)
+            staff = users.filter(is_staff=True).exclude(id__in=superusers)
+            others = users.filter(is_superuser=False, is_staff=False)
+            users = list(chain(superusers, staff, others))
+        elif ordering == '-level':
+            superusers = users.filter(is_superuser=True)
+            staff = users.filter(is_staff=True).exclude(id__in=superusers)
+            others = users.filter(is_superuser=False, is_staff=False)
+            users = list(chain(others, staff, superusers))
+        elif ordering == 'status':
+            users = users.order_by('is_active')
+        elif ordering == '-status':
+            users = users.order_by('-is_active')
+        if ordering == 'last_login':
+            all_users = users.order_by('-last_login')
+            users = list(chain(all_users.filter(last_login__isnull=False), all_users.filter(last_login__isnull=True)))
+        if ordering == '-last_login':
+            all_users = users.order_by('last_login')
+            users = list(chain(all_users.filter(last_login__isnull=False), all_users.filter(last_login__isnull=True)))
+    else:
+        ordering = 'name'
 
     paginator = Paginator(users, per_page=20)
     users = paginator.get_page(request.GET.get('p'))
