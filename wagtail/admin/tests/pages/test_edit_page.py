@@ -629,7 +629,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # The latest revision for the page should now be in moderation
         self.assertEqual(child_page_new.current_workflow_state.status, child_page_new.current_workflow_state.STATUS_IN_PROGRESS)
 
-
     def test_page_edit_post_existing_slug(self):
         # This tests the existing slug checking on page edit
 

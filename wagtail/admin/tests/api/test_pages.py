@@ -101,7 +101,6 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         content = json.loads(response.content.decode('UTF-8'))
         self.assertEqual(content['meta']['total_count'], new_total_count)
 
-
     # FIELDS
 
     # Not applicable to the admin API
@@ -254,7 +253,6 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             self.assertEqual(set(page.keys()), {'id', 'meta', 'tags', 'title', 'admin_display_title'})
             self.assertIsInstance(page['tags'], list)
 
-
     # CHILD OF FILTER
 
     # Not applicable to the admin API
@@ -276,7 +274,6 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 200)
-
 
     # DESCENDANT OF FILTER
 
@@ -362,7 +359,6 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [8, 9, 16, 18, 19, 10, 15, 17, 22, 23, 13, 14, 12])
-
 
     def test_has_children_filter_invalid_integer(self):
         response = self.get_response(has_children=3)

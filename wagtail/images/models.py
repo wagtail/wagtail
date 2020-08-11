@@ -572,7 +572,6 @@ class AbstractRendition(models.Model):
         except InvalidCacheBackendError:
             pass
 
-
     class Meta:
         abstract = True
 

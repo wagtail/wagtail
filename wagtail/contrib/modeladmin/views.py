@@ -556,7 +556,6 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
         # Apply search results
         return self.get_search_results(request, qs, self.query)
 
-
     def apply_select_related(self, qs):
         if self.select_related is True:
             return qs.select_related()

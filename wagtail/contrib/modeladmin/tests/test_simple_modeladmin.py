@@ -130,7 +130,6 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '<input id="id_q"')
 
-
     def test_search_form_absent(self):
         # DjangoORMSearchHandler + no search_fields, search form should be absent
         with mock.patch.object(BookModelAdmin, 'search_handler_class', DjangoORMSearchHandler):
@@ -487,7 +486,6 @@ class TestDeleteViewWithProtectedRelation(TestCase, WagtailTestUtils):
         # Author deleted
         self.assertFalse(Author.objects.filter(id=4).exists())
 
-
     def test_post_with_1to1_dependent_object(self):
         response = self.post(5)
 
@@ -622,9 +620,7 @@ class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):
 
         self.get_checks_result = get_checks_result
 
-
     def test_model_with_single_tabbed_panel_only(self):
-
         Publisher.content_panels = [FieldPanel('name'), FieldPanel('headquartered_in')]
 
         warning = checks.Warning(
@@ -644,12 +640,9 @@ There are no default tabs on non-Page models so there will be no\
         # clean up for future checks
         delattr(Publisher, 'content_panels')
 
-
     def test_model_with_two_tabbed_panels_only(self):
-
         Publisher.settings_panels = [FieldPanel('name')]
         Publisher.promote_panels = [FieldPanel('headquartered_in')]
-
 
         warning_1 = checks.Warning(
             "Publisher.promote_panels will have no effect on modeladmin editing",
@@ -680,9 +673,7 @@ There are no default tabs on non-Page models so there will be no\
         delattr(Publisher, 'settings_panels')
         delattr(Publisher, 'promote_panels')
 
-
     def test_model_with_single_tabbed_panel_and_edit_handler(self):
-
         Publisher.content_panels = [FieldPanel('name'), FieldPanel('headquartered_in')]
         Publisher.edit_handler = TabbedInterface(Publisher.content_panels)
 

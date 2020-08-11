@@ -1032,7 +1032,6 @@ class TestChildRelationComparisonUsingPK(TestCase):
         self.assertEqual(added, [1])  # add second head count
         self.assertEqual(deleted, [])
 
-
     def test_hasnt_changed_with_different_id(self):
         # Both of the child objects have the same field content but have a
         # different PK (ID) so they should be detected as separate objects

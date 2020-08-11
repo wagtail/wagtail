@@ -160,7 +160,6 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
             'pages-1-DELETE': [''],
         })
 
-
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailadmin_workflows:index'))
 
@@ -290,7 +289,6 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
             'pages-1-page': [''],
             'pages-1-DELETE': [''],
         })
-
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailadmin_workflows:index'))
@@ -827,7 +825,6 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         # check that the workflow state's status is now cancelled
         self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
         self.assertEqual(workflow_state.current_task_state.status, TaskState.STATUS_CANCELLED)
-
 
     def test_email_headers(self):
         # Submit

@@ -34,7 +34,6 @@ class TestPostgresStemming(TestCase):
         results = self.backend.search("Голубое", models.Book)
         self.assertEqual(list(results), [ru_book])
 
-
         results = self.backend.search("Голубая", models.Book)
         self.assertEqual(list(results), [ru_book])
 

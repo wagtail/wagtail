@@ -116,7 +116,6 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # test construct_page_action_menu hook
         self.assertContains(response, '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>')
 
-
     def test_create_multipart(self):
         """
         Test checks if 'enctype="multipart/form-data"' is added and only to forms that require multipart encoding.
@@ -453,7 +452,6 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
         # The page should now be in moderation
         self.assertEqual(page.current_workflow_state.status, page.current_workflow_state.STATUS_IN_PROGRESS)
-
 
     def test_create_simplepage_post_existing_slug(self):
         # This tests the existing slug checking on page save

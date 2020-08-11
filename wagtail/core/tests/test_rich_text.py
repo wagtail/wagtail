@@ -127,7 +127,6 @@ class TestLinkRewriterTagReplacing(TestCase):
         self.assertNotEqual(link_with_custom_linktype, '<a href="https://wagtail.io">')
         self.assertEqual(link_with_custom_linktype, '<a>')
 
-
     def test_supported_type_should_follow_given_rules(self):
         # we always have `page` rules by default
         rules = {

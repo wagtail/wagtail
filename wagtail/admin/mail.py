@@ -208,7 +208,6 @@ class EmailNotificationMixin:
             self.notification + '_notifications'
         )}
 
-
     def get_template_set(self, instance, **kwargs):
         """Return a dictionary of template paths for the templates for the email subject and the text and html
         alternatives"""

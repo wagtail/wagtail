@@ -195,7 +195,6 @@ class TestSitemapView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/xml')
 
-
     def test_sitemap_view_with_current_site_middleware(self):
         with self.modify_settings(MIDDLEWARE={
             'append': 'django.contrib.sites.middleware.CurrentSiteMiddleware',

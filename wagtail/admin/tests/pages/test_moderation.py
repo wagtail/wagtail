@@ -279,7 +279,6 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         # No email to send
         self.assertEqual(len(mail.outbox), 0)
 
-
     @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=False)
     def test_disable_superuser_notification(self):
         # Add one of the superusers to the moderator group

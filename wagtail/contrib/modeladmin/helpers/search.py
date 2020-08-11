@@ -44,7 +44,6 @@ class DjangoORMSearchHandler(BaseSearchHandler):
                 return queryset.distinct()
         return queryset
 
-
     @property
     def show_search_form(self):
         return bool(self.search_fields)
