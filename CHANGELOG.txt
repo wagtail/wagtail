@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.10 (xx.xx.xxxx) - IN DEVELOPMENT
+2.10 (11.08.2020)
 ~~~~~~~~~~~~~~~~~
 
  * Added Django 3.1 support (Matt Westcott, Karl Hobley)
