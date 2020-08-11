@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:49+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-03 10:22+0000\n"
+"Last-Translator: Ocin Leung\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -130,6 +131,9 @@ msgstr "確定刪除此文件？"
 
 msgid "Yes, delete"
 msgstr "是，刪除"
+
+msgid "No, don't delete"
+msgstr "否，不刪除"
 
 #, python-format
 msgid "Editing %(title)s"

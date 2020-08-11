@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-28 03:58+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2020-08-07 16:08+0100\n"
+"PO-Revision-Date: 2020-08-07 15:09+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -367,7 +367,7 @@ msgid "Close explorer"
 msgstr "关闭资源管理"
 
 msgid "Alt text"
-msgstr "Alt标签"
+msgstr "替代文字"
 
 msgid "Write here…"
 msgstr "写在这里..."
@@ -1421,16 +1421,16 @@ msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "取消%(title)s修订版本%(revision.id)s的预定发布"
 
 msgid "Unschedule"
-msgstr "取消预定发布"
+msgstr "取消计划"
 
 msgid "Are you sure you want to unschedule this revision?"
-msgstr "确定要取消这个修订版本的预定发布吗？"
+msgstr "确定要取消这个修订版本的发布计划吗？"
 
 msgid "Yes, unschedule"
-msgstr "是的，取消定时发布"
+msgstr "是的，取消发布计划"
 
 msgid "No, don't unschedule"
-msgstr "否，不取消预定发布"
+msgstr "否，不取消发布计划"
 
 #, python-format
 msgid "Revisions of %(title)s"
@@ -2123,6 +2123,121 @@ msgstr "最近的"
 msgid "revision {0} of \"{1}\""
 msgstr " \"{1}\"的修订版本{0}"
 
+msgid "Version {0} of \"{1}\" unscheduled."
+msgstr " \"{1}\"的版本{0}已取消预定的发布。"
+
+msgid "Locked pages"
+msgstr "已锁定的页面"
+
+msgid "Workflows"
+msgstr "工作流"
+
+msgid "Page ID"
+msgstr "页面ID"
+
+msgid "Page Type"
+msgstr "页面类型"
+
+msgid "Page Title"
+msgstr "页面标题"
+
+msgid "Workflow tasks"
+msgstr "工作流任务"
+
+msgid "Requested By"
+msgstr "请求人"
+
+msgid "Site history"
+msgstr "网站历史"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "动作类型"
+
+msgid "Date/Time"
+msgstr "日期/时间"
+
+msgid "Add a workflow"
+msgstr "添加一个工作流"
+
+msgid "New workflow"
+msgstr "新建工作流"
+
+msgid "Workflow '{0}' created."
+msgstr "工作流 '{0}' 已创建。"
+
+msgid "Editing workflow"
+msgstr "正在编辑工作流"
+
+msgid "Workflow '{0}' updated."
+msgstr "工作流 '{0}' 已更新。"
+
+msgid "Disable"
+msgstr "禁用"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "Disable workflow"
+msgstr "禁用工作流"
+
+msgid "Workflow '{0}' disabled."
+msgstr "工作流 '{0}' 已禁用。"
+
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page. Disabling this "
+"workflow will cancel moderation on this page."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
+"workflow will cancel moderation on these pages."
+msgstr[0] ""
+"此工作流正在页面%(states_in_progress)d上进行。禁用此工作流将取消对这些页面的"
+"审核。"
+
+msgid "Workflow '{0}' enabled."
+msgstr "工作流 '{0}' 已启用。"
+
+msgid "Workflow removed from Page '{0}'."
+msgstr "工作流已从页面 '{0}' 移除。"
+
+msgid "New workflow task"
+msgstr "新建工作流任务"
+
+msgid "Task '{0}' created."
+msgstr "任务 '{0}'已创建。"
+
+msgid "Editing workflow task"
+msgstr "正在编辑工作流任务"
+
+msgid "Task '{0}' updated."
+msgstr "任务 '{0}' 已更新。"
+
+msgid "Disable task"
+msgstr "禁用任务"
+
+msgid "Task '{0}' disabled."
+msgstr "任务 '{0}' 已禁用。"
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow."
+msgstr[0] ""
+"此任务正在页面%(states_in_progress)d上进行。禁用此任务将导致在审核工作流中跳"
+"过该任务。"
+
+msgid "Task '{0}' enabled."
+msgstr "任务 '{0}' 已启用。"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "将此错误报告给你的网站管理员，包含如下信息："
+
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "编辑“%(title)s”"
@@ -2161,6 +2276,10 @@ msgstr "删除页面“%(title)s”"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "取消发布页面“%(title)s”"
+
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "查看“%(title)s”的页面历史"
 
 msgid "Set profile picture"
 msgstr "头像设置"
@@ -2232,6 +2351,192 @@ msgstr "已锁定的页面"
 msgid "Reports"
 msgstr "报告"
 
+msgid "Created"
+msgstr "已创建"
+
+msgid "Deleted"
+msgstr "已删除"
+
+msgid "Publish scheduled draft"
+msgstr "发布已预定的草稿"
+
+msgid "Published scheduled draft"
+msgstr "已发布预定的草稿"
+
+msgid "Unpublished"
+msgstr "取消发布"
+
+msgid "Unpublish scheduled draft"
+msgstr "取消发布已预定的草稿"
+
+msgid "Unpublished scheduled draft"
+msgstr "已取消发布预定的草稿"
+
+msgid "Unlocked"
+msgstr "已解锁"
+
+msgid "Approved"
+msgstr "已批准"
+
+msgid "Rejected"
+msgstr "已拒绝"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr "已还原为上一版本，id为%(revision_id)s创建时间为%(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "已还原为上一版本"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "从%(title)s复制"
+
+msgid "Copied"
+msgstr "已复制"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "从“%(old_parent)s”移动到“%(new_parent)s”"
+
+msgid "Moved"
+msgstr "已移动"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"修订版本%(revision_id)s创建于%(created_at)s，已计划在%(go_live_at)s发布。"
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "页面已计划在%(go_live_at)s发布"
+
+msgid "Page scheduled for publishing"
+msgstr "页面已计划发布"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"修订版本%(revision_id)s创建于%(created_at)s，已取消计划在%(go_live_at)s发布。"
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "页面已取消计划在%(go_live_at)s发布"
+
+msgid "Page unscheduled from publishing"
+msgstr "页面已取消计划发布"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "已添加“%(restriction)s”查看限制"
+
+msgid "Added view restriction"
+msgstr "已添加查看限制"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "已更新查看限制为“%(restriction)s”"
+
+msgid "Updated view restriction"
+msgstr "已更新查看限制"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "已移除“%(restriction)s”查看限制"
+
+msgid "Removed view restriction"
+msgstr "已移除查看限制"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "已从“%(old)s”重命名为“%(new)s”"
+
+msgid "Renamed"
+msgstr "已重命名"
+
+msgid "Rename"
+msgstr "重命名"
+
+msgid "Revert"
+msgstr "还原"
+
+msgid "Schedule publication"
+msgstr "计划发布"
+
+msgid "Unschedule publication"
+msgstr "取消计划发布"
+
+msgid "Add view restrictions"
+msgstr "添加查看限制"
+
+msgid "Update view restrictions"
+msgstr "更新查看限制"
+
+msgid "Remove view restrictions"
+msgstr "移除查看限制"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "“%(workflow)s”已启动，下一步是“%(task)s”"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "“”已批准，下一步是“%(task)s%(next_task)s”"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "“%(task)s”已批准，“%(workflow)s”已完成"
+
+msgid "Workflow task approved"
+msgstr "工作流任务已批准"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "“%(task)s”已拒绝，已请求变更"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "工作流任务已拒绝，工作流完成"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "重新提交“%(task)s”，工作流已恢复"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "工作流任务已重新提交，工作流已恢复"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "“%(workflow)s”已在“%(task)s”取消"
+
+msgid "Workflow cancelled"
+msgstr "工作流已取消"
+
+msgid "Workflow: start"
+msgstr "工作流：启动"
+
+msgid "Workflow: approve task"
+msgstr "工作流：批准任务"
+
+msgid "Workflow: reject task"
+msgstr "工作流：拒绝任务"
+
+msgid "Workflow: resume task"
+msgstr "工作流：恢复任务"
+
+msgid "Workflow: cancel"
+msgstr "工作流：取消"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
 msgid "Choose an item"
 msgstr "选择一项"
 
@@ -2246,3 +2551,9 @@ msgstr "编辑此项"
 
 msgid "Choose another page"
 msgstr "选择其它页面"
+
+msgid "Choose another task"
+msgstr "选择其它任务"
+
+msgid "Edit this task"
+msgstr "编辑此任务"

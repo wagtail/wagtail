@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 20:24+0000\n"
+"POT-Creation-Date: 2020-08-07 16:08+0100\n"
+"PO-Revision-Date: 2020-08-07 19:01+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -33,6 +33,12 @@ msgstr "Publicar"
 
 msgid "Submit for moderation"
 msgstr "Enviar para moderação"
+
+msgid "Resubmit to {}"
+msgstr "Reenviar para {}"
+
+msgid "Submit to {}"
+msgstr "Enviar para {}"
 
 msgid "Restart workflow "
 msgstr "Reiniciar fluxo de trabalho"
@@ -223,6 +229,13 @@ msgstr "Por favor selecione pelo menos um grupo."
 
 msgid "All types"
 msgstr "Todos os tipos"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Esta página já possui o fluxo de trabalho '{0}' atribuído."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"Você não pode atribuir esse fluxo de trabalho à mesma página várias vezes."
 
 msgid "Give your workflow a name"
 msgstr "Dê um nome ao seu fluxo de trabalho"
@@ -487,6 +500,9 @@ msgstr "Sex"
 
 msgid "Sat"
 msgstr "Sáb"
+
+msgid "Unknown {action}"
+msgstr "{action} desconhecida"
 
 msgid "Error 404: Page not found"
 msgstr "Erro 404: Página não encontrada"
@@ -904,6 +920,9 @@ msgstr ""
 msgid "Visit the live page"
 msgstr "Visitar a página em tempo real"
 
+msgid "This page is live but only available to certain users"
+msgstr "Esta página está ativa, mas disponível apenas para alguns usuários"
+
 msgid "restricted"
 msgstr "restrito"
 
@@ -1048,6 +1067,12 @@ msgstr "Não despublicar"
 msgid "Publish page"
 msgstr "Publicar página"
 
+msgid "Publishing this page will cancel the current workflow."
+msgstr "A publicação desta página cancelará o fluxo de trabalho atual."
+
+msgid "Would you still like to publish this page?"
+msgstr "Você ainda gostaria de publicar esta página?"
+
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -1085,6 +1110,17 @@ msgstr "Esta página tem alterações não salvas."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Editando %(page_type)s: %(title)s"
 
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Editando %(page_type)s"
+
+msgid "History"
+msgstr "Histórico"
+
+#, python-format
+msgid "Page history for %(subtitle)s"
+msgstr "Histórico da página para %(subtitle)s"
+
 msgid "Action"
 msgstr "Ação"
 
@@ -1106,6 +1142,9 @@ msgstr "Rascunho atual"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s atrás"
+
+msgid "No log entries found."
+msgstr "Nenhuma entrada de log encontrada."
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1270,6 +1309,15 @@ msgstr ""
 msgid "Current status:"
 msgstr "Status atual:"
 
+msgid "Set page privacy"
+msgstr "Definir privacidade da página"
+
+msgid "Compare with previous version"
+msgstr "Compare com a versão anterior"
+
+msgid "Compare with current version"
+msgstr "Compare com a versão atual"
+
 msgid "Cancel scheduled publish"
 msgstr "Cancelar publicação agendada"
 
@@ -1332,6 +1380,9 @@ msgstr[1] ""
 "                                                            Movido para cima "
 "%(counter)s posições.\n"
 "                                                        "
+
+msgid "There are no differences between these two versions"
+msgstr "Não há diferenças entre essas duas versões"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1402,14 +1453,47 @@ msgstr "Nenhuma página utilizada"
 msgid "Workflow progress"
 msgstr "Progresso do fluxo de trabalho"
 
+msgid "Edit / Review"
+msgstr "Editar / revisar"
+
+msgid "Workflow history"
+msgstr "Histórico de fluxo de trabalho"
+
+msgid "Timeline"
+msgstr "Linha do tempo"
+
+msgid "Initial Revision"
+msgstr "Revisão Inicial"
+
 msgid "Page edited"
 msgstr "Página editada"
+
+msgid "with comment:"
+msgstr "com comentário:"
+
+msgid "Workflow started"
+msgstr "Fluxo de trabalho iniciado"
+
+msgid "Workflow completed"
+msgstr "Fluxo de trabalho concluído"
+
+msgid "Workflow history for"
+msgstr "Histórico de fluxo de trabalho para"
 
 msgid "Edit page"
 msgstr "Editar página"
 
 msgid "Requested by"
 msgstr "Solicitado por"
+
+msgid "Approved task"
+msgstr "Tarefa aprovada"
+
+msgid "Incomplete task"
+msgstr "Tarefa incompleta"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Esta página ainda não foi enviada para moderação"
 
 msgid "Collection"
 msgstr "Coleção"
@@ -1425,6 +1509,9 @@ msgstr "Baixar CSV"
 
 msgid "Filter"
 msgstr "Filtro"
+
+msgid "Apply filters"
+msgstr "Aplicar filtros"
 
 msgid "No pages found."
 msgstr "Nenhuma página encontrada."
@@ -1475,6 +1562,12 @@ msgstr "Nenhuma página bloqueada encontrada."
 msgid "By Task"
 msgstr "Por tarefa"
 
+msgid "No pages have been submitted for moderation yet"
+msgstr "Nenhuma página foi enviada para moderação ainda"
+
+msgid "By Workflow"
+msgstr "Por fluxo de trabalho"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
@@ -1506,6 +1599,18 @@ msgstr "Estado atual da página:"
 msgid "Other searches"
 msgstr "Outras buscas"
 
+msgid "Changes requested"
+msgstr "Alterações solicitadas"
+
+msgid "since"
+msgstr "desde"
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "Draft saved"
+msgstr "Rascunho salvo"
+
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
 "software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
@@ -1532,6 +1637,9 @@ msgstr ""
 "JavaScript no seu navegador</a>.\n"
 "        "
 
+msgid "Skip to main content"
+msgstr "Ir para o conteúdo principal"
+
 msgid "Go to Wagtail admin interface"
 msgstr "Ir para administração Wagtail"
 
@@ -1541,9 +1649,96 @@ msgstr "Adicionar subpágina"
 msgid "Show in Explorer"
 msgstr "Mostrar no Explorador"
 
+msgid "Are you sure you want to disable this workflow?"
+msgstr "Tem certeza de que deseja desativar este fluxo de trabalho?"
+
+msgid "Yes, disable"
+msgstr "Sim, desativar"
+
+msgid "Are you sure you want to disable this task?"
+msgstr "Tem certeza que deseja desativar esta tarefa?"
+
+msgid "Assign your workflow to pages"
+msgstr "Atribua seu fluxo de trabalho às páginas"
+
+msgid "Creating…"
+msgstr "Criando…"
+
+msgid "Create"
+msgstr "Criar"
+
+msgid "Used on the following active workflows"
+msgstr "Usado nos seguintes fluxos de trabalho ativos"
+
+msgid "Not used"
+msgstr "Não usado"
+
+msgid "Assigned pages"
+msgstr "Páginas atribuídas"
+
+msgid "Assign to another page"
+msgstr "Atribuir a outra página"
+
+msgid "Hide disabled workflows"
+msgstr "Ocultar fluxos de trabalho desativados"
+
+msgid "Show disabled workflows"
+msgstr "Mostrar fluxos de trabalho desativados"
+
+msgid "Used by"
+msgstr "Usado por"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "Escolha o tipo de tarefa que deseja criar."
+
+msgid "Choose a task"
+msgstr "Escolha uma tarefa"
+
+msgid "Choose a different task type"
+msgstr "Escolha um tipo de tarefa diferente"
+
+msgid "Task type"
+msgstr "Tipo de tarefa"
+
+msgid "Used on"
+msgstr "Usado em"
+
+msgid "You haven't created any tasks."
+msgstr "Você não criou nenhuma tarefa."
+
+msgid "Hide disabled tasks"
+msgstr "Ocultar tarefas desativadas"
+
+msgid "Show disabled tasks"
+msgstr "Mostrar tarefas desativadas"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "Páginas que usam fluxo de trabalho '%(name)s'"
+
+msgid "Pages that use workflow"
+msgstr "Páginas que usam fluxo de trabalho"
+
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "por %(modified_by)s"
+
+msgid "Submitted"
+msgstr "Submetido"
+
+msgid "Not started"
+msgstr "Não foi iniciado"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "Mudanças solicitadas por %(requested_by)s"
+
+#, python-format
+msgid "Approved by %(approved_by)s"
+msgstr "Aprovado por %(approved_by)s"
+
+msgid "See full history"
+msgstr "Veja o histórico completo"
 
 msgid "Compare with live version"
 msgstr "Comparar com versão publicada"
@@ -1563,6 +1758,21 @@ msgid ""
 msgstr ""
 "Classifique a ordem das páginas filhas em '%(parent)s' por '%(label)s' em "
 "ordem decrescente."
+
+msgid "0 minutes"
+msgstr "0 minutos"
+
+msgid "Just now"
+msgstr "Agora mesmo"
+
+msgid "live"
+msgstr "online"
+
+msgid "live + draft"
+msgstr "online + rascunho"
+
+msgid "draft"
+msgstr "rascunho"
 
 msgid "Test"
 msgstr "Teste"
@@ -1648,6 +1858,12 @@ msgstr "<b>Página '{}' estava bloqueada</b> por <b>{}</b> em <b>{}</b>."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Página '{}' está bloqueada</b>."
 
+msgid "This page is currently awaiting moderation."
+msgstr "Esta página está aguardando moderação."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Apenas os revisores desta tarefa podem editar a página."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Essa página está atualmente esperando moderação"
 
@@ -1718,6 +1934,72 @@ msgstr "Mais recentes"
 msgid "revision {0} of \"{1}\""
 msgstr "revisão {0} de \"{1}\""
 
+msgid "Locked pages"
+msgstr "Páginas bloqueadas"
+
+msgid "Workflows"
+msgstr "Fluxos de trabalho"
+
+msgid "Page ID"
+msgstr "ID da página"
+
+msgid "Page Type"
+msgstr "Tipo de página"
+
+msgid "Page Title"
+msgstr "Título da página"
+
+msgid "Workflow tasks"
+msgstr "Tarefas de fluxo de trabalho"
+
+msgid "Requested By"
+msgstr "Solicitado por"
+
+msgid "Site history"
+msgstr "Histórico do site"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Tipo de ação"
+
+msgid "Date/Time"
+msgstr "Data/Hora"
+
+msgid "Add a workflow"
+msgstr "Adicionar um fluxo de trabalho"
+
+msgid "New workflow"
+msgstr "Novo fluxo de trabalho"
+
+msgid "Workflow '{0}' created."
+msgstr "Fluxo de trabalho '{0}' criado."
+
+msgid "Editing workflow"
+msgstr "Editando fluxo de trabalho"
+
+msgid "Workflow '{0}' updated."
+msgstr "Fluxo de trabalho '{0}' atualizado."
+
+msgid "Disable"
+msgstr "Desativar"
+
+msgid "Enable"
+msgstr "Habilitar"
+
+msgid "Disable workflow"
+msgstr "Desativar fluxo de trabalho"
+
+msgid "Task '{0}' updated."
+msgstr "Tarefa '{0}' atualizada."
+
+msgid "Disable task"
+msgstr "Desativar tarefa"
+
+msgid "Task '{0}' enabled."
+msgstr "Tarefa '{0}' habilitada."
+
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Editar '%(title)s'"
@@ -1756,6 +2038,10 @@ msgstr "Excluir página '%(title)s'"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Cancelar publicação da página '%(title)s'"
+
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "Ver o histórico da página para '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Definir foto do perfil"
@@ -1826,6 +2112,60 @@ msgstr "Páginas bloqueadas"
 
 msgid "Reports"
 msgstr "Relatórios"
+
+msgid "Created"
+msgstr "Criado"
+
+msgid "Deleted"
+msgstr "Excluído"
+
+msgid "Publish scheduled draft"
+msgstr "Publicar rascunho programado"
+
+msgid "Published scheduled draft"
+msgstr "Rascunho agendado publicado"
+
+msgid "Unpublished"
+msgstr "Não publicado"
+
+msgid "Unpublish scheduled draft"
+msgstr "Cancelar a publicação do rascunho programado"
+
+msgid "Unpublished scheduled draft"
+msgstr "Rascunho programado não publicado"
+
+msgid "Unlocked"
+msgstr "Desbloqueado"
+
+msgid "Approved"
+msgstr "Aprovado"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
+msgid "Copied"
+msgstr "Copiado"
+
+msgid "Moved"
+msgstr "Movido"
+
+msgid "Page scheduled for publishing"
+msgstr "Página agendada para publicação"
+
+msgid "Added view restriction"
+msgstr "Adicionada restrição de visualização"
+
+msgid "Update view restrictions"
+msgstr "Atualizar restrições de visualização"
+
+msgid "Remove view restrictions"
+msgstr "Remover restrições de visualização"
+
+msgid "Yes"
+msgstr "Sim"
+
+msgid "No"
+msgstr "Não"
 
 msgid "Choose an item"
 msgstr "Escolha um item"

@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016
-# saevarom <saevar@saevar.is>, 2016,2018-2019
+# saevarom <saevar@saevar.is>, 2016,2018-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-03 15:36+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -115,11 +115,23 @@ msgstr "Bæta við nýjum meðmæltum niðurstöðum"
 msgid "Search term(s)"
 msgstr "Leitarfrasi"
 
+msgid "Order by search term alphabetically"
+msgstr "Raða leitarniðurstöðum í stafrófsröð"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Raða leitarniðurstöðum í öfuga stafrófsröð"
+
 msgid "Promoted results"
 msgstr "Meðmæltar niðurstöður"
 
 msgid "Views (past week)"
 msgstr "Síðuflettingar (síðust vikuna)"
+
+msgid "Order by views (lowest first)"
+msgstr "Raða eftir flettingum (lægstur fjöldi efst)"
+
+msgid "Order by views (highest first)"
+msgstr "Raða eftir flettingum (hæstur fjöldi efst)"
 
 msgid "Edit this promotion"
 msgstr "Breyta þessum meðmælum"

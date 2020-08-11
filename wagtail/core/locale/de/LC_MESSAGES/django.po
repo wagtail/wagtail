@@ -4,7 +4,7 @@
 #
 # Translators:
 # Benjamin Thurm, 2018
-# Ettore Atalan <atalanttore@googlemail.com>, 2017
+# Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Bohreromir, 2020
@@ -23,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-08 17:04+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -334,6 +334,9 @@ msgstr "Gruppen Sammlungs-Berechtigung"
 
 msgid "group collection permissions"
 msgstr "Gruppen-Sammlungs-Berechtigungen"
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Arbeitsablauf ‚{0}‘ auf Seite ‚{1}‘: {2}"
 
 msgid "Log in"
 msgstr "Anmelden"

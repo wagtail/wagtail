@@ -4,7 +4,7 @@
 #
 # Translators:
 # Benjamin Thurm, 2018
-# Ettore Atalan <atalanttore@googlemail.com>, 2017,2019
+# Ettore Atalan <atalanttore@googlemail.com>, 2017,2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Bohreromir, 2020
 # Bohreromir, 2019
@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-01-21 11:05+0000\n"
-"Last-Translator: Bohreromir\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-08 17:08+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -162,7 +162,7 @@ msgid "Popular tags"
 msgstr "Häufig verwendete Schlagwörter"
 
 msgid "Uploading…"
-msgstr "Lade hoch…"
+msgstr "Wird hochgeladen…"
 
 #, python-format
 msgid ""
@@ -186,7 +186,7 @@ msgid "Latest images"
 msgstr "Neueste Bilder"
 
 msgid "Choose a format"
-msgstr "Format wählen"
+msgstr "Wählen Sie ein Format aus"
 
 msgid "Insert image"
 msgstr "Bild einfügen"
@@ -407,7 +407,7 @@ msgid "Search images"
 msgstr "Nach Bildern suchen"
 
 msgid "Image '{0}' updated."
-msgstr "Bild ‚{0}‘ geändert."
+msgstr "Bild ‚{0}‘ aktualisiert."
 
 msgid "Edit again"
 msgstr "Nochmal bearbeiten"

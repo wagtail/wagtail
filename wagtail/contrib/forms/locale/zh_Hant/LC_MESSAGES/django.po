@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ocin Leung, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-03 10:20+0000\n"
+"Last-Translator: Ocin Leung\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +27,7 @@ msgid "%s submissions"
 msgstr "%s提交"
 
 msgid "Date from"
-msgstr "起始日起"
+msgstr "起始日期"
 
 msgid "Date to"
 msgstr "結束日期"
@@ -112,6 +113,9 @@ msgstr "幫助文本"
 msgid "Submission date"
 msgstr "提交日期"
 
+msgid "Form"
+msgstr "表單"
+
 msgid "to address"
 msgstr "收件人"
 
@@ -171,6 +175,9 @@ msgstr "表格數據 <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "過濾器"
+
+msgid "Download XLSX"
+msgstr "下載為XLSX"
 
 msgid "Download CSV"
 msgstr "下載為CSV"

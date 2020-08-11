@@ -7,14 +7,14 @@
 # IT Management <hudan@itmanagement.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
-# Mirek Zvolský <zvolsky@seznam.cz>, 2019
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-05 09:52+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -50,6 +50,9 @@ msgstr "Heslo"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Zadané heslo není správné. Prosím, zkuste to znovu."
+
+msgid "Comment"
+msgstr "Komentář"
 
 msgid "hostname"
 msgstr "hostname (jméno hostitele)"
@@ -91,6 +94,9 @@ msgstr "web"
 msgid "sites"
 msgstr "weby"
 
+msgid "default"
+msgstr "default(ní)"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -123,7 +129,7 @@ msgid "has unpublished changes"
 msgstr "má nepublikované změny"
 
 msgid "URL path"
-msgstr "URL path (cesta)"
+msgstr "URL adresa"
 
 msgid "owner"
 msgstr "vlastník"
@@ -177,11 +183,17 @@ msgstr "naposledy publikováno:"
 msgid "latest revision created at"
 msgstr "poslední verze vytvořena:"
 
+msgid "live revision"
+msgstr "publikováno verze"
+
 msgid "This slug is already in use"
 msgstr "Slug (identifikátor) je už používán"
 
 msgid "scheduled"
 msgstr "naplánováno"
+
+msgid "in moderation"
+msgstr "probíhá schvalování"
 
 msgid "draft"
 msgstr "koncept"
@@ -189,11 +201,14 @@ msgstr "koncept"
 msgid "live + scheduled"
 msgstr "publikováno + naplánováno"
 
+msgid "live + in moderation"
+msgstr "publikováno + probíhá schvalování"
+
 msgid "live + draft"
 msgstr "publikováno + koncept"
 
 msgid "Default"
-msgstr "Defaultní"
+msgstr "Default(ní)"
 
 msgid "page"
 msgstr "stránka"
@@ -323,6 +338,161 @@ msgstr "skupinové oprávnění pro kolekci"
 
 msgid "group collection permissions"
 msgstr "skupinová oprávnění pro kolekci"
+
+msgid "workflow"
+msgstr "postup"
+
+msgid "workflow page"
+msgstr "stránka postupu"
+
+msgid "workflow pages"
+msgstr "stránky postupu"
+
+msgid "workflow_tasks"
+msgstr "úlohy postupu"
+
+msgid "task"
+msgstr "úloha"
+
+msgid "workflow task order"
+msgstr "pořadí úloh postupu"
+
+msgid "workflow task orders"
+msgstr "pořadí úloh postupu"
+
+msgid "active"
+msgstr "aktivní"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktivní úlohy mohou být přidány do postupu. (Deaktivování úlohy ji nevyřadí "
+"z probíhajícího zpracování.)"
+
+msgid "tasks"
+msgstr "úlohy"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Aktivní postupy mohou být přidány ke stránkám. (Deaktivování postupu jej "
+"neodstraní z existujících stránek.)"
+
+msgid "workflows"
+msgstr "postupy"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Stránky na této úrovni postupu budou schváleny těmito skupinami uživatelů"
+
+msgid "Request changes"
+msgstr "Vyžádat změny"
+
+msgid "Approve"
+msgstr "Schválit"
+
+msgid "Approve with comment"
+msgstr "Schválit s komentářem"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Členové zvolené skupiny mohou schválit tuto úlohu"
+
+msgid "Group approval task"
+msgstr "Skupinou schvalovaná úloha"
+
+msgid "Group approval tasks"
+msgstr "Skupinou schvalované úlohy"
+
+msgid "In progress"
+msgstr "Probíhající.."
+
+msgid "Approved"
+msgstr "Schváleno"
+
+msgid "Needs changes"
+msgstr "Vyžaduje úpravy"
+
+msgid "Cancelled"
+msgstr "Zrušeno"
+
+msgid "status"
+msgstr "stav"
+
+msgid "requested by"
+msgstr "požadováno kým"
+
+msgid "current task state"
+msgstr "aktuální stav úlohy"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Smí být jen jediný postup se stavem \"probíhá\" nebo \"vyžaduje úpravy\" pro "
+"danou stránku."
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Postup '{0}' na stránce '{1}': {2}"
+
+msgid "Not started"
+msgstr "Není spuštěno"
+
+msgid "Workflow state"
+msgstr "Stav postupu"
+
+msgid "Workflow states"
+msgstr "Stavy postupu"
+
+msgid "Rejected"
+msgstr "Odmítnuto"
+
+msgid "Skipped"
+msgstr "Přeskočeno"
+
+msgid "workflow state"
+msgstr "stav zpracování"
+
+msgid "started at"
+msgstr "spuštěno v"
+
+msgid "finished at"
+msgstr "dokončeno v"
+
+msgid "finished by"
+msgstr "dokončeno (kým)"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Úloha '{0}' pro Stránku Verze '{1}': {2}"
+
+msgid "Task state"
+msgstr "Stav úlohy"
+
+msgid "Task states"
+msgstr "Stavy úlohy"
+
+msgid "timestamp (UTC)"
+msgstr "timestamp - čas zpracování (UTC)"
+
+msgid "log entry"
+msgstr "položka logu"
+
+msgid "log entries"
+msgstr "položky logu"
+
+msgid "user {id} (deleted)"
+msgstr "uživatel {id} (zrušený)"
+
+msgid "system"
+msgstr "systém"
+
+msgid "page log entry"
+msgstr "položka logu pro stránku"
+
+msgid "page log entries"
+msgstr "položky logu pro stránku"
 
 msgid "Log in"
 msgstr "Přihlásit se"

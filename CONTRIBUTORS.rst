@@ -489,18 +489,18 @@ Translators
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu, shengsheng gz
 * Chinese (Simplified): Ed, hanfeng, Yi Huang, Daniel Hwang, Jian Li, Aosp T, Listeng Teng, Feng Wang, whuim, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
-* Chinese (Traditional): c o, gogobook, Andy Kong, Lihan Li, Jp Shieh, Yeh Yen-Ke, Yu Hsun Lee
+* Chinese (Traditional): c o, gogobook, Andy Kong, Lihan Li, Ocin Leung, Jp Shieh, Yeh Yen-Ke, Yu Hsun Lee
 * Croatian (Croatia): Dino Aljević, Marko Burazin, Ivica Dosen, Luka Matijević
 * Czech: Ales Dvorak, Martin Galda, IT Management, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
 * Danish: Mads Kronborg, MRostgaard, Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Kees Hink, Coen van der Kamp, Franklin Kingma, Maarten Kling, Thijs Kramer, Meteor0id
-* Estonian: Ragnar Rebase
+* Estonian: Erlend Eelmets, Ragnar Rebase
 * Finnish: Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Valter Maasalo, Glen Somerville, Juha Yrjölä
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Bohreromir, Patrick Craston, Peter Dreuw, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, Jannis Vajen, Vorlif, Matthew Westcott, Benedikt Willi
+* German: Ettore Atalan, Bohreromir, Patrick Craston, Peter Dreuw, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Tim, Norman Uekermann, Jannis Vajen, Vorlif, Matthew Westcott, Benedikt Willi
 * Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Haitian: Hantz Vius
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Adi Ron, Oleg Sverdlov
