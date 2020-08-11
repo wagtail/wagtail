@@ -13,7 +13,8 @@ Changelog
  * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
 
-2.10 (xx.xx.xxxx) - IN DEVELOPMENT
+
+2.10 (11.08.2020)
 ~~~~~~~~~~~~~~~~~
 
  * Added Django 3.1 support (Matt Westcott, Karl Hobley)
