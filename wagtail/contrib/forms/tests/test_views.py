@@ -620,7 +620,6 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertIn('vim', data_lines[1])
 
 
-
 class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def create_test_user_without_admin(self, username):
         return get_user_model().objects.create_user(username=username, password='123')
@@ -768,7 +767,6 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.getvalue().decode('utf-8').split("\n")
         self.assertIn('Выберите самую любимую IDE для разработке на Python', data_lines[0])
         self.assertIn('vim', data_lines[1])
-
 
 
 class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):

@@ -118,7 +118,6 @@ class AbstractFormField(Orderable):
         FieldPanel('default_value', classname="formbuilder-default"),
     ]
 
-
     def save(self, *args, **kwargs):
         """
         When new fields are created, generate a template safe ascii name to use as the
@@ -132,7 +131,6 @@ class AbstractFormField(Orderable):
             self.clean_name = clean_name
 
         super().save(*args, **kwargs)
-
 
     @classmethod
     def _migrate_legacy_clean_name(cls):
@@ -165,7 +163,6 @@ class AbstractFormField(Orderable):
             'Added `clean_name` on %s form field(s)' % objects.count(),
             obj=cls
         )
-
 
     @classmethod
     def check(cls, **kwargs):

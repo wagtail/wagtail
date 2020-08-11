@@ -117,7 +117,6 @@ class ImageOperationTestCase(TestCase):
         test_norun.__name__ = str('test_norun_%s' % filter_spec)
         return test_norun
 
-
     @classmethod
     def setup_test_methods(cls):
         if cls.operation_class is None:

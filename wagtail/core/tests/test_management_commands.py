@@ -183,7 +183,6 @@ class TestPublishScheduledPagesCommand(TestCase):
 
         page_published.connect(page_published_handler)
 
-
         page = SimplePage(
             title="Hello world!",
             slug="hello-world",
@@ -367,7 +366,6 @@ class TestPurgeRevisionsCommand(TestCase):
         # revision 1 should be deleted, revision 2 should not be
         self.assertNotIn(revision_1, PageRevision.objects.filter(page=self.page))
         self.assertIn(revision_2, PageRevision.objects.filter(page=self.page))
-
 
     def test_revisions_in_moderation_not_purged(self):
 

@@ -87,7 +87,6 @@ def make_form_page_with_redirect(**kwargs):
     kwargs.setdefault('from_address', "from@email.com")
     kwargs.setdefault('subject', "The subject")
 
-
     home_page = Page.objects.get(url_path='/home/')
     kwargs.setdefault('thank_you_redirect_page', home_page)
     form_page = home_page.add_child(instance=FormPageWithRedirect(**kwargs))

@@ -87,7 +87,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             [collection.name for collection in response.context['collections']],
             ['Root', 'Evil plans', 'Good plans'])
 
-
     def test_tags(self):
         image_two_tags = Image.objects.create(
             title="Test image with two tags",
@@ -106,7 +105,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             [tag.name for tag in tags] == ["one", "two"]
             or [tag.name for tag in tags] == ["two", "one"]
         )
-
 
     def test_tag_filtering(self):
         Image.objects.create(
@@ -138,7 +136,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         response = self.get({'tag': 'two'})
         self.assertEqual(response.context['images'].paginator.count, 1)
 
-
     def test_tag_filtering_preserves_other_params(self):
         for i in range(1, 100):
             image = Image.objects.create(
@@ -148,7 +145,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             if (i % 2 != 0):
                 image.tags.add('even')
                 image.save()
-
 
         response = self.get({'tag': 'even', 'p': 2})
         self.assertEqual(response.status_code, 200)
@@ -551,7 +547,6 @@ class TestImageEditView(TestCase, WagtailTestUtils):
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_get_missing_file_displays_warning_with_custom_storage(self):
         self.check_get_missing_file_displays_warning()
-
 
     def get_content(self, f=None):
         if f is None:

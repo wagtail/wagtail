@@ -86,7 +86,6 @@ class TestPageMove(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
 
-
     def test_page_move_confirm(self):
         response = self.client.get(
             reverse('wagtailadmin_pages:move_confirm', args=(self.test_page_a.id, self.section_b.id))

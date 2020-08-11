@@ -1823,7 +1823,6 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean(value)
 
-
     def test_initialisation_from_subclass(self):
 
         class LinkStructValue(blocks.StructValue):
@@ -1847,7 +1846,6 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
 
         default_value = block.get_default()
         self.assertIsInstance(default_value, LinkStructValue)
-
 
     def test_initialisation_with_multiple_subclassses(self):
         class LinkStructValue(blocks.StructValue):
@@ -1907,7 +1905,6 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
             'source': 'google', 'classname': 'full-size',
         })
         self.assertIsInstance(block_value, LinkStructValue)
-
 
     def test_value_property(self):
 
@@ -3257,7 +3254,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         # including leading space to ensure class name gets added correctly
         self.assertEqual(html.count(' rocket-section'), 1)
-
 
     def test_render_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering stream block"""

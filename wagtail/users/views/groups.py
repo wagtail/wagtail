@@ -157,7 +157,6 @@ class GroupViewSet(ModelViewSet):
     edit_view_class = EditView
     delete_view_class = DeleteView
 
-
     @property
     def users_view(self):
         return index

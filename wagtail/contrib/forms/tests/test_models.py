@@ -559,7 +559,6 @@ class TestCleanedDataEmails(TestCase):
         self.assertEqual(len(mail.outbox), 2)
         self.assertIn("Date: 12/31/1917", mail.outbox[1].body)
 
-
     @override_settings(SHORT_DATETIME_FORMAT='m/d/Y P')
     def test_datetime_normalization(self):
         self.client.post('/contact-us/', {
@@ -582,7 +581,6 @@ class TestCleanedDataEmails(TestCase):
 
         self.assertEqual(len(mail.outbox), 3)
         self.assertIn("Datetime: 12/21/1910 9:19 p.m.", mail.outbox[2].body)
-
 
 
 class TestIssue798(TestCase):
@@ -630,9 +628,7 @@ class TestLegacyFormFieldCleanNameChecks(TestCase):
         self.assertTrue(self.client.login(username='siteeditor', password='password'))
         self.form_page = Page.objects.get(url_path='/home/contact-us-one-more-time/').specific
 
-
     def test_form_field_clean_name_update_on_checks(self):
-
         fields_before_checks = [
             (field.label, field.clean_name,)
             for field in FormFieldWithCustomSubmission.objects.all()
@@ -652,7 +648,6 @@ class TestLegacyFormFieldCleanNameChecks(TestCase):
             messages,
             [Info('Added `clean_name` on 3 form field(s)', obj=FormFieldWithCustomSubmission)]
         )
-
 
         fields_after_checks = [
             (field.label, field.clean_name,)

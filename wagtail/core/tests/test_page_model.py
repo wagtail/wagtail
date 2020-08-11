@@ -1268,7 +1268,6 @@ class TestCopyPage(TestCase):
             EventPage.exclude_fields_in_copy = []
 
 
-
 class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
     def test_allowed_subpage_models(self):
         # SimplePage does not define any restrictions on subpage types
