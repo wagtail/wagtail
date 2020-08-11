@@ -4,7 +4,7 @@
 #
 # Translators:
 # Benjamin Thurm, 2018
-# Ettore Atalan <atalanttore@googlemail.com>, 2019
+# Ettore Atalan <atalanttore@googlemail.com>, 2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2018
 # Bohreromir, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-08 17:02+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgid "image"
 msgstr "Bild"
 
 msgid "Choose a parent page"
-msgstr "Übergeordnete Seite auswählen"
+msgstr "Wählen Sie eine übergeordnete Seite aus"
 
 #, python-format
 msgid ""
@@ -138,6 +138,12 @@ msgstr "Suchen"
 #, python-format
 msgid "Search %(name)s"
 msgstr "%(name)s suchen"
+
+msgid "Download XLSX"
+msgstr "XLSX herunterladen"
+
+msgid "Download CSV"
+msgstr "CSV herunterladen"
 
 msgid "Filter"
 msgstr "Filter"

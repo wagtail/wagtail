@@ -30,9 +30,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-31 17:25+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
+"POT-Creation-Date: 2020-08-07 16:08+0100\n"
+"PO-Revision-Date: 2020-08-07 15:09+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -259,6 +259,9 @@ msgstr "Пожалуйста, выберите хотя бы одну групп
 
 msgid "All types"
 msgstr "Все типы"
+
+msgid "Add tasks to your workflow"
+msgstr "Добавить задачи к рабочему процессу"
 
 msgid "Arabic"
 msgstr "Арабский"
@@ -516,6 +519,9 @@ msgstr "Пт"
 
 msgid "Sat"
 msgstr "Сб"
+
+msgid "Unknown {action}"
+msgstr "Неизвестная {action}"
 
 msgid "Error 404: Page not found"
 msgstr "Ошибка 404: Страница не найдена"
@@ -959,6 +965,9 @@ msgstr "Изменения приватности также накладыва�
 msgid "Visit the live page"
 msgstr "Посетить страницу"
 
+msgid "restricted"
+msgstr "запрещен"
+
 msgid "Set page privacy. Current status: Public"
 msgstr "Установить конфиденциальность страницы. Текущий статус: Общедоступный"
 
@@ -973,6 +982,9 @@ msgstr "Конфиденциальность страницы. Текущий с
 
 msgid "Publishing…"
 msgstr "Публикуется..."
+
+msgid "Publish this version"
+msgstr "Опубликовать эту версию"
 
 msgid "Saving…"
 msgstr "Сохранение…"
@@ -1104,6 +1116,9 @@ msgstr "Да, отменить публикацию"
 msgid "No, don't unpublish"
 msgstr "Нет, оставить опубликованным"
 
+msgid "Publish page"
+msgstr "Опубликовать страницу"
+
 #, python-format
 msgid ""
 "\n"
@@ -1117,6 +1132,9 @@ msgstr ""
 
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Публикация этой страницы отменит текущий рабочий процесс."
+
+msgid "Cancel"
+msgstr "Отмена"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1156,6 +1174,25 @@ msgstr "Редактирование %(page_type)s: %(title)s"
 msgid "Editing %(page_type)s"
 msgstr "Редактирование %(page_type)s"
 
+msgid "History"
+msgstr "История"
+
+#, python-format
+msgid "Page history for %(subtitle)s"
+msgstr "Страница истории для %(subtitle)s"
+
+msgid "Action"
+msgstr "Действие"
+
+msgid "User"
+msgstr "Пользователь"
+
+msgid "Date / Time"
+msgstr "Дата / Время"
+
+msgid "Comment"
+msgstr "Комментарий"
+
 msgid "Live version"
 msgstr "Опубликованная версия"
 
@@ -1165,6 +1202,9 @@ msgstr "Черновик"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s назад"
+
+msgid "No log entries found."
+msgstr "Записи в журнале не найдены."
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1326,6 +1366,18 @@ msgstr ""
 "                После исправления ошибок - попробуйте еще раз.\n"
 "            "
 
+msgid "Current status:"
+msgstr "Текущий статус: "
+
+msgid "Set page privacy"
+msgstr "Установить конфиденциальность страницы"
+
+msgid "Review this version"
+msgstr "Проверить эту версию"
+
+msgid "Compare with previous version"
+msgstr "Сравнить с предыдущей версией"
+
 msgid "Compare with current version"
 msgstr "Сравнить с текущей версией"
 
@@ -1338,6 +1390,9 @@ msgstr "Сравниваем %(title)s"
 
 msgid "Comparing"
 msgstr "Сравниваем"
+
+msgid "Page history"
+msgstr "Страница истории"
 
 msgid "Fields"
 msgstr "Поля"
@@ -1408,6 +1463,9 @@ msgstr[3] ""
 "                                                            Перемещено вверх "
 "на %(counter)s позиций.\n"
 "                                                        "
+
+msgid "There are no differences between these two versions"
+msgstr "Нет отличий между двумя версиями"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1480,12 +1538,59 @@ msgstr "Введите критерий поиска выше"
 msgid "No pages use"
 msgstr "Нет страниц использующих"
 
+msgid "Workflow progress"
+msgstr "Прогресс рабочего процесса"
+
+msgid "Edit / Review"
+msgstr "Редактировать / Проверить"
+
+msgid "Workflow history"
+msgstr "История рабочего процесса"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Запрошен <b>%(modified_by)s</b>"
+
+msgid "Initial Revision"
+msgstr "Начальная Ревизия"
+
+msgid "Page edited"
+msgstr "Страница отредактирована"
+
+#, python-format
+msgid ""
+"\n"
+"                                            %(action)s by <b>%(who)s</b> at "
+"<b>%(at)s</b>\n"
+"                                        "
+msgstr ""
+"\n"
+"%(action)s <b>%(who)s</b> в <b>%(at)s</b>"
+
+msgid "with comment:"
+msgstr "с комментарием:"
+
+msgid "Workflow started"
+msgstr "Рабочий процесс запущен"
+
+msgid "Workflow completed"
+msgstr "Рабочий процесс завершен"
+
 #, python-format
 msgid "Workflow history for %(title)s"
 msgstr "История рабочего процесса %(title)s"
 
+msgid "Workflow history for"
+msgstr "История рабочего процесса для"
+
 msgid "Edit page"
 msgstr "Редактировать страницу"
+
+msgid "Requested by"
+msgstr "Запрошен"
+
+msgid "Incomplete task"
+msgstr "Незавершенная задача"
 
 msgid "Collection"
 msgstr "Коллекция"
@@ -1498,6 +1603,12 @@ msgstr "Скачать XLSX"
 
 msgid "Download CSV"
 msgstr "Скачать CSV"
+
+msgid "Filter"
+msgstr "Фильтр"
+
+msgid "Apply filters"
+msgstr "Применить фильтры"
 
 msgid "No pages found."
 msgstr "Страницы не найдены."
@@ -1540,6 +1651,9 @@ msgstr "Заблокировано"
 msgid "No locked pages found."
 msgstr "Не найдены заблокированные страницы."
 
+msgid "By Task"
+msgstr "По Задаче"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Страница %(page_num)s из %(total_pages)s."
@@ -1570,6 +1684,9 @@ msgstr "Текущий статус страницы:"
 
 msgid "Other searches"
 msgstr "Другие поиски"
+
+msgid "Changes requested"
+msgstr "Изменения запрошены"
 
 msgid "since"
 msgstr "после"
@@ -1603,6 +1720,9 @@ msgstr ""
 "Вот <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" rel="
 "\"noopener noreferrer\">инструкции, как включить JavaScript в вашем веб-"
 "браузере</a>."
+
+msgid "Skip to main content"
+msgstr "Пропустить главный контент"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Идти в интерфейс управления Wagtail"

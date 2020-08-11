@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-07 16:08+0100\n"
+"PO-Revision-Date: 2020-08-07 21:08+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -79,8 +79,23 @@ msgstr "Sýnileiki"
 msgid "Settings"
 msgstr "Stillingar"
 
+msgid "Date from"
+msgstr "Dagsetning frá"
+
+msgid "Date to"
+msgstr "Dagsetning til"
+
 msgid "All"
 msgstr "Allt"
+
+msgid "Started at"
+msgstr "Byrjaði"
+
+msgid "Show"
+msgstr "Sýna"
+
+msgid "Workflow"
+msgstr "Vinnuflæði"
 
 msgid "Date"
 msgstr "Dagsetning"
@@ -188,6 +203,12 @@ msgstr "Þennan reit þarf að fylla út."
 
 msgid "Please select at least one group."
 msgstr "Vinsamlegast veljið amk eina grúppu."
+
+msgid "All types"
+msgstr "Allar tegundir"
+
+msgid "Give your workflow a name"
+msgstr "Gefðu vinnuflæðinu nafn"
 
 msgid "Arabic"
 msgstr "Arabíska"
@@ -1703,6 +1724,21 @@ msgstr "Læstar síður"
 
 msgid "Reports"
 msgstr "Skýrslur"
+
+msgid "Schedule publication"
+msgstr "Tímasetja birtingu"
+
+msgid "Unschedule publication"
+msgstr "Hætta við tímasetta birtingu"
+
+msgid "Workflow: cancel"
+msgstr "Vinnuflæði: hætta við"
+
+msgid "Yes"
+msgstr "Já"
+
+msgid "No"
+msgstr "Nei"
 
 msgid "Choose an item"
 msgstr "Veldu"

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020
 # saevarom <saevar@saevar.is>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-10 14:11+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,9 @@ msgstr "Lylkilorð"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Lykilorðið sem þú slóst inn er ekki rétt. Vinsamlegast reynið aftur."
+
+msgid "Comment"
+msgstr "Athugasemd"
 
 msgid "hostname"
 msgstr "slóð"
@@ -86,6 +89,9 @@ msgstr "síða"
 
 msgid "sites"
 msgstr "síður"
+
+msgid "default"
+msgstr "sjálfgefið"
 
 #, python-format
 msgid ""
@@ -173,17 +179,26 @@ msgstr "síðast gefið út"
 msgid "latest revision created at"
 msgstr "síðasta útgáfa búin til"
 
+msgid "live revision"
+msgstr "útgáfa í birtingu"
+
 msgid "This slug is already in use"
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
 
 msgid "scheduled"
 msgstr "tímasett"
 
+msgid "in moderation"
+msgstr "bíður samþykktar"
+
 msgid "draft"
 msgstr "uppkast"
 
 msgid "live + scheduled"
 msgstr "í loftinu + tímasett"
+
+msgid "live + in moderation"
+msgstr "í birtingu + bíður samþykktar"
 
 msgid "live + draft"
 msgstr "í birtingu + uppkast"
@@ -319,6 +334,61 @@ msgstr "safnheimild hóps"
 
 msgid "group collection permissions"
 msgstr "Myndasafns heimildir hóps"
+
+msgid "workflow"
+msgstr "vinnuflæði"
+
+msgid "task"
+msgstr "verkefni"
+
+msgid "workflow task order"
+msgstr "röðun vinnuflæði verkefna"
+
+msgid "workflows"
+msgstr "vinnuflæði"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Síður á þessu skrefi í vinnuflæði verða yfirfarnar og samþykktar af þessum "
+"notendum"
+
+msgid "Request changes"
+msgstr "Biðja um breytingu"
+
+msgid "Approve"
+msgstr "Samþykkja"
+
+msgid "Approve with comment"
+msgstr "Samþykkja með athugasemd"
+
+msgid "In progress"
+msgstr "Í vinnslu"
+
+msgid "Approved"
+msgstr "Samþykkt"
+
+msgid "Needs changes"
+msgstr "Þarfnast breytinga"
+
+msgid "Cancelled"
+msgstr "Hætt við"
+
+msgid "status"
+msgstr "staða"
+
+msgid "requested by"
+msgstr "umbeðið af"
+
+msgid "Not started"
+msgstr "Ekki byrjað"
+
+msgid "Rejected"
+msgstr "Hafnað"
+
+msgid "user {id} (deleted)"
+msgstr "notanda {id} (eytt)"
 
 msgid "Log in"
 msgstr "Innskrá"
