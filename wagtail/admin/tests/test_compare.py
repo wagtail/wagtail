@@ -428,12 +428,12 @@ class TestStreamFieldComparison(TestCase):
                 ('books', StreamValue(stream_block, [('title', 'The Old Man and the Sea', '10')]), '1'),
             ])),
             StreamPage(body=StreamValue(field.stream_block, [
-                ('books', StreamValue(stream_block, [('author', 'Crime and Punishment', '11')]), '1'),
+                ('books', StreamValue(stream_block, [('author', 'Oscar Wilde', '11')]), '1'),
             ])),
         )
         expected = """
             <div class="comparison__child-object">
-                <div class="comparison__child-object addition">Crime and Punishment</div>\n
+                <div class="comparison__child-object addition">Oscar Wilde</div>\n
                 <div class="comparison__child-object deletion">The Old Man and the Sea</div>
             </div>
         """
