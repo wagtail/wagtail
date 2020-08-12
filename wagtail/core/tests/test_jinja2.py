@@ -182,3 +182,16 @@ class TestIncludeBlockTag(TestCase):
             'language': 'fr',
         })
         self.assertIn('<body>999</body>', result)
+
+    def test_include_block_tag_with_additional_variable(self):
+        """
+        The include_block tag should be able to pass local variables from parent context to the
+        child context
+        """
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        bound_block = block.bind('bonjour')
+
+        result = render_to_string('tests/jinja2/include_block_tag_with_additional_variable.html', {
+            'test_block': bound_block
+        })
+        self.assertIn('<body><h1 class="important">bonjour</h1></body>', result)
