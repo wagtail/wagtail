@@ -14,6 +14,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         current_page_id = None
         for revision in PageRevision.objects.order_by('page_id', 'created_at').select_related('page').iterator():
+            if not revision.page.specific_class:
+                # This revision is for a page type that is no longer in the database. Bail out early.
+                continue
+
             is_new_page = revision.page_id != current_page_id
             if is_new_page:
                 # reset previous revision when encountering a new page.
