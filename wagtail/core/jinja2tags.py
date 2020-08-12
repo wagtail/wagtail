@@ -37,7 +37,11 @@ class WagtailCoreExtension(Extension):
             parser.stream.skip()
 
         if with_context:
-            args.append(jinja2.nodes.ContextReference())
+            if hasattr(jinja2.nodes, 'DerivedContextReference'):
+                # DerivedContextReference includes local variables. Introduced in Jinja 2.11
+                args.append(jinja2.nodes.DerivedContextReference())
+            else:
+                args.append(jinja2.nodes.ContextReference())
         else:
             # Actually we can just skip else branch because context arg default to None
             args.append(jinja2.nodes.Const(None))
