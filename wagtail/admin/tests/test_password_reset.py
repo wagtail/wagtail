@@ -64,7 +64,7 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("Your username (in case you've forgotten): siteeditor", mail.outbox[0].body)
 
-    @override_settings(AUTH_USER_MODEL='customuser.EmailUser')
+    @override_settings(AUTH_USER_MODEL='emailuser.EmailUser')
     def test_password_reset_no_username_when_email_is_username(self):
         # When the user model is using email as the username, the password reset email
         # should not contain "Your username (in case you've forgotten)..."
