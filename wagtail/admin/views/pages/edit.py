@@ -286,7 +286,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if response:
             return response
 
-
         # Notifications
         if go_live_at and go_live_at > timezone.now():
             # Page has been scheduled for publishing in the future
