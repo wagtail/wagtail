@@ -19,6 +19,7 @@ def make_parser():
     parser.add_argument('--elasticsearch5', action='store_true')
     parser.add_argument('--elasticsearch6', action='store_true')
     parser.add_argument('--elasticsearch7', action='store_true')
+    parser.add_argument('--emailuser', action='store_true')
     parser.add_argument('--bench', action='store_true')
     return parser
 
@@ -65,6 +66,8 @@ def runtests():
     elif 'ELASTICSEARCH_URL' in os.environ:
         # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
         del os.environ['ELASTICSEARCH_URL']
+
+    os.environ['USE_EMAIL_USER_MODEL'] = '1' if args.emailuser else ''
 
     if args.bench:
         benchmarks = [
