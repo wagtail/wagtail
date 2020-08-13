@@ -898,7 +898,7 @@
 },
 {
     "pk": 5,
-    "model": "customuser.emailuser",
+    "model": "emailuser.emailuser",
     "fields": {
         "first_name": "",
         "last_name": "",
