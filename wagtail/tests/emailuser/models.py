@@ -1,5 +1,4 @@
-from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, Group, Permission, PermissionsMixin)
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 
 
@@ -25,9 +24,7 @@ class EmailUserManager(BaseUserManager):
                                  **extra_fields)
 
 
-class EmailUser(AbstractBaseUser):
-    # Cant inherit from PermissionsMixin because of clashes with
-    # groups/user_permissions related_names.
+class EmailUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
@@ -35,8 +32,6 @@ class EmailUser(AbstractBaseUser):
     last_name = models.CharField(max_length=50, blank=True)
 
     is_superuser = models.BooleanField(default=False)
-    groups = models.ManyToManyField(Group, related_name='+', blank=True)
-    user_permissions = models.ManyToManyField(Permission, related_name='+', blank=True)
 
     USERNAME_FIELD = 'email'
 
@@ -47,10 +42,3 @@ class EmailUser(AbstractBaseUser):
 
     def get_short_name(self):
         return self.first_name
-
-
-methods = ['get_group_permissions', 'get_all_permissions', 'has_perm',
-           'has_perms', 'has_module_perms']
-for method in methods:
-    func = getattr(PermissionsMixin, method)
-    setattr(EmailUser, method, func)
