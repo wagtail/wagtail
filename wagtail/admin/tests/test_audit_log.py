@@ -62,7 +62,7 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
             email='administrator@email.com',
             password='password'
         )
-        self.editor = self.create_user(username='the_editor', email='editor@email.com', password='password')
+        self.editor = self.create_user(username='the_editor', email='the_editor@example.com', password='password')
         sub_editors = Group.objects.create(name='Sub editors')
         sub_editors.permissions.add(Permission.objects.get(
             content_type__app_label='wagtailadmin',
