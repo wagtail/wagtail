@@ -67,7 +67,8 @@ def runtests():
         # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
         del os.environ['ELASTICSEARCH_URL']
 
-    os.environ['USE_EMAIL_USER_MODEL'] = '1' if args.emailuser else ''
+    if args.emailuser:
+        os.environ['USE_EMAIL_USER_MODEL'] = '1'
 
     if args.bench:
         benchmarks = [
