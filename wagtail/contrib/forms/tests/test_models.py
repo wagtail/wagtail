@@ -211,7 +211,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         self.assertContains(response, "<p>hello world</p>")
 
         # check that the custom form_submission is added to the context
-        self.assertContains(response, "<p>Username: test@email.com</p>")
+        self.assertContains(response, "<p>User email: test@email.com</p>")
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)
