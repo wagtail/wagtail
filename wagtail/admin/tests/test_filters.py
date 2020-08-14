@@ -34,7 +34,7 @@ class TestFilteredModelChoiceField(TestCase, WagtailTestUtils):
 
         class UserForm(forms.Form):
             users = FilteredModelChoiceField(
-                queryset=User.objects.order_by('username'), filter_field='id_group', filter_accessor='groups'
+                queryset=User.objects.order_by(User.USERNAME_FIELD), filter_field='id_group', filter_accessor='groups'
             )
 
         form = UserForm()
@@ -42,13 +42,15 @@ class TestFilteredModelChoiceField(TestCase, WagtailTestUtils):
         expected_html = """
             <select name="users" data-widget="filtered-select" data-filter-field="id_group" required id="id_users">
                 <option value="" selected>---------</option>
-                <option value="%(david)s" data-filter-value="%(musicians)s,%(actors)s">david</option>
-                <option value="%(kevin)s" data-filter-value="%(actors)s">kevin</option>
-                <option value="%(morten)s" data-filter-value="%(musicians)s">morten</option>
+                <option value="%(david)s" data-filter-value="%(musicians)s,%(actors)s">%(david_username)s</option>
+                <option value="%(kevin)s" data-filter-value="%(actors)s">%(kevin_username)s</option>
+                <option value="%(morten)s" data-filter-value="%(musicians)s">%(morten_username)s</option>
             </select>
         """ % {
             'david': self.david.pk, 'kevin': self.kevin.pk, 'morten': self.morten.pk,
             'musicians': self.musicians.pk, 'actors': self.actors.pk,
+            'david_username': self.david.get_username(), 'kevin_username': self.kevin.get_username(),
+            'morten_username': self.morten.get_username(),
         }
         self.assertHTMLEqual(html, expected_html)
 
@@ -56,7 +58,7 @@ class TestFilteredModelChoiceField(TestCase, WagtailTestUtils):
 
         class UserForm(forms.Form):
             users = FilteredModelChoiceField(
-                queryset=User.objects.order_by('username'), filter_field='id_group',
+                queryset=User.objects.order_by(User.USERNAME_FIELD), filter_field='id_group',
                 filter_accessor=lambda user: user.groups.all()
             )
 
@@ -65,12 +67,14 @@ class TestFilteredModelChoiceField(TestCase, WagtailTestUtils):
         expected_html = """
             <select name="users" data-widget="filtered-select" data-filter-field="id_group" required id="id_users">
                 <option value="" selected>---------</option>
-                <option value="%(david)s" data-filter-value="%(musicians)s,%(actors)s">david</option>
-                <option value="%(kevin)s" data-filter-value="%(actors)s">kevin</option>
-                <option value="%(morten)s" data-filter-value="%(musicians)s">morten</option>
+                <option value="%(david)s" data-filter-value="%(musicians)s,%(actors)s">%(david_username)s</option>
+                <option value="%(kevin)s" data-filter-value="%(actors)s">%(kevin_username)s</option>
+                <option value="%(morten)s" data-filter-value="%(musicians)s">%(morten_username)s</option>
             </select>
         """ % {
             'david': self.david.pk, 'kevin': self.kevin.pk, 'morten': self.morten.pk,
             'musicians': self.musicians.pk, 'actors': self.actors.pk,
+            'david_username': self.david.get_username(), 'kevin_username': self.kevin.get_username(),
+            'morten_username': self.morten.get_username(),
         }
         self.assertHTMLEqual(html, expected_html)
