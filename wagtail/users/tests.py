@@ -578,7 +578,6 @@ class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
         # create a user with delete permission
         self.deleter_user = self.create_user(
             username='deleter',
-            email='deleter@email.com',
             password='password'
         )
         deleters_group = Group.objects.create(name='User deleters')
@@ -590,7 +589,7 @@ class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
 
         self.superuser = self.create_test_user()
 
-        self.client.login(username='deleter', password='password')
+        self.login(username='deleter', password='password')
 
     def test_simple(self):
         response = self.client.get(reverse('wagtailusers_users:delete', args=(self.test_user.pk,)))
@@ -1005,7 +1004,6 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
         # Create a user
         self.test_user = self.create_user(
             username='testuser',
-            email='testuser@email.com',
             password='password',
         )
 
@@ -1029,7 +1027,6 @@ class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):
         # create a user with edit permission
         self.editor_user = self.create_user(
             username='editor',
-            email='editor@email.com',
             password='password'
         )
         editors_group = Group.objects.create(name='User editors')
@@ -1039,7 +1036,7 @@ class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):
         ))
         self.editor_user.groups.add(editors_group)
 
-        self.client.login(username='editor', password='password')
+        self.login(username='editor', password='password')
 
     def test_user_cannot_escalate_privileges(self):
         """

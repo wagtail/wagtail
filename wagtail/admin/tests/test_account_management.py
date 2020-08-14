@@ -86,7 +86,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         """
         # Login as unprivileged user
         self.create_user(username='unprivileged', password='123')
-        self.assertTrue(self.client.login(username='unprivileged', password='123'))
+        self.login(username='unprivileged', password='123')
 
         # Get login page
         response = self.client.get(reverse('wagtailadmin_login'))
@@ -155,7 +155,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         """
         # Login as unprivileged user
         self.create_user(username='unprivileged', password='123')
-        self.assertTrue(self.client.login(username='unprivileged', password='123'))
+        self.login(username='unprivileged', password='123')
 
         # Get dashboard
         response = self.client.get(reverse('wagtailadmin_home'), follow=True)
@@ -171,7 +171,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         """
         # Login as unprivileged user
         self.create_user(username='unprivileged', password='123')
-        self.assertTrue(self.client.login(username='unprivileged', password='123'))
+        self.login(username='unprivileged', password='123')
 
         # Get dashboard
         response = self.client.get(reverse('wagtailadmin_home'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -610,7 +610,7 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
         self.submitter = self.create_user('submitter', 'submitter@example.com', 'password')
         self.submitter.groups.add(Group.objects.get(name='Editors'))
 
-        self.assertTrue(self.client.login(username=self.submitter.username, password='password'))
+        self.login(username=self.submitter.username, password='password')
 
     def test_notification_preferences_form_is_reduced_for_non_moderators(self):
         """
@@ -639,7 +639,7 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         )
         self.admin_only_user.groups.add(admin_only_group)
 
-        self.assertTrue(self.client.login(username=self.admin_only_user.username, password='password'))
+        self.login(username=self.admin_only_user.username, password='password')
 
     def test_notification_preferences_view_redirects_for_admin_only_users(self):
         """

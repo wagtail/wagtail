@@ -583,11 +583,11 @@ class TestCleanedDataEmails(TestCase):
         self.assertIn("Datetime: 12/21/1910 9:19 p.m.", mail.outbox[2].body)
 
 
-class TestIssue798(TestCase):
+class TestIssue798(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
 
         # Add a number field to the page
@@ -621,11 +621,11 @@ class TestNonHtmlExtension(TestCase):
         self.assertEqual(form_page.landing_page_template, "tests/form_page_landing.jade")
 
 
-class TestLegacyFormFieldCleanNameChecks(TestCase):
+class TestLegacyFormFieldCleanNameChecks(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us-one-more-time/').specific
 
     def test_form_field_clean_name_update_on_checks(self):

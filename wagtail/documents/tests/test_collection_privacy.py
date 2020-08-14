@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from wagtail.core.models import Collection, CollectionViewRestriction
 from wagtail.documents.models import Document
+from wagtail.tests.utils import WagtailTestUtils
 
 try:
     from urllib.parse import quote
@@ -12,7 +13,7 @@ except ImportError:
     from urllib import quote
 
 
-class TestCollectionPrivacyDocument(TestCase):
+class TestCollectionPrivacyDocument(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
@@ -75,17 +76,17 @@ class TestCollectionPrivacyDocument(TestCase):
         self.assertRedirects(response, '/_util/login/?next={}'.format(url))
 
     def test_group_restriction_with_unpermitted_user(self):
-        self.client.login(username='eventmoderator', password='password')
+        self.login(username='eventmoderator', password='password')
         response, url = self.get_document(self.group_collection)
         self.assertRedirects(response, '/_util/login/?next={}'.format(url))
 
     def test_group_restriction_with_permitted_user(self):
-        self.client.login(username='eventeditor', password='password')
+        self.login(username='eventeditor', password='password')
         response, url = self.get_document(self.group_collection)
         self.assertEqual(response.status_code, 200)
 
     def test_group_restriction_with_superuser(self):
-        self.client.login(username='superuser', password='password')
+        self.login(username='superuser', password='password')
         response, url = self.get_document(self.group_collection)
         self.assertEqual(response.status_code, 200)
 
@@ -94,6 +95,6 @@ class TestCollectionPrivacyDocument(TestCase):
         self.assertRedirects(response, '/_util/login/?next={}'.format(url))
 
     def test_login_restriction_with_logged_in_user(self):
-        self.client.login(username='eventmoderator', password='password')
+        self.login(username='eventmoderator', password='password')
         response, url = self.get_document(self.login_collection)
         self.assertEqual(response.status_code, 200)

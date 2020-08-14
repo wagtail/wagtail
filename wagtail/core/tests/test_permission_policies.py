@@ -93,8 +93,10 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase, WagtailTestU
             'superuser', 'superuser@example.com', 'password'
         )
         self.inactive_superuser = self.create_superuser(
-            'inactivesuperuser', 'inactivesuperuser@example.com', 'password', is_active=False
+            'inactivesuperuser', 'inactivesuperuser@example.com', 'password'
         )
+        self.inactive_superuser.is_active = False
+        self.inactive_superuser.save()
 
         # a user with add_image permission through the 'Image adders' group
         self.image_adder = self.create_user(
@@ -110,9 +112,11 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase, WagtailTestU
 
         # a user that has add_image permission, but is inactive
         self.inactive_image_adder = self.create_user(
-            'inactiveimageadder', 'inactiveimageadder@example.com', 'password', is_active=False
+            'inactiveimageadder', 'inactiveimageadder@example.com', 'password'
         )
         self.inactive_image_adder.groups.add(image_adders_group)
+        self.inactive_image_adder.is_active = False
+        self.inactive_image_adder.save()
 
         # a user with change_image permission through the 'Image changers' group
         self.image_changer = self.create_user(
@@ -128,10 +132,11 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase, WagtailTestU
 
         # a user that has change_image permission, but is inactive
         self.inactive_image_changer = self.create_user(
-            'inactiveimagechanger', 'inactiveimagechanger@example.com', 'password',
-            is_active=False
+            'inactiveimagechanger', 'inactiveimagechanger@example.com', 'password'
         )
         self.inactive_image_changer.groups.add(image_changers_group)
+        self.inactive_image_changer.is_active = False
+        self.inactive_image_changer.save()
 
         # a user with delete_image permission through user_permissions
         self.oneoff_image_deleter = self.create_user(
