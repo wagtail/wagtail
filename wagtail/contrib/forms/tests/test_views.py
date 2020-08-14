@@ -110,7 +110,7 @@ class TestFormsIndex(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def make_form_pages(self):
@@ -176,7 +176,7 @@ class TestFormsIndex(TestCase, WagtailTestUtils):
 
     def test_cannot_see_forms_without_permission(self):
         # Login with as a user without permission to see forms
-        self.assertTrue(self.client.login(username='eventeditor', password='password'))
+        self.login(username='eventeditor', password='password')
 
         response = self.client.get(reverse('wagtailforms:index'))
 
@@ -386,7 +386,7 @@ class TestFormsSubmissionsListLegacyFieldName(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us-one-more-time/').specific
 
         # running checks should show an info message AND update blank clean_name values
@@ -921,7 +921,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def test_delete_submission_show_confirmation(self):
@@ -958,7 +958,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id,)))
 
     def test_delete_submission_bad_permissions(self):
-        self.assertTrue(self.client.login(username="eventeditor", password="password"))
+        self.login(username="eventeditor", password="password")
 
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
@@ -995,11 +995,11 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id,)))
 
 
-class TestDeleteCustomFormSubmission(TestCase):
+class TestDeleteCustomFormSubmission(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us-one-more-time/')
 
     def test_delete_submission_show_confirmation(self):
@@ -1037,7 +1037,7 @@ class TestDeleteCustomFormSubmission(TestCase):
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id,)))
 
     def test_delete_submission_bad_permissions(self):
-        self.assertTrue(self.client.login(username="eventeditor", password="password"))
+        self.login(username="eventeditor", password="password")
 
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
@@ -1246,7 +1246,7 @@ class TestFormsWithCustomFormBuilderSubmissionsList(TestCase, WagtailTestUtils):
         self.assertContains(response, '192.0.2.15')
 
 
-class TestDuplicateFormFieldLabels(TestCase):
+class TestDuplicateFormFieldLabels(TestCase, WagtailTestUtils):
     """
     If a user creates two fields with the same label, data cannot be saved correctly.
     See: https://github.com/wagtail/wagtail/issues/585
@@ -1256,7 +1256,7 @@ class TestDuplicateFormFieldLabels(TestCase):
 
     def setUp(self):
 
-        self.assertTrue(self.client.login(username='superuser', password='password'))
+        self.login(username='superuser', password='password')
         # Find root page
         self.root_page = Page.objects.get(id=2)
 

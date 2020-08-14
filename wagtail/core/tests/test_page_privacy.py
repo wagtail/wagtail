@@ -2,9 +2,10 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 
 from wagtail.core.models import Page, PageViewRestriction
+from wagtail.tests.utils import WagtailTestUtils
 
 
-class TestPagePrivacy(TestCase):
+class TestPagePrivacy(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
@@ -87,18 +88,18 @@ class TestPagePrivacy(TestCase):
         self.assertRedirects(response, '/_util/login/?next=/secret-event-editor-plans/')
 
     def test_group_restriction_with_unpermitted_user(self):
-        self.client.login(username='eventmoderator', password='password')
+        self.login(username='eventmoderator', password='password')
         response = self.client.get('/secret-event-editor-plans/')
         self.assertRedirects(response, '/_util/login/?next=/secret-event-editor-plans/')
 
     def test_group_restriction_with_permitted_user(self):
-        self.client.login(username='eventeditor', password='password')
+        self.login(username='eventeditor', password='password')
         response = self.client.get('/secret-event-editor-plans/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<title>Secret event editor plans</title>")
 
     def test_group_restriction_with_superuser(self):
-        self.client.login(username='superuser', password='password')
+        self.login(username='superuser', password='password')
         response = self.client.get('/secret-event-editor-plans/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<title>Secret event editor plans</title>")
@@ -108,7 +109,7 @@ class TestPagePrivacy(TestCase):
         self.assertRedirects(response, '/_util/login/?next=/secret-login-plans/')
 
     def test_login_restriction_with_logged_in_user(self):
-        self.client.login(username='eventmoderator', password='password')
+        self.login(username='eventmoderator', password='password')
         response = self.client.get('/secret-login-plans/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<title>Secret login plans</title>")

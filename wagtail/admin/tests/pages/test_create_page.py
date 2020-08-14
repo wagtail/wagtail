@@ -747,8 +747,7 @@ class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
         Test that per-request custom behaviour in edit handlers is honoured
         """
         # non-superusers should not see secret_data
-        logged_in = self.client.login(username='siteeditor', password='password')
-        self.assertTrue(logged_in)
+        self.login(username='siteeditor', password='password')
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'secretpage', self.root_page.id))
         )
@@ -757,8 +756,7 @@ class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
         self.assertNotContains(response, '"secret_data"')
 
         # superusers should see secret_data
-        logged_in = self.client.login(username='superuser', password='password')
-        self.assertTrue(logged_in)
+        self.login(username='superuser', password='password')
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'secretpage', self.root_page.id))
         )
