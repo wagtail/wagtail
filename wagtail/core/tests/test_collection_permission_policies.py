@@ -52,8 +52,10 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase, WagtailTestU
             'superuser', 'superuser@example.com', 'password'
         )
         self.inactive_superuser = self.create_superuser(
-            'inactivesuperuser', 'inactivesuperuser@example.com', 'password', is_active=False
+            'inactivesuperuser', 'inactivesuperuser@example.com', 'password'
         )
+        self.inactive_superuser.is_active = False
+        self.inactive_superuser.save()
 
         # a user with change_document permission through the 'Document changers' group
         self.doc_changer = self.create_user(
@@ -63,9 +65,11 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase, WagtailTestU
 
         # a user that has change_document permission, but is inactive
         self.inactive_doc_changer = self.create_user(
-            'inactivedocchanger', 'inactivedocchanger@example.com', 'password', is_active=False
+            'inactivedocchanger', 'inactivedocchanger@example.com', 'password'
         )
         self.inactive_doc_changer.groups.add(doc_changers_group)
+        self.inactive_doc_changer.is_active = False
+        self.inactive_doc_changer.save()
 
         # a user with change_document permission on reports via the report_changers group
         self.report_changer = self.create_user(

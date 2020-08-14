@@ -211,6 +211,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         users = get_user_model().objects.filter(email='test@user.com')
         self.assertEqual(users.count(), 1)
 
+    @unittest.skipUnless(settings.AUTH_USER_MODEL == 'customuser.CustomUser', "Only applicable to CustomUser")
     @override_settings(
         WAGTAIL_USER_CREATION_FORM='wagtail.users.tests.CustomUserCreationForm',
         WAGTAIL_USER_CUSTOM_FIELDS=['country', 'document'],
@@ -554,7 +555,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
     def test_after_delete_user_hook(self):
         def hook_func(request, user):
             self.assertIsInstance(request, HttpRequest)
-            self.assertEqual(user.username, self.test_user.username)
+            self.assertEqual(user.email, self.test_user.email)
 
             return HttpResponse("Overridden!")
 
