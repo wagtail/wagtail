@@ -4,6 +4,7 @@ import tempfile
 import pytz
 
 from django import VERSION as DJANGO_VERSION
+from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -45,7 +46,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
 
         # Post credentials to the login page
         response = self.client.post(reverse('wagtailadmin_login'), {
-            'username': 'test',
+            'username': 'test@email.com' if settings.AUTH_USER_MODEL == 'emailuser.EmailUser' else 'test',
             'password': 'password',
 
             # NOTE: This is set using a hidden field in reality
@@ -59,7 +60,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         self.assertTrue('_auth_user_id' in self.client.session)
         self.assertEqual(
             str(self.client.session['_auth_user_id']),
-            str(get_user_model().objects.get(username='test').pk)
+            str(get_user_model().objects.get(email='test@email.com').pk)
         )
 
     def test_already_logged_in_redirect(self):
