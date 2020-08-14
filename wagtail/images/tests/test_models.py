@@ -1,6 +1,5 @@
 import unittest
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.cache import caches
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -156,15 +155,14 @@ class TestImageQuerySet(TestCase):
             self.assertTrue('aardvark' in results['Test image 0'])
 
 
-class TestImagePermissions(TestCase):
+class TestImagePermissions(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create some user accounts for testing permissions
-        User = get_user_model()
-        self.user = User.objects.create_user(username='user', email='user@email.com', password='password')
-        self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
-        self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
+        self.user = self.create_user(username='user', email='user@email.com', password='password')
+        self.owner = self.create_user(username='owner', email='owner@email.com', password='password')
+        self.editor = self.create_user(username='editor', email='editor@email.com', password='password')
         self.editor.groups.add(Group.objects.get(name='Editors'))
-        self.administrator = User.objects.create_superuser(
+        self.administrator = self.create_superuser(
             username='administrator', email='administrator@email.com', password='password'
         )
 

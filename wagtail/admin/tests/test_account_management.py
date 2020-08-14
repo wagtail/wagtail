@@ -41,7 +41,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         the user was logged in successfully
         """
         # Create user to log in with
-        get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
+        self.create_superuser(username='test', email='test@email.com', password='password')
 
         # Post credentials to the login page
         response = self.client.post(reverse('wagtailadmin_login'), {
@@ -85,7 +85,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         This tests issue #431
         """
         # Login as unprivileged user
-        get_user_model().objects.create_user(username='unprivileged', password='123')
+        self.create_user(username='unprivileged', password='123')
         self.assertTrue(self.client.login(username='unprivileged', password='123'))
 
         # Get login page
@@ -154,7 +154,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         redirected to the login page, with an error message
         """
         # Login as unprivileged user
-        get_user_model().objects.create_user(username='unprivileged', password='123')
+        self.create_user(username='unprivileged', password='123')
         self.assertTrue(self.client.login(username='unprivileged', password='123'))
 
         # Get dashboard
@@ -170,7 +170,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         given a 403 error on ajax requests
         """
         # Login as unprivileged user
-        get_user_model().objects.create_user(username='unprivileged', password='123')
+        self.create_user(username='unprivileged', password='123')
         self.assertTrue(self.client.login(username='unprivileged', password='123'))
 
         # Get dashboard
@@ -607,7 +607,7 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
     """
     def setUp(self):
         # Create a non-moderator user
-        self.submitter = get_user_model().objects.create_user('submitter', 'submitter@example.com', 'password')
+        self.submitter = self.create_user('submitter', 'submitter@example.com', 'password')
         self.submitter.groups.add(Group.objects.get(name='Editors'))
 
         self.assertTrue(self.client.login(username=self.submitter.username, password='password'))
@@ -632,7 +632,7 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         admin_only_group = Group.objects.create(name='Admin Only')
         admin_only_group.permissions.add(Permission.objects.get(codename='access_admin'))
 
-        self.admin_only_user = get_user_model().objects.create_user(
+        self.admin_only_user = self.create_user(
             'admin_only_user',
             'admin_only_user@example.com',
             'password'
@@ -670,7 +670,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
     """
     def setUp(self):
         # Create a user
-        get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
+        self.create_superuser(username='test', email='test@email.com', password='password')
 
     def test_password_reset_view(self):
         """

@@ -4,27 +4,28 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 
 from wagtail.admin.filters import FilteredModelChoiceField
+from wagtail.tests.utils import WagtailTestUtils
 
 
 User = get_user_model()
 
 
-class TestFilteredModelChoiceField(TestCase):
+class TestFilteredModelChoiceField(TestCase, WagtailTestUtils):
     def setUp(self):
         self.musicians = Group.objects.create(name="Musicians")
         self.actors = Group.objects.create(name="Actors")
 
-        self.david = User.objects.create_user(
+        self.david = self.create_user(
             'david', 'david@example.com', 'kn1ghtr1der', first_name="David", last_name="Hasselhoff"
         )
         self.david.groups.set([self.musicians, self.actors])
 
-        self.kevin = User.objects.create_user(
+        self.kevin = self.create_user(
             'kevin', 'kevin@example.com', '6degrees', first_name="Kevin", last_name="Bacon"
         )
         self.kevin.groups.set([self.actors])
 
-        self.morten = User.objects.create_user(
+        self.morten = self.create_user(
             'morten', 'morten@example.com', 't4ke0nm3', first_name="Morten", last_name="Harket"
         )
         self.morten.groups.set([self.musicians])

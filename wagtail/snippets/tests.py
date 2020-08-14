@@ -841,7 +841,7 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(pk=1)
 
         # Create a user with add_advert permission but not change_advert
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='addonly',
             email='addonly@example.com',
             password='password'
@@ -892,7 +892,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(pk=1)
 
         # Create a user with change_advert permission but not add_advert
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='changeonly',
             email='changeonly@example.com',
             password='password'
@@ -943,7 +943,7 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(pk=1)
 
         # Create a user with delete_advert permission
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='deleteonly',
             email='deleteeonly@example.com',
             password='password'

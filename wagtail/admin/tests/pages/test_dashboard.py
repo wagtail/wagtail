@@ -23,8 +23,8 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         child_page.save_revision().publish()
         self.child_page = SimplePage.objects.get(id=child_page.id)
 
-        get_user_model().objects.create_superuser(username='alice', email='alice@email.com', password='password')
-        get_user_model().objects.create_superuser(username='bob', email='bob@email.com', password='password')
+        self.create_superuser(username='alice', email='alice@email.com', password='password')
+        self.create_superuser(username='bob', email='bob@email.com', password='password')
 
     def change_something(self, title):
         post_data = {'title': title, 'content': "Some content", 'slug': 'hello-world'}

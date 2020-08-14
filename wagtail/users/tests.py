@@ -73,7 +73,7 @@ class TestUserFormHelpers(TestCase):
 class TestGroupUsersView(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a user that should be visible in the listing
-        self.test_user = get_user_model().objects.create_user(
+        self.test_user = self.create_user(
             username='testuser',
             email='testuser@email.com',
             password='password',
@@ -124,7 +124,7 @@ class TestGroupUsersView(TestCase, WagtailTestUtils):
 class TestUserIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a user that should be visible in the listing
-        self.test_user = get_user_model().objects.create_user(
+        self.test_user = self.create_user(
             username='testuser',
             email='testuser@email.com',
             password='password',
@@ -144,7 +144,7 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
 
     def test_allows_negative_ids(self):
         # see https://github.com/wagtail/wagtail/issues/565
-        get_user_model().objects.create_user('guardian', 'guardian@example.com', 'gu@rd14n', pk=-1)
+        self.create_user('guardian', 'guardian@example.com', 'gu@rd14n', pk=-1)
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'testuser')
@@ -472,13 +472,13 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
 class TestUserDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a user that should be visible in the listing
-        self.test_user = get_user_model().objects.create_user(
+        self.test_user = self.create_user(
             username='testuser',
             email='testuser@email.com',
             password='password'
         )
         # also create a superuser to delete
-        self.superuser = get_user_model().objects.create_superuser(
+        self.superuser = self.create_superuser(
             username='testsuperuser',
             email='testsuperuser@email.com',
             password='password'
@@ -570,13 +570,13 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
 class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a user that should be visible in the listing
-        self.test_user = get_user_model().objects.create_user(
+        self.test_user = self.create_user(
             username='testuser',
             email='testuser@email.com',
             password='password'
         )
         # create a user with delete permission
-        self.deleter_user = get_user_model().objects.create_user(
+        self.deleter_user = self.create_user(
             username='deleter',
             email='deleter@email.com',
             password='password'
@@ -627,7 +627,7 @@ class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
 class TestUserEditView(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user to edit
-        self.test_user = get_user_model().objects.create_user(
+        self.test_user = self.create_user(
             username='testuser',
             email='testuser@email.com',
             first_name='Original',
@@ -1003,7 +1003,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
 class TestUserProfileCreation(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user
-        self.test_user = get_user_model().objects.create_user(
+        self.test_user = self.create_user(
             username='testuser',
             email='testuser@email.com',
             password='password',
@@ -1027,7 +1027,7 @@ class TestUserProfileCreation(TestCase, WagtailTestUtils):
 class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a user with edit permission
-        self.editor_user = get_user_model().objects.create_user(
+        self.editor_user = self.create_user(
             username='editor',
             email='editor@email.com',
             password='password'
