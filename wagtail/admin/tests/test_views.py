@@ -38,13 +38,13 @@ class TestLoginView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, homepage_admin_url)
 
     def test_already_authenticated_redirect(self):
-        self.client.login(username='test@email.com', password='password')
+        self.login(username='test@email.com', password='password')
 
         response = self.client.get(reverse('wagtailadmin_login'))
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
     def test_already_authenticated_redirect_honour_redirect_get_parameter(self):
-        self.client.login(username='test@email.com', password='password')
+        self.login(username='test@email.com', password='password')
 
         homepage_admin_url = reverse('wagtailadmin_pages:edit', args=[self.homepage.pk])
         login_url = reverse('wagtailadmin_login') + '?next={}'.format(homepage_admin_url)

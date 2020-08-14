@@ -332,7 +332,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
     # warning messages should include advice re configuring sites
 
     def test_admin_at_root(self):
-        self.assertTrue(self.client.login(username='superuser', password='password'))
+        self.login(username='superuser', password='password')
         response = self.client.get(reverse('wagtailadmin_explore_root'))
         self.assertEqual(response.status_code, 200)
         # Administrator (or user with add_site permission) should get the full message
@@ -347,7 +347,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertContains(response, """<a href="/admin/sites/">Configure a site now.</a>""")
 
     def test_admin_at_non_site_page(self):
-        self.assertTrue(self.client.login(username='superuser', password='password'))
+        self.login(username='superuser', password='password')
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # Administrator (or user with add_site permission) should get a warning about
@@ -362,7 +362,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         self.assertContains(response, """<a href="/admin/sites/">Configure a site now.</a>""")
 
     def test_admin_at_site_page(self):
-        self.assertTrue(self.client.login(username='superuser', password='password'))
+        self.login(username='superuser', password='password')
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here
@@ -378,7 +378,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
             group=Group.objects.get(name="Site-wide editors"),
             page=self.no_site_page, permission_type='add'
         )
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         response = self.client.get(reverse('wagtailadmin_explore_root'))
 
         self.assertEqual(response.status_code, 200)
@@ -395,7 +395,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
             group=Group.objects.get(name="Site-wide editors"),
             page=self.no_site_page, permission_type='add'
         )
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
 
         self.assertEqual(response.status_code, 200)
@@ -409,7 +409,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         )
 
     def test_nonadmin_at_site_page(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
         self.assertEqual(response.status_code, 200)
         # There should be no warning message here
@@ -420,7 +420,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
 
     def test_bad_permissions_at_root(self):
         # 'siteeditor' does not have permission to explore the root
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         response = self.client.get(reverse('wagtailadmin_explore_root'))
 
         # Users without permission to explore here should be redirected to their explorable root.
@@ -431,7 +431,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
 
     def test_bad_permissions_at_non_site_page(self):
         # 'siteeditor' does not have permission to explore no_site_page
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.no_site_page.id, )))
 
         # Users without permission to explore here should be redirected to their explorable root.
@@ -444,7 +444,7 @@ class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
         # Adjust siteeditor's permission so that they have permission over no_site_page
         # instead of site_page
         Group.objects.get(name="Site-wide editors").page_permissions.update(page_id=self.no_site_page.id)
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.site_page.id, )))
         # Users without permission to explore here should be redirected to their explorable root.
         self.assertEqual(
@@ -489,13 +489,13 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
     # Integration tests adapted from @coredumperror
 
     def test_admin_can_explore_every_page(self):
-        self.assertTrue(self.client.login(username='superman', password='password'))
+        self.login(username='superman', password='password')
         for page in Page.objects.all():
             response = self.client.get(reverse('wagtailadmin_explore', args=[page.pk]))
             self.assertEqual(response.status_code, 200)
 
     def test_admin_sees_root_page_as_explorer_root(self):
-        self.assertTrue(self.client.login(username='superman', password='password'))
+        self.login(username='superman', password='password')
         response = self.client.get(reverse('wagtailadmin_explore_root'))
         self.assertEqual(response.status_code, 200)
         # Administrator should see the full list of children of the Root page.
@@ -503,7 +503,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertContains(response, "Welcome to example.com!")
 
     def test_admin_sees_breadcrumbs_up_to_root_page(self):
-        self.assertTrue(self.client.login(username='superman', password='password'))
+        self.login(username='superman', password='password')
         response = self.client.get(reverse('wagtailadmin_explore', args=[6]))
         self.assertEqual(response.status_code, 200)
 
@@ -515,7 +515,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", str(response.content))
 
     def test_nonadmin_sees_breadcrumbs_up_to_cca(self):
-        self.assertTrue(self.client.login(username='josh', password='password'))
+        self.login(username='josh', password='password')
         response = self.client.get(reverse('wagtailadmin_explore', args=[6]))
         self.assertEqual(response.status_code, 200)
         # While at "Page 1", Josh should see the breadcrumbs leading only as far back as the example.com homepage,
@@ -529,7 +529,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "Welcome to example.com!")
 
     def test_admin_home_page_changes_with_permissions(self):
-        self.assertTrue(self.client.login(username='bob', password='password'))
+        self.login(username='bob', password='password')
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
         # Bob should only see the welcome for example.com, not testserver
@@ -537,7 +537,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertNotContains(response, "testserver")
 
     def test_breadcrumb_with_no_user_permissions(self):
-        self.assertTrue(self.client.login(username='mary', password='password'))
+        self.login(username='mary', password='password')
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
         # Since Mary has no page permissions, she should not see the breadcrumb

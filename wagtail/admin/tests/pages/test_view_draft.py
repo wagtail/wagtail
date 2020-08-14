@@ -28,7 +28,7 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
         self.root_page.add_child(instance=self.stream_page)
 
         # create user with admin access (but not draft_view access)
-        user = self.create_user(username='bob', email='bob@email.com', password='password')
+        user = self.create_user(username='bob', password='password')
         user.user_permissions.add(
             Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         )
@@ -56,7 +56,7 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
 
     def test_draft_access_unauthorized(self):
         """Test that user without edit/publish permission can't view draft."""
-        self.assertTrue(self.client.login(username='bob', password='password'))
+        self.login(username='bob', password='password')
 
         # Try getting page draft
         response = self.client.get(reverse('wagtailadmin_pages:view_draft', args=(self.child_page.id, )))
@@ -71,7 +71,7 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
         user.groups.add(Group.objects.get(name='Moderators'))
         user.save()
 
-        self.assertTrue(self.client.login(username='bob', password='password'))
+        self.login(username='bob', password='password')
 
         # Get add subpage page
         response = self.client.get(reverse('wagtailadmin_pages:view_draft', args=(self.child_page.id, )))

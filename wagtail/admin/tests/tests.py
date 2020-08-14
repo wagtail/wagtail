@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import json
+import unittest
 
 from django import VERSION as DJANGO_VERSION
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.test import TestCase, override_settings
@@ -74,6 +76,7 @@ class TestHome(TestCase, WagtailTestUtils):
         self.assertIn('max-age=0', response['Cache-Control'])
         self.assertIn('must-revalidate', response['Cache-Control'])
 
+    @unittest.skipIf(settings.AUTH_USER_MODEL == 'emailuser.EmailUser', "Only applicable to CustomUser")
     def test_nonascii_email(self):
         # Test that non-ASCII email addresses don't break the admin; previously these would
         # cause a failure when generating Gravatar URLs
@@ -268,24 +271,24 @@ class TestUserPassesTestPermissionDecorator(TestCase, WagtailTestUtils):
     """
     def test_user_passes_test(self):
         # create and log in as a user called Bob
-        self.create_superuser(first_name='Bob', last_name='Mortimer', username='test', email='test@email.com', password='password')
-        self.assertTrue(self.client.login(username='test', password='password'))
+        self.create_superuser(first_name='Bob', last_name='Mortimer', username='test', password='password')
+        self.login(username='test', password='password')
 
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertEqual(response.status_code, 200)
 
     def test_user_fails_test(self):
         # create and log in as a user not called Bob
-        self.create_superuser(first_name='Vic', last_name='Reeves', username='test', email='test@email.com', password='password')
-        self.assertTrue(self.client.login(username='test', password='password'))
+        self.create_superuser(first_name='Vic', last_name='Reeves', username='test', password='password')
+        self.login(username='test', password='password')
 
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
     def test_user_fails_test_ajax(self):
         # create and log in as a user not called Bob
-        self.create_superuser(first_name='Vic', last_name='Reeves', username='test', email='test@email.com', password='password')
-        self.assertTrue(self.client.login(username='test', password='password'))
+        self.create_superuser(first_name='Vic', last_name='Reeves', username='test', password='password')
+        self.login(username='test', password='password')
 
         response = self.client.get(reverse('testapp_bob_only_zone'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 403)
