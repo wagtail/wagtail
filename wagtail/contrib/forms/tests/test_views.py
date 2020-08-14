@@ -663,11 +663,11 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
 
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[0], 'User email,Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1],
-                         'user-john,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+                         'user-john@example.com,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
         self.assertEqual(data_lines[2],
-                         'user-m1kola,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+                         'user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
 
     def test_list_submissions_csv_export_with_date_from_filtering(self):
         response = self.client.get(
@@ -679,9 +679,9 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
 
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[0], 'User email,Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1],
-                         'user-m1kola,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+                         'user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
 
     def test_list_submissions_csv_export_with_date_to_filtering(self):
         response = self.client.get(
@@ -693,9 +693,9 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
 
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[0], 'User email,Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1],
-                         'user-john,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+                         'user-john@example.com,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
 
     def test_list_submissions_csv_export_with_range_filtering(self):
         response = self.client.get(
@@ -707,9 +707,9 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
 
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
+        self.assertEqual(data_lines[0], 'User email,Submission date,Your email,Your message,Your choices\r')
         self.assertEqual(data_lines[1],
-                         'user-m1kola,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+                         'user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
 
     def test_list_submissions_csv_export_with_unicode_in_submission(self):
         unicode_form_submission = CustomFormPageSubmission.objects.create(
@@ -826,9 +826,9 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 2)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
-        self.assertContains(response, '<td>user-m1kola</td>', html=True)
-        self.assertContains(response, '<td>user-john</td>', html=True)
+        self.assertContains(response, '<th id="useremail" class="">User email</th>', html=True)
+        self.assertContains(response, '<td>user-m1kola@example.com</td>', html=True)
+        self.assertContains(response, '<td>user-john@example.com</td>', html=True)
 
     def test_list_submissions_filtering_date_from(self):
         response = self.client.get(
@@ -841,8 +841,8 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
-        self.assertContains(response, '<td>user-m1kola</td>', html=True)
+        self.assertContains(response, '<th id="useremail" class="">User email</th>', html=True)
+        self.assertContains(response, '<td>user-m1kola@example.com</td>', html=True)
 
     def test_list_submissions_filtering_date_to(self):
         response = self.client.get(
@@ -855,8 +855,8 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
-        self.assertContains(response, '<td>user-john</td>', html=True)
+        self.assertContains(response, '<th id="useremail" class="">User email</th>', html=True)
+        self.assertContains(response, '<td>user-john@example.com</td>', html=True)
 
     def test_list_submissions_filtering_range(self):
         response = self.client.get(
@@ -870,8 +870,8 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
-        self.assertContains(response, '<td>user-m1kola</td>', html=True)
+        self.assertContains(response, '<th id="useremail" class="">User email</th>', html=True)
+        self.assertContains(response, '<td>user-m1kola@example.com</td>', html=True)
 
     def test_list_submissions_pagination(self):
         self.make_list_submissions()
@@ -886,7 +886,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['page_obj'].number, 2)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
+        self.assertContains(response, '<th id="useremail" class="">User email</th>', html=True)
         self.assertContains(response, 'generated-username-', count=20)
 
     def test_list_submissions_pagination_invalid(self):
@@ -1166,10 +1166,10 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
         self.assertIn('filename="%s-export' % self.form_page.slug, response.get('Content-Disposition'))
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Chocolate,Ingredients,Your Excitement\r')
+        self.assertEqual(data_lines[0], 'User email,Submission date,Your email,Chocolate,Ingredients,Your Excitement\r')
         # first result should be the most recent as order_csv has been reversed
-        self.assertEqual(data_lines[1], 'user-chocolate-maniac,2017-10-01 12:00:00+00:00,new@example.com,White Chocolate,White colouring,Much excitement\r')
-        self.assertEqual(data_lines[2], 'user-chocolate-guy,2017-01-01 12:00:00+00:00,old@example.com,Dark Chocolate,Charcoal,What is chocolate?\r')
+        self.assertEqual(data_lines[1], 'user-chocolate-maniac@example.com,2017-10-01 12:00:00+00:00,new@example.com,White Chocolate,White colouring,Much excitement\r')
+        self.assertEqual(data_lines[2], 'user-chocolate-guy@example.com,2017-01-01 12:00:00+00:00,old@example.com,Dark Chocolate,Charcoal,What is chocolate?\r')
 
     def test_list_submissions_ordering(self):
         form_submission = CustomFormPageSubmission.objects.create(
