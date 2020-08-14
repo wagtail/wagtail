@@ -137,17 +137,52 @@ class BaseStructBlock(Block):
 
         return self._to_struct_value(result)
 
-    def to_python(self, value):
-        """ Recursively call to_python on children and return as a StructValue """
-        return self._to_struct_value([
-            (
-                name,
-                (child_block.to_python(value[name]) if name in value else child_block.get_default())
-                # NB the result of get_default is NOT passed through to_python, as it's expected
-                # to be in the block's native type already
+    def bulk_to_python(self, values):
+        """ Bulk load the data for fields that implement bulk_to_python """
+        bulk_in_python = {}
+
+        # Go through each child_block and pre_load data if `bulk_to_python` is available.
+        for name, field in self.child_blocks.items():
+            if not hasattr(field, 'bulk_to_python'):
+                continue
+
+            bulk_in_python[name] = field.bulk_to_python(
+                [value[name] for value in values if name in value]
             )
-            for name, child_block in self.child_blocks.items()
-        ])
+
+        python_values = []
+        # For each of the values of the block call `to_python`
+        # passing the bulk loaded data for it to use.
+        for index, value in enumerate(values):
+            # None values are not passed and are left for `to_python` to deal with.
+            in_python = {
+                name: data[index]
+                for name, data in bulk_in_python.items()
+                if data is not None
+            }
+
+            python_values.append(self.to_python(value, in_python))
+
+        return python_values
+
+    def to_python(self, value, in_python=None):
+        """ Recursively call to_python on children and return as a StructValue """
+        in_python = in_python if in_python else {}
+
+        field_values = []
+        for name, child_block in self.child_blocks.items():
+
+            if name in in_python:
+                python_value = in_python[name]
+            elif name in value:
+                python_value = child_block.to_python(value[name])
+            else:
+                # Default value is already in its native python form.
+                python_value = child_block.get_default()
+
+            field_values.append((name, python_value))
+
+        return self._to_struct_value(field_values)
 
     def _to_struct_value(self, block_items):
         """ Return a Structvalue representation of the sub-blocks in this block """
