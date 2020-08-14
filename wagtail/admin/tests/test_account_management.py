@@ -611,7 +611,7 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
         self.submitter = self.create_user('submitter', 'submitter@example.com', 'password')
         self.submitter.groups.add(Group.objects.get(name='Editors'))
 
-        self.login(username=self.submitter.username, password='password')
+        self.login(username='submitter', password='password')
 
     def test_notification_preferences_form_is_reduced_for_non_moderators(self):
         """
@@ -640,7 +640,7 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         )
         self.admin_only_user.groups.add(admin_only_group)
 
-        self.login(username=self.admin_only_user.username, password='password')
+        self.login(username='admin_only_user', password='password')
 
     def test_notification_preferences_view_redirects_for_admin_only_users(self):
         """
@@ -745,7 +745,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         from django.utils.http import urlsafe_base64_encode
 
         # Get user
-        self.user = get_user_model().objects.get(username='test')
+        self.user = get_user_model().objects.get(email='test@email.com')
 
         # Generate a password reset token
         self.password_reset_token = PasswordResetTokenGenerator().make_token(self.user)
@@ -818,7 +818,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_password_reset_complete'))
 
         # Check that the password was changed
-        self.assertTrue(get_user_model().objects.get(username='test').check_password('newpassword'))
+        self.assertTrue(get_user_model().objects.get(email='test@email.com').check_password('newpassword'))
 
     def test_password_reset_confirm_view_post_password_mismatch(self):
         """
@@ -846,7 +846,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
             self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
-        self.assertTrue(get_user_model().objects.get(username='test').check_password('password'))
+        self.assertTrue(get_user_model().objects.get(email='test@email.com').check_password('password'))
 
     def test_password_reset_done_view(self):
         """
@@ -872,7 +872,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
 
     def test_password_reset_sensitive_post_parameters(self):
         request = RequestFactory().post('wagtailadmin_password_reset_confirm', data={})
-        request.user = get_user_model().objects.get(username='test')
+        request.user = get_user_model().objects.get(email='test@email.com')
         change_password(request)
         self.assertTrue(hasattr(request, 'sensitive_post_parameters'))
         self.assertEqual(request.sensitive_post_parameters, '__ALL__')

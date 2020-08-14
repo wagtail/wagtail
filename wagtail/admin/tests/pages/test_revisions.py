@@ -107,7 +107,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         editors_group = Group.objects.get(name='Site-wide editors')
         editors_group.page_permissions.update(page_id=st_patricks.id)
 
-        editor = get_user_model().objects.get(username='siteeditor')
+        editor = get_user_model().objects.get(email='siteeditor@example.com')
 
         self.login(editor)
         response = self.request_preview_revision()

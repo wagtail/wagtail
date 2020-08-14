@@ -67,7 +67,7 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
     def test_draft_access_authorized(self):
         """Test that user with edit permission can view draft."""
         # give user the permission to edit page
-        user = get_user_model().objects.get(username='bob')
+        user = get_user_model().objects.get(email='bob@example.com')
         user.groups.add(Group.objects.get(name='Moderators'))
         user.save()
 
