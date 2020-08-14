@@ -1306,7 +1306,9 @@ class TestMeta(unittest.TestCase):
         self.assertEqual(block.meta.label, 'Child block')
 
 
-class TestStructBlock(SimpleTestCase):
+class TestStructBlock(TestCase):
+    fixtures = ['test.json']
+
     def test_initialisation(self):
         block = blocks.StructBlock([
             ('title', blocks.CharBlock()),
@@ -1779,11 +1781,35 @@ class TestStructBlock(SimpleTestCase):
         self.assertIn('title', result)
         self.assertIn('Hello', result)
 
+    def test_in_python_value_used(self):
+        """
+        Values passed to in_python take precedence, and sub-child `to_python` call is skipeed.
+        """
+        block = SectionBlock()
+        in_python_body = block.child_blocks['body'].to_python('<i>italic</i> world')
+        value = block.to_python({'title': 'Hello', 'body': '<i>italic</i> world'}, {'body': in_python_body})
+        self.assertIs(in_python_body, value['body'])
+
     def test_render_structvalue_with_extra_context(self):
         block = SectionBlock()
         value = block.to_python({'title': 'Bonjour', 'body': 'monde <i>italique</i>'})
         result = value.render_as_block(context={'language': 'fr'})
         self.assertEqual(result, """<h1 lang="fr">Bonjour</h1>monde <i>italique</i>""")
+
+    def test_bulk_to_python(self):
+        class BulkStructValue(blocks.StructBlock):
+            title = blocks.CharBlock()
+            page = blocks.PageChooserBlock(required=False)
+
+        page_ids = [2, 3, 4, 5]
+        values = [{"page": page_id, "title": str(page_id)} for page_id in page_ids]
+        expected_pages = [{"page": page, "title": str(page.pk)} for page in Page.objects.filter(pk__in=page_ids)]
+        block = BulkStructValue()
+
+        with self.assertNumQueries(1):
+            struct_value = block.bulk_to_python(values)
+
+        self.assertSequenceEqual(struct_value, expected_pages)
 
 
 class TestStructBlockWithCustomStructValue(SimpleTestCase):
