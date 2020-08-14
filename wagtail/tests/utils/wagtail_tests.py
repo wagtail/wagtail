@@ -16,10 +16,12 @@ class WagtailTestUtils:
         # Create a user
         user_data = dict()
         user_data[user_model.USERNAME_FIELD] = 'test@email.com'
+        user_data['email'] = 'test@email.com'
         user_data['password'] = 'password'
 
         for field in user_model.REQUIRED_FIELDS:
-            user_data[field] = field
+            if field not in user_data:
+                user_data[field] = field
 
         return user_model.objects.create_superuser(**user_data)
 
