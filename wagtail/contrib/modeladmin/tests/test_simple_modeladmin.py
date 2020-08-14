@@ -1,7 +1,6 @@
 from io import BytesIO
 from unittest import mock
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import checks
 from django.test import TestCase
@@ -514,21 +513,18 @@ class TestDeleteViewModelReprPrimary(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
 
-class TestEditorAccess(TestCase):
+class TestEditorAccess(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
     expected_status_code = 403
 
-    def login(self):
+    def setUp(self):
         # Create a user
-        user = get_user_model().objects._create_user(username='test2', email='test2@email.com', password='password', is_staff=True, is_superuser=False)
+        user = self.create_user(username='test2', password='password')
         user.groups.add(Group.objects.get(pk=2))
         # Login
-        self.client.login(username='test2', password='password')
+        self.login(username='test2', password='password')
 
         return user
-
-    def setUp(self):
-        self.login()
 
     def test_index_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/')
