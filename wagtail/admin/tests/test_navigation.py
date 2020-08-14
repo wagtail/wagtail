@@ -46,22 +46,22 @@ class TestExplorablePages(TestCase, WagtailTestUtils):
 
     def test_admins_see_all_pages(self):
         User = get_user_model()
-        user = User.objects.get(username='superman')
+        user = User.objects.get(email='superman@example.com')
         self.assertEqual(get_explorable_root_page(user).id, 1)
 
     def test_nav_root_for_nonadmin_is_closest_common_ancestor(self):
         User = get_user_model()
-        user = User.objects.get(username='jane')
+        user = User.objects.get(email='jane@example.com')
         self.assertEqual(get_explorable_root_page(user).id, 2)
 
     def test_nonadmin_sees_leaf_page_at_root_level(self):
         User = get_user_model()
-        user = User.objects.get(username='bob')
+        user = User.objects.get(email='bob@example.com')
         self.assertEqual(get_explorable_root_page(user).id, 6)
 
     def test_nonadmin_sees_pages_below_closest_common_ancestor(self):
         User = get_user_model()
-        user = User.objects.get(username='josh')
+        user = User.objects.get(email='josh@example.com')
         # Josh has permissions for /example-home/content/page-1 and /example-home/other-content,
         # of which the closest common ancestor is /example-home.
         self.assertEqual(get_explorable_root_page(user).id, 4)
@@ -74,12 +74,12 @@ class TestExplorablePages(TestCase, WagtailTestUtils):
         # of 'home' and 'example-home' (but not the sibling 'home-2', which Sam doesn't have
         # permission on)
         User = get_user_model()
-        user = User.objects.get(username='sam')
+        user = User.objects.get(email='sam@example.com')
         self.assertEqual(get_explorable_root_page(user).id, 1)
         for page in get_pages_with_direct_explore_permission(user):
             self.assertIn(page.id, [2, 6])
 
     def test_nonadmin_with_no_page_perms_cannot_explore(self):
         User = get_user_model()
-        user = User.objects.get(username='mary')
+        user = User.objects.get(email='mary@example.com')
         self.assertEqual(get_explorable_root_page(user), None)
