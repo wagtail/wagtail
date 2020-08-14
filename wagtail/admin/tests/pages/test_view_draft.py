@@ -28,7 +28,7 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
         self.root_page.add_child(instance=self.stream_page)
 
         # create user with admin access (but not draft_view access)
-        user = get_user_model().objects.create_user(username='bob', email='bob@email.com', password='password')
+        user = self.create_user(username='bob', email='bob@email.com', password='password')
         user.user_permissions.add(
             Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         )

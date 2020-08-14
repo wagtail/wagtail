@@ -1,6 +1,5 @@
 import json
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
@@ -373,7 +372,7 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
             permission=add_image_permission
         )
 
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moriarty',
             email='moriarty@example.com',
             password='password'
@@ -1067,7 +1066,7 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
             permission=add_image_permission
         )
 
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moriarty',
             email='moriarty@example.com',
             password='password'
@@ -1945,7 +1944,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
 
         # Create a user with change_image permission but not add_image
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='changeonly', email='changeonly@example.com', password='password'
         )
         change_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='change_image')
@@ -2007,7 +2006,7 @@ class TestImageAddMultipleView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
 
     def test_as_ordinary_editor(self):
-        user = get_user_model().objects.create_user(username='editor', email='editor@email.com', password='password')
+        user = self.create_user(username='editor', email='editor@email.com', password='password')
 
         add_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='add_image')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')

@@ -1,7 +1,6 @@
 import datetime
 from unittest import mock
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
@@ -426,7 +425,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
     def test_create_simplepage_post_submit(self):
         # Create a moderator user for testing email
-        get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
+        self.create_superuser('moderator', 'moderator@email.com', 'password')
 
         # Submit
         post_data = {

@@ -39,7 +39,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         for field in user_model.REQUIRED_FIELDS:
             user_data[field] = field
 
-        user = user_model.objects.create_user(**user_data)
+        user = self.create_user(**user_data)
         user.groups.add(editors_group)
 
         # Log in as a non-superuser editor

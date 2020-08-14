@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -13,7 +12,7 @@ class TestModerationList(TestCase, WagtailTestUtils):
 
     def setUp(self):
         # Create a submitter
-        submitter = get_user_model().objects.create_user(
+        submitter = self.create_user(
             username='submitter',
             email='submitter@email.com',
             password='password',
@@ -59,7 +58,7 @@ class TestModerationList(TestCase, WagtailTestUtils):
         )
 
         # Create a moderator without edit permissions
-        moderator = get_user_model().objects.create_user(
+        moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password'

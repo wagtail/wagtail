@@ -82,7 +82,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, "Last Christmas I gave you my heart")
 
     def test_preview_revision_with_no_page_permissions_redirects_to_admin(self):
-        admin_only_user = get_user_model().objects.create_user(
+        admin_only_user = self.create_user(
             username='admin_only',
             email='admin_only@email.com',
             password='password'
