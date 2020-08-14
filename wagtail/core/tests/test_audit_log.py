@@ -8,12 +8,12 @@ from freezegun import freeze_time
 from wagtail.core.models import (
     Page, PageLogEntry, PageViewRestriction, Task, Workflow, WorkflowTask)
 from wagtail.tests.testapp.models import SimplePage
+from wagtail.tests.utils import WagtailTestUtils
 
 
-class TestAuditLogManager(TestCase):
+class TestAuditLogManager(TestCase, WagtailTestUtils):
     def setUp(self):
-        User = get_user_model()
-        self.user = User.objects.create_superuser(
+        self.user = self.create_superuser(
             username='administrator',
             email='administrator@email.com',
             password='password'

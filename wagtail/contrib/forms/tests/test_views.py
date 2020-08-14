@@ -3,7 +3,6 @@ import datetime
 import json
 from io import BytesIO
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.core.checks import Info
 from django.test import RequestFactory, TestCase
@@ -60,7 +59,7 @@ class TestFormResponsesPanel(TestCase):
         self.assertEqual('', result)
 
 
-class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
+class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils):
     def setUp(self):
         self.request = RequestFactory().get('/')
         user = AnonymousUser()  # technically, Anonymous users cannot access the admin
@@ -73,7 +72,7 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
             FormPageWithCustomSubmission, form_class=WagtailAdminPageForm
         )
 
-        self.test_user = get_user_model().objects.create_user(
+        self.test_user = self.create_user(
             username='user-n1kola', password='123')
 
         self.panel = FormSubmissionsPanel().bind_to(
@@ -622,7 +621,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
 class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def create_test_user_without_admin(self, username):
-        return get_user_model().objects.create_user(username=username, password='123')
+        return self.create_user(username=username, password='123')
 
     def setUp(self):
         # Create a form page
@@ -771,7 +770,7 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
 class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
     def create_test_user_without_admin(self, username):
-        return get_user_model().objects.create_user(username=username, password='123')
+        return self.create_user(username=username, password='123')
 
     def setUp(self):
         # Create a form page
@@ -1055,7 +1054,7 @@ class TestDeleteCustomFormSubmission(TestCase):
 class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
 
     def create_test_user_without_admin(self, username):
-        return get_user_model().objects.create_user(username=username, password='123')
+        return self.create_user(username=username, password='123')
 
     def setUp(self):
         # Create a form page

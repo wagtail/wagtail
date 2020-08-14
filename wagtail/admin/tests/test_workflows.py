@@ -3,7 +3,6 @@ import logging
 from unittest import mock
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.core.mail import EmailMultiAlternatives
@@ -32,7 +31,7 @@ class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
         delete_existing_workflows()
         self.login()
 
-        self.editor = get_user_model().objects.create_user(
+        self.editor = self.create_user(
             username='editor',
             email='editor@email.com',
             password='password',
@@ -40,7 +39,7 @@ class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.editor)
 
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
@@ -104,7 +103,7 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
         self.task_1 = SimpleTask.objects.create(name="first_task")
         self.task_2 = SimpleTask.objects.create(name="second_task")
 
-        self.editor = get_user_model().objects.create_user(
+        self.editor = self.create_user(
             username='editor',
             email='editor@email.com',
             password='password',
@@ -112,7 +111,7 @@ class TestWorkflowsCreateView(TestCase, WagtailTestUtils):
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.editor)
 
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
@@ -233,7 +232,7 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
         self.page = Page.objects.first()
         WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
 
-        self.editor = get_user_model().objects.create_user(
+        self.editor = self.create_user(
             username='editor',
             email='editor@email.com',
             password='password',
@@ -241,7 +240,7 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.editor)
 
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
@@ -394,7 +393,7 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
         self.page = Page.objects.first()
         WorkflowPage.objects.create(workflow=self.workflow, page=self.page)
 
-        self.editor = get_user_model().objects.create_user(
+        self.editor = self.create_user(
             username='editor',
             email='editor@email.com',
             password='password',
@@ -402,7 +401,7 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.editor)
 
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
@@ -436,7 +435,7 @@ class TestTaskIndexView(TestCase, WagtailTestUtils):
         delete_existing_workflows()
         self.login()
 
-        self.editor = get_user_model().objects.create_user(
+        self.editor = self.create_user(
             username='editor',
             email='editor@email.com',
             password='password',
@@ -444,7 +443,7 @@ class TestTaskIndexView(TestCase, WagtailTestUtils):
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.editor)
 
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
@@ -507,7 +506,7 @@ class TestCreateTaskView(TestCase, WagtailTestUtils):
         delete_existing_workflows()
         self.login()
 
-        self.editor = get_user_model().objects.create_user(
+        self.editor = self.create_user(
             username='editor',
             email='editor@email.com',
             password='password',
@@ -515,7 +514,7 @@ class TestCreateTaskView(TestCase, WagtailTestUtils):
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.editor)
 
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
@@ -595,7 +594,7 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
         self.login()
         self.task = GroupApprovalTask.objects.create(name="test_task")
 
-        self.editor = get_user_model().objects.create_user(
+        self.editor = self.create_user(
             username='editor',
             email='editor@email.com',
             password='password',
@@ -603,7 +602,7 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.editor)
 
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
@@ -657,14 +656,14 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
 class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
     def setUp(self):
         delete_existing_workflows()
-        self.submitter = get_user_model().objects.create_user(
+        self.submitter = self.create_user(
             username='submitter',
             email='submitter@email.com',
             password='password',
         )
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.submitter)
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
@@ -672,7 +671,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         moderators = Group.objects.get(name='Moderators')
         moderators.user_set.add(self.moderator)
 
-        self.superuser = get_user_model().objects.create_superuser(
+        self.superuser = self.create_superuser(
             username='superuser',
             email='superuser@email.com',
             password='password',
@@ -839,7 +838,7 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
 class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
     def setUp(self):
         delete_existing_workflows()
-        self.submitter = get_user_model().objects.create_user(
+        self.submitter = self.create_user(
             username='submitter',
             first_name='Sebastian',
             last_name='Mitter',
@@ -848,7 +847,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         )
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.submitter)
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
@@ -856,7 +855,7 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         moderators = Group.objects.get(name='Moderators')
         moderators.user_set.add(self.moderator)
 
-        self.superuser = get_user_model().objects.create_superuser(
+        self.superuser = self.create_superuser(
             username='superuser',
             email='superuser@email.com',
             password='password',
@@ -1135,19 +1134,19 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 class TestNotificationPreferences(TestCase, WagtailTestUtils):
     def setUp(self):
         delete_existing_workflows()
-        self.submitter = get_user_model().objects.create_user(
+        self.submitter = self.create_user(
             username='submitter',
             email='submitter@email.com',
             password='password',
         )
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.submitter)
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
         )
-        self.moderator2 = get_user_model().objects.create_user(
+        self.moderator2 = self.create_user(
             username='moderator2',
             email='moderator2@email.com',
             password='password',
@@ -1156,7 +1155,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         moderators.user_set.add(self.moderator)
         moderators.user_set.add(self.moderator2)
 
-        self.superuser = get_user_model().objects.create_superuser(
+        self.superuser = self.create_superuser(
             username='superuser',
             email='superuser@email.com',
             password='password',
@@ -1342,19 +1341,19 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 class TestDisableViews(TestCase, WagtailTestUtils):
     def setUp(self):
         delete_existing_workflows()
-        self.submitter = get_user_model().objects.create_user(
+        self.submitter = self.create_user(
             username='submitter',
             email='submitter@email.com',
             password='password',
         )
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.submitter)
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
         )
-        self.moderator2 = get_user_model().objects.create_user(
+        self.moderator2 = self.create_user(
             username='moderator2',
             email='moderator2@email.com',
             password='password',
@@ -1363,7 +1362,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         moderators.user_set.add(self.moderator)
         moderators.user_set.add(self.moderator2)
 
-        self.superuser = get_user_model().objects.create_superuser(
+        self.superuser = self.create_superuser(
             username='superuser',
             email='superuser@email.com',
             password='password',
@@ -1656,14 +1655,14 @@ class TestWorkflowUsageView(TestCase, WagtailTestUtils):
 class TestWorkflowStatus(TestCase, WagtailTestUtils):
     def setUp(self):
         delete_existing_workflows()
-        self.submitter = get_user_model().objects.create_user(
+        self.submitter = self.create_user(
             username='submitter',
             email='submitter@email.com',
             password='password',
         )
         editors = Group.objects.get(name='Editors')
         editors.user_set.add(self.submitter)
-        self.moderator = get_user_model().objects.create_user(
+        self.moderator = self.create_user(
             username='moderator',
             email='moderator@email.com',
             password='password',
@@ -1671,7 +1670,7 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         moderators = Group.objects.get(name='Moderators')
         moderators.user_set.add(self.moderator)
 
-        self.superuser = get_user_model().objects.create_superuser(
+        self.superuser = self.create_superuser(
             username='superuser',
             email='superuser@email.com',
             password='password',

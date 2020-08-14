@@ -37,6 +37,32 @@ class WagtailTestUtils:
         return user
 
     @staticmethod
+    def create_user(username, email=None, password=None, **kwargs):
+        # wrapper for get_user_model().objects.create_user that works interchangeably for user models
+        # with and without a username field
+        User = get_user_model()
+
+        kwargs['email'] = email or "%s@example.com" % username
+        kwargs['password'] = password
+        if User.USERNAME_FIELD != 'email':
+            kwargs[User.USERNAME_FIELD] = username
+
+        return User.objects.create_user(**kwargs)
+
+    @staticmethod
+    def create_superuser(username, email=None, password=None, **kwargs):
+        # wrapper for get_user_model().objects.create_user that works interchangeably for user models
+        # with and without a username field
+        User = get_user_model()
+
+        kwargs['email'] = email or "%s@example.com" % username
+        kwargs['password'] = password
+        if User.USERNAME_FIELD != 'email':
+            kwargs[User.USERNAME_FIELD] = username
+
+        return User.objects.create_superuser(**kwargs)
+
+    @staticmethod
     @contextmanager
     def ignore_deprecation_warnings():
         with warnings.catch_warnings(record=True) as warning_list:  # catch all warnings
