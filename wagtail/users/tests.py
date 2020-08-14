@@ -1,4 +1,7 @@
+import unittest
+
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured
@@ -205,9 +208,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was created
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='test@user.com')
         self.assertEqual(users.count(), 1)
-        self.assertEqual(users.first().email, 'test@user.com')
 
     @override_settings(
         WAGTAIL_USER_CREATION_FORM='wagtail.users.tests.CustomUserCreationForm',
@@ -229,9 +231,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was created
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='test@user.com')
         self.assertEqual(users.count(), 1)
-        self.assertEqual(users.first().email, 'test@user.com')
         self.assertEqual(users.first().country, 'testcountry')
         self.assertEqual(users.first().attachment.read(), b"Uploaded file")
 
@@ -252,7 +253,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['form'].errors['password2'])
 
         # Check that the user was not created
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='test@user.com')
         self.assertEqual(users.count(), 0)
 
     @override_settings(
@@ -286,7 +287,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertEqual(errors['password2'][0].code, 'password_too_similar')
 
         # Check that the user was not created
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='test@user.com')
         self.assertEqual(users.count(), 0)
 
     def test_create_with_missing_password(self):
@@ -307,7 +308,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['form'].errors['password1'])
 
         # Check that the user was not created
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='test@user.com')
         self.assertEqual(users.count(), 0)
 
     @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
@@ -335,9 +336,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was created
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='test@user.com')
         self.assertEqual(users.count(), 1)
-        self.assertEqual(users.first().email, 'test@user.com')
         self.assertEqual(users.first().password, '')
 
     @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
@@ -359,7 +359,7 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertTrue(response.context['form'].errors['password2'])
 
         # Check that the user was not created
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='test@user.com')
         self.assertEqual(users.count(), 0)
 
     @override_settings(WAGTAILUSERS_PASSWORD_REQUIRED=False)
@@ -378,9 +378,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was created
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='test@user.com')
         self.assertEqual(users.count(), 1)
-        self.assertEqual(users.first().email, 'test@user.com')
         self.assertTrue(users.first().check_password('banana'))
 
     @override_settings(WAGTAILUSERS_PASSWORD_ENABLED=False)
@@ -408,9 +407,8 @@ class TestUserCreateView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was created
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='test@user.com')
         self.assertEqual(users.count(), 1)
-        self.assertEqual(users.first().email, 'test@user.com')
         self.assertEqual(users.first().password, '')
 
     def test_before_create_user_hook(self):
@@ -503,7 +501,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was deleted
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='testuser@email.com')
         self.assertEqual(users.count(), 0)
 
     def test_user_cannot_delete_self(self):
@@ -524,7 +522,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was deleted
-        users = get_user_model().objects.filter(username='testsuperuser')
+        users = get_user_model().objects.filter(email='testsuperuser@email.com')
         self.assertEqual(users.count(), 0)
 
     def test_before_delete_user_hook(self):
@@ -603,7 +601,7 @@ class TestUserDeleteViewForNonSuperuser(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailusers_users:index'))
 
         # Check that the user was deleted
-        users = get_user_model().objects.filter(username='testuser')
+        users = get_user_model().objects.filter(email='testuser@email.com')
         self.assertEqual(users.count(), 0)
 
     def test_user_cannot_delete_self(self):
@@ -871,6 +869,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         # Check that the user is still active
         self.assertEqual(user.is_active, True)
 
+    @unittest.skipUnless(settings.AUTH_USER_MODEL == 'customuser.CustomUser', "Only applicable to CustomUser")
     @override_settings(
         WAGTAIL_USER_EDIT_FORM='wagtail.users.tests.CustomUserEditForm',
     )
@@ -895,6 +894,7 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertEqual(user.country, 'testcountry')
         self.assertEqual(user.attachment.read(), b"Uploaded file")
 
+    @unittest.skipIf(settings.AUTH_USER_MODEL == 'emailuser.EmailUser', "Not applicable to EmailUser")
     def test_edit_validation_error(self):
         # Leave "username" field blank. This should give a validation error
         response = self.post({
