@@ -1069,7 +1069,7 @@ class TestCopyPage(TestCase):
         self.assertEqual(str(exception.exception), "You cannot copy a tree branch recursively into itself")
 
     def test_copy_page_updates_user(self):
-        event_moderator = get_user_model().objects.get(username='eventmoderator')
+        event_moderator = get_user_model().objects.get(email='eventmoderator@example.com')
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision()
 

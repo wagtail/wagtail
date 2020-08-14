@@ -569,7 +569,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
 
     def get_data_fields(self):
         data_fields = [
-            ('username', 'Username'),
+            ('useremail', 'User email'),
         ]
         data_fields += super().get_data_fields()
 
@@ -626,7 +626,7 @@ class CustomFormPageSubmission(AbstractFormSubmission):
     def get_data(self):
         form_data = super().get_data()
         form_data.update({
-            'username': self.user.username,
+            'useremail': self.user.email,
         })
 
         return form_data
@@ -657,7 +657,7 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
 
     def get_data_fields(self):
         data_fields = [
-            ('username', 'Username'),
+            ('useremail', 'User email'),
         ]
         data_fields += super().get_data_fields()
 
