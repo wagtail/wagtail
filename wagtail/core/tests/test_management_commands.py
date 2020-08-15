@@ -1,5 +1,6 @@
 from datetime import timedelta
 from io import StringIO
+from unittest import mock
 
 from django.contrib.auth import get_user_model
 from django.core import management
@@ -7,7 +8,7 @@ from django.db import models
 from django.test import TestCase
 from django.utils import timezone
 
-from wagtail.core.models import Page, PageRevision
+from wagtail.core.models import Page, PageLogEntry, PageRevision
 from wagtail.core.signals import page_published, page_unpublished
 from wagtail.tests.testapp.models import EventPage, SimplePage
 
@@ -422,3 +423,47 @@ class TestPurgeRevisionsCommand(TestCase):
 
         # revision is now older than 30 days, so should be deleted
         self.assertNotIn(old_revision, PageRevision.objects.filter(page=self.page))
+
+
+class TestCreateLogEntriesFromRevisionsCommand(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="hello",
+            live=False,
+            expire_at=timezone.now() - timedelta(days=1),
+        )
+
+        Page.objects.get(id=2).add_child(instance=self.page)
+
+        # Create empty revisions, which should not be converted to log entries
+        for i in range(3):
+            self.page.save_revision()
+
+        # Add another revision with a content change
+        self.page.title = "Hello world!!"
+        revision = self.page.save_revision()
+        revision.publish()
+
+        # clean up log entries
+        PageLogEntry.objects.all().delete()
+
+    def test_log_entries_created_from_revisions(self):
+        management.call_command('create_log_entries_from_revisions')
+
+        # Should not create entries for empty revisions.
+        self.assertListEqual(
+            list(PageLogEntry.objects.values_list("action", flat=True)),
+            ['wagtail.publish', 'wagtail.edit', 'wagtail.create']
+        )
+
+    def test_command_doesnt_crash_for_revisions_without_page_model(self):
+        with mock.patch(
+            'wagtail.core.models.ContentType.model_class',
+            return_value=None,
+        ):
+            management.call_command('create_log_entries_from_revisions')
+            self.assertEqual(PageLogEntry.objects.count(), 0)
