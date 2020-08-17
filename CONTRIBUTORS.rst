@@ -474,6 +474,7 @@ Contributors
 * Gabriel Peracio
 * Jesse Menn
 * Robbie Mackay
+* Vyacheslav Matyukhin
 
 Translators
 ===========
