@@ -52,12 +52,12 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             raise PermissionDenied
 
         try:
-            self.content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
+            self.page_content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
         except ContentType.DoesNotExist:
             raise Http404
 
         # Get class
-        self.page_class = self.content_type.model_class()
+        self.page_class = self.page_content_type.model_class()
 
         # Make sure the class is a descendant of Page
         if not issubclass(self.page_class, Page):
@@ -244,7 +244,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'content_type': self.content_type,
+            'content_type': self.page_content_type,
             'page_class': self.page_class,
             'parent_page': self.parent_page,
             'edit_handler': self.edit_handler,
