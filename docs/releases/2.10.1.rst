@@ -13,3 +13,4 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
+ * Prevent ``create_log_entries_from_revisions`` command from failing when page model classes are missing (Dan Braghis)

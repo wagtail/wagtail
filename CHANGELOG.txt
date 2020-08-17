@@ -4,6 +4,8 @@ Changelog
 2.10.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~
 
+ * Fix: Prevent `create_log_entries_from_revisions` command from failing when page model classes are missing (Dan Braghis)
+
 
 2.10 (11.08.2020)
 ~~~~~~~~~~~~~~~~~
