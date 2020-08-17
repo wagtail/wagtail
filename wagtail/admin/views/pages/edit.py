@@ -81,14 +81,14 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
     def dispatch(self, request, page_id):
         self.real_page_record = get_object_or_404(Page, id=page_id)
         self.latest_revision = self.real_page_record.get_latest_revision()
-        self.content_type = self.real_page_record.cached_content_type
+        self.page_content_type = self.real_page_record.cached_content_type
         self.page_class = self.real_page_record.specific_class
 
         if self.page_class is None:
             raise PageClassNotFoundError(
                 f"The page '{self.real_page_record}' cannot be edited because the "
-                f"model class used to create it ({self.content_type.app_label}."
-                f"{self.content_type.model}) can no longer be found in the codebase. "
+                f"model class used to create it ({self.page_content_type.app_label}."
+                f"{self.page_content_type.model}) can no longer be found in the codebase. "
                 "This usually happens as a result of switching between git "
                 "branches without running migrations to trigger the removal of "
                 "unused ContentTypes. To edit the page, you will need to switch "
@@ -504,7 +504,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         context.update({
             'page': self.page,
             'page_for_status': self.page_for_status,
-            'content_type': self.content_type,
+            'content_type': self.page_content_type,
             'edit_handler': self.edit_handler,
             'errors_debug': self.errors_debug,
             'action_menu': PageActionMenu(self.request, view='edit', page=self.page),

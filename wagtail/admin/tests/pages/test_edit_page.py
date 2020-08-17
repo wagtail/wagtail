@@ -82,6 +82,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Tests that the edit page loads
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], "text/html; charset=utf-8")
 
         # Test InlinePanel labels/headings
         self.assertContains(response, '<legend>Speaker lineup</legend>')

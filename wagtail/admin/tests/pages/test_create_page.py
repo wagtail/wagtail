@@ -108,6 +108,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
     def test_create_simplepage(self):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], "text/html; charset=utf-8")
         self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
         self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
         # test register_page_action_menu_item hook
