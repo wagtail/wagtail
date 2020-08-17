@@ -14,3 +14,4 @@ Bug fixes
 ~~~~~~~~~
 
  * Prevent ``create_log_entries_from_revisions`` command from failing when page model classes are missing (Dan Braghis)
+ * Prevent page audit log views from failing for user models without a ``username`` field (Vyacheslav Matyukhin)

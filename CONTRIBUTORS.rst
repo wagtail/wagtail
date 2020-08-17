@@ -472,6 +472,7 @@ Contributors
 * Max Gabrielsson
 * Steven Wood
 * Gabriel Peracio
+* Vyacheslav Matyukhin
 
 Translators
 ===========
