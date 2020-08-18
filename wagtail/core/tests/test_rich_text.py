@@ -173,3 +173,13 @@ class TestRichTextField(TestCase):
         value = body_field.value_from_object(christmas_page)
         result = body_field.get_searchable_content(value)
         self.assertEqual(result, ['Merry Christmas from Wagtail! & co.'])
+
+    def test_get_searchable_content_whitespace(self):
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_page.body = '<p>mashed</p><p>po<i>ta</i>toes</p>'
+        christmas_page.save_revision(submitted_for_moderation=False)
+
+        body_field = christmas_page._meta.get_field('body')
+        value = body_field.value_from_object(christmas_page)
+        result = body_field.get_searchable_content(value)
+        self.assertEqual(result, ['mashed potatoes'])
