@@ -558,10 +558,16 @@ class TestRichTextBlock(TestCase):
         result = block.get_searchable_content(value)
         self.assertEqual(
             result, [
-                'Merry Christmas! & a happy new year\n'
+                'Merry Christmas! & a happy new year \n'
                 'Our Santa pet Wagtail has some cool stuff in store for you all!'
             ]
         )
+
+    def test_get_searchable_content_whitespace(self):
+        block = blocks.RichTextBlock()
+        value = RichText('<p>mashed</p><p>po<i>ta</i>toes</p>')
+        result = block.get_searchable_content(value)
+        self.assertEqual(result, ['mashed potatoes'])
 
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
