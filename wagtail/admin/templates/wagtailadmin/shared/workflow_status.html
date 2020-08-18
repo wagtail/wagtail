@@ -21,18 +21,24 @@
 </li>
 {% else %}
 <li class="header-meta--status">
-    {% if page.get_latest_revision %}
-        {% if page.get_latest_revision.user %}
-            <span class="avatar small" data-wagtail-tooltip="{{ page.get_latest_revision.user.get_full_name|default:page.get_latest_revision.user.get_username }}"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
-        {% endif %}
-        {% if page.get_latest_revision == page.live_revision %}
-            {% trans "Published" %}
+    {% with latest_revision=page.get_latest_revision %}
+        {% if latest_revision %}
+            {% if latest_revision.user %}
+                <span class="avatar small" data-wagtail-tooltip="{{ latest_revision.user.get_full_name|default:latest_revision.user.get_username }}"><img src="{% avatar_url latest_revision.user size=25 %}" alt="" /></span>
+            {% endif %}
+            {% if latest_revision == page.live_revision %}
+                {% trans "Published" %}
+            {% else %}
+                {% trans "Draft saved" %}
+            {% endif %}
+            {% include "wagtailadmin/shared/last_updated.html" with last_updated=latest_revision.created_at time_prefix="at" %}
         {% else %}
-            {% trans "Draft saved" %}
+            {% if page.live %}
+                {% trans "Published" %}
+            {% else %}
+                {% trans "Draft" %}
+            {% endif %}
         {% endif %}
-        {% include "wagtailadmin/shared/last_updated.html" with last_updated=page.get_latest_revision.created_at time_prefix="at" %}
-    {% else %}
-        {% trans "Draft" %}
-    {% endif %}
+    {% endwith %}
 </li>
 {% endif %}
