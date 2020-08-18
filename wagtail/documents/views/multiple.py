@@ -12,7 +12,7 @@ from wagtail.core.models import Collection
 from wagtail.search.backends import get_search_backends
 
 from .. import get_document_model
-from ..forms import get_document_form, get_document_multi_form
+from ..forms import get_document_form, get_document_multi_form, get_document_upload_form
 from ..permissions import permission_policy
 
 permission_checker = PermissionPolicyChecker(permission_policy)
@@ -23,6 +23,7 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 def add(request):
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
+    DocumentUploadForm = get_document_upload_form(Document)
     DocumentMultiForm = get_document_multi_form(Document)
 
     collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
@@ -40,7 +41,7 @@ def add(request):
             return HttpResponseBadRequest("Must upload a file")
 
         # Build a form for validation
-        form = DocumentForm({
+        form = DocumentUploadForm({
             'title': request.FILES['files[]'].name,
             'collection': request.POST.get('collection'),
         }, {

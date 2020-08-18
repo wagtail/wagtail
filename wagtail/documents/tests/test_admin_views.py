@@ -506,6 +506,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
     edit_post_data = {
         'title': "New title!",
         'tags': "",
+        'defaulted_field': 2,
     }
 
     def setUp(self):

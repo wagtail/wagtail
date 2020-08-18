@@ -32,6 +32,22 @@ def get_document_form(model):
         })
 
 
+def get_document_upload_form(model):
+    # The upload logic only provides a subset of fields. Restrict
+    # the ModelForm explicitly to the provided fields, so that default
+    # values for custom models are honored.
+    fields = ('title', 'collection', 'file')
+
+    return modelform_factory(
+        model,
+        form=BaseDocumentForm,
+        fields=fields,
+        widgets={
+            'tags': widgets.AdminTagWidget,
+            'file': forms.FileInput()
+        })
+
+
 def get_document_multi_form(model):
     fields = [field for field in model.admin_form_fields if field != 'file']
     if 'collection' not in fields:

@@ -967,9 +967,11 @@ class CustomRenditionWithAuthor(AbstractRendition):
 class CustomDocument(AbstractDocument):
     description = models.TextField(blank=True)
     fancy_description = RichTextField(blank=True)
+    defaulted_field = models.IntegerField(default=1)
     admin_form_fields = Document.admin_form_fields + (
         'description',
-        'fancy_description'
+        'fancy_description',
+        'defaulted_field',
     )
 
     class Meta:
