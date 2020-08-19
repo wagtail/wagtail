@@ -80,7 +80,7 @@ class CreateProject(Command):
         template_path = os.path.join(wagtail_path, 'project_template')
 
         # Call django-admin startproject
-        utility_args = ['django-admin.py',
+        utility_args = ['django-admin',
                         'startproject',
                         '--template=' + template_path,
                         '--ext=html,rst',
