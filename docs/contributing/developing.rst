@@ -100,7 +100,7 @@ You can create migrations for the test app by running the following from the Wag
 
 .. code-block:: console
 
-    $ django-admin.py makemigrations --settings=wagtail.tests.settings
+    $ django-admin makemigrations --settings=wagtail.tests.settings
 
 
 Testing against PostgreSQL
