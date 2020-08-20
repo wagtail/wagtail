@@ -3,7 +3,7 @@ from unittest import TestCase
 from django.test import RequestFactory, override_settings
 from django.utils.encoding import force_bytes
 
-from ..utils import FieldsParameterParseError, parse_boolean, parse_fields_parameter, get_base_url
+from ..utils import FieldsParameterParseError, get_base_url, parse_boolean, parse_fields_parameter
 
 
 class DynamicBaseUrl(object):
