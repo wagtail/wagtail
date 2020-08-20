@@ -25,8 +25,8 @@ class TestGetBaseUrl(TestCase):
         self.assertIsNone(get_base_url())
 
     def test_get_base_url_from_request(self):
-        request = RequestFactory().get('/')
-        self.assertEqual(get_base_url(request), 'http://testserver')
+        request = RequestFactory().get('http://foo.example.com')
+        self.assertEqual(get_base_url(request), 'http://foo.example.com')
 
     @override_settings(WAGTAILAPI_BASE_URL='https://www.example.com')
     def get_base_url_from_setting_string(self):
