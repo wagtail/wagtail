@@ -18,6 +18,9 @@ class DynamicBaseUrl(object):
 
 
 class TestGetBaseUrl(TestCase):
+    def test_get_base_url(self):
+        self.assertIsNone(get_base_url())
+
     def test_get_base_url_from_request(self):
         request = RequestFactory().get('/')
         self.assertEqual(get_base_url(request), 'http://testserver')
