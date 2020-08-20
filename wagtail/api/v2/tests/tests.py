@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+from django.conf import settings
 from django.test import RequestFactory, override_settings
 from django.utils.encoding import force_bytes
 
@@ -18,7 +19,9 @@ class DynamicBaseUrl(object):
 
 
 class TestGetBaseUrl(TestCase):
-    def test_get_base_url(self):
+    @override_settings()
+    def test_get_base_url_unset(self):
+        del settings.WAGTAILAPI_BASE_URL
         self.assertIsNone(get_base_url())
 
     def test_get_base_url_from_request(self):
