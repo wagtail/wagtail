@@ -1,6 +1,38 @@
 from unittest import TestCase
 
-from ..utils import FieldsParameterParseError, parse_boolean, parse_fields_parameter
+from django.test import RequestFactory, override_settings
+from django.utils.encoding import force_bytes
+
+from ..utils import FieldsParameterParseError, parse_boolean, parse_fields_parameter, get_base_url
+
+
+class DynamicBaseUrl(object):
+    def __str__(self):
+        return 'https://www.example.com'
+    
+    def __bytes__(self):
+        return force_bytes(self.__str__())
+    
+    def decode(self, *args, **kwargs):
+        return self.__bytes__().decode(*args, **kwargs)
+
+
+class TestGetBaseUrl(TestCase):
+    def test_get_base_url_from_request(self):
+        request = RequestFactory().get('/')
+        self.assertEqual(get_base_url(request), 'http://testserver')
+    
+    @override_settings(WAGTAILAPI_BASE_URL='https://www.example.com')
+    def get_base_url_from_setting_string(self):
+        self.assertEqual(get_base_url(), 'https://www.example.com')
+    
+    @override_settings(WAGTAILAPI_BASE_URL=b'https://www.example.com')
+    def get_base_url_from_setting_bytes(self):
+        self.assertEqual(get_base_url(), 'https://www.example.com')
+    
+    @override_settings(WAGTAILAPI_BASE_URL=DynamicBaseUrl())
+    def get_base_url_from_setting_object(self):
+        self.assertEqual(get_base_url(), 'https://www.example.com')
 
 
 class TestParseFieldsParameter(TestCase):
