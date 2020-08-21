@@ -27,7 +27,11 @@ class TestGetBaseUrl(TestCase):
         self.assertIsNone(get_base_url(request))
 
     def test_get_base_url_from_request(self):
-        Site.objects.create(hostname='other.example.com', port=80, root_page=Page.objects.get(pk=2))
+        Site.objects.create(
+            hostname='other.example.com',
+            port=80,
+            root_page=Page.objects.all().first(),
+        )
         request = RequestFactory().get('/', HTTP_HOST='other.example.com')
         self.assertEqual(get_base_url(request), 'http://other.example.com')
 
