@@ -20,16 +20,7 @@ class DynamicBaseUrl(object):
 
 
 class TestGetBaseUrl(TestCase):
-    def test_get_base_url(self):
-        self.assertIsNone(get_base_url())
-
-    def test_get_base_url_from_request(self):
-        # base url for siteless request should be None
-        request = RequestFactory().get('/', HTTP_HOST='other.example.com')
-        self.assertIsNone(Site.find_for_request(request))
-        self.assertIsNone(get_base_url(request))
-
-        # base url for request with a site should be based on the site's details
+    def prepare_records(self):
         page_content_type = ContentType.objects.get_or_create(
             model='page',
             app_label='wagtailcore'
@@ -49,6 +40,19 @@ class TestGetBaseUrl(TestCase):
             root_page=root_page,
             is_default_site=True,
         )
+        return page_content_type, root_page, site
+    
+    def test_get_base_url(self):
+        self.assertIsNone(get_base_url())
+
+    def test_get_base_url_from_request(self):
+        # base url for siteless request should be None
+        request = RequestFactory().get('/', HTTP_HOST='other.example.com')
+        self.assertIsNone(Site.find_for_request(request))
+        self.assertIsNone(get_base_url(request))
+
+        # base url for request with a site should be based on the site's details
+        page_content_type, root_page, site = self.prepare_records()
         del request._wagtail_site  # clear site lookup cache
         self.assertIsNotNone(Site.find_for_request(request))
         self.assertEqual(get_base_url(request), 'http://other.example.com:8080')
@@ -64,6 +68,15 @@ class TestGetBaseUrl(TestCase):
         site.save()
         del request._wagtail_site  # clear site lookup cache
         self.assertEqual(get_base_url(request), 'http://other.example.com')
+
+    @override_settings(WAGTAILAPI_BASE_URL='https://bar.example.com')
+    def test_get_base_url_prefers_setting(self):
+        request = RequestFactory().get('/', HTTP_HOST='other.example.com')
+        page_content_type, root_page, site = self.prepare_records()
+        self.assertEqual(site, Site.find_for_request(request))
+        self.assertEqual(get_base_url(request), 'https://bar.example.com')
+        del settings.WAGTAILAPI_BASE_URL
+        self.assertEqual(get_base_url(request), 'http://other.example.com:8080')
 
     @override_settings(WAGTAILAPI_BASE_URL='https://bar.example.com')
     def test_get_base_url_from_setting_string(self):
