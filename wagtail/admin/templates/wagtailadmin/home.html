@@ -33,25 +33,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-$(function() {
-    $('.object.collapsible').each(function() {
-        var $target = $(this);
-        var $content = $target.find('.object-layout');
-        if ($target.hasClass('collapsed') && $target.find('.error-message').length == 0) {
-            $content.hide();
-        }
-
-        $target.find('> .title-wrapper').on('click', function() {
-            if (!$target.hasClass('collapsed')) {
-                $target.addClass('collapsed');
-                $content.hide('slow');
-            } else {
-                $target.removeClass('collapsed');
-                $content.show('show');
-            }
-        });
-    });
-});
-</script>
+<script src="{% versioned_static 'wagtailadmin/js/page-editor.js' %}"></script>
 {% endblock %}

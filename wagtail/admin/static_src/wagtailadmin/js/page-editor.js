@@ -235,20 +235,20 @@ function initErrorDetection() {
 }
 
 function initCollapsibleBlocks() {
-    $('.object.multi-field.collapsible').each(function() {
-        var $li = $(this);
-        var $fieldset = $li.find('fieldset');
-        if ($li.hasClass('collapsed') && $li.find('.error-message').length == 0) {
-            $fieldset.hide();
+    $('.object.collapsible').each(function() {
+        var $target = $(this);
+        var $content = $target.find('.object-layout');
+        if ($target.hasClass('collapsed') && $target.find('.error-message').length == 0) {
+            $content.hide();
         }
 
-        $li.find('> .title-wrapper').on('click', function() {
-            if (!$li.hasClass('collapsed')) {
-                $li.addClass('collapsed');
-                $fieldset.hide('slow');
+        $target.find('> .title-wrapper').on('click', function() {
+            if (!$target.hasClass('collapsed')) {
+                $target.addClass('collapsed');
+                $content.hide('slow');
             } else {
-                $li.removeClass('collapsed');
-                $fieldset.show('show');
+                $target.removeClass('collapsed');
+                $content.show('slow');
             }
         });
     });
