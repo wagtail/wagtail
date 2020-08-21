@@ -66,15 +66,15 @@ class TestGetBaseUrl(TestCase):
         self.assertEqual(get_base_url(request), 'http://other.example.com')
 
     @override_settings(WAGTAILAPI_BASE_URL='https://bar.example.com')
-    def get_base_url_from_setting_string(self):
+    def test_get_base_url_from_setting_string(self):
         self.assertEqual(get_base_url(), 'https://bar.example.com')
 
     @override_settings(WAGTAILAPI_BASE_URL=b'https://baz.example.com')
-    def get_base_url_from_setting_bytes(self):
+    def test_get_base_url_from_setting_bytes(self):
         self.assertEqual(get_base_url(), 'https://baz.example.com')
 
     @override_settings(WAGTAILAPI_BASE_URL=DynamicBaseUrl())
-    def get_base_url_from_setting_object(self):
+    def test_get_base_url_from_setting_object(self):
         self.assertEqual(get_base_url(), 'https://www.example.com')
 
 
