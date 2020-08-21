@@ -237,7 +237,7 @@ function initErrorDetection() {
 function initCollapsibleBlocks() {
     $('.object.collapsible').each(function() {
         var $target = $(this);
-        var $content = $target.find('.object-layout');
+        var $content = $target.find('> .object-layout, > fieldset');
         if ($target.hasClass('collapsed') && $target.find('.error-message').length == 0) {
             $content.hide();
         }
