@@ -23,13 +23,13 @@ class TestGetBaseUrl(TestCase):
         self.assertIsNone(get_base_url())
 
     def test_get_base_url_from_siteless_request(self):
-        request = RequestFactory().get('/', HTTP_HOST='unknown.example.com')
+        request = RequestFactory().get('/', HTTP_HOST='other.example.com')
         self.assertIsNone(get_base_url(request))
 
     def test_get_base_url_from_request(self):
-        Site.objects.create(hostname='foo.example.com', port=80, root_page=Page.objects.get(pk=2))
-        request = RequestFactory().get('/', HTTP_HOST='foo.example.com')
-        self.assertEqual(get_base_url(request), 'http://foo.example.com')
+        Site.objects.create(hostname='other.example.com', port=80, root_page=Page.objects.get(pk=2))
+        request = RequestFactory().get('/', HTTP_HOST='other.example.com')
+        self.assertEqual(get_base_url(request), 'http://other.example.com')
 
     @override_settings(WAGTAILAPI_BASE_URL='https://bar.example.com')
     def get_base_url_from_setting_string(self):
