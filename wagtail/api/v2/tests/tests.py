@@ -41,7 +41,10 @@ class TestGetBaseUrl(TestCase):
             is_default_site=True,
         )
         return page_content_type, root_page, site
-    
+
+    def clear_cached_site(self, request):
+        del request._wagtail_site
+
     def test_get_base_url(self):
         self.assertIsNone(get_base_url())
 
@@ -53,20 +56,20 @@ class TestGetBaseUrl(TestCase):
 
         # base url for request with a site should be based on the site's details
         page_content_type, root_page, site = self.prepare_records()
-        del request._wagtail_site  # clear site lookup cache
+        self.clear_cached_site(request)
         self.assertIsNotNone(Site.find_for_request(request))
         self.assertEqual(get_base_url(request), 'http://other.example.com:8080')
 
         # port 443 should indicate https without a port
         site.port = 443
         site.save()
-        del request._wagtail_site  # clear site lookup cache
+        self.clear_cached_site(request)
         self.assertEqual(get_base_url(request), 'https://other.example.com')
 
         # port 80 should indicate http without a port
         site.port = 80
         site.save()
-        del request._wagtail_site  # clear site lookup cache
+        self.clear_cached_site(request)
         self.assertEqual(get_base_url(request), 'http://other.example.com')
 
     @override_settings(WAGTAILAPI_BASE_URL='https://bar.example.com')
