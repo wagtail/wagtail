@@ -26,7 +26,7 @@ class TestGetBaseUrl(TestCase):
             model='page',
             app_label='wagtailcore'
         )[0]
-        root_page = Page.objects.create(
+        root_page = Page.objects.get_or_create(
             title="Root",
             slug='root',
             content_type=page_content_type,
@@ -34,13 +34,13 @@ class TestGetBaseUrl(TestCase):
             depth=1,
             numchild=1,
             url_path='/',
-        )
-        site = Site.objects.create(
+        )[0]
+        site = Site.objects.get_or_create(
             hostname='other.example.com',
             port=8080,
             root_page=root_page,
             is_default_site=True,
-        )
+        )[0]
         return site
 
     def clear_cached_site(self, request):
