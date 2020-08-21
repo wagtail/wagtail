@@ -3,6 +3,7 @@ from unittest import TestCase
 from django.test import RequestFactory, override_settings
 from django.utils.encoding import force_bytes
 
+from wagtail.core.models import Page, Site
 from ..utils import FieldsParameterParseError, get_base_url, parse_boolean, parse_fields_parameter
 
 
@@ -22,7 +23,8 @@ class TestGetBaseUrl(TestCase):
         self.assertIsNone(get_base_url())
 
     def test_get_base_url_from_request(self):
-        request = RequestFactory().get('/', HTTP_HOST='http://foo.example.com')
+        site = Site.objects.create(hostname='foo.example.com', port=80, root_page=Page.objects.get(pk=2))
+        request = RequestFactory().get('/', HTTP_HOST='foo.example.com')
         self.assertEqual(get_base_url(request), 'http://foo.example.com')
 
     @override_settings(WAGTAILAPI_BASE_URL='https://www.example.com')
