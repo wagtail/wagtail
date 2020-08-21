@@ -1197,7 +1197,7 @@ Audit log
             actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
 
             def callback_message(data):
-                return _('Hello {audience}') % {
+                return _('Hello %(audience)s') % {
                     'audience': data['audience'],
                 }
             actions.register_action('wagtail_package.with_callback', _('Callback'), callback_message)
