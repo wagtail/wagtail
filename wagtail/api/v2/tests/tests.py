@@ -25,6 +25,7 @@ class TestGetBaseUrl(TestCase):
 
     def test_get_base_url_from_siteless_request(self):
         request = RequestFactory().get('/', HTTP_HOST='localhost')
+        self.assertIsNone(Site.find_for_request(request))
         self.assertIsNone(get_base_url(request))
 
     def test_get_base_url_from_request(self):
