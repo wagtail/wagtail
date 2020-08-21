@@ -57,7 +57,7 @@ class TestGetBaseUrl(TestCase):
         # base url for request with a site should be based on the site's details
         site = self.prepare_records()
         self.clear_cached_site(request)
-        self.assertIsNotNone(Site.find_for_request(request))
+        self.assertEqual(site, Site.find_for_request(request))
         self.assertEqual(get_base_url(request), 'http://other.example.com:8080')
 
         # port 443 should indicate https without a port
