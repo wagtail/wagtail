@@ -23,12 +23,13 @@ class TestGetBaseUrl(TestCase):
     def test_get_base_url(self):
         self.assertIsNone(get_base_url())
 
-    def test_get_base_url_from_siteless_request(self):
-        request = RequestFactory().get('/', HTTP_HOST='localhost')
+    def test_get_base_url_from_request(self):
+        # base url for siteless request should be None
+        request = RequestFactory().get('/', HTTP_HOST='other.example.com')
         self.assertIsNone(Site.find_for_request(request))
         self.assertIsNone(get_base_url(request))
 
-    def test_get_base_url_from_request(self):
+        # base url for request with a site should be based on the site's details
         page_content_type = ContentType.objects.get_or_create(
             model='page',
             app_label='wagtailcore'
@@ -42,12 +43,23 @@ class TestGetBaseUrl(TestCase):
             numchild=1,
             url_path='/',
         )
-        Site.objects.create(
+        site = Site.objects.create(
             hostname='other.example.com',
-            port=80,
+            port=8080,
             root_page=root_page,
+            is_default_site=True,
         )
-        request = RequestFactory().get('/', HTTP_HOST='other.example.com')
+        self.assertIsNotNone(Site.find_for_request(request))
+        self.assertEqual(get_base_url(request), 'http://other.example.com:8080')
+        
+        # port 443 should indicate https without a port
+        site.port = 443
+        site.save()
+        self.assertEqual(get_base_url(request), 'https://other.example.com')
+        
+        # port 80 should indicate http without a port
+        site.port = 80
+        site.save()
         self.assertEqual(get_base_url(request), 'http://other.example.com')
 
     @override_settings(WAGTAILAPI_BASE_URL='https://bar.example.com')
