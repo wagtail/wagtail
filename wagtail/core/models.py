@@ -1,7 +1,7 @@
 import json
 import logging
 import uuid
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 from io import StringIO
 from urllib.parse import urlparse
 
@@ -197,6 +197,9 @@ class SiteManager(models.Manager):
         return self.get(hostname=hostname, port=port)
 
 
+SiteRootPath = namedtuple('SiteRootPath', 'site_id root_path root_url language_code')
+
+
 class Site(models.Model):
     hostname = models.CharField(verbose_name=_('hostname'), max_length=255, db_index=True)
     port = models.IntegerField(
@@ -318,8 +321,16 @@ class Site(models.Model):
     @staticmethod
     def get_site_root_paths():
         """
-        Return a list of (id, root_path, root_url) tuples, most specific path
+        Return a list of `SiteRootPath` instances, most specific path
         first - used to translate url_paths into actual URLs with hostnames
+
+        Each root path is an instance of the `SiteRootPath` named tuple,
+        and have the following attributes:
+
+         - `site_id` - The ID of the Site record
+         - `root_path` - The internal URL path of the site's home page (for example '/home/')
+         - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
+         - `language_code` - The language code of the site (for example 'en')
         """
         result = cache.get('wagtail_site_root_paths')
 
@@ -329,11 +340,11 @@ class Site(models.Model):
             for site in Site.objects.select_related('root_page', 'root_page__locale').order_by('-root_page__url_path', '-is_default_site', 'hostname'):
                 if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
                     result.extend([
-                        (site.id, root_page.url_path, site.root_url, root_page.locale.language_code)
+                        SiteRootPath(site.id, root_page.url_path, site.root_url, root_page.locale.language_code)
                         for root_page in site.root_page.get_translations(inclusive=True).select_related('locale')
                     ])
                 else:
-                    result.append((site.id, site.root_page.url_path, site.root_url, site.root_page.locale.language_code))
+                    result.append(SiteRootPath(site.id, site.root_page.url_path, site.root_url, site.root_page.locale.language_code))
 
             cache.set('wagtail_site_root_paths', result, 3600)
 
