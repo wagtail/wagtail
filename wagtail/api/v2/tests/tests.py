@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+from django.contrib.contenttypes.models import ContentType
 from django.test import RequestFactory, override_settings
 from django.utils.encoding import force_bytes
 
@@ -27,6 +28,19 @@ class TestGetBaseUrl(TestCase):
         self.assertIsNone(get_base_url(request))
 
     def test_get_base_url_from_request(self):
+        page_content_type, _ = ContentType.objects.get_or_create(
+            model='page',
+            app_label='wagtailcore'
+        )
+        root = Page.objects.create(
+            title="Root",
+            slug='root',
+            content_type=page_content_type,
+            path='0001',
+            depth=1,
+            numchild=1,
+            url_path='/',
+        )
         Site.objects.create(
             hostname='other.example.com',
             port=80,
