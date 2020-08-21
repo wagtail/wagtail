@@ -242,7 +242,7 @@ function initCollapsibleBlocks() {
             $content.hide();
         }
 
-        $target.find('> .title-wrapper').on('click', function() {
+        $target.find('> .title-wrapper, > .collapsible-toggle').on('click', function() {
             if (!$target.hasClass('collapsed')) {
                 $target.addClass('collapsed');
                 $content.hide('slow');
