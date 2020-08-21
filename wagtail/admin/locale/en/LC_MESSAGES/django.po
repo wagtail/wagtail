@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 16:08+0100\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,42 +137,42 @@ msgstr ""
 msgid "Date to"
 msgstr ""
 
-#: filters.py:92 filters.py:128 filters.py:164
+#: filters.py:92 filters.py:129 filters.py:165
 #: templates/wagtailadmin/pages/search_results.html:19
 #: templates/wagtailadmin/pages/search_results.html:21
 #: widgets/button_select.py:20
 msgid "All"
 msgstr ""
 
-#: filters.py:121 filters.py:146
+#: filters.py:122 filters.py:147
 #: templates/wagtailadmin/pages/workflow_history/list.html:17
 #: templates/wagtailadmin/reports/workflow.html:32
 #: templates/wagtailadmin/reports/workflow_tasks.html:26 views/reports.py:108
 msgid "Started at"
 msgstr ""
 
-#: filters.py:123 filters.py:159
+#: filters.py:124 filters.py:160
 msgid "Show"
 msgstr ""
 
-#: filters.py:126 filters.py:162
+#: filters.py:127 filters.py:163
 msgid "Awaiting my review"
 msgstr ""
 
-#: filters.py:147 templates/wagtailadmin/reports/workflow_tasks.html:29
+#: filters.py:148 templates/wagtailadmin/reports/workflow_tasks.html:29
 msgid "Completed at"
 msgstr ""
 
-#: filters.py:149 templates/wagtailadmin/reports/workflow.html:17
+#: filters.py:150 templates/wagtailadmin/reports/workflow.html:17
 msgid "Workflow"
 msgstr ""
 
-#: filters.py:186 filters.py:202
+#: filters.py:188 filters.py:204
 #: templates/wagtailadmin/home/recent_edits.html:14
 msgid "Date"
 msgstr ""
 
-#: filters.py:187 templates/wagtailadmin/home/locked_pages.html:14
+#: filters.py:189 templates/wagtailadmin/home/locked_pages.html:14
 #: templates/wagtailadmin/home/pages_for_moderation.html:13
 #: templates/wagtailadmin/home/recent_edits.html:12
 #: templates/wagtailadmin/home/user_pages_in_workflow_moderation.html:12
@@ -680,7 +680,8 @@ msgid "Sat"
 msgstr ""
 
 #: log_action_registry.py:50
-msgid "Unknown {action}"
+#, python-format
+msgid "Unknown %(action)s"
 msgstr ""
 
 #: templates/wagtailadmin/404.html:3
