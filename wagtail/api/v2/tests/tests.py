@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.test import RequestFactory, override_settings
 from django.utils.encoding import force_bytes
