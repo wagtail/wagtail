@@ -28,11 +28,11 @@ class TestGetBaseUrl(TestCase):
         self.assertIsNone(get_base_url(request))
 
     def test_get_base_url_from_request(self):
-        page_content_type, _ = ContentType.objects.get_or_create(
+        page_content_type = ContentType.objects.get_or_create(
             model='page',
             app_label='wagtailcore'
-        )
-        root = Page.objects.create(
+        )[0]
+        root_page = Page.objects.create(
             title="Root",
             slug='root',
             content_type=page_content_type,
@@ -44,7 +44,7 @@ class TestGetBaseUrl(TestCase):
         Site.objects.create(
             hostname='other.example.com',
             port=80,
-            root_page=Page.objects.all().first(),
+            root_page=root_page,
         )
         request = RequestFactory().get('/', HTTP_HOST='other.example.com')
         self.assertEqual(get_base_url(request), 'http://other.example.com')
