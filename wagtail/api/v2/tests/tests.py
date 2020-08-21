@@ -47,7 +47,7 @@ class TestGetBaseUrl(TestCase):
 
     def test_get_base_url_from_request(self):
         # base url for siteless request should be None
-        request = RequestFactory().get('/', HTTP_HOST='other.example.com')
+        request = RequestFactory().get('/')
         self.assertIsNone(Site.find_for_request(request))
         self.assertIsNone(get_base_url(request))
 
@@ -71,7 +71,7 @@ class TestGetBaseUrl(TestCase):
 
     @override_settings(WAGTAILAPI_BASE_URL='https://bar.example.com')
     def test_get_base_url_prefers_setting(self):
-        request = RequestFactory().get('/', HTTP_HOST='other.example.com')
+        request = RequestFactory().get('/')
         page_content_type, root_page, site = self.prepare_records()
         self.assertEqual(site, Site.find_for_request(request))
         self.assertEqual(get_base_url(request), 'https://bar.example.com')
