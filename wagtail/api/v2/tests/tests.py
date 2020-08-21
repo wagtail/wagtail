@@ -21,7 +21,7 @@ class DynamicBaseUrl(object):
 
 
 class TestGetBaseUrl(TestCase):
-    def prepare_records(self):
+    def prepare_site(self):
         page_content_type = ContentType.objects.get_or_create(
             model='page',
             app_label='wagtailcore'
@@ -46,7 +46,7 @@ class TestGetBaseUrl(TestCase):
     def clear_cached_site(self, request):
         del request._wagtail_site
 
-    def test_get_base_url(self):
+    def test_get_base_url_unset(self):
         self.assertIsNone(get_base_url())
 
     def test_get_base_url_from_request(self):
@@ -56,7 +56,7 @@ class TestGetBaseUrl(TestCase):
         self.assertIsNone(get_base_url(request))
 
         # base url for request with a site should be based on the site's details
-        site = self.prepare_records()
+        site = self.prepare_site()
         self.clear_cached_site(request)
         self.assertEqual(site, Site.find_for_request(request))
         self.assertEqual(get_base_url(request), 'http://other.example.com:8080')
@@ -76,7 +76,7 @@ class TestGetBaseUrl(TestCase):
     @override_settings(WAGTAILAPI_BASE_URL='https://bar.example.com')
     def test_get_base_url_prefers_setting(self):
         request = RequestFactory().get('/')
-        site = self.prepare_records()
+        site = self.prepare_site()
         self.assertEqual(site, Site.find_for_request(request))
         self.assertEqual(get_base_url(request), 'https://bar.example.com')
         del settings.WAGTAILAPI_BASE_URL
