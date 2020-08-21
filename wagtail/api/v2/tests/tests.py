@@ -51,12 +51,12 @@ class TestGetBaseUrl(TestCase):
         )
         self.assertIsNotNone(Site.find_for_request(request))
         self.assertEqual(get_base_url(request), 'http://other.example.com:8080')
-        
+
         # port 443 should indicate https without a port
         site.port = 443
         site.save()
         self.assertEqual(get_base_url(request), 'https://other.example.com')
-        
+
         # port 80 should indicate http without a port
         site.port = 80
         site.save()
