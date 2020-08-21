@@ -22,6 +22,10 @@ class TestGetBaseUrl(TestCase):
     def test_get_base_url(self):
         self.assertIsNone(get_base_url())
 
+    def test_get_base_url_from_siteless_request(self):
+        request = RequestFactory().get('/', HTTP_HOST='unknown.example.com')
+        self.assertIsNone(get_base_url(request))
+
     def test_get_base_url_from_request(self):
         Site.objects.create(hostname='foo.example.com', port=80, root_page=Page.objects.get(pk=2))
         request = RequestFactory().get('/', HTTP_HOST='foo.example.com')
