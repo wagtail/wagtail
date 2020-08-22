@@ -14,11 +14,13 @@
     &:focus {
         background: $c-explorer-bg-active;
         color: $color-white;
+        color: var(--color-white);
     }
 
     // Overrides for default link hover.
     &:hover {
         color: $color-white;
+        color: var(--color-white);
     }
 
     @include hover {
@@ -40,6 +42,7 @@
 .c-explorer__item__title {
     margin: 0;
     color: $color-white;
+    color: var(--color-white);
     display: inline-block;
 }
 
@@ -60,6 +63,7 @@
     &:focus {
         background: $c-explorer-bg-active;
         color: $color-white;
+        color: var(--color-white);
     }
 
     // Overrides for default link hover.
@@ -70,6 +74,7 @@
     @include hover {
         background: $c-explorer-bg-active;
         color: $color-white;
+        color: var(--color-white);
     }
 
     .icon::before {

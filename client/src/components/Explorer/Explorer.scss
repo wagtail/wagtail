@@ -63,6 +63,7 @@ $menu-footer-height: 50px;
     &:focus {
         background-color: $c-explorer-bg-active;
         color: $color-white;
+        color: var(--color-white);
     }
 
     // Overrides for default link hover.
@@ -88,15 +89,18 @@ $menu-footer-height: 50px;
     background-color: $c-explorer-bg-dark;
     border-bottom: 1px solid $c-explorer-bg-dark;
     color: $color-white;
+    color: var(--color-white);
 
     &:focus {
         background-color: $c-explorer-bg-active;
         color: $color-white;
+        color: var(--color-white);
     }
 
     // Overrides for default link hover.
     &:hover {
         color: $color-white;
+        color: var(--color-white);
     }
 
     @include hover {
@@ -132,6 +136,7 @@ $menu-footer-height: 50px;
 .c-explorer__placeholder {
     padding: 1em;
     color: $color-white;
+    color: var(--color-white);
 
     @include media-breakpoint-up(sm) {
         padding: 1em 1.75em;
@@ -143,6 +148,7 @@ $menu-footer-height: 50px;
     padding: 1em;
     background: rgba(0, 0, 0, 0.3);
     color: $color-white;
+    color: var(--color-white);
 
     &:focus {
         color: $c-explorer-secondary;
@@ -152,6 +158,7 @@ $menu-footer-height: 50px;
     // Overrides for default link hover.
     &:hover {
         color: $color-white;
+        color: var(--color-white);
     }
 
     @include hover {

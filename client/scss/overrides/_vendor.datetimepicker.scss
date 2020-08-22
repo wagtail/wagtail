@@ -2,6 +2,8 @@
     box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.4);
     background: $color-white;
     border: 1px solid $color-input-focus-border;
+    background: var(--color-white);
+    border: 1px solid var(--color-input-focus-border);
     padding: 8px;
     padding-left: 0;
     padding-top: 2px;
@@ -63,6 +65,7 @@
         white-space: nowrap;
         width: 2em;
         color: $color-teal;
+        color: var(--color-primary);
         text-transform: none;
         text-align: center;
 
@@ -77,6 +80,7 @@
 
         &:hover {
             color: $color-teal-darker;
+            color: var(--color-primary-darker);
         }
     }
 
@@ -173,6 +177,7 @@
         line-height: 20px;
         font-weight: bold;
         background-color: $color-white;
+        background-color: var(--color-white);
         float: left;
         width: 182px;
         text-align: center;
@@ -190,6 +195,7 @@
             z-index: 101;
             display: none;
             background: $color-white;
+            background: var(--color-white);
             max-height: 160px;
             overflow-y: hidden;
 
@@ -199,6 +205,7 @@
 
             > div > .xdsoft_option:hover {
                 color: $color-white;
+                color: var(--color-white);
                 background: #ff8000;
             }
 
@@ -209,6 +216,7 @@
             > div > .xdsoft_option.xdsoft_current {
                 background: #3af;
                 color: $color-white;
+                color: var(--color-white);
                 font-weight: 700;
             }
         }
@@ -250,6 +258,7 @@
 
         td {
             background-color: $color-white;
+            background-color: var(--color-white);
         }
 
         th {
@@ -266,6 +275,7 @@
     .xdsoft_timepicker .xdsoft_time_box > div > div.xdsoft_current {
         background: $color-salmon;
         color: $color-white;
+        color: var(--color-white);
         font-weight: 700;
     }
 
@@ -274,6 +284,7 @@
     .xdsoft_time_box > div > div.xdsoft_disabled {
         opacity: 0.5;
         background: $color-grey-3;
+        background: var(--color-grey-3);
     }
 
     .xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled {
@@ -283,7 +294,9 @@
     .xdsoft_calendar td:hover,
     .xdsoft_timepicker .xdsoft_time_box > div > div:hover {
         color: $color-white;
+        color: var(--color-white);
         background: $color-teal;
+        background: var(--color-primary);
     }
 
     .xdsoft_calendar td.xdsoft_today {

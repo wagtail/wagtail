@@ -6,10 +6,12 @@
 
         background-color: #fff;
         border-color: $color-teal;
+        border-color: var(--color-primary);
         color: #262626;
 
         &--selected {
             background-color: $color-teal;
+            background-color: var(--color-primary);
             color: #fff;
         }
     }

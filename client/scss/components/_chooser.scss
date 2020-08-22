@@ -34,6 +34,7 @@ overriden here? hmm.
             display: inline-block;
             // float: left;
             color: $color-grey-3;
+            color: var(--color-grey-3);
             line-height: 1em;
             font-size: 2.5em;
             margin-right: 0.3em;
@@ -69,6 +70,7 @@ overriden here? hmm.
     .chosen {
         .title {
             color: $color-grey-1;
+            color: var(--color-grey-1);
             // display: block;
             padding-left: 1em;
             display: inline-block;

@@ -29,6 +29,7 @@ label,
     text-transform: none;
     font-weight: bold;
     color: $color-grey-1;
+    color: var(--color-grey-1);
     font-size: 1.1em;
     display: block;
     padding: 0 0 0.8em;
@@ -96,19 +97,25 @@ select,
     width: 100%;
     font-family: Open Sans,Arial,sans-serif;
     border: 1px solid $color-input-border;
+    border: 1px solid var(--color-input-border);
     padding: 0.9em 1.2em;
     background-color: $color-fieldset-hover;
     color: $color-text-input;
+    background-color: var(--color-fieldset-hover);
+    color: var(--color-text-input);
     font-size: 1.2em;
     font-weight: 300;
 
     &:hover {
         background-color: $color-white;
+        background-color: var(--color-white);
     }
 
     &:focus {
         background-color: $color-input-focus;
         border-color: $color-input-focus-border;
+        background-color: var(--color-input-focus);
+        border-color: var(--color-input-focus-border);
     }
 
     &:disabled,
@@ -116,8 +123,10 @@ select,
     &:disabled:hover,
     &[disabled]:hover {
         background-color: $color-grey-4;
+        background-color: var(--color-grey-4);
         cursor: not-allowed;
         color: $color-grey-2;
+        color: var(--color-grey-2);
     }
 }
 
@@ -181,11 +190,15 @@ input[type=radio]:before {
     background-color: $color-white;
     color: $color-grey-4;
     border: 1px solid $color-grey-4;
+    background-color: var(--color-white);
+    color: var(--color-grey-4);
+    border: 1px solid var(--$color-grey-4);
 }
 
 input[type=radio]:checked:before {
     content: map-get($icons, 'radio-full');
     color: $color-teal;
+    color: var(--color-primary);
 }
 
 input[type=checkbox] {
@@ -210,10 +223,14 @@ input[type=checkbox]:before {
     background-color: $color-white;
     border: 1px solid $color-grey-4;
     color: $color-white;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-grey-4);
+    color: var(--color-white);
 }
 
 input[type=checkbox]:checked:before {
     color: $color-teal;
+    color: var(--color-primary);
 }
 
 

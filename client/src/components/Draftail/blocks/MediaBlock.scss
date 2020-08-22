@@ -32,6 +32,7 @@
         min-height: 50px;
         object-fit: contain;
         background-color: $color-grey-1;
+        background-color: var(--color-grey-1);
     }
 
     &__img {

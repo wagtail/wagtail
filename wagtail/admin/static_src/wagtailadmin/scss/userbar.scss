@@ -124,6 +124,7 @@ $positions: (
     margin: 0 !important;
     overflow: hidden;
     background-color: $color-white;
+    background-color: var(--color-white);
     border-radius: 50%;
     color: $color-black;
     padding: 0 !important;
@@ -207,6 +208,7 @@ $positions: (
 .#{$namespace}-userbar__item {
     margin: 0;
     background-color: $color-grey-1;
+    background-color: var(--color-grey-1);
     opacity: 0;
     overflow: hidden;
     transition-duration: 0.125s;
@@ -244,6 +246,7 @@ $positions: (
         &:focus {
             outline: none;
             color: $color-white;
+            color: var(--color-white);
             background-color: rgba(100, 100, 100, 0.15);
         }
 

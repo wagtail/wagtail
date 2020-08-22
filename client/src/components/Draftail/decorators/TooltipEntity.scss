@@ -5,6 +5,7 @@ $icon-size: 1em;
 
     &:hover {
         color: $color-teal;
+        color: var(--color-primary);
     }
 
     .icon-warning {

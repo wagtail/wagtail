@@ -7,8 +7,10 @@
     width: 100vw;
     height: 100vh;
     background-color: $color-teal-darker;
+    background-color: var(--color-primary-darker);
     font-family: $font-sans;
     color: $color-white;
+    color: var(--color-white);
 }
 
 .page404__wrapper {
@@ -52,11 +54,13 @@ a.button.page404__button { // more specific to override standard button styles
     height: 2.5em;
     padding: 0 0.5em;
     background-color: $color-teal-darker;
+    background-color: var(--color-primary-darker);
     border: 4px solid $color-teal;
     color: inherit;
 
     &:hover {
         background-color: $color-teal;
+        background-color: var(--color-primary);
     }
 }
 

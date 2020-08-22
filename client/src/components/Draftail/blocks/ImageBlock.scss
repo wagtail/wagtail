@@ -9,6 +9,7 @@
     display: block;
     margin-bottom: $button-spacing * 2;
     color: $color-white;
+    color: var(--color-white);
     cursor: pointer;
 }
 
@@ -22,9 +23,12 @@
     font-size: 1rem;
     background-color: $color-white;
     color: $color-text-base;
+    background-color: var(--color-white);
+    color: var(--color-text-base);
 
     &[readonly] {
         color: transparentize($color-text-base, 0.5);
+        color: hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 85%), 0.5)
     }
 }
 

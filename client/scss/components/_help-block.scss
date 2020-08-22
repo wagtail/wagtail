@@ -4,6 +4,7 @@
     margin: 1em 0;
     clear: both;
     color: $color-text-base;
+    color: var(--color-text-base);
 
     p {
         margin-top: 0;
@@ -15,6 +16,7 @@
 
     a {
         color: $color-link;
+        color: var(--color-link);
     }
 }
 

@@ -12,12 +12,14 @@
         position: relative;
         text-decoration: none;
         color: $color-white;
+        color: var(--color-white);
         white-space: nowrap;
         line-height: 1.5em;
 
         a,
         span {
             color: $color-white;
+            color: var(--color-white);
             display: block;
             max-width: 12em;
             white-space: nowrap;
@@ -35,20 +37,24 @@
                 padding-left: 20px;
                 font-size: 2em;
                 color: $color-teal-darker;
+                color: var(--color-primary-darker);
                 line-height: 0.9em;
             }
         }
 
         &:hover {
             background: $color-teal-dark;
+            background: var(--color-primary-dark);
 
             a {
                 color: $color-white;
+                color: var(--color-white);
             }
         }
 
         &:hover:after {
             border-left-color: $color-teal-dark;
+            border-left-color: var(--color-primary-dark);
         }
 
         &.home {
@@ -93,6 +99,7 @@
     @include media-breakpoint-up(sm) {
         padding-top: 0;
         background: $color-teal-darker;
+        background: var(--color-primary-darker);
         margin-left: -($desktop-nice-padding);
         margin-right: -($desktop-nice-padding);
 
@@ -101,6 +108,7 @@
             span {
                 &:after {
                     color: $color-teal;
+                    color: var(--color-primary);
                 }
             }
         }

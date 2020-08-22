@@ -18,6 +18,7 @@
 
     &:hover {
         color: $color-white;
+        color: var(--color-white);
     }
 
     @include media-breakpoint-up(sm) {

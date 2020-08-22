@@ -7,9 +7,11 @@
     flex-direction: column;
     height: 100%;
     background: $nav-grey-1;
+    background: var(--nav-grey-1);
 
     .inner {
         background: $nav-grey-1;
+        background: var(--nav-grey-1);
 
         @include media-breakpoint-up(sm) {
             // On medium, make it possible for the nav links to scroll.
@@ -29,6 +31,7 @@
         top: 3px;
         font-size: 40px;
         color: $color-white;
+        color: var(--color-white);
         line-height: 40px;
         content: '\2261';
     }
@@ -53,6 +56,7 @@
         text-decoration: none;
         display: block;
         color: $color-menu-text;
+        color: var(--color-menu-text);
         padding: 0.8em 1.7em;
         font-size: 1em;
         font-weight: normal;
@@ -65,6 +69,9 @@
             background-color: $nav-item-hover-bg;
             color: $color-white;
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+            background-color: var(--nav-item-hover-bg);
+            color: var(--color-white);
+            text-shadow: -1px -1px 0 hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 39%), 0.3);
         }
     }
 
@@ -93,11 +100,13 @@
 
     .menu-active {
         background: $nav-item-active-bg;
+        background: var(--nav-item-active-bg);
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 
         > a {
             border-left-color: $color-salmon;
             color: $color-white;
+            color: var(--color-white);
         }
     }
 
@@ -161,6 +170,7 @@
 
 .nav-submenu {
     background: $nav-submenu-bg;
+    background: var(--nav-submenu-bg);
 
     h2 {
         display: none;
@@ -192,6 +202,7 @@
         padding: 0.9em 1.7em;
         text-align: center;
         color: $color-menu-text;
+        color: var(--color-menu-text);
     }
 }
 
@@ -218,21 +229,28 @@
         border: 1px solid $nav-search-border;
         background-color: $nav-search-bg;
         color: $nav-search-color;
+        border: 1px solid var(--nav-search-border);
+        background-color: var(--nav-search-bg);
+        color: var(--nav-search-color);
         padding: 0.8em 2.5em 0.8em 1em;
         font-weight: 600;
 
         &:hover {
             background-color: $nav-search-hover-bg;
+            background-color: var(--nav-search-hover-bg);
         }
 
         &:active,
         &:focus {
             background-color: $nav-search-focus-bg;
             color: $nav-search-focus-color;
+            background-color: var(--nav-search-focus-bg);
+            color: var(--nav-search-focus-color);
         }
 
         &::placeholder {
             color: $color-menu-text;
+            color: var(--color-menu-text);
         }
     }
 
@@ -247,10 +265,12 @@
 
         &:hover {
             background-color: $nav-item-hover-bg;
+            background-color: var(--nav-item-hover-bg);
         }
 
         &:active {
             background-color: $nav-item-active-bg;
+            background-color: var(--nav-item-active-bg);
         }
 
         &:before {
@@ -333,6 +353,7 @@ body.explorer-open {
             width: $menu-width;
             bottom: 0;
             background-color: $nav-footer-submenu-bg;
+            background-color: var(--nav-footer-submenu-bg);
         }
 
         .footer-submenu {
@@ -352,6 +373,8 @@ body.explorer-open {
             @include clearfix;
             background: $nav-footer-account-bg;
             color: $color-menu-text;
+            background: var(--nav-footer-account-bg);
+            color: var(--color-menu-text);
             text-transform: uppercase;
             display: block;
             cursor: pointer;
@@ -360,6 +383,9 @@ body.explorer-open {
                 background-color: rgba(100, 100, 100, 0.15);
                 color: $color-white;
                 text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+                background-color: var(--nav-item-hover-bg);
+                color: var(--color-white);
+                text-shadow: -1px -1px 0 hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 39%), 0.3);
             }
 
             .avatar {
@@ -418,6 +444,7 @@ body.explorer-open {
             text-transform: none;
             text-align: center;
             color: $color-menu-text;
+            color: var(--color-menu-text);
 
             &:before {
                 font-size: 4em;
@@ -443,6 +470,7 @@ body.explorer-open {
 
     li.submenu-active {
         background: $nav-submenu-bg;
+        background: var(--nav-submenu-bg);
 
         > a {
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);

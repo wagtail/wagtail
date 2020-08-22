@@ -2,6 +2,7 @@
     @include row();
     padding: 0;
     background: $color-grey-4;
+    background: var(--color-grey-4);
 
     li {
         list-style-type: none;
@@ -25,6 +26,7 @@
     a {
         @include transition(border-color 0.2s ease);
         background-color: $color-teal-darker;
+        background-color: var(--color-primary-darker);
         text-transform: uppercase;
         font-weight: 600;
         text-decoration: none;
@@ -32,12 +34,16 @@
         padding: 0.6em 0.7em 0.8em;
         color: $color-white;
         border-top: 0.3em solid $color-teal-darker;
+        color: var(--color-white);
+        border-top: 0.3em solid var(--color-teal-darker);
         max-height: 1.44em;
         overflow: hidden;
 
         &:hover {
             color: $color-white;
             border-top-color: darken($color-teal-darker, 8);
+            color: var(--color-white);
+            border-top-color: hsl(calc(var(--color-primary-hue) + 1), var(--color-primary-saturation), calc(var(--color-primary-lightness) - 12%));
         }
     }
 
@@ -51,6 +57,7 @@
             z-index: 5;
             min-width: 0.9em;
             color: $color-white;
+            color: var(--color-white);
             background: $color-red;
             content: attr(data-count);
             padding: 0 0.3em;
@@ -65,12 +72,16 @@
         color: $color-grey-1;
         background-color: $color-white;
         border-top: 0.3em solid $color-grey-1;
+        color: var(--color-grey-1);
+        background-color: var(--color-white);
+        border-top: 0.3em solid var(--color-grey-1);
     }
 
     // For cases where tab-nav should merge with header
     &.merged {
         margin-top: 0;
         background-color: $color-header-bg;
+        background-color: var(--color-header-bg);
     }
 }
 
@@ -99,6 +110,7 @@
         // For cases where tab-nav should merge with header
         &.merged {
             background-color: $color-header-bg;
+            background-color: var(--color-header-bg);
         }
 
         li {

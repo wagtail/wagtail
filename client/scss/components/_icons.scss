@@ -15,6 +15,7 @@
 
 .icon.teal {
     color: $color-teal;
+    color: var(--color-primary);
 }
 
 .icon.white {
@@ -151,6 +152,7 @@ svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
         text-align: center;
         border-radius: 100%;
         color: $color-grey-2;
+        color: var(--color-grey-2);
         border: 1px solid currentColor;
     }
 }

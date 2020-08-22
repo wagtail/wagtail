@@ -6,6 +6,7 @@ ul.listing {
 .listing {
     margin-bottom: 2em;
     color: $color-text-base;
+    color: var(--color-text-base);
     font-size: 0.95em;
 
     ul {
@@ -42,6 +43,8 @@ ul.listing {
         font-size: 1.1em;
         color: $color-text-base;
         border-bottom: 1px solid $color-grey-4;
+        color: var(--color-text-base);
+        border-bottom: 1px solid var(--color-grey-4);
 
         th {
             font-size: 0.9em;
@@ -78,21 +81,26 @@ ul.listing {
 
     &.full-width th {
         background-color: $color-thead-bg;
+        background-color: var(--color-thead-bg);
     }
 
     .table-headers {
         border-bottom: 1px solid  $color-grey-4;
+        border-bottom: 1px solid  var(--color-grey-4);
     }
 
     tbody {
         border-bottom: 1px dashed $color-input-border;
-
+        border-bottom: 1px dashed var(--color-input-border);
+        
 
         tr {
             border-top: 1px dashed $color-input-border;
+            border-top: 1px dashed var(--color-input-border);
 
             &:first-child {
                 border-top: 1px dashed $color-input-border;
+                border-top: 1px dashed var(--color-input-border);
             }
 
             &:hover {
@@ -122,18 +130,23 @@ ul.listing {
         tbody tr:hover {
             background-color: $color-teal;
             color: $color-white;
+            background-color: var(--color-primary);
+            color: var(--color-white);
 
             .title a,
             .title a:hover {
                 color: $color-white;
+                color: var(--color-white);
             }
 
             .parent a {
                 color: $color-white;
+                color: var(--color-white);
             }
 
             .status-tag {
                 border-color: $color-white;
+                border-color: var(--color-white);
             }
         }
 
@@ -197,6 +210,7 @@ ul.listing {
             font-size: 1.15em;
             font-weight: 600;
             color: $color-text-base;
+            color: var(--color-text-base);
             line-height: 1.5em;
 
             a {
@@ -206,6 +220,7 @@ ul.listing {
                 // stylelint-disable max-nesting-depth
                 &:hover {
                     color: $color-link;
+                    color: var(--color-link);
                 }
             }
         }
@@ -240,15 +255,20 @@ ul.listing {
     .button-secondary {
         border-color: $color-grey-3;
         background: $color-white;
+        border-color: var(--color-grey-3);
+        background: var(--color-white);
 
         &:hover {
             border-color: $color-teal;
             background-color: $color-teal;
+            border-color: var(--color-primary);
+            background-color: var(--color-primary);
         }
     }
 
     .button-secondary {
         background-color: $color-white;
+        background-color: var(--color-white);
     }
 
     .moderate-actions form {
@@ -262,6 +282,7 @@ ul.listing {
 
         &:hover {
             background-color: $color-grey-5;
+            background-color: var(--color-grey-5);
         }
 
         a {
@@ -272,6 +293,7 @@ ul.listing {
 
     .children a {
         color: $color-teal;
+        color: var(--color-primary);
         display: block;
 
         &:before {
@@ -281,6 +303,7 @@ ul.listing {
 
     .no-children a {
         color: $color-grey-3;
+        color: var(--color-grey-3);
         display: block;
 
         &:before {
@@ -290,6 +313,7 @@ ul.listing {
         &:hover,
         &:focus {
             color: $color-teal;
+            color: var(--color-primary);
         }
 
         &:focus {
@@ -317,6 +341,7 @@ ul.listing {
         &--active a,
         a:hover {
             color: $color-teal;
+            color: var(--color-primary);
         }
 
         &--active .icon {
@@ -331,16 +356,19 @@ ul.listing {
         &:before {
             font-size: 20px;
             color: $color-grey-3;
+            color: var(--color-grey-3);
             width: 1em;
         }
 
         &:hover:before {
             color: $color-text-base;
+            color: var(--color-text-base);
         }
     }
 
     .ui-sortable-helper {
         border: 1px dashed $color-input-border;
+        border: 1px dashed var(--color-input-border);
         border-width: 1px 0;
 
         td {
@@ -357,9 +385,11 @@ ul.listing {
     .dropzone {
         height: 80px;
         background-color: $color-grey-1;
+        background-color: var(--color-grey-1);
 
         &:hover {
             background-color: $color-grey-1;
+            background-color: var(--color-grey-1);
         }
 
         td {
@@ -377,6 +407,7 @@ ul.listing {
 
     .index {
         background-color: $color-grey-4;
+        background-color: var(--color-grey-4);
 
         .title .title-wrapper {
             font-size: 1.2em;
@@ -398,16 +429,22 @@ ul.listing {
         .button {
             background-color: $color-white;
             color: $color-teal;
+            background-color: var(--color-white);
+            color: var(--color-primary);
             border-color: rgba(0, 0, 0, 0.35);
 
             &:hover {
                 color: $color-white;
                 background: $color-teal-darker;
                 border-color: $color-teal-darker;
+                color: var(--color-white);
+                background: var(--color-primary-darker);
+                border-color: var(--color-primary-darker);
             }
 
             &:active {
                 color: $color-white;
+                color: var(--color-white);
                 background: #333;
                 border-color: #333;
             }
@@ -415,9 +452,12 @@ ul.listing {
             &.bicolor {
                 background: $color-teal-darker;
                 border: solid 1px darken($color-teal-darker, 10%);
+                background: var(--color-primary-darker);
+                border: solid 1px hsl(calc(var(--color-primary-hue) + 1), var(--color-primary-saturation), calc(var(--color-primary-lightness) - 14%));
 
                 &:active {
                     color: $color-white;
+                    color: var(--color-white);
                     background: #484848;
                     border-color: #333;
                 }
@@ -434,6 +474,7 @@ ul.listing {
     &.images img {
         @include transition(border-color 0.2s ease);
         border: 3px solid $color-white;
+        border: 3px solid var(--color-white);
     }
 }
 
@@ -447,6 +488,7 @@ ul.listing {
 
 ul.listing {
     border-top: 1px dashed $color-input-border;
+    border-top: 1px dashed var(--color-input-border);
     margin-bottom: 2em;
 }
 
@@ -461,6 +503,8 @@ table.listing {
     .index {
         color: $color-white;
         background-color: $color-header-bg;
+        color: var(--color-white);
+        background-color: var(--color-header-bg);
 
         td {
             padding-top: 1.5em;
@@ -482,11 +526,13 @@ table.listing {
         .title {
             h2 {
                 color: $color-white;
+                color: var(--color-white);
                 font-size: 1.8em;
                 font-weight: 500;
 
                 a:hover {
                     color: $color-white;
+                    color: var(--color-white);
                 }
             }
         }
@@ -494,15 +540,19 @@ table.listing {
         .button {
             background-color: transparent;
             color: $color-white;
+            color: var(--color-white);
             border-color: rgba(0, 0, 0, 0.35);
 
             &:hover {
                 color: $color-white;
                 background: $color-teal-darker;
+                color: var(--color-white);
+                background: var(--color-primary-darker);
             }
 
             &.bicolor {
                 background: $color-teal-darker;
+                background: var(--color-primary-darker);
             }
         }
     }
@@ -559,6 +609,7 @@ table.listing {
 .listing-filter {
     @include clearfix();
     background-color: $color-grey-5;
+    background-color: var(--color-grey-5);
     border-width: 1px 0;
     margin: 3em 0;
 }
@@ -570,6 +621,7 @@ table.listing {
     padding: 1em;
     margin: 0 1em 0 0;
     background-color: $color-grey-4;
+    background-color: var(--color-grey-4);
 }
 
 .filter-options {
@@ -593,6 +645,7 @@ table.listing {
         &.images {
             @include clearfix();
             border: 1px solid $color-grey-4;
+            border: 1px solid var(--color-grey-4);
             border-width: 0 0 0 1px;
 
             > li {
@@ -602,6 +655,7 @@ table.listing {
                 text-align: center;
                 margin-top: -1px;
                 border: 1px solid $color-grey-4;
+                border: 1px solid var(--color-grey-4);
                 border-width: 1px 1px 1px 0;
 
                 .image {
@@ -627,6 +681,7 @@ table.listing {
 
                     img {
                         border-color: $color-teal;
+                        border-color: var(--color-primary);
                     }
                 }
             }
@@ -661,14 +716,17 @@ table.listing {
 
         tr:hover .children {
             background-color: $color-teal;
+            background-color: var(--color-primary);
 
             a:before {
                 color: $color-white;
+                color: var(--color-white);
             }
         }
 
         td.children:hover {
             background-color: $color-teal-darker;
+            background-color: var(--color-primary-darker);
         }
 
         table .no-results-message {
@@ -724,6 +782,7 @@ td.ord {
 table.listing {
     th.ordered {
         color: $color-teal;
+        color: var(--color-primary);
 
         &.ascending {
             &:before {
