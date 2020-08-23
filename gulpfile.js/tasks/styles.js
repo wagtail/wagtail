@@ -10,6 +10,8 @@ var simpleCopyTask = require('../lib/simplyCopy');
 var normalizePath = require('../lib/normalize-path');
 var renameSrcToDest = require('../lib/rename-src-to-dest');
 var gutil = require('gulp-util');
+var postcss = require('gulp-postcss');
+var postcssCustomProperties = require('postcss-custom-properties');
 
 var flatten = function(arrOfArr) {
     return arrOfArr.reduce(function(flat, more) {
@@ -63,6 +65,11 @@ gulp.task('styles:sass', function () {
             includePaths: includePaths,
             outputStyle: 'expanded'
         }).on('error', sass.logError))
+        .pipe(
+          postcss([
+            postcssCustomProperties()
+          ])
+        )
         .pipe(cssnano(cssnanoConfig))
         .pipe(autoprefixer(autoprefixerConfig))
         .pipe(size({ title: 'Wagtail CSS' }))

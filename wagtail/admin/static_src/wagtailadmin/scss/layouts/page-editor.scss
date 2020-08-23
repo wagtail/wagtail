@@ -463,7 +463,6 @@ footer .preview {
     }
 
     .dropdown {
-        --dropdown-grey: hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 60%));
         input[type=button],
         input[type=submit],
         button,
@@ -484,7 +483,7 @@ footer .preview {
         ul,
         .dropdown-toggle {
             background-color: lighten($color-grey-2, 10%);
-            background-color: var(--dropdown-grey);
+            background-color: hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 60%));
         }
 
         .dropdown-toggle:hover,
