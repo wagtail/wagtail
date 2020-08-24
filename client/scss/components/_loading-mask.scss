@@ -30,7 +30,6 @@
             animation: spin 0.5s infinite linear;
             content: map-get($icons, 'spinner');
             z-index: 2;
-            color: $color-teal;
             color: var(--color-primary);
         }
     }

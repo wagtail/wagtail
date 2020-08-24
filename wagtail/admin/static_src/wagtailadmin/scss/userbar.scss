@@ -123,7 +123,6 @@ $positions: (
     height: $size-home-button;
     margin: 0 !important;
     overflow: hidden;
-    background-color: $color-white;
     background-color: var(--color-white);
     border-radius: 50%;
     color: $color-black;
@@ -207,7 +206,6 @@ $positions: (
 
 .#{$namespace}-userbar__item {
     margin: 0;
-    background-color: $color-grey-1;
     background-color: var(--color-grey-1);
     opacity: 0;
     overflow: hidden;
@@ -228,7 +226,7 @@ $positions: (
     }
 
     & + & {
-        border-top: 1px solid darken($color-grey-1, 3%);
+        border-top: 1px solid hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 83%));;
     }
 
 
@@ -245,7 +243,6 @@ $positions: (
         &:hover,
         &:focus {
             outline: none;
-            color: $color-white;
             color: var(--color-white);
             background-color: rgba(100, 100, 100, 0.15);
         }
@@ -317,7 +314,7 @@ $positions: (
         .#{$namespace}-userbar-items:after {
             #{$vertical}: 2px;
             #{$horizontal}: $size-home-button / 2 - $width-arrow / 2;
-            border-#{$arrow}-color: $color-grey-1;
+            border-#{$arrow}-color: var(--color-grey-1);
 
             @if $vertical == 'bottom' {
                 transform: translateY(-$width-arrow);

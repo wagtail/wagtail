@@ -62,7 +62,6 @@ $menu-footer-height: 50px;
 
     &:focus {
         background-color: $c-explorer-bg-active;
-        color: $color-white;
         color: var(--color-white);
     }
 
@@ -88,18 +87,15 @@ $menu-footer-height: 50px;
     display: block;
     background-color: $c-explorer-bg-dark;
     border-bottom: 1px solid $c-explorer-bg-dark;
-    color: $color-white;
     color: var(--color-white);
 
     &:focus {
         background-color: $c-explorer-bg-active;
-        color: $color-white;
         color: var(--color-white);
     }
 
     // Overrides for default link hover.
     &:hover {
-        color: $color-white;
         color: var(--color-white);
     }
 
@@ -135,7 +131,6 @@ $menu-footer-height: 50px;
 
 .c-explorer__placeholder {
     padding: 1em;
-    color: $color-white;
     color: var(--color-white);
 
     @include media-breakpoint-up(sm) {
@@ -147,7 +142,6 @@ $menu-footer-height: 50px;
     display: block;
     padding: 1em;
     background: rgba(0, 0, 0, 0.3);
-    color: $color-white;
     color: var(--color-white);
 
     &:focus {
@@ -157,7 +151,6 @@ $menu-footer-height: 50px;
 
     // Overrides for default link hover.
     &:hover {
-        color: $color-white;
         color: var(--color-white);
     }
 

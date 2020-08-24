@@ -3,8 +3,6 @@ footer {
     @include row();
     border-radius: 3px 3px 0 0;
     box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
-    background: $color-grey-1;
-    color: $color-white;
     background: var(--color-grey-1);
     color: var(--color-white);
     margin-top: $mobile-nice-padding;

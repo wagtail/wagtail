@@ -5,7 +5,6 @@
 .messages {
     position: relative;
     z-index: 5;
-    background-color: $color-grey-1;
     background-color: var(--color-grey-1);
 
     .buttons {
@@ -22,7 +21,6 @@
     > ul > li {
         // @include nice-padding;
         padding: 1.6em 3em 1.6em 1.6em;
-        color: $color-white;
         color: var(--color-white);
     }
 
@@ -53,13 +51,11 @@
     }
 
     .success .button:hover {
-        background-color: $color-teal-dark;
         background-color: var(--color-primary-dark);
     }
 
     .button-secondary {
         border-color: rgba(255, 255, 255, 0.5);
-        color: $color-white;
         color: var(--color-white);
 
         &:hover {

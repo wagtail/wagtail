@@ -6,8 +6,6 @@ $desktop-nice-padding: 100px;
 html,
 body,
 .content-wrapper {
-    background-color: $color-grey-1;
-    color: $color-grey-3;
     background-color: var(--color-grey-1);
     color: var(--color-grey-3);
 }
@@ -36,7 +34,6 @@ h1 {
     font-weight: 300;
     font-size: 2em;
     line-height: 1em;
-    color: $color-white;
     color: var(--color-white);
     text-transform: none;
     white-space: nowrap;
@@ -52,7 +49,6 @@ form {
 
 label {
     width: auto;
-    color: $color-white;
     color: var(--color-white);
 }
 
@@ -86,7 +82,6 @@ input[type=checkbox]:before {
         }
 
         input {
-            border-top: 1px dashed $color-input-border;
             border-top: 1px dashed var(--color-input-border);
         }
     }
@@ -185,8 +180,6 @@ input[type=checkbox]:before {
             .input:before {
                 display: inline-block;
                 position: absolute;
-                color: $color-grey-4;
-                border: 2px solid $color-grey-4;
                 color: var(--color-grey-4);
                 border: 2px solid var(--color-grey-4);
                 border-radius: 100%;

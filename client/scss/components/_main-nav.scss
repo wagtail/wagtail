@@ -6,11 +6,9 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: $nav-grey-1;
     background: var(--nav-grey-1);
 
     .inner {
-        background: $nav-grey-1;
         background: var(--nav-grey-1);
 
         @include media-breakpoint-up(sm) {
@@ -30,7 +28,6 @@
         position: relative;
         top: 3px;
         font-size: 40px;
-        color: $color-white;
         color: var(--color-white);
         line-height: 40px;
         content: '\2261';
@@ -55,7 +52,6 @@
         -webkit-font-smoothing: auto;
         text-decoration: none;
         display: block;
-        color: $color-menu-text;
         color: var(--color-menu-text);
         padding: 0.8em 1.7em;
         font-size: 1em;
@@ -66,9 +62,6 @@
         // making the text semi-transparent
         &:hover,
         &:focus {
-            background-color: $nav-item-hover-bg;
-            color: $color-white;
-            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
             background-color: var(--nav-item-hover-bg);
             color: var(--color-white);
             text-shadow: -1px -1px 0 hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 39%), 0.3);
@@ -99,13 +92,11 @@
     }
 
     .menu-active {
-        background: $nav-item-active-bg;
         background: var(--nav-item-active-bg);
-        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        text-shadow: -1px -1px 0 hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 39%), 0.3);
 
         > a {
             border-left-color: $color-salmon;
-            color: $color-white;
             color: var(--color-white);
         }
     }
@@ -169,7 +160,6 @@
 }
 
 .nav-submenu {
-    background: $nav-submenu-bg;
     background: var(--nav-submenu-bg);
 
     h2 {
@@ -201,7 +191,6 @@
         margin: 0;
         padding: 0.9em 1.7em;
         text-align: center;
-        color: $color-menu-text;
         color: var(--color-menu-text);
     }
 }
@@ -226,9 +215,6 @@
 
     input {
         cursor: pointer;
-        border: 1px solid $nav-search-border;
-        background-color: $nav-search-bg;
-        color: $nav-search-color;
         border: 1px solid var(--nav-search-border);
         background-color: var(--nav-search-bg);
         color: var(--nav-search-color);
@@ -236,20 +222,16 @@
         font-weight: 600;
 
         &:hover {
-            background-color: $nav-search-hover-bg;
             background-color: var(--nav-search-hover-bg);
         }
 
         &:active,
         &:focus {
-            background-color: $nav-search-focus-bg;
-            color: $nav-search-focus-color;
             background-color: var(--nav-search-focus-bg);
             color: var(--nav-search-focus-color);
         }
 
         &::placeholder {
-            color: $color-menu-text;
             color: var(--color-menu-text);
         }
     }
@@ -264,12 +246,10 @@
         width: 3em;
 
         &:hover {
-            background-color: $nav-item-hover-bg;
             background-color: var(--nav-item-hover-bg);
         }
 
         &:active {
-            background-color: $nav-item-active-bg;
             background-color: var(--nav-item-active-bg);
         }
 
@@ -380,9 +360,6 @@ body.explorer-open {
             cursor: pointer;
 
             &:hover {
-                background-color: rgba(100, 100, 100, 0.15);
-                color: $color-white;
-                text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
                 background-color: var(--nav-item-hover-bg);
                 color: var(--color-white);
                 text-shadow: -1px -1px 0 hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 39%), 0.3);
@@ -443,7 +420,6 @@ body.explorer-open {
             font-weight: 500;
             text-transform: none;
             text-align: center;
-            color: $color-menu-text;
             color: var(--color-menu-text);
 
             &:before {
@@ -469,7 +445,6 @@ body.explorer-open {
     }
 
     li.submenu-active {
-        background: $nav-submenu-bg;
         background: var(--nav-submenu-bg);
 
         > a {

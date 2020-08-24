@@ -21,12 +21,10 @@
         background-color: transparent;
 
         a {
-            color: $color-grey-2;
             color: var(--color-grey-2);
         }
 
         li:hover {
-            background-color: $color-grey-4;
             background-color: var(--color-grey-4);
         }
 
@@ -125,7 +123,6 @@
     }
 
     &.focused {
-        border-color: $color-input-focus-border;
         border-color: var(--color-input-focus-border);
     }
 
@@ -209,7 +206,6 @@
             line-height: 1.8em;
             left: 0;
             width: $desktop-nice-padding;
-            color: $color-white;
             color: var(--color-white);
             padding: 0;
             margin: 0;
@@ -339,11 +335,11 @@
     }
 
     &.empty {
-        border-bottom: 1px solid $color-white;
+        border-bottom: 1px solid var(--color-white);
 
         > h3 {
             margin: 0;
-            border-bottom: 1px solid $color-white;
+            border-bottom: 1px solid var(--color-white);
         }
 
         // wrapper around add button for mutliple objects. Default version is wordless plus button for contracted groups of fields
@@ -451,12 +447,10 @@ footer .preview {
             height: 3em;
         }
 
-        background-color: lighten($color-grey-2, 10%);
-        border-color: lighten($color-grey-2, 10%);
+        background-color: hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 60%));
+        border-color: hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 60%));
 
         &:hover {
-            background-color: $color-grey-2;
-            border-color: $color-grey-2;
             background-color: var(--color-grey-2);
             border-color: var(--color-grey-2);
         }
@@ -467,14 +461,10 @@ footer .preview {
         input[type=submit],
         button,
         .button {
-            background-color: lighten($color-grey-2, 10%);
-            border-color: lighten($color-grey-2, 10%);
-            background-color: var(--button-grey);
-            border-color: var(--button-grey);
+            background-color: hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 60%));
+            border-color: hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 60%));
 
             &:hover {
-                background-color: $color-grey-2;
-                border-color: $color-grey-2;
                 background-color: var(--color-grey-2);
                 border-color: var(--color-grey-2);
             }
@@ -482,13 +472,11 @@ footer .preview {
 
         ul,
         .dropdown-toggle {
-            background-color: lighten($color-grey-2, 10%);
             background-color: hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 60%));
         }
 
         .dropdown-toggle:hover,
         &.open > .button + .dropdown-toggle {
-            background-color: $color-grey-2;
             background-color: var(--color-grey-2);
         }
     }
@@ -581,8 +569,6 @@ footer .preview {
 }
 
 .button.button--live {
-    background-color: $color-white;
-    color: $color-teal;
     background-color: var(--color-white);
     color: var(--color-primary);
     border-radius: 2px;
@@ -597,8 +583,6 @@ footer .preview {
     }
 
     &:hover {
-        background-color: $color-teal-darker;
-        color: $color-white;
         background-color: var(--color-primary-darker);
         color: var(--color-white);
     }
@@ -615,7 +599,6 @@ footer .preview {
 
     li:not(:last-child)::after {
         content: '';
-        color: $color-grey-3;
         color: var(--color-grey-3);
         position: absolute;
         top: 1.5em;
@@ -625,7 +608,6 @@ footer .preview {
     }
 
     .icon {
-        fill: $color-grey-3;
         fill: var(--color-grey-3);
     }
 
@@ -633,13 +615,11 @@ footer .preview {
         font-weight: 700;
 
         .icon {
-            fill: $color-text-base;
             fill: var(--color-text-base);
         }
     }
 
     .approved .icon {
-        fill: $color-teal;
         fill: var(--color-primary);
     }
 

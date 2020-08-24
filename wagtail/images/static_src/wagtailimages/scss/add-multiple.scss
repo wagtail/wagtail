@@ -26,7 +26,6 @@
         cursor: pointer;
 
         button {
-            background-color: $color-teal-darker;
             background-color: var(--color-primary-darker);
         }
     }
@@ -95,7 +94,7 @@
         width: 1em;
         font-size: 10em;
         line-height: 1.4em;
-        color: lighten($color-grey-4, 4%);
+        color: hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 6%));
     }
 
     canvas,

@@ -111,14 +111,12 @@ $draftail-editor-font-family: $font-serif;
 }
 
 .Draftail-Toolbar {
-    border: 1px solid $color-grey-3;
     border: 1px solid var(--color-grey-3);
 }
 
 .Draftail-ToolbarButton {
     &:hover,
     &:active {
-        border: 1px solid $color-grey-3;
         border: 1px solid var(--color-grey-3);
     }
 }
@@ -129,8 +127,6 @@ $draftail-editor-font-family: $font-serif;
 }
 
 .Draftail-block--blockquote {
-    border-left: 0.25em solid $color-grey-3;
-    color: $color-grey-2;
     border-left: 0.25em solid var(--color-grey-3);
     color: var(--color-grey-2);
     margin: 1em 0;

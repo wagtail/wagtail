@@ -14,11 +14,11 @@
 
 @include media-breakpoint-up(sm) {
     .divider-before {
-        border-left: 1px solid $color-grey-4;
+        border-left: 1px solid var(--color-grey-4);
     }
 
     .divider-after {
-        border-right: 1px solid $color-grey-4;
+        border-right: 1px solid var(--color-grey-4);
     }
 
 }

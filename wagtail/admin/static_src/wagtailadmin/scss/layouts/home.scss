@@ -20,7 +20,6 @@ header {
 
     h1,
     .user-name {
-        color: $color-white;
         color: var(--color-white);
     }
 
@@ -99,7 +98,6 @@ header {
 
     .search-bar {
         @include clearfix();
-        border-top: 1px solid $color-grey-4;
         border-top: 1px solid var(--color-grey-4);
         padding: 1em 0 0;
 
@@ -122,7 +120,6 @@ header {
         }
 
         input {
-            background-color: $color-white;
             background-color: var(--color-white);
         }
     }

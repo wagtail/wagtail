@@ -1,10 +1,8 @@
 // makes a link look like regular text
 .nolink {
-    color: $color-text-base;
     color: var(--color-text-base);
 
     &:hover {
-        color: $color-teal;
         color: var(--color-primary);
     }
 }

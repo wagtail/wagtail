@@ -1,11 +1,9 @@
 // free tagging tags from taggit
 .tag {
     border-radius: 2px;
-    background-color: $color-teal;
     background-color: var(--color-primary);
     padding-right: 0.5em;
     padding: 0.2em 0.5em;
-    color: $color-white;
     color: var(--color-white);
     line-height: 2em;
     white-space: nowrap;
@@ -13,7 +11,6 @@
     &:before {
         font-family: wagtail;
         display: inline-block;
-        color: $color-white;
         color: var(--color-white);
         content: map-get($icons, 'tag');
         padding-right: 0.5em;
@@ -25,8 +22,6 @@
 }
 
 a.tag:hover {
-    background-color: $color-teal-darker;
-    color: $color-white;
     background-color: var(--color-primary-darker);
     color: var(--color-white);
 }

@@ -14,9 +14,6 @@
     font-weight: normal;
     vertical-align: middle;
     display: inline-block;
-    background-color: $color-button;
-    border: 1px solid $color-button;
-    color: $color-white;
     background-color: var(--color-button);
     border: 1px solid var(--color-button);
     color: var(--color-white);
@@ -33,7 +30,6 @@
     transition: background-color 0.1s ease;
 
     &:hover {
-        color: $color-teal;
         color: var(--color-primary);
     }
 
@@ -49,7 +45,6 @@
         }
 
         &:hover {
-            color: $color-white;
             color: var(--color-white);
             border-color: transparent;
             background-color: $color-button-yes-hover;
@@ -72,7 +67,6 @@
         }
 
         &:hover {
-            color: $color-white;
             color: var(--color-white);
             border-color: transparent;
             background-color: $color-button-warning-hover;
@@ -97,7 +91,6 @@
         }
 
         &:hover {
-            color: $color-white;
             color: var(--color-white);
             border-color: transparent;
             background-color: $color-button-no-hover;
@@ -216,8 +209,6 @@
     }
 
     &:hover {
-        background-color: $color-button-hover;
-        color: $color-white;
         background-color: var(--color-button-hover);
         color: var(--color-white);
         border-color: transparent;
@@ -287,9 +278,6 @@
     &:disabled,
     &[disabled],
     &.disabled {
-        background-color: $color-grey-3;
-        border-color: $color-grey-3;
-        color: $color-grey-2;
         background-color: var(--color-grey-3);
         border-color: var(--color-grey-3);
         color: var(--color-grey-2);
@@ -299,9 +287,6 @@
     &.button-secondary:disabled,
     &.button-secondary[disabled],
     &.button-secondary.disabled {
-        background-color: $color-white;
-        border-color: $color-grey-3;
-        color: $color-grey-3;
         background-color: var(--color-white);
         border-color: var(--color-grey-3);
         color: var(--color-grey-3);
@@ -321,7 +306,6 @@
         border: 1px solid transparent;
 
         &:hover {
-            border-color: $color-grey-2;
             border-color: var(--color-grey-2);
         }
 
@@ -375,7 +359,6 @@
 }
 
 .button-secondary {
-    color: $color-button;
     color: var(--color-button);
     background-color: transparent;
 }
@@ -445,11 +428,9 @@ button.button.bicolor .icon-wrapper {
 }
 
 .button-neutral {
-    color: $color-grey-2;
     color: var(--color-grey-2);
 
     &:hover {
-        color: $color-teal;
         color: var(--color-primary);
     }
 }
@@ -465,7 +446,6 @@ button.button.bicolor .icon-wrapper {
     }
 
     &:hover {
-        color: $color-white;
         color: var(--color-white);
         border-color: transparent;
         background-color: $color-button-yes-hover;
@@ -489,7 +469,6 @@ button.button.bicolor .icon-wrapper {
     }
 
     &:hover {
-        color: $color-white;
         color: var(--color-white);
         border-color: transparent;
         background-color: $color-button-no-hover;
@@ -612,11 +591,10 @@ button {
         border-radius: 2px;
         position: relative;
         overflow: hidden;
-        background-color: $color-white;
         background-color: var(--color-white);
         padding: 1em 10em 1em 1.5em; // 10em padding leaves room for controls
         margin-bottom: 1em;
-        border: 1px solid lighten($color-grey-4, 3%); // really trying to avoid creating more greys, but this one is better than grey 4 or 5
+        border: 1px solid hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 7%)); // really trying to avoid creating more greys, but this one is better than grey 4 or 5
     }
 
     &.moving {
@@ -639,7 +617,6 @@ button {
         z-index: 1;
         right: 1em;
         top: 1em;
-        color: $color-white;
         color: var(--color-white);
 
         li {

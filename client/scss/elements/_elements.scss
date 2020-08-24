@@ -1,5 +1,4 @@
 html {
-    background: $color-grey-4;
     background: var(--color-grey-4);
     height: 100%;
 }
@@ -24,7 +23,6 @@ body {
 }
 
 hr {
-    border: 1px solid $color-grey-4;
     border: 1px solid var(--color-grey-4);
     border-width: 1px 0 0;
     margin: 1.5em 0;

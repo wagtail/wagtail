@@ -1,7 +1,6 @@
 @import 'wagtailadmin/scss/helpers';
 
 section {
-    border-top: 1px solid $color-grey-3;
     border-top: 1px solid var(--color-grey-3);
     margin-top: 2em;
     padding: 0 0 2em;
@@ -9,7 +8,6 @@ section {
     > h2:first-child {
         margin: 0;
         font-size: 1em;
-        background: $color-grey-4;
         background: var(--color-grey-4);
         padding: 1em;
         margin-bottom: 1em;
@@ -50,12 +48,10 @@ section {
     }
 
     .color-grey-1-text {
-        color: $color-grey-1;
         color: var(--color-grey-1);
     }
 
     .color-white-text {
-        color: $color-white;
         color: var(--color-white);
     }
 
@@ -76,17 +72,14 @@ section {
     }
 
     .color-teal-darker-text {
-        color: $color-teal-darker;
         color: var(--color-primary-darker);
     }
 
     .color-teal-dark-text {
-        color: $color-teal-dark;
         color: var(--color-primary-dark);
     }
 
     .color-grey-2-text {
-        color: $color-grey-2;
         color: var(--color-grey-2);
     }
 
@@ -99,7 +92,6 @@ section {
     }
 
     .color-teal-text {
-        color: $color-teal;
         color: var(--color-primary);
     }
 
@@ -120,37 +112,30 @@ section {
     }
 
     .color-grey-3-text {
-        color: $color-grey-3;
         color: var(--color-grey-3);
     }
 
     .color-grey-4-text {
-        color: $color-grey-4;
         color: var(--color-grey-4);
     }
 
     .color-grey-5-text {
-        color: $color-grey-5;
         color: var(--color-grey-5);
     }
 
     .color-menu-text {
-        color: $color-menu-text;
         color: var(--color-menu-text);
     }
 
     .color-teal {
-        background-color: $color-teal;
         background-color: var(--color-primary);
     }
 
     .color-teal-darker {
-        background-color: $color-teal-darker;
         background-color: var(--color-primary-darker);
     }
 
     .color-teal-dark {
-        background-color: $color-teal-dark;
         background-color: var(--color-primary-dark);
     }
 
@@ -183,27 +168,22 @@ section {
     }
 
     .color-grey-1 {
-        background-color: $color-grey-1;
         background-color: var(--color-grey-1);
     }
 
     .color-grey-2 {
-        background-color: $color-grey-2;
         background-color: var(--color-grey-2);
     }
 
     .color-grey-3 {
-        background-color: $color-grey-3;
         background-color: var(--color-grey-3);
     }
 
     .color-grey-4 {
-        background-color: $color-grey-4;
         background-color: var(--color-grey-4);
     }
 
     .color-grey-5 {
-        background-color: $color-grey-5;
         background-color: var(--color-grey-5);
     }
 

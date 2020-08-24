@@ -1,7 +1,6 @@
 .capabilitymessage {
     display: block;
     background-color: $color-red;
-    color: $color-white;
     color: var(--color-white);
     padding: 1em 2em;
     margin: 0;
@@ -9,7 +8,6 @@
     text-align: center;
 
     a {
-        color: $color-white;
         color: var(--color-white);
         text-decoration: underline;
     }

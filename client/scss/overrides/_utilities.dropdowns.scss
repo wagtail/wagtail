@@ -22,15 +22,12 @@
 // }
 .t-default .u-btn-current {
     border-color: rgba(0, 0, 0, 0.15);
-    color: $color-teal;
     color: var(--color-primary);
 }
 
 .t-default .u-btn-current:hover {
-    background: $color-teal;
     background: var(--color-primary);
     color: #fff;
-    border-color: $color-teal;
     border-color: var(--color-primary);
 }
 
@@ -46,7 +43,6 @@
 }
 
 .t-inverted .u-btn-current:hover {
-    background-color: $color-teal-darker;
     background-color: var(--color-primary-darker);
     border-color: rgba(0, 0, 0, 0.35);
 }
