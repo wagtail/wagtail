@@ -205,7 +205,6 @@ ul.listing {
 
                 // stylelint-disable max-nesting-depth
                 &:hover {
-                    color: $color-link;
                     color: var(--color-link);
                 }
             }

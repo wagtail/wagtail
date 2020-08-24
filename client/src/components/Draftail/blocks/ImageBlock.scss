@@ -24,7 +24,7 @@
     color: var(--color-text-base);
 
     &[readonly] {
-        color: hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 85%), 0.5)
+        color: hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 85%), 0.5);
     }
 }
 

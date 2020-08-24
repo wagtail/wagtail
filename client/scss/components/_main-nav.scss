@@ -332,7 +332,6 @@ body.explorer-open {
             position: fixed;
             width: $menu-width;
             bottom: 0;
-            background-color: $nav-footer-submenu-bg;
             background-color: var(--nav-footer-submenu-bg);
         }
 
@@ -351,8 +350,6 @@ body.explorer-open {
 
         .account {
             @include clearfix;
-            background: $nav-footer-account-bg;
-            color: $color-menu-text;
             background: var(--nav-footer-account-bg);
             color: var(--color-menu-text);
             text-transform: uppercase;
