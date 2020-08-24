@@ -20,6 +20,7 @@ def make_parser():
     parser.add_argument('--elasticsearch6', action='store_true')
     parser.add_argument('--elasticsearch7', action='store_true')
     parser.add_argument('--emailuser', action='store_true')
+    parser.add_argument('--disabletimezone', action='store_true')
     parser.add_argument('--bench', action='store_true')
     return parser
 
@@ -69,6 +70,9 @@ def runtests():
 
     if args.emailuser:
         os.environ['USE_EMAIL_USER_MODEL'] = '1'
+
+    if args.disabletimezone:
+        os.environ['DISABLE_TIMEZONE'] = '1'
 
     if args.bench:
         benchmarks = [
