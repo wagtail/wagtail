@@ -46,7 +46,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-USE_TZ = True
+USE_TZ = not os.environ.get('DISABLE_TIMEZONE')
 
 LANGUAGE_CODE = "en"
 
