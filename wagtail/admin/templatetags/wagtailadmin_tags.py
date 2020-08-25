@@ -584,7 +584,11 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
            but can return the full string if needed
     """
     if last_update.date() == datetime.today().date():
-        time_str = timezone.localtime(last_update).strftime("%H:%M")
+        if timezone.is_aware(last_update):
+            time_str = timezone.localtime(last_update).strftime("%H:%M")
+        else:
+            time_str = last_update.strftime("%H:%M")
+
         return time_str if not time_prefix else '%(prefix)s %(formatted_time)s' % {
             'prefix': time_prefix, 'formatted_time': time_str
         }

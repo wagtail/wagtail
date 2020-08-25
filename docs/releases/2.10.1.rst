@@ -17,3 +17,4 @@ Bug fixes
  * Prevent page audit log views from failing for user models without a ``username`` field (Vyacheslav Matyukhin)
  * Fix icon alignment on menu items (Coen van der Kamp)
  * Page editor header bar now correctly shows 'Published' or 'Draft' status when no revisions exist (Matt Westcott)
+ * Prevent page editor from failing when ``USE_TZ`` is false (Matt Westcott)
