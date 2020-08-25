@@ -266,6 +266,13 @@ class TestCreateView(TestCase, WagtailTestUtils):
                 self.assertTrue(mock_form_fields_exclude.called)
                 m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
 
+    def test_clean_form_once(self):
+        with mock.patch('wagtail.tests.modeladmintest.wagtail_hooks.PublisherModelAdminForm.clean') as mock_form_clean:
+            response = self.client.post('/admin/modeladmintest/publisher/create/', {'name': ''})
+            self.assertEqual(response.status_code, 200)
+
+            mock_form_clean.assert_called_once()
+
 
 class TestInspectView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
@@ -393,6 +400,15 @@ class TestEditView(TestCase, WagtailTestUtils):
                 self.get(1)
                 self.assertTrue(mock_form_fields_exclude.called)
                 m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
+
+    def test_clean_form_once(self):
+        with mock.patch('wagtail.tests.modeladmintest.wagtail_hooks.PublisherModelAdminForm.clean') as mock_form_clean:
+            publisher = Publisher.objects.create(name='Sharper Collins')
+
+            response = self.client.post('/admin/modeladmintest/publisher/edit/%d/' % publisher.pk, {'name': ''})
+            self.assertEqual(response.status_code, 200)
+
+            mock_form_clean.assert_called_once()
 
 
 class TestPageSpecificViews(TestCase, WagtailTestUtils):

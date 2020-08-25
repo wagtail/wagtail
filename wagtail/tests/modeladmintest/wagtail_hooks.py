@@ -2,7 +2,7 @@ from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
-from wagtail.contrib.modeladmin.views import CreateView, IndexView
+from wagtail.contrib.modeladmin.views import CreateView, EditView, IndexView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
@@ -92,9 +92,15 @@ class PublisherCreateView(CreateView):
         return PublisherModelAdminForm
 
 
+class PublisherEditView(EditView):
+    def get_form_class(self):
+        return PublisherModelAdminForm
+
+
 class PublisherModelAdmin(ModelAdmin):
     model = Publisher
     create_view_class = PublisherCreateView
+    edit_view_class = PublisherEditView
 
 
 class EventPageAdmin(ModelAdmin):
