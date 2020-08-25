@@ -8,6 +8,7 @@ Changelog
  * Fix: Prevent page audit log views from failing for user models without a `username` field (Vyacheslav Matyukhin)
  * Fix: Fix icon alignment on menu items (Coen van der Kamp)
  * Fix: Page editor header bar now correctly shows 'Published' or 'Draft' status when no revisions exist (Matt Westcott)
+ * Fix: Prevent page editor from failing when `USE_TZ` is false (Matt Westcott)
 
 
 2.10 (11.08.2020)
