@@ -1,6 +1,7 @@
 import datetime
 
 import pytz
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
@@ -112,14 +113,20 @@ class TestWorkflows(TestCase):
         self.assertEqual(workflow_state.workflow, workflow)
         self.assertEqual(workflow_state.page, homepage)
         self.assertEqual(workflow_state.status, 'in_progress')
-        self.assertEqual(workflow_state.created_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        if settings.USE_TZ:
+            self.assertEqual(workflow_state.created_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        else:
+            self.assertEqual(workflow_state.created_at, datetime.datetime(2017, 1, 1, 12, 0, 0))
         self.assertEqual(workflow_state.requested_by, user)
 
         task_state = workflow_state.current_task_state
         self.assertEqual(task_state.task, task_1)
         self.assertEqual(task_state.status, 'in_progress')
         self.assertEqual(task_state.page_revision, homepage.get_latest_revision())
-        self.assertEqual(task_state.started_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        if settings.USE_TZ:
+            self.assertEqual(task_state.started_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        else:
+            self.assertEqual(task_state.started_at, datetime.datetime(2017, 1, 1, 12, 0, 0))
         self.assertEqual(task_state.finished_at, None)
 
     @override_settings(WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH=True)
@@ -153,7 +160,10 @@ class TestWorkflows(TestCase):
         page = data['page']
         task_state = workflow_state.current_task_state
         task_state.task.on_action(task_state, user=None, action_name='approve')
-        self.assertEqual(task_state.finished_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        if settings.USE_TZ:
+            self.assertEqual(task_state.finished_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        else:
+            self.assertEqual(task_state.finished_at, datetime.datetime(2017, 1, 1, 12, 0, 0))
         self.assertEqual(task_state.status, 'approved')
         self.assertEqual(workflow_state.current_task_state.task, task_2)
         task_2.on_action(workflow_state.current_task_state, user=None, action_name='approve')
