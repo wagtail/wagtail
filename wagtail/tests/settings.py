@@ -47,6 +47,8 @@ STATICFILES_FINDERS = (
 )
 
 USE_TZ = not os.environ.get('DISABLE_TIMEZONE')
+if not USE_TZ:
+    print("Timezone support disabled")
 
 LANGUAGE_CODE = "en"
 
@@ -166,6 +168,7 @@ WAGTAILSEARCH_BACKENDS = {
 if os.environ.get('USE_EMAIL_USER_MODEL'):
     INSTALLED_APPS.append('wagtail.tests.emailuser')
     AUTH_USER_MODEL = 'emailuser.EmailUser'
+    print("EmailUser (no username) user model active")
 else:
     INSTALLED_APPS.append('wagtail.tests.customuser')
     AUTH_USER_MODEL = 'customuser.CustomUser'

@@ -23,6 +23,8 @@ matrix:
      python: 3.8
    - env: TOXENV=py38-dj31-postgres-noelasticsearch-emailuser
      python: 3.8
+   - env: TOXENV=py38-dj31-postgres-noelasticsearch-notz
+     python: 3.8
    - env: TOXENV=py38-dj31stable-postgres-noelasticsearch
      python: 3.8
    - env: TOXENV=py38-djmaster-postgres-noelasticsearch
