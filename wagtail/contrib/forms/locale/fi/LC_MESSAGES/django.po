@@ -6,14 +6,15 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-08-13 11:39+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -87,6 +88,9 @@ msgstr "lomakelähetys"
 
 msgid "form submissions"
 msgstr "lomakkeen lähetykset"
+
+msgid "name"
+msgstr "nimi"
 
 msgid "label"
 msgstr "otsikko"
@@ -193,7 +197,7 @@ msgid "Filter"
 msgstr "Suodatin"
 
 msgid "Download XLSX"
-msgstr "Hae XLSX"
+msgstr "Lataa XLSX"
 
 msgid "Download CSV"
 msgstr "Lataa CSV"

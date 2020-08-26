@@ -5,6 +5,7 @@
 # Translators:
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
@@ -13,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 16:08+0100\n"
-"PO-Revision-Date: 2020-08-07 15:09+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -29,6 +30,12 @@ msgstr "Julkaise"
 
 msgid "Submit for moderation"
 msgstr "Lähetä tarkistettavaksi"
+
+msgid "Restart workflow "
+msgstr "Käynnistä työnkulku uudelleen"
+
+msgid "Cancel workflow "
+msgstr "Peruuta työnkulku"
 
 msgid "Unpublish"
 msgstr "Piilota"
@@ -50,6 +57,10 @@ msgstr "Tallenna luonnos"
 
 msgid "Page locked"
 msgstr "Sivu lukittu"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s ja julkaise"
 
 msgid "Wagtail admin"
 msgstr "Wagtailin hallinta"
@@ -83,6 +94,9 @@ msgstr "Asetukset"
 
 msgid "All"
 msgstr "Kaikki"
+
+msgid "Workflow"
+msgstr "Työnkulku"
 
 msgid "Date"
 msgstr "Pvm"
@@ -185,6 +199,21 @@ msgstr "Tämä kenttä on pakollinen."
 
 msgid "Please select at least one group."
 msgstr "Valitse vähintään yksi ryhmä."
+
+msgid "All types"
+msgstr "Kaikki tyypit"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Tähän sivuun on määritetty työnkulku '{0}'."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "Et voi määrittää tätä työnkulkua samalle sivulle useita kertoja."
+
+msgid "Give your workflow a name"
+msgstr "Anna työnkululle nimi"
+
+msgid "Add tasks to your workflow"
+msgstr "Lisää tehtäviä työnkulkuun"
 
 msgid "Arabic"
 msgstr "arabia"
@@ -460,10 +489,10 @@ msgid "Account"
 msgstr "Tili"
 
 msgid "Change profile picture"
-msgstr "Vaihda profiilisi kuva"
+msgstr "Vaihda profiilikuvasi"
 
 msgid "Your current profile picture:"
-msgstr "Tämänhetkinen profiilisi kuva:"
+msgstr "Nykyinen profiilikuvasi:"
 
 msgid "Update"
 msgstr "Päivitä"
@@ -759,6 +788,12 @@ msgstr[1] ""
 "<span>%(total)s</span> sivua <span class=\"visuallyhidden\">luotiin "
 "sivustolle %(site_name)s</span>"
 
+msgid "Task"
+msgstr "Tehtävä"
+
+msgid "Tasks"
+msgstr "Tehtävät"
+
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
 
@@ -844,6 +879,9 @@ msgstr "Sivun yksityisyys. Nyt: Yksityinen"
 
 msgid "Publishing…"
 msgstr "Julkaistaan…"
+
+msgid "Publish this version"
+msgstr "Julkaise tämä versio"
 
 msgid "Saving…"
 msgstr "Tallennetaan…"
@@ -960,6 +998,18 @@ msgstr "Kyllä, piilota"
 msgid "No, don't unpublish"
 msgstr "Ei, älä piilota"
 
+msgid "Publish page"
+msgstr "Julkaise sivu"
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "Tämän sivun julkaisu peruuttaa nykyisen työnkulun."
+
+msgid "Would you still like to publish this page?"
+msgstr "Haluatko silti julkaista tämän sivun?"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Sivut, joiden luokka on %(page_class_verbose_name)s"
@@ -994,6 +1044,19 @@ msgstr "Tällä sivulla on tallentamattomia muutoksia."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Muokataan %(page_type)s-sivua: %(title)s"
 
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Muokataan %(page_type)s"
+
+msgid "History"
+msgstr "Historia"
+
+msgid "User"
+msgstr "Käyttäjä"
+
+msgid "Date / Time"
+msgstr "Päivä/aika"
+
 msgid "Live version"
 msgstr "Esillä oleva versio"
 
@@ -1003,6 +1066,9 @@ msgstr "Nykyinen luonnos"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s sitten"
+
+msgid "No log entries found."
+msgstr "Lokimerkintöjä ei löytynyt."
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1156,6 +1222,15 @@ msgstr ""
 "Sulje tämä välilehti ja korjaa virheet muokkaamalla sivua,\n"
 "valitse sitten esikatselu uudelleen."
 
+msgid "Current status:"
+msgstr "Nykyinen tila:"
+
+msgid "Compare with previous version"
+msgstr "Vertaa edelliseen versioon"
+
+msgid "Compare with current version"
+msgstr "Vertaa nykyiseen versioon"
+
 msgid "Cancel scheduled publish"
 msgstr "Peruuta ajastettu julkaisu"
 
@@ -1165,6 +1240,9 @@ msgstr "Vertaillaan %(title)s"
 
 msgid "Comparing"
 msgstr "Vertaillaan"
+
+msgid "Page history"
+msgstr "Sivun historia"
 
 msgid "Fields"
 msgstr "Kentät"
@@ -1207,6 +1285,9 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "Siirrettiin %(counter)s sijaa ylemmäs."
+
+msgid "There are no differences between these two versions"
+msgstr "Näiden kahden version välillä ei ole eroja"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1266,11 +1347,37 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Sivutyypit"
 
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Valitettavasti mikään sivu ei vastaa hakua <em>%(query_string)s</em>"
+
 msgid "Enter a search term above"
 msgstr "Syötä hakutermi ylle"
 
 msgid "No pages use"
 msgstr "Yhtään sivua ei käytä"
+
+msgid "Workflow progress"
+msgstr "Työnkulun edistyminen"
+
+msgid "Workflow history"
+msgstr "Työnkulun historia"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Tila <span class=\"status-tag primary\"> %(status)s</span>"
+
+msgid "Timeline"
+msgstr "Aikajana"
+
+msgid "Page edited"
+msgstr "Sivua muokattu"
+
+msgid "Edit page"
+msgstr "Muokkaa sivua"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Tätä sivua ei ole lähetetty tarkastettavaksi vielä"
 
 msgid "Collection"
 msgstr "Kokoelma"
@@ -1325,6 +1432,9 @@ msgstr "Lukittu"
 msgid "No locked pages found."
 msgstr "Lukittuja sivuja ei löytynyt."
 
+msgid "No pages have been submitted for moderation yet"
+msgstr "Yhtäkään sivua ei ole lähetetty tarkastettavaksi vielä"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
@@ -1355,6 +1465,12 @@ msgstr "Sivun tila nyt:"
 
 msgid "Other searches"
 msgstr "Muut haut"
+
+msgid "Published"
+msgstr "Julkaistu"
+
+msgid "Draft saved"
+msgstr "Luonnos tallennettu"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
@@ -1388,9 +1504,88 @@ msgstr "Lisää alasivu"
 msgid "Show in Explorer"
 msgstr "Näytä sivuselaimessa"
 
+msgid "Are you sure you want to disable this workflow?"
+msgstr "Haluatko varmasti poistaa tämän työnkulun käytöstä?"
+
+msgid "Yes, disable"
+msgstr "Kyllä, poista käytöstä"
+
+msgid "Are you sure you want to disable this task?"
+msgstr "Haluatko varmasti poistaa tämän tehtävän käytöstä?"
+
+msgid "Assign your workflow to pages"
+msgstr "Määritä työnkulkun sivuihin"
+
+msgid "Creating…"
+msgstr "Luodaan…"
+
+msgid "Create"
+msgstr "Luo"
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr ""
+"Tämä työnkulku on poistettu käytöstä, joten sitä ei voi määrittää mihinkään "
+"sivuun."
+
+msgid "Used on the following active workflows"
+msgstr "Käytössä seuraavissa aktiivisissa työnkuluissa"
+
+msgid "Not used"
+msgstr "Ei käytössä"
+
+msgid "Assign to another page"
+msgstr "Määritä toiseen sivuun"
+
+msgid "Hide disabled workflows"
+msgstr "Piilota käytöstä poistetut työnkulut"
+
+msgid "Show disabled workflows"
+msgstr "Näytä käytöstä poistetut työnkulut"
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Vaihe %(step_number)s"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s lisää"
+msgstr[1] "+%(counter)s lisää"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "Valitse minkä tyyppisen tehtävän haluat luoda."
+
+msgid "Choose a task"
+msgstr "Valitse tehtävä"
+
+msgid "Choose a different task type"
+msgstr "Valitse eri tehtävätyyppi"
+
+msgid "Task type"
+msgstr "Tehtävän tyyppi"
+
+msgid "You haven't created any tasks."
+msgstr "Et ole luonut yhtäkään tehtävää."
+
+msgid "Hide disabled tasks"
+msgstr "Piilota käytöstä poistetut tehtävät"
+
+msgid "Show disabled tasks"
+msgstr "Näytä käytöstä poistetut tehtävät"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "Sivut jotka seuraavat työnkulkua '%(name)s'"
+
+msgid "Pages that use workflow"
+msgstr "Työnkulkua käyttävät sivut"
+
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "tekijänä %(modified_by)s"
+
+msgid "See full history"
+msgstr "Näytä koko historia"
 
 msgid "Compare with live version"
 msgstr "Vertaile julkaistun version kanssa"
@@ -1408,6 +1603,12 @@ msgid ""
 "descending order."
 msgstr ""
 "Järjestä sivun '%(parent)s' alasivut kentän '%(label)s' mukaan laskevasti."
+
+msgid "0 minutes"
+msgstr "0 minuuttia"
+
+msgid "Just now"
+msgstr "Juuri nyt"
 
 msgid "Test"
 msgstr "Testi"
@@ -1493,6 +1694,9 @@ msgstr "<b>Sivun '{}' lukitsi</b> <b>{}</b> <b>{}</b>."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Sivu '{}' on lukittu.</b>"
 
+msgid "This page is currently awaiting moderation."
+msgstr "Tämä sivu odottaa parhaillaan tarkastusta."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Sivu odottaa parhaillaan tarkastusta"
 
@@ -1563,6 +1767,67 @@ msgstr "Viimeisin"
 msgid "revision {0} of \"{1}\""
 msgstr "sivun \"{1}\" revisio {0}"
 
+msgid "Workflows"
+msgstr "Työnkulut"
+
+msgid "Workflow tasks"
+msgstr "Työnkulun tehtävät"
+
+msgid "Add a workflow"
+msgstr "Lisää työnkulku"
+
+msgid "New workflow"
+msgstr "Uusi työnkulku"
+
+msgid "Workflow '{0}' created."
+msgstr "Työnkulku '{0}' luotu."
+
+msgid "Workflow '{0}' updated."
+msgstr "Työnkulku '{0}' päivitetty."
+
+msgid "Disable"
+msgstr "Poista käytöstä"
+
+msgid "Enable"
+msgstr "Ota käyttöön"
+
+msgid "Disable workflow"
+msgstr "Poista työnkulku käytöstä"
+
+msgid "Workflow '{0}' disabled."
+msgstr "Työnkulku '{0}' poistettu käytöstä."
+
+msgid "Workflow '{0}' enabled."
+msgstr "Työnkulku '{0}' otettu käyttöön."
+
+msgid "Workflow removed from Page '{0}'."
+msgstr "Työnkulku poistettu sivulta '{0}'."
+
+msgid "New workflow task"
+msgstr "Uusi työnkulun tehtävä"
+
+msgid "Task '{0}' created."
+msgstr "Tehtävä '{0}' luotu."
+
+msgid "Task '{0}' updated."
+msgstr "Tehtävä '{0}' päivitetty."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Muokataan %(task_type)s"
+
+msgid "Disable task"
+msgstr "Poista tehtävä käytöstä"
+
+msgid "Task '{0}' disabled."
+msgstr "Tehtävä '{0}' poistettu käytöstä."
+
+msgid "Task '{0}' enabled."
+msgstr "Tehtävä '{0}' otettu käyttöön."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
+
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "Muokkaa sivua '%(title)s'"
@@ -1601,6 +1866,10 @@ msgstr "Poista sivu '%(title)s'"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Peruuta sivun '%(title)s' julkaisu"
+
+#, python-format
+msgid "View page history for '%(title)s'"
+msgstr "Näytä sivun '%(title)s' historia"
 
 msgid "Set profile picture"
 msgstr "Aseta profiilin kuva"
@@ -1672,6 +1941,40 @@ msgstr "Lukitut sivut"
 msgid "Reports"
 msgstr "Raportit"
 
+msgid "Created"
+msgstr "Luotu"
+
+msgid "Deleted"
+msgstr "Poistettu"
+
+msgid "Copied"
+msgstr "Kopioitu"
+
+msgid "Moved"
+msgstr "Siirretty"
+
+msgid "Renamed"
+msgstr "Nimetty uudelleen"
+
+msgid "Rename"
+msgstr "Nimeä uudelleen"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' käynnistetty. Seuraava vaihe '%(task)s'"
+
+msgid "Workflow task approved"
+msgstr "Työnkulun tehtävä hyväksytty"
+
+msgid "Workflow cancelled"
+msgstr "Työnkulku peruttu"
+
+msgid "Yes"
+msgstr "Kyllä"
+
+msgid "No"
+msgstr "Ei"
+
 msgid "Choose an item"
 msgstr "Valitse vaihtoehto"
 
@@ -1686,3 +1989,9 @@ msgstr "Muokkaa tätä"
 
 msgid "Choose another page"
 msgstr "Valitse toinen sivu"
+
+msgid "Choose another task"
+msgstr "Valitse toinen tehtävä"
+
+msgid "Edit this task"
+msgstr "Muokkaa tätä tehtävää"

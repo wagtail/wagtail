@@ -6,9 +6,9 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Ed <724195301@qq.com>, 2018
 # First Last <abc+github@mynook.info>, 2019
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2020
 msgid ""
 msgstr ""

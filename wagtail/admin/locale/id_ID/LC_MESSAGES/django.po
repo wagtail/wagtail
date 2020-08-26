@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2018
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
@@ -12,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 16:08+0100\n"
-"PO-Revision-Date: 2020-08-07 15:09+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -35,8 +36,24 @@ msgstr "Tarik publikasi"
 msgid "Delete"
 msgstr "Hapus"
 
+msgid "Lock"
+msgstr "Kunci"
+
+msgid "Apply editor lock"
+msgstr "Terapkan kunci editor"
+
+msgid "Unlock"
+msgstr "Buka kunci"
+
+msgid "Save Draft"
+msgstr "Simpan konsep"
+
 msgid "Page locked"
 msgstr "Halaman dikunci"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s dan Publikasikan"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -68,6 +85,21 @@ msgstr "Promosikan"
 msgid "Settings"
 msgstr "Pengaturan"
 
+msgid "Date from"
+msgstr "Tanggal awal"
+
+msgid "Date to"
+msgstr "Tanggal akhir"
+
+msgid "All"
+msgstr "Semua"
+
+msgid "Started at"
+msgstr "Dimulai pada"
+
+msgid "Show"
+msgstr "Tampilkan"
+
 msgid "Date"
 msgstr "Tanggal"
 
@@ -83,6 +115,9 @@ msgstr "Masukkan %s anda"
 
 msgid "Enter your email address to reset your password"
 msgstr "Masukkan alamat surel untuk atur ulang kata sandi anda"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -167,6 +202,9 @@ msgstr "Kolom ini  harus diisi."
 msgid "Please select at least one group."
 msgstr "Harap memilih minimal satu grup."
 
+msgid "Arabic"
+msgstr "Arab"
+
 msgid "Catalan"
 msgstr "Katalan"
 
@@ -191,17 +229,29 @@ msgstr "Perancis"
 msgid "Galician"
 msgstr "Galicia"
 
+msgid "Hungarian"
+msgstr "Hunggaria"
+
+msgid "Indonesian"
+msgstr "Indonesia"
+
 msgid "Icelandic"
 msgstr "Islandia"
 
 msgid "Italian"
 msgstr "Italia"
 
+msgid "Japanese"
+msgstr "Jepang"
+
 msgid "Korean"
 msgstr "Korea"
 
 msgid "Lithuanian"
 msgstr "Lituania"
+
+msgid "Mongolian"
+msgstr "Mongolia"
 
 msgid "Norwegian Bokmål"
 msgstr "Norwegia"
@@ -232,6 +282,12 @@ msgstr "Swedia"
 
 msgid "Slovak"
 msgstr "Slowakia"
+
+msgid "Thai"
+msgstr "Thailand"
+
+msgid "Turkish"
+msgstr "Turki"
 
 msgid "Ukrainian"
 msgstr "Ukraina"
@@ -301,6 +357,9 @@ msgstr "Tutup"
 
 msgid "Edit '{title}'"
 msgstr "Ubah '{title}'"
+
+msgid "Page explorer"
+msgstr "Perambah halaman"
 
 msgid "January"
 msgstr "Januari"
@@ -406,6 +465,9 @@ msgstr "Perbarui"
 
 msgid "Change email"
 msgstr "Ubah surel"
+
+msgid "Change name"
+msgstr "Ubah nama"
 
 msgid "Change password"
 msgstr "Ganti kata sandi"
@@ -640,6 +702,12 @@ msgstr "Status"
 
 msgid "Site summary"
 msgstr "Ringkasan situs"
+
+msgid "Awaiting"
+msgstr "Menunggu"
+
+msgid "Awaiting your review"
+msgstr "Menunggu tinjauan anda"
 
 msgid "Sign in"
 msgstr "Masuk"

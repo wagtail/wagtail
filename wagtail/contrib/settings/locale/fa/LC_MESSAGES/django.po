@@ -4,6 +4,7 @@
 #
 # Translators:
 # Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
+# Mehdi <myjahromi@gmail.com>, 2020
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:52+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-08-17 10:12+0000\n"
+"Last-Translator: Mehdi <myjahromi@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +23,18 @@ msgstr ""
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "default"
+msgstr "پیشفرض"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "در حال ویرایش %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "در حال ویرایش"
+
+msgid "Site"
+msgstr "سایت"
 
 msgid "Saving…"
 msgstr "در حال ذخیره کردن…"

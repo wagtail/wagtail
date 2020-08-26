@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -42,6 +43,9 @@ msgstr "Kata Sandi"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Kata sandi yang dimasukkan salah. Harap coba lagi."
+
+msgid "Comment"
+msgstr "Komentar"
 
 msgid "hostname"
 msgstr "hostname"
@@ -157,6 +161,12 @@ msgstr "kadaluarsa"
 msgid "locked"
 msgstr "terkunci"
 
+msgid "locked at"
+msgstr "Terkunci pada"
+
+msgid "locked by"
+msgstr "Dikunci oleh"
+
 msgid "first published at"
 msgstr "pertama kali dipublikasi"
 
@@ -171,6 +181,9 @@ msgstr "Slug ini telah dipakai"
 
 msgid "scheduled"
 msgstr "terjadwalkan"
+
+msgid "in moderation"
+msgstr "dalam moderasi"
 
 msgid "draft"
 msgstr "konsep"
@@ -237,6 +250,9 @@ msgstr "Hapus halaman dan turunannya"
 
 msgid "Lock"
 msgstr "Kunci"
+
+msgid "Unlock"
+msgstr "Buka kunci"
 
 msgid "group"
 msgstr "grup"

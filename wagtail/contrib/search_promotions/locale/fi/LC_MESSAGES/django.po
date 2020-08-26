@@ -6,14 +6,15 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-08-13 12:01+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -119,11 +120,23 @@ msgstr "Lisää uusi nostettu tulos"
 msgid "Search term(s)"
 msgstr "Hakutermi(t)"
 
+msgid "Order by search term alphabetically"
+msgstr "Järjestä hakutermin perusteella aakkosjärjestykseen"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Järjestä hakutermin perusteella käänteiseen aakkosjärjestykseen"
+
 msgid "Promoted results"
 msgstr "Nostetut tulokset"
 
 msgid "Views (past week)"
 msgstr "Näytöt (kuluva viikko)"
+
+msgid "Order by views (lowest first)"
+msgstr "Järjestä näyttöjen mukaan (vähiten ensin)"
+
+msgid "Order by views (highest first)"
+msgstr "Järjestä näyttöjen mukaan (eniten ensin)"
 
 msgid "Edit this promotion"
 msgstr "Muokkaa nostoa"

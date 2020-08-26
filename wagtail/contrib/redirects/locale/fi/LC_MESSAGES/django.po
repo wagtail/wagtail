@@ -6,14 +6,15 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-08-13 12:16+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +34,19 @@ msgstr "Kaikki sivustot"
 
 msgid "A redirect with this path already exists."
 msgstr "Uudelleenohjaus tällä polulla on jo olemassa."
+
+msgid "File to import"
+msgstr "Tuotava tiedosto"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Tuetut muodot: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Kentästä"
+
+msgid "To field"
+msgstr "Kenttään"
 
 msgid "redirect from"
 msgstr "uudelleen&shy;ohjaus lähteestä"
@@ -72,6 +86,30 @@ msgstr "Tallenna"
 msgid "Redirects"
 msgstr "Uudelleenohjaukset"
 
+msgid "Import redirects"
+msgstr "Tuo uudelleenohjaukset"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Valitse tiedosto, jossa uudelleenohjaukset on erotettu "
+"riveihin ja jossa on sarakkeet <code>from</code> ja <code>to</code> (voivat "
+"olla millä nimellä tahansa, esimerkiksi lähde ja kohde).</p>\n"
+"                <p>Tiedoston lähettämisen jälkeen sinut siirretään "
+"vahvistusnäkymään, jossa voit mukauttaa uudelleenohjauksia ennen niiden "
+"tuontia.</p>\n"
+"            "
+
+msgid "Import"
+msgstr "Tuo"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Poista uudelleenohjaus %(title)s"
@@ -85,6 +123,18 @@ msgstr "Haluatko varmasti poistaa tämän uudelleenohjauksen?"
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
 
+msgid "Confirm import"
+msgstr "Vahvista tuonti"
+
+msgid "Confirm"
+msgstr "Vahvista"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "Preview"
+msgstr "Esikatsele"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Muokataan %(title)s"
@@ -95,11 +145,27 @@ msgstr "Muokataan"
 msgid "Delete redirect"
 msgstr "Poista uudelleenohjaus"
 
+msgid "Summary"
+msgstr "Yhteenveto"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Löydettiin %(total)s uudelleenohjausta, luotiin %(successes)s ja löydettiin "
+"%(errors)s virhe(ttä)."
+
 msgid "From"
 msgstr "Lähde"
 
 msgid "To"
 msgstr "Kohde"
+
+msgid "Error"
+msgstr "Virhe"
+
+msgid "Continue"
+msgstr "Jatka"
 
 msgid "Site"
 msgstr "Sivusto"
@@ -108,7 +174,7 @@ msgid "Type"
 msgstr "Tyyppi"
 
 msgid "Edit this redirect"
-msgstr "Muokkaa tätä edelleenohjausta"
+msgstr "Muokkaa tätä uudelleenohjausta"
 
 #, python-format
 msgid ""
@@ -144,19 +210,36 @@ msgid "Search redirects"
 msgstr "Hae uudelleenohjauksia"
 
 msgid "Redirect '{0}' updated."
-msgstr "Edelleenohjaus '{0}' päivitetty."
+msgstr "Uudelleenohjaus '{0}' päivitetty."
 
 msgid "Edit"
 msgstr "Muokkaa"
 
 msgid "The redirect could not be saved due to errors."
-msgstr "Edelleenohjausta ei voitu tallentaa virheiden vuoksi."
+msgstr "Uudelleenohjausta ei voitu tallentaa virheiden vuoksi."
 
 msgid "Redirect '{0}' deleted."
-msgstr "Edelleenohjaus '{0}' poistettu."
+msgstr "Uudelleenohjaus '{0}' poistettu."
 
 msgid "Redirect '{0}' added."
-msgstr "Edelleenohjaus '{0}' lisätty."
+msgstr "Uudelleenohjaus '{0}' lisätty."
 
 msgid "The redirect could not be created due to errors."
-msgstr "Edelleenohjausta ei voitu luoda virheiden vuoksi."
+msgstr "Uudelleenohjausta ei voitu luoda virheiden vuoksi."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "Tiedostomuoto tyyppiä' \"{}\" ei ole tuettu"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "Tuodulla tiedostolla on väärä merkistökoodaus: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s kohdattu kun yritettiin lukea tiedostoa: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Tuotu %(total)d uudelleenohjaus"
+msgstr[1] "Tuotu %(total)d uudelleenohjausta"

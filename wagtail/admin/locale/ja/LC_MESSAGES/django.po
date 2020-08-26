@@ -5,6 +5,7 @@
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 # shuhei hirota, 2019
+# Kinoshita Shinji <shinji.kino@gmail.com>, 2020
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2019
 # Tri Minh <minh.nguyentri.95@gmail.com>, 2019
 # 小口英昭 <oguchi@bluff-lab.com>, 2019
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 16:08+0100\n"
-"PO-Revision-Date: 2020-08-07 15:09+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-26 07:11+0000\n"
+"Last-Translator: Kinoshita Shinji <shinji.kino@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,12 @@ msgstr "公開"
 
 msgid "Submit for moderation"
 msgstr "承認を受ける"
+
+msgid "Restart workflow "
+msgstr "ワークフローを再開"
+
+msgid "Cancel workflow "
+msgstr "ワークフローの中止"
 
 msgid "Unpublish"
 msgstr "非公開に設定"
@@ -287,7 +294,7 @@ msgid "Alt text"
 msgstr "Alt 属性に記載するテキスト"
 
 msgid "Write here…"
-msgstr "ここに書いて"
+msgstr "入力してください"
 
 msgid "Horizontal line"
 msgstr "横線"

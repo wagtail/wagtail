@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020
 # saevarom <saevar@saevar.is>, 2017-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-08-11 11:12+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -164,6 +164,9 @@ msgstr "Bæta við hóp"
 msgid "Editing"
 msgstr "Breyti"
 
+msgid "View users in this group"
+msgstr "Skoða notendur í þessari grúppu"
+
 msgid "Save"
 msgstr "Vista"
 
@@ -281,6 +284,22 @@ msgstr[1] ""
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Því miður eru engir notendur sem passa við \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Grúppan %(group_name)s hefur enga notendur. Viltu <a href="
+"\"%(wagtailusers_add_url)s\">bæta við</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"Það eru engir skráðir notendur.  Viltu <a href=\"%(wagtailusers_add_url)s"
+"\">bæta við</a>?"
 
 msgid "Groups"
 msgstr "Hópar"

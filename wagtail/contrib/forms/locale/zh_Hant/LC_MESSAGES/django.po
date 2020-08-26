@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-08-03 10:20+0000\n"
+"PO-Revision-Date: 2020-08-15 07:55+0000\n"
 "Last-Translator: Ocin Leung\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -81,6 +81,12 @@ msgstr "提交時間"
 msgid "form submission"
 msgstr "提交表格"
 
+msgid "form submissions"
+msgstr "已提交表單"
+
+msgid "name"
+msgstr "名字"
+
 msgid "label"
 msgstr "標簽"
 
@@ -115,6 +121,9 @@ msgstr "提交日期"
 
 msgid "Form"
 msgstr "表單"
+
+msgid "Landing page"
+msgstr "登陸頁面"
 
 msgid "to address"
 msgstr "收件人"

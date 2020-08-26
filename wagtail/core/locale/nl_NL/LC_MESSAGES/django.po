@@ -5,16 +5,16 @@
 # Translators:
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2019-2020
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018,2020
 # Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-08-08 21:49+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-25 12:45+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -484,8 +484,9 @@ msgstr "logboekvermelding"
 msgid "log entries"
 msgstr "logboekvermeldingen"
 
-msgid "user {id} (deleted)"
-msgstr "gebruiker {id} (verwijderd)"
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "gebruiker %(id)d (verwijderd)"
 
 msgid "system"
 msgstr "systeem"

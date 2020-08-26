@@ -6,6 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
 # Rauli L. <rauli.laine@iki.fi>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-08-13 11:37+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -164,6 +165,9 @@ msgstr "Lisää ryhmä"
 msgid "Editing"
 msgstr "Muokataan"
 
+msgid "View users in this group"
+msgstr "Näytä tämän ryhmän käyttäjät"
+
 msgid "Save"
 msgstr "Tallenna"
 
@@ -281,6 +285,22 @@ msgstr[1] ""
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Pahoittelut, yksikään käyttäjä ei täsmää hakuun \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Ryhmään %(group_name)s ei ole asetettu käyttäjiä. Mikset vaikka <a href="
+"\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"Yhtään käyttäjää ei ole asetettu. Mikset vaikka <a href="
+"\"%(wagtailusers_add_url)s\">lisäisi joitakin nyt</a>?"
 
 msgid "Groups"
 msgstr "Ryhmät"

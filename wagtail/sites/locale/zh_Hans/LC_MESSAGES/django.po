@@ -6,8 +6,8 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Ed <724195301@qq.com>, 2018
 # hanfeng <appweb.cn@gmail.com>, 2014
-# jszsj <zhushajun@gmail.com>, 2017
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"

@@ -8,11 +8,11 @@
 # Feng Wang <wangfeng.w@gmail.com>, 2015
 # First Last <abc+github@mynook.info>, 2019
 # hanfeng <appweb.cn@gmail.com>, 2014
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # listeng, 2016
 # Aosp T, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2018,2020
 msgid ""
 msgstr ""
