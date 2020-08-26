@@ -287,7 +287,7 @@ msgid "Alt text"
 msgstr "Alt 属性に記載するテキスト"
 
 msgid "Write here…"
-msgstr "ここに書いて"
+msgstr "入力してください"
 
 msgid "Horizontal line"
 msgstr "横線"
