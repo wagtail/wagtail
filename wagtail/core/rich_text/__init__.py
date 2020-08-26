@@ -45,6 +45,8 @@ def get_text_for_indexing(richtext):
     """
     # insert space after </p>, </h1> - </h6>, </li> and </blockquote> tags
     richtext = re.sub(r'(</(p|h\d|li|blockquote)>)', r'\1 ', richtext, flags=re.IGNORECASE)
+    # also insert space after <br /> and <hr />
+    richtext = re.sub(r'(<(br|hr)\s*/>)', r'\1 ', richtext, flags=re.IGNORECASE)
     return unescape(strip_tags(richtext).strip())
 
 
