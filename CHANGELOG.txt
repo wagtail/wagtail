@@ -22,6 +22,7 @@ Changelog
  * Fix: Fix icon alignment on menu items (Coen van der Kamp)
  * Fix: Page editor header bar now correctly shows 'Published' or 'Draft' status when no revisions exist (Matt Westcott)
  * Fix: Prevent page editor from failing when `USE_TZ` is false (Matt Westcott)
+ * Fix: Ensure whitespace between block-level elements is preserved when stripping tags from rich text for search indexing (Matt Westcott)
 
 
 2.10 (11.08.2020)

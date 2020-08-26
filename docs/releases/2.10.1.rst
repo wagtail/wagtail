@@ -18,3 +18,4 @@ Bug fixes
  * Fix icon alignment on menu items (Coen van der Kamp)
  * Page editor header bar now correctly shows 'Published' or 'Draft' status when no revisions exist (Matt Westcott)
  * Prevent page editor from failing when ``USE_TZ`` is false (Matt Westcott)
+ * Ensure whitespace between block-level elements is preserved when stripping tags from rich text for search indexing (Matt Westcott)
