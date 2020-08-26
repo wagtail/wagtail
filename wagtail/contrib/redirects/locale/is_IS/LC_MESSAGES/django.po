@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018,2020
 # saevarom <saevar@saevar.is>, 2015,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-08-11 12:17+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,19 @@ msgstr "Allar síður"
 
 msgid "A redirect with this path already exists."
 msgstr "Tilvísun á þessa slóð er þegar til"
+
+msgid "File to import"
+msgstr "Skrá sem lesa á inn"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Studd skráarsnið: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Frá reit"
+
+msgid "To field"
+msgstr "Í reit"
 
 msgid "redirect from"
 msgstr "Tilvísun frá"
@@ -69,6 +82,29 @@ msgstr "Vista"
 msgid "Redirects"
 msgstr "Tilvísanir"
 
+msgid "Import redirects"
+msgstr "Lesa inn tilvísanir"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Veldu skrá sem er með tilvísun í hverri línu sem "
+"inniheldur dálka sem standa fyrir <code>frá</code> og <code>til</code> (þeir "
+"geta heitið hvað sem er).</p>\n"
+"                <p>Eftir að skráin er send inn birtist staðfestingarsíða þar "
+"sem þú getur farið yfir tilvísanirnar áður en þær eru lesnar inn.</p>\n"
+"            "
+
+msgid "Import"
+msgstr "Lesa inn"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Eyða tilvísun %(title)s"
@@ -82,6 +118,18 @@ msgstr "Ertu viss um að þú viljir eyða þessari tilvísun?"
 msgid "Yes, delete"
 msgstr "Já, eyða"
 
+msgid "Confirm import"
+msgstr "Staðfesta innlestur"
+
+msgid "Confirm"
+msgstr "Staðfesta"
+
+msgid "Cancel"
+msgstr "Hætta við"
+
+msgid "Preview"
+msgstr "Forskoða"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Breyti %(title)s"
@@ -92,11 +140,26 @@ msgstr "Breyti"
 msgid "Delete redirect"
 msgstr "Eyða tilvísun"
 
+msgid "Summary"
+msgstr "Samantekt"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Fann %(total)s tilvísanir, bjó til %(successes)s og fann %(errors)s villur."
+
 msgid "From"
 msgstr "Frá"
 
 msgid "To"
 msgstr "Til"
+
+msgid "Error"
+msgstr "Villa"
+
+msgid "Continue"
+msgstr "Áfram"
 
 msgid "Site"
 msgstr "Síðu"
@@ -159,3 +222,20 @@ msgstr "Tilvísun '{0}' var bætt við."
 msgid "The redirect could not be created due to errors."
 msgstr ""
 "Ekki var hægt að búa til tilvísunina þar sem hún stóðst ekki villuprófanir"
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "Skráarsnið af tegundinni \"{}\" er ekki stutt"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "Innlesin skrá er vitlaust kóðuð: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s fundust við að lesa inn skrána: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Las inn %(total)d tilvísun"
+msgstr[1] "Las inn %(total)d tilvísanir"

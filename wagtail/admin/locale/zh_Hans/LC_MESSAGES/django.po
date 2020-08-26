@@ -14,15 +14,15 @@
 # Aosp T, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
 # yi huang <yi.codeplayer@gmail.com>, 2018
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017,2020
 # 汇民 王 <whuim@qq.com>, 2017-2020
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 16:08+0100\n"
-"PO-Revision-Date: 2020-08-07 15:09+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -495,9 +495,6 @@ msgstr "周五"
 
 msgid "Sat"
 msgstr "周六"
-
-msgid "Unknown {action}"
-msgstr "未知{操作}"
 
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"
@@ -1643,6 +1640,9 @@ msgstr "按任务"
 msgid "No pages have been submitted for moderation yet"
 msgstr "尚未提交任何页面进行审核"
 
+msgid "By Workflow"
+msgstr "按工作流"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第 %(page_num)s 页，共 %(total_pages)s 页。"
@@ -2214,6 +2214,10 @@ msgstr "正在编辑工作流任务"
 
 msgid "Task '{0}' updated."
 msgstr "任务 '{0}' 已更新。"
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "编辑 %(task_type)s"
 
 msgid "Disable task"
 msgstr "禁用任务"

@@ -9,14 +9,14 @@
 # First Last <abc+github@mynook.info>, 2019
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Jian Li <kdlijian@gmail.com>, 2015
-# jszsj <zhushajun@gmail.com>, 2016-2017
+# 祝沙军 <zhushajun@gmail.com>, 2016-2017
 # listeng, 2016
 # Aosp T, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # yi huang <yi.codeplayer@gmail.com>, 2018
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017,2019-2020
-# jszsj <zhushajun@gmail.com>, 2016
+# 祝沙军 <zhushajun@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
