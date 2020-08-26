@@ -14,7 +14,7 @@ Changelog
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
 
 
-2.10.1 (xx.xx.xxxx) - IN DEVELOPMENT
+2.10.1 (26.08.2020)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent `create_log_entries_from_revisions` command from failing when page model classes are missing (Dan Braghis)
