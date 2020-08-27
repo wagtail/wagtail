@@ -32,6 +32,10 @@ The basics
 
 To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.routable_page.models.RoutablePageMixin` and :class:`wagtail.core.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.routable_page.models.route``. These view methods behave like ordinary Django view functions, and must return an ``HttpResponse`` object; typically this is done through a call to ``django.shortcuts.render``.
 
+.. note::
+   Just like a Django view function, a view method is responsible for the end-to-end process of taking a request and returning a corresponding response - therefore, methods that would normally play a part in serving a standard Wagtail page, such as ``get_context`` and ``get_template``, will be skipped (unless the view method explicitly calls them). This also means that other modules which customise the page serving behaviour, such as the :ref:`form_builder`, will generally not work in conjunction with ``RoutablePageMixin``.
+
+
 Here's an example of an ``EventIndexPage`` with three views, assuming that an ``EventPage`` model with an ``event_date`` field has been defined elsewhere:
 
 .. code-block:: python
