@@ -92,8 +92,39 @@ Django 2.1 is no longer supported as of this release; please upgrade to Django 2
 ``SiteMiddleware`` and ``request.site`` deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail's :class:`~wagtail.core.middleware.SiteMiddleware`, which makes the current site object available as the property ``request.site``, is now deprecated as it clashes with Django's sites framework and makes unnecessary database queries on non-Wagtail views. References to ``request.site`` in your code should be removed; the recommended way of retrieving the current site is ``Site.find_for_request(request)`` in Python code, and the ``{% wagtail_site %}`` tag within Django templates. Once these are removed, ``'wagtail.core.middleware.SiteMiddleware'`` can be removed from your project's ``MIDDLEWARE`` setting.
+Wagtail's :class:`~wagtail.core.middleware.SiteMiddleware`, which makes the current site object available as the property ``request.site``, is now deprecated as it clashes with Django's sites framework and makes unnecessary database queries on non-Wagtail views. References to ``request.site`` in your code should be removed; the recommended way of retrieving the current site is ``Site.find_for_request(request)`` in Python code, and the ``{% wagtail_site %}`` tag within Django templates. 
 
+For example:
+
+.. code-block:: python
+
+    # old version
+
+    def get_menu_items(request):
+        return request.site.root_page.get_children().live()
+
+    # new version
+
+    from wagtail.core.models import Site
+
+    def get_menu_items(request):
+        return Site.find_for_request(request).root_page.get_children().live()
+
+.. code-block:: html+django
+
+    {# old version #}
+
+    <h1>Welcome to the {{ request.site.site_name }} website!</h1>
+
+
+    {# new version #}
+    {% load wagtailcore_tags %}
+    {% wagtail_site as current_site %}
+
+    <h1>Welcome to the {{ current_site.site_name }} website!</h1>
+
+
+Once these are removed, ``'wagtail.core.middleware.SiteMiddleware'`` can be removed from your project's ``MIDDLEWARE`` setting.
 
 Page / Collection managers no longer expose a ``delete`` method
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
