@@ -18,7 +18,9 @@
                         </defs>
                     </svg>
                   </div>
-                  {% icon name="wagtail-icon" class_name="wagtail-userbar-icon" %}
+                  <svg class="wagtail-userbar-icon" aria-hidden="true" focusable="false">
+                    <use href="#icon-wagtail-icon"></use>
+                  </svg>
                 {% endblock %}
                 <span class="wagtail-userbar-help-text">{% trans 'Go to Wagtail admin interface' %}</span>
             </div>
