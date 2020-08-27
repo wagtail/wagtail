@@ -108,6 +108,14 @@ class WMABaseView(TemplateView):
 
 
 class ModelFormView(WMABaseView, FormView):
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.edit_handler = self.get_edit_handler()
+
+    def get_form(self):
+        form = super().get_form()
+        self.edit_handler = self.edit_handler.bind_to(form=form)
+        return form
 
     def get_edit_handler(self):
         edit_handler = self.model_admin.get_edit_handler(
@@ -116,7 +124,7 @@ class ModelFormView(WMABaseView, FormView):
         return edit_handler.bind_to(model=self.model_admin.model)
 
     def get_form_class(self):
-        return self.get_edit_handler().get_form_class()
+        return self.edit_handler.get_form_class()
 
     def get_success_url(self):
         return self.index_url
@@ -136,15 +144,12 @@ class ModelFormView(WMABaseView, FormView):
             js=self.model_admin.get_form_view_extra_js()
         )
 
-    def get_context_data(self, **kwargs):
-        instance = self.get_instance()
-        edit_handler = self.get_edit_handler()
-        form = self.get_form()
-        edit_handler = edit_handler.bind_to(
-            instance=instance, request=self.request, form=form)
+    def get_context_data(self, form=None, **kwargs):
+        if form is None:
+            form = self.get_form()
         context = {
             'is_multipart': form.is_multipart(),
-            'edit_handler': edit_handler,
+            'edit_handler': self.edit_handler,
             'form': form,
         }
         context.update(kwargs)
@@ -177,7 +182,7 @@ class ModelFormView(WMABaseView, FormView):
         messages.validation_error(
             self.request, self.get_error_message(), form
         )
-        return self.render_to_response(self.get_context_data())
+        return self.render_to_response(self.get_context_data(form=form))
 
 
 class InstanceSpecificView(WMABaseView):
