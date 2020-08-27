@@ -66,7 +66,7 @@ MultiFieldPanel
 
 .. topic:: Collapsing MultiFieldPanels to save space
 
-    By default, ``MultiFieldPanel`` s are expanded and not collapsible. Adding ``collapsible`` to ``classname`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the ``classname`` parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading.
+    By default, ``MultiFieldPanel`` s are expanded and not collapsible. Adding ``collapsible`` to ``classname`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the ``classname`` parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading. You must define a ``heading`` when using ``collapsible`` with ``MultiFieldPanel``.
 
     .. code-block:: python
 
@@ -90,6 +90,18 @@ InlinePanel
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel.
 
     This is a powerful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
+
+
+.. topic:: Collapsing InlinePanels to save space
+
+    By default, ``InlinePanel`` s are expanded and not collapsible. Adding ``collapsible`` to ``classname`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the ``classname`` parameter will load the editor page with the ``FieldPanel`` collapsed under its heading. You must define a ``heading`` or ``label`` when using ``collapsible`` with ``InlinePanel``.
+
+    .. code-block:: python
+
+        content_panels = [
+            InlinePanel("ingredients", label="Ingredients", classname="collapsible collapsed"),
+        ]
+
 
 FieldRowPanel
 -------------
