@@ -4,6 +4,8 @@ Changelog
 2.10.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~
 
+ * Fix: Avoid use of `icon` class name on userbar icon to prevent clashes with front-end styles (Karran Besen)
+
 
 2.10.1 (26.08.2020)
 ~~~~~~~~~~~~~~~~~~~
