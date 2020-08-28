@@ -877,6 +877,8 @@ Finally, we can update the ``blog_page.html`` template to display the categories
 .. figure:: ../_static/images/tutorial/tutorial_10.jpg
    :alt: A blog post with categories
 
+To programmatically add a category to a page, refer to the django documentation for `adding related objects <https://docs.djangoproject.com/en/dev/ref/models/relations/#django.db.models.fields.related.RelatedManager.add>`_
+
 
 Where next
 ----------
