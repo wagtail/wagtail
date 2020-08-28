@@ -14,6 +14,10 @@ Changelog
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
 
 
+2.10.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+
 2.10.1 (26.08.2020)
 ~~~~~~~~~~~~~~~~~~~
 
