@@ -115,6 +115,7 @@ https://github.com/wagtail/wagtail/.",
         'Framework :: Wagtail',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
+    python_requires='>=3.6',
     install_requires=install_requires,
     extras_require={
         'testing': testing_extras,

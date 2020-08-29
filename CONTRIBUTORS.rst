@@ -475,6 +475,7 @@ Contributors
 * Jesse Menn
 * Robbie Mackay
 * Vyacheslav Matyukhin
+* Vince Salvino
 
 Translators
 ===========
