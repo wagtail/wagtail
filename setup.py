@@ -120,7 +120,7 @@ https://github.com/wagtail/wagtail/.",
         'testing': testing_extras,
         'docs': documentation_extras
     },
-    python_requires='~=3.6, ~=3.7, ~=3.8',
+    python_requires='>=3.6, <3.9',
     entry_points="""
             [console_scripts]
             wagtail=wagtail.bin.wagtail:main
