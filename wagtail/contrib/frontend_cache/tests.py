@@ -300,15 +300,20 @@ class TestCachePurgingSignals(TestCase):
 
     @override_settings(ROOT_URLCONF='wagtail.tests.urls_multilang',
                        LANGUAGE_CODE='en',
-                       WAGTAILFRONTENDCACHE_LANGUAGES=['en'])
+                       WAGTAILFRONTENDCACHE_LANGUAGES=['en', 'fr', 'pt-br'])
     def test_purge_on_publish_in_multilang_env(self):
-        from django.conf import settings
         PURGED_URLS[:] = []  # reset PURGED_URLS to the empty list
         page = EventIndex.objects.get(url_path='/home/events/')
         page.save_revision().publish()
-        self.assertEqual(len(PURGED_URLS), len(settings.WAGTAILFRONTENDCACHE_LANGUAGES) * 2)
-        for isocode, description in settings.WAGTAILFRONTENDCACHE_LANGUAGES:
-            self.assertIn('http://localhost/%s/events/' % isocode, PURGED_URLS)
+
+        self.assertEqual(PURGED_URLS, [
+            'http://localhost/en/events/',
+            'http://localhost/en/events/past/',
+            'http://localhost/fr/events/',
+            'http://localhost/fr/events/past/',
+            'http://localhost/pt-br/events/',
+            'http://localhost/pt-br/events/past/',
+        ])
 
 
 class TestPurgeBatchClass(TestCase):

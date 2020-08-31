@@ -1,6 +1,5 @@
 import json
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
@@ -391,14 +390,14 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
             permission=add_image_permission
         )
 
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moriarty',
             email='moriarty@example.com',
             password='password'
         )
         user.groups.add(conspirators_group)
 
-        self.client.login(username='moriarty', password='password')
+        self.login(username='moriarty', password='password')
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages:add'), params)
@@ -1113,14 +1112,14 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
             permission=add_image_permission
         )
 
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moriarty',
             email='moriarty@example.com',
             password='password'
         )
         user.groups.add(conspirators_group)
 
-        self.client.login(username='moriarty', password='password')
+        self.login(username='moriarty', password='password')
 
     def test_get(self):
         response = self.client.get(reverse('wagtailimages:chooser_upload'))
@@ -1991,7 +1990,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
 
         # Create a user with change_image permission but not add_image
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='changeonly', email='changeonly@example.com', password='password'
         )
         change_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='change_image')
@@ -2006,7 +2005,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
 
         user.groups.add(image_changers_group)
-        self.assertTrue(self.client.login(username='changeonly', password='password'))
+        self.login(username='changeonly', password='password')
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailimages:index'))
@@ -2053,7 +2052,7 @@ class TestImageAddMultipleView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
 
     def test_as_ordinary_editor(self):
-        user = get_user_model().objects.create_user(username='editor', email='editor@email.com', password='password')
+        user = self.create_user(username='editor', password='password')
 
         add_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='add_image')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
@@ -2062,7 +2061,7 @@ class TestImageAddMultipleView(TestCase, WagtailTestUtils):
         GroupCollectionPermission.objects.create(group=image_adders_group, collection=Collection.get_first_root_node(), permission=add_permission)
         user.groups.add(image_adders_group)
 
-        self.client.login(username='editor', password='password')
+        self.login(username='editor', password='password')
 
         response = self.client.get(reverse('wagtailimages:add_multiple'))
         self.assertEqual(response.status_code, 200)

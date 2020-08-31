@@ -1,7 +1,6 @@
 import json
 from unittest import mock
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
@@ -261,14 +260,14 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
             permission=add_doc_permission
         )
 
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moriarty',
             email='moriarty@example.com',
             password='password'
         )
         user.groups.add(conspirators_group)
 
-        self.client.login(username='moriarty', password='password')
+        self.login(username='moriarty', password='password')
 
     def test_get(self):
         response = self.client.get(reverse('wagtaildocs:add'))
@@ -1076,14 +1075,14 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
             permission=add_doc_permission
         )
 
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moriarty',
             email='moriarty@example.com',
             password='password'
         )
         user.groups.add(conspirators_group)
 
-        self.client.login(username='moriarty', password='password')
+        self.login(username='moriarty', password='password')
 
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:chooser_upload'))
@@ -1243,7 +1242,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
 
         # Create a user with change_document permission but not add_document
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='changeonly',
             email='changeonly@example.com',
             password='password'
@@ -1262,7 +1261,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         user.groups.add(self.changers_group)
 
         user.user_permissions.add(admin_permission)
-        self.assertTrue(self.client.login(username='changeonly', password='password'))
+        self.login(username='changeonly', password='password')
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtaildocs:index'))

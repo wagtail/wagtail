@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017
+# Roger Pons <rogerpons@gmail.com>, 2017,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-29 09:42+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail images"
+msgstr "Imatges de Wagtail"
 
 #, python-format
 msgid ""
@@ -121,6 +124,12 @@ msgstr "pujada per l'usuari"
 msgid "tags"
 msgstr "etiquetes"
 
+msgid "image"
+msgstr "imatge"
+
+msgid "images"
+msgstr "imatges"
+
 msgid "Choose an image"
 msgstr "Escull una imatge"
 
@@ -166,6 +175,9 @@ msgstr "Estàs segur que vols esborrar aquesta imatge?"
 msgid "Yes, delete"
 msgstr "Si, esborra"
 
+msgid "No, don't delete"
+msgstr "No, no esborrar"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Editant imatge %(title)s"
@@ -176,8 +188,17 @@ msgstr "Editant"
 msgid "URL Generator"
 msgstr "Generador d'URL"
 
+msgid "Focal point"
+msgstr "Punt focal"
+
+msgid "(optional)"
+msgstr "(opcional)"
+
 msgid "Current focal point shown"
 msgstr "Punt focal actual mostrat"
+
+msgid "Remove focal area"
+msgstr "Esborrar l'àrea focal"
 
 msgid "Max dimensions"
 msgstr "Dimensions màximes"
@@ -188,8 +209,20 @@ msgstr "Mida de fitxer"
 msgid "File not found"
 msgstr "No s'ha trobat el fitxer"
 
+msgid "Usage"
+msgstr "Ús"
+
 msgid "Images"
 msgstr "Imatges"
+
+msgid "Popular Tags:"
+msgstr "Etiquetes populars:"
+
+msgid "Clear choice"
+msgstr "Esborrar selecció"
+
+msgid "pixels"
+msgstr "píxels"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -330,11 +363,17 @@ msgstr "Imatge '{0}' afegida."
 msgid "The image could not be created due to errors."
 msgstr "No s'ha pogut crear la imatge."
 
+msgid "Image"
+msgstr "Imatge"
+
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s imatge"
 msgstr[1] "%(count)s imatges"
+
+msgid "Change image"
+msgstr "Substituir imatge"
 
 msgid "Edit this image"
 msgstr "Editar aquesta imatge"

@@ -5,6 +5,7 @@
 # Translators:
 # Andreas Lans <andreas.lans@gmail.com>, 2018
 # André Karlsson <andre@sess.se>, 2017
+# Elias Johnstone <eli87as@gmail.com>, 2020
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Martin Sandström <martin@marteinn.se>, 2020
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-27 08:09+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -256,7 +257,7 @@ msgid "Greek"
 msgstr "Grekiska"
 
 msgid "English"
-msgstr "Enelska"
+msgstr "Engelska"
 
 msgid "Spanish"
 msgstr "Spanska"
@@ -497,9 +498,6 @@ msgstr "Fre"
 
 msgid "Sat"
 msgstr "Lör"
-
-msgid "Unknown {action}"
-msgstr "Okänd {action}"
 
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
@@ -1722,6 +1720,9 @@ msgstr "Av Uppgift"
 msgid "No pages have been submitted for moderation yet"
 msgstr "Inga sidor har lämnats in för moderering ännu"
 
+msgid "By Workflow"
+msgstr "Av Arbetsflöde"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Sida %(page_num)s av %(total_pages)s."
@@ -2325,8 +2326,9 @@ msgstr "Editerar arbetsflödesuppgift"
 msgid "Task '{0}' updated."
 msgstr "Uppgift '{0}' uppdaterad."
 
-msgid "Editing {task_type}"
-msgstr "Editerar {task_type}"
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Editerar %(task_type)s"
 
 msgid "Disable task"
 msgstr "Inaktivera uppgift"

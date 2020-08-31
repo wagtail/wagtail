@@ -3,6 +3,7 @@ import json
 from unittest.mock import Mock
 
 import pytz
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.contenttypes.models import ContentType
@@ -11,6 +12,7 @@ from django.http import Http404, HttpRequest
 from django.test import Client, TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
+from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.core.models import Page, PageManager, Site, get_page_models
@@ -639,9 +641,24 @@ class TestLiveRevision(TestCase):
 
         page.refresh_from_db()
         self.assertEqual(page.live_revision, revision)
-        self.assertEqual(page.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
-        # first_published_at should not change
-        self.assertEqual(page.first_published_at, datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        if settings.USE_TZ:
+            self.assertEqual(
+                page.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+            )
+            # first_published_at should not change
+            self.assertEqual(
+                page.first_published_at, datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+            )
+        else:
+            self.assertEqual(
+                # interpret the "2017-01-01 12:00:00" in freeze_time above as a naive local date
+                page.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0)
+            )
+            # first_published_at should not change
+            self.assertEqual(
+                # convert the "2014-01-01T12:00:00.000Z" in the test fixture to a naive local time
+                page.first_published_at, timezone.make_naive(datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+            )
 
     @freeze_time("2017-01-01 12:00:00")
     def test_unpublish_method_will_clean_live_revision(self):
@@ -657,8 +674,22 @@ class TestLiveRevision(TestCase):
         page.refresh_from_db()
         self.assertIsNone(page.live_revision)
         # first_published_at / last_published_at should remain unchanged on unpublish
-        self.assertEqual(page.first_published_at, datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
-        self.assertEqual(page.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        if settings.USE_TZ:
+            self.assertEqual(
+                page.first_published_at, datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+            )
+            self.assertEqual(
+                page.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+            )
+        else:
+            self.assertEqual(
+                # convert the "2014-01-01T12:00:00.000Z" in the test fixture to a naive local time
+                page.first_published_at, timezone.make_naive(datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+            )
+            self.assertEqual(
+                # interpret the "2017-01-01 12:00:00" in freeze_time above as a naive local date
+                page.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0)
+            )
 
     @freeze_time("2017-01-01 12:00:00")
     def test_copy_method_with_keep_live_will_update_live_revision(self):
@@ -673,8 +704,12 @@ class TestLiveRevision(TestCase):
         # first_published_at / last_published_at should reflect the current time,
         # not the source page's publish dates, since the copied page is being published
         # for the first time
-        self.assertEqual(new_about_us.first_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
-        self.assertEqual(new_about_us.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        if settings.USE_TZ:
+            self.assertEqual(new_about_us.first_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+            self.assertEqual(new_about_us.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        else:
+            self.assertEqual(new_about_us.first_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0))
+            self.assertEqual(new_about_us.last_published_at, datetime.datetime(2017, 1, 1, 12, 0, 0))
 
     def test_copy_method_without_keep_live_will_not_update_live_revision(self):
         about_us = SimplePage.objects.get(url_path='/home/about-us/')
@@ -693,7 +728,10 @@ class TestLiveRevision(TestCase):
     @freeze_time("2017-01-01 12:00:00")
     def test_publish_with_future_go_live_does_not_set_live_revision(self):
         about_us = SimplePage.objects.get(url_path='/home/about-us/')
-        about_us.go_live_at = datetime.datetime(2018, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+        if settings.USE_TZ:
+            about_us.go_live_at = datetime.datetime(2018, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+        else:
+            about_us.go_live_at = datetime.datetime(2018, 1, 1, 12, 0, 0)
         revision = about_us.save_revision()
         revision.publish()
         about_us.refresh_from_db()
@@ -702,8 +740,20 @@ class TestLiveRevision(TestCase):
         self.assertIsNone(about_us.live_revision)
 
         # first_published_at / last_published_at should remain unchanged
-        self.assertEqual(about_us.first_published_at, datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
-        self.assertEqual(about_us.last_published_at, datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=pytz.utc))
+        if settings.USE_TZ:
+            self.assertEqual(
+                about_us.first_published_at, datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc)
+            )
+            self.assertEqual(
+                about_us.last_published_at, datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=pytz.utc)
+            )
+        else:
+            self.assertEqual(
+                about_us.first_published_at, timezone.make_naive(datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+            )
+            self.assertEqual(
+                about_us.last_published_at, timezone.make_naive(datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=pytz.utc))
+            )
 
 
 class TestCopyPage(TestCase):
@@ -925,7 +975,14 @@ class TestCopyPage(TestCase):
 
     def test_copy_page_copies_revisions_and_doesnt_schedule(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
-        christmas_event.save_revision(approved_go_live_at=datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc))
+        if settings.USE_TZ:
+            christmas_event.save_revision(
+                approved_go_live_at=datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc)
+            )
+        else:
+            christmas_event.save_revision(
+                approved_go_live_at=datetime.datetime(2014, 9, 16, 9, 12, 00)
+            )
 
         # Copy it
         new_christmas_event = christmas_event.copy(
@@ -933,10 +990,16 @@ class TestCopyPage(TestCase):
         )
 
         # Check that the old revision is still scheduled
-        self.assertEqual(
-            christmas_event.revisions.order_by('created_at').first().approved_go_live_at,
-            datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc)
-        )
+        if settings.USE_TZ:
+            self.assertEqual(
+                christmas_event.revisions.order_by('created_at').first().approved_go_live_at,
+                datetime.datetime(2014, 9, 16, 9, 12, 00, tzinfo=pytz.utc)
+            )
+        else:
+            self.assertEqual(
+                christmas_event.revisions.order_by('created_at').first().approved_go_live_at,
+                datetime.datetime(2014, 9, 16, 9, 12, 00)
+            )
 
         # Check that the new revision is not scheduled
         self.assertEqual(new_christmas_event.revisions.order_by('created_at').first().approved_go_live_at, None)
@@ -1069,7 +1132,7 @@ class TestCopyPage(TestCase):
         self.assertEqual(str(exception.exception), "You cannot copy a tree branch recursively into itself")
 
     def test_copy_page_updates_user(self):
-        event_moderator = get_user_model().objects.get(username='eventmoderator')
+        event_moderator = get_user_model().objects.get(email='eventmoderator@example.com')
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
         christmas_event.save_revision()
 
@@ -1266,7 +1329,6 @@ class TestCopyPage(TestCase):
         finally:
             # reset excluded fields for future tests
             EventPage.exclude_fields_in_copy = []
-
 
 
 class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):

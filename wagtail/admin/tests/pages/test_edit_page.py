@@ -3,7 +3,6 @@ import os
 from unittest import mock
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.files.base import ContentFile
 from django.http import HttpRequest, HttpResponse
@@ -82,6 +81,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Tests that the edit page loads
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], "text/html; charset=utf-8")
+        self.assertContains(response, '<li class="header-meta--status">Published</li>', html=True)
 
         # Test InlinePanel labels/headings
         self.assertContains(response, '<legend>Speaker lineup</legend>')
@@ -100,6 +101,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Tests that the edit page loads
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.unpublished_page.id, )))
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<li class="header-meta--status">Draft</li>', html=True)
 
     def test_edit_multipart(self):
         """
@@ -608,7 +610,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_page_edit_post_submit(self):
         # Create a moderator user for testing email
-        get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
+        self.create_superuser('moderator', 'moderator@email.com', 'password')
 
         # Tests submitting from edit page
         post_data = {
@@ -628,7 +630,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # The latest revision for the page should now be in moderation
         self.assertEqual(child_page_new.current_workflow_state.status, child_page_new.current_workflow_state.STATUS_IN_PROGRESS)
-
 
     def test_page_edit_post_existing_slug(self):
         # This tests the existing slug checking on page edit

@@ -5,13 +5,13 @@
 # Translators:
 # Antoni Aloy <aaloy@apsl.net>, 2016
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017-2018
+# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -27,14 +27,42 @@ msgstr "Publica"
 msgid "Submit for moderation"
 msgstr "Envia per moderació"
 
+msgid "Resubmit to {}"
+msgstr "Tornar a enviar a {}"
+
+msgid "Submit to {}"
+msgstr "Enviar a {}"
+
+msgid "Restart workflow "
+msgstr "Reiniciar fluxe de treball"
+
+msgid "Cancel workflow "
+msgstr "Cancel·lar fluxe de treball"
+
 msgid "Unpublish"
 msgstr "Despublica"
 
 msgid "Delete"
 msgstr "Esborra"
 
+msgid "Lock"
+msgstr "Bloquejar"
+
+msgid "Apply editor lock"
+msgstr "Aplicar bloqueig d'editor"
+
+msgid "Unlock"
+msgstr "Desbloquejar"
+
+msgid "Save Draft"
+msgstr "Desar esborrany"
+
 msgid "Page locked"
 msgstr "Pàgina bloquejada"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)si Publicar"
 
 msgid "Wagtail admin"
 msgstr "Administració de Wagtail"
@@ -66,6 +94,30 @@ msgstr "Promoure"
 msgid "Settings"
 msgstr "Configuració"
 
+msgid "Date from"
+msgstr "Data d'inici"
+
+msgid "Date to"
+msgstr "Data de fi"
+
+msgid "All"
+msgstr "Tot"
+
+msgid "Started at"
+msgstr "Iniciat el"
+
+msgid "Show"
+msgstr "Mostrar"
+
+msgid "Awaiting my review"
+msgstr "Esperant la meva revisió"
+
+msgid "Completed at"
+msgstr "Completat el"
+
+msgid "Workflow"
+msgstr "Fluxe de treball"
+
 msgid "Date"
 msgstr "Data"
 
@@ -77,10 +129,13 @@ msgstr "Introdueix la contrassenya"
 
 #, python-format
 msgid "Enter your %s"
-msgstr "Introdueix el teu %s"
+msgstr "Introduïu el vostre %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -165,6 +220,95 @@ msgstr "Aquest camp és obligatori"
 
 msgid "Please select at least one group."
 msgstr "Seleccioneu com a mínim un grup."
+
+msgid "All types"
+msgstr "Tots els tipus"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Aquesta pàgina ja té el fluxe de treball '{0}' assignat."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"No podeu assignar aquest fluxe de treball més d'una vegada a la mateixa "
+"pàgina."
+
+msgid "Give your workflow a name"
+msgstr "Poseu-li un nom al fluxe de treball"
+
+msgid "Add tasks to your workflow"
+msgstr "Afegiu tasques al fluxe de treball"
+
+msgid "Arabic"
+msgstr "Aràbic"
+
+msgid "Catalan"
+msgstr "Català"
+
+msgid "Czech"
+msgstr "Txec"
+
+msgid "German"
+msgstr "Alemany"
+
+msgid "Greek"
+msgstr "Grec"
+
+msgid "English"
+msgstr "Anglès"
+
+msgid "Spanish"
+msgstr "Espanyol"
+
+msgid "Finnish"
+msgstr "Finès"
+
+msgid "French"
+msgstr "Francès"
+
+msgid "Galician"
+msgstr "Gallec"
+
+msgid "Hungarian"
+msgstr "Hongarès"
+
+msgid "Indonesian"
+msgstr "Indonesi"
+
+msgid "Icelandic"
+msgstr "Islandès"
+
+msgid "Italian"
+msgstr "Italià"
+
+msgid "Japanese"
+msgstr "Japonès"
+
+msgid "Korean"
+msgstr "Coreà"
+
+msgid "Lithuanian"
+msgstr "Lituà"
+
+msgid "Mongolian"
+msgstr "Mongol"
+
+msgid "Persian"
+msgstr "Persa"
+
+msgid "Polish"
+msgstr "Polonès"
+
+msgid "Portuguese"
+msgstr "Portuguès"
+
+msgid "Romanian"
+msgstr "Romanès"
+
+msgid "Russian"
+msgstr "Rus"
+
+msgid "Swedish"
+msgstr "Suec"
 
 msgid "Edit"
 msgstr "Edita"

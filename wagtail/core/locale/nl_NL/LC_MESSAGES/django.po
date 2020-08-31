@@ -5,16 +5,16 @@
 # Translators:
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2019-2020
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018,2020
 # Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-25 12:45+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +49,9 @@ msgstr "Wachtwoord"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Het wachtwoord dat u heeft ingevuld is niet juist. Probeer opnieuw."
+
+msgid "Comment"
+msgstr "Opmerking"
 
 msgid "hostname"
 msgstr "hostname"
@@ -89,6 +92,9 @@ msgstr "site"
 
 msgid "sites"
 msgstr "sites"
+
+msgid "default"
+msgstr "standaard"
 
 #, python-format
 msgid ""
@@ -178,17 +184,26 @@ msgstr "voor het laatst gepubliceerd op"
 msgid "latest revision created at"
 msgstr "meest recente versie aangemaakt op"
 
+msgid "live revision"
+msgstr "live versie"
+
 msgid "This slug is already in use"
 msgstr "Deze slug is al in gebruik"
 
 msgid "scheduled"
 msgstr "gepland"
 
+msgid "in moderation"
+msgstr "ter goedkeuring"
+
 msgid "draft"
 msgstr "concept"
 
 msgid "live + scheduled"
 msgstr "live + gepland"
+
+msgid "live + in moderation"
+msgstr "live + ter goedkeuring"
 
 msgid "live + draft"
 msgstr "live + concept"
@@ -324,6 +339,163 @@ msgstr "groepsmachtiging binnen collectie"
 
 msgid "group collection permissions"
 msgstr "groepsmachtigingen binnen collectie"
+
+msgid "workflow"
+msgstr "workflow"
+
+msgid "workflow page"
+msgstr "workflow-pagina"
+
+msgid "workflow pages"
+msgstr "workflow-pagina's"
+
+msgid "workflow_tasks"
+msgstr "workflow"
+
+msgid "task"
+msgstr "taak"
+
+msgid "workflow task order"
+msgstr "workflow-taakvolgorde"
+
+msgid "workflow task orders"
+msgstr "workflow-taakvolgordes"
+
+msgid "active"
+msgstr "actieve"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Actieve taken kunnen aan workflows worden toegevoegd. Een taak deactiveren "
+"zal deze niet verwijderen van bestaande workflows."
+
+msgid "tasks"
+msgstr "taken"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Actieve workflows kunnen aan pagina's worden toegevoegd. Een workflow "
+"deactiveren zal deze niet verwijderen van bestaande pagina's."
+
+msgid "workflows"
+msgstr "workflows"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Pagina's in deze stap van de workflow zullen worden beoordeeld of "
+"goedgekeurd door deze groep gebruikers"
+
+msgid "Request changes"
+msgstr "Wijzigingsverzoek"
+
+msgid "Approve"
+msgstr "Goedkeuren"
+
+msgid "Approve with comment"
+msgstr "Goedkeuren met opmerking"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Leden van de gekozen groepen kunnen deze taak goedkeuren"
+
+msgid "Group approval task"
+msgstr "Groep-goedkeuringstaak"
+
+msgid "Group approval tasks"
+msgstr "Groep-goedkeuringstaken"
+
+msgid "In progress"
+msgstr "In behandeling"
+
+msgid "Approved"
+msgstr "Goedgekeurd"
+
+msgid "Needs changes"
+msgstr "Heeft wijziging nodig"
+
+msgid "Cancelled"
+msgstr "Geannuleerd"
+
+msgid "status"
+msgstr "status"
+
+msgid "requested by"
+msgstr "gevraagd door"
+
+msgid "current task state"
+msgstr "huidige status taak"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Er mag maar één in behandeling of heeft wijziging nodig workflow-status zijn "
+"per pagina."
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Workflow '{0}' op pagina '{1}': {2}"
+
+msgid "Not started"
+msgstr "Niet gestart"
+
+msgid "Workflow state"
+msgstr "Workflow-status"
+
+msgid "Workflow states"
+msgstr "Workflow-statussen"
+
+msgid "Rejected"
+msgstr "Afgekeurd"
+
+msgid "Skipped"
+msgstr "Overgeslagen"
+
+msgid "workflow state"
+msgstr "workflow-status"
+
+msgid "started at"
+msgstr "Gestart op"
+
+msgid "finished at"
+msgstr "Afgerond op"
+
+msgid "finished by"
+msgstr "Afgerond door"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Taak '{0}' op pagina-revisie '{1}': {2}"
+
+msgid "Task state"
+msgstr "Taak-status"
+
+msgid "Task states"
+msgstr "Taak-statussen"
+
+msgid "timestamp (UTC)"
+msgstr "aangemaakt op (UTC)"
+
+msgid "log entry"
+msgstr "logboekvermelding"
+
+msgid "log entries"
+msgstr "logboekvermeldingen"
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "gebruiker %(id)d (verwijderd)"
+
+msgid "system"
+msgstr "systeem"
+
+msgid "page log entry"
+msgstr "pagina-logboekvermelding"
+
+msgid "page log entries"
+msgstr "pagina-logboekvermeldingen"
 
 msgid "Log in"
 msgstr "Inloggen"

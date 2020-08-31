@@ -11,7 +11,10 @@ def submittable_timestamp(timestamp):
     need to pass it through timezone.localtime to ensure that the client and server are in
     agreement about what the timestamp means.
     """
-    return timezone.localtime(timestamp).strftime("%Y-%m-%d %H:%M")
+    if timezone.is_aware(timestamp):
+        return timezone.localtime(timestamp).strftime("%Y-%m-%d %H:%M")
+    else:
+        return timestamp.strftime("%Y-%m-%d %H:%M")
 
 
 def local_datetime(*args):

@@ -46,7 +46,9 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-USE_TZ = True
+USE_TZ = not os.environ.get('DISABLE_TIMEZONE')
+if not USE_TZ:
+    print("Timezone support disabled")
 
 LANGUAGE_CODE = "en"
 
@@ -97,7 +99,7 @@ MIDDLEWARE = (
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     # Install wagtailredirects with its appconfig
     # Theres nothing special about wagtailredirects, we just need to have one
     # app which uses AppConfigs to test that hooks load properly
@@ -105,7 +107,6 @@ INSTALLED_APPS = (
 
     'wagtail.tests.testapp',
     'wagtail.tests.demosite',
-    'wagtail.tests.customuser',
     'wagtail.tests.snippets',
     'wagtail.tests.routablepage',
     'wagtail.tests.search',
@@ -139,7 +140,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.sitemaps',
     'django.contrib.staticfiles',
-)
+]
 
 
 # Using DatabaseCache to make sure that the cache is cleared between tests.
@@ -164,7 +165,18 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
-AUTH_USER_MODEL = 'customuser.CustomUser'
+if os.environ.get('USE_EMAIL_USER_MODEL'):
+    INSTALLED_APPS.append('wagtail.tests.emailuser')
+    AUTH_USER_MODEL = 'emailuser.EmailUser'
+    print("EmailUser (no username) user model active")
+else:
+    INSTALLED_APPS.append('wagtail.tests.customuser')
+    AUTH_USER_MODEL = 'customuser.CustomUser'
+    # Extra user field for custom user edit and create form tests. This setting
+    # needs to here because it is used at the module level of wagtailusers.forms
+    # when the module gets loaded. The decorator 'override_settings' does not work
+    # in this scenario.
+    WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'attachment']
 
 if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
     INSTALLED_APPS += ('wagtail.contrib.postgres_search',)
@@ -201,12 +213,6 @@ if 'ELASTICSEARCH_URL' in os.environ:
 
 
 WAGTAIL_SITE_NAME = "Test Site"
-
-# Extra user field for custom user edit and create form tests. This setting
-# needs to here because it is used at the module level of wagtailusers.forms
-# when the module gets loaded. The decorator 'override_settings' does not work
-# in this scenario.
-WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'attachment']
 
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     'default': {

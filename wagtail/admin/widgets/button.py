@@ -48,10 +48,16 @@ class Button:
                 and self.priority == other.priority)
 
 
-class PageListingButton(Button):
+# Base class for all listing buttons
+# This is also used by SnippetListingButton defined in wagtail.snippets.widgets
+class ListingButton(Button):
     def __init__(self, label, url, classes=set(), **kwargs):
         classes = {'button', 'button-small', 'button-secondary'} | set(classes)
         super().__init__(label, url, classes=classes, **kwargs)
+
+
+class PageListingButton(ListingButton):
+    pass
 
 
 class BaseDropdownMenuButton(Button):

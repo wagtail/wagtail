@@ -117,7 +117,6 @@ class ImageOperationTestCase(TestCase):
         test_norun.__name__ = str('test_norun_%s' % filter_spec)
         return test_norun
 
-
     @classmethod
     def setup_test_methods(cls):
         if cls.operation_class is None:
@@ -485,10 +484,18 @@ class TestCacheKey(TestCase):
         self.assertEqual(cache_key, '0bbe3b2f')
 
 
+def register_image_operations_hook():
+    return [
+        ('operation1', Mock(return_value=TestFilter.operation_instance)),
+        ('operation2', Mock(return_value=TestFilter.operation_instance))
+    ]
+
+
 class TestFilter(TestCase):
 
     operation_instance = Mock()
 
+    @hooks.register_temporarily('register_image_operations', register_image_operations_hook)
     def test_runs_operations(self):
         run_mock = Mock()
 
@@ -505,14 +512,6 @@ class TestFilter(TestCase):
         fil.run(image, BytesIO())
 
         self.assertEqual(run_mock.call_count, 2)
-
-
-@hooks.register('register_image_operations')
-def register_image_operations():
-    return [
-        ('operation1', Mock(return_value=TestFilter.operation_instance)),
-        ('operation2', Mock(return_value=TestFilter.operation_instance))
-    ]
 
 
 class TestFormatFilter(TestCase):

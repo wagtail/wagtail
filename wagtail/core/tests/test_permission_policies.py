@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
@@ -8,6 +7,7 @@ from wagtail.core.permission_policies import (
     OwnershipPermissionPolicy)
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.tests.utils import WagtailTestUtils
 
 
 class PermissionPolicyTestUtils:
@@ -67,7 +67,7 @@ class PermissionPolicyTestUtils:
                     )
 
 
-class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
+class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase, WagtailTestUtils):
     def setUp(self):
         # Permissions
         image_content_type = ContentType.objects.get_for_model(Image)
@@ -89,60 +89,63 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
         image_changers_group.permissions.add(change_image_permission)
 
         # Users
-        User = get_user_model()
-
-        self.superuser = User.objects.create_superuser(
+        self.superuser = self.create_superuser(
             'superuser', 'superuser@example.com', 'password'
         )
-        self.inactive_superuser = User.objects.create_superuser(
-            'inactivesuperuser', 'inactivesuperuser@example.com', 'password', is_active=False
+        self.inactive_superuser = self.create_superuser(
+            'inactivesuperuser', 'inactivesuperuser@example.com', 'password'
         )
+        self.inactive_superuser.is_active = False
+        self.inactive_superuser.save()
 
         # a user with add_image permission through the 'Image adders' group
-        self.image_adder = User.objects.create_user(
+        self.image_adder = self.create_user(
             'imageadder', 'imageadder@example.com', 'password'
         )
         self.image_adder.groups.add(image_adders_group)
 
         # a user with add_image permission through user_permissions
-        self.oneoff_image_adder = User.objects.create_user(
+        self.oneoff_image_adder = self.create_user(
             'oneoffimageadder', 'oneoffimageadder@example.com', 'password'
         )
         self.oneoff_image_adder.user_permissions.add(add_image_permission)
 
         # a user that has add_image permission, but is inactive
-        self.inactive_image_adder = User.objects.create_user(
-            'inactiveimageadder', 'inactiveimageadder@example.com', 'password', is_active=False
+        self.inactive_image_adder = self.create_user(
+            'inactiveimageadder', 'inactiveimageadder@example.com', 'password'
         )
         self.inactive_image_adder.groups.add(image_adders_group)
+        self.inactive_image_adder.is_active = False
+        self.inactive_image_adder.save()
 
         # a user with change_image permission through the 'Image changers' group
-        self.image_changer = User.objects.create_user(
+        self.image_changer = self.create_user(
             'imagechanger', 'imagechanger@example.com', 'password'
         )
         self.image_changer.groups.add(image_changers_group)
 
         # a user with change_image permission through user_permissions
-        self.oneoff_image_changer = User.objects.create_user(
+        self.oneoff_image_changer = self.create_user(
             'oneoffimagechanger', 'oneoffimagechanger@example.com', 'password'
         )
         self.oneoff_image_changer.user_permissions.add(change_image_permission)
 
         # a user that has change_image permission, but is inactive
-        self.inactive_image_changer = User.objects.create_user(
-            'inactiveimagechanger', 'inactiveimagechanger@example.com', 'password',
-            is_active=False
+        self.inactive_image_changer = self.create_user(
+            'inactiveimagechanger', 'inactiveimagechanger@example.com', 'password'
         )
         self.inactive_image_changer.groups.add(image_changers_group)
+        self.inactive_image_changer.is_active = False
+        self.inactive_image_changer.save()
 
         # a user with delete_image permission through user_permissions
-        self.oneoff_image_deleter = User.objects.create_user(
+        self.oneoff_image_deleter = self.create_user(
             'oneoffimagedeleter', 'oneoffimagedeleter@example.com', 'password'
         )
         self.oneoff_image_deleter.user_permissions.add(delete_image_permission)
 
         # a user with no permissions
-        self.useless_user = User.objects.create_user(
+        self.useless_user = self.create_user(
             'uselessuser', 'uselessuser@example.com', 'password'
         )
 

@@ -1,3 +1,6 @@
+import unittest
+
+from django.conf import settings
 from django.core import mail
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -57,6 +60,7 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("mysite.com", mail.outbox[0].body)
 
+    @unittest.skipUnless(settings.AUTH_USER_MODEL == 'customuser.CustomUser', "only applicable to CustomUser")
     def test_password_reset_email_contains_username(self):
         self.client.post(
             reverse('wagtailadmin_password_reset'), {'email': 'siteeditor@example.com'}
@@ -64,7 +68,7 @@ class TestUserPasswordReset(TestCase, WagtailTestUtils):
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("Your username (in case you've forgotten): siteeditor", mail.outbox[0].body)
 
-    @override_settings(AUTH_USER_MODEL='customuser.EmailUser')
+    @unittest.skipUnless(settings.AUTH_USER_MODEL == 'emailuser.EmailUser', "only applicable to EmailUser")
     def test_password_reset_no_username_when_email_is_username(self):
         # When the user model is using email as the username, the password reset email
         # should not contain "Your username (in case you've forgotten)..."

@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# IT Management <info@itmanagement.cz>, 2018
-# IT Management <info@itmanagement.cz>, 2020
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
-# Mirek Zvolský <zvolsky@seznam.cz>, 2019
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:49+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-03 20:09+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -174,6 +174,9 @@ msgstr "Přidat skupinu"
 msgid "Editing"
 msgstr "Úprava"
 
+msgid "View users in this group"
+msgstr "Zobrazit uživatele v této skupině"
+
 msgid "Save"
 msgstr "Uložit"
 
@@ -297,6 +300,22 @@ msgstr[3] ""
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Bohužel, výrazu <em>\"%(query_string)s\"</em> neodpovídají žádní uživatelé"
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+" %(group_name)s skupina nemá žádné uživatele. Pojďme <a href="
+"\"%(wagtailusers_add_url)s\">nějaké přidat</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"Nejsou určeni uživatelé. Pojďme <a href=\"%(wagtailusers_add_url)s\">nějaké "
+"přidat</a>?"
 
 msgid "Groups"
 msgstr "Skupiny"

@@ -768,7 +768,7 @@ class TestCanChoosePage(TestCase, WagtailTestUtils):
     def test_with_user_no_permission(self):
         homepage = Page.objects.get(url_path='/home/')
         # event editor does not have permissions on homepage
-        event_editor = get_user_model().objects.get(username='eventeditor')
+        event_editor = get_user_model().objects.get(email='eventeditor@example.com')
         permission_proxy = UserPagePermissionsProxy(event_editor)
         result = can_choose_page(homepage, permission_proxy, self.desired_classes, user_perm='copy_to')
         self.assertFalse(result)

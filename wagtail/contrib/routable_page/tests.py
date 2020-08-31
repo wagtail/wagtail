@@ -280,7 +280,6 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
         self.request.META['HTTP_HOST'] = second_site.hostname
         self.request.META['SERVER_PORT'] = second_site.port
 
-
     def test_templatetag_reverse_index_route(self):
         url = routablepageurl(self.context, self.routable_page,
                               'index_route')

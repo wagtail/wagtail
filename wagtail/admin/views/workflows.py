@@ -9,7 +9,7 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import is_safe_url
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
 
@@ -405,7 +405,7 @@ class EditTask(EditView):
 
     @cached_property
     def page_title(self):
-        return _("Editing {task_type}".format(task_type=self.get_object().content_type.name))
+        return _("Editing %(task_type)s") % {'task_type': self.get_object().content_type.name}
 
     def get_queryset(self):
         if self.queryset is None:

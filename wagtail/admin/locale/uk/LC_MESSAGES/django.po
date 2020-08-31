@@ -7,13 +7,14 @@
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
 # Vladyslav Herasymenko <drimacus182@gmail.com>, 2019-2020
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
 # Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -32,11 +33,23 @@ msgstr "Опублікувати"
 msgid "Submit for moderation"
 msgstr "Надіслати на модерацію"
 
+msgid "Submit to {}"
+msgstr "Надіслати в {}"
+
 msgid "Unpublish"
 msgstr "Зняти з публікації"
 
 msgid "Delete"
 msgstr "Видалити"
+
+msgid "Lock"
+msgstr "Блокувати"
+
+msgid "Apply editor lock"
+msgstr "Застосувати редакторське блокування"
+
+msgid "Unlock"
+msgstr "Розблокувати"
 
 msgid "Save Draft"
 msgstr "Зберегти чернентку"
@@ -73,6 +86,9 @@ msgstr "Просування"
 
 msgid "Settings"
 msgstr "Налаштування"
+
+msgid "All"
+msgstr "Усі"
 
 msgid "Date"
 msgstr "Дата"

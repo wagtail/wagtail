@@ -1,6 +1,6 @@
-===========================================
-Wagtail 2.10 release notes - IN DEVELOPMENT
-===========================================
+==========================
+Wagtail 2.10 release notes
+==========================
 
 .. contents::
     :local:
@@ -18,6 +18,12 @@ This release introduces a configurable moderation workflow system to replace the
 For further details, see :ref:`managing_workflows` and :doc:`../advanced_topics/custom_tasks`.
 
 This feature was developed by Jacob Topp-Mugglestone, Karl Hobley, Matt Westcott and Dan Braghis, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
+
+Django 3.1 support
+~~~~~~~~~~~~~~~~~~
+
+This release adds support for Django 3.1. Compatibility fixes were contributed by Matt Westcott and Karl Hobley.
 
 
 Search query expressions
@@ -161,6 +167,14 @@ Prepopulating data for site history report
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This release introduces logging of user actions, viewable through the "Site history" report. To pre-populate these logs with data from page revision history, run the management command: ``./manage.py create_log_entries_from_revisions``.
+
+
+``clean_name`` field added to form builder form field models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A ``clean_name`` field has been added to form field models that extend ``AbstractForm``. This is used as the name attribute of the HTML form field, and the dictionary key that the submitted form data is stored under. Storing this on the model (rather than calculating it on-the-fly as was done previously) ensures that if the algorithm for generating the clean name changes in future, the existing data will not become inaccessible. A future version of Wagtail will drop the ``unidecode`` library currently used for this.
+
+For forms created through the Wagtail admin interface, no action is required, as the new field will be populated on server startup. However, any process that creates form pages through direct insertion on the database (such as loading from fixtures) should now be updated to populate ``clean_name``.
 
 
 New ``next_url`` keyword argument on ``register_page_listing_buttons`` and ``register_page_listing_more_buttons`` hooks

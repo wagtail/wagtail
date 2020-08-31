@@ -477,7 +477,6 @@ class TestDraftailWithAdditionalFeatures(BaseRichTextEditHandlerTestCase, Wagtai
 
         self.login()
 
-
     @override_settings(WAGTAILADMIN_RICH_TEXT_EDITORS={
         'default': {
             'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',

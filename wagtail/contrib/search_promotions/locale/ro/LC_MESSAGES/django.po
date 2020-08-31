@@ -4,14 +4,14 @@
 #
 # Translators:
 # Dan Braghis, 2014,2016
-# Dan Braghis, 2016,2019
+# Dan Braghis, 2016,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-31 19:22+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -121,11 +121,23 @@ msgstr "Adaugă rezultat promovat"
 msgid "Search term(s)"
 msgstr "Termen de căutare"
 
+msgid "Order by search term alphabetically"
+msgstr "Ordonează alfabetic după termen de căutare"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Ordonează invers în ordine alfabetică după termen de căutare"
+
 msgid "Promoted results"
 msgstr "Rezultate promovate"
 
 msgid "Views (past week)"
 msgstr "Vizualizări (ultima săptămână)"
+
+msgid "Order by views (lowest first)"
+msgstr "Ordonează după vizualizări (ascendent)"
+
+msgid "Order by views (highest first)"
+msgstr "Ordonează după vizualizări (descendent)"
 
 msgid "Edit this promotion"
 msgstr "Editează această promovare"

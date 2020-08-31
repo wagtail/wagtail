@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# IT Management <info@itmanagement.cz>, 2018
-# IT Management <info@itmanagement.cz>, 2020
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2020
+# Mirek Zvolský <zvolsky@seznam.cz>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-03 20:11+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -119,11 +120,23 @@ msgstr "Přidat nový upřednostněný výsledek"
 msgid "Search term(s)"
 msgstr "Hledaný výraz(y)"
 
+msgid "Order by search term alphabetically"
+msgstr "Seřazeno podle vyhledávacích pojmů abecedně"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Seřazeno podle vyhledávacích pojmů od konce abecedy"
+
 msgid "Promoted results"
 msgstr "Upřednostněné výsledky"
 
 msgid "Views (past week)"
 msgstr "Zobrazení (poslední týden)"
+
+msgid "Order by views (lowest first)"
+msgstr "Seřazeno podle pohledů (od nejnižších)"
+
+msgid "Order by views (highest first)"
+msgstr "Seřazeno podle pohledů (od nejvyšších)"
 
 msgid "Edit this promotion"
 msgstr "Upravit toto upřednostnění"

@@ -3754,7 +3754,7 @@ class BaseLogEntry(models.Model):
                 return self.user.get_username()
             except self._meta.get_field('user').related_model.DoesNotExist:
                 # User has been deleted
-                return _('user {id} (deleted)').format(id=self.user_id)
+                return _('user %(id)d (deleted)') % {'id': self.user_id}
         else:
             return _('system')
 

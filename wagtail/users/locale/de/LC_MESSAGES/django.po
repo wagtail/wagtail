@@ -4,7 +4,7 @@
 #
 # Translators:
 # Benjamin Thurm, 2018
-# Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019
+# Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019-2020
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:49+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-08 17:07+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -179,6 +179,9 @@ msgstr "Gruppe hinzufügen"
 msgid "Editing"
 msgstr "Bearbeiten"
 
+msgid "View users in this group"
+msgstr "Benutzer in dieser Gruppe anzeigen"
+
 msgid "Save"
 msgstr "Speichern"
 
@@ -307,13 +310,13 @@ msgid "Group '{0}' created."
 msgstr "Gruppe ‚{0}‘ erstellt."
 
 msgid "Group '{0}' updated."
-msgstr "Gruppe ‚{0}‘ geändert."
+msgstr "Gruppe ‚{0}‘ aktualisiert."
 
 msgid "The group could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte die Gruppe nicht gespeichert werden."
 
 msgid "Group '{0}' deleted."
-msgstr "Gruppe '{0}' gelöscht."
+msgstr "Gruppe ‚{0}‘ gelöscht."
 
 msgid "Search users"
 msgstr "Benutzer suchen"
@@ -328,13 +331,13 @@ msgid "The user could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
 
 msgid "User '{0}' updated."
-msgstr "Benutzer '{0}' aktualisiert."
+msgstr "Benutzer ‚{0}‘ aktualisiert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
 
 msgid "User '{0}' deleted."
-msgstr "Benutzer '{0}' gelöscht."
+msgstr "Benutzer ‚{0}‘ gelöscht."
 
 msgid "Edit this user"
 msgstr "Diesen Benutzer bearbeiten"

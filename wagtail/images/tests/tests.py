@@ -172,7 +172,6 @@ class TestImageTag(TestCase):
             '/testimages/custom_view/.*/width-400/{}'.format(self.image.file.name.split('/')[-1]),
         )
 
-
     def test_image_url_no_imageserve_view_added(self):
         # if image_url tag is used, but the image serve view was not defined.
         with self.assertRaises(ImproperlyConfigured):

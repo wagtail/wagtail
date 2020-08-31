@@ -3,7 +3,7 @@ import datetime
 import json
 from io import BytesIO
 
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.core.checks import Info
 from django.test import RequestFactory, TestCase
@@ -60,7 +60,7 @@ class TestFormResponsesPanel(TestCase):
         self.assertEqual('', result)
 
 
-class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
+class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils):
     def setUp(self):
         self.request = RequestFactory().get('/')
         user = AnonymousUser()  # technically, Anonymous users cannot access the admin
@@ -73,7 +73,7 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase):
             FormPageWithCustomSubmission, form_class=WagtailAdminPageForm
         )
 
-        self.test_user = get_user_model().objects.create_user(
+        self.test_user = self.create_user(
             username='user-n1kola', password='123')
 
         self.panel = FormSubmissionsPanel().bind_to(
@@ -111,7 +111,7 @@ class TestFormsIndex(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def make_form_pages(self):
@@ -177,7 +177,7 @@ class TestFormsIndex(TestCase, WagtailTestUtils):
 
     def test_cannot_see_forms_without_permission(self):
         # Login with as a user without permission to see forms
-        self.assertTrue(self.client.login(username='eventeditor', password='password'))
+        self.login(username='eventeditor', password='password')
 
         response = self.client.get(reverse('wagtailforms:index'))
 
@@ -387,7 +387,7 @@ class TestFormsSubmissionsListLegacyFieldName(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us-one-more-time/').specific
 
         # running checks should show an info message AND update blank clean_name values
@@ -432,7 +432,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
                 'your_choices': ['foo', 'baz'],
             }),
         )
-        old_form_submission.submit_time = '2013-01-01T12:00:00.000Z'
+        if settings.USE_TZ:
+            old_form_submission.submit_time = '2013-01-01T12:00:00.000Z'
+        else:
+            old_form_submission.submit_time = '2013-01-01T12:00:00'
         old_form_submission.save()
 
         new_form_submission = FormSubmission.objects.create(
@@ -442,7 +445,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
                 'your_message': "this is a fairly new message",
             }),
         )
-        new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
+        if settings.USE_TZ:
+            new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
+        else:
+            new_form_submission.submit_time = '2014-01-01T12:00:00'
         new_form_submission.save()
 
         # Login
@@ -459,8 +465,12 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
-        self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        if settings.USE_TZ:
+            self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
+            self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        else:
+            self.assertEqual(data_lines[1], '2013-01-01 12:00:00,old@example.com,this is a really old message,"foo, baz"\r')
+            self.assertEqual(data_lines[2], '2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r')
 
     def test_list_submissions_xlsx_export(self):
         response = self.client.get(
@@ -486,7 +496,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
                     'your-message': "I like things x %s" % i,
                 }),
             )
-            new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
+            if settings.USE_TZ:
+                new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
+            else:
+                new_form_submission.submit_time = '2014-01-01T12:00:00'
             new_form_submission.save()
 
         response = self.client.get(
@@ -514,8 +527,12 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
-        self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        if settings.USE_TZ:
+            self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
+            self.assertEqual(data_lines[2], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        else:
+            self.assertEqual(data_lines[1], '2013-01-01 12:00:00,old@example.com,this is a really old message,"foo, baz"\r')
+            self.assertEqual(data_lines[2], '2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r')
 
         with self.register_hook('filter_form_submissions_for_user', construct_forms_for_user):
             response = self.client.get(
@@ -537,7 +554,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        if settings.USE_TZ:
+            self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        else:
+            self.assertEqual(data_lines[1], '2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r')
 
     def test_list_submissions_csv_export_with_date_to_filtering(self):
         response = self.client.get(
@@ -550,7 +570,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
+        if settings.USE_TZ:
+            self.assertEqual(data_lines[1], '2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,"foo, baz"\r')
+        else:
+            self.assertEqual(data_lines[1], '2013-01-01 12:00:00,old@example.com,this is a really old message,"foo, baz"\r')
 
     def test_list_submissions_csv_export_with_range_filtering(self):
         response = self.client.get(
@@ -563,7 +586,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         data_lines = response.getvalue().decode().split("\n")
 
         self.assertEqual(data_lines[0], 'Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        if settings.USE_TZ:
+            self.assertEqual(data_lines[1], '2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        else:
+            self.assertEqual(data_lines[1], '2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r')
 
     def test_list_submissions_csv_export_with_unicode_in_submission(self):
         unicode_form_submission = FormSubmission.objects.create(
@@ -620,10 +646,9 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertIn('vim', data_lines[1])
 
 
-
 class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def create_test_user_without_admin(self, username):
-        return get_user_model().objects.create_user(username=username, password='123')
+        return self.create_user(username=username, password='123')
 
     def setUp(self):
         # Create a form page
@@ -638,7 +663,10 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
                 'your_message': "this is a really old message",
             }),
         )
-        old_form_submission.submit_time = '2013-01-01T12:00:00.000Z'
+        if settings.USE_TZ:
+            old_form_submission.submit_time = '2013-01-01T12:00:00.000Z'
+        else:
+            old_form_submission.submit_time = '2013-01-01T12:00:00'
         old_form_submission.save()
 
         new_form_submission = CustomFormPageSubmission.objects.create(
@@ -649,7 +677,10 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
                 'your_message': "this is a fairly new message",
             }),
         )
-        new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
+        if settings.USE_TZ:
+            new_form_submission.submit_time = '2014-01-01T12:00:00.000Z'
+        else:
+            new_form_submission.submit_time = '2014-01-01T12:00:00'
         new_form_submission.save()
 
         # Login
@@ -665,11 +696,25 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
 
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1],
-                         'user-john,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
-        self.assertEqual(data_lines[2],
-                         'user-m1kola,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        self.assertEqual(data_lines[0], 'User email,Submission date,Your email,Your message,Your choices\r')
+        if settings.USE_TZ:
+            self.assertEqual(
+                data_lines[1],
+                'user-john@example.com,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r'
+            )
+            self.assertEqual(
+                data_lines[2],
+                'user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r'
+            )
+        else:
+            self.assertEqual(
+                data_lines[1],
+                'user-john@example.com,2013-01-01 12:00:00,old@example.com,this is a really old message,None\r'
+            )
+            self.assertEqual(
+                data_lines[2],
+                'user-m1kola@example.com,2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r'
+            )
 
     def test_list_submissions_csv_export_with_date_from_filtering(self):
         response = self.client.get(
@@ -681,9 +726,17 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
 
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1],
-                         'user-m1kola,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        self.assertEqual(data_lines[0], 'User email,Submission date,Your email,Your message,Your choices\r')
+        if settings.USE_TZ:
+            self.assertEqual(
+                data_lines[1],
+                'user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r'
+            )
+        else:
+            self.assertEqual(
+                data_lines[1],
+                'user-m1kola@example.com,2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r'
+            )
 
     def test_list_submissions_csv_export_with_date_to_filtering(self):
         response = self.client.get(
@@ -695,9 +748,17 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
 
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1],
-                         'user-john,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r')
+        self.assertEqual(data_lines[0], 'User email,Submission date,Your email,Your message,Your choices\r')
+        if settings.USE_TZ:
+            self.assertEqual(
+                data_lines[1],
+                'user-john@example.com,2013-01-01 12:00:00+00:00,old@example.com,this is a really old message,None\r'
+            )
+        else:
+            self.assertEqual(
+                data_lines[1],
+                'user-john@example.com,2013-01-01 12:00:00,old@example.com,this is a really old message,None\r'
+            )
 
     def test_list_submissions_csv_export_with_range_filtering(self):
         response = self.client.get(
@@ -709,9 +770,17 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
 
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Your message,Your choices\r')
-        self.assertEqual(data_lines[1],
-                         'user-m1kola,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r')
+        self.assertEqual(data_lines[0], 'User email,Submission date,Your email,Your message,Your choices\r')
+        if settings.USE_TZ:
+            self.assertEqual(
+                data_lines[1],
+                'user-m1kola@example.com,2014-01-01 12:00:00+00:00,new@example.com,this is a fairly new message,None\r'
+            )
+        else:
+            self.assertEqual(
+                data_lines[1],
+                'user-m1kola@example.com,2014-01-01 12:00:00,new@example.com,this is a fairly new message,None\r'
+            )
 
     def test_list_submissions_csv_export_with_unicode_in_submission(self):
         unicode_form_submission = CustomFormPageSubmission.objects.create(
@@ -770,10 +839,9 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         self.assertIn('vim', data_lines[1])
 
 
-
 class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
     def create_test_user_without_admin(self, username):
-        return get_user_model().objects.create_user(username=username, password='123')
+        return self.create_user(username=username, password='123')
 
     def setUp(self):
         # Create a form page
@@ -829,9 +897,9 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 2)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
-        self.assertContains(response, '<td>user-m1kola</td>', html=True)
-        self.assertContains(response, '<td>user-john</td>', html=True)
+        self.assertContains(response, '<th id="useremail" class="">User email</th>', html=True)
+        self.assertContains(response, '<td>user-m1kola@example.com</td>', html=True)
+        self.assertContains(response, '<td>user-john@example.com</td>', html=True)
 
     def test_list_submissions_filtering_date_from(self):
         response = self.client.get(
@@ -844,8 +912,8 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
-        self.assertContains(response, '<td>user-m1kola</td>', html=True)
+        self.assertContains(response, '<th id="useremail" class="">User email</th>', html=True)
+        self.assertContains(response, '<td>user-m1kola@example.com</td>', html=True)
 
     def test_list_submissions_filtering_date_to(self):
         response = self.client.get(
@@ -858,8 +926,8 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
-        self.assertContains(response, '<td>user-john</td>', html=True)
+        self.assertContains(response, '<th id="useremail" class="">User email</th>', html=True)
+        self.assertContains(response, '<td>user-john@example.com</td>', html=True)
 
     def test_list_submissions_filtering_range(self):
         response = self.client.get(
@@ -873,8 +941,8 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(len(response.context['data_rows']), 1)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
-        self.assertContains(response, '<td>user-m1kola</td>', html=True)
+        self.assertContains(response, '<th id="useremail" class="">User email</th>', html=True)
+        self.assertContains(response, '<td>user-m1kola@example.com</td>', html=True)
 
     def test_list_submissions_pagination(self):
         self.make_list_submissions()
@@ -889,7 +957,7 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(response.context['page_obj'].number, 2)
 
         # CustomFormPageSubmission have custom field. This field should appear in the listing
-        self.assertContains(response, '<th id="username" class="">Username</th>', html=True)
+        self.assertContains(response, '<th id="useremail" class="">User email</th>', html=True)
         self.assertContains(response, 'generated-username-', count=20)
 
     def test_list_submissions_pagination_invalid(self):
@@ -924,7 +992,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us/')
 
     def test_delete_submission_show_confirmation(self):
@@ -961,7 +1029,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id,)))
 
     def test_delete_submission_bad_permissions(self):
-        self.assertTrue(self.client.login(username="eventeditor", password="password"))
+        self.login(username="eventeditor", password="password")
 
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
@@ -998,11 +1066,11 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id,)))
 
 
-class TestDeleteCustomFormSubmission(TestCase):
+class TestDeleteCustomFormSubmission(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us-one-more-time/')
 
     def test_delete_submission_show_confirmation(self):
@@ -1040,7 +1108,7 @@ class TestDeleteCustomFormSubmission(TestCase):
         self.assertRedirects(response, reverse("wagtailforms:list_submissions", args=(self.form_page.id,)))
 
     def test_delete_submission_bad_permissions(self):
-        self.assertTrue(self.client.login(username="eventeditor", password="password"))
+        self.login(username="eventeditor", password="password")
 
         response = self.client.post(reverse(
             'wagtailforms:delete_submissions',
@@ -1057,7 +1125,7 @@ class TestDeleteCustomFormSubmission(TestCase):
 class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
 
     def create_test_user_without_admin(self, username):
-        return get_user_model().objects.create_user(username=username, password='123')
+        return self.create_user(username=username, password='123')
 
     def setUp(self):
         # Create a form page
@@ -1101,7 +1169,10 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
                 'your_excitement': self.choices[2],
             }),
         )
-        new_form_submission.submit_time = '2017-10-01T12:00:00.000Z'
+        if settings.USE_TZ:
+            new_form_submission.submit_time = '2017-10-01T12:00:00.000Z'
+        else:
+            new_form_submission.submit_time = '2017-10-01T12:00:00'
         new_form_submission.save()
 
         old_form_submission = CustomFormPageSubmission.objects.create(
@@ -1114,7 +1185,10 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
                 'your_excitement': self.choices[0],
             }),
         )
-        old_form_submission.submit_time = '2017-01-01T12:00:00.000Z'
+        if settings.USE_TZ:
+            old_form_submission.submit_time = '2017-01-01T12:00:00.000Z'
+        else:
+            old_form_submission.submit_time = '2017-01-01T12:00:00'
         old_form_submission.save()
 
         self.login()
@@ -1169,10 +1243,14 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
         self.assertIn('filename="%s-export' % self.form_page.slug, response.get('Content-Disposition'))
-        self.assertEqual(data_lines[0], 'Username,Submission date,Your email,Chocolate,Ingredients,Your Excitement\r')
+        self.assertEqual(data_lines[0], 'User email,Submission date,Your email,Chocolate,Ingredients,Your Excitement\r')
         # first result should be the most recent as order_csv has been reversed
-        self.assertEqual(data_lines[1], 'user-chocolate-maniac,2017-10-01 12:00:00+00:00,new@example.com,White Chocolate,White colouring,Much excitement\r')
-        self.assertEqual(data_lines[2], 'user-chocolate-guy,2017-01-01 12:00:00+00:00,old@example.com,Dark Chocolate,Charcoal,What is chocolate?\r')
+        if settings.USE_TZ:
+            self.assertEqual(data_lines[1], 'user-chocolate-maniac@example.com,2017-10-01 12:00:00+00:00,new@example.com,White Chocolate,White colouring,Much excitement\r')
+            self.assertEqual(data_lines[2], 'user-chocolate-guy@example.com,2017-01-01 12:00:00+00:00,old@example.com,Dark Chocolate,Charcoal,What is chocolate?\r')
+        else:
+            self.assertEqual(data_lines[1], 'user-chocolate-maniac@example.com,2017-10-01 12:00:00,new@example.com,White Chocolate,White colouring,Much excitement\r')
+            self.assertEqual(data_lines[2], 'user-chocolate-guy@example.com,2017-01-01 12:00:00,old@example.com,Dark Chocolate,Charcoal,What is chocolate?\r')
 
     def test_list_submissions_ordering(self):
         form_submission = CustomFormPageSubmission.objects.create(
@@ -1249,7 +1327,7 @@ class TestFormsWithCustomFormBuilderSubmissionsList(TestCase, WagtailTestUtils):
         self.assertContains(response, '192.0.2.15')
 
 
-class TestDuplicateFormFieldLabels(TestCase):
+class TestDuplicateFormFieldLabels(TestCase, WagtailTestUtils):
     """
     If a user creates two fields with the same label, data cannot be saved correctly.
     See: https://github.com/wagtail/wagtail/issues/585
@@ -1259,7 +1337,7 @@ class TestDuplicateFormFieldLabels(TestCase):
 
     def setUp(self):
 
-        self.assertTrue(self.client.login(username='superuser', password='password'))
+        self.login(username='superuser', password='password')
         # Find root page
         self.root_page = Page.objects.get(id=2)
 

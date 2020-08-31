@@ -551,10 +551,6 @@ By default the redirect importer keeps track of the uploaded file as a temp file
 Form builder
 ============
 
-.. versionadded:: 2.7.4/2.9.3
-
-    The ``WAGTAILFORMS_HELP_TEXT_ALLOW_HTML`` option was added.
-
 .. code-block:: python
 
     WAGTAILFORMS_HELP_TEXT_ALLOW_HTML = True
@@ -592,3 +588,5 @@ which publishes the page. The function must accept a ``WorkflowState`` object as
   WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH = True
 
 This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
+Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the
+workflow continues to provide less urgent feedback. 

@@ -43,6 +43,42 @@ If you need your hooks to run in a particular order, you can pass the ``order`` 
   def yet_another_hook_function(arg1, arg2...)
       # your code here
 
+Unit testing hooks
+------------------
+
+Hooks are usually registered on startup and can't be changed at runtime. But when writing unit tests, you might want to register a hook
+function just for a single test or block of code and unregister it so that it doesn't run when other tests are run.
+
+You can register hooks temporarily using the ``hooks.register_temporarily`` function, this can be used as both a decorator and a context
+manager. Here's an example of how to register a hook function for just a single test:
+
+.. code-block:: python
+
+  def my_hook_function():
+      ...
+
+  class MyHookTest(TestCase):
+
+      @hooks.register_temporarily('name_of_hook', my_hook_function)
+      def test_my_hook_function(self):
+          # Test with the hook registered here
+          ...
+
+And here's an example of registering a hook function for a single block of code:
+
+.. code-block:: python
+
+
+  def my_hook_function():
+      ...
+
+  with hooks.register_temporarily('name_of_hook', my_hook_function):
+      # Hook is registered here
+      ..
+
+  # Hook is unregistered here
+
+
 The available hooks are listed below.
 
 .. contents::
@@ -657,9 +693,9 @@ Hooks for customising the way users are directed through the process of creating
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Modify the final list of page listing buttons in the page explorer. The
-  callable passed to this hook receives a list of ``Button`` objects, a request
-  object and a context dictionary as per ``register_page_action_menu_item``,
-  and should modify the list of menu items in-place.
+  callable passed to this hook receives a list of ``PageListingButton`` objects, a page,
+  a page perms object, and a context dictionary as per ``register_page_listing_buttons``,
+  and should modify the list of listing items in-place.
 
   .. code-block:: python
 
@@ -1016,6 +1052,24 @@ Hooks for working with registered Snippets.
     def after_snippet_update(request, instance):
         return HttpResponse(f"Congrats on editing a snippet with id {instance.pk}", content_type="text/plain")
 
+.. _before_edit_snippet:
+
+``before_edit_snippet``
+~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the edit snippet view. The callable passed into the hook will receive the model instance, the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``redirect()`` to the listing view.
+
+  .. code-block:: python
+
+    from django.http import HttpResponse
+
+    from wagtail.core import hooks
+
+    @hooks.register('before_edit_snippet')
+    def block_snippet_edit(request, instance):
+        if isinstance(instance, RestrictedSnippet) and instance.prevent_edit:
+            return HttpResponse("Sorry, you can't edit this snippet", content_type="text/plain")
+
 .. _after_create_snippet:
 
 ``after_create_snippet``
@@ -1024,6 +1078,13 @@ Hooks for working with registered Snippets.
   Called when a Snippet is created. ``after_create_snippet`` and
   ``after_edit_snippet`` work in identical ways. The only difference is where
   the hook is called.
+
+.. _before_create_snippet:
+
+``before_create_snippet``
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the create snippet view. Works in a similar way to `before_edit_snippet` except the model is passed as an argument instead of an instance.
 
 .. _after_delete_snippet:
 
@@ -1044,6 +1105,74 @@ Hooks for working with registered Snippets.
         total = len(instances)
         return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
 
+.. _before_delete_snippet:
+
+``before_delete_snippet``
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the delete snippet view. The callable passed into the hook will receive the model instance(s) as a queryset along with the request object. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``redirect()`` to the listing view.
+
+  .. code-block:: python
+
+    from django.http import HttpResponse
+
+    from wagtail.core import hooks
+
+    @hooks.register('before_delete_snippet')
+    def before_snippet_delete(request, instances):
+        # "instances" is a QuerySet
+        total = len(instances)
+
+        if request.method == 'POST':
+          # Override the deletion behaviour
+          instances.delete()
+
+          return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
+
+.. _register_snippet_listing_buttons:
+
+``register_snippet_listing_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add buttons to the actions list for a snippet in the snippets listing. This is useful when adding custom actions to the listing, such as translations or a complex workflow.
+
+  This example will add a simple button to the listing:
+
+  .. code-block:: python
+
+    from wagtail.snippets import widgets as wagtailsnippets_widgets
+
+    @hooks.register('register_snippet_listing_buttons')
+    def snippet_listing_buttons(snippet, user, next_url=None):
+        yield wagtailsnippets_widgets.SnippetListingButton(
+            'A page listing button',
+            '/goes/to/a/url/',
+            priority=10
+        )
+
+  The arguments passed to the hook are as follows:
+
+  * ``snippet`` - the snippet object to generate the button for
+  * ``user`` - the user who is viewing the snippets listing
+  * ``next_url`` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
+
+  The ``priority`` argument controls the order the buttons are displayed in. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=20``.
+
+.. construct_snippet_listing_buttons:
+
+``construct_snippet_listing_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Modify the final list of snippet listing buttons. The
+  callable passed to this hook receives a list of ``SnippetListingButton`` objects, a user,
+  and a context dictionary as per ``register_snippet_listing_buttons``,
+  and should modify the list of menu items in-place.
+
+  .. code-block:: python
+
+    @hooks.register('construct_snippet_listing_buttons')
+    def remove_snippet_listing_button_item(buttons, snippet, user, context=None):
+        buttons.pop()  # Removes the 'delete' button
 
 Audit log
 ---------
@@ -1068,7 +1197,7 @@ Audit log
             actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
 
             def callback_message(data):
-                return _('Hello {audience}') % {
+                return _('Hello %(audience)s') % {
                     'audience': data['audience'],
                 }
             actions.register_action('wagtail_package.with_callback', _('Callback'), callback_message)

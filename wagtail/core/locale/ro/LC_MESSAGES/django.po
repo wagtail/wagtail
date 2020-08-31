@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 15:53+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,9 @@ msgstr "Parolă"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Parola introdusă nu este corectă. Vă rugăm să încercați din nou."
+
+msgid "Comment"
+msgstr "Comentariu"
 
 msgid "hostname"
 msgstr "nume gazdă"
@@ -88,6 +91,9 @@ msgstr "Sait"
 
 msgid "sites"
 msgstr "saituri"
+
+msgid "default"
+msgstr "implicit"
 
 #, python-format
 msgid ""
@@ -177,17 +183,26 @@ msgstr "publicată pentru prima dată la"
 msgid "latest revision created at"
 msgstr "ultima revizie creată la"
 
+msgid "live revision"
+msgstr "revizie live"
+
 msgid "This slug is already in use"
 msgstr "Slug-ul acesta a fost deja folosit"
 
 msgid "scheduled"
 msgstr "programată"
 
+msgid "in moderation"
+msgstr "în moderație"
+
 msgid "draft"
 msgstr "ciornă"
 
 msgid "live + scheduled"
 msgstr "live + programată"
+
+msgid "live + in moderation"
+msgstr "live + în moderație"
 
 msgid "live + draft"
 msgstr "live + ciornă"
@@ -323,6 +338,163 @@ msgstr "permisiune grup colecție"
 
 msgid "group collection permissions"
 msgstr "permisiuni grup colecție"
+
+msgid "workflow"
+msgstr "flux de lucru"
+
+msgid "workflow page"
+msgstr "pagină flux de lucru"
+
+msgid "workflow pages"
+msgstr "pagini flux de lucru"
+
+msgid "workflow_tasks"
+msgstr "workflow_tasks"
+
+msgid "task"
+msgstr "sarcină"
+
+msgid "workflow task order"
+msgstr "ordine sarcini flux de lucru"
+
+msgid "workflow task orders"
+msgstr "ordini sarcini flux de lucru"
+
+msgid "active"
+msgstr "activ"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Sarcini active pot fi adăugate la fluxuri de lucru. Dezactivarea sarcinii nu "
+"rezultă în eliminarea ei din fluxurile de lucru existente."
+
+msgid "tasks"
+msgstr "sarcini"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Sarcini active pot fi adăugate la fluxuri de lucru. Dezactivarea unui flux "
+"de lucru nu rezultă în eliminarea ei de la paginile existente."
+
+msgid "workflows"
+msgstr "fluxuri de lucru"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Paginile în această fază într-un flux de lucru vor fi moderate sau aprobate "
+"de aceste grupuri de utilizatori"
+
+msgid "Request changes"
+msgstr "Solicită modificări"
+
+msgid "Approve"
+msgstr "Aprobă"
+
+msgid "Approve with comment"
+msgstr "Aprobă cu comentariu"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Mebrii Grupurilor Wagtail selectați pot aproba această sarcină"
+
+msgid "Group approval task"
+msgstr "Sarcină de aprobare de grup"
+
+msgid "Group approval tasks"
+msgstr "Sarcini de aprobare de grup"
+
+msgid "In progress"
+msgstr "În progres"
+
+msgid "Approved"
+msgstr "Aprobat"
+
+msgid "Needs changes"
+msgstr "Necesită modificări"
+
+msgid "Cancelled"
+msgstr "Anulat"
+
+msgid "status"
+msgstr "stare"
+
+msgid "requested by"
+msgstr "solicitat de"
+
+msgid "current task state"
+msgstr "starea sarcinii curente"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Numai un statut de în progres sau necesită schimbări este permis pentru o "
+"pagină."
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Fluxul de lucru '{0}' în pagina '{1}': {2}"
+
+msgid "Not started"
+msgstr "Neînceput"
+
+msgid "Workflow state"
+msgstr "Statut flux de lucru"
+
+msgid "Workflow states"
+msgstr "Statuturi flux de lucru"
+
+msgid "Rejected"
+msgstr "Respins"
+
+msgid "Skipped"
+msgstr "Omis"
+
+msgid "workflow state"
+msgstr "statut flux de lucru"
+
+msgid "started at"
+msgstr "început la"
+
+msgid "finished at"
+msgstr "terminat la"
+
+msgid "finished by"
+msgstr "terminat de"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Sarcina '{0}' la revizia paginii '{1}': {2}"
+
+msgid "Task state"
+msgstr "Stare sarcină"
+
+msgid "Task states"
+msgstr "Stări de sarcină"
+
+msgid "timestamp (UTC)"
+msgstr "timestamp (UTC)"
+
+msgid "log entry"
+msgstr "intrare jurnal"
+
+msgid "log entries"
+msgstr "intrări jurnal"
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "Utilizator %(id)d(șters)"
+
+msgid "system"
+msgstr "sistem"
+
+msgid "page log entry"
+msgstr "intrare jurnal de pagină"
+
+msgid "page log entries"
+msgstr "intrări jurnal de pagină"
 
 msgid "Log in"
 msgstr "Logare"

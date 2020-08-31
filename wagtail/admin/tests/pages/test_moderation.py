@@ -2,7 +2,6 @@ import logging
 from itertools import chain
 from unittest import mock
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.messages import constants as message_constants
 from django.core import mail
@@ -19,7 +18,7 @@ from wagtail.users.models import UserProfile
 
 class TestApproveRejectModeration(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.submitter = get_user_model().objects.create_superuser(
+        self.submitter = self.create_superuser(
             username='submitter',
             email='submitter@email.com',
             password='password',
@@ -180,12 +179,11 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.user = self.login()
 
         # Create two moderator users for testing 'submitted' email
-        User = get_user_model()
-        self.moderator = User.objects.create_superuser('moderator', 'moderator@email.com', 'password')
-        self.moderator2 = User.objects.create_superuser('moderator2', 'moderator2@email.com', 'password')
+        self.moderator = self.create_superuser('moderator', 'moderator@email.com', 'password')
+        self.moderator2 = self.create_superuser('moderator2', 'moderator2@email.com', 'password')
 
         # Create a submitter for testing 'rejected' and 'approved' emails
-        self.submitter = User.objects.create_user('submitter', 'submitter@email.com', 'password')
+        self.submitter = self.create_user('submitter', 'submitter@email.com', 'password')
 
         # User profiles for moderator2 and the submitter
         self.moderator2_profile = UserProfile.get_for_user(self.moderator2)
@@ -278,7 +276,6 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # No email to send
         self.assertEqual(len(mail.outbox), 0)
-
 
     @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=False)
     def test_disable_superuser_notification(self):

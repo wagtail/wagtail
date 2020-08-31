@@ -10,19 +10,20 @@ Here is how you can access the edit screen of an existing page:
 .. image:: ../_static/images/screen12_edit_screen_overview.png
 
 * When editing an existing page the title of the page being edited is displayed at the top of the page.
-* The current status of the page is displayed in the top-right.
+* Underneath the title, you can find the page type and a link to the page history.
+* If published, a link to the live version of the page is shown on the top right.
 * You can change the title of the page by clicking into the title field.
 * When you are typing into a field, help text is often displayed on the right-hand side of the screen.
 
 
-Moderation
-__________
+Workflow
+_________
 
-If the page is currently in moderation, you'll see a banner at the top of the screen. If the moderation workflow for the current page has more than
-one step, it will tell you which step the page is on. You'll also see an indicator to the right of the page title, showing the name of the moderation workflow, 
-and a set of icons representing completed and incomplete tasks. The name can be clicked to show more information about the current workflow's progress.
+If the page is currently in workflow, you'll see an additional indicator underneath the title, giving the current workflow task. Clicking this will
+show more information about the page's progress through the workflow, as well as any comments left by reviewers.
 
 .. image:: ../_static/images/screen12.5_edit_screen_in_moderation.png
 
-If you can perform moderation actions (for example, approval or rejection) on the current task, you'll see an additional menu at the bottom of the page
-to the right of the action menu, providing these options.
+If you can perform moderation actions (for example, approval or requesting changes) on the current task, you'll see additional options in the
+action menu at the bottom of the page.
+

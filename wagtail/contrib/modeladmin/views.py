@@ -24,7 +24,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
-from wagtail.admin.views.reports import SpreadsheetExportMixin
+from wagtail.admin.views.mixins import SpreadsheetExportMixin
 
 from .forms import ParentChooserForm
 
@@ -555,7 +555,6 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
 
         # Apply search results
         return self.get_search_results(request, qs, self.query)
-
 
     def apply_select_related(self, qs):
         if self.select_related is True:

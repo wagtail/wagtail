@@ -5,13 +5,14 @@
 # Translators:
 # Andy Kong <worminfo@gmail.com>, 2020
 # c o <ihcgno@icloud.com>, 2019
+# Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -32,6 +33,12 @@ msgstr "取消發佈"
 
 msgid "Delete"
 msgstr "刪除"
+
+msgid "Lock"
+msgstr "鎖定"
+
+msgid "Unlock"
+msgstr "解鎖"
 
 msgid "Save Draft"
 msgstr "儲存草稿"
@@ -409,6 +416,9 @@ msgstr "更新"
 msgid "Change email"
 msgstr "更改電子郵件"
 
+msgid "Change name"
+msgstr "更改名稱"
+
 msgid "Change password"
 msgstr "更改密碼"
 
@@ -586,6 +596,9 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "這是您的主控台，將會顯示您創建的內容的幫助信息。"
+
+msgid "Your locked pages"
+msgstr "你已鎖定的頁面"
 
 msgid "Edit this page"
 msgstr "編輯此頁"
@@ -968,6 +981,9 @@ msgstr "此頁面已受保護，公眾不可見。"
 msgid "Disable ordering of child pages"
 msgstr "禁用子頁面排序"
 
+msgid "Sort"
+msgstr "排序"
+
 msgid "Enable ordering of child pages"
 msgstr "啟用子頁面排序"
 
@@ -1107,6 +1123,9 @@ msgstr "集合"
 
 msgid "Locked"
 msgstr "已鎖定"
+
+msgid "No locked pages found."
+msgstr "沒有已被鎖定頁面"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1281,6 +1300,9 @@ msgstr "最近的"
 msgid "revision {0} of \"{1}\""
 msgstr " \"{1}\"的修訂版本{0}"
 
+msgid "Locked pages"
+msgstr "已被鎖定頁面"
+
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "預覽草稿版本 '%(title)s'"
@@ -1290,6 +1312,9 @@ msgstr "更多"
 
 msgid "Set profile picture"
 msgstr "頭像設置"
+
+msgid "Change your profile picture."
+msgstr "更改你的個人資料圖片"
 
 msgid "Change the email address linked to your account."
 msgstr "更改帳號關聯信箱"
@@ -1326,6 +1351,15 @@ msgstr "斜體"
 
 msgid "Link"
 msgstr "超連接"
+
+msgid "Locked Pages"
+msgstr "已被鎖定頁面"
+
+msgid "Reports"
+msgstr "報告"
+
+msgid "Unlocked"
+msgstr "已解鎖"
 
 msgid "Choose an item"
 msgstr "選擇一項"
