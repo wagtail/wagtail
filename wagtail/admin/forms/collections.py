@@ -40,7 +40,7 @@ class CollectionChoiceField(forms.ModelChoiceField):
     def __init__(self, *args, disabled_queryset=None, **kwargs):
         super().__init__(*args, **kwargs)
         self._indentation_start_depth = 2
-        self._disabled_queryset = disabled_queryset
+        self.disabled_queryset = disabled_queryset
         if disabled_queryset is not None:
             self.widget.disabled_values = disabled_queryset.values_list(self.to_field_name or 'pk')
 
@@ -250,14 +250,6 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         )
 
 
-class CollectionPermissionsChoiceField(forms.ModelChoiceField):
-    """
-    Renders the names of Collections in a choice field with the appropriate nesting prefix.
-    """
-    def label_from_instance(self, obj):
-        return obj.get_indented_name()
-
-
 def collection_member_permission_formset_factory(
     model, permission_types, template, default_prefix=None
 ):
@@ -287,7 +279,7 @@ def collection_member_permission_formset_factory(
         defines the permissions that are assigned to an entity
         (i.e. group or user) for a specific collection
         """
-        collection = CollectionPermissionsChoiceField(
+        collection = CollectionChoiceField(
             queryset=Collection.objects.all().prefetch_related('group_permissions')
         )
         permissions = PermissionMultipleChoiceField(
