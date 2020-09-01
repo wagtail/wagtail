@@ -57,8 +57,6 @@ def get_chooser_context(request):
     collections = Collection.objects.all()
     if len(collections) < 2:
         collections = None
-    else:
-        collections = Collection.order_for_display(collections)
 
     return {
         'searchform': SearchForm(),

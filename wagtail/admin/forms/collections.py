@@ -1,14 +1,13 @@
-from itertools import groupby
-
 from django import forms
 from django.contrib.auth.models import Group, Permission
 from django.db import transaction
+from django.db.models import Min
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
+from itertools import groupby
 
 from wagtail.core.models import Collection, CollectionViewRestriction, GroupCollectionPermission
 
-from ..templatetags.wagtailadmin_tags import format_collection
 from .view_restrictions import BaseViewRestrictionForm
 
 
@@ -19,28 +18,63 @@ class CollectionViewRestrictionForm(BaseViewRestrictionForm):
         fields = ('restriction_type', 'password', 'groups')
 
 
-class SelectWidget(forms.Select):
+class SelectWithDisabledOptions(forms.Select):
     """
     Subclass of Django's select widget that allows disabling options.
     """
 
     def __init__(self, *args, **kwargs):
-        self.disabled_choices = []
         super().__init__(*args, **kwargs)
+        self.disabled_values = ()
 
     def create_option(self, name, value, *args, **kwargs):
         option_dict = super().create_option(name, value, *args, **kwargs)
-        if value in self.disabled_choices:
+        if value in self.disabled_values:
             option_dict['attrs']['disabled'] = 'disabled'
         return option_dict
 
 
+class CollectionChoiceField(forms.ModelChoiceField):
+    widget = SelectWithDisabledOptions
+
+    def __init__(self, *args, disabled_queryset=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._indentation_start_depth = 2
+        self._disabled_queryset = disabled_queryset
+        if disabled_queryset is not None:
+            self.widget.disabled_values = disabled_queryset.values_list(self.to_field_name or 'pk')
+
+    def _get_disabled_queryset(self):
+        return self._disabled_queryset
+
+    def _set_disabled_queryset(self, queryset):
+        self._disabled_queryset = queryset
+        if queryset is None:
+            self.widget.disabled_values = ()
+        else:
+            self.widget.disabled_values = queryset.values_list(self.to_field_name or 'pk', flat=True)
+
+    disabled_queryset = property(_get_disabled_queryset, _set_disabled_queryset)
+
+    def _set_queryset(self, queryset):
+        min_depth = self.queryset.aggregate(Min('depth'))['depth__min']
+        if min_depth is None:
+            self._indentation_start_depth = 2
+        else:
+            self._indentation_start_depth = min_depth + 1
+
+    def label_from_instance(self, obj):
+        return obj.get_indented_name(self._indentation_start_depth)
+
+
 class CollectionForm(forms.ModelForm):
-    parent = forms.ChoiceField(
+    parent = CollectionChoiceField(
+        queryset=Collection.objects.all(),
         required=False,
-        widget=SelectWidget,
-        help_text=_("Select hierarchical position. Some options are disabled because they're descendants of "
-                    "this Collection, and therefore can't be its parent."),
+        help_text=_(
+            "Select hierarchical position. Note: a collection cannot become a child of itself or one of its "
+            "descendants."
+        )
     )
 
     class Meta:
@@ -50,19 +84,11 @@ class CollectionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        choices = Collection.objects.all().order_by('path')
-
-        if self.instance and self.instance.id:
-            self.fields['parent'].initial = self.instance.get_parent().pk
-            disabled_choices = [c.pk for c in self.instance.get_descendants(inclusive=True)]
-            self.fields['parent'].widget.disabled_choices = disabled_choices
-
+        if self.instance._state.adding:
+            self.initial['parent'] = Collection.get_first_root_node().pk
         else:
-            self.fields['parent'].initial = Collection.get_first_root_node().pk
-
-        self.fields['parent'].choices = [
-            (c.pk, format_collection(c)) for c in choices
-        ]
+            self.initial['parent'] = self.instance.get_parent().pk
+            self.fields['parent'].disabled_queryset = self.instance.get_descendants(inclusive=True)
 
 
 class BaseCollectionMemberForm(forms.ModelForm):
@@ -84,8 +110,7 @@ class BaseCollectionMemberForm(forms.ModelForm):
             self.collections = Collection.objects.all()
         else:
             self.collections = (
-                self.permission_policy.collections_user_has_permission_for(
-                    user, 'add')
+                self.permission_policy.collections_user_has_permission_for(user, 'add')
             )
 
         if self.instance.pk:
@@ -97,8 +122,7 @@ class BaseCollectionMemberForm(forms.ModelForm):
 
         if len(self.collections) == 0:
             raise Exception(
-                "Cannot construct %s for a user with no collection permissions" % type(
-                    self)
+                "Cannot construct %s for a user with no collection permissions" % type(self)
             )
         elif len(self.collections) == 1:
             # don't show collection field if only one collection is available
@@ -124,7 +148,6 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
     default_prefix - prefix to use on form fields if one is not specified in __init__
     template = template filename
     """
-
     def __init__(self, data=None, files=None, instance=None, prefix=None):
         if prefix is None:
             prefix = self.default_prefix
@@ -189,15 +212,13 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         # get a set of (collection, permission) tuples for all ticked permissions
         forms_to_save = [
             form for form in self.forms
-            if
-            form not in self.deleted_forms and 'collection' in form.cleaned_data
+            if form not in self.deleted_forms and 'collection' in form.cleaned_data
         ]
 
         final_permission_records = set()
         for form in forms_to_save:
             for permission in form.cleaned_data['permissions']:
-                final_permission_records.add(
-                    (form.cleaned_data['collection'], permission))
+                final_permission_records.add((form.cleaned_data['collection'], permission))
 
         # fetch the group's existing collection permission records for this model,
         # and from that, build a list of records to be created / deleted
@@ -229,17 +250,18 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         )
 
 
-class CollectionChoiceField(forms.ModelChoiceField):
+class CollectionPermissionsChoiceField(forms.ModelChoiceField):
     """
     Renders the names of Collections in a choice field with the appropriate nesting prefix.
     """
     def label_from_instance(self, obj):
-        return format_collection(obj)
+        return obj.get_indented_name()
 
 
 def collection_member_permission_formset_factory(
     model, permission_types, template, default_prefix=None
 ):
+
     permission_queryset = Permission.objects.filter(
         content_type__app_label=model._meta.app_label,
         codename__in=[codename for codename, short_label, long_label in permission_types]
@@ -253,7 +275,6 @@ def collection_member_permission_formset_factory(
         Allows the custom labels from ``permission_types`` to be applied to
         permission checkboxes for the ``CollectionMemberPermissionsForm`` below
         """
-
         def label_from_instance(self, obj):
             for codename, short_label, long_label in permission_types:
                 if codename == obj.codename:
@@ -266,7 +287,7 @@ def collection_member_permission_formset_factory(
         defines the permissions that are assigned to an entity
         (i.e. group or user) for a specific collection
         """
-        collection = CollectionChoiceField(
+        collection = CollectionPermissionsChoiceField(
             queryset=Collection.objects.all().prefetch_related('group_permissions')
         )
         permissions = PermissionMultipleChoiceField(
@@ -277,7 +298,7 @@ def collection_member_permission_formset_factory(
 
     GroupCollectionMemberPermissionFormSet = type(
         str('GroupCollectionMemberPermissionFormSet'),
-        (BaseGroupCollectionMemberPermissionFormSet,),
+        (BaseGroupCollectionMemberPermissionFormSet, ),
         {
             'permission_types': permission_types,
             'permission_queryset': permission_queryset,

@@ -46,11 +46,9 @@ def add(request):
     ImageForm = get_image_form(Image)
 
     collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
-    if len(collections) > 1:
-        collections_to_choose = Collection.order_for_display(collections)
-    else:
+    if len(collections) < 2:
         # no need to show a collections chooser
-        collections_to_choose = None
+        collections = None
 
     if request.method == 'POST':
         if not request.is_ajax():
@@ -128,7 +126,7 @@ def add(request):
             'allowed_extensions': ALLOWED_EXTENSIONS,
             'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
             'error_accepted_file_types': form.fields['file'].error_messages['invalid_image_extension'],
-            'collections': collections_to_choose,
+            'collections': collections,
             'form_media': form.media,
         })
 

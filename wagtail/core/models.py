@@ -25,7 +25,9 @@ from django.utils import timezone
 from django.utils.cache import patch_cache_control
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
+from django.utils.html import format_html
 from django.utils.module_loading import import_string
+from django.utils.safestring import mark_safe
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -2762,9 +2764,34 @@ class Collection(MP_Node):
         """Return a query set of all collection view restrictions that apply to this collection"""
         return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
 
-    @staticmethod
-    def order_for_display(queryset):
-        return queryset.order_by('path')
+    def get_indented_name(self, indentation_start_depth=2, plain_text=False):
+        """
+        Renders this Collection's name as a formatted string that displays its hierarchical depth via indentation.
+        If indentation_start_depth is supplied, the Collection's depth is rendered relative to that depth.
+        indentation_start_depth defaults to 2, the depth of the first non-Root Collection.
+        Pass plain_text=True to get a plain text representation of the output, instead of the default HTML.
+
+        Example HTML output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Pies"
+        Example text output: "    ↳ Pies"
+        """
+        display_depth = self.depth - indentation_start_depth
+        # A Collection with a display depth of 0 or less (Root's can be -1), should have no indent.
+        if display_depth <= 0:
+            return self.name
+
+        # Indent each level of depth by 4 spaces (the width of the ↳ character in our admin font), then add ↳
+        # before adding the name.
+        if plain_text:
+            return "{}↳ {}".format(' ' * 4 * display_depth, self.name)
+        else:
+            # We don't output a unicode ↳ character because that makes testing a hassle.
+            # &#x21b3 is the hex HTML entity for ↳.
+            return format_html(
+                "{indent}{icon} {name}",
+                indent=mark_safe('&nbsp;' * 4 * display_depth),
+                icon=mark_safe('&#x21b3'),
+                name=self.name
+            )
 
     class Meta:
         verbose_name = _('collection')

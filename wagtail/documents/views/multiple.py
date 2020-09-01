@@ -26,11 +26,9 @@ def add(request):
     DocumentMultiForm = get_document_multi_form(Document)
 
     collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
-    if len(collections) > 1:
-        collections_to_choose = Collection.order_for_display(collections)
-    else:
+    if len(collections) < 2:
         # no need to show a collections chooser
-        collections_to_choose = None
+        collections = None
 
     if request.method == 'POST':
         if not request.is_ajax():
@@ -86,7 +84,7 @@ def add(request):
 
         return TemplateResponse(request, 'wagtaildocs/multiple/add.html', {
             'help_text': form.fields['file'].help_text,
-            'collections': collections_to_choose,
+            'collections': collections,
             'form_media': form.media,
         })
 

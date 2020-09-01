@@ -572,23 +572,7 @@ def format_collection(coll: Collection, min_depth: int = 2) -> str:
     Example usage: {% format_collection collection min_depth %}
     Example output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Child Collection"
     """
-    display_depth = coll.depth - min_depth
-    # A Collection with a display depth of 0 or less (Root's can be -1),
-    # should have no indent.
-    if display_depth <= 0:
-        return coll.name
-
-    # Indent each level of depth by 4 non-breaking spaces (the width of the
-    # ↳ character in our font), then add ↳ before the name. We don't output
-    # an actual ↳ character because they make testing a hassle. '&#x21b3' is
-    # the hex HTML entity for ↳.
-    output = format_html(
-        "{indent}{icon} {name}",
-        indent=mark_safe('&nbsp;' * 4 * display_depth),
-        icon=mark_safe('&#x21b3'),
-        name=coll.name
-    )
-    return output
+    return coll.get_indented_name(min_depth)
 
 
 @register.simple_tag
