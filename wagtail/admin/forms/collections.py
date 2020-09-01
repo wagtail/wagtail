@@ -1,10 +1,11 @@
+from itertools import groupby
+
 from django import forms
 from django.contrib.auth.models import Group, Permission
 from django.db import transaction
 from django.db.models import Min
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
-from itertools import groupby
 
 from wagtail.core.models import Collection, CollectionViewRestriction, GroupCollectionPermission
 
