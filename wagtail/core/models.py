@@ -2764,12 +2764,12 @@ class Collection(MP_Node):
         """Return a query set of all collection view restrictions that apply to this collection"""
         return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
 
-    def get_indented_name(self, indentation_start_depth=2, plain_text=False):
+    def get_indented_name(self, indentation_start_depth=2, html=True):
         """
         Renders this Collection's name as a formatted string that displays its hierarchical depth via indentation.
         If indentation_start_depth is supplied, the Collection's depth is rendered relative to that depth.
         indentation_start_depth defaults to 2, the depth of the first non-Root Collection.
-        Pass plain_text=True to get a plain text representation of the output, instead of the default HTML.
+        Pass html=False to get a plain text representation of the output, instead of the default HTML.
 
         Example HTML output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Pies"
         Example text output: "    ↳ Pies"
@@ -2781,10 +2781,8 @@ class Collection(MP_Node):
 
         # Indent each level of depth by 4 spaces (the width of the ↳ character in our admin font), then add ↳
         # before adding the name.
-        if plain_text:
-            return "{}↳ {}".format(' ' * 4 * display_depth, self.name)
-        else:
-            # We don't output a unicode ↳ character because that makes testing a hassle.
+        if html:
+            # We don't output a unicode ↳ character in HTML because that makes testing a hassle.
             # &#x21b3 is the hex HTML entity for ↳.
             return format_html(
                 "{indent}{icon} {name}",
@@ -2792,6 +2790,9 @@ class Collection(MP_Node):
                 icon=mark_safe('&#x21b3'),
                 name=self.name
             )
+        else:
+            # Output unicode plaintext. Since it's not HTML, we can't use the hex HTML entity for ↳, so we just use ↳.
+            return "{}↳ {}".format(' ' * 4 * display_depth, self.name)
 
     class Meta:
         verbose_name = _('collection')
