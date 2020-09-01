@@ -8,7 +8,6 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin.auth import PermissionPolicyChecker
-from wagtail.core.models import Collection
 from wagtail.search.backends import get_search_backends
 
 from .. import get_document_model
