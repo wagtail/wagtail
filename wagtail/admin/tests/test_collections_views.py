@@ -36,11 +36,31 @@ class TestCollectionsIndexView(TestCase, WagtailTestUtils):
         root_collection = Collection.get_first_root_node()
         root_collection.add_child(name="Milk")
         root_collection.add_child(name="Bread")
-        root_collection.add_child(name="Avacado")
+        root_collection.add_child(name="Avocado")
         response = self.get()
+        # Note that the Collections have been automatically sorted by name.
         self.assertEqual(
             [collection.name for collection in response.context['object_list']],
-            ['Avacado', 'Bread', 'Milk'])
+            ['Avocado', 'Bread', 'Milk'])
+
+    def test_nested_ordering(self):
+        root_collection = Collection.get_first_root_node()
+
+        vegetables = root_collection.add_child(name="Vegetable")
+        vegetables.add_child(name="Spinach")
+        vegetables.add_child(name="Cucumber")
+
+        animals = root_collection.add_child(name="Animal")
+        animals.add_child(name="Dog")
+        animals.add_child(name="Cat")
+
+        response = self.get()
+        # Note that while we added the collections at level 1 in reverse-alpha order, they come back out in alpha order.
+        # And we added the Collections at level 2 in reverse-alpha order as well, but they were also alphabetized
+        # within their respective trees. This is the result of setting Collection.node_order_by = ['name'].
+        self.assertEqual(
+            [collection.name for collection in response.context['object_list']],
+            ['Animal', 'Cat', 'Dog', 'Vegetable', 'Cucumber', 'Spinach'])
 
 
 class TestAddCollection(TestCase, WagtailTestUtils):
@@ -80,6 +100,9 @@ class TestEditCollection(TestCase, WagtailTestUtils):
         self.login()
         self.root_collection = Collection.get_first_root_node()
         self.collection = self.root_collection.add_child(name="Holiday snaps")
+        self.l1 = self.root_collection.add_child(name="Level 1")
+        self.l2 = self.l1.add_child(name="Level 2")
+        self.l3 = self.l2.add_child(name="Level 3")
 
     def get(self, params={}, collection_id=None):
         return self.client.get(
@@ -105,10 +128,22 @@ class TestEditCollection(TestCase, WagtailTestUtils):
         response = self.get(collection_id=100000)
         self.assertEqual(response.status_code, 404)
 
+    def test_move_collection(self):
+        self.post({'name': "Level 2", 'parent': self.root_collection.pk}, self.l2.pk)
+        self.assertEqual(
+            Collection.objects.get(pk=self.l2.pk).get_parent().pk,
+            self.root_collection.pk,
+        )
+
+    def test_cannot_move_parent_collection_to_descendant(self):
+        self.post({'name': "Level 2", 'parent': self.l3.pk}, self.l2.pk)
+        self.assertEqual(
+            Collection.objects.get(pk=self.l2.pk).get_parent().pk,
+            self.l1.pk
+        )
+
     def test_post(self):
-        response = self.post({
-            'name': "Skiing photos",
-        })
+        response = self.post({'name': "Skiing photos"}, self.collection.pk)
 
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
@@ -160,6 +195,13 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/collections/delete_not_empty.html')
 
+    def test_get_collection_with_descendent(self):
+        self.collection.add_child(instance=Collection(name='Test collection'))
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/collections/delete_not_empty.html')
+
     def test_post(self):
         response = self.post()
 
@@ -174,6 +216,15 @@ class TestDeleteCollection(TestCase, WagtailTestUtils):
         Document.objects.create(
             title="Test document", collection=self.collection
         )
+
+        response = self.post()
+        self.assertEqual(response.status_code, 403)
+
+        # Check that the collection was not deleted
+        self.assertTrue(Collection.objects.get(id=self.collection.id))
+
+    def test_post_collection_with_descendant(self):
+        self.collection.add_child(instance=Collection(name='Test collection'))
 
         response = self.post()
         self.assertEqual(response.status_code, 403)
