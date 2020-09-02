@@ -18,6 +18,7 @@ Other features
  * Add ``wagtail --version`` to available Wagtail CLI commands (Kalob Taulien)
  * Add ``hooks.register_temporarily`` utility function for testing hooks (Karl Hobley. Sponsored by the Mozilla Foundation)
  * Remove unidecode and use anyascii in for Unicode to ASCII conversion (Robbie Mackay)
+ * Add ``render`` helper to ``RoutablePageMixin`` to support serving template responses according to Wagtail conventions (Andy Babic)
 
 
 Bug fixes
