@@ -93,30 +93,30 @@ def index(request, *args):
     if 'ordering' in request.GET:
         ordering = request.GET['ordering']
         if ordering == "-name":
-            users = users.order_by('-last_name', '-first_name')
+            users = users.order_by('-last_name', '-first_name', '-'+User.USERNAME_FIELD)
         elif ordering == 'username':
             users = users.order_by(User.USERNAME_FIELD)
         elif ordering == '-username':
             users = users.order_by('-'+User.USERNAME_FIELD)
         elif ordering == 'level':
-            superusers = users.filter(is_superuser=True)
-            staff = users.filter(is_staff=True).exclude(id__in=superusers)
-            others = users.filter(is_superuser=False, is_staff=False)
+            superusers = users.filter(is_superuser=True).order_by('-last_name', '-first_name', '-'+User.USERNAME_FIELD)
+            staff = users.filter(is_staff=True, is_superuser=False).order_by('-last_name', '-first_name', '-'+User.USERNAME_FIELD)
+            others = users.filter(is_superuser=False, is_staff=False).order_by('-last_name', '-first_name', '-'+User.USERNAME_FIELD)
             users = list(chain(superusers, staff, others))
         elif ordering == '-level':
-            superusers = users.filter(is_superuser=True)
-            staff = users.filter(is_staff=True).exclude(id__in=superusers)
-            others = users.filter(is_superuser=False, is_staff=False)
+            superusers = users.filter(is_superuser=True).order_by('last_name', 'first_name', User.USERNAME_FIELD)
+            staff = users.filter(is_staff=True, is_superuser=False).order_by('last_name', 'first_name', User.USERNAME_FIELD)
+            others = users.filter(is_superuser=False, is_staff=False).order_by('last_name', 'first_name', User.USERNAME_FIELD)
             users = list(chain(others, staff, superusers))
         elif ordering == 'status':
-            users = users.order_by('is_active')
+            users = users.order_by('is_active', '-last_name', '-first_name', '-'+User.USERNAME_FIELD)
         elif ordering == '-status':
-            users = users.order_by('-is_active')
+            users = users.order_by('-is_active', 'last_name', 'first_name', User.USERNAME_FIELD)
         if ordering == 'last_login':
-            all_users = users.order_by('-last_login')
+            all_users = users.order_by('-last_login', 'last_name', 'first_name', User.USERNAME_FIELD)
             users = list(chain(all_users.filter(last_login__isnull=False), all_users.filter(last_login__isnull=True)))
         if ordering == '-last_login':
-            all_users = users.order_by('last_login')
+            all_users = users.order_by('last_login', '-last_name', '-first_name', '-'+User.USERNAME_FIELD)
             users = list(chain(all_users.filter(last_login__isnull=False), all_users.filter(last_login__isnull=True)))
     else:
         ordering = 'name'
