@@ -9,11 +9,32 @@ Changelog
  * Add `wagtail --version` to available Wagtail CLI commands (Kalob Taulien)
  * Add `hooks.register_temporarily` utility function for testing hooks (Karl Hobley. Sponsored by the Mozilla Foundation)
  * Remove unidecode and use anyascii in for Unicode to ASCII conversion (Robbie Mackay)
+ * Add `render` helper to `RoutablePageMixin` to support serving template responses according to Wagtail conventions (Andy Babic)
+ * Specify minimum Python version in setup.py (Vince Salvino)
  * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
  * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
+ * Fix: Revise `edit_handler` bind order in ModelAdmin views and fix duplicate form instance creation (Jérôme Lebleu)
 
-2.10 (xx.xx.xxxx) - IN DEVELOPMENT
+
+2.10.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Avoid use of `icon` class name on userbar icon to prevent clashes with front-end styles (Karran Besen)
+
+
+2.10.1 (26.08.2020)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent `create_log_entries_from_revisions` command from failing when page model classes are missing (Dan Braghis)
+ * Fix: Prevent page audit log views from failing for user models without a `username` field (Vyacheslav Matyukhin)
+ * Fix: Fix icon alignment on menu items (Coen van der Kamp)
+ * Fix: Page editor header bar now correctly shows 'Published' or 'Draft' status when no revisions exist (Matt Westcott)
+ * Fix: Prevent page editor from failing when `USE_TZ` is false (Matt Westcott)
+ * Fix: Ensure whitespace between block-level elements is preserved when stripping tags from rich text for search indexing (Matt Westcott)
+
+
+2.10 (11.08.2020)
 ~~~~~~~~~~~~~~~~~
 
  * Added Django 3.1 support (Matt Westcott, Karl Hobley)

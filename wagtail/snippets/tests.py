@@ -841,7 +841,7 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(pk=1)
 
         # Create a user with add_advert permission but not change_advert
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='addonly',
             email='addonly@example.com',
             password='password'
@@ -849,7 +849,7 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
         add_permission = Permission.objects.get(content_type__app_label='tests', codename='add_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(add_permission, admin_permission)
-        self.assertTrue(self.client.login(username='addonly', password='password'))
+        self.login(username='addonly', password='password')
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
@@ -892,7 +892,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(pk=1)
 
         # Create a user with change_advert permission but not add_advert
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='changeonly',
             email='changeonly@example.com',
             password='password'
@@ -900,7 +900,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         change_permission = Permission.objects.get(content_type__app_label='tests', codename='change_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
-        self.assertTrue(self.client.login(username='changeonly', password='password'))
+        self.login(username='changeonly', password='password')
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
@@ -943,15 +943,14 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(pk=1)
 
         # Create a user with delete_advert permission
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='deleteonly',
-            email='deleteeonly@example.com',
             password='password'
         )
         change_permission = Permission.objects.get(content_type__app_label='tests', codename='delete_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
-        self.assertTrue(self.client.login(username='deleteonly', password='password'))
+        self.login(username='deleteonly', password='password')
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',

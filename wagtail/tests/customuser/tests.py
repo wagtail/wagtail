@@ -1,5 +1,7 @@
 import json
+import unittest
 
+from django.conf import settings
 from django.db import connections
 from django.test import TestCase
 
@@ -8,6 +10,7 @@ from wagtail.tests.utils import WagtailTestUtils
 from .fields import ConvertedValue, ConvertedValueField
 
 
+@unittest.skipUnless(settings.AUTH_USER_MODEL == 'customuser.CustomUser', "Only applicable to CustomUser")
 class TestConvertedValueField(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()

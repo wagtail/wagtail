@@ -1,0 +1,120 @@
+[
+    {
+        "pk": 1,
+        "model": "emailuser.emailuser",
+        "fields": {
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "groups": [
+            ],
+            "user_permissions": [],
+            "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+            "email": "superuser@example.com"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "emailuser.emailuser",
+        "fields": {
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "groups": [
+                ["Event editors"]
+            ],
+            "user_permissions": [],
+            "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+            "email": "eventeditor@example.com"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "emailuser.emailuser",
+        "fields": {
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "groups": [
+                ["Event moderators"]
+            ],
+            "user_permissions": [],
+            "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+            "email": "eventmoderator@example.com"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "emailuser.emailuser",
+        "fields": {
+            "first_name": "",
+            "last_name": "",
+            "is_active": false,
+            "is_superuser": false,
+            "is_staff": false,
+            "groups": [
+                ["Event moderators"]
+            ],
+            "user_permissions": [],
+            "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+            "email": "inactiveuser@example.com"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "emailuser.emailuser",
+        "fields": {
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "groups": [
+                ["Site-wide editors"]
+            ],
+            "user_permissions": [],
+            "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+            "email": "siteeditor@example.com"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "emailuser.emailuser",
+        "fields": {
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "groups": [
+                ["Admin non-editors"]
+            ],
+            "user_permissions": [],
+            "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+            "email": "admin_only_user@example.com"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "emailuser.emailuser",
+        "fields": {
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "groups": [
+                ["Corporate Editor"]
+            ],
+            "user_permissions": [],
+            "password": "md5$seasalt$1e9bf2bf5606aa5c39852cc30f0f6f22",
+            "email": "corporateeditor@example.com"
+        }
+    }
+]

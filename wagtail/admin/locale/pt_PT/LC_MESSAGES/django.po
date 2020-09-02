@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-27 18:11+0000\n"
-"Last-Translator: Luís Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -503,9 +503,6 @@ msgstr "Sex"
 
 msgid "Sat"
 msgstr "Sáb"
-
-msgid "Unknown {action}"
-msgstr "Desconhecido {action}"
 
 msgid "Error 404: Page not found"
 msgstr "Erro 404: Página não encontrada"
@@ -1744,6 +1741,9 @@ msgstr "Por Tarefa"
 msgid "No pages have been submitted for moderation yet"
 msgstr "Nenhuma página ainda foi submetida para moderação"
 
+msgid "By Workflow"
+msgstr "Por Fluxo de trabalho"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Página %(page_num)s de %(total_pages)s."
@@ -2357,8 +2357,9 @@ msgstr "A editar a tarefa do fluxo de trabalho"
 msgid "Task '{0}' updated."
 msgstr "Tarefa '{0}' atualizada."
 
-msgid "Editing {task_type}"
-msgstr "A editar {task_type}"
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "A editar %(task_type)s"
 
 msgid "Disable task"
 msgstr "Desativar tarefa"

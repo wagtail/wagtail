@@ -432,7 +432,6 @@ class TestFieldPanel(TestCase):
                                                   .bind_to(model=EventPage, request=self.request, form=self.EventPageForm()))
         self.assertEqual(end_date_panel_with_overridden_heading.heading, "New heading")
 
-
     def test_render_as_object(self):
         form = self.EventPageForm(
             {'title': 'Pontypridd sheepdog trials', 'date_from': '2014-07-20', 'date_to': '2014-07-22'},
@@ -952,7 +951,6 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         panel = speaker_inline_panel.bind_to(instance=event_page, form=form)
 
         self.assertIn('maxForms: 1000', panel.render_js_init())
-
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():

@@ -4,7 +4,7 @@
 #
 # Translators:
 # Benedikt Willi <ben.willi@gmail.com>, 2020
-# Ettore Atalan <atalanttore@googlemail.com>, 2019
+# Ettore Atalan <atalanttore@googlemail.com>, 2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:49+0100\n"
-"PO-Revision-Date: 2020-01-27 09:52+0000\n"
-"Last-Translator: Benedikt Willi <ben.willi@gmail.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-08 17:07+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -306,7 +306,7 @@ msgid "The document could not be saved due to errors."
 msgstr "Aufgrund eines Fehlers konnte das Dokument nicht gespeichert werden."
 
 msgid "Document '{0}' updated"
-msgstr "Dokument ‚{0}‘ wurde hochgeladen"
+msgstr "Dokument ‚{0}‘ aktualisiert"
 
 msgid ""
 "The file could not be found. Please change the source or delete the document"
@@ -315,7 +315,7 @@ msgstr ""
 "löschen Sie das Dokument "
 
 msgid "Document '{0}' deleted."
-msgstr "Dokument ‚{0}‘ wurde gelöscht."
+msgstr "Dokument ‚{0}‘ gelöscht."
 
 msgid "Document"
 msgstr "Dokument"

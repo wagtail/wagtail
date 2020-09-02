@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020
 # saevarom <saevar@saevar.is>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -46,6 +46,9 @@ msgstr "Lylkilorð"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Lykilorðið sem þú slóst inn er ekki rétt. Vinsamlegast reynið aftur."
+
+msgid "Comment"
+msgstr "Athugasemd"
 
 msgid "hostname"
 msgstr "slóð"
@@ -86,6 +89,9 @@ msgstr "síða"
 
 msgid "sites"
 msgstr "síður"
+
+msgid "default"
+msgstr "sjálfgefið"
 
 #, python-format
 msgid ""
@@ -173,17 +179,26 @@ msgstr "síðast gefið út"
 msgid "latest revision created at"
 msgstr "síðasta útgáfa búin til"
 
+msgid "live revision"
+msgstr "útgáfa í birtingu"
+
 msgid "This slug is already in use"
 msgstr "Þessi vefslóð (e.slug) er þegar í notkun"
 
 msgid "scheduled"
 msgstr "tímasett"
 
+msgid "in moderation"
+msgstr "bíður samþykktar"
+
 msgid "draft"
 msgstr "uppkast"
 
 msgid "live + scheduled"
 msgstr "í loftinu + tímasett"
+
+msgid "live + in moderation"
+msgstr "í birtingu + bíður samþykktar"
 
 msgid "live + draft"
 msgstr "í birtingu + uppkast"
@@ -319,6 +334,159 @@ msgstr "safnheimild hóps"
 
 msgid "group collection permissions"
 msgstr "Myndasafns heimildir hóps"
+
+msgid "workflow"
+msgstr "vinnuflæði"
+
+msgid "workflow page"
+msgstr "síða vinnuflæðis"
+
+msgid "workflow pages"
+msgstr "síður vinnuflæðis"
+
+msgid "workflow_tasks"
+msgstr "skref vinnuflæðis"
+
+msgid "task"
+msgstr "verkefni"
+
+msgid "workflow task order"
+msgstr "röðun vinnuflæði verkefna"
+
+msgid "workflow task orders"
+msgstr "röðun skrefa vinnuflæðis"
+
+msgid "active"
+msgstr "virkt"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Hægt er að bæta virkum skrefum við vinnuflæði. Það að óvirkja skref "
+"fjarlægir það ekki úr núverandi vinnuflæðum."
+
+msgid "tasks"
+msgstr "skref"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Hægt er að bæta virkum vinnuflæðum á síður. Það að óvirkja vinnuflæði "
+"fjarlægir það ekki úr áður viðhengdum síðum."
+
+msgid "workflows"
+msgstr "vinnuflæði"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Síður á þessu skrefi í vinnuflæði verða yfirfarnar og samþykktar af þessum "
+"notendum"
+
+msgid "Request changes"
+msgstr "Biðja um breytingu"
+
+msgid "Approve"
+msgstr "Samþykkja"
+
+msgid "Approve with comment"
+msgstr "Samþykkja með athugasemd"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Meðlimir valdrar Wagtail grúppu geta samþykkt þetta skref"
+
+msgid "Group approval task"
+msgstr "Hópsamþykktar skref"
+
+msgid "Group approval tasks"
+msgstr "Hópsamþykktar skref"
+
+msgid "In progress"
+msgstr "Í vinnslu"
+
+msgid "Approved"
+msgstr "Samþykkt"
+
+msgid "Needs changes"
+msgstr "Þarfnast breytinga"
+
+msgid "Cancelled"
+msgstr "Hætt við"
+
+msgid "status"
+msgstr "staða"
+
+msgid "requested by"
+msgstr "umbeðið af"
+
+msgid "current task state"
+msgstr "núverandi staða skrefs"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Aðeins eitt vinnuflæði með stöðuna \"í gangi\" eða \"þarfnast breytinga\" má "
+"vera á hverri síðu."
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Vinnuflæði '{0}' á síðu '{1}': {2}"
+
+msgid "Not started"
+msgstr "Ekki byrjað"
+
+msgid "Workflow state"
+msgstr "Staða vinnuflæðis"
+
+msgid "Workflow states"
+msgstr "Stöður vinnuflæðis"
+
+msgid "Rejected"
+msgstr "Hafnað"
+
+msgid "Skipped"
+msgstr "Sleppt"
+
+msgid "workflow state"
+msgstr "staða vinnuflæðis"
+
+msgid "started at"
+msgstr "byrjaði"
+
+msgid "finished at"
+msgstr "endaði"
+
+msgid "finished by"
+msgstr "endar"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Skref '{0}' á síðu útgáfu '{1}': {2}"
+
+msgid "Task state"
+msgstr "Staða skrefs"
+
+msgid "Task states"
+msgstr "Stöður skrefs"
+
+msgid "timestamp (UTC)"
+msgstr "tímastimpill (UTC)"
+
+msgid "log entry"
+msgstr "atburðaskráning"
+
+msgid "log entries"
+msgstr "atburðaskráningar"
+
+msgid "system"
+msgstr "kerfi"
+
+msgid "page log entry"
+msgstr "atburðaskráning síðu"
+
+msgid "page log entries"
+msgstr "atburðaskráningar síðu"
 
 msgid "Log in"
 msgstr "Innskrá"

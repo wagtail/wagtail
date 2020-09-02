@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
-"PO-Revision-Date: 2020-07-28 20:20+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 15:53+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -499,8 +499,9 @@ msgstr "V"
 msgid "Sat"
 msgstr "S"
 
-msgid "Unknown {action}"
-msgstr "Necunoscut {action}"
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Acțiune necunoscută %(action)s"
 
 msgid "Error 404: Page not found"
 msgstr "Eroare 404: Pagina nu a fost găsită"
@@ -1753,6 +1754,9 @@ msgstr "După sarcină"
 msgid "No pages have been submitted for moderation yet"
 msgstr "Nici o pagină nu a fost trimisă pentru moderarare"
 
+msgid "By Workflow"
+msgstr "După flux de lucru"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s din %(total_pages)s."
@@ -2374,8 +2378,9 @@ msgstr "Editare sarcină de flux de lucru"
 msgid "Task '{0}' updated."
 msgstr "Sarcina '{0}' a fost actualizată."
 
-msgid "Editing {task_type}"
-msgstr "Editare {task_type}"
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Editare %(task_type)s"
 
 msgid "Disable task"
 msgstr "Dezactivează sarcină"
@@ -2550,6 +2555,15 @@ msgid "Rejected"
 msgstr "A respins"
 
 #, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Revenit la versiunea precendentă cu ID %(revision_id)s de la %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "A revenit la o versiune precedentă"
+
+#, python-format
 msgid "Copied from %(title)s"
 msgstr "A fost copiată de la %(title)s"
 
@@ -2624,6 +2638,9 @@ msgstr "A fost redenumită"
 msgid "Rename"
 msgstr "Redenumire"
 
+msgid "Revert"
+msgstr "A inversat"
+
 msgid "Schedule publication"
 msgstr "Porgramează publicare"
 
@@ -2651,13 +2668,44 @@ msgstr "A fost probată la '%(task)s'. Faza următoare '%(next_task)s'"
 msgid "Approved at '%(task)s'. '%(workflow)s' complete"
 msgstr "A fost probată la '%(task)s'. '%(workflow)s' complet"
 
+msgid "Workflow task approved"
+msgstr "Sarcina de flux lucru a fost aprobată"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "A fost respinsă la '%(task)s'. Au fost solicitate modificări"
 
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Sarcina de flux de lucru a fost respinsă. Flux de lucru complet"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "A retrimis '%(task)s'. Flux de lucru rezumat"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Sarcină de lucru retrimisă. Flux de lucru rezumat"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "'%(workflow)s' a fost anulat la '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Flux de lucru anulat"
+
+msgid "Workflow: start"
+msgstr "Flux de lucru: începe"
+
+msgid "Workflow: approve task"
+msgstr "Flux de lucru: aprobă sarcină"
+
+msgid "Workflow: reject task"
+msgstr "Flux de lucru: respinge sarcină"
+
+msgid "Workflow: resume task"
+msgstr "Flux de lucru: reluează sarcină"
+
+msgid "Workflow: cancel"
+msgstr "Flux de lucru: anulează"
 
 msgid "Yes"
 msgstr "Da"

@@ -246,7 +246,6 @@ class TestTableBlock(TestCase):
         self.assertIn("Test 1", result)
         self.assertIn("<div>A fascinating table.</div>", result)
 
-
     def test_table_block_caption_render(self):
         """
         Test a generic render with caption.
@@ -376,7 +375,6 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         # check value that is not part of the defaults
         block_3_opts = TableBlock(table_options={'allowEmpty': False}).table_options
         self.assertEqual(block_3_opts['allowEmpty'], False)
-
 
     def test_tableblock_render_form(self):
         """

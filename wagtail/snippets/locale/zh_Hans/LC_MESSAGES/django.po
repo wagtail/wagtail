@@ -8,15 +8,15 @@
 # First Last <abc+github@mynook.info>, 2019
 # Fred Zeng <979738295@qq.com>, 2016
 # hanfeng <appweb.cn@gmail.com>, 2014
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-24 17:37+0100\n"
+"POT-Creation-Date: 2020-08-03 18:02+0100\n"
 "PO-Revision-Date: 2019-11-01 02:56+0000\n"
 "Last-Translator: First Last <abc+github@mynook.info>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"

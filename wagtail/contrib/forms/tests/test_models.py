@@ -211,7 +211,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         self.assertContains(response, "<p>hello world</p>")
 
         # check that the custom form_submission is added to the context
-        self.assertContains(response, "<p>Username: test@email.com</p>")
+        self.assertContains(response, "<p>User email: test@email.com</p>")
 
         # Check that an email was sent
         self.assertEqual(len(mail.outbox), 1)
@@ -559,7 +559,6 @@ class TestCleanedDataEmails(TestCase):
         self.assertEqual(len(mail.outbox), 2)
         self.assertIn("Date: 12/31/1917", mail.outbox[1].body)
 
-
     @override_settings(SHORT_DATETIME_FORMAT='m/d/Y P')
     def test_datetime_normalization(self):
         self.client.post('/contact-us/', {
@@ -584,12 +583,11 @@ class TestCleanedDataEmails(TestCase):
         self.assertIn("Datetime: 12/21/1910 9:19 p.m.", mail.outbox[2].body)
 
 
-
-class TestIssue798(TestCase):
+class TestIssue798(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us/').specific
 
         # Add a number field to the page
@@ -623,16 +621,14 @@ class TestNonHtmlExtension(TestCase):
         self.assertEqual(form_page.landing_page_template, "tests/form_page_landing.jade")
 
 
-class TestLegacyFormFieldCleanNameChecks(TestCase):
+class TestLegacyFormFieldCleanNameChecks(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
-        self.assertTrue(self.client.login(username='siteeditor', password='password'))
+        self.login(username='siteeditor', password='password')
         self.form_page = Page.objects.get(url_path='/home/contact-us-one-more-time/').specific
 
-
     def test_form_field_clean_name_update_on_checks(self):
-
         fields_before_checks = [
             (field.label, field.clean_name,)
             for field in FormFieldWithCustomSubmission.objects.all()
@@ -652,7 +648,6 @@ class TestLegacyFormFieldCleanNameChecks(TestCase):
             messages,
             [Info('Added `clean_name` on 3 form field(s)', obj=FormFieldWithCustomSubmission)]
         )
-
 
         fields_after_checks = [
             (field.label, field.clean_name,)

@@ -119,6 +119,49 @@ class RoutablePageMixin:
             return super().serve(request, *args, **kwargs)
         return view(request, *args, **kwargs)
 
+    def render(self, request, *args, template=None, context_overrides=None, **kwargs):
+        """
+        .. versionadded:: 2.11
+
+        This method replicates what ``Page.serve()`` usually does when ``RoutablePageMixin``
+        is not used. By default, ``Page.get_template()`` is called to derive the template
+        to use for rendering, and ``Page.get_context()`` is always called to gather the
+        data to be included in the context.
+
+        You can use the ``context_overrides`` keyword argument as a shortcut to override or
+        add new values to the context. For example:
+
+        .. code-block:: python
+
+            @route(r'^$') # override the default route
+            def upcoming_events(self, request):
+                return self.render(request, context_overrides={
+                    'title': "Current events",
+                    'events': EventPage.objects.live().future(),
+                })
+
+        You can also use the ``template`` arguement to specify an alternative
+        template to use for rendering. For example:
+
+        .. code-block:: python
+
+            @route(r'^past/$')
+            def past_events(self, request):
+                return self.render(
+                    request,
+                    context_overrides={
+                        'title': "Past events",
+                        'events': EventPage.objects.live().past(),
+                    },
+                    template="events/event_index_historical.html",
+                )
+        """
+        if template is None:
+            template = self.get_template(request, *args, **kwargs)
+        context = self.get_context(request, *args, **kwargs)
+        context.update(context_overrides or {})
+        return TemplateResponse(request, template, context)
+
     def serve_preview(self, request, mode_name):
         view, args, kwargs = self.resolve_subpage('/')
         request.is_preview = True

@@ -162,7 +162,6 @@ def edit(request, document_id):
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(doc)
 
-
             messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
                 messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
             ])

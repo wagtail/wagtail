@@ -73,7 +73,7 @@ class TestPageMove(TestCase, WagtailTestUtils):
         # to verify that a user without bulk delete permission is able to move a page with a child page
 
         self.client.logout()
-        user = get_user_model().objects.get(username='siteeditor')
+        user = get_user_model().objects.get(email='siteeditor@example.com')
         self.login(user)
 
         # ensure the bulk_delete is not applicable to this user
@@ -85,7 +85,6 @@ class TestPageMove(TestCase, WagtailTestUtils):
         )
 
         self.assertEqual(response.status_code, 200)
-
 
     def test_page_move_confirm(self):
         response = self.client.get(

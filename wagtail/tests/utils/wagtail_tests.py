@@ -16,25 +16,63 @@ class WagtailTestUtils:
         # Create a user
         user_data = dict()
         user_data[user_model.USERNAME_FIELD] = 'test@email.com'
+        user_data['email'] = 'test@email.com'
         user_data['password'] = 'password'
 
         for field in user_model.REQUIRED_FIELDS:
-            user_data[field] = field
+            if field not in user_data:
+                user_data[field] = field
 
         return user_model.objects.create_superuser(**user_data)
 
-    def login(self, user=None):
-        if user is None:
-            user = self.create_test_user()
+    def login(self, user=None, username=None, password='password'):
+        # wrapper for self.client.login that works interchangeably for user models
+        # with email as the username field; in this case it will use the passed username
+        # plus '@example.com'
 
         user_model = get_user_model()
+
+        if username is None:
+            if user is None:
+                user = self.create_test_user()
+
+            username = getattr(user, user_model.USERNAME_FIELD)
+
+        if user_model.USERNAME_FIELD == 'email' and '@' not in username:
+            username = '%s@example.com' % username
+
         # Login
         self.assertTrue(
-            self.client.login(password='password',
-                              **{user_model.USERNAME_FIELD: getattr(user, user_model.USERNAME_FIELD, 'test@email.com')})
+            self.client.login(password=password, **{user_model.USERNAME_FIELD: username})
         )
 
         return user
+
+    @staticmethod
+    def create_user(username, email=None, password=None, **kwargs):
+        # wrapper for get_user_model().objects.create_user that works interchangeably for user models
+        # with and without a username field
+        User = get_user_model()
+
+        kwargs['email'] = email or "%s@example.com" % username
+        kwargs['password'] = password
+        if User.USERNAME_FIELD != 'email':
+            kwargs[User.USERNAME_FIELD] = username
+
+        return User.objects.create_user(**kwargs)
+
+    @staticmethod
+    def create_superuser(username, email=None, password=None, **kwargs):
+        # wrapper for get_user_model().objects.create_user that works interchangeably for user models
+        # with and without a username field
+        User = get_user_model()
+
+        kwargs['email'] = email or "%s@example.com" % username
+        kwargs['password'] = password
+        if User.USERNAME_FIELD != 'email':
+            kwargs[User.USERNAME_FIELD] = username
+
+        return User.objects.create_superuser(**kwargs)
 
     @staticmethod
     @contextmanager

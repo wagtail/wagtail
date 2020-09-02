@@ -90,9 +90,31 @@ class TestRoutablePage(TestCase):
         self.assertEqual(url, 'external-no-arg/')
 
     def test_get_index_route_view(self):
-        response = self.client.get(self.routable_page.url)
+        with self.assertTemplateUsed('routablepagetests/routable_page_test.html'):
+            response = self.client.get(self.routable_page.url)
+            context = response.context_data
+            self.assertEqual(
+                (context['page'], context['self'], context.get('foo')),
+                (self.routable_page, self.routable_page, None)
+            )
 
-        self.assertContains(response, "DEFAULT PAGE TEMPLATE")
+    def test_get_render_method_route_view(self):
+        with self.assertTemplateUsed('routablepagetests/routable_page_test.html'):
+            response = self.client.get(self.routable_page.url + 'render-method-test/')
+            context = response.context_data
+            self.assertEqual(
+                (context['page'], context['self'], context['foo']),
+                (self.routable_page, None, 'bar')
+            )
+
+    def test_get_render_method_route_view_with_custom_template(self):
+        with self.assertTemplateUsed('routablepagetests/routable_page_test_alternate.html'):
+            response = self.client.get(self.routable_page.url + 'render-method-test-custom-template/')
+            context = response.context_data
+            self.assertEqual(
+                (context['page'], context['self'], context['foo']),
+                (self.routable_page, 1, 'fighters')
+            )
 
     def test_get_routable_page_with_overridden_index_route(self):
         page = self.home_page.add_child(
@@ -279,7 +301,6 @@ class TestRoutablePageTemplateTagForSecondSiteAtDifferentRoot(TestCase):
 
         self.request.META['HTTP_HOST'] = second_site.hostname
         self.request.META['SERVER_PORT'] = second_site.port
-
 
     def test_templatetag_reverse_index_route(self):
         url = routablepageurl(self.context, self.routable_page,

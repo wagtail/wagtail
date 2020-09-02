@@ -18,6 +18,8 @@ Other features
  * Add ``wagtail --version`` to available Wagtail CLI commands (Kalob Taulien)
  * Add ``hooks.register_temporarily`` utility function for testing hooks (Karl Hobley. Sponsored by the Mozilla Foundation)
  * Remove unidecode and use anyascii in for Unicode to ASCII conversion (Robbie Mackay)
+ * Add ``render`` helper to ``RoutablePageMixin`` to support serving template responses according to Wagtail conventions (Andy Babic)
+ * Specify minimum Python version in setup.py (Vince Salvino)
 
 
 Bug fixes
@@ -26,6 +28,7 @@ Bug fixes
  * Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
  * ``WAGTAILFRONTENDCACHE_LANGUAGES`` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Update oEmbed endpoints to use https where available (Matt Westcott)
+ * Revise ``edit_handler`` bind order in ModelAdmin views and fix duplicate form instance creation (Jérôme Lebleu)
 
 
 Upgrade considerations
@@ -34,4 +37,4 @@ Upgrade considerations
 SiteMiddleware moved to ``wagtail.contrib.legacy``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The SiteMiddleware class (which provides the ``request.site`` property, and has been deprecated since Wagtail 2.9) has been moved to the ``wagtail.contrib.legacy`` namespace. On projects where this is still in use, the ``'wagtail.core.middleware.SiteMiddleware'`` entry in ``MIDDLEWARES`` should be changed to ``'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware'``.
+The SiteMiddleware class (which provides the ``request.site`` property, and has been deprecated since Wagtail 2.9) has been moved to the ``wagtail.contrib.legacy`` namespace. On projects where this is still in use, the ``'wagtail.core.middleware.SiteMiddleware'`` entry in ``MIDDLEWARE`` should be changed to ``'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware'``.

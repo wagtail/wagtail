@@ -198,7 +198,6 @@ class TestAdminTagWidget(TestCase):
                 return json.loads('[%s]' % params_raw)
         return []
 
-
     def test_render_js_init_basic(self):
         """Checks that the 'initTagField' is correctly added to the inline script for tag widgets"""
         widget = widgets.AdminTagWidget()
@@ -210,7 +209,6 @@ class TestAdminTagWidget(TestCase):
             params,
             ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': False}]
         )
-
 
     @override_settings(TAG_SPACES_ALLOWED=False)
     def test_render_js_init_no_spaces_allowed(self):
@@ -224,7 +222,6 @@ class TestAdminTagWidget(TestCase):
             params,
             ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': False, 'tagLimit': None, 'autocompleteOnly': False}]
         )
-
 
     @override_settings(TAG_LIMIT=5)
     def test_render_js_init_with_tag_limit(self):

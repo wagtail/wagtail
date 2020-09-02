@@ -1,7 +1,6 @@
 from datetime import timedelta
 from unittest import mock
 
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
@@ -11,13 +10,14 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
     avatar_url, notification_static, timesince_last_update, timesince_simple)
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 
-class TestAvatarTemplateTag(TestCase):
+class TestAvatarTemplateTag(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user
-        self.test_user = get_user_model().objects.create_user(
+        self.test_user = self.create_user(
             username='testuser',
             email='testuser@email.com',
             password='password',

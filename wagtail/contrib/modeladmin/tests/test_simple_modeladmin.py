@@ -1,7 +1,6 @@
 from io import BytesIO
 from unittest import mock
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import checks
 from django.test import TestCase
@@ -129,7 +128,6 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         response = self.get()
 
         self.assertContains(response, '<input id="id_q"')
-
 
     def test_search_form_absent(self):
         # DjangoORMSearchHandler + no search_fields, search form should be absent
@@ -267,6 +265,13 @@ class TestCreateView(TestCase, WagtailTestUtils):
                 self.assertTrue(mock_form_fields_exclude.called)
                 m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
 
+    def test_clean_form_once(self):
+        with mock.patch('wagtail.tests.modeladmintest.wagtail_hooks.PublisherModelAdminForm.clean') as mock_form_clean:
+            response = self.client.post('/admin/modeladmintest/publisher/create/', {'name': ''})
+            self.assertEqual(response.status_code, 200)
+
+            mock_form_clean.assert_called_once()
+
 
 class TestInspectView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
@@ -395,6 +400,15 @@ class TestEditView(TestCase, WagtailTestUtils):
                 self.assertTrue(mock_form_fields_exclude.called)
                 m.assert_called_with(Book, exclude=mock_form_fields_exclude.return_value)
 
+    def test_clean_form_once(self):
+        with mock.patch('wagtail.tests.modeladmintest.wagtail_hooks.PublisherModelAdminForm.clean') as mock_form_clean:
+            publisher = Publisher.objects.create(name='Sharper Collins')
+
+            response = self.client.post('/admin/modeladmintest/publisher/edit/%d/' % publisher.pk, {'name': ''})
+            self.assertEqual(response.status_code, 200)
+
+            mock_form_clean.assert_called_once()
+
 
 class TestPageSpecificViews(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
@@ -487,7 +501,6 @@ class TestDeleteViewWithProtectedRelation(TestCase, WagtailTestUtils):
         # Author deleted
         self.assertFalse(Author.objects.filter(id=4).exists())
 
-
     def test_post_with_1to1_dependent_object(self):
         response = self.post(5)
 
@@ -516,21 +529,18 @@ class TestDeleteViewModelReprPrimary(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
 
-class TestEditorAccess(TestCase):
+class TestEditorAccess(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
     expected_status_code = 403
 
-    def login(self):
+    def setUp(self):
         # Create a user
-        user = get_user_model().objects._create_user(username='test2', email='test2@email.com', password='password', is_staff=True, is_superuser=False)
+        user = self.create_user(username='test2', password='password')
         user.groups.add(Group.objects.get(pk=2))
         # Login
-        self.client.login(username='test2', password='password')
+        self.login(username='test2', password='password')
 
         return user
-
-    def setUp(self):
-        self.login()
 
     def test_index_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/')
@@ -622,9 +632,7 @@ class TestPanelConfigurationChecks(TestCase, WagtailTestUtils):
 
         self.get_checks_result = get_checks_result
 
-
     def test_model_with_single_tabbed_panel_only(self):
-
         Publisher.content_panels = [FieldPanel('name'), FieldPanel('headquartered_in')]
 
         warning = checks.Warning(
@@ -644,12 +652,9 @@ There are no default tabs on non-Page models so there will be no\
         # clean up for future checks
         delattr(Publisher, 'content_panels')
 
-
     def test_model_with_two_tabbed_panels_only(self):
-
         Publisher.settings_panels = [FieldPanel('name')]
         Publisher.promote_panels = [FieldPanel('headquartered_in')]
-
 
         warning_1 = checks.Warning(
             "Publisher.promote_panels will have no effect on modeladmin editing",
@@ -680,9 +685,7 @@ There are no default tabs on non-Page models so there will be no\
         delattr(Publisher, 'settings_panels')
         delattr(Publisher, 'promote_panels')
 
-
     def test_model_with_single_tabbed_panel_and_edit_handler(self):
-
         Publisher.content_panels = [FieldPanel('name'), FieldPanel('headquartered_in')]
         Publisher.edit_handler = TabbedInterface(Publisher.content_panels)
 

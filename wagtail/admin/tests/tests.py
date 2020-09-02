@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import json
+import unittest
 
 from django import VERSION as DJANGO_VERSION
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
 from django.test import TestCase, override_settings
@@ -75,10 +76,11 @@ class TestHome(TestCase, WagtailTestUtils):
         self.assertIn('max-age=0', response['Cache-Control'])
         self.assertIn('must-revalidate', response['Cache-Control'])
 
+    @unittest.skipIf(settings.AUTH_USER_MODEL == 'emailuser.EmailUser', "Only applicable to CustomUser")
     def test_nonascii_email(self):
         # Test that non-ASCII email addresses don't break the admin; previously these would
         # cause a failure when generating Gravatar URLs
-        get_user_model().objects.create_superuser(username='snowman', email='☃@thenorthpole.com', password='password')
+        self.create_superuser(username='snowman', email='☃@thenorthpole.com', password='password')
         # Login
         self.assertTrue(self.client.login(username='snowman', password='password'))
         response = self.client.get(reverse('wagtailadmin_home'))
@@ -262,64 +264,64 @@ class TestMenuItem(TestCase, WagtailTestUtils):
         self.assertEqual(menuitem.is_active(self.request), True)
 
 
-class TestUserPassesTestPermissionDecorator(TestCase):
+class TestUserPassesTestPermissionDecorator(TestCase, WagtailTestUtils):
     """
     Test for custom user_passes_test permission decorators.
     testapp_bob_only_zone is a view configured to only grant access to users with a first_name of Bob
     """
     def test_user_passes_test(self):
         # create and log in as a user called Bob
-        get_user_model().objects.create_superuser(first_name='Bob', last_name='Mortimer', username='test', email='test@email.com', password='password')
-        self.assertTrue(self.client.login(username='test', password='password'))
+        self.create_superuser(first_name='Bob', last_name='Mortimer', username='test', password='password')
+        self.login(username='test', password='password')
 
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertEqual(response.status_code, 200)
 
     def test_user_fails_test(self):
         # create and log in as a user not called Bob
-        get_user_model().objects.create_superuser(first_name='Vic', last_name='Reeves', username='test', email='test@email.com', password='password')
-        self.assertTrue(self.client.login(username='test', password='password'))
+        self.create_superuser(first_name='Vic', last_name='Reeves', username='test', password='password')
+        self.login(username='test', password='password')
 
         response = self.client.get(reverse('testapp_bob_only_zone'))
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
     def test_user_fails_test_ajax(self):
         # create and log in as a user not called Bob
-        get_user_model().objects.create_superuser(first_name='Vic', last_name='Reeves', username='test', email='test@email.com', password='password')
-        self.assertTrue(self.client.login(username='test', password='password'))
+        self.create_superuser(first_name='Vic', last_name='Reeves', username='test', password='password')
+        self.login(username='test', password='password')
 
         response = self.client.get(reverse('testapp_bob_only_zone'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 403)
 
 
-class TestUserHasAnyPagePermission(TestCase):
+class TestUserHasAnyPagePermission(TestCase, WagtailTestUtils):
     def test_superuser(self):
-        user = get_user_model().objects.create_superuser(
+        user = self.create_superuser(
             username='superuser', email='admin@example.com', password='p')
         self.assertTrue(user_has_any_page_permission(user))
 
     def test_inactive_superuser(self):
-        user = get_user_model().objects.create_superuser(
+        user = self.create_superuser(
             username='superuser', email='admin@example.com', password='p')
         user.is_active = False
         self.assertFalse(user_has_any_page_permission(user))
 
     def test_editor(self):
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='editor', email='ed@example.com', password='p')
         editors = Group.objects.get(name='Editors')
         user.groups.add(editors)
         self.assertTrue(user_has_any_page_permission(user))
 
     def test_moderator(self):
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moderator', email='mod@example.com', password='p')
         editors = Group.objects.get(name='Moderators')
         user.groups.add(editors)
         self.assertTrue(user_has_any_page_permission(user))
 
     def test_no_permissions(self):
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='pleb', email='pleb@example.com', password='p')
         user.user_permissions.add(
             Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')

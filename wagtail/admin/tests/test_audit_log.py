@@ -10,7 +10,7 @@ from freezegun import freeze_time
 from wagtail.admin.log_action_registry import LogActionRegistry
 from wagtail.core.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
 from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils, get_user_model
+from wagtail.tests.utils import WagtailTestUtils
 
 
 def test_hook(actions):
@@ -57,13 +57,12 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         self.about_page = SimplePage(title="About", slug="about", content="hello")
         self.root_page.add_child(instance=self.about_page)
 
-        User = get_user_model()
-        self.administrator = User.objects.create_superuser(
+        self.administrator = self.create_superuser(
             username='administrator',
             email='administrator@email.com',
             password='password'
         )
-        self.editor = User.objects.create_user(username='the_editor', email='editor@email.com', password='password')
+        self.editor = self.create_user(username='the_editor', email='the_editor@example.com', password='password')
         sub_editors = Group.objects.create(name='Sub editors')
         sub_editors.permissions.add(Permission.objects.get(
             content_type__app_label='wagtailadmin',

@@ -558,10 +558,16 @@ class TestRichTextBlock(TestCase):
         result = block.get_searchable_content(value)
         self.assertEqual(
             result, [
-                'Merry Christmas! & a happy new year\n'
+                'Merry Christmas! & a happy new year \n'
                 'Our Santa pet Wagtail has some cool stuff in store for you all!'
             ]
         )
+
+    def test_get_searchable_content_whitespace(self):
+        block = blocks.RichTextBlock()
+        value = RichText('<p>mashed</p><p>po<i>ta</i>toes</p>')
+        result = block.get_searchable_content(value)
+        self.assertEqual(result, ['mashed potatoes'])
 
 
 class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
@@ -1823,7 +1829,6 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean(value)
 
-
     def test_initialisation_from_subclass(self):
 
         class LinkStructValue(blocks.StructValue):
@@ -1847,7 +1852,6 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
 
         default_value = block.get_default()
         self.assertIsInstance(default_value, LinkStructValue)
-
 
     def test_initialisation_with_multiple_subclassses(self):
         class LinkStructValue(blocks.StructValue):
@@ -1907,7 +1911,6 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
             'source': 'google', 'classname': 'full-size',
         })
         self.assertIsInstance(block_value, LinkStructValue)
-
 
     def test_value_property(self):
 
@@ -3257,7 +3260,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
 
         # including leading space to ensure class name gets added correctly
         self.assertEqual(html.count(' rocket-section'), 1)
-
 
     def test_render_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering stream block"""

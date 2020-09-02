@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
@@ -8,12 +9,12 @@ from freezegun import freeze_time
 from wagtail.core.models import (
     Page, PageLogEntry, PageViewRestriction, Task, Workflow, WorkflowTask)
 from wagtail.tests.testapp.models import SimplePage
+from wagtail.tests.utils import WagtailTestUtils
 
 
-class TestAuditLogManager(TestCase):
+class TestAuditLogManager(TestCase, WagtailTestUtils):
     def setUp(self):
-        User = get_user_model()
-        self.user = User.objects.create_superuser(
+        self.user = self.create_superuser(
             username='administrator',
             email='administrator@email.com',
             password='password'
@@ -126,7 +127,9 @@ class TestAuditLog(TestCase):
         self.assertEqual(PageLogEntry.objects.filter(action='wagtail.revert').count(), 1)
 
     def test_revision_schedule_publish(self):
-        go_live_at = timezone.make_aware(datetime.now() + timedelta(days=1))
+        go_live_at = datetime.now() + timedelta(days=1)
+        if settings.USE_TZ:
+            go_live_at = timezone.make_aware(go_live_at)
         self.home_page.go_live_at = go_live_at
 
         # with no live revision
@@ -142,7 +145,11 @@ class TestAuditLog(TestCase):
         revision1 = self.home_page.save_revision()
         revision2 = self.home_page.save_revision()
 
-        self.home_page.go_live_at = timezone.make_aware(datetime.now() + timedelta(days=1))
+        if settings.USE_TZ:
+            self.home_page.go_live_at = timezone.make_aware(datetime.now() + timedelta(days=1))
+        else:
+            self.home_page.go_live_at = datetime.now() + timedelta(days=1)
+
         schedule_revision = self.home_page.save_revision(log_action=True, previous_revision=revision2)
         schedule_revision.publish(previous_revision=revision1)
 
@@ -152,7 +159,10 @@ class TestAuditLog(TestCase):
         )
 
     def test_revision_cancel_schedule(self):
-        self.home_page.go_live_at = timezone.make_aware(datetime.now() + timedelta(days=1))
+        if settings.USE_TZ:
+            self.home_page.go_live_at = timezone.make_aware(datetime.now() + timedelta(days=1))
+        else:
+            self.home_page.go_live_at = datetime.now() + timedelta(days=1)
         revision = self.home_page.save_revision()
         revision.publish()
 

@@ -17,7 +17,6 @@ def ancestor_of_q(page):
 def create_default_workflows(apps, schema_editor):
     # This will recreate the existing publish-permission based moderation setup in the new workflow system, by creating new workflows
 
-
     # Get models
     ContentType = apps.get_model('contenttypes.ContentType')
     Workflow = apps.get_model('wagtailcore.Workflow')

@@ -21,6 +21,10 @@ matrix:
      python: 3.8
    - env: TOXENV=py38-dj31-postgres-noelasticsearch
      python: 3.8
+   - env: TOXENV=py38-dj31-postgres-noelasticsearch-emailuser
+     python: 3.8
+   - env: TOXENV=py38-dj31-postgres-noelasticsearch-notz
+     python: 3.8
    - env: TOXENV=py38-dj31stable-postgres-noelasticsearch
      python: 3.8
    - env: TOXENV=py38-djmaster-postgres-noelasticsearch
@@ -37,6 +41,8 @@ matrix:
      python: 3.8
    - env: TOXENV=py38-dj31-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
      python: 3.8
+   - env: TOXENV=py38-dj31-postgres-elasticsearch7-emailuser INSTALL_ELASTICSEARCH7=yes
+     python: 3.8
   allow_failures:
     # Ignore failures on Elasticsearch tests because ES on Travis is intermittently flaky
     - env: TOXENV=py36-dj22-sqlite-elasticsearch2 INSTALL_ELASTICSEARCH2=yes
@@ -45,6 +51,7 @@ matrix:
     - env: TOXENV=py38-dj22-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
     - env: TOXENV=py38-dj30-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
     - env: TOXENV=py38-dj31-postgres-elasticsearch7 INSTALL_ELASTICSEARCH7=yes
+    - env: TOXENV=py38-dj31-postgres-elasticsearch7-emailuser INSTALL_ELASTICSEARCH7=yes
     # allow failures against Django pre-releases on git
     - env: TOXENV=py38-dj31stable-postgres-noelasticsearch
     - env: TOXENV=py38-djmaster-postgres-noelasticsearch

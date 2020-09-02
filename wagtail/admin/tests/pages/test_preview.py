@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.views.pages import PreviewOnEdit
+from wagtail.admin.views.pages.preview import PreviewOnEdit
 from wagtail.core.models import Page
 from wagtail.tests.testapp.models import EventCategory, SimplePage, StreamPage
 from wagtail.tests.utils import WagtailTestUtils

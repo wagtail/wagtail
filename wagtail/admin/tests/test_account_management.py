@@ -4,6 +4,7 @@ import tempfile
 import pytz
 
 from django import VERSION as DJANGO_VERSION
+from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -41,11 +42,11 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         the user was logged in successfully
         """
         # Create user to log in with
-        get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
+        self.create_superuser(username='test', email='test@email.com', password='password')
 
         # Post credentials to the login page
         response = self.client.post(reverse('wagtailadmin_login'), {
-            'username': 'test',
+            'username': 'test@email.com' if settings.AUTH_USER_MODEL == 'emailuser.EmailUser' else 'test',
             'password': 'password',
 
             # NOTE: This is set using a hidden field in reality
@@ -59,7 +60,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         self.assertTrue('_auth_user_id' in self.client.session)
         self.assertEqual(
             str(self.client.session['_auth_user_id']),
-            str(get_user_model().objects.get(username='test').pk)
+            str(get_user_model().objects.get(email='test@email.com').pk)
         )
 
     def test_already_logged_in_redirect(self):
@@ -85,8 +86,8 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         This tests issue #431
         """
         # Login as unprivileged user
-        get_user_model().objects.create_user(username='unprivileged', password='123')
-        self.assertTrue(self.client.login(username='unprivileged', password='123'))
+        self.create_user(username='unprivileged', password='123')
+        self.login(username='unprivileged', password='123')
 
         # Get login page
         response = self.client.get(reverse('wagtailadmin_login'))
@@ -154,8 +155,8 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         redirected to the login page, with an error message
         """
         # Login as unprivileged user
-        get_user_model().objects.create_user(username='unprivileged', password='123')
-        self.assertTrue(self.client.login(username='unprivileged', password='123'))
+        self.create_user(username='unprivileged', password='123')
+        self.login(username='unprivileged', password='123')
 
         # Get dashboard
         response = self.client.get(reverse('wagtailadmin_home'), follow=True)
@@ -170,8 +171,8 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         given a 403 error on ajax requests
         """
         # Login as unprivileged user
-        get_user_model().objects.create_user(username='unprivileged', password='123')
-        self.assertTrue(self.client.login(username='unprivileged', password='123'))
+        self.create_user(username='unprivileged', password='123')
+        self.login(username='unprivileged', password='123')
 
         # Get dashboard
         response = self.client.get(reverse('wagtailadmin_home'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
@@ -213,7 +214,6 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/change_email.html')
 
-
     def test_change_email_post(self):
         post_data = {
             'email': 'test@email.com'
@@ -226,7 +226,6 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Check that the email was changed
         self.assertEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
-
 
     def test_change_email_not_valid(self):
         post_data = {
@@ -244,7 +243,6 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the password was not changed
         self.assertNotEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
 
-
     @override_settings(WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False)
     def test_account_view_with_email_management_disabled(self):
         # Get account page
@@ -254,7 +252,6 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
         # Page should NOT contain a 'Change email' option
         self.assertNotContains(response, "Change email")
-
 
     @override_settings(WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False)
     def test_change_email_view_disabled(self):
@@ -267,7 +264,6 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Check that the user received a 404
         self.assertEqual(response.status_code, 404)
-
 
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_account_view_with_password_management_disabled(self):
@@ -612,10 +608,10 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
     """
     def setUp(self):
         # Create a non-moderator user
-        self.submitter = get_user_model().objects.create_user('submitter', 'submitter@example.com', 'password')
+        self.submitter = self.create_user('submitter', 'submitter@example.com', 'password')
         self.submitter.groups.add(Group.objects.get(name='Editors'))
 
-        self.assertTrue(self.client.login(username=self.submitter.username, password='password'))
+        self.login(username='submitter', password='password')
 
     def test_notification_preferences_form_is_reduced_for_non_moderators(self):
         """
@@ -637,14 +633,14 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         admin_only_group = Group.objects.create(name='Admin Only')
         admin_only_group.permissions.add(Permission.objects.get(codename='access_admin'))
 
-        self.admin_only_user = get_user_model().objects.create_user(
+        self.admin_only_user = self.create_user(
             'admin_only_user',
             'admin_only_user@example.com',
             'password'
         )
         self.admin_only_user.groups.add(admin_only_group)
 
-        self.assertTrue(self.client.login(username=self.admin_only_user.username, password='password'))
+        self.login(username='admin_only_user', password='password')
 
     def test_notification_preferences_view_redirects_for_admin_only_users(self):
         """
@@ -675,7 +671,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
     """
     def setUp(self):
         # Create a user
-        get_user_model().objects.create_superuser(username='test', email='test@email.com', password='password')
+        self.create_superuser(username='test', email='test@email.com', password='password')
 
     def test_password_reset_view(self):
         """
@@ -749,7 +745,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         from django.utils.http import urlsafe_base64_encode
 
         # Get user
-        self.user = get_user_model().objects.get(username='test')
+        self.user = get_user_model().objects.get(email='test@email.com')
 
         # Generate a password reset token
         self.password_reset_token = PasswordResetTokenGenerator().make_token(self.user)
@@ -822,7 +818,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_password_reset_complete'))
 
         # Check that the password was changed
-        self.assertTrue(get_user_model().objects.get(username='test').check_password('newpassword'))
+        self.assertTrue(get_user_model().objects.get(email='test@email.com').check_password('newpassword'))
 
     def test_password_reset_confirm_view_post_password_mismatch(self):
         """
@@ -850,7 +846,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
             self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
-        self.assertTrue(get_user_model().objects.get(username='test').check_password('password'))
+        self.assertTrue(get_user_model().objects.get(email='test@email.com').check_password('password'))
 
     def test_password_reset_done_view(self):
         """
@@ -876,7 +872,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
 
     def test_password_reset_sensitive_post_parameters(self):
         request = RequestFactory().post('wagtailadmin_password_reset_confirm', data={})
-        request.user = get_user_model().objects.get(username='test')
+        request.user = get_user_model().objects.get(email='test@email.com')
         change_password(request)
         self.assertTrue(hasattr(request, 'sensitive_post_parameters'))
         self.assertEqual(request.sensitive_post_parameters, '__ALL__')
