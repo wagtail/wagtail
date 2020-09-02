@@ -21,8 +21,8 @@ class Index(IndexView):
     header_icon = 'folder-open-1'
 
     def get_queryset(self):
-        # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children().order_by('name')
+        # Only return descendants of the root node, so that the root is not editable
+        return Collection.get_first_root_node().get_descendants()
 
 
 class Create(CreateView):
@@ -36,10 +36,10 @@ class Create(CreateView):
     header_icon = 'folder-open-1'
 
     def save_instance(self):
-        # Always create new collections as children of root
         instance = self.form.save(commit=False)
-        root_collection = Collection.get_first_root_node()
-        root_collection.add_child(instance=instance)
+        parent_pk = self.form.data.get('parent')
+        parent = Collection.objects.get(pk=parent_pk) if parent_pk else Collection.get_first_root_node()
+        parent.add_child(instance=instance)
         return instance
 
 
@@ -57,9 +57,26 @@ class Edit(EditView):
     context_object_name = 'collection'
     header_icon = 'folder-open-1'
 
+    def save_instance(self):
+        instance = self.form.save()
+        parent_pk = self.form.data.get('parent')
+        if parent_pk and parent_pk != instance.get_parent().pk:
+            instance.move(Collection.objects.get(pk=parent_pk), 'sorted-child')
+        return instance
+
+    def form_valid(self, form):
+        new_parent_pk = int(form.data.get('parent', 0))
+        old_descendants = list(form.instance.get_descendants(
+            inclusive=True).values_list('pk', flat=True)
+        )
+        if new_parent_pk in old_descendants:
+            form.add_error('parent', gettext_lazy('Please select another parent'))
+            return self.form_invalid(form)
+        return super().form_valid(form)
+
     def get_queryset(self):
-        # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children().order_by('name')
+        # Only return descendants of the root node, so that the root is not editable
+        return Collection.get_first_root_node().get_descendants().order_by('path')
 
 
 class Delete(DeleteView):
@@ -74,7 +91,7 @@ class Delete(DeleteView):
 
     def get_queryset(self):
         # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_children().order_by('name')
+        return Collection.get_first_root_node().get_descendants().order_by('path')
 
     def get_collection_contents(self):
         collection_contents = [

@@ -30,14 +30,20 @@
                     <div class="field choice_field select">
                         <label for="id_adddocument_collection">{% trans "Add to collection:" %}</label>
                         <div class="field-content">
-                            <div class="input">
-                                <select id="id_adddocument_collection" name="collection">
-                                    {% for collection in collections %}
-                                        <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                <span></span>
-                            </div>
+                            <select id="id_adddocument_collection" name="collection">
+                                {% minimum_collection_depth collections as min_depth %}
+                                {% for collection in collections %}
+                                    <option value="{{ collection.id|unlocalize }}">
+                                      {% if request.user.is_superuser %}
+                                          {# Superuser may see all collections. #}
+                                          {% format_collection collection %}
+                                      {% else %}
+                                          {# Pass the minimum depth of the permitted collections, since user isn't a superuser #}
+                                          {% format_collection collection min_depth %}
+                                      {% endif %}
+                                    </option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                 {% endif %}

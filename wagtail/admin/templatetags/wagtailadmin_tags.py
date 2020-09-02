@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.db.models import Min, QuerySet
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
@@ -27,7 +28,7 @@ from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
 from wagtail.core.models import (
-    CollectionViewRestriction, Page, PageLogEntry, PageViewRestriction, UserPagePermissionsProxy)
+    Collection, CollectionViewRestriction, Page, PageLogEntry, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import accepts_kwarg, camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
@@ -603,3 +604,27 @@ def format_action_log_message(log_entry):
     if not isinstance(log_entry, PageLogEntry):
         return ''
     return log_action_registry.format_message(log_entry)
+
+
+@register.simple_tag
+def format_collection(coll: Collection, min_depth: int = 2) -> str:
+    """
+    Renders a given Collection's name as a formatted string that displays its
+    hierarchical depth via indentation. If min_depth is supplied, the
+    Collection's depth is rendered relative to that depth. min_depth defaults
+    to 2, the depth of the first non-Root Collection.
+
+    Example usage: {% format_collection collection min_depth %}
+    Example output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Child Collection"
+    """
+    return coll.get_indented_name(min_depth, html=True)
+
+
+@register.simple_tag
+def minimum_collection_depth(collections: QuerySet) -> int:
+    """
+    Returns the minimum depth of the Collections in the given queryset.
+    Call this before beginning a loop through Collections that will
+    use {% format_collection collection min_depth %}.
+    """
+    return collections.aggregate(Min('depth'))['depth__min'] or 2

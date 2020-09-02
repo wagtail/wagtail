@@ -4,9 +4,19 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.collections import (
-    BaseCollectionMemberForm, collection_member_permission_formset_factory)
+    BaseCollectionMemberForm, CollectionChoiceField, collection_member_permission_formset_factory)
+from wagtail.core.models import Collection
 from wagtail.documents.models import Document
 from wagtail.documents.permissions import permission_policy as documents_permission_policy
+
+
+# Callback to allow us to override the default form field for the collection field
+def formfield_for_dbfield(db_field, **kwargs):
+    if db_field.name == 'collection':
+        return CollectionChoiceField(queryset=Collection.objects.all(), empty_label=None, **kwargs)
+
+    # For all other fields, just call its formfield() method.
+    return db_field.formfield(**kwargs)
 
 
 class BaseDocumentForm(BaseCollectionMemberForm):
@@ -26,6 +36,7 @@ def get_document_form(model):
         model,
         form=BaseDocumentForm,
         fields=fields,
+        formfield_callback=formfield_for_dbfield,
         widgets={
             'tags': widgets.AdminTagWidget,
             'file': forms.FileInput()
@@ -41,6 +52,7 @@ def get_document_multi_form(model):
         model,
         form=BaseDocumentForm,
         fields=fields,
+        formfield_callback=formfield_for_dbfield,
         widgets={
             'tags': widgets.AdminTagWidget,
             'file': forms.FileInput()

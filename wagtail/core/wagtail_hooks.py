@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse
+from django.utils.translation import ngettext
 
 from wagtail.core import hooks
 from wagtail.core.models import PageViewRestriction
@@ -75,3 +76,19 @@ def register_task_permissions():
         content_type__app_label='wagtailcore',
         codename__in=['add_task', 'change_task', 'delete_task']
     )
+
+
+@hooks.register('describe_collection_contents')
+def describe_collection_children(collection):
+    descendant_count = collection.get_descendants().count()
+    if descendant_count:
+        url = reverse('wagtailadmin_collections:index')
+        return {
+            'count': descendant_count,
+            'count_text': ngettext(
+                "%(count)s descendant collection",
+                "%(count)s descendant collections",
+                descendant_count
+            ) % {'count': descendant_count},
+            'url': url,
+        }

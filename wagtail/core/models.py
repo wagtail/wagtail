@@ -14,7 +14,7 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import models, transaction
-from django.db.models import Case, Q, Value, When
+from django.db.models import Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Lower, Substr
 from django.http import Http404
@@ -25,7 +25,9 @@ from django.utils import timezone
 from django.utils.cache import patch_cache_control
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
+from django.utils.html import format_html
 from django.utils.module_loading import import_string
+from django.utils.safestring import mark_safe
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -2738,6 +2740,8 @@ class Collection(TreebeardPathFixMixin, MP_Node):
     name = models.CharField(max_length=255, verbose_name=_('name'))
 
     objects = CollectionManager()
+    # Tell treebeard to order Collections' paths such that they are ordered by name at each level.
+    node_order_by = ['name']
 
     def __str__(self):
         return self.name
@@ -2761,13 +2765,33 @@ class Collection(TreebeardPathFixMixin, MP_Node):
         """Return a query set of all collection view restrictions that apply to this collection"""
         return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
 
-    @staticmethod
-    def order_for_display(queryset):
-        return queryset.annotate(
-            display_order=Case(
-                When(depth=1, then=Value('')),
-                default='name')
-        ).order_by('display_order')
+    def get_indented_name(self, indentation_start_depth=2, html=False):
+        """
+        Renders this Collection's name as a formatted string that displays its hierarchical depth via indentation.
+        If indentation_start_depth is supplied, the Collection's depth is rendered relative to that depth.
+        indentation_start_depth defaults to 2, the depth of the first non-Root Collection.
+        Pass html=True to get a HTML representation, instead of the default plain-text.
+
+        Example text output: "    ↳ Pies"
+        Example HTML output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Pies"
+        """
+        display_depth = self.depth - indentation_start_depth
+        # A Collection with a display depth of 0 or less (Root's can be -1), should have no indent.
+        if display_depth <= 0:
+            return self.name
+
+        # Indent each level of depth by 4 spaces (the width of the ↳ character in our admin font), then add ↳
+        # before adding the name.
+        if html:
+            # NOTE: &#x21b3 is the hex HTML entity for ↳.
+            return format_html(
+                "{indent}{icon} {name}",
+                indent=mark_safe('&nbsp;' * 4 * display_depth),
+                icon=mark_safe('&#x21b3'),
+                name=self.name
+            )
+        # Output unicode plain-text version
+        return "{}↳ {}".format(' ' * 4 * display_depth, self.name)
 
     class Meta:
         verbose_name = _('collection')

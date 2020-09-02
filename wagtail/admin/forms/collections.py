@@ -3,6 +3,7 @@ from itertools import groupby
 from django import forms
 from django.contrib.auth.models import Group, Permission
 from django.db import transaction
+from django.db.models import Min
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
@@ -18,10 +19,75 @@ class CollectionViewRestrictionForm(BaseViewRestrictionForm):
         fields = ('restriction_type', 'password', 'groups')
 
 
+class SelectWithDisabledOptions(forms.Select):
+    """
+    Subclass of Django's select widget that allows disabling options.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.disabled_values = ()
+
+    def create_option(self, name, value, *args, **kwargs):
+        option_dict = super().create_option(name, value, *args, **kwargs)
+        if value in self.disabled_values:
+            option_dict['attrs']['disabled'] = 'disabled'
+        return option_dict
+
+
+class CollectionChoiceField(forms.ModelChoiceField):
+    widget = SelectWithDisabledOptions
+
+    def __init__(self, *args, disabled_queryset=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._indentation_start_depth = 2
+        self.disabled_queryset = disabled_queryset
+
+    def _get_disabled_queryset(self):
+        return self._disabled_queryset
+
+    def _set_disabled_queryset(self, queryset):
+        self._disabled_queryset = queryset
+        if queryset is None:
+            self.widget.disabled_values = ()
+        else:
+            self.widget.disabled_values = queryset.values_list(self.to_field_name or 'pk', flat=True)
+
+    disabled_queryset = property(_get_disabled_queryset, _set_disabled_queryset)
+
+    def _set_queryset(self, queryset):
+        min_depth = self.queryset.aggregate(Min('depth'))['depth__min']
+        if min_depth is None:
+            self._indentation_start_depth = 2
+        else:
+            self._indentation_start_depth = min_depth + 1
+
+    def label_from_instance(self, obj):
+        return obj.get_indented_name(self._indentation_start_depth, html=True)
+
+
 class CollectionForm(forms.ModelForm):
+    parent = CollectionChoiceField(
+        queryset=Collection.objects.all(),
+        required=False,
+        help_text=_(
+            "Select hierarchical position. Note: a collection cannot become a child of itself or one of its "
+            "descendants."
+        )
+    )
+
     class Meta:
         model = Collection
         fields = ('name',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.instance._state.adding:
+            self.initial['parent'] = Collection.get_first_root_node().pk
+        else:
+            self.initial['parent'] = self.instance.get_parent().pk
+            self.fields['parent'].disabled_queryset = self.instance.get_descendants(inclusive=True)
 
 
 class BaseCollectionMemberForm(forms.ModelForm):
@@ -212,8 +278,9 @@ def collection_member_permission_formset_factory(
         defines the permissions that are assigned to an entity
         (i.e. group or user) for a specific collection
         """
-        collection = forms.ModelChoiceField(
-            queryset=Collection.objects.all().prefetch_related('group_permissions')
+        collection = CollectionChoiceField(
+            queryset=Collection.objects.all().prefetch_related('group_permissions'),
+            empty_label=None
         )
         permissions = PermissionMultipleChoiceField(
             queryset=permission_queryset,
