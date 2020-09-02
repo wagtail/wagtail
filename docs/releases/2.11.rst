@@ -21,6 +21,7 @@ Other features
  * Add ``render`` helper to ``RoutablePageMixin`` to support serving template responses according to Wagtail conventions (Andy Babic)
  * Specify minimum Python version in setup.py (Vince Salvino)
  * Extend treebeard's ``fix_tree`` method with the ability to non-destructively fix path issues and add a --full option to apply path fixes (Matt Westcott)
+ * Add support for hierarchical/nested Collections (Robert Rollins)
 
 
 Bug fixes
@@ -39,3 +40,18 @@ SiteMiddleware moved to ``wagtail.contrib.legacy``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The SiteMiddleware class (which provides the ``request.site`` property, and has been deprecated since Wagtail 2.9) has been moved to the ``wagtail.contrib.legacy`` namespace. On projects where this is still in use, the ``'wagtail.core.middleware.SiteMiddleware'`` entry in ``MIDDLEWARE`` should be changed to ``'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware'``.
+
+
+Run fixtree to prevent Collection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you are using Wagtail's Collections feature to organise images, documents or other media, please ensure
+you run the following command in each environment:
+
+.. code-block:: python
+
+    python manage.py fixtree --full
+
+Previously, collections were stored in the order in which they were created - and then sorted by name where displayed in the CMS. Collections are now ordered by treebeard path by default, so the above command must be run to retain alphabetical ordering.
+
+Failure to do this won't affect your current colllections, but may affect your ability to add new ones.
