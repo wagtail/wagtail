@@ -88,7 +88,7 @@ def index(request, *args):
         users = User.objects.filter(group_filter)
 
     if 'last_name' in model_fields and 'first_name' in model_fields:
-        users = users.order_by('last_name', 'first_name')
+        users = users.order_by('last_name', 'first_name', User.USERNAME_FIELD) # username added since first_name and last_name are optional fields
 
     if 'ordering' in request.GET:
         ordering = request.GET['ordering']
