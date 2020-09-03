@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ettore Atalan <atalanttore@googlemail.com>, 2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Wasilis Mandratzis-Walz, 2015
-# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2018-05-09 09:55+0000\n"
-"Last-Translator: Henrik Kröger <hedwig@riseup.net>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-08 17:07+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -24,13 +25,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail sites"
-msgstr "Wagtail Websites"
+msgstr "Wagtail-Webseiten"
 
 msgid "Choose a root page"
-msgstr "Wählen Sie eine Ursprungs-Seite"
+msgstr "Wählen Sie eine Ursprungsseite aus"
 
 msgid "Choose a different root page"
-msgstr "Eine andere Ursprungs-Seite auswählen"
+msgstr "Wählen Sie eine andere Ursprungsseite aus"
 
 msgid "Site"
 msgstr "Webseite"
@@ -60,10 +61,10 @@ msgid "Add site"
 msgstr "Webseite hinzufügen"
 
 msgid "Site '{0}' created."
-msgstr "Webseite '{0}' erstellt."
+msgstr "Seite ‚{0}‘ erstellt."
 
 msgid "Site '{0}' updated."
-msgstr "Webseite '{0}' geändert."
+msgstr "Seite ‚{0}‘ aktualisiert."
 
 msgid "The site could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte die Webseite nicht gespeichert werden."
@@ -72,7 +73,7 @@ msgid "Delete site"
 msgstr "Webseite löschen"
 
 msgid "Site '{0}' deleted."
-msgstr "Webseite '{0}' gelöscht"
+msgstr "Seite ‚{0}‘ gelöscht"
 
 msgid "Are you sure you want to delete this site?"
 msgstr "Sind Sie sicher, dass Sie diese Webseite löschen möchten?"

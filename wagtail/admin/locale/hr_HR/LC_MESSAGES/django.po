@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@gmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020
 # Luka Matijević <lumatijev@gmail.com>, 2015
 # Marko Burazin <marko.burazin1@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -25,20 +26,67 @@ msgstr ""
 msgid "Publish"
 msgstr "Objavi"
 
+msgid "Submit for moderation"
+msgstr "Pošalji moderatoru"
+
 msgid "Unpublish"
 msgstr "Odjavi"
 
 msgid "Delete"
 msgstr "Obriši"
 
+msgid "Unlock"
+msgstr "Odblokiraj"
+
+msgid "Save Draft"
+msgstr "Spremi skicu"
+
 msgid "Page locked"
 msgstr "Stranica zaključana"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s i Objavi"
+
+msgid "Wagtail admin"
+msgstr "Wagtail administracija"
+
+msgid "Content"
+msgstr "Sadržaj"
+
+msgid "Promote"
+msgstr "Promoviraj"
+
+msgid "Settings"
+msgstr "Postavke"
+
+msgid "Date from"
+msgstr "Datum od"
+
+msgid "Date to"
+msgstr "Datum do"
+
+msgid "Show"
+msgstr "Prikaži"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Title"
+msgstr "Naslov"
 
 msgid "Enter password"
 msgstr "Unesite lozinku"
 
+#, python-format
+msgid "Enter your %s"
+msgstr "Unesite vaš %s"
+
 msgid "Enter your email address to reset your password"
 msgstr "Unesite vašu email adresu kako bi ponovno postavili vašu lozinku"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "New title"
 msgstr "Novi naslov"
@@ -46,11 +94,27 @@ msgstr "Novi naslov"
 msgid "New slug"
 msgstr "Novi slug"
 
+msgid "Copy subpages"
+msgstr "Kopiraj podstranice"
+
+#, python-format
+msgid "This will copy %(count)s subpage."
+msgid_plural "This will copy %(count)s subpages."
+msgstr[0] "Ovo će kopirati %(count)s podstranicu. "
+msgstr[1] "Ovo će kopirati %(count)s podstranica. "
+msgstr[2] "Ovo će kopirati %(count)s podstranica. "
+
 msgid "Publish copied page"
 msgstr "Objavi kopiranu stranicu"
 
+msgid "This page is live. Would you like to publish its copy as well?"
+msgstr "Stranica je objavljena. Želite li objaviti i njenu kopiju?"
+
 msgid "Publish copies"
 msgstr "Objavi kopije"
+
+msgid "Expiry date/time must be in the future"
+msgstr "Datum/vrijeme isteka mora biti u budućnosti"
 
 msgid "Search"
 msgstr "Pretraga"
@@ -58,8 +122,206 @@ msgstr "Pretraga"
 msgid "Search term"
 msgstr "Pojam za pretraživanje"
 
+msgid "Visibility"
+msgstr "Vidljivost"
+
 msgid "This field is required."
 msgstr "Ovo polje je obavezno."
+
+msgid "Please select at least one group."
+msgstr "Molimo odaberite barem jednu grupu"
+
+msgid "Arabic"
+msgstr "Arapski"
+
+msgid "Catalan"
+msgstr "Katalonski"
+
+msgid "Czech"
+msgstr "Češki"
+
+msgid "German"
+msgstr "Njemački"
+
+msgid "Greek"
+msgstr "Grčki"
+
+msgid "English"
+msgstr "Engleski"
+
+msgid "Spanish"
+msgstr "Španjolski"
+
+msgid "Finnish"
+msgstr "Finski"
+
+msgid "French"
+msgstr "Francuski"
+
+msgid "Galician"
+msgstr "Galicijski"
+
+msgid "Hungarian"
+msgstr "Mađarski"
+
+msgid "Indonesian"
+msgstr "Indonezijski"
+
+msgid "Icelandic"
+msgstr "Islandski"
+
+msgid "Italian"
+msgstr "Talijanski"
+
+msgid "Japanese"
+msgstr "Japanski"
+
+msgid "Korean"
+msgstr "Korejski"
+
+msgid "Lithuanian"
+msgstr "Litavski"
+
+msgid "Mongolian"
+msgstr "Mongolski"
+
+msgid "Netherlands Dutch"
+msgstr "Nizozemski"
+
+msgid "Persian"
+msgstr "Perzijski"
+
+msgid "Polish"
+msgstr "Poljski"
+
+msgid "Portuguese"
+msgstr "Portuglaski"
+
+msgid "Romanian"
+msgstr "Rumunjski"
+
+msgid "Russian"
+msgstr "Ruski"
+
+msgid "Swedish"
+msgstr "Švedski"
+
+msgid "Slovak"
+msgstr "Slovački"
+
+msgid "Thai"
+msgstr "Tajlandski"
+
+msgid "Ukrainian"
+msgstr "Ukrajinski"
+
+msgid "Edit"
+msgstr "Uredi"
+
+msgid "Page"
+msgstr "Stranica"
+
+msgid "Pages"
+msgstr "Stranice"
+
+msgid "Loading…"
+msgstr "Učitavanje..."
+
+msgid "No results"
+msgstr "Nema rezultata"
+
+msgid "Show latest content"
+msgstr "Prikaži najnoviji sadržaj"
+
+msgid "Show error"
+msgstr "Prikaži grešku"
+
+msgid "Close"
+msgstr "Zatvori"
+
+msgid "January"
+msgstr "Siječanj"
+
+msgid "February"
+msgstr "Veljača"
+
+msgid "March"
+msgstr "Ožujak"
+
+msgid "April"
+msgstr "Travanj"
+
+msgid "May"
+msgstr "Svibanj"
+
+msgid "June"
+msgstr "Lipanj"
+
+msgid "July"
+msgstr "Srpanj"
+
+msgid "August"
+msgstr "Kolovoz"
+
+msgid "September"
+msgstr "Rujan"
+
+msgid "October"
+msgstr "Listopad"
+
+msgid "November"
+msgstr "Studeni"
+
+msgid "December"
+msgstr "Prosinac"
+
+msgid "Sunday"
+msgstr "Nedjelja"
+
+msgid "Monday"
+msgstr "Ponedjeljak"
+
+msgid "Tuesday"
+msgstr "Utorak"
+
+msgid "Wednesday"
+msgstr "Srijeda"
+
+msgid "Thursday"
+msgstr "Četvrtak"
+
+msgid "Friday"
+msgstr "Petak"
+
+msgid "Saturday"
+msgstr "Subota"
+
+msgid "Sun"
+msgstr "Ned"
+
+msgid "Mon"
+msgstr "Pon"
+
+msgid "Tue"
+msgstr "Uto"
+
+msgid "Wed"
+msgstr "Sri"
+
+msgid "Thu"
+msgstr "Čet"
+
+msgid "Fri"
+msgstr "Pet"
+
+msgid "Sat"
+msgstr "Sub"
+
+msgid "Error 404: Page not found"
+msgstr "Greška 404: Stranica nije pronađena"
+
+msgid "Error 404"
+msgstr "Greška 404"
 
 msgid "Account"
 msgstr "Korisnički račun"
@@ -81,6 +343,9 @@ msgstr "Promijeni ime"
 
 msgid "Change password"
 msgstr "Promijeni lozinku"
+
+msgid "Language Preferences"
+msgstr "Jezične postavke"
 
 msgid "Notification preferences"
 msgstr "Postavke obavijesti"
@@ -112,17 +377,17 @@ msgstr "Dodaj vanjsku poveznicu"
 msgid "Public"
 msgstr "Javno"
 
-msgid "Title"
-msgstr "Naslov"
+msgid "Locked at"
+msgstr "Zaključano u"
 
 msgid "Edit this page"
 msgstr "Uredi ovu stranicu"
 
-msgid "Edit"
-msgstr "Uredi"
-
 msgid "Draft"
 msgstr "Skica"
+
+msgid "Live"
+msgstr "Uživo"
 
 msgid "Type"
 msgstr "Tip"
@@ -139,9 +404,6 @@ msgstr "Pregled"
 msgid "Your most recent edits"
 msgstr "Vaša nedavna uređivanja"
 
-msgid "Date"
-msgstr "Datum"
-
 msgid "Status"
 msgstr "Status"
 
@@ -151,11 +413,84 @@ msgstr "Sažetak"
 msgid "Sign in"
 msgstr "Prijavi se"
 
+msgid "Live version"
+msgstr "Verzija uživo"
+
+msgid "Download XLSX"
+msgstr "Preuzmi XLSX"
+
+msgid "Download CSV"
+msgstr "Preuzmi CSV"
+
+msgid "Account settings"
+msgstr "Postavke računa"
+
+msgid "Other searches"
+msgstr "Ostale pretrage"
+
+msgid "Compare with live version"
+msgstr "Usporedi sa verzijom uživo"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "View live"
+msgstr "Pogledaj uživo"
+
+msgid "View draft"
+msgstr "Pogledaj skicu"
+
+msgid "Earliest"
+msgstr "Najranije"
+
+msgid "Latest"
+msgstr "Najnovije"
+
+msgid "Set profile picture"
+msgstr "Postavite profilnu sliku"
+
+msgid "Change your profile picture."
+msgstr "Promijenite vašu profilnu sliku"
+
 msgid "Change the password you use to log in."
 msgstr "Promijenite lozinku koju koristite za prijavu."
 
 msgid "Choose which email notifications to receive."
 msgstr "Odaberite email na koji želite primati obavijesti."
+
+msgid "Language preferences"
+msgstr "Jezične postavke"
+
+msgid "Current Time Zone"
+msgstr "Odabrana vremenska zona"
+
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Naslov %(level)d"
+
+msgid "Bold"
+msgstr "Podebljano"
+
+msgid "Italic"
+msgstr "Kurziv"
+
+msgid "Link"
+msgstr "Poveznica"
+
+msgid "Superscript"
+msgstr "Eksponent"
+
+msgid "Subscript"
+msgstr "Indeks"
+
+msgid "Strikethrough"
+msgstr "Precrtano"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Reports"
+msgstr "Izvješća"
 
 msgid "Clear choice"
 msgstr "Poništi odabir"

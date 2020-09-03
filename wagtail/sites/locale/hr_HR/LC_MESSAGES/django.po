@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Dino Aljević <dino8890@protonmail.com>, 2020
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-05-22 22:32+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
+"Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
+"language/hr_HR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "Wagtail sites"
+msgstr "Wagtail sjedišta"
+
+msgid "Choose a root page"
+msgstr "Odaberite korijensku stranicu"
+
+msgid "Choose a different root page"
+msgstr "Odaberite drukčiju korijensku stranicu"
+
+msgid "Site"
+msgstr "Sjedište"
+
+msgid "Port"
+msgstr "Port"
+
+msgid "Site name"
+msgstr "Naziv sjedišta"
+
+msgid "Root page"
+msgstr "Korijenska stranica"
+
+msgid "Default?"
+msgstr "Zadano?"
+
+msgid "Default"
+msgstr "Zadano"
+
+msgid "Sites"
+msgstr "Sjedišta"
+
+msgid "Add a site"
+msgstr "Dodaj sjedište"
+
+msgid "Add site"
+msgstr "Dodaj sjedište"
+
+msgid "Site '{0}' created."
+msgstr "Sjedište '{0}' je stvoreno."
+
+msgid "Site '{0}' updated."
+msgstr "Sjedište '{0}' je ažurirano."
+
+msgid "The site could not be saved due to errors."
+msgstr "Sjedište nije moguće sačuvati zbog grešaka."
+
+msgid "Delete site"
+msgstr "Izbriši sjedište"
+
+msgid "Site '{0}' deleted."
+msgstr "Sjedište '{0}' je izbrisano."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Jeste li sigurni da želite izbrisati sjedište?"

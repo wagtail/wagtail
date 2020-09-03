@@ -1,19 +1,19 @@
-from django.conf.urls import url
+from django.urls import path
 
 from wagtail.snippets.views import chooser, snippets
 
 app_name = 'wagtailsnippets'
 urlpatterns = [
-    url(r'^$', snippets.index, name='index'),
+    path('', snippets.index, name='index'),
 
-    url(r'^choose/$', chooser.choose, name='choose_generic'),
-    url(r'^choose/(\w+)/(\w+)/$', chooser.choose, name='choose'),
-    url(r'^choose/(\w+)/(\w+)/([^/]+?)/$', chooser.chosen, name='chosen'),
+    path('choose/', chooser.choose, name='choose_generic'),
+    path('choose/<slug:app_label>/<slug:model_name>/', chooser.choose, name='choose'),
+    path('choose/<slug:app_label>/<slug:model_name>/<str:pk>/', chooser.chosen, name='chosen'),
 
-    url(r'^(\w+)/(\w+)/$', snippets.list, name='list'),
-    url(r'^(\w+)/(\w+)/add/$', snippets.create, name='add'),
-    url(r'^(\w+)/(\w+)/([^/]+?)/$', snippets.edit, name='edit'),
-    url(r'^(\w+)/(\w+)/multiple/delete/$', snippets.delete, name='delete-multiple'),
-    url(r'^(\w+)/(\w+)/([^/]+?)/delete/$', snippets.delete, name='delete'),
-    url(r'^(\w+)/(\w+)/([^/]+?)/usage/$', snippets.usage, name='usage'),
+    path('<slug:app_label>/<slug:model_name>/', snippets.list, name='list'),
+    path('<slug:app_label>/<slug:model_name>/add/', snippets.create, name='add'),
+    path('<slug:app_label>/<slug:model_name>/<str:pk>/', snippets.edit, name='edit'),
+    path('<slug:app_label>/<slug:model_name>/multiple/delete/', snippets.delete, name='delete-multiple'),
+    path('<slug:app_label>/<slug:model_name>/<str:pk>/delete/', snippets.delete, name='delete'),
+    path('<slug:app_label>/<slug:model_name>/<str:pk>/usage/', snippets.usage, name='usage'),
 ]

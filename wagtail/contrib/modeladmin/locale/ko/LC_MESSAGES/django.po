@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Kyungil Choi <hanpama@gmail.com>, 2017,2019
+# Kyungil Choi <hanpama@gmail.com>, 2017,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2020-04-21 13:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-20 13:06+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -111,6 +111,9 @@ msgstr "리스트로 돌아가기"
 msgid "Yes, delete"
 msgstr "네, 삭제합니다"
 
+msgid "No, don't delete"
+msgstr "아니오, 지우지 않습니다"
+
 msgid "Home"
 msgstr "홈"
 
@@ -128,6 +131,12 @@ msgstr "검색: "
 #, python-format
 msgid "Search %(name)s"
 msgstr "%(name)s 검색"
+
+msgid "Download XLSX"
+msgstr "XLSX 다운로드"
+
+msgid "Download CSV"
+msgstr "CSV 다운로드"
 
 msgid "Filter"
 msgstr "필터"
@@ -154,6 +163,9 @@ msgstr ""
 "\n"
 "하나 <a href=\"%(url)s\">추가</a>하는 것은 어떠신가요?"
 
+msgid "Pagination"
+msgstr "페이지네이션"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "%(num_pages)s중 %(current_page)s 페이지"
@@ -167,6 +179,10 @@ msgstr "이전"
 
 msgid "Next"
 msgstr "다음"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' 생성됨."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -187,6 +203,10 @@ msgid "Editing %s"
 msgstr "%s 수정"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' 수정됨."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s 저장이 오류로 인해 실패했습니다."
 
@@ -201,6 +221,10 @@ msgid ""
 msgstr ""
 "%s 항목을 삭제하는 것이 확실한가요? 사이트의 다른 것들이 연관되어 있다면 이"
 "에 대한 영향이 있을 수 있습니다."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' 삭제됨."
 
 msgid "Inspecting"
 msgstr "분석"

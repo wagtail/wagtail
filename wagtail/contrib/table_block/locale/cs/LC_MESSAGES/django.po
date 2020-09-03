@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# IT Management <info@itmanagement.cz>, 2018
-# IT Management <info@itmanagement.cz>, 2020
+# IT Management <hudan@itmanagement.cz>, 2018
+# IT Management <hudan@itmanagement.cz>, 2020
 # Mirek Zvolský <zvolsky@seznam.cz>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
 "PO-Revision-Date: 2020-04-22 07:36+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"

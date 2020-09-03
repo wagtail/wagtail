@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,31 +37,31 @@ msgstr ""
 msgid "Edit any document"
 msgstr ""
 
-#: models.py:33
+#: models.py:23
 msgid "title"
 msgstr ""
 
-#: models.py:34
+#: models.py:24
 msgid "file"
 msgstr ""
 
-#: models.py:35
+#: models.py:25
 msgid "created at"
 msgstr ""
 
-#: models.py:38
+#: models.py:28
 msgid "uploaded by user"
 msgstr ""
 
-#: models.py:45
+#: models.py:35
 msgid "tags"
 msgstr ""
 
-#: models.py:162
+#: models.py:152
 msgid "document"
 msgstr ""
 
-#: models.py:163
+#: models.py:153
 msgid "documents"
 msgstr ""
 
@@ -74,13 +74,13 @@ msgid "Search"
 msgstr ""
 
 #: templates/wagtaildocs/chooser/chooser.html:11
-#: templates/wagtaildocs/chooser/chooser.html:44
-#: templates/wagtaildocs/documents/add.html:42
+#: templates/wagtaildocs/chooser/chooser.html:45
+#: templates/wagtaildocs/documents/add.html:43
 msgid "Upload"
 msgstr ""
 
-#: templates/wagtaildocs/chooser/chooser.html:44
-#: templates/wagtaildocs/documents/add.html:42
+#: templates/wagtaildocs/chooser/chooser.html:45
+#: templates/wagtaildocs/documents/add.html:43
 msgid "Uploading…"
 msgstr ""
 
@@ -144,12 +144,12 @@ msgid "Delete %(title)s"
 msgstr ""
 
 #: templates/wagtaildocs/documents/confirm_delete.html:5
-#: templates/wagtaildocs/documents/edit.html:48
+#: templates/wagtaildocs/documents/edit.html:49
 msgid "Delete document"
 msgstr ""
 
 #: templates/wagtaildocs/documents/confirm_delete.html:13
-#: templates/wagtaildocs/documents/edit.html:65
+#: templates/wagtaildocs/documents/edit.html:66
 #, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
@@ -177,24 +177,24 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:46
+#: templates/wagtaildocs/documents/edit.html:47
 msgid "Save"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:57
+#: templates/wagtaildocs/documents/edit.html:58
 msgid "Filesize"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:58
+#: templates/wagtaildocs/documents/edit.html:59
 msgid "File not found"
 msgstr ""
 
-#: templates/wagtaildocs/documents/edit.html:63
+#: templates/wagtaildocs/documents/edit.html:64
 msgid "Usage"
 msgstr ""
 
-#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:49
-#: wagtail_hooks.py:134
+#: templates/wagtaildocs/documents/index.html:22 wagtail_hooks.py:48
+#: wagtail_hooks.py:133
 msgid "Documents"
 msgstr ""
 
@@ -296,22 +296,22 @@ msgstr ""
 msgid "Add to collection:"
 msgstr ""
 
-#: templates/wagtaildocs/multiple/add.html:61
+#: templates/wagtaildocs/multiple/add.html:64
 msgid ""
 "Upload successful. Please update this document with a more appropriate "
 "title, if necessary. You may also delete the document completely if the "
 "upload wasn't required."
 msgstr ""
 
-#: templates/wagtaildocs/multiple/add.html:62
+#: templates/wagtaildocs/multiple/add.html:65
 msgid "Sorry, upload failed."
 msgstr ""
 
-#: templates/wagtaildocs/multiple/edit_form.html:14
+#: templates/wagtaildocs/multiple/edit_form.html:16
 msgid "Update"
 msgstr ""
 
-#: templates/wagtaildocs/multiple/edit_form.html:15 views/documents.py:187
+#: templates/wagtaildocs/multiple/edit_form.html:17 views/documents.py:187
 msgid "Delete"
 msgstr ""
 
@@ -360,11 +360,11 @@ msgstr ""
 msgid "Document '{0}' deleted."
 msgstr ""
 
-#: wagtail_hooks.py:87
+#: wagtail_hooks.py:86
 msgid "Document"
 msgstr ""
 
-#: wagtail_hooks.py:153
+#: wagtail_hooks.py:152
 #, python-format
 msgid "%(count)s document"
 msgid_plural "%(count)s documents"

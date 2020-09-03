@@ -4,14 +4,15 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2016
+# Luís Favas <al62006@utad.eu>, 2020
 # Tiago Henriques <trinosauro@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-24 17:13+0000\n"
+"Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +21,18 @@ msgstr ""
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "default"
+msgstr "Padrão"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "A alterar %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "A alterar"
+
+msgid "Site"
+msgstr "Sítio"
 
 msgid "Saving…"
 msgstr "A guardar…"
@@ -35,6 +42,14 @@ msgstr "Guardar"
 
 msgid "Settings"
 msgstr "Definições"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"A definição não pode ser carregada devido a não existir um sítio definido"
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)satualizado."
 
 msgid "The setting could not be saved due to errors."
 msgstr "A definição não pôde ser guardada devido a erros."

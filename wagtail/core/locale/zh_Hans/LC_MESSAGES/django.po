@@ -8,17 +8,17 @@
 # Ed <724195301@qq.com>, 2018
 # First Last <abc+github@mynook.info>, 2019
 # Fred Zeng <979738295@qq.com>, 2016
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 15:59+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,9 @@ msgstr "密码"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "密码错误，请重新输入"
+
+msgid "Comment"
+msgstr "评论"
 
 msgid "hostname"
 msgstr "主机名"
@@ -90,6 +93,9 @@ msgstr "站点"
 
 msgid "sites"
 msgstr "站点"
+
+msgid "default"
+msgstr "默认"
 
 #, python-format
 msgid ""
@@ -173,17 +179,26 @@ msgstr "最后发布于"
 msgid "latest revision created at"
 msgstr "最近修订版本创建于"
 
+msgid "live revision"
+msgstr "发布版本"
+
 msgid "This slug is already in use"
 msgstr "此缩略名已被使用"
 
 msgid "scheduled"
 msgstr "已计划"
 
+msgid "in moderation"
+msgstr "审核中"
+
 msgid "draft"
 msgstr "草稿"
 
 msgid "live + scheduled"
 msgstr "在用 + 已预定"
+
+msgid "live + in moderation"
+msgstr "发布+审核中"
 
 msgid "live + draft"
 msgstr "发布+草稿"
@@ -319,6 +334,151 @@ msgstr "群组集合权限"
 
 msgid "group collection permissions"
 msgstr "群组集合权限"
+
+msgid "workflow"
+msgstr "工作流"
+
+msgid "workflow page"
+msgstr "工作流页面"
+
+msgid "workflow pages"
+msgstr "工作流页面"
+
+msgid "workflow_tasks"
+msgstr "工作流任务"
+
+msgid "task"
+msgstr "任务"
+
+msgid "workflow task order"
+msgstr "工作流任务顺序"
+
+msgid "workflow task orders"
+msgstr "工作流任务顺序"
+
+msgid "active"
+msgstr "有效"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr "有效任务可以添加到工作流中。停用任务不会将其从现有工作流中删除。"
+
+msgid "tasks"
+msgstr "任务"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr "有效工作流可以添加到页面。停用工作流不会将其从现有页面中删除。"
+
+msgid "workflows"
+msgstr "工作流"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr "工作流中此步骤中的页面将由这些用户组审阅或批准"
+
+msgid "Request changes"
+msgstr "请求修改"
+
+msgid "Approve"
+msgstr "批准"
+
+msgid "Approve with comment"
+msgstr "带评论批准"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "所选Wagtail组的成员可以批准此任务"
+
+msgid "Group approval task"
+msgstr "组审批任务"
+
+msgid "Group approval tasks"
+msgstr "组审批任务"
+
+msgid "In progress"
+msgstr "进行中"
+
+msgid "Approved"
+msgstr "已批准"
+
+msgid "Needs changes"
+msgstr "需要修改"
+
+msgid "Cancelled"
+msgstr "已取消"
+
+msgid "status"
+msgstr "状态"
+
+msgid "requested by"
+msgstr "请求人"
+
+msgid "current task state"
+msgstr "当前任务状态"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr "每个页面只能有一个进行中或需要修改的工作流状态。"
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "工作流‘{0}’在页面‘{1}’： {2}"
+
+msgid "Not started"
+msgstr "未启动"
+
+msgid "Workflow state"
+msgstr "工作流状态"
+
+msgid "Workflow states"
+msgstr "工作流状态"
+
+msgid "Rejected"
+msgstr "已拒绝"
+
+msgid "Skipped"
+msgstr "已跳过"
+
+msgid "workflow state"
+msgstr "工作流状态"
+
+msgid "started at"
+msgstr "启动于"
+
+msgid "finished at"
+msgstr "完成于"
+
+msgid "finished by"
+msgstr "完成人"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "任务'{0}'在页面修订版本 '{1}': {2}"
+
+msgid "Task state"
+msgstr "任务状态"
+
+msgid "Task states"
+msgstr "任务状态"
+
+msgid "timestamp (UTC)"
+msgstr "时间戳（UTC）"
+
+msgid "log entry"
+msgstr "日志条目"
+
+msgid "log entries"
+msgstr "日志条目"
+
+msgid "system"
+msgstr "系统"
+
+msgid "page log entry"
+msgstr "页面日志条目"
+
+msgid "page log entries"
+msgstr "页面日志条目"
 
 msgid "Log in"
 msgstr "登录"

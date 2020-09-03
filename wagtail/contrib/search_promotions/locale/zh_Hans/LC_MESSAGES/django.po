@@ -5,16 +5,16 @@
 # Translators:
 # Ed <724195301@qq.com>, 2018
 # hanfeng <appweb.cn@gmail.com>, 2014
-# jszsj <zhushajun@gmail.com>, 2017
+# 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
-# jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2019
+# 祝沙军 <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-02-26 23:45+0000\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-02 10:54+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -121,11 +121,23 @@ msgstr "新增推广结果"
 msgid "Search term(s)"
 msgstr "搜索词条(s)"
 
+msgid "Order by search term alphabetically"
+msgstr "按搜索项的字母顺序排序"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "按搜索项的字母倒序排序"
+
 msgid "Promoted results"
 msgstr "推广结果"
 
 msgid "Views (past week)"
 msgstr "查看 (上周)"
+
+msgid "Order by views (lowest first)"
+msgstr "按查看数排序（从低到高）"
+
+msgid "Order by views (highest first)"
+msgstr "按查看数排序（从高到低）"
 
 msgid "Edit this promotion"
 msgstr "编辑此推广"

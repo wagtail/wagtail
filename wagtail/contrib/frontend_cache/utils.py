@@ -69,7 +69,7 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
         new_urls = []
 
         # Purge the given url for each managed language
-        for isocode, description in languages:
+        for isocode in languages:
             for url in urls:
                 up = urlparse(url)
                 new_url = urlunparse((

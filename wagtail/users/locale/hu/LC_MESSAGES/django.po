@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2020
 # B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-08-01 11:56+0000\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-24 17:26+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -161,6 +161,9 @@ msgstr "Csoport hozzáadása"
 msgid "Editing"
 msgstr "Szerkesztés"
 
+msgid "View users in this group"
+msgstr "Csoport tagjainak megtekintése"
+
 msgid "Save"
 msgstr "Mentés"
 
@@ -284,11 +287,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"A(z) %(group_name)s csoporba nem tartozik felhasználó. Miért nem <a href="
+"\"%(wagtailusers_add_url)s\">ad hozzá egyet</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Nincs még felhasználó hozzáadva. Miért nem <a href="
-"\"%(wagtailusers_create_url)s\">hoz létre egyet</a>?"
+"Nincs felhasználó létrehozva. Miért nem <a href=\"%(wagtailusers_add_url)s"
+"\">ad hozzá egyet</a>?"
 
 msgid "Groups"
 msgstr "Csoportok"

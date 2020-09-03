@@ -81,6 +81,7 @@
         return function(elementPrefix) {
             var sequence = Sequence({
                 prefix: elementPrefix,
+                maxNumChildBlocks: opts.maxNumChildBlocks,
                 onInitializeMember: function(sequenceMember) {
                     /* initialize child block's JS behaviour */
                     var blockTypeName = $('#' + sequenceMember.prefix + '-type').val();
@@ -129,6 +130,25 @@
 
                 onDisableMoveDown: function(sequenceMember) {
                     $('#' + sequenceMember.prefix + '-movedown').addClass('disabled');
+                },
+                
+                onDisableAdd: function(members) {
+                    for (var i = 0; i < members.length; i++){
+                        $('#' + members[i].prefix + '-appendmenu-openclose')
+                            .removeClass('c-sf-add-button--visible').delay(300).slideUp()
+                    }
+                    $('#' + elementPrefix + '-prependmenu-openclose')
+                        .removeClass('c-sf-add-button--visible').delay(300).slideUp()
+                },
+
+                onEnableAdd: function(members) {
+                    for (var i = 0; i < members.length; i++){
+                        
+                        $('#' + members[i].prefix + '-appendmenu-openclose')
+                            .addClass('c-sf-add-button--visible').delay(300).slideDown()
+                    }
+                    $('#' + elementPrefix + '-prependmenu-openclose')
+                        .addClass('c-sf-add-button--visible').delay(300).slideDown()
                 }
             });
 

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-18 10:40+0000\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-29 07:52+0000\n"
 "Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -22,12 +22,18 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "default"
+msgstr "oletusarvo"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Muokataan %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Muokataan"
+
+msgid "Site"
+msgstr "Sivusto"
 
 msgid "Saving…"
 msgstr "Tallennetaan…"

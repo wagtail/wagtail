@@ -50,14 +50,32 @@ header {
         margin-bottom: 0;
     }
 
+    &.tab-merged {
+        padding-left: $desktop-nice-padding;
+        padding-right: $desktop-nice-padding;
+
+        .right:last-child {
+            padding-right: 0;
+        }
+    }
+
     &.tab-merged,
     &.no-border {
         border: 0;
 
         @include media-breakpoint-down(xs) {
             // To all hamburger menu to be visible
-            padding-left: $desktop-nice-padding;
+            padding-left: 1.6em;
+            padding-right: 1.6em;
             padding-top: 11px;
+
+            .breadcrumb {
+                margin-left: 0;
+            }
+
+            .nice-padding {
+                margin-left: -$desktop-nice-padding;
+            }
         }
 
     }

@@ -7,13 +7,13 @@
 # Ed <724195301@qq.com>, 2018
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017,2019
+# 汇民 王 <whuim@qq.com>, 2017,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-02-26 23:45+0000\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-02 12:35+0000\n"
 "Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
@@ -34,6 +34,19 @@ msgstr "全部站点"
 
 msgid "A redirect with this path already exists."
 msgstr "使用此路径的重定向已被占用。"
+
+msgid "File to import"
+msgstr "要导入的文件"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "支持的格式：%(supported_formats)s。"
+
+msgid "From field"
+msgstr "来源字段"
+
+msgid "To field"
+msgstr "目标字段"
 
 msgid "redirect from"
 msgstr "重定向自"
@@ -67,6 +80,31 @@ msgstr "增加重定向"
 msgid "Save"
 msgstr "保存"
 
+msgid "Redirects"
+msgstr "重定向"
+
+msgid "Import redirects"
+msgstr "导入重定向"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>选择一个文件，其中重定向被分隔成行，并包含表示<code>来源</"
+"code>和<code>目标</code>的列（它们可以命名为任何内容）。</p>\n"
+"                <p>提交后，您将被带到一个确认视图，您可以在导入之前自定义重定"
+"向。</p>\n"
+"            "
+
+msgid "Import"
+msgstr "导入"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "删除重定向%(title)s"
@@ -80,6 +118,18 @@ msgstr "确认删除此重定向？"
 msgid "Yes, delete"
 msgstr "是的。删除。"
 
+msgid "Confirm import"
+msgstr "确认导入"
+
+msgid "Confirm"
+msgstr "确认"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Preview"
+msgstr "预览"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "编辑 %(title)s"
@@ -90,17 +140,28 @@ msgstr "编辑"
 msgid "Delete redirect"
 msgstr "删除重定向"
 
-msgid "Redirects"
-msgstr "重定向"
+msgid "Summary"
+msgstr "概要"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr "找到%(total)s个重定向，已成功创建%(successes)s个，有%(errors)s个错误。"
 
 msgid "From"
 msgstr "从"
 
-msgid "Site"
-msgstr "站点"
-
 msgid "To"
 msgstr " 到"
+
+msgid "Error"
+msgstr "错误"
+
+msgid "Continue"
+msgstr "继续"
+
+msgid "Site"
+msgstr "站点"
 
 msgid "Type"
 msgstr "类型"
@@ -154,3 +215,19 @@ msgstr "重定向 '{0}'已增加"
 
 msgid "The redirect could not be created due to errors."
 msgstr "重定向无法创建。出现错误。"
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "不支持“{}”类型的文件格式"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "导入的文件编码错误：%s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "尝试读取文件%(filename)s时遇到%(error)s个错误："
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "已导入%(total)d个重定向"

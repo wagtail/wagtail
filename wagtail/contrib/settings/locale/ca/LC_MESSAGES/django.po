@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matt Westcott <matthew@torchbox.com>, 2017
-# Roger Pons <rogerpons@gmail.com>, 2017-2018
+# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2019-10-16 17:06+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-29 09:08+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,18 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "default"
+msgstr "per defecte"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Editant %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editant"
+
+msgid "Site"
+msgstr "Lloc web"
 
 msgid "Saving…"
 msgstr "Desant…"
@@ -40,6 +46,10 @@ msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 "No es pot obrir aquest paràmetre de configuració perquè no hi ha cap lloc "
 "web definit."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)sactualitzat/da."
 
 msgid "The setting could not be saved due to errors."
 msgstr "El paràmetre de configuració no pot ser desat per causa d'errors."

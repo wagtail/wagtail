@@ -1,6 +1,7 @@
 import datetime
 from io import BytesIO
 
+from django.conf import settings
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -43,8 +44,14 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         self.page = Page.objects.first()
         self.page.locked = True
         self.page.locked_by = self.user
-        self.page.locked_at = '2013-02-01T12:00:00.000Z'
-        self.page.latest_revision_created_at = '2013-01-01T12:00:00.000Z'
+        if settings.USE_TZ:
+            # 12:00 UTC
+            self.page.locked_at = '2013-02-01T12:00:00.000Z'
+            self.page.latest_revision_created_at = '2013-01-01T12:00:00.000Z'
+        else:
+            # 12:00 in no specific timezone
+            self.page.locked_at = '2013-02-01T12:00:00'
+            self.page.latest_revision_created_at = '2013-01-01T12:00:00'
         self.page.save()
 
         response = self.get(params={'export': 'csv'})
@@ -53,15 +60,24 @@ class TestLockedPagesView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(data_lines[0], 'Title,Updated,Status,Type,Locked At,Locked By\r')
-        self.assertEqual(data_lines[1], 'Root,2013-01-01 12:00:00+00:00,live,Page,2013-02-01 12:00:00+00:00,test@email.com\r')
+        if settings.USE_TZ:
+            self.assertEqual(data_lines[1], 'Root,2013-01-01 12:00:00+00:00,live,Page,2013-02-01 12:00:00+00:00,test@email.com\r')
+        else:
+            self.assertEqual(data_lines[1], 'Root,2013-01-01 12:00:00,live,Page,2013-02-01 12:00:00,test@email.com\r')
 
     def test_xlsx_export(self):
 
         self.page = Page.objects.first()
         self.page.locked = True
         self.page.locked_by = self.user
-        self.page.locked_at = '2013-02-01T12:00:00.000Z'
-        self.page.latest_revision_created_at = '2013-01-01T12:00:00.000Z'
+        if settings.USE_TZ:
+            # 12:00 UTC
+            self.page.locked_at = '2013-02-01T12:00:00.000Z'
+            self.page.latest_revision_created_at = '2013-01-01T12:00:00.000Z'
+        else:
+            # 12:00 in no specific timezone
+            self.page.locked_at = '2013-02-01T12:00:00'
+            self.page.latest_revision_created_at = '2013-01-01T12:00:00'
         self.page.save()
 
         response = self.get(params={'export': 'xlsx'})

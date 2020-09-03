@@ -1,0 +1,60 @@
+{% extends 'wagtailadmin/reports/base_report.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block actions %}
+    <div class="addbutton">
+        <a href="{% url 'wagtailadmin_reports:workflow' %}" class="button">{% trans 'By Workflow' %}</a>
+    </div>
+    {{ block.super }}
+{% endblock %}
+
+{% block results %}
+    {% if object_list %}
+        <table class="listing">
+            <thead>
+                <tr>
+                    <th>
+                        {% trans 'Task' %}
+                    </th>
+                    <th>
+                        {% trans 'Page' %}
+                    </th>
+                    <th>
+                        {% trans 'Status' %}
+                    </th>
+                    <th>
+                        {% trans 'Started at' %}
+                    </th>
+                    <th>
+                        {% trans 'Completed at' %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task_state in object_list %}
+                    <tr>
+                        <td>
+                            <b>{{ task_state.task }}</b>
+                        </td>
+                        <td>
+                            {% with task_state.workflow_state.page as page %}
+                                <a href="{% url 'wagtailadmin_pages:edit' page.id %}">
+                                    {{ page.get_admin_display_title }}
+                                </a>
+                            {% endwith %}
+                        </td>
+                        <td>
+                            <div class="status-tag primary">
+                                {{ task_state.get_status_display }}
+                            </div>
+                        </td>
+                        <td>{{ task_state.started_at }}</td>
+                        <td>{{ task_state.finished_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% blocktrans %}No pages have been submitted for moderation yet{% endblocktrans %}</p>
+    {% endif %}
+{% endblock %}

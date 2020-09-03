@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -42,6 +42,12 @@ msgstr "内容"
 msgid "Settings"
 msgstr "设置"
 
+msgid "Date"
+msgstr "日期"
+
+msgid "Title"
+msgstr "标题"
+
 msgid "Enter password"
 msgstr "请输入密码"
 
@@ -59,6 +65,9 @@ msgstr "搜索"
 
 msgid "Search term"
 msgstr "搜索词"
+
+msgid "Edit"
+msgstr "编辑"
 
 msgid "January"
 msgstr "一月"
@@ -208,14 +217,8 @@ msgid ""
 "created will be displayed."
 msgstr "这是您的仪表盘，会显示对您已创建的内容有帮助的信息"
 
-msgid "Title"
-msgstr "标题"
-
 msgid "Edit this page"
 msgstr "编辑这个页面"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Draft"
 msgstr "草稿"
@@ -243,9 +246,6 @@ msgstr "预览"
 
 msgid "Your most recent edits"
 msgstr "你最近的编辑"
-
-msgid "Date"
-msgstr "日期"
 
 msgid "Status"
 msgstr "状态"
@@ -369,14 +369,6 @@ msgid "New"
 msgstr "新"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "上一次编辑：%(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "作者%(modified_by)s"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "浏览%(title)s"
 
@@ -426,17 +418,21 @@ msgstr "主页"
 msgid "Log out"
 msgstr "登出"
 
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "作者%(modified_by)s"
+
 msgid "Your password has been changed successfully!"
 msgstr "您的密码已经更改成功。"
 
 msgid "Page '{0}' created."
 msgstr "第 '{0}' 页已创建。"
 
-msgid "The page could not be saved due to validation errors"
-msgstr "这页无法保存，因为页面发生验证错误"
-
 msgid "This page is currently awaiting moderation"
 msgstr "这页正在等待审核"
+
+msgid "The page could not be saved due to validation errors"
+msgstr "这页无法保存，因为页面发生验证错误"
 
 msgid "Page '{0}' deleted."
 msgstr "第 '{0}' 页已删除"

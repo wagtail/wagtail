@@ -7,15 +7,7 @@
     {% trans "Confirm import" as header_subtitle %}
     {% include "wagtailadmin/shared/header.html" with title=header_title subtitle=header_subtitle icon="redirect" %}
 
-    {% if form.non_field_errors %}
-        <div class="messages">
-            <ul>
-                {% for error in form.non_field_errors %}
-                    <li class="error">{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+    {% include "wagtailadmin/shared/non_field_errors.html" %}
 
     <form action="{% url 'wagtailredirects:process_import' %}" method="POST" class="nice-padding" novalidate enctype="multipart/form-data">
         {% csrf_token %}

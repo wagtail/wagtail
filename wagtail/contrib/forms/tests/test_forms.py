@@ -89,7 +89,7 @@ class TestFormBuilder(TestCase):
         FormField.objects.create(
             page=self.form_page,
             sort_order=2,
-            label="Your favourite Python IDE",
+            label="Ὕour favourite Ρython ÏÐÈ",  # unicode example
             help_text="Choose one",
             field_type='radio',
             required=True,
@@ -129,40 +129,40 @@ class TestFormBuilder(TestCase):
 
         # All fields are present in form
         field_names = form_class.base_fields.keys()
-        self.assertIn('your-name', field_names)
-        self.assertIn('your-message', field_names)
-        self.assertIn('your-birthday', field_names)
-        self.assertIn('your-birthtime', field_names)
-        self.assertIn('your-email', field_names)
-        self.assertIn('your-homepage', field_names)
-        self.assertIn('your-favourite-number', field_names)
-        self.assertIn('your-favourite-text-editors', field_names)
-        self.assertIn('your-favourite-python-ides', field_names)
-        self.assertIn('your-favourite-python-ide', field_names)
-        self.assertIn('your-choices', field_names)
-        self.assertIn('i-agree-to-the-terms-of-use', field_names)
-        self.assertIn('a-hidden-field', field_names)
+        self.assertIn('your_name', field_names)
+        self.assertIn('your_message', field_names)
+        self.assertIn('your_birthday', field_names)
+        self.assertIn('your_birthtime', field_names)
+        self.assertIn('your_email', field_names)
+        self.assertIn('your_homepage', field_names)
+        self.assertIn('your_favourite_number', field_names)
+        self.assertIn('your_favourite_text_editors', field_names)
+        self.assertIn('your_favourite_python_ides', field_names)
+        self.assertIn('u03a5our_favourite_u03a1ython_ixd0e', field_names)
+        self.assertIn('your_choices', field_names)
+        self.assertIn('i_agree_to_the_terms_of_use', field_names)
+        self.assertIn('a_hidden_field', field_names)
 
         # All fields have proper type
-        self.assertIsInstance(form_class.base_fields['your-name'], forms.CharField)
-        self.assertIsInstance(form_class.base_fields['your-message'], forms.CharField)
-        self.assertIsInstance(form_class.base_fields['your-birthday'], forms.DateField)
-        self.assertIsInstance(form_class.base_fields['your-birthtime'], forms.DateTimeField)
-        self.assertIsInstance(form_class.base_fields['your-email'], forms.EmailField)
-        self.assertIsInstance(form_class.base_fields['your-homepage'], forms.URLField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-number'], forms.DecimalField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-text-editors'], forms.MultipleChoiceField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-python-ides'], forms.ChoiceField)
-        self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'], forms.ChoiceField)
-        self.assertIsInstance(form_class.base_fields['your-choices'], forms.MultipleChoiceField)
-        self.assertIsInstance(form_class.base_fields['i-agree-to-the-terms-of-use'], forms.BooleanField)
-        self.assertIsInstance(form_class.base_fields['a-hidden-field'], forms.CharField)
+        self.assertIsInstance(form_class.base_fields['your_name'], forms.CharField)
+        self.assertIsInstance(form_class.base_fields['your_message'], forms.CharField)
+        self.assertIsInstance(form_class.base_fields['your_birthday'], forms.DateField)
+        self.assertIsInstance(form_class.base_fields['your_birthtime'], forms.DateTimeField)
+        self.assertIsInstance(form_class.base_fields['your_email'], forms.EmailField)
+        self.assertIsInstance(form_class.base_fields['your_homepage'], forms.URLField)
+        self.assertIsInstance(form_class.base_fields['your_favourite_number'], forms.DecimalField)
+        self.assertIsInstance(form_class.base_fields['your_favourite_text_editors'], forms.MultipleChoiceField)
+        self.assertIsInstance(form_class.base_fields['your_favourite_python_ides'], forms.ChoiceField)
+        self.assertIsInstance(form_class.base_fields['u03a5our_favourite_u03a1ython_ixd0e'], forms.ChoiceField)
+        self.assertIsInstance(form_class.base_fields['your_choices'], forms.MultipleChoiceField)
+        self.assertIsInstance(form_class.base_fields['i_agree_to_the_terms_of_use'], forms.BooleanField)
+        self.assertIsInstance(form_class.base_fields['a_hidden_field'], forms.CharField)
 
         # Some fields have non-default widgets
-        self.assertIsInstance(form_class.base_fields['your-message'].widget, forms.Textarea)
-        self.assertIsInstance(form_class.base_fields['your-favourite-python-ide'].widget, forms.RadioSelect)
-        self.assertIsInstance(form_class.base_fields['your-choices'].widget, forms.CheckboxSelectMultiple)
-        self.assertIsInstance(form_class.base_fields['a-hidden-field'].widget, forms.HiddenInput)
+        self.assertIsInstance(form_class.base_fields['your_message'].widget, forms.Textarea)
+        self.assertIsInstance(form_class.base_fields['u03a5our_favourite_u03a1ython_ixd0e'].widget, forms.RadioSelect)
+        self.assertIsInstance(form_class.base_fields['your_choices'].widget, forms.CheckboxSelectMultiple)
+        self.assertIsInstance(form_class.base_fields['a_hidden_field'].widget, forms.HiddenInput)
 
 
 class TestCustomFormBuilder(TestCase):
@@ -209,4 +209,4 @@ class TestCustomFormBuilder(TestCase):
         form = form_class()
         # check ip address field used
         self.assertIsInstance(
-            form.base_fields['device-ip-address'], forms.GenericIPAddressField)
+            form.base_fields['device_ip_address'], forms.GenericIPAddressField)

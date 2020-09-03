@@ -9,21 +9,21 @@
 # First Last <abc+github@mynook.info>, 2019
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Jian Li <kdlijian@gmail.com>, 2015
-# jszsj <zhushajun@gmail.com>, 2016-2017
+# 祝沙军 <zhushajun@gmail.com>, 2016-2017
 # listeng, 2016
 # Aosp T, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # yi huang <yi.codeplayer@gmail.com>, 2018
-# jszsj <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017,2019
-# jszsj <zhushajun@gmail.com>, 2016
+# 祝沙军 <zhushajun@gmail.com>, 2017
+# 汇民 王 <whuim@qq.com>, 2017,2019-2020
+# 祝沙军 <zhushajun@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-11-01 02:57+0000\n"
-"Last-Translator: First Last <abc+github@mynook.info>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-02 10:57+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -165,6 +165,9 @@ msgstr "添加组"
 msgid "Editing"
 msgstr "编辑"
 
+msgid "View users in this group"
+msgstr "查看此组中的用户"
+
 msgid "Save"
 msgstr "保存"
 
@@ -281,10 +284,18 @@ msgstr "对不起，没有匹配\"<em>%(query_string)s</em>\"的用户"
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"%(group_name)s组还没有用户，为何不<a href=\"%(wagtailusers_add_url)s\">添加一"
+"些用户</a>？"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"还没用户呢。为啥不<a href=\"%(wagtailusers_create_url)s\">创建</a>试试?"
+"目前还没有用户。为何不<a href=\"%(wagtailusers_add_url)s\">添加一些用户</a>？"
 
 msgid "Groups"
 msgstr "组"

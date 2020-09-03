@@ -37,7 +37,7 @@ Here's an example of an ``EventIndexPage`` with three views, assuming that an ``
 .. code-block:: python
 
     import datetime
-    from django.shortcuts import render
+    from django.http import JsonResponse
     from wagtail.core.fields import RichTextField
     from wagtail.core.models import Page
     from wagtail.contrib.routable_page.models import RoutablePageMixin, route
@@ -56,9 +56,10 @@ Here's an example of an ``EventIndexPage`` with three views, assuming that an ``
             """
             events = EventPage.objects.live().filter(event_date__gte=datetime.date.today())
 
-            return render(request, 'events/event_index.html', {
+            # NOTE: We can use the RoutablePageMixin.render() method to render
+            # the page as normal, but with some of the context values overridden
+            return self.render(request, context_overrides={
                 'title': "Current events",
-                'page': self,
                 'events': events,
             })
 
@@ -69,11 +70,15 @@ Here's an example of an ``EventIndexPage`` with three views, assuming that an ``
             """
             events = EventPage.objects.live().filter(event_date__lt=datetime.date.today())
 
-            return render(request, 'events/event_index.html', {
-                'title': "Past events",
-                'page': self,
-                'events': events,
-            })
+            # NOTE: We are overriding the template here, as well as few context values
+            return self.render(
+                request,
+                context_overrides={
+                    'title': "Past events",
+                    'events': events,
+                },
+                template="events/event_index_historical.html",
+            )
 
         # Multiple routes!
         @route(r'^year/(\d+)/$')
@@ -87,11 +92,22 @@ Here's an example of an ``EventIndexPage`` with three views, assuming that an ``
 
             events = EventPage.objects.live().filter(event_date__year=year)
 
-            return render(request, 'events/event_index.html', {
+            return self.render(request, context_overrides={
                 'title': "Events for %d" % year,
-                'page': self,
                 'events': events,
             })
+
+        @route(r'^year/(\d+)/count/$')
+        def count_for_year(self, request, year=None):
+            """
+            View function that returns a simple JSON response that
+            includes the number of events scheduled for a specific year
+            """
+            events = EventPage.objects.live().filter(event_date__year=year)
+
+            # NOTE: The usual template/context rendering process is irrelevant
+            # here, so we'll just return a HttpResponse directly
+            return JsonResponse({'count': events.count()})
 
 
 Rendering other pages
@@ -166,6 +182,8 @@ The ``RoutablePageMixin`` class
 
 .. automodule:: wagtail.contrib.routable_page.models
 .. autoclass:: RoutablePageMixin
+
+    .. automethod:: render
 
     .. automethod:: get_subpage_urls
 

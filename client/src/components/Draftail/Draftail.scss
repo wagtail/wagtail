@@ -110,6 +110,13 @@ $draftail-editor-font-family: $font-serif;
     border: 1px solid $color-grey-3;
 }
 
+.Draftail-ToolbarButton {
+    &:hover,
+    &:active {
+        border: 1px solid $color-grey-3;
+    }
+}
+
 .title .Draftail-Editor .public-DraftEditor-content,
 .title .Draftail-Editor .public-DraftEditorPlaceholder-root {
     font-size: 2em;

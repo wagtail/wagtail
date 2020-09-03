@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -45,6 +45,9 @@ msgstr "Non tes permisos para acceder ao administrador."
 msgid "Scheduled publishing"
 msgstr "Publicación programada"
 
+msgid "Privacy"
+msgstr "Privacidade"
+
 msgid "Common page configuration"
 msgstr "Configuración común de páxina"
 
@@ -56,6 +59,12 @@ msgstr "Promocionar"
 
 msgid "Settings"
 msgstr "Propiedades"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Title"
+msgstr "Título"
 
 msgid "Enter password"
 msgstr "Introduce contrasinal"
@@ -137,6 +146,9 @@ msgstr "Procurar termo"
 
 msgid "This field is required."
 msgstr "Este campo é requirido."
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "Pages"
 msgstr "Páxinas"
@@ -313,9 +325,6 @@ msgstr "Podes editar a configuración de privacidade en:"
 msgid "Save"
 msgstr "Gardar"
 
-msgid "Privacy"
-msgstr "Privacidade"
-
 msgid "Public"
 msgstr "Público"
 
@@ -352,14 +361,8 @@ msgstr ""
 "Este é o teu panel de control onde aparecerá información útil sobre o "
 "contido que creaches."
 
-msgid "Title"
-msgstr "Título"
-
 msgid "Edit this page"
 msgstr "Editar esta páxina"
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "Draft"
 msgstr "Borrador"
@@ -390,9 +393,6 @@ msgstr "Previsualizar"
 
 msgid "Your most recent edits"
 msgstr "As túas edicións máis recentes"
-
-msgid "Date"
-msgstr "Data"
 
 msgid "Status"
 msgstr "Estado"
@@ -464,9 +464,6 @@ msgstr "Esta páxina foi feita privada por unha páxina pai."
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Os cambios de privacidade aplícanse a todas as fillas desta páxina tamén."
-
-msgid "Publish this revision"
-msgstr "Publicar esta revisión"
 
 msgid "Replace current draft"
 msgstr "Substituír borrador actual"
@@ -574,20 +571,8 @@ msgstr "Esta páxina ten cambios sen gardar."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Editando %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Editando %(page_type)s <span>%(title)s</span>"
-
-#, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Última modificación: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "por %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Revisións"
+msgid "Current draft"
+msgstr "Borrador actual"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -738,12 +723,6 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "Por"
 
-msgid "Current draft"
-msgstr "Borrador actual"
-
-msgid "Review this revision"
-msgstr "Revisar esta revisión"
-
 msgid "No revisions of this page exist"
 msgstr "Non existen revisións desta páxina"
 
@@ -767,10 +746,6 @@ msgstr[1] ""
 "\n"
 "                Hai %(counter)s páxinas coincidentes\n"
 "            "
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Sentímolo, ningunha páxina contén <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Introduce o termo de procura arriba"
@@ -811,6 +786,10 @@ msgstr "Engadir unha páxina filla"
 
 msgid "Show in Explorer"
 msgstr "Mostrar no Navegador"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "por %(modified_by)s"
 
 msgid "Test"
 msgstr "Test"
@@ -860,14 +839,11 @@ msgstr "Ver en vivo"
 msgid "Page '{0}' created and published."
 msgstr "Páxina '{0}' creada e publicada."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Páxina '{0}' creada e enviada para ser moderada."
-
 msgid "View draft"
 msgstr "Ver borrador"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Fallo no envío de notificacións aos moderadores"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Páxina '{0}' creada e enviada para ser moderada."
 
 msgid "Page '{0}' created."
 msgstr "Páxina '{0}' creada."
@@ -875,23 +851,17 @@ msgstr "Páxina '{0}' creada."
 msgid "The page could not be created due to validation errors"
 msgstr "A páxina non pudo ser creada debido a errores de validación"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Revisión dende {0} de páxina '{1}' foi programada para publicación."
+msgid "This page is currently awaiting moderation"
+msgstr "A páxina está á espera de ser moderada"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Páxina '{0}' foi programada para publicación."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Revisión dende {0} de páxina '{1}' foi publicada."
 
 msgid "Page '{0}' has been published."
 msgstr "Páxina '{0}' foi publicada."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Páxina '{0}' foi enviada para ser moderada."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Páxina '{0}' foi reemplazada con revisión dende {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Páxina '{0}' foi actualizada."
@@ -901,9 +871,6 @@ msgstr "A páxina non pudo ser gardada xa que está bloqueada"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "A páxina non puido ser gardada debido a erros de validación"
-
-msgid "This page is currently awaiting moderation"
-msgstr "A páxina está á espera de ser moderada"
 
 msgid "Page '{0}' deleted."
 msgstr "Páxina '{0}' eliminada."
@@ -937,14 +904,6 @@ msgstr "Fallo ao enviar notificacións de rexeitamento"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "A páxina '{0}' está agora desbloqueada."
-
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Estás a ver unha revisión previa desta páxina dende <b>%(created_at)s</b> "
-"por %(user)s"
 
 msgid "More"
 msgstr "Máis"

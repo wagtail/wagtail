@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-08-01 11:54+0000\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-24 17:33+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -30,6 +30,19 @@ msgstr "Összes webhely"
 
 msgid "A redirect with this path already exists."
 msgstr "Már létezik átirányítás erre az útvonalra."
+
+msgid "File to import"
+msgstr "Importálandó fájl"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Támogatott formátumok: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Eredeti link mező"
+
+msgid "To field"
+msgstr "Cél link mező"
 
 msgid "redirect from"
 msgstr "átirányítás innét"
@@ -65,6 +78,33 @@ msgstr "Átírányítás hozzáadása"
 msgid "Save"
 msgstr "Mentés"
 
+msgid "Redirects"
+msgstr "Átirányítások"
+
+msgid "Import redirects"
+msgstr "Átirányítások importálása"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>Kérjük adjon meg egy fájlt, ahol az átirányítások oszlopokba vannak "
+"rendezve, és tartalmazza az <code>eredeti linket</code>, amiről át kell "
+"irányítani, és a <code>cél linket</code>, ahová megy a látogató (az oszlopok "
+"neve bármi lehet). </p>\n"
+"<p>A beküldés után egy megerősítő oldalt fog látni, ahol a végrehajtás előtt "
+"még módosíthat az átirányításokon.</p>\n"
+" "
+
+msgid "Import"
+msgstr "Importálás"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "%(title)s átirányítás törlése"
@@ -78,6 +118,18 @@ msgstr "Biztosan törli ezt az átirányítást?"
 msgid "Yes, delete"
 msgstr "Igen, törlés"
 
+msgid "Confirm import"
+msgstr "Importálás megerősítése"
+
+msgid "Confirm"
+msgstr "Megerősítés"
+
+msgid "Cancel"
+msgstr "Mégsem"
+
+msgid "Preview"
+msgstr "Előnézet"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "%(title)s szerkesztése"
@@ -88,17 +140,30 @@ msgstr "Szerkesztés"
 msgid "Delete redirect"
 msgstr "Átirányítás törlése"
 
-msgid "Redirects"
-msgstr "Átirányítások"
+msgid "Summary"
+msgstr "Összegzés"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Összesen %(total)s átirányítást találtunk, ebből %(successes)s sikeresen "
+"létrehozva, %(errors)s hibás."
 
 msgid "From"
 msgstr "Innét"
 
-msgid "Site"
-msgstr "Webhely"
-
 msgid "To"
 msgstr "Ide"
+
+msgid "Error"
+msgstr "Hiba"
+
+msgid "Continue"
+msgstr "Folytatás"
+
+msgid "Site"
+msgstr "Webhely"
 
 msgid "Type"
 msgstr "Típus"
@@ -156,3 +221,20 @@ msgstr "'{0}' átirányítás hozzáadva."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Hiba történt az átirányítás létrehozása közben."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "A \"{}\" formátum nem támogatott"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "Az importált fájlnak rossz a karakterkódolása: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s hiba a fájl beolvasásakor: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "%(total)d átirányítás importálva"
+msgstr[1] "%(total)d átirányítás importálva"

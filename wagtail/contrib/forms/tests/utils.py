@@ -28,6 +28,7 @@ def make_form_page(**kwargs):
         label="Your message",
         field_type='multiline',
         required=True,
+        help_text="<em>please</em> be polite"
     )
     FormField.objects.create(
         page=form_page,
@@ -85,7 +86,6 @@ def make_form_page_with_redirect(**kwargs):
     kwargs.setdefault('to_address', "to@email.com")
     kwargs.setdefault('from_address', "from@email.com")
     kwargs.setdefault('subject', "The subject")
-
 
     home_page = Page.objects.get(url_path='/home/')
     kwargs.setdefault('thank_you_redirect_page', home_page)

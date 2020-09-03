@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Martin Sandström <martin@marteinn.se>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2018-11-27 22:01+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-25 07:37+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,19 @@ msgstr "Alla sajter"
 
 msgid "A redirect with this path already exists."
 msgstr "En omdirigering med den här sökvägen existerar redan."
+
+msgid "File to import"
+msgstr "Fil att importera"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Format som stöds: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Från fält"
+
+msgid "To field"
+msgstr "Till fält"
 
 msgid "redirect from"
 msgstr "omdirigeringsformulär"
@@ -67,6 +81,32 @@ msgstr "Lägg omdirigering"
 msgid "Save"
 msgstr "Spara"
 
+msgid "Redirects"
+msgstr "Omdirigeringar"
+
+msgid "Import redirects"
+msgstr "Importera omdirigeringar"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Välj en fil där omdirigeringar är separerade i rader och "
+"inehåller kolumner som representerar <code>från och <code>till</code> (dom "
+"kan heta vad som helst).</p>\n"
+"                <p>I nästa steg kommer en bekräftelsevy visas där du kan "
+"anpassa dina omdirigeringar innan import.</p>\n"
+"            "
+
+msgid "Import"
+msgstr "Importera"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Radera omdirigering %(title)s"
@@ -80,6 +120,18 @@ msgstr "Är du säker på att du vill radera denna omdirigering?"
 msgid "Yes, delete"
 msgstr "Ja, radera"
 
+msgid "Confirm import"
+msgstr "Bekräfta import"
+
+msgid "Confirm"
+msgstr "Bekräfta"
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Preview"
+msgstr "Förhandsgranska"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Editerar %(title)s"
@@ -90,17 +142,30 @@ msgstr "Editerar"
 msgid "Delete redirect"
 msgstr "Radera omdirigering"
 
-msgid "Redirects"
-msgstr "Omdirigeringar"
+msgid "Summary"
+msgstr "Sammanfattning"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Hittade %(total)s omdirigeringar, skapade %(successes)s och påträffade "
+"%(errors)s fel."
 
 msgid "From"
 msgstr "Från"
 
-msgid "Site"
-msgstr "Sajt"
-
 msgid "To"
 msgstr "Till"
+
+msgid "Error"
+msgstr "Fel"
+
+msgid "Continue"
+msgstr "Fortsätt"
+
+msgid "Site"
+msgstr "Sajt"
 
 msgid "Type"
 msgstr "Typ"
@@ -142,7 +207,7 @@ msgid "Search redirects"
 msgstr "Sökomdirigeringar"
 
 msgid "Redirect '{0}' updated."
-msgstr "Omdirigering '{0}' uppdaterad."
+msgstr "Omdirigering '{0}' uppdaterades."
 
 msgid "Edit"
 msgstr "Editera"
@@ -158,3 +223,20 @@ msgstr "Omdirigering '{0}' skapad."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Omdirigeringen kunde inte sparas p.g.a. fel."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "Filformat av typ \"{}\" stöds ej"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "Importerad fil har fel teckenkodning: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s uppstod vid försök att läsa fil : %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Importerade %(total)d omdirigering"
+msgstr[1] "Importerade %(total)d omdirigeringar"

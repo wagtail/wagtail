@@ -198,7 +198,6 @@ class TestAdminTagWidget(TestCase):
                 return json.loads('[%s]' % params_raw)
         return []
 
-
     def test_render_js_init_basic(self):
         """Checks that the 'initTagField' is correctly added to the inline script for tag widgets"""
         widget = widgets.AdminTagWidget()
@@ -210,7 +209,6 @@ class TestAdminTagWidget(TestCase):
             params,
             ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': True, 'tagLimit': None, 'autocompleteOnly': False}]
         )
-
 
     @override_settings(TAG_SPACES_ALLOWED=False)
     def test_render_js_init_no_spaces_allowed(self):
@@ -224,7 +222,6 @@ class TestAdminTagWidget(TestCase):
             params,
             ['alpha', '/admin/tag-autocomplete/', {'allowSpaces': False, 'tagLimit': None, 'autocompleteOnly': False}]
         )
-
 
     @override_settings(TAG_LIMIT=5)
     def test_render_js_init_with_tag_limit(self):
@@ -302,3 +299,57 @@ class TestTagField(TestCase):
         form = RestaurantTagForm({'tags': "Italian, delicious"})
         self.assertTrue(form.is_valid())
         self.assertEqual(set(form.cleaned_data['tags']), {"Italian", "delicious"})
+
+
+class TestFilteredSelect(TestCase):
+    def test_render(self):
+        widget = widgets.FilteredSelect(choices=[
+            (None, '----'),
+            ('FR', 'France', ['EU']),
+            ('JP', 'Japan', ['AS']),
+            ('RU', 'Russia', ['AS', 'EU']),
+        ], filter_field='id_continent')
+
+        html = widget.render('country', 'JP')
+        self.assertHTMLEqual(html, '''
+            <select name="country" data-widget="filtered-select" data-filter-field="id_continent">
+                <option value="">----</option>
+                <option value="FR" data-filter-value="EU">France</option>
+                <option value="JP" selected data-filter-value="AS">Japan</option>
+                <option value="RU" data-filter-value="AS,EU">Russia</option>
+            </select>
+        ''')
+
+    def test_optgroups(self):
+        widget = widgets.FilteredSelect(choices=[
+            (None, '----'),
+            ('Big countries', [
+                ('FR', 'France', ['EU']),
+                ('JP', 'Japan', ['AS']),
+                ('RU', 'Russia', ['AS', 'EU']),
+                ('MOON', 'The moon'),
+            ]),
+            ('Small countries', [
+                ('AZ', 'Azerbaijan', ['AS']),
+                ('LI', 'Liechtenstein', ['EU']),
+            ]),
+            ('SK', 'Slovakia', ['EU'])
+        ], filter_field='id_continent')
+
+        html = widget.render('country', 'JP')
+        self.assertHTMLEqual(html, '''
+            <select name="country" data-widget="filtered-select" data-filter-field="id_continent">
+                <option value="">----</option>
+                <optgroup label="Big countries">
+                    <option value="FR" data-filter-value="EU">France</option>
+                    <option value="JP" selected data-filter-value="AS">Japan</option>
+                    <option value="RU" data-filter-value="AS,EU">Russia</option>
+                    <option value="MOON">The moon</option>
+                </optgroup>
+                <optgroup label="Small countries">
+                    <option value="AZ" data-filter-value="AS">Azerbaijan</option>
+                    <option value="LI" data-filter-value="EU">Liechtenstein</option>
+                </optgroup>
+                <option value="SK" data-filter-value="EU">Slovakia</option>
+            </select>
+        ''')

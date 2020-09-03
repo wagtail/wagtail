@@ -21,6 +21,7 @@ global.wagtailConfig = {
   },
   STRINGS: {
     DELETE: 'Delete',
+    EDIT: 'Edit',
     PAGE: 'Page',
     PAGES: 'Pages',
     LOADING: 'Loading…',

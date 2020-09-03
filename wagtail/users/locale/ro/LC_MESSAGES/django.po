@@ -5,15 +5,15 @@
 # Translators:
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2019
+# Dan Braghis, 2014-2020
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-12-04 01:21+0000\n"
-"Last-Translator: Bogdan Mateescu\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-27 20:17+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -168,6 +168,9 @@ msgstr "Adaugă grup"
 msgid "Editing"
 msgstr "Editare"
 
+msgid "View users in this group"
+msgstr "Vezi utilizatorii în acest grup"
+
 msgid "Save"
 msgstr "Salvează"
 
@@ -292,11 +295,19 @@ msgstr ""
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Grupul %(group_name)s nu conține nici un utilizator. De ce să nu <a href="
+"\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Nu există nici un utilizator. De ce să nu <a href="
-"\"%(wagtailusers_create_url)s\">adăugați câțiva</a>?"
+"Nu există nici un utilizator. De ce să nu <a href=\"%(wagtailusers_add_url)s"
+"\">adăugați câțiva</a>?"
 
 msgid "Groups"
 msgstr "Grupuri"

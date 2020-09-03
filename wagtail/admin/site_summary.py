@@ -59,11 +59,6 @@ class PagesSummaryItem(SummaryItem):
         return user_has_any_page_permission(self.request.user)
 
 
-@hooks.register('construct_homepage_summary_items')
-def add_pages_summary_item(request, items):
-    items.append(PagesSummaryItem(request))
-
-
 class SiteSummaryPanel:
     name = 'site_summary'
     order = 100

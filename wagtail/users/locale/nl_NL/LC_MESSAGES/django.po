@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2019
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2020
 # Kees Hink <keeshink@gmail.com>, 2017
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Meteor0id, 2018-2019
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-10-16 20:27+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-25 12:26+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -167,6 +167,9 @@ msgstr "Groep toevoegen"
 msgid "Editing"
 msgstr "Wijzigen"
 
+msgid "View users in this group"
+msgstr "Bekijk gebruikers in deze groep"
+
 msgid "Save"
 msgstr "Opslaan"
 
@@ -289,11 +292,19 @@ msgstr "Sorry, geen gebruikers gevonden \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
-"There are no users configured. Why not <a href=\"%(wagtailusers_create_url)s"
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"De groep %(group_name)s heeft geen gebruikers. <a href="
+"\"%(wagtailusers_add_url)s\">Voeg gebruikers toe</a>."
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Er zijn geen gebruikers ingesteld. Waarom <a href="
-"\"%(wagtailusers_create_url)s\">voegt u er niet een toe</a>?"
+"Er zijn geen gebruikers ingesteld. <a href=\"%(wagtailusers_add_url)s\">Voeg "
+"gebruikers toe</a>."
 
 msgid "Groups"
 msgstr "Groepen"

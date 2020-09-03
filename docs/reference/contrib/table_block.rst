@@ -144,11 +144,11 @@ To change the default table options just pass a new table_options dictionary whe
         table = TableBlock(table_options=new_table_options)
 
 
-Supporting cell alignement
+Supporting cell alignment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can activate the `alignment` option by setting a custom `contextMenu` which allows you to set the alignment on a cell selection.
-HTML classes set by handsontable will be kept on the rendered block. You'll be then able to apply your own custom CSS rules to preserve the style. Those class names are:
+HTML classes set by handsontable will be kept on the rendered block. You'll then be able to apply your own custom CSS rules to preserve the style. Those class names are:
 
  * Horizontal: ``htLeft``, ``htCenter``, ``htRight``, ``htJustify``
  * Vertical: ``htTop``, ``htMiddle``, ``htBottom``

@@ -38,16 +38,6 @@ class TestRevisions(TestCase, WagtailTestUtils):
 
         self.login()
 
-    def test_edit_form_has_revisions_link(self):
-        response = self.client.get(
-            reverse('wagtailadmin_pages:edit', args=(self.christmas_event.id, ))
-        )
-        self.assertEqual(response.status_code, 200)
-        revisions_index_url = reverse(
-            'wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, )
-        )
-        self.assertContains(response, revisions_index_url)
-
     def test_get_revisions_index(self):
         response = self.client.get(
             reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, ))
@@ -92,7 +82,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, "Last Christmas I gave you my heart")
 
     def test_preview_revision_with_no_page_permissions_redirects_to_admin(self):
-        admin_only_user = get_user_model().objects.create_user(
+        admin_only_user = self.create_user(
             username='admin_only',
             email='admin_only@email.com',
             password='password'
@@ -117,7 +107,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         editors_group = Group.objects.get(name='Site-wide editors')
         editors_group.page_permissions.update(page_id=st_patricks.id)
 
-        editor = get_user_model().objects.get(username='siteeditor')
+        editor = get_user_model().objects.get(email='siteeditor@example.com')
 
         self.login(editor)
         response = self.request_preview_revision()
@@ -133,7 +123,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertContains(response, "Editing Event page")
-        self.assertContains(response, "You are viewing a previous revision of this page")
+        self.assertContains(response, "You are viewing a previous version of this page")
 
         # Form should show the content of the revision, not the current draft
         self.assertContains(response, "Last Christmas I gave you my heart")
@@ -147,7 +137,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
 
         # Buttons should be relabelled
         self.assertContains(response, "Replace current draft")
-        self.assertContains(response, "Publish this revision")
+        self.assertContains(response, "Publish this version")
 
     def test_scheduled_revision(self):
         self.last_christmas_revision.publish()
@@ -408,8 +398,8 @@ class TestRevisionsUnschedule(TestCase, WagtailTestUtils):
         # Post to the unschedule page
         response = self.client.post(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, self.this_christmas_revision.id)))
 
-        # Should be redirected to revisions index page
-        self.assertRedirects(response, reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, )))
+        # Should be redirected to page history
+        self.assertRedirects(response, reverse('wagtailadmin_pages:history', args=(self.christmas_event.id, )))
 
         # Check that the page has no approved_schedule
         self.assertFalse(EventPage.objects.get(id=self.christmas_event.id).approved_schedule)
@@ -450,8 +440,8 @@ class TestRevisionsUnscheduleForUnpublishedPages(TestCase, WagtailTestUtils):
         # Post to the unschedule page
         response = self.client.post(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.unpublished_event.id, self.unpublished_revision.id)))
 
-        # Should be redirected to revisions index page
-        self.assertRedirects(response, reverse('wagtailadmin_pages:revisions_index', args=(self.unpublished_event.id, )))
+        # Should be redirected to page history
+        self.assertRedirects(response, reverse('wagtailadmin_pages:history', args=(self.unpublished_event.id, )))
 
         # Check that the page has no approved_schedule
         self.assertFalse(EventPage.objects.get(id=self.unpublished_event.id).approved_schedule)

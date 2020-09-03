@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -255,7 +254,7 @@ class TestSiteDeleteView(TestCase, WagtailTestUtils):
 class TestLimitedPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create a user
-        user = get_user_model().objects.create_user(username='test', email='test@email.com', password='password')
+        user = self.create_user(username='test', password='password')
         user.user_permissions.add(
             Permission.objects.get(codename='access_admin'),
             Permission.objects.get(codename='add_site'),
@@ -264,7 +263,7 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
         )
 
         # Login
-        self.assertTrue(self.client.login(username='test', password='password'))
+        self.login(username='test', password='password')
 
         self.home_page = Page.objects.get(id=2)
         self.localhost = Site.objects.all()[0]

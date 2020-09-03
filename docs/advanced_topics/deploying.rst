@@ -21,6 +21,11 @@ On PythonAnywhere
 
 `PythonAnywhere <https://www.pythonanywhere.com/>`_ is a Platform-as-a-Service (PaaS) focused on Python hosting and development. It allows developers to quickly develop, host, and scale applications in a cloud environment. Starting with a free plan they also provide MySQL and PostgreSQL databases as well as very flexible and affordable paid plans, so there's all you need to host a Wagtail site. To get quickly up and running you may use the `wagtail-pythonanywhere-quickstart <https://github.com/texperience/wagtail-pythonanywhere-quickstart>`_.
 
+On Google Cloud
+~~~~~~~~~~~~~~~
+
+`Google Cloud <https://cloud.google.com>`_ is an Infrastructure-as-a-Service (IaaS) that offers multiple managed products, supported by Python client libraries, to help you build, deploy, and monitor your applications. You can deploy Wagtail, or any Django application, in a number of ways, including on `App Engine <https://www.youtube.com/watch?v=uD9PTag2-PQ>`_  or `Cloud Run <https://codelabs.developers.google.com/codelabs/cloud-run-wagtail/#0>`_.
+
 On other PAASs and IAASs
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -51,5 +56,25 @@ If you are also serving Wagtail's static files from remote storage (using Django
     AWS_HEADERS = {
         'Access-Control-Allow-Origin': '*'
     }
+
+For Google Cloud Storage, create a ``cors.json`` configuration:
+
+.. code-block:: json
+
+	[
+	    {
+	      "origin": ["*"],
+	      "responseHeader": ["Content-Type"],
+	      "method": ["GET"],
+	      "maxAgeSeconds": 3600
+	    }
+	]
+
+Then, apply this CORS configuration to the storage bucket:
+
+.. code-block:: shell
+
+    gsutil cors set cors.json gs://$GS_BUCKET_NAME
+
 
 For other storage services, refer to your provider's documentation, or the documentation for the Django storage backend library you're using.

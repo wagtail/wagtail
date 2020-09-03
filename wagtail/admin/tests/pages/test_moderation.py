@@ -2,7 +2,6 @@ import logging
 from itertools import chain
 from unittest import mock
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.messages import constants as message_constants
 from django.core import mail
@@ -10,7 +9,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.core.models import GroupPagePermission, Page, PageRevision
+from wagtail.core.models import Page, PageRevision
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
@@ -19,7 +18,7 @@ from wagtail.users.models import UserProfile
 
 class TestApproveRejectModeration(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.submitter = get_user_model().objects.create_superuser(
+        self.submitter = self.create_superuser(
             username='submitter',
             email='submitter@email.com',
             password='password',
@@ -180,12 +179,11 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.user = self.login()
 
         # Create two moderator users for testing 'submitted' email
-        User = get_user_model()
-        self.moderator = User.objects.create_superuser('moderator', 'moderator@email.com', 'password')
-        self.moderator2 = User.objects.create_superuser('moderator2', 'moderator2@email.com', 'password')
+        self.moderator = self.create_superuser('moderator', 'moderator@email.com', 'password')
+        self.moderator2 = self.create_superuser('moderator2', 'moderator2@email.com', 'password')
 
         # Create a submitter for testing 'rejected' and 'approved' emails
-        self.submitter = User.objects.create_user('submitter', 'submitter@email.com', 'password')
+        self.submitter = self.create_user('submitter', 'submitter@email.com', 'password')
 
         # User profiles for moderator2 and the submitter
         self.moderator2_profile = UserProfile.get_for_user(self.moderator2)
@@ -230,30 +228,6 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # Check that the vanilla profile has approved notifications on
         self.assertEqual(self.submitter_profile.approved_notifications, True)
-
-    def test_submit_notifications_sent(self):
-        # Submit
-        self.submit()
-
-        # Check that both the moderators got an email, and no others
-        self.assertEqual(len(mail.outbox), 2)
-        email_to = mail.outbox[0].to + mail.outbox[1].to
-        self.assertIn(self.moderator.email, email_to)
-        self.assertIn(self.moderator2.email, email_to)
-        self.assertEqual(len(mail.outbox[0].to), 1)
-        self.assertEqual(len(mail.outbox[1].to), 1)
-
-    def test_submit_notification_preferences_respected(self):
-        # moderator2 doesn't want emails
-        self.moderator2_profile.submitted_notifications = False
-        self.moderator2_profile.save()
-
-        # Submit
-        self.submit()
-
-        # Check that only one moderator got an email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual([self.moderator.email], mail.outbox[0].to)
 
     def test_approved_notifications(self):
         # Set up the page version
@@ -302,41 +276,6 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # No email to send
         self.assertEqual(len(mail.outbox), 0)
-
-    def test_moderator_group_notifications(self):
-        # Create a (non-superuser) moderator
-        User = get_user_model()
-        user1 = User.objects.create_user('moduser1', 'moduser1@email.com')
-        user1.groups.add(Group.objects.get(name='Moderators'))
-        user1.save()
-
-        # Create another group and user with permission to moderate
-        modgroup2 = Group.objects.create(name='More moderators')
-        GroupPagePermission.objects.create(
-            group=modgroup2, page=self.root_page, permission_type='publish'
-        )
-        user2 = User.objects.create_user('moduser2', 'moduser2@email.com')
-        user2.groups.add(Group.objects.get(name='More moderators'))
-        user2.save()
-
-        # Submit
-        # This used to break in Wagtail 1.3 (Postgres exception, SQLite 3/4 notifications)
-        response = self.submit()
-
-        # Should be redirected to explorer page
-        self.assertEqual(response.status_code, 302)
-
-        # Check that the superusers and the moderation group members all got an email
-        expected_emails = 4
-        self.assertEqual(len(mail.outbox), expected_emails)
-        email_to = []
-        for i in range(expected_emails):
-            self.assertEqual(len(mail.outbox[i].to), 1)
-            email_to += mail.outbox[i].to
-        self.assertIn(self.moderator.email, email_to)
-        self.assertIn(self.moderator2.email, email_to)
-        self.assertIn(user1.email, email_to)
-        self.assertIn(user2.email, email_to)
 
     @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=False)
     def test_disable_superuser_notification(self):

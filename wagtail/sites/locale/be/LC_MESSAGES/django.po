@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2018-10-27 15:11+0000\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-06-09 19:02+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail sites"
+msgstr "Сайты Wagtail"
 
 msgid "Choose a root page"
 msgstr "Выберыце каранёвую старонку"

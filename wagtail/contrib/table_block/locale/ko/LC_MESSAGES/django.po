@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Kyungil Choi <hanpama@gmail.com>, 2017-2018
+# Kyungil Choi <hanpama@gmail.com>, 2017-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-10-16 17:07+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-20 13:11+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -33,3 +33,11 @@ msgstr "열 헤더"
 
 msgid "Display the first column as a header."
 msgstr "첫 번째 열을 헤더로 표시합니다."
+
+msgid "Table caption"
+msgstr "표 주석"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr "표의 전반적 주제를 나타내면서 스크린 리더 사용자에게 유용한 제목"

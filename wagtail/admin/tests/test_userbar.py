@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.template import Context, Template
 from django.test import TestCase
@@ -10,9 +9,9 @@ from wagtail.tests.testapp.models import BusinessChild, BusinessIndex
 from wagtail.tests.utils import WagtailTestUtils
 
 
-class TestUserbarTag(TestCase):
+class TestUserbarTag(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.user = get_user_model().objects.create_superuser(
+        self.user = self.create_superuser(
             username='test',
             email='test@email.com',
             password='password'

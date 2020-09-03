@@ -542,6 +542,9 @@ class BlockField(forms.Field):
     def clean(self, value):
         return self.block.clean(value)
 
+    def has_changed(self, initial_value, data_value):
+        return self.block.get_prep_value(initial_value) != self.block.get_prep_value(data_value)
+
 
 DECONSTRUCT_ALIASES = {
     Block: 'wagtail.core.blocks.Block',

@@ -11,15 +11,7 @@
 
 {% block furniture %}
     <main class="content-wrapper" role="main">
-        {% if form.non_field_errors %}
-            <div class="messages">
-                <ul>
-                    {% for error in form.non_field_errors %}
-                        <li class="error">{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
+        {% include "wagtailadmin/shared/non_field_errors.html" %}
 
         <form method="post" novalidate>
             {% csrf_token %}

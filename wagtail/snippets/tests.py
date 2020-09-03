@@ -15,11 +15,13 @@ from taggit.models import Tag
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.core import hooks
 from wagtail.core.models import Page
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
+from wagtail.snippets.widgets import SnippetListingButton
 from wagtail.tests.snippets.forms import FancySnippetForm
 from wagtail.tests.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
@@ -49,6 +51,8 @@ class TestSnippetIndexView(TestCase, WagtailTestUtils):
 class TestSnippetListView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
+        user_model = get_user_model()
+        self.user = user_model.objects.get()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets:list',
@@ -83,6 +87,40 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
 
     def test_not_searchable(self):
         self.assertFalse(self.get().context['is_searchable'])
+
+    def test_register_snippet_listing_buttons_hook(self):
+        advert = Advert.objects.create(text="My Lovely advert")
+
+        def page_listing_buttons(snippet, user, next_url=None):
+            self.assertEqual(snippet, advert)
+            self.assertEqual(user, self.user)
+            self.assertEqual(next_url, reverse('wagtailsnippets:list', args=('tests', 'advert')))
+
+            yield SnippetListingButton(
+                'Another useless snippet listing button',
+                '/custom-url',
+                priority=10
+            )
+
+        with hooks.register_temporarily('register_snippet_listing_buttons', page_listing_buttons):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/listing_buttons.html')
+
+        self.assertContains(response, 'Another useless snippet listing button')
+
+    def test_construct_snippet_listing_buttons_hook(self):
+        Advert.objects.create(text="My Lovely advert")
+
+        # testapp implements a construct_snippetlisting_buttons hook
+        # that add's an dummy button with the label 'Dummy Button' which points
+        # to '/dummy-button'
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailsnippets/snippets/listing_buttons.html')
+        self.assertContains(response, 'Dummy Button')
+        self.assertContains(response, '/dummy-button')
 
 
 class TestModelOrdering(TestCase, WagtailTestUtils):
@@ -228,6 +266,37 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         snippet = FileUploadSnippet.objects.get()
         self.assertEqual(snippet.file.read(), b"Uploaded file")
 
+    def test_before_create_snippet_hook_get(self):
+        def hook_func(request, model):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(model, Advert)
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_create_snippet', hook_func):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_create_snippet_hook_post(self):
+        def hook_func(request, model):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(model, Advert)
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_create_snippet', hook_func):
+            post_data = {
+                'text': 'Hook test',
+                'url': 'http://www.example.com/'
+            }
+            response = self.post(post_data=post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was created
+        self.assertFalse(Advert.objects.exists())
+
     def test_after_create_snippet_hook(self):
         def hook_func(request, instance):
             self.assertIsInstance(request, HttpRequest)
@@ -244,6 +313,9 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted after advert was created
+        self.assertTrue(Advert.objects.exists())
 
 
 class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
@@ -318,6 +390,38 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             list(snippet.tags.order_by('name')),
             expected_tags)
 
+    def test_before_edit_snippet_hook_get(self):
+
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, 'test_advert')
+            self.assertEqual(instance.url, 'http://www.example.com')
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_edit_snippet', hook_func):
+            response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_edit_snippet_hook_post(self):
+
+        def hook_func(request, instance):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertEqual(instance.text, 'test_advert')
+            self.assertEqual(instance.url, 'http://www.example.com')
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_edit_snippet', hook_func):
+            response = self.post(post_data={'text': 'Edited and runs hook',
+                                            'url': 'http://www.example.com/hook-enabled-edited'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was updated
+        self.assertEqual(Advert.objects.get().text, "test_advert")
+
     def test_after_edit_snippet_hook(self):
 
         def hook_func(request, instance):
@@ -332,6 +436,9 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted after advert was updated
+        self.assertEqual(Advert.objects.get().text, "Edited and runs hook")
 
 
 class TestEditTabbedSnippet(BaseTestSnippetEditView):
@@ -402,6 +509,45 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Used 2 times')
         self.assertContains(response, self.test_snippet.usage_url())
 
+    def test_before_delete_snippet_hook_get(self):
+        advert = Advert.objects.create(
+            url='http://www.example.com/',
+            text='Test hook',
+        )
+
+        def hook_func(request, instances):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"])
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_delete_snippet', hook_func):
+            response = self.client.get(reverse('wagtailsnippets:delete', args=['tests', 'advert', quote(advert.pk)]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+    def test_before_delete_snippet_hook_post(self):
+        advert = Advert.objects.create(
+            url='http://www.example.com/',
+            text='Test hook',
+        )
+
+        def hook_func(request, instances):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"])
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('before_delete_snippet', hook_func):
+            response = self.client.post(
+                reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(advert.pk), ))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted before advert was deleted
+        self.assertTrue(Advert.objects.filter(pk=advert.pk).exists())
+
     def test_after_delete_snippet_hook(self):
         advert = Advert.objects.create(
             url='http://www.example.com/',
@@ -420,6 +566,9 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
+
+        # Request intercepted after advert was deleted
+        self.assertFalse(Advert.objects.filter(pk=advert.pk).exists())
 
 
 class TestSnippetDeleteMultipleWithOne(TestCase, WagtailTestUtils):
@@ -692,7 +841,7 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(pk=1)
 
         # Create a user with add_advert permission but not change_advert
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='addonly',
             email='addonly@example.com',
             password='password'
@@ -700,7 +849,7 @@ class TestAddOnlyPermissions(TestCase, WagtailTestUtils):
         add_permission = Permission.objects.get(content_type__app_label='tests', codename='add_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(add_permission, admin_permission)
-        self.assertTrue(self.client.login(username='addonly', password='password'))
+        self.login(username='addonly', password='password')
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
@@ -743,7 +892,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(pk=1)
 
         # Create a user with change_advert permission but not add_advert
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='changeonly',
             email='changeonly@example.com',
             password='password'
@@ -751,7 +900,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         change_permission = Permission.objects.get(content_type__app_label='tests', codename='change_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
-        self.assertTrue(self.client.login(username='changeonly', password='password'))
+        self.login(username='changeonly', password='password')
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',
@@ -794,15 +943,14 @@ class TestDeleteOnlyPermissions(TestCase, WagtailTestUtils):
         self.test_snippet = Advert.objects.get(pk=1)
 
         # Create a user with delete_advert permission
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='deleteonly',
-            email='deleteeonly@example.com',
             password='password'
         )
         change_permission = Permission.objects.get(content_type__app_label='tests', codename='delete_advert')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
         user.user_permissions.add(change_permission, admin_permission)
-        self.assertTrue(self.client.login(username='deleteonly', password='password'))
+        self.login(username='deleteonly', password='password')
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsnippets:list',

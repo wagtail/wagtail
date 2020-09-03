@@ -1,6 +1,5 @@
 import unittest
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.cache import caches
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -23,7 +22,7 @@ class TestImage(TestCase):
         # Create an image for running tests on
         self.image = Image.objects.create(
             title="Test image",
-            file=get_test_image_file(),
+            file=get_test_image_file(colour='white'),
         )
 
     def test_is_portrait(self):
@@ -156,15 +155,14 @@ class TestImageQuerySet(TestCase):
             self.assertTrue('aardvark' in results['Test image 0'])
 
 
-class TestImagePermissions(TestCase):
+class TestImagePermissions(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create some user accounts for testing permissions
-        User = get_user_model()
-        self.user = User.objects.create_user(username='user', email='user@email.com', password='password')
-        self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
-        self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
+        self.user = self.create_user(username='user', email='user@email.com', password='password')
+        self.owner = self.create_user(username='owner', email='owner@email.com', password='password')
+        self.editor = self.create_user(username='editor', email='editor@email.com', password='password')
         self.editor.groups.add(Group.objects.get(name='Editors'))
-        self.administrator = User.objects.create_superuser(
+        self.administrator = self.create_superuser(
             username='administrator', email='administrator@email.com', password='password'
         )
 
@@ -272,11 +270,30 @@ class TestRenditions(TestCase):
         self.assertEqual(cache.get(rendition_cache_key), rendition)
 
         # Mark a rendition to check it comes from cache
-        rendition._from_cache = True
+        rendition._from_cache = 'original'
         cache.set(rendition_cache_key, rendition)
 
         # Check if get_rendition returns the rendition from cache
-        self.assertEqual(self.image.get_rendition('width-500')._from_cache, True)
+        with self.assertNumQueries(0):
+            new_rendition = self.image.get_rendition('width-500')
+        self.assertEqual(new_rendition._from_cache, 'original')
+
+        # changing the image file should invalidate the cache
+        self.image.file = get_test_image_file(colour='green')
+        self.image.save()
+        # deleting renditions would normally happen within the 'edit' view on file change -
+        # we're bypassing that here, so have to do it manually
+        self.image.renditions.all().delete()
+        new_rendition = self.image.get_rendition('width-500')
+        self.assertFalse(hasattr(new_rendition, '_from_cache'))
+
+        # changing it back should also generate a new rendition and not re-use
+        # the original one (because that file has now been deleted in the change)
+        self.image.file = get_test_image_file(colour='white')
+        self.image.save()
+        self.image.renditions.all().delete()
+        new_rendition = self.image.get_rendition('width-500')
+        self.assertFalse(hasattr(new_rendition, '_from_cache'))
 
 
 class TestUsageCount(TestCase):

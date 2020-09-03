@@ -1,6 +1,7 @@
 import inspect
 import re
 import unicodedata
+from anyascii import anyascii
 
 from django.apps import apps
 from django.conf import settings
@@ -14,6 +15,25 @@ WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
 def camelcase_to_underscore(str):
     # https://djangosnippets.org/snippets/585/
     return re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', str).lower().strip('_')
+
+
+def string_to_ascii(value):
+    """
+    Convert a string to ascii.
+    """
+
+    return str(anyascii(value))
+
+
+def get_model_string(model):
+    """
+    Returns a string that can be used to identify the specified model.
+
+    The format is: `app_label.ModelName`
+
+    This an be reversed with the `resolve_model_string` function
+    """
+    return model._meta.app_label + '.' + model.__name__
 
 
 def resolve_model_string(model_string, default_app=None):
@@ -91,6 +111,22 @@ def cautious_slugify(value):
     # mark_safe); this will also strip out the backslashes from the 'backslashreplace'
     # conversion
     return slugify(value)
+
+
+def safe_snake_case(value):
+    """
+    Convert a string to ASCII similar to Django's slugify, with catious handling of
+    non-ASCII alphanumeric characters. See `cautious_slugify`.
+
+    Any inner whitespace, hyphens or dashes will be converted to underscores and
+    will be safe for Django template or filename usage.
+    """
+
+    slugified_ascii_string = cautious_slugify(value)
+
+    snake_case_string = slugified_ascii_string.replace("-", "_")
+
+    return snake_case_string
 
 
 def accepts_kwarg(func, kwarg):

@@ -134,6 +134,11 @@ def create(request, app_label, model_name):
     if not request.user.has_perm(permission):
         return permission_denied(request)
 
+    for fn in hooks.get_hooks('before_create_snippet'):
+        result = fn(request, model)
+        if hasattr(result, 'status_code'):
+            return result
+
     instance = model()
     edit_handler = get_snippet_edit_handler(model)
     edit_handler = edit_handler.bind_to(request=request)
@@ -188,6 +193,12 @@ def edit(request, app_label, model_name, pk):
         return permission_denied(request)
 
     instance = get_object_or_404(model, pk=unquote(pk))
+
+    for fn in hooks.get_hooks('before_edit_snippet'):
+        result = fn(request, instance)
+        if hasattr(result, 'status_code'):
+            return result
+
     edit_handler = get_snippet_edit_handler(model)
     edit_handler = edit_handler.bind_to(instance=instance, request=request)
     form_class = edit_handler.get_form_class()
@@ -246,6 +257,11 @@ def delete(request, app_label, model_name, pk=None):
     else:
         ids = request.GET.getlist('id')
         instances = model.objects.filter(pk__in=ids)
+
+    for fn in hooks.get_hooks('before_delete_snippet'):
+        result = fn(request, instances)
+        if hasattr(result, 'status_code'):
+            return result
 
     count = len(instances)
 

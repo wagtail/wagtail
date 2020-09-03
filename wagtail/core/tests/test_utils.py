@@ -2,7 +2,40 @@
 from django.test import TestCase
 from django.utils.text import slugify
 
-from wagtail.core.utils import accepts_kwarg, cautious_slugify
+from wagtail.core.utils import (
+    accepts_kwarg, camelcase_to_underscore, cautious_slugify,
+    safe_snake_case, string_to_ascii)
+
+
+class TestCamelCaseToUnderscore(TestCase):
+
+    def test_camelcase_to_underscore(self):
+        test_cases = [
+            ('HelloWorld', 'hello_world'),
+            ('longValueWithVarious subStrings', 'long_value_with_various sub_strings')
+        ]
+
+        for (original, expected_result) in test_cases:
+            self.assertEqual(camelcase_to_underscore(original), expected_result)
+
+
+class TestStringToAscii(TestCase):
+
+    def test_string_to_ascii(self):
+        test_cases = [
+            (u'30 \U0001d5c4\U0001d5c6/\U0001d5c1', '30 km/h'),
+            (u'\u5317\u4EB0', 'BeiJing'),
+            ('ぁ あ ぃ い ぅ う ぇ', 'a a i i u u e'),
+            ('Ա Բ Գ Դ Ե Զ Է Ը Թ Ժ Ի Լ Խ Ծ Կ Հ Ձ Ղ Ճ Մ Յ Ն', 'A B G D E Z E Y T\' Zh I L Kh Ts K H Dz Gh Ch M Y N'),
+            ('Спорт!', 'Sport!'),
+            ('Straßenbahn', 'Strassenbahn'),
+            ('Hello world', 'Hello world'),
+            ('Ā ā Ă ă Ą ą Ć ć Ĉ ĉ Ċ ċ Č č Ď ď Đ', 'A a A a A a C c C c C c C c D d D'),
+            ('〔山脈〕', '[ShanMai]'),
+        ]
+
+        for (original, expected_result) in test_cases:
+            self.assertEqual(string_to_ascii(original), expected_result)
 
 
 class TestCautiousSlugify(TestCase):
@@ -34,6 +67,39 @@ class TestCautiousSlugify(TestCase):
 
         for (original, expected_result) in test_cases:
             self.assertEqual(cautious_slugify(original), expected_result)
+
+
+class TestSafeSnakeCase(TestCase):
+
+    def test_strings_with_latin_chars(self):
+        test_cases = [
+            ('', ''),
+            ('???', ''),
+            ('using-Hyphen', 'using_hyphen'),
+            ('en–⁠dash', 'endash'),  # unicode non-letter characters stripped
+            ('  em—dash ', 'emdash'),  # unicode non-letter characters stripped
+            ('horizontal―BAR', 'horizontalbar'),  # unicode non-letter characters stripped
+            ('Hello world', 'hello_world'),
+            ('Hello_world', 'hello_world'),
+            ('Hellö wörld', 'hello_world'),
+            ('Hello   world', 'hello_world'),
+            ('   Hello world   ', 'hello_world'),
+            ('Hello, world!', 'hello_world'),
+            ('Hello*world', 'helloworld'),
+            ('Screenshot_2020-05-29 Screenshot(1).png', 'screenshot_2020_05_29_screenshot1png')
+        ]
+
+        for (original, expected_result) in test_cases:
+            self.assertEqual(safe_snake_case(original), expected_result)
+
+    def test_strings_with__non_latin_chars(self):
+        test_cases = [
+            ('Straßenbahn Straßenbahn', 'straxdfenbahn_straxdfenbahn'),
+            ('Сп орт!', 'u0421u043f_u043eu0440u0442'),
+        ]
+
+        for (original, expected_result) in test_cases:
+            self.assertEqual(safe_snake_case(original), expected_result)
 
 
 class TestAcceptsKwarg(TestCase):

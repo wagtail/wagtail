@@ -7,13 +7,14 @@
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
 # Vladyslav Herasymenko <drimacus182@gmail.com>, 2019-2020
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
 # Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -32,11 +33,23 @@ msgstr "Опублікувати"
 msgid "Submit for moderation"
 msgstr "Надіслати на модерацію"
 
+msgid "Submit to {}"
+msgstr "Надіслати в {}"
+
 msgid "Unpublish"
 msgstr "Зняти з публікації"
 
 msgid "Delete"
 msgstr "Видалити"
+
+msgid "Lock"
+msgstr "Блокувати"
+
+msgid "Apply editor lock"
+msgstr "Застосувати редакторське блокування"
+
+msgid "Unlock"
+msgstr "Розблокувати"
 
 msgid "Save Draft"
 msgstr "Зберегти чернентку"
@@ -59,6 +72,9 @@ msgstr "Нічого"
 msgid "Scheduled publishing"
 msgstr "Запланована публікація"
 
+msgid "Privacy"
+msgstr "Приватність"
+
 msgid "Common page configuration"
 msgstr "Загальні налаштування сторінки"
 
@@ -70,6 +86,15 @@ msgstr "Просування"
 
 msgid "Settings"
 msgstr "Налаштування"
+
+msgid "All"
+msgstr "Усі"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Title"
+msgstr "Заголовок"
 
 msgid "Enter password"
 msgstr "Введіть пароль"
@@ -243,6 +268,9 @@ msgstr "Словацька"
 
 msgid "Ukrainian"
 msgstr "Українська"
+
+msgid "Edit"
+msgstr "Редагування"
 
 msgid "Page"
 msgstr "Сторінка"
@@ -546,9 +574,6 @@ msgstr ""
 msgid "Save"
 msgstr "Зберегти"
 
-msgid "Privacy"
-msgstr "Приватність"
-
 msgid "Public"
 msgstr "Загальнодоступний"
 
@@ -589,24 +614,14 @@ msgstr ""
 "Це панель, на якій буде показана корисна інформація про створений вами "
 "контент."
 
-msgid "Title"
-msgstr "Заголовок"
-
 msgid "Edit this page"
 msgstr "Редагувати цю сторінку"
-
-msgid "Edit"
-msgstr "Редагування"
 
 msgid "Draft"
 msgstr "Чернетка"
 
 msgid "Live"
 msgstr "Наживо"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "1%(time_period)s тому"
 
 msgid "Pages awaiting moderation"
 msgstr "Сторінки очікують на модерацію"
@@ -631,9 +646,6 @@ msgstr "Попередній перегляд"
 
 msgid "Your most recent edits"
 msgstr "Найостанніші зміни, зроблені вами"
-
-msgid "Date"
-msgstr "Дата"
 
 msgid "Status"
 msgstr "Статус"
@@ -712,9 +724,6 @@ msgstr ""
 
 msgid "Publishing…"
 msgstr "Опубліковується..."
-
-msgid "Publish this revision"
-msgstr "Опублікувати цю ревізію"
 
 msgid "Saving…"
 msgstr "Йде збереження..."
@@ -889,20 +898,15 @@ msgstr "Ця сторінка має незбережені зміни"
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Редагування %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Редагування %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "Версія наживо"
+
+msgid "Current draft"
+msgstr "Поточна чернетка"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Востаннє змінювалось: %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "користувачем %(modified_by)s"
-
-msgid "Revisions"
-msgstr "Ревізії"
+msgid "%(time_period)s ago"
+msgstr "1%(time_period)s тому"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1060,15 +1064,15 @@ msgstr ""
 "                і тоді зробіть ще раз попередній перегляд.\n"
 "            "
 
+msgid "Cancel scheduled publish"
+msgstr "Скасувати заплановану публікацію"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Порівняння %(title)s"
 
 msgid "Comparing"
 msgstr "Порівняння"
-
-msgid "View revisions"
-msgstr "Показати ревізії"
 
 msgid "Fields"
 msgstr "Поля"
@@ -1140,9 +1144,6 @@ msgstr[3] ""
 "на %(counter)s місць.\n"
 "                                                        "
 
-msgid "There are no differences between these two revisions"
-msgstr "Немає ніяких відмінностей між цими двома ревізіями"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Знято з розкладу ревізію %(revision.id)s для «%(title)s»"
@@ -1173,23 +1174,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "користувачем"
 
-msgid "Current draft"
-msgstr "Поточна чернетка"
-
-msgid "Live version"
-msgstr "Версія наживо"
-
 msgid "Scheduled for"
 msgstr "Заплановано для"
-
-msgid "Review this revision"
-msgstr "Переглянути цю ревізію"
-
-msgid "Compare with previous revision"
-msgstr "Порівняти з попередньою ревізією"
-
-msgid "Cancel scheduled publish"
-msgstr "Скасувати заплановану публікацію"
 
 msgid "No revisions of this page exist"
 msgstr "Ця сторінка не має жодної ревізії"
@@ -1224,10 +1210,6 @@ msgstr[3] ""
 
 msgid "Page types"
 msgstr "Типи сторінок"
-
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "Вибачте, жодна сторінка не відповідає <em>\"%(query_string)s\"</em>"
 
 msgid "Enter a search term above"
 msgstr "Введіть пошукову фразу"
@@ -1274,6 +1256,13 @@ msgstr "Додати дочірню сторінку"
 
 msgid "Show in Explorer"
 msgstr "Показати у переглядачі"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "користувачем %(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "Порівняти із версією наживо"
 
 msgid "Test"
 msgstr "Тест"
@@ -1332,14 +1321,11 @@ msgstr "Побачити наживо"
 msgid "Page '{0}' created and published."
 msgstr "Сторінку '{0}' створено і опубліковано."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Сторінку '{0}' створено і направлено на модерацію."
-
 msgid "View draft"
 msgstr "Переглянути чернетку"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Надсилання сповіщень для модераторів зазнало невдачі"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Сторінку '{0}' створено і направлено на модерацію."
 
 msgid "Page '{0}' created."
 msgstr "Сторінку '{0}' створено."
@@ -1347,27 +1333,17 @@ msgstr "Сторінку '{0}' створено."
 msgid "The page could not be created due to validation errors"
 msgstr "Цю сторінку не можна створити через помилки валідації"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "Ревізію {0} сторінки '{1}' заплановано для публікації."
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr ""
-"Сторінка '{0}' у режимі наживо і цю ревізію було заплановано до публікації."
+msgid "This page is currently awaiting moderation"
+msgstr "Ця сторінка очікує на модерацію"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Сторінку '{0}' заплановано до публікації."
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "Ревізію з {0} сторінки '{1}' опубліковано."
 
 msgid "Page '{0}' has been published."
 msgstr "Сторінку '{0}' опубліковано."
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Сторінку '{0}' надіслано на модерацію."
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "Сторінку '{0}' було замінено ревізією з {1}."
 
 msgid "Page '{0}' has been updated."
 msgstr "Сторінку '{0}' оновлено."
@@ -1377,12 +1353,6 @@ msgstr "Сторінку не можна зберегти, бо вона заб�
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Сторінку не можна зберегти через помилки валідації"
-
-msgid "Compare with live version"
-msgstr "Порівняти із версією наживо"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Ця сторінка очікує на модерацію"
 
 msgid "Page '{0}' deleted."
 msgstr "Сторінку '{0}' видалено."
@@ -1417,14 +1387,6 @@ msgstr "Надсилання сповіщення про відхилення з
 msgid "Page '{0}' is now unlocked."
 msgstr "Сторінку '{0}' розблоковано."
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Ви переглядаєте попередню ревізію цієї сторінки від <b>%(created_at)s</b> "
-"створену %(user)s"
-
 msgid "Earliest"
 msgstr "Найбільш раннє"
 
@@ -1433,9 +1395,6 @@ msgstr "Останнє"
 
 msgid "revision {0} of \"{1}\""
 msgstr "ревізія {0} для \"{1}\""
-
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Ревізія {0} для \"{1}\" знято з плану."
 
 msgid "More"
 msgstr "Більше"

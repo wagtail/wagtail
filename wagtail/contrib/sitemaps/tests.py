@@ -1,9 +1,11 @@
 import datetime
 
 import pytz
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
 from django.test import RequestFactory, TestCase
+from django.utils import timezone
 
 from wagtail.core.models import Page, PageViewRestriction, Site
 from wagtail.tests.testapp.models import EventIndex, SimplePage
@@ -69,6 +71,12 @@ class TestSitemapGenerator(TestCase):
         request.META['SERVER_PORT'] = self.site.port
         return request, get_current_site(request)
 
+    def assertDatesEqual(self, actual, expected):
+        # Compare dates as naive or timezone-aware according to USE_TZ
+        if not settings.USE_TZ:
+            expected = timezone.make_naive(expected)
+        return self.assertEqual(actual, expected)
+
     def test_items(self):
         request, django_site = self.get_request_and_django_site('/sitemap.xml')
 
@@ -133,14 +141,14 @@ class TestSitemapGenerator(TestCase):
             url['lastmod'] for url in urls
             if url['location'] == 'http://localhost/hello-world/'
         ][0]
-        self.assertEqual(child_page_lastmod, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
+        self.assertDatesEqual(child_page_lastmod, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
 
         # if no last_publish_date is defined, use latest revision date
         child_page_lastmod = [
             url['lastmod'] for url in urls
             if url['location'] == 'http://localhost/no-last-publish-date/'
         ][0]
-        self.assertEqual(child_page_lastmod, datetime.datetime(2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc))
+        self.assertDatesEqual(child_page_lastmod, datetime.datetime(2017, 2, 1, 12, 0, 0, tzinfo=pytz.utc))
 
     def test_latest_lastmod(self):
         # give the homepage a lastmod
@@ -153,7 +161,7 @@ class TestSitemapGenerator(TestCase):
         sitemap = Sitemap(request)
         sitemap.get_urls(1, django_site, req_protocol)
 
-        self.assertEqual(sitemap.latest_lastmod, datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc))
+        self.assertDatesEqual(sitemap.latest_lastmod, datetime.datetime(2017, 3, 1, 12, 0, 0, tzinfo=pytz.utc))
 
     def test_latest_lastmod_missing(self):
         # ensure homepage does not have lastmod
@@ -194,7 +202,6 @@ class TestSitemapView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/xml')
-
 
     def test_sitemap_view_with_current_site_middleware(self):
         with self.modify_settings(MIDDLEWARE={

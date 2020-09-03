@@ -4,17 +4,18 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2015
-# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
-# Manuela Silva <inactive+h_manuela_rodsilva@transifex.com>, 2015
+# Luís Favas <al62006@utad.eu>, 2020
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
+# 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-11 21:50+0000\n"
+"Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Documentos Wagtail"
 
 msgid "Add"
 msgstr "Adicionar"
@@ -53,6 +57,9 @@ msgstr "palavras-chave"
 msgid "document"
 msgstr "documento"
 
+msgid "documents"
+msgstr "documentos"
+
 msgid "Choose a document"
 msgstr "Escolher um documento"
 
@@ -65,12 +72,48 @@ msgstr "Carregar"
 msgid "Uploading…"
 msgstr "A carregar…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Existe %(counter)s correspondência\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Existem %(counter)s correspondências\n"
+"        "
+
 msgid "Latest documents"
 msgstr "Últimos documentos"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Desculpe, nenhum documento corresponde a \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Você ainda não carregou nenhum documento para esta coleção."
+
+msgid "You haven't uploaded any documents."
+msgstr "Você ainda não carregou nenhum documento"
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Porque não <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">carregar um agora</a>?\n"
+"            "
 
 msgid "Change document:"
 msgstr "Alterar documento:"
@@ -88,11 +131,20 @@ msgstr "Apagar %(title)s"
 msgid "Delete document"
 msgstr "Apagar documento"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilizado %(usage_count)s vez"
+msgstr[1] "Utilizado %(usage_count)s vezes"
+
 msgid "Are you sure you want to delete this document?"
 msgstr "Tem certeza que quer apagar este documento?"
 
 msgid "Yes, delete"
 msgstr "Sim, apagar"
+
+msgid "No, don't delete"
+msgstr "Não, não eliminar"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -110,6 +162,9 @@ msgstr "Tamanho do ficheiro"
 msgid "File not found"
 msgstr "Ficheiro não encontrado"
 
+msgid "Usage"
+msgstr "Utilização"
+
 msgid "Documents"
 msgstr "Documentos"
 
@@ -118,6 +173,16 @@ msgstr "Título"
 
 msgid "File"
 msgstr "Ficheiro"
+
+msgid "Collection"
+msgstr "Coleção"
+
+msgid "Created"
+msgstr "Criado"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s atrás"
 
 #, python-format
 msgid ""
@@ -154,6 +219,28 @@ msgstr "Estado"
 msgid "Edit this page"
 msgstr "Alterar esta página"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Documento <span class=\"visuallyhidden"
+"\">criado para%(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Documentos <span class=\"visuallyhidden"
+"\">criados para %(site_name)s</span>\n"
+"    "
+
 msgid "Add multiple documents"
 msgstr "Adicionar múltiplos documentos"
 
@@ -169,6 +256,15 @@ msgstr "Ou escolha no seu computador"
 msgid "Add to collection:"
 msgstr "Adicionar a coleção:"
 
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Carregamento com sucesso. Por favor atualize o nome do documento para algo "
+"mais apropriado se necessário. Você poderá também eliminar este documento se "
+"o seu carregamento não era necessário."
+
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o carregamento falhou."
 
@@ -177,6 +273,9 @@ msgstr "Atualizar"
 
 msgid "Delete"
 msgstr "Apagar"
+
+msgid "You need a password to access this document."
+msgstr "Você precisa de uma password para aceder a este documento."
 
 msgid "Document permissions"
 msgstr "Permissões de documento"
@@ -209,6 +308,9 @@ msgstr ""
 
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' apagado."
+
+msgid "Document"
+msgstr "Documento"
 
 #, python-format
 msgid "%(count)s document"

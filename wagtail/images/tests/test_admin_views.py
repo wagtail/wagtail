@@ -1,6 +1,5 @@
 import json
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
@@ -87,7 +86,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             [collection.name for collection in response.context['collections']],
             ['Root', 'Evil plans', 'Good plans'])
 
-
     def test_tags(self):
         image_two_tags = Image.objects.create(
             title="Test image with two tags",
@@ -106,7 +104,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             [tag.name for tag in tags] == ["one", "two"]
             or [tag.name for tag in tags] == ["two", "one"]
         )
-
 
     def test_tag_filtering(self):
         Image.objects.create(
@@ -138,7 +135,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         response = self.get({'tag': 'two'})
         self.assertEqual(response.context['images'].paginator.count, 1)
 
-
     def test_tag_filtering_preserves_other_params(self):
         for i in range(1, 100):
             image = Image.objects.create(
@@ -148,7 +144,6 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
             if (i % 2 != 0):
                 image.tags.add('even')
                 image.save()
-
 
         response = self.get({'tag': 'even', 'p': 2})
         self.assertEqual(response.status_code, 200)
@@ -331,6 +326,31 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         image = images.first()
         self.assertEqual(image.collection, evil_plans_collection)
 
+    @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+    def test_unique_together_validation_error(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        # another image with a title to collide with
+        CustomImage.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+            collection=evil_plans_collection
+        )
+
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+            'collection': evil_plans_collection.id,
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # error message should be output on the page as a non-field error
+        self.assertContains(response, "Custom image with this Title and Collection already exists.")
+
 
 class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -352,14 +372,14 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
             permission=add_image_permission
         )
 
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moriarty',
             email='moriarty@example.com',
             password='password'
         )
         user.groups.add(conspirators_group)
 
-        self.client.login(username='moriarty', password='password')
+        self.login(username='moriarty', password='password')
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages:add'), params)
@@ -527,7 +547,6 @@ class TestImageEditView(TestCase, WagtailTestUtils):
     def test_get_missing_file_displays_warning_with_custom_storage(self):
         self.check_get_missing_file_displays_warning()
 
-
     def get_content(self, f=None):
         if f is None:
             f = self.image.file
@@ -616,6 +635,36 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         )
         response = self.client.get(reverse('wagtailimages:edit', args=(large_image.id,)))
         self.assertContains(response, 'data-original-width="1024"')
+
+    @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+    def test_unique_together_validation_error(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        # Create an image to edit
+        self.image = CustomImage.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+        )
+
+        # another image with a title to collide with
+        CustomImage.objects.create(
+            title="Edited",
+            file=get_test_image_file(),
+            collection=evil_plans_collection
+        )
+
+        response = self.post({
+            'title': "Edited",
+            'collection': evil_plans_collection.id,
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/edit.html')
+
+        # error message should be output on the page as a non-field error
+        self.assertContains(response, "Custom image with this Title and Collection already exists.")
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
@@ -972,6 +1021,30 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         # Check that the image was created
         self.assertTrue(Image.objects.filter(title="Test image").exists())
 
+    @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+    def test_unique_together_validation(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+        # another image with a title to collide with
+        CustomImage.objects.create(
+            title="Test image",
+            file=get_test_image_file(),
+            collection=evil_plans_collection
+        )
+
+        response = self.client.post(reverse('wagtailimages:chooser_upload'), {
+            'image-chooser-upload-title': "Test image",
+            'image-chooser-upload-file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+            'image-chooser-upload-collection': evil_plans_collection.id
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+
+        # The form should have an error
+        self.assertContains(response, "Custom image with this Title and Collection already exists.")
+
 
 class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -993,14 +1066,14 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
             permission=add_image_permission
         )
 
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moriarty',
             email='moriarty@example.com',
             password='password'
         )
         user.groups.add(conspirators_group)
 
-        self.client.login(username='moriarty', password='password')
+        self.login(username='moriarty', password='password')
 
     def test_get(self):
         response = self.client.get(reverse('wagtailimages:chooser_upload'))
@@ -1307,7 +1380,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
 
         # Create an image for running tests on
         self.image = CustomImage.objects.create(
-            title="Test image",
+            title="test-image.png",
             file=get_test_image_file(),
         )
 
@@ -1381,6 +1454,36 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
             response_json['error_message'], 'Upload a valid image. The file you uploaded was either not an image or a corrupted image.'
         )
 
+    def test_unique_together_validation_error(self):
+        """
+        If unique_together validation fails, create an UploadedImage and return a form so the
+        user can fix it
+        """
+        root_collection = Collection.get_first_root_node()
+        new_collection = root_collection.add_child(name="holiday snaps")
+        self.image.collection = new_collection
+        self.image.save()
+
+        image_count_before = CustomImage.objects.count()
+        uploaded_image_count_before = UploadedImage.objects.count()
+
+        response = self.client.post(reverse('wagtailimages:add_multiple'), {
+            'files[]': SimpleUploadedFile('test-image.png', get_test_image_file().file.getvalue()),
+            'collection': new_collection.id,
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        image_count_after = CustomImage.objects.count()
+        uploaded_image_count_after = UploadedImage.objects.count()
+
+        # an UploadedImage should have been created now, but not a CustomImage
+        self.assertEqual(image_count_after, image_count_before)
+        self.assertEqual(uploaded_image_count_after, uploaded_image_count_before + 1)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
+
     def test_edit_post(self):
         """
         This tests that a POST request to the edit view edits the image
@@ -1409,6 +1512,40 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         self.assertEqual(new_image.title, "New title!")
         self.assertEqual(new_image.caption, "a boot stamping on a human face, forever")
         self.assertIn('footwear', new_image.tags.names())
+
+    def test_edit_fails_unique_together_validation(self):
+        """
+        Check that the form returned on failing a unique-together validation error
+        includes that error message, despite it being a non-field error
+        """
+        root_collection = Collection.get_first_root_node()
+        new_collection = root_collection.add_child(name="holiday snaps")
+        # create another image for the edited title to collide with
+        CustomImage.objects.create(
+            title="The Eiffel Tower",
+            file=get_test_image_file(),
+            collection=new_collection
+        )
+
+        response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
+            ('image-%d-title' % self.image.id): "The Eiffel Tower",
+            ('image-%d-collection' % self.image.id): new_collection.id,
+            ('image-%d-tags' % self.image.id): "",
+            ('image-%d-caption' % self.image.id): "ooh la la",
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
+
+        response_json = json.loads(response.content.decode())
+        # Check JSON
+        self.assertEqual(response_json['image_id'], self.image.id)
+        self.assertFalse(response_json['success'])
+
+        # Check that a form error was raised
+        self.assertIn("Custom image with this Title and Collection already exists.", response_json['form'])
 
     def test_delete_post(self):
         """
@@ -1807,7 +1944,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
 
         # Create a user with change_image permission but not add_image
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='changeonly', email='changeonly@example.com', password='password'
         )
         change_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='change_image')
@@ -1822,7 +1959,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
 
         user.groups.add(image_changers_group)
-        self.assertTrue(self.client.login(username='changeonly', password='password'))
+        self.login(username='changeonly', password='password')
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtailimages:index'))
@@ -1869,7 +2006,7 @@ class TestImageAddMultipleView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailimages/multiple/add.html')
 
     def test_as_ordinary_editor(self):
-        user = get_user_model().objects.create_user(username='editor', email='editor@email.com', password='password')
+        user = self.create_user(username='editor', password='password')
 
         add_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='add_image')
         admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
@@ -1878,7 +2015,7 @@ class TestImageAddMultipleView(TestCase, WagtailTestUtils):
         GroupCollectionPermission.objects.create(group=image_adders_group, collection=Collection.get_first_root_node(), permission=add_permission)
         user.groups.add(image_adders_group)
 
-        self.client.login(username='editor', password='password')
+        self.login(username='editor', password='password')
 
         response = self.client.get(reverse('wagtailimages:add_multiple'))
         self.assertEqual(response.status_code, 200)

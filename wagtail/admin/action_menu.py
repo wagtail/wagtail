@@ -18,6 +18,8 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
 
     label = ''
     name = None
+    classname = ''
+    icon_name = ''
 
     def __init__(self, order=None):
         if order is not None:
@@ -45,6 +47,8 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
             'label': self.label,
             'url': self.get_url(request, context),
             'name': self.name,
+            'classname': self.classname,
+            'icon_name': self.icon_name,
         })
         return context
 
@@ -60,6 +64,7 @@ class PublishMenuItem(ActionMenuItem):
     label = _("Publish")
     name = 'action-publish'
     template = 'wagtailadmin/pages/action_menu/publish.html'
+    icon_name = 'upload'
 
     def is_shown(self, request, context):
         if context['view'] == 'create':
@@ -79,22 +84,92 @@ class PublishMenuItem(ActionMenuItem):
 class SubmitForModerationMenuItem(ActionMenuItem):
     label = _("Submit for moderation")
     name = 'action-submit'
+    icon_name = 'resubmit'
 
     def is_shown(self, request, context):
-        WAGTAIL_MODERATION_ENABLED = getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True)
-        if not WAGTAIL_MODERATION_ENABLED:
+        if not getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True):
             return False
-        elif context['view'] == 'create':
-            return True
-        elif context['view'] == 'edit':
+
+        if context['view'] == 'create':
+            return context['parent_page'].has_workflow
+
+        if context['view'] == 'edit':
+            permissions = context['user_page_permissions'].for_page(context['page'])
+            return permissions.can_submit_for_moderation() and not permissions.page_locked()
+        # context == revisions_revert
+        return False
+
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        page = context.get('page')
+        workflow_state = page.current_workflow_state if page else None
+        if workflow_state and workflow_state.status == workflow_state.STATUS_NEEDS_CHANGES:
+            context['label'] = _("Resubmit to {}").format(workflow_state.current_task_state.task.name)
+        elif page:
+            workflow = page.get_workflow()
+            if workflow:
+                context['label'] = _("Submit to {}").format(workflow.name)
+        return context
+
+
+class WorkflowMenuItem(ActionMenuItem):
+    template = 'wagtailadmin/pages/action_menu/workflow_menu_item.html'
+
+    def __init__(self, name, label, launch_modal, *args, **kwargs):
+        self.name = name
+        self.label = label
+        self.launch_modal = launch_modal
+
+        if kwargs.get('icon_name'):
+            self.icon_name = kwargs.pop('icon_name')
+
+        super().__init__(*args, **kwargs)
+
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        context['launch_modal'] = self.launch_modal
+        context['current_task_state'] = context['page'].current_workflow_task_state
+        return context
+
+    def is_shown(self, request, context):
+        if context['view'] == 'edit':
             return not context['user_page_permissions'].for_page(context['page']).page_locked()
-        else:  # context == revisions_revert
+
+
+class RestartWorkflowMenuItem(ActionMenuItem):
+    label = _("Restart workflow ")
+    name = 'action-restart-workflow'
+    classname = 'button--icon-flipped'
+    icon_name = 'login'
+
+    def is_shown(self, request, context):
+        if not getattr(settings, 'WAGTAIL_MODERATION_ENABLED', True):
             return False
+        elif context['view'] == 'edit':
+            workflow_state = context['page'].current_workflow_state
+            permissions = context['user_page_permissions'].for_page(context['page'])
+            return permissions.can_submit_for_moderation() and not permissions.page_locked() and workflow_state and workflow_state.user_can_cancel(request.user)
+        else:
+            return False
+
+
+class CancelWorkflowMenuItem(ActionMenuItem):
+    label = _("Cancel workflow ")
+    name = 'action-cancel-workflow'
+    icon_name = 'error'
+
+    def is_shown(self, request, context):
+        if context['view'] == 'edit':
+            workflow_state = context['page'].current_workflow_state
+            return workflow_state and workflow_state.user_can_cancel(request.user)
+        return False
 
 
 class UnpublishMenuItem(ActionMenuItem):
     label = _("Unpublish")
     name = 'action-unpublish'
+    icon_name = 'download-alt'
+    classname = 'action-secondary'
 
     def is_shown(self, request, context):
         return (
@@ -110,6 +185,8 @@ class UnpublishMenuItem(ActionMenuItem):
 class DeleteMenuItem(ActionMenuItem):
     name = 'action-delete'
     label = _("Delete")
+    icon_name = 'bin'
+    classname = 'action-secondary'
 
     def is_shown(self, request, context):
         return (
@@ -120,6 +197,47 @@ class DeleteMenuItem(ActionMenuItem):
 
     def get_url(self, request, context):
         return reverse('wagtailadmin_pages:delete', args=(context['page'].id,))
+
+
+class LockMenuItem(ActionMenuItem):
+    name = 'action-lock'
+    label = _("Lock")
+    aria_label = _("Apply editor lock")
+    icon_name = 'lock'
+    classname = 'action-secondary'
+    template = 'wagtailadmin/pages/action_menu/lock_unlock_menu_item.html'
+
+    def is_shown(self, request, context):
+        return (
+            context['view'] == 'edit'
+            and not context['page'].locked
+            and context['user_page_permissions'].for_page(context['page']).can_lock()
+        )
+
+    def get_url(self, request, context):
+        return reverse('wagtailadmin_pages:lock', args=(context['page'].id,))
+
+    def render_html(self, request, parent_context):
+        context = self.get_context(request, parent_context)
+        context['aria_label'] = self.aria_label
+        return render_to_string(self.template, context, request=request)
+
+
+class UnlockMenuItem(LockMenuItem):
+    name = 'action-unlock'
+    label = _("Unlock")
+    aria_label = _("Apply editor lock")
+    icon_name = 'lock-open'
+
+    def is_shown(self, request, context):
+        return (
+            context['view'] == 'edit'
+            and context['page'].locked
+            and context['user_page_permissions'].for_page(context['page']).can_unlock()
+        )
+
+    def get_url(self, request, context):
+        return reverse('wagtailadmin_pages:unlock', args=(context['page'].id,))
 
 
 class SaveDraftMenuItem(ActionMenuItem):
@@ -159,12 +277,16 @@ def _get_base_page_action_menu_items():
 
     if BASE_PAGE_ACTION_MENU_ITEMS is None:
         BASE_PAGE_ACTION_MENU_ITEMS = [
-            PageLockedMenuItem(order=-10000),
             SaveDraftMenuItem(order=0),
-            UnpublishMenuItem(order=10),
-            DeleteMenuItem(order=20),
+            DeleteMenuItem(order=10),
+            LockMenuItem(order=15),
+            UnlockMenuItem(order=15),
+            UnpublishMenuItem(order=20),
             PublishMenuItem(order=30),
-            SubmitForModerationMenuItem(order=40),
+            CancelWorkflowMenuItem(order=40),
+            RestartWorkflowMenuItem(order=50),
+            SubmitForModerationMenuItem(order=60),
+            PageLockedMenuItem(order=10000),
         ]
         for hook in hooks.get_hooks('register_page_action_menu_item'):
             BASE_PAGE_ACTION_MENU_ITEMS.append(hook())
@@ -180,11 +302,33 @@ class PageActionMenu:
         self.context = kwargs
         self.context['user_page_permissions'] = UserPagePermissionsProxy(self.request.user)
 
-        self.menu_items = [
+        self.menu_items = []
+
+        page = self.context.get('page')
+        if page:
+            task = page.current_workflow_task
+            is_final_task = page.current_workflow_state and page.current_workflow_state.is_at_final_task
+            if task:
+                actions = task.get_actions(page, request.user)
+                workflow_menu_items = []
+                for name, label, launch_modal in actions:
+                    icon_name = 'edit'
+                    if name == "approve":
+                        if is_final_task and not getattr(settings, 'WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT', False):
+                            label = _("%(label)s and Publish") % {'label': label}
+                        icon_name = 'success'
+
+                    item = WorkflowMenuItem(name, label, launch_modal, icon_name=icon_name)
+
+                    if item.is_shown(self.request, self.context):
+                        workflow_menu_items.append(item)
+                self.menu_items.extend(workflow_menu_items)
+
+        self.menu_items.extend([
             menu_item
             for menu_item in _get_base_page_action_menu_items()
             if menu_item.is_shown(self.request, self.context)
-        ]
+        ])
 
         self.menu_items.sort(key=lambda item: item.order)
 

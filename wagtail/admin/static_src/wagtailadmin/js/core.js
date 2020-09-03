@@ -177,7 +177,8 @@ $(function() {
 
     /* tabs */
     if (window.location.hash) {
-      $('a[href="' + window.location.hash + '"]').tab('show');
+        var cleanedHash = window.location.hash.replace(/[^\w\-\#]/g, '');
+        $('a[href="' + cleanedHash + '"]').tab('show');
     }
 
     $(document).on('click', '.tab-nav a', function(e) {
@@ -336,7 +337,6 @@ $(function() {
         }, 10);
     });
 });
-
 
 // =============================================================================
 // Wagtail global module, mainly useful for debugging.
@@ -539,7 +539,7 @@ wagtail = (function(document, window, wagtail) {
     wagtail.ui.initDropDowns = initDropDowns;
     wagtail.ui.DropDownController = DropDownController;
 
-    // provide a workaround for NodeList#forEach not being available in IE 11 
+    // provide a workaround for NodeList#forEach not being available in IE 11
     function qsa(element, selector) {
       return [].slice.call(element.querySelectorAll(selector));
     }

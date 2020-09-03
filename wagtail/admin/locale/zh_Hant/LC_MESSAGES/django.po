@@ -5,13 +5,14 @@
 # Translators:
 # Andy Kong <worminfo@gmail.com>, 2020
 # c o <ihcgno@icloud.com>, 2019
+# Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:51+0000\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-21 12:31+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -32,6 +33,12 @@ msgstr "取消發佈"
 
 msgid "Delete"
 msgstr "刪除"
+
+msgid "Lock"
+msgstr "鎖定"
+
+msgid "Unlock"
+msgstr "解鎖"
 
 msgid "Save Draft"
 msgstr "儲存草稿"
@@ -54,6 +61,9 @@ msgstr "無"
 msgid "Scheduled publishing"
 msgstr "定時發佈"
 
+msgid "Privacy"
+msgstr "私有設置"
+
 msgid "Common page configuration"
 msgstr "常用頁面配置"
 
@@ -65,6 +75,12 @@ msgstr "推薦"
 
 msgid "Settings"
 msgstr "設置"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Title"
+msgstr "標題"
 
 msgid "Enter password"
 msgstr "輸入密碼"
@@ -227,6 +243,9 @@ msgstr "斯洛伐克語"
 
 msgid "Ukrainian"
 msgstr "烏克蘭語"
+
+msgid "Edit"
+msgstr "編輯"
 
 msgid "Page"
 msgstr "頁面"
@@ -397,6 +416,9 @@ msgstr "更新"
 msgid "Change email"
 msgstr "更改電子郵件"
 
+msgid "Change name"
+msgstr "更改名稱"
+
 msgid "Change password"
 msgstr "更改密碼"
 
@@ -539,9 +561,6 @@ msgstr "私有設置決定誰可以查看這個集合中的文檔。"
 msgid "Save"
 msgstr "儲存"
 
-msgid "Privacy"
-msgstr "私有設置"
-
 msgid "Public"
 msgstr "公開"
 
@@ -578,24 +597,17 @@ msgid ""
 "created will be displayed."
 msgstr "這是您的主控台，將會顯示您創建的內容的幫助信息。"
 
-msgid "Title"
-msgstr "標題"
+msgid "Your locked pages"
+msgstr "你已鎖定的頁面"
 
 msgid "Edit this page"
 msgstr "編輯此頁"
-
-msgid "Edit"
-msgstr "編輯"
 
 msgid "Draft"
 msgstr "草稿"
 
 msgid "Live"
 msgstr "上線"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
 
 msgid "Pages awaiting moderation"
 msgstr "等待頁面審核中"
@@ -623,9 +635,6 @@ msgstr "預覽"
 
 msgid "Your most recent edits"
 msgstr "最近編輯"
-
-msgid "Date"
-msgstr "日期"
 
 msgid "Status"
 msgstr "狀態"
@@ -698,11 +707,11 @@ msgstr "此頁面已被父節點設置為私有。"
 msgid "Privacy changes apply to all children of this page too."
 msgstr "私有設置也會應用到此頁面的所有子頁面。"
 
+msgid "Visit the live page"
+msgstr "查看線上頁面"
+
 msgid "Publishing…"
 msgstr "正在發佈..."
-
-msgid "Publish this revision"
-msgstr "發佈這個版本"
 
 msgid "Saving…"
 msgstr "正在保存..."
@@ -843,20 +852,15 @@ msgstr "頁面還沒保存"
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "編輯 %(page_type)s: %(title)s"
 
-#, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "編輯 %(page_type)s <span>%(title)s</span>"
+msgid "Live version"
+msgstr "線上版本"
+
+msgid "Current draft"
+msgstr "當前草稿"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "上一次編輯： %(last_mod)s"
-
-#, python-format
-msgid "by %(modified_by)s"
-msgstr "由%(modified_by)s"
-
-msgid "Revisions"
-msgstr "修訂"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -977,6 +981,9 @@ msgstr "此頁面已受保護，公眾不可見。"
 msgid "Disable ordering of child pages"
 msgstr "禁用子頁面排序"
 
+msgid "Sort"
+msgstr "排序"
+
 msgid "Enable ordering of child pages"
 msgstr "啟用子頁面排序"
 
@@ -1004,15 +1011,15 @@ msgstr ""
 "                然後再進行預覽。\n"
 "            "
 
+msgid "Cancel scheduled publish"
+msgstr "取消預定的發佈"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "比較 %(title)s"
 
 msgid "Comparing"
 msgstr "正在比較"
-
-msgid "View revisions"
-msgstr "查看修訂版本"
 
 msgid "Fields"
 msgstr "欄位"
@@ -1050,9 +1057,6 @@ msgstr[0] ""
 "\n"
 "上移 %(counter)s 位。"
 
-msgid "There are no differences between these two revisions"
-msgstr "這兩個修訂版本內容一致。"
-
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "取消%(title)s修訂版本%(revision.id)s的預定發佈"
@@ -1083,23 +1087,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "修訂人"
 
-msgid "Current draft"
-msgstr "當前草稿"
-
-msgid "Live version"
-msgstr "線上版本"
-
 msgid "Scheduled for"
 msgstr "定時發佈"
-
-msgid "Review this revision"
-msgstr "查看這個修訂"
-
-msgid "Compare with previous revision"
-msgstr "與上一個修訂版本進行比較"
-
-msgid "Cancel scheduled publish"
-msgstr "取消預定的發佈"
 
 msgid "No revisions of this page exist"
 msgstr "當前頁面沒有修訂記錄"
@@ -1123,10 +1112,6 @@ msgstr[0] ""
 msgid "Page types"
 msgstr "頁面類型"
 
-#, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr "對不起，沒有符合<em>\"%(query_string)s\"</em>的頁面"
-
 msgid "Enter a search term above"
 msgstr "輸入上面的搜索條件"
 
@@ -1138,6 +1123,9 @@ msgstr "集合"
 
 msgid "Locked"
 msgstr "已鎖定"
+
+msgid "No locked pages found."
+msgstr "沒有已被鎖定頁面"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1161,9 +1149,6 @@ msgstr "帳號設置"
 msgid "Log out"
 msgstr "登出"
 
-msgid "Visit the live page"
-msgstr "查看線上頁面"
-
 msgid "Other searches"
 msgstr "其它搜索"
 
@@ -1175,6 +1160,13 @@ msgstr "新增子頁面"
 
 msgid "Show in Explorer"
 msgstr "在資源管理器中顯示"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "由%(modified_by)s"
+
+msgid "Compare with live version"
+msgstr "與線上版本進行比較"
 
 msgid "Test"
 msgstr "測試"
@@ -1233,14 +1225,11 @@ msgstr "即時查看"
 msgid "Page '{0}' created and published."
 msgstr "頁面'{0}'已創建並發佈。"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "頁面 '{0}' 已創建並提交審核。"
-
 msgid "View draft"
 msgstr "查看草稿"
 
-msgid "Failed to send notifications to moderators"
-msgstr "向版主發送通知失敗"
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "頁面 '{0}' 已創建並提交審核。"
 
 msgid "Page '{0}' created."
 msgstr "頁面'{0}'已創建"
@@ -1248,26 +1237,17 @@ msgstr "頁面'{0}'已創建"
 msgid "The page could not be created due to validation errors"
 msgstr "驗證錯誤，頁面無法創建。"
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
-msgstr "頁面 {1} 的版本 {0} 正在排程發佈中。"
-
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "頁面 {0} 已上線，此修訂版本已預定發佈時間。"
+msgid "This page is currently awaiting moderation"
+msgstr "頁面等待審核中"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "頁面 {0} 已預定發佈時間。"
-
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "頁面 '{1}' 的修訂版本 {0} 已經發佈。"
 
 msgid "Page '{0}' has been published."
 msgstr "頁面 '{0}' 已經發佈。"
 
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "頁面 '{0}' 已經提交給版主。"
-
-msgid "Page '{0}' has been replaced with revision from {1}."
-msgstr "頁面 '{0}' 的修訂版本 {1} 已經被替換。"
 
 msgid "Page '{0}' has been updated."
 msgstr "頁面 '{0}' 已被更新。"
@@ -1277,12 +1257,6 @@ msgstr "頁面無法保存，已被鎖定。"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "頁面無法保存。出現驗證錯誤。"
-
-msgid "Compare with live version"
-msgstr "與線上版本進行比較"
-
-msgid "This page is currently awaiting moderation"
-msgstr "頁面等待審核中"
 
 msgid "Page '{0}' deleted."
 msgstr "頁面'{0}'已刪除"
@@ -1317,14 +1291,6 @@ msgstr "發送拒絕通知失敗。"
 msgid "Page '{0}' is now unlocked."
 msgstr "頁面 '{0}'已解鎖。"
 
-#, python-format
-msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"你正在查看當前頁面的修訂版本，版本時間：<b>%(created_at)s</b> 版本編輯： "
-"%(user)s"
-
 msgid "Earliest"
 msgstr "最早的"
 
@@ -1334,8 +1300,8 @@ msgstr "最近的"
 msgid "revision {0} of \"{1}\""
 msgstr " \"{1}\"的修訂版本{0}"
 
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr " \"{1}\"的修訂版本{0}已取消預定的發佈。"
+msgid "Locked pages"
+msgstr "已被鎖定頁面"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"
@@ -1346,6 +1312,9 @@ msgstr "更多"
 
 msgid "Set profile picture"
 msgstr "頭像設置"
+
+msgid "Change your profile picture."
+msgstr "更改你的個人資料圖片"
 
 msgid "Change the email address linked to your account."
 msgstr "更改帳號關聯信箱"
@@ -1382,6 +1351,15 @@ msgstr "斜體"
 
 msgid "Link"
 msgstr "超連接"
+
+msgid "Locked Pages"
+msgstr "已被鎖定頁面"
+
+msgid "Reports"
+msgstr "報告"
+
+msgid "Unlocked"
+msgstr "已解鎖"
 
 msgid "Choose an item"
 msgstr "選擇一項"

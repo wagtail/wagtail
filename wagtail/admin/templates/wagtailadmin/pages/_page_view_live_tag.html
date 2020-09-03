@@ -1,0 +1,9 @@
+{% load i18n wagtailadmin_tags %}
+{% if page.live and page.url is not None %}
+    {% test_page_is_public page as is_public %}
+    <a href="{{ page.url }}" target="_blank" rel="noopener noreferrer" class="button button-nostroke button--live" title="{% trans 'Visit the live page' %}">
+        {% icon name="link-external" class_name="initial" %}
+        {% trans "Live" %}
+        <span class="privacy-indicator-tag {% if is_public %}u-hidden" aria-hidden="true{% endif %}" title="{% trans "This page is live but only available to certain users" %}">({% trans "restricted" %})</span>
+    </a>
+{% endif %}

@@ -382,7 +382,7 @@ class TestOembed(TestCase):
         result = OEmbedFinder().find_embed("https://vimeo.com/217403396")
         self.assertEqual(result['type'], 'video')
         request = urlopen.call_args[0][0]
-        self.assertEqual(request.get_full_url().split('?')[0], "http://www.vimeo.com/api/oembed.json")
+        self.assertEqual(request.get_full_url().split('?')[0], "https://www.vimeo.com/api/oembed.json")
 
 
 class TestEmbedTag(TestCase):

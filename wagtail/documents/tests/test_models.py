@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.core.files.base import ContentFile
@@ -44,15 +43,14 @@ class TestDocumentQuerySet(TestCase):
         self.assertEqual(list(results), [zzz_document, aaa_document])
 
 
-class TestDocumentPermissions(TestCase):
+class TestDocumentPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
         # Create some user accounts for testing permissions
-        User = get_user_model()
-        self.user = User.objects.create_user(username='user', email='user@email.com', password='password')
-        self.owner = User.objects.create_user(username='owner', email='owner@email.com', password='password')
-        self.editor = User.objects.create_user(username='editor', email='editor@email.com', password='password')
+        self.user = self.create_user(username='user', email='user@email.com', password='password')
+        self.owner = self.create_user(username='owner', email='owner@email.com', password='password')
+        self.editor = self.create_user(username='editor', email='editor@email.com', password='password')
         self.editor.groups.add(Group.objects.get(name='Editors'))
-        self.administrator = User.objects.create_superuser(
+        self.administrator = self.create_superuser(
             username='administrator',
             email='administrator@email.com',
             password='password'

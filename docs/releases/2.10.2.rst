@@ -1,0 +1,16 @@
+=============================================
+Wagtail 2.10.2 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Avoid use of ``icon`` class name on userbar icon to prevent clashes with front-end styles (Karran Besen)

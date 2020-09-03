@@ -23,8 +23,8 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         child_page.save_revision().publish()
         self.child_page = SimplePage.objects.get(id=child_page.id)
 
-        get_user_model().objects.create_superuser(username='alice', email='alice@email.com', password='password')
-        get_user_model().objects.create_superuser(username='bob', email='bob@email.com', password='password')
+        self.create_superuser(username='alice', password='password')
+        self.create_superuser(username='bob', password='password')
 
     def change_something(self, title):
         post_data = {'title': title, 'content': "Some content", 'slug': 'hello-world'}
@@ -44,7 +44,7 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
     def test_your_recent_edits(self):
         # Login as Bob
-        self.client.login(username='bob', password='password')
+        self.login(username='bob', password='password')
 
         # Bob hasn't edited anything yet
         response = self.client.get(reverse('wagtailadmin_home'))
@@ -52,7 +52,7 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
         # Login as Alice
         self.client.logout()
-        self.client.login(username='alice', password='password')
+        self.login(username='alice', password='password')
 
         # Alice changes something
         self.change_something("Alice's edit")
@@ -62,7 +62,7 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         self.assertIn('Your most recent edits', response.content.decode('utf-8'))
 
         # Bob changes something
-        self.client.login(username='bob', password='password')
+        self.login(username='bob', password='password')
         self.change_something("Bob's edit")
 
         # Edit shows up on Bobs dashboard
@@ -71,7 +71,7 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
         # Login as Alice again
         self.client.logout()
-        self.client.login(username='alice', password='password')
+        self.login(username='alice', password='password')
 
         # Alice's dashboard should still list that first edit
         response = self.go_to_dashboard_response()
@@ -79,11 +79,11 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
 
     def test_panel(self):
         """Test if the panel actually returns expected pages """
-        self.client.login(username='bob', password='password')
+        self.login(username='bob', password='password')
         # change a page
         self.change_something("Bob's edit")
         # set a user to 'mock' a request
-        self.client.user = get_user_model().objects.get(email='bob@email.com')
+        self.client.user = get_user_model().objects.get(email='bob@example.com')
         # get the panel to get the last edits
         panel = RecentEditsPanel(self.client)
         # check if the revision is the revision of edited Page

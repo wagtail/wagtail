@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -22,8 +21,6 @@ class TestChooser(TestCase, WagtailTestUtils):
         self.login()
 
     def login_as_editor(self):
-        user_model = get_user_model()
-
         # Create group with access to admin
         editors_group = Group.objects.create(name='The Editors')
         access_admin_perm = Permission.objects.get(
@@ -33,13 +30,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         editors_group.permissions.add(access_admin_perm)
 
         # Create a non-superuser editor
-        user_data = dict()
-        user_data[user_model.USERNAME_FIELD] = 'editor@email.com'
-        user_data['password'] = 'password'
-        for field in user_model.REQUIRED_FIELDS:
-            user_data[field] = field
-
-        user = user_model.objects.create_user(**user_data)
+        user = self.create_user(username="editor", password="password")
         user.groups.add(editors_group)
 
         # Log in as a non-superuser editor

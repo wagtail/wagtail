@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-11-07 12:55+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,9 @@ msgstr "Legg til videresending"
 msgid "Save"
 msgstr "Lagre"
 
+msgid "Redirects"
+msgstr "Videresendinger"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Slett videresending %(title)s"
@@ -89,17 +92,14 @@ msgstr "Endrer"
 msgid "Delete redirect"
 msgstr "Slett videresending"
 
-msgid "Redirects"
-msgstr "Videresendinger"
-
 msgid "From"
 msgstr "Fra"
 
-msgid "Site"
-msgstr "Nettsted"
-
 msgid "To"
 msgstr "Til"
+
+msgid "Site"
+msgstr "Nettsted"
 
 msgid "Type"
 msgstr "Type"

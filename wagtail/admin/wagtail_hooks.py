@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Permission
 from django.urls import reverse
+from django.utils.http import urlencode
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext
 from draftjs_exporter.dom import DOM
@@ -18,17 +19,15 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BlockElementHandler, ExternalLinkElementHandler, HorizontalRuleHandler,
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
+from wagtail.admin.site_summary import PagesSummaryItem
 from wagtail.admin.views.account import email_management_enabled, password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
-from wagtail.core.permissions import collection_permission_policy
+from wagtail.core.permissions import (
+    collection_permission_policy, task_permission_policy, workflow_permission_policy)
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
-
-
-def append_querystring(path, querystring=None):
-    return '%s%s' % (path, '?%s' % querystring if querystring else '')
 
 
 class ExplorerMenuItem(MenuItem):
@@ -101,6 +100,30 @@ class CollectionsMenuItem(MenuItem):
 @hooks.register('register_settings_menu_item')
 def register_collections_menu_item():
     return CollectionsMenuItem(_('Collections'), reverse('wagtailadmin_collections:index'), icon_name='folder-open-1', order=700)
+
+
+class WorkflowsMenuItem(MenuItem):
+    def is_shown(self, request):
+        return workflow_permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
+
+
+class WorkflowTasksMenuItem(MenuItem):
+    def is_shown(self, request):
+        return task_permission_policy.user_has_any_permission(
+            request.user, ['add', 'change', 'delete']
+        )
+
+
+@hooks.register('register_settings_menu_item')
+def register_workflows_menu_item():
+    return WorkflowsMenuItem(_('Workflows'), reverse('wagtailadmin_workflows:index'), icon_name='tasks', order=100)
+
+
+@hooks.register('register_settings_menu_item')
+def register_workflow_tasks_menu_item():
+    return WorkflowTasksMenuItem(_('Workflow tasks'), reverse('wagtailadmin_workflows:task_index'), icon_name='thumbtack', order=150)
 
 
 @hooks.register('register_page_listing_buttons')
@@ -176,31 +199,45 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=10
         )
     if page_perms.can_copy():
+        url = reverse('wagtailadmin_pages:copy', args=[page.id])
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
+        urlencode
         yield Button(
             _('Copy'),
-            append_querystring(reverse('wagtailadmin_pages:copy', args=[page.id]), next_url),
+            url,
             attrs={'title': _("Copy page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=20
         )
     if page_perms.can_delete():
+        url = reverse('wagtailadmin_pages:delete', args=[page.id])
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
         yield Button(
             _('Delete'),
-            append_querystring(reverse('wagtailadmin_pages:delete', args=[page.id]), next_url),
+            url,
             attrs={'title': _("Delete page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=30
         )
     if page_perms.can_unpublish():
+        url = reverse('wagtailadmin_pages:unpublish', args=[page.id])
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
         yield Button(
             _('Unpublish'),
-            append_querystring(reverse('wagtailadmin_pages:unpublish', args=[page.id]), next_url),
+            url,
             attrs={'title': _("Unpublish page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=40
         )
+
     if page_perms.can_view_revisions():
         yield Button(
-            _('Revisions'),
-            reverse('wagtailadmin_pages:revisions_index', args=[page.id]),
-            attrs={'title': _("View revision history for '%(title)s'") % {'title': page.get_admin_display_title()}},
+            _('History'),
+            reverse('wagtailadmin_pages:history', args=[page.id]),
+            attrs={'title': _("View page history for '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=50
         )
 
@@ -632,15 +669,40 @@ class LockedPagesMenuItem(MenuItem):
         return UserPagePermissionsProxy(request.user).can_remove_locks()
 
 
+class WorkflowReportMenuItem(MenuItem):
+    def is_shown(self, request):
+        return True
+
+
+class SiteHistoryReportMenuItem(MenuItem):
+    def is_shown(self, request):
+        return UserPagePermissionsProxy(request.user).explorable_pages().exists()
+
+
 @hooks.register('register_reports_menu_item')
 def register_locked_pages_menu_item():
-    return LockedPagesMenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), classnames='icon icon-locked', order=700)
+    return LockedPagesMenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), icon_name='lock', order=700)
+
+
+@hooks.register('register_reports_menu_item')
+def register_workflow_report_menu_item():
+    return WorkflowReportMenuItem(_('Workflows'), reverse('wagtailadmin_reports:workflow'), icon_name='tasks', order=800)
+
+
+@hooks.register('register_reports_menu_item')
+def register_workflow_tasks_report_menu_item():
+    return WorkflowReportMenuItem(_('Workflow tasks'), reverse('wagtailadmin_reports:workflow_tasks'), icon_name='thumbtack', order=900)
+
+
+@hooks.register('register_reports_menu_item')
+def register_site_history_report_menu_item():
+    return SiteHistoryReportMenuItem(_('Site history'), reverse('wagtailadmin_reports:site_history'), icon_name='history', order=1000)
 
 
 @hooks.register('register_admin_menu_item')
 def register_reports_menu():
     return ReportsMenuItem(
-        _('Reports'), reports_menu, classnames='icon icon-site', order=9000)
+        _('Reports'), reports_menu, icon_name='site', order=9000)
 
 
 @hooks.register('register_icons')
@@ -656,6 +718,7 @@ def register_icons(icons):
         'bin.svg',
         'bold.svg',
         'chain-broken.svg',
+        'clipboard-list.svg',
         'code.svg',
         'cog.svg',
         'cogs.svg',
@@ -667,8 +730,12 @@ def register_icons(icons):
         'doc-empty.svg',
         'doc-full-inverse.svg',
         'doc-full.svg',  # aka file-text-alt
+        'download-alt.svg',
         'download.svg',
+        'draft.svg',
+        'duplicate.svg',
         'edit.svg',
+        'error.svg',
         'folder-inverse.svg',
         'folder-open-1.svg',
         'folder-open-inverse.svg',
@@ -677,15 +744,18 @@ def register_icons(icons):
         'grip.svg',
         'group.svg',
         'help.svg',
+        'history.svg',
         'home.svg',
         'horizontalrule.svg',
         'image.svg',  # aka picture
         'italic.svg',
         'link.svg',
+        'link-external.svg',
         'list-ol.svg',
         'list-ul.svg',
         'lock-open.svg',
         'lock.svg',
+        'login.svg',
         'logout.svg',
         'mail.svg',
         'media.svg',
@@ -704,19 +774,27 @@ def register_icons(icons):
         'radio-full.svg',
         'redirect.svg',
         'repeat.svg',
+        'reset.svg',
+        'resubmit.svg',
         'search.svg',
         'site.svg',
         'snippet.svg',
         'spinner.svg',
+        'strikethrough.svg',
         'success.svg',
+        'subscript.svg',
+        'superscript.svg',
         'table.svg',
         'tag.svg',
+        'tasks.svg',
+        'thumbtack.svg',
         'tick-inverse.svg',
         'tick.svg',
         'time.svg',
         'title.svg',
         'undo.svg',
         'uni52.svg',  # Is this a redundant icon?
+        'upload.svg',
         'user.svg',
         'view.svg',
         'wagtail-inverse.svg',
@@ -725,3 +803,180 @@ def register_icons(icons):
     ]:
         icons.append('wagtailadmin/icons/{}'.format(icon))
     return icons
+
+
+@hooks.register('construct_homepage_summary_items')
+def add_pages_summary_item(request, items):
+    items.insert(0, PagesSummaryItem(request))
+
+
+@hooks.register('register_log_actions')
+def register_core_log_actions(actions):
+    actions.register_action('wagtail.create', _('Create'), _('Created'))
+    actions.register_action('wagtail.edit', _('Save draft'), _('Draft saved'))
+    actions.register_action('wagtail.delete', _('Delete'), _('Deleted'))
+    actions.register_action('wagtail.publish', _('Publish'), _('Published'))
+    actions.register_action('wagtail.publish.scheduled', _("Publish scheduled draft"), _('Published scheduled draft'))
+    actions.register_action('wagtail.unpublish', _('Unpublish'), _('Unpublished'))
+    actions.register_action('wagtail.unpublish.scheduled', _('Unpublish scheduled draft'), _('Unpublished scheduled draft'))
+    actions.register_action('wagtail.lock', _('Lock'), _('Locked'))
+    actions.register_action('wagtail.unlock', _('Unlock'), _('Unlocked'))
+    actions.register_action('wagtail.moderation.approve', _('Approve'), _('Approved'))
+    actions.register_action('wagtail.moderation.reject', _('Reject'), _('Rejected'))
+
+    def revert_message(data):
+        try:
+            return _('Reverted to previous revision with id %(revision_id)s from %(created_at)s') % {
+                'revision_id': data['revision']['id'],
+                'created_at': data['revision']['created'],
+            }
+        except KeyError:
+            return _('Reverted to previous revision')
+
+    def copy_message(data):
+        try:
+            return _('Copied from %(title)s') % {
+                'title': data['source']['title'],
+            }
+        except KeyError:
+            return _("Copied")
+
+    def move_message(data):
+        try:
+            return _("Moved from '%(old_parent)s' to '%(new_parent)s'") % {
+                'old_parent': data['source']['title'],
+                'new_parent': data['destination']['title'],
+            }
+        except KeyError:
+            return _('Moved')
+
+    def schedule_publish_message(data):
+        try:
+            if data['revision']['has_live_version']:
+                return _('Revision %(revision_id)s from %(created_at)s scheduled for publishing at %(go_live_at)s.') % {
+                    'revision_id': data['revision']['id'],
+                    'created_at': data['revision']['created'],
+                    'go_live_at': data['revision']['go_live_at'],
+                }
+            else:
+                return _('Page scheduled for publishing at %(go_live_at)s') % {
+                    'go_live_at': data['revision']['go_live_at'],
+                }
+        except KeyError:
+            return _('Page scheduled for publishing')
+
+    def unschedule_publish_message(data):
+        try:
+            if data['revision']['has_live_version']:
+                return _('Revision %(revision_id)s from %(created_at)s unscheduled from publishing at %(go_live_at)s.') % {
+                    'revision_id': data['revision']['id'],
+                    'created_at': data['revision']['created'],
+                    'go_live_at': data['revision']['go_live_at'],
+                }
+            else:
+                return _('Page unscheduled for publishing at %(go_live_at)s') % {
+                    'go_live_at': data['revision']['go_live_at'],
+                }
+        except KeyError:
+            return _('Page unscheduled from publishing')
+
+    def add_view_restriction(data):
+        try:
+            return _("Added the '%(restriction)s' view restriction") % {
+                'restriction': data['restriction']['title'],
+            }
+        except KeyError:
+            return _('Added view restriction')
+
+    def edit_view_restriction(data):
+        try:
+            return _("Updated the view restriction to '%(restriction)s'") % {
+                'restriction': data['restriction']['title'],
+            }
+        except KeyError:
+            return _('Updated view restriction')
+
+    def delete_view_restriction(data):
+        try:
+            return _("Removed the '%(restriction)s' view restriction") % {
+                'restriction': data['restriction']['title'],
+            }
+        except KeyError:
+            return _('Removed view restriction')
+
+    def rename_message(data):
+        try:
+            return _("Renamed from '%(old)s' to '%(new)s'") % {
+                'old': data['title']['old'],
+                'new': data['title']['new'],
+            }
+        except KeyError:
+            return _('Renamed')
+
+    actions.register_action('wagtail.rename', _('Rename'), rename_message)
+    actions.register_action('wagtail.revert', _('Revert'), revert_message)
+    actions.register_action('wagtail.copy', _('Copy'), copy_message)
+    actions.register_action('wagtail.move', _('Move'), move_message)
+    actions.register_action('wagtail.publish.schedule', _("Schedule publication"), schedule_publish_message)
+    actions.register_action('wagtail.schedule.cancel', _("Unschedule publication"), unschedule_publish_message)
+    actions.register_action('wagtail.view_restriction.create', _("Add view restrictions"), add_view_restriction)
+    actions.register_action('wagtail.view_restriction.edit', _("Update view restrictions"), edit_view_restriction)
+    actions.register_action('wagtail.view_restriction.delete', _("Remove view restrictions"), delete_view_restriction)
+
+
+@hooks.register('register_log_actions')
+def register_workflow_log_actions(actions):
+    def workflow_start_message(data):
+        try:
+            return _("'%(workflow)s' started. Next step '%(task)s'") % {
+                'workflow': data['workflow']['title'],
+                'task': data['workflow']['next']['title'],
+            }
+        except (KeyError, TypeError):
+            return _('Workflow started')
+
+    def workflow_approve_message(data):
+        try:
+            if data['workflow']['next']:
+                return _("Approved at '%(task)s'. Next step '%(next_task)s'") % {
+                    'task': data['workflow']['task']['title'],
+                    'next_task': data['workflow']['next']['title'],
+                }
+            else:
+                return _("Approved at '%(task)s'. '%(workflow)s' complete") % {
+                    'task': data['workflow']['task']['title'],
+                    'workflow': data['workflow']['title'],
+                }
+        except (KeyError, TypeError):
+            return _('Workflow task approved')
+
+    def workflow_reject_message(data):
+        try:
+            return _("Rejected at '%(task)s'. Changes requested") % {
+                'task': data['workflow']['task']['title'],
+            }
+        except (KeyError, TypeError):
+            return _('Workflow task rejected. Workflow complete')
+
+    def workflow_resume_message(data):
+        try:
+            return _("Resubmitted '%(task)s'. Workflow resumed'") % {
+                'task': data['workflow']['task']['title'],
+            }
+        except (KeyError, TypeError):
+            return _('Workflow task resubmitted. Workflow resumed')
+
+    def workflow_cancel_message(data):
+        try:
+            return _("Cancelled '%(workflow)s' at '%(task)s'") % {
+                'workflow': data['workflow']['title'],
+                'task': data['workflow']['task']['title'],
+            }
+        except (KeyError, TypeError):
+            return _('Workflow cancelled')
+
+    actions.register_action('wagtail.workflow.start', _('Workflow: start'), workflow_start_message)
+    actions.register_action('wagtail.workflow.approve', _('Workflow: approve task'), workflow_approve_message)
+    actions.register_action('wagtail.workflow.reject', _('Workflow: reject task'), workflow_reject_message)
+    actions.register_action('wagtail.workflow.resume', _('Workflow: resume task'), workflow_resume_message)
+    actions.register_action('wagtail.workflow.cancel', _('Workflow: cancel'), workflow_cancel_message)

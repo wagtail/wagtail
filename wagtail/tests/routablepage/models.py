@@ -32,6 +32,21 @@ class RoutablePageTest(RoutablePage):
     def override_name_test(self, request):
         pass
 
+    @route(r'^render-method-test/$')
+    def render_method_test(self, request):
+        return self.render(
+            request,
+            context_overrides={'self': None, 'foo': 'bar'}
+        )
+
+    @route(r'^render-method-test-custom-template/$')
+    def render_method_test_custom_template(self, request):
+        return self.render(
+            request,
+            context_overrides={'self': 1, 'foo': 'fighters'},
+            template="routablepagetests/routable_page_test_alternate.html"
+        )
+
 
 class RoutablePageWithOverriddenIndexRouteTest(RoutablePage):
     @route(r'^$')

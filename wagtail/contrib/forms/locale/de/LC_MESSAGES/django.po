@@ -5,7 +5,7 @@
 # Translators:
 # Benedikt Willi <ben.willi@gmail.com>, 2020
 # Benjamin Thurm, 2018
-# Ettore Atalan <atalanttore@googlemail.com>, 2017
+# Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # Matthias Martin, 2019
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 13:53+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-08 17:01+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -198,6 +198,9 @@ msgstr "Formulardaten für <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "Filter"
+
+msgid "Download XLSX"
+msgstr "XLSX herunterladen"
 
 msgid "Download CSV"
 msgstr "CSV herunterladen"

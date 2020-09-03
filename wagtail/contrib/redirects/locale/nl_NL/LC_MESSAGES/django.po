@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2020
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018
 # Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
@@ -10,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:50+0100\n"
-"PO-Revision-Date: 2019-10-16 20:17+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-25 12:43+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,19 @@ msgstr "Alle sites"
 
 msgid "A redirect with this path already exists."
 msgstr "Er bestaat al een redirect met dit pad."
+
+msgid "File to import"
+msgstr "Te importeren bestand"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Ondersteunde formaten: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Van veld"
+
+msgid "To field"
+msgstr "Naar veld"
 
 msgid "redirect from"
 msgstr "stuur door vanaf"
@@ -67,6 +81,32 @@ msgstr "Voeg redirect toe"
 msgid "Save"
 msgstr "Opslaan"
 
+msgid "Redirects"
+msgstr "Redirects"
+
+msgid "Import redirects"
+msgstr "Importeer redirects"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Selecteer een bestand met op iedere rij een redirect en "
+"kolommen met <code>van</code> en <code>naar</code> (de kolomnamen maken niet "
+"uit).</p>\n"
+"                <p>Na verzenden krijg je een bevestigingspagina waar "
+"redirects gecontroleerd en aangepast kunnen worden.</p>\n"
+"            "
+
+msgid "Import"
+msgstr "Importeren"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Verwijder redirect %(title)s"
@@ -80,6 +120,18 @@ msgstr "Weet u zeker dat u deze redirect wilt verwijderen?"
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
 
+msgid "Confirm import"
+msgstr "Bevestig importeren"
+
+msgid "Confirm"
+msgstr "Bevestig"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Preview"
+msgstr "Voorvertoning"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Wijzigen %(title)s"
@@ -90,17 +142,29 @@ msgstr "Wijzigen"
 msgid "Delete redirect"
 msgstr "Verwijder redirect"
 
-msgid "Redirects"
-msgstr "Redirects"
+msgid "Summary"
+msgstr "Samenvatting"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"%(total)s redirects gevonden, %(successes)s aangemaakt en %(errors)s fouten."
 
 msgid "From"
 msgstr "Van"
 
-msgid "Site"
-msgstr "Site"
-
 msgid "To"
 msgstr "Naar"
+
+msgid "Error"
+msgstr "Fout"
+
+msgid "Continue"
+msgstr "Doorgaan"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Type"
 msgstr "Type"
@@ -160,3 +224,20 @@ msgstr "Redirect '{0}' toegevoegd."
 
 msgid "The redirect could not be created due to errors."
 msgstr "De redirect kon niet worden aangemaakt door fouten."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "Bestandsformaat \"{}\" is niet  ondersteund"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "Het geïmporteerde bestand heeft een verkeerde encoding: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s fouten tijdens het lezen van bestand: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "%(total)d redirect geïmporteerd"
+msgstr[1] "%(total)d redirects geïmporteerd"

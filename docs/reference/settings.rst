@@ -193,7 +193,7 @@ This specifies whether users are allowed to change their passwords (enabled by d
 
   WAGTAIL_PASSWORD_RESET_ENABLED = True
 
-This specifies whether users are allowed to reset their passwords. Defaults to the same as ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``.
+This specifies whether users are allowed to reset their passwords. Defaults to the same as ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``. Password reset emails will be sent from the address specified in Django's ``DEFAULT_FROM_EMAIL`` setting.
 
 .. code-block:: python
 
@@ -222,7 +222,7 @@ Email Notifications
 
   WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@myhost.io'
 
-Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Django will fall back to using the ``DEFAULT_FROM_EMAIL`` variable if set, and ``webmaster@localhost`` if not.
+Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Wagtail will fall back to using Django's ``DEFAULT_FROM_EMAIL`` setting if set, or ``webmaster@localhost`` if not.
 
 .. code-block:: python
 
@@ -534,3 +534,59 @@ Page locking
 
 ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
 from editing pages that they have locked.
+
+Redirects
+=========
+
+.. code-block:: python
+
+   WAGTAIL_REDIRECTS_FILE_STORAGE = 'tmp_file'
+
+By default the redirect importer keeps track of the uploaded file as a temp file, but on certain environments (load balanced/cloud environments), you cannot keep a shared file between environments. For those cases you can use the built-in cache to store the file instead.
+
+.. code-block:: python
+
+   WAGTAIL_REDIRECTS_FILE_STORAGE = 'cache'
+
+Form builder
+============
+
+.. code-block:: python
+
+    WAGTAILFORMS_HELP_TEXT_ALLOW_HTML = True
+
+When true, HTML tags in form field help text will be rendered unescaped (default: False).
+
+.. WARNING::
+   Enabling this option will allow editors to insert arbitrary HTML into the page, such as scripts that could allow the editor to acquire administrator privileges when another administrator views the page. Do not enable this setting unless your editors are fully trusted.
+
+
+.. _workflow_settings:
+
+Workflow
+========
+
+.. code-block:: python
+
+  WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True
+
+Moderation workflows can be used in two modes. The first is to require that all tasks must approve a specific page revision for the workflow to complete. As a result,
+if edits are made to a page while it is in moderation, any approved tasks will need to be re-approved for the new revision before the workflow finishes.
+This is the default, ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`` . The second mode does not require reapproval: if edits are made when 
+tasks have already been approved, those tasks do not need to be reapproved. This is more suited to a hierarchical workflow system. To use workflows in this mode,
+set ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False``.
+
+.. code-block:: python
+
+  WAGTAIL_FINISH_WORKFLOW_ACTION = 'wagtail.core.workflows.publish_workflow_state'
+
+This sets the function to be called when a workflow completes successfully - by default, ``wagtail.core.workflows.publish_workflow_state``,
+which publishes the page. The function must accept a ``WorkflowState`` object as its only positional argument.
+
+.. code-block:: python
+
+  WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH = True
+
+This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
+Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the
+workflow continues to provide less urgent feedback. 

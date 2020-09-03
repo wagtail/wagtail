@@ -52,7 +52,7 @@ class Command(BaseCommand):
             # Cast to list to make sure the query is fully evaluated
             # before unpublishing anything
             for page in list(expired_pages):
-                page.unpublish(set_expired=True)
+                page.unpublish(set_expired=True, log_action='wagtail.unpublish.scheduled')
 
         # 2. get all page revisions for moderation that have been expired
         expired_revs = [
@@ -105,4 +105,4 @@ class Command(BaseCommand):
             for rp in revs_for_publishing:
                 # just run publish for the revision -- since the approved go
                 # live datetime is before now it will make the page live
-                rp.publish()
+                rp.publish(user=rp.user, log_action='wagtail.publish.scheduled')

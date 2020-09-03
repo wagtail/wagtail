@@ -468,6 +468,14 @@ Contributors
 * Andrew Bunker
 * Nikolay Lukyanov (mozgsml)
 * Jean Zombie
+* Pascal Widdershoven
+* Max Gabrielsson
+* Steven Wood
+* Gabriel Peracio
+* Jesse Menn
+* Robbie Mackay
+* Vyacheslav Matyukhin
+* Vince Salvino
 
 Translators
 ===========
@@ -475,6 +483,7 @@ Translators
 * Afrikaans: Jaco du Plessis, Jared Osborn
 * Arabic: Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Mohammed Abdul Gadir, Ahmad Kiswani, Mohamed Mayla, Ahmed Miske Sidi Med, Ultraify Media
 * Armenian: Vachagan
+* Azerbaijani: Mirza Iskandarov
 * Basque: Unai Zalakain
 * Belarusian: Stas Rudakou, Tatsiana Tsygan
 * Bulgarian: Lyuboslav Petrov
@@ -482,45 +491,45 @@ Translators
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu, shengsheng gz
 * Chinese (Simplified): Ed, hanfeng, Yi Huang, Daniel Hwang, Jian Li, Aosp T, Listeng Teng, Feng Wang, whuim, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
-* Chinese (Traditional): c o, gogobook, Andy Kong, Lihan Li, Jp Shieh, Yeh Yen-Ke, Yu Hsun Lee
+* Chinese (Traditional): c o, gogobook, Andy Kong, Lihan Li, Ocin Leung, Jp Shieh, Yeh Yen-Ke, Yu Hsun Lee
 * Croatian (Croatia): Dino Aljević, Marko Burazin, Ivica Dosen, Luka Matijević
 * Czech: Ales Dvorak, Martin Galda, IT Management, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
 * Danish: Mads Kronborg, MRostgaard, Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
 * Dutch (Netherlands): Bram, Kees Hink, Coen van der Kamp, Franklin Kingma, Maarten Kling, Thijs Kramer, Meteor0id
-* Estonian: Ragnar Rebase
-* Finnish: Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Valter Maasalo, Glen Somerville, Juha Yrjölä
+* Estonian: Erlend Eelmets, Ragnar Rebase
+* Finnish: Jiri Grönroos, Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Valter Maasalo, Glen Somerville, Juha Yrjölä
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: fooflare
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Bohreromir, Patrick Craston, Peter Dreuw, Henrik Kröger, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, Jannis Vajen, Vorlif, Matthew Westcott, Benedikt Willi
+* German: Ettore Atalan, Bohreromir, Patrick Craston, Peter Dreuw, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Tim, Norman Uekermann, Jannis Vajen, Vorlif, Matthew Westcott, Benedikt Willi
 * Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Haitian: Hantz Vius
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Adi Ron, Oleg Sverdlov
 * Hungarian: Istvan Farkas, Laszlo Molnar, Kornél Novák Mergulhão, BN, Aron Santa
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
-* Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Geek Pantura, Ronggo Radityo, M. Febrian Ramadhana
+* Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Geek Pantura, Andry Widya Putra, Ronggo Radityo, M. Febrian Ramadhana
 * Italian: Sandro Badalamenti, Edd Baldry, Claudio Bantaloukas, Guglielmo Celata, Gian-Maria Daffre, Giacomo Ghizzani, LB (Ben Johnston), Stefano Marchetto, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
-* Japanese: Sangmin Ahn, Shuhei Hirota, Shu Ishida, Yudai Kobayashi, Tri Minh, Hideaki Oguchi, Tomo Mizoe, Safu9, Daigo Shitara, Shimizu Taku, umepon0626, Takuya Yamamoto
+* Japanese: Sangmin Ahn, Shuhei Hirota, Shu Ishida, Yudai Kobayashi, Tri Minh, Hideaki Oguchi, Tomo Mizoe, Safu9, Kinoshita Shinji, Daigo Shitara, Shimizu Taku, umepon0626, Takuya Yamamoto
 * Korean: Kyungil Choi, Jihan Chung
 * Latvian: Reinis Rozenbergs, Maris Serzans
 * Lithuanian: Matas Dailyda
 * Mongolian: Myagmarjav Enkhbileg, Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Ole Kristian Losvik, Robin Skahjem-Eriksen, Stein Strindhaug
-* Persian: Mohammad reza Jelveh, Mohammad Hossein Mojtahedi, Hamed Najand, Py Zenberg
+* Persian: Ehsan Jahanbakhsh, Mohammad reza Jelveh, Mehdi, Mohammad Hossein Mojtahedi, Hamed Najand, Py Zenberg
 * Polish: Łukasz Bołdys, Konrad Lalik, Miron Levitsky, Mateusz, Miłosz Miśkiewicz, Bartek Sielicki, Grzegorz Wasilewski, Bartosz Wiśniewski
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Daniel Carvalho, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
-* Portuguese (Portugal): Gladson Brito, Thiago Cangussu, Tiago Henriques, Jose Lourenco, Rui Martins, Nuno Matos, Douglas Miranda, Manuela Silva
+* Portuguese (Portugal): Gladson Brito, Hugo Cachitas, Thiago Cangussu, Luís Favas, Tiago Henriques, Jose Lourenco, Rui Martins, Nuno Matos, Douglas Miranda, Diogo Ribeiro, Manuela Silva
 * Romanian: Dan Braghis, Bogdan Mateescu
-* Russian: ajk, Andrey Avdey, Daniil, Mikhail Gerasimov, gsstver, sergeybe, Sergey Khalymon, Sergey Komarov, Miron Levitskiy, Arseni M, Eugene MechanisM, Rustam Mirzaev, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Mikhail Sidorov, Nikita Tonkoshkur, Tatsiana Tsygan, Viktor, Nikita Viktorovich, Vassiliy Vorobyov
+* Russian: ajk, Andrey Avdey, Daniil, Mikhail Gerasimov, gsstver, sergeybe, Sergey Khalymon, Sergey Komarov, Miron Levitskiy, Arseni M, Eugene MechanisM, Rustam Mirzaev, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Mikhail Sidorov, Nikita Tonkoshkur, Alexey Trofimov, Tatsiana Tsygan, Viktor, Nikita Viktorovich, Vassiliy Vorobyov
 * Slovak (Slovakia): Stevo Backor, dellax, Martin Janšto, Jozef Karabelly
 * Slovenian: Mitja Pagon, Matej Stavanja
 * Spanish: Mauricio Baeza, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, fooflare, José Luis, Joaquín Tita, Unai Zalakain
-* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander, Martin Sandström
+* Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander, Martin Sandström
 * Tetum: Alessandro, Joanico Barros, Peter Coward, Mariano de Deus, Onorio de Jesus Afonso, Mario Alves Pinto
 * Thai: Amawalee Combe, Jon Combe, Walaksawan Vervoort
-* Turkish: Saadettin Yasir Akel, Umut Bektaş, Zafer Cengiz, Cihad Gündoǧdu, Basitlik İyidir, José Luis, Py Data, Ahmet Sarıcan, Ragıp Ünal
-* Turkish (Turkey): Saadettin Yasir Akel, Basitlik İyidir, Umut Bektaş, lzm dgl, Cihad Gündoǧdu, Ahmet Serdar Karadeniz, Fatih Koç koç, José Luis, Py Data, Ragıp Ünal
+* Turkish: Saadettin Yasir Akel, Umut Bektaş, Zafer Cengiz, Cihad Gündoǧdu, Basitlik İyidir, José Luis, Py Data, Ahmet Sarıcan, Halim Turan, Ragıp Ünal
+* Turkish (Turkey): Saadettin Yasir Akel, Basitlik İyidir, Umut Bektaş, lzm dgl, Cihad Gündoǧdu, Ahmet Serdar Karadeniz, Fatih Koç koç, José Luis, Py Data, Halim Turan, Ragıp Ünal
 * Ukrainian: Vladislav Herasimenko, Mikolai Incognito, Sergiy Shkodenko, Viktor Shytiuk, Ivan Tyshchenko, Zoriana Zaiats, Mykola Zamkovoi
 * Vietnamese: Hồng Quân Nguyễn, Luan Nguyen
 * Welsh: Adam Hughes

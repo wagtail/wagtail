@@ -1,9 +1,7 @@
 import datetime
 from unittest import mock
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.core import mail
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -109,13 +107,14 @@ class TestPageCreation(TestCase, WagtailTestUtils):
     def test_create_simplepage(self):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], "text/html; charset=utf-8")
         self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
         self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
         # test register_page_action_menu_item hook
-        self.assertContains(response, '<input type="submit" name="action-panic" value="Panic!" class="button" />')
+        self.assertContains(response, '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>')
         self.assertContains(response, 'testapp/js/siren.js')
         # test construct_page_action_menu hook
-        self.assertContains(response, '<input type="submit" name="action-relax" value="Relax." class="button" />')
+        self.assertContains(response, '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>')
 
     def test_create_multipart(self):
         """
@@ -427,7 +426,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
 
     def test_create_simplepage_post_submit(self):
         # Create a moderator user for testing email
-        get_user_model().objects.create_superuser('moderator', 'moderator@email.com', 'password')
+        self.create_superuser('moderator', 'moderator@email.com', 'password')
 
         # Submit
         post_data = {
@@ -451,13 +450,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertFalse(page.live)
         self.assertFalse(page.first_published_at)
 
-        # The latest revision for the page should now be in moderation
-        self.assertTrue(page.get_latest_revision().submitted_for_moderation)
-
-        # Check that the moderator got an email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ['moderator@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "New page!" has been submitted for moderation')
+        # The page should now be in moderation
+        self.assertEqual(page.current_workflow_state.status, page.current_workflow_state.STATUS_IN_PROGRESS)
 
     def test_create_simplepage_post_existing_slug(self):
         # This tests the existing slug checking on page save
@@ -721,7 +715,12 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         Tests that by default the "Submit for Moderation" button is shown in the action menu.
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
-        self.assertContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
+        self.assertContains(
+            response,
+            '<button type="submit" name="action-submit" value="Submit for moderation" class="button">'
+            '<svg class="icon icon-resubmit icon" aria-hidden="true" focusable="false"><use href="#icon-resubmit"></use></svg>'
+            'Submit for moderation</button>'
+        )
 
     @override_settings(WAGTAIL_MODERATION_ENABLED=False)
     def test_hide_moderation_button(self):
@@ -729,7 +728,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         Tests that if WAGTAIL_MODERATION_ENABLED is set to False, the "Submit for Moderation" button is not shown.
         """
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
-        self.assertNotContains(response, '<input type="submit" name="action-submit" value="Submit for moderation" class="button" />')
+        self.assertNotContains(response, '<button type="submit" name="action-submit" value="Submit for moderation" class="button">Submit for moderation</button>')
 
 
 class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
@@ -748,8 +747,7 @@ class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
         Test that per-request custom behaviour in edit handlers is honoured
         """
         # non-superusers should not see secret_data
-        logged_in = self.client.login(username='siteeditor', password='password')
-        self.assertTrue(logged_in)
+        self.login(username='siteeditor', password='password')
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'secretpage', self.root_page.id))
         )
@@ -758,8 +756,7 @@ class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
         self.assertNotContains(response, '"secret_data"')
 
         # superusers should see secret_data
-        logged_in = self.client.login(username='superuser', password='password')
-        self.assertTrue(logged_in)
+        self.login(username='superuser', password='password')
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'secretpage', self.root_page.id))
         )

@@ -1,7 +1,6 @@
 import json
 from unittest import mock
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
@@ -196,6 +195,32 @@ class TestDocumentAddView(TestCase, WagtailTestUtils):
             evil_plans_collection
         )
 
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+    def test_unique_together_validation_error(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        # another document with a title to collide with
+        CustomDocument.objects.create(
+            title="Test document",
+            file=get_test_document_file(),
+            collection=evil_plans_collection
+        )
+
+        post_data = {
+            'title': "Test document",
+            'file': get_test_document_file(),
+            'collection': evil_plans_collection.id,
+        }
+        response = self.client.post(reverse('wagtaildocs:add'), post_data)
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/add.html')
+
+        # error message should be output on the page as a non-field error
+        self.assertContains(response, "Custom document with this Title and Collection already exists.")
+
 
 class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -217,14 +242,14 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
             permission=add_doc_permission
         )
 
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moriarty',
             email='moriarty@example.com',
             password='password'
         )
         user.groups.add(conspirators_group)
 
-        self.client.login(username='moriarty', password='password')
+        self.login(username='moriarty', password='password')
 
     def test_get(self):
         response = self.client.get(reverse('wagtaildocs:add'))
@@ -416,6 +441,30 @@ class TestDocumentEditViewWithCustomDocumentModel(TestCase, WagtailTestUtils):
 
         # form media should be imported
         self.assertContains(response, 'wagtailadmin/js/draftail.js')
+
+    def test_unique_together_validation_error(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        # another document with a title to collide with
+        CustomDocument.objects.create(
+            title="Updated",
+            file=get_test_document_file(),
+            collection=evil_plans_collection
+        )
+
+        post_data = {
+            'title': "Updated",
+            'collection': evil_plans_collection.id,
+        }
+        response = self.client.post(reverse('wagtaildocs:edit', args=(self.document.id,)), post_data)
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/documents/edit.html')
+
+        # error message should be output on the page as a non-field error
+        self.assertContains(response, "Custom document with this Title and Collection already exists.")
 
 
 class TestDocumentDeleteView(TestCase, WagtailTestUtils):
@@ -935,6 +984,30 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         # Document should be created
         self.assertTrue(models.Document.objects.filter(title="Test document").exists())
 
+    @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
+    def test_unique_together_validation(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+        # another document with a title to collide with
+        CustomDocument.objects.create(
+            title="Test document",
+            file=get_test_document_file(),
+            collection=evil_plans_collection
+        )
+
+        response = self.client.post(reverse('wagtaildocs:chooser_upload'), {
+            'document-chooser-upload-title': "Test document",
+            'document-chooser-upload-file': get_test_document_file(),
+            'document-chooser-upload-collection': evil_plans_collection.id
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+
+        # The form should have an error
+        self.assertContains(response, "Custom document with this Title and Collection already exists.")
+
 
 class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -956,14 +1029,14 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
             permission=add_doc_permission
         )
 
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='moriarty',
             email='moriarty@example.com',
             password='password'
         )
         user.groups.add(conspirators_group)
 
-        self.client.login(username='moriarty', password='password')
+        self.login(username='moriarty', password='password')
 
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:chooser_upload'))
@@ -1123,7 +1196,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         )
 
         # Create a user with change_document permission but not add_document
-        user = get_user_model().objects.create_user(
+        user = self.create_user(
             username='changeonly',
             email='changeonly@example.com',
             password='password'
@@ -1142,7 +1215,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
         user.groups.add(self.changers_group)
 
         user.user_permissions.add(admin_permission)
-        self.assertTrue(self.client.login(username='changeonly', password='password'))
+        self.login(username='changeonly', password='password')
 
     def test_get_index(self):
         response = self.client.get(reverse('wagtaildocs:index'))

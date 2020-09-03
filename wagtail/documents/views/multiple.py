@@ -105,7 +105,7 @@ def edit(request, doc_id, callback=None):
         raise PermissionDenied
 
     form = DocumentMultiForm(
-        request.POST, request.FILES, instance=doc, prefix='doc-' + doc_id, user=request.user
+        request.POST, request.FILES, instance=doc, prefix='doc-%d' % doc_id, user=request.user
     )
 
     if form.is_valid():

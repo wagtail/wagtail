@@ -13,7 +13,7 @@ from wagtail.core.models import Page
 
 
 def get_object_usage(obj):
-    "Returns a queryset of pages that link to a particular object"
+    """Returns a queryset of pages that link to a particular object"""
 
     pages = Page.objects.none()
 

@@ -1,0 +1,93 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{{ view.page_title }}{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    {{ edit_handler.form.media.css }}
+    {{ pages_formset.media.css }}
+
+    {{ view.media.css }}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/workflow-edit.css' %}" type="text/css" />
+{% endblock %}
+
+{% block extra_js %}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ edit_handler.form.media.js }}
+    {{ pages_formset.media.js }}
+    {{ edit_handler.html_declarations }}
+
+    {{ view.media.js }}
+
+    {% include "wagtailadmin/workflows/includes/_edit_js.html" %}
+{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=object.name icon=view.header_icon merged=1 %}
+
+    <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
+        {% csrf_token %}
+
+        {% block form %}{{ edit_handler.render_form_content }}{% endblock %}
+
+        <ul class="objects">
+            <li class="object">
+                <div class="title-wrapper">
+                    <label>{% trans "Assign your workflow to pages" %}</label>
+                </div>
+                <div class="object-layout">
+                    <div class="object-layout_big-part">
+                        {% if workflow.active %}
+                            <div class="top-padding">
+                                <p class="help-block help-info">
+                                {% url 'wagtailadmin_workflows:usage' workflow.pk as workflow_pages_url %}
+                                    {% blocktrans trimmed %}
+                                        Workflows apply to child pages too. If you select a parent page here, its child pages will also use this workflow.
+                                        See <a href="{{ workflow_pages_url }}">the list of the pages</a> your workflow applies to.
+                                    {% endblocktrans %}
+                                </p>
+                            </div>
+
+                            {% include "wagtailadmin/workflows/includes/workflow_pages_formset.html" with formset=pages_formset %}
+                        {% else %}
+                            <div class="top-padding">
+                                <p class="help-block help-info">
+                                    {% trans "This workflow is disabled so it cannot be assigned to any pages." %}
+                                </p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        {% block footer %}
+            <footer role="contentinfo">
+                <ul>
+                    <li class="actions">
+                        {% block form_actions %}
+                            <div class="dropdown dropup dropdown-button match-width">
+                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
+                                    {% icon name="spinner" %}<em>{% trans 'Save' %}</em>
+                                </button>
+                                <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+                                <ul>
+                                    {% if can_enable %}
+                                        <li>
+                                            <button type="submit" class="button no" data-enable-action>{{ view.enable_item_label }}</button>
+                                        </li>
+                                    {% elif can_disable %}
+                                        <li>
+                                            <a href="{{ view.get_delete_url }}" class="button no">{{ view.delete_item_label }}</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        {% endblock %}
+                    </li>
+                </ul>
+            </footer>
+        {% endblock %}
+    </form>
+{% endblock %}

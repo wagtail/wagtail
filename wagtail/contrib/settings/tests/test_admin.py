@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -18,11 +17,11 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
 
     def login_only_admin(self):
         """ Log in with a user that only has permission to access the admin """
-        user = get_user_model().objects.create_user(
-            username='test', email='test@email.com', password='password')
+        user = self.create_user(
+            username='test', password='password')
         user.user_permissions.add(Permission.objects.get_by_natural_key(
             codename='access_admin', app_label='wagtailadmin', model='admin'))
-        self.assertTrue(self.client.login(username='test', password='password'))
+        self.login(username='test', password='password')
         return user
 
     def test_menu_item_in_admin(self):

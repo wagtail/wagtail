@@ -1,0 +1,165 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{% trans "Workflow progress" %}{% endblock %}
+
+{% block content %}
+    {% trans "Workflow progress" as title_str %}
+    {% include "wagtailadmin/shared/header.html" with title=title_str %}
+
+    <div class="nice-padding">
+        <h2>{% icon "doc-empty-inverse" class_name="initial" %} {{ page.get_admin_display_title }}</h2>
+        <p>
+            <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit / Review" %}</a>
+            <a href="{% url 'wagtailadmin_pages:workflow_history' page.id %}" class="button button-small button-secondary">{% trans "Workflow history" %}</a>
+        </p>
+
+        <h2>{% icon "clipboard-list" class_name="initial" %} {{ workflow_state.workflow.name }}</h2>
+
+        <p>
+            {% blocktrans with modified_by=workflow_state.requested_by.get_full_name|default:workflow_state.requested_by.get_username %}Requested by <b>{{ modified_by }}</b>{% endblocktrans %}
+            <span class="avatar small"><img src="{% avatar_url workflow_state.requested_by size=25 %}" alt="" /></span>
+        </p>
+
+        <p>
+            {% blocktrans with workflow_state.created_at as started_at %}Started at <b>{{ started_at }}</b>{% endblocktrans %}
+        </p>
+
+        <p>
+            {% blocktrans with workflow_state.get_status_display as status %}Status <span class="status-tag primary"> {{ status }}</span>{% endblocktrans %}
+        </p>
+
+        <div class="workflow-progress-tabs__buttons">
+            <button data-tab-button="tasks" class="workflow-progress-tabs__button">{% trans "Tasks" %}</button>
+            <button data-tab-button="timeline" class="workflow-progress-tabs__button workflow-progress-tabs__button--active">{% trans "Timeline" %}</button>
+        </div>
+    </div>
+
+    <div class="workflow-progress-tabs__tab" data-tab="tasks">
+        <table class="workflow-progress-table workflow-progress-table--tasks">
+            <colgroup width="20%"></colgroup>
+            {% for task in tasks %}
+                <colgroup width="{% widthratio 80 tasks|length 1 %}%"></colgroup>
+            {% endfor %}
+            <thead>
+                <th class="workflow-progress-table__left-column"></th>
+                {% for task in tasks %}
+                    <th>{{ task }}</th>
+                {% endfor %}
+            </thead>
+            <tbody>
+                {% for revision, task_states in task_states_by_revision %}
+                    <tr>
+                        <td class="workflow-progress-table__left-column">
+                            {% if forloop.first %}
+                                {% trans "Initial Revision" %}
+                            {% else %}
+                                {% if not forloop.first %}
+                                    {% trans "Page edited" as action %}
+                                    {% if revision.user %}
+                                        {% blocktrans with '<b>'|add:action|add:'</b>' as action and revision.user.get_full_name|default:revision.user.get_username as who and revision.created_at as at %}
+                                            {{ action }} by <b>{{ who }}</b> at <b>{{ at }}</b>
+                                        {% endblocktrans %}
+                                    {% else %}
+                                        {% blocktrans with '<b>'|add:action|add:'</b>' as action and revision.created_at as at %}
+                                            {{ action }} at <b>{{ at }}</b>
+                                        {% endblocktrans %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        {% for task_state in task_states %}
+                            <td>
+                                {% if task_state.status == 'approved' or task_state.status == 'rejected' %}
+                                    {% if task_state.finished_by %}
+                                        {% blocktrans with action='<div class="status-tag primary">'|add:task_state.get_status_display|add:'</div>'|safe who=task_state.finished_by.get_full_name|default:task_state.finished_by.get_username at=task_state.finished_at %}
+                                            {{ action }} by <b>{{ who }}</b> at <b>{{ at }}</b>
+                                        {% endblocktrans %}
+                                    {% else %}
+                                        {% blocktrans with action='<div class="status-tag primary">'|add:task_state.get_status_display|add:'</div>'|safe at=task_state.finished_at %}
+                                            {{ action }} at <b>{{ at }}</b>
+                                        {% endblocktrans %}
+                                    {% endif %}
+                                {% else %}
+                                    <div class="status-tag primary">{{ task_state.get_status_display }}</div>
+                                {% endif %}
+                                {% if task_state.specific.get_comment %}
+                                    <p>{% trans 'with comment:' %} <b>"{{ task_state.specific.get_comment }}"</b></p>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="workflow-progress-tabs__tab workflow-progress-tabs__tab--active" data-tab="timeline">
+        <table class="workflow-progress-table workflow-progress-table--timeline">
+            <colgroup width="20%"></colgroup>
+            <colgroup width="80%"></colgroup>
+            <tbody>
+                {% for timeline_item in timeline %}
+                    <tr>
+                        <td class="workflow-progress-table__left-column">
+                            {{ timeline_item.time }}
+                        </td>
+                        <td>
+                            {% if timeline_item.action == 'workflow_started' %}
+                                <b>{% trans "Workflow started" %}</b>
+                            {% elif timeline_item.action == 'workflow_completed' %}
+                                <b>{% trans "Workflow completed" %}</b>
+                                <div class="status-tag primary">{{ timeline_item.workflow_state.get_status_display }}</div>
+                            {% elif timeline_item.action == 'page_edited' %}
+                                {% trans "Page edited" as action %}
+                                {% if revision.user %}
+                                    {% blocktrans with '<b>'|add:action|add:'</b>' as action and timeline_item.revision.user.get_full_name|default:timeline_item.revision.user.get_username as who %}
+                                        {{ action }} by <b>{{ who }}</b>
+                                    {% endblocktrans %}
+                                {% else %}
+                                    <b>{{ action }}</b>
+                                {% endif %}
+                            {% elif timeline_item.action ==  'task_completed' %}
+                                <b>{{ timeline_item.task_state.task }}</b>
+
+                                {% if timeline_item.task_state.finished_by %}
+                                    {% blocktrans with action='<div class="status-tag primary">'|add:timeline_item.task_state.get_status_display|add:'</div>'|safe who=timeline_item.task_state.finished_by.get_full_name|default:timeline_item.task_state.finished_by.get_username %}
+                                        {{ action }} by <b>{{ who }}</b>
+                                    {% endblocktrans %}
+                                {% else %}
+                                    <div class="status-tag primary">{{ timeline_item.task_state.get_status_display }}</div>
+                                {% endif %}
+
+                                {% if timeline_item.task_state.specific.get_comment %}
+                                    {% trans 'with comment:' %} <b>"{{ timeline_item.task_state.specific.get_comment }}"</b>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('[data-tab-button]').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.workflow-progress-tabs__tab').forEach(tab => tab.classList.remove('workflow-progress-tabs__tab--active'));
+                    document.querySelectorAll('.workflow-progress-tabs__tab[data-tab="' + button.dataset.tabButton + '"').forEach(tab => tab.classList.add('workflow-progress-tabs__tab--active'));
+
+                    document.querySelectorAll('.workflow-progress-tabs__button').forEach(tab => tab.classList.remove('workflow-progress-tabs__button--active'));
+
+                    button.classList.add('workflow-progress-tabs__button--active');
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block extra_css %}
+    {{ block.super }}
+
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/workflow-progress.css' %}" />
+{% endblock %}

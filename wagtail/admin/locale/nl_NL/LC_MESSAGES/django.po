@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benjamin VR <benjaaa.vr@gmail.com>, 2020
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2020
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018,2020
 # Meteor0id, 2019
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2020-04-21 21:08+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
+"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"PO-Revision-Date: 2020-08-25 13:14+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -29,17 +30,42 @@ msgstr "Publiceer"
 msgid "Submit for moderation"
 msgstr "Dien in ter controle"
 
+msgid "Resubmit to {}"
+msgstr "Stuur opnieuw door naar {}"
+
+msgid "Submit to {}"
+msgstr "Stuur door naar {}"
+
+msgid "Restart workflow "
+msgstr "Workflow herstarten"
+
+msgid "Cancel workflow "
+msgstr "Workflow annuleren"
+
 msgid "Unpublish"
 msgstr "Publicatie intrekken"
 
 msgid "Delete"
 msgstr "Verwijder"
 
+msgid "Lock"
+msgstr "Blokkeren"
+
+msgid "Apply editor lock"
+msgstr "Pas bewerkingsblokkering toe"
+
+msgid "Unlock"
+msgstr "Deblokkeer"
+
 msgid "Save Draft"
 msgstr "Concept opslaan"
 
 msgid "Page locked"
 msgstr "Pagina is geblokkeerd"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s en Publiceren"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -56,6 +82,9 @@ msgstr "Geen"
 msgid "Scheduled publishing"
 msgstr "Geplande publicatie"
 
+msgid "Privacy"
+msgstr "Privacy"
+
 msgid "Common page configuration"
 msgstr "Algemene pagina-instellingen"
 
@@ -67,6 +96,36 @@ msgstr "Eigenschappen"
 
 msgid "Settings"
 msgstr "Instellingen"
+
+msgid "Date from"
+msgstr "Datum vanaf"
+
+msgid "Date to"
+msgstr "Datum tot"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Started at"
+msgstr "Gestart op"
+
+msgid "Show"
+msgstr "Toon"
+
+msgid "Awaiting my review"
+msgstr "Wachten op mijn beoordeling"
+
+msgid "Completed at"
+msgstr "Afgerond op"
+
+msgid "Workflow"
+msgstr "Workflow"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Enter password"
 msgstr "Voer wachtwoord in"
@@ -172,6 +231,22 @@ msgstr "Dit is een verplicht veld."
 msgid "Please select at least one group."
 msgstr "Selecteer minimaal één groep."
 
+msgid "All types"
+msgstr "Alle types"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Deze pagina heeft al workflow '{0}' toegewezen gekregen."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"Je kan deze workflow niet meerdere keren aan dezelfde pagina toewijzen."
+
+msgid "Give your workflow a name"
+msgstr "Geef je workflow een naam"
+
+msgid "Add tasks to your workflow"
+msgstr "Voeg taken aan je workflow toe"
+
 msgid "Arabic"
 msgstr "Arabisch"
 
@@ -273,6 +348,9 @@ msgstr "Chinees (Vereenvoudigd)"
 
 msgid "Chinese (Traditional)"
 msgstr "Chinees (Traditioneel)"
+
+msgid "Edit"
+msgstr "Wijzig"
 
 msgid "Page"
 msgstr "Pagina"
@@ -426,6 +504,10 @@ msgstr "Vr"
 
 msgid "Sat"
 msgstr "Za"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Onbekend %(action)s"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pagina niet gevonden"
@@ -631,9 +713,6 @@ msgstr ""
 msgid "Save"
 msgstr "Opslaan"
 
-msgid "Privacy"
-msgstr "Privacy"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Privacy-status van deze collectie. Huidige status: Openbaar"
 
@@ -684,20 +763,11 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Jouw geblokkeerde pagina's"
 
-msgid "See all locked pages"
-msgstr "Bekijk alle geblokkeerde pagina's"
-
-msgid "Title"
-msgstr "Titel"
-
 msgid "Locked at"
 msgstr "Geblokkeerd op"
 
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
-
-msgid "Edit"
-msgstr "Wijzig"
 
 msgid "Draft"
 msgstr "Concept"
@@ -706,8 +776,8 @@ msgid "Live"
 msgstr "Live"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s geleden"
+msgid "%(time_period)s"
+msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Pagina's die op goedkeuring wachten"
@@ -736,9 +806,6 @@ msgstr "Voorbeeld"
 msgid "Your most recent edits"
 msgstr "Laatste wijzigingen"
 
-msgid "Date"
-msgstr "Datum"
-
 msgid "Status"
 msgstr "Status"
 
@@ -766,6 +833,27 @@ msgstr[1] ""
 "            <span>%(total)s</span> pagina's <span class=\"visuallyhidden"
 "\">aangemaakt in %(site_name)s</span>\n"
 "        "
+
+msgid "Your pages in a workflow"
+msgstr "Jouw pagina's in een workflow"
+
+msgid "Task"
+msgstr "Taak"
+
+msgid "Task started"
+msgstr "Taak gestart"
+
+msgid "Changes requested at"
+msgstr "Wijzigingsverzoek op"
+
+msgid "Awaiting"
+msgstr "In afwachting"
+
+msgid "Awaiting your review"
+msgstr "In afwachting van jouw beoordeling"
+
+msgid "Tasks"
+msgstr "Taken"
 
 msgid "Sign in"
 msgstr "Inloggen"
@@ -824,6 +912,93 @@ msgstr "U kunt hier een voorbeeld van de pagina bekijken:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "De pagina \"%(page)s\" is voor moderatie ingediend"
 
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"De pagina \"%(title)s\" is goedgekeurd in beoordelingsfase \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "De pagina \"%(title)s\" is goedgekeurd in \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "De pagina \"%(title)s\" is afgekeurd in beoordelingsfase \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "De pagina \"%(title)s\" is afgekeurd in \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"De pagina \"%(title)s\" is ingediend ter goedkeuring in beoordelingsfase "
+"\"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"De pagina \"%(title)s\" is ingediend ter goedkeuring in beoordelingsfase "
+"\"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\" "
+msgstr ""
+"De pagina \"%(title)s\" is ingediend ter goedkeuring in beoordelingsfase "
+"\"%(task)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr "De pagina \"%(title)s\" is goedgekeurd in workflow \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "De pagina \"%(title)s\" is goedgekeurd in \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"De pagina \"%(title)s\" is afgekeurd in \"%(task)s\" in workflow "
+"\"%(workflow)s\" door %(rejector)s."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"De pagina \"%(title)s\" is afgekeurd in \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "De volgende reactie is toegevoegd: \"%(comment)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "De pagina \"%(title)s\" is afgekeurd in \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"De pagina \"%(title)s\" is ingediend ter goedkeuring in workflow "
+"\"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
+msgstr "De pagina \"%(title)s\" is ingediend in workflow \"%(workflow)s\" "
+
 msgid "Page privacy"
 msgstr "Zichtbaarheid van de pagina"
 
@@ -835,29 +1010,14 @@ msgstr ""
 "Wijzigingen in de zichtbaarheid hebben ook effect op alle onderliggende "
 "pagina's van deze pagina."
 
-msgid "This page is locked"
-msgstr "Deze pagina is geblokkeerd"
+msgid "Visit the live page"
+msgstr "Bezoek de live pagina"
 
-msgid "This page is unlocked"
-msgstr "Deze pagina is gedeblokkeerd"
+msgid "This page is live but only available to certain users"
+msgstr "Deze pagina is live maar alleen beschikbaar voor bepaalde gebruikers"
 
-msgid "Remove editor lock"
-msgstr "Hef bewerkingsblokkering op"
-
-msgid "Unlock"
-msgstr "Deblokkeer"
-
-msgid "You don't have permission to unlock"
-msgstr "Je hebt geen rechten om te deblokkeren"
-
-msgid "Apply editor lock"
-msgstr "Pas bewerkingsblokkering toe"
-
-msgid "Lock"
-msgstr "Blokkeren"
-
-msgid "You don't have permission to lock"
-msgstr "Je hebt geen rechten om te blokkeren"
+msgid "restricted"
+msgstr "beperkt"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "Privacy-status van deze pagina. Huidige status: Openbaar"
@@ -874,7 +1034,7 @@ msgstr "Privacy-status van deze pagina. Huidige status: Privé "
 msgid "Publishing…"
 msgstr "Bezig met publiceren..."
 
-msgid "Publish this revision"
+msgid "Publish this version"
 msgstr "Publiceer deze versie"
 
 msgid "Saving…"
@@ -993,6 +1153,42 @@ msgstr "Ja, trek de publicatie in"
 msgid "No, don't unpublish"
 msgstr "Nee, niet de publicatie intrekken"
 
+msgid "Publish page"
+msgstr "Publiceer pagina"
+
+#, python-format
+msgid ""
+"\n"
+"            This page was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"            Een wijzigingsverzoek op deze pagina is ingediend op <strong>"
+"%(task)s</strong> in <strong>%(workflow)s</strong>.\n"
+"        "
+
+#, python-format
+msgid ""
+"\n"
+"            This page is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"            Deze pagina is momenteel op <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>.\n"
+"        "
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "Deze pagina publiceren zal de huidige workflow annuleren."
+
+msgid "Would you still like to publish this page?"
+msgstr "Wil je nog altijd deze pagina publiceren?"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Pagina's die %(page_class_verbose_name)s gebruiken"
@@ -1028,19 +1224,40 @@ msgid "Editing %(page_type)s: %(title)s"
 msgstr "Bewerk %(page_type)s: %(title)s"
 
 #, python-format
-msgid "Editing %(page_type)s <span>%(title)s</span>"
-msgstr "Bewerk %(page_type)s <span>%(title)s</span>"
+msgid "Editing %(page_type)s"
+msgstr "Bewerk %(page_type)s"
+
+msgid "History"
+msgstr "Geschiedenis"
 
 #, python-format
-msgid "Last modified: %(last_mod)s"
-msgstr "Laatst gewijzigd: %(last_mod)s"
+msgid "Page history for %(subtitle)s"
+msgstr "Pagina-geschiedenis voor %(subtitle)s"
+
+msgid "Action"
+msgstr "Actie"
+
+msgid "User"
+msgstr "Gebruiker"
+
+msgid "Date / Time"
+msgstr "Datum / tijd"
+
+msgid "Comment"
+msgstr "Opmerking"
+
+msgid "Live version"
+msgstr "Live versie"
+
+msgid "Current draft"
+msgstr "Huidig concept"
 
 #, python-format
-msgid "by %(modified_by)s"
-msgstr "door %(modified_by)s"
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s geleden"
 
-msgid "Revisions"
-msgstr "Revisies"
+msgid "No log entries found."
+msgstr "Geen logboekvermeldingen gevonden."
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1201,6 +1418,24 @@ msgstr ""
 "Sluit dit tab, bewerk de pagina om de fouten te verbeteren,\n"
 "en bekijk daarna het voorbeeld opnieuw."
 
+msgid "Current status:"
+msgstr "Huidige status:"
+
+msgid "Set page privacy"
+msgstr "Stel pagina-privacy in"
+
+msgid "Review this version"
+msgstr "Beoordeel deze versie"
+
+msgid "Compare with previous version"
+msgstr "Vergelijk met vorige versie"
+
+msgid "Compare with current version"
+msgstr "Vergelijk met huidige versie"
+
+msgid "Cancel scheduled publish"
+msgstr "Cancel geplande publicatie"
+
 #, python-format
 msgid "Comparing %(title)s"
 msgstr "Vergelijk %(title)s"
@@ -1208,8 +1443,8 @@ msgstr "Vergelijk %(title)s"
 msgid "Comparing"
 msgstr "Vergelijk"
 
-msgid "View revisions"
-msgstr "Bekijk revisies"
+msgid "Page history"
+msgstr "Pagina-geschiedenis"
 
 msgid "Fields"
 msgstr "Velden"
@@ -1253,8 +1488,8 @@ msgstr[1] ""
 "\n"
 "%(counter)s plekken naar boven verplaatst."
 
-msgid "There are no differences between these two revisions"
-msgstr "Er zijn geen verschillen tussen deze twee revisies"
+msgid "There are no differences between these two versions"
+msgstr "Er zijn geen verschillen tussen deze versies"
 
 #, python-format
 msgid "Unschedule Revision %(revision.id)s for %(title)s"
@@ -1286,23 +1521,8 @@ msgctxt "points to a user who created a revision"
 msgid "by"
 msgstr "door"
 
-msgid "Current draft"
-msgstr "Huidig concept"
-
-msgid "Live version"
-msgstr "Live versie"
-
 msgid "Scheduled for"
 msgstr "Gepland voor"
-
-msgid "Review this revision"
-msgstr "Herzie deze versie"
-
-msgid "Compare with previous revision"
-msgstr "Vergelijk met vorige revisie"
-
-msgid "Cancel scheduled publish"
-msgstr "Cancel geplande publicatie"
 
 msgid "No revisions of this page exist"
 msgstr "Er bestaan geen vorige versies van deze pagina"
@@ -1329,19 +1549,108 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Pagina types"
 
-msgid "All"
-msgstr "Alle"
-
 #, python-format
-msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
-msgstr ""
-"Sorry, geen enkele pagina komt overeen met <em>\"%(query_string)s\"</em>"
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Helaas, geen pagina-overeenkomst <em>%(query_string)s</em>"
 
 msgid "Enter a search term above"
 msgstr "Voer hierboven een zoekterm in."
 
 msgid "No pages use"
 msgstr "Geen pagina's maken gebruik van"
+
+msgid "Workflow progress"
+msgstr "Workflow-voortgang"
+
+msgid "Edit / Review"
+msgstr "Bewerken / beoordelen"
+
+msgid "Workflow history"
+msgstr "Workflow-geschiedenis"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Aangevraagd door <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Gestart op <b>%(started_at)s</b>"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Status <span class=\"status-tag primary\"> %(status)s</span>"
+
+msgid "Timeline"
+msgstr "Tijdlijn"
+
+msgid "Initial Revision"
+msgstr "Initiële revisie"
+
+msgid "Page edited"
+msgstr "Pagina bewerkt"
+
+#, python-format
+msgid ""
+"\n"
+"                                            %(action)s by <b>%(who)s</b> at "
+"<b>%(at)s</b>\n"
+"                                        "
+msgstr ""
+"\n"
+"                                            %(action)s door <b>%(who)s</b> "
+"op <b>%(at)s</b>\n"
+"                                        "
+
+#, python-format
+msgid ""
+"\n"
+"                                            %(action)s at <b>%(at)s</b>\n"
+"                                        "
+msgstr ""
+"\n"
+"                                            %(action)s op <b>%(at)s</b>\n"
+"                                        "
+
+msgid "with comment:"
+msgstr "met opmerking:"
+
+msgid "Workflow started"
+msgstr "Workflow gestart"
+
+msgid "Workflow completed"
+msgstr "Workflow afgerond"
+
+#, python-format
+msgid ""
+"\n"
+"                                        %(action)s by <b>%(who)s</b>\n"
+"                                    "
+msgstr ""
+"\n"
+"                                        %(action)s door <b>%(who)s</b>\n"
+"                                    "
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Workflow-geschiedenis voor %(title)s"
+
+msgid "Workflow history for"
+msgstr "Workflow-geschiedenis voor"
+
+msgid "Edit page"
+msgstr "Bewerk pagina"
+
+msgid "Requested by"
+msgstr "Aangevraagd door"
+
+msgid "Approved task"
+msgstr "Goedgekeurde taak"
+
+msgid "Incomplete task"
+msgstr "Incomplete taak"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Deze pagina is nog niet ingediend voor beoordeling"
 
 msgid "Collection"
 msgstr "Collectie"
@@ -1354,6 +1663,12 @@ msgstr "Download XLSX"
 
 msgid "Download CSV"
 msgstr "Download CSV"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Apply filters"
+msgstr "Filters toepassen"
 
 msgid "No pages found."
 msgstr "Geen pagina's gevonden."
@@ -1401,6 +1716,15 @@ msgstr "Geblokkeerd"
 msgid "No locked pages found."
 msgstr "Geen geblokkeerde pagina's gevonden."
 
+msgid "By Task"
+msgstr "Door taak"
+
+msgid "No pages have been submitted for moderation yet"
+msgstr "Er zijn nog geen pagina's ingediend voor beoordeling"
+
+msgid "By Workflow"
+msgstr "Door workflow"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Pagina %(page_num)s van %(total_pages)s."
@@ -1426,14 +1750,23 @@ msgstr "Accountinstellingen"
 msgid "Log out"
 msgstr "Uitloggen"
 
-msgid "Visit the live page"
-msgstr "Bezoek de live pagina"
-
 msgid "Current page status:"
 msgstr "Huidige paginastatus:"
 
 msgid "Other searches"
 msgstr "Andere zoekacties"
+
+msgid "Changes requested"
+msgstr "Wijzigingen gevraagd"
+
+msgid "since"
+msgstr "sinds"
+
+msgid "Published"
+msgstr "Gepubliceerd"
+
+msgid "Draft saved"
+msgstr "Concept opgeslagen"
 
 msgid ""
 "You are using an <strong>outdated</strong> browser not supported by this "
@@ -1461,6 +1794,9 @@ msgstr ""
 "zijn hier te vinden</a>.\n"
 "        "
 
+msgid "Skip to main content"
+msgstr "Ga naar de inhoud"
+
 msgid "Go to Wagtail admin interface"
 msgstr "Ga naar de Wagtail admin interface"
 
@@ -1469,6 +1805,209 @@ msgstr "Voeg een onderliggende pagina toe"
 
 msgid "Show in Explorer"
 msgstr "Toon in verkenner"
+
+msgid "Are you sure you want to disable this workflow?"
+msgstr "Weet je zeker dat je deze workflow wilt uitschakelen?"
+
+msgid "Yes, disable"
+msgstr "Ja, uitschakelen"
+
+msgid "Are you sure you want to disable this task?"
+msgstr "Weet je zeker dat je deze taak wilt uitschakelen?"
+
+msgid "Assign your workflow to pages"
+msgstr "Ken je workflow toe aan pagina's"
+
+msgid "Creating…"
+msgstr "Aanmaken..."
+
+msgid "Create"
+msgstr "Toevoegen"
+
+#, python-format
+msgid ""
+"Workflows apply to child pages too. If you select a parent page here, its "
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
+msgstr ""
+"Workflows zijn ook van toepassing op onderliggende pagina's. Als je hier een "
+"pagina selecteert, dan gebruiken onderliggende pagina's dezelfde workflow. "
+"Zie <a href=\"%(workflow_pages_url)s\">de lijst met pagina's</a> waarop de "
+"workflow van toepassing is."
+
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr ""
+"Deze workflow is uitgeschakeld en kan daarom niet aan pagina's worden "
+"toegewezen."
+
+msgid "Used on the following active workflows"
+msgstr "Gebruikt in de volgende actieve workflows"
+
+msgid "Not used"
+msgstr "Niet gebruikt"
+
+msgid "Assigned pages"
+msgstr "Toegewezen pagina's"
+
+msgid "Assign to another page"
+msgstr "Wijs toe aan een andere pagina"
+
+msgid "Hide disabled workflows"
+msgstr "Verberg uitgeschakelde workflows"
+
+msgid "Show disabled workflows"
+msgstr "Toon uitgeschakelde workflows"
+
+msgid "Used by"
+msgstr "Gebruikt door"
+
+#, python-format
+msgid ""
+"\n"
+"                                            1 page\n"
+"                                        "
+msgid_plural ""
+"\n"
+"                                            %(counter)s pages\n"
+"                                        "
+msgstr[0] ""
+"\n"
+"                                            1 pagina\n"
+"                                        "
+msgstr[1] ""
+"\n"
+"                                            %(counter)s pagina's\n"
+"                                        "
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Stap %(step_number)s"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s meer"
+msgstr[1] "+%(counter)s meer"
+
+#, python-format
+msgid ""
+"No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Er zijn nog geen workflows aangemaakt. <a href=\"%(add_url)s\">Voeg toe</a>."
+
+#, python-format
+msgid ""
+"There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr "Er zijn geen actieve workflows. <a href=\"%(add_url)s\">Voeg toe</a>"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "Kies het type taak dat je wil aanmaken."
+
+msgid "Choose a task"
+msgstr "Kies een taak"
+
+msgid "Existing"
+msgstr "Bestaand"
+
+msgid "Choose a different task type"
+msgstr "Kies een ander type taak"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Er is %(counter)s resultaat\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Er zijn %(counter)s resultaten\n"
+"        "
+
+msgid "Task type"
+msgstr "Taak-type"
+
+msgid "Used on"
+msgstr "Gebruikt op"
+
+#, python-format
+msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
+msgstr "Helaas, geen taken komen overeen met \"<em>%(query_string)s</em>\""
+
+msgid "You haven't created any tasks."
+msgstr "Je hebt nog geen taken aangemaakt."
+
+msgid ""
+"\n"
+"                Why not <a class=\"create-one-now\" href=\"#\">create one "
+"now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"                Waarom <a class=\"create-one-now\" href=\"#\">voegt u er "
+"niet één toe</a>?\n"
+"            "
+
+msgid "Hide disabled tasks"
+msgstr "Verberg uitgeschakelde taken"
+
+msgid "Show disabled tasks"
+msgstr "Toon uitgeschakelde taken"
+
+#, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Er zijn nog geen taken aangemaakt. Waarom <a href=\"%(add_url)s\">voegt u er "
+"niet één toe</a>?"
+
+#, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Er zijn ingeschakelde taken. Waarom <a href=\"%(add_url)s\">voegt u er niet "
+"één toe</a> ?"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "Pagina's welke workflow '%(name)s' gebruiken"
+
+msgid "Pages that use workflow"
+msgstr "Pagina's welke de workflow gebruiken"
+
+#, python-format
+msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
+msgstr "Toegevoegd aan <em>%(workflow_name)s</em> op %(started_at)s"
+
+#, python-format
+msgid "by %(modified_by)s"
+msgstr "door %(modified_by)s"
+
+msgid "Submitted"
+msgstr "Ingediend"
+
+msgid "Not started"
+msgstr "Niet gestart"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "Wijzigingen aangevraagd door %(requested_by)s"
+
+#, python-format
+msgid "Approved by %(approved_by)s"
+msgstr "Goedgekeurd door %(approved_by)s"
+
+msgid "See full history"
+msgstr "Zie volledige geschiedenis"
+
+msgid "Compare with live version"
+msgstr "Vergelijk met live versie"
 
 #, python-format
 msgid ""
@@ -1485,6 +2024,21 @@ msgid ""
 msgstr ""
 "Sorteer onderliggende pagina's van '%(parent)s' op '%(label)s' in aflopende "
 "volgorde."
+
+msgid "0 minutes"
+msgstr "0 minuten"
+
+msgid "Just now"
+msgstr "Zojuist"
+
+msgid "live"
+msgstr "live"
+
+msgid "live + draft"
+msgstr "live + concept"
+
+msgid "draft"
+msgstr "concept"
 
 msgid "Test"
 msgstr "Test"
@@ -1546,14 +2100,11 @@ msgstr "Bekijk live"
 msgid "Page '{0}' created and published."
 msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Pagina '{0}' aangemaakt en ingediend voor controle."
-
 msgid "View draft"
 msgstr "Bekijk concept"
 
-msgid "Failed to send notifications to moderators"
-msgstr "Het versturen van notificaties aan moderators is mislukt."
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Pagina '{0}' aangemaakt en ingediend voor controle."
 
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' is aangemaakt."
@@ -1573,17 +2124,30 @@ msgstr "<b>De pagina '{}' is geblokkeerd</b> door <b>{}</b> op <b>{}</b>."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "De pagina '{}' is geblokkeerd."
 
-msgid "Revision from {0} of page '{1}' has been scheduled for publishing."
+msgid "This page is currently awaiting moderation."
+msgstr "Deze pagina is in afwachting van content goedkeuring."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr ""
+"Deze pagina is in afwachting van <b>'{}'</b> in de <b>'{}'</b> workflow."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Alleen reviewers van deze taak kunnen deze pagina bewerken."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Deze pagina is in afwachting van content goedkeuring"
+
+msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr "De versie van {0} van de pagina '{1}' is ingepland voor publicatie."
 
-msgid "Page '{0}' is live and this revision has been scheduled for publishing."
-msgstr "Pagina  '{0}' is live en de versie is gepland voor publicatie"
+msgid "Page '{0}' is live and this version has been scheduled for publishing."
+msgstr "Pagina '{0}' is live en de versie is gepland voor publicatie."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "De pagina '{0}' is ingepland voor publicatie."
 
-msgid "Revision from {0} of page '{1}' has been published."
-msgstr "De versie van {0} van de pagina '{1}' is gepubliceerd."
+msgid "Version from {0} of page '{1}' has been published."
+msgstr "Versie van {0} van pagina '{1}' is gepubliceerd."
 
 msgid "Page '{0}' has been published."
 msgstr "Pagina '{0}' is gepubliceerd."
@@ -1591,7 +2155,13 @@ msgstr "Pagina '{0}' is gepubliceerd."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Pagina '{0}' is voor moderatie ingediend."
 
-msgid "Page '{0}' has been replaced with revision from {1}."
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Workflow van pagina '{0}' is geannuleerd."
+
+msgid "Workflow on page '{0}' has been restarted."
+msgstr "Workflow van pagina '{0}' is opnieuw gestart."
+
+msgid "Page '{0}' has been replaced with version from {1}."
 msgstr "Pagina '{0}' is vervangen met de versie van {1}."
 
 msgid "Page '{0}' has been updated."
@@ -1602,12 +2172,6 @@ msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten."
-
-msgid "Compare with live version"
-msgstr "Vergelijk met live versie"
-
-msgid "This page is currently awaiting moderation"
-msgstr "Deze pagina is in afwachting van content goedkeuring"
 
 msgid "Page '{0}' deleted."
 msgstr "Pagina '{0}' verwijderd."
@@ -1646,12 +2210,16 @@ msgstr "Pagina '{0}' afgewezen voor publicatie."
 msgid "Failed to send rejection notifications"
 msgstr "Het versturen van afkeuringsnotificaties is mislukt"
 
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr ""
+"Pagina '{0}' is nu niet in afwachting van content goedkeuring in taak '{1}'."
+
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
 
 #, python-format
 msgid ""
-"You are viewing a previous revision of this page from <b>%(created_at)s</b> "
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
 "by %(user)s"
 msgstr ""
 "U bekijkt nu een vorige versie van deze pagina van <b>%(created_at)s</b> "
@@ -1666,11 +2234,133 @@ msgstr "Laatste"
 msgid "revision {0} of \"{1}\""
 msgstr "Versie {0} van \"{1}\""
 
-msgid "Revision {0} of \"{1}\" unscheduled."
-msgstr "Versie {0} of \"{1}\" gestopt met plannen"
+msgid "Version {0} of \"{1}\" unscheduled."
+msgstr "Versie {0} of \"{1}\" gestopt met inplannen."
 
-msgid "Locked Pages"
-msgstr "Blokkeer pagina's"
+msgid "Locked pages"
+msgstr "Geblokkeerde pagina's"
+
+msgid "Workflows"
+msgstr "Workflows"
+
+msgid "Page ID"
+msgstr "Pagina ID"
+
+msgid "Page Type"
+msgstr "Paginatype"
+
+msgid "Page Title"
+msgstr "Paginatitel"
+
+msgid "Workflow tasks"
+msgstr "Workflow taken"
+
+msgid "Requested By"
+msgstr "Aangevraagd door"
+
+msgid "Site history"
+msgstr "Site geschiedenis"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Actietype"
+
+msgid "Date/Time"
+msgstr "Datum/tijd"
+
+msgid "Add a workflow"
+msgstr "Voeg een workflow toe"
+
+msgid "New workflow"
+msgstr "Nieuwe workflow"
+
+msgid "Workflow '{0}' created."
+msgstr "Workflow '{0}' aangemaakt."
+
+msgid "Editing workflow"
+msgstr "Workflow bewerken"
+
+msgid "Workflow '{0}' updated."
+msgstr "Workflow '{0}' is gewijzigd."
+
+msgid "Disable"
+msgstr "Uitschakelen"
+
+msgid "Enable"
+msgstr "Inschakelen"
+
+msgid "Disable workflow"
+msgstr "Workflow uitschakelen"
+
+msgid "Workflow '{0}' disabled."
+msgstr "Workflow '{0}' uitgeschakeld."
+
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page. Disabling this "
+"workflow will cancel moderation on this page."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
+"workflow will cancel moderation on these pages."
+msgstr[0] ""
+"Deze workflow is in gebruik bij %(states_in_progress)d pagina. Deze workflow "
+"uitschakelen zal moderatie annuleren bij deze pagina."
+msgstr[1] ""
+"Deze workflow is in gebruik bij %(states_in_progress)d pagina's. Deze "
+"workflow uitschakelen zal moderatie annuleren bij deze pagina's."
+
+msgid "Workflow '{0}' enabled."
+msgstr "Workflow '{0}' ingeschakeld."
+
+msgid "Workflow removed from Page '{0}'."
+msgstr "Workflow verwijderd van pagina '{0}'."
+
+msgid "New workflow task"
+msgstr "Nieuwe workflow taak"
+
+msgid "Task '{0}' created."
+msgstr "Taak '{0}' aangemaakt."
+
+msgid "Editing workflow task"
+msgstr "Workflow taak bewerken"
+
+msgid "Task '{0}' updated."
+msgstr "Taak '{0}' gewijzigd."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Bewerken %(task_type)s"
+
+msgid "Disable task"
+msgstr "Schakel taak uit"
+
+msgid "Task '{0}' disabled."
+msgstr "Taak '{0}' uitgeschakeld."
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow."
+msgstr[0] ""
+"Deze taak is in gebruik bij %(states_in_progress)d pagina. Deze taak "
+"uitschakelen zal er voor zorgen dat de taak wordt overgeslagen in de "
+"workflow moderatie."
+msgstr[1] ""
+"Deze taak is in gebruik bij %(states_in_progress)d pagina's. Deze taak "
+"uitschakelen zal er voor zorgen dat de taak wordt overgeslagen in de "
+"workflow moderatie."
+
+msgid "Task '{0}' enabled."
+msgstr "Taak '{0}' ingeschakeld."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1712,8 +2402,8 @@ msgid "Unpublish page '%(title)s'"
 msgstr "Trek publicatie van pagina '%(title)s' in."
 
 #, python-format
-msgid "View revision history for '%(title)s'"
-msgstr "Bekijk de versiegeschiedenis van '%(title)s'"
+msgid "View page history for '%(title)s'"
+msgstr "Bekijk de versiegeschiedenis voor '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Profielfoto instellen"
@@ -1779,8 +2469,200 @@ msgstr "Doorgestreept"
 msgid "Code"
 msgstr "Code"
 
+msgid "Locked Pages"
+msgstr "Blokkeer pagina's"
+
 msgid "Reports"
 msgstr "Rapporten"
+
+msgid "Created"
+msgstr "Aangemaakt"
+
+msgid "Deleted"
+msgstr "Verwijderd"
+
+msgid "Publish scheduled draft"
+msgstr "Publiceer concept volgens planning"
+
+msgid "Published scheduled draft"
+msgstr "Gepubliceerd concept volgens planning"
+
+msgid "Unpublished"
+msgstr "Publicatie intrekken"
+
+msgid "Unpublish scheduled draft"
+msgstr "Trek concept met planning terug"
+
+msgid "Unpublished scheduled draft"
+msgstr "Concept met planning teruggetrokken"
+
+msgid "Unlocked"
+msgstr "Deblokkeer"
+
+msgid "Approved"
+msgstr "Goedgekeurd"
+
+msgid "Rejected"
+msgstr "Afgekeurd"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Teruggedraaid naar vorige revisie met id %(revision_id)s van %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Ga terug naar vorige versie"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Gekopieerd van %(title)s"
+
+msgid "Copied"
+msgstr "Gekopieerd"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Verplaatst van '%(old_parent)s' naar '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Verplaatst"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisie %(revision_id)s van %(created_at)s ingepland voor publicatie op "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Pagina ingepland voor publicatie op %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Pagina is ingepland voor publicatie"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisie %(revision_id)s van %(created_at)s is niet meer ingepland voor "
+"publicatie op %(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Pagina niet meer ingepland voor publicatie op %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Pagina niet meer ingepland voor publicatie"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Weergavebeperking '%(restriction)s' toegevoegd"
+
+msgid "Added view restriction"
+msgstr "Weergavebeperking toegevoegd"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Wijzig de weergavebeperking in '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Weergavebeperking is gewijzigd"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "De weergavebeperking '%(restriction)s' is verwijderd"
+
+msgid "Removed view restriction"
+msgstr "Verwijderde weergavebeperking"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Hernoemd van '%(old)s' naar '%(new)s'"
+
+msgid "Renamed"
+msgstr "Hernoemd"
+
+msgid "Rename"
+msgstr "Hernoem"
+
+msgid "Revert"
+msgstr "Ongedaan maken"
+
+msgid "Schedule publication"
+msgstr "Publicatie plannen"
+
+msgid "Unschedule publication"
+msgstr "Publicatie planning verwijderen"
+
+msgid "Add view restrictions"
+msgstr "Voeg weergavebeperkingen toe"
+
+msgid "Update view restrictions"
+msgstr "Wijzig weergavebeperkingen"
+
+msgid "Remove view restrictions"
+msgstr "Verwijder weergavebeperkingen"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' gestart. Volgende stap '%(task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Goedgekeurd op '%(task)s'. Volgende stap '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Goedgekeurd op '%(task)s'. '%(workflow)s' afgerond"
+
+msgid "Workflow task approved"
+msgstr "Workflow-taak goedgekeurd"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Afgekeurd op '%(task)s'. Wijziging verzocht"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Workflow-taak afgekeurd. Workflow complete"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "Opnieuw ingediend '%(task)s'. Workflow hervat'"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Workflow-taak opnieuw ingediend. Workflow hervat"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Geannuleerd '%(workflow)s' op '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Workflow geannuleerd"
+
+msgid "Workflow: start"
+msgstr "Workflow: start"
+
+msgid "Workflow: approve task"
+msgstr "Workflow: taak goedkeuren"
+
+msgid "Workflow: reject task"
+msgstr "Workflow: taak afkeuren"
+
+msgid "Workflow: resume task"
+msgstr "Workflow: taak hervatten"
+
+msgid "Workflow: cancel"
+msgstr "Workflow: annuleren"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
 
 msgid "Choose an item"
 msgstr "Kies een item"
@@ -1796,3 +2678,9 @@ msgstr "Wijzig dit item"
 
 msgid "Choose another page"
 msgstr "Kies een andere pagina"
+
+msgid "Choose another task"
+msgstr "Kies andere taak"
+
+msgid "Edit this task"
+msgstr "Bewerk deze taak"

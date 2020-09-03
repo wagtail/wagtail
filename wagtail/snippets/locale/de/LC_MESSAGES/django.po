@@ -15,15 +15,16 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Raphael Stolt <raphael.stolt@gmail.com>, 2016
+# Tim - <Scriptim@gmx.de>, 2020
 # Wasilis Mandratzis-Walz, 2015
-# Wasilis Mandratzis-Walz, 2015
+# 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2019-10-31 14:35+0000\n"
-"Last-Translator: Bohreromir\n"
+"POT-Creation-Date: 2020-08-03 18:02+0100\n"
+"PO-Revision-Date: 2020-08-08 13:22+0000\n"
+"Last-Translator: Tim - <Scriptim@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -221,7 +222,7 @@ msgstr "Auswählen %s"
 
 #, python-format
 msgid "Choose another %s"
-msgstr "Eine(n) andere(n) %s auswählen"
+msgstr "Andere/n/s %s auswählen"
 
 #, python-format
 msgid "Edit this %s"

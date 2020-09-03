@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
@@ -8,9 +7,10 @@ from wagtail.core.permission_policies.collections import (
     CollectionOwnershipPermissionPolicy, CollectionPermissionPolicy)
 from wagtail.core.tests.test_permission_policies import PermissionPolicyTestUtils
 from wagtail.documents.models import Document
+from wagtail.tests.utils import WagtailTestUtils
 
 
-class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
+class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase, WagtailTestUtils):
     def setUp(self):
         # Permissions
         document_content_type = ContentType.objects.get_for_model(Document)
@@ -48,41 +48,43 @@ class PermissionPolicyTestCase(PermissionPolicyTestUtils, TestCase):
         )
 
         # Users
-        User = get_user_model()
-
-        self.superuser = User.objects.create_superuser(
+        self.superuser = self.create_superuser(
             'superuser', 'superuser@example.com', 'password'
         )
-        self.inactive_superuser = User.objects.create_superuser(
-            'inactivesuperuser', 'inactivesuperuser@example.com', 'password', is_active=False
+        self.inactive_superuser = self.create_superuser(
+            'inactivesuperuser', 'inactivesuperuser@example.com', 'password'
         )
+        self.inactive_superuser.is_active = False
+        self.inactive_superuser.save()
 
         # a user with change_document permission through the 'Document changers' group
-        self.doc_changer = User.objects.create_user(
+        self.doc_changer = self.create_user(
             'docchanger', 'docchanger@example.com', 'password'
         )
         self.doc_changer.groups.add(doc_changers_group)
 
         # a user that has change_document permission, but is inactive
-        self.inactive_doc_changer = User.objects.create_user(
-            'inactivedocchanger', 'inactivedocchanger@example.com', 'password', is_active=False
+        self.inactive_doc_changer = self.create_user(
+            'inactivedocchanger', 'inactivedocchanger@example.com', 'password'
         )
         self.inactive_doc_changer.groups.add(doc_changers_group)
+        self.inactive_doc_changer.is_active = False
+        self.inactive_doc_changer.save()
 
         # a user with change_document permission on reports via the report_changers group
-        self.report_changer = User.objects.create_user(
+        self.report_changer = self.create_user(
             'reportchanger', 'reportchanger@example.com', 'password'
         )
         self.report_changer.groups.add(report_changers_group)
 
         # a user with add_document permission on reports via the report_adders group
-        self.report_adder = User.objects.create_user(
+        self.report_adder = self.create_user(
             'reportadder', 'reportadder@example.com', 'password'
         )
         self.report_adder.groups.add(report_adders_group)
 
         # a user with no permissions
-        self.useless_user = User.objects.create_user(
+        self.useless_user = self.create_user(
             'uselessuser', 'uselessuser@example.com', 'password'
         )
 

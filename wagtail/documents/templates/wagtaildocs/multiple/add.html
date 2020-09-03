@@ -22,19 +22,22 @@
 
             <form action="{% url 'wagtaildocs:add_multiple' %}" method="POST" enctype="multipart/form-data">
                 <div class="replace-file-input">
-                    <button class="button bicolor icon icon-plus">{% trans "Or choose from your computer" %}</button>
+                    <button class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{% trans "Or choose from your computer" %}</button>
                     <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtaildocs:add_multiple' %}" multiple>
                 </div>
                 {% csrf_token %}
                 {% if collections %}
-                    <div class="field">
+                    <div class="field choice_field select">
                         <label for="id_adddocument_collection">{% trans "Add to collection:" %}</label>
                         <div class="field-content">
-                            <select id="id_adddocument_collection" name="collection">
-                                {% for collection in collections %}
-                                    <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
-                                {% endfor %}
-                            </select>
+                            <div class="input">
+                                <select id="id_adddocument_collection" name="collection">
+                                    {% for collection in collections %}
+                                        <option value="{{ collection.id|unlocalize }}">{{ collection.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <span></span>
+                            </div>
                         </div>
                     </div>
                 {% endif %}

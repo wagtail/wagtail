@@ -6,13 +6,15 @@
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Matthias Martin, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
+# Tibor <tibor@lpld.io>, 2020
+# Tim - <Scriptim@gmx.de>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-21 14:49+0100\n"
-"PO-Revision-Date: 2019-10-18 06:59+0000\n"
-"Last-Translator: Matthias Martin\n"
+"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"PO-Revision-Date: 2020-08-08 13:22+0000\n"
+"Last-Translator: Tim - <Scriptim@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -21,12 +23,18 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "default"
+msgstr "Standard"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "%(setting_type_name)s - %(instance)s bearbeiten"
 
 msgid "Editing"
 msgstr "Bearbeiten"
+
+msgid "Site"
+msgstr "Seite"
 
 msgid "Saving…"
 msgstr "Speichern…"

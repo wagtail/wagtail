@@ -8,7 +8,9 @@ describe('EmbedBlock', () => {
     expect(
       shallow(
         <EmbedBlock
+          block={{}}
           blockProps={{
+            editorState: {},
             entityType: {},
             entity: {
               getData: () => ({
@@ -17,6 +19,7 @@ describe('EmbedBlock', () => {
                 thumbnail: 'http://www.example.com/example.png',
               }),
             },
+            onChange: () => {},
           }}
         />
       )
@@ -27,11 +30,14 @@ describe('EmbedBlock', () => {
     expect(
       shallow(
         <EmbedBlock
+          block={{}}
           blockProps={{
+            editorState: {},
             entityType: {},
             entity: {
               getData: () => ({}),
             },
+            onChange: () => {},
           }}
         />
       )

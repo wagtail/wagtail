@@ -1,4 +1,5 @@
 import posixpath
+import warnings
 from collections import defaultdict
 
 from django.apps import apps
@@ -373,6 +374,8 @@ def specific_iterator(qs, defer=False):
 
     This should be called from ``PageQuerySet.specific``
     """
+    from wagtail.core.models import Page
+
     annotation_aliases = qs.query.annotations.keys()
     values = qs.values('pk', 'content_type', *annotation_aliases)
 
@@ -393,29 +396,50 @@ def specific_iterator(qs, defer=False):
 
     # Get the specific instances of all pages, one model class at a time.
     pages_by_type = {}
+    missing_pks = []
+
     for content_type, pks in pks_by_type.items():
         # look up model class for this content type, falling back on the original
         # model (i.e. Page) if the more specific one is missing
         model = content_types[content_type].model_class() or qs.model
         pages = model.objects.filter(pk__in=pks)
 
-        if annotation_aliases:
-            # Reapply annotations to pages.
-            for page in pages:
-                for annotation, value in annotations_by_pk.get(page.pk, {}).items():
-                    setattr(page, annotation, value)
-
         if defer:
             # Defer all specific fields
-            from wagtail.core.models import Page
             fields = [field.attname for field in Page._meta.get_fields() if field.concrete]
             pages = pages.only(*fields)
 
-        pages_by_type[content_type] = {page.pk: page for page in pages}
+        pages_for_type = {page.pk: page for page in pages}
+        pages_by_type[content_type] = pages_for_type
+        missing_pks.extend(
+            pk for pk in pks if pk not in pages_for_type
+        )
 
-    # Yield all of the pages, in the order they occurred in the original query.
+    # Fetch generic pages to supplement missing items
+    if missing_pks:
+        generic_pages = Page.objects.filter(pk__in=missing_pks).select_related('content_type').in_bulk()
+        warnings.warn(
+            "Specific versions of the following pages could not be found. "
+            "This is most likely because a database migration has removed "
+            "the relevant table or record since the page was created:\n{}".format([
+                {'id': p.id, 'title': p.title, 'type': p.content_type}
+                for p in generic_pages.values()
+            ]), category=RuntimeWarning
+        )
+    else:
+        generic_pages = {}
+
+    # Yield all pages in the order they occurred in the original query.
     for pk, content_type in pks_and_types:
-        yield pages_by_type[content_type][pk]
+        try:
+            page = pages_by_type[content_type][pk]
+        except KeyError:
+            page = generic_pages[pk]
+        if annotation_aliases:
+            # Reapply annotations before returning
+            for annotation, value in annotations_by_pk.get(page.pk, {}).items():
+                setattr(page, annotation, value)
+        yield page
 
 
 class SpecificIterable(BaseIterable):

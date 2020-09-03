@@ -1,18 +1,18 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpRequest
 from django.template import engines
 from django.test import TestCase
 
 from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, Site
+from wagtail.tests.utils import WagtailTestUtils
 
 
-class TestCoreJinja(TestCase):
+class TestCoreJinja(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.engine = engines['jinja2']
 
-        self.user = get_user_model().objects.create_superuser(
+        self.user = self.create_superuser(
             username='test',
             email='test@email.com',
             password='password'
