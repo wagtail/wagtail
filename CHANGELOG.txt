@@ -4,6 +4,7 @@ Changelog
 2.11 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Extend treebeard's `fix_tree` method with the ability to non-destructively fix path issues and add a --full option to apply path fixes (Matt Westcott)
  * Add `before_edit_snippet`, `before_create_snippet` and `before_delete_snippet` hooks and documentation (Karl Hobley. Sponsored by the Mozilla Foundation)
  * Add `register_snippet_listing_buttons` and `construct_snippet_listing_buttons` hooks and documentation (Karl Hobley. Sponsored by the Mozilla Foundation)
  * Add `wagtail --version` to available Wagtail CLI commands (Kalob Taulien)

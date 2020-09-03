@@ -20,6 +20,7 @@ Other features
  * Remove unidecode and use anyascii in for Unicode to ASCII conversion (Robbie Mackay)
  * Add ``render`` helper to ``RoutablePageMixin`` to support serving template responses according to Wagtail conventions (Andy Babic)
  * Specify minimum Python version in setup.py (Vince Salvino)
+ * Extend treebeard's ``fix_tree`` method with the ability to non-destructively fix path issues and add a --full option to apply path fixes (Matt Westcott)
 
 
 Bug fixes
