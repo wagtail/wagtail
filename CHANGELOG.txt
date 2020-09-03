@@ -6,6 +6,7 @@ Changelog
 
  * Fix: Avoid use of `icon` class name on userbar icon to prevent clashes with front-end styles (Karran Besen)
  * Fix: Prevent focused button labels from displaying as white on white (Karran Bessen)
+ * Fix: Avoid showing preview button on moderation dashboard for page types with preview disabled (Dino Perovic)
 
 
 2.10.1 (26.08.2020)

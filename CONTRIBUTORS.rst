@@ -473,6 +473,7 @@ Contributors
 * Steven Wood
 * Gabriel Peracio
 * Vyacheslav Matyukhin
+* Dino Perovic
 
 Translators
 ===========
