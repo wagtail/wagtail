@@ -476,6 +476,7 @@ Contributors
 * Robbie Mackay
 * Vyacheslav Matyukhin
 * Vince Salvino
+* Dino Perovic
 
 Translators
 ===========
