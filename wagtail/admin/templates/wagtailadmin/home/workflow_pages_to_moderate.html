@@ -42,9 +42,11 @@
                                                 <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a>
                                             </li>
                                         {% endif %}
-                                        <li>
-                                            <a href="{% url 'wagtailadmin_pages:workflow_preview' revision.page.id task_state.task.id %}" class="button button-small button-secondary">{% trans 'Preview' %}</a>
-                                        </li>
+                                        {% if revision.page.is_previewable %}
+                                            <li>
+                                                <a href="{% url 'wagtailadmin_pages:workflow_preview' revision.page.id task_state.task.id %}" class="button button-small button-secondary">{% trans 'Preview' %}</a>
+                                            </li>
+                                        {% endif %}
                                     </ul>
                                 {% endif %}
                             </td>
