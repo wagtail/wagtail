@@ -477,6 +477,18 @@ Hooks for customising the way users are directed through the process of creating
     def do_after_page_create(request, page):
         return HttpResponse("Congrats on making content!", content_type="text/plain")
 
+  If you set attributes on a ``Page`` object, you should also call ``save_revision()``, since the edit and index view pick up their data from the revisions table rather than the actual saved page record.
+  
+  .. code-block:: python
+  
+      @hooks.register('after_create_page')
+      def set_attribute_after_page_create(request, page)
+         page.title = 'Persistent Title'
+         new_revision = page.save_revision()
+         if page.live:
+             # page has been created and published at the same time,
+             # so ensure that the updated title is on the published version too
+             new_revision.publish()
 
 .. _before_create_page:
 
