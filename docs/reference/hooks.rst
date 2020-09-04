@@ -477,7 +477,7 @@ Hooks for customising the way users are directed through the process of creating
     def do_after_page_create(request, page):
         return HttpResponse("Congrats on making content!", content_type="text/plain")
 
-  Setting attributes on a ``Page`` object requires to call ``save_revision()`` since the edit and index view pick up their data from the revisions table rather than the actual saved page record.
+  Setting attributes on a ``Page`` object requires to also call ``save_revision()`` since the edit and index view pick up their data from the revisions table rather than the actual saved page record.
   
   .. code-block:: python
   
@@ -485,7 +485,7 @@ Hooks for customising the way users are directed through the process of creating
       def set_attribute_after_page_create(request, page)
          page.title = 'Persistent Title'
          page.save_revision()  # instead of just calling save()
-
+         page.save()
 
 .. _before_create_page:
 
