@@ -226,7 +226,7 @@ $positions: (
     }
 
     & + & {
-        border-top: 1px solid hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 83%));
+        border-top: 1px solid hsl(css-darken($color-grey-1-tuple, 3%)...);
     }
 
 

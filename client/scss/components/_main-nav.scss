@@ -64,7 +64,7 @@
         &:focus {
             background-color: var(--nav-item-hover-bg);
             color: var(--color-white);
-            text-shadow: -1px -1px 0 hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 39%), 0.3);
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
         }
     }
 
@@ -93,7 +93,7 @@
 
     .menu-active {
         background: var(--nav-item-active-bg);
-        text-shadow: -1px -1px 0 hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 39%), 0.3);
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 
         > a {
             border-left-color: $color-salmon;
@@ -359,7 +359,7 @@ body.explorer-open {
             &:hover {
                 background-color: var(--nav-item-hover-bg);
                 color: var(--color-white);
-                text-shadow: -1px -1px 0 hsla(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 39%), 0.3);
+                text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
             }
 
             .avatar {

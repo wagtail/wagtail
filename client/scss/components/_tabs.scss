@@ -31,13 +31,13 @@
         display: block;
         padding: 0.6em 0.7em 0.8em;
         color: var(--color-white);
-        border-top: 0.3em solid var(--color-teal-darker);
+        border-top: 0.3em solid var(--color-primary-darker);
         max-height: 1.44em;
         overflow: hidden;
 
         &:hover {
             color: var(--color-white);
-            border-top-color: hsl(calc(var(--color-primary-hue) + 1), var(--color-primary-saturation), calc(var(--color-primary-lightness) - 12%));
+            border-top-color: hsl(css-darken($color-primary-darker-tuple, 8)...);
         }
     }
 

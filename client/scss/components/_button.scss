@@ -594,7 +594,7 @@ button {
         background-color: var(--color-white);
         padding: 1em 10em 1em 1.5em; // 10em padding leaves room for controls
         margin-bottom: 1em;
-        border: 1px solid hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 7%)); // really trying to avoid creating more greys, but this one is better than grey 4 or 5
+        border: 1px solid hsl(css-lighten($color-grey-4-tuple, 3%)...); // really trying to avoid creating more greys, but this one is better than grey 4 or 5
     }
 
     &.moving {

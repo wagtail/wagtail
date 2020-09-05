@@ -4,8 +4,8 @@
     display: inline-block;
     text-transform: uppercase;
     padding: 0 0.5em;
-    border: 1px solid hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 40%));
-    color: hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 40%));
+    border: 1px solid hsl(css-lighten($color-grey-2-tuple, 30%)...);
+    color: hsl(css-lighten($color-grey-2-tuple, 30%)...);
     -webkit-font-smoothing: auto;
     line-height: 19px;
     font-size: 0.8em;

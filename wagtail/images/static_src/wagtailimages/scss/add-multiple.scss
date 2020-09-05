@@ -94,7 +94,7 @@
         width: 1em;
         font-size: 10em;
         line-height: 1.4em;
-        color: hsl(var(--color-white-hue), var(--color-white-saturation), calc(var(--color-white-lightness) - 6%));
+        color: hsl(css-lighten($color-grey-4-tuple, 4%)...);
     }
 
     canvas,
