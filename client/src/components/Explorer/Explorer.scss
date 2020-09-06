@@ -1,11 +1,14 @@
-$c-explorer-bg: #4c4e4d;
-$c-explorer-bg-dark: $nav-grey-1;
-$c-explorer-bg-active: rgba(0, 0, 0, 0.425);
-$c-explorer-secondary: #a5a5a5;
 $c-explorer-easing: cubic-bezier(0.075, 0.82, 0.165, 1);
 $menu-footer-height: 50px;
 
 @import 'ExplorerItem';
+
+:root {
+    --c-explorer-bg: #4c4e4d;
+    --c-explorer-bg-dark: var(--nav-grey-1);
+    --c-explorer-bg-active: rgba(0, 0, 0, 0.425);
+    --c-explorer-secondary: #a5a5a5;
+}
 
 .explorer__wrapper,
 .explorer__wrapper * {
@@ -39,10 +42,10 @@ $menu-footer-height: 50px;
     flex: 1;
     position: relative;
     overflow: hidden;
-    background: $c-explorer-bg;
+    background: var(--c-explorer-bg);
 
     @include media-breakpoint-up(sm) {
-        box-shadow: 2px 2px 5px $c-explorer-bg-active;
+        box-shadow: 2px 2px 5px var(--c-explorer-bg-active);
     }
 }
 
@@ -55,19 +58,19 @@ $menu-footer-height: 50px;
 
 .c-explorer__close {
     padding: 1em;
-    color: $c-explorer-secondary;
+    color: var(--c-explorer-secondary);
     border-bottom: 1px solid rgba(200, 200, 200, 0.1);
     cursor: pointer;
     display: none;
 
     &:focus {
-        background-color: $c-explorer-bg-active;
+        background-color: var(--c-explorer-bg-active);
         color: var(--color-white);
     }
 
     // Overrides for default link hover.
     &:hover {
-        color: $c-explorer-secondary;
+        color: var(--c-explorer-secondary);
     }
 
     @include media-breakpoint-down(xs) {
@@ -85,12 +88,12 @@ $menu-footer-height: 50px;
 
 .c-explorer__header {
     display: block;
-    background-color: $c-explorer-bg-dark;
-    border-bottom: 1px solid $c-explorer-bg-dark;
+    background-color: var(--c-explorer-bg-dark);
+    border-bottom: 1px solid var(--c-explorer-bg-dark);
     color: var(--color-white);
 
     &:focus {
-        background-color: $c-explorer-bg-active;
+        background-color: var(--c-explorer-bg-active);
         color: var(--color-white);
     }
 
@@ -100,7 +103,7 @@ $menu-footer-height: 50px;
     }
 
     @include hover {
-        background-color: $c-explorer-bg-active;
+        background-color: var(--c-explorer-bg-active);
     }
 }
 
@@ -111,7 +114,7 @@ $menu-footer-height: 50px;
     white-space: nowrap;
 
     .icon {
-        color: $c-explorer-secondary;
+        color: var(--c-explorer-secondary);
         margin-right: 0.25rem;
         font-size: 1rem;
     }
@@ -121,7 +124,7 @@ $menu-footer-height: 50px;
         height: 1.25em;
         margin-right: 0.25rem;
         vertical-align: text-top;
-        color: $c-explorer-secondary;
+        color: var(--c-explorer-secondary);
     }
 
     @include media-breakpoint-up(sm) {
@@ -145,8 +148,8 @@ $menu-footer-height: 50px;
     color: var(--color-white);
 
     &:focus {
-        color: $c-explorer-secondary;
-        background: $c-explorer-bg-active;
+        color: var(--c-explorer-secondary);
+        background: var(--c-explorer-bg-active);
     }
 
     // Overrides for default link hover.
@@ -155,7 +158,7 @@ $menu-footer-height: 50px;
     }
 
     @include hover {
-        background: $c-explorer-bg-active;
+        background: var(--c-explorer-bg-active);
     }
 
     @include media-breakpoint-up(sm) {
