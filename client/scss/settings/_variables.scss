@@ -172,15 +172,19 @@ $nav-search-focus-bg: $nav-item-hover-bg;
     @return ($h, $s, $l, $alpha)
 };
 
-:root {
-    $color-teal: #007d7e;
-    --color-primary-hue: #{hue($color-teal)};
-    --color-primary-saturation: #{saturation($color-teal)};
-    --color-primary-lightness: #{lightness($color-teal)};
-    $color-primary-tuple: (var(--color-primary-hue), var(--color-primary-saturation), var(--color-primary-lightness)) !global;
+@mixin define-color($name, $color) {
+    --color-#{$name}-hue: #{hue($color)};
+    --color-#{$name}-saturation: #{saturation($color)};
+    --color-#{$name}-lightness: #{lightness($color)};
+    --color-#{$name}: hsl(#{ var(--color-#{$name}-hue), var(--color-#{$name}-saturation), var(--color-#{$name}-lightness) });
+}
 
-    --color-primary: hsl(#{$color-primary-tuple});
+:root {
+    // Defines: --color-primary-hue, --color-primary-saturation, --color-primary-lightness, and --color-primary
+    @include define-color('primary', $color-teal);
+    $color-primary-tuple: (var(--color-primary-hue), var(--color-primary-saturation), var(--color-primary-lightness)) !global;
     $color-primary-darker-tuple: css-darken(css-adjust-hue($color-primary-tuple, 1), 4%) !global;
+
     --color-primary-darker: hsl(#{$color-primary-darker-tuple});
     --color-primary-dark: hsl(#{css-darken(css-adjust-hue($color-primary-tuple, 1), 7%)});
 
@@ -196,13 +200,8 @@ $nav-search-focus-bg: $nav-item-hover-bg;
     --color-link: var(--color-primary-darker);
     --color-link-hover: var(--color-primary-dark);
 
-
-    $color-white: #fff;
-    --color-white-hue: #{hue($color-white)};
-    --color-white-saturation: #{saturation($color-white)};
-    --color-white-lightness: #{lightness($color-white)};
+    @include define-color('white', $color-white);
     $color-white-tuple: (var(--color-white-hue), var(--color-white-saturation), var(--color-white-lightness));
-    --color-white: hsl(#{$color-white-tuple});
 
     $color-grey-1-tuple: css-darken($color-white-tuple, 80) !global;
     --color-grey-1: hsl(#{$color-grey-1-tuple});
