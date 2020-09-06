@@ -9,8 +9,8 @@
         position: absolute;
         top: 0;
         right: 0;
-        background: $draftail-editor-chrome;
-        color: $draftail-editor-chrome-text;
+        background: var(--draftail-editor-chrome);
+        color: var(--draftail-editor-chrome-text);
         line-height: 1;
         padding: $controls-spacing * 2 $controls-spacing * 3;
         pointer-events: none;

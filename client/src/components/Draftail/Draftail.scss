@@ -1,9 +1,9 @@
 $editor-z-index: $draftail-editor-z-index;
 
-$draftail-editor-text: $color-text-input;
-$draftail-editor-chrome: $color-white;
-$draftail-editor-chrome-text: $color-grey-2;
-$draftail-editor-chrome-active: $color-grey-2;
+// $draftail-editor-text: $color-text-input;
+// $draftail-editor-chrome: $color-white;
+// $draftail-editor-chrome-text: $color-grey-2;
+// $draftail-editor-chrome-active: $color-grey-2;
 $draftail-editor-chrome-accent: transparent;
 
 $draftail-editor-border: 0;
@@ -25,6 +25,13 @@ $draftail-editor-font-family: $font-serif;
 @import './blocks/MediaBlock';
 @import './blocks/ImageBlock';
 @import './blocks/EmbedBlock';
+
+:root {
+    --draftail-editor-text: var(--color-text-input);
+    --draftail-editor-chrome: var(--color-white);
+    --draftail-editor-chrome-text: var(--color-grey-2);
+    --draftail-editor-chrome-active: var(--color-grey-2);
+}
 
 @include draftail-richtext-styles {
     h1,
