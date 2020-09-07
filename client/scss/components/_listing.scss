@@ -414,7 +414,7 @@ ul.listing {
 
             &.bicolor {
                 background: var(--color-primary-darker);
-                border: solid 1px hsl(css-darken($color-primary-darker-tuple, 10%)...);
+                border: solid 1px hsl(css-darken(get-color('primary-dark'), 10%)...);
 
                 &:active {
                     color: var(--color-white);

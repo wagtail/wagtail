@@ -94,7 +94,7 @@
         width: 1em;
         font-size: 10em;
         line-height: 1.4em;
-        color: hsl(css-lighten($color-grey-4-tuple, 4%)...);
+        color: hsl(css-lighten(get-color('grey-4'), 4%)...);
     }
 
     canvas,

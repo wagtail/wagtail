@@ -24,7 +24,7 @@
     color: var(--color-text-base);
 
     &[readonly] {
-        color: hsla(#{css-transparentize($color-text-base-tuple, 0.5)});
+        color: hsla(#{css-transparentize(get-color('text-base'), 0.5)});
     }
 }
 

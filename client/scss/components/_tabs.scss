@@ -37,7 +37,7 @@
 
         &:hover {
             color: var(--color-white);
-            border-top-color: hsl(css-darken($color-primary-darker-tuple, 8)...);
+            border-top-color: hsl(css-darken(get-color('primary-dark'), 8)...);
         }
     }
 

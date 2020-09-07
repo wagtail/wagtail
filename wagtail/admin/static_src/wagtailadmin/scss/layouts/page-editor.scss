@@ -447,8 +447,8 @@ footer .preview {
             height: 3em;
         }
 
-        background-color: hsl(css-lighten($color-grey-2-tuple, 10%)...);
-        border-color: hsl(css-lighten($color-grey-2-tuple, 10%)...);
+        background-color: hsl(css-lighten(get-color('grey-2'), 10%)...);
+        border-color: hsl(css-lighten(get-color('grey-2'), 10%)...);
 
         &:hover {
             background-color: var(--color-grey-2);
@@ -461,8 +461,8 @@ footer .preview {
         input[type=submit],
         button,
         .button {
-            background-color: hsl(css-lighten($color-grey-2-tuple, 10%)...);
-            border-color: hsl(css-lighten($color-grey-2-tuple, 10%)...);
+            background-color: hsl(css-lighten(get-color('grey-2'), 10%)...);
+            border-color: hsl(css-lighten(get-color('grey-2'), 10%)...);
 
             &:hover {
                 background-color: var(--color-grey-2);
@@ -472,7 +472,7 @@ footer .preview {
 
         ul,
         .dropdown-toggle {
-            background-color: hsl(css-lighten($color-grey-2-tuple, 10%)...);
+            background-color: hsl(css-lighten(get-color('grey-2'), 10%)...);
         }
 
         .dropdown-toggle:hover,
