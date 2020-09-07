@@ -46,24 +46,10 @@ $draftail-editor-z-index: $nav-wrapper-inner-z-index + 1;
 $object-title-height: 40px;
 
 // Nav
-// $nav-grey-1: darken($color-white, 80);
-// $nav-grey-2: darken($color-white, 60);
-// $nav-item-hover-bg: rgba(100, 100, 100, 0.15);
-// $nav-item-active-bg: darken($color-white, 90);
-// $nav-submenu-bg: darken($color-white, 85);
-// $nav-footer-account-bg: $nav-item-active-bg;
-// $nav-footer-submenu-bg: $nav-submenu-bg;
 $nav-footer-closed-height: 50px;
 $nav-footer-submenu-height: 77px;
 $nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
 
-// Nav search
-// $nav-search-color: darken($color-white, 20);
-// $nav-search-border: darken($color-white, 40);
-// $nav-search-bg: $nav-grey-1;
-// $nav-search-hover-bg: $nav-item-hover-bg;
-// $nav-search-focus-color: $color-white;
-// $nav-search-focus-bg: $nav-item-hover-bg;
 
 @function css-darken($hsl-tuple, $darken-by) {
     $h: nth($hsl-tuple, 1);
@@ -194,6 +180,7 @@ $nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
     --nav-footer-account-bg: var(--nav-item-active-bg);
     --nav-footer-submenu-bg: var(--nav-submenu-bg);
 
+    // Nav search
     --nav-search-color: hsl(#{css-darken(get-color('white'), 20)});
     --nav-search-border: hsl(#{css-darken(get-color('white'), 40)});
     --nav-search-bg: var(--nav-grey-1);
