@@ -27,7 +27,7 @@ section {
         width: 100px;
         height: 100px;
         padding: 10px;
-        color: $color-black;
+        color: var(--color-black);
     }
 
     .contrast li {
@@ -44,7 +44,7 @@ section {
     }
 
     .color-black-text {
-        color: $color-black;
+        color: var(--color-black);
     }
 
     .color-grey-1-text {
@@ -56,19 +56,19 @@ section {
     }
 
     .color-salmon-light-text {
-        color: $color-salmon-light;
+        color: var(--color-salmon-light);
     }
 
     .color-red-text {
-        color: $color-red;
+        color: var(--color-red);
     }
 
     .color-green-text {
-        color: $color-green;
+        color: var(--color-green);
     }
 
     .color-green-dark-text {
-        color: $color-green-dark;
+        color: var(--color-green-dark);
     }
 
     .color-teal-darker-text {
@@ -84,11 +84,11 @@ section {
     }
 
     .color-red-text {
-        color: $color-red;
+        color: var(--color-red);
     }
 
     .color-red-dark-text {
-        color: $color-red-dark;
+        color: var(--color-red-dark);
     }
 
     .color-teal-text {
@@ -96,19 +96,19 @@ section {
     }
 
     .color-orange-text {
-        color: $color-orange;
+        color: var(--color-orange);
     }
 
     .color-orange-dark-text {
-        color: $color-orange-dark;
+        color: var(--color-orange-dark);
     }
 
     .color-blue-text {
-        color: $color-blue;
+        color: var(--color-blue);
     }
 
     .color-salmon-text {
-        color: $color-salmon;
+        color: var(--color-salmon);
     }
 
     .color-grey-3-text {
@@ -140,31 +140,31 @@ section {
     }
 
     .color-red {
-        background-color: $color-red;
+        background-color: var(--color-red);
     }
 
     .color-red-dark {
-        background-color: $color-red-dark;
+        background-color: var(--color-red-dark);
     }
 
     .color-orange {
-        background-color: $color-orange;
+        background-color: var(--color-orange);
     }
 
     .color-orange-dark {
-        background-color: $color-orange-dark;
+        background-color: var(--color-orange-dark);
     }
 
     .color-green {
-        background-color: $color-green;
+        background-color: var(--color-green);
     }
 
     .color-green-dark {
-        background-color: $color-green-dark;
+        background-color: var(--color-green-dark);
     }
 
     .color-blue {
-        background-color: $color-blue;
+        background-color: var(--color-blue);
     }
 
     .color-grey-1 {
@@ -188,11 +188,11 @@ section {
     }
 
     .color-salmon {
-        background-color: $color-salmon;
+        background-color: var(--color-salmon);
     }
 
     .color-salmon-light {
-        background-color: $color-salmon-light;
+        background-color: var(--color-salmon-light);
     }
 }
 

@@ -125,7 +125,7 @@ $positions: (
     overflow: hidden;
     background-color: var(--color-white);
     border-radius: 50%;
-    color: $color-black;
+    color: var(--color-black);
     padding: 0 !important;
     cursor: pointer;
     box-shadow: $box-shadow-props, 0 1px 10px 0 rgba(107, 214, 230, 0.7);

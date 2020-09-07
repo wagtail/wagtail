@@ -35,45 +35,45 @@
 
 
     &.yes {
-        background-color: $color-button-yes;
-        border: 1px solid $color-button-yes;
+        background-color: var(--color-button-yes);
+        border: 1px solid var(--color-button-yes);
 
         &.button-secondary {
-            border: 1px solid $color-button-yes;
-            color: $color-button-yes;
+            border: 1px solid var(--color-button-yes);
+            color: var(--color-button-yes);
             background-color: transparent;
         }
 
         &:hover {
             color: var(--color-white);
             border-color: transparent;
-            background-color: $color-button-yes-hover;
+            background-color: var(--color-button-yes-hover);
         }
 
         &.button-nobg:hover {
-            color: $color-button-yes;
+            color: var(--color-button-yes);
             background-color: transparent;
         }
     }
 
     &.warning {
-        background-color: $color-button-warning;
-        border: 1px solid $color-button-warning;
+        background-color: var(--color-button-warning);
+        border: 1px solid var(--color-button-warning);
 
         &.button-secondary {
-            border: 1px solid $color-button-warning;
-            color: $color-button-warning;
+            border: 1px solid var(--color-button-warning);
+            color: var(--color-button-warning);
             background-color: transparent;
         }
 
         &:hover {
             color: var(--color-white);
             border-color: transparent;
-            background-color: $color-button-warning-hover;
+            background-color: var(--color-button-warning-hover);
         }
 
         &.button-nobg:hover {
-            color: $color-button-warning;
+            color: var(--color-button-warning);
             background-color: transparent;
         }
     }
@@ -81,23 +81,23 @@
 
     &.no,
     &.serious {
-        background-color: $color-button-no;
-        border: 1px solid $color-button-no;
+        background-color: var(--color-button-no);
+        border: 1px solid var(--color-button-no);
 
         &.button-secondary {
-            border: 1px solid $color-button-no;
-            color: $color-button-no;
+            border: 1px solid var(--color-button-no);
+            color: var(--color-button-no);
             background-color: transparent;
         }
 
         &:hover {
             color: var(--color-white);
             border-color: transparent;
-            background-color: $color-button-no-hover;
+            background-color: var(--color-button-no-hover);
         }
 
         &.button-nobg:hover {
-            color: $color-button-no;
+            color: var(--color-button-no);
             background-color: transparent;
         }
     }
@@ -214,7 +214,7 @@
         border-color: transparent;
 
         &.hover-no {
-            background-color: $color-button-no;
+            background-color: var(--color-button-no);
         }
     }
 
@@ -436,46 +436,46 @@ button.button.bicolor .icon-wrapper {
 }
 
 .yes {
-    background-color: $color-button-yes;
-    border: 1px solid $color-button-yes;
+    background-color: var(--color-button-yes);
+    border: 1px solid var(--color-button-yes);
 
     &.button-secondary {
-        border: 1px solid $color-button-yes;
-        color: $color-button-yes;
+        border: 1px solid var(--color-button-yes);
+        color: var(--color-button-yes);
         background-color: transparent;
     }
 
     &:hover {
         color: var(--color-white);
         border-color: transparent;
-        background-color: $color-button-yes-hover;
+        background-color: var(--color-button-yes-hover);
     }
 
     &.button-nobg:hover {
-        color: $color-button-yes;
+        color: var(--color-button-yes);
         background-color: transparent;
     }
 }
 
 .no,
 .serious {
-    background-color: $color-button-no;
-    border: 1px solid $color-button-no;
+    background-color: var(--color-button-no);
+    border: 1px solid var(--color-button-no);
 
     &.button-secondary {
-        border: 1px solid $color-button-no;
-        color: $color-button-no;
+        border: 1px solid var(--color-button-no);
+        color: var(--color-button-no);
         background-color: transparent;
     }
 
     &:hover {
         color: var(--color-white);
         border-color: transparent;
-        background-color: $color-button-no-hover;
+        background-color: var(--color-button-no-hover);
     }
 
     &.button-nobg:hover {
-        color: $color-button-no;
+        color: var(--color-button-no);
         background-color: transparent;
     }
 }

@@ -39,15 +39,15 @@
     }
 
     .error {
-        background-color: $color-red-dark;
+        background-color: var(--color-red-dark);
     }
 
     .warning {
-        background-color: $color-orange-dark;
+        background-color: var(--color-orange-dark);
     }
 
     .success {
-        background-color: $color-green-dark;
+        background-color: var(--color-green-dark);
     }
 
     .success .button:hover {

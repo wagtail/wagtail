@@ -210,11 +210,11 @@
             }
 
             &.no {
-                color: $color-button-no;
+                color: var(--color-button-no);
             }
 
             &.warning {
-                color: $color-button-warning;
+                color: var(--color-button-warning);
             }
         }
     }
@@ -255,14 +255,14 @@
 
 .dropdown.warning {
     ul {
-        background-color: $color-button-warning;
+        background-color: var(--color-button-warning);
     }
 
     .dropdown-toggle {
-        background-color: $color-button-warning;
+        background-color: var(--color-button-warning);
 
         &:hover {
-            background-color: $color-button-warning-hover;
+            background-color: var(--color-button-warning-hover);
         }
     }
 }

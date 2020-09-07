@@ -166,7 +166,7 @@
         box-sizing: border-box;
         height: $object-title-height;
         -webkit-font-smoothing: auto;
-        background: $color-salmon-light;
+        background: var(--color-salmon-light);
         color: #200200;
         text-transform: uppercase;
         padding: 0.9em 0 0.9em 5em;
@@ -209,7 +209,7 @@
             color: var(--color-white);
             padding: 0;
             margin: 0;
-            background-color: $color-salmon;
+            background-color: var(--color-salmon);
         }
     }
 
@@ -227,7 +227,7 @@
     &.required {
         > .title-wrapper label:after {
             content: '*';
-            color: $color-red;
+            color: var(--color-red);
             font-weight: bold;
             display: inline-block;
             margin-left: 0.5em;
@@ -266,7 +266,7 @@
         .error input,
         .error textarea,
         .error .halloeditor {
-            background-color: $color-input-error-bg;
+            background-color: var(--color-input-error-bg);
         }
     }
 
@@ -357,7 +357,7 @@
             .button {
                 border-radius: 0;
                 overflow: visible;
-                background-color: $color-salmon-light;
+                background-color: var(--color-salmon-light);
                 font-size: 0; // helps fake the effect of t.ext-replace class, which can't be used here.
                 width: 2em;
 
@@ -368,11 +368,11 @@
                     line-height: 1.8em; // specific height required as parent 'a' has no height
                     font-size: 1.4rem;
                     width: 1.8em;
-                    background-color: $color-salmon;
+                    background-color: var(--color-salmon);
                 }
 
                 &:hover:before {
-                    background-color: darken($color-salmon, 5%);
+                    background-color: hsl(css-darken(get-color('salmon'), 5%)...);
                 }
             }
         }
@@ -625,10 +625,10 @@ footer .preview {
 
     .needs_changes .icon,
     .rejected .icon {
-        fill: $color-orange;
+        fill: var(--color-orange);
     }
 
     .cancelled .icon {
-        fill: $color-red-dark;
+        fill: var(--color-red-dark);
     }
 }

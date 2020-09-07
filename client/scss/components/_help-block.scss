@@ -36,27 +36,27 @@
 }
 
 .help-info {
-    background-color: lighten($color-blue, 30%);
+    background-color: hsl(css-lighten(get-color('blue'), 30%)...);
 
     &:before {
-        color: $color-blue;
+        color: var(--color-blue);
     }
 }
 
 .help-warning {
-    background-color: lighten($color-orange, 30%);
+    background-color: hsl(css-lighten(get-color('orange'), 30%)...);
 
     &:before {
-        color: $color-orange;
+        color: var(--color-orange);
         content: map-get($icons, 'warning');
     }
 }
 
 .help-critical {
-    background-color: lighten($color-red, 40%);
+    background-color: hsl(css-lighten(get-color('red'), 40%)...);
 
     &:before {
-        color: $color-red;
+        color: var(--color-red);
         content: map-get($icons, 'warning');
     }
 }

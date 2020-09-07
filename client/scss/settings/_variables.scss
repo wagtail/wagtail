@@ -27,68 +27,6 @@ $breakpoints: (
     xl: 100em,   // 1440px
 );
 
-// colours
-// $color-teal: #007d7e;
-// $color-teal-darker: darken(adjust-hue($color-teal, 1), 4);
-// $color-teal-dark: darken(adjust-hue($color-teal, 1), 7);
-
-
-$color-blue: #71b2d4;
-$color-red: #cd3238;
-$color-red-dark: #b4191f;
-$color-orange: #e9b04d;
-$color-orange-dark: #bb5b03;
-$color-green: #189370;
-$color-green-dark: #157b57;
-$color-green-darker: #105d42; // White has AAA compatibility when this is used in bgd.
-$color-salmon: #f37e77;
-$color-salmon-light: #fcf2f2;
-// $color-white: #fff;
-$color-black: #000;
-
-// darker to lighter
-// $color-grey-1: darken($color-white, 80);
-// $color-grey-2: darken($color-white, 70);
-// $color-grey-3: darken($color-white, 15);
-// $color-grey-4: darken($color-white, 10);
-// $color-grey-5: darken($color-white, 2);
-
-
-// $color-menu-text: darken($color-white, 20);
-
-// $color-thead-bg: $color-grey-5;
-// $color-header-bg: $color-teal;
-
-// $color-fieldset-hover: $color-grey-5;
-// $color-input-border: $color-grey-4;
-// $color-input-focus: lighten(desaturate($color-teal, 40), 72);
-// $color-input-focus-border: lighten(saturate($color-teal, 12), 10);
-$color-input-error-bg: lighten(saturate($color-red, 28), 45);
-
-// $color-button: $color-teal;
-// $color-button-hover: $color-teal-darker;
-$color-button-yes: $color-green-dark;
-$color-button-yes-hover: darken($color-button-yes, 8%);
-$color-button-no: $color-red-dark;
-$color-button-no-hover: darken($color-button-no, 20%);
-$color-button-warning: $color-orange-dark;
-$color-button-warning-hover: darken($color-button-warning, 20%);
-
-// $color-link: $color-teal-darker;
-// $color-link-hover: $color-teal-dark;
-
-// The focus outline color is defined without reusing a named color variable
-// because it shouldn’t be reused for anything else in the UI.
-$color-focus-outline: #ffbf47;
-
-// $color-text-base: darken($color-white, 85);
-// $color-text-input: darken($color-white, 90);
-
-// Color states
-$color-state-live: #59b524;
-$color-state-draft: #808080;
-$color-state-absent: #ff8f11;
-$color-state-live-draft: #43b1b0;
 
 // Fonts
 $font-sans: Open Sans, Arial, sans-serif;
@@ -127,40 +65,40 @@ $nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
 // $nav-search-focus-color: $color-white;
 // $nav-search-focus-bg: $nav-item-hover-bg;
 
-@function css-darken($color-tuple, $darken-by) {
-    $h: nth($color-tuple, 1);
-    $s: nth($color-tuple, 2);
-    $l: nth($color-tuple, 3);
+@function css-darken($hsl-tuple, $darken-by) {
+    $h: nth($hsl-tuple, 1);
+    $s: nth($hsl-tuple, 2);
+    $l: nth($hsl-tuple, 3);
     @return ($h, $s, calc(#{$l} - #{$darken-by + 0%}))
 };
-@function css-lighten($color-tuple, $lighten-by) {
-    $h: nth($color-tuple, 1);
-    $s: nth($color-tuple, 2);
-    $l: nth($color-tuple, 3);
+@function css-lighten($hsl-tuple, $lighten-by) {
+    $h: nth($hsl-tuple, 1);
+    $s: nth($hsl-tuple, 2);
+    $l: nth($hsl-tuple, 3);
     @return ($h, $s, calc(#{$l} + #{$lighten-by + 0%}))
 };
-@function css-saturate($color-tuple, $saturate-by) {
-    $h: nth($color-tuple, 1);
-    $s: nth($color-tuple, 2);
-    $l: nth($color-tuple, 3);
+@function css-saturate($hsl-tuple, $saturate-by) {
+    $h: nth($hsl-tuple, 1);
+    $s: nth($hsl-tuple, 2);
+    $l: nth($hsl-tuple, 3);
     @return ($h, calc(#{$s} + #{$saturate-by + 0%}), $l)
 };
-@function css-desaturate($color-tuple, $desaturate-by) {
-    $h: nth($color-tuple, 1);
-    $s: nth($color-tuple, 2);
-    $l: nth($color-tuple, 3);
+@function css-desaturate($hsl-tuple, $desaturate-by) {
+    $h: nth($hsl-tuple, 1);
+    $s: nth($hsl-tuple, 2);
+    $l: nth($hsl-tuple, 3);
     @return ($h, calc(#{$s} - #{$desaturate-by + 0%}), $l)
 };
-@function css-adjust-hue($color-tuple, $adjust-by) {
-    $h: nth($color-tuple, 1);
-    $s: nth($color-tuple, 2);
-    $l: nth($color-tuple, 3);
+@function css-adjust-hue($hsl-tuple, $adjust-by) {
+    $h: nth($hsl-tuple, 1);
+    $s: nth($hsl-tuple, 2);
+    $l: nth($hsl-tuple, 3);
     @return (calc(#{$h} + #{$adjust-by + 0deg}), $s, $l)
 };
-@function css-transparentize($color-tuple, $alpha) {
-    $h: nth($color-tuple, 1);
-    $s: nth($color-tuple, 2);
-    $l: nth($color-tuple, 3);
+@function css-transparentize($hsl-tuple, $alpha) {
+    $h: nth($hsl-tuple, 1);
+    $s: nth($hsl-tuple, 2);
+    $l: nth($hsl-tuple, 3);
     @return ($h, $s, $l, $alpha)
 };
 
@@ -171,10 +109,10 @@ $nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
     --color-#{$name}: hsl(#{ var(--color-#{$name}-hue), var(--color-#{$name}-saturation), var(--color-#{$name}-lightness) });
 };
 
-@mixin mod-color($name, $h, $s, $l) {
-    --color-#{$name}-hue: #{$h};
-    --color-#{$name}-saturation: #{$s};
-    --color-#{$name}-lightness: #{$l};
+@mixin mod-color($name, $hsl-tuple) {
+    --color-#{$name}-hue: #{nth($hsl-tuple, 1)};
+    --color-#{$name}-saturation: #{nth($hsl-tuple, 2)};
+    --color-#{$name}-lightness: #{nth($hsl-tuple, 3)};
     --color-#{$name}: hsl(#{ var(--color-#{$name}-hue), var(--color-#{$name}-saturation), var(--color-#{$name}-lightness) });
 };
 
@@ -183,40 +121,71 @@ $nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
 };
 
 :root {
+    // colours
     // Defines: --color-primary-hue, --color-primary-saturation, --color-primary-lightness, and --color-primary
     @include define-color('primary', #007d7e);
-    @include mod-color('primary-darker', css-darken(css-adjust-hue(get-color('primary'), 1), 4%)...);
-    @include mod-color('primary-dark', css-darken(css-adjust-hue(get-color('primary'), 1), 7%)...);
-
-    --color-header-bg: var(--color-primary);
+    @include mod-color('primary-darker', css-darken(css-adjust-hue(get-color('primary'), 1), 4%));
+    @include mod-color('primary-dark', css-darken(css-adjust-hue(get-color('primary'), 1), 7%));
 
 
-    --color-input-focus: hsl(#{css-lighten(css-desaturate(get-color('primary'), 40), 72)});
-    --color-input-focus-border: hsl(#{css-lighten(css-saturate(get-color('primary'), 12), 10)});
-
-    --color-button: var(--color-primary);
-    --color-button-hover: var(--color-primary-darker);
-
-    --color-link: var(--color-primary-darker);
-    --color-link-hover: var(--color-primary-dark);
-
+    @include define-color('blue', #71b2d4);
+    @include define-color('red', #cd3238);
+    @include define-color('red-dark', #b4191f);
+    @include define-color('orange', #e9b04d);
+    @include define-color('orange-dark', #bb5b03);
+    @include define-color('green', #189370);
+    @include define-color('green-dark', #157b57);
+    @include define-color('green-darker', #105d42); // White has AAA compatibility when this is used in bgd.
+    @include define-color('salmon', #f37e77);
+    @include define-color('salmon-light', #fcf2f2);
     @include define-color('white', #fff);
+    @include define-color('black', #000);
 
+    // darker to lighter
     @include mod-color('grey-1', css-darken(get-color('white'), 80));
     @include mod-color('grey-2', css-darken(get-color('white'), 70));
     @include mod-color('grey-3', css-darken(get-color('white'), 15));
     @include mod-color('grey-4', css-darken(get-color('white'), 10));
     @include mod-color('grey-5', css-darken(get-color('white'), 2));
 
+
     --color-menu-text: hsl(#{css-darken(get-color('white'), 20)});
 
     --color-thead-bg: var(--color-grey-5);
+    --color-header-bg: var(--color-primary);
 
     --color-fieldset-hover: var(--color-grey-5);
     --color-input-border: var(--color-grey-4);
+    --color-input-focus: hsl(#{css-lighten(css-desaturate(get-color('primary'), 40), 72)});
+    --color-input-focus-border: hsl(#{css-lighten(css-saturate(get-color('primary'), 12), 10)});
+    --color-input-error-bg: hsl(#{css-lighten(css-saturate(get-color('red'), 28), 45)});
+
+    --color-button: var(--color-primary);
+    --color-button-hover: var(--color-primary-darker);
+    @include mod-color('button-yes', get-color('green-dark'));
+    --color-button-yes-hover: hsl(#{css-darken(get-color('button-yes'), 8%)});
+    @include mod-color('button-no', get-color('red-dark'));
+    --color-button-no-hover: hsl(#{css-darken(get-color('button-no'), 20%)});
+    @include mod-color('button-warning', get-color('orange-dark'));
+    --color-button-warning-hover: hsl(#{css-darken(get-color('button-warning'), 20%)});
+
+    --color-link: var(--color-primary-darker);
+    --color-link-hover: var(--color-primary-dark);
+
+    // The focus outline color is defined without reusing a named color variable
+    // because it shouldn’t be reused for anything else in the UI.
+    --color-focus-outline: #ffbf47;
+
     @include mod-color('text-base', css-darken(get-color('white'), 85));
     --color-text-input: hsl(#{css-darken(get-color('white'), 90)});
 
+    // Color states
+    --color-state-live: #59b524;
+    --color-state-draft: #808080;
+    --color-state-absent: #ff8f11;
+    --color-state-live-draft: #43b1b0;
+
+    // Nav
     --nav-grey-1: hsl(#{css-darken(get-color('white'), 80)});
     --nav-grey-2: hsl(#{css-darken(get-color('white'), 60)});
     --nav-item-hover-bg: rgba(100, 100, 100, 0.15);

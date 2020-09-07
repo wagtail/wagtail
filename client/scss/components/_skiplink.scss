@@ -10,7 +10,7 @@
     }
 
     &.button {
-        background: $color-green-darker;
-        border: $color-green-darker;
+        background: var(--color-green-darker);
+        border: var(--color-green-darker);
     }
 }

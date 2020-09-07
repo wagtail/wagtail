@@ -125,7 +125,7 @@
     }
 
     .upload-failure {
-        border-color: $color-red;
+        border-color: var(--color-red);
 
         .preview {
             display: none;
@@ -137,7 +137,7 @@
     }
 
     .upload-server-error {
-        border-color: $color-red;
+        border-color: var(--color-red);
 
         .preview {
             display: none;

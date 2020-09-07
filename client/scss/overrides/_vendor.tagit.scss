@@ -38,6 +38,6 @@
     }
 
     .ui-icon-close:hover:before {
-        color: $color-red;
+        color: var(--color-red);
     }
 }

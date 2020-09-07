@@ -122,7 +122,7 @@ select::-ms-expand {
 }
 
 .error-message {
-    color: $color-red;
+    color: var(--color-red);
 }
 
 .help {
@@ -139,7 +139,7 @@ li.focused > .help {
 
 .required .field > label:after {
     content: '*';
-    color: $color-red;
+    color: var(--color-red);
     font-weight: bold;
     display: inline-block;
     margin-left: 0.5em;
@@ -151,8 +151,8 @@ li.focused > .help {
 .error textarea,
 .error select,
 .error .tagit {
-    border-color: $color-red;
-    background-color: $color-input-error-bg;
+    border-color: var(--color-red);
+    background-color: var(--color-input-error-bg);
 }
 
 // Layouts for particular kinds of of fields

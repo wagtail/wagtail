@@ -24,20 +24,20 @@ $c-indicator-margin: 0.25rem;
 // States
 // =============================================================================
 .is-absent .c-indicator {
-    background: $color-state-absent;
+    background: var(--color-state-absent);
 }
 
 .is-live .c-indicator {
-    background: $color-state-live;
+    background: var(--color-state-live);
 }
 
 .is-draft .c-indicator {
-    background: $color-state-draft;
+    background: var(--color-state-draft);
 }
 
 // This is hipster. But it works.
 .is-live\+draft .c-indicator {
-    background: $color-state-draft;
+    background: var(--color-state-draft);
     position: relative;
 
     &:before {
@@ -49,7 +49,7 @@ $c-indicator-margin: 0.25rem;
         left: 0;
         border-bottom-left-radius: 50rem;
         border-top-left-radius: 50rem;
-        background: $color-state-live;
+        background: var(--color-state-live);
         transform: rotate(45deg);
         transform-origin: 100% 50%;
     }

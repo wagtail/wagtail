@@ -89,7 +89,7 @@ $tooltip-color-no: #f48880;
             border-color: currentColor;
 
             &:hover {
-                color: $color-button-no;
+                color: var(--color-button-no);
             }
         }
     }

@@ -96,7 +96,7 @@
         text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 
         > a {
-            border-left-color: $color-salmon;
+            border-left-color: var(--color-salmon);
             color: var(--color-white);
         }
     }

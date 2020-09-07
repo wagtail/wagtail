@@ -51,7 +51,7 @@
             z-index: 5;
             min-width: 0.9em;
             color: var(--color-white);
-            background: $color-red;
+            background: var(--color-red);
             content: attr(data-count);
             padding: 0 0.3em;
             line-height: 1.4em;
