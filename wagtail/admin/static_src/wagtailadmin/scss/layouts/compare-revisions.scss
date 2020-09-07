@@ -1,9 +1,16 @@
 @import 'wagtailadmin/scss/helpers';
 
-$color-addition-dark: #a6f3a6;
-$color-addition-light: #ebffeb;
-$color-deletion-dark: #f8cbcb;
-$color-deletion-light: #ffebeb;
+// $color-addition-dark: #a6f3a6;
+// $color-addition-light: #ebffeb;
+// $color-deletion-dark: #f8cbcb;
+// $color-deletion-light: #ffebeb;
+
+:root {
+    --color-addition-dark: #a6f3a6;
+    --color-addition-light: #ebffeb;
+    --color-deletion-dark: #f8cbcb;
+    --color-deletion-light: #ffebeb;
+}
 
 .comparison {
     &__child-object {
@@ -19,11 +26,11 @@ $color-deletion-light: #ffebeb;
         }
 
         &.addition {
-            background-color: $color-addition-light;
+            background-color: var(--color-addition-light);
         }
 
         &.deletion {
-            background-color: $color-deletion-light;
+            background-color: var(--color-deletion-light);
         }
     }
 
@@ -33,11 +40,11 @@ $color-deletion-light: #ffebeb;
     }
 
     span.addition {
-        background-color: $color-addition-dark;
+        background-color: var(--color-addition-dark);
     }
 
     span.deletion {
-        background-color: $color-deletion-dark;
+        background-color: var(--color-deletion-dark);
     }
 
     .preview-image {
@@ -52,13 +59,13 @@ $color-deletion-light: #ffebeb;
         }
 
         &.addition {
-            background-color: $color-addition-light;
-            border-color: $color-addition-dark;
+            background-color: var(--color-addition-light);
+            border-color: var(--color-addition-dark);
         }
 
         &.deletion {
-            background-color: $color-deletion-light;
-            border-color: $color-deletion-dark;
+            background-color: var(--color-deletion-light);
+            border-color: var(--color-deletion-dark);
         }
 
         img {
