@@ -3582,7 +3582,7 @@ class TaskState(models.Model):
         """Copy this task state, excluding the attributes in the ``exclude_fields`` list and updating any attributes to values
         specified in the ``update_attrs`` dictionary of ``attribute``: ``new value`` pairs"""
         exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
-        instance, _ = _copy(self.specific, exclude_fields, update_attrs)
+        instance, child_object_map = _copy(self.specific, exclude_fields, update_attrs)
         instance.save()
         _copy_m2m_relations(self, instance, exclude_fields=exclude_fields)
         return instance
