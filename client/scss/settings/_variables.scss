@@ -79,7 +79,7 @@ $nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
     $h: nth($hsl-tuple, 1);
     $s: nth($hsl-tuple, 2);
     $l: nth($hsl-tuple, 3);
-    @return (calc(#{$h} + #{$adjust-by + 0deg}), $s, $l)
+    @return (calc(#{$h} + #{$adjust-by}), $s, $l)
 };
 @function css-transparentize($hsl-tuple, $alpha) {
     $h: nth($hsl-tuple, 1);
@@ -95,7 +95,7 @@ $nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
     $l: null;
 
     @if type-of($color) == color {
-        $h: hue($color);
+        $h: hue($color) / 1deg; // Cast to unitless
         $s: saturation($color);
         $l: lightness($color);
     } @else {
