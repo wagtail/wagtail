@@ -55,38 +55,38 @@ $nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
     $h: nth($hsl-tuple, 1);
     $s: nth($hsl-tuple, 2);
     $l: nth($hsl-tuple, 3);
-    @return ($h, $s, calc(#{$l} - #{$darken-by + 0%}))
-};
+    @return ($h, $s, calc(#{$l} - #{$darken-by + 0%}));
+}
 @function css-lighten($hsl-tuple, $lighten-by) {
     $h: nth($hsl-tuple, 1);
     $s: nth($hsl-tuple, 2);
     $l: nth($hsl-tuple, 3);
-    @return ($h, $s, calc(#{$l} + #{$lighten-by + 0%}))
-};
+    @return ($h, $s, calc(#{$l} + #{$lighten-by + 0%}));
+}
 @function css-saturate($hsl-tuple, $saturate-by) {
     $h: nth($hsl-tuple, 1);
     $s: nth($hsl-tuple, 2);
     $l: nth($hsl-tuple, 3);
-    @return ($h, calc(#{$s} + #{$saturate-by + 0%}), $l)
-};
+    @return ($h, calc(#{$s} + #{$saturate-by + 0%}), $l);
+}
 @function css-desaturate($hsl-tuple, $desaturate-by) {
     $h: nth($hsl-tuple, 1);
     $s: nth($hsl-tuple, 2);
     $l: nth($hsl-tuple, 3);
-    @return ($h, calc(#{$s} - #{$desaturate-by + 0%}), $l)
-};
+    @return ($h, calc(#{$s} - #{$desaturate-by + 0%}), $l);
+}
 @function css-adjust-hue($hsl-tuple, $adjust-by) {
     $h: nth($hsl-tuple, 1);
     $s: nth($hsl-tuple, 2);
     $l: nth($hsl-tuple, 3);
-    @return (calc(#{$h} + #{$adjust-by}), $s, $l)
-};
+    @return (calc(#{$h} + #{$adjust-by}), $s, $l);
+}
 @function css-transparentize($hsl-tuple, $alpha) {
     $h: nth($hsl-tuple, 1);
     $s: nth($hsl-tuple, 2);
     $l: nth($hsl-tuple, 3);
-    @return ($h, $s, $l, $alpha)
-};
+    @return ($h, $s, $l, $alpha);
+}
 
 // $color is either a color or an hsl tuple
 @mixin define-color($name, $color) {
@@ -108,11 +108,11 @@ $nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
     --color-#{$name}-saturation: #{$s};
     --color-#{$name}-lightness: #{$l};
     --color-#{$name}: hsl(#{ var(--color-#{$name}-hue), var(--color-#{$name}-saturation), var(--color-#{$name}-lightness) });
-};
+}
 
 @function get-color($name) {
-    @return (var(--color-#{$name}-hue), var(--color-#{$name}-saturation), var(--color-#{$name}-lightness))
-};
+    @return (var(--color-#{$name}-hue), var(--color-#{$name}-saturation), var(--color-#{$name}-lightness));
+}
 
 :root {
     // colours
