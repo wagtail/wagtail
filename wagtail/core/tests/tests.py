@@ -1,4 +1,5 @@
 from django import template
+from django.core import checks
 from django.core.cache import cache
 from django.http import HttpRequest
 from django.test import TestCase
@@ -6,7 +7,7 @@ from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeString
 
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Orderable, Page, Site
 from wagtail.core.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.core.utils import resolve_model_string
 from wagtail.tests.testapp.models import SimplePage
@@ -325,3 +326,16 @@ class TestRichtextTag(TestCase):
     def test_call_with_bytes(self):
         with self.assertRaisesRegex(TypeError, "'richtext' template filter received an invalid value"):
             richtext(b"Hello world!")
+
+
+class TestOrderableSystemChecks(TestCase):
+    def test_raises_warning_if_sort_order_not_in_meta_ordering(self):
+        class OrderableModel(Orderable):
+            class Meta:
+                ordering = []
+
+        errors = OrderableModel.check()
+
+        self.assertEqual(len(errors), 1)
+        self.assertIsInstance(errors[0], checks.Warning)
+        self.assertEqual(errors[0].id, 'wagtailcore.W002')
