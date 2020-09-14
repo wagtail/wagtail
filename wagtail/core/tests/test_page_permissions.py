@@ -308,7 +308,7 @@ class TestPagePermission(TestCase):
         self.assertFalse(board_meetings_perms.can_move_to(unpublished_event_page))
 
     def test_cant_move_pages_between_locales(self):
-        user = get_user_model().objects.get(username='superuser')
+        user = get_user_model().objects.get(email='superuser@example.com')
         homepage = Page.objects.get(url_path='/home/').specific
         root = Page.objects.get(url_path='/').specific
 
