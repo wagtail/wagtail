@@ -52,7 +52,8 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
         'connection': connection,
         'headers': {
             'Auto-Submitted': 'auto-generated',
-        }
+        },
+        'bcc': kwargs.get('bcc', [])
     }
     mail = EmailMultiAlternatives(subject, message, from_email, recipient_list, **multi_alt_kwargs)
     html_message = kwargs.get('html_message', None)
@@ -223,7 +224,9 @@ class EmailNotificationMixin:
             'html': template_html,
         }
 
-    def send_emails(self, template_set, context, recipients, **kwargs):
+    def send_personalised_emails(self, template_set, context, recipients, **kwargs):
+        """ Send emails in a personalised form, including the user in the email context and
+        translating to the recipient's preferred language. """
 
         connection = get_connection()
         sent_count = 0
@@ -233,7 +236,6 @@ class EmailNotificationMixin:
                 # Send emails
                 for recipient in recipients:
                     try:
-
                         # update context with this recipient
                         context["user"] = recipient
 
@@ -260,8 +262,38 @@ class EmailNotificationMixin:
 
         return sent_count == len(recipients)
 
+    def send_bulk_emails(self, template_set, context, recipients, **kwargs):
+        """ Send emails in a bulk form by sending the same email to all recipients using the BCC field. """
+
+        connection = get_connection()
+        try:
+            with OpenedConnection(connection) as open_connection:
+                try:
+                    email_subject = render_to_string(template_set['subject'], context).strip()
+                    email_content = render_to_string(template_set['text'], context).strip()
+
+                    kwargs = {}
+                    if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
+                        kwargs['html_message'] = render_to_string(template_set['html'], context)
+
+                    bcc_addresses = [recipient.email for recipient in recipients]
+
+                    # Send email
+                    send_mail(email_subject, email_content, [], connection=open_connection, bcc=[bcc_addresses], **kwargs)
+                except Exception:
+                    logger.exception(
+                        "Failed to send notification email '%s'",
+                        email_subject
+                    )
+        except (TimeoutError, ConnectionError):
+            logger.exception("Mail connection error, notification sending skipped")
+
     def send_notifications(self, template_set, context, recipients, **kwargs):
-        return self.send_emails(template_set, context, recipients, **kwargs)
+        DEFAULT_BULK_SEND_THRESHOLD = 30
+        if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_BULK_SEND_THRESHOLD', DEFAULT_BULK_SEND_THRESHOLD) > len(recipients):
+            return self.send_personalised_emails(template_set, context, recipients, **kwargs)
+        else:
+            return self.send_bulk_emails(template_set, context, recipients, **kwargs)
 
 
 class BaseWorkflowStateEmailNotifier(EmailNotificationMixin, Notifier):

@@ -1,7 +1,9 @@
 {% load i18n %}
 
 {% block greeting %}
+{% if user %}
 {% blocktrans with username=user.get_short_name|default:user.get_username %}Hello {{ username }},{% endblocktrans %}
+{% endif %}
 {% endblock %}
 
 {% block content %}

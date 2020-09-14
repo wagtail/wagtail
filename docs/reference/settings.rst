@@ -236,6 +236,12 @@ Notification emails are sent in `text/plain` by default, change this to use HTML
 
 Notification emails are sent to moderators and superusers by default. You can change this to exclude superusers and only notify moderators.
 
+.. code-block:: python
+
+  WAGTAILADMIN_NOTIFICATION_BULK_SEND_THRESHOLD = 30
+
+Wagtail will usually send notifications one-by-one so that the notifications can be personalised with a user's name and language which can be slow on sites with lots of recipients. This setting sets a threshold at which Wagtail will send these emails in bulk instead. Emails sent in bulk will not be personalised or translated.
+
 .. _update_notifications:
 
 Wagtail update notifications
