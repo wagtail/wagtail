@@ -17,6 +17,7 @@ Changelog
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
  * Fix: Revise `edit_handler` bind order in ModelAdmin views and fix duplicate form instance creation (Jérôme Lebleu)
  * Add support for hierarchical/nested Collections (Robert Rollins)
+ * Fix: Button focus state (Karran Besen)
 
 
 2.10.2 (xx.xx.xxxx) - IN DEVELOPMENT
