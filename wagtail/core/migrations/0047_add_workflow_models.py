@@ -4,7 +4,6 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.core.models
 
 
 class Migration(migrations.Migration):
@@ -45,7 +44,6 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Task state',
                 'verbose_name_plural': 'Task states',
             },
-            bases=(wagtail.core.models.MultiTableCopyMixin, models.Model),
         ),
         migrations.CreateModel(
             name='Workflow',
