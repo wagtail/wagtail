@@ -51,7 +51,11 @@ PAGE_TEMPLATE_VAR = 'page'
 
 
 def _extract_field_data(source, exclude_fields=None):
-    """Get dictionaries representing the model's field data. Excluding many to many fields (which are handled by _copy_m2m_relations)'"""
+    """
+    Get dictionaries representing the model's field data.
+
+    This excludes many to many fields (which are handled by _copy_m2m_relations)'
+    """
     exclude_fields = exclude_fields or []
     data_dict = {}
 
@@ -65,7 +69,6 @@ def _extract_field_data(source, exclude_fields=None):
             continue
 
         # Copy parental m2m relations
-        # Otherwise add them to the m2m dict to be set after saving
         if field.many_to_many:
             if isinstance(field, ParentalManyToManyField):
                 parental_field = getattr(source, field.name)
@@ -85,7 +88,9 @@ def _extract_field_data(source, exclude_fields=None):
 
 
 def _copy_m2m_relations(source, target, exclude_fields=None, update_attrs=None):
-    """Copy non-ParentalManyToMany m2m relations"""
+    """
+    Copies non-ParentalManyToMany m2m relations
+    """
     update_attrs = update_attrs or {}
     exclude_fields = exclude_fields or []
 
@@ -115,6 +120,8 @@ def _copy(source, exclude_fields=None, update_attrs=None):
 
     if update_attrs:
         for field, value in update_attrs.items():
+            if field not in data_dict:
+                continue
             setattr(target, field, value)
 
     child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
