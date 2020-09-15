@@ -7,6 +7,7 @@ from django.core import checks
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpRequest, HttpResponse
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
@@ -17,6 +18,7 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core import hooks
 from wagtail.core.models import Page
+from wagtail.snippets.action_menu import ActionMenuItem, get_base_snippet_action_menu_items
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
@@ -317,6 +319,55 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         # Request intercepted after advert was created
         self.assertTrue(Advert.objects.exists())
 
+    def test_register_snippet_action_menu_item(self):
+        class TestSnippetActionMenuItem(ActionMenuItem):
+            label = "Test"
+            name = "test"
+            icon_name = "undo"
+            classname = 'action-secondary'
+
+            def is_shown(self, request, context):
+                return True
+
+        def hook_func(model):
+            return TestSnippetActionMenuItem(order=0)
+
+        with self.register_hook('register_snippet_action_menu_item', hook_func):
+            get_base_snippet_action_menu_items.cache_clear()
+
+            response = self.get()
+
+        get_base_snippet_action_menu_items.cache_clear()
+
+        self.assertContains(response, '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true" focusable="false"><use href="#icon-undo"></use></svg>Test</button>', html=True)
+
+    def test_construct_snippet_action_menu(self):
+        class TestSnippetActionMenuItem(ActionMenuItem):
+            label = "Test"
+            name = "test"
+            icon_name = "undo"
+            classname = 'action-secondary'
+
+            def is_shown(self, request, context):
+                return True
+
+        def hook_func(menu_items, request, context):
+            self.assertIsInstance(menu_items, list)
+            self.assertIsInstance(request, WSGIRequest)
+            self.assertEqual(context['view'], 'create')
+            self.assertEqual(context['model'], Advert)
+
+            # Replace save menu item
+            menu_items[:] = [
+                TestSnippetActionMenuItem(order=0)
+            ]
+
+        with self.register_hook('construct_snippet_action_menu', hook_func):
+            response = self.get()
+
+        self.assertContains(response, '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true" focusable="false"><use href="#icon-undo"></use></svg>Test</button>', html=True)
+        self.assertNotContains(response, 'Save')
+
 
 class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
 
@@ -439,6 +490,44 @@ class TestSnippetEditView(BaseTestSnippetEditView):
 
         # Request intercepted after advert was updated
         self.assertEqual(Advert.objects.get().text, "Edited and runs hook")
+
+    def test_register_snippet_action_menu_item(self):
+        class TestSnippetActionMenuItem(ActionMenuItem):
+            label = "Test"
+            name = "test"
+            icon_name = "undo"
+            classname = 'action-secondary'
+
+            def is_shown(self, request, context):
+                return True
+
+        def hook_func(model):
+            return TestSnippetActionMenuItem(order=0)
+
+        with self.register_hook('register_snippet_action_menu_item', hook_func):
+            get_base_snippet_action_menu_items.cache_clear()
+
+            response = self.get()
+
+        get_base_snippet_action_menu_items.cache_clear()
+
+        self.assertContains(response, '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true" focusable="false"><use href="#icon-undo"></use></svg>Test</button>', html=True)
+
+    def test_construct_snippet_action_menu(self):
+        def hook_func(menu_items, request, context):
+            self.assertIsInstance(menu_items, list)
+            self.assertIsInstance(request, WSGIRequest)
+            self.assertEqual(context['view'], 'edit')
+            self.assertEqual(context['instance'], self.test_snippet)
+            self.assertEqual(context['model'], Advert)
+
+            # Remove the save item
+            del menu_items[0]
+
+        with self.register_hook('construct_snippet_action_menu', hook_func):
+            response = self.get()
+
+        self.assertNotContains(response, 'Save')
 
 
 class TestEditTabbedSnippet(BaseTestSnippetEditView):

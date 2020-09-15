@@ -1,0 +1,14 @@
+{% load wagtailadmin_tags %}
+{% if default_menu_item %}
+    {{ default_menu_item }}
+{% endif %}
+{% if show_menu %}
+    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+    <ul>
+        {% for item in rendered_menu_items %}
+            <li>
+                 {{ item }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
