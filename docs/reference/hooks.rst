@@ -1154,6 +1154,85 @@ Hooks for working with registered Snippets.
 
           return HttpResponse(f"{total} snippets have been deleted", content_type="text/plain")
 
+.. _register_snippet_action_menu_item:
+
+``register_snippet_action_menu_item``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add an item to the popup menu of actions on the snippet creation and edit views.
+  The callable passed to this hook must return an instance of
+  ``wagtail.snippets.action_menu.ActionMenuItem``. The following attributes and
+  methods are available to be overridden on subclasses of ``ActionMenuItem``:
+
+  :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
+  :label: the displayed text of the menu item
+  :get_url: a method which returns a URL for the menu item to link to; by default, returns ``None`` which causes the menu item to behave as a form submit button instead
+  :name: value of the ``name`` attribute of the submit button if no URL is specified
+  :icon_name: icon to display against the menu item
+  :classname: a ``class`` attribute value to add to the button element
+  :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
+  :template: the path to a template to render to produce the menu item HTML
+  :get_context: a method that returns a context dictionary to pass to the template
+  :render_html: a method that returns the menu item HTML; by default, renders ``template`` with the context returned from ``get_context``
+  :Media: an inner class defining Javascript and CSS to import when this menu item is shown - see `Django form media <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_
+
+  The ``get_url``, ``is_shown``, ``get_context`` and ``render_html`` methods all accept a request object and a context dictionary containing the following fields:
+
+  :view: name of the current view: ``'create'`` or ``'edit'``
+  :model: The snippets model class
+  :instance: For ``view`` = ``'edit'``, the instance being edited
+
+  .. code-block:: python
+
+    from wagtail.core import hooks
+    from wagtail.snippets.action_menu import ActionMenuItem
+
+    class GuacamoleMenuItem(ActionMenuItem):
+        name = 'action-guacamole'
+        label = "Guacamole"
+
+        def get_url(self, request, context):
+            return "https://www.youtube.com/watch?v=dNJdJIwCF_Y"
+
+
+    @hooks.register('register_snippet_action_menu_item')
+    def register_guacamole_menu_item():
+        return GuacamoleMenuItem(order=10)
+
+.. _construct_snippet_action_menu:
+
+``construct_snippet_action_menu``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Modify the final list of action menu items on the snippet creation and edit views.
+  The callable passed to this hook receives a list of ``ActionMenuItem`` objects, a
+  request object and a context dictionary as per ``register_snippet_action_menu_item``,
+  and should modify the list of menu items in-place.
+
+  .. code-block:: python
+
+    @hooks.register('construct_snippet_action_menu')
+    def remove_delete_option(menu_items, request, context):
+        menu_items[:] = [item for item in menu_items if item.name != 'delete']
+
+
+  The ``construct_snippet_action_menu`` hook is called after the menu items have been
+  sorted by their order attributes, and so setting a menu item's order will have no
+  effect at this point. Instead, items can be reordered by changing their position in
+  the list, with the first item being selected as the default action. For example, to
+  change the default action to Delete:
+
+  .. code-block:: python
+
+    @hooks.register('construct_snippet_action_menu')
+    def make_delete_default_action(menu_items, request, context):
+        for (index, item) in enumerate(menu_items):
+            if item.name == 'delete':
+                # move to top of list
+                menu_items.pop(index)
+                menu_items.insert(0, item)
+                break
+
 .. _register_snippet_listing_buttons:
 
 ``register_snippet_listing_buttons``

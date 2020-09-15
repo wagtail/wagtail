@@ -1,0 +1,5 @@
+{% load i18n wagtailadmin_tags %}
+<button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
+    {% icon name="download-alt" class_name="button-longrunning__icon" %}
+    {% icon name="spinner" %}<em>{% trans 'Save' %}</em>
+</button>
