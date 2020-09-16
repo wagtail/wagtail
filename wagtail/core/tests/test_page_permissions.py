@@ -6,7 +6,7 @@ from django.test import Client, TestCase, override_settings
 from django.utils import timezone
 
 from wagtail.core.models import (
-    GroupApprovalTask, GroupPagePermission, Page, UserPagePermissionsProxy, Workflow, WorkflowTask)
+    GroupApprovalTask, GroupPagePermission, Locale, Page, UserPagePermissionsProxy, Workflow, WorkflowTask)
 from wagtail.tests.testapp.models import (
     BusinessSubIndex, EventIndex, EventPage, SingletonPageViaMaxCount)
 
@@ -306,6 +306,37 @@ class TestPagePermission(TestCase):
         self.assertTrue(board_meetings_perms.can_move())
         # cannot move because the parent_page_types rule of BusinessSubIndex forbids EventPage as a parent
         self.assertFalse(board_meetings_perms.can_move_to(unpublished_event_page))
+
+    def test_cant_move_pages_between_locales(self):
+        user = get_user_model().objects.get(email='superuser@example.com')
+        homepage = Page.objects.get(url_path='/home/').specific
+        root = Page.objects.get(url_path='/').specific
+
+        fr_locale = Locale.objects.create(language_code="fr")
+        fr_page = root.add_child(instance=Page(
+            title="French page",
+            slug="french-page",
+            locale=fr_locale,
+        ))
+
+        fr_homepage = root.add_child(instance=Page(
+            title="French homepage",
+            slug="french-homepage",
+            locale=fr_locale,
+        ))
+
+        french_page_perms = fr_page.permissions_for_user(user)
+
+        # fr_page can be moved into fr_homepage but not homepage
+        self.assertFalse(french_page_perms.can_move_to(homepage))
+        self.assertTrue(french_page_perms.can_move_to(fr_homepage))
+
+        # All pages can be moved to the root, regardless what language they are
+        self.assertTrue(french_page_perms.can_move_to(root))
+
+        events_index = Page.objects.get(url_path='/home/events/')
+        events_index_perms = events_index.permissions_for_user(user)
+        self.assertTrue(events_index_perms.can_move_to(root))
 
     def test_editable_pages_for_user_with_add_permission(self):
         event_editor = get_user_model().objects.get(email='eventeditor@example.com')

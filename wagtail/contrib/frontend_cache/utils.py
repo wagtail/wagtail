@@ -6,6 +6,8 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
 
+from wagtail.core.utils import get_content_languages
+
 logger = logging.getLogger('wagtail.frontendcache')
 
 
@@ -63,7 +65,10 @@ def purge_urls_from_cache(urls, backend_settings=None, backends=None):
     # Convert each url to urls one for each managed language (WAGTAILFRONTENDCACHE_LANGUAGES setting).
     # The managed languages are common to all the defined backends.
     # This depends on settings.USE_I18N
-    languages = getattr(settings, 'WAGTAILFRONTENDCACHE_LANGUAGES', [])
+    # If WAGTAIL_I18N_ENABLED is True, this defaults to WAGTAIL_CONTENT_LANGUAGES
+    wagtail_i18n_enabled = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
+    content_languages = get_content_languages() if wagtail_i18n_enabled else {}
+    languages = getattr(settings, 'WAGTAILFRONTENDCACHE_LANGUAGES', list(content_languages.keys()))
     if settings.USE_I18N and languages:
         langs_regex = "^/(%s)/" % "|".join(languages)
         new_urls = []

@@ -14,7 +14,7 @@ def serve(request, path):
         raise Http404
 
     path_components = [component for component in path.split('/') if component]
-    page, args, kwargs = site.root_page.specific.route(request, path_components)
+    page, args, kwargs = site.root_page.localized.specific.route(request, path_components)
 
     for fn in hooks.get_hooks('before_serve_page'):
         result = fn(page, request, args, kwargs)

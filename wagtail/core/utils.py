@@ -1,3 +1,4 @@
+import functools
 import inspect
 import re
 import unicodedata
@@ -5,9 +6,14 @@ from anyascii import anyascii
 
 from django.apps import apps
 from django.conf import settings
+from django.conf.locale import LANG_INFO
+from django.core.exceptions import ImproperlyConfigured
+from django.core.signals import setting_changed
 from django.db.models import Model
+from django.dispatch import receiver
 from django.utils.encoding import force_str
 from django.utils.text import slugify
+from django.utils.translation import check_for_language
 
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
 
@@ -168,3 +174,101 @@ class InvokeViaAttributeShortcut:
     def __getattr__(self, name):
         method = getattr(self.obj, self.method_name)
         return method(name)
+
+
+def find_available_slug(parent, requested_slug):
+    """
+    Finds an available slug within the specified parent.
+
+    If the requested slug is not available, this adds a number on the end, for example:
+
+     - 'requested-slug'
+     - 'requested-slug-1'
+     - 'requested-slug-2'
+
+    And so on, until an available slug is found.
+    """
+    existing_slugs = set(
+        parent.get_children()
+        .filter(slug__startswith=requested_slug)
+        .values_list("slug", flat=True)
+    )
+    slug = requested_slug
+    number = 1
+
+    while slug in existing_slugs:
+        slug = requested_slug + "-" + str(number)
+        number += 1
+
+    return slug
+
+
+@functools.lru_cache()
+def get_content_languages():
+    """
+    Cache of settings.WAGTAIL_CONTENT_LANGUAGES in a dictionary for easy lookups by key.
+    """
+    content_languages = getattr(settings, 'WAGTAIL_CONTENT_LANGUAGES', None)
+    languages = dict(settings.LANGUAGES)
+
+    if content_languages is None:
+        # Default to a single language based on LANGUAGE_CODE
+        content_languages = [
+            (settings.LANGUAGE_CODE, languages[settings.LANGUAGE_CODE]),
+        ]
+
+    # Check that each content language is in LANGUAGES
+    for language_code, name in content_languages:
+        if language_code not in languages:
+            raise ImproperlyConfigured(
+                "The language {} is specified in WAGTAIL_CONTENT_LANGUAGES but not LANGUAGES. "
+                "WAGTAIL_CONTENT_LANGUAGES must be a subset of LANGUAGES.".format(language_code)
+            )
+
+    return dict(content_languages)
+
+
+@functools.lru_cache(maxsize=1000)
+def get_supported_content_language_variant(lang_code, strict=False):
+    """
+    Return the language code that's listed in supported languages, possibly
+    selecting a more generic variant. Raise LookupError if nothing is found.
+    If `strict` is False (the default), look for a country-specific variant
+    when neither the language code nor its generic variant is found.
+    lru_cache should have a maxsize to prevent from memory exhaustion attacks,
+    as the provided language codes are taken from the HTTP request. See also
+    <https://www.djangoproject.com/weblog/2007/oct/26/security-fix/>.
+
+    This is equvilant to Django's `django.utils.translation.get_supported_content_language_variant`
+    but reads the `WAGTAIL_CONTENT_LANGUAGES` setting instead.
+    """
+    if lang_code:
+        # If 'fr-ca' is not supported, try special fallback or language-only 'fr'.
+        possible_lang_codes = [lang_code]
+        try:
+            possible_lang_codes.extend(LANG_INFO[lang_code]["fallback"])
+        except KeyError:
+            pass
+        generic_lang_code = lang_code.split("-")[0]
+        possible_lang_codes.append(generic_lang_code)
+        supported_lang_codes = get_content_languages()
+
+        for code in possible_lang_codes:
+            if code in supported_lang_codes and check_for_language(code):
+                return code
+        if not strict:
+            # if fr-fr is not supported, try fr-ca.
+            for supported_code in supported_lang_codes:
+                if supported_code.startswith(generic_lang_code + "-"):
+                    return supported_code
+    raise LookupError(lang_code)
+
+
+@receiver(setting_changed)
+def reset_cache(**kwargs):
+    """
+    Clear cache when global WAGTAIL_CONTENT_LANGUAGES/LANGUAGES/LANGUAGE_CODE settings are changed
+    """
+    if kwargs["setting"] in ("WAGTAIL_CONTENT_LANGUAGES", "LANGUAGES", "LANGUAGE_CODE"):
+        get_content_languages.cache_clear()
+        get_supported_content_language_variant.cache_clear()
