@@ -1,9 +1,7 @@
 from unittest.mock import patch
 
-from django.test import TestCase, override_settings
-from django.utils import translation
+from django.test import TestCase
 
-from wagtail.core.models import Locale, Page
 from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
 from wagtail.core.rich_text.pages import PageLinkHandler
@@ -14,10 +12,6 @@ from wagtail.tests.testapp.models import EventPage
 class TestPageLinktypeHandler(TestCase):
     fixtures = ['test.json']
 
-    def test_expand_db_attributes(self):
-        result = PageLinkHandler.expand_db_attributes({'id': Page.objects.get(url_path='/home/events/christmas/').id})
-        self.assertEqual(result, '<a href="/events/christmas/">')
-
     def test_expand_db_attributes_page_does_not_exist(self):
         result = PageLinkHandler.expand_db_attributes({'id': 0})
         self.assertEqual(result, '<a>')
@@ -25,46 +19,6 @@ class TestPageLinktypeHandler(TestCase):
     def test_expand_db_attributes_not_for_editor(self):
         result = PageLinkHandler.expand_db_attributes({'id': 1})
         self.assertEqual(result, '<a href="None">')
-
-
-@override_settings(
-    WAGTAIL_I18N_ENABLED=True,
-    WAGTAIL_CONTENT_LANGUAGES=[
-        ('en', 'English'),
-        ('fr', 'French'),
-    ],
-    ROOT_URLCONF='wagtail.tests.urls_multilang'
-)
-class TestPageLinktypeHandlerWithI18N(TestCase):
-    fixtures = ['test.json']
-
-    def setUp(self):
-        self.fr_locale = Locale.objects.create(language_code="fr")
-        self.event_page = Page.objects.get(url_path='/home/events/christmas/')
-        self.fr_event_page = self.event_page.copy_for_translation(self.fr_locale, copy_parents=True)
-        self.fr_event_page.slug = 'noel'
-        self.fr_event_page.save(update_fields=['slug'])
-        self.fr_event_page.save_revision().publish()
-
-    def test_expand_db_attributes(self):
-        result = PageLinkHandler.expand_db_attributes({'id': self.event_page.id})
-        self.assertEqual(result, '<a href="/en/events/christmas/">')
-
-    def test_expand_db_attributes_autolocalizes(self):
-        # Even though it's linked to the english page in rich text.
-        # The link should be to the local language version if it's available
-        with translation.override("fr"):
-            result = PageLinkHandler.expand_db_attributes({'id': self.event_page.id})
-            self.assertEqual(result, '<a href="/fr/events/noel/">')
-
-    def test_expand_db_attributes_doesnt_autolocalize_unpublished_page(self):
-        # We shouldn't autolocalize if the translation is unpublished
-        self.fr_event_page.unpublish()
-        self.fr_event_page.save()
-
-        with translation.override("fr"):
-            result = PageLinkHandler.expand_db_attributes({'id': self.event_page.id})
-            self.assertEqual(result, '<a href="/en/events/christmas/">')
 
 
 class TestExtractAttrs(TestCase):

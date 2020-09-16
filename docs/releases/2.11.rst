@@ -55,9 +55,3 @@ you run the following command in each environment:
 Previously, collections were stored in the order in which they were created - and then sorted by name where displayed in the CMS. Collections are now ordered by treebeard path by default, so the above command must be run to retain alphabetical ordering.
 
 Failure to do this won't affect your current colllections, but may affect your ability to add new ones.
-
-
-``Site.get_site_root_paths`` now returns language code
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-In previous releases, ``Site.get_site_root_paths`` returned a list of ``(site_id, root_path, root_url)`` tuples. To support the new internationalisation model, this has now been changed to a list of named tuples with the fields: ``site_id``, ``root_path``, ``root_url`` and ``language_code``. Existing code that handled this as a 3-tuple should be updated accordingly.

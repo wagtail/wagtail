@@ -4,7 +4,7 @@ import pytz
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
-from django.test import RequestFactory, TestCase, override_settings
+from django.test import RequestFactory, TestCase
 from django.utils import timezone
 
 from wagtail.core.models import Page, PageViewRestriction, Site
@@ -108,34 +108,6 @@ class TestSitemapGenerator(TestCase):
         Site.find_for_request(request)
 
         with self.assertNumQueries(14):
-            urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
-
-        self.assertIn('http://localhost/', urls)  # Homepage
-        self.assertIn('http://localhost/hello-world/', urls)  # Child page
-
-    @override_settings(WAGTAIL_I18N_ENABLED=True)
-    def test_get_urls_without_request_with_i18n(self):
-        request, django_site = self.get_request_and_django_site('/sitemap.xml')
-        req_protocol = request.scheme
-
-        sitemap = Sitemap()
-        with self.assertNumQueries(19):
-            urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
-
-        self.assertIn('http://localhost/', urls)  # Homepage
-        self.assertIn('http://localhost/hello-world/', urls)  # Child page
-
-    @override_settings(WAGTAIL_I18N_ENABLED=True)
-    def test_get_urls_with_request_site_cache_with_i18n(self):
-        request, django_site = self.get_request_and_django_site('/sitemap.xml')
-        req_protocol = request.scheme
-
-        sitemap = Sitemap(request)
-
-        # pre-seed find_for_request cache, so that it's not counted towards the query count
-        Site.find_for_request(request)
-
-        with self.assertNumQueries(16):
             urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage

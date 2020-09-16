@@ -111,7 +111,6 @@ INSTALLED_APPS = [
     'wagtail.tests.routablepage',
     'wagtail.tests.search',
     'wagtail.tests.modeladmintest',
-    'wagtail.tests.i18n',
     'wagtail.contrib.styleguide',
     'wagtail.contrib.routable_page',
     'wagtail.contrib.frontend_cache',
@@ -226,12 +225,6 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
         'WIDGET': 'wagtail.tests.testapp.rich_text.CustomRichTextArea'
     },
 }
-
-
-WAGTAIL_CONTENT_LANGUAGES = [
-    ("en", "English"),
-    ("fr", "French"),
-]
 
 
 # Set a non-standard DEFAULT_AUTHENTICATION_CLASSES value, to verify that the

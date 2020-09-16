@@ -75,7 +75,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return response
 
         self.page = self.page_class(owner=self.request.user)
-        self.page.locale = self.parent_page.locale
         self.edit_handler = self.page_class.get_edit_handler()
         self.edit_handler = self.edit_handler.bind_to(request=self.request, instance=self.page)
         self.form_class = self.edit_handler.get_form_class()

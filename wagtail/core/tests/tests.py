@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeString
 
-from wagtail.core.models import Page, Site, SiteRootPath
+from wagtail.core.models import Page, Site
 from wagtail.core.templatetags.wagtailcore_tags import richtext, slugurl
 from wagtail.core.utils import resolve_model_string
 from wagtail.tests.testapp.models import SimplePage
@@ -156,7 +156,7 @@ class TestSiteRootPathsCache(TestCase):
         _ = homepage.url  # noqa
 
         # Check that the cache has been set correctly
-        self.assertEqual(cache.get('wagtail_site_root_paths'), [SiteRootPath(site_id=1, root_path='/home/', root_url='http://localhost', language_code='en')])
+        self.assertEqual(cache.get('wagtail_site_root_paths'), [(1, '/home/', 'http://localhost')])
 
     def test_cache_clears_when_site_saved(self):
         """
