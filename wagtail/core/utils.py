@@ -13,7 +13,7 @@ from django.db.models import Model
 from django.dispatch import receiver
 from django.utils.encoding import force_str
 from django.utils.text import slugify
-from django.utils.translation import check_for_language
+from django.utils.translation import check_for_language, get_supported_language_variant
 
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
 
@@ -213,8 +213,9 @@ def get_content_languages():
 
     if content_languages is None:
         # Default to a single language based on LANGUAGE_CODE
+        default_language_code = get_supported_language_variant(settings.LANGUAGE_CODE)
         content_languages = [
-            (settings.LANGUAGE_CODE, languages[settings.LANGUAGE_CODE]),
+            (default_language_code, languages[default_language_code]),
         ]
 
     # Check that each content language is in LANGUAGES
