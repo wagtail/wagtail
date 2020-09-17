@@ -86,6 +86,17 @@ class PageTypeField(Field):
         return name
 
 
+class PageLocaleField(Field):
+    """
+    Serializes the "locale" field for pages.
+    """
+    def get_attribute(self, instance):
+        return instance
+
+    def to_representation(self, page):
+        return page.locale.language_code
+
+
 class RelatedField(relations.RelatedField):
     """
     Serializes related objects (eg, foreign keys).
@@ -310,6 +321,7 @@ class BaseSerializer(serializers.ModelSerializer):
 
 class PageSerializer(BaseSerializer):
     type = PageTypeField(read_only=True)
+    locale = PageLocaleField(read_only=True)
     html_url = PageHtmlUrlField(read_only=True)
     parent = PageParentField(read_only=True)
 
