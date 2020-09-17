@@ -8,7 +8,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Locale, Page, Site
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
 
@@ -144,6 +144,21 @@ class TestPageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "type doesn't exist"})
+
+    # LOCALE FILTER
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_locale_filter(self):
+        french = Locale.objects.create(language_code='fr')
+        homepage = Page.objects.get(depth=2)
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+
+        response = self.get_response(locale='fr')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(len(content['items']), 1)
+        self.assertEqual(content['items'][0]['id'], french_homepage.id)
 
     # FIELDS
 
