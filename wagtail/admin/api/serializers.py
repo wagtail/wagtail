@@ -109,9 +109,45 @@ class PageAncestorsField(Field):
         return serializer.to_representation(page.get_ancestors())
 
 
+class PageTranslationsField(Field):
+    """
+    Serializes the page's translations.
+
+    Example:
+    "translations": [
+        {
+            "id": 1,
+            "meta": {
+                "type": "home.HomePage",
+                "detail_url": "/api/v1/pages/1/",
+                "locale": "es"
+            },
+            "title": "Casa"
+        },
+        {
+            "id": 2,
+            "meta": {
+                "type": "home.HomePage",
+                "detail_url": "/api/v1/pages/2/",
+                "locale": "fr"
+            },
+            "title": "Maison"
+        }
+    ]
+    """
+    def get_attribute(self, instance):
+        return instance
+
+    def to_representation(self, page):
+        serializer_class = get_serializer_class(Page, ['id', 'type', 'detail_url', 'html_url', 'locale', 'title', 'admin_display_title'], meta_fields=['type', 'detail_url', 'html_url', 'locale'], base=AdminPageSerializer)
+        serializer = serializer_class(context=self.context, many=True)
+        return serializer.to_representation(page.get_translations())
+
+
 class AdminPageSerializer(PageSerializer):
     status = PageStatusField(read_only=True)
     children = PageChildrenField(read_only=True)
     descendants = PageDescendantsField(read_only=True)
     ancestors = PageAncestorsField(read_only=True)
+    translations = PageTranslationsField(read_only=True)
     admin_display_title = ReadOnlyField(source='get_admin_display_title')

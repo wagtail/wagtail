@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+from django.conf import settings
 from rest_framework.authentication import SessionAuthentication
 
 from wagtail.api.v2.views import PagesAPIViewSet
@@ -26,6 +27,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'descendants',
         'parent',
         'ancestors',
+        'translations',
     ]
 
     body_fields = PagesAPIViewSet.body_fields + [
@@ -46,6 +48,16 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'for_explorer',
         'has_children'
     ])
+
+    @classmethod
+    def get_detail_default_fields(cls, model):
+        detail_default_fields = super().get_detail_default_fields(model)
+
+        # When i18n is disabled, remove "translations" from default fields
+        if not getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+            detail_default_fields.remove('translations')
+
+        return detail_default_fields
 
     def get_root_page(self):
         """
