@@ -391,6 +391,7 @@ class PagesAPIViewSet(BaseAPIViewSet):
         'search_description',
         'first_published_at',
         'parent',
+        'locale',
     ]
     listing_default_fields = BaseAPIViewSet.listing_default_fields + [
         'title',
@@ -404,6 +405,26 @@ class PagesAPIViewSet(BaseAPIViewSet):
     detail_only_fields = ['parent']
     name = 'pages'
     model = Page
+
+    @classmethod
+    def get_detail_default_fields(cls, model):
+        detail_default_fields = super().get_detail_default_fields(model)
+
+        # When i18n is disabled, remove "locale" from default fields
+        if not getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+            detail_default_fields.remove('locale')
+
+        return detail_default_fields
+
+    @classmethod
+    def get_listing_default_fields(cls, model):
+        listing_default_fields = super().get_listing_default_fields(model)
+
+        # When i18n is enabled, add "locale" to default fields
+        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+            listing_default_fields.append('locale')
+
+        return listing_default_fields
 
     def get_root_page(self):
         """

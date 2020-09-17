@@ -185,6 +185,15 @@ class TestPageListing(TestCase):
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title'})
             self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'html_url', 'slug', 'first_published_at'})
 
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_fields_default_with_i18n_enabled(self):
+        # 'locale' should be added to the default set of fields when i18n is enabled
+        response = self.get_response(type='demosite.BlogEntryPage')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            self.assertIn('locale', set(page['meta'].keys()))
+
     def test_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='title,date,feed_image')
         content = json.loads(response.content.decode('UTF-8'))
@@ -227,7 +236,7 @@ class TestPageListing(TestCase):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'html_url', 'search_description'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'html_url', 'search_description', 'locale'})
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='*,-title,-date,-seo_title')
@@ -235,7 +244,7 @@ class TestPageListing(TestCase):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'html_url', 'search_description'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'html_url', 'search_description', 'locale'})
 
     def test_remove_all_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='_,id,type')
@@ -930,6 +939,19 @@ class TestPageDetail(TestCase):
         ]
         self.assertEqual(list(content.keys()), field_order)
 
+        meta_field_order = [
+            'type',
+            'detail_url',
+            'html_url',
+            'slug',
+            'show_in_menus',
+            'seo_title',
+            'search_description',
+            'first_published_at',
+            'parent',
+        ]
+        self.assertEqual(list(content['meta'].keys()), meta_field_order)
+
     def test_null_foreign_key(self):
         models.BlogEntryPage.objects.filter(id=16).update(feed_image_id=None)
 
@@ -951,6 +973,14 @@ class TestPageDetail(TestCase):
         self.assertEqual(response.status_code, 200)
 
     # FIELDS
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_default_fields_with_i18n_enabled(self):
+        # 'locale' should be added to the default set of fields when i18n is enabled
+        response = self.get_response(16)
+        page = json.loads(response.content.decode('UTF-8'))
+
+        self.assertIn('locale', set(page['meta'].keys()))
 
     def test_remove_fields(self):
         response = self.get_response(16, fields='-title')
