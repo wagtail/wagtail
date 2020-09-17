@@ -14,3 +14,4 @@ Bug fixes
 ~~~~~~~~~
 
  * Avoid use of ``icon`` class name on userbar icon to prevent clashes with front-end styles (Karran Besen)
+ * Prevent focused button labels from displaying as white on white (Karran Bessen)
