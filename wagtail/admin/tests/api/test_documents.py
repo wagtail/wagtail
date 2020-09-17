@@ -109,3 +109,8 @@ class TestAdminDocumentDetail(AdminAPITestCase, TestDocumentDetail):
         # Check the tags field
         self.assertIn('tags', content['meta'])
         self.assertEqual(content['meta']['tags'], [])
+
+
+# Overwrite imported test cases do Django doesn't run them
+TestDocumentDetail = None
+TestDocumentListing = None

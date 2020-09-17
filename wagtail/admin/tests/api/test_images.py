@@ -196,3 +196,8 @@ class TestAdminImageDetail(AdminAPITestCase, TestImageDetail):
 
         # Check that source_image_error didn't appear
         self.assertNotIn('source_image_error', content['meta'])
+
+
+# Overwrite imported test cases do Django doesn't run them
+TestImageDetail = None
+TestImageListing = None

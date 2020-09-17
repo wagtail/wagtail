@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
-from wagtail.core.models import Page
+from wagtail.core.models import Locale, Page
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import SimplePage, StreamPage
 
@@ -156,7 +156,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'admin_display_title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'ancestors', 'status', 'latest_revision_created_at'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'parent', 'html_url', 'search_description', 'locale', 'children', 'descendants', 'ancestors', 'translations', 'status', 'latest_revision_created_at'})
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='*,-title,-admin_display_title,-date,-seo_title,-status')
@@ -164,7 +164,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description', 'children', 'descendants', 'ancestors', 'latest_revision_created_at'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description', 'locale', 'children', 'descendants', 'ancestors', 'translations', 'latest_revision_created_at'})
 
     def test_all_nested_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='feed_image(*)')
@@ -252,6 +252,31 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'tags', 'title', 'admin_display_title'})
             self.assertIsInstance(page['tags'], list)
+
+    def test_fields_translations(self):
+        # Add a translation of the homepage
+        french = Locale.objects.create(language_code='fr')
+        homepage = Page.objects.get(depth=2)
+        french_homepage = homepage.copy_for_translation(french)
+
+        response = self.get_response(fields='translations')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        for page in content['items']:
+            translations = page['meta']['translations']
+
+            if page['id'] == homepage.id:
+                self.assertEqual(len(translations), 1)
+                self.assertEqual(translations[0]['id'], french_homepage.id)
+                self.assertEqual(translations[0]['meta']['locale'], 'fr')
+
+            elif page['id'] == french_homepage.id:
+                self.assertEqual(len(translations), 1)
+                self.assertEqual(translations[0]['id'], homepage.id)
+                self.assertEqual(translations[0]['meta']['locale'], 'en')
+
+            else:
+                self.assertEqual(translations, [])
 
     # CHILD OF FILTER
 
@@ -751,3 +776,8 @@ class TestCustomAdminDisplayTitle(AdminAPITestCase):
         self.assertEqual(1, len(matching_items))
         self.assertEqual(matching_items[0]['title'], "Saint Patrick")
         self.assertEqual(matching_items[0]['admin_display_title'], "Saint Patrick (single event)")
+
+
+# Overwrite imported test cases do Django doesn't run them
+TestPageDetail = None
+TestPageListing = None
