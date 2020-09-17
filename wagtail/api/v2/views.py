@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
 from django.shortcuts import redirect
@@ -417,7 +418,14 @@ class PagesAPIViewSet(BaseAPIViewSet):
         # Filter by site
         site = Site.find_for_request(self.request)
         if site:
-            queryset = queryset.descendant_of(site.root_page, inclusive=True)
+            base_queryset = queryset
+            queryset = base_queryset.descendant_of(site.root_page, inclusive=True)
+
+            # If internationalisation is enabled, include pages from other language trees
+            if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+                for translation in site.root_page.get_translations():
+                    queryset |= base_queryset.descendant_of(translation, inclusive=True)
+
         else:
             # No sites configured
             queryset = queryset.none()
