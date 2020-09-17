@@ -113,9 +113,15 @@ class PreviewOnCreate(PreviewOnEdit):
         # hopefully enable tree traversal operations
         # to at least partially work.
         page.depth = parent_page.depth + 1
-        # Puts the page at the maximum possible path
+        # Puts the page at the next available path
         # for a child of `parent_page`.
-        page.path = Page._get_children_path_interval(parent_page.path)[1]
+        if parent_page.is_leaf():
+            # set the path as the first child of parent_page
+            page.path = page._get_path(parent_page.path, page.depth, 1)
+        else:
+            # add the new page after the last child of parent_page
+            page.path = parent_page.get_last_child()._inc_path()
+
         return page
 
     def get_form(self, page, query_dict):
