@@ -595,6 +595,7 @@ Contributors
 * Luz Paz
 * Simon Krull
 * Przemysław Buczkowski
+* Josh Woodcock
 
 Translators
 ===========
