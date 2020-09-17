@@ -85,7 +85,7 @@ label,
     }
 }
 
-input,
+input:not([type=submit]),
 textarea,
 select,
 .halloeditor,
