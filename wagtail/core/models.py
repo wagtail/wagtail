@@ -1877,14 +1877,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if recursive:
             numchild = 0
 
-            for child_page in self.get_children():
+            for child_page in self.get_children().specific():
                 newdepth = _mpnode_attrs[1] + 1
                 child_mpnode_attrs = (
                     Page._get_path(_mpnode_attrs[0], newdepth, numchild),
                     newdepth
                 )
                 numchild += 1
-                child_page.specific.copy(
+                child_page.copy(
                     recursive=True,
                     to=page_copy,
                     copy_revisions=copy_revisions,
