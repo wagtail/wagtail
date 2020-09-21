@@ -936,11 +936,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         result = super().save(**kwargs)
 
-        if update_descendant_url_paths:
+        if not is_new and update_descendant_url_paths:
             self._update_descendant_url_paths(old_url_path, new_url_path)
 
         # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
-        if self.is_site_root():
+        if not is_new and self.is_site_root():
             cache.delete('wagtail_site_root_paths')
 
         # Log
