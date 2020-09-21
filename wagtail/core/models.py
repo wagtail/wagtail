@@ -1177,7 +1177,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return self.draft_title or self.title
 
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True,
-                      log_action=False, previous_revision=None):
+                      log_action=False, previous_revision=None, clean=True):
         """
         Creates and saves a page revision.
         :param user: the user performing the action
@@ -1187,9 +1187,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         :param log_action: flag for logging the action. Pass False to skip logging. Can be passed an action string.
             Defaults to 'wagtail.edit' when no 'previous_revision' param is passed, otherwise 'wagtail.revert'
         :param previous_revision: indicates a revision reversal. Should be set to the previous revision instance
+        :param clean: Set this to False to skip cleaning page content before saving this revision
         :return: the newly created revision
         """
-        self.full_clean()
+        if clean:
+            self.full_clean()
 
         # Create revision
         revision = self.revisions.create(
@@ -1212,7 +1214,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             update_fields.append('has_unpublished_changes')
 
         if update_fields:
-            self.save(update_fields=update_fields)
+            # clean=False because the fields we're updating don't need validation
+            self.save(update_fields=update_fields, clean=False)
 
         # Log
         logger.info("Page edited: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
@@ -1827,12 +1830,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             for field, value in update_attrs.items():
                 setattr(latest_revision, field, value)
 
-        latest_revision_as_page_revision = latest_revision.save_revision(user=user, changed=False)
+        latest_revision_as_page_revision = latest_revision.save_revision(user=user, changed=False, clean=False)
         if keep_live:
             page_copy.live_revision = latest_revision_as_page_revision
             page_copy.last_published_at = latest_revision_as_page_revision.created_at
             page_copy.first_published_at = latest_revision_as_page_revision.created_at
-            page_copy.save()
+            page_copy.save(clean=False)
 
         # Log
         if log_action:
