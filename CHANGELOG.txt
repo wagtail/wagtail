@@ -4,6 +4,7 @@ Changelog
 2.11 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Add support for hierarchical/nested Collections (Robert Rollins)
  * Extend treebeard's `fix_tree` method with the ability to non-destructively fix path issues and add a --full option to apply path fixes (Matt Westcott)
  * Add `before_edit_snippet`, `before_create_snippet` and `before_delete_snippet` hooks and documentation (Karl Hobley. Sponsored by the Mozilla Foundation)
  * Add `register_snippet_listing_buttons` and `construct_snippet_listing_buttons` hooks and documentation (Karl Hobley. Sponsored by the Mozilla Foundation)
@@ -16,14 +17,13 @@ Changelog
  * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
  * Fix: Revise `edit_handler` bind order in ModelAdmin views and fix duplicate form instance creation (Jérôme Lebleu)
- * Add support for hierarchical/nested Collections (Robert Rollins)
- * Fix: Button focus state (Karran Besen)
 
 
 2.10.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Avoid use of `icon` class name on userbar icon to prevent clashes with front-end styles (Karran Besen)
+ * Fix: Prevent focused button labels from displaying as white on white (Karran Bessen)
 
 
 2.10.1 (26.08.2020)
