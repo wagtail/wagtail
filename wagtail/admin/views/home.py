@@ -195,8 +195,5 @@ def default(request):
     raise Http404
 
 
-@cache_page(31536000)  # 1 year
-def sprite(request, **kwargs):
-    response = render(request, "wagtailadmin/icons/sprite.svg")
-    response["Content-Type"] = "image/svg+xml"
-    return response
+def sprite(request):
+    return render(request, "wagtailadmin/icons/sprite.html")
