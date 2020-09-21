@@ -1734,7 +1734,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
-             process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True):
+             process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True, _mpnode_attrs=None):
         """
         Copies a given page
         :param log_action flag for logging the action. Pass None to skip logging.
@@ -1775,12 +1775,21 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 child_object.translation_key = uuid.uuid4()
 
         # Save the new page
-        if to:
-            if recursive and (to == self or to.is_descendant_of(self)):
-                raise Exception("You cannot copy a tree branch recursively into itself")
-            page_copy = to.add_child(instance=page_copy)
+        if _mpnode_attrs:
+            # We've got a tree position already reserved. Perform a quick save
+            page_copy.path = _mpnode_attrs[0]
+            page_copy.depth = _mpnode_attrs[1]
+            page_copy.save(clean=False)
+
         else:
-            page_copy = self.add_sibling(instance=page_copy)
+            if to:
+                if recursive and (to == self or to.is_descendant_of(self)):
+                    raise Exception("You cannot copy a tree branch recursively into itself")
+                page_copy = to.add_child(instance=page_copy)
+            else:
+                page_copy = self.add_sibling(instance=page_copy)
+
+            _mpnode_attrs = (page_copy.path, page_copy.depth)
 
         _copy_m2m_relations(specific_self, page_copy, exclude_fields=exclude_fields, update_attrs=base_update_attrs)
 
@@ -1866,7 +1875,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # Copy child pages
         if recursive:
+            numchild = 0
+
             for child_page in self.get_children():
+                newdepth = _mpnode_attrs[1] + 1
+                child_mpnode_attrs = (
+                    Page._get_path(_mpnode_attrs[0], newdepth, numchild),
+                    newdepth
+                )
+                numchild += 1
                 child_page.specific.copy(
                     recursive=True,
                     to=page_copy,
@@ -1874,7 +1891,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     keep_live=keep_live,
                     user=user,
                     process_child_object=process_child_object,
+                    _mpnode_attrs=child_mpnode_attrs
                 )
+
+            if numchild > 0:
+                page_copy.numchild = numchild
+                page_copy.save(clean=False, update_fields=['numchild'])
 
         return page_copy
 
