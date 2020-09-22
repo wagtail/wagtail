@@ -1,13 +1,13 @@
+import itertools
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
 from django.db import connection
 from django.db.models import Max, Q
-from django.http import Http404
-from django.shortcuts import render
+from django.http import Http404, HttpResponse
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
-from django.views.decorators.cache import cache_page
 
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
@@ -195,5 +195,17 @@ def default(request):
     raise Http404
 
 
+_icons_html = None
+
+
+def icons():
+    global _icons_html
+    if _icons_html is None:
+        icon_hooks = hooks.get_hooks('register_icons')
+        all_icons = sorted(itertools.chain.from_iterable(hook([]) for hook in icon_hooks))
+        _icons_html = render_to_string("wagtailadmin/shared/icons.html", {'icons': all_icons})
+    return _icons_html
+
+
 def sprite(request):
-    return render(request, "wagtailadmin/icons/sprite.html")
+    return HttpResponse(icons())

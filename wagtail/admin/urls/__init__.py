@@ -2,7 +2,6 @@ import functools
 import hashlib
 
 from django.conf import settings
-from django.template.loader import render_to_string
 from django.urls import include, path, re_path
 from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
@@ -10,7 +9,6 @@ from django.http import Http404
 from django.views.defaults import page_not_found
 
 from wagtail.admin.auth import require_admin_access
-from wagtail.admin.templatetags.wagtailadmin_tags import icons
 from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import collections as wagtailadmin_collections_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
@@ -94,9 +92,9 @@ sprite_hash = None
 def get_sprite_hash():
     global sprite_hash
     if not sprite_hash:
-        sprite = render_to_string("wagtailadmin/shared/icons.html", icons())
+        content = str(home.sprite(None).content, "utf-8")
         sprite_hash = hashlib.sha1(
-            (sprite + settings.SECRET_KEY).encode("utf-8")
+            (content + settings.SECRET_KEY).encode("utf-8")
         ).hexdigest()[:8]
     return sprite_hash
 

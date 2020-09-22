@@ -22,4 +22,4 @@ class TestIconSprite(TestCase):
 
     def test_view(self):
         response = self.client.get(reverse("wagtailadmin_sprite"))
-        self.assertTrue("Content-Type: image/svg+xml" in str(response.serialize_headers()))
+        self.assertTrue("Content-Type: text/html; charset=utf-8" in str(response.serialize_headers()))

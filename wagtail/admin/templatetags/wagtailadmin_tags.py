@@ -1,4 +1,3 @@
-import itertools
 import json
 import warnings
 from datetime import datetime
@@ -546,20 +545,6 @@ def icon(name=None, class_name='icon', title=None, wrapped=False):
         'title': title,
         'wrapped': wrapped
     }
-
-
-_icons_html = None
-
-
-@register.simple_tag
-def icons():
-    global _icons_html
-    if _icons_html is None:
-        icon_hooks = hooks.get_hooks('register_icons')
-        icons = sorted(itertools.chain.from_iterable(hook([]) for hook in icon_hooks))
-        _icons_html = render_to_string("wagtailadmin/shared/icons.html", {'icons': icons})
-
-    return _icons_html
 
 
 @register.filter()
