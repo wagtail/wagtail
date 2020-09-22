@@ -30,6 +30,7 @@ Other features
  * Slug generation no longer removes stopwords (Andy Chosak, Scott Cranfill)
  * Add check to disallow StreamField block names that do not match Python variable syntax (François Poulain)
  * The ``BASE_URL`` setting is now converted to a str, if it isn't already, when constructing API URLs (thenewguy)
+ * Preview from 'pages awaiting moderation' now opens in a new window (Cynthia Kiser)
 
 
 Bug fixes
