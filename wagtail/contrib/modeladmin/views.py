@@ -1,3 +1,5 @@
+import warnings
+
 from collections import OrderedDict
 
 from django import forms
@@ -147,11 +149,8 @@ class ModelFormView(WMABaseView, FormView):
     def get_context_data(self, form=None, **kwargs):
         if form is None:
             form = self.get_form()
-        
-        prepopulated_fields = [
-            {'field': form[field_name], 'dependencies': [form[f] for f in dependencies]}
-            for field_name, dependencies in self.model_admin.prepopulated_fields.items()
-        ]
+
+        prepopulated_fields = self.get_prepopulated_fields(form)
         context = {
             'is_multipart': form.is_multipart(),
             'edit_handler': self.edit_handler,
@@ -160,6 +159,21 @@ class ModelFormView(WMABaseView, FormView):
         }
         context.update(kwargs)
         return super().get_context_data(**context)
+
+    def get_prepopulated_fields(self, form):
+        fields = []
+        for field_name, dependencies in self.model_admin.get_prepopulated_fields(self.request).items():
+            missing_dependencies = [f"'{f}'" for f in dependencies if f not in form.fields]
+            if len(missing_dependencies) != 0:
+                missing_deps_string = ", ".join(missing_dependencies)
+                dependency_string = "dependencies" if len(missing_dependencies) > 1 else "dependency"
+                warnings.warn(
+                    f"Missing {dependency_string} {missing_deps_string} for prepopulated_field '{field_name}''.",
+                    category=RuntimeWarning
+                )
+            elif field_name in form.fields:
+                fields.append({'field': form[field_name], 'dependencies': [form[f] for f in dependencies]})
+        return fields
 
     def get_success_message(self, instance):
         return _("%(model_name)s '%(instance)s' created.") % {
