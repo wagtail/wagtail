@@ -1,9 +1,9 @@
 {% extends 'wagtailadmin/notifications/base.html' %}
 
-{% load i18n %}
+{% load wagtailadmin_tags i18n %}
 
 {% block content %}
-    <p>{% blocktrans with page=revision.page|safe editor=revision.user.get_full_name|default:revision.user.get_username %}The page "{{ page }}" has been submitted for moderation by {{ editor }}.{% endblocktrans %}</p>
+    <p>{% blocktrans with page=revision.page|safe editor=revision.user|user_display_name %}The page "{{ page }}" has been submitted for moderation by {{ editor }}.{% endblocktrans %}</p>
 
     <p>
         {% if revision.page.is_previewable %}

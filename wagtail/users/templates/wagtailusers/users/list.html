@@ -35,7 +35,7 @@
                 <td class="title" valign="top">
                     <div class="title-wrapper">
                         <span class="avatar small"><img src="{% avatar_url user size=25 %}" alt="" /></span>
-                        <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user.get_full_name|default:user.get_username }}</a>
+                        <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
                     </div>
                     <ul class="actions">
                         {% user_listing_buttons user %}
