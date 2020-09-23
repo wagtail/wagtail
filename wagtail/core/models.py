@@ -4151,16 +4151,25 @@ class BaseLogEntry(models.Model):
         )
 
     @cached_property
-    def username(self):
+    def user_display_name(self):
         """
-        Returns the associated username. Defaults to 'system' when none is provided
+        Returns the display name of the associated user;
+        get_full_name if available and non-empty, otherwise get_username.
+        Defaults to 'system' when none is provided
         """
         if self.user_id:
             try:
-                return self.user.get_username()
+                user = self.user
             except self._meta.get_field('user').related_model.DoesNotExist:
                 # User has been deleted
                 return _('user %(id)d (deleted)') % {'id': self.user_id}
+
+            try:
+                full_name = user.get_full_name()
+            except AttributeError:
+                full_name = ''
+            return full_name or user.get_username()
+
         else:
             return _('system')
 
