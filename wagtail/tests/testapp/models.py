@@ -39,6 +39,7 @@ from wagtail.documents.models import AbstractDocument, Document
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
+from wagtail.locales.components import register_locale_component
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -1510,3 +1511,17 @@ class TaggedRestaurant(ItemBase):
 
 class SimpleTask(Task):
     pass
+
+
+@register_locale_component
+class FlagLocaleComponent(models.Model):
+    locale = models.OneToOneField(
+        'wagtailcore.Locale', on_delete=models.CASCADE, related_name='flag')
+    flag = models.CharField(
+        max_length=255,
+        choices=[
+            ('union-jack', "Union Jack"),
+            ('tricolore', "Tricolore"),
+        ],
+        blank=True
+    )

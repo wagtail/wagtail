@@ -47,6 +47,7 @@ class TestLocaleCreateView(TestCase, WagtailTestUtils):
     def test_create(self):
         response = self.post({
             'language_code': "fr",
+            'component_tests_FlagLocaleComponent-flag': 'tricolore',
         })
 
         # Should redirect back to index
@@ -55,9 +56,13 @@ class TestLocaleCreateView(TestCase, WagtailTestUtils):
         # Check that the locale was created
         self.assertTrue(Locale.objects.filter(language_code='fr').exists())
 
+        # Check the flag was created
+        self.assertEqual(Locale.objects.get(language_code='fr').flag.flag, 'tricolore')
+
     def test_duplicate_not_allowed(self):
         response = self.post({
             'language_code': "en",
+            'component_tests_FlagLocaleComponent-flag': 'union-jack',
         })
 
         # Should return the form with errors
@@ -67,6 +72,7 @@ class TestLocaleCreateView(TestCase, WagtailTestUtils):
     def test_language_code_must_be_in_settings(self):
         response = self.post({
             'language_code': "ja",
+            'component_tests_FlagLocaleComponent-flag': '',
         })
 
         # Should return the form with errors
@@ -115,6 +121,7 @@ class TestLocaleEditView(TestCase, WagtailTestUtils):
     def test_edit(self):
         response = self.post({
             'language_code': 'fr',
+            'component_tests_FlagLocaleComponent-flag': 'tricolore',
         })
 
         # Should redirect back to index
@@ -124,11 +131,15 @@ class TestLocaleEditView(TestCase, WagtailTestUtils):
         self.english.refresh_from_db()
         self.assertEqual(self.english.language_code, 'fr')
 
+        # Check the flag was added
+        self.assertEqual(self.english.flag.flag, 'tricolore')
+
     def test_edit_duplicate_not_allowed(self):
         french = Locale.objects.create(language_code='fr')
 
         response = self.post({
             'language_code': "en",
+            'component_tests_FlagLocaleComponent-flag': 'union-jack',
         }, locale=french)
 
         # Should return the form with errors
@@ -138,6 +149,7 @@ class TestLocaleEditView(TestCase, WagtailTestUtils):
     def test_edit_language_code_must_be_in_settings(self):
         response = self.post({
             'language_code': "ja",
+            'component_tests_FlagLocaleComponent-flag': '',
         })
 
         # Should return the form with errors
