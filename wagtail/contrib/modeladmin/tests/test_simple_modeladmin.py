@@ -272,6 +272,12 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
             mock_form_clean.assert_called_once()
 
+    def test_in_context(self):
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('data-prepopulated-fields="[{&quot;id&quot;: &quot;#id_title&quot;, &quot;name&quot;: &quot;title&quot;, &quot;dependency_ids&quot;: [&quot;#id_author&quot;], &quot;dependency_list&quot;: [&quot;author&quot;], &quot;maxLength&quot;: 255, &quot;allowUnicode&quot;: false}]"', response.content.decode('UTF-8'))
+
 
 class TestInspectView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']

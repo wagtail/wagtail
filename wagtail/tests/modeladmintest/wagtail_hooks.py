@@ -71,6 +71,7 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     inspect_view_fields_exclude = ('title', )
     thumb_image_field_name = 'cover_image'
     search_handler_class = WagtailBackendSearchHandler
+    prepopulated_fields = {'title': ('author',)}
 
     def get_extra_attrs_for_row(self, obj, context):
         return {
