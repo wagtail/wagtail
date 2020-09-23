@@ -4165,7 +4165,7 @@ class BaseLogEntry(models.Model):
                 return _('user %(id)d (deleted)') % {'id': self.user_id}
 
             try:
-                full_name = user.get_full_name()
+                full_name = user.get_full_name().strip()
             except AttributeError:
                 full_name = ''
             return full_name or user.get_username()
