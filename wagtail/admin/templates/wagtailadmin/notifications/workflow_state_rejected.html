@@ -1,9 +1,9 @@
 {% extends 'wagtailadmin/notifications/base.html' %}
-{% load i18n %}
+{% load wagtailadmin_tags i18n %}
 
 {% block content %}
     {% if task_state.finished_by %}
-        <p>{% blocktrans with title=page.get_admin_display_title workflow=workflow.name task=task.name rejector=task_state.finished_by.get_full_name|default:task_state.finished_by.get_username %}The page "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}" by {{ rejector }}.{% endblocktrans %}</p>
+        <p>{% blocktrans with title=page.get_admin_display_title workflow=workflow.name task=task.name rejector=task_state.finished_by|user_display_name %}The page "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}" by {{ rejector }}.{% endblocktrans %}</p>
     {% else %}
         <p>{% blocktrans with title=page.get_admin_display_title workflow=workflow.name task=task.name %}The page "{{ title }}" has been rejected during "{{ task }}" in workflow "{{ workflow }}".{% endblocktrans %}</p>
     {% endif %}

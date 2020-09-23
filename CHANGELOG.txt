@@ -13,6 +13,7 @@ Changelog
  * Remove unidecode and use anyascii in for Unicode to ASCII conversion (Robbie Mackay)
  * Add `render` helper to `RoutablePageMixin` to support serving template responses according to Wagtail conventions (Andy Babic)
  * Specify minimum Python version in setup.py (Vince Salvino)
+ * Show user's full name in report views (Matt Westcott)
  * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
  * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)

@@ -44,7 +44,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            {% include "wagtailadmin/shared/user_avatar.html" with user=entry.user username=entry.username %}
+                            {% include "wagtailadmin/shared/user_avatar.html" with user=entry.user username=entry.user_display_name %}
                         </td>
                         <td class="updated">
                             <div class="human-readable-date" title="{{ entry.timestamp|date:"d M Y H:i" }}">{% blocktrans with time_period=entry.timestamp|timesince %}{{ time_period }} ago{% endblocktrans %}</div>
