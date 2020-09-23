@@ -87,6 +87,7 @@ to create, view, and edit ``Book`` entries.
 
     class Book(models.Model):
         title = models.CharField(max_length=255)
+        slug = models.SlugField()
         author = models.CharField(max_length=255)
         cover_photo = models.ForeignKey(
             'wagtailimages.Image',
@@ -128,6 +129,7 @@ to create, view, and edit ``Book`` entries.
         list_display = ('title', 'author')
         list_filter = ('author',)
         search_fields = ('title', 'author')
+        prepopulated_fields = {'slug': ('title',)} # Prepopulate the slug field using data from the title field
 
     # Now you just need to register your customised ModelAdmin class with Wagtail
     modeladmin_register(BookAdmin)
