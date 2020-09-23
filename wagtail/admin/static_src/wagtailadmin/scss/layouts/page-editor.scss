@@ -263,7 +263,7 @@
         }
 
         .error,
-        .error input,
+        .error input:not([type=submit]),
         .error textarea,
         .error .halloeditor {
             background-color: $color-input-error-bg;
@@ -405,22 +405,26 @@
 }
 
 // Custom styles that make some fields look more important
-.full input,
-.full textarea,
-.full .halloeditor {
-    @include nice-padding;
-    border-radius: 0;
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
-    font-size: 1.2em;
-    line-height: 1.6em;
+.full {
+    input:not([type=submit]),
+    textarea,
+    .halloeditor {
+        @include nice-padding;
+        border-radius: 0;
+        padding-top: 1.5em;
+        padding-bottom: 1.5em;
+        font-size: 1.2em;
+        line-height: 1.6em;
+    }
 }
 
-.title input,
-.title textarea,
-.title .halloeditor {
-    font-size: 2em;
-    font-family: $font-serif;
+.title {
+    input:not([type=submit]),
+    textarea,
+    .halloeditor {
+        font-size: 2em;
+        font-family: $font-serif;
+    }
 }
 
 // Footer control bar for perfoming actions on the page
@@ -538,7 +542,7 @@ footer .preview {
                 padding-top: $object-title-height;
             }
 
-            input,
+            input:not([type=submit]),
             textarea,
             .halloeditor {
                 border-width: 0 1px;
