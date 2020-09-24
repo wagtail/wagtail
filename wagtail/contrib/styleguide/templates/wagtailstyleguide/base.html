@@ -505,7 +505,7 @@
             <div class="row">
                 <div class="col3">
                     <div class="dropdown dropdown-button match-width">
-                        <input type="button" value="drop down" class="button" />
+                        <button type="button" class="button">drop down</button>
                         <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
                         <ul>
                             <li><a href="#">items should not exceed button width</a></li>
@@ -516,7 +516,7 @@
 
                 <div class="col3">
                     <div class="dropdown dropdown-button">
-                        <input type="button" value="drop down" class="button" />
+                        <button type="button" class="button">drop down</button>
                         <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
                         <ul>
                             <li><a href="#">Items in this list do not match button width</a></li>
@@ -527,7 +527,7 @@
 
                 <div class="col3">
                     <div class="dropdown dropup dropdown-button match-width">
-                        <input type="button" value="drop up" class="button" />
+                        <button type="button" class="button">drop up</button>
                         <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
                         <ul>
                             <li><a href="#">item 1</a></li>
@@ -697,7 +697,7 @@
                             {% include "wagtailadmin/shared/field_as_li.html" %}
                         {% endif %}
                     {% endfor %}
-                    <li><input type="submit" value="{% trans 'Save' %}" class="button" /><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
+                    <li><button type="submit" class="button">{% trans 'Save' %}</button><a href="#" class="button button-secondary no">{% trans "Delete image" %}</a></li>
                 </ul>
             </form>
         </section>
@@ -779,7 +779,7 @@
 
             <h3>Image transparency</h3>
             <p>It can be useful to show users the transparent areas of images. Add a transparency checkerboard with the <code>.show-transparency</code> on the <code>img</code> tag thus:</p>
-            <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" alt="Wagtail" />
+            <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" width="200" class="show-transparency" alt="Wagtail"/>
         </section>
 
         <section id="icons" class="icons">
