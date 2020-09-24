@@ -2386,6 +2386,23 @@ class PageRevision(models.Model):
         latest_revision = PageRevision.objects.filter(page_id=self.page_id).order_by('-created_at', '-id').first()
         return (latest_revision == self)
 
+    def delete(self):
+        # Update Comment revision_resolved and revision_created fields for comments that reference the current revision, if applicable.
+
+        try:
+            next_revision = self.get_next()
+        except PageRevision.DoesNotExist:
+            next_revision = None
+
+        # otherwise, update the revision_resolved to the next revision (or unresolve it if None)
+        self.resolved_comments.all().update(revision_resolved=next_revision)
+
+        if next_revision:
+            # move comments created on this revision (and not resolved on the next) to the next revision, as they may well still apply if they're unresolved
+            self.created_comments.all().exclude(revision_resolved=next_revision).update(revision_created=next_revision)
+
+        return super().delete()
+
     def publish(self, user=None, changed=True, log_action=True, previous_revision=None):
         """
         Publishes or schedules revision for publishing.
@@ -4220,3 +4237,83 @@ class PageLogEntry(BaseLogEntry):
     @cached_property
     def object_id(self):
         return self.page_id
+
+
+class Comment(models.Model):
+    """
+    A comment on a field, or a field within a streamfield block. This model stores the comment data that applies to all page revisions.
+    Any data which applies only for a single revision, or may change between revisions (such as position within a field) is stored on
+    CommentPosition.
+    """
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField()
+
+    contentpath = models.TextField()
+    # This stores the field or field within a streamfield block that the comment is applied on, in the form: 'field', or 'field.block_id.field'
+    # This must be unchanging across all revisions, so we will not support (current-format) ListBlock or the contents of InlinePanels initially.
+    # When these are included, it should probably be in the form of a "changable contentpath" extension within CommentPosition
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    revision_created = models.ForeignKey(PageRevision, on_delete=models.CASCADE, related_name='created_comments')
+    # Comments are only shown on revisions after revision_created
+    revision_resolved = models.ForeignKey(PageRevision, on_delete=models.SET_NULL, related_name='resolved_comments', null=True, blank=True)
+    # A null value here indicates the comment is unresolved. Resolved comments can only be seen on revisions prior to their resolved revision.
+    # In most cases, revisions will be purged oldest-first, so deleting the comment when the revision is deleted is the correct behaviour as the resolved
+    # comment is now inaccessible. However, in cases where the deleted revision_resolved is not the oldest revision, the revision_resolved needs to be
+    # changed instead. This is done in PageRevision.delete()
+
+    class Meta:
+        verbose_name = _('comment')
+        verbose_name_plural = _('comments')
+
+    def __str__(self):
+        return _("Comment on Page '{0}', left by {1}: '{2}'").format(self.page, self.user, self.text)
+
+    def clean(self):
+        if self.revision_resolved and not (self.revision_created.created_at < self.revision_resolved.created_at):
+            raise ValidationError(
+                _("A comment must be resolved on a revision newer than the revision it was created on. If the two revisions are the same, it should be deleted instead")
+            )
+        return super().clean()
+
+    def save(self, **kwargs):
+        self.full_clean()
+        super().save(**kwargs)
+
+
+class CommentPosition(models.Model):
+    """
+    The revision-specific position data for a Comment. If the Comment is field level, it may not have a CommentPosition at all.
+    """
+
+    revision = models.ForeignKey(PageRevision, on_delete=models.CASCADE, related_name='comment_position')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='positions')
+
+    position = models.TextField()
+    # The position of the comment within a field. The meaning and content of this is determined by the field itself: for example,
+    # for a RichTextField this could be a paragraph id and numerical offsets to indicate a text range
+
+    class Meta:
+        verbose_name = _('comment position')
+        verbose_name_plural = _('comment positions')
+
+    def __str__(self):
+        return _("CommentPosition for Comment '{0}' on PageRevision '{1}'").format(self.comment.text, self.revision)
+
+
+class CommentReply(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comment_replies')
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('comment reply')
+        verbose_name_plural = _('comment replies')
+
+    def __str__(self):
+        return _("CommentReply left by '{0}': '{1}'").format(self.user, self.text)
