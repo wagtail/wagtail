@@ -23,8 +23,8 @@
     <script>
         function loadIconSprite() {
             var spriteURL = '{% url "wagtailadmin_sprite" %}';
-            var revisionKey = 'spriteRevision';
-            var dataKey = 'spriteData';
+            var revisionKey = 'wagtail:spriteRevision';
+            var dataKey = 'wagtail:spriteData';
             var isLocalStorage = 'localStorage' in window && typeof window.localStorage !== 'undefined';
 
             var insertIt = function (data) {
