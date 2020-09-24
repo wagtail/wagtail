@@ -1,5 +1,7 @@
 import functools
+import hashlib
 
+from django.conf import settings
 from django.urls import include, path, re_path
 from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
@@ -84,9 +86,23 @@ for fn in hooks.get_hooks('register_admin_urls'):
 # Add "wagtailadmin.access_admin" permission check
 urlpatterns = decorate_urlpatterns(urlpatterns, require_admin_access)
 
+sprite_hash = None
+
+
+def get_sprite_hash():
+    global sprite_hash
+    if not sprite_hash:
+        content = str(home.sprite(None).content, "utf-8")
+        sprite_hash = hashlib.sha1(
+            (content + settings.SECRET_KEY).encode("utf-8")
+        ).hexdigest()[:8]
+    return sprite_hash
+
 
 # These url patterns do not require an authenticated admin user
 urlpatterns += [
+    path(f"sprite-{get_sprite_hash()}/", home.sprite, name="wagtailadmin_sprite"),
+
     path('login/', account.LoginView.as_view(), name='wagtailadmin_login'),
 
     # These two URLs have the "permission_required" decorator applied directly
