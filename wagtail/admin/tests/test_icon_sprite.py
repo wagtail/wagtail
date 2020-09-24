@@ -18,7 +18,6 @@ class TestIconSprite(TestCase):
     def test_url(self):
         url = reverse("wagtailadmin_sprite")
         self.assertEqual(url[:14], "/admin/sprite-")
-        self.assertEqual(url[-4:], ".svg")
 
     def test_view(self):
         response = self.client.get(reverse("wagtailadmin_sprite"))

@@ -101,7 +101,7 @@ def get_sprite_hash():
 
 # These url patterns do not require an authenticated admin user
 urlpatterns += [
-    path(f"sprite-{get_sprite_hash()}.svg", home.sprite, name="wagtailadmin_sprite"),
+    path(f"sprite-{get_sprite_hash()}/", home.sprite, name="wagtailadmin_sprite"),
 
     path('login/', account.LoginView.as_view(), name='wagtailadmin_login'),
 
