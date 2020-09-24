@@ -23,6 +23,7 @@ Other features
  * Extend treebeard's ``fix_tree`` method with the ability to non-destructively fix path issues and add a --full option to apply path fixes (Matt Westcott)
  * Add support for hierarchical/nested Collections (Robert Rollins)
  * Show user's full name in report views (Matt Westcott)
+ * Improve Wagtail admin page load performance by caching SVG icons sprite in localstorage (Coen van der Kamp)
 
 
 Bug fixes
