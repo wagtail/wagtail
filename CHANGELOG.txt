@@ -15,6 +15,7 @@ Changelog
  * Specify minimum Python version in setup.py (Vince Salvino)
  * Show user's full name in report views (Matt Westcott)
  * Improve Wagtail admin page load performance by caching SVG icons sprite in localstorage (Coen van der Kamp)
+ * Support SVG icons in ModelAdmin menu items (Scott Cranfill)
  * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
  * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
