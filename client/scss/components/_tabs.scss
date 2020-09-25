@@ -37,7 +37,7 @@
 
         &:hover {
             color: $color-white;
-            border-top-color: darken($color-teal-darker, 8);
+            border-top-color: rgba(0, 0, 0, 0.35);
         }
     }
 
