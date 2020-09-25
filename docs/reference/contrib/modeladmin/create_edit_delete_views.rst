@@ -199,6 +199,31 @@ excluded from the form. This is particularly useful when registering ModelAdmin
 classes for models from third-party apps, where defining panel configurations
 on the Model itself is more complicated.
 
+.. _modeladmin_prepopulated_fields:
+
+-----------------------------------
+``ModelAdmin.prepopulated_fields``
+-----------------------------------
+
+**Expected value**: A dict mapping prepopulated fields to a tuple of fields to
+prepopulate from
+
+When using CreateView or EditView to create or update model instances, the
+fields corresponding to the keys in the dict are prepopulated using the fields
+in the corresponding tuple. The main use for this functionality is to
+automatically generate the value for SlugField fields from one or more other
+fields. The generated value is produced by concatenating the values of the
+source fields, and then by transforming that result into a valid slug (e.g.
+substituting dashes for spaces; lowercasing ASCII letters; and removing various
+English stop words such as ‘a’, ‘an’, ‘as’, and similar).
+
+Prepopulated fields aren’t modified by JavaScript after a value has been saved.
+It’s usually undesired that slugs change (which would cause an object’s URL to
+change if the slug is used in it).
+
+prepopulated_fields doesn’t accept DateTimeField, ForeignKey, OneToOneField,
+and ManyToManyField fields.
+
 
 -----------------------------------
 ``ModelAdmin.get_edit_handler()``
