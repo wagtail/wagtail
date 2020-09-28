@@ -291,8 +291,20 @@ Field Customisation
 By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there. (See :doc:`Django model field reference <ref/models/fields>`).
 
 
+Full-Width Input
+----------------
+
+Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.admin.edit_handlers.MultiFieldPanel`, which places its child fields into a formset.
+
+
+Titles
+------
+
+Use ``classname="title"`` to make Page's built-in title field stand out with more vertical padding.
+
+
 Placeholder Text
-~~~~~~~~~~~~~~~~
+----------------
 
 By default, Wagtail uses the field's label as placeholder text. To change it, pass to the FieldPanel a widget with a placeholder attribute set to your desired text. You can select widgets from :doc:`Django's form widgets <django:ref/forms/widgets>`, or any of the Wagtail's widgets found in ``wagtail.admin.widgets``. 
 
@@ -327,19 +339,6 @@ For example, to customize placeholders for a Book model exposed via ModelAdmin:
             FieldPanel('release_date', widget=date_widget), 
             FieldPanel('price', widget=forms.NumberInput(attrs={'placeholder': 'Retail price on release'})) # or directly inline
         ]
-
-
-Full-Width Input
-----------------
-
-Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.admin.edit_handlers.MultiFieldPanel`, which places its child fields into a formset.
-
-
-Titles
-------
-
-Use ``classname="title"`` to make Page's built-in title field stand out with more vertical padding.
-
 
 Required Fields
 ---------------
