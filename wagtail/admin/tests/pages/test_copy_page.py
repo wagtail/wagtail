@@ -57,6 +57,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertContains(response, "New parent page")
         self.assertContains(response, "Copy subpages")
         self.assertContains(response, "Publish copies")
+        self.assertContains(response, "Alias")
 
     def test_page_copy_bad_permissions(self):
         # Remove privileges from user
@@ -72,6 +73,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_slug': 'hello-world',
             'new_parent_page': str(self.test_page.id),
             'copy_subpages': False,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
@@ -93,6 +95,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_slug': 'hello-world',
             'new_parent_page': str(self.test_page.id),
             'copy_subpages': False,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
         form = response.context['form']
@@ -106,6 +109,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_parent_page': str(self.root_page.id),
             'copy_subpages': False,
             'publish_copies': False,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
@@ -138,6 +142,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_parent_page': str(self.root_page.id),
             'copy_subpages': True,
             'publish_copies': False,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
@@ -182,6 +187,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_parent_page': str(self.root_page.id),
             'copy_subpages': True,
             'publish_copies': True,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
@@ -226,6 +232,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_parent_page': str(self.test_child_page.id),
             'copy_subpages': False,
             'publish_copies': False,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
@@ -247,6 +254,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_slug': 'hello-world',
             'new_parent_page': str(self.root_page.id),
             'copy_subpages': False,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
@@ -268,6 +276,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_slug': 'hello-world',
             'new_parent_page': str(self.test_child_page.id),
             'copy_subpages': True,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
 
@@ -288,6 +297,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_slug': 'hello-world',
             'new_parent_page': str(self.test_child_page.id),
             'copy_subpages': False,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
@@ -301,6 +311,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_slug': 'hello world!',
             'new_parent_page': str(self.root_page.id),
             'copy_subpages': False,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
@@ -323,6 +334,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_slug': 'hello-wɜːld',
             'new_parent_page': str(self.test_page.id),
             'copy_subpages': False,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
@@ -371,6 +383,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             'new_parent_page': str(self.root_page.id),
             'copy_subpages': True,
             'publish_copies': True,
+            'alias': False,
         }
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
 
@@ -432,6 +445,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
                 'new_parent_page': str(self.root_page.id),
                 'copy_subpages': False,
                 'publish_copies': False,
+                'alias': False,
             }
             response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
 
@@ -456,6 +470,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
                 'new_parent_page': str(self.root_page.id),
                 'copy_subpages': False,
                 'publish_copies': False,
+                'alias': False,
             }
             response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id,)), post_data)
 
@@ -464,3 +479,85 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # page should be copied
         self.assertTrue(Page.objects.filter(title="Hello world 2").exists())
+
+    def test_page_copy_alias_post(self):
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world-2',
+            'new_parent_page': str(self.root_page.id),
+            'copy_subpages': False,
+            'publish_copies': False,
+            'alias': True,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Get copy
+        page_copy = self.root_page.get_children().get(slug='hello-world-2')
+
+        # Check the copy is an alias of the original
+        self.assertEqual(page_copy.alias_of, self.test_page.page_ptr)
+
+        # Check that the copy is live
+        # Note: publish_copies is ignored. Alias pages always keep the same state as their original
+        self.assertTrue(page_copy.live)
+        self.assertFalse(page_copy.has_unpublished_changes)
+
+        # Check that the owner of the page is set correctly
+        self.assertEqual(page_copy.owner, self.user)
+
+        # Check that the children were not copied
+        self.assertEqual(page_copy.get_children().count(), 0)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
+
+    def test_page_copy_alias_post_copy_subpages(self):
+        post_data = {
+            'new_title': "Hello world 2",
+            'new_slug': 'hello-world-2',
+            'new_parent_page': str(self.root_page.id),
+            'copy_subpages': True,
+            'publish_copies': False,
+            'alias': True,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
+
+        # Check that the user was redirected to the parents explore page
+        self.assertRedirects(response, reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+
+        # Get copy
+        page_copy = self.root_page.get_children().get(slug='hello-world-2')
+
+        # Check the copy is an alias of the original
+        self.assertEqual(page_copy.alias_of, self.test_page.page_ptr)
+
+        # Check that the copy is live
+        # Note: publish_copies is ignored. Alias pages always keep the same state as their original
+        self.assertTrue(page_copy.live)
+        self.assertFalse(page_copy.has_unpublished_changes)
+
+        # Check that the owner of the page is set correctly
+        self.assertEqual(page_copy.owner, self.user)
+
+        # Check that the children were copied
+        self.assertEqual(page_copy.get_children().count(), 2)
+
+        # Check the the child pages
+        # Neither of them should be live
+        child_copy = page_copy.get_children().filter(slug='child-page').first()
+        self.assertNotEqual(child_copy, None)
+        self.assertEqual(child_copy.alias_of, self.test_child_page.page_ptr)
+        self.assertTrue(child_copy.live)
+        self.assertFalse(child_copy.has_unpublished_changes)
+
+        unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
+        self.assertNotEqual(unpublished_child_copy, None)
+        self.assertEqual(unpublished_child_copy.alias_of, self.test_unpublished_child_page.page_ptr)
+        self.assertFalse(unpublished_child_copy.live)
+        self.assertTrue(unpublished_child_copy.has_unpublished_changes)
+
+        # treebeard should report no consistency problems with the tree
+        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
