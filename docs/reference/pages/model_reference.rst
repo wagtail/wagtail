@@ -267,6 +267,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: create_alias
 
+    .. automethod:: update_aliases
+
     .. autoattribute:: has_workflow
 
     .. automethod:: get_workflow
