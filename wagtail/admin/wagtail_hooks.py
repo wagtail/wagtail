@@ -841,6 +841,14 @@ def register_core_log_actions(actions):
         except KeyError:
             return _("Copied")
 
+    def create_alias_message(data):
+        try:
+            return _('Created an alias of %(title)s') % {
+                'title': data['source']['title'],
+            }
+        except KeyError:
+            return _("Created an alias")
+
     def move_message(data):
         try:
             return _("Moved from '%(old_parent)s' to '%(new_parent)s'") % {
@@ -916,6 +924,7 @@ def register_core_log_actions(actions):
     actions.register_action('wagtail.rename', _('Rename'), rename_message)
     actions.register_action('wagtail.revert', _('Revert'), revert_message)
     actions.register_action('wagtail.copy', _('Copy'), copy_message)
+    actions.register_action('wagtail.create_alias', _('Create alias'), create_alias_message)
     actions.register_action('wagtail.move', _('Move'), move_message)
     actions.register_action('wagtail.publish.schedule', _("Schedule publication"), schedule_publish_message)
     actions.register_action('wagtail.schedule.cancel', _("Unschedule publication"), unschedule_publish_message)
