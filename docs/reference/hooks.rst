@@ -614,6 +614,31 @@ Hooks for customising the way users are directed through the process of creating
 
   Uses the same behaviour as ``before_create_page``.
 
+
+.. _before_convert_alias_page:
+
+``before_convert_alias_page``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Called at the beginning of the ``convert_alias`` view, which is responsible for converting alias pages into normal Wagtail pages.
+
+  The request and the page being converted are passed in as arguments to the hook.
+
+  The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+
+.. _after_convert_alias_page:
+
+``after_convert_alias_page``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Do something with a ``Page`` object after it has been converted from an alias.
+
+  The request and the page that was just converted are passed in as arguments to the hook.
+
+  The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
+
+
 .. _register_page_action_menu_item:
 
 ``register_page_action_menu_item``

@@ -1,0 +1,25 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Convert alias {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% trans "Convert alias" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p>
+            {% trans 'Are you sure you want to convert this alias into a regular page?' %}
+        </p>
+
+        <p>
+            {% trans 'This action cannot be undone.' %}
+        </p>
+
+        <form action="{% url 'wagtailadmin_pages:convert_alias' page.id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            <input type="submit" value="{% trans 'Yes, convert it' %}" class="button serious">
+            <a href="{% if next %}{{ next }}{% else %}{% url 'wagtailadmin_explore' page.get_parent.id %}{% endif %}" class="button button-secondary">{% trans "No, leave it as an alias" %}</a>
+        </form>
+    </div>
+{% endblock %}

@@ -2,9 +2,8 @@ from django.urls import path, re_path
 
 from wagtail.admin.views import page_privacy
 from wagtail.admin.views.pages import (
-    copy, create, delete, edit, history, lock, moderation, move, ordering, preview,
-    revisions, search, unpublish, usage, workflow
-)
+    convert_alias, copy, create, delete, edit, history, lock, moderation, move, ordering, preview,
+    revisions, search, unpublish, usage, workflow)
 
 app_name = 'wagtailadmin_pages'
 urlpatterns = [
@@ -19,6 +18,7 @@ urlpatterns = [
     path('<int:parent_page_id>/add_subpage/', create.add_subpage, name='add_subpage'),
     path('<int:page_id>/delete/', delete.delete, name='delete'),
     path('<int:page_id>/unpublish/', unpublish.unpublish, name='unpublish'),
+    path('<int:page_id>/convert_alias/', convert_alias.convert_alias, name='convert_alias'),
 
     path('search/', search.search, name='search'),
 
