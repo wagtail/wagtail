@@ -17,7 +17,7 @@ from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.core.models import (
-    Locale, Page, PageManager, ParentNotTranslatedError, Site, get_page_models, get_translatable_models)
+    Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site, get_page_models, get_translatable_models)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
@@ -1896,6 +1896,52 @@ class TestCreateAlias(TestCase):
             EventPage.exclude_fields_in_copy = []
 
 
+class TestUpdateAliases(TestCase):
+    fixtures = ['test.json']
+
+    def test_update_aliases(self):
+        event_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        alias = event_page.create_alias(update_slug='new-event-page')
+        alias_alias = alias.create_alias(update_slug='new-event-page-2')
+
+        # Update the title and add a speaker
+        event_page.title = "Updated title"
+        event_page.draft_title = "A different draft title"
+        event_page.speakers.add(EventPageSpeaker(
+            first_name="Ted",
+            last_name="Crilly",
+        ))
+        event_page.save()
+
+        # Nothing should've happened yet
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+        self.assertEqual(alias.title, "Christmas")
+        self.assertEqual(alias_alias.title, "Christmas")
+        self.assertEqual(alias.speakers.count(), 1)
+        self.assertEqual(alias_alias.speakers.count(), 1)
+
+        PageLogEntry.objects.all().delete()
+
+        event_page.update_aliases()
+
+        # Check that the aliases have been updated
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+        self.assertEqual(alias.title, "Updated title")
+        self.assertEqual(alias_alias.title, "Updated title")
+        self.assertEqual(alias.speakers.count(), 2)
+        self.assertEqual(alias_alias.speakers.count(), 2)
+
+        # Draft titles shouldn't update as alias pages do not have drafts
+        self.assertEqual(alias.draft_title, "Updated title")
+        self.assertEqual(alias_alias.draft_title, "Updated title")
+
+        # Check log entries were created
+        self.assertTrue(PageLogEntry.objects.filter(page=alias, action='wagtail.publish').exists())
+        self.assertTrue(PageLogEntry.objects.filter(page=alias_alias, action='wagtail.publish').exists())
+
+
 class TestCopyForTranslation(TestCase):
     fixtures = ['test.json']
 
@@ -2553,6 +2599,7 @@ class TestPageWithContentJSON(TestCase):
 
 
 class TestUnpublish(TestCase):
+    fixtures = ['test.json']
 
     def test_unpublish_doesnt_call_full_clean_before_save(self):
         root_page = Page.objects.get(id=1)
@@ -2563,6 +2610,30 @@ class TestUnpublish(TestCase):
         home_page.save(clean=False)
         # This shouldn't fail with a ValidationError.
         home_page.unpublish()
+
+    def test_unpublish_also_unpublishes_aliases(self):
+        event_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        alias = event_page.create_alias(update_slug='new-event-page')
+        alias_alias = alias.create_alias(update_slug='new-event-page-2')
+
+        self.assertTrue(event_page.live)
+        self.assertTrue(alias.live)
+        self.assertTrue(alias_alias.live)
+
+        PageLogEntry.objects.all().delete()
+
+        # Unpublish the event page
+        event_page.unpublish()
+
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+        self.assertFalse(event_page.live)
+        self.assertFalse(alias.live)
+        self.assertFalse(alias_alias.live)
+
+        # Check log entries were created for the aliases
+        self.assertTrue(PageLogEntry.objects.filter(page=alias, action='wagtail.unpublish').exists())
+        self.assertTrue(PageLogEntry.objects.filter(page=alias_alias, action='wagtail.unpublish').exists())
 
 
 class TestCachedContentType(TestCase):

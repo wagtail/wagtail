@@ -1218,6 +1218,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         :param clean: Set this to False to skip cleaning page content before saving this revision
         :return: the newly created revision
         """
+        # Raise an error if this page is an alias.
+        if self.alias_of_id:
+            raise RuntimeError(
+                "save_revision() was called on an alias page. "
+                "Revisions are not required for alias pages as they are an exact copy of another page."
+            )
+
         if clean:
             self.full_clean()
 
@@ -1296,6 +1303,108 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         else:
             return self.specific
 
+    def update_aliases(self, *, revision=None, user=None, _content_json=None, _updated_ids=None):
+        """
+        Publishes all aliases that follow this page with the latest content from this page.
+
+        This is called by Wagtail whenever a page with aliases is published.
+
+        :param revision: The revision of the original page that we are updating to (used for logging purposes)
+        :type revision: PageRevision, optional
+        :param user: The user who is publishing (used for logging purposes)
+        :type user: User, optional
+        """
+        specific_self = self.specific
+
+        # Only compute this if necessary since it's quite a heavy operation
+        if _content_json is None:
+            _content_json = self.to_json()
+
+        # A list of IDs that have already been updated. This is just in case someone has
+        # created an alias loop (which is impossible to do with the UI Wagtail provides)
+        _updated_ids = _updated_ids or []
+
+        for alias in self.specific_class.objects.filter(alias_of=self).exclude(id__in=_updated_ids):
+            # FIXME: Switch to the same fields that are excluded from copy
+            # We can't do this right now because we can't exclude fields from with_content_json
+            exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
+
+            # Copy field content
+            alias_updated = alias.with_content_json(_content_json)
+
+            # Copy child relations
+            child_object_map = specific_self.copy_all_child_relations(target=alias_updated, exclude=exclude_fields)
+
+            # Process child objects
+            # This has two jobs:
+            #  - If the alias is in a different locale, this updates the
+            #    locale of any translatable child objects to match
+            #  - If the alias is not a translation of the original, this
+            #    changes the translation_key field of all child objects
+            #    so they do not clash
+            if child_object_map:
+                alias_is_translation = alias.translation_key == self.translation_key
+
+                def process_child_object(child_object):
+                    if isinstance(child_object, TranslatableMixin):
+                        # Child object's locale must always match the page
+                        child_object.locale = alias_updated.locale
+
+                        # If the alias isn't a translation of the original page,
+                        # change the child object's translation_keys so they are
+                        # not either
+                        if not alias_is_translation:
+                            child_object.translation_key = uuid.uuid4()
+
+                for (rel, previous_id), child_objects in child_object_map.items():
+                    if previous_id is None:
+                        for child_object in child_objects:
+                            process_child_object(child_object)
+                    else:
+                        process_child_object(child_objects)
+
+            # Copy M2M relations
+            _copy_m2m_relations(specific_self, alias_updated, exclude_fields=exclude_fields)
+
+            # Don't change the aliases slug
+            # Aliases can have their own slugs so they can be siblings of the original
+            alias_updated.slug = alias.slug
+            alias_updated.set_url_path(alias_updated.get_parent())
+
+            # Aliases don't have revisions, so update fields that would normally be updated by save_revision
+            alias_updated.draft_title = alias_updated.title
+            alias_updated.latest_revision_created_at = self.latest_revision_created_at
+
+            alias_updated.save(clean=False)
+
+            page_published.send(sender=alias_updated.specific_class, instance=alias_updated, revision=revision, alias=True)
+
+            # Log the publish of the alias
+            PageLogEntry.objects.log_action(
+                instance=alias_updated,
+                action='wagtail.publish',
+                user=user,
+            )
+
+            # Update any aliases of that alias
+
+            # Design note:
+            # It could be argued that this will be faster if we just changed these alias-of-alias
+            # pages to all point to the original page and avoid having to update them recursively.
+            #
+            # But, it's useful to have a record of how aliases have been chained.
+            # For example, In Wagtail Localize, we use aliases to create mirrored trees, but those
+            # trees themselves could have aliases within them. If an alias within a tree is
+            # converted to a regular page, we want the alias in the mirrored tree to follow that
+            # new page and stop receiving updates from the original page.
+            #
+            # Doing it this way requires an extra lookup query per alias but this is small in
+            # comparison to the work required to update the alias.
+
+            alias.update_aliases(revision=revision, _content_json=_content_json, _updated_ids=_updated_ids)
+
+    update_aliases.alters_data = True
+
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
         """
         Unpublish the page by setting ``live`` to ``False``. Does nothing if ``live`` is already ``False``
@@ -1326,6 +1435,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             logger.info("Page unpublished: \"%s\" id=%d", self.title, self.id)
 
             self.revisions.update(approved_go_live_at=None)
+
+            # Unpublish aliases
+            for alias in self.aliases.all():
+                alias.unpublish()
 
     context_object_name = None
 
@@ -2694,6 +2807,9 @@ class PageRevision(models.Model):
 
         if page.live:
             page_published.send(sender=page.specific_class, instance=page.specific, revision=self)
+
+            # Update alias pages
+            page.update_aliases(revision=self, user=user, _content_json=self.content_json)
 
             if log_action:
                 data = None
