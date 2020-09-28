@@ -5,6 +5,7 @@ from collections import namedtuple
 from io import StringIO
 from urllib.parse import urlparse
 
+from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.apps import apps
 from django.conf import settings
@@ -90,7 +91,22 @@ def _extract_field_data(source, exclude_fields=None):
         if isinstance(field, models.OneToOneField) and field.remote_field.parent_link:
             continue
 
-        data_dict[field.name] = getattr(source, field.name)
+        if DJANGO_VERSION >= (3, 0) and isinstance(field, models.ForeignKey):
+            # Use attname to copy the ID instead of retrieving the instance
+
+            # Note: We first need to set the field to None to unset any object
+            # that's there already just setting _id on its own won't change the
+            # field until its saved.
+
+            # Before Django 3.0, Django won't find the new object if the field
+            # was set to None in this way, so this optimisation isn't available
+            # for Django 2.x.
+
+            data_dict[field.name] = None
+            data_dict[field.attname] = getattr(source, field.attname)
+
+        else:
+            data_dict[field.name] = getattr(source, field.name)
 
     return data_dict
 
