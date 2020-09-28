@@ -1,5 +1,6 @@
 import datetime
 import json
+import unittest
 from unittest.mock import Mock
 
 import pytz
@@ -1543,6 +1544,356 @@ class TestCopyPage(TestCase):
             update_attrs={'slug': 'new_slug'}
         )
         self.assertFalse(signal_fired)
+
+
+class TestCreateAlias(TestCase):
+    fixtures = ['test.json']
+
+    def test_create_alias(self):
+        about_us = SimplePage.objects.get(url_path='/home/about-us/')
+
+        # Set a different draft title, aliases are not supposed to
+        # have a different draft_title because they don't have revisions.
+        # This should be corrected when copying
+        about_us.draft_title = 'Draft title'
+        about_us.save(update_fields=['draft_title'])
+
+        # Copy it
+        new_about_us = about_us.create_alias(update_slug='new-about-us')
+
+        # Check that new_about_us is correct
+        self.assertIsInstance(new_about_us, SimplePage)
+        self.assertEqual(new_about_us.slug, 'new-about-us')
+        # Draft title should be changed to match the live title
+        self.assertEqual(new_about_us.draft_title, 'About us')
+
+        # Check that new_about_us is a different page
+        self.assertNotEqual(about_us.id, new_about_us.id)
+
+        # Check that the url path was updated
+        self.assertEqual(new_about_us.url_path, '/home/new-about-us/')
+
+        # Check that the alias_of field was filled in
+        self.assertEqual(new_about_us.alias_of, about_us)
+
+    def test_create_alias_copies_child_objects(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Copy it
+        new_christmas_event = christmas_event.create_alias(update_slug='new-christmas-event')
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(christmas_event.speakers.count(), 1, "Child objects were removed from the original page")
+
+        # Check that advert placements were also copied (there's a gotcha here, since the advert_placements
+        # relation is defined on Page, not EventPage)
+        self.assertEqual(
+            new_christmas_event.advert_placements.count(), 1, "Child objects defined on the superclass weren't copied"
+        )
+        self.assertEqual(
+            christmas_event.advert_placements.count(),
+            1,
+            "Child objects defined on the superclass were removed from the original page"
+        )
+
+    def test_create_alias_copies_parental_relations(self):
+        """Test that a page will be copied with parental many to many relations intact."""
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        summer_category = EventCategory.objects.create(name='Summer')
+        holiday_category = EventCategory.objects.create(name='Holidays')
+
+        # add parental many to many relations
+        christmas_event.categories = (summer_category, holiday_category)
+        christmas_event.save()
+
+        # Copy it
+        new_christmas_event = christmas_event.create_alias(update_slug='new-christmas-event')
+
+        # check that original eventt is untouched
+        self.assertEqual(
+            christmas_event.categories.count(),
+            2,
+            "Child objects (parental many to many) defined on the superclass were removed from the original page"
+        )
+
+        # check that parental many to many are copied
+        self.assertEqual(
+            new_christmas_event.categories.count(),
+            2,
+            "Child objects (parental many to many) weren't copied"
+        )
+
+        # check that the original and copy are related to the same categories
+        self.assertEqual(
+            new_christmas_event.categories.all().in_bulk(),
+            christmas_event.categories.all().in_bulk()
+        )
+
+    def test_create_alias_doesnt_copy_revisions(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_event.save_revision()
+
+        # Copy it
+        new_christmas_event = christmas_event.create_alias(update_slug='new-christmas-event')
+
+        # Check that no revisions were created
+        self.assertEqual(new_christmas_event.revisions.count(), 0)
+
+    def test_create_alias_copies_child_objects_with_nonspecific_class(self):
+        # Get chrismas page as Page instead of EventPage
+        christmas_event = Page.objects.get(url_path='/home/events/christmas/')
+
+        # Copy it
+        new_christmas_event = christmas_event.create_alias(update_slug='new-christmas-event')
+
+        # Check that the type of the new page is correct
+        self.assertIsInstance(new_christmas_event, EventPage)
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.speakers.count(), 1, "Child objects weren't copied")
+
+    def test_create_alias_copies_recursively(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        # Copy it
+        new_events_index = events_index.create_alias(recursive=True, update_slug='new-events-index')
+
+        # Get christmas event
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first()
+        new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
+
+        # Check that the event exists in both places
+        self.assertNotEqual(new_christmas_event, None, "Child pages weren't copied")
+        self.assertNotEqual(old_christmas_event, None, "Child pages were removed from original page")
+
+        # Check that the url path was updated
+        self.assertEqual(new_christmas_event.url_path, '/home/new-events-index/christmas/')
+
+        # Check that the children were also created as aliases
+        self.assertEqual(new_christmas_event.alias_of, old_christmas_event)
+
+    def test_create_alias_copies_recursively_with_child_objects(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+
+        # Copy it
+        new_events_index = events_index.create_alias(recursive=True, update_slug='new-events-index')
+
+        # Get christmas event
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first()
+        new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
+
+        # Check that the speakers were copied
+        self.assertEqual(new_christmas_event.specific.speakers.count(), 1, "Child objects weren't copied")
+
+        # Check that the speakers weren't removed from old page
+        self.assertEqual(
+            old_christmas_event.specific.speakers.count(), 1, "Child objects were removed from the original page"
+        )
+
+    def test_create_alias_doesnt_copy_recursively_to_the_same_tree(self):
+        events_index = EventIndex.objects.get(url_path='/home/events/')
+        old_christmas_event = events_index.get_children().filter(slug='christmas').first().specific
+        old_christmas_event.save_revision()
+
+        with self.assertRaises(Exception) as exception:
+            events_index.create_alias(recursive=True, parent=events_index)
+
+        self.assertEqual(str(exception.exception), "You cannot copy a tree branch recursively into itself")
+
+    def test_create_alias_updates_user(self):
+        event_moderator = get_user_model().objects.get(email='eventmoderator@example.com')
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+        christmas_event.save_revision()
+
+        # Copy it
+        new_christmas_event = christmas_event.create_alias(update_slug='new-christmas-event', user=event_moderator)
+
+        # Check that the owner has been updated
+        self.assertEqual(new_christmas_event.owner, event_moderator)
+
+    def test_create_alias_multi_table_inheritance(self):
+        saint_patrick_event = SingleEventPage.objects.get(url_path='/home/events/saint-patrick/')
+
+        # Copy it
+        new_saint_patrick_event = saint_patrick_event.create_alias(update_slug='new-saint-patrick')
+
+        # Check that new_saint_patrick_event is correct
+        self.assertIsInstance(new_saint_patrick_event, SingleEventPage)
+        self.assertEqual(new_saint_patrick_event.excerpt, saint_patrick_event.excerpt)
+
+        # Check that new_saint_patrick_event is a different page, including parents from both EventPage and Page
+        self.assertNotEqual(saint_patrick_event.id, new_saint_patrick_event.id)
+        self.assertNotEqual(saint_patrick_event.eventpage_ptr.id, new_saint_patrick_event.eventpage_ptr.id)
+        self.assertNotEqual(
+            saint_patrick_event.eventpage_ptr.page_ptr.id,
+            new_saint_patrick_event.eventpage_ptr.page_ptr.id
+        )
+
+        # Check that the url path was updated
+        self.assertEqual(new_saint_patrick_event.url_path, '/home/events/new-saint-patrick/')
+
+        # Check that both parent instance exists
+        self.assertIsInstance(EventPage.objects.get(id=new_saint_patrick_event.id), EventPage)
+        self.assertIsInstance(Page.objects.get(id=new_saint_patrick_event.id), Page)
+
+    def test_create_alias_copies_tags(self):
+        # create and publish a TaggedPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        tagged_page = TaggedPage(title='My tagged page', slug='my-tagged-page')
+        tagged_page.tags.add('wagtail', 'bird')
+        event_index.add_child(instance=tagged_page)
+        tagged_page.save_revision().publish()
+
+        old_tagged_item_ids = [item.id for item in tagged_page.tagged_items.all()]
+        # there should be two items here, with defined (truthy) IDs
+        self.assertEqual(len(old_tagged_item_ids), 2)
+        self.assertTrue(all(old_tagged_item_ids))
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_tagged_page = tagged_page.create_alias(parent=homepage)
+
+        self.assertNotEqual(tagged_page.id, new_tagged_page.id)
+
+        # new page should also have two tags
+        new_tagged_item_ids = [item.id for item in new_tagged_page.tagged_items.all()]
+        self.assertEqual(len(new_tagged_item_ids), 2)
+        self.assertTrue(all(new_tagged_item_ids))
+
+        # new tagged_item IDs should differ from old ones
+        self.assertTrue(all([
+            item_id not in old_tagged_item_ids
+            for item_id in new_tagged_item_ids
+        ]))
+
+    def test_create_alias_with_m2m_relations(self):
+        # create and publish a ManyToManyBlogPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        category = BlogCategory.objects.create(name='Birds')
+        advert = Advert.objects.create(url='http://www.heinz.com/', text="beanz meanz heinz")
+
+        blog_page = ManyToManyBlogPage(title='My blog page', slug='my-blog-page')
+        event_index.add_child(instance=blog_page)
+
+        blog_page.adverts.add(advert)
+        BlogCategoryBlogPage.objects.create(category=category, page=blog_page)
+        blog_page.save_revision().publish()
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_blog_page = blog_page.create_alias(parent=homepage)
+
+        # M2M relations are not formally supported, so for now we're only interested in
+        # the copy operation as a whole succeeding, rather than the child objects being copied
+        self.assertNotEqual(blog_page.id, new_blog_page.id)
+
+    def test_create_alias_with_generic_foreign_key(self):
+        # create and publish a GenericSnippetPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        advert = Advert.objects.create(url='http://www.heinz.com/', text="beanz meanz heinz")
+
+        page = GenericSnippetPage(title='My snippet page', slug='my-snippet-page')
+        page.snippet_content_object = advert
+        event_index.add_child(instance=page)
+
+        page.save_revision().publish()
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_page = page.create_alias(parent=homepage)
+
+        self.assertNotEqual(page.id, new_page.id)
+        self.assertEqual(new_page.snippet_content_object, advert)
+
+    def test_create_alias_with_o2o_relation(self):
+        event_index = Page.objects.get(url_path='/home/events/')
+
+        page = OneToOnePage(title='My page', slug='my-page')
+
+        event_index.add_child(instance=page)
+
+        homepage = Page.objects.get(url_path='/home/')
+        new_page = page.create_alias(parent=homepage)
+
+        self.assertNotEqual(page.id, new_page.id)
+
+    @unittest.expectedFailure
+    def test_create_alias_with_additional_excluded_fields(self):
+        homepage = Page.objects.get(url_path='/home/')
+        page = homepage.add_child(instance=PageWithExcludedCopyField(
+            title='Discovery',
+            slug='disco',
+            content='NCC-1031',
+            special_field='Context is for Kings'))
+        new_page = page.create_alias(parent=homepage, update_slug='disco-2')
+
+        self.assertEqual(page.title, new_page.title)
+        self.assertNotEqual(page.id, new_page.id)
+        self.assertNotEqual(page.path, new_page.path)
+        # special_field is in the list to be excluded
+        self.assertNotEqual(page.special_field, new_page.special_field)
+
+    @unittest.expectedFailure
+    def test_create_alias_with_excluded_parental_and_child_relations(self):
+        """Test that a page will be copied with parental and child relations removed if excluded."""
+
+        try:
+            # modify excluded fields for this test
+            EventPage.exclude_fields_in_copy = ['advert_placements', 'categories', 'signup_link']
+
+            # set up data
+            christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+            summer_category = EventCategory.objects.create(name='Summer')
+            holiday_category = EventCategory.objects.create(name='Holidays')
+
+            # add URL (to test excluding a basic field)
+            christmas_event.signup_link = "https://christmas-is-awesome.com/rsvp"
+
+            # add parental many to many relations
+            christmas_event.categories = (summer_category, holiday_category)
+            christmas_event.save()
+
+            # Copy it
+            new_christmas_event = christmas_event.create_alias(update_slug='new-christmas-event')
+
+            # check that the signup_link was NOT copied
+            self.assertEqual(christmas_event.signup_link, "https://christmas-is-awesome.com/rsvp")
+            self.assertEqual(new_christmas_event.signup_link, '')
+
+            # check that original event is untouched
+            self.assertEqual(
+                christmas_event.categories.count(),
+                2,
+                "Child objects (parental many to many) defined on the superclass were removed from the original page"
+            )
+
+            # check that parental many to many are NOT copied
+            self.assertEqual(
+                new_christmas_event.categories.count(),
+                0,
+                "Child objects (parental many to many) were copied but should be excluded"
+            )
+
+            # check that child objects on original event were left untouched
+            self.assertEqual(
+                christmas_event.advert_placements.count(),
+                1,
+                "Child objects defined on the original superclass were edited when copied"
+            )
+
+            # check that child objects were NOT copied
+            self.assertEqual(
+                new_christmas_event.advert_placements.count(),
+                0,
+                "Child objects defined on the superclass were copied and should not be"
+            )
+
+        finally:
+            # reset excluded fields for future tests
+            EventPage.exclude_fields_in_copy = []
 
 
 class TestCopyForTranslation(TestCase):
