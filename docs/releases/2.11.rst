@@ -27,6 +27,7 @@ Other features
  * Support SVG icons in ModelAdmin menu items (Scott Cranfill)
  * Serve PDFs inline in the browser when accessed from the edit document view (Matt Westcott)
  * Make document ``content-type`` and ``content-disposition`` configurable via ``WAGTAILDOCS_CONTENT_TYPES`` and ``WAGTAILDOCS_INLINE_CONTENT_TYPES`` (Matt Westcott)
+ * Slug generation no longer removes stopwords (Andy Chosak, Scott Cranfill)
 
 
 Bug fixes
@@ -37,6 +38,7 @@ Bug fixes
  * Update oEmbed endpoints to use https where available (Matt Westcott)
  * Revise ``edit_handler`` bind order in ModelAdmin views and fix duplicate form instance creation (Jérôme Lebleu)
  * Properly distinguish child blocks when comparing revisions with nested StreamBlocks (Martin Mena)
+ * Correctly handle Turkish 'İ' characters in client-side slug generation (Matt Westcott)
 
 
 Upgrade considerations
