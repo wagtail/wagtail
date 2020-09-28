@@ -36,6 +36,7 @@
         </ul>
     </header>
 
+    {% block form %}
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
 
@@ -82,6 +83,7 @@
             </nav>
         </footer>
     </form>
+    {% endblock %}
 
 {% endblock %}
 
