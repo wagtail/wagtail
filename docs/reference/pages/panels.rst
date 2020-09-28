@@ -294,7 +294,7 @@ By adding CSS classes to your panel definitions or adding extra parameters to yo
 Placeholder Text
 ~~~~~~~~~~~~~~~~
 
-By default, Wagtail will use the Label as the placeholder text in FieldPanels. To change it, you can give the FieldPanel a widget with a placeholder attribute set to your desired text. You can select from :doc:`Django's form widgets <django:ref/forms/widgets>`, or any of the Wagtail widgets found in wagtail.admin.widgets. 
+By default, Wagtail uses the field's label as placeholder text. To change it, pass to the FieldPanel a widget with a placeholder attribute set to your desired text. You can select widgets from :doc:`Django's form widgets <django:ref/forms/widgets>`, or any of the Wagtail's widgets found in ``wagtail.admin.widgets``. 
 
 For example, to customize placeholders for a Book model exposed via ModelAdmin:
 
