@@ -760,6 +760,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         editable=False
     )
 
+    # If non-null, this page is an alias of the linked page
+    # This means the page is kept in sync with the live version
+    # of the linked pages and is not editable by users.
+    alias_of = models.ForeignKey(
+        'self',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        editable=False,
+        related_name='aliases',
+    )
+
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
         index.AutocompleteField('title'),
@@ -2255,11 +2267,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``locked_at``
         * ``latest_revision_created_at``
         * ``first_published_at``
+        * ``alias_of``
         """
 
         obj = self.specific_class.from_json(content_json)
 
         # These should definitely never change between revisions
+        obj.id = self.id
         obj.pk = self.pk
         obj.content_type = self.content_type
 
@@ -2285,6 +2299,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.first_published_at = self.first_published_at
         obj.translation_key = self.translation_key
         obj.locale = self.locale
+        obj.alias_of_id = self.alias_of_id
 
         return obj
 

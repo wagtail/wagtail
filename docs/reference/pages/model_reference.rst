@@ -123,6 +123,12 @@ Database fields
 
         The date/time when the page was locked.
 
+    .. attribute:: alias_of
+
+        (foreign key to another page)
+
+        If set, this page is an alias of the page referenced in this field.
+
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
