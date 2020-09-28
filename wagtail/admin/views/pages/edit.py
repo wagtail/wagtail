@@ -2,6 +2,7 @@ import json
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -20,7 +21,12 @@ from wagtail.core.models import Page, WorkflowState
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
-    template_name = 'wagtailadmin/pages/edit.html'
+    def get_template_names(self):
+        if self.page.alias_of_id:
+            return ['wagtailadmin/pages/edit_alias.html']
+
+        else:
+            return ['wagtailadmin/pages/edit.html']
 
     def add_legacy_moderation_warning(self):
         # Check for revisions still undergoing moderation and warn - this is for the old moderation system
@@ -197,6 +203,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         ])
 
     def post(self, request):
+        # Don't allow POST requests if the page is an alias
+        if self.page.alias_of_id:
+            # Return 405 "Method Not Allowed" response
+            return HttpResponse(status=405)
+
         self.form = self.form_class(
             self.request.POST, self.request.FILES, instance=self.page, parent_page=self.parent
         )

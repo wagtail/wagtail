@@ -1,0 +1,13 @@
+{% extends "wagtailadmin/pages/edit.html" %}
+{% load i18n %}
+
+{% block form %}
+    <div class="nice-padding" style="padding-top: 20px;">
+        <p>{% trans "This page is an alias of another page." %}</p>
+
+        <p>
+            <a class="button button-secondary" href="{% url 'wagtailadmin_pages:edit' page.alias_of_id %}">{% trans "Edit original page" %}</a>
+            <a class="button button-secondary" href="#">{% trans "Edit this page only (remove alias)" %}</a>
+        </p>
+    </div>
+{% endblock %}
