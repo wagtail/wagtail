@@ -2010,6 +2010,17 @@ class TestCopyForTranslation(TestCase):
         # self.assertEqual(ffr_award.translation_key, en_award.translation_key)
         # self.assertEqual(list(fr_award.get_translations()), [en_award])
 
+    def test_copies_missing_parents_as_aliases(self):
+        fr_eventpage = self.en_eventpage.copy_for_translation(self.fr_locale, copy_parents=True)
+        fr_eventindex = fr_eventpage.get_parent()
+
+        # Check parent is a translation of its English original
+        self.assertEqual(fr_eventindex.locale, self.fr_locale)
+        self.assertEqual(fr_eventindex.translation_key, self.en_eventindex.translation_key)
+
+        # Check parent is also an alias of its English original
+        self.assertEqual(fr_eventindex.alias_of, self.en_eventindex)
+
 
 class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
     def test_allowed_subpage_models(self):

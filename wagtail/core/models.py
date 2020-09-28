@@ -2082,7 +2082,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     create_alias.alters_data = True
 
     @transaction.atomic
-    def copy_for_translation(self, locale, copy_parents=False, exclude_fields=None):
+    def copy_for_translation(self, locale, copy_parents=False, alias=False, exclude_fields=None):
         """
         Copies this page for the specified locale.
         """
@@ -2098,7 +2098,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     raise ParentNotTranslatedError
 
                 translated_parent = parent.copy_for_translation(
-                    locale, copy_parents=True
+                    locale, copy_parents=True, alias=True
                 )
         else:
             # Don't duplicate the root page for translation. Create new locale as a sibling
@@ -2111,25 +2111,34 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Find available slug for new page
         slug = find_available_slug(translated_parent, slug)
 
-        # Update locale on translatable child objects as well
-        def process_child_object(
-            original_page, page_copy, child_relation, child_object
-        ):
-            if isinstance(child_object, TranslatableMixin):
-                child_object.locale = locale
+        if alias:
+            return self.create_alias(
+                parent=translated_parent,
+                update_slug=slug,
+                update_locale=locale,
+                reset_translation_key=False,
+            )
 
-        return self.copy(
-            to=translated_parent,
-            update_attrs={
-                "locale": locale,
-                "slug": slug,
-            },
-            copy_revisions=False,
-            keep_live=False,
-            reset_translation_key=False,
-            process_child_object=process_child_object,
-            exclude_fields=exclude_fields,
-        )
+        else:
+            # Update locale on translatable child objects as well
+            def process_child_object(
+                original_page, page_copy, child_relation, child_object
+            ):
+                if isinstance(child_object, TranslatableMixin):
+                    child_object.locale = locale
+
+            return self.copy(
+                to=translated_parent,
+                update_attrs={
+                    "locale": locale,
+                    "slug": slug,
+                },
+                copy_revisions=False,
+                keep_live=False,
+                reset_translation_key=False,
+                process_child_object=process_child_object,
+                exclude_fields=exclude_fields,
+            )
 
     copy_for_translation.alters_data = True
 
