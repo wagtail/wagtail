@@ -29,7 +29,6 @@ Other features
  * Make document ``content-type`` and ``content-disposition`` configurable via ``WAGTAILDOCS_CONTENT_TYPES`` and ``WAGTAILDOCS_INLINE_CONTENT_TYPES`` (Matt Westcott)
  * Slug generation no longer removes stopwords (Andy Chosak, Scott Cranfill)
  * Add check to disallow StreamField block names that do not match Python variable syntax (François Poulain)
- * The ``BASE_URL`` setting is now converted to a str, if it isn't already, when constructing API URLs (thenewguy)
 
 
 Bug fixes
