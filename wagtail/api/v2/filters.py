@@ -154,6 +154,10 @@ class ChildOfFilter(BaseFilterBackend):
                 raise BadRequestError("parent page doesn't exist")
 
             queryset = queryset.child_of(parent_page)
+
+            # Save the parent page on the queryset. This is required for the page
+            # explorer, which needs to pass the parent page into
+            # `construct_explorer_page_queryset` hook functions
             queryset._filtered_by_child_of = parent_page
 
         return queryset
