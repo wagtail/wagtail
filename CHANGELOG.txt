@@ -20,6 +20,7 @@ Changelog
  * Make document `content-type` and `content-disposition` configurable via `WAGTAILDOCS_CONTENT_TYPES` and `WAGTAILDOCS_INLINE_CONTENT_TYPES` (Matt Westcott)
  * Slug generation no longer removes stopwords (Andy Chosak, Scott Cranfill)
  * Add check to disallow StreamField block names that do not match Python variable syntax (François Poulain)
+ * The `BASE_URL` setting is now converted to a str, if it isn't already, when constructing API URLs (thenewguy)
  * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
  * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
