@@ -1,4 +1,5 @@
 {% extends "wagtailadmin/widgets/chooser.html" %}
+{% block chooser_attributes %}data-chooser-url="{% url "wagtailadmin_choose_page" %}"{% endblock %}
 
 {% block chosen_state_view %}
     <span class="title">{{ page.specific.get_admin_display_title }}</span>
