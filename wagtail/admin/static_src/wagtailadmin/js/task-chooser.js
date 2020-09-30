@@ -6,7 +6,7 @@ function createTaskChooser(id) {
 
     $('.action-choose', chooserElement).on('click', function() {
         ModalWorkflow({
-            url: window.chooserUrls.taskChooser,
+            url: chooserElement.data('chooserUrl'),
             onload: TASK_CHOOSER_MODAL_ONLOAD_HANDLERS,
             responses: {
                 taskChosen: function(data) {
