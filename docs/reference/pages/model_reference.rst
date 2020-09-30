@@ -873,7 +873,7 @@ Methods and properties
 .. class:: BaseLogEntry
     :noindex:
 
-    .. autoattribute:: username
+    .. autoattribute:: user_display_name
 
     .. autoattribute:: data
 
