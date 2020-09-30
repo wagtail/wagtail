@@ -2,6 +2,7 @@
 {% load wagtailimages_tags %}
 
 {% block chooser_class %}image-chooser{% endblock %}
+{% block chooser_attributes %}data-chooser-url="{% url "wagtailimages:chooser" %}"{% endblock %}
 
 {% block chosen_state_view %}
     <div class="preview-image">
