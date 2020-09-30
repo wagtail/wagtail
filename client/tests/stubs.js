@@ -61,7 +61,6 @@ global.chooserUrls = {
   externalLinkChooser: '/admin/choose-external-link/',
   imageChooser: '/admin/images/chooser/',
   pageChooser: '/admin/choose-page/',
-  snippetChooser: '/admin/snippets/choose/',
 };
 
 /* use dummy content for onload handlers just so that we can verify that we've chosen the right one */
