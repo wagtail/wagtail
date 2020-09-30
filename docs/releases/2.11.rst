@@ -10,6 +10,12 @@ Wagtail 2.11 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Collections hierarchy
+~~~~~~~~~~~~~~~~~~~~~
+
+Collections (for organising images, documents or other media) can now be managed as a hierarchy rather than a flat list. This feature was developed by Robert Rollins.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
@@ -53,19 +59,26 @@ SiteMiddleware moved to ``wagtail.contrib.legacy``
 The SiteMiddleware class (which provides the ``request.site`` property, and has been deprecated since Wagtail 2.9) has been moved to the ``wagtail.contrib.legacy`` namespace. On projects where this is still in use, the ``'wagtail.core.middleware.SiteMiddleware'`` entry in ``MIDDLEWARE`` should be changed to ``'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware'``.
 
 
-Run fixtree to prevent Collection creation issues
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Collection model enforces alphabetical ordering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you are using Wagtail's Collections feature to organise images, documents or other media, please ensure
-you run the following command in each environment:
+As part of the hierarchical collections support, the ``path`` field on the Collection model now enforces alphabetical ordering. Previously, collections were stored in the order in which they were created - and then sorted by name where displayed in the CMS. This change will be handled automatically through migrations when upgrading to Wagtail 2.11.
 
-.. code-block:: python
+However, if your project creates new collections programmatically after migrations have run, and assigns the ``path`` field directly - for example, by loading from a fixture file - this code will need to be updated to insert them in alphabetical order. Otherwise, errors may occur when subsequently adding new collections through the Wagtail admin. This can be done as follows:
 
-    python manage.py fixtree --full
+ * Update paths to match alphabetical order. For example, if you have a fixture that creates the collections ``Zebras`` and ``Aardvarks`` with paths ``00010001`` and ``00010002`` respectively, these paths should be swapped.
+ * *Alternatively*, after creating the collections, run the Python code:
 
-Previously, collections were stored in the order in which they were created - and then sorted by name where displayed in the CMS. Collections are now ordered by treebeard path by default, so the above command must be run to retain alphabetical ordering.
+   .. code-block:: python
 
-Failure to do this won't affect your current colllections, but may affect your ability to add new ones.
+       from wagtail.core.models import Collection
+       Collection.fix_tree(fix_paths=True)
+
+   or the management command:
+
+   .. code-block:: console
+
+       python manage.py fixtree --full
 
 
 ``Site.get_site_root_paths`` now returns language code
