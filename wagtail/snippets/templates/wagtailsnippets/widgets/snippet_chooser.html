@@ -2,6 +2,7 @@
 {% load wagtailadmin_tags %}
 
 {% block chooser_class %}snippet-chooser{% endblock %}
+{% block chooser_attributes %}data-chooser-url="{% url 'wagtailsnippets:choose_generic' %}"{% endblock %}
 
 {% block chosen_state_view %}
     <span class="title">{{ item }}</span>
