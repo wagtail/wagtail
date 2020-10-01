@@ -478,6 +478,7 @@ Contributors
 * Vince Salvino
 * Dino Perovic
 * Ameet Virdee
+* Anton Zhyltsou
 
 Translators
 ===========

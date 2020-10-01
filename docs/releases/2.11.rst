@@ -43,6 +43,7 @@ Bug fixes
  * Properly distinguish child blocks when comparing revisions with nested StreamBlocks (Martin Mena)
  * Correctly handle Turkish 'İ' characters in client-side slug generation (Matt Westcott)
  * Page chooser widgets now reflect custom ``get_admin_display_title`` methods (Saptak Sengupta)
+ * ``Page.copy()`` now raises an error if the page being copied is unsaved (Anton Zhyltsou)
 
 
 Upgrade considerations

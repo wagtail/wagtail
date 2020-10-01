@@ -29,7 +29,7 @@ Changelog
  * Fix: Properly distinguish child blocks when comparing revisions with nested StreamBlocks (Martin Mena)
  * Fix: Correctly handle Turkish 'İ' characters in client-side slug generation (Matt Westcott)
  * Fix: Page chooser widgets now reflect custom ``get_admin_display_title`` methods (Saptak Sengupta)
-
+ * Fix: `Page.copy()` now raises an error if the page being copied is unsaved (Anton Zhyltsou)
 
 2.10.2 (25.09.2020)
 ~~~~~~~~~~~~~~~~~~~
