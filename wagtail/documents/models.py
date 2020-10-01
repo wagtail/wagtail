@@ -5,6 +5,7 @@ from contextlib import contextmanager
 from mimetypes import guess_type
 
 from django.conf import settings
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.dispatch import Signal
 from django.urls import reverse
@@ -23,7 +24,15 @@ class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
-    file = models.FileField(upload_to='documents', verbose_name=_('file'))
+    file = models.FileField(
+        upload_to="documents",
+        verbose_name=_("file"),
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=getattr(settings, "WAGTAIL_DOCS_EXTENSIONS", None)
+            )
+        ],
+    )
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
     uploaded_by_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
