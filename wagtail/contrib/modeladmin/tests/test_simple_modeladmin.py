@@ -8,9 +8,10 @@ from openpyxl import load_workbook
 
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
+from wagtail.core.models import Page
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.modeladmintest.models import Author, Book, Publisher, Token
+from wagtail.tests.modeladmintest.models import Author, Book, Publisher, RelatedLink, Token
 from wagtail.tests.modeladmintest.wagtail_hooks import BookModelAdmin
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -272,6 +273,21 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
             mock_form_clean.assert_called_once()
 
+    def test_create_view_with_multifieldpanel(self):
+        # https://github.com/wagtail/wagtail/issues/6413
+        response = self.client.get('/admin/modeladmintest/relatedlink/create/')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post('/admin/modeladmintest/relatedlink/create/', {
+            'title': "Homepage",
+            'link': Page.objects.filter(depth=2).first().id,
+        })
+        # Should redirect back to index
+        self.assertRedirects(response, '/admin/modeladmintest/relatedlink/')
+
+        # Check that the link was created
+        self.assertEqual(RelatedLink.objects.filter(title="Homepage").count(), 1)
+
 
 class TestInspectView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
@@ -408,6 +424,22 @@ class TestEditView(TestCase, WagtailTestUtils):
             self.assertEqual(response.status_code, 200)
 
             mock_form_clean.assert_called_once()
+
+    def test_edit_view_with_multifieldpanel(self):
+        # https://github.com/wagtail/wagtail/issues/6413
+        link = RelatedLink.objects.create(title='Homepage', link=Page.objects.filter(depth=2).first())
+        response = self.client.get('/admin/modeladmintest/relatedlink/edit/%d/' % link.id)
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.post('/admin/modeladmintest/relatedlink/edit/%d/' % link.id, {
+            'title': "Homepage edited",
+            'link': Page.objects.filter(depth=2).first().id,
+        })
+        # Should redirect back to index
+        self.assertRedirects(response, '/admin/modeladmintest/relatedlink/')
+
+        # Check that the link was updated
+        self.assertEqual(RelatedLink.objects.filter(title="Homepage edited").count(), 1)
 
 
 class TestPageSpecificViews(TestCase, WagtailTestUtils):

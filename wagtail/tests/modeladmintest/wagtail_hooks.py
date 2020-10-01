@@ -6,7 +6,9 @@ from wagtail.contrib.modeladmin.views import CreateView, EditView, IndexView
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
-from .models import Author, Book, Contributor, Friend, Person, Publisher, Token, VenuePage, Visitor
+from .models import (
+    Author, Book, Contributor, Friend, Person, Publisher, RelatedLink, Token, VenuePage, Visitor
+)
 
 
 class AuthorModelAdmin(ModelAdmin):
@@ -164,6 +166,11 @@ class BusinessChildAdmin(ModelAdmin):
     menu_label = "BusinessSprog"
 
 
+class RelatedLinkAdmin(ModelAdmin):
+    model = RelatedLink
+    menu_label = "Related Links"
+
+
 modeladmin_register(AuthorModelAdmin)
 modeladmin_register(BookModelAdmin)
 modeladmin_register(TokenModelAdmin)
@@ -174,3 +181,4 @@ modeladmin_register(PersonAdmin)
 modeladmin_register(FriendAdmin)
 modeladmin_register(VisitorAdmin)
 modeladmin_register(ContributorAdmin)
+modeladmin_register(RelatedLinkAdmin)
