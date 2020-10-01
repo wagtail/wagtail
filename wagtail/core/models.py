@@ -1757,9 +1757,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             Can be passed an action string. Defaults to 'wagtail.copy'
         """
 
-        # If the model doesn't exist in the DB, the operation will not work
         if self._state.adding:
-            raise Exception('You cannot copy the unsaved object')
+            raise RuntimeError('Page.copy() called on an unsaved page')
 
         exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
         specific_self = self.specific
