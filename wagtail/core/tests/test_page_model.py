@@ -1483,6 +1483,12 @@ class TestCopyPage(TestCase):
         finally:
             # reset excluded fields for future tests
             EventPage.exclude_fields_in_copy = []
+        
+    def test_copy_unsaved_page(self):
+        """Test that unsaved page will not be copied."""
+        new_page = SimplePage.objects.get(url_path='/home/about-us/')
+        with self.assertRaises(Exception):
+            new_page.copy()
 
 
 class TestCopyForTranslation(TestCase):
