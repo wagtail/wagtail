@@ -118,10 +118,13 @@ class ModelFormView(WMABaseView, FormView):
         return form
 
     def get_edit_handler(self):
+        instance = self.get_instance()
         edit_handler = self.model_admin.get_edit_handler(
-            instance=self.get_instance(), request=self.request
+            instance=instance, request=self.request
         )
-        return edit_handler.bind_to(model=self.model_admin.model, request=self.request)
+        return edit_handler.bind_to(
+            model=self.model_admin.model, request=self.request, instance=instance
+        )
 
     def get_form_class(self):
         return self.edit_handler.get_form_class()
