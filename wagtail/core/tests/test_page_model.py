@@ -1486,8 +1486,8 @@ class TestCopyPage(TestCase):
 
     def test_copy_unsaved_page(self):
         """Test that unsaved page will not be copied."""
-        new_page = SimplePage.objects.get(url_path='/home/about-us/')
-        with self.assertRaises(Exception):
+        new_page = SimplePage(slug='testpurp', title='testpurpose')
+        with self.assertRaises(RuntimeError):
             new_page.copy()
 
 
