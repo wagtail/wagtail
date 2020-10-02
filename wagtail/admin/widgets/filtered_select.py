@@ -14,7 +14,7 @@ class FilteredSelect(forms.Select):
     `filter_values` list are shown.
 
     filter_field and filter_values are inserted as 'data-' attributes on the rendered HTML, where
-    they are picked up by the Javascript behaviour code -
+    they are picked up by the JavaScript behaviour code -
     see wagtailadmin/js/filtered-select.js for an example of how these attributes are configured.
     """
 

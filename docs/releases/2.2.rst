@@ -38,7 +38,7 @@ Other features
  * Increased max length of redirect URL field to 255 (Michael Harrison)
  * Added documentation for new JS/CSS media files association with Draftail feature definitions (Ed Henderson)
  * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
- * Admin modal views no longer rely on Javascript ``eval()``, for better CSP compliance (Matt Westcott)
+ * Admin modal views no longer rely on JavaScript ``eval()``, for better CSP compliance (Matt Westcott)
  * Update editor guide for embeds and documents in rich text (Kevin Howbrook)
  * Improved performance of sitemap generation (Michael van Tellingen, Bertrand Bordage)
  * Added an internal API for autocomplete (Karl Hobley)

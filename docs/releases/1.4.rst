@@ -58,7 +58,7 @@ The ``Document`` model can now be overridden using the new ``WAGTAILDOCS_DOCUMEN
 Removed django-compressor dependency
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail no longer depends on the `django-compressor <http://django-compressor.readthedocs.org/>`_ library. While we highly recommend compressing and bundling the CSS and Javascript on your sites, using django-compressor places additional installation and configuration demands on the developer, so this has now been made optional.
+Wagtail no longer depends on the `django-compressor <http://django-compressor.readthedocs.org/>`_ library. While we highly recommend compressing and bundling the CSS and JavaScript on your sites, using django-compressor places additional installation and configuration demands on the developer, so this has now been made optional.
 
 
 Minor features

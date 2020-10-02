@@ -1797,7 +1797,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"            Javascript is required to use Wagtail, but it is currently "
+"            JavaScript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "

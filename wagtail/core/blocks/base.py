@@ -134,8 +134,8 @@ class Block(metaclass=BaseBlock):
 
     def js_initializer(self):
         """
-        Returns a Javascript expression string, or None if this block does not require any
-        Javascript behaviour. This expression evaluates to an initializer function, a function that
+        Returns a JavaScript expression string, or None if this block does not require any
+        JavaScript behaviour. This expression evaluates to an initializer function, a function that
         takes the ID prefix and applies JS behaviour to the block instance with that value and prefix.
 
         The parent block of this block (or the top-level page code) must ensure that this

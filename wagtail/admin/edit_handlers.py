@@ -128,7 +128,7 @@ class EditHandler:
 
     # return any HTML that needs to be output on the edit page once per edit handler definition.
     # Typically this will be used to define snippets of HTML within <script type="text/x-template"></script> blocks
-    # for Javascript code to work with.
+    # for JavaScript code to work with.
     def html_declarations(self):
         return ''
 

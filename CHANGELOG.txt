@@ -347,7 +347,7 @@ Changelog
 2.6.1 (05.08.2019)
 ~~~~~~~~~~~~~~~~~~
 
- * Fix: Prevent Javascript errors caused by unescaped quote characters in translation strings (Matt Westcott)
+ * Fix: Prevent JavaScript errors caused by unescaped quote characters in translation strings (Matt Westcott)
 
 
 2.6 (01.08.2019)
@@ -584,7 +584,7 @@ Changelog
  * Increased max length of redirect URL field to 255 (Michael Harrison)
  * Added documentation for new JS/CSS media files association with Draftail feature definitions (Ed Henderson)
  * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
- * Admin modal views no longer rely on Javascript `eval()`, for better CSP compliance (Matt Westcott)
+ * Admin modal views no longer rely on JavaScript `eval()`, for better CSP compliance (Matt Westcott)
  * Update editor guide for embeds and documents in rich text (Kevin Howbrook)
  * Improved performance of sitemap generation (Michael van Tellingen, Bertrand Bordage)
  * Added an internal API for autocomplete (Karl Hobley, Bertrand Bordage)
@@ -1578,7 +1578,7 @@ Changelog
  * Removed dependency on libsass (Tim Heap)
  * Users without usernames can now be created and edited in the admin interface (Tim Heap)
  * Added update notifications
- * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
+ * JavaScript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
  * Improvements to the layout of the admin menu footer.
  * Menu items of custom apps are now highlighted when being used (Josh Barr)
  * Added thousands separator for counters on dashboard
@@ -1612,7 +1612,7 @@ Changelog
  * The Page model now records the date/time that a page was first published, as the field `first_published_at`
  * Increased the maximum length of a page slug from 50 to 255 characters
  * Plain text fields in the page editor now use auto-expanding text areas
- * Date / time pickers now consistently use times without seconds, to prevent Javascript behaviour glitches when focusing / unfocusing fields
+ * Date / time pickers now consistently use times without seconds, to prevent JavaScript behaviour glitches when focusing / unfocusing fields
  * Added hooks `register_rich_text_embed_handler` and `register_rich_text_link_handler` for customising link / embed handling within rich text fields
  * Added hook `construct_homepage_summary_items` for customising the site summary panel on the admin homepage
  * No longer automatically tries to use Celery for sending notification emails
@@ -1923,7 +1923,7 @@ Changelog
  * Internationalisation of the admin backend
  * Translations for Bulgarian, Catalan, Chinese, Galician, German, Greek, Polish, Romanian and Spanish. Partial translations for Basque and Mongolian.
  * Stylesheets ported from Less to Sass, to eliminate dependency on an external CSS compiler
- * Coffeescript replaced by vanilla Javascript
+ * Coffeescript replaced by vanilla JavaScript
  * OEmbed supported as an alternative backend for wagtailembeds, eliminating dependency on Embedly
  * Database supported as an alternative search backend, eliminating dependency on ElasticSearch
  * Background tasks now fall back on in-process handling if Celery is not available (also eliminating Redis as a dependency)
