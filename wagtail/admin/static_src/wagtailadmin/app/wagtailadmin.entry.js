@@ -7,6 +7,7 @@ import {
   initFocusOutline,
   initSubmenus,
   initSkipLink,
+  initIE11Warning,
   initUpgradeNotification,
 } from 'wagtail-client';
 
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initFocusOutline();
   initSubmenus();
+  initIE11Warning();
   initUpgradeNotification();
   initSkipLink();
 });
