@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-
 from wagtail import __version__
 from wagtail.utils.setup import assets, sdist, check_bdist_egg
 
@@ -15,7 +13,7 @@ except ImportError:
 # in multiprocessing/util.py _exit_function when setup.py exits
 # (see http://www.eby-sarna.com/pipermail/peak/2010-May/003357.html)
 try:
-    import multiprocessing
+    import multiprocessing  # noqa
 except ImportError:
     pass
 
