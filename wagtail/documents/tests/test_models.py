@@ -12,7 +12,6 @@ from wagtail.documents import get_document_model, get_document_model_string, mod
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.testapp.models import CustomDocument
 from wagtail.tests.utils import WagtailTestUtils
-import unittest
 
 
 class TestDocumentQuerySet(TestCase):
@@ -166,26 +165,42 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
 @override_settings(WAGTAIL_DOCS_EXTENSIONS=["pdf"])
 class TestDocumentValidateExtensions(TestCase):
     def setUp(self):
-        self.document = models.Document.objects.create(title="Test document", file="test.doc")
+        self.document_invalid = models.Document.objects.create(
+            title="Test document", file="test.doc"
+        )
+        self.document_valid = models.Document.objects.create(
+            title="Test document", file="test.pdf"
+        )
 
-    @unittest.expectedFailure
-    def test_create_doc_without_valid_extension(self):
+    def test_create_doc_invalid_extension(self):
         """
         Checks if the uploded document is has the expected extensions
         mentioned in settings.WAGTAIL_DOCS_EXTENSIONS
 
-        This is caught in form.erros and should be raised during model
-        creation when called full_clean.
-
-        #TO_DO currently this test is failing because overide_settings
-        isn't overiding the setting during model creation. So currently
-        put it under expected failure.
+        This is caught in form.error and should be raised during model
+        creation when called full_clean. This specific testcase invalid
+        file extension is passed
         """
         with self.assertRaises(ValidationError):
-            self.document.full_clean()
+            self.document_invalid.full_clean()
+
+    def test_create_doc_valid_extension(self):
+        """
+        Checks if the uploded document is has the expected extensions
+        mentioned in settings.WAGTAIL_DOCS_EXTENSIONS
+
+        Valid file format is passed and testcase should fail if the
+        validation error is raised inspite of passing the correct file
+        extension.
+        """
+        try:
+            self.document_valid.full_clean()
+        except ValidationError:
+            self.fail("Validation error is raised even when valid file name is passed")
 
     def tearDown(self):
-        self.document.file.delete()
+        self.document_invalid.file.delete()
+        self.document_valid.file.delete()
 
 
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
