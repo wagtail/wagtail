@@ -592,7 +592,7 @@ Workflow
 
 Moderation workflows can be used in two modes. The first is to require that all tasks must approve a specific page revision for the workflow to complete. As a result,
 if edits are made to a page while it is in moderation, any approved tasks will need to be re-approved for the new revision before the workflow finishes.
-This is the default, ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`` . The second mode does not require reapproval: if edits are made when 
+This is the default, ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`` . The second mode does not require reapproval: if edits are made when
 tasks have already been approved, those tasks do not need to be reapproved. This is more suited to a hierarchical workflow system. To use workflows in this mode,
 set ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False``.
 
@@ -609,4 +609,4 @@ which publishes the page. The function must accept a ``WorkflowState`` object as
 
 This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
 Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the
-workflow continues to provide less urgent feedback. 
+workflow continues to provide less urgent feedback.

@@ -465,7 +465,7 @@ Alternatively, you can add ``form_classname`` in a subclass's ``Meta``:
 
         class Meta:
             form_classname = 'ingredients-list'
-    
+
 
 StreamBlock
 ~~~~~~~~~~~

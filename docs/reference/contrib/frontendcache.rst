@@ -39,7 +39,7 @@ Add a new item into the ``WAGTAILFRONTENDCACHE`` setting and set the ``BACKEND``
             'LOCATION': 'http://localhost:8000',
         },
     }
-	WAGTAILFRONTENDCACHE_LANGUAGES = []
+    WAGTAILFRONTENDCACHE_LANGUAGES = []
 
 
 Set ``WAGTAILFRONTENDCACHE_LANGUAGES`` to a list of languages (typically equal to ``[l[0] for l in settings.LANGUAGES]``) to also purge the urls for each language of a purging url. This setting needs ``settings.USE_I18N`` to be ``True`` to work. Its default is an empty list.
@@ -57,7 +57,7 @@ Cloudflare
 
 Firstly, you need to register an account with Cloudflare if you haven't already got one. You can do this here: `Cloudflare Sign up <https://www.cloudflare.com/sign-up>`_
 
-Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.CloudflareBackend``. 
+Add an item into the ``WAGTAILFRONTENDCACHE`` and set the ``BACKEND`` parameter to ``wagtail.contrib.frontend_cache.backends.CloudflareBackend``.
 
 This backend can be configured to use an account-wide API key, or an API token with restricted access.
 
