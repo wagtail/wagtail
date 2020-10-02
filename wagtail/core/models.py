@@ -1402,6 +1402,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             else:
                 site_id, root_path, root_url, language_code = possible_sites[0]
 
+        # If the active language code is a variant of the page's language, then
+        # use that instead
+        # This is used when LANGUAGES contain more languages than WAGTAIL_CONTENT_LANGUAGES
+        if get_supported_content_language_variant(translation.get_language()) == language_code:
+            language_code = translation.get_language()
+
         # The page may not be routable because wagtail_serve is not registered
         # This may be the case if Wagtail is used headless
         try:

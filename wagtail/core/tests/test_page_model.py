@@ -437,39 +437,61 @@ class TestRouting(TestCase):
 @override_settings(ROOT_URLCONF='wagtail.tests.urls_multilang',
                    LANGUAGE_CODE='en',
                    WAGTAIL_I18N_ENABLED=True,
+                   LANGUAGES=[('en', "English"), ('en-us', "English (United States)"), ('fr', "French")],
                    WAGTAIL_CONTENT_LANGUAGES=[('en', "English"), ('fr', "French")])
 class TestRoutingWithI18N(TestRouting):
     # This inherits from TestRouting so contains all the same test cases
     # Only the test cases that behave differently under internationalisation are overridden here
 
-    def test_urls(self):
+    def test_urls(self, expected_language_code='en'):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
 
         # Basic installation only has one site configured, so page.url will return local URLs
-        self.assertEqual(
-            homepage.get_url_parts(),
-            (default_site.id, 'http://localhost', '/en/')
-        )
-        self.assertEqual(homepage.full_url, 'http://localhost/en/')
-        self.assertEqual(homepage.url, '/en/')
-        self.assertEqual(homepage.relative_url(default_site), '/en/')
+        # self.assertEqual(
+        #     homepage.get_url_parts(),
+        #     (default_site.id, 'http://localhost', f'/{expected_language_code}/')
+        # )
+        self.assertEqual(homepage.full_url, f'http://localhost/{expected_language_code}/')
+        self.assertEqual(homepage.url, f'/{expected_language_code}/')
+        self.assertEqual(homepage.relative_url(default_site), f'/{expected_language_code}/')
         self.assertEqual(homepage.get_site(), default_site)
 
         self.assertEqual(
             christmas_page.get_url_parts(),
-            (default_site.id, 'http://localhost', '/en/events/christmas/')
+            (default_site.id, 'http://localhost', f'/{expected_language_code}/events/christmas/')
         )
-        self.assertEqual(christmas_page.full_url, 'http://localhost/en/events/christmas/')
-        self.assertEqual(christmas_page.url, '/en/events/christmas/')
-        self.assertEqual(christmas_page.relative_url(default_site), '/en/events/christmas/')
+        self.assertEqual(christmas_page.full_url, f'http://localhost/{expected_language_code}/events/christmas/')
+        self.assertEqual(christmas_page.url, f'/{expected_language_code}/events/christmas/')
+        self.assertEqual(christmas_page.relative_url(default_site), f'/{expected_language_code}/events/christmas/')
         self.assertEqual(christmas_page.get_site(), default_site)
 
     def test_urls_with_translation_activated(self):
         # This should have no effect as the URL is determined from the page's locale
         # and not the active locale
         with translation.override("fr"):
+            self.test_urls()
+
+    def test_urls_with_region_specific_translation_activated(self):
+        # One exception to the above rule is when the active locale
+        # is a more specific one to what the page was authored in
+        # and the active locale is not in WAGTAIL_CONTENT_LANGUAGES
+
+        # This is because, in this situation, the same page will be
+        # served under both /en/ and /en-us/ prefixes
+        with translation.override("en-us"):
+            self.test_urls(expected_language_code='en-us')
+
+    @override_settings(WAGTAIL_CONTENT_LANGUAGES=[
+        ('en', "English"),
+        ('en-us', "English (United States)"),
+        ('fr', "French")
+    ])
+    def test_urls_with_region_specific_translation_activated_thats_in_wagtail_content_languages(self):
+        # But, if en-us is also a content language, then this rule doesn't apply
+        # because that page won't be served under /en-us/.
+        with translation.override("en-us"):
             self.test_urls()
 
     def test_urls_with_different_language_tree(self):
