@@ -1,4 +1,3 @@
-import datetime
 import pathlib
 import sys
 import json
@@ -15,7 +14,7 @@ except StopIteration:
 
 print("Uploading", f.name)
 s3 = boto3.client('s3')
-s3.upload_file(str(f), 'releases.wagtail.io', 'nightly/dist/' + f.name, ExtraArgs={'ACL':'public-read'})
+s3.upload_file(str(f), 'releases.wagtail.io', 'nightly/dist/' + f.name, ExtraArgs={'ACL': 'public-read'})
 
 print("Updating latest.json")
 

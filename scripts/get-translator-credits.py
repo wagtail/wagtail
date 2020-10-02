@@ -47,6 +47,7 @@ def get_language_name(locale_string):
     except KeyError:
         return Locale.parse(locale_string).english_name
 
+
 language_names = [
     (get_language_name(locale_string), locale_string)
     for locale_string in authors_by_locale.keys()
