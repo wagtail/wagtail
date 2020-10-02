@@ -147,5 +147,5 @@ For example, you can manually run feature detection on all images by running the
         if not image.has_focal_point():
             image.set_focal_point(image.get_suggested_focal_point())
             image.save()
-            
-        
+
+

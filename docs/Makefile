@@ -59,6 +59,9 @@ spelling:
 	@echo
 	@echo "Spellcheck complete."
 
+lint:
+	doc8 --ignore D001 --ignore-path _build
+
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
 	@echo
