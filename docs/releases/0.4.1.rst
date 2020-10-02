@@ -5,5 +5,5 @@ Wagtail 0.4.1 release notes
 Bug fixes
 ~~~~~~~~~
 
- * ElasticSearch backend now respects the backward-compatible URLS configuration setting, in addition to HOSTS
+ * Elasticsearch backend now respects the backward-compatible URLS configuration setting, in addition to HOSTS
  * Documentation fixes
