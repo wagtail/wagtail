@@ -142,7 +142,7 @@ STATICFILES_DIRS = [
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
-# Javascript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
+# JavaScript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
 # See https://docs.djangoproject.com/en/{{ docs_version }}/ref/contrib/staticfiles/#manifeststaticfilesstorage
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 

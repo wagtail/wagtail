@@ -532,7 +532,7 @@ class BackendTests(WagtailTestUtils):
         ])
 
     def test_plain_text_single_word(self):
-        results = self.backend.search(PlainText('Javascript'),
+        results = self.backend.search(PlainText('JavaScript'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
                             {'JavaScript: The Definitive Guide',
@@ -545,7 +545,7 @@ class BackendTests(WagtailTestUtils):
         self.assertSetEqual({r.title for r in results}, set())
 
     def test_plain_text_multiple_words_or(self):
-        results = self.backend.search(PlainText('Javascript Definitive',
+        results = self.backend.search(PlainText('JavaScript Definitive',
                                                 operator='or'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
@@ -553,7 +553,7 @@ class BackendTests(WagtailTestUtils):
                              'JavaScript: The good parts'})
 
     def test_plain_text_multiple_words_and(self):
-        results = self.backend.search(PlainText('Javascript Definitive',
+        results = self.backend.search(PlainText('JavaScript Definitive',
                                                 operator='and'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},

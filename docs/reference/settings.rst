@@ -454,7 +454,7 @@ Static files
 
     WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS = False
 
-Static file URLs within the Wagtail admin are given a version-specific query string of the form ``?v=1a2b3c4d``, to prevent outdated cached copies of Javascript and CSS files from persisting after a Wagtail upgrade. To disable these, set ``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS`` to ``False``.
+Static file URLs within the Wagtail admin are given a version-specific query string of the form ``?v=1a2b3c4d``, to prevent outdated cached copies of JavaScript and CSS files from persisting after a Wagtail upgrade. To disable these, set ``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS`` to ``False``.
 
 API Settings
 ============
