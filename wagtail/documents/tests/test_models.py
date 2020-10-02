@@ -1,9 +1,8 @@
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.files.base import ContentFile
 from django.db import transaction
-from django.core.exceptions import ValidationError
 from django.test import TestCase, TransactionTestCase
 from django.test.utils import override_settings
 
