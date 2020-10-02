@@ -5,6 +5,7 @@ from collections import namedtuple
 from io import StringIO
 from urllib.parse import urlparse
 
+from django import VERSION as DJANGO_VERSION
 from django import forms
 from django.apps import apps
 from django.conf import settings
@@ -90,7 +91,22 @@ def _extract_field_data(source, exclude_fields=None):
         if isinstance(field, models.OneToOneField) and field.remote_field.parent_link:
             continue
 
-        data_dict[field.name] = getattr(source, field.name)
+        if DJANGO_VERSION >= (3, 0) and isinstance(field, models.ForeignKey):
+            # Use attname to copy the ID instead of retrieving the instance
+
+            # Note: We first need to set the field to None to unset any object
+            # that's there already just setting _id on its own won't change the
+            # field until its saved.
+
+            # Before Django 3.0, Django won't find the new object if the field
+            # was set to None in this way, so this optimisation isn't available
+            # for Django 2.x.
+
+            data_dict[field.name] = None
+            data_dict[field.attname] = getattr(source, field.attname)
+
+        else:
+            data_dict[field.name] = getattr(source, field.name)
 
     return data_dict
 
@@ -936,11 +952,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         result = super().save(**kwargs)
 
-        if update_descendant_url_paths:
+        if not is_new and update_descendant_url_paths:
             self._update_descendant_url_paths(old_url_path, new_url_path)
 
         # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
-        if self.is_site_root():
+        if not is_new and self.is_site_root():
             cache.delete('wagtail_site_root_paths')
 
         # Log
@@ -1177,7 +1193,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return self.draft_title or self.title
 
     def save_revision(self, user=None, submitted_for_moderation=False, approved_go_live_at=None, changed=True,
-                      log_action=False, previous_revision=None):
+                      log_action=False, previous_revision=None, clean=True):
         """
         Creates and saves a page revision.
         :param user: the user performing the action
@@ -1187,9 +1203,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         :param log_action: flag for logging the action. Pass False to skip logging. Can be passed an action string.
             Defaults to 'wagtail.edit' when no 'previous_revision' param is passed, otherwise 'wagtail.revert'
         :param previous_revision: indicates a revision reversal. Should be set to the previous revision instance
+        :param clean: Set this to False to skip cleaning page content before saving this revision
         :return: the newly created revision
         """
-        self.full_clean()
+        if clean:
+            self.full_clean()
 
         # Create revision
         revision = self.revisions.create(
@@ -1212,7 +1230,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             update_fields.append('has_unpublished_changes')
 
         if update_fields:
-            self.save(update_fields=update_fields)
+            # clean=False because the fields we're updating don't need validation
+            self.save(update_fields=update_fields, clean=False)
 
         # Log
         logger.info("Page edited: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
@@ -1731,12 +1750,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
-             process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True):
+             process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True, _mpnode_attrs=None):
         """
         Copies a given page
         :param log_action flag for logging the action. Pass None to skip logging.
             Can be passed an action string. Defaults to 'wagtail.copy'
         """
+
+        if self._state.adding:
+            raise RuntimeError('Page.copy() called on an unsaved page')
+
         exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
         specific_self = self.specific
         if keep_live:
@@ -1772,12 +1795,21 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 child_object.translation_key = uuid.uuid4()
 
         # Save the new page
-        if to:
-            if recursive and (to == self or to.is_descendant_of(self)):
-                raise Exception("You cannot copy a tree branch recursively into itself")
-            page_copy = to.add_child(instance=page_copy)
+        if _mpnode_attrs:
+            # We've got a tree position already reserved. Perform a quick save
+            page_copy.path = _mpnode_attrs[0]
+            page_copy.depth = _mpnode_attrs[1]
+            page_copy.save(clean=False)
+
         else:
-            page_copy = self.add_sibling(instance=page_copy)
+            if to:
+                if recursive and (to == self or to.is_descendant_of(self)):
+                    raise Exception("You cannot copy a tree branch recursively into itself")
+                page_copy = to.add_child(instance=page_copy)
+            else:
+                page_copy = self.add_sibling(instance=page_copy)
+
+            _mpnode_attrs = (page_copy.path, page_copy.depth)
 
         _copy_m2m_relations(specific_self, page_copy, exclude_fields=exclude_fields, update_attrs=base_update_attrs)
 
@@ -1827,12 +1859,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             for field, value in update_attrs.items():
                 setattr(latest_revision, field, value)
 
-        latest_revision_as_page_revision = latest_revision.save_revision(user=user, changed=False)
+        latest_revision_as_page_revision = latest_revision.save_revision(user=user, changed=False, clean=False)
         if keep_live:
             page_copy.live_revision = latest_revision_as_page_revision
             page_copy.last_published_at = latest_revision_as_page_revision.created_at
             page_copy.first_published_at = latest_revision_as_page_revision.created_at
-            page_copy.save()
+            page_copy.save(clean=False)
 
         # Log
         if log_action:
@@ -1863,15 +1895,28 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # Copy child pages
         if recursive:
-            for child_page in self.get_children():
-                child_page.specific.copy(
+            numchild = 0
+
+            for child_page in self.get_children().specific():
+                newdepth = _mpnode_attrs[1] + 1
+                child_mpnode_attrs = (
+                    Page._get_path(_mpnode_attrs[0], newdepth, numchild),
+                    newdepth
+                )
+                numchild += 1
+                child_page.copy(
                     recursive=True,
                     to=page_copy,
                     copy_revisions=copy_revisions,
                     keep_live=keep_live,
                     user=user,
                     process_child_object=process_child_object,
+                    _mpnode_attrs=child_mpnode_attrs
                 )
+
+            if numchild > 0:
+                page_copy.numchild = numchild
+                page_copy.save(clean=False, update_fields=['numchild'])
 
         return page_copy
 
@@ -4151,16 +4196,25 @@ class BaseLogEntry(models.Model):
         )
 
     @cached_property
-    def username(self):
+    def user_display_name(self):
         """
-        Returns the associated username. Defaults to 'system' when none is provided
+        Returns the display name of the associated user;
+        get_full_name if available and non-empty, otherwise get_username.
+        Defaults to 'system' when none is provided
         """
         if self.user_id:
             try:
-                return self.user.get_username()
+                user = self.user
             except self._meta.get_field('user').related_model.DoesNotExist:
                 # User has been deleted
                 return _('user %(id)d (deleted)') % {'id': self.user_id}
+
+            try:
+                full_name = user.get_full_name().strip()
+            except AttributeError:
+                full_name = ''
+            return full_name or user.get_username()
+
         else:
             return _('system')
 

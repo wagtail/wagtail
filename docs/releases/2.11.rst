@@ -22,6 +22,15 @@ Other features
  * Specify minimum Python version in setup.py (Vince Salvino)
  * Extend treebeard's ``fix_tree`` method with the ability to non-destructively fix path issues and add a --full option to apply path fixes (Matt Westcott)
  * Add support for hierarchical/nested Collections (Robert Rollins)
+ * Show user's full name in report views (Matt Westcott)
+ * Improve Wagtail admin page load performance by caching SVG icons sprite in localstorage (Coen van der Kamp)
+ * Support SVG icons in ModelAdmin menu items (Scott Cranfill)
+ * Serve PDFs inline in the browser (Matt Westcott)
+ * Make document ``content-type`` and ``content-disposition`` configurable via ``WAGTAILDOCS_CONTENT_TYPES`` and ``WAGTAILDOCS_INLINE_CONTENT_TYPES`` (Matt Westcott)
+ * Slug generation no longer removes stopwords (Andy Chosak, Scott Cranfill)
+ * Add check to disallow StreamField block names that do not match Python variable syntax (François Poulain)
+ * The ``BASE_URL`` setting is now converted to a str, if it isn't already, when constructing API URLs (thenewguy)
+ * Preview from 'pages awaiting moderation' now opens in a new window (Cynthia Kiser)
 
 
 Bug fixes
@@ -32,6 +41,9 @@ Bug fixes
  * Update oEmbed endpoints to use https where available (Matt Westcott)
  * Revise ``edit_handler`` bind order in ModelAdmin views and fix duplicate form instance creation (Jérôme Lebleu)
  * Properly distinguish child blocks when comparing revisions with nested StreamBlocks (Martin Mena)
+ * Correctly handle Turkish 'İ' characters in client-side slug generation (Matt Westcott)
+ * Page chooser widgets now reflect custom ``get_admin_display_title`` methods (Saptak Sengupta)
+ * ``Page.copy()`` now raises an error if the page being copied is unsaved (Anton Zhyltsou)
 
 
 Upgrade considerations

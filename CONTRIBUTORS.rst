@@ -477,6 +477,8 @@ Contributors
 * Vyacheslav Matyukhin
 * Vince Salvino
 * Dino Perovic
+* Ameet Virdee
+* Anton Zhyltsou
 
 Translators
 ===========

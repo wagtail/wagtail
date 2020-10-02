@@ -2,7 +2,6 @@ from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.urls import include, path, reverse
-from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
@@ -33,16 +32,6 @@ def register_snippets_menu_item():
         reverse('wagtailsnippets:index'),
         icon_name='snippet',
         order=500
-    )
-
-
-@hooks.register('insert_editor_js')
-def editor_js():
-    return format_html(
-        """
-            <script>window.chooserUrls.snippetChooser = '{0}';</script>
-        """,
-        reverse('wagtailsnippets:choose_generic')
     )
 
 

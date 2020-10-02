@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.db import models
+from django.shortcuts import get_object_or_404
 from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
-from wagtail.core.models import Page
+from wagtail.core.models import Locale, Page
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
 
@@ -17,6 +18,10 @@ class FieldsFilter(BaseFilterBackend):
         Eg: ?title=James Joyce
         """
         fields = set(view.get_available_fields(queryset.model, db_fields_only=True))
+
+        # Locale is a database field, but we provide a separate filter for it
+        if 'locale' in fields:
+            fields.remove('locale')
 
         for field_name, value in request.GET.items():
             if field_name in fields:
@@ -149,6 +154,10 @@ class ChildOfFilter(BaseFilterBackend):
                 raise BadRequestError("parent page doesn't exist")
 
             queryset = queryset.child_of(parent_page)
+
+            # Save the parent page on the queryset. This is required for the page
+            # explorer, which needs to pass the parent page into
+            # `construct_explorer_page_queryset` hook functions
             queryset._filtered_by_child_of = parent_page
 
         return queryset
@@ -178,5 +187,54 @@ class DescendantOfFilter(BaseFilterBackend):
                 raise BadRequestError("ancestor page doesn't exist")
 
             queryset = queryset.descendant_of(parent_page)
+
+        return queryset
+
+
+class TranslationOfFilter(BaseFilterBackend):
+    """
+    Implements the ?translation_of filter which limits the set of pages to translations
+    of a page.
+    """
+    def filter_queryset(self, request, queryset, view):
+        if 'translation_of' in request.GET:
+            try:
+                page_id = int(request.GET['translation_of'])
+                if page_id < 0:
+                    raise ValueError()
+
+                page = view.get_base_queryset().get(id=page_id)
+            except ValueError:
+                if request.GET['translation_of'] == 'root':
+                    page = view.get_root_page()
+                else:
+                    raise BadRequestError("translation_of must be a positive integer")
+            except Page.DoesNotExist:
+                raise BadRequestError("translation_of page doesn't exist")
+
+            _filtered_by_child_of = getattr(queryset, '_filtered_by_child_of', None)
+
+            queryset = queryset.translation_of(page)
+
+            if _filtered_by_child_of:
+                queryset._filtered_by_child_of = _filtered_by_child_of
+
+        return queryset
+
+
+class LocaleFilter(BaseFilterBackend):
+    """
+    Implements the ?locale filter which limits the set of pages to a
+    particular locale.
+    """
+    def filter_queryset(self, request, queryset, view):
+        if 'locale' in request.GET:
+            _filtered_by_child_of = getattr(queryset, '_filtered_by_child_of', None)
+
+            locale = get_object_or_404(Locale, language_code=request.GET['locale'])
+            queryset = queryset.filter(locale=locale)
+
+            if _filtered_by_child_of:
+                queryset._filtered_by_child_of = _filtered_by_child_of
 
         return queryset

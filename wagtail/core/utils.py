@@ -176,7 +176,7 @@ class InvokeViaAttributeShortcut:
         return method(name)
 
 
-def find_available_slug(parent, requested_slug):
+def find_available_slug(parent, requested_slug, ignore_page_id=None):
     """
     Finds an available slug within the specified parent.
 
@@ -187,12 +187,17 @@ def find_available_slug(parent, requested_slug):
      - 'requested-slug-2'
 
     And so on, until an available slug is found.
+
+    The `ignore_page_id` keyword argument is useful for when you are updating a page,
+    you can pass the page being updated here so the page's current slug is not
+    treated as in use by another page.
     """
-    existing_slugs = set(
-        parent.get_children()
-        .filter(slug__startswith=requested_slug)
-        .values_list("slug", flat=True)
-    )
+    pages = parent.get_children().filter(slug__startswith=requested_slug)
+
+    if ignore_page_id:
+        pages = pages.exclude(id=ignore_page_id)
+
+    existing_slugs = set(pages.values_list("slug", flat=True))
     slug = requested_slug
     number = 1
 

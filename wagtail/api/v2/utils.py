@@ -1,6 +1,7 @@
 from urllib.parse import urlparse
 
 from django.conf import settings
+from django.utils.encoding import force_str
 
 from wagtail.core.models import Page, Site
 from wagtail.core.utils import resolve_model_string
@@ -11,19 +12,16 @@ class BadRequestError(Exception):
 
 
 def get_base_url(request=None):
-    base_url = None
+    base_url = getattr(settings, 'WAGTAILAPI_BASE_URL', None)
 
-    try:
-        base_url = getattr(settings, 'WAGTAILAPI_BASE_URL')
-    except AttributeError:
-        if request:
-            site = Site.find_for_request(request)
-            if site:
-                base_url = site.root_url
+    if base_url is None and request:
+        site = Site.find_for_request(request)
+        if site:
+            base_url = site.root_url
 
     if base_url:
         # We only want the scheme and netloc
-        base_url_parsed = urlparse(base_url)
+        base_url_parsed = urlparse(force_str(base_url))
 
         return base_url_parsed.scheme + '://' + base_url_parsed.netloc
 

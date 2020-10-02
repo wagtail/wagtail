@@ -31,13 +31,33 @@ class Command(BaseCommand):
             current_page_id = revision.page_id
 
             if not PageLogEntry.objects.filter(revision=revision).exists():
-                current_revision_as_page = revision.as_page_object()
+                try:
+                    current_revision_as_page = revision.as_page_object()
+                except Exception:
+                    # restoring old revisions may fail if e.g. they have an on_delete=PROTECT foreign key
+                    # to a no-longer-existing model instance. We cannot compare changes between two
+                    # non-restorable revisions, although we can at least infer that there was a content
+                    # change at the point that it went from restorable to non-restorable or vice versa.
+                    current_revision_as_page = None
+
                 published = revision.id == revision.page.live_revision_id
 
                 if previous_revision is not None:
-                    # Must use .specific so the comparison picks up all fields, not just base Page ones.
-                    comparison = get_comparison(revision.page.specific, previous_revision.as_page_object(), current_revision_as_page)
-                    has_content_changes = len(comparison) > 0
+                    try:
+                        previous_revision_as_page = previous_revision.as_page_object()
+                    except Exception:
+                        previous_revision_as_page = None
+
+                    if previous_revision_as_page is None and current_revision_as_page is None:
+                        # both revisions failed to restore - unable to determine presence of content changes
+                        has_content_changes = False
+                    elif previous_revision_as_page is None or current_revision_as_page is None:
+                        # one or the other revision failed to restore, which indicates a content change
+                        has_content_changes = True
+                    else:
+                        # Must use .specific so the comparison picks up all fields, not just base Page ones.
+                        comparison = get_comparison(revision.page.specific, previous_revision_as_page, current_revision_as_page)
+                        has_content_changes = len(comparison) > 0
 
                     if current_revision_as_page.live_revision_id == previous_revision.id:
                         # Log the previous revision publishing.

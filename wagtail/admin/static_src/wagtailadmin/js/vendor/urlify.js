@@ -128,7 +128,7 @@
 
     var Downcoder = {
         'Initialize': function() {
-            if (Downcoder.map) {  // already made
+            if (Downcoder.map) { // already made
                 return;
             }
             Downcoder.map = {};
@@ -160,35 +160,23 @@
 
     function URLify(s, num_chars, allowUnicode) {
         // changes, e.g., "Petty theft" to "petty-theft"
-        // remove all these words from the string before urlifying
         if (!allowUnicode) {
             s = downcode(s);
         }
-        var hasUnicodeChars = /[^\u0000-\u007f]/.test(s);
-        // Javascript RegExp does not identify word boundaries correctly
-        // when dealing with unicode characters. If the string does not
-        // contain unicode chars, it's safe to use the regular expression.
-        if (!hasUnicodeChars) {
-          var removelist = [
-            "a", "an", "as", "at", "before", "but", "by", "for", "from", "is",
-            "in", "into", "like", "of", "off", "on", "onto", "per", "since",
-            "than", "the", "this", "that", "to", "up", "via", "with"
-          ];
-          var r = new RegExp('\\b(' + removelist.join('|') + ')\\b', 'gi');
-          s = s.replace(r, '');
-        }
+        s = s.toLowerCase(); // convert to lowercase
         // if downcode doesn't hit, the char will be stripped here
         if (allowUnicode) {
             // Keep Unicode letters including both lowercase and uppercase
             // characters, whitespace, and dash; remove other characters.
             s = XRegExp.replace(s, XRegExp('[^-_\\p{L}\\p{N}\\s]', 'g'), '');
         } else {
-            s = s.replace(/[^-\w\s]/g, '');  // remove unneeded chars
+            s = s.replace(/[^-\w\s]/g, ''); // remove unneeded chars
         }
-        s = s.replace(/^\s+|\s+$/g, '');   // trim leading/trailing spaces
-        s = s.replace(/[-\s]+/g, '-');     // convert spaces to hyphens
-        s = s.toLowerCase();               // convert to lowercase
-        return s.substring(0, num_chars);  // trim to first num_chars chars
+        s = s.replace(/^\s+|\s+$/g, ''); // trim leading/trailing spaces
+        s = s.replace(/[-\s]+/g, '-'); // convert spaces to hyphens
+        s = s.substring(0, num_chars); // trim to first num_chars chars
+        s = s.replace(/-+$/g, ''); // trim any trailing hyphens
+        return s;
     }
     window.URLify = URLify;
 })();

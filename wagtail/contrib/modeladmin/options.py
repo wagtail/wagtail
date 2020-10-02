@@ -599,7 +599,7 @@ class ModelAdminGroup(WagtailRegisterable):
         return ''
 
     def get_menu_icon(self):
-        return self.menu_icon or 'icon-folder-open-inverse'
+        return self.menu_icon or 'folder-open-inverse'
 
     def get_menu_order(self):
         return self.menu_order or 999

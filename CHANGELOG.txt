@@ -13,20 +13,32 @@ Changelog
  * Remove unidecode and use anyascii in for Unicode to ASCII conversion (Robbie Mackay)
  * Add `render` helper to `RoutablePageMixin` to support serving template responses according to Wagtail conventions (Andy Babic)
  * Specify minimum Python version in setup.py (Vince Salvino)
+ * Show user's full name in report views (Matt Westcott)
+ * Improve Wagtail admin page load performance by caching SVG icons sprite in localstorage (Coen van der Kamp)
+ * Support SVG icons in ModelAdmin menu items (Scott Cranfill)
+ * Serve PDFs inline in the browser (Matt Westcott)
+ * Make document `content-type` and `content-disposition` configurable via `WAGTAILDOCS_CONTENT_TYPES` and `WAGTAILDOCS_INLINE_CONTENT_TYPES` (Matt Westcott)
+ * Slug generation no longer removes stopwords (Andy Chosak, Scott Cranfill)
+ * Add check to disallow StreamField block names that do not match Python variable syntax (François Poulain)
+ * The `BASE_URL` setting is now converted to a str, if it isn't already, when constructing API URLs (thenewguy)
+ * Preview from 'pages awaiting moderation' now opens in a new window (Cynthia Kiser)
  * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
  * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
  * Fix: Revise `edit_handler` bind order in ModelAdmin views and fix duplicate form instance creation (Jérôme Lebleu)
  * Fix: Properly distinguish child blocks when comparing revisions with nested StreamBlocks (Martin Mena)
+ * Fix: Correctly handle Turkish 'İ' characters in client-side slug generation (Matt Westcott)
+ * Fix: Page chooser widgets now reflect custom ``get_admin_display_title`` methods (Saptak Sengupta)
+ * Fix: `Page.copy()` now raises an error if the page being copied is unsaved (Anton Zhyltsou)
 
-
-2.10.2 (xx.xx.xxxx) - IN DEVELOPMENT
+2.10.2 (25.09.2020)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Avoid use of `icon` class name on userbar icon to prevent clashes with front-end styles (Karran Besen)
  * Fix: Prevent focused button labels from displaying as white on white (Karran Bessen)
  * Fix: Avoid showing preview button on moderation dashboard for page types with preview disabled (Dino Perovic)
  * Fix: Prevent oversized buttons in moderation dashboard panel (Dan Braghis)
+ * Fix: `create_log_entries_from_revisions` now handles revisions that cannot be restored due to foreign key constraints (Matt Westcott)
 
 
 2.10.1 (26.08.2020)

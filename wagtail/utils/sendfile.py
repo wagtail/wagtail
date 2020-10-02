@@ -85,6 +85,8 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
                 parts.append('filename*=UTF-8\'\'%s' % quoted_filename)
 
         response['Content-Disposition'] = '; '.join(parts)
+    else:
+        response['Content-Disposition'] = 'inline'
 
     response['Content-length'] = os.path.getsize(filename)
     response['Content-Type'] = mimetype

@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
 from django.shortcuts import redirect
@@ -13,7 +14,9 @@ from rest_framework.viewsets import GenericViewSet
 from wagtail.api import APIField
 from wagtail.core.models import Page, Site
 
-from .filters import ChildOfFilter, DescendantOfFilter, FieldsFilter, OrderingFilter, SearchFilter
+from .filters import (
+    ChildOfFilter, DescendantOfFilter, FieldsFilter, LocaleFilter, OrderingFilter, SearchFilter,
+    TranslationOfFilter)
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
@@ -366,12 +369,16 @@ class PagesAPIViewSet(BaseAPIViewSet):
         ChildOfFilter,
         DescendantOfFilter,
         OrderingFilter,
-        SearchFilter
+        SearchFilter,
+        TranslationOfFilter,
+        LocaleFilter,
     ]
     known_query_parameters = BaseAPIViewSet.known_query_parameters.union([
         'type',
         'child_of',
         'descendant_of',
+        'translation_of',
+        'locale',
     ])
     body_fields = BaseAPIViewSet.body_fields + [
         'title',
@@ -384,6 +391,7 @@ class PagesAPIViewSet(BaseAPIViewSet):
         'search_description',
         'first_published_at',
         'parent',
+        'locale',
     ]
     listing_default_fields = BaseAPIViewSet.listing_default_fields + [
         'title',
@@ -397,6 +405,26 @@ class PagesAPIViewSet(BaseAPIViewSet):
     detail_only_fields = ['parent']
     name = 'pages'
     model = Page
+
+    @classmethod
+    def get_detail_default_fields(cls, model):
+        detail_default_fields = super().get_detail_default_fields(model)
+
+        # When i18n is disabled, remove "locale" from default fields
+        if not getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+            detail_default_fields.remove('locale')
+
+        return detail_default_fields
+
+    @classmethod
+    def get_listing_default_fields(cls, model):
+        listing_default_fields = super().get_listing_default_fields(model)
+
+        # When i18n is enabled, add "locale" to default fields
+        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+            listing_default_fields.append('locale')
+
+        return listing_default_fields
 
     def get_root_page(self):
         """
@@ -417,7 +445,14 @@ class PagesAPIViewSet(BaseAPIViewSet):
         # Filter by site
         site = Site.find_for_request(self.request)
         if site:
-            queryset = queryset.descendant_of(site.root_page, inclusive=True)
+            base_queryset = queryset
+            queryset = base_queryset.descendant_of(site.root_page, inclusive=True)
+
+            # If internationalisation is enabled, include pages from other language trees
+            if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+                for translation in site.root_page.get_translations():
+                    queryset |= base_queryset.descendant_of(translation, inclusive=True)
+
         else:
             # No sites configured
             queryset = queryset.none()

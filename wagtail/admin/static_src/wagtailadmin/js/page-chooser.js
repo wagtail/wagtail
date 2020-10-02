@@ -5,7 +5,7 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPer
     var editLink = chooserElement.find('.edit-link');
 
     $('.action-choose', chooserElement).on('click', function() {
-        var initialUrl = window.chooserUrls.pageChooser;
+        var initialUrl = chooserElement.data('chooserUrl');
         if (openAtParentId) {
             initialUrl += openAtParentId + '/';
         }
@@ -26,7 +26,7 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPer
                 pageChosen: function(pageData) {
                     input.val(pageData.id);
                     openAtParentId = pageData.parentId;
-                    pageTitle.text(pageData.title);
+                    pageTitle.text(pageData.adminTitle);
                     chooserElement.removeClass('blank');
                     editLink.attr('href', pageData.editUrl);
                 }

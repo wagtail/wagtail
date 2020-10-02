@@ -50,6 +50,8 @@ class TestAdminPageChooserWidget(TestCase):
 
         html = widget.render_html('test', self.child_page, {})
         self.assertInHTML("""<input name="test" type="hidden" value="%d" />""" % self.child_page.id, html)
+        # SimplePage has a custom get_admin_display_title method which should be reflected here
+        self.assertInHTML("foobarbaz (simple page)", html)
 
     def test_render_js_init_with_value(self):
         widget = widgets.AdminPageChooser()

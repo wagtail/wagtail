@@ -125,7 +125,9 @@ class TestFindAvailableSlug(TestCase):
         self.root_page = Page.objects.get(depth=1)
         self.home_page = Page.objects.get(depth=2)
 
-        self.root_page.add_child(instance=Page(title="Second homepage", slug="home-1"))
+        self.second_home_page = self.root_page.add_child(
+            instance=Page(title="Second homepage", slug="home-1")
+        )
 
     def test_find_available_slug(self):
         with self.assertNumQueries(1):
@@ -139,6 +141,12 @@ class TestFindAvailableSlug(TestCase):
             slug = find_available_slug(self.root_page, "home")
 
         self.assertEqual(slug, "home-2")
+
+    def test_find_available_slug_ignore_page_id(self):
+        with self.assertNumQueries(1):
+            slug = find_available_slug(self.root_page, "home", ignore_page_id=self.second_home_page.id)
+
+        self.assertEqual(slug, "home-1")
 
 
 @override_settings(

@@ -1,4 +1,3 @@
-import itertools
 import json
 import warnings
 from datetime import datetime
@@ -548,20 +547,6 @@ def icon(name=None, class_name='icon', title=None, wrapped=False):
     }
 
 
-_icons_html = None
-
-
-@register.simple_tag
-def icons():
-    global _icons_html
-    if _icons_html is None:
-        icon_hooks = hooks.get_hooks('register_icons')
-        icons = sorted(itertools.chain.from_iterable(hook([]) for hook in icon_hooks))
-        _icons_html = render_to_string("wagtailadmin/shared/icons.html", {'icons': icons})
-
-    return _icons_html
-
-
 @register.filter()
 def timesince_simple(d):
     """
@@ -628,3 +613,24 @@ def minimum_collection_depth(collections: QuerySet) -> int:
     use {% format_collection collection min_depth %}.
     """
     return collections.aggregate(Min('depth'))['depth__min'] or 2
+
+
+@register.filter
+def user_display_name(user):
+    """
+    Returns the preferred display name for the given user object: the result of
+    user.get_full_name() if implemented and non-empty, or user.get_username() otherwise.
+    """
+    try:
+        full_name = user.get_full_name().strip()
+        if full_name:
+            return full_name
+    except AttributeError:
+        pass
+
+    try:
+        return user.get_username()
+    except AttributeError:
+        # we were passed None or something else that isn't a valid user object; return
+        # empty string to replicate the behaviour of {{ user.get_full_name|default:user.get_username }}
+        return ''

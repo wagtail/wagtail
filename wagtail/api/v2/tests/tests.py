@@ -1,6 +1,83 @@
-from unittest import TestCase
+from django.test import RequestFactory, TestCase, override_settings
+from django.utils.encoding import force_bytes
 
-from ..utils import FieldsParameterParseError, parse_boolean, parse_fields_parameter
+from wagtail.core.models import Site
+from ..utils import FieldsParameterParseError, get_base_url, parse_boolean, parse_fields_parameter
+
+
+class DynamicBaseUrl:
+    def __str__(self):
+        return 'https://www.example.com'
+
+    def __bytes__(self):
+        return force_bytes(self.__str__())
+
+    def decode(self, *args, **kwargs):
+        return self.__bytes__().decode(*args, **kwargs)
+
+
+class TestGetBaseUrl(TestCase):
+    def setUp(self):
+        Site.objects.all().delete()
+
+    def prepare_site(self):
+        return Site.objects.get_or_create(
+            hostname='other.example.com',
+            port=8080,
+            root_page_id=1,
+            is_default_site=True,
+        )[0]
+
+    def clear_cached_site(self, request):
+        del request._wagtail_site
+
+    def test_get_base_url_unset(self):
+        self.assertIsNone(get_base_url())
+
+    def test_get_base_url_from_request(self):
+        # base url for siteless request should be None
+        request = RequestFactory().get('/')
+        self.assertIsNone(Site.find_for_request(request))
+        self.assertIsNone(get_base_url(request))
+
+        # base url for request with a site should be based on the site's details
+        site = self.prepare_site()
+        self.clear_cached_site(request)
+        self.assertEqual(site, Site.find_for_request(request))
+        self.assertEqual(get_base_url(request), 'http://other.example.com:8080')
+
+        # port 443 should indicate https without a port
+        site.port = 443
+        site.save()
+        self.clear_cached_site(request)
+        self.assertEqual(get_base_url(request), 'https://other.example.com')
+
+        # port 80 should indicate http without a port
+        site.port = 80
+        site.save()
+        self.clear_cached_site(request)
+        self.assertEqual(get_base_url(request), 'http://other.example.com')
+
+    @override_settings(WAGTAILAPI_BASE_URL='https://bar.example.com')
+    def test_get_base_url_prefers_setting(self):
+        request = RequestFactory().get('/')
+        site = self.prepare_site()
+        self.assertEqual(site, Site.find_for_request(request))
+        self.assertEqual(get_base_url(request), 'https://bar.example.com')
+        with override_settings(WAGTAILAPI_BASE_URL=None):
+            self.assertEqual(get_base_url(request), 'http://other.example.com:8080')
+
+    @override_settings(WAGTAILAPI_BASE_URL='https://bar.example.com')
+    def test_get_base_url_from_setting_string(self):
+        self.assertEqual(get_base_url(), 'https://bar.example.com')
+
+    @override_settings(WAGTAILAPI_BASE_URL=b'https://baz.example.com')
+    def test_get_base_url_from_setting_bytes(self):
+        self.assertEqual(get_base_url(), 'https://baz.example.com')
+
+    @override_settings(WAGTAILAPI_BASE_URL=DynamicBaseUrl())
+    def test_get_base_url_from_setting_object(self):
+        self.assertEqual(get_base_url(), 'https://www.example.com')
 
 
 class TestParseFieldsParameter(TestCase):

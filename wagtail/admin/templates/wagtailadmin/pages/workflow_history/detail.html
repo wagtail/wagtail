@@ -17,7 +17,7 @@
         <h2>{% icon "clipboard-list" class_name="initial" %} {{ workflow_state.workflow.name }}</h2>
 
         <p>
-            {% blocktrans with modified_by=workflow_state.requested_by.get_full_name|default:workflow_state.requested_by.get_username %}Requested by <b>{{ modified_by }}</b>{% endblocktrans %}
+            {% blocktrans with modified_by=workflow_state.requested_by|user_display_name %}Requested by <b>{{ modified_by }}</b>{% endblocktrans %}
             <span class="avatar small"><img src="{% avatar_url workflow_state.requested_by size=25 %}" alt="" /></span>
         </p>
 
@@ -57,7 +57,7 @@
                                 {% if not forloop.first %}
                                     {% trans "Page edited" as action %}
                                     {% if revision.user %}
-                                        {% blocktrans with '<b>'|add:action|add:'</b>' as action and revision.user.get_full_name|default:revision.user.get_username as who and revision.created_at as at %}
+                                        {% blocktrans with '<b>'|add:action|add:'</b>' as action and revision.user|user_display_name as who and revision.created_at as at %}
                                             {{ action }} by <b>{{ who }}</b> at <b>{{ at }}</b>
                                         {% endblocktrans %}
                                     {% else %}
@@ -72,7 +72,7 @@
                             <td>
                                 {% if task_state.status == 'approved' or task_state.status == 'rejected' %}
                                     {% if task_state.finished_by %}
-                                        {% blocktrans with action='<div class="status-tag primary">'|add:task_state.get_status_display|add:'</div>'|safe who=task_state.finished_by.get_full_name|default:task_state.finished_by.get_username at=task_state.finished_at %}
+                                        {% blocktrans with action='<div class="status-tag primary">'|add:task_state.get_status_display|add:'</div>'|safe who=task_state.finished_by|user_display_name at=task_state.finished_at %}
                                             {{ action }} by <b>{{ who }}</b> at <b>{{ at }}</b>
                                         {% endblocktrans %}
                                     {% else %}
@@ -113,7 +113,7 @@
                             {% elif timeline_item.action == 'page_edited' %}
                                 {% trans "Page edited" as action %}
                                 {% if revision.user %}
-                                    {% blocktrans with '<b>'|add:action|add:'</b>' as action and timeline_item.revision.user.get_full_name|default:timeline_item.revision.user.get_username as who %}
+                                    {% blocktrans with '<b>'|add:action|add:'</b>' as action and timeline_item.revision.user|user_display_name as who %}
                                         {{ action }} by <b>{{ who }}</b>
                                     {% endblocktrans %}
                                 {% else %}
@@ -123,7 +123,7 @@
                                 <b>{{ timeline_item.task_state.task }}</b>
 
                                 {% if timeline_item.task_state.finished_by %}
-                                    {% blocktrans with action='<div class="status-tag primary">'|add:timeline_item.task_state.get_status_display|add:'</div>'|safe who=timeline_item.task_state.finished_by.get_full_name|default:timeline_item.task_state.finished_by.get_username %}
+                                    {% blocktrans with action='<div class="status-tag primary">'|add:timeline_item.task_state.get_status_display|add:'</div>'|safe who=timeline_item.task_state.finished_by|user_display_name %}
                                         {{ action }} by <b>{{ who }}</b>
                                     {% endblocktrans %}
                                 {% else %}

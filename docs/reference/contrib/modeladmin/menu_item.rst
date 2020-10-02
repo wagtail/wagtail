@@ -39,7 +39,7 @@ page-type models, and ``'snippet'`` for others.
 If you're using a ``ModelAdminGroup`` class to group together several
 ``ModelAdmin`` classes in their own sub-menu, and want to change the menu item
 used to represent the group, you should override the ``menu_icon`` attribute on
-your ``ModelAdminGroup`` class (``'icon-folder-open-inverse'`` is the default).
+your ``ModelAdminGroup`` class (``'folder-open-inverse'`` is the default).
 
 .. _modeladmin_menu_order:
 
