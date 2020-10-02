@@ -85,7 +85,7 @@ Bug fixes
  * The ``wagtailimages`` module is now compatible with remote storage backends that do not allow reopening closed files
  * Search no longer crashes when auto-indexing a model that doesn't have an ``id`` field
  * The ``wagtailfrontendcache`` module's HTTP backend has been rewritten to reliably direct requests to the configured cache hostname
- * Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
+ * Resizing single pixel images with the "fill" filter no longer raises ``ZeroDivisionError`` or "tile cannot extend outside image"
  * The QuerySet returned from ``search`` operations when using the database search backend now correctly preserves additional properties of the original query, such as ``prefetch_related`` / ``select_related``
  * Responses from the external image URL generator are correctly marked as streaming and will no longer fail when used with Django's cache middleware
  * Page copy now works with pages that use multiple inheritance
