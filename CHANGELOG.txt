@@ -1558,7 +1558,7 @@ Changelog
  * Fix: The wagtailimages module is now compatible with remote storage backends that do not allow reopening closed files
  * Fix: Search no longer crashes when auto-indexing a model that doesn't have an id field (Scot Hacker)
  * Fix: The `wagtailfrontendcache` module's HTTP backend has been rewritten to reliably direct requests to the configured cache hostname
- * Fix: Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
+ * Fix: Resizing single pixel images with the "fill" filter no longer raises `ZeroDivisionError` or "tile cannot extend outside image"
  * Fix: The queryset returned from `search` operations when using the database search backend now correctly preserves additional properties of the original query, such as `prefetch_related` / `select_related`
  * Fix: Responses from the external image URL generator are correctly marked as streaming and will no longer fail when used with Django's cache middleware
  * Fix: Page copy now works with pages that use multiple inheritance (Jordi Joan)
@@ -1632,7 +1632,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~
 * Fix: When copying a page, IDs of child objects within page revision records were not remapped to the new objects; this would cause those objects to be lost from the original page when editing the new one
 * Fix: Search no longer crashes when auto-indexing a model that doesn't have an id field (Scot Hacker)
-* Fix: Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
+* Fix: Resizing single pixel images with the "fill" filter no longer raises `ZeroDivisionError` or "tile cannot extend outside image"
 
 
 0.8.9 (16.09.2015)
@@ -1848,7 +1848,7 @@ Changelog
  * Added a new datetime picker widget
  * Added styleguide (mainly for wagtail developers)
  * Aesthetic improvements to preview experience
- * 'image' tag now accepts extra keyword arguments to be output as attributes on the img tag
+ * 'image' tag now accepts extra keyword arguments to be output as attributes on the `<img>` tag
  * Login screen redirects to dashboard if user is already logged in
  * Renamed some template tag libraries
  * Any extra arguments given to serve are now passed through to get_context and get_template

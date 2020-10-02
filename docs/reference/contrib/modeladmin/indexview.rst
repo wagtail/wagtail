@@ -687,10 +687,10 @@ change a few attributes to change the thumbnail to your liking, like so:
         # Optionally override the filter spec used to create each thumb
         thumb_image_filter_spec = 'fill-100x100' # this is the default
 
-        # Optionally override the 'width' attribute value added to each img tag
+        # Optionally override the 'width' attribute value added to each `<img>` tag
         thumb_image_width = 50 # this is the default
 
-        # Optionally override the class name added to each img tag
+        # Optionally override the class name added to each `<img>` tag
         thumb_classname = 'admin-thumb' # this is the default
 
         # Optionally override the text that appears in the column header
