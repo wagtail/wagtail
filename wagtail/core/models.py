@@ -1100,7 +1100,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         If the page was originally created using a page type that has since
         been removed from the codebase, a generic ``Page`` object will be
         returned (without any custom field values or other functionality
-        present on the orginal class). Usually, deleting these pages is the
+        present on the original class). Usually, deleting these pages is the
         best course of action, but there is currently no safe way for Wagtail
         to do that at migration time.
         """
@@ -2097,7 +2097,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         this page can be displayed for preview/moderation purposes. Ordinarily a page
         will only have one display mode, but subclasses of Page can override this -
         for example, a page containing a form might have a default view of the form,
-        and a post-submission 'thankyou' page
+        and a post-submission 'thank you' page
         """
         return Page.DEFAULT_PREVIEW_MODES
 

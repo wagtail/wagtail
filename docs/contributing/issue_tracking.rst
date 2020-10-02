@@ -12,7 +12,7 @@ Do not use issues for support queries or other questions ("How do I do X?" - alt
 
 As soon as a ticket is opened - ideally within one day - a member of the core team will give it an initial classification, by either closing it as invalid or assigning it to a milestone. Don't be discouraged if you feel that your ticket has been given a lower priority than it deserves - this decision isn't permanent. We will consider all feedback, and reassign or reopen tickets where appropriate.
 
-(From the other side, this means that the core team member doing the classification should feel free to make bold unilateral decisions - there's no need to seek consensus first. If they make the wrong judgment call, that can always be reversed later.)
+(From the other side, this means that the core team member doing the classification should feel free to make bold unilateral decisions - there's no need to seek consensus first. If they make the wrong judgement call, that can always be reversed later.)
 
 The possible milestones that it might be assigned to are as follows:
 

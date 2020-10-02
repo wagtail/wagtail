@@ -119,7 +119,7 @@ Bug fixes
  * ``wagtail.contrib.sitemaps`` no longer depends on SiteMiddleware (Matt Westcott)
  * Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
  * Image / document forms now display non-field errors such as ``unique_together`` constraints (Matt Westcott)
- * Make "Site" chooser in site settings translateable (Andreas Bernacca)
+ * Make "Site" chooser in site settings translatable (Andreas Bernacca)
  * Fix group permission checkboxes not being clickable in IE11 (LB (Ben Johnston))
 
 

@@ -459,7 +459,7 @@ Static file URLs within the Wagtail admin are given a version-specific query str
 API Settings
 ============
 
-For full documenation on API configuration, including these settings, see :ref:`api_v2_configuration` documentation.
+For full documentation on API configuration, including these settings, see :ref:`api_v2_configuration` documentation.
 
 .. code-block:: python
 
@@ -485,12 +485,12 @@ Default is true, setting this to false will disable full text search on all endp
 
     WAGTAILAPI_USE_FRONTENDCACHE = True
 
-Requires ``wagtailfrontendcache`` app to be installed, inidicates the API should use the frontend cache.
+Requires ``wagtailfrontendcache`` app to be installed, indicates the API should use the frontend cache.
 
 Frontend cache
 ==============
 
-For full documenation on frontend cache invalidation, including these settings, see :ref:`frontend_cache_purging`.
+For full documentation on frontend cache invalidation, including these settings, see :ref:`frontend_cache_purging`.
 
 
 .. code-block:: python
