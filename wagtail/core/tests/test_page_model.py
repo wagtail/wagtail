@@ -17,6 +17,7 @@ from freezegun import freeze_time
 
 from wagtail.core.models import (
     Locale, Page, PageManager, ParentNotTranslatedError, Site, get_page_models, get_translatable_models)
+from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
@@ -1489,6 +1490,43 @@ class TestCopyPage(TestCase):
         new_page = SimplePage(slug='testpurp', title='testpurpose')
         with self.assertRaises(RuntimeError):
             new_page.copy()
+
+    def test_copy_published_emits_signal(self):
+        """Test that copying of a published page emits a page_published signal."""
+        christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        signal_fired = False
+        signal_page = None
+
+        def page_published_handler(sender, instance, **kwargs):
+            nonlocal signal_fired
+            nonlocal signal_page
+            signal_fired = True
+            signal_page = instance
+
+        page_published.connect(page_published_handler)
+        copy_page = christmas_page.copy(
+            update_attrs={'title': "New christmas", 'slug': 'new-christmas'},
+        )
+
+        self.assertIs(signal_fired, True)
+        self.assertEqual(signal_page, copy_page)
+
+    def test_copy_unpublished_not_emits_signal(self):
+        """Test that copying of an unpublished page not emits a page_published signal."""
+        homepage = Page.objects.get(url_path='/home/')
+        homepage.live = False
+        homepage.save()
+
+        signal_fired = False
+
+        def page_published_handler(sender, instance, **kwargs):
+            nonlocal signal_fired
+            signal_fired = True
+        page_published.connect(page_published_handler)
+
+        homepage.copy(update_attrs={'slug': 'new_slug'})
+        self.assertIs(signal_fired, False)
 
 
 class TestCopyForTranslation(TestCase):
