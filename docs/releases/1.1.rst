@@ -41,7 +41,7 @@ A number of inconsistencies around permissions in the admin interface were fixed
  * Removed all permissions for "User profile" (not used)
  * Removed "delete" permission for Images and documents (not used)
  * Users can now access images and documents when they only have the "change" permission (previously required "add" permission as well)
- * Permissions for Users now taken from custom user model, if set (previously always used permissions on Djangos builtin User model)
+ * Permissions for Users now taken from custom user model, if set (previously always used permissions on Django's builtin User model)
  * Groups and Users now respond consistently to their respective "add", "change" and "delete" permissions
 
 Searchable snippets

@@ -86,7 +86,7 @@ The feature identifiers provided on a default Wagtail installation are as follow
  * ``embed`` - embedded media (see :ref:`embedded_content`)
 
 
-We have few additional feature identifiers as well. They are not enabled by default, but you can use them in your list of identifers. These are as follows:
+We have few additional feature identifiers as well. They are not enabled by default, but you can use them in your list of identifiers. These are as follows:
 
 * ``code`` - inline code
 * ``superscript``, ``subscript``, ``strikethrough`` - text formatting

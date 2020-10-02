@@ -17,7 +17,7 @@ Templates
 
 Every type of page or "content type" in Wagtail is defined as a "model" in a file called ``models.py``. If your site has a blog, you might have a ``BlogPage``  model and another called ``BlogPageListing``. The names of the models are up to the Django developer.
 
-For each page model in ``models.py``, Wagtail assumes an HTML template file exists of (almost) the same name. The Front End developer may need to create these templates themselves by refering to ``models.py`` to infer template names from the models defined therein.
+For each page model in ``models.py``, Wagtail assumes an HTML template file exists of (almost) the same name. The Front End developer may need to create these templates themselves by referring to ``models.py`` to infer template names from the models defined therein.
 
 To find a suitable template, Wagtail converts CamelCase names to snake_case. So for a ``BlogPage``, a template ``blog_page.html`` will be expected. The name of the template file can be overridden per model if necessary.
 
