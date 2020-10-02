@@ -13,6 +13,7 @@ import Transition from './components/Transition/Transition';
 import { initFocusOutline } from './utils/focus';
 import { initSubmenus } from './includes/initSubmenus';
 import { initSkipLink } from './includes/initSkipLink';
+import { initIE11Warning } from './includes/initIE11Warning';
 import { initUpgradeNotification } from './components/UpgradeNotification';
 
 export {
@@ -28,5 +29,6 @@ export {
   initFocusOutline,
   initSubmenus,
   initSkipLink,
+  initIE11Warning,
   initUpgradeNotification,
 };

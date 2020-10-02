@@ -79,6 +79,12 @@ Bug fixes
 Upgrade considerations
 ======================
 
+IE11 support being phased out
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release begins the process of phasing out support for Internet Explorer. Please see :ref:`ie11` for details of the timeline over which support will be dropped.
+
+
 SiteMiddleware moved to ``wagtail.contrib.legacy``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
