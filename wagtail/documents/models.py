@@ -26,12 +26,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
     file = models.FileField(
         upload_to="documents",
-        verbose_name=_("file"),
-        validators=[
-            FileExtensionValidator(
-                allowed_extensions=getattr(settings, "WAGTAIL_DOCS_EXTENSIONS", None)
-            )
-        ],
+        verbose_name=_("file")
     )
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
     uploaded_by_user = models.ForeignKey(
@@ -61,6 +56,21 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         ]),
         index.FilterField('uploaded_by_user'),
     ]
+
+    def clean(self):
+        """
+        Checks for WAGTAIL_DOCS_EXTENSIONS and validates the uploaded file
+        based on allowed extensions that were specified.
+        This however doesn't ensure that the uploded file is a valid file
+        as files can be renamed to have any extension no matter what
+        data they contain.
+
+        More info : https://docs.djangoproject.com/en/3.1/ref/validators/#fileextensionvalidator
+        """
+        allowed_extensions = getattr(settings, "WAGTAIL_DOCS_EXTENSIONS", None)
+        if allowed_extensions:
+            validatate = FileExtensionValidator(allowed_extensions)
+            validatate(self.file)
 
     def is_stored_locally(self):
         """
