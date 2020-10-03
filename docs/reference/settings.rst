@@ -205,10 +205,10 @@ A list of MIME content types that will be shown inline in the browser (by servin
 
   WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']
 
-A list of allowed document extensions that will be validated during document uploding. 
+A list of allowed document extensions that will be validated during document uploading. 
 If this isn't supplied all the document extensions are allowed. 
-Warning : this doesn't always ensure that the uploded file is a valid file as files can 
-be renamed to have any extension no matter what data they contain.
+Warning: this doesn't always ensure that the uploaded file is valid as files can 
+be renamed to have an extension no matter what data they contain.
 
 Password Management
 ===================

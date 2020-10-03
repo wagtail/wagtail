@@ -58,16 +58,20 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         """
         Checks for WAGTAILDOCS_EXTENSIONS and validates the uploaded file
         based on allowed extensions that were specified.
-        This doesn't always ensure that the uploded file is a valid file
-        as files can be renamed to have any extension no matter what
+        Warning : This doesn't always ensure that the uploaded file is valid
+        as files can be renamed to have an extension no matter what
         data they contain.
 
         More info : https://docs.djangoproject.com/en/3.1/ref/validators/#fileextensionvalidator
         """
         allowed_extensions = getattr(settings, "WAGTAILDOCS_EXTENSIONS", None)
         if allowed_extensions:
-            validatate = FileExtensionValidator(allowed_extensions)
-            validatate(self.file)
+            validate = FileExtensionValidator(allowed_extensions)
+            validate(self.file)
+    
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
     def is_stored_locally(self):
         """

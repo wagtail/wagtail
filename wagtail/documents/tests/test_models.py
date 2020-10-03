@@ -173,7 +173,7 @@ class TestDocumentValidateExtensions(TestCase):
 
     def test_create_doc_invalid_extension(self):
         """
-        Checks if the uploded document is has the expected extensions
+        Checks if the uploaded document has the expected extensions
         mentioned in settings.WAGTAILDOCS_EXTENSIONS
 
         This is caught in form.error and should be raised during model
@@ -185,12 +185,12 @@ class TestDocumentValidateExtensions(TestCase):
 
     def test_create_doc_valid_extension(self):
         """
-        Checks if the uploded document is has the expected extensions
+        Checks if the uploaded document has the expected extensions
         mentioned in settings.WAGTAILDOCS_EXTENSIONS
 
-        Valid file format is passed and testcase should fail if the
-        validation error is raised inspite of passing the correct file
-        extension.
+        This is caught in form.error and should be raised during 
+        model creation when called full_clean. In this specific 
+        testcase invalid file extension is passed.
         """
         try:
             self.document_valid.full_clean()
