@@ -24,10 +24,7 @@ class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     title = models.CharField(max_length=255, verbose_name=_('title'))
-    file = models.FileField(
-        upload_to="documents",
-        verbose_name=_("file")
-    )
+    file = models.FileField(upload_to='documents', verbose_name=_('file'))
     created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
     uploaded_by_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
