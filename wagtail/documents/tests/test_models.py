@@ -161,7 +161,7 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         self.assertFalse(document.file.storage.exists(filename))
 
 
-@override_settings(WAGTAIL_DOCS_EXTENSIONS=["pdf"])
+@override_settings(WAGTAILDOCS_EXTENSIONS=["pdf"])
 class TestDocumentValidateExtensions(TestCase):
     def setUp(self):
         self.document_invalid = models.Document.objects.create(
@@ -174,7 +174,7 @@ class TestDocumentValidateExtensions(TestCase):
     def test_create_doc_invalid_extension(self):
         """
         Checks if the uploded document is has the expected extensions
-        mentioned in settings.WAGTAIL_DOCS_EXTENSIONS
+        mentioned in settings.WAGTAILDOCS_EXTENSIONS
 
         This is caught in form.error and should be raised during model
         creation when called full_clean. This specific testcase invalid
@@ -186,7 +186,7 @@ class TestDocumentValidateExtensions(TestCase):
     def test_create_doc_valid_extension(self):
         """
         Checks if the uploded document is has the expected extensions
-        mentioned in settings.WAGTAIL_DOCS_EXTENSIONS
+        mentioned in settings.WAGTAILDOCS_EXTENSIONS
 
         Valid file format is passed and testcase should fail if the
         validation error is raised inspite of passing the correct file
