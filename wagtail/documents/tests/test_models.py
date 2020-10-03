@@ -188,8 +188,8 @@ class TestDocumentValidateExtensions(TestCase):
         Checks if the uploaded document has the expected extensions
         mentioned in settings.WAGTAILDOCS_EXTENSIONS
 
-        This is caught in form.error and should be raised during 
-        model creation when called full_clean. In this specific 
+        This is caught in form.error and should be raised during
+        model creation when called full_clean. In this specific
         testcase invalid file extension is passed.
         """
         try:

@@ -68,10 +68,6 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         if allowed_extensions:
             validate = FileExtensionValidator(allowed_extensions)
             validate(self.file)
-    
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        return super().save(*args, **kwargs)
 
     def is_stored_locally(self):
         """
