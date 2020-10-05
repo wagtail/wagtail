@@ -17,6 +17,7 @@ Changelog
  * Show user's full name in report views (Matt Westcott)
  * Improve Wagtail admin page load performance by caching SVG icons sprite in localStorage (Coen van der Kamp)
  * Support SVG icons in ModelAdmin menu items (Scott Cranfill)
+ * Support SVG icons in admin breadcrumbs (Coen van der Kamp)
  * Serve PDFs inline in the browser (Matt Westcott)
  * Make document `content-type` and `content-disposition` configurable via `WAGTAILDOCS_CONTENT_TYPES` and `WAGTAILDOCS_INLINE_CONTENT_TYPES` (Matt Westcott)
  * Slug generation no longer removes stopwords (Andy Chosak, Scott Cranfill)
