@@ -22,6 +22,7 @@ Changelog
  * Add check to disallow StreamField block names that do not match Python variable syntax (François Poulain)
  * The `BASE_URL` setting is now converted to a str, if it isn't already, when constructing API URLs (thenewguy)
  * Preview from 'pages awaiting moderation' now opens in a new window (Cynthia Kiser)
+ * Add document extension validation if `WAGTAIL_DOCS_EXTENSIONS` is set (Meghana Bhange)
  * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
  * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
@@ -30,6 +31,7 @@ Changelog
  * Fix: Correctly handle Turkish 'İ' characters in client-side slug generation (Matt Westcott)
  * Fix: Page chooser widgets now reflect custom ``get_admin_display_title`` methods (Saptak Sengupta)
  * Fix: `Page.copy()` now raises an error if the page being copied is unsaved (Anton Zhyltsou)
+
 
 2.10.2 (25.09.2020)
 ~~~~~~~~~~~~~~~~~~~

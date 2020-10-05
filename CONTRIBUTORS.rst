@@ -479,6 +479,7 @@ Contributors
 * Dino Perovic
 * Ameet Virdee
 * Anton Zhyltsou
+* Meghana Bhange
 
 Translators
 ===========
