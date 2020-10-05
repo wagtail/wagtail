@@ -1054,6 +1054,39 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
         # The form should have an error
         self.assertContains(response, "Custom document with this Title and Collection already exists.")
 
+    def test_pagination_after_upload_form_error(self):
+        for i in range(20):
+            get_document_model().objects.create(
+                title="Doc %s" % i,
+                file=get_test_document_file()
+            )
+        response = self.client.post(reverse('wagtaildocs:chooser_upload'), {
+            'document-chooser-upload-title': 'TestDoc',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertFormError(
+            response, 'uploadform', 'file', 'This field is required.'
+        )
+
+        self.assertContains(response, 'Page 1 of ')
+        self.assertEqual(len(response.context.get('documents')), 10)
+
+    def test_forms_appear_after_upload_form_error(self):
+        """Test that the search form and collection filtering appear after form validation error."""
+        response = self.client.post(reverse('wagtaildocs:chooser_upload'), {
+            'document-chooser-upload-title': 'TestDoc',
+        })
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertFormError(
+            response, 'uploadform', 'file', 'This field is required.'
+        )
+
+        self.assertIn('searchform', response.context)
+        self.assertIn('collections', response.context)
+
 
 class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
