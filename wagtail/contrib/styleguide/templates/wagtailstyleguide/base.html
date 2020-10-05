@@ -735,10 +735,11 @@
             <h2>Breadcrumbs</h2>
 
             <ul class="breadcrumb">
-                <li class="home"><a href="#" class="icon icon-home text-replace">Home</a></li>
-                <li><a href="#">Various</a></li>
-                <li><a href="#">Subpages</a></li>
-                <li><a href="#">There is a max length of this many</a></li>
+                {% trans 'Home' as home %}
+                <li class="home"><a href="{% url 'wagtailadmin_home' %}">{% icon name="home" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li><a href="#"><span class="title">Various</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li><a href="#"><span class="title">Subpages</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li><a href="#"><span class="title">There is a max length of this many</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
             </ul>
 
         </section>

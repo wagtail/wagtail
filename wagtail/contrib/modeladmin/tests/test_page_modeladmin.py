@@ -341,7 +341,20 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/shared/header.html')
 
         # check that home breadcrumb link exists
-        self.assertContains(response, '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>', html=True)
+        expected = """
+            <li class="home">
+                <a href="/admin/">
+                    <svg class="icon icon-home home_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-home"></use>
+                    </svg>
+                    <span class="visuallyhidden">Home</span>
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
+                </a>
+            </li>
+        """
+        self.assertContains(response, expected, html=True)
 
         # check that the breadcrumbs are after the header opening tag
         content_str = str(response.content)
@@ -357,7 +370,20 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/shared/header.html')
 
         # check that home breadcrumb link exists
-        self.assertContains(response, '<li class="home"><a href="/admin/" class="icon icon-home text-replace">Home</a></li>', html=True)
+        expected = """
+            <li class="home">
+                <a href="/admin/">
+                    <svg class="icon icon-home home_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-home"></use>
+                    </svg>
+                    <span class="visuallyhidden">Home</span>
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
+                </a>
+            </li>
+        """
+        self.assertContains(response, expected, html=True)
 
         # check that the breadcrumbs are after the header opening tag
         content_str = str(response.content)

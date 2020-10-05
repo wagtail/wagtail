@@ -307,7 +307,16 @@ class TestBreadcrumb(TestCase, WagtailTestUtils):
 
         # The breadcrumb should pick up SimplePage's overridden get_admin_display_title method
         expected_url = reverse('wagtailadmin_explore', args=(Page.objects.get(url_path='/home/secret-plans/').id, ))
-        self.assertContains(response, """<li><a href="%s">Secret plans (simple page)</a></li>""" % expected_url)
+        expected = """
+            <li>
+                <a href="%s"><span class="title">Secret plans (simple page)</span>
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
+                </a>
+            </li>
+        """ % expected_url
+        self.assertContains(response, expected, html=True)
 
 
 class TestPageExplorerSignposting(TestCase, WagtailTestUtils):
@@ -506,13 +515,42 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.login(username='superman', password='password')
         response = self.client.get(reverse('wagtailadmin_explore', args=[6]))
         self.assertEqual(response.status_code, 200)
-
-        self.assertInHTML(
-            """<li class="home"><a href="/admin/pages/" class="icon icon-site text-replace">Root</a></li>""",
-            str(response.content)
-        )
-        self.assertInHTML("""<li><a href="/admin/pages/4/">Welcome to example.com!</a></li>""", str(response.content))
-        self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", str(response.content))
+        expected = """
+            <li class="home">
+                <a href="/admin/pages/">
+                    <svg class="icon icon-site home_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-site"></use>
+                    </svg>
+                    <span class="visuallyhidden">Root</span>
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
+                </a>
+            </li>
+        """
+        self.assertContains(response, expected, html=True)
+        expected = """
+            <li>
+                <a href="/admin/pages/4/">
+                    <span class="title">Welcome to example.com!</span>
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
+                </a>
+            </li>
+        """
+        self.assertContains(response, expected, html=True)
+        expected = """
+            <li>
+                <a href="/admin/pages/5/">
+                    <span class="title">Content</span>
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
+                </a>
+            </li>
+        """
+        self.assertContains(response, expected, html=True)
 
     def test_nonadmin_sees_breadcrumbs_up_to_cca(self):
         self.login(username='josh', password='password')
@@ -520,11 +558,31 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         # While at "Page 1", Josh should see the breadcrumbs leading only as far back as the example.com homepage,
         # since it's his Closest Common Ancestor.
-        self.assertInHTML(
-            """<li class="home"><a href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""",
-            str(response.content)
-        )
-        self.assertInHTML("""<li><a href="/admin/pages/5/">Content</a></li>""", str(response.content))
+        expected = """
+            <li class="home">
+                <a href="/admin/pages/4/" class="text-replace">
+                    <svg class="icon icon-site home_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-site"></use>
+                    </svg>
+                    <span class="visuallyhidden">Home</span>
+                </a>
+                <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                    <use href="#icon-arrow-right"></use>
+                </svg>
+            </li>
+        """
+        self.assertContains(response, expected, html=True)
+        expected = """
+            <li>
+                <a href="/admin/pages/5/">
+                    <span class="title">Content</span>
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
+                </a>
+            </li>
+        """
+        self.assertContains(response, expected, html=True)
         # The page title shouldn't appear because it's the "home" breadcrumb.
         self.assertNotContains(response, "Welcome to example.com!")
 
