@@ -5,7 +5,7 @@ If you want to edit, add or remove images from the CMS outside of the individual
 
 .. image:: ../../_static/images/screen31_images_page.png
 
-* Clicking an image will allow you to edit the data associated with it. This includes the photographers credit, the focal point of the image and much more.
+* Clicking an image will allow you to edit the data associated with it. This includes the title, the focal point of the image and much more.
 
 .. image:: ../../_static/images/screen32_image_edit_page.png
 
