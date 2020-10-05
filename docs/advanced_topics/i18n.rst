@@ -46,11 +46,6 @@ Wagtail stores content in a separate page tree for each locale.
 For example, if you have two sites in two locales, then you will see four
 homepages at the top level of the page hierarchy in the explorer.
 
-Translations are linked together in the database so that translations
-to be continuously kept up to date with their original (see `Translation Workflow`_)
-and language selectors in the UI can work. But as they are in separate trees, the pages can
-be structured differently and even have fully translated URL paths!
-
 This approach has some advantages for the editor experience as well:
 
  - There is no default language for editing, so content can be authored in any
@@ -58,33 +53,6 @@ This approach has some advantages for the editor experience as well:
  - Translations of a page are separate pages so they can be published at
    different times.
  - Editors can be given permission to edit content in one locale and not others.
-
-Site root pages
-^^^^^^^^^^^^^^^
-
-When creating a site in Wagtail, you have to select a single page as the site's
-"root page", which would become the homepage of the site. Multi-lingual sites
-have multiple homepages, so how do we make it aware of those?
-
-As mentioned above, page translations are linked in the database. Wagtail uses
-this feature to find the homepage of a translated site. So if the user's
-language is different to the site's root page, it'll look for a translation of
-it instead. If a translation is not found, or is unpublished, it will use the
-version that was assigned in the "root page" field as the default.
-
-This means that to translate a site into another locale, you just need to
-translate and publish its homepage in that new locale. You can also use the
-"root page" field to specify a different default fallback for your sites if you
-want to.
-
-Language detection and routing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-For detecting the user's language and adding a prefix to the URLs
-(`/en/`, `/fr-fr/`, for example), Wagtail is designed to work with Django's
-builtin internationalisation utilities such as `i18n_patterns` and
-`LocaleMiddleware`. This means that Wagtail should work seamlessly with any
-other internationalised Django applications on your site.
 
 How locales and translations are recorded in the database
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -96,15 +64,42 @@ All pages (and any snippets that have translation enabled) have a `locale` and
  - `translation_key` is a UUID that's used to find translations of a piece of content.
    Translations of the same page/snippet share the same value in this field
 
-These two fields have a unique together constraint so you can't have more than
+These two fields have a 'unique together' constraint so you can't have more than
 one translation in the same locale.
+
+Translated homepages
+^^^^^^^^^^^^^^^^^^^^
+
+When you set up a site in Wagtail, you select the site's homepage in the 'root page'
+field and all requests to that site's root URL will be routed to that page.
+
+Multi-lingual sites have a separate homepage for each locale that exist as siblings
+in the page tree. Wagtail finds the other homepages by looking for translations of
+the site's 'root page'.
+
+This means that to make a site available in another locale, you just need to
+translate and publish its homepage in that new locale.
+
+If Wagtail can't find a homepage that matches the user's language, it will fall back
+to the page that is selected as the 'root page' on the site record, so you can use
+this field to specify the default language of your site.
+
+Language detection and routing
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For detecting the user's language and adding a prefix to the URLs
+(`/en/`, `/fr-fr/`, for example), Wagtail is designed to work with Django's
+builtin internationalisation utilities such as `i18n_patterns` and
+`LocaleMiddleware`. This means that Wagtail should work seamlessly with any
+other internationalised Django applications on your site.
 
 Locales
 ~~~~~~~
 
 The locales that are enabled on a site are recorded in the ``Locale`` model in
 ``wagtailcore``. This model has just two fields: ID and ``language_code`` which
-stores the BCP-47 language code that represents this locale.
+stores the `BCP-47 language tag <https://en.wikipedia.org/wiki/IETF_language_tag>`_
+that represents this locale.
 
 The locale records can be set up with an `optional management UI <Enabling the locale management UI (optional)>`_ or created
 in the shell. The possible values of the ``language_code`` field are controlled
@@ -117,7 +112,7 @@ by the ``WAGTAIL_CONTENT_LANGUAGES`` setting.
     pages will be assigned to this ``Locale`` when Wagtail's internationalisation is disabled.
 
     If you have changed the ``LANGUAGE_CODE`` setting since updating to Wagtail 2.11,
-    you will need to manually update record in the ``Locale`` model too before
+    you will need to manually update the record in the ``Locale`` model too before
     enabling internationalisation, as your existing content will be assigned to the old code.
 
 Configuration
@@ -155,7 +150,7 @@ will make dates and numbers display in the user's local format:
 Configuring available languages
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Next we need to configure the available languages, there are two settings
+Next we need to configure the available languages. There are two settings
 for this that are each used for different purposes:
 
  - ``LANGUAGES`` - This sets which languages are available on the frontend of the site.
