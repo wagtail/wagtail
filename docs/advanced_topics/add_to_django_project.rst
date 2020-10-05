@@ -108,7 +108,7 @@ Wagtail Apps
   Search framework for Page content. See :ref:`wagtailsearch`.
 
 ``wagtail.sites``
-  The Wagtail site content type.
+  Management UI for Wagtail sites.
 
 ``wagtail.contrib.redirects``
   Admin interface for creating arbitrary redirects on your site.
