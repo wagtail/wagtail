@@ -199,6 +199,16 @@ Specifies the MIME content type that will be returned for the given file extensi
 
 A list of MIME content types that will be shown inline in the browser (by serving the HTTP header ``Content-Disposition: inline``) rather than served as a download, when using the ``serve_view`` method. Defaults to ``application/pdf``.
 
+.. _wagtaildocs_extensions:
+
+.. code-block:: python
+
+  WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']
+
+A list of allowed document extensions that will be validated during document uploading. 
+If this isn't supplied all document extensions are allowed. 
+Warning: this doesn't always ensure that the uploaded file is valid as files can 
+be renamed to have an extension no matter what data they contain.
 
 Password Management
 ===================

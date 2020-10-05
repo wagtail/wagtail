@@ -5,6 +5,7 @@ from contextlib import contextmanager
 from mimetypes import guess_type
 
 from django.conf import settings
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.dispatch import Signal
 from django.urls import reverse
@@ -52,6 +53,21 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         ]),
         index.FilterField('uploaded_by_user'),
     ]
+
+    def clean(self):
+        """
+        Checks for WAGTAILDOCS_EXTENSIONS and validates the uploaded file
+        based on allowed extensions that were specified.
+        Warning : This doesn't always ensure that the uploaded file is valid
+        as files can be renamed to have an extension no matter what
+        data they contain.
+
+        More info : https://docs.djangoproject.com/en/3.1/ref/validators/#fileextensionvalidator
+        """
+        allowed_extensions = getattr(settings, "WAGTAILDOCS_EXTENSIONS", None)
+        if allowed_extensions:
+            validate = FileExtensionValidator(allowed_extensions)
+            validate(self.file)
 
     def is_stored_locally(self):
         """

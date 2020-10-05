@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, ValidationError
 from django.core.files.base import ContentFile
 from django.db import transaction
 from django.test import TestCase, TransactionTestCase
@@ -159,6 +159,47 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
             document.delete()
             self.assertTrue(document.file.storage.exists(filename))
         self.assertFalse(document.file.storage.exists(filename))
+
+
+@override_settings(WAGTAILDOCS_EXTENSIONS=["pdf"])
+class TestDocumentValidateExtensions(TestCase):
+    def setUp(self):
+        self.document_invalid = models.Document.objects.create(
+            title="Test document", file="test.doc"
+        )
+        self.document_valid = models.Document.objects.create(
+            title="Test document", file="test.pdf"
+        )
+
+    def test_create_doc_invalid_extension(self):
+        """
+        Checks if the uploaded document has the expected extensions
+        mentioned in settings.WAGTAILDOCS_EXTENSIONS
+
+        This is caught in form.error and should be raised during model
+        creation when called full_clean. This specific testcase invalid
+        file extension is passed
+        """
+        with self.assertRaises(ValidationError):
+            self.document_invalid.full_clean()
+
+    def test_create_doc_valid_extension(self):
+        """
+        Checks if the uploaded document has the expected extensions
+        mentioned in settings.WAGTAILDOCS_EXTENSIONS
+
+        This is caught in form.error and should be raised during
+        model creation when called full_clean. In this specific
+        testcase invalid file extension is passed.
+        """
+        try:
+            self.document_valid.full_clean()
+        except ValidationError:
+            self.fail("Validation error is raised even when valid file name is passed")
+
+    def tearDown(self):
+        self.document_invalid.file.delete()
+        self.document_valid.file.delete()
 
 
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
