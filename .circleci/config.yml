@@ -23,6 +23,7 @@ jobs:
       - run:
           shell: /bin/bash -e
           command: pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'
+      - run: pipenv run doc8 --ignore D001 docs
       - run: DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
 
   frontend:

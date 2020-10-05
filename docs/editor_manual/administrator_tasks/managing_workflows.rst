@@ -24,7 +24,7 @@ _________________
 Under `Add tasks to your workflow`, you can add, remove, or reorder tasks in a workflow. When adding a task to a workflow, you will be given the
 option to create a new task, or reuse an existing one.
 
-Under `Assign your workflow to pages`, you can see a list of the pages to which the workflow has been assigned: any child pages will also have the same workflow, 
+Under `Assign your workflow to pages`, you can see a list of the pages to which the workflow has been assigned: any child pages will also have the same workflow,
 so if a workflow is assigned to the root page, it becomes the default workflow. You may remove it from pages using the `Delete` button to
 the right of each entry, or assign it to a page using the `Choose a page` button.
 

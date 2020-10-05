@@ -1,7 +1,7 @@
 import re
 
 
-# helpers for Javascript expression formatting
+# helpers for JavaScript expression formatting
 
 
 def indent(string, depth=1):
@@ -11,9 +11,9 @@ def indent(string, depth=1):
 
 def js_dict(d):
     """
-    Return a Javascript expression string for the dict 'd'.
+    Return a JavaScript expression string for the dict 'd'.
     Keys are assumed to be strings consisting only of JS-safe characters, and will be quoted but not escaped;
-    values are assumed to be valid Javascript expressions and will be neither escaped nor quoted (but will be
+    values are assumed to be valid JavaScript expressions and will be neither escaped nor quoted (but will be
     wrapped in parentheses, in case some awkward git decides to use the comma operator...)
     """
     dict_items = [

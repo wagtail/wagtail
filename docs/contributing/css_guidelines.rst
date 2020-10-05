@@ -49,7 +49,7 @@ Run the linter from the wagtail project root:
     $ npm run lint:css
 
 
-The linter is configured to check your code for adherance to the guidelines
+The linter is configured to check your code for adherence to the guidelines
 below, plus a little more.
 
 Formatting code

@@ -1,6 +1,8 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
+from wagtail.admin.edit_handlers import (
+    FieldPanel, MultiFieldPanel, ObjectList, PageChooserPanel, TabbedInterface
+)
 from wagtail.core.models import Page
 from wagtail.search import index
 
@@ -124,3 +126,24 @@ class Friend(models.Model):
 
     def __str__(self):
         return self.first_name
+
+
+class RelatedLink(models.Model):
+    title = models.CharField(
+        max_length=255,
+    )
+    link = models.ForeignKey(
+        Page,
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel('title'),
+                PageChooserPanel('link'),
+            ],
+            heading='Related Link'
+        ),
+    ]

@@ -35,7 +35,7 @@ This release also contains many big improvements for screen reader users:
 * Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
 * Fixed focus not moving to the pages explorer menu when open (Helen Chapman)
 
-We’ve also had a look at how controls are labeled across the UI for screen reader users:
+We’ve also had a look at how controls are labelled across the UI for screen reader users:
 
 * Add image dimensions in image gallery and image choosers for screen reader users (Helen Chapman)
 * Add more contextual information for screen readers in the explorer menu's links (Helen Chapman)

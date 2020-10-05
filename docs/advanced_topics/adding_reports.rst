@@ -38,7 +38,7 @@ This retrieves the queryset of pages for your report. For our example:
 
 
     class UnpublishedChangesReportView(PageReportView):
-        
+
         def get_queryset(self):
             return Page.objects.filter(has_unpublished_changes=True)
 
@@ -106,7 +106,7 @@ preprocessing, set the preprocessing_function to ``None``.
 
 A dictionary of ``field_name`` strings mapping to ``{export_format: preprocessing_function}`` dictionaries,
 allowing custom preprocessing functions to be applied when exporting field values of specific classes (or their subclasses). This
-will take priority over functions specified in ``ReportView.custom_value_preprocess``. If unspecified (and 
+will take priority over functions specified in ``ReportView.custom_value_preprocess``. If unspecified (and
 ``ReportView.custom_value_preprocess`` also does not specify a function), ``force_str`` will be used. To prevent
 preprocessing, set the preprocessing_function to ``None``.
 
@@ -171,7 +171,7 @@ url for the report, you will need to use the ``register_admin_urls`` hook (see :
     @hooks.register('register_reports_menu_item')
     def register_unpublished_changes_report_menu_item():
         return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), classnames='icon icon-' + UnpublishedChangesReportView.header_icon, order=700)
-    
+
     @hooks.register('register_admin_urls')
     def register_unpublished_changes_report_url():
         return [
@@ -201,7 +201,7 @@ The full code
 
         list_export = PageReportView.list_export + ['last_published_at']
         export_headings = dict(last_published_at='Last Published', **PageReportView.export_headings)
-        
+
         def get_queryset(self):
             return Page.objects.filter(has_unpublished_changes=True)
 
@@ -219,7 +219,7 @@ The full code
     @hooks.register('register_reports_menu_item')
     def register_unpublished_changes_report_menu_item():
         return AdminOnlyMenuItem("Pages with unpublished changes", reverse('unpublished_changes_report'), classnames='icon icon-' + UnpublishedChangesReportView.header_icon, order=700)
-    
+
     @hooks.register('register_admin_urls')
     def register_unpublished_changes_report_url():
         return [

@@ -99,7 +99,7 @@ class Novel(Book):
 class ProgrammingGuide(Book):
     programming_language = models.CharField(max_length=255, choices=[
         ('py', "Python"),
-        ('js', "Javascript"),
+        ('js', "JavaScript"),
         ('rs', "Rust"),
     ])
 

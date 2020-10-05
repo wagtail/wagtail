@@ -60,6 +60,7 @@ testing_extras = [
     'isort==4.2.5',
     'flake8-blind-except==0.1.1',
     'flake8-print==2.0.2',
+    'doc8==0.8.1',
 
     # For templates linting
     'jinjalint>=0.5',
@@ -74,8 +75,8 @@ testing_extras = [
 
 # Documentation dependencies
 documentation_extras = [
-    'pyenchant==1.6.8',
-    'sphinxcontrib-spelling>=2.3.0',
+    'pyenchant>=3.1.1,<4',
+    'sphinxcontrib-spelling>=5.4.0,<6',
     'Sphinx>=1.5.2',
     'sphinx-autobuild>=0.6.0',
     'sphinx_rtd_theme>=0.1.9',

@@ -119,7 +119,7 @@ Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elastic
 
 .. code-block:: sh
 
-  pip install "elasticsearch>=7.0.0,<8.0.0"  # for Elasticsearch 7.x  
+  pip install "elasticsearch>=7.0.0,<8.0.0"  # for Elasticsearch 7.x
 
 .. warning::
 

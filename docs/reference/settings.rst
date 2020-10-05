@@ -454,12 +454,12 @@ Static files
 
     WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS = False
 
-Static file URLs within the Wagtail admin are given a version-specific query string of the form ``?v=1a2b3c4d``, to prevent outdated cached copies of Javascript and CSS files from persisting after a Wagtail upgrade. To disable these, set ``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS`` to ``False``.
+Static file URLs within the Wagtail admin are given a version-specific query string of the form ``?v=1a2b3c4d``, to prevent outdated cached copies of JavaScript and CSS files from persisting after a Wagtail upgrade. To disable these, set ``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS`` to ``False``.
 
 API Settings
 ============
 
-For full documenation on API configuration, including these settings, see :ref:`api_v2_configuration` documentation.
+For full documentation on API configuration, including these settings, see :ref:`api_v2_configuration` documentation.
 
 .. code-block:: python
 
@@ -485,12 +485,12 @@ Default is true, setting this to false will disable full text search on all endp
 
     WAGTAILAPI_USE_FRONTENDCACHE = True
 
-Requires ``wagtailfrontendcache`` app to be installed, inidicates the API should use the frontend cache.
+Requires ``wagtailfrontendcache`` app to be installed, indicates the API should use the frontend cache.
 
 Frontend cache
 ==============
 
-For full documenation on frontend cache invalidation, including these settings, see :ref:`frontend_cache_purging`.
+For full documentation on frontend cache invalidation, including these settings, see :ref:`frontend_cache_purging`.
 
 
 .. code-block:: python
@@ -592,7 +592,7 @@ Workflow
 
 Moderation workflows can be used in two modes. The first is to require that all tasks must approve a specific page revision for the workflow to complete. As a result,
 if edits are made to a page while it is in moderation, any approved tasks will need to be re-approved for the new revision before the workflow finishes.
-This is the default, ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`` . The second mode does not require reapproval: if edits are made when 
+This is the default, ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`` . The second mode does not require reapproval: if edits are made when
 tasks have already been approved, those tasks do not need to be reapproved. This is more suited to a hierarchical workflow system. To use workflows in this mode,
 set ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False``.
 
@@ -609,4 +609,4 @@ which publishes the page. The function must accept a ``WorkflowState`` object as
 
 This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
 Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the
-workflow continues to provide less urgent feedback. 
+workflow continues to provide less urgent feedback.

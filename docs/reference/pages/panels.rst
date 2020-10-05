@@ -306,7 +306,7 @@ Use ``classname="title"`` to make Page's built-in title field stand out with mor
 Placeholder Text
 ----------------
 
-By default, Wagtail uses the field's label as placeholder text. To change it, pass to the FieldPanel a widget with a placeholder attribute set to your desired text. You can select widgets from :doc:`Django's form widgets <django:ref/forms/widgets>`, or any of the Wagtail's widgets found in ``wagtail.admin.widgets``. 
+By default, Wagtail uses the field's label as placeholder text. To change it, pass to the FieldPanel a widget with a placeholder attribute set to your desired text. You can select widgets from :doc:`Django's form widgets <django:ref/forms/widgets>`, or any of the Wagtail's widgets found in ``wagtail.admin.widgets``.
 
 For example, to customize placeholders for a Book model exposed via ModelAdmin:
 
@@ -328,7 +328,7 @@ For example, to customize placeholders for a Book model exposed via ModelAdmin:
             }
         )
         # using the correct widget for your field type and desired effect
-        date_widget = widgets.AdminDateInput( 
+        date_widget = widgets.AdminDateInput(
             attrs = {
                 'placeholder': 'dd-mm-yyyy'
             }
@@ -336,7 +336,7 @@ For example, to customize placeholders for a Book model exposed via ModelAdmin:
 
         panels = [
             FieldPanel('title', widget=title_widget), # then add them as a variable
-            FieldPanel('release_date', widget=date_widget), 
+            FieldPanel('release_date', widget=date_widget),
             FieldPanel('price', widget=forms.NumberInput(attrs={'placeholder': 'Retail price on release'})) # or directly inline
         ]
 

@@ -13,4 +13,4 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
- * Prevent Javascript errors caused by unescaped quote characters in translation strings (Matt Westcott)
+ * Prevent JavaScript errors caused by unescaped quote characters in translation strings (Matt Westcott)

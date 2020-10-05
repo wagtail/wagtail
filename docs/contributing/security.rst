@@ -8,7 +8,7 @@ Most normal bugs in Wagtail are reported as `GitHub issues <https://github.com/w
 
 Instead, if you believe you’ve found something in Wagtail which has security implications, please send a description of the issue via email to `security@wagtail.io <mailto:security@wagtail.io>`_. Mail sent to that address reaches a subset of the core team, who can forward security issues to other core team members for broader discussion if needed.
 
-Once you’ve submitted an issue via email, you should receive an acknowledgment from a member of the security team within 48 hours, and depending on the action to be taken, you may receive further followup emails.
+Once you’ve submitted an issue via email, you should receive an acknowledgement from a member of the security team within 48 hours, and depending on the action to be taken, you may receive further followup emails.
 
 If you want to send an encrypted email (optional), the public key ID for security@wagtail.io is ``0x6ba1e1a86e0f8ce8``, and this public key is available from most commonly-used keyservers.
 

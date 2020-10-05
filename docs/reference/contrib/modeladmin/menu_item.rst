@@ -69,7 +69,7 @@ If you'd like the menu item for your model to appear in Wagtail's 'Settings'
 sub-menu instead of at the top level, add ``add_to_settings_menu = True`` to
 your ``ModelAdmin`` class.
 
-This will only work for indivdual ``ModelAdmin`` classes registered with their
+This will only work for individual ``ModelAdmin`` classes registered with their
 own ``modeladmin_register`` call. It won't work for members of a
 ``ModelAdminGroup``.
 

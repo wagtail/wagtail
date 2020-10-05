@@ -61,14 +61,14 @@ For Google Cloud Storage, create a ``cors.json`` configuration:
 
 .. code-block:: json
 
-	[
-	    {
-	      "origin": ["*"],
-	      "responseHeader": ["Content-Type"],
-	      "method": ["GET"],
-	      "maxAgeSeconds": 3600
-	    }
-	]
+    [
+        {
+          "origin": ["*"],
+          "responseHeader": ["Content-Type"],
+          "method": ["GET"],
+          "maxAgeSeconds": 3600
+        }
+    ]
 
 Then, apply this CORS configuration to the storage bucket:
 

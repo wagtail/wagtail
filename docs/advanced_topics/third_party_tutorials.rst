@@ -29,7 +29,7 @@ Third-party tutorials
 * `Wagtail and Azure storage blob containers <https://jossingram.wordpress.com/2017/11/29/wagtail-and-azure-storage-blob-containers/>`_ (29 November 2017)
 * `Building TwilioQuest with Twilio Sync, Django [incl. Wagtail], and Vue.js <https://www.twilio.com/blog/2017/11/building-twilioquest-with-twilio-sync-django-and-vue-js.html>`_ (6 November 2017)
 * `Image upload in wagtail forms <https://posts-by.lb.ee/image-uploads-in-wagtail-forms-3121c9b35d27>`_ (3 September 2017)
-* `Upgrading from Wagtail 1.0 to Wagtail 1.11 <https://www.caktusgroup.com/blog/2017/07/19/upgrading-wagtail/>`_ (19 July 2017) 
+* `Upgrading from Wagtail 1.0 to Wagtail 1.11 <https://www.caktusgroup.com/blog/2017/07/19/upgrading-wagtail/>`_ (19 July 2017)
 * `Wagtail-Multilingual: a simple project to demonstrate how multilingual is implemented <https://github.com/cristovao-alves/Wagtail-Multilingual>`_ (31 January 2017)
 * `Wagtail: 2 Steps for Adding Pages Outside of the CMS <https://www.caktusgroup.com/blog/2016/02/15/wagtail-2-steps-adding-pages-outside-cms/>`_ (15 February 2016)
 * `Adding a Twitter Widget for Wagtail’s new StreamField <https://jossingram.wordpress.com/2015/04/02/adding-a-twitter-widget-for-wagtails-new-streamfield/>`_ (2 April 2015)

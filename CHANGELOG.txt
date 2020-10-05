@@ -126,7 +126,7 @@ Changelog
  * Fix: `wagtail.contrib.sitemaps` no longer depends on SiteMiddleware (Matt Westcott)
  * Fix: Purge image renditions cache when renditions are deleted (Pascal Widdershoven, Matt Westcott)
  * Fix: Image / document forms now display non-field errors such as `unique_together` constraints (Matt Westcott)
- * Fix: Make "Site" chooser in site settings translateable (Andreas Bernacca)
+ * Fix: Make "Site" chooser in site settings translatable (Andreas Bernacca)
  * Fix: Add missing dropdown icons to image upload, document upload, and site settings screens (Andreas Bernacca)
  * Fix: Prevent snippets’ bulk delete button from being present for screen reader users when it’s absent for sighted users (LB (Ben Johnston))
  * Fix: Fix group permission checkboxes not being clickable in IE11 (LB (Ben Johnston))
@@ -253,7 +253,7 @@ Changelog
  * Fix: Added `verbose_name_plural` to form submission model (Janneke Janssen)
  * Fix: Prevent `update_index` failures and incorrect front-end rendering on blank `TableBlock` (Carlo Ascani)
  * Fix: Dropdown initialisation on the search page after AJAX call (Eric Sherman)
- * Fix: Make sure all modal chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
+ * Fix: Make sure all modal chooser search results correspond to the latest search by cancelling previous requests (Esper Kuijs)
 
 
 2.7.4 (20.07.2020)
@@ -347,7 +347,7 @@ Changelog
 2.6.1 (05.08.2019)
 ~~~~~~~~~~~~~~~~~~
 
- * Fix: Prevent Javascript errors caused by unescaped quote characters in translation strings (Matt Westcott)
+ * Fix: Prevent JavaScript errors caused by unescaped quote characters in translation strings (Matt Westcott)
 
 
 2.6 (01.08.2019)
@@ -398,7 +398,7 @@ Changelog
  * Fix: Avoid rendering entire form in EditHandler's `repr` method (Alex Tomkins)
  * Fix: Add empty alt attributes to HTML output of Embedly and oEmbed embed finders (Andreas Bernacca)
  * Fix: Add empty alt attributes to all images in the CMS admin (Andreas Bernacca)
- * Fix: Make URL generator preview image alt translateable (Thibaud Colas)
+ * Fix: Make URL generator preview image alt translatable (Thibaud Colas)
  * Fix: Clear pending AJAX request if error occurs on page chooser (Matt Westcott)
  * Fix: Prevent text from overlapping in focal point editing UI (Beth Menzies)
  * Fix: Screen readers now announce "Dashboard" for the main nav’s logo link instead of Wagtail’s version number (Thibaud Colas)
@@ -475,7 +475,7 @@ Changelog
  * Fix: `send_mail` now correctly uses the `html_message` kwarg for HTML messages (Tiago Requeijo)
  * Fix: Page copying no longer allowed if page model has reached its `max_count` (Andy Babic)
  * Fix: Don't show page type on page chooser button when multiple types are allowed (Thijs Kramer)
- * Fix: Make sure page chooser search results correspond to the latest search by canceling previous requests (Esper Kuijs)
+ * Fix: Make sure page chooser search results correspond to the latest search by cancelling previous requests (Esper Kuijs)
  * Fix: Inform user when moving a page from one parent to another where there is an already existing page with the same slug (Casper Timmers)
  * Fix: User add/edit forms now support form widgets with JS/CSS media (Damian Grinwis)
  * Fix: Rich text processing now preserves non-breaking spaces instead of converting them to normal spaces (Wesley van Lee)
@@ -584,7 +584,7 @@ Changelog
  * Increased max length of redirect URL field to 255 (Michael Harrison)
  * Added documentation for new JS/CSS media files association with Draftail feature definitions (Ed Henderson)
  * Added accessible colour contrast guidelines to the style guide (Catherine Farman)
- * Admin modal views no longer rely on Javascript `eval()`, for better CSP compliance (Matt Westcott)
+ * Admin modal views no longer rely on JavaScript `eval()`, for better CSP compliance (Matt Westcott)
  * Update editor guide for embeds and documents in rich text (Kevin Howbrook)
  * Improved performance of sitemap generation (Michael van Tellingen, Bertrand Bordage)
  * Added an internal API for autocomplete (Karl Hobley, Bertrand Bordage)
@@ -1558,7 +1558,7 @@ Changelog
  * Fix: The wagtailimages module is now compatible with remote storage backends that do not allow reopening closed files
  * Fix: Search no longer crashes when auto-indexing a model that doesn't have an id field (Scot Hacker)
  * Fix: The `wagtailfrontendcache` module's HTTP backend has been rewritten to reliably direct requests to the configured cache hostname
- * Fix: Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
+ * Fix: Resizing single pixel images with the "fill" filter no longer raises `ZeroDivisionError` or "tile cannot extend outside image"
  * Fix: The queryset returned from `search` operations when using the database search backend now correctly preserves additional properties of the original query, such as `prefetch_related` / `select_related`
  * Fix: Responses from the external image URL generator are correctly marked as streaming and will no longer fail when used with Django's cache middleware
  * Fix: Page copy now works with pages that use multiple inheritance (Jordi Joan)
@@ -1578,7 +1578,7 @@ Changelog
  * Removed dependency on libsass (Tim Heap)
  * Users without usernames can now be created and edited in the admin interface (Tim Heap)
  * Added update notifications
- * Javascript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
+ * JavaScript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
  * Improvements to the layout of the admin menu footer.
  * Menu items of custom apps are now highlighted when being used (Josh Barr)
  * Added thousands separator for counters on dashboard
@@ -1612,7 +1612,7 @@ Changelog
  * The Page model now records the date/time that a page was first published, as the field `first_published_at`
  * Increased the maximum length of a page slug from 50 to 255 characters
  * Plain text fields in the page editor now use auto-expanding text areas
- * Date / time pickers now consistently use times without seconds, to prevent Javascript behaviour glitches when focusing / unfocusing fields
+ * Date / time pickers now consistently use times without seconds, to prevent JavaScript behaviour glitches when focusing / unfocusing fields
  * Added hooks `register_rich_text_embed_handler` and `register_rich_text_link_handler` for customising link / embed handling within rich text fields
  * Added hook `construct_homepage_summary_items` for customising the site summary panel on the admin homepage
  * No longer automatically tries to use Celery for sending notification emails
@@ -1632,7 +1632,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~
 * Fix: When copying a page, IDs of child objects within page revision records were not remapped to the new objects; this would cause those objects to be lost from the original page when editing the new one
 * Fix: Search no longer crashes when auto-indexing a model that doesn't have an id field (Scot Hacker)
-* Fix: Resizing single pixel images with the "fill" filter no longer raises "ZeroDivisionError" or "tile cannot extend outside image"
+* Fix: Resizing single pixel images with the "fill" filter no longer raises `ZeroDivisionError` or "tile cannot extend outside image"
 
 
 0.8.9 (16.09.2015)
@@ -1848,7 +1848,7 @@ Changelog
  * Added a new datetime picker widget
  * Added styleguide (mainly for wagtail developers)
  * Aesthetic improvements to preview experience
- * 'image' tag now accepts extra keyword arguments to be output as attributes on the img tag
+ * 'image' tag now accepts extra keyword arguments to be output as attributes on the `<img>` tag
  * Login screen redirects to dashboard if user is already logged in
  * Renamed some template tag libraries
  * Any extra arguments given to serve are now passed through to get_context and get_template
@@ -1923,7 +1923,7 @@ Changelog
  * Internationalisation of the admin backend
  * Translations for Bulgarian, Catalan, Chinese, Galician, German, Greek, Polish, Romanian and Spanish. Partial translations for Basque and Mongolian.
  * Stylesheets ported from Less to Sass, to eliminate dependency on an external CSS compiler
- * Coffeescript replaced by vanilla Javascript
+ * Coffeescript replaced by vanilla JavaScript
  * OEmbed supported as an alternative backend for wagtailembeds, eliminating dependency on Embedly
  * Database supported as an alternative search backend, eliminating dependency on ElasticSearch
  * Background tasks now fall back on in-process handling if Celery is not available (also eliminating Redis as a dependency)

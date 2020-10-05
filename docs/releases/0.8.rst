@@ -92,7 +92,7 @@ and the ``validators`` attribute of the 'file' field - that is, the line:
 
 should become:
 
-    .. code-block:: python
+.. code-block:: python
 
     ('file', models.ImageField(upload_to=wagtail.wagtailimages.models.get_upload_to,
         width_field='width', height_field='height', verbose_name='File')),

@@ -140,7 +140,7 @@ class RoutablePageMixin:
                     'events': EventPage.objects.live().future(),
                 })
 
-        You can also use the ``template`` arguement to specify an alternative
+        You can also use the ``template`` argument to specify an alternative
         template to use for rendering. For example:
 
         .. code-block:: python

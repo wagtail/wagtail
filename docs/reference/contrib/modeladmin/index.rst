@@ -12,7 +12,7 @@ Summary of features
 -------------------
 
 - A customisable list view, allowing you to control what values are displayed
-  for each row, available options for result filtering, default ordering, 
+  for each row, available options for result filtering, default ordering,
   spreadsheet downloads and more.
 - Access your list views from the Wagtail admin menu easily with automatically
   generated menu items, with automatic 'active item' highlighting. Control the

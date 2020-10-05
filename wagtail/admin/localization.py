@@ -45,7 +45,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
 ]
 
 
-# Translatable strings to be made available to Javascript code
+# Translatable strings to be made available to JavaScript code
 # as the wagtailConfig.STRINGS object
 def get_js_translation_strings():
     return {
