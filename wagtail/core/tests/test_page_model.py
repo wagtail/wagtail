@@ -1509,7 +1509,7 @@ class TestCopyPage(TestCase):
             update_attrs={'title': "New christmas", 'slug': 'new-christmas'},
         )
 
-        self.assertIs(signal_fired, True)
+        self.assertTrue(signal_fired)
         self.assertEqual(signal_page, copy_page)
 
     def test_copy_unpublished_not_emits_signal(self):
@@ -1526,7 +1526,23 @@ class TestCopyPage(TestCase):
         page_published.connect(page_published_handler)
 
         homepage.copy(update_attrs={'slug': 'new_slug'})
-        self.assertIs(signal_fired, False)
+        self.assertFalse(signal_fired)
+
+    def test_copy_keep_live_false_not_emits_signal(self):
+        """Test that copying of a live page with keep_live=False not emits a page_published signal."""
+        homepage = Page.objects.get(url_path='/home/')
+        signal_fired = False
+
+        def page_published_handler(sender, instance, **kwargs):
+            nonlocal signal_fired
+            signal_fired = True
+        page_published.connect(page_published_handler)
+
+        homepage.copy(
+            keep_live=False,
+            update_attrs={'slug': 'new_slug'}
+        )
+        self.assertFalse(signal_fired)
 
 
 class TestCopyForTranslation(TestCase):
