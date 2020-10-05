@@ -71,7 +71,7 @@ cheaper-step        = 1
 # Application environment.
 env                 = PATH=/home/mywagtail/venv/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 env                 = HOME=/home/mywagtail
-# Set $PYTHONPATH so that 'django-admin.py' worker without needing the
+# Set $PYTHONPATH so that 'django-admin' works without needing the
 # virtualenv active.
 env                 = PYTHONPATH=/home/mywagtail/app/mywagtail
 # Settings module.
