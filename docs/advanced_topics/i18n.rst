@@ -15,11 +15,11 @@ Overview
 --------
 
 Out of the box, Wagtail assumes all content will be authored in a single language.
-This document descibes how to configure Wagtail for authoring content in
+This document describes how to configure Wagtail for authoring content in
 multiple languages and, optionally, set up a workflow that allows users to
 translate content between languages.
 
-This document only covers internationalisation of content managed in Wagtail.
+This document only covers the internationalisation of content managed by Wagtail.
 For information on how to translate static content in template files, JavaScript
 code, etc, refer to the `Django internationalisation docs <https://docs.djangoproject.com/en/3.1/topics/i18n/translation/>`_.
 Or, if you are building a headless site, refer to the docs of the frontend framework you are using.
@@ -43,7 +43,7 @@ Page structure
 
 Wagtail stores content in a separate page tree for each locale.
 
-For example, if you have two sites in two locales, then you will see four page
+For example, if you have two sites in two locales, then you will see four
 homepages at the top level of the page hierarchy in the explorer.
 
 Translations are linked together in the database so that translations
@@ -112,7 +112,7 @@ by the ``WAGTAIL_CONTENT_LANGUAGES`` setting.
 
  .. note:: Read this if you've changed ``LANGUAGE_CODE`` before enabling internationalisation
 
-    On initial migration, Wagtail createsa a ``Locale`` record for the language that
+    On initial migration, Wagtail creates a ``Locale`` record for the language that
     was set in the ``LANGUAGE_CODE`` setting at the time the migration was run. All
     pages will be assigned to this ``Locale`` when Wagtail's internationalisation is disabled.
 
@@ -308,7 +308,7 @@ If you're not convinced that you need this, have a look at https://www.w3.org/In
 Basic example
 ~~~~~~~~~~~~~
 
-Here is a basic example of how to add linkes between translations of a page.
+Here is a basic example of how to add links between translations of a page.
 
 This example, however, will only include languages defined in
 ``WAGTAIL_CONTENT_LANGUAGES`` and not any extra languages that might be defined
@@ -316,7 +316,7 @@ in ``LANGUAGES``. For more information on what both of these settings mean, see
 `Configuring available languages`_.
 
 If both settings are set to the same value, this example should work well for you,
-otherwise skip to the next section that has more complicated example that takes
+otherwise skip to the next section that has a more complicated example which takes
 this into account.
 
 .. code-block:: html+Django
@@ -345,7 +345,7 @@ This ``for`` block iterates through all published translations of the current pa
 
     {% get_language_info for translation.locale.language_code as lang %}
 
-This is a Django built in tag that gets info about the language of the translation.
+This is a Django built-in tag that gets info about the language of the translation.
 For more information, see `get_language_info() in the Django docs <https://docs.djangoproject.com/en/3.1/topics/i18n/translation/#django.utils.translation.get_language_info>`_.
 
 .. code-block:: html+Django
@@ -435,7 +435,7 @@ active language for just the code contained within it.
 The only difference with the ``<a>`` tag here from the ``<a>`` tag in the previous example
 is how we're getting the page's URL: ``{% pageurl page.localized %}``.
 
-All page instnces in Wagtail have a ``.localized`` attribute which fetches the translation
+All page instances in Wagtail have a ``.localized`` attribute which fetches the translation
 of the page in the current active language. This is why we activated the language previously.
 
 Another difference here is that if the same translated page is shared in two locales, Wagtail
@@ -502,7 +502,7 @@ This will add the two fields without any constraints:
 Step 2: Create a data migration
 *******************************
 
-Create the data migration with the following command:
+Create a data migration with the following command:
 
 .. code-block:: bash
 
@@ -522,7 +522,7 @@ in that app:
             ('myapp', '0002_bootstraptranslations'),
         ]
 
-        # Add one operation for each model to boostrap here
+        # Add one operation for each model to bootstrap here
         # Note: Only include models that are in the same app!
         operations = [
             BootstrapTranslatableModel('myapp.Advert'),
@@ -581,8 +581,8 @@ Alternative internationalisation plugins
 
 Before official multi-language support was added into Wagtail, site implementors
 had to use external plugins. These have not been replaced by Wagtail's own
-implementation as they use slightly different approches, so there's a chance that
-onr of them might fit your use case better:
+implementation as they use slightly different approaches, one of them might
+fit your use case better:
 
 - `Wagtailtrans <https://github.com/wagtail/wagtailtrans>`_
 - `wagtail-modeltranslation <https://github.com/infoportugal/wagtail-modeltranslation>`_
@@ -597,7 +597,7 @@ The Wagtail admin backend has been translated into many different languages. You
 
 If your language isn't listed on that page, you can easily contribute new languages or correct mistakes. Sign up and submit changes to `Transifex <https://www.transifex.com/torchbox/wagtail/>`_. Translation updates are typically merged into an official release within one month of being submitted.
 
-Change Wagtail admin language on a per user basis
+Change Wagtail admin language on a per-user basis
 =================================================
 
 Logged-in users can set their preferred language from ``/admin/account/``.
