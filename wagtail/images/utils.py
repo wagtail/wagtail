@@ -1,7 +1,13 @@
+import base64
+import hashlib
+import hmac
+
+from django.conf import settings
+from django.utils.encoding import force_str
+
+
 # Helper functions for migrating the Rendition.filter foreign key to the filter_spec field,
 # and the corresponding reverse migration
-
-
 def get_fill_filter_spec_migrations(app_name, rendition_model_name):
 
     def fill_filter_spec_forward(apps, schema_editor):
@@ -60,3 +66,21 @@ def parse_color_string(color_string):
         raise ValueError('Color string must be either 3 or 6 hexadecimal digits long')
 
     return r, g, b
+
+
+def generate_signature(image_id, filter_spec, key=None):
+    if key is None:
+        key = settings.SECRET_KEY
+
+    # Key must be a bytes object
+    if isinstance(key, str):
+        key = key.encode()
+
+    # Based on libthumbor hmac generation
+    # https://github.com/thumbor/libthumbor/blob/b19dc58cf84787e08c8e397ab322e86268bb4345/libthumbor/crypto.py#L50
+    url = '{}/{}/'.format(image_id, filter_spec)
+    return force_str(base64.urlsafe_b64encode(hmac.new(key, url.encode(), hashlib.sha1).digest()))
+
+
+def verify_signature(signature, image_id, filter_spec, key=None):
+    return force_str(signature) == generate_signature(image_id, filter_spec, key=key)
