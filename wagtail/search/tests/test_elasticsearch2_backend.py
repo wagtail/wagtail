@@ -833,6 +833,25 @@ class TestBackendConfiguration(TestCase):
             timeout=10
         )
 
+    def test_urls_as_string_works(self, Elasticsearch):
+        Elasticsearch2SearchBackend(params={
+            'URLS': 'http://localhost:9200'
+        })
+
+        Elasticsearch.assert_called_with(
+            hosts=[
+                {
+                    'host': 'localhost',
+                    'port': 9200,
+                    'url_prefix': '',
+                    'use_ssl': False,
+                    'verify_certs': False,
+                    'http_auth': None,
+                }
+            ],
+            timeout=10
+        )
+
 
 class TestGetModelRoot(TestCase):
     def test_root_model(self):
