@@ -83,34 +83,37 @@ Wagtail requires several Django app modules, third-party apps, and defines sever
 Wagtail Apps
 ------------
 
-``wagtailcore``
+``wagtail.core``
   The core functionality of Wagtail, such as the ``Page`` class, the Wagtail tree, and model fields.
 
-``wagtailadmin``
+``wagtail.admin``
   The administration interface for Wagtail, including page edit handlers.
 
-``wagtaildocs``
+``wagtail.documents``
   The Wagtail document content type.
 
-``wagtailsnippets``
+``wagtail.snippets``
   Editing interface for non-Page models and objects. See :ref:`Snippets`.
 
-``wagtailusers``
+``wagtail.users``
   User editing interface.
 
-``wagtailimages``
+``wagtail.images``
   The Wagtail image content type.
 
-``wagtailembeds``
+``wagtail.embeds``
   Module governing oEmbed and Embedly content in Wagtail rich text fields. See :ref:`inserting_videos`.
 
-``wagtailsearch``
+``wagtail.search``
   Search framework for Page content. See :ref:`wagtailsearch`.
 
-``wagtailredirects``
+``wagtail.sites``
+  Management UI for Wagtail sites.
+
+``wagtail.contrib.redirects``
   Admin interface for creating arbitrary redirects on your site.
 
-``wagtailforms``
+``wagtail.contrib.forms``
   Models for creating forms on your pages and viewing submissions. See :ref:`form_builder`.
 
 
