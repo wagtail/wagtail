@@ -1866,6 +1866,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             page_copy.first_published_at = latest_revision_as_page_revision.created_at
             page_copy.save(clean=False)
 
+        if page_copy.live:
+            page_published.send(
+                sender=page_copy.specific_class, instance=page_copy,
+                revision=latest_revision_as_page_revision
+            )
+
         # Log
         if log_action:
             parent = specific_self.get_parent()
