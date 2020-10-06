@@ -46,7 +46,8 @@ Bug fixes
  * Correctly handle Turkish 'İ' characters in client-side slug generation (Matt Westcott)
  * Page chooser widgets now reflect custom ``get_admin_display_title`` methods (Saptak Sengupta)
  * ``Page.copy()`` now raises an error if the page being copied is unsaved (Anton Zhyltsou)
-
+ * ``Page.copy()`` now triggers a ``page_published`` if the copied page is live (Anton Zhyltsou)
+ * The Elasticsearch ``URLS`` setting can now take a string on its own instead of a list (Sævar Öfjörð Magnússon)
 
 Upgrade considerations
 ======================
