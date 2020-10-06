@@ -853,7 +853,6 @@ class TestBackendConfiguration(TestCase):
         )
 
 
-
 class TestGetModelRoot(TestCase):
     def test_root_model(self):
         from wagtail.core.models import Page
