@@ -20,7 +20,7 @@ from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.forms import URLGeneratorForm, get_image_form
 from wagtail.images.models import Filter, SourceImageIOError
 from wagtail.images.permissions import permission_policy
-from wagtail.images.views.serve import generate_signature
+from wagtail.images.utils import generate_signature
 from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
