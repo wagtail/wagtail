@@ -519,6 +519,15 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.update_from_db()
         self.assertEqual(self.image.title, "Edited")
 
+    def test_edit_with_limited_permissions(self):
+        new_user = self.create_user('testuser', password='password')
+        self.login(new_user, 'testuser')
+
+        response = self.post({
+            'title': "Edited",
+        })
+        self.assertEqual(response.status_code, 302)
+
     def test_edit_with_new_image_file(self):
         file_content = get_test_image_file().file.getvalue()
 
@@ -773,6 +782,13 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         # Check that the image was deleted
         images = Image.objects.filter(title="Test image")
         self.assertEqual(images.count(), 0)
+
+    def test_delete_with_limited_permissions(self):
+        new_user = self.create_user('testuser', password='password')
+        self.login(new_user, 'testuser')
+
+        response = self.post()
+        self.assertEqual(response.status_code, 302)
 
 
 class TestImageChooserView(TestCase, WagtailTestUtils):
