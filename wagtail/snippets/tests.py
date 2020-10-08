@@ -407,7 +407,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def test_nonexistant_id(self):
         response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'advert', 999999)))
         self.assertEqual(response.status_code, 404)
-    
+
     def test_edit_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
