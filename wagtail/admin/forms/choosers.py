@@ -39,6 +39,8 @@ class AnchorLinkChooserForm(forms.Form):
 class EmailLinkChooserForm(forms.Form):
     email_address = forms.EmailField(required=True)
     link_text = forms.CharField(required=False)
+    subject = forms.CharField(required=False)
+    body = forms.CharField(required=False)
 
 
 class PhoneLinkChooserForm(forms.Form):

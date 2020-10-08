@@ -12,6 +12,13 @@ from wagtail.core import hooks
 from wagtail.core.models import Page, UserPagePermissionsProxy
 from wagtail.core.utils import resolve_model_string
 
+try:
+    import urlparse
+    from urllib import urlencode
+except: # For Python 3
+    import urllib.parse as urlparse
+    from urllib.parse import urlencode
+    
 
 def shared_context(request, extra_context=None):
     context = {
@@ -66,6 +73,20 @@ def can_choose_page(page, permission_proxy, desired_classes, can_choose_root=Tru
         return permission_proxy.for_page(page).can_add_subpage()
 
     return True
+
+
+def parse_email_link(mailto):
+    result = dict()
+
+    mail_result = urlparse.urlparse(mailto)
+
+    result['email'] = mail_result.path
+
+    query = urlparse.parse_qs(mail_result.query)
+    result['subject'] = query['subject'][0] if 'subject' in query else ''
+    result['body'] = query['body'][0] if 'body' in query else ''
+
+    return result
 
 
 def browse(request, parent_page_id=None):
@@ -259,17 +280,31 @@ def anchor_link(request):
 
 
 def email_link(request):
+    parsed_email = parse_email_link(request.GET.get('link_url', ''))
+
     initial_data = {
         'link_text': request.GET.get('link_text', ''),
-        'email_address': request.GET.get('link_url', ''),
+        'email_address': parsed_email['email'],
+        'subject': parsed_email['subject'],
+        'body': parsed_email['body'],
     }
 
     if request.method == 'POST':
         form = EmailLinkChooserForm(request.POST, initial=initial_data, prefix='email-link-chooser')
 
-        if form.is_valid():
+        if form.is_valid():            
+            params = { 
+                'subject': form.cleaned_data['subject'], 
+                'body': form.cleaned_data['body'], 
+            }
+            encoded_params = urlencode({k: v for k, v in params.items() if v is not None and v is not ''}, quote_via=urlparse.quote)
+
+            url = 'mailto:' + form.cleaned_data['email_address'] 
+            if encoded_params:
+                url += '?' + encoded_params
+
             result = {
-                'url': 'mailto:' + form.cleaned_data['email_address'],
+                'url': url,
                 'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['email_address'],
                 # If the user has explicitly entered / edited something in the link_text field,
                 # always use that text. If not, we should favour keeping the existing link/selection
