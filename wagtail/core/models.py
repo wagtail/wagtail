@@ -760,6 +760,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         editable=False
     )
 
+    # If non-null, this page is an alias of the linked page
+    # This means the page is kept in sync with the live version
+    # of the linked pages and is not editable by users.
+    alias_of = models.ForeignKey(
+        'self',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        editable=False,
+        related_name='aliases',
+    )
+
     search_fields = [
         index.SearchField('title', partial_match=True, boost=2),
         index.AutocompleteField('title'),
@@ -1206,6 +1218,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         :param clean: Set this to False to skip cleaning page content before saving this revision
         :return: the newly created revision
         """
+        # Raise an error if this page is an alias.
+        if self.alias_of_id:
+            raise RuntimeError(
+                "save_revision() was called on an alias page. "
+                "Revisions are not required for alias pages as they are an exact copy of another page."
+            )
+
         if clean:
             self.full_clean()
 
@@ -1284,6 +1303,108 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         else:
             return self.specific
 
+    def update_aliases(self, *, revision=None, user=None, _content_json=None, _updated_ids=None):
+        """
+        Publishes all aliases that follow this page with the latest content from this page.
+
+        This is called by Wagtail whenever a page with aliases is published.
+
+        :param revision: The revision of the original page that we are updating to (used for logging purposes)
+        :type revision: PageRevision, optional
+        :param user: The user who is publishing (used for logging purposes)
+        :type user: User, optional
+        """
+        specific_self = self.specific
+
+        # Only compute this if necessary since it's quite a heavy operation
+        if _content_json is None:
+            _content_json = self.to_json()
+
+        # A list of IDs that have already been updated. This is just in case someone has
+        # created an alias loop (which is impossible to do with the UI Wagtail provides)
+        _updated_ids = _updated_ids or []
+
+        for alias in self.specific_class.objects.filter(alias_of=self).exclude(id__in=_updated_ids):
+            # FIXME: Switch to the same fields that are excluded from copy
+            # We can't do this right now because we can't exclude fields from with_content_json
+            exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
+
+            # Copy field content
+            alias_updated = alias.with_content_json(_content_json)
+
+            # Copy child relations
+            child_object_map = specific_self.copy_all_child_relations(target=alias_updated, exclude=exclude_fields)
+
+            # Process child objects
+            # This has two jobs:
+            #  - If the alias is in a different locale, this updates the
+            #    locale of any translatable child objects to match
+            #  - If the alias is not a translation of the original, this
+            #    changes the translation_key field of all child objects
+            #    so they do not clash
+            if child_object_map:
+                alias_is_translation = alias.translation_key == self.translation_key
+
+                def process_child_object(child_object):
+                    if isinstance(child_object, TranslatableMixin):
+                        # Child object's locale must always match the page
+                        child_object.locale = alias_updated.locale
+
+                        # If the alias isn't a translation of the original page,
+                        # change the child object's translation_keys so they are
+                        # not either
+                        if not alias_is_translation:
+                            child_object.translation_key = uuid.uuid4()
+
+                for (rel, previous_id), child_objects in child_object_map.items():
+                    if previous_id is None:
+                        for child_object in child_objects:
+                            process_child_object(child_object)
+                    else:
+                        process_child_object(child_objects)
+
+            # Copy M2M relations
+            _copy_m2m_relations(specific_self, alias_updated, exclude_fields=exclude_fields)
+
+            # Don't change the aliases slug
+            # Aliases can have their own slugs so they can be siblings of the original
+            alias_updated.slug = alias.slug
+            alias_updated.set_url_path(alias_updated.get_parent())
+
+            # Aliases don't have revisions, so update fields that would normally be updated by save_revision
+            alias_updated.draft_title = alias_updated.title
+            alias_updated.latest_revision_created_at = self.latest_revision_created_at
+
+            alias_updated.save(clean=False)
+
+            page_published.send(sender=alias_updated.specific_class, instance=alias_updated, revision=revision, alias=True)
+
+            # Log the publish of the alias
+            PageLogEntry.objects.log_action(
+                instance=alias_updated,
+                action='wagtail.publish',
+                user=user,
+            )
+
+            # Update any aliases of that alias
+
+            # Design note:
+            # It could be argued that this will be faster if we just changed these alias-of-alias
+            # pages to all point to the original page and avoid having to update them recursively.
+            #
+            # But, it's useful to have a record of how aliases have been chained.
+            # For example, In Wagtail Localize, we use aliases to create mirrored trees, but those
+            # trees themselves could have aliases within them. If an alias within a tree is
+            # converted to a regular page, we want the alias in the mirrored tree to follow that
+            # new page and stop receiving updates from the original page.
+            #
+            # Doing it this way requires an extra lookup query per alias but this is small in
+            # comparison to the work required to update the alias.
+
+            alias.update_aliases(revision=revision, _content_json=_content_json, _updated_ids=_updated_ids)
+
+    update_aliases.alters_data = True
+
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
         """
         Unpublish the page by setting ``live`` to ``False``. Does nothing if ``live`` is already ``False``
@@ -1314,6 +1435,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             logger.info("Page unpublished: \"%s\" id=%d", self.title, self.id)
 
             self.revisions.update(approved_go_live_at=None)
+
+            # Unpublish aliases
+            for alias in self.aliases.all():
+                alias.unpublish()
 
     context_object_name = None
 
@@ -1928,8 +2053,149 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     copy.alters_data = True
 
+    def create_alias(self, *, recursive=False, parent=None, update_slug=None, update_locale=None, user=None, log_action='wagtail.create_alias', reset_translation_key=True, _mpnode_attrs=None):
+        """
+        Creates an alias of the given page.
+
+        An alias is like a copy, but an alias remains in sync with the original page. They
+        are not directly editable and do not have revisions.
+
+        You can convert an alias into a regular page by setting the .alias_of attibute to None
+        and creating an initial revision.
+
+        :param recursive: create aliases of the page's subtree, defaults to False
+        :type recursive: boolean, optional
+        :param parent: The page to create the new alias under
+        :type parent: Page, optional
+        :param update_slug: The slug of the new alias page, defaults to the slug of the original page
+        :type update_slug: string, optional
+        :param update_locale: The locale of the new alias page, defaults to the locale of the original page
+        :type update_locale: Locale, optional
+        :param user: The user who is performing this action. This user would be assigned as the owner of the new page and appear in the audit log
+        :type user: User, optional
+        :param log_action: Override the log action with a custom one. or pass None to skip logging, defaults to 'wagtail.create_alias'
+        :type log_action: string or None, optional
+        :param reset_translation_key: Generate new translation_keys for the page and any translatable child objects, defaults to False
+        :type reset_translation_key: boolean, optional
+        """
+        specific_self = self.specific
+
+        # FIXME: Switch to the same fields that are excluded from copy
+        # We can't do this right now because we can't exclude fields from with_content_json
+        # which we use for updating aliases
+        exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
+
+        update_attrs = {
+            'alias_of': self,
+
+            # Aliases don't have revisions so the draft title should always match the live title
+            'draft_title': self.title,
+
+            # Likewise, an alias page can't have unpublished changes if it's live
+            'has_unpublished_changes': not self.live,
+        }
+
+        if update_slug:
+            update_attrs['slug'] = update_slug
+
+        if update_locale:
+            update_attrs['locale'] = update_locale
+
+        if user:
+            update_attrs['owner'] = user
+
+        # When we're not copying for translation, we should give the translation_key a new value
+        if reset_translation_key:
+            update_attrs['translation_key'] = uuid.uuid4()
+
+        alias, child_object_map = _copy(specific_self, update_attrs=update_attrs, exclude_fields=exclude_fields)
+
+        # Update any translatable child objects
+        for (child_relation, old_pk), child_object in child_object_map.items():
+            if isinstance(child_object, TranslatableMixin):
+                if update_locale:
+                    child_object.locale = update_locale
+
+                # When we're not copying for translation, we should give the translation_key a new value for each child object as well
+                if reset_translation_key:
+                    child_object.translation_key = uuid.uuid4()
+
+        # Save the new page
+        if _mpnode_attrs:
+            # We've got a tree position already reserved. Perform a quick save
+            alias.path = _mpnode_attrs[0]
+            alias.depth = _mpnode_attrs[1]
+            alias.save(clean=False)
+
+        else:
+            if parent:
+                if recursive and (parent == self or parent.is_descendant_of(self)):
+                    raise Exception("You cannot copy a tree branch recursively into itself")
+                alias = parent.add_child(instance=alias)
+            else:
+                alias = self.add_sibling(instance=alias)
+
+            _mpnode_attrs = (alias.path, alias.depth)
+
+        _copy_m2m_relations(specific_self, alias, exclude_fields=exclude_fields)
+
+        # Log
+        if log_action:
+            source_parent = specific_self.get_parent()
+            PageLogEntry.objects.log_action(
+                instance=alias,
+                action=log_action,
+                user=user,
+                data={
+                    'page': {
+                        'id': alias.id,
+                        'title': alias.get_admin_display_title()
+                    },
+                    'source': {'id': source_parent.id, 'title': source_parent.get_admin_display_title()} if source_parent else None,
+                    'destination': {'id': parent.id, 'title': parent.get_admin_display_title()} if parent else None,
+                },
+            )
+            if alias.live:
+                # Log the publish
+                PageLogEntry.objects.log_action(
+                    instance=alias,
+                    action='wagtail.publish',
+                    user=user,
+                )
+
+        logger.info("Page alias created: \"%s\" id=%d from=%d", alias.title, alias.id, self.id)
+
+        # Copy child pages
+        if recursive:
+            numchild = 0
+
+            for child_page in self.get_children().specific():
+                newdepth = _mpnode_attrs[1] + 1
+                child_mpnode_attrs = (
+                    Page._get_path(_mpnode_attrs[0], newdepth, numchild),
+                    newdepth
+                )
+                numchild += 1
+                child_page.create_alias(
+                    recursive=True,
+                    parent=alias,
+                    update_locale=update_locale,
+                    user=user,
+                    log_action=log_action,
+                    reset_translation_key=reset_translation_key,
+                    _mpnode_attrs=child_mpnode_attrs
+                )
+
+            if numchild > 0:
+                alias.numchild = numchild
+                alias.save(clean=False, update_fields=['numchild'])
+
+        return alias
+
+    create_alias.alters_data = True
+
     @transaction.atomic
-    def copy_for_translation(self, locale, copy_parents=False, exclude_fields=None):
+    def copy_for_translation(self, locale, copy_parents=False, alias=False, exclude_fields=None):
         """
         Copies this page for the specified locale.
         """
@@ -1945,7 +2211,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     raise ParentNotTranslatedError
 
                 translated_parent = parent.copy_for_translation(
-                    locale, copy_parents=True
+                    locale, copy_parents=True, alias=True
                 )
         else:
             # Don't duplicate the root page for translation. Create new locale as a sibling
@@ -1958,25 +2224,34 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Find available slug for new page
         slug = find_available_slug(translated_parent, slug)
 
-        # Update locale on translatable child objects as well
-        def process_child_object(
-            original_page, page_copy, child_relation, child_object
-        ):
-            if isinstance(child_object, TranslatableMixin):
-                child_object.locale = locale
+        if alias:
+            return self.create_alias(
+                parent=translated_parent,
+                update_slug=slug,
+                update_locale=locale,
+                reset_translation_key=False,
+            )
 
-        return self.copy(
-            to=translated_parent,
-            update_attrs={
-                "locale": locale,
-                "slug": slug,
-            },
-            copy_revisions=False,
-            keep_live=False,
-            reset_translation_key=False,
-            process_child_object=process_child_object,
-            exclude_fields=exclude_fields,
-        )
+        else:
+            # Update locale on translatable child objects as well
+            def process_child_object(
+                original_page, page_copy, child_relation, child_object
+            ):
+                if isinstance(child_object, TranslatableMixin):
+                    child_object.locale = locale
+
+            return self.copy(
+                to=translated_parent,
+                update_attrs={
+                    "locale": locale,
+                    "slug": slug,
+                },
+                copy_revisions=False,
+                keep_live=False,
+                reset_translation_key=False,
+                process_child_object=process_child_object,
+                exclude_fields=exclude_fields,
+            )
 
     copy_for_translation.alters_data = True
 
@@ -2255,11 +2530,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``locked_at``
         * ``latest_revision_created_at``
         * ``first_published_at``
+        * ``alias_of``
         """
 
         obj = self.specific_class.from_json(content_json)
 
         # These should definitely never change between revisions
+        obj.id = self.id
         obj.pk = self.pk
         obj.content_type = self.content_type
 
@@ -2285,6 +2562,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.first_published_at = self.first_published_at
         obj.translation_key = self.translation_key
         obj.locale = self.locale
+        obj.alias_of_id = self.alias_of_id
 
         return obj
 
@@ -2529,6 +2807,9 @@ class PageRevision(models.Model):
 
         if page.live:
             page_published.send(sender=page.specific_class, instance=page.specific, revision=self)
+
+            # Update alias pages
+            page.update_aliases(revision=self, user=user, _content_json=self.content_json)
 
             if log_action:
                 data = None

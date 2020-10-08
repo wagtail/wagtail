@@ -123,6 +123,12 @@ Database fields
 
         The date/time when the page was locked.
 
+    .. attribute:: alias_of
+
+        (foreign key to another page)
+
+        If set, this page is an alias of the page referenced in this field.
+
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -258,6 +264,10 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. automethod:: with_content_json
 
     .. automethod:: save
+
+    .. automethod:: create_alias
+
+    .. automethod:: update_aliases
 
     .. autoattribute:: has_workflow
 

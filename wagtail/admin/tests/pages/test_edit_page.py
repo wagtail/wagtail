@@ -970,6 +970,34 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, publish_button, html=True)
         self.assertNotContains(response, "<li>%s</li>" % publish_button, html=True)
 
+    def test_edit_alias_page(self):
+        alias_page = self.event_page.create_alias(update_slug='new-event-page')
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=[alias_page.id]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], "text/html; charset=utf-8")
+
+        # Should still have status in the header
+        self.assertContains(response, '<li class="header-meta--status">Published</li>', html=True)
+
+        # Check the edit_alias.html template was used instead
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/edit_alias.html')
+        original_page_edit_url = reverse('wagtailadmin_pages:edit', args=[self.event_page.id])
+        self.assertContains(response, f'<a class="button button-secondary" href="{original_page_edit_url}">Edit original page</a>', html=True)
+
+    def test_post_edit_alias_page(self):
+        alias_page = self.child_page.create_alias(update_slug='new-child-page')
+
+        # Tests simple editing
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[alias_page.id]), post_data)
+
+        self.assertEqual(response.status_code, 405)
+
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):
     def setUp(self):
