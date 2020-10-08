@@ -322,6 +322,26 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         # Create a document to edit
         self.document = models.Document.objects.create(title="Test document", file=fake_file)
 
+    def test_get_with_limited_permissions(self):
+        new_user = self.create_user('test_user', password='password')
+        self.login(new_user, 'test_user', 'password')
+
+        response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id, )))
+        self.assertEqual(response.status_code, 302)
+
+    def test_post_with_limited_permissions(self):
+        new_user = self.create_user('test_user', password='password')
+        self.login(new_user, 'test_user', 'password')
+
+        response = self.client.post(
+            reverse('wagtaildocs:edit', args=(self.document.id, )),
+            {
+                'title': 'TestDoc',
+                'file': get_test_document_file()
+            }
+        )
+        self.assertEqual(response.status_code, 302)
+
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id,)))
         self.assertEqual(response.status_code, 200)
@@ -510,6 +530,16 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
 
         # Create a document to delete
         self.document = models.Document.objects.create(title="Test document")
+
+    def test_delete_without_permissions(self):
+        new_user = self.create_user('test_user', password='password')
+        self.login(new_user, 'test_user', 'password')
+
+        response_get = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id, )))
+        response_post = self.client.post(reverse('wagtaildocs:delete', args=(self.document.id, )))
+
+        self.assertEqual(response_get.status_code, 302)
+        self.assertEqual(response_post.status_code, 302)
 
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id,)))
