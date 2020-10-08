@@ -421,7 +421,7 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
     def test_no_permissions(self):
         self.login(user=self.editor)
         response = self.post()
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
     def test_post_with_permission(self):
         self.login(user=self.moderator)

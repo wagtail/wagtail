@@ -54,8 +54,8 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         # Get delete page
         response = self.client.get(reverse('wagtailadmin_pages:delete', args=(self.child_page.id, )))
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a 302 redirect response
+        self.assertEqual(response.status_code, 302)
 
         # Check that the deletion has not happened
         self.assertTrue(SimplePage.objects.filter(id=self.child_page.id).exists())

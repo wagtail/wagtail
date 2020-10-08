@@ -1,6 +1,6 @@
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 
+from wagtail.admin.auth import permission_denied
 from wagtail.admin.forms.pages import PageViewRestrictionForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core.models import Page, PageViewRestriction
@@ -10,7 +10,7 @@ def set_privacy(request, page_id):
     page = get_object_or_404(Page, id=page_id)
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_set_view_restrictions():
-        raise PermissionDenied
+        return permission_denied(request)
 
     # fetch restriction records in depth order so that ancestors appear first
     restrictions = page.get_view_restrictions().order_by('page__depth')

@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.views.generic import View
 
+from wagtail.admin.auth import permission_denied
 from wagtail.core.models import Page
 
 
@@ -15,7 +16,7 @@ def view_draft(request, page_id):
     page = get_object_or_404(Page, id=page_id).get_latest_revision_as_page()
     perms = page.permissions_for_user(request.user)
     if not (perms.can_publish() or perms.can_edit()):
-        raise PermissionDenied
+        return permission_denied(request)
 
     try:
         preview_mode = page.default_preview_mode

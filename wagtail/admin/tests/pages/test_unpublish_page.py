@@ -61,8 +61,8 @@ class TestPageUnpublish(TestCase, WagtailTestUtils):
         # Get unpublish page
         response = self.client.get(reverse('wagtailadmin_pages:unpublish', args=(self.page.id, )))
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a 302 redirected response
+        self.assertEqual(response.status_code, 302)
 
     def test_unpublish_view_post(self):
         """

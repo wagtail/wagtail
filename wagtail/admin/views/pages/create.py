@@ -11,6 +11,7 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
+from wagtail.admin.auth import permission_denied
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.models import Page
@@ -19,7 +20,7 @@ from wagtail.core.models import Page
 def add_subpage(request, parent_page_id):
     parent_page = get_object_or_404(Page, id=parent_page_id).specific
     if not parent_page.permissions_for_user(request.user).can_add_subpage():
-        raise PermissionDenied
+        return permission_denied(request)
 
     page_types = [
         (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
@@ -49,7 +50,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
         self.parent_page_perms = self.parent_page.permissions_for_user(self.request.user)
         if not self.parent_page_perms.can_add_subpage():
-            raise PermissionDenied
+            return permission_denied(request)
 
         try:
             self.page_content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)

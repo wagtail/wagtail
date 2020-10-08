@@ -1,5 +1,4 @@
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models.functions import Lower
@@ -14,7 +13,7 @@ from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
 
 from wagtail.admin import messages
-from wagtail.admin.auth import PermissionPolicyChecker
+from wagtail.admin.auth import PermissionPolicyChecker, permission_denied
 from wagtail.admin.forms.workflows import (
     TaskChooserSearchForm, WorkflowPagesFormSet, get_task_form_class, get_workflow_edit_handler)
 from wagtail.admin.modal_workflow import render_modal_workflow
@@ -259,7 +258,7 @@ def enable_workflow(request, pk):
 
     # Check permissions
     if not workflow_permission_policy.user_has_permission(request.user, 'create'):
-        raise PermissionDenied
+        return permission_denied(request)
 
     # Set workflow to active if inactive
     if not workflow.active:
@@ -283,7 +282,7 @@ def remove_workflow(request, page_pk, workflow_pk=None):
 
     # Check permissions
     if not workflow_permission_policy.user_has_permission(request.user, 'change'):
-        raise PermissionDenied
+        return permission_denied(request)
 
     if hasattr(page, 'workflowpage'):
         # If workflow_pk is set, this will only remove the workflow if it its pk matches - this prevents accidental
@@ -328,7 +327,7 @@ class TaskIndex(IndexView):
 
 def select_task_type(request):
     if not task_permission_policy.user_has_permission(request.user, 'add'):
-        raise PermissionDenied
+        return permission_denied(request)
 
     task_types = [
         (model.get_verbose_name(), model._meta.app_label, model._meta.model_name, model.get_description())
@@ -472,7 +471,7 @@ def enable_task(request, pk):
 
     # Check permissions
     if not task_permission_policy.user_has_permission(request.user, 'create'):
-        raise PermissionDenied
+        return permission_denied(request)
 
     # Set workflow to active if inactive
     if not task.active:

@@ -1,4 +1,3 @@
-from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
@@ -6,6 +5,7 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
+from wagtail.admin.auth import permission_denied
 from wagtail.core import hooks
 from wagtail.core.models import Page
 
@@ -14,7 +14,7 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
     page_to_move = get_object_or_404(Page, id=page_to_move_id)
     page_perms = page_to_move.permissions_for_user(request.user)
     if not page_perms.can_move():
-        raise PermissionDenied
+        return permission_denied(request)
 
     if viewed_page_id:
         viewed_page = get_object_or_404(Page, id=viewed_page_id)
@@ -51,7 +51,7 @@ def move_confirm(request, page_to_move_id, destination_id):
     page_to_move = get_object_or_404(Page, id=page_to_move_id).specific
     destination = get_object_or_404(Page, id=destination_id)
     if not page_to_move.permissions_for_user(request.user).can_move_to(destination):
-        raise PermissionDenied
+        return permission_denied(request)
 
     if not Page._slug_is_available(page_to_move.slug, destination, page=page_to_move):
         messages.error(

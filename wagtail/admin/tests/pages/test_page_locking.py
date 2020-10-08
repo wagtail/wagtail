@@ -118,7 +118,7 @@ class TestLocking(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_pages:lock', args=(self.child_page.id, )))
 
         # Check response
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
         # Check that the page is still unlocked
         page = Page.objects.get(id=self.child_page.id)
@@ -246,7 +246,7 @@ class TestLocking(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_pages:unlock', args=(self.child_page.id, )))
 
         # Check response
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
         # Check that the page is still locked
         page = Page.objects.get(id=self.child_page.id)
