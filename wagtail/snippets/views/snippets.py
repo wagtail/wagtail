@@ -63,9 +63,12 @@ def index(request):
     snippet_model_opts = [
         model._meta for model in get_snippet_models()
         if user_can_edit_snippet_type(request.user, model)]
-    return TemplateResponse(request, 'wagtailsnippets/snippets/index.html', {
-        'snippet_model_opts': sorted(
-            snippet_model_opts, key=lambda x: x.verbose_name.lower())})
+    if snippet_model_opts:
+        return TemplateResponse(request, 'wagtailsnippets/snippets/index.html', {
+            'snippet_model_opts': sorted(
+                snippet_model_opts, key=lambda x: x.verbose_name.lower())})
+    else:
+        return permission_denied(request)
 
 
 def list(request, app_label, model_name):

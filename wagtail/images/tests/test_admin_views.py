@@ -445,7 +445,7 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
 
 class TestImageEditView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
         # Create an image to edit
         self.image = Image.objects.create(
@@ -520,8 +520,11 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertEqual(self.image.title, "Edited")
 
     def test_edit_with_limited_permissions(self):
-        new_user = self.create_user('testuser', password='password')
-        self.login(new_user, 'testuser')
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
 
         response = self.post({
             'title': "Edited",
@@ -743,7 +746,7 @@ class TestImageEditViewWithCustomImageModel(TestCase, WagtailTestUtils):
 
 class TestImageDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
         # Create an image to edit
         self.image = Image.objects.create(
@@ -784,8 +787,11 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(images.count(), 0)
 
     def test_delete_with_limited_permissions(self):
-        new_user = self.create_user('testuser', password='password')
-        self.login(new_user, 'testuser')
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
 
         response = self.post()
         self.assertEqual(response.status_code, 302)
