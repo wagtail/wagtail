@@ -359,6 +359,95 @@ using ``?search`` in conjunction with ``?order`` (as this disables ranking).
 
 For example: ``?search=James+Joyce&order=-first_published_at&search_operator=and``
 
+.. _apiv2_i18n_filters:
+
+Special filters for internationalised sites
+-------------------------------------------
+
+When ``WAGTAIL_I18N_ENABLED`` is set to ``True`` (see
+:ref:`enabling_internationalisation` for more details) two new filters are made
+available on the pages endpoint.
+
+Filtering pages by locale
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``?locale=`` filter is used to filter the listing to only include pages in
+the specified locale. For example:
+
+.. code-block:: text
+
+    GET /api/v2/pages/?locale=en-us
+
+    HTTP 200 OK
+    Content-Type: application/json
+
+    {
+        "meta": {
+            "total_count": 5
+        },
+        "items": [
+            {
+                "id": 10,
+                "meta": {
+                    "type": "standard.StandardPage",
+                    "detail_url": "http://api.example.com/api/v2/pages/10/",
+                    "html_url": "http://www.example.com/usa-page/",
+                    "slug": "usa-page",
+                    "first_published_at": "2016-08-30T16:52:00Z",
+                    "locale": "en-us"
+                },
+                "title": "American page"
+            },
+
+            ...
+        ]
+    }
+
+Getting translations of a page
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``?translation_of`` filter is used to filter the listing to only include
+pages that are a translation of the specified page ID. For example:
+
+.. code-block:: text
+
+    GET /api/v2/pages/?translation_of=10
+
+    HTTP 200 OK
+    Content-Type: application/json
+
+    {
+        "meta": {
+            "total_count": 2
+        },
+        "items": [
+            {
+                "id": 11,
+                "meta": {
+                    "type": "standard.StandardPage",
+                    "detail_url": "http://api.example.com/api/v2/pages/11/",
+                    "html_url": "http://www.example.com/gb-page/",
+                    "slug": "gb-page",
+                    "first_published_at": "2016-08-30T16:52:00Z",
+                    "locale": "en-gb"
+                },
+                "title": "British page"
+            },
+            {
+                "id": 12,
+                "meta": {
+                    "type": "standard.StandardPage",
+                    "detail_url": "http://api.example.com/api/v2/pages/12/",
+                    "html_url": "http://www.example.com/fr-page/",
+                    "slug": "fr-page",
+                    "first_published_at": "2016-08-30T16:52:00Z",
+                    "locale": "fr"
+                },
+                "title": "French page"
+            },
+        ]
+    }
+
 Fields
 ------
 

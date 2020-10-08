@@ -125,6 +125,8 @@ content to be authored in multiple languages.
     :local:
     :depth: 1
 
+.. _enabling_internationalisation:
+
 Enabling internationalisation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -439,6 +441,16 @@ Another difference here is that if the same translated page is shared in two loc
 will generate the correct URL for the page based on the current active locale. This is the
 key difference between this example and the previous one as the previous one can only get the
 URL of the page in its default locale.
+
+API filters for headless sites
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For headless sites, the Wagtail API supports two extra filters for internationalised sites:
+
+ - ``?locale=`` Filters pages by the given locale
+ - ``?translation_of=`` Filters pages to only include translations of the given page ID
+
+For more information, see :ref:`apiv2_i18n_filters`.
 
 Translatable snippets
 ^^^^^^^^^^^^^^^^^^^^^
