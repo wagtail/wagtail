@@ -218,6 +218,12 @@ To enable it, add ``wagtail.locales`` into ``INSTALLED_APPS``:
         # ...
     ]
 
+.. note::
+
+    You can register your own 'locale components' which allow you to add custom
+    attributes to a locale, such as a flag or a currency. You can read more
+    about this at `Extending locales with 'locale components'`_
+
 Adding a language prefix to URLs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -553,6 +559,63 @@ migrations:
 
     python manage.py makemigrations myapp --empty
     python manage.py migrate
+
+Extending locales with 'locale components'
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+'locale components' allow you to add additional attributes to a locale such as
+a flag, or a currency.
+
+To create one, you need to define a model that has a ``OneToOneField`` to the
+``Locale`` model. Then register it by decorating it with ``@register_locale_component``.
+
+For example:
+
+.. code-block:: python
+
+    from django.db import models
+    from wagtail.locales.components import register_locale_component
+
+    @register_locale_component
+    class FlagComponent(models.Model):
+        locale = models.OneToOneField('wagtailcore.Locale', on_delete=models.CASCADE)
+        flag = models.CharField(max_length=20, choices=[
+            ('union-jack', "Union Jack"),
+            ('tricolore', "Tricolore"),
+            ('maple-leaf', "Maple Leaf"),
+            # ... and so on
+        ])
+
+Once this model has been created and migrated, the "Flag" field will appear in
+the locale management UI.
+
+Customising the form
+~~~~~~~~~~~~~~~~~~~~
+
+Like pages*, you can define the form that is displayed for locale components
+by specifying the ``panels`` attribute.
+
+For example, we could replace the above "flag" field in the above example with
+an image chooser:
+
+.. code-block:: python
+
+    from django.db import models
+    from wagtail.images.edit_handlers import ImageChooserPanel
+    from wagtail.locales.components import register_locale_component
+
+    @register_locale_component
+    class FlagComponent(models.Model):
+        locale = models.OneToOneField('wagtailcore.Locale', on_delete=models.CASCADE)
+        flag = models.ForeignKey('wagtailimages.image', on_delete=models.CASCADE)
+
+        panels = [
+            ImageChooserPanel('flag'),
+        ]
+
+.. note::
+
+    \*Unlike pages, however, ``InlinePanel`` is not supported on locale components
 
 Translation workflow
 --------------------
