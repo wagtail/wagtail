@@ -422,7 +422,7 @@ class TestRemoveWorkflow(TestCase, WagtailTestUtils):
     def test_no_permissions(self):
         self.login(user=self.editor)
         response = self.post()
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
     def test_post_with_permission(self):
         self.login(user=self.moderator)
@@ -978,8 +978,8 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
 
         # Post
         response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'approve', self.page.current_workflow_task_state.id)))
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a permission denied response
+        self.assertRedirects(response, '/admin/')
 
     def test_edit_view_workflow_cancellation_not_in_group(self):
         """
@@ -1032,8 +1032,8 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         # Post
         response = self.client.post(reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, 'reject', self.page.current_workflow_task_state.id)))
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a permission denied response
+        self.assertRedirects(response, '/admin/')
 
     def test_collect_workflow_action_data_get(self):
         """
@@ -1731,9 +1731,9 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
     def test_workflow_status_modal(self):
         workflow_status_url = reverse('wagtailadmin_pages:workflow_status', args=(self.page.id, ))
 
-        # The page workflow status view should 403 when the page is but a draft
+        # The page workflow status view should return permission denied when the page is but a draft
         response = self.client.get(workflow_status_url)
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
         # Submit for moderation
         self.submit()

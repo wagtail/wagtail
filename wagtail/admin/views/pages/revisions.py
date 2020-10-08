@@ -99,6 +99,7 @@ def revisions_view(request, page_id, revision_id):
     return revision_page.make_preview_request(request, preview_mode)
 
 
+@user_passes_test(user_has_any_page_permission)
 def revisions_compare(request, page_id, revision_id_a, revision_id_b):
     page = get_object_or_404(Page, id=page_id).specific
 

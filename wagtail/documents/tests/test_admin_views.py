@@ -315,13 +315,39 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
 
 class TestDocumentEditView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
         # Build a fake file
         fake_file = get_test_document_file()
 
         # Create a document to edit
         self.document = models.Document.objects.create(title="Test document", file=fake_file)
+
+    def test_get_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id, )))
+        self.assertEqual(response.status_code, 302)
+
+    def test_post_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.client.post(
+            reverse('wagtaildocs:edit', args=(self.document.id, )),
+            {
+                'title': 'TestDoc',
+                'file': get_test_document_file()
+            }
+        )
+        self.assertEqual(response.status_code, 302)
 
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id,)))
@@ -507,10 +533,23 @@ class TestDocumentEditViewWithCustomDocumentModel(TestCase, WagtailTestUtils):
 
 class TestDocumentDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
         # Create a document to delete
         self.document = models.Document.objects.create(title="Test document")
+
+    def test_delete_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response_get = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id, )))
+        response_post = self.client.post(reverse('wagtaildocs:delete', args=(self.document.id, )))
+
+        self.assertEqual(response_get.status_code, 302)
+        self.assertEqual(response_post.status_code, 302)
 
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:delete', args=(self.document.id,)))

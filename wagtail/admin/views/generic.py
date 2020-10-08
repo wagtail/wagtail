@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -7,7 +8,6 @@ from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdate
 from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
-from wagtail.admin.auth import permission_denied
 from wagtail.core import hooks
 
 
@@ -34,13 +34,13 @@ class PermissionCheckedMixin:
                 if not self.permission_policy.user_has_permission(
                     request.user, self.permission_required
                 ):
-                    return permission_denied(request)
+                    raise PermissionDenied
 
             if self.any_permission_required is not None:
                 if not self.permission_policy.user_has_any_permission(
                     request.user, self.any_permission_required
                 ):
-                    return permission_denied(request)
+                    raise PermissionDenied
 
         return super().dispatch(request, *args, **kwargs)
 

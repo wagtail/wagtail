@@ -1,5 +1,6 @@
 import os
 
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
@@ -8,7 +9,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.auth import PermissionPolicyChecker, permission_denied
+from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.core.models import Collection
@@ -134,7 +135,7 @@ def edit(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
-        return permission_denied(request)
+        raise PermissionDenied
 
     if request.method == 'POST':
         original_file = doc.file
@@ -201,7 +202,7 @@ def delete(request, document_id):
     doc = get_object_or_404(Document, id=document_id)
 
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
-        return permission_denied(request)
+        raise PermissionDenied
 
     if request.method == 'POST':
         doc.delete()

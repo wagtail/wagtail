@@ -1,6 +1,7 @@
 import os
 
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -11,7 +12,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.auth import PermissionPolicyChecker, permission_denied
+from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
 from wagtail.core.models import Collection, Site
@@ -108,7 +109,7 @@ def edit(request, image_id):
     image = get_object_or_404(Image, id=image_id)
 
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
-        return permission_denied(request)
+        raise PermissionDenied
 
     if request.method == 'POST':
         original_file = image.file
@@ -180,7 +181,7 @@ def url_generator(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
-        return permission_denied(request)
+        raise PermissionDenied
 
     form = URLGeneratorForm(initial={
         'filter_method': 'original',
@@ -251,7 +252,7 @@ def delete(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
-        return permission_denied(request)
+        raise PermissionDenied
 
     if request.method == 'POST':
         image.delete()

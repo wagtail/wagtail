@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
@@ -10,7 +11,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.auth import any_permission_required, permission_denied, permission_required
+from wagtail.admin.auth import any_permission_required, permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
@@ -190,7 +191,7 @@ def delete(request, user_id):
     user = get_object_or_404(User, pk=user_id)
 
     if not user_can_delete_user(request.user, user):
-        return permission_denied(request)
+        raise PermissionDenied
 
     for fn in hooks.get_hooks('before_delete_user'):
         result = fn(request, user)

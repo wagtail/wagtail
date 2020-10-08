@@ -52,7 +52,7 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:view_draft', args=(self.stream_page.id, )))
 
         # Unauthorized response (because this page type has previewing disabled)
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
     def test_draft_access_unauthorized(self):
         """Test that user without edit/publish permission can't view draft."""
@@ -61,8 +61,8 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
         # Try getting page draft
         response = self.client.get(reverse('wagtailadmin_pages:view_draft', args=(self.child_page.id, )))
 
-        # User gets Unauthorized response
-        self.assertEqual(response.status_code, 403)
+        # User gets redirected to the home page
+        self.assertEqual(response.status_code, 302)
 
     def test_draft_access_authorized(self):
         """Test that user with edit permission can view draft."""

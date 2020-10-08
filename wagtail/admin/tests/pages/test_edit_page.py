@@ -189,8 +189,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Get edit page
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a 302 redirected response
+        self.assertEqual(response.status_code, 302)
 
     def test_page_edit_post(self):
         # Tests simple editing

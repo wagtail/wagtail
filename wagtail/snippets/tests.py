@@ -36,10 +36,20 @@ from wagtail.tests.utils import WagtailTestUtils
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailsnippets:index'), params)
+
+    def test_get_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
 
     def test_simple(self):
         response = self.get()
@@ -65,6 +75,16 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/type_index.html')
+
+    def get_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
 
     def test_ordering(self):
         """
@@ -196,7 +216,7 @@ class TestSnippetListViewWithSearchableSnippet(TestCase, WagtailTestUtils):
 
 class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def get(self, params={}, model=Advert):
         args = (model._meta.app_label, model._meta.model_name)
@@ -205,6 +225,16 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
     def post(self, post_data={}, model=Advert):
         args = (model._meta.app_label, model._meta.model_name)
         return self.client.post(reverse('wagtailsnippets:add', args=args), post_data)
+
+    def test_get_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
 
     def test_simple(self):
         response = self.get()
@@ -223,6 +253,17 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.assertContains(response, '<ul class="tab-nav merged" role="tablist">')
         self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
         self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
+
+    def test_create_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.post(post_data={'text': 'test text',
+                                        'url': 'http://www.example.com/'})
+        self.assertEqual(response.status_code, 302)
 
     def test_create_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -382,7 +423,7 @@ class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
         return self.client.post(reverse('wagtailsnippets:edit', args=args), post_data)
 
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
 
 class TestSnippetEditView(BaseTestSnippetEditView):
@@ -391,6 +432,16 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def setUp(self):
         super().setUp()
         self.test_snippet = Advert.objects.get(pk=1)
+
+    def test_get_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.get()
+        self.assertEqual(response.status_code, 302)
 
     def test_simple(self):
         response = self.get()
@@ -407,6 +458,17 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def test_nonexistant_id(self):
         response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'advert', 999999)))
         self.assertEqual(response.status_code, 404)
+
+    def test_edit_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.post(post_data={'text': 'test text',
+                                        'url': 'http://www.example.com/'})
+        self.assertEqual(response.status_code, 302)
 
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -573,11 +635,33 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.test_snippet = Advert.objects.get(pk=1)
-        self.login()
+        self.user = self.login()
+
+    def test_delete_get_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
+        self.assertEqual(response.status_code, 302)
 
     def test_delete_get(self):
         response = self.client.get(reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), )))
         self.assertEqual(response.status_code, 200)
+
+    def test_delete_post_with_limited_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.client.post(
+            reverse('wagtailsnippets:delete', args=('tests', 'advert', quote(self.test_snippet.pk), ))
+        )
+        self.assertEqual(response.status_code, 302)
 
     def test_delete_post(self):
         response = self.client.post(

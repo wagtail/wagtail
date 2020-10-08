@@ -1,5 +1,6 @@
 import os
 
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
@@ -12,7 +13,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.auth import PermissionPolicyChecker, permission_denied
+from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.contrib.redirects import models
 from wagtail.contrib.redirects.base_formats import DEFAULT_FORMATS
@@ -76,7 +77,7 @@ def edit(request, redirect_id):
     if not permission_policy.user_has_permission_for_instance(
         request.user, 'change', theredirect
     ):
-        return permission_denied(request)
+        raise PermissionDenied
 
     if request.method == 'POST':
         form = RedirectForm(request.POST, request.FILES, instance=theredirect)
@@ -105,7 +106,7 @@ def delete(request, redirect_id):
     if not permission_policy.user_has_permission_for_instance(
         request.user, 'delete', theredirect
     ):
-        return permission_denied(request)
+        raise PermissionDenied
 
     if request.method == 'POST':
         theredirect.delete()

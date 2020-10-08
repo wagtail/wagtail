@@ -567,7 +567,6 @@ class TestDeleteViewModelReprPrimary(TestCase, WagtailTestUtils):
 
 class TestEditorAccess(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
-    expected_status_code = 403
 
     def setUp(self):
         # Create a user
@@ -580,27 +579,27 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
 
     def test_index_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/')
-        self.assertEqual(response.status_code, self.expected_status_code)
+        self.assertRedirects(response, '/admin/')
 
     def test_inpspect_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/inspect/2/')
-        self.assertEqual(response.status_code, self.expected_status_code)
+        self.assertRedirects(response, '/admin/')
 
     def test_create_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/create/')
-        self.assertEqual(response.status_code, self.expected_status_code)
+        self.assertRedirects(response, '/admin/')
 
     def test_edit_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/edit/2/')
-        self.assertEqual(response.status_code, self.expected_status_code)
+        self.assertRedirects(response, '/admin/')
 
     def test_delete_get_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/delete/2/')
-        self.assertEqual(response.status_code, self.expected_status_code)
+        self.assertRedirects(response, '/admin/')
 
     def test_delete_post_permitted(self):
         response = self.client.post('/admin/modeladmintest/book/delete/2/')
-        self.assertEqual(response.status_code, self.expected_status_code)
+        self.assertRedirects(response, '/admin/')
 
 
 class TestQuoting(TestCase, WagtailTestUtils):

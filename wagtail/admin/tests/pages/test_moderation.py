@@ -116,8 +116,8 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         # Post
         response = self.client.post(reverse('wagtailadmin_pages:approve_moderation', args=(self.revision.id, )))
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a 302 redirected response
+        self.assertEqual(response.status_code, 302)
 
     def test_reject_moderation_view(self):
         """
@@ -159,8 +159,8 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         # Post
         response = self.client.post(reverse('wagtailadmin_pages:reject_moderation', args=(self.revision.id, )))
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a 302 redirected response
+        self.assertEqual(response.status_code, 302)
 
     def test_preview_for_moderation(self):
         response = self.client.get(reverse('wagtailadmin_pages:preview_for_moderation', args=(self.revision.id, )))

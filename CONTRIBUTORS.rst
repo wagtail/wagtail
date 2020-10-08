@@ -483,6 +483,7 @@ Contributors
 * Cole Maclean
 * Noah H
 * David Bramwell
+* Samgans
 
 Translators
 ===========

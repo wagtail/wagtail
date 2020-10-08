@@ -40,7 +40,7 @@ class TestWorkflowHistoryDetail(TestCase, WagtailTestUtils):
             reverse('wagtailadmin_pages:workflow_history', args=[self.christmas_event.id])
         )
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
     def test_get_detail(self):
         response = self.client.get(
@@ -63,4 +63,4 @@ class TestWorkflowHistoryDetail(TestCase, WagtailTestUtils):
             reverse('wagtailadmin_pages:workflow_history_detail', args=[self.christmas_event.id, self.workflow_state.id])
         )
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)

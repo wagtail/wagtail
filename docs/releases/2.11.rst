@@ -78,6 +78,7 @@ Bug fixes
  * Avoid retranslating month / weekday names that Django already provides (Matt Westcott)
  * Fixed padding around checkbox and radio inputs (Cole Maclean)
  * Fix spacing around the privacy indicator panel (Sævar Öfjörð Magnússon, Dan Braghis)
+ * Consistently redirect to admin home on permission denied (Matt Westcott, Samgans)
 
 
 Upgrade considerations

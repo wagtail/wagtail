@@ -2,6 +2,7 @@ from urllib.parse import urlencode
 
 from django.apps import apps
 from django.contrib.admin.utils import quote, unquote
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
@@ -12,7 +13,6 @@ from django.utils.translation import gettext as _
 from django.utils.translation import ngettext
 
 from wagtail.admin import messages
-from wagtail.admin.auth import permission_denied
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.forms.search import SearchForm
 from wagtail.core import hooks
@@ -64,9 +64,12 @@ def index(request):
     snippet_model_opts = [
         model._meta for model in get_snippet_models()
         if user_can_edit_snippet_type(request.user, model)]
-    return TemplateResponse(request, 'wagtailsnippets/snippets/index.html', {
-        'snippet_model_opts': sorted(
-            snippet_model_opts, key=lambda x: x.verbose_name.lower())})
+    if snippet_model_opts:
+        return TemplateResponse(request, 'wagtailsnippets/snippets/index.html', {
+            'snippet_model_opts': sorted(
+                snippet_model_opts, key=lambda x: x.verbose_name.lower())})
+    else:
+        raise PermissionDenied
 
 
 def list(request, app_label, model_name):
@@ -77,7 +80,7 @@ def list(request, app_label, model_name):
         for action in ['add', 'change', 'delete']
     ]
     if not any([request.user.has_perm(perm) for perm in permissions]):
-        return permission_denied(request)
+        raise PermissionDenied
 
     items = model.objects.all()
 
@@ -133,7 +136,7 @@ def create(request, app_label, model_name):
 
     permission = get_permission_name('add', model)
     if not request.user.has_perm(permission):
-        return permission_denied(request)
+        raise PermissionDenied
 
     for fn in hooks.get_hooks('before_create_snippet'):
         result = fn(request, model)
@@ -192,7 +195,7 @@ def edit(request, app_label, model_name, pk):
 
     permission = get_permission_name('change', model)
     if not request.user.has_perm(permission):
-        return permission_denied(request)
+        raise PermissionDenied
 
     instance = get_object_or_404(model, pk=unquote(pk))
 
@@ -253,7 +256,7 @@ def delete(request, app_label, model_name, pk=None):
 
     permission = get_permission_name('delete', model)
     if not request.user.has_perm(permission):
-        return permission_denied(request)
+        raise PermissionDenied
 
     if pk:
         instances = [get_object_or_404(model, pk=unquote(pk))]

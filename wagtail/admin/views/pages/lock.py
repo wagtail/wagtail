@@ -17,7 +17,6 @@ def lock(request, page_id):
     # Check permissions
     if not page.permissions_for_user(request.user).can_lock():
         raise PermissionDenied
-
     # Lock the page
     if not page.locked:
         page.locked = True

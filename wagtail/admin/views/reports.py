@@ -1,12 +1,12 @@
 import datetime
 
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q, Subquery
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.list import BaseListView
 
-from wagtail.admin.auth import permission_denied
 from wagtail.admin.filters import (
     LockedPagesReportFilterSet, SiteHistoryReportFilterSet, WorkflowReportFilterSet,
     WorkflowTasksReportFilterSet)
@@ -90,7 +90,7 @@ class LockedPagesView(PageReportView):
 
     def dispatch(self, request, *args, **kwargs):
         if not UserPagePermissionsProxy(request.user).can_remove_locks():
-            return permission_denied(request)
+            raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
 
