@@ -1,7 +1,7 @@
-from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
+from wagtail.admin.auth import permission_denied
 from wagtail.core.models import Page
 
 
@@ -10,7 +10,7 @@ def set_page_position(request, page_to_move_id):
     parent_page = page_to_move.get_parent()
 
     if not parent_page.permissions_for_user(request.user).can_reorder_children():
-        raise PermissionDenied
+        return permission_denied(request)
 
     if request.method == 'POST':
         # Get position parameter

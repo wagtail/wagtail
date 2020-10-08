@@ -87,7 +87,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(self.root_page.id, )))
 
         # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
     def test_add_subpage_nonexistantparent(self):
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(100000, )))
@@ -175,7 +175,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id, )))
 
         # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
     def test_cannot_create_page_with_is_creatable_false(self):
         # tests.MTIBasePage has is_creatable=False, so attempting to add a new one
@@ -854,7 +854,7 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
 
         # this also means that fetching add_subpage is blocked at the permission-check level
         response = self.client.get(reverse('wagtailadmin_pages:add_subpage', args=(self.business_child.id, )))
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
     def test_cannot_add_invalid_subpage_type(self):
         # cannot add StandardChild as a child of BusinessIndex, as StandardChild is not present in subpage_types
@@ -867,7 +867,7 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'standardchild', self.business_child.id))
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
         # cannot add BusinessChild to StandardIndex, as BusinessChild restricts is parent page types
         response = self.client.get(

@@ -1,7 +1,6 @@
 import json
 
 from django.conf import settings
-from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -14,6 +13,7 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
+from wagtail.admin.auth import permission_denied
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
@@ -107,7 +107,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.page_perms = self.page.permissions_for_user(self.request.user)
 
         if not self.page_perms.can_edit():
-            raise PermissionDenied
+            return permission_denied(request)
 
         self.next_url = get_valid_next_url_from_request(self.request)
 

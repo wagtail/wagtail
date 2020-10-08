@@ -112,7 +112,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.login(editor)
         response = self.request_preview_revision()
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
     def test_revert_revision(self):
         last_christmas_preview_url = reverse(
@@ -387,8 +387,8 @@ class TestRevisionsUnschedule(TestCase, WagtailTestUtils):
         # Get unschedule page
         response = self.client.get(reverse('wagtailadmin_pages:revisions_unschedule', args=(self.christmas_event.id, self.this_christmas_revision.id)))
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a 302 redirected response
+        self.assertEqual(response.status_code, 302)
 
     def test_unschedule_view_post(self):
         """

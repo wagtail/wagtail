@@ -1,13 +1,12 @@
 from datetime import timedelta
 
-from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 
-from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
+from wagtail.admin.auth import permission_denied, user_has_any_page_permission, user_passes_test
 from wagtail.admin.filters import PageHistoryReportFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.core.models import (
@@ -19,7 +18,7 @@ def workflow_history(request, page_id):
 
     user_perms = UserPagePermissionsProxy(request.user)
     if not user_perms.for_page(page).can_edit():
-        raise PermissionDenied
+        return permission_denied(request)
 
     workflow_states = WorkflowState.objects.filter(page=page).order_by('-created_at')
 
@@ -37,7 +36,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
 
     user_perms = UserPagePermissionsProxy(request.user)
     if not user_perms.for_page(page).can_edit():
-        raise PermissionDenied
+        return permission_denied(request)
 
     workflow_state = get_object_or_404(WorkflowState, page=page, id=workflow_state_id)
 

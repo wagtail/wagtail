@@ -11,7 +11,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
-from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
+from wagtail.admin.auth import permission_denied, user_has_any_page_permission, user_passes_test
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.models import Page, UserPagePermissionsProxy
 
@@ -42,7 +42,7 @@ def revisions_revert(request, page_id, revision_id):
     page = get_object_or_404(Page, id=page_id).specific
     page_perms = page.permissions_for_user(request.user)
     if not page_perms.can_edit():
-        raise PermissionDenied
+        return permission_denied(request)
 
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_page_object()
@@ -86,7 +86,7 @@ def revisions_view(request, page_id, revision_id):
 
     perms = page.permissions_for_user(request.user)
     if not (perms.can_publish() or perms.can_edit()):
-        raise PermissionDenied
+        return permission_denied(request)
 
     revision = get_object_or_404(page.revisions, id=revision_id)
     revision_page = revision.as_page_object()
@@ -99,6 +99,7 @@ def revisions_view(request, page_id, revision_id):
     return revision_page.make_preview_request(request, preview_mode)
 
 
+@user_passes_test(user_has_any_page_permission)
 def revisions_compare(request, page_id, revision_id_a, revision_id_b):
     page = get_object_or_404(Page, id=page_id).specific
 
@@ -157,7 +158,7 @@ def revisions_unschedule(request, page_id, revision_id):
 
     user_perms = UserPagePermissionsProxy(request.user)
     if not user_perms.for_page(page).can_unschedule():
-        raise PermissionDenied
+        return permission_denied(request)
 
     revision = get_object_or_404(page.revisions, id=revision_id)
 
