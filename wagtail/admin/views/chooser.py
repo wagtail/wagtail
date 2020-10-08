@@ -15,10 +15,10 @@ from wagtail.core.utils import resolve_model_string
 try:
     import urlparse
     from urllib import urlencode
-except: # For Python 3
+except ImportError:  # For Python 3
     import urllib.parse as urlparse
     from urllib.parse import urlencode
-    
+
 
 def shared_context(request, extra_context=None):
     context = {
@@ -292,14 +292,14 @@ def email_link(request):
     if request.method == 'POST':
         form = EmailLinkChooserForm(request.POST, initial=initial_data, prefix='email-link-chooser')
 
-        if form.is_valid():            
-            params = { 
-                'subject': form.cleaned_data['subject'], 
-                'body': form.cleaned_data['body'], 
+        if form.is_valid():
+            params = {
+                'subject': form.cleaned_data['subject'],
+                'body': form.cleaned_data['body'],
             }
-            encoded_params = urlencode({k: v for k, v in params.items() if v is not None and v is not ''}, quote_via=urlparse.quote)
+            encoded_params = urlencode({k: v for k, v in params.items() if v is not None and v != ''}, quote_via=urlparse.quote)
 
-            url = 'mailto:' + form.cleaned_data['email_address'] 
+            url = 'mailto:' + form.cleaned_data['email_address']
             if encoded_params:
                 url += '?' + encoded_params
 
