@@ -282,6 +282,7 @@ def edit(request, app_label, model_name, pk):
         'edit_handler': edit_handler,
         'form': form,
         'action_menu': SnippetActionMenu(request, view='edit', instance=instance),
+        'locale': instance.locale if isinstance(instance, TranslatableMixin) else None,
     })
 
 
