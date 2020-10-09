@@ -72,6 +72,8 @@ Bug fixes
  * The Elasticsearch ``URLS`` setting can now take a string on its own instead of a list (Sævar Öfjörð Magnússon)
  * Avoid retranslating month / weekday names that Django already provides (Matt Westcott)
  * Fixed padding around checkbox and radio inputs (Cole Maclean)
+ * Fix spacing around the privacy indicator panel (Sævar Öfjörð Magnússon, Dan Braghis)
+
 
 Upgrade considerations
 ======================
