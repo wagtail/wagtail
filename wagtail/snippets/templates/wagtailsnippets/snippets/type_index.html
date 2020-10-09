@@ -63,7 +63,7 @@
                         {% endif %}
                         {% if can_add_snippet %}
                             <li class="col">
-                                <a href="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" class="button bicolor button--icon">
+                                <a href="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}" class="button bicolor button--icon">
                                     {% icon name="plus" wrapped=1 %}
                                     {% blocktrans with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
                                 {# TODO: figure out a way of saying "Add a/an [foo]" #}

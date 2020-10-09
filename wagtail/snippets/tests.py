@@ -160,6 +160,11 @@ class TestLocaleSelectorOnList(TestCase, WagtailTestUtils):
         switch_to_french_url = reverse('wagtailsnippets:list', args=['snippetstests', 'translatablesnippet']) + '?locale=fr'
         self.assertContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
 
+        # Check that the add URLs include the locale
+        add_url = reverse('wagtailsnippets:add', args=['snippetstests', 'translatablesnippet']) + '?locale=en'
+        self.assertContains(response, f'<a href="{add_url}" class="button bicolor button--icon">')
+        self.assertContains(response, f'No translatable snippets have been created. Why not <a href="{add_url}">add one</a>')
+
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
         response = self.client.get(
@@ -169,13 +174,22 @@ class TestLocaleSelectorOnList(TestCase, WagtailTestUtils):
         switch_to_french_url = reverse('wagtailsnippets:list', args=['snippetstests', 'translatablesnippet']) + '?locale=fr'
         self.assertNotContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
 
+        # Check that the add URLs don't include the locale
+        add_url = reverse('wagtailsnippets:add', args=['snippetstests', 'translatablesnippet'])
+        self.assertContains(response, f'<a href="{add_url}" class="button bicolor button--icon">')
+        self.assertContains(response, f'No translatable snippets have been created. Why not <a href="{add_url}">add one</a>')
+
     def test_locale_selector_not_present_on_non_translatable_snippet(self):
         response = self.client.get(
             reverse('wagtailsnippets:list', args=['tests', 'advert'])
         )
 
-        switch_to_french_url = reverse('wagtailsnippets:list', args=['tests', 'advert']) + '?locale=fr'
-        self.assertNotContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
+        self.assertNotContains(response, 'French')
+
+        # Check that the add URLs don't include the locale
+        add_url = reverse('wagtailsnippets:add', args=['tests', 'advert'])
+        self.assertContains(response, f'<a href="{add_url}" class="button bicolor button--icon">')
+        self.assertContains(response, f'No adverts have been created. Why not <a href="{add_url}">add one</a>')
 
 
 class TestModelOrdering(TestCase, WagtailTestUtils):
@@ -441,6 +455,40 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true" focusable="false"><use href="#icon-undo"></use></svg>Test</button>', html=True)
         self.assertNotContains(response, 'Save')
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestLocaleSelectorOnCreate(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.fr_locale = Locale.objects.create(language_code='fr')
+        self.user = self.login()
+
+    def test_locale_selector(self):
+        response = self.client.get(
+            reverse('wagtailsnippets:add', args=['snippetstests', 'translatablesnippet'])
+        )
+
+        switch_to_french_url = reverse('wagtailsnippets:add', args=['snippetstests', 'translatablesnippet']) + '?locale=fr'
+        self.assertContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_selector_not_present_when_i18n_disabled(self):
+        response = self.client.get(
+            reverse('wagtailsnippets:add', args=['snippetstests', 'translatablesnippet'])
+        )
+
+        switch_to_french_url = reverse('wagtailsnippets:add', args=['snippetstests', 'translatablesnippet']) + '?locale=fr'
+        self.assertNotContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
+
+    def test_locale_selector_not_present_on_non_translatable_snippet(self):
+        response = self.client.get(
+            reverse('wagtailsnippets:add', args=['tests', 'advert'])
+        )
+
+        switch_to_french_url = reverse('wagtailsnippets:add', args=['tests', 'advert']) + '?locale=fr'
+        self.assertNotContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
 
 
 class BaseTestSnippetEditView(TestCase, WagtailTestUtils):
