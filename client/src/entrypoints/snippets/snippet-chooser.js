@@ -1,5 +1,7 @@
 import $ from 'jquery';
 
+/* global wagtailConfig */
+
 function createSnippetChooser(id, modelString) {
   const chooserElement = $('#' + id + '-chooser');
   const docTitle = chooserElement.find('.title');
@@ -53,9 +55,18 @@ function createSnippetChooser(id, modelString) {
       $('.action-choose', chooserElement).focus();
     },
     openChooserModal: () => {
+      let urlQuery = '';
+      if (wagtailConfig.ACTIVE_CONTENT_LOCALE) {
+        // The user is editing a piece of translated content.
+        // Pass the locale along as a request parameter. If this
+        // snippet is also translatable, the results will be
+        // pre-filtered by this locale.
+        urlQuery = '?locale=' + wagtailConfig.ACTIVE_CONTENT_LOCALE;
+      }
+
       // eslint-disable-next-line no-undef, new-cap
       ModalWorkflow({
-        url: chooserBaseUrl,
+        url: chooserBaseUrl + urlQuery,
         // eslint-disable-next-line no-undef
         onload: SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS,
         responses: {

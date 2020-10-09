@@ -121,6 +121,13 @@
     {{ edit_handler.html_declarations }}
 
     <script>
+        // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page
+        // This value may be used by JS widgets on the form
+        {% if locale %}
+            window.wagtailConfig = window.wagtailConfig || {};
+            window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
+        {% endif %}
+
         $(function() {
             {% if publishing_will_cancel_workflow %}
             /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
