@@ -34,6 +34,7 @@ Changelog
  * Fix: `Page.copy()` now raises an error if the page being copied is unsaved (Anton Zhyltsou)
  * Fix: `Page.copy()` now triggers a `page_published` if the copied page is live (Anton Zhyltsou)
  * Fix: The Elasticsearch `URLS` setting can now take a string on its own instead of a list (Sævar Öfjörð Magnússon)
+ * Fix: Avoid retranslating month / weekday names that Django already provides (Matt Westcott)
 
 
 2.10.2 (25.09.2020)
