@@ -13,13 +13,24 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             });
         }
 
-        var searchUrl = $('form.snippet-search', modal.body).attr('action');
+        var searchForm$ = $('form.snippet-search', modal.body);
+        var searchUrl = searchForm$.attr('action');
         var request;
 
         function search() {
+            var data = {q: $('#id_q').val(), results: 'true'};
+
+            if (searchForm$.has('input[name="locale"]')) {
+                data['locale'] = $('input[name="locale"]', searchForm$).val();
+            }
+
+            if (searchForm$.has('#snippet-chooser-locale')) {
+                data['locale_filter'] = $('#snippet-chooser-locale', searchForm$).val();
+            }
+
             request = $.ajax({
                 url: searchUrl,
-                data: {q: $('#id_q').val(), results: 'true'},
+                data: data,
                 success: function(data, status) {
                     request = null;
                     $('#search-results').html(data);
