@@ -103,6 +103,13 @@
     {{ edit_handler.html_declarations }}
 
     <script>
+        // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page
+        // This value may be used by JS widgets on the form
+        {% if locale %}
+            window.wagtailConfig = window.wagtailConfig || {};
+            window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
+        {% endif %}
+
         $(function(){
             $('#page-edit-form .tab-content section.active input').first().trigger('focus');
 

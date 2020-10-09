@@ -7,6 +7,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.core.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
@@ -21,6 +22,24 @@ def choose(request, app_label, model_name):
     # (to ensure pagination is consistent)
     if not items.ordered:
         items = items.order_by('pk')
+
+    # Filter by locale
+    locale = None
+    locale_filter = None
+    selected_locale = None
+    if issubclass(model, TranslatableMixin):
+        # 'locale' is the Locale of the object that this snippet is being chosen for
+        if request.GET.get('locale'):
+            locale = get_object_or_404(Locale, language_code=request.GET['locale'])
+
+        # 'locale_filter' is the current value of the "Locale" selector in the UI
+        if request.GET.get('locale_filter'):
+            locale_filter = get_object_or_404(Locale, language_code=request.GET['locale_filter'])
+
+        selected_locale = locale_filter or locale
+
+        if selected_locale:
+            items = items.filter(locale=selected_locale)
 
     # Search
     is_searchable = class_is_indexed(model)
@@ -54,6 +73,9 @@ def choose(request, app_label, model_name):
             'items': paginated_items,
             'query_string': search_query,
             'is_searching': is_searching,
+            'locale': locale,
+            'locale_filter': locale_filter,
+            'selected_locale': selected_locale,
         })
 
     return render_modal_workflow(
@@ -66,6 +88,10 @@ def choose(request, app_label, model_name):
             'search_form': search_form,
             'query_string': search_query,
             'is_searching': is_searching,
+            'locale': locale,
+            'locale_filter': locale_filter,
+            'selected_locale': selected_locale,
+            'locale_options': Locale.objects.all() if issubclass(model, TranslatableMixin) else [],
         }, json_data={'step': 'choose'}
     )
 
