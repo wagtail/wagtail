@@ -163,6 +163,16 @@ def create(request, app_label, model_name):
             return result
 
     instance = model()
+
+    # Set locale of the new instance
+    if issubclass(model, TranslatableMixin):
+        selected_locale = request.GET.get('locale')
+        if selected_locale:
+            instance.locale = get_object_or_404(Locale, language_code=selected_locale)
+        else:
+            instance.locale = Locale.get_default()
+
+    # Make edit handler
     edit_handler = get_snippet_edit_handler(model)
     edit_handler = edit_handler.bind_to(request=request)
     form_class = edit_handler.get_form_class()
@@ -191,7 +201,11 @@ def create(request, app_label, model_name):
                 if hasattr(result, 'status_code'):
                     return result
 
-            return redirect('wagtailsnippets:list', app_label, model_name)
+            urlquery = ''
+            if isinstance(instance, TranslatableMixin) and instance.locale is not Locale.get_default():
+                urlquery = '?lang=' + instance.locale.language_code
+
+            return redirect(reverse('wagtailsnippets:list', args=[app_label, model_name]) + urlquery)
         else:
             messages.validation_error(
                 request, _("The snippet could not be created due to errors."), form
@@ -206,6 +220,7 @@ def create(request, app_label, model_name):
         'edit_handler': edit_handler,
         'form': form,
         'action_menu': SnippetActionMenu(request, view='create', model=model),
+        'locale': instance.locale if isinstance(instance, TranslatableMixin) else None,
     })
 
 
