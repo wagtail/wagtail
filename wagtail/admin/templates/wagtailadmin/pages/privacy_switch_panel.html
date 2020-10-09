@@ -6,22 +6,25 @@
 {% endif %}
 
 {% if not page.is_root %}
-<div class="field-row privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
-    <p>
-        {% trans "Current status:" %}
+<div class="object-content-wrapper privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
+    <ul class="fields">
+        <li>
+            {% trans "Current status:" %}
 
-        <span class="label-public icon icon-view" aria-label="{% trans 'Page privacy. Current status: Public' %}">
-             {% trans "Public" %}
-        </span>
-        <span class="label-private icon icon-no-view" aria-label="{% trans 'Page privacy. Current status: Private' %}">
-            {% trans "Private" %}
-        </span>
-    </p>
-
-    {% if page.id and page_perms.can_set_view_restrictions %}
-        <button data-url="{% url 'wagtailadmin_pages:set_privacy' page.id %}" class="button action-set-privacy">
-            {% trans "Set page privacy" %}
-        </button>
-    {% endif %}
+            <span class="label-public icon icon-view" aria-label="{% trans 'Page privacy. Current status: Public' %}">
+                 {% trans "Public" %}
+            </span>
+            <span class="label-private icon icon-no-view" aria-label="{% trans 'Page privacy. Current status: Private' %}">
+                {% trans "Private" %}
+            </span>
+        </li>
+        {% if page.id and page_perms.can_set_view_restrictions %}
+        <li>
+            <button data-url="{% url 'wagtailadmin_pages:set_privacy' page.id %}" class="button action-set-privacy">
+                {% trans "Set page privacy" %}
+            </button>
+        </li>
+        {% endif %}
+    </ul>
 </div>
 {% endif %}

@@ -127,7 +127,8 @@
     }
 
     fieldset,
-    .field-row {
+    .field-row,
+    .object-content-wrapper {
         padding-top: $object-title-height + 12px;
     }
 
@@ -138,6 +139,10 @@
         .field-row {
             padding-top: 0;
         }
+    }
+
+    .object-content-wrapper {
+        padding-bottom: 2em;
     }
 
     .object-help {
