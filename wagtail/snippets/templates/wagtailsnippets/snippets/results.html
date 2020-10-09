@@ -19,6 +19,13 @@
          <p role="alert">{% blocktrans %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         {% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name as wagtailsnippets_create_url %}
-        <p class="no-results-message">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
+
+        {# NOTE: The two strings in the following messages are exactly the same #}
+        {# The difference is that the first variant appends '?locale={{ locale.language_code}}' to 'wagtailsnippets_create_url' #}
+        {% if locale %}
+            <p class="no-results-message">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural wagtailsnippets_create_url=wagtailsnippets_create_url|add:'?locale='|add:locale.language_code %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
+        {% else %}
+            <p class="no-results-message">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
+        {% endif %}
     {% endif %}
 {% endif %}

@@ -2,10 +2,31 @@
 {% load i18n wagtailadmin_tags %}
 {% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}New  {{ snippet_type_name }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    {% trans "New" as new_str %}
-    {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=model_opts.verbose_name icon="snippet" tabbed=1 merged=1 %}
+    <header class="merged tab-merged">
+        <div class="row">
+            <div class="left">
+                <div class="col header-title">
+                    <h1>{% icon name="snippet" class_name="header-title-icon" %}
+                    {% trans "New" %} <span>{{ model_opts.verbose_name }}</span></h1>
+                </div>
+            </div>
+            <div class="right col">
+                <form>  {# HACK Removes list-style-type #}
+                    <ul class="fields row rowflush">
+                        {% if locale %}
+                            <li class="col">
+                                <div class="field">
+                                    {% include 'wagtailadmin/shared/locale_selector.html' with class='c-dropdown--large' %}
+                                </div>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </header>
 
-    <form action="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form action="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
