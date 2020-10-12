@@ -1,3 +1,5 @@
+from urllib.parse import urlencode
+
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
@@ -14,7 +16,7 @@ from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.core.models import Locale, Page, UserPagePermissionsProxy
 
 
 def add_subpage(request, parent_page_id):
@@ -75,8 +77,16 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if response:
             return response
 
+        self.locale = self.parent_page.locale
+
+        # If the parent page is the root page. The user may specify any locale they like
+        if self.parent_page.is_root():
+            selected_locale = request.GET.get('locale', None) or request.POST.get('locale', None)
+            if selected_locale:
+                self.locale = get_object_or_404(Locale, language_code=selected_locale)
+
         self.page = self.page_class(owner=self.request.user)
-        self.page.locale = self.parent_page.locale
+        self.page.locale = self.locale
         self.edit_handler = self.page_class.get_edit_handler()
         self.edit_handler = self.edit_handler.bind_to(request=self.request, instance=self.page)
         self.form_class = self.edit_handler.get_form_class()
@@ -260,11 +270,23 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         })
 
         if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
-            user_perms = UserPagePermissionsProxy(self.request.user)
+            # Pages can be created in any language at the root level
+            if self.parent_page.is_root():
+                translations = [
+                    {
+                        'locale': locale,
+                        'url': reverse('wagtailadmin_pages:add', args=[
+                            self.page_content_type.app_label,
+                            self.page_content_type.model,
+                            self.parent_page.id
+                        ]) + '?' + urlencode({'locale': locale.language_code}),
+                    }
+                    for locale in Locale.objects.all()
+                ]
 
-            context.update({
-                'locale': self.parent_page.locale,
-                'translations': [
+            else:
+                user_perms = UserPagePermissionsProxy(self.request.user)
+                translations = [
                     {
                         'locale': translation.locale,
                         'url': reverse('wagtailadmin_pages:add', args=[self.page_content_type.app_label, self.page_content_type.model, translation.id]),
@@ -273,7 +295,11 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     if user_perms.for_page(translation).can_add_subpage()
                     and self.page_class in translation.specific_class.creatable_subpage_models()
                     and self.page_class.can_create_at(translation)
-                ],
+                ]
+
+            context.update({
+                'locale': self.locale,
+                'translations': translations,
             })
 
         return context

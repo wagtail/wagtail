@@ -28,6 +28,13 @@
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
+
+        {% if parent_page.is_root %}
+            {# The user is allowed to set a different locale for pages created at the root #}
+            {# If they've done this, make sure their chosen locale is passed in the form #}
+            <input type="hidden" name="locale" value="{{ locale.language_code }}">
+        {% endif %}
+
         {{ edit_handler.render_form_content }}
 
         <footer>
