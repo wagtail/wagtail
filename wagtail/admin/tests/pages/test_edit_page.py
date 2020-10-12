@@ -4,7 +4,7 @@ import os
 from unittest import mock
 
 from django.conf import settings
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
 from django.core.files.base import ContentFile
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, modify_settings, override_settings
@@ -14,7 +14,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import Page, PageRevision, Site
+from wagtail.core.models import GroupPagePermission, Locale, Page, PageRevision, Site
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory, EventPage,
@@ -1838,3 +1838,61 @@ class TestNestedInlinePanel(TestCase, WagtailTestUtils):
         self.assertEqual(len(awards), 2)
         self.assertEqual(awards[0].name, "Beard Of The Century")
         self.assertEqual(awards[1].name, "Bobsleigh Olympic gold medallist")
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestLocaleSelector(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.christmas_page = EventPage.objects.get(url_path='/home/events/christmas/')
+        self.fr_locale = Locale.objects.create(language_code='fr')
+        self.translated_christmas_page = self.christmas_page.copy_for_translation(self.fr_locale, copy_parents=True)
+        self.user = self.login()
+
+    def test_locale_selector(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:edit', args=[self.christmas_page.id])
+        )
+
+        self.assertContains(response, '<li class="header-meta--locale">')
+
+        edit_translation_url = reverse('wagtailadmin_pages:edit', args=[self.translated_christmas_page.id])
+        self.assertContains(response, f'<a href="{edit_translation_url}" aria-label="French" class="u-link is-live">')
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_selector_not_present_when_i18n_disabled(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:edit', args=[self.christmas_page.id])
+        )
+
+        self.assertNotContains(response, '<li class="header-meta--locale">')
+
+        edit_translation_url = reverse('wagtailadmin_pages:edit', args=[self.translated_christmas_page.id])
+        self.assertNotContains(response, f'<a href="{edit_translation_url}" aria-label="French" class="u-link is-live">')
+
+    def test_locale_dropdown_not_present_without_permission_to_edit(self):
+        # Remove user's permissions to edit French tree
+        en_events_index = Page.objects.get(url_path='/home/events/')
+        group = Group.objects.get(name='Moderators')
+        GroupPagePermission.objects.create(
+            group=group,
+            page=en_events_index,
+            permission_type='edit',
+        )
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.groups.add(group)
+        self.user.save()
+
+        # Locale indicator should exist, but the "French" option should be hidden
+        response = self.client.get(
+            reverse('wagtailadmin_pages:edit', args=[self.christmas_page.id])
+        )
+
+        self.assertContains(response, '<li class="header-meta--locale">')
+
+        edit_translation_url = reverse('wagtailadmin_pages:edit', args=[self.translated_christmas_page.id])
+        self.assertNotContains(response, f'<a href="{edit_translation_url}" aria-label="French" class="u-link is-live">')

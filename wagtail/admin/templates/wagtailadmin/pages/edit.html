@@ -33,6 +33,11 @@
                 {% icon name="doc-empty-inverse" class_name="default" %}
                 {{ content_type.model_class.get_verbose_name }}
             </li>
+            {% if locale %}
+            <li class="header-meta--locale">
+                {% include "wagtailadmin/shared/locale_selector.html" %}
+            </li>
+            {% endif %}
         </ul>
     </header>
 
