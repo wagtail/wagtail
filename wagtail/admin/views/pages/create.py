@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
@@ -13,7 +14,7 @@ from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core.models import Page
+from wagtail.core.models import Page, UserPagePermissionsProxy
 
 
 def add_subpage(request, parent_page_id):
@@ -254,5 +255,25 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             'form': self.form,
             'next': self.next_url,
             'has_unsaved_changes': self.has_unsaved_changes,
+            'locale': None,
+            'translations': [],
         })
+
+        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+            user_perms = UserPagePermissionsProxy(self.request.user)
+
+            context.update({
+                'locale': self.parent_page.locale,
+                'translations': [
+                    {
+                        'locale': translation.locale,
+                        'url': reverse('wagtailadmin_pages:add', args=[self.page_content_type.app_label, self.page_content_type.model, translation.id]),
+                    }
+                    for translation in self.parent_page.get_translations().only('id', 'locale').select_related('locale')
+                    if user_perms.for_page(translation).can_add_subpage()
+                    and self.page_class in translation.specific_class.creatable_subpage_models()
+                    and self.page_class.can_create_at(translation)
+                ],
+            })
+
         return context
