@@ -17,7 +17,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import Page, WorkflowState
+from wagtail.core.models import Page, UserPagePermissionsProxy, WorkflowState
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -526,6 +526,24 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             'page_locked': self.page_perms.page_locked(),
             'workflow_state': self.workflow_state if self.workflow_state and self.workflow_state.is_active else None,
             'current_task_state': self.page.current_workflow_task_state,
-            'publishing_will_cancel_workflow': self.workflow_tasks and getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True)
+            'publishing_will_cancel_workflow': self.workflow_tasks and getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True),
+            'locale': None,
+            'translations': [],
         })
+
+        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+            user_perms = UserPagePermissionsProxy(self.request.user)
+
+            context.update({
+                'locale': self.page.locale,
+                'translations': [
+                    {
+                        'locale': translation.locale,
+                        'url': reverse('wagtailadmin_pages:edit', args=[translation.id]),
+                    }
+                    for translation in self.page.get_translations().only('id', 'locale').select_related('locale')
+                    if user_perms.for_page(translation).can_edit()
+                ],
+            })
+
         return context
