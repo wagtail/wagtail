@@ -15,6 +15,14 @@
                 <h1>{% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
             </div>
         </div>
+
+        {% if locale %}
+        <ul class="row header-meta">
+            <li class="header-meta--locale">
+                {% include "wagtailadmin/shared/locale_selector.html" %}
+            </li>
+        </ul>
+        {% endif %}
     </header>
 
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>

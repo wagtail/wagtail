@@ -1024,3 +1024,60 @@ class TestInlinePanelNonFieldErrors(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "The page could not be created due to validation errors")
         self.assertContains(response, 'You must provide a related page, related document or an external URL', count=1)
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestLocaleSelector(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.events_page = Page.objects.get(url_path='/home/events/')
+        self.fr_locale = Locale.objects.create(language_code='fr')
+        self.translated_events_page = self.events_page.copy_for_translation(self.fr_locale, copy_parents=True)
+        self.user = self.login()
+
+    def test_locale_selector(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=['tests', 'eventpage', self.events_page.id])
+        )
+
+        self.assertContains(response, '<li class="header-meta--locale">')
+
+        add_translation_url = reverse('wagtailadmin_pages:add', args=['tests', 'eventpage', self.translated_events_page.id])
+        self.assertContains(response, f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">')
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_selector_not_present_when_i18n_disabled(self):
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=['tests', 'eventpage', self.events_page.id])
+        )
+
+        self.assertNotContains(response, '<li class="header-meta--locale">')
+
+        add_translation_url = reverse('wagtailadmin_pages:add', args=['tests', 'eventpage', self.translated_events_page.id])
+        self.assertNotContains(response, f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">')
+
+    def test_locale_dropdown_not_present_without_permission_to_add(self):
+        # Remove user's permissions to add in the French tree
+        group = Group.objects.get(name='Moderators')
+        GroupPagePermission.objects.create(
+            group=group,
+            page=self.events_page,
+            permission_type='add',
+        )
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.groups.add(group)
+        self.user.save()
+
+        # Locale indicator should exist, but the "French" option should be hidden
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=['tests', 'eventpage', self.events_page.id])
+        )
+
+        self.assertContains(response, '<li class="header-meta--locale">')
+
+        add_translation_url = reverse('wagtailadmin_pages:add', args=['tests', 'eventpage', self.translated_events_page.id])
+        self.assertNotContains(response, f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">')
