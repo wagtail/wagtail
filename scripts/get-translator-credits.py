@@ -1,5 +1,5 @@
-import subprocess
 import re
+import subprocess
 from collections import defaultdict
 from io import open
 
