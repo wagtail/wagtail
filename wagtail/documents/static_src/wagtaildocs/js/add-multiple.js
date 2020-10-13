@@ -116,6 +116,8 @@ $(function() {
 
         $.post(this.action, form.serialize(), function(data) {
             if (data.success) {
+                var statusText = $('.status-msg.update-success').text();
+                addMessage('success', statusText);
                 itemElement.slideUp(function() {$(this).remove()});
             } else {
                 form.replaceWith(data.form);
