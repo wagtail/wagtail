@@ -5,7 +5,6 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_GET
 
 from wagtail.admin import messages
-from wagtail.admin.auth import permission_denied
 from wagtail.admin.mail import send_notification
 from wagtail.core.models import PageRevision
 
@@ -13,7 +12,7 @@ from wagtail.core.models import PageRevision
 def approve_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
     if not revision.page.permissions_for_user(request.user).can_publish():
-        return permission_denied(request)
+        raise PermissionDenied
 
     if not revision.submitted_for_moderation:
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.get_admin_display_title()))
@@ -38,7 +37,7 @@ def approve_moderation(request, revision_id):
 def reject_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
     if not revision.page.permissions_for_user(request.user).can_publish():
-        return permission_denied(request)
+        raise PermissionDenied
 
     if not revision.submitted_for_moderation:
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.get_admin_display_title()))
@@ -61,7 +60,7 @@ def reject_moderation(request, revision_id):
 def preview_for_moderation(request, revision_id):
     revision = get_object_or_404(PageRevision, id=revision_id)
     if not revision.page.permissions_for_user(request.user).can_publish():
-        return permission_denied(request)
+        raise PermissionDenied
 
     if not revision.submitted_for_moderation:
         messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.get_admin_display_title()))

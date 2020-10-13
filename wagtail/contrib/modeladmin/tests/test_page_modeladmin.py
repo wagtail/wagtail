@@ -229,7 +229,7 @@ class TestChooseParentView(TestCase, WagtailTestUtils):
     def test_no_parent_exists(self):
         response = self.client.get('/admin/tests/businesschild/choose_parent/')
 
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
     def test_post(self):
         response = self.client.post('/admin/tests/eventpage/choose_parent/', {
@@ -292,7 +292,6 @@ class TestChooseParentViewForNonSuperuser(TestCase, WagtailTestUtils):
 
 class TestEditorAccess(TestCase, WagtailTestUtils):
     fixtures = ['test_specific.json']
-    expected_status_code = 403
 
     def setUp(self):
         # Create a user
@@ -303,12 +302,11 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
 
     def test_delete_permitted(self):
         response = self.client.get('/admin/tests/eventpage/delete/4/')
-        self.assertEqual(response.status_code, self.expected_status_code)
+        self.assertRedirects(response, '/admin/')
 
 
 class TestModeratorAccess(TestCase, WagtailTestUtils):
     fixtures = ['test_specific.json']
-    expected_status_code = 302
 
     def setUp(self):
         # Create a user
@@ -319,7 +317,7 @@ class TestModeratorAccess(TestCase, WagtailTestUtils):
 
     def test_delete_permitted(self):
         response = self.client.get('/admin/tests/eventpage/delete/4/')
-        self.assertEqual(response.status_code, self.expected_status_code)
+        self.assertRedirects(response, '/admin/pages/4/delete/?next=/admin/tests/eventpage/')
 
 
 class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):

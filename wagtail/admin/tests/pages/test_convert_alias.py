@@ -42,8 +42,8 @@ class TestConvertAlias(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:convert_alias', args=[self.alias_page.id]))
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a permission denied response
+        self.assertRedirects(response, '/admin/')
 
     def test_post_convert_alias(self):
         response = self.client.post(reverse('wagtailadmin_pages:convert_alias', args=[self.alias_page.id]))

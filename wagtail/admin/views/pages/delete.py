@@ -1,10 +1,10 @@
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
-from wagtail.admin.auth import permission_denied
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core import hooks
 from wagtail.core.models import Page
@@ -13,7 +13,7 @@ from wagtail.core.models import Page
 def delete(request, page_id):
     page = get_object_or_404(Page, id=page_id).specific
     if not page.permissions_for_user(request.user).can_delete():
-        return permission_denied(request)
+        raise PermissionDenied
 
     with transaction.atomic():
         for fn in hooks.get_hooks('before_delete_page'):

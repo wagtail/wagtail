@@ -8,7 +8,7 @@ from django.views.decorators.http import require_GET
 from django.views.generic import View
 
 from wagtail.admin import messages
-from wagtail.admin.auth import permission_denied, user_has_any_page_permission, user_passes_test
+from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core.models import Page, Task, TaskState, WorkflowState
 
@@ -180,7 +180,7 @@ def preview_revision_for_task(request, page_id, task_id):
     revision = task_state.page_revision
 
     if not task.get_actions(page, request.user):
-        return permission_denied(request)
+        raise PermissionDenied
 
     page_to_view = revision.as_page_object()
 

@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 from django.utils.http import is_safe_url
@@ -5,7 +6,6 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from wagtail.admin import messages
-from wagtail.admin.auth import permission_denied
 from wagtail.core.models import Page
 
 
@@ -16,7 +16,7 @@ def lock(request, page_id):
 
     # Check permissions
     if not page.permissions_for_user(request.user).can_lock():
-        return permission_denied(request)
+        raise PermissionDenied
     # Lock the page
     if not page.locked:
         page.locked = True
@@ -39,7 +39,7 @@ def unlock(request, page_id):
 
     # Check permissions
     if not page.permissions_for_user(request.user).can_unlock():
-        return permission_denied(request)
+        raise PermissionDenied
 
     # Unlock the page
     if page.locked:

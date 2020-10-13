@@ -284,7 +284,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
             response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
 
         # An user cant' see form submissions with the hook
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
     def test_list_submissions_filtering_date_from(self):
         response = self.client.get(
@@ -541,7 +541,7 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
             )
 
         # An user can't export form submission with the hook
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
     def test_list_submissions_csv_export_with_date_from_filtering(self):
         response = self.client.get(
@@ -1036,8 +1036,8 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
             args=(self.form_page.id, )
         ) + '?selected-submissions={}'.format(FormSubmission.objects.first().id))
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a permission denied response
+        self.assertRedirects(response, '/admin/')
 
         # Check that the deletion has not happened
         self.assertEqual(FormSubmission.objects.count(), 2)
@@ -1054,7 +1054,7 @@ class TestDeleteFormSubmission(TestCase, WagtailTestUtils):
             ) + '?selected-submissions={}'.format(FormSubmission.objects.first().id))
 
         # An user can't delete a from submission with the hook
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
         self.assertEqual(FormSubmission.objects.count(), 2)
 
         # An user can delete a form submission without the hook
@@ -1115,8 +1115,8 @@ class TestDeleteCustomFormSubmission(TestCase, WagtailTestUtils):
             args=(self.form_page.id, )
         ) + '?selected-submissions={}'.format(CustomFormPageSubmission.objects.first().id))
 
-        # Check that the user received a 403 response
-        self.assertEqual(response.status_code, 403)
+        # Check that the user received a permission denied response
+        self.assertRedirects(response, '/admin/')
 
         # Check that the deletion has not happened
         self.assertEqual(CustomFormPageSubmission.objects.count(), 2)

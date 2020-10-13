@@ -183,7 +183,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'mtibasepage', self.root_page.id))
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
     def test_cannot_create_page_when_can_create_at_returns_false(self):
         # issue #2892
@@ -212,7 +212,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # A second singleton page should not be creatable
         self.assertFalse(SingletonPage.can_create_at(self.root_page))
         response = self.client.get(add_url)
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
     def test_cannot_create_singleton_page_with_max_count(self):
         # Check that creating a second SingletonPageViaMaxCount results in a permission
@@ -236,7 +236,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # A second singleton page should not be creatable
         self.assertFalse(SingletonPageViaMaxCount.can_create_at(self.root_page))
         response = self.client.get(add_url)
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
     def test_cannot_create_page_with_wrong_parent_page_types(self):
         # tests.BusinessChild has limited parent_page_types, so attempting to add
@@ -244,7 +244,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'businesschild', self.root_page.id))
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
     def test_cannot_create_page_with_wrong_subpage_types(self):
         # Add a BusinessIndex to test business rules in
@@ -259,7 +259,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', business_index.id))
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
     def test_create_simplepage_post(self):
         post_data = {
@@ -861,19 +861,19 @@ class TestSubpageBusinessRules(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'standardchild', self.business_index.id))
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
         # likewise for BusinessChild which has an empty subpage_types list
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'standardchild', self.business_child.id))
         )
-        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/admin/')
 
         # cannot add BusinessChild to StandardIndex, as BusinessChild restricts is parent page types
         response = self.client.get(
             reverse('wagtailadmin_pages:add', args=('tests', 'businesschild', self.standard_index.id))
         )
-        self.assertEqual(response.status_code, 403)
+        self.assertRedirects(response, '/admin/')
 
         # but we can add a BusinessChild to BusinessIndex
         response = self.client.get(
