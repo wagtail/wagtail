@@ -1,7 +1,9 @@
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.urls import reverse
 
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.navigation import get_explorable_root_page
@@ -92,10 +94,26 @@ def index(request, parent_page_id=None):
         paginator = Paginator(pages, per_page=50)
         pages = paginator.get_page(request.GET.get('p'))
 
-    return TemplateResponse(request, 'wagtailadmin/pages/index.html', {
+    context = {
         'parent_page': parent_page.specific,
         'ordering': ordering,
         'pagination_query_params': "ordering=%s" % ordering,
         'pages': pages,
         'do_paginate': do_paginate,
-    })
+        'locale': None,
+        'translations': [],
+    }
+
+    if getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and not parent_page.is_root():
+        context.update({
+            'locale': parent_page.locale,
+            'translations': [
+                {
+                    'locale': translation.locale,
+                    'url': reverse('wagtailadmin_explore', args=[translation.id]),
+                }
+                for translation in parent_page.get_translations().only('id', 'locale').select_related('locale')
+            ],
+        })
+
+    return TemplateResponse(request, 'wagtailadmin/pages/index.html', context)
