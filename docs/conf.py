@@ -12,13 +12,13 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
 import os
+import sys
 from datetime import datetime
 
 import django
 
-from wagtail import __version__, VERSION
+from wagtail import VERSION, __version__
 
 
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org

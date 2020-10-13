@@ -1,6 +1,6 @@
+import json
 import pathlib
 import sys
-import json
 
 import boto3
 
