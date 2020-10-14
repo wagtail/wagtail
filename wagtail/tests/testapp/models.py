@@ -46,7 +46,6 @@ from wagtail.utils.decorators import cached_classmethod
 
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 
-
 EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
     ('private', "Private"),
