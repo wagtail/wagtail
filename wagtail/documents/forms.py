@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.forms.models import modelform_factory
 from django.utils.translation import gettext_lazy as _
 
@@ -22,6 +23,22 @@ def formfield_for_dbfield(db_field, **kwargs):
 class BaseDocumentForm(BaseCollectionMemberForm):
     permission_policy = documents_permission_policy
 
+    class Meta:
+        widgets = {
+            'tags': widgets.AdminTagWidget,
+            'file': forms.FileInput()
+        }
+
+
+def get_document_base_form():
+    base_form_override = getattr(settings, "WAGTAILDOCS_DOCUMENT_FORM_BASE", "")
+    if base_form_override:
+        from django.utils.module_loading import import_string
+        base_form = import_string(base_form_override)
+    else:
+        base_form = BaseDocumentForm
+    return base_form
+
 
 def get_document_form(model):
     fields = model.admin_form_fields
@@ -34,13 +51,10 @@ def get_document_form(model):
 
     return modelform_factory(
         model,
-        form=BaseDocumentForm,
+        form=get_document_base_form(),
         fields=fields,
         formfield_callback=formfield_for_dbfield,
-        widgets={
-            'tags': widgets.AdminTagWidget,
-            'file': forms.FileInput()
-        })
+    )
 
 
 def get_document_multi_form(model):
@@ -50,13 +64,10 @@ def get_document_multi_form(model):
 
     return modelform_factory(
         model,
-        form=BaseDocumentForm,
+        form=get_document_base_form(),
         fields=fields,
         formfield_callback=formfield_for_dbfield,
-        widgets={
-            'tags': widgets.AdminTagWidget,
-            'file': forms.FileInput()
-        })
+    )
 
 
 GroupDocumentPermissionFormSet = collection_member_permission_formset_factory(

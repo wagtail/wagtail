@@ -212,6 +212,14 @@ This setting lets you provide your own image model for use in Wagtail, which mig
 
 .. code-block:: python
 
+  WAGTAILIMAGES_IMAGE_FORM_BASE = 'myapp.forms.MyImageBaseForm'
+
+This setting lets you provide your own image base form for use in Wagtail, which might extend the built-in ``BaseImageForm`` class or replace it entirely.
+You can use it to specify or override the widgets to use in the admin form.
+
+
+.. code-block:: python
+
     WAGTAILIMAGES_MAX_UPLOAD_SIZE = 20 * 1024 * 1024  # i.e. 20MB
 
 This setting lets you override the maximum upload size for images (in bytes). If omitted, Wagtail will fall back to using its 10MB default value.
@@ -248,6 +256,21 @@ Specifies the number of images shown per page in the image chooser modal.
 
 Documents
 =========
+
+.. code-block:: python
+
+  WAGTAILDOCS_DOCUMENT_MODEL = 'myapp.MyDocument'
+
+This setting lets you provide your own document model for use in Wagtail, which might extend the built-in ``AbstractDocument`` class or replace it entirely.
+
+
+.. code-block:: python
+
+  WAGTAILDOCS_DOCUMENT_FORM_BASE = 'myapp.forms.MyDocumentBaseForm'
+
+This setting lets you provide your own Document base form for use in Wagtail, which might extend the built-in ``BaseDocumentForm`` class or replace it entirely.
+You can use it to specify or override the widgets to use in the admin form.
+
 
 .. _wagtaildocs_serve_method:
 
