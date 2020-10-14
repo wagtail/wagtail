@@ -1,0 +1,13 @@
+repos:
+  - repo: https://github.com/timothycrosley/isort
+    # isort config is in setup.cfg
+    rev: 5.6.4
+    hooks:
+      - id: isort
+        language_version: python3
+  - repo: https://gitlab.com/pycqa/flake8
+    # flake8 config is in setup.cfg
+    rev: 3.8.4
+    hooks:
+      - id: flake8
+        language_version: python3
