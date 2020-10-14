@@ -1149,7 +1149,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @property
     def cached_content_type(self):
         """
-        versionadded:: 2.10
+        .. versionadded:: 2.10
 
         Return this page's ``content_type`` value from the ``ContentType``
         model's cached manager, which will avoid a database query if the
