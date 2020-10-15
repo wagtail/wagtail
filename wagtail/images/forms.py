@@ -104,6 +104,7 @@ GroupImagePermissionFormSet = collection_member_permission_formset_factory(
     [
         ('add_image', _("Add"), _("Add/edit images you own")),
         ('change_image', _("Edit"), _("Edit any image")),
+        ('choose_image', _("Choose"), _("Select images in choosers")),
     ],
     'wagtailimages/permissions/includes/image_permissions_formset.html'
 )

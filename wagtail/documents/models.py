@@ -201,5 +201,10 @@ class Document(AbstractDocument):
         'tags'
     )
 
+    class Meta(AbstractDocument.Meta):
+        permissions = [
+            ("choose_document", "Can choose document"),
+        ]
+
 
 document_served = Signal(providing_args=['request'])

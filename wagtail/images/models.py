@@ -372,9 +372,12 @@ class Image(AbstractImage):
         'focal_point_height',
     )
 
-    class Meta:
+    class Meta(AbstractImage.Meta):
         verbose_name = _('image')
         verbose_name_plural = _('images')
+        permissions = [
+            ("choose_image", "Can choose image"),
+        ]
 
 
 class Filter:

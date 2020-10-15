@@ -224,6 +224,8 @@ class CollectionOwnershipPermissionPolicy(
     def user_has_permission(self, user, action):
         if action == 'add':
             return self._check_perm(user, ['add'])
+        elif action == 'choose':
+            return self._check_perm(user, ['choose'])
         elif action == 'change' or action == 'delete':
             # having 'add' permission means that there are *potentially*
             # some instances they can edit (namely: ones they own),
@@ -240,6 +242,8 @@ class CollectionOwnershipPermissionPolicy(
             real_actions = ['add', 'change']
         elif 'add' in actions:
             real_actions = ['add']
+        elif 'choose' in actions:
+            real_actions = ['choose']
         else:
             # none of the actions passed in here are ones that we recognise, so only
             # allow them for active superusers
@@ -261,6 +265,8 @@ class CollectionOwnershipPermissionPolicy(
                 return True
             else:
                 return False
+        elif 'choose' in actions:
+            return self._check_perm(user, ['choose'], collection=instance.collection)
         else:
             # 'change' and 'delete' are the only actions that are well-defined
             # for specific instances. Other actions are only available to
@@ -289,6 +295,13 @@ class CollectionOwnershipPermissionPolicy(
             ) & Q(**{self.owner_field_name: user})
 
             return self.model.objects.filter(change_perm_filter | add_perm_filter)
+        elif 'choose' in actions:
+            # Return instances which are in (a descendant of) a collection for which they
+            # have 'choose' permission.
+            choose_perm_filter = Q(
+                collection__in=list(self._collections_with_perm(user, ['choose']))
+            )
+            return self.model.objects.filter(choose_perm_filter)
         else:
             # action is either not recognised, or is the 'add' action which is
             # not meaningful for existing instances. As such, non-superusers
@@ -313,7 +326,13 @@ class CollectionOwnershipPermissionPolicy(
 
             # return the filtered queryset
             return get_user_model().objects.filter(filter_expr).distinct()
-
+        elif 'choose' in actions:
+            # Form a filter expression of the users with 'choose' permission
+            # over this instance's collection.
+            filter_expr = self._users_with_perm_filter(
+                ['choose'], collection=instance.collection
+            )
+            return get_user_model().objects.filter(filter_expr).distinct()
         else:
             # action is either not recognised, or is the 'add' action which is
             # not meaningful for existing instances. As such, the action is only
@@ -341,6 +360,9 @@ class CollectionOwnershipPermissionPolicy(
 
         elif 'add' in actions:
             return self._collections_with_perm(user, ['add'])
+
+        elif 'choose' in actions:
+            return self._collections_with_perm(user, ['choose'])
 
         else:
             # action is not recognised, and so non-superusers

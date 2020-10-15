@@ -75,6 +75,7 @@ GroupDocumentPermissionFormSet = collection_member_permission_formset_factory(
     [
         ('add_document', _("Add"), _("Add/edit documents you own")),
         ('change_document', _("Edit"), _("Edit any document")),
+        ('choose_document', _("Choose"), _("Select documents in choosers")),
     ],
     'wagtaildocs/permissions/includes/document_permissions_formset.html'
 )

@@ -8,7 +8,6 @@ from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core import hooks
-from wagtail.core.models import Collection
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
@@ -52,7 +51,9 @@ def chooser(request):
     else:
         uploadform = None
 
-    documents = Document.objects.all()
+    documents = permission_policy.instances_user_has_any_permission_for(
+        request.user, ['choose']
+    )
 
     # allow hooks to modify the queryset
     for hook in hooks.get_hooks('construct_document_chooser_queryset'):
@@ -91,7 +92,9 @@ def chooser(request):
     else:
         searchform = SearchForm()
 
-        collections = Collection.objects.all()
+        collections = permission_policy.collections_user_has_permission_for(
+            request.user, 'choose'
+        )
         if len(collections) < 2:
             collections = None
 

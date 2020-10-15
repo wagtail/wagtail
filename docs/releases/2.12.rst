@@ -10,6 +10,12 @@ Wagtail 2.12 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Image / document choose permission
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Images and documents now support a distinct 'choose' permission type, to control the set of items displayed in the chooser interfaces when inserting images and documents into a page, and allow setting up collections that are only available for use by specific user groups. This feature was developed by Robert Rollins.
+
+
 In-place StreamField updating
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
