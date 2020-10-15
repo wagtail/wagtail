@@ -18,6 +18,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.core import hooks
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
+from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import get_permission_name, user_can_edit_snippet_type
 
@@ -182,6 +183,7 @@ def create(request, app_label, model_name):
         'model_opts': model._meta,
         'edit_handler': edit_handler,
         'form': form,
+        'action_menu': SnippetActionMenu(request, view='create', model=model),
     })
 
 
@@ -242,6 +244,7 @@ def edit(request, app_label, model_name, pk):
         'instance': instance,
         'edit_handler': edit_handler,
         'form': form,
+        'action_menu': SnippetActionMenu(request, view='edit', instance=instance),
     })
 
 

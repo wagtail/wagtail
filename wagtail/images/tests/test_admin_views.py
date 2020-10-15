@@ -9,7 +9,7 @@ from django.utils.http import RFC3986_SUBDELIMS, urlquote
 
 from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.images.models import UploadedImage
-from wagtail.images.views.serve import generate_signature
+from wagtail.images.utils import generate_signature
 from wagtail.tests.testapp.models import CustomImage, CustomImageWithAuthor
 from wagtail.tests.utils import WagtailTestUtils
 

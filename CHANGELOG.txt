@@ -24,6 +24,7 @@ Changelog
  * Preview from 'pages awaiting moderation' now opens in a new window (Cynthia Kiser)
  * Add document extension validation if `WAGTAIL_DOCS_EXTENSIONS` is set (Meghana Bhange)
  * Use `django-admin` command in place of `django-admin.py` (minusf)
+ * Add `register_snippet_action_menu_item` and `construct_snippet_action_menu` hooks to modify the actions available when creating / editing a snippet (Karl Hobley)
  * Fix: Make page-level actions accessible to keyboard users in page listing tables (Jesse Menn)
  * Fix: `WAGTAILFRONTENDCACHE_LANGUAGES` was being interpreted incorrectly. It now accepts a list of strings, as documented (Karl Hobley)
  * Fix: Update oEmbed endpoints to use https where available (Matt Westcott)
@@ -34,6 +35,7 @@ Changelog
  * Fix: `Page.copy()` now raises an error if the page being copied is unsaved (Anton Zhyltsou)
  * Fix: `Page.copy()` now triggers a `page_published` if the copied page is live (Anton Zhyltsou)
  * Fix: The Elasticsearch `URLS` setting can now take a string on its own instead of a list (Sævar Öfjörð Magnússon)
+ * Fix: Avoid retranslating month / weekday names that Django already provides (Matt Westcott)
 
 
 2.10.2 (25.09.2020)

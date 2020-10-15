@@ -14,19 +14,13 @@
                 {{ edit_handler.render_form_content }}
                 <footer>
                     <nav aria-label="{% trans 'Actions' %}">
-                    <ul>
-                        <li class="actions">
-                            <div class="dropdown dropup dropdown-button match-width">
-                                <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">
-                                    {% icon name="spinner" %}<em>{% trans 'Save' %}</em>
-                                </button>
-                                <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
-                                <ul>
-                                    <li><a href="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}" class="shortcut">{% trans "Delete" %}</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
+                        <ul>
+                            <li class="actions actions--primary">
+                                <div class="dropdown dropup dropdown-button match-width">
+                                    {{ action_menu.render_html }}
+                                </div>
+                            </li>
+                        </ul>
                     </nav>
                 </footer>
             </form>

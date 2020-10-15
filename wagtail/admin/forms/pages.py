@@ -56,6 +56,13 @@ class CopyForm(forms.Form):
                     required=False, initial=True, label=label, help_text=help_text
                 )
 
+            # Note that only users who can publish in the new parent page can create an alias.
+            # This is because alias pages must always match their original page's state.
+            self.fields['alias'] = forms.BooleanField(
+                required=False, initial=False, label=_("Alias"),
+                help_text=_("Keep the new pages updated with future changes")
+            )
+
     def clean(self):
         cleaned_data = super().clean()
 
