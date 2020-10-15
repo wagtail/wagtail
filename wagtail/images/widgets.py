@@ -22,6 +22,11 @@ class AdminImageChooser(AdminChooser):
         instance, value = self.get_instance_and_id(self.image_model, value)
         original_field_html = super().render_html(name, value, attrs)
 
+        # Must import here because doing so at the top of the file is too early in the bootstrap.
+        # from wagtail.images.permissions import permission_policy
+        # if not permission_policy.user_has_permission_for_instance(user, 'change', instance):
+        #     self.show_edit_link = False
+
         return render_to_string("wagtailimages/widgets/image_chooser.html", {
             'widget': self,
             'original_field_html': original_field_html,

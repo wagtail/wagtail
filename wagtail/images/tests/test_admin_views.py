@@ -370,6 +370,7 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertContains(response, "Custom image with this Title and Collection already exists.")
 
 
+# TODO rrollins: Add a test for choosability.
 class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtils):
     def setUp(self):
         add_image_permission = Permission.objects.get(
