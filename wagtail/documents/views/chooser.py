@@ -17,7 +17,7 @@ from wagtail.search import index as search_index
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-def get_chooser_context():
+def get_chooser_js_data():
     """construct context variables needed by the chooser JS"""
     return {
         'step': 'chooser',
@@ -39,6 +39,20 @@ def get_document_result_data(document):
         'url': document.url,
         'filename': document.filename,
         'edit_link': reverse('wagtaildocs:edit', args=(document.id,)),
+    }
+
+
+def get_chooser_context(request):
+    """Helper function to return common template context variables for the main chooser view"""
+    collections = Collection.objects.all()
+    if len(collections) < 2:
+        collections = None
+
+    return {
+        'searchform': SearchForm(),
+        'is_searching': False,
+        'query_string': None,
+        'collections': collections,
     }
 
 
@@ -106,7 +120,7 @@ def chooser(request):
             'searchform': searchform,
             'collections': collections,
             'is_searching': False,
-        }, json_data=get_chooser_context())
+        }, json_data=get_chooser_js_data())
 
 
 def document_chosen(request, document_id):
@@ -151,8 +165,21 @@ def chooser_upload(request):
 
     documents = Document.objects.order_by('title')
 
+    for hook in hooks.get_hooks('construct_document_chooser_queryset'):
+        documents = hook(documents, request)
+    documents_exist = documents.exists()
+
+    paginator = Paginator(documents, per_page=10)
+    documents = paginator.get_page(request.GET.get('p'))
+
+    context = get_chooser_context(request)
+    context.update({
+        'documents': documents,
+        'documents_exists': documents_exist,
+        'uploadform': form,
+    })
+
     return render_modal_workflow(
         request, 'wagtaildocs/chooser/chooser.html', None,
-        {'documents': documents, 'uploadform': form},
-        json_data=get_chooser_context()
+        context, json_data=get_chooser_js_data()
     )
