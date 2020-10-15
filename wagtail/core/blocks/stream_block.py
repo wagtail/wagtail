@@ -431,7 +431,7 @@ class StreamValue(Sequence):
         """
         self.is_lazy = is_lazy
         self.stream_block = stream_block  # the StreamBlock object that handles this value
-        self.stream_data = stream_data  # a list of (type_name, value) tuples
+        self.stream_data = stream_data  # a list of dicts (when lazy) or tuples (when non-lazy) as outlined above
         self._bound_blocks = {}  # populated lazily from stream_data as we access items through __getitem__
         self.raw_text = raw_text
 
