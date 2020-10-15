@@ -22,7 +22,7 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 CHOOSER_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_CHOOSER_PAGE_SIZE', 12)
 
 
-def get_chooser_js_data():
+def get_chooser_json_data():
     """construct context variables needed by the chooser JS"""
     return {
         'step': 'chooser',
@@ -51,21 +51,49 @@ def get_image_result_data(image):
     }
 
 
-def get_chooser_context(request):
+def get_chooser_context(request, images, uploadform, **kwargs):
     """Helper function to return common template context variables for the main chooser view"""
-
-    collections = Collection.objects.all()
-    if len(collections) < 2:
-        collections = None
-
-    return {
-        'searchform': SearchForm(),
-        'is_searching': False,
-        'query_string': None,
+    context = {
+        'uploadform': uploadform,
         'will_select_format': request.GET.get('select_format'),
         'popular_tags': popular_tags_for_model(get_image_model()),
-        'collections': collections,
+        'is_searching': False,
     }
+
+    for hook in hooks.get_hooks('construct_image_chooser_queryset'):
+        images = hook(images, request)
+
+    collection_id = request.GET.get('collection_id')
+    if collection_id:
+        images = images.filter(collection=collection_id)
+        context['collection_id'] = collection_id
+    else:
+        collections = Collection.objects.all()
+        if len(collections) > 2:
+            context['collections'] = collections
+        else:
+            context['collections'] = None
+
+    searchform = SearchForm(request.GET)
+    if searchform.is_valid():
+        q = searchform.cleaned_data['q']
+        images = images.search(q)
+
+        context['query_string'] = q
+        context['is_searching'] = True
+    else:
+        context['searchform'] = SearchForm
+        tag_name = request.GET.get('tag')
+
+        if tag_name:
+            images = images.filter(tags__name=tag_name)
+
+    paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
+    images = paginator.get_page(request.GET.get('p'))
+
+    context['images'] = images
+    context.update(**kwargs)
+    return context
 
 
 def chooser(request):
@@ -78,57 +106,16 @@ def chooser(request):
         uploadform = None
 
     images = Image.objects.order_by('-created_at')
-
-    # allow hooks to modify the queryset
-    for hook in hooks.get_hooks('construct_image_chooser_queryset'):
-        images = hook(images, request)
-
+    context = get_chooser_context(request, images, uploadform)
     if (
         'q' in request.GET or 'p' in request.GET or 'tag' in request.GET
         or 'collection_id' in request.GET
     ):
-        # this request is triggered from search, pagination or 'popular tags';
-        # we will just render the results.html fragment
-        collection_id = request.GET.get('collection_id')
-        if collection_id:
-            images = images.filter(collection=collection_id)
-
-        searchform = SearchForm(request.GET)
-        if searchform.is_valid():
-            q = searchform.cleaned_data['q']
-
-            images = images.search(q)
-            is_searching = True
-        else:
-            is_searching = False
-            q = None
-
-            tag_name = request.GET.get('tag')
-            if tag_name:
-                images = images.filter(tags__name=tag_name)
-
-        # Pagination
-        paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
-        images = paginator.get_page(request.GET.get('p'))
-
-        return TemplateResponse(request, "wagtailimages/chooser/results.html", {
-            'images': images,
-            'is_searching': is_searching,
-            'query_string': q,
-            'will_select_format': request.GET.get('select_format')
-        })
+        return TemplateResponse(request, "wagtailimages/chooser/results.html", context)
     else:
-        paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
-        images = paginator.get_page(request.GET.get('p'))
-
-        context = get_chooser_context(request)
-        context.update({
-            'images': images,
-            'uploadform': uploadform,
-        })
         return render_modal_workflow(
             request, 'wagtailimages/chooser/chooser.html', None, context,
-            json_data=get_chooser_js_data()
+            json_data=get_chooser_json_data()
         )
 
 
@@ -148,11 +135,11 @@ def chooser_upload(request):
 
     if request.method == 'POST':
         image = Image(uploaded_by_user=request.user)
-        form = ImageForm(
+        uploadform = ImageForm(
             request.POST, request.FILES, instance=image, user=request.user, prefix='image-chooser-upload'
         )
 
-        if form.is_valid():
+        if uploadform.is_valid():
             # Set image file size
             image.file_size = image.file.size
 
@@ -161,18 +148,18 @@ def chooser_upload(request):
             image._set_file_hash(image.file.read())
             image.file.seek(0)
 
-            form.save()
+            uploadform.save()
 
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(image)
 
             if request.GET.get('select_format'):
-                form = ImageInsertionForm(
+                uploadform = ImageInsertionForm(
                     initial={'alt_text': image.default_alt_text}, prefix='image-chooser-insertion'
                 )
                 return render_modal_workflow(
                     request, 'wagtailimages/chooser/select_format.html', None,
-                    {'image': image, 'form': form}, json_data={'step': 'select_format'}
+                    {'image': image, 'form': uploadform}, json_data={'step': 'select_format'}
                 )
             else:
                 # not specifying a format; return the image details now
@@ -181,25 +168,14 @@ def chooser_upload(request):
                     None, json_data={'step': 'image_chosen', 'result': get_image_result_data(image)}
                 )
     else:
-        form = ImageForm(user=request.user, prefix='image-chooser-upload')
+        uploadform = ImageForm(user=request.user, prefix='image-chooser-upload')
 
     images = Image.objects.order_by('-created_at')
 
-    # allow hooks to modify the queryset
-    for hook in hooks.get_hooks('construct_image_chooser_queryset'):
-        images = hook(images, request)
-
-    paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
-    images = paginator.get_page(request.GET.get('p'))
-
-    context = get_chooser_context(request)
-    context.update({
-        'images': images,
-        'uploadform': form,
-    })
+    context = get_chooser_context(request, images, uploadform)
     return render_modal_workflow(
         request, 'wagtailimages/chooser/chooser.html', None, context,
-        json_data=get_chooser_js_data()
+        json_data=get_chooser_json_data()
     )
 
 
