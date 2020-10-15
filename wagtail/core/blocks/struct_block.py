@@ -173,11 +173,14 @@ class BaseStructBlock(Block):
 
             # now loop over all list indexes, falling back on the default for any indexes not in
             # the mapping, to arrive at the final list for this subfield
-            default = child_block.get_default()
-            values_by_subfield[name] = [
-                converted_values_by_index.get(i, default)
-                for i in range(0, len(values))
-            ]
+            values_by_subfield[name] = []
+            for i in range(0, len(values)):
+                try:
+                    converted_value = converted_values_by_index[i]
+                except KeyError:
+                    converted_value = child_block.get_default()
+
+                values_by_subfield[name].append(converted_value)
 
         # now form the final list of StructValues, with each one constructed by taking the
         # appropriately-indexed item from all of the per-subfield lists

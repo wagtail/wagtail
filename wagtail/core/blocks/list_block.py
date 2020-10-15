@@ -35,6 +35,10 @@ class ListBlock(Block):
         self.dependencies = [self.child_block]
         self.child_js_initializer = self.child_block.js_initializer()
 
+    def get_default(self):
+        # wrap with list() so that each invocation of get_default returns a distinct instance
+        return list(self.meta.default)
+
     @property
     def media(self):
         return forms.Media(js=[

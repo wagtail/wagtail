@@ -1723,6 +1723,52 @@ class TestStructBlock(SimpleTestCase):
         self.assertEqual(event['guest_speaker']['first_name'], 'Ed')
         self.assertTrue(isinstance(event['guest_speaker'], blocks.StructValue))
 
+    def test_default_value_is_distinct_instance(self):
+        """
+        Whenever the default value of a StructBlock is invoked, it should be a distinct
+        instance of the dict so that modifying it doesn't modify other places where the
+        default value appears.
+        """
+        class PersonBlock(blocks.StructBlock):
+            first_name = blocks.CharBlock()
+            surname = blocks.CharBlock()
+
+        class EventBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            guest_speaker = PersonBlock(default={'first_name': 'Ed', 'surname': 'Balls'})
+
+        event_block = EventBlock()
+
+        event1 = event_block.to_python({'title': 'Birthday party'})  # guest_speaker will default to Ed Balls
+        event2 = event_block.to_python({'title': 'Christmas party'})  # guest_speaker will default to Ed Balls, but a distinct instance
+
+        event1['guest_speaker']['surname'] = 'Miliband'
+        self.assertEqual(event1['guest_speaker']['surname'], 'Miliband')
+        # event2 should not be modified
+        self.assertEqual(event2['guest_speaker']['surname'], 'Balls')
+
+    def test_bulk_to_python_returns_distinct_default_instances(self):
+        """
+        Whenever StructBlock.bulk_to_python invokes a child block's get_default method to
+        fill in missing fields, it should use a separate invocation for each record so that
+        we don't end up with the same instance of a mutable value on multiple records
+        """
+        class ShoppingListBlock(blocks.StructBlock):
+            shop = blocks.CharBlock()
+            items = blocks.ListBlock(blocks.CharBlock(default='chocolate'))
+
+        block = ShoppingListBlock()
+
+        shopping_lists = block.bulk_to_python([
+            {'shop': 'Tesco'},  # 'items' defaults to ['chocolate']
+            {'shop': 'Asda'},  # 'items' defaults to ['chocolate'], but a distinct instance
+        ])
+
+        shopping_lists[0]['items'].append('cake')
+        self.assertEqual(shopping_lists[0]['items'], ['chocolate', 'cake'])
+        # shopping_lists[1] should not be updated
+        self.assertEqual(shopping_lists[1]['items'], ['chocolate'])
+
     def test_clean(self):
         block = blocks.StructBlock([
             ('title', blocks.CharBlock()),
@@ -2276,6 +2322,26 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             form_html
         )
         self.assertIn('value="chocolate"', form_html)
+
+    def test_default_value_is_distinct_instance(self):
+        """
+        Whenever the default value of a ListBlock is invoked, it should be a distinct
+        instance of the list so that modifying it doesn't modify other places where the
+        default value appears.
+        """
+        class ShoppingListBlock(blocks.StructBlock):
+            shop = blocks.CharBlock()
+            items = blocks.ListBlock(blocks.CharBlock(default='chocolate'))
+
+        block = ShoppingListBlock()
+
+        tesco_shopping = block.to_python({'shop': 'Tesco'})  # 'items' will default to ['chocolate']
+        asda_shopping = block.to_python({'shop': 'Asda'})  # 'items' will default to ['chocolate'], but a distinct instance
+
+        tesco_shopping['items'].append('cake')
+        self.assertEqual(tesco_shopping['items'], ['chocolate', 'cake'])
+        # asda_shopping should not be modified
+        self.assertEqual(asda_shopping['items'], ['chocolate'])
 
     def test_render_with_classname_via_kwarg(self):
         """form_classname from kwargs to be used as an additional class when rendering list block"""
