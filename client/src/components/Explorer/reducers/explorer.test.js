@@ -21,6 +21,6 @@ describe('explorer', () => {
   });
 
   it('GOTO_PAGE', () => {
-    expect(explorer(initialState, { type: 'PUSH_PAGE', payload: { id: 100 } })).toMatchSnapshot();
+    expect(explorer(initialState, { type: 'GOTO_PAGE', payload: { id: 100 } })).toMatchSnapshot();
   });
 });

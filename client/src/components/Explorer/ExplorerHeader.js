@@ -11,7 +11,7 @@ import Icon from '../../components/Icon/Icon';
  */
 const ExplorerHeader = ({ page, onClick }) => (
   <Button
-    href={page.id ? `${ADMIN_URLS.PAGES}${page.id}/` : ADMIN_URLS.PAGES}
+    href={page.data.id ? `${ADMIN_URLS.PAGES}${page.data.id}/` : ADMIN_URLS.PAGES}
     className="c-explorer__header"
     onClick={onClick}
   >
