@@ -2,7 +2,7 @@ from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Collection, Page, get_root_collection_id
+from wagtail.core.models import Collection, GroupCollectionPermission, Page, get_root_collection_id
 from wagtail.documents.models import Document
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -28,6 +28,16 @@ class TestChooser(TestCase, WagtailTestUtils):
             codename='access_admin'
         )
         editors_group.permissions.add(access_admin_perm)
+        # Grant "choose" permission to the Editors group on the Root Collection.
+        choose_document_permission = Permission.objects.get(
+            content_type__app_label='wagtaildocs',
+            codename='choose_document'
+        )
+        GroupCollectionPermission.objects.create(
+            group=editors_group,
+            collection=Collection.objects.get(depth=1),
+            permission=choose_document_permission
+        )
 
         # Create a non-superuser editor
         user = self.create_user(username="editor", password="password")
