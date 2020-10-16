@@ -57,11 +57,11 @@ This approach has some advantages for the editor experience as well:
 How locales and translations are recorded in the database
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All pages (and any snippets that have translation enabled) have a `locale` and
-`translation_key` field:
+All pages (and any snippets that have translation enabled) have a ``locale`` and
+``translation_key`` field:
 
- - `locale` is a foreign key to the `Locale` model
- - `translation_key` is a UUID that's used to find translations of a piece of content.
+ - ``locale`` is a foreign key to the ``Locale`` model
+ - ``translation_key`` is a UUID that's used to find translations of a piece of content.
    Translations of the same page/snippet share the same value in this field
 
 These two fields have a 'unique together' constraint so you can't have more than
@@ -88,8 +88,8 @@ Language detection and routing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For detecting the user's language and adding a prefix to the URLs
-(`/en/`, `/fr-fr/`, for example), Wagtail is designed to work with Django's
-builtin internationalisation utilities such as `i18n_patterns` and
+(``/en/``, ``/fr-fr/``, for example), Wagtail is designed to work with Django's
+builtin internationalisation utilities such as ``i18n_patterns`` and
 `LocaleMiddleware`. This means that Wagtail should work seamlessly with any
 other internationalised Django applications on your site.
 
@@ -101,7 +101,7 @@ The locales that are enabled on a site are recorded in the ``Locale`` model in
 stores the `BCP-47 language tag <https://en.wikipedia.org/wiki/IETF_language_tag>`_
 that represents this locale.
 
-The locale records can be set up with an `optional management UI <Enabling the locale management UI (optional)>`_ or created
+The locale records can be set up with an :ref:`optional management UI <enabling_internationalisation>` or created
 in the shell. The possible values of the ``language_code`` field are controlled
 by the ``WAGTAIL_CONTENT_LANGUAGES`` setting.
 
@@ -199,6 +199,8 @@ All the ``en-`` locales will use the "English" language tree, and the ``fr-``
 locales will use the "French" language tree. The differences between each locale
 in a language would be programmatic. For example: which date/number format to
 use, and what currency to display prices in.
+
+.. _enabling_internationalisation:
 
 Enabling the locale management UI (optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
