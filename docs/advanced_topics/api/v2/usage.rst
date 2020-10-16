@@ -364,7 +364,7 @@ For example: ``?search=James+Joyce&order=-first_published_at&search_operator=and
 Special filters for internationalised sites
 -------------------------------------------
 
-When the ``WAGTAIL_I18N_ENABLED`` is set to ``True`` (see
+When ``WAGTAIL_I18N_ENABLED`` is set to ``True`` (see
 :ref:`enabling_internationalisation` for more details) two new filters are made
 available on the pages endpoint.
 
