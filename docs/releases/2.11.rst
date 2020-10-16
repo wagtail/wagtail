@@ -10,6 +10,17 @@ Wagtail 2.11 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+Page aliases
+~~~~~~~~~~~~
+
+This release introduces support for creating page aliases.
+
+Page aliases are exact copies of another page that sit in another part of the tree.
+They remain in sync with the original page until this link is removed by converting them into a regular page, or deleting the original page.
+
+A page alias can be created through the "Copy Page" UI by selecting the "Alias" checkbox when creating a page copy.
+
+
 Collections hierarchy
 ~~~~~~~~~~~~~~~~~~~~~
 
