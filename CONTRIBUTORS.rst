@@ -480,6 +480,8 @@ Contributors
 * Ameet Virdee
 * Anton Zhyltsou
 * Meghana Bhange
+* Cole Maclean
+* Noah H
 
 Translators
 ===========
