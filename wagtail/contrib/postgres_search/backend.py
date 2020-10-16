@@ -1,4 +1,5 @@
 import warnings
+
 from collections import OrderedDict
 from functools import reduce
 
@@ -23,6 +24,7 @@ from .query import Lexeme, RawSearchQuery
 from .utils import (
     get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
     get_sql_weights, get_weight)
+
 
 EMPTY_VECTOR = SearchVector(Value('', output_field=TextField()))
 

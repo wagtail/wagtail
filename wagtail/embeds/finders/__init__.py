@@ -1,7 +1,7 @@
 from importlib import import_module
 
-from django.utils.module_loading import import_string
 from django.conf import settings
+from django.utils.module_loading import import_string
 
 
 def import_finder_class(dotted_path):

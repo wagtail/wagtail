@@ -1,5 +1,7 @@
 import re
+
 from collections.abc import Mapping
+
 
 ELEMENT_SELECTOR = re.compile(r'^([\w-]+)$')
 ELEMENT_WITH_ATTR_SELECTOR = re.compile(r'^([\w-]+)\[([\w-]+)\]$')

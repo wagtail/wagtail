@@ -1,11 +1,12 @@
 from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.http import urlencode
-from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu

@@ -7,6 +7,7 @@ import re
 from bs4 import BeautifulSoup, Comment, NavigableString, Tag
 from django.utils.html import escape
 
+
 ALLOWED_URL_SCHEMES = ['http', 'https', 'ftp', 'mailto', 'tel']
 
 PROTOCOL_RE = re.compile("^[a-z0-9][-+.a-z0-9]*:")

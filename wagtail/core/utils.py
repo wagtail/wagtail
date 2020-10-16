@@ -2,8 +2,8 @@ import functools
 import inspect
 import re
 import unicodedata
-from anyascii import anyascii
 
+from anyascii import anyascii
 from django.apps import apps
 from django.conf import settings
 from django.conf.locale import LANG_INFO
@@ -14,6 +14,7 @@ from django.dispatch import receiver
 from django.utils.encoding import force_str
 from django.utils.text import slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
+
 
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
 

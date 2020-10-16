@@ -4,6 +4,7 @@ Utility classes for rewriting elements of HTML-like strings
 
 import re
 
+
 FIND_A_TAG = re.compile(r'<a(\b[^>]*)>')
 FIND_EMBED_TAG = re.compile(r'<embed(\b[^>]*)/>')
 FIND_ATTRS = re.compile(r'([\w-]+)\="([^"]*)"')

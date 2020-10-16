@@ -5,6 +5,7 @@ from wagtail.core.utils import InvokeViaAttributeShortcut
 
 from .registry import register_setting
 
+
 __all__ = ['BaseSetting', 'register_setting']
 
 

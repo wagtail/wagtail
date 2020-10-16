@@ -21,6 +21,7 @@ from wagtail.tests.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
 
+
 try:
     import sendfile  # noqa
     sendfile_mod = True

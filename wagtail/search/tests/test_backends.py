@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import unittest
+
 from collections import OrderedDict
 from datetime import date
 from io import StringIO

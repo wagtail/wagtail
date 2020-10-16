@@ -7,6 +7,7 @@ from django.db import transaction
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import get_indexed_models
 
+
 DEFAULT_CHUNK_SIZE = 1000
 
 

@@ -15,6 +15,7 @@ from wagtail.tests.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
 
+
 # Get the chars that Django considers safe to leave unescaped in a URL
 urlquote_safechars = RFC3986_SUBDELIMS + str('/~:@')
 

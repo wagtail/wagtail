@@ -2,6 +2,7 @@ from django import template
 
 from wagtail.core import hooks
 
+
 register = template.Library()
 
 

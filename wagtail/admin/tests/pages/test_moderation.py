@@ -1,4 +1,5 @@
 import logging
+
 from itertools import chain
 from unittest import mock
 

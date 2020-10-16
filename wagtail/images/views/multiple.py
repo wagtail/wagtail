@@ -17,6 +17,7 @@ from wagtail.images.models import UploadedImage
 from wagtail.images.permissions import permission_policy
 from wagtail.search.backends import get_search_backends
 
+
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 

@@ -2,6 +2,7 @@ from django.urls import path
 
 from wagtail.images.views import chooser, images, multiple
 
+
 app_name = 'wagtailimages'
 urlpatterns = [
     path('', images.index, name='index'),

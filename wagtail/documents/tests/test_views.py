@@ -1,6 +1,7 @@
 import os.path
 import unittest
 import urllib
+
 from io import StringIO
 from unittest import mock
 

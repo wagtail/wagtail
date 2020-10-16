@@ -1,17 +1,17 @@
 import datetime
 
 import pytz
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 from django.test import TestCase, override_settings
-
 from freezegun import freeze_time
+
 from wagtail.core.models import (
     GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowState, WorkflowTask)
-
 from wagtail.tests.testapp.models import SimplePage
 
 

@@ -1,5 +1,6 @@
 import json
 import logging
+
 from unittest import mock
 
 from django.conf import settings
@@ -8,8 +9,8 @@ from django.core import mail
 from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
 from django.urls import reverse
-
 from freezegun import freeze_time
+
 from wagtail.core.models import (
     GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowState, WorkflowTask)
 from wagtail.core.signals import page_published

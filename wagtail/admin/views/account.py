@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import views as auth_views
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import Http404
 from django.shortcuts import redirect
@@ -14,7 +14,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.core import hooks
 from wagtail.users.forms import (
-    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NameForm, NotificationPreferencesForm, PreferredLanguageForm)
+    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NameForm, NotificationPreferencesForm,
+    PreferredLanguageForm)
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 

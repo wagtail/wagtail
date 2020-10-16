@@ -1,5 +1,6 @@
 from django.contrib.sitemaps import Sitemap as DjangoSitemap
 
+
 # Note: avoid importing models here. This module is imported from __init__.py
 # which causes it to be loaded early in startup if wagtail.contrib.sitemaps is
 # included in INSTALLED_APPS (not required, but developers are likely to add it

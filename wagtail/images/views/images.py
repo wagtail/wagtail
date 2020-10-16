@@ -23,6 +23,7 @@ from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
 from wagtail.search import index as search_index
 
+
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 INDEX_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_INDEX_PAGE_SIZE', 20)

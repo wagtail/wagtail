@@ -1,9 +1,11 @@
 from django.urls import include, path, reverse
 from django.utils.html import format_html
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import gettext, ngettext
+from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.rich_text import HalloPlugin

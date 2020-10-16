@@ -5,6 +5,7 @@ from wagtail.core import hooks
 
 from .views import PagesAdminAPIViewSet
 
+
 admin_api = WagtailAPIRouter('wagtailadmin_api')
 admin_api.register_endpoint('pages', PagesAdminAPIViewSet)
 

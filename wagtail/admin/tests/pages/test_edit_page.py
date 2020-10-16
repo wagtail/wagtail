@@ -1,5 +1,6 @@
 import datetime
 import os
+
 from unittest import mock
 
 from django.conf import settings
@@ -16,8 +17,9 @@ from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import Page, PageRevision, Site
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
-    EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory,
-    EventPage, EventPageCarouselItem, FilePage, ManyToManyBlogPage, SimplePage, SingleEventPage, StandardIndex, TaggedPage)
+    EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory, EventPage,
+    EventPageCarouselItem, FilePage, ManyToManyBlogPage, SimplePage, SingleEventPage, StandardIndex,
+    TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.utils.form_data import inline_formset, nested_form_data
 

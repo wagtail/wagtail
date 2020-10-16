@@ -3,6 +3,7 @@ from django.utils.html import format_html
 from django.utils.translation import gettext as _
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.core import hooks
 from wagtail.embeds import urls

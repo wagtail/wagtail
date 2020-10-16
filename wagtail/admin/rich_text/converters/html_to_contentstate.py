@@ -1,4 +1,5 @@
 import re
+
 from html.parser import HTMLParser
 
 from wagtail.admin.rich_text.converters.contentstate_models import (
@@ -6,6 +7,7 @@ from wagtail.admin.rich_text.converters.contentstate_models import (
 from wagtail.admin.rich_text.converters.html_ruleset import HTMLRuleset
 from wagtail.core.models import Page
 from wagtail.core.rich_text import features as feature_registry
+
 
 # constants to keep track of what to do with leading whitespace on the next text node we encounter
 STRIP_WHITESPACE = 0

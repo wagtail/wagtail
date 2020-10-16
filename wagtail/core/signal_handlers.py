@@ -5,6 +5,7 @@ from django.db.models.signals import post_delete, post_save, pre_delete
 
 from wagtail.core.models import Page, Site
 
+
 logger = logging.getLogger('wagtail.core')
 
 

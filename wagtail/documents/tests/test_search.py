@@ -13,6 +13,7 @@ from wagtail.tests.utils import WagtailTestUtils
 class TestIssue613(TestCase, WagtailTestUtils):
     def get_elasticsearch_backend(self):
         from django.conf import settings
+
         from wagtail.search.backends import get_search_backend
 
         if 'elasticsearch' not in settings.WAGTAILSEARCH_BACKENDS:

@@ -1,9 +1,11 @@
 import datetime
 import json
 import unittest
+
 from unittest.mock import Mock
 
 import pytz
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
@@ -17,7 +19,8 @@ from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.core.models import (
-    Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site, get_page_models, get_translatable_models)
+    Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site, get_page_models,
+    get_translatable_models)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,

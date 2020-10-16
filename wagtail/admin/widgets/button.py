@@ -1,4 +1,5 @@
 import warnings
+
 from functools import total_ordering
 
 from django.forms.utils import flatatt

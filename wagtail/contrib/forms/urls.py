@@ -3,6 +3,7 @@ from django.urls import path
 from wagtail.contrib.forms.views import (
     DeleteSubmissionsView, FormPagesListView, get_submissions_list_view)
 
+
 app_name = 'wagtailforms'
 urlpatterns = [
     path('', FormPagesListView.as_view(), name='index'),

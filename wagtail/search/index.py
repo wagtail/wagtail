@@ -6,8 +6,8 @@ from django.core import checks
 from django.core.exceptions import FieldDoesNotExist
 from django.db import models
 from django.db.models.fields.related import ForeignObjectRel, OneToOneRel, RelatedField
-
 from modelcluster.fields import ParentalManyToManyField
+
 from wagtail.search.backends import get_search_backends_with_name
 
 

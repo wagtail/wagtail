@@ -14,6 +14,7 @@ from wagtail.images.models import Rendition, SourceImageIOError
 from wagtail.images.rect import Rect
 from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
 from wagtail.tests.utils import WagtailTestUtils
+
 from .utils import Image, get_test_image_file
 
 
@@ -426,6 +427,7 @@ class TestIssue573(TestCase):
 class TestIssue613(TestCase, WagtailTestUtils):
     def get_elasticsearch_backend(self):
         from django.conf import settings
+
         from wagtail.search.backends import get_search_backend
 
         if 'elasticsearch' not in settings.WAGTAILSEARCH_BACKENDS:

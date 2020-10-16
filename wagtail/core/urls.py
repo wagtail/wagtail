@@ -5,6 +5,7 @@ from django.urls import path, re_path
 from wagtail.core import views
 from wagtail.core.utils import WAGTAIL_APPEND_SLASH
 
+
 if WAGTAIL_APPEND_SLASH:
     # If WAGTAIL_APPEND_SLASH is True (the default value), we match a
     # (possibly empty) list of path segments ending in slashes.

@@ -1,7 +1,6 @@
 from unittest.mock import patch
 
 from bs4 import BeautifulSoup
-
 from django.test import TestCase, override_settings
 
 from wagtail.core.rich_text import expand_db_html

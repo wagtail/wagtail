@@ -1,4 +1,5 @@
 import operator
+
 from functools import reduce
 
 from django.contrib.admin.utils import lookup_needs_distinct

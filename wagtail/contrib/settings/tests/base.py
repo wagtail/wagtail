@@ -1,4 +1,5 @@
 from django.http import HttpRequest
+
 from wagtail.core.models import Page, Site
 from wagtail.tests.testapp.models import TestSetting
 

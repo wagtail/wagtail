@@ -5,6 +5,7 @@ from wagtail.admin.views.pages import (
     convert_alias, copy, create, delete, edit, history, lock, moderation, move, ordering, preview,
     revisions, search, unpublish, usage, workflow)
 
+
 app_name = 'wagtailadmin_pages'
 urlpatterns = [
     path('add/<slug:content_type_app_name>/<slug:content_type_model_name>/<int:parent_page_id>/', create.CreateView.as_view(), name='add'),

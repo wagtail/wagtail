@@ -9,6 +9,7 @@ from wagtail.core.models import Page, Site
 from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.utils.version import get_main_version
 
+
 register = template.Library()
 
 

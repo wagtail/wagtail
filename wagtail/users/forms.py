@@ -1,4 +1,5 @@
 import warnings
+
 from itertools import groupby
 from operator import itemgetter
 
@@ -23,6 +24,7 @@ from wagtail.core.models import (
     PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
     UserPagePermissionsProxy)
 from wagtail.users.models import UserProfile
+
 
 User = get_user_model()
 
