@@ -2,6 +2,7 @@ from django.urls import path
 
 from wagtail.users.views import users
 
+
 app_name = 'wagtailusers_users'
 urlpatterns = [
     path('', users.index, name='index'),

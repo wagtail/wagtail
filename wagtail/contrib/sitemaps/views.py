@@ -1,4 +1,5 @@
 import inspect
+
 from django.contrib.sitemaps import views as sitemap_views
 
 from .sitemap_generator import Sitemap

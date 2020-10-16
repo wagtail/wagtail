@@ -2,6 +2,7 @@ import random
 
 from django.db import models
 
+
 LOWER_BOUND = -2147483648
 UPPER_BOUND = 2147483647
 SHIFT = 92147483647

@@ -2,6 +2,7 @@ from django.urls import path
 
 from wagtail.contrib.redirects import views
 
+
 app_name = 'wagtailredirects'
 urlpatterns = [
     path('', views.index, name='index'),

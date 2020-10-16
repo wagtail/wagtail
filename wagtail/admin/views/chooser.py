@@ -5,7 +5,6 @@ from django.template.response import TemplateResponse
 
 from wagtail.admin.forms.choosers import (
     AnchorLinkChooserForm, EmailLinkChooserForm, ExternalLinkChooserForm, PhoneLinkChooserForm)
-
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core import hooks

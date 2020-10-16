@@ -1,9 +1,11 @@
 from io import BytesIO
 
 import PIL.Image
+
 from django.core.files.images import ImageFile
 
 from wagtail.images import get_image_model
+
 
 Image = get_image_model()
 

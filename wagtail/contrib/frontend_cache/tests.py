@@ -2,6 +2,7 @@ from unittest import mock
 from urllib.error import HTTPError, URLError
 
 import requests
+
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase
 from django.test.utils import override_settings

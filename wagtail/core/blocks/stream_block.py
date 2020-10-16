@@ -1,4 +1,5 @@
 import uuid
+
 from collections import OrderedDict, defaultdict
 from collections.abc import Sequence
 
@@ -15,6 +16,7 @@ from wagtail.core.utils import escape_script
 
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
 from .utils import indent, js_dict
+
 
 __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidationError']
 

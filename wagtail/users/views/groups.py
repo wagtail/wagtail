@@ -8,6 +8,7 @@ from wagtail.core import hooks
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
 from wagtail.users.views.users import index
 
+
 _permission_panel_classes = None
 
 

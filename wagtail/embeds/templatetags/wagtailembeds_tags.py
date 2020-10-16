@@ -4,6 +4,7 @@ from django.utils.safestring import mark_safe
 from wagtail.embeds import embeds
 from wagtail.embeds.exceptions import EmbedException
 
+
 register = template.Library()
 
 

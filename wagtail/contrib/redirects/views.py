@@ -22,6 +22,7 @@ from wagtail.contrib.redirects.utils import (
     get_file_storage, get_format_cls_by_extension, get_import_formats, get_supported_extensions,
     write_to_file_storage)
 
+
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 

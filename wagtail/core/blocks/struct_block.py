@@ -13,6 +13,7 @@ from wagtail.admin.staticfiles import versioned_static
 from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
 
+
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
 

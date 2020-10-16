@@ -25,6 +25,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 # https://raw.githubusercontent.com/django-import-export/django-import-export/master/import_export/formats/base_formats.py
 from importlib import import_module
+
 import tablib
 
 
@@ -198,6 +199,7 @@ class XLSX(TablibFormat):
         Create dataset from first sheet.
         """
         from io import BytesIO
+
         import openpyxl
         xlsx_book = openpyxl.load_workbook(BytesIO(in_stream), read_only=True)
 

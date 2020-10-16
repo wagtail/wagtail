@@ -9,8 +9,8 @@ from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.testapp.models import (
     AdvertWithCustomPrimaryKey, EventCategory, EventPage, EventPageSpeaker,
-    HeadCountRelatedModelUsingPK, SimplePage, SnippetChooserModelWithCustomPrimaryKey,
-    StreamPage, TaggedPage)
+    HeadCountRelatedModelUsingPK, SimplePage, SnippetChooserModelWithCustomPrimaryKey, StreamPage,
+    TaggedPage)
 
 
 class TestFieldComparison(TestCase):

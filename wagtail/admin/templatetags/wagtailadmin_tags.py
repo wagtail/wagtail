@@ -1,7 +1,7 @@
 import json
 import warnings
-from datetime import datetime
 
+from datetime import datetime
 from urllib.parse import urljoin
 
 from django import template
@@ -27,11 +27,14 @@ from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
 from wagtail.core.models import (
-    Collection, CollectionViewRestriction, Page, PageLogEntry, PageViewRestriction, UserPagePermissionsProxy)
+    Collection, CollectionViewRestriction, Page, PageLogEntry, PageViewRestriction,
+    UserPagePermissionsProxy)
+from wagtail.core.utils import accepts_kwarg, camelcase_to_underscore
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
-from wagtail.core.utils import accepts_kwarg, camelcase_to_underscore, escape_script
+from wagtail.core.utils import escape_script
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.deprecation import RemovedInWagtail212Warning
+
 
 register = template.Library()
 

@@ -2,6 +2,7 @@ from django.urls import path
 
 from wagtail.snippets.views import chooser, snippets
 
+
 app_name = 'wagtailsnippets'
 urlpatterns = [
     path('', snippets.index, name='index'),

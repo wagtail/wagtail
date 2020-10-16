@@ -1,8 +1,10 @@
 import hashlib
+
 from django.conf import settings
 from django.utils.http import urlencode
 
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+
 
 delete_user_perm = "{0}.delete_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
 

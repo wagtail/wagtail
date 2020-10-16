@@ -1,8 +1,10 @@
 import operator
 import re
+
 from functools import partial
 
 from .query import MATCH_NONE, Phrase, PlainText
+
 
 NOT_SET = object()
 

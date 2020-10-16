@@ -5,6 +5,7 @@ from wagtail.core.models import TaskState, WorkflowState
 from wagtail.core.signals import (
     task_submitted, workflow_approved, workflow_rejected, workflow_submitted)
 
+
 task_submission_email_notifier = GroupApprovalTaskStateSubmissionEmailNotifier()
 workflow_submission_email_notifier = WorkflowStateSubmissionEmailNotifier()
 workflow_approval_email_notifier = WorkflowStateApprovalEmailNotifier()

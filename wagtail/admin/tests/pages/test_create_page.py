@@ -1,4 +1,5 @@
 import datetime
+
 from unittest import mock
 
 from django.contrib.auth.models import Group, Permission
@@ -13,8 +14,8 @@ from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.models import GroupPagePermission, Locale, Page, PageRevision
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
-    BusinessChild, BusinessIndex, BusinessSubIndex, DefaultStreamPage, PersonPage,
-    SimplePage, SingletonPage, SingletonPageViaMaxCount, StandardChild, StandardIndex)
+    BusinessChild, BusinessIndex, BusinessSubIndex, DefaultStreamPage, PersonPage, SimplePage,
+    SingletonPage, SingletonPageViaMaxCount, StandardChild, StandardIndex)
 from wagtail.tests.utils import WagtailTestUtils
 
 

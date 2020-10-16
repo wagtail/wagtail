@@ -2,6 +2,7 @@ from django.urls import path
 
 from wagtail.documents.views import chooser, documents, multiple
 
+
 app_name = 'wagtaildocs'
 urlpatterns = [
     path('', documents.index, name='index'),

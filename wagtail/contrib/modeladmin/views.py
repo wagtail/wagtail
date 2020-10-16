@@ -4,10 +4,12 @@ from django import forms
 from django.contrib.admin import FieldListFilter
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
-    get_fields_from_path, label_for_field, lookup_field, lookup_needs_distinct, prepare_lookup_value, quote, unquote)
+    get_fields_from_path, label_for_field, lookup_field, lookup_needs_distinct,
+    prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import (
-    FieldDoesNotExist, ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied, SuspiciousOperation)
+    FieldDoesNotExist, ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied,
+    SuspiciousOperation)
 from django.core.paginator import InvalidPage, Paginator
 from django.db import models
 from django.db.models.fields.related import ManyToManyField, OneToOneRel
@@ -27,6 +29,7 @@ from wagtail.admin import messages
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 
 from .forms import ParentChooserForm
+
 
 try:
     from django.db.models.sql.constants import QUERY_TERMS

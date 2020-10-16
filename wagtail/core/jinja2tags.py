@@ -1,5 +1,6 @@
 import jinja2
 import jinja2.nodes
+
 from jinja2.ext import Extension
 
 from .templatetags.wagtailcore_tags import pageurl, richtext, slugurl, wagtail_version

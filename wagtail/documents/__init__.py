@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
+
 default_app_config = 'wagtail.documents.apps.WagtailDocsAppConfig'
 
 

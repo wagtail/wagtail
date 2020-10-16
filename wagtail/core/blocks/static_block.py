@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .base import Block
 
+
 __all__ = ['StaticBlock']
 
 

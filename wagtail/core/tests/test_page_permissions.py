@@ -6,7 +6,8 @@ from django.test import Client, TestCase, override_settings
 from django.utils import timezone
 
 from wagtail.core.models import (
-    GroupApprovalTask, GroupPagePermission, Locale, Page, UserPagePermissionsProxy, Workflow, WorkflowTask)
+    GroupApprovalTask, GroupPagePermission, Locale, Page, UserPagePermissionsProxy, Workflow,
+    WorkflowTask)
 from wagtail.tests.testapp.models import (
     BusinessSubIndex, EventIndex, EventPage, SingletonPageViaMaxCount)
 

@@ -15,6 +15,7 @@ from wagtail.core import hooks
 from wagtail.core.models import (
     Page, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState)
 
+
 User = get_user_model()
 
 

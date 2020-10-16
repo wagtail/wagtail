@@ -2,6 +2,7 @@ from django.urls import path
 
 from wagtail.contrib.search_promotions import views
 
+
 app_name = 'wagtailsearchpromotions'
 urlpatterns = [
     path('', views.index, name='index'),

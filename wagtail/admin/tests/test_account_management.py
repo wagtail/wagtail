@@ -5,8 +5,8 @@ import pytz
 
 from django import VERSION as DJANGO_VERSION
 from django.conf import settings
-from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail

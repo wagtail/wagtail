@@ -7,6 +7,7 @@ from wagtail.core.models import Collection, CollectionViewRestriction
 from wagtail.documents.models import Document
 from wagtail.tests.utils import WagtailTestUtils
 
+
 try:
     from urllib.parse import quote
 except ImportError:

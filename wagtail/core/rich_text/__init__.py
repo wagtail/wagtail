@@ -1,4 +1,5 @@
 import re
+
 from html import unescape
 
 from django.db.models import Model

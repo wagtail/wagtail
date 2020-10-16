@@ -1,5 +1,6 @@
 import collections
 import json
+
 from unittest import mock
 
 from django.contrib.contenttypes.models import ContentType

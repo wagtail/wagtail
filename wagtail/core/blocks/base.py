@@ -1,5 +1,6 @@
 import collections
 import re
+
 from importlib import import_module
 
 from django import forms
@@ -9,6 +10,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_str
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
 

@@ -11,6 +11,7 @@ from wagtail.core.utils import escape_script
 from .base import Block
 from .utils import js_dict
 
+
 __all__ = ['ListBlock']
 
 

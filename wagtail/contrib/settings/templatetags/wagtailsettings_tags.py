@@ -4,6 +4,7 @@ from wagtail.core.models import Site
 
 from ..context_processors import SettingsProxy
 
+
 register = Library()
 
 

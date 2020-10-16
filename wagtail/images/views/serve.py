@@ -1,4 +1,5 @@
 import imghdr
+
 from wsgiref.util import FileWrapper
 
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied

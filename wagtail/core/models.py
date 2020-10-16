@@ -1,6 +1,7 @@
 import json
 import logging
 import uuid
+
 from collections import namedtuple
 from io import StringIO
 from urllib.parse import urlparse
@@ -42,9 +43,9 @@ from treebeard.mp_tree import MP_Node
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import (
-    page_published, page_unpublished, post_page_move, pre_page_move,
-    task_approved, task_cancelled, task_rejected, task_submitted,
-    workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted)
+    page_published, page_unpublished, post_page_move, pre_page_move, task_approved, task_cancelled,
+    task_rejected, task_submitted, workflow_approved, workflow_cancelled, workflow_rejected,
+    workflow_submitted)
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
@@ -53,6 +54,7 @@ from wagtail.search import index
 
 from .utils import (
     find_available_slug, get_content_languages, get_supported_content_language_variant)
+
 
 logger = logging.getLogger('wagtail.core')
 

@@ -1,14 +1,17 @@
 import logging
 import uuid
+
 from collections import defaultdict
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse, urlunparse
 from urllib.request import Request, urlopen
 
 import requests
+
 from django.core.exceptions import ImproperlyConfigured
 
 from wagtail import __version__
+
 
 logger = logging.getLogger('wagtail.frontendcache')
 

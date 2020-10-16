@@ -2,6 +2,7 @@ from django.urls import path
 
 from wagtail.admin.views import account
 
+
 urlpatterns = [
     path(
         '', account.PasswordResetView.as_view(), name='wagtailadmin_password_reset'

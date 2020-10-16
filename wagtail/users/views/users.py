@@ -18,6 +18,7 @@ from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 from wagtail.utils.loading import get_custom_form
 
+
 User = get_user_model()
 
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /

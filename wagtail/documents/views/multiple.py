@@ -14,6 +14,7 @@ from .. import get_document_model
 from ..forms import get_document_form, get_document_multi_form
 from ..permissions import permission_policy
 
+
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 

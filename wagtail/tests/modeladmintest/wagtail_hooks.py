@@ -7,8 +7,7 @@ from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPa
 
 from .forms import PublisherModelAdminForm
 from .models import (
-    Author, Book, Contributor, Friend, Person, Publisher, RelatedLink, Token, VenuePage, Visitor
-)
+    Author, Book, Contributor, Friend, Person, Publisher, RelatedLink, Token, VenuePage, Visitor)
 
 
 class AuthorModelAdmin(ModelAdmin):

@@ -2,6 +2,7 @@ from django.urls import path
 
 from wagtail.admin.views import collection_privacy, collections
 
+
 app_name = 'wagtailadmin_collections'
 urlpatterns = [
     path('', collections.Index.as_view(), name='index'),

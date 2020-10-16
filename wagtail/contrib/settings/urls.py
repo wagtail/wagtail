@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 
+
 app_name = 'wagtailsettings'
 urlpatterns = [
     path('<slug:app_name>/<slug:model_name>/', views.edit_current_site, name='edit'),

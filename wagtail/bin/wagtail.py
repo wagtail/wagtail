@@ -4,6 +4,7 @@ import fnmatch
 import os
 import re
 import sys
+
 from argparse import ArgumentParser
 from difflib import unified_diff
 

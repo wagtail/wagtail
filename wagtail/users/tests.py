@@ -18,6 +18,7 @@ from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.models import UserProfile
 from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
 
+
 delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
 change_user_perm_codename = "change_{0}".format(AUTH_USER_MODEL_NAME.lower())
 

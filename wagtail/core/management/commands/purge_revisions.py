@@ -4,6 +4,7 @@ from django.utils import timezone
 
 from wagtail.core.models import PageRevision
 
+
 try:
     from wagtail.core.models import WorkflowState
     workflow_support = True

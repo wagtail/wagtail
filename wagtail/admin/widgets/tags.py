@@ -2,7 +2,6 @@ import json
 
 from django.conf import settings
 from django.urls import reverse
-
 from taggit.forms import TagWidget
 from taggit.models import Tag
 

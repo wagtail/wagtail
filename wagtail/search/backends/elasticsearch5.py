@@ -1,6 +1,7 @@
 from .elasticsearch2 import (
     Elasticsearch2Index, Elasticsearch2Mapping, Elasticsearch2SearchBackend,
-    Elasticsearch2SearchQueryCompiler, Elasticsearch2SearchResults, ElasticsearchAutocompleteQueryCompilerImpl)
+    Elasticsearch2SearchQueryCompiler, Elasticsearch2SearchResults,
+    ElasticsearchAutocompleteQueryCompilerImpl)
 
 
 class Elasticsearch5Mapping(Elasticsearch2Mapping):

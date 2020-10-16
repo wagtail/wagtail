@@ -3,6 +3,7 @@ from operator import itemgetter
 
 from wagtail.utils.apps import get_app_submodules
 
+
 _hooks = {}
 
 

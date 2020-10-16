@@ -17,6 +17,7 @@ from wagtail.documents.forms import get_document_form
 from wagtail.documents.permissions import permission_policy
 from wagtail.search import index as search_index
 
+
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 

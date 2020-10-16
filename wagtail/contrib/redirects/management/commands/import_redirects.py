@@ -1,6 +1,7 @@
 import os
 
 import tablib
+
 from django.core.management.base import BaseCommand
 
 from wagtail.contrib.redirects.forms import RedirectForm

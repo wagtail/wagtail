@@ -3,6 +3,7 @@ from django.urls import re_path
 from wagtail.images.views.serve import SendFileView, ServeView
 from wagtail.tests import dummy_sendfile_backend
 
+
 urlpatterns = [
     # Format: signature, image_id, filter_spec, filename=None
     re_path(r'^actions/serve/(.*)/(\d*)/(.*)/[^/]*', ServeView.as_view(action='serve'), name='wagtailimages_serve_action_serve'),

@@ -4,9 +4,9 @@
 
 from importlib import import_module
 
-from django.utils.module_loading import import_string
-from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
+from django.utils.module_loading import import_string
 
 
 class InvalidSearchBackendError(ImproperlyConfigured):
