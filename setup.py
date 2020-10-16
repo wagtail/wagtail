@@ -3,8 +3,9 @@
 from wagtail import __version__
 from wagtail.utils.setup import assets, check_bdist_egg, sdist
 
+
 try:
-    from setuptools import setup, find_packages
+    from setuptools import find_packages, setup
 except ImportError:
     from distutils.core import setup
 
@@ -55,7 +56,7 @@ testing_extras = [
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
     'flake8>=3.6.0',
-    'isort==4.2.5',
+    'isort>=5.6.0,<6.0',
     'flake8-blind-except==0.1.1',
     'flake8-print==2.0.2',
     'doc8==0.8.1',
