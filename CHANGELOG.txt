@@ -4,6 +4,7 @@ Changelog
 2.11 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Add support for aliased pages (Karl Hobley)
  * Add support for hierarchical/nested Collections (Robert Rollins)
  * Extend treebeard's `fix_tree` method with the ability to non-destructively fix path issues and add a --full option to apply path fixes (Matt Westcott)
  * Add `before_edit_snippet`, `before_create_snippet` and `before_delete_snippet` hooks and documentation (Karl Hobley. Sponsored by the Mozilla Foundation)
