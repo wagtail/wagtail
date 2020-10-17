@@ -398,7 +398,7 @@ This first locale will automatically pick the value from ``WAGTAIL_CONTENT_LANGU
 If the primary language code is changed later, Wagtail will not automatically create a new ``Locale`` record or update an existing one.
 
 Before internationalisation is enabled, all pages use this primary ``Locale`` record.
-This is to satisfy the database constraints and makes it easy to switch on internationalisation later.
+This is to satisfy the database constraints. And it makes it easier to switch internationalisation on at a later date.
 
 Changing ``WAGTAIL_CONTENT_LANGUAGES``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
