@@ -133,7 +133,7 @@ Database fields
 
         (foreign key to Locale)
 
-        This foreign key links to the `Locale` object that represents the page's language.
+        This foreign key links to the ``Locale`` object that represents the page language.
 
     .. attribute:: translation_key
 
