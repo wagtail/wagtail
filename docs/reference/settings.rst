@@ -107,7 +107,7 @@ For example:
 
 Each item in the list is a 2-tuple containing a language code and a display name.
 The language code can either be a language code on its own (such as ``en``, ``fr``),
-or it can include a region code (such as ``en-gb`` ``fr-fr``).
+or it can include a region code (such as ``en-gb``, ``fr-fr``).
 You can mix the two formats if you only need to localize in some regions but not others.
 
 This setting follows the same structure of Django's  ``LANGUAGES`` setting,
