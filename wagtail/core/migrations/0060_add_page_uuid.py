@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0046_site_name_remove_null'),
+        ('wagtailcore', '0059_apply_collection_ordering'),
     ]
 
     operations = [

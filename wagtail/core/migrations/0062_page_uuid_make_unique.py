@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0048_populate_page_uuid'),
+        ('wagtailcore', '0061_populate_page_uuid'),
     ]
 
     operations = [

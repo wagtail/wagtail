@@ -38,7 +38,7 @@ def migrate_backwards(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0047_add_page_uuid'),
+        ('wagtailcore', '0060_add_page_uuid'),
     ]
 
     operations = [
