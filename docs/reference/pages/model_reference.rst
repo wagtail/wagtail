@@ -395,7 +395,7 @@ Each ``Locale`` record corresponds to a "language code" defined in the :ref:`wag
 
 Wagtail will initially set up one ``Locale`` to act as the default language for all existing content.
 This first locale will automatically pick the value from ``WAGTAIL_CONTENT_LANGUAGES`` that most closely matches the site primary language code defined in ``LANGUAGE_CODE``.
-If the primary language code is changed later, Wagtail will not automatically create a new ``Locale`` record or update an existing one.
+If the primary language code is changed later, Wagtail will **not** automatically create a new ``Locale`` record or update an existing one.
 
 Before internationalisation is enabled, all pages use this primary ``Locale`` record.
 This is to satisfy the database constraints. And it makes it easier to switch internationalisation on at a later date.
@@ -436,7 +436,7 @@ Pages already have this mixin added by Wagtail, so no need to add it to them.
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
-The ``locale`` and ``translation_key`` fields have a unique key to prevent the object being translated into a language more than once.
+The ``locale`` and ``translation_key`` fields have a unique key constraint to prevent the object being translated into a language more than once.
 
 .. class:: TranslatableMixin
     :noindex:

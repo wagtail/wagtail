@@ -435,7 +435,7 @@ class TranslatableMixin(models.Model):
         """
         Finds the translation in the specified locale.
 
-        If there is no translation in that locale, this raises a model.DoesNotExist exception.
+        If there is no translation in that locale, this raises a ``model.DoesNotExist`` exception.
         """
         return self.get_translations(inclusive=True).get(locale_id=pk(locale))
 
@@ -1206,8 +1206,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         If there is no translation in the active language, self is returned.
 
-        Note: This will won't return the translation if it is in draft.
-        If you want to include drafts, uses the ``.localized_draft`` attribute instead.
+        Note: This will not return the translation if it is in draft.
+        If you want to include drafts, use the ``.localized_draft`` attribute instead.
         """
         localized = self.localized_draft
         if not localized.live:
@@ -2253,15 +2253,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         this method will look for the French version of the blog index and create
         the French translation of the blog post under that.
 
-        If this pages parent is not translated into the locale, then a ParentNotTranslatedError
-        is raised. You can circumvent this error by passing `copy_parents=True` which
+        If this page's parent is not translated into the locale, then a ``ParentNotTranslatedError``
+        is raised. You can circumvent this error by passing ``copy_parents=True`` which
         copies any parents that are not translated yet.
 
-        The exclude_fields parameter can be used to set any fields to a blank value
+        The ``exclude_fields`` parameter can be used to set any fields to a blank value
         in the copy.
 
-        Note that this method calls the .copy() method internally so any fields that
-        are excluded in .exclude_fields_in_copy will be excluded from the translation.
+        Note that this method calls the ``.copy()`` method internally so any fields that
+        are excluded in ``.exclude_fields_in_copy`` will be excluded from the translation.
         """
         # Find the translated version of the parent page to create the new page under
         parent = self.get_parent().specific

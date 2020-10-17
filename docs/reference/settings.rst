@@ -92,7 +92,7 @@ For example:
 ``WAGTAIL_CONTENT_LANGUAGES``
 -----------------------------
 
-(list, default [])
+(list, default ``[]``)
 
 A list of languages and/or locales that Wagtail content can be authored in.
 
@@ -122,8 +122,8 @@ so they can both be set to the same value:
         ('es-mx', _("Spanish (Mexico)")),
     ]
 
-But having them separate allows you to configure many different regions on your site
-but have them share Wagtail content (but defer on things like date formatting, currency, etc):
+However having them separate allows you to configure many different regions on your site
+yet have them share Wagtail content (but defer on things like date formatting, currency, etc):
 
 .. code-block:: python
 
@@ -140,9 +140,9 @@ but have them share Wagtail content (but defer on things like date formatting, c
         ('es', _("Spanish")),
     ]
 
-This would mean that your site will respond on the URLs
-``https://www.mysite.com/es/`` and ``https://www.mysite.com/es-MX/`` but both
-of these URLs will serve content from the same "Spanish" tree in Wagtail.
+This would mean that your site will respond on the
+``https://www.mysite.com/es/`` and ``https://www.mysite.com/es-MX/`` URLs, but both
+of them will serve content from the same "Spanish" tree in Wagtail.
 
 .. note:: ``WAGTAIL_CONTENT_LANGUAGES`` must be a subset of ``LANGUAGES``
 
