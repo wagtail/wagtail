@@ -406,6 +406,11 @@ class TranslatableMixin(models.Model):
 
     @property
     def localized(self):
+        """
+        Finds the translation in the current active language.
+
+        If there is no translation in the active language, self is returned.
+        """
         locale = Locale.get_active()
 
         if locale.id == self.locale_id:
@@ -414,6 +419,9 @@ class TranslatableMixin(models.Model):
         return self.get_translation_or_none(locale) or self
 
     def get_translations(self, inclusive=False):
+        """
+        Returns a queryset containing the translations of this
+        """
         translations = self.__class__.objects.filter(
             translation_key=self.translation_key
         )
@@ -424,20 +432,35 @@ class TranslatableMixin(models.Model):
         return translations
 
     def get_translation(self, locale):
+        """
+        Finds the translation in the specified locale.
+
+        If there is no translation in that locale, this raises a model.DoesNotExist exception.
+        """
         return self.get_translations(inclusive=True).get(locale_id=pk(locale))
 
     def get_translation_or_none(self, locale):
+        """
+        Finds the translation in the specified locale.
+
+        If there is no translation in that locale, this returns None.
+        """
         try:
             return self.get_translation(locale)
         except self.__class__.DoesNotExist:
             return None
 
     def has_translation(self, locale):
+        """
+        Returns True if a translation exists in the specified locale.
+        """
         return self.get_translations(inclusive=True).filter(locale_id=pk(locale)).exists()
 
     def copy_for_translation(self, locale):
         """
-        Copies this instance for the specified locale.
+        Creates a copy of this instance with the specified locale.
+
+        Note that the copy is initially unsaved.
         """
         translated = self.__class__.objects.get(id=self.id)
         translated.id = None
@@ -1161,6 +1184,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def localized_draft(self):
+        """
+        Finds the translation in the current active language.
+
+        If there is no translation in the active language, self is returned.
+
+        Note: This will return translations that are in draft. If you want to exclude
+        these, use the ``.localized`` attribute.
+        """
         locale = Locale.get_active()
 
         if locale.id == self.locale_id:
@@ -1170,6 +1201,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def localized(self):
+        """
+        Finds the translation in the current active language.
+
+        If there is no translation in the active language, self is returned.
+
+        Note: This will won't return the translation if it is in draft.
+        If you want to include drafts, uses the ``.localized_draft`` attribute instead.
+        """
         localized = self.localized_draft
         if not localized.live:
             return self
@@ -2205,7 +2244,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @transaction.atomic
     def copy_for_translation(self, locale, copy_parents=False, alias=False, exclude_fields=None):
         """
-        Copies this page for the specified locale.
+        Creates a copy of this page in the specified locale.
+
+        The new page will be created in draft as a child of this page's translated
+        parent.
+
+        For example, if you are translating a blog post from English into French,
+        this method will look for the French version of the blog index and create
+        the French translation of the blog post under that.
+
+        If this pages parent is not translated into the locale, then a ParentNotTranslatedError
+        is raised. You can circumvent this error by passing `copy_parents=True` which
+        copies any parents that are not translated yet.
+
+        The exclude_fields parameter can be used to set any fields to a blank value
+        in the copy.
+
+        Note that this method calls the .copy() method internally so any fields that
+        are excluded in .exclude_fields_in_copy will be excluded from the translation.
         """
         # Find the translated version of the parent page to create the new page under
         parent = self.get_parent().specific
