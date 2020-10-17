@@ -810,7 +810,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
-    default_exclude_fields_in_copy = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
+    default_exclude_fields_in_copy = ['id', 'uuid', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
 
     # Define these attributes early to avoid masking errors. (Issue #3078)
     # The canonical definition is in wagtailadmin.edit_handlers.
@@ -1335,7 +1335,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for alias in self.specific_class.objects.filter(alias_of=self).exclude(id__in=_updated_ids):
             # FIXME: Switch to the same fields that are excluded from copy
             # We can't do this right now because we can't exclude fields from with_content_json
-            exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
+            exclude_fields = ['id', 'uuid', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
 
             # Copy field content
             alias_updated = alias.with_content_json(_content_json)
@@ -2097,7 +2097,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # FIXME: Switch to the same fields that are excluded from copy
         # We can't do this right now because we can't exclude fields from with_content_json
         # which we use for updating aliases
-        exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
+        exclude_fields = ['id', 'uuid', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
 
         update_attrs = {
             'alias_of': self,
