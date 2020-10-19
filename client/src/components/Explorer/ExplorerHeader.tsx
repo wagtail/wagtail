@@ -5,13 +5,10 @@ import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
 
 import Button from '../../components/Button/Button';
 import Icon from '../../components/Icon/Icon';
+import { PageState } from './reducers/nodes';
 
 interface ExplorerHeaderProps {
-  page: {
-    id: string | number;
-    /* eslint-disable-next-line camelcase */
-    admin_display_title: string;
-  };
+  page: PageState;
   depth: number;
   onClick(eL: any): void
 }

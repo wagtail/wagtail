@@ -1,16 +1,26 @@
 export interface PageState {
+  id: number;
   isFetching: boolean;
+  /* eslint-disable-next-line camelcase */
+  admin_display_title?: string;
   isError: boolean;
   children: {
     items: any[];
     count: number;
   };
   meta: {
+    status: {
+      status: string;
+      live: boolean;
+      /* eslint-disable-next-line camelcase */
+      has_unpublished_changes: boolean;
+    }
     children: any;
   };
 }
 
 const defaultPageState: PageState = {
+  id: 0,
   isFetching: false,
   isError: false,
   children: {
@@ -18,6 +28,11 @@ const defaultPageState: PageState = {
     count: 0,
   },
   meta: {
+    status: {
+      status: '',
+      live: false,
+      has_unpublished_changes: true
+    },
     children: {},
   },
 };

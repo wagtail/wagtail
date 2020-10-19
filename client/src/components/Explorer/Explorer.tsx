@@ -4,13 +4,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from './actions';
+import { State as NodeState } from './reducers/nodes';
 
 import ExplorerPanel from './ExplorerPanel';
 
 interface ExplorerProps {
   isVisible: boolean;
   path: number[],
-  nodes: any,
+  nodes: NodeState,
   onClose(): void;
   popPage(): void;
   pushPage(id: number): void;
