@@ -72,7 +72,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         block_with_classname = blocks.CharBlock(
             classname='special-char-class'
         )
-        html = block.render_form("Hello world!")
+        html = block_with_classname.render_form("Hello world!")
         self.assertEqual(html.count(' special-char-class'), 1)
     
     def test_charfield_render_with_template_with_extra_context(self):
