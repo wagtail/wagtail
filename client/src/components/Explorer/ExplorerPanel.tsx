@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 import FocusTrap from 'focus-trap-react';
 
@@ -11,11 +12,35 @@ import ExplorerHeader from './ExplorerHeader';
 import ExplorerItem from './ExplorerItem';
 import PageCount from './PageCount';
 
+interface ExplorerPanelProps {
+  nodes: any;
+  path: number[];
+  page: {
+    id: number;
+    /* eslint-disable-next-line camelcase */
+    admin_display_title: string;
+    isFetching: boolean;
+    isError: boolean;
+    children: {
+      count: number;
+      items: any[];
+    };
+  };
+  onClose(): void;
+  popPage(): void;
+  pushPage(id: number): void;
+}
+
+interface ExplorerPanelState {
+  transition: typeof PUSH | typeof POP;
+  paused: boolean;
+}
+
 /**
  * The main panel of the page explorer menu, with heading,
  * menu items, and special states.
  */
-class ExplorerPanel extends React.Component {
+class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelState> {
   constructor(props) {
     super(props);
 
@@ -39,14 +64,14 @@ class ExplorerPanel extends React.Component {
   }
 
   componentDidMount() {
-    document.querySelector('[data-explorer-menu-item]').classList.add('submenu-active');
+    document.querySelector('[data-explorer-menu-item]')?.classList.add('submenu-active');
     document.body.classList.add('explorer-open');
     document.addEventListener('mousedown', this.clickOutside);
     document.addEventListener('touchend', this.clickOutside);
   }
 
   componentWillUnmount() {
-    document.querySelector('[data-explorer-menu-item]').classList.remove('submenu-active');
+    document.querySelector('[data-explorer-menu-item]')?.classList.remove('submenu-active');
     document.body.classList.remove('explorer-open');
     document.removeEventListener('mousedown', this.clickOutside);
     document.removeEventListener('touchend', this.clickOutside);
@@ -56,6 +81,10 @@ class ExplorerPanel extends React.Component {
     const { onClose } = this.props;
     const explorer = document.querySelector('[data-explorer-menu]');
     const toggle = document.querySelector('[data-explorer-menu-item]');
+
+    if (!explorer || !toggle) {
+      return;
+    }
 
     const isInside = explorer.contains(e.target) || toggle.contains(e.target);
     if (!isInside) {
@@ -168,20 +197,5 @@ class ExplorerPanel extends React.Component {
     );
   }
 }
-
-ExplorerPanel.propTypes = {
-  nodes: PropTypes.object.isRequired,
-  path: PropTypes.array.isRequired,
-  page: PropTypes.shape({
-    isFetching: PropTypes.bool,
-    children: PropTypes.shape({
-      count: PropTypes.number,
-      items: PropTypes.array,
-    }),
-  }).isRequired,
-  onClose: PropTypes.func.isRequired,
-  popPage: PropTypes.func.isRequired,
-  pushPage: PropTypes.func.isRequired,
-};
 
 export default ExplorerPanel;

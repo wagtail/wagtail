@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react": "^16.9.53",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "@wagtail/stylelint-config-wagtail": "^0.1.1",

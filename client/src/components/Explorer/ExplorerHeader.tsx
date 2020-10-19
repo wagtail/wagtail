@@ -1,15 +1,26 @@
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
 
 import Button from '../../components/Button/Button';
 import Icon from '../../components/Icon/Icon';
 
+interface ExplorerHeaderProps {
+  page: {
+    id: string | number;
+    /* eslint-disable-next-line camelcase */
+    admin_display_title: string;
+  };
+  depth: number;
+  onClick(eL: any): void
+}
+
 /**
  * The bar at the top of the explorer, displaying the current level
  * and allowing access back to the parent level.
  */
-const ExplorerHeader = ({ page, depth, onClick }) => {
+const ExplorerHeader: React.FunctionComponent<ExplorerHeaderProps> = ({ page, depth, onClick }) => {
   const isRoot = depth === 1;
 
   return (
@@ -27,15 +38,6 @@ const ExplorerHeader = ({ page, depth, onClick }) => {
       </div>
     </Button>
   );
-};
-
-ExplorerHeader.propTypes = {
-  page: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    admin_display_title: PropTypes.string,
-  }).isRequired,
-  depth: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 export default ExplorerHeader;

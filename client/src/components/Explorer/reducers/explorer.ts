@@ -1,4 +1,9 @@
-const defaultState = {
+export interface State {
+  isVisible: boolean;
+  path: number[];
+}
+
+const defaultState: State = {
   isVisible: false,
   path: [],
 };

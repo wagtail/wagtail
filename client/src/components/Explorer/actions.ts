@@ -9,7 +9,7 @@ const getPageFailure = createAction('GET_PAGE_FAILURE', (id, error) => ({ id, er
 /**
  * Gets a page from the API.
  */
-function getPage(id) {
+function getPage(id: number) {
   return (dispatch) => {
     dispatch(getPageStart(id));
 
@@ -28,7 +28,7 @@ const getChildrenFailure = createAction('GET_CHILDREN_FAILURE', (id, error) => (
 /**
  * Gets the children of a node from the API.
  */
-function getChildren(id, offset = 0) {
+function getChildren(id: number, offset = 0) {
   return (dispatch) => {
     dispatch(getChildrenStart(id));
 
@@ -52,7 +52,7 @@ function getChildren(id, offset = 0) {
 const openExplorer = createAction('OPEN_EXPLORER', id => ({ id }));
 export const closeExplorer = createAction('CLOSE_EXPLORER');
 
-export function toggleExplorer(id) {
+export function toggleExplorer(id: number) {
   return (dispatch, getState) => {
     const { explorer, nodes } = getState();
 
@@ -79,7 +79,7 @@ export function toggleExplorer(id) {
 export const popPage = createAction('POP_PAGE');
 const pushPagePrivate = createAction('PUSH_PAGE', id => ({ id }));
 
-export function pushPage(id) {
+export function pushPage(id: number) {
   return (dispatch, getState) => {
     const { nodes } = getState();
     const page = nodes[id];
