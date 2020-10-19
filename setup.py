@@ -56,7 +56,7 @@ testing_extras = [
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
     'flake8>=3.6.0',
-    'isort>=5.6.0,<6.0',
+    'isort==5.6.4',  # leave this pinned - it tends to change rules between patch releases
     'flake8-blind-except==0.1.1',
     'flake8-print==2.0.2',
     'doc8==0.8.1',
