@@ -67,8 +67,8 @@ export default function nodes(state = defaultState, { type, payload }) {
       [payload.id]: node(state[payload.id], { type, payload }),
     });
 
-  // eslint-disable-next-line no-case-declarations
   case 'GET_CHILDREN_SUCCESS':
+    // eslint-disable-next-line no-case-declarations
     const newState = Object.assign({}, state, {
       [payload.id]: node(state[payload.id], { type, payload }),
     });

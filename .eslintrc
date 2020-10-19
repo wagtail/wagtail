@@ -8,12 +8,39 @@
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "client/webpack/prod.config.js"
+        "config": "webpack/prod.config.js"
       }
     }
   },
-  
+
   "rules": {
     "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }]
-  }
+  },
+
+  "overrides": [
+    {
+        "files": ["*.ts", "*.tsx"],
+
+        "parser": "@typescript-eslint/parser",
+        "plugins": [
+          "@typescript-eslint"
+        ],
+        "extends": [
+          "wagtail",
+          "plugin:@typescript-eslint/recommended"
+        ],
+        "rules": {
+          "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }],
+
+          // note you must disable the base rule as it can report incorrect errors
+          "no-use-before-define": "off",
+          "@typescript-eslint/no-use-before-define": ["error"],
+
+          "@typescript-eslint/explicit-module-boundary-types": "off",
+          "@typescript-eslint/explicit-member-accessibility": "off",
+          "@typescript-eslint/explicit-function-return-type": "off",
+          "@typescript-eslint/no-explicit-any": "off"
+        }
+    }
+  ]
 }

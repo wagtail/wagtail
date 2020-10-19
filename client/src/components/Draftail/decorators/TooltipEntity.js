@@ -80,8 +80,6 @@ class TooltipEntity extends Component {
     } = this.props;
     const { showTooltipAt } = this.state;
 
-    // Contrary to what JSX A11Y says, this should be a button but it shouldn't be focusable.
-    /* eslint-disable springload/jsx-a11y/interactive-supports-focus */
     return (
       <a
         href={url}
