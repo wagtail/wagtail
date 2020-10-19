@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -6,7 +7,16 @@ import * as actions from './actions';
 
 import ExplorerPanel from './ExplorerPanel';
 
-const Explorer = ({
+interface ExplorerProps {
+  isVisible: boolean;
+  path: number[],
+  nodes: any,
+  onClose(): void;
+  popPage(): void;
+  pushPage(id: number): void;
+}
+
+const Explorer: React.FunctionComponent<ExplorerProps> = ({
   isVisible,
   nodes,
   path,
@@ -26,16 +36,6 @@ const Explorer = ({
       pushPage={pushPage}
     />
   ) : null;
-};
-
-Explorer.propTypes = {
-  isVisible: PropTypes.bool.isRequired,
-  path: PropTypes.array.isRequired,
-  nodes: PropTypes.object.isRequired,
-
-  pushPage: PropTypes.func.isRequired,
-  popPage: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

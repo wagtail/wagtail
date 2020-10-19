@@ -1,10 +1,20 @@
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 
 import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
 import Icon from '../Icon/Icon';
 
-const PageCount = ({ page }) => {
+interface PageCountProps {
+  page: {
+    id: number;
+    children: {
+      count: number;
+    }
+  }
+}
+
+const PageCount: React.FunctionComponent<PageCountProps> = ({ page }) => {
   const count = page.children.count;
 
   return (
@@ -17,10 +27,6 @@ const PageCount = ({ page }) => {
       <Icon name="arrow-right" />
     </a>
   );
-};
-
-PageCount.propTypes = {
-  page: PropTypes.object.isRequired,
 };
 
 export default PageCount;

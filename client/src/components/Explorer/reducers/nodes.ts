@@ -1,4 +1,16 @@
-const defaultPageState = {
+export interface PageState {
+  isFetching: boolean;
+  isError: boolean;
+  children: {
+    items: any[];
+    count: number;
+  };
+  meta: {
+    children: any;
+  };
+}
+
+const defaultPageState: PageState = {
   isFetching: false,
   isError: false,
   children: {
@@ -50,7 +62,11 @@ const node = (state = defaultPageState, { type, payload }) => {
   }
 };
 
-const defaultState = {};
+export interface State {
+  [id: number]: PageState;
+}
+
+const defaultState: State = {};
 
 /**
  * Contains all of the page nodes in one object.
