@@ -129,6 +129,22 @@ Database fields
 
         If set, this page is an alias of the page referenced in this field.
 
+    .. attribute:: locale
+
+        (foreign key to Locale)
+
+        This foreign key links to the ``Locale`` object that represents the page language.
+
+    .. attribute:: translation_key
+
+        (uuid)
+
+        A UUID that is shared between translations of a page. These are randomly generated
+        when a new page is created and copied when a translation of a page is made.
+
+        A translation_key value can only be used on one page in each locale.
+
+
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -183,6 +199,20 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. automethod:: get_descendants
 
     .. automethod:: get_siblings
+
+    .. automethod:: get_translations
+
+    .. automethod:: get_translation
+
+    .. automethod:: get_translation_or_none
+
+    .. automethod:: has_translation
+
+    .. automethod:: copy_for_translation
+
+    .. autoattribute:: localized
+
+    .. autoattribute:: localized_draft
 
     .. attribute:: search_fields
 
@@ -355,6 +385,87 @@ Methods and properties
          - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (eg. ``http://mysite.com:8000/``)
 
     .. automethod:: get_site_root_paths
+
+
+Locale
+======
+
+The ``Locale`` model defines the set of languages and/or locales that can be used on a site.
+Each ``Locale`` record corresponds to a "language code" defined in the :ref:`wagtail_content_languages_setting` setting.
+
+Wagtail will initially set up one ``Locale`` to act as the default language for all existing content.
+This first locale will automatically pick the value from ``WAGTAIL_CONTENT_LANGUAGES`` that most closely matches the site primary language code defined in ``LANGUAGE_CODE``.
+If the primary language code is changed later, Wagtail will **not** automatically create a new ``Locale`` record or update an existing one.
+
+Before internationalisation is enabled, all pages use this primary ``Locale`` record.
+This is to satisfy the database constraints, and makes it easier to switch internationalisation on at a later date.
+
+Changing ``WAGTAIL_CONTENT_LANGUAGES``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Languages can be added or removed from ``WAGTAIL_CONTENT_LANGUAGES`` over time.
+
+Before removing an option from ``WAGTAIL_CONTENT_LANGUAGES``, it's important that the ``Locale``
+record is updated to a use a different content language or is deleted.
+Any ``Locale`` instances that have invalid content languages are automatically filtered out from all
+database queries making them unable to be edited or viewed.
+
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. class:: Locale
+    :noindex:
+
+    .. autoattribute:: language_code
+
+    .. automethod:: get_default
+
+    .. automethod:: get_active
+
+    .. automethod:: get_display_name
+
+
+Translatable Mixin
+==================
+
+``TranslatableMixin`` is an abstract model that can be added to any non-page Django model to make it translatable.
+Pages already include this mixin, so there is no need to add it.
+
+Methods and properties
+~~~~~~~~~~~~~~~~~~~~~~
+
+The ``locale`` and ``translation_key`` fields have a unique key constraint to prevent the object being translated into a language more than once.
+
+.. class:: TranslatableMixin
+    :noindex:
+
+    .. attribute:: locale
+
+        (Foreign Key to :class:`~wagtail.core.models.Locale`)
+
+        For pages, this defaults to the locale of the parent page.
+
+    .. attribute:: translation_key
+
+        (uuid)
+
+        A UUID that is randomly generated whenever a new model instance is created.
+        This is shared with all translations of that instance so can be used for querying translations.
+
+    .. automethod:: get_translations
+
+    .. automethod:: get_translation
+
+    .. automethod:: get_translation_or_none
+
+    .. automethod:: has_translation
+
+    .. automethod:: copy_for_translation
+
+    .. automethod:: get_translation_model
+
+    .. autoattribute:: localized
+
 
 .. _page-revision-model-ref:
 

@@ -64,6 +64,91 @@ Override the templates used by the search front-end views.
 
 Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for :ref:`promoted search results <editors-picks>`. Queries older than this will be removed by the :ref:`search_garbage_collect` command.
 
+Internationalisation
+====================
+
+.. versionadded:: 2.11
+
+Wagtail supports internationalisation of content by maintaining separate trees
+of pages for each language.
+
+For a guide on how to enable internationalisation on your site, see the :ref:`configuration guide <enabling_internationalisation>`.
+
+``WAGTAIL_I18N_ENABLED``
+------------------------
+
+(boolean, default ``False``)
+
+When set to ``True``, Wagtail's internationalisation features will be enabled:
+
+.. code-block:: python
+
+    WAGTAIL_I18N_ENABLED = True
+
+.. _wagtail_content_languages_setting:
+
+``WAGTAIL_CONTENT_LANGUAGES``
+-----------------------------
+
+(list, default ``[]``)
+
+A list of languages and/or locales that Wagtail content can be authored in.
+
+For example:
+
+.. code-block:: python
+
+    WAGTAIL_CONTENT_LANGUAGES = [
+        ('en', _("English")),
+        ('fr', _("French")),
+    ]
+
+Each item in the list is a 2-tuple containing a language code and a display name.
+The language code can either be a language code on its own (such as ``en``, ``fr``),
+or it can include a region code (such as ``en-gb``, ``fr-fr``).
+You can mix the two formats if you only need to localize in some regions but not others.
+
+This setting follows the same structure of Django's  ``LANGUAGES`` setting,
+so they can both be set to the same value:
+
+.. code-block:: python
+
+    LANGUAGES = WAGTAIL_CONTENT_LANGUAGES = [
+        ('en-gb', _("English (United Kingdom)")),
+        ('en-us', _("English (United States)")),
+        ('es-es', _("Spanish (Spain)")),
+        ('es-mx', _("Spanish (Mexico)")),
+    ]
+
+However having them separate allows you to configure many different regions on your site
+yet have them share Wagtail content (but defer on things like date formatting, currency, etc):
+
+.. code-block:: python
+
+    LANGUAGES = [
+        ('en', _("English (United Kingdom)")),
+        ('en-us', _("English (United States)")),
+        ('es', _("Spanish (Spain)")),
+        ('es-mx', _("Spanish (Mexico)")),
+    ]
+
+
+    WAGTAIL_CONTENT_LANGUAGES = [
+        ('en', _("English")),
+        ('es', _("Spanish")),
+    ]
+
+This would mean that your site will respond on the
+``https://www.mysite.com/es/`` and ``https://www.mysite.com/es-MX/`` URLs, but both
+of them will serve content from the same "Spanish" tree in Wagtail.
+
+.. note:: ``WAGTAIL_CONTENT_LANGUAGES`` must be a subset of ``LANGUAGES``
+
+    Note that all languages that exist in ``WAGTAIL_CONTENT_LANGUAGES``
+    must also exist in your ``LANGUAGES`` setting. This is so that Wagtail can
+    generate a live URL to these pages from an untranslated context (e.g. the admin
+    interface).
+
 Embeds
 ======
 
