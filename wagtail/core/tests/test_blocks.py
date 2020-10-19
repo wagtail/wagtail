@@ -55,10 +55,10 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         html = block.render("Hello world!")
 
         self.assertEqual(html, '<h1>Hello world!</h1>')
-    
+
     def test_charfield_form_classname(self):
         """
-        Meta data test for FormField; this checks if both the meta values 
+        Meta data test for FormField; this checks if both the meta values
         form_classname and classname are accepted and are rendered
         in the form
         """
@@ -74,7 +74,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         )
         html = block_with_classname.render_form("Hello world!")
         self.assertEqual(html.count(' special-char-class'), 1)
-    
+
     def test_charfield_render_with_template_with_extra_context(self):
         block = ContextCharBlock(template='tests/blocks/heading_block.html')
         html = block.render("Bonjour le monde!", context={
