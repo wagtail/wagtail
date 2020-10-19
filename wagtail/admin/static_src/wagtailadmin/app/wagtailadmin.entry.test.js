@@ -1,4 +1,5 @@
 const wagtail = require('wagtail-client');
+jest.mock('wagtail-client');
 wagtail.initExplorer = jest.fn();
 
 document.addEventListener = jest.fn();

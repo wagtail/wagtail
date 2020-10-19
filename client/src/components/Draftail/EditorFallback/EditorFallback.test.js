@@ -68,7 +68,8 @@ describe('EditorFallback', () => {
     });
 
     it('reload page', () => {
-      window.location.reload = jest.fn();
+      delete window.location;
+      window.location = { reload: jest.fn() };
 
       const wrapper = shallow(
         <EditorFallback field={document.createElement('input')}>
@@ -85,7 +86,7 @@ describe('EditorFallback', () => {
         .last()
         .simulate('click');
 
-      expect(window.location.reload).toHaveBeenCalled();
+      expect(global.location.reload).toHaveBeenCalled();
     });
 
     it('#showError', () => {
