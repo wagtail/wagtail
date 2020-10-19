@@ -4,6 +4,7 @@ import sys
 
 import boto3
 
+
 dist_folder = pathlib.Path.cwd() / 'dist'
 
 try:

@@ -1,9 +1,11 @@
 import re
 import subprocess
+
 from collections import defaultdict
 from io import open
 
 from babel import Locale
+
 
 authors_by_locale = defaultdict(set)
 

@@ -8,7 +8,7 @@ We ask that all Python contributions adhere to the `PEP8 <https://www.python.org
 The list of PEP8 violations to ignore is in the ``setup.cfg`` file, under the ``[flake8]`` header.
 You might want to configure the flake8 linter in your editor/IDE to use the configuration in this file.
 
-In addition, import lines should be sorted according to `isort <https://timothycrosley.github.io/isort/>`_ 4.2.5 rules. If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint``.
+In addition, import lines should be sorted according to `isort <https://pycqa.github.io/isort/>`_ 5.6.4 rules. If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint``.
 
 Django compatibility
 ~~~~~~~~~~~~~~~~~~~~
