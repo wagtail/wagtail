@@ -39,7 +39,7 @@ class FieldBlock(Block):
 
         return render_to_string('wagtailadmin/block_forms/field.html', {
             'name': self.name,
-            'classes': self.meta.classname,
+            'classes': getattr(self.meta, 'form_classname', self.meta.classname),
             'widget': widget_html,
             'field': field,
             'errors': errors if (not widget_has_rendered_errors) else None
