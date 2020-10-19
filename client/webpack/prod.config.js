@@ -10,6 +10,7 @@ config.plugins.push(new webpack.DefinePlugin({
   },
 }));
 
+/*
 // See https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/config/webpack.config.prod.js.
 config.plugins.push(new webpack.optimize.UglifyJsPlugin({
   sourceMap: true,
@@ -26,5 +27,6 @@ config.plugins.push(new webpack.optimize.UglifyJsPlugin({
     screw_ie8: true
   },
 }));
+*/
 
 module.exports = config;

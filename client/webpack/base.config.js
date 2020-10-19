@@ -34,11 +34,13 @@ module.exports = function exports() {
       publicPath: '/static/js/'
     },
     plugins: [
+      /*
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         filename: getOutputPath('admin', '[name].js'),
         minChunks: 2,
       }),
+      */
     ],
     resolve: {
       alias: {
