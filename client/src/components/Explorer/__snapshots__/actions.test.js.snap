@@ -45,10 +45,6 @@ Array [
     },
     "type": "OPEN_EXPLORER",
   },
-  Object {
-    "payload": 5,
-    "type": "GET_PAGE_START",
-  },
 ]
 `;
 
@@ -82,10 +78,6 @@ Array [
       "id": 5,
     },
     "type": "GET_CHILDREN_START",
-  },
-  Object {
-    "payload": 5,
-    "type": "GET_PAGE_START",
   },
 ]
 `;
