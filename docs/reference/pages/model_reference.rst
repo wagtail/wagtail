@@ -398,7 +398,7 @@ This first locale will automatically pick the value from ``WAGTAIL_CONTENT_LANGU
 If the primary language code is changed later, Wagtail will **not** automatically create a new ``Locale`` record or update an existing one.
 
 Before internationalisation is enabled, all pages use this primary ``Locale`` record.
-This is to satisfy the database constraints. And it makes it easier to switch internationalisation on at a later date.
+This is to satisfy the database constraints, and makes it easier to switch internationalisation on at a later date.
 
 Changing ``WAGTAIL_CONTENT_LANGUAGES``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -416,9 +416,7 @@ Methods and properties
 .. class:: Locale
     :noindex:
 
-    .. attribute:: language_code
-
-        Foo
+    .. autoattribute:: language_code
 
     .. automethod:: get_default
 
@@ -431,7 +429,7 @@ Translatable Mixin
 ==================
 
 ``TranslatableMixin`` is an abstract model that can be added to any non-page Django model to make it translatable.
-Pages already have this mixin added by Wagtail, so no need to add it to them.
+Pages already include this mixin, so there is no need to add it.
 
 Methods and properties
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -445,7 +443,7 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
 
         (Foreign Key to :class:`~wagtail.core.models.Locale`)
 
-         For pages, this defaults to the locale of the parent page.
+        For pages, this defaults to the locale of the parent page.
 
     .. attribute:: translation_key
 

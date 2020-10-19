@@ -79,9 +79,7 @@ For a guide on how to enable internationalisation on your site, see the :ref:`co
 
 (boolean, default ``False``)
 
-When set to ``True``, Wagtail's internationalisation features will be enabled.
-
-For example:
+When set to ``True``, Wagtail's internationalisation features will be enabled:
 
 .. code-block:: python
 
@@ -148,7 +146,7 @@ of them will serve content from the same "Spanish" tree in Wagtail.
 
     Note that all languages that exist in ``WAGTAIL_CONTENT_LANGUAGES``
     must also exist in your ``LANGUAGES`` setting. This is so that Wagtail can
-    generate a live URL to these pages from an untranslated context (eg, the admin
+    generate a live URL to these pages from an untranslated context (e.g. the admin
     interface).
 
 Embeds

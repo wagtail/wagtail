@@ -336,6 +336,10 @@ class LocaleManager(models.Manager):
 
 
 class Locale(models.Model):
+    #: The language code that represents this locale
+    #:
+    #: The language code can either be a language code on its own (such as ``en``, ``fr``),
+    #: or it can include a region code (such as ``en-gb``, ``fr-fr``).
     language_code = models.CharField(max_length=100, unique=True)
 
     # Objects excludes any Locales that have been removed from LANGUAGES, This effectively disables them
@@ -420,7 +424,7 @@ class TranslatableMixin(models.Model):
 
     def get_translations(self, inclusive=False):
         """
-        Returns a queryset containing the translations of this
+        Returns a queryset containing the translations of this instance.
         """
         translations = self.__class__.objects.filter(
             translation_key=self.translation_key
@@ -495,15 +499,17 @@ class TranslatableMixin(models.Model):
         return Locale.get_default()
 
     @classmethod
-    def get_translation_model(self):
+    def get_translation_model(cls):
         """
-        Gets the model which manages the translations for this model.
-        (The model that has the "translation_key" and "locale" fields)
-        Most of the time this would be the current model, but some sites
-        may have intermediate concrete models between wagtailcore.Page and
-        the specfic page model.
+        Returns this model's "Translation model".
+
+        The "Translation model" is the model that has the ``locale`` and
+        ``translation_key`` fields.
+        Typically this would be the current model, but it may be a
+        super-class if multi-table inheritance is in use (as is the case
+        for ``wagtailcore.Page``).
         """
-        return self._meta.get_field("locale").model
+        return cls._meta.get_field("locale").model
 
 
 def bootstrap_translatable_model(model, locale):
