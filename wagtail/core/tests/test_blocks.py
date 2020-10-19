@@ -58,7 +58,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
     
     def test_charfield_form_classname(self):
         """
-        For FormField this checks if both the meta values 
+        Meta data test for FormField; this checks if both the meta values 
         form_classname and classname are accepted and are rendered
         in the form
         """
@@ -68,7 +68,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         html = block.render_form("Hello world!")
         self.assertEqual(html.count(' special-char-class'), 1)
 
-        # Also check if it's backward compatible with classname meta
+        # Checks if it is  backward compatible with classname
         block_with_classname = blocks.CharBlock(
             classname='special-char-class'
         )
