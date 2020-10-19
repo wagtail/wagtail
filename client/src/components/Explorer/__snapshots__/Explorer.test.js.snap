@@ -52,10 +52,16 @@ exports[`Explorer visible 1`] = `
           "count": 0,
           "items": Array [],
         },
+        "id": 0,
         "isError": false,
         "isFetching": true,
         "meta": Object {
           "children": Object {},
+          "status": Object {
+            "has_unpublished_changes": true,
+            "live": false,
+            "status": "",
+          },
         },
       },
     }
@@ -109,10 +115,16 @@ exports[`Explorer visible 2`] = `
           "count": 0,
           "items": Array [],
         },
+        "id": 0,
         "isError": false,
         "isFetching": true,
         "meta": Object {
           "children": Object {},
+          "status": Object {
+            "has_unpublished_changes": true,
+            "live": false,
+            "status": "",
+          },
         },
       },
     }
@@ -124,10 +136,16 @@ exports[`Explorer visible 2`] = `
         "count": 0,
         "items": Array [],
       },
+      "id": 0,
       "isError": false,
       "isFetching": true,
       "meta": Object {
         "children": Object {},
+        "status": Object {
+          "has_unpublished_changes": true,
+          "live": false,
+          "status": "",
+        },
       },
     }
   }

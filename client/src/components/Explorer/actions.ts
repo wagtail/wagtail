@@ -2,6 +2,14 @@ import * as admin from '../../api/admin';
 import { createAction } from '../../utils/actions';
 import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
+import { State as ExplorerState } from './reducers/explorer';
+import { State as NodeState } from './reducers/nodes';
+
+interface State {
+  explorer: ExplorerState,
+  nodes: NodeState,
+}
+
 const getPageStart = createAction('GET_PAGE_START');
 const getPageSuccess = createAction('GET_PAGE_SUCCESS', (id, data) => ({ id, data }));
 const getPageFailure = createAction('GET_PAGE_FAILURE', (id, error) => ({ id, error }));
@@ -53,7 +61,7 @@ const openExplorer = createAction('OPEN_EXPLORER', id => ({ id }));
 export const closeExplorer = createAction('CLOSE_EXPLORER');
 
 export function toggleExplorer(id: number) {
-  return (dispatch, getState) => {
+  return (dispatch, getState: () => State) => {
     const { explorer, nodes } = getState();
 
     if (explorer.isVisible) {
@@ -80,7 +88,7 @@ export const popPage = createAction('POP_PAGE');
 const pushPagePrivate = createAction('PUSH_PAGE', id => ({ id }));
 
 export function pushPage(id: number) {
-  return (dispatch, getState) => {
+  return (dispatch, getState: () => State) => {
     const { nodes } = getState();
     const page = nodes[id];
 

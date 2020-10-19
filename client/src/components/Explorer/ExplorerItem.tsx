@@ -6,6 +6,7 @@ import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
 import Icon from '../../components/Icon/Icon';
 import Button from '../../components/Button/Button';
 import PublicationStatus from '../../components/PublicationStatus/PublicationStatus';
+import { PageState } from './reducers/nodes';
 
 // Hoist icons in the explorer item, as it is re-rendered many times.
 const childrenIcon = (
@@ -13,17 +14,7 @@ const childrenIcon = (
 );
 
 interface ExplorerItemProps {
-  item: {
-    id: number;
-    /* eslint-disable-next-line camelcase */
-    admin_display_title: string;
-    meta: {
-      status: any;
-      children: {
-        count: number;
-      }
-    };
-  };
+  item: PageState;
   onClick(): void;
 }
 

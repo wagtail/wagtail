@@ -11,21 +11,12 @@ import Transition, { PUSH, POP } from '../Transition/Transition';
 import ExplorerHeader from './ExplorerHeader';
 import ExplorerItem from './ExplorerItem';
 import PageCount from './PageCount';
+import { State as NodeState, PageState } from './reducers/nodes';
 
 interface ExplorerPanelProps {
-  nodes: any;
+  nodes: NodeState;
   path: number[];
-  page: {
-    id: number;
-    /* eslint-disable-next-line camelcase */
-    admin_display_title: string;
-    isFetching: boolean;
-    isError: boolean;
-    children: {
-      count: number;
-      items: any[];
-    };
-  };
+  page: PageState;
   onClose(): void;
   popPage(): void;
   pushPage(id: number): void;
