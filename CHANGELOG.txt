@@ -40,7 +40,7 @@ Changelog
  * Fix: `Page.copy()` now triggers a `page_published` if the copied page is live (Anton Zhyltsou)
  * Fix: The Elasticsearch `URLS` setting can now take a string on its own instead of a list (Sævar Öfjörð Magnússon)
  * Fix: Avoid retranslating month / weekday names that Django already provides (Matt Westcott)
- * Fixed: Fixed padding around checkbox and radio inputs (Cole Maclean)
+ * Fix: Fixed padding around checkbox and radio inputs (Cole Maclean)
 
 
 2.10.2 (25.09.2020)
