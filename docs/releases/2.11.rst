@@ -54,6 +54,7 @@ Other features
  * Moved ``generate_signature`` and ``verify_signature`` functions into ``wagtail.images.utils`` (Noah H)
  * Implement ``bulk_to_python`` on all structural StreamField block types (Matt Westcott)
  * Add natural key support to ``GroupCollectionPermission`` (Jim Jazwiecki)
+ * Implement ``prepopulated_fields`` for ``wagtail.contrib.modeladmin`` (David Bramwell)
 
 
 Bug fixes

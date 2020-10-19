@@ -482,6 +482,7 @@ Contributors
 * Meghana Bhange
 * Cole Maclean
 * Noah H
+* David Bramwell
 
 Translators
 ===========
