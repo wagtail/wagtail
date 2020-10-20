@@ -4,15 +4,8 @@ import * as admin from '../../api/admin';
 import { createAction } from '../../utils/actions';
 import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
-import { State as ExplorerState, Action as ExplorerAction } from './reducers/explorer';
-import { State as NodeState, Action as NodeAction } from './reducers/nodes';
+import { State, Action } from './reducers';
 
-interface State {
-  explorer: ExplorerState,
-  nodes: NodeState,
-}
-
-type Action = ExplorerAction | NodeAction;
 type ThunkActionType = ThunkAction<void, State, unknown, Action>;
 
 const getPageSuccess = createAction('GET_PAGE_SUCCESS', (id: number, data: admin.WagtailPageAPI) => ({ id, data }));
