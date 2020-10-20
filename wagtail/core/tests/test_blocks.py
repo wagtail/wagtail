@@ -63,17 +63,17 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         in the form
         """
         block = blocks.CharBlock(
-            form_classname='special-char-class'
+            form_classname='special-char-formclassname'
         )
         html = block.render_form("Hello world!")
-        self.assertEqual(html.count(' special-char-class'), 1)
+        self.assertEqual(html.count(' special-char-formclassname'), 1)
 
         # Checks if it is  backward compatible with classname
         block_with_classname = blocks.CharBlock(
-            classname='special-char-class'
+            classname='special-char-classname'
         )
         html = block_with_classname.render_form("Hello world!")
-        self.assertEqual(html.count(' special-char-class'), 1)
+        self.assertEqual(html.count(' special-char-classname'), 1)
 
     def test_charfield_render_with_template_with_extra_context(self):
         block = ContextCharBlock(template='tests/blocks/heading_block.html')

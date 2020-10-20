@@ -97,6 +97,13 @@ class Block(metaclass=BaseBlock):
         return mark_safe('\n'.join(declarations))
 
     def __init__(self, **kwargs):
+        if 'classname' in self._constructor_args[1]:
+            # Adding this so that migrations are not triggered
+            # when form_classname is used instead of classname
+            # in the initialisation of the FieldBlock
+            classname = self._constructor_args[1].pop('classname')
+            self._constructor_args[1].setdefault('form_classname', classname)
+
         self.meta = self._meta_class()
 
         for attr, value in kwargs.items():
