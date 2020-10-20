@@ -11,44 +11,40 @@ import ExplorerPanel from './ExplorerPanel';
 
 interface ExplorerProps {
   isVisible: boolean;
-  path: number[],
+  depth: number,
+  currentPageId: number | null,
   nodes: NodeState,
   onClose(): void;
   popPage(): void;
-  pushPage(id: number): void;
+  gotoPage(id: number, transition: number): void;
 }
 
 const Explorer: React.FunctionComponent<ExplorerProps> = ({
   isVisible,
+  depth,
+  currentPageId,
   nodes,
-  path,
-  pushPage,
-  popPage,
+  gotoPage,
   onClose,
-}) => {
-  const page = nodes[path[path.length - 1]];
-
-  return isVisible ? (
-    <ExplorerPanel
-      path={path}
-      page={page}
-      nodes={nodes}
-      onClose={onClose}
-      popPage={popPage}
-      pushPage={pushPage}
-    />
-  ) : null;
-};
+}) => ((isVisible && currentPageId) ? (
+  <ExplorerPanel
+    depth={depth}
+    page={nodes[currentPageId]}
+    nodes={nodes}
+    gotoPage={gotoPage}
+    onClose={onClose}
+  />
+) : null);
 
 const mapStateToProps = (state: State) => ({
   isVisible: state.explorer.isVisible,
-  path: state.explorer.path,
+  depth: state.explorer.depth,
+  currentPageId: state.explorer.currentPageId,
   nodes: state.nodes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  pushPage: (id) => dispatch(actions.pushPage(id)),
-  popPage: () => dispatch(actions.popPage()),
+  gotoPage: (id: number, transition: number) => dispatch(actions.gotoPage(id, transition)),
   onClose: () => dispatch(actions.closeExplorer()),
 });
 

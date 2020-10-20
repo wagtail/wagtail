@@ -7,11 +7,13 @@ const mockProps = {
     children: {
       items: [],
     },
+    meta: {
+      parent: null
+    }
   },
+  depth: 1,
   onClose: jest.fn(),
-  path: [],
-  popPage: jest.fn(),
-  pushPage: jest.fn(),
+  gotoPage: jest.fn(),
   nodes: {},
 };
 
@@ -72,38 +74,38 @@ describe('ExplorerPanel', () => {
 
   describe('onHeaderClick', () => {
     beforeEach(() => {
-      mockProps.popPage.mockReset();
+      mockProps.gotoPage.mockReset();
     });
 
-    it('calls popPage', () => {
+    it('calls gotoPage', () => {
       shallow((
-        <ExplorerPanel {...mockProps} path={[1, 2, 3]} />
+        <ExplorerPanel {...mockProps} depth={2} page={{ children: { items: [] }, meta: { parent: { id: 1 } } }} />
       )).find('ExplorerHeader').prop('onClick')({
         preventDefault() {},
         stopPropagation() {},
       });
 
-      expect(mockProps.popPage).toHaveBeenCalled();
+      expect(mockProps.gotoPage).toHaveBeenCalled();
     });
 
-    it('does not call popPage for first page', () => {
+    it('does not call gotoPage for first page', () => {
       shallow((
-        <ExplorerPanel {...mockProps} path={[1]} />
+        <ExplorerPanel {...mockProps} depth={0} page={{ children: { items: [] }, meta: {  parent: { id: 1 } } }} />
       )).find('ExplorerHeader').prop('onClick')({
         preventDefault() {},
         stopPropagation() {},
       });
 
-      expect(mockProps.popPage).not.toHaveBeenCalled();
+      expect(mockProps.gotoPage).not.toHaveBeenCalled();
     });
   });
 
   describe('onItemClick', () => {
     beforeEach(() => {
-      mockProps.pushPage.mockReset();
+      mockProps.gotoPage.mockReset();
     });
 
-    it('calls pushPage', () => {
+    it('calls gotoPage', () => {
       shallow((
         <ExplorerPanel
           {...mockProps}
@@ -116,19 +118,19 @@ describe('ExplorerPanel', () => {
         stopPropagation() {},
       });
 
-      expect(mockProps.pushPage).toHaveBeenCalled();
+      expect(mockProps.gotoPage).toHaveBeenCalled();
     });
   });
 
   describe('hooks', () => {
     it('componentWillReceiveProps push', () => {
       const wrapper = shallow(<ExplorerPanel {...mockProps} />);
-      expect(wrapper.setProps({ path: [1] }).state('transition')).toBe('push');
+      expect(wrapper.setProps({ depth: 2 }).state('transition')).toBe('push');
     });
 
     it('componentWillReceiveProps pop', () => {
       const wrapper = shallow(<ExplorerPanel {...mockProps} />);
-      expect(wrapper.setProps({ path: [] }).state('transition')).toBe('pop');
+      expect(wrapper.setProps({ depth: 0 }).state('transition')).toBe('pop');
     });
 
     it('componentDidMount', () => {

@@ -1,11 +1,13 @@
 export interface State {
   isVisible: boolean;
-  path: number[];
+  depth: number;
+  currentPageId: number | null;
 }
 
 const defaultState: State = {
   isVisible: false,
-  path: [],
+  depth: 0,
+  currentPageId: null,
 };
 
 export const OPEN_EXPLORER = 'OPEN_EXPLORER';
@@ -21,48 +23,40 @@ interface CloseExplorerAction {
   type: typeof CLOSE_EXPLORER;
 }
 
-export const PUSH_PAGE = 'PUSH_PAGE';
-interface PushPageAction {
-  type: typeof PUSH_PAGE;
+export const GOTO_PAGE = 'GOTO_PAGE';
+interface GotoPageAction {
+  type: typeof GOTO_PAGE;
   payload: {
     id: number;
+    transition: number;
   }
 }
 
-export const POP_PAGE = 'POP_PAGE';
-interface PopPageAction {
-  type: typeof POP_PAGE;
-}
-
-export type Action = OpenExplorerAction | CloseExplorerAction | PushPageAction | PopPageAction;
+export type Action = OpenExplorerAction | CloseExplorerAction |GotoPageAction;
 
 /**
  * Oversees the state of the explorer. Defines:
  * - Where in the page tree the explorer is at.
  * - Whether the explorer is open or not.
  */
-export default function explorer(prevState = defaultState, action: Action) {
+export default function explorer(prevState = defaultState, action: Action): State {
   switch (action.type) {
   case OPEN_EXPLORER:
     // Provide a starting page when opening the explorer.
     return {
       isVisible: true,
-      path: [action.payload.id],
+      depth: 0,
+      currentPageId: action.payload.id,
     };
 
   case CLOSE_EXPLORER:
     return defaultState;
 
-  case PUSH_PAGE:
+  case GOTO_PAGE:
     return {
       isVisible: prevState.isVisible,
-      path: prevState.path.concat([action.payload.id]),
-    };
-
-  case POP_PAGE:
-    return {
-      isVisible: prevState.isVisible,
-      path: prevState.path.slice(0, -1),
+      depth: prevState.depth + action.payload.transition,
+      currentPageId: action.payload.id,
     };
 
   default:

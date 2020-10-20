@@ -2,12 +2,12 @@
 
 exports[`Explorer renders 1`] = `
 <Explorer
+  currentPageId={null}
+  depth={0}
+  gotoPage={[Function]}
   isVisible={false}
   nodes={Object {}}
   onClose={[Function]}
-  path={Array []}
-  popPage={[Function]}
-  pushPage={[Function]}
   store={
     Object {
       "dispatch": [Function],
@@ -44,6 +44,9 @@ exports[`Explorer renders 2`] = `<Connect(Explorer) />`;
 
 exports[`Explorer visible 1`] = `
 <Explorer
+  currentPageId={1}
+  depth={0}
+  gotoPage={[Function]}
   isVisible={true}
   nodes={
     Object {
@@ -57,6 +60,7 @@ exports[`Explorer visible 1`] = `
         "isFetching": true,
         "meta": Object {
           "children": Object {},
+          "parent": null,
           "status": Object {
             "has_unpublished_changes": true,
             "live": false,
@@ -67,13 +71,6 @@ exports[`Explorer visible 1`] = `
     }
   }
   onClose={[Function]}
-  path={
-    Array [
-      1,
-    ]
-  }
-  popPage={[Function]}
-  pushPage={[Function]}
   store={
     Object {
       "dispatch": [Function],
@@ -108,6 +105,8 @@ exports[`Explorer visible 1`] = `
 
 exports[`Explorer visible 2`] = `
 <ExplorerPanel
+  depth={0}
+  gotoPage={[Function]}
   nodes={
     Object {
       "1": Object {
@@ -120,6 +119,7 @@ exports[`Explorer visible 2`] = `
         "isFetching": true,
         "meta": Object {
           "children": Object {},
+          "parent": null,
           "status": Object {
             "has_unpublished_changes": true,
             "live": false,
@@ -141,6 +141,7 @@ exports[`Explorer visible 2`] = `
       "isFetching": true,
       "meta": Object {
         "children": Object {},
+        "parent": null,
         "status": Object {
           "has_unpublished_changes": true,
           "live": false,
@@ -149,12 +150,5 @@ exports[`Explorer visible 2`] = `
       },
     }
   }
-  path={
-    Array [
-      1,
-    ]
-  }
-  popPage={[Function]}
-  pushPage={[Function]}
 />
 `;

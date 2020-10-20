@@ -1,23 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`actions pushPage creates action 1`] = `
+exports[`actions gotoPage creates action 1`] = `
 Array [
   Object {
     "payload": Object {
       "id": 5,
+      "transition": 1,
     },
-    "type": "PUSH_PAGE",
+    "type": "GOTO_PAGE",
   },
 ]
 `;
 
-exports[`actions pushPage triggers getChildren 1`] = `
+exports[`actions gotoPage triggers getChildren 1`] = `
 Array [
   Object {
     "payload": Object {
       "id": 5,
+      "transition": 1,
     },
-    "type": "PUSH_PAGE",
+    "type": "GOTO_PAGE",
   },
   Object {
     "payload": Object {

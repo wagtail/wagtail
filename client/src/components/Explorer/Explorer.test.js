@@ -39,13 +39,8 @@ describe('Explorer', () => {
       wrapper = shallow(<Explorer store={store} />);
     });
 
-    it('pushPage', () => {
-      wrapper.prop('pushPage')();
-      expect(store.dispatch).toHaveBeenCalled();
-    });
-
-    it('popPage', () => {
-      wrapper.prop('popPage')();
+    it('gotoPage', () => {
+      wrapper.prop('gotoPage')();
       expect(store.dispatch).toHaveBeenCalled();
     });
 

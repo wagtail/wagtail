@@ -18,7 +18,7 @@ interface ExplorerHeaderProps {
  * and allowing access back to the parent level.
  */
 const ExplorerHeader: React.FunctionComponent<ExplorerHeaderProps> = ({ page, depth, onClick }) => {
-  const isRoot = depth === 1;
+  const isRoot = depth === 0;
 
   return (
     <Button

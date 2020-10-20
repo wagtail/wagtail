@@ -24,6 +24,7 @@ const defaultPageState: PageState = {
       live: false,
       has_unpublished_changes: true
     },
+    parent: null,
     children: {},
   },
 };

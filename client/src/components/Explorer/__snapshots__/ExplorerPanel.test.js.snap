@@ -21,7 +21,7 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
     dialogTrigger={false}
     href="#"
     isLoading={false}
-    onClick={[MockFunction]}
+    onClick={null}
     preventDefault={true}
     target={null}
   >
@@ -36,10 +36,10 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
   >
     <div
       className="c-transition-group"
-      key="0"
+      key="1"
     >
       <ExplorerHeader
-        depth={0}
+        depth={1}
         onClick={[Function]}
         page={
           Object {
@@ -47,6 +47,9 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
               "items": Array [],
             },
             "isError": true,
+            "meta": Object {
+              "parent": null,
+            },
           }
         }
       />
@@ -70,6 +73,9 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
               "items": Array [],
             },
             "isError": true,
+            "meta": Object {
+              "parent": null,
+            },
           }
         }
       />
@@ -99,7 +105,7 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
     dialogTrigger={false}
     href="#"
     isLoading={false}
-    onClick={[MockFunction]}
+    onClick={null}
     preventDefault={true}
     target={null}
   >
@@ -114,10 +120,10 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
   >
     <div
       className="c-transition-group"
-      key="0"
+      key="1"
     >
       <ExplorerHeader
-        depth={0}
+        depth={1}
         onClick={[Function]}
         page={
           Object {
@@ -125,6 +131,9 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
               "items": Array [],
             },
             "isFetching": true,
+            "meta": Object {
+              "parent": null,
+            },
           }
         }
       />
@@ -167,7 +176,7 @@ exports[`ExplorerPanel general rendering #items 1`] = `
     dialogTrigger={false}
     href="#"
     isLoading={false}
-    onClick={[MockFunction]}
+    onClick={null}
     preventDefault={true}
     target={null}
   >
@@ -182,10 +191,10 @@ exports[`ExplorerPanel general rendering #items 1`] = `
   >
     <div
       className="c-transition-group"
-      key="0"
+      key="1"
     >
       <ExplorerHeader
-        depth={0}
+        depth={1}
         onClick={[Function]}
         page={
           Object {
@@ -260,7 +269,7 @@ exports[`ExplorerPanel general rendering no children 1`] = `
     dialogTrigger={false}
     href="#"
     isLoading={false}
-    onClick={[MockFunction]}
+    onClick={null}
     preventDefault={true}
     target={null}
   >
@@ -275,10 +284,10 @@ exports[`ExplorerPanel general rendering no children 1`] = `
   >
     <div
       className="c-transition-group"
-      key="0"
+      key="1"
     >
       <ExplorerHeader
-        depth={0}
+        depth={1}
         onClick={[Function]}
         page={
           Object {
@@ -322,7 +331,7 @@ exports[`ExplorerPanel general rendering renders 1`] = `
     dialogTrigger={false}
     href="#"
     isLoading={false}
-    onClick={[MockFunction]}
+    onClick={null}
     preventDefault={true}
     target={null}
   >
@@ -337,15 +346,18 @@ exports[`ExplorerPanel general rendering renders 1`] = `
   >
     <div
       className="c-transition-group"
-      key="0"
+      key="1"
     >
       <ExplorerHeader
-        depth={0}
+        depth={1}
         onClick={[Function]}
         page={
           Object {
             "children": Object {
               "items": Array [],
+            },
+            "meta": Object {
+              "parent": null,
             },
           }
         }
