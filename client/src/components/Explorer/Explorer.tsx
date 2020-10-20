@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import * as actions from './actions';
 import { State as NodeState } from './reducers/nodes';
+import { State } from './reducers';
 
 import ExplorerPanel from './ExplorerPanel';
 
@@ -39,7 +40,7 @@ const Explorer: React.FunctionComponent<ExplorerProps> = ({
   ) : null;
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: State) => ({
   isVisible: state.explorer.isVisible,
   path: state.explorer.path,
   nodes: state.nodes,
