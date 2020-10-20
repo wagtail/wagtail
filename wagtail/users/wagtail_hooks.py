@@ -1,6 +1,9 @@
+from django.conf import settings
 from django.contrib.auth.models import Permission
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Q
 from django.urls import include, path, reverse
+from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
@@ -20,9 +23,25 @@ def register_admin_urls():
     ]
 
 
+def get_group_view_set_cls():
+    viewset_setting = 'WAGTAIL_GROUP_VIEW_SET'
+    if hasattr(settings, viewset_setting):
+        try:
+            group_view_set_cls = import_string(getattr(settings, viewset_setting))
+        except ImportError:
+            raise ImproperlyConfigured(
+                "%s refers to a class '%s' that is not available" %
+                (viewset_setting, getattr(settings, viewset_setting))
+            )
+    else:
+        group_view_set_cls = GroupViewSet
+    return group_view_set_cls
+
+
 @hooks.register('register_admin_viewset')
 def register_viewset():
-    return GroupViewSet('wagtailusers_groups', url_prefix='groups')
+    group_view_set_cls = get_group_view_set_cls()
+    return group_view_set_cls('wagtailusers_groups', url_prefix='groups')
 
 
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
