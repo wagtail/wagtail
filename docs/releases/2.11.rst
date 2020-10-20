@@ -60,6 +60,7 @@ Other features
  * Add natural key support to ``GroupCollectionPermission`` (Jim Jazwiecki)
  * Implement ``prepopulated_fields`` for ``wagtail.contrib.modeladmin`` (David Bramwell)
  * Change ``classname`` keyword argument on basic StreamField blocks to ``form_classname`` (Meghana Bhange)
+ * Replace page explorer pushPage/popPage with gotoPage for more flexible explorer navigation (Karl Hobley)
 
 
 Bug fixes

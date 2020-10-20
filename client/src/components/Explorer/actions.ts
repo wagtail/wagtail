@@ -80,15 +80,14 @@ export function toggleExplorer(id: number): ThunkActionType {
   };
 }
 
-export const popPage = createAction('POP_PAGE');
-const pushPagePrivate = createAction('PUSH_PAGE', (id: number) => ({ id }));
+const gotoPagePrivate = createAction('GOTO_PAGE', (id: number, transition: number) => ({ id, transition }));
 
-export function pushPage(id: number): ThunkActionType {
+export function gotoPage(id: number, transition: number): ThunkActionType {
   return (dispatch, getState) => {
     const { nodes } = getState();
     const page = nodes[id];
 
-    dispatch(pushPagePrivate(id));
+    dispatch(gotoPagePrivate(id, transition));
 
     if (page && !page.isFetching && !(page.children.count > 0)) {
       dispatch(getChildren(id));

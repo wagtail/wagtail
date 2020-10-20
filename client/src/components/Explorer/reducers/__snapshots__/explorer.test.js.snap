@@ -2,25 +2,24 @@
 
 exports[`explorer OPEN_EXPLORER 1`] = `
 Object {
+  "currentPageId": 1,
+  "depth": 0,
   "isVisible": true,
-  "path": Array [
-    1,
-  ],
 }
 `;
 
 exports[`explorer POP_PAGE 1`] = `
 Object {
+  "currentPageId": null,
+  "depth": 0,
   "isVisible": false,
-  "path": Array [],
 }
 `;
 
 exports[`explorer PUSH_PAGE 1`] = `
 Object {
+  "currentPageId": null,
+  "depth": 0,
   "isVisible": false,
-  "path": Array [
-    100,
-  ],
 }
 `;

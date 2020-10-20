@@ -15,11 +15,10 @@ import { State as NodeState, PageState } from './reducers/nodes';
 
 interface ExplorerPanelProps {
   nodes: NodeState;
-  path: number[];
+  depth: number;
   page: PageState;
   onClose(): void;
-  popPage(): void;
-  pushPage(id: number): void;
+  gotoPage(id: number, transition: number): void;
 }
 
 interface ExplorerPanelState {
@@ -46,8 +45,8 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
   }
 
   componentWillReceiveProps(newProps) {
-    const { path } = this.props;
-    const isPush = newProps.path.length > path.length;
+    const { depth } = this.props;
+    const isPush = newProps.depth > depth;
 
     this.setState({
       transition: isPush ? PUSH : POP,
@@ -90,23 +89,24 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
   }
 
   onItemClick(id, e) {
-    const { pushPage } = this.props;
+    const { gotoPage } = this.props;
 
     e.preventDefault();
     e.stopPropagation();
 
-    pushPage(id);
+    gotoPage(id, 1);
   }
 
   onHeaderClick(e) {
-    const { path, popPage } = this.props;
-    const hasBack = path.length > 1;
+    const { page, depth, gotoPage } = this.props;
+    const parent = page.meta.parent?.id;
 
-    if (hasBack) {
+    // Note: Checking depth as well in case the user started deep in the tree
+    if (depth > 0 && parent) {
       e.preventDefault();
       e.stopPropagation();
 
-      popPage();
+      gotoPage(parent, -1);
     }
   }
 
@@ -152,7 +152,7 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
   }
 
   render() {
-    const { page, onClose, path } = this.props;
+    const { page, onClose, depth } = this.props;
     const { transition, paused } = this.state;
 
     return (
@@ -166,13 +166,13 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
           onDeactivate: onClose,
         }}
       >
-        <Button className="c-explorer__close" onClick={onClose}>
+        <Button className="c-explorer__close">
           {STRINGS.CLOSE_EXPLORER}
         </Button>
         <Transition name={transition} className="c-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
-          <div key={path.length} className="c-transition-group">
+          <div key={depth} className="c-transition-group">
             <ExplorerHeader
-              depth={path.length}
+              depth={depth}
               page={page}
               onClick={this.onHeaderClick}
             />

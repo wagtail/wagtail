@@ -12,6 +12,7 @@ Object {
     "isFetching": false,
     "meta": Object {
       "children": Object {},
+      "parent": null,
       "status": Object {
         "has_unpublished_changes": true,
         "live": false,
@@ -34,6 +35,7 @@ Object {
     "isFetching": true,
     "meta": Object {
       "children": Object {},
+      "parent": null,
       "status": Object {
         "has_unpublished_changes": true,
         "live": false,
@@ -60,6 +62,7 @@ Object {
     "isFetching": false,
     "meta": Object {
       "children": Object {},
+      "parent": null,
       "status": Object {
         "has_unpublished_changes": true,
         "live": false,
@@ -77,6 +80,7 @@ Object {
     "isFetching": false,
     "meta": Object {
       "children": Object {},
+      "parent": null,
       "status": Object {
         "has_unpublished_changes": true,
         "live": false,
@@ -94,6 +98,7 @@ Object {
     "isFetching": false,
     "meta": Object {
       "children": Object {},
+      "parent": null,
       "status": Object {
         "has_unpublished_changes": true,
         "live": false,
@@ -111,6 +116,7 @@ Object {
     "isFetching": false,
     "meta": Object {
       "children": Object {},
+      "parent": null,
       "status": Object {
         "has_unpublished_changes": true,
         "live": false,
@@ -133,6 +139,7 @@ Object {
     "isFetching": false,
     "meta": Object {
       "children": Object {},
+      "parent": null,
       "status": Object {
         "has_unpublished_changes": true,
         "live": false,
@@ -155,6 +162,7 @@ Object {
     "isFetching": false,
     "meta": Object {
       "children": Object {},
+      "parent": null,
       "status": Object {
         "has_unpublished_changes": true,
         "live": false,
@@ -177,6 +185,7 @@ Object {
     "isFetching": false,
     "meta": Object {
       "children": Object {},
+      "parent": null,
       "status": Object {
         "has_unpublished_changes": true,
         "live": false,

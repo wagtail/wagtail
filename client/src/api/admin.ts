@@ -12,6 +12,9 @@ export interface WagtailPageAPI {
       has_unpublished_changes: boolean;
     }
     children: any;
+    parent: {
+      id: number;
+    } | null;
   };
   /* eslint-disable-next-line camelcase */
   admin_display_title?: string;
@@ -42,7 +45,9 @@ export const getPageChildren: GetPageChildren = (id, options = {}) => {
   let url = `${ADMIN_API.PAGES}?child_of=${id}&for_explorer=1`;
 
   if (options.fields) {
-    url += `&fields=${window.encodeURIComponent(options.fields.join(','))}`;
+    url += `&fields=parent,${window.encodeURIComponent(options.fields.join(','))}`;
+  } else {
+    url += '&fields=parent';
   }
 
   if (options.onlyWithChildren) {

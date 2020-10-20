@@ -4,9 +4,14 @@ import { mount, shallow } from 'enzyme';
 import ExplorerHeader from './ExplorerHeader';
 
 const mockProps = {
-  page: {},
+  page: {
+    meta: {
+      parent: {
+        id: 1
+      }
+    }
+  },
   depth: 2,
-  transitionName: 'pop',
   onClick: jest.fn(),
 };
 
@@ -20,11 +25,13 @@ describe('ExplorerHeader', () => {
   });
 
   it('#depth at root', () => {
-    expect(shallow(<ExplorerHeader {...mockProps} depth={1} />)).toMatchSnapshot();
+    expect(shallow(<ExplorerHeader {...mockProps} depth={0} />)).toMatchSnapshot();
   });
 
   it('#page', () => {
-    const wrapper = shallow(<ExplorerHeader {...mockProps} page={{ id: 'a', admin_display_title: 'test' }} />);
+    const wrapper = shallow(
+      <ExplorerHeader {...mockProps} page={{ id: 'a', admin_display_title: 'test', meta: { parent: { id: 1 } } }} />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 

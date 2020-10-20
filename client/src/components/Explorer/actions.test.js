@@ -65,24 +65,14 @@ describe('actions', () => {
     });
   });
 
-  describe('popPage', () => {
+  describe('gotoPage', () => {
     it('exists', () => {
-      expect(actions.popPage).toBeDefined();
-    });
-
-    it('works', () => {
-      expect(actions.popPage().type).toEqual('POP_PAGE');
-    });
-  });
-
-  describe('pushPage', () => {
-    it('exists', () => {
-      expect(actions.pushPage).toBeDefined();
+      expect(actions.gotoPage).toBeDefined();
     });
 
     it('creates action', () => {
       const store = mockStore(stubState);
-      store.dispatch(actions.pushPage(5));
+      store.dispatch(actions.gotoPage(5, 1));
       expect(store.getActions()).toMatchSnapshot();
     });
 
@@ -90,7 +80,7 @@ describe('actions', () => {
       const stub = Object.assign({}, stubState);
       stub.nodes[5].isFetching = false;
       const store = mockStore(stub);
-      store.dispatch(actions.pushPage(5));
+      store.dispatch(actions.gotoPage(5, 1));
       expect(store.getActions()).toMatchSnapshot();
     });
   });
