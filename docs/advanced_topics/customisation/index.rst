@@ -11,5 +11,6 @@ Customising Wagtail
     extending_hallo
     admin_templates
     custom_user_models
+    custom_group_viewset
     streamfield_blocks
     custom_account_settings

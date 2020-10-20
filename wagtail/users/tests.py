@@ -1,6 +1,7 @@
-import unittest
+import unittest.mock
 
 from django import forms
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
@@ -16,7 +17,9 @@ from wagtail.core.models import Collection, GroupCollectionPermission, GroupPage
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.models import UserProfile
+from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
+from wagtail.users.wagtail_hooks import get_group_viewset_cls
 
 
 delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())
@@ -35,6 +38,10 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomUserEditForm(UserEditForm):
     country = forms.CharField(required=True, label="Country")
     attachment = forms.FileField(required=True, label="Attachment")
+
+
+class CustomGroupViewSet(GroupViewSet):
+    icon = 'custom-icon'
 
 
 class TestUserFormHelpers(TestCase):
@@ -1576,3 +1583,33 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         # See that the non-registered permission is still there
         self.assertEqual(self.test_group.permissions.count(), 1)
         self.assertEqual(self.test_group.permissions.all()[0], self.non_registered_perm)
+
+
+class TestGroupViewSet(TestCase):
+    def setUp(self):
+        self.app_config = apps.get_app_config('wagtailusers')
+
+    def test_get_group_viewset_cls(self):
+        self.assertIs(get_group_viewset_cls(self.app_config), GroupViewSet)
+
+    def test_get_group_viewset_cls_with_custom_form(self):
+        with unittest.mock.patch.object(
+            self.app_config, 'group_viewset', new='wagtail.users.tests.CustomGroupViewSet'
+        ):
+            group_viewset = get_group_viewset_cls(self.app_config)
+        self.assertIs(group_viewset, CustomGroupViewSet)
+        self.assertEqual(group_viewset.icon, 'custom-icon')
+
+    def test_get_group_viewset_cls_custom_form_invalid_value(self):
+        with unittest.mock.patch.object(self.app_config, 'group_viewset', new=12345):
+            with self.assertRaises(ImproperlyConfigured) as exc_info:
+                get_group_viewset_cls(self.app_config)
+            self.assertTrue('refers to a class that is not class path' in str(exc_info.exception))
+
+    def test_get_group_viewset_cls_custom_form_does_not_exist(self):
+        with unittest.mock.patch.object(
+            self.app_config, 'group_viewset', new='wagtail.users.tests.CustomClassDoesNotExist'
+        ):
+            with self.assertRaises(ImproperlyConfigured) as exc_info:
+                get_group_viewset_cls(self.app_config)
+            self.assertTrue('refers to a class that is not available' in str(exc_info.exception))
