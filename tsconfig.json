@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "lib": ["es2015", "dom"],
+        "noImplicitAny": false,  // TODO: Enable once all existing code is typed
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "client/src/index.ts",
+        "client/src/custom.d.ts"
+    ]
+}

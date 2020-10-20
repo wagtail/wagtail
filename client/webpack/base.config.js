@@ -41,6 +41,7 @@ module.exports = function exports() {
       }),
     ],
     resolve: {
+      extensions: ['.ts', '.tsx', '.js'],
       alias: {
         'wagtail-client': path.resolve('.', 'client'),
       },
@@ -48,7 +49,7 @@ module.exports = function exports() {
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.(js|ts)x?$/,
           loader: 'babel-loader',
           exclude: /node_modules/,
         },

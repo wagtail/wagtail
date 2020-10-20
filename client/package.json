@@ -5,9 +5,9 @@
   "description": "Wagtail's client side code",
   "license": "BSD-3-Clause",
   "author": "Wagtail",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "files": [
-    "src/index.js"
+    "src/index.ts"
   ],
   "devDependencies": {},
   "dependencies": {},
