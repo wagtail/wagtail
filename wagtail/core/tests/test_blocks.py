@@ -3333,6 +3333,40 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         }
         self.check_get_prep_value_nested_streamblocks(stream_data, is_lazy=True)
 
+    def test_modifications_to_stream_child_id_are_saved(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        stream = block.to_python([
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+        stream[1].id = '0003'
+        raw_data = block.get_prep_value(stream)
+        self.assertEqual(raw_data, [
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0003'},
+        ])
+
+    def test_modifications_to_stream_child_value_are_saved(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        stream = block.to_python([
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+        stream[1].value = 'earth'
+        raw_data = block.get_prep_value(stream)
+        self.assertEqual(raw_data, [
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'earth', 'id': '0002'},
+        ])
+
     def test_render_with_classname_via_kwarg(self):
         """form_classname from kwargs to be used as an additional class when rendering stream block"""
 
