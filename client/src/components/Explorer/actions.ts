@@ -5,7 +5,7 @@ import { createAction } from '../../utils/actions';
 import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
 import { State as ExplorerState, Action as ExplorerAction } from './reducers/explorer';
-import { State as NodeState, WagtailPageAPI, Action as NodeAction } from './reducers/nodes';
+import { State as NodeState, Action as NodeAction } from './reducers/nodes';
 
 interface State {
   explorer: ExplorerState,
@@ -15,7 +15,7 @@ interface State {
 type Action = ExplorerAction | NodeAction;
 type ThunkActionType = ThunkAction<void, State, unknown, Action>;
 
-const getPageSuccess = createAction('GET_PAGE_SUCCESS', (id: number, data: WagtailPageAPI) => ({ id, data }));
+const getPageSuccess = createAction('GET_PAGE_SUCCESS', (id: number, data: admin.WagtailPageAPI) => ({ id, data }));
 const getPageFailure = createAction('GET_PAGE_FAILURE', (id: number, error: Error) => ({ id, error }));
 
 /**
@@ -32,7 +32,7 @@ function getPage(id: number): ThunkActionType {
 const getChildrenStart = createAction('GET_CHILDREN_START', (id: number) => ({ id }));
 const getChildrenSuccess = createAction(
   'GET_CHILDREN_SUCCESS',
-  (id, items: WagtailPageAPI[], meta: any) => ({ id, items, meta })
+  (id, items: admin.WagtailPageAPI[], meta: any) => ({ id, items, meta })
 );
 const getChildrenFailure = createAction('GET_CHILDREN_FAILURE', (id: number, error: Error) => ({ id, error }));
 
