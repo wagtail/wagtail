@@ -29,7 +29,7 @@ Using StreamField
         author = models.CharField(max_length=255)
         date = models.DateField("Post date")
         body = StreamField([
-            ('heading', blocks.CharBlock(classname="full title")),
+            ('heading', blocks.CharBlock(form_classname="full title")),
             ('paragraph', blocks.RichTextBlock()),
             ('image', ImageChooserBlock()),
         ])
@@ -411,7 +411,7 @@ This defines ``PersonBlock()`` as a block type that can be re-used as many times
 .. code-block:: python
 
     body = StreamField([
-        ('heading', blocks.CharBlock(classname="full title")),
+        ('heading', blocks.CharBlock(form_classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
         ('person', PersonBlock()),
