@@ -478,10 +478,12 @@ class StreamValue(MutableSequence):
         self._bound_blocks[i] = self._construct_stream_child(item)
 
     def __delitem__(self, i):
-        raise NotImplementedError
+        del self._bound_blocks[i]
+        del self._raw_data[i]
 
     def insert(self, i, item):
-        raise NotImplementedError
+        self._bound_blocks.insert(i, self._construct_stream_child(item))
+        self._raw_data.insert(i, None)
 
     def _prefetch_blocks(self, type_name):
         """
