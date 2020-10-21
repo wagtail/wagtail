@@ -472,6 +472,9 @@ class BoundBlock:
         """Render the value according to the block's native rendering"""
         return self.block.render(self.value)
 
+    def __repr__(self):
+        return "<block %s: %r>" % (self.block.name or type(self.block).__name__, self.value)
+
 
 class DeclarativeSubBlocksMetaclass(BaseBlock):
     """

@@ -457,6 +457,9 @@ class StreamValue(MutableSequence):
             self.stream_value._raw_data.insert(i, item)
             self.stream_value._bound_blocks.insert(i, None)
 
+        def __repr__(self):
+            return repr(list(self))
+
     def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
         """
         Construct a StreamValue linked to the given StreamBlock,
@@ -606,7 +609,7 @@ class StreamValue(MutableSequence):
         return len(self._bound_blocks)
 
     def __repr__(self):
-        return repr(list(self))
+        return "<%s %r>" % (type(self).__name__, list(self))
 
     def render_as_block(self, context=None):
         return self.stream_block.render(self, context=context)
