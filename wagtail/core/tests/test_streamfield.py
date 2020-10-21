@@ -177,6 +177,18 @@ class TestStreamValueAccess(TestCase):
         self.assertIsInstance(fetched_body[0].value, RichText)
         self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
 
+    def test_can_append(self):
+        self.json_body.body.append(('text', 'bar'))
+        self.json_body.save()
+
+        fetched_body = StreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 2)
+        self.assertEqual(fetched_body[0].block_type, 'text')
+        self.assertEqual(fetched_body[0].value, 'foo')
+        self.assertEqual(fetched_body[1].block_type, 'text')
+        self.assertEqual(fetched_body[1].value, 'bar')
+
 
 class TestStreamFieldRenderingBase(TestCase):
     def setUp(self):
