@@ -40,7 +40,7 @@ module.exports = function exports() {
       rules: [
         {
           test: /\.(js|ts)x?$/,
-          loader: 'babel-loader',
+          loader: 'ts-loader',
           exclude: /node_modules/,
         },
       ].concat(Object.keys(exposedDependencies).map((name) => {
