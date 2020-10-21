@@ -7,6 +7,7 @@ from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
+from django.utils.functional import cached_property
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
@@ -413,6 +414,49 @@ class StreamValue(MutableSequence):
             """
             return self.block.name
 
+        def get_prep_value(self):
+            return {
+                'type': self.block_type,
+                'value': self.block.get_prep_value(self.value),
+                'id': self.id,
+            }
+
+    class RawDataView(MutableSequence):
+        """
+        Internal helper class to present the stream data in raw JSONish format. For backwards
+        compatibility with old code that manipulated StreamValue.stream_data, this is considered
+        mutable to some extent, with the proviso that once the BoundBlock representation has been
+        accessed, any changes to fields within raw data will not propagate back to the BoundBlock
+        and will not be saved back when calling get_prep_value.
+        """
+        def __init__(self, stream_value):
+            self.stream_value = stream_value
+
+        def __getitem__(self, i):
+            item = self.stream_value._raw_data[i]
+            if item is None:
+                # reconstruct raw data from the bound block
+                item = self.stream_value._bound_blocks[i].get_prep_value()
+                self.stream_value._raw_data[i] = item
+
+            return item
+
+        def __len__(self):
+            return len(self.stream_value._raw_data)
+
+        def __setitem__(self, i, item):
+            self.stream_value._raw_data[i] = item
+            # clear the cached bound_block for this item
+            self.stream_value._bound_blocks[i] = None
+
+        def __delitem__(self, i):
+            # same as deletion on the stream itself - delete both the raw and bound_block data
+            del self.stream_value[i]
+
+        def insert(self, i, item):
+            self.stream_value._raw_data.insert(i, item)
+            self.stream_value._bound_blocks.insert(i, None)
+
     def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
         """
         Construct a StreamValue linked to the given StreamBlock,
@@ -485,6 +529,10 @@ class StreamValue(MutableSequence):
         self._bound_blocks.insert(i, self._construct_stream_child(item))
         self._raw_data.insert(i, None)
 
+    @cached_property
+    def raw_data(self):
+        return StreamValue.RawDataView(self)
+
     def _prefetch_blocks(self, type_name):
         """
         Populate _bound_blocks with all items in this stream of type `type_name` that exist in
@@ -519,11 +567,7 @@ class StreamValue(MutableSequence):
                 if not item.id:
                     item.id = str(uuid.uuid4())
 
-                prep_value.append({
-                    'type': item.block_type,
-                    'value': item.block.get_prep_value(item.value),
-                    'id': item.id,
-                })
+                prep_value.append(item.get_prep_value())
             else:
                 # item has not been converted to a BoundBlock, so its _raw_data entry is
                 # still usable (but ensure it has an ID before returning it)
