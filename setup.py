@@ -27,7 +27,7 @@ install_requires = [
     "djangorestframework>=3.11.1,<4.0",
     "django-filter>=2.2,<3.0",
     "draftjs_exporter>=2.1.5,<3.0",
-    "Pillow>=4.0.0,<8.0.0",
+    "Pillow>=4.0.0,<9.0.0",
     "beautifulsoup4>=4.8,<4.9",
     "html5lib>=0.999,<2",
     # RemovedInWagtail212Warning: unidecode is only used by _migrate_legacy_clean_name in wagtail.contrib.forms
