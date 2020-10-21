@@ -7,6 +7,9 @@
 
 {% block content %}
     {% page_permissions page as page_perms %}
+    <div id="comments">
+    
+    </div>
     <header class="merged tab-merged">
         {% explorer_breadcrumb page %}
 
@@ -179,5 +182,14 @@
             document.addEventListener('DOMContentLoaded', ActivateWorkflowActionsForEditView('#page-edit-form'));
             document.addEventListener('DOMContentLoaded', LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}'));
         })
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var commentsElement = document.getElementById('comments');
+            window.comments.initCommentsApp(commentsElement, {id: {{ request.user.pk }}, name: "{{ request.user|user_display_name }}"}, [], function (addAnnotatableSection) {
+                addAnnotatableSection('testcontentpath', document.documentElement);
+            });
+        });
     </script>
 {% endblock %}

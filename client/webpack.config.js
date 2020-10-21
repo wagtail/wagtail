@@ -25,9 +25,16 @@ module.exports = function exports() {
     './client/src/utils/polyfills.js',
     getEntryPath('admin', 'draftail.entry.js'),
   ];
+  entry[getOutputPath('admin', 'comments')] = [
+    './client/src/utils/polyfills.js',
+    getEntryPath('admin', 'comments.entry.js'),
+  ];
 
   return {
     entry: entry,
+    externals: {
+      annotator: 'annotator',
+    },
     output: {
       path: path.resolve('.'),
       filename: '[name].js',
