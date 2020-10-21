@@ -1024,6 +1024,30 @@ Your extended value class methods will be available in your template:
     </div>
 
 
+Modifying StreamField data
+--------------------------
+
+A StreamField's value behaves as a list, and blocks can be inserted, overwritten and deleted before saving the instance back to the database. A new item can be written to the list as a tuple of *(block_type, value)* - when read back, it will be returned as a ``BoundBlock`` object.
+
+.. code-block:: python
+
+    # Replace the first block with a new block of type 'heading'
+    my_page.body[0] = ('heading', "My story")
+
+    # Delete the last block
+    del my_page.body[-1]
+
+    # Append a block to the stream
+    my_page.body.append(('paragraph', "<p>And they all lived happily ever after.</p>"))
+
+    # Save the updated data back to the database
+    my_page.save()
+
+
+.. versionadded:: 2.12
+
+    In earlier versions, a StreamField value could be replaced by assigning a new list of *(block_type, value)* tuples, but not modified in-place.
+
 
 Custom block types
 ------------------
