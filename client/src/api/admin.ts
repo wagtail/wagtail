@@ -42,9 +42,20 @@ interface GetPageChildrenOptions {
   offset?: number;
 }
 
-type GetPageChildren = (id: number, options: GetPageChildrenOptions) => Promise<WagtailPageListAPI>;
+type GetPageChildren = (id: number | string, options: GetPageChildrenOptions) => Promise<WagtailPageListAPI>;
 export const getPageChildren: GetPageChildren = (id, options = {}) => {
-  let url = `${ADMIN_API.PAGES}?child_of=${id}&for_explorer=1`;
+  let realId = id;
+  let locale: string | null = null;
+
+  if (typeof id === 'string') {
+    [realId, locale] = id.split('-');
+  }
+
+  let url = `${ADMIN_API.PAGES}?child_of=${realId}&for_explorer=1`;
+
+  if (wagtailConfig.I18N_ENABLED && locale) {
+    url += `&locale=${locale}`;
+  }
 
   if (options.fields) {
     url += `&fields=parent,${window.encodeURIComponent(options.fields.join(','))}`;
