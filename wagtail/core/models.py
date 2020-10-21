@@ -355,7 +355,7 @@ class Locale(models.Model):
     @classmethod
     def get_default(cls):
         """
-        Returns the default Locale based on the site's LOCALE_CODE setting
+        Returns the default Locale based on the site's LANGUAGE_CODE setting
         """
         return cls.objects.get_for_language(settings.LANGUAGE_CODE)
 
