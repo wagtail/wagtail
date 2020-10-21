@@ -23,7 +23,7 @@ lint:
 	jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'
 	npm run lint:css --silent
 	npm run lint:js --silent
-	doc8 --ignore D001 docs
+	doc8 docs
 
 test:
 	python runtests.py

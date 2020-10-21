@@ -60,7 +60,7 @@ spelling:
 	@echo "Spellcheck complete."
 
 lint:
-	doc8 --ignore D001 --ignore-path _build
+	doc8 --config ../setup.cfg
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
