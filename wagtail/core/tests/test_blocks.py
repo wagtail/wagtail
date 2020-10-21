@@ -3384,7 +3384,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {'type': 'heading', 'value': 'goodbye', 'id': '0003'},
         ])
 
-    @unittest.expectedFailure
     def test_delete_streamvalue_item(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
@@ -3399,6 +3398,42 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         raw_data = block.get_prep_value(stream)
         self.assertEqual(raw_data, [
             {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+
+    def test_insert_streamvalue_item(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        stream = block.to_python([
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+        stream.insert(1, ('paragraph', 'mutable', '0003'))
+        raw_data = block.get_prep_value(stream)
+        self.assertEqual(raw_data, [
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'mutable', 'id': '0003'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+
+    def test_append_streamvalue_item(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        stream = block.to_python([
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+        stream.append(('paragraph', 'of warcraft', '0003'))
+        raw_data = block.get_prep_value(stream)
+        self.assertEqual(raw_data, [
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+            {'type': 'paragraph', 'value': 'of warcraft', 'id': '0003'},
         ])
 
     def test_render_with_classname_via_kwarg(self):
