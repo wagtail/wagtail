@@ -1,12 +1,19 @@
 .. _editing-api:
 
-Available panel types
-=====================
+Panel types
+===========
+
+Built-in Fields and Choosers
+----------------------------
+
+Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into :class:`~wagtail.admin.edit_handlers.FieldPanel` when defining your panels. Wagtail will take care of the rest.
+
+Here are some Wagtail-specific types that you might include as fields in your models.
 
 .. module:: wagtail.admin.edit_handlers
 
 FieldPanel
-----------
+~~~~~~~~~~
 
 .. class:: FieldPanel(field_name, classname=None, widget=None, heading='')
 
@@ -33,7 +40,7 @@ FieldPanel
         This allows you to override the heading for the panel, which will otherwise be set automatically using the form field's label (taken in turn from a model field's ``verbose_name``).
 
 StreamFieldPanel
-----------------
+~~~~~~~~~~~~~~~~
 
 .. class:: StreamFieldPanel(field_name, classname=None, widget=None)
 
@@ -50,7 +57,7 @@ StreamFieldPanel
         The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor.
 
 MultiFieldPanel
----------------
+~~~~~~~~~~~~~~~
 
 .. class:: MultiFieldPanel(children, heading="", classname=None)
 
@@ -83,7 +90,7 @@ MultiFieldPanel
         ]
 
 InlinePanel
------------
+~~~~~~~~~~~
 
 .. class:: InlinePanel(relation_name, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
 
@@ -92,7 +99,7 @@ InlinePanel
     This is a powerful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
 
 FieldRowPanel
--------------
+~~~~~~~~~~~~~
 
 .. class:: FieldRowPanel(children, classname=None)
 
@@ -111,7 +118,7 @@ FieldRowPanel
         A class to apply to the FieldRowPanel as a whole
 
 HelpPanel
----------
+~~~~~~~~~
 
 .. class:: HelpPanel(content='', template='wagtailadmin/edit_handlers/help_panel.html', heading='', classname='')
 
@@ -132,7 +139,7 @@ HelpPanel
         String of CSS classes given to the panel which are used in formatting and scripted interactivity.
 
 PageChooserPanel
-----------------
+~~~~~~~~~~~~~~~~
 
 .. class:: PageChooserPanel(field_name, page_type=None, can_choose_root=False)
 
@@ -167,7 +174,7 @@ PageChooserPanel
 
 
 ImageChooserPanel
------------------
+~~~~~~~~~~~~~~~~~
 
 .. module:: wagtail.images.edit_handlers
 
@@ -199,7 +206,7 @@ ImageChooserPanel
     Displaying ``Image`` objects in a template requires the use of a template tag. See :ref:`image_tag`.
 
 FormSubmissionsPanel
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 .. module:: wagtail.contrib.forms.edit_handlers
 
@@ -219,7 +226,7 @@ FormSubmissionsPanel
             ]
 
 DocumentChooserPanel
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 .. module:: wagtail.documents.edit_handlers
 
@@ -249,7 +256,7 @@ DocumentChooserPanel
     As with images, Wagtail documents should also have the appropriate extra parameters to prevent cascade deletions across a ForeignKey relationship. ``DocumentChooserPanel`` takes only one argument: the name of the field.
 
 SnippetChooserPanel
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 .. module:: wagtail.snippets.edit_handlers
 
@@ -276,35 +283,26 @@ SnippetChooserPanel
 
     See :ref:`snippets` for more information.
 
-
-Built-in Fields and Choosers
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into :class:`~wagtail.admin.edit_handlers.FieldPanel` when defining your panels. Wagtail will take care of the rest.
-
-Here are some Wagtail-specific types that you might include as fields in your models.
-
-
 Field Customisation
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there. (See :doc:`Django model field reference <ref/models/fields>`).
 
 
 Full-Width Input
-----------------
+~~~~~~~~~~~~~~~~
 
 Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.admin.edit_handlers.MultiFieldPanel`, which places its child fields into a formset.
 
 
 Titles
-------
+~~~~~~
 
 Use ``classname="title"`` to make Page's built-in title field stand out with more vertical padding.
 
 
 Placeholder Text
-----------------
+~~~~~~~~~~~~~~~~
 
 By default, Wagtail uses the field's label as placeholder text. To change it, pass to the FieldPanel a widget with a placeholder attribute set to your desired text. You can select widgets from :doc:`Django's form widgets <django:ref/forms/widgets>`, or any of the Wagtail's widgets found in ``wagtail.admin.widgets``.
 
@@ -341,19 +339,19 @@ For example, to customize placeholders for a Book model exposed via ModelAdmin:
         ]
 
 Required Fields
----------------
+~~~~~~~~~~~~~~~
 
 To make input or chooser selection mandatory for a field, add :attr:`blank=False <django.db.models.Field.blank>` to its model definition.
 
 Hiding Fields
--------------
+~~~~~~~~~~~~~
 
 Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with :attr:`editable=False <django.db.models.Field.editable>`.
 
 .. _inline_panels:
 
 Inline Panels and Model Clusters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------
 
 The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page via a ForeignKey-like relationship called ``ParentalKey``.  Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before being linked to a Page; however, objects related to a Wagtail page via ``ParentalKey`` can be created on-the-fly and saved to a draft revision of a ``Page`` object.
 
