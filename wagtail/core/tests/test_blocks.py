@@ -3367,6 +3367,40 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {'type': 'paragraph', 'value': 'earth', 'id': '0002'},
         ])
 
+    def test_set_streamvalue_item(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        stream = block.to_python([
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+        stream[1] = ('heading', 'goodbye', '0003')
+        raw_data = block.get_prep_value(stream)
+        self.assertEqual(raw_data, [
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'heading', 'value': 'goodbye', 'id': '0003'},
+        ])
+
+    @unittest.expectedFailure
+    def test_delete_streamvalue_item(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        stream = block.to_python([
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+        del stream[0]
+        raw_data = block.get_prep_value(stream)
+        self.assertEqual(raw_data, [
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+
     def test_render_with_classname_via_kwarg(self):
         """form_classname from kwargs to be used as an additional class when rendering stream block"""
 

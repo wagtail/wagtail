@@ -1,7 +1,7 @@
 import uuid
 
 from collections import OrderedDict, defaultdict
-from collections.abc import Sequence
+from collections.abc import MutableSequence
 
 from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
@@ -383,7 +383,7 @@ class StreamBlock(BaseStreamBlock, metaclass=DeclarativeSubBlocksMetaclass):
     pass
 
 
-class StreamValue(Sequence):
+class StreamValue(MutableSequence):
     """
     Custom type used to represent the value of a StreamBlock; behaves as a sequence of BoundBlocks
     (which keep track of block types in a way that the values alone wouldn't).
@@ -446,16 +446,27 @@ class StreamValue(Sequence):
         else:
             # store native stream data in _bound_blocks; on serialization it will be converted to
             # a JSON-ish representation via block.get_prep_value.
-            self._bound_blocks = {}
-            for i, item in enumerate(stream_data):
-                try:
-                    type_name, value, block_id = item
-                except ValueError:
-                    type_name, value = item
-                    block_id = None
+            self._bound_blocks = {
+                i: self._construct_stream_child(item)
+                for i, item in enumerate(stream_data)
+            }
 
-                block_def = self.stream_block.child_blocks[type_name]
-                self._bound_blocks[i] = StreamValue.StreamChild(block_def, value, id=block_id)
+    def _construct_stream_child(self, item):
+        """
+        Create a StreamChild instance from a (type, value, id) or (type, value) tuple,
+        or return item if it's already a StreamChild
+        """
+        if isinstance(item, StreamValue.StreamChild):
+            return item
+
+        try:
+            type_name, value, block_id = item
+        except ValueError:
+            type_name, value = item
+            block_id = None
+
+        block_def = self.stream_block.child_blocks[type_name]
+        return StreamValue.StreamChild(block_def, value, id=block_id)
 
     def __getitem__(self, i):
         if i not in range(0, self._length):
@@ -466,6 +477,15 @@ class StreamValue(Sequence):
             self._prefetch_blocks(raw_value['type'])
 
         return self._bound_blocks[i]
+
+    def __setitem__(self, i, item):
+        self._bound_blocks[i] = self._construct_stream_child(item)
+
+    def __delitem__(self, i):
+        raise NotImplementedError
+
+    def insert(self, i, item):
+        raise NotImplementedError
 
     def _prefetch_blocks(self, type_name):
         """
