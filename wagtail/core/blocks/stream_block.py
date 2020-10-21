@@ -435,21 +435,20 @@ class StreamValue(MutableSequence):
         """
         self.stream_block = stream_block  # the StreamBlock object that handles this value
         self.is_lazy = is_lazy
-        self._length = len(stream_data)
         self.raw_text = raw_text
 
         if is_lazy:
             # store raw stream data in _raw_data; on retrieval it will be converted to a native
             # value (via block.to_python) and wrapped as a StreamValue, and cached in _bound_blocks.
             self._raw_data = stream_data
-            self._bound_blocks = {}
+            self._bound_blocks = [None] * len(stream_data)
         else:
             # store native stream data in _bound_blocks; on serialization it will be converted to
             # a JSON-ish representation via block.get_prep_value.
-            self._bound_blocks = {
-                i: self._construct_stream_child(item)
-                for i, item in enumerate(stream_data)
-            }
+            self._raw_data = [None] * len(stream_data)
+            self._bound_blocks = [
+                self._construct_stream_child(item) for item in stream_data
+            ]
 
     def _construct_stream_child(self, item):
         """
@@ -469,10 +468,7 @@ class StreamValue(MutableSequence):
         return StreamValue.StreamChild(block_def, value, id=block_id)
 
     def __getitem__(self, i):
-        if i not in range(0, self._length):
-            raise IndexError("list index out of range")
-
-        if i not in self._bound_blocks:
+        if self._bound_blocks[i] is None:
             raw_value = self._raw_data[i]
             self._prefetch_blocks(raw_value['type'])
 
@@ -500,7 +496,7 @@ class StreamValue(MutableSequence):
         # mapping (index within the stream) => (raw block value)
         raw_values = OrderedDict(
             (i, raw_item['value']) for i, raw_item in enumerate(self._raw_data)
-            if raw_item['type'] == type_name and i not in self._bound_blocks
+            if raw_item['type'] == type_name and self._bound_blocks[i] is None
         )
         # pass the raw block values to bulk_to_python as a list
         converted_values = child_block.bulk_to_python(raw_values.values())
@@ -515,10 +511,9 @@ class StreamValue(MutableSequence):
     def get_prep_value(self):
         prep_value = []
 
-        for i in range(0, self._length):
-            if i in self._bound_blocks:
+        for i, item in enumerate(self._bound_blocks):
+            if item:
                 # Convert the native value back into raw JSONish data
-                item = self._bound_blocks[i]
                 if not item.id:
                     item.id = str(uuid.uuid4())
 
@@ -540,12 +535,12 @@ class StreamValue(MutableSequence):
         return prep_value
 
     def __eq__(self, other):
-        if not isinstance(other, StreamValue) or len(other) != self._length:
+        if not isinstance(other, StreamValue) or len(other) != len(self):
             return False
 
         # scan both lists for non-matching items
-        for i in range(0, self._length):
-            if i not in self._bound_blocks and i not in other._bound_blocks:
+        for i in range(0, len(self)):
+            if self._bound_blocks[i] is None and other._bound_blocks[i] is None:
                 # compare raw values as a shortcut to save the conversion step
                 if self._raw_data[i] != other._raw_data[i]:
                     return False
@@ -562,7 +557,7 @@ class StreamValue(MutableSequence):
         return True
 
     def __len__(self):
-        return self._length
+        return len(self._bound_blocks)
 
     def __repr__(self):
         return repr(list(self))
