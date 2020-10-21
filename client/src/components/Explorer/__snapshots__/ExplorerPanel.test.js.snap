@@ -40,6 +40,7 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
     >
       <ExplorerHeader
         depth={1}
+        gotoPage={[MockFunction]}
         onClick={[Function]}
         page={
           Object {
@@ -95,7 +96,7 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
       "onDeactivate": [MockFunction],
     }
   }
-  paused={true}
+  paused={false}
   role="dialog"
   tag="div"
 >
@@ -124,6 +125,7 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
     >
       <ExplorerHeader
         depth={1}
+        gotoPage={[MockFunction]}
         onClick={[Function]}
         page={
           Object {
@@ -143,12 +145,6 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
         <div
           key="children"
         />
-        <div
-          className="c-explorer__placeholder"
-          key="fetching"
-        >
-          <LoadingSpinner />
-        </div>
       </div>
     </div>
   </Transition>
@@ -195,6 +191,7 @@ exports[`ExplorerPanel general rendering #items 1`] = `
     >
       <ExplorerHeader
         depth={1}
+        gotoPage={[MockFunction]}
         onClick={[Function]}
         page={
           Object {
@@ -288,6 +285,7 @@ exports[`ExplorerPanel general rendering no children 1`] = `
     >
       <ExplorerHeader
         depth={1}
+        gotoPage={[MockFunction]}
         onClick={[Function]}
         page={
           Object {
@@ -350,6 +348,7 @@ exports[`ExplorerPanel general rendering renders 1`] = `
     >
       <ExplorerHeader
         depth={1}
+        gotoPage={[MockFunction]}
         onClick={[Function]}
         page={
           Object {

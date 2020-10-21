@@ -136,22 +136,61 @@ $menu-footer-height: 50px;
 }
 
 .c-explorer__header__select {
-    float: right;
+    $margin: 10px;
     position: relative;
-    padding: 1em 0;
-    padding-right: 2em;
-    text-align: right;
 
-    span {
-        background-color: $c-explorer-bg-active;
-        display: inline-block;
-        padding: 0.2em 0.5em;
-        border-radius: 0.25em;
-        vertical-align: middle;
-        line-height: 1.5;
-        text-transform: uppercase;
-        letter-spacing: 0.03rem;
-        font-size: 12px;
+    > select {
+        width: calc(30% - #{$margin * 2});
+        height: calc(100% - #{$margin * 2});
+        margin-top: $margin;
+        margin-right: $margin;
+        float: right;
+        padding: 0;
+        padding-left: 10px;
+
+        background-color: $c-explorer-bg-dark;
+        border-radius: 0;
+        border-color: #4c4e4d;
+        color: $color-white;
+
+        &:disabled {
+            border: 0;
+        }
+
+        &:hover:enabled {
+            cursor: pointer;
+        }
+
+        &:hover:disabled {
+            color: inherit;
+            background-color: inherit;
+            cursor: inherit;
+        }
+
+        // Reset the arrow on `<select>`s in IE10+.
+        &::-ms-expand {
+            display: none;
+        }
+    }
+
+    // Add select arrow back on browsers where native ui has been removed
+    > span:after {
+        z-index: 0;
+        position: absolute;
+        right: $margin;
+        top: $margin + 3px;
+        bottom: 0;
+        width: 2em;
+        font-family: wagtail;
+        content: map-get($icons, 'arrow-down');
+        text-align: center;
+        font-size: 1.2em;
+        pointer-events: none;
+        color: $color-grey-3;
+
+        .ie & {
+            display: none;
+        }
     }
 }
 

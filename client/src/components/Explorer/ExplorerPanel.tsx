@@ -114,7 +114,7 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
     const { page, nodes } = this.props;
     let children;
 
-    if (!page.isFetching && !page.children.items) {
+    if (!page.isFetchingChildren && !page.children.items) {
       children = (
         <div key="empty" className="c-explorer__placeholder">
           {STRINGS.NO_RESULTS}
@@ -137,7 +137,7 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
     return (
       <div className="c-explorer__drawer">
         {children}
-        {page.isFetching ? (
+        {page.isFetchingChildren || page.isFetchingTranslations ? (
           <div key="fetching" className="c-explorer__placeholder">
             <LoadingSpinner />
           </div>
@@ -152,7 +152,7 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
   }
 
   render() {
-    const { page, onClose, depth } = this.props;
+    const { page, onClose, depth, gotoPage } = this.props;
     const { transition, paused } = this.state;
 
     return (
@@ -160,7 +160,7 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
         tag="div"
         role="dialog"
         className="explorer"
-        paused={paused || !page || page.isFetching}
+        paused={paused || !page || page.isFetchingChildren || page.isFetchingTranslations}
         focusTrapOptions={{
           initialFocus: '.c-explorer__header__title',
           onDeactivate: onClose,
@@ -175,6 +175,7 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
               depth={depth}
               page={page}
               onClick={this.onHeaderClick}
+              gotoPage={gotoPage}
             />
 
             {this.renderChildren()}

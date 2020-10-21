@@ -9,6 +9,18 @@ Array [
     },
     "type": "GOTO_PAGE",
   },
+  Object {
+    "payload": Object {
+      "id": 5,
+    },
+    "type": "GET_CHILDREN_START",
+  },
+  Object {
+    "payload": Object {
+      "id": 5,
+    },
+    "type": "GET_TRANSLATIONS_START",
+  },
 ]
 `;
 
@@ -26,6 +38,12 @@ Array [
       "id": 5,
     },
     "type": "GET_CHILDREN_START",
+  },
+  Object {
+    "payload": Object {
+      "id": 5,
+    },
+    "type": "GET_TRANSLATIONS_START",
   },
 ]
 `;
@@ -80,6 +98,12 @@ Array [
       "id": 5,
     },
     "type": "GET_CHILDREN_START",
+  },
+  Object {
+    "payload": Object {
+      "id": 5,
+    },
+    "type": "GET_TRANSLATIONS_START",
   },
 ]
 `;

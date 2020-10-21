@@ -1,18 +1,21 @@
 import { WagtailPageAPI } from '../../../api/admin';
-import { OPEN_EXPLORER } from './explorer';
+import { OPEN_EXPLORER, CLOSE_EXPLORER } from './explorer';
 
 export interface PageState extends WagtailPageAPI {
-  isFetching: boolean;
+  isFetchingChildren: boolean,
+  isFetchingTranslations: boolean,
   isError: boolean;
   children: {
     items: any[];
     count: number;
   };
+  translations?: Map<string, number>;
 }
 
 const defaultPageState: PageState = {
   id: 0,
-  isFetching: false,
+  isFetchingChildren: false,
+  isFetchingTranslations: false,
   isError: false,
   children: {
     items: [],
@@ -34,6 +37,10 @@ interface OpenExplorerAction {
   payload: {
     id: number;
   }
+}
+
+interface CloseExplorerAction {
+  type: typeof CLOSE_EXPLORER;
 }
 
 export const GET_PAGE_SUCCESS = 'GET_PAGE_SUCCESS';
@@ -66,6 +73,27 @@ interface GetChildrenSuccess {
   };
 }
 
+export const GET_TRANSLATIONS_START = 'GET_TRANSLATIONS_START';
+interface GetTranslationsStart {
+  type: typeof GET_TRANSLATIONS_START;
+  payload: {
+    id: number;
+  };
+}
+
+export const GET_TRANSLATIONS_SUCCESS = 'GET_TRANSLATIONS_SUCCESS';
+interface GetTranslationsSuccess {
+  type: typeof GET_TRANSLATIONS_SUCCESS;
+  payload: {
+    id: number;
+    meta: {
+      /* eslint-disable-next-line camelcase */
+      total_count: number;
+    };
+    items: WagtailPageAPI[];
+  };
+}
+
 export const GET_PAGE_FAILURE = 'GET_PAGE_FAILURE';
 interface GetPageFailure {
   type: typeof GET_PAGE_FAILURE;
@@ -82,21 +110,30 @@ interface GetChildrenFailure {
   };
 }
 
+export const GET_TRANSLATIONS_FAILURE = 'GET_TRANSLATIONS_FAILURE';
+interface GetTranslationsFailure {
+  type: typeof GET_TRANSLATIONS_FAILURE;
+  payload: {
+    id: number;
+  };
+}
+
 export type Action = OpenExplorerAction
+                   | CloseExplorerAction
                    | GetPageSuccess
                    | GetChildrenStart
                    | GetChildrenSuccess
+                   | GetTranslationsStart
+                   | GetTranslationsSuccess
                    | GetPageFailure
-                   | GetChildrenFailure;
+                   | GetChildrenFailure
+                   | GetTranslationsFailure;
 
 /**
  * A single page node in the explorer.
  */
-const node = (state = defaultPageState, action: Action) => {
+const node = (state = defaultPageState, action: Action): PageState => {
   switch (action.type) {
-  case OPEN_EXPLORER:
-    return state || defaultPageState;
-
   case GET_PAGE_SUCCESS:
     return Object.assign({}, state, action.payload.data, {
       isError: false,
@@ -104,12 +141,17 @@ const node = (state = defaultPageState, action: Action) => {
 
   case GET_CHILDREN_START:
     return Object.assign({}, state, {
-      isFetching: true,
+      isFetchingChildren: true,
+    });
+
+  case GET_TRANSLATIONS_START:
+    return Object.assign({}, state, {
+      isFetchingTranslations: true,
     });
 
   case GET_CHILDREN_SUCCESS:
     return Object.assign({}, state, {
-      isFetching: false,
+      isFetchingChildren: false,
       isError: false,
       children: {
         items: state.children.items.slice().concat(action.payload.items.map(item => item.id)),
@@ -117,10 +159,26 @@ const node = (state = defaultPageState, action: Action) => {
       },
     });
 
+  case GET_TRANSLATIONS_SUCCESS:
+    // eslint-disable-next-line no-case-declarations
+    const translations = new Map();
+
+    action.payload.items.forEach(item => {
+      translations.set(item.meta.locale, item.id);
+    });
+
+    return Object.assign({}, state, {
+      isFetchingTranslations: false,
+      isError: false,
+      translations,
+    });
+
   case GET_PAGE_FAILURE:
   case GET_CHILDREN_FAILURE:
+  case GET_TRANSLATIONS_FAILURE:
     return Object.assign({}, state, {
-      isFetching: false,
+      isFetchingChildren: false,
+      isFetchingTranslations: true,
       isError: true,
     });
 
@@ -140,17 +198,25 @@ const defaultState: State = {};
  */
 export default function nodes(state = defaultState, action: Action) {
   switch (action.type) {
-  case OPEN_EXPLORER:
+  case OPEN_EXPLORER: {
+    return Object.assign({}, state, {
+      [action.payload.id]: Object.assign({}, defaultPageState),
+    });
+  }
+
   case GET_PAGE_SUCCESS:
   case GET_CHILDREN_START:
+  case GET_TRANSLATIONS_START:
   case GET_PAGE_FAILURE:
   case GET_CHILDREN_FAILURE:
+  case GET_TRANSLATIONS_FAILURE:
     return Object.assign({}, state, {
       // Delegate logic to single-node reducer.
       [action.payload.id]: node(state[action.payload.id], action),
     });
 
-  case 'GET_CHILDREN_SUCCESS':
+  case GET_CHILDREN_SUCCESS:
+  case GET_TRANSLATIONS_SUCCESS:
     // eslint-disable-next-line no-case-declarations
     const newState = Object.assign({}, state, {
       [action.payload.id]: node(state[action.payload.id], action),
@@ -161,6 +227,10 @@ export default function nodes(state = defaultState, action: Action) {
     });
 
     return newState;
+
+  case CLOSE_EXPLORER: {
+    return defaultState;
+  }
 
   default:
     return state;

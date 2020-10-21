@@ -20,23 +20,29 @@ describe('admin API', () => {
   describe('getPageChildren', () => {
     it('works', () => {
       getPageChildren(3);
-      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent`);
+      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent,translations`);
     });
 
     it('#fields', () => {
       getPageChildren(3, { fields: ['title', 'latest_revision_created_at'] });
       // eslint-disable-next-line max-len
-      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent,title%2Clatest_revision_created_at`);
+      expect(client.get).toBeCalledWith(
+        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent,translations,title%2Clatest_revision_created_at`
+      );
     });
 
     it('#onlyWithChildren', () => {
       getPageChildren(3, { onlyWithChildren: true });
-      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent&has_children=1`);
+      expect(client.get).toBeCalledWith(
+        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent,translations&has_children=1`
+      );
     });
 
     it('#offset', () => {
       getPageChildren(3, { offset: 5 });
-      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent&offset=5`);
+      expect(client.get).toBeCalledWith(
+        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent,translations&offset=5`
+      );
     });
   });
 

@@ -16,6 +16,7 @@ export interface WagtailPageAPI {
       id: number;
     } | null;
     locale?: string;
+    translations?: any;
   };
   /* eslint-disable-next-line camelcase */
   admin_display_title?: string;
@@ -46,9 +47,9 @@ export const getPageChildren: GetPageChildren = (id, options = {}) => {
   let url = `${ADMIN_API.PAGES}?child_of=${id}&for_explorer=1`;
 
   if (options.fields) {
-    url += `&fields=parent,${window.encodeURIComponent(options.fields.join(','))}`;
+    url += `&fields=parent,translations,${window.encodeURIComponent(options.fields.join(','))}`;
   } else {
-    url += '&fields=parent';
+    url += '&fields=parent,translations';
   }
 
   if (options.onlyWithChildren) {
@@ -60,6 +61,27 @@ export const getPageChildren: GetPageChildren = (id, options = {}) => {
   }
 
   url += ADMIN_API.EXTRA_CHILDREN_PARAMETERS;
+
+  return get(url);
+};
+
+interface GetPageTranslationsOptions {
+  fields?: string[];
+  onlyWithChildren?: boolean;
+}
+type GetPageTranslations = (id: number, options: GetPageTranslationsOptions) => Promise<WagtailPageListAPI>;
+export const getPageTranslations: GetPageTranslations = (id, options = {}) => {
+  let url = `${ADMIN_API.PAGES}?translation_of=${id}&limit=20`;
+
+  if (options.fields) {
+    url += `&fields=parent,${global.encodeURIComponent(options.fields.join(','))}`;
+  } else {
+    url += '&fields=parent';
+  }
+
+  if (options.onlyWithChildren) {
+    url += '&has_children=1';
+  }
 
   return get(url);
 };

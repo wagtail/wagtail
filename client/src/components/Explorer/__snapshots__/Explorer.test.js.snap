@@ -57,7 +57,8 @@ exports[`Explorer visible 1`] = `
         },
         "id": 0,
         "isError": false,
-        "isFetching": true,
+        "isFetchingChildren": true,
+        "isFetchingTranslations": false,
         "meta": Object {
           "children": Object {},
           "parent": null,
@@ -116,7 +117,8 @@ exports[`Explorer visible 2`] = `
         },
         "id": 0,
         "isError": false,
-        "isFetching": true,
+        "isFetchingChildren": true,
+        "isFetchingTranslations": false,
         "meta": Object {
           "children": Object {},
           "parent": null,
@@ -138,7 +140,8 @@ exports[`Explorer visible 2`] = `
       },
       "id": 0,
       "isError": false,
-      "isFetching": true,
+      "isFetchingChildren": true,
+      "isFetchingTranslations": false,
       "meta": Object {
         "children": Object {},
         "parent": null,
