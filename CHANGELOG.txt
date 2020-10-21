@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.11 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~
+2.11 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~~
 
  * Add support for aliased pages (Karl Hobley)
  * Add support for hierarchical/nested Collections (Robert Rollins)
