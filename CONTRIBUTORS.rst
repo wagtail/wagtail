@@ -478,12 +478,11 @@ Contributors
 * Vince Salvino
 * Dino Perovic
 * Ameet Virdee
-* Anton Zhyltsou
+* Anton Zhyltsou (@samgans)
 * Meghana Bhange
 * Cole Maclean
 * Noah H
 * David Bramwell
-* Samgans
 
 Translators
 ===========
