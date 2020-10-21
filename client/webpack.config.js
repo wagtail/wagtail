@@ -81,6 +81,12 @@ module.exports = function exports() {
       aggregateTimeout: 300,
     },
 
+    // Disable performance hints – currently there are much more valuable
+    // optimizations for us to do outside of Webpack
+    performance: {
+      hints: false
+    },
+
     stats: {
       // Add chunk information (setting this to `false` allows for a less verbose output)
       chunks: false,
