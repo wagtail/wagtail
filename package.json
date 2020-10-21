@@ -53,7 +53,7 @@
     "eslint-plugin-import": "^1.8.1",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2",
-    "expose-loader": "^0.7.4",
+    "expose-loader": "^0.7.5",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-cssnano": "^2.1.3",
@@ -69,7 +69,8 @@
     "redux-mock-store": "^1.3.0",
     "stylelint": "^13.5.0",
     "typescript": "^4.0.3",
-    "webpack": "^3.10.0"
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
     "core-js": "^2.5.3",
@@ -94,8 +95,8 @@
     "start": "npm run watch",
     "gulp:dev:watch": "gulp watch",
     "gulp:prod:build": "gulp build",
-    "webpack:dev:watch": "webpack --config ./client/webpack/dev.config.js",
-    "webpack:prod:build": "webpack --config ./client/webpack/prod.config.js",
+    "webpack:dev:watch": "webpack --config ./client/webpack.config.js --mode development --progress --watch",
+    "webpack:prod:build": "webpack --config ./client/webpack.config.js --mode production",
     "lint:js": "eslint --max-warnings 16 ./client",
     "lint:css": "stylelint **/*.scss",
     "lint": "npm run lint:js && npm run lint:css",
