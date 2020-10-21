@@ -3436,6 +3436,57 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {'type': 'paragraph', 'value': 'of warcraft', 'id': '0003'},
         ])
 
+    def test_streamvalue_raw_data(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        stream = block.to_python([
+            {'type': 'heading', 'value': 'hello', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+
+        self.assertEqual(stream.raw_data[0], {'type': 'heading', 'value': 'hello', 'id': '0001'})
+        stream.raw_data[0]['value'] = 'bonjour'
+        self.assertEqual(stream.raw_data[0], {'type': 'heading', 'value': 'bonjour', 'id': '0001'})
+
+        # changes to raw_data will be written back via get_prep_value...
+        raw_data = block.get_prep_value(stream)
+        self.assertEqual(raw_data, [
+            {'type': 'heading', 'value': 'bonjour', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+
+        # ...but once the bound-block representation has been accessed, that takes precedence
+        self.assertEqual(stream[0].value, 'bonjour')
+        stream.raw_data[0]['value'] = 'guten tag'
+        self.assertEqual(stream.raw_data[0]['value'], 'guten tag')
+        self.assertEqual(stream[0].value, 'bonjour')
+        raw_data = block.get_prep_value(stream)
+        self.assertEqual(raw_data, [
+            {'type': 'heading', 'value': 'bonjour', 'id': '0001'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+
+        # Replacing a raw_data entry outright will propagate to the bound block, though
+        stream.raw_data[0] = {'type': 'heading', 'value': 'konnichiwa', 'id': '0003'}
+        raw_data = block.get_prep_value(stream)
+        self.assertEqual(raw_data, [
+            {'type': 'heading', 'value': 'konnichiwa', 'id': '0003'},
+            {'type': 'paragraph', 'value': 'world', 'id': '0002'},
+        ])
+        self.assertEqual(stream[0].value, 'konnichiwa')
+
+        # deletions / insertions on raw_data will also propagate to the bound block representation
+        del stream.raw_data[1]
+        stream.raw_data.insert(0, {'type': 'paragraph', 'value': 'hello kitty says', 'id': '0004'})
+        raw_data = block.get_prep_value(stream)
+        self.assertEqual(raw_data, [
+            {'type': 'paragraph', 'value': 'hello kitty says', 'id': '0004'},
+            {'type': 'heading', 'value': 'konnichiwa', 'id': '0003'},
+        ])
+
     def test_render_with_classname_via_kwarg(self):
         """form_classname from kwargs to be used as an additional class when rendering stream block"""
 
