@@ -391,8 +391,12 @@ class StreamValue(Sequence):
 
     class StreamChild(BoundBlock):
         """
-        Extends BoundBlock with methods that make logical sense in the context of
-        children of StreamField, but not necessarily elsewhere that BoundBlock is used
+        Iterating over (or indexing into) a StreamValue returns instances of StreamChild.
+        These are wrappers for the individual data items in the stream, extending BoundBlock
+        (which keeps track of the data item's corresponding Block definition object, and provides
+        the `render` method to render itself with a template) with an `id` property (a UUID
+        assigned to the item - this is managed by the enclosing StreamBlock and is not a property
+        of blocks in general) and a `block_type` property.
         """
 
         def __init__(self, *args, **kwargs):
@@ -429,91 +433,116 @@ class StreamValue(Sequence):
         with the raw text accessible under the `raw_text` attribute, so that migration
         code can be rewritten to convert it as desired.
         """
-        self.is_lazy = is_lazy
         self.stream_block = stream_block  # the StreamBlock object that handles this value
-        self.stream_data = stream_data  # a list of dicts (when lazy) or tuples (when non-lazy) as outlined above
-        self._bound_blocks = {}  # populated lazily from stream_data as we access items through __getitem__
+        self.is_lazy = is_lazy
+        self._length = len(stream_data)
         self.raw_text = raw_text
 
-    def __getitem__(self, i):
-        if i not in self._bound_blocks:
-            if self.is_lazy:
-                raw_value = self.stream_data[i]
-                type_name = raw_value['type']
-                child_block = self.stream_block.child_blocks[type_name]
-                self._prefetch_blocks(type_name, child_block)
-                return self._bound_blocks[i]
-            else:
+        if is_lazy:
+            # store raw stream data in _raw_data; on retrieval it will be converted to a native
+            # value (via block.to_python) and wrapped as a StreamValue, and cached in _bound_blocks.
+            self._raw_data = stream_data
+            self._bound_blocks = {}
+        else:
+            # store native stream data in _bound_blocks; on serialization it will be converted to
+            # a JSON-ish representation via block.get_prep_value.
+            self._bound_blocks = {}
+            for i, item in enumerate(stream_data):
                 try:
-                    type_name, value, block_id = self.stream_data[i]
+                    type_name, value, block_id = item
                 except ValueError:
-                    type_name, value = self.stream_data[i]
+                    type_name, value = item
                     block_id = None
 
-                child_block = self.stream_block.child_blocks[type_name]
+                block_def = self.stream_block.child_blocks[type_name]
+                self._bound_blocks[i] = StreamValue.StreamChild(block_def, value, id=block_id)
 
-            self._bound_blocks[i] = StreamValue.StreamChild(child_block, value, id=block_id)
+    def __getitem__(self, i):
+        if i not in range(0, self._length):
+            raise IndexError("list index out of range")
+
+        if i not in self._bound_blocks:
+            raw_value = self._raw_data[i]
+            self._prefetch_blocks(raw_value['type'])
 
         return self._bound_blocks[i]
 
-    def _prefetch_blocks(self, type_name, child_block):
-        """Prefetch all child blocks for the given `type_name` using the
-        given `child_blocks`.
-
-        This prevents n queries for n blocks of a specific type.
+    def _prefetch_blocks(self, type_name):
         """
+        Populate _bound_blocks with all items in this stream of type `type_name` that exist in
+        _raw_data but do not already exist in _bound_blocks.
+
+        Fetching is done via the block's bulk_to_python method, so that database lookups are
+        batched into a single query where possible.
+        """
+        child_block = self.stream_block.child_blocks[type_name]
         # create a mapping of all the child blocks matching the given block type,
         # mapping (index within the stream) => (raw block value)
         raw_values = OrderedDict(
-            (i, item['value']) for i, item in enumerate(self.stream_data)
-            if item['type'] == type_name
+            (i, raw_item['value']) for i, raw_item in enumerate(self._raw_data)
+            if raw_item['type'] == type_name and i not in self._bound_blocks
         )
         # pass the raw block values to bulk_to_python as a list
         converted_values = child_block.bulk_to_python(raw_values.values())
 
-        # reunite the converted values with their stream indexes
+        # reunite the converted values with their stream indexes, along with the block ID
+        # if one exists
         for i, value in zip(raw_values.keys(), converted_values):
-            # also pass the block ID to StreamChild, if one exists for this stream index
-            block_id = self.stream_data[i].get('id')
-            self._bound_blocks[i] = StreamValue.StreamChild(child_block, value, id=block_id)
+            self._bound_blocks[i] = StreamValue.StreamChild(
+                child_block, value, id=self._raw_data[i].get('id')
+            )
 
     def get_prep_value(self):
         prep_value = []
 
-        for i, stream_data_item in enumerate(self.stream_data):
-            if self.is_lazy and i not in self._bound_blocks:
-                # This child has not been accessed as a bound block, so its raw JSONish
-                # value (stream_data_item here) is still valid
-                prep_value_item = stream_data_item
+        for i in range(0, self._length):
+            if i in self._bound_blocks:
+                # Convert the native value back into raw JSONish data
+                item = self._bound_blocks[i]
+                if not item.id:
+                    item.id = str(uuid.uuid4())
 
-                # As this method is preparing this value to be saved to the database,
-                # this is an appropriate place to ensure that each block has a unique id.
-                prep_value_item['id'] = prep_value_item.get('id', str(uuid.uuid4()))
-
+                prep_value.append({
+                    'type': item.block_type,
+                    'value': item.block.get_prep_value(item.value),
+                    'id': item.id,
+                })
             else:
-                # convert the bound block back into JSONish data
-                child = self[i]
-                # As this method is preparing this value to be saved to the database,
-                # this is an appropriate place to ensure that each block has a unique id.
-                child.id = child.id or str(uuid.uuid4())
-                prep_value_item = {
-                    'type': child.block.name,
-                    'value': child.block.get_prep_value(child.value),
-                    'id': child.id,
-                }
+                # item has not been converted to a BoundBlock, so its _raw_data entry is
+                # still usable (but ensure it has an ID before returning it)
 
-            prep_value.append(prep_value_item)
+                raw_item = self._raw_data[i]
+                if not raw_item.get('id'):
+                    raw_item['id'] = str(uuid.uuid4())
+
+                prep_value.append(raw_item)
 
         return prep_value
 
     def __eq__(self, other):
-        if not isinstance(other, StreamValue):
+        if not isinstance(other, StreamValue) or len(other) != self._length:
             return False
 
-        return self.stream_data == other.stream_data
+        # scan both lists for non-matching items
+        for i in range(0, self._length):
+            if i not in self._bound_blocks and i not in other._bound_blocks:
+                # compare raw values as a shortcut to save the conversion step
+                if self._raw_data[i] != other._raw_data[i]:
+                    return False
+            else:
+                this_item = self[i]
+                other_item = other[i]
+                if (
+                    this_item.block_type != other_item.block_type
+                    or this_item.id != other_item.id
+                    or this_item.value != other_item.value
+                ):
+                    return False
+
+        return True
 
     def __len__(self):
-        return len(self.stream_data)
+        return self._length
 
     def __repr__(self):
         return repr(list(self))
