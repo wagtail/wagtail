@@ -184,7 +184,7 @@ class TestLocaleSelectorOnList(TestCase, WagtailTestUtils):
             reverse('wagtailsnippets:list', args=['tests', 'advert'])
         )
 
-        self.assertNotContains(response, 'French')
+        self.assertNotContains(response, 'aria-label="French" class="u-link is-live">')
 
         # Check that the add URLs don't include the locale
         add_url = reverse('wagtailsnippets:add', args=['tests', 'advert'])
@@ -715,6 +715,9 @@ class TestEditFileUploadSnippet(BaseTestSnippetEditView):
 class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
     fixtures = ['test.json']
 
+    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button  u-btn-current">'
+    LOCALE_INDICATOR_HTML = '<use href="#icon-site"></use></svg>\n    English'
+
     def setUp(self):
         super().setUp()
         self.test_snippet = TranslatableSnippet.objects.create(text="This is a test")
@@ -725,7 +728,7 @@ class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
     def test_locale_selector(self):
         response = self.get()
 
-        self.assertContains(response, 'English')
+        self.assertContains(response, self.LOCALE_SELECTOR_HTML)
 
         switch_to_french_url = reverse('wagtailsnippets:edit', args=['snippetstests', 'translatablesnippet', quote(self.test_snippet_fr.pk)])
         self.assertContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
@@ -735,7 +738,7 @@ class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
 
         response = self.get()
 
-        self.assertContains(response, 'English')
+        self.assertContains(response, self.LOCALE_INDICATOR_HTML)
 
         switch_to_french_url = reverse('wagtailsnippets:edit', args=['snippetstests', 'translatablesnippet', quote(self.test_snippet_fr.pk)])
         self.assertNotContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
@@ -744,7 +747,7 @@ class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
     def test_locale_selector_not_present_when_i18n_disabled(self):
         response = self.get()
 
-        self.assertNotContains(response, 'English')
+        self.assertNotContains(response, self.LOCALE_SELECTOR_HTML)
 
         switch_to_french_url = reverse('wagtailsnippets:edit', args=['snippetstests', 'translatablesnippet', quote(self.test_snippet_fr.pk)])
         self.assertNotContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
@@ -754,7 +757,7 @@ class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
 
         response = self.get()
 
-        self.assertNotContains(response, 'English')
+        self.assertNotContains(response, self.LOCALE_SELECTOR_HTML)
         self.assertNotContains(response, 'aria-label="French" class="u-link is-live">')
 
 

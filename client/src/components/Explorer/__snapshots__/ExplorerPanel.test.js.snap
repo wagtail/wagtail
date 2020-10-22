@@ -7,7 +7,7 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__header",
+      "initialFocus": ".c-explorer__header__title",
       "onDeactivate": [MockFunction],
     }
   }
@@ -91,7 +91,7 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__header",
+      "initialFocus": ".c-explorer__header__title",
       "onDeactivate": [MockFunction],
     }
   }
@@ -162,7 +162,7 @@ exports[`ExplorerPanel general rendering #items 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__header",
+      "initialFocus": ".c-explorer__header__title",
       "onDeactivate": [MockFunction],
     }
   }
@@ -255,7 +255,7 @@ exports[`ExplorerPanel general rendering no children 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__header",
+      "initialFocus": ".c-explorer__header__title",
       "onDeactivate": [MockFunction],
     }
   }
@@ -317,7 +317,7 @@ exports[`ExplorerPanel general rendering renders 1`] = `
   className="explorer"
   focusTrapOptions={
     Object {
-      "initialFocus": ".c-explorer__header",
+      "initialFocus": ".c-explorer__header__title",
       "onDeactivate": [MockFunction],
     }
   }

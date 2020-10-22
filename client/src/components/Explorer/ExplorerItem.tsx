@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
+import { ADMIN_URLS, STRINGS, LOCALE_NAMES } from '../../config/wagtailConfig';
 import Icon from '../../components/Icon/Icon';
 import Button from '../../components/Button/Button';
 import PublicationStatus from '../../components/PublicationStatus/PublicationStatus';
@@ -26,6 +26,7 @@ const ExplorerItem: React.FunctionComponent<ExplorerItemProps> = ({ item, onClic
   const { id, admin_display_title: title, meta } = item;
   const hasChildren = meta.children.count > 0;
   const isPublished = meta.status.live && !meta.status.has_unpublished_changes;
+  const localeName = meta.parent?.id === 1 && meta.locale && (LOCALE_NAMES.get(meta.locale) || meta.locale);
 
   return (
     <div className="c-explorer__item">
@@ -36,11 +37,12 @@ const ExplorerItem: React.FunctionComponent<ExplorerItemProps> = ({ item, onClic
           {title}
         </h3>
 
-        {!isPublished ? (
+        {(!isPublished || localeName) &&
           <span className="c-explorer__meta">
-            <PublicationStatus status={meta.status} />
+            {localeName && <span className="o-pill c-status">{localeName}</span>}
+            {!isPublished && <PublicationStatus status={meta.status} />}
           </span>
-        ) : null}
+        }
       </Button>
       <Button
         href={`${ADMIN_URLS.PAGES}${id}/edit/`}
