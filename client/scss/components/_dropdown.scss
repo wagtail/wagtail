@@ -19,6 +19,16 @@
     user-select: none;
 }
 
+.c-dropdown--large .c-dropdown__button {
+    line-height: 2.9em;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    .icon-site {
+        padding-right: 0.2rem;
+    }
+}
+
 .c-dropdown__toggle {
     display: inline-block;
 }
@@ -56,6 +66,9 @@
     z-index: 1;
     animation: dropdownIn 0.1s ease-out backwards;
     list-style: none;
+    // Override any right alignment that might've been set by a parent element
+    // (such as the snippets header)
+    text-align: left;
 }
 
 .c-dropdown__item {
