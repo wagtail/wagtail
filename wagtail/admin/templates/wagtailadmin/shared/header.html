@@ -38,14 +38,16 @@
                 </form>
             {% endif %}
         </div>
-        <div class="right">
-            {% if action_url %}
-                <div class="actionbutton">
-                    {% with action_icon|default:'plus' as action_icon_name %}
-                    <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text }}</a>
-                    {% endwith %}
-                </div>
-            {% endif %}
+        <div class="{% block right_column_classname %}right{% endblock %}">
+            {% block right_column %}
+                {% if action_url %}
+                    <div class="actionbutton">
+                        {% with action_icon|default:'plus' as action_icon_name %}
+                        <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text }}</a>
+                        {% endwith %}
+                    </div>
+                {% endif %}
+            {% endblock %}
         </div>
     </div>
 </header>

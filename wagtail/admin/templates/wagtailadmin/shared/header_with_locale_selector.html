@@ -1,0 +1,17 @@
+{% extends "wagtailadmin/shared/header.html" %}
+
+{% block right_column_classname %}right col{% endblock %}
+{% block right_column %}
+    <form>  {# HACK Removes list-style-type #}
+        <ul class="fields row rowflush">
+            {% if locale %}
+                <li class="col">
+                    <div class="field">
+                        {% include 'wagtailadmin/shared/locale_selector.html' with class='c-dropdown--large' %}
+                    </div>
+                </li>
+            {% endif %}
+        </ul>
+    </form>
+    {{ block.super }}
+{% endblock %}
