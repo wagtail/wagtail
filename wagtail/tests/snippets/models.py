@@ -4,6 +4,7 @@ from modelcluster.models import ClusterableModel
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.core.fields import RichTextField
+from wagtail.core.models import TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
@@ -93,4 +94,9 @@ class MultiSectionRichTextSnippet(ClusterableModel):
 @register_snippet
 class StandardSnippetWithCustomPrimaryKey(models.Model):
     snippet_id = models.CharField(max_length=255, primary_key=True)
+    text = models.CharField(max_length=255)
+
+
+@register_snippet
+class TranslatableSnippet(TranslatableMixin, models.Model):
     text = models.CharField(max_length=255)

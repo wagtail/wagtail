@@ -1,6 +1,7 @@
 from urllib.parse import urlencode
 
 from django.apps import apps
+from django.conf import settings
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
@@ -16,6 +17,7 @@ from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.forms.search import SearchForm
 from wagtail.core import hooks
+from wagtail.core.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.action_menu import SnippetActionMenu
@@ -83,6 +85,23 @@ def list(request, app_label, model_name):
         raise PermissionDenied
 
     items = model.objects.all()
+    enable_locale_filter = getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and issubclass(model, TranslatableMixin)
+
+    if enable_locale_filter:
+        if 'locale' in request.GET:
+            try:
+                locale = Locale.objects.get(language_code=request.GET['locale'])
+            except Locale.DoesNotExist:
+                # Redirect to snippet without locale
+                return redirect('wagtailsnippets:list', app_label, model_name)
+        else:
+            # Default to active locale (this will take into account the user's chosen admin language)
+            locale = Locale.get_active()
+
+        items = items.filter(locale=locale)
+
+    else:
+        locale = None
 
     # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
     # (to ensure pagination is consistent)
@@ -119,7 +138,7 @@ def list(request, app_label, model_name):
     else:
         template = 'wagtailsnippets/snippets/type_index.html'
 
-    return TemplateResponse(request, template, {
+    context = {
         'model_opts': model._meta,
         'items': paginated_items,
         'can_add_snippet': request.user.has_perm(get_permission_name('add', model)),
@@ -128,7 +147,23 @@ def list(request, app_label, model_name):
         'search_form': search_form,
         'is_searching': is_searching,
         'query_string': search_query,
-    })
+        'locale': None,
+        'translations': [],
+    }
+
+    if enable_locale_filter:
+        context.update({
+            'locale': locale,
+            'translations': [
+                {
+                    'locale': locale,
+                    'url': reverse('wagtailsnippets:list', args=[app_label, model_name]) + '?locale=' + locale.language_code
+                }
+                for locale in Locale.objects.all().exclude(id=locale.id)
+            ],
+        })
+
+    return TemplateResponse(request, template, context)
 
 
 def create(request, app_label, model_name):

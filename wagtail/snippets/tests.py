@@ -17,7 +17,7 @@ from taggit.models import Tag
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core import hooks
-from wagtail.core.models import Page
+from wagtail.core.models import Locale, Page
 from wagtail.snippets.action_menu import ActionMenuItem, get_base_snippet_action_menu_items
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -143,6 +143,38 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/listing_buttons.html')
         self.assertContains(response, 'Dummy Button')
         self.assertContains(response, '/dummy-button')
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestLocaleSelectorOnList(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.fr_locale = Locale.objects.create(language_code='fr')
+        self.user = self.login()
+
+    def test_locale_selector(self):
+        response = self.client.get(
+            reverse('wagtailsnippets:list', args=['snippetstests', 'translatablesnippet'])
+        )
+
+        switch_to_french_url = reverse('wagtailsnippets:list', args=['snippetstests', 'translatablesnippet']) + '?locale=fr'
+        self.assertContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_selector_not_present_when_i18n_disabled(self):
+        response = self.client.get(
+            reverse('wagtailsnippets:list', args=['snippetstests', 'translatablesnippet'])
+        )
+
+        switch_to_french_url = reverse('wagtailsnippets:list', args=['snippetstests', 'translatablesnippet']) + '?locale=fr'
+        self.assertNotContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
+
+    def test_locale_selector_not_present_on_non_translatable_snippet(self):
+        response = self.client.get(
+            reverse('wagtailsnippets:list', args=['tests', 'advert'])
+        )
+
+        switch_to_french_url = reverse('wagtailsnippets:list', args=['tests', 'advert']) + '?locale=fr'
+        self.assertNotContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
 
 
 class TestModelOrdering(TestCase, WagtailTestUtils):
