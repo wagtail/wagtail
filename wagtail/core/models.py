@@ -574,6 +574,11 @@ class BootstrapTranslatableMixin(TranslatableMixin):
         Locale, on_delete=models.PROTECT, null=True, related_name="+", editable=False
     )
 
+    @classmethod
+    def check(cls, **kwargs):
+        # skip the check in TranslatableMixin that enforces the unique-together constraint
+        return super(TranslatableMixin, cls).check(**kwargs)
+
     class Meta:
         abstract = True
 

@@ -508,6 +508,13 @@ This will add the two fields without any constraints:
     class Advert(BootstrapTranslatableMixin, models.Model):
         name = models.CharField(max_length=255)
 
+        # if the model has a Meta class, ensure it inherits from
+        # BootstrapTranslatableMixin.Meta too
+        class Meta(BootstrapTranslatableMixin.Meta):
+            verbose_name = 'adverts'
+
+Run ``python manage.py makemigrations myapp`` to generate the schema migration.
+
 Step 2: Create a data migration
 *******************************
 
@@ -524,7 +531,7 @@ in that app:
 .. code-block:: python
 
     from django.db import migrations
-    from wagtail_localize.bootstrap import BootstrapTranslatableModel
+    from wagtail.core.models import BootstrapTranslatableModel
 
     class Migration(migrations.Migration):
         dependencies = [
@@ -556,6 +563,9 @@ constraints:
     class Advert(TranslatableMixin, models.Model):  # Change this line
         name = models.CharField(max_length=255)
 
+        class Meta(TranslatableMixin.Meta):  # Change this line, if present
+            verbose_name = 'adverts'
+
 Step 4: Run ``makemigrations`` to generate schema migrations, then migrate!
 ***************************************************************************
 
@@ -565,8 +575,13 @@ migrations:
 
 .. code-block:: bash
 
-    python manage.py makemigrations myapp --empty
+    python manage.py makemigrations myapp
     python manage.py migrate
+
+When prompted to select a fix for the nullable field 'locale' being changed to
+non-nullable, select the option "Ignore for now" (as this has been handled by the
+data migration).
+
 
 Translation workflow
 --------------------
