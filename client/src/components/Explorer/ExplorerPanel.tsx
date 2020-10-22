@@ -162,7 +162,7 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
         className="explorer"
         paused={paused || !page || page.isFetching}
         focusTrapOptions={{
-          initialFocus: '.c-explorer__header',
+          initialFocus: '.c-explorer__header__title',
           onDeactivate: onClose,
         }}
       >

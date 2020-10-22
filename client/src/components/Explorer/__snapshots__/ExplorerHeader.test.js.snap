@@ -1,79 +1,91 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExplorerHeader #depth at root 1`] = `
-<Button
-  accessibleLabel={null}
+<div
   className="c-explorer__header"
-  dialogTrigger={false}
-  href="/admin/pages/"
-  isLoading={false}
-  onClick={[MockFunction]}
-  preventDefault={true}
-  target={null}
 >
-  <div
-    className="c-explorer__header__inner"
+  <Button
+    accessibleLabel={null}
+    className="c-explorer__header__title "
+    dialogTrigger={false}
+    href="/admin/pages/undefined/"
+    isLoading={false}
+    onClick={[MockFunction]}
+    preventDefault={true}
+    target={null}
   >
-    <Icon
-      className="icon--explorer-header"
-      name="home"
-      title={null}
-    />
-    <span>
-      Pages
-    </span>
-  </div>
-</Button>
+    <div
+      className="c-explorer__header__title__inner "
+    >
+      <Icon
+        className="icon--explorer-header"
+        name="home"
+        title={null}
+      />
+      <span>
+        Pages
+      </span>
+    </div>
+  </Button>
+</div>
 `;
 
 exports[`ExplorerHeader #page 1`] = `
-<Button
-  accessibleLabel={null}
+<div
   className="c-explorer__header"
-  dialogTrigger={false}
-  href="/admin/pages/a/"
-  isLoading={false}
-  onClick={[MockFunction]}
-  preventDefault={true}
-  target={null}
 >
-  <div
-    className="c-explorer__header__inner"
+  <Button
+    accessibleLabel={null}
+    className="c-explorer__header__title "
+    dialogTrigger={false}
+    href="/admin/pages/a/"
+    isLoading={false}
+    onClick={[MockFunction]}
+    preventDefault={true}
+    target={null}
   >
-    <Icon
-      className="icon--explorer-header"
-      name="arrow-left"
-      title={null}
-    />
-    <span>
-      test
-    </span>
-  </div>
-</Button>
+    <div
+      className="c-explorer__header__title__inner "
+    >
+      <Icon
+        className="icon--explorer-header"
+        name="arrow-left"
+        title={null}
+      />
+      <span>
+        test
+      </span>
+    </div>
+  </Button>
+</div>
 `;
 
 exports[`ExplorerHeader basic 1`] = `
-<Button
-  accessibleLabel={null}
+<div
   className="c-explorer__header"
-  dialogTrigger={false}
-  href="/admin/pages/"
-  isLoading={false}
-  onClick={[MockFunction]}
-  preventDefault={true}
-  target={null}
 >
-  <div
-    className="c-explorer__header__inner"
+  <Button
+    accessibleLabel={null}
+    className="c-explorer__header__title "
+    dialogTrigger={false}
+    href="/admin/pages/undefined/"
+    isLoading={false}
+    onClick={[MockFunction]}
+    preventDefault={true}
+    target={null}
   >
-    <Icon
-      className="icon--explorer-header"
-      name="arrow-left"
-      title={null}
-    />
-    <span>
-      Pages
-    </span>
-  </div>
-</Button>
+    <div
+      className="c-explorer__header__title__inner "
+    >
+      <Icon
+        className="icon--explorer-header"
+        name="arrow-left"
+        title={null}
+      />
+      <span>
+        Pages
+      </span>
+    </div>
+  </Button>
+</div>
 `;

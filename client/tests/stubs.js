@@ -47,6 +47,18 @@ global.wagtailConfig = {
     VIEW_CHILD_PAGES_OF_PAGE: 'View child pages of \'{title}\'',
     PAGE_EXPLORER: 'Page explorer',
   },
+  WAGTAIL_I18N_ENABLED: true,
+  LOCALES: [
+    {
+      code: 'en',
+      display_name: 'English'
+    },
+    {
+      code: 'fr',
+      display_nam: 'French'
+    }
+  ],
+  ACTIVE_LOCALE: 'en'
 };
 
 global.wagtailVersion = '1.6a1';

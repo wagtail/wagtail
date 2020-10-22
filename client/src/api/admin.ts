@@ -15,6 +15,7 @@ export interface WagtailPageAPI {
     parent: {
       id: number;
     } | null;
+    locale?: string;
   };
   /* eslint-disable-next-line camelcase */
   admin_display_title?: string;
