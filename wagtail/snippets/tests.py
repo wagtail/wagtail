@@ -27,7 +27,8 @@ from wagtail.snippets.widgets import SnippetListingButton
 from wagtail.tests.snippets.forms import FancySnippetForm
 from wagtail.tests.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
-    SearchableSnippet, StandardSnippet, StandardSnippetWithCustomPrimaryKey, ZuluSnippet)
+    SearchableSnippet, StandardSnippet, StandardSnippetWithCustomPrimaryKey, TranslatableSnippet,
+    ZuluSnippet)
 from wagtail.tests.testapp.models import (
     Advert, AdvertWithCustomPrimaryKey, AdvertWithCustomUUIDPrimaryKey, AdvertWithTabbedInterface,
     SnippetChooserModel, SnippetChooserModelWithCustomPrimaryKey)
@@ -660,6 +661,53 @@ class TestEditFileUploadSnippet(BaseTestSnippetEditView):
                                                args=('snippetstests', 'fileuploadsnippet')))
         snippet = FileUploadSnippet.objects.get()
         self.assertEqual(snippet.file.read(), b"Replacement document")
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestLocaleSelectorOnEdit(BaseTestSnippetEditView):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        super().setUp()
+        self.test_snippet = TranslatableSnippet.objects.create(text="This is a test")
+        self.fr_locale = Locale.objects.create(language_code='fr')
+        self.test_snippet_fr = self.test_snippet.copy_for_translation(self.fr_locale)
+        self.test_snippet_fr.save()
+
+    def test_locale_selector(self):
+        response = self.get()
+
+        self.assertContains(response, 'English')
+
+        switch_to_french_url = reverse('wagtailsnippets:edit', args=['snippetstests', 'translatablesnippet', quote(self.test_snippet_fr.pk)])
+        self.assertContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
+
+    def test_locale_selector_without_translation(self):
+        self.test_snippet_fr.delete()
+
+        response = self.get()
+
+        self.assertContains(response, 'English')
+
+        switch_to_french_url = reverse('wagtailsnippets:edit', args=['snippetstests', 'translatablesnippet', quote(self.test_snippet_fr.pk)])
+        self.assertNotContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_selector_not_present_when_i18n_disabled(self):
+        response = self.get()
+
+        self.assertNotContains(response, 'English')
+
+        switch_to_french_url = reverse('wagtailsnippets:edit', args=['snippetstests', 'translatablesnippet', quote(self.test_snippet_fr.pk)])
+        self.assertNotContains(response, f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">')
+
+    def test_locale_selector_not_present_on_non_translatable_snippet(self):
+        self.test_snippet = Advert.objects.get(pk=1)
+
+        response = self.get()
+
+        self.assertNotContains(response, 'English')
+        self.assertNotContains(response, 'aria-label="French" class="u-link is-live">')
 
 
 class TestSnippetDelete(TestCase, WagtailTestUtils):
