@@ -2,8 +2,29 @@
 {% load wagtailadmin_tags i18n %}
 {% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=instance icon="snippet" tabbed=1 merged=1 %}
+    <header class="merged tab-merged">
+        <div class="row">
+            <div class="left">
+                <div class="col header-title">
+                    <h1>{% icon name="snippet" class_name="header-title-icon" %}
+                    {% trans "Editing" %} <span>{{ instance }}</span></h1>
+                </div>
+            </div>
+            <div class="right col">
+                <form>  {# HACK Removes list-style-type #}
+                    <ul class="fields row rowflush">
+                        {% if locale %}
+                            <li class="col">
+                                <div class="field">
+                                    {% include 'wagtailadmin/shared/locale_selector.html' with class='c-dropdown--large' %}
+                                </div>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </header>
 
     <div class="row row-flush">
 

@@ -277,13 +277,29 @@ def edit(request, app_label, model_name, pk):
 
     edit_handler = edit_handler.bind_to(form=form)
 
-    return TemplateResponse(request, 'wagtailsnippets/snippets/edit.html', {
+    context = {
         'model_opts': model._meta,
         'instance': instance,
         'edit_handler': edit_handler,
         'form': form,
         'action_menu': SnippetActionMenu(request, view='edit', instance=instance),
-    })
+        'locale': None,
+        'translations': [],
+    }
+
+    if getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and issubclass(model, TranslatableMixin):
+        context.update({
+            'locale': instance.locale,
+            'translations': [
+                {
+                    'locale': translation.locale,
+                    'url': reverse('wagtailsnippets:edit', args=[app_label, model_name, quote(translation.pk)])
+                }
+                for translation in instance.get_translations().select_related('locale')
+            ],
+        })
+
+    return TemplateResponse(request, 'wagtailsnippets/snippets/edit.html', context)
 
 
 def delete(request, app_label, model_name, pk=None):
