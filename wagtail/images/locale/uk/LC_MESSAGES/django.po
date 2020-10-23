@@ -4,13 +4,14 @@
 #
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-10-08 17:05+0000\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -193,6 +194,19 @@ msgstr "Редагування"
 
 msgid "URL Generator"
 msgstr "Генератор URL"
+
+msgid "Focal point"
+msgstr "Фокус"
+
+msgid "(optional)"
+msgstr "(необов'язково)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Щоб позначити найбільш важливий регіон цього зображення, перетягніть рамку "
+"на картинці вище."
 
 msgid "Current focal point shown"
 msgstr "Показано поточний фокус"

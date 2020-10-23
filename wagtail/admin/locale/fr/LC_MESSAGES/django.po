@@ -10,6 +10,7 @@
 # Axel Haustant, 2016
 # Benoît Vogel <contact@spicy-informatique.com>, 2016,2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
+# fabienheureux <contact@fabienlefrapper.me>, 2020
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
@@ -28,8 +29,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-09-14 11:09+0000\n"
+"Last-Translator: fabienheureux <contact@fabienlefrapper.me>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1782,7 +1783,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"            JavaScript is required to use Wagtail, but it is currently "
+"            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
@@ -1790,7 +1791,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"            JavaScript est nécessaire pour utiliser Wagtail, mais est "
+"            Javascript est nécessaire pour utiliser Wagtail, mais est "
 "actuellement désactivé.<br />\n"
 "            Voici les <a href=\"https://www.enable-javascript.com/\" target="
 "\"_blank\" rel=\"noopener noreferrer\">instructions à suivre pour activer "
@@ -1901,7 +1902,7 @@ msgstr ""
 msgid ""
 "There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
 msgstr ""
-"Il n'y a pas de workflow d'activer. Pourquoi ne pas <a href=\"%(add_url)s"
+"Il n'y a pas de workflow d'activé. Pourquoi ne pas <a href=\"%(add_url)s"
 "\">en ajouter un</a> ?"
 
 msgid "Choose which type of task you'd like to create."

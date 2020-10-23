@@ -4,8 +4,8 @@
 #
 # Translators:
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
-# Rauli L. <rauli.laine@iki.fi>, 2016
-# Rauli L. <rauli.laine@iki.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-08-01 19:19+0000\n"
+"PO-Revision-Date: 2020-10-09 12:30+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -72,13 +72,31 @@ msgid "Filter"
 msgstr "Filter"
 
 msgid "Original size"
-msgstr "Originalna veličina"
+msgstr "Izvorna veličina"
+
+msgid "Resize to width"
+msgstr "Obzirom na širinu"
+
+msgid "Resize to height"
+msgstr "Obzirom na visinu"
+
+msgid "Resize to min"
+msgstr "Obizrom na najmanju dimenziju"
+
+msgid "Resize to max"
+msgstr "Obzirom na najveću dimenziju"
+
+msgid "Resize to fill"
+msgstr "Upotpuni"
 
 msgid "Width"
 msgstr "Širina"
 
 msgid "Height"
 msgstr "Visina"
+
+msgid "Closeness"
+msgstr "Bliskost"
 
 msgid "Add"
 msgstr "Dodaj"
@@ -88,6 +106,9 @@ msgstr "Dodaj/uredi vlastite slike"
 
 msgid "Edit"
 msgstr "Uredi"
+
+msgid "Edit any image"
+msgstr "Uređivanje bilo koje slike"
 
 msgid "title"
 msgstr "naslov"
@@ -122,6 +143,9 @@ msgstr "Odaberi sliku"
 msgid "Search"
 msgstr "Pretraži"
 
+msgid "Upload"
+msgstr "Prijenos"
+
 msgid "Popular tags"
 msgstr "Popularne oznake"
 
@@ -152,6 +176,33 @@ msgstr "Najnovije slike"
 
 msgid "Choose a format"
 msgstr "Odaberi format"
+
+msgid "Insert image"
+msgstr "Umetni sliku"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> Slika <span class=\"visuallyhidden\">stvorena u "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> Slika <span class=\"visuallyhidden\">stvorenih u "
+"%(site_name)s</span>"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> Slika <span class=\"visuallyhidden\">stvorenih u "
+"%(site_name)s</span>"
 
 msgid "Change image file:"
 msgstr "Promijeni sliku:"
@@ -197,8 +248,23 @@ msgstr "URL Generator"
 msgid "Focal point"
 msgstr "Žarišna točka"
 
+msgid "(optional)"
+msgstr "(neobavezno)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Kako bi naznačili najbitniji dio, povucite pravokutnik preko gornje slike."
+
+msgid "Current focal point shown"
+msgstr "Prikazana je trenutna žarišna točka"
+
 msgid "Remove focal area"
 msgstr "Izbriši žarišno područje"
+
+msgid "Max dimensions"
+msgstr "Maksimalne dimenzije"
 
 msgid "Filesize"
 msgstr "Veličina datoteke"
@@ -206,22 +272,111 @@ msgstr "Veličina datoteke"
 msgid "File not found"
 msgstr "Datoteka nije pronađena"
 
+msgid "Usage"
+msgstr "Upotreba"
+
 msgid "Images"
 msgstr "Slike"
 
 msgid "Popular Tags:"
 msgstr "Popularne Oznake:"
 
+msgid "Clear choice"
+msgstr "Poništi odabir"
+
+msgid "pixels"
+msgstr "piksela"
+
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Nažalost nisu pronađene slike koje odgovaraju \"<em>%(query_string)s</em>\""
 
+#, python-format
+msgid ""
+"You haven't uploaded any images in this collection. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Nemate slika u ovoj zbirci. Zašto ne biste <a href="
+"\"%(wagtailimages_add_image_url)s\">dodali jednu</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any images. Why not <a href="
+"\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
+msgstr ""
+"Nemate slika. Zašto ne biste <a href=\"%(wagtailimages_add_image_url)s"
+"\">dodali jednu</a>?"
+
+msgid "Generating URL"
+msgstr "Generiranje URL-a"
+
 msgid "URL"
 msgstr "URL"
 
+msgid "Preview"
+msgstr "Pregled"
+
+msgid ""
+"Note that images generated larger than the screen will appear smaller when "
+"previewed here, so they fit the screen."
+msgstr ""
+"Generirane slike veće od zaslona će ovdje biti prikazane u manjim "
+"dimenzijama kako bi stale na zaslon."
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Upotreba %(title)s"
+
+msgid "Usage of"
+msgstr "Upotreba"
+
+msgid "Title"
+msgstr "Naslov"
+
+msgid "Parent"
+msgstr "Roditelj"
+
+msgid "Type"
+msgstr "Vrsta"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Uredi ovu stranicu"
+
+msgid "Add multiple images"
+msgstr "Dodaj više slika"
+
+msgid "Add images"
+msgstr "Dodaj slike"
+
+msgid "Drag and drop images into this area to upload immediately."
+msgstr "Dovucite slike ovdje kako biste ih prenijeli."
+
+msgid "Or choose from your computer"
+msgstr "Ili odaberite sa vašeg računala"
+
+msgid "Add to collection:"
+msgstr "Dodaj u zbirku:"
+
+msgid ""
+"Upload successful. Please update this image with a more appropriate title, "
+"if necessary. You may also delete the image completely if the upload wasn't "
+"required."
+msgstr ""
+"Uspješan prijenos. Molimo preimenujte ovu sliku ako je to potrebno. Također "
+"možete izbrisati sliku ako njen prijenos nije bio potreban. "
+
+msgid "Sorry, upload failed."
+msgstr "Nažalost, prijenos nije uspio."
+
 msgid "Server Error"
 msgstr "Greška na poslužitelju"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Prijavite ovu grešku vašem webmasteru sa slijedećim informacijama:"
 
 msgid "Image updated."
 msgstr "Slika je ažurirana."
@@ -232,17 +387,38 @@ msgstr "Ažuriraj"
 msgid "Delete"
 msgstr "Izbriši"
 
+msgid "Image permissions"
+msgstr "Dozvole slike"
+
+msgid "Add an image permission"
+msgstr "Dodaj dozvolu slike"
+
 msgid "Search images"
 msgstr "Pretraži slike"
 
 msgid "Image '{0}' updated."
 msgstr "Slika '{0}' je ažurirana."
 
+msgid "Edit again"
+msgstr "Uredi ponovno"
+
+msgid "The image could not be saved due to errors."
+msgstr "Sliku nije moguće stvoriti zbog grešaka."
+
+msgid ""
+"The source image file could not be found. Please change the source or delete "
+"the image."
+msgstr ""
+"Izvorna slika nije pronađena. Molimo promijenite izvor ili izbrišite sliku."
+
 msgid "Image '{0}' deleted."
 msgstr "Slika '{0}' je izbrisana."
 
 msgid "Image '{0}' added."
 msgstr "Slika '{0}' je dodana."
+
+msgid "The image could not be created due to errors."
+msgstr "Sliku nije moguće stvoriti zbog grešaka."
 
 msgid "Image"
 msgstr "Slika"
@@ -258,4 +434,4 @@ msgid "Change image"
 msgstr "Promijeni sliku"
 
 msgid "Edit this image"
-msgstr "Uredi sliku"
+msgstr "Uredi ovu sliku"

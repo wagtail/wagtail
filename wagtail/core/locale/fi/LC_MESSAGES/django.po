@@ -7,8 +7,8 @@
 # Aarni Koskela, 2016
 # Glen Somerville <glen.somerville@gmail.com>, 2015
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
-# Rauli L. <rauli.laine@iki.fi>, 2016
-# Rauli L. <rauli.laine@iki.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""

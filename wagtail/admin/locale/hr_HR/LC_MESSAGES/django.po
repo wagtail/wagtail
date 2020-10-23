@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-10-10 22:06+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -29,11 +29,17 @@ msgstr "Objavi"
 msgid "Submit for moderation"
 msgstr "Pošalji moderatoru"
 
+msgid "Submit to {}"
+msgstr "Pošalji {}"
+
 msgid "Unpublish"
 msgstr "Odjavi"
 
 msgid "Delete"
 msgstr "Obriši"
+
+msgid "Lock"
+msgstr "Zaključaj"
 
 msgid "Unlock"
 msgstr "Odblokiraj"
@@ -50,6 +56,9 @@ msgstr "%(label)s i Objavi"
 
 msgid "Wagtail admin"
 msgstr "Wagtail administracija"
+
+msgid "Privacy"
+msgstr "Privatnost"
 
 msgid "Content"
 msgstr "Sadržaj"
@@ -88,11 +97,17 @@ msgstr "Unesite vašu email adresu kako bi ponovno postavili vašu lozinku"
 msgid "URL"
 msgstr "URL"
 
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "Nije moguće dodati više skupova dozvola za istu zbirku."
+
 msgid "New title"
 msgstr "Novi naslov"
 
 msgid "New slug"
 msgstr "Novi slug"
+
+msgid "New parent page"
+msgstr "Nova roditeljska stranica"
 
 msgid "Copy subpages"
 msgstr "Kopiraj podstranice"
@@ -112,6 +127,18 @@ msgstr "Stranica je objavljena. Želite li objaviti i njenu kopiju?"
 
 msgid "Publish copies"
 msgstr "Objavi kopije"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Nemate dozvolu za kopiranje stranice \"%(page_title)s\""
+
+#, python-format
+msgid ""
+"This slug is already in use within the context of its parent page \"%s\""
+msgstr "Slug se već koristi u kontekstu roditeljske stranice \"%s\""
+
+msgid "This slug is already in use"
+msgstr "Slug se već koristi"
 
 msgid "Expiry date/time must be in the future"
 msgstr "Datum/vrijeme isteka mora biti u budućnosti"
@@ -212,6 +239,9 @@ msgstr "Slovački"
 msgid "Thai"
 msgstr "Tajlandski"
 
+msgid "Turkish (Turkey)"
+msgstr "Turski (Turska)"
+
 msgid "Ukrainian"
 msgstr "Ukrajinski"
 
@@ -230,14 +260,41 @@ msgstr "Učitavanje..."
 msgid "No results"
 msgstr "Nema rezultata"
 
+msgid "Server Error"
+msgstr "Greška na poslužitelju"
+
+msgid "Alt text"
+msgstr "Alternativni tekst"
+
+msgid "Horizontal line"
+msgstr "Vodoravna linija"
+
+msgid "Line break"
+msgstr "Novi red"
+
+msgid "Undo"
+msgstr "Vrati"
+
+msgid "Redo"
+msgstr "Ponovi"
+
+msgid "Reload the page"
+msgstr "Ponovno učitaj stranicu"
+
 msgid "Show latest content"
 msgstr "Prikaži najnoviji sadržaj"
 
 msgid "Show error"
 msgstr "Prikaži grešku"
 
+msgid "Broken link"
+msgstr "Neispravna poveznica"
+
 msgid "Close"
 msgstr "Zatvori"
+
+msgid "Edit '{title}'"
+msgstr "Uredi '{title}'"
 
 msgid "January"
 msgstr "Siječanj"
@@ -323,6 +380,9 @@ msgstr "Greška 404: Stranica nije pronađena"
 msgid "Error 404"
 msgstr "Greška 404"
 
+msgid "Go to Wagtail admin"
+msgstr "Idi na Wagtail administraciju"
+
 msgid "Account"
 msgstr "Korisnički račun"
 
@@ -343,6 +403,9 @@ msgstr "Promijeni ime"
 
 msgid "Change password"
 msgstr "Promijeni lozinku"
+
+msgid "Set Time Zone"
+msgstr "Postavi vremensku zonu"
 
 msgid "Language Preferences"
 msgstr "Jezične postavke"
@@ -365,6 +428,12 @@ msgstr "Izbornik"
 msgid "External link"
 msgstr "Vanjska poveznica"
 
+msgid "Email link"
+msgstr "Email poveznica"
+
+msgid "Phone link"
+msgstr "Telefonska poveznica"
+
 msgid "Choose"
 msgstr "Odaberite"
 
@@ -374,8 +443,45 @@ msgstr "Odaberite stranicu"
 msgid "Add an external link"
 msgstr "Dodaj vanjsku poveznicu"
 
+msgid "Collection privacy"
+msgstr "Privatnost zbirke"
+
+msgid "Save"
+msgstr "Spremi"
+
+msgid "Set collection privacy. Current status: Public"
+msgstr "Postavi privatnost zbirke. Trenutni status: Javno"
+
 msgid "Public"
 msgstr "Javno"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Postavi privatnost zbirke. Trenutni status: Privatno"
+
+msgid "Private"
+msgstr "Privatno"
+
+msgid "Name"
+msgstr "Naziv"
+
+#, python-format
+msgid ""
+"No collections have been created. Why not <a href=\"%(add_collection_url)s"
+"\">add one</a>?"
+msgstr ""
+"Nema postavljenih zbirki. Zašto ne biste <a href=\"%(add_collection_url)s"
+"\">dodali jednu</a>?"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Dodaj %(label)s"
+
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+#, python-format
+msgid "Welcome to the %(site_name)s Wagtail CMS"
+msgstr "Dobrodošli na %(site_name)s Wagtail CMS "
 
 msgid "Locked at"
 msgstr "Zaključano u"
@@ -389,8 +495,21 @@ msgstr "Skica"
 msgid "Live"
 msgstr "Uživo"
 
+#, python-format
+msgid "%(time_period)s"
+msgstr "%(time_period)s"
+
+msgid "Parent"
+msgstr "Roditelj"
+
 msgid "Type"
 msgstr "Tip"
+
+msgid "Edited"
+msgstr "Uređeno"
+
+msgid "Preview this page"
+msgstr "Pregledaj ovu stranicu"
 
 msgid "Approve"
 msgstr "Odobri"
@@ -413,8 +532,246 @@ msgstr "Sažetak"
 msgid "Sign in"
 msgstr "Prijavi se"
 
+msgid "Signing in…"
+msgstr "Prijava u tijeku..."
+
+msgid "Page privacy"
+msgstr "Privatnost stranice"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Postavi privatnost stranice. Trenutni status: Javno"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Postavi privatnost stranice. Trenutni status: Privatno"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Privatnost stranice. Trenutni status: Public"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Privatnost stranice. Trenutni status: Privatno"
+
+msgid "Publishing…"
+msgstr "Objava u tijeku..."
+
+msgid "Publish this version"
+msgstr "Objavi ovu verziju"
+
+msgid "Saving…"
+msgstr "Spremanje..."
+
+msgid "Replace current draft"
+msgstr "Zamijeni trenutnu skicu"
+
+msgid "Save draft"
+msgstr "Spremi skicu"
+
+#, python-format
+msgid "Pages using %(page_type)s"
+msgstr "Stranice koje koriste %(page_type)s"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Izbriši %(title)s"
+
+msgid "Are you sure you want to delete this page?"
+msgstr "Jeste li sigurni da želite izbrisati stranicu?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                "
+msgid_plural ""
+"\n"
+"                    This will also delete %(descendant_count)s more "
+"subpages.\n"
+"                "
+msgstr[0] ""
+"\n"
+"Ovo će također izbrisati jednu podstranicu."
+msgstr[1] ""
+"\n"
+"Ovo će također izbrisati %(descendant_count)s podstranica."
+msgstr[2] ""
+"\n"
+"Ovo će također izbrisati %(descendant_count)s podstranica."
+
+msgid "Yes, delete it"
+msgstr "Da, izbriši"
+
+msgid "No, don't delete it"
+msgstr "Ne, nemoj izbrisati"
+
+#, python-format
+msgid "Move %(title)s"
+msgstr "Premjesti %(title)s"
+
+msgid "Move"
+msgstr "Premjesti"
+
+msgid "Yes, move this page"
+msgstr "Da, premjesti stranicu"
+
+#, python-format
+msgid "Unpublish %(title)s"
+msgstr "Odjavi %(title)s"
+
+msgid "Are you sure you want to unpublish this page?"
+msgstr "Jeste li sigurni da želite odjaviti stranicu?"
+
+msgid "Yes, unpublish it"
+msgstr "Da, odjavi"
+
+msgid "No, don't unpublish"
+msgstr "Ne, nemoj odjaviti"
+
+msgid "Publish page"
+msgstr "Objavi stranicu"
+
+msgid "Cancel"
+msgstr "Odustani"
+
+#, python-format
+msgid "Pages using %(page_class_verbose_name)s"
+msgstr "Stranice koje koriste %(page_class_verbose_name)s"
+
+msgid "Pages using"
+msgstr "Stranice koje koriste"
+
+#, python-format
+msgid "Copy %(title)s"
+msgstr "Kopiraj %(title)s"
+
+msgid "Copy"
+msgstr "Kopiraj"
+
+msgid "Copy this page"
+msgstr "Kopiraj ovu stranicu"
+
+msgid "This page has unsaved changes."
+msgstr "Stranica sadrži promjene koje nisu spremljene"
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Uređivanje %(page_type)s"
+
+msgid "History"
+msgstr "Povijest"
+
+msgid "User"
+msgstr "Korisnik"
+
+msgid "Date / Time"
+msgstr "Datum / Vrijeme"
+
 msgid "Live version"
 msgstr "Verzija uživo"
+
+msgid "Current draft"
+msgstr "Trenutna skica"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "Prije %(time_period)s"
+
+msgid "Updated"
+msgstr "Ažurirano"
+
+#, python-format
+msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
+msgstr "Zašto ne biste <a href=\"%(add_page_url)s\">stvorili jednu</a>?"
+
+msgid "Pagination"
+msgstr "Numeriranje stranica"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"Stranica %(page_number)s od %(num_pages)s"
+
+#, python-format
+msgid "Select a new parent page for %(title)s"
+msgstr "Odaberite novu roditeljsku stranicu za %(title)s"
+
+#, python-format
+msgid "Select a new parent page for <span>%(title)s</span>"
+msgstr "Odaberite novu roditeljsku stranicu za <span>%(title)s</span>"
+
+msgid "Current status:"
+msgstr "Trenutni status:"
+
+msgid "Set page privacy"
+msgstr "Postavi privatnost stranice"
+
+msgid "Page history"
+msgstr "Povijest stranice"
+
+msgid "Fields"
+msgstr "Polja"
+
+msgid "Changes"
+msgstr "Promjene"
+
+msgid "Unschedule"
+msgstr "Otkaži"
+
+msgid "Are you sure you want to unschedule this revision?"
+msgstr "Jeste li sigurni da želite otkazati ovu reviziju?"
+
+msgid "Yes, unschedule"
+msgstr "Da, otkaži"
+
+msgid "No, don't unschedule"
+msgstr "Ne, nemoj otkazati"
+
+#, python-format
+msgid "Revisions of %(title)s"
+msgstr "Revizije %(title)s"
+
+msgid "Revisions of"
+msgstr "Revizije"
+
+msgid "Revision date"
+msgstr "Datum revizije"
+
+msgid "Scheduled for"
+msgstr "Zakazano za"
+
+#, python-format
+msgid ""
+"\n"
+"                There is one matching page\n"
+"            "
+msgid_plural ""
+"\n"
+"                There are %(counter)s matching pages\n"
+"            "
+msgstr[0] ""
+"\n"
+"Pronađen je jedan rezultat"
+msgstr[1] ""
+"\n"
+"Pronađeno je %(counter)s rezultata"
+msgstr[2] ""
+"\n"
+"Pronađeno je %(counter)s rezultata"
+
+msgid "Page types"
+msgstr "Vrste stranica"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Status <span class=\"status-tag primary\">%(status)s</span>"
+
+msgid "Edit page"
+msgstr "Uredi stranicu"
+
+msgid "Collection"
+msgstr "Zbirka"
 
 msgid "Download XLSX"
 msgstr "Preuzmi XLSX"
@@ -422,29 +779,206 @@ msgstr "Preuzmi XLSX"
 msgid "Download CSV"
 msgstr "Preuzmi CSV"
 
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Apply filters"
+msgstr "Primjeni filtere"
+
+msgid "Locked"
+msgstr "Zaključano"
+
+msgid "No locked pages found."
+msgstr "Nema zaključanih stranica."
+
+msgid "Root"
+msgstr "Korijen"
+
+msgid "All collections"
+msgstr "Sve zbirke"
+
 msgid "Account settings"
 msgstr "Postavke računa"
+
+msgid "Log out"
+msgstr "Odjava"
+
+msgid "Current page status:"
+msgstr "Trenutni status stranice"
 
 msgid "Other searches"
 msgstr "Ostale pretrage"
 
+msgid "since"
+msgstr "od"
+
+msgid "Published"
+msgstr "Objavljeno"
+
+msgid "Draft saved"
+msgstr "Spremljena skica"
+
+msgid "Creating…"
+msgstr "Stvaranje..."
+
+#, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Nema postavljenih zadataka. Zašto ne biste <a href=\"%(add_url)s\">dodali "
+"jedan</a>?"
+
 msgid "Compare with live version"
 msgstr "Usporedi sa verzijom uživo"
+
+msgid "0 minutes"
+msgstr "0 minuta"
+
+msgid "live"
+msgstr "uživo"
+
+msgid "live + draft"
+msgstr "uživo + skica"
+
+msgid "draft"
+msgstr "skica"
 
 msgid "Test"
 msgstr "Test"
 
+msgid "Your password has been changed successfully!"
+msgstr "Vaša lozinka je uspješno promijenjena."
+
+msgid "Your email has been changed successfully!"
+msgstr "Vaš email je uspješno promijenjen."
+
+msgid "Collections"
+msgstr "Zbirke"
+
+msgid "Add a collection"
+msgstr "Dodaj zbirku"
+
+msgid "Add collection"
+msgstr "Dodaj zbirku"
+
+msgid "Collection '{0}' created."
+msgstr "Zbirka '{0}' je stvorena."
+
+msgid "Collection '{0}' updated."
+msgstr "Zbirka '{0}' je ažurirana."
+
+msgid "The collection could not be saved due to errors."
+msgstr "Zbirku nije moguće sačuvati zbog grešaka."
+
+msgid "Delete collection"
+msgstr "Izbriši zbirku"
+
+msgid "Collection '{0}' deleted."
+msgstr "Zbirka '{0}' je izbrisana."
+
+msgid "Are you sure you want to delete this collection?"
+msgstr "Jeste li sigurni da želite izbrisati zbirku?"
+
+msgid "Editing"
+msgstr "Uređivanje"
+
 msgid "View live"
 msgstr "Pogledaj uživo"
 
+msgid "Page '{0}' created and published."
+msgstr "Stranica '{0}' je stvorena i objavljena."
+
 msgid "View draft"
 msgstr "Pogledaj skicu"
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Stranica '{0}' je stvorena i poslana moderatoru."
+
+msgid "Page '{0}' created."
+msgstr "Stranica '{0}' je stvorena."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Stranica '{}' je zaključana</b>."
+
+msgid "Page '{0}' has been published."
+msgstr "Stranica '{0}' je objavljena."
+
+msgid "The page could not be saved as it is locked"
+msgstr "Stranicu nije moguće sačuvati budući da je zaključana"
+
+msgid "Page '{0}' deleted."
+msgstr "Stranica '{0}' je izbrisana."
+
+msgid "Page '{0}' unpublished."
+msgstr "Stranica '{0}' je odjavljena."
+
+msgid "Page '{0}' moved."
+msgstr "Stranica '{0}' je premještena."
+
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Stranica '{0}' i podstranice '{1}' su kopirane."
+
+msgid "Page '{0}' copied."
+msgstr "Stranica '{0}' je kopirana."
+
+msgid "Page '{0}' published."
+msgstr "Stranica '{0}' je objavljena."
 
 msgid "Earliest"
 msgstr "Najranije"
 
 msgid "Latest"
 msgstr "Najnovije"
+
+msgid "revision {0} of \"{1}\""
+msgstr "revizija {0} od \"{1}\""
+
+msgid "Version {0} of \"{1}\" unscheduled."
+msgstr "Verzija {0} od \"{1}\" je otkazana."
+
+msgid "Locked pages"
+msgstr "Zaključane stranice"
+
+msgid "Page ID"
+msgstr "ID stranice"
+
+msgid "Page Title"
+msgstr "Naslov Stranice"
+
+msgid "Site history"
+msgstr "Povijest sjedišta"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Date/Time"
+msgstr "Datum/Vrijeme"
+
+msgid "Task '{0}' created."
+msgstr "Zadatak '{0}' je stvoren."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Uređivanje %(task_type)s"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Uredi '%(title)s'"
+
+msgid "More"
+msgstr "Više"
+
+#, python-format
+msgid "Move page '%(title)s'"
+msgstr "Premjesti stranicu '%(title)s'"
+
+#, python-format
+msgid "Copy page '%(title)s'"
+msgstr "Kopiraj stranicu '%(title)s'"
+
+#, python-format
+msgid "Delete page '%(title)s'"
+msgstr "Izbriši stranicu '%(title)s'"
 
 msgid "Set profile picture"
 msgstr "Postavite profilnu sliku"
@@ -468,6 +1002,12 @@ msgstr "Odabrana vremenska zona"
 msgid "Heading %(level)d"
 msgstr "Naslov %(level)d"
 
+msgid "Bulleted list"
+msgstr "Popis s predznacima"
+
+msgid "Numbered list"
+msgstr "Numerirani popis"
+
 msgid "Bold"
 msgstr "Podebljano"
 
@@ -489,8 +1029,54 @@ msgstr "Precrtano"
 msgid "Code"
 msgstr "Kod"
 
+msgid "Locked Pages"
+msgstr "Zaključane Stranice"
+
 msgid "Reports"
 msgstr "Izvješća"
+
+msgid "Created"
+msgstr "Stvoreno"
+
+msgid "Deleted"
+msgstr "Izbrisano"
+
+msgid "Publish scheduled draft"
+msgstr "Objavi zakazanu skicu"
+
+msgid "Unpublished"
+msgstr "Odjavljeno"
+
+msgid "Unlocked"
+msgstr "Otključano"
+
+msgid "Approved"
+msgstr "Odobreno"
+
+msgid "Rejected"
+msgstr "Odbijeno"
+
+msgid "Copied"
+msgstr "Kopirano"
+
+msgid "Moved"
+msgstr "Premješteno"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Preimenovano iz '%(old)s' u '%(new)s'"
+
+msgid "Renamed"
+msgstr "Preimenovano"
+
+msgid "Rename"
+msgstr "Preimenuj"
+
+msgid "Yes"
+msgstr "Da"
+
+msgid "No"
+msgstr "Ne"
 
 msgid "Clear choice"
 msgstr "Poništi odabir"

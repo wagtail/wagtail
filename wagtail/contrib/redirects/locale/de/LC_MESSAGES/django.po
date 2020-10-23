@@ -11,6 +11,7 @@
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# Patrick Hebner <hebner.tec@gmail.com>, 2020
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Vorlif <flori@vorlif.org>, 2015
@@ -21,8 +22,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-08-08 17:07+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2020-10-05 18:47+0000\n"
+"Last-Translator: Patrick Hebner <hebner.tec@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +43,19 @@ msgstr "Alle Websites"
 
 msgid "A redirect with this path already exists."
 msgstr "Eine Weiterleitung mit diesem Pfad existiert bereits."
+
+msgid "File to import"
+msgstr "Zu importierende Datei"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Unterstützte Formate: %(supported_formats)s"
+
+msgid "From field"
+msgstr "Von Feld"
+
+msgid "To field"
+msgstr "Zu Feld"
 
 msgid "redirect from"
 msgstr "Weiterleitung von"
@@ -81,6 +95,30 @@ msgstr "Speichern"
 msgid "Redirects"
 msgstr "Weiterleitungen"
 
+msgid "Import redirects"
+msgstr "Wichtige Weiterleitungen"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"<p>Wählen Sie eine Datei, in der die Weiterleitungen zeilenweise angeordnet "
+"sind. Die Datei sollte zwei Spalten enthalten, welche die Werte für "
+"<code>von</code> und <code>nach</code> repräsentieren (die Namen der Spalten "
+"sind beliebig wählbar).</p>\n"
+"<p>Nach dem Übermitteln der Datei werden Sie zu einer Bestätigungsseite "
+"weitergeleitet. Hier können Sie Ihre Weiterleitungen noch einmal anpassen, "
+"bevor diese importiert werden.</p> "
+
+msgid "Import"
+msgstr "Import"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Weiterleitung %(title)s löschen"
@@ -94,6 +132,18 @@ msgstr "Sind Sie sicher, dass Sie diese Weiterleitung löschen wollen?"
 msgid "Yes, delete"
 msgstr "Ja, löschen"
 
+msgid "Confirm import"
+msgstr "Import bestätigen"
+
+msgid "Confirm"
+msgstr "Bestätigen"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Preview"
+msgstr "Vorschau"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "%(title)s bearbeiten"
@@ -104,11 +154,27 @@ msgstr "Bearbeiten"
 msgid "Delete redirect"
 msgstr "Weiterleitung löschen"
 
+msgid "Summary"
+msgstr "Zusammenfassung"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"%(total)s Weiterleitungen gefunden, %(successes)s erstellt und %(errors)s "
+"Fehler gefunden."
+
 msgid "From"
 msgstr "Von"
 
 msgid "To"
 msgstr "Nach"
+
+msgid "Error"
+msgstr "Fehler"
+
+msgid "Continue"
+msgstr "Weiter"
 
 msgid "Site"
 msgstr "Seite"
@@ -170,3 +236,20 @@ msgstr "Weiterleitung ‚{0}‘ hinzugefügt"
 
 msgid "The redirect could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte die Weiterleitung nicht erstellt werden."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "Das Dateiformat des Types \"{}\" wird nicht unterstützt."
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "Die importierte Datei hat eine falsche Kodierung: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "Es sind %(error)s beim lesen der Datei %(filename)s aufgetreten."
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "%(total)d Weiterleitung wurde importiert."
+msgstr[1] "%(total)d Weiterleitungen wurden importiert."

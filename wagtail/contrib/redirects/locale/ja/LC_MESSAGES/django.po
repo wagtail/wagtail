@@ -4,6 +4,7 @@
 #
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2016
+# Tetsuya Morimoto <tetsuya.morimoto@gmail.com>, 2020
 # 小口英昭 <oguchi@bluff-lab.com>, 2019
 # 石田秀 <ishidashu@gmail.com>, 2015
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-09-07 01:43+0000\n"
+"Last-Translator: Tetsuya Morimoto <tetsuya.morimoto@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,19 @@ msgstr "全てのサイト"
 
 msgid "A redirect with this path already exists."
 msgstr "このリダイレクト先は既に登録されています。"
+
+msgid "File to import"
+msgstr "インポートファイル"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "サポートされているフォーマット: %(supported_formats)s"
+
+msgid "From field"
+msgstr "Fromフィールド"
+
+msgid "To field"
+msgstr "Toフィールド"
 
 msgid "redirect from"
 msgstr "リダイレクト元"
@@ -70,6 +84,28 @@ msgstr "保存"
 msgid "Redirects"
 msgstr "リダイレクト"
 
+msgid "Import redirects"
+msgstr "リダイレクトをインポート"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>リダイレクトは<code>from</code>と<code>to</code>の列で構成"
+"されます。複数のリダイレクトは複数行として含められます。ファイルを選択してく"
+"ださい (名前は何でも構いません) 。</p>\n"
+"                <p>ファイルをアップロード後、確認画面でインポート前にカスタマ"
+"イズできます。</p>"
+
+msgid "Import"
+msgstr "インポート"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "リダイレクト：%(title)sを削除"
@@ -83,6 +119,18 @@ msgstr "このリダイレクトを削除しますか？"
 msgid "Yes, delete"
 msgstr "はい、削除します"
 
+msgid "Confirm import"
+msgstr "インポート確認"
+
+msgid "Confirm"
+msgstr "確認"
+
+msgid "Cancel"
+msgstr "取り消し"
+
+msgid "Preview"
+msgstr "プレビュー"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "%(title)s を編集"
@@ -93,11 +141,27 @@ msgstr "編集"
 msgid "Delete redirect"
 msgstr "リダイレクトを削除"
 
+msgid "Summary"
+msgstr "概要"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"%(total)s件のリダイレクトを検出しました。作成は %(successes)s件でエラー"
+"は%(errors)s件です。"
+
 msgid "From"
 msgstr "リダイレクト元"
 
 msgid "To"
 msgstr "リダイレクト先"
+
+msgid "Error"
+msgstr "エラー"
+
+msgid "Continue"
+msgstr "続ける"
 
 msgid "Site"
 msgstr "サイト"
@@ -153,3 +217,19 @@ msgstr "リダイレクト： '{0}'が追加されました。"
 
 msgid "The redirect could not be created due to errors."
 msgstr "リダイレクトはエラーにより作成されませんでした。"
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "\"{}\" のファイルフォーマットはサポートしていません"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "不正なエンコーディングをもつインポートファイル: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "ファイルの読み込み中に%(error)sが発生: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "リダイレクト %(total)d 件をインポート"

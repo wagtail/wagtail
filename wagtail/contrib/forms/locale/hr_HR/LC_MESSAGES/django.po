@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-31 07:52+0000\n"
+"PO-Revision-Date: 2020-10-07 12:47+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -89,6 +89,10 @@ msgstr "unosi formulari"
 msgid "name"
 msgstr "naziv"
 
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr ""
+"Sigurna oznaka polja formulara, oznaka je pretvorena u ascii_snake_case."
+
 msgid "label"
 msgstr "oznaka"
 
@@ -128,8 +132,18 @@ msgstr "Datum unosa"
 msgid "Form"
 msgstr "Formular"
 
+msgid "Landing page"
+msgstr "Odredišna stranica"
+
 msgid "to address"
 msgstr "adresa primatelja"
+
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+"Neobavezno - ispunjeni formulari će biti poslani na ove email adrese. "
+"Odvojite više adresa zarezom."
 
 msgid "from address"
 msgstr "adresa pošiljatelja"
@@ -201,8 +215,14 @@ msgstr "Nema ispunjenih formulara %(title)s. "
 msgid "Title"
 msgstr "Naslov"
 
+msgid "Origin"
+msgstr "Ishodište"
+
 msgid "Delete selected submissions"
 msgstr "Izbriši odabrane unose"
+
+msgid "No form pages have been created."
+msgstr "Nema stranica s formularima."
 
 #, python-format
 msgid "One submission has been deleted."

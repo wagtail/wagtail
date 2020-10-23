@@ -6,6 +6,7 @@
 # fooflare <amos.oviedo@gmail.com>, 2014
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
+# Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
 # fooflare <amos.oviedo@gmail.com>, 2014
 # Joaquín T <joaquintita@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
@@ -20,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-09-23 01:52+0000\n"
+"Last-Translator: Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +57,9 @@ msgstr "Contraseña"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "La que ha ingresado no es correcta. Por favor intente de nuevo."
+
+msgid "Comment"
+msgstr "Comentario"
 
 msgid "hostname"
 msgstr "nombre del host"
@@ -97,6 +101,9 @@ msgstr "sitio"
 
 msgid "sites"
 msgstr "sitios"
+
+msgid "default"
+msgstr "predeterminado"
 
 #, python-format
 msgid ""
@@ -184,17 +191,26 @@ msgstr "última vez publicado en"
 msgid "latest revision created at"
 msgstr "última revisión creada a las"
 
+msgid "live revision"
+msgstr "revisión en vivo"
+
 msgid "This slug is already in use"
 msgstr "Este slug ya está en uso"
 
 msgid "scheduled"
 msgstr "Agendado"
 
+msgid "in moderation"
+msgstr "en moderación"
+
 msgid "draft"
 msgstr "Borrador"
 
 msgid "live + scheduled"
 msgstr "en vivo + programado"
+
+msgid "live + in moderation"
+msgstr "en vivo + en moderación"
 
 msgid "live + draft"
 msgstr "Ver borrador"
@@ -330,6 +346,67 @@ msgstr "permiso de colección de grupo"
 
 msgid "group collection permissions"
 msgstr "permisos de colección de grupo"
+
+msgid "active"
+msgstr "activo"
+
+msgid "Request changes"
+msgstr "Solicitar cambios"
+
+msgid "Approve"
+msgstr "Aprobar"
+
+msgid "Approve with comment"
+msgstr "Aprobar con comentario"
+
+msgid "Approved"
+msgstr "Aprobado"
+
+msgid "Needs changes"
+msgstr "Necesita cambios"
+
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgid "status"
+msgstr "estado"
+
+msgid "requested by"
+msgstr "solicitado por"
+
+msgid "Not started"
+msgstr "No iniciado"
+
+msgid "Rejected"
+msgstr "Rechazado"
+
+msgid "Skipped"
+msgstr "Omitido"
+
+msgid "started at"
+msgstr "iniciado el"
+
+msgid "finished at"
+msgstr "terminado el"
+
+msgid "log entry"
+msgstr "entrada de registro"
+
+msgid "log entries"
+msgstr "entradas de registro"
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "usuario %(id)d (eliminado)"
+
+msgid "system"
+msgstr "sistema"
+
+msgid "page log entry"
+msgstr "entrada de registro de página"
+
+msgid "page log entries"
+msgstr "entradas de registro de página"
 
 msgid "Log in"
 msgstr "Ingresar"

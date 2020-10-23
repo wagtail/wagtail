@@ -22,6 +22,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # Norman Uekermann <nue@melexis.com>, 2019
 # pcraston <patrick@craston.com>, 2014
+# Patrick Hebner <hebner.tec@gmail.com>, 2020
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Tibor <tibor@lpld.io>, 2020
@@ -34,8 +35,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-10-05 18:57+0000\n"
+"Last-Translator: Patrick Hebner <hebner.tec@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -1797,7 +1798,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"            JavaScript is required to use Wagtail, but it is currently "
+"            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
@@ -2136,11 +2137,17 @@ msgstr "Gesperrte Seiten"
 msgid "Workflows"
 msgstr "Arbeitsabläufe"
 
+msgid "Page ID"
+msgstr "Seiten-ID"
+
 msgid "Page Type"
 msgstr "Seitentyp"
 
 msgid "Page Title"
 msgstr "Seitentitel"
+
+msgid "Workflow tasks"
+msgstr "Aufgaben des Arbeitsablaufes"
 
 msgid "Requested By"
 msgstr "Angefordert von"
@@ -2148,11 +2155,17 @@ msgstr "Angefordert von"
 msgid "Site history"
 msgstr "Seitenhistorie"
 
+msgid "ID"
+msgstr "ID"
+
 msgid "Action type"
 msgstr "Aktionstyp"
 
 msgid "Date/Time"
 msgstr "Datum/Zeit"
+
+msgid "Add a workflow"
+msgstr "Arbeitsablauf hinzufügen"
 
 msgid "New workflow"
 msgstr "Neuer Arbeitsablauf"
@@ -2352,6 +2365,9 @@ msgstr "Umbenannt"
 
 msgid "Rename"
 msgstr "Umbenennen"
+
+msgid "Schedule publication"
+msgstr "Veröffentlichung einplanen"
 
 msgid "Unschedule publication"
 msgstr "Geplante Veröffentlichung aufheben"

@@ -13,13 +13,14 @@
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2020
 # Marcio Mazza <marciomazza@gmail.com>, 2016
+# Vitor Hugo da Silva Lima <silvalimavitorhugo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-09-23 00:23+0000\n"
+"Last-Translator: Vitor Hugo da Silva Lima <silvalimavitorhugo@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -501,6 +502,10 @@ msgstr "Sex"
 msgid "Sat"
 msgstr "Sáb"
 
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "%(action)s desconhecida"
+
 msgid "Error 404: Page not found"
 msgstr "Erro 404: Página não encontrada"
 
@@ -902,6 +907,58 @@ msgstr "Você pode pré-visualizar a página aqui:"
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "A página \"%(page)s\" foi enviado para moderação"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"A página \"%(title)s\" foi aprovada em estágio de moderação \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "A página \"%(title)s\" foi aprovada em \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr ""
+"A página \"%(title)s\" foi rejeitada em estágio de moderação \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "A página \"%(title)s\" foi rejeitada durante \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"A página \"%(title)s\" foi submetida para aprovação em estágio de moderação "
+"\"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"A página \"%(title)s\" foi submetida para aprovação ao estágio de moderação "
+"\"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\" "
+msgstr ""
+"A página \"%(title)s\" foi submetida para aprovação em estágio de moderação "
+"\"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr "A página \"%(title)s\" foi aprovada no workflow \"%(workflow)s\"."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "O seguinte comentário foi deixado: \"%(comment)s\"."
 
 msgid "Page privacy"
 msgstr "Página privada"
@@ -1309,6 +1366,9 @@ msgstr "Status atual:"
 msgid "Set page privacy"
 msgstr "Definir privacidade da página"
 
+msgid "Review this version"
+msgstr "Revise esta versão"
+
 msgid "Compare with previous version"
 msgstr "Compare com a versão anterior"
 
@@ -1441,6 +1501,10 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Tipos de página"
 
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Desculpe, nenhuma página corresponde %(query_string)s"
+
 msgid "Enter a search term above"
 msgstr "Informe um termo de pesquisa acima"
 
@@ -1455,6 +1519,18 @@ msgstr "Editar / revisar"
 
 msgid "Workflow history"
 msgstr "Histórico de fluxo de trabalho"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Requerido por %(modified_by)s"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Iniciado em %(started_at)s"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Status %(status)s"
 
 msgid "Timeline"
 msgstr "Linha do tempo"
@@ -1619,7 +1695,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"            JavaScript is required to use Wagtail, but it is currently "
+"            Javascript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
@@ -1627,7 +1703,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"            JavaScript é necessário para usar o Wagtail, mas atualmente está "
+"            Javascript é necessário para usar o Wagtail, mas atualmente está "
 "desativado.<br />\n"
 "            Aqui estão as <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instruções sobre como ativar o "
@@ -1685,11 +1761,24 @@ msgstr "Mostrar fluxos de trabalho desativados"
 msgid "Used by"
 msgstr "Usado por"
 
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "Fase %(step_number)s"
+
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s mais"
+msgstr[1] "+%(counter)s mais "
+
 msgid "Choose which type of task you'd like to create."
 msgstr "Escolha o tipo de tarefa que deseja criar."
 
 msgid "Choose a task"
 msgstr "Escolha uma tarefa"
+
+msgid "Existing"
+msgstr "Existente"
 
 msgid "Choose a different task type"
 msgstr "Escolha um tipo de tarefa diferente"
@@ -1987,6 +2076,12 @@ msgstr "Habilitar"
 
 msgid "Disable workflow"
 msgstr "Desativar fluxo de trabalho"
+
+msgid "Workflow '{0}' enabled."
+msgstr "Workflow '{0}' habilitado."
+
+msgid "Workflow removed from Page '{0}'."
+msgstr "Workflow removido da Página '{0}'."
 
 msgid "Task '{0}' updated."
 msgstr "Tarefa '{0}' atualizada."

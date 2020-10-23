@@ -6,6 +6,7 @@
 # Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mehdi <myjahromi@gmail.com>, 2020
 # Mohammad Hossein Mojtahedi <Mhm5000@gmail.com>, 2017
+# Mohammad Sharif Shokouhi <m.sh.shokouhi@outlook.com>, 2020
 # pyzenberg <pyzenberg@gmail.com>, 2017
 # pyzenberg <pyzenberg@gmail.com>, 2017
 msgid ""
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-08-17 10:12+0000\n"
-"Last-Translator: Mehdi <myjahromi@gmail.com>\n"
+"PO-Revision-Date: 2020-09-20 13:37+0000\n"
+"Last-Translator: Mohammad Sharif Shokouhi <m.sh.shokouhi@outlook.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +47,7 @@ msgid "Settings"
 msgstr "تنظیمات"
 
 msgid "This setting could not be opened because there is no site defined."
-msgstr "به دلیل تعریف نشدن سایت، این تنظیمات قابل باز شدن نمی باشد."
+msgstr "چون سایتی تعریف نشده است، این تنظیمات قابل باز شدن نمی باشد."
 
 #, python-format
 msgid "%(setting_type)s updated."
