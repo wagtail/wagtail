@@ -16,8 +16,9 @@ Overview
 
 Out of the box, Wagtail assumes all content will be authored in a single language.
 This document describes how to configure Wagtail for authoring content in
-multiple languages and, optionally, set up a workflow that allows users to
-translate content between languages.
+multiple languages. For translating content between different languages, a translation
+plugin (such as `wagtail-localize <https://github.com/wagtail/wagtail-localize>`_)
+must be installed separately.
 
 This document only covers the internationalisation of content managed by Wagtail.
 For information on how to translate static content in template files, JavaScript
@@ -171,6 +172,14 @@ enable English, French, and Spanish:
         ('fr', "French"),
         ('es', "Spanish"),
     ]
+
+.. note::
+
+    Whenever ``WAGTAIL_CONTENT_LANGUAGES`` is changed, the ``Locale`` model needs
+    to be updated as well to match.
+
+    This can either be done with a data migration or with the optional locale
+    management UI described in the next section.
 
 You can also set these to different values. You might want to do this if you
 want to have some programmatic localisation (like date formatting or currency,
