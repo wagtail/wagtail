@@ -1,5 +1,3 @@
-import warnings
-
 from functools import total_ordering
 
 from django.forms.utils import flatatt
@@ -8,8 +6,6 @@ from django.utils.functional import cached_property
 from django.utils.html import format_html
 
 from wagtail.core import hooks
-from wagtail.core.utils import accepts_kwarg
-from wagtail.utils.deprecation import RemovedInWagtail212Warning
 
 
 @total_ordering
@@ -99,14 +95,7 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
 
         buttons = []
         for hook in button_hooks:
-            if accepts_kwarg(hook, 'next_url'):
-                buttons.extend(hook(self.page, self.page_perms, self.is_parent, self.next_url))
-            else:
-                warnings.warn(
-                    '%s hooks will require an additional kwarg `next_url` in a future release. Please update your hook function to accept `next_url`.' % self.hook_name,
-                    RemovedInWagtail212Warning
-                )
-                buttons.extend(hook(self.page, self.page_perms, self.is_parent))
+            buttons.extend(hook(self.page, self.page_perms, self.is_parent, self.next_url))
 
         buttons.sort()
         return buttons
