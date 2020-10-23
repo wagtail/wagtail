@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,25 +21,25 @@ msgstr ""
 msgid "Wagtail core"
 msgstr ""
 
-#: blocks/static_block.py:15
+#: blocks/static_block.py:16
 #, python-format
 msgid "%(label)s: this block has no options."
 msgstr ""
 
-#: blocks/static_block.py:17
+#: blocks/static_block.py:18
 msgid "This block has no options."
 msgstr ""
 
-#: blocks/stream_block.py:207 blocks/stream_block.py:229
+#: blocks/stream_block.py:209 blocks/stream_block.py:231
 #, python-format
 msgid "The minimum number of items is %d"
 msgstr ""
 
-#: blocks/stream_block.py:210
+#: blocks/stream_block.py:212
 msgid "This field is required."
 msgstr ""
 
-#: blocks/stream_block.py:214 blocks/stream_block.py:233
+#: blocks/stream_block.py:216 blocks/stream_block.py:235
 #, python-format
 msgid "The maximum number of items is %d"
 msgstr ""
@@ -56,561 +56,561 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-#: models.py:187
+#: models.py:169
 msgid "hostname"
 msgstr ""
 
-#: models.py:189
+#: models.py:171
 msgid "port"
 msgstr ""
 
-#: models.py:192
+#: models.py:174
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
 "appear in URLs (e.g. development on port 8000). Does not affect request "
 "handling (so port forwarding still works)."
 msgstr ""
 
-#: models.py:197
+#: models.py:179
 msgid "site name"
 msgstr ""
 
-#: models.py:200
+#: models.py:182
 msgid "Human-readable name for the site."
 msgstr ""
 
-#: models.py:202
+#: models.py:184
 msgid "root page"
 msgstr ""
 
-#: models.py:205
+#: models.py:187
 msgid "is default site"
 msgstr ""
 
-#: models.py:208
+#: models.py:190
 msgid ""
 "If true, this site will handle requests for all other hostnames that do not "
 "have a site entry of their own"
 msgstr ""
 
-#: models.py:216
+#: models.py:198
 msgid "site"
 msgstr ""
 
-#: models.py:217
+#: models.py:199
 msgid "sites"
 msgstr ""
 
-#: models.py:223
+#: models.py:205
 msgid "default"
 msgstr ""
 
-#: models.py:297
+#: models.py:279
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
 "before you can save this site as default."
 msgstr ""
 
-#: models.py:390
+#: models.py:696
 msgid "title"
 msgstr ""
 
-#: models.py:392
+#: models.py:698
 msgid "The page title as you'd like it to be seen by the public"
 msgstr ""
 
-#: models.py:400
+#: models.py:706
 msgid "slug"
 msgstr ""
 
-#: models.py:403
+#: models.py:709
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
 "[my-slug]/"
 msgstr ""
 
-#: models.py:407 models.py:2891 models.py:3499 models.py:3714
+#: models.py:713 models.py:3714 models.py:4322 models.py:4537
 msgid "content type"
 msgstr ""
 
-#: models.py:411 models.py:1336
+#: models.py:717 models.py:1850
 msgid "live"
 msgstr ""
 
-#: models.py:413
+#: models.py:719
 msgid "has unpublished changes"
 msgstr ""
 
-#: models.py:417
+#: models.py:723
 msgid "URL path"
 msgstr ""
 
-#: models.py:420
+#: models.py:726
 msgid "owner"
 msgstr ""
 
-#: models.py:429
+#: models.py:735
 msgid "page title"
 msgstr ""
 
-#: models.py:432
+#: models.py:738
 msgid ""
 "Optional. 'Search Engine Friendly' title. This will appear at the top of the "
 "browser window."
 msgstr ""
 
-#: models.py:437
+#: models.py:743
 msgid "show in menus"
 msgstr ""
 
-#: models.py:439
+#: models.py:745
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 
-#: models.py:441
+#: models.py:747
 msgid "search description"
 msgstr ""
 
-#: models.py:444
+#: models.py:750
 msgid "go live date/time"
 msgstr ""
 
-#: models.py:449
+#: models.py:755
 msgid "expiry date/time"
 msgstr ""
 
-#: models.py:453 models.py:1321
+#: models.py:759 models.py:1835
 msgid "expired"
 msgstr ""
 
-#: models.py:455
+#: models.py:761
 msgid "locked"
 msgstr ""
 
-#: models.py:456
+#: models.py:762
 msgid "locked at"
 msgstr ""
 
-#: models.py:459
+#: models.py:765
 msgid "locked by"
 msgstr ""
 
-#: models.py:468
+#: models.py:774
 msgid "first published at"
 msgstr ""
 
-#: models.py:474
+#: models.py:780
 msgid "last published at"
 msgstr ""
 
-#: models.py:479
+#: models.py:785
 msgid "latest revision created at"
 msgstr ""
 
-#: models.py:486
+#: models.py:792
 msgid "live revision"
 msgstr ""
 
-#: models.py:609
+#: models.py:949
 msgid "This slug is already in use"
 msgstr ""
 
-#: models.py:1323
+#: models.py:1837
 msgid "scheduled"
 msgstr ""
 
-#: models.py:1325
+#: models.py:1839
 msgid "in moderation"
 msgstr ""
 
-#: models.py:1327
+#: models.py:1841
 msgid "draft"
 msgstr ""
 
-#: models.py:1330
+#: models.py:1844
 msgid "live + scheduled"
 msgstr ""
 
-#: models.py:1332
+#: models.py:1846
 msgid "live + in moderation"
 msgstr ""
 
-#: models.py:1334
+#: models.py:1848
 msgid "live + draft"
 msgstr ""
 
-#: models.py:1667
+#: models.py:2447
 msgid "Default"
 msgstr ""
 
-#: models.py:1902 models.py:1921 models.py:2178 models.py:2694 models.py:2839
-#: models.py:3190
+#: models.py:2687 models.py:2707 models.py:2967 models.py:3483 models.py:3662
+#: models.py:4013
 msgid "page"
 msgstr ""
 
-#: models.py:1903
+#: models.py:2688
 msgid "pages"
 msgstr ""
 
-#: models.py:1923
+#: models.py:2709
 msgid "submitted for moderation"
 msgstr ""
 
-#: models.py:1927 models.py:3193
+#: models.py:2713 models.py:4016
 msgid "created at"
 msgstr ""
 
-#: models.py:1929
+#: models.py:2715
 msgid "user"
 msgstr ""
 
-#: models.py:1932
+#: models.py:2718
 msgid "content JSON"
 msgstr ""
 
-#: models.py:1934
+#: models.py:2720
 msgid "approved go live at"
 msgstr ""
 
-#: models.py:2157 models.py:3483
+#: models.py:2946 models.py:4306
 msgid "page revision"
 msgstr ""
 
-#: models.py:2158
+#: models.py:2947
 msgid "page revisions"
 msgstr ""
 
-#: models.py:2162
+#: models.py:2951
 msgid "Add"
 msgstr ""
 
-#: models.py:2162
+#: models.py:2951
 msgid "Add/edit pages you own"
 msgstr ""
 
-#: models.py:2163
+#: models.py:2952
 msgid "Edit"
 msgstr ""
 
-#: models.py:2163
+#: models.py:2952
 msgid "Edit any page"
 msgstr ""
 
-#: models.py:2164
+#: models.py:2953
 msgid "Publish"
 msgstr ""
 
-#: models.py:2164
+#: models.py:2953
 msgid "Publish any page"
 msgstr ""
 
-#: models.py:2165
+#: models.py:2954
 msgid "Bulk delete"
 msgstr ""
 
-#: models.py:2165
+#: models.py:2954
 msgid "Delete pages with children"
 msgstr ""
 
-#: models.py:2166
+#: models.py:2955
 msgid "Lock"
 msgstr ""
 
-#: models.py:2166
+#: models.py:2955
 msgid "Lock/unlock pages you've locked"
 msgstr ""
 
-#: models.py:2167
+#: models.py:2956
 msgid "Unlock"
 msgstr ""
 
-#: models.py:2167
+#: models.py:2956
 msgid "Unlock any page"
 msgstr ""
 
-#: models.py:2177 models.py:2807
+#: models.py:2966 models.py:3625
 msgid "group"
 msgstr ""
 
-#: models.py:2180
+#: models.py:2969
 msgid "permission type"
 msgstr ""
 
-#: models.py:2187
+#: models.py:2976
 msgid "group page permission"
 msgstr ""
 
-#: models.py:2188
+#: models.py:2977
 msgid "group page permissions"
 msgstr ""
 
-#: models.py:2599
+#: models.py:3388
 msgid "Public"
 msgstr ""
 
-#: models.py:2600
+#: models.py:3389
 msgid "Private, accessible to logged-in users"
 msgstr ""
 
-#: models.py:2601
+#: models.py:3390
 msgid "Private, accessible with the following password"
 msgstr ""
 
-#: models.py:2602
+#: models.py:3391
 msgid "Private, accessible to users in specific groups"
 msgstr ""
 
-#: models.py:2607
+#: models.py:3396
 msgid "password"
 msgstr ""
 
-#: models.py:2608 models.py:3114
+#: models.py:3397 models.py:3937
 msgid "groups"
 msgstr ""
 
-#: models.py:2646
+#: models.py:3435
 msgid "view restriction"
 msgstr ""
 
-#: models.py:2647
+#: models.py:3436
 msgid "view restrictions"
 msgstr ""
 
-#: models.py:2700
+#: models.py:3489
 msgid "page view restriction"
 msgstr ""
 
-#: models.py:2701
+#: models.py:3490
 msgid "page view restrictions"
 msgstr ""
 
-#: models.py:2721 models.py:2772 models.py:2787 models.py:2813
+#: models.py:3510 models.py:3583 models.py:3598 models.py:3631
 msgid "collection"
 msgstr ""
 
-#: models.py:2729
+#: models.py:3518
 msgid "collection view restriction"
 msgstr ""
 
-#: models.py:2730
+#: models.py:3519
 msgid "collection view restrictions"
 msgstr ""
 
-#: models.py:2737 models.py:2888 models.py:3042
+#: models.py:3526 models.py:3711 models.py:3865
 msgid "name"
 msgstr ""
 
-#: models.py:2773
+#: models.py:3584
 msgid "collections"
 msgstr ""
 
-#: models.py:2819
+#: models.py:3637
 msgid "permission"
 msgstr ""
 
-#: models.py:2832
+#: models.py:3655
 msgid "group collection permission"
 msgstr ""
 
-#: models.py:2833
+#: models.py:3656
 msgid "group collection permissions"
 msgstr ""
 
-#: models.py:2847 models.py:3109 models.py:3191
+#: models.py:3670 models.py:3932 models.py:4014
 msgid "workflow"
 msgstr ""
 
-#: models.py:2866
+#: models.py:3689
 msgid "workflow page"
 msgstr ""
 
-#: models.py:2867
+#: models.py:3690
 msgid "workflow pages"
 msgstr ""
 
-#: models.py:2871
+#: models.py:3694
 msgid "workflow_tasks"
 msgstr ""
 
-#: models.py:2873 models.py:3032 models.py:3484
+#: models.py:3696 models.py:3855 models.py:4307
 msgid "task"
 msgstr ""
 
-#: models.py:2878
+#: models.py:3701
 msgid "workflow task order"
 msgstr ""
 
-#: models.py:2879
+#: models.py:3702
 msgid "workflow task orders"
 msgstr ""
 
-#: models.py:2895 models.py:3043
+#: models.py:3718 models.py:3866
 msgid "active"
 msgstr ""
 
-#: models.py:2896
+#: models.py:3719
 msgid ""
 "Active tasks can be added to workflows. Deactivating a task does not remove "
 "it from existing workflows."
 msgstr ""
 
-#: models.py:3033
+#: models.py:3856
 msgid "tasks"
 msgstr ""
 
-#: models.py:3044
+#: models.py:3867
 msgid ""
 "Active workflows can be added to pages. Deactivating a workflow does not "
 "remove it from existing pages."
 msgstr ""
 
-#: models.py:3110
+#: models.py:3933
 msgid "workflows"
 msgstr ""
 
-#: models.py:3114
+#: models.py:3937
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
 "groups of users"
 msgstr ""
 
-#: models.py:3147
+#: models.py:3970
 msgid "Request changes"
 msgstr ""
 
-#: models.py:3148
+#: models.py:3971
 msgid "Approve"
 msgstr ""
 
-#: models.py:3149
+#: models.py:3972
 msgid "Approve with comment"
 msgstr ""
 
-#: models.py:3162
+#: models.py:3985
 msgid "Members of the chosen Wagtail Groups can approve this task"
 msgstr ""
 
-#: models.py:3165
+#: models.py:3988
 msgid "Group approval task"
 msgstr ""
 
-#: models.py:3166
+#: models.py:3989
 msgid "Group approval tasks"
 msgstr ""
 
-#: models.py:3184 models.py:3475
+#: models.py:4007 models.py:4298
 msgid "In progress"
 msgstr ""
 
-#: models.py:3185 models.py:3476
+#: models.py:4008 models.py:4299
 msgid "Approved"
 msgstr ""
 
-#: models.py:3186
+#: models.py:4009
 msgid "Needs changes"
 msgstr ""
 
-#: models.py:3187 models.py:3479
+#: models.py:4010 models.py:4302
 msgid "Cancelled"
 msgstr ""
 
-#: models.py:3192 models.py:3485
+#: models.py:4015 models.py:4308
 msgid "status"
 msgstr ""
 
-#: models.py:3195
+#: models.py:4018
 msgid "requested by"
 msgstr ""
 
-#: models.py:3202
+#: models.py:4025
 msgid "current task state"
 msgstr ""
 
-#: models.py:3215
+#: models.py:4038
 msgid ""
 "There may only be one in progress or needs changes workflow state per page."
 msgstr ""
 
-#: models.py:3222
+#: models.py:4045
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr ""
 
-#: models.py:3402
+#: models.py:4225
 msgid "Not started"
 msgstr ""
 
-#: models.py:3450
+#: models.py:4273
 msgid "Workflow state"
 msgstr ""
 
-#: models.py:3451
+#: models.py:4274
 msgid "Workflow states"
 msgstr ""
 
-#: models.py:3477
+#: models.py:4300
 msgid "Rejected"
 msgstr ""
 
-#: models.py:3478
+#: models.py:4301
 msgid "Skipped"
 msgstr ""
 
-#: models.py:3482
+#: models.py:4305
 msgid "workflow state"
 msgstr ""
 
-#: models.py:3486
+#: models.py:4309
 msgid "started at"
 msgstr ""
 
-#: models.py:3487
+#: models.py:4310
 msgid "finished at"
 msgstr ""
 
-#: models.py:3490
+#: models.py:4313
 msgid "finished by"
 msgstr ""
 
-#: models.py:3518
+#: models.py:4342
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr ""
 
-#: models.py:3656
+#: models.py:4479
 msgid "Task state"
 msgstr ""
 
-#: models.py:3657
+#: models.py:4480
 msgid "Task states"
 msgstr ""
 
-#: models.py:3722
+#: models.py:4545
 msgid "timestamp (UTC)"
 msgstr ""
 
-#: models.py:3740
+#: models.py:4563
 msgid "log entry"
 msgstr ""
 
-#: models.py:3741
+#: models.py:4564
 msgid "log entries"
 msgstr ""
 
-#: models.py:3759
+#: models.py:4584
 #, python-format
 msgid "user %(id)d (deleted)"
 msgstr ""
 
-#: models.py:3761
+#: models.py:4593
 msgid "system"
 msgstr ""
 
-#: models.py:3811
+#: models.py:4643
 msgid "page log entry"
 msgstr ""
 
-#: models.py:3812
+#: models.py:4644
 msgid "page log entries"
 msgstr ""
 
@@ -641,3 +641,10 @@ msgstr ""
 #: templates/wagtailcore/password_required.html:15
 msgid "Continue"
 msgstr ""
+
+#: wagtail_hooks.py:89
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] ""
+msgstr[1] ""

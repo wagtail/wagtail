@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,49 +236,49 @@ msgid ""
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:65 views.py:164
+#: views.py:67 views.py:166
 msgid "Search redirects"
 msgstr ""
 
-#: views.py:84
+#: views.py:86
 msgid "Redirect '{0}' updated."
 msgstr ""
 
-#: views.py:85 views.py:127
+#: views.py:87 views.py:129
 msgid "Edit"
 msgstr ""
 
-#: views.py:89
+#: views.py:91
 msgid "The redirect could not be saved due to errors."
 msgstr ""
 
-#: views.py:111
+#: views.py:113
 msgid "Redirect '{0}' deleted."
 msgstr ""
 
-#: views.py:126
+#: views.py:128
 msgid "Redirect '{0}' added."
 msgstr ""
 
-#: views.py:131
+#: views.py:133
 msgid "The redirect could not be created due to errors."
 msgstr ""
 
-#: views.py:178
+#: views.py:180
 msgid "File format of type \"{}\" is not supported"
 msgstr ""
 
-#: views.py:194
+#: views.py:196
 #, python-format
 msgid "Imported file has a wrong encoding: %s"
 msgstr ""
 
-#: views.py:200
+#: views.py:202
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"
 msgstr ""
 
-#: views.py:297
+#: views.py:299
 #, python-format
 msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
