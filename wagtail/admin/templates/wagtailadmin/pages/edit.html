@@ -187,7 +187,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var commentsElement = document.getElementById('comments');
-            window.comments.initCommentsApp(commentsElement, {id: {{ request.user.pk }}, name: "{{ request.user|user_display_name }}"}, [], function (addAnnotatableSection) {
+            window.comments.initComments(commentsElement, {id: {{ request.user.pk }}, name: "{{ request.user|user_display_name }}"}, [], function (addAnnotatableSection) {
                 addAnnotatableSection('testcontentpath', document.documentElement);
             });
         });

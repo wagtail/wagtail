@@ -78,6 +78,16 @@ def get_js_translation_strings():
         'EDIT_PAGE': _('Edit \'{title}\''),
         'VIEW_CHILD_PAGES_OF_PAGE': _('View child pages of \'{title}\''),
         'PAGE_EXPLORER': _('Page explorer'),
+        'SAVE': _('Save'),
+        'SAVING': _('Saving...'),
+        'CANCEL': _('Cancel'),
+        'DELETING': _('Deleting...'),
+        'SHOW_RESOLVED_COMMENTS': _('Show resolved comments'),
+        'SHOW_COMMENTS': _('Show comments'),
+        'RETRY': _('Retry'),
+        'DELETE_ERROR': _('Delete error'),
+        'CONFIRM_DELETE_COMMENT': _('Are you sure?'),
+        'SAVE_ERROR': _('Save error'),
 
         'MONTHS': [str(m) for m in MONTHS.values()],
 
