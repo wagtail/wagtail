@@ -16,13 +16,13 @@ What's new
 Multi-lingual content
 ~~~~~~~~~~~~~~~~~~~~~
 
-With this release, Wagtail now has some official support for authoring content
+With this release, Wagtail now has official support for authoring content
 for multiple languages/regions.
 
 To find out more about this feature, see :ref:`multi_language_content`.
 
 We have also developed a new plugin for translating content between different
-locales called ``wagtail-localize``. You can find details about ``wagtail-localize`
+locales called ``wagtail-localize``. You can find details about ``wagtail-localize``
 on its `GitHub page <https://github.com/wagtail/wagtail-localize>`_.
 
 This feature was sponsored by The Mozilla Foundation and Torchbox.
