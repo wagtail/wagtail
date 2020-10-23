@@ -6,6 +6,8 @@ Internationalisation
     :local:
     :depth: 3
 
+.. _multi_language_content:
+
 Multi-language content
 ======================
 

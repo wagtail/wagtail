@@ -13,6 +13,21 @@ Wagtail 2.11 is designated a Long Term Support (LTS) release. Long Term Support 
 What's new
 ==========
 
+Multi-lingual content
+~~~~~~~~~~~~~~~~~~~~~
+
+With this release, Wagtail now has official support for authoring content
+for multiple languages/regions.
+
+To find out more about this feature, see :ref:`multi_language_content`.
+
+We have also developed a new plugin for translating content between different
+locales called ``wagtail-localize``. You can find details about ``wagtail-localize``
+on its `GitHub page <https://github.com/wagtail/wagtail-localize>`_.
+
+This feature was sponsored by The Mozilla Foundation and Torchbox.
+
+
 Page aliases
 ~~~~~~~~~~~~
 
@@ -22,6 +37,8 @@ Page aliases are exact copies of another page that sit in another part of the tr
 They remain in sync with the original page until this link is removed by converting them into a regular page, or deleting the original page.
 
 A page alias can be created through the "Copy Page" UI by selecting the "Alias" checkbox when creating a page copy.
+
+This feature was sponsored by The Mozilla Foundation.
 
 
 Collections hierarchy
