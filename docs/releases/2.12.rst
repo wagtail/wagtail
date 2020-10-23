@@ -1,5 +1,5 @@
 ===========================================
-Wagtail 2.11 release notes - IN DEVELOPMENT
+Wagtail 2.12 release notes - IN DEVELOPMENT
 ===========================================
 
 .. contents::
