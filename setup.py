@@ -48,6 +48,7 @@ testing_extras = [
     'boto3>=1.4,<1.5',
     'freezegun>=0.3.8',
     'openpyxl>=2.6.4',
+    'Unidecode>=0.04.14,<2.0',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
