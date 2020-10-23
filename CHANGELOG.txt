@@ -4,6 +4,7 @@ Changelog
 2.11 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~~
 
+ * Add support for multi-lingual content (Karl Hobley)
  * Add support for aliased pages (Karl Hobley)
  * Add support for hierarchical/nested Collections (Robert Rollins)
  * Extend treebeard's `fix_tree` method with the ability to non-destructively fix path issues and add a --full option to apply path fixes (Matt Westcott)
