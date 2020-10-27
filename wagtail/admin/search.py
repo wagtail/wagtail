@@ -13,10 +13,11 @@ from wagtail.core import hooks
 class SearchArea(metaclass=MediaDefiningClass):
     template = 'wagtailadmin/shared/search_area.html'
 
-    def __init__(self, label, url, name=None, classnames='', attrs=None, order=1000):
+    def __init__(self, label, url, name=None, classnames='', icon_name='', attrs=None, order=1000):
         self.label = label
         self.url = url
         self.classnames = classnames
+        self.icon_name = icon_name
         self.name = (name or slugify(str(label)))
         self.order = order
 
@@ -49,6 +50,7 @@ class SearchArea(metaclass=MediaDefiningClass):
             'name': self.name,
             'url': self.url,
             'classnames': self.classnames,
+            'icon_name': self.icon_name,
             'attr_string': self.attr_string,
             'label': self.label,
             'active': self.is_active(request, current),
