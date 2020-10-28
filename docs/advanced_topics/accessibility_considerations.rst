@@ -118,8 +118,11 @@ Forms
 When using the ``wagtailforms`` :ref:`form_builder`, don’t stop at Django’s default forms rendering:
 
 - Avoid ``as_table`` and ``as_ul``, which make forms harder to navigate for screen reader users.
-- Take the time to customize the default form rendering so required fields are clearly labeled as such, so fields use the correct autocomplete and autofill attributes, etc.
-- Follow `official W3C guidance on accessible forms development <https://www.w3.org/WAI/tutorials/forms/>`_.
+- Make sure to visually distinguish required and optional fields.
+- If relevant, use the appropriate ``autocomplete`` and ``autocapitalize`` attributes.
+- Make sure to display an example value, or the expected format, for fields that accept arbitrary values but have validation – like Date and Date/Time.
+
+There are further issues with Django’s built-in forms rendering – make sure to rest your forms’ implementation and review `official W3C guidance on accessible forms development <https://www.w3.org/WAI/tutorials/forms/>`_ for further information.
 
 ----
 
