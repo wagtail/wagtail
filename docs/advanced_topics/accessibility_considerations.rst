@@ -128,7 +128,7 @@ When using the ``wagtailforms`` :ref:`form_builder`, don’t stop at Django’s 
 Authoring accessible content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Here are things you can do to help content authors take accessibility into consideration.
+Here are things you can do to help authors create accessible content.
 
 wagtail-accessibility
 ---------------------
