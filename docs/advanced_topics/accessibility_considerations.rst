@@ -38,7 +38,7 @@ For example, linking to `established resources on alt text <https://axesslab.com
     It’s better than nothing to have a dedicated alt field on the Image model (`#5789 <https://github.com/wagtail/wagtail/pull/5789>`_), and may be appropriate for some websites, but we recommend to have it inline with the content because ideally alt text should be written for the context the image is used in:
 
     - If the alt text’s content is already part of the rest of the page, ideally the image should not repeat the same content.
-    - Ideally the alt text should be written based on the context the image is displayed in.
+    - Ideally, the alt text should be written based on the context the image is displayed in.
     - An image might be decorative in some cases but not in others. For example, thumbnails in page listings can often be considered decorative.
 
 See `RFC 51: Contextual alt text <https://github.com/wagtail/rfcs/pull/51>`_ for a long-term solution to this problem.
@@ -76,8 +76,8 @@ If this is a concern to you, you can change which tags are used when saving cont
 TableBlock
 ----------
 
-The :doc:`/reference/contrib/table_block` default implementation makes it too easy for end users to miss they need either row or column headers (`#5989 <https://github.com/wagtail/wagtail/issues/5989>`_). Make sure to always have either row headers or column headers set.
-Also treat its Caption field as mandatory, so screen reader users navigating the site’s tables know where they are.
+The :doc:`/reference/contrib/table_block` default implementation makes it too easy for end-users to miss they need either row or column headers (`#5989 <https://github.com/wagtail/wagtail/issues/5989>`_). Make sure to always have either row headers or column headers set.
+Always add a Caption, so screen reader users navigating the site’s tables know where they are.
 
 ----
 
