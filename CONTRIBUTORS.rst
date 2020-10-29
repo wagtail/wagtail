@@ -541,6 +541,7 @@ Contributors
 * Bryan Williams
 * Wout De Puysseleir
 * Kamil Marut
+* Jane Liu
 
 Translators
 ===========

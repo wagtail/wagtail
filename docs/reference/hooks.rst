@@ -605,8 +605,26 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "delete page" view passing in the request and the page object.
 
-  Uses the same behaviour as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``, is is run both for both ``GET`` and ``POST`` requests.
 
+ .. code-block:: python
+
+    from django.shortcuts import redirect
+    from django.utils.html import format_html
+
+    from wagtail.admin import messages
+    from wagtail.core import hooks
+
+    from .models import AwesomePage
+
+
+    @hooks.register('before_delete_page')
+    def before_delete_page(request, page):
+        """Block awesome page deletion and show a message."""
+
+        if request.method == 'POST' and page.specific_class in [AwesomePage]:
+            messages.warning(request, "Awesome pages cannot be deleted, only unpublished")
+            return redirect('wagtailadmin_pages:delete', page.pk)
 
 .. _after_edit_page:
 
