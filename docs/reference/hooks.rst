@@ -533,6 +533,16 @@ Hooks for customising the way users are directed through the process of creating
 
   Uses the same behaviour as ``before_create_page``.
 
+ .. code-block:: python
+
+    from wagtail.core import hooks
+
+    from .models import AwesomePage
+    from .admin_views import edit_awesome_page
+
+    @hooks.register('before_delete_page')
+    def before_delete_page(request, page):
+        return delete_awesome_page(request, page)
 
 .. _after_edit_page:
 
