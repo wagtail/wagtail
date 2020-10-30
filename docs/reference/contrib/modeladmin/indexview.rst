@@ -554,12 +554,12 @@ depending on the row's value, you could do something like:
         list_display = ('name', 'account_number', 'balance')
 
         def get_extra_class_names_for_field_col(self, obj, field_name):
-            field_name == 'balance':
-                if balance <= Decimal('-100.00'):
+            if field_name == 'balance':
+                if obj.balance <= Decimal('-100.00'):
                     return ['brand-danger']
-                if balance <= Decimal('-0.00'):
+                elif obj.balance <= Decimal('-0.00'):
                     return ['brand-warning']
-                if balance <= Decimal('-50.00'):
+                elif obj.balance <= Decimal('50.00'):
                     return ['brand-info']
                 else:
                     return ['brand-success']
