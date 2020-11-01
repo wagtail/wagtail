@@ -5,8 +5,9 @@ import urllib.request
 from unittest.mock import patch
 from urllib.error import URLError
 
-from django import template
+from django import forms, template
 from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
@@ -15,6 +16,7 @@ from wagtail.embeds import oembed_providers
 from wagtail.embeds.blocks import EmbedBlock, EmbedValue
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.exceptions import EmbedNotFoundException, EmbedUnsupportedProviderException
+from wagtail.embeds.fields import URLField
 from wagtail.embeds.finders import get_finders
 from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
 from wagtail.embeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
@@ -572,3 +574,40 @@ class TestEmbedBlock(TestCase):
         with self.assertRaises(ValidationError):
             required_block.clean(
                 EmbedValue('http://no-oembed-here.com/something'))
+
+
+class EmbedForm(forms.ModelForm):
+    class Meta:
+        model = Embed
+        fields = ["url", "max_width"]
+
+
+class TestEmbedModel(TestCase):
+    def test_url_fields(self):
+        self.assertIsInstance(Embed._meta.get_field('url'), URLField)
+        self.assertIsInstance(Embed._meta.get_field("thumbnail_url"), URLField)
+
+    def test_unique_constraint_raises_integrity_error(self):
+        url = "https://www.youtube.com/watch?v=-GPbywRWkIU"
+        max_width = 600
+        Embed.objects.create(url=url, max_width=max_width)
+        with self.assertRaises(IntegrityError):
+            Embed.objects.create(url=url, max_width=max_width)
+
+    def test_unique_constraint_form_raised_validation_error(self):
+        url = "https://www.youtube.com/watch?v=-GPbywRWkIU"
+        max_width = 600
+        form = EmbedForm(data=dict(url=url, max_width=max_width))
+        self.assertTrue(form.is_valid())
+        form.save()
+
+        form = EmbedForm(data=dict(url=url, max_width=max_width))
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors, {'__all__': ['Embed with this Url and Max width already exists.']})
+
+    def test_url_and_thumbnail_url_no_max_length(self):
+        url = f"https://www.foo.com/{1001 * 'wagtail'}"
+        Embed.objects.create(url=url, thumbnail_url=url)
+        self.assertEqual(Embed.objects.count(), 1)
+        self.assertEqual(len(Embed.objects.first().url), 7027)
+        self.assertEqual(len(Embed.objects.first().thumbnail_url), 7027)

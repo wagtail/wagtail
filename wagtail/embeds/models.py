@@ -1,6 +1,9 @@
 from django.conf import settings
-from django.db import models
+from django.core.exceptions import ValidationError
+from django.db import IntegrityError, models
 from django.utils.translation import gettext_lazy as _
+
+from .fields import URLField
 
 
 EMBED_TYPES = (
@@ -22,20 +25,19 @@ class Embed(models.Model):
     If an instance of this model is deleted, it will be automatically refetched
     next time the embed code is needed.
     """
-    url = models.URLField()
+    url = URLField()
     max_width = models.SmallIntegerField(null=True, blank=True)
     type = models.CharField(max_length=10, choices=EMBED_TYPES)
     html = models.TextField(blank=True)
     title = models.TextField(blank=True)
     author_name = models.TextField(blank=True)
     provider_name = models.TextField(blank=True)
-    thumbnail_url = models.URLField(max_length=255, null=True, blank=True)
+    thumbnail_url = URLField(blank=True)
     width = models.IntegerField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)
     last_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ('url', 'max_width')
         verbose_name = _('embed')
         verbose_name_plural = _('embeds')
 
@@ -58,3 +60,18 @@ class Embed(models.Model):
 
     def __str__(self):
         return self.url
+
+    def validate_url_max_width_unique(self, error):
+        qs = self.__class__.objects.filter(url=self.url, max_width=self.max_width)
+        if self.id:
+            qs = qs.exclude(id=self.id)
+        if qs.exists():
+            raise error(_('Embed with this Url and Max width already exists.'))
+
+    def clean(self):
+        self.validate_url_max_width_unique(ValidationError)
+        super().clean()
+
+    def save(self, *args, **kwargs):
+        self.validate_url_max_width_unique(IntegrityError)
+        super().save(*args, **kwargs)
