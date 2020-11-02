@@ -1004,7 +1004,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             self._update_descendant_url_paths(old_url_path, new_url_path)
 
         # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
-        if not is_new and self.is_site_root():
+        # Note: New translations of existing site roots are considered site roots as well, so we must
+        #       always check if this page is a site root, even if it's new.
+        if self.is_site_root():
             cache.delete('wagtail_site_root_paths')
 
         # Log
