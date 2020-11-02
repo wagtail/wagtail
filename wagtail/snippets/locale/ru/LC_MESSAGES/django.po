@@ -9,13 +9,14 @@
 # sergeybe <sergeybe@gmail.com>, 2020
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2017
+# Виктор Виктор <spam.vitek@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2020-02-06 19:05+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 14:07+0000\n"
+"Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Save"
+msgstr "Сохранить"
 
 msgid "Wagtail snippets"
 msgstr "Фрагменты Wagtail"
@@ -71,6 +78,9 @@ msgstr ""
 "href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noopener noreferrer\">создать сейчас</a>?,"
 
+msgid "Saving…"
+msgstr "Сохранение..."
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Удалить %(snippet_type_name)s"
@@ -107,11 +117,8 @@ msgstr "Новый  %(snippet_type_name)s"
 msgid "New"
 msgstr "Новый"
 
-msgid "Saving…"
-msgstr "Сохранение..."
-
-msgid "Save"
-msgstr "Сохранить"
+msgid "Actions"
+msgstr "Действия"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -119,12 +126,6 @@ msgstr "Редактирование %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Редактирование"
-
-msgid "Actions"
-msgstr "Действия"
-
-msgid "Delete"
-msgstr "Удалить"
 
 msgid "Usage"
 msgstr "Использование"
@@ -142,9 +143,6 @@ msgstr "Заголовок"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "Выбрать %(snippet)s"
-
-msgid "Edit"
-msgstr "Правка"
 
 #, python-format
 msgid ""
@@ -193,6 +191,9 @@ msgstr "Искать  %(snippet_type_name)s"
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' создан."
 
+msgid "Edit"
+msgstr "Правка"
+
 msgid "The snippet could not be created due to errors."
 msgstr "Фрагмент не может быть создан из-за ошибок."
 
@@ -214,6 +215,14 @@ msgstr[0] "%(count)d %(snippet_type)sудалён."
 msgstr[1] "%(count)d %(snippet_type)s удалено."
 msgstr[2] "%(count)d %(snippet_type)s удалено."
 msgstr[3] "%(count)d %(snippet_type)sудалено"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Редактировать '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Удалить '%(title)s'"
 
 #, python-format
 msgid "Choose %s"

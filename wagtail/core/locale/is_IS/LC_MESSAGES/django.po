@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-27 11:09+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -479,6 +479,10 @@ msgstr "atburðaskráning"
 msgid "log entries"
 msgstr "atburðaskráningar"
 
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "notandi %(id)d (eytt)"
+
 msgid "system"
 msgstr "kerfi"
 
@@ -509,3 +513,9 @@ msgstr "Þú þarft lykilorð til að fá aðgang að þessari síðu"
 
 msgid "Continue"
 msgstr "Áfram"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s undirsafn"
+msgstr[1] "%(count)s undirsöfn"

@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-16 20:43+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Delete"
+msgstr "Excluir"
+
+msgid "Save"
+msgstr "Salvar"
 
 msgid "Choose"
 msgstr "Escolha"
@@ -62,6 +68,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">criar um agora</a>?"
 
+msgid "Saving…"
+msgstr "Salvando…"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Remover %(snippet_type_name)s"
@@ -96,11 +105,8 @@ msgstr "Adicionar  %(snippet_type_name)s"
 msgid "New"
 msgstr "Adicionar"
 
-msgid "Saving…"
-msgstr "Salvando…"
-
-msgid "Save"
-msgstr "Salvar"
+msgid "Actions"
+msgstr "Ações"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -108,12 +114,6 @@ msgstr "Editando %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editando"
-
-msgid "Actions"
-msgstr "Ações"
-
-msgid "Delete"
-msgstr "Excluir"
 
 msgid "Usage"
 msgstr "Uso"
@@ -131,9 +131,6 @@ msgstr "Título"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "Selecionar %(snippet)s"
-
-msgid "Edit"
-msgstr "Editar"
 
 #, python-format
 msgid ""
@@ -181,6 +178,9 @@ msgstr "Pesquisa %(snippet_type_name)s"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' criado."
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "The snippet could not be created due to errors."
 msgstr "O fragmento não pôde ser criado por conter erros."

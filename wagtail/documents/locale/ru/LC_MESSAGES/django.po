@@ -12,14 +12,15 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # sergeybe <sergeybe@gmail.com>, 2020
+# Виктор Виктор <spam.vitek@gmail.com>, 2020
 # Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-02-06 20:18+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 13:56+0000\n"
+"Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -289,6 +290,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Извините, загрузка не удалась."
+
+msgid "Document updated."
+msgstr "Документ обновлен."
 
 msgid "Update"
 msgstr "Обновить"

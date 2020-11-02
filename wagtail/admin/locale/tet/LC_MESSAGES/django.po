@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -340,84 +340,6 @@ msgstr "Haree pajina oan sira husi '{title}'"
 
 msgid "Page explorer"
 msgstr "Explora pajina"
-
-msgid "January"
-msgstr "Janeiru"
-
-msgid "February"
-msgstr "Fevereiru"
-
-msgid "March"
-msgstr "Marsu"
-
-msgid "April"
-msgstr "Abril"
-
-msgid "May"
-msgstr "Maiu"
-
-msgid "June"
-msgstr "Juniu"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "Augusto"
-
-msgid "September"
-msgstr "Setembru"
-
-msgid "October"
-msgstr "Outubru"
-
-msgid "November"
-msgstr "Novembru"
-
-msgid "December"
-msgstr "Dezembru"
-
-msgid "Sunday"
-msgstr "Domingu"
-
-msgid "Monday"
-msgstr "Segunda"
-
-msgid "Tuesday"
-msgstr "Tersa"
-
-msgid "Wednesday"
-msgstr "Kuarta"
-
-msgid "Thursday"
-msgstr "Kinta"
-
-msgid "Friday"
-msgstr "Sesta"
-
-msgid "Saturday"
-msgstr "Sabadu"
-
-msgid "Sun"
-msgstr "Dom"
-
-msgid "Mon"
-msgstr "Seg"
-
-msgid "Tue"
-msgstr "Ter"
-
-msgid "Wed"
-msgstr "Kua"
-
-msgid "Thu"
-msgstr "Kin"
-
-msgid "Fri"
-msgstr "Sex"
-
-msgid "Sat"
-msgstr "Sab"
 
 msgid "Error 404: Page not found"
 msgstr "Erru 404: Pajina la hetan"

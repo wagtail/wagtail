@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
@@ -296,63 +296,6 @@ msgstr "Luk"
 
 msgid "Edit '{title}'"
 msgstr "Rediger '{title}'"
-
-msgid "January"
-msgstr "Januar"
-
-msgid "February"
-msgstr "Februar"
-
-msgid "March"
-msgstr "Marts"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Søn"
-
-msgid "Mon"
-msgstr "Man"
-
-msgid "Tue"
-msgstr "Tir"
-
-msgid "Wed"
-msgstr "Ons"
-
-msgid "Thu"
-msgstr "Tor"
-
-msgid "Fri"
-msgstr "Fre"
-
-msgid "Sat"
-msgstr "Lør"
 
 msgid "Error 404: Page not found"
 msgstr "Fejl 404: Side ikke fundet"
@@ -965,14 +908,26 @@ msgstr "Test"
 msgid "Editing"
 msgstr "Redigerer"
 
-msgid "View live"
-msgstr "Vis live"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "SIde '{0}' og {1} undersider blev kopieret."
+
+msgid "Page '{0}' copied."
+msgstr "SIde '{0}' kopieret."
 
 msgid "View draft"
 msgstr "Vis skitse"
 
+msgid "View live"
+msgstr "Vis live"
+
 msgid "Page '{0}' created."
 msgstr "Side  '{0}' lavet."
+
+msgid "Page '{0}' deleted."
+msgstr "Side '{0}' slettet."
+
+msgid "Page '{0}' has been updated."
+msgstr "Side '{0}' er blevet opdateret."
 
 msgid "Page '{0}' has been published."
 msgstr "Side '{0}' er blevet udgivet."
@@ -980,29 +935,17 @@ msgstr "Side '{0}' er blevet udgivet."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Side '{0}' er blivet indsendt til moderation."
 
-msgid "Page '{0}' has been updated."
-msgstr "Side '{0}' er blevet opdateret."
-
-msgid "Page '{0}' deleted."
-msgstr "Side '{0}' slettet."
-
-msgid "Page '{0}' unpublished."
-msgstr "SIde '{0}' afpubliceret."
-
 msgid "Page '{0}' moved."
 msgstr "SIde '{0}' flyttet."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "SIde '{0}' og {1} undersider blev kopieret."
-
-msgid "Page '{0}' copied."
-msgstr "SIde '{0}' kopieret."
 
 msgid "Earliest"
 msgstr "Tidligste"
 
 msgid "Latest"
 msgstr "Seneste"
+
+msgid "Page '{0}' unpublished."
+msgstr "SIde '{0}' afpubliceret."
 
 msgid "More"
 msgstr "Mere"

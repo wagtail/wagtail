@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2020-04-22 07:38+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,12 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Save"
+msgstr "Uložit"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail fragmenty"
@@ -72,6 +78,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">nějaký vytvořit</a>."
 
+msgid "Saving…"
+msgstr "Ukládá se..."
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Zrušit %(snippet_type_name)s"
@@ -108,11 +117,8 @@ msgstr "Nový %(snippet_type_name)s"
 msgid "New"
 msgstr "Nový"
 
-msgid "Saving…"
-msgstr "Ukládá se..."
-
-msgid "Save"
-msgstr "Uložit"
+msgid "Actions"
+msgstr "Akce"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -120,12 +126,6 @@ msgstr "Edituje se %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Edituje se"
-
-msgid "Actions"
-msgstr "Akce"
-
-msgid "Delete"
-msgstr "Smazat"
 
 msgid "Usage"
 msgstr "Použití"
@@ -143,9 +143,6 @@ msgstr "Název"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "Zvolte %(snippet)s"
-
-msgid "Edit"
-msgstr "Upravit"
 
 #, python-format
 msgid ""
@@ -193,6 +190,9 @@ msgstr "Hledat %(snippet_type_name)s"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' vytvořeno."
+
+msgid "Edit"
+msgstr "Upravit"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Úryvek nemohl být vytvořen kvůli chybám."

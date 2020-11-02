@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# ongchi <ihcgno@icloud.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2019-02-05 06:43+0000\n"
-"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-11-01 10:34+0000\n"
+"Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +30,9 @@ msgstr "儲存"
 
 msgid "Delete image"
 msgstr "刪除圖像"
+
+msgid "Home"
+msgstr "首頁"
 
 msgid "Search something"
 msgstr "搜索"

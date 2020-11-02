@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-09-23 00:23+0000\n"
-"Last-Translator: Vitor Hugo da Silva Lima <silvalimavitorhugo@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -423,84 +423,6 @@ msgstr "Ver páginas filho de '{title}'"
 
 msgid "Page explorer"
 msgstr "Navegador de páginas"
-
-msgid "January"
-msgstr "Janeiro"
-
-msgid "February"
-msgstr "Fevereiro"
-
-msgid "March"
-msgstr "Março"
-
-msgid "April"
-msgstr "Abril"
-
-msgid "May"
-msgstr "Maio"
-
-msgid "June"
-msgstr "Junho"
-
-msgid "July"
-msgstr "Julho"
-
-msgid "August"
-msgstr "Agosto"
-
-msgid "September"
-msgstr "Setembro"
-
-msgid "October"
-msgstr "Outubro"
-
-msgid "November"
-msgstr "Novembro"
-
-msgid "December"
-msgstr "Dezembro"
-
-msgid "Sunday"
-msgstr "Domingo"
-
-msgid "Monday"
-msgstr "Segunda-feira"
-
-msgid "Tuesday"
-msgstr "Terça-feira"
-
-msgid "Wednesday"
-msgstr "Quarta-feira"
-
-msgid "Thursday"
-msgstr "Quinta-feira"
-
-msgid "Friday"
-msgstr "Sexta-feira"
-
-msgid "Saturday"
-msgstr "Sábado"
-
-msgid "Sun"
-msgstr "Dom"
-
-msgid "Mon"
-msgstr "Seg"
-
-msgid "Tue"
-msgstr "Ter"
-
-msgid "Wed"
-msgstr "Qua"
-
-msgid "Thu"
-msgstr "Qui"
-
-msgid "Fri"
-msgstr "Sex"
-
-msgid "Sat"
-msgstr "Sáb"
 
 #, python-format
 msgid "Unknown %(action)s"
@@ -1693,23 +1615,6 @@ msgstr ""
 "por este software. Por favor <a href=\"https://browsehappy.com/\">atualize o "
 "seu navegador</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Javascript é necessário para usar o Wagtail, mas atualmente está "
-"desativado.<br />\n"
-"            Aqui estão as <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instruções sobre como ativar o "
-"JavaScript no seu navegador</a>.\n"
-"        "
-
 msgid "Skip to main content"
 msgstr "Ir para o conteúdo principal"
 
@@ -1911,26 +1816,41 @@ msgstr "Tem certeza de que deseja excluir esta coleção?"
 msgid "Editing"
 msgstr "Editando"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Página '{0}' criada e programada para publicação."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Página '{0}' e {1} subpáginas copiadas."
 
-msgid "View live"
-msgstr "Ver online"
-
-msgid "Page '{0}' created and published."
-msgstr "Página '{0}' criada e publicada."
+msgid "Page '{0}' copied."
+msgstr "Página '{0}' copiada."
 
 msgid "View draft"
 msgstr "Ver rascunho"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Página '{0}' criada e enviada para moderação."
+msgid "View live"
+msgstr "Ver online"
 
 msgid "Page '{0}' created."
 msgstr "Página '{0}' criada."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Página '{0}' criada e programada para publicação."
+
+msgid "Page '{0}' created and published."
+msgstr "Página '{0}' criada e publicada."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Página '{0}' criada e enviada para moderação."
+
 msgid "The page could not be created due to validation errors"
 msgstr "A página não pôde ser criada devido a erros de validação"
+
+msgid "Page '{0}' deleted."
+msgstr "Página '{0}' excluida."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Essa página está atualmente esperando moderação"
+
+msgid "Page '{0}' has been updated."
+msgstr "Página '{0}' foi atualizada."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Página '{}' estava bloqueada</b> por <b>você</b> em <b>{}</b>."
@@ -1950,9 +1870,6 @@ msgstr "Esta página está aguardando moderação."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Apenas os revisores desta tarefa podem editar a página."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Essa página está atualmente esperando moderação"
-
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Página '{0}' foi agendada para publicação."
 
@@ -1962,36 +1879,14 @@ msgstr "Página '{0}' foi publicada."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Página '{0}' foi enviada para moderação."
 
-msgid "Page '{0}' has been updated."
-msgstr "Página '{0}' foi atualizada."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Esta página não pode ser salva já que está bloqueada"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "A página não pode ser salva devido a erros de validação"
 
-msgid "Page '{0}' deleted."
-msgstr "Página '{0}' excluida."
-
-msgid "Page '{0}' unpublished."
-msgstr "Página '{0}' despublicada."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"O slug '{0}' já está em uso na página pai selecionada. Certifique-se de que "
-"o slug é único e tente novamente"
-
-msgid "Page '{0}' moved."
-msgstr "Página '{0}' movida."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Página '{0}' e {1} subpáginas copiadas."
-
-msgid "Page '{0}' copied."
-msgstr "Página '{0}' copiada."
+msgid "Page '{0}' is now unlocked."
+msgstr "Agora a página '{0}' está desbloqueada."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "A página '{0}' não está mais esperando moderação."
@@ -2008,8 +1903,15 @@ msgstr "Página '{0}' rejeitada para publicação."
 msgid "Failed to send rejection notifications"
 msgstr "Não foi possível enviar notificações de rejeição"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Agora a página '{0}' está desbloqueada."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"O slug '{0}' já está em uso na página pai selecionada. Certifique-se de que "
+"o slug é único e tente novamente"
+
+msgid "Page '{0}' moved."
+msgstr "Página '{0}' movida."
 
 msgid "Earliest"
 msgstr "Mais cedo"
@@ -2019,6 +1921,9 @@ msgstr "Mais recentes"
 
 msgid "revision {0} of \"{1}\""
 msgstr "revisão {0} de \"{1}\""
+
+msgid "Page '{0}' unpublished."
+msgstr "Página '{0}' despublicada."
 
 msgid "Locked pages"
 msgstr "Páginas bloqueadas"

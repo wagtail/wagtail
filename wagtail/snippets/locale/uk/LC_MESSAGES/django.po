@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2020-10-08 17:02+0000\n"
-"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,12 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Save"
+msgstr "Зберегти"
+
 msgid "Choose"
 msgstr "Вибрати"
 
@@ -33,6 +39,9 @@ msgstr "Пошук"
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Вибачте, немає уривків, які б відповідали \"<em>%(query_string)s</em>\""
+
+msgid "Saving…"
+msgstr "Йде зберігання..."
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -56,11 +65,8 @@ msgstr "Новий %(snippet_type_name)s"
 msgid "New"
 msgstr "Новий"
 
-msgid "Saving…"
-msgstr "Йде зберігання..."
-
-msgid "Save"
-msgstr "Зберегти"
+msgid "Actions"
+msgstr "Дії"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -68,12 +74,6 @@ msgstr "Редагування %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Редагування"
-
-msgid "Actions"
-msgstr "Дії"
-
-msgid "Delete"
-msgstr "Видалити"
 
 msgid "Usage"
 msgstr "Використання"
@@ -83,9 +83,6 @@ msgstr "Уривки"
 
 msgid "Title"
 msgstr "Заголовок"
-
-msgid "Edit"
-msgstr "Редагувати"
 
 #, python-format
 msgid ""
@@ -129,6 +126,9 @@ msgstr "Редагувати цю сторінку"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "Шукати %(snippet_type_name)s"
+
+msgid "Edit"
+msgstr "Редагувати"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Цей уривок не може бути створено через помилки."

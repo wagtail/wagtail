@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-10-01 17:44+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -390,84 +390,6 @@ msgstr "Прагляд даччынай старонкі «{title}»"
 
 msgid "Page explorer"
 msgstr "Агляд старонак"
-
-msgid "January"
-msgstr "Студзень"
-
-msgid "February"
-msgstr "Люты"
-
-msgid "March"
-msgstr "Сакавік"
-
-msgid "April"
-msgstr "Красавік"
-
-msgid "May"
-msgstr "Травень"
-
-msgid "June"
-msgstr "Чэрвень"
-
-msgid "July"
-msgstr "Ліпеня"
-
-msgid "August"
-msgstr "Жнівень"
-
-msgid "September"
-msgstr "Верасень"
-
-msgid "October"
-msgstr "Кастрычніка"
-
-msgid "November"
-msgstr "Лістапада"
-
-msgid "December"
-msgstr "Снежань"
-
-msgid "Sunday"
-msgstr "Нядзеля"
-
-msgid "Monday"
-msgstr "Панядзелак"
-
-msgid "Tuesday"
-msgstr "Аўторак"
-
-msgid "Wednesday"
-msgstr "Серада"
-
-msgid "Thursday"
-msgstr "Чацверг"
-
-msgid "Friday"
-msgstr "Пятніца"
-
-msgid "Saturday"
-msgstr "Субота"
-
-msgid "Sun"
-msgstr "Нядз"
-
-msgid "Mon"
-msgstr "Пн"
-
-msgid "Tue"
-msgstr "Аўт"
-
-msgid "Wed"
-msgstr "Сер"
-
-msgid "Thu"
-msgstr "Чацв"
-
-msgid "Fri"
-msgstr "Пт"
-
-msgid "Sat"
-msgstr "Субб"
 
 msgid "Error 404: Page not found"
 msgstr "Памылка 404: старонка не знойдзена"
@@ -1441,22 +1363,6 @@ msgstr ""
 "Вы карыстаецеся <strong>устаревший</strong> браўзэр. Калі ласка <a href="
 "\"https://browsehappy.com/\">обновите Ваш браузер</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"JavaScript патрабуецца для выкарыстання Wagtail, але ў цяперашні час ён "
-"адключаны. <br />\n"
-"Вось <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">инструкции, як уключыць JavaScript ў вашым вэб-"
-"браузере</a>"
-
 msgid "Go to Wagtail admin interface"
 msgstr "Ісці ў інтэрфейс кіравання Wagtail"
 
@@ -1540,26 +1446,41 @@ msgstr "Вы ўпэўнены, што жадаеце выдаліць гэтую
 msgid "Editing"
 msgstr "Рэдагаванне"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Старонка '{0}' створана і запланавана да публікацыі."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Старонка '{0}' і {1} падстаронак скапіравана."
 
-msgid "View live"
-msgstr "Глядзець на сайце"
-
-msgid "Page '{0}' created and published."
-msgstr "Старонка '{0}' створана і апублікаваная."
+msgid "Page '{0}' copied."
+msgstr "Старонка '{0}' скапіявана."
 
 msgid "View draft"
 msgstr "Глядзець чарнавік"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Старонка '{0}' створана і адпраўлена на мадэрацыю."
+msgid "View live"
+msgstr "Глядзець на сайце"
 
 msgid "Page '{0}' created."
 msgstr "Старонка '{0}' створана."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Старонка '{0}' створана і запланавана да публікацыі."
+
+msgid "Page '{0}' created and published."
+msgstr "Старонка '{0}' створана і апублікаваная."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Старонка '{0}' створана і адпраўлена на мадэрацыю."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Гэтая старонка не можа быць створана з-за памылак пры праверцы"
+
+msgid "Page '{0}' deleted."
+msgstr "Старонка '{0}' выдаленая."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Гэтая старонка ў дадзены момант чакае мадэрацыі"
+
+msgid "Page '{0}' has been updated."
+msgstr "Старонка '{0}' абноўлена."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Старонка '{}' была заблакавана</b><b>Вамі</b> у <b> {} </b>."
@@ -1573,9 +1494,6 @@ msgstr "<b>Старонка '{}' была заблакавана <b>{}</b> у <b
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Старонка '{}' заблакавана</b>."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Гэтая старонка ў дадзены момант чакае мадэрацыі"
-
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Старонка '{0}' запланаваная да публікацыі."
 
@@ -1585,36 +1503,14 @@ msgstr "Старонка '{0}' апублікаваная."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Старонка '{0}' была адпраўлена на мадэрацыю."
 
-msgid "Page '{0}' has been updated."
-msgstr "Старонка '{0}' абноўлена."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Старонка не можа быць захавана, таму што заблакавана"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Старонка не можа быць захавана з-за памылак пры праверцы"
 
-msgid "Page '{0}' deleted."
-msgstr "Старонка '{0}' выдаленая."
-
-msgid "Page '{0}' unpublished."
-msgstr "Старонка '{0}' знята з публікацыі."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"Слаг '{0}' ужо выкарыстоўваецца ў абранай бацькоўскай старонцы. "
-"Пераканайцеся што слаг унікальны і паспрабуйце нанова"
-
-msgid "Page '{0}' moved."
-msgstr "Старонка '{0}' перамешчана."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Старонка '{0}' і {1} падстаронак скапіравана."
-
-msgid "Page '{0}' copied."
-msgstr "Старонка '{0}' скапіявана."
+msgid "Page '{0}' is now unlocked."
+msgstr "Старонка '{0}' адмыкнутая."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Старонка '{0}' у цяперашні час на мадэрацыі."
@@ -1631,8 +1527,15 @@ msgstr "Публікацыя старонкі '{0}' адхілена."
 msgid "Failed to send rejection notifications"
 msgstr "Не атрымалася адправіць апавяшчэння аб адхіленні"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Старонка '{0}' адмыкнутая."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Слаг '{0}' ужо выкарыстоўваецца ў абранай бацькоўскай старонцы. "
+"Пераканайцеся што слаг унікальны і паспрабуйце нанова"
+
+msgid "Page '{0}' moved."
+msgstr "Старонка '{0}' перамешчана."
 
 msgid "Earliest"
 msgstr "Ранні"
@@ -1642,6 +1545,9 @@ msgstr "Апошні"
 
 msgid "revision {0} of \"{1}\""
 msgstr "версія {0} старонкі \"{1}\""
+
+msgid "Page '{0}' unpublished."
+msgstr "Старонка '{0}' знята з публікацыі."
 
 #, python-format
 msgid "Edit '%(title)s'"

@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-28 19:20+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-24 16:21+0000\n"
 "Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -144,6 +144,13 @@ msgstr "Introduza o seu e-mail para reinicializar a sua senha"
 msgid "URL"
 msgstr "URL"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Selecione a posição de hierarquia. Nota: a coleção não pode ser filha de si "
+"própria, ou dos seus descendentes."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Não é permitido ter múltiplos registos de permissões para a mesma coleção. "
@@ -191,6 +198,12 @@ msgstr[0] ""
 msgstr[1] ""
 "%(count)s das páginas a copiar estão publicadas.  Gostaria de publicar as "
 "suas cópias?"
+
+msgid "Alias"
+msgstr "Pseudónimo"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Manter as novas páginas atualizadas com futuras mudanças"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -267,6 +280,9 @@ msgstr "Inglês"
 
 msgid "Spanish"
 msgstr "Espanhol"
+
+msgid "Estonian"
+msgstr "Estónio "
 
 msgid "Finnish"
 msgstr "Finlandês"
@@ -425,84 +441,6 @@ msgstr "Ver sub-páginas de '{title}'"
 
 msgid "Page explorer"
 msgstr "Explorador da página"
-
-msgid "January"
-msgstr "Janeiro"
-
-msgid "February"
-msgstr "Fevereiro"
-
-msgid "March"
-msgstr "Março"
-
-msgid "April"
-msgstr "Abril"
-
-msgid "May"
-msgstr "Maio"
-
-msgid "June"
-msgstr "Junho"
-
-msgid "July"
-msgstr "Julho"
-
-msgid "August"
-msgstr "Agosto"
-
-msgid "September"
-msgstr "Setembro"
-
-msgid "October"
-msgstr "Outubro"
-
-msgid "November"
-msgstr "Novembro"
-
-msgid "December"
-msgstr "Dezembro"
-
-msgid "Sunday"
-msgstr "domingo"
-
-msgid "Monday"
-msgstr "segunda-feira"
-
-msgid "Tuesday"
-msgstr "terça-feira"
-
-msgid "Wednesday"
-msgstr "quarta-feira"
-
-msgid "Thursday"
-msgstr "quinta-feira"
-
-msgid "Friday"
-msgstr "sexta-feira"
-
-msgid "Saturday"
-msgstr "sábado"
-
-msgid "Sun"
-msgstr "Dom"
-
-msgid "Mon"
-msgstr "Seg"
-
-msgid "Tue"
-msgstr "Ter"
-
-msgid "Wed"
-msgstr "Qua"
-
-msgid "Thu"
-msgstr "Qui"
-
-msgid "Fri"
-msgstr "Sex"
-
-msgid "Sat"
-msgstr "Sáb"
 
 #, python-format
 msgid "Unknown %(action)s"
@@ -757,6 +695,16 @@ msgid ""
 msgstr ""
 "Este é o seu painel de controlo, onde pode ver informações úteis sobre os "
 "conteúdos que criou."
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"O Wagtail vai começar gradualmente a remover suporte para o IE11, isto pode "
+"afetar a sua organização. <a href=\"%(url)s\">Informe-se mais acerca dos "
+"nossos planos de suporte para o IE11</a>."
 
 msgid "Your locked pages"
 msgstr "As tuas páginas trancadas"
@@ -1068,6 +1016,26 @@ msgid "Pages using %(page_type)s"
 msgstr "Páginas usando %(page_type)s"
 
 #, python-format
+msgid "Convert alias %(title)s"
+msgstr "Converter pseudónimo %(title)s"
+
+msgid "Convert alias"
+msgstr "Converter pseudónimo"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr ""
+"Tem a certeza que pretende converter este pseudónimo numa página normal?"
+
+msgid "This action cannot be undone."
+msgstr "Esta ação não pode ser desfeita."
+
+msgid "Yes, convert it"
+msgstr "Sim, converter-la"
+
+msgid "No, leave it as an alias"
+msgstr "Não, deixar-la como um pseudónimo."
+
+#, python-format
 msgid "Delete %(title)s"
 msgstr "Apagar %(title)s"
 
@@ -1242,6 +1210,15 @@ msgstr "A editar %(page_type)s"
 
 msgid "History"
 msgstr "Histórico"
+
+msgid "This page is an alias of another page."
+msgstr "Esta página é um pseudónimo de outra página."
+
+msgid "Edit original page"
+msgstr "Editar página original"
+
+msgid "Convert this alias into a regular page"
+msgstr "Converter este pseudónimo numa página normal"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1802,7 +1779,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"            Javascript is required to use Wagtail, but it is currently "
+"            JavaScript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
@@ -1810,11 +1787,11 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"            O Javascript é necessário para usar o Wagtail, mas neste momento "
-"está desativado.<br />\n"
+"            JavaScript  é necessário para utilizar o Wagtail, mas o mesmo "
+"encontra-se desativado.<br />\n"
 "            Aqui estão as <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instruções para ativar o "
-"JavaScript no seu browser.\n"
+"target=\"_blank\" rel=\"noopener noreferrer\">instruções para ativar "
+"JavaScript no seu navegador de internet</a>.\n"
 "        "
 
 msgid "Skip to main content"
@@ -2108,6 +2085,9 @@ msgstr "A coleção não pôde ser guardada devido a erros."
 msgid "Delete collection"
 msgstr "Apagar coleção"
 
+msgid "Please select another parent"
+msgstr "Por favor selecione outro parente"
+
 msgid "Collection '{0}' deleted."
 msgstr "Coleção '{0}' apagada."
 
@@ -2117,26 +2097,47 @@ msgstr "Tem a certeza que quer apagar esta coleção?"
 msgid "Editing"
 msgstr "A editar"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Página '{0}' criada e agendada para publicação."
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "A página '{0}' foi convertida numa página normal."
 
-msgid "View live"
-msgstr "Ver publicada"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Página '{0}' e {1} páginas-filha copiadas."
 
-msgid "Page '{0}' created and published."
-msgstr "Página '{0}' criada e publicada."
+msgid "Page '{0}' copied."
+msgstr "Página '{0}' copiada."
 
 msgid "View draft"
 msgstr "Ver rascunho"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Página '{0}' criada e enviada para moderação."
+msgid "View live"
+msgstr "Ver publicada"
 
 msgid "Page '{0}' created."
 msgstr "Página '{0}' criada."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Página '{0}' criada e agendada para publicação."
+
+msgid "Page '{0}' created and published."
+msgstr "Página '{0}' criada e publicada."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Página '{0}' criada e enviada para moderação."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Esta página não pôde ser criada devido a erros de validação"
+
+msgid "Page '{0}' deleted."
+msgstr "Página '{0}' apagada."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Esta página aguarda moderação"
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "A página '{0}' foi substituída com a versão de {1}."
+
+msgid "Page '{0}' has been updated."
+msgstr "A página '{0}' foi atualizada."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Página '{}' foi trancada</b> por <b>ti</b> a <b>{}</b>."
@@ -2159,8 +2160,8 @@ msgstr "A página está à espera <b>'{}'</b> no fluxo de trabalho <b>'{}'</b>."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Apenas revisores desta tarefa podem editar esta página"
 
-msgid "This page is currently awaiting moderation"
-msgstr "Esta página aguarda moderação"
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "O fluxo de trabalho na página '{0}' foi cancelado."
 
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
@@ -2184,17 +2185,8 @@ msgstr "A página '{0}' foi publicada."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "A página '{0}' foi enviada para moderação."
 
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "O fluxo de trabalho na página '{0}' foi cancelado."
-
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "O fluxo de trabalho na página '{0}' foi reiniciado."
-
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "A página '{0}' foi substituída com a versão de {1}."
-
-msgid "Page '{0}' has been updated."
-msgstr "A página '{0}' foi atualizada."
 
 msgid "The page could not be saved as it is locked"
 msgstr "A página não pôde ser guardada por estar trancada"
@@ -2202,27 +2194,8 @@ msgstr "A página não pôde ser guardada por estar trancada"
 msgid "The page could not be saved due to validation errors"
 msgstr "A página não pôde ser guardada devido a erros de validação"
 
-msgid "Page '{0}' deleted."
-msgstr "Página '{0}' apagada."
-
-msgid "Page '{0}' unpublished."
-msgstr "Página '{0}' despublicada."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"A slug '{0}' já está em uso para a página ascendente selecionada. Certifique-"
-"se que a slug é única e tente outra vez."
-
-msgid "Page '{0}' moved."
-msgstr "Página '{0}' movida."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Página '{0}' e {1} páginas-filha copiadas."
-
-msgid "Page '{0}' copied."
-msgstr "Página '{0}' copiada."
+msgid "Page '{0}' is now unlocked."
+msgstr "A página '{0}' foi destrancada."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "A página '{0}' não está a aguardar moderação."
@@ -2239,13 +2212,15 @@ msgstr "Página '{0}' rejeitada para publicação."
 msgid "Failed to send rejection notifications"
 msgstr "Não foi possível enviar as notificações de rejeição"
 
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
 msgstr ""
-"A página '{0}' não se encontra atualmente em espera para moderação na tarefa "
-"'{1}'."
+"A slug '{0}' já está em uso para a página ascendente selecionada. Certifique-"
+"se que a slug é única e tente outra vez."
 
-msgid "Page '{0}' is now unlocked."
-msgstr "A página '{0}' foi destrancada."
+msgid "Page '{0}' moved."
+msgstr "Página '{0}' movida."
 
 #, python-format
 msgid ""
@@ -2266,6 +2241,14 @@ msgstr "revisão {0} de \"{1}\""
 
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "A versão {0} de \"{1}\" retirada da agenda de publicação."
+
+msgid "Page '{0}' unpublished."
+msgstr "Página '{0}' despublicada."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr ""
+"A página '{0}' não se encontra atualmente em espera para moderação na tarefa "
+"'{1}'."
 
 msgid "Locked pages"
 msgstr "Páginas trancadas"
@@ -2553,6 +2536,20 @@ msgid "Copied"
 msgstr "Copiado"
 
 #, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Criado um pseudónimo para %(title)s"
+
+msgid "Created an alias"
+msgstr "Criou um pseudónimo"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "O pseudónimo '%(title)s' foi convertido numa página normal"
+
+msgid "Converted an alias into a regular page"
+msgstr "Pseudónimo convertido numa página normal"
+
+#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Movido de '%(old_parent)s' para '%(new_parent)s'"
 
@@ -2622,6 +2619,12 @@ msgstr "Renomear"
 
 msgid "Revert"
 msgstr "Reverter"
+
+msgid "Create alias"
+msgstr "Criar pseudónimo"
+
+msgid "Convert alias into regular page"
+msgstr "Converter um pseudónimo numa página normal"
 
 msgid "Schedule publication"
 msgstr "Agendar publicação"

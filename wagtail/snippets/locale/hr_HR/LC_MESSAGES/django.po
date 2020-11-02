@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2020-10-09 11:38+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-11-01 20:01+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Language: hr_HR\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Save"
+msgstr "Spremi"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail izresci"
@@ -40,13 +46,13 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"Pronađen je %(counter)s rezultat."
+"Pronađen je %(counter)s rezultat"
 msgstr[1] ""
 "\n"
-"Pronađeno je %(counter)s rezultata."
+"Pronađeno je %(counter)s rezultata"
 msgstr[2] ""
 "\n"
-"Pronađeno je %(counter)s rezultata."
+"Pronađeno je %(counter)s rezultata"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -62,6 +68,9 @@ msgstr ""
 "Nemate %(snippet_type_name)s izrezaka. Zašto ne biste <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">stvorili jedan</a>?"
+
+msgid "Saving…"
+msgstr "Spremanje..."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -98,11 +107,8 @@ msgstr "Novi %(snippet_type_name)s"
 msgid "New"
 msgstr "Novi"
 
-msgid "Saving…"
-msgstr "Spremanje..."
-
-msgid "Save"
-msgstr "Spremi"
+msgid "Actions"
+msgstr "Postupci"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -110,12 +116,6 @@ msgstr "Uređivanje %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Uređivanje"
-
-msgid "Actions"
-msgstr "Postupci"
-
-msgid "Delete"
-msgstr "Izbriši"
 
 msgid "Usage"
 msgstr "Upotreba"
@@ -133,9 +133,6 @@ msgstr "Naslov"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "Označi %(snippet)s"
-
-msgid "Edit"
-msgstr "Uredi"
 
 #, python-format
 msgid ""
@@ -184,15 +181,18 @@ msgstr "Pretraži %(snippet_type_name)s"
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' je stvoren."
 
+msgid "Edit"
+msgstr "Uredi"
+
 msgid "The snippet could not be created due to errors."
-msgstr "Izrezak nije moguće stvoriti zbog grešaka."
+msgstr "Nije moguće stvoriti izrezak zbog grešaka."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' je ažuriran."
 
 msgid "The snippet could not be saved due to errors."
-msgstr "Izrezak nije moguće sačuvati zbog grešaka."
+msgstr "Nije moguće sačuvati izrezak zbog grešaka."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' deleted."
@@ -204,6 +204,14 @@ msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s je izbrisan."
 msgstr[1] "%(count)d %(snippet_type)s je izbrisano."
 msgstr[2] "%(count)d %(snippet_type)s je izbrisano."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Uredi '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Izbriši '%(title)s'"
 
 #, python-format
 msgid "Choose %s"

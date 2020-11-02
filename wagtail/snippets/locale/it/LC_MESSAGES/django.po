@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-29 22:00+0000\n"
-"Last-Translator: LB (Ben Johnston) <mail@lb.ee>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Save"
+msgstr "Salva"
 
 msgid "Wagtail snippets"
 msgstr "Snippets Wagtail"
@@ -64,6 +70,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">crei uno adesso</a>?"
 
+msgid "Saving…"
+msgstr "Salvataggio in corso…"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Elimina %(snippet_type_name)s"
@@ -98,21 +107,12 @@ msgstr "Nuovo %(snippet_type_name)s"
 msgid "New"
 msgstr "Nuovo"
 
-msgid "Saving…"
-msgstr "Salvataggio in corso…"
-
-msgid "Save"
-msgstr "Salva"
-
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Modifica %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Modifica"
-
-msgid "Delete"
-msgstr "Elimina"
 
 msgid "Usage"
 msgstr "Uso"
@@ -122,9 +122,6 @@ msgstr "Snippets"
 
 msgid "Title"
 msgstr "Titolo"
-
-msgid "Edit"
-msgstr "Modifica"
 
 #, python-format
 msgid ""
@@ -168,6 +165,9 @@ msgstr "Modifica questa pagina"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "Cerca %(snippet_type_name)s"
+
+msgid "Edit"
+msgstr "Modifica"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Lo snippet non può essere creato a causa di errori."

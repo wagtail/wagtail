@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-10-08 17:07+0000\n"
-"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -333,63 +333,6 @@ msgstr "Закрити"
 
 msgid "Edit '{title}'"
 msgstr "Редагувати '{title}'"
-
-msgid "January"
-msgstr "Січень"
-
-msgid "February"
-msgstr "Лютий"
-
-msgid "March"
-msgstr "Березень"
-
-msgid "April"
-msgstr "Квітень"
-
-msgid "May"
-msgstr "Травень"
-
-msgid "June"
-msgstr "Червень"
-
-msgid "July"
-msgstr "Липень"
-
-msgid "August"
-msgstr "Серпень"
-
-msgid "September"
-msgstr "Вересень"
-
-msgid "October"
-msgstr "Жовтень"
-
-msgid "November"
-msgstr "Листопад"
-
-msgid "December"
-msgstr "Грудень"
-
-msgid "Sun"
-msgstr "Неділя"
-
-msgid "Mon"
-msgstr "Понеділок"
-
-msgid "Tue"
-msgstr "Вівторок"
-
-msgid "Wed"
-msgstr "Середа"
-
-msgid "Thu"
-msgstr "Четвер"
-
-msgid "Fri"
-msgstr "П'ятниця"
-
-msgid "Sat"
-msgstr "Субота"
 
 msgid "Error 404: Page not found"
 msgstr "Помилка 404: сторінку не знайдено"
@@ -1343,29 +1286,41 @@ msgstr "Ви впевнені, що хочете видалили цю коле�
 msgid "Editing"
 msgstr "Редагування"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Сторінку '{0}' створено і заплановано до публікації. "
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Сторінка '{0}' і {1} вкладені сторінки скопійовано."
 
-msgid "View live"
-msgstr "Побачити наживо"
-
-msgid "Page '{0}' created and published."
-msgstr "Сторінку '{0}' створено і опубліковано."
+msgid "Page '{0}' copied."
+msgstr "Сторінку '{0}' скопійовано."
 
 msgid "View draft"
 msgstr "Переглянути чернетку"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Сторінку '{0}' створено і направлено на модерацію."
+msgid "View live"
+msgstr "Побачити наживо"
 
 msgid "Page '{0}' created."
 msgstr "Сторінку '{0}' створено."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Сторінку '{0}' створено і заплановано до публікації. "
+
+msgid "Page '{0}' created and published."
+msgstr "Сторінку '{0}' створено і опубліковано."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Сторінку '{0}' створено і направлено на модерацію."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Цю сторінку не можна створити через помилки валідації"
 
+msgid "Page '{0}' deleted."
+msgstr "Сторінку '{0}' видалено."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Ця сторінка очікує на модерацію"
+
+msgid "Page '{0}' has been updated."
+msgstr "Сторінку '{0}' оновлено."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Сторінку '{0}' заплановано до публікації."
@@ -1379,29 +1334,14 @@ msgstr "Сторінку '{0}' опубліковано."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Сторінку '{0}' надіслано на модерацію."
 
-msgid "Page '{0}' has been updated."
-msgstr "Сторінку '{0}' оновлено."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Сторінку не можна зберегти, бо вона заблокована"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Сторінку не можна зберегти через помилки валідації"
 
-msgid "Page '{0}' deleted."
-msgstr "Сторінку '{0}' видалено."
-
-msgid "Page '{0}' unpublished."
-msgstr "Сторінку '{0}' знято з публікації."
-
-msgid "Page '{0}' moved."
-msgstr "Сторінку '{0}' переміщено."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Сторінка '{0}' і {1} вкладені сторінки скопійовано."
-
-msgid "Page '{0}' copied."
-msgstr "Сторінку '{0}' скопійовано."
+msgid "Page '{0}' is now unlocked."
+msgstr "Сторінку '{0}' розблоковано."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Сторінка '{0}' не перебуває в очікуванні модерації."
@@ -1418,8 +1358,8 @@ msgstr "Публікацію сторінки '{0}' відхилено."
 msgid "Failed to send rejection notifications"
 msgstr "Надсилання сповіщення про відхилення зазнало невдачі"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Сторінку '{0}' розблоковано."
+msgid "Page '{0}' moved."
+msgstr "Сторінку '{0}' переміщено."
 
 #, python-format
 msgid ""
@@ -1437,6 +1377,9 @@ msgstr "Останнє"
 
 msgid "revision {0} of \"{1}\""
 msgstr "ревізія {0} для \"{1}\""
+
+msgid "Page '{0}' unpublished."
+msgstr "Сторінку '{0}' знято з публікації."
 
 msgid "Site history"
 msgstr "Історія сайту"

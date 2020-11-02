@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-27 11:09+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -138,6 +138,13 @@ msgstr "Sláðu inn netfangið þitt til að endursetja lykilorðið þitt."
 msgid "URL"
 msgstr "Vefslóð"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Veldu staðsetningu í tré. ATH: safn getur ekki verið undir sjálfu sér eða "
+"einhverju af undirsöfnum sínum."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sama safnið"
 
@@ -184,6 +191,12 @@ msgstr[0] ""
 msgstr[1] ""
 "%(count)s af síðunum sem er verið að afrita eru í loftinu. Viltu setja "
 "afritin líka í loftið?"
+
+msgid "Alias"
+msgstr "Spegilsíða"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Halda nýjum síðum uppfærðum með framtíðar breytingum"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -261,6 +274,9 @@ msgstr "Enska"
 
 msgid "Spanish"
 msgstr "Spænska"
+
+msgid "Estonian"
+msgstr "Eistneska"
 
 msgid "Finnish"
 msgstr "Finnska"
@@ -421,83 +437,9 @@ msgstr "Skoða undirsíður '{title}'"
 msgid "Page explorer"
 msgstr "Veftré"
 
-msgid "January"
-msgstr "Janúar"
-
-msgid "February"
-msgstr "Febrúar"
-
-msgid "March"
-msgstr "Mars"
-
-msgid "April"
-msgstr "Apríl"
-
-msgid "May"
-msgstr "Maí"
-
-msgid "June"
-msgstr "Júní"
-
-msgid "July"
-msgstr "Júlí"
-
-msgid "August"
-msgstr "Ágúst"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Október"
-
-msgid "November"
-msgstr "Nóvember"
-
-msgid "December"
-msgstr "Desember"
-
-msgid "Sunday"
-msgstr "Sunnudagur"
-
-msgid "Monday"
-msgstr "Mánudagur"
-
-msgid "Tuesday"
-msgstr "Þriðjudagur"
-
-msgid "Wednesday"
-msgstr "Miðvikudagur"
-
-msgid "Thursday"
-msgstr "Fimmtudagur"
-
-msgid "Friday"
-msgstr "Föstudagur"
-
-msgid "Saturday"
-msgstr "Laugardagur"
-
-msgid "Sun"
-msgstr "Sun"
-
-msgid "Mon"
-msgstr "Mán"
-
-msgid "Tue"
-msgstr "Þri"
-
-msgid "Wed"
-msgstr "Mið"
-
-msgid "Thu"
-msgstr "Fim"
-
-msgid "Fri"
-msgstr "Fös"
-
-msgid "Sat"
-msgstr "Lau"
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Óþekkt %(action)s"
 
 msgid "Error 404: Page not found"
 msgstr "404: Síðan fannst ekki"
@@ -748,6 +690,15 @@ msgid ""
 msgstr ""
 "Þetta er yfirlitssíðan þín sem sýnir hjálplegar upplýsingar um efni sem þú "
 "hefur búið til"
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail er smám saman að hætta stuðningi við IE11, sem gæti haft áhrif á "
+"þig. <a href=\"%(url)s\">Sjá meira um áætlanir okkar um IE11 stuðning</a>."
 
 msgid "Your locked pages"
 msgstr "Þínar læstu síður"
@@ -1051,6 +1002,25 @@ msgid "Pages using %(page_type)s"
 msgstr "Síður sem nota %(page_type)s"
 
 #, python-format
+msgid "Convert alias %(title)s"
+msgstr "Breyta spegilsíðu %(title)s"
+
+msgid "Convert alias"
+msgstr "Breyta spegilsíðu"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr "Ertu viss um að þú viljir breyta þessari spegilsíðu í venjulega síðu?"
+
+msgid "This action cannot be undone."
+msgstr "Þessi aðgerð er óafturkræf."
+
+msgid "Yes, convert it"
+msgstr "Já, breyta"
+
+msgid "No, leave it as an alias"
+msgstr "Nei, halda áfram að spegla "
+
+#, python-format
 msgid "Delete %(title)s"
 msgstr "Eyða %(title)s"
 
@@ -1223,6 +1193,15 @@ msgstr "Breyti %(page_type)s"
 
 msgid "History"
 msgstr "Saga"
+
+msgid "This page is an alias of another page."
+msgstr "Þessi síða speglar aðra síðu"
+
+msgid "Edit original page"
+msgstr "Breyta upprunalegri síðu"
+
+msgid "Convert this alias into a regular page"
+msgstr "Breyta þessari spegilsíðu í venjulega síðu"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1780,7 +1759,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"            Javascript is required to use Wagtail, but it is currently "
+"            JavaScript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
@@ -1788,11 +1767,11 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"            Javascript er krafa til þess að nota Wagtail, en það er ekki "
-"kveikt á því.<br />\n"
+"            JavaScript er nauðsynlegt til að nota Wagtail, en það er slökkt "
+"á því í vafranum þínum.<br />\n"
 "            Hér eru <a href=\"https://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">leiðbeiningar um hvernig á að kveikja "
-"á JavaScript í vafranum þínum</a>.\n"
+"\"_blank\" rel=\"noopener noreferrer\">leiðbeiningar um hvernig á ða virkja "
+"Javascript í vafranum þínum</a>. \n"
 "        "
 
 msgid "Skip to main content"
@@ -2081,6 +2060,9 @@ msgstr "Ekki var hægt að vista safnið þar sem hún stóðst ekki villuprófa
 msgid "Delete collection"
 msgstr "Eyða safni"
 
+msgid "Please select another parent"
+msgstr "Vinsamlegast veldu annað yfirsafn"
+
 msgid "Collection '{0}' deleted."
 msgstr "Safni '{0}' eytt."
 
@@ -2090,26 +2072,47 @@ msgstr "Ertu viss um að þú viljir eyða þessu safni?"
 msgid "Editing"
 msgstr "Breyti"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Síða '{0}' hefur verið búin til og tímastillt til að setja í loftið."
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "Síðu '{0}' hefur verið breytt í venjulega síðu."
 
-msgid "View live"
-msgstr "Skoða á vef"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Síða '{0}' og {1} undirsíður afritaðar."
 
-msgid "Page '{0}' created and published."
-msgstr "Síða '{0}' vistuð og birt."
+msgid "Page '{0}' copied."
+msgstr "Síða '{0}' afrituð."
 
 msgid "View draft"
 msgstr "Skoða uppkast"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Síða '{0}' vistuð og send til samþykkis."
+msgid "View live"
+msgstr "Skoða á vef"
 
 msgid "Page '{0}' created."
 msgstr "Síða '{0}' vistuð."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Síða '{0}' hefur verið búin til og tímastillt til að setja í loftið."
+
+msgid "Page '{0}' created and published."
+msgstr "Síða '{0}' vistuð og birt."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Síða '{0}' vistuð og send til samþykkis."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Ekki var hægt að búa síðuna til þar sem hún stóðst ekki villuprófanir"
+
+msgid "Page '{0}' deleted."
+msgstr "Síðu '{0}' eytt."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Þessi síða bíður samþykkis til birtingar."
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "Síða '{0}' hefur verið skipt út fyrir útgáfu af {1}."
+
+msgid "Page '{0}' has been updated."
+msgstr "Síða '{0}' hefur verið uppfærð."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Síðu '{}' var læst</b> af <b>þér</b> á <b>{}</b>."
@@ -2132,8 +2135,8 @@ msgstr "Þessi síða bíður eftir <b>'{}'</b> í vinnuflæðinu <b>'{}'</b> ."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Aðeins þeir sem geta farið yfir þetta skref geta breytt síðunni."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Þessi síða bíður samþykkis til birtingar."
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Hætt hefur verið við vinnuflæði á síðu '{0}' "
 
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Útgáfa {0} af síðu '{1}' hefur verið tímasett í birtingu."
@@ -2155,17 +2158,8 @@ msgstr "Síða '{0}' hefur verið birt."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Síða '{0}' hefur verið send inn til samþykkis."
 
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Hætt hefur verið við vinnuflæði á síðu '{0}' "
-
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "Vinnuflæði á síðu '{0}' hefur verið endurræst."
-
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "Síða '{0}' hefur verið skipt út fyrir útgáfu af {1}."
-
-msgid "Page '{0}' has been updated."
-msgstr "Síða '{0}' hefur verið uppfærð."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Ekki var hægt að vista síðuna, hún er læst"
@@ -2173,27 +2167,8 @@ msgstr "Ekki var hægt að vista síðuna, hún er læst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
 
-msgid "Page '{0}' deleted."
-msgstr "Síðu '{0}' eytt."
-
-msgid "Page '{0}' unpublished."
-msgstr "Síða '{0}' tekin úr birtingu."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"Vefslóðin '{0}' er þegar í notkun. Breyttu slóðinni svo hún sé einkvæm og "
-"reyndu aftur."
-
-msgid "Page '{0}' moved."
-msgstr "Síða '{0}' færð."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Síða '{0}' og {1} undirsíður afritaðar."
-
-msgid "Page '{0}' copied."
-msgstr "Síða '{0}' afrituð."
+msgid "Page '{0}' is now unlocked."
+msgstr "Síða '{0}' er nú ólæst."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' bíður nú samþykkis til birtingar."
@@ -2210,11 +2185,15 @@ msgstr "Birtingu '{0}' var hafnað."
 msgid "Failed to send rejection notifications"
 msgstr "Ekki tókst að senda höfnunar tilkynningar"
 
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "Síðan '{0}' er ekki að bíða eftir yfirferð í skrefi '{1}'."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Vefslóðin '{0}' er þegar í notkun. Breyttu slóðinni svo hún sé einkvæm og "
+"reyndu aftur."
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Síða '{0}' er nú ólæst."
+msgid "Page '{0}' moved."
+msgstr "Síða '{0}' færð."
 
 #, python-format
 msgid ""
@@ -2235,6 +2214,12 @@ msgstr "útgáfa {0} af \"{1}\""
 
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "Útgáfa {0} af \"{1}\" tekin úr tímastillingu."
+
+msgid "Page '{0}' unpublished."
+msgstr "Síða '{0}' tekin úr birtingu."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr "Síðan '{0}' er ekki að bíða eftir yfirferð í skrefi '{1}'."
 
 msgid "Locked pages"
 msgstr "Læstar síður"
@@ -2517,6 +2502,20 @@ msgid "Copied"
 msgstr "Afritað"
 
 #, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Bjó til spegil af %(title)s"
+
+msgid "Created an alias"
+msgstr "Bjó til spegilsíðu"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Breytti spegilsíðunni '%(title)s' í venjulega síðu"
+
+msgid "Converted an alias into a regular page"
+msgstr "Breytti spegilsíðu í venjulega síðu"
+
+#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Færð frá '%(old_parent)s' til '%(new_parent)s'"
 
@@ -2586,6 +2585,12 @@ msgstr "Endurskýra"
 
 msgid "Revert"
 msgstr "Snúa við"
+
+msgid "Create alias"
+msgstr "Búa til spegilsíðu"
+
+msgid "Convert alias into regular page"
+msgstr "Breyta spegilsíðu í venjulega síðu"
 
 msgid "Schedule publication"
 msgstr "Tímasetja birtingu"

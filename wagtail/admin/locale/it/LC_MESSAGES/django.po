@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -362,84 +362,6 @@ msgstr "Mostra sotto-pagine di '{title}'"
 
 msgid "Page explorer"
 msgstr "Esplora pagine"
-
-msgid "January"
-msgstr "Gennaio"
-
-msgid "February"
-msgstr "Febbraio"
-
-msgid "March"
-msgstr "Marzo"
-
-msgid "April"
-msgstr "Aprile"
-
-msgid "May"
-msgstr "Maggio"
-
-msgid "June"
-msgstr "Giugno"
-
-msgid "July"
-msgstr "Luglio"
-
-msgid "August"
-msgstr "Agosto"
-
-msgid "September"
-msgstr "Settembre"
-
-msgid "October"
-msgstr "Ottobre"
-
-msgid "November"
-msgstr "Novembre"
-
-msgid "December"
-msgstr "Dicembre"
-
-msgid "Sunday"
-msgstr "Domenica"
-
-msgid "Monday"
-msgstr "Lunedì"
-
-msgid "Tuesday"
-msgstr "Martedì"
-
-msgid "Wednesday"
-msgstr "Mercoledì"
-
-msgid "Thursday"
-msgstr "Giovedì"
-
-msgid "Friday"
-msgstr "Venerdì"
-
-msgid "Saturday"
-msgstr "Sabato"
-
-msgid "Sun"
-msgstr "Dom"
-
-msgid "Mon"
-msgstr "Lun"
-
-msgid "Tue"
-msgstr "Mar"
-
-msgid "Wed"
-msgstr "Mer"
-
-msgid "Thu"
-msgstr "Gio"
-
-msgid "Fri"
-msgstr "Ven"
-
-msgid "Sat"
-msgstr "Sab"
 
 msgid "Error 404: Page not found"
 msgstr "Errore 404: Pagina non trovata"
@@ -1298,23 +1220,6 @@ msgstr ""
 "con questo software. Per favore <a href=\"https://browsehappy.com/"
 "\">aggiorna il tuo browser</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Wagtail necessita Javascript per essere usato, ma al momento è "
-"disabilitato.<br />\n"
-"            Qua trovi le <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">istruzioni su come abilitare "
-"JavaScript nel tuo browser</a>.\n"
-"        "
-
 msgid "Go to Wagtail admin interface"
 msgstr "Vai all'interfaccia admin di Wagtail"
 
@@ -1382,29 +1287,41 @@ msgstr "Sei sicuro di voler eliminare questa raccolta?"
 msgid "Editing"
 msgstr "Modifica"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Pagina '{0}' creata e schedulata per la pubblicazione."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Pagina '{0}' e {1} sottopagine copiate."
 
-msgid "View live"
-msgstr "Guarda live"
-
-msgid "Page '{0}' created and published."
-msgstr "Pagina '{0}' creata e pubblicata."
+msgid "Page '{0}' copied."
+msgstr "Pagina '{0}' copiata."
 
 msgid "View draft"
 msgstr "Guarda bozza"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Page '{0}' creata e inviata per moderazione"
+msgid "View live"
+msgstr "Guarda live"
 
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' creata."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Pagina '{0}' creata e schedulata per la pubblicazione."
+
+msgid "Page '{0}' created and published."
+msgstr "Pagina '{0}' creata e pubblicata."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Page '{0}' creata e inviata per moderazione"
+
 msgid "The page could not be created due to validation errors"
 msgstr "La pagina non può esser creata a causa di errori di validazione"
 
+msgid "Page '{0}' deleted."
+msgstr "Pagina '{0}' eliminata."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Questa pagina è attualmente in attesa di moderazione"
+
+msgid "Page '{0}' has been updated."
+msgstr "Pagina '{0}' è stata aggiornata."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Pagina '{0}' prevista per la pubblicazione."
@@ -1415,36 +1332,14 @@ msgstr "Pagina '{0}' è stata pubblicata"
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La pagina '{0}' è stata inviata per moderazione"
 
-msgid "Page '{0}' has been updated."
-msgstr "Pagina '{0}' è stata aggiornata."
-
 msgid "The page could not be saved as it is locked"
 msgstr "La pagina non può esser salvata perché è bloccata"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "La pagina non può esser salvata a causa di errori di validazione"
 
-msgid "Page '{0}' deleted."
-msgstr "Pagina '{0}' eliminata."
-
-msgid "Page '{0}' unpublished."
-msgstr "Pagina '{0}' non pubblicata."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"Lo slug '{0}' è già utilizzato nella pagina genitrice selezionata. "
-"Assicurarsi che lo slug sia unico e riprovare"
-
-msgid "Page '{0}' moved."
-msgstr "Page '{0}' spostata."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Pagina '{0}' e {1} sottopagine copiate."
-
-msgid "Page '{0}' copied."
-msgstr "Pagina '{0}' copiata."
+msgid "Page '{0}' is now unlocked."
+msgstr "Pagina '{0}' sbloccata."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La pagina '{0}' non è al momento in attesa di moderazione."
@@ -1461,8 +1356,15 @@ msgstr "Pagina '{0}' respinta per la pubblicazione."
 msgid "Failed to send rejection notifications"
 msgstr "Invio notifiche di rifiuto fallito "
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Pagina '{0}' sbloccata."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Lo slug '{0}' è già utilizzato nella pagina genitrice selezionata. "
+"Assicurarsi che lo slug sia unico e riprovare"
+
+msgid "Page '{0}' moved."
+msgstr "Page '{0}' spostata."
 
 msgid "Earliest"
 msgstr "Precedenti"
@@ -1472,6 +1374,9 @@ msgstr "Ultimi"
 
 msgid "revision {0} of \"{1}\""
 msgstr "revisione {0} di \"{1}\""
+
+msgid "Page '{0}' unpublished."
+msgstr "Pagina '{0}' non pubblicata."
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"

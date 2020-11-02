@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -291,84 +291,6 @@ msgstr "Хаах"
 
 msgid "Edit '{title}'"
 msgstr "'{title}' засах"
-
-msgid "January"
-msgstr "Нэгдүгээр сар"
-
-msgid "February"
-msgstr "Хоёрдугаар сар"
-
-msgid "March"
-msgstr "Гуравдугаар сар"
-
-msgid "April"
-msgstr "Дөрөвдүгээр сар"
-
-msgid "May"
-msgstr "Тавдугаар сар"
-
-msgid "June"
-msgstr "Зургадугаар сар"
-
-msgid "July"
-msgstr "Долдугаар сар"
-
-msgid "August"
-msgstr "Наймдугаар сар"
-
-msgid "September"
-msgstr "Есдүгээр сар"
-
-msgid "October"
-msgstr "Аравдугаар сар"
-
-msgid "November"
-msgstr "Арван нэгдүгээр сар"
-
-msgid "December"
-msgstr "Арван хоёрдугаар сар"
-
-msgid "Sunday"
-msgstr "Ням гариг"
-
-msgid "Monday"
-msgstr "Даваа гариг"
-
-msgid "Tuesday"
-msgstr "Мягмар гариг"
-
-msgid "Wednesday"
-msgstr "Лхагва гариг"
-
-msgid "Thursday"
-msgstr "Пүрэв гариг"
-
-msgid "Friday"
-msgstr "Баасан гариг"
-
-msgid "Saturday"
-msgstr "Бямба гариг"
-
-msgid "Sun"
-msgstr "Ням"
-
-msgid "Mon"
-msgstr "Дав"
-
-msgid "Tue"
-msgstr "Мяг"
-
-msgid "Wed"
-msgstr "Лха"
-
-msgid "Thu"
-msgstr "Пүр"
-
-msgid "Fri"
-msgstr "Баа"
-
-msgid "Sat"
-msgstr "Бям"
 
 msgid "Error 404: Page not found"
 msgstr "Алдаа 404: Хуудас олдсонгүй"
@@ -1053,26 +975,38 @@ msgstr "Энэ цуглуулгыг үнэхээр устгах уу?"
 msgid "Editing"
 msgstr "Засч байна"
 
-msgid "View live"
-msgstr "Нийтлэгдсэн хувилбарыг үзэх"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Хуудас '{0}' болон {1} дэд хуудсууд хуулагдлаа."
 
-msgid "Page '{0}' created and published."
-msgstr "'{0}' хуудас үүсч, нийтлэгдлээ."
+msgid "Page '{0}' copied."
+msgstr "'{0}' хуудас хуулагдлаа."
 
 msgid "View draft"
 msgstr "Ноорог харах"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "'{0}' хуудас үүсч, хянуулахаар илгээгдлээ."
+msgid "View live"
+msgstr "Нийтлэгдсэн хувилбарыг үзэх"
 
 msgid "Page '{0}' created."
 msgstr "'{0}' хуудас үүслээ."
 
+msgid "Page '{0}' created and published."
+msgstr "'{0}' хуудас үүсч, нийтлэгдлээ."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "'{0}' хуудас үүсч, хянуулахаар илгээгдлээ."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Баталгаажуулалтын алдаанаас болж хуудас үүсгэж чадсангүй"
 
+msgid "Page '{0}' deleted."
+msgstr "'{0}' хуудас устлаа."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Энэ хуудас хянуулахаар хүлээгдэж байна"
+
+msgid "Page '{0}' has been updated."
+msgstr "'{0}' хуудас шинэчлэгдлээ."
 
 msgid "Page '{0}' has been published."
 msgstr "'{0}' хуудас нийтлэгдлээ."
@@ -1080,29 +1014,14 @@ msgstr "'{0}' хуудас нийтлэгдлээ."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "'{0}' хуудас хянуулахаар илгээгдлээ."
 
-msgid "Page '{0}' has been updated."
-msgstr "'{0}' хуудас шинэчлэгдлээ."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Түгжигдсэн хуудсыг засах хадгалах боломжгүй"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Баталгаажуулалтын алдаанаас болж хуудас хадгалагдсангүй"
 
-msgid "Page '{0}' deleted."
-msgstr "'{0}' хуудас устлаа."
-
-msgid "Page '{0}' unpublished."
-msgstr "'{0}' хуудсыг хаалаа."
-
-msgid "Page '{0}' moved."
-msgstr "'{0}' хуудас зөөгдлөө."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Хуудас '{0}' болон {1} дэд хуудсууд хуулагдлаа."
-
-msgid "Page '{0}' copied."
-msgstr "'{0}' хуудас хуулагдлаа."
+msgid "Page '{0}' is now unlocked."
+msgstr "'{0}' хуудасны түгжээ тайлагдлаа."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' хуудас хянуулахаар хүлээгдэж байна."
@@ -1119,8 +1038,8 @@ msgstr "'{0}' хуудас нийтлэхээс татгалзагдлаа."
 msgid "Failed to send rejection notifications"
 msgstr "Татгалзсан мэдэгдэл илгээхэд алдаа гарлаа"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "'{0}' хуудасны түгжээ тайлагдлаа."
+msgid "Page '{0}' moved."
+msgstr "'{0}' хуудас зөөгдлөө."
 
 msgid "Earliest"
 msgstr "Хамгийн эхний"
@@ -1130,6 +1049,9 @@ msgstr "Хамгийн сүүлийн"
 
 msgid "revision {0} of \"{1}\""
 msgstr "\"{1}\"-с {0} дэх хувилбар"
+
+msgid "Page '{0}' unpublished."
+msgstr "'{0}' хуудсыг хаалаа."
 
 msgid "More"
 msgstr "Дэлгэрэнгүй"

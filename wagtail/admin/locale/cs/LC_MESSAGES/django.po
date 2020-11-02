@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-10-05 17:16+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -430,84 +430,6 @@ msgstr "Ukázat podstránky '{title}'"
 
 msgid "Page explorer"
 msgstr "Explorer"
-
-msgid "January"
-msgstr "leden"
-
-msgid "February"
-msgstr "únor"
-
-msgid "March"
-msgstr "březen"
-
-msgid "April"
-msgstr "duben"
-
-msgid "May"
-msgstr "květen"
-
-msgid "June"
-msgstr "červen"
-
-msgid "July"
-msgstr "červenec"
-
-msgid "August"
-msgstr "srpen"
-
-msgid "September"
-msgstr "září"
-
-msgid "October"
-msgstr "říjen"
-
-msgid "November"
-msgstr "listopad"
-
-msgid "December"
-msgstr "prosinec"
-
-msgid "Sunday"
-msgstr "neděle"
-
-msgid "Monday"
-msgstr "pondělí"
-
-msgid "Tuesday"
-msgstr "úterý"
-
-msgid "Wednesday"
-msgstr "středa"
-
-msgid "Thursday"
-msgstr "čtvrtek"
-
-msgid "Friday"
-msgstr "pátek"
-
-msgid "Saturday"
-msgstr "dobota"
-
-msgid "Sun"
-msgstr "ne"
-
-msgid "Mon"
-msgstr "po"
-
-msgid "Tue"
-msgstr "út"
-
-msgid "Wed"
-msgstr "st"
-
-msgid "Thu"
-msgstr "čt"
-
-msgid "Fri"
-msgstr "pá"
-
-msgid "Sat"
-msgstr "so"
 
 #, python-format
 msgid "Unknown %(action)s"
@@ -1819,23 +1741,6 @@ msgstr ""
 "software.  <a href=\"https://browsehappy.com/\">Aktualizujte prosím svůj "
 "prohlížeč</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"Pro použití Wagtailu je vyžadován Javascript, ale ten je momentálně vypnutý."
-"<br />\n"
-"            Zde naleznete <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instrukce jak zapnout "
-"Javascript ve vašem prohlížeči</a>.\n"
-"        "
-
 msgid "Skip to main content"
 msgstr "Přeskočit na hlavní obsah"
 
@@ -2145,26 +2050,44 @@ msgstr "Opravdu chcete smazat tuto kolekci?"
 msgid "Editing"
 msgstr "Úprava"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Stránka '{0}' byla vytvořena a naplánována pro publikování."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
 
-msgid "View live"
-msgstr "Zobrazit publikovanou verzi"
-
-msgid "Page '{0}' created and published."
-msgstr "Stránka '{0}' byla vytvořena a publikována."
+msgid "Page '{0}' copied."
+msgstr "Stránka '{0}' byla zkopírována."
 
 msgid "View draft"
 msgstr "Zobrazit koncept"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Stránka '{0}' byla vytvořena a odeslána ke schválení."
+msgid "View live"
+msgstr "Zobrazit publikovanou verzi"
 
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' byla vytvořena."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Stránka '{0}' byla vytvořena a naplánována pro publikování."
+
+msgid "Page '{0}' created and published."
+msgstr "Stránka '{0}' byla vytvořena a publikována."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Stránka '{0}' byla vytvořena a odeslána ke schválení."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Stránku nelze vytvořit, zkontrolujte správné vyplnění polí"
+
+msgid "Page '{0}' deleted."
+msgstr "Stránka '{0}' byla smazána."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Stránka nyní čeká na schválení"
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "Stránka '{0}' byla nahrazena verzí (od) {1}."
+
+msgid "Page '{0}' has been updated."
+msgstr "Stránka '{0}' byla aktualizována."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Stránku '{}' jste uzamknul</b>:<b>{}</b>."
@@ -2187,8 +2110,8 @@ msgstr "Tato stránka čeká <b>'{}'</b> v postupu <b>'{}'</b> ."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Pouze recenzenti této úlohy mohou stránku upravit."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Stránka nyní čeká na schválení"
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Postup na stránce '{0}' byl stornován."
 
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Verze {0} stránky '{1}' byla naplánována ke zveřejnění."
@@ -2209,17 +2132,8 @@ msgstr "Stránka '{0}' byla zveřejněna."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stránka '{0}' byla uložena ke schválení."
 
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Postup na stránce '{0}' byl stornován."
-
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "Postup na stránce '{0}' byl obnoven."
-
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "Stránka '{0}' byla nahrazena verzí (od) {1}."
-
-msgid "Page '{0}' has been updated."
-msgstr "Stránka '{0}' byla aktualizována."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Stránku nelze uložit, protože je uzamčena"
@@ -2227,27 +2141,8 @@ msgstr "Stránku nelze uložit, protože je uzamčena"
 msgid "The page could not be saved due to validation errors"
 msgstr "Stránku nelze uložit, zkontrolujte správné vyplnění polí"
 
-msgid "Page '{0}' deleted."
-msgstr "Stránka '{0}' byla smazána."
-
-msgid "Page '{0}' unpublished."
-msgstr "Stránce '{0}' byla zrušena publikace."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"Slug (identifikátor) '{0}' je už použit v nadřazené stránce. Použijte "
-"unikátní identifikátor a zkuste to znova"
-
-msgid "Page '{0}' moved."
-msgstr "Stránka '{0}' byla přesunuta."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
-
-msgid "Page '{0}' copied."
-msgstr "Stránka '{0}' byla zkopírována."
+msgid "Page '{0}' is now unlocked."
+msgstr "Stránka '{0}' je nyní odemknuta."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}' nyní nečeká na schválení."
@@ -2264,11 +2159,15 @@ msgstr "Publikace stránky '{0}' byla zamítnuta."
 msgid "Failed to send rejection notifications"
 msgstr "Selhalo odeslání zamítavých notifikací"
 
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "Stránka '{0}' nyní neočekává posouzení v rámci úlohy '{1}'."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Slug (identifikátor) '{0}' je už použit v nadřazené stránce. Použijte "
+"unikátní identifikátor a zkuste to znova"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Stránka '{0}' je nyní odemknuta."
+msgid "Page '{0}' moved."
+msgstr "Stránka '{0}' byla přesunuta."
 
 #, python-format
 msgid ""
@@ -2288,6 +2187,12 @@ msgstr "verze {0} \"{1}\""
 
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "Verze {0} dokumentu \"{1}\" není naplánována."
+
+msgid "Page '{0}' unpublished."
+msgstr "Stránce '{0}' byla zrušena publikace."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr "Stránka '{0}' nyní neočekává posouzení v rámci úlohy '{1}'."
 
 msgid "Locked pages"
 msgstr "Uzamčené stránky"

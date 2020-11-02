@@ -5,6 +5,7 @@
 # Translators:
 # Alexander Holmbäck <alexander.holmback@creuna.se>, 2017
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017
 # Thomas Kunambi <kunambi@gmail.com>, 2015
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-12-02 09:00+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-25 06:12+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +23,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Save"
+msgstr "Spara"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail kodsnuttar"
@@ -64,6 +71,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">skapa en nu</a>?"
 
+msgid "Saving…"
+msgstr "Sparar…"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Radera %(snippet_type_name)s"
@@ -98,11 +108,8 @@ msgstr "Ny %(snippet_type_name)s"
 msgid "New"
 msgstr "Ny"
 
-msgid "Saving…"
-msgstr "Sparar…"
-
-msgid "Save"
-msgstr "Spara"
+msgid "Actions"
+msgstr "Handlingar"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -110,12 +117,6 @@ msgstr "Redigerar %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Redigerar"
-
-msgid "Actions"
-msgstr "Handlingar"
-
-msgid "Delete"
-msgstr "Radera"
 
 msgid "Usage"
 msgstr "Användning"
@@ -133,9 +134,6 @@ msgstr "Rubrik"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "Markera %(snippet)s"
-
-msgid "Edit"
-msgstr "Editera"
 
 #, python-format
 msgid ""
@@ -184,6 +182,9 @@ msgstr "Sök %(snippet_type_name)s"
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' skapad."
 
+msgid "Edit"
+msgstr "Editera"
+
 msgid "The snippet could not be created due to errors."
 msgstr "Snutten kunde inte skapas p.g.a. fel."
 
@@ -203,6 +204,14 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s raderad."
 msgstr[1] "%(count)d %(snippet_type)s raderade."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editera '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Radera '%(title)s'"
 
 #, python-format
 msgid "Choose %s"

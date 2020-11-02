@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-11-24 23:49+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Delete"
+msgstr "Hamoos"
+
+msgid "Save"
+msgstr "Rai"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail snippets"
@@ -55,6 +61,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">Kria agora? </a>"
 
+msgid "Saving…"
+msgstr "Rai hela..."
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Hamoos %(snippet_type_name)s"
@@ -88,11 +97,8 @@ msgstr "Foun %(snippet_type_name)s"
 msgid "New"
 msgstr "Foun"
 
-msgid "Saving…"
-msgstr "Rai hela..."
-
-msgid "Save"
-msgstr "Rai"
+msgid "Actions"
+msgstr "Asaun sira"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -100,12 +106,6 @@ msgstr "Hadia hela %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Hadia hela"
-
-msgid "Actions"
-msgstr "Asaun sira"
-
-msgid "Delete"
-msgstr "Hamoos"
 
 msgid "Usage"
 msgstr "Uza"
@@ -123,9 +123,6 @@ msgstr "Titlu"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "Hili %(snippet)s"
-
-msgid "Edit"
-msgstr "Hadia"
 
 #, python-format
 msgid ""
@@ -173,6 +170,9 @@ msgstr "Buka %(snippet_type_name)s"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' kria ona"
+
+msgid "Edit"
+msgstr "Hadia"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Snippet labele kria tanba erru."

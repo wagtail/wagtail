@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 12:51+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -494,6 +494,10 @@ msgstr "entrée de journal"
 msgid "log entries"
 msgstr "entrées de journal"
 
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "utilisateur %(id)d (supprimé)"
+
 msgid "system"
 msgstr "système"
 
@@ -526,3 +530,9 @@ msgstr "L'accès à cette page nécessite un mot de passe."
 
 msgid "Continue"
 msgstr "Continuer"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s sous-collection"
+msgstr[1] "%(count)s sous-collections"

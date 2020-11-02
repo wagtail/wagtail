@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-29 09:36+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-28 10:07+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -124,17 +124,47 @@ msgstr "Afegir un nou resultat promocionat"
 msgid "Search term(s)"
 msgstr "Cerca paraula(es)"
 
+msgid "Order by search term alphabetically"
+msgstr "Ordena per terme de cerca de forma alfabètica"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Ordena per terme de cerca de forma alfabètica invertida"
+
 msgid "Promoted results"
 msgstr "Resultats promocionats"
 
 msgid "Views (past week)"
 msgstr "Vistes(la setmana pasada)"
 
+msgid "Order by views (lowest first)"
+msgstr "Ordena per vistes (primer les menors)"
+
+msgid "Order by views (highest first)"
+msgstr "Ordena per vistes (primer les majors)"
+
 msgid "Edit this promotion"
 msgstr "Editeu aquesta promoció"
 
 msgid "None"
 msgstr "Cap"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Hi ha %(counter)s coincidència\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Hi ha %(counter)s coincidències\n"
+"        "
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

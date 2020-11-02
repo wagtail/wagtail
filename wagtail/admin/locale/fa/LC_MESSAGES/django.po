@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -386,84 +386,6 @@ msgstr "دیدن صفحات فرزند {title}"
 
 msgid "Page explorer"
 msgstr "کاوشگر صفحه"
-
-msgid "January"
-msgstr "ژانویه"
-
-msgid "February"
-msgstr "فوریه"
-
-msgid "March"
-msgstr "مارس"
-
-msgid "April"
-msgstr "آپریل"
-
-msgid "May"
-msgstr "مه"
-
-msgid "June"
-msgstr "ژوئن"
-
-msgid "July"
-msgstr "جولای"
-
-msgid "August"
-msgstr "آگوست"
-
-msgid "September"
-msgstr "سپتامبر"
-
-msgid "October"
-msgstr "اکتبر"
-
-msgid "November"
-msgstr "نوامبر"
-
-msgid "December"
-msgstr "دسامبر"
-
-msgid "Sunday"
-msgstr "یک‌شنبه"
-
-msgid "Monday"
-msgstr "دوشنبه"
-
-msgid "Tuesday"
-msgstr "سه‌شنبه"
-
-msgid "Wednesday"
-msgstr "چهارشنبه"
-
-msgid "Thursday"
-msgstr "پنج‌شنبه"
-
-msgid "Friday"
-msgstr "جمعه"
-
-msgid "Saturday"
-msgstr "شنبه"
-
-msgid "Sun"
-msgstr "یکشنبه"
-
-msgid "Mon"
-msgstr "دوشنبه"
-
-msgid "Tue"
-msgstr "سه شنبه"
-
-msgid "Wed"
-msgstr "چهارشنبه"
-
-msgid "Thu"
-msgstr "پنجشنبه"
-
-msgid "Fri"
-msgstr "جمعه"
-
-msgid "Sat"
-msgstr "شنبه"
 
 msgid "Error 404: Page not found"
 msgstr "ارور 404: صفحه یافت نشد"
@@ -1421,22 +1343,6 @@ msgstr ""
 "پشتیبانی نمی‌شود. خواهشا <a href=\"https://browsehappy.com/\">مرورگر خود</a> "
 "را بروزرسانی کنید."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"برای استفاده از وگتیل نیاز به جاوا اسکریپت دارید که در حال حاضر غیرفعال است."
-"<br />\n"
-"در اینجا <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener\">دستورالعمل های فعال سازی جاواسکریپت</a> را برای مرورگر خود آمده "
-"است."
-
 msgid "Go to Wagtail admin interface"
 msgstr "رفتن به صفحه ادمین وگتیل"
 
@@ -1537,26 +1443,41 @@ msgstr "آیا میخواهید این مجموعه را حذف کنید؟"
 msgid "Editing"
 msgstr "ویرایش"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "صفحه  '{0}' ایجاد و برای انتشار برنامه ریزی شد."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "صفحه '{0}' و '{1}' زیرصفحه آن کپی شدند."
 
-msgid "View live"
-msgstr " دیدن صفحه منتشر شده"
-
-msgid "Page '{0}' created and published."
-msgstr "صفحه '{0}' ایجاد و انتشار یافت."
+msgid "Page '{0}' copied."
+msgstr "صفحه '{0}' کپی شد."
 
 msgid "View draft"
 msgstr "دیدن پیشنویس"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "صفحه '{0}' ایجاد و برای نظارت فرستاده شد."
+msgid "View live"
+msgstr " دیدن صفحه منتشر شده"
 
 msgid "Page '{0}' created."
 msgstr "صفحه '{0}' ایجاد شد."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "صفحه  '{0}' ایجاد و برای انتشار برنامه ریزی شد."
+
+msgid "Page '{0}' created and published."
+msgstr "صفحه '{0}' ایجاد و انتشار یافت."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "صفحه '{0}' ایجاد و برای نظارت فرستاده شد."
+
 msgid "The page could not be created due to validation errors"
 msgstr "به دلیل بروز خطا صفحه ایجاد نشد."
+
+msgid "Page '{0}' deleted."
+msgstr "صفحه '{0}' حذف شد."
+
+msgid "This page is currently awaiting moderation"
+msgstr "این در انتظار نظارت است"
+
+msgid "Page '{0}' has been updated."
+msgstr "صفحه '{0}' بروزرسانی شد."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>صفحه {} توسط <b>شما</b> در <b>{}</b> قفل شد."
@@ -1570,9 +1491,6 @@ msgstr "<b>صفحه {} توسط <b>{}</b> در <b>{}</b> قفل شد."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>صفحه '{}' قفل شده است.</b>"
 
-msgid "This page is currently awaiting moderation"
-msgstr "این در انتظار نظارت است"
-
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "صفحه '{0}' برای انتشار زمانبندی شد."
 
@@ -1582,36 +1500,14 @@ msgstr "صفحه '{0}' انتشار یافت."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "صفحه '{0}' برای نظارت فرستاده شد."
 
-msgid "Page '{0}' has been updated."
-msgstr "صفحه '{0}' بروزرسانی شد."
-
 msgid "The page could not be saved as it is locked"
 msgstr "بدلیل قفل بودن صفحه امکان ذخیره وجود ندارد"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "صفحه به دلیل وجود خطاهای معتبرسازی ذخیره نمی‌شود"
 
-msgid "Page '{0}' deleted."
-msgstr "صفحه '{0}' حذف شد."
-
-msgid "Page '{0}' unpublished."
-msgstr "صفحه '{0}' لغو انتشار شد."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"اسلاگ {0} در حال حاضر توسط صفحه‌ی والد درحال استفاده است. لطفا مطمئن شوید "
-"اسلاگ یکتاست و دوباره امتحان کنید"
-
-msgid "Page '{0}' moved."
-msgstr "صفحه '{0}' انتقال یافت."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "صفحه '{0}' و '{1}' زیرصفحه آن کپی شدند."
-
-msgid "Page '{0}' copied."
-msgstr "صفحه '{0}' کپی شد."
+msgid "Page '{0}' is now unlocked."
+msgstr "صفحه '{0}' باز شده است."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "صفحه '{0}' در انتظار نظارت است."
@@ -1628,8 +1524,15 @@ msgstr "صفحه '{0}' برای انتشار رد شد."
 msgid "Failed to send rejection notifications"
 msgstr "فرستادن آگاهسازی رد انتشار ناموفق بود"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "صفحه '{0}' باز شده است."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"اسلاگ {0} در حال حاضر توسط صفحه‌ی والد درحال استفاده است. لطفا مطمئن شوید "
+"اسلاگ یکتاست و دوباره امتحان کنید"
+
+msgid "Page '{0}' moved."
+msgstr "صفحه '{0}' انتقال یافت."
 
 msgid "Earliest"
 msgstr "اولین"
@@ -1639,6 +1542,9 @@ msgstr "آخرین"
 
 msgid "revision {0} of \"{1}\""
 msgstr "بازبینی {0} از {1}"
+
+msgid "Page '{0}' unpublished."
+msgstr "صفحه '{0}' لغو انتشار شد."
 
 #, python-format
 msgid "Edit '%(title)s'"

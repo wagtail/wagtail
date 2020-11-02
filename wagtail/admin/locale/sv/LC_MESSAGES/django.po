@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-25 06:53+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -144,6 +144,13 @@ msgstr "Ange din e-postadress för att återställa ditt lösenord"
 msgid "URL"
 msgstr "URL"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Välj hierarkisk position. Obs: en samling kan inte bli en undersamling av "
+"sig själv eller dess härstammande samlingar."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
 
@@ -188,6 +195,12 @@ msgstr[0] ""
 "%(count)s av sidorna som kopieras är live. Vill du publicera kopian?"
 msgstr[1] ""
 "%(count)s av sidorna som kopieras är publicerade. Vill du publicera kopiorna?"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Håll de nya sidorna uppdaterade med framtida ändringar"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -261,6 +274,9 @@ msgstr "Engelska"
 
 msgid "Spanish"
 msgstr "Spanska"
+
+msgid "Estonian"
+msgstr "Estniska"
 
 msgid "Finnish"
 msgstr "Finska"
@@ -421,83 +437,9 @@ msgstr "Visa undersidor av '{title}'"
 msgid "Page explorer"
 msgstr "Sidutforskare"
 
-msgid "January"
-msgstr "Januari"
-
-msgid "February"
-msgstr "Februari"
-
-msgid "March"
-msgstr "Mars"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "Augusti"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sunday"
-msgstr "Söndag"
-
-msgid "Monday"
-msgstr "Måndag"
-
-msgid "Tuesday"
-msgstr "Tisdag"
-
-msgid "Wednesday"
-msgstr "Onsdag"
-
-msgid "Thursday"
-msgstr "Torsdag"
-
-msgid "Friday"
-msgstr "Fredag"
-
-msgid "Saturday"
-msgstr "Lördag"
-
-msgid "Sun"
-msgstr "Sön"
-
-msgid "Mon"
-msgstr "Mån"
-
-msgid "Tue"
-msgstr "Tis"
-
-msgid "Wed"
-msgstr "Ons"
-
-msgid "Thu"
-msgstr "Tor"
-
-msgid "Fri"
-msgstr "Fre"
-
-msgid "Sat"
-msgstr "Lör"
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Okänd %(action)s"
 
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
@@ -748,6 +690,15 @@ msgid ""
 msgstr ""
 "Detta är din instrumentbräda där hjälpsam information om innehållet du "
 "skapat kommer att visas."
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail tar gradvis bort stöd för IE11, vilket kan påverka dig eller din "
+"organisation. <a href=\"%(url)s\">Läs mer om vår IE11 supportplan</a>."
 
 msgid "Your locked pages"
 msgstr "Dina låsta sidor"
@@ -1049,6 +1000,25 @@ msgid "Pages using %(page_type)s"
 msgstr "Sidor som använder %(page_type)s"
 
 #, python-format
+msgid "Convert alias %(title)s"
+msgstr "Konvertera alias %(title)s"
+
+msgid "Convert alias"
+msgstr "Konvertera alias"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr "Är du säker på att du vill konvertera alias till en vanlig sida?"
+
+msgid "This action cannot be undone."
+msgstr "Denna handling kan inte ångras."
+
+msgid "Yes, convert it"
+msgstr "Ja, konvertera"
+
+msgid "No, leave it as an alias"
+msgstr "Nej, lämna den som ett alias"
+
+#, python-format
 msgid "Delete %(title)s"
 msgstr "Radera %(title)s"
 
@@ -1222,6 +1192,15 @@ msgstr "Editerar %(page_type)s"
 
 msgid "History"
 msgstr "Historik"
+
+msgid "This page is an alias of another page."
+msgstr "Denna sida är ett alias av en annan sida."
+
+msgid "Edit original page"
+msgstr "Editera orginalsida"
+
+msgid "Convert this alias into a regular page"
+msgstr "Konvertera alias till en vanlig sida"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1777,7 +1756,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"            Javascript is required to use Wagtail, but it is currently "
+"            JavaScript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
@@ -1785,11 +1764,12 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Javascript krävs för att använda Wagtail, men det är för närvarande "
+"            JavaScript krävs för att använda Wagtail, men är för närvarande "
 "inaktiverat.<br />\n"
-"Här är <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">anvisningarna för hur du aktiverar JavaScript i din "
-"webbläsare</a>."
+"            Här är <a href=\"https://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">instruktioner om hur du aktiverar "
+"JavaScript i din webbläsare</a>.\n"
+"        "
 
 msgid "Skip to main content"
 msgstr "Hoppa till huvudinnehåll"
@@ -2078,6 +2058,9 @@ msgstr "Samlingen kunde inte sparas pga fel."
 msgid "Delete collection"
 msgstr "Radera samling"
 
+msgid "Please select another parent"
+msgstr "Vänligen välj en annan föräldersida"
+
 msgid "Collection '{0}' deleted."
 msgstr "Samling '{0}' raderad."
 
@@ -2087,26 +2070,47 @@ msgstr "Är du säker på att du vill radera denna samling?"
 msgid "Editing"
 msgstr "Editerar"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Sida '{0}' skapad och schemalagd för publicering."
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "Sidan '{0}' har blivit konverterad till en vanlig sida."
 
-msgid "View live"
-msgstr "Visa publicerad"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Sida '{0}' och {1} undersida kopierad."
 
-msgid "Page '{0}' created and published."
-msgstr "Sida '{0}' skapad och publicerad."
+msgid "Page '{0}' copied."
+msgstr "Sida '{0}' kopierad."
 
 msgid "View draft"
 msgstr "Se utkast"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Sida '{0}' skapad och inlämnad för moderering."
+msgid "View live"
+msgstr "Visa publicerad"
 
 msgid "Page '{0}' created."
 msgstr "Sida '{0}' skapad."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Sida '{0}' skapad och schemalagd för publicering."
+
+msgid "Page '{0}' created and published."
+msgstr "Sida '{0}' skapad och publicerad."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Sida '{0}' skapad och inlämnad för moderering."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Sidan kunde ej bli skapad p.g.a. valideringsfel"
+
+msgid "Page '{0}' deleted."
+msgstr "Sida '{0}' raderad."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Sidan väntar på moderering"
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "Sidan '{0}' har blivit ersatt med version från {1}."
+
+msgid "Page '{0}' has been updated."
+msgstr "Sida '{0}' har blivit uppdaterad."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Sidan '{}' låstes</b> av <b>dig</b> <b>{}</b>."
@@ -2129,8 +2133,8 @@ msgstr "Denna sida väntar på <b>'{}'</b> i arbetsflödet <b>'{}'</b> ."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Endast granskare för denna uppgift kan redigera sidan."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Sidan väntar på moderering"
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Arbetsflöde på sida '{0}' har avbrutits."
 
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
@@ -2153,17 +2157,8 @@ msgstr "Sida '{0}' har blivit publicerad."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sida '{0}' har blivit inlämnad för moderering."
 
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Arbetsflöde på sida '{0}' har avbrutits."
-
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "Arbetsflödet på sidan '{0}' har startats om."
-
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "Sidan '{0}' har blivit ersatt med version från {1}."
-
-msgid "Page '{0}' has been updated."
-msgstr "Sida '{0}' har blivit uppdaterad."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Sidan kunde inte sparas eftersom den är låst"
@@ -2171,27 +2166,8 @@ msgstr "Sidan kunde inte sparas eftersom den är låst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Sidan kunde inte sparas p.g.a. valideringsfel"
 
-msgid "Page '{0}' deleted."
-msgstr "Sida '{0}' raderad."
-
-msgid "Page '{0}' unpublished."
-msgstr "Sida '{0}' opublicerad."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"URL-fragmenten '{0}' är redan i användning av den valda huvudsidan. Se till "
-"att URL-fragmentet är unik och försök igen."
-
-msgid "Page '{0}' moved."
-msgstr "Sida '{0}' flyttad."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Sida '{0}' och {1} undersida kopierad."
-
-msgid "Page '{0}' copied."
-msgstr "Sida '{0}' kopierad."
+msgid "Page '{0}' is now unlocked."
+msgstr "Sida '{0}' är nu olåst."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sidan '{0}' väntar för närvarande inte på moderering."
@@ -2208,11 +2184,15 @@ msgstr "Sida '{0}' avvisad för publicering."
 msgid "Failed to send rejection notifications"
 msgstr "Misslyckades att skicka nekande notifieringar"
 
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "Sidan '{0}' väntar för närvarande inte på moderering i uppift '{1}'."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"URL-fragmenten '{0}' är redan i användning av den valda huvudsidan. Se till "
+"att URL-fragmentet är unik och försök igen."
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Sida '{0}' är nu olåst."
+msgid "Page '{0}' moved."
+msgstr "Sida '{0}' flyttad."
 
 #, python-format
 msgid ""
@@ -2233,6 +2213,12 @@ msgstr "revision {0} av \"{1}\""
 
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "Version {0} av \"{1}\" ej schemalagt."
+
+msgid "Page '{0}' unpublished."
+msgstr "Sida '{0}' opublicerad."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr "Sidan '{0}' väntar för närvarande inte på moderering i uppift '{1}'."
 
 msgid "Locked pages"
 msgstr "Låsta sidor"
@@ -2517,6 +2503,20 @@ msgid "Copied"
 msgstr "Kopierad"
 
 #, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Skapade ett alias av %(title)s"
+
+msgid "Created an alias"
+msgstr "Skapade alias"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Konverterade alias '%(title)s' till en vanlig sida"
+
+msgid "Converted an alias into a regular page"
+msgstr "Konverterade alias till en vanlig sida"
+
+#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Flyttade från '%(old_parent)s' till '%(new_parent)s'"
 
@@ -2586,6 +2586,12 @@ msgstr "Döp om"
 
 msgid "Revert"
 msgstr "Återgå"
+
+msgid "Create alias"
+msgstr "Skapa alias"
+
+msgid "Convert alias into regular page"
+msgstr "Konvertera alias till vanlig sida"
 
 msgid "Schedule publication"
 msgstr "Schemalägg publicering"

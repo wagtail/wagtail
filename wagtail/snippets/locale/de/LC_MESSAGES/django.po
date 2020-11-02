@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2020-08-08 13:22+0000\n"
-"Last-Translator: Tim - <Scriptim@gmx.de>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Save"
+msgstr "Speichern"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail Schnipsel"
@@ -73,6 +79,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">erstellen Sie nicht jetzt eins</a>?"
 
+msgid "Saving…"
+msgstr "Speichern…"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Lösche %(snippet_type_name)s"
@@ -110,11 +119,8 @@ msgstr "%(snippet_type_name)s erstellen"
 msgid "New"
 msgstr "Erstellen"
 
-msgid "Saving…"
-msgstr "Speichern…"
-
-msgid "Save"
-msgstr "Speichern"
+msgid "Actions"
+msgstr "Aktionen"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -122,12 +128,6 @@ msgstr "%(snippet_type_name)s - %(instance)s bearbeiten"
 
 msgid "Editing"
 msgstr "Bearbeiten"
-
-msgid "Actions"
-msgstr "Aktionen"
-
-msgid "Delete"
-msgstr "Löschen"
 
 msgid "Usage"
 msgstr "Benutzung"
@@ -145,9 +145,6 @@ msgstr "Titel"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "Wähle %(snippet)s"
-
-msgid "Edit"
-msgstr "Bearbeiten"
 
 #, python-format
 msgid ""
@@ -195,6 +192,9 @@ msgstr "Suche %(snippet_type_name)s"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' erstellt."
+
+msgid "Edit"
+msgstr "Bearbeiten"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte das Schnipsel nicht erstellt werden."

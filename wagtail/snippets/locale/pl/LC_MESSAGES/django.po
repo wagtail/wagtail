@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-25 10:07+0000\n"
-"Last-Translator: Miłosz Miśkiewicz\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+msgid "Delete"
+msgstr "Usuń"
+
+msgid "Save"
+msgstr "Zapisz"
 
 msgid "Wagtail snippets"
 msgstr "Snippety Wagtail"
@@ -75,6 +81,9 @@ msgstr ""
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noopener noreferrer\">nie utworzyć jednego teraz</a>?"
 
+msgid "Saving…"
+msgstr "Zapisywanie…"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "Usuń %(snippet_type_name)s"
@@ -111,11 +120,8 @@ msgstr "Nowy %(snippet_type_name)s"
 msgid "New"
 msgstr "Nowy"
 
-msgid "Saving…"
-msgstr "Zapisywanie…"
-
-msgid "Save"
-msgstr "Zapisz"
+msgid "Actions"
+msgstr "Akcje"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -123,12 +129,6 @@ msgstr "Edycja %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Edycja"
-
-msgid "Actions"
-msgstr "Akcje"
-
-msgid "Delete"
-msgstr "Usuń"
 
 msgid "Usage"
 msgstr "Użycie"
@@ -146,9 +146,6 @@ msgstr "Tytuł"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "Zaznacz %(snippet)s"
-
-msgid "Edit"
-msgstr "Edytuj"
 
 #, python-format
 msgid ""
@@ -196,6 +193,9 @@ msgstr "Wyszukaj %(snippet_type_name)s"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' utworzone."
+
+msgid "Edit"
+msgstr "Edytuj"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Snippet nie mógł zostać stworzony z powodu błędów."

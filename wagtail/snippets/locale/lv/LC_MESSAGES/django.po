@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Save"
+msgstr "Saglabāt"
 
 msgid "Choose"
 msgstr "Izvēlēties"
@@ -33,9 +39,6 @@ msgstr "Jauns %(snippet_type_name)s"
 msgid "New"
 msgstr "Jauns"
 
-msgid "Save"
-msgstr "Saglabāt"
-
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Labo %(snippet_type_name)s - %(instance)s"
@@ -43,14 +46,8 @@ msgstr "Labo %(snippet_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Labošana"
 
-msgid "Delete"
-msgstr "Dzēst"
-
 msgid "Title"
 msgstr "Virsraksts"
-
-msgid "Edit"
-msgstr "Labot"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -71,6 +68,9 @@ msgstr "Statuss"
 
 msgid "Edit this page"
 msgstr "Labot šo lapu"
+
+msgid "Edit"
+msgstr "Labot"
 
 #, python-format
 msgid "Choose %s"

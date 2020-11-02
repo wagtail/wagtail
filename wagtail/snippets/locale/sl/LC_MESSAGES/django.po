@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Save"
+msgstr "Shrani"
 
 msgid "Choose"
 msgstr "Izberite"
@@ -44,9 +50,6 @@ msgstr "Nov  %(snippet_type_name)s"
 msgid "New"
 msgstr "Nov"
 
-msgid "Save"
-msgstr "Shrani"
-
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Urejanje %(snippet_type_name)s - %(instance)s"
@@ -54,17 +57,11 @@ msgstr "Urejanje %(snippet_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Urejanje"
 
-msgid "Delete"
-msgstr "Izbriši"
-
 msgid "Snippets"
 msgstr "Delci"
 
 msgid "Title"
 msgstr "Naziv"
-
-msgid "Edit"
-msgstr "Uredi"
 
 #, python-format
 msgid ""
@@ -108,6 +105,9 @@ msgstr "Uredi stran"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "Iskanje po %(snippet_type_name)s"
+
+msgid "Edit"
+msgstr "Uredi"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno ustvariti."

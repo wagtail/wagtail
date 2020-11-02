@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 16:56+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,9 @@ msgstr "Salasana"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Antamasi salasana ei ole oikein. Koeta uudestaan."
+
+msgid "Comment"
+msgstr "Kommentti"
 
 msgid "hostname"
 msgstr "isäntäosoite"
@@ -337,14 +340,36 @@ msgstr "ryhmän oikeudet kokoelmaan"
 msgid "workflow"
 msgstr "työnkulku"
 
+msgid "Approve"
+msgstr "Hyväksy"
+
+msgid "Approve with comment"
+msgstr "Hyväksy kommentin kera"
+
+msgid "Approved"
+msgstr "Hyväksytty"
+
+msgid "Needs changes"
+msgstr "Vaatii muutoksia"
+
 msgid "Cancelled"
 msgstr "Peruttu"
 
 msgid "Not started"
 msgstr "Ei aloitettu"
 
+msgid "Workflow state"
+msgstr "Työnkulun tila"
+
+msgid "Workflow states"
+msgstr "Työnkulun tilat"
+
 msgid "timestamp (UTC)"
 msgstr "aikaleima (UTC)"
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "käyttäjä %(id)d (poistettu)"
 
 msgid "system"
 msgstr "järjestelmä"

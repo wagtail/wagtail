@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-28 12:44+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Save"
+msgstr "Mentés"
 
 msgid "Wagtail snippets"
 msgstr "Elemek"
@@ -60,6 +66,9 @@ msgstr ""
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noopener noreferrer\">hoz létre egy újat most</a>?"
 
+msgid "Saving…"
+msgstr "Mentés folyamatban..."
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s törlése"
@@ -94,11 +103,8 @@ msgstr "Új %(snippet_type_name)s"
 msgid "New"
 msgstr "Új"
 
-msgid "Saving…"
-msgstr "Mentés folyamatban..."
-
-msgid "Save"
-msgstr "Mentés"
+msgid "Actions"
+msgstr "Akciók"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -106,12 +112,6 @@ msgstr "%(snippet_type_name)s - %(instance)s szerkesztése"
 
 msgid "Editing"
 msgstr "Szerkesztés"
-
-msgid "Actions"
-msgstr "Akciók"
-
-msgid "Delete"
-msgstr "Törlés"
 
 msgid "Usage"
 msgstr "Használat"
@@ -129,9 +129,6 @@ msgstr "Cím"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "%(snippet)s kiválasztása"
-
-msgid "Edit"
-msgstr "Szerkeszt"
 
 #, python-format
 msgid ""
@@ -179,6 +176,9 @@ msgstr "%(snippet_type_name)s keresése"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "'%(instance)s' %(snippet_type)s létrehozva."
+
+msgid "Edit"
+msgstr "Szerkeszt"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Hiba történt az elem létrehozása közben."

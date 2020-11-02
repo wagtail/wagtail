@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -18,6 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Delete"
+msgstr "Устгах"
+
+msgid "Save"
+msgstr "Хадгалах"
 
 msgid "Wagtail snippets"
 msgstr "Туслах хэсгүүд"
@@ -62,6 +68,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">нэмж </a>болохгүй гэж?"
 
+msgid "Saving…"
+msgstr "Хадгалж байна"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s устгах"
@@ -93,21 +102,12 @@ msgstr "Шинэ %(snippet_type_name)s"
 msgid "New"
 msgstr "Шинэ"
 
-msgid "Saving…"
-msgstr "Хадгалж байна"
-
-msgid "Save"
-msgstr "Хадгалах"
-
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "%(snippet_type_name)s - %(instance)s засч байна"
 
 msgid "Editing"
 msgstr "Засч байна"
-
-msgid "Delete"
-msgstr "Устгах"
 
 msgid "Usage"
 msgstr "Хэрэглээ"
@@ -117,9 +117,6 @@ msgstr "Хэсэг"
 
 msgid "Title"
 msgstr "Гарчиг"
-
-msgid "Edit"
-msgstr "Засах"
 
 #, python-format
 msgid ""
@@ -163,6 +160,9 @@ msgstr "Энэ хуудсыг засах"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s хайх"
+
+msgid "Edit"
+msgstr "Засах"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Хэсэг дээрх алдаанаас болж хадгалагдсангүй."

@@ -491,6 +491,7 @@ Translators
 * Arabic: Bashar Al-Abdulhadi, Abdulaziz Alfuhigi, Roger Allen, Khaled Arnaout, Mohammed Abdul Gadir, Ahmad Kiswani, Mohamed Mayla, Ahmed Miske Sidi Med, Ultraify Media
 * Armenian: Vachagan
 * Azerbaijani: Mirza Iskandarov
+* Bangla: Mahmud Abdur Rahman Toki
 * Basque: Unai Zalakain
 * Belarusian: Stas Rudakou, Tatsiana Tsygan
 * Bulgarian: Lyuboslav Petrov
@@ -498,12 +499,12 @@ Translators
 * Catalan: Antoni Aloy, David Llop, Roger Pons
 * Chinese: hanfeng, Lihan Li, Leway Colin, Orangle Liu, shengsheng gz
 * Chinese (Simplified): Ed, hanfeng, Fan Hei, Yi Huang, Daniel Hwang, Jian Li, Aosp T, Listeng Teng, Feng Wang, whuim, Fred Zeng, Joey Zhao, Vincent Zhao, zhushajun
-* Chinese (Traditional): c o, gogobook, Andy Kong, Lihan Li, Ocin Leung, Jp Shieh, Yeh Yen-Ke, Yu Hsun Lee
+* Chinese (Traditional): gogobook, Andy Kong, Lihan Li, Ocin Leung, ongchi, Jp Shieh, Yeh Yen-Ke, Yu Hsun Lee
 * Croatian (Croatia): Dino Aljević, Marko Burazin, Ivica Dosen, Luka Matijević
 * Czech: Ales Dvorak, Martin Galda, IT Management, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
 * Danish: Mads Kronborg, MRostgaard, Asger Sørensen
 * Dutch: benny_AT_it_digin.com, Bram, Brecht Dervaux, Huib Keemink, Thijs Kramer, Samuel Leeuwenburg, mahulst, Rob Moorman, Michael van Tellingen, Arne Turpyn
-* Dutch (Netherlands): Bram, Kees Hink, Coen van der Kamp, Franklin Kingma, Maarten Kling, Thijs Kramer, Meteor0id
+* Dutch (Netherlands): Bram, Kees Hink, Ramon de Jezus, Coen van der Kamp, Franklin Kingma, Maarten Kling, Thijs Kramer, Meteor0id
 * Estonian: Erlend Eelmets, Ragnar Rebase
 * Finnish: Jiri Grönroos, Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Valter Maasalo, Glen Somerville, Juha Yrjölä
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Fabien Heureux, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
@@ -520,7 +521,7 @@ Translators
 * Japanese: Sangmin Ahn, Shuhei Hirota, Shu Ishida, Yudai Kobayashi, Tri Minh, Tetsuya Morimoto, Hideaki Oguchi, Tomo Mizoe, Safu9, Kinoshita Shinji, Daigo Shitara, Shimizu Taku, umepon0626, Takuya Yamamoto
 * Korean: Kyungil Choi, Jihan Chung
 * Latvian: Reinis Rozenbergs, Maris Serzans
-* Lithuanian: Matas Dailyda
+* Lithuanian: Matas Dailyda, Naglis Jonaitis
 * Mongolian: Myagmarjav Enkhbileg, Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Ole Kristian Losvik, Robin Skahjem-Eriksen, Stein Strindhaug
 * Persian: Ehsan Jahanbakhsh, Mohammad reza Jelveh, Mehdi, Mohammad Hossein Mojtahedi, Hamed Najand, Mohammad Sharif Shokouhi, Py Zenberg
@@ -531,7 +532,7 @@ Translators
 * Russian: ajk, Andrey Avdey, Daniil, Mikhail Gerasimov, gsstver, sergeybe, Sergey Khalymon, Sergey Komarov, Miron Levitskiy, Arseni M, Eugene MechanisM, Rustam Mirzaev, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Mikhail Sidorov, Nikita Tonkoshkur, Alexey Trofimov, Tatsiana Tsygan, Viktor, Nikita Viktorovich, Vassiliy Vorobyov
 * Slovak (Slovakia): Stevo Backor, dellax, Martin Janšto, Jozef Karabelly
 * Slovenian: Mitja Pagon, Matej Stavanja
-* Spanish: Mauricio Baeza, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, fooflare, José Luis, Joaquín Tita, Daniel Wohlgemuth, Unai Zalakain
+* Spanish: Mauricio Baeza, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, fooflare, José Luis, Maylon Pedroso, Joaquín Tita, Daniel Wohlgemuth, Unai Zalakain
 * Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander, Martin Sandström
 * Tetum: Alessandro, Joanico Barros, Peter Coward, Mariano de Deus, Onorio de Jesus Afonso, Mario Alves Pinto
 * Thai: Amawalee Combe, Jon Combe, Walaksawan Vervoort

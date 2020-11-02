@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-25 06:52+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -484,6 +484,10 @@ msgstr "loggpost"
 msgid "log entries"
 msgstr "loggposter"
 
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "användare %(id)d (raderad)"
+
 msgid "system"
 msgstr "system"
 
@@ -514,3 +518,9 @@ msgstr "Du behöver ett lösenord för åtkomst till sidan."
 
 msgid "Continue"
 msgstr "Fortsätt"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s härstammande samling"
+msgstr[1] "%(count)s härstammande samlingar"

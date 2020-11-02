@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Save"
+msgstr "保存"
 
 msgid "Choose"
 msgstr "选择"
@@ -35,18 +41,12 @@ msgstr "新的%(snippet_type_name)s"
 msgid "New"
 msgstr "新建"
 
-msgid "Save"
-msgstr "保存"
-
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "编辑%(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "编辑"
-
-msgid "Delete"
-msgstr "删除"
 
 msgid "Snippets"
 msgstr "片段"

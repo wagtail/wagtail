@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -193,63 +193,6 @@ msgstr "Poglej vse"
 
 msgid "Close explorer"
 msgstr "Zapri raziskovalca"
-
-msgid "January"
-msgstr "Januar"
-
-msgid "February"
-msgstr "Februar"
-
-msgid "March"
-msgstr "Marec"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Junij"
-
-msgid "July"
-msgstr "Julij"
-
-msgid "August"
-msgstr "Avgust"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Ned"
-
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Tor"
-
-msgid "Wed"
-msgstr "Sre"
-
-msgid "Thu"
-msgstr "Čet"
-
-msgid "Fri"
-msgstr "Pet"
-
-msgid "Sat"
-msgstr "Sob"
 
 msgid "Error 404: Page not found"
 msgstr "Napaka 404: strani ni bilo mogoče najti"
@@ -785,29 +728,41 @@ msgstr "Vaše geslo je bil uspešno spremenjeno!"
 msgid "Collections"
 msgstr "Zbirke"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Stran '{0}' ustvarjena in načrtovana za objavo."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Stran '{0}' in {1} podstrani kopiranih."
 
-msgid "View live"
-msgstr "Ogled v živo"
-
-msgid "Page '{0}' created and published."
-msgstr "Stran '{0}' ustvarjena in objavljena."
+msgid "Page '{0}' copied."
+msgstr "Stran '{0}' kopirana."
 
 msgid "View draft"
 msgstr "Poglej osnutek"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Stran '{0}' ustvarjena in oddana v potrditev."
+msgid "View live"
+msgstr "Ogled v živo"
 
 msgid "Page '{0}' created."
 msgstr "Stran '{0}' ustvarjena."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Stran '{0}' ustvarjena in načrtovana za objavo."
+
+msgid "Page '{0}' created and published."
+msgstr "Stran '{0}' ustvarjena in objavljena."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Stran '{0}' ustvarjena in oddana v potrditev."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno ustvariti"
 
+msgid "Page '{0}' deleted."
+msgstr "Stran '{0}' izbrisana."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Stran trenutno čaka na potrditev"
+
+msgid "Page '{0}' has been updated."
+msgstr "Stran '{0}' je posodobljena."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stran '{0}' je načrtovana za objavo."
@@ -818,29 +773,14 @@ msgstr "Stran '{0}' je objavljena."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stran '{0}' je bila oddana v potrditev."
 
-msgid "Page '{0}' has been updated."
-msgstr "Stran '{0}' je posodobljena."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Strani ni bilo možno shraniti, ker je zaklenjena"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno shraniti"
 
-msgid "Page '{0}' deleted."
-msgstr "Stran '{0}' izbrisana."
-
-msgid "Page '{0}' unpublished."
-msgstr "Stran '{0}' umaknjena iz objave."
-
-msgid "Page '{0}' moved."
-msgstr "Stran '{0}' premaknjena."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Stran '{0}' in {1} podstrani kopiranih."
-
-msgid "Page '{0}' copied."
-msgstr "Stran '{0}' kopirana."
+msgid "Page '{0}' is now unlocked."
+msgstr "Stran '{0}' je sedaj odklenjena."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stran '{0}' trenutno ne čaka na potrditev."
@@ -851,8 +791,11 @@ msgstr "Stran '{0}' objavljena."
 msgid "Page '{0}' rejected for publication."
 msgstr "Objava strani '{0}' zavrnjena."
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Stran '{0}' je sedaj odklenjena."
+msgid "Page '{0}' moved."
+msgstr "Stran '{0}' premaknjena."
+
+msgid "Page '{0}' unpublished."
+msgstr "Stran '{0}' umaknjena iz objave."
 
 msgid "Change the password you use to log in."
 msgstr "Spremenite geslo za prijavo."

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -18,6 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: th\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Delete"
+msgstr "ลบ,ลบทิ้ง"
+
+msgid "Save"
+msgstr "เซฟ,เก็บข้อมูล"
 
 msgid "Wagtail snippets"
 msgstr "เกร็ดเล็กเกร็ดน้อยของWagtail"
@@ -56,6 +62,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">สร้างหนึ่งอันในตอนนี้</a>?"
 
+msgid "Saving…"
+msgstr "กำลังเซฟ...,กำลังเก็บข้อมูล"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "ลบ %(snippet_type_name)s"
@@ -86,21 +95,12 @@ msgstr "ใหม่ %(snippet_type_name)s"
 msgid "New"
 msgstr "ใหม่"
 
-msgid "Saving…"
-msgstr "กำลังเซฟ...,กำลังเก็บข้อมูล"
-
-msgid "Save"
-msgstr "เซฟ,เก็บข้อมูล"
-
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "กำลังแก้ไข%(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "กำลังแก้ไข"
-
-msgid "Delete"
-msgstr "ลบ,ลบทิ้ง"
 
 msgid "Usage"
 msgstr "การใช้"
@@ -110,9 +110,6 @@ msgstr "เกร็ดเล็กเกร็ดน้อย"
 
 msgid "Title"
 msgstr "หัวข้อ,หัวเรื่อง"
-
-msgid "Edit"
-msgstr "แก้ไข"
 
 #, python-format
 msgid ""
@@ -156,6 +153,9 @@ msgstr "แก้ไขหน้านี้"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "ค้นหา %(snippet_type_name)s"
+
+msgid "Edit"
+msgstr "แก้ไข"
 
 msgid "The snippet could not be created due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"

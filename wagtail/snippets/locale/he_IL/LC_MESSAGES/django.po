@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -20,6 +20,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
 "1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
+msgid "Delete"
+msgstr "מחק"
+
+msgid "Save"
+msgstr "שמור"
+
 msgid "Choose"
 msgstr "בחרו"
 
@@ -29,23 +35,14 @@ msgstr "כן, מחק"
 msgid "New"
 msgstr "חדש"
 
-msgid "Save"
-msgstr "שמור"
-
 msgid "Editing"
 msgstr "עריכה"
-
-msgid "Delete"
-msgstr "מחק"
 
 msgid "Snippets"
 msgstr "קטעים"
 
 msgid "Title"
 msgstr "כותרת "
-
-msgid "Edit"
-msgstr "ערוך"
 
 msgid "Usage of"
 msgstr "שימוש ב:"
@@ -61,6 +58,9 @@ msgstr "סטטוס"
 
 msgid "Edit this page"
 msgstr "ערוך עמוד זה"
+
+msgid "Edit"
+msgstr "ערוך"
 
 msgid "The snippet could not be created due to errors."
 msgstr "לא ניתן ליצור את הקטע עקב שגיאה"
