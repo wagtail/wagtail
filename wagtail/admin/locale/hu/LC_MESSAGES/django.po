@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -419,84 +419,6 @@ msgstr "'{title}' gyerekoldalainak megtekintése"
 
 msgid "Page explorer"
 msgstr "Intéző"
-
-msgid "January"
-msgstr "január"
-
-msgid "February"
-msgstr "február"
-
-msgid "March"
-msgstr "március"
-
-msgid "April"
-msgstr "április"
-
-msgid "May"
-msgstr "május"
-
-msgid "June"
-msgstr "június"
-
-msgid "July"
-msgstr "július"
-
-msgid "August"
-msgstr "augusztus"
-
-msgid "September"
-msgstr "szeptember"
-
-msgid "October"
-msgstr "október"
-
-msgid "November"
-msgstr "november"
-
-msgid "December"
-msgstr "december"
-
-msgid "Sunday"
-msgstr "vasárnap"
-
-msgid "Monday"
-msgstr "hétfő"
-
-msgid "Tuesday"
-msgstr "kedd"
-
-msgid "Wednesday"
-msgstr "szerda"
-
-msgid "Thursday"
-msgstr "csütörtök"
-
-msgid "Friday"
-msgstr "péntek"
-
-msgid "Saturday"
-msgstr "szombat"
-
-msgid "Sun"
-msgstr "V"
-
-msgid "Mon"
-msgstr "H"
-
-msgid "Tue"
-msgstr "K"
-
-msgid "Wed"
-msgstr "Sze"
-
-msgid "Thu"
-msgstr "Cs"
-
-msgid "Fri"
-msgstr "P"
-
-msgid "Sat"
-msgstr "Szo"
 
 msgid "Error 404: Page not found"
 msgstr "404-es hiba: az oldal nem található"
@@ -1747,22 +1669,6 @@ msgstr ""
 "A jelenlegi böngészője <strong>nem támogatott</strong>. Kérjük <a href="
 "\"https://browsehappy.com/\">frissítse a böngészőjét</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"Az aminisztrációs felület működéséhez szükséges a Javascript futtatása, de "
-"ez jelenleg le van tiltva.<br />\n"
-"Kérjük <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">engedélyezze a Javascript futtatást böngészőjében</"
-"a>."
-
 msgid "Skip to main content"
 msgstr "Előre a fő tartalomig"
 
@@ -2058,26 +1964,44 @@ msgstr "Biztosan törli a gyűjteményt?"
 msgid "Editing"
 msgstr "Szerkesztés"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "A(z) '{0}' oldal letrehozva, közzététele időzítve."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "'{0}' oldal és {1} aloldal átmásolva."
 
-msgid "View live"
-msgstr "Megtekintés az oldalon"
-
-msgid "Page '{0}' created and published."
-msgstr " '{0}' létrehozva és közzétéve."
+msgid "Page '{0}' copied."
+msgstr "'{0}' oldal átmásolva."
 
 msgid "View draft"
 msgstr "Vázlat megtekintése"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr " '{0}' be lett nyújtva moderálásra."
+msgid "View live"
+msgstr "Megtekintés az oldalon"
 
 msgid "Page '{0}' created."
 msgstr " '{0}' oldal létrehozva."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "A(z) '{0}' oldal letrehozva, közzététele időzítve."
+
+msgid "Page '{0}' created and published."
+msgstr " '{0}' létrehozva és közzétéve."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr " '{0}' be lett nyújtva moderálásra."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Az oldal nem jött létre az űrlapon található hibák miatt"
+
+msgid "Page '{0}' deleted."
+msgstr "'{0}' oldal törölve."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Ez az oldal jelenleg moderálásra vár"
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "A(z) '{0}' oldal le lett cserélve a {1} által szerkesztett verzióra."
+
+msgid "Page '{0}' has been updated."
+msgstr "'{0}' oldal frissítve."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr ""
@@ -2103,8 +2027,8 @@ msgstr ""
 msgid "Only reviewers for this task can edit the page."
 msgstr "Csak az ellenőrzők szerkeszthetik az oldalt."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Ez az oldal jelenleg moderálásra vár"
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "A munkafolyamat a(z) '{0}' oldalon meg lett szakítva."
 
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
@@ -2125,17 +2049,8 @@ msgstr "'{0}' oldal közzétéve."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "'{0}' be lett nyújtva moderálásra."
 
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "A munkafolyamat a(z) '{0}' oldalon meg lett szakítva."
-
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "A munkafolyamat a(z) '{0}' oldalon újra lett indítva."
-
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "A(z) '{0}' oldal le lett cserélve a {1} által szerkesztett verzióra."
-
-msgid "Page '{0}' has been updated."
-msgstr "'{0}' oldal frissítve."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Az oldal mentése nem sikerült, mert zárolva van."
@@ -2143,27 +2058,8 @@ msgstr "Az oldal mentése nem sikerült, mert zárolva van."
 msgid "The page could not be saved due to validation errors"
 msgstr "Az oldal mentése nem sikerült az űrlapon található hibák miatt"
 
-msgid "Page '{0}' deleted."
-msgstr "'{0}' oldal törölve."
-
-msgid "Page '{0}' unpublished."
-msgstr "'{0}' oldal visszavonva."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"A '{0}' domain-darabka már használatban van a kiválasztott szülőoldalon. "
-"Győződjön meg róla, hogy a rövidítés egyedi, és próbálja újra."
-
-msgid "Page '{0}' moved."
-msgstr "'{0}' oldal átmozgatva."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "'{0}' oldal és {1} aloldal átmásolva."
-
-msgid "Page '{0}' copied."
-msgstr "'{0}' oldal átmásolva."
+msgid "Page '{0}' is now unlocked."
+msgstr "'{0}' oldal zárolása fel lett oldva."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' oldal jelenleg moderálásra vár."
@@ -2180,11 +2076,15 @@ msgstr "'{0}' oldal közzététele el lett utasítva."
 msgid "Failed to send rejection notifications"
 msgstr "Nem sikerült értesítést küldeni az elutasításról."
 
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "A(z) '{0}' oldal jelenleg nem vár moderációra a(z) '{1}' feladatban."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"A '{0}' domain-darabka már használatban van a kiválasztott szülőoldalon. "
+"Győződjön meg róla, hogy a rövidítés egyedi, és próbálja újra."
 
-msgid "Page '{0}' is now unlocked."
-msgstr "'{0}' oldal zárolása fel lett oldva."
+msgid "Page '{0}' moved."
+msgstr "'{0}' oldal átmozgatva."
 
 #, python-format
 msgid ""
@@ -2205,6 +2105,12 @@ msgstr "'{1}' {0}. verziója"
 
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "A(z) \"{1}\" {0} verziója nincs időzítve."
+
+msgid "Page '{0}' unpublished."
+msgstr "'{0}' oldal visszavonva."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr "A(z) '{0}' oldal jelenleg nem vár moderációra a(z) '{1}' feladatban."
 
 msgid "Locked pages"
 msgstr "Zárolt oldalak"

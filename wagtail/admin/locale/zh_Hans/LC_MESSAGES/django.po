@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-10-13 00:09+0000\n"
-"Last-Translator: Fan Hei <weijiacc@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -418,84 +418,6 @@ msgstr "查看 '{title}' 的子页面"
 
 msgid "Page explorer"
 msgstr "页面管理"
-
-msgid "January"
-msgstr "一月"
-
-msgid "February"
-msgstr "二月"
-
-msgid "March"
-msgstr "三月"
-
-msgid "April"
-msgstr "四月"
-
-msgid "May"
-msgstr "五月"
-
-msgid "June"
-msgstr "六月"
-
-msgid "July"
-msgstr "七月"
-
-msgid "August"
-msgstr "八月"
-
-msgid "September"
-msgstr "九月"
-
-msgid "October"
-msgstr "十月"
-
-msgid "November"
-msgstr "十一月"
-
-msgid "December"
-msgstr "十二月"
-
-msgid "Sunday"
-msgstr "星期天"
-
-msgid "Monday"
-msgstr "星期一"
-
-msgid "Tuesday"
-msgstr "星期四"
-
-msgid "Wednesday"
-msgstr "星期三"
-
-msgid "Thursday"
-msgstr "星期四"
-
-msgid "Friday"
-msgstr "星期五"
-
-msgid "Saturday"
-msgstr "星期六"
-
-msgid "Sun"
-msgstr "周日"
-
-msgid "Mon"
-msgstr "周一"
-
-msgid "Tue"
-msgstr "周二"
-
-msgid "Wed"
-msgstr "周三"
-
-msgid "Thu"
-msgstr "周四"
-
-msgid "Fri"
-msgstr "周五"
-
-msgid "Sat"
-msgstr "周六"
 
 #, python-format
 msgid "Unknown %(action)s"
@@ -1699,22 +1621,6 @@ msgstr ""
 "您正在使用一个本软件不支持的<strong>过期的</strong> 浏览器。请 <a href="
 "\"https://browsehappy.com/\">更新浏览器</a>。"
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            使用 Wagtail 需要JavaScript支持，但是当前已被禁用。<br />\n"
-"            请查看 <a href=\"https://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">操作指导：如何在你的浏览器中启用 "
-"JavaScript</a>。\n"
-"        "
-
 msgid "Skip to main content"
 msgstr "跳到主要内容"
 
@@ -1990,26 +1896,44 @@ msgstr "确定删除此集合？"
 msgid "Editing"
 msgstr "正在编辑"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "页面 {0} 已创建并计划发布中。"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "页面 '{0}' 和 {1} 个子页面已复制。"
 
-msgid "View live"
-msgstr "实时查看"
-
-msgid "Page '{0}' created and published."
-msgstr "页面'{0}'已创建并发布。"
+msgid "Page '{0}' copied."
+msgstr "页面'{0}'已复制。"
 
 msgid "View draft"
 msgstr "查看草稿"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "页面 '{0}' 已创建并提交审核。"
+msgid "View live"
+msgstr "实时查看"
 
 msgid "Page '{0}' created."
 msgstr "页面'{0}'已创建"
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "页面 {0} 已创建并计划发布中。"
+
+msgid "Page '{0}' created and published."
+msgstr "页面'{0}'已创建并发布。"
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "页面 '{0}' 已创建并提交审核。"
+
 msgid "The page could not be created due to validation errors"
 msgstr "验证错误，页面无法创建。"
+
+msgid "Page '{0}' deleted."
+msgstr "页面'{0}'已删除"
+
+msgid "This page is currently awaiting moderation"
+msgstr "页面等待审核中"
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "页面 '{0}' 已经被版本 {1} 替换。"
+
+msgid "Page '{0}' has been updated."
+msgstr "页面 '{0}' 已被更新。"
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>页面 '{}' </b> 已被 <b>你</b> 锁定于<b>{}</b>。"
@@ -2032,8 +1956,8 @@ msgstr "此页面在等待<b>‘{}’</b>，在<b>'{}'</b>工作流中"
 msgid "Only reviewers for this task can edit the page."
 msgstr "只有此任务的审阅者才能编辑页面。"
 
-msgid "This page is currently awaiting moderation"
-msgstr "页面等待审核中"
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "页面'{0}'上的工作流已被取消。"
 
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr "页面 {1} 的版本 {0} 已计划发布。"
@@ -2053,17 +1977,8 @@ msgstr "页面 '{0}' 已经发布。"
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "页面 '{0}' 已经提交进行审核。"
 
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "页面'{0}'上的工作流已被取消。"
-
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "页面'{0}'上的工作流已重启。"
-
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "页面 '{0}' 已经被版本 {1} 替换。"
-
-msgid "Page '{0}' has been updated."
-msgstr "页面 '{0}' 已被更新。"
 
 msgid "The page could not be saved as it is locked"
 msgstr "页面无法保存，已被锁定。"
@@ -2071,25 +1986,8 @@ msgstr "页面无法保存，已被锁定。"
 msgid "The page could not be saved due to validation errors"
 msgstr "页面无法保存。出现验证错误。"
 
-msgid "Page '{0}' deleted."
-msgstr "页面'{0}'已删除"
-
-msgid "Page '{0}' unpublished."
-msgstr "页面'{0}'已取消发布。"
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr "简称 '{0}' 已经被选中的父页面使用。请确保简称的唯一性，然后重试"
-
-msgid "Page '{0}' moved."
-msgstr "页面 '{0}' 已移动。"
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "页面 '{0}' 和 {1} 个子页面已复制。"
-
-msgid "Page '{0}' copied."
-msgstr "页面'{0}'已复制。"
+msgid "Page '{0}' is now unlocked."
+msgstr "页面 '{0}'已解锁。"
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "页面 '{0}'目前不在等待审核。"
@@ -2106,11 +2004,13 @@ msgstr "页面 '{0}'审核失败"
 msgid "Failed to send rejection notifications"
 msgstr "发送拒绝通知失败。"
 
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "页面 '{0}'目前不在任务'{1}'中等待审核。"
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr "简称 '{0}' 已经被选中的父页面使用。请确保简称的唯一性，然后重试"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "页面 '{0}'已解锁。"
+msgid "Page '{0}' moved."
+msgstr "页面 '{0}' 已移动。"
 
 #, python-format
 msgid ""
@@ -2130,6 +2030,12 @@ msgstr " \"{1}\"的修订版本{0}"
 
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr " \"{1}\"的版本{0}已取消预定的发布。"
+
+msgid "Page '{0}' unpublished."
+msgstr "页面'{0}'已取消发布。"
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr "页面 '{0}'目前不在任务'{1}'中等待审核。"
 
 msgid "Locked pages"
 msgstr "已锁定的页面"

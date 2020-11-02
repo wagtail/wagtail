@@ -28,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-09-14 11:09+0000\n"
-"Last-Translator: fabienheureux <contact@fabienlefrapper.me>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-24 16:16+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -155,6 +155,13 @@ msgstr "Entrez votre adresse e-mail pour réinitialiser votre mot de passe"
 msgid "URL"
 msgstr "URL"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Sélectionner la position hiérarchique. Note : Une collection ne peut pas "
+"être enfant d'elle-même ou d'un de ses enfants."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
 
@@ -199,6 +206,12 @@ msgstr[0] ""
 "%(count)s des pages à copier est publiée. Voulez-vous publier sa copie ?"
 msgstr[1] ""
 "%(count)s des pages à copier sont publiées. Voulez-vous publier leur copie ?"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Garder les nouvelles pages à jour avec les pages sources"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -274,6 +287,9 @@ msgstr "anglais"
 
 msgid "Spanish"
 msgstr "espagnol"
+
+msgid "Estonian"
+msgstr "Estonien"
 
 msgid "Finnish"
 msgstr "finnois"
@@ -434,83 +450,9 @@ msgstr "Voir les sous-pages de '{title}'"
 msgid "Page explorer"
 msgstr "Explorateur"
 
-msgid "January"
-msgstr "Janvier"
-
-msgid "February"
-msgstr "Février"
-
-msgid "March"
-msgstr "Mars"
-
-msgid "April"
-msgstr "Avril"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Juin"
-
-msgid "July"
-msgstr "Juillet"
-
-msgid "August"
-msgstr "Août"
-
-msgid "September"
-msgstr "Septembre"
-
-msgid "October"
-msgstr "Octobre"
-
-msgid "November"
-msgstr "Novembre"
-
-msgid "December"
-msgstr "Décembre"
-
-msgid "Sunday"
-msgstr "Dimanche"
-
-msgid "Monday"
-msgstr "Lundi"
-
-msgid "Tuesday"
-msgstr "Mardi"
-
-msgid "Wednesday"
-msgstr "Mercredi"
-
-msgid "Thursday"
-msgstr "Jeudi"
-
-msgid "Friday"
-msgstr "Vendredi"
-
-msgid "Saturday"
-msgstr "Samedi"
-
-msgid "Sun"
-msgstr "Dim"
-
-msgid "Mon"
-msgstr "Lun"
-
-msgid "Tue"
-msgstr "Mar"
-
-msgid "Wed"
-msgstr "Mer"
-
-msgid "Thu"
-msgstr "Jeu"
-
-msgid "Fri"
-msgstr "Ven"
-
-msgid "Sat"
-msgstr "Sam"
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "%(action)s inconnu(e)"
 
 msgid "Error 404: Page not found"
 msgstr "Erreur 404 : Page introuvable"
@@ -761,6 +703,16 @@ msgid ""
 msgstr ""
 "Ceci est votre tableau de bord sur lequel des informations importantes sur "
 "le contenu que vous avez créé seront affichées."
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail supprime progressivement la compatibilité avec IE11, ce qui risque "
+"d'impacter votre organisation. <a href=\"%(url)s\">En savoir plus sur le "
+"programme de compatibilité IE11</a>."
 
 msgid "Your locked pages"
 msgstr "Vos pages verrouillées"
@@ -1066,6 +1018,25 @@ msgid "Pages using %(page_type)s"
 msgstr "Pages utilisant %(page_type)s"
 
 #, python-format
+msgid "Convert alias %(title)s"
+msgstr "Convertir l'alias %(title)s"
+
+msgid "Convert alias"
+msgstr "Convertir l'alias"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr "Êtes-vous sûr(e) de vouloir convertir cet alias en une page normale ?"
+
+msgid "This action cannot be undone."
+msgstr "Cette opération est irréversible."
+
+msgid "Yes, convert it"
+msgstr "Oui, convertir"
+
+msgid "No, leave it as an alias"
+msgstr "Non, conserver en alias"
+
+#, python-format
 msgid "Delete %(title)s"
 msgstr "Supprimer %(title)s"
 
@@ -1240,6 +1211,15 @@ msgstr "Modification de %(page_type)s"
 
 msgid "History"
 msgstr "Historique"
+
+msgid "This page is an alias of another page."
+msgstr "Cette page est l'alias d'une autre page"
+
+msgid "Edit original page"
+msgstr "Modifier la page originale"
+
+msgid "Convert this alias into a regular page"
+msgstr "Convertir cet alias en une page normale"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1729,6 +1709,9 @@ msgstr "Par tâche"
 msgid "No pages have been submitted for moderation yet"
 msgstr "Aucune page n'as encore été soumise pour modération"
 
+msgid "By Workflow"
+msgstr "Par Workflow"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Page %(page_num)s sur %(total_pages)s."
@@ -1783,7 +1766,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"            Javascript is required to use Wagtail, but it is currently "
+"            JavaScript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
@@ -1791,7 +1774,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"            Javascript est nécessaire pour utiliser Wagtail, mais est "
+"            JavaScript est nécessaire pour utiliser Wagtail, mais est "
 "actuellement désactivé.<br />\n"
 "            Voici les <a href=\"https://www.enable-javascript.com/\" target="
 "\"_blank\" rel=\"noopener noreferrer\">instructions à suivre pour activer "
@@ -2085,6 +2068,9 @@ msgstr "La collection ne peut être enregistrée du fait d'erreurs."
 msgid "Delete collection"
 msgstr "Supprimer la collection"
 
+msgid "Please select another parent"
+msgstr "Veuillez sélectionner un autre parent"
+
 msgid "Collection '{0}' deleted."
 msgstr "Collection '{0}' supprimée."
 
@@ -2094,26 +2080,47 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer cette collection ?"
 msgid "Editing"
 msgstr "Modification"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Page  '{0}' créée et planifiée pour la publication."
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "L'alias de page '{0}' a été converti en une page normale."
 
-msgid "View live"
-msgstr "Visualiser en direct"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Page '{0}' et {1} sous-pages copiées."
 
-msgid "Page '{0}' created and published."
-msgstr "Page '{0}' créée et publiée."
+msgid "Page '{0}' copied."
+msgstr "Page '{0}' copiée."
 
 msgid "View draft"
 msgstr "Voir le brouillon"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Page '{0}' créée et soumise pour modération."
+msgid "View live"
+msgstr "Visualiser en direct"
 
 msgid "Page '{0}' created."
 msgstr "Page '{0}' créée."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Page  '{0}' créée et planifiée pour la publication."
+
+msgid "Page '{0}' created and published."
+msgstr "Page '{0}' créée et publiée."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Page '{0}' créée et soumise pour modération."
+
 msgid "The page could not be created due to validation errors"
 msgstr "La page ne peut être créée du fait d'erreurs de validation"
+
+msgid "Page '{0}' deleted."
+msgstr "Page '{0}' supprimée."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Cette page est actuellement en attente de modération"
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "La page « {0} » a été remplacé par la version « {1} »."
+
+msgid "Page '{0}' has been updated."
+msgstr "La page '{0}' a été mise à jour."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Cette page '{}' a été verrouillée</b> par <b>vous</b> le <b>{}</b>."
@@ -2137,8 +2144,8 @@ msgstr ""
 msgid "Only reviewers for this task can edit the page."
 msgstr "Seul les modérateurs pour cette tâche peuvent modifier cette page."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Cette page est actuellement en attente de modération"
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Le workflow sur la page « {0} » a été annulé."
 
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
@@ -2162,17 +2169,8 @@ msgstr "La page '{0}' a été publiée."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La page '{0}' a été soumise pour modération."
 
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Le workflow sur la page « {0} » a été annulé."
-
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "Le workflow de la page « {0} » a été relancé."
-
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "La page « {0} » a été remplacé par la version « {1} »."
-
-msgid "Page '{0}' has been updated."
-msgstr "La page '{0}' a été mise à jour."
 
 msgid "The page could not be saved as it is locked"
 msgstr "La page n'a pu être enregistrée car elle est verrouillée"
@@ -2180,27 +2178,8 @@ msgstr "La page n'a pu être enregistrée car elle est verrouillée"
 msgid "The page could not be saved due to validation errors"
 msgstr "La page ne peut être enregistrée du fait d'erreurs de validation."
 
-msgid "Page '{0}' deleted."
-msgstr "Page '{0}' supprimée."
-
-msgid "Page '{0}' unpublished."
-msgstr "Page '{0}' dépubliée."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"Le slug '{0}' est déjà utilisé au niveau de la page parent sélectionnée. "
-"Assurez-vous que le slug est unique et réessayez."
-
-msgid "Page '{0}' moved."
-msgstr "Page '{0}' déplacée."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Page '{0}' et {1} sous-pages copiées."
-
-msgid "Page '{0}' copied."
-msgstr "Page '{0}' copiée."
+msgid "Page '{0}' is now unlocked."
+msgstr "La page '{0}' est maintenant déverrouillée."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La page '{0}' est actuellement en attente de modération."
@@ -2217,12 +2196,15 @@ msgstr "Page '{0}' refusée à la publication."
 msgid "Failed to send rejection notifications"
 msgstr "Échec de l'envoi des notifications de rejet"
 
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
 msgstr ""
-"La page « {0} » n'est pas en attente de modération dans la tâche « {1} »."
+"Le slug '{0}' est déjà utilisé au niveau de la page parent sélectionnée. "
+"Assurez-vous que le slug est unique et réessayez."
 
-msgid "Page '{0}' is now unlocked."
-msgstr "La page '{0}' est maintenant déverrouillée."
+msgid "Page '{0}' moved."
+msgstr "Page '{0}' déplacée."
 
 #, python-format
 msgid ""
@@ -2243,6 +2225,13 @@ msgstr "version {0} sur \"{1}\""
 
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "La version {0} de \"{1}\" a été déprogrammée."
+
+msgid "Page '{0}' unpublished."
+msgstr "Page '{0}' dépubliée."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr ""
+"La page « {0} » n'est pas en attente de modération dans la tâche « {1} »."
 
 msgid "Locked pages"
 msgstr "Pages verrouillées"
@@ -2335,6 +2324,10 @@ msgstr "Modification de tâche de workflow"
 
 msgid "Task '{0}' updated."
 msgstr "La tâche « {0} » a été mise à jour."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Modification de %(task_type)s"
 
 msgid "Disable task"
 msgstr "Désactiver la tâche"
@@ -2524,6 +2517,20 @@ msgid "Copied"
 msgstr "Copiée"
 
 #, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Alias de %(title)s créé "
+
+msgid "Created an alias"
+msgstr "Alias créé"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "L'alias « %(title)s » a été converti en une page normale"
+
+msgid "Converted an alias into a regular page"
+msgstr "Un alias a été converti en une page normale"
+
+#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Déplacé de '%(old_parent)s' à '%(new_parent)s'"
 
@@ -2594,6 +2601,12 @@ msgstr "Renommer"
 
 msgid "Revert"
 msgstr "Revenir en arrière"
+
+msgid "Create alias"
+msgstr "Creer un alias"
+
+msgid "Convert alias into regular page"
+msgstr "Convertir un alias en page normale"
 
 msgid "Schedule publication"
 msgstr "Programmer la publication"

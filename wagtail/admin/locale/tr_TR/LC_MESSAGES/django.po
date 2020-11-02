@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -364,84 +364,6 @@ msgstr "'{title}' alt sayfalarını gör"
 
 msgid "Page explorer"
 msgstr "Sayfa bulucu"
-
-msgid "January"
-msgstr "Ocak"
-
-msgid "February"
-msgstr "Şubat"
-
-msgid "March"
-msgstr "Mart"
-
-msgid "April"
-msgstr "Nisan"
-
-msgid "May"
-msgstr "Mayıs"
-
-msgid "June"
-msgstr "Haziran"
-
-msgid "July"
-msgstr "Temmuz"
-
-msgid "August"
-msgstr "Ağustos"
-
-msgid "September"
-msgstr "Eylül"
-
-msgid "October"
-msgstr "Ekim"
-
-msgid "November"
-msgstr "Kasım"
-
-msgid "December"
-msgstr "Aralık"
-
-msgid "Sunday"
-msgstr "Pazar"
-
-msgid "Monday"
-msgstr "Pazartesi"
-
-msgid "Tuesday"
-msgstr "Salı"
-
-msgid "Wednesday"
-msgstr "Çarşamba"
-
-msgid "Thursday"
-msgstr "Perşembe"
-
-msgid "Friday"
-msgstr "Cuma"
-
-msgid "Saturday"
-msgstr "Cumartesi"
-
-msgid "Sun"
-msgstr "Paz"
-
-msgid "Mon"
-msgstr "Pzt"
-
-msgid "Tue"
-msgstr "Sal"
-
-msgid "Wed"
-msgstr "Çrş"
-
-msgid "Thu"
-msgstr "Per"
-
-msgid "Fri"
-msgstr "Cum"
-
-msgid "Sat"
-msgstr "Cts"
 
 msgid "Error 404: Page not found"
 msgstr "Hata 404: Sayfa bulunamadı"
@@ -1452,32 +1374,44 @@ msgstr "Bu koleksiyonu silmek istediğinizden emin misiniz?"
 msgid "Editing"
 msgstr "Düzenleniyor"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Sayfa '{0}' oluşturuldu ve yayın için planlandı."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Sayfa '{0}' ve {1} altsayfa kopyalandı."
 
-msgid "View live"
-msgstr "Canlı gör"
-
-msgid "Page '{0}' created and published."
-msgstr "Sayfa '{0}' oluşturuldu ve yayınlandı."
+msgid "Page '{0}' copied."
+msgstr "Sayfa '{0}' kopyalandı."
 
 msgid "View draft"
 msgstr "Taslak görüntüle"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Sayfa '{0}' oluşturuldu ve kontrol edilmek üzere gönderildi."
+msgid "View live"
+msgstr "Canlı gör"
 
 msgid "Page '{0}' created."
 msgstr "Page '{0}' oluşturuldu."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Sayfa '{0}' oluşturuldu ve yayın için planlandı."
+
+msgid "Page '{0}' created and published."
+msgstr "Sayfa '{0}' oluşturuldu ve yayınlandı."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Sayfa '{0}' oluşturuldu ve kontrol edilmek üzere gönderildi."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Sayfa, doğrulama hataları nedeniyle oluşturulamadı"
 
-msgid "<b>Page '{}' is locked</b>."
-msgstr "<b>Sayfa '{}' kilitli </b>."
+msgid "Page '{0}' deleted."
+msgstr "Sayfa '{0}' silindi."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Bu sayfa kontrol edilmek üzere bekliyor"
+
+msgid "Page '{0}' has been updated."
+msgstr "Sayfa '{0}' güncellendi."
+
+msgid "<b>Page '{}' is locked</b>."
+msgstr "<b>Sayfa '{}' kilitli </b>."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sayfa '{0}' yayınlanmak için planlandı."
@@ -1488,36 +1422,14 @@ msgstr "Sayfa '{0}' yayınlandı."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sayfa '{0}' kontrol için gönderildi."
 
-msgid "Page '{0}' has been updated."
-msgstr "Sayfa '{0}' güncellendi."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Sayfa kilitli olduğu için kaydedilemedi"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Sayfa doğrulama hatalarından dolayı kaydedilemedi"
 
-msgid "Page '{0}' deleted."
-msgstr "Sayfa '{0}' silindi."
-
-msgid "Page '{0}' unpublished."
-msgstr "Sayfa '{0}' yayından kaldırıldı."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"Başlık url'si '{0}' seçili üst sayfada zaten kullanılıyor. Özgün bir başlık "
-"url'si girerek tekrar deneyin"
-
-msgid "Page '{0}' moved."
-msgstr "Sayfa '{0}' taşındı."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Sayfa '{0}' ve {1} altsayfa kopyalandı."
-
-msgid "Page '{0}' copied."
-msgstr "Sayfa '{0}' kopyalandı."
+msgid "Page '{0}' is now unlocked."
+msgstr "Sayfa '{0}' şuan kilitli değil."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sayfa '{0}' şuan kontrol edilmek üzere beklemiyor."
@@ -1534,8 +1446,15 @@ msgstr "'{0}' sayfasının yayınlanması reddedildi."
 msgid "Failed to send rejection notifications"
 msgstr "Red bildirimleri gönderilemedi"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Sayfa '{0}' şuan kilitli değil."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Başlık url'si '{0}' seçili üst sayfada zaten kullanılıyor. Özgün bir başlık "
+"url'si girerek tekrar deneyin"
+
+msgid "Page '{0}' moved."
+msgstr "Sayfa '{0}' taşındı."
 
 msgid "Earliest"
 msgstr "En eski"
@@ -1545,6 +1464,9 @@ msgstr "En yeni"
 
 msgid "revision {0} of \"{1}\""
 msgstr "sürüm {0} / \"{1}\""
+
+msgid "Page '{0}' unpublished."
+msgstr "Sayfa '{0}' yayından kaldırıldı."
 
 #, python-format
 msgid "Edit '%(title)s'"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -21,6 +21,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Delete"
+msgstr "Esborra"
+
+msgid "Save"
+msgstr "Desa"
 
 msgid "Choose"
 msgstr "Escull"
@@ -31,6 +37,9 @@ msgstr "Cerca"
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Ens sap greu, no hi ha cap fragment amb \"<em>%(query_string)s</em>\""
+
+msgid "Saving…"
+msgstr "Desant…"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -46,12 +55,6 @@ msgstr "Nou %(snippet_type_name)s"
 msgid "New"
 msgstr "Nou"
 
-msgid "Saving…"
-msgstr "Desant…"
-
-msgid "Save"
-msgstr "Desa"
-
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Editant %(snippet_type_name)s - %(instance)s"
@@ -59,17 +62,11 @@ msgstr "Editant %(snippet_type_name)s - %(instance)s"
 msgid "Editing"
 msgstr "Editant"
 
-msgid "Delete"
-msgstr "Esborra"
-
 msgid "Snippets"
 msgstr "Fragments"
 
 msgid "Title"
 msgstr "Títol"
-
-msgid "Edit"
-msgstr "Editar"
 
 #, python-format
 msgid ""
@@ -113,6 +110,9 @@ msgstr "Editar aquesta plana"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "Cercar %(snippet_type_name)s"
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "The snippet could not be created due to errors."
 msgstr "El fragment no s'ha pogut crear degut a errors."

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2019-10-16 17:05+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -21,6 +21,12 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Delete"
+msgstr "Ištrinti"
+
+msgid "Save"
+msgstr "Išsaugoti"
+
 msgid "Choose"
 msgstr "Pasirinkti"
 
@@ -30,6 +36,9 @@ msgstr "Paieška"
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Atsiprašome, jokios nuokarpos neatitiko \"<em>%(query_string)s</em>\""
+
+msgid "Saving…"
+msgstr "Saugoma…"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -53,21 +62,12 @@ msgstr "Nauja %(snippet_type_name)s"
 msgid "New"
 msgstr "Naujas"
 
-msgid "Saving…"
-msgstr "Saugoma…"
-
-msgid "Save"
-msgstr "Išsaugoti"
-
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Redaguojama %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Redagavimas"
-
-msgid "Delete"
-msgstr "Ištrinti"
 
 msgid "Usage"
 msgstr "Panaudojimas"
@@ -77,9 +77,6 @@ msgstr "Nuokarpos"
 
 msgid "Title"
 msgstr "Pavadinimas"
-
-msgid "Edit"
-msgstr "Redaguoti"
 
 #, python-format
 msgid ""
@@ -123,6 +120,9 @@ msgstr "Redaguoti šį puslapį"
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr "Ieškoti %(snippet_type_name)s"
+
+msgid "Edit"
+msgstr "Redaguoti"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Nuokarpa negalėjo būti sukurta dėl klaidų."

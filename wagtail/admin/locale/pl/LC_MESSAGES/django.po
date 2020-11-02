@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -378,84 +378,6 @@ msgstr "Wyświetl podstrony dla '{title}'"
 
 msgid "Page explorer"
 msgstr "Przeglądarka stron"
-
-msgid "January"
-msgstr "Styczeń"
-
-msgid "February"
-msgstr "Luty"
-
-msgid "March"
-msgstr "Marzec"
-
-msgid "April"
-msgstr "Kwiecień"
-
-msgid "May"
-msgstr "Maj"
-
-msgid "June"
-msgstr "Czerwiec"
-
-msgid "July"
-msgstr "Lipiec"
-
-msgid "August"
-msgstr "Sierpień"
-
-msgid "September"
-msgstr "Wrzesień"
-
-msgid "October"
-msgstr "Październik"
-
-msgid "November"
-msgstr "Listopad"
-
-msgid "December"
-msgstr "Grudzień"
-
-msgid "Sunday"
-msgstr "Niedziela"
-
-msgid "Monday"
-msgstr "Poniedziałek"
-
-msgid "Tuesday"
-msgstr "Wtorek"
-
-msgid "Wednesday"
-msgstr "Środa"
-
-msgid "Thursday"
-msgstr "Czwartek"
-
-msgid "Friday"
-msgstr "Piątek"
-
-msgid "Saturday"
-msgstr "Sobota"
-
-msgid "Sun"
-msgstr "Nd"
-
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Wt"
-
-msgid "Wed"
-msgstr "Śr"
-
-msgid "Thu"
-msgstr "Czw"
-
-msgid "Fri"
-msgstr "Pt"
-
-msgid "Sat"
-msgstr "Sob"
 
 msgid "Error 404: Page not found"
 msgstr "Błąd 404: Strona nie została znaleziona"
@@ -1460,23 +1382,6 @@ msgstr ""
 "aplikację. Proszę <a href=\"https://browsehappy.com/\">zaktualizuj swoją "
 "przeglądarkę</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Javascript jest wymagany by korzystać z Wagtail, ale aktualnie "
-"jest wyłączony.<br />\n"
-"            Tutaj znajdziesz <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instrukcje jak go uruchomić</"
-"a>.\n"
-"        "
-
 msgid "Go to Wagtail admin interface"
 msgstr "Idź do panelu administratora Wagtaila"
 
@@ -1556,26 +1461,41 @@ msgstr "Czy na pewno chcesz usunąć tą kolekcję?"
 msgid "Editing"
 msgstr "Edytowanie"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Strona '{0}' utworzona i zaplanowana do publikacji."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Strona '{0}' i podstrony {1} zostały skopiowane."
 
-msgid "View live"
-msgstr "Podgląd"
-
-msgid "Page '{0}' created and published."
-msgstr "Strona '{0}' została utworzona i opublikowana."
+msgid "Page '{0}' copied."
+msgstr "Strona '{0}' została skopiowana."
 
 msgid "View draft"
 msgstr "Pokaż szkic"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Strona '{0}' utworzona i przekazana do moderacji."
+msgid "View live"
+msgstr "Podgląd"
 
 msgid "Page '{0}' created."
 msgstr "Stworzono stronę '{0}'."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Strona '{0}' utworzona i zaplanowana do publikacji."
+
+msgid "Page '{0}' created and published."
+msgstr "Strona '{0}' została utworzona i opublikowana."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Strona '{0}' utworzona i przekazana do moderacji."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Ta strona nie mogła zostać utworzona ze względu na błędy walidacji."
+
+msgid "Page '{0}' deleted."
+msgstr "Usunięto stronę '{0}'."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Ta strona oczekuje na przejrzenie."
+
+msgid "Page '{0}' has been updated."
+msgstr "Strona '{0}' została zaktualizowana."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr ""
@@ -1590,9 +1510,6 @@ msgstr "<b>Strona '{}' zostałą zablokowana</b> przez <b>{}</b> dnia <b>{}</b>.
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Strona '{}' jest zablokowana</b>."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Ta strona oczekuje na przejrzenie."
-
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Strona '{0}' została zaplanowana do publikacji."
 
@@ -1602,36 +1519,14 @@ msgstr "Strona '{0}' została opublikowana."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Strona '{0}' została przekazana do przeglądu."
 
-msgid "Page '{0}' has been updated."
-msgstr "Strona '{0}' została zaktualizowana."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Nie można zapisać zmian zablokownej strony"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Strona nie mogła zostać zapisana z powodu błędów poprawności."
 
-msgid "Page '{0}' deleted."
-msgstr "Usunięto stronę '{0}'."
-
-msgid "Page '{0}' unpublished."
-msgstr "Cofnięto publikację strony '{0}'."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"Slug '{0}' jest już wykorzystywany w wybranej stronie nadrzędnej. Upewnij "
-"się, że slug jest unikalny i spróbuj ponownie."
-
-msgid "Page '{0}' moved."
-msgstr "Przesunięto stronę '{0}'."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Strona '{0}' i podstrony {1} zostały skopiowane."
-
-msgid "Page '{0}' copied."
-msgstr "Strona '{0}' została skopiowana."
+msgid "Page '{0}' is now unlocked."
+msgstr "Strona '{0}' jest teraz odblokowana."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Strona '{0}' nie oczekuje na przejrzenie."
@@ -1648,8 +1543,15 @@ msgstr "Strona '{0}' została odrzucona."
 msgid "Failed to send rejection notifications"
 msgstr "Nie udało się wysłać notyfikacji odrzuceń"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Strona '{0}' jest teraz odblokowana."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Slug '{0}' jest już wykorzystywany w wybranej stronie nadrzędnej. Upewnij "
+"się, że slug jest unikalny i spróbuj ponownie."
+
+msgid "Page '{0}' moved."
+msgstr "Przesunięto stronę '{0}'."
 
 msgid "Earliest"
 msgstr "Najstarsze"
@@ -1659,6 +1561,9 @@ msgstr "Najnowsze"
 
 msgid "revision {0} of \"{1}\""
 msgstr "rewizja {0} z \"{1}\""
+
+msgid "Page '{0}' unpublished."
+msgstr "Cofnięto publikację strony '{0}'."
 
 #, python-format
 msgid "Edit '%(title)s'"

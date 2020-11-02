@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# ongchi <ihcgno@icloud.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-11-01 10:30+0000\n"
+"Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +66,9 @@ msgstr "儲存"
 msgid "Redirects"
 msgstr "重定向"
 
+msgid "Import"
+msgstr "匯入"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "刪除重定向%(title)s"
@@ -78,6 +82,18 @@ msgstr "確認刪除此重定向？"
 msgid "Yes, delete"
 msgstr "是的。刪除。"
 
+msgid "Confirm import"
+msgstr "確認匯入"
+
+msgid "Confirm"
+msgstr "確認"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Preview"
+msgstr "預覽"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "編輯 %(title)s"
@@ -88,11 +104,17 @@ msgstr "編輯"
 msgid "Delete redirect"
 msgstr "刪除重定向"
 
+msgid "Summary"
+msgstr "摘要"
+
 msgid "From"
 msgstr "從"
 
 msgid "To"
 msgstr " 到"
+
+msgid "Continue"
+msgstr "繼續"
 
 msgid "Site"
 msgstr "站點"

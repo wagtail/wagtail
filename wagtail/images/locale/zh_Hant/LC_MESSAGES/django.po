@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# ongchi <ihcgno@icloud.com>, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-11-01 10:10+0000\n"
+"Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +137,7 @@ msgid "Upload"
 msgstr "上傳"
 
 msgid "Popular tags"
-msgstr "熱門標簽"
+msgstr "熱門標籤"
 
 msgid "Uploading…"
 msgstr "正在上傳…"
@@ -189,6 +190,9 @@ msgstr "確認刪除此圖片？"
 msgid "Yes, delete"
 msgstr "是的，刪除吧。"
 
+msgid "No, don't delete"
+msgstr "否，不刪除"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "編輯圖片%(title)s"
@@ -225,6 +229,15 @@ msgstr "使用情況"
 
 msgid "Images"
 msgstr "圖片"
+
+msgid "Popular Tags:"
+msgstr "熱門標籤"
+
+msgid "Clear choice"
+msgstr "清除選擇"
+
+msgid "pixels"
+msgstr "像素"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

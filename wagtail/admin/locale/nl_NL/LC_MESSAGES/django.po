@@ -8,14 +8,15 @@
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018,2020
 # Meteor0id, 2019
+# Ramon de Jezus <rdejezus@leukeleu.nl>, 2020
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-25 13:14+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-27 12:57+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -140,6 +141,13 @@ msgstr "Vul uw e-mailadres in om uw wachtwoord te herstellen"
 msgid "URL"
 msgstr "URL"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Selecteer een plek in de hiërarchie. Let op: een collectie kan niet aan "
+"zichzelf of aan onderliggende collecties worden toegevoegd."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Het is niet mogelijk om meerdere machtigingen voor dezelfde collectie in te "
@@ -189,6 +197,12 @@ msgstr[0] ""
 msgstr[1] ""
 "%(count)s pagina's die gekopieerd zullen worden zijn gepubliceerd. Wilt u de "
 "kopieën ook publiceren?"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Werk nieuwe pagina's bij als er wijzigingen plaatsvinden"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -267,6 +281,9 @@ msgstr "Engels"
 
 msgid "Spanish"
 msgstr "Spaans"
+
+msgid "Estonian"
+msgstr "Ests"
 
 msgid "Finnish"
 msgstr "Fins"
@@ -426,84 +443,6 @@ msgstr "Toon onderliggende pagina's van '{title}'"
 
 msgid "Page explorer"
 msgstr "Paginaverkenner"
-
-msgid "January"
-msgstr "januari"
-
-msgid "February"
-msgstr "februari"
-
-msgid "March"
-msgstr "maart"
-
-msgid "April"
-msgstr "april"
-
-msgid "May"
-msgstr "mei"
-
-msgid "June"
-msgstr "juni"
-
-msgid "July"
-msgstr "juli"
-
-msgid "August"
-msgstr "augustus"
-
-msgid "September"
-msgstr "september"
-
-msgid "October"
-msgstr "oktober"
-
-msgid "November"
-msgstr "november"
-
-msgid "December"
-msgstr "december"
-
-msgid "Sunday"
-msgstr "Zondag"
-
-msgid "Monday"
-msgstr "Maandag"
-
-msgid "Tuesday"
-msgstr "Dinsdag"
-
-msgid "Wednesday"
-msgstr "Woensdag"
-
-msgid "Thursday"
-msgstr "Donderdag"
-
-msgid "Friday"
-msgstr "Vrijdag"
-
-msgid "Saturday"
-msgstr "Zaterdag"
-
-msgid "Sun"
-msgstr "Zo"
-
-msgid "Mon"
-msgstr "Ma"
-
-msgid "Tue"
-msgstr "Di"
-
-msgid "Wed"
-msgstr "Wo"
-
-msgid "Thu"
-msgstr "Do"
-
-msgid "Fri"
-msgstr "Vr"
-
-msgid "Sat"
-msgstr "Za"
 
 #, python-format
 msgid "Unknown %(action)s"
@@ -759,6 +698,16 @@ msgid ""
 msgstr ""
 "Dit is uw dashboard waarop praktische informatie over content die u heeft "
 "gemaakt getoond zal worden."
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail stopt geleidelijk met het ondersteunen van IE11. Dit kan invloed op "
+"je organisatie hebben. <a href=\"%(url)s\">Lees meer over onze IE11 support "
+"mogelijkheden</a>."
 
 msgid "Your locked pages"
 msgstr "Jouw geblokkeerde pagina's"
@@ -1061,6 +1010,25 @@ msgid "Pages using %(page_type)s"
 msgstr "Pagina's van het type '%(page_type)s'"
 
 #, python-format
+msgid "Convert alias %(title)s"
+msgstr "Converteer alias %(title)s"
+
+msgid "Convert alias"
+msgstr "Converteer alias"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr "Weet je zeker dat je de alias wil converteren naar een normale pagina?"
+
+msgid "This action cannot be undone."
+msgstr "Deze actie kan niet ongedaan gemaakt worden."
+
+msgid "Yes, convert it"
+msgstr "Ja, converteer het"
+
+msgid "No, leave it as an alias"
+msgstr "Nee, laat het een alias"
+
+#, python-format
 msgid "Delete %(title)s"
 msgstr "Verwijder %(title)s"
 
@@ -1229,6 +1197,15 @@ msgstr "Bewerk %(page_type)s"
 
 msgid "History"
 msgstr "Geschiedenis"
+
+msgid "This page is an alias of another page."
+msgstr "Deze pagina is een alias van een andere pagina."
+
+msgid "Edit original page"
+msgstr "Originele pagina bewerken"
+
+msgid "Convert this alias into a regular page"
+msgstr "Converteer deze alias naar een normale pagina"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1779,7 +1756,7 @@ msgstr ""
 
 msgid ""
 "\n"
-"            Javascript is required to use Wagtail, but it is currently "
+"            JavaScript is required to use Wagtail, but it is currently "
 "disabled.<br />\n"
 "            Here are the <a href=\"https://www.enable-javascript.com/\" "
 "target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
@@ -2082,6 +2059,9 @@ msgstr "De collectie kon vanwege fouten niet worden opgeslagen."
 msgid "Delete collection"
 msgstr "Verwijder collectie"
 
+msgid "Please select another parent"
+msgstr "Selecteer een ander bovenliggend item"
+
 msgid "Collection '{0}' deleted."
 msgstr "Collectie '{0}' is verwijderd."
 
@@ -2091,26 +2071,47 @@ msgstr "Weet u zeker dat u deze collectie wilt verwijderen?"
 msgid "Editing"
 msgstr "Wijzigen"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "De pagina '{0}' is aangemaakt en ingepland voor publicatie."
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "Pagina '{0}' is geconverteerd naar een normale pagina."
 
-msgid "View live"
-msgstr "Bekijk live"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Pagina '{0}' en {1} onderliggende pagina's gekopieerd."
 
-msgid "Page '{0}' created and published."
-msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
+msgid "Page '{0}' copied."
+msgstr "Pagina '{0}' gekopieerd."
 
 msgid "View draft"
 msgstr "Bekijk concept"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Pagina '{0}' aangemaakt en ingediend voor controle."
+msgid "View live"
+msgstr "Bekijk live"
 
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' is aangemaakt."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "De pagina '{0}' is aangemaakt en ingepland voor publicatie."
+
+msgid "Page '{0}' created and published."
+msgstr "Pagina '{0}' aangemaakt en gepubliceerd."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Pagina '{0}' aangemaakt en ingediend voor controle."
+
 msgid "The page could not be created due to validation errors"
 msgstr "De pagina kon niet aangemaakt worden vanwege validatiefouten."
+
+msgid "Page '{0}' deleted."
+msgstr "Pagina '{0}' verwijderd."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Deze pagina is in afwachting van content goedkeuring"
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "Pagina '{0}' is vervangen met de versie van {1}."
+
+msgid "Page '{0}' has been updated."
+msgstr "Pagina '{0}' is gewijzigd."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "De pagina '{}' is geblokkeerd</b> door jou op <b>{}</b>."
@@ -2134,8 +2135,8 @@ msgstr ""
 msgid "Only reviewers for this task can edit the page."
 msgstr "Alleen reviewers van deze taak kunnen deze pagina bewerken."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Deze pagina is in afwachting van content goedkeuring"
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Workflow van pagina '{0}' is geannuleerd."
 
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr "De versie van {0} van de pagina '{1}' is ingepland voor publicatie."
@@ -2155,17 +2156,8 @@ msgstr "Pagina '{0}' is gepubliceerd."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Pagina '{0}' is voor moderatie ingediend."
 
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Workflow van pagina '{0}' is geannuleerd."
-
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "Workflow van pagina '{0}' is opnieuw gestart."
-
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "Pagina '{0}' is vervangen met de versie van {1}."
-
-msgid "Page '{0}' has been updated."
-msgstr "Pagina '{0}' is gewijzigd."
 
 msgid "The page could not be saved as it is locked"
 msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
@@ -2173,27 +2165,8 @@ msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
 msgid "The page could not be saved due to validation errors"
 msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten."
 
-msgid "Page '{0}' deleted."
-msgstr "Pagina '{0}' verwijderd."
-
-msgid "Page '{0}' unpublished."
-msgstr "Publicatie van pagina '{0}' is ingetrokken."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"De slug '{0}' is al in gebruik bij de geselecteerde bovenliggende pagina. "
-"Zorg dat de slug uniek is en probeer het opnieuw."
-
-msgid "Page '{0}' moved."
-msgstr "Pagina '{0}' is verplaatst."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Pagina '{0}' en {1} onderliggende pagina's gekopieerd."
-
-msgid "Page '{0}' copied."
-msgstr "Pagina '{0}' gekopieerd."
+msgid "Page '{0}' is now unlocked."
+msgstr "Pagina '{0}' is nu geopend."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "De pagina '{0}' is nu niet in afwachting van moderatie."
@@ -2210,12 +2183,15 @@ msgstr "Pagina '{0}' afgewezen voor publicatie."
 msgid "Failed to send rejection notifications"
 msgstr "Het versturen van afkeuringsnotificaties is mislukt"
 
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
 msgstr ""
-"Pagina '{0}' is nu niet in afwachting van content goedkeuring in taak '{1}'."
+"De slug '{0}' is al in gebruik bij de geselecteerde bovenliggende pagina. "
+"Zorg dat de slug uniek is en probeer het opnieuw."
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Pagina '{0}' is nu geopend."
+msgid "Page '{0}' moved."
+msgstr "Pagina '{0}' is verplaatst."
 
 #, python-format
 msgid ""
@@ -2236,6 +2212,13 @@ msgstr "Versie {0} van \"{1}\""
 
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "Versie {0} of \"{1}\" gestopt met inplannen."
+
+msgid "Page '{0}' unpublished."
+msgstr "Publicatie van pagina '{0}' is ingetrokken."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr ""
+"Pagina '{0}' is nu niet in afwachting van content goedkeuring in taak '{1}'."
 
 msgid "Locked pages"
 msgstr "Geblokkeerde pagina's"
@@ -2522,6 +2505,20 @@ msgid "Copied"
 msgstr "Gekopieerd"
 
 #, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Een alias naar %(title)s is aangemaakt"
+
+msgid "Created an alias"
+msgstr "Een alias is aangemaakt"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Converteer de alias '%(title)s' naar een normale pagina"
+
+msgid "Converted an alias into a regular page"
+msgstr "Converteer een alias naar een normale pagina"
+
+#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Verplaatst van '%(old_parent)s' naar '%(new_parent)s'"
 
@@ -2591,6 +2588,12 @@ msgstr "Hernoem"
 
 msgid "Revert"
 msgstr "Ongedaan maken"
+
+msgid "Create alias"
+msgstr "Alias aanmaken"
+
+msgid "Convert alias into regular page"
+msgstr "Converteer alias naar een normale pagina"
 
 msgid "Schedule publication"
 msgstr "Publicatie plannen"

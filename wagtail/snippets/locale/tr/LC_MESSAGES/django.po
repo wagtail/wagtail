@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2020-03-20 12:12+0000\n"
-"Last-Translator: Basitlik İyidir\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Save"
+msgstr "Kaydet"
 
 msgid "Wagtail snippets"
 msgstr "Wagtail blokları"
@@ -64,6 +70,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">bir tane oluşturmuyorsunuz</a>?"
 
+msgid "Saving…"
+msgstr "Kaydediliyor…"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s sil"
@@ -100,11 +109,8 @@ msgstr "Yeni %(snippet_type_name)s"
 msgid "New"
 msgstr "Yeni"
 
-msgid "Saving…"
-msgstr "Kaydediliyor…"
-
-msgid "Save"
-msgstr "Kaydet"
+msgid "Actions"
+msgstr "Eylemler"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -112,12 +118,6 @@ msgstr "%(snippet_type_name)s - %(instance)s düzenleniyor"
 
 msgid "Editing"
 msgstr "Düzenleniyor"
-
-msgid "Actions"
-msgstr "Eylemler"
-
-msgid "Delete"
-msgstr "Sil"
 
 msgid "Usage"
 msgstr "Kullanım"
@@ -135,9 +135,6 @@ msgstr "Başlık"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "%(snippet)s seç"
-
-msgid "Edit"
-msgstr "Düzenle"
 
 #, python-format
 msgid ""
@@ -185,6 +182,9 @@ msgstr "%(snippet_type_name)s ara"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' oluşturuldu."
+
+msgid "Edit"
+msgstr "Düzenle"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Hata nedeniyle kod bloğu oluşturulamadı."

@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -358,84 +358,6 @@ msgstr "أعرض الصفحات التابعة ل '{title}'"
 
 msgid "Page explorer"
 msgstr "مستكشف الصفحة"
-
-msgid "January"
-msgstr "يناير"
-
-msgid "February"
-msgstr "فبراير"
-
-msgid "March"
-msgstr "مارس"
-
-msgid "April"
-msgstr "أبريل"
-
-msgid "May"
-msgstr "مايو"
-
-msgid "June"
-msgstr "يونيو"
-
-msgid "July"
-msgstr "يوليو"
-
-msgid "August"
-msgstr "أغسطس"
-
-msgid "September"
-msgstr "سبتمبر"
-
-msgid "October"
-msgstr "اكتوبر"
-
-msgid "November"
-msgstr "نوفمبر"
-
-msgid "December"
-msgstr "ديسمبر"
-
-msgid "Sunday"
-msgstr "الاحد"
-
-msgid "Monday"
-msgstr "الاثنين"
-
-msgid "Tuesday"
-msgstr "الثلاثاء"
-
-msgid "Wednesday"
-msgstr "الاربعاء"
-
-msgid "Thursday"
-msgstr "الخميس"
-
-msgid "Friday"
-msgstr "الجمعة"
-
-msgid "Saturday"
-msgstr "السبت"
-
-msgid "Sun"
-msgstr "احد"
-
-msgid "Mon"
-msgstr "اثنين"
-
-msgid "Tue"
-msgstr "ثلاثاء"
-
-msgid "Wed"
-msgstr "اربعاء"
-
-msgid "Thu"
-msgstr "خميس"
-
-msgid "Fri"
-msgstr "جمعة"
-
-msgid "Sat"
-msgstr "سبت"
 
 msgid "Error 404: Page not found"
 msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
@@ -1196,29 +1118,41 @@ msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموع
 msgid "Editing"
 msgstr "جاري التعديل"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "صفحة '{0}' تم إنشاؤها وجدولتها للنشر."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "تم نسخ الصفحة '{0}' و {1} الصفحات الفرعية."
 
-msgid "View live"
-msgstr "انظر في الواقع"
-
-msgid "Page '{0}' created and published."
-msgstr "صفحة '{0}' تم إنشاؤها ونشرها."
+msgid "Page '{0}' copied."
+msgstr "الصفحة '{0}' المنسوخة."
 
 msgid "View draft"
 msgstr "عرض المسودة"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "صفحة '{0}' تم إنشاؤها وتقديمها للإشراف."
+msgid "View live"
+msgstr "انظر في الواقع"
 
 msgid "Page '{0}' created."
 msgstr "صفحة '{0}' تم إنشائها."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "صفحة '{0}' تم إنشاؤها وجدولتها للنشر."
+
+msgid "Page '{0}' created and published."
+msgstr "صفحة '{0}' تم إنشاؤها ونشرها."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "صفحة '{0}' تم إنشاؤها وتقديمها للإشراف."
+
 msgid "The page could not be created due to validation errors"
 msgstr "لا يمكن إنشاء الصفحة بسبب أخطاء التحقق من الصحة"
 
+msgid "Page '{0}' deleted."
+msgstr "الصفحة '{0}' محذوفة."
+
 msgid "This page is currently awaiting moderation"
 msgstr "هذه الصفحة تنتظر حاليا المراقب"
+
+msgid "Page '{0}' has been updated."
+msgstr "تم تحديث الصفحة '{0}'."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "تمت جدولة الصفحة '{0}' للنشر."
@@ -1229,29 +1163,14 @@ msgstr "تم نشر الصفحة '{0}'."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "الصفحة '{0}' تم تقديمها للإشراف."
 
-msgid "Page '{0}' has been updated."
-msgstr "تم تحديث الصفحة '{0}'."
-
 msgid "The page could not be saved as it is locked"
 msgstr "لا يمكن حفظ الصفحة لأنها مقفلة"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "لا يمكن حفظ الصفحة بسبب أخطاء التحقق من الصحة"
 
-msgid "Page '{0}' deleted."
-msgstr "الصفحة '{0}' محذوفة."
-
-msgid "Page '{0}' unpublished."
-msgstr "الصفحة '{0}' غير منشورة."
-
-msgid "Page '{0}' moved."
-msgstr "تم نقل الصفحة '{0}'."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "تم نسخ الصفحة '{0}' و {1} الصفحات الفرعية."
-
-msgid "Page '{0}' copied."
-msgstr "الصفحة '{0}' المنسوخة."
+msgid "Page '{0}' is now unlocked."
+msgstr "الصفحة '{0}' غير مقفلة الآن."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "الصفحة '{0}' لا تنتظر حاليا للاشراف عليها."
@@ -1268,8 +1187,8 @@ msgstr "الصفحة '{0}' مرفوضة للنشر."
 msgid "Failed to send rejection notifications"
 msgstr "فشل إرسال إشعارات الرفض"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "الصفحة '{0}' غير مقفلة الآن."
+msgid "Page '{0}' moved."
+msgstr "تم نقل الصفحة '{0}'."
 
 msgid "Earliest"
 msgstr "السابقة"
@@ -1279,6 +1198,9 @@ msgstr "اللاحقة"
 
 msgid "revision {0} of \"{1}\""
 msgstr "مراجعة {0} من \"{1}\""
+
+msgid "Page '{0}' unpublished."
+msgstr "الصفحة '{0}' غير منشورة."
 
 msgid "More"
 msgstr "المزيد"

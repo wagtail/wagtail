@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 17:01+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -236,6 +236,9 @@ msgstr "englanti"
 msgid "Spanish"
 msgstr "espanja"
 
+msgid "Estonian"
+msgstr "viro"
+
 msgid "Finnish"
 msgstr "suomi"
 
@@ -395,83 +398,9 @@ msgstr "Näytä sivun '{title}' alasivut"
 msgid "Page explorer"
 msgstr "Sivuselain"
 
-msgid "January"
-msgstr "Tammi"
-
-msgid "February"
-msgstr "Helmi"
-
-msgid "March"
-msgstr "Maalis"
-
-msgid "April"
-msgstr "Huhti"
-
-msgid "May"
-msgstr "Touko"
-
-msgid "June"
-msgstr "Kesä"
-
-msgid "July"
-msgstr "Heinä"
-
-msgid "August"
-msgstr "Elo"
-
-msgid "September"
-msgstr "Syys"
-
-msgid "October"
-msgstr "Loka"
-
-msgid "November"
-msgstr "Marras"
-
-msgid "December"
-msgstr "Joulu"
-
-msgid "Sunday"
-msgstr "sunnuntai"
-
-msgid "Monday"
-msgstr "maanantai"
-
-msgid "Tuesday"
-msgstr "tiistai"
-
-msgid "Wednesday"
-msgstr "keskiviikko"
-
-msgid "Thursday"
-msgstr "torstai"
-
-msgid "Friday"
-msgstr "perjantai"
-
-msgid "Saturday"
-msgstr "lauantai"
-
-msgid "Sun"
-msgstr "Su"
-
-msgid "Mon"
-msgstr "Ma"
-
-msgid "Tue"
-msgstr "Ti"
-
-msgid "Wed"
-msgstr "Ke"
-
-msgid "Thu"
-msgstr "To"
-
-msgid "Fri"
-msgstr "Pe"
-
-msgid "Sat"
-msgstr "La"
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Tuntematon %(action)s"
 
 msgid "Error 404: Page not found"
 msgstr "Virhe 404: Sivua ei löytynyt"
@@ -865,6 +794,9 @@ msgstr ""
 msgid "Visit the live page"
 msgstr "Vieraile sivulla"
 
+msgid "restricted"
+msgstr "rajoitettu"
+
 msgid "Set page privacy. Current status: Public"
 msgstr "Aseta sivun yksityisyys. Nyt: Julkinen"
 
@@ -1051,11 +983,17 @@ msgstr "Muokataan %(page_type)s"
 msgid "History"
 msgstr "Historia"
 
+msgid "Edit original page"
+msgstr "Muokkaa alkuperäistä sivua"
+
 msgid "User"
 msgstr "Käyttäjä"
 
 msgid "Date / Time"
 msgstr "Päivä/aika"
+
+msgid "Comment"
+msgstr "Kommentti"
 
 msgid "Live version"
 msgstr "Esillä oleva versio"
@@ -1373,6 +1311,12 @@ msgstr "Aikajana"
 msgid "Page edited"
 msgstr "Sivua muokattu"
 
+msgid "Workflow started"
+msgstr "Työnkulku aloitettu"
+
+msgid "Workflow completed"
+msgstr "Työnkulku valmistunut"
+
 msgid "Edit page"
 msgstr "Muokkaa sivua"
 
@@ -1390,6 +1334,12 @@ msgstr "Hae XLSX"
 
 msgid "Download CSV"
 msgstr "Hae CSV"
+
+msgid "Filter"
+msgstr "Suodatin"
+
+msgid "Apply filters"
+msgstr "Toteuta suodatukset"
 
 msgid "No pages found."
 msgstr "Sivuja ei löytynyt."
@@ -1480,20 +1430,8 @@ msgstr ""
 "Tämä ohjelmisto ei tue käyttämääsi <strong>vanhentunutta</strong> selainta. "
 "Ole hyvä ja <a href=\"https://browsehappy.com/\">päivitä selaimesi</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"Wagtail vaatii toimiakseen Javascriptiä, mutta sen käyttö on estetty.<br />\n"
-"Näillä <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">ohjeilla voit sallia Javascriptin käytön "
-"selaimessasi</a>."
+msgid "Skip to main content"
+msgstr "Siirry pääsisältöön"
 
 msgid "Go to Wagtail admin interface"
 msgstr "Siirry Wagtailin hallintaan"
@@ -1661,26 +1599,41 @@ msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 msgid "Editing"
 msgstr "Muokataan"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Sivu '{0}' luotu ja ajastettu julkaistavaksi."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Sivu '{0}' ja {1} alasivua kopioitu."
 
-msgid "View live"
-msgstr "Näytä julkaistu"
-
-msgid "Page '{0}' created and published."
-msgstr "Sivu '{0}' luotu ja julkaistu."
+msgid "Page '{0}' copied."
+msgstr "Sivu '{0}' kopioitu."
 
 msgid "View draft"
 msgstr "Näytä luonnos"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Sivu '{0}' luotu ja lähetetty tarkastettavaksi."
+msgid "View live"
+msgstr "Näytä julkaistu"
 
 msgid "Page '{0}' created."
 msgstr "Sivu '{0}' luotu."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Sivu '{0}' luotu ja ajastettu julkaistavaksi."
+
+msgid "Page '{0}' created and published."
+msgstr "Sivu '{0}' luotu ja julkaistu."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Sivu '{0}' luotu ja lähetetty tarkastettavaksi."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Sivua ei voitu luoda validointivirheiden vuoksi."
+
+msgid "Page '{0}' deleted."
+msgstr "Sivu '{0}' poistettu."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Sivu odottaa parhaillaan tarkastusta"
+
+msgid "Page '{0}' has been updated."
+msgstr "Sivu '{0}' päivitetty."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Sinä</b> lukitsit <b>sivun '{}'</b> <b>{}</b>."
@@ -1697,9 +1650,6 @@ msgstr "<b>Sivu '{}' on lukittu.</b>"
 msgid "This page is currently awaiting moderation."
 msgstr "Tämä sivu odottaa parhaillaan tarkastusta."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Sivu odottaa parhaillaan tarkastusta"
-
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sivu '{0}' on ajastettu julkaistavaksi."
 
@@ -1709,36 +1659,14 @@ msgstr "Sivu '{0}' julkaistu."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sivu '{0}' on lähetetty tarkastettavaksi."
 
-msgid "Page '{0}' has been updated."
-msgstr "Sivu '{0}' päivitetty."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Sivua ei voitu tallentaa, sillä se on lukittu"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Sivua ei voitu tallentaa validointivirheiden vuoksi"
 
-msgid "Page '{0}' deleted."
-msgstr "Sivu '{0}' poistettu."
-
-msgid "Page '{0}' unpublished."
-msgstr "Sivu '{0}' piilotettu"
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"Lyhytnimi '{0}' on jo käytössä tällä isäntäsivulla. Valitse lyhytnimi, joka "
-"ei ole käytössä"
-
-msgid "Page '{0}' moved."
-msgstr "Sivu '{0}' siirretty."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Sivu '{0}' ja {1} alasivua kopioitu."
-
-msgid "Page '{0}' copied."
-msgstr "Sivu '{0}' kopioitu."
+msgid "Page '{0}' is now unlocked."
+msgstr "Sivu '{0}' ei ole enää lukittu."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sivu '{0}' ei odota parhaillaan tarkastusta."
@@ -1755,8 +1683,15 @@ msgstr "Sivu '{0}' julkaisu hylättiin."
 msgid "Failed to send rejection notifications"
 msgstr "Hylkäysilmoitusten lähetys epäonnistui"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Sivu '{0}' ei ole enää lukittu."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Lyhytnimi '{0}' on jo käytössä tällä isäntäsivulla. Valitse lyhytnimi, joka "
+"ei ole käytössä"
+
+msgid "Page '{0}' moved."
+msgstr "Sivu '{0}' siirretty."
 
 msgid "Earliest"
 msgstr "Aikaisin"
@@ -1767,11 +1702,17 @@ msgstr "Viimeisin"
 msgid "revision {0} of \"{1}\""
 msgstr "sivun \"{1}\" revisio {0}"
 
+msgid "Page '{0}' unpublished."
+msgstr "Sivu '{0}' piilotettu"
+
 msgid "Workflows"
 msgstr "Työnkulut"
 
 msgid "Workflow tasks"
 msgstr "Työnkulun tehtävät"
+
+msgid "Date/Time"
+msgstr "Päivä/aika"
 
 msgid "Add a workflow"
 msgstr "Lisää työnkulku"
@@ -1947,6 +1888,9 @@ msgstr "Luotu"
 msgid "Deleted"
 msgstr "Poistettu"
 
+msgid "Approved"
+msgstr "Hyväksytty"
+
 msgid "Copied"
 msgstr "Kopioitu"
 
@@ -1968,6 +1912,15 @@ msgstr "Työnkulun tehtävä hyväksytty"
 
 msgid "Workflow cancelled"
 msgstr "Työnkulku peruttu"
+
+msgid "Workflow: start"
+msgstr "Työnkulku: aloitettu"
+
+msgid "Workflow: approve task"
+msgstr "Työnkulku: hyväksy tehtävä"
+
+msgid "Workflow: cancel"
+msgstr "Työnkulku: peruttu"
 
 msgid "Yes"
 msgstr "Kyllä"

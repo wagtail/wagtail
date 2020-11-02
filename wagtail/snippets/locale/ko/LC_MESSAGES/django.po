@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:02+0100\n"
-"PO-Revision-Date: 2020-07-20 13:07+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Save"
+msgstr "저장"
 
 msgid "Wagtail snippets"
 msgstr "웨그테일 스니펫"
@@ -58,6 +64,9 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">만들어 보세요</"
 "a>."
 
+msgid "Saving…"
+msgstr "저장 중…"
+
 #, python-format
 msgid "Delete %(snippet_type_name)s"
 msgstr "%(snippet_type_name)s 삭제"
@@ -91,11 +100,8 @@ msgstr "새로운 %(snippet_type_name)s"
 msgid "New"
 msgstr "새로운"
 
-msgid "Saving…"
-msgstr "저장 중…"
-
-msgid "Save"
-msgstr "저장"
+msgid "Actions"
+msgstr "액션"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -103,12 +109,6 @@ msgstr "%(snippet_type_name)s - %(instance)s 수정"
 
 msgid "Editing"
 msgstr "수정중"
-
-msgid "Actions"
-msgstr "액션"
-
-msgid "Delete"
-msgstr "삭제"
 
 msgid "Usage"
 msgstr "사용"
@@ -126,9 +126,6 @@ msgstr "제목"
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "%(snippet)s 선택"
-
-msgid "Edit"
-msgstr "수정"
 
 #, python-format
 msgid ""
@@ -176,6 +173,9 @@ msgstr "%(snippet_type_name)s 검색"
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' 생성됨."
+
+msgid "Edit"
+msgstr "수정"
 
 msgid "The snippet could not be created due to errors."
 msgstr "에러로 인해 스니펫을 생성할 수 없습니다."

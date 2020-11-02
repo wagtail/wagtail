@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -346,20 +346,14 @@ msgstr "Паролата ви бе променена успешно!"
 msgid "Page '{0}' created."
 msgstr "Страница '{0}' е създадена."
 
+msgid "Page '{0}' deleted."
+msgstr "Страница '{0}' е изтрита."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Тази страница очаква да бъде модерирана"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Тази страница не можеше да бъде запазена поради валидационни грешки"
-
-msgid "Page '{0}' deleted."
-msgstr "Страница '{0}' е изтрита."
-
-msgid "Page '{0}' unpublished."
-msgstr "Страница '{0}' отменена от публикуване."
-
-msgid "Page '{0}' moved."
-msgstr "Страница '{0}' преместена."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Страница '{0}' не очаква да бъде модерирана."
@@ -369,6 +363,12 @@ msgstr "Страница '{0}' е публикувана."
 
 msgid "Page '{0}' rejected for publication."
 msgstr "Страница '{0}' отхвърлена от публикуване."
+
+msgid "Page '{0}' moved."
+msgstr "Страница '{0}' преместена."
+
+msgid "Page '{0}' unpublished."
+msgstr "Страница '{0}' отменена от публикуване."
 
 msgid "Change the password you use to log in."
 msgstr "Сменете паролата, която ползвате за да влезете."

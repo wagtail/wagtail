@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -263,63 +263,6 @@ msgstr "Zavrieť"
 
 msgid "Edit '{title}'"
 msgstr "Upraviť '{title}'"
-
-msgid "January"
-msgstr "Január"
-
-msgid "February"
-msgstr "Február"
-
-msgid "March"
-msgstr "Marec"
-
-msgid "April"
-msgstr "Apríl"
-
-msgid "May"
-msgstr "Máj"
-
-msgid "June"
-msgstr "Jún"
-
-msgid "July"
-msgstr "Júl"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Október"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Ne"
-
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Ut"
-
-msgid "Wed"
-msgstr "Str"
-
-msgid "Thu"
-msgstr "Štv"
-
-msgid "Fri"
-msgstr "Pia"
-
-msgid "Sat"
-msgstr "So"
 
 msgid "Error 404: Page not found"
 msgstr "Chyba 404: Stránka nebola nájdená"
@@ -1139,29 +1082,41 @@ msgstr "Naozaj chcete zmazať túto kolekciu?"
 msgid "Editing"
 msgstr "Editácia"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Stránka '{0}' vytvorená a naplánovaná pre publikáciu."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Stránka '{0}' a {1} podstránok skopírovaných."
 
-msgid "View live"
-msgstr "Zobraziť live"
-
-msgid "Page '{0}' created and published."
-msgstr "Stránka '{0}' bola úspešne vytvorená a publikovaná."
+msgid "Page '{0}' copied."
+msgstr "Stránka '{0}' bola skopírovaná."
 
 msgid "View draft"
 msgstr "Zobraziť koncept"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Stránka '{0}' bola úspešne vytvorená a odoslaná na moderáciu."
+msgid "View live"
+msgstr "Zobraziť live"
 
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' bola vytvorená."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Stránka '{0}' vytvorená a naplánovaná pre publikáciu."
+
+msgid "Page '{0}' created and published."
+msgstr "Stránka '{0}' bola úspešne vytvorená a publikovaná."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Stránka '{0}' bola úspešne vytvorená a odoslaná na moderáciu."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
 
+msgid "Page '{0}' deleted."
+msgstr "Stránka '{0}' bola zmazaná."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Táto stránka momentálne čaká na moderáciu"
+
+msgid "Page '{0}' has been updated."
+msgstr "Stránka '{0}' bola aktualizovaná."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stránka '{0}' bola naplánovaná pre publikáciu."
@@ -1172,29 +1127,14 @@ msgstr "Stránka '{0}' bola publikovaná."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stránka '{0}' bola odoslaná na moderáciu."
 
-msgid "Page '{0}' has been updated."
-msgstr "Stránka '{0}' bola aktualizovaná."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
 
-msgid "Page '{0}' deleted."
-msgstr "Stránka '{0}' bola zmazaná."
-
-msgid "Page '{0}' unpublished."
-msgstr "Stránka '{0}' bola odpublikovaná."
-
-msgid "Page '{0}' moved."
-msgstr "Stránka '{0}' bola presunutá."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Stránka '{0}' a {1} podstránok skopírovaných."
-
-msgid "Page '{0}' copied."
-msgstr "Stránka '{0}' bola skopírovaná."
+msgid "Page '{0}' is now unlocked."
+msgstr "Stránka '{0}' bola odomknutá."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}'  momentálne čaká na moderáciu"
@@ -1211,14 +1151,17 @@ msgstr "Publikácia stránky '{0}' zamietnutá."
 msgid "Failed to send rejection notifications"
 msgstr "Odoslanie notifikácií o zamietnutí zlyhalo"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Stránka '{0}' bola odomknutá."
+msgid "Page '{0}' moved."
+msgstr "Stránka '{0}' bola presunutá."
 
 msgid "Earliest"
 msgstr "Najstaršie"
 
 msgid "Latest"
 msgstr "Najnovšie"
+
+msgid "Page '{0}' unpublished."
+msgstr "Stránka '{0}' bola odpublikovaná."
 
 msgid "More"
 msgstr "Viac"

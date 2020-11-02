@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-28 19:05+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -21,14 +21,23 @@ msgstr ""
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail core"
+msgstr "Nucli de Wagtail"
+
 msgid "This block has no options."
 msgstr "Aquest bloc no té opcions."
+
+msgid "This field is required."
+msgstr "Aquest camp és obligatori."
 
 msgid "Password"
 msgstr "Contrasenya"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "La contrasenya que heu introduït no és correcta. Torneu a provar."
+
+msgid "Comment"
+msgstr "Commentari"
 
 msgid "hostname"
 msgstr "hostname"
@@ -145,11 +154,23 @@ msgstr "expirat"
 msgid "locked"
 msgstr "bloquejat"
 
+msgid "locked at"
+msgstr "bloquejada el"
+
+msgid "locked by"
+msgstr "bloquejada per"
+
 msgid "first published at"
 msgstr "primera publicació el "
 
+msgid "last published at"
+msgstr "última publicació el"
+
 msgid "latest revision created at"
 msgstr "última revisió creada el"
+
+msgid "live revision"
+msgstr "Revisió en viu"
 
 msgid "This slug is already in use"
 msgstr "Aquest slug ja està en ús"
@@ -157,8 +178,17 @@ msgstr "Aquest slug ja està en ús"
 msgid "scheduled"
 msgstr "programat"
 
+msgid "in moderation"
+msgstr "en moderació"
+
 msgid "draft"
 msgstr "esborrany"
+
+msgid "live + scheduled"
+msgstr "en viu + programada"
+
+msgid "live + in moderation"
+msgstr "en viu + en moderació"
 
 msgid "live + draft"
 msgstr "en viu + esborrany"
@@ -220,6 +250,15 @@ msgstr "Eliminar pàgines amb pàgines filles"
 msgid "Lock"
 msgstr "Bloquejar"
 
+msgid "Lock/unlock pages you've locked"
+msgstr "Bloqueig i desbloqueig de pàgines que he bloquejat"
+
+msgid "Unlock"
+msgstr "Desbloquejar"
+
+msgid "Unlock any page"
+msgstr "Desbloquejar alguna pàgina"
+
 msgid "group"
 msgstr "grup"
 
@@ -277,6 +316,9 @@ msgstr "permís"
 msgid "group collection permission"
 msgstr "permís de col·lecció de grups"
 
+msgid "workflow"
+msgstr "fluxe de treball"
+
 msgid "workflow page"
 msgstr "pàgina de fluxe de treball"
 
@@ -286,29 +328,114 @@ msgstr "pàgines de fluxes de treball"
 msgid "task"
 msgstr "tasca"
 
+msgid "workflow task order"
+msgstr "ordre de tasques de fluxe de treball"
+
+msgid "workflow task orders"
+msgstr "ordres de tasques de fluxe de treball"
+
+msgid "active"
+msgstr "actiu"
+
 msgid "tasks"
 msgstr "tasques"
 
 msgid "workflows"
 msgstr "fluxes de treball"
 
+msgid "Request changes"
+msgstr "Sol·licitar canvis"
+
 msgid "Approve"
 msgstr "Aprovar"
+
+msgid "Approve with comment"
+msgstr "Aprovar amb comentari"
+
+msgid "Group approval task"
+msgstr "Tasca d'aprovació de grup"
+
+msgid "Group approval tasks"
+msgstr "Tasques d'aprovació de grup"
+
+msgid "In progress"
+msgstr "En progrés"
+
+msgid "Approved"
+msgstr "Aprovat"
+
+msgid "Needs changes"
+msgstr "Es necessiten canvis"
+
+msgid "Cancelled"
+msgstr "Cancel·lat"
 
 msgid "status"
 msgstr "estat"
 
+msgid "requested by"
+msgstr "sol·licitat per"
+
+msgid "current task state"
+msgstr "estat de la tasca actual"
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Fluxe de treball '{0}' a la Pàgina '{1}': {2}"
+
 msgid "Not started"
 msgstr "No iniciat"
 
+msgid "Workflow state"
+msgstr "Estat del fluxe de treball"
+
+msgid "Workflow states"
+msgstr "Estats de fluxe de treball"
+
 msgid "Rejected"
 msgstr "Rebutjat"
+
+msgid "Skipped"
+msgstr "Omesos"
+
+msgid "workflow state"
+msgstr "estat del fluxe de treball"
+
+msgid "started at"
+msgstr "iniciat el"
+
+msgid "finished at"
+msgstr "finalitzat el"
+
+msgid "finished by"
+msgstr "finalitzat per"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Tasca '{0}' a la Revisió de Pàgina '{1}': {2}"
 
 msgid "Task state"
 msgstr "Estat de la tasca"
 
 msgid "Task states"
 msgstr "Estat de les tasques"
+
+msgid "log entry"
+msgstr "entrada de registre"
+
+msgid "log entries"
+msgstr "entrades de registre"
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "usuari %(id)d (suprimit)"
+
+msgid "system"
+msgstr "sistema"
+
+msgid "page log entry"
+msgstr "entrada de registre de pàgina"
+
+msgid "page log entries"
+msgstr "entrades de registre de pàgina"
 
 msgid "Log in"
 msgstr "Iniciar sessió"

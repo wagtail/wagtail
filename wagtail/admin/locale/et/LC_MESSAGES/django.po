@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-10-23 11:03+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -414,84 +414,6 @@ msgstr "Kuva üksuse „{title}” alamlehed"
 
 msgid "Page explorer"
 msgstr "Leheuurija"
-
-msgid "January"
-msgstr "Jaanuar"
-
-msgid "February"
-msgstr "Veebruar"
-
-msgid "March"
-msgstr "Märts"
-
-msgid "April"
-msgstr "Aprill"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Juunil"
-
-msgid "July"
-msgstr "Juuli"
-
-msgid "August"
-msgstr "august"
-
-msgid "September"
-msgstr "Septembrini"
-
-msgid "October"
-msgstr "Oktoobril"
-
-msgid "November"
-msgstr "Novembrini"
-
-msgid "December"
-msgstr "Detsembrini"
-
-msgid "Sunday"
-msgstr "Pühapäev"
-
-msgid "Monday"
-msgstr "Esmaspäev"
-
-msgid "Tuesday"
-msgstr "Teisipäev"
-
-msgid "Wednesday"
-msgstr "Kolmapäev"
-
-msgid "Thursday"
-msgstr "Neljapäev"
-
-msgid "Friday"
-msgstr "Reede"
-
-msgid "Saturday"
-msgstr "Laupäev"
-
-msgid "Sun"
-msgstr "Päike"
-
-msgid "Mon"
-msgstr "Ee"
-
-msgid "Tue"
-msgstr "Teisipäeval"
-
-msgid "Wed"
-msgstr "Kolmapäev"
-
-msgid "Thu"
-msgstr "N"
-
-msgid "Fri"
-msgstr "Reede"
-
-msgid "Sat"
-msgstr "Laup"
 
 #, python-format
 msgid "Unknown %(action)s"
@@ -1734,22 +1656,6 @@ msgstr ""
 "Kasutate <strong>vananenud</strong> brauserit, mida see tarkvara ei toeta. "
 "Palun <a href=\"https://browsehappy.com/\">uuendage oma brauserit</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"Wagtail'i kasutamiseks on vaja Javascripti, kuid see on praegu keelatud.<br /"
-">\n"
-"Siin on <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" rel="
-"\"noopener noreferrer\">juhised JavaScripti lubamiseks oma veebibrauseris.</"
-"a>"
-
 msgid "Skip to main content"
 msgstr "Otse põhisisu juurde"
 
@@ -2038,26 +1944,44 @@ msgstr "Kas olete kindel, et soovite selle kogu kustutada?"
 msgid "Editing"
 msgstr "Redigeerimine"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Leht '{0}' on loodud ja avaldamiseks ajastatud."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Leht '{0}' ja {1} alamlehed on kopeeritud."
 
-msgid "View live"
-msgstr "Vaadake otseülekannet"
-
-msgid "Page '{0}' created and published."
-msgstr "Leht '{0}' on loodud ja avaldatud."
+msgid "Page '{0}' copied."
+msgstr "Leht '{0}' on kopeeritud."
 
 msgid "View draft"
 msgstr "Kuva mustand"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Leht {0} loodi ja saadeti modereerimiseks."
+msgid "View live"
+msgstr "Vaadake otseülekannet"
 
 msgid "Page '{0}' created."
 msgstr "Leht '{0}' on loodud."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Leht '{0}' on loodud ja avaldamiseks ajastatud."
+
+msgid "Page '{0}' created and published."
+msgstr "Leht '{0}' on loodud ja avaldatud."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Leht {0} loodi ja saadeti modereerimiseks."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Valideerimisvigade tõttu ei saanud lehte luua"
+
+msgid "Page '{0}' deleted."
+msgstr "Leht '{0}' on kustutatud."
+
+msgid "This page is currently awaiting moderation"
+msgstr "See leht ootab praegu modereerimist"
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "Lehekülg '{0}' on asendatud versiooniga versioonilt {1}."
+
+msgid "Page '{0}' has been updated."
+msgstr "Lehte '{0}' on värskendatud."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b> Teie </b> lukustasite <b> lehe '{}' </b> saidil <b> {} </b>."
@@ -2080,8 +2004,8 @@ msgstr "See leht ootab <b> '{}' </b> töövoos <b> '{}' </b>."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Ainult selle ülesande ülevaatajad saavad lehte muuta."
 
-msgid "This page is currently awaiting moderation"
-msgstr "See leht ootab praegu modereerimist"
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Töövoog lehel {0} on tühistatud."
 
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Lehe '{1}' versioon lehelt {0} on ajastatud avaldamiseks."
@@ -2101,17 +2025,8 @@ msgstr "Leht '{0}' on avaldatud."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Leht '{0}' on modereerimiseks esitatud."
 
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Töövoog lehel {0} on tühistatud."
-
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "Töövoog lehel {0} on taaskäivitatud."
-
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "Lehekülg '{0}' on asendatud versiooniga versioonilt {1}."
-
-msgid "Page '{0}' has been updated."
-msgstr "Lehte '{0}' on värskendatud."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Lehte ei õnnestunud salvestada, kuna see on lukustatud"
@@ -2119,27 +2034,8 @@ msgstr "Lehte ei õnnestunud salvestada, kuna see on lukustatud"
 msgid "The page could not be saved due to validation errors"
 msgstr "Valideerimisvigade tõttu ei õnnestunud lehte salvestada"
 
-msgid "Page '{0}' deleted."
-msgstr "Leht '{0}' on kustutatud."
-
-msgid "Page '{0}' unpublished."
-msgstr "Lehe '{0}' avaldamine tühistati."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"Slug '{0}'  on valitud vanemalehel juba kasutusel. Veenduge, et nälkjas on "
-"ainulaadne, ja proovige uuesti"
-
-msgid "Page '{0}' moved."
-msgstr "Leht '{0}' on teisaldatud."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Leht '{0}' ja {1} alamlehed on kopeeritud."
-
-msgid "Page '{0}' copied."
-msgstr "Leht '{0}' on kopeeritud."
+msgid "Page '{0}' is now unlocked."
+msgstr "Leht {0} on nüüd lukustamata."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Leht {0} ei oota praegu modereerimist."
@@ -2156,11 +2052,15 @@ msgstr "Leht '{0}' lükati avaldamiseks tagasi."
 msgid "Failed to send rejection notifications"
 msgstr "Tagasilükkamisteatiste saatmine ebaõnnestus"
 
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "Leht '{0}' ei oota praegu ülesandes '{1}' modereerimist."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Slug '{0}'  on valitud vanemalehel juba kasutusel. Veenduge, et nälkjas on "
+"ainulaadne, ja proovige uuesti"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Leht {0} on nüüd lukustamata."
+msgid "Page '{0}' moved."
+msgstr "Leht '{0}' on teisaldatud."
 
 #, python-format
 msgid ""
@@ -2180,6 +2080,12 @@ msgstr "versioon {0} versioonidest \"{1}\""
 
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "Versioon {0} \"{1}\" ajastamata."
+
+msgid "Page '{0}' unpublished."
+msgstr "Lehe '{0}' avaldamine tühistati."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr "Leht '{0}' ei oota praegu ülesandes '{1}' modereerimist."
 
 msgid "Locked pages"
 msgstr "Lukustatud lehed"

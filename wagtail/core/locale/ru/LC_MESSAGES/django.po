@@ -12,15 +12,16 @@
 # sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
+# Виктор Виктор <spam.vitek@gmail.com>, 2020
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-31 05:34+0000\n"
-"Last-Translator: Alexey Trofimov <funkindy@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 14:04+0000\n"
+"Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -418,7 +419,7 @@ msgid "Group approval tasks"
 msgstr "Группа одобрения задач"
 
 msgid "In progress"
-msgstr "В ходе выролнения"
+msgstr "В ходе выполнения"
 
 msgid "Approved"
 msgstr "Одобрено"
@@ -527,3 +528,11 @@ msgstr "Вам нужен пароль для доступа к этой стр�
 
 msgid "Continue"
 msgstr "Продолжить"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s коллекция потомков"
+msgstr[1] "%(count)s коллекции потомков"
+msgstr[2] "%(count)s коллекций потомков"
+msgstr[3] "%(count)s коллекции потомков"

@@ -11,6 +11,7 @@
 # Joaquín T <joaquintita@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2017-2018
+# Maylon Pedroso <maylonpedroso@gmail.com>, 2020
 # Oscar Luciano Espirilla Flores, 2020
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
 # 67feb0cba3962a6c9f09eb0e43697461_528661a <cbde1c637170da616adcdde6daca673c_96059>, 2014
@@ -20,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-09-23 01:52+0000\n"
-"Last-Translator: Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 18:41+0000\n"
+"Last-Translator: Maylon Pedroso <maylonpedroso@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -347,8 +348,14 @@ msgstr "permiso de colección de grupo"
 msgid "group collection permissions"
 msgstr "permisos de colección de grupo"
 
+msgid "task"
+msgstr "tarea"
+
 msgid "active"
 msgstr "activo"
+
+msgid "tasks"
+msgstr "tareas"
 
 msgid "Request changes"
 msgstr "Solicitar cambios"

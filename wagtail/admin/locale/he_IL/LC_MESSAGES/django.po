@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -153,63 +153,6 @@ msgstr "שדה חובה"
 
 msgid "Edit"
 msgstr "עריכה"
-
-msgid "January"
-msgstr "ינואר"
-
-msgid "February"
-msgstr "פברואר"
-
-msgid "March"
-msgstr "מרץ"
-
-msgid "April"
-msgstr "אפריל"
-
-msgid "May"
-msgstr "מאי"
-
-msgid "June"
-msgstr "יוני"
-
-msgid "July"
-msgstr "יולי"
-
-msgid "August"
-msgstr "אוגוסט"
-
-msgid "September"
-msgstr "ספטמבר"
-
-msgid "October"
-msgstr "אוקטובר"
-
-msgid "November"
-msgstr "נובמבר"
-
-msgid "December"
-msgstr "דצמבר"
-
-msgid "Sun"
-msgstr "ראשון"
-
-msgid "Mon"
-msgstr "שני"
-
-msgid "Tue"
-msgstr "שלישי"
-
-msgid "Wed"
-msgstr "רביעי"
-
-msgid "Thu"
-msgstr "חמישי"
-
-msgid "Fri"
-msgstr "שישי"
-
-msgid "Sat"
-msgstr "שבת"
 
 msgid "Account"
 msgstr "חשבון"
@@ -610,23 +553,32 @@ msgstr "מאת %(modified_by)s"
 msgid "Your password has been changed successfully!"
 msgstr "סיסמתכם שונתה בהצלחה!"
 
-msgid "View live"
-msgstr "תצוגה בחי"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "עמוד {0} ותת העמודים {1} הועתקו "
 
-msgid "Page '{0}' created and published."
-msgstr "עמוד {0} נוצר ופורסם"
+msgid "Page '{0}' copied."
+msgstr "עמוד {0} הועתק "
 
 msgid "View draft"
 msgstr "הצג טיוטה"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "עמוד {0} נוצר והוזן לעריכה"
+msgid "View live"
+msgstr "תצוגה בחי"
 
 msgid "Page '{0}' created."
 msgstr "עמוד {0} נוצר"
 
+msgid "Page '{0}' created and published."
+msgstr "עמוד {0} נוצר ופורסם"
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "עמוד {0} נוצר והוזן לעריכה"
+
 msgid "The page could not be created due to validation errors"
 msgstr "העמוד לא יכל להיווצר עקב שגיאות אישור "
+
+msgid "Page '{0}' deleted."
+msgstr "עמוד {0} נמחק"
 
 msgid "This page is currently awaiting moderation"
 msgstr "העמוד ממתין לעריכה"
@@ -637,20 +589,8 @@ msgstr "העמוד לא ניתן לשמירה מכיוון שהוא נעול "
 msgid "The page could not be saved due to validation errors"
 msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
 
-msgid "Page '{0}' deleted."
-msgstr "עמוד {0} נמחק"
-
-msgid "Page '{0}' unpublished."
-msgstr "פרסום עמוד {0} בוטל"
-
-msgid "Page '{0}' moved."
-msgstr "עמוד {0} הוזז"
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "עמוד {0} ותת העמודים {1} הועתקו "
-
-msgid "Page '{0}' copied."
-msgstr "עמוד {0} הועתק "
+msgid "Page '{0}' is now unlocked."
+msgstr "עמוד {0} בלתי נעול כעת"
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "העמוד {0} אינו ממתין לעריכה כרגע "
@@ -661,8 +601,11 @@ msgstr "עמוד {0} פורסם"
 msgid "Page '{0}' rejected for publication."
 msgstr "עמוד {0} נדחה עבור פרסום"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "עמוד {0} בלתי נעול כעת"
+msgid "Page '{0}' moved."
+msgstr "עמוד {0} הוזז"
+
+msgid "Page '{0}' unpublished."
+msgstr "פרסום עמוד {0} בוטל"
 
 msgid "Change the password you use to log in."
 msgstr "שינוי הסיסמה עבור התחברות"

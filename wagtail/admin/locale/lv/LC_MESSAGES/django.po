@@ -4,14 +4,14 @@
 #
 # Translators:
 # Maris Serzans <maris.serzans@gmail.com>, 2015
-# Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018
+# Reinis Rozenbergs <reinisr@gmail.com>, 2016-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 14:16+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -27,14 +27,35 @@ msgstr "Publicēt"
 msgid "Submit for moderation"
 msgstr "Iesniegt moderācijai"
 
+msgid "Restart workflow "
+msgstr "Restartēt darbplūsmu"
+
+msgid "Cancel workflow "
+msgstr "Atcelt darbplūsmu"
+
 msgid "Unpublish"
 msgstr "Atsaukt publicēšanu"
 
 msgid "Delete"
 msgstr "Dzēst"
 
+msgid "Lock"
+msgstr "Slēgt"
+
+msgid "Apply editor lock"
+msgstr "Pielietot redaktora slēgšanu"
+
+msgid "Unlock"
+msgstr "Atslēgt"
+
+msgid "Save Draft"
+msgstr "Saglabāt melnrakstu"
+
 msgid "Page locked"
 msgstr "Lapa slēgta"
+
+msgid "Wagtail admin"
+msgstr "Wagtail administrācija"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Atvainojiet, jums nav piekļuves tiesību šai zonai."
@@ -63,6 +84,30 @@ msgstr "Veicināšana"
 msgid "Settings"
 msgstr "Iestatījumi"
 
+msgid "Date from"
+msgstr "Datums no"
+
+msgid "Date to"
+msgstr "Datums līdz"
+
+msgid "All"
+msgstr "Viss"
+
+msgid "Started at"
+msgstr "Sākās plkst."
+
+msgid "Show"
+msgstr "Rādīt"
+
+msgid "Awaiting my review"
+msgstr "Gaida manu pārbaudi"
+
+msgid "Completed at"
+msgstr "Pabeigts plkst."
+
+msgid "Workflow"
+msgstr "Darbplūsma"
+
 msgid "Date"
 msgstr "Datums"
 
@@ -78,6 +123,16 @@ msgstr "Ievadiet jūsu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
+
+msgid "URL"
+msgstr "Adrese"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Atlasīt hierarhisko pozīciju. Piezīme: kolekcija nevar piederēt pati sev vai "
+"kādai no tās apakšpozīcijām."
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
@@ -127,6 +182,12 @@ msgstr[1] ""
 msgstr[2] ""
 "%(count)s lapas kopijas ir publicētas. Vai vēlaties publicēt arī tās kopijas?"
 
+msgid "Alias"
+msgstr "Aizstājējlapa"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Uzturiet jauno lapu atjaunināšanu ar turpmākajām izmaiņām"
+
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "Jums nav tiesību kopēt uz lapu \"%(page_title)s\""
@@ -164,6 +225,121 @@ msgstr "Šis lauks ir nepieciešams"
 
 msgid "Please select at least one group."
 msgstr "Lūdzu izvēlieties vismaz vienu grupu"
+
+msgid "All types"
+msgstr "Visi tipi"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Šai lapai jau ir piešķirta darbplūsma '{0}'"
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"Nav iespējams piešķirt darbplūsmu vienai un tai pašai lapai vairākas reizes."
+
+msgid "Give your workflow a name"
+msgstr "Piešķir darbplūsmai nosaukumu"
+
+msgid "Add tasks to your workflow"
+msgstr "Pievieno uzdevumus savai darbplūsmai "
+
+msgid "Arabic"
+msgstr "arābu"
+
+msgid "Catalan"
+msgstr "kataloniešu"
+
+msgid "Czech"
+msgstr "čehu"
+
+msgid "German"
+msgstr "vācu"
+
+msgid "Greek"
+msgstr "grieķu"
+
+msgid "English"
+msgstr "angļu"
+
+msgid "Spanish"
+msgstr "spāņu"
+
+msgid "Estonian"
+msgstr "igauņu"
+
+msgid "Finnish"
+msgstr "somu"
+
+msgid "French"
+msgstr "franču"
+
+msgid "Galician"
+msgstr "galisiešu"
+
+msgid "Hungarian"
+msgstr "ungāru"
+
+msgid "Indonesian"
+msgstr "indonēziešu"
+
+msgid "Icelandic"
+msgstr "islandiešu"
+
+msgid "Italian"
+msgstr "itāļu"
+
+msgid "Japanese"
+msgstr "japāņu"
+
+msgid "Korean"
+msgstr "koreiešu"
+
+msgid "Lithuanian"
+msgstr "lietuviešu"
+
+msgid "Mongolian"
+msgstr "mongoļu"
+
+msgid "Persian"
+msgstr "persiešu"
+
+msgid "Polish"
+msgstr "poļu"
+
+msgid "Brazilian Portuguese"
+msgstr "brazīļu portugāļu"
+
+msgid "Portuguese"
+msgstr "portugāļu"
+
+msgid "Romanian"
+msgstr "rumāņu"
+
+msgid "Russian"
+msgstr "krievu"
+
+msgid "Swedish"
+msgstr "zviedru"
+
+msgid "Slovak"
+msgstr "slovāku"
+
+msgid "Thai"
+msgstr "taju"
+
+msgid "Turkish"
+msgstr "turku"
+
+msgid "Turkish (Turkey)"
+msgstr "turku (Turcija)"
+
+msgid "Ukrainian"
+msgstr "ukraiņu"
+
+msgid "Chinese (Simplified)"
+msgstr "ķīniešu (vienkāršota)"
+
+msgid "Chinese (Traditional)"
+msgstr "ķīniešu (tradicionāla)"
 
 msgid "Edit"
 msgstr "Labot"
@@ -207,62 +383,43 @@ msgstr "Atsaukt"
 msgid "Redo"
 msgstr "Atcelt atsaukšanu"
 
-msgid "January"
-msgstr "Janvāris"
+msgid "Reload the page"
+msgstr "Pārlādēt lapas saturu"
 
-msgid "February"
-msgstr "Februāris"
+msgid "Reload saved content"
+msgstr "Pārlādēt saglabāto saturu"
 
-msgid "March"
-msgstr "Marts"
+msgid "Show latest content"
+msgstr "Pārādīt jaunāko saturu"
 
-msgid "April"
-msgstr "Aprīlis"
+msgid "Show error"
+msgstr "Parādīt kļūdu"
 
-msgid "May"
-msgstr "Maijs"
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "Redaktors kļūda. Saturs ir atiestatīts uz pēdējo saglabāto versiju."
 
-msgid "June"
-msgstr "Jūnijs"
+msgid "Broken link"
+msgstr "Bojāta saite"
 
-msgid "July"
-msgstr "Jūlijs"
+msgid "Missing document"
+msgstr "Trūkstošs dokuments"
 
-msgid "August"
-msgstr "Augusts"
+msgid "Close"
+msgstr "Aizvērt"
 
-msgid "September"
-msgstr "Septembris"
+msgid "Edit '{title}'"
+msgstr "Rediģēt '{title}'"
 
-msgid "October"
-msgstr "Oktobris"
+msgid "View child pages of '{title}'"
+msgstr "Apskatīt '{title}' zemāka līmeņa lapas"
 
-msgid "November"
-msgstr "Novembris"
+msgid "Page explorer"
+msgstr "Lapu pārlūks"
 
-msgid "December"
-msgstr "Decembris"
-
-msgid "Sun"
-msgstr "Sv"
-
-msgid "Mon"
-msgstr "P"
-
-msgid "Tue"
-msgstr "O"
-
-msgid "Wed"
-msgstr "T"
-
-msgid "Thu"
-msgstr "C"
-
-msgid "Fri"
-msgstr "Pk"
-
-msgid "Sat"
-msgstr "S"
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Nezināma %(action)s"
 
 msgid "Error 404: Page not found"
 msgstr "Kļūda 404: lapa nav atrasta"
@@ -279,8 +436,20 @@ msgstr "Doties uz Wagtail administrāciju"
 msgid "Account"
 msgstr "Konts"
 
+msgid "Change profile picture"
+msgstr "Mainīt profila attēlu"
+
+msgid "Your current profile picture:"
+msgstr "Pašreizējais profila attēls:"
+
 msgid "Update"
 msgstr "Atjaunot"
+
+msgid "Change email"
+msgstr "Mainīt e-pastu"
+
+msgid "Change name"
+msgstr "Mainīt vārdu"
 
 msgid "Change password"
 msgstr "Mainīt paroli"
@@ -288,6 +457,9 @@ msgstr "Mainīt paroli"
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "Šeit nav iespējams mainīt jūsu paroli. Sazinieties are administratoru."
+
+msgid "Set Time Zone"
+msgstr "Iestatīt laika zonu"
 
 msgid "Language Preferences"
 msgstr "Valodas uzstādījumi"
@@ -307,8 +479,26 @@ msgstr "Lietotājvārds"
 msgid "Set your new password"
 msgstr "Izvēlieties jaunu paroli"
 
+msgid "Invalid password reset link"
+msgstr "Nederīga paroles atiestatīšanas saite"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used."
+msgstr "Paroles atiestatīšanas saite nav derīga; iespējams, jau izmantota."
+
+msgid "Request a new password reset"
+msgstr "Pieprasīt jaunu paroles atiestatīšanu"
+
 msgid "Check your email"
 msgstr "Pārbaudiet savu e-pastu"
+
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Ja šai adresei ir izveidots konts, jums tika nosūtīta saite paroles "
+"atiestatīšanai."
 
 msgid "Please follow the link below to reset your password:"
 msgstr "Lūdzu sekojiet norādei lai atiestatītu jūsu paroli:"
@@ -346,6 +536,40 @@ msgstr "Ārēja saite"
 msgid "Email link"
 msgstr "E-pasta saite"
 
+msgid "Phone link"
+msgstr "Tālruņa saite"
+
+msgid "Anchor link"
+msgstr "Enkura saite"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"        %(counter)s rezultātu\n"
+"    "
+msgstr[1] ""
+"\n"
+"        %(counter)s atbilstība\n"
+"    "
+msgstr[2] ""
+"\n"
+"        %(counter)s atbilstības\n"
+"    "
+
+msgid "Add an anchor link"
+msgstr "Pievienot enkura saiti"
+
+msgid "Insert anchor"
+msgstr "Pievienot enkuru"
+
 msgid "Choose"
 msgstr "Izvēlēties"
 
@@ -361,14 +585,35 @@ msgstr "Pievienot saiti"
 msgid "Add an external link"
 msgstr "Pievienot ārēju saiti"
 
+msgid "Add a phone link"
+msgstr "Pievienot tālruņa saiti"
+
+msgid "Collection privacy"
+msgstr "Kolekcijas privātums"
+
+msgid "This collection has been made private by a parent collection."
+msgstr "Šo kolekciju privātu ir padarījusi augstāka līmeņa kolekcija."
+
 msgid "You can edit the privacy settings on:"
 msgstr "Mainīt privātuma iestatījumus:"
+
+msgid ""
+"Privacy settings determine who is able to view documents in this collection."
+msgstr ""
+"Privātuma iestatījumi nosaka, kurš var skatīt šajā kolekcijā esošos "
+"dokumentus."
 
 msgid "Save"
 msgstr "Saglabāt"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Iestatiet kolekcijas privātumu. Pašreizējais statuss: Publisks"
+
 msgid "Public"
 msgstr "Publisks"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Iestatiet kolekcijas privātumu. Pašreizējais statuss: Privāts"
 
 msgid "Private"
 msgstr "Privāts"
@@ -379,6 +624,10 @@ msgstr "Nevar izdzēst šo kolekciju, jo tā nac tukša. Tā satur:"
 
 msgid "Name"
 msgstr "Nosaukums"
+
+#, python-format
+msgid "Add %(label)s"
+msgstr "Pievienot %(label)s"
 
 msgid "Yes, delete"
 msgstr "Dzēst"
@@ -394,6 +643,22 @@ msgstr ""
 "Šis ir jūsu informācijas panelis, kurā saņemsiet noderīgu informāciju par "
 "saturu ko esat izveidojis."
 
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail pakāpeniski atsakās no IE11 atbalsta, kas var ietekmēt jūs vai jūsu "
+"organizāciju. <a href=\"%(url)s\">Uzziniet vairāk par mūsu IE11 atbalsta "
+"plāniem</a>."
+
+msgid "Your locked pages"
+msgstr "Jūsu slēgtās lapas"
+
+msgid "Locked at"
+msgstr "Slēgta plkst."
+
 msgid "Edit this page"
 msgstr "Labot šo lapu"
 
@@ -403,14 +668,24 @@ msgstr "Melnraksts"
 msgid "Live"
 msgstr "Aktīva"
 
+#, python-format
+msgid "%(time_period)s"
+msgstr "%(time_period)s"
+
 msgid "Pages awaiting moderation"
 msgstr "Lapām nepieciešama moderācija"
+
+msgid "Parent"
+msgstr "Augstāka līmeņa vienība"
 
 msgid "Type"
 msgstr "Veids"
 
 msgid "Edited"
 msgstr "Labots"
+
+msgid "Preview this page"
+msgstr "Priekšskatīt šo lapu"
 
 msgid "Approve"
 msgstr "Apstiprināt"
@@ -430,6 +705,27 @@ msgstr "Statuss"
 msgid "Site summary"
 msgstr "Kopsavilkums"
 
+msgid "Your pages in a workflow"
+msgstr "Jūsu lapas darbplūsmā"
+
+msgid "Task"
+msgstr "Uzdevums"
+
+msgid "Task started"
+msgstr "Uzdevums uzsākts"
+
+msgid "Changes requested at"
+msgstr "Pieprasītās izmaiņas"
+
+msgid "Awaiting"
+msgstr "Gaida"
+
+msgid "Awaiting your review"
+msgstr "Gaida jūsu pārbaudi"
+
+msgid "Tasks"
+msgstr "Uzdevumi"
+
 msgid "Sign in"
 msgstr "Ieiet"
 
@@ -440,6 +736,9 @@ msgstr ""
 
 msgid "Sign in to Wagtail"
 msgstr "Ieet Wagtail"
+
+msgid "Signing in…"
+msgstr "Notiek pierakstīšanās..."
 
 msgid "Forgotten it?"
 msgstr "Aizmirsāt paroli?"
@@ -735,29 +1034,41 @@ msgstr "Vai tiešām vēlaties dzēst šo kolekciju?"
 msgid "Editing"
 msgstr "Labo"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "'{0}' lapa izveidota un plānota publicēšanai."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Lapa '{0}' un apakšlapas {1} kopētas."
 
-msgid "View live"
-msgstr "Skatīt tekošo versiju"
-
-msgid "Page '{0}' created and published."
-msgstr "Lapa '{0}' izveidota un publicēta."
+msgid "Page '{0}' copied."
+msgstr "Lapa '{0}' kopēta."
 
 msgid "View draft"
 msgstr "Skatīt melnrakstu"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Lapa '{0}' izveidota un iesniegta moderācijai."
+msgid "View live"
+msgstr "Skatīt tekošo versiju"
 
 msgid "Page '{0}' created."
 msgstr "Lapa '{0}' izveidota."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "'{0}' lapa izveidota un plānota publicēšanai."
+
+msgid "Page '{0}' created and published."
+msgstr "Lapa '{0}' izveidota un publicēta."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Lapa '{0}' izveidota un iesniegta moderācijai."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Validācijas kļūdas dēļ šo lapu nav iespējams izveidot"
 
+msgid "Page '{0}' deleted."
+msgstr "Lapa '{0}' dzēsta."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Šī lapa gaida moderāciju"
+
+msgid "Page '{0}' has been updated."
+msgstr "Lapa '{0}' ir atjaunota."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Lapa '{0}' ir ieplānota publicēšanai."
@@ -768,29 +1079,14 @@ msgstr "Lapa '{0}' ir publicēta."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Lapa '{0}' ir nosūtīta moderācijai."
 
-msgid "Page '{0}' has been updated."
-msgstr "Lapa '{0}' ir atjaunota."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Lapu nav iespējams saglabāt jo tā ir bloķēta"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Validācijas kļūdu dēļ lapu nav iespējams saglabāt"
 
-msgid "Page '{0}' deleted."
-msgstr "Lapa '{0}' dzēsta."
-
-msgid "Page '{0}' unpublished."
-msgstr "Page '{0}' unpublished."
-
-msgid "Page '{0}' moved."
-msgstr "Lapa '{0}' pārvietota."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Lapa '{0}' un apakšlapas {1} kopētas."
-
-msgid "Page '{0}' copied."
-msgstr "Lapa '{0}' kopēta."
+msgid "Page '{0}' is now unlocked."
+msgstr "Lapa '{0} ir atbloķēta."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Lapa '{0}' negaida moderāciju."
@@ -807,8 +1103,11 @@ msgstr "Lapas '{0}' publicēšana noraidīta."
 msgid "Failed to send rejection notifications"
 msgstr "Neizdevās nosūtīt atteikuma paziņojumus"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Lapa '{0} ir atbloķēta."
+msgid "Page '{0}' moved."
+msgstr "Lapa '{0}' pārvietota."
+
+msgid "Page '{0}' unpublished."
+msgstr "Page '{0}' unpublished."
 
 msgid "More"
 msgstr "Vairāk"
@@ -825,6 +1124,152 @@ msgstr "Valodas uzstādījumi"
 msgid "Choose the language you want to use here."
 msgstr "Izvēlieties valodu, kādu vēlaties lietot."
 
+msgid "Copied"
+msgstr "Kopēts"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Izveidota %(title)s aizstājējlapa"
+
+msgid "Created an alias"
+msgstr "Izveidota aizstājējlapa"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Konvertēta aizstājējlapa '%(title)s' par parastu lapu"
+
+msgid "Converted an alias into a regular page"
+msgstr "Konvertēta no aizstājējlapas par parastu lapu"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Pārvietota no %(old_parent)s uz %(new_parent)s"
+
+msgid "Moved"
+msgstr "Pārvietota"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Pārskatījumam %(revision_id)s no %(created_at)s ieplānota publicēšanai "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Lapa ieplānota publicēšanai %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Lapa ieplānota publicēšanai"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Pārskatījumam %(revision_id)s no %(created_at)s atcelta %(go_live_at)s "
+"plānotā publicēšana"
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Lapai atcelta plānotā publicēšana %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Lapai atcelta plānotā publicēšana"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Pievienots %(restriction)s apskates ierobežojums"
+
+msgid "Added view restriction"
+msgstr "PIevienots apskates ierobežojums"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Atjaunināts %(restriction)s apskates ierobežojums"
+
+msgid "Updated view restriction"
+msgstr "Atjaunināts apskates ierobežojums"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Noņemts %(restriction)s apskates ierobežojums"
+
+msgid "Removed view restriction"
+msgstr "Noņemts apskates ierobežojums"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Pārsaukts no '%(old)s' uz '%(new)s'"
+
+msgid "Renamed"
+msgstr "Pārsaukts"
+
+msgid "Rename"
+msgstr "Pārsaukt"
+
+msgid "Revert"
+msgstr "Agriezt"
+
+msgid "Create alias"
+msgstr "Izveidot aizstājlapu"
+
+msgid "Convert alias into regular page"
+msgstr "Konvertēt aizstājlapu par parastu lapu"
+
+msgid "Schedule publication"
+msgstr "Plānot publicēšanu"
+
+msgid "Unschedule publication"
+msgstr "Atplānot publicēšanu"
+
+msgid "Add view restrictions"
+msgstr "Pievienot apskates ierobežojumus"
+
+msgid "Update view restrictions"
+msgstr "Atjaunināt apskates ierobežojumus"
+
+msgid "Remove view restrictions"
+msgstr "Noņemt apskates ierobežojumus"
+
+msgid "Workflow task approved"
+msgstr "Darbplūsmas uzdevums apstiprināts."
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Darbplūsmas uzdevums noraidīts. Darbplūsma pabeigta."
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "Atkārtoti iesniegts %(task)s. Darbplūsma atsākta."
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Darbplūsmas uzdevums atkārtoti iesniegts. Darbplūsma atsākta."
+
+msgid "Workflow cancelled"
+msgstr "Darbplūsma atcelta"
+
+msgid "Workflow: start"
+msgstr "Darbplūsma: uzsākt"
+
+msgid "Workflow: approve task"
+msgstr "Darbplūsma: apstiprināt uzdevumu"
+
+msgid "Workflow: reject task"
+msgstr "Darbplūsma: noraidīt uzdevumu"
+
+msgid "Workflow: resume task"
+msgstr "Darbplūsma: atsākt uzdevumu"
+
+msgid "Workflow: cancel"
+msgstr "Darbplūsma: atcelt"
+
+msgid "Yes"
+msgstr "Jā"
+
+msgid "No"
+msgstr "Nē"
+
 msgid "Choose an item"
 msgstr "Izvēlies vienību"
 
@@ -839,3 +1284,9 @@ msgstr "Rediģēt šo vienību"
 
 msgid "Choose another page"
 msgstr "Izvēlēties citu lapu"
+
+msgid "Choose another task"
+msgstr "Izvēlēties citu uzdevumu"
+
+msgid "Edit this task"
+msgstr "Labot šo uzdevumu"

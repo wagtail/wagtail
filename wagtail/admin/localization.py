@@ -20,6 +20,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('fi', gettext_lazy('Finnish')),
     ('fr', gettext_lazy('French')),
     ('gl', gettext_lazy('Galician')),
+    ('hr', gettext_lazy('Croatian')),
     ('hu', gettext_lazy('Hungarian')),
     ('id-id', gettext_lazy('Indonesian')),
     ('is-is', gettext_lazy('Icelandic')),

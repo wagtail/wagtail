@@ -6,13 +6,14 @@
 # Eugene <eugene.mechanism@gmail.com>, 2015
 # Eugene <eugene.mechanism@gmail.com>, 2015
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Виктор Виктор <spam.vitek@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2018-10-27 13:04+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 14:05+0000\n"
+"Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +35,9 @@ msgstr "Сохранить"
 
 msgid "Delete image"
 msgstr "Удалить изображение"
+
+msgid "Home"
+msgstr "Главная"
 
 msgid "Search something"
 msgstr "Искать что-нибудь"

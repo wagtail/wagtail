@@ -4,13 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-21 13:30+0100\n"
-"PO-Revision-Date: 2020-08-21 12:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-31 00:28+0000\n"
+"Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,12 @@ msgstr "Nebepublikuoti"
 
 msgid "Delete"
 msgstr "Ištrinti"
+
+msgid "Lock"
+msgstr "Užrakinti"
+
+msgid "Unlock"
+msgstr "Atrakinti"
 
 msgid "Page locked"
 msgstr "Puslapis užrakintas"
@@ -287,63 +294,6 @@ msgstr "Uždaryti"
 
 msgid "Edit '{title}'"
 msgstr "Redaguoti '{title}'"
-
-msgid "January"
-msgstr "Sausis"
-
-msgid "February"
-msgstr "Vasaris"
-
-msgid "March"
-msgstr "Kovas"
-
-msgid "April"
-msgstr "Balandis"
-
-msgid "May"
-msgstr "Gegužė"
-
-msgid "June"
-msgstr "Birželis"
-
-msgid "July"
-msgstr "Liepa"
-
-msgid "August"
-msgstr "Rugpjūtis"
-
-msgid "September"
-msgstr "Rugsėjis"
-
-msgid "October"
-msgstr "Spalis"
-
-msgid "November"
-msgstr "Lapkritis"
-
-msgid "December"
-msgstr "Gruodis"
-
-msgid "Sun"
-msgstr "Sek"
-
-msgid "Mon"
-msgstr "Pir"
-
-msgid "Tue"
-msgstr "Antr"
-
-msgid "Wed"
-msgstr "Tre"
-
-msgid "Thu"
-msgstr "Ketv"
-
-msgid "Fri"
-msgstr "Pen"
-
-msgid "Sat"
-msgstr "Šeš"
 
 msgid "Error 404: Page not found"
 msgstr "Klaida 404: Puslapis nerastas"
@@ -766,6 +716,9 @@ msgstr "Taip, nebepublikuoti"
 msgid "No, don't unpublish"
 msgstr "Ne, publikuoti"
 
+msgid "Cancel"
+msgstr "Atšaukti"
+
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Puslapiai naudojantys %(page_class_verbose_name)s"
@@ -790,12 +743,18 @@ msgstr "Naujas %(page_type)s"
 msgid "New"
 msgstr "Naujas"
 
+msgid "Actions"
+msgstr "Veiksmai"
+
 msgid "This page has unsaved changes."
 msgstr "Šis puslapis turi neišsaugotų pakeitimų."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Redaguojamas %(page_type)s: %(title)s"
+
+msgid "History"
+msgstr "Istorija"
 
 msgid "Live version"
 msgstr "Publikuota versija"
@@ -963,6 +922,9 @@ msgstr "Lyginami %(title)s"
 msgid "Comparing"
 msgstr "Palyginama"
 
+msgid "Page history"
+msgstr "Puslapio istorija"
+
 msgid "Fields"
 msgstr "Laukai"
 
@@ -1084,8 +1046,14 @@ msgstr "Aukščiau įveskite paieškos frazę"
 msgid "No pages use"
 msgstr "Jokie puslapiai nenaudoja"
 
+msgid "Edit page"
+msgstr "Redaguoti puslapį"
+
 msgid "Collection"
 msgstr "Kolekcija"
+
+msgid "Download XLSX"
+msgstr "Parsiųsti XLSX"
 
 msgid "Locked"
 msgstr "Užrakinta"
@@ -1173,29 +1141,41 @@ msgstr "Ar tikrai norite ištrinti šią kolekciją?"
 msgid "Editing"
 msgstr "Redaguojama"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Puslapis '{0}' sukurtas ir suplanuotas publikavimui."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Puslapis '{0}' ir  '{1}' vidiniai puslapiai atkopijuoti."
 
-msgid "View live"
-msgstr "Žiūrėti veikiantį"
-
-msgid "Page '{0}' created and published."
-msgstr "Puslapis '{0}' sukurtas ir publikuotas."
+msgid "Page '{0}' copied."
+msgstr "Puslapis '{0}' nukopijuotas."
 
 msgid "View draft"
 msgstr "Žiūrėti juodraštį"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Puslapis '{0}' sukurtas ir pateiktas moderavimui."
+msgid "View live"
+msgstr "Žiūrėti veikiantį"
 
 msgid "Page '{0}' created."
 msgstr "Puslapis '{0}' sukurtas."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Puslapis '{0}' sukurtas ir suplanuotas publikavimui."
+
+msgid "Page '{0}' created and published."
+msgstr "Puslapis '{0}' sukurtas ir publikuotas."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Puslapis '{0}' sukurtas ir pateiktas moderavimui."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Puslapis negalėjo būti sukurtas dėl validavimo klaidų"
 
+msgid "Page '{0}' deleted."
+msgstr "Puslapis '{0}' ištrintas."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Šis puslapis laukia moderavimo"
+
+msgid "Page '{0}' has been updated."
+msgstr "Puslapis '{0}' buvo atnaujintas."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Puslapis '{0}' buvo suplanuotas publikavimui."
@@ -1206,29 +1186,14 @@ msgstr "Puslapis '{0}' buvo publikuotas."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Puslapis '{0}' buvo pateiktas moderavimui."
 
-msgid "Page '{0}' has been updated."
-msgstr "Puslapis '{0}' buvo atnaujintas."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Puslapis negalėjo būti išsaugotas nes yra užrakintas"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Puslapis negalėjo būti išsaugotas dėl validavimo klaidų"
 
-msgid "Page '{0}' deleted."
-msgstr "Puslapis '{0}' ištrintas."
-
-msgid "Page '{0}' unpublished."
-msgstr "Puslapis '{0}' nebepublikuojamas."
-
-msgid "Page '{0}' moved."
-msgstr "Puslapis '{0}' buvo perkeltas."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Puslapis '{0}' ir  '{1}' vidiniai puslapiai atkopijuoti."
-
-msgid "Page '{0}' copied."
-msgstr "Puslapis '{0}' nukopijuotas."
+msgid "Page '{0}' is now unlocked."
+msgstr "Puslapis '{0}' dabar atrakintas."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Puslapis '{0}' dabar nelaukia moderavimo."
@@ -1245,8 +1210,8 @@ msgstr "Puslapis '{0}' publikavimui atmestas."
 msgid "Failed to send rejection notifications"
 msgstr "Nepavyko nusiųsti atmetimo pranešimų"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Puslapis '{0}' dabar atrakintas."
+msgid "Page '{0}' moved."
+msgstr "Puslapis '{0}' buvo perkeltas."
 
 msgid "Earliest"
 msgstr "Naujausias"
@@ -1256,6 +1221,15 @@ msgstr "Vėliausias"
 
 msgid "revision {0} of \"{1}\""
 msgstr "revizija {0} iš \"{1}\""
+
+msgid "Page '{0}' unpublished."
+msgstr "Puslapis '{0}' nebepublikuojamas."
+
+msgid "Disable"
+msgstr "Išjungti"
+
+msgid "Enable"
+msgstr "Įjungti"
 
 msgid "More"
 msgstr "Daugiau"
@@ -1286,6 +1260,9 @@ msgstr "Pakreiptas"
 
 msgid "Link"
 msgstr "Nuoroda"
+
+msgid "Reports"
+msgstr "Ataskaitos"
 
 msgid "Choose an item"
 msgstr "Pasirinkti elementą"
