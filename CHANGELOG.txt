@@ -7,7 +7,7 @@ Changelog
  * ...
 
 
-2.11 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+2.11 LTS (02.11.2020)
 ~~~~~~~~~~~~~~~~~~~~~
 
  * Add support for multi-lingual content (Karl Hobley)
