@@ -18,9 +18,13 @@ Overview
 
 Out of the box, Wagtail assumes all content will be authored in a single language.
 This document describes how to configure Wagtail for authoring content in
-multiple languages. For translating content between different languages, a translation
-plugin (such as `wagtail-localize <https://github.com/wagtail/wagtail-localize>`_)
-must be installed separately.
+multiple languages.
+
+.. note::
+    Wagtail provides the infrastructure for creating and serving content in multiple languages,
+    but does not itself provide an admin interface for managing translations of the same content
+    across different languages. For this, the `wagtail-localize <https://github.com/wagtail/wagtail-localize>`_
+    app must be installed separately.
 
 This document only covers the internationalisation of content managed by Wagtail.
 For information on how to translate static content in template files, JavaScript
