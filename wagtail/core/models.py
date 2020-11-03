@@ -299,10 +299,10 @@ class Site(models.Model):
         """
         result = cache.get('wagtail_site_root_paths')
 
-        # Wagtail 2.11 changed the way site root paths were stored which would cause 
+        # Wagtail 2.11 changed the way site root paths were stored which would cause
         # an upgraded 2.11 site to break when loading cached site root paths that were cached with 2.10.2
         # or older versions of Wagtail.
-        # The code below checks if the any of the cached site urls is consistent with an older version of 
+        # The code below checks if the any of the cached site urls is consistent with an older version of
         # Wagtail and busts the cache.
         if result is not None:
             for site_root_paths in result:
