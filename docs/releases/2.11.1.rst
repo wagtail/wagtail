@@ -13,4 +13,4 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
- * ...
+ * Ensure that cached ``wagtail_site_root_paths`` structures from older Wagtail versions are invalidated (Sævar Öfjörð Magnússon)
