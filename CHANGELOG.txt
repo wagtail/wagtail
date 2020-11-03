@@ -10,7 +10,7 @@ Changelog
 2.11.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~
 
- * ...
+ * Fix: Ensure that cached `wagtail_site_root_paths` structures from older Wagtail versions are invalidated (Sævar Öfjörð Magnússon)
 
 
 2.11 LTS (02.11.2020)
