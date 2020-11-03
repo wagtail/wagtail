@@ -4,7 +4,7 @@ Changelog
 2.12 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
- * ...
+ * Added support for Python 3.9
 
 
 2.11 LTS (02.11.2020)
