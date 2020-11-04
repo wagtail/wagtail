@@ -112,7 +112,7 @@ We thank the following organisations for their services used in Wagtail's develo
 [Squash](https://www.squash.io/) provides the project with free test environments for reviewing pull requests.
 
 
-[![Build Status](https://api.travis-ci.org/wagtail/wagtail.svg?branch=master)](https://travis-ci.org/wagtail/wagtail)
+[![Build Status](https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg)](https://github.com/wagtail/wagtail/actions)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/) 
 [![Coverage](https://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master)](https://codecov.io/github/wagtail/wagtail?branch=master)
