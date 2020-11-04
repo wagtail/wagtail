@@ -91,9 +91,7 @@ See :ref:`postgres_search` for more detail.
 Elasticsearch Backend
 ---------------------
 
-Elasticsearch versions 2, 5, 6 and 7 are supported. Use the appropriate backend for your version:
-
-``wagtail.search.backends.elasticsearch2`` (Elasticsearch 2.x)
+Elasticsearch versions 5, 6 and 7 are supported. Use the appropriate backend for your version:
 
 ``wagtail.search.backends.elasticsearch5`` (Elasticsearch 5.x)
 
@@ -104,10 +102,6 @@ Elasticsearch versions 2, 5, 6 and 7 are supported. Use the appropriate backend 
 Prerequisites are the `Elasticsearch`_ service itself and, via pip, the `elasticsearch-py`_ package. The major version of the package must match the installed version of Elasticsearch:
 
 .. _Elasticsearch: https://www.elastic.co/downloads/elasticsearch
-
-.. code-block:: console
-
-  $ pip install "elasticsearch>=2.0.0,<3.0.0"  # for Elasticsearch 2.x
 
 .. code-block:: sh
 
@@ -132,7 +126,7 @@ The backend is configured in settings:
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.search.backends.elasticsearch2',
+          'BACKEND': 'wagtail.search.backends.elasticsearch5',
           'URLS': ['http://localhost:9200'],
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
@@ -200,7 +194,7 @@ The Elasticsearch backend is compatible with `Amazon Elasticsearch Service`_, bu
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.search.backends.elasticsearch2',
+          'BACKEND': 'wagtail.search.backends.elasticsearch5',
           'INDEX': 'wagtail',
           'TIMEOUT': 5,
           'HOSTS': [{
