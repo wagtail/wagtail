@@ -42,7 +42,7 @@ Search
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.search.backends.elasticsearch2',
+          'BACKEND': 'wagtail.search.backends.elasticsearch5',
           'INDEX': 'myapp'
       }
   }
