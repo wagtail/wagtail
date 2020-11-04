@@ -25,3 +25,8 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+Removed support for Elasticsearch 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Elasticsearch version 2 is no longer supported as of this release; please upgrade to Elasticsearch 5 or above before upgrading Wagtail.
