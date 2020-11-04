@@ -745,7 +745,7 @@ class TestElasticsearch6MappingInheritance(TestCase):
         self.assertDictEqual(document, expected_result)
 
 
-@mock.patch('wagtail.search.backends.elasticsearch2.Elasticsearch')
+@mock.patch('wagtail.search.backends.elasticsearch5.Elasticsearch')
 class TestBackendConfiguration(TestCase):
     def test_default_settings(self, Elasticsearch):
         Elasticsearch6SearchBackend(params={})
