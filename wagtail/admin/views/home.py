@@ -43,10 +43,7 @@ class IE11WarningPanel:
         self.request = request
 
     def render(self):
-        if self.request.user.is_superuser:
-            return render_to_string('wagtailadmin/home/ie11_warning.html', {}, request=self.request)
-        else:
-            return ""
+        return render_to_string('wagtailadmin/home/ie11_warning.html', {}, request=self.request)
 
 
 class PagesForModerationPanel:
