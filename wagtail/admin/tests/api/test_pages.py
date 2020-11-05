@@ -2,6 +2,7 @@ import collections
 import datetime
 import json
 
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils import timezone
 
@@ -9,6 +10,7 @@ from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.core.models import Locale, Page
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import SimplePage, StreamPage
+from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase
 
@@ -100,6 +102,20 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
         self.assertEqual(content['meta']['total_count'], new_total_count)
+
+    def test_get_in_non_content_language(self):
+        # set logged-in user's admin UI language to Swedish
+        user = get_user_model().objects.get(email='test@email.com')
+        UserProfile.objects.update_or_create(user=user, defaults={'preferred_language': 'se'})
+
+        response = self.get_response()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+        self.assertIn('meta', content)
 
     # FIELDS
 
