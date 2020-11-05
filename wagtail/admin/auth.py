@@ -5,7 +5,6 @@ from functools import wraps
 import l18n
 
 from django.contrib.auth import get_user_model
-from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import redirect
@@ -145,6 +144,9 @@ def reject_request(request):
     if request.is_ajax():
         raise PermissionDenied
 
+    # import redirect_to_login here to avoid circular imports on model files that import
+    # wagtail.admin.auth, specifically where custom user models are involved
+    from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
     return auth_redirect_to_login(
         request.get_full_path(), login_url=reverse('wagtailadmin_login'))
 
