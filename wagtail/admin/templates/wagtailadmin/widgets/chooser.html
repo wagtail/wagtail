@@ -30,43 +30,19 @@
         <button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_one_text }}</button>
     </div>
 
-    {% load wagtailadmin_tags %}
+    {% load wagtailadmin_tags i18n %}
     <div>
-        <button type="button" id="{{ attrs.id }}-comments" class="button button-secondary button-small">{% icon name='comment' class_name='initial' %}</button>
+        <button type="button" id="{{ attrs.id }}-comments" class="button button-secondary button-small u-hidden" aria-label="{% trans 'Add comment' %}">{% icon name='comment' class_name='initial' %}</button>
     </div>
 
-    <button type="button" id="comment-icon" class="annotation button-secondary button-small" hidden>{% icon name='comment' class_name='initial' %}</button>
+    <button type="button" id="comment-icon" data-annotation class="button button-secondary button-small u-hidden">{% icon name='comment' class_name='initial' %}</button>
 
     <script>
-        document.querySelector('#{{ attrs.id }}-comments').addEventListener('click', (e) => {
-            let btn = document.querySelector('#{{ attrs.id }}-comments')
-            btn.hidden = true;
-            btn.classList.remove('button');
-            let testComment = document.querySelector('#comment-icon').cloneNode(deep=true)
-            btn.insertAdjacentElement('afterend', testComment);
-            let annotation = {
-                position: 'test',
-                onDelete: () => {
-                    testComment.remove();
-                    btn.classList.add('button');
-                    btn.hidden = false;
-                },
-                onFocus: () => {testComment.classList.remove('button-secondary');},
-                onUnfocus: () => {testComment.classList.add('button-secondary');},
-                show: () => {
-                    testComment.classList.add('button');
-                    testComment.hidden = false;
-                },
-                hide: () => {
-                    testComment.classList.remove('button')
-                    testComment.hidden = true;
-                },
-                setOnClickHandler: (handler) => {
-                    testComment.addEventListener('click', handler);
-                },
-                getDesiredPosition: () => {return (document.querySelector("#{{ attrs.id }}-chooser").getBoundingClientRect().top + document.documentElement.scrollTop); }
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.comments) {
+                let widget = new window.comments.FieldLevelCommentWidget(document.querySelector('#{{ attrs.id }}-chooser'), document.querySelector('#{{ attrs.id }}-comments'), document.querySelector('#comment-icon'), window.comments.app)
+                window.comments.app.registerWidget(widget);
             }
-            window.comments.app.makeComment(annotation, 'test_content_path');
         });
     </script>
 

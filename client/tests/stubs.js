@@ -56,6 +56,8 @@ global.wagtailConfig = {
     DELETE_ERROR: 'Delete error',
     CONFIRM_DELETE_COMMENT: 'Are you sure?',
     SAVE_ERROR: 'Save error',
+    FOCUS_COMMENT: 'Focus comment',
+    UNFOCUS_COMMENT: 'Unfocus comment'
   },
   WAGTAIL_I18N_ENABLED: true,
   LOCALES: [

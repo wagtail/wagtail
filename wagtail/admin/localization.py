@@ -88,6 +88,8 @@ def get_js_translation_strings():
         'DELETE_ERROR': _('Delete error'),
         'CONFIRM_DELETE_COMMENT': _('Are you sure?'),
         'SAVE_ERROR': _('Save error'),
+        'FOCUS_COMMENT': _('Focus comment'),
+        'UNFOCUS_COMMENT': _('Unfocus comment'),
 
         'MONTHS': [str(m) for m in MONTHS.values()],
 
