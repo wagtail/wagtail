@@ -499,6 +499,12 @@ class TestRoutingWithI18N(TestRouting):
         with translation.override("en-us"):
             self.test_urls()
 
+    def test_urls_with_language_not_in_wagtail_content_languages(self):
+        # If the active locale doesn't map to anything in WAGTAIL_CONTENT_LANGUAGES,
+        # URL prefixes should remain the same as the page's reported locale
+        with translation.override("se"):
+            self.test_urls()
+
     def test_urls_with_different_language_tree(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
