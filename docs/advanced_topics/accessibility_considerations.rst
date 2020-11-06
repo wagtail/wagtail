@@ -3,11 +3,13 @@ Accessibility considerations
 
 Accessibility for CMS-driven websites is a matter of :ref:`modeling content appropriately <content_modeling>`, :ref:`creating accessible templates <accessibility_in_templates>`, and :ref:`authoring content <authoring_accessible_content>` with readability and accessibility guidelines in mind.
 Wagtail generally puts developers in control of content modeling and front-end markup, but there are a few areas to be aware of nonetheless, and ways to help authors be aware of readability best practices.
+Note there is much more to building accessible websites than we cover here – see our list of :ref:`accessibility resources <accessibility_resources>` for more information.
 
 
 * :ref:`Content modeling <content_modeling>`
 * :ref:`Accessibility in templates <accessibility_in_templates>`
 * :ref:`Authoring accessible content <authoring_accessible_content>`
+* :ref:`Accessibility resources <accessibility_resources>`
 
 ----
 
@@ -33,7 +35,7 @@ Ideally, always add an optional “alt text” field wherever an image is used, 
 When defining the alt text fields, make sure they are optional so editors can choose to not write any alt text for decorative images. Take the time to provide ``help_text`` with appropriate guidance.
 For example, linking to `established resources on alt text <https://axesslab.com/alt-texts/>`_.
 
-.. note:: Why not have an alt text field on the Image model?
+.. note:: Should I add an alt text field on the Image model for my site?
 
     It’s better than nothing to have a dedicated alt field on the Image model (`#5789 <https://github.com/wagtail/wagtail/pull/5789>`_), and may be appropriate for some websites, but we recommend to have it inline with the content because ideally alt text should be written for the context the image is used in:
 
@@ -99,8 +101,8 @@ Empty heading tags
 
 In both rich text and custom StreamField blocks, it’s sometimes easy for editors to create a heading block but not add any content to it. If this is a problem for your site,
 
-- Add validation rules to those fields, making sure the page can’t be saved with the empty headings.
-- Consider adding similar validation rules for rich text fields.
+- Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the :doc:`/topics/streamfield` ``CharBlock`` which is required by default.
+- Consider adding similar validation rules for rich text fields. (`#4223 <https://github.com/wagtail/wagtail/issues/4223>`_)
 
 Additionally, you can hide empty heading blocks with CSS:
 
@@ -110,7 +112,7 @@ Additionally, you can hide empty heading blocks with CSS:
         display: none;
     }
 
-In the future, :ref:`rich text rewrite handlers <rich_text_rewrite_handlers>` should also support this being done server-side (`#4223 <https://github.com/wagtail/wagtail/issues/4223>`_).
+In the future, :ref:`rich text rewrite handlers <rich_text_rewrite_handlers>` should also support this being done server-side (`#4223 <https://github.com/wagtail/wagtail/issues/6526>`_).
 
 Forms
 -----
@@ -147,17 +149,19 @@ Occasional Wagtail users may not be aware of your site’s content guidelines, o
 Readability
 -----------
 
-Readability is fundamental to content being accessible. One of the ways to improve content is to have a clear target for reading level / reading age, which can be assessed with `wagtail-readinglevel <https://github.com/vixdigital/wagtail-readinglevel>`_ as a score displayed in rich text fields.
+Readability is fundamental to accessibility. One of the ways to improve text content is to have a clear target for reading level / reading age, which can be assessed with `wagtail-readinglevel <https://github.com/vixdigital/wagtail-readinglevel>`_ as a score displayed in rich text fields.
 
 ----
+
+.. _accessibility_resources:
 
 Accessibility resources
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-We focus on considerations specific to Wagtail websites, but there is much more to accessibility. Here are valuable resources to learn more:
+We focus on considerations specific to Wagtail websites, but there is much more to accessibility. Here are valuable resources to learn more, for developers but also designers and authors:
 
 - `W3C Accessibility Fundamentals <https://www.w3.org/WAI/fundamentals/>`_
 - `The A11Y Project <https://www.a11yproject.com/>`_
-- `Accessibility Developer Guide <https://www.accessibility-developer-guide.com/>`_
-- `UK GDS – Dos and don’ts on designing for accessibility <https://accessibility.blog.gov.uk/2016/09/02/dos-and-donts-on-designing-for-accessibility/>`_
 - `US GSA – Accessibility for Teams <https://accessibility.digital.gov/>`_
+- `UK GDS – Dos and don’ts on designing for accessibility <https://accessibility.blog.gov.uk/2016/09/02/dos-and-donts-on-designing-for-accessibility/>`_
+- `Accessibility Developer Guide <https://www.accessibility-developer-guide.com/>`_
