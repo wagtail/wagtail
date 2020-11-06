@@ -6,9 +6,9 @@ Expects a variable 'page', the page instance.
 
 <div class="title-wrapper">
     {% if page.can_choose %}
-        <a href="{% url 'wagtailadmin_pages:move_confirm' page_to_move.id page.id %}">{{ page.specific.get_admin_display_title }}</a>
+        <a href="{% url 'wagtailadmin_pages:move_confirm' page_to_move.id page.id %}">{{ page.specific.get_admin_display_title }}{% block pages_listing_link_title_extra %}{% endblock pages_listing_link_title_extra %}</a>
     {% else %}
-        {{ page.get_admin_display_title }}
+        {{ page.get_admin_display_title }}{% block pages_listing_title_extra %}{% endblock pages_listing_title_extra %}
     {% endif %}
 
     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
