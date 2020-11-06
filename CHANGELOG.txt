@@ -7,7 +7,7 @@ Changelog
  * Added support for Python 3.9
 
 
-2.11.1 (xx.xx.xxxx) - IN DEVELOPMENT
+2.11.1 (06.11.2020)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure that cached `wagtail_site_root_paths` structures from older Wagtail versions are invalidated (Sævar Öfjörð Magnússon)
