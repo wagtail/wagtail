@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-01 10:45+0000\n"
+"PO-Revision-Date: 2020-11-02 15:44+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -91,6 +91,9 @@ msgstr "設置"
 
 msgid "All"
 msgstr "全部"
+
+msgid "Started at"
+msgstr "開始於"
 
 msgid "Show"
 msgstr "顯示"
@@ -202,6 +205,9 @@ msgstr "請至少選擇一個組。"
 
 msgid "All types"
 msgstr "所有類型"
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "無法多次指派此工作流程至相同頁面"
 
 msgid "Give your workflow a name"
 msgstr "命名工作流程"
@@ -584,6 +590,10 @@ msgstr "草稿"
 msgid "Live"
 msgstr "上線"
 
+#, python-format
+msgid "%(time_period)s"
+msgstr "%(time_period)s"
+
 msgid "Pages awaiting moderation"
 msgstr "等待頁面審核中"
 
@@ -603,7 +613,7 @@ msgid "Approve"
 msgstr "通過"
 
 msgid "Reject"
-msgstr "拒絕"
+msgstr "駁回"
 
 msgid "Preview"
 msgstr "預覽"
@@ -688,6 +698,42 @@ msgstr "可以在此預覽頁面："
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "頁面\"%(page)s\"已提交審核"
 
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr "此頁面 \"%(title)s\" 已於階段 \"%(task)s\" 核准"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "此頁面 \"%(title)s\" 已於 \"%(task)s\" 核准"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "此頁面 \"%(title)s\" 已於階段 \"%(task)s\" 駁回"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "此頁面 \"%(title)s\" 已於 \"%(task)s\" 駁回"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"頁面 \"%(title)s\" 已由 %(rejector)s 於工作流程 \"%(workflow)s\" 之 "
+"\"%(task)s\" 駁回"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已於工作流程 \"%(workflow)s\" 之 \"%(task)s\" 駁回"
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已被 \"%(workflow)s\" 駁回"
+
 msgid "Page privacy"
 msgstr "頁面隱私設置"
 
@@ -702,6 +748,18 @@ msgstr "查看線上頁面"
 
 msgid "restricted"
 msgstr "已受限"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "設定頁面隱私。目前狀態：公開"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "設定頁面隱私。目前狀態：隱藏"
+
+msgid "Page privacy. Current status: Public"
+msgstr "頁面隱私。目前狀態：公開"
+
+msgid "Page privacy. Current status: Private"
+msgstr "頁面隱私。目前狀態：隱藏"
 
 msgid "Publishing…"
 msgstr "正在發佈..."
@@ -739,8 +797,17 @@ msgstr "轉換別名 %(title)s"
 msgid "Convert alias"
 msgstr "轉換別名"
 
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr "確定將此別名轉換為一般頁面？"
+
 msgid "This action cannot be undone."
 msgstr "此操作無法復原"
+
+msgid "Yes, convert it"
+msgstr "是，確認轉換"
+
+msgid "No, leave it as an alias"
+msgstr "否，保留別名"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -787,23 +854,23 @@ msgstr "移動"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
-msgstr "確認將此頁面移到'%(title)s'？"
+msgstr "確定將此頁面移到 '%(title)s'？"
 
 #, python-format
 msgid ""
 "Are you sure you want to move this page and all of its children into "
 "'%(title)s'?"
-msgstr "確認將此頁面極其子頁面移到'%(title)s'？"
+msgstr "確定將此頁面及其子頁面移至 '%(title)s'？"
 
 msgid "Yes, move this page"
-msgstr "是的，請開始移動吧"
+msgstr "是，移動頁面"
 
 #, python-format
 msgid "Unpublish %(title)s"
 msgstr "取消發佈%(title)s"
 
 msgid "Are you sure you want to unpublish this page?"
-msgstr "此頁面確定要取消發佈嗎？"
+msgstr "確定取消發佈此頁面？"
 
 #, python-format
 msgid ""
@@ -830,6 +897,33 @@ msgstr "否，不取消發佈"
 msgid "Publish page"
 msgstr "發佈頁面"
 
+#, python-format
+msgid ""
+"\n"
+"            This page was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"此頁面已於 <strong>%(workflow)s</strong> 之 <strong>%(task)s</strong> 標記為"
+"需要變更"
+
+#, python-format
+msgid ""
+"\n"
+"            This page is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"此頁面目前位於 <strong>%(workflow)s</strong> 之 <strong>%(task)s</strong>"
+
+msgid "Publishing this page will cancel the current workflow."
+msgstr "發佈此頁面將取消目前工作流程"
+
+msgid "Would you still like to publish this page?"
+msgstr "確定仍要發佈此頁面？"
+
 msgid "Cancel"
 msgstr "取消"
 
@@ -855,13 +949,13 @@ msgid "New %(page_type)s"
 msgstr "新%(page_type)s頁面類型"
 
 msgid "New"
-msgstr "新"
+msgstr "新增"
 
 msgid "Actions"
 msgstr "操作"
 
 msgid "This page has unsaved changes."
-msgstr "頁面還沒保存"
+msgstr "此頁面有未儲存的變更"
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
@@ -907,7 +1001,7 @@ msgstr "當前草稿"
 
 #, python-format
 msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
+msgstr "%(time_period)s 前"
 
 msgid "No log entries found."
 msgstr "沒有發現任何記錄"
@@ -1281,6 +1375,9 @@ msgstr "其它搜索"
 msgid "Changes requested"
 msgstr "已要求變更"
 
+msgid "since"
+msgstr "自"
+
 msgid "Published"
 msgstr "已發佈"
 
@@ -1302,6 +1399,9 @@ msgstr "確認禁用"
 msgid "Are you sure you want to disable this task?"
 msgstr "確定禁用此項作業？"
 
+msgid "Assign your workflow to pages"
+msgstr "指派工作流程至頁面"
+
 msgid "Creating…"
 msgstr "建立中"
 
@@ -1311,8 +1411,34 @@ msgstr "建立"
 msgid "Not used"
 msgstr "未使用"
 
+msgid "Assigned pages"
+msgstr "已指派頁面"
+
+msgid "Assign to another page"
+msgstr "指派至其它頁面"
+
 msgid "Hide disabled workflows"
 msgstr "隱藏已禁用的工作流程"
+
+msgid "Show disabled workflows"
+msgstr "顯示已禁用之工作流程"
+
+#, python-format
+msgid ""
+"\n"
+"                                            1 page\n"
+"                                        "
+msgid_plural ""
+"\n"
+"                                            %(counter)s pages\n"
+"                                        "
+msgstr[0] ""
+"\n"
+"%(counter)s 頁"
+
+#, python-format
+msgid "Step %(step_number)s"
+msgstr "步驟 %(step_number)s"
 
 msgid "Choose which type of task you'd like to create."
 msgstr "選擇需建立的作業類型"
@@ -1438,6 +1564,9 @@ msgstr "頁面等待審核中"
 msgid "Page '{0}' has been updated."
 msgstr "頁面 '{0}' 已被更新。"
 
+msgid "This page is currently awaiting moderation."
+msgstr "此頁面目前等待審核中"
+
 msgid "Only reviewers for this task can edit the page."
 msgstr "儘此作業之審核者可編輯此頁面"
 
@@ -1478,7 +1607,7 @@ msgid "Page '{0}' rejected for publication."
 msgstr "頁面 '{0}'審核失敗"
 
 msgid "Failed to send rejection notifications"
-msgstr "發送拒絕通知失敗。"
+msgstr "發送駁回通知失敗。"
 
 msgid "Page '{0}' moved."
 msgstr "頁面 '{0}' 已移動。"
@@ -1663,6 +1792,9 @@ msgstr "已被鎖定頁面"
 msgid "Reports"
 msgstr "報告"
 
+msgid "Created"
+msgstr "已建立"
+
 msgid "Deleted"
 msgstr "已刪除"
 
@@ -1676,7 +1808,7 @@ msgid "Approved"
 msgstr "己核准"
 
 msgid "Rejected"
-msgstr "已拒絕"
+msgstr "已駁回"
 
 msgid "Reverted to previous revision"
 msgstr "已還原至前版本"
@@ -1687,8 +1819,26 @@ msgstr "已複製"
 msgid "Created an alias"
 msgstr "建立別名"
 
+msgid "Converted an alias into a regular page"
+msgstr "轉換別名為一般頁面"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "由 '%(old_parent)s' 移動至 '%(new_parent)s'"
+
+msgid "Added view restriction"
+msgstr "新增檢視限制"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "更新檢視限制為 '%(restriction)s'"
+
 msgid "Updated view restriction"
 msgstr "已更新檢視限制"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "移除檢視限制 '%(restriction)s'"
 
 msgid "Removed view restriction"
 msgstr "已移除檢視限制"
@@ -1704,6 +1854,9 @@ msgstr "復原"
 
 msgid "Create alias"
 msgstr "建立別名"
+
+msgid "Convert alias into regular page"
+msgstr "轉換別名為一般頁面"
 
 msgid "Add view restrictions"
 msgstr "新增檢視限制"
@@ -1731,10 +1884,10 @@ msgstr "已核准工作流程作業"
 
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "已拒絕 '%(task)s' ，需進行變更"
+msgstr "已駁回 '%(task)s' ，需進行變更"
 
 msgid "Workflow task rejected. Workflow complete"
-msgstr "已拒絕工作流程作業。工作流程完畢"
+msgstr "已駁回工作流程作業。工作流程完畢"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -1757,7 +1910,7 @@ msgid "Workflow: approve task"
 msgstr "工作流程：核准作業"
 
 msgid "Workflow: reject task"
-msgstr "工作流程：拒絕作業"
+msgstr "工作流程：駁回作業"
 
 msgid "Workflow: resume task"
 msgstr "工作流程：繼續作業"

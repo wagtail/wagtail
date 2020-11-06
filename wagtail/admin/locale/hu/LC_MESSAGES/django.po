@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-11-02 19:45+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -140,6 +140,13 @@ msgstr "Kérjük adja meg az email címét a jelszó változtatáshoz."
 msgid "URL"
 msgstr "URL"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Válassza ki a kívánt helyet a fastruktúrában. Megjegyzés: a gyűjtemény nem "
+"lehet saját maga, vagy egy saját gyermekének a gyermeke."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nem lehet több engedély bejegyzés ugyanahhoz az oldalhoz."
 
@@ -186,6 +193,12 @@ msgstr[0] ""
 msgstr[1] ""
 "A másolni kívánt oldalakat már közzétették %(count)s példányban. A "
 "másolatait is közzéteszi?"
+
+msgid "Alias"
+msgstr "Kapcsolt példány"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Az újonnan létrejövő oldal átveszi az eredeti változtatásait"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -260,6 +273,9 @@ msgstr "angol"
 
 msgid "Spanish"
 msgstr "spanyol"
+
+msgid "Estonian"
+msgstr "észt"
 
 msgid "Finnish"
 msgstr "finn"
@@ -419,6 +435,10 @@ msgstr "'{title}' gyerekoldalainak megtekintése"
 
 msgid "Page explorer"
 msgstr "Intéző"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Ismeretlen %(action)s"
 
 msgid "Error 404: Page not found"
 msgstr "404-es hiba: az oldal nem található"
@@ -665,6 +685,16 @@ msgid ""
 msgstr ""
 "Íme az Ön műszerfala, amelyen hasznos információk jelennek meg a létrehozott "
 "oldalairól."
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"A Wagtail CMS megszünteti az IE11 támogatását, amely hatással lehet a "
+"munkára. <a href=\"%(url)s\">Tudjon meg többet az IE11 támogatási "
+"terveinkről</a>."
 
 msgid "Your locked pages"
 msgstr "Zárolt oldalai"
@@ -973,8 +1003,27 @@ msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s típusú oldalak"
 
 #, python-format
+msgid "Convert alias %(title)s"
+msgstr "%(title)s kapcsolt példány konvertálása"
+
+msgid "Convert alias"
+msgstr "Kapcsolt példány konvertálása"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr "Biztosan átkonvertálja a kapcsolt példányt hagyományos oldallá?"
+
+msgid "This action cannot be undone."
+msgstr "Ezt az akciót nem lehet visszavonni."
+
+msgid "Yes, convert it"
+msgstr "Igen, konvertálom"
+
+msgid "No, leave it as an alias"
+msgstr "Mégsem, maradjon kapcsolt példány"
+
+#, python-format
 msgid "Delete %(title)s"
-msgstr "Törlés: %(title)s"
+msgstr "%(title)s törlése"
 
 msgid "Are you sure you want to delete this page?"
 msgstr "Biztosan törölni kívánja ezt az oldalt?"
@@ -1139,6 +1188,15 @@ msgstr "%(page_type)s szerkesztése"
 
 msgid "History"
 msgstr "Történet"
+
+msgid "This page is an alias of another page."
+msgstr "Ez az oldal egy másik oldalhoz kapcsolt példány."
+
+msgid "Edit original page"
+msgstr "Eredeti oldal szerkesztése"
+
+msgid "Convert this alias into a regular page"
+msgstr "Példány konvertálása hagyományos oldallá"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1618,6 +1676,9 @@ msgstr "Feladat szerint"
 msgid "No pages have been submitted for moderation yet"
 msgstr "Még nem lett oldal beküldve moderálásra"
 
+msgid "By Workflow"
+msgstr "Munkafolyamat szerint"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(page_num)s/%(total_pages)s. oldal"
@@ -1668,6 +1729,22 @@ msgid ""
 msgstr ""
 "A jelenlegi böngészője <strong>nem támogatott</strong>. Kérjük <a href="
 "\"https://browsehappy.com/\">frissítse a böngészőjét</a>."
+
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"A Wagtail használatához Javascript szükséges, de az jelenleg ki van "
+"kapcsolva. <br />\n"
+"Itt megtalálja <a href=\"https://www.enable-javascript.com/\" target=\"_blank"
+"\" rel=\"noopener noreferrer\">az instrukciókat a Javascript  "
+"egedélyezéséhez</a>."
 
 msgid "Skip to main content"
 msgstr "Előre a fő tartalomig"
@@ -1955,6 +2032,9 @@ msgstr "Hiba történt a gyűjtemény mentése során."
 msgid "Delete collection"
 msgstr "Gyűjtemény törlése"
 
+msgid "Please select another parent"
+msgstr "Kérjül válasszon másik szülőt"
+
 msgid "Collection '{0}' deleted."
 msgstr "Gyűjtemény törölve: '{0}'."
 
@@ -1963,6 +2043,9 @@ msgstr "Biztosan törli a gyűjteményt?"
 
 msgid "Editing"
 msgstr "Szerkesztés"
+
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "A(z) '{0}' oldal hagyományos oldallá lett konvertálva."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "'{0}' oldal és {1} aloldal átmásolva."
@@ -2204,6 +2287,10 @@ msgstr "Munkafolyamat feladat szerkesztése"
 msgid "Task '{0}' updated."
 msgstr "'{0}' feladat frissítve."
 
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "%(task_type)s szerkesztése"
+
 msgid "Disable task"
 msgstr "Feladat kikapcsolása"
 
@@ -2393,6 +2480,20 @@ msgid "Copied"
 msgstr "Másolva"
 
 #, python-format
+msgid "Created an alias of %(title)s"
+msgstr "%(title)s kapcsolt példánya létrehozva"
+
+msgid "Created an alias"
+msgstr "Kapcsolt példány létrehozva"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "'%(title)s' kapcsolt példány hagyományos oldallá konvertálva"
+
+msgid "Converted an alias into a regular page"
+msgstr "Kapcsolt példány konvertálva"
+
+#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Átmozgatva innét: '%(old_parent)s' ide: '%(new_parent)s'"
 
@@ -2462,6 +2563,12 @@ msgstr "Átnevezés"
 
 msgid "Revert"
 msgstr "Visszavonás"
+
+msgid "Create alias"
+msgstr "Kapcsolt példány létrehozása"
+
+msgid "Convert alias into regular page"
+msgstr "Kapcsolt példány konvertálása oldallá"
 
 msgid "Schedule publication"
 msgstr "Közzététel időzítése"

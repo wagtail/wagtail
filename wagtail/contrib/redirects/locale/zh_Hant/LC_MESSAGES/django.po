@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-01 10:30+0000\n"
+"PO-Revision-Date: 2020-11-02 15:42+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -30,6 +30,9 @@ msgstr "全部站點"
 
 msgid "A redirect with this path already exists."
 msgstr "使用此路徑的重定向已被占用。"
+
+msgid "File to import"
+msgstr "匯入檔案"
 
 msgid "redirect from"
 msgstr "重定向自"

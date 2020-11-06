@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-01 20:29+0000\n"
+"PO-Revision-Date: 2020-11-05 09:47+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -136,6 +136,13 @@ msgstr "Unesite vašu email adresu kako bi ponovno postavili vašu lozinku"
 msgid "URL"
 msgstr "URL"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Odaberite hijerarhisku poziciju. Napomena: zbirka ne može postati dijete "
+"same sebe ili svojih potomaka."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nije moguće dodati više skupova dozvola za istu zbirku."
 
@@ -147,6 +154,9 @@ msgstr "Novi slug"
 
 msgid "New parent page"
 msgstr "Nova roditeljska stranica"
+
+msgid "This copy will be a child of this given parent page."
+msgstr "Ova kopija će biti dijete odabrane stranice."
 
 msgid "Copy subpages"
 msgstr "Kopiraj podstranice"
@@ -415,7 +425,7 @@ msgid "Edit '{title}'"
 msgstr "Uredi '{title}'"
 
 msgid "View child pages of '{title}'"
-msgstr "Pogledaj djecu od '{title}'"
+msgstr "Pogledaj djecu stranice '{title}'"
 
 msgid "Page explorer"
 msgstr "Pretraživač stranica"
@@ -439,7 +449,7 @@ msgid "Change profile picture"
 msgstr "Promijenite profilnu sliku"
 
 msgid "Your current profile picture:"
-msgstr "Vaša trenutna profilna slika"
+msgstr "Vaša trenutna slika profila"
 
 msgid "Update"
 msgstr "Ažuriraj"
@@ -615,6 +625,9 @@ msgstr "Dodaj telefonsku poveznicu"
 msgid "Collection privacy"
 msgstr "Privatnost zbirke"
 
+msgid "This collection has been made private by a parent collection."
+msgstr "Ovu zbirku je nadređena zbirka učinila privatnom."
+
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr ""
@@ -660,6 +673,13 @@ msgstr "Da, izbriši"
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Dobrodošli na %(site_name)s Wagtail CMS "
+
+msgid ""
+"This is your dashboard on which helpful information about content you've "
+"created will be displayed."
+msgstr ""
+"Ovo je vaša kontrolna ploča koja će prikazivati korisne informacije o "
+"sadržaju koji stvorite."
 
 #, python-format
 msgid ""
@@ -720,11 +740,38 @@ msgstr "Status"
 msgid "Site summary"
 msgstr "Sažetak"
 
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span> stranica je <span class=\"visuallyhidden\">stvorena u "
+"%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> stranica <span class=\"visuallyhidden\">je stvoreno u "
+"%(site_name)s</span>"
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> stranica <span class=\"visuallyhidden\">je stvoreno u "
+"%(site_name)s</span>"
+
 msgid "Your pages in a workflow"
 msgstr "Vaše stranice u tijeku rada"
 
 msgid "Task"
 msgstr "Zadatak"
+
+msgid "Changes requested at"
+msgstr "Zatražene promjene u"
 
 msgid "Awaiting your review"
 msgstr "Čekaju vaš pregled"
@@ -765,16 +812,19 @@ msgstr "Stranica \"%(title)s\" je odobrena"
 msgid "Hello %(username)s,"
 msgstr "Pozdrav %(username)s,"
 
+msgid "Edit your notification preferences here:"
+msgstr "Uredite svoje postavke obavijesti ovdje:"
+
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
-msgstr "Stranica \"%(title)s\" je odbačena."
+msgstr "Stranica \"%(title)s\" je odbijena."
 
 msgid "You can edit the page here:"
 msgstr "Stranicu možete urediti ovdje:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected"
-msgstr "Stranica \"%(title)s\" je odbačena"
+msgstr "Stranica \"%(title)s\" je odbijena"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -786,6 +836,51 @@ msgstr "Stranicu možete pregledati ovdje:"
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Stranice \"%(page)s\" je poslana na moderiranje"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "Stranica \"%(title)s\" je odobrena u \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "Stranica \"%(title)s\" je odbijena u fazi moderacije \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "Stranica \"%(title)s\" je odbijena tijekom \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr "Stranica \"%(title)s\" je odobrena u tijeku rada \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "Stranica \"%(title)s\" je odobrena u \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"Stranicu \"%(title)s\" je odbio korisnik %(rejector)s tijekom \"%(task)s\" u "
+"tijeku radu \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"Stranica \"%(title)s\" je odbijena tijekom \"%(task)s\" u tijeku radu "
+"\"%(workflow)s\"."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "Ostavljen je sljedeći komentar: \"%(comment)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "Stranica \"%(title)s\" je odbijena tijekom \"%(workflow)s\"."
 
 #, python-format
 msgid ""
@@ -801,6 +896,9 @@ msgstr "Stranica \"%(title)s\" je poslana u tijek rada \"%(workflow)s\""
 
 msgid "Page privacy"
 msgstr "Privatnost stranice"
+
+msgid "This page has been made private by a parent page."
+msgstr "Ovu stranicu je nadređena stranica učinila privatnom."
 
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
@@ -904,6 +1002,16 @@ msgstr "Da, izbriši"
 
 msgid "No, don't delete it"
 msgstr "Ne, nemoj izbrisati"
+
+#, python-format
+msgid ""
+"Alternatively you can <a href=\"%(unpublish_url)s\">unpublish the page</a>. "
+"This removes the page from public view and you can edit or publish it again "
+"later."
+msgstr ""
+"Alternativno možete <a href=\"%(unpublish_url)s\">odjaviti stranicu</a>. Ovo "
+"onemogući javni pristup stranici i možete ju ponovno urediti ili objaviti "
+"kasnije."
 
 #, python-format
 msgid "Move %(title)s"
@@ -1021,6 +1129,16 @@ msgstr "Povijest"
 msgid "This page is an alias of another page."
 msgstr "Stranica je alias od druge stranice."
 
+msgid "Edit original page"
+msgstr "Uredi originalnu stranicu"
+
+msgid "Convert this alias into a regular page"
+msgstr "Pretvori ovaj alias u običnu stranicu"
+
+#, python-format
+msgid "Page history for %(subtitle)s"
+msgstr "Povijest stranice za %(subtitle)s"
+
 msgid "User"
 msgstr "Korisnik"
 
@@ -1040,6 +1158,13 @@ msgstr "Trenutna skica"
 msgid "%(time_period)s ago"
 msgstr "Prije %(time_period)s"
 
+msgid "No log entries found."
+msgstr "Nema pronađenih zapisa."
+
+#, python-format
+msgid "Exploring %(title)s"
+msgstr "Pretraživanje %(title)s"
+
 msgid "Drag"
 msgstr "Povucite"
 
@@ -1055,11 +1180,56 @@ msgid ""
 msgstr ""
 "\n"
 "Korijenska razina je mjesto gdje možete dodati nova sjedišta u vašu Wagtail "
-"instalaciju. Stranice stvorene ovdje neće biti dostupne niti na jednom URL-u "
-"dok god ih ne asocirate sa sjedištem."
+"instalaciju. Stranice stvorene ovdje neće biti dostupne ni na jednom URL-u "
+"dok god ih ne povežete sa sjedištem."
 
 msgid "Configure a site now."
 msgstr "Postavite sjedište sada."
+
+msgid ""
+"\n"
+"                            If you just want to add pages to an existing "
+"site, create them as children of the homepage instead.\n"
+"                        "
+msgstr ""
+"\n"
+"Ako samo želite dodati stranice postojećem sjedištu, stvorite ih kao djecu "
+"početne stranice."
+
+msgid ""
+"\n"
+"                        Pages created here will not be accessible at any "
+"URL. To add pages to an existing site, create them as children of the "
+"homepage.\n"
+"                    "
+msgstr ""
+"\n"
+"Stranici stvorene ovdje neće biti dostupne ni na jednom URL-u. Kako bi "
+"dodali stranice postojećem sjedištu, stvorite ih kao djecu početne stranice."
+
+msgid ""
+"\n"
+"                        There is no site set up for this location. Pages "
+"created here will not be accessible at any URL until a site is associated "
+"with this location.\n"
+"                    "
+msgstr ""
+"\n"
+"Na ovome mjestu nema podešenih sjedišta. Stranice stvorene ovdje neće biti "
+"dostupne ni na jednom URL-u sve dok se sjedište ne poveže sa ovim mjestom."
+
+msgid ""
+"\n"
+"                        There is no site record for this location. Pages "
+"created here will not be accessible at any URL.\n"
+"                    "
+msgstr ""
+"\n"
+"Na ovome mjestu nema zapisa o sjedištu. Stranice stvorene ovdje neće biti "
+"dostupne ni na jednom URL-u."
+
+msgid "No pages have been created at this location."
+msgstr "Na ovome mjestu nema stvorenih stranica."
 
 #, python-format
 msgid "Why not <a href=\"%(add_page_url)s\">create one</a>?"
@@ -1067,6 +1237,21 @@ msgstr "Zašto ne biste <a href=\"%(add_page_url)s\">stvorili jednu</a>?"
 
 msgid "This page is locked to further editing"
 msgstr "Ova stranica je zaključana za daljnje uređivanje"
+
+#, python-format
+msgid "Explore subpages of '%(title)s'"
+msgstr "Pretraži podstranice od '%(title)s'"
+
+msgid "Explore"
+msgstr "Pretraži"
+
+#, python-format
+msgid "Explore child pages of '%(title)s'"
+msgstr "Pretraži djecu stranice '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s'"
+msgstr "Dodaj dijete stranici '%(title)s'"
 
 msgid "Pagination"
 msgstr "Numeriranje stranica"
@@ -1079,6 +1264,12 @@ msgid ""
 msgstr ""
 "\n"
 "Stranica %(page_number)s od %(num_pages)s"
+
+msgid "Previous"
+msgstr "Prethodna"
+
+msgid "Next"
+msgstr "Sljedeća"
 
 msgid "This page is protected from public view"
 msgstr "Stranica je sakrivena od javnosti"
@@ -1100,11 +1291,32 @@ msgstr "Odaberite novu roditeljsku stranicu za %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Odaberite novu roditeljsku stranicu za <span>%(title)s</span>"
 
+msgid ""
+"\n"
+"                Impossible to preview this page, some errors are remaining.\n"
+"                Please close this tab, edit the page to fix these errors,\n"
+"                then use preview again.\n"
+"            "
+msgstr ""
+"\n"
+"Nije moguće pregledati ovu stranicu, neke greške i dalje postoje. Molimo "
+"zatvorite ovu karticu, uredite stranicu kako bi uklonili greške, a zatim "
+"pregledajte ponovno."
+
 msgid "Current status:"
 msgstr "Trenutni status:"
 
 msgid "Set page privacy"
 msgstr "Postavi privatnost stranice"
+
+msgid "Review this version"
+msgstr "Pregledaj ovu verziju"
+
+msgid "Compare with previous version"
+msgstr "Usporedi sa prijašnjom verzijom"
+
+msgid "Compare with current version"
+msgstr "Usporedi sa trenutnom verzijom"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1122,8 +1334,54 @@ msgstr "Polja"
 msgid "Changes"
 msgstr "Promjene"
 
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved down 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved down "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"Pomaknuto ispod za 1 mjesto."
+msgstr[1] ""
+"\n"
+"Pomaknuto ispod za %(counter)s mjesta."
+msgstr[2] ""
+"\n"
+"Pomaknuto dolje za %(counter)s mjesta."
+
+#, python-format
+msgid ""
+"\n"
+"                                                            Moved up 1 "
+"place.\n"
+"                                                        "
+msgid_plural ""
+"\n"
+"                                                            Moved up "
+"%(counter)s places.\n"
+"                                                        "
+msgstr[0] ""
+"\n"
+"Pomaknuto gore za 1 mjesto."
+msgstr[1] ""
+"\n"
+"Pomaknuto gore za %(counter)s mjesta."
+msgstr[2] ""
+"\n"
+"Pomaknuto gore za %(counter)s mjesta."
+
 msgid "There are no differences between these two versions"
 msgstr "Nema razlika između ove dvije verzije."
+
+#, python-format
+msgid "Unschedule Revision %(revision.id)s for %(title)s"
+msgstr "Odjavi reviziju %(revision.id)s za %(title)s"
 
 msgid "Unschedule"
 msgstr "Otkaži"
@@ -1149,6 +1407,12 @@ msgstr "Datum revizije"
 
 msgid "Scheduled for"
 msgstr "Zakazano za"
+
+msgid "No revisions of this page exist"
+msgstr "Revizije za ovu stranicu ne postoje"
+
+msgid "No revision of this page exist"
+msgstr "Revizija za ovu stranicu ne postoji"
 
 #, python-format
 msgid ""
@@ -1176,6 +1440,12 @@ msgstr "Vrste stranica"
 msgid "Sorry, no pages match <em>%(query_string)s</em>"
 msgstr ""
 "Nažalost nisu pronađene stranice koje odgovaraju <em>%(query_string)s</em>"
+
+msgid "Enter a search term above"
+msgstr "Unesite iznad pojam za pretraživanje"
+
+msgid "No pages use"
+msgstr "Nema stranica koje koriste"
 
 msgid "Workflow progress"
 msgstr "Napredak tijeka rada"
@@ -1229,6 +1499,12 @@ msgstr "Uredi stranicu"
 msgid "Requested by"
 msgstr "Zatražio korisnik"
 
+msgid "Approved task"
+msgstr "Odobren zadatak"
+
+msgid "Incomplete task"
+msgstr "Nepotpun zadatak"
+
 msgid "Collection"
 msgstr "Zbirka"
 
@@ -1244,6 +1520,9 @@ msgstr "Filter"
 msgid "Apply filters"
 msgstr "Primjeni filtere"
 
+msgid "No pages found."
+msgstr "Nema pronađenih stranica."
+
 msgid "Locking status"
 msgstr "Status zaključavanja"
 
@@ -1255,6 +1534,9 @@ msgstr "Nema zaključanih stranica."
 
 msgid "By Task"
 msgstr "Po zadatku"
+
+msgid "No pages have been submitted for moderation yet"
+msgstr "Nijedna stranica još nije poslana na moderiranje"
 
 msgid "By Workflow"
 msgstr "Po tijeku rada"
@@ -1286,6 +1568,9 @@ msgstr "Trenutni status stranice"
 
 msgid "Other searches"
 msgstr "Ostale pretrage"
+
+msgid "Changes requested"
+msgstr "Zatražene promjene"
 
 msgid "since"
 msgstr "od"
@@ -1322,6 +1607,9 @@ msgstr ""
 msgid "Go to Wagtail admin interface"
 msgstr "Idi na Wagtail administracijsko sučelje"
 
+msgid "Show in Explorer"
+msgstr "Prikaži u pretraživaču"
+
 msgid "Are you sure you want to disable this workflow?"
 msgstr "Jeste li sigurni da želite onemogućiti tijek rada?"
 
@@ -1353,7 +1641,7 @@ msgstr ""
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
-"Ovaj tijek je onemogućen, pa ga nije moguće pridružiti niti jednoj stranici."
+"Ovaj tijek je onemogućen, pa ga nije moguće pridružiti ni jednoj stranici."
 
 msgid "Not used"
 msgstr "Ne koristi se"
@@ -1503,6 +1791,17 @@ msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
 msgstr "Poslano u <em>%(workflow_name)s</em> u %(started_at)s"
 
 #, python-format
+msgid "by %(modified_by)s"
+msgstr "od strane korisnika %(modified_by)s"
+
+msgid "Not started"
+msgstr "Nije započeto"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "Korisnik %(requested_by)s je zatražio promjene"
+
+#, python-format
 msgid "Approved by %(approved_by)s"
 msgstr "Odobrio korisnik %(approved_by)s"
 
@@ -1555,6 +1854,9 @@ msgstr "Vaše postavke su promijenjene."
 
 msgid "Your preferences have been updated successfully!"
 msgstr "Vaše postavke su uspješno promijenjene!"
+
+msgid "You have been successfully logged out."
+msgstr "Uspješno ste odjavljeni."
 
 msgid "Collections"
 msgstr "Zbirke"
@@ -1638,6 +1940,9 @@ msgstr ""
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Stranica '{}' je zaključana</b>."
 
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "Ova stranica čeka <b>'{}'</b> u tijeku rada <b>'{}'</b>."
+
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Tijek rada na stranici '{0}' je otkazan."
 
@@ -1662,8 +1967,22 @@ msgstr "Stranica '{0}' je otključana."
 msgid "Page '{0}' published."
 msgstr "Stranica '{0}' je objavljena."
 
+msgid "Failed to send approval notifications"
+msgstr "Neuspjelo slanje obavijesti odobrenja"
+
+msgid "Failed to send rejection notifications"
+msgstr "Neuspjelo slanje odbijenica"
+
 msgid "Page '{0}' moved."
 msgstr "Stranica '{0}' je premještena."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Gledate prijašnju verziju ove stranice iz <b>%(created_at)s</b> korisnika "
+"%(user)s"
 
 msgid "Earliest"
 msgstr "Najranije"
@@ -1838,7 +2157,7 @@ msgid "View page history for '%(title)s'"
 msgstr "Pogledaj povijest stranice '%(title)s'"
 
 msgid "Set profile picture"
-msgstr "Postavite profilnu sliku"
+msgstr "Postavi sliku profila"
 
 msgid "Change your profile picture."
 msgstr "Promijenite vašu profilnu sliku"
@@ -1877,6 +2196,9 @@ msgstr "Popis s predznacima"
 msgid "Numbered list"
 msgstr "Numerirani popis"
 
+msgid "Blockquote"
+msgstr "Blok citat"
+
 msgid "Bold"
 msgstr "Podebljano"
 
@@ -1913,11 +2235,17 @@ msgstr "Izbrisano"
 msgid "Publish scheduled draft"
 msgstr "Objavi zakazanu skicu"
 
+msgid "Published scheduled draft"
+msgstr "Objavljena zakazana skica"
+
 msgid "Unpublished"
 msgstr "Odjavljeno"
 
 msgid "Unpublish scheduled draft"
 msgstr "Odjavi zakazanu skicu"
+
+msgid "Unpublished scheduled draft"
+msgstr "Odjavljena zakazana skica"
 
 msgid "Unlocked"
 msgstr "Otključano"
@@ -1930,6 +2258,10 @@ msgstr "Odbijeno"
 
 msgid "Reverted to previous revision"
 msgstr "Vraćeno na prijašnju verziju"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Kopirano iz %(title)s"
 
 msgid "Copied"
 msgstr "Kopirano"
@@ -1948,6 +2280,10 @@ msgstr "Alias '%(title)s' je pretvoren u običnu stranicu"
 msgid "Converted an alias into a regular page"
 msgstr "Alias je pretvoren u običnu stranicu"
 
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Premješteno iz '%(old_parent)s' u '%(new_parent)s'"
+
 msgid "Moved"
 msgstr "Premješteno"
 
@@ -1965,14 +2301,26 @@ msgstr "Stranici je otkazano objavljivanje u %(go_live_at)s"
 msgid "Page unscheduled from publishing"
 msgstr "Stranici je otkazano objavljivanje"
 
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Dodano je '%(restriction)s' ograničenje pogleda"
+
 msgid "Added view restriction"
 msgstr "Dodano je ograničenja pogleda"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Ažurirano je ograničenje pogleda na '%(restriction)s'"
 
 msgid "Updated view restriction"
 msgstr "Ažurirano je ograničenje pogleda"
 
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Uklonjeno '%(restriction)s' ograničenje pogleda"
+
 msgid "Removed view restriction"
-msgstr "Izbrisano je ograničenje pogleda"
+msgstr "Uklonjeno je ograničenje pogleda"
 
 #, python-format
 msgid "Renamed from '%(old)s' to '%(new)s'"
@@ -1993,15 +2341,46 @@ msgstr "Stvori alias"
 msgid "Convert alias into regular page"
 msgstr "Alias je pretvoren u običnu stranicu"
 
+msgid "Schedule publication"
+msgstr "Zakaži objavu"
+
 msgid "Add view restrictions"
 msgstr "Dodaj ograničenja pogleda"
+
+msgid "Update view restrictions"
+msgstr "Ažuriraj ograničenja pogleda"
+
+msgid "Remove view restrictions"
+msgstr "Ukloni ograničenja pogleda"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' je započeo. Sljedeći korak '%(task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Odobreno u '%(task)s'. Sljedeći korak '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Odoboreno u '%(task)s'. '%(workflow)s' završen"
 
 msgid "Workflow task approved"
 msgstr "Zadatak tijeka rada je odobren"
 
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "Odbačeno u '%(task)s'. Zahtijeva promjene"
+msgstr "Odbijeno u '%(task)s'. Zahtijeva promjene"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Tijek rada odbijen. Tijek rada završen"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Otkazan '%(workflow)s' u '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Tijek rada otkazan"
 
 msgid "Yes"
 msgstr "Da"

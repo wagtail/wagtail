@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-31 00:28+0000\n"
+"PO-Revision-Date: 2020-11-04 00:09+0000\n"
 "Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -42,6 +42,9 @@ msgstr "Atrakinti"
 
 msgid "Page locked"
 msgstr "Puslapis užrakintas"
+
+msgid "Wagtail admin"
+msgstr "Wagtail administravimas"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Atsiprašome, jūs neturite leidimo pasiekti šios zonos."
@@ -585,6 +588,9 @@ msgstr "Privatumo pakeitimai pritaikomi ir visiems vidiniams puslapiams."
 
 msgid "Publishing…"
 msgstr "Publikuojama..."
+
+msgid "Publish this version"
+msgstr "Publikuoti šią versiją"
 
 msgid "Saving…"
 msgstr "Saugoma..."
@@ -1246,11 +1252,18 @@ msgstr "Kalbos nustatymai"
 msgid "Choose the language you want to use here."
 msgstr "Pasirinkite kuria kalbą norite naudoti čia."
 
+#, python-format
+msgid "Heading %(level)d"
+msgstr "Antraštė %(level)d"
+
 msgid "Bulleted list"
 msgstr "Pažymėtas sąrašas"
 
 msgid "Numbered list"
 msgstr "Numeruotas sąrašas"
+
+msgid "Blockquote"
+msgstr "Citata"
 
 msgid "Bold"
 msgstr "Stambus"
@@ -1261,8 +1274,14 @@ msgstr "Pakreiptas"
 msgid "Link"
 msgstr "Nuoroda"
 
+msgid "Locked Pages"
+msgstr "Užrakinti puslapiai"
+
 msgid "Reports"
 msgstr "Ataskaitos"
+
+msgid "Unlocked"
+msgstr "Atrakinta"
 
 msgid "Choose an item"
 msgstr "Pasirinkti elementą"
