@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-31 00:32+0000\n"
+"PO-Revision-Date: 2020-11-04 00:01+0000\n"
 "Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -43,6 +43,10 @@ msgstr "Išsaugoti"
 
 msgid "Settings"
 msgstr "Nustatymai"
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s atnaujintas."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Nustatymas negalėjo būti išsaugotas dėl klaidų."

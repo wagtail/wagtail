@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-01 10:00+0000\n"
+"PO-Revision-Date: 2020-11-02 15:39+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -118,7 +118,7 @@ msgid "live"
 msgstr "在用"
 
 msgid "has unpublished changes"
-msgstr "有未發佈的修改"
+msgstr "有未發佈的變更"
 
 msgid "URL path"
 msgstr "URL路徑"
@@ -295,13 +295,13 @@ msgid "collection"
 msgstr "集合"
 
 msgid "collection view restriction"
-msgstr "集合查看限制"
+msgstr "集合檢視限制"
 
 msgid "collection view restrictions"
-msgstr "集合查看限制"
+msgstr "集合檢視限制"
 
 msgid "name"
-msgstr "名字"
+msgstr "名稱"
 
 msgid "collections"
 msgstr "集合"
@@ -396,11 +396,20 @@ msgstr "已略過"
 msgid "workflow state"
 msgstr "工作流程狀態"
 
+msgid "started at"
+msgstr "開始於"
+
+msgid "finished at"
+msgstr "結束於"
+
 msgid "Task state"
 msgstr "作業狀態"
 
 msgid "Task states"
 msgstr "作業狀態"
+
+msgid "timestamp (UTC)"
+msgstr "時間標記 (UTC)"
 
 msgid "system"
 msgstr "系統"

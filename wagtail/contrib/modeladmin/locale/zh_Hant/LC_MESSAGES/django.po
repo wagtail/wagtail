@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-01 10:06+0000\n"
+"PO-Revision-Date: 2020-11-02 15:19+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -93,7 +93,7 @@ msgstr "儲存"
 
 #, python-format
 msgid "%(model_name)s could not be deleted"
-msgstr " %(model_name)s 不可刪除"
+msgstr "  無法刪除 %(model_name)s"
 
 #, python-format
 msgid ""
@@ -178,11 +178,11 @@ msgid "The %s could not be created due to errors."
 msgstr "無法創建%s。出現錯誤。"
 
 msgid "New"
-msgstr "新建"
+msgstr "新增"
 
 #, python-format
 msgid "Create new %s"
-msgstr "新增新的 %s"
+msgstr "新增 %s"
 
 msgid "Editing"
 msgstr "正在編輯"

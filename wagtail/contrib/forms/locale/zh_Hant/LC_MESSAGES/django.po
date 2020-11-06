@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# ongchi <ihcgno@icloud.com>, 2020
 # Ocin Leung, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-08-15 07:55+0000\n"
-"Last-Translator: Ocin Leung\n"
+"PO-Revision-Date: 2020-11-02 15:34+0000\n"
+"Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +86,7 @@ msgid "form submissions"
 msgstr "已提交表單"
 
 msgid "name"
-msgstr "名字"
+msgstr "名稱"
 
 msgid "label"
 msgstr "標簽"
