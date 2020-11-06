@@ -2,6 +2,7 @@ Accessibility considerations
 ============================
 
 Accessibility for CMS-driven websites is a matter of :ref:`modeling content appropriately <content_modeling>`, :ref:`creating accessible templates <accessibility_in_templates>`, and :ref:`authoring content <authoring_accessible_content>` with readability and accessibility guidelines in mind.
+
 Wagtail generally puts developers in control of content modeling and front-end markup, but there are a few areas to be aware of nonetheless, and ways to help authors be aware of readability best practices.
 Note there is much more to building accessible websites than we cover here – see our list of :ref:`accessibility resources <accessibility_resources>` for more information.
 
@@ -101,8 +102,8 @@ Empty heading tags
 
 In both rich text and custom StreamField blocks, it’s sometimes easy for editors to create a heading block but not add any content to it. If this is a problem for your site,
 
-- Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the :doc:`/topics/streamfield` ``CharBlock`` which is required by default.
-- Consider adding similar validation rules for rich text fields. (`#4223 <https://github.com/wagtail/wagtail/issues/4223>`_)
+- Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the :doc:`StereamField </topics/streamfield>` ``CharBlock`` which is required by default.
+- Consider adding similar validation rules for rich text fields (`#4223 <https://github.com/wagtail/wagtail/issues/4223>`_).
 
 Additionally, you can hide empty heading blocks with CSS:
 
