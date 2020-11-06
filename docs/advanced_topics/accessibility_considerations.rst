@@ -103,7 +103,7 @@ Empty heading tags
 In both rich text and custom StreamField blocks, it’s sometimes easy for editors to create a heading block but not add any content to it. If this is a problem for your site,
 
 - Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the :doc:`StereamField </topics/streamfield>` ``CharBlock`` which is required by default.
-- Consider adding similar validation rules for rich text fields (`#4223 <https://github.com/wagtail/wagtail/issues/4223>`_).
+- Consider adding similar validation rules for rich text fields (`#6526 <https://github.com/wagtail/wagtail/issues/6526>`_).
 
 Additionally, you can hide empty heading blocks with CSS:
 
@@ -112,8 +112,6 @@ Additionally, you can hide empty heading blocks with CSS:
     h1:empty, h2:empty, h3:empty, h4:empty, h5:empty, h6:empty {
         display: none;
     }
-
-In the future, :ref:`rich text rewrite handlers <rich_text_rewrite_handlers>` should also support this being done server-side (`#4223 <https://github.com/wagtail/wagtail/issues/6526>`_).
 
 Forms
 -----
