@@ -54,6 +54,8 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 dataObj = {p: page};
             }
 
+            dataObj.collection_id = $('#collection_chooser_collection_id').val();
+
             request = $.ajax({
                 url: searchUrl,
                 data: dataObj,
