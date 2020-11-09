@@ -383,7 +383,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         block = TableBlock()
         html = block.render_form(value=self.value)
         self.assertIn('<script>initTable', html)
-        self.assertIn('<div class="field char_field widget-table_input">', html)
+        self.assertIn('<div data-contentpath="" class="field char_field widget-table_input">', html)
         # check that options render in the init function
         self.assertIn('"editor": "text"', html)
         self.assertIn('"autoColumnSize": false', html)
@@ -426,7 +426,7 @@ class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
         """
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.table_block_page.id,)))
         # check page + field renders
-        self.assertContains(response, '<div class="field char_field widget-table_input fieldname-table">')
+        self.assertContains(response, '<div data-contentpath="table" class="field char_field widget-table_input fieldname-table">')
         # check data
         self.assertContains(response, 'Battlestar')
         self.assertContains(response, 'Galactica')

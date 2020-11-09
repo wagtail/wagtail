@@ -87,7 +87,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         block = blocks.CharBlock()
         html = block.render_form("Hello world!")
 
-        self.assertIn('<div class="field char_field widget-text_input">', html)
+        self.assertIn('<div data-contentpath="" class="field char_field widget-text_input">', html)
         self.assertInHTML('<input id="" name="" placeholder="" type="text" value="Hello world!" />', html)
 
     def test_charfield_render_form_with_prefix(self):
@@ -142,7 +142,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         block = ChoiceBlock()
         html = block.render_form('choice-2')
 
-        self.assertIn('<div class="field choice_field widget-select">', html)
+        self.assertIn('<div data-contentpath="" class="field choice_field widget-select">', html)
         self.assertTagInHTML('<select id="" name="" placeholder="">', html)
         self.assertInHTML('<option value="choice-1">Choice 1</option>', html)
         self.assertInHTML('<option value="choice-2" selected="selected">Choice 2</option>', html)
@@ -1523,12 +1523,12 @@ class TestStructBlock(SimpleTestCase):
         }), prefix='mylink')
 
         self.assertIn('<div class="struct-block">', html)
-        self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
+        self.assertIn('<div data-contentpath="title" class="field char_field widget-text_input fieldname-title">', html)
         self.assertIn('<label class="field__label" for="mylink-title">Title</label>', html)
         self.assertInHTML(
             '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html
         )
-        self.assertIn('<div class="field url_field widget-url_input fieldname-link">', html)
+        self.assertIn('<div data-contentpath="link" class="field url_field widget-url_input fieldname-link">', html)
         self.assertInHTML(
             (
                 '<input id="mylink-link" name="mylink-link" placeholder="Link"'
@@ -2989,7 +2989,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         block = ArticleBlock()
         html = block.html_declarations()
 
-        self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-id" name="__PREFIX__-id" value="" />', html)
+        self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-id" name="__PREFIX__-id" value="__UUID__" />', html)
         self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-type" name="__PREFIX__-type" value="heading" />', html)
         self.assertTagInTemplateScript('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
         self.assertTagInTemplateScript(
