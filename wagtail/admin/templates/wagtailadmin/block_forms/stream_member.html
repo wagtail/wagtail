@@ -6,6 +6,10 @@
     <input type="hidden" id="{{ prefix }}-id" name="{{ prefix }}-id" value="{{ block_id|default:"" }}">
 {% endblock %}
 
+{% block contentpath %}
+    data-contentpath={{ block_id|default:"" }}
+{% endblock %}
+
 {% block block_type_label %}{{ child_block.label }}{% endblock %}
 
 {% block header_controls %}

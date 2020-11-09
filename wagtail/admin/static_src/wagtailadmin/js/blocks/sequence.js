@@ -12,6 +12,7 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
 CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES NOT BELONG HERE.
 
 */
+
 (function($) {
     window.SequenceMember = function(sequence, prefix) {
         var self = {};
@@ -125,7 +126,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
         function elementFromTemplate(template, newPrefix) {
             /* generate a jquery object ready to be inserted into the list, based on the passed HTML template string.
             '__PREFIX__' will be substituted with newPrefix, and script tags escaped as <-/script> will be un-escaped */
-            return $(template.replace(/__PREFIX__/g, newPrefix).replace(/<-(-*)\/script>/g, '<$1/script>'));
+            return $(template.replace(/__PREFIX__/g, newPrefix).replace(/__UUID__/g, uuidv4()).replace(/<-(-*)\/script>/g, '<$1/script>'));
         }
 
         self.insertMemberBefore = function(otherMember, template) {
