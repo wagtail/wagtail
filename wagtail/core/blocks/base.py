@@ -472,6 +472,7 @@ def block_unpickle(block_class, args, kwargs):
     """Used to unpickle Block subclasses."""
     return block_class(*args, **kwargs)
 
+
 class BoundBlock:
     def __init__(self, block, value, prefix=None, errors=None):
         self.block = block
