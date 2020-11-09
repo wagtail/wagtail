@@ -116,6 +116,7 @@
         Additional HTML code that edit handlers define through 'html_declarations'. (Technically this isn't JavaScript, but it will generally be data that exists for JavaScript to work with...)
     {% endcomment %}
     {{ edit_handler.html_declarations }}
+    <button type="button" id="comment-icon" data-annotation class="button button-secondary button-small u-hidden">{% icon name='comment' class_name='initial' %}</button>
 
     <script>
         {% if publishing_will_cancel_workflow %}
@@ -187,7 +188,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var commentsElement = document.getElementById('comments');
-            window.comments.app = window.comments.initComments(commentsElement, {id: {{ request.user.pk }}, name: "{{ request.user|user_display_name }}"}, []);
+            window.comments.initComments(commentsElement, {id: {{ request.user.pk }}, name: "{{ request.user|user_display_name }}"}, []);
         });
     </script>
 {% endblock %}

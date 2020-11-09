@@ -39,4 +39,8 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPer
         openAtParentId = null;
         chooserElement.addClass('blank');
     });
+
+    if (window.comments) {
+        window.comments.prepareFieldLevelCommentInit(chooserElement[0]);
+    }
 }

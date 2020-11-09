@@ -23,4 +23,8 @@ function createSnippetChooser(id, modelString) {
         input.val('');
         chooserElement.addClass('blank');
     });
+
+    if (window.comments) {
+        window.comments.prepareFieldLevelCommentInit(chooserElement[0]);
+    }
 }
