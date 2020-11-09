@@ -96,7 +96,7 @@ class FieldLevelCommentWidget {
   updateVisibility() {
     // if comments are disabled, or the widget already has at least one associated comment,
     // don't show the comment addition button
-    if (this.commentsEnabled || this.commentNumber > 0) {
+    if (!this.commentsEnabled || this.commentNumber > 0) {
       this.commentAdditionNode.classList.add('u-hidden');
     } else {
       this.commentAdditionNode.classList.remove('u-hidden');
