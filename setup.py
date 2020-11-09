@@ -79,12 +79,12 @@ documentation_extras = [
 ]
 
 setup(
-    name='wagtail',
+    name='sifter-wagtail',
     version=__version__,
-    description='A Django content management system.',
-    author='Wagtail core team + contributors',
-    author_email='hello@wagtail.io',  # For support queries, please see https://docs.wagtail.io/en/stable/support.html
-    url='https://wagtail.io/',
+    description='A Django content management system for sifter.',
+    author='Wagtail core team + Sifter team',
+    author_email='support@sifter.shop',  # For support queries, please see https://docs.wagtail.io/en/stable/support.html
+    url='https://sifter.shop/',
     packages=find_packages(),
     include_package_data=True,
     license='BSD',
