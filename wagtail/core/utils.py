@@ -220,8 +220,17 @@ def get_content_languages():
     if content_languages is None:
         # Default to a single language based on LANGUAGE_CODE
         default_language_code = get_supported_language_variant(settings.LANGUAGE_CODE)
+        try:
+            language_name = languages[default_language_code]
+        except KeyError:
+            # get_supported_language_variant on the 'null' translation backend (used for
+            # USE_I18N=False) returns settings.LANGUAGE_CODE unchanged without accounting for
+            # language variants (en-us versus en), so retry with the generic version.
+            default_language_code = default_language_code.split("-")[0]
+            language_name = languages[default_language_code]
+
         content_languages = [
-            (default_language_code, languages[default_language_code]),
+            (default_language_code, language_name),
         ]
 
     # Check that each content language is in LANGUAGES
