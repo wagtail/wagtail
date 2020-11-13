@@ -3,7 +3,7 @@ import unittest
 import urllib.request
 
 from unittest.mock import patch
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 
 from django import template
 from django.core.exceptions import ValidationError
@@ -18,6 +18,10 @@ from wagtail.embeds.exceptions import EmbedNotFoundException, EmbedUnsupportedPr
 from wagtail.embeds.finders import get_finders
 from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
 from wagtail.embeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
+from wagtail.embeds.finders.facebook import AccessDeniedFacebookOEmbedException
+from wagtail.embeds.finders.facebook import FacebookOEmbedFinder as FacebookOEmbedFinder
+from wagtail.embeds.finders.instagram import AccessDeniedInstagramOEmbedException
+from wagtail.embeds.finders.instagram import InstagramOEmbedFinder as InstagramOEmbedFinder
 from wagtail.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
 from wagtail.embeds.models import Embed
 from wagtail.embeds.templatetags.wagtailembeds_tags import embed_tag
@@ -76,6 +80,40 @@ class TestGetFinders(TestCase):
         self.assertEqual(len(finders), 1)
         self.assertIsInstance(finders[0], OEmbedFinder)
         self.assertEqual(finders[0].options, {'foo': 'bar'})
+
+    @override_settings(WAGTAILEMBEDS_FINDERS=[
+        {
+            'class': 'wagtail.embeds.finders.instagram',
+            'app_id': '1234567890',
+            'app_secret': 'abcdefghijklmnop',
+        },
+    ])
+    def test_find_instagram_oembed_with_options(self):
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], InstagramOEmbedFinder)
+        self.assertEqual(finders[0].app_id, '1234567890')
+        self.assertEqual(finders[0].app_secret, 'abcdefghijklmnop')
+        # omitscript defaults to False
+        self.assertEqual(finders[0].omitscript, False)
+
+    @override_settings(WAGTAILEMBEDS_FINDERS=[
+        {
+            'class': 'wagtail.embeds.finders.facebook',
+            'app_id': '1234567890',
+            'app_secret': 'abcdefghijklmnop',
+        },
+    ])
+    def test_find_facebook_oembed_with_options(self):
+        finders = get_finders()
+
+        self.assertEqual(len(finders), 1)
+        self.assertIsInstance(finders[0], FacebookOEmbedFinder)
+        self.assertEqual(finders[0].app_id, '1234567890')
+        self.assertEqual(finders[0].app_secret, 'abcdefghijklmnop')
+        # omitscript defaults to False
+        self.assertEqual(finders[0].omitscript, False)
 
 
 class TestEmbeds(TestCase):
@@ -385,6 +423,138 @@ class TestOembed(TestCase):
         self.assertEqual(result['type'], 'video')
         request = urlopen.call_args[0][0]
         self.assertEqual(request.get_full_url().split('?')[0], "https://www.vimeo.com/api/oembed.json")
+
+
+class TestInstagramOEmbed(TestCase):
+    def setUp(self):
+        class DummyResponse:
+            def read(self):
+                return b"""{
+                    "type": "something",
+                    "url": "http://www.example.com",
+                    "title": "test_title",
+                    "author_name": "test_author",
+                    "provider_name": "Instagram",
+                    "thumbnail_url": "test_thumbail_url",
+                    "width": "test_width",
+                    "height": "test_height",
+                    "html": "<blockquote class=\\\"instagram-media\\\">Content</blockquote>"
+                }"""
+        self.dummy_response = DummyResponse()
+
+    def test_instagram_oembed_only_accepts_new_url_patterns(self):
+        finder = InstagramOEmbedFinder()
+        self.assertTrue(finder.accept("https://www.instagram.com/p/CHeRxmnDSYe/?utm_source=ig_embed"))
+        self.assertFalse(finder.accept("https://instagr.am/p/CHeRxmnDSYe/?utm_source=ig_embed"))
+
+    @patch('urllib.request.urlopen')
+    def test_instagram_oembed_return_values(self, urlopen):
+        urlopen.return_value = self.dummy_response
+        result = InstagramOEmbedFinder(app_id='123', app_secret='abc').find_embed("https://instagr.am/p/CHeRxmnDSYe/")
+        self.assertEqual(result, {
+            'type': 'something',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'Instagram',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': '<blockquote class="instagram-media">Content</blockquote>'
+        })
+        # check that a request was made with the expected URL / authentication
+        request = urlopen.call_args[0][0]
+        # check that a request was made with the expected URL / authentication
+        request = urlopen.call_args[0][0]
+        self.assertEqual(
+            request.get_full_url(),
+            "https://graph.facebook.com/v9.0/instagram_oembed?url=https%3A%2F%2Finstagr.am%2Fp%2FCHeRxmnDSYe%2F&format=json"
+        )
+        self.assertEqual(request.get_header('Authorization'), "Bearer 123|abc")
+
+    def test_instagram_request_denied_401(self):
+        err = HTTPError("https://instagr.am/p/CHeRxmnDSYe/", code=401, msg='invalid credentials', hdrs={}, fp=None)
+        config = {'side_effect': err}
+        with patch.object(urllib.request, 'urlopen', **config):
+            self.assertRaises(AccessDeniedInstagramOEmbedException, InstagramOEmbedFinder().find_embed,
+                              "https://instagr.am/p/CHeRxmnDSYe/")
+
+    def test_instagram_request_not_found(self):
+        err = HTTPError("https://instagr.am/p/badrequest/", code=404, msg='Not Found', hdrs={}, fp=None)
+        config = {'side_effect': err}
+        with patch.object(urllib.request, 'urlopen', **config):
+            self.assertRaises(EmbedNotFoundException, InstagramOEmbedFinder().find_embed,
+                              "https://instagr.am/p/CHeRxmnDSYe/")
+
+    def test_instagram_failed_request(self):
+        config = {'side_effect': URLError(reason="Testing error handling")}
+        with patch.object(urllib.request, 'urlopen', **config):
+            self.assertRaises(EmbedNotFoundException, InstagramOEmbedFinder().find_embed,
+                              "https://instagr.am/p/CHeRxmnDSYe/")
+
+
+class TestFacebookOEmbed(TestCase):
+    def setUp(self):
+        class DummyResponse:
+            def read(self):
+                return b"""{
+                    "type": "something",
+                    "url": "http://www.example.com",
+                    "title": "test_title",
+                    "author_name": "test_author",
+                    "provider_name": "Facebook",
+                    "thumbnail_url": "test_thumbail_url",
+                    "width": "test_width",
+                    "height": "test_height",
+                    "html": "<blockquote class=\\\"facebook-media\\\">Content</blockquote>"
+                }"""
+        self.dummy_response = DummyResponse()
+
+    def test_facebook_oembed_accepts_various_url_patterns(self):
+        finder = FacebookOEmbedFinder()
+        self.assertTrue(finder.accept("https://www.facebook.com/testuser/posts/10157389310497085"))
+        self.assertTrue(finder.accept("https://fb.watch/ABC123eew/"))
+
+    @patch('urllib.request.urlopen')
+    def test_facebook_oembed_return_values(self, urlopen):
+        urlopen.return_value = self.dummy_response
+        result = FacebookOEmbedFinder(app_id='123', app_secret='abc').find_embed("https://fb.watch/ABC123eew/")
+        self.assertEqual(result, {
+            'type': 'something',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'Facebook',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': '<blockquote class="facebook-media">Content</blockquote>'
+        })
+        # check that a request was made with the expected URL / authentication
+        request = urlopen.call_args[0][0]
+        self.assertEqual(
+            request.get_full_url(),
+            "https://graph.facebook.com/v9.0/oembed_video?url=https%3A%2F%2Ffb.watch%2FABC123eew%2F&format=json"
+        )
+        self.assertEqual(request.get_header('Authorization'), "Bearer 123|abc")
+
+    def test_facebook_request_denied_401(self):
+        err = HTTPError("https://fb.watch/ABC123eew/", code=401, msg='invalid credentials', hdrs={}, fp=None)
+        config = {'side_effect': err}
+        with patch.object(urllib.request, 'urlopen', **config):
+            self.assertRaises(AccessDeniedFacebookOEmbedException, FacebookOEmbedFinder().find_embed,
+                              "https://fb.watch/ABC123eew/")
+
+    def test_facebook_request_not_found(self):
+        err = HTTPError("https://fb.watch/ABC123eew/", code=404, msg='Not Found', hdrs={}, fp=None)
+        config = {'side_effect': err}
+        with patch.object(urllib.request, 'urlopen', **config):
+            self.assertRaises(EmbedNotFoundException, FacebookOEmbedFinder().find_embed,
+                              "https://fb.watch/ABC123eew/")
+
+    def test_facebook_failed_request(self):
+        config = {'side_effect': URLError(reason="Testing error handling")}
+        with patch.object(urllib.request, 'urlopen', **config):
+            self.assertRaises(EmbedNotFoundException, FacebookOEmbedFinder().find_embed,
+                              "https://fb.watch/ABC123eew/")
 
 
 class TestEmbedTag(TestCase):

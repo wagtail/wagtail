@@ -149,38 +149,6 @@ photobucket = {
     ],
 }
 
-instagram = {
-    "endpoint": "https://api.instagram.com/oembed",
-    "urls": [
-        r'^https?://instagr\.am/p/.+$',
-        r'^https?://(?:www\.)?instagram\.com/p/.+$',
-    ],
-}
-
-facebook_video = {
-    "endpoint": "https://www.facebook.com/plugins/video/oembed.{format}",
-    "urls": [
-        r'^https://(?:www\.)?facebook\.com/.+?/videos/.+$',
-        r'^https://(?:www\.)?facebook\.com/video\.php\?(?:v|id)=.+$',
-    ],
-}
-
-facebook_post = {
-    "endpoint": "https://www.facebook.com/plugins/post/oembed.{format}",
-    "urls": [
-        r'^https://(?:www\.)?facebook\.com/.+?/(?:posts|activity)/.+$',
-        r'^https://(?:www\.)?facebook\.com/photo\.php\?fbid=.+$',
-        r'^https://(?:www\.)?facebook\.com/(?:photos|questions)/.+$',
-        r'^https://(?:www\.)?facebook\.com/permalink\.php\?story_fbid=.+$',
-        r'^https://(?:www\.)?facebook\.com/media/set/?\?set=.+$',
-        r'^https://(?:www\.)?facebook\.com/notes/.+?/.+?/.+$',
-
-        # At the moment, not documented on https://developers.facebook.com/docs/plugins/oembed-endpoints
-        # Works for posts with a single photo
-        r'^https://(?:www\.)?facebook\.com/.+?/photos/.+$',
-    ],
-}
-
 slideshare = {
     "endpoint": "https://www.slideshare.net/api/oembed/2",
     "urls": [
@@ -662,8 +630,7 @@ reddit = {
 all_providers = [
     speakerdeck, app_net, youtube, deviantart, blip_tv, dailymotion, flikr,
     hulu, nfb, qik, revision3, scribd, viddler, vimeo, dotsub, yfrog,
-    clickthrough, kinomap, photobucket, instagram, facebook_video,
-    facebook_post, slideshare,
+    clickthrough, kinomap, photobucket, slideshare,
     major_league_gaming, opera, skitch, twitter, soundcloud, collegehumor,
     polleverywhere, ifixit, smugmug, github_gist, animoto, rdio, five_min,
     five_hundred_px, dipdive, yandex, mixcloud, kickstarter, coub, screenr,
