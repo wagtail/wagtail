@@ -11,6 +11,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Improve performance of permission check on translations for edit page (Karl Hobley)
+ * Fix: Gracefully handle missing Locale records on `Locale.get_active` and `.localized` (Matt Westcott)
 
 
 2.11.1 (06.11.2020)
