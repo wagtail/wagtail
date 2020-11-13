@@ -191,6 +191,47 @@ For example, this is how you can instruct Youtube to return videos in HTTPS
     Wagtail will not try to run any other finder, even if the chosen one didn't
     return an embed.
 
+
+.. _facebook_and_instagram_embeds:
+
+Facebook and Instagram
+----------------------
+
+As of October 2020, Facebook deprecated their public oEmbed APIs. If you would
+like to embed Facebook or Instagram posts in your site, you will need to
+use the new authenticated APIs. This requires you to set up a Facebook
+Developer Account and create a Facebook App that includes the oEmbed Product.
+Instructions for creating the neccessary app are in the requirements sections of the
+`Facebook <https://developers.facebook.com/docs/plugins/oembed>`_
+and `Instagram <https://developers.facebook.com/docs/instagram/oembed>`_ documentation.
+
+Once you have your app access tokens (App ID and App Secret), add the Facebook and/or
+Instagram finders to your ``WAGTAILEMBEDS_FINDERS`` setting and configure them with
+the App ID and App Secret from your app:
+
+.. code-block:: python
+
+    WAGTAILEMBEDS_FINDERS = [
+        {
+            'class': 'wagtail.embeds.finders.facebook',
+            'app_id': 'YOUR FACEBOOK APP_ID HERE',
+            'app_secret': 'YOUR FACEBOOK APP_SECRET HERE',
+        },
+        {
+            'class': 'wagtail.embeds.finders.instagram',
+            'app_id': 'YOUR INSTAGRAM APP_ID HERE',
+            'app_secret': 'YOUR INSTAGRAM APP_SECRET HERE',
+        }
+    ]
+
+By default, Facebook and Instagram embeds include some JavaScript that is necessary to
+fully render the embed. In certain cases, this might not be something you want - for
+example, if you have multiple Facebook embeds, this would result in multiple script tags.
+By passing ``'omitscript': True`` in the configuration, you can indicate that these script
+tags should be omitted from the embed HTML. Note that you will then have to take care of
+loading this script yourself.
+
+
 .. _Embedly:
 
 Embed.ly

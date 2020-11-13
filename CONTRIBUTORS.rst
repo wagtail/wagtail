@@ -484,6 +484,7 @@ Contributors
 * Noah H
 * David Bramwell
 * Naglis Jonaitis
+* Luis Nell
 
 Translators
 ===========

@@ -10,6 +10,8 @@ Changelog
 2.11.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~
 
+ * Add custom finder to support Instagram oEmbed API (Luis Nell)
+ * Add custom finder to support Facebook oEmbed API (Cynthia Kiser)
  * Fix: Improve performance of permission check on translations for edit page (Karl Hobley)
  * Fix: Gracefully handle missing Locale records on `Locale.get_active` and `.localized` (Matt Westcott)
  * Fix: Handle `get_supported_language_variant` returning a language variant not in `LANGUAGES` (Matt Westcott)
