@@ -2776,3 +2776,28 @@ class TestLocalized(TestCase):
         with translation.override("fr"):
             self.assertEqual(self.event_page.localized, self.event_page)
             self.assertEqual(self.event_page.localized_draft, self.fr_event_page.page_ptr)
+
+    def test_localized_with_non_content_active_locale(self):
+        # if active locale does not have a Locale record, use default locale
+        with translation.override("de"):
+            self.assertEqual(self.event_page.localized, self.event_page)
+            self.assertEqual(self.fr_event_page.localized, self.event_page.specific)
+            self.assertEqual(self.event_page.localized_draft, self.event_page)
+            self.assertEqual(self.fr_event_page.localized_draft, self.event_page.specific)
+
+    def test_localized_with_missing_default_locale(self):
+        # if neither active locale nor default language code have a Locale record, return self
+
+        # Change the 'en' locale to 'pl', so that no locale record for LANGUAGE_CODE exists.
+        # This replicates a scenario where a site was originally built with LANGUAGE_CODE='pl'
+        # but subsequently changed to LANGUAGE_CODE='en' (a change which was not reflected in
+        # the database).
+        en_locale = Locale.objects.get(language_code="en")
+        en_locale.language_code = "pl"
+        en_locale.save()
+
+        with translation.override("de"):
+            self.assertEqual(self.event_page.localized, self.event_page)
+            self.assertEqual(self.fr_event_page.localized, self.fr_event_page)
+            self.assertEqual(self.event_page.localized_draft, self.event_page)
+            self.assertEqual(self.fr_event_page.localized_draft, self.fr_event_page)
