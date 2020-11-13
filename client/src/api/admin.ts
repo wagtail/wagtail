@@ -47,9 +47,9 @@ export const getPageChildren: GetPageChildren = (id, options = {}) => {
   let url = `${ADMIN_API.PAGES}?child_of=${id}&for_explorer=1`;
 
   if (options.fields) {
-    url += `&fields=parent,translations,${window.encodeURIComponent(options.fields.join(','))}`;
+    url += `&fields=parent,${window.encodeURIComponent(options.fields.join(','))}`;
   } else {
-    url += '&fields=parent,translations';
+    url += '&fields=parent';
   }
 
   if (options.onlyWithChildren) {
