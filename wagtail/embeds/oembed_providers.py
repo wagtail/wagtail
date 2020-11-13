@@ -149,14 +149,6 @@ photobucket = {
     ],
 }
 
-instagram = {
-    "endpoint": "https://api.instagram.com/oembed",
-    "urls": [
-        r'^https?://instagr\.am/p/.+$',
-        r'^https?://(?:www\.)?instagram\.com/p/.+$',
-    ],
-}
-
 facebook_video = {
     "endpoint": "https://www.facebook.com/plugins/video/oembed.{format}",
     "urls": [
@@ -662,7 +654,7 @@ reddit = {
 all_providers = [
     speakerdeck, app_net, youtube, deviantart, blip_tv, dailymotion, flikr,
     hulu, nfb, qik, revision3, scribd, viddler, vimeo, dotsub, yfrog,
-    clickthrough, kinomap, photobucket, instagram, facebook_video,
+    clickthrough, kinomap, photobucket, facebook_video,
     facebook_post, slideshare,
     major_league_gaming, opera, skitch, twitter, soundcloud, collegehumor,
     polleverywhere, ifixit, smugmug, github_gist, animoto, rdio, five_min,

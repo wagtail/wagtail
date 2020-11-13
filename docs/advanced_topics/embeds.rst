@@ -191,6 +191,35 @@ For example, this is how you can instruct Youtube to return videos in HTTPS
     Wagtail will not try to run any other finder, even if the chosen one didn't
     return an embed.
 
+.. _Instagram:
+
+Instagram
+---------
+
+As of October 2020, Facebook deprecated the public Instagram oEmbed API.
+If you would like to embed Instagram  posts in yoru site, you will need to
+use the new Instagram oEmbed API. This requires you to set up a Facebook
+Developer Account and create a Facebook App that includes the oEmbed Product.
+Instructions for creating the neccessary app are in the `Requirements section
+<https://developers.facebook.com/docs/instagram/oembed>`_ of the Facebook
+Developers documentation.
+
+Once you have your app access tokens (App ID and App Secret), add the Instagram
+finder to your ``WAGTAILEMBEDS_FINDERS`` setting and configure it with those
+two values:
+
+.. code-block:: python
+
+    WAGTAILEMBEDS_FINDERS = [
+        {
+            'class': 'wagtail.embeds.finders.instagram',
+             'app_id': 'YOUR INSTAGRAM APP_ID HERE',
+             'app_secret': 'YOUR INSTAGRAM APP_SECRET HERE',
+         }
+    ]
+
+
+
 .. _Embedly:
 
 Embed.ly
