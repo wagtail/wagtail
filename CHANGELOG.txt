@@ -7,6 +7,12 @@ Changelog
  * Added support for Python 3.9
 
 
+2.11.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Improve performance of permission check on translations for edit page (Karl Hobley)
+
+
 2.11.1 (06.11.2020)
 ~~~~~~~~~~~~~~~~~~~
 
