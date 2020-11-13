@@ -541,7 +541,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                         'locale': translation.locale,
                         'url': reverse('wagtailadmin_pages:edit', args=[translation.id]),
                     }
-                    for translation in self.page.get_translations().only('id', 'locale').select_related('locale')
+                    for translation in self.page.get_translations().only('id', 'locale', 'depth').select_related('locale')
                     if user_perms.for_page(translation).can_edit()
                 ],
             })

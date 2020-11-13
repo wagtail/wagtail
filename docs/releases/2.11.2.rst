@@ -1,0 +1,16 @@
+=============================================
+Wagtail 2.11.2 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Improve performance of permission check on translations for edit page (Karl Hobley)
