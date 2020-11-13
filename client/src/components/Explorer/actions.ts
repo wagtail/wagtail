@@ -54,7 +54,7 @@ function getChildren(id: number, offset = 0): ThunkActionType {
 }
 
 const getTranslationsStart = createAction('GET_TRANSLATIONS_START', id => ({ id }));
-const getTranslationsSuccess = createAction('GET_TRANSLATIONS_SUCCESS', (id, items, meta) => ({ id, items, meta }));
+const getTranslationsSuccess = createAction('GET_TRANSLATIONS_SUCCESS', (id, items) => ({ id, items }));
 const getTranslationsFailure = createAction('GET_TRANSLATIONS_FAILURE', (id, error) => ({ id, error }));
 
 /**
@@ -64,8 +64,8 @@ function getTranslations(id) {
   return (dispatch) => {
     dispatch(getTranslationsStart(id));
 
-    return admin.getPageTranslations(id, { onlyWithChildren: true }).then(({ items, meta }) => {
-      dispatch(getTranslationsSuccess(id, items, meta));
+    return admin.getAllPageTranslations(id, { onlyWithChildren: true }).then(items => {
+      dispatch(getTranslationsSuccess(id, items));
     }, (error) => {
       dispatch(getTranslationsFailure(id, error));
     });
