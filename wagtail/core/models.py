@@ -370,7 +370,7 @@ class Locale(models.Model):
         """
         try:
             return cls.objects.get_for_language(translation.get_language())
-        except cls.DoesNotExist:
+        except (cls.DoesNotExist, LookupError):
             return cls.get_default()
 
     def language_code_is_valid(self):
@@ -419,7 +419,10 @@ class TranslatableMixin(models.Model):
 
         If there is no translation in the active language, self is returned.
         """
-        locale = Locale.get_active()
+        try:
+            locale = Locale.get_active()
+        except (LookupError, Locale.DoesNotExist):
+            return self
 
         if locale.id == self.locale_id:
             return self
@@ -1209,7 +1212,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Note: This will return translations that are in draft. If you want to exclude
         these, use the ``.localized`` attribute.
         """
-        locale = Locale.get_active()
+        try:
+            locale = Locale.get_active()
+        except (LookupError, Locale.DoesNotExist):
+            return self
 
         if locale.id == self.locale_id:
             return self
