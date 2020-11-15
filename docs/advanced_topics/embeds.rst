@@ -193,29 +193,34 @@ For example, this is how you can instruct Youtube to return videos in HTTPS
 
 .. _Instagram:
 
-Instagram
----------
+Facebook and Instagram
+----------------------
 
-As of October 2020, Facebook deprecated the public Instagram oEmbed API.
-If you would like to embed Instagram  posts in yoru site, you will need to
-use the new Instagram oEmbed API. This requires you to set up a Facebook
+As of October 2020, Facebook deprecated their public oEmbed APIs. If you would
+like to embed Facebook or Instagram posts in yoru site, you will need to
+use the new authenticated APIs. This requires you to set up a Facebook
 Developer Account and create a Facebook App that includes the oEmbed Product.
-Instructions for creating the neccessary app are in the `Requirements section
-<https://developers.facebook.com/docs/instagram/oembed>`_ of the Facebook
-Developers documentation.
+Instructions for creating the neccessary app are in requirements sections of the
+`Facebook <https://developers.facebook.com/docs/plugins/oembed>`_
+and `Intagram <https://developers.facebook.com/docs/instagram/oembed>`_ documentation.
 
-Once you have your app access tokens (App ID and App Secret), add the Instagram
-finder to your ``WAGTAILEMBEDS_FINDERS`` setting and configure it with those
-two values:
+Once you have your app access tokens (App ID and App Secret), add the Facebook and/or
+Instagram finders to your ``WAGTAILEMBEDS_FINDERS`` setting and configure them with
+the App ID and App Secret from your app:
 
 .. code-block:: python
 
     WAGTAILEMBEDS_FINDERS = [
         {
+            'class': 'wagtail.embeds.finders.facebook',
+            'app_id': 'YOUR FACEBOOK APP_ID HERE',
+            'app_secret': 'YOUR FACEBOOK APP_SECRET HERE',
+        },
+        {
             'class': 'wagtail.embeds.finders.instagram',
-             'app_id': 'YOUR INSTAGRAM APP_ID HERE',
-             'app_secret': 'YOUR INSTAGRAM APP_SECRET HERE',
-         }
+            'app_id': 'YOUR INSTAGRAM APP_ID HERE',
+            'app_secret': 'YOUR INSTAGRAM APP_SECRET HERE',
+        }
     ]
 
 

@@ -1,11 +1,13 @@
 import json
 import re
+
 from urllib import request as urllib_request
-from urllib.error import URLError, HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request
 
 from django.conf import settings
+
 from wagtail.embeds.exceptions import EmbedException, EmbedNotFoundException
 
 from .base import EmbedFinder
@@ -70,9 +72,7 @@ class InstagramOEmbedFinder(EmbedFinder):
         return {
             'title': oembed['title'] if 'title' in oembed else '',
             'author_name': oembed['author_name'] if 'author_name' in oembed else '',
-            'provider_name': oembed['provider_name']
-            if 'provider_name' in oembed
-            else '',
+            'provider_name': oembed['provider_name'] if 'provider_name' in oembed else 'Instagram',
             'type': oembed['type'],
             'thumbnail_url': oembed.get('thumbnail_url'),
             'width': oembed.get('width'),

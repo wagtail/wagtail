@@ -6,6 +6,7 @@ Changelog
 
  * Added support for Python 3.9
  * Add custom finder to support Instagram oEmbed API (Luis Nell)
+ * Add custom finder to support Facebook oEmbed API (Cynthia Kiser)
 
 
 2.11.1 (06.11.2020)
