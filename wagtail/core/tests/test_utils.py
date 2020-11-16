@@ -2,6 +2,7 @@
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase, override_settings
 from django.utils.text import slugify
+from django.utils.translation import _trans
 
 from wagtail.core.models import Page
 from wagtail.core.utils import (
@@ -259,3 +260,36 @@ class TestGetSupportedContentLanguageVariant(TestCase):
             g('xyz')
         with self.assertRaises(LookupError):
             g('xy-zz')
+
+
+@override_settings(
+    USE_I18N=False,
+    WAGTAIL_I18N_ENABLED=False,
+    WAGTAIL_CONTENT_LANGUAGES=None,
+    LANGUAGE_CODE='en-us',
+)
+class TestGetSupportedContentLanguageVariantWithI18nFalse(TestCase):
+    def setUp(self):
+        # Need to forcibly clear the django.utils.translation._trans object when overriding
+        # USE_I18N:
+        # https://github.com/django/django/blob/3.1/django/utils/translation/__init__.py#L46-L48
+        _trans.__dict__.clear()
+
+    def tearDown(self):
+        _trans.__dict__.clear()
+
+    def test_lookup_language_with_i18n_false(self):
+        # Make sure we can handle the 'null' USE_I18N=False implementation of
+        # get_supported_language_variant returning 'en-us' rather than 'en',
+        # despite 'en-us' not being in LANGUAGES.
+        # https://github.com/wagtail/wagtail/issues/6539
+
+        self.assertEqual(get_supported_content_language_variant('en-us'), 'en')
+
+    @override_settings(LANGUAGE_CODE='zz')
+    def test_language_code_not_in_languages(self):
+        # Ensure we can handle a LANGUAGE_CODE setting that isn't defined in LANGUAGES -
+        # in this case get_content_languages has to cope with not being able to retrieve
+        # a display name for the language
+        self.assertEqual(get_supported_content_language_variant('zz'), 'zz')
+        self.assertEqual(get_supported_content_language_variant('zz-gb'), 'zz')
