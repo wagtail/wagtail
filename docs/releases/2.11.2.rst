@@ -18,3 +18,4 @@ Bug fixes
  * Handle ``get_supported_language_variant`` returning a language variant not in ``LANGUAGES`` (Matt Westcott)
  * Reinstate missing icon on settings edit view (Jérôme Lebleu)
  * Avoid performance and pagination logic issues with a large number of languages (Karl Hobley)
+ * Allow deleting the default locale (Matt Westcott)

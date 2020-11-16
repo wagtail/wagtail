@@ -1,8 +1,8 @@
 from django.contrib.messages import get_messages
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.core.models import Locale
+from wagtail.core.models import Locale, Page
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -175,6 +175,10 @@ class TestLocaleDeleteView(TestCase, WagtailTestUtils):
         self.assertFalse(Locale.objects.filter(language_code='fr').exists())
 
     def test_cannot_delete_locales_with_pages(self):
+        # create a French locale so that the deletion is not rejected on grounds of being the only
+        # existing locale
+        Locale.objects.create(language_code='fr')
+
         response = self.post()
 
         self.assertEqual(response.status_code, 200)
@@ -183,6 +187,79 @@ class TestLocaleDeleteView(TestCase, WagtailTestUtils):
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(messages[0].level_tag, 'error')
         self.assertEqual(messages[0].message, "This locale cannot be deleted because there are pages and/or other objects using it.\n\n\n\n\n")
+
+        # Check that the locale was not deleted
+        self.assertTrue(Locale.objects.filter(language_code='en').exists())
+
+    @override_settings(
+        LANGUAGE_CODE='de-at',
+        WAGTAIL_CONTENT_LANGUAGES=[
+            ('en', 'English'),
+            ('fr', 'French'),
+            ('de', 'German'),
+            ('pl', 'Polish'),
+            ('ja', 'Japanese')
+        ]
+    )
+    def test_can_delete_default_locale(self):
+        # The presence of the locale on the root page node (if that's the only thing using the
+        # locale) should not prevent deleting it
+
+        for lang in ('fr', 'de', 'pl', 'ja'):
+            Locale.objects.create(language_code=lang)
+
+        self.assertTrue(Page.get_first_root_node().locale.language_code, 'en')
+        Page.objects.filter(depth__gt=1).delete()
+        response = self.post()
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtaillocales:index'))
+
+        # Check that the locale was deleted
+        self.assertFalse(Locale.objects.filter(language_code='en').exists())
+
+        # root node's locale should now have been reassigned to the one matching the current
+        # LANGUAGE_CODE
+        self.assertTrue(Page.get_first_root_node().locale.language_code, 'de')
+
+    @override_settings(
+        LANGUAGE_CODE='de-at',
+        WAGTAIL_CONTENT_LANGUAGES=[
+            ('en', 'English'),
+            ('fr', 'French'),
+            ('de', 'German'),
+            ('pl', 'Polish'),
+            ('ja', 'Japanese')
+        ]
+    )
+    def test_can_delete_default_locale_when_language_code_has_no_locale(self):
+        Locale.objects.create(language_code='fr')
+
+        self.assertTrue(Page.get_first_root_node().locale.language_code, 'en')
+        Page.objects.filter(depth__gt=1).delete()
+        response = self.post()
+
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtaillocales:index'))
+
+        # Check that the locale was deleted
+        self.assertFalse(Locale.objects.filter(language_code='en').exists())
+
+        # root node's locale should now have been reassigned to 'fr' despite that not matching
+        # LANGUAGE_CODE (because it's the only remaining Locale record)
+        self.assertTrue(Page.get_first_root_node().locale.language_code, 'fr')
+
+    def test_cannot_delete_last_remaining_locale(self):
+        Page.objects.filter(depth__gt=1).delete()
+
+        response = self.post()
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check error message
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(messages[0].level_tag, 'error')
+        self.assertEqual(messages[0].message, "This locale cannot be deleted because there are no other locales.\n\n\n\n\n")
 
         # Check that the locale was not deleted
         self.assertTrue(Locale.objects.filter(language_code='en').exists())
