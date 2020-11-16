@@ -227,7 +227,13 @@ def get_content_languages():
             # USE_I18N=False) returns settings.LANGUAGE_CODE unchanged without accounting for
             # language variants (en-us versus en), so retry with the generic version.
             default_language_code = default_language_code.split("-")[0]
-            language_name = languages[default_language_code]
+            try:
+                language_name = languages[default_language_code]
+            except KeyError:
+                # Can't extract a display name, so fall back on displaying LANGUAGE_CODE instead
+                language_name = settings.LANGUAGE_CODE
+                # Also need to tweak the languages dict to get around the check below
+                languages[default_language_code] = settings.LANGUAGE_CODE
 
         content_languages = [
             (default_language_code, language_name),

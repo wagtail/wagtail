@@ -285,3 +285,11 @@ class TestGetSupportedContentLanguageVariantWithI18nFalse(TestCase):
         # https://github.com/wagtail/wagtail/issues/6539
 
         self.assertEqual(get_supported_content_language_variant('en-us'), 'en')
+
+    @override_settings(LANGUAGE_CODE='zz')
+    def test_language_code_not_in_languages(self):
+        # Ensure we can handle a LANGUAGE_CODE setting that isn't defined in LANGUAGES -
+        # in this case get_content_languages has to cope with not being able to retrieve
+        # a display name for the language
+        self.assertEqual(get_supported_content_language_variant('zz'), 'zz')
+        self.assertEqual(get_supported_content_language_variant('zz-gb'), 'zz')
