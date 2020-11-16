@@ -17,3 +17,4 @@ Bug fixes
  * Gracefully handle missing Locale records on ``Locale.get_active`` and ``.localized`` (Matt Westcott)
  * Handle ``get_supported_language_variant`` returning a language variant not in ``LANGUAGES`` (Matt Westcott)
  * Reinstate missing icon on settings edit view (Jérôme Lebleu)
+ * Avoid performance and pagination logic issues with a large number of languages (Karl Hobley)
