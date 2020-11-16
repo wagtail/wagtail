@@ -43,14 +43,25 @@ class EditView(generic.EditView):
 
 class DeleteView(generic.DeleteView):
     success_message = gettext_lazy("Locale '{0}' deleted.")
-    cannot_delete_message = gettext_lazy("This locale cannot be deleted because there are pages and/or other objects using it.")
     page_title = gettext_lazy("Delete locale")
     confirmation_message = gettext_lazy("Are you sure you want to delete this locale?")
     template_name = 'wagtaillocales/confirm_delete.html'
     queryset = Locale.all_objects.all()
 
     def can_delete(self, locale):
-        return get_locale_usage(locale) == (0, 0)
+        if not self.queryset.exclude(pk=locale.pk).exists():
+            self.cannot_delete_message = gettext_lazy(
+                "This locale cannot be deleted because there are no other locales."
+            )
+            return False
+
+        if get_locale_usage(locale) != (0, 0):
+            self.cannot_delete_message = gettext_lazy(
+                "This locale cannot be deleted because there are pages and/or other objects using it."
+            )
+            return False
+
+        return True
 
     def get_context_data(self, object=None):
         context = context = super().get_context_data()
