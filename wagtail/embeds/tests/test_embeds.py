@@ -18,9 +18,9 @@ from wagtail.embeds.exceptions import EmbedNotFoundException, EmbedUnsupportedPr
 from wagtail.embeds.finders import get_finders
 from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
 from wagtail.embeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
-from wagtail.embeds.finders.facebook import AccessDeniedFacebookException
+from wagtail.embeds.finders.facebook import AccessDeniedFacebookOEmbedException
 from wagtail.embeds.finders.facebook import FacebookOEmbedFinder as FacebookOEmbedFinder
-from wagtail.embeds.finders.instagram import AccessDeniedInstagramException
+from wagtail.embeds.finders.instagram import AccessDeniedInstagramOEmbedException
 from wagtail.embeds.finders.instagram import InstagramOEmbedFinder as InstagramOEmbedFinder
 from wagtail.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
 from wagtail.embeds.models import Embed
@@ -468,7 +468,7 @@ class TestInstagramOEmbed(TestCase):
         err = HTTPError("https://instagr.am/p/CHeRxmnDSYe/", code=401, msg='invalid credentials', hdrs={}, fp=None)
         config = {'side_effect': err}
         with patch.object(urllib.request, 'urlopen', **config):
-            self.assertRaises(AccessDeniedInstagramException, InstagramOEmbedFinder().find_embed,
+            self.assertRaises(AccessDeniedInstagramOEmbedException, InstagramOEmbedFinder().find_embed,
                               "https://instagr.am/p/CHeRxmnDSYe/")
 
     def test_instagram_request_not_found(self):
@@ -528,7 +528,7 @@ class TestFacebookOEmbed(TestCase):
         err = HTTPError("https://fb.watch/ABC123eew/", code=401, msg='invalid credentials', hdrs={}, fp=None)
         config = {'side_effect': err}
         with patch.object(urllib.request, 'urlopen', **config):
-            self.assertRaises(AccessDeniedFacebookException, FacebookOEmbedFinder().find_embed,
+            self.assertRaises(AccessDeniedFacebookOEmbedException, FacebookOEmbedFinder().find_embed,
                               "https://fb.watch/ABC123eew/")
 
     def test_facebook_request_not_found(self):

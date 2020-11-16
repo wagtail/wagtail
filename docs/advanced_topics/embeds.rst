@@ -191,7 +191,6 @@ For example, this is how you can instruct Youtube to return videos in HTTPS
     Wagtail will not try to run any other finder, even if the chosen one didn't
     return an embed.
 
-.. _Instagram:
 
 Facebook and Instagram
 ----------------------

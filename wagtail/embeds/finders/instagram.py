@@ -6,8 +6,6 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request
 
-from django.conf import settings
-
 from wagtail.embeds.exceptions import EmbedException, EmbedNotFoundException
 
 from .base import EmbedFinder
@@ -57,7 +55,7 @@ class InstagramOEmbedFinder(EmbedFinder):
             if isinstance(e, HTTPError) and e.code == 404:
                 raise EmbedNotFoundException
             elif isinstance(e, HTTPError) and e.code in [400, 401, 403]:
-                raise AccessDeniedInstagramException
+                raise AccessDeniedInstagramOEmbedException
             else:
                 raise EmbedNotFoundException
         oembed = json.loads(r.read().decode('utf-8'))
