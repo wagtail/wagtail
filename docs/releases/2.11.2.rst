@@ -15,3 +15,4 @@ Bug fixes
 
  * Improve performance of permission check on translations for edit page (Karl Hobley)
  * Gracefully handle missing Locale records on ``Locale.get_active`` and ``.localized`` (Matt Westcott)
+ * Handle ``get_supported_language_variant`` returning a language variant not in ``LANGUAGES`` (Matt Westcott)
