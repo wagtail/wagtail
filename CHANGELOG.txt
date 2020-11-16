@@ -13,6 +13,7 @@ Changelog
  * Fix: Improve performance of permission check on translations for edit page (Karl Hobley)
  * Fix: Gracefully handle missing Locale records on `Locale.get_active` and `.localized` (Matt Westcott)
  * Fix: Handle `get_supported_language_variant` returning a language variant not in `LANGUAGES` (Matt Westcott)
+ * Fix: Reinstate missing icon on settings edit view (Jérôme Lebleu)
 
 
 2.11.1 (06.11.2020)
