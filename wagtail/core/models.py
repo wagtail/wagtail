@@ -373,6 +373,26 @@ class Locale(models.Model):
         except (cls.DoesNotExist, LookupError):
             return cls.get_default()
 
+    @transaction.atomic
+    def delete(self, *args, **kwargs):
+        # if we're deleting the locale used on the root page node, reassign that to a new locale first
+        root_page_with_this_locale = Page.objects.filter(depth=1, locale=self)
+        if root_page_with_this_locale.exists():
+            # Select the default locale, if one exists and isn't the one being deleted
+            try:
+                new_locale = Locale.get_default()
+                default_locale_is_ok = (new_locale != self)
+            except (Locale.DoesNotExist, LookupError):
+                default_locale_is_ok = False
+
+            if not default_locale_is_ok:
+                # fall back on any remaining locale
+                new_locale = Locale.all_objects.exclude(pk=self.pk).first()
+
+            root_page_with_this_locale.update(locale=new_locale)
+
+        return super().delete(*args, **kwargs)
+
     def language_code_is_valid(self):
         return self.language_code in get_content_languages()
 

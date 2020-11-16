@@ -15,6 +15,7 @@ Changelog
  * Fix: Handle `get_supported_language_variant` returning a language variant not in `LANGUAGES` (Matt Westcott)
  * Fix: Reinstate missing icon on settings edit view (Jérôme Lebleu)
  * Fix: Avoid performance and pagination logic issues with a large number of languages (Karl Hobley)
+ * Fix: Allow deleting the default locale (Matt Westcott)
 
 
 2.11.1 (06.11.2020)
