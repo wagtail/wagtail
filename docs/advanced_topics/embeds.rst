@@ -197,12 +197,12 @@ Facebook and Instagram
 ----------------------
 
 As of October 2020, Facebook deprecated their public oEmbed APIs. If you would
-like to embed Facebook or Instagram posts in yoru site, you will need to
+like to embed Facebook or Instagram posts in your site, you will need to
 use the new authenticated APIs. This requires you to set up a Facebook
 Developer Account and create a Facebook App that includes the oEmbed Product.
-Instructions for creating the neccessary app are in requirements sections of the
+Instructions for creating the neccessary app are in the requirements sections of the
 `Facebook <https://developers.facebook.com/docs/plugins/oembed>`_
-and `Intagram <https://developers.facebook.com/docs/instagram/oembed>`_ documentation.
+and `Instagram <https://developers.facebook.com/docs/instagram/oembed>`_ documentation.
 
 Once you have your app access tokens (App ID and App Secret), add the Facebook and/or
 Instagram finders to your ``WAGTAILEMBEDS_FINDERS`` setting and configure them with

@@ -13,7 +13,7 @@ from wagtail.embeds.exceptions import EmbedException, EmbedNotFoundException
 from .base import EmbedFinder
 
 
-class AccessDeniedInstagramException(EmbedException):
+class AccessDeniedInstagramOEmbedException(EmbedException):
     pass
 
 
@@ -43,7 +43,7 @@ class InstagramOEmbedFinder(EmbedFinder):
         params = {'url': url, 'format': 'json'}
         if max_width:
             params['maxwidth'] = max_width
-        if getattr(settings, 'INSTAGRAM_OMITSCRIPT', False):
+        if self.omitscript:
             params['omitscript'] = 'true'
 
         # Configure request
