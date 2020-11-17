@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,7 +48,7 @@ msgstr ""
 msgid "Unpublish"
 msgstr ""
 
-#: action_menu.py:187 localization.py:54
+#: action_menu.py:187 localization.py:55
 #: templates/wagtailadmin/block_forms/list_member.html:11
 #: templates/wagtailadmin/block_forms/stream_member.html:18
 #: templates/wagtailadmin/edit_handlers/inline_panel_child.html:17
@@ -91,11 +91,11 @@ msgstr ""
 msgid "Wagtail admin"
 msgstr ""
 
-#: auth.py:44
+#: auth.py:43
 msgid "Sorry, you do not have permission to access this area."
 msgstr ""
 
-#: auth.py:200
+#: auth.py:202
 msgid "You do not have permission to access the admin"
 msgstr ""
 
@@ -385,102 +385,106 @@ msgid "Galician"
 msgstr ""
 
 #: localization.py:23
-msgid "Hungarian"
+msgid "Croatian"
 msgstr ""
 
 #: localization.py:24
-msgid "Indonesian"
+msgid "Hungarian"
 msgstr ""
 
 #: localization.py:25
-msgid "Icelandic"
+msgid "Indonesian"
 msgstr ""
 
 #: localization.py:26
-msgid "Italian"
+msgid "Icelandic"
 msgstr ""
 
 #: localization.py:27
-msgid "Japanese"
+msgid "Italian"
 msgstr ""
 
 #: localization.py:28
-msgid "Korean"
+msgid "Japanese"
 msgstr ""
 
 #: localization.py:29
-msgid "Lithuanian"
+msgid "Korean"
 msgstr ""
 
 #: localization.py:30
-msgid "Mongolian"
+msgid "Lithuanian"
 msgstr ""
 
 #: localization.py:31
-msgid "Norwegian Bokmål"
+msgid "Mongolian"
 msgstr ""
 
 #: localization.py:32
-msgid "Netherlands Dutch"
+msgid "Norwegian Bokmål"
 msgstr ""
 
 #: localization.py:33
-msgid "Persian"
+msgid "Netherlands Dutch"
 msgstr ""
 
 #: localization.py:34
-msgid "Polish"
+msgid "Persian"
 msgstr ""
 
 #: localization.py:35
-msgid "Brazilian Portuguese"
+msgid "Polish"
 msgstr ""
 
 #: localization.py:36
-msgid "Portuguese"
+msgid "Brazilian Portuguese"
 msgstr ""
 
 #: localization.py:37
-msgid "Romanian"
+msgid "Portuguese"
 msgstr ""
 
 #: localization.py:38
-msgid "Russian"
+msgid "Romanian"
 msgstr ""
 
 #: localization.py:39
-msgid "Swedish"
+msgid "Russian"
 msgstr ""
 
 #: localization.py:40
-msgid "Slovak"
+msgid "Swedish"
 msgstr ""
 
 #: localization.py:41
-msgid "Thai"
+msgid "Slovak"
 msgstr ""
 
 #: localization.py:42
-msgid "Turkish"
+msgid "Thai"
 msgstr ""
 
 #: localization.py:43
-msgid "Turkish (Turkey)"
+msgid "Turkish"
 msgstr ""
 
 #: localization.py:44
-msgid "Ukrainian"
+msgid "Turkish (Turkey)"
 msgstr ""
 
 #: localization.py:45
-msgid "Chinese (Simplified)"
+msgid "Ukrainian"
 msgstr ""
 
 #: localization.py:46
+msgid "Chinese (Simplified)"
+msgstr ""
+
+#: localization.py:47
 msgid "Chinese (Traditional)"
 msgstr ""
 
-#: localization.py:55 templates/wagtailadmin/home/locked_pages.html:32
+#: localization.py:56 templates/wagtailadmin/home/locked_pages.html:32
 #: templates/wagtailadmin/home/pages_for_moderation.html:50
 #: templates/wagtailadmin/home/recent_edits.html:28
 #: templates/wagtailadmin/home/workflow_pages_to_moderate.html:42
@@ -493,103 +497,103 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: localization.py:56 templates/wagtailadmin/reports/site_history.html:10
+#: localization.py:57 templates/wagtailadmin/reports/site_history.html:10
 #: templates/wagtailadmin/reports/workflow.html:20
 #: templates/wagtailadmin/reports/workflow_tasks.html:20
 #: templates/wagtailadmin/workflows/includes/workflow_pages_formset.html:19
 msgid "Page"
 msgstr ""
 
-#: localization.py:57 wagtail_hooks.py:53 wagtail_hooks.py:80
+#: localization.py:58 wagtail_hooks.py:53 wagtail_hooks.py:80
 msgid "Pages"
 msgstr ""
 
-#: localization.py:58
+#: localization.py:59
 msgid "Loading…"
 msgstr ""
 
-#: localization.py:59
+#: localization.py:60
 msgid "No results"
 msgstr ""
 
-#: localization.py:60 views/workflows.py:495
+#: localization.py:61 views/workflows.py:495
 msgid "Server Error"
 msgstr ""
 
-#: localization.py:61
+#: localization.py:62
 msgid "See all"
 msgstr ""
 
-#: localization.py:62
+#: localization.py:63
 msgid "Close explorer"
 msgstr ""
 
-#: localization.py:63
+#: localization.py:64
 msgid "Alt text"
 msgstr ""
 
-#: localization.py:64
+#: localization.py:65
 msgid "Write here…"
 msgstr ""
 
-#: localization.py:65
+#: localization.py:66
 msgid "Horizontal line"
 msgstr ""
 
-#: localization.py:66
+#: localization.py:67
 msgid "Line break"
 msgstr ""
 
-#: localization.py:67
+#: localization.py:68
 msgid "Undo"
 msgstr ""
 
-#: localization.py:68
+#: localization.py:69
 msgid "Redo"
 msgstr ""
 
-#: localization.py:69
+#: localization.py:70
 msgid "Reload the page"
 msgstr ""
 
-#: localization.py:70
+#: localization.py:71
 msgid "Reload saved content"
 msgstr ""
 
-#: localization.py:71
+#: localization.py:72
 msgid "Show latest content"
 msgstr ""
 
-#: localization.py:72
+#: localization.py:73
 msgid "Show error"
 msgstr ""
 
-#: localization.py:73
+#: localization.py:74
 msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr ""
 
-#: localization.py:74
+#: localization.py:75
 msgid "Broken link"
 msgstr ""
 
-#: localization.py:75
+#: localization.py:76
 msgid "Missing document"
 msgstr ""
 
-#: localization.py:76 templates/wagtailadmin/pages/preview_error.html:19
+#: localization.py:77 templates/wagtailadmin/pages/preview_error.html:19
 msgid "Close"
 msgstr ""
 
-#: localization.py:77
+#: localization.py:78
 msgid "Edit '{title}'"
 msgstr ""
 
-#: localization.py:78
+#: localization.py:79
 msgid "View child pages of '{title}'"
 msgstr ""
 
-#: localization.py:79
+#: localization.py:80
 msgid "Page explorer"
 msgstr ""
 
