@@ -526,13 +526,13 @@ Translators
 * Lithuanian: Matas Dailyda, Naglis Jonaitis
 * Mongolian: Myagmarjav Enkhbileg, Delgermurun Purevkhuu
 * Norwegian Bokmål: Eirik Krogstad, Ole Kristian Losvik, Robin Skahjem-Eriksen, Stein Strindhaug
-* Persian: Ehsan Jahanbakhsh, Mohammad reza Jelveh, Mehdi, Mohammad Hossein Mojtahedi, Hamed Najand, Mohammad Sharif Shokouhi, Py Zenberg
+* Persian: Mohsen Hassani, Ehsan Jahanbakhsh, Mohammad reza Jelveh, Mehdi, Mohammad Hossein Mojtahedi, Hamed Najand, Mohammad Sharif Shokouhi, Py Zenberg
 * Polish: Łukasz Bołdys, Konrad Lalik, Miron Levitsky, Mateusz, Miłosz Miśkiewicz, Bartek Sielicki, Grzegorz Wasilewski, Bartosz Wiśniewski
 * Portuguese (Brazil): Claudemiro Alves Feitosa Neto, Bruno Bertoldi, Luiz Boaretto, Gladson Brito, Thiago Cangussu, Daniel Carvalho, Vitor Hugo da Silva Lima, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete
 * Portuguese (Portugal): Gladson Brito, Hugo Cachitas, Thiago Cangussu, Luís Favas, Tiago Henriques, Jose Lourenco, Rui Martins, Nuno Matos, Douglas Miranda, Diogo Ribeiro, Manuela Silva
 * Romanian: Dan Braghis, Bogdan Mateescu
 * Russian: ajk, Andrey Avdey, Daniil, Mikhail Gerasimov, gsstver, sergeybe, Sergey Khalymon, Sergey Komarov, Miron Levitskiy, Arseni M, Eugene MechanisM, Rustam Mirzaev, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Mikhail Sidorov, Nikita Tonkoshkur, Alexey Trofimov, Tatsiana Tsygan, Viktor, Nikita Viktorovich, Vassiliy Vorobyov
-* Slovak (Slovakia): Stevo Backor, dellax, Martin Janšto, Jozef Karabelly
+* Slovak (Slovakia): Stevo Backor, dellax, Jozef Gáborík, Martin Janšto, Jozef Karabelly
 * Slovenian: Mitja Pagon, Matej Stavanja
 * Spanish: Mauricio Baeza, Daniel Chimeno, Oscar Luciano Espirilla Flores, fonso, fooflare, José Luis, Maylon Pedroso, Joaquín Tita, Daniel Wohlgemuth, Unai Zalakain
 * Swedish: Philip Andersen, Andreas Bergström, Jim Brouzoulis, Oscar Fröberg, Alexander Holmbäck, Elias Johnstone, André Karlsson, Jon Karlsson, Ludwig Kjellström, Thomas Kunambi, Andreas Lans, Hannes Lohmander, Martin Sandström
