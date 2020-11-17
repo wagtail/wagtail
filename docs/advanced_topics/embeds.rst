@@ -222,6 +222,12 @@ the App ID and App Secret from your app:
         }
     ]
 
+By default, Facebook and Instagram embeds include some JavaScript that is necessary to
+fully render the embed. In certain cases, this might not be something you want - for
+example, if you have multiple Facebook embeds, this would result in multiple script tags.
+By passing ``'omitscript': True`` in the configuration, you can indicate that these script
+tags should be omitted from the embed HTML. Note that you will then have to take care of
+loading this script yourself.
 
 
 .. _Embedly:
