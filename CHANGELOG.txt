@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.11.2 (xx.xx.xxxx) - IN DEVELOPMENT
+2.11.2 (17.11.2020)
 ~~~~~~~~~~~~~~~~~~~
 
  * Add custom finder to support Instagram oEmbed API (Luis Nell)
