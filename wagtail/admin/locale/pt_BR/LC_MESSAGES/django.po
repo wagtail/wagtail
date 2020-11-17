@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-11-10 13:17+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -145,6 +145,13 @@ msgstr "Entre com seu email para resetar sua senha"
 msgid "URL"
 msgstr "URL"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Selecione a posição hierárquica. Nota: uma coleção não pode se tornar filha "
+"de si mesma ou de seus descendentes."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Você não pode ter vários registros de permissão para a mesma coleção."
 
@@ -191,6 +198,9 @@ msgstr[0] ""
 msgstr[1] ""
 "%(count)s das páginas que estão sendo copiadas, estão publicadas. Você "
 "gostaria de publicar suas cópias?"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Mantenha as novas páginas atualizadas com alterações futuras"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -943,6 +953,15 @@ msgstr "Escolhe o tipo de página gostaria de criar."
 msgid "Pages using %(page_type)s"
 msgstr "Páginas usando %(page_type)s"
 
+msgid "This action cannot be undone."
+msgstr "Essa ação não pode ser desfeita."
+
+msgid "Yes, convert it"
+msgstr "Sim, converta"
+
+msgid "No, leave it as an alias"
+msgstr "Não, deixe como um alias"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Excluir %(title)s"
@@ -1092,6 +1111,12 @@ msgstr "Editando %(page_type)s"
 
 msgid "History"
 msgstr "Histórico"
+
+msgid "Edit original page"
+msgstr "Editar página original"
+
+msgid "Convert this alias into a regular page"
+msgstr "Converta este alias em uma página normal"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1471,6 +1496,10 @@ msgstr "Fluxo de trabalho iniciado"
 
 msgid "Workflow completed"
 msgstr "Fluxo de trabalho concluído"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Histórico de fluxo de trabalho para %(title)s"
 
 msgid "Workflow history for"
 msgstr "Histórico de fluxo de trabalho para"
@@ -1988,8 +2017,15 @@ msgstr "Workflow '{0}' habilitado."
 msgid "Workflow removed from Page '{0}'."
 msgstr "Workflow removido da Página '{0}'."
 
+msgid "Task '{0}' created."
+msgstr "Tarefa '{0}' criada."
+
 msgid "Task '{0}' updated."
 msgstr "Tarefa '{0}' atualizada."
+
+#, python-format
+msgid "Editing %(task_type)s"
+msgstr "Editando %(task_type)s"
 
 msgid "Disable task"
 msgstr "Desativar tarefa"
@@ -2140,17 +2176,37 @@ msgstr "Aprovado"
 msgid "Rejected"
 msgstr "Rejeitado"
 
+msgid "Reverted to previous revision"
+msgstr "Revertido para a revisão anterior"
+
 msgid "Copied"
 msgstr "Copiado"
 
 msgid "Moved"
 msgstr "Movido"
 
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Página agendada para publicação em %(go_live_at)s"
+
 msgid "Page scheduled for publishing"
 msgstr "Página agendada para publicação"
 
 msgid "Added view restriction"
 msgstr "Adicionada restrição de visualização"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Renomeou de '%(old)s' para '%(new)s'"
+
+msgid "Renamed"
+msgstr "Renomeado"
+
+msgid "Rename"
+msgstr "Renomear"
+
+msgid "Schedule publication"
+msgstr "Agendar publicação"
 
 msgid "Update view restrictions"
 msgstr "Atualizar restrições de visualização"
@@ -2178,3 +2234,6 @@ msgstr "Edite este item"
 
 msgid "Choose another page"
 msgstr "Escolher outra página"
+
+msgid "Edit this task"
+msgstr "Edite esta tarefa"

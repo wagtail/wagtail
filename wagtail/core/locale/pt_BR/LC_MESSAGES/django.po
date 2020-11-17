@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-11-10 13:23+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -94,6 +94,9 @@ msgstr "site"
 
 msgid "sites"
 msgstr "sites"
+
+msgid "default"
+msgstr "padrão"
 
 #, python-format
 msgid ""
@@ -182,17 +185,26 @@ msgstr "última publicação em"
 msgid "latest revision created at"
 msgstr "revisão mais recente criada em"
 
+msgid "live revision"
+msgstr "revisão online"
+
 msgid "This slug is already in use"
 msgstr "Este slug já está em uso"
 
 msgid "scheduled"
 msgstr "agendado"
 
+msgid "in moderation"
+msgstr "em moderação"
+
 msgid "draft"
 msgstr "rascunho"
 
 msgid "live + scheduled"
 msgstr "online + agendado"
+
+msgid "live + in moderation"
+msgstr "online + em moderação"
 
 msgid "live + draft"
 msgstr "online + rascunho"
@@ -328,6 +340,63 @@ msgstr "grupo de permissão de coleção"
 
 msgid "group collection permissions"
 msgstr "grupo de permissões de coleção"
+
+msgid "task"
+msgstr "tarefa"
+
+msgid "active"
+msgstr "ativo"
+
+msgid "tasks"
+msgstr "tarefas"
+
+msgid "Approve"
+msgstr "Aprovar"
+
+msgid "Approve with comment"
+msgstr "Aprovar com comentário"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Membros dos grupos de Wagtail escolhidos podem aprovar esta tarefa"
+
+msgid "In progress"
+msgstr "Em progresso"
+
+msgid "Approved"
+msgstr "Aprovado"
+
+msgid "Needs changes"
+msgstr "Necessita de mudanças"
+
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgid "requested by"
+msgstr "solicitado por"
+
+msgid "current task state"
+msgstr "estado atual da tarefa"
+
+msgid "Not started"
+msgstr "Não foi iniciado"
+
+msgid "Rejected"
+msgstr "Rejeitado"
+
+msgid "Skipped"
+msgstr "Ignorado"
+
+msgid "started at"
+msgstr "começou às"
+
+msgid "finished at"
+msgstr "terminou às"
+
+msgid "finished by"
+msgstr "terminado por"
+
+msgid "system"
+msgstr "sistema"
 
 msgid "Log in"
 msgstr "Entrar"

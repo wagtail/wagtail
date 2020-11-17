@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-02 15:44+0000\n"
+"PO-Revision-Date: 2020-11-07 14:59+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -75,7 +75,7 @@ msgid "Scheduled publishing"
 msgstr "定時發佈"
 
 msgid "Privacy"
-msgstr "私有設置"
+msgstr "隱蔽設置"
 
 msgid "Common page configuration"
 msgstr "常用頁面配置"
@@ -100,6 +100,9 @@ msgstr "顯示"
 
 msgid "Awaiting my review"
 msgstr "待審中"
+
+msgid "Completed at"
+msgstr "完成時間"
 
 msgid "Workflow"
 msgstr "工作流程"
@@ -127,7 +130,7 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr "對於同一個集合你不能設置多重權限"
 
 msgid "New title"
-msgstr "新標題"
+msgstr "新增標題"
 
 msgid "New slug"
 msgstr "新增短標題"
@@ -205,6 +208,9 @@ msgstr "請至少選擇一個組。"
 
 msgid "All types"
 msgstr "所有類型"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "此頁面已指派至工作流程 '{0}'"
 
 msgid "You cannot assign this workflow to the same page multiple times."
 msgstr "無法多次指派此工作流程至相同頁面"
@@ -363,6 +369,9 @@ msgstr "編輯 '{title}'"
 msgid "View child pages of '{title}'"
 msgstr "檢視 '{title}' 子頁面"
 
+msgid "Page explorer"
+msgstr "頁面瀏覽器"
+
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "未知 %(action)s"
@@ -512,7 +521,7 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"這里只能選擇 \"%(type)s\"類型的頁面。搜索結果會過濾掉其它類型。"
+"僅能選擇 \"%(type)s\"類型的頁面。搜尋結果將排除其它類型的頁面。"
 
 msgid "Add an email link"
 msgstr "新增電子郵件"
@@ -524,26 +533,32 @@ msgid "Add an external link"
 msgstr "新增外部連結"
 
 msgid "Collection privacy"
-msgstr "集合私有設置"
+msgstr "集合隱蔽設置"
 
 msgid "This collection has been made private by a parent collection."
-msgstr "這個集合已經被父集合設為私有。"
+msgstr "這個集合已經被父集合設為隱蔽。"
 
 msgid "You can edit the privacy settings on:"
-msgstr "你可以在這里修改此私有設置："
+msgstr "你可以在此修改隱蔽設置："
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
-msgstr "私有設置決定誰可以查看這個集合中的文檔。"
+msgstr "隱蔽設置可檢視此文件集合之使用者。"
 
 msgid "Save"
 msgstr "儲存"
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "集合隱蔽設定。目前狀態：公開"
+
 msgid "Public"
 msgstr "公開"
 
+msgid "Set collection privacy. Current status: Private"
+msgstr "集合隱蔽設定。目前狀態：隱蔽"
+
 msgid "Private"
-msgstr "私有"
+msgstr "隱蔽"
 
 msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
@@ -573,7 +588,16 @@ msgstr "歡迎使用 %(site_name)s  Wagtail 內容管理系統"
 msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
-msgstr "這是您的主控台，將會顯示您創建的內容的幫助信息。"
+msgstr "此面版可顯示你所建立內容的相關資訊。"
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail 已逐步移除對 IE11 的支援，可能對於你或你的組織造成影響。<a href="
+"\"%(url)s\">查看更多有關 IE11 的支援計畫</a>"
 
 msgid "Your locked pages"
 msgstr "你已鎖定的頁面"
@@ -735,13 +759,13 @@ msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "頁面 \"%(title)s\" 已被 \"%(workflow)s\" 駁回"
 
 msgid "Page privacy"
-msgstr "頁面隱私設置"
+msgstr "頁面隱蔽設置"
 
 msgid "This page has been made private by a parent page."
-msgstr "此頁面已被父節點設置為私有。"
+msgstr "此頁面已被父節點設置為隱蔽。"
 
 msgid "Privacy changes apply to all children of this page too."
-msgstr "私有設置也會應用到此頁面的所有子頁面。"
+msgstr "隱蔽設置也會套用至所有子頁面。"
 
 msgid "Visit the live page"
 msgstr "查看線上頁面"
@@ -750,16 +774,16 @@ msgid "restricted"
 msgstr "已受限"
 
 msgid "Set page privacy. Current status: Public"
-msgstr "設定頁面隱私。目前狀態：公開"
+msgstr "頁面隱蔽設定。目前狀態：公開"
 
 msgid "Set page privacy. Current status: Private"
-msgstr "設定頁面隱私。目前狀態：隱藏"
+msgstr "頁面隱蔽設定。目前狀態：隱蔽"
 
 msgid "Page privacy. Current status: Public"
-msgstr "頁面隱私。目前狀態：公開"
+msgstr "頁面隱蔽。目前狀態：公開"
 
 msgid "Page privacy. Current status: Private"
-msgstr "頁面隱私。目前狀態：隱藏"
+msgstr "頁面隱蔽。目前狀態：隱蔽"
 
 msgid "Publishing…"
 msgstr "正在發佈..."
@@ -1159,7 +1183,7 @@ msgid "Current status:"
 msgstr "目前狀態："
 
 msgid "Set page privacy"
-msgstr "設定頁面隱私"
+msgstr "設定頁面隱蔽"
 
 msgid "Review this version"
 msgstr "審核此版本"
@@ -1309,7 +1333,7 @@ msgid "Workflow started"
 msgstr "已開始工作流程"
 
 msgid "Workflow completed"
-msgstr "已完畢工作流程"
+msgstr "已完成工作流程"
 
 msgid "Edit page"
 msgstr "編輯頁面"
@@ -1393,6 +1417,9 @@ msgstr "新增子頁面"
 msgid "Show in Explorer"
 msgstr "在資源管理器中顯示"
 
+msgid "Are you sure you want to disable this workflow?"
+msgstr "確定禁用此工作流程？"
+
 msgid "Yes, disable"
 msgstr "確認禁用"
 
@@ -1408,6 +1435,12 @@ msgstr "建立中"
 msgid "Create"
 msgstr "建立"
 
+msgid "This workflow is disabled so it cannot be assigned to any pages."
+msgstr "已禁用此工作流程且無法指派至任何頁面。"
+
+msgid "Used on the following active workflows"
+msgstr "已使用於以下啟用中的流程"
+
 msgid "Not used"
 msgstr "未使用"
 
@@ -1422,6 +1455,9 @@ msgstr "隱藏已禁用的工作流程"
 
 msgid "Show disabled workflows"
 msgstr "顯示已禁用之工作流程"
+
+msgid "Used by"
+msgstr "已使用"
 
 #, python-format
 msgid ""
@@ -1446,11 +1482,17 @@ msgstr "選擇需建立的作業類型"
 msgid "Choose a task"
 msgstr "選則作業"
 
+msgid "Existing"
+msgstr "現有"
+
 msgid "Choose a different task type"
 msgstr "選擇其它作業類型"
 
 msgid "Task type"
 msgstr "作業類型"
+
+msgid "Used on"
+msgstr "已用於"
 
 msgid "You haven't created any tasks."
 msgstr "尚未建立任何作業"
@@ -1460,6 +1502,10 @@ msgstr "隱藏已禁用的作業"
 
 msgid "Show disabled tasks"
 msgstr "顯示已禁用的作業"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "使用工作流程 '%(name)s' 的頁面"
 
 msgid "Pages that use workflow"
 msgstr "使用工作流程的頁面"
@@ -1681,6 +1727,9 @@ msgstr "已禁用工作流程 '{0}'"
 msgid "Workflow '{0}' enabled."
 msgstr "已啟用流程 '{0}'"
 
+msgid "Workflow removed from Page '{0}'."
+msgstr "已移除頁面 '{0}' 之工作流程"
+
 msgid "New workflow task"
 msgstr "新增工作流程作業"
 
@@ -1713,6 +1762,10 @@ msgstr "編輯 '%(title)s'"
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "預覽草稿版本 '%(title)s'"
+
+#, python-format
+msgid "Add a child page to '%(title)s' "
+msgstr "新增子頁面至 '%(title)s'"
 
 msgid "More"
 msgstr "更多"
@@ -1877,7 +1930,7 @@ msgstr "已核准 '%(task)s' ，下一步驟 '%(next_task)s'"
 
 #, python-format
 msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "已核准 '%(task)s' ，'%(workflow)s' 完畢"
+msgstr "已核准 '%(task)s' ，'%(workflow)s' 完成"
 
 msgid "Workflow task approved"
 msgstr "已核准工作流程作業"
@@ -1887,7 +1940,7 @@ msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "已駁回 '%(task)s' ，需進行變更"
 
 msgid "Workflow task rejected. Workflow complete"
-msgstr "已駁回工作流程作業。工作流程完畢"
+msgstr "已駁回工作流程作業。工作流程完成"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
