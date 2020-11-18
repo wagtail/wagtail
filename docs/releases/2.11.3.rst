@@ -1,0 +1,43 @@
+============================
+Wagtail 2.11.3 release notes
+============================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ *
+
+
+Upgrade considerations
+======================
+
+If you have used the Wagtail project template, or have migrations that create page instances programmatically, you will
+need to add ``run_before = [('wagtailcore', '0053_locale_model')]`` to the corresponding ``Migration`` class.
+
+For example, ``0002_create_homepage.py`` (from the project template):
+
+.. code-block:: python
+
+    # ...
+
+    class Migration(migrations.Migration):
+
+    run_before = [
+        ('wagtailcore', '0053_locale_model'),  # added for Wagtail 2.11 compatibility
+    ]
+
+    dependencies = [
+        ('home', '0001_initial'),
+    ]
+
+    operations = [
+        migrations.RunPython(create_homepage, remove_homepage),
+    ]
