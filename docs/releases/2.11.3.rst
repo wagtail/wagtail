@@ -1,0 +1,56 @@
+============================
+Wagtail 2.11.3 release notes
+============================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ *
+
+
+Upgrade considerations
+======================
+
+If you have migrations that create pages programmatically that fail with ``django.db.utils.IntegrityError: NOT NULL constraint failed: wagtailcore_page.locale_id``,
+you will need to update them to use include the locale. For example:
+
+.. code-block:: python
+
+    def create_index_page():
+        # Get models
+        ContentType = apps.get_model('contenttypes.ContentType')
+        IndexPage = apps.get_model('myapp.MyIndexPage')
+        Page = apps.get_model('wagtailcore.Page')
+        Locale = apps.get_model('wagtailcore.Locale')  # newly added
+
+        # Create content type for the model
+        index_content_type, created = ContentType.objects.get_or_create(model='myindexpaage', app_label='myapp')
+
+        # Delete any existing data
+        IndexPage.objects.all().delete()
+
+        home_page = Page.objects.get(url_path="/home/")
+
+        # Create a new page
+        IndexPage.objects.create(
+            title="My Index Page",
+            draft_title="My Index Page",
+            live=True,
+            slug='images',
+            path='%s00%02d' % (home_page.path, home_page.numchild + 1),
+            content_type=index_content_type,
+            depth=home_page.depth + 1,
+            url_path='%s%s/' % (home_page.url_path, 'my-index-page'),
+            locale=Locale.objects.first()  # newly added
+        )
+
+        home_page.numchild += 1
+        home_page.save()
