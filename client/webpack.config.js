@@ -32,9 +32,6 @@ module.exports = function exports() {
 
   return {
     entry: entry,
-    externals: {
-      annotator: 'annotator',
-    },
     output: {
       path: path.resolve('.'),
       filename: '[name].js',
