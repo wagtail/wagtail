@@ -655,13 +655,13 @@ Redirects
 
 .. code-block:: python
 
-   WAGTAIL_REDIRECTS_FILE_STORAGE = 'tmp_file'
+   WAGTAIL_REDIRECTS_FILE_STORAGE = 'cache'
 
-By default the redirect importer keeps track of the uploaded file as a temp file, but on certain environments (load balanced/cloud environments), you cannot keep a shared file between environments. For those cases you can use the built-in cache to store the file instead.
+By default the redirect importer keeps track of the uploaded file by storing it in the built-in cache. It's less effective then handling the upload as a actual file, but lets us support load balanced environment out of the box. If you are on a single server environment you can use the more effective tmp_file method instead.
 
 .. code-block:: python
 
-   WAGTAIL_REDIRECTS_FILE_STORAGE = 'cache'
+   WAGTAIL_REDIRECTS_FILE_STORAGE = 'tmp_file'
 
 Form builder
 ============
