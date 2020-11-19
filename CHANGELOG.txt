@@ -9,6 +9,7 @@ Changelog
  * Added `WAGTAILIMAGES_IMAGE_FORM_BASE` and `WAGTAILDOCS_DOCUMENT_FORM_BASE` settings to customise the forms for images and documents (Dan Braghis)
  * Switch pagination icons to use SVG instead of icon fonts (Scott Cranfill)
  * Added string representation to image Format class (Andreas Nüßlein)
+ * Support returning None from `register_page_action_menu_item` and `register_snippet_action_menu_item` to skip registering an item (Vadim Karpenko)
  * Fix: Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)
  * Fix: Make sure document chooser pagination preserves the selected collection when moving between pages (Alex Sa)
 

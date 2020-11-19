@@ -488,6 +488,7 @@ Contributors
 * Alex Sa
 * Andreas Morgenstern
 * Kristin Riebe
+* Vadim Karpenko
 
 Translators
 ===========

@@ -100,7 +100,9 @@ def get_base_snippet_action_menu_items(model):
     ]
 
     for hook in hooks.get_hooks('register_snippet_action_menu_item'):
-        menu_items.append(hook(model))
+        action_menu_item = hook(model)
+        if action_menu_item:
+            menu_items.append(action_menu_item)
 
     return menu_items
 
