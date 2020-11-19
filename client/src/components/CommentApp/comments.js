@@ -6,16 +6,18 @@ function initComments(author, initialComments) {
   // store their initialisations as callbacks to be executed when the comment app
   // itself is finished initialising.
   const callbacks = [];
-  window.commentApp = {registerWidget: (widget) => {
-    callbacks.push(() => {window.commentApp.registerWidget(widget)})
-  }}
-  document.addEventListener("DOMContentLoaded", () => {
-    const commentsElement = document.getElementById('comments')
+  window.commentApp = {
+    registerWidget: (widget) => {
+      callbacks.push(() => { window.commentApp.registerWidget(widget); });
+    }
+  };
+  document.addEventListener('DOMContentLoaded', () => {
+    const commentsElement = document.getElementById('comments');
     if (commentsElement) {
       window.commentApp = initCommentsApp(commentsElement, author, initialComments, STRINGS);
-      callbacks.forEach((callback) => {callback()})
+      callbacks.forEach((callback) => { callback(); });
     }
-  })
+  });
 }
 
 function getContentPath(fieldNode) {
@@ -73,7 +75,7 @@ class FieldLevelCommentWidget {
   constructor(
     fieldNode,
     commentAdditionNode,
-    annotationTemplateNode,
+    annotationTemplateNode
   ) {
     this.fieldNode = fieldNode;
     this.contentPath = getContentPath(fieldNode);
@@ -118,7 +120,7 @@ function initFieldLevelCommentWidget(fieldElement) {
   const widget = new FieldLevelCommentWidget(
     fieldElement,
     fieldElement.querySelector('[data-comment-add]'),
-    document.querySelector('#comment-icon'),
+    document.querySelector('#comment-icon')
   );
   if (widget.contentPath) {
     window.commentApp.registerWidget(widget);
