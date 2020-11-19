@@ -41,6 +41,6 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPer
     });
 
     if (window.comments) {
-        window.comments.prepareFieldLevelCommentInit(chooserElement[0]);
+        window.comments.initFieldLevelCommentWidget(chooserElement[0]);
     }
 }

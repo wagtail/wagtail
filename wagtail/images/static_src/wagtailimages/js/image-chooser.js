@@ -31,6 +31,6 @@ function createImageChooser(id) {
     });
 
     if (window.comments) {
-        window.comments.prepareFieldLevelCommentInit(chooserElement[0]);
+        window.comments.initFieldLevelCommentWidget(chooserElement[0]);
     }
 }

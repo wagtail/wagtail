@@ -186,9 +186,6 @@
     </script>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var commentsElement = document.getElementById('comments');
-            window.comments.initComments(commentsElement, {id: {{ request.user.pk }}, name: "{{ request.user|user_display_name }}"}, []);
-        });
+        window.comments.initComments({id: {{ request.user.pk }}, name: "{{ request.user|user_display_name }}"}, []);
     </script>
 {% endblock %}

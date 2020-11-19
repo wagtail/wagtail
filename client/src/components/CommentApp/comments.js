@@ -1,10 +1,21 @@
 import { initCommentsApp } from 'wagtail-comment-frontend';
 import { STRINGS } from '../../config/wagtailConfig';
 
-function initComments(element, author, initialComments) {
-  const app = initCommentsApp(element, author, initialComments, STRINGS);
-  window.commentApp = app;
-  return app;
+function initComments(author, initialComments) {
+  // in case any widgets try to initialise themselves before the comment app,
+  // store their initialisations as callbacks to be executed when the comment app
+  // itself is finished initialising.
+  const callbacks = [];
+  window.commentApp = {registerWidget: (widget) => {
+    callbacks.push(() => {window.commentApp.registerWidget(widget)})
+  }}
+  document.addEventListener("DOMContentLoaded", () => {
+    const commentsElement = document.getElementById('comments')
+    if (commentsElement) {
+      window.commentApp = initCommentsApp(commentsElement, author, initialComments, STRINGS);
+      callbacks.forEach((callback) => {callback()})
+    }
+  })
 }
 
 function getContentPath(fieldNode) {
@@ -63,25 +74,19 @@ class FieldLevelCommentWidget {
     fieldNode,
     commentAdditionNode,
     annotationTemplateNode,
-    commentApp
   ) {
     const self = this;
     this.fieldNode = fieldNode;
     this.contentPath = getContentPath(fieldNode);
     this.commentAdditionNode = commentAdditionNode;
-    this.commentApp = commentApp;
     this.annotationTemplateNode = annotationTemplateNode;
-    commentAdditionNode.addEventListener('click', self.addComment.bind(self));
     this.commentNumber = 0;
     this.commentsEnabled = false;
   }
-  register() {
-    // if the widget has a contentpath - ie commenting is enabled for this field -
-    // register the widget with the comment app to subscribe to updates on comments for
-    // this widget's contentpath, and to commenting enabled/disabled updates
-    if (this.contentPath) {
-      this.commentApp.registerWidget(this);
-    }
+  onRegister(makeComment) {
+    this.commentAdditionNode.addEventListener('click', () => {
+      makeComment(this.getAnnotationForComment(), this.contentPath);
+    });
   }
   setEnabled(enabled) {
     // Update whether comments are enabled for the page
@@ -108,12 +113,6 @@ class FieldLevelCommentWidget {
     this.commentAdditionNode.insertAdjacentElement('afterend', annotationNode);
     return new BasicFieldLevelAnnotation(this.fieldNode, annotationNode);
   }
-  addComment() {
-    this.commentApp.makeComment(
-      this.getAnnotationForComment(),
-      this.contentPath
-    );
-  }
 }
 
 function initFieldLevelCommentWidget(fieldElement) {
@@ -121,24 +120,14 @@ function initFieldLevelCommentWidget(fieldElement) {
     fieldElement,
     fieldElement.querySelector('[data-comment-add]'),
     document.querySelector('#comment-icon'),
-    window.commentApp
   );
-  widget.register();
-}
-
-function prepareFieldLevelCommentInit(fieldSelector) {
-  if (window.commentApp) {
-    initFieldLevelCommentWidget(fieldSelector);
-  } else {
-    document.addEventListener('DOMContentLoaded', () => {
-      initFieldLevelCommentWidget(fieldSelector);
-    });
+  if (widget.contentPath) {
+    window.commentApp.registerWidget(widget);
   }
 }
 
 export default {
   initComments,
   FieldLevelCommentWidget,
-  initFieldLevelCommentWidget,
-  prepareFieldLevelCommentInit,
+  initFieldLevelCommentWidget
 };
