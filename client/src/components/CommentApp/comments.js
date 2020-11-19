@@ -75,7 +75,6 @@ class FieldLevelCommentWidget {
     commentAdditionNode,
     annotationTemplateNode,
   ) {
-    const self = this;
     this.fieldNode = fieldNode;
     this.contentPath = getContentPath(fieldNode);
     this.commentAdditionNode = commentAdditionNode;
