@@ -289,7 +289,9 @@ def _get_base_page_action_menu_items():
             PageLockedMenuItem(order=10000),
         ]
         for hook in hooks.get_hooks('register_page_action_menu_item'):
-            BASE_PAGE_ACTION_MENU_ITEMS.append(hook())
+            action_menu_item = hook()
+            if action_menu_item:
+                BASE_PAGE_ACTION_MENU_ITEMS.append(action_menu_item)
 
     return BASE_PAGE_ACTION_MENU_ITEMS
 

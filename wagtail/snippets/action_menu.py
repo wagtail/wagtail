@@ -100,7 +100,9 @@ def get_base_snippet_action_menu_items(model):
     ]
 
     for hook in hooks.get_hooks('register_snippet_action_menu_item'):
-        menu_items.append(hook(model))
+        action_menu_item = hook(model)
+        if action_menu_item:
+            menu_items.append(action_menu_item)
 
     return menu_items
 
@@ -119,7 +121,7 @@ class SnippetActionMenu:
         self.menu_items.extend([
             menu_item
             for menu_item in get_base_snippet_action_menu_items(self.context['model'])
-            if menu_item and menu_item.is_shown(self.request, self.context)
+            if menu_item.is_shown(self.request, self.context)
         ])
 
         self.menu_items.sort(key=lambda item: item.order)
