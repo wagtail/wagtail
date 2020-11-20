@@ -12,7 +12,7 @@ from willow.image import Image as WillowImage
 from wagtail.core.models import Collection, GroupCollectionPermission, Page
 from wagtail.images.models import Rendition, SourceImageIOError
 from wagtail.images.rect import Rect
-from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem
+from wagtail.tests.testapp.models import EventPage, EventPageCarouselItem, ReimportedImageModel
 from wagtail.tests.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
@@ -25,6 +25,9 @@ class TestImage(TestCase):
             title="Test image",
             file=get_test_image_file(colour='white'),
         )
+
+    def test_get_image_model_at_import_time(self):
+        self.assertEqual(ReimportedImageModel, Image)
 
     def test_is_portrait(self):
         self.assertFalse(self.image.is_portrait())

@@ -23,7 +23,7 @@ def get_document_model():
     from django.apps import apps
     model_string = get_document_model_string()
     try:
-        return apps.get_model(model_string)
+        return apps.get_model(model_string, require_ready=False)
     except ValueError:
         raise ImproperlyConfigured("WAGTAILDOCS_DOCUMENT_MODEL must be of the form 'app_label.model_name'")
     except LookupError:

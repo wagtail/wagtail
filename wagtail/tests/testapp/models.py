@@ -34,8 +34,10 @@ from wagtail.contrib.table_block.blocks import TableBlock
 from wagtail.core.blocks import CharBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet, Task, TranslatableMixin
+from wagtail.documents import get_document_model
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.documents.models import AbstractDocument, Document
+from wagtail.images import get_image_model
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
@@ -1510,3 +1512,9 @@ class TaggedRestaurant(ItemBase):
 
 class SimpleTask(Task):
     pass
+
+
+# Check that get_image_model and get_document_model work at import time
+# (so that it's possible to use them in foreign key definitions, for example)
+ReimportedImageModel = get_image_model()
+ReimportedDocumentModel = get_document_model()
