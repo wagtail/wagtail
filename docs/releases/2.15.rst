@@ -31,6 +31,7 @@ Other features
  * Add ability to return HTML in multiple image upload errors (Gordon Pendleton)
  * Upgrade internal JS tooling; Node v14 plus other smaller package upgrades (LB (Ben Johnston))
  * Add support for ``non_field_errors`` rendering in Workflow action modal (LB (Ben Johnston))
+ * Support calling ``get_image_model`` and ``get_document_model`` at import time (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~
