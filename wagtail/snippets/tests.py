@@ -429,6 +429,18 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true" focusable="false"><use href="#icon-undo"></use></svg>Test</button>', html=True)
 
+    def test_register_snippet_action_menu_item_as_none(self):
+        def hook_func(model):
+            return None
+
+        with self.register_hook('register_snippet_action_menu_item', hook_func):
+            get_base_snippet_action_menu_items.cache_clear()
+
+            response = self.get()
+
+        get_base_snippet_action_menu_items.cache_clear()
+        self.assertEqual(response.status_code, 200)
+
     def test_construct_snippet_action_menu(self):
         class TestSnippetActionMenuItem(ActionMenuItem):
             label = "Test"
