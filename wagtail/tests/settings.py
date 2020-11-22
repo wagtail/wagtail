@@ -227,10 +227,11 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
     },
 }
 
+from django.utils.translation import gettext_lazy as _
 
 WAGTAIL_CONTENT_LANGUAGES = [
-    ("en", "English"),
-    ("fr", "French"),
+    ("en", _("English")),
+    ("fr", _("French")),
 ]
 
 
