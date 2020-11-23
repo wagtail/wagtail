@@ -180,7 +180,7 @@ If you prefer not to run an Elasticsearch server in development or production, t
 -  Run ``./manage.py update_index``
 
 .. _elasticsearch-py: https://elasticsearch-py.readthedocs.org
-.. _Bonsai: https://bonsai.io/signup
+.. _Bonsai: https://bonsai.io/
 
 Amazon AWS Elasticsearch
 ~~~~~~~~~~~~~~~~~~~~~~~~
