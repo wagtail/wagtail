@@ -1,7 +1,7 @@
 import { initCommentsApp } from 'wagtail-comment-frontend';
 import { STRINGS } from '../../config/wagtailConfig';
 
-function initComments(author, initialComments) {
+function initComments(initialComments) {
   // in case any widgets try to initialise themselves before the comment app,
   // store their initialisations as callbacks to be executed when the comment app
   // itself is finished initialising.
@@ -13,7 +13,9 @@ function initComments(author, initialComments) {
   };
   document.addEventListener('DOMContentLoaded', () => {
     const commentsElement = document.getElementById('comments');
-    if (commentsElement) {
+    const author = JSON.parse(document.getElementById('comments-author').textContent);
+
+    if (commentsElement && author) {
       window.commentApp = initCommentsApp(commentsElement, author, initialComments, STRINGS);
       callbacks.forEach((callback) => { callback(); });
     }

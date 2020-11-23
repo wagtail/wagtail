@@ -116,6 +116,7 @@
         Additional HTML code that edit handlers define through 'html_declarations'. (Technically this isn't JavaScript, but it will generally be data that exists for JavaScript to work with...)
     {% endcomment %}
     {{ edit_handler.html_declarations }}
+    {{ comments_author|json_script:"comments-author" }}
     <button type="button" id="comment-icon" data-annotation class="button button-secondary button-small u-hidden">{% icon name='comment' class_name='initial' %}</button>
 
     <script>
@@ -184,8 +185,7 @@
             document.addEventListener('DOMContentLoaded', LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}'));
         })
     </script>
-    
     <script>
-        window.comments.initComments({id: {{ request.user.pk }}, name: "{{ request.user|user_display_name }}"}, []);
+        window.comments.initComments([]);
     </script>
 {% endblock %}
