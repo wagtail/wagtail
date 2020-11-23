@@ -72,11 +72,11 @@ class BasicFieldLevelAnnotation {
 }
 
 class FieldLevelCommentWidget {
-  constructor(
+  constructor({
     fieldNode,
     commentAdditionNode,
     annotationTemplateNode
-  ) {
+  }) {
     this.fieldNode = fieldNode;
     this.contentPath = getContentPath(fieldNode);
     this.commentAdditionNode = commentAdditionNode;
@@ -117,11 +117,11 @@ class FieldLevelCommentWidget {
 }
 
 function initFieldLevelCommentWidget(fieldElement) {
-  const widget = new FieldLevelCommentWidget(
-    fieldElement,
-    fieldElement.querySelector('[data-comment-add]'),
-    document.querySelector('#comment-icon')
-  );
+  const widget = new FieldLevelCommentWidget({
+    fieldNode: fieldElement,
+    commentAdditionNode: fieldElement.querySelector('[data-comment-add]'),
+    annotationTemplateNode: document.querySelector('#comment-icon')
+  });
   if (widget.contentPath) {
     window.commentApp.registerWidget(widget);
   }
