@@ -1,5 +1,5 @@
 import os
-
+from django.utils.translation import gettext_lazy as _
 
 DEBUG = False
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
@@ -226,8 +226,6 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
         'WIDGET': 'wagtail.tests.testapp.rich_text.CustomRichTextArea'
     },
 }
-
-from django.utils.translation import gettext_lazy as _
 
 WAGTAIL_CONTENT_LANGUAGES = [
     ("en", _("English")),
