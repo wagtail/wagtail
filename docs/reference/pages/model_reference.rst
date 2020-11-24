@@ -111,7 +111,7 @@ Database fields
 
     .. attribute:: locked_by
 
-       (foreign key to user model)
+        (foreign key to user model)
 
         The user who has currently locked the page. Only this user can edit the page.
 
