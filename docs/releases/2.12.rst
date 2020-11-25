@@ -35,6 +35,7 @@ Other features
  * Added string representation to image Format class (Andreas Nüßlein)
  * Support returning None from ``register_page_action_menu_item`` and ``register_snippet_action_menu_item`` to skip registering an item (Vadim Karpenko)
  * Fields on a custom image model can now be defined as required / ``blank=False`` (Matt Westcott)
+ * Add combined index for Postgres search backend (Will Giddens)
 
 
 Bug fixes

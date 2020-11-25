@@ -60,6 +60,8 @@ class IndexEntry(models.Model):
         unique_together = ('content_type', 'object_id')
         verbose_name = _('index entry')
         verbose_name_plural = _('index entries')
+        # An additional computed GIN index on 'title || body' is created in a SQL migration
+        # covers the default case of PostgresSearchQueryCompiler.get_index_vectors.
         indexes = [GinIndex(fields=['autocomplete']),
                    GinIndex(fields=['title']),
                    GinIndex(fields=['body'])]
