@@ -2,7 +2,7 @@ import datetime
 import json
 
 from django.contrib.admin.templatetags.admin_list import ResultList, result_headers
-from django.contrib.admin.utils import display_for_field, display_for_value, lookup_field
+from django.contrib.admin.utils import display_for_value, lookup_field
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.forms.utils import flatatt
@@ -54,7 +54,7 @@ def items_for_result(view, result):
                     else:
                         result_repr = field_val
                 else:
-                    result_repr = display_for_field(
+                    result_repr = modeladmin.get_display_for_field(
                         value, f, empty_value_display)
 
                 if isinstance(f, (

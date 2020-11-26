@@ -1,4 +1,5 @@
 from django.contrib.admin import site as default_django_admin_site
+from django.contrib.admin.utils import display_for_field
 from django.contrib.auth.models import Permission
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
@@ -216,6 +217,13 @@ class ModelAdmin(WagtailRegisterable):
         Return the empty_value_display value defined on ModelAdmin
         """
         return mark_safe(self.empty_value_display)
+
+    def get_display_for_field(self, value, field, empty_value_display):
+        """
+        Returns the field display value. Override this to
+        customize the field display for a specific model admin.
+        """
+        return display_for_field(value, field, empty_value_display)
 
     def get_list_filter(self, request):
         """
