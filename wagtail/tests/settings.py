@@ -12,16 +12,21 @@ TIME_ZONE = 'Asia/Tokyo'
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.environ.get('DATABASE_NAME', 'wagtail'),
-        'USER': os.environ.get('DATABASE_USER', None),
-        'PASSWORD': os.environ.get('DATABASE_PASS', None),
-        'HOST': os.environ.get('DATABASE_HOST', None),
+        'NAME': os.environ.get('DATABASE_NAME', ':memory:'),
+        'USER': os.environ.get('DATABASE_USER', ''),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', ''),
+        'HOST': os.environ.get('DATABASE_HOST', ''),
+        'PORT': os.environ.get('DATABASE_PORT', ''),
 
         'TEST': {
-            'NAME': os.environ.get('DATABASE_NAME', None),
+            'NAME': os.environ.get('DATABASE_NAME', '')
         }
     }
 }
+
+# Set regular database name when a non-SQLite db is used
+if DATABASES['default']['ENGINE'] != 'django.db.backends.sqlite3':
+    DATABASES['default']['NAME'] = os.environ.get('DATABASE_NAME', 'wagtail')
 
 # Add extra options when mssql is used (on for example appveyor)
 if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
