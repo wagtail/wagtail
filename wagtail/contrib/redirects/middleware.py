@@ -12,6 +12,11 @@ def _get_redirect(request, path):
     if '\0' in path:  # reject URLs with null characters, which crash on Postgres (#4496)
         return None
 
+    if request.LANGUAGE_CODE:
+        localePrefix = f'{request.LANGUAGE_CODE}/'
+        if path.startswith(localePrefix):
+            path = path.replace(localePrefix, '', 1)
+
     site = Site.find_for_request(request)
     try:
         return models.Redirect.get_for_site(site).get(old_path=path)
