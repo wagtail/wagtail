@@ -13,6 +13,8 @@ from django.utils.translation import gettext_lazy
 from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
+from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
+from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
@@ -59,6 +61,7 @@ def get_form_for_model(
     }
 
     metaclass = type(form_class)
+
     return metaclass(class_name, (form_class,), form_class_attrs)
 
 
@@ -789,8 +792,65 @@ class PrivacyModalPanel(EditHandler):
         )
 
 
+class CommentPanel(EditHandler):
+    def required_formsets(self):
+        # add the comments formset
+        # we need to pass in the current user for validation on the formset
+        # this could alternatively be done on the page form itself if we added the
+        # comments formset there, but we typically only add fields via edit handlers
+        current_user = getattr(self.request, 'user', None)
+
+        class CommentReplyFormWithRequest(CommentReplyForm):
+            user = current_user
+
+        class CommentFormWithRequest(CommentForm):
+            user = current_user
+
+            class Meta:
+                formsets = {
+                    'replies': {
+                        'form': CommentReplyFormWithRequest
+                    }
+                }
+
+        return {
+            'comments': {
+                'form': CommentFormWithRequest,
+                'fields': ['text', 'contentpath'],
+            }
+        }
+
+    template = "wagtailadmin/edit_handlers/comments/comment_panel.html"
+    js_template = "wagtailadmin/edit_handlers/comments/comment_panel.js"
+    declarations_template = "wagtailadmin/edit_handlers/comments/comment_declarations.html"
+
+    def html_declarations(self):
+        return render_to_string(self.declarations_template)
+
+    def render(self):
+        user = getattr(self.request, 'user', None)
+        comments_author = {
+            'id': user.pk,
+            'name': user_display_name(user)
+        } if user else None
+
+        panel = render_to_string(self.template, {
+            'self': self,
+            'comments_author': comments_author
+        })
+        js = self.render_js_init()
+        return widget_with_script(panel, js)
+
+    def render_js_init(self):
+        return mark_safe(render_to_string(self.js_template, {
+            'self': self,
+        }))
+
+
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
+
 Page.content_panels = [
+    CommentPanel(),
     FieldPanel('title', classname="full title"),
 ]
 

@@ -114,7 +114,6 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         self.parent_page = parent_page
 
     def clean(self):
-
         cleaned_data = super().clean()
         if 'slug' in self.cleaned_data:
             if not Page._slug_is_available(

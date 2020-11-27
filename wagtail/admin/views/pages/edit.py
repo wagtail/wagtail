@@ -14,7 +14,6 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
-from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
@@ -530,10 +529,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             'publishing_will_cancel_workflow': self.workflow_tasks and getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True),
             'locale': None,
             'translations': [],
-            'comments_author': {
-                'id': self.request.user.pk,  # TODO: move into the comments widget/edit handler when created
-                'name': user_display_name(self.request.user)
-            },
         })
 
         if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
