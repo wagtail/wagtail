@@ -1294,7 +1294,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             approved_go_live_at=approved_go_live_at,
         )
 
-        update_fields = []
+        update_fields = ['comments']
 
         self.latest_revision_created_at = revision.created_at
         update_fields.append('latest_revision_created_at')
@@ -2624,6 +2624,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``latest_revision_created_at``
         * ``first_published_at``
         * ``alias_of``
+        * ``comments``
         """
 
         obj = self.specific_class.from_json(content_json)
@@ -2656,6 +2657,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.translation_key = self.translation_key
         obj.locale = self.locale
         obj.alias_of_id = self.alias_of_id
+        obj.comments = self.comments.all()
 
         return obj
 
@@ -2812,19 +2814,16 @@ class PageRevision(models.Model):
         return (latest_revision == self)
 
     def delete(self):
-        # Update Comment revision_resolved and revision_created fields for comments that reference the current revision, if applicable.
+        # Update revision_created fields for comments that reference the current revision, if applicable.
 
         try:
             next_revision = self.get_next()
         except PageRevision.DoesNotExist:
             next_revision = None
 
-        # otherwise, update the revision_resolved to the next revision (or unresolve it if None)
-        self.resolved_comments.all().update(revision_resolved=next_revision)
-
         if next_revision:
-            # move comments created on this revision (and not resolved on the next) to the next revision, as they may well still apply if they're unresolved
-            self.created_comments.all().exclude(revision_resolved=next_revision).update(revision_created=next_revision)
+            # move comments created on this revision to the next revision, as they may well still apply if they're unresolved
+            self.created_comments.all().update(revision_created=next_revision)
 
         return super().delete()
 
@@ -4688,13 +4687,13 @@ class PageLogEntry(BaseLogEntry):
         return self.page_id
 
 
-class Comment(models.Model):
+class Comment(ClusterableModel):
     """
     A comment on a field, or a field within a streamfield block. This model stores the comment data that applies to all page revisions.
     Any data which applies only for a single revision, or may change between revisions (such as position within a field) is stored on
     CommentPosition.
     """
-    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name='comments')
+    page = ParentalKey(Page, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
     text = models.TextField()
 
@@ -4706,13 +4705,8 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    revision_created = models.ForeignKey(PageRevision, on_delete=models.CASCADE, related_name='created_comments')
+    revision_created = models.ForeignKey(PageRevision, on_delete=models.CASCADE, related_name='created_comments', null=True, blank=True)
     # Comments are only shown on revisions after revision_created
-    revision_resolved = models.ForeignKey(PageRevision, on_delete=models.SET_NULL, related_name='resolved_comments', null=True, blank=True)
-    # A null value here indicates the comment is unresolved. Resolved comments can only be seen on revisions prior to their resolved revision.
-    # In most cases, revisions will be purged oldest-first, so deleting the comment when the revision is deleted is the correct behaviour as the resolved
-    # comment is now inaccessible. However, in cases where the deleted revision_resolved is not the oldest revision, the revision_resolved needs to be
-    # changed instead. This is done in PageRevision.delete()
 
     class Meta:
         verbose_name = _('comment')
@@ -4720,17 +4714,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return "Comment on Page '{0}', left by {1}: '{2}'".format(self.page, self.user, self.text)
-
-    def clean(self):
-        if self.revision_resolved and not (self.revision_created.created_at < self.revision_resolved.created_at):
-            raise ValidationError(
-                _("A comment must be resolved on a revision newer than the revision it was created on. If the two revisions are the same, it should be deleted instead")
-            )
-        return super().clean()
-
-    def save(self, **kwargs):
-        self.full_clean()
-        super().save(**kwargs)
 
 
 class CommentPosition(models.Model):
@@ -4754,7 +4737,7 @@ class CommentPosition(models.Model):
 
 
 class CommentReply(models.Model):
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies')
+    comment = ParentalKey(Comment, on_delete=models.CASCADE, related_name='replies')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comment_replies')
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
