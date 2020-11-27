@@ -1,0 +1,6 @@
+{% load wagtailadmin_tags %}
+<div>
+    <div id="comments"></div>
+</div>
+{{ comments_author|json_script:"comments-author" }}
+<script src="{% versioned_static 'wagtailadmin/js/comments.js' %}"></script>
