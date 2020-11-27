@@ -12,7 +12,8 @@ def _get_redirect(request, path):
     if '\0' in path:  # reject URLs with null characters, which crash on Postgres (#4496)
         return None
 
-    if request.LANGUAGE_CODE:
+    if hasattr(request, 'LANGUAGE_CODE'):
+        # If this path has an i18n_patterns locale prefix, remove it prior to processing
         localePrefix = f'{request.LANGUAGE_CODE}/'
         if path.startswith(localePrefix):
             path = path.replace(localePrefix, '', 1)
