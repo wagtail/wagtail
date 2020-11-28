@@ -125,3 +125,12 @@ search_garbage_collect
     $ ./manage.py search_garbage_collect
 
 Wagtail keeps a log of search queries that are popular on your website. On high traffic websites, this log may get big and you may want to clean out old search queries. This command cleans out all search query logs that are more than one week old (or a number of days configurable through the :ref:`WAGTAILSEARCH_HITS_MAX_AGE <wagtailsearch_hits_max_age>` setting).
+
+rm_cropped_images
+-----------------
+.. code-block:: console
+
+    $ ./manage.py rm_cropped_images
+
+Wagtail will delete all your cropped images so it can rerender. Sometimes this is handy if you want clean out the rendert images. Note if have a custom image model with custom Rendition model you will need to add a setting to WAGTAILIMAGES_IMAGE_MODEL_RENDITION pointing to the rendition model
+
