@@ -34,6 +34,51 @@ If the stock Django login view is not suitable - for example, you wish to use an
 
 To integrate Wagtail into a Django site with an existing login mechanism, setting ``WAGTAIL_FRONTEND_LOGIN_URL = LOGIN_URL`` will usually be sufficient.
 
+A basic template suitable for use as ``WAGTAIL_FRONTEND_LOGIN_TEMPLATE`` might look like this:
+
+.. code-block:: html+django
+ 
+    {% extends "base.html" %}
+    
+    {% block content %}
+    
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+    
+    {% if next %}
+        {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+        {% else %}
+        <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+    
+    <form method="post" action="{% url 'wagtailcore_login' %}">
+    {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+        <input type="submit" value="login">
+            <input type="hidden" name="next" value="{{ next }}">
+    </form>
+    
+    {% comment %}
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+    {% endcomment %}
+    
+    {% endblock %}
+    
+
 
 Setting up a global "password required" page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
