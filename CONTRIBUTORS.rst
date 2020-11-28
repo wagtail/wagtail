@@ -674,6 +674,7 @@ Contributors
 * Ivy Jeptoo
 * Jeremy Thompson
 * Ben Gosney
+* damascene
 
 Translators
 ===========
