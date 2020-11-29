@@ -1,7 +1,10 @@
 from unittest import mock
 
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Count, Q
+from django.http import HttpRequest
 from django.test import TestCase
 
 from wagtail.models import Locale, Page, PageViewRestriction, Site
@@ -13,6 +16,9 @@ from wagtail.test.testapp.models import (
     SingleEventPage,
     StreamPage,
 )
+from wagtail.tests.utils import WagtailTestUtils
+
+User = get_user_model()
 
 
 class TestPageQuerySet(TestCase):
@@ -558,6 +564,169 @@ class TestPageQuerySet(TestCase):
                 self.assertNotIn(page, translations)
             else:
                 self.assertIn(page, translations)
+
+
+class TestPageQuerySetViewableByUser(TestCase, WagtailTestUtils):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.public_pages = tuple(Page.objects.all().public())
+
+        # PASSWORD restricted
+        self.secret_plans_page = Page.objects.get(url_path="/home/secret-plans/")
+        self.secret_plans_subpage = Page.objects.get(
+            url_path="/home/secret-plans/steal-underpants/"
+        )
+
+        # GROUP restricted
+        self.secret_event_editor_plans_page = Page.objects.get(
+            url_path="/home/secret-event-editor-plans/"
+        )
+
+        # User in a group permitted to view ^^
+        self.eventeditor = User.objects.get(email="eventeditor@example.com")
+
+        # LOGIN restricted
+        self.secret_login_plans_page = Page.objects.get(
+            url_path="/home/secret-login-plans/"
+        )
+
+        self.request = HttpRequest()
+        self.request.session = {}
+
+    def test_per_user_queryset_caching(self):
+        user = AnonymousUser()
+        with self.assertNumQueries(3):
+            # Queries can be summarised as follows:
+            # 1. To fetch all PageViewRestrictions
+            # 2. To prefetch the groups for those objects
+            # 3. To fetch the actual pages
+            tuple(Page.objects.all().viewable_by_user(user))
+
+        with self.assertNumQueries(1):
+            # The result of the first two queries above is stored on the user (or
+            # request, if provided), so only a single query is needed here (to fetch
+            # the actual pages)
+            tuple(Page.objects.all().viewable_by_user(user))
+
+    def test_per_request_queryset_caching(self):
+        with self.assertNumQueries(3):
+            # Queries can be summarised as follows (as above):
+            # 1. To fetch all PageViewRestrictions
+            # 2. To prefetch the groups for those objects
+            # 3. To fetch the actual pages
+            tuple(Page.objects.all().viewable_by_user(AnonymousUser(), self.request))
+
+        with self.assertNumQueries(1):
+            # The result of the first two queries above is stored on the request, so
+            # querying for a different user (but providing the same request instance)
+            # should mean only the query to fetch the pages is needed
+            tuple(Page.objects.all().viewable_by_user(AnonymousUser(), self.request))
+
+    def test_only_returns_public_pages_for_anonymous_user(self):
+        self.assertEqual(
+            tuple(Page.objects.all().viewable_by_user(AnonymousUser())),
+            self.public_pages,
+        )
+
+    def test_with_real_user(self):
+        """
+        This test demonstrates that passing a real user will introduce LOGIN restricted
+        pages, plus GROUP restricted pages where the user belongs to one of the
+        associated groups.
+        """
+        result = tuple(Page.objects.all().viewable_by_user(self.eventeditor))
+        self.assertIn(self.secret_event_editor_plans_page, result)
+        self.assertIn(self.secret_login_plans_page, result)
+
+    def test_with_inactive_real_user(self):
+        """
+        This test demonstrates that passing an inactive user will prevent any GROUP or
+        LOGIN restricted pages from being included, as it shouldn't be possible for them
+        to authenticate (which would be required for them to view those pages).
+        """
+        self.eventeditor.is_active = False
+        result = tuple(Page.objects.all().viewable_by_user(self.eventeditor))
+        self.assertEqual(result, self.public_pages)
+
+    def test_complex_permission_heirarchy(self):
+        """
+        This test demonstrates that, with a complex permission heirarchy in place, the
+        method will include all pages for which the most-relevant restriction for that
+        page passes, and exclude pages for which the most-relevant restriction fails.
+
+        The code below sets up the following page/restriction structure:
+
+        Home (PASSWORD restriction)
+         └─ Public page one (Public)
+             └─ Public page two
+                 ├─ Secret plans (PASSWORD restriction)
+                 │    └─ Public page three (Public)
+                 │        └─ Secret login plans page (LOGIN restriction)
+                 └─ Secret event editor plans (GROUP restriction)
+                      └─ Public page four (Public)
+        """
+        # PASSWORD protect to the home page
+        home_page = Page.objects.get(url_path="/home/")
+        PageViewRestriction.objects.create(
+            page=home_page,
+            password="abc",
+            restriction_type=PageViewRestriction.PASSWORD,
+        )
+
+        # Add a page below the home page with a NONE restricion applied, making it public
+        public_page = Page(title="Public page one", slug="public1")
+        home_page.add_child(instance=public_page)
+        PageViewRestriction.objects.create(
+            page=public_page, restriction_type=PageViewRestriction.NONE
+        )
+
+        # Add a subpage below that
+        public_page_2 = Page(title="Public page two", slug="public2")
+        public_page.add_child(instance=public_page_2)
+
+        # Move the PASSWORD and GROUP protected pages below this subpage
+        self.secret_plans_page.move(public_page_2, "last-child")
+        self.secret_plans_page.refresh_from_db()
+        self.secret_event_editor_plans_page.move(public_page_2, "last-child")
+        self.secret_event_editor_plans_page.refresh_from_db()
+
+        # Add pages below the PASSWORD and GROUP protected pages with a NONE restriction
+        # applied, making them public
+        public_page_3 = Page(title="Public page three", slug="public3")
+        self.secret_plans_page.add_child(instance=public_page_3)
+        PageViewRestriction.objects.create(
+            page=public_page_3, restriction_type=PageViewRestriction.NONE
+        )
+        public_page_4 = Page(title="Public page four", slug="public4")
+        self.secret_event_editor_plans_page.add_child(instance=public_page_4)
+        PageViewRestriction.objects.create(
+            page=public_page_4, restriction_type=PageViewRestriction.NONE
+        )
+
+        # Move the LOGIN restricted page to below one of the public pages above
+        self.secret_login_plans_page.move(public_page_3, "last-child")
+        self.secret_login_plans_page.refresh_from_db()
+
+        # The anonymous user should only see pages with a NONE restriction
+        result = Page.objects.all().viewable_by_user(AnonymousUser())
+        self.assertNotIn(home_page, result)
+        self.assertIn(public_page_2, result)
+        self.assertNotIn(self.secret_plans_page, result)
+        self.assertNotIn(self.secret_event_editor_plans_page, result)
+        self.assertIn(public_page_3, result)
+        self.assertIn(public_page_4, result)
+        self.assertNotIn(self.secret_login_plans_page, result)
+
+        # The real user should see all pages apart from the PASSWORD restricted ones
+        result = Page.objects.all().viewable_by_user(self.eventeditor)
+        self.assertNotIn(home_page, result)
+        self.assertIn(public_page_2, result)
+        self.assertNotIn(self.secret_plans_page, result)
+        self.assertIn(self.secret_event_editor_plans_page, result)
+        self.assertIn(public_page_3, result)
+        self.assertIn(public_page_4, result)
+        self.assertIn(self.secret_login_plans_page, result)
 
 
 class TestPageQueryInSite(TestCase):
