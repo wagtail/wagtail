@@ -9,6 +9,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.core.telepath import Adapter, register
 
 from .base import Block, DeclarativeSubBlocksMetaclass
 from .utils import js_dict
@@ -257,3 +258,23 @@ class BaseStructBlock(Block):
 
 class StructBlock(BaseStructBlock, metaclass=DeclarativeSubBlocksMetaclass):
     pass
+
+
+class StructBlockAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.StructBlock'
+
+    def js_args(self, block, context):
+        return [
+            block.name,
+            [context.pack(child) for child in block.child_blocks.values()],
+            {
+                'label': block.label, 'required': block.required, 'icon': block.meta.icon,
+                'classname': block.meta.form_classname, 'helpText': getattr(block.meta, 'help_text', None),
+            },
+        ]
+
+    class Media:
+        js = ['wagtailadmin/js/telepath/blocks.js']
+
+
+register(StructBlockAdapter(), StructBlock)
