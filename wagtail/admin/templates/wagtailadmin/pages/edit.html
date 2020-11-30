@@ -6,8 +6,8 @@
 {% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page_locked %}page-locked{% endif %}{% endblock %}
 
 {% block content %}
+    <div id="comments"></div>
     {% page_permissions page as page_perms %}
-    </div>
     <header class="merged tab-merged">
         {% explorer_breadcrumb page %}
 
