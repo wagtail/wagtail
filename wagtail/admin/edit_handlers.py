@@ -3,6 +3,7 @@ import re
 
 from django import forms
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.fields import CharField, TextField
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
@@ -829,14 +830,28 @@ class CommentPanel(EditHandler):
 
     def render(self):
         user = getattr(self.request, 'user', None)
-        comments_author = {
-            'id': user.pk,
-            'name': user_display_name(user)
-        } if user else None
+        authors = {user.pk: user_display_name(user)} if user else {}
+
+        comments = self.instance.comments.select_related('user').prefetch_related('replies__user')
+        
+        for comment in comments:
+            # iterate over comments to retrieve user display names as we're already going to need to serialise the queryset
+            # also to keep in sync with the modelcluster version of comments
+            if comment.user.pk not in authors:
+                authors.update({comment.user.pk: user_display_name(comment.user)})
+            for reply in comment.replies.all():
+                if reply.user.pk not in authors:
+                    authors.update({reply.user.pk: user_display_name(reply.user)})
+
+        comments_data = {
+            'comments': [comment.serializable_data() for comment in comments],
+            'user': user.pk,
+            'authors': authors
+        }
 
         panel = render_to_string(self.template, {
             'self': self,
-            'comments_author': comments_author
+            'comments_data': comments_data
         })
         js = self.render_js_init()
         return widget_with_script(panel, js)
