@@ -10,7 +10,9 @@ from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import RichText, get_text_for_indexing
+from wagtail.core.telepath import Adapter, register
 from wagtail.core.utils import resolve_model_string
 
 from .base import Block
@@ -92,6 +94,23 @@ class FieldBlock(Block):
         # descendant block type
         icon = "placeholder"
         default = None
+
+
+class FieldBlockAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.FieldBlock'
+
+    def js_args(self, block, context):
+        return [
+            block.name,
+            context.pack(block.field.widget),
+            {'label': block.label, 'required': block.required, 'icon': block.meta.icon},
+        ]
+
+    class Media:
+        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+
+
+register(FieldBlockAdapter(), FieldBlock)
 
 
 class CharBlock(FieldBlock):
