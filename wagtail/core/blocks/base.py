@@ -1,4 +1,5 @@
 import collections
+import json
 import re
 
 from importlib import import_module
@@ -8,8 +9,11 @@ from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.utils.encoding import force_str
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+
+from wagtail.core.telepath import JSContext
 
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
@@ -549,29 +553,33 @@ class BlockWidget(forms.Widget):
     def __init__(self, block_def, attrs=None):
         super().__init__(attrs=attrs)
         self.block_def = block_def
+        self.js_context = JSContext()
+        self.block_json = json.dumps(self.js_context.pack(self.block_def))
 
     def render_with_errors(self, name, value, attrs=None, errors=None, renderer=None):
-        bound_block = self.block_def.bind(value, prefix=name, errors=errors)
-        js_initializer = self.block_def.js_initializer()
-        if js_initializer:
-            js_snippet = """
+        value_json = json.dumps("Hello world!")
+        return format_html(
+            """
+                <div id="{id}" data-block="{block_json}" data-value="{value_json}"></div>
                 <script>
-                $(function() {
-                    var initializer = %s;
-                    initializer('%s');
-                })
+                    initBlockWidget('{id}');
                 </script>
-            """ % (js_initializer, name)
-        else:
-            js_snippet = ''
-        return mark_safe(bound_block.render_form() + js_snippet)
+            """,
+            id=name, block_json=self.block_json, value_json=value_json
+        )
 
     def render(self, name, value, attrs=None, renderer=None):
         return self.render_with_errors(name, value, attrs=attrs, errors=None, renderer=renderer)
 
     @property
     def media(self):
-        return self.block_def.all_media() + forms.Media(
+        return self.js_context.media + forms.Media(
+            js=[
+                # needed for initBlockWidget, although these will almost certainly be
+                # pulled in by the block adapters too
+                'wagtailadmin/js/telepath/telepath.js',
+                'wagtailadmin/js/telepath/blocks.js',
+            ],
             css={'all': [
                 'wagtailadmin/css/panels/streamfield.css',
             ]}
