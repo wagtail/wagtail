@@ -1,1 +1,1 @@
-window.comments.initComments([]);
+window.comments.initComments();
