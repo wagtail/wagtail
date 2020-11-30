@@ -557,7 +557,7 @@ class BlockWidget(forms.Widget):
         self.block_json = json.dumps(self.js_context.pack(self.block_def))
 
     def render_with_errors(self, name, value, attrs=None, errors=None, renderer=None):
-        value_json = json.dumps("Hello world!")
+        value_json = json.dumps({"first_name": "Forrest", "surname": "Gump"})
         return format_html(
             """
                 <div id="{id}" data-block="{block_json}" data-value="{value_json}"></div>
