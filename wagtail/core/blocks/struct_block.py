@@ -151,8 +151,25 @@ class BaseStructBlock(Block):
         ])
 
     def bulk_to_python(self, values):
+        dicts = self._map(
+            values,
+            convert=lambda child_block, value_list: child_block.bulk_to_python(value_list),
+            missing=lambda child_block: child_block.get_default()
+        )
+        return [self._to_struct_value(d) for d in dicts]
+
+    def _map(self, values, convert, missing):
+        """
+        Helper method for conversion operations such as bulk_to_python which operate on a list of
+        input values (a list of dicts, in the case of StructBlock) and perform the conversion by
+        delegating to the child blocks (which also implement the bulk conversion operation, but on
+        a flat list of their own values). Receives the list of dicts and the following callables:
+        * convert(child_block, value_list) - run the conversion operation for the given child block
+        * missing(child_block) - return the value to be used when the item for a child block is
+            missing from the input dict
+        """
         # values is a list of dicts; split this into a series of per-subfield lists so that we can
-        # call bulk_to_python on each subfield
+        # call convert on each subfield
 
         values_by_subfield = {}
         for name, child_block in self.child_blocks.items():
@@ -167,7 +184,7 @@ class BaseStructBlock(Block):
                     indexes.append(i)
                     raw_values.append(val[name])
 
-            converted_values = child_block.bulk_to_python(raw_values)
+            converted_values = convert(child_block, raw_values)
             # create a mapping from original index to converted value
             converted_values_by_index = dict(zip(indexes, converted_values))
 
@@ -178,17 +195,17 @@ class BaseStructBlock(Block):
                 try:
                     converted_value = converted_values_by_index[i]
                 except KeyError:
-                    converted_value = child_block.get_default()
+                    converted_value = missing(child_block)
 
                 values_by_subfield[name].append(converted_value)
 
         # now form the final list of StructValues, with each one constructed by taking the
         # appropriately-indexed item from all of the per-subfield lists
         return [
-            self._to_struct_value({
+            {
                 name: values_by_subfield[name][i]
                 for name in self.child_blocks.keys()
-            })
+            }
             for i in range(0, len(values))
         ]
 
