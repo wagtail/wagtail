@@ -102,18 +102,6 @@ class Block(metaclass=BaseBlock):
             else:
                 raise TypeError("set_meta_options received unexpected option: %r" % attr)
 
-    def js_initializer(self):
-        """
-        Returns a JavaScript expression string, or None if this block does not require any
-        JavaScript behaviour. This expression evaluates to an initializer function, a function that
-        takes the ID prefix and applies JS behaviour to the block instance with that value and prefix.
-
-        The parent block of this block (or the top-level page code) must ensure that this
-        expression is not evaluated more than once. (The resulting initializer function can and will be
-        called as many times as there are instances of this block, though.)
-        """
-        return None
-
     def value_from_datadict(self, data, files, prefix):
         raise NotImplementedError('%s.value_from_datadict' % self.__class__)
 

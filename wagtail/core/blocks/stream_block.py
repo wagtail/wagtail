@@ -14,7 +14,6 @@ from django.utils.translation import gettext as _
 from wagtail.utils.deprecation import RemovedInWagtail214Warning
 
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
-from .utils import indent, js_dict
 
 
 __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidationError']
@@ -77,30 +76,6 @@ class BaseStreamBlock(Block):
             'index': index,
             'block_id': id,
         })
-
-    def js_initializer(self):
-        # compile a list of info dictionaries, one for each available block type
-        child_blocks = []
-        for name, child_block in self.child_blocks.items():
-            # each info dictionary specifies at least a block name
-            child_block_info = {'name': "'%s'" % name}
-
-            # if the child defines a JS initializer function, include that in the info dict
-            # along with the param that needs to be passed to it for initializing an empty/default block
-            # of that type
-            child_js_initializer = child_block.js_initializer()
-            if child_js_initializer:
-                child_block_info['initializer'] = child_js_initializer
-
-            child_blocks.append(indent(js_dict(child_block_info)))
-
-        opts = {
-            'definitionPrefix': "'%s'" % self.definition_prefix,
-            'childBlocks': '[\n%s\n]' % ',\n'.join(child_blocks),
-            'maxNumChildBlocks': 'Infinity' if self.meta.max_num is None else ('%s' % self.meta.max_num),
-        }
-
-        return "StreamBlock(%s)" % js_dict(opts)
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data['%s-count' % prefix])
