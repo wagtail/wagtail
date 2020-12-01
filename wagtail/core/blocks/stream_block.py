@@ -253,11 +253,36 @@ class BaseStreamBlock(Block):
         ], is_lazy=True)
 
     def bulk_to_python(self, values):
-        # 'values' is a list of streams, each stream being a list of dicts with 'type', 'value' and
-        # optionally 'id'.
-        # We will iterate over these streams, constructing:
-        # 1) a set of per-child-block lists ('child_inputs'), to be sent to each child block's
-        #    bulk_to_python method in turn (giving us 'child_outputs')
+        streams = self._map(
+            values,
+            unwrap=lambda block_dict: (block_dict['type'], block_dict['value'], block_dict.get('id')),
+            convert=lambda child_block, value_list: child_block.bulk_to_python(value_list),
+            wrap=lambda block_type, val, id: (block_type, val, id),
+        )
+
+        # convert list of lists to a list of StreamValues
+        return [
+            StreamValue(self, stream_data, is_lazy=False)
+            for stream_data in streams
+        ]
+
+    def _map(self, values, unwrap, convert, wrap):
+        """
+        Helper method for conversion operations such as bulk_to_python which operate on a list of
+        input values (in the case of StreamBlock, a list of streams, each stream being a list of
+        objects that can be unwrapped into type, value, and optional id) and perform the conversion
+        by delegating to the child blocks (which also implement the bulk conversion operation, but
+        on a flat list of their own values). Receives the list of streams and the following callables:
+        * unwrap(item) - translate item into a tuple of (block_type, value, id)
+        * convert(child_block, value_list) - run the conversion operation for the given child block
+        * wrap(block_type, converted_value, id) - translate the conversion result for a single item
+            into the desired output object (typically a tuple or dict)
+
+        Returns a list of streams, each one being a list of results as returned from 'wrap'.
+        """
+        # Iterate over the list of streams, constructing:
+        # 1) a set of per-child-block lists ('child_inputs'), to be passed to each child block's
+        #    bulk convert method in turn (giving us 'child_outputs')
         # 2) a 'block map' of each stream, telling us the type and id of each block and the index we
         #    need to look up in the corresponding child_outputs list to obtain its final value
 
@@ -266,8 +291,8 @@ class BaseStreamBlock(Block):
 
         for stream in values:
             block_map = []
-            for block_dict in stream:
-                block_type = block_dict['type']
+            for item in stream:
+                block_type, val, id = unwrap(item)
 
                 if block_type not in self.child_blocks:
                     # skip any blocks with an unrecognised type
@@ -275,31 +300,25 @@ class BaseStreamBlock(Block):
 
                 child_input_list = child_inputs[block_type]
                 child_index = len(child_input_list)
-                child_input_list.append(block_dict['value'])
-                block_map.append(
-                    (block_type, block_dict.get('id'), child_index)
-                )
+                child_input_list.append(val)
+                block_map.append((block_type, id, child_index))
 
             block_maps.append(block_map)
 
-        # run each list in child_inputs through the relevant block's bulk_to_python
+        # run each list in child_inputs through the relevant block's convert operation
         # to obtain child_outputs
         child_outputs = {
-            block_type: self.child_blocks[block_type].bulk_to_python(child_input_list)
+            block_type: convert(self.child_blocks[block_type], child_input_list)
             for block_type, child_input_list in child_inputs.items()
         }
 
         # for each stream, go through the block map, picking out the appropriately-indexed
         # value from the relevant list in child_outputs
         return [
-            StreamValue(
-                self,
-                [
-                    (block_type, child_outputs[block_type][child_index], id)
-                    for block_type, id, child_index in block_map
-                ],
-                is_lazy=False
-            )
+            [
+                wrap(block_type, child_outputs[block_type][child_index], id)
+                for block_type, id, child_index in block_map
+            ]
             for block_map in block_maps
         ]
 
