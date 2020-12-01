@@ -5,7 +5,6 @@ from django.forms.utils import ErrorList
 from django.utils.html import format_html, format_html_join
 
 from .base import Block
-from .utils import js_dict
 
 
 __all__ = ['ListBlock']
@@ -26,19 +25,9 @@ class ListBlock(Block):
             # Default to a list consisting of one empty (i.e. default-valued) child item
             self.meta.default = [self.child_block.get_default()]
 
-        self.child_js_initializer = self.child_block.js_initializer()
-
     def get_default(self):
         # wrap with list() so that each invocation of get_default returns a distinct instance
         return list(self.meta.default)
-
-    def js_initializer(self):
-        opts = {'definitionPrefix': "'%s'" % self.definition_prefix}
-
-        if self.child_js_initializer:
-            opts['childInitializer'] = self.child_js_initializer
-
-        return "ListBlock(%s)" % js_dict(opts)
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data['%s-count' % prefix])
