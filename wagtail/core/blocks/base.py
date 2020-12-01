@@ -157,12 +157,6 @@ class Block(metaclass=BaseBlock):
         """
         return None
 
-    def render_form(self, value, prefix='', errors=None):
-        """
-        Render the HTML for this block with 'value' as its content.
-        """
-        raise NotImplementedError('%s.render_form' % self.__class__)
-
     def value_from_datadict(self, data, files, prefix):
         raise NotImplementedError('%s.value_from_datadict' % self.__class__)
 
@@ -452,9 +446,6 @@ class BoundBlock:
         self.value = value
         self.prefix = prefix
         self.errors = errors
-
-    def render_form(self):
-        return self.block.render_form(self.value, self.prefix, errors=self.errors)
 
     def render(self, context=None):
         return self.block.render(self.value, context=context)
