@@ -79,29 +79,6 @@ class ListBlock(Block):
 
         return "ListBlock(%s)" % js_dict(opts)
 
-    def render_form(self, value, prefix='', errors=None):
-        if errors:
-            if len(errors) > 1:
-                # We rely on ListBlock.clean throwing a single ValidationError with a specially crafted
-                # 'params' attribute that we can pull apart and distribute to the child blocks
-                raise TypeError('ListBlock.render_form unexpectedly received multiple errors')
-            error_list = errors.as_data()[0].params
-        else:
-            error_list = None
-
-        list_members_html = [
-            self.render_list_member(child_val, "%s-%d" % (prefix, i), i,
-                                    errors=error_list[i] if error_list else None)
-            for (i, child_val) in enumerate(value)
-        ]
-
-        return render_to_string('wagtailadmin/block_forms/list.html', {
-            'help_text': getattr(self.meta, 'help_text', None),
-            'prefix': prefix,
-            'list_members_html': list_members_html,
-            'classname': getattr(self.meta, 'form_classname', None),
-        })
-
     def value_from_datadict(self, data, files, prefix):
         count = int(data['%s-count' % prefix])
         values_with_indexes = []
