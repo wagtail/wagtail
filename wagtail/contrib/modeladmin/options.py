@@ -3,7 +3,7 @@ from django.contrib.admin.utils import display_for_field
 from django.contrib.auth.models import Permission
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import Model
+from django.db.models import Model, ManyToOneRel
 from django.urls import re_path
 from django.utils.safestring import mark_safe
 
@@ -218,11 +218,16 @@ class ModelAdmin(WagtailRegisterable):
         """
         return mark_safe(self.empty_value_display)
 
-    def get_display_for_field(self, value, field, empty_value_display):
+    def get_display_for_field(self, instance, value, field, empty_value_display):
         """
         Returns the field display value. Override this to
         customize the field display for a specific model admin.
         """
+        if isinstance(field, ManyToOneRel):
+            field_val = getattr(instance, field.name)
+            if field_val is None:
+                return empty_value_display
+            return field_val
         return display_for_field(value, field, empty_value_display)
 
     def get_list_filter(self, request):

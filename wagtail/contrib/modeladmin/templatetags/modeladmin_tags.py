@@ -47,15 +47,8 @@ def items_for_result(view, result):
                 if isinstance(value, (datetime.date, datetime.time)):
                     row_classes.append('nowrap')
             else:
-                if isinstance(f, models.ManyToOneRel):
-                    field_val = getattr(result, f.name)
-                    if field_val is None:
-                        result_repr = empty_value_display
-                    else:
-                        result_repr = field_val
-                else:
-                    result_repr = modeladmin.get_display_for_field(
-                        value, f, empty_value_display)
+                result_repr = modeladmin.get_display_for_field(
+                    result, value, f, empty_value_display)
 
                 if isinstance(f, (
                     models.DateField, models.TimeField, models.ForeignKey)
