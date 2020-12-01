@@ -218,13 +218,13 @@ class ModelAdmin(WagtailRegisterable):
         """
         return mark_safe(self.empty_value_display)
 
-    def get_display_for_field(self, instance, value, field, empty_value_display):
+    def get_display_for_field(self, obj, value, field, empty_value_display):
         """
         Returns the field display value. Override this to
         customize the field display for a specific model admin.
         """
         if isinstance(field, ManyToOneRel):
-            field_val = getattr(instance, field.name)
+            field_val = getattr(obj, field.name)
             if field_val is None:
                 return empty_value_display
             return field_val
