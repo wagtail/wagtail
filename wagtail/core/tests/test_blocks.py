@@ -178,31 +178,6 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         value_from_form = block.value_from_datadict({'title': 'hello world'}, {}, 'title')
         self.assertEqual('hello world', value_from_form)
 
-    def test_widget_media(self):
-        class CalendarWidget(forms.TextInput):
-            @property
-            def media(self):
-                return forms.Media(
-                    css={'all': ('pretty.css',)},
-                    js=('animations.js', 'actions.js')
-                )
-
-        class CalenderBlock(blocks.FieldBlock):
-            def __init__(self, required=True, help_text=None, max_length=None, min_length=None, **kwargs):
-                # Set widget to CalenderWidget
-                self.field = forms.CharField(
-                    required=required,
-                    help_text=help_text,
-                    max_length=max_length,
-                    min_length=min_length,
-                    widget=CalendarWidget(),
-                )
-                super(blocks.FieldBlock, self).__init__(**kwargs)
-
-        block = CalenderBlock()
-        self.assertIn('pretty.css', ''.join(block.all_media().render_css()))
-        self.assertIn('animations.js', ''.join(block.all_media().render_js()))
-
     def test_prepare_value_called(self):
         """
         Check that Field.prepare_value is called before sending the value to
@@ -1661,29 +1636,6 @@ class TestStructBlock(SimpleTestCase):
 
         self.assertInHTML('<div class="help"> <svg class="icon icon-help default" aria-hidden="true" focusable="false"><use href="#icon-help"></use></svg>  Self-promotion is discouraged</div>', html)
 
-    def test_media_inheritance(self):
-        class ScriptedCharBlock(blocks.CharBlock):
-            media = forms.Media(js=['scripted_char_block.js'])
-
-        class LinkBlock(blocks.StructBlock):
-            title = ScriptedCharBlock(default="Torchbox")
-            link = blocks.URLBlock(default="http://www.torchbox.com")
-
-        block = LinkBlock()
-        self.assertIn('scripted_char_block.js', ''.join(block.all_media().render_js()))
-
-    def test_html_declaration_inheritance(self):
-        class CharBlockWithDeclarations(blocks.CharBlock):
-            def html_declarations(self):
-                return '<script type="text/x-html-template">hello world</script>'
-
-        class LinkBlock(blocks.StructBlock):
-            title = CharBlockWithDeclarations(default="Torchbox")
-            link = blocks.URLBlock(default="http://www.torchbox.com")
-
-        block = LinkBlock()
-        self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
-
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -2192,61 +2144,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             ),
             html
         )
-
-    def test_html_declarations(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock()
-            link = blocks.URLBlock()
-
-        block = blocks.ListBlock(LinkBlock)
-        html = block.html_declarations()
-
-        self.assertTagInTemplateScript(
-            '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title" type="text" />',
-            html
-        )
-        self.assertTagInTemplateScript(
-            '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link" type="url" />',
-            html
-        )
-
-    def test_html_declarations_uses_default(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock(default="Github")
-            link = blocks.URLBlock(default="http://www.github.com")
-
-        block = blocks.ListBlock(LinkBlock)
-        html = block.html_declarations()
-
-        self.assertTagInTemplateScript(
-            (
-                '<input id="__PREFIX__-value-title" name="__PREFIX__-value-title" placeholder="Title"'
-                ' type="text" value="Github" />'
-            ),
-            html
-        )
-        self.assertTagInTemplateScript(
-            (
-                '<input id="__PREFIX__-value-link" name="__PREFIX__-value-link" placeholder="Link"'
-                ' type="url" value="http://www.github.com" />'
-            ),
-            html
-        )
-
-    def test_media_inheritance(self):
-        class ScriptedCharBlock(blocks.CharBlock):
-            media = forms.Media(js=['scripted_char_block.js'])
-
-        block = blocks.ListBlock(ScriptedCharBlock())
-        self.assertIn('scripted_char_block.js', ''.join(block.all_media().render_js()))
-
-    def test_html_declaration_inheritance(self):
-        class CharBlockWithDeclarations(blocks.CharBlock):
-            def html_declarations(self):
-                return '<script type="text/x-html-template">hello world</script>'
-
-        block = blocks.ListBlock(CharBlockWithDeclarations())
-        self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
 
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
@@ -2980,68 +2877,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
             block.render_form(block_value, prefix='stream'),
             count=0)
-
-    def test_html_declarations(self):
-        class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.CharBlock()
-            paragraph = blocks.CharBlock()
-
-        block = ArticleBlock()
-        html = block.html_declarations()
-
-        self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-id" name="__PREFIX__-id" value="" />', html)
-        self.assertTagInTemplateScript('<input type="hidden" id="__PREFIX__-type" name="__PREFIX__-type" value="heading" />', html)
-        self.assertTagInTemplateScript('<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading" type="text" />', html)
-        self.assertTagInTemplateScript(
-            '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text" />',
-            html
-        )
-
-    def test_html_declarations_uses_default(self):
-        class ArticleBlock(blocks.StreamBlock):
-            heading = blocks.CharBlock(default="Fish found on moon")
-            paragraph = blocks.CharBlock(default="Lorem ipsum dolor sit amet")
-
-        block = ArticleBlock()
-        html = block.html_declarations()
-
-        self.assertTagInTemplateScript(
-            (
-                '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Heading"'
-                ' type="text" value="Fish found on moon" />'
-            ),
-            html
-        )
-        self.assertTagInTemplateScript(
-            (
-                '<input id="__PREFIX__-value" name="__PREFIX__-value" placeholder="Paragraph" type="text"'
-                ' value="Lorem ipsum dolor sit amet" />'
-            ),
-            html
-        )
-
-    def test_media_inheritance(self):
-        class ScriptedCharBlock(blocks.CharBlock):
-            media = forms.Media(js=['scripted_char_block.js'])
-
-        class ArticleBlock(blocks.StreamBlock):
-            heading = ScriptedCharBlock()
-            paragraph = blocks.CharBlock()
-
-        block = ArticleBlock()
-        self.assertIn('scripted_char_block.js', ''.join(block.all_media().render_js()))
-
-    def test_html_declaration_inheritance(self):
-        class CharBlockWithDeclarations(blocks.CharBlock):
-            def html_declarations(self):
-                return '<script type="text/x-html-template">hello world</script>'
-
-        class ArticleBlock(blocks.StreamBlock):
-            heading = CharBlockWithDeclarations(default="Torchbox")
-            paragraph = blocks.CharBlock()
-
-        block = ArticleBlock()
-        self.assertIn('<script type="text/x-html-template">hello world</script>', block.all_html_declarations())
 
     def test_ordering_in_form_submission_uses_order_field(self):
         class ArticleBlock(blocks.StreamBlock):
