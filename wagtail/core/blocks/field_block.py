@@ -56,10 +56,6 @@ class FieldBlock(Block):
         return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
     @property
-    def media(self):
-        return self.field.widget.media
-
-    @property
     def required(self):
         # a FieldBlock is required if and only if its underlying form field is required
         return self.field.required

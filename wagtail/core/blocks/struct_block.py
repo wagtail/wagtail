@@ -1,6 +1,5 @@
 import collections
 
-from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
@@ -56,8 +55,6 @@ class BaseStructBlock(Block):
             if js_initializer is not None:
                 self.child_js_initializers[name] = js_initializer
 
-        self.dependencies = self.child_blocks.values()
-
     def get_default(self):
         """
         Any default value passed in the constructor or self.meta is going to be a dict
@@ -72,10 +69,6 @@ class BaseStructBlock(Block):
             return None
 
         return "StructBlock(%s)" % js_dict(self.child_js_initializers)
-
-    @property
-    def media(self):
-        return forms.Media(js=[versioned_static('wagtailadmin/js/blocks/struct.js')])
 
     def value_from_datadict(self, data, files, prefix):
         return self._to_struct_value([
@@ -240,7 +233,7 @@ class StructBlockAdapter(Adapter):
         ]
 
     class Media:
-        js = ['wagtailadmin/js/telepath/blocks.js']
+        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
 
 
 register(StructBlockAdapter(), StructBlock)

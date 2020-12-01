@@ -1,14 +1,8 @@
 import itertools
 
-from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
-from django.template.loader import render_to_string
 from django.utils.html import format_html, format_html_join
-from django.utils.safestring import mark_safe
-
-from wagtail.admin.staticfiles import versioned_static
-from wagtail.core.utils import escape_script
 
 from .base import Block
 from .utils import js_dict
@@ -32,44 +26,11 @@ class ListBlock(Block):
             # Default to a list consisting of one empty (i.e. default-valued) child item
             self.meta.default = [self.child_block.get_default()]
 
-        self.dependencies = [self.child_block]
         self.child_js_initializer = self.child_block.js_initializer()
 
     def get_default(self):
         # wrap with list() so that each invocation of get_default returns a distinct instance
         return list(self.meta.default)
-
-    @property
-    def media(self):
-        return forms.Media(js=[
-            versioned_static('wagtailadmin/js/blocks/sequence.js'),
-            versioned_static('wagtailadmin/js/blocks/list.js')
-        ])
-
-    def render_list_member(self, value, prefix, index, errors=None):
-        """
-        Render the HTML for a single list item in the form. This consists of an <li> wrapper, hidden fields
-        to manage ID/deleted state, delete/reorder buttons, and the child block's own form HTML.
-        """
-        child = self.child_block.bind(value, prefix="%s-value" % prefix, errors=errors)
-        return render_to_string('wagtailadmin/block_forms/list_member.html', {
-            'child_block': self.child_block,
-            'prefix': prefix,
-            'child': child,
-            'index': index,
-        })
-
-    def html_declarations(self):
-        # generate the HTML to be used when adding a new item to the list;
-        # this is the output of render_list_member as rendered with the prefix '__PREFIX__'
-        # (to be replaced dynamically when adding the new item) and the child block's default value
-        # as its value.
-        list_member_html = self.render_list_member(self.child_block.get_default(), '__PREFIX__', '')
-
-        return format_html(
-            '<script type="text/template" id="{0}-newmember">{1}</script>',
-            self.definition_prefix, mark_safe(escape_script(list_member_html))
-        )
 
     def js_initializer(self):
         opts = {'definitionPrefix': "'%s'" % self.definition_prefix}
