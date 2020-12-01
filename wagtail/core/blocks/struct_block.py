@@ -3,10 +3,8 @@ import collections
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
-from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
-from django.utils.safestring import mark_safe
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
@@ -79,38 +77,6 @@ class BaseStructBlock(Block):
     def media(self):
         return forms.Media(js=[versioned_static('wagtailadmin/js/blocks/struct.js')])
 
-    def get_form_context(self, value, prefix='', errors=None):
-        if errors:
-            if len(errors) > 1:
-                # We rely on StructBlock.clean throwing a single ValidationError with a specially crafted
-                # 'params' attribute that we can pull apart and distribute to the child blocks
-                raise TypeError('StructBlock.render_form unexpectedly received multiple errors')
-            error_dict = errors.as_data()[0].params
-        else:
-            error_dict = {}
-
-        bound_child_blocks = collections.OrderedDict([
-            (
-                name,
-                block.bind(value.get(name, block.get_default()),
-                           prefix="%s-%s" % (prefix, name), errors=error_dict.get(name))
-            )
-            for name, block in self.child_blocks.items()
-        ])
-
-        return {
-            'children': bound_child_blocks,
-            'help_text': getattr(self.meta, 'help_text', None),
-            'classname': self.meta.form_classname,
-            'block_definition': self,
-            'prefix': prefix,
-        }
-
-    def render_form(self, value, prefix='', errors=None):
-        context = self.get_form_context(value, prefix=prefix, errors=errors)
-
-        return mark_safe(render_to_string(self.meta.form_template, context))
-
     def value_from_datadict(self, data, files, prefix):
         return self._to_struct_value([
             (name, block.value_from_datadict(data, files, '%s-%s' % (prefix, name)))
@@ -133,7 +99,7 @@ class BaseStructBlock(Block):
                 errors[name] = ErrorList([e])
 
         if errors:
-            # The message here is arbitrary - StructBlock.render_form will suppress it
+            # The message here is arbitrary - client-side form rendering will suppress it
             # and delegate the errors contained in the 'params' dict to the child blocks instead
             raise ValidationError('Validation error in StructBlock', params=errors)
 
