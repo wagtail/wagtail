@@ -854,9 +854,6 @@ class StreamFieldPanel(FieldPanel):
 
         return classes
 
-    def html_declarations(self):
-        return self.block_def.all_html_declarations()
-
     def get_comparison_class(self):
         return compare.StreamFieldComparison
 
@@ -864,7 +861,3 @@ class StreamFieldPanel(FieldPanel):
         # a StreamField may consist of many input fields, so it's not meaningful to
         # attach the label to any specific one
         return ""
-
-    def on_model_bound(self):
-        super().on_model_bound()
-        self.block_def = self.db_field.stream_block

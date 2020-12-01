@@ -4,17 +4,13 @@ import warnings
 from collections import OrderedDict, defaultdict
 from collections.abc import MutableSequence
 
-from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html_join
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
-from wagtail.admin.staticfiles import versioned_static
-from wagtail.core.utils import escape_script
 from wagtail.utils.deprecation import RemovedInWagtail214Warning
 
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
@@ -49,8 +45,6 @@ class BaseStreamBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
-        self.dependencies = self.child_blocks.values()
-
     def get_default(self):
         """
         Default values set on a StreamBlock should be a list of (type_name, value) tuples -
@@ -83,26 +77,6 @@ class BaseStreamBlock(Block):
             'index': index,
             'block_id': id,
         })
-
-    def html_declarations(self):
-        return format_html_join(
-            '\n', '<script type="text/template" id="{0}-newmember-{1}">{2}</script>',
-            [
-                (
-                    self.definition_prefix,
-                    name,
-                    mark_safe(escape_script(self.render_list_member(name, child_block.get_default(), '__PREFIX__', '')))
-                )
-                for name, child_block in self.child_blocks.items()
-            ]
-        )
-
-    @property
-    def media(self):
-        return forms.Media(js=[
-            versioned_static('wagtailadmin/js/blocks/sequence.js'),
-            versioned_static('wagtailadmin/js/blocks/stream.js')
-        ])
 
     def js_initializer(self):
         # compile a list of info dictionaries, one for each available block type
