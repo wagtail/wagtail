@@ -144,11 +144,20 @@ class ListBlock(Block):
         return self.child_block.bulk_to_python(value)
 
     def bulk_to_python(self, values):
-        # 'values' is a list of lists of child block values; concatenate them into one list so that
-        # we can make a single call to child_block.bulk_to_python
-        lengths = [len(val) for val in values]
-        raw_values = list(itertools.chain.from_iterable(values))
-        converted_values = self.child_block.bulk_to_python(raw_values)
+        return self._map(values, self.child_block.bulk_to_python)
+
+    def _map(self, value_lists, convert):
+        """
+        Helper method for conversion operations such as bulk_to_python which operate on a list of
+        input values (a list of lists, in the case of ListBlock) and perform the conversion by
+        delegating to the child block (which also implements the bulk conversion operation, but on
+        a flat list of its own values). Receives the list of lists and a 'convert' callable which
+        acts on the flat list.
+        """
+        # concatenate value_lists into one list so that we can make a single call to convert
+        lengths = [len(value_list) for value_list in value_lists]
+        raw_values = list(itertools.chain.from_iterable(value_lists))
+        converted_values = convert(raw_values)
 
         # split converted_values back into sub-lists of the original lengths
         result = []
