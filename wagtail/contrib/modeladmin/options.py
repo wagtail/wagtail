@@ -3,7 +3,7 @@ from django.contrib.admin.utils import display_for_field
 from django.contrib.auth.models import Permission
 from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import Model, ManyToOneRel
+from django.db.models import ManyToOneRel, Model
 from django.urls import re_path
 from django.utils.safestring import mark_safe
 
