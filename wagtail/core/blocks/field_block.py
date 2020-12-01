@@ -3,7 +3,6 @@ import datetime
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.forms.fields import CallableChoiceIterator
-from django.template.loader import render_to_string
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
@@ -23,29 +22,6 @@ class FieldBlock(Block):
 
     def id_for_label(self, prefix):
         return self.field.widget.id_for_label(prefix)
-
-    def render_form(self, value, prefix='', errors=None):
-        field = self.field
-        widget = field.widget
-
-        widget_attrs = {'id': prefix, 'placeholder': self.label}
-
-        field_value = field.prepare_value(self.value_for_form(value))
-
-        if hasattr(widget, 'render_with_errors'):
-            widget_html = widget.render_with_errors(prefix, field_value, attrs=widget_attrs, errors=errors)
-            widget_has_rendered_errors = True
-        else:
-            widget_html = widget.render(prefix, field_value, attrs=widget_attrs)
-            widget_has_rendered_errors = False
-
-        return render_to_string('wagtailadmin/block_forms/field.html', {
-            'name': self.name,
-            'classes': getattr(self.meta, 'form_classname', self.meta.classname),
-            'widget': widget_html,
-            'field': field,
-            'errors': errors if (not widget_has_rendered_errors) else None
-        })
 
     def value_from_form(self, value):
         """
