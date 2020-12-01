@@ -51,54 +51,12 @@ class Block(metaclass=BaseBlock):
         classname = None
         group = ''
 
-    """
-    Setting a 'dependencies' list serves as a shortcut for the common case where a complex block type
-    (such as struct, list or stream) relies on one or more inner block objects, and needs to ensure that
-    the responses from the 'media' and 'html_declarations' include the relevant declarations for those inner
-    blocks, as well as its own. Specifying these inner block objects in a 'dependencies' list means that
-    the base 'media' and 'html_declarations' methods will return those declarations; the outer block type can
-    then add its own declarations to the list by overriding those methods and using super().
-    """
-    dependencies = []
-
     def __new__(cls, *args, **kwargs):
         # adapted from django.utils.deconstruct.deconstructible; capture the arguments
         # so that we can return them in the 'deconstruct' method
         obj = super(Block, cls).__new__(cls)
         obj._constructor_args = (args, kwargs)
         return obj
-
-    def all_blocks(self):
-        """
-        Return a list consisting of self and all block objects that are direct or indirect dependencies
-        of this block
-        """
-        result = [self]
-        for dep in self.dependencies:
-            result.extend(dep.all_blocks())
-        return result
-
-    def all_media(self):
-        media = forms.Media()
-
-        # In cases where the same block definition appears multiple times within different
-        # container blocks (e.g. a RichTextBlock appearing at the top level of a StreamField as
-        # well as both sides of a StructBlock for producing two-column layouts), we will encounter
-        # identical media declarations. Adding these to the final combined media declaration would
-        # be redundant and add processing time when determining the final media ordering. To avoid
-        # this, we keep a cache of previously-seen declarations and only add unique ones.
-        media_cache = set()
-
-        for block in self.all_blocks():
-            key = block.media.__repr__()
-            if key not in media_cache:
-                media += block.media
-                media_cache.add(key)
-        return media
-
-    def all_html_declarations(self):
-        declarations = filter(bool, [block.html_declarations() for block in self.all_blocks()])
-        return mark_safe('\n'.join(declarations))
 
     def __init__(self, **kwargs):
         if 'classname' in self._constructor_args[1]:
@@ -124,26 +82,6 @@ class Block(metaclass=BaseBlock):
         self.name = name
         if not self.meta.label:
             self.label = capfirst(force_str(name).replace('_', ' '))
-
-    @property
-    def media(self):
-        return forms.Media()
-
-    def html_declarations(self):
-        """
-        Return an HTML fragment to be rendered on the form page once per block definition -
-        as opposed to once per occurrence of the block. For example, the block definition
-            ListBlock(label="Shopping list", CharBlock(label="Product"))
-        needs to output a <script type="text/template"></script> block containing the HTML for
-        a 'product' text input, to that these can be dynamically added to the list. This
-        template block must only occur once in the page, even if there are multiple 'shopping list'
-        blocks on the page.
-
-        Any element IDs used in this HTML fragment must begin with definition_prefix.
-        (More precisely, they must either be definition_prefix itself, or begin with definition_prefix
-        followed by a '-' character)
-        """
-        return ''
 
     def js_initializer(self):
         """
