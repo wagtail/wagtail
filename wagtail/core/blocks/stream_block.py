@@ -128,39 +128,6 @@ class BaseStreamBlock(Block):
 
         return "StreamBlock(%s)" % js_dict(opts)
 
-    def render_form(self, value, prefix='', errors=None):
-        error_dict = {}
-        if errors:
-            if len(errors) > 1:
-                # We rely on StreamBlock.clean throwing a single
-                # StreamBlockValidationError with a specially crafted 'params'
-                # attribute that we can pull apart and distribute to the child
-                # blocks
-                raise TypeError('StreamBlock.render_form unexpectedly received multiple errors')
-            error_dict = errors.as_data()[0].params
-
-        # value can be None when the StreamField is in a formset
-        if value is None:
-            value = self.get_default()
-        # drop any child values that are an unrecognised block type
-        valid_children = [child for child in value if child.block_type in self.child_blocks]
-
-        list_members_html = [
-            self.render_list_member(child.block_type, child.value, "%s-%d" % (prefix, i), i,
-                                    errors=error_dict.get(i), id=child.id)
-            for (i, child) in enumerate(valid_children)
-        ]
-
-        return render_to_string('wagtailadmin/block_forms/stream.html', {
-            'prefix': prefix,
-            'help_text': getattr(self.meta, 'help_text', None),
-            'list_members_html': list_members_html,
-            'child_blocks': self.sorted_child_blocks(),
-            'header_menu_prefix': '%s-before' % prefix,
-            'block_errors': error_dict.get(NON_FIELD_ERRORS),
-            'classname': getattr(self.meta, 'form_classname', None),
-        })
-
     def value_from_datadict(self, data, files, prefix):
         count = int(data['%s-count' % prefix])
         values_with_indexes = []
