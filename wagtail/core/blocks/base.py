@@ -114,14 +114,6 @@ class Block(metaclass=BaseBlock):
         """
         return self.meta.default
 
-    def prototype_block(self):
-        """
-        Return a BoundBlock that can be used as a basis for new empty block instances to be added on the fly
-        (new list items, for example). This will have a prefix of '__PREFIX__' (to be dynamically replaced with
-        a real prefix when it's inserted into the page) and a value equal to the block's default value.
-        """
-        return self.bind(self.get_default(), '__PREFIX__')
-
     def clean(self, value):
         """
         Validate value and return a cleaned version of it, or throw a ValidationError if validation fails.
