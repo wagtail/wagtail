@@ -19,6 +19,9 @@ class WidgetAdapter(Adapter):
         ]
 
     class Media:
+        # FIXME: where does the widget's own media get merged in? Probably here,
+        # but in that case we need this to be a method that receives the object as
+        # a parameter, like js_args
         js = ['wagtailadmin/js/telepath/widgets.js']
 
 
