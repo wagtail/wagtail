@@ -9,7 +9,6 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
 
 from .base import Block, DeclarativeSubBlocksMetaclass
-from .utils import js_dict
 
 
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
@@ -49,12 +48,6 @@ class BaseStructBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
-        self.child_js_initializers = {}
-        for name, block in self.child_blocks.items():
-            js_initializer = block.js_initializer()
-            if js_initializer is not None:
-                self.child_js_initializers[name] = js_initializer
-
     def get_default(self):
         """
         Any default value passed in the constructor or self.meta is going to be a dict
@@ -62,13 +55,6 @@ class BaseStructBlock(Block):
         for StructBlock to work with
         """
         return self._to_struct_value(self.meta.default.items())
-
-    def js_initializer(self):
-        # skip JS setup entirely if no children have js_initializers
-        if not self.child_js_initializers:
-            return None
-
-        return "StructBlock(%s)" % js_dict(self.child_js_initializers)
 
     def value_from_datadict(self, data, files, prefix):
         return self._to_struct_value([
