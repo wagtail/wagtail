@@ -542,6 +542,7 @@ Contributors
 * Wout De Puysseleir
 * Kamil Marut
 * Jane Liu
+* Joe Howard
 
 Translators
 ===========
