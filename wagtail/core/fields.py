@@ -77,9 +77,6 @@ class StreamField(models.Field):
             return StreamValue(self.stream_block, [])
         elif isinstance(value, StreamValue):
             return value
-        elif isinstance(value, StructValue):
-            # TEMP: accept StructValue so that we can test with StructBlock as the top-level block
-            return value
         elif isinstance(value, str):
             try:
                 unpacked_value = json.loads(value)
