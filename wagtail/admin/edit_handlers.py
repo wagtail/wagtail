@@ -794,6 +794,10 @@ class PrivacyModalPanel(EditHandler):
 
 
 class CommentPanel(EditHandler):
+    def __init__(self, *args, **kwargs):
+        self.comments = []
+        super().__init__(*args, **kwargs)
+
     def required_formsets(self):
         # add the comments formset
         # we need to pass in the current user for validation on the formset
@@ -828,23 +832,30 @@ class CommentPanel(EditHandler):
     def html_declarations(self):
         return render_to_string(self.declarations_template)
 
+    def on_form_bound(self):
+        self.comments = []
+        comment_forms = self.form.formsets['comments'].forms
+        for form in comment_forms:
+            instance = form.instance
+            instance.replies = [reply_form.instance for reply_form in form.formsets['replies'].forms]
+            self.comments.append(instance)
+
+
     def render(self):
         user = getattr(self.request, 'user', None)
         authors = {user.pk: user_display_name(user)} if user else {}
-
-        comments = self.instance.comments.select_related('user').prefetch_related('replies__user')
         
-        for comment in comments:
+        for comment in self.comments:
             # iterate over comments to retrieve user display names as we're already going to need to serialise the queryset
             # also to keep in sync with the modelcluster version of comments
-            if comment.user.pk not in authors:
+            if comment.user_id not in authors:
                 authors.update({comment.user.pk: user_display_name(comment.user)})
             for reply in comment.replies.all():
-                if reply.user.pk not in authors:
+                if reply.user_id not in authors:
                     authors.update({reply.user.pk: user_display_name(reply.user)})
 
         comments_data = {
-            'comments': [comment.serializable_data() for comment in comments],
+            'comments': [comment.serializable_data() for comment in self.comments],
             'user': user.pk,
             'authors': authors
         }
