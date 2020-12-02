@@ -13,6 +13,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import JSContext
 
 
@@ -497,11 +498,11 @@ class BlockWidget(forms.Widget):
             js=[
                 # needed for initBlockWidget, although these will almost certainly be
                 # pulled in by the block adapters too
-                'wagtailadmin/js/telepath/telepath.js',
-                'wagtailadmin/js/telepath/blocks.js',
+                versioned_static('wagtailadmin/js/telepath/telepath.js'),
+                versioned_static('wagtailadmin/js/telepath/blocks.js'),
             ],
             css={'all': [
-                'wagtailadmin/css/panels/streamfield.css',
+                versioned_static('wagtailadmin/css/panels/streamfield.css'),
             ]}
         )
 
