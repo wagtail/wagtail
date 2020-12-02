@@ -11,14 +11,13 @@ class CommentTestingUtils:
         self.revision_1 = self.page.save_revision()
         self.revision_2 = self.page.save_revision()
 
-    def create_comment(self, revision_created, revision_resolved=None):
+    def create_comment(self, revision_created):
         return Comment.objects.create(
             page=self.page,
             user=get_user_model().objects.first(),
             text='test',
             contentpath='title',
             revision_created=revision_created,
-            revision_resolved=revision_resolved
         )
 
 
