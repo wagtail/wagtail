@@ -149,6 +149,12 @@ class BaseStructBlock(Block):
             for name, val in value.items()
         ])
 
+    def get_form_state(self, value):
+        return dict([
+            (name, self.child_blocks[name].get_form_state(val))
+            for name, val in value.items()
+        ])
+
     def get_api_representation(self, value, context=None):
         """ Recursively call get_api_representation on children and return as a plain dict """
         return dict([
