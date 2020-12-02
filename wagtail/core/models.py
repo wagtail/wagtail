@@ -1296,6 +1296,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         update_fields = ['comments']
 
+        for comment in self.comments.filter(pk__isnull=True):
+            comment.revision_created = revision
+
         self.latest_revision_created_at = revision.created_at
         update_fields.append('latest_revision_created_at')
 
