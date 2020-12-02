@@ -169,6 +169,17 @@ class Block(metaclass=BaseBlock):
         """
         return value
 
+    def get_form_state(self, value):
+        """
+        Convert a python value for this block into a JSON-serialisable representation containing
+        all the data needed to present the value in a form field, to be received by the block's
+        client-side component. Examples of where this conversion is not trivial include rich text
+        (where it needs to be supplied in a format that the editor can process, e.g. ContentState
+        for Draftail) and page / image / document choosers (where it needs to include all displayed
+        data for the selected item, such as title or thumbnail).
+        """
+        return value
+
     def get_context(self, value, parent_context=None):
         """
         Return a dict of context variables (derived from the block value and combined with the parent_context)
@@ -466,7 +477,7 @@ class BlockWidget(forms.Widget):
         self.block_json = json.dumps(self.js_context.pack(self.block_def))
 
     def render_with_errors(self, name, value, attrs=None, errors=None, renderer=None):
-        value_json = json.dumps({"first_name": "Forrest", "surname": "Gump"})
+        value_json = json.dumps(self.block_def.get_form_state(value))
         return format_html(
             """
                 <div id="{id}" data-block="{block_json}" data-value="{value_json}"></div>

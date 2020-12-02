@@ -233,6 +233,19 @@ class BaseStreamBlock(Block):
             # round-trips to the full data representation and back)
             return value.get_prep_value()
 
+    def get_form_state(self, value):
+        if not value:
+            return []
+        else:
+            return [
+                {
+                    'type': child.block.name,
+                    'value': child.block.get_form_state(child.value),
+                    'id': child.id,
+                }
+                for child in value
+            ]
+
     def get_api_representation(self, value, context=None):
         if value is None:
             # treat None as identical to an empty stream
