@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~
 
  * Added support for Python 3.9
+ * Fix: Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)
 
 
 2.11.2 (17.11.2020)
