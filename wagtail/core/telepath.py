@@ -1,6 +1,8 @@
 from django import forms
 from django.forms import MediaDefiningClass
 
+from wagtail.admin.staticfiles import versioned_static
+
 
 adapters = {}
 
@@ -11,7 +13,9 @@ def register(adapter, cls):
 
 class JSContext:
     def __init__(self):
-        self.media = forms.Media(js=['wagtailadmin/js/telepath/telepath.js'])
+        self.media = forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/telepath.js')
+        ])
         self.objects = {}
 
     def pack(self, obj):
