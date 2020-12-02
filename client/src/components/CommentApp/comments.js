@@ -13,10 +13,11 @@ function initComments() {
   };
   document.addEventListener('DOMContentLoaded', () => {
     const commentsElement = document.getElementById('comments');
+    const commentsOutputElement = document.getElementById('comments-output');
     const data = JSON.parse(document.getElementById('comments-data').textContent);
 
-    if (commentsElement && data) {
-      window.commentApp = initCommentsApp(commentsElement, data.user,data.comments, new Map(Object.entries(data.authors)), STRINGS);
+    if (commentsElement && commentsOutputElement && data) {
+      window.commentApp = initCommentsApp(commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS);
       callbacks.forEach((callback) => { callback(); });
     }
   });
