@@ -4,7 +4,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils.encoding import force_str
 
-from wagtail.core.blocks import Block, BlockField, StreamBlock, StreamValue
+from wagtail.core.blocks import Block, BlockField, StreamBlock, StreamValue, StructValue
 from wagtail.core.rich_text import get_text_for_indexing
 
 
@@ -76,6 +76,9 @@ class StreamField(models.Field):
         if value is None or value == '':
             return StreamValue(self.stream_block, [])
         elif isinstance(value, StreamValue):
+            return value
+        elif isinstance(value, StructValue):
+            # TEMP: accept StructValue so that we can test with StructBlock as the top-level block
             return value
         elif isinstance(value, str):
             try:
