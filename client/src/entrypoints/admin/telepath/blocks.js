@@ -73,7 +73,7 @@ class StructBlock {
 
     render(placeholder, prefix) {
         var html = $(`
-            <div class="{{ classname }}">
+            <div class="${this.meta.classname || ''}">
                 <span>
                     <div class="help">
                         <span class="icon-help-inverse" aria-hidden="true"></span>
@@ -88,14 +88,12 @@ class StructBlock {
         this.childBlocks.forEach(childBlock => {
             var childHtml = $(`
                 <div class="field">
-                    <label class="field__label"></label>
+                    <label class="field__label">${childBlock.meta.label}</label>
                     <div data-streamfield-block></div>
                 </div>
             `);
             var childDom = $(childHtml);
             dom.append(childDom);
-            var label = childDom.find('.field__label');
-            label.text(childBlock.meta.label);
             var childBlockElement = childDom.find('[data-streamfield-block]').get(0);
             var boundBlock = childBlock.render(childBlockElement, prefix + '-' + childBlock.name);
             
@@ -126,3 +124,97 @@ class StructBlock {
     }
 }
 telepath.register('wagtail.blocks.StructBlock', StructBlock);
+
+
+class ListBlock {
+    constructor(name, childBlock, meta) {
+        this.name = name;
+        this.childBlock = telepath.unpack(childBlock);
+        this.meta = meta;
+    }
+
+    render(placeholder, prefix) {
+        var html = $(`
+            <span>
+                <div class="help">
+                    <span class="icon-help default" aria-hidden="true"></span>
+
+                </div>
+            </span>
+            <div class="c-sf-container ${this.meta.classname || ''}">
+                <input type="hidden" name="${prefix}-count" data-streamfield-list-count value="0">
+
+                <div data-streamfield-list-container></div>
+                <button type="button" title="Add" data-streamfield-list-add class="c-sf-add-button c-sf-add-button--visible"><i aria-hidden="true">+</i></button>
+            </div>
+        `);
+        var dom = $(html);
+        $(placeholder).replaceWith(dom);
+
+        var boundBlocks = [];
+        var countInput = dom.find('[data-streamfield-list-count]');
+        var listContainer = dom.find('[data-streamfield-list-container]');
+        var addButton = dom.find('[data-streamfield-list-add]');
+
+        var self = this;
+
+        return {
+            'setState': function(values) {
+                countInput.val(values.length);
+                boundBlocks = [];
+                listContainer.empty();
+                values.forEach(function(val, index) {
+                    var childHtml = $(`
+                        <div id="${prefix}-container" aria-hidden="false">
+                            <input type="hidden" id="${prefix}-deleted" name="${prefix}-deleted" value="">
+                            <input type="hidden" id="${prefix}-order" name="${prefix}-order" value="${index}">
+                            <div>
+                                <div class="c-sf-container__block-container">
+                                    <div class="c-sf-block">
+                                        <div class="c-sf-block__header">
+                                            <span class="c-sf-block__header__icon">
+                                                <i class="icon icon-${self.childBlock.meta.icon}"></i>
+                                            </span>
+                                            <h3 class="c-sf-block__header__title"></h3>
+                                            <div class="c-sf-block__actions">
+                                                <span class="c-sf-block__type"></span>
+                                                <button type="button" id="${prefix}-moveup" class="c-sf-block__actions__single" title="{% trans 'Move up' %}">
+                                                <i class="icon icon-arrow-up" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" id="${prefix}-movedown" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
+                                                <i class="icon icon-arrow-down" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" id="${prefix}-delete" class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
+                                                <i class="icon icon-bin" aria-hidden="true"></i>
+                                            </button>
+                                        
+                                            </div>
+                                        </div>
+                                        <div class="c-sf-block__content" aria-hidden="false">
+                                            <div class="c-sf-block__content-inner">
+                                                <div data-streamfield-block></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    var childDom = $(childHtml);
+                    listContainer.append(childDom);
+                    var childBlockElement = childDom.find('[data-streamfield-block]').get(0);
+                    var boundBlock = self.childBlock.render(childBlockElement, prefix + '-' + index);
+                    boundBlock.setState(val);
+                    boundBlocks.push(boundBlock);
+                });
+            },
+            'getState': function() {
+                return boundBlocks.map(function(boundBlock) {return boundBlock.getState()});
+            },
+            'getValue': function() {
+                return boundBlocks.map(function(boundBlock) {return boundBlock.getValue()});
+            },
+        };
+    }
+}
+telepath.register('wagtail.blocks.ListBlock', ListBlock);
