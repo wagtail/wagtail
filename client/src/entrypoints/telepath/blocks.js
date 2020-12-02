@@ -47,6 +47,7 @@ class FieldBlock {
         var widgetElement = dom.find('[data-streamfield-widget]').get(0);
         var boundWidget = this.widget.render(widgetElement, prefix, prefix);
         return {
+            'type': this.name,
             'setState': function(state) {
                 boundWidget.setState(state);
             },
@@ -94,6 +95,7 @@ class StructBlock {
         });
 
         return {
+            'type': this.name,
             'setState': function(state) {
                 for (name in state) {
                     boundBlocks[name].setState(state[name]);
@@ -146,6 +148,7 @@ class ListBlock {
         var self = this;
 
         return {
+            'type': this.name,
             'setState': function(values) {
                 countInput.val(values.length);
                 boundBlocks = [];
@@ -205,3 +208,112 @@ class ListBlock {
     }
 }
 telepath.register('wagtail.blocks.ListBlock', ListBlock);
+
+
+class StreamBlock {
+    constructor(name, childBlocks, meta) {
+        this.name = name;
+        this.childBlocks = childBlocks.map((child) => {return telepath.unpack(child);});
+        this.childBlocksByName = {};
+        for (var i = 0; i < this.childBlocks.length; i++) {
+            var block = this.childBlocks[i];
+            this.childBlocksByName[block.name] = block;
+        }
+        this.meta = meta;
+    }
+
+    render(placeholder, prefix) {
+        var html = $(`
+            <div class="c-sf-container ${this.meta.classname || ''}">
+                <input type="hidden" name="${prefix}-count" data-streamfield-stream-count value="0">
+                <div data-streamfield-stream-container></div>
+            </div>
+        `);
+        var dom = $(html);
+        $(placeholder).replaceWith(dom);
+        var boundBlocks = [];
+        var countInput = dom.find('[data-streamfield-stream-count]');
+        var streamContainer = dom.find('[data-streamfield-stream-container]');
+
+        var self = this;
+
+        return {
+            'type': this.name,
+            'setState': function(values) {
+                countInput.val(values.length);
+                streamContainer.empty();
+                boundBlocks = [];
+                for (var index = 0; index < values.length; index++) {
+                    var blockData = values[index];
+                    var blockType = blockData['type']
+                    var block = self.childBlocksByName[blockType];
+
+                    var childHtml = `
+                        <div aria-hidden="false">
+                            <input type="hidden" name="${prefix}-deleted" value="">
+                            <input type="hidden" name="${prefix}-order" value="${index}">
+                            <input type="hidden" name="${prefix}-type" value="${blockType}">
+                            <input type="hidden" name="${prefix}-id" value="${blockData['id'] || ''}">
+
+                            <div>
+                                <div class="c-sf-container__block-container">
+                                    <div class="c-sf-block">
+                                        <div class="c-sf-block__header">
+                                            <span class="c-sf-block__header__icon">
+                                                <i class="icon icon-${block.meta.icon}"></i>
+                                            </span>
+                                            <h3 class="c-sf-block__header__title"></h3>
+                                            <div class="c-sf-block__actions">
+                                                <span class="c-sf-block__type">${block.meta.label}</span>
+                                                <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move up' %}">
+                                                    <i class="icon icon-arrow-up" aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
+                                                    <i class="icon icon-arrow-down" aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button" class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
+                                                    <i class="icon icon-bin" aria-hidden="true"></i>
+                                                </button>
+                                        
+                                            </div>
+                                        </div>
+                                        <div class="c-sf-block__content" aria-hidden="false">
+                                            <div class="c-sf-block__content-inner">
+                                                <div data-streamfield-block></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    var childDom = $(childHtml);
+                    streamContainer.append(childDom);
+                    var childBlockElement = childDom.find('[data-streamfield-block]').get(0);
+                    var boundBlock = block.render(childBlockElement, prefix + '-' + index);
+                    boundBlock.setState(blockData['value']);
+                    boundBlocks.push(boundBlock);
+                }
+            },
+            'getState': function() {
+                return boundBlocks.map(function(boundBlock) {
+                    return {
+                        'type': boundBlock.type,
+                        'val': boundBlock.getState(),
+                        'id': null, /* TODO: add this */
+                    }
+                });
+            },
+            'getValue': function() {
+                return boundBlocks.map(function(boundBlock) {
+                    return {
+                        'type': boundBlock.type,
+                        'val': boundBlock.getValue(),
+                        'id': null, /* TODO: add this */
+                    }
+                });
+            },
+        }
+    }
+}
+telepath.register('wagtail.blocks.StreamBlock', StreamBlock);
