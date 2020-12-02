@@ -6,6 +6,7 @@ and extract field values.
 
 from django import forms
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
 
 
@@ -22,7 +23,9 @@ class WidgetAdapter(Adapter):
         # FIXME: where does the widget's own media get merged in? Probably here,
         # but in that case we need this to be a method that receives the object as
         # a parameter, like js_args
-        js = ['wagtailadmin/js/telepath/widgets.js']
+        js = [
+            versioned_static('wagtailadmin/js/telepath/widgets.js')
+        ]
 
 
 register(WidgetAdapter(), forms.widgets.Input)
