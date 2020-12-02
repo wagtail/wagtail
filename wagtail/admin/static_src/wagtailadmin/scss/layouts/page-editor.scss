@@ -7,12 +7,12 @@
 
     .breadcrumb {
         margin: -1.2em 0 2em;  // sass linter complains about $desktop-nice-padding here because of unit mismatch
-        margin-left: -$desktop-nice-padding;
-        margin-right: -$desktop-nice-padding;
         padding-left: calc(#{$desktop-nice-padding} - 2em);
 
         @include media-breakpoint-up(sm) {
             margin-top: -1.8em;
+            margin-left: -$desktop-nice-padding;
+            margin-right: -$desktop-nice-padding;
         }
     }
 

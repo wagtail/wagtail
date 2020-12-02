@@ -20,7 +20,7 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
- * ...
+ * Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)
 
 
 Upgrade considerations
