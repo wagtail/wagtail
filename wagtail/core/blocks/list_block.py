@@ -4,6 +4,9 @@ from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.utils.html import format_html, format_html_join
 
+from wagtail.admin.staticfiles import versioned_static
+from wagtail.core.telepath import Adapter, register
+
 from .base import Block
 
 
@@ -134,6 +137,27 @@ class ListBlock(Block):
         # block is being used for. Feel encouraged to specify an icon in your
         # descendant block type
         icon = "placeholder"
+        form_classname = None
+
+
+class ListBlockAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.ListBlock'
+
+    def js_args(self, block, context):
+        return [
+            block.name,
+            context.pack(block.child_block),
+            {
+                'label': block.label, 'icon': block.meta.icon, 'classname': block.meta.form_classname,
+                'helpText': getattr(block.meta, 'help_text', None),
+            },
+        ]
+
+    class Media:
+        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+
+
+register(ListBlockAdapter(), ListBlock)
 
 
 DECONSTRUCT_ALIASES = {
