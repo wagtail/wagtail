@@ -147,6 +147,8 @@ If you need to use different connection settings, use the following environment 
 
 * ``DATABASE_PORT``
 
+It is also possible to set ``DATABASE_DRIVER``, which corresponds to the `driver` value within `OPTIONS` if an SQL Server engine is used.
+
 Testing Elasticsearch
 ---------------------
 

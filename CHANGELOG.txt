@@ -15,6 +15,7 @@ Changelog
  * Fix: Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)
  * Fix: Make sure document chooser pagination preserves the selected collection when moving between pages (Alex Sa)
  * Fix: Gracefully handle oEmbed endpoints returning non-JSON responses (Matt Westcott)
+ * Fix: Fix unique constraint on WorkflowState for SQL Server compatibility (David Beitey)
 
 
 2.11.3 (10.12.2020)

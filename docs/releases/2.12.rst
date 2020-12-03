@@ -43,6 +43,7 @@ Bug fixes
  * Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)
  * Make sure document chooser pagination preserves the selected collection when moving between pages (Alex Sa)
  * Gracefully handle oEmbed endpoints returning non-JSON responses (Matt Westcott)
+ * Fix unique constraint on WorkflowState for SQL Server compatibility (David Beitey)
 
 
 Upgrade considerations

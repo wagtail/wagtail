@@ -4316,9 +4316,9 @@ class WorkflowState(models.Model):
     class Meta:
         verbose_name = _('Workflow state')
         verbose_name_plural = _('Workflow states')
-        # prevent multiple STATUS_IN_PROGRESS/STATUS_NEEDS_CHANGES workflows for the same page. This is not supported by MySQL, so is checked additionally on save.
+        # prevent multiple STATUS_IN_PROGRESS/STATUS_NEEDS_CHANGES workflows for the same page. This is only supported by specific databases (e.g. Postgres, SQL Server), so is checked additionally on save.
         constraints = [
-            models.UniqueConstraint(fields=['page'], condition=(Q(status='in_progress') | Q(status='needs_changes')), name='unique_in_progress_workflow')
+            models.UniqueConstraint(fields=['page'], condition=Q(status__in=('in_progress', 'needs_changes')), name='unique_in_progress_workflow')
         ]
 
 
