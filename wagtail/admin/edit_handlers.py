@@ -3,7 +3,6 @@ import re
 
 from django import forms
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.fields import CharField, TextField
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
@@ -840,37 +839,36 @@ class CommentPanel(EditHandler):
             instance.replies = [reply_form.instance for reply_form in form.formsets['replies'].forms]
             self.comments.append(instance)
 
-
-    def render(self):
+    def get_context(self):
         user = getattr(self.request, 'user', None)
         authors = {user.pk: user_display_name(user)} if user else {}
-        
+        serialized_comments = []
         for comment in self.comments:
-            # iterate over comments to retrieve user display names as we're already going to need to serialise the queryset
-            # also to keep in sync with the modelcluster version of comments
+            # iterate over comments to retrieve user display names and serialized versions
             if comment.user_id not in authors:
                 authors.update({comment.user.pk: user_display_name(comment.user)})
+            serialized_comments.append(comment.serializable_data())
             for reply in comment.replies.all():
                 if reply.user_id not in authors:
                     authors.update({reply.user.pk: user_display_name(reply.user)})
 
         comments_data = {
-            'comments': [comment.serializable_data() for comment in self.comments],
+            'comments': serialized_comments,
             'user': user.pk,
             'authors': authors
         }
 
-        panel = render_to_string(self.template, {
-            'self': self,
-            'comments_data': comments_data
-        })
+        return {
+            'comments_data': comments_data,
+        }
+
+    def render(self):
+        panel = render_to_string(self.template, self.get_context())
         js = self.render_js_init()
         return widget_with_script(panel, js)
 
     def render_js_init(self):
-        return mark_safe(render_to_string(self.js_template, {
-            'self': self,
-        }))
+        return mark_safe(render_to_string(self.js_template, {}))
 
 
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
