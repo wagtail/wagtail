@@ -354,7 +354,7 @@ Let's break this down:
     {% if page %}
         ...
     {% endif %}
-    
+
 If this is part of a shared base template it may be used in situations where no page object is available, such as 404 error responses, so check that we have a page before proceeding.
 
 .. code-block:: html+Django
