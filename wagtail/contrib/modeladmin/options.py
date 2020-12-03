@@ -6,7 +6,7 @@ from django.db.models import Model
 from django.urls import re_path
 from django.utils.safestring import mark_safe
 
-from wagtail.admin.checks import check_panels_in_model
+from wagtail.admin.checks import check_edit_handler_on_model, check_panels_in_model
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.core import hooks
 from wagtail.core.models import Page
@@ -572,7 +572,9 @@ class ModelAdmin(WagtailRegisterable):
 
         @checks.register('panels')
         def modeladmin_model_check(app_configs, **kwargs):
-            errors = check_panels_in_model(self.model, 'modeladmin')
+            model = self.model
+            errors = check_panels_in_model(model, 'modeladmin')
+            errors.extend(check_edit_handler_on_model(model, 'modeladmin'))
             return errors
 
 
@@ -669,7 +671,9 @@ class ModelAdminGroup(WagtailRegisterable):
         def modeladmin_model_check(app_configs, **kwargs):
             errors = []
             for modeladmin_class in self.items:
-                errors.extend(check_panels_in_model(modeladmin_class.model))
+                model = modeladmin_class.model
+                errors.extend(check_panels_in_model(model))
+                errors.extend(check_edit_handler_on_model(model))
             return errors
 
 
