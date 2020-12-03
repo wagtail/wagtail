@@ -338,14 +338,24 @@ this into account.
     {# make sure these are at the top of the file #}
     {% load i18n wagtailcore_tags %}
 
-    {% for translation in page.get_translations.live %}
-        {% get_language_info for translation.locale.language_code as lang %}
-        <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
-            {{ lang.name_local }}
-        </a>
-    {% endfor %}
+    {% if page %}
+        {% for translation in page.get_translations.live %}
+            {% get_language_info for translation.locale.language_code as lang %}
+            <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
+                {{ lang.name_local }}
+            </a>
+        {% endfor %}
+    {% endif %}
 
 Let's break this down:
+
+.. code-block:: html+Django
+
+    {% if page %}
+        ...
+    {% endif %}
+    
+If this is part of a shared base template it may be used in situations where no page object is available, such as 404 error responses, so check that we have a page before proceeding.
 
 .. code-block:: html+Django
 
