@@ -21,6 +21,7 @@ Other features
 
  * Added support for Python 3.9
  * Switch pagination icons to use SVG instead of icon fonts (Scott Cranfill)
+ * Added string representation to image Format class (Andreas Nüßlein)
 
 
 Bug fixes
