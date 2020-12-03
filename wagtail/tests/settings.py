@@ -33,8 +33,9 @@ if DATABASES['default']['ENGINE'] != 'django.db.backends.sqlite3':
 # Add extra options when mssql is used (on for example appveyor)
 if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
     DATABASES['default']['OPTIONS'] = {
-        'driver': 'SQL Server Native Client 11.0',
+        'driver': os.environ.get('DATABASE_DRIVER', 'SQL Server Native Client 11.0'),
         'MARS_Connection': 'True',
+        'host_is_server': True,  # Applies to FreeTDS driver only
     }
 
 
