@@ -12,6 +12,12 @@ class Format:
         self.label = label
         self.classnames = classnames
         self.filter_spec = filter_spec
+    
+    def __str__(self):
+        return f'"{self.name}", "{self.label}", "{self.classnames}", "{self.filter_spec}"'
+    
+    def __repr__(self):
+        return f"Format({self})"
 
     def editor_attributes(self, image, alt_text):
         """
