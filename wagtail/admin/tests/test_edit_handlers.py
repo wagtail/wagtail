@@ -3,18 +3,19 @@ from functools import wraps
 from unittest import mock
 
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
 
 from wagtail.admin.edit_handlers import (
-    FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
+    CommentPanel, FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
     TabbedInterface, extract_panel_definitions_from_model_class, get_form_for_model)
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.admin.rich_text import DraftailRichTextArea
 from wagtail.admin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Comment, CommentReply, Page, Site
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
@@ -1036,3 +1037,183 @@ There are no tabs on non-Page model editing within InlinePanels.""",
         # clean up for future checks
         delattr(EventPageSpeaker, 'edit_handler')
         delattr(EventPageSpeaker, 'content_panels')
+
+
+class TestCommentPanel(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.commenting_user = get_user_model().objects.get(pk=7)
+        self.other_user = get_user_model().objects.get(pk=6)
+        self.request = RequestFactory().get('/')
+        self.request.user = self.commenting_user
+        self.object_list = ObjectList([
+            CommentPanel()
+        ]).bind_to(model=EventPage, request=self.request)
+        self.EventPageForm = self.object_list.get_form_class()
+        self.event_page = EventPage.objects.get(slug='christmas')
+        self.comment = Comment.objects.create(page=self.event_page, text='test', user=self.other_user, contentpath='test_contentpath')
+        self.reply_1 = CommentReply.objects.create(comment=self.comment, text='reply_1', user=self.other_user)
+        self.reply_2 = CommentReply.objects.create(comment=self.comment, text='reply_2', user=self.commenting_user)
+
+    def test_context(self):
+        """
+        Test that the context contains the data about existing comments necessary to initialize the commenting app
+        """
+        form = self.EventPageForm(instance=self.event_page)
+        panel = self.object_list.bind_to(instance=self.event_page, form=form).children[0]
+        data = panel.get_context()['comments_data']
+
+        self.assertEqual(data['user'], self.commenting_user.pk)
+
+        self.assertEqual(len(data['comments']), 1)
+        self.assertEqual(data['comments'][0]['user'], self.comment.user.pk)
+
+        self.assertEqual(len(data['comments'][0]['replies']), 2)
+        self.assertEqual(data['comments'][0]['replies'][0]['user'], self.reply_1.user.pk)
+        self.assertEqual(data['comments'][0]['replies'][1]['user'], self.reply_2.user.pk)
+
+        self.assertIn(self.commenting_user.pk, data['authors'])
+        self.assertIn(self.other_user.pk, data['authors'])
+
+    def test_form(self):
+        """
+        Check that the form has the comments/replies formsets, and that the
+        user has been set on each CommentForm/CommentReplyForm subclass
+        """
+        form = self.EventPageForm(instance=self.event_page)
+
+        self.assertIn('comments', form.formsets)
+
+        comments_formset = form.formsets['comments']
+        self.assertEqual(len(comments_formset.forms), 1)
+        self.assertEqual(comments_formset.forms[0].user, self.commenting_user)
+
+        replies_formset = comments_formset.forms[0].formsets['replies']
+        self.assertEqual(len(replies_formset.forms), 2)
+        self.assertEqual(replies_formset.forms[0].user, self.commenting_user)
+
+    def test_comment_form_validation(self):
+
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 2,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': 'edited text',  # Try to edit an existing comment from another user
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-replies-TOTAL_FORMS': 0,
+            'comments-0-replies-INITIAL_FORMS': 0,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+            'comments-1-id': '',
+            'comments-1-text': 'new comment',  # Add a new comment
+            'comments-1-contentpath': 'new.path',
+            'comments-1-replies-TOTAL_FORMS': 0,
+            'comments-1-replies-INITIAL_FORMS': 0,
+            'comments-1-replies-MIN_NUM_FORMS': 0,
+            'comments-1-replies-MAX_NUM_FORMS': 1000,
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+        self.assertFalse(comment_form.is_valid())
+        # The existing comment was from another user, so should not be editable
+
+        comment_form = form.formsets['comments'].forms[1]
+        self.assertTrue(comment_form.is_valid())
+        self.assertEqual(comment_form.instance.user, self.commenting_user)
+        # The commenting user should be able to add a new comment, and the new comment's user should be set to request.user
+
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-DELETE': 1,  # Try to delete a comment from another user
+            'comments-0-replies-TOTAL_FORMS': 0,
+            'comments-0-replies-INITIAL_FORMS': 0,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+        self.assertTrue(comment_form.is_valid())
+        # Users can delete comments from other users - this is the resolve action
+
+    def test_comment_reply_form_validation(self):
+
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-replies-TOTAL_FORMS': 3,
+            'comments-0-replies-INITIAL_FORMS': 2,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+            'comments-0-replies-0-id': self.reply_1.pk,
+            'comments-0-replies-0-text': 'edited_text',  # Try to edit someone else's reply
+            'comments-0-replies-1-id': self.reply_2.pk,
+            'comments-0-replies-1-text': "Edited text 2",  # Try to edit own reply
+            'comments-0-replies-2-id': "",  # Add new reply
+            'comments-0-replies-2-text': "New reply",
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+
+        reply_forms = comment_form.formsets['replies'].forms
+
+        self.assertFalse(reply_forms[0].is_valid())
+        # The existing reply was from another user, so should not be editable
+
+        self.assertTrue(reply_forms[1].is_valid())
+        # The existing reply was from the same user, so should be editable
+
+        self.assertTrue(reply_forms[2].is_valid())
+        self.assertEqual(reply_forms[2].instance.user, self.commenting_user)
+        # Should be able to add new reply, and user should be set correctly
+
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-replies-TOTAL_FORMS': 2,
+            'comments-0-replies-INITIAL_FORMS': 2,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+            'comments-0-replies-0-id': self.reply_1.pk,
+            'comments-0-replies-0-text': self.reply_1.text,
+            'comments-0-replies-0-DELETE': 1,  # Try to delete someone else's reply
+            'comments-0-replies-1-id': self.reply_2.pk,
+            'comments-0-replies-1-text': "Edited text 2",
+            'comments-0-replies-1-DELETE': 1,  # Try to delete own reply
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+
+        reply_forms = comment_form.formsets['replies'].forms
+
+        self.assertFalse(reply_forms[0].is_valid())
+        # The existing reply was from another user, so should not be deletable
+
+        self.assertTrue(reply_forms[1].is_valid())
+        # The existing reply was from the same user, so should be deletable
