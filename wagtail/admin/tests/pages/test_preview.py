@@ -97,6 +97,10 @@ class TestPreview(TestCase, WagtailTestUtils):
             'head_counts-MIN_NUM_FORMS': 0,
             'head_counts-MAX_NUM_FORMS': 0,
             'categories': [self.parties_category.id, self.holidays_category.id],
+            'comments-TOTAL_FORMS': 0,
+            'comments-INITIAL_FORMS': 0,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
         }
 
     def test_preview_on_create_with_m2m_field(self):
