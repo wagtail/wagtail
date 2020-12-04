@@ -434,7 +434,7 @@ class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
         """
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.table_block_page.id,)))
         # check page + field renders
-        self.assertContains(response, '<div class="field char_field widget-table_input fieldname-table">')
+        self.assertContains(response, '<div data-contentpath="table" class="field char_field widget-table_input fieldname-table">')
         # check data
         self.assertContains(response, 'Battlestar')
         self.assertContains(response, 'Galactica')

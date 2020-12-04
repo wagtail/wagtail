@@ -724,6 +724,7 @@ def register_icons(icons):
         'cogs.svg',
         'collapse-down.svg',
         'collapse-up.svg',
+        'comment.svg',
         'cross.svg',
         'date.svg',
         'doc-empty-inverse.svg',
