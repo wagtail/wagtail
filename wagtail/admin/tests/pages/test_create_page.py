@@ -978,6 +978,10 @@ class TestInlinePanelWithTags(TestCase, WagtailTestUtils):
             'addresses-0-address': "52 Festive Road, London",
             'addresses-0-tags': "shopkeeper, bowler-hat",
             'action-publish': "Publish",
+            'comments-TOTAL_FORMS': 0,
+            'comments-INITIAL_FORMS': 0,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'personpage', self.root_page.id)), post_data
@@ -1017,6 +1021,10 @@ class TestInlinePanelNonFieldErrors(TestCase, WagtailTestUtils):
             'carousel_items-MAX_NUM_FORMS': 1000,
             'carousel_items-TOTAL_FORMS': 0,
             'action-publish': "Publish",
+            'comments-TOTAL_FORMS': 0,
+            'comments-INITIAL_FORMS': 0,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('demosite', 'homepage', self.root_page.id)), post_data

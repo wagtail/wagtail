@@ -384,6 +384,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             'slug': 'hello-again-world',
             'action-publish': "Publish",
             'first_published_at': submittable_timestamp(first_published_at),
+            'comments-TOTAL_FORMS': 0,
+            'comments-INITIAL_FORMS': 0,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
         }
         self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
 
