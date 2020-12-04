@@ -12,7 +12,7 @@
 
 
 {% endcomment %}
-<div id="{{ prefix }}-container" aria-hidden="false">
+<div id="{{ prefix }}-container" aria-hidden="false" {% block contentpath %}data-contentpath-disabled{% endblock %}>
     <input type="hidden" id="{{ prefix }}-deleted" name="{{ prefix }}-deleted" value="">
     <input type="hidden" id="{{ prefix }}-order" name="{{ prefix }}-order" value="{{ index }}">
     {% block hidden_fields %}{% endblock %}

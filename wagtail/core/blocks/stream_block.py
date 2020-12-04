@@ -88,7 +88,7 @@ class BaseStreamBlock(Block):
                 (
                     self.definition_prefix,
                     name,
-                    mark_safe(escape_script(self.render_list_member(name, child_block.get_default(), '__PREFIX__', '')))
+                    mark_safe(escape_script(self.render_list_member(name, child_block.get_default(), '__PREFIX__', '', id='__UUID__')))
                 )
                 for name, child_block in self.child_blocks.items()
             ]
@@ -98,7 +98,8 @@ class BaseStreamBlock(Block):
     def media(self):
         return forms.Media(js=[
             versioned_static('wagtailadmin/js/blocks/sequence.js'),
-            versioned_static('wagtailadmin/js/blocks/stream.js')
+            versioned_static('wagtailadmin/js/blocks/stream.js'),
+            versioned_static('wagtailadmin/js/vendor/uuidv4.min.js')
         ])
 
     def js_initializer(self):

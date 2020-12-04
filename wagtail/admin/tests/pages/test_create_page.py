@@ -923,7 +923,7 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # response should include HTML declarations for streamfield child blocks
-        self.assertContains(response, '<div id="__PREFIX__-container" aria-hidden="false">')
+        self.assertContains(response, '<div id="__PREFIX__-container" aria-hidden="false" data-contentpath="__UUID__">')
 
 
 class TestIssue2994(TestCase, WagtailTestUtils):
