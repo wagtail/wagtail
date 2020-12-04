@@ -84,6 +84,7 @@ def get_js_translation_strings():
         'DELETING': _('Deleting...'),
         'SHOW_RESOLVED_COMMENTS': _('Show resolved comments'),
         'SHOW_COMMENTS': _('Show comments'),
+        'REPLY': _('Reply'),
         'RETRY': _('Retry'),
         'DELETE_ERROR': _('Delete error'),
         'CONFIRM_DELETE_COMMENT': _('Are you sure?'),

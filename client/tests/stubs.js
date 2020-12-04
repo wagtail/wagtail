@@ -52,6 +52,7 @@ global.wagtailConfig = {
     DELETING: 'Deleting...',
     SHOW_RESOLVED_COMMENTS: 'Show resolved comments',
     SHOW_COMMENTS: 'Show comments',
+    REPLY: 'Reply',
     RETRY: 'Retry',
     DELETE_ERROR: 'Delete error',
     CONFIRM_DELETE_COMMENT: 'Are you sure?',
