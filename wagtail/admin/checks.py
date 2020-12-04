@@ -153,21 +153,29 @@ There are no default tabs on non-Page models so there will be no \
     return errors
 
 
-def check_edit_handler_on_model(cls, context='model'):
-    """Check that the edit_handler is an instance of EditHandler."""
+def is_valid_edit_handler(edit_handler):
     from wagtail.admin.edit_handlers import EditHandler
+    if not isinstance(edit_handler, EditHandler):
+        return False
+    if not hasattr(edit_handler, 'get_form_class'):
+        return False
+    return True
 
+
+def check_edit_handler_on_model(cls, context='model'):
+    """Check that the edit_handler defined (if any) is valid."""
     errors = []
 
     edit_handler = getattr(cls, 'edit_handler', None)
-    if edit_handler is not None and not isinstance(edit_handler, EditHandler):
+    if edit_handler is not None and not is_valid_edit_handler(edit_handler):
         # Check for a typo at setup
         class_name = cls.__name__
         error = Error(
-            "edit_handler is not an EditHandler instance",
+            "edit_handler definition is invalid",
             hint="Ensure that {}.edit_handler is an instance of "
-                 "wagtail.admin.edit_handler.EditHandler. It is currently: "
-                 "`{}`".format(class_name, type(edit_handler)),
+                 "wagtail.admin.edit_handler.EditHandler with a "
+                 "`get_form_class` method. Got: `{}`".format(
+                     class_name, type(edit_handler)),
             obj=cls,
             id='wagtailadmin.E003'
         )
@@ -181,3 +189,4 @@ def check_edit_handler_on_model(cls, context='model'):
         )
         errors.append(error)
     return errors
+
