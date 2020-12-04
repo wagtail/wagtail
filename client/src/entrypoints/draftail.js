@@ -1,10 +1,11 @@
+/* eslint-disable */
 import * as Draftail from 'draftail';
 import draftail, {
   Link,
   Document,
   ImageBlock,
   EmbedBlock,
-} from '../../../../../client/src/components/Draftail/index';
+} from '../components/Draftail/index';
 
 /**
  * Entry point loaded when the Draftail editor is in use.

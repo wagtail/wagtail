@@ -1,12 +1,13 @@
-jest.mock("../../../../../client/src/index");
+/* eslint-disable */
+jest.mock("..");
 
-const wagtail = require('../../../../../client/src/index');
+const wagtail = require('..');
 
 document.addEventListener = jest.fn();
 
-require('./wagtailadmin.entry');
+require('./wagtailadmin');
 
-describe('wagtailadmin.entry', () => {
+describe('wagtailadmin', () => {
   const [event, listener] = document.addEventListener.mock.calls[0];
 
   it('exposes components for reuse', () => {
