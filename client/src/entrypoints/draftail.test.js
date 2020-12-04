@@ -1,6 +1,7 @@
-require('./draftail.entry');
+/* eslint-disable */
+require('./draftail');
 
-describe('draftail.entry', () => {
+describe('draftail', () => {
   it('exposes module as global', () => {
     expect(window.draftail).toBeDefined();
   });

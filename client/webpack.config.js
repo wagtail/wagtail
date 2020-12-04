@@ -1,7 +1,5 @@
 const path = require('path');
 
-// Generates a path to an entry file to be compiled by Webpack.
-const getEntryPath = (app, filename) => path.resolve('wagtail', app, 'static_src', `wagtail${app}`, 'app', filename);
 // Generates a path to the output bundle to be loaded in the browser.
 const getOutputPath = (app, filename) => path.join('wagtail', app, 'static', `wagtail${app}`, 'js', filename);
 
@@ -15,17 +13,6 @@ const exposedDependencies = {
 };
 
 module.exports = function exports() {
-  const entry = {};
-
-  entry[getOutputPath('admin', 'wagtailadmin')] = [
-    './client/src/utils/polyfills.js',
-    getEntryPath('admin', 'wagtailadmin.entry.js'),
-  ];
-  entry[getOutputPath('admin', 'draftail')] = [
-    './client/src/utils/polyfills.js',
-    getEntryPath('admin', 'draftail.entry.js'),
-  ];
-
   const entrypoints = [
     'blocks/list',
     'blocks/sequence',
@@ -33,6 +20,7 @@ module.exports = function exports() {
     'blocks/struct',
     'core',
     'date-time-chooser',
+    'draftail',
     'expanding_formset',
     'filtered-select',
     'hallo-bootstrap',
@@ -48,10 +36,12 @@ module.exports = function exports() {
     'task-chooser-modal',
     'task-chooser',
     'userbar',
+    'wagtailadmin',
     'workflow-action',
     'workflow-status',
   ];
 
+  const entry = {};
   entrypoints.forEach(moduleName => {
     entry[getOutputPath('admin', moduleName)] = [
       './client/src/utils/polyfills.js',
