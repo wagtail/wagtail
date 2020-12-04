@@ -15,6 +15,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Added support for Python 3.9
+ * Switch pagination icons to use SVG instead of icon fonts (Scott Cranfill)
 
 
 Bug fixes

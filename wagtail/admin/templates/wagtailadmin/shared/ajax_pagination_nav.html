@@ -6,12 +6,18 @@
     <ul>
         <li class="prev">
             {% if items.has_previous %}
-                <a href="#" data-page="{{ items.previous_page_number }}" class="icon icon-arrow-left">{% trans 'Previous' %}</a>
+                <a href="#" data-page="{{ items.previous_page_number }}">
+                    {% icon name="arrow-left" class_name="default" %}
+                    {% trans 'Previous' %}
+                </a>
             {% endif %}
         </li>
         <li class="next">
             {% if items.has_next %}
-                <a href="#" data-page="{{ items.next_page_number }}" class="icon icon-arrow-right-after">{% trans 'Next' %}</a>
+                <a href="#" data-page="{{ items.next_page_number }}">
+                    {% trans 'Next' %}
+                    {% icon name="arrow-right" class_name="default" %}
+                </a>
             {% endif %}
         </li>
     </ul>

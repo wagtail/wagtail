@@ -101,11 +101,13 @@ def result_list(context):
 def pagination_link_previous(current_page, view):
     if current_page.has_previous():
         previous_page_number0 = current_page.previous_page_number() - 1
+        tpl = get_template('wagtailadmin/shared/icon.html')
+        icon_svg = tpl.render({'name': 'arrow-left', 'class_name': 'default'})
         return format_html(
-            '<li class="prev"><a href="%s" class="icon icon-arrow-left">%s'
-            '</a></li>' %
-            (view.get_query_string({view.PAGE_VAR: previous_page_number0}),
-                _('Previous'))
+            '<li class="prev"><a href="{}">{} {}</a></li>',
+            view.get_query_string({view.PAGE_VAR: previous_page_number0}),
+            icon_svg,
+            _('Previous')
         )
     return ''
 
@@ -114,11 +116,13 @@ def pagination_link_previous(current_page, view):
 def pagination_link_next(current_page, view):
     if current_page.has_next():
         next_page_number0 = current_page.next_page_number() - 1
+        tpl = get_template('wagtailadmin/shared/icon.html')
+        icon_svg = tpl.render({'name': 'arrow-right', 'class_name': 'default'})
         return format_html(
-            '<li class="next"><a href="%s" class="icon icon-arrow-right-after"'
-            '>%s</a></li>' %
-            (view.get_query_string({view.PAGE_VAR: next_page_number0}),
-                _('Next'))
+            '<li class="next"><a href="{}">{} {}</a></li>',
+            view.get_query_string({view.PAGE_VAR: next_page_number0}),
+            _('Next'),
+            icon_svg
         )
     return ''
 
