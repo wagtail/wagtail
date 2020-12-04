@@ -1,3 +1,4 @@
+/* eslint-disable */
 $(function() {
     /* Interface to view the workflow status from the explorer / editor */
     $('button.action-workflow-status').on('click', function() {

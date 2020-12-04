@@ -1,3 +1,4 @@
+/* eslint-disable */
 function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPerms) {
     var chooserElement = $('#' + id + '-chooser');
     var pageTitle = chooserElement.find('.title');
@@ -40,3 +41,4 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPer
         chooserElement.addClass('blank');
     });
 }
+window.createPageChooser = createPageChooser;

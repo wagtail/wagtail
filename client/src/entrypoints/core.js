@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
     $('.messages').addClass('new').empty().append('<ul><li class="' + status + '">' + text + '</li></ul>');
@@ -6,6 +7,7 @@ function addMessage(status, text) {
         clearTimeout(addMsgTimeout);
     }, 100);
 }
+window.addMessage = addMessage;
 
 function escapeHtml(text) {
     var map = {
@@ -20,6 +22,7 @@ function escapeHtml(text) {
         return map[m];
     });
 }
+window.escapeHtml = escapeHtml;
 
 function initTagField(id, autocompleteUrl, options) {
     var finalOptions = Object.assign({
@@ -37,6 +40,7 @@ function initTagField(id, autocompleteUrl, options) {
 
     $('#' + id).tagit(finalOptions);
 }
+window.initTagField = initTagField;
 
 /*
  * Enables a "dirty form check", prompting the user if they are navigating away
@@ -81,6 +85,7 @@ function enableDirtyFormCheck(formSelector, options) {
         }
     });
 }
+window.enableDirtyFormCheck = enableDirtyFormCheck;
 
 $(function() {
     // Add class to the body from which transitions may be hung so they don't appear to transition as the page loads
@@ -342,19 +347,18 @@ $(function() {
 // Wagtail global module, mainly useful for debugging.
 // =============================================================================
 
-var wagtail = window.wagtail = null;
-
 // =============================================================================
 // Inline dropdown module
 // =============================================================================
 
-wagtail = (function(document, window, wagtail) {
+window.wagtail = (function(document, window, wagtail) {
 
     // Module pattern
     if (!wagtail) {
-        wagtail = {
-            ui: {}
-        };
+        wagtail = {};
+    }
+    if (!wagtail.ui) {
+        wagtail.ui = {};
     }
 
     // Constants

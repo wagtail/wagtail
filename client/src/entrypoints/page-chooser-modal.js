@@ -1,4 +1,5 @@
-PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
+/* eslint-disable */
+const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'browse': function(modal, jsonData) {
         /* Set up link-types links to open in the modal */
         $('.link-types a', modal.body).on('click', function() {
@@ -160,3 +161,4 @@ PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         modal.close();
     },
 };
+window.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS;

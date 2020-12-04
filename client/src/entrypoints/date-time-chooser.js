@@ -1,3 +1,4 @@
+/* eslint-disable */
 $.fn.datetimepicker.defaults.i18n.wagtail_custom_locale = {
     months: wagtailConfig.STRINGS.MONTHS,
     dayOfWeek: wagtailConfig.STRINGS.WEEKDAYS,
@@ -11,6 +12,7 @@ function dateEqual(x, y) {
            x.getMonth() === y.getMonth() &&
            x.getYear() === y.getYear()
 }
+window.dateEqual = dateEqual;
 
 /*
 Remove the xdsoft_current css class from markup unless the selected date is currently in view.
@@ -22,6 +24,7 @@ function hideCurrent(current, input) {
         $(this).find('.xdsoft_datepicker .xdsoft_current:not(.xdsoft_today)').removeClass('xdsoft_current');
     }
 }
+window.hideCurrent = hideCurrent;
 
 function initDateChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
@@ -47,6 +50,7 @@ function initDateChooser(id, opts) {
         }, opts || {}));
     }
 }
+window.initDateChooser = initDateChooser;
 
 function initTimeChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
@@ -69,6 +73,7 @@ function initTimeChooser(id, opts) {
         }, opts || {}));
     }
 }
+window.initTimeChooser = initTimeChooser;
 
 function initDateTimeChooser(id, opts) {
     if (window.dateTimePickerTranslations) {
@@ -91,3 +96,4 @@ function initDateTimeChooser(id, opts) {
         }, opts || {}));
     }
 }
+window.initDateTimeChooser = initDateTimeChooser;

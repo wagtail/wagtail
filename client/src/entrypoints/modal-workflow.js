@@ -2,6 +2,7 @@
 subpages to happen within the lightbox, and returning a response to the calling page,
 possibly after several navigation steps
 */
+/* eslint-disable */
 
 function ModalWorkflow(opts) {
     /* options passed in 'opts':
@@ -89,3 +90,4 @@ function ModalWorkflow(opts) {
 
     return self;
 }
+window.ModalWorkflow = ModalWorkflow;

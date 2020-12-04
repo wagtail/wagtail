@@ -1,3 +1,4 @@
+/* eslint-disable */
 $(function() {
     /* Interface to set permissions from the explorer / editor */
     $('button.action-set-privacy').on('click', function() {

@@ -1,11 +1,13 @@
-'use strict';
+/* eslint-disable */
 
-var halloPlugins = {};  // lgtm[js/unused-local-variable]
+window.halloPlugins = {};
+
 function registerHalloPlugin(name, opts) {  // lgtm[js/unused-local-variable]
     /* Obsolete - used on Wagtail <1.12 to register plugins for the hallo.js editor.
     Defined here so that third-party plugins can continue to call it to provide Wagtail <1.12
     compatibility, without throwing an error on later versions. */
 }
+window.registerHalloPlugin = registerHalloPlugin;
 
 function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
     var self = {};
@@ -167,6 +169,7 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
 
     return self;
 }
+window.InlinePanel = InlinePanel;
 
 function cleanForSlug(val, useURLify) {
     if (useURLify) {
@@ -188,6 +191,7 @@ function cleanForSlug(val, useURLify) {
         return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-\_]/g, '').toLowerCase();
     }
 }
+window.cleanForSlug = cleanForSlug;
 
 function initSlugAutoPopulate() {
     var slugFollowsTitle = false;
@@ -206,6 +210,7 @@ function initSlugAutoPopulate() {
         }
     });
 }
+window.initSlugAutoPopulate = initSlugAutoPopulate;
 
 function initSlugCleaning() {
     $('#id_slug').on('blur', function() {
@@ -213,6 +218,7 @@ function initSlugCleaning() {
         $(this).val(cleanForSlug($(this).val(), false));
     });
 }
+window.initSlugCleaning = initSlugCleaning;
 
 function initErrorDetection() {
     var errorSections = {};
@@ -233,6 +239,7 @@ function initErrorDetection() {
         $('.tab-nav a[href="#' + index + '"]').addClass('errors').attr('data-count', errorSections[index]);
     }
 }
+window.initErrorDetection = initErrorDetection;
 
 function initCollapsibleBlocks() {
     $('.object.multi-field.collapsible').each(function() {
@@ -253,6 +260,7 @@ function initCollapsibleBlocks() {
         });
     });
 }
+window.initCollapsibleBlocks = initCollapsibleBlocks;
 
 function initKeyboardShortcuts() {
     Mousetrap.bind(['mod+p'], function(e) {
@@ -265,6 +273,7 @@ function initKeyboardShortcuts() {
         return false;
     });
 }
+window.initKeyboardShortcuts = initKeyboardShortcuts;
 
 $(function() {
     /* Only non-live pages should auto-populate the slug from the title */

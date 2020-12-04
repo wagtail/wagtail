@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-disable */
 
 document.addEventListener('DOMContentLoaded', function userBar(e) {
     var userbar = document.querySelector('[data-wagtail-userbar]');

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 (function($) {
     window.ListBlock = function(opts) {
         /* contents of 'opts':
