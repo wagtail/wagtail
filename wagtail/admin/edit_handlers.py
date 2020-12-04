@@ -864,7 +864,7 @@ class CommentPanel(EditHandler):
 
     def render(self):
         panel = render_to_string(self.template, self.get_context())
-        js = self.render_js_init()
+        js = "window.comments.initComments()"
         return widget_with_script(panel, js)
 
     def render_js_init(self):
