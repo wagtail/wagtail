@@ -10,8 +10,9 @@ from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
 
 from wagtail.admin.edit_handlers import (
-    CommentPanel, FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
-    TabbedInterface, extract_panel_definitions_from_model_class, get_form_for_model)
+    CommentPanel, FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel,
+    RichTextFieldPanel, TabbedInterface, extract_panel_definitions_from_model_class,
+    get_form_for_model)
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.admin.rich_text import DraftailRichTextArea
 from wagtail.admin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
