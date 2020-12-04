@@ -1,3 +1,4 @@
+/* eslint-disable */
 function _addHiddenInput(form, name, val) {
     var element = document.createElement('input');
     element.type = 'hidden';
@@ -5,6 +6,7 @@ function _addHiddenInput(form, name, val) {
     element.value = val;
     form.appendChild(element);
 }
+window._addHiddenInput = _addHiddenInput;
 
 /* When a workflow action button is clicked, either show a modal or make a POST request to the workflow action view */
 function ActivateWorkflowActionsForDashboard(csrfToken) {
@@ -47,7 +49,7 @@ function ActivateWorkflowActionsForDashboard(csrfToken) {
         }, {capture: true});
     });
 }
-
+window.ActivateWorkflowActionsForDashboard = ActivateWorkflowActionsForDashboard;
 
 function ActivateWorkflowActionsForEditView(formSelector) {
     var form = $(formSelector).get(0);
@@ -88,3 +90,4 @@ function ActivateWorkflowActionsForEditView(formSelector) {
         }, {capture: true});
     });
 }
+window.ActivateWorkflowActionsForEditView = ActivateWorkflowActionsForEditView;

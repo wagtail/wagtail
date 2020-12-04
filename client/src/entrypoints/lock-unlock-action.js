@@ -1,5 +1,6 @@
 /* When a lock/unlock action button is clicked, make a POST request to the relevant view */
 
+/* eslint-disable */
 function LockUnlockAction(csrfToken, next) {
   document.querySelectorAll('[data-locking-action]').forEach(function (buttonElement) {
     buttonElement.addEventListener('click', function (e) {
@@ -31,3 +32,4 @@ function LockUnlockAction(csrfToken, next) {
     }, {capture: true});
   });
 }
+window.LockUnlockAction = LockUnlockAction;

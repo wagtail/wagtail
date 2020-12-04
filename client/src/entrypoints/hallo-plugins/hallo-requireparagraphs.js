@@ -1,3 +1,4 @@
+/* eslint-disable */
 (function() {
     (function(jQuery) {
         return jQuery.widget('IKS.hallorequireparagraphs', {

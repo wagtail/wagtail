@@ -12,6 +12,7 @@ For example, they don't assume the presence of a 'delete' button - it's up to th
 CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES NOT BELONG HERE.
 
 */
+/* eslint-disable */
 (function($) {
     window.SequenceMember = function(sequence, prefix) {
         var self = {};
@@ -356,7 +357,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
             /* block capacity is already reached on initialization */
             opts.onDisableAdd(members)
         }
-      
+
         return self;
     };
 })(jQuery);

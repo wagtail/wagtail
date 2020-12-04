@@ -1,3 +1,4 @@
+/* eslint-disable */
 window.StructBlock = function(childInitializersByName) {
     return function(prefix) {
         for (var childName in childInitializersByName) {

@@ -1,4 +1,5 @@
-TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
+/* eslint-disable */
+const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'chooser': function(modal, jsonData) {
         function ajaxifyLinks (context) {
             $('a.task-type-choice, a.choose-different-task-type, a.task-choice', context).on('click', function() {
@@ -112,3 +113,4 @@ TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         modal.close();
     }
 };
+window.TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = TASK_CHOOSER_MODAL_ONLOAD_HANDLERS;

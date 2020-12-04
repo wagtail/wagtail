@@ -26,6 +26,39 @@ module.exports = function exports() {
     getEntryPath('admin', 'draftail.entry.js'),
   ];
 
+  const entrypoints = [
+    'blocks/list',
+    'blocks/sequence',
+    'blocks/stream',
+    'blocks/struct',
+    'core',
+    'date-time-chooser',
+    'expanding_formset',
+    'filtered-select',
+    'hallo-bootstrap',
+    'hallo-plugins/hallo-hr',
+    'hallo-plugins/hallo-requireparagraphs',
+    'hallo-plugins/hallo-wagtaillink',
+    'lock-unlock-action',
+    'modal-workflow',
+    'page-chooser-modal',
+    'page-chooser',
+    'page-editor',
+    'privacy-switch',
+    'task-chooser-modal',
+    'task-chooser',
+    'userbar',
+    'workflow-action',
+    'workflow-status',
+  ];
+
+  entrypoints.forEach(moduleName => {
+    entry[getOutputPath('admin', moduleName)] = [
+      './client/src/utils/polyfills.js',
+      `./client/src/entrypoints/${moduleName}.js`,
+    ];
+  });
+
   return {
     entry: entry,
     output: {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 function createTaskChooser(id) {
     var chooserElement = $('#' + id + '-chooser');
     var taskName = chooserElement.find('.name');
@@ -19,3 +20,4 @@ function createTaskChooser(id) {
         });
     });
 }
+window.createTaskChooser = createTaskChooser;

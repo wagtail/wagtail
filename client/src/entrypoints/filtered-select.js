@@ -24,6 +24,7 @@
         </select>
     </div>
 */
+/* eslint-disable */
 
 $(function() {
     $('[data-widget="filtered-select"]').each(function() {

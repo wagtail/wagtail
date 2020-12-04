@@ -1,5 +1,4 @@
-'use strict';
-
+/* eslint-disable */
 function makeHalloRichTextEditable(id, plugins) {
     var input = $('#' + id);
     var editor = $('<div class="halloeditor" data-hallo-editor></div>').html(input.val());
@@ -60,6 +59,7 @@ function makeHalloRichTextEditable(id, plugins) {
 
     setupLinkTooltips(editor);
 }
+window.makeHalloRichTextEditable = makeHalloRichTextEditable;
 
 function setupLinkTooltips(elem) {
     elem.tooltip({
@@ -72,6 +72,7 @@ function setupLinkTooltips(elem) {
         selector: 'a'
     });
 }
+window.setupLinkTooltips = setupLinkTooltips;
 
 function insertRichTextDeleteControl(elem) {
     var a = $('<a class="icon icon-cross text-replace halloembed__delete">Delete</a>');
@@ -86,6 +87,7 @@ function insertRichTextDeleteControl(elem) {
         });
     });
 }
+window.insertRichTextDeleteControl = insertRichTextDeleteControl;
 
 $(function() {
     $('[data-hallo-editor] [contenteditable="false"]').each(function() {

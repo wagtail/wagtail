@@ -1,3 +1,4 @@
+/* eslint-disable */
 function buildExpandingFormset(prefix, opts) {
     if (!opts) {
         opts = {};
@@ -34,3 +35,4 @@ function buildExpandingFormset(prefix, opts) {
         totalFormsInput.val(formCount);
     });
 }
+window.buildExpandingFormset = buildExpandingFormset;
