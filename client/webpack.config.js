@@ -26,6 +26,7 @@ const exposedDependencies = {
 module.exports = function exports() {
   const entrypoints = {
     'admin': [
+      'comments',
       'core',
       'date-time-chooser',
       'draftail',
@@ -123,7 +124,10 @@ module.exports = function exports() {
             {
               loader: 'expose-loader',
               options: {
-                exposes: globalName,
+                exposes: {
+                  globalName,
+                  override: true
+                }
               },
             },
           ],
