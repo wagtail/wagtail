@@ -468,7 +468,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             response = self.get()
 
         self.assertContains(response, '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true" focusable="false"><use href="#icon-undo"></use></svg>Test</button>', html=True)
-        self.assertNotContains(response, 'Save')
+        self.assertNotContains(response, "<em>'Save'</em>")
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -684,7 +684,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         with self.register_hook('construct_snippet_action_menu', hook_func):
             response = self.get()
 
-        self.assertNotContains(response, 'Save')
+        self.assertNotContains(response, '<em>Save</em>')
 
 
 class TestEditTabbedSnippet(BaseTestSnippetEditView):

@@ -72,6 +72,10 @@ function createSnippetChooser(id, modelString) {
     chooser.clear();
   });
 
+  if (window.comments) {
+    window.comments.initFieldLevelCommentWidget(chooserElement[0]);
+  }
+
   return chooser;
 }
 window.createSnippetChooser = createSnippetChooser;

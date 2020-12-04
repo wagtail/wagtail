@@ -86,6 +86,10 @@ function createPageChooser(id, openAtParentId, options) {
     chooser.clear();
   });
 
+  if (window.comments) {
+    window.comments.initFieldLevelCommentWidget(chooserElement[0]);
+  }
+
   return chooser;
 }
 window.createPageChooser = createPageChooser;
