@@ -20,7 +20,13 @@ Examples
 
       events = EventPage.objects.live().descendant_of(events_index)
 
-- Getting a list of menu items
+ - Selecting only pages that the current user is permitted to view
+
+   .. code-block:: python
+
+       events = Page.objects.viewable_by_user(user, request)
+
+ - Getting a list of menu items
 
   .. code-block:: python
 
@@ -190,6 +196,30 @@ Reference
 
     .. automethod:: not_public
 
+    .. automethod:: viewable_by_user
+
+        See: :ref:`private_pages`
+
+        .. note::
+
+            This doesn't filter out unpublished pages. If you want to only have published public pages, use ``.live().viewable_by_user(user, request)``
+
+        Examples:
+
+        .. code-block:: python
+
+            # Find all the pages that are viewable by the user making the request
+            all_pages = Page.objects.live().viewable_by_user(user, request)
+
+            # Find all the pages that are viewable by a user without a request
+            all_pages = Page.objects.live().viewable_by_user(user)
+
+            # Find pages viewable by several users:
+            fake_request = HttpRequest()  # to facilitate restriction caching
+            user_a_viewable = Page.objects.live().viewable_by_user(user_a, fake_request)
+            user_b_viewable = Page.objects.live().viewable_by_user(user_b, fake_request)
+            user_c_viewable = Page.objects.live().viewable_by_user(user_c, fake_request)
+
     .. automethod:: search
 
         See: :ref:`wagtailsearch_searching_pages`
@@ -200,6 +230,25 @@ Reference
 
             # Search future events
             results = EventPage.objects.live().filter(date__gt=timezone.now()).search("Hello")
+
+    .. automethod:: view_restricted
+
+        Example:
+
+        .. code-block:: python
+
+            # Find pages afffected by view restrictions
+            pages = Page.objects.view_restricted()
+
+    .. automethod:: not_view_restricted
+
+        Example:
+
+        .. code-block:: python
+
+            # Find pages unafffected by view restrictions
+            pages = Page.objects.not_view_restricted()
+
 
     .. automethod:: type
 
