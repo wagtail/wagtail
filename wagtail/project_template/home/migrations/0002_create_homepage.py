@@ -52,6 +52,10 @@ class Migration(migrations.Migration):
     dependencies = [
         ('home', '0001_initial'),
     ]
+    
+    run_before = [
+        ('wagtailcore', '0056_page_locale_fields_populate'),
+    ]
 
     operations = [
         migrations.RunPython(create_homepage, remove_homepage),
