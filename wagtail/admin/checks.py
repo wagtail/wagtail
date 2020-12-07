@@ -189,4 +189,3 @@ def check_edit_handler_on_model(cls, context='model'):
         )
         errors.append(error)
     return errors
-
