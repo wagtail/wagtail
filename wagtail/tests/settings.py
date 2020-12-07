@@ -1,5 +1,7 @@
 import os
+
 from django.utils.translation import gettext_lazy as _
+
 
 DEBUG = False
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
