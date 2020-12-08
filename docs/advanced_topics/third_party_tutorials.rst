@@ -6,6 +6,7 @@ Third-party tutorials
     The following list is a collection of tutorials and development notes from third-party developers.
     Some of the older links may not apply to the latest Wagtail versions.
 
+* `Image upload in wagtail forms <https://dev.to/lb/image-uploads-in-wagtail-forms-39pl>`_ (21 October 2020)
 * `Wagtail multi-language and internationalization  <https://dev.to/codista_/wagtail-multi-language-and-internationalization-2gkf>`_ (8 April 2020)
 * `Wagtail SEO Guide <https://www.accordbox.com/blog/wagtail-seo-guide/>`_ (30 March 2020)
 * `Adding a latest-changes list to your Wagtail site <https://spapas.github.io/2020/03/27/wagtail-add-latest-changes/>`_ (27 March 2020)
@@ -28,7 +29,6 @@ Third-party tutorials
 * `Wagtail and GraphQL <https://jossingram.wordpress.com/2018/04/19/wagtail-and-graphql/>`_ (19 April 2018)
 * `Wagtail and Azure storage blob containers <https://jossingram.wordpress.com/2017/11/29/wagtail-and-azure-storage-blob-containers/>`_ (29 November 2017)
 * `Building TwilioQuest with Twilio Sync, Django [incl. Wagtail], and Vue.js <https://www.twilio.com/blog/2017/11/building-twilioquest-with-twilio-sync-django-and-vue-js.html>`_ (6 November 2017)
-* `Image upload in wagtail forms <https://posts-by.lb.ee/image-uploads-in-wagtail-forms-3121c9b35d27>`_ (3 September 2017)
 * `Upgrading from Wagtail 1.0 to Wagtail 1.11 <https://www.caktusgroup.com/blog/2017/07/19/upgrading-wagtail/>`_ (19 July 2017)
 * `Wagtail-Multilingual: a simple project to demonstrate how multilingual is implemented <https://github.com/cristovao-alves/Wagtail-Multilingual>`_ (31 January 2017)
 * `Wagtail: 2 Steps for Adding Pages Outside of the CMS <https://www.caktusgroup.com/blog/2016/02/15/wagtail-2-steps-adding-pages-outside-cms/>`_ (15 February 2016)
