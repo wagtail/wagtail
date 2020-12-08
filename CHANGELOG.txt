@@ -10,6 +10,12 @@ Changelog
  * Fix: Make sure document chooser pagination preserves the selected collection when moving between pages (Alex Sa)
 
 
+2.11.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Updated project template migrations to ensure that initial homepage creation runs before addition of locale field (Dan Braghis)
+
+
 2.11.2 (17.11.2020)
 ~~~~~~~~~~~~~~~~~~~
 
