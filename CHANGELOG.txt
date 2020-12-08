@@ -4,6 +4,7 @@ Changelog
 2.12 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * StreamField values can now be modified in-place (Matt Westcott)
  * Added support for Python 3.9
  * Switch pagination icons to use SVG instead of icon fonts (Scott Cranfill)
  * Fix: Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)

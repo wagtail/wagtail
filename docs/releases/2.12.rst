@@ -10,6 +10,11 @@ Wagtail 2.12 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+In-place StreamField updating
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+StreamField values now formally support being updated in-place from Python code, allowing blocks to be inserted, modified and deleted rather than having to assign a new list of blocks to the field. For further details, see :ref:`modifying_streamfield_data`. This feature was developed by Matt Westcott.
+
 
 Other features
 ~~~~~~~~~~~~~~
@@ -32,3 +37,11 @@ Removed support for Elasticsearch 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Elasticsearch version 2 is no longer supported as of this release; please upgrade to Elasticsearch 5 or above before upgrading Wagtail.
+
+
+``stream_data`` on StreamField values is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``stream_data`` property of StreamValue is commonly used to access the underlying data of a StreamField. However, this is discouraged, as it is an undocumented internal attribute and has different data representations depending on whether the value originated from the database or in memory, typically leading to errors on preview if this has not been properly accounted for. As such, ``stream_data`` is now deprecated.
+
+The recommended alternative is to index the StreamField value directly as a list; for example, ``page.body[0].block_type`` and ``page.body[0].value`` instead of ``page.body.stream_data[0]['type']`` and ``page.body.stream_data[0]['value']``. This has the advantage that it will return the same Python objects as when the StreamField is used in template code (such as Page instances for ``PageChooserBlock``). However, in most cases, existing code using ``stream_data`` is written to expect the raw JSON-like representation of the data, and for this the new property ``raw_data`` (added in Wagtail 2.12) can be used as a drop-in replacement for ``stream_data``.

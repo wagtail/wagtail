@@ -1024,6 +1024,8 @@ Your extended value class methods will be available in your template:
     </div>
 
 
+.. _modifying_streamfield_data:
+
 Modifying StreamField data
 --------------------------
 
