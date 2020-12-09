@@ -486,6 +486,7 @@ Contributors
 * Naglis Jonaitis
 * Luis Nell
 * Alex Sa
+* Andreas Morgenstern
 
 Translators
 ===========

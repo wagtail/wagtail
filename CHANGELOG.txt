@@ -17,6 +17,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Updated project template migrations to ensure that initial homepage creation runs before addition of locale field (Dan Braghis)
+ * Fix: Restore ability to use translatable strings in `LANGUAGES` / `WAGTAIL_CONTENT_LANGUAGES` settings (Andreas Morgenstern)
 
 
 2.11.2 (17.11.2020)
