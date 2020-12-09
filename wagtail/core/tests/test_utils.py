@@ -3,6 +3,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase, override_settings
 from django.utils.text import slugify
 from django.utils.translation import _trans
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.core.models import Page
 from wagtail.core.utils import (
@@ -182,6 +183,18 @@ class TestGetContentLanguages(TestCase):
         ],
     )
     def test_can_be_different_to_django_languages(self):
+        self.assertEqual(get_content_languages(), {
+            'de': 'German',
+            'en': 'English',
+        })
+
+    @override_settings(
+        WAGTAIL_CONTENT_LANGUAGES=[
+            ('en', _('English')),
+            ('de', _('German')),
+        ],
+    )
+    def test_can_be_a_translation_proxy(self):
         self.assertEqual(get_content_languages(), {
             'de': 'German',
             'en': 'English',
