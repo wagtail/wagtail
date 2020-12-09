@@ -2,6 +2,7 @@ import functools
 import re
 
 from django import forms
+from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models.fields import CharField, TextField
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
@@ -843,15 +844,16 @@ class CommentPanel(EditHandler):
     def get_context(self):
         user = getattr(self.request, 'user', None)
         authors = {user.pk: user_display_name(user)} if user else {}
+        user_pks = {user.pk}
         serialized_comments = []
         for comment in self.comments:
-            # iterate over comments to retrieve user display names and serialized versions
-            if comment.user_id not in authors:
-                authors.update({comment.user.pk: user_display_name(comment.user)})
+            # iterate over comments to retrieve users (to get display names) and serialized versions
+            user_pks.add(comment.user_id)
             serialized_comments.append(comment.serializable_data())
             for reply in comment.replies.all():
-                if reply.user_id not in authors:
-                    authors.update({reply.user.pk: user_display_name(reply.user)})
+                user_pks.add(reply.user_id)
+
+        authors = {user.pk: user_display_name(user) for user in get_user_model().objects.filter(pk__in=user_pks)}
 
         comments_data = {
             'comments': serialized_comments,
