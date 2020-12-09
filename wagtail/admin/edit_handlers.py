@@ -832,12 +832,13 @@ class CommentPanel(EditHandler):
         return render_to_string(self.declarations_template)
 
     def on_form_bound(self):
-        self.comments = []
+        comments = []
         comment_forms = self.form.formsets['comments'].forms
         for form in comment_forms:
             instance = form.instance
             instance.replies = [reply_form.instance for reply_form in form.formsets['replies'].forms]
-            self.comments.append(instance)
+            comments.append(instance)
+        self.comments = comments
 
     def get_context(self):
         user = getattr(self.request, 'user', None)
