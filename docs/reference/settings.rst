@@ -207,7 +207,7 @@ Images
 
   WAGTAILIMAGES_IMAGE_MODEL = 'myapp.MyImage'
 
-This setting lets you provide your own image model for use in Wagtail, which might extend the built-in ``AbstractImage`` class or replace it entirely.
+This setting lets you provide your own image model for use in Wagtail, which should extend the built-in ``AbstractImage`` class.
 
 
 .. code-block:: python
@@ -261,7 +261,7 @@ Documents
 
   WAGTAILDOCS_DOCUMENT_MODEL = 'myapp.MyDocument'
 
-This setting lets you provide your own document model for use in Wagtail, which might extend the built-in ``AbstractDocument`` class or replace it entirely.
+This setting lets you provide your own document model for use in Wagtail, which should extend the built-in ``AbstractDocument`` class.
 
 
 .. code-block:: python
