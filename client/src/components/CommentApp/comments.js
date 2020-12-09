@@ -14,12 +14,15 @@ function initComments() {
   document.addEventListener('DOMContentLoaded', () => {
     const commentsElement = document.getElementById('comments');
     const commentsOutputElement = document.getElementById('comments-output');
-    const data = JSON.parse(document.getElementById('comments-data').textContent);
-
-    if (commentsElement && commentsOutputElement && data) {
-      window.commentApp = initCommentsApp(commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS);
-      callbacks.forEach((callback) => { callback(); });
+    const dataElement = document.getElementById('comments-data');
+    if (!commentsElement || !commentsOutputElement || !dataElement) {
+      throw new Error('Comments app failed to initialise. Missing HTML element');
     }
+    const data = JSON.parse(dataElement.textContent);
+    window.commentApp = initCommentsApp(
+      commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS
+    );
+    callbacks.forEach((callback) => { callback(); });
   });
 }
 
