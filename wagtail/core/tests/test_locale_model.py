@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.test import TestCase, override_settings
 from django.utils import translation
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.core.models import Locale, Page
 from wagtail.tests.i18n.models import TestPage
@@ -52,3 +53,8 @@ class TestLocaleModel(TestCase):
         # This language is not in LANGUAGES so it should just return the language code
         locale = Locale.objects.create(language_code="foo")
         self.assertEqual(str(locale), "foo")
+
+    @override_settings(LANGUAGES=[("en", _("English")), ("fr", _("French"))])
+    def test_str_when_languages_uses_gettext(self):
+        locale = Locale.objects.get(language_code="en")
+        self.assertIsInstance(locale.__str__(), str)

@@ -400,7 +400,7 @@ class Locale(models.Model):
         return get_content_languages().get(self.language_code)
 
     def __str__(self):
-        return self.get_display_name() or self.language_code
+        return force_str(self.get_display_name() or self.language_code)
 
 
 class TranslatableMixin(models.Model):

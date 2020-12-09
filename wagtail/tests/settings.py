@@ -1,5 +1,7 @@
 import os
 
+from django.utils.translation import gettext_lazy as _
+
 
 DEBUG = False
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
@@ -229,10 +231,9 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
     },
 }
 
-
 WAGTAIL_CONTENT_LANGUAGES = [
-    ("en", "English"),
-    ("fr", "French"),
+    ("en", _("English")),
+    ("fr", _("French")),
 ]
 
 
