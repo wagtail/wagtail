@@ -221,6 +221,11 @@ the App ID and App Secret from your app:
             'class': 'wagtail.embeds.finders.instagram',
             'app_id': 'YOUR INSTAGRAM APP_ID HERE',
             'app_secret': 'YOUR INSTAGRAM APP_SECRET HERE',
+        },
+
+        # Handles all other oEmbed providers the default way
+        {
+            'class': 'wagtail.embeds.finders.oembed',
         }
     ]
 
