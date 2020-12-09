@@ -485,6 +485,7 @@ Contributors
 * David Bramwell
 * Naglis Jonaitis
 * Luis Nell
+* Andreas Morgenstern
 
 Translators
 ===========
