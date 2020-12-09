@@ -22,7 +22,7 @@ class CommentReplyForm(WagtailAdminModelForm):
             if any(field for field in self.changed_data):
                 # includes DELETION_FIELD_NAME, as users cannot delete each other's individual comment replies
                 # if deleting a whole thread, this should be done by deleting the parent Comment instead
-                self.add_error(None, error=ValidationError(_("You cannot edit another user's comment")))
+                self.add_error(None, ValidationError(_("You cannot edit another user's comment.")))
         return cleaned_data
 
 
@@ -42,6 +42,6 @@ class CommentForm(WagtailAdminModelForm):
             # trying to edit someone else's comment
             if any(field for field in self.changed_data if field != DELETION_FIELD_NAME):
                 # users can delete each other's base comments, as this is just the "resolve" action
-                self.add_error(None, error=ValidationError(_("You cannot edit another user's comment")))
+                self.add_error(None, ValidationError(_("You cannot edit another user's comment.")))
 
         return cleaned_data
