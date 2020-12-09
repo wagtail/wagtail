@@ -6,6 +6,7 @@ Third-party tutorials
     The following list is a collection of tutorials and development notes from third-party developers.
     Some of the older links may not apply to the latest Wagtail versions.
 
+* `Create a Developer Portfolio with Wagtail Tutorial Series <https://engineertodeveloper.com/category/wagtail/>`_ (11 November 2020)
 * `Image upload in wagtail forms <https://dev.to/lb/image-uploads-in-wagtail-forms-39pl>`_ (21 October 2020)
 * `Wagtail multi-language and internationalization  <https://dev.to/codista_/wagtail-multi-language-and-internationalization-2gkf>`_ (8 April 2020)
 * `Wagtail SEO Guide <https://www.accordbox.com/blog/wagtail-seo-guide/>`_ (30 March 2020)
