@@ -90,3 +90,35 @@ class AdminAutoHeightTextInput extends Widget {
     }
 }
 window.telepath.register('wagtail.widgets.AdminAutoHeightTextInput', AdminAutoHeightTextInput);
+
+
+class DraftailRichTextArea {
+    constructor(options) {
+        this.options = options;
+    }
+
+    render(container, name, id, initialState) {
+        const options = this.options;
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.id = id;
+        input.name = name;
+        input.value = initialState;
+        container.appendChild(input);
+        // eslint-disable-next-line no-undef
+        draftail.initEditor('#' + id, options, document.currentScript);
+
+        return {
+            getValue() {
+                return input.value;
+            },
+            getState() {
+                return input.value;
+            },
+            setState() {
+                throw new Error('DraftailRichTextArea.setState is not implemented');
+            }
+        };
+    }
+}
+window.telepath.register('wagtail.widgets.DraftailRichTextArea', DraftailRichTextArea);
