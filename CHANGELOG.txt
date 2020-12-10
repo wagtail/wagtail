@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.11.3 (xx.xx.xxxx) - IN DEVELOPMENT
+2.11.3 (10.12.2020)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Updated project template migrations to ensure that initial homepage creation runs before addition of locale field (Dan Braghis)
