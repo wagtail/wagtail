@@ -369,9 +369,9 @@ class PagesAPIViewSet(BaseAPIViewSet):
         ChildOfFilter,
         DescendantOfFilter,
         OrderingFilter,
-        SearchFilter,
         TranslationOfFilter,
         LocaleFilter,
+        SearchFilter,  # needs to be last, as SearchResults querysets cannot be filtered further
     ]
     known_query_parameters = BaseAPIViewSet.known_query_parameters.union([
         'type',
