@@ -154,10 +154,11 @@ class ListBlock {
                 boundBlocks = [];
                 listContainer.empty();
                 values.forEach(function(val, index) {
+                    var childPrefix = prefix + '-' + index;
                     var childHtml = $(`
-                        <div id="${prefix}-container" aria-hidden="false">
-                            <input type="hidden" id="${prefix}-deleted" name="${prefix}-deleted" value="">
-                            <input type="hidden" id="${prefix}-order" name="${prefix}-order" value="${index}">
+                        <div id="${childPrefix}-container" aria-hidden="false">
+                            <input type="hidden" id="${childPrefix}-deleted" name="${childPrefix}-deleted" value="">
+                            <input type="hidden" id="${childPrefix}-order" name="${childPrefix}-order" value="${index}">
                             <div>
                                 <div class="c-sf-container__block-container">
                                     <div class="c-sf-block">
@@ -168,13 +169,13 @@ class ListBlock {
                                             <h3 class="c-sf-block__header__title"></h3>
                                             <div class="c-sf-block__actions">
                                                 <span class="c-sf-block__type"></span>
-                                                <button type="button" id="${prefix}-moveup" class="c-sf-block__actions__single" title="{% trans 'Move up' %}">
+                                                <button type="button" id="${childPrefix}-moveup" class="c-sf-block__actions__single" title="{% trans 'Move up' %}">
                                                 <i class="icon icon-arrow-up" aria-hidden="true"></i>
                                             </button>
-                                            <button type="button" id="${prefix}-movedown" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
+                                            <button type="button" id="${childPrefix}-movedown" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
                                                 <i class="icon icon-arrow-down" aria-hidden="true"></i>
                                             </button>
-                                            <button type="button" id="${prefix}-delete" class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
+                                            <button type="button" id="${childPrefix}-delete" class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
                                                 <i class="icon icon-bin" aria-hidden="true"></i>
                                             </button>
                                         
@@ -193,7 +194,7 @@ class ListBlock {
                     var childDom = $(childHtml);
                     listContainer.append(childDom);
                     var childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-                    var boundBlock = self.childBlock.render(childBlockElement, prefix + '-' + index);
+                    var boundBlock = self.childBlock.render(childBlockElement, childPrefix + '-value');
                     boundBlock.setState(val);
                     boundBlocks.push(boundBlock);
                 });
@@ -248,12 +249,13 @@ class StreamBlock {
                     var blockType = blockData['type']
                     var block = self.childBlocksByName[blockType];
 
+                    var childPrefix = prefix + '-' + index;
                     var childHtml = `
                         <div aria-hidden="false">
-                            <input type="hidden" name="${prefix}-deleted" value="">
-                            <input type="hidden" name="${prefix}-order" value="${index}">
-                            <input type="hidden" name="${prefix}-type" value="${blockType}">
-                            <input type="hidden" name="${prefix}-id" value="${blockData['id'] || ''}">
+                            <input type="hidden" name="${childPrefix}-deleted" value="">
+                            <input type="hidden" name="${childPrefix}-order" value="${index}">
+                            <input type="hidden" name="${childPrefix}-type" value="${blockType}">
+                            <input type="hidden" name="${childPrefix}-id" value="${blockData['id'] || ''}">
 
                             <div>
                                 <div class="c-sf-container__block-container">
@@ -290,7 +292,7 @@ class StreamBlock {
                     var childDom = $(childHtml);
                     streamContainer.append(childDom);
                     var childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-                    var boundBlock = block.render(childBlockElement, prefix + '-' + index);
+                    var boundBlock = block.render(childBlockElement, childPrefix + '-value');
                     boundBlock.setState(blockData['value']);
                     boundBlocks.push(boundBlock);
                 }
