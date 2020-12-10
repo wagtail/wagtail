@@ -161,6 +161,22 @@ class TestPageListing(TestCase):
         self.assertEqual(len(content['items']), 1)
         self.assertEqual(content['items'][0]['id'], french_homepage.id)
 
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_locale_filter_with_search(self):
+        french = Locale.objects.create(language_code='fr')
+        homepage = Page.objects.get(depth=2)
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+        events_index = Page.objects.get(url_path='/home-page/events-index/')
+        french_events_index = events_index.copy_for_translation(french)
+        french_events_index.get_latest_revision().publish()
+
+        response = self.get_response(locale='fr', search='events')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(len(content['items']), 1)
+        self.assertEqual(content['items'][0]['id'], french_events_index.id)
+
     # TRANSLATION OF FILTER
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -175,6 +191,21 @@ class TestPageListing(TestCase):
 
         self.assertEqual(len(content['items']), 1)
         self.assertEqual(content['items'][0]['id'], french_homepage.id)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_translation_of_filter_with_search(self):
+        french = Locale.objects.create(language_code='fr')
+        homepage = Page.objects.get(depth=2)
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+
+        response = self.get_response(translation_of=homepage.id, search='home')
+        content = json.loads(response.content.decode('UTF-8'))
+        self.assertEqual(len(content['items']), 1)
+        self.assertEqual(content['items'][0]['id'], french_homepage.id)
+        response = self.get_response(translation_of=homepage.id, search='gnome')
+        content = json.loads(response.content.decode('UTF-8'))
+        self.assertEqual(len(content['items']), 0)
 
     # FIELDS
 
