@@ -26,7 +26,7 @@
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Tibor <tibor@lpld.io>, 2020
-# Tim - <Scriptim@gmx.de>, 2020
+# Scriptim <Scriptim@gmx.de>, 2020
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
 # Vorlif <flori@vorlif.org>, 2016
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-17 15:41+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"

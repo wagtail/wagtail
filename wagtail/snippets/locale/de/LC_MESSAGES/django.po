@@ -15,14 +15,14 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Raphael Stolt <raphael.stolt@gmail.com>, 2016
-# Tim - <Scriptim@gmx.de>, 2020
+# Scriptim <Scriptim@gmx.de>, 2020
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
 "PO-Revision-Date: 2020-10-23 11:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-02 15:39+0000\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-21 12:38+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -156,6 +156,9 @@ msgstr "已過期"
 msgid "locked"
 msgstr "已鎖定"
 
+msgid "locked at"
+msgstr "鎖定於"
+
 msgid "first published at"
 msgstr "第一次發佈於"
 
@@ -179,6 +182,9 @@ msgstr "草稿"
 
 msgid "live + scheduled"
 msgstr "在用 + 已預定"
+
+msgid "live + in moderation"
+msgstr "上線 + 審核中"
 
 msgid "live + draft"
 msgstr "發佈+草稿"
@@ -336,11 +342,29 @@ msgstr "工作流程作業順序"
 msgid "workflow task orders"
 msgstr "工作流程作業順序"
 
+msgid "active"
+msgstr "啟用"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr "啟用中的作業可添加至工作流程。停用作業不會將其由現有工作流程中移除。"
+
 msgid "tasks"
 msgstr "作業"
 
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr "啟用中的工作流程可增加至頁面。停用工作流程不會將其由現有的頁面中移除。"
+
 msgid "workflows"
 msgstr "工作流程"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr "於此工作流程階段之頁面將由群組中的使用者進行審核"
 
 msgid "Request changes"
 msgstr "變更請求"
@@ -410,6 +434,10 @@ msgstr "作業狀態"
 
 msgid "timestamp (UTC)"
 msgstr "時間標記 (UTC)"
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "使用者 %(id)d (已刪除)"
 
 msgid "system"
 msgstr "系統"

@@ -7,6 +7,7 @@
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
+# Amr Awad <amro.khir@gmail.com>, 2020
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-12-01 19:06+0000\n"
+"Last-Translator: Amr Awad <amro.khir@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,9 @@ msgstr "انشر"
 
 msgid "Submit for moderation"
 msgstr "قدّم للمراجعة"
+
+msgid "Resubmit to {}"
+msgstr "إعادة اﻹدخال إلي {}"
 
 msgid "Unpublish"
 msgstr "غير منشور"

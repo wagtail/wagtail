@@ -11,6 +11,7 @@
 # First Last <abc+github@mynook.info>, 2019
 # Ford Guo <agile.guo@gmail.com>, 2020
 # Fred Zeng <979738295@qq.com>, 2016
+# GH Y <sopium@mysterious.site>, 2020
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Aosp T, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
@@ -22,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-26 06:54+0000\n"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -189,6 +190,9 @@ msgid_plural ""
 "%(count)s of the pages being copied are live. Would you like to publish "
 "their copies?"
 msgstr[0] "正在复制的 %(count)s 个页面已是发布状态，你要发布他们的副本吗？"
+
+msgid "Alias"
+msgstr "别名"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -718,7 +722,7 @@ msgid_plural ""
 "        "
 msgstr[0] ""
 "\n"
-"在<span class=\"visuallyhidden\">%(site_name)s</span>中共创建了<span>"
+"<span class=\"visuallyhidden\">在%(site_name)s中共创建了</span><span>"
 "%(total)s</span>个页面"
 
 msgid "Your pages in a workflow"
@@ -932,6 +936,12 @@ msgstr "选择创建的页面类型"
 msgid "Pages using %(page_type)s"
 msgstr " %(page_type)s类型的页面"
 
+msgid "Yes, convert it"
+msgstr "是, 转换它"
+
+msgid "No, leave it as an alias"
+msgstr "否, 保留为别名"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "删除%(title)s"
@@ -1093,6 +1103,9 @@ msgstr "编辑 %(page_type)s"
 
 msgid "History"
 msgstr "历史"
+
+msgid "Edit original page"
+msgstr "编辑原始页面"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -2379,6 +2392,12 @@ msgstr "重命名"
 
 msgid "Revert"
 msgstr "还原"
+
+msgid "Create alias"
+msgstr "创建别名"
+
+msgid "Convert alias into regular page"
+msgstr "将别名转换成常规页面"
 
 msgid "Schedule publication"
 msgstr "计划发布"

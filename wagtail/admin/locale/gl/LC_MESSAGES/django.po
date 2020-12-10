@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# fooflare <amos.oviedo@gmail.com>, 2014
-# fooflare <amos.oviedo@gmail.com>, 2014,2016
-# fooflare <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2020
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-26 11:07+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -27,23 +27,57 @@ msgstr "Publicar"
 msgid "Submit for moderation"
 msgstr "Enviar para ser moderado"
 
+msgid "Resubmit to {}"
+msgstr "Reenviar a {}"
+
+msgid "Submit to {}"
+msgstr "Enviar a {}"
+
+msgid "Restart workflow "
+msgstr "Reiniciar fluxo de traballo "
+
+msgid "Cancel workflow "
+msgstr "Cancelar fluxo de traballo "
+
 msgid "Unpublish"
-msgstr "Non publicar"
+msgstr "Cancelar publicación"
 
 msgid "Delete"
 msgstr "Eliminar"
 
+msgid "Lock"
+msgstr "Bloquear"
+
+msgid "Apply editor lock"
+msgstr "Aplicar bloqueo de editor"
+
+msgid "Unlock"
+msgstr "Desbloquear"
+
+msgid "Save Draft"
+msgstr "Gardar borrador"
+
 msgid "Page locked"
 msgstr "Páxina bloqueada"
 
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s e Publicar"
+
+msgid "Wagtail admin"
+msgstr "Administrador de Wagtail"
+
 msgid "Sorry, you do not have permission to access this area."
-msgstr "Síntoo, non tes permiso para acceder a esta área"
+msgstr "Síntoo, non tes permiso para acceder a esta área."
 
 msgid "You do not have permission to access the admin"
-msgstr "Non tes permisos para acceder ao administrador."
+msgstr "Non tes permisos para acceder ao administrador"
+
+msgid "None"
+msgstr "Ningún"
 
 msgid "Scheduled publishing"
-msgstr "Publicación programada"
+msgstr "Publicazón programada"
 
 msgid "Privacy"
 msgstr "Privacidade"
@@ -60,6 +94,30 @@ msgstr "Promocionar"
 msgid "Settings"
 msgstr "Propiedades"
 
+msgid "Date from"
+msgstr "Data dende"
+
+msgid "Date to"
+msgstr "Data ata"
+
+msgid "All"
+msgstr "Todos"
+
+msgid "Started at"
+msgstr "Comezado o"
+
+msgid "Show"
+msgstr "Amosar"
+
+msgid "Awaiting my review"
+msgstr "Agardar a miña revisión"
+
+msgid "Completed at"
+msgstr "Completado o"
+
+msgid "Workflow"
+msgstr "Fluxo de traballo"
+
 msgid "Date"
 msgstr "Data"
 
@@ -75,6 +133,16 @@ msgstr "Introduce o teu %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Escribe a túa dirección de correo para restaurar o teu contrasinal"
+
+msgid "URL"
+msgstr "URL"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Selecciona posición xerárquica. Nota: unha colección non pode converterse en "
+"filla de si mesma ou un dos seus descendentes."
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
@@ -123,10 +191,24 @@ msgstr[1] ""
 "%(count)s das páxinas que están sendo copiadas están en vivo. ¿Gustaríalle "
 "publicar as súas copias?"
 
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Manter as novas páxinas actualizadas con futuros cambios"
+
+#, python-format
+msgid "You do not have permission to copy to page \"%(page_title)s\""
+msgstr "Non tes permiso para copiar a páxina \"%(page_title)s\""
+
 #, python-format
 msgid ""
 "This slug is already in use within the context of its parent page \"%s\""
 msgstr "Este slug está xa en uso no contexto da súa páxina pai \"%s\""
+
+msgid "You cannot copy a page into itself when copying subpages"
+msgstr ""
+"Non podes copiar unha páxina dentro de si mesma cando copias subpáxinas"
 
 msgid "This slug is already in use"
 msgstr "Este slug ya está en uso"
@@ -144,8 +226,20 @@ msgstr "Porcurar"
 msgid "Search term"
 msgstr "Procurar termo"
 
+msgid "Visibility"
+msgstr "Visibilidade"
+
 msgid "This field is required."
 msgstr "Este campo é requirido."
+
+msgid "Please select at least one group."
+msgstr "Por favor selecciona polo menos un grupo."
+
+msgid "All types"
+msgstr "Todos os tipos"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Esta páxina xa ten o fluxo de traballo '{0}' asignado."
 
 msgid "Edit"
 msgstr "Editar"
@@ -664,7 +758,7 @@ msgstr "Data de revisión"
 
 msgctxt "points to a user who created a revision"
 msgid "by"
-msgstr "Por"
+msgstr "por"
 
 msgid "No revisions of this page exist"
 msgstr "Non existen revisións desta páxina"
@@ -716,7 +810,7 @@ msgid "Edit your account"
 msgstr "Editar a túa conta"
 
 msgid "Log out"
-msgstr "Cerrar sesión"
+msgstr "Pechar sesión"
 
 msgid "Other searches"
 msgstr "Outras procuras"
@@ -857,11 +951,39 @@ msgstr "Cambia a contrasinal que utilizas para iniciar sesión."
 msgid "Choose which email notifications to receive."
 msgstr "Selecciona que notificacións de correo electrónico recibir."
 
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "'%(workflow)s' en '%(task)s' cancelado"
+
+msgid "Workflow cancelled"
+msgstr "Fluxo de traballo cancelado"
+
+msgid "Workflow: start"
+msgstr "Fluxo de traballo: comezar"
+
+msgid "Workflow: approve task"
+msgstr "Fluxo de traballo: aprobar tarefa"
+
+msgid "Workflow: reject task"
+msgstr "Fluxo de traballo: rexeitar tarefa"
+
+msgid "Workflow: resume task"
+msgstr "Fluxo de traballo: renovar tarefa"
+
+msgid "Workflow: cancel"
+msgstr "Fluxo de traballo: cancelar"
+
+msgid "Yes"
+msgstr "Si"
+
+msgid "No"
+msgstr "Non"
+
 msgid "Choose an item"
-msgstr "Selecciona un elemento"
+msgstr "Seleccionar un elemento"
 
 msgid "Choose another item"
-msgstr "Selecciona outro elemento"
+msgstr "Seleccionar outro elemento"
 
 msgid "Clear choice"
 msgstr "Borrar selección"
@@ -870,4 +992,10 @@ msgid "Edit this item"
 msgstr "Editar este ítem"
 
 msgid "Choose another page"
-msgstr "Selecciona outra páxina"
+msgstr "Seleccionar outra páxina"
+
+msgid "Choose another task"
+msgstr "Seleccionar outra tarefa"
+
+msgid "Edit this task"
+msgstr "Editar esta tarefa"

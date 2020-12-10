@@ -31,9 +31,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 14:09+0000\n"
-"Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-20 17:14+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -160,6 +160,13 @@ msgstr "Введите ваш адрес электронной почты дл�
 msgid "URL"
 msgstr "URL"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Выберите положение в иерархии. Примечание: коллекция не может стать дочерним "
+"элементом самой себя или одного из своих потомков."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Вы не можете иметь несколько записей с правами доступа к одной и той же "
@@ -220,6 +227,9 @@ msgstr[3] ""
 
 msgid "Alias"
 msgstr "Псевдоним"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Хранить новые страницы с учетом будущих изменений"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -309,6 +319,9 @@ msgstr "Французский"
 
 msgid "Galician"
 msgstr "Галисийский"
+
+msgid "Croatian"
+msgstr "Хорватский"
 
 msgid "Hungarian"
 msgstr "Венгерский"
@@ -1046,6 +1059,27 @@ msgid "Pages using %(page_type)s"
 msgstr "Страницы, использующие %(page_type)s"
 
 #, python-format
+msgid "Convert alias %(title)s"
+msgstr "Сконвертировать псевдоним %(title)s"
+
+msgid "Convert alias"
+msgstr "Сконвертировать  псевдоним"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr ""
+"Вы уверены в том что хотите сконвертировать этот псевдоним в обычную "
+"страницу?"
+
+msgid "This action cannot be undone."
+msgstr "Это действие не может быть отменено."
+
+msgid "Yes, convert it"
+msgstr "Да, конвертировать"
+
+msgid "No, leave it as an alias"
+msgstr "Нет, оставить как псевдоним"
+
+#, python-format
 msgid "Delete %(title)s"
 msgstr "Удалить %(title)s"
 
@@ -1227,6 +1261,15 @@ msgstr "Редактирование %(page_type)s"
 
 msgid "History"
 msgstr "История"
+
+msgid "This page is an alias of another page."
+msgstr "Эта страница псевдоним другой страницы."
+
+msgid "Edit original page"
+msgstr "Редактировать оригинальную страницу"
+
+msgid "Convert this alias into a regular page"
+msgstr "Сконвертировать этот псевдоним в обычную страницу"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -2128,6 +2171,9 @@ msgstr "Коллекция не может быть сохранена из-за
 msgid "Delete collection"
 msgstr "Удалить коллекцию"
 
+msgid "Please select another parent"
+msgstr "Пожалуйста выберите другого родителя"
+
 msgid "Collection '{0}' deleted."
 msgstr "Коллекция '{0}' удалена."
 
@@ -2136,6 +2182,9 @@ msgstr "Вы уверены что хотите удалить эту колле
 
 msgid "Editing"
 msgstr "Редактирование"
+
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "Страница '{0}'  была сконвертирована в обычную страницу."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Страница '{0}' и {1} подстраниц скопировано."
@@ -2580,6 +2629,20 @@ msgid "Copied"
 msgstr "Скопирован"
 
 #, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Создан псевдоним %(title)s"
+
+msgid "Created an alias"
+msgstr "Создан псевдоним"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Сконвертирован псевдоним '%(title)s' в обычную страницу"
+
+msgid "Converted an alias into a regular page"
+msgstr "Сконвертирован псевдоним в обычную страницу"
+
+#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Перемещен из '%(old_parent)s' в '%(new_parent)s'"
 
@@ -2649,6 +2712,12 @@ msgstr "Переименовать"
 
 msgid "Revert"
 msgstr "Вернуть назад"
+
+msgid "Create alias"
+msgstr "Создать псевдоним"
+
+msgid "Convert alias into regular page"
+msgstr "Сконвертировать псевдоним в обычную страницу"
 
 msgid "Schedule publication"
 msgstr "Запланированная публикация"

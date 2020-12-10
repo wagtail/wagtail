@@ -7,6 +7,7 @@
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # Ed <724195301@qq.com>, 2018
 # First Last <abc+github@mynook.info>, 2019
+# Ford Guo <agile.guo@gmail.com>, 2020
 # Fred Zeng <979738295@qq.com>, 2016
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-26 06:57+0000\n"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -471,6 +472,10 @@ msgstr "日志条目"
 msgid "log entries"
 msgstr "日志条目"
 
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "用户 %(id)d (已删除)"
+
 msgid "system"
 msgstr "系统"
 
@@ -499,3 +504,8 @@ msgstr "你需要访问该页面的密码。"
 
 msgid "Continue"
 msgstr "继续"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s 子集合"

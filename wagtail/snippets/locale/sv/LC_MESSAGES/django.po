@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-25 06:12+0000\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-18 18:16+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -172,7 +172,7 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Edit this page"
-msgstr "Editera denna sida"
+msgstr "Redigera denna sida"
 
 #, python-format
 msgid "Search %(snippet_type_name)s"
@@ -183,7 +183,7 @@ msgid "%(snippet_type)s '%(instance)s' created."
 msgstr "%(snippet_type)s '%(instance)s' skapad."
 
 msgid "Edit"
-msgstr "Editera"
+msgstr "Redigera"
 
 msgid "The snippet could not be created due to errors."
 msgstr "Snutten kunde inte skapas p.g.a. fel."
@@ -207,7 +207,7 @@ msgstr[1] "%(count)d %(snippet_type)s raderade."
 
 #, python-format
 msgid "Edit '%(title)s'"
-msgstr "Editera '%(title)s'"
+msgstr "Redigera '%(title)s'"
 
 #, python-format
 msgid "Delete '%(title)s'"
@@ -223,4 +223,4 @@ msgstr "Välj annan %s"
 
 #, python-format
 msgid "Edit this %s"
-msgstr "Editera %s"
+msgstr "Redigera %s"

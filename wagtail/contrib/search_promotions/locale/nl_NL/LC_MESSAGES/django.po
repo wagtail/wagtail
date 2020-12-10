@@ -5,15 +5,15 @@
 # Translators:
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2020
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2018
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020
 # Meteor0id, 2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-08-25 12:23+0000\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-27 12:29+0000\n"
 "Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -42,7 +42,7 @@ msgid "Add search promotion"
 msgstr "Voeg een zoekwoord-promotie toe"
 
 msgid "Add search pick"
-msgstr "Voeg een zoek pick toe"
+msgstr "Voeg een zoekterm toe"
 
 msgid ""
 "\n"
@@ -134,7 +134,7 @@ msgid "Promoted results"
 msgstr "Gepromoveerde resultaten"
 
 msgid "Views (past week)"
-msgstr "Views (afgelopen week)"
+msgstr "Weergaves (afgelopen week)"
 
 msgid "Order by views (lowest first)"
 msgstr "Sorteer op aantal keer bekeken (laagste eerst)"

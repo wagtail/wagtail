@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2020
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
 # Daniel Chimeno <daniel@chimeno.me>, 2015
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-09-23 02:05+0000\n"
-"Last-Translator: Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-19 18:55+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +96,11 @@ msgstr "Formularios presentados"
 
 msgid "name"
 msgstr "nombre"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr ""
+"Nombre seguro del campo de formulario, la etiqueta convertida a "
+"ascii_snake_case"
 
 msgid "label"
 msgstr "rótulo"

@@ -7,14 +7,14 @@
 # Matthias Martin, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 # Tibor <tibor@lpld.io>, 2020
-# Tim - <Scriptim@gmx.de>, 2020
+# Scriptim <Scriptim@gmx.de>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
 "PO-Revision-Date: 2020-08-08 13:22+0000\n"
-"Last-Translator: Tim - <Scriptim@gmx.de>\n"
+"Last-Translator: Scriptim <Scriptim@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"

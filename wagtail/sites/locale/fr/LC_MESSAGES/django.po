@@ -5,12 +5,12 @@
 # Translators:
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2018
 # Léo <leo@naeka.fr>, 2016
-# pierre marfoure <pierre@onoffdesign.com>, 2016
+# incognitae <pierre@onoffdesign.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
 "PO-Revision-Date: 2018-05-07 14:41+0000\n"
 "Last-Translator: Bertrand Bordage <bordage.bertrand@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"

@@ -6,6 +6,7 @@
 # Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2018
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+# Reshi Mahendra <reshimahendra@gmail.com>, 2020
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
 # Sutrisno Efendi <kangfend@gmail.com>, 2015,2017
 # atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-18 05:25+0000\n"
+"Last-Translator: Reshi Mahendra <reshimahendra@gmail.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +30,18 @@ msgstr "Publikasikan"
 
 msgid "Submit for moderation"
 msgstr "Kirim untuk dimoderasi"
+
+msgid "Resubmit to {}"
+msgstr "Pengajuan ulang ke {}"
+
+msgid "Submit to {}"
+msgstr "Pengajuan ke {}"
+
+msgid "Restart workflow "
+msgstr "Restart alur kerja"
+
+msgid "Cancel workflow "
+msgstr "Batalkan alur kerja"
 
 msgid "Unpublish"
 msgstr "Tarik publikasi"
@@ -100,6 +113,15 @@ msgstr "Dimulai pada"
 msgid "Show"
 msgstr "Tampilkan"
 
+msgid "Awaiting my review"
+msgstr "Menunggu ulasan saya"
+
+msgid "Completed at"
+msgstr "Diselesaikan pada"
+
+msgid "Workflow"
+msgstr "Alur Kerja"
+
 msgid "Date"
 msgstr "Tanggal"
 
@@ -164,6 +186,9 @@ msgstr[0] ""
 "Sejumlah %(count)s halaman yang disalin telah terpublikasi. Apakah anda akan "
 "mempublikasi salinannya juga?"
 
+msgid "Alias"
+msgstr "Alias"
+
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "Anda tidak memiliki izin untuk menyalin ke halaman \"%(page_title)s\""
@@ -201,6 +226,9 @@ msgstr "Kolom ini  harus diisi."
 
 msgid "Please select at least one group."
 msgstr "Harap memilih minimal satu grup."
+
+msgid "All types"
+msgstr "Semua tipe"
 
 msgid "Arabic"
 msgstr "Arab"
