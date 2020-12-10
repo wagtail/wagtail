@@ -4,14 +4,14 @@
 #
 # Translators:
 # Rob Moorman <rob@moori.nl>, 2016
-# Thijs Kramer <thijskramer@gmail.com>, 2016
+# Thijs Kramer <thijskramer@gmail.com>, 2016,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:52+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-21 07:36+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +20,18 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "default"
+msgstr "standaard"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "%(setting_type_name)s bewerken - %(instance)s"
 
 msgid "Editing"
 msgstr "Aan het bewerken"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Saving…"
 msgstr "Opslaan…"
@@ -35,6 +41,14 @@ msgstr "Opslaan"
 
 msgid "Settings"
 msgstr "Instellingen"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr ""
+"Deze instelling kon niet worden geopend want er is geen site ingesteld."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s gewijzigd."
 
 msgid "The setting could not be saved due to errors."
 msgstr "De instellingen konden vanwege foutmeldingen niet opgeslagen worden."

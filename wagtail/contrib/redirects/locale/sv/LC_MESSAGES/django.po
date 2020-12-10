@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-25 07:37+0000\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-18 18:13+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -134,10 +134,10 @@ msgstr "Förhandsgranska"
 
 #, python-format
 msgid "Editing %(title)s"
-msgstr "Editerar %(title)s"
+msgstr "Redigerar %(title)s"
 
 msgid "Editing"
-msgstr "Editerar"
+msgstr "Redigerar"
 
 msgid "Delete redirect"
 msgstr "Radera omdirigering"
@@ -171,7 +171,7 @@ msgid "Type"
 msgstr "Typ"
 
 msgid "Edit this redirect"
-msgstr "Editera denna omdirigering"
+msgstr "Redigera denna omdirigering"
 
 #, python-format
 msgid ""
@@ -210,7 +210,7 @@ msgid "Redirect '{0}' updated."
 msgstr "Omdirigering '{0}' uppdaterades."
 
 msgid "Edit"
-msgstr "Editera"
+msgstr "Redigera"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "Omdirigeringen kunde inte sparas p.g.a. fel."

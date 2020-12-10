@@ -5,15 +5,16 @@
 #
 # Translators:
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2020
+# Thijs Kramer <thijskramer@gmail.com>, 2020
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>, 2020\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2020\n"
 "Language-Team: Dutch (Netherlands) (https://www.transifex.com/torchbox/"
 "teams/8009/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -41,14 +42,14 @@ msgid ""
 "This locale's current language code is not supported. Please choose a new "
 "language or delete this locale."
 msgstr ""
-"De taal-code van de huidige taalregio is niet ondersteund. Kies een nieuwe "
+"De taalcode van de huidige taalregio wordt niet ondersteund. Kies een andere "
 "taal of verwijder deze taalregio."
 
 msgid "Usage"
 msgstr "Gebruik"
 
 msgid "This locale's language code is not supported"
-msgstr "De taal-code van deze taalregio is niet ondersteund"
+msgstr "De taalcode van deze taalregio wordt niet ondersteund"
 
 msgid "Locales"
 msgstr "Taalregio's"
@@ -74,12 +75,17 @@ msgstr "Verwijder taalregio"
 msgid "Locale '{0}' deleted."
 msgstr "Taalregio '{0}' verwijderd."
 
+msgid "Are you sure you want to delete this locale?"
+msgstr "Weet u zeker dat u deze taalregio wilt verwijderen?"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr ""
+"Deze taalregio kan niet worden verwijderd omdat er geen andere taalregio's "
+"zijn."
+
 msgid ""
 "This locale cannot be deleted because there are pages and/or other objects "
 "using it."
 msgstr ""
 "Deze taalregio kan niet verwijderd worden omdat pagina's en/of andere "
 "objecten er gebruik van maken."
-
-msgid "Are you sure you want to delete this locale?"
-msgstr "Weet u zeker dat u deze taalregio wilt verwijderen?"

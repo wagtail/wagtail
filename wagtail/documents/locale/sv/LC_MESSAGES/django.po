@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-25 06:10+0000\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-18 18:13+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -31,7 +31,7 @@ msgid "Add/edit documents you own"
 msgstr "Lägg till/redigera dokument du äger"
 
 msgid "Edit"
-msgstr "Editera"
+msgstr "Redigera"
 
 msgid "Edit any document"
 msgstr "Redigera alla dokument"
@@ -145,10 +145,10 @@ msgstr "Nej, radera inte."
 
 #, python-format
 msgid "Editing %(title)s"
-msgstr "Editerar %(title)s"
+msgstr "Redigerar %(title)s"
 
 msgid "Editing"
-msgstr "Editerar"
+msgstr "Redigerar"
 
 msgid "Save"
 msgstr "Spara"
@@ -214,7 +214,7 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Edit this page"
-msgstr "Editera denna sida"
+msgstr "Redigera denna sida"
 
 #, python-format
 msgid ""

@@ -14,13 +14,14 @@
 # Matt Westcott <matthew@torchbox.com>, 2018
 # Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
 # IT Management <hudan@itmanagement.cz>, 2018
+# Tomáš Jeřábek <tomas@tomasjerabek.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-28 20:16+0000\n"
+"Last-Translator: Tomáš Jeřábek <tomas@tomasjerabek.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -146,6 +147,13 @@ msgstr "Pro obnovení hesla zadejte svou e-mailovou adresu"
 msgid "URL"
 msgstr "URL"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Nastavte umístění. Poznámka: Kolekce nemůže být potomkem sebe sama nebo "
+"některého z vlastních potomků."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
 
@@ -200,6 +208,12 @@ msgstr[2] ""
 msgstr[3] ""
 "%(count)s z kopírovaných stránek je publikovaných. Chcete publikovat i "
 "jejich kopie?"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Udržovat nové stránky aktualizované s budoucími změnami"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -274,6 +288,9 @@ msgstr "English"
 msgid "Spanish"
 msgstr "Spanish"
 
+msgid "Estonian"
+msgstr "Estonština"
+
 msgid "Finnish"
 msgstr "Finnish"
 
@@ -282,6 +299,9 @@ msgstr "French"
 
 msgid "Galician"
 msgstr "Galician"
+
+msgid "Croatian"
+msgstr "Chorvatština"
 
 msgid "Hungarian"
 msgstr "Maďarština"
@@ -695,6 +715,15 @@ msgid ""
 "created will be displayed."
 msgstr "Na tomto dashboardu najdete základní přehled spravovaného obsahu."
 
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail postupně odstraňuje podporu IE11, což může ovlivnit vaše řešení. <a "
+"href=\"%(url)s\">Zjistěte více o našich plánech s omezením podpory IE11</a>."
+
 msgid "Your locked pages"
 msgstr "Vámi uzamčené stránky"
 
@@ -814,7 +843,7 @@ msgid "Signing in…"
 msgstr "Přihlašování..."
 
 msgid "Forgotten it?"
-msgstr "Zapoměli jste heslo?"
+msgstr "Zapomněli jste heslo?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -996,6 +1025,25 @@ msgstr "Zvolit typ stránky, který chcete vytvořit."
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "Stránky typu %(page_type)s"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "Změnit alias %(title)s"
+
+msgid "Convert alias"
+msgstr "Změnit alias"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr "Jste si jist(a), že chcete změnit tento alias na regulérní stránku?"
+
+msgid "This action cannot be undone."
+msgstr "Tato akce nemůže být odvolána."
+
+msgid "Yes, convert it"
+msgstr "Ano, provést změnu"
+
+msgid "No, leave it as an alias"
+msgstr "Ne, ponechat jako alias"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -1180,6 +1228,15 @@ msgstr "Upravuje se %(page_type)s"
 
 msgid "History"
 msgstr "Historie"
+
+msgid "This page is an alias of another page."
+msgstr "Tato stránka je aliasem od jiné stránky."
+
+msgid "Edit original page"
+msgstr "Editovat původní stránku"
+
+msgid "Convert this alias into a regular page"
+msgstr "Změnit tento alias na regulérní stránku"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1741,6 +1798,23 @@ msgstr ""
 "software.  <a href=\"https://browsehappy.com/\">Aktualizujte prosím svůj "
 "prohlížeč</a>."
 
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail potřebuje používat JavaScript, jenže ten je zakázán.<br /"
+">\n"
+"            Zde jsou <a href=\"https://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">pokyny, jak povolíte JavaScript ve "
+"vašem prohlížeči</a>.\n"
+"        "
+
 msgid "Skip to main content"
 msgstr "Přeskočit na hlavní obsah"
 
@@ -2041,6 +2115,9 @@ msgstr "Kolekci nelze uložit, zkontrolujte správné vyplnění polí."
 msgid "Delete collection"
 msgstr "Smazat kolekci"
 
+msgid "Please select another parent"
+msgstr "Prosím, zvolte jiného předka"
+
 msgid "Collection '{0}' deleted."
 msgstr "Kolekce '{0}' byla smazána."
 
@@ -2049,6 +2126,9 @@ msgstr "Opravdu chcete smazat tuto kolekci?"
 
 msgid "Editing"
 msgstr "Úprava"
+
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "Stránka '{0}' byla změněna na regulérní stránku."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
@@ -2488,6 +2568,20 @@ msgid "Copied"
 msgstr "Zkopírováno"
 
 #, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Byl vytvořen alias od %(title)s"
+
+msgid "Created an alias"
+msgstr "Byl vytvořen alias"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Byl změněn alias '%(title)s' na regulérní stránku"
+
+msgid "Converted an alias into a regular page"
+msgstr "Byl změněn alias na regulérní stránku"
+
+#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Přesunuto z '%(old_parent)s' ke '%(new_parent)s'"
 
@@ -2557,6 +2651,12 @@ msgstr "Přejmenovat"
 
 msgid "Revert"
 msgstr "Vrátit"
+
+msgid "Create alias"
+msgstr "Vytvořit alias"
+
+msgid "Convert alias into regular page"
+msgstr "Změnit alias na regulérní stránku"
 
 msgid "Schedule publication"
 msgstr "Naplánuj zveřejnění"

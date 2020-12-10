@@ -9,13 +9,13 @@
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018,2020
 # Meteor0id, 2019
 # Ramon de Jezus <rdejezus@leukeleu.nl>, 2020
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2018
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-27 12:57+0000\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-27 23:44+0000\n"
 "Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -283,7 +283,7 @@ msgid "Spanish"
 msgstr "Spaans"
 
 msgid "Estonian"
-msgstr "Ests"
+msgstr "Estisch"
 
 msgid "Finnish"
 msgstr "Fins"
@@ -293,6 +293,9 @@ msgstr "Frans"
 
 msgid "Galician"
 msgstr "Galicisch"
+
+msgid "Croatian"
+msgstr "Kroatisch"
 
 msgid "Hungarian"
 msgstr "Hongaars"
@@ -1017,7 +1020,7 @@ msgid "Convert alias"
 msgstr "Converteer alias"
 
 msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr "Weet je zeker dat je de alias wil converteren naar een normale pagina?"
+msgstr "Weet je zeker dat je de alias naar een normale pagina wil converteren?"
 
 msgid "This action cannot be undone."
 msgstr "Deze actie kan niet ongedaan gemaakt worden."
@@ -1026,7 +1029,7 @@ msgid "Yes, convert it"
 msgstr "Ja, converteer het"
 
 msgid "No, leave it as an alias"
-msgstr "Nee, laat het een alias"
+msgstr "Nee, laat het een alias blijven"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -1694,13 +1697,13 @@ msgid "No locked pages found."
 msgstr "Geen geblokkeerde pagina's gevonden."
 
 msgid "By Task"
-msgstr "Door taak"
+msgstr "Op taak"
 
 msgid "No pages have been submitted for moderation yet"
 msgstr "Er zijn nog geen pagina's ingediend voor beoordeling"
 
 msgid "By Workflow"
-msgstr "Door workflow"
+msgstr "Op workflow"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -2072,7 +2075,7 @@ msgid "Editing"
 msgstr "Wijzigen"
 
 msgid "Page '{0}' has been converted into a regular page."
-msgstr "Pagina '{0}' is geconverteerd naar een normale pagina."
+msgstr "Pagina '{0}' is naar een normale pagina geconverteerd."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Pagina '{0}' en {1} onderliggende pagina's gekopieerd."
@@ -2677,7 +2680,7 @@ msgid "Clear choice"
 msgstr "Leeg keuze"
 
 msgid "Edit this item"
-msgstr "Wijzig dit item"
+msgstr "Wijzig item"
 
 msgid "Choose another page"
 msgstr "Kies een andere pagina"

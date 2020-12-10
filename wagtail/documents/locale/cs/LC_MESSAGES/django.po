@@ -6,15 +6,16 @@
 # IT Management <hudan@itmanagement.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
+# Krystof Pilnacek <krystof.pilnacek@rossum.ai>, 2020
 # Mirek Zvolský <zvolsky@seznam.cz>, 2020
 # Mořeplavec <stanislav.vasko@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-12-09 09:58+0000\n"
+"Last-Translator: Krystof Pilnacek <krystof.pilnacek@rossum.ai>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -283,6 +284,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Nahrání na server selhalo."
+
+msgid "Document updated."
+msgstr "Dokument upraven."
 
 msgid "Update"
 msgstr "Aktualizovat"

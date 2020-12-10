@@ -3,10 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# fooflare <amos.oviedo@gmail.com>, 2014
-# fooflare <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020
 # Daniel Chimeno <daniel@chimeno.me>, 2015-2016
-# fooflare <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
 # Joaquín T <joaquintita@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015
 # José Luis <alagunajs@gmail.com>, 2015,2018
@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-19 19:08+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -209,6 +209,14 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s eliminado."
 msgstr[1] "%(count)d %(snippet_type)s eliminado."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editar '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Eliminar '%(title)s'"
 
 #, python-format
 msgid "Choose %s"

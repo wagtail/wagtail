@@ -5,13 +5,14 @@
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
 # Marek Turnovec <aesculap@gmail.com>, 2016
+# Mirek Zvolský <zvolsky@seznam.cz>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-20 16:24+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,9 @@ msgstr "Uložit"
 
 msgid "Delete image"
 msgstr "Smazat obrázek"
+
+msgid "Home"
+msgstr "Domů"
 
 msgid "Search something"
 msgstr "Hledat ..."

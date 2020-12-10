@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-25 06:53+0000\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-18 18:16+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -96,7 +96,7 @@ msgid "Content"
 msgstr "Innehåll"
 
 msgid "Promote"
-msgstr "Främja"
+msgstr "Marknadsför"
 
 msgid "Settings"
 msgstr "Inställningar"
@@ -287,6 +287,9 @@ msgstr "Franska"
 msgid "Galician"
 msgstr "Galiciska"
 
+msgid "Croatian"
+msgstr "Kroatiska"
+
 msgid "Hungarian"
 msgstr "Ungerska"
 
@@ -360,7 +363,7 @@ msgid "Chinese (Traditional)"
 msgstr "Kinesiska (Traditionell)"
 
 msgid "Edit"
-msgstr "Editera"
+msgstr "Redigera"
 
 msgid "Page"
 msgstr "Sida"
@@ -429,7 +432,7 @@ msgid "Close"
 msgstr "Stäng"
 
 msgid "Edit '{title}'"
-msgstr "Editera '{title}'"
+msgstr "Redigera '{title}'"
 
 msgid "View child pages of '{title}'"
 msgstr "Visa undersidor av '{title}'"
@@ -634,7 +637,7 @@ msgid "This collection has been made private by a parent collection."
 msgstr "Denna samling har gjorts privat p.g.a. en huvudsamling."
 
 msgid "You can edit the privacy settings on:"
-msgstr "Du kan editera sekretessinställningarna på:"
+msgstr "Du kan redigera sekretessinställningarna på:"
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -707,7 +710,7 @@ msgid "Locked at"
 msgstr "Låstes"
 
 msgid "Edit this page"
-msgstr "Editera denna sida"
+msgstr "Redigera denna sida"
 
 msgid "Draft"
 msgstr "Utkast"
@@ -729,7 +732,7 @@ msgid "Type"
 msgstr "Typ"
 
 msgid "Edited"
-msgstr "Editerad"
+msgstr "Redigerad"
 
 msgid "Preview this page"
 msgstr "Förhandsgranska den här sidan"
@@ -826,14 +829,14 @@ msgid "Hello %(username)s,"
 msgstr "Hej %(username)s,"
 
 msgid "Edit your notification preferences here:"
-msgstr "Editera dina notisinställningar här:"
+msgstr "Redigera dina notisinställningar här:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected."
 msgstr "Sidan \"%(title)s\" har blivit avvisad."
 
 msgid "You can edit the page here:"
-msgstr "Du kan editera sidan här:"
+msgstr "Du kan redigera sidan här:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected"
@@ -1184,11 +1187,11 @@ msgstr "Den här sidan har osparade ändringar."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
-msgstr "Editerar %(page_type)s: %(title)s"
+msgstr "Redigerar %(page_type)s: %(title)s"
 
 #, python-format
 msgid "Editing %(page_type)s"
-msgstr "Editerar %(page_type)s"
+msgstr "Redigerar %(page_type)s"
 
 msgid "History"
 msgstr "Historik"
@@ -1197,7 +1200,7 @@ msgid "This page is an alias of another page."
 msgstr "Denna sida är ett alias av en annan sida."
 
 msgid "Edit original page"
-msgstr "Editera orginalsida"
+msgstr "Redigera orginalsida"
 
 msgid "Convert this alias into a regular page"
 msgstr "Konvertera alias till en vanlig sida"
@@ -1545,7 +1548,7 @@ msgid "Workflow progress"
 msgstr "Arbetsflöde framsteg"
 
 msgid "Edit / Review"
-msgstr "Editera / Granska"
+msgstr "Redigera / Granska"
 
 msgid "Workflow history"
 msgstr "Arbetsflödeshistorik"
@@ -1569,7 +1572,7 @@ msgid "Initial Revision"
 msgstr "Initial Revision"
 
 msgid "Page edited"
-msgstr "Sida editerad"
+msgstr "Sida redigerad"
 
 #, python-format
 msgid ""
@@ -1620,7 +1623,7 @@ msgid "Workflow history for"
 msgstr "Arbetsflödeshistorik för"
 
 msgid "Edit page"
-msgstr "Editera sida"
+msgstr "Redigera sida"
 
 msgid "Requested by"
 msgstr "Begärdes av"
@@ -1719,7 +1722,7 @@ msgid "All collections"
 msgstr "Alla samlingar"
 
 msgid "Edit your account"
-msgstr "Editera ditt konto"
+msgstr "Redigera ditt konto"
 
 msgid "Account settings"
 msgstr "Kontoinställningar"
@@ -2068,7 +2071,7 @@ msgid "Are you sure you want to delete this collection?"
 msgstr "Är du säker på att du vill radera denna samling?"
 
 msgid "Editing"
-msgstr "Editerar"
+msgstr "Redigerar"
 
 msgid "Page '{0}' has been converted into a regular page."
 msgstr "Sidan '{0}' har blivit konverterad till en vanlig sida."
@@ -2307,14 +2310,14 @@ msgid "Task '{0}' created."
 msgstr "Uppgift '{0}' skapad."
 
 msgid "Editing workflow task"
-msgstr "Editerar arbetsflödesuppgift"
+msgstr "Redigerar arbetsflödesuppgift"
 
 msgid "Task '{0}' updated."
 msgstr "Uppgift '{0}' uppdaterad."
 
 #, python-format
 msgid "Editing %(task_type)s"
-msgstr "Editerar %(task_type)s"
+msgstr "Redigerar %(task_type)s"
 
 msgid "Disable task"
 msgstr "Inaktivera uppgift"
@@ -2675,7 +2678,7 @@ msgid "Clear choice"
 msgstr "Rensa val"
 
 msgid "Edit this item"
-msgstr "Editera objektet"
+msgstr "Redigera objektet"
 
 msgid "Choose another page"
 msgstr "Välj annan sida"
@@ -2684,4 +2687,4 @@ msgid "Choose another task"
 msgstr "Välj en annan uppgift"
 
 msgid "Edit this task"
-msgstr "Editera denna uppgift"
+msgstr "Redigera denna uppgift"

@@ -11,13 +11,13 @@
 # Loic Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
-# pierre marfoure <pierre@onoffdesign.com>, 2016
+# incognitae <pierre@onoffdesign.com>, 2016
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
 "PO-Revision-Date: 2020-10-23 12:32+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"

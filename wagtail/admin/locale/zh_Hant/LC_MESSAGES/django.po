@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-07 14:59+0000\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-21 12:24+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -684,14 +684,14 @@ msgstr "忘記密碼？"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
-msgstr "頁面\"%(title)s\"已批準。"
+msgstr "頁面 \"%(title)s\" 已核準。"
 
 msgid "You can view the page here:"
-msgstr "在這里查看頁面："
+msgstr "在此查看頁面："
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
-msgstr "頁面\"%(title)s\"已批準"
+msgstr "頁面 \"%(title)s\" 已核準"
 
 #, python-format
 msgid "Hello %(username)s,"
@@ -713,10 +713,10 @@ msgstr "頁面\"%(title)s\"被駁回"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "頁面“%(page)s”已被“%(editor)s”審核"
+msgstr "頁面 “%(page)s” 已由 “%(editor)s” 提交審核"
 
 msgid "You can preview the page here:"
-msgstr "可以在此預覽頁面："
+msgstr "在此預覽頁面："
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
@@ -725,20 +725,46 @@ msgstr "頁面\"%(page)s\"已提交審核"
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
-msgstr "此頁面 \"%(title)s\" 已於階段 \"%(task)s\" 核准"
+msgstr "頁面 \"%(title)s\" 已於階段 \"%(task)s\" 核准"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
-msgstr "此頁面 \"%(title)s\" 已於 \"%(task)s\" 核准"
+msgstr "頁面 \"%(title)s\" 已於 \"%(task)s\" 核准"
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
-msgstr "此頁面 \"%(title)s\" 已於階段 \"%(task)s\" 駁回"
+msgstr "頁面 \"%(title)s\" 已於階段 \"%(task)s\" 駁回"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
-msgstr "此頁面 \"%(title)s\" 已於 \"%(task)s\" 駁回"
+msgstr "頁面 \"%(title)s\" 已於 \"%(task)s\" 駁回"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\" "
+msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已於工作流程 \"%(workflow)s\" 核準"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已於 \"%(workflow)s\" 核準"
 
 #, python-format
 msgid ""
@@ -755,8 +781,22 @@ msgid ""
 msgstr "頁面 \"%(title)s\" 已於工作流程 \"%(workflow)s\" 之 \"%(task)s\" 駁回"
 
 #, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "意見如下： \"%(comment)s\""
+
+#, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "頁面 \"%(title)s\" 已被 \"%(workflow)s\" 駁回"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已提交至審核工作流程 \"%(workflow)s\" "
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
+msgstr "頁面 \"%(title)s\" 已提交至工作流程 \"%(workflow)s\" "
 
 msgid "Page privacy"
 msgstr "頁面隱蔽設置"
@@ -1329,6 +1369,9 @@ msgstr "初始版本"
 msgid "Page edited"
 msgstr "已編輯頁面"
 
+msgid "with comment:"
+msgstr "意見："
+
 msgid "Workflow started"
 msgstr "已開始工作流程"
 
@@ -1626,7 +1669,7 @@ msgid "Page '{0}' has been published."
 msgstr "頁面 '{0}' 已經發佈。"
 
 msgid "Page '{0}' has been submitted for moderation."
-msgstr "頁面 '{0}' 已經提交給版主。"
+msgstr "頁面 '{0}' 已提交審核。"
 
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "已重啟頁面  '{0}' 之工作流程"

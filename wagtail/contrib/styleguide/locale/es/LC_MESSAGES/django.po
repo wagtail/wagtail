@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2020
 # José Luis <alagunajs@gmail.com>, 2015
 # José Luis <alagunajs@gmail.com>, 2015,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-19 18:56+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,9 @@ msgstr "Guardar"
 
 msgid "Delete image"
 msgstr "Eliminar imagen"
+
+msgid "Home"
+msgstr "Inicio"
 
 msgid "Search something"
 msgstr "Buscar algo"

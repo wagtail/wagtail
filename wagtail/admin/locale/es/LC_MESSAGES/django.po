@@ -3,10 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# fooflare <amos.oviedo@gmail.com>, 2014,2016,2020
+# Amós Oviedo <amos.oviedo@gmail.com>, 2020
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2020
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
-# fooflare <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
 # Joaquín T <joaquintita@gmail.com>, 2014
 # José Luis <alagunajs@gmail.com>, 2015-2016
 # José Luis <alagunajs@gmail.com>, 2017-2018
@@ -19,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-26 10:53+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -49,7 +50,7 @@ msgid "Cancel workflow "
 msgstr "Cancelar flujo de trabajo"
 
 msgid "Unpublish"
-msgstr "Anular publicación"
+msgstr "Despublicar"
 
 msgid "Delete"
 msgstr "Eliminar"
@@ -146,6 +147,13 @@ msgstr "Escribe tu dirección de correo para restablecer tu contraseña"
 msgid "URL"
 msgstr "URL"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Selecciona posición jerárquica. Nota: una colección no puede convertirse en "
+"hija de sí misma o uno de sus descendientes."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "No puedes tener múltiples permisos de registro para una misma colección."
@@ -192,6 +200,12 @@ msgstr[0] ""
 msgstr[1] ""
 "%(count)s de las páginas copiadas es en vivo. Quiere publicar sus copias?"
 
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Mantener las nuevas páginas actualizadas con futuros cambios"
+
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "No tienes permisos para copiar a página \"%(page_title)s\""
@@ -203,7 +217,8 @@ msgstr ""
 "Esta marca ya esta en uso dentro del contexto de su página padre \"%s\""
 
 msgid "You cannot copy a page into itself when copying subpages"
-msgstr "No puede copiar una página dentro de sí misma cuando copia subpáginas."
+msgstr ""
+"No puedes copiar una página dentro de sí misma cuando copias subpáginas."
 
 msgid "This slug is already in use"
 msgstr "Este slug ya está en uso"
@@ -267,6 +282,9 @@ msgstr "Inglés"
 msgid "Spanish"
 msgstr "Español"
 
+msgid "Estonian"
+msgstr "Estonio"
+
 msgid "Finnish"
 msgstr "Finés"
 
@@ -275,6 +293,9 @@ msgstr "Francés"
 
 msgid "Galician"
 msgstr "Gallego"
+
+msgid "Croatian"
+msgstr "Croata"
 
 msgid "Hungarian"
 msgstr "Húngaro"
@@ -680,6 +701,16 @@ msgstr ""
 "Este es tu panel de control donde aparecerá información útil sobre el "
 "contenido que has creado."
 
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail está gradualmente eliminando soporte para IE11, lo que puede afectar "
+"a ti o a tu organización. <a href=\"%(url)s\">Aprender más sobre nuestros "
+"planes de soporte a IE11</a>."
+
 msgid "Your locked pages"
 msgstr "Tus páginas bloqueadas"
 
@@ -986,6 +1017,25 @@ msgid "Pages using %(page_type)s"
 msgstr "Páginas usando %(page_type)s"
 
 #, python-format
+msgid "Convert alias %(title)s"
+msgstr "Convertir alias %(title)s"
+
+msgid "Convert alias"
+msgstr "Convertir alias"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr "¿Seguro que quieres convertir este alias en una página normal?"
+
+msgid "This action cannot be undone."
+msgstr "Esta acción no puede ser deshecha."
+
+msgid "Yes, convert it"
+msgstr "Sí, convertirla"
+
+msgid "No, leave it as an alias"
+msgstr "No, dejarla como un alias"
+
+#, python-format
 msgid "Delete %(title)s"
 msgstr "Eliminar %(title)s"
 
@@ -1024,9 +1074,9 @@ msgid ""
 "This removes the page from public view and you can edit or publish it again "
 "later."
 msgstr ""
-"Alternativamente puede<a href=\"%(unpublish_url)s\">despublicar la página</"
-"a>. Esto removerá la página de la vista pública y podrá editar o publicarla "
-"luego."
+"Alternativamente puede<a href=\"%(unpublish_url)s\">despublicar de la "
+"página</a>. Esto removerá la página de la vista pública y podrá editar o "
+"publicarla luego."
 
 #, python-format
 msgid "Move %(title)s"
@@ -1052,10 +1102,10 @@ msgstr "Sí, mueve esta página"
 
 #, python-format
 msgid "Unpublish %(title)s"
-msgstr "Anular publicación %(title)s"
+msgstr "Despublicar %(title)s"
 
 msgid "Are you sure you want to unpublish this page?"
-msgstr "Estás seguro de que no quieres publicar esta página?"
+msgstr "¿Seguro que quieres despublicar de esta página?"
 
 #, python-format
 msgid ""
@@ -1074,14 +1124,14 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "                    Esta página tiene %(live_descendant_count)s subpáginas. "
-"Anular la publicación de éstas también\n"
+"Despublicar de éstas también\n"
 "                "
 
 msgid "Yes, unpublish it"
-msgstr "Sí, anular publicación"
+msgstr "Sí, despublicar"
 
 msgid "No, don't unpublish"
-msgstr "No, no anular publicación"
+msgstr "No, no despublicar"
 
 msgid "Publish page"
 msgstr "Publicar página"
@@ -1159,6 +1209,15 @@ msgstr "Editando %(page_type)s"
 
 msgid "History"
 msgstr "Historial"
+
+msgid "This page is an alias of another page."
+msgstr "Esta página es una alias de otra página."
+
+msgid "Edit original page"
+msgstr "Editar página original"
+
+msgid "Convert this alias into a regular page"
+msgstr "Convertir este alias en una página normal"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1666,7 +1725,7 @@ msgid "Root"
 msgstr "Raíz"
 
 msgid "Home"
-msgstr "Hogar"
+msgstr "Inicio"
 
 msgid "All collections"
 msgstr "Todas las colecciones"
@@ -1706,6 +1765,23 @@ msgstr ""
 "Está utilizando un navegador<strong>desactualizado</strong>  no soportado "
 "por este software. Por favor <a href=\"https://browsehappy.com/\">actualice "
 "su navegador</a>."
+
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            JavaScript es requerido para usar Wagtail, pero está actualmente "
+"deshabilitado.<br />\n"
+"            Aquí están las <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instrucciones de cómo "
+"habilitar JavaScript en tu navegador web</a>.\n"
+"        "
 
 msgid "Skip to main content"
 msgstr "Saltar al contenido principal"
@@ -1998,6 +2074,9 @@ msgstr "La colección no puede ser guardada debido a errores."
 msgid "Delete collection"
 msgstr "Eliminar colección"
 
+msgid "Please select another parent"
+msgstr "Por favor selecciona otro padre"
+
 msgid "Collection '{0}' deleted."
 msgstr "Colección '{0}' eliminada."
 
@@ -2006,6 +2085,9 @@ msgstr "Estás seguro de que deseas eliminar esta colección?"
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "Página '{0}' ha sido convertida en una página normal."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Página '{0}' y '{1}' subpáginas copiadas."
@@ -2318,7 +2400,7 @@ msgstr "Eliminar página '%(title)s'"
 
 #, python-format
 msgid "Unpublish page '%(title)s'"
-msgstr "Anular publicación de página '%(title)s'"
+msgstr "Despublicar de página '%(title)s'"
 
 #, python-format
 msgid "View page history for '%(title)s'"
@@ -2410,10 +2492,10 @@ msgid "Unpublished"
 msgstr "Sin publicar"
 
 msgid "Unpublish scheduled draft"
-msgstr "Anular publicación borrador programado"
+msgstr "Despublicar borrador programado"
 
 msgid "Unpublished scheduled draft"
-msgstr "Anulada publicación borrador programado"
+msgstr "Borrador programado sin publicar"
 
 msgid "Unlocked"
 msgstr "Desbloqueado"
@@ -2439,6 +2521,20 @@ msgstr "Copiado de %(title)s"
 
 msgid "Copied"
 msgstr "Copiado"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Creado un alias de %(title)s"
+
+msgid "Created an alias"
+msgstr "Creado un alias"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Convertido el alias '%(title)s' a una página normal"
+
+msgid "Converted an alias into a regular page"
+msgstr "Convertido un alias en una página normal"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -2510,6 +2606,12 @@ msgstr "Renombrar"
 
 msgid "Revert"
 msgstr "Revertir"
+
+msgid "Create alias"
+msgstr "Crear alias"
+
+msgid "Convert alias into regular page"
+msgstr "Convertir alias en página normal"
 
 msgid "Schedule publication"
 msgstr "Publicación programada"

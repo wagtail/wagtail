@@ -19,7 +19,7 @@
 # Matt Westcott <matthew@torchbox.com>, 2016
 # nahuel, 2014
 # nahuel, 2014
-# pierre marfoure <pierre@onoffdesign.com>, 2016
+# incognitae <pierre@onoffdesign.com>, 2016
 # Romain Dorgueil <romain@dorgueil.net>, 2018
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
 # Sophy O <sophy.ouch@erudit.org>, 2017
@@ -28,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-24 16:16+0000\n"
-"Last-Translator: Loic Teixeira\n"
+"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
