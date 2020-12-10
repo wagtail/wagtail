@@ -19,6 +19,7 @@ Changelog
  * Fix: Updated project template migrations to ensure that initial homepage creation runs before addition of locale field (Dan Braghis)
  * Fix: Restore ability to use translatable strings in `LANGUAGES` / `WAGTAIL_CONTENT_LANGUAGES` settings (Andreas Morgenstern)
  * Fix: Allow `locale` / `translation_of` API filters to be used in combination with search (Matt Westcott)
+ * Fix: Prevent error on `create_log_entries_from_revisions` when checking publish state on a revision that cannot be restored (Kristin Riebe)
 
 
 2.11.2 (17.11.2020)

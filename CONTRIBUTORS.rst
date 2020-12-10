@@ -487,6 +487,7 @@ Contributors
 * Luis Nell
 * Alex Sa
 * Andreas Morgenstern
+* Kristin Riebe
 
 Translators
 ===========
