@@ -4,7 +4,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.utils.encoding import force_str
 
-from wagtail.core.blocks import Block, BlockField, StreamBlock, StreamValue, StructValue
+from wagtail.core.blocks import Block, BlockField, StreamBlock, StreamValue
 from wagtail.core.rich_text import get_text_for_indexing
 
 
