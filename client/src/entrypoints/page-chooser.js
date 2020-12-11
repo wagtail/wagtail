@@ -1,44 +1,85 @@
 /* eslint-disable */
 function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPerms) {
-    var chooserElement = $('#' + id + '-chooser');
-    var pageTitle = chooserElement.find('.title');
-    var input = $('#' + id);
-    var editLink = chooserElement.find('.edit-link');
+  const chooserElement = $('#' + id + '-chooser');
+  const pageTitle = chooserElement.find('.title');
+  const input = $('#' + id);
+  const editLink = chooserElement.find('.edit-link');
+  const chooserBaseUrl = chooserElement.data('chooserUrl');
 
-    $('.action-choose', chooserElement).on('click', function() {
-        var initialUrl = chooserElement.data('chooserUrl');
-        if (openAtParentId) {
-            initialUrl += openAtParentId + '/';
-        }
+  /*
+  Construct initial state of the chooser from the rendered (static) HTML and arguments passed to
+  createPageChooser. State is either null (= no page chosen) or a dict of id, parentId,
+  adminTitle (the admin display title) and editUrl.
+  The result returned from the page chooser modal (which is ultimately built from the data
+  attributes in wagtailadmin/pages/listing/_page_title_choose.html) is a superset of this, and
+  can therefore be passed directly to chooser.setState.
+  */
+  let state = null;
+  if (input.val()) {
+    state = {
+      id: input.val(),
+      parentId: openAtParentId,
+      adminTitle: pageTitle.text(),
+      editUrl: editLink.attr('href')
+    };
+  }
 
-        var urlParams = {page_type: pageTypes.join(',')};
-        if (canChooseRoot) {
-            urlParams.can_choose_root = 'true';
-        }
-        if (userPerms) {
-            urlParams.user_perms = userPerms;
-        }
-
-        ModalWorkflow({
-            url: initialUrl,
-            urlParams: urlParams,
-            onload: PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
-            responses: {
-                pageChosen: function(pageData) {
-                    input.val(pageData.id);
-                    openAtParentId = pageData.parentId;
-                    pageTitle.text(pageData.adminTitle);
-                    chooserElement.removeClass('blank');
-                    editLink.attr('href', pageData.editUrl);
-                }
-            }
-        });
-    });
-
-    $('.action-clear', chooserElement).on('click', function() {
+  /* define public API functions for the chooser */
+  const chooser = {
+    getState: () => state,
+    getValue: () => state.id,
+    setState: (newState) => {
+      if (newState) {
+        input.val(newState.id);
+        pageTitle.text(newState.adminTitle);
+        chooserElement.removeClass('blank');
+        editLink.attr('href', newState.editUrl);
+      } else {
         input.val('');
-        openAtParentId = null;
         chooserElement.addClass('blank');
-    });
+      }
+
+      state = newState;
+    },
+
+    openChooserModal: () => {
+      let url = chooserBaseUrl;
+      if (state && state.parentId) {
+        url += state.parentId + '/';
+      }
+      const urlParams = { page_type: pageTypes.join(',') };
+      if (canChooseRoot) {
+        urlParams.can_choose_root = 'true';
+      }
+      if (userPerms) {
+        urlParams.user_perms = userPerms;
+      }
+      ModalWorkflow({
+        url: url,
+        urlParams: urlParams,
+        onload: PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
+        responses: {
+          pageChosen: (result) => {
+            chooser.setState(result);
+          }
+        }
+      });
+    },
+
+    clear: () => {
+      chooser.setState(null);
+    },
+  };
+
+  /* hook up chooser API to the buttons */
+  $('.action-choose', chooserElement).on('click', () => {
+    chooser.openChooserModal();
+  });
+
+  $('.action-clear', chooserElement).on('click', () => {
+    chooser.clear();
+  });
+
+  return chooser;
 }
 window.createPageChooser = createPageChooser;
