@@ -13,7 +13,7 @@ from django.urls import reverse
 from wagtail.core import blocks
 from wagtail.embeds import oembed_providers
 from wagtail.embeds.blocks import EmbedBlock, EmbedValue
-from wagtail.embeds.embeds import get_embed
+from wagtail.embeds.embeds import get_embed, get_embed_hash
 from wagtail.embeds.exceptions import EmbedNotFoundException, EmbedUnsupportedProviderException
 from wagtail.embeds.finders import get_finders
 from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
@@ -206,6 +206,14 @@ class TestEmbeds(TestCase):
     def test_no_finders_available(self):
         with self.assertRaises(EmbedUnsupportedProviderException):
             get_embed('www.test.com/1234', max_width=400)
+
+
+class TestEmbedHash(TestCase):
+    def test_get_embed_hash(self):
+        url = "www.test.com/1234"
+        self.assertEqual(get_embed_hash(url), "9a4cfc187266026cd68160b5db572629")
+        self.assertEqual(get_embed_hash(url, 0), "be54b69772d5e086ec07748741455736")
+        self.assertEqual(get_embed_hash(url, 1), "601c15cca60eb068ebcc166b9587ed63")
 
 
 class TestChooser(TestCase, WagtailTestUtils):
