@@ -22,22 +22,23 @@ class Embed(models.Model):
     If an instance of this model is deleted, it will be automatically refetched
     next time the embed code is needed.
     """
-    url = models.URLField()
+
+    url = models.TextField()
     max_width = models.SmallIntegerField(null=True, blank=True)
+    hash = models.CharField(max_length=32, unique=True, db_index=True)
     type = models.CharField(max_length=10, choices=EMBED_TYPES)
     html = models.TextField(blank=True)
     title = models.TextField(blank=True)
     author_name = models.TextField(blank=True)
     provider_name = models.TextField(blank=True)
-    thumbnail_url = models.URLField(max_length=255, null=True, blank=True)
+    thumbnail_url = models.TextField(blank=True)
     width = models.IntegerField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)
     last_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ('url', 'max_width')
-        verbose_name = _('embed')
-        verbose_name_plural = _('embeds')
+        verbose_name = _("embed")
+        verbose_name_plural = _("embeds")
 
     @property
     def ratio(self):

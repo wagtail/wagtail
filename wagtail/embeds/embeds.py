@@ -1,4 +1,5 @@
 from datetime import datetime
+from hashlib import md5
 
 from .exceptions import EmbedUnsupportedProviderException
 from .finders import get_finders
@@ -6,14 +7,17 @@ from .models import Embed
 
 
 def get_embed(url, max_width=None, finder=None):
+    embed_hash = get_embed_hash(url, max_width)
+
     # Check database
     try:
-        return Embed.objects.get(url=url, max_width=max_width)
+        return Embed.objects.get(hash=embed_hash)
     except Embed.DoesNotExist:
         pass
 
     # Get/Call finder
     if not finder:
+
         def finder(url, max_width=None):
             for finder in get_finders():
                 if finder.accept(url):
@@ -40,9 +44,12 @@ def get_embed(url, max_width=None, finder=None):
 
     # Create database record
     embed, created = Embed.objects.get_or_create(
-        url=url,
-        max_width=max_width,
-        defaults=embed_dict,
+        hash=embed_hash,
+        defaults=dict(
+            url=url,
+            max_width=max_width,
+            **embed_dict,
+        )
     )
 
     # Save
@@ -50,3 +57,11 @@ def get_embed(url, max_width=None, finder=None):
     embed.save()
 
     return embed
+
+
+def get_embed_hash(url, max_width=None):
+    h = md5()
+    h.update(url.encode("utf-8"))
+    if max_width is not None:
+        h.update(str(max_width).encode("utf-8"))
+    return h.hexdigest()
