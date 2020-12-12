@@ -27,6 +27,9 @@ class TestAdminPageChooserWidget(TestCase):
         self.assertFalse(widget.is_hidden)
 
     def test_render_html(self):
+        # render_html is mostly an internal API, but we do want to support calling it with None as
+        # a value, to render a blank field without the JS initialiser (so that we can call that
+        # separately in our own context and hold on to the return value)
         widget = widgets.AdminPageChooser()
 
         html = widget.render_html('test', None, {})
@@ -36,61 +39,54 @@ class TestAdminPageChooserWidget(TestCase):
     def test_render_js_init(self):
         widget = widgets.AdminPageChooser()
 
-        js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, 'createPageChooser("test-id", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});')
+        html = widget.render('test', None, {'id': 'test-id'})
+        self.assertIn('createPageChooser("test-id", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});', html)
 
     def test_render_js_init_with_user_perm(self):
         widget = widgets.AdminPageChooser(user_perms='copy_to')
 
-        js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, 'createPageChooser("test-id", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": "copy_to"});')
+        html = widget.render('test', None, {'id': 'test-id'})
+        self.assertIn('createPageChooser("test-id", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": "copy_to"});', html)
 
-    def test_render_html_with_value(self):
+    def test_render_with_value(self):
         widget = widgets.AdminPageChooser()
 
-        html = widget.render_html('test', self.child_page, {})
-        self.assertInHTML("""<input name="test" type="hidden" value="%d" />""" % self.child_page.id, html)
+        html = widget.render('test', self.child_page, {'id': 'test-id'})
+        self.assertInHTML("""<input id="test-id" name="test" type="hidden" value="%d" />""" % self.child_page.id, html)
         # SimplePage has a custom get_admin_display_title method which should be reflected here
         self.assertInHTML("foobarbaz (simple page)", html)
 
-    def test_render_js_init_with_value(self):
-        widget = widgets.AdminPageChooser()
-
-        js_init = widget.render_js_init('test-id', 'test', self.child_page)
-        self.assertEqual(
-            js_init, 'createPageChooser("test-id", %d, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});' % self.root_page.id
+        self.assertIn(
+            'createPageChooser("test-id", %d, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});' % self.root_page.id, html
         )
 
-    # def test_render_html_init_with_content_type omitted as HTML does not
-    # change when selecting a content type
-
-    def test_render_js_init_with_target_model(self):
+    def test_render_with_target_model(self):
         widget = widgets.AdminPageChooser(target_models=[SimplePage])
 
-        js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, 'createPageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});')
+        html = widget.render('test', None, {'id': 'test-id'})
+        self.assertIn('createPageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});', html)
 
-        html = widget.render_html('test', self.child_page, {})
+        html = widget.render('test', self.child_page, {'id': 'test-id'})
         self.assertIn(">Choose a page (Simple Page)<", html)
 
-    def test_render_js_init_with_multiple_target_models(self):
+    def test_render_with_multiple_target_models(self):
         target_models = [SimplePage, EventPage]
         widget = widgets.AdminPageChooser(target_models=target_models)
 
-        js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(
-            js_init, 'createPageChooser("test-id", null, {"model_names": ["tests.simplepage", "tests.eventpage"], "can_choose_root": false, "user_perms": null});'
+        html = widget.render('test', None, {'id': 'test-id'})
+        self.assertIn(
+            'createPageChooser("test-id", null, {"model_names": ["tests.simplepage", "tests.eventpage"], "can_choose_root": false, "user_perms": null});', html
         )
 
-        html = widget.render_html('test', self.child_page, {})
+        html = widget.render('test', self.child_page, {'id': 'test-id'})
         self.assertIn(">Choose a page<", html)
 
     def test_render_js_init_with_can_choose_root(self):
         widget = widgets.AdminPageChooser(can_choose_root=True)
 
-        js_init = widget.render_js_init('test-id', 'test', self.child_page)
-        self.assertEqual(
-            js_init, 'createPageChooser("test-id", %d, {"model_names": ["wagtailcore.page"], "can_choose_root": true, "user_perms": null});' % self.root_page.id
+        html = widget.render('test', self.child_page, {'id': 'test-id'})
+        self.assertIn(
+            'createPageChooser("test-id", %d, {"model_names": ["wagtailcore.page"], "can_choose_root": true, "user_perms": null});' % self.root_page.id, html
         )
 
 

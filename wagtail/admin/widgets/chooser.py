@@ -25,7 +25,8 @@ class AdminChooser(WidgetWithScript, widgets.Input):
     is_hidden = False
 
     def get_instance(self, model_class, value):
-        # helper method for cleanly turning 'value' into an instance object
+        # helper method for cleanly turning 'value' into an instance object.
+        # DEPRECATED - subclasses should override WidgetWithScript.get_value_data instead
         if value is None:
             return None
 
@@ -35,6 +36,7 @@ class AdminChooser(WidgetWithScript, widgets.Input):
             return None
 
     def get_instance_and_id(self, model_class, value):
+        # DEPRECATED - subclasses should override WidgetWithScript.get_value_data instead
         if value is None:
             return (None, None)
         elif isinstance(value, model_class):
@@ -115,35 +117,46 @@ class AdminPageChooser(AdminChooser):
             'user_perms': self.user_perms,
         }
 
-    def render_html(self, name, value, attrs):
-        model_class = self._get_lowest_common_page_class()
+    def get_value_data(self, value):
+        if value is None:
+            return None
+        elif isinstance(value, Page):
+            page = value.specific
+        else:  # assume page ID
+            model_class = self._get_lowest_common_page_class()
+            try:
+                page = model_class.objects.get(pk=value)
+            except model_class.DoesNotExist:
+                return None
 
-        page, value = self.get_instance_and_id(model_class, value)
+            page = page.specific
 
-        original_field_html = super().render_html(name, value, attrs)
+        parent_page = page.get_parent()
+        return {
+            'id': page.pk,
+            'display_title': page.get_admin_display_title(),
+            'parent_id': parent_page.pk if parent_page else None,
+            'edit_url': reverse('wagtailadmin_pages:edit', args=[page.pk]),
+        }
+
+    def render_html(self, name, value_data, attrs):
+        value_data = value_data or {}
+        original_field_html = super().render_html(name, value_data.get('id'), attrs)
 
         return render_to_string("wagtailadmin/widgets/page_chooser.html", {
             'widget': self,
             'original_field_html': original_field_html,
             'attrs': attrs,
-            'value': value,
-            'display_title': page.specific.get_admin_display_title() if page else '',
-            'edit_url': reverse('wagtailadmin_pages:edit', args=[page.id]) if page else '',
+            'value': bool(value_data),  # only used by chooser.html to identify blank values
+            'display_title': value_data.get('display_title', ''),
+            'edit_url': value_data.get('edit_url', ''),
         })
 
-    def render_js_init(self, id_, name, value):
-        if isinstance(value, Page):
-            page = value
-        else:
-            # Value is an ID look up object
-            model_class = self._get_lowest_common_page_class()
-            page = self.get_instance(model_class, value)
-
-        parent = page.get_parent() if page else None
-
+    def render_js_init(self, id_, name, value_data):
+        value_data = value_data or {}
         return "createPageChooser({id}, {parent}, {client_config});".format(
             id=json.dumps(id_),
-            parent=json.dumps(parent.id if parent else None),
+            parent=json.dumps(value_data.get('parent_id')),
             client_config=json.dumps(self.client_config),
         )
 
