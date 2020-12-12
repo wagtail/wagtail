@@ -697,7 +697,7 @@ class TestPageChooserPanel(TestCase):
 
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, null);'.format(
+        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
             id="id_page", model="wagtailcore.page", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
@@ -717,7 +717,7 @@ class TestPageChooserPanel(TestCase):
         result = page_chooser_panel.render_as_field()
 
         # the canChooseRoot flag on createPageChooser should now be true
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, true, null);'.format(
+        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": true, "user_perms": null}});'.format(
             id="id_page", model="wagtailcore.page", parent=self.events_index_page.id)
         self.assertIn(expected_js, result)
 
@@ -766,7 +766,7 @@ class TestPageChooserPanel(TestCase):
             instance=self.test_instance, form=form, request=self.request)
 
         result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, null);'.format(
+        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
@@ -784,8 +784,9 @@ class TestPageChooserPanel(TestCase):
             instance=self.test_instance, form=form)
 
         result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, null);'.format(
-            id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
+        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
+            id="id_page", model="tests.eventpage", parent=self.events_index_page.id
+        )
 
         self.assertIn(expected_js, result)
 

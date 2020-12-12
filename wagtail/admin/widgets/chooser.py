@@ -84,7 +84,7 @@ class AdminPageChooser(AdminChooser):
 
         self.user_perms = user_perms
         self.target_models = list(target_models or [Page])
-        self.can_choose_root = can_choose_root
+        self.can_choose_root = bool(can_choose_root)
 
     def _get_lowest_common_page_class(self):
         """
@@ -96,6 +96,23 @@ class AdminPageChooser(AdminChooser):
             return self.target_models[0]
         else:
             return Page
+
+    @property
+    def model_names(self):
+        return [
+            '{app}.{model}'.format(app=model._meta.app_label, model=model._meta.model_name)
+            for model in self.target_models
+        ]
+
+    @property
+    def client_config(self):
+        # a JSON-serializable representation of the configuration options needed for the
+        # client-side behaviour of this widget
+        return {
+            'model_names': self.model_names,
+            'can_choose_root': self.can_choose_root,
+            'user_perms': self.user_perms,
+        }
 
     def render_html(self, name, value, attrs):
         model_class = self._get_lowest_common_page_class()
@@ -122,17 +139,10 @@ class AdminPageChooser(AdminChooser):
 
         parent = page.get_parent() if page else None
 
-        return "createPageChooser({id}, {model_names}, {parent}, {can_choose_root}, {user_perms});".format(
+        return "createPageChooser({id}, {parent}, {client_config});".format(
             id=json.dumps(id_),
-            model_names=json.dumps([
-                '{app}.{model}'.format(
-                    app=model._meta.app_label,
-                    model=model._meta.model_name)
-                for model in self.target_models
-            ]),
             parent=json.dumps(parent.id if parent else None),
-            can_choose_root=('true' if self.can_choose_root else 'false'),
-            user_perms=json.dumps(self.user_perms),
+            client_config=json.dumps(self.client_config),
         )
 
     @property
