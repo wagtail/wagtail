@@ -58,3 +58,22 @@ class RadioSelect extends Widget {
     boundWidgetClass = BoundRadioSelect;
 }
 window.telepath.register('wagtail.widgets.RadioSelect', RadioSelect);
+
+
+class PageChooser {
+    constructor(html, idForLabel, config) {
+        this.html = html;
+        this.idForLabel = idForLabel;
+        this.config = config;
+    }
+
+    render(placeholder, name, id) {
+        var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
+        var dom = $(html);
+        $(placeholder).replaceWith(dom);
+        /* the chooser object returned by createPageChooser also serves as the JS widget representation */
+        // eslint-disable-next-line no-undef
+        return createPageChooser(id, null, this.config);
+    }
+}
+window.telepath.register('wagtail.widgets.PageChooser', PageChooser);
