@@ -3,6 +3,7 @@ import json
 from django import forms
 from django.forms import widgets
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
@@ -117,7 +118,7 @@ class AdminPageChooser(AdminChooser):
     def render_html(self, name, value, attrs):
         model_class = self._get_lowest_common_page_class()
 
-        instance, value = self.get_instance_and_id(model_class, value)
+        page, value = self.get_instance_and_id(model_class, value)
 
         original_field_html = super().render_html(name, value, attrs)
 
@@ -126,7 +127,8 @@ class AdminPageChooser(AdminChooser):
             'original_field_html': original_field_html,
             'attrs': attrs,
             'value': value,
-            'page': instance,
+            'display_title': page.specific.get_admin_display_title() if page else '',
+            'edit_url': reverse('wagtailadmin_pages:edit', args=[page.id]) if page else '',
         })
 
     def render_js_init(self, id_, name, value):

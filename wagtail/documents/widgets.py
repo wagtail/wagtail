@@ -2,6 +2,7 @@ import json
 
 from django import forms
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
@@ -19,7 +20,7 @@ class AdminDocumentChooser(AdminChooser):
         self.document_model = get_document_model()
 
     def render_html(self, name, value, attrs):
-        instance, value = self.get_instance_and_id(self.document_model, value)
+        document, value = self.get_instance_and_id(self.document_model, value)
         original_field_html = super().render_html(name, value, attrs)
 
         return render_to_string("wagtaildocs/widgets/document_chooser.html", {
@@ -27,7 +28,8 @@ class AdminDocumentChooser(AdminChooser):
             'original_field_html': original_field_html,
             'attrs': attrs,
             'value': value,
-            'document': instance,
+            'display_title': document.title if document else '',
+            'edit_url': reverse('wagtaildocs:edit', args=[document.id]) if document else '',
         })
 
     def render_js_init(self, id_, name, value):

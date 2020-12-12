@@ -1,7 +1,9 @@
 import json
 
 from django import forms
+from django.contrib.admin.utils import quote
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
@@ -25,13 +27,22 @@ class AdminSnippetChooser(AdminChooser):
 
         original_field_html = super().render_html(name, value, attrs)
 
+        if instance:
+            app_label = self.target_model._meta.app_label
+            model_name = self.target_model._meta.model_name
+            quoted_id = quote(instance.pk)
+            edit_url = reverse('wagtailsnippets:edit', args=[app_label, model_name, quoted_id])
+        else:
+            edit_url = ''
+
         return render_to_string("wagtailsnippets/widgets/snippet_chooser.html", {
             'widget': self,
             'model_opts': self.target_model._meta,
             'original_field_html': original_field_html,
             'attrs': attrs,
             'value': value,
-            'item': instance,
+            'display_title': str(instance) if instance else '',
+            'edit_url': edit_url,
         })
 
     def render_js_init(self, id_, name, value):
