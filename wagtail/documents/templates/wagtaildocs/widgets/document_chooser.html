@@ -1,9 +1,3 @@
 {% extends "wagtailadmin/widgets/chooser.html" %}
 {% block chooser_class %}document-chooser{% endblock %}
 {% block chooser_attributes %}data-chooser-url="{% url "wagtaildocs:chooser" %}"{% endblock %}
-
-{% block chosen_state_view %}
-    <span class="title">{{ document.title }}</span>
-{% endblock %}
-
-{% block edit_chosen_item_url %}{% if document %}{% url 'wagtaildocs:edit' document.id %}{% endif %}{% endblock %}
