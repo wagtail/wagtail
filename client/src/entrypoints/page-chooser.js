@@ -1,5 +1,5 @@
 /* eslint-disable */
-function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPerms) {
+function createPageChooser(id, openAtParentId, config) {
   const chooserElement = $('#' + id + '-chooser');
   const pageTitle = chooserElement.find('.title');
   const input = $('#' + id);
@@ -47,12 +47,12 @@ function createPageChooser(id, pageTypes, openAtParentId, canChooseRoot, userPer
       if (state && state.parentId) {
         url += state.parentId + '/';
       }
-      const urlParams = { page_type: pageTypes.join(',') };
-      if (canChooseRoot) {
+      const urlParams = { page_type: config['model_names'].join(',') };
+      if (config['can_choose_root']) {
         urlParams.can_choose_root = 'true';
       }
-      if (userPerms) {
-        urlParams.user_perms = userPerms;
+      if (config['user_perms']) {
+        urlParams.user_perms = config['user_perms'];
       }
       ModalWorkflow({
         url: url,
