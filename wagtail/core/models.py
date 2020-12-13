@@ -18,7 +18,7 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import migrations, models, transaction
-from django.db.models import Q, Value
+from django.db.models import DEFERRED, Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Lower, Substr
 from django.db.models.signals import pre_save
@@ -1165,10 +1165,23 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
         )
 
-    @cached_property
-    def specific(self):
+    def get_specific(self, deferred=False, copy_attrs=None):
         """
+        .. versionadded:: 2.12
+
         Return this page in its most specific subclassed form.
+
+        By default, a database query is made to fetch all field values for the
+        specific object. If you only require access to custom methods or other
+        non-field attributes on the specific object, you can use
+        ``deferred=True`` to avoid this query. However, any attempts to access
+        specific field values from the returned object will trigger additional
+        database queries.
+
+        If there are attribute values on this object that you wish to be copied
+        over to the specific version (for example: evaluated relationship field
+        values, annotations or cached properties), use `copy_attrs`` to pass an
+        iterable of names of attributes you wish to be copied.
 
         If called on a page object that is already an instance of the most
         specific class (e.g. an ``EventPage``), the object will be returned
@@ -1189,10 +1202,50 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # reverted before switching branches). So, the best we can do is
             # return the page in it's current form.
             return self
+
         if isinstance(self, model_class):
             # self is already the an instance of the most specific class
             return self
-        return self.cached_content_type.get_object_for_this_type(id=self.id)
+
+        if deferred:
+            # Generate a tuple of values in the order expected by __init__(),
+            # with missing values substituted with DEFERRED ()
+            values = tuple(
+                getattr(self, f.attname, self.pk if f.primary_key else DEFERRED)
+                for f in model_class._meta.concrete_fields
+            )
+            # Create object from known attribute values
+            specific_obj = model_class(*values)
+            specific_obj._state.adding = self._state.adding
+        else:
+            # Fetch object from database
+            specific_obj = model_class._default_manager.get(id=self.id)
+
+        # Copy additional attribute values
+        for attr in copy_attrs or ():
+            if attr in self.__dict__:
+                setattr(specific_obj, attr, getattr(self, attr))
+
+        return specific_obj
+
+    @cached_property
+    def specific(self):
+        """
+        Returns this page in its most specific subclassed form with all field
+        values fetched from the database. The result is cached in memory.
+        """
+        return self.get_specific()
+
+    @cached_property
+    def specific_deferred(self):
+        """
+        .. versionadded:: 2.12
+
+        Returns this page in its most specific subclassed form without any
+        additional field values being fetched from the database. The result
+        is cached in memory.
+        """
+        return self.get_specific(deferred=True)
 
     @cached_property
     def specific_class(self):
@@ -1202,7 +1255,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         If the model class can no longer be found in the codebase, and the
         relevant ``ContentType`` has been removed by a database migration,
-        the return value will be ``Page``.
+        the return value will be ``None``.
 
         If the model class can no longer be found in the codebase, but the
         relevant ``ContentType`` is still present in the database (usually a
