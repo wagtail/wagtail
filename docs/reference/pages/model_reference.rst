@@ -158,7 +158,11 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 .. class:: Page
     :noindex:
 
+    .. automethod:: get_specific
+
     .. autoattribute:: specific
+
+    .. autoattribute:: specific_deferred
 
     .. autoattribute:: specific_class
 
