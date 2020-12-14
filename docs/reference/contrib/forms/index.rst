@@ -28,6 +28,7 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
 
 .. code-block:: python
 
+    from django.db import models
     from modelcluster.fields import ParentalKey
     from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
