@@ -176,6 +176,12 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         results = self.backend.search(MATCH_ALL, models.Book)[110:]
         self.assertEqual(len(results), 54)
 
+    def test_search_with_date_filter(self):
+        after_1900 = models.Book.objects.filter(publication_date__year__gt=1900)
+
+        results = self.backend.search(MATCH_ALL, after_1900)
+        self.assertEqual(len(after_1900), len(results))
+
     # Elasticsearch always does prefix matching on `partial_match` fields,
     # even when we don’t use `Prefix`.
     @unittest.expectedFailure
