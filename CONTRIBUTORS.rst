@@ -491,6 +491,7 @@ Contributors
 * Vadim Karpenko
 * Bohreromir
 * Fernando Cordeiro
+* Matthias Rohmer
 
 Translators
 ===========
