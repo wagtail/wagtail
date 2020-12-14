@@ -16,7 +16,7 @@ Facebook and Instagram embed finders
 Two new embed finders have been added for Facebook and Instagram, to replace the previous configuration
 using Facebook's public oEmbed endpoint which was retired in October 2020. These require a Facebook
 developer API key - for details of configuring this, see :ref:`facebook_and_instagram_embeds`.
-This feature was developed by Luis Nell and Cynthia Kiser.
+This feature was developed by Cynthia Kiser and Luis Nell.
 
 
 Bug fixes
