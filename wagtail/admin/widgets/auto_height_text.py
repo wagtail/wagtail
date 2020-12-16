@@ -1,5 +1,8 @@
 from django.forms import widgets
 
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
+
 
 class AdminAutoHeightTextInput(widgets.Textarea):
     template_name = 'wagtailadmin/widgets/auto_height_text_input.html'
@@ -11,3 +14,10 @@ class AdminAutoHeightTextInput(widgets.Textarea):
             default_attrs.update(attrs)
 
         super().__init__(default_attrs)
+
+
+class AdminAutoHeightTextInputAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.AdminAutoHeightTextInput'
+
+
+register(AdminAutoHeightTextInputAdapter(), AdminAutoHeightTextInput)
