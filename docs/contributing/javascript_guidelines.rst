@@ -14,8 +14,8 @@ Linting and formatting code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Wagtail uses the `ESLint <https://eslint.org/>`_ linter to help check your code meets the
-styleguide. You'll need node.js and npm on your development machine.
-Ensure project dependencies are installed by running ``npm install --no-save``
+styleguide. You'll need Node and npm on your development machine.
+Ensure project dependencies are installed by running ``npm install --no-save``.
 
 Linting code
 ------------
