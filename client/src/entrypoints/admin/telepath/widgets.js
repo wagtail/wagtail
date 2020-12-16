@@ -80,3 +80,13 @@ class PageChooser {
     }
 }
 window.telepath.register('wagtail.widgets.PageChooser', PageChooser);
+
+
+class AdminAutoHeightTextInput extends Widget {
+    render(placeholder, name, id, initialState) {
+        const boundWidget = super.render(placeholder, name, id, initialState);
+        window.autosize($(id));
+        return boundWidget;
+    }
+}
+window.telepath.register('wagtail.widgets.AdminAutoHeightTextInput', AdminAutoHeightTextInput);
