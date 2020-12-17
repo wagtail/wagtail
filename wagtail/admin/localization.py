@@ -90,6 +90,7 @@ def get_js_translation_strings():
         'DELETE_ERROR': _('Delete error'),
         'CONFIRM_DELETE_COMMENT': _('Are you sure?'),
         'SAVE_ERROR': _('Save error'),
+        'SAVE_COMMENT_WARNING': _('This will be saved when the page is saved'),
         'FOCUS_COMMENT': _('Focus comment'),
         'UNFOCUS_COMMENT': _('Unfocus comment'),
 
