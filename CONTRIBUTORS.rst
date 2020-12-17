@@ -489,6 +489,7 @@ Contributors
 * Andreas Morgenstern
 * Kristin Riebe
 * Vadim Karpenko
+* Bohreromir
 
 Translators
 ===========
