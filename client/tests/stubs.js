@@ -58,6 +58,7 @@ global.wagtailConfig = {
     DELETE_ERROR: 'Delete error',
     CONFIRM_DELETE_COMMENT: 'Are you sure?',
     SAVE_ERROR: 'Save error',
+    SAVE_COMMENT_WARNING: 'This will be saved when the page is saved',
     FOCUS_COMMENT: 'Focus comment',
     UNFOCUS_COMMENT: 'Unfocus comment'
   },
