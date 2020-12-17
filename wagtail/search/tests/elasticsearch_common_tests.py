@@ -182,6 +182,13 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         results = self.backend.search(MATCH_ALL, after_1900)
         self.assertEqual(len(after_1900), len(results))
 
+        # Filtering by date not supported, should throw a FilterError
+        from wagtail.search.backends.base import FilterError
+
+        in_jan = models.Book.objects.filter(publication_date__month=1)
+        with self.assertRaises(FilterError):
+            self.backend.search(MATCH_ALL, in_jan)
+
     # Elasticsearch always does prefix matching on `partial_match` fields,
     # even when we don’t use `Prefix`.
     @unittest.expectedFailure
