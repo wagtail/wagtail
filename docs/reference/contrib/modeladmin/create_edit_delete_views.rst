@@ -33,8 +33,9 @@ model class.
                 FieldRowPanel([
                     FieldPanel('first_name', classname='fn'),
                     FieldPanel('last_name', classname='ln'),
-            ]),
-            FieldPanel('address', classname='custom1',))
+                ]),
+                FieldPanel('address', classname='custom1',)
+            ])
         ]
 
 Or alternatively:
@@ -51,8 +52,9 @@ Or alternatively:
                 FieldRowPanel([
                     FieldPanel('first_name', classname='fn'),
                     FieldPanel('last_name', classname='ln'),
-            ]),
-            FieldPanel('address', classname='custom1',))
+                ]),
+                FieldPanel('address', classname='custom1',)
+            ])
         ]
         edit_handler = ObjectList(custom_panels)
         # or
