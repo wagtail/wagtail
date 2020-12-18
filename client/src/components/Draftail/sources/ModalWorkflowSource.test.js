@@ -41,6 +41,7 @@ describe('ModalWorkflowSource', () => {
       expect(imageSource.getChooserConfig(null, '')).toEqual({
         url: '/admin/images/chooser/?select_format=true',
         urlParams: {},
+        responses: { imageChosen: imageSource.onChosen },
         onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
@@ -53,13 +54,14 @@ describe('ModalWorkflowSource', () => {
           format: 'left',
           alt_text: 'alt',
         },
+        responses: { imageChosen: imageSource.onChosen },
         onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });
 
     const embedSource = new EmbedModalWorkflowSource();
     it('EMBED without entity', () => {
-      expect(embedSource.getChooserConfig(null, '')).toEqual({
+      expect(embedSource.getChooserConfig(null, '')).toMatchObject({
         url: '/admin/embeds/chooser/',
         urlParams: {},
         onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
@@ -68,7 +70,7 @@ describe('ModalWorkflowSource', () => {
 
     it('EMBED with entity', () => {
       const entity = { getData: () => ({ url: 'http://example.org/content' }) };
-      expect(embedSource.getChooserConfig(entity, '')).toEqual({
+      expect(embedSource.getChooserConfig(entity, '')).toMatchObject({
         url: '/admin/embeds/chooser/',
         urlParams: { url: 'http://example.org/content' },
         onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
@@ -80,6 +82,7 @@ describe('ModalWorkflowSource', () => {
       expect(documentSource.getChooserConfig(null, '')).toEqual({
         url: '/admin/documents/chooser/',
         urlParams: {},
+        responses: { documentChosen: documentSource.onChosen },
         onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
       });
     });

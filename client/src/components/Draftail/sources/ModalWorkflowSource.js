@@ -42,7 +42,7 @@ class ModalWorkflowSource extends Component {
   componentDidMount() {
     const { onClose, entity, editorState } = this.props;
     const selectedText = getSelectionText(editorState);
-    const { url, urlParams, onload } = this.getChooserConfig(entity, selectedText);
+    const { url, urlParams, onload, responses } = this.getChooserConfig(entity, selectedText);
 
     $(document.body).on('hidden.bs.modal', this.onClose);
 
@@ -51,13 +51,7 @@ class ModalWorkflowSource extends Component {
       url,
       urlParams,
       onload,
-      responses: {
-        imageChosen: this.onChosen,
-        // Discard the first parameter (HTML) to only transmit the data.
-        embedChosen: (_, data) => this.onChosen(data),
-        documentChosen: this.onChosen,
-        pageChosen: this.onChosen,
-      },
+      responses,
       onError: () => {
         // eslint-disable-next-line no-alert
         window.alert(STRINGS.SERVER_ERROR);
@@ -161,6 +155,9 @@ class ImageModalWorkflowSource extends ModalWorkflowSource {
       url,
       urlParams,
       onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      responses: {
+        imageChosen: this.onChosen,
+      },
     };
   }
 
@@ -185,6 +182,10 @@ class EmbedModalWorkflowSource extends ModalWorkflowSource {
       url: global.chooserUrls.embedsChooser,
       urlParams,
       onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      responses: {
+        // Discard the first parameter (HTML) to only transmit the data.
+        embedChosen: (_, data) => this.onChosen(data),
+      }
     };
   }
 
@@ -240,6 +241,9 @@ class LinkModalWorkflowSource extends ModalWorkflowSource {
       url,
       urlParams,
       onload: global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      responses: {
+        pageChosen: this.onChosen,
+      }
     };
   }
 
@@ -264,6 +268,9 @@ class DocumentModalWorkflowSource extends ModalWorkflowSource {
       url: global.chooserUrls.documentChooser,
       urlParams: {},
       onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
+      responses: {
+        documentChosen: this.onChosen,
+      },
     };
   }
 
