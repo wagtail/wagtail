@@ -12,6 +12,7 @@ Changelog
  * Support returning None from `register_page_action_menu_item` and `register_snippet_action_menu_item` to skip registering an item (Vadim Karpenko)
  * Fix: Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)
  * Fix: Make sure document chooser pagination preserves the selected collection when moving between pages (Alex Sa)
+ * Fix: Gracefully handle oEmbed endpoints returning non-JSON responses (Matt Westcott)
 
 
 2.11.3 (10.12.2020)

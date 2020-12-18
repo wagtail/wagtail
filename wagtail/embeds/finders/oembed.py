@@ -60,9 +60,9 @@ class OEmbedFinder(EmbedFinder):
         request.add_header('User-agent', 'Mozilla/5.0')
         try:
             r = urllib_request.urlopen(request)
-        except URLError:
+            oembed = json.loads(r.read().decode('utf-8'))
+        except (URLError, json.decoder.JSONDecodeError):
             raise EmbedNotFoundException
-        oembed = json.loads(r.read().decode('utf-8'))
 
         # Convert photos into HTML
         if oembed['type'] == 'photo':

@@ -368,6 +368,14 @@ class TestOembed(TestCase):
                               "http://www.youtube.com/watch/")
 
     @patch('urllib.request.urlopen')
+    def test_oembed_non_json_response(self, urlopen):
+        urlopen.return_value = self.dummy_response
+        self.assertRaises(
+            EmbedNotFoundException, OEmbedFinder().find_embed,
+            "https://www.youtube.com/watch?v=ReblZ7o7lu4"
+        )
+
+    @patch('urllib.request.urlopen')
     @patch('json.loads')
     def test_oembed_photo_request(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
