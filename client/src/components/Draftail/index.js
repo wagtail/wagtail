@@ -12,7 +12,13 @@ export { default as Document } from './decorators/Document';
 export { default as ImageBlock } from './blocks/ImageBlock';
 export { default as EmbedBlock } from './blocks/EmbedBlock';
 
-import ModalWorkflowSource from './sources/ModalWorkflowSource';
+import {
+  ModalWorkflowSource,
+  ImageModalWorkflowSource,
+  EmbedModalWorkflowSource,
+  LinkModalWorkflowSource,
+  DocumentModalWorkflowSource
+} from './sources/ModalWorkflowSource';
 import Tooltip from './Tooltip/Tooltip';
 import TooltipEntity from './decorators/TooltipEntity';
 import EditorFallback from './EditorFallback/EditorFallback';
@@ -149,6 +155,10 @@ export default {
   registerPlugin,
   // Components exposed for third-party reuse.
   ModalWorkflowSource,
+  ImageModalWorkflowSource,
+  EmbedModalWorkflowSource,
+  LinkModalWorkflowSource,
+  DocumentModalWorkflowSource,
   Tooltip,
   TooltipEntity,
 };

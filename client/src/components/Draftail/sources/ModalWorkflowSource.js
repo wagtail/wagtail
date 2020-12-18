@@ -17,138 +17,6 @@ MUTABILITY[DOCUMENT] = 'MUTABLE';
 MUTABILITY[ENTITY_TYPE.IMAGE] = 'IMMUTABLE';
 MUTABILITY[EMBED] = 'IMMUTABLE';
 
-export const getChooserConfig = (entityType, entity, selectedText) => {
-  let url;
-  let urlParams;
-
-  switch (entityType.type) {
-  case ENTITY_TYPE.IMAGE:
-    if (entity) {
-      const data = entity.getData();
-      url = `${global.chooserUrls.imageChooser}${data.id}/select_format/`;
-      urlParams = {
-        format: data.format,
-        alt_text: data.alt,
-      };
-    } else {
-      url = `${global.chooserUrls.imageChooser}?select_format=true`;
-      urlParams = {};
-    }
-    return {
-      url,
-      urlParams,
-      onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
-    };
-
-  case EMBED:
-    urlParams = {};
-    if (entity) {
-      urlParams.url = entity.getData().url;
-    }
-    return {
-      url: global.chooserUrls.embedsChooser,
-      urlParams,
-      onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
-    };
-
-  case ENTITY_TYPE.LINK:
-    url = global.chooserUrls.pageChooser;
-    urlParams = {
-      page_type: 'wagtailcore.page',
-      allow_external_link: true,
-      allow_email_link: true,
-      allow_phone_link: true,
-      allow_anchor_link: true,
-      link_text: selectedText,
-    };
-
-    if (entity) {
-      const data = entity.getData();
-
-      if (data.id) {
-        if (data.parentId !== null) {
-          url = `${global.chooserUrls.pageChooser}${data.parentId}/`;
-        } else {
-          url = global.chooserUrls.pageChooser;
-        }
-      } else if (data.url.startsWith('mailto:')) {
-        url = global.chooserUrls.emailLinkChooser;
-        urlParams.link_url = data.url.replace('mailto:', '');
-      } else if (data.url.startsWith('tel:')) {
-        url = global.chooserUrls.phoneLinkChooser;
-        urlParams.link_url = data.url.replace('tel:', '');
-      } else if (data.url.startsWith('#')) {
-        url = global.chooserUrls.anchorLinkChooser;
-        urlParams.link_url = data.url.replace('#', '');
-      } else {
-        url = global.chooserUrls.externalLinkChooser;
-        urlParams.link_url = data.url;
-      }
-    }
-
-    return {
-      url,
-      urlParams,
-      onload: global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
-    };
-
-  case DOCUMENT:
-    return {
-      url: global.chooserUrls.documentChooser,
-      urlParams: {},
-      onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
-    };
-
-  default:
-    return {
-      url: null,
-      urlParams: {},
-      onload: {},
-    };
-  }
-};
-
-export const filterEntityData = (entityType, data) => {
-  switch (entityType.type) {
-  case ENTITY_TYPE.IMAGE:
-    return {
-      id: data.id,
-      src: data.preview.url,
-      alt: data.alt,
-      format: data.format,
-    };
-  case EMBED:
-    return {
-      embedType: data.embedType,
-      url: data.url,
-      providerName: data.providerName,
-      authorName: data.authorName,
-      thumbnail: data.thumbnail,
-      title: data.title,
-    };
-  case ENTITY_TYPE.LINK:
-    if (data.id) {
-      return {
-        url: data.url,
-        id: data.id,
-        parentId: data.parentId,
-      };
-    }
-
-    return {
-      url: data.url,
-    };
-  case DOCUMENT:
-    return {
-      url: data.url,
-      filename: data.filename,
-      id: data.id,
-    };
-  default:
-    return {};
-  }
-};
-
 /**
  * Interfaces with Wagtail's ModalWorkflow to open the chooser,
  * and create new content in Draft.js based on the data.
@@ -161,10 +29,20 @@ class ModalWorkflowSource extends Component {
     this.onClose = this.onClose.bind(this);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getChooserConfig(entity, selectedText) {
+    throw new TypeError('Subclasses of ModalWorkflowSource must implement getChooserConfig');
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  filterEntityData(data) {
+    throw new TypeError('Subclasses of ModalWorkflowSource must implement filterEntityData');
+  }
+
   componentDidMount() {
-    const { onClose, entityType, entity, editorState } = this.props;
+    const { onClose, entity, editorState } = this.props;
     const selectedText = getSelectionText(editorState);
-    const { url, urlParams, onload } = getChooserConfig(entityType, entity, selectedText);
+    const { url, urlParams, onload } = this.getChooserConfig(entity, selectedText);
 
     $(document.body).on('hidden.bs.modal', this.onClose);
 
@@ -198,7 +76,7 @@ class ModalWorkflowSource extends Component {
     const { editorState, entity, entityKey, entityType, onComplete } = this.props;
     const content = editorState.getCurrentContent();
     const selection = editorState.getSelection();
-    const entityData = filterEntityData(entityType, data);
+    const entityData = this.filterEntityData(data);
     const mutability = MUTABILITY[entityType.type];
 
     let nextState;
@@ -263,4 +141,145 @@ ModalWorkflowSource.defaultProps = {
   entity: null,
 };
 
-export default ModalWorkflowSource;
+class ImageModalWorkflowSource extends ModalWorkflowSource {
+  getChooserConfig(entity) {
+    let url;
+    let urlParams;
+
+    if (entity) {
+      const data = entity.getData();
+      url = `${global.chooserUrls.imageChooser}${data.id}/select_format/`;
+      urlParams = {
+        format: data.format,
+        alt_text: data.alt,
+      };
+    } else {
+      url = `${global.chooserUrls.imageChooser}?select_format=true`;
+      urlParams = {};
+    }
+    return {
+      url,
+      urlParams,
+      onload: global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
+    };
+  }
+
+  filterEntityData(data) {
+    return {
+      id: data.id,
+      src: data.preview.url,
+      alt: data.alt,
+      format: data.format,
+    };
+  }
+}
+
+class EmbedModalWorkflowSource extends ModalWorkflowSource {
+  getChooserConfig(entity) {
+    const urlParams = {};
+
+    if (entity) {
+      urlParams.url = entity.getData().url;
+    }
+    return {
+      url: global.chooserUrls.embedsChooser,
+      urlParams,
+      onload: global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS,
+    };
+  }
+
+  filterEntityData(data) {
+    return {
+      embedType: data.embedType,
+      url: data.url,
+      providerName: data.providerName,
+      authorName: data.authorName,
+      thumbnail: data.thumbnail,
+      title: data.title,
+    };
+  }
+}
+
+class LinkModalWorkflowSource extends ModalWorkflowSource {
+  getChooserConfig(entity, selectedText) {
+    let url = global.chooserUrls.pageChooser;
+    const urlParams = {
+      page_type: 'wagtailcore.page',
+      allow_external_link: true,
+      allow_email_link: true,
+      allow_phone_link: true,
+      allow_anchor_link: true,
+      link_text: selectedText,
+    };
+
+    if (entity) {
+      const data = entity.getData();
+
+      if (data.id) {
+        if (data.parentId !== null) {
+          url = `${global.chooserUrls.pageChooser}${data.parentId}/`;
+        } else {
+          url = global.chooserUrls.pageChooser;
+        }
+      } else if (data.url.startsWith('mailto:')) {
+        url = global.chooserUrls.emailLinkChooser;
+        urlParams.link_url = data.url.replace('mailto:', '');
+      } else if (data.url.startsWith('tel:')) {
+        url = global.chooserUrls.phoneLinkChooser;
+        urlParams.link_url = data.url.replace('tel:', '');
+      } else if (data.url.startsWith('#')) {
+        url = global.chooserUrls.anchorLinkChooser;
+        urlParams.link_url = data.url.replace('#', '');
+      } else {
+        url = global.chooserUrls.externalLinkChooser;
+        urlParams.link_url = data.url;
+      }
+    }
+
+    return {
+      url,
+      urlParams,
+      onload: global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
+    };
+  }
+
+  filterEntityData(data) {
+    if (data.id) {
+      return {
+        url: data.url,
+        id: data.id,
+        parentId: data.parentId,
+      };
+    }
+
+    return {
+      url: data.url,
+    };
+  }
+}
+
+class DocumentModalWorkflowSource extends ModalWorkflowSource {
+  getChooserConfig() {
+    return {
+      url: global.chooserUrls.documentChooser,
+      urlParams: {},
+      onload: global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS,
+    };
+  }
+
+  filterEntityData(data) {
+    return {
+      url: data.url,
+      filename: data.filename,
+      id: data.id,
+    };
+  }
+}
+
+export {
+  ModalWorkflowSource,
+  ImageModalWorkflowSource,
+  EmbedModalWorkflowSource,
+  LinkModalWorkflowSource,
+  DocumentModalWorkflowSource,
+};

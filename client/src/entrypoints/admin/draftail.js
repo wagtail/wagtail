@@ -19,22 +19,22 @@ window.draftail = draftail;
 const plugins = [
   {
     type: 'DOCUMENT',
-    source: draftail.ModalWorkflowSource,
+    source: draftail.DocumentModalWorkflowSource,
     decorator: Document,
   },
   {
     type: 'LINK',
-    source: draftail.ModalWorkflowSource,
+    source: draftail.LinkModalWorkflowSource,
     decorator: Link,
   },
   {
     type: 'IMAGE',
-    source: draftail.ModalWorkflowSource,
+    source: draftail.ImageModalWorkflowSource,
     block: ImageBlock,
   },
   {
     type: 'EMBED',
-    source: draftail.ModalWorkflowSource,
+    source: draftail.EmbedModalWorkflowSource,
     block: EmbedBlock,
   },
 ];
