@@ -7,6 +7,7 @@ from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
+from django.core.management import call_command
 from django.test import TestCase, override_settings
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -341,3 +342,11 @@ class Test404(TestCase, WagtailTestUtils):
 
         # Check that the user was redirected to the login page and that next was set correctly
         self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=/admin/sdfgdsfgdsfgsdf')
+
+
+class TestRemoveStaleContentTypes(TestCase):
+    def test_remove_stale_content_types_preserves_access_admin_permission(self):
+        call_command('remove_stale_contenttypes', interactive=False)
+        self.assertTrue(
+            Permission.objects.filter(content_type__app_label='wagtailadmin', codename='access_admin').exists()
+        )
