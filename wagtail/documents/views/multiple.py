@@ -1,9 +1,11 @@
+import os.path
+
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
-from django.utils.encoding import force_str
+from django.urls import reverse
 from django.views.decorators.http import require_POST
 from django.views.decorators.vary import vary_on_headers
 
@@ -12,6 +14,7 @@ from wagtail.search.backends import get_search_backends
 
 from .. import get_document_model
 from ..forms import get_document_form, get_document_multi_form
+from ..models import UploadedDocument
 from ..permissions import permission_policy
 
 
@@ -63,19 +66,42 @@ def add(request):
                 'success': True,
                 'doc_id': int(doc.id),
                 'form': render_to_string('wagtaildocs/multiple/edit_form.html', {
-                    'doc': doc,
+                    'doc': doc,  # only used for tests
+                    'edit_action': reverse('wagtaildocs:edit_multiple', args=(doc.id,)),
+                    'delete_action': reverse('wagtaildocs:delete_multiple', args=(doc.id,)),
                     'form': DocumentMultiForm(
                         instance=doc, prefix='doc-%d' % doc.id, user=request.user
                     ),
                 }, request=request),
             })
-        else:
-            # Validation error
+        elif 'file' in form.errors:
+            # The uploaded file is invalid; reject it now
             return JsonResponse({
                 'success': False,
+                'error_message': '\n'.join(form.errors['file']),
+            })
+        else:
+            # Some other field of the document form has failed validation, e.g. a required metadata
+            # field on a custom document model. Store the document as an UploadedDocument instead
+            # and present the edit form so that it will become a proper Document when successfully
+            # filled in
+            uploaded_doc = UploadedDocument.objects.create(
+                file=request.FILES['files[]'], uploaded_by_user=request.user
+            )
+            doc = Document(title=request.FILES['files[]'].name, collection_id=request.POST.get('collection'))
 
-                # https://github.com/django/django/blob/stable/1.6.x/django/forms/util.py#L45
-                'error_message': '\n'.join(['\n'.join([force_str(i) for i in v]) for k, v in form.errors.items()]),
+            return JsonResponse({
+                'success': True,
+
+                'uploaded_document_id': uploaded_doc.id,
+                'form': render_to_string('wagtaildocs/multiple/edit_form.html', {
+                    'uploaded_document': uploaded_doc,  # only used for tests
+                    'edit_action': reverse('wagtaildocs:create_multiple_from_uploaded_document', args=(uploaded_doc.id,)),
+                    'delete_action': reverse('wagtaildocs:delete_upload_multiple', args=(uploaded_doc.id,)),
+                    'form': DocumentMultiForm(
+                        instance=doc, prefix='uploaded-document-%d' % uploaded_doc.id, user=request.user
+                    ),
+                }, request=request),
             })
     else:
         # Instantiate a dummy copy of the form that we can retrieve validation messages and media from;
@@ -122,7 +148,9 @@ def edit(request, doc_id, callback=None):
             'success': False,
             'doc_id': int(doc_id),
             'form': render_to_string('wagtaildocs/multiple/edit_form.html', {
-                'doc': doc,
+                'doc': doc,  # only used for tests
+                'edit_action': reverse('wagtaildocs:edit_multiple', args=(doc_id,)),
+                'delete_action': reverse('wagtaildocs:delete_multiple', args=(doc_id,)),
                 'form': form,
             }, request=request),
         })
@@ -145,4 +173,76 @@ def delete(request, doc_id):
     return JsonResponse({
         'success': True,
         'doc_id': int(doc_id),
+    })
+
+
+@require_POST
+def create_from_uploaded_document(request, uploaded_document_id):
+    Document = get_document_model()
+    DocumentMultiForm = get_document_multi_form(Document)
+
+    uploaded_doc = get_object_or_404(UploadedDocument, id=uploaded_document_id)
+
+    if not request.is_ajax():
+        return HttpResponseBadRequest("Cannot POST to this view without AJAX")
+
+    if uploaded_doc.uploaded_by_user != request.user:
+        raise PermissionDenied
+
+    doc = Document()
+    form = DocumentMultiForm(
+        request.POST, request.FILES, instance=doc, prefix='uploaded-document-%d' % uploaded_document_id, user=request.user
+    )
+
+    if form.is_valid():
+        # assign the file content from uploaded_doc to the image object, to ensure it gets saved to
+        # Document's storage
+
+        doc.file.save(os.path.basename(uploaded_doc.file.name), uploaded_doc.file.file, save=False)
+        doc.uploaded_by_user = request.user
+        doc.file_size = doc.file.size
+        doc.file.open()
+        doc.file.seek(0)
+        doc._set_file_hash(doc.file.read())
+        doc.file.seek(0)
+        form.save()
+
+        uploaded_doc.file.delete()
+        uploaded_doc.delete()
+
+        # Reindex the document to make sure all tags are indexed
+        for backend in get_search_backends():
+            backend.add(doc)
+
+        return JsonResponse({
+            'success': True,
+            'doc_id': doc.id,
+        })
+    else:
+        return JsonResponse({
+            'success': False,
+            'form': render_to_string('wagtaildocs/multiple/edit_form.html', {
+                'uploaded_document': uploaded_doc,  # only used for tests
+                'edit_action': reverse('wagtaildocs:create_multiple_from_uploaded_document', args=(uploaded_doc.id,)),
+                'delete_action': reverse('wagtaildocs:delete_upload_multiple', args=(uploaded_doc.id,)),
+                'form': form,
+            }, request=request),
+        })
+
+
+@require_POST
+def delete_upload(request, uploaded_document_id):
+    uploaded_doc = get_object_or_404(UploadedDocument, id=uploaded_document_id)
+
+    if not request.is_ajax():
+        return HttpResponseBadRequest("Cannot POST to this view without AJAX")
+
+    if uploaded_doc.uploaded_by_user != request.user:
+        raise PermissionDenied
+
+    uploaded_doc.file.delete()
+    uploaded_doc.delete()
+
+    return JsonResponse({
+        'success': True,
     })
