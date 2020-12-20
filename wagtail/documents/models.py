@@ -208,3 +208,17 @@ class Document(AbstractDocument):
 
 
 document_served = Signal(providing_args=['request'])
+
+
+class UploadedDocument(models.Model):
+    """
+    Temporary storage for documents uploaded through the multiple doc uploader, when validation
+    rules (e.g. required metadata fields) prevent creating a Document object from the document file
+    alone. In this case, the document file is stored against this model, to be turned into a
+    Document object once the full form has been filled in.
+    """
+    file = models.FileField(upload_to='uploaded_documents', max_length=200)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+    )

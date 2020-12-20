@@ -2,7 +2,7 @@
 
 {% include "wagtailadmin/shared/non_field_errors.html" %}
 
-<form action="{% url 'wagtaildocs:edit_multiple' doc.id %}" method="POST" enctype="multipart/form-data" novalidate>
+<form action="{{ edit_action }}" method="POST" enctype="multipart/form-data" novalidate>
     <ul class="fields">
         {% csrf_token %}
         {% for field in form %}
@@ -14,7 +14,7 @@
         {% endfor %}
         <li>
             <input type="submit" value="{% trans 'Update' %}" class="button" />
-            <a href="{% url 'wagtaildocs:delete_multiple' doc.id %}" class="delete button button-secondary no">{% trans "Delete" %}</a>
+            <a href="{{ delete_action }}" class="delete button button-secondary no">{% trans "Delete" %}</a>
         </li>
     </ul>
 </form>

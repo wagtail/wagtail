@@ -1902,7 +1902,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         self.assertEqual(response['Content-Type'], 'application/json')
 
         # Make sure the image is deleted
-        self.assertFalse(CustomImageWithAuthor.objects.filter(id=self.uploaded_image.id).exists())
+        self.assertFalse(UploadedImage.objects.filter(id=self.uploaded_image.id).exists())
 
         # Check JSON
         response_json = json.loads(response.content.decode())

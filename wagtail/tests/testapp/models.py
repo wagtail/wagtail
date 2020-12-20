@@ -990,6 +990,15 @@ class CustomDocument(AbstractDocument):
         ]
 
 
+# Custom document model with a required field
+class CustomDocumentWithAuthor(AbstractDocument):
+    author = models.CharField(max_length=255)
+
+    admin_form_fields = Document.admin_form_fields + (
+        'author',
+    )
+
+
 class StreamModel(models.Model):
     body = StreamField([
         ('text', CharBlock()),
