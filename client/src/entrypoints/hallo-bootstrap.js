@@ -1,16 +1,18 @@
-/* eslint-disable */
+import $ from 'jquery';
+
 function makeHalloRichTextEditable(id, plugins) {
-  var input = $('#' + id);
-  var editor = $('<div class="halloeditor" data-hallo-editor></div>').html(input.val());
+  const input = $('#' + id);
+  const editor = $('<div class="halloeditor" data-hallo-editor></div>').html(input.val());
   editor.insertBefore(input);
   input.hide();
 
-  var removeStylingPending = false;
+  let removeStylingPending = false;
   function removeStyling() {
     /* Strip the 'style' attribute from spans that have no other attributes.
     (we don't remove the span entirely as that messes with the cursor position,
     and spans will be removed anyway by our whitelisting)
     */
+    // eslint-disable-next-line func-names
     $('span[style]', editor).filter(function () {
       return this.attributes.length === 1;
     }).removeAttr('style');
@@ -19,13 +21,13 @@ function makeHalloRichTextEditable(id, plugins) {
 
   /* Workaround for faulty change-detection in hallo */
   function setModified() {
-    var hallo = editor.data('IKS-hallo');
+    const hallo = editor.data('IKS-hallo');
     if (hallo) {
       hallo.setModified();
     }
   }
 
-  var closestObj = input.closest('.object');
+  const closestObj = input.closest('.object');
 
   editor.hallo({
     toolbar: 'halloToolbarFixed',
@@ -38,27 +40,28 @@ function makeHalloRichTextEditable(id, plugins) {
       setTimeout(removeStyling, 100);
       removeStylingPending = true;
     }
-  }).on('paste drop', (event, data) => {
+  }).on('paste drop', () => {
     setTimeout(() => {
       removeStyling();
       setModified();
     }, 1);
   /* Animate the fields open when you click into them. */
   })
-    .on('halloactivated', (event, data) => {
-      $(event.target).addClass('expanded', 200, (e) => {
+    .on('halloactivated', (event) => {
+      $(event.target).addClass('expanded', 200, () => {
       /* Hallo's toolbar will reposition itself on the scroll event.
       This is useful since animating the fields can cause it to be
       positioned badly initially. */
         $(window).trigger('scroll');
       });
     })
-    .on('hallodeactivated', (event, data) => {
-      $(event.target).removeClass('expanded', 200, (e) => {
+    .on('hallodeactivated', (event) => {
+      $(event.target).removeClass('expanded', 200, () => {
         $(window).trigger('scroll');
       });
     });
 
+  // eslint-disable-next-line no-use-before-define
   setupLinkTooltips(editor);
 }
 window.makeHalloRichTextEditable = makeHalloRichTextEditable;
@@ -77,13 +80,13 @@ function setupLinkTooltips(elem) {
 window.setupLinkTooltips = setupLinkTooltips;
 
 function insertRichTextDeleteControl(elem) {
-  var a = $('<a class="icon icon-cross text-replace halloembed__delete">Delete</a>');
-  $(elem).addClass('halloembed').prepend(a);
-  a.on('click', () => {
-    var widget = $(elem).parent('[data-hallo-editor]').data('IKS-hallo');
+  const anchor = $('<a class="icon icon-cross text-replace halloembed__delete">Delete</a>');
+  $(elem).addClass('halloembed').prepend(anchor);
+  anchor.on('click', () => {
+    const widget = $(elem).parent('[data-hallo-editor]').data('IKS-hallo');
     $(elem).fadeOut(() => {
       $(elem).remove();
-      if (widget != undefined && widget.options.editable) {
+      if (widget !== undefined && widget.options.editable) {
         widget.element.trigger('change');
       }
     });
@@ -92,6 +95,7 @@ function insertRichTextDeleteControl(elem) {
 window.insertRichTextDeleteControl = insertRichTextDeleteControl;
 
 $(() => {
+  // eslint-disable-next-line func-names
   $('[data-hallo-editor] [contenteditable="false"]').each(function () {
     insertRichTextDeleteControl(this);
   });

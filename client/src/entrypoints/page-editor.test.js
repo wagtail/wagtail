@@ -1,5 +1,5 @@
-/* eslint-disable */
 window.$ = require('../../../wagtail/admin/static_src/wagtailadmin/js/vendor/jquery-3.5.1.min');
+// eslint-disable-next-line no-unused-expressions
 require('../../../wagtail/admin/static_src/wagtailadmin/js/vendor/urlify').default;
 
 const cleanForSlug = require('./page-editor').cleanForSlug;

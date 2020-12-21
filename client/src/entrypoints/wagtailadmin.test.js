@@ -1,4 +1,3 @@
-/* eslint-disable */
 jest.mock('..');
 
 const wagtail = require('..');

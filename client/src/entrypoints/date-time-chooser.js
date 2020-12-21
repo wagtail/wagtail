@@ -1,4 +1,7 @@
-/* eslint-disable */
+import $ from 'jquery';
+
+/* global wagtailConfig */
+
 $.fn.datetimepicker.defaults.i18n.wagtail_custom_locale = {
   months: wagtailConfig.STRINGS.MONTHS,
   dayOfWeek: wagtailConfig.STRINGS.WEEKDAYS,
@@ -19,7 +22,7 @@ Remove the xdsoft_current css class from markup unless the selected date is curr
 Keep the normal behaviour if the home button is clicked.
  */
 function hideCurrent(current, input) {
-  var selected = new Date(input[0].value);
+  const selected = new Date(input[0].value);
   if (!dateEqual(selected, current)) {
     $(this).find('.xdsoft_datepicker .xdsoft_current:not(.xdsoft_today)').removeClass('xdsoft_current');
   }

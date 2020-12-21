@@ -1,14 +1,19 @@
-/* eslint-disable */
+import jQuery from 'jquery';
+
+// eslint-disable-next-line func-names
 (function ($) {
+  // eslint-disable-next-line func-names
   window.ListBlock = function (opts) {
     /* contents of 'opts':
-      definitionPrefix (required)
-      childInitializer (optional) - JS initializer function for each child
-    */
-    var listMemberTemplate = $('#' + opts.definitionPrefix + '-newmember').text();
+            definitionPrefix (required)
+            childInitializer (optional) - JS initializer function for each child
+        */
+    const listMemberTemplate = $('#' + opts.definitionPrefix + '-newmember').text();
 
+    // eslint-disable-next-line func-names
     return function (elementPrefix) {
-      var sequence = Sequence({
+      // eslint-disable-next-line no-undef, new-cap
+      const sequence = Sequence({
         prefix: elementPrefix,
         maxNumChildBlocks: Infinity,
         onInitializeMember(sequenceMember) {

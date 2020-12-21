@@ -3,6 +3,10 @@ subpages to happen within the lightbox, and returning a response to the calling 
 possibly after several navigation steps
 */
 
+import $ from 'jquery';
+
+/* global wagtailConfig */
+
 /* eslint-disable */
 function ModalWorkflow(opts) {
   /* options passed in 'opts':
@@ -14,16 +18,19 @@ function ModalWorkflow(opts) {
       modal object and response data as arguments
   */
 
-  var self = {};
-  var responseCallbacks = opts.responses || {};
-  var errorCallback = opts.onError || function () {};
+  const self = {};
+  const responseCallbacks = opts.responses || {};
+  // eslint-disable-next-line func-names
+  const errorCallback = opts.onError || function () {};
 
   /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
   $('body > .modal').remove();
 
   // set default contents of container
-  var iconClose = '<svg class="icon icon-cross" aria-hidden="true" focusable="false"><use href="#icon-cross"></use></svg>';
-  var container = $('<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' + iconClose + wagtailConfig.STRINGS.CLOSE + '</button>\n      <div class="modal-body"></div>\n    </div><!-- /.modal-content -->\n  </div><!-- /.modal-dialog -->\n</div>');
+  // eslint-disable-next-line max-len
+  const iconClose = '<svg class="icon icon-cross" aria-hidden="true" focusable="false"><use href="#icon-cross"></use></svg>';
+  // eslint-disable-next-line max-len
+  const container = $('<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' + iconClose + wagtailConfig.STRINGS.CLOSE + '</button>\n      <div class="modal-body"></div>\n    </div><!-- /.modal-content -->\n  </div><!-- /.modal-dialog -->\n</div>');
 
   // add container to body and hide it, so content can be added to it before display
   $('body').append(container);
@@ -31,23 +38,29 @@ function ModalWorkflow(opts) {
 
   self.body = container.find('.modal-body');
 
+  // eslint-disable-next-line func-names
   self.loadUrl = function (url, urlParams) {
     $.get(url, urlParams, self.loadResponseText, 'text').fail(errorCallback);
   };
 
+  // eslint-disable-next-line func-names
   self.postForm = function (url, formData) {
     $.post(url, formData, self.loadResponseText, 'text').fail(errorCallback);
   };
 
+  // eslint-disable-next-line func-names
   self.ajaxifyForm = function (formSelector) {
+    // eslint-disable-next-line func-names
     $(formSelector).each(function () {
-      var action = this.action;
-      if (this.method.toLowerCase() == 'get') {
+      const action = this.action;
+      if (this.method.toLowerCase() === 'get') {
+        // eslint-disable-next-line func-names
         $(this).on('submit', function () {
           self.loadUrl(action, $(this).serialize());
           return false;
         });
       } else {
+        // eslint-disable-next-line func-names
         $(this).on('submit', function () {
           self.postForm(action, $(this).serialize());
           return false;
@@ -56,11 +69,13 @@ function ModalWorkflow(opts) {
     });
   };
 
-  self.loadResponseText = function (responseText, textStatus, xhr) {
-    var response = JSON.parse(responseText);
+  // eslint-disable-next-line func-names
+  self.loadResponseText = function (responseText) {
+    const response = JSON.parse(responseText);
     self.loadBody(response);
   };
 
+  // eslint-disable-next-line func-names
   self.loadBody = function (response) {
     if (response.html) {
       // if response contains an 'html' item, replace modal body with it
@@ -75,13 +90,16 @@ function ModalWorkflow(opts) {
     }
   };
 
+  // eslint-disable-next-line func-names
   self.respond = function (responseType) {
     if (responseType in responseCallbacks) {
-      var args = Array.prototype.slice.call(arguments, 1);
+      // eslint-disable-next-line prefer-rest-params
+      const args = Array.prototype.slice.call(arguments, 1);
       responseCallbacks[responseType].apply(self, args);
     }
   };
 
+  // eslint-disable-next-line func-names
   self.close = function () {
     container.modal('hide');
   };

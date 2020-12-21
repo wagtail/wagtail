@@ -1,9 +1,11 @@
-/* eslint-disable */
+// eslint-disable-next-line func-names
 window.StructBlock = function (childInitializersByName) {
+  // eslint-disable-next-line func-names
   return function (prefix) {
-    for (var childName in childInitializersByName) {
-      var childInitializer = childInitializersByName[childName];
-      var childPrefix = prefix + '-' + childName;
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in
+    for (const childName in childInitializersByName) {
+      const childInitializer = childInitializersByName[childName];
+      const childPrefix = prefix + '-' + childName;
       childInitializer(childPrefix);
     }
   };

@@ -1,4 +1,5 @@
-/* eslint-disable */
+import $ from 'jquery';
+
 function createPageChooser(id, openAtParentId, config) {
   const chooserElement = $('#' + id + '-chooser');
   const pageTitle = chooserElement.find('.title');
@@ -54,9 +55,11 @@ function createPageChooser(id, openAtParentId, config) {
       if (config.user_perms) {
         urlParams.user_perms = config.user_perms;
       }
+      // eslint-disable-next-line no-undef, new-cap
       ModalWorkflow({
         url: url,
         urlParams: urlParams,
+        // eslint-disable-next-line no-undef
         onload: PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
         responses: {
           pageChosen: (result) => {

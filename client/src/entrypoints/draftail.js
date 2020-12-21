@@ -1,4 +1,3 @@
-/* eslint-disable */
 import * as Draftail from 'draftail';
 import draftail, {
   Link,

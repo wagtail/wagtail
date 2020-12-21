@@ -59,6 +59,9 @@ module.exports = function exports() {
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
     },
+    externals: {
+      jquery: 'jQuery',
+    },
     module: {
       rules: [
         {
