@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.RunSQL(
             'CREATE INDEX {0}_title_body_concat_search ON {0} '
             'USING GIN(( title || body));'.format(table),
-            'DROP INDEX {0}_title_body_concat_search;'.format(table),
+            'DROP INDEX IF EXISTS {0}_title_body_concat_search;'.format(table),
         ),
     ]
