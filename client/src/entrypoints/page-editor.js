@@ -1,6 +1,8 @@
-/* eslint-disable */
+import $ from 'jquery';
+
 window.halloPlugins = {};
 
+// eslint-disable-next-line no-unused-vars
 function registerHalloPlugin(name, opts) {  // lgtm[js/unused-local-variable]
   /* Obsolete - used on Wagtail <1.12 to register plugins for the hallo.js editor.
   Defined here so that third-party plugins can continue to call it to provide Wagtail <1.12
@@ -9,8 +11,9 @@ function registerHalloPlugin(name, opts) {  // lgtm[js/unused-local-variable]
 window.registerHalloPlugin = registerHalloPlugin;
 
 function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
-  var self = {};
+  const self = {};
 
+  // eslint-disable-next-line func-names
   self.setHasContent = function () {
     if ($('> li', self.formsUl).not('.deleted').length) {
       self.formsUl.parent().removeClass('empty');
@@ -19,9 +22,10 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
     }
   };
 
+  // eslint-disable-next-line func-names
   self.initChildControls = function (prefix) {
-    var childId = 'inline_child_' + prefix;
-    var deleteInputId = 'id_' + prefix + '-DELETE';
+    const childId = 'inline_child_' + prefix;
+    const deleteInputId = 'id_' + prefix + '-DELETE';
 
     // mark container as having children to identify fields in use from those not
     self.setHasContent();
@@ -38,15 +42,15 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
 
     if (opts.canOrder) {
       $('#' + prefix + '-move-up').on('click', () => {
-        var currentChild = $('#' + childId);
-        var currentChildOrderElem = currentChild.children('input[name$="-ORDER"]');
-        var currentChildOrder = currentChildOrderElem.val();
+        const currentChild = $('#' + childId);
+        const currentChildOrderElem = currentChild.children('input[name$="-ORDER"]');
+        const currentChildOrder = currentChildOrderElem.val();
 
         /* find the previous visible 'inline_child' li before this one */
-        var prevChild = currentChild.prevAll(':not(.deleted)').first();
+        const prevChild = currentChild.prevAll(':not(.deleted)').first();
         if (!prevChild.length) return;
-        var prevChildOrderElem = prevChild.children('input[name$="-ORDER"]');
-        var prevChildOrder = prevChildOrderElem.val();
+        const prevChildOrderElem = prevChild.children('input[name$="-ORDER"]');
+        const prevChildOrder = prevChildOrderElem.val();
 
         // async swap animation must run before the insertBefore line below, but doesn't need to finish first
         self.animateSwap(currentChild, prevChild);
@@ -59,15 +63,15 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
       });
 
       $('#' + prefix + '-move-down').on('click', () => {
-        var currentChild = $('#' + childId);
-        var currentChildOrderElem = currentChild.children('input[name$="-ORDER"]');
-        var currentChildOrder = currentChildOrderElem.val();
+        const currentChild = $('#' + childId);
+        const currentChildOrderElem = currentChild.children('input[name$="-ORDER"]');
+        const currentChildOrder = currentChildOrderElem.val();
 
         /* find the next visible 'inline_child' li after this one */
-        var nextChild = currentChild.nextAll(':not(.deleted)').first();
+        const nextChild = currentChild.nextAll(':not(.deleted)').first();
         if (!nextChild.length) return;
-        var nextChildOrderElem = nextChild.children('input[name$="-ORDER"]');
-        var nextChildOrder = nextChildOrderElem.val();
+        const nextChildOrderElem = nextChild.children('input[name$="-ORDER"]');
+        const nextChildOrder = nextChildOrderElem.val();
 
         // async swap animation must run before the insertAfter line below, but doesn't need to finish first
         self.animateSwap(currentChild, nextChild);
@@ -96,20 +100,27 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
 
   self.formsUl = $('#' + opts.formsetPrefix + '-FORMS');
 
+  // eslint-disable-next-line func-names
   self.updateMoveButtonDisabledStates = function () {
     if (opts.canOrder) {
-      var forms = self.formsUl.children('li:not(.deleted)');
+      const forms = self.formsUl.children('li:not(.deleted)');
+      // eslint-disable-next-line func-names
       forms.each(function (i) {
-        $('ul.controls .inline-child-move-up', this).toggleClass('disabled', i === 0).toggleClass('enabled', i !== 0);
-        $('ul.controls .inline-child-move-down', this).toggleClass('disabled', i === forms.length - 1).toggleClass('enabled', i != forms.length - 1);
+        $('ul.controls .inline-child-move-up', this)
+          .toggleClass('disabled', i === 0)
+          .toggleClass('enabled', i !== 0);
+        $('ul.controls .inline-child-move-down', this)
+          .toggleClass('disabled', i === forms.length - 1)
+          .toggleClass('enabled', i !== forms.length - 1);
       });
     }
   };
 
+  // eslint-disable-next-line func-names
   self.updateAddButtonState = function () {
     if (opts.maxForms) {
-      var forms = $('> [data-inline-panel-child]', self.formsUl).not('.deleted');
-      var addButton = $('#' + opts.formsetPrefix + '-ADD');
+      const forms = $('> [data-inline-panel-child]', self.formsUl).not('.deleted');
+      const addButton = $('#' + opts.formsetPrefix + '-ADD');
 
       if (forms.length >= opts.maxForms) {
         addButton.addClass('disabled');
@@ -119,14 +130,17 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
     }
   };
 
+  // eslint-disable-next-line func-names
   self.animateSwap = function (item1, item2) {
-    var parent = self.formsUl;
-    var children = parent.children('li:not(.deleted)');
+    const parent = self.formsUl;
+    const children = parent.children('li:not(.deleted)');
 
     // Apply moving class to container (ul.multiple) so it can assist absolute positioning of it's children
-    // Also set it's relatively calculated height to be an absolute one, to prevent the container collapsing while its children go absolute
+    // Also set it's relatively calculated height to be an absolute one,
+    // to prevent the containercollapsing while its children go absolute
     parent.addClass('moving').css('height', parent.height());
 
+    // eslint-disable-next-line func-names
     children.each(function () {
       // console.log($(this));
       $(this).css('top', $(this).position().top);
@@ -148,9 +162,10 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
     });
   };
 
+  // eslint-disable-next-line no-undef
   buildExpandingFormset(opts.formsetPrefix, {
     onAdd(formCount) {
-      var newChildPrefix = opts.emptyChildFormPrefix.replace(/__prefix__/g, formCount);
+      const newChildPrefix = opts.emptyChildFormPrefix.replace(/__prefix__/g, formCount);
       self.initChildControls(newChildPrefix);
       if (opts.canOrder) {
         /* NB form hidden inputs use 0-based index and only increment formCount *after* this function is run.
@@ -174,7 +189,8 @@ function cleanForSlug(val, useURLify) {
   if (useURLify) {
     // URLify performs extra processing on the string (e.g. removing stopwords) and is more suitable
     // for creating a slug from the title, rather than sanitising a slug entered manually
-    const cleaned = URLify(val, 255, unicodeSlugsEnabled);
+    // eslint-disable-next-line no-undef, new-cap
+    const cleaned = URLify(val, 255, window.unicodeSlugsEnabled);
 
     // if the result is blank (e.g. because the title consisted entirely of stopwords),
     // fall through to the non-URLify method
@@ -184,26 +200,28 @@ function cleanForSlug(val, useURLify) {
   }
 
   // just do the "replace"
-  if (unicodeSlugsEnabled) {
-    return val.replace(/\s/g, '-').replace(/[&\/\\#,+()$~%.'":`@\^!*?<>{}]/g, '').toLowerCase();
+  if (window.unicodeSlugsEnabled) {
+    return val.replace(/\s/g, '-').replace(/[&/\\#,+()$~%.'":`@^!*?<>{}]/g, '').toLowerCase();
   }
-  return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-\_]/g, '').toLowerCase();
+  return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-_]/g, '').toLowerCase();
 }
 window.cleanForSlug = cleanForSlug;
 
 function initSlugAutoPopulate() {
-  var slugFollowsTitle = false;
+  let slugFollowsTitle = false;
 
+  // eslint-disable-next-line func-names
   $('#id_title').on('focus', function () {
     /* slug should only follow the title field if its value matched the title's value at the time of focus */
-    var currentSlug = $('#id_slug').val();
-    var slugifiedTitle = cleanForSlug(this.value, true);
-    slugFollowsTitle = (currentSlug == slugifiedTitle);
+    const currentSlug = $('#id_slug').val();
+    const slugifiedTitle = cleanForSlug(this.value, true);
+    slugFollowsTitle = (currentSlug === slugifiedTitle);
   });
 
+  // eslint-disable-next-line func-names
   $('#id_title').on('keyup keydown keypress blur', function () {
     if (slugFollowsTitle) {
-      var slugifiedTitle = cleanForSlug(this.value, true);
+      const slugifiedTitle = cleanForSlug(this.value, true);
       $('#id_slug').val(slugifiedTitle);
     }
   });
@@ -211,6 +229,7 @@ function initSlugAutoPopulate() {
 window.initSlugAutoPopulate = initSlugAutoPopulate;
 
 function initSlugCleaning() {
+  // eslint-disable-next-line func-names
   $('#id_slug').on('blur', function () {
     // if a user has just set the slug themselves, don't remove stop words etc, just illegal characters
     $(this).val(cleanForSlug($(this).val(), false));
@@ -219,11 +238,12 @@ function initSlugCleaning() {
 window.initSlugCleaning = initSlugCleaning;
 
 function initErrorDetection() {
-  var errorSections = {};
+  const errorSections = {};
 
   // first count up all the errors
+  // eslint-disable-next-line func-names
   $('.error-message').each(function () {
-    var parentSection = $(this).closest('section');
+    const parentSection = $(this).closest('section');
 
     if (!errorSections[parentSection.attr('id')]) {
       errorSections[parentSection.attr('id')] = 0;
@@ -233,17 +253,19 @@ function initErrorDetection() {
   });
 
   // now identify them on each tab
-  for (var index in errorSections) {
+  // eslint-disable-next-line no-restricted-syntax, guard-for-in
+  for (const index in errorSections) {
     $('.tab-nav a[href="#' + index + '"]').addClass('errors').attr('data-count', errorSections[index]);
   }
 }
 window.initErrorDetection = initErrorDetection;
 
 function initCollapsibleBlocks() {
+  // eslint-disable-next-line func-names
   $('.object.multi-field.collapsible').each(function () {
-    var $li = $(this);
-    var $fieldset = $li.find('fieldset');
-    if ($li.hasClass('collapsed') && $li.find('.error-message').length == 0) {
+    const $li = $(this);
+    const $fieldset = $li.find('fieldset');
+    if ($li.hasClass('collapsed') && $li.find('.error-message').length === 0) {
       $fieldset.hide();
     }
 
@@ -261,12 +283,14 @@ function initCollapsibleBlocks() {
 window.initCollapsibleBlocks = initCollapsibleBlocks;
 
 function initKeyboardShortcuts() {
-  Mousetrap.bind(['mod+p'], (e) => {
+  // eslint-disable-next-line no-undef
+  Mousetrap.bind(['mod+p'], () => {
     $('.action-preview').trigger('click');
     return false;
   });
 
-  Mousetrap.bind(['mod+s'], (e) => {
+  // eslint-disable-next-line no-undef
+  Mousetrap.bind(['mod+s'], () => {
     $('.action-save').trigger('click');
     return false;
   });
@@ -293,10 +317,10 @@ $(() => {
   // to the preview page, we send the form after each change
   // and save it inside the user session.
 
-  var $previewButton = $('.action-preview'); var
-    $form = $('#page-edit-form');
-  var previewUrl = $previewButton.data('action');
-  var autoUpdatePreviewDataTimeout = -1;
+  const $previewButton = $('.action-preview');
+  const $form = $('#page-edit-form');
+  const previewUrl = $previewButton.data('action');
+  let autoUpdatePreviewDataTimeout = -1;
 
   function setPreviewData() {
     return $.ajax({
@@ -315,7 +339,8 @@ $(() => {
       // and deleted (DOMSubtreeModified event), and we need to delay
       // setPreviewData when typing to avoid useless extra AJAX requests
       // (so we postpone setPreviewData when keyup occurs).
-      // TODO: Replace DOMSubtreeModified with a MutationObserver.
+      // eslint-disable-next-line no-warning-comments
+      // TODO: Replace DOMSubtreeModified with a MutationObserver.
       $form.on('change keyup DOMSubtreeModified', () => {
         clearTimeout(autoUpdatePreviewDataTimeout);
         autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
@@ -323,13 +348,14 @@ $(() => {
     }
   });
 
+  // eslint-disable-next-line func-names
   $previewButton.on('click', function (e) {
     e.preventDefault();
-    var $this = $(this);
-    var $icon = $this.filter('.icon');
-    var thisPreviewUrl = $this.data('action');
+    const $this = $(this);
+    const $icon = $this.filter('.icon');
+    const thisPreviewUrl = $this.data('action');
     $icon.addClass('icon-spinner').removeClass('icon-view');
-    var previewWindow = window.open('', thisPreviewUrl);
+    const previewWindow = window.open('', thisPreviewUrl);
     previewWindow.focus();
 
     setPreviewData().done((data) => {
@@ -338,10 +364,12 @@ $(() => {
       } else {
         window.focus();
         previewWindow.close();
+        // eslint-disable-next-line no-warning-comments
         // TODO: Stop sending the form, as it removes file data.
         $form.trigger('submit');
       }
     }).fail(() => {
+      // eslint-disable-next-line no-alert
       alert('Error while sending preview data.');
       window.focus();
       previewWindow.close();

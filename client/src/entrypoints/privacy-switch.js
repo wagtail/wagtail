@@ -1,20 +1,24 @@
-/* eslint-disable */
+import $ from 'jquery';
+
 $(() => {
   /* Interface to set permissions from the explorer / editor */
+  // eslint-disable-next-line func-names
   $('button.action-set-privacy').on('click', function () {
+    // eslint-disable-next-line no-undef, new-cap
     ModalWorkflow({
       url: this.getAttribute('data-url'),
       onload: {
-        set_privacy(modal, jsonData) {
+        set_privacy(modal) {
+          // eslint-disable-next-line func-names
           $('form', modal.body).on('submit', function () {
             modal.postForm(this.action, $(this).serialize());
             return false;
           });
 
-          var restrictionTypePasswordField = $("input[name='restriction_type'][value='password']", modal.body);
-          var restrictionTypeGroupsField = $("input[name='restriction_type'][value='groups']", modal.body);
-          var passwordField = $('.password-field', modal.body);
-          var groupsFields = $('#groups-fields', modal.body);
+          const restrictionTypePasswordField = $("input[name='restriction_type'][value='password']", modal.body);
+          const restrictionTypeGroupsField = $("input[name='restriction_type'][value='groups']", modal.body);
+          const passwordField = $('.password-field', modal.body);
+          const groupsFields = $('#groups-fields', modal.body);
 
           function refreshFormFields() {
             if (restrictionTypePasswordField.is(':checked')) {

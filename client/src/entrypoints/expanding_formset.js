@@ -1,30 +1,28 @@
-/* eslint-disable */
-function buildExpandingFormset(prefix, opts) {
-  if (!opts) {
-    opts = {};
-  }
+import $ from 'jquery';
 
-  var addButton = $('#' + prefix + '-ADD');
-  var formContainer = $('#' + prefix + '-FORMS');
-  var totalFormsInput = $('#' + prefix + '-TOTAL_FORMS');
-  var formCount = parseInt(totalFormsInput.val(), 10);
+function buildExpandingFormset(prefix, opts = {}) {
+  const addButton = $('#' + prefix + '-ADD');
+  const formContainer = $('#' + prefix + '-FORMS');
+  const totalFormsInput = $('#' + prefix + '-TOTAL_FORMS');
+  let formCount = parseInt(totalFormsInput.val(), 10);
 
   if (opts.onInit) {
-    for (var i = 0; i < formCount; i++) {
+    for (let i = 0; i < formCount; i++) {
       opts.onInit(i);
     }
   }
 
-  var emptyFormTemplate = document.getElementById(prefix + '-EMPTY_FORM_TEMPLATE');
+  let emptyFormTemplate = document.getElementById(prefix + '-EMPTY_FORM_TEMPLATE');
   if (emptyFormTemplate.innerText) {
     emptyFormTemplate = emptyFormTemplate.innerText;
   } else if (emptyFormTemplate.textContent) {
     emptyFormTemplate = emptyFormTemplate.textContent;
   }
 
+  // eslint-disable-next-line consistent-return
   addButton.on('click', () => {
     if (addButton.hasClass('disabled')) return false;
-    var newFormHtml = emptyFormTemplate
+    const newFormHtml = emptyFormTemplate
       .replace(/__prefix__/g, formCount)
       .replace(/<-(-*)\/script>/g, '<$1/script>');
     formContainer.append(newFormHtml);

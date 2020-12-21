@@ -1,12 +1,14 @@
-/* eslint-disable */
-function _addHiddenInput(form, name, val) {
-  var element = document.createElement('input');
+import $ from 'jquery';
+
+function addHiddenInput(form, name, val) {
+  const element = document.createElement('input');
   element.type = 'hidden';
   element.name = name;
   element.value = val;
   form.appendChild(element);
 }
-window._addHiddenInput = _addHiddenInput;
+// eslint-disable-next-line no-underscore-dangle
+window._addHiddenInput = addHiddenInput;
 
 /* When a workflow action button is clicked, either show a modal or make a POST request to the workflow action view */
 function ActivateWorkflowActionsForDashboard(csrfToken) {
@@ -17,11 +19,12 @@ function ActivateWorkflowActionsForDashboard(csrfToken) {
       e.stopPropagation();
 
       if ('launchModal' in buttonElement.dataset) {
+        // eslint-disable-next-line no-undef, new-cap
         ModalWorkflow({
           url: buttonElement.dataset.workflowActionUrl,
           onload: {
-            action(modal, jsonData) {
-              var nextElement = document.createElement('input');
+            action(modal) {
+              const nextElement = document.createElement('input');
               nextElement.type = 'hidden';
               nextElement.name = 'next';
               nextElement.value = window.location;
@@ -35,13 +38,13 @@ function ActivateWorkflowActionsForDashboard(csrfToken) {
         });
       } else {
         // if not opening a modal, submit a POST request to the action url
-        var formElement = document.createElement('form');
+        const formElement = document.createElement('form');
 
         formElement.action = buttonElement.dataset.workflowActionUrl;
         formElement.method = 'POST';
 
-        _addHiddenInput(formElement, 'csrfmiddlewaretoken', csrfToken);
-        _addHiddenInput(formElement, 'next', window.location);
+        addHiddenInput(formElement, 'csrfmiddlewaretoken', csrfToken);
+        addHiddenInput(formElement, 'next', window.location);
 
         document.body.appendChild(formElement);
         formElement.submit();
@@ -52,7 +55,7 @@ function ActivateWorkflowActionsForDashboard(csrfToken) {
 window.ActivateWorkflowActionsForDashboard = ActivateWorkflowActionsForDashboard;
 
 function ActivateWorkflowActionsForEditView(formSelector) {
-  var form = $(formSelector).get(0);
+  const form = $(formSelector).get(0);
 
   document.querySelectorAll('[data-workflow-action-name]').forEach((buttonElement) => {
     buttonElement.addEventListener('click', (e) => {
@@ -63,17 +66,18 @@ function ActivateWorkflowActionsForEditView(formSelector) {
         e.stopPropagation();
 
         // open the modal at the given URL
+        // eslint-disable-next-line no-undef, new-cap
         ModalWorkflow({
           url: buttonElement.dataset.workflowActionModalUrl,
           onload: {
-            action(modal, jsonData) {
+            action(modal) {
               modal.ajaxifyForm($('form', modal.body));
             },
             success(modal, jsonData) {
               // a success response includes the additional data to submit with the edit form
-              _addHiddenInput(form, 'action-workflow-action', 'true');
-              _addHiddenInput(form, 'workflow-action-name', buttonElement.dataset.workflowActionName);
-              _addHiddenInput(form, 'workflow-action-extra-data', JSON.stringify(jsonData.cleaned_data));
+              addHiddenInput(form, 'action-workflow-action', 'true');
+              addHiddenInput(form, 'workflow-action-name', buttonElement.dataset.workflowActionName);
+              addHiddenInput(form, 'workflow-action-extra-data', JSON.stringify(jsonData.cleaned_data));
               // note: need to submit via jQuery (as opposed to form.submit()) so that the onsubmit handler
               // that disables the dirty-form prompt doesn't get bypassed
               $(form).submit();
@@ -83,8 +87,8 @@ function ActivateWorkflowActionsForEditView(formSelector) {
       } else {
         // no modal, so let the form submission to the edit view proceed, with additional
         // hidden inputs to tell it to perform our action
-        _addHiddenInput(form, 'action-workflow-action', 'true');
-        _addHiddenInput(form, 'workflow-action-name', buttonElement.dataset.workflowActionName);
+        addHiddenInput(form, 'action-workflow-action', 'true');
+        addHiddenInput(form, 'workflow-action-name', buttonElement.dataset.workflowActionName);
       }
     }, { capture: true });
   });

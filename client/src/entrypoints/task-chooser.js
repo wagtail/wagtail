@@ -1,13 +1,16 @@
-/* eslint-disable */
+import $ from 'jquery';
+
 function createTaskChooser(id) {
-  var chooserElement = $('#' + id + '-chooser');
-  var taskName = chooserElement.find('.name');
-  var input = $('#' + id);
-  var editAction = chooserElement.find('.action-edit');
+  const chooserElement = $('#' + id + '-chooser');
+  const taskName = chooserElement.find('.name');
+  const input = $('#' + id);
+  const editAction = chooserElement.find('.action-edit');
 
   $('.action-choose', chooserElement).on('click', () => {
+    // eslint-disable-next-line no-undef, new-cap
     ModalWorkflow({
       url: chooserElement.data('chooserUrl'),
+      // eslint-disable-next-line no-undef
       onload: TASK_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
         taskChosen(data) {

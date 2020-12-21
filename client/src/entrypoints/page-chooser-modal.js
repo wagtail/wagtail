@@ -1,7 +1,9 @@
-/* eslint-disable */
+import $ from 'jquery';
+
 const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   browse(modal, jsonData) {
     /* Set up link-types links to open in the modal */
+    // eslint-disable-next-line func-names
     $('.link-types a', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
@@ -21,25 +23,27 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     modal.ajaxifyForm($('form.search-form', modal.body));
 
     /* Set up search-as-you-type behaviour on the search box */
-    var searchUrl = $('form.search-form', modal.body).attr('action');
+    const searchUrl = $('form.search-form', modal.body).attr('action');
 
     /* save initial page browser HTML, so that we can restore it if the search box gets cleared */
-    var initialPageResultsHtml = $('.page-results', modal.body).html();
+    const initialPageResultsHtml = $('.page-results', modal.body).html();
 
-    var request;
+    let request;
 
     function search() {
-      var query = $('#id_q', modal.body).val();
-      if (query != '') {
+      const query = $('#id_q', modal.body).val();
+      if (query !== '') {
         request = $.ajax({
           url: searchUrl,
           data: {
+            // eslint-disable-next-line id-length
             q: query,
             results_only: true
           },
-          success(data, status) {
+          success(data) {
             request = null;
             $('.page-results', modal.body).html(data);
+            // eslint-disable-next-line no-use-before-define
             ajaxifySearchResults();
           },
           error() {
@@ -49,25 +53,28 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       } else {
         /* search box is empty - restore original page browser HTML */
         $('.page-results', modal.body).html(initialPageResultsHtml);
+        // eslint-disable-next-line no-use-before-define
         ajaxifyBrowseResults();
       }
       return false;
     }
 
+    // eslint-disable-next-line func-names
     $('#id_q', modal.body).on('input', function () {
       if (request) {
         request.abort();
       }
       clearTimeout($.data(this, 'timer'));
-      var wait = setTimeout(search, 200);
+      const wait = setTimeout(search, 200);
       $(this).data('timer', wait);
     });
 
     /* Set up behaviour of choose-page links in the newly-loaded search results,
     to pass control back to the calling page */
     function ajaxifySearchResults() {
+      // eslint-disable-next-line func-names
       $('.page-results a.choose-page', modal.body).on('click', function () {
-        var pageData = $(this).data();
+        const pageData = $(this).data();
         modal.respond('pageChosen', pageData);
         modal.close();
 
@@ -75,11 +82,13 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       });
       /* pagination links within search results should be AJAX-fetched
       and the result loaded into .page-results (and ajaxified) */
+      // eslint-disable-next-line func-names
       $('.page-results a.navigate-pages', modal.body).on('click', function () {
         $('.page-results', modal.body).load(this.href, ajaxifySearchResults);
         return false;
       });
       /* Set up parent navigation links (.navigate-parent) to open in the modal */
+      // eslint-disable-next-line func-names
       $('.page-results a.navigate-parent', modal.body).on('click', function () {
         modal.loadUrl(this.href);
         return false;
@@ -88,14 +97,16 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
     function ajaxifyBrowseResults() {
       /* Set up page navigation links to open in the modal */
+      // eslint-disable-next-line func-names
       $('.page-results a.navigate-pages', modal.body).on('click', function () {
         modal.loadUrl(this.href);
         return false;
       });
 
       /* Set up behaviour of choose-page links, to pass control back to the calling page */
+      // eslint-disable-next-line func-names
       $('a.choose-page', modal.body).on('click', function () {
-        var pageData = $(this).data();
+        const pageData = $(this).data();
         pageData.parentId = jsonData.parent_page_id;
         modal.respond('pageChosen', pageData);
         modal.close();
@@ -112,45 +123,53 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     $('#id_q', modal.body).trigger('focus');
   },
 
-  anchor_link(modal, jsonData) {
+  anchor_link(modal) {
+    // eslint-disable-next-line func-names
     $('p.link-types a', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
 
+    // eslint-disable-next-line func-names
     $('form', modal.body).on('submit', function () {
       modal.postForm(this.action, $(this).serialize());
       return false;
     });
   },
-  email_link(modal, jsonData) {
+  email_link(modal) {
+    // eslint-disable-next-line func-names
     $('p.link-types a', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
 
+    // eslint-disable-next-line func-names
     $('form', modal.body).on('submit', function () {
       modal.postForm(this.action, $(this).serialize());
       return false;
     });
   },
-  phone_link(modal, jsonData) {
+  phone_link(modal) {
+    // eslint-disable-next-line func-names
     $('p.link-types a', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
 
+    // eslint-disable-next-line func-names
     $('form', modal.body).on('submit', function () {
       modal.postForm(this.action, $(this).serialize());
       return false;
     });
   },
-  external_link(modal, jsonData) {
+  external_link(modal) {
+    // eslint-disable-next-line func-names
     $('p.link-types a', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
 
+    // eslint-disable-next-line func-names
     $('form', modal.body).on('submit', function () {
       modal.postForm(this.action, $(this).serialize());
       return false;

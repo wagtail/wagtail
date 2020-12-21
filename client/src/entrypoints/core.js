@@ -1,9 +1,10 @@
-/* eslint-disable */
+import $ from 'jquery';
+
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
   $('.messages').addClass('new').empty()
     .append('<ul><li class="' + status + '">' + text + '</li></ul>');
-  var addMsgTimeout = setTimeout(() => {
+  const addMsgTimeout = setTimeout(() => {
     $('.messages').addClass('appear');
     clearTimeout(addMsgTimeout);
   }, 100);
@@ -11,7 +12,7 @@ function addMessage(status, text) {
 window.addMessage = addMessage;
 
 function escapeHtml(text) {
-  var map = {
+  const map = {
     '&': '&amp;',
     '<': '&lt;',
     '>': '&gt;',
@@ -19,17 +20,17 @@ function escapeHtml(text) {
     '\'': '&#039;'
   };
 
-  return text.replace(/[&<>"']/g, (m) => map[m]);
+  return text.replace(/[&<>"']/g, (char) => map[char]);
 }
 window.escapeHtml = escapeHtml;
 
 function initTagField(id, autocompleteUrl, options) {
-  var finalOptions = Object.assign({
+  const finalOptions = Object.assign({
     autocomplete: { source: autocompleteUrl },
     preprocessTag(val) {
       // Double quote a tag if it contains a space
       // and if it isn't already quoted.
-      if (val && val[0] != '"' && val.indexOf(' ') > -1) {
+      if (val && val[0] !== '"' && val.indexOf(' ') > -1) {
         return '"' + val + '"';
       }
 
@@ -56,11 +57,11 @@ window.initTagField = initTagField;
 */
 
 function enableDirtyFormCheck(formSelector, options) {
-  var $form = $(formSelector);
-  var confirmationMessage = options.confirmationMessage || ' ';
-  var alwaysDirty = options.alwaysDirty || false;
-  var initialData = null;
-  var formSubmitted = false;
+  const $form = $(formSelector);
+  const confirmationMessage = options.confirmationMessage || ' ';
+  const alwaysDirty = options.alwaysDirty || false;
+  let initialData = null;
+  let formSubmitted = false;
 
   $form.on('submit', () => {
     formSubmitted = true;
@@ -72,13 +73,15 @@ function enableDirtyFormCheck(formSelector, options) {
     initialData = $form.serialize();
   }, 1000 * 10);
 
+  // eslint-disable-next-line consistent-return
   window.addEventListener('beforeunload', (event) => {
-    var isDirty = initialData && $form.serialize() != initialData;
-    var displayConfirmation = (
+    const isDirty = initialData && $form.serialize() !== initialData;
+    const displayConfirmation = (
       !formSubmitted && (alwaysDirty || isDirty)
     );
 
     if (displayConfirmation) {
+      // eslint-disable-next-line no-param-reassign
       event.returnValue = confirmationMessage;
       return confirmationMessage;
     }
@@ -101,13 +104,15 @@ $(() => {
   });
 
   // Enable toggle to open/close user settings
+  // eslint-disable-next-line func-names
   $(document).on('click', '#account-settings', function () {
     $('.nav-main').toggleClass('nav-main--open-footer');
     $(this).find('em').toggleClass('icon-arrow-down-after icon-arrow-up-after');
   });
 
   // Resize nav to fit height of window. This is an unimportant bell/whistle to make it look nice
-  var fitNav = function () {
+  // eslint-disable-next-line func-names
+  const fitNav = function () {
     $('.nav-wrapper').css('min-height', $(window).height());
   };
 
@@ -119,14 +124,12 @@ $(() => {
 
   // Logo interactivity
   function initLogo() {
-    var sensitivity = 8; // the amount of times the user must stroke the wagtail to trigger the animation
+    const sensitivity = 8; // the amount of times the user must stroke the wagtail to trigger the animation
 
-    var $logoContainer = $('[data-animated-logo-container]');
-    var mouseX = 0;
-    var lastMouseX = 0;
-    var dir = '';
-    var lastDir = '';
-    var dirChangeCount = 0;
+    const $logoContainer = $('[data-animated-logo-container]');
+    let lastMouseX = 0;
+    let lastDir = '';
+    let dirChangeCount = 0;
 
     function enableWag() {
       $logoContainer.removeClass('logo-serious').addClass('logo-playful');
@@ -137,7 +140,8 @@ $(() => {
     }
 
     $logoContainer.on('mousemove', (event) => {
-      mouseX = event.pageX;
+      const mouseX = event.pageX;
+      let dir;
 
       if (mouseX > lastMouseX) {
         dir = 'r';
@@ -145,7 +149,7 @@ $(() => {
         dir = 'l';
       }
 
-      if (dir != lastDir && lastDir != '') {
+      if (dir !== lastDir && lastDir !== '') {
         dirChangeCount += 1;
       }
 
@@ -167,12 +171,14 @@ $(() => {
   initLogo();
 
   // Enable nice focus effects on all fields. This enables help text on hover.
+  // eslint-disable-next-line func-names
   $(document).on('focus mouseover', 'input,textarea,select', function () {
     $(this).closest('.field').addClass('focused');
     $(this).closest('fieldset').addClass('focused');
     $(this).closest('li').addClass('focused');
   });
 
+  // eslint-disable-next-line func-names
   $(document).on('blur mouseout', 'input,textarea,select', function () {
     $(this).closest('.field').removeClass('focused');
     $(this).closest('fieldset').removeClass('focused');
@@ -181,23 +187,26 @@ $(() => {
 
   /* tabs */
   if (window.location.hash) {
-    var cleanedHash = window.location.hash.replace(/[^\w\-\#]/g, '');
+    const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
     $('a[href="' + cleanedHash + '"]').tab('show');
   }
 
+  // eslint-disable-next-line func-names
   $(document).on('click', '.tab-nav a', function (e) {
     e.preventDefault();
     $(this).tab('show');
     window.history.replaceState(null, null, $(this).attr('href'));
   });
 
+  // eslint-disable-next-line func-names
   $(document).on('click', '.tab-toggle', function (e) {
     e.preventDefault();
     $('.tab-nav a[href="' + $(this).attr('href') + '"]').trigger('click');
   });
 
+  // eslint-disable-next-line func-names
   $('.dropdown').each(function () {
-    var $dropdown = $(this);
+    const $dropdown = $(this);
 
     $('.dropdown-toggle', $dropdown).on('click', (e) => {
       e.stopPropagation();
@@ -205,8 +214,8 @@ $(() => {
 
       if ($dropdown.hasClass('open')) {
         // If a dropdown is opened, add an event listener for document clicks to close it
-        $(document).on('click.dropdown.cancel', (e) => {
-          var relTarg = e.relatedTarget || e.toElement;
+        $(document).on('click.dropdown.cancel', (e2) => {
+          const relTarg = e2.relatedTarget || e2.toElement;
 
           // Only close dropdown if the click target wasn't a child of this dropdown
           if (!$(relTarg).parents().is($dropdown)) {
@@ -221,42 +230,48 @@ $(() => {
   });
 
   /* Dropzones */
+  // eslint-disable-next-line func-names
   $('.drop-zone').on('dragover', function () {
     $(this).addClass('hovered');
+  // eslint-disable-next-line func-names
   }).on('dragleave dragend drop', function () {
     $(this).removeClass('hovered');
   });
 
   /* Header search behaviour */
   if (window.headerSearch) {
-    var searchCurrentIndex = 0;
-    var searchNextIndex = 0;
-    var $input = $(window.headerSearch.termInput);
-    var $inputContainer = $input.parent();
+    let searchCurrentIndex = 0;
+    let searchNextIndex = 0;
+    const $input = $(window.headerSearch.termInput);
+    const $inputContainer = $input.parent();
 
     $input.on('keyup cut paste change', () => {
       clearTimeout($input.data('timer'));
+      // eslint-disable-next-line no-use-before-define
       $input.data('timer', setTimeout(search, 200));
     });
 
     // auto focus on search box
     $input.trigger('focus');
 
-    function search() {
-      var workingClasses = 'icon-spinner';
+    // eslint-disable-next-line func-names
+    const search = function () {
+      const workingClasses = 'icon-spinner';
 
-      var newQuery = $input.val();
-      var currentQuery = getURLParam('q');
+      const newQuery = $input.val();
+      // eslint-disable-next-line no-use-before-define
+      const currentQuery = getURLParam('q');
       // only do the query if it has changed for trimmed queries
       // eg. " " === "" and "firstword " ==== "firstword"
       if (currentQuery.trim() !== newQuery.trim()) {
         $inputContainer.addClass(workingClasses);
         searchNextIndex++;
-        var index = searchNextIndex;
+        const index = searchNextIndex;
         $.ajax({
           url: window.headerSearch.url,
+          // eslint-disable-next-line id-length
           data: { q: newQuery },
-          success(data, status) {
+          success(data) {
             if (index > searchCurrentIndex) {
               searchCurrentIndex = index;
               $(window.headerSearch.targetOutput).html(data).slideDown(800);
@@ -264,37 +279,42 @@ $(() => {
             }
           },
           complete() {
-            wagtail.ui.initDropDowns();
+            window.wagtail.ui.initDropDowns();
             $inputContainer.removeClass(workingClasses);
           }
         });
       }
-    }
+    };
 
-    function getURLParam(name) {
-      var results = new RegExp('[\\?&]' + name + '=([^]*)').exec(window.location.search);
+    // eslint-disable-next-line func-names
+    const getURLParam = function (name) {
+      const results = new RegExp('[\\?&]' + name + '=([^]*)').exec(window.location.search);
       if (results) {
         return results[1];
       }
       return '';
-    }
+    };
   }
 
   /* Functions that need to run/rerun when active tabs are changed */
-  $(document).on('shown.bs.tab', (e) => {
+  $(document).on('shown.bs.tab', () => {
     // Resize autosize textareas
+    // eslint-disable-next-line func-names
     $('textarea[data-autosize-on]').each(function () {
+      // eslint-disable-next-line no-undef
       autosize.update($(this).get());
     });
   });
 
   /* Debounce submission of long-running forms and add spinner to give sense of activity */
-  $(document).on('click', 'button.button-longrunning', function (e) {
-    var $self = $(this);
-    var $replacementElem = $('em', $self);
-    var reEnableAfter = 30;
-    var dataName = 'disabledtimeout';
+  // eslint-disable-next-line func-names
+  $(document).on('click', 'button.button-longrunning', function () {
+    const $self = $(this);
+    const $replacementElem = $('em', $self);
+    const reEnableAfter = 30;
+    const dataName = 'disabledtimeout';
 
+    // eslint-disable-next-line func-names
     window.cancelSpinner = function () {
       $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active');
 
@@ -305,7 +325,7 @@ $(() => {
 
     // If client-side validation is active on this form, and is going to block submission of the
     // form, don't activate the spinner
-    var form = $self.closest('form').get(0);
+    const form = $self.closest('form').get(0);
     if (form && form.checkValidity && !form.noValidate && (!form.checkValidity())) {
       return;
     }
@@ -313,13 +333,14 @@ $(() => {
     // Disabling a button prevents it submitting the form, so disabling
     // must occur on a brief timeout only after this function returns.
 
-    var timeout = setTimeout(() => {
+    const timeout = setTimeout(() => {
       if (!$self.data(dataName)) {
         // Button re-enables after a timeout to prevent button becoming
         // permanently un-usable
         $self.data(dataName, setTimeout(() => {
           clearTimeout($self.data(dataName));
 
+          // eslint-disable-next-line no-undef
           cancelSpinner();
         }, reEnableAfter * 1000));
 
@@ -348,26 +369,24 @@ $(() => {
 // Inline dropdown module
 // =============================================================================
 
-window.wagtail = (function (document, window, wagtail) {
-  // Module pattern
-  if (!wagtail) {
-    wagtail = {};
-  }
+// eslint-disable-next-line func-names
+window.wagtail = (function (document, window, initialWagtail) {
+  const wagtail = initialWagtail || {};
   if (!wagtail.ui) {
     wagtail.ui = {};
   }
 
   // Constants
-  var DROPDOWN_SELECTOR = '[data-dropdown]';
-  var LISTING_TITLE_SELECTOR = '[data-listing-page-title]';
-  var LISTING_ACTIVE_CLASS = 'listing__item--active';
-  var ICON_DOWN = 'icon-arrow-down';
-  var ICON_UP = 'icon-arrow-up';
-  var IS_OPEN = 'is-open';
-  var clickEvent = 'click';
-  var TOGGLE_SELECTOR = '[data-dropdown-toggle]';
-  var ARIA = 'aria-hidden';
-  var keys = {
+  const DROPDOWN_SELECTOR = '[data-dropdown]';
+  const LISTING_TITLE_SELECTOR = '[data-listing-page-title]';
+  const LISTING_ACTIVE_CLASS = 'listing__item--active';
+  const ICON_DOWN = 'icon-arrow-down';
+  const ICON_UP = 'icon-arrow-up';
+  const IS_OPEN = 'is-open';
+  const clickEvent = 'click';
+  const TOGGLE_SELECTOR = '[data-dropdown-toggle]';
+  const ARIA = 'aria-hidden';
+  const keys = {
     ESC: 27,
     ENTER: 13,
     SPACE: 32
@@ -380,13 +399,13 @@ window.wagtail = (function (document, window, wagtail) {
    * Mostly used to maintain open/closed state of components and easily
    * toggle them when the focus changes.
    */
-  var DropDownController = {
-    _dropDowns: [],
+  const DropDownController = {
+    dropDowns: [],
 
     closeAllExcept(dropDown) {
-      var index = this._dropDowns.indexOf(dropDown);
+      const index = this.dropDowns.indexOf(dropDown);
 
-      this._dropDowns.forEach((item, i) => {
+      this.dropDowns.forEach((item, i) => {
         if (i !== index && item.state.isOpen) {
           item.closeDropDown();
         }
@@ -394,21 +413,21 @@ window.wagtail = (function (document, window, wagtail) {
     },
 
     add(dropDown) {
-      this._dropDowns.push(dropDown);
+      this.dropDowns.push(dropDown);
     },
 
     get() {
-      return this._dropDowns;
+      return this.dropDowns;
     },
 
     getByIndex(index) {
-      return this._dropDowns[index];
+      return this.dropDowns[index];
     },
 
     getOpenDropDown() {
-      var needle = null;
+      let needle = null;
 
-      this._dropDowns.forEach((item) => {
+      this.dropDowns.forEach((item) => {
         if (item.state.isOpen) {
           needle = item;
         }
@@ -430,6 +449,7 @@ window.wagtail = (function (document, window, wagtail) {
   function DropDown(el, registry) {
     if (!el || !registry) {
       if ('error' in console) {
+        // eslint-disable-next-line max-len, no-console
         console.error('A dropdown was created without an element or the DropDownController.\nMake sure to pass both to your component.');
         return;
       }
@@ -444,11 +464,11 @@ window.wagtail = (function (document, window, wagtail) {
 
     this.registry = registry;
 
-    this.clickOutsideDropDown = this._clickOutsideDropDown.bind(this);
-    this.closeDropDown = this._closeDropDown.bind(this);
-    this.openDropDown = this._openDropDown.bind(this);
-    this.handleClick = this._handleClick.bind(this);
-    this.handleKeyEvent = this._handleKeyEvent.bind(this);
+    this.clickOutsideDropDown = this.clickOutsideDropDown.bind(this);
+    this.closeDropDown = this.closeDropDown.bind(this);
+    this.openDropDown = this.openDropDown.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleKeyEvent = this.handleKeyEvent.bind(this);
 
     el.addEventListener(clickEvent, this.handleClick);
     el.addEventListener('keydown', this.handleKeyEvent);
@@ -456,9 +476,8 @@ window.wagtail = (function (document, window, wagtail) {
   }
 
   DropDown.prototype = {
-
-    _handleKeyEvent(e) {
-      var validTriggers = [keys.SPACE, keys.ENTER];
+    handleKeyEvent(e) {
+      const validTriggers = [keys.SPACE, keys.ENTER];
 
       if (validTriggers.indexOf(e.which) > -1) {
         e.preventDefault();
@@ -466,7 +485,7 @@ window.wagtail = (function (document, window, wagtail) {
       }
     },
 
-    _handleClick(e) {
+    handleClick(e) {
       if (!this.state.isOpen) {
         this.openDropDown(e);
       } else {
@@ -474,12 +493,12 @@ window.wagtail = (function (document, window, wagtail) {
       }
     },
 
-    _openDropDown(e) {
+    openDropDown(e) {
       e.stopPropagation();
       e.preventDefault();
-      var el = this.el;
-      var $parent = this.$parent;
-      var toggle = el.querySelector(TOGGLE_SELECTOR);
+      const el = this.el;
+      const $parent = this.$parent;
+      const toggle = el.querySelector(TOGGLE_SELECTOR);
 
       this.state.isOpen = true;
       this.registry.closeAllExcept(this);
@@ -492,12 +511,12 @@ window.wagtail = (function (document, window, wagtail) {
       $parent.addClass(LISTING_ACTIVE_CLASS);
     },
 
-    _closeDropDown(e) {
+    closeDropDown() {
       this.state.isOpen = false;
 
-      var el = this.el;
-      var $parent = this.$parent;
-      var toggle = el.querySelector(TOGGLE_SELECTOR);
+      const el = this.el;
+      const $parent = this.$parent;
+      const toggle = el.querySelector(TOGGLE_SELECTOR);
       document.removeEventListener(clickEvent, this.clickOutsideDropDown, false);
       el.classList.remove(IS_OPEN);
       toggle.classList.add(ICON_DOWN);
@@ -506,9 +525,9 @@ window.wagtail = (function (document, window, wagtail) {
       $parent.removeClass(LISTING_ACTIVE_CLASS);
     },
 
-    _clickOutsideDropDown(e) {
-      var el = this.el;
-      var relTarget = e.relatedTarget || e.toElement;
+    clickOutsideDropDown(e) {
+      const el = this.el;
+      const relTarget = e.relatedTarget || e.toElement;
 
       if (!$(relTarget).parents().is(el)) {
         this.closeDropDown();
@@ -517,13 +536,13 @@ window.wagtail = (function (document, window, wagtail) {
   };
 
   function initDropDown() {
-    var dropDown = new DropDown(this, DropDownController);
+    const dropDown = new DropDown(this, DropDownController);
     DropDownController.add(dropDown);
   }
 
   function handleKeyPress(e) {
     if (e.which === keys.ESC) {
-      var open = DropDownController.getOpenDropDown();
+      const open = DropDownController.getOpenDropDown();
       if (open) {
         open.closeDropDown();
       }
@@ -547,7 +566,7 @@ window.wagtail = (function (document, window, wagtail) {
   // Initialise button selectors
   function initButtonSelects() {
     qsa(document, '.button-select').forEach((element) => {
-      var inputElement = element.querySelector('input[type="hidden"]');
+      const inputElement = element.querySelector('input[type="hidden"]');
       qsa(element, '.button-select__option').forEach((buttonElement) => {
         buttonElement.addEventListener('click', (e) => {
           e.preventDefault();
@@ -566,4 +585,4 @@ window.wagtail = (function (document, window, wagtail) {
   $(document).ready(initButtonSelects);
 
   return wagtail;
-}(document, window, wagtail));
+}(document, window, window.wagtail));

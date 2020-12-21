@@ -1,4 +1,3 @@
-/* eslint-disable */
 require('./draftail');
 
 describe('draftail', () => {
@@ -11,6 +10,7 @@ describe('draftail', () => {
   });
 
   it('has defaults registered', () => {
-    expect(Object.keys(window.draftail.registerPlugin({}))).toEqual(['DOCUMENT', 'LINK', 'IMAGE', 'EMBED', 'undefined']);
+    expect(Object.keys(window.draftail.registerPlugin({})))
+      .toEqual(['DOCUMENT', 'LINK', 'IMAGE', 'EMBED', 'undefined']);
   });
 });

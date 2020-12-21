@@ -1,6 +1,5 @@
 /* When a lock/unlock action button is clicked, make a POST request to the relevant view */
 
-/* eslint-disable */
 function LockUnlockAction(csrfToken, next) {
   document.querySelectorAll('[data-locking-action]').forEach((buttonElement) => {
     buttonElement.addEventListener('click', (e) => {
@@ -8,19 +7,19 @@ function LockUnlockAction(csrfToken, next) {
       e.preventDefault();
       e.stopPropagation();
 
-      var formElement = document.createElement('form');
+      const formElement = document.createElement('form');
 
       formElement.action = buttonElement.dataset.lockingAction;
       formElement.method = 'POST';
 
-      var csrftokenElement = document.createElement('input');
+      const csrftokenElement = document.createElement('input');
       csrftokenElement.type = 'hidden';
       csrftokenElement.name = 'csrfmiddlewaretoken';
       csrftokenElement.value = csrfToken;
       formElement.appendChild(csrftokenElement);
 
       if (typeof next !== 'undefined') {
-        var nextElement = document.createElement('input');
+        const nextElement = document.createElement('input');
         nextElement.type = 'hidden';
         nextElement.name = 'next';
         nextElement.value = next;

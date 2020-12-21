@@ -25,15 +25,18 @@
   </div>
 */
 
-/* eslint-disable */
-$(() => {
-  $('[data-widget="filtered-select"]').each(function () {
-    var sourceSelect = $('#' + this.dataset.filterField);
-    var self = $(this);
+import $ from 'jquery';
 
-    var optionData = [];
+$(() => {
+  // eslint-disable-next-line func-names
+  $('[data-widget="filtered-select"]').each(function () {
+    const sourceSelect = $('#' + this.dataset.filterField);
+    const self = $(this);
+
+    const optionData = [];
+    // eslint-disable-next-line func-names
     $('option', this).each(function () {
-      var filterValue;
+      let filterValue;
       if ('filterValue' in this.dataset) {
         filterValue = this.dataset.filterValue.split(',');
       } else {
@@ -48,26 +51,26 @@ $(() => {
     });
 
     function updateFromSource() {
-      var currentValue = self.val();
+      const currentValue = self.val();
       self.empty();
-      var chosenFilter = sourceSelect.val();
-      var filteredValues;
+      const chosenFilter = sourceSelect.val();
+      let filteredValues;
 
-      if (chosenFilter == '') {
+      if (chosenFilter === '') {
         /* no filter selected - show all options */
         filteredValues = optionData;
       } else {
         filteredValues = [];
-        for (var i = 0; i < optionData.length; i++) {
-          if (optionData[i].value == '' || optionData[i].filterValue.indexOf(chosenFilter) != -1) {
+        for (let i = 0; i < optionData.length; i++) {
+          if (optionData[i].value === '' || optionData[i].filterValue.indexOf(chosenFilter) !== -1) {
             filteredValues.push(optionData[i]);
           }
         }
       }
 
-      var foundValue = false;
-      for (var i = 0; i < filteredValues.length; i++) {
-        var option = $('<option>');
+      let foundValue = false;
+      for (let i = 0; i < filteredValues.length; i++) {
+        const option = $('<option>');
         option.attr('value', filteredValues[i].value);
         if (filteredValues[i].value === currentValue) foundValue = true;
         option.text(filteredValues[i].label);
