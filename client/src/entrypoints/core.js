@@ -369,220 +369,217 @@ $(() => {
 // Inline dropdown module
 // =============================================================================
 
-// eslint-disable-next-line func-names
-window.wagtail = (function (document, window, initialWagtail) {
-  const wagtail = initialWagtail || {};
-  if (!wagtail.ui) {
-    wagtail.ui = {};
+const wagtail = window.wagtail || {};
+if (!wagtail.ui) {
+  wagtail.ui = {};
+}
+
+// Constants
+const DROPDOWN_SELECTOR = '[data-dropdown]';
+const LISTING_TITLE_SELECTOR = '[data-listing-page-title]';
+const LISTING_ACTIVE_CLASS = 'listing__item--active';
+const ICON_DOWN = 'icon-arrow-down';
+const ICON_UP = 'icon-arrow-up';
+const IS_OPEN = 'is-open';
+const clickEvent = 'click';
+const TOGGLE_SELECTOR = '[data-dropdown-toggle]';
+const ARIA = 'aria-hidden';
+const keys = {
+  ESC: 27,
+  ENTER: 13,
+  SPACE: 32
+};
+
+
+/**
+ * Singleton controller and registry for DropDown components.
+ *
+ * Mostly used to maintain open/closed state of components and easily
+ * toggle them when the focus changes.
+ */
+const DropDownController = {
+  dropDowns: [],
+
+  closeAllExcept(dropDown) {
+    const index = this.dropDowns.indexOf(dropDown);
+
+    this.dropDowns.forEach((item, i) => {
+      if (i !== index && item.state.isOpen) {
+        item.closeDropDown();
+      }
+    });
+  },
+
+  add(dropDown) {
+    this.dropDowns.push(dropDown);
+  },
+
+  get() {
+    return this.dropDowns;
+  },
+
+  getByIndex(index) {
+    return this.dropDowns[index];
+  },
+
+  getOpenDropDown() {
+    let needle = null;
+
+    this.dropDowns.forEach((item) => {
+      if (item.state.isOpen) {
+        needle = item;
+      }
+    });
+
+    return needle;
+  }
+};
+
+
+/**
+ * DropDown component
+ *
+ * Template: _button_with_dropdown.html
+ *
+ * Can contain a list of links
+ * Controllable via a toggle class or the keyboard.
+ */
+function DropDown(el, registry) {
+  if (!el || !registry) {
+    if ('error' in console) {
+      // eslint-disable-next-line max-len, no-console
+      console.error('A dropdown was created without an element or the DropDownController.\nMake sure to pass both to your component.');
+      return;
+    }
   }
 
-  // Constants
-  const DROPDOWN_SELECTOR = '[data-dropdown]';
-  const LISTING_TITLE_SELECTOR = '[data-listing-page-title]';
-  const LISTING_ACTIVE_CLASS = 'listing__item--active';
-  const ICON_DOWN = 'icon-arrow-down';
-  const ICON_UP = 'icon-arrow-up';
-  const IS_OPEN = 'is-open';
-  const clickEvent = 'click';
-  const TOGGLE_SELECTOR = '[data-dropdown-toggle]';
-  const ARIA = 'aria-hidden';
-  const keys = {
-    ESC: 27,
-    ENTER: 13,
-    SPACE: 32
+  this.el = el;
+  this.$parent = $(el).parents(LISTING_TITLE_SELECTOR);
+
+  this.state = {
+    isOpen: false
   };
 
+  this.registry = registry;
 
-  /**
-   * Singleton controller and registry for DropDown components.
-   *
-   * Mostly used to maintain open/closed state of components and easily
-   * toggle them when the focus changes.
-   */
-  const DropDownController = {
-    dropDowns: [],
+  this.clickOutsideDropDown = this.clickOutsideDropDown.bind(this);
+  this.closeDropDown = this.closeDropDown.bind(this);
+  this.openDropDown = this.openDropDown.bind(this);
+  this.handleClick = this.handleClick.bind(this);
+  this.handleKeyEvent = this.handleKeyEvent.bind(this);
 
-    closeAllExcept(dropDown) {
-      const index = this.dropDowns.indexOf(dropDown);
+  el.addEventListener(clickEvent, this.handleClick);
+  el.addEventListener('keydown', this.handleKeyEvent);
+  this.$parent.data('close', this.closeDropDown);
+}
 
-      this.dropDowns.forEach((item, i) => {
-        if (i !== index && item.state.isOpen) {
-          item.closeDropDown();
-        }
-      });
-    },
+DropDown.prototype = {
+  handleKeyEvent(e) {
+    const validTriggers = [keys.SPACE, keys.ENTER];
 
-    add(dropDown) {
-      this.dropDowns.push(dropDown);
-    },
-
-    get() {
-      return this.dropDowns;
-    },
-
-    getByIndex(index) {
-      return this.dropDowns[index];
-    },
-
-    getOpenDropDown() {
-      let needle = null;
-
-      this.dropDowns.forEach((item) => {
-        if (item.state.isOpen) {
-          needle = item;
-        }
-      });
-
-      return needle;
-    }
-  };
-
-
-  /**
-   * DropDown component
-   *
-   * Template: _button_with_dropdown.html
-   *
-   * Can contain a list of links
-   * Controllable via a toggle class or the keyboard.
-   */
-  function DropDown(el, registry) {
-    if (!el || !registry) {
-      if ('error' in console) {
-        // eslint-disable-next-line max-len, no-console
-        console.error('A dropdown was created without an element or the DropDownController.\nMake sure to pass both to your component.');
-        return;
-      }
-    }
-
-    this.el = el;
-    this.$parent = $(el).parents(LISTING_TITLE_SELECTOR);
-
-    this.state = {
-      isOpen: false
-    };
-
-    this.registry = registry;
-
-    this.clickOutsideDropDown = this.clickOutsideDropDown.bind(this);
-    this.closeDropDown = this.closeDropDown.bind(this);
-    this.openDropDown = this.openDropDown.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleKeyEvent = this.handleKeyEvent.bind(this);
-
-    el.addEventListener(clickEvent, this.handleClick);
-    el.addEventListener('keydown', this.handleKeyEvent);
-    this.$parent.data('close', this.closeDropDown);
-  }
-
-  DropDown.prototype = {
-    handleKeyEvent(e) {
-      const validTriggers = [keys.SPACE, keys.ENTER];
-
-      if (validTriggers.indexOf(e.which) > -1) {
-        e.preventDefault();
-        this.handleClick(e);
-      }
-    },
-
-    handleClick(e) {
-      if (!this.state.isOpen) {
-        this.openDropDown(e);
-      } else {
-        this.closeDropDown(e);
-      }
-    },
-
-    openDropDown(e) {
-      e.stopPropagation();
+    if (validTriggers.indexOf(e.which) > -1) {
       e.preventDefault();
-      const el = this.el;
-      const $parent = this.$parent;
-      const toggle = el.querySelector(TOGGLE_SELECTOR);
-
-      this.state.isOpen = true;
-      this.registry.closeAllExcept(this);
-
-      el.classList.add(IS_OPEN);
-      el.setAttribute(ARIA, false);
-      toggle.classList.remove(ICON_DOWN);
-      toggle.classList.add(ICON_UP);
-      document.addEventListener(clickEvent, this.clickOutsideDropDown, false);
-      $parent.addClass(LISTING_ACTIVE_CLASS);
-    },
-
-    closeDropDown() {
-      this.state.isOpen = false;
-
-      const el = this.el;
-      const $parent = this.$parent;
-      const toggle = el.querySelector(TOGGLE_SELECTOR);
-      document.removeEventListener(clickEvent, this.clickOutsideDropDown, false);
-      el.classList.remove(IS_OPEN);
-      toggle.classList.add(ICON_DOWN);
-      toggle.classList.remove(ICON_UP);
-      el.setAttribute(ARIA, true);
-      $parent.removeClass(LISTING_ACTIVE_CLASS);
-    },
-
-    clickOutsideDropDown(e) {
-      const el = this.el;
-      const relTarget = e.relatedTarget || e.toElement;
-
-      if (!$(relTarget).parents().is(el)) {
-        this.closeDropDown();
-      }
+      this.handleClick(e);
     }
-  };
+  },
 
-  function initDropDown() {
-    const dropDown = new DropDown(this, DropDownController);
-    DropDownController.add(dropDown);
-  }
+  handleClick(e) {
+    if (!this.state.isOpen) {
+      this.openDropDown(e);
+    } else {
+      this.closeDropDown(e);
+    }
+  },
 
-  function handleKeyPress(e) {
-    if (e.which === keys.ESC) {
-      const open = DropDownController.getOpenDropDown();
-      if (open) {
-        open.closeDropDown();
-      }
+  openDropDown(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    const el = this.el;
+    const $parent = this.$parent;
+    const toggle = el.querySelector(TOGGLE_SELECTOR);
+
+    this.state.isOpen = true;
+    this.registry.closeAllExcept(this);
+
+    el.classList.add(IS_OPEN);
+    el.setAttribute(ARIA, false);
+    toggle.classList.remove(ICON_DOWN);
+    toggle.classList.add(ICON_UP);
+    document.addEventListener(clickEvent, this.clickOutsideDropDown, false);
+    $parent.addClass(LISTING_ACTIVE_CLASS);
+  },
+
+  closeDropDown() {
+    this.state.isOpen = false;
+
+    const el = this.el;
+    const $parent = this.$parent;
+    const toggle = el.querySelector(TOGGLE_SELECTOR);
+    document.removeEventListener(clickEvent, this.clickOutsideDropDown, false);
+    el.classList.remove(IS_OPEN);
+    toggle.classList.add(ICON_DOWN);
+    toggle.classList.remove(ICON_UP);
+    el.setAttribute(ARIA, true);
+    $parent.removeClass(LISTING_ACTIVE_CLASS);
+  },
+
+  clickOutsideDropDown(e) {
+    const el = this.el;
+    const relTarget = e.relatedTarget || e.toElement;
+
+    if (!$(relTarget).parents().is(el)) {
+      this.closeDropDown();
     }
   }
+};
 
-  function initDropDowns() {
-    $(DROPDOWN_SELECTOR).each(initDropDown);
-    $(document).on('keydown', handleKeyPress);
+function initDropDown() {
+  const dropDown = new DropDown(this, DropDownController);
+  DropDownController.add(dropDown);
+}
+
+function handleKeyPress(e) {
+  if (e.which === keys.ESC) {
+    const open = DropDownController.getOpenDropDown();
+    if (open) {
+      open.closeDropDown();
+    }
   }
+}
 
-  $(document).ready(initDropDowns);
-  wagtail.ui.initDropDowns = initDropDowns;
-  wagtail.ui.DropDownController = DropDownController;
+function initDropDowns() {
+  $(DROPDOWN_SELECTOR).each(initDropDown);
+  $(document).on('keydown', handleKeyPress);
+}
 
-  // provide a workaround for NodeList#forEach not being available in IE 11
-  function qsa(element, selector) {
-    return [].slice.call(element.querySelectorAll(selector));
-  }
+$(document).ready(initDropDowns);
+wagtail.ui.initDropDowns = initDropDowns;
+wagtail.ui.DropDownController = DropDownController;
 
-  // Initialise button selectors
-  function initButtonSelects() {
-    qsa(document, '.button-select').forEach((element) => {
-      const inputElement = element.querySelector('input[type="hidden"]');
-      qsa(element, '.button-select__option').forEach((buttonElement) => {
-        buttonElement.addEventListener('click', (e) => {
-          e.preventDefault();
-          inputElement.value = buttonElement.value;
+// provide a workaround for NodeList#forEach not being available in IE 11
+function qsa(element, selector) {
+  return [].slice.call(element.querySelectorAll(selector));
+}
 
-          qsa(element, '.button-select__option--selected').forEach((selectedButtonElement) => {
-            selectedButtonElement.classList.remove('button-select__option--selected');
-          });
+// Initialise button selectors
+function initButtonSelects() {
+  qsa(document, '.button-select').forEach((element) => {
+    const inputElement = element.querySelector('input[type="hidden"]');
+    qsa(element, '.button-select__option').forEach((buttonElement) => {
+      buttonElement.addEventListener('click', (e) => {
+        e.preventDefault();
+        inputElement.value = buttonElement.value;
 
-          buttonElement.classList.add('button-select__option--selected');
+        qsa(element, '.button-select__option--selected').forEach((selectedButtonElement) => {
+          selectedButtonElement.classList.remove('button-select__option--selected');
         });
+
+        buttonElement.classList.add('button-select__option--selected');
       });
     });
-  }
+  });
+}
 
-  $(document).ready(initButtonSelects);
+$(document).ready(initButtonSelects);
 
-  return wagtail;
-}(document, window, window.wagtail));
+window.wagtail = wagtail;
