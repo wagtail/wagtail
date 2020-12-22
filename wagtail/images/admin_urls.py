@@ -14,11 +14,11 @@ urlpatterns = [
     path('add/', images.add, name='add'),
     path('usage/<int:image_id>/', images.usage, name='image_usage'),
 
-    path('multiple/add/', multiple.add, name='add_multiple'),
-    path('multiple/<int:image_id>/', multiple.edit, name='edit_multiple'),
-    path('multiple/create_from_uploaded_image/<int:uploaded_image_id>/', multiple.create_from_uploaded_image, name='create_multiple_from_uploaded_image'),
-    path('multiple/<int:image_id>/delete/', multiple.delete, name='delete_multiple'),
-    path('multiple/delete_upload/<int:uploaded_image_id>/', multiple.delete_upload, name='delete_upload_multiple'),
+    path('multiple/add/', multiple.AddView.as_view(), name='add_multiple'),
+    path('multiple/<int:image_id>/', multiple.EditView.as_view(), name='edit_multiple'),
+    path('multiple/create_from_uploaded_image/<int:uploaded_image_id>/', multiple.CreateFromUploadedImageView.as_view(), name='create_multiple_from_uploaded_image'),
+    path('multiple/<int:image_id>/delete/', multiple.DeleteView.as_view(), name='delete_multiple'),
+    path('multiple/delete_upload/<int:uploaded_image_id>/', multiple.DeleteUploadView.as_view(), name='delete_upload_multiple'),
 
     path('chooser/', chooser.chooser, name='chooser'),
     path('chooser/<int:image_id>/', chooser.image_chosen, name='image_chosen'),
