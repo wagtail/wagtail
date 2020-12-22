@@ -58,6 +58,9 @@ def get_document_form(model):
 
 
 def get_document_multi_form(model):
+    # edit form for use within the multiple uploader; consists of all fields from
+    # model.admin_form_fields except file
+
     fields = [field for field in model.admin_form_fields if field != 'file']
     if 'collection' not in fields:
         fields.append('collection')
