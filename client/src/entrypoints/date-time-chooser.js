@@ -10,7 +10,7 @@ $.datetimepicker.setLocale('wagtail_custom_locale');
 function dateEqual(x, y) {
   return x.getDate() === y.getDate() &&
        x.getMonth() === y.getMonth() &&
-       x.getYear() === y.getYear()
+       x.getYear() === y.getYear();
 }
 window.dateEqual = dateEqual;
 
@@ -34,8 +34,8 @@ function initDateChooser(id, opts) {
       scrollInput: false,
       format: 'Y-m-d',
       onGenerate: hideCurrent,
-      onChangeDateTime: function(_, $el) {
-        $el.get(0).dispatchEvent(new Event('change'))
+      onChangeDateTime(_, $el) {
+        $el.get(0).dispatchEvent(new Event('change'));
       }
     }, opts || {}));
   } else {
@@ -44,8 +44,8 @@ function initDateChooser(id, opts) {
       scrollInput: false,
       format: 'Y-m-d',
       onGenerate: hideCurrent,
-      onChangeDateTime: function(_, $el) {
-        $el.get(0).dispatchEvent(new Event('change'))
+      onChangeDateTime(_, $el) {
+        $el.get(0).dispatchEvent(new Event('change'));
       }
     }, opts || {}));
   }
@@ -59,16 +59,16 @@ function initTimeChooser(id, opts) {
       datepicker: false,
       scrollInput: false,
       format: 'H:i',
-      onChangeDateTime: function(_, $el) {
-        $el.get(0).dispatchEvent(new Event('change'))
+      onChangeDateTime(_, $el) {
+        $el.get(0).dispatchEvent(new Event('change'));
       }
     }, opts || {}));
   } else {
     $('#' + id).datetimepicker($.extend({
       datepicker: false,
       format: 'H:i',
-      onChangeDateTime: function(_, $el) {
-        $el.get(0).dispatchEvent(new Event('change'))
+      onChangeDateTime(_, $el) {
+        $el.get(0).dispatchEvent(new Event('change'));
       }
     }, opts || {}));
   }
@@ -82,16 +82,16 @@ function initDateTimeChooser(id, opts) {
       format: 'Y-m-d H:i',
       scrollInput: false,
       onGenerate: hideCurrent,
-      onChangeDateTime: function(_, $el) {
-        $el.get(0).dispatchEvent(new Event('change'))
+      onChangeDateTime(_, $el) {
+        $el.get(0).dispatchEvent(new Event('change'));
       }
     }, opts || {}));
   } else {
     $('#' + id).datetimepicker($.extend({
       format: 'Y-m-d H:i',
       onGenerate: hideCurrent,
-      onChangeDateTime: function(_, $el) {
-        $el.get(0).dispatchEvent(new Event('change'))
+      onChangeDateTime(_, $el) {
+        $el.get(0).dispatchEvent(new Event('change'));
       }
     }, opts || {}));
   }

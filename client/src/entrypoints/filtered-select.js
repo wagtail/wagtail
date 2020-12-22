@@ -24,18 +24,18 @@
     </select>
   </div>
 */
-/* eslint-disable */
 
-$(function() {
-  $('[data-widget="filtered-select"]').each(function() {
+/* eslint-disable */
+$(() => {
+  $('[data-widget="filtered-select"]').each(function () {
     var sourceSelect = $('#' + this.dataset.filterField);
     var self = $(this);
 
     var optionData = [];
-    $('option', this).each(function() {
+    $('option', this).each(function () {
       var filterValue;
       if ('filterValue' in this.dataset) {
-        filterValue = this.dataset.filterValue.split(',')
+        filterValue = this.dataset.filterValue.split(',');
       } else {
         filterValue = [];
       }
@@ -44,7 +44,7 @@ $(function() {
         value: this.value,
         label: this.label,
         filterValue: filterValue
-      })
+      });
     });
 
     function updateFromSource() {
@@ -82,5 +82,5 @@ $(function() {
 
     updateFromSource();
     sourceSelect.change(updateFromSource);
-  })
+  });
 });

@@ -47,12 +47,12 @@ function createPageChooser(id, openAtParentId, config) {
       if (state && state.parentId) {
         url += state.parentId + '/';
       }
-      const urlParams = { page_type: config['model_names'].join(',') };
-      if (config['can_choose_root']) {
+      const urlParams = { page_type: config.model_names.join(',') };
+      if (config.can_choose_root) {
         urlParams.can_choose_root = 'true';
       }
-      if (config['user_perms']) {
-        urlParams.user_perms = config['user_perms'];
+      if (config.user_perms) {
+        urlParams.user_perms = config.user_perms;
       }
       ModalWorkflow({
         url: url,

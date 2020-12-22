@@ -5,12 +5,12 @@ function createTaskChooser(id) {
   var input = $('#' + id);
   var editAction = chooserElement.find('.action-edit');
 
-  $('.action-choose', chooserElement).on('click', function() {
+  $('.action-choose', chooserElement).on('click', () => {
     ModalWorkflow({
       url: chooserElement.data('chooserUrl'),
       onload: TASK_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
-        taskChosen: function(data) {
+        taskChosen(data) {
           input.val(data.id);
           taskName.text(data.name);
           chooserElement.removeClass('blank');

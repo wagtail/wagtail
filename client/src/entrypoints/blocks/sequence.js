@@ -13,77 +13,77 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
 
 */
 /* eslint-disable */
-(function($) {
-  window.SequenceMember = function(sequence, prefix) {
+(function ($) {
+  window.SequenceMember = function (sequence, prefix) {
     var self = {};
     self.prefix = prefix;
     self.container = $('#' + self.prefix + '-container');
 
     var indexField = $('#' + self.prefix + '-order');
 
-    self.delete = function() {
+    self.delete = function () {
       sequence.deleteMember(self);
     };
 
-    self.prependMember = function(template) {
+    self.prependMember = function (template) {
       sequence.insertMemberBefore(self, template);
     };
 
-    self.appendMember = function(template) {
+    self.appendMember = function (template) {
       sequence.insertMemberAfter(self, template);
     };
 
-    self.moveUp = function() {
+    self.moveUp = function () {
       sequence.moveMemberUp(self);
     };
 
-    self.moveDown = function() {
+    self.moveDown = function () {
       sequence.moveMemberDown(self);
     };
 
-    self._markDeleted = function() {
+    self._markDeleted = function () {
       /* set this list member's hidden 'deleted' flag to true */
       $('#' + self.prefix + '-deleted').val('1');
       /* hide the list item */
       self.container.slideUp().dequeue().fadeOut();
     };
 
-    self._markAdded = function() {
+    self._markAdded = function () {
       self.container.hide();
       self.container.slideDown();
 
       // focus first suitable input found
-      setTimeout(function() {
+      setTimeout(() => {
         var $input = $('.input', self.container);
         var $firstField = $('input, textarea, [data-hallo-editor], [data-draftail-input]', $input).first();
 
         if ($firstField.is('[data-draftail-input]')) {
-        $firstField.get(0).draftailEditor.focus();
+          $firstField.get(0).draftailEditor.focus();
         } else {
-        $firstField.trigger('focus');
+          $firstField.trigger('focus');
         }
       }, 250);
     };
 
-    self.getIndex = function() {
+    self.getIndex = function () {
       return parseInt(indexField.val(), 10);
     };
 
-    self.setIndex = function(i) {
+    self.setIndex = function (i) {
       indexField.val(i);
     };
 
     return self;
   };
 
-  window.Sequence = function(opts) {
+  window.Sequence = function (opts) {
     var self = {};
     var list = $('#' + opts.prefix + '-list');
     var countField = $('#' + opts.prefix + '-count');
     /* NB countField includes deleted items; for the count of non-deleted items, use members.length */
     var members = [];
 
-    self.getCount = function() {
+    self.getCount = function () {
       return parseInt(countField.val(), 10);
     };
 
@@ -119,7 +119,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
 
       if (members.length >= opts.maxNumChildBlocks && opts.onDisableAdd) {
         /* maximum block capacity has been reached */
-        opts.onDisableAdd(members)
+        opts.onDisableAdd(members);
       }
     }
 
@@ -129,7 +129,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
       return $(template.replace(/__PREFIX__/g, newPrefix).replace(/<-(-*)\/script>/g, '<$1/script>'));
     }
 
-    self.insertMemberBefore = function(otherMember, template) {
+    self.insertMemberBefore = function (otherMember, template) {
       var newMemberPrefix = getNewMemberPrefix();
 
       /* Create the new list member element with the real prefix substituted in */
@@ -156,7 +156,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
       return newMember;
     };
 
-    self.insertMemberAfter = function(otherMember, template) {
+    self.insertMemberAfter = function (otherMember, template) {
       var newMemberPrefix = getNewMemberPrefix();
 
       /* Create the new list member element with the real prefix substituted in */
@@ -183,7 +183,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
       return newMember;
     };
 
-    self.insertMemberAtStart = function(template) {
+    self.insertMemberAtStart = function (template) {
       /* NB we can't just do
         self.insertMemberBefore(members[0], template)
       because that won't work for initially empty lists
@@ -213,7 +213,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
       return newMember;
     };
 
-    self.insertMemberAtEnd = function(template) {
+    self.insertMemberAtEnd = function (template) {
       var newMemberPrefix = getNewMemberPrefix();
 
       /* Create the new list member element with the real prefix substituted in */
@@ -234,7 +234,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
       return newMember;
     };
 
-    self.deleteMember = function(member) {
+    self.deleteMember = function (member) {
       var index = member.getIndex();
       /* reduce index numbers of subsequent members */
       for (var i = index + 1; i < members.length; i++) {
@@ -256,11 +256,11 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
 
       if (members.length + 1 >= opts.maxNumChildBlocks && members.length < opts.maxNumChildBlocks && opts.onEnableAdd) {
         /* there is now capacity left for another block */
-        opts.onEnableAdd(members)
+        opts.onEnableAdd(members);
       }
     };
 
-    self.moveMemberUp = function(member) {
+    self.moveMemberUp = function (member) {
       var oldIndex = member.getIndex();
       if (oldIndex > 0) {
         var newIndex = oldIndex - 1;
@@ -294,7 +294,7 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
       }
     };
 
-    self.moveMemberDown = function(member) {
+    self.moveMemberDown = function (member) {
       var oldIndex = member.getIndex();
       if (oldIndex < (members.length - 1)) {
         var newIndex = oldIndex + 1;
@@ -355,9 +355,9 @@ CODE FOR SETTING UP SPECIFIC UI WIDGETS, SUCH AS DELETE BUTTONS OR MENUS, DOES N
 
     if (members.length >= opts.maxNumChildBlocks && opts.onDisableAdd) {
       /* block capacity is already reached on initialization */
-      opts.onDisableAdd(members)
+      opts.onDisableAdd(members);
     }
 
     return self;
   };
-})(jQuery);
+}(jQuery));

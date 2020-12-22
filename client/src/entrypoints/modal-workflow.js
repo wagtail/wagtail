@@ -2,8 +2,8 @@
 subpages to happen within the lightbox, and returning a response to the calling page,
 possibly after several navigation steps
 */
-/* eslint-disable */
 
+/* eslint-disable */
 function ModalWorkflow(opts) {
   /* options passed in 'opts':
     'url' (required): initial
@@ -31,24 +31,24 @@ function ModalWorkflow(opts) {
 
   self.body = container.find('.modal-body');
 
-  self.loadUrl = function(url, urlParams) {
+  self.loadUrl = function (url, urlParams) {
     $.get(url, urlParams, self.loadResponseText, 'text').fail(errorCallback);
   };
 
-  self.postForm = function(url, formData) {
+  self.postForm = function (url, formData) {
     $.post(url, formData, self.loadResponseText, 'text').fail(errorCallback);
   };
 
-  self.ajaxifyForm = function(formSelector) {
-    $(formSelector).each(function() {
+  self.ajaxifyForm = function (formSelector) {
+    $(formSelector).each(function () {
       var action = this.action;
       if (this.method.toLowerCase() == 'get') {
-        $(this).on('submit', function() {
+        $(this).on('submit', function () {
           self.loadUrl(action, $(this).serialize());
           return false;
         });
       } else {
-        $(this).on('submit', function() {
+        $(this).on('submit', function () {
           self.postForm(action, $(this).serialize());
           return false;
         });
@@ -56,12 +56,12 @@ function ModalWorkflow(opts) {
     });
   };
 
-  self.loadResponseText = function(responseText, textStatus, xhr) {
+  self.loadResponseText = function (responseText, textStatus, xhr) {
     var response = JSON.parse(responseText);
     self.loadBody(response);
   };
 
-  self.loadBody = function(response) {
+  self.loadBody = function (response) {
     if (response.html) {
       // if response contains an 'html' item, replace modal body with it
       self.body.html(response.html);
@@ -75,14 +75,14 @@ function ModalWorkflow(opts) {
     }
   };
 
-  self.respond = function(responseType) {
+  self.respond = function (responseType) {
     if (responseType in responseCallbacks) {
       var args = Array.prototype.slice.call(arguments, 1);
       responseCallbacks[responseType].apply(self, args);
     }
   };
 
-  self.close = function() {
+  self.close = function () {
     container.modal('hide');
   };
 

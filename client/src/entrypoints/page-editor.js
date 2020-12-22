@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 window.halloPlugins = {};
 
 function registerHalloPlugin(name, opts) {  // lgtm[js/unused-local-variable]
@@ -12,7 +11,7 @@ window.registerHalloPlugin = registerHalloPlugin;
 function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
   var self = {};
 
-  self.setHasContent = function() {
+  self.setHasContent = function () {
     if ($('> li', self.formsUl).not('.deleted').length) {
       self.formsUl.parent().removeClass('empty');
     } else {
@@ -20,17 +19,17 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
     }
   };
 
-  self.initChildControls = function(prefix) {
+  self.initChildControls = function (prefix) {
     var childId = 'inline_child_' + prefix;
     var deleteInputId = 'id_' + prefix + '-DELETE';
 
-    //mark container as having children to identify fields in use from those not
+    // mark container as having children to identify fields in use from those not
     self.setHasContent();
 
-    $('#' + deleteInputId + '-button').on('click', function() {
+    $('#' + deleteInputId + '-button').on('click', () => {
       /* set 'deleted' form field to true */
       $('#' + deleteInputId).val('1');
-      $('#' + childId).addClass('deleted').slideUp(function() {
+      $('#' + childId).addClass('deleted').slideUp(() => {
         self.updateMoveButtonDisabledStates();
         self.updateAddButtonState();
         self.setHasContent();
@@ -38,7 +37,7 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
     });
 
     if (opts.canOrder) {
-      $('#' + prefix + '-move-up').on('click', function() {
+      $('#' + prefix + '-move-up').on('click', () => {
         var currentChild = $('#' + childId);
         var currentChildOrderElem = currentChild.children('input[name$="-ORDER"]');
         var currentChildOrder = currentChildOrderElem.val();
@@ -59,7 +58,7 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
         self.updateMoveButtonDisabledStates();
       });
 
-      $('#' + prefix + '-move-down').on('click', function() {
+      $('#' + prefix + '-move-down').on('click', () => {
         var currentChild = $('#' + childId);
         var currentChildOrderElem = currentChild.children('input[name$="-ORDER"]');
         var currentChildOrder = currentChildOrderElem.val();
@@ -85,7 +84,7 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
      message so that it doesn't count towards the number of errors on the tab at the
      top of the page. */
     if ($('#' + deleteInputId).val() === '1') {
-      $('#' + childId).addClass('deleted').hide(0, function() {
+      $('#' + childId).addClass('deleted').hide(0, () => {
         self.updateMoveButtonDisabledStates();
         self.updateAddButtonState();
         self.setHasContent();
@@ -97,17 +96,17 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
 
   self.formsUl = $('#' + opts.formsetPrefix + '-FORMS');
 
-  self.updateMoveButtonDisabledStates = function() {
+  self.updateMoveButtonDisabledStates = function () {
     if (opts.canOrder) {
       var forms = self.formsUl.children('li:not(.deleted)');
-      forms.each(function(i) {
+      forms.each(function (i) {
         $('ul.controls .inline-child-move-up', this).toggleClass('disabled', i === 0).toggleClass('enabled', i !== 0);
         $('ul.controls .inline-child-move-down', this).toggleClass('disabled', i === forms.length - 1).toggleClass('enabled', i != forms.length - 1);
       });
     }
   };
 
-  self.updateAddButtonState = function() {
+  self.updateAddButtonState = function () {
     if (opts.maxForms) {
       var forms = $('> [data-inline-panel-child]', self.formsUl).not('.deleted');
       var addButton = $('#' + opts.formsetPrefix + '-ADD');
@@ -120,7 +119,7 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
     }
   };
 
-  self.animateSwap = function(item1, item2) {
+  self.animateSwap = function (item1, item2) {
     var parent = self.formsUl;
     var children = parent.children('li:not(.deleted)');
 
@@ -128,29 +127,29 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
     // Also set it's relatively calculated height to be an absolute one, to prevent the container collapsing while its children go absolute
     parent.addClass('moving').css('height', parent.height());
 
-    children.each(function() {
+    children.each(function () {
       // console.log($(this));
       $(this).css('top', $(this).position().top);
     }).addClass('moving');
 
     // animate swapping around
     item1.animate({
-      top:item2.position().top
-    }, 200, function() {
+      top: item2.position().top
+    }, 200, () => {
       parent.removeClass('moving').removeAttr('style');
       children.removeClass('moving').removeAttr('style');
     });
 
     item2.animate({
-      top:item1.position().top
-    }, 200, function() {
+      top: item1.position().top
+    }, 200, () => {
       parent.removeClass('moving').removeAttr('style');
       children.removeClass('moving').removeAttr('style');
     });
   };
 
   buildExpandingFormset(opts.formsetPrefix, {
-    onAdd: function(formCount) {
+    onAdd(formCount) {
       var newChildPrefix = opts.emptyChildFormPrefix.replace(/__prefix__/g, formCount);
       self.initChildControls(newChildPrefix);
       if (opts.canOrder) {
@@ -175,7 +174,7 @@ function cleanForSlug(val, useURLify) {
   if (useURLify) {
     // URLify performs extra processing on the string (e.g. removing stopwords) and is more suitable
     // for creating a slug from the title, rather than sanitising a slug entered manually
-    let cleaned = URLify(val, 255, unicodeSlugsEnabled);
+    const cleaned = URLify(val, 255, unicodeSlugsEnabled);
 
     // if the result is blank (e.g. because the title consisted entirely of stopwords),
     // fall through to the non-URLify method
@@ -187,23 +186,22 @@ function cleanForSlug(val, useURLify) {
   // just do the "replace"
   if (unicodeSlugsEnabled) {
     return val.replace(/\s/g, '-').replace(/[&\/\\#,+()$~%.'":`@\^!*?<>{}]/g, '').toLowerCase();
-  } else {
-    return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-\_]/g, '').toLowerCase();
   }
+  return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-\_]/g, '').toLowerCase();
 }
 window.cleanForSlug = cleanForSlug;
 
 function initSlugAutoPopulate() {
   var slugFollowsTitle = false;
 
-  $('#id_title').on('focus', function() {
+  $('#id_title').on('focus', function () {
     /* slug should only follow the title field if its value matched the title's value at the time of focus */
     var currentSlug = $('#id_slug').val();
     var slugifiedTitle = cleanForSlug(this.value, true);
     slugFollowsTitle = (currentSlug == slugifiedTitle);
   });
 
-  $('#id_title').on('keyup keydown keypress blur', function() {
+  $('#id_title').on('keyup keydown keypress blur', function () {
     if (slugFollowsTitle) {
       var slugifiedTitle = cleanForSlug(this.value, true);
       $('#id_slug').val(slugifiedTitle);
@@ -213,7 +211,7 @@ function initSlugAutoPopulate() {
 window.initSlugAutoPopulate = initSlugAutoPopulate;
 
 function initSlugCleaning() {
-  $('#id_slug').on('blur', function() {
+  $('#id_slug').on('blur', function () {
     // if a user has just set the slug themselves, don't remove stop words etc, just illegal characters
     $(this).val(cleanForSlug($(this).val(), false));
   });
@@ -224,7 +222,7 @@ function initErrorDetection() {
   var errorSections = {};
 
   // first count up all the errors
-  $('.error-message').each(function() {
+  $('.error-message').each(function () {
     var parentSection = $(this).closest('section');
 
     if (!errorSections[parentSection.attr('id')]) {
@@ -242,14 +240,14 @@ function initErrorDetection() {
 window.initErrorDetection = initErrorDetection;
 
 function initCollapsibleBlocks() {
-  $('.object.multi-field.collapsible').each(function() {
+  $('.object.multi-field.collapsible').each(function () {
     var $li = $(this);
     var $fieldset = $li.find('fieldset');
     if ($li.hasClass('collapsed') && $li.find('.error-message').length == 0) {
       $fieldset.hide();
     }
 
-    $li.find('> .title-wrapper').on('click', function() {
+    $li.find('> .title-wrapper').on('click', () => {
       if (!$li.hasClass('collapsed')) {
         $li.addClass('collapsed');
         $fieldset.hide('slow');
@@ -263,19 +261,19 @@ function initCollapsibleBlocks() {
 window.initCollapsibleBlocks = initCollapsibleBlocks;
 
 function initKeyboardShortcuts() {
-  Mousetrap.bind(['mod+p'], function(e) {
+  Mousetrap.bind(['mod+p'], (e) => {
     $('.action-preview').trigger('click');
     return false;
   });
 
-  Mousetrap.bind(['mod+s'], function(e) {
+  Mousetrap.bind(['mod+s'], (e) => {
     $('.action-save').trigger('click');
     return false;
   });
 }
 window.initKeyboardShortcuts = initKeyboardShortcuts;
 
-$(function() {
+$(() => {
   /* Only non-live pages should auto-populate the slug from the title */
   if (!$('body').hasClass('page-is-live')) {
     initSlugAutoPopulate();
@@ -295,7 +293,8 @@ $(function() {
   // to the preview page, we send the form after each change
   // and save it inside the user session.
 
-  var $previewButton = $('.action-preview'), $form = $('#page-edit-form');
+  var $previewButton = $('.action-preview'); var
+    $form = $('#page-edit-form');
   var previewUrl = $previewButton.data('action');
   var autoUpdatePreviewDataTimeout = -1;
 
@@ -309,7 +308,7 @@ $(function() {
     });
   }
 
-  $previewButton.one('click', function () {
+  $previewButton.one('click', () => {
     if ($previewButton.data('auto-update')) {
       // Form data is changed when field values are changed
       // (change event), when HTML elements are added, modified, moved,
@@ -317,24 +316,24 @@ $(function() {
       // setPreviewData when typing to avoid useless extra AJAX requests
       // (so we postpone setPreviewData when keyup occurs).
       // TODO: Replace DOMSubtreeModified with a MutationObserver.
-      $form.on('change keyup DOMSubtreeModified', function () {
+      $form.on('change keyup DOMSubtreeModified', () => {
         clearTimeout(autoUpdatePreviewDataTimeout);
         autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
       }).trigger('change');
     }
   });
 
-  $previewButton.on('click', function(e) {
+  $previewButton.on('click', function (e) {
     e.preventDefault();
     var $this = $(this);
-    var $icon = $this.filter('.icon'),
-      thisPreviewUrl = $this.data('action');
+    var $icon = $this.filter('.icon');
+    var thisPreviewUrl = $this.data('action');
     $icon.addClass('icon-spinner').removeClass('icon-view');
     var previewWindow = window.open('', thisPreviewUrl);
     previewWindow.focus();
 
-    setPreviewData().done(function (data) {
-      if (data['is_valid']) {
+    setPreviewData().done((data) => {
+      if (data.is_valid) {
         previewWindow.document.location = thisPreviewUrl;
       } else {
         window.focus();
@@ -342,13 +341,14 @@ $(function() {
         // TODO: Stop sending the form, as it removes file data.
         $form.trigger('submit');
       }
-    }).fail(function () {
+    }).fail(() => {
       alert('Error while sending preview data.');
       window.focus();
       previewWindow.close();
-    }).always(function () {
-      $icon.addClass('icon-view').removeClass('icon-spinner');
-    });
+    })
+      .always(() => {
+        $icon.addClass('icon-view').removeClass('icon-spinner');
+      });
   });
 });
 

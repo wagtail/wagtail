@@ -1,6 +1,6 @@
 /* eslint-disable */
-(function($) {
-  var StreamBlockMenu = function(opts) {
+(function ($) {
+  var StreamBlockMenu = function (opts) {
     /*
     Helper object to handle the menu of available block types.
     Options:
@@ -17,25 +17,25 @@
       self.container.hide();
     }
 
-    self.show = function() {
+    self.show = function () {
       self.container.slideDown();
       self.container.removeClass('stream-menu-closed');
       self.container.attr('aria-hidden', 'false');
       self.openCloseButton.addClass('c-sf-add-button--close');
     };
 
-    self.hide = function() {
+    self.hide = function () {
       self.container.slideUp();
       self.container.addClass('stream-menu-closed');
       self.container.attr('aria-hidden', 'true');
       self.openCloseButton.removeClass('c-sf-add-button--close');
     };
 
-    self.addFirstBlock = function() {
+    self.addFirstBlock = function () {
       if (opts.onChooseBlock) opts.onChooseBlock(opts.childBlocks[0]);
     };
 
-    self.toggle = function() {
+    self.toggle = function () {
       if (self.container.hasClass('stream-menu-closed')) {
         if (opts.childBlocks.length == 1) {
           /* If there's only one block type, add it automatically */
@@ -49,15 +49,15 @@
     };
 
     /* set up show/hide on click behaviour */
-    self.openCloseButton.on('click', function(e) {
+    self.openCloseButton.on('click', (e) => {
       e.preventDefault();
       self.toggle();
     });
 
     /* set up button behaviour */
-    $.each(opts.childBlocks, function(i, childBlock) {
+    $.each(opts.childBlocks, (i, childBlock) => {
       var button = self.container.find('.action-add-block-' + childBlock.name);
-      button.on('click', function() {
+      button.on('click', () => {
         if (opts.onChooseBlock) opts.onChooseBlock(childBlock);
         self.hide();
       });
@@ -66,7 +66,7 @@
     return self;
   };
 
-  window.StreamBlock = function(opts) {
+  window.StreamBlock = function (opts) {
     /* Fetch the HTML template strings to be used when adding a new block of each type.
     Also reorganise the opts.childBlocks list into a lookup by name
     */
@@ -79,11 +79,11 @@
       listMemberTemplates[childBlock.name] = template;
     }
 
-    return function(elementPrefix) {
+    return function (elementPrefix) {
       var sequence = Sequence({
         prefix: elementPrefix,
         maxNumChildBlocks: opts.maxNumChildBlocks,
-        onInitializeMember: function(sequenceMember) {
+        onInitializeMember(sequenceMember) {
           /* initialize child block's JS behaviour */
           var blockTypeName = $('#' + sequenceMember.prefix + '-type').val();
           var blockOpts = childBlocksByName[blockTypeName];
@@ -93,16 +93,16 @@
           }
 
           /* initialize delete button */
-          $('#' + sequenceMember.prefix + '-delete').on('click', function() {
+          $('#' + sequenceMember.prefix + '-delete').on('click', () => {
             sequenceMember.delete();
           });
 
           /* initialise move up/down buttons */
-          $('#' + sequenceMember.prefix + '-moveup').on('click', function() {
+          $('#' + sequenceMember.prefix + '-moveup').on('click', () => {
             sequenceMember.moveUp();
           });
 
-          $('#' + sequenceMember.prefix + '-movedown').on('click', function() {
+          $('#' + sequenceMember.prefix + '-movedown').on('click', () => {
             sequenceMember.moveDown();
           });
 
@@ -110,46 +110,49 @@
           StreamBlockMenu({
             childBlocks: opts.childBlocks,
             id: sequenceMember.prefix + '-appendmenu',
-            onChooseBlock: function(childBlock) {
+            onChooseBlock(childBlock) {
               var template = listMemberTemplates[childBlock.name];
               sequenceMember.appendMember(template);
             }
           });
         },
 
-        onEnableMoveUp: function(sequenceMember) {
+        onEnableMoveUp(sequenceMember) {
           $('#' + sequenceMember.prefix + '-moveup').removeClass('disabled');
         },
 
-        onDisableMoveUp: function(sequenceMember) {
+        onDisableMoveUp(sequenceMember) {
           $('#' + sequenceMember.prefix + '-moveup').addClass('disabled');
         },
 
-        onEnableMoveDown: function(sequenceMember) {
+        onEnableMoveDown(sequenceMember) {
           $('#' + sequenceMember.prefix + '-movedown').removeClass('disabled');
         },
 
-        onDisableMoveDown: function(sequenceMember) {
+        onDisableMoveDown(sequenceMember) {
           $('#' + sequenceMember.prefix + '-movedown').addClass('disabled');
         },
 
-        onDisableAdd: function(members) {
-          for (var i = 0; i < members.length; i++){
+        onDisableAdd(members) {
+          for (var i = 0; i < members.length; i++) {
             $('#' + members[i].prefix + '-appendmenu-openclose')
-              .removeClass('c-sf-add-button--visible').delay(300).slideUp()
+              .removeClass('c-sf-add-button--visible').delay(300)
+              .slideUp();
           }
           $('#' + elementPrefix + '-prependmenu-openclose')
-            .removeClass('c-sf-add-button--visible').delay(300).slideUp()
+            .removeClass('c-sf-add-button--visible').delay(300)
+            .slideUp();
         },
 
-        onEnableAdd: function(members) {
-          for (var i = 0; i < members.length; i++){
-
+        onEnableAdd(members) {
+          for (var i = 0; i < members.length; i++) {
             $('#' + members[i].prefix + '-appendmenu-openclose')
-              .addClass('c-sf-add-button--visible').delay(300).slideDown()
+              .addClass('c-sf-add-button--visible').delay(300)
+              .slideDown();
           }
           $('#' + elementPrefix + '-prependmenu-openclose')
-            .addClass('c-sf-add-button--visible').delay(300).slideDown()
+            .addClass('c-sf-add-button--visible').delay(300)
+            .slideDown();
         }
       });
 
@@ -157,11 +160,11 @@
       StreamBlockMenu({
         childBlocks: opts.childBlocks,
         id: elementPrefix + '-prependmenu',
-        onChooseBlock: function(childBlock) {
+        onChooseBlock(childBlock) {
           var template = listMemberTemplates[childBlock.name];
           sequence.insertMemberAtStart(template);
         }
       });
     };
   };
-})(jQuery);
+}(jQuery));
