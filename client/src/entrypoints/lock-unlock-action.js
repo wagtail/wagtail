@@ -2,8 +2,8 @@
 
 /* eslint-disable */
 function LockUnlockAction(csrfToken, next) {
-  document.querySelectorAll('[data-locking-action]').forEach(function (buttonElement) {
-    buttonElement.addEventListener('click', function (e) {
+  document.querySelectorAll('[data-locking-action]').forEach((buttonElement) => {
+    buttonElement.addEventListener('click', (e) => {
       // Stop the button from submitting the form
       e.preventDefault();
       e.stopPropagation();
@@ -29,7 +29,7 @@ function LockUnlockAction(csrfToken, next) {
 
       document.body.appendChild(formElement);
       formElement.submit();
-    }, {capture: true});
+    }, { capture: true });
   });
 }
 window.LockUnlockAction = LockUnlockAction;

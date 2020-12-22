@@ -1,5 +1,5 @@
 /* eslint-disable */
-jest.mock("..");
+jest.mock('..');
 
 const wagtail = require('..');
 

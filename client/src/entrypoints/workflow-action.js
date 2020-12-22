@@ -10,17 +10,17 @@ window._addHiddenInput = _addHiddenInput;
 
 /* When a workflow action button is clicked, either show a modal or make a POST request to the workflow action view */
 function ActivateWorkflowActionsForDashboard(csrfToken) {
-  document.querySelectorAll('[data-workflow-action-url]').forEach(function (buttonElement) {
-    buttonElement.addEventListener('click', function (e) {
+  document.querySelectorAll('[data-workflow-action-url]').forEach((buttonElement) => {
+    buttonElement.addEventListener('click', (e) => {
       // Stop the button from submitting the form
       e.preventDefault();
       e.stopPropagation();
 
       if ('launchModal' in buttonElement.dataset) {
         ModalWorkflow({
-          'url': buttonElement.dataset.workflowActionUrl,
-          'onload': {
-            'action': function(modal, jsonData) {
+          url: buttonElement.dataset.workflowActionUrl,
+          onload: {
+            action(modal, jsonData) {
               var nextElement = document.createElement('input');
               nextElement.type = 'hidden';
               nextElement.name = 'next';
@@ -28,8 +28,8 @@ function ActivateWorkflowActionsForDashboard(csrfToken) {
               $('form', modal.body).append(nextElement);
               modal.ajaxifyForm($('form', modal.body));
             },
-            'success': function(modal, jsonData) {
-              window.location.href = jsonData['redirect'];
+            success(modal, jsonData) {
+              window.location.href = jsonData.redirect;
             }
           },
         });
@@ -46,7 +46,7 @@ function ActivateWorkflowActionsForDashboard(csrfToken) {
         document.body.appendChild(formElement);
         formElement.submit();
       }
-    }, {capture: true});
+    }, { capture: true });
   });
 }
 window.ActivateWorkflowActionsForDashboard = ActivateWorkflowActionsForDashboard;
@@ -54,8 +54,8 @@ window.ActivateWorkflowActionsForDashboard = ActivateWorkflowActionsForDashboard
 function ActivateWorkflowActionsForEditView(formSelector) {
   var form = $(formSelector).get(0);
 
-  document.querySelectorAll('[data-workflow-action-name]').forEach(function (buttonElement) {
-    buttonElement.addEventListener('click', function (e) {
+  document.querySelectorAll('[data-workflow-action-name]').forEach((buttonElement) => {
+    buttonElement.addEventListener('click', (e) => {
       if ('workflowActionModalUrl' in buttonElement.dataset) {
         // This action requires opening a modal to collect additional data.
         // Stop the button from submitting the form
@@ -64,30 +64,29 @@ function ActivateWorkflowActionsForEditView(formSelector) {
 
         // open the modal at the given URL
         ModalWorkflow({
-          'url': buttonElement.dataset.workflowActionModalUrl,
-          'onload': {
-            'action': function(modal, jsonData) {
+          url: buttonElement.dataset.workflowActionModalUrl,
+          onload: {
+            action(modal, jsonData) {
               modal.ajaxifyForm($('form', modal.body));
             },
-            'success': function(modal, jsonData) {
+            success(modal, jsonData) {
               // a success response includes the additional data to submit with the edit form
-              _addHiddenInput(form, 'action-workflow-action', 'true')
-              _addHiddenInput(form, 'workflow-action-name', buttonElement.dataset.workflowActionName)
-              _addHiddenInput(form, 'workflow-action-extra-data', JSON.stringify(jsonData['cleaned_data']))
+              _addHiddenInput(form, 'action-workflow-action', 'true');
+              _addHiddenInput(form, 'workflow-action-name', buttonElement.dataset.workflowActionName);
+              _addHiddenInput(form, 'workflow-action-extra-data', JSON.stringify(jsonData.cleaned_data));
               // note: need to submit via jQuery (as opposed to form.submit()) so that the onsubmit handler
               // that disables the dirty-form prompt doesn't get bypassed
               $(form).submit();
             }
           },
         });
-
       } else {
         // no modal, so let the form submission to the edit view proceed, with additional
         // hidden inputs to tell it to perform our action
-        _addHiddenInput(form, 'action-workflow-action', 'true')
-        _addHiddenInput(form, 'workflow-action-name', buttonElement.dataset.workflowActionName)
+        _addHiddenInput(form, 'action-workflow-action', 'true');
+        _addHiddenInput(form, 'workflow-action-name', buttonElement.dataset.workflowActionName);
       }
-    }, {capture: true});
+    }, { capture: true });
   });
 }
 window.ActivateWorkflowActionsForEditView = ActivateWorkflowActionsForEditView;

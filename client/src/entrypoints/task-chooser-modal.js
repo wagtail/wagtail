@@ -1,24 +1,24 @@
 /* eslint-disable */
 const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
-  'chooser': function(modal, jsonData) {
-    function ajaxifyLinks (context) {
-      $('a.task-type-choice, a.choose-different-task-type, a.task-choice', context).on('click', function() {
+  chooser(modal, jsonData) {
+    function ajaxifyLinks(context) {
+      $('a.task-type-choice, a.choose-different-task-type, a.task-choice', context).on('click', function () {
         modal.loadUrl(this.href);
         return false;
       });
 
-      $('.pagination a', context).on('click', function() {
-        var page = this.getAttribute("data-page");
+      $('.pagination a', context).on('click', function () {
+        var page = this.getAttribute('data-page');
         setPage(page);
         return false;
       });
 
-      $('a.create-one-now').on('click', function(e) {
+      $('a.create-one-now').on('click', (e) => {
         // Select upload form tab
         $('a[href="#new"]').tab('show');
         e.preventDefault();
       });
-    };
+    }
 
     var searchUrl = $('form.task-search', modal.body).attr('action');
     var request;
@@ -29,35 +29,35 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
           q: $('#id_q').val(),
           task_type: $('#id_task_type').val(),
         },
-        success: function(data, status) {
+        success(data, status) {
           request = null;
           $('#search-results').html(data);
           ajaxifyLinks($('#search-results'));
         },
-        error: function() {
+        error() {
           request = null;
         }
       });
       return false;
-    };
+    }
     function setPage(page) {
       var dataObj;
 
-      if($('#id_q').val().length){
-        dataObj = {q: $('#id_q').val(), p: page};
-      }else{
-        dataObj = {p: page};
+      if ($('#id_q').val().length) {
+        dataObj = { q: $('#id_q').val(), p: page };
+      } else {
+        dataObj = { p: page };
       }
 
       request = $.ajax({
         url: searchUrl,
         data: dataObj,
-        success: function(data, status) {
+        success(data, status) {
           request = null;
           $('#search-results').html(data);
           ajaxifyLinks($('#search-results'));
         },
-        error: function() {
+        error() {
           request = null;
         }
       });
@@ -66,7 +66,7 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
     ajaxifyLinks(modal.body);
 
-    $('form.task-create', modal.body).on('submit', function() {
+    $('form.task-create', modal.body).on('submit', function () {
       var formdata = new FormData(this);
 
       $.ajax({
@@ -77,11 +77,11 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         type: 'POST',
         dataType: 'text',
         success: modal.loadResponseText,
-        error: function(response, textStatus, errorThrown) {
-          var message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
+        error(response, textStatus, errorThrown) {
+          var message = jsonData.error_message + '<br />' + errorThrown + ' - ' + response.status;
           $('#new').append(
             '<div class="help-block help-critical">' +
-            '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
+            '<strong>' + jsonData.error_label + ': </strong>' + message + '</div>');
         }
       });
 
@@ -90,7 +90,7 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
     $('form.task-search', modal.body).on('submit', search);
 
-    $('#id_q').on('input', function() {
+    $('#id_q').on('input', function () {
       if (request) {
         request.abort();
       }
@@ -99,7 +99,7 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       $(this).data('timer', wait);
     });
 
-    $('#id_task_type').on('change', function() {
+    $('#id_task_type').on('change', function () {
       if (request) {
         request.abort();
       }
@@ -108,8 +108,8 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       $(this).data('timer', wait);
     });
   },
-  'task_chosen': function(modal, jsonData) {
-    modal.respond('taskChosen', jsonData['result']);
+  task_chosen(modal, jsonData) {
+    modal.respond('taskChosen', jsonData.result);
     modal.close();
   }
 };

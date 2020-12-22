@@ -11,7 +11,7 @@ function makeHalloRichTextEditable(id, plugins) {
     (we don't remove the span entirely as that messes with the cursor position,
     and spans will be removed anyway by our whitelisting)
     */
-    $('span[style]', editor).filter(function() {
+    $('span[style]', editor).filter(function () {
       return this.attributes.length === 1;
     }).removeAttr('style');
     removeStylingPending = false;
@@ -32,30 +32,32 @@ function makeHalloRichTextEditable(id, plugins) {
     toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : '',
     /* use the passed-in plugins arg */
     plugins: plugins
-  }).on('hallomodified', function(event, data) {
+  }).on('hallomodified', (event, data) => {
     input.val(data.content);
     if (!removeStylingPending) {
       setTimeout(removeStyling, 100);
       removeStylingPending = true;
     }
-  }).on('paste drop', function(event, data) {
-    setTimeout(function() {
+  }).on('paste drop', (event, data) => {
+    setTimeout(() => {
       removeStyling();
       setModified();
     }, 1);
   /* Animate the fields open when you click into them. */
-  }).on('halloactivated', function(event, data) {
-    $(event.target).addClass('expanded', 200, function(e) {
+  })
+    .on('halloactivated', (event, data) => {
+      $(event.target).addClass('expanded', 200, (e) => {
       /* Hallo's toolbar will reposition itself on the scroll event.
       This is useful since animating the fields can cause it to be
       positioned badly initially. */
-      $(window).trigger('scroll');
+        $(window).trigger('scroll');
+      });
+    })
+    .on('hallodeactivated', (event, data) => {
+      $(event.target).removeClass('expanded', 200, (e) => {
+        $(window).trigger('scroll');
+      });
     });
-  }).on('hallodeactivated', function(event, data) {
-    $(event.target).removeClass('expanded', 200, function(e) {
-      $(window).trigger('scroll');
-    });
-  });
 
   setupLinkTooltips(editor);
 }
@@ -64,7 +66,7 @@ window.makeHalloRichTextEditable = makeHalloRichTextEditable;
 function setupLinkTooltips(elem) {
   elem.tooltip({
     animation: false,
-    title: function() {
+    title() {
       return $(this).attr('href');
     },
     trigger: 'hover',
@@ -77,9 +79,9 @@ window.setupLinkTooltips = setupLinkTooltips;
 function insertRichTextDeleteControl(elem) {
   var a = $('<a class="icon icon-cross text-replace halloembed__delete">Delete</a>');
   $(elem).addClass('halloembed').prepend(a);
-  a.on('click', function() {
+  a.on('click', () => {
     var widget = $(elem).parent('[data-hallo-editor]').data('IKS-hallo');
-    $(elem).fadeOut(function() {
+    $(elem).fadeOut(() => {
       $(elem).remove();
       if (widget != undefined && widget.options.editable) {
         widget.element.trigger('change');
@@ -89,8 +91,8 @@ function insertRichTextDeleteControl(elem) {
 }
 window.insertRichTextDeleteControl = insertRichTextDeleteControl;
 
-$(function() {
-  $('[data-hallo-editor] [contenteditable="false"]').each(function() {
+$(() => {
+  $('[data-hallo-editor] [contenteditable="false"]').each(function () {
     insertRichTextDeleteControl(this);
   });
-})
+});

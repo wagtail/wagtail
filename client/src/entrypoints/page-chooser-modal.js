@@ -1,8 +1,8 @@
 /* eslint-disable */
 const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
-  'browse': function(modal, jsonData) {
+  browse(modal, jsonData) {
     /* Set up link-types links to open in the modal */
-    $('.link-types a', modal.body).on('click', function() {
+    $('.link-types a', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
@@ -37,12 +37,12 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             q: query,
             results_only: true
           },
-          success: function(data, status) {
+          success(data, status) {
             request = null;
             $('.page-results', modal.body).html(data);
             ajaxifySearchResults();
           },
-          error: function() {
+          error() {
             request = null;
           }
         });
@@ -54,8 +54,8 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       return false;
     }
 
-    $('#id_q', modal.body).on('input', function() {
-      if(request) {
+    $('#id_q', modal.body).on('input', function () {
+      if (request) {
         request.abort();
       }
       clearTimeout($.data(this, 'timer'));
@@ -66,7 +66,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     /* Set up behaviour of choose-page links in the newly-loaded search results,
     to pass control back to the calling page */
     function ajaxifySearchResults() {
-      $('.page-results a.choose-page', modal.body).on('click', function() {
+      $('.page-results a.choose-page', modal.body).on('click', function () {
         var pageData = $(this).data();
         modal.respond('pageChosen', pageData);
         modal.close();
@@ -75,12 +75,12 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       });
       /* pagination links within search results should be AJAX-fetched
       and the result loaded into .page-results (and ajaxified) */
-      $('.page-results a.navigate-pages', modal.body).on('click', function() {
+      $('.page-results a.navigate-pages', modal.body).on('click', function () {
         $('.page-results', modal.body).load(this.href, ajaxifySearchResults);
         return false;
       });
       /* Set up parent navigation links (.navigate-parent) to open in the modal */
-      $('.page-results a.navigate-parent', modal.body).on('click',function() {
+      $('.page-results a.navigate-parent', modal.body).on('click', function () {
         modal.loadUrl(this.href);
         return false;
       });
@@ -88,15 +88,15 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
     function ajaxifyBrowseResults() {
       /* Set up page navigation links to open in the modal */
-      $('.page-results a.navigate-pages', modal.body).on('click', function() {
+      $('.page-results a.navigate-pages', modal.body).on('click', function () {
         modal.loadUrl(this.href);
         return false;
       });
 
       /* Set up behaviour of choose-page links, to pass control back to the calling page */
-      $('a.choose-page', modal.body).on('click', function() {
+      $('a.choose-page', modal.body).on('click', function () {
         var pageData = $(this).data();
-        pageData.parentId = jsonData['parent_page_id'];
+        pageData.parentId = jsonData.parent_page_id;
         modal.respond('pageChosen', pageData);
         modal.close();
 
@@ -112,52 +112,52 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     $('#id_q', modal.body).trigger('focus');
   },
 
-  'anchor_link': function(modal, jsonData) {
-    $('p.link-types a', modal.body).on('click', function() {
+  anchor_link(modal, jsonData) {
+    $('p.link-types a', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
 
-    $('form', modal.body).on('submit', function() {
+    $('form', modal.body).on('submit', function () {
       modal.postForm(this.action, $(this).serialize());
       return false;
     });
   },
-  'email_link': function(modal, jsonData) {
-    $('p.link-types a', modal.body).on('click', function() {
+  email_link(modal, jsonData) {
+    $('p.link-types a', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
 
-    $('form', modal.body).on('submit', function() {
+    $('form', modal.body).on('submit', function () {
       modal.postForm(this.action, $(this).serialize());
       return false;
     });
   },
-  'phone_link': function(modal, jsonData) {
-    $('p.link-types a', modal.body).on('click', function() {
+  phone_link(modal, jsonData) {
+    $('p.link-types a', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
 
-    $('form', modal.body).on('submit', function() {
+    $('form', modal.body).on('submit', function () {
       modal.postForm(this.action, $(this).serialize());
       return false;
     });
   },
-  'external_link': function(modal, jsonData) {
-    $('p.link-types a', modal.body).on('click', function() {
+  external_link(modal, jsonData) {
+    $('p.link-types a', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
 
-    $('form', modal.body).on('submit', function() {
+    $('form', modal.body).on('submit', function () {
       modal.postForm(this.action, $(this).serialize());
       return false;
     });
   },
-  'external_link_chosen': function(modal, jsonData) {
-    modal.respond('pageChosen', jsonData['result']);
+  external_link_chosen(modal, jsonData) {
+    modal.respond('pageChosen', jsonData.result);
     modal.close();
   },
 };

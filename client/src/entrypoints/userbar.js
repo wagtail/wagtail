@@ -1,6 +1,5 @@
 /* eslint-disable */
-
-document.addEventListener('DOMContentLoaded', function userBar(e) {
+document.addEventListener('DOMContentLoaded', (e) => {
   var userbar = document.querySelector('[data-wagtail-userbar]');
   var trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
   var list = userbar.querySelector('.wagtail-userbar-items');
@@ -13,11 +12,10 @@ document.addEventListener('DOMContentLoaded', function userBar(e) {
 
     // Bind to touchend event, preventDefault to prevent DELAY and CLICK
     // in accordance with: https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/
-    trigger.addEventListener('touchend', function preventSimulatedClick(e) {
+    trigger.addEventListener('touchend', (e) => {
       e.preventDefault();
       toggleUserbar(e);
     });
-
   } else {
     userbar.classList.add('no-touch');
   }

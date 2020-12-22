@@ -1,8 +1,9 @@
 /* eslint-disable */
 /* generic function for adding a message to message area through JS alone */
 function addMessage(status, text) {
-  $('.messages').addClass('new').empty().append('<ul><li class="' + status + '">' + text + '</li></ul>');
-  var addMsgTimeout = setTimeout(function() {
+  $('.messages').addClass('new').empty()
+    .append('<ul><li class="' + status + '">' + text + '</li></ul>');
+  var addMsgTimeout = setTimeout(() => {
     $('.messages').addClass('appear');
     clearTimeout(addMsgTimeout);
   }, 100);
@@ -18,16 +19,14 @@ function escapeHtml(text) {
     '\'': '&#039;'
   };
 
-  return text.replace(/[&<>"']/g, function(m) {
-    return map[m];
-  });
+  return text.replace(/[&<>"']/g, (m) => map[m]);
 }
 window.escapeHtml = escapeHtml;
 
 function initTagField(id, autocompleteUrl, options) {
   var finalOptions = Object.assign({
-    autocomplete: {source: autocompleteUrl},
-    preprocessTag: function(val) {
+    autocomplete: { source: autocompleteUrl },
+    preprocessTag(val) {
       // Double quote a tag if it contains a space
       // and if it isn't already quoted.
       if (val && val[0] != '"' && val.indexOf(' ') > -1) {
@@ -63,17 +62,17 @@ function enableDirtyFormCheck(formSelector, options) {
   var initialData = null;
   var formSubmitted = false;
 
-  $form.on('submit', function() {
+  $form.on('submit', () => {
     formSubmitted = true;
   });
 
   // Delay snapshotting the form’s data to avoid race conditions with form widgets that might process the values.
   // User interaction with the form within that delay also won’t trigger the confirmation message.
-  setTimeout(function() {
+  setTimeout(() => {
     initialData = $form.serialize();
   }, 1000 * 10);
 
-  window.addEventListener('beforeunload', function(event) {
+  window.addEventListener('beforeunload', (event) => {
     var isDirty = initialData && $form.serialize() != initialData;
     var displayConfirmation = (
       !formSubmitted && (alwaysDirty || isDirty)
@@ -87,12 +86,12 @@ function enableDirtyFormCheck(formSelector, options) {
 }
 window.enableDirtyFormCheck = enableDirtyFormCheck;
 
-$(function() {
+$(() => {
   // Add class to the body from which transitions may be hung so they don't appear to transition as the page loads
   $('body').addClass('ready');
 
   // Enable toggle to open/close nav
-  $(document).on('click', '#nav-toggle', function() {
+  $(document).on('click', '#nav-toggle', () => {
     $('body').toggleClass('nav-open');
     if (!$('body').hasClass('nav-open')) {
       $('body').addClass('nav-closed');
@@ -102,19 +101,19 @@ $(function() {
   });
 
   // Enable toggle to open/close user settings
-  $(document).on('click', '#account-settings', function() {
+  $(document).on('click', '#account-settings', function () {
     $('.nav-main').toggleClass('nav-main--open-footer');
     $(this).find('em').toggleClass('icon-arrow-down-after icon-arrow-up-after');
   });
 
   // Resize nav to fit height of window. This is an unimportant bell/whistle to make it look nice
-  var fitNav = function() {
+  var fitNav = function () {
     $('.nav-wrapper').css('min-height', $(window).height());
   };
 
   fitNav();
 
-  $(window).on('resize', function() {
+  $(window).on('resize', () => {
     fitNav();
   });
 
@@ -137,7 +136,7 @@ $(function() {
       $logoContainer.removeClass('logo-playful').addClass('logo-serious');
     }
 
-    $logoContainer.on('mousemove', function(event) {
+    $logoContainer.on('mousemove', (event) => {
       mouseX = event.pageX;
 
       if (mouseX > lastMouseX) {
@@ -158,7 +157,7 @@ $(function() {
       lastDir = dir;
     });
 
-    $logoContainer.on('mouseleave', function() {
+    $logoContainer.on('mouseleave', () => {
       dirChangeCount = 0;
       disableWag();
     });
@@ -168,13 +167,13 @@ $(function() {
   initLogo();
 
   // Enable nice focus effects on all fields. This enables help text on hover.
-  $(document).on('focus mouseover', 'input,textarea,select', function() {
+  $(document).on('focus mouseover', 'input,textarea,select', function () {
     $(this).closest('.field').addClass('focused');
     $(this).closest('fieldset').addClass('focused');
     $(this).closest('li').addClass('focused');
   });
 
-  $(document).on('blur mouseout', 'input,textarea,select', function() {
+  $(document).on('blur mouseout', 'input,textarea,select', function () {
     $(this).closest('.field').removeClass('focused');
     $(this).closest('fieldset').removeClass('focused');
     $(this).closest('li').removeClass('focused');
@@ -186,27 +185,27 @@ $(function() {
     $('a[href="' + cleanedHash + '"]').tab('show');
   }
 
-  $(document).on('click', '.tab-nav a', function(e) {
+  $(document).on('click', '.tab-nav a', function (e) {
     e.preventDefault();
     $(this).tab('show');
     window.history.replaceState(null, null, $(this).attr('href'));
   });
 
-  $(document).on('click', '.tab-toggle', function(e) {
+  $(document).on('click', '.tab-toggle', function (e) {
     e.preventDefault();
     $('.tab-nav a[href="' + $(this).attr('href') + '"]').trigger('click');
   });
 
-  $('.dropdown').each(function() {
+  $('.dropdown').each(function () {
     var $dropdown = $(this);
 
-    $('.dropdown-toggle', $dropdown).on('click', function(e) {
+    $('.dropdown-toggle', $dropdown).on('click', (e) => {
       e.stopPropagation();
       $dropdown.toggleClass('open');
 
       if ($dropdown.hasClass('open')) {
         // If a dropdown is opened, add an event listener for document clicks to close it
-        $(document).on('click.dropdown.cancel', function(e) {
+        $(document).on('click.dropdown.cancel', (e) => {
           var relTarg = e.relatedTarget || e.toElement;
 
           // Only close dropdown if the click target wasn't a child of this dropdown
@@ -222,9 +221,9 @@ $(function() {
   });
 
   /* Dropzones */
-  $('.drop-zone').on('dragover', function() {
+  $('.drop-zone').on('dragover', function () {
     $(this).addClass('hovered');
-  }).on('dragleave dragend drop', function() {
+  }).on('dragleave dragend drop', function () {
     $(this).removeClass('hovered');
   });
 
@@ -235,7 +234,7 @@ $(function() {
     var $input = $(window.headerSearch.termInput);
     var $inputContainer = $input.parent();
 
-    $input.on('keyup cut paste change', function() {
+    $input.on('keyup cut paste change', () => {
       clearTimeout($input.data('timer'));
       $input.data('timer', setTimeout(search, 200));
     });
@@ -256,15 +255,15 @@ $(function() {
         var index = searchNextIndex;
         $.ajax({
           url: window.headerSearch.url,
-          data: {q: newQuery},
-          success: function(data, status) {
+          data: { q: newQuery },
+          success(data, status) {
             if (index > searchCurrentIndex) {
               searchCurrentIndex = index;
               $(window.headerSearch.targetOutput).html(data).slideDown(800);
               window.history.replaceState(null, null, '?q=' + newQuery);
             }
           },
-          complete: function() {
+          complete() {
             wagtail.ui.initDropDowns();
             $inputContainer.removeClass(workingClasses);
           }
@@ -279,25 +278,24 @@ $(function() {
       }
       return '';
     }
-
   }
 
   /* Functions that need to run/rerun when active tabs are changed */
-  $(document).on('shown.bs.tab', function(e) {
+  $(document).on('shown.bs.tab', (e) => {
     // Resize autosize textareas
-    $('textarea[data-autosize-on]').each(function() {
+    $('textarea[data-autosize-on]').each(function () {
       autosize.update($(this).get());
     });
   });
 
   /* Debounce submission of long-running forms and add spinner to give sense of activity */
-  $(document).on('click', 'button.button-longrunning', function(e) {
+  $(document).on('click', 'button.button-longrunning', function (e) {
     var $self = $(this);
     var $replacementElem = $('em', $self);
     var reEnableAfter = 30;
     var dataName = 'disabledtimeout';
 
-    window.cancelSpinner = function() {
+    window.cancelSpinner = function () {
       $self.prop('disabled', '').removeData(dataName).removeClass('button-longrunning-active');
 
       if ($self.data('clicked-text')) {
@@ -315,15 +313,14 @@ $(function() {
     // Disabling a button prevents it submitting the form, so disabling
     // must occur on a brief timeout only after this function returns.
 
-    var timeout = setTimeout(function() {
+    var timeout = setTimeout(() => {
       if (!$self.data(dataName)) {
         // Button re-enables after a timeout to prevent button becoming
         // permanently un-usable
-        $self.data(dataName, setTimeout(function() {
+        $self.data(dataName, setTimeout(() => {
           clearTimeout($self.data(dataName));
 
           cancelSpinner();
-
         }, reEnableAfter * 1000));
 
         if ($self.data('clicked-text') && $replacementElem.length) {
@@ -351,8 +348,7 @@ $(function() {
 // Inline dropdown module
 // =============================================================================
 
-window.wagtail = (function(document, window, wagtail) {
-
+window.wagtail = (function (document, window, wagtail) {
   // Module pattern
   if (!wagtail) {
     wagtail = {};
@@ -387,32 +383,32 @@ window.wagtail = (function(document, window, wagtail) {
   var DropDownController = {
     _dropDowns: [],
 
-    closeAllExcept: function(dropDown) {
+    closeAllExcept(dropDown) {
       var index = this._dropDowns.indexOf(dropDown);
 
-      this._dropDowns.forEach(function(item, i) {
-         if (i !== index && item.state.isOpen) {
+      this._dropDowns.forEach((item, i) => {
+        if (i !== index && item.state.isOpen) {
           item.closeDropDown();
         }
       });
     },
 
-    add: function(dropDown) {
+    add(dropDown) {
       this._dropDowns.push(dropDown);
     },
 
-    get: function() {
+    get() {
       return this._dropDowns;
     },
 
-    getByIndex: function(index) {
+    getByIndex(index) {
       return this._dropDowns[index];
     },
 
-    getOpenDropDown: function() {
+    getOpenDropDown() {
       var needle = null;
 
-      this._dropDowns.forEach(function(item) {
+      this._dropDowns.forEach((item) => {
         if (item.state.isOpen) {
           needle = item;
         }
@@ -432,7 +428,7 @@ window.wagtail = (function(document, window, wagtail) {
    * Controllable via a toggle class or the keyboard.
    */
   function DropDown(el, registry) {
-    if (!el || !registry ) {
+    if (!el || !registry) {
       if ('error' in console) {
         console.error('A dropdown was created without an element or the DropDownController.\nMake sure to pass both to your component.');
         return;
@@ -461,7 +457,7 @@ window.wagtail = (function(document, window, wagtail) {
 
   DropDown.prototype = {
 
-    _handleKeyEvent: function(e) {
+    _handleKeyEvent(e) {
       var validTriggers = [keys.SPACE, keys.ENTER];
 
       if (validTriggers.indexOf(e.which) > -1) {
@@ -470,7 +466,7 @@ window.wagtail = (function(document, window, wagtail) {
       }
     },
 
-    _handleClick: function(e) {
+    _handleClick(e) {
       if (!this.state.isOpen) {
         this.openDropDown(e);
       } else {
@@ -478,7 +474,7 @@ window.wagtail = (function(document, window, wagtail) {
       }
     },
 
-    _openDropDown: function(e) {
+    _openDropDown(e) {
       e.stopPropagation();
       e.preventDefault();
       var el = this.el;
@@ -496,7 +492,7 @@ window.wagtail = (function(document, window, wagtail) {
       $parent.addClass(LISTING_ACTIVE_CLASS);
     },
 
-    _closeDropDown: function(e) {
+    _closeDropDown(e) {
       this.state.isOpen = false;
 
       var el = this.el;
@@ -510,7 +506,7 @@ window.wagtail = (function(document, window, wagtail) {
       $parent.removeClass(LISTING_ACTIVE_CLASS);
     },
 
-    _clickOutsideDropDown: function(e) {
+    _clickOutsideDropDown(e) {
       var el = this.el;
       var relTarget = e.relatedTarget || e.toElement;
 
@@ -521,7 +517,7 @@ window.wagtail = (function(document, window, wagtail) {
   };
 
   function initDropDown() {
-    var dropDown = new DropDown(this, DropDownController)
+    var dropDown = new DropDown(this, DropDownController);
     DropDownController.add(dropDown);
   }
 
@@ -536,7 +532,7 @@ window.wagtail = (function(document, window, wagtail) {
 
   function initDropDowns() {
     $(DROPDOWN_SELECTOR).each(initDropDown);
-    $(document).on("keydown", handleKeyPress);
+    $(document).on('keydown', handleKeyPress);
   }
 
   $(document).ready(initDropDowns);
@@ -550,14 +546,14 @@ window.wagtail = (function(document, window, wagtail) {
 
   // Initialise button selectors
   function initButtonSelects() {
-    qsa(document, '.button-select').forEach(function(element) {
+    qsa(document, '.button-select').forEach((element) => {
       var inputElement = element.querySelector('input[type="hidden"]');
-      qsa(element, '.button-select__option').forEach(function(buttonElement) {
-        buttonElement.addEventListener('click', function(e) {
+      qsa(element, '.button-select__option').forEach((buttonElement) => {
+        buttonElement.addEventListener('click', (e) => {
           e.preventDefault();
           inputElement.value = buttonElement.value;
 
-          qsa(element, '.button-select__option--selected').forEach(function(selectedButtonElement) {
+          qsa(element, '.button-select__option--selected').forEach((selectedButtonElement) => {
             selectedButtonElement.classList.remove('button-select__option--selected');
           });
 
@@ -570,5 +566,4 @@ window.wagtail = (function(document, window, wagtail) {
   $(document).ready(initButtonSelects);
 
   return wagtail;
-
-})(document, window, wagtail);
+}(document, window, wagtail));
