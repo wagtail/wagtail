@@ -13,7 +13,7 @@ from django.views.generic import View
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.images import get_image_model
 from wagtail.images.fields import ALLOWED_EXTENSIONS
-from wagtail.images.forms import get_image_form
+from wagtail.images.forms import get_image_form, get_image_multi_form
 from wagtail.images.models import UploadedImage
 from wagtail.images.permissions import permission_policy
 from wagtail.search.backends import get_search_backends
@@ -22,30 +22,20 @@ from wagtail.search.backends import get_search_backends
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-def get_image_edit_form(ImageModel):
-    ImageForm = get_image_form(ImageModel)
-
-    # Make a new form with the file and focal point fields excluded
-    class ImageEditForm(ImageForm):
-        class Meta(ImageForm.Meta):
-            model = ImageModel
-            exclude = (
-                'file',
-                'focal_point_x',
-                'focal_point_y',
-                'focal_point_width',
-                'focal_point_height',
-            )
-
-    return ImageEditForm
-
-
 class AddView(View):
+    def get_model(self):
+        return get_image_model()
+
+    def get_upload_form_class(self):
+        return get_image_form(self.model)
+
+    def get_edit_form_class(self):
+        return get_image_multi_form(self.model)
+
     @method_decorator(permission_checker.require('add'))
     @method_decorator(vary_on_headers('X-Requested-With'))
     def dispatch(self, request):
-        self.model = get_image_model()
-        self.form_class = get_image_form(self.model)
+        self.model = self.get_model()
 
         return super().dispatch(request)
 
@@ -57,7 +47,8 @@ class AddView(View):
             return HttpResponseBadRequest("Must upload a file")
 
         # Build a form for validation
-        form = self.form_class({
+        self.upload_form_class = self.get_upload_form_class()
+        form = self.upload_form_class({
             'title': request.FILES['files[]'].name,
             'collection': request.POST.get('collection'),
         }, {
@@ -75,6 +66,7 @@ class AddView(View):
             image.save()
 
             # Success! Send back an edit form for this image to the user
+            self.edit_form_class = self.get_edit_form_class()
             return JsonResponse({
                 'success': True,
                 'image_id': int(image.id),
@@ -82,7 +74,7 @@ class AddView(View):
                     'image': image,
                     'edit_action': reverse('wagtailimages:edit_multiple', args=(image.id,)),
                     'delete_action': reverse('wagtailimages:delete_multiple', args=(image.id,)),
-                    'form': get_image_edit_form(self.model)(
+                    'form': self.edit_form_class(
                         instance=image, prefix='image-%d' % image.id, user=request.user
                     ),
                 }, request=request),
@@ -102,6 +94,7 @@ class AddView(View):
             )
             image = self.model(title=request.FILES['files[]'].name, collection_id=request.POST.get('collection'))
 
+            self.edit_form_class = self.get_edit_form_class()
             return JsonResponse({
                 'success': True,
                 'uploaded_image_id': uploaded_image.id,
@@ -109,7 +102,7 @@ class AddView(View):
                     'uploaded_image': uploaded_image,
                     'edit_action': reverse('wagtailimages:create_multiple_from_uploaded_image', args=(uploaded_image.id,)),
                     'delete_action': reverse('wagtailimages:delete_upload_multiple', args=(uploaded_image.id,)),
-                    'form': get_image_edit_form(self.model)(
+                    'form': self.edit_form_class(
                         instance=image, prefix='uploaded-image-%d' % uploaded_image.id, user=request.user
                     ),
                 }, request=request),
@@ -118,7 +111,8 @@ class AddView(View):
     def get(self, request):
         # Instantiate a dummy copy of the form that we can retrieve validation messages and media from;
         # actual rendering of forms will happen on AJAX POST rather than here
-        form = self.form_class(user=request.user)
+        self.upload_form_class = self.get_upload_form_class()
+        form = self.upload_form_class(user=request.user)
 
         collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
         if len(collections) < 2:
@@ -139,11 +133,17 @@ class AddView(View):
 class EditView(View):
     http_method_names = ['post']
 
-    def post(self, request, image_id, callback=None):
-        Image = get_image_model()
-        ImageForm = get_image_edit_form(Image)
+    def get_model(self):
+        return get_image_model()
 
-        image = get_object_or_404(Image, id=image_id)
+    def get_edit_form_class(self):
+        return get_image_multi_form(self.model)
+
+    def post(self, request, image_id, callback=None):
+        self.model = self.get_model()
+        self.form_class = self.get_edit_form_class()
+
+        image = get_object_or_404(self.model, id=image_id)
 
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
@@ -151,7 +151,7 @@ class EditView(View):
         if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
             raise PermissionDenied
 
-        form = ImageForm(
+        form = self.form_class(
             request.POST, request.FILES, instance=image, prefix='image-%d' % image_id, user=request.user
         )
 
@@ -182,8 +182,12 @@ class EditView(View):
 class DeleteView(View):
     http_method_names = ['post']
 
+    def get_model(self):
+        return get_image_model()
+
     def post(self, request, image_id):
-        image = get_object_or_404(get_image_model(), id=image_id)
+        self.model = self.get_model()
+        image = get_object_or_404(self.model, id=image_id)
 
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
@@ -202,9 +206,15 @@ class DeleteView(View):
 class CreateFromUploadedImageView(View):
     http_method_names = ['post']
 
+    def get_model(self):
+        return get_image_model()
+
+    def get_edit_form_class(self):
+        return get_image_multi_form(self.model)
+
     def post(self, request, uploaded_image_id):
-        Image = get_image_model()
-        ImageForm = get_image_edit_form(Image)
+        self.model = self.get_model()
+        self.form_class = self.get_edit_form_class()
 
         uploaded_image = get_object_or_404(UploadedImage, id=uploaded_image_id)
 
@@ -214,8 +224,8 @@ class CreateFromUploadedImageView(View):
         if uploaded_image.uploaded_by_user != request.user:
             raise PermissionDenied
 
-        image = Image()
-        form = ImageForm(
+        image = self.model()
+        form = self.form_class(
             request.POST, request.FILES, instance=image, prefix='uploaded-image-%d' % uploaded_image_id, user=request.user
         )
 

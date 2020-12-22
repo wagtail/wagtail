@@ -70,6 +70,25 @@ def get_image_form(model):
     )
 
 
+def get_image_multi_form(model_class):
+    # edit form for use within the multiple uploader
+    ImageForm = get_image_form(model_class)
+
+    # Make a new form with the file and focal point fields excluded
+    class ImageEditForm(ImageForm):
+        class Meta(ImageForm.Meta):
+            model = model_class
+            exclude = (
+                'file',
+                'focal_point_x',
+                'focal_point_y',
+                'focal_point_width',
+                'focal_point_height',
+            )
+
+    return ImageEditForm
+
+
 class ImageInsertionForm(forms.Form):
     """
     Form for selecting parameters of the image (e.g. format) prior to insertion

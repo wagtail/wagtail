@@ -23,12 +23,19 @@ permission_checker = PermissionPolicyChecker(permission_policy)
 
 
 class AddView(View):
+    def get_model(self):
+        return get_document_model()
+
+    def get_upload_form_class(self):
+        return get_document_form(self.model)
+
+    def get_edit_form_class(self):
+        return get_document_multi_form(self.model)
+
     @method_decorator(permission_checker.require('add'))
     @method_decorator(vary_on_headers('X-Requested-With'))
     def dispatch(self, request):
         self.model = get_document_model()
-        self.form_class = get_document_form(self.model)
-        self.edit_form_class = get_document_multi_form(self.model)
 
         return super().dispatch(request)
 
@@ -40,7 +47,8 @@ class AddView(View):
             return HttpResponseBadRequest("Must upload a file")
 
         # Build a form for validation
-        form = self.form_class({
+        self.upload_form_class = self.get_upload_form_class()
+        form = self.upload_form_class({
             'title': request.FILES['files[]'].name,
             'collection': request.POST.get('collection'),
         }, {
@@ -61,6 +69,7 @@ class AddView(View):
             doc.save()
 
             # Success! Send back an edit form for this document to the user
+            self.edit_form_class = self.get_edit_form_class()
             return JsonResponse({
                 'success': True,
                 'doc_id': int(doc.id),
@@ -89,6 +98,7 @@ class AddView(View):
             )
             doc = self.model(title=request.FILES['files[]'].name, collection_id=request.POST.get('collection'))
 
+            self.edit_form_class = self.get_edit_form_class()
             return JsonResponse({
                 'success': True,
 
@@ -106,7 +116,8 @@ class AddView(View):
     def get(self, request):
         # Instantiate a dummy copy of the form that we can retrieve validation messages and media from;
         # actual rendering of forms will happen on AJAX POST rather than here
-        form = self.form_class(user=request.user)
+        self.upload_form_class = self.get_upload_form_class()
+        form = self.upload_form_class(user=request.user)
 
         collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
         if len(collections) < 2:
@@ -123,11 +134,17 @@ class AddView(View):
 class EditView(View):
     http_method_names = ['post']
 
-    def post(self, request, doc_id, callback=None):
-        Document = get_document_model()
-        DocumentMultiForm = get_document_multi_form(Document)
+    def get_model(self):
+        return get_document_model()
 
-        doc = get_object_or_404(Document, id=doc_id)
+    def get_edit_form_class(self):
+        return get_document_multi_form(self.model)
+
+    def post(self, request, doc_id, callback=None):
+        self.model = self.get_model()
+        self.form_class = self.get_edit_form_class()
+
+        doc = get_object_or_404(self.model, id=doc_id)
 
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
@@ -135,7 +152,7 @@ class EditView(View):
         if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
             raise PermissionDenied
 
-        form = DocumentMultiForm(
+        form = self.form_class(
             request.POST, request.FILES, instance=doc, prefix='doc-%d' % doc_id, user=request.user
         )
 
@@ -166,10 +183,13 @@ class EditView(View):
 class DeleteView(View):
     http_method_names = ['post']
 
-    def post(self, request, doc_id):
-        Document = get_document_model()
+    def get_model(self):
+        return get_document_model()
 
-        doc = get_object_or_404(Document, id=doc_id)
+    def post(self, request, doc_id):
+        self.model = self.get_model()
+
+        doc = get_object_or_404(self.model, id=doc_id)
 
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
@@ -188,9 +208,15 @@ class DeleteView(View):
 class CreateFromUploadedDocumentView(View):
     http_method_names = ['post']
 
+    def get_model(self):
+        return get_document_model()
+
+    def get_edit_form_class(self):
+        return get_document_multi_form(self.model)
+
     def post(self, request, uploaded_document_id):
-        Document = get_document_model()
-        DocumentMultiForm = get_document_multi_form(Document)
+        self.model = self.get_model()
+        self.form_class = self.get_edit_form_class()
 
         uploaded_doc = get_object_or_404(UploadedDocument, id=uploaded_document_id)
 
@@ -200,8 +226,8 @@ class CreateFromUploadedDocumentView(View):
         if uploaded_doc.uploaded_by_user != request.user:
             raise PermissionDenied
 
-        doc = Document()
-        form = DocumentMultiForm(
+        doc = self.model()
+        form = self.form_class(
             request.POST, request.FILES, instance=doc, prefix='uploaded-document-%d' % uploaded_document_id, user=request.user
         )
 
