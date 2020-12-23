@@ -22,6 +22,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
     permission_policy = permission_policy
     permission_required = 'add'
     template_name = 'wagtailimages/multiple/add.html'
+    upload_model = UploadedImage
 
     def get_model(self):
         return get_image_model()
@@ -37,6 +38,16 @@ class AddView(PermissionCheckedMixin, TemplateView):
         self.model = self.get_model()
 
         return super().dispatch(request)
+
+    def save_object(self, form):
+        image = form.save(commit=False)
+        image.uploaded_by_user = self.request.user
+        image.file_size = image.file.size
+        image.file.seek(0)
+        image._set_file_hash(image.file.read())
+        image.file.seek(0)
+        image.save()
+        return image
 
     def post(self, request):
         if not request.is_ajax():
@@ -56,27 +67,21 @@ class AddView(PermissionCheckedMixin, TemplateView):
 
         if form.is_valid():
             # Save it
-            image = form.save(commit=False)
-            image.uploaded_by_user = request.user
-            image.file_size = image.file.size
-            image.file.seek(0)
-            image._set_file_hash(image.file.read())
-            image.file.seek(0)
-            image.save()
+            self.object = self.save_object(form)
 
             # Success! Send back an edit form for this image to the user
             self.edit_form_class = self.get_edit_form_class()
             return JsonResponse({
                 'success': True,
-                'image_id': int(image.id),
+                'image_id': int(self.object.id),
                 'form': render_to_string('wagtailimages/multiple/edit_form.html', {
-                    'image': image,
-                    'edit_action': reverse('wagtailimages:edit_multiple', args=(image.id,)),
-                    'delete_action': reverse('wagtailimages:delete_multiple', args=(image.id,)),
+                    'image': self.object,
+                    'edit_action': reverse('wagtailimages:edit_multiple', args=(self.object.id,)),
+                    'delete_action': reverse('wagtailimages:delete_multiple', args=(self.object.id,)),
                     'form': self.edit_form_class(
-                        instance=image, prefix='image-%d' % image.id, user=request.user
+                        instance=self.object, prefix='image-%d' % self.object.id, user=self.request.user
                     ),
-                }, request=request),
+                }, request=self.request),
             })
         elif 'file' in form.errors:
             # The uploaded file is invalid; reject it now
@@ -88,23 +93,26 @@ class AddView(PermissionCheckedMixin, TemplateView):
             # Some other field of the image form has failed validation, e.g. a required metadata field
             # on a custom image model. Store the image as an UploadedImage instead and present the
             # edit form so that it will become a proper Image when successfully filled in
-            uploaded_image = UploadedImage.objects.create(
-                file=request.FILES['files[]'], uploaded_by_user=request.user
+            self.upload_object = self.upload_model.objects.create(
+                file=self.request.FILES['files[]'], uploaded_by_user=self.request.user
             )
-            image = self.model(title=request.FILES['files[]'].name, collection_id=request.POST.get('collection'))
+            self.object = self.model(
+                title=self.request.FILES['files[]'].name,
+                collection_id=self.request.POST.get('collection')
+            )
 
             self.edit_form_class = self.get_edit_form_class()
             return JsonResponse({
                 'success': True,
-                'uploaded_image_id': uploaded_image.id,
+                'uploaded_image_id': self.upload_object.id,
                 'form': render_to_string('wagtailimages/multiple/edit_form.html', {
-                    'uploaded_image': uploaded_image,
-                    'edit_action': reverse('wagtailimages:create_multiple_from_uploaded_image', args=(uploaded_image.id,)),
-                    'delete_action': reverse('wagtailimages:delete_upload_multiple', args=(uploaded_image.id,)),
+                    'uploaded_image': self.upload_object,
+                    'edit_action': reverse('wagtailimages:create_multiple_from_uploaded_image', args=(self.upload_object.id,)),
+                    'delete_action': reverse('wagtailimages:delete_upload_multiple', args=(self.upload_object.id,)),
                     'form': self.edit_form_class(
-                        instance=image, prefix='uploaded-image-%d' % uploaded_image.id, user=request.user
+                        instance=self.object, prefix='uploaded-image-%d' % self.upload_object.id, user=self.request.user
                     ),
-                }, request=request),
+                }, request=self.request),
             })
 
     def get_context_data(self, **kwargs):
