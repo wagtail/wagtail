@@ -1,13 +1,9 @@
 import os.path
 
-from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseBadRequest, JsonResponse
-from django.shortcuts import get_object_or_404
-from django.views.generic.base import View
-
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
 from wagtail.admin.views.generic.multiple_upload import \
     CreateFromUploadView as BaseCreateFromUploadView
+from wagtail.admin.views.generic.multiple_upload import DeleteUploadView as BaseDeleteUploadView
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
@@ -132,21 +128,6 @@ class CreateFromUploadedImageView(BaseCreateFromUploadView):
             backend.add(self.object)
 
 
-class DeleteUploadView(View):
-    http_method_names = ['post']
-
-    def post(self, request, uploaded_image_id):
-        uploaded_image = get_object_or_404(UploadedImage, id=uploaded_image_id)
-
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
-
-        if uploaded_image.uploaded_by_user != request.user:
-            raise PermissionDenied
-
-        uploaded_image.file.delete()
-        uploaded_image.delete()
-
-        return JsonResponse({
-            'success': True,
-        })
+class DeleteUploadView(BaseDeleteUploadView):
+    upload_model = UploadedImage
+    upload_pk_url_kwarg = 'uploaded_image_id'
