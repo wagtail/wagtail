@@ -5,11 +5,9 @@ from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
-from django.utils.decorators import method_decorator
-from django.views.decorators.vary import vary_on_headers
-from django.views.generic.base import TemplateView, View
+from django.views.generic.base import View
 
-from wagtail.admin.views.generic import PermissionCheckedMixin
+from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
 from wagtail.images import get_image_model
 from wagtail.images.fields import ALLOWED_EXTENSIONS
 from wagtail.images.forms import get_image_form, get_image_multi_form
@@ -18,9 +16,8 @@ from wagtail.images.permissions import permission_policy
 from wagtail.search.backends import get_search_backends
 
 
-class AddView(PermissionCheckedMixin, TemplateView):
+class AddView(BaseAddView):
     permission_policy = permission_policy
-    permission_required = 'add'
     template_name = 'wagtailimages/multiple/add.html'
     edit_form_template_name = 'wagtailimages/multiple/edit_form.html'
     upload_model = UploadedImage
@@ -33,12 +30,6 @@ class AddView(PermissionCheckedMixin, TemplateView):
 
     def get_edit_form_class(self):
         return get_image_multi_form(self.model)
-
-    @method_decorator(vary_on_headers('X-Requested-With'))
-    def dispatch(self, request):
-        self.model = self.get_model()
-
-        return super().dispatch(request)
 
     def save_object(self, form):
         image = form.save(commit=False)
@@ -79,15 +70,6 @@ class AddView(PermissionCheckedMixin, TemplateView):
             ),
         }
 
-    def get_invalid_response_data(self, form):
-        """
-        Return the JSON response data for an invalid form submission
-        """
-        return {
-            'success': False,
-            'error_message': '\n'.join(form.errors['file']),
-        }
-
     def get_edit_upload_form_context_data(self):
         """
         Return the context data necessary for rendering the HTML form for supplying the
@@ -118,66 +100,14 @@ class AddView(PermissionCheckedMixin, TemplateView):
             ),
         }
 
-    def post(self, request):
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
-
-        if not request.FILES:
-            return HttpResponseBadRequest("Must upload a file")
-
-        # Build a form for validation
-        self.upload_form_class = self.get_upload_form_class()
-        form = self.upload_form_class({
-            'title': request.FILES['files[]'].name,
-            'collection': request.POST.get('collection'),
-        }, {
-            'file': request.FILES['files[]'],
-        }, user=request.user)
-
-        if form.is_valid():
-            # Save it
-            self.object = self.save_object(form)
-
-            # Success! Send back an edit form for this image to the user
-            return JsonResponse(self.get_edit_object_response_data())
-        elif 'file' in form.errors:
-            # The uploaded file is invalid; reject it now
-            return JsonResponse(self.get_invalid_response_data(form))
-        else:
-            # Some other field of the image form has failed validation, e.g. a required metadata field
-            # on a custom image model. Store the image as an UploadedImage instead and present the
-            # edit form so that it will become a proper Image when successfully filled in
-            self.upload_object = self.upload_model.objects.create(
-                file=self.request.FILES['files[]'], uploaded_by_user=self.request.user
-            )
-            self.object = self.model(
-                title=self.request.FILES['files[]'].name,
-                collection_id=self.request.POST.get('collection')
-            )
-
-            return JsonResponse(self.get_edit_upload_response_data())
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Instantiate a dummy copy of the form that we can retrieve validation messages and media from;
-        # actual rendering of forms will happen on AJAX POST rather than here
-        self.upload_form_class = self.get_upload_form_class()
-        form = self.upload_form_class(user=self.request.user)
-
-        collections = self.permission_policy.collections_user_has_permission_for(self.request.user, 'add')
-        if len(collections) < 2:
-            # no need to show a collections chooser
-            collections = None
-
         context.update({
-            'max_filesize': form.fields['file'].max_upload_size,
-            'help_text': form.fields['file'].help_text,
+            'max_filesize': self.form.fields['file'].max_upload_size,
             'allowed_extensions': ALLOWED_EXTENSIONS,
-            'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
-            'error_accepted_file_types': form.fields['file'].error_messages['invalid_image_extension'],
-            'collections': collections,
-            'form_media': form.media,
+            'error_max_file_size': self.form.fields['file'].error_messages['file_too_large_unknown_size'],
+            'error_accepted_file_types': self.form.fields['file'].error_messages['invalid_image_extension'],
         })
 
         return context
