@@ -22,6 +22,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
     permission_policy = permission_policy
     permission_required = 'add'
     template_name = 'wagtaildocs/multiple/add.html'
+    upload_model = UploadedDocument
 
     def get_model(self):
         return get_document_model()
@@ -37,6 +38,20 @@ class AddView(PermissionCheckedMixin, TemplateView):
         self.model = get_document_model()
 
         return super().dispatch(request)
+
+    def save_object(self, form):
+        doc = form.save(commit=False)
+        doc.uploaded_by_user = self.request.user
+        doc.file_size = doc.file.size
+
+        # Set new document file hash
+        doc.file.seek(0)
+        doc._set_file_hash(doc.file.read())
+        doc.file.seek(0)
+
+        doc.save()
+
+        return doc
 
     def post(self, request):
         if not request.is_ajax():
@@ -56,30 +71,21 @@ class AddView(PermissionCheckedMixin, TemplateView):
 
         if form.is_valid():
             # Save it
-            doc = form.save(commit=False)
-            doc.uploaded_by_user = request.user
-            doc.file_size = doc.file.size
-
-            # Set new document file hash
-            doc.file.seek(0)
-            doc._set_file_hash(doc.file.read())
-            doc.file.seek(0)
-
-            doc.save()
+            self.object = self.save_object(form)
 
             # Success! Send back an edit form for this document to the user
             self.edit_form_class = self.get_edit_form_class()
             return JsonResponse({
                 'success': True,
-                'doc_id': int(doc.id),
+                'doc_id': int(self.object.id),
                 'form': render_to_string('wagtaildocs/multiple/edit_form.html', {
-                    'doc': doc,  # only used for tests
-                    'edit_action': reverse('wagtaildocs:edit_multiple', args=(doc.id,)),
-                    'delete_action': reverse('wagtaildocs:delete_multiple', args=(doc.id,)),
+                    'doc': self.object,  # only used for tests
+                    'edit_action': reverse('wagtaildocs:edit_multiple', args=(self.object.id,)),
+                    'delete_action': reverse('wagtaildocs:delete_multiple', args=(self.object.id,)),
                     'form': self.edit_form_class(
-                        instance=doc, prefix='doc-%d' % doc.id, user=request.user
+                        instance=self.object, prefix='doc-%d' % self.object.id, user=self.request.user
                     ),
-                }, request=request),
+                }, request=self.request),
             })
         elif 'file' in form.errors:
             # The uploaded file is invalid; reject it now
@@ -92,24 +98,27 @@ class AddView(PermissionCheckedMixin, TemplateView):
             # field on a custom document model. Store the document as an UploadedDocument instead
             # and present the edit form so that it will become a proper Document when successfully
             # filled in
-            uploaded_doc = UploadedDocument.objects.create(
-                file=request.FILES['files[]'], uploaded_by_user=request.user
+            self.upload_object = self.upload_model.objects.create(
+                file=self.request.FILES['files[]'], uploaded_by_user=self.request.user
             )
-            doc = self.model(title=request.FILES['files[]'].name, collection_id=request.POST.get('collection'))
+            self.object = self.model(
+                title=self.request.FILES['files[]'].name,
+                collection_id=self.request.POST.get('collection')
+            )
 
             self.edit_form_class = self.get_edit_form_class()
             return JsonResponse({
                 'success': True,
 
-                'uploaded_document_id': uploaded_doc.id,
+                'uploaded_document_id': self.upload_object.id,
                 'form': render_to_string('wagtaildocs/multiple/edit_form.html', {
-                    'uploaded_document': uploaded_doc,  # only used for tests
-                    'edit_action': reverse('wagtaildocs:create_multiple_from_uploaded_document', args=(uploaded_doc.id,)),
-                    'delete_action': reverse('wagtaildocs:delete_upload_multiple', args=(uploaded_doc.id,)),
+                    'uploaded_document': self.upload_object,  # only used for tests
+                    'edit_action': reverse('wagtaildocs:create_multiple_from_uploaded_document', args=(self.upload_object.id,)),
+                    'delete_action': reverse('wagtaildocs:delete_upload_multiple', args=(self.upload_object.id,)),
                     'form': self.edit_form_class(
-                        instance=doc, prefix='uploaded-document-%d' % uploaded_doc.id, user=request.user
+                        instance=self.object, prefix='uploaded-document-%d' % self.upload_object.id, user=self.request.user
                     ),
-                }, request=request),
+                }, request=self.request),
             })
 
     def get_context_data(self, **kwargs):
