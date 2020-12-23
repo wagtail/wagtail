@@ -324,3 +324,28 @@ class CreateFromUploadView(View):
                     'form': form,
                 }, request=request),
             })
+
+
+class DeleteUploadView(View):
+    # subclasses need to provide:
+    # - upload_model
+    # - upload_pk_url_kwarg
+
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        upload_id = kwargs[self.upload_pk_url_kwarg]
+        upload = get_object_or_404(self.upload_model, id=upload_id)
+
+        if not request.is_ajax():
+            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
+
+        if upload.uploaded_by_user != request.user:
+            raise PermissionDenied
+
+        upload.file.delete()
+        upload.delete()
+
+        return JsonResponse({
+            'success': True,
+        })
