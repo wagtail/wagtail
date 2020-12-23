@@ -3,11 +3,11 @@ import os.path
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
-from django.urls import reverse
 from django.views.generic.base import View
 
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
+from wagtail.admin.views.generic.multiple_upload import \
+    CreateFromUploadView as BaseCreateFromUploadView
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
@@ -99,9 +99,7 @@ class DeleteView(BaseDeleteView):
         return get_image_model()
 
 
-class CreateFromUploadedImageView(View):
-    http_method_names = ['post']
-    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
+class CreateFromUploadedImageView(BaseCreateFromUploadView):
     edit_upload_url_name = 'wagtailimages:create_multiple_from_uploaded_image'
     delete_upload_url_name = 'wagtailimages:delete_upload_multiple'
     upload_model = UploadedImage
@@ -132,47 +130,6 @@ class CreateFromUploadedImageView(View):
         # Reindex the image to make sure all tags are indexed
         for backend in get_search_backends():
             backend.add(self.object)
-
-    def post(self, request, *args, **kwargs):
-        upload_id = kwargs[self.upload_pk_url_kwarg]
-        self.model = self.get_model()
-        self.form_class = self.get_edit_form_class()
-
-        self.upload = get_object_or_404(self.upload_model, id=upload_id)
-
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
-
-        if self.upload.uploaded_by_user != request.user:
-            raise PermissionDenied
-
-        self.object = self.model()
-        form = self.form_class(
-            request.POST, request.FILES,
-            instance=self.object,
-            prefix='%s-%d' % (self.edit_upload_form_prefix, upload_id),
-            user=request.user
-        )
-
-        if form.is_valid():
-            self.save_object(form)
-            self.upload.file.delete()
-            self.upload.delete()
-
-            return JsonResponse({
-                'success': True,
-                self.context_object_id_name: self.object.id,
-            })
-        else:
-            return JsonResponse({
-                'success': False,
-                'form': render_to_string(self.edit_form_template_name, {
-                    self.context_upload_name: self.upload,
-                    'edit_action': reverse(self.edit_upload_url_name, args=(self.upload.id,)),
-                    'delete_action': reverse(self.delete_upload_url_name, args=(self.upload.id,)),
-                    'form': form,
-                }, request=request),
-            })
 
 
 class DeleteUploadView(View):
