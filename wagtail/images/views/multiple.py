@@ -22,6 +22,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
     permission_policy = permission_policy
     permission_required = 'add'
     template_name = 'wagtailimages/multiple/add.html'
+    edit_form_template_name = 'wagtailimages/multiple/edit_form.html'
     upload_model = UploadedImage
 
     def get_model(self):
@@ -49,6 +50,74 @@ class AddView(PermissionCheckedMixin, TemplateView):
         image.save()
         return image
 
+    def get_edit_object_form_context_data(self):
+        """
+        Return the context data necessary for rendering the HTML form for editing
+        an image that has been successfully uploaded
+        """
+        edit_form_class = self.get_edit_form_class()
+        return {
+            'image': self.object,
+            'edit_action': reverse('wagtailimages:edit_multiple', args=(self.object.id,)),
+            'delete_action': reverse('wagtailimages:delete_multiple', args=(self.object.id,)),
+            'form': edit_form_class(
+                instance=self.object, prefix='image-%d' % self.object.id, user=self.request.user
+            ),
+        }
+
+    def get_edit_object_response_data(self):
+        """
+        Return the JSON response data for an image that has been successfully uploaded
+        """
+        return {
+            'success': True,
+            'image_id': int(self.object.id),
+            'form': render_to_string(
+                self.edit_form_template_name,
+                self.get_edit_object_form_context_data(),
+                request=self.request
+            ),
+        }
+
+    def get_invalid_response_data(self, form):
+        """
+        Return the JSON response data for an invalid form submission
+        """
+        return {
+            'success': False,
+            'error_message': '\n'.join(form.errors['file']),
+        }
+
+    def get_edit_upload_form_context_data(self):
+        """
+        Return the context data necessary for rendering the HTML form for supplying the
+        metadata to turn an UploadedImage into a final image
+        """
+        edit_form_class = self.get_edit_form_class()
+        return {
+            'uploaded_image': self.upload_object,
+            'edit_action': reverse('wagtailimages:create_multiple_from_uploaded_image', args=(self.upload_object.id,)),
+            'delete_action': reverse('wagtailimages:delete_upload_multiple', args=(self.upload_object.id,)),
+            'form': edit_form_class(
+                instance=self.object, prefix='uploaded-image-%d' % self.upload_object.id, user=self.request.user
+            ),
+        }
+
+    def get_edit_upload_response_data(self):
+        """
+        Return the JSON response data for an image that has been uploaded to an
+        UploadedImage and now needs extra metadata to become a final image
+        """
+        return {
+            'success': True,
+            'uploaded_image_id': self.upload_object.id,
+            'form': render_to_string(
+                self.edit_form_template_name,
+                self.get_edit_upload_form_context_data(),
+                request=self.request
+            ),
+        }
+
     def post(self, request):
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
@@ -70,25 +139,10 @@ class AddView(PermissionCheckedMixin, TemplateView):
             self.object = self.save_object(form)
 
             # Success! Send back an edit form for this image to the user
-            self.edit_form_class = self.get_edit_form_class()
-            return JsonResponse({
-                'success': True,
-                'image_id': int(self.object.id),
-                'form': render_to_string('wagtailimages/multiple/edit_form.html', {
-                    'image': self.object,
-                    'edit_action': reverse('wagtailimages:edit_multiple', args=(self.object.id,)),
-                    'delete_action': reverse('wagtailimages:delete_multiple', args=(self.object.id,)),
-                    'form': self.edit_form_class(
-                        instance=self.object, prefix='image-%d' % self.object.id, user=self.request.user
-                    ),
-                }, request=self.request),
-            })
+            return JsonResponse(self.get_edit_object_response_data())
         elif 'file' in form.errors:
             # The uploaded file is invalid; reject it now
-            return JsonResponse({
-                'success': False,
-                'error_message': '\n'.join(form.errors['file']),
-            })
+            return JsonResponse(self.get_invalid_response_data(form))
         else:
             # Some other field of the image form has failed validation, e.g. a required metadata field
             # on a custom image model. Store the image as an UploadedImage instead and present the
@@ -101,19 +155,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
                 collection_id=self.request.POST.get('collection')
             )
 
-            self.edit_form_class = self.get_edit_form_class()
-            return JsonResponse({
-                'success': True,
-                'uploaded_image_id': self.upload_object.id,
-                'form': render_to_string('wagtailimages/multiple/edit_form.html', {
-                    'uploaded_image': self.upload_object,
-                    'edit_action': reverse('wagtailimages:create_multiple_from_uploaded_image', args=(self.upload_object.id,)),
-                    'delete_action': reverse('wagtailimages:delete_upload_multiple', args=(self.upload_object.id,)),
-                    'form': self.edit_form_class(
-                        instance=self.object, prefix='uploaded-image-%d' % self.upload_object.id, user=self.request.user
-                    ),
-                }, request=self.request),
-            })
+            return JsonResponse(self.get_edit_upload_response_data())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
