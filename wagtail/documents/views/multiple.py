@@ -4,11 +4,10 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
-from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.vary import vary_on_headers
-from django.views.generic import View
+from django.views.generic import TemplateView, View
 
 from wagtail.admin.views.generic import PermissionCheckedMixin
 from wagtail.search.backends import get_search_backends
@@ -19,9 +18,10 @@ from ..models import UploadedDocument
 from ..permissions import permission_policy
 
 
-class AddView(PermissionCheckedMixin, View):
+class AddView(PermissionCheckedMixin, TemplateView):
     permission_policy = permission_policy
     permission_required = 'add'
+    template_name = 'wagtaildocs/multiple/add.html'
 
     def get_model(self):
         return get_document_model()
@@ -112,22 +112,26 @@ class AddView(PermissionCheckedMixin, View):
                 }, request=request),
             })
 
-    def get(self, request):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
         # Instantiate a dummy copy of the form that we can retrieve validation messages and media from;
         # actual rendering of forms will happen on AJAX POST rather than here
         self.upload_form_class = self.get_upload_form_class()
-        form = self.upload_form_class(user=request.user)
+        form = self.upload_form_class(user=self.request.user)
 
-        collections = self.permission_policy.collections_user_has_permission_for(request.user, 'add')
+        collections = self.permission_policy.collections_user_has_permission_for(self.request.user, 'add')
         if len(collections) < 2:
             # no need to show a collections chooser
             collections = None
 
-        return TemplateResponse(request, 'wagtaildocs/multiple/add.html', {
+        context.update({
             'help_text': form.fields['file'].help_text,
             'collections': collections,
             'form_media': form.media,
         })
+
+        return context
 
 
 class EditView(View):
