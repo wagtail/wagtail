@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.views.generic.base import View
 
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
+from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
 from wagtail.images.fields import ALLOWED_EXTENSIONS
 from wagtail.images.forms import get_image_form, get_image_multi_form
@@ -65,11 +66,9 @@ class AddView(BaseAddView):
         return context
 
 
-class EditView(View):
-    http_method_names = ['post']
+class EditView(BaseEditView):
     permission_policy = permission_policy
     pk_url_kwarg = 'image_id'
-    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
     edit_object_form_prefix = 'image'
     context_object_name = 'image'
     context_object_id_name = 'image_id'
@@ -88,45 +87,6 @@ class EditView(View):
         # Reindex the image to make sure all tags are indexed
         for backend in get_search_backends():
             backend.add(self.object)
-
-    def post(self, request, *args, **kwargs):
-        object_id = kwargs[self.pk_url_kwarg]
-        self.model = self.get_model()
-        self.form_class = self.get_edit_form_class()
-
-        self.object = get_object_or_404(self.model, id=object_id)
-
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
-
-        if not self.permission_policy.user_has_permission_for_instance(request.user, 'change', self.object):
-            raise PermissionDenied
-
-        form = self.form_class(
-            request.POST, request.FILES,
-            instance=self.object,
-            prefix='%s-%d' % (self.edit_object_form_prefix, object_id),
-            user=request.user
-        )
-
-        if form.is_valid():
-            self.save_object(form)
-
-            return JsonResponse({
-                'success': True,
-                self.context_object_id_name: int(object_id),
-            })
-        else:
-            return JsonResponse({
-                'success': False,
-                self.context_object_id_name: int(object_id),
-                'form': render_to_string(self.edit_form_template_name, {
-                    self.context_object_name: self.object,
-                    'edit_action': reverse(self.edit_object_url_name, args=(object_id,)),
-                    'delete_action': reverse(self.delete_object_url_name, args=(object_id,)),
-                    'form': form,
-                }, request=request),
-            })
 
 
 class DeleteView(View):

@@ -1,9 +1,11 @@
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
+from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.vary import vary_on_headers
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 
 from wagtail.admin.views.generic import PermissionCheckedMixin
 
@@ -173,3 +175,61 @@ class AddView(PermissionCheckedMixin, TemplateView):
         })
 
         return context
+
+
+class EditView(View):
+    # subclasses need to provide:
+    # - permission_policy
+    # - pk_url_kwarg
+    # - edit_object_form_prefix
+    # - context_object_name
+    # - context_object_id_name
+    # - edit_object_url_name
+    # - delete_object_url_name
+    # - get_model()
+    # - get_edit_form_class()
+
+    http_method_names = ['post']
+    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
+
+    def save_object(self, form):
+        form.save()
+
+    def post(self, request, *args, **kwargs):
+        object_id = kwargs[self.pk_url_kwarg]
+        self.model = self.get_model()
+        self.form_class = self.get_edit_form_class()
+
+        self.object = get_object_or_404(self.model, id=object_id)
+
+        if not request.is_ajax():
+            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
+
+        if not self.permission_policy.user_has_permission_for_instance(request.user, 'change', self.object):
+            raise PermissionDenied
+
+        form = self.form_class(
+            request.POST, request.FILES,
+            instance=self.object,
+            prefix='%s-%d' % (self.edit_object_form_prefix, object_id),
+            user=request.user
+        )
+
+        if form.is_valid():
+            self.save_object(form)
+
+            return JsonResponse({
+                'success': True,
+                self.context_object_id_name: int(object_id),
+            })
+        else:
+            return JsonResponse({
+                'success': False,
+                self.context_object_id_name: int(object_id),
+                'form': render_to_string(self.edit_form_template_name, {
+                    self.context_object_name: self.object,  # only used for tests
+                    'edit_action': reverse(self.edit_object_url_name, args=(object_id,)),
+                    'delete_action': reverse(self.delete_object_url_name, args=(object_id,)),
+                    'form': form,
+                }, request=request),
+            })
