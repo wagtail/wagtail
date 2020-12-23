@@ -19,7 +19,6 @@ from ..permissions import permission_policy
 class AddView(BaseAddView):
     permission_policy = permission_policy
     template_name = 'wagtaildocs/multiple/add.html'
-    edit_form_template_name = 'wagtaildocs/multiple/edit_form.html'
     upload_model = UploadedDocument
 
     edit_object_url_name = 'wagtaildocs:edit_multiple'
@@ -99,7 +98,7 @@ class EditView(View):
             return JsonResponse({
                 'success': False,
                 'doc_id': int(doc_id),
-                'form': render_to_string('wagtaildocs/multiple/edit_form.html', {
+                'form': render_to_string('wagtailadmin/generic/multiple_upload/edit_form.html', {
                     'doc': doc,  # only used for tests
                     'edit_action': reverse('wagtaildocs:edit_multiple', args=(doc_id,)),
                     'delete_action': reverse('wagtaildocs:delete_multiple', args=(doc_id,)),
@@ -187,7 +186,7 @@ class CreateFromUploadedDocumentView(View):
         else:
             return JsonResponse({
                 'success': False,
-                'form': render_to_string('wagtaildocs/multiple/edit_form.html', {
+                'form': render_to_string('wagtailadmin/generic/multiple_upload/edit_form.html', {
                     'uploaded_document': uploaded_doc,  # only used for tests
                     'edit_action': reverse('wagtaildocs:create_multiple_from_uploaded_document', args=(uploaded_doc.id,)),
                     'delete_action': reverse('wagtaildocs:delete_upload_multiple', args=(uploaded_doc.id,)),

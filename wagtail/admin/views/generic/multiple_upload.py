@@ -12,7 +12,6 @@ class AddView(PermissionCheckedMixin, TemplateView):
     # subclasses need to provide:
     # - permission_policy
     # - template_name
-    # - edit_form_template_name
     # - upload_model
 
     # - edit_object_url_name
@@ -32,6 +31,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
     # - get_edit_form_class()
 
     permission_required = 'add'
+    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
 
     @method_decorator(vary_on_headers('X-Requested-With'))
     def dispatch(self, request):

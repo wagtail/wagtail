@@ -19,7 +19,6 @@ from wagtail.search.backends import get_search_backends
 class AddView(BaseAddView):
     permission_policy = permission_policy
     template_name = 'wagtailimages/multiple/add.html'
-    edit_form_template_name = 'wagtailimages/multiple/edit_form.html'
     upload_model = UploadedImage
 
     edit_object_url_name = 'wagtailimages:edit_multiple'
@@ -107,7 +106,7 @@ class EditView(View):
             return JsonResponse({
                 'success': False,
                 'image_id': int(image_id),
-                'form': render_to_string('wagtailimages/multiple/edit_form.html', {
+                'form': render_to_string('wagtailadmin/generic/multiple_upload/edit_form.html', {
                     'image': image,
                     'edit_action': reverse('wagtailimages:edit_multiple', args=(image_id,)),
                     'delete_action': reverse('wagtailimages:delete_multiple', args=(image_id,)),
@@ -194,7 +193,7 @@ class CreateFromUploadedImageView(View):
         else:
             return JsonResponse({
                 'success': False,
-                'form': render_to_string('wagtailimages/multiple/edit_form.html', {
+                'form': render_to_string('wagtailadmin/generic/multiple_upload/edit_form.html', {
                     'uploaded_image': uploaded_image,
                     'edit_action': reverse('wagtailimages:create_multiple_from_uploaded_image', args=(uploaded_image.id,)),
                     'delete_action': reverse('wagtailimages:delete_upload_multiple', args=(uploaded_image.id,)),
