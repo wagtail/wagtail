@@ -68,6 +68,13 @@ class AddView(BaseAddView):
 class EditView(View):
     http_method_names = ['post']
     permission_policy = permission_policy
+    pk_url_kwarg = 'image_id'
+    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
+    edit_object_form_prefix = 'image'
+    context_object_name = 'image'
+    context_object_id_name = 'image_id'
+    edit_object_url_name = 'wagtailimages:edit_multiple'
+    delete_object_url_name = 'wagtailimages:delete_multiple'
 
     def get_model(self):
         return get_image_model()
@@ -75,41 +82,48 @@ class EditView(View):
     def get_edit_form_class(self):
         return get_image_multi_form(self.model)
 
-    def post(self, request, image_id, callback=None):
+    def save_object(self, form):
+        form.save()
+
+        # Reindex the image to make sure all tags are indexed
+        for backend in get_search_backends():
+            backend.add(self.object)
+
+    def post(self, request, *args, **kwargs):
+        object_id = kwargs[self.pk_url_kwarg]
         self.model = self.get_model()
         self.form_class = self.get_edit_form_class()
 
-        image = get_object_or_404(self.model, id=image_id)
+        self.object = get_object_or_404(self.model, id=object_id)
 
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-        if not self.permission_policy.user_has_permission_for_instance(request.user, 'change', image):
+        if not self.permission_policy.user_has_permission_for_instance(request.user, 'change', self.object):
             raise PermissionDenied
 
         form = self.form_class(
-            request.POST, request.FILES, instance=image, prefix='image-%d' % image_id, user=request.user
+            request.POST, request.FILES,
+            instance=self.object,
+            prefix='%s-%d' % (self.edit_object_form_prefix, object_id),
+            user=request.user
         )
 
         if form.is_valid():
-            form.save()
-
-            # Reindex the image to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(image)
+            self.save_object(form)
 
             return JsonResponse({
                 'success': True,
-                'image_id': int(image_id),
+                self.context_object_id_name: int(object_id),
             })
         else:
             return JsonResponse({
                 'success': False,
-                'image_id': int(image_id),
-                'form': render_to_string('wagtailadmin/generic/multiple_upload/edit_form.html', {
-                    'image': image,
-                    'edit_action': reverse('wagtailimages:edit_multiple', args=(image_id,)),
-                    'delete_action': reverse('wagtailimages:delete_multiple', args=(image_id,)),
+                self.context_object_id_name: int(object_id),
+                'form': render_to_string(self.edit_form_template_name, {
+                    self.context_object_name: self.object,
+                    'edit_action': reverse(self.edit_object_url_name, args=(object_id,)),
+                    'delete_action': reverse(self.delete_object_url_name, args=(object_id,)),
                     'form': form,
                 }, request=request),
             })
