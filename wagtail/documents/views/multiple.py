@@ -22,6 +22,18 @@ class AddView(BaseAddView):
     edit_form_template_name = 'wagtaildocs/multiple/edit_form.html'
     upload_model = UploadedDocument
 
+    edit_object_url_name = 'wagtaildocs:edit_multiple'
+    delete_object_url_name = 'wagtaildocs:delete_multiple'
+    edit_object_form_prefix = 'doc'
+    context_object_name = 'doc'
+    context_object_id_name = 'doc_id'
+
+    edit_upload_url_name = 'wagtaildocs:create_multiple_from_uploaded_document'
+    delete_upload_url_name = 'wagtaildocs:delete_upload_multiple'
+    edit_upload_form_prefix = 'uploaded-document'
+    context_upload_name = 'uploaded_document'
+    context_upload_id_name = 'uploaded_document_id'
+
     def get_model(self):
         return get_document_model()
 
@@ -44,65 +56,6 @@ class AddView(BaseAddView):
         doc.save()
 
         return doc
-
-    def get_edit_object_form_context_data(self):
-        """
-        Return the context data necessary for rendering the HTML form for editing
-        a document that has been successfully uploaded
-        """
-        edit_form_class = self.get_edit_form_class()
-        return {
-            'doc': self.object,  # only used for tests
-            'edit_action': reverse('wagtaildocs:edit_multiple', args=(self.object.id,)),
-            'delete_action': reverse('wagtaildocs:delete_multiple', args=(self.object.id,)),
-            'form': edit_form_class(
-                instance=self.object, prefix='doc-%d' % self.object.id, user=self.request.user
-            ),
-        }
-
-    def get_edit_object_response_data(self):
-        """
-        Return the JSON response data for a document that has been successfully uploaded
-        """
-        return {
-            'success': True,
-            'doc_id': int(self.object.id),
-            'form': render_to_string(
-                self.edit_form_template_name,
-                self.get_edit_object_form_context_data(),
-                request=self.request
-            ),
-        }
-
-    def get_edit_upload_form_context_data(self):
-        """
-        Return the context data necessary for rendering the HTML form for supplying the
-        metadata to turn an UploadedDocument into a final document
-        """
-        edit_form_class = self.get_edit_form_class()
-        return {
-            'uploaded_document': self.upload_object,  # only used for tests
-            'edit_action': reverse('wagtaildocs:create_multiple_from_uploaded_document', args=(self.upload_object.id,)),
-            'delete_action': reverse('wagtaildocs:delete_upload_multiple', args=(self.upload_object.id,)),
-            'form': edit_form_class(
-                instance=self.object, prefix='uploaded-document-%d' % self.upload_object.id, user=self.request.user
-            ),
-        }
-
-    def get_edit_upload_response_data(self):
-        """
-        Return the JSON response data for a document that has been uploaded to an
-        UploadedDocument and now needs extra metadata to become a final document
-        """
-        return {
-            'success': True,
-            'uploaded_document_id': self.upload_object.id,
-            'form': render_to_string(
-                self.edit_form_template_name,
-                self.get_edit_upload_form_context_data(),
-                request=self.request
-            ),
-        }
 
 
 class EditView(View):
