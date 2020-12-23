@@ -1,3 +1,5 @@
+import os.path
+
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
@@ -260,3 +262,65 @@ class DeleteView(View):
             'success': True,
             self.context_object_id_name: int(object_id),
         })
+
+
+class CreateFromUploadView(View):
+    # subclasses need to provide:
+    # - edit_upload_url_name
+    # - delete_upload_url_name
+    # - upload_model
+    # - upload_pk_url_kwarg
+    # - edit_upload_form_prefix
+    # - context_object_id_name
+    # - context_upload_name
+    # - get_model()
+    # - get_edit_form_class()
+
+    http_method_names = ['post']
+    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
+
+    def save_object(self, form):
+        self.object.file.save(os.path.basename(self.upload.file.name), self.upload.file.file, save=False)
+        self.object.uploaded_by_user = self.request.user
+        form.save()
+
+    def post(self, request, *args, **kwargs):
+        upload_id = kwargs[self.upload_pk_url_kwarg]
+        self.model = self.get_model()
+        self.form_class = self.get_edit_form_class()
+
+        self.upload = get_object_or_404(self.upload_model, id=upload_id)
+
+        if not request.is_ajax():
+            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
+
+        if self.upload.uploaded_by_user != request.user:
+            raise PermissionDenied
+
+        self.object = self.model()
+        form = self.form_class(
+            request.POST, request.FILES,
+            instance=self.object,
+            prefix='%s-%d' % (self.edit_upload_form_prefix, upload_id),
+            user=request.user
+        )
+
+        if form.is_valid():
+            self.save_object(form)
+            self.upload.file.delete()
+            self.upload.delete()
+
+            return JsonResponse({
+                'success': True,
+                self.context_object_id_name: self.object.id,
+            })
+        else:
+            return JsonResponse({
+                'success': False,
+                'form': render_to_string(self.edit_form_template_name, {
+                    self.context_upload_name: self.upload,
+                    'edit_action': reverse(self.edit_upload_url_name, args=(self.upload.id,)),
+                    'delete_action': reverse(self.delete_upload_url_name, args=(self.upload.id,)),
+                    'form': form,
+                }, request=request),
+            })
