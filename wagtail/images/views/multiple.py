@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.views.generic.base import View
 
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
+from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
 from wagtail.images.fields import ALLOWED_EXTENSIONS
@@ -89,29 +90,13 @@ class EditView(BaseEditView):
             backend.add(self.object)
 
 
-class DeleteView(View):
-    http_method_names = ['post']
+class DeleteView(BaseDeleteView):
     permission_policy = permission_policy
+    pk_url_kwarg = 'image_id'
+    context_object_id_name = 'image_id'
 
     def get_model(self):
         return get_image_model()
-
-    def post(self, request, image_id):
-        self.model = self.get_model()
-        image = get_object_or_404(self.model, id=image_id)
-
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
-
-        if not self.permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
-            raise PermissionDenied
-
-        image.delete()
-
-        return JsonResponse({
-            'success': True,
-            'image_id': int(image_id),
-        })
 
 
 class CreateFromUploadedImageView(View):
