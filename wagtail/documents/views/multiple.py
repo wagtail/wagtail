@@ -93,6 +93,14 @@ class DeleteView(BaseDeleteView):
 
 class CreateFromUploadedDocumentView(View):
     http_method_names = ['post']
+    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
+    edit_upload_url_name = 'wagtaildocs:create_multiple_from_uploaded_document'
+    delete_upload_url_name = 'wagtaildocs:delete_upload_multiple'
+    upload_model = UploadedDocument
+    upload_pk_url_kwarg = 'uploaded_document_id'
+    edit_upload_form_prefix = 'uploaded-document'
+    context_object_id_name = 'doc_id'
+    context_upload_name = 'uploaded_document'
 
     def get_model(self):
         return get_document_model()
@@ -100,54 +108,60 @@ class CreateFromUploadedDocumentView(View):
     def get_edit_form_class(self):
         return get_document_multi_form(self.model)
 
-    def post(self, request, uploaded_document_id):
+    def save_object(self, form):
+        # assign the file content from uploaded_doc to the image object, to ensure it gets saved to
+        # Document's storage
+
+        self.object.file.save(os.path.basename(self.upload.file.name), self.upload.file.file, save=False)
+        self.object.uploaded_by_user = self.request.user
+        self.object.file_size = self.object.file.size
+        self.object.file.open()
+        self.object.file.seek(0)
+        self.object._set_file_hash(self.object.file.read())
+        self.object.file.seek(0)
+        form.save()
+
+        # Reindex the document to make sure all tags are indexed
+        for backend in get_search_backends():
+            backend.add(self.object)
+
+    def post(self, request, *args, **kwargs):
+        upload_id = kwargs[self.upload_pk_url_kwarg]
         self.model = self.get_model()
         self.form_class = self.get_edit_form_class()
 
-        uploaded_doc = get_object_or_404(UploadedDocument, id=uploaded_document_id)
+        self.upload = get_object_or_404(self.upload_model, id=upload_id)
 
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-        if uploaded_doc.uploaded_by_user != request.user:
+        if self.upload.uploaded_by_user != request.user:
             raise PermissionDenied
 
-        doc = self.model()
+        self.object = self.model()
         form = self.form_class(
-            request.POST, request.FILES, instance=doc, prefix='uploaded-document-%d' % uploaded_document_id, user=request.user
+            request.POST, request.FILES,
+            instance=self.object,
+            prefix='%s-%d' % (self.edit_upload_form_prefix, upload_id),
+            user=request.user
         )
 
         if form.is_valid():
-            # assign the file content from uploaded_doc to the image object, to ensure it gets saved to
-            # Document's storage
-
-            doc.file.save(os.path.basename(uploaded_doc.file.name), uploaded_doc.file.file, save=False)
-            doc.uploaded_by_user = request.user
-            doc.file_size = doc.file.size
-            doc.file.open()
-            doc.file.seek(0)
-            doc._set_file_hash(doc.file.read())
-            doc.file.seek(0)
-            form.save()
-
-            uploaded_doc.file.delete()
-            uploaded_doc.delete()
-
-            # Reindex the document to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(doc)
+            self.save_object(form)
+            self.upload.file.delete()
+            self.upload.delete()
 
             return JsonResponse({
                 'success': True,
-                'doc_id': doc.id,
+                self.context_object_id_name: self.object.id,
             })
         else:
             return JsonResponse({
                 'success': False,
-                'form': render_to_string('wagtailadmin/generic/multiple_upload/edit_form.html', {
-                    'uploaded_document': uploaded_doc,  # only used for tests
-                    'edit_action': reverse('wagtaildocs:create_multiple_from_uploaded_document', args=(uploaded_doc.id,)),
-                    'delete_action': reverse('wagtaildocs:delete_upload_multiple', args=(uploaded_doc.id,)),
+                'form': render_to_string(self.edit_form_template_name, {
+                    self.context_upload_name: self.upload,
+                    'edit_action': reverse(self.edit_upload_url_name, args=(self.upload.id,)),
+                    'delete_action': reverse(self.delete_upload_url_name, args=(self.upload.id,)),
                     'form': form,
                 }, request=request),
             })
