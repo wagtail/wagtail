@@ -645,7 +645,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
         # Check document
         self.assertIn('doc', response.context)
@@ -696,7 +696,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
         # Check document
         self.assertIn('doc', response.context)
@@ -808,7 +808,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'title', "This field is required.")
@@ -916,7 +916,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
         # Check document
         self.assertIn('uploaded_document', response.context)
@@ -966,7 +966,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtaildocs/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
         # Check document
         self.assertIn('uploaded_document', response.context)

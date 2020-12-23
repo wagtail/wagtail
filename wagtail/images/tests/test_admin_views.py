@@ -1233,7 +1233,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
         # Check image
         self.assertIn('image', response.context)
@@ -1381,7 +1381,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
         # Check that a form error was raised
         self.assertFormError(response, 'form', 'title', "This field is required.")
@@ -1478,7 +1478,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
         # Check image
         self.assertIn('image', response.context)
@@ -1551,7 +1551,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
     def test_edit_post(self):
         """
@@ -1606,7 +1606,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
         response_json = json.loads(response.content.decode())
         # Check JSON
@@ -1691,7 +1691,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         # Check response
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
-        self.assertTemplateUsed(response, 'wagtailimages/multiple/edit_form.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
 
         # Check image
         self.assertIn('uploaded_image', response.context)
