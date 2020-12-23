@@ -22,6 +22,18 @@ class AddView(BaseAddView):
     edit_form_template_name = 'wagtailimages/multiple/edit_form.html'
     upload_model = UploadedImage
 
+    edit_object_url_name = 'wagtailimages:edit_multiple'
+    delete_object_url_name = 'wagtailimages:delete_multiple'
+    edit_object_form_prefix = 'image'
+    context_object_name = 'image'
+    context_object_id_name = 'image_id'
+
+    edit_upload_url_name = 'wagtailimages:create_multiple_from_uploaded_image'
+    delete_upload_url_name = 'wagtailimages:delete_upload_multiple'
+    edit_upload_form_prefix = 'uploaded-image'
+    context_upload_name = 'uploaded_image'
+    context_upload_id_name = 'uploaded_image_id'
+
     def get_model(self):
         return get_image_model()
 
@@ -40,65 +52,6 @@ class AddView(BaseAddView):
         image.file.seek(0)
         image.save()
         return image
-
-    def get_edit_object_form_context_data(self):
-        """
-        Return the context data necessary for rendering the HTML form for editing
-        an image that has been successfully uploaded
-        """
-        edit_form_class = self.get_edit_form_class()
-        return {
-            'image': self.object,
-            'edit_action': reverse('wagtailimages:edit_multiple', args=(self.object.id,)),
-            'delete_action': reverse('wagtailimages:delete_multiple', args=(self.object.id,)),
-            'form': edit_form_class(
-                instance=self.object, prefix='image-%d' % self.object.id, user=self.request.user
-            ),
-        }
-
-    def get_edit_object_response_data(self):
-        """
-        Return the JSON response data for an image that has been successfully uploaded
-        """
-        return {
-            'success': True,
-            'image_id': int(self.object.id),
-            'form': render_to_string(
-                self.edit_form_template_name,
-                self.get_edit_object_form_context_data(),
-                request=self.request
-            ),
-        }
-
-    def get_edit_upload_form_context_data(self):
-        """
-        Return the context data necessary for rendering the HTML form for supplying the
-        metadata to turn an UploadedImage into a final image
-        """
-        edit_form_class = self.get_edit_form_class()
-        return {
-            'uploaded_image': self.upload_object,
-            'edit_action': reverse('wagtailimages:create_multiple_from_uploaded_image', args=(self.upload_object.id,)),
-            'delete_action': reverse('wagtailimages:delete_upload_multiple', args=(self.upload_object.id,)),
-            'form': edit_form_class(
-                instance=self.object, prefix='uploaded-image-%d' % self.upload_object.id, user=self.request.user
-            ),
-        }
-
-    def get_edit_upload_response_data(self):
-        """
-        Return the JSON response data for an image that has been uploaded to an
-        UploadedImage and now needs extra metadata to become a final image
-        """
-        return {
-            'success': True,
-            'uploaded_image_id': self.upload_object.id,
-            'form': render_to_string(
-                self.edit_form_template_name,
-                self.get_edit_upload_form_context_data(),
-                request=self.request
-            ),
-        }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

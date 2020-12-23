@@ -1,4 +1,6 @@
 from django.http import HttpResponseBadRequest, JsonResponse
+from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.vary import vary_on_headers
 from django.views.generic.base import TemplateView
@@ -12,13 +14,22 @@ class AddView(PermissionCheckedMixin, TemplateView):
     # - template_name
     # - edit_form_template_name
     # - upload_model
+
+    # - edit_object_url_name
+    # - delete_object_url_name
+    # - edit_object_form_prefix
+    # - context_object_name
+    # - context_object_id_name
+
+    # - edit_upload_url_name
+    # - delete_upload_url_name
+    # - edit_upload_form_prefix
+    # - context_upload_name
+    # - context_upload_id_name
+
     # - get_model()
     # - get_upload_form_class()
     # - get_edit_form_class()
-    # - get_edit_object_form_context_data()
-    # - get_edit_object_response_data()
-    # - get_edit_upload_form_context_data()
-    # - get_edit_upload_response_data()
 
     permission_required = 'add'
 
@@ -30,6 +41,69 @@ class AddView(PermissionCheckedMixin, TemplateView):
 
     def save_object(self, form):
         return form.save()
+
+    def get_edit_object_form_context_data(self):
+        """
+        Return the context data necessary for rendering the HTML form for editing
+        an object that has been successfully uploaded
+        """
+        edit_form_class = self.get_edit_form_class()
+        return {
+            self.context_object_name: self.object,
+            'edit_action': reverse(self.edit_object_url_name, args=(self.object.id,)),
+            'delete_action': reverse(self.delete_object_url_name, args=(self.object.id,)),
+            'form': edit_form_class(
+                instance=self.object,
+                prefix='%s-%d' % (self.edit_object_form_prefix, self.object.id),
+                user=self.request.user
+            ),
+        }
+
+    def get_edit_object_response_data(self):
+        """
+        Return the JSON response data for an object that has been successfully uploaded
+        """
+        return {
+            'success': True,
+            self.context_object_id_name: int(self.object.id),
+            'form': render_to_string(
+                self.edit_form_template_name,
+                self.get_edit_object_form_context_data(),
+                request=self.request
+            ),
+        }
+
+    def get_edit_upload_form_context_data(self):
+        """
+        Return the context data necessary for rendering the HTML form for supplying the
+        metadata to turn an upload object into a final object
+        """
+        edit_form_class = self.get_edit_form_class()
+        return {
+            self.context_upload_name: self.upload_object,
+            'edit_action': reverse(self.edit_upload_url_name, args=(self.upload_object.id,)),
+            'delete_action': reverse(self.delete_upload_url_name, args=(self.upload_object.id,)),
+            'form': edit_form_class(
+                instance=self.object,
+                prefix='%s-%d' % (self.edit_upload_form_prefix, self.upload_object.id),
+                user=self.request.user
+            ),
+        }
+
+    def get_edit_upload_response_data(self):
+        """
+        Return the JSON response data for an object that has been uploaded to an
+        upload object and now needs extra metadata to become a final object
+        """
+        return {
+            'success': True,
+            self.context_upload_id_name: self.upload_object.id,
+            'form': render_to_string(
+                self.edit_form_template_name,
+                self.get_edit_upload_form_context_data(),
+                request=self.request
+            ),
+        }
 
     def get_invalid_response_data(self, form):
         """
