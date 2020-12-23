@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.vary import vary_on_headers
 from django.views.generic import View
 
-from wagtail.admin.auth import PermissionPolicyChecker
+from wagtail.admin.views.generic import PermissionCheckedMixin
 from wagtail.search.backends import get_search_backends
 
 from .. import get_document_model
@@ -19,10 +19,10 @@ from ..models import UploadedDocument
 from ..permissions import permission_policy
 
 
-permission_checker = PermissionPolicyChecker(permission_policy)
+class AddView(PermissionCheckedMixin, View):
+    permission_policy = permission_policy
+    permission_required = 'add'
 
-
-class AddView(View):
     def get_model(self):
         return get_document_model()
 
@@ -32,7 +32,6 @@ class AddView(View):
     def get_edit_form_class(self):
         return get_document_multi_form(self.model)
 
-    @method_decorator(permission_checker.require('add'))
     @method_decorator(vary_on_headers('X-Requested-With'))
     def dispatch(self, request):
         self.model = get_document_model()
@@ -119,7 +118,7 @@ class AddView(View):
         self.upload_form_class = self.get_upload_form_class()
         form = self.upload_form_class(user=request.user)
 
-        collections = permission_policy.collections_user_has_permission_for(request.user, 'add')
+        collections = self.permission_policy.collections_user_has_permission_for(request.user, 'add')
         if len(collections) < 2:
             # no need to show a collections chooser
             collections = None
@@ -133,6 +132,7 @@ class AddView(View):
 
 class EditView(View):
     http_method_names = ['post']
+    permission_policy = permission_policy
 
     def get_model(self):
         return get_document_model()
@@ -149,7 +149,7 @@ class EditView(View):
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-        if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
+        if not self.permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
             raise PermissionDenied
 
         form = self.form_class(
@@ -182,6 +182,7 @@ class EditView(View):
 
 class DeleteView(View):
     http_method_names = ['post']
+    permission_policy = permission_policy
 
     def get_model(self):
         return get_document_model()
@@ -194,7 +195,7 @@ class DeleteView(View):
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-        if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
+        if not self.permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
             raise PermissionDenied
 
         doc.delete()
