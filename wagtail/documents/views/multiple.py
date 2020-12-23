@@ -60,6 +60,13 @@ class AddView(BaseAddView):
 class EditView(View):
     http_method_names = ['post']
     permission_policy = permission_policy
+    pk_url_kwarg = 'doc_id'
+    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
+    edit_object_form_prefix = 'doc'
+    context_object_name = 'doc'
+    context_object_id_name = 'doc_id'
+    edit_object_url_name = 'wagtaildocs:edit_multiple'
+    delete_object_url_name = 'wagtaildocs:delete_multiple'
 
     def get_model(self):
         return get_document_model()
@@ -67,41 +74,48 @@ class EditView(View):
     def get_edit_form_class(self):
         return get_document_multi_form(self.model)
 
-    def post(self, request, doc_id, callback=None):
+    def save_object(self, form):
+        form.save()
+
+        # Reindex the doc to make sure all tags are indexed
+        for backend in get_search_backends():
+            backend.add(self.object)
+
+    def post(self, request, *args, **kwargs):
+        object_id = kwargs[self.pk_url_kwarg]
         self.model = self.get_model()
         self.form_class = self.get_edit_form_class()
 
-        doc = get_object_or_404(self.model, id=doc_id)
+        self.object = get_object_or_404(self.model, id=object_id)
 
         if not request.is_ajax():
             return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
-        if not self.permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
+        if not self.permission_policy.user_has_permission_for_instance(request.user, 'change', self.object):
             raise PermissionDenied
 
         form = self.form_class(
-            request.POST, request.FILES, instance=doc, prefix='doc-%d' % doc_id, user=request.user
+            request.POST, request.FILES,
+            instance=self.object,
+            prefix='%s-%d' % (self.edit_object_form_prefix, object_id),
+            user=request.user
         )
 
         if form.is_valid():
-            form.save()
-
-            # Reindex the doc to make sure all tags are indexed
-            for backend in get_search_backends():
-                backend.add(doc)
+            self.save_object(form)
 
             return JsonResponse({
                 'success': True,
-                'doc_id': int(doc_id),
+                self.context_object_id_name: int(object_id),
             })
         else:
             return JsonResponse({
                 'success': False,
-                'doc_id': int(doc_id),
-                'form': render_to_string('wagtailadmin/generic/multiple_upload/edit_form.html', {
-                    'doc': doc,  # only used for tests
-                    'edit_action': reverse('wagtaildocs:edit_multiple', args=(doc_id,)),
-                    'delete_action': reverse('wagtaildocs:delete_multiple', args=(doc_id,)),
+                self.context_object_id_name: int(object_id),
+                'form': render_to_string(self.edit_form_template_name, {
+                    self.context_object_name: self.object,  # only used for tests
+                    'edit_action': reverse(self.edit_object_url_name, args=(object_id,)),
+                    'delete_action': reverse(self.delete_object_url_name, args=(object_id,)),
                     'form': form,
                 }, request=request),
             })
