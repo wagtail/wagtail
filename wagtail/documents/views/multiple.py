@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.views.generic import View
 
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
+from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.search.backends import get_search_backends
 
@@ -81,30 +82,13 @@ class EditView(BaseEditView):
             backend.add(self.object)
 
 
-class DeleteView(View):
-    http_method_names = ['post']
+class DeleteView(BaseDeleteView):
     permission_policy = permission_policy
+    pk_url_kwarg = 'doc_id'
+    context_object_id_name = 'doc_id'
 
     def get_model(self):
         return get_document_model()
-
-    def post(self, request, doc_id):
-        self.model = self.get_model()
-
-        doc = get_object_or_404(self.model, id=doc_id)
-
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
-
-        if not self.permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
-            raise PermissionDenied
-
-        doc.delete()
-
-        return JsonResponse({
-            'success': True,
-            'doc_id': int(doc_id),
-        })
 
 
 class CreateFromUploadedDocumentView(View):

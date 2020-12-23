@@ -233,3 +233,30 @@ class EditView(View):
                     'form': form,
                 }, request=request),
             })
+
+
+class DeleteView(View):
+    # subclasses need to provide:
+    # - permission_policy
+    # - pk_url_kwarg
+    # - context_object_id_name
+
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        object_id = kwargs[self.pk_url_kwarg]
+        self.model = self.get_model()
+        self.object = get_object_or_404(self.model, id=object_id)
+
+        if not request.is_ajax():
+            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
+
+        if not self.permission_policy.user_has_permission_for_instance(request.user, 'delete', self.object):
+            raise PermissionDenied
+
+        self.object.delete()
+
+        return JsonResponse({
+            'success': True,
+            self.context_object_id_name: int(object_id),
+        })
