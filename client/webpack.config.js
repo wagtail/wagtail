@@ -58,10 +58,13 @@ module.exports = function exports() {
   const entry = {};
   for (const [appName, moduleNames] of Object.entries(entrypoints)) {
     moduleNames.forEach(moduleName => {
-      entry[getOutputPath(appName, moduleName)] = [
-        './client/src/utils/polyfills.js',
-        `./client/src/entrypoints/${appName}/${moduleName}.js`,
-      ];
+      entry[moduleName] = {
+        import: [
+          `./client/src/entrypoints/${appName}/${moduleName}.js`,
+          './client/src/utils/polyfills.js',
+        ],
+        filename: getOutputPath(appName, moduleName) + '.js',
+      };
     });
   }
 
@@ -69,11 +72,18 @@ module.exports = function exports() {
     entry: entry,
     output: {
       path: path.resolve('.'),
-      filename: '[name].js',
       publicPath: '/static/js/'
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
+
+      // Some libraries import Node modules but don't use them in the browser.
+      // Tell Webpack to provide empty mocks for them so importing them works.
+      fallback: {
+        fs: false,
+        net: false,
+        tls: false,
+      },
     },
     externals: {
       jquery: 'jQuery',
@@ -94,7 +104,9 @@ module.exports = function exports() {
           use: [
             {
               loader: 'expose-loader',
-              options: globalName,
+              options: {
+                exposes: globalName,
+              },
             },
           ],
         };
@@ -140,15 +152,6 @@ module.exports = function exports() {
       reasons: false,
       // Add webpack version information
       version: false,
-      // Set the maximum number of modules to be shown
-      maxModules: 0,
-    },
-    // Some libraries import Node modules but don't use them in the browser.
-    // Tell Webpack to provide empty mocks for them so importing them works.
-    node: {
-      fs: 'empty',
-      net: 'empty',
-      tls: 'empty',
     },
   };
 };
