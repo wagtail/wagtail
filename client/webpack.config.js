@@ -59,12 +59,17 @@ module.exports = function exports() {
   for (const [appName, moduleNames] of Object.entries(entrypoints)) {
     moduleNames.forEach(moduleName => {
       entry[moduleName] = {
-        import: [
-          `./client/src/entrypoints/${appName}/${moduleName}.js`,
-          './client/src/utils/polyfills.js',
-        ],
+        import: [`./client/src/entrypoints/${appName}/${moduleName}.js`],
         filename: getOutputPath(appName, moduleName) + '.js',
       };
+
+      // Add polyfills to all bundles except userbar
+      // polyfills.js imports from node_modules, which adds a dependency on vendor.js (produced by splitChunks)
+      // Because userbar is supposed to run on peoples frontends, we code it using portable JS so we don't need
+      // to pull in all the additional JS that the vendor bundle has (such as React).
+      if (moduleName !== 'userbar') {
+        entry[moduleName].import.push('./client/src/utils/polyfills.js');
+      }
     });
   }
 
