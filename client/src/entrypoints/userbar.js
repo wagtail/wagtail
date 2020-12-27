@@ -1,3 +1,7 @@
+// This entrypoint is not bundled with any polyfills to keep it as light as possible
+// Please stick to old JS APIs and avoid importing anything that might require a vendored module
+// More background can be found in webpack.config.js
+
 document.addEventListener('DOMContentLoaded', (e) => {
   const userbar = document.querySelector('[data-wagtail-userbar]');
   const trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
