@@ -1,0 +1,26 @@
+name: Wagtail Docs
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[docs]
+      - name: Make the docs
+        run: cd docs && make json
+      - name: Upload the docs
+        uses: actions/upload-artifact@v2
+        with:
+          name: jsondocs
+          path: docs/_build/json
