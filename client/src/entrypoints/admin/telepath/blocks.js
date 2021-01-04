@@ -32,7 +32,7 @@ class FieldBlock {
     this.type = blockDef.name;
 
     const html = $(`
-      <div>
+      <div class="${this.blockDef.meta.classname || ''}">
         <div class="field-content">
           <div class="input">
             <div data-streamfield-widget></div>
