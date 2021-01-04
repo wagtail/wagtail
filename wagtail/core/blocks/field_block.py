@@ -12,7 +12,7 @@ from django.utils.safestring import mark_safe
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import RichText, get_text_for_indexing
 from wagtail.core.telepath import Adapter, register
-from wagtail.core.utils import resolve_model_string
+from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 
 from .base import Block
 
@@ -72,10 +72,23 @@ class FieldBlockAdapter(Adapter):
     js_constructor = 'wagtail.blocks.FieldBlock'
 
     def js_args(self, block, context):
+        classname = [
+            'field',
+            camelcase_to_underscore(block.field.__class__.__name__),
+            'widget-' + camelcase_to_underscore(block.field.widget.__class__.__name__),
+            'fieldname-' + block.name,
+            # TODO: if errors then add 'error'
+        ]
+
         return [
             block.name,
             context.pack(block.field.widget),
-            {'label': block.label, 'required': block.required, 'icon': block.meta.icon},
+            {
+                'label': block.label,
+                'required': block.required,
+                'icon': block.meta.icon,
+                'classname': ' '.join(classname),
+            },
         ]
 
     class Media:
