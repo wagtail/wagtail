@@ -24,7 +24,7 @@ class Widget {
         this.idForLabel = idForLabel;
     }
 
-    static boundWidgetClass = BoundWidget;
+    boundWidgetClass = BoundWidget;
 
     render(placeholder, name, id) {
         var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
@@ -55,6 +55,6 @@ class BoundRadioSelect {
 }
 
 class RadioSelect extends Widget {
-    static boundWidgetClass = BoundRadioSelect;
+    boundWidgetClass = BoundRadioSelect;
 }
 window.telepath.register('wagtail.widgets.RadioSelect', RadioSelect);
