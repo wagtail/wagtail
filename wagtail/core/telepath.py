@@ -27,9 +27,10 @@ class JSContext:
         if adapter is None:
             raise Exception("don't know how to add object to JS context: %r" % obj)
 
-        self.media += adapter.media
+        self.media += adapter.get_media(obj, self)
         return [adapter.js_constructor, *adapter.js_args(obj, self)]
 
 
 class Adapter(metaclass=MediaDefiningClass):
-    pass
+    def get_media(self, obj, context):
+        return self.media
