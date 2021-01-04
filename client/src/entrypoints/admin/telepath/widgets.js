@@ -1,4 +1,7 @@
-/* eslint-disable */
+/* eslint-disable indent, vars-on-top, no-warning-comments, max-len */
+
+/* global $ */
+
 class BoundWidget {
     constructor(element, name) {
         var selector = ':input[name="' + name + '"]';
@@ -21,16 +24,17 @@ class Widget {
         this.idForLabel = idForLabel;
     }
 
-    boundWidgetClass = BoundWidget;
+    static boundWidgetClass = BoundWidget;
 
     render(placeholder, name, id) {
         var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
         var dom = $(html);
         $(placeholder).replaceWith(dom);
+        // eslint-disable-next-line new-cap
         return new this.boundWidgetClass(dom, name);
     }
 }
-telepath.register('wagtail.widgets.Widget', Widget);
+window.telepath.register('wagtail.widgets.Widget', Widget);
 
 
 class BoundRadioSelect {
@@ -51,6 +55,6 @@ class BoundRadioSelect {
 }
 
 class RadioSelect extends Widget {
-    boundWidgetClass = BoundRadioSelect;
+    static boundWidgetClass = BoundRadioSelect;
 }
-telepath.register('wagtail.widgets.RadioSelect', RadioSelect);
+window.telepath.register('wagtail.widgets.RadioSelect', RadioSelect);

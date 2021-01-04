@@ -1,5 +1,6 @@
 {
   "extends": "wagtail",
+  "parser": "babel-eslint",
 
   "env": {
     "jest": true
