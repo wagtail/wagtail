@@ -1,4 +1,7 @@
-/* eslint-disable */
+/* eslint-disable indent, vars-on-top, no-warning-comments, max-len */
+
+/* global $ */
+
 function initBlockWidget(id) {
     /*
     Initialises the top-level element of a BlockWidget
@@ -14,7 +17,7 @@ function initBlockWidget(id) {
 
     // unpack the block definition and value
     var blockDefData = JSON.parse(body.dataset.block);
-    var blockDef = telepath.unpack(blockDefData);
+    var blockDef = window.telepath.unpack(blockDefData);
     var blockValue = JSON.parse(body.dataset.value);
 
     // replace the 'body' element with the unpopulated HTML structure for the block
@@ -27,12 +30,12 @@ window.initBlockWidget = initBlockWidget;
 class FieldBlock {
     constructor(name, widget, meta) {
         this.name = name;
-        this.widget = telepath.unpack(widget);
+        this.widget = window.telepath.unpack(widget);
         this.meta = meta;
     }
 
     render(placeholder, prefix) {
-        var html =$(`
+        var html = $(`
             <div>
                 <div class="field-content">
                     <div class="input">
@@ -47,26 +50,26 @@ class FieldBlock {
         var widgetElement = dom.find('[data-streamfield-widget]').get(0);
         var boundWidget = this.widget.render(widgetElement, prefix, prefix);
         return {
-            'type': this.name,
-            'setState': function(state) {
+            type: this.name,
+            setState(state) {
                 boundWidget.setState(state);
             },
-            'getState': function() {
+            getState() {
                 boundWidget.getState();
             },
-            'getValue': function() {
+            getValue() {
                 boundWidget.getValue();
             },
         };
     }
 }
-telepath.register('wagtail.blocks.FieldBlock', FieldBlock);
+window.telepath.register('wagtail.blocks.FieldBlock', FieldBlock);
 
 
 class StructBlock {
     constructor(name, childBlocks, meta) {
         this.name = name;
-        this.childBlocks = childBlocks.map((child) => {return telepath.unpack(child);});
+        this.childBlocks = childBlocks.map((child) => window.telepath.unpack(child));
         this.meta = meta;
     }
 
@@ -90,26 +93,29 @@ class StructBlock {
             dom.append(childDom);
             var childBlockElement = childDom.find('[data-streamfield-block]').get(0);
             var boundBlock = childBlock.render(childBlockElement, prefix + '-' + childBlock.name);
-            
+
             boundBlocks[childBlock.name] = boundBlock;
         });
 
         return {
-            'type': this.name,
-            'setState': function(state) {
+            type: this.name,
+            setState(state) {
+                // eslint-disable-next-line guard-for-in, no-restricted-syntax, no-native-reassign
                 for (name in state) {
                     boundBlocks[name].setState(state[name]);
                 }
             },
-            'getState': function() {
+            getState() {
                 var state = {};
+                // eslint-disable-next-line guard-for-in, no-restricted-syntax, no-native-reassign
                 for (name in boundBlocks) {
                     state[name] = boundBlocks[name].getState();
                 }
                 return state;
             },
-            'getValue': function() {
+            getValue() {
                 var value = {};
+                // eslint-disable-next-line guard-for-in, no-restricted-syntax, no-native-reassign
                 for (name in boundBlocks) {
                     value[name] = boundBlocks[name].getValue();
                 }
@@ -118,13 +124,13 @@ class StructBlock {
         };
     }
 }
-telepath.register('wagtail.blocks.StructBlock', StructBlock);
+window.telepath.register('wagtail.blocks.StructBlock', StructBlock);
 
 
 class ListBlock {
     constructor(name, childBlock, meta) {
         this.name = name;
-        this.childBlock = telepath.unpack(childBlock);
+        this.childBlock = window.telepath.unpack(childBlock);
         this.meta = meta;
     }
 
@@ -143,17 +149,16 @@ class ListBlock {
         var boundBlocks = [];
         var countInput = dom.find('[data-streamfield-list-count]');
         var listContainer = dom.find('[data-streamfield-list-container]');
-        var addButton = dom.find('[data-streamfield-list-add]');
 
         var self = this;
 
         return {
-            'type': this.name,
-            'setState': function(values) {
+            type: this.name,
+            setState(values) {
                 countInput.val(values.length);
                 boundBlocks = [];
                 listContainer.empty();
-                values.forEach(function(val, index) {
+                values.forEach((val, index) => {
                     var childPrefix = prefix + '-' + index;
                     var childHtml = $(`
                         <div id="${childPrefix}-container" aria-hidden="false">
@@ -178,7 +183,7 @@ class ListBlock {
                                             <button type="button" id="${childPrefix}-delete" class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
                                                 <i class="icon icon-bin" aria-hidden="true"></i>
                                             </button>
-                                        
+
                                             </div>
                                         </div>
                                         <div class="c-sf-block__content" aria-hidden="false">
@@ -199,22 +204,22 @@ class ListBlock {
                     boundBlocks.push(boundBlock);
                 });
             },
-            'getState': function() {
-                return boundBlocks.map(function(boundBlock) {return boundBlock.getState()});
+            getState() {
+                return boundBlocks.map((boundBlock) => boundBlock.getState());
             },
-            'getValue': function() {
-                return boundBlocks.map(function(boundBlock) {return boundBlock.getValue()});
+            getValue() {
+                return boundBlocks.map((boundBlock) => boundBlock.getValue());
             },
         };
     }
 }
-telepath.register('wagtail.blocks.ListBlock', ListBlock);
+window.telepath.register('wagtail.blocks.ListBlock', ListBlock);
 
 
 class StreamBlock {
     constructor(name, childBlocks, meta) {
         this.name = name;
-        this.childBlocks = childBlocks.map((child) => {return telepath.unpack(child);});
+        this.childBlocks = childBlocks.map((child) => window.telepath.unpack(child));
         this.childBlocksByName = {};
         for (var i = 0; i < this.childBlocks.length; i++) {
             var block = this.childBlocks[i];
@@ -239,14 +244,14 @@ class StreamBlock {
         var self = this;
 
         return {
-            'type': this.name,
-            'setState': function(values) {
+            type: this.name,
+            setState(values) {
                 countInput.val(values.length);
                 streamContainer.empty();
                 boundBlocks = [];
                 for (var index = 0; index < values.length; index++) {
                     var blockData = values[index];
-                    var blockType = blockData['type']
+                    var blockType = blockData.type;
                     var block = self.childBlocksByName[blockType];
 
                     var childPrefix = prefix + '-' + index;
@@ -255,7 +260,7 @@ class StreamBlock {
                             <input type="hidden" name="${childPrefix}-deleted" value="">
                             <input type="hidden" name="${childPrefix}-order" value="${index}">
                             <input type="hidden" name="${childPrefix}-type" value="${blockType}">
-                            <input type="hidden" name="${childPrefix}-id" value="${blockData['id'] || ''}">
+                            <input type="hidden" name="${childPrefix}-id" value="${blockData.id || ''}">
 
                             <div>
                                 <div class="c-sf-container__block-container">
@@ -276,7 +281,7 @@ class StreamBlock {
                                                 <button type="button" class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
                                                     <i class="icon icon-bin" aria-hidden="true"></i>
                                                 </button>
-                                        
+
                                             </div>
                                         </div>
                                         <div class="c-sf-block__content" aria-hidden="false">
@@ -293,29 +298,25 @@ class StreamBlock {
                     streamContainer.append(childDom);
                     var childBlockElement = childDom.find('[data-streamfield-block]').get(0);
                     var boundBlock = block.render(childBlockElement, childPrefix + '-value');
-                    boundBlock.setState(blockData['value']);
+                    boundBlock.setState(blockData.value);
                     boundBlocks.push(boundBlock);
                 }
             },
-            'getState': function() {
-                return boundBlocks.map(function(boundBlock) {
-                    return {
-                        'type': boundBlock.type,
-                        'val': boundBlock.getState(),
-                        'id': null, /* TODO: add this */
-                    }
-                });
+            getState() {
+                return boundBlocks.map((boundBlock) => ({
+                        type: boundBlock.type,
+                        val: boundBlock.getState(),
+                        id: null, /* TODO: add this */
+                    }));
             },
-            'getValue': function() {
-                return boundBlocks.map(function(boundBlock) {
-                    return {
-                        'type': boundBlock.type,
-                        'val': boundBlock.getValue(),
-                        'id': null, /* TODO: add this */
-                    }
-                });
+            getValue() {
+                return boundBlocks.map((boundBlock) => ({
+                        type: boundBlock.type,
+                        val: boundBlock.getValue(),
+                        id: null, /* TODO: add this */
+                    }));
             },
-        }
+        };
     }
 }
-telepath.register('wagtail.blocks.StreamBlock', StreamBlock);
+window.telepath.register('wagtail.blocks.StreamBlock', StreamBlock);
