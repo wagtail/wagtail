@@ -19,10 +19,11 @@ class WidgetAdapter(Adapter):
             widget.id_for_label('__ID__'),
         ]
 
+    def get_media(self, widget, context):
+        media = super().get_media(widget, context)
+        return media + widget.media
+
     class Media:
-        # FIXME: where does the widget's own media get merged in? Probably here,
-        # but in that case we need this to be a method that receives the object as
-        # a parameter, like js_args
         js = [
             versioned_static('wagtailadmin/js/telepath/widgets.js')
         ]
