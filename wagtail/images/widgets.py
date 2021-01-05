@@ -20,30 +20,42 @@ class AdminImageChooser(AdminChooser):
         super().__init__(**kwargs)
         self.image_model = get_image_model()
 
-    def render_html(self, name, value, attrs):
-        image, value = self.get_instance_and_id(self.image_model, value)
-        original_field_html = super().render_html(name, value, attrs)
+    def get_value_data(self, value):
+        if value is None:
+            return None
+        elif isinstance(value, self.image_model):
+            image = value
+        else:  # assume image ID
+            image = self.image_model.objects.get(pk=value)
 
-        if image:
-            preview_image = get_rendition_or_not_found(image, 'max-165x165')
-        else:
-            preview_image = None
+        preview_image = get_rendition_or_not_found(image, 'max-165x165')
+
+        return {
+            'id': image.pk,
+            'title': image.title,
+            'preview': {
+                'url': preview_image.url,
+                'width': preview_image.width,
+                'height': preview_image.height,
+            },
+            'edit_url': reverse('wagtailimages:edit', args=[image.id]),
+        }
+
+    def render_html(self, name, value_data, attrs):
+        value_data = value_data or {}
+        original_field_html = super().render_html(name, value_data.get('id'), attrs)
 
         return render_to_string("wagtailimages/widgets/image_chooser.html", {
             'widget': self,
             'original_field_html': original_field_html,
             'attrs': attrs,
-            'value': value,
-            'title': image.title if image else '',
-            'preview': {
-                'url': preview_image.url,
-                'width': preview_image.width,
-                'height': preview_image.height,
-            } if preview_image else {},
-            'edit_url': reverse('wagtailimages:edit', args=[image.id]) if image else '',
+            'value': bool(value_data),  # only used by chooser.html to identify blank values
+            'title': value_data.get('title', ''),
+            'preview': value_data.get('preview', {}),
+            'edit_url': value_data.get('edit_url', ''),
         })
 
-    def render_js_init(self, id_, name, value):
+    def render_js_init(self, id_, name, value_data):
         return "createImageChooser({0});".format(json.dumps(id_))
 
     @property
