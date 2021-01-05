@@ -9,7 +9,7 @@ import {
   initSkipLink,
   initIE11Warning,
   initUpgradeNotification,
-} from '..';
+} from '../..';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance

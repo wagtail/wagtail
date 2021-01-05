@@ -13,41 +13,45 @@ const exposedDependencies = {
 };
 
 module.exports = function exports() {
-  const entrypoints = [
-    'blocks/list',
-    'blocks/sequence',
-    'blocks/stream',
-    'blocks/struct',
-    'core',
-    'date-time-chooser',
-    'draftail',
-    'expanding_formset',
-    'filtered-select',
-    'hallo-bootstrap',
-    'hallo-plugins/hallo-hr',
-    'hallo-plugins/hallo-requireparagraphs',
-    'hallo-plugins/hallo-wagtaillink',
-    'lock-unlock-action',
-    'modal-workflow',
-    'page-chooser-modal',
-    'page-chooser',
-    'page-editor',
-    'privacy-switch',
-    'task-chooser-modal',
-    'task-chooser',
-    'userbar',
-    'wagtailadmin',
-    'workflow-action',
-    'workflow-status',
-  ];
+  const entrypoints = {
+    admin: [
+      'blocks/list',
+      'blocks/sequence',
+      'blocks/stream',
+      'blocks/struct',
+      'core',
+      'date-time-chooser',
+      'draftail',
+      'expanding_formset',
+      'filtered-select',
+      'hallo-bootstrap',
+      'hallo-plugins/hallo-hr',
+      'hallo-plugins/hallo-requireparagraphs',
+      'hallo-plugins/hallo-wagtaillink',
+      'lock-unlock-action',
+      'modal-workflow',
+      'page-chooser-modal',
+      'page-chooser',
+      'page-editor',
+      'privacy-switch',
+      'task-chooser-modal',
+      'task-chooser',
+      'userbar',
+      'wagtailadmin',
+      'workflow-action',
+      'workflow-status',
+    ],
+  };
 
   const entry = {};
-  entrypoints.forEach(moduleName => {
-    entry[getOutputPath('admin', moduleName)] = [
-      './client/src/utils/polyfills.js',
-      `./client/src/entrypoints/${moduleName}.js`,
-    ];
-  });
+  for (const [appName, moduleNames] of Object.entries(entrypoints)) {
+    moduleNames.forEach(moduleName => {
+      entry[getOutputPath(appName, moduleName)] = [
+        './client/src/utils/polyfills.js',
+        `./client/src/entrypoints/${appName}/${moduleName}.js`,
+      ];
+    });
+  }
 
   return {
     entry: entry,
