@@ -1,6 +1,6 @@
-jest.mock('..');
+jest.mock('../..');
 
-const wagtail = require('..');
+const wagtail = require('../..');
 
 document.addEventListener = jest.fn();
 
