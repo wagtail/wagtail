@@ -22,7 +22,7 @@ class BoundWidget {
     }
 }
 
-class Widget {
+export class Widget {
     constructor(html, idForLabel) {
         this.html = html;
         this.idForLabel = idForLabel;

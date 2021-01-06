@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { Widget } from './telepath/widgets';
 
 /* global wagtailConfig */
 
@@ -29,6 +30,34 @@ function hideCurrent(current, input) {
 }
 window.hideCurrent = hideCurrent;
 
+class BaseDateTimeWidget extends Widget {
+  constructor(options) {
+      this.options = options;
+  }
+
+  render(placeholder, name, id) {
+      const element = document.createElement('input');
+      element.type = 'text';
+      element.name = name;
+      element.id = id;
+      placeholder.replaceWith(element);
+
+      this.initChooserFn(id, this.options);
+
+      return {
+          getValue() {
+              return element.value;
+          },
+          getState() {
+              return element.value;
+          },
+          setState(state) {
+              element.value = state;
+          }
+      }
+  }
+}
+
 function initDateChooser(id, opts) {
   if (window.dateTimePickerTranslations) {
     $('#' + id).datetimepicker($.extend({
@@ -55,6 +84,11 @@ function initDateChooser(id, opts) {
 }
 window.initDateChooser = initDateChooser;
 
+class AdminDateInput extends BaseDateTimeWidget {
+  initChooserFn = initDateChooser;
+}
+window.telepath.register('wagtail.widgets.AdminDateInput', AdminDateInput);
+
 function initTimeChooser(id, opts) {
   if (window.dateTimePickerTranslations) {
     $('#' + id).datetimepicker($.extend({
@@ -78,6 +112,11 @@ function initTimeChooser(id, opts) {
 }
 window.initTimeChooser = initTimeChooser;
 
+class AdminTimeInput extends BaseDateTimeWidget {
+  initChooserFn = initTimeChooser;
+}
+window.telepath.register('wagtail.widgets.AdminTimeInput', AdminTimeInput);
+
 function initDateTimeChooser(id, opts) {
   if (window.dateTimePickerTranslations) {
     $('#' + id).datetimepicker($.extend({
@@ -100,3 +139,9 @@ function initDateTimeChooser(id, opts) {
   }
 }
 window.initDateTimeChooser = initDateTimeChooser;
+
+
+class AdminDateTimeInput extends BaseDateTimeWidget {
+  initChooserFn = initDateTimeChooser;
+}
+window.telepath.register('wagtail.widgets.AdminDateTimeInput', AdminDateTimeInput);
