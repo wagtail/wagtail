@@ -50,6 +50,9 @@ module.exports = function exports() {
     documents: [
       'document-chooser',
     ],
+    snippets: [
+      'snippet-chooser',
+    ],
   };
 
   const entry = {};
