@@ -49,13 +49,15 @@ Wagtail follows :doc:`Django's conventions for managing uploaded files <django:t
 
 Note that the django-storages Amazon S3 backends (``storages.backends.s3boto.S3BotoStorage`` and ``storages.backends.s3boto3.S3Boto3Storage``) **do not correctly handle duplicate filenames** in their default configuration. When using these backends, ``AWS_S3_FILE_OVERWRITE`` must be set to ``False``.
 
-If you are also serving Wagtail's static files from remote storage (using Django's `STATICFILES_STORAGE <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-STATICFILES_STORAGE>`_ setting), you'll need to ensure that it is configured to serve `CORS HTTP headers <https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS>`_, as current browsers will reject remotely-hosted font files that lack a valid header. For Amazon S3, refer to the documentation `Setting Bucket and Object Access Permissions <https://docs.aws.amazon.com/AmazonS3/latest/user-guide/set-permissions.html>`_, or (for the ``storages.backends.s3boto.S3BotoStorage`` backend only) add the following to your Django settings:
+If you are also serving Wagtail's static files from remote storage (using Django's `STATICFILES_STORAGE <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-STATICFILES_STORAGE>`_ setting), you'll need to ensure that it is configured to serve `CORS HTTP headers <https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS>`_, as current browsers will reject remotely-hosted font files that lack a valid header. For Amazon S3, refer to the documentation `Setting Bucket and Object Access Permissions <https://docs.aws.amazon.com/AmazonS3/latest/user-guide/set-permissions.html>`_, or (for the ``storages.backends.s3boto.S3Boto3Storage`` backend only) add the following to your Django settings:
 
 .. code-block:: python
 
-    AWS_HEADERS = {
-        'Access-Control-Allow-Origin': '*'
+    AWS_S3_OBJECT_PARAMETERS = {
+        "ACL": "public-read"
     }
+    
+The ``ACL`` parameter accepts a list of predefined configurations for Amazon S3. For more information, refer to the documentation `Canned ACL <https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl>`_.    
 
 For Google Cloud Storage, create a ``cors.json`` configuration:
 

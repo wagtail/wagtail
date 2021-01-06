@@ -490,6 +490,7 @@ Contributors
 * Kristin Riebe
 * Vadim Karpenko
 * Bohreromir
+* Fernando Cordeiro
 
 Translators
 ===========
