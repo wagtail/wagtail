@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-function createPageChooser(id, openAtParentId, config) {
+function createPageChooser(id, openAtParentId, options) {
   const chooserElement = $('#' + id + '-chooser');
   const pageTitle = chooserElement.find('.title');
   const input = $('#' + id);
@@ -48,12 +48,12 @@ function createPageChooser(id, openAtParentId, config) {
       if (state && state.parentId) {
         url += state.parentId + '/';
       }
-      const urlParams = { page_type: config.model_names.join(',') };
-      if (config.can_choose_root) {
+      const urlParams = { page_type: options.model_names.join(',') };
+      if (options.can_choose_root) {
         urlParams.can_choose_root = 'true';
       }
-      if (config.user_perms) {
-        urlParams.user_perms = config.user_perms;
+      if (options.user_perms) {
+        urlParams.user_perms = options.user_perms;
       }
       // eslint-disable-next-line no-undef, new-cap
       ModalWorkflow({
