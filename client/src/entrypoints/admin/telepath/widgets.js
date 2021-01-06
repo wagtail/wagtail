@@ -132,3 +132,50 @@ class DraftailRichTextArea {
     }
 }
 window.telepath.register('wagtail.widgets.DraftailRichTextArea', DraftailRichTextArea);
+
+
+class BaseDateTimeWidget extends Widget {
+    constructor(options) {
+        this.options = options;
+    }
+
+    render(placeholder, name, id) {
+        const element = document.createElement('input');
+        element.type = 'text';
+        element.name = name;
+        element.id = id;
+        placeholder.replaceWith(element);
+
+        this.initChooserFn(id, this.options);
+
+        return {
+            getValue() {
+                return element.value;
+            },
+            getState() {
+                return element.value;
+            },
+            setState(state) {
+                element.value = state;
+            },
+            focus() {
+                element.focus();
+            },
+        };
+    }
+}
+
+class AdminDateInput extends BaseDateTimeWidget {
+    initChooserFn = window.initDateChooser;
+}
+window.telepath.register('wagtail.widgets.AdminDateInput', AdminDateInput);
+
+class AdminTimeInput extends BaseDateTimeWidget {
+    initChooserFn = window.initTimeChooser;
+}
+window.telepath.register('wagtail.widgets.AdminTimeInput', AdminTimeInput);
+
+class AdminDateTimeInput extends BaseDateTimeWidget {
+    initChooserFn = window.initDateTimeChooser;
+}
+window.telepath.register('wagtail.widgets.AdminDateTimeInput', AdminDateTimeInput);
