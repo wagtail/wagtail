@@ -108,7 +108,7 @@ class AdminPageChooser(AdminChooser):
         ]
 
     @property
-    def client_config(self):
+    def client_options(self):
         # a JSON-serializable representation of the configuration options needed for the
         # client-side behaviour of this widget
         return {
@@ -154,10 +154,10 @@ class AdminPageChooser(AdminChooser):
 
     def render_js_init(self, id_, name, value_data):
         value_data = value_data or {}
-        return "createPageChooser({id}, {parent}, {client_config});".format(
+        return "createPageChooser({id}, {parent}, {options});".format(
             id=json.dumps(id_),
             parent=json.dumps(value_data.get('parent_id')),
-            client_config=json.dumps(self.client_config),
+            options=json.dumps(self.client_options),
         )
 
     @property
