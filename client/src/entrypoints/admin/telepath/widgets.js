@@ -3,9 +3,10 @@
 /* global $ */
 
 class BoundWidget {
-    constructor(element, name) {
+    constructor(element, name, initialState) {
         var selector = ':input[name="' + name + '"]';
         this.input = element.find(selector).addBack(selector);  // find, including element itself
+        this.setState(initialState);
     }
     getValue() {
         return this.input.val();
@@ -26,22 +27,23 @@ class Widget {
 
     boundWidgetClass = BoundWidget;
 
-    render(placeholder, name, id) {
+    render(placeholder, name, id, initialState) {
         var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
         var dom = $(html);
         $(placeholder).replaceWith(dom);
         // eslint-disable-next-line new-cap
-        return new this.boundWidgetClass(dom, name);
+        return new this.boundWidgetClass(dom, name, initialState);
     }
 }
 window.telepath.register('wagtail.widgets.Widget', Widget);
 
 
 class BoundRadioSelect {
-    constructor(element, name) {
+    constructor(element, name, initialState) {
         this.element = element;
         this.name = name;
         this.selector = 'input[name="' + name + '"]:checked';
+        this.setState(initialState);
     }
     getValue() {
         return this.element.find(this.selector).val();
@@ -67,13 +69,14 @@ class PageChooser {
         this.config = config;
     }
 
-    render(placeholder, name, id) {
+    render(placeholder, name, id, initialState) {
         var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
         var dom = $(html);
         $(placeholder).replaceWith(dom);
         /* the chooser object returned by createPageChooser also serves as the JS widget representation */
         // eslint-disable-next-line no-undef
-        return createPageChooser(id, null, this.config);
+        const chooser = createPageChooser(id, null, this.config);
+        chooser.setState(initialState);
     }
 }
 window.telepath.register('wagtail.widgets.PageChooser', PageChooser);
