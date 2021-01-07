@@ -7,6 +7,8 @@ from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks import FieldBlock
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
 
 
 DEFAULT_TABLE_OPTIONS = {
@@ -53,6 +55,27 @@ class TableInput(forms.HiddenInput):
 
         return context
 
+    class Media:
+        css = {'all': [
+            versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css')
+        ]}
+        js = [
+            versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
+            versioned_static('table_block/js/table.js')
+        ]
+
+
+class TableInputAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.TableInput'
+
+    def js_args(self, widget):
+        return [
+            widget.table_options,
+        ]
+
+
+register(TableInputAdapter(), TableInput)
+
 
 class TableBlock(FieldBlock):
 
@@ -78,6 +101,10 @@ class TableBlock(FieldBlock):
 
     def value_for_form(self, value):
         return json.dumps(value)
+
+    def get_form_state(self, value):
+        # pass state to frontend as a JSON-ish dict - do not serialise to a JSON string
+        return value
 
     def is_html_renderer(self):
         return self.table_options['renderer'] == 'html'
@@ -119,18 +146,6 @@ class TableBlock(FieldBlock):
             return render_to_string(template, new_context)
         else:
             return self.render_basic(value or "", context=context)
-
-    @property
-    def media(self):
-        return forms.Media(
-            css={'all': [
-                versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css')
-            ]},
-            js=[
-                versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
-                versioned_static('table_block/js/table.js')
-            ]
-        )
 
     def get_table_options(self, table_options=None):
         """
