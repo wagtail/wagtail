@@ -7,6 +7,8 @@ from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks import FieldBlock
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
 
 
 DEFAULT_TABLE_OPTIONS = {
@@ -52,6 +54,27 @@ class TableInput(forms.HiddenInput):
         context['widget']['table_caption'] = table_caption
 
         return context
+
+    class Media:
+        css={'all': [
+            versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css')
+        ]}
+        js=[
+            versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
+            versioned_static('table_block/js/table.js')
+        ]
+
+
+class TableInputAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.TableInput'
+
+    def js_args(self, widget, context):
+        return [
+            widget.table_options,
+        ]
+
+
+register(TableInputAdapter(), TableInput)
 
 
 class TableBlock(FieldBlock):
@@ -119,18 +142,6 @@ class TableBlock(FieldBlock):
             return render_to_string(template, new_context)
         else:
             return self.render_basic(value or "", context=context)
-
-    @property
-    def media(self):
-        return forms.Media(
-            css={'all': [
-                versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css')
-            ]},
-            js=[
-                versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
-                versioned_static('table_block/js/table.js')
-            ]
-        )
 
     def get_table_options(self, table_options=None):
         """
