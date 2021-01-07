@@ -2,7 +2,15 @@ const path = require('path');
 
 // Generates a path to the output bundle to be loaded in the browser.
 const getOutputPath = (app, filename) => {
-  const appLabel = (app === 'documents' ? 'wagtaildocs' : `wagtail${app}`);
+  let appLabel = `wagtail${app}`;
+
+  // Exceptions
+  if (app === 'documents') {
+    appLabel = 'wagtaildocs';
+  } else if (app === 'contrib/table_block') {
+    appLabel = 'table_block';
+  }
+
   return path.join('wagtail', app, 'static', appLabel, 'js', filename);
 };
 
@@ -17,7 +25,7 @@ const exposedDependencies = {
 
 module.exports = function exports() {
   const entrypoints = {
-    admin: [
+    'admin': [
       'blocks/list',
       'blocks/sequence',
       'blocks/stream',
@@ -47,17 +55,20 @@ module.exports = function exports() {
       'workflow-action',
       'workflow-status',
     ],
-    images: [
+    'images': [
       'image-chooser',
       'image-chooser-telepath',
     ],
-    documents: [
+    'documents': [
       'document-chooser',
       'document-chooser-telepath',
     ],
-    snippets: [
+    'snippets': [
       'snippet-chooser',
       'snippet-chooser-telepath',
+    ],
+    'contrib/table_block': [
+      'table',
     ],
   };
 
