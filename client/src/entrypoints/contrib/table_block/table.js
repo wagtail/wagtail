@@ -1,45 +1,42 @@
-/* eslint-disable */
+/* eslint-disable func-names */
+
+/* global Handsontable */
+
+import $ from 'jquery';
 
 function initTable(id, tableOptions) {
-  var containerId = id + '-handsontable-container';
-  var tableHeaderCheckboxId = id + '-handsontable-header';
-  var colHeaderCheckboxId = id + '-handsontable-col-header';
-  var tableCaptionId = id + '-handsontable-col-caption';
-  var hiddenStreamInput = $('#' + id);
-  var tableHeaderCheckbox = $('#' + tableHeaderCheckboxId);
-  var colHeaderCheckbox = $('#' + colHeaderCheckboxId);
-  var tableCaption = $('#' + tableCaptionId);
-  var hot;
-  var defaultOptions;
-  var finalOptions = {};
-  var getCellsClassnames;
-  var persist;
-  var cellEvent;
-  var metaEvent;
-  var initEvent;
-  var structureEvent;
-  var dataForForm = null;
-  var isInitialized = false;
+  const containerId = id + '-handsontable-container';
+  const tableHeaderCheckboxId = id + '-handsontable-header';
+  const colHeaderCheckboxId = id + '-handsontable-col-header';
+  const tableCaptionId = id + '-handsontable-col-caption';
+  const hiddenStreamInput = $('#' + id);
+  const tableHeaderCheckbox = $('#' + tableHeaderCheckboxId);
+  const colHeaderCheckbox = $('#' + colHeaderCheckboxId);
+  const tableCaption = $('#' + tableCaptionId);
+  const finalOptions = {};
+  let hot = null;
+  let dataForForm = null;
+  let isInitialized = false;
 
-  var getWidth = function() {
+  const getWidth = function () {
     return $('.widget-table_input').closest('.sequence-member-inner').width();
   };
-  var getHeight = function() {
-    var tableParent = $('#' + id).parent();
+  const getHeight = function () {
+    const tableParent = $('#' + id).parent();
     return tableParent.find('.htCore').height() + (tableParent.find('.input').height() * 2);
   };
-  var resizeTargets = ['.input > .handsontable', '.wtHider', '.wtHolder'];
-  var resizeHeight = function(height) {
-    var currTable = $('#' + id);
-    $.each(resizeTargets, function() {
+  const resizeTargets = ['.input > .handsontable', '.wtHider', '.wtHolder'];
+  const resizeHeight = function (height) {
+    const currTable = $('#' + id);
+    $.each(resizeTargets, function () {
       currTable.closest('.field-content').find(this).height(height);
     });
   };
   function resizeWidth(width) {
-    $.each(resizeTargets, function() {
+    $.each(resizeTargets, function () {
       $(this).width(width);
     });
-    var parentDiv = $('.widget-table_input').parent();
+    const parentDiv = $('.widget-table_input').parent();
     parentDiv.find('.field-content').width(width);
     parentDiv.find('.fieldname-table .field-content .field-content').width('80%');
   }
@@ -64,7 +61,7 @@ function initTable(id, tableOptions) {
 
   if (!tableOptions.hasOwnProperty('width') || !tableOptions.hasOwnProperty('height')) {
     // Size to parent .sequence-member-inner width if width is not given in tableOptions
-    $(window).on('resize', function() {
+    $(window).on('resize', () => {
       hot.updateSettings({
         width: getWidth(),
         height: getHeight()
@@ -73,10 +70,10 @@ function initTable(id, tableOptions) {
     });
   }
 
-  getCellsClassnames = function() {
-    var meta = hot.getCellsMeta();
-    var cellsClassnames = []
-    for (var i = 0; i < meta.length; i++) {
+  const getCellsClassnames = function () {
+    const meta = hot.getCellsMeta();
+    const cellsClassnames = [];
+    for (let i = 0; i < meta.length; i++) {
       if (meta[i].hasOwnProperty('className')) {
         cellsClassnames.push({
           row: meta[i].row,
@@ -88,7 +85,7 @@ function initTable(id, tableOptions) {
     return cellsClassnames;
   };
 
-  persist = function() {
+  const persist = function () {
     hiddenStreamInput.val(JSON.stringify({
       data: hot.getData(),
       cell: getCellsClassnames(),
@@ -98,42 +95,44 @@ function initTable(id, tableOptions) {
     }));
   };
 
-  cellEvent = function(change, source) {
+  const cellEvent = function (change, source) {
     if (source === 'loadData') {
-      return; //don't save this change
+      return;  // don't save this change
     }
 
     persist();
   };
 
-  metaEvent = function(row, column, key, value) {
+  // eslint-disable-next-line no-unused-vars
+  const metaEvent = function (row, column, key, value) {
     if (isInitialized && key === 'className') {
       persist();
     }
   };
 
-  initEvent = function() {
+  const initEvent = function () {
     isInitialized = true;
   };
 
-  structureEvent = function(index, amount) {
+  // eslint-disable-next-line no-unused-vars
+  const structureEvent = function (index, amount) {
     resizeHeight(getHeight());
     persist();
   };
 
-  tableHeaderCheckbox.on('change', function() {
+  tableHeaderCheckbox.on('change', () => {
     persist();
   });
 
-  colHeaderCheckbox.on('change', function() {
+  colHeaderCheckbox.on('change', () => {
     persist();
   });
 
-  tableCaption.on('change', function() {
+  tableCaption.on('change', () => {
     persist();
   });
 
-  defaultOptions = {
+  const defaultOptions = {
     afterChange: cellEvent,
     afterCreateCol: structureEvent,
     afterCreateRow: structureEvent,
@@ -154,10 +153,10 @@ function initTable(id, tableOptions) {
     }
   }
 
-  Object.keys(defaultOptions).forEach(function (key) {
+  Object.keys(defaultOptions).forEach((key) => {
     finalOptions[key] = defaultOptions[key];
   });
-  Object.keys(tableOptions).forEach(function (key) {
+  Object.keys(tableOptions).forEach((key) => {
     finalOptions[key] = tableOptions[key];
   });
 
@@ -167,7 +166,7 @@ function initTable(id, tableOptions) {
   // Apply resize after document is finished loading (parent .sequence-member-inner width is set)
   if ('resize' in $(window)) {
     resizeHeight(getHeight());
-    $(window).on('load', function() {
+    $(window).on('load', () => {
       $(window).trigger('resize');
     });
   }
