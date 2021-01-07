@@ -4,6 +4,7 @@ from django import forms
 from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.functional import cached_property
+from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks import FieldBlock
@@ -69,8 +70,19 @@ class TableInputAdapter(WidgetAdapter):
     js_constructor = 'wagtail.widgets.TableInput'
 
     def js_args(self, widget):
+        strings = {
+            'Row header': _("Row header"),
+            'Display the first row as a header.': _("Display the first row as a header."),
+            'Column header': _("Display the first row as a header."),
+            'Display the first column as a header.': _("Display the first column as a header."),
+            'Table caption': _("Table caption"),
+            'A heading that identifies the overall topic of the table, and is useful for screen reader users': _("A heading that identifies the overall topic of the table, and is useful for screen reader users"),
+            'Table': _("Table"),
+        }
+
         return [
             widget.table_options,
+            strings,
         ]
 
 
