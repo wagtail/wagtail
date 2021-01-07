@@ -44,8 +44,7 @@ class FieldBlock {
     const dom = $(html);
     $(placeholder).replaceWith(dom);
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
-    this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix);
-    this.widget.setState(initialState);
+    this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix, initialState);
   }
 
   setState(state) {
