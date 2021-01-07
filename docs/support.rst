@@ -9,7 +9,7 @@ If you have any problems or questions about working with Wagtail, you are invite
 Stack Overflow
 ~~~~~~~~~~~~~~
 
-`Stack Overflow <https://stackoverflow.com/questions/tagged/wagtail>`_ is the best place to find answers to your questions about working with Wagtail - there is an active community of Wagtail users and developers responding to questions there. When posting questions, please read Stack Overflow's advice on `how to ask questions <https://stackoverflow.com/help/how-to-ask>`_ and remember to tag your question with "wagtail".
+`Stack Overflow <https://stackoverflow.com/questions/tagged/wagtail>`_ is the best place to find answers to your questions about working with Wagtail - there is an active community of Wagtail users and developers responding to questions there. When posting questions, please read Stack Overflow's advice on `how to ask questions <https://stackoverflow.com/help/how-to-ask>`_ and remember to tag your question with “wagtail”.
 
 Mailing list
 ~~~~~~~~~~~~
