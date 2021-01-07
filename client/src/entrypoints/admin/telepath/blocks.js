@@ -20,16 +20,14 @@ function initBlockWidget(id) {
   const blockDef = window.telepath.unpack(blockDefData);
   const blockValue = JSON.parse(body.dataset.value);
 
-  // replace the 'body' element with the unpopulated HTML structure for the block
-  const block = blockDef.render(body, id);
-  // populate the block HTML with the value
-  block.setState(blockValue);
+  // replace the 'body' element with the populated HTML structure for the block
+  blockDef.render(body, id, blockValue);
 }
 window.initBlockWidget = initBlockWidget;
 
 
 class FieldBlock {
-  constructor(blockDef, placeholder, prefix) {
+  constructor(blockDef, placeholder, prefix, initialState) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
@@ -47,6 +45,7 @@ class FieldBlock {
     $(placeholder).replaceWith(dom);
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
     this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix);
+    this.widget.setState(initialState);
   }
 
   setState(state) {
@@ -69,15 +68,16 @@ class FieldBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix) {
-    return new FieldBlock(this, placeholder, prefix);
+  render(placeholder, prefix, initialState) {
+    return new FieldBlock(this, placeholder, prefix, initialState);
   }
 }
 window.telepath.register('wagtail.blocks.FieldBlock', FieldBlockDefinition);
 
 
 class StructBlock {
-  constructor(blockDef, placeholder, prefix) {
+  constructor(blockDef, placeholder, prefix, initialState) {
+    const state = initialState || {};
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
@@ -99,7 +99,9 @@ class StructBlock {
       const childDom = $(childHtml);
       dom.append(childDom);
       const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-      const childBlock = childBlockDef.render(childBlockElement, prefix + '-' + childBlockDef.name);
+      const childBlock = childBlockDef.render(
+        childBlockElement, prefix + '-' + childBlockDef.name, state[childBlockDef.name]
+      );
 
       this.childBlocks[childBlockDef.name] = childBlock;
     });
@@ -138,15 +140,15 @@ class StructBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix) {
-    return new StructBlock(this, placeholder, prefix);
+  render(placeholder, prefix, initialState) {
+    return new StructBlock(this, placeholder, prefix, initialState);
   }
 }
 window.telepath.register('wagtail.blocks.StructBlock', StructBlockDefinition);
 
 
 class ListBlock {
-  constructor(blockDef, placeholder, prefix) {
+  constructor(blockDef, placeholder, prefix, initialState) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
@@ -168,6 +170,7 @@ class ListBlock {
     this.childBlocks = [];
     this.countInput = dom.find('[data-streamfield-list-count]');
     this.listContainer = dom.find('[data-streamfield-list-container]');
+    this.setState(initialState || []);
   }
 
   clear() {
@@ -221,8 +224,7 @@ class ListBlock {
     const childDom = $(childHtml);
     this.listContainer.append(childDom);
     const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-    const childBlock = this.blockDef.childBlockDef.render(childBlockElement, childPrefix + '-value');
-    childBlock.setState(value);
+    const childBlock = this.blockDef.childBlockDef.render(childBlockElement, childPrefix + '-value', value);
     this.childBlocks.push(childBlock);
     this.countInput.val(this.childBlocks.length);
   }
@@ -250,15 +252,15 @@ class ListBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix) {
-    return new ListBlock(this, placeholder, prefix);
+  render(placeholder, prefix, initialState) {
+    return new ListBlock(this, placeholder, prefix, initialState);
   }
 }
 window.telepath.register('wagtail.blocks.ListBlock', ListBlockDefinition);
 
 
 class StreamBlock {
-  constructor(blockDef, placeholder, prefix) {
+  constructor(blockDef, placeholder, prefix, initialState) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
@@ -275,6 +277,7 @@ class StreamBlock {
     this.childBlocks = [];
     this.countInput = dom.find('[data-streamfield-stream-count]');
     this.streamContainer = dom.find('[data-streamfield-stream-container]');
+    this.setState(initialState || []);
   }
 
   clear() {
@@ -331,8 +334,7 @@ class StreamBlock {
     const childDom = $(childHtml);
     this.streamContainer.append(childDom);
     const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-    const childBlock = blockDef.render(childBlockElement, childPrefix + '-value');
-    childBlock.setState(blockData.value);
+    const childBlock = blockDef.render(childBlockElement, childPrefix + '-value', blockData.value);
     this.childBlocks.push(childBlock);
     this.countInput.val(this.childBlocks.length);
   }
@@ -373,8 +375,8 @@ class StreamBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix) {
-    return new StreamBlock(this, placeholder, prefix);
+  render(placeholder, prefix, initialState) {
+    return new StreamBlock(this, placeholder, prefix, initialState);
   }
 }
 window.telepath.register('wagtail.blocks.StreamBlock', StreamBlockDefinition);
