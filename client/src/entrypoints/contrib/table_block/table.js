@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-disable */
 
 function initTable(id, tableOptions) {
     var containerId = id + '-handsontable-container';
@@ -172,3 +172,4 @@ function initTable(id, tableOptions) {
         });
     }
 }
+window.initTable = initTable;
