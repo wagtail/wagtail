@@ -1,4 +1,4 @@
-/* eslint-disable func-names */
+/* eslint-disable func-names, dot-notation */
 
 /* global Handsontable */
 
@@ -174,49 +174,48 @@ function initTable(id, tableOptions) {
 window.initTable = initTable;
 
 class TableInput {
-  constructor(options) {
+  constructor(options, strings) {
     this.options = options;
+    this.strings = strings;
   }
 
   render(placeholder, name, id, initialState) {
-    const gettext = (s) => s;
-
     const container = document.createElement('div');
     container.innerHTML = `
       <div class="field boolean_field widget-checkbox_input">
-        <label for="${id}-handsontable-header">${gettext('Row header')}</label>
+        <label for="${id}-handsontable-header">${this.strings['Row header']}</label>
         <div class="field-content">
           <div class="input">
             <input type="checkbox" id="${id}-handsontable-header" name="handsontable-header" />
           </div>
-          <p class="help">${gettext('Display the first row as a header.')}</p>
+          <p class="help">${this.strings['Display the first row as a header.']}</p>
         </div>
       </div>
       <br/>
       <div class="field boolean_field widget-checkbox_input">
-        <label for="${id}-handsontable-col-header">${gettext('Column header')}</label>
+        <label for="${id}-handsontable-col-header">${this.strings['Column header']}</label>
         <div class="field-content">
           <div class="input">
             <input type="checkbox" id="${id}-handsontable-col-header" name="handsontable-col-header" />
           </div>
-          <p class="help">${gettext('Display the first column as a header.')}</p>
+          <p class="help">${this.strings['Display the first column as a header.']}</p>
         </div>
       </div>
       <br/>
       <div class="field">
-          <label for="${id}-handsontable-col-caption">${gettext('Table caption')}</label>
+          <label for="${id}-handsontable-col-caption">${this.strings['Table caption']}</label>
           <div class="field-content">
             <div class="input">
             <input type="text" id="${id}-handsontable-col-caption" name="handsontable-col-caption" />
           </div>
           <p class="help">
-            ${gettext('A heading that identifies the overall topic of the table, and is useful for screen reader users')}
+            ${this.strings['A heading that identifies the overall topic of the table, and is useful for screen reader users'] /* eslint-disable-line max-len */}
           </p>
         </div>
       </div>
       <br/>
       <div id="${id}-handsontable-container"></div>
-      <input type="hidden" name="${name}" id="${id}" placeholder="${gettext('Table')}">
+      <input type="hidden" name="${name}" id="${id}" placeholder="${this.strings['Table']}">
     `;
     placeholder.replaceWith(container);
 
