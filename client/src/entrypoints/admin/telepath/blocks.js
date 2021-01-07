@@ -27,14 +27,12 @@ function initBlockWidget(id) {
 }
 window.initBlockWidget = initBlockWidget;
 
-class FieldBlock {
-  constructor(name, widget, meta) {
-    this.name = name;
-    this.widget = window.telepath.unpack(widget);
-    this.meta = meta;
-  }
 
-  render(placeholder, prefix) {
+class FieldBlock {
+  constructor(blockDef, placeholder, prefix) {
+    this.blockDef = blockDef;
+    this.type = blockDef.name;
+
     const html = $(`
       <div>
         <div class="field-content">
@@ -48,95 +46,113 @@ class FieldBlock {
     const dom = $(html);
     $(placeholder).replaceWith(dom);
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
-    const boundWidget = this.widget.render(widgetElement, prefix, prefix);
-    return {
-      type: this.name,
-      setState(state) {
-        boundWidget.setState(state);
-      },
-      getState() {
-        boundWidget.getState();
-      },
-      getValue() {
-        boundWidget.getValue();
-      },
-    };
+    this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix);
+  }
+
+  setState(state) {
+    this.widget.setState(state);
+  }
+
+  getState() {
+    return this.widget.getState();
+  }
+
+  getValue() {
+    return this.widget.getValue();
   }
 }
-window.telepath.register('wagtail.blocks.FieldBlock', FieldBlock);
 
-
-class StructBlock {
-  constructor(name, childBlocks, meta) {
+class FieldBlockDefinition {
+  constructor(name, widget, meta) {
     this.name = name;
-    this.childBlocks = childBlocks.map((child) => window.telepath.unpack(child));
+    this.widget = window.telepath.unpack(widget);
     this.meta = meta;
   }
 
   render(placeholder, prefix) {
+    return new FieldBlock(this, placeholder, prefix);
+  }
+}
+window.telepath.register('wagtail.blocks.FieldBlock', FieldBlockDefinition);
+
+
+class StructBlock {
+  constructor(blockDef, placeholder, prefix) {
+    this.blockDef = blockDef;
+    this.type = blockDef.name;
+
     const html = $(`
-      <div class="${this.meta.classname || ''}">
+      <div class="${this.blockDef.meta.classname || ''}">
       </div>
     `);
     const dom = $(html);
     $(placeholder).replaceWith(dom);
 
-    const boundBlocks = {};
-    this.childBlocks.forEach(childBlock => {
+    this.childBlocks = {};
+    this.blockDef.childBlockDefs.forEach(childBlockDef => {
       const childHtml = $(`
         <div class="field">
-          <label class="field__label">${childBlock.meta.label}</label>
+          <label class="field__label">${childBlockDef.meta.label}</label>
           <div data-streamfield-block></div>
         </div>
       `);
       const childDom = $(childHtml);
       dom.append(childDom);
       const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-      const boundBlock = childBlock.render(childBlockElement, prefix + '-' + childBlock.name);
+      const childBlock = childBlockDef.render(childBlockElement, prefix + '-' + childBlockDef.name);
 
-      boundBlocks[childBlock.name] = boundBlock;
+      this.childBlocks[childBlockDef.name] = childBlock;
     });
+  }
 
-    return {
-      type: this.name,
-      setState(state) {
-        // eslint-disable-next-line guard-for-in, no-restricted-syntax
-        for (const name in state) {
-          boundBlocks[name].setState(state[name]);
-        }
-      },
-      getState() {
-        const state = {};
-        // eslint-disable-next-line guard-for-in, no-restricted-syntax
-        for (const name in boundBlocks) {
-          state[name] = boundBlocks[name].getState();
-        }
-        return state;
-      },
-      getValue() {
-        const value = {};
-        // eslint-disable-next-line guard-for-in, no-restricted-syntax
-        for (const name in boundBlocks) {
-          value[name] = boundBlocks[name].getValue();
-        }
-        return value;
-      },
-    };
+  setState(state) {
+    // eslint-disable-next-line guard-for-in, no-restricted-syntax
+    for (const name in state) {
+      this.childBlocks[name].setState(state[name]);
+    }
+  }
+
+  getState() {
+    const state = {};
+    // eslint-disable-next-line guard-for-in, no-restricted-syntax
+    for (const name in this.childBlocks) {
+      state[name] = this.childBlocks[name].getState();
+    }
+    return state;
+  }
+
+  getValue() {
+    const value = {};
+    // eslint-disable-next-line guard-for-in, no-restricted-syntax
+    for (const name in this.childBlocks) {
+      value[name] = this.childBlocks[name].getValue();
+    }
+    return value;
   }
 }
-window.telepath.register('wagtail.blocks.StructBlock', StructBlock);
 
-
-class ListBlock {
-  constructor(name, childBlock, meta) {
+class StructBlockDefinition {
+  constructor(name, childBlockDefs, meta) {
     this.name = name;
-    this.childBlock = window.telepath.unpack(childBlock);
+    this.childBlockDefs = childBlockDefs.map((child) => window.telepath.unpack(child));
     this.meta = meta;
   }
 
   render(placeholder, prefix) {
+    return new StructBlock(this, placeholder, prefix);
+  }
+}
+window.telepath.register('wagtail.blocks.StructBlock', StructBlockDefinition);
+
+
+class ListBlock {
+  constructor(blockDef, placeholder, prefix) {
+    this.blockDef = blockDef;
+    this.type = blockDef.name;
+    this.prefix = prefix;
+
     const html = $(`
-      <div class="c-sf-container ${this.meta.classname || ''}">
+      <div class="c-sf-container ${this.blockDef.meta.classname || ''}">
         <input type="hidden" name="${prefix}-count" data-streamfield-list-count value="0">
 
         <div data-streamfield-list-container></div>
@@ -145,183 +161,220 @@ class ListBlock {
         </button>
       </div>
     `);
+
     const dom = $(html);
     $(placeholder).replaceWith(dom);
 
-    let boundBlocks = [];
-    const countInput = dom.find('[data-streamfield-list-count]');
-    const listContainer = dom.find('[data-streamfield-list-container]');
+    this.childBlocks = [];
+    this.countInput = dom.find('[data-streamfield-list-count]');
+    this.listContainer = dom.find('[data-streamfield-list-container]');
+  }
 
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const self = this;
+  clear() {
+    this.countInput.val(0);
+    this.listContainer.empty();
+    this.childBlocks = [];
+  }
 
-    return {
-      type: this.name,
-      setState(values) {
-        countInput.val(values.length);
-        boundBlocks = [];
-        listContainer.empty();
-        values.forEach((val, index) => {
-          const childPrefix = prefix + '-' + index;
-          const childHtml = $(`
-            <div id="${childPrefix}-container" aria-hidden="false">
-              <input type="hidden" id="${childPrefix}-deleted" name="${childPrefix}-deleted" value="">
-              <input type="hidden" id="${childPrefix}-order" name="${childPrefix}-order" value="${index}">
-              <div>
-                <div class="c-sf-container__block-container">
-                  <div class="c-sf-block">
-                    <div class="c-sf-block__header">
-                      <span class="c-sf-block__header__icon">
-                        <i class="icon icon-${self.childBlock.meta.icon}"></i>
-                      </span>
-                      <h3 class="c-sf-block__header__title"></h3>
-                      <div class="c-sf-block__actions">
-                        <span class="c-sf-block__type"></span>
-                        <button type="button" id="${childPrefix}-moveup" class="c-sf-block__actions__single"
-                            title="{% trans 'Move up' %}">
-                          <i class="icon icon-arrow-up" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" id="${childPrefix}-movedown" class="c-sf-block__actions__single"
-                            title="{% trans 'Move down' %}">
-                          <i class="icon icon-arrow-down" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" id="${childPrefix}-delete" class="c-sf-block__actions__single"
-                            title="{% trans 'Delete' %}">
-                          <i class="icon icon-bin" aria-hidden="true"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="c-sf-block__content" aria-hidden="false">
-                      <div class="c-sf-block__content-inner">
-                        <div data-streamfield-block></div>
-                      </div>
-                    </div>
-                  </div>
+  append(value) {
+    const index = this.childBlocks.length;
+    const childPrefix = this.prefix + '-' + index;
+    const childHtml = $(`
+      <div id="${childPrefix}-container" aria-hidden="false">
+        <input type="hidden" id="${childPrefix}-deleted" name="${childPrefix}-deleted" value="">
+        <input type="hidden" id="${childPrefix}-order" name="${childPrefix}-order" value="${index}">
+        <div>
+          <div class="c-sf-container__block-container">
+            <div class="c-sf-block">
+              <div class="c-sf-block__header">
+                <span class="c-sf-block__header__icon">
+                  <i class="icon icon-${this.blockDef.childBlockDef.meta.icon}"></i>
+                </span>
+                <h3 class="c-sf-block__header__title"></h3>
+                <div class="c-sf-block__actions">
+                  <span class="c-sf-block__type"></span>
+                  <button type="button" id="${childPrefix}-moveup" class="c-sf-block__actions__single"
+                      title="{% trans 'Move up' %}">
+                    <i class="icon icon-arrow-up" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" id="${childPrefix}-movedown" class="c-sf-block__actions__single"
+                      title="{% trans 'Move down' %}">
+                    <i class="icon icon-arrow-down" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" id="${childPrefix}-delete" class="c-sf-block__actions__single"
+                      title="{% trans 'Delete' %}">
+                    <i class="icon icon-bin" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="c-sf-block__content" aria-hidden="false">
+                <div class="c-sf-block__content-inner">
+                  <div data-streamfield-block></div>
                 </div>
               </div>
             </div>
-          `);
-          const childDom = $(childHtml);
-          listContainer.append(childDom);
-          const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-          const boundBlock = self.childBlock.render(childBlockElement, childPrefix + '-value');
-          boundBlock.setState(val);
-          boundBlocks.push(boundBlock);
-        });
-      },
-      getState() {
-        return boundBlocks.map((boundBlock) => boundBlock.getState());
-      },
-      getValue() {
-        return boundBlocks.map((boundBlock) => boundBlock.getValue());
-      },
-    };
+          </div>
+        </div>
+      </div>
+    `);
+
+    const childDom = $(childHtml);
+    this.listContainer.append(childDom);
+    const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
+    const childBlock = this.blockDef.childBlockDef.render(childBlockElement, childPrefix + '-value');
+    childBlock.setState(value);
+    this.childBlocks.push(childBlock);
+    this.countInput.val(this.childBlocks.length);
+  }
+
+  setState(values) {
+    this.clear();
+    values.forEach(val => {
+      this.append(val);
+    });
+  }
+
+  getState() {
+    return this.childBlocks.map((block) => block.getState());
+  }
+
+  getValue() {
+    return this.childBlocks.map((block) => block.getValue());
   }
 }
-window.telepath.register('wagtail.blocks.ListBlock', ListBlock);
 
-
-class StreamBlock {
-  constructor(name, childBlocks, meta) {
+class ListBlockDefinition {
+  constructor(name, childBlockDef, meta) {
     this.name = name;
-    this.childBlocks = childBlocks.map((child) => window.telepath.unpack(child));
-    this.childBlocksByName = {};
-    for (let i = 0; i < this.childBlocks.length; i++) {
-      const block = this.childBlocks[i];
-      this.childBlocksByName[block.name] = block;
-    }
+    this.childBlockDef = window.telepath.unpack(childBlockDef);
     this.meta = meta;
   }
 
   render(placeholder, prefix) {
+    return new ListBlock(this, placeholder, prefix);
+  }
+}
+window.telepath.register('wagtail.blocks.ListBlock', ListBlockDefinition);
+
+
+class StreamBlock {
+  constructor(blockDef, placeholder, prefix) {
+    this.blockDef = blockDef;
+    this.type = blockDef.name;
+    this.prefix = prefix;
+
     const html = $(`
-      <div class="c-sf-container ${this.meta.classname || ''}">
+      <div class="c-sf-container ${this.blockDef.meta.classname || ''}">
         <input type="hidden" name="${prefix}-count" data-streamfield-stream-count value="0">
         <div data-streamfield-stream-container></div>
       </div>
     `);
     const dom = $(html);
     $(placeholder).replaceWith(dom);
-    let boundBlocks = [];
-    const countInput = dom.find('[data-streamfield-stream-count]');
-    const streamContainer = dom.find('[data-streamfield-stream-container]');
 
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const self = this;
+    this.childBlocks = [];
+    this.countInput = dom.find('[data-streamfield-stream-count]');
+    this.streamContainer = dom.find('[data-streamfield-stream-container]');
+  }
 
-    return {
-      type: this.name,
-      setState(values) {
-        countInput.val(values.length);
-        streamContainer.empty();
-        boundBlocks = [];
-        for (let index = 0; index < values.length; index++) {
-          const blockData = values[index];
-          const blockType = blockData.type;
-          const block = self.childBlocksByName[blockType];
+  clear() {
+    this.countInput.val(0);
+    this.streamContainer.empty();
+    this.childBlocks = [];
+  }
 
-          const childPrefix = prefix + '-' + index;
-          const childHtml = `
-            <div aria-hidden="false">
-              <input type="hidden" name="${childPrefix}-deleted" value="">
-              <input type="hidden" name="${childPrefix}-order" value="${index}">
-              <input type="hidden" name="${childPrefix}-type" value="${blockType}">
-              <input type="hidden" name="${childPrefix}-id" value="${blockData.id || ''}">
+  append(blockData) {
+    const blockType = blockData.type;
+    const blockDef = this.blockDef.childBlockDefsByName[blockType];
 
-              <div>
-                <div class="c-sf-container__block-container">
-                  <div class="c-sf-block">
-                    <div class="c-sf-block__header">
-                      <span class="c-sf-block__header__icon">
-                        <i class="icon icon-${block.meta.icon}"></i>
-                      </span>
-                      <h3 class="c-sf-block__header__title"></h3>
-                      <div class="c-sf-block__actions">
-                        <span class="c-sf-block__type">${block.meta.label}</span>
-                        <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move up' %}">
-                          <i class="icon icon-arrow-up" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
-                          <i class="icon icon-arrow-down" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
-                          <i class="icon icon-bin" aria-hidden="true"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="c-sf-block__content" aria-hidden="false">
-                      <div class="c-sf-block__content-inner">
-                        <div data-streamfield-block></div>
-                      </div>
-                    </div>
-                  </div>
+    const index = this.childBlocks.length;
+    const childPrefix = this.prefix + '-' + index;
+    const childHtml = $(`
+      <div aria-hidden="false">
+        <input type="hidden" name="${childPrefix}-deleted" value="">
+        <input type="hidden" name="${childPrefix}-order" value="${index}">
+        <input type="hidden" name="${childPrefix}-type" value="${blockType}">
+        <input type="hidden" name="${childPrefix}-id" value="${blockData.id || ''}">
+
+        <div>
+          <div class="c-sf-container__block-container">
+            <div class="c-sf-block">
+              <div class="c-sf-block__header">
+                <span class="c-sf-block__header__icon">
+                  <i class="icon icon-${blockDef.meta.icon}"></i>
+                </span>
+                <h3 class="c-sf-block__header__title"></h3>
+                <div class="c-sf-block__actions">
+                  <span class="c-sf-block__type">${blockDef.meta.label}</span>
+                  <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move up' %}">
+                    <i class="icon icon-arrow-up" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
+                    <i class="icon icon-arrow-down" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
+                    <i class="icon icon-bin" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="c-sf-block__content" aria-hidden="false">
+                <div class="c-sf-block__content-inner">
+                  <div data-streamfield-block></div>
                 </div>
               </div>
             </div>
-          `;
-          const childDom = $(childHtml);
-          streamContainer.append(childDom);
-          const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-          const boundBlock = block.render(childBlockElement, childPrefix + '-value');
-          boundBlock.setState(blockData.value);
-          boundBlocks.push(boundBlock);
-        }
-      },
-      getState() {
-        return boundBlocks.map((boundBlock) => ({
-          type: boundBlock.type,
-          val: boundBlock.getState(),
-          id: null, /* TODO: add this */
-        }));
-      },
-      getValue() {
-        return boundBlocks.map((boundBlock) => ({
-          type: boundBlock.type,
-          val: boundBlock.getValue(),
-          id: null, /* TODO: add this */
-        }));
-      },
-    };
+          </div>
+        </div>
+      </div>
+    `);
+
+    const childDom = $(childHtml);
+    this.streamContainer.append(childDom);
+    const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
+    const childBlock = blockDef.render(childBlockElement, childPrefix + '-value');
+    childBlock.setState(blockData.value);
+    this.childBlocks.push(childBlock);
+    this.countInput.val(this.childBlocks.length);
+  }
+
+  setState(values) {
+    this.clear();
+    values.forEach(val => {
+      this.append(val);
+    });
+  }
+
+  getState() {
+    return this.childBlocks.map(block => ({
+      type: block.type,
+      val: block.getState(),
+      id: null, /* TODO: add this */
+    }));
+  }
+
+  getValue() {
+    return this.childBlocks.map(block => ({
+      type: block.type,
+      val: block.getValue(),
+      id: null, /* TODO: add this */
+    }));
   }
 }
-window.telepath.register('wagtail.blocks.StreamBlock', StreamBlock);
+
+class StreamBlockDefinition {
+  constructor(name, childBlockDefs, meta) {
+    this.name = name;
+    this.childBlockDefs = childBlockDefs.map((child) => window.telepath.unpack(child));
+    this.childBlockDefsByName = {};
+    for (let i = 0; i < this.childBlockDefs.length; i++) {
+      const blockDef = this.childBlockDefs[i];
+      this.childBlockDefsByName[blockDef.name] = blockDef;
+    }
+    this.meta = meta;
+  }
+
+  render(placeholder, prefix) {
+    return new StreamBlock(this, placeholder, prefix);
+  }
+}
+window.telepath.register('wagtail.blocks.StreamBlock', StreamBlockDefinition);
