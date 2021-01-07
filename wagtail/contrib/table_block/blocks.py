@@ -40,21 +40,9 @@ DEFAULT_TABLE_OPTIONS = {
 
 
 class TableInput(forms.HiddenInput):
-    template_name = "table_block/widgets/table.html"
-
     def __init__(self, table_options=None, attrs=None):
         self.table_options = table_options
         super().__init__(attrs=attrs)
-
-    def get_context(self, name, value, attrs=None):
-        context = super().get_context(name, value, attrs)
-        table_caption = ''
-        if value and value != 'null':
-            table_caption = json.loads(value).get('table_caption', '')
-        context['widget']['table_options_json'] = json.dumps(self.table_options)
-        context['widget']['table_caption'] = table_caption
-
-        return context
 
     class Media:
         css = {'all': [
