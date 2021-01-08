@@ -258,56 +258,35 @@ class ListBlockDefinition {
 window.telepath.register('wagtail.blocks.ListBlock', ListBlockDefinition);
 
 
-class StreamBlock {
-  constructor(blockDef, placeholder, prefix, initialState) {
+class StreamChild {
+  /*
+  wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata
+  such as id
+  */
+  constructor(blockDef, placeholder, prefix, index, initialState) {
+    const state = initialState || {};
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
+    this.id = state.id;
 
     const html = $(`
-      <div class="c-sf-container ${this.blockDef.meta.classname || ''}">
-        <input type="hidden" name="${prefix}-count" data-streamfield-stream-count value="0">
-        <div data-streamfield-stream-container></div>
-      </div>
-    `);
-    const dom = $(html);
-    $(placeholder).replaceWith(dom);
-
-    this.childBlocks = [];
-    this.countInput = dom.find('[data-streamfield-stream-count]');
-    this.streamContainer = dom.find('[data-streamfield-stream-container]');
-    this.setState(initialState || []);
-  }
-
-  clear() {
-    this.countInput.val(0);
-    this.streamContainer.empty();
-    this.childBlocks = [];
-  }
-
-  append(blockData) {
-    const blockType = blockData.type;
-    const blockDef = this.blockDef.childBlockDefsByName[blockType];
-
-    const index = this.childBlocks.length;
-    const childPrefix = this.prefix + '-' + index;
-    const childHtml = $(`
       <div aria-hidden="false">
-        <input type="hidden" name="${childPrefix}-deleted" value="">
-        <input type="hidden" name="${childPrefix}-order" value="${index}">
-        <input type="hidden" name="${childPrefix}-type" value="${blockType}">
-        <input type="hidden" name="${childPrefix}-id" value="${blockData.id || ''}">
+        <input type="hidden" name="${this.prefix}-deleted" value="">
+        <input type="hidden" name="${this.prefix}-order" value="${index}">
+        <input type="hidden" name="${this.prefix}-type" value="${this.type}">
+        <input type="hidden" name="${this.prefix}-id" value="${this.id || ''}">
 
         <div>
           <div class="c-sf-container__block-container">
             <div class="c-sf-block">
               <div class="c-sf-block__header">
                 <span class="c-sf-block__header__icon">
-                  <i class="icon icon-${blockDef.meta.icon}"></i>
+                  <i class="icon icon-${this.blockDef.meta.icon}"></i>
                 </span>
                 <h3 class="c-sf-block__header__title"></h3>
                 <div class="c-sf-block__actions">
-                  <span class="c-sf-block__type">${blockDef.meta.label}</span>
+                  <span class="c-sf-block__type">${this.blockDef.meta.label}</span>
                   <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move up' %}">
                     <i class="icon icon-arrow-up" aria-hidden="true"></i>
                   </button>
@@ -329,13 +308,67 @@ class StreamBlock {
         </div>
       </div>
     `);
+    const dom = $(html);
+    $(placeholder).replaceWith(dom);
+    const blockElement = dom.find('[data-streamfield-block]').get(0);
+    this.block = this.blockDef.render(blockElement, this.prefix + '-value', state.value);
+  }
 
-    const childDom = $(childHtml);
-    this.streamContainer.append(childDom);
-    const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-    const childBlock = blockDef.render(childBlockElement, childPrefix + '-value', blockData.value);
-    this.childBlocks.push(childBlock);
-    this.countInput.val(this.childBlocks.length);
+  getState() {
+    return {
+      type: this.type,
+      val: this.block.getState(),
+      id: this.id,
+    };
+  }
+
+  getValue() {
+    return {
+      type: this.type,
+      val: this.block.getValue(),
+      id: this.id,
+    };
+  }
+}
+
+class StreamBlock {
+  constructor(blockDef, placeholder, prefix, initialState) {
+    this.blockDef = blockDef;
+    this.type = blockDef.name;
+    this.prefix = prefix;
+
+    const html = $(`
+      <div class="c-sf-container ${this.blockDef.meta.classname || ''}">
+        <input type="hidden" name="${prefix}-count" data-streamfield-stream-count value="0">
+        <div data-streamfield-stream-container></div>
+      </div>
+    `);
+    const dom = $(html);
+    $(placeholder).replaceWith(dom);
+
+    this.children = [];
+    this.countInput = dom.find('[data-streamfield-stream-count]');
+    this.streamContainer = dom.find('[data-streamfield-stream-container]');
+    this.setState(initialState || []);
+  }
+
+  clear() {
+    this.countInput.val(0);
+    this.streamContainer.empty();
+    this.children = [];
+  }
+
+  append(blockData) {
+    const blockType = blockData.type;
+    const blockDef = this.blockDef.childBlockDefsByName[blockType];
+    const index = this.children.length;
+    const prefix = this.prefix + '-' + index;
+    const placeholder = document.createElement('div');
+    this.streamContainer.append(placeholder);
+
+    const child = new StreamChild(blockDef, placeholder, prefix, index, blockData);
+    this.children.push(child);
+    this.countInput.val(this.children.length);
   }
 
   setState(values) {
@@ -346,19 +379,11 @@ class StreamBlock {
   }
 
   getState() {
-    return this.childBlocks.map(block => ({
-      type: block.type,
-      val: block.getState(),
-      id: null, /* TODO: add this */
-    }));
+    return this.children.map(child => child.getState());
   }
 
   getValue() {
-    return this.childBlocks.map(block => ({
-      type: block.type,
-      val: block.getValue(),
-      id: null, /* TODO: add this */
-    }));
+    return this.children.map(child => child.getValue());
   }
 }
 
