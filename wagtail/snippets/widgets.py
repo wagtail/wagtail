@@ -9,6 +9,8 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
 from wagtail.admin.widgets.button import ListingButton
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
 
 
 class AdminSnippetChooser(AdminChooser):
@@ -55,14 +57,16 @@ class AdminSnippetChooser(AdminChooser):
             'edit_url': value_data.get('edit_url', ''),
         })
 
-    def render_js_init(self, id_, name, value_data):
+    @property
+    def model_string(self):
         model = self.target_model
+        return '{app}/{model}'.format(app=model._meta.app_label, model=model._meta.model_name)
 
+    def render_js_init(self, id_, name, value_data):
         return "createSnippetChooser({id}, {model});".format(
             id=json.dumps(id_),
-            model=json.dumps('{app}/{model}'.format(
-                app=model._meta.app_label,
-                model=model._meta.model_name)))
+            model=json.dumps(self.model_string)
+        )
 
     @property
     def media(self):
@@ -70,6 +74,24 @@ class AdminSnippetChooser(AdminChooser):
             versioned_static('wagtailsnippets/js/snippet-chooser-modal.js'),
             versioned_static('wagtailsnippets/js/snippet-chooser.js'),
         ])
+
+
+class SnippetChooserAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.snippets.widgets.SnippetChooser'
+
+    def js_args(self, widget, context):
+        return [
+            widget.render_html('__NAME__', None, attrs={'id': '__ID__'}),
+            widget.id_for_label('__ID__'), widget.model_string
+        ]
+
+    class Media:
+        js = [
+            versioned_static('wagtailsnippets/js/snippet-chooser-telepath.js'),
+        ]
+
+
+register(SnippetChooserAdapter(), AdminSnippetChooser)
 
 
 class SnippetListingButton(ListingButton):
