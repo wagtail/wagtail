@@ -8,7 +8,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.models import Page
-from wagtail.core.telepath import Adapter, register
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
 from wagtail.utils.widgets import WidgetWithScript
 
 
@@ -169,7 +170,7 @@ class AdminPageChooser(AdminChooser):
         ])
 
 
-class PageChooserAdapter(Adapter):
+class PageChooserAdapter(WidgetAdapter):
     js_constructor = 'wagtail.widgets.PageChooser'
 
     def js_args(self, widget, context):
@@ -178,12 +179,6 @@ class PageChooserAdapter(Adapter):
             widget.id_for_label('__ID__'),
             widget.client_options,
         ]
-
-    @property
-    def media(self):
-        return AdminPageChooser().media + forms.Media(js=[
-            versioned_static('wagtailadmin/js/telepath/widgets.js')
-        ])
 
 
 register(PageChooserAdapter(), AdminPageChooser)
