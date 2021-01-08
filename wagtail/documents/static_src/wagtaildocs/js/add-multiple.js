@@ -114,6 +114,8 @@ $(function() {
 
         e.preventDefault();
 
+        $(this).find(':submit').prop("disabled", true);
+
         $.post(this.action, form.serialize(), function(data) {
             if (data.success) {
                 var statusText = $('.status-msg.update-success').text();
