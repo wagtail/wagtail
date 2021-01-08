@@ -31,6 +31,7 @@ Bug fixes
  * Prevent error on copying pages with ClusterTaggableManager relations and multi-level inheritance (Chris Pollard)
  * Prevent failure on root page when registering the Page model with ModelAdmin (Jake Howard)
  * Prevent error when filtering page search results with a malformed content_type (Chris Pollard)
+ * Prevent multiple submissions of "update" form when uploading images / documents (Mike Brown)
 
 Upgrade considerations
 ======================

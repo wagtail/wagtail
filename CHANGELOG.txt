@@ -20,6 +20,7 @@ Changelog
  * Fix: Prevent error on copying pages with ClusterTaggableManager relations and multi-level inheritance (Chris Pollard)
  * Fix: Prevent failure on root page when registering the Page model with ModelAdmin (Jake Howard)
  * Fix: Prevent error when filtering page search results with a malformed content_type (Chris Pollard)
+ * Fix: Prevent multiple submissions of "update" form when uploading images / documents (Mike Brown)
 
 
 2.13.2 (17.06.2021)
