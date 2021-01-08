@@ -57,6 +57,7 @@ module.exports = function exports() {
     ],
     snippets: [
       'snippet-chooser',
+      'snippet-chooser-telepath',
     ],
   };
 
