@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
 from wagtail.images import get_image_model
 from wagtail.images.shortcuts import get_rendition_or_not_found
 
@@ -64,3 +66,21 @@ class AdminImageChooser(AdminChooser):
             versioned_static('wagtailimages/js/image-chooser-modal.js'),
             versioned_static('wagtailimages/js/image-chooser.js'),
         ])
+
+
+class ImageChooserAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.images.widgets.ImageChooser'
+
+    def js_args(self, widget, context):
+        return [
+            widget.render_html('__NAME__', None, attrs={'id': '__ID__'}),
+            widget.id_for_label('__ID__'),
+        ]
+
+    class Media:
+        js = [
+            versioned_static('wagtailimages/js/image-chooser-telepath.js'),
+        ]
+
+
+register(ImageChooserAdapter(), AdminImageChooser)

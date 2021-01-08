@@ -49,6 +49,7 @@ module.exports = function exports() {
     ],
     images: [
       'image-chooser',
+      'image-chooser-telepath',
     ],
     documents: [
       'document-chooser',
