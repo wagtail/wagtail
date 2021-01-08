@@ -53,6 +53,7 @@ module.exports = function exports() {
     ],
     documents: [
       'document-chooser',
+      'document-chooser-telepath',
     ],
     snippets: [
       'snippet-chooser',
