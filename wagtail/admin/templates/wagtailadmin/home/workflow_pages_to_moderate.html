@@ -22,9 +22,9 @@
                             <td class="title" valign="top">
                                 <div class="title-wrapper">
                                     {% if page_perms.can_edit %}
-                                        <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                        <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.specific_deferred.get_admin_display_title }}</a>
                                     {% else %}
-                                        {{ revision.page.get_admin_display_title }}
+                                        {{ revision.page.specific_deferred.get_admin_display_title }}
                                     {% endif %}
 
                                     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}

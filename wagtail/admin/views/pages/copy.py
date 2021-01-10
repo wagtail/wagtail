@@ -76,10 +76,10 @@ def copy(request, page_id):
             if form.cleaned_data.get('copy_subpages'):
                 messages.success(
                     request,
-                    _("Page '{0}' and {1} subpages copied.").format(page.get_admin_display_title(), new_page.get_descendants().count())
+                    _("Page '{0}' and {1} subpages copied.").format(page.specific_deferred.get_admin_display_title(), new_page.get_descendants().count())
                 )
             else:
-                messages.success(request, _("Page '{0}' copied.").format(page.get_admin_display_title()))
+                messages.success(request, _("Page '{0}' copied.").format(page.specific_deferred.get_admin_display_title()))
 
             for fn in hooks.get_hooks('after_copy_page'):
                 result = fn(request, page, new_page)

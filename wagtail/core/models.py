@@ -2019,11 +2019,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             data={
                 'source': {
                     'id': parent_before.id,
-                    'title': parent_before.get_admin_display_title()
+                    'title': parent_before.specific_deferred.get_admin_display_title()
                 },
                 'destination': {
                     'id': parent_after.id,
-                    'title': parent_after.get_admin_display_title()
+                    'title': parent_after.specific_deferred.get_admin_display_title()
                 }
             }
         )
@@ -2164,8 +2164,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                         'id': page_copy.id,
                         'title': page_copy.get_admin_display_title()
                     },
-                    'source': {'id': parent.id, 'title': parent.get_admin_display_title()} if parent else None,
-                    'destination': {'id': to.id, 'title': to.get_admin_display_title()} if to else None,
+                    'source': {'id': parent.id, 'title': parent.specific_deferred.get_admin_display_title()} if parent else None,
+                    'destination': {'id': to.id, 'title': to.specific_deferred.get_admin_display_title()} if to else None,
                     'keep_live': page_copy.live and keep_live
                 },
             )
@@ -2306,8 +2306,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                         'id': alias.id,
                         'title': alias.get_admin_display_title()
                     },
-                    'source': {'id': source_parent.id, 'title': source_parent.get_admin_display_title()} if source_parent else None,
-                    'destination': {'id': parent.id, 'title': parent.get_admin_display_title()} if parent else None,
+                    'source': {'id': source_parent.id, 'title': source_parent.specific_deferred.get_admin_display_title()} if source_parent else None,
+                    'destination': {'id': parent.id, 'title': parent.specific_deferred.get_admin_display_title()} if parent else None,
                 },
             )
             if alias.live:
@@ -4592,8 +4592,8 @@ class BaseLogEntryManager(models.Manager):
         data = kwargs.pop('data', '')
         title = kwargs.pop('title', None)
         if not title:
-            if hasattr(instance, 'get_admin_display_title'):
-                title = instance.get_admin_display_title()
+            if isinstance(instance, Page):
+                title = instance.specific_deferred.get_admin_display_title()
             else:
                 title = str(instance)
 

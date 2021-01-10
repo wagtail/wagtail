@@ -23,11 +23,11 @@
                         <td class="title" valign="top">
                             <div class="title-wrapper">
                                 {% if page_perms.can_edit %}
-                                    <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                    <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.specific_deferred.get_admin_display_title }}</a>
                                 {% elif revision.page.is_previewable %}
-                                    <a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" title="{% trans 'Preview this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                    <a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" title="{% trans 'Preview this page' %}">{{ revision.page.specific_deferred.get_admin_display_title }}</a>
                                 {% else %}
-                                    {{ revision.page.get_admin_display_title }}
+                                    {{ revision.page.specific_deferred.get_admin_display_title }}
                                 {% endif %}
 
                                 {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
@@ -55,7 +55,7 @@
                             </ul>
                         </td>
                         <td valign="top">
-                            <a href="{% url 'wagtailadmin_explore' revision.page.get_parent.id %}">{{ revision.page.get_parent.get_admin_display_title }}</a>
+                            <a href="{% url 'wagtailadmin_explore' revision.page.get_parent.id %}">{{ revision.page.get_parent.specific_deferred.get_admin_display_title }}</a>
                         </td>
                         <td class="type" valign="top">
                             {{ revision.page.content_type.model_class.get_verbose_name }}
