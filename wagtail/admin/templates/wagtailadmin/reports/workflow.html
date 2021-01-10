@@ -41,7 +41,7 @@
                         </td>
                         <td>
                             <a href="{% url 'wagtailadmin_pages:edit' workflow_state.page.id %}">
-                                {{ workflow_state.page.get_admin_display_title }}
+                                {{ workflow_state.page.specific_deferred.get_admin_display_title }}
                             </a>
                         </td>
                         <td>

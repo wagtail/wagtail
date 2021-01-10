@@ -39,7 +39,7 @@
                         <td>
                             {% with task_state.workflow_state.page as page %}
                                 <a href="{% url 'wagtailadmin_pages:edit' page.id %}">
-                                    {{ page.get_admin_display_title }}
+                                    {{ page.specific_deferred.get_admin_display_title }}
                                 </a>
                             {% endwith %}
                         </td>

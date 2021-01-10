@@ -49,7 +49,8 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
 
 def move_confirm(request, page_to_move_id, destination_id):
     page_to_move = get_object_or_404(Page, id=page_to_move_id).specific
-    destination = get_object_or_404(Page, id=destination_id)
+    # Needs .specific_deferred because the .get_admin_display_title method is called in template
+    destination = get_object_or_404(Page, id=destination_id).specific_deferred
     if not page_to_move.permissions_for_user(request.user).can_move_to(destination):
         raise PermissionDenied
 

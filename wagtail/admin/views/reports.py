@@ -84,7 +84,7 @@ class LockedPagesView(PageReportView):
         pages = (
             UserPagePermissionsProxy(self.request.user).editable_pages()
             | Page.objects.filter(locked_by=self.request.user)
-        ).filter(locked=True)
+        ).filter(locked=True).specific(defer=True)
         self.queryset = pages
         return super().get_queryset()
 

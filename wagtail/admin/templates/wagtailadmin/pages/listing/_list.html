@@ -59,7 +59,7 @@
                                 {% block page_parent_page_title %}
                                     {% with page.get_parent as parent %}
                                         {% if parent %}
-                                            <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.get_admin_display_title }}</a>
+                                            <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.specific_deferred.get_admin_display_title }}</a>
                                         {% endif %}
                                     {% endwith %}
                                 {% endblock %}

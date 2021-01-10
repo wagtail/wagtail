@@ -75,7 +75,7 @@ class CopyForm(forms.Form):
         # check if user is allowed to create a page at given location.
         if not parent_page.permissions_for_user(self.user).can_add_subpage():
             self._errors['new_parent_page'] = self.error_class([
-                _("You do not have permission to copy to page \"%(page_title)s\"") % {'page_title': parent_page.get_admin_display_title()}
+                _("You do not have permission to copy to page \"%(page_title)s\"") % {'page_title': parent_page.specific_deferred.get_admin_display_title()}
             ])
 
         # Count the pages with the same slug within the context of our copy's parent page

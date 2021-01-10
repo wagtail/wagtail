@@ -15,13 +15,13 @@ def approve_moderation(request, revision_id):
         raise PermissionDenied
 
     if not revision.submitted_for_moderation:
-        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.get_admin_display_title()))
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.specific_deferred.get_admin_display_title()))
         return redirect('wagtailadmin_home')
 
     if request.method == 'POST':
         revision.approve_moderation(user=request.user)
 
-        message = _("Page '{0}' published.").format(revision.page.get_admin_display_title())
+        message = _("Page '{0}' published.").format(revision.page.specific_deferred.get_admin_display_title())
         buttons = []
         if revision.page.url is not None:
             buttons.append(messages.button(revision.page.url, _('View live'), new_window=True))
@@ -40,13 +40,13 @@ def reject_moderation(request, revision_id):
         raise PermissionDenied
 
     if not revision.submitted_for_moderation:
-        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.get_admin_display_title()))
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.specific_deferred.get_admin_display_title()))
         return redirect('wagtailadmin_home')
 
     if request.method == 'POST':
         revision.reject_moderation(user=request.user)
 
-        messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.get_admin_display_title()), buttons=[
+        messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.specific_deferred.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
 
@@ -63,7 +63,7 @@ def preview_for_moderation(request, revision_id):
         raise PermissionDenied
 
     if not revision.submitted_for_moderation:
-        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.get_admin_display_title()))
+        messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(revision.page.specific_deferred.get_admin_display_title()))
         return redirect('wagtailadmin_home')
 
     page = revision.as_page_object()
