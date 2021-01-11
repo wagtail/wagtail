@@ -493,6 +493,7 @@ Contributors
 * Fernando Cordeiro
 * Matthias Rohmer
 * Joshua Marantz
+* Mike Brown
 
 Translators
 ===========
