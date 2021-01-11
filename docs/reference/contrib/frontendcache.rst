@@ -192,12 +192,12 @@ This signal handler would trigger the invalidation of the index page using the
 
 
     @receiver(page_published, sender=BlogPage)
-    def blog_published_handler(instance):
+    def blog_published_handler(instance, **kwargs):
         blog_page_changed(instance)
 
 
     @receiver(pre_delete, sender=BlogPage)
-    def blog_deleted_handler(instance):
+    def blog_deleted_handler(instance, **kwargs):
         blog_page_changed(instance)
 
 
