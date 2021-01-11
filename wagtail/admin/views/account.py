@@ -231,12 +231,12 @@ class LoginView(auth_views.LoginView):
     def get_success_url(self):
         return self.get_redirect_url() or reverse('wagtailadmin_home')
 
-    def get(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         # If user is already logged in, redirect them to the dashboard
-        if self.request.user.is_authenticated and self.request.user.has_perm('wagtailadmin.access_admin'):
+        if request.user.is_authenticated and request.user.has_perm('wagtailadmin.access_admin'):
             return redirect(self.get_success_url())
 
-        return super().get(*args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def get_form_class(self):
         return get_user_login_form()
