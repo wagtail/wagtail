@@ -74,7 +74,7 @@ class FieldBlock(Block):
 class FieldBlockAdapter(Adapter):
     js_constructor = 'wagtail.blocks.FieldBlock'
 
-    def js_args(self, block, context):
+    def js_args(self, block):
         classname = [
             'field',
             camelcase_to_underscore(block.field.__class__.__name__),
@@ -85,7 +85,7 @@ class FieldBlockAdapter(Adapter):
 
         return [
             block.name,
-            context.pack(block.field.widget),
+            block.field.widget,
             {
                 'label': block.label,
                 'required': block.required,
