@@ -13,14 +13,14 @@ from wagtail.core.telepath import Adapter, register
 class WidgetAdapter(Adapter):
     js_constructor = 'wagtail.widgets.Widget'
 
-    def js_args(self, widget, context):
+    def js_args(self, widget):
         return [
             widget.render('__NAME__', None, attrs={'id': '__ID__'}),
             widget.id_for_label('__ID__'),
         ]
 
-    def get_media(self, widget, context):
-        media = super().get_media(widget, context)
+    def get_media(self, widget):
+        media = super().get_media(widget)
         return media + widget.media
 
     class Media:

@@ -214,10 +214,10 @@ class StructBlock(BaseStructBlock, metaclass=DeclarativeSubBlocksMetaclass):
 class StructBlockAdapter(Adapter):
     js_constructor = 'wagtail.blocks.StructBlock'
 
-    def js_args(self, block, context):
+    def js_args(self, block):
         return [
             block.name,
-            [context.pack(child) for child in block.child_blocks.values()],
+            block.child_blocks.values(),
             {
                 'label': block.label, 'required': block.required, 'icon': block.meta.icon,
                 'classname': block.meta.form_classname, 'helpText': getattr(block.meta, 'help_text', None),
