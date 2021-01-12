@@ -116,14 +116,15 @@ Additionally, you can hide empty heading blocks with CSS:
 Forms
 -----
 
-When using the ``wagtailforms`` :ref:`form_builder`, don’t stop at Django’s default forms rendering:
+The ``wagtailforms`` :ref:`form_builder` uses Django’s forms API, but make sure to go beyond Django’s default forms rendering:
 
-- Avoid ``as_table`` and ``as_ul``, which make forms harder to navigate for screen reader users.
+- Avoid rendering helpers such as ``as_table``, ``as_ul``, ``as_p``, which can make forms harder to navigate for screen reader users or cause HTML validation issues (see Django ticket `#32339 <https://code.djangoproject.com/ticket/32339>`_).
 - Make sure to visually distinguish required and optional fields.
+- If relevant, for larger forms take the time to group related fields together in ``fieldset``, with an appropriate ``legend``.
 - If relevant, use the appropriate ``autocomplete`` and ``autocapitalize`` attributes.
-- Make sure to display an example value, or the expected format, for fields that accept arbitrary values but have validation – like Date and Date/Time.
+- Make sure to display an example value, or the expected format, for fields that accept arbitrary values but have validation – like Date and Date/Time (see Django ticket `#32340 <https://code.djangoproject.com/ticket/32340>`_).
 
-There are further issues with Django’s built-in forms rendering – make sure to rest your forms’ implementation and review `official W3C guidance on accessible forms development <https://www.w3.org/WAI/tutorials/forms/>`_ for further information.
+There are further issues with Django’s built-in forms rendering (such as `#32338 <https://code.djangoproject.com/ticket/32338>`_) – make sure to test your forms’ implementation and review `official W3C guidance on accessible forms development <https://www.w3.org/WAI/tutorials/forms/>`_ for further information.
 
 ----
 
