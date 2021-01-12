@@ -1,3 +1,4 @@
+import itertools
 import uuid
 import warnings
 
@@ -61,6 +62,15 @@ class BaseStreamBlock(Block):
         """Child blocks, sorted in to their groups."""
         return sorted(self.child_blocks.values(),
                       key=lambda child_block: child_block.meta.group)
+
+    def grouped_child_blocks(self):
+        """
+        Child blocks organised into groups, returned as an iterable of
+        (group_name, list_of_blocks) tuples
+        """
+        return itertools.groupby(
+            self.sorted_child_blocks(), key=lambda child_block: child_block.meta.group
+        )
 
     def render_list_member(self, block_type_name, value, prefix, index, errors=None, id=None):
         """
@@ -614,7 +624,7 @@ class StreamBlockAdapter(Adapter):
     def js_args(self, block):
         return [
             block.name,
-            block.child_blocks.values(),
+            block.grouped_child_blocks(),
             {
                 'label': block.label, 'required': block.required, 'icon': block.meta.icon,
                 'classname': block.meta.form_classname, 'helpText': getattr(block.meta, 'help_text', None),
