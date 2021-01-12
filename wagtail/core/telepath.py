@@ -7,6 +7,10 @@ from wagtail.admin.staticfiles import versioned_static
 DICT_RESERVED_KEYS = ['_type', '_args', '_dict']
 
 
+class UnpackableTypeError(TypeError):
+    pass
+
+
 class BaseAdapter:
     """Handles serialisation of a specific object type"""
     def pack(self, obj, context):
@@ -102,7 +106,9 @@ class JSContext:
         # as fallback, try handling as an iterable
         try:
             return [self.pack(item) for item in obj]
-        except TypeError:
+        except UnpackableTypeError:  # error while packing an item
+            raise
+        except TypeError:  # obj is not iterable
             pass
 
-        raise Exception("don't know how to pack object: %r" % obj)
+        raise UnpackableTypeError("don't know how to pack object: %r" % obj)
