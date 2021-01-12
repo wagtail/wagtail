@@ -95,8 +95,8 @@ class BaseSearchQueryCompiler:
                     field_attname = where_node.lhs.lhs.target.attname
                 else:
                     raise FilterError(
-                        'Cannot apply filter on search results: "' + where_node.lhs.lookup_name + 
-                        '" queries are not supported.'
+                        'Cannot apply filter on search results: "' + where_node.lhs.lookup_name
+                        + '" queries are not supported.'
                     )
             else:
                 field_attname = where_node.lhs.target.attname

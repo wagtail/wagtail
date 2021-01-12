@@ -332,7 +332,7 @@ class TestElasticsearch7SearchQuery(TestCase):
         # Check it
         expected_result = {'match_phrase': {'title': "Hello world"}}
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
-    
+
     def test_year_filter(self):
         # Create a query
         query_compiler = self.query_compiler_class(models.Book.objects.filter(publication_date__year__lt=1900), "Hello")
