@@ -173,7 +173,7 @@ class AdminPageChooser(AdminChooser):
 class PageChooserAdapter(WidgetAdapter):
     js_constructor = 'wagtail.widgets.PageChooser'
 
-    def js_args(self, widget, context):
+    def js_args(self, widget):
         return [
             widget.render_html('__NAME__', None, attrs={'id': '__ID__'}),
             widget.id_for_label('__ID__'),
