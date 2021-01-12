@@ -388,14 +388,16 @@ class StreamBlock {
 }
 
 class StreamBlockDefinition {
-  constructor(name, childBlockDefs, meta) {
+  constructor(name, groupedChildBlockDefs, meta) {
     this.name = name;
-    this.childBlockDefs = childBlockDefs;
+    this.groupedChildBlockDefs = groupedChildBlockDefs;
     this.childBlockDefsByName = {};
-    for (let i = 0; i < this.childBlockDefs.length; i++) {
-      const blockDef = this.childBlockDefs[i];
-      this.childBlockDefsByName[blockDef.name] = blockDef;
-    }
+    // eslint-disable-next-line no-unused-vars
+    this.groupedChildBlockDefs.forEach(([group, blockDefs]) => {
+      blockDefs.forEach(blockDef => {
+        this.childBlockDefsByName[blockDef.name] = blockDef;
+      });
+    });
     this.meta = meta;
   }
 
