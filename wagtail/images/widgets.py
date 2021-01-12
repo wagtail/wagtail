@@ -71,7 +71,7 @@ class AdminImageChooser(AdminChooser):
 class ImageChooserAdapter(WidgetAdapter):
     js_constructor = 'wagtail.images.widgets.ImageChooser'
 
-    def js_args(self, widget, context):
+    def js_args(self, widget):
         return [
             widget.render_html('__NAME__', None, attrs={'id': '__ID__'}),
             widget.id_for_label('__ID__'),

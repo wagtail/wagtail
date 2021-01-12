@@ -86,7 +86,7 @@ class DraftailRichTextArea(widgets.HiddenInput):
 class DraftailRichTextAreaAdapter(WidgetAdapter):
     js_constructor = 'wagtail.widgets.DraftailRichTextArea'
 
-    def js_args(self, widget, context):
+    def js_args(self, widget):
         return [
             widget.options,
         ]
