@@ -63,7 +63,7 @@ class FieldBlock {
 class FieldBlockDefinition {
   constructor(name, widget, meta) {
     this.name = name;
-    this.widget = window.telepath.unpack(widget);
+    this.widget = widget;
     this.meta = meta;
   }
 
@@ -135,7 +135,7 @@ class StructBlock {
 class StructBlockDefinition {
   constructor(name, childBlockDefs, meta) {
     this.name = name;
-    this.childBlockDefs = childBlockDefs.map((child) => window.telepath.unpack(child));
+    this.childBlockDefs = childBlockDefs;
     this.meta = meta;
   }
 
@@ -247,7 +247,7 @@ class ListBlock {
 class ListBlockDefinition {
   constructor(name, childBlockDef, meta) {
     this.name = name;
-    this.childBlockDef = window.telepath.unpack(childBlockDef);
+    this.childBlockDef = childBlockDef;
     this.meta = meta;
   }
 
@@ -365,7 +365,7 @@ class StreamBlock {
 class StreamBlockDefinition {
   constructor(name, childBlockDefs, meta) {
     this.name = name;
-    this.childBlockDefs = childBlockDefs.map((child) => window.telepath.unpack(child));
+    this.childBlockDefs = childBlockDefs;
     this.childBlockDefsByName = {};
     for (let i = 0; i < this.childBlockDefs.length; i++) {
       const blockDef = this.childBlockDefs[i];
