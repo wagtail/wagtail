@@ -143,10 +143,10 @@ class ListBlock(Block):
 class ListBlockAdapter(Adapter):
     js_constructor = 'wagtail.blocks.ListBlock'
 
-    def js_args(self, block, context):
+    def js_args(self, block):
         return [
             block.name,
-            context.pack(block.child_block),
+            block.child_block,
             {
                 'label': block.label, 'icon': block.meta.icon, 'classname': block.meta.form_classname,
                 'helpText': getattr(block.meta, 'help_text', None),

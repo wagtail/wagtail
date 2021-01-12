@@ -79,7 +79,7 @@ class AdminSnippetChooser(AdminChooser):
 class SnippetChooserAdapter(WidgetAdapter):
     js_constructor = 'wagtail.snippets.widgets.SnippetChooser'
 
-    def js_args(self, widget, context):
+    def js_args(self, widget):
         return [
             widget.render_html('__NAME__', None, attrs={'id': '__ID__'}),
             widget.id_for_label('__ID__'), widget.model_string
