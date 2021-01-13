@@ -42,6 +42,9 @@ function createPageChooser(id, openAtParentId, options) {
 
       state = newState;
     },
+    focus: () => {
+      $('.action-choose', chooserElement).focus();
+    },
 
     openChooserModal: () => {
       let url = chooserBaseUrl;
