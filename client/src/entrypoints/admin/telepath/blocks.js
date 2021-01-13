@@ -258,12 +258,11 @@ class StreamChild {
   wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata
   such as id
   */
-  constructor(blockDef, placeholder, prefix, index, initialState) {
-    const state = initialState || {};
+  constructor(blockDef, placeholder, prefix, index, id, state) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
-    this.id = state.id;
+    this.id = id;
 
     const dom = $(`
       <div aria-hidden="false">
@@ -306,7 +305,7 @@ class StreamChild {
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
-    this.block = this.blockDef.render(blockElement, this.prefix + '-value', state.value);
+    this.block = this.blockDef.render(blockElement, this.prefix + '-value', state);
 
     this.indexInput = dom.find('[data-streamblock-index]');
   }
@@ -318,7 +317,7 @@ class StreamChild {
   getState() {
     return {
       type: this.type,
-      val: this.block.getState(),
+      value: this.block.getState(),
       id: this.id,
     };
   }
@@ -326,7 +325,7 @@ class StreamChild {
   getValue() {
     return {
       type: this.type,
-      val: this.block.getValue(),
+      value: this.block.getValue(),
       id: this.id,
     };
   }
@@ -455,31 +454,46 @@ class StreamBlock {
     ];
   }
 
-  append(blockData) {
-    const blockType = blockData.type;
-    const blockDef = this.blockDef.childBlockDefsByName[blockType];
-    const index = this.children.length;
+  insert({ type, value, id }, index) {
+    const blockDef = this.blockDef.childBlockDefsByName[type];
     const prefix = this.prefix + '-' + index;
-    const placeholder = document.createElement('div');
-    this.streamContainer.append(placeholder);
 
-    const child = new StreamChild(blockDef, placeholder, prefix, index, blockData);
-    this.children.push(child);
-    this.countInput.val(this.children.length);
-
+    /*
+    a new menu and block will be inserted BEFORE the menu with the given index;
+    e.g if there are 3 blocks the children of streamContainer will be
+    [menu 0, block 0, menu 1, block 1, menu 2, block 2, menu 3]
+    and inserting a new block at index 1 will create a new menu 1 and block 1 before the
+    current menu 1, and increment everything after that point
+    */
+    const existingMenuElement = this.menus[index].element;
     const menuPlaceholder = document.createElement('div');
-    this.streamContainer.append(menuPlaceholder);
-    this.menus.push(
-      new StreamBlockMenu(
-        menuPlaceholder, this.blockDef.groupedChildBlockDefs, { index: index + 1, isOpen: false }
-      )
+    const blockPlaceholder = document.createElement('div');
+    $(menuPlaceholder).insertBefore(existingMenuElement);
+    $(blockPlaceholder).insertBefore(existingMenuElement);
+
+    /* shuffle up indexes of all blocks / menus above this index */
+    for (let i = index; i < this.children.length; i++) {
+      this.children[i].setIndex(i + 1);
+    }
+    for (let i = index; i < this.menus.length; i++) {
+      this.menus[i].index = i + 1;
+    }
+
+    const menu = new StreamBlockMenu(
+      menuPlaceholder, this.blockDef.groupedChildBlockDefs, { index: index, isOpen: false }
     );
+    this.menus.splice(index, 0, menu);
+
+    const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value);
+    this.children.splice(index, 0, child);
+
+    this.countInput.val(this.children.length);
   }
 
   setState(values) {
     this.clear();
-    values.forEach(val => {
-      this.append(val);
+    values.forEach((val, i) => {
+      this.insert(val, i);
     });
   }
 
