@@ -57,6 +57,10 @@ class FieldBlock {
   getValue() {
     return this.widget.getValue();
   }
+
+  focus() {
+    this.widget.focus();
+  }
 }
 
 class FieldBlockDefinition {
@@ -126,6 +130,13 @@ class StructBlock {
       value[name] = this.childBlocks[name].getValue();
     }
     return value;
+  }
+
+  focus() {
+    if (this.blockDef.childBlockDefs.length) {
+      const firstChildName = this.blockDef.childBlockDefs[0].name;
+      this.childBlocks[firstChildName].focus();
+    }
   }
 }
 
@@ -236,6 +247,12 @@ class ListBlock {
   getValue() {
     return this.childBlocks.map((block) => block.getValue());
   }
+
+  focus() {
+    if (this.childBlocks.length) {
+      this.childBlocks[0].focus();
+    }
+  }
 }
 
 class ListBlockDefinition {
@@ -328,6 +345,10 @@ class StreamChild {
       value: this.block.getValue(),
       id: this.id,
     };
+  }
+
+  focus() {
+    this.block.focus();
   }
 }
 
@@ -454,7 +475,7 @@ class StreamBlock {
       new StreamBlockMenu(
         placeholder, this.blockDef.groupedChildBlockDefs, {
           index: 0,
-          isOpen: true,
+          isOpen: false,
           onclick: (blockType, newIndex) => {
             this.insertFromMenu(blockType, newIndex);
           },
@@ -504,14 +525,16 @@ class StreamBlock {
     this.menus.splice(index + 1, 0, menu);
 
     this.countInput.val(this.children.length);
+    return child;
   }
 
   insertFromMenu(blockType, index) {
     /* handle selecting an item from the 'add block' menu */
-    this.insert({
+    const newBlock = this.insert({
       type: blockType,
       value: this.blockDef.initialChildStates[blockType],
     }, index);
+    newBlock.focus();
   }
 
   setState(values) {
@@ -519,6 +542,10 @@ class StreamBlock {
     values.forEach((val, i) => {
       this.insert(val, i);
     });
+    if (values.length === 0) {
+      /* for an empty list, begin with the menu open */
+      this.menus[0].open(false);
+    }
   }
 
   getState() {
@@ -527,6 +554,12 @@ class StreamBlock {
 
   getValue() {
     return this.children.map(child => child.getValue());
+  }
+
+  focus() {
+    if (this.children.length) {
+      this.children[0].focus();
+    }
   }
 }
 

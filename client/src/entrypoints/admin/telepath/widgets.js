@@ -17,6 +17,9 @@ class BoundWidget {
     setState(state) {
         this.input.val(state);
     }
+    focus() {
+        this.input.focus();
+    }
 }
 
 class Widget {
@@ -54,6 +57,9 @@ class BoundRadioSelect {
     setState(state) {
         this.element.find('input[name="' + this.name + '"]').val([state]);
     }
+    focus() {
+        this.element.find('input[name="' + this.name + '"]').focus();
+    }
 }
 
 class RadioSelect extends Widget {
@@ -77,6 +83,7 @@ class PageChooser {
         // eslint-disable-next-line no-undef
         const chooser = createPageChooser(id, null, this.config);
         chooser.setState(initialState);
+        return chooser;
     }
 }
 window.telepath.register('wagtail.widgets.PageChooser', PageChooser);
@@ -117,7 +124,10 @@ class DraftailRichTextArea {
             },
             setState() {
                 throw new Error('DraftailRichTextArea.setState is not implemented');
-            }
+            },
+            focus: () => {
+                input.draftailEditor.focus();
+            },
         };
     }
 }

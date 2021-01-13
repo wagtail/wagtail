@@ -12,6 +12,7 @@ class DocumentChooser {
     // eslint-disable-next-line no-undef
     const chooser = createDocumentChooser(id);
     chooser.setState(initialState);
+    return chooser;
   }
 }
 window.telepath.register('wagtail.documents.widgets.DocumentChooser', DocumentChooser);
