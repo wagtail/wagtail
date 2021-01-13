@@ -239,9 +239,10 @@ class ListBlock {
 }
 
 class ListBlockDefinition {
-  constructor(name, childBlockDef, meta) {
+  constructor(name, childBlockDef, initialChildState, meta) {
     this.name = name;
     this.childBlockDef = childBlockDef;
+    this.initialChildState = initialChildState;
     this.meta = meta;
   }
 
@@ -492,9 +493,10 @@ class StreamBlock {
 }
 
 class StreamBlockDefinition {
-  constructor(name, groupedChildBlockDefs, meta) {
+  constructor(name, groupedChildBlockDefs, initialChildStates, meta) {
     this.name = name;
     this.groupedChildBlockDefs = groupedChildBlockDefs;
+    this.initialChildStates = initialChildStates;
     this.childBlockDefsByName = {};
     // eslint-disable-next-line no-unused-vars
     this.groupedChildBlockDefs.forEach(([group, blockDefs]) => {

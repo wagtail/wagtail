@@ -626,6 +626,10 @@ class StreamBlockAdapter(Adapter):
             block.name,
             block.grouped_child_blocks(),
             {
+                name: child_block.get_form_state(child_block.get_default())
+                for name, child_block in block.child_blocks.items()
+            },
+            {
                 'label': block.label, 'required': block.required, 'icon': block.meta.icon,
                 'classname': block.meta.form_classname, 'helpText': getattr(block.meta, 'help_text', None),
                 'maxNum': block.meta.max_num, 'minNum': block.meta.min_num,
