@@ -377,7 +377,7 @@ class StreamBlockMenu {
         grid.append(button);
         button.click(() => {
           if (this.onclick) {
-            this.onclick(blockDef, this.index);
+            this.onclick(blockDef.name, this.index);
           }
         });
       });
@@ -449,7 +449,13 @@ class StreamBlock {
     this.streamContainer.append(placeholder);
     this.menus = [
       new StreamBlockMenu(
-        placeholder, this.blockDef.groupedChildBlockDefs, { index: 0, isOpen: true }
+        placeholder, this.blockDef.groupedChildBlockDefs, {
+          index: 0,
+          isOpen: true,
+          onclick: (blockType, newIndex) => {
+            this.insertFromMenu(blockType, newIndex);
+          },
+        }
       )
     ];
   }
@@ -480,7 +486,13 @@ class StreamBlock {
     }
 
     const menu = new StreamBlockMenu(
-      menuPlaceholder, this.blockDef.groupedChildBlockDefs, { index: index, isOpen: false }
+      menuPlaceholder, this.blockDef.groupedChildBlockDefs, {
+        index: index,
+        isOpen: false,
+        onclick: (blockType, newIndex) => {
+          this.insertFromMenu(blockType, newIndex);
+        },
+      }
     );
     this.menus.splice(index, 0, menu);
 
@@ -488,6 +500,14 @@ class StreamBlock {
     this.children.splice(index, 0, child);
 
     this.countInput.val(this.children.length);
+  }
+
+  insertFromMenu(blockType, index) {
+    /* handle selecting an item from the 'add block' menu */
+    this.insert({
+      type: blockType,
+      value: this.blockDef.initialChildStates[blockType],
+    }, index);
   }
 
   setState(values) {
