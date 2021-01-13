@@ -435,6 +435,7 @@ class StreamBlock {
 
     this.children = [];
     this.menus = [];
+    this.blockCounter = 0;
     this.countInput = dom.find('[data-streamfield-stream-count]');
     this.streamContainer = dom.find('[data-streamfield-stream-container]');
     this.setState(initialState || []);
@@ -444,6 +445,7 @@ class StreamBlock {
     this.countInput.val(0);
     this.streamContainer.empty();
     this.children = [];
+    this.blockCounter = 0;
 
     const placeholder = document.createElement('div');
     this.streamContainer.append(placeholder);
@@ -462,7 +464,8 @@ class StreamBlock {
 
   insert({ type, value, id }, index) {
     const blockDef = this.blockDef.childBlockDefsByName[type];
-    const prefix = this.prefix + '-' + index;
+    const prefix = this.prefix + '-' + this.blockCounter;
+    this.blockCounter++;
 
     /*
     a new menu and block will be inserted BEFORE the menu with the given index;
