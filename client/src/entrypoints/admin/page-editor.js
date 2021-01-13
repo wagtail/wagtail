@@ -142,7 +142,6 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
 
     // eslint-disable-next-line func-names
     children.each(function () {
-      // console.log($(this));
       $(this).css('top', $(this).position().top);
     }).addClass('moving');
 
