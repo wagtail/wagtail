@@ -24,6 +24,9 @@ __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidati
 
 class StreamBlockValidationError(ValidationError):
     def __init__(self, block_errors=None, non_block_errors=None):
+        self.non_block_errors = non_block_errors
+        self.block_errors = block_errors
+
         params = {}
         if block_errors:
             params.update(block_errors)
@@ -31,6 +34,22 @@ class StreamBlockValidationError(ValidationError):
             params[NON_FIELD_ERRORS] = non_block_errors
         super().__init__(
             'Validation error in StreamBlock', params=params)
+
+
+class StreamBlockValidationErrorAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.StreamBlockValidationError'
+
+    def js_args(self, error):
+        return [error.non_block_errors, {
+            block_id: child_errors.as_data()
+            for block_id, child_errors in error.block_errors.items()
+        }]
+
+    class Media:
+        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+
+
+register(StreamBlockValidationErrorAdapter(), StreamBlockValidationError)
 
 
 class BaseStreamBlock(Block):

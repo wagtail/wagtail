@@ -10,7 +10,26 @@ from wagtail.core.telepath import Adapter, register
 from .base import Block
 
 
-__all__ = ['ListBlock']
+__all__ = ['ListBlock', 'ListBlockValidationError']
+
+
+class ListBlockValidationError(ValidationError):
+    def __init__(self, block_errors):
+        self.block_errors = block_errors
+        super().__init__('Validation error in ListBlock', params=block_errors)
+
+
+class ListBlockValidationErrorAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.ListBlockValidationError'
+
+    def js_args(self, error):
+        return [[elist.as_data() if elist is not None else elist for elist in error.block_errors]]
+
+    class Media:
+        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+
+
+register(ListBlockValidationErrorAdapter(), ListBlockValidationError)
 
 
 class ListBlock(Block):
@@ -63,9 +82,7 @@ class ListBlock(Block):
                 errors.append(None)
 
         if any(errors):
-            # The message here is arbitrary - outputting error messages is delegated to the child blocks,
-            # which only involves the 'params' list
-            raise ValidationError('Validation error in ListBlock', params=errors)
+            raise ListBlockValidationError(errors)
 
         return result
 
