@@ -1611,6 +1611,15 @@ class TestStructBlock(SimpleTestCase):
             html
         )
 
+    def test_get_default(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock(default="Torchbox")
+            link = blocks.URLBlock(default="http://www.torchbox.com")
+
+        block = LinkBlock()
+        default_val = block.get_default()
+        self.assertEqual(default_val.get('title'), 'Torchbox')
+
     def test_render_form_with_help_text(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
