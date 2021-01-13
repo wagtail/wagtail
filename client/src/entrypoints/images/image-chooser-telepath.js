@@ -12,6 +12,7 @@ class ImageChooser {
     // eslint-disable-next-line no-undef
     const chooser = createImageChooser(id);
     chooser.setState(initialState);
+    return chooser;
   }
 }
 window.telepath.register('wagtail.images.widgets.ImageChooser', ImageChooser);
