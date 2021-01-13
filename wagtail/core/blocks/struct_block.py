@@ -54,7 +54,13 @@ class BaseStructBlock(Block):
         rather than a StructValue; for consistency, we need to convert it to a StructValue
         for StructBlock to work with
         """
-        return self._to_struct_value(self.meta.default.items())
+        return self._to_struct_value([
+            (
+                name,
+                self.meta.default[name] if name in self.meta.default else block.get_default()
+            )
+            for name, block in self.child_blocks.items()
+        ])
 
     def value_from_datadict(self, data, files, prefix):
         return self._to_struct_value([
