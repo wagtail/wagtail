@@ -267,7 +267,7 @@ class StreamChild {
     const dom = $(`
       <div aria-hidden="false">
         <input type="hidden" name="${this.prefix}-deleted" value="">
-        <input type="hidden" name="${this.prefix}-order" value="${index}">
+        <input type="hidden" data-streamblock-index name="${this.prefix}-order" value="${index}">
         <input type="hidden" name="${this.prefix}-type" value="${this.type}">
         <input type="hidden" name="${this.prefix}-id" value="${this.id || ''}">
 
@@ -303,8 +303,15 @@ class StreamChild {
       </div>
     `);
     $(placeholder).replaceWith(dom);
+    this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', state.value);
+
+    this.indexInput = dom.find('[data-streamblock-index]');
+  }
+
+  setIndex(newIndex) {
+    this.indexInput.val(newIndex);
   }
 
   getState() {
@@ -427,6 +434,7 @@ class StreamBlock {
     $(placeholder).replaceWith(dom);
 
     this.children = [];
+    this.menus = [];
     this.countInput = dom.find('[data-streamfield-stream-count]');
     this.streamContainer = dom.find('[data-streamfield-stream-container]');
     this.setState(initialState || []);
@@ -439,9 +447,11 @@ class StreamBlock {
 
     const placeholder = document.createElement('div');
     this.streamContainer.append(placeholder);
-    new StreamBlockMenu(
-      placeholder, this.blockDef.groupedChildBlockDefs, { index: 0, isOpen: true }
-    );
+    this.menus = [
+      new StreamBlockMenu(
+        placeholder, this.blockDef.groupedChildBlockDefs, { index: 0, isOpen: true }
+      )
+    ];
   }
 
   append(blockData) {
@@ -455,6 +465,14 @@ class StreamBlock {
     const child = new StreamChild(blockDef, placeholder, prefix, index, blockData);
     this.children.push(child);
     this.countInput.val(this.children.length);
+
+    const menuPlaceholder = document.createElement('div');
+    this.streamContainer.append(menuPlaceholder);
+    this.menus.push(
+      new StreamBlockMenu(
+        menuPlaceholder, this.blockDef.groupedChildBlockDefs, { index: index + 1, isOpen: false }
+      )
+    );
   }
 
   setState(values) {
