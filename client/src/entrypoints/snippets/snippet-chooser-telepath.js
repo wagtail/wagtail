@@ -13,6 +13,7 @@ class SnippetChooser {
     // eslint-disable-next-line no-undef
     const chooser = createSnippetChooser(id, this.model);
     chooser.setState(initialState);
+    return chooser;
   }
 }
 window.telepath.register('wagtail.snippets.widgets.SnippetChooser', SnippetChooser);
