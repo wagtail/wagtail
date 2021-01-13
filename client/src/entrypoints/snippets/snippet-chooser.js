@@ -41,6 +41,9 @@ function createSnippetChooser(id, modelString) {
 
       state = newState;
     },
+    focus: () => {
+      $('.action-choose', chooserElement).focus();
+    },
     openChooserModal: () => {
       // eslint-disable-next-line no-undef, new-cap
       ModalWorkflow({
