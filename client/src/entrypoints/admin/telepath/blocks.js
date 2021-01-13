@@ -379,6 +379,7 @@ class StreamBlockMenu {
           if (this.onclick) {
             this.onclick(blockDef.name, this.index);
           }
+          this.close(true);
         });
       });
     });
@@ -468,39 +469,39 @@ class StreamBlock {
     this.blockCounter++;
 
     /*
-    a new menu and block will be inserted BEFORE the menu with the given index;
+    a new menu and block will be inserted AFTER the menu with the given index;
     e.g if there are 3 blocks the children of streamContainer will be
     [menu 0, block 0, menu 1, block 1, menu 2, block 2, menu 3]
-    and inserting a new block at index 1 will create a new menu 1 and block 1 before the
+    and inserting a new block at index 1 will create a new block 1 and menu 2 after the
     current menu 1, and increment everything after that point
     */
     const existingMenuElement = this.menus[index].element;
-    const menuPlaceholder = document.createElement('div');
     const blockPlaceholder = document.createElement('div');
-    $(menuPlaceholder).insertBefore(existingMenuElement);
-    $(blockPlaceholder).insertBefore(existingMenuElement);
+    const menuPlaceholder = document.createElement('div');
+    $(blockPlaceholder).insertAfter(existingMenuElement);
+    $(menuPlaceholder).insertAfter(blockPlaceholder);
 
     /* shuffle up indexes of all blocks / menus above this index */
     for (let i = index; i < this.children.length; i++) {
       this.children[i].setIndex(i + 1);
     }
-    for (let i = index; i < this.menus.length; i++) {
+    for (let i = index + 1; i < this.menus.length; i++) {
       this.menus[i].index = i + 1;
     }
 
+    const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value);
+    this.children.splice(index, 0, child);
+
     const menu = new StreamBlockMenu(
       menuPlaceholder, this.blockDef.groupedChildBlockDefs, {
-        index: index,
+        index: index + 1,
         isOpen: false,
         onclick: (blockType, newIndex) => {
           this.insertFromMenu(blockType, newIndex);
         },
       }
     );
-    this.menus.splice(index, 0, menu);
-
-    const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value);
-    this.children.splice(index, 0, child);
+    this.menus.splice(index + 1, 0, menu);
 
     this.countInput.val(this.children.length);
   }
