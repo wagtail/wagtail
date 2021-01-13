@@ -31,7 +31,7 @@ class FieldBlock {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
-    const html = $(`
+    const dom = $(`
       <div class="${this.blockDef.meta.classname || ''}">
         <div class="field-content">
           <div class="input">
@@ -41,7 +41,6 @@ class FieldBlock {
         </div>
       </div>
     `);
-    const dom = $(html);
     $(placeholder).replaceWith(dom);
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
     this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix, initialState);
@@ -80,22 +79,20 @@ class StructBlock {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
-    const html = $(`
+    const dom = $(`
       <div class="${this.blockDef.meta.classname || ''}">
       </div>
     `);
-    const dom = $(html);
     $(placeholder).replaceWith(dom);
 
     this.childBlocks = {};
     this.blockDef.childBlockDefs.forEach(childBlockDef => {
-      const childHtml = $(`
+      const childDom = $(`
         <div class="field">
           <label class="field__label">${childBlockDef.meta.label}</label>
           <div data-streamfield-block></div>
         </div>
       `);
-      const childDom = $(childHtml);
       dom.append(childDom);
       const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
       const childBlock = childBlockDef.render(
@@ -152,7 +149,7 @@ class ListBlock {
     this.type = blockDef.name;
     this.prefix = prefix;
 
-    const html = $(`
+    const dom = $(`
       <div class="c-sf-container ${this.blockDef.meta.classname || ''}">
         <input type="hidden" name="${prefix}-count" data-streamfield-list-count value="0">
 
@@ -162,8 +159,6 @@ class ListBlock {
         </button>
       </div>
     `);
-
-    const dom = $(html);
     $(placeholder).replaceWith(dom);
 
     this.childBlocks = [];
@@ -181,7 +176,7 @@ class ListBlock {
   append(value) {
     const index = this.childBlocks.length;
     const childPrefix = this.prefix + '-' + index;
-    const childHtml = $(`
+    const childDom = $(`
       <div id="${childPrefix}-container" aria-hidden="false">
         <input type="hidden" id="${childPrefix}-deleted" name="${childPrefix}-deleted" value="">
         <input type="hidden" id="${childPrefix}-order" name="${childPrefix}-order" value="${index}">
@@ -220,7 +215,6 @@ class ListBlock {
       </div>
     `);
 
-    const childDom = $(childHtml);
     this.listContainer.append(childDom);
     const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
     const childBlock = this.blockDef.childBlockDef.render(childBlockElement, childPrefix + '-value', value);
@@ -270,7 +264,7 @@ class StreamChild {
     this.prefix = prefix;
     this.id = state.id;
 
-    const html = $(`
+    const dom = $(`
       <div aria-hidden="false">
         <input type="hidden" name="${this.prefix}-deleted" value="">
         <input type="hidden" name="${this.prefix}-order" value="${index}">
@@ -308,7 +302,6 @@ class StreamChild {
         </div>
       </div>
     `);
-    const dom = $(html);
     $(placeholder).replaceWith(dom);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', state.value);
@@ -337,13 +330,12 @@ class StreamBlock {
     this.type = blockDef.name;
     this.prefix = prefix;
 
-    const html = $(`
+    const dom = $(`
       <div class="c-sf-container ${this.blockDef.meta.classname || ''}">
         <input type="hidden" name="${prefix}-count" data-streamfield-stream-count value="0">
         <div data-streamfield-stream-container></div>
       </div>
     `);
-    const dom = $(html);
     $(placeholder).replaceWith(dom);
 
     this.children = [];
