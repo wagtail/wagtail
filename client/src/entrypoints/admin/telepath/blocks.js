@@ -324,6 +324,94 @@ class StreamChild {
   }
 }
 
+class StreamBlockMenu {
+  constructor(placeholder, groupedChildBlockDefs, opts) {
+    this.index = opts && opts.index;
+    this.onclick = opts && opts.onclick;
+    this.isOpen = (opts && opts.isOpen) || false;
+
+    const dom = $(`
+      <div>
+        <button data-streamblock-menu-open type="button" title="Add" class="c-sf-add-button c-sf-add-button--visible">
+          <i aria-hidden="true">+</i>
+        </button>
+        <div data-streamblock-menu-outer>
+          <div data-streamblock-menu-inner class="c-sf-add-panel"></div>
+        </div>
+      </div>
+    `);
+    $(placeholder).replaceWith(dom);
+    this.element = dom.get(0);
+
+    this.addButton = dom.find('[data-streamblock-menu-open]');
+    this.addButton.click(() => {
+      this.toggle();
+    });
+
+    this.outerContainer = dom.find('[data-streamblock-menu-outer]');
+    const innerContainer = dom.find('[data-streamblock-menu-inner]');
+
+    groupedChildBlockDefs.forEach(([group, blockDefs]) => {
+      if (group) {
+        const heading = $('<h4 class="c-sf-add-panel__group-title"></h4>').text(group);
+        innerContainer.append(heading);
+      }
+      const grid = $('<div class="c-sf-add-panel__grid"></div>');
+      innerContainer.append(grid);
+      blockDefs.forEach(blockDef => {
+        const button = $(`
+          <button type="button" class="c-sf-button action-add-block-${blockDef.name}">
+            <span class="c-sf-button__icon">
+              <i class="icon icon-${blockDef.meta.icon}"></i>
+            </span>
+            <span class="c-sf-button__label">${blockDef.meta.label}</span>
+          </button>
+        `);
+        grid.append(button);
+        button.click(() => {
+          if (this.onclick) {
+            this.onclick(blockDef, this.index);
+          }
+        });
+      });
+    });
+
+    if (this.isOpen) {
+      this.open(false);
+    } else {
+      this.close(false);
+    }
+  }
+
+  toggle() {
+    if (this.isOpen) {
+      this.close(true);
+    } else {
+      this.open(true);
+    }
+  }
+  open(animate) {
+    if (animate) {
+      this.outerContainer.slideDown();
+    } else {
+      this.outerContainer.show();
+    }
+    this.addButton.addClass('c-sf-add-button--close');
+    this.outerContainer.attr('aria-hidden', 'false');
+    this.isOpen = true;
+  }
+  close(animate) {
+    if (animate) {
+      this.outerContainer.slideUp();
+    } else {
+      this.outerContainer.hide();
+    }
+    this.addButton.removeClass('c-sf-add-button--close');
+    this.outerContainer.attr('aria-hidden', 'true');
+    this.isOpen = false;
+  }
+}
+
 class StreamBlock {
   constructor(blockDef, placeholder, prefix, initialState) {
     this.blockDef = blockDef;
@@ -348,6 +436,12 @@ class StreamBlock {
     this.countInput.val(0);
     this.streamContainer.empty();
     this.children = [];
+
+    const placeholder = document.createElement('div');
+    this.streamContainer.append(placeholder);
+    new StreamBlockMenu(
+      placeholder, this.blockDef.groupedChildBlockDefs, { index: 0, isOpen: true }
+    );
   }
 
   append(blockData) {
