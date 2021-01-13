@@ -147,6 +147,7 @@ class ListBlockAdapter(Adapter):
         return [
             block.name,
             block.child_block,
+            block.child_block.get_form_state(block.child_block.get_default()),
             {
                 'label': block.label, 'icon': block.meta.icon, 'classname': block.meta.form_classname,
                 'helpText': getattr(block.meta, 'help_text', None),
