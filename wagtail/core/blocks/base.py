@@ -479,14 +479,20 @@ class BlockWidget(forms.Widget):
 
     def render_with_errors(self, name, value, attrs=None, errors=None, renderer=None):
         value_json = json.dumps(self.block_def.get_form_state(value))
+
+        if errors:
+            errors_json = json.dumps(self.js_context.pack(errors.as_data()))
+        else:
+            errors_json = '[]'
+
         return format_html(
             """
-                <div id="{id}" data-block="{block_json}" data-value="{value_json}"></div>
+                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-errors="{errors_json}"></div>
                 <script>
                     initBlockWidget('{id}');
                 </script>
             """,
-            id=name, block_json=self.block_json, value_json=value_json
+            id=name, block_json=self.block_json, value_json=value_json, errors_json=errors_json
         )
 
     def render(self, name, value, attrs=None, renderer=None):

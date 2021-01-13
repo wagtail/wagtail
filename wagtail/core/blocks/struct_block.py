@@ -14,6 +14,25 @@ from .base import Block, DeclarativeSubBlocksMetaclass
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
 
 
+class StructBlockValidationError(ValidationError):
+    def __init__(self, block_errors=None):
+        self.block_errors = block_errors
+        super().__init__('Validation error in StructBlock', params=block_errors)
+
+
+class StructBlockValidationErrorAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.StructBlockValidationError'
+
+    def js_args(self, error):
+        return [error.block_errors]
+
+    class Media:
+        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+
+
+register(StructBlockValidationErrorAdapter(), StructBlockValidationError)
+
+
 class StructValue(collections.OrderedDict):
     """ A class that generates a StructBlock value from provided sub-blocks """
     def __init__(self, block, *args):
@@ -84,9 +103,7 @@ class BaseStructBlock(Block):
                 errors[name] = ErrorList([e])
 
         if errors:
-            # The message here is arbitrary - client-side form rendering will suppress it
-            # and delegate the errors contained in the 'params' dict to the child blocks instead
-            raise ValidationError('Validation error in StructBlock', params=errors)
+            raise StructBlockValidationError(errors)
 
         return self._to_struct_value(result)
 
