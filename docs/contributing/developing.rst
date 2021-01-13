@@ -142,7 +142,9 @@ If you need to use different connection settings, use the following environment 
 * ``DATABASE_NAME``
 * ``DATABASE_PASSWORD``
 * ``DATABASE_HOST``
-  * Note that for MySQL, this must be `127.0.0.1` rather than `localhost` if you need to connect using a TCP socket
+
+  * Note that for MySQL, this must be ``127.0.0.1`` rather than ``localhost`` if you need to connect using a TCP socket
+
 * ``DATABASE_PORT``
 
 Testing Elasticsearch
