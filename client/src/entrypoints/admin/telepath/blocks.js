@@ -275,11 +275,12 @@ class StreamChild {
   wrapper for a block inside a StreamBlock, handling StreamBlock-specific metadata
   such as id
   */
-  constructor(blockDef, placeholder, prefix, index, id, state) {
+  constructor(blockDef, placeholder, prefix, index, id, state, opts) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
     this.id = id;
+    const animate = opts && opts.animate;
 
     const dom = $(`
       <div aria-hidden="false">
@@ -325,6 +326,10 @@ class StreamChild {
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', state);
 
     this.indexInput = dom.find('[data-streamblock-index]');
+
+    if (animate) {
+      dom.hide().slideDown();
+    }
   }
 
   setIndex(newIndex) {
@@ -484,9 +489,10 @@ class StreamBlock {
     ];
   }
 
-  insert({ type, value, id }, index) {
+  insert({ type, value, id }, index, opts) {
     const blockDef = this.blockDef.childBlockDefsByName[type];
     const prefix = this.prefix + '-' + this.blockCounter;
+    const animate = opts && opts.animate;
     this.blockCounter++;
 
     /*
@@ -510,7 +516,7 @@ class StreamBlock {
       this.menus[i].index = i + 1;
     }
 
-    const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value);
+    const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value, {animate});
     this.children.splice(index, 0, child);
 
     const menu = new StreamBlockMenu(
@@ -533,7 +539,7 @@ class StreamBlock {
     const newBlock = this.insert({
       type: blockType,
       value: this.blockDef.initialChildStates[blockType],
-    }, index);
+    }, index, {animate: true});
     newBlock.focus();
   }
 
