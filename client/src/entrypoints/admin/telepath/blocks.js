@@ -2,6 +2,9 @@
 
 /* global $ */
 
+import { escapeHtml } from '../../../utils/text';
+
+
 function initBlockWidget(id) {
   /*
   Initialises the top-level element of a BlockWidget
@@ -19,15 +22,16 @@ function initBlockWidget(id) {
   const blockDefData = JSON.parse(body.dataset.block);
   const blockDef = window.telepath.unpack(blockDefData);
   const blockValue = JSON.parse(body.dataset.value);
+  const blockErrors = window.telepath.unpack(JSON.parse(body.dataset.errors));
 
   // replace the 'body' element with the populated HTML structure for the block
-  blockDef.render(body, id, blockValue);
+  blockDef.render(body, id, blockValue, blockErrors);
 }
 window.initBlockWidget = initBlockWidget;
 
 
 class FieldBlock {
-  constructor(blockDef, placeholder, prefix, initialState) {
+  constructor(blockDef, placeholder, prefix, initialState, initialError) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
@@ -43,11 +47,31 @@ class FieldBlock {
     `);
     $(placeholder).replaceWith(dom);
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
+    this.element = dom[0];
     this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix, initialState);
+
+    if (initialError) {
+      this.setError(initialError);
+    }
   }
 
   setState(state) {
     this.widget.setState(state);
+  }
+
+  setError(errorList) {
+    this.element.querySelectorAll(':scope > .field-content > .error-message').forEach(element => element.remove());
+
+    if (errorList) {
+      this.element.classList.add('error');
+
+      const errorElement = document.createElement('p');
+      errorElement.classList.add('error-message');
+      errorElement.innerHTML = errorList.map(error => `<span>${escapeHtml(error[0])}</span>`).join('');
+      this.element.querySelector('.field-content').appendChild(errorElement);
+    } else {
+      this.element.classList.remove('error');
+    }
   }
 
   getState() {
@@ -70,15 +94,15 @@ class FieldBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix, initialState) {
-    return new FieldBlock(this, placeholder, prefix, initialState);
+  render(placeholder, prefix, initialState, initialError) {
+    return new FieldBlock(this, placeholder, prefix, initialState, initialError);
   }
 }
 window.telepath.register('wagtail.blocks.FieldBlock', FieldBlockDefinition);
 
 
 class StructBlock {
-  constructor(blockDef, placeholder, prefix, initialState) {
+  constructor(blockDef, placeholder, prefix, initialState, initialError) {
     const state = initialState || {};
     this.blockDef = blockDef;
     this.type = blockDef.name;
@@ -100,7 +124,10 @@ class StructBlock {
       dom.append(childDom);
       const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
       const childBlock = childBlockDef.render(
-        childBlockElement, prefix + '-' + childBlockDef.name, state[childBlockDef.name]
+        childBlockElement,
+        prefix + '-' + childBlockDef.name,
+        state[childBlockDef.name],
+        initialError?.blockErrors[childBlockDef.name]
       );
 
       this.childBlocks[childBlockDef.name] = childBlock;
@@ -111,6 +138,20 @@ class StructBlock {
     // eslint-disable-next-line guard-for-in, no-restricted-syntax
     for (const name in state) {
       this.childBlocks[name].setState(state[name]);
+    }
+  }
+
+  setError(errorList) {
+    if (errorList.length !== 1) {
+      return;
+    }
+    const error = errorList[0];
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const blockName in error.blockErrors) {
+      if (error.blockErrors.hasOwnProperty(blockName)) {
+        this.childBlocks[blockName].setError(error.blockErrors[blockName]);
+      }
     }
   }
 
@@ -147,15 +188,23 @@ class StructBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix, initialState) {
-    return new StructBlock(this, placeholder, prefix, initialState);
+  render(placeholder, prefix, initialState, initialError) {
+    return new StructBlock(this, placeholder, prefix, initialState, initialError);
   }
 }
 window.telepath.register('wagtail.blocks.StructBlock', StructBlockDefinition);
 
+class StructBlockValidationError {
+  constructor(blockErrors) {
+    this.blockErrors = blockErrors;
+  }
+}
+
+window.telepath.register('wagtail.blocks.StructBlockValidationError', StructBlockValidationError);
+
 
 class ListBlock {
-  constructor(blockDef, placeholder, prefix, initialState) {
+  constructor(blockDef, placeholder, prefix, initialState, initialError) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
@@ -176,6 +225,10 @@ class ListBlock {
     this.countInput = dom.find('[data-streamfield-list-count]');
     this.listContainer = dom.find('[data-streamfield-list-container]');
     this.setState(initialState || []);
+
+    if (initialError) {
+      this.setError(initialError);
+    }
   }
 
   clear() {
@@ -240,6 +293,20 @@ class ListBlock {
     });
   }
 
+  setError(errorList) {
+    if (errorList.length !== 1) {
+      return;
+    }
+    const error = errorList[0];
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const blockIndex in error.blockErrors) {
+      if (error.blockErrors.hasOwnProperty(blockIndex)) {
+        this.childBlocks[blockIndex].setError(error.blockErrors[blockIndex]);
+      }
+    }
+  }
+
   getState() {
     return this.childBlocks.map((block) => block.getState());
   }
@@ -263,11 +330,19 @@ class ListBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix, initialState) {
-    return new ListBlock(this, placeholder, prefix, initialState);
+  render(placeholder, prefix, initialState, initialError) {
+    return new ListBlock(this, placeholder, prefix, initialState, initialError);
   }
 }
 window.telepath.register('wagtail.blocks.ListBlock', ListBlockDefinition);
+
+class ListBlockValidationError {
+  constructor(blockErrors) {
+    this.blockErrors = blockErrors;
+  }
+}
+
+window.telepath.register('wagtail.blocks.ListBlockValidationError', ListBlockValidationError);
 
 
 class StreamChild {
@@ -355,6 +430,10 @@ class StreamChild {
   setIndex(newIndex) {
     this.index = newIndex;
     this.indexInput.val(newIndex);
+  }
+
+  setError(errorList) {
+    this.block.setError(errorList);
   }
 
   getState() {
@@ -475,7 +554,7 @@ class StreamBlockMenu {
 }
 
 class StreamBlock {
-  constructor(blockDef, placeholder, prefix, initialState) {
+  constructor(blockDef, placeholder, prefix, initialState, initialError) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
@@ -505,6 +584,11 @@ class StreamBlock {
     // server-side form handler knows to skip it)
     this.streamContainer = dom.find('[data-streamfield-stream-container]');
     this.setState(initialState || []);
+    this.container = dom;
+
+    if (initialError) {
+      this.setError(initialError);
+    }
   }
 
   clear() {
@@ -612,6 +696,36 @@ class StreamBlock {
     }
   }
 
+  setError(errorList) {
+    if (errorList.length !== 1) {
+      return;
+    }
+    const error = errorList[0];
+
+    // Non block errors
+    const container = this.container[0];
+    container.querySelectorAll(':scope > .help-block .help-critical').forEach(element => element.remove());
+
+    if (error.nonBlockErrors.length > 0) {
+      // Add a help block for each error raised
+      error.nonBlockErrors.forEach(errorText => {
+        const errorElement = document.createElement('p');
+        errorElement.classList.add('help-block');
+        errorElement.classList.add('help-critical');
+        errorElement.innerText = errorText;
+        container.insertBefore(errorElement, container.childNodes[0]);
+      });
+    }
+
+    // Block errors
+    // eslint-disable-next-line no-restricted-syntax
+    for (const blockIndex in error.blockErrors) {
+      if (error.blockErrors.hasOwnProperty(blockIndex)) {
+        this.children[blockIndex].setError(error.blockErrors[blockIndex]);
+      }
+    }
+  }
+
   getState() {
     return this.children.map(child => child.getState());
   }
@@ -642,8 +756,17 @@ class StreamBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix, initialState) {
-    return new StreamBlock(this, placeholder, prefix, initialState);
+  render(placeholder, prefix, initialState, initialError) {
+    return new StreamBlock(this, placeholder, prefix, initialState, initialError);
   }
 }
 window.telepath.register('wagtail.blocks.StreamBlock', StreamBlockDefinition);
+
+class StreamBlockValidationError {
+  constructor(nonBlockErrors, blockErrors) {
+    this.nonBlockErrors = nonBlockErrors;
+    this.blockErrors = blockErrors;
+  }
+}
+
+window.telepath.register('wagtail.blocks.StreamBlockValidationError', StreamBlockValidationError);
