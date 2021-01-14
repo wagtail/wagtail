@@ -65,8 +65,9 @@ class BaseStreamBlock(Block):
 
     def grouped_child_blocks(self):
         """
-        Child blocks organised into groups, returned as an iterable of
-        (group_name, list_of_blocks) tuples
+        The available child block types of this stream block, organised into groups according to
+        their meta.group attribute.
+        Returned as an iterable of (group_name, list_of_blocks) tuples
         """
         return itertools.groupby(
             self.sorted_child_blocks(), key=lambda child_block: child_block.meta.group
