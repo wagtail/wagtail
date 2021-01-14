@@ -1,4 +1,3 @@
-import unittest
 from django.test import TestCase
 
 from wagtail.core.telepath import Adapter, JSContext, register
@@ -105,7 +104,6 @@ class TestPacking(TestCase):
 
         self.assertIn('music_player.js', str(ctx.media))
 
-    @unittest.expectedFailure
     def test_object_references(self):
         beyonce = Artist("Beyoncé")
         jay_z = Artist("Jay-Z")
@@ -140,7 +138,6 @@ class TestPacking(TestCase):
 
         self.assertIn('music_player.js', str(ctx.media))
 
-    @unittest.expectedFailure
     def test_list_references(self):
         destinys_child = [
             Artist("Beyoncé"), Artist("Kelly Rowland"), Artist("Michelle Williams")
@@ -176,7 +173,6 @@ class TestPacking(TestCase):
             },
         ])
 
-    @unittest.expectedFailure
     def test_primitive_value_references(self):
         beyonce_name = "Beyoncé"
         beyonce = Artist(beyonce_name)
@@ -195,8 +191,8 @@ class TestPacking(TestCase):
                     [
                         {
                             '_type': 'music.Artist',
-                            '_args': [{'_val': "Beyoncé", '_id': 1}],
-                            '_id': 0,
+                            '_args': [{'_val': "Beyoncé", '_id': 0}],
+                            '_id': 1,
                         },
                     ]
                 ]
@@ -204,9 +200,9 @@ class TestPacking(TestCase):
             {
                 '_type': 'music.Album',
                 '_args': [
-                    {'_ref': 1},
+                    {'_ref': 0},
                     [
-                        {'_ref': 0},
+                        {'_ref': 1},
                     ]
                 ]
             },
