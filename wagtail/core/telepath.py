@@ -4,7 +4,7 @@ from django.forms import MediaDefiningClass
 from wagtail.admin.staticfiles import versioned_static
 
 
-DICT_RESERVED_KEYS = ['_type', '_args', '_dict']
+DICT_RESERVED_KEYS = ['_type', '_args', '_dict', '_list', '_val', '_id', '_ref']
 
 
 class UnpackableTypeError(TypeError):
@@ -98,6 +98,32 @@ class JSContext:
             self.media_fragments.add(media_str)
 
     def pack(self, obj):
+        return ValueContext(self).pack(obj)
+
+
+class ValueContext:
+    """
+    A context instantiated for each top-level value that JSContext.pack is called on.
+    Values packed in this context will be kept in a lookup table; if over the course of
+    packing the top level value we encounter multiple references to the same value, a
+    reference to the previously-packed value will be generated rather than packing it
+    again. Calls to add_media are passed back to the parent context so that multiple
+    calls to pack() will have their media combined in a single bundle.
+    """
+    def __init__(self, parent_context):
+        self.parent_context = parent_context
+        self.packed_values = {}
+
+    def add_media(self, media):
+        self.parent_context.add_media(media)
+
+    def pack(self, obj):
+        # TODO: check for object in packed_values and return reference if found
+        packed_obj = self._pack_as_value(obj)
+        self.packed_values[id(obj)] = packed_obj
+        return packed_obj
+
+    def _pack_as_value(self, obj):
         for cls in type(obj).__mro__:
             adapter = adapters.get(cls)
             if adapter:
