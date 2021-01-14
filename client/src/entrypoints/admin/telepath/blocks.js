@@ -381,7 +381,7 @@ class StreamChild {
 class StreamBlockMenu {
   constructor(placeholder, groupedChildBlockDefs, opts) {
     this.index = opts && opts.index;
-    this.onclick = opts && opts.onclick;
+    this.onSelectBlockType = opts && opts.onSelectBlockType;
     this.isOpen = (opts && opts.isOpen) || false;
 
     const dom = $(`
@@ -423,8 +423,8 @@ class StreamBlockMenu {
         `);
         grid.append(button);
         button.click(() => {
-          if (this.onclick) {
-            this.onclick(blockDef.name, this.index);
+          if (this.onSelectBlockType) {
+            this.onSelectBlockType(blockDef.name, this.index);
           }
           this.close(true);
         });
@@ -520,7 +520,7 @@ class StreamBlock {
         placeholder, this.blockDef.groupedChildBlockDefs, {
           index: 0,
           isOpen: false,
-          onclick: (blockType, newIndex) => {
+          onSelectBlockType: (blockType, newIndex) => {
             this.insertFromMenu(blockType, newIndex);
           },
         }
@@ -565,7 +565,7 @@ class StreamBlock {
       menuPlaceholder, this.blockDef.groupedChildBlockDefs, {
         index: index + 1,
         isOpen: false,
-        onclick: (blockType, newIndex) => {
+        onSelectBlockType: (blockType, newIndex) => {
           this.insertFromMenu(blockType, newIndex);
         },
       }
