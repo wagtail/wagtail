@@ -195,15 +195,25 @@ class ValueContext:
     def __init__(self, parent_context):
         self.parent_context = parent_context
         self.packed_values = {}
+        self.next_id = 0
 
     def add_media(self, media):
         self.parent_context.add_media(media)
 
-    def pack(self, obj):
-        # TODO: check for object in packed_values and return reference if found
-        packed_obj = self._pack_as_value(obj)
-        self.packed_values[id(obj)] = packed_obj
-        return packed_obj
+    def pack(self, val):
+        obj_id = id(val)
+        try:
+            existing_packed_val = self.packed_values[obj_id]
+        except KeyError:
+            # not seen this value before, so pack it and store in packed_values
+            packed_val = self._pack_as_value(val)
+            self.packed_values[obj_id] = packed_val
+            return packed_val
+
+        # Assign existing_packed_val an ID so that we can create references to it
+        existing_packed_val.id = self.next_id
+        self.next_id += 1
+        return existing_packed_val
 
     def _pack_as_value(self, obj):
         for cls in type(obj).__mro__:
