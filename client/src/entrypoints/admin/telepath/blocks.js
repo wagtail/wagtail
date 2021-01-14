@@ -279,12 +279,15 @@ class StreamChild {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
+    this.index = index;
     this.id = id;
+
     const animate = opts && opts.animate;
+    this.onRequestDelete = opts && opts.onRequestDelete;
 
     const dom = $(`
       <div aria-hidden="false">
-        <input type="hidden" name="${this.prefix}-deleted" value="">
+        <input type="hidden" data-streamblock-deleted name="${this.prefix}-deleted" value="">
         <input type="hidden" data-streamblock-index name="${this.prefix}-order" value="${index}">
         <input type="hidden" name="${this.prefix}-type" value="${this.type}">
         <input type="hidden" name="${this.prefix}-id" value="${this.id || ''}">
@@ -305,7 +308,8 @@ class StreamChild {
                   <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
                     <i class="icon icon-arrow-down" aria-hidden="true"></i>
                   </button>
-                  <button type="button" class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
+                  <button type="button" data-streamblock-delete-button
+                      class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
                     <i class="icon icon-bin" aria-hidden="true"></i>
                   </button>
                 </div>
@@ -326,13 +330,30 @@ class StreamChild {
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', state);
 
     this.indexInput = dom.find('[data-streamblock-index]');
+    this.deletedInput = dom.find('[data-streamblock-deleted]');
+
+    dom.find('[data-streamblock-delete-button]').click(() => {
+      if (this.onRequestDelete) this.onRequestDelete(this.index);
+    });
 
     if (animate) {
       dom.hide().slideDown();
     }
   }
 
+  markDeleted(animate) {
+    this.deletedInput.val('1');
+    if (animate) {
+      $(this.element).slideUp().dequeue()
+        .fadeOut()
+        .attr('aria-hidden', 'true');
+    } else {
+      $(this.element).hide().attr('aria-hidden', 'true');
+    }
+  }
+
   setIndex(newIndex) {
+    this.index = newIndex;
     this.indexInput.val(newIndex);
   }
 
@@ -417,6 +438,10 @@ class StreamBlockMenu {
     }
   }
 
+  setIndex(newIndex) {
+    this.index = newIndex;
+  }
+
   toggle() {
     if (this.isOpen) {
       this.close(true);
@@ -444,6 +469,9 @@ class StreamBlockMenu {
     this.outerContainer.attr('aria-hidden', 'true');
     this.isOpen = false;
   }
+  delete() {
+    $(this.element).hide().attr('aria-hidden', 'true');
+  }
 }
 
 class StreamBlock {
@@ -460,10 +488,21 @@ class StreamBlock {
     `);
     $(placeholder).replaceWith(dom);
 
+    // StreamChild objects for the current (non-deleted) child blocks
     this.children = [];
+
+    // StreamBlockMenu objects - there are one more of these than there are children.
+    // The menu at index n will insert a block at index n
     this.menus = [];
+
+    // Incrementing counter used to generate block prefixes, also reflected in the
+    // 'count' hidden input. This count includes deleted items
     this.blockCounter = 0;
     this.countInput = dom.find('[data-streamfield-stream-count]');
+
+    // Parent element of menu and block elements (potentially including deleted items,
+    // which are left behind as hidden elements with a '-deleted' input so that the
+    // server-side form handler knows to skip it)
     this.streamContainer = dom.find('[data-streamfield-stream-container]');
     this.setState(initialState || []);
   }
@@ -513,10 +552,13 @@ class StreamBlock {
       this.children[i].setIndex(i + 1);
     }
     for (let i = index + 1; i < this.menus.length; i++) {
-      this.menus[i].index = i + 1;
+      this.menus[i].setIndex(i + 1);
     }
 
-    const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value, { animate });
+    const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value, {
+      animate,
+      onRequestDelete: (i) => { this.deleteBlock(i); }
+    });
     this.children.splice(index, 0, child);
 
     const menu = new StreamBlockMenu(
@@ -530,7 +572,7 @@ class StreamBlock {
     );
     this.menus.splice(index + 1, 0, menu);
 
-    this.countInput.val(this.children.length);
+    this.countInput.val(this.blockCounter);
     return child;
   }
 
@@ -541,6 +583,22 @@ class StreamBlock {
       value: this.blockDef.initialChildStates[blockType],
     }, index, { animate: true });
     newBlock.focus();
+  }
+
+  deleteBlock(index) {
+    this.children[index].markDeleted(true);
+    this.menus[index].delete();
+    this.children.splice(index, 1);
+    this.menus.splice(index, 1);
+
+    /* index numbers of children / menus above this index now need updating to match
+    their array indexes */
+    for (let i = index; i < this.children.length; i++) {
+      this.children[i].setIndex(i);
+    }
+    for (let i = index; i < this.menus.length; i++) {
+      this.menus[i].setIndex(i);
+    }
   }
 
   setState(values) {
