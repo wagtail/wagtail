@@ -516,7 +516,7 @@ class StreamBlock {
       this.menus[i].index = i + 1;
     }
 
-    const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value, {animate});
+    const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value, { animate });
     this.children.splice(index, 0, child);
 
     const menu = new StreamBlockMenu(
@@ -539,7 +539,7 @@ class StreamBlock {
     const newBlock = this.insert({
       type: blockType,
       value: this.blockDef.initialChildStates[blockType],
-    }, index, {animate: true});
+    }, index, { animate: true });
     newBlock.focus();
   }
 
