@@ -1,3 +1,4 @@
+import unittest
 from django.test import TestCase
 
 from wagtail.core.telepath import Adapter, JSContext, register
@@ -103,3 +104,110 @@ class TestPacking(TestCase):
         })
 
         self.assertIn('music_player.js', str(ctx.media))
+
+    @unittest.expectedFailure
+    def test_object_references(self):
+        beyonce = Artist("Beyoncé")
+        jay_z = Artist("Jay-Z")
+        discography = [
+            Album("Dangerously in Love", [beyonce]),
+            Album("Everything Is Love", [beyonce, jay_z]),
+        ]
+        ctx = JSContext()
+        result = ctx.pack(discography)
+
+        self.assertEqual(result, [
+            {
+                '_type': 'music.Album',
+                '_args': [
+                    "Dangerously in Love",
+                    [
+                        {'_type': 'music.Artist', '_args': ["Beyoncé"], '_id': 0},
+                    ]
+                ]
+            },
+            {
+                '_type': 'music.Album',
+                '_args': [
+                    "Everything Is Love",
+                    [
+                        {'_ref': 0},
+                        {'_type': 'music.Artist', '_args': ["Jay-Z"]},
+                    ]
+                ]
+            },
+        ])
+
+        self.assertIn('music_player.js', str(ctx.media))
+
+    @unittest.expectedFailure
+    def test_list_references(self):
+        destinys_child = [
+            Artist("Beyoncé"), Artist("Kelly Rowland"), Artist("Michelle Williams")
+        ]
+        discography = [
+            Album("Destiny's Child", destinys_child),
+            Album("Survivor", destinys_child),
+        ]
+        ctx = JSContext()
+        result = ctx.pack(discography)
+
+        self.assertEqual(result, [
+            {
+                '_type': 'music.Album',
+                '_args': [
+                    "Destiny's Child",
+                    {
+                        '_list': [
+                            {'_type': 'music.Artist', '_args': ["Beyoncé"]},
+                            {'_type': 'music.Artist', '_args': ["Kelly Rowland"]},
+                            {'_type': 'music.Artist', '_args': ["Michelle Williams"]},
+                        ],
+                        '_id': 0,
+                    }
+                ]
+            },
+            {
+                '_type': 'music.Album',
+                '_args': [
+                    "Survivor",
+                    {'_ref': 0},
+                ]
+            },
+        ])
+
+    @unittest.expectedFailure
+    def test_primitive_value_references(self):
+        beyonce_name = "Beyoncé"
+        beyonce = Artist(beyonce_name)
+        discography = [
+            Album("Dangerously in Love", [beyonce]),
+            Album(beyonce_name, [beyonce]),
+        ]
+        ctx = JSContext()
+        result = ctx.pack(discography)
+
+        self.assertEqual(result, [
+            {
+                '_type': 'music.Album',
+                '_args': [
+                    "Dangerously in Love",
+                    [
+                        {
+                            '_type': 'music.Artist',
+                            '_args': [{'_val': "Beyoncé", '_id': 1}],
+                            '_id': 0,
+                        },
+                    ]
+                ]
+            },
+            {
+                '_type': 'music.Album',
+                '_args': [
+                    {'_ref': 1},
+                    [
+                        {'_ref': 0},
+                    ]
+                ]
+            },
+        ])
