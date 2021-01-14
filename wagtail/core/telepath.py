@@ -11,6 +11,94 @@ class UnpackableTypeError(TypeError):
     pass
 
 
+class Node:
+    """
+    Intermediate representation of a packed value. Subclasses represent a particular value
+    type, and implement emit_verbose (returns a dict representation of a value that can have
+    an _id attached) and emit_compact (returns a compact representation of the value, in any
+    JSON-serialisable type).
+
+    If this node is assigned an id, emit() will return the verbose representation with the
+    id attached on first call, and a reference on subsequent calls.
+    """
+    def __init__(self):
+        self.id = None
+        self.seen = False
+
+    def emit(self):
+        if self.seen and self.id is not None:
+            # Have already emitted this value, so emit a reference instead
+            return {'_ref': self.id}
+        else:
+            self.seen = True
+            if self.id is not None:
+                # emit this value in long form including an ID
+                result = self.emit_verbose()
+                result['_id'] = self.id
+                return result
+            else:
+                return self.emit_compact()
+
+
+class ValueNode(Node):
+    """Represents a primitive value; int, string etc"""
+    def __init__(self, value):
+        super().__init__()
+        self.value = value
+
+    def emit_verbose(self):
+        return {'_val': self.value}
+
+    def emit_compact(self):
+        return self.value
+
+
+class ListNode(Node):
+    def __init__(self, value):
+        super().__init__()
+        self.value = value
+
+    def emit_verbose(self):
+        return {'_list': [item.emit() for item in self.value]}
+
+    def emit_compact(self):
+        return [item.emit() for item in self.value]
+
+
+class DictNode(Node):
+    def __init__(self, value):
+        super().__init__()
+        self.value = value
+
+    def emit_verbose(self):
+        return {'_dict': {key: val.emit() for key, val in self.value.items()}}
+
+    def emit_compact(self):
+        if any(reserved_key in self.value for reserved_key in DICT_RESERVED_KEYS):
+            # compact representation is not valid as this dict contains reserved keys
+            # that would clash with the verbose representation
+            return self.emit_verbose()
+        else:
+            return {key: val.emit() for key, val in self.value.items()}
+
+
+class ObjectNode(Node):
+    def __init__(self, constructor, args):
+        super().__init__()
+        self.constructor = constructor
+        self.args = args
+
+    def emit_verbose(self):
+        return {
+            '_type': self.constructor,
+            '_args': [arg.emit() for arg in self.args]
+        }
+
+    def emit_compact(self):
+        # objects always use verbose representation
+        return self.emit_verbose()
+
+
 class BaseAdapter:
     """Handles serialisation of a specific object type"""
     def pack(self, obj, context):
@@ -21,22 +109,16 @@ class BaseAdapter:
         This base implementation handles simple JSON-serialisable values such as strings, and
         returns them unchanged.
         """
-        return obj
+        return ValueNode(obj)
 
 
 class DictAdapter(BaseAdapter):
     """Handles serialisation of dicts"""
     def pack(self, obj, context):
-        packed_obj = {
+        return DictNode({
             str(key): context.pack(val)
             for key, val in obj.items()
-        }
-        if any(reserved_key in packed_obj for reserved_key in DICT_RESERVED_KEYS):
-            # this dict contains keys such as _type that would collide with our object notation,
-            # so wrap it in an explicit _dict to disambiguate
-            return {'_dict': packed_obj}
-        else:
-            return packed_obj
+        })
 
 
 class Adapter(BaseAdapter, metaclass=MediaDefiningClass):
@@ -56,10 +138,10 @@ class Adapter(BaseAdapter, metaclass=MediaDefiningClass):
 
     def pack(self, obj, context):
         context.add_media(self.get_media(obj))
-        return {
-            '_type': self.js_constructor,
-            '_args': [context.pack(arg) for arg in self.js_args(obj)]
-        }
+        return ObjectNode(
+            self.js_constructor,
+            [context.pack(arg) for arg in self.js_args(obj)]
+        )
 
 
 adapters = {
@@ -98,7 +180,7 @@ class JSContext:
             self.media_fragments.add(media_str)
 
     def pack(self, obj):
-        return ValueContext(self).pack(obj)
+        return ValueContext(self).pack(obj).emit()
 
 
 class ValueContext:
@@ -131,7 +213,7 @@ class ValueContext:
 
         # as fallback, try handling as an iterable
         try:
-            return [self.pack(item) for item in obj]
+            return ListNode([self.pack(item) for item in obj])
         except UnpackableTypeError:  # error while packing an item
             raise
         except TypeError:  # obj is not iterable
