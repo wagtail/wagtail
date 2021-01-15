@@ -553,6 +553,38 @@ class TestDeleteViewWithProtectedRelation(TestCase, WagtailTestUtils):
         # Author not deleted
         self.assertTrue(Author.objects.filter(id=5).exists())
 
+    def test_post_with_dependent_object_without_related(self):
+        response = self.post(6)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "'Mark Twain' is currently referenced by other objects"
+        )
+        self.assertContains(
+            response,
+            "<li><b>Book Without Author Related Name:</b> Adventures of Huckleberry Finn</li>"
+        )
+
+        # Author not deleted
+        self.assertTrue(Author.objects.filter(id=6).exists())
+
+    def test_post_with_1to1_dependent_object_without_related(self):
+        response = self.post(7)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(
+            response,
+            "'Leo Tolstoy' is currently referenced by other objects"
+        )
+        self.assertContains(
+            response,
+            "<li><b>Solo Book Without Author Related Name:</b> Anna Karenina</li>"
+        )
+
+        # Author not deleted
+        self.assertTrue(Author.objects.filter(id=7).exists())
+
 
 class TestDeleteViewModelReprPrimary(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']

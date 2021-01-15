@@ -40,6 +40,22 @@
     }
 },
 {
+    "pk": 6,
+    "model": "modeladmintest.author",
+    "fields": {
+        "name": "Mark Twain",
+        "date_of_birth": "1835-11-30"
+    }
+},
+{
+    "pk": 7,
+    "model": "modeladmintest.author",
+    "fields": {
+        "name": "Leo Tolstoy",
+        "date_of_birth": "1828-09-09"
+    }
+},
+{
     "pk": 1,
     "model": "modeladmintest.book",
     "fields": {
@@ -72,11 +88,27 @@
     }
 },
 {
-    "pk": 4,
+    "pk": 1,
     "model": "modeladmintest.solobook",
     "fields": {
         "title": "To Kill a Mockingbird",
         "author_id": 5
+    }
+},
+{
+    "pk": 1,
+    "model": "modeladmintest.bookwithoutauthorrelatedname",
+    "fields": {
+        "title": "Adventures of Huckleberry Finn",
+        "author_id": 6
+    }
+},
+{
+    "pk": 1,
+    "model": "modeladmintest.solobookwithoutauthorrelatedname",
+    "fields": {
+        "title": "Anna Karenina",
+        "author_id": 7
     }
 },
 {

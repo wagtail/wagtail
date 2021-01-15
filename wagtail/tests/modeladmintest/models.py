@@ -49,6 +49,22 @@ class SoloBook(models.Model):
         return self.title
 
 
+class BookWithoutAuthorRelatedName(models.Model):
+    author = models.ForeignKey(Author, on_delete=models.PROTECT, related_name='+')
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+
+class SoloBookWithoutAuthorRelatedName(models.Model):
+    author = models.OneToOneField(Author, on_delete=models.PROTECT, related_name='+')
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+
+
 class Token(models.Model):
     key = models.CharField(max_length=40, primary_key=True)
 

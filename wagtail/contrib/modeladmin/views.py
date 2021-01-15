@@ -14,7 +14,7 @@ from django.core.exceptions import (
     SuspiciousOperation)
 from django.core.paginator import InvalidPage, Paginator
 from django.db import models
-from django.db.models.fields.related import ManyToManyField, OneToOneRel
+from django.db.models.fields.related import ForeignObjectRel, ManyToManyField, OneToOneRel
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
 from django.utils.decorators import method_decorator
@@ -788,6 +788,15 @@ class DeleteView(InstanceSpecificView):
     def delete_instance(self):
         self.instance.delete()
 
+    def _get_related_fields(self):
+        """
+        Return a generator of related fields, not including ManyToManyFields.
+        """
+        fields = self.model._meta.get_fields(include_hidden=True)
+        for obj in fields:
+            if isinstance(obj, ForeignObjectRel) and not isinstance(obj, ManyToManyField):
+                yield obj
+
     def post(self, request, *args, **kwargs):
         try:
             msg = _("%(model_name)s '%(instance)s' deleted.") % {
@@ -798,20 +807,23 @@ class DeleteView(InstanceSpecificView):
             return redirect(self.index_url)
         except models.ProtectedError:
             linked_objects = []
-            fields = self.model._meta.fields_map.values()
-            fields = (obj for obj in fields if not isinstance(
-                obj.field, ManyToManyField))
-            for rel in fields:
+            for rel in self._get_related_fields():
                 if rel.on_delete == models.PROTECT:
                     if isinstance(rel, OneToOneRel):
                         try:
-                            obj = getattr(self.instance, rel.get_accessor_name())
+                            if rel.get_accessor_name() != '+':
+                                obj = getattr(self.instance, rel.get_accessor_name())
+                            else:
+                                obj = rel.related_model.objects.get(**{rel.field.name: self.instance})
                         except ObjectDoesNotExist:
                             pass
                         else:
                             linked_objects.append(obj)
                     else:
-                        qs = getattr(self.instance, rel.get_accessor_name())
+                        if rel.get_accessor_name() != '+':
+                            qs = getattr(self.instance, rel.get_accessor_name())
+                        else:
+                            qs = rel.related_model.objects.filter(**{rel.field.name: self.instance})
                         for obj in qs.all():
                             linked_objects.append(obj)
             context = self.get_context_data(
