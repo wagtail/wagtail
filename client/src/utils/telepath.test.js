@@ -24,6 +24,7 @@ telepath.register('music.Album', Album);
 describe('Telepath', () => {
   it('can unpack objects', () => {
     const beyonce = telepath.unpack({ _type: 'music.Artist', _args: ['Beyoncé'] });
+    expect(beyonce).toBeInstanceOf(Artist);
     expect(beyonce.name).toBe('Beyoncé');
   });
 
@@ -34,6 +35,7 @@ describe('Telepath', () => {
       { _type: 'music.Artist', _args: ['Michelle Williams'] },
     ]);
     expect(destinysChild.length).toBe(3);
+    expect(destinysChild[0]).toBeInstanceOf(Artist);
     expect(destinysChild[0].name).toBe('Beyoncé');
   });
 
@@ -42,6 +44,7 @@ describe('Telepath', () => {
       pyramid_stage: { _type: 'music.Artist', _args: ['Beyoncé'] },
       acoustic_stage: { _type: 'music.Artist', _args: ['Ed Sheeran'] },
     });
+    expect(glastonbury.pyramid_stage).toBeInstanceOf(Artist);
     expect(glastonbury.pyramid_stage.name).toBe('Beyoncé');
   });
 
@@ -52,6 +55,7 @@ describe('Telepath', () => {
         _type: 'R&B',
       }
     });
+    expect(profile['_artist']).toBeInstanceOf(Artist);
     expect(profile['_artist'].name).toBe('Beyoncé');
     expect(profile['_type']).toBe('R&B');
   });
@@ -66,7 +70,9 @@ describe('Telepath', () => {
         ]
       ]
     });
+    expect(dangerouslyInLove).toBeInstanceOf(Album);
     expect(dangerouslyInLove.title).toBe('Dangerously in Love');
+    expect(dangerouslyInLove.artists[0]).toBeInstanceOf(Artist);
     expect(dangerouslyInLove.artists[0].name).toBe('Beyoncé');
   });
 
@@ -93,6 +99,7 @@ describe('Telepath', () => {
       },
     ]);
     expect(discography[0].artists[0].name).toBe('Beyoncé');
+    expect(discography[1].artists[0]).toBeInstanceOf(Artist);
     expect(discography[1].artists[0].name).toBe('Beyoncé');
     expect(discography[1].artists[1].name).toBe('Jay-Z');
   });
