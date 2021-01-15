@@ -1,3 +1,3 @@
-import Telepath from '../../../components/Telepath/Telepath';
+import Telepath from '../../../utils/telepath';
 
 window.telepath = new Telepath();
