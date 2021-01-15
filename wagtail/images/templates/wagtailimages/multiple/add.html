@@ -24,6 +24,7 @@
                 <div class="replace-file-input">
                     <button class="button bicolor button--icon">{% icon name="plus" wrapped=1 %}{% trans "Or choose from your computer" %}</button>
                     <input id="fileupload" type="file" name="files[]" data-url="{% url 'wagtailimages:add_multiple' %}" multiple>
+                    <input id="fileupload-title" type="hidden" name="title" maxlength="{{ max_title_length }}" value="">
                 </div>
                 {% csrf_token %}
                 {% if collections %}
@@ -98,6 +99,7 @@
     <script src="{% versioned_static 'wagtailadmin/js/vendor/tag-it.js' %}"></script>
 
     <!-- Main script -->
+    <script src="{% versioned_static 'wagtailimages/js/image-upload-utils.js' %}"></script>
     <script src="{% versioned_static 'wagtailimages/js/add-multiple.js' %}"></script>
 
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}

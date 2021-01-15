@@ -113,16 +113,39 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             return false;
         });
 
+        /* set up pre-filling of title based on selected file */
         function populateTitle(context) {
             var fileWidget = $('#id_image-chooser-upload-file', context);
-            fileWidget.on('change', function () {
+            fileWidget.on('change', function (event) {
                 var titleWidget = $('#id_image-chooser-upload-title', context);
                 var title = titleWidget.val();
                 if (title === '') {
                     // The file widget value example: `C:\fakepath\image.jpg`
                     var parts = fileWidget.val().split('\\');
                     var fileName = parts[parts.length - 1];
-                    titleWidget.val(fileName);
+
+                    var getImageUploadTitle = window.wagtail.utils.getImageUploadTitle;
+
+                    if (typeof getImageUploadTitle !== "function") {
+                        titleWidget.val(fileName);
+                        return;
+                    };
+
+                    // allow for the getImageUploadTitle global to override the provided
+                    // filename with a custom title (e.g. a regex to remove the extension).
+
+                    var maxLength = titleWidget.attr("maxLength") || null;
+
+                    var newTitle = getImageUploadTitle(fileName, {
+                        event,
+                        maxLength: maxLength && parseInt(maxLength),
+                        widget: "CHOOSER_MODAL",
+                    });
+
+                    // allow for the util to return null/non-string to not update title
+                    if (typeof newTitle !== "string") return;
+
+                    titleWidget.val(newTitle);
                 }
             });
         }

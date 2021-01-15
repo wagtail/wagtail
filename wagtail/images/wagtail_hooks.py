@@ -71,6 +71,7 @@ def register_image_feature(features):
         HalloPlugin(
             name='hallowagtailimage',
             js=[
+                'wagtailimages/js/image-upload-utils.js',
                 'wagtailimages/js/image-chooser-modal.js',
                 'wagtailimages/js/hallo-plugins/hallo-wagtailimage.js',
             ],
@@ -95,6 +96,7 @@ def register_image_feature(features):
                 'id': True,
             }
         }, js=[
+            'wagtailimages/js/image-upload-utils.js',
             'wagtailimages/js/image-chooser-modal.js',
         ])
     )

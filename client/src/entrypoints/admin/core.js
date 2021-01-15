@@ -582,4 +582,6 @@ function initButtonSelects() {
 
 $(document).ready(initButtonSelects);
 
+window.wagtail.utils = {};
+
 window.wagtail = wagtail;

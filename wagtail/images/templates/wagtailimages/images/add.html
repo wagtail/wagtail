@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailimages_tags %}
+{% load wagtailadmin_tags wagtailimages_tags %}
 {% load i18n %}
 {% block titletag %}{% trans "Add an image" %}{% endblock %}
 
@@ -8,12 +8,50 @@
 
     {{ form.media.js }}
 
+    <script src="{% versioned_static 'wagtailimages/js/image-upload-utils.js' %}"></script>
+
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+
     <script>
         $(function() {
             $('#id_tags').tagit({
                 autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
             });
+            $('#id_file').on(
+                'change',
+                { $titleField: $('#id_title') },
+                /**
+                * Called on change of the file upload field, allowing for the getImageUploadTitle
+                * global to override the provided filename with a custom title.
+                *
+                * @param {*} event - DOM event (contains reference to $titleField)
+                */
+                function(event) {
+                    var getImageUploadTitle = window.wagtail.utils.getImageUploadTitle;
+                    if (typeof getImageUploadTitle !== "function") return;
+
+                    var $titleField = event.data.$titleField;
+                    var currentTitle = $titleField.val();
+
+                    // do not override a title that already exists (from manual editing or previous upload)
+                    if (currentTitle) return;
+
+                    // file widget value example: `C:\fakepath\image.jpg` - convert to just the filename part
+                    var fileName = $(this).val().split('\\').slice(-1)[0];
+                    var maxLength = $titleField.attr('maxLength') || null;
+
+                    var newTitle = getImageUploadTitle(fileName, {
+                        event,
+                        maxLength: maxLength && parseInt(maxLength),
+                        widget: "ADD",
+                    });
+
+                    // allow for the util to return null/non-string to not update title
+                    if (typeof newTitle !== "string") return;
+
+                    $titleField.val(newTitle);
+                }
+            );
         });
     </script>
 {% endblock %}

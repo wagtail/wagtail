@@ -33,6 +33,7 @@ $(function() {
 
             $('#upload-list').append(li);
             data.context = li;
+            data.$titleField = $('#fileupload-title', data.form); // add upload title field for custom title on upload
 
             data.process(function() {
                 return $this.fileupload('process', data);
@@ -126,6 +127,38 @@ $(function() {
             itemElement.removeClass('upload-uploading').addClass('upload-complete');
         }
     });
+
+    $("#fileupload").on(
+        "fileuploadsubmit",
+        /**
+         * Called for each individual upload, allowing for the getImageUploadTitle global
+         * to override the provided filename with a custom title (e.g. a regex to remove the extension).
+         *
+         * @param {*} event - DOM event
+         * @param {Object} data - data object passed from jquery fileupload
+         */
+        function (event, data) {
+            var getImageUploadTitle = window.wagtail.utils.getImageUploadTitle;
+            if (typeof getImageUploadTitle !== "function") return;
+        
+            var $titleField = data.$titleField;
+            var files = data.files[0] || {};
+            var maxLength = $titleField.attr("maxLength") || null;
+        
+            var newTitle = getImageUploadTitle(files.name, {
+                event,
+                maxLength: maxLength && parseInt(maxLength),
+                widget: "ADD_MULTIPLE",
+            });
+        
+            if (typeof newTitle === "string") {
+                $titleField.val(newTitle);
+            } else {
+                // must clear any existing value for next upload
+                $titleField.val("");
+            }
+        }
+      );
 
     // ajax-enhance forms added on done()
     $('#upload-list').on('submit', 'form', function(e) {
