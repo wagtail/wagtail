@@ -174,6 +174,41 @@ class TestPacking(TestCase):
         ])
 
     def test_primitive_value_references(self):
+        beyonce_name = "Beyoncé Giselle Knowles-Carter"
+        beyonce = Artist(beyonce_name)
+        discography = [
+            Album("Dangerously in Love", [beyonce]),
+            Album(beyonce_name, [beyonce]),
+        ]
+        ctx = JSContext()
+        result = ctx.pack(discography)
+
+        self.assertEqual(result, [
+            {
+                '_type': 'music.Album',
+                '_args': [
+                    "Dangerously in Love",
+                    [
+                        {
+                            '_type': 'music.Artist',
+                            '_args': [{'_val': "Beyoncé Giselle Knowles-Carter", '_id': 0}],
+                            '_id': 1,
+                        },
+                    ]
+                ]
+            },
+            {
+                '_type': 'music.Album',
+                '_args': [
+                    {'_ref': 0},
+                    [
+                        {'_ref': 1},
+                    ]
+                ]
+            },
+        ])
+
+    def test_avoid_primitive_value_references_for_short_strings(self):
         beyonce_name = "Beyoncé"
         beyonce = Artist(beyonce_name)
         discography = [
@@ -191,7 +226,7 @@ class TestPacking(TestCase):
                     [
                         {
                             '_type': 'music.Artist',
-                            '_args': [{'_val': "Beyoncé", '_id': 0}],
+                            '_args': ["Beyoncé"],
                             '_id': 1,
                         },
                     ]
@@ -200,7 +235,7 @@ class TestPacking(TestCase):
             {
                 '_type': 'music.Album',
                 '_args': [
-                    {'_ref': 0},
+                    "Beyoncé",
                     [
                         {'_ref': 1},
                     ]
