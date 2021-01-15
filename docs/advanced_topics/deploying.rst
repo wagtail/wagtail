@@ -56,8 +56,8 @@ If you are also serving Wagtail's static files from remote storage (using Django
     AWS_S3_OBJECT_PARAMETERS = {
         "ACL": "public-read"
     }
-    
-The ``ACL`` parameter accepts a list of predefined configurations for Amazon S3. For more information, refer to the documentation `Canned ACL <https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl>`_.    
+
+The ``ACL`` parameter accepts a list of predefined configurations for Amazon S3. For more information, refer to the documentation `Canned ACL <https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl>`_.
 
 For Google Cloud Storage, create a ``cors.json`` configuration:
 
