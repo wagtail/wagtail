@@ -5,6 +5,7 @@ from wagtail.admin.staticfiles import versioned_static
 
 
 DICT_RESERVED_KEYS = ['_type', '_args', '_dict', '_list', '_val', '_id', '_ref']
+STRING_REF_MIN_LENGTH = 20  # do not turn strings shorter than this into references
 
 
 class UnpackableTypeError(TypeError):
@@ -19,19 +20,22 @@ class Node:
     JSON-serialisable type).
 
     If this node is assigned an id, emit() will return the verbose representation with the
-    id attached on first call, and a reference on subsequent calls.
+    id attached on first call, and a reference on subsequent calls. To disable this behaviour
+    (e.g. for small primitive values where the reference representation adds unwanted overhead),
+    set self.use_id = False.
     """
     def __init__(self):
         self.id = None
         self.seen = False
+        self.use_id = True
 
     def emit(self):
-        if self.seen and self.id is not None:
+        if self.use_id and self.seen and self.id is not None:
             # Have already emitted this value, so emit a reference instead
             return {'_ref': self.id}
         else:
             self.seen = True
-            if self.id is not None:
+            if self.use_id and self.id is not None:
                 # emit this value in long form including an ID
                 result = self.emit_verbose()
                 result['_id'] = self.id
@@ -41,10 +45,24 @@ class Node:
 
 
 class ValueNode(Node):
-    """Represents a primitive value; int, string etc"""
+    """Represents a primitive value; int, bool etc"""
     def __init__(self, value):
         super().__init__()
         self.value = value
+        self.use_id = False
+
+    def emit_verbose(self):
+        return {'_val': self.value}
+
+    def emit_compact(self):
+        return self.value
+
+
+class StringNode(Node):
+    def __init__(self, value):
+        super().__init__()
+        self.value = value
+        self.use_id = len(value) >= STRING_REF_MIN_LENGTH
 
     def emit_verbose(self):
         return {'_val': self.value}
@@ -112,6 +130,11 @@ class BaseAdapter:
         return ValueNode(obj)
 
 
+class StringAdapter(BaseAdapter):
+    def pack(self, obj, context):
+        return StringNode(obj)
+
+
 class DictAdapter(BaseAdapter):
     """Handles serialisation of dicts"""
     def pack(self, obj, context):
@@ -150,7 +173,7 @@ adapters = {
     bool: BaseAdapter(),
     int: BaseAdapter(),
     float: BaseAdapter(),
-    str: BaseAdapter(),
+    str: StringAdapter(),
 
     # Container types to be serialised recursively
     dict: DictAdapter(),
