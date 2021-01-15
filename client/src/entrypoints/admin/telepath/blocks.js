@@ -341,9 +341,9 @@ class StreamChild {
     }
   }
 
-  markDeleted(animate) {
+  markDeleted(opts) {
     this.deletedInput.val('1');
-    if (animate) {
+    if (opts && opts.animate) {
       $(this.element).slideUp().dequeue()
         .fadeOut()
         .attr('aria-hidden', 'true');
@@ -426,15 +426,15 @@ class StreamBlockMenu {
           if (this.onSelectBlockType) {
             this.onSelectBlockType(blockDef.name, this.index);
           }
-          this.close(true);
+          this.close({ animate: true });
         });
       });
     });
 
     if (this.isOpen) {
-      this.open(false);
+      this.open({ animate: false });
     } else {
-      this.close(false);
+      this.close({ animate: false });
     }
   }
 
@@ -444,13 +444,13 @@ class StreamBlockMenu {
 
   toggle() {
     if (this.isOpen) {
-      this.close(true);
+      this.close({ animate: true });
     } else {
-      this.open(true);
+      this.open({ animate: true });
     }
   }
-  open(animate) {
-    if (animate) {
+  open(opts) {
+    if (opts && opts.animate) {
       this.outerContainer.slideDown();
     } else {
       this.outerContainer.show();
@@ -459,8 +459,8 @@ class StreamBlockMenu {
     this.outerContainer.attr('aria-hidden', 'false');
     this.isOpen = true;
   }
-  close(animate) {
-    if (animate) {
+  close(opts) {
+    if (opts && opts.animate) {
       this.outerContainer.slideUp();
     } else {
       this.outerContainer.hide();
@@ -586,7 +586,7 @@ class StreamBlock {
   }
 
   deleteBlock(index) {
-    this.children[index].markDeleted(true);
+    this.children[index].markDeleted({ animate: true });
     this.menus[index].delete();
     this.children.splice(index, 1);
     this.menus.splice(index, 1);
@@ -608,7 +608,7 @@ class StreamBlock {
     });
     if (values.length === 0) {
       /* for an empty list, begin with the menu open */
-      this.menus[0].open(false);
+      this.menus[0].open({ animate: false });
     }
   }
 
