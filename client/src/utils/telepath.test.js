@@ -1,6 +1,6 @@
 /* eslint-disable dot-notation */
 
-import Telepath from './Telepath';
+import Telepath from './telepath';
 
 const telepath = new Telepath();
 
