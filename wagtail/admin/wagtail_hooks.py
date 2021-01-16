@@ -21,7 +21,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import PagesSummaryItem
-from wagtail.admin.views.account import email_management_enabled, password_management_enabled
+from wagtail.admin.views.account import password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
@@ -255,16 +255,6 @@ def register_account_set_profile_picture(request):
         'label': _('Set profile picture'),
         'help_text': _("Change your profile picture.")
     }
-
-
-@hooks.register('register_account_menu_item')
-def register_account_change_email(request):
-    if email_management_enabled():
-        return {
-            'url': reverse('wagtailadmin_account_change_email'),
-            'label': _('Change email'),
-            'help_text': _('Change the email address linked to your account.'),
-        }
 
 
 @hooks.register('register_account_menu_item')
