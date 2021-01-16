@@ -15,6 +15,9 @@
     {% if revision != page.get_latest_revision %}
         <li><a href="{% url 'wagtailadmin_pages:revisions_compare' page.id revision.id 'latest' %}" class="button button-small button-secondary">{% trans 'Compare with current version' %}</a></li>
     {% endif %}
+    {% if page.live_revision and revision != page.live_revision %}
+        <li><a href="{% url 'wagtailadmin_pages:revisions_compare' page.id 'live' revision.id %}" class="button button-small button-secondary">{% trans 'Compare with live version' %}</a></li>
+    {% endif %}
     {% endwith %}
     {% if revision.approved_go_live_at and page_perms.can_unschedule %}
     <li><a href="{% url 'wagtailadmin_pages:revisions_unschedule' page.id revision.id %}" class="button button-small button-secondary">{% trans 'Cancel scheduled publish' %}</a></li>
