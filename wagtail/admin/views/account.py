@@ -14,7 +14,7 @@ from django.utils.translation import gettext_lazy, override
 from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
-from wagtail.admin.localization import get_available_admin_languages
+from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.users.forms import (
@@ -152,6 +152,17 @@ class LanguageSettingsPanel(BaseSettingsPanel):
         return len(get_available_admin_languages()) > 1
 
 
+class TimeZoneSettingsPanel(BaseSettingsPanel):
+    name = 'time-zone'
+    title = gettext_lazy('Time Zone')
+    order = 500
+    form_class = CurrentTimeZoneForm
+    form_object = 'profile'
+
+    def is_active(self):
+        return len(get_available_admin_time_zones()) > 1
+
+
 # Views
 
 def account(request):
@@ -167,6 +178,7 @@ def account(request):
         AvatarSettingsPanel(request, user, profile),
         NotificationsSettingsPanel(request, user, profile),
         LanguageSettingsPanel(request, user, profile),
+        TimeZoneSettingsPanel(request, user, profile),
     ]
     for fn in hooks.get_hooks('register_account_settings_panel'):
         panel = fn(request, user, profile)
@@ -265,22 +277,6 @@ class PasswordResetConfirmView(PasswordResetEnabledViewMixin, auth_views.Passwor
 
 class PasswordResetCompleteView(PasswordResetEnabledViewMixin, auth_views.PasswordResetCompleteView):
     template_name = 'wagtailadmin/account/password_reset/complete.html'
-
-
-def current_time_zone(request):
-    if request.method == 'POST':
-        form = CurrentTimeZoneForm(request.POST, instance=UserProfile.get_for_user(request.user))
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Your preferences have been updated."))
-            return redirect('wagtailadmin_account')
-    else:
-        form = CurrentTimeZoneForm(instance=UserProfile.get_for_user(request.user))
-
-    return TemplateResponse(request, 'wagtailadmin/account/current_time_zone.html', {
-        'form': form,
-    })
 
 
 class LoginView(auth_views.LoginView):
