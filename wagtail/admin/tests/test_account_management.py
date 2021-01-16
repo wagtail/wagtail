@@ -10,7 +10,6 @@ from django.core import mail
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
-from django.utils.translation import get_language
 
 from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
@@ -198,6 +197,7 @@ class TestAccountSectionUtilsMixin:
             'notifications-approved_notifications': 'false',
             'notifications-rejected_notifications': 'true',
             'notifications-updated_comments_notifications': 'true',
+            'language-preferred_language': 'es',
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse('wagtailadmin_account'), post_data)
@@ -224,6 +224,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertPanelActive(response, 'name')
         self.assertPanelActive(response, 'email')
         self.assertPanelActive(response, 'notifications')
+        self.assertPanelActive(response, 'language')
 
         # Page should contain a 'Change password' option
         self.assertContains(response, "Change password")
@@ -374,38 +375,16 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertTrue(profile.rejected_notifications)
         self.assertTrue(profile.updated_comments_notifications)
 
-    def test_language_preferences_view(self):
-        """
-        This tests that the language preferences view responds with an index page
-        """
-        # Get account page
-        response = self.client.get(reverse('wagtailadmin_account_language_preferences'))
-
-        # Check that the user received an account page
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/language_preferences.html')
-
-        # Page should contain a 'Language Preferences' title
-        self.assertContains(response, "Language Preferences")
-
-        # check that current language preference is indicated in HTML header
-        self.assertContains(response, '<html class="no-js" lang="en" dir="ltr">')
-
-    def test_language_preferences_view_post(self):
-        """
-        This posts to the language preferences view and checks that the
-        user profile is updated
-        """
-        # Post new values to the language preferences page
-        post_data = {
-            'preferred_language': 'es'
-        }
-        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
+    def test_change_language_preferences(self):
+        response = self.post_form({
+            'language-preferred_language': 'es',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
 
         # Check that the language preferences are stored
         self.assertEqual(profile.preferred_language, 'es')
@@ -415,31 +394,23 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertContains(response, '<html class="no-js" lang="es" dir="ltr">')
 
     def test_unset_language_preferences(self):
-        # Post new values to the language preferences page
-        post_data = {
-            'preferred_language': ''
-        }
-        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
+        profile = UserProfile.get_for_user(self.user)
+        profile.preferred_language = 'en'
+        profile.save()
+
+        response = self.post_form({
+            'language-preferred_language': '',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
-
         # Check that the language preferences are stored
+        profile.refresh_from_db()
         self.assertEqual(profile.preferred_language, '')
 
         # Check that the current language is assumed as English
         self.assertEqual(profile.get_preferred_language(), "en")
-
-    def test_language_preferences_reapplies_original_language(self):
-        post_data = {
-            'preferred_language': 'es'
-        }
-        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
-        self.assertRedirects(response, reverse('wagtailadmin_account'))
-
-        self.assertEqual(get_language(), "en")
 
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English'), ('es', 'Spanish')])
     def test_available_admin_languages_with_permitted_languages(self):
@@ -451,7 +422,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English')])
     def test_not_show_options_if_only_one_language_is_permitted(self):
         response = self.client.get(reverse('wagtailadmin_account'))
-        self.assertNotContains(response, 'Language Preferences')
+        self.assertPanelNotActive(response, 'language')
 
     def test_current_time_zone_view(self):
         """

@@ -14,6 +14,7 @@ from django.utils.translation import gettext_lazy, override
 from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
+from wagtail.admin.localization import get_available_admin_languages
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.users.forms import (
@@ -140,6 +141,17 @@ class NotificationsSettingsPanel(BaseSettingsPanel):
         return self.get_form().fields
 
 
+class LanguageSettingsPanel(BaseSettingsPanel):
+    name = 'language'
+    title = gettext_lazy('Language')
+    order = 500
+    form_class = PreferredLanguageForm
+    form_object = 'profile'
+
+    def is_active(self):
+        return len(get_available_admin_languages()) > 1
+
+
 # Views
 
 def account(request):
@@ -154,6 +166,7 @@ def account(request):
         EmailSettingsPanel(request, user, profile),
         AvatarSettingsPanel(request, user, profile),
         NotificationsSettingsPanel(request, user, profile),
+        LanguageSettingsPanel(request, user, profile),
     ]
     for fn in hooks.get_hooks('register_account_settings_panel'):
         panel = fn(request, user, profile)
@@ -171,7 +184,11 @@ def account(request):
                 for form in panel_forms:
                     form.save()
 
-            messages.success(request, _("Your account settings have been changed successfully!"))
+            # Override the language when creating the success message
+            # If the user has changed their language in this request, the message should
+            # be in the new language, not the existing one
+            with override(profile.get_preferred_language()):
+                messages.success(request, _("Your account settings have been changed successfully!"))
 
             return redirect('wagtailadmin_account')
 
@@ -248,25 +265,6 @@ class PasswordResetConfirmView(PasswordResetEnabledViewMixin, auth_views.Passwor
 
 class PasswordResetCompleteView(PasswordResetEnabledViewMixin, auth_views.PasswordResetCompleteView):
     template_name = 'wagtailadmin/account/password_reset/complete.html'
-
-
-def language_preferences(request):
-    if request.method == 'POST':
-        form = PreferredLanguageForm(request.POST, instance=UserProfile.get_for_user(request.user))
-
-        if form.is_valid():
-            user_profile = form.save()
-            # This will set the language only for this request/thread
-            # (so that the 'success' messages is in the right language)
-            with override(user_profile.get_preferred_language()):
-                messages.success(request, _("Your preferences have been updated."))
-            return redirect('wagtailadmin_account')
-    else:
-        form = PreferredLanguageForm(instance=UserProfile.get_for_user(request.user))
-
-    return TemplateResponse(request, 'wagtailadmin/account/language_preferences.html', {
-        'form': form,
-    })
 
 
 def current_time_zone(request):
