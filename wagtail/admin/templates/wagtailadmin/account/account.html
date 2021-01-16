@@ -7,15 +7,30 @@
     {% include "wagtailadmin/shared/header.html" with title=account_str %}
 
     <div class="nice-padding">
-        <ul class="listing">
-            {% for item in items %}
-                <li class="row row-flush">
-                    <div class="col6">
-                        <a href="{{ item.url }}" class="button button-primary">{{ item.label }}</a>
-                    </div>
-                    <small class="col6">{{ item.help_text }}</small>
-                </li>
+        <form action="{% url 'wagtailadmin_account' %}" method="post">
+            {% csrf_token %}
+            {% for panel in panels %}
+                <section>
+                    <h2>{{ panel.title }}</h2>
+                    {{ panel.render }}
+                </section>
             {% endfor %}
-        </ul>
+
+            <button type="submit" class="button">{% trans 'Save' %}</button>
+        </form>
+
+        {% if menu_items %}
+            <h2>{% trans "More actions" %}</h2>
+            <ul class="listing">
+                {% for item in menu_items %}
+                    <li class="row row-flush">
+                        <div class="col6">
+                            <a href="{{ item.url }}" class="button button-primary">{{ item.label }}</a>
+                        </div>
+                        <small class="col6">{{ item.help_text }}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 {% endblock %}

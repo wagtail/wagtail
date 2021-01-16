@@ -3,8 +3,10 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import PasswordChangeForm
+from django.db import transaction
 from django.http import Http404
 from django.shortcuts import redirect
+from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
@@ -44,18 +46,96 @@ def password_reset_enabled():
     return getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', password_management_enabled())
 
 
+# Panels
+
+class BaseSettingsPanel:
+    name = ''
+    title = ''
+    help_text = None
+    template_name = 'wagtailadmin/account/settings_panels/base.html'
+    form_class = None
+    form_object = 'user'
+
+    def __init__(self, request, user, profile):
+        self.request = request
+        self.user = user
+        self.profile = profile
+
+    def is_active(self):
+        """
+        Returns True to display the panel.
+        """
+        return True
+
+    def get_form(self):
+        """
+        Returns an initialised form.
+        """
+        kwargs = {
+            'instance': self.profile if self.form_object == 'profile' else self.user,
+            'prefix': self.name
+        }
+
+        if self.request.method == 'POST':
+            return self.form_class(self.request.POST, self.request.FILES, **kwargs)
+        else:
+            return self.form_class(**kwargs)
+
+    def get_context_data(self):
+        """
+        Returns the template context to use when rendering the template.
+        """
+        return {
+            'form': self.get_form()
+        }
+
+    def render(self):
+        """
+        Renders the panel using the template specified in .template_name and context from .get_context_data()
+        """
+        return render_to_string(self.template_name, self.get_context_data(), request=self.request)
+
+
 # Views
 
 def account(request):
-    items = []
+    # Fetch the user and profile objects once and pass into each panel
+    # We need to use the same instances for all forms so they don't overwrite each other
+    user = request.user
+    profile = UserProfile.get_for_user(user)
 
+    # Panels
+    panels = []
+    for fn in hooks.get_hooks('register_account_settings_panel'):
+        panel = fn(request, user, profile)
+        if panel and panel.is_active():
+            panels.append(panel)
+
+    panels = [panel for panel in panels if panel.is_active()]
+    panels.sort(key=lambda panel: panel.order)
+
+    if request.method == 'POST':
+        panel_forms = [panel.get_form() for panel in panels]
+
+        if all(form.is_valid() for form in panel_forms):
+            with transaction.atomic():
+                for form in panel_forms:
+                    form.save()
+
+            messages.success(request, _("Your account settings have been changed successfully!"))
+
+            return redirect('wagtailadmin_account')
+
+    # Menu items
+    menu_items = []
     for fn in hooks.get_hooks('register_account_menu_item'):
         item = fn(request)
         if item:
-            items.append(item)
+            menu_items.append(item)
 
     return TemplateResponse(request, 'wagtailadmin/account/account.html', {
-        'items': items,
+        'panels': panels,
+        'menu_items': menu_items,
     })
 
 
