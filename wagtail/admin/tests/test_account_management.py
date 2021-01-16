@@ -1,6 +1,3 @@
-import os
-import tempfile
-
 import pytz
 
 from django import VERSION as DJANGO_VERSION
@@ -10,6 +7,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from django.utils.translation import get_language
@@ -17,6 +15,7 @@ from django.utils.translation import get_language
 from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
 from wagtail.admin.views.account import change_password
+from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
@@ -181,13 +180,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
 
-class TestAccountSection(TestCase, WagtailTestUtils):
-    """
-    This tests that the accounts section is working
-    """
-    def setUp(self):
-        self.user = self.login()
-
+class TestAccountSectionUtilsMixin:
     def assertPanelActive(self, response, name):
         panels = set(panel.name for panel in response.context['panels'])
         self.assertIn(name, panels, "Panel %s not active in response" % name)
@@ -195,6 +188,23 @@ class TestAccountSection(TestCase, WagtailTestUtils):
     def assertPanelNotActive(self, response, name):
         panels = set(panel.name for panel in response.context['panels'])
         self.assertNotIn(name, panels, "Panel %s active in response" % name)
+
+    def post_form(self, extra_post_data):
+        post_data = {
+            'name-first_name': 'Test',
+            'name-last_name': 'User',
+            'email-email': self.user.email,
+        }
+        post_data.update(extra_post_data)
+        return self.client.post(reverse('wagtailadmin_account'), post_data)
+
+
+class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
+    """
+    This tests that the accounts section is working
+    """
+    def setUp(self):
+        self.user = self.login()
 
     def test_account_view(self):
         """
@@ -212,15 +222,6 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
         # Page should contain a 'Change password' option
         self.assertContains(response, "Change password")
-
-    def post_form(self, extra_post_data):
-        post_data = {
-            'name-first_name': 'Test',
-            'name-last_name': 'User',
-            'email-email': self.user.email,
-        }
-        post_data.update(extra_post_data)
-        return self.client.post(reverse('wagtailadmin_account'), post_data)
 
     def test_change_name_post(self):
         response = self.post_form({
@@ -527,63 +528,89 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertNotContains(response, 'Set Time Zone')
 
 
-class TestAvatarSection(TestCase, WagtailTestUtils):
-    def _create_image(self):
-        from PIL import Image
-
-        with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
-            image = Image.new('RGB', (200, 200), 'white')
-            image.save(f, 'JPEG')
-
-        return open(f.name, mode='rb')
-
+class TestAccountUploadAvatar(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
     def setUp(self):
         self.user = self.login()
-        self.avatar = self._create_image()
-        self.other_avatar = self._create_image()
+        self.avatar = get_test_image_file()
+        self.other_avatar = get_test_image_file()
 
-    def tearDown(self):
-        self.avatar.close()
-        self.other_avatar.close()
-
-    def test_avatar_preferences_view(self):
+    def test_account_view(self):
         """
-        This tests that the change user profile(avatar) view responds with an index page
+        This tests that the account view renders a "Upload a profile picture:" field
         """
-        response = self.client.get(reverse('wagtailadmin_account_change_avatar'))
+        response = self.client.get(reverse('wagtailadmin_account'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/change_avatar.html')
-        self.assertContains(response, "Change profile picture")
+        self.assertContains(response, "Upload a profile picture:")
 
     def test_set_custom_avatar_stores_and_get_custom_avatar(self):
-        response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
-                                    {'avatar': self.avatar},
-                                    follow=True)
+        response = self.post_form({
+            'avatar-avatar': SimpleUploadedFile('other.png', self.other_avatar.file.getvalue())
+        })
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        self.assertEqual(response.status_code, 200)
-
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
-        self.assertIn(os.path.basename(self.avatar.name), profile.avatar.url)
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
+        self.assertIn('other.png', profile.avatar.url)
 
     def test_user_upload_another_image_removes_previous_one(self):
-        response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
-                                    {'avatar': self.avatar},
-                                    follow=True)
-        self.assertEqual(response.status_code, 200)
+        profile = UserProfile.get_for_user(self.user)
+        profile.avatar = self.avatar
+        profile.save()
 
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
         old_avatar_path = profile.avatar.path
 
         # Upload a new avatar
-        new_response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
-                                        {'avatar': self.other_avatar},
-                                        follow=True)
-        self.assertEqual(new_response.status_code, 200)
+        response = self.post_form({
+            'avatar-avatar': SimpleUploadedFile('other.png', self.other_avatar.file.getvalue())
+        })
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check the avatar was changed
+        profile.refresh_from_db()
+        self.assertIn('other.png', profile.avatar.url)
 
         # Check old avatar doesn't exist anymore in filesystem
         with self.assertRaises(FileNotFoundError):
             open(old_avatar_path)
+
+    def test_no_value_preserves_current_avatar(self):
+        """
+        Tests that submitting a blank value for avatar doesn't remove it.
+        """
+        profile = UserProfile.get_for_user(self.user)
+        profile.avatar = self.avatar
+        profile.save()
+
+        # Upload a new avatar
+        response = self.post_form({})
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check the avatar was changed
+        profile.refresh_from_db()
+        self.assertIn('test.png', profile.avatar.url)
+
+    def test_clear_removes_current_avatar(self):
+        """
+        Tests that submitting a blank value for avatar doesn't remove it.
+        """
+        profile = UserProfile.get_for_user(self.user)
+        profile.avatar = self.avatar
+        profile.save()
+
+        # Upload a new avatar
+        response = self.post_form({
+            'avatar-clear': 'on'
+        })
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check the avatar was changed
+        profile.refresh_from_db()
+        self.assertIn('test.png', profile.avatar.url)
 
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):

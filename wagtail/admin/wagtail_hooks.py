@@ -249,15 +249,6 @@ def register_viewsets_urls():
 
 
 @hooks.register('register_account_menu_item')
-def register_account_set_profile_picture(request):
-    return {
-        'url': reverse('wagtailadmin_account_change_avatar'),
-        'label': _('Set profile picture'),
-        'help_text': _("Change your profile picture.")
-    }
-
-
-@hooks.register('register_account_menu_item')
 def register_account_change_password(request):
     if password_management_enabled() and request.user.has_usable_password():
         return {

@@ -113,6 +113,15 @@ class EmailSettingsPanel(BaseSettingsPanel):
         return email_management_enabled()
 
 
+class AvatarSettingsPanel(BaseSettingsPanel):
+    name = 'avatar'
+    title = gettext_lazy('Profile picture')
+    order = 300
+    template_name = 'wagtailadmin/account/settings_panels/avatar.html'
+    form_class = AvatarPreferencesForm
+    form_object = 'profile'
+
+
 # Views
 
 def account(request):
@@ -125,6 +134,7 @@ def account(request):
     panels = [
         NameSettingsPanel(request, user, profile),
         EmailSettingsPanel(request, user, profile),
+        AvatarSettingsPanel(request, user, profile),
     ]
     for fn in hooks.get_hooks('register_account_settings_panel'):
         panel = fn(request, user, profile)
@@ -275,20 +285,6 @@ def current_time_zone(request):
     return TemplateResponse(request, 'wagtailadmin/account/current_time_zone.html', {
         'form': form,
     })
-
-
-def change_avatar(request):
-    if request.method == 'POST':
-        user_profile = UserProfile.get_for_user(request.user)
-        form = AvatarPreferencesForm(request.POST, request.FILES, instance=user_profile)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Your preferences have been updated successfully!"))
-            return redirect('wagtailadmin_account_change_avatar')
-    else:
-        form = AvatarPreferencesForm(instance=UserProfile.get_for_user(request.user))
-
-    return TemplateResponse(request, 'wagtailadmin/account/change_avatar.html', {'form': form})
 
 
 class LoginView(auth_views.LoginView):

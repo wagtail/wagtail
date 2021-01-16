@@ -448,7 +448,7 @@ class CurrentTimeZoneForm(forms.ModelForm):
 
 class AvatarPreferencesForm(forms.ModelForm):
     avatar = forms.ImageField(
-        label=_("Upload a profile picture"), required=True
+        label=_("Upload a profile picture"), required=False
     )
 
     def __init__(self, *args, **kwargs):
