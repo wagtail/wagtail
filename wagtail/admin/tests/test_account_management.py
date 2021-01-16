@@ -194,6 +194,10 @@ class TestAccountSectionUtilsMixin:
             'name-first_name': 'Test',
             'name-last_name': 'User',
             'email-email': self.user.email,
+            'notifications-submitted_notifications': 'false',
+            'notifications-approved_notifications': 'false',
+            'notifications-rejected_notifications': 'true',
+            'notifications-updated_comments_notifications': 'true',
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse('wagtailadmin_account'), post_data)
@@ -219,6 +223,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
         self.assertPanelActive(response, 'name')
         self.assertPanelActive(response, 'email')
+        self.assertPanelActive(response, 'notifications')
 
         # Page should contain a 'Change password' option
         self.assertContains(response, "Change password")
@@ -350,31 +355,13 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         # Check that the password was not changed
         self.assertTrue(get_user_model().objects.get(pk=self.user.pk).check_password('password'))
 
-    def test_notification_preferences_view(self):
-        """
-        This tests that the notification preferences view responds with the
-        notification preferences page
-        """
-        # Get notification preferences page
-        response = self.client.get(reverse('wagtailadmin_account_notification_preferences'))
-
-        # Check that the user received a notification preferences page
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/notification_preferences.html')
-
-    def test_notification_preferences_view_post(self):
-        """
-        This posts to the notification preferences view and checks that the
-        user's profile is updated
-        """
-        # Post new values to the notification preferences page
-        post_data = {
+    def test_change_notifications(self):
+        response = self.post_form({
             'submitted_notifications': 'false',
             'approved_notifications': 'false',
             'rejected_notifications': 'true',
             'updated_comments_notifications': 'true',
-        }
-        response = self.client.post(reverse('wagtailadmin_account_notification_preferences'), post_data)
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
@@ -624,19 +611,28 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
 
         self.login(username='submitter', password='password')
 
-    def test_notification_preferences_form_is_reduced_for_non_moderators(self):
+    def test_notification_preferences_panel_reduced_for_non_moderators(self):
         """
         This tests that a user without publish permissions is not shown the
         notification preference for 'submitted' items
         """
-        response = self.client.get(reverse('wagtailadmin_account_notification_preferences'))
-        self.assertIn('approved_notifications', response.context['form'].fields.keys())
-        self.assertIn('rejected_notifications', response.context['form'].fields.keys())
-        self.assertNotIn('submitted_notifications', response.context['form'].fields.keys())
-        self.assertIn('updated_comments_notifications', response.context['form'].fields.keys())
+        response = self.client.get(reverse('wagtailadmin_account'))
+
+        # Find notifications panel through context
+        notifications_panel = None
+        for panel in response.context['panels']:
+            if panel.name == 'notifications':
+                notifications_panel = panel
+                break
+
+        notifications_form = notifications_panel.get_form()
+        self.assertIn('approved_notifications', notifications_form.fields.keys())
+        self.assertIn('rejected_notifications', notifications_form.fields.keys())
+        self.assertNotIn('submitted_notifications', notifications_form.fields.keys())
+        self.assertIn('updated_comments_notifications', notifications_form.fields.keys())
 
 
-class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
+class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
     """
     Tests for users with no edit/publish permissions at all
     """
@@ -654,27 +650,12 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
 
         self.login(username='admin_only_user', password='password')
 
-    def test_notification_preferences_view_redirects_for_admin_only_users(self):
+    def test_notification_preferences_not_rendered_for_admin_only_users(self):
         """
-        Test that the user is not shown the notification preferences view but instead
-        redirected to the account page
+        Test that the user is not shown the notification preferences panel
         """
-        response = self.client.get(reverse('wagtailadmin_account_notification_preferences'))
-        self.assertRedirects(response, reverse('wagtailadmin_account'))
-
-    def test_notification_preferences_link_not_shown_for_admin_only_users(self):
-        """
-        Test that the user is not even shown the link to the notification
-        preferences view
-        """
-        expected_url = reverse('wagtailadmin_account_notification_preferences')
-
         response = self.client.get(reverse('wagtailadmin_account'))
-        account_urls = [item['url'] for item in response.context['menu_items']]
-        self.assertFalse(expected_url in account_urls)
-        self.assertNotContains(response, expected_url)
-        # safety check that checking for absence/presence of urls works
-        self.assertContains(response, reverse('wagtailadmin_home'))
+        self.assertPanelNotActive(response, 'notifications')
 
 
 class TestPasswordReset(TestCase, WagtailTestUtils):

@@ -55,11 +55,6 @@ urlpatterns = [
     path('account/', account.account, name='wagtailadmin_account'),
     path('account/change_password/', account.change_password, name='wagtailadmin_account_change_password'),
     path(
-        'account/notification_preferences/',
-        account.notification_preferences,
-        name='wagtailadmin_account_notification_preferences'
-    ),
-    path(
         'account/language_preferences/',
         account.language_preferences,
         name='wagtailadmin_account_language_preferences'
