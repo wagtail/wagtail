@@ -308,15 +308,6 @@ def register_account_current_time_zone(request):
         }
 
 
-@hooks.register('register_account_menu_item')
-def register_account_change_name(request):
-    return {
-        'url': reverse('wagtailadmin_account_change_name'),
-        'label': _('Change name'),
-        'help_text': _('Change your first and last name on your account.'),
-    }
-
-
 @hooks.register('register_rich_text_features')
 def register_core_features(features):
     # Hallo.js
