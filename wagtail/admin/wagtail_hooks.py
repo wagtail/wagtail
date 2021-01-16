@@ -259,17 +259,6 @@ def register_account_change_password(request):
 
 
 @hooks.register('register_account_menu_item')
-def register_account_notification_preferences(request):
-    user_perms = UserPagePermissionsProxy(request.user)
-    if user_perms.can_edit_pages() or user_perms.can_publish_pages():
-        return {
-            'url': reverse('wagtailadmin_account_notification_preferences'),
-            'label': _('Notification preferences'),
-            'help_text': _('Choose which email notifications to receive.'),
-        }
-
-
-@hooks.register('register_account_menu_item')
 def register_account_preferred_language_preferences(request):
     if len(get_available_admin_languages()) > 1:
         return {

@@ -15,6 +15,7 @@ from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.core import hooks
+from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.users.forms import (
     AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NameForm, NotificationPreferencesForm,
     PreferredLanguageForm)
@@ -122,6 +123,23 @@ class AvatarSettingsPanel(BaseSettingsPanel):
     form_object = 'profile'
 
 
+class NotificationsSettingsPanel(BaseSettingsPanel):
+    name = 'notifications'
+    title = gettext_lazy('Notifications')
+    order = 400
+    form_class = NotificationPreferencesForm
+    form_object = 'profile'
+
+    def is_active(self):
+        # Hide the panel if the user can't edit or publish pages
+        user_perms = UserPagePermissionsProxy(self.request.user)
+        if not user_perms.can_edit_pages() and not user_perms.can_publish_pages():
+            return False
+
+        # Hide the panel if there are no notification preferences
+        return self.get_form().fields
+
+
 # Views
 
 def account(request):
@@ -135,6 +153,7 @@ def account(request):
         NameSettingsPanel(request, user, profile),
         EmailSettingsPanel(request, user, profile),
         AvatarSettingsPanel(request, user, profile),
+        NotificationsSettingsPanel(request, user, profile),
     ]
     for fn in hooks.get_hooks('register_account_settings_panel'):
         panel = fn(request, user, profile)
@@ -229,27 +248,6 @@ class PasswordResetConfirmView(PasswordResetEnabledViewMixin, auth_views.Passwor
 
 class PasswordResetCompleteView(PasswordResetEnabledViewMixin, auth_views.PasswordResetCompleteView):
     template_name = 'wagtailadmin/account/password_reset/complete.html'
-
-
-def notification_preferences(request):
-    if request.method == 'POST':
-        form = NotificationPreferencesForm(request.POST, instance=UserProfile.get_for_user(request.user))
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Your preferences have been updated."))
-            return redirect('wagtailadmin_account')
-    else:
-        form = NotificationPreferencesForm(instance=UserProfile.get_for_user(request.user))
-
-    # quick-and-dirty catch-all in case the form has been rendered with no
-    # fields, as the user has no customisable permissions
-    if not form.fields:
-        return redirect('wagtailadmin_account')
-
-    return TemplateResponse(request, 'wagtailadmin/account/notification_preferences.html', {
-        'form': form,
-    })
 
 
 def language_preferences(request):
