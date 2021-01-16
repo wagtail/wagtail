@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext as _
-from django.utils.translation import override
+from django.utils.translation import gettext_lazy, override
 from django.views.decorators.debug import sensitive_post_parameters
 
 from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
@@ -96,6 +96,13 @@ class BaseSettingsPanel:
         return render_to_string(self.template_name, self.get_context_data(), request=self.request)
 
 
+class NameSettingsPanel(BaseSettingsPanel):
+    name = 'name'
+    title = gettext_lazy('Name')
+    order = 100
+    form_class = NameForm
+
+
 # Views
 
 def account(request):
@@ -105,7 +112,9 @@ def account(request):
     profile = UserProfile.get_for_user(user)
 
     # Panels
-    panels = []
+    panels = [
+        NameSettingsPanel(request, user, profile),
+    ]
     for fn in hooks.get_hooks('register_account_settings_panel'):
         panel = fn(request, user, profile)
         if panel and panel.is_active():
@@ -181,22 +190,6 @@ def change_email(request):
         form = EmailForm(instance=request.user)
 
     return TemplateResponse(request, 'wagtailadmin/account/change_email.html', {
-        'form': form,
-    })
-
-
-def change_name(request):
-    if request.method == 'POST':
-        form = NameForm(request.POST, instance=request.user)
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Your name has been changed successfully!"))
-            return redirect('wagtailadmin_account')
-    else:
-        form = NameForm(instance=request.user)
-
-    return TemplateResponse(request, 'wagtailadmin/account/change_name.html', {
         'form': form,
     })
 
