@@ -480,7 +480,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English')])
     def test_not_show_options_if_only_one_language_is_permitted(self):
-        response = self.client.post(reverse('wagtailadmin_account'))
+        response = self.client.get(reverse('wagtailadmin_account'))
         self.assertNotContains(response, 'Language Preferences')
 
     def test_current_time_zone_view(self):
@@ -541,7 +541,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
     @override_settings(WAGTAIL_USER_TIME_ZONES=['Europe/London'])
     def test_not_show_options_if_only_one_time_zone_is_permitted(self):
-        response = self.client.post(reverse('wagtailadmin_account'))
+        response = self.client.get(reverse('wagtailadmin_account'))
         self.assertNotContains(response, 'Set Time Zone')
 
 
@@ -661,7 +661,7 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
         expected_url = reverse('wagtailadmin_account_notification_preferences')
 
         response = self.client.get(reverse('wagtailadmin_account'))
-        account_urls = [item['url'] for item in response.context['items']]
+        account_urls = [item['url'] for item in response.context['menu_items']]
         self.assertFalse(expected_url in account_urls)
         self.assertNotContains(response, expected_url)
         # safety check that checking for absence/presence of urls works
