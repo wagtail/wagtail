@@ -188,6 +188,14 @@ class TestAccountSection(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
 
+    def assertPanelActive(self, response, name):
+        panels = set(panel.name for panel in response.context['panels'])
+        self.assertIn(name, panels, "Panel %s not active in response" % name)
+
+    def assertPanelNotActive(self, response, name):
+        panels = set(panel.name for panel in response.context['panels'])
+        self.assertNotIn(name, panels, "Panel %s active in response" % name)
+
     def test_account_view(self):
         """
         This tests that the accounts view responds with an index page
@@ -198,15 +206,18 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user received an account page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
+
+        self.assertPanelActive(response, 'name')
+        self.assertPanelActive(response, 'email')
+
         # Page should contain a 'Change password' option
         self.assertContains(response, "Change password")
-        # Page should contain a 'Change email' option
-        self.assertContains(response, "Change email")
 
     def post_form(self, extra_post_data):
         post_data = {
-            'name-first_name': self.user.first_name,
-            'name-last_name': self.user.last_name,
+            'name-first_name': 'Test',
+            'name-last_name': 'User',
+            'email-email': self.user.email,
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse('wagtailadmin_account'), post_data)
@@ -225,67 +236,41 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertEqual(self.user.first_name, 'Fox')
         self.assertEqual(self.user.last_name, 'Mulder')
 
-    def test_change_email_view(self):
-        """
-        This tests that the change email view responds with a change email page
-        """
-        # Get change email page
-        response = self.client.get(reverse('wagtailadmin_account_change_email'))
-
-        # Check that the user received a change email page
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/change_email.html')
-
     def test_change_email_post(self):
-        post_data = {
-            'email': 'test@email.com'
-        }
-
-        response = self.client.post(reverse('wagtailadmin_account_change_email'), post_data)
+        response = self.post_form({
+            'email-email': 'test@email.com',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
         # Check that the email was changed
-        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.email, 'test@email.com')
 
     def test_change_email_not_valid(self):
-        post_data = {
-            'email': 'test@email'
-        }
-
-        response = self.client.post(reverse('wagtailadmin_account_change_email'), post_data)
+        response = self.post_form({
+            'email-email': 'test@email',
+        })
 
         # Check that the user wasn't redirected
         self.assertEqual(response.status_code, 200)
 
         # Check that a validation error was raised
-        self.assertTrue('email' in response.context['form'].errors.keys())
+        self.assertTrue('email' in response.context['panels'][1].get_form().errors.keys())
 
-        # Check that the password was not changed
-        self.assertNotEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
+        # Check that the email was not changed
+        self.user.refresh_from_db()
+        self.assertNotEqual(self.user.email, 'test@email')
 
     @override_settings(WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False)
-    def test_account_view_with_email_management_disabled(self):
+    def test_with_email_management_disabled(self):
         # Get account page
         response = self.client.get(reverse('wagtailadmin_account'))
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
-        # Page should NOT contain a 'Change email' option
-        self.assertNotContains(response, "Change email")
-
-    @override_settings(WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False)
-    def test_change_email_view_disabled(self):
-        """
-        This tests that the change email view responds with a 404
-        when setting WAGTAIL_EMAIL_MANAGEMENT_ENABLED is False
-        """
-        # Get change email page
-        response = self.client.get(reverse('wagtailadmin_account_change_email'))
-
-        # Check that the user received a 404
-        self.assertEqual(response.status_code, 404)
+        self.assertPanelNotActive(response, 'email')
 
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_account_view_with_password_management_disabled(self):
