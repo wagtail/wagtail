@@ -8,7 +8,7 @@ from draftjs_exporter.dom import DOM
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
 from wagtail.admin.auth import user_has_any_page_permission
-from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
+from wagtail.admin.localization import get_available_admin_time_zones
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
@@ -255,16 +255,6 @@ def register_account_change_password(request):
             'url': reverse('wagtailadmin_account_change_password'),
             'label': _('Change password'),
             'help_text': _('Change the password you use to log in.'),
-        }
-
-
-@hooks.register('register_account_menu_item')
-def register_account_preferred_language_preferences(request):
-    if len(get_available_admin_languages()) > 1:
-        return {
-            'url': reverse('wagtailadmin_account_language_preferences'),
-            'label': _('Language preferences'),
-            'help_text': _('Choose the language you want to use here.'),
         }
 
 
