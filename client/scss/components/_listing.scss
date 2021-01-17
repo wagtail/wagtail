@@ -414,7 +414,6 @@ ul.listing {
 
             &.bicolor {
                 background: $color-teal-darker;
-                border: solid 1px darken($color-teal-darker, 10%);
 
                 &:active {
                     color: $color-white;

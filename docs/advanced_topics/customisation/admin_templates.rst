@@ -91,6 +91,53 @@ To replace the welcome message on the dashboard, create a template file ``dashbo
 
     {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
 
+.. _custom_user_interface_colors:
+
+Custom user interface colors
+============================
+
+
+.. warning::
+    CSS variables are not supported in Internet Explorer, so the admin will appear with the default colors when viewed in that browser.
+
+    The default Wagtail colors conform to the WCAG2.1 AA level color contrast requirements. When customizing the admin colors you should test the contrast using tools like `Axe <https://www.deque.com/axe/browser-extensions/>`_.
+
+To customize the primary color used in the admin user interface, inject a CSS file using the hook :ref:`insert_global_admin_css` and override the variables within the ``:root`` selector:
+
+.. code-block:: text
+
+    :root {
+        --color-primary-hue: 25;
+    }
+
+``color-primary`` is an `hsl color <https://en.wikipedia.org/wiki/HSL_and_HSV>`_ composed of 3 CSS variables - ``--color-primary-hue`` (0-360 with no unit), ``--color-primary-saturation`` (a percentage), and ``--color-primary-lightness`` (also a percentage). Separating the color into 3 allows us to calculate variations on the color to use alongside the primary color. If needed, you can also control those variations manually by setting ``hue``, ``saturation``, and ``lightness`` variables for the following colors: ``color-primary-darker``, ``color-primary-dark``, ``color-input-focus``, and ``color-input-focus-border``:
+
+.. code-block:: text
+
+    :root {
+        --color-primary-hue: 25;
+        --color-primary-saturation: 100%;
+        --color-primary-lightness: 25%;
+        --color-primary-darker-hue: 24;
+        --color-primary-darker-saturation: 100%;
+        --color-primary-darker-lightness: 20%;
+        --color-primary-dark-hue: 23;
+        --color-primary-dark-saturation: 100%;
+        --color-primary-dark-lightness: 15%;
+    }
+
+If instead you intend to set all available colors, you can use any valid css colors:
+
+.. code-block:: text
+
+    :root {
+        --color-primary: mediumaquamarine;
+        --color-primary-darker: rebeccapurple;
+        --color-primary-dark: hsl(330, 100%, 70%);
+        --color-input-focus: rgb(204, 0, 102);
+        --color-input-focus-border: #4d0026;
+    }
+
 Specifying a site or page in the branding
 =========================================
 

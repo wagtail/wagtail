@@ -492,6 +492,7 @@ Contributors
 * Bohreromir
 * Fernando Cordeiro
 * Matthias Rohmer
+* Joshua Marantz
 
 Translators
 ===========

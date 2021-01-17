@@ -2,7 +2,10 @@ $header-padding-vertical: 6px;
 $action-font-size: 18px;
 
 
-@import '../../../../node_modules/react-streamfield/src/scss/index';
+@use '../../../../node_modules/react-streamfield/src/scss/index' with (
+    $teal: $color-teal,
+    $error-color: $color-red,
+);
 
 
 .c-sf-container {
