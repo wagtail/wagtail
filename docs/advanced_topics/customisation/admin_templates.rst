@@ -91,6 +91,8 @@ To replace the welcome message on the dashboard, create a template file ``dashbo
 
     {% block branding_welcome %}Welcome to Frank's Site{% endblock %}
 
+.. _custom_user_interface_colors:
+
 Custom user interface colors
 ============================
 
@@ -102,7 +104,7 @@ Custom user interface colors
 
 To customize the primary color used in the admin user interface, inject a CSS file using the hook :ref:`insert_global_admin_css` and override the variables within the ``:root`` selector:
 
-.. code-block:: css
+.. code-block:: text
 
     :root {
         --color-primary-hue: 25;
@@ -110,7 +112,7 @@ To customize the primary color used in the admin user interface, inject a CSS fi
 
 ``color-primary`` is an `hsl color <https://en.wikipedia.org/wiki/HSL_and_HSV>`_ composed of 3 CSS variables - ``--color-primary-hue`` (0-360 with no unit), ``--color-primary-saturation`` (a percentage), and ``--color-primary-lightness`` (also a percentage). Separating the color into 3 allows us to calculate variations on the color to use alongside the primary color. If needed, you can also control those variations manually by setting ``hue``, ``saturation``, and ``lightness`` variables for the following colors: ``color-primary-darker``, ``color-primary-dark``, ``color-input-focus``, and ``color-input-focus-border``:
 
-.. code-block:: css
+.. code-block:: text
 
     :root {
         --color-primary-hue: 25;
@@ -124,17 +126,17 @@ To customize the primary color used in the admin user interface, inject a CSS fi
         --color-primary-dark-lightness: 15%;
     }
 
-If instead you intend to set all 6 available colors, you can use any valid css colors:
+If instead you intend to set all available colors, you can use any valid css colors:
 
-.. code-block:: css
+.. code-block:: text
 
     :root {
-      --color-primary: mediumaquamarine;
-      --color-primary-darker: rebeccapurple;
-      --color-primary-dark: hsl(330, 100%, 70%);
-      --color-primary-darkest: #f0f;
-      --color-input-focus: rgb(204, 0, 102);
-      --color-input-focus-border: #4d0026;
+        --color-primary: mediumaquamarine;
+        --color-primary-darker: rebeccapurple;
+        --color-primary-dark: hsl(330, 100%, 70%);
+        --color-input-focus: rgb(204, 0, 102);
+        --color-input-focus-border: #4d0026;
+    }
 
 Specifying a site or page in the branding
 =========================================
