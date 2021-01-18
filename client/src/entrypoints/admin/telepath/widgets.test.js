@@ -1,4 +1,5 @@
 import '../page-chooser';
+import '../draftail';
 import './telepath';
 import './widgets';
 
@@ -244,5 +245,120 @@ describe('telepath: wagtail.widgets.AdminAutoHeightTextInput', () => {
   test('focus() focuses the text input', () => {
     boundWidget.focus();
     expect(document.activeElement).toBe(document.querySelector('textarea'));
+  });
+});
+
+describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
+  let boundWidget;
+
+  const TEST_VALUE = JSON.stringify({
+    blocks: [{
+      key: 't30wm',
+      type: 'unstyled',
+      depth: 0,
+      text: 'Test Bold Italic',
+      inlineStyleRanges: [{
+        offset: 5,
+        length: 4,
+        style: 'BOLD'
+      }, {
+        offset: 10,
+        length: 6,
+        style: 'ITALIC'
+      }],
+      entityRanges: []
+    }],
+    entityMap: {}
+  });
+
+  beforeEach(() => {
+    // Create a placeholder to render the widget
+    document.body.innerHTML = '<div id="placeholder"></div>';
+
+    // Unpack and render a Draftail input
+    const widgetDef = window.telepath.unpack({
+      _type: 'wagtail.widgets.DraftailRichTextArea',
+      _args: [{
+        entityTypes: [{
+          _dict: {
+            type: 'LINK',
+            icon: 'link',
+            description: 'Link',
+            attributes: ['url', 'id', 'parentId'],
+            whitelist: {
+              href: '^(http:|https:|undefined$)'
+            }
+          },
+        }, {
+          _dict: {
+            type: 'IMAGE',
+            icon: 'image',
+            description: 'Image',
+            attributes: ['id', 'src', 'alt', 'format'],
+            whitelist: {
+              id: true
+            }
+          },
+        }],
+        enableHorizontalRule: true,
+        inlineStyles: [{
+          _dict: {
+            type: 'BOLD',
+            icon: 'bold',
+            description: 'Bold'
+          },
+        }, {
+          _dict: {
+            type: 'ITALIC',
+            icon: 'italic',
+            description: 'Italic'
+          },
+        }],
+        blockTypes: [{
+          _dict: {
+            label: 'H2',
+            type: 'header-two',
+            description: 'Heading 2'
+          },
+        }]
+      }]
+    });
+    boundWidget = widgetDef.render(document.getElementById('placeholder'), 'the-name', 'the-id', TEST_VALUE);
+  });
+
+  test('it renders correctly', () => {
+    expect(document.querySelector('.Draftail-Editor__wrapper')).toBeTruthy();
+    expect(document.querySelector('input').value).toBe(TEST_VALUE);
+  });
+
+  test('getValue() returns the current value', () => {
+    expect(boundWidget.getValue()).toBe(TEST_VALUE);
+  });
+
+  test('getState() returns the current state', () => {
+    expect(boundWidget.getState()).toBe(TEST_VALUE);
+  });
+
+  test('setState() changes the current state', () => {
+    const NEW_VALUE = JSON.stringify({
+      blocks: [{
+        key: 't30wm',
+        type: 'unstyled',
+        depth: 0,
+        text: 'New value',
+        inlineStyleRanges: [],
+        entityRanges: []
+      }],
+      entityMap: {}
+    });
+
+    expect(() => {
+      boundWidget.setState(NEW_VALUE);
+    }).toThrowError('DraftailRichTextArea.setState is not implemented');
+  });
+
+  test('focus() focuses the text input', () => {
+    boundWidget.focus();
+    expect(document.activeElement).toBe(document.querySelector('.public-DraftEditor-content'));
   });
 });
