@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`telepath: wagtail.widgets.RadioSelect it renders correctly 1`] = `
+"<ul id=\\"the-id\\">
+          <li>
+            <label for=\\"the-id_0\\">
+            <input type=\\"radio\\" name=\\"the-name\\" value=\\"tea\\" id=\\"the-id_0\\"> Tea</label>
+          </li>
+          <li>
+            <label for=\\"the-id_1\\">
+            <input type=\\"radio\\" name=\\"the-name\\" value=\\"coffee\\" id=\\"the-id_1\\"> Coffee</label>
+          </li>
+        </ul>"
+`;
