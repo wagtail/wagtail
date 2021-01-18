@@ -52,8 +52,8 @@ jobs:
       - image: circleci/python:3.7.3
     steps:
       - checkout
-      - run: cd ~ && wget https://nodejs.org/dist/v8.7.0/node-v8.7.0-linux-x64.tar.gz
-      - run: cd /usr/local/ && sudo tar --strip-components 1 -xzf ~/node-v8.7.0-linux-x64.tar.gz
+      - run: cd ~ && wget https://nodejs.org/dist/v10.23.1/node-v10.23.1-linux-x64.tar.gz
+      - run: cd /usr/local/ && sudo tar --strip-components 1 -xzf ~/node-v10.23.1-linux-x64.tar.gz
       - run: pip install --user wheel boto3
       - run: npm install
       - run: npm run dist
