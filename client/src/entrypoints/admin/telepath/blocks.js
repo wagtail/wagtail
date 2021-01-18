@@ -244,6 +244,76 @@ class StructBlockValidationError {
 window.telepath.register('wagtail.blocks.StructBlockValidationError', StructBlockValidationError);
 
 
+class ListChild {
+  /*
+  wrapper for an item inside a ListBlock
+  */
+  constructor(blockDef, placeholder, prefix, index, initialState) {
+    this.blockDef = blockDef;
+    this.type = blockDef.name;
+    this.prefix = prefix;
+
+    const dom = $(`
+      <div id="${this.prefix}-container" aria-hidden="false">
+        <input type="hidden" id="${this.prefix}-deleted" name="${this.prefix}-deleted" value="">
+        <input type="hidden" id="${this.prefix}-order" name="${this.prefix}-order" value="${index}">
+        <div>
+          <div class="c-sf-container__block-container">
+            <div class="c-sf-block">
+              <div class="c-sf-block__header">
+                <span class="c-sf-block__header__icon">
+                  <i class="icon icon-${this.blockDef.meta.icon}"></i>
+                </span>
+                <h3 class="c-sf-block__header__title"></h3>
+                <div class="c-sf-block__actions">
+                  <span class="c-sf-block__type"></span>
+                  <button type="button" id="${this.prefix}-moveup" class="c-sf-block__actions__single"
+                      title="{% trans 'Move up' %}">
+                    <i class="icon icon-arrow-up" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" id="${this.prefix}-movedown" class="c-sf-block__actions__single"
+                      title="{% trans 'Move down' %}">
+                    <i class="icon icon-arrow-down" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" id="${this.prefix}-delete" class="c-sf-block__actions__single"
+                      title="{% trans 'Delete' %}">
+                    <i class="icon icon-bin" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="c-sf-block__content" aria-hidden="false">
+                <div class="c-sf-block__content-inner">
+                  <div data-streamfield-block></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+
+    $(placeholder).replaceWith(dom);
+    const blockElement = dom.find('[data-streamfield-block]').get(0);
+    this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
+  }
+
+  setError(error) {
+    this.block.setError(error);
+  }
+
+  getState() {
+    return this.block.getState();
+  }
+
+  getValue() {
+    return this.block.getValue();
+  }
+
+  focus() {
+    this.block.focus();
+  }
+}
+
 class ListBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
     this.blockDef = blockDef;
@@ -273,7 +343,7 @@ class ListBlock {
       `).insertBefore(dom);
     }
 
-    this.childBlocks = [];
+    this.children = [];
     this.countInput = dom.find('[data-streamfield-list-count]');
     this.listContainer = dom.find('[data-streamfield-list-container]');
     this.setState(initialState || []);
@@ -286,56 +356,18 @@ class ListBlock {
   clear() {
     this.countInput.val(0);
     this.listContainer.empty();
-    this.childBlocks = [];
+    this.children = [];
   }
 
   append(value) {
-    const index = this.childBlocks.length;
-    const childPrefix = this.prefix + '-' + index;
-    const childDom = $(`
-      <div id="${childPrefix}-container" aria-hidden="false">
-        <input type="hidden" id="${childPrefix}-deleted" name="${childPrefix}-deleted" value="">
-        <input type="hidden" id="${childPrefix}-order" name="${childPrefix}-order" value="${index}">
-        <div>
-          <div class="c-sf-container__block-container">
-            <div class="c-sf-block">
-              <div class="c-sf-block__header">
-                <span class="c-sf-block__header__icon">
-                  <i class="icon icon-${this.blockDef.childBlockDef.meta.icon}"></i>
-                </span>
-                <h3 class="c-sf-block__header__title"></h3>
-                <div class="c-sf-block__actions">
-                  <span class="c-sf-block__type"></span>
-                  <button type="button" id="${childPrefix}-moveup" class="c-sf-block__actions__single"
-                      title="{% trans 'Move up' %}">
-                    <i class="icon icon-arrow-up" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" id="${childPrefix}-movedown" class="c-sf-block__actions__single"
-                      title="{% trans 'Move down' %}">
-                    <i class="icon icon-arrow-down" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" id="${childPrefix}-delete" class="c-sf-block__actions__single"
-                      title="{% trans 'Delete' %}">
-                    <i class="icon icon-bin" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="c-sf-block__content" aria-hidden="false">
-                <div class="c-sf-block__content-inner">
-                  <div data-streamfield-block></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `);
+    const index = this.children.length;
+    const prefix = this.prefix + '-' + index;
+    const placeholder = document.createElement('div');
+    this.listContainer.append(placeholder);
 
-    this.listContainer.append(childDom);
-    const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-    const childBlock = this.blockDef.childBlockDef.render(childBlockElement, childPrefix + '-value', value);
-    this.childBlocks.push(childBlock);
-    this.countInput.val(this.childBlocks.length);
+    const child = new ListChild(this.blockDef.childBlockDef, placeholder, prefix, index, value);
+    this.children.push(child);
+    this.countInput.val(this.children.length);
   }
 
   setState(values) {
@@ -354,22 +386,22 @@ class ListBlock {
     // eslint-disable-next-line no-restricted-syntax
     for (const blockIndex in error.blockErrors) {
       if (error.blockErrors.hasOwnProperty(blockIndex)) {
-        this.childBlocks[blockIndex].setError(error.blockErrors[blockIndex]);
+        this.children[blockIndex].setError(error.blockErrors[blockIndex]);
       }
     }
   }
 
   getState() {
-    return this.childBlocks.map((block) => block.getState());
+    return this.children.map(child => child.getState());
   }
 
   getValue() {
-    return this.childBlocks.map((block) => block.getValue());
+    return this.children.map(child => child.getValue());
   }
 
   focus() {
-    if (this.childBlocks.length) {
-      this.childBlocks[0].focus();
+    if (this.children.length) {
+      this.children[0].focus();
     }
   }
 }
