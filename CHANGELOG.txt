@@ -14,6 +14,7 @@ Changelog
  * Fields on a custom image model can now be defined as required / `blank=False` (Matt Westcott)
  * Add combined index for Postgres search backend (Will Giddens)
  * Add `Page.specific_deferred` property for accessing specific page instance without up-front database queries (Andy Babic)
+ * Add hash lookup to embeds to support URLs longer than 255 characters (Coen van der Kamp)
  * Fix: Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)
  * Fix: Make sure document chooser pagination preserves the selected collection when moving between pages (Alex Sa)
  * Fix: Gracefully handle oEmbed endpoints returning non-JSON responses (Matt Westcott)
