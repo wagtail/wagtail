@@ -351,6 +351,10 @@ class ListBlock {
     if (initialError) {
       this.setError(initialError);
     }
+
+    dom.find('button').click(() => {
+      this.append(this.blockDef.initialChildState);
+    });
   }
 
   clear() {
