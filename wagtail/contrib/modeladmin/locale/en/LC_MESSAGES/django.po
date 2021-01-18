@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -202,11 +202,11 @@ msgstr ""
 msgid "Back to %(model_name)s list"
 msgstr ""
 
-#: templatetags/modeladmin_tags.py:108
+#: templatetags/modeladmin_tags.py:110
 msgid "Previous"
 msgstr ""
 
-#: templatetags/modeladmin_tags.py:121
+#: templatetags/modeladmin_tags.py:124
 msgid "Next"
 msgstr ""
 

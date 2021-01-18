@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,20 +21,28 @@ msgstr ""
 msgid "Wagtail documents"
 msgstr ""
 
-#: forms.py:65
+#: forms.py:79
 msgid "Add"
 msgstr ""
 
-#: forms.py:65
+#: forms.py:79
 msgid "Add/edit documents you own"
 msgstr ""
 
-#: forms.py:66 views/documents.py:117 views/documents.py:166
+#: forms.py:80 views/documents.py:117 views/documents.py:166
 msgid "Edit"
 msgstr ""
 
-#: forms.py:66
+#: forms.py:80
 msgid "Edit any document"
+msgstr ""
+
+#: forms.py:81
+msgid "Choose"
+msgstr ""
+
+#: forms.py:81
+msgid "Select documents in choosers"
 msgstr ""
 
 #: models.py:27
@@ -49,7 +57,7 @@ msgstr ""
 msgid "created at"
 msgstr ""
 
-#: models.py:32
+#: models.py:32 models.py:222
 msgid "uploaded by user"
 msgstr ""
 
@@ -65,7 +73,7 @@ msgstr ""
 msgid "documents"
 msgstr ""
 
-#: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:13
+#: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:14
 msgid "Choose a document"
 msgstr ""
 
@@ -311,14 +319,6 @@ msgstr ""
 msgid "Document updated."
 msgstr ""
 
-#: templates/wagtaildocs/multiple/edit_form.html:16
-msgid "Update"
-msgstr ""
-
-#: templates/wagtaildocs/multiple/edit_form.html:17 views/documents.py:186
-msgid "Delete"
-msgstr ""
-
 #: templates/wagtaildocs/password_required.html:5
 msgid "You need a password to access this document."
 msgstr ""
@@ -331,11 +331,11 @@ msgstr ""
 msgid "Add a document permission"
 msgstr ""
 
-#: views/chooser.py:25
+#: views/chooser.py:24
 msgid "Server Error"
 msgstr ""
 
-#: views/chooser.py:26
+#: views/chooser.py:25
 msgid "Report this error to your webmaster with the following information:"
 msgstr ""
 
@@ -360,6 +360,10 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 
+#: views/documents.py:186
+msgid "Delete"
+msgstr ""
+
 #: views/documents.py:209
 msgid "Document '{0}' deleted."
 msgstr ""
@@ -375,10 +379,10 @@ msgid_plural "%(count)s documents"
 msgstr[0] ""
 msgstr[1] ""
 
-#: widgets.py:14
+#: widgets.py:15
 msgid "Choose another document"
 msgstr ""
 
-#: widgets.py:15
+#: widgets.py:16
 msgid "Edit this document"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,72 +62,80 @@ msgstr ""
 msgid "This file is too big. Maximum filesize %s."
 msgstr ""
 
-#: formats.py:92
+#: formats.py:98
 msgid "Full width"
 msgstr ""
 
-#: formats.py:93
+#: formats.py:99
 msgid "Left-aligned"
 msgstr ""
 
-#: formats.py:94
+#: formats.py:100
 msgid "Right-aligned"
 msgstr ""
 
-#: forms.py:73
+#: forms.py:106
 msgid "Filter"
 msgstr ""
 
-#: forms.py:75
+#: forms.py:108
 msgid "Original size"
 msgstr ""
 
-#: forms.py:76
+#: forms.py:109
 msgid "Resize to width"
 msgstr ""
 
-#: forms.py:77
+#: forms.py:110
 msgid "Resize to height"
 msgstr ""
 
-#: forms.py:78
+#: forms.py:111
 msgid "Resize to min"
 msgstr ""
 
-#: forms.py:79
+#: forms.py:112
 msgid "Resize to max"
 msgstr ""
 
-#: forms.py:80
+#: forms.py:113
 msgid "Resize to fill"
 msgstr ""
 
-#: forms.py:83
+#: forms.py:116
 msgid "Width"
 msgstr ""
 
-#: forms.py:84
+#: forms.py:117
 msgid "Height"
 msgstr ""
 
-#: forms.py:85
+#: forms.py:118
 msgid "Closeness"
 msgstr ""
 
-#: forms.py:91
+#: forms.py:124
 msgid "Add"
 msgstr ""
 
-#: forms.py:91
+#: forms.py:124
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:92 views/images.py:290
+#: forms.py:125 views/images.py:290
 msgid "Edit"
 msgstr ""
 
-#: forms.py:92
+#: forms.py:125
 msgid "Edit any image"
+msgstr ""
+
+#: forms.py:126
+msgid "Choose"
+msgstr ""
+
+#: forms.py:126
+msgid "Select images in choosers"
 msgstr ""
 
 #: models.py:65
@@ -150,7 +158,7 @@ msgstr ""
 msgid "created at"
 msgstr ""
 
-#: models.py:73 models.py:598
+#: models.py:73 models.py:601
 msgid "uploaded by user"
 msgstr ""
 
@@ -166,7 +174,7 @@ msgstr ""
 msgid "images"
 msgstr ""
 
-#: templates/wagtailimages/chooser/chooser.html:3 widgets.py:13
+#: templates/wagtailimages/chooser/chooser.html:3 widgets.py:15
 msgid "Choose an image"
 msgstr ""
 
@@ -443,24 +451,16 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:74 views/chooser.py:30
+#: templates/wagtailimages/multiple/add.html:74 views/chooser.py:29
 msgid "Server Error"
 msgstr ""
 
-#: templates/wagtailimages/multiple/add.html:75 views/chooser.py:31
+#: templates/wagtailimages/multiple/add.html:75 views/chooser.py:30
 msgid "Report this error to your webmaster with the following information:"
 msgstr ""
 
 #: templates/wagtailimages/multiple/add.html:78
 msgid "Image updated."
-msgstr ""
-
-#: templates/wagtailimages/multiple/edit_form.html:16
-msgid "Update"
-msgstr ""
-
-#: templates/wagtailimages/multiple/edit_form.html:17 views/images.py:161
-msgid "Delete"
 msgstr ""
 
 #: templates/wagtailimages/permissions/includes/image_permissions_formset.html:4
@@ -493,6 +493,10 @@ msgid ""
 "the image."
 msgstr ""
 
+#: views/images.py:161
+msgid "Delete"
+msgstr ""
+
 #: views/images.py:259
 msgid "Image '{0}' deleted."
 msgstr ""
@@ -516,10 +520,10 @@ msgid_plural "%(count)s images"
 msgstr[0] ""
 msgstr[1] ""
 
-#: widgets.py:14
+#: widgets.py:16
 msgid "Change image"
 msgstr ""
 
-#: widgets.py:15
+#: widgets.py:17
 msgid "Edit this image"
 msgstr ""
