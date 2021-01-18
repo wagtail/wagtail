@@ -6,6 +6,7 @@ Changelog
 
  * Added a distinct 'choose' permission for images and documents (Robert Rollins)
  * StreamField values can now be modified in-place (Matt Westcott)
+ * Added support for custom admin color themes (Joshua Marantz)
  * Added support for Python 3.9
  * Added `WAGTAILIMAGES_IMAGE_FORM_BASE` and `WAGTAILDOCS_DOCUMENT_FORM_BASE` settings to customise the forms for images and documents (Dan Braghis)
  * Switch pagination icons to use SVG instead of icon fonts (Scott Cranfill)
