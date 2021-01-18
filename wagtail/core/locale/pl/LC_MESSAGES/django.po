@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-12-18 11:53+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,9 @@ msgstr "Hasło"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Wprowadzone hasło nie jest prawidłowe. Proszę spróbować ponownie."
+
+msgid "Comment"
+msgstr "Komentarz"
 
 msgid "hostname"
 msgstr "nazwa hosta"
@@ -91,6 +94,9 @@ msgstr "serwis"
 
 msgid "sites"
 msgstr "serwisy"
+
+msgid "default"
+msgstr "domyślne"
 
 #, python-format
 msgid ""
@@ -179,17 +185,26 @@ msgstr "ostatnio opublikowany"
 msgid "latest revision created at"
 msgstr "ostatnia rewizja utworzona"
 
+msgid "live revision"
+msgstr "opublikowana rewizja"
+
 msgid "This slug is already in use"
 msgstr "Ten slug jest już w użyciu"
 
 msgid "scheduled"
 msgstr "zaplanowany"
 
+msgid "in moderation"
+msgstr "w moderacji"
+
 msgid "draft"
 msgstr "szkic"
 
 msgid "live + scheduled"
 msgstr "opublikowane + zaplanowane"
+
+msgid "live + in moderation"
+msgstr "opublikowane + w moderacji"
 
 msgid "live + draft"
 msgstr "opublikuj + szkic"
@@ -326,6 +341,163 @@ msgstr "uprawnienia kolekcji grup"
 msgid "group collection permissions"
 msgstr "uprawnienia kolekcji grup"
 
+msgid "workflow"
+msgstr "workflow"
+
+msgid "workflow page"
+msgstr "strona workflow"
+
+msgid "workflow pages"
+msgstr "strony workflow"
+
+msgid "workflow_tasks"
+msgstr "workflow_zadania"
+
+msgid "task"
+msgstr "zadanie"
+
+msgid "workflow task order"
+msgstr "kolejność zadań workflow"
+
+msgid "workflow task orders"
+msgstr "kolejności zadań workflow"
+
+msgid "active"
+msgstr "aktywny"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Aktywne zadania mogą zostać dodane do workflow. Deaktywacja zadania nie "
+"usuwa go z istniejących workflow."
+
+msgid "tasks"
+msgstr "zadania"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Aktywne workflow mogą zostać dodane do stron. Deaktywacja workflow nie usuwa "
+"go z istniejących stron."
+
+msgid "workflows"
+msgstr "workflowy"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"Strony na tym kroku workflow będą moderowane lub akceptowane przez te grupy "
+"użytkowników"
+
+msgid "Request changes"
+msgstr "Żądania zmian"
+
+msgid "Approve"
+msgstr "Akceptuj"
+
+msgid "Approve with comment"
+msgstr "Akceptuj z komentarzem"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr "Wybrani członkowie grupy Wagtaila mogą zaakceptować to zadanie"
+
+msgid "Group approval task"
+msgstr "Grupuj zadanie akceptacyjne"
+
+msgid "Group approval tasks"
+msgstr "Grupuj zadania akceptacyjne"
+
+msgid "In progress"
+msgstr "W trakcie"
+
+msgid "Approved"
+msgstr "Zatwierdzone"
+
+msgid "Needs changes"
+msgstr "Wymaga zmian"
+
+msgid "Cancelled"
+msgstr "Anulowane"
+
+msgid "status"
+msgstr "status"
+
+msgid "requested by"
+msgstr "zażądane przez"
+
+msgid "current task state"
+msgstr "obecny status zadania"
+
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Może być tylko jedna strona w toku lub wymaga zmiany stanu przepływu pracy "
+"na stronie."
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "Workflow '{0}' na stronie '{1}': {2}"
+
+msgid "Not started"
+msgstr "Nierozpoczęte"
+
+msgid "Workflow state"
+msgstr "Stan workflow"
+
+msgid "Workflow states"
+msgstr "Stany workflow"
+
+msgid "Rejected"
+msgstr "Odrzucone"
+
+msgid "Skipped"
+msgstr "Pominięte"
+
+msgid "workflow state"
+msgstr "stan workflow"
+
+msgid "started at"
+msgstr "rozpoczęto dnia"
+
+msgid "finished at"
+msgstr "zakończono dnia"
+
+msgid "finished by"
+msgstr "zakończone przez"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "Zadanie '{0}' na rewizji strony '{1}': {2}"
+
+msgid "Task state"
+msgstr "Stan zadania"
+
+msgid "Task states"
+msgstr "Stany zadania"
+
+msgid "timestamp (UTC)"
+msgstr "timestamp (UTC)"
+
+msgid "log entry"
+msgstr "wpis loga"
+
+msgid "log entries"
+msgstr "wpisy loga"
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "użytkownik %(id)d (usunięty)"
+
+msgid "system"
+msgstr "system"
+
+msgid "page log entry"
+msgstr "wpis loga strony"
+
+msgid "page log entries"
+msgstr "wpisy loga strony"
+
 msgid "Log in"
 msgstr "Zaloguj się"
 
@@ -348,3 +520,11 @@ msgstr "Musisz podać hasło aby uzyskać dostęp do tej strony."
 
 msgid "Continue"
 msgstr "Kontynuuj"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s pod-kolekcja"
+msgstr[1] "%(count)s pod-kolekcji"
+msgstr[2] "%(count)s pod-kolekcji"
+msgstr[3] "%(count)s pod-kolekcji"

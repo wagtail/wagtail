@@ -4,7 +4,7 @@
 #
 # Translators:
 # Alexander Penshin <apenshin@gmail.com>, 2018
-# Andrey Avdey <talkerbox@live.com>, 2016
+# Andrey <talkerbox@live.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Eugene <eugene.mechanism@gmail.com>, 2017
 # Никита Викторович <hnknta@gmail.com>, 2014

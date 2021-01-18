@@ -4,15 +4,15 @@
 #
 # Translators:
 # Miłosz Miśkiewicz, 2016
-# Miłosz Miśkiewicz, 2018-2019
+# Miłosz Miśkiewicz, 2018-2020
 # Miłosz Miśkiewicz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-07-24 16:52+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-12-18 09:49+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -23,12 +23,18 @@ msgstr ""
 "%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
 "%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
+msgid "default"
+msgstr "domyślny"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "Edytowanie %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Edytowanie"
+
+msgid "Site"
+msgstr "Serwis"
 
 msgid "Saving…"
 msgstr "Zapisywanie…"

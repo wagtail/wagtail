@@ -6,7 +6,7 @@
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Matt Westcott <matthew@torchbox.com>, 2019
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017-2019
+# Miłosz Miśkiewicz, 2017-2020
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2020-12-18 11:12+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -218,6 +218,14 @@ msgstr[0] "%(count)d %(snippet_type)s usunięty."
 msgstr[1] "%(count)d %(snippet_type)s usunięte."
 msgstr[2] "%(count)d %(snippet_type)s usunięte."
 msgstr[3] "%(count)d %(snippet_type)s usunięte."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Edytuj '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Usuń '%(title)s'"
 
 #, python-format
 msgid "Choose %s"

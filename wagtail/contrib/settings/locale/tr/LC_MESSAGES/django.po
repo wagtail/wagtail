@@ -5,6 +5,7 @@
 # Translators:
 # Ahmet Sarıcan <asarican@gmail.com>, 2019
 # Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>, 2016,2019
+# Fatih Koç koç <fatihinemaili@gmail.com>, 2021
 # José Luis <alagunajs@gmail.com>, 2017
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Saadettin Yasir AKEL <yasirakel@gmail.com>, 2016
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-07-24 16:52+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-01-10 04:10+0000\n"
+"Last-Translator: Fatih Koç koç <fatihinemaili@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -23,12 +24,18 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "default"
+msgstr "varsayılan"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "%(setting_type_name)s - %(instance)s düzenleniyor"
 
 msgid "Editing"
 msgstr "Düzenleniyor"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Saving…"
 msgstr "Kaydediliyor…"
