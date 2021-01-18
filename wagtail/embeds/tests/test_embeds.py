@@ -212,8 +212,8 @@ class TestEmbedHash(TestCase):
     def test_get_embed_hash(self):
         url = "www.test.com/1234"
         self.assertEqual(get_embed_hash(url), "9a4cfc187266026cd68160b5db572629")
-        self.assertEqual(get_embed_hash(url, 0), "be54b69772d5e086ec07748741455736")
-        self.assertEqual(get_embed_hash(url, 1), "601c15cca60eb068ebcc166b9587ed63")
+        self.assertEqual(get_embed_hash(url, 0), "946fb9597a6c74ab3cef1699eff7fde7")
+        self.assertEqual(get_embed_hash(url, 1), "427830227a86093b50417e11dbd2f28e")
 
 
 class TestChooser(TestCase, WagtailTestUtils):

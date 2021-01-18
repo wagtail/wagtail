@@ -63,5 +63,6 @@ def get_embed_hash(url, max_width=None):
     h = md5()
     h.update(url.encode("utf-8"))
     if max_width is not None:
+        h.update(b"\n")
         h.update(str(max_width).encode("utf-8"))
     return h.hexdigest()
