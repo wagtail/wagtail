@@ -20,7 +20,7 @@ on:
 # - django 3.1, python 3.9, sqlite
 # - django 3.1, python 3.9, postgres, USE_EMAIL_USER_MODEL=yes
 # - django 3.1, python 3.9, postgres, DISABLE_TIMEZONE=yes
-# - django stable/3.1.x, python 3.9, postgres (allow failures)
+# - django stable/3.2.x, python 3.9, postgres (allow failures)
 # - django master, python 3.9, postgres (allow failures)
 # - elasticsearch 5, django 2.2, python 3.6, sqlite
 # - elasticsearch 6, django 3.0, python 3.7, postgres
@@ -73,7 +73,7 @@ jobs:
             notz: notz
             experimental: false
           - python: 3.9
-            django: "git+https://github.com/django/django.git@stable/3.1.x#egg=Django"
+            django: "git+https://github.com/django/django.git@stable/3.2.x#egg=Django"
             experimental: true
           - python: 3.9
             django: "git+https://github.com/django/django.git@master#egg=Django"
