@@ -84,8 +84,6 @@ This signal is emitted from a ``Page`` when the page is unpublished.
 ``pre_page_move`` and ``post_page_move``
 ------------------------------------------
 
-.. versionadded:: 2.10
-
 These signals are emitted from a ``Page`` immediately before and after it is moved.
 
 Subscribe to ``pre_page_move`` if you need to know values BEFORE any database changes are applied. For example: Getting the page's previous URL, or that of its descendants.
