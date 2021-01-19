@@ -139,7 +139,7 @@ class BaseDateTimeWidget extends Widget {
         this.options = options;
     }
 
-    render(placeholder, name, id) {
+    render(placeholder, name, id, initialState) {
         const element = document.createElement('input');
         element.type = 'text';
         element.name = name;
@@ -148,7 +148,7 @@ class BaseDateTimeWidget extends Widget {
 
         this.initChooserFn(id, this.options);
 
-        return {
+        const widget = {
             getValue() {
                 return element.value;
             },
@@ -162,6 +162,8 @@ class BaseDateTimeWidget extends Widget {
                 element.focus();
             },
         };
+        widget.setState(initialState);
+        return widget;
     }
 }
 
