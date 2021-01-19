@@ -3,14 +3,14 @@ import warnings
 from importlib import import_module
 
 
-class RemovedInWagtail213Warning(DeprecationWarning):
+class RemovedInWagtail214Warning(DeprecationWarning):
     pass
 
 
-removed_in_next_version_warning = RemovedInWagtail213Warning
+removed_in_next_version_warning = RemovedInWagtail214Warning
 
 
-class RemovedInWagtail214Warning(PendingDeprecationWarning):
+class RemovedInWagtail215Warning(PendingDeprecationWarning):
     pass
 
 
