@@ -154,7 +154,7 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
         context['can_delete'] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, 'delete')
-        ),
+        )
         return context
 
 
