@@ -224,10 +224,10 @@ class TableInput {
 
     const widget = {
       getValue() {
-        return input.value;
+        return JSON.parse(input.value);
       },
       getState() {
-        return input.value;
+        return JSON.parse(input.value);
       },
       setState(state) {
         input.value = JSON.stringify(state);
