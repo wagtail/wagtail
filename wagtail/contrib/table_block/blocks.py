@@ -61,7 +61,7 @@ class TableInputAdapter(WidgetAdapter):
         strings = {
             'Row header': _("Row header"),
             'Display the first row as a header.': _("Display the first row as a header."),
-            'Column header': _("Display the first row as a header."),
+            'Column header': _("Column header"),
             'Display the first column as a header.': _("Display the first column as a header."),
             'Table caption': _("Table caption"),
             'A heading that identifies the overall topic of the table, and is useful for screen reader users': _("A heading that identifies the overall topic of the table, and is useful for screen reader users"),
