@@ -4,7 +4,7 @@ Changelog
 2.13 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
- * ...
+ * Fix: Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
 
 
 2.12 (xx.xx.xxxx) - IN DEVELOPMENT

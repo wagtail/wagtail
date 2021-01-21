@@ -19,7 +19,7 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
- * ...
+ * Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
 
 
 Upgrade considerations
