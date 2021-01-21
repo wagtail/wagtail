@@ -249,12 +249,90 @@ class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
 
 class TestRequiredStreamField(TestCase):
     def test_non_blank_field_is_required(self):
+        # passing a block list
         field = StreamField([('paragraph', blocks.CharBlock())], blank=False)
         self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        class MyStreamBlock(blocks.StreamBlock):
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                required = False
+
+        # passing a block instance
+        field = StreamField(MyStreamBlock(), blank=False)
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        field = StreamField(MyStreamBlock(required=False), blank=False)
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        # passing a block class
+        field = StreamField(MyStreamBlock, blank=False)
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+    def test_blank_false_is_implied_by_default(self):
+        # passing a block list
+        field = StreamField([('paragraph', blocks.CharBlock())])
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        class MyStreamBlock(blocks.StreamBlock):
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                required = False
+
+        # passing a block instance
+        field = StreamField(MyStreamBlock())
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        field = StreamField(MyStreamBlock(required=False))
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        # passing a block class
+        field = StreamField(MyStreamBlock)
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
 
     def test_blank_field_is_not_required(self):
+        # passing a block list
         field = StreamField([('paragraph', blocks.CharBlock())], blank=True)
         self.assertFalse(field.stream_block.required)
+        field.stream_block.clean([])  # no validation error on empty stream
+
+        class MyStreamBlock(blocks.StreamBlock):
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                required = True
+
+        # passing a block instance
+        field = StreamField(MyStreamBlock(), blank=True)
+        self.assertFalse(field.stream_block.required)
+        field.stream_block.clean([])  # no validation error on empty stream
+
+        field = StreamField(MyStreamBlock(required=True), blank=True)
+        self.assertFalse(field.stream_block.required)
+        field.stream_block.clean([])  # no validation error on empty stream
+
+        # passing a block class
+        field = StreamField(MyStreamBlock, blank=True)
+        self.assertFalse(field.stream_block.required)
+        field.stream_block.clean([])  # no validation error on empty stream
 
 
 class TestStreamFieldCountValidation(TestCase):
