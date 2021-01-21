@@ -114,7 +114,8 @@ class CreateFromUploadedImageView(BaseCreateFromUploadView):
         # assign the file content from uploaded_image to the image object, to ensure it gets saved to
         # Image's storage
 
-        self.object.file.save(os.path.basename(self.upload.file.name), self.upload.file.file, save=False)
+        self.object.file = self.upload.file.file
+        self.object.file.name = os.path.basename(self.upload.file.name)
         self.object.uploaded_by_user = self.request.user
         self.object.file_size = self.object.file.size
         self.object.file.open()
