@@ -10,3 +10,28 @@ exports[`telepath: wagtail.blocks.FieldBlock it renders correctly 1`] = `
         </div>
       </div>"
 `;
+
+exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
+"<div class=\\"struct-block\\">
+      <div class=\\"field\\">
+          <label class=\\"field__label\\">Heading text</label>
+          <div class=\\"field char_field widget-text_input fieldname-heading_text\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+        </div><div class=\\"field\\">
+          <label class=\\"field__label\\">Size</label>
+          <div class=\\"field choice_field widget-select fieldname-size\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+        </div></div>"
+`;
