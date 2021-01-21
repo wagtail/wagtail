@@ -47,7 +47,24 @@ The parameter to ``StreamField`` is a list of ``(name, block_type)`` tuples. 'na
 
 This defines the set of available block types that can be used within this field. The author of the page is free to use these blocks as many times as desired, in any order.
 
-``StreamField`` also accepts an optional keyword argument ``blank``, defaulting to false; when this is false, at least one block must be provided for the field to be considered valid.
+``StreamField`` also accepts the following optional keyword arguments:
+
+``blank`` (default: False)
+  When false, at least one block must be provided for the field to be considered valid.
+
+``min_num``
+  Minimum number of sub-blocks that the stream must have.
+
+``max_num``
+  Maximum number of sub-blocks that the stream may have.
+
+``block_counts``
+  Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
+
+.. versionadded:: 2.13
+
+    The ``min_num``, ``max_num`` and ``block_counts`` arguments were added. Previously, these were only available on the StreamBlock definition.
+
 
 Basic block types
 -----------------
