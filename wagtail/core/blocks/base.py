@@ -47,6 +47,12 @@ class Block(metaclass=BaseBlock):
         classname = None
         group = ''
 
+    # Attributes of Meta which can legally be modified after the block has been instantiated.
+    # Used to implement __eq__. label is not included here, despite it technically being mutable via
+    # set_name, since its value must originate from either the constructor arguments or set_name,
+    # both of which are captured by the equality test, so checking label as well would be redundant.
+    MUTABLE_META_ATTRIBUTES = []
+
     """
     Setting a 'dependencies' list serves as a shortcut for the common case where a complex block type
     (such as struct, list or stream) relies on one or more inner block objects, and needs to ensure that
@@ -120,6 +126,16 @@ class Block(metaclass=BaseBlock):
         self.name = name
         if not self.meta.label:
             self.label = capfirst(force_str(name).replace('_', ' '))
+
+    def set_meta_options(self, options):
+        """
+        Called when this block is used as the top-level block of a StreamField, to pass on any options
+        from the StreamField constructor that ought to be handled by the block, e.g.
+        body = StreamField(SomeStreamBlock(), max_num=5)
+        """
+        # Ignore all options here; block types that are allowed at the top level (i.e. currently just
+        # StreamBlock) and recognise these options will override this method
+        pass
 
     @property
     def media(self):
@@ -395,9 +411,9 @@ class Block(metaclass=BaseBlock):
     def __eq__(self, other):
         """
         Implement equality on block objects so that two blocks with matching definitions are considered
-        equal. (Block objects are intended to be immutable with the exception of set_name(), so here
-        'matching definitions' means that both the 'name' property and the constructor args/kwargs - as
-        captured in _constructor_args - are equal on both blocks.)
+        equal. Block objects are intended to be immutable with the exception of set_name() and any meta
+        attributes identified in MUTABLE_META_ATTRIBUTES, so checking these along with the result of
+        deconstruct (which captures the constructor arguments) is sufficient to identify (valid) differences.
 
         This was originally necessary as a workaround for https://code.djangoproject.com/ticket/24340
         in Django <1.9; the deep_deconstruct function used to detect changes for migrations did not
@@ -439,7 +455,14 @@ class Block(metaclass=BaseBlock):
             # the migration, rather than leaving the migration vulnerable to future changes to FooBlock / BarBlock
             # in models.py.
 
-        return (self.name == other.name) and (self.deconstruct() == other.deconstruct())
+        return (
+            self.name == other.name
+            and self.deconstruct() == other.deconstruct()
+            and all(
+                getattr(self.meta, attr, None) == getattr(other.meta, attr, None)
+                for attr in self.MUTABLE_META_ATTRIBUTES
+            )
+        )
 
 
 class BoundBlock:
