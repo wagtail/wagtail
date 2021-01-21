@@ -51,13 +51,31 @@ class Creator:
 
 class StreamField(models.Field):
     def __init__(self, block_types, **kwargs):
+
+        # extract kwargs that are to be passed on to the block, not handled by super
+        block_opts = {}
+        for arg in ['min_num', 'max_num', 'block_counts']:
+            if arg in kwargs:
+                block_opts[arg] = kwargs.pop(arg)
+
+        # for a top-level block, the 'blank' kwarg (defaulting to False) always overrides the
+        # block's own 'required' meta attribute, even if not passed explicitly; this ensures
+        # that the field and block have consistent definitions
+        block_opts['required'] = not kwargs.get('blank', False)
+
         super().__init__(**kwargs)
+
         if isinstance(block_types, Block):
+            # use the passed block as the top-level block
             self.stream_block = block_types
         elif isinstance(block_types, type):
-            self.stream_block = block_types(required=not self.blank)
+            # block passed as a class - instantiate it
+            self.stream_block = block_types()
         else:
-            self.stream_block = StreamBlock(block_types, required=not self.blank)
+            # construct a top-level StreamBlock from the list of block types
+            self.stream_block = StreamBlock(block_types)
+
+        self.stream_block.set_meta_options(block_opts)
 
     def get_internal_type(self):
         return 'TextField'
