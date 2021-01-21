@@ -101,3 +101,115 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
     expect(focus.mock.calls[0][0]).toBe('The widget');
   });
 });
+
+describe('telepath: wagtail.blocks.StructBlock', () => {
+  let boundField;
+
+  beforeEach(() => {
+    // Create mocks for callbacks
+    constructor = jest.fn();
+    setState = jest.fn();
+    getState = jest.fn();
+    getValue = jest.fn();
+    focus = jest.fn();
+
+    // Create a placeholder to render the block
+    document.body.innerHTML = '<div id="placeholder"></div>';
+
+    // Unpack and render
+    const fieldDef = window.telepath.unpack({
+      _type: 'wagtail.blocks.StructBlock',
+      _args: ['heading_block', [{
+        _type: 'wagtail.blocks.FieldBlock',
+        _args: ['heading_text', {
+          _type: 'wagtail.widgets.DummyWidget',
+          _args: ['Heading widget']
+        }, {
+          label: 'Heading text',
+          required: true,
+          icon: 'placeholder',
+          classname: 'field char_field widget-text_input fieldname-heading_text'
+        }]
+      }, {
+        _type: 'wagtail.blocks.FieldBlock',
+        _args: ['size', {
+          _type: 'wagtail.widgets.DummyWidget',
+          _args: ['Size widget']
+        }, {
+          label: 'Size',
+          required: false,
+          icon: 'placeholder',
+          classname: 'field choice_field widget-select fieldname-size'
+        }]
+      }], {
+        label: 'Heading block',
+        required: false,
+        icon: 'title',
+        classname: 'struct-block',
+        helpText: null
+      }]
+    });
+    boundField = fieldDef.render($('#placeholder'), 'the-prefix', {
+      heading_text: 'Test heading text',
+      size: '123'
+    });
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('Widget constructors are called with correct parameters', () => {
+    expect(constructor.mock.calls.length).toBe(2);
+
+    expect(constructor.mock.calls[0][0]).toBe('Heading widget');
+    expect(constructor.mock.calls[0][1]).toEqual({
+      name: 'the-prefix-heading_text',
+      id: 'the-prefix-heading_text',
+      initialState: 'Test heading text',
+    });
+
+    expect(constructor.mock.calls[1][0]).toBe('Size widget');
+    expect(constructor.mock.calls[1][1]).toEqual({
+      name: 'the-prefix-size',
+      id: 'the-prefix-size',
+      initialState: '123',
+    });
+  });
+
+  test('getValue() calls getValue() on all widgets', () => {
+    const value = boundField.getValue();
+    expect(getValue.mock.calls.length).toBe(2);
+    expect(value).toEqual({
+      heading_text: 'value: Heading widget',
+      size: 'value: Size widget'
+    });
+  });
+
+  test('getState() calls getState() on all widgets', () => {
+    const state = boundField.getState();
+    expect(getState.mock.calls.length).toBe(2);
+    expect(state).toEqual({
+      heading_text: 'state: Heading widget',
+      size: 'state: Size widget'
+    });
+  });
+
+  test('setState() calls setState() on all widgets', () => {
+    boundField.setState({
+      heading_text: 'Changed heading text',
+      size: '456'
+    });
+    expect(setState.mock.calls.length).toBe(2);
+    expect(setState.mock.calls[0][0]).toBe('Heading widget');
+    expect(setState.mock.calls[0][1]).toBe('Changed heading text');
+    expect(setState.mock.calls[1][0]).toBe('Size widget');
+    expect(setState.mock.calls[1][1]).toBe('456');
+  });
+
+  test('focus() calls focus() on first widget', () => {
+    boundField.focus();
+    expect(focus.mock.calls.length).toBe(1);
+    expect(focus.mock.calls[0][0]).toBe('Heading widget');
+  });
+});
