@@ -27,6 +27,7 @@ class DummyWidget {
       getState() { getState(widgetName); return `state: ${widgetName} - ${name}`; },
       getValue() { getValue(widgetName); return `value: ${widgetName} - ${name}`; },
       focus() { focus(widgetName); },
+      idForLabel: id,
     };
   }
 }

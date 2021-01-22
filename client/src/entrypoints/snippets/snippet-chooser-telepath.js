@@ -1,7 +1,7 @@
 class SnippetChooser {
-  constructor(html, idForLabel, model) {
+  constructor(html, idPattern, model) {
     this.html = html;
-    this.idForLabel = idForLabel;
+    this.idPattern = idPattern;
     this.model = model;
   }
 

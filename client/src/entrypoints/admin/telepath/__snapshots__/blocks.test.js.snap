@@ -262,7 +262,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
           </div>
         </span>
       <div class=\\"field required\\">
-          <label class=\\"field__label\\">Heading text</label>
+          <label class=\\"field__label\\" for=\\"the-prefix-heading_text\\">Heading text</label>
           <div class=\\"field char_field widget-text_input fieldname-heading_text\\">
         <div class=\\"field-content\\">
           <div class=\\"input\\">
@@ -272,7 +272,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
         </div>
       </div>
         </div><div class=\\"field \\">
-          <label class=\\"field__label\\">Size</label>
+          <label class=\\"field__label\\" for=\\"the-prefix-size\\">Size</label>
           <div class=\\"field choice_field widget-select fieldname-size\\">
         <div class=\\"field-content\\">
           <div class=\\"input\\">
