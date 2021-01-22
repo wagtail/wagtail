@@ -3,9 +3,10 @@
 /* global $ */
 
 class BoundWidget {
-    constructor(element, name, initialState) {
+    constructor(element, name, idForLabel, initialState) {
         var selector = ':input[name="' + name + '"]';
         this.input = element.find(selector).addBack(selector);  // find, including element itself
+        this.idForLabel = idForLabel;
         this.setState(initialState);
     }
     getValue() {
@@ -23,28 +24,30 @@ class BoundWidget {
 }
 
 class Widget {
-    constructor(html, idForLabel) {
+    constructor(html, idPattern) {
         this.html = html;
-        this.idForLabel = idForLabel;
+        this.idPattern = idPattern;
     }
 
     boundWidgetClass = BoundWidget;
 
     render(placeholder, name, id, initialState) {
         var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
+        var idForLabel = this.idPattern.replace(/__ID__/g, id);
         var dom = $(html);
         $(placeholder).replaceWith(dom);
         // eslint-disable-next-line new-cap
-        return new this.boundWidgetClass(dom, name, initialState);
+        return new this.boundWidgetClass(dom, name, idForLabel, initialState);
     }
 }
 window.telepath.register('wagtail.widgets.Widget', Widget);
 
 
 class BoundRadioSelect {
-    constructor(element, name, initialState) {
+    constructor(element, name, idForLabel, initialState) {
         this.element = element;
         this.name = name;
+        this.idForLabel = idForLabel;
         this.selector = 'input[name="' + name + '"]:checked';
         this.setState(initialState);
     }
@@ -69,9 +72,9 @@ window.telepath.register('wagtail.widgets.RadioSelect', RadioSelect);
 
 
 class PageChooser {
-    constructor(html, idForLabel, config) {
+    constructor(html, idPattern, config) {
         this.html = html;
-        this.idForLabel = idForLabel;
+        this.idPattern = idPattern;
         this.config = config;
     }
 
@@ -161,6 +164,7 @@ class BaseDateTimeWidget extends Widget {
             focus() {
                 element.focus();
             },
+            idForLabel: id,
         };
         widget.setState(initialState);
         return widget;
