@@ -24,8 +24,8 @@ class DummyWidget {
     $(placeholder).replaceWith(`<p name="${name}" id="${id}">${widgetName}</p>`);
     return {
       setState(state) { setState(widgetName, state); },
-      getState() { getState(widgetName); return `state: ${widgetName}`; },
-      getValue() { getValue(widgetName); return `value: ${widgetName}`; },
+      getState() { getState(widgetName); return `state: ${widgetName} - ${name}`; },
+      getValue() { getValue(widgetName); return `value: ${widgetName} - ${name}`; },
       focus() { focus(widgetName); },
     };
   }
@@ -79,13 +79,13 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
   test('getValue() calls widget getValue()', () => {
     const value = boundField.getValue();
     expect(getValue.mock.calls.length).toBe(1);
-    expect(value).toEqual('value: The widget');
+    expect(value).toEqual('value: The widget - the-prefix');
   });
 
   test('getState() calls widget getState()', () => {
     const state = boundField.getState();
     expect(getState.mock.calls.length).toBe(1);
-    expect(state).toEqual('state: The widget');
+    expect(state).toEqual('state: The widget - the-prefix');
   });
 
   test('setState() calls widget setState()', () => {
@@ -181,8 +181,8 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
     const value = boundField.getValue();
     expect(getValue.mock.calls.length).toBe(2);
     expect(value).toEqual({
-      heading_text: 'value: Heading widget',
-      size: 'value: Size widget'
+      heading_text: 'value: Heading widget - the-prefix-heading_text',
+      size: 'value: Size widget - the-prefix-size'
     });
   });
 
@@ -190,8 +190,8 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
     const state = boundField.getState();
     expect(getState.mock.calls.length).toBe(2);
     expect(state).toEqual({
-      heading_text: 'state: Heading widget',
-      size: 'state: Size widget'
+      heading_text: 'state: Heading widget - the-prefix-heading_text',
+      size: 'state: Size widget - the-prefix-size'
     });
   });
 
@@ -281,8 +281,8 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     const value = boundField.getValue();
     expect(getValue.mock.calls.length).toBe(2);
     expect(value).toEqual([
-      'value: The widget',
-      'value: The widget'
+      'value: The widget - the-prefix-0-value',
+      'value: The widget - the-prefix-1-value'
     ]);
   });
 
@@ -290,8 +290,8 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     const state = boundField.getState();
     expect(getState.mock.calls.length).toBe(2);
     expect(state).toEqual([
-      'state: The widget',
-      'state: The widget'
+      'state: The widget - the-prefix-0-value',
+      'state: The widget - the-prefix-1-value'
     ]);
   });
 
@@ -330,9 +330,9 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     const state = boundField.getState();
     expect(getState.mock.calls.length).toBe(3);
     expect(state).toEqual([
-      'state: The widget',
-      'state: The widget',
-      'state: The widget'
+      'state: The widget - the-prefix-0-value',
+      'state: The widget - the-prefix-1-value',
+      'state: The widget - the-prefix-2-value'
     ]);
   });
 
@@ -340,5 +340,201 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     boundField.focus();
     expect(focus.mock.calls.length).toBe(1);
     expect(focus.mock.calls[0][0]).toBe('The widget');
+  });
+});
+
+describe('telepath: wagtail.blocks.StreamBlock', () => {
+  let boundField;
+
+  beforeEach(() => {
+    // Create mocks for callbacks
+    constructor = jest.fn();
+    setState = jest.fn();
+    getState = jest.fn();
+    getValue = jest.fn();
+    focus = jest.fn();
+
+    // Create a placeholder to render the block
+    document.body.innerHTML = '<div id="placeholder"></div>';
+
+    // Unpack and render
+    const fieldDef = window.telepath.unpack({
+      _type: 'wagtail.blocks.StreamBlock',
+      _args: ['', [['', [{
+        _type: 'wagtail.blocks.FieldBlock',
+        _args: ['test_block_a', {
+          _type: 'wagtail.widgets.DummyWidget',
+          _args: ['Block A widget']
+        }, {
+          label: 'Test Block B',
+          required: true,
+          icon: 'placeholder',
+          classname: 'field char_field widget-text_input fieldname-test_charblock'
+        }]
+      }, {
+        _type: 'wagtail.blocks.FieldBlock',
+        _args: ['test_block_b', {
+          _type: 'wagtail.widgets.DummyWidget',
+          _args: ['Block B widget']
+        }, {
+          label: 'Test Block B',
+          required: true,
+          icon: 'pilcrow',
+          classname: 'field char_field widget-admin_auto_height_text_input fieldname-test_textblock'
+        }]
+      }
+      ]]], {
+        test_block_a: 'Block A options',
+        test_block_b: 'Block B options',
+      }, {
+        label: '',
+        required: true,
+        icon: 'placeholder',
+        classname: null,
+        helpText: null,
+        maxNum: null,
+        minNum: null,
+        blockCounts: {}
+      }]
+    });
+    boundField = fieldDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value'
+      },
+    ]);
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('Widget constructors are called with correct parameters', () => {
+    expect(constructor.mock.calls.length).toBe(2);
+
+    expect(constructor.mock.calls[0][0]).toBe('Block A widget');
+    expect(constructor.mock.calls[0][1]).toEqual({
+      name: 'the-prefix-0-value',
+      id: 'the-prefix-0-value',
+      initialState: 'First value',
+    });
+
+    expect(constructor.mock.calls[1][0]).toBe('Block B widget');
+    expect(constructor.mock.calls[1][1]).toEqual({
+      name: 'the-prefix-1-value',
+      id: 'the-prefix-1-value',
+      initialState: 'Second value',
+    });
+  });
+
+  test('getValue() calls getValue() on widget for both values', () => {
+    const value = boundField.getValue();
+    expect(getValue.mock.calls.length).toBe(2);
+    expect(value).toEqual([
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'value: Block A widget - the-prefix-0-value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'value: Block B widget - the-prefix-1-value'
+      },
+    ]);
+  });
+
+  test('getState() calls getState() on all widgets', () => {
+    const state = boundField.getState();
+    expect(getState.mock.calls.length).toBe(2);
+    expect(state).toEqual([
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'state: Block A widget - the-prefix-0-value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'state: Block B widget - the-prefix-1-value'
+      },
+    ]);
+  });
+
+  test('setState() creates new widgets', () => {
+    boundField.setState([
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'Changed first value'
+      },
+      {
+        id: '3',
+        type: 'test_block_b',
+        value: 'Third value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Changed second value'
+      },
+    ]);
+
+    // Includes the two initial calls, plus the three new ones
+    expect(constructor.mock.calls.length).toBe(5);
+
+    expect(constructor.mock.calls[2][0]).toBe('Block A widget');
+    expect(constructor.mock.calls[2][1]).toEqual({
+      name: 'the-prefix-0-value',
+      id: 'the-prefix-0-value',
+      initialState: 'Changed first value',
+    });
+
+    expect(constructor.mock.calls[3][0]).toBe('Block B widget');
+    expect(constructor.mock.calls[3][1]).toEqual({
+      name: 'the-prefix-1-value',
+      id: 'the-prefix-1-value',
+      initialState: 'Third value',
+    });
+
+    expect(constructor.mock.calls[4][0]).toBe('Block B widget');
+    expect(constructor.mock.calls[4][1]).toEqual({
+      name: 'the-prefix-2-value',
+      id: 'the-prefix-2-value',
+      initialState: 'Changed second value',
+    });
+
+    // Let's get the state now to make sure the initial widgets are gone
+    const state = boundField.getState();
+    expect(getState.mock.calls.length).toBe(3);
+    expect(state).toEqual([
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'state: Block A widget - the-prefix-0-value'
+      },
+      {
+        id: '3',
+        type: 'test_block_b',
+        value: 'state: Block B widget - the-prefix-1-value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'state: Block B widget - the-prefix-2-value'
+      },
+    ]);
+  });
+
+  test('focus() calls focus() on first widget', () => {
+    boundField.focus();
+    expect(focus.mock.calls.length).toBe(1);
+    expect(focus.mock.calls[0][0]).toBe('Block A widget');
   });
 });
