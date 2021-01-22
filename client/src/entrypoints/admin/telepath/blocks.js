@@ -116,7 +116,7 @@ class StructBlock {
     this.childBlocks = {};
     this.blockDef.childBlockDefs.forEach(childBlockDef => {
       const childDom = $(`
-        <div class="field">
+        <div class="field ${childBlockDef.meta.required ? 'required' : ''}">
           <label class="field__label">${childBlockDef.meta.label}</label>
           <div data-streamfield-block></div>
         </div>

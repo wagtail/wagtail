@@ -244,7 +244,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
 
 exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
 "<div class=\\"struct-block\\">
-      <div class=\\"field\\">
+      <div class=\\"field required\\">
           <label class=\\"field__label\\">Heading text</label>
           <div class=\\"field char_field widget-text_input fieldname-heading_text\\">
         <div class=\\"field-content\\">
@@ -254,7 +254,7 @@ exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
           </div>
         </div>
       </div>
-        </div><div class=\\"field\\">
+        </div><div class=\\"field \\">
           <label class=\\"field__label\\">Size</label>
           <div class=\\"field choice_field widget-select fieldname-size\\">
         <div class=\\"field-content\\">
