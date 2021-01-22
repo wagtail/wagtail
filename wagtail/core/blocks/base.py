@@ -2,6 +2,7 @@ import collections
 import json
 import re
 
+from functools import lru_cache
 from importlib import import_module
 
 from django import forms
@@ -536,6 +537,13 @@ class BlockField(forms.Field):
 
     def has_changed(self, initial_value, data_value):
         return self.block.get_prep_value(initial_value) != self.block.get_prep_value(data_value)
+
+
+@lru_cache(maxsize=1)
+def get_help_icon():
+    return render_to_string("wagtailadmin/shared/icon.html", {
+        'name': 'help', 'class_name': 'default'
+    })
 
 
 DECONSTRUCT_ALIASES = {

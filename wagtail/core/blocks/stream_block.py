@@ -16,7 +16,7 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
 from wagtail.utils.deprecation import RemovedInWagtail214Warning
 
-from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
+from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass, get_help_icon
 
 
 __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidationError']
@@ -642,6 +642,17 @@ class StreamBlockAdapter(Adapter):
     js_constructor = 'wagtail.blocks.StreamBlock'
 
     def js_args(self, block):
+        meta = {
+            'label': block.label, 'required': block.required, 'icon': block.meta.icon,
+            'classname': block.meta.form_classname,
+            'maxNum': block.meta.max_num, 'minNum': block.meta.min_num,
+            'blockCounts': block.meta.block_counts,
+        }
+        help_text = getattr(block.meta, 'help_text', None)
+        if help_text:
+            meta['helpText'] = help_text
+            meta['helpIcon'] = get_help_icon()
+
         return [
             block.name,
             block.grouped_child_blocks(),
@@ -649,12 +660,7 @@ class StreamBlockAdapter(Adapter):
                 name: child_block.get_form_state(child_block.get_default())
                 for name, child_block in block.child_blocks.items()
             },
-            {
-                'label': block.label, 'required': block.required, 'icon': block.meta.icon,
-                'classname': block.meta.form_classname, 'helpText': getattr(block.meta, 'help_text', None),
-                'maxNum': block.meta.max_num, 'minNum': block.meta.min_num,
-                'blockCounts': block.meta.block_counts,
-            },
+            meta,
         ]
 
     class Media:
