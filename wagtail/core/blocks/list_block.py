@@ -7,7 +7,7 @@ from django.utils.html import format_html, format_html_join
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
 
-from .base import Block
+from .base import Block, get_help_icon
 
 
 __all__ = ['ListBlock', 'ListBlockValidationError']
@@ -161,14 +161,19 @@ class ListBlockAdapter(Adapter):
     js_constructor = 'wagtail.blocks.ListBlock'
 
     def js_args(self, block):
+        meta = {
+            'label': block.label, 'icon': block.meta.icon, 'classname': block.meta.form_classname,
+        }
+        help_text = getattr(block.meta, 'help_text', None)
+        if help_text:
+            meta['helpText'] = help_text
+            meta['helpIcon'] = get_help_icon()
+
         return [
             block.name,
             block.child_block,
             block.child_block.get_form_state(block.child_block.get_default()),
-            {
-                'label': block.label, 'icon': block.meta.icon, 'classname': block.meta.form_classname,
-                'helpText': getattr(block.meta, 'help_text', None),
-            },
+            meta,
         ]
 
     class Media:

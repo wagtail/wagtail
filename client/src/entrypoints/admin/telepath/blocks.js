@@ -50,6 +50,13 @@ class FieldBlock {
     this.element = dom[0];
     this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix, initialState);
 
+    if (this.blockDef.meta.helpText) {
+      const helpElement = document.createElement('p');
+      helpElement.classList.add('help');
+      helpElement.innerHTML = this.blockDef.meta.helpText;  // unescaped, as per Django conventions
+      this.element.querySelector('.field-content').appendChild(helpElement);
+    }
+
     if (initialError) {
       this.setError(initialError);
     }
@@ -112,6 +119,19 @@ class StructBlock {
       </div>
     `);
     $(placeholder).replaceWith(dom);
+
+    if (this.blockDef.meta.helpText) {
+      // help text is left unescaped as per Django conventions
+      dom.append(`
+        <span>
+          <div class="help">
+            ${this.blockDef.meta.helpIcon}
+            ${this.blockDef.meta.helpText}
+          </div>
+        </span>
+      `);
+    }
+
 
     this.childBlocks = {};
     this.blockDef.childBlockDefs.forEach(childBlockDef => {
@@ -220,6 +240,17 @@ class ListBlock {
       </div>
     `);
     $(placeholder).replaceWith(dom);
+    if (this.blockDef.meta.helpText) {
+      // help text is left unescaped as per Django conventions
+      $(`
+        <span>
+          <div class="help">
+            ${this.blockDef.meta.helpIcon}
+            ${this.blockDef.meta.helpText}
+          </div>
+        </span>
+      `).insertBefore(dom);
+    }
 
     this.childBlocks = [];
     this.countInput = dom.find('[data-streamfield-list-count]');
@@ -566,6 +597,18 @@ class StreamBlock {
       </div>
     `);
     $(placeholder).replaceWith(dom);
+
+    if (this.blockDef.meta.helpText) {
+      // help text is left unescaped as per Django conventions
+      $(`
+        <span>
+          <div class="help">
+            ${this.blockDef.meta.helpIcon}
+            ${this.blockDef.meta.helpText}
+          </div>
+        </span>
+      `).insertBefore(dom);
+    }
 
     // StreamChild objects for the current (non-deleted) child blocks
     this.children = [];
