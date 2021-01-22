@@ -56,7 +56,8 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
         label: 'Test Field',
         required: true,
         icon: 'placeholder',
-        classname: 'field char_field widget-text_input fieldname-test_charblock'
+        classname: 'field char_field widget-text_input fieldname-test_charblock',
+        helpText: 'drink <em>more</em> water'
       }]
     });
     boundField = fieldDef.render($('#placeholder'), 'the-prefix', 'Test initial state');
@@ -146,7 +147,8 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
         required: false,
         icon: 'title',
         classname: 'struct-block',
-        helpText: null
+        helpText: 'use <strong>lots</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
       }]
     });
     boundField = fieldDef.render($('#placeholder'), 'the-prefix', {
@@ -246,7 +248,8 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
         label: 'Test listblock',
         icon: 'placeholder',
         classname: null,
-        helpText: null
+        helpText: 'use <strong>a few</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
       }]
     });
     boundField = fieldDef.render($('#placeholder'), 'the-prefix', [
@@ -391,7 +394,8 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
         required: true,
         icon: 'placeholder',
         classname: null,
-        helpText: null,
+        helpText: 'use <strong>plenty</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
         maxNum: null,
         minNum: null,
         blockCounts: {}

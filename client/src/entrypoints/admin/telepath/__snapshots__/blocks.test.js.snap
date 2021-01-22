@@ -7,12 +7,17 @@ exports[`telepath: wagtail.blocks.FieldBlock it renders correctly 1`] = `
             <p name=\\"the-prefix\\" id=\\"the-prefix\\">The widget</p>
             <span></span>
           </div>
-        </div>
+        <p class=\\"help\\">drink <em>more</em> water</p></div>
       </div>"
 `;
 
 exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
-"<div class=\\"c-sf-container \\">
+"<span>
+          <div class=\\"help\\">
+            <div class=\\"icon-help\\">?</div>
+            use <strong>a few</strong> of these
+          </div>
+        </span><div class=\\"c-sf-container \\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
 
         <div data-streamfield-list-container=\\"\\"><div id=\\"the-prefix-0-container\\" aria-hidden=\\"false\\">
@@ -101,7 +106,12 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
 `;
 
 exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
-"<div class=\\"c-sf-container \\">
+"<span>
+          <div class=\\"help\\">
+            <div class=\\"icon-help\\">?</div>
+            use <strong>plenty</strong> of these
+          </div>
+        </span><div class=\\"c-sf-container \\">
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"2\\">
         <div data-streamfield-stream-container=\\"\\"><div>
         <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
@@ -244,6 +254,13 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
 
 exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
 "<div class=\\"struct-block\\">
+      
+        <span>
+          <div class=\\"help\\">
+            <div class=\\"icon-help\\">?</div>
+            use <strong>lots</strong> of these
+          </div>
+        </span>
       <div class=\\"field required\\">
           <label class=\\"field__label\\">Heading text</label>
           <div class=\\"field char_field widget-text_input fieldname-heading_text\\">

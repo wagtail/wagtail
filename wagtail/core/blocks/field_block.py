@@ -83,15 +83,19 @@ class FieldBlockAdapter(Adapter):
             # TODO: if errors then add 'error'
         ]
 
+        meta = {
+            'label': block.label,
+            'required': block.required,
+            'icon': block.meta.icon,
+            'classname': ' '.join(classname),
+        }
+        if block.field.help_text:
+            meta['helpText'] = block.field.help_text
+
         return [
             block.name,
             block.field.widget,
-            {
-                'label': block.label,
-                'required': block.required,
-                'icon': block.meta.icon,
-                'classname': ' '.join(classname),
-            },
+            meta,
         ]
 
     class Media:

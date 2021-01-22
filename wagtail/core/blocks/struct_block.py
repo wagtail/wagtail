@@ -8,7 +8,7 @@ from django.utils.html import format_html, format_html_join
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
 
-from .base import Block, DeclarativeSubBlocksMetaclass
+from .base import Block, DeclarativeSubBlocksMetaclass, get_help_icon
 
 
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
@@ -238,13 +238,20 @@ class StructBlockAdapter(Adapter):
     js_constructor = 'wagtail.blocks.StructBlock'
 
     def js_args(self, block):
+        meta = {
+            'label': block.label, 'required': block.required, 'icon': block.meta.icon,
+            'classname': block.meta.form_classname,
+        }
+
+        help_text = getattr(block.meta, 'help_text', None)
+        if help_text:
+            meta['helpText'] = help_text
+            meta['helpIcon'] = get_help_icon()
+
         return [
             block.name,
             block.child_blocks.values(),
-            {
-                'label': block.label, 'required': block.required, 'icon': block.meta.icon,
-                'classname': block.meta.form_classname, 'helpText': getattr(block.meta, 'help_text', None),
-            },
+            meta,
         ]
 
     class Media:
