@@ -512,6 +512,18 @@ class BlockField(forms.Field):
         return self.block.get_prep_value(initial_value) != self.block.get_prep_value(data_value)
 
 
+_help_icon = None
+
+
+def get_help_icon():
+    global _help_icon
+    if not _help_icon:
+        _help_icon = render_to_string("wagtailadmin/shared/icon.html", {
+            'name': 'help', 'class_name': 'default'
+        })
+    return _help_icon
+
+
 DECONSTRUCT_ALIASES = {
     Block: 'wagtail.core.blocks.Block',
 }
