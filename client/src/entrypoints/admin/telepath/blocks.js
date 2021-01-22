@@ -49,6 +49,7 @@ class FieldBlock {
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
     this.element = dom[0];
     this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix, initialState);
+    this.idForLabel = this.widget.idForLabel;
 
     if (this.blockDef.meta.helpText) {
       const helpElement = document.createElement('p');
@@ -143,6 +144,7 @@ class StructBlock {
       `);
       dom.append(childDom);
       const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
+      const labelElement = childDom.find('label').get(0);
       const childBlock = childBlockDef.render(
         childBlockElement,
         prefix + '-' + childBlockDef.name,
@@ -151,6 +153,9 @@ class StructBlock {
       );
 
       this.childBlocks[childBlockDef.name] = childBlock;
+      if (childBlock.idForLabel) {
+        labelElement.setAttribute('for', childBlock.idForLabel);
+      }
     });
   }
 

@@ -1,7 +1,7 @@
 class ImageChooser {
-  constructor(html, idForLabel) {
+  constructor(html, idPattern) {
     this.html = html;
-    this.idForLabel = idForLabel;
+    this.idPattern = idPattern;
   }
 
   render(placeholder, name, id, initialState) {
