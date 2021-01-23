@@ -5,11 +5,10 @@ import django.forms
 from django.conf import settings
 from django.utils.html import conditional_escape
 from django.utils.translation import gettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
 
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.contrib.forms.utils import get_field_clean_name
-
-from phonenumber_field.modelfields import PhoneNumberField
 
 
 class BaseForm(django.forms.Form):
