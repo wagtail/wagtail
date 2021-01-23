@@ -9,6 +9,8 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.contrib.forms.utils import get_field_clean_name
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 class BaseForm(django.forms.Form):
     def __init__(self, *args, **kwargs):
@@ -46,6 +48,9 @@ class FormBuilder:
 
     def create_number_field(self, field, options):
         return django.forms.DecimalField(**options)
+
+    def create_tel_field(self, field, options):
+        return PhoneNumberField(**options)
 
     def create_dropdown_field(self, field, options):
         options['choices'] = map(

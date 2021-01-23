@@ -25,7 +25,7 @@ FORM_FIELD_CHOICES = (
     ('multiline', _('Multi-line text')),
     ('email', _('Email')),
     ('number', _('Number')),
-    ('tel', _('Telephone number')),
+    ('tel', _('Telephone')),
     ('url', _('URL')),
     ('checkbox', _('Checkbox')),
     ('checkboxes', _('Checkboxes')),
