@@ -33,6 +33,7 @@ Core team alumni
 Contributors
 ============
 
+* Aden Haussmann
 * David Cranwell
 * Helen Chapman
 * Balazs Endresz
