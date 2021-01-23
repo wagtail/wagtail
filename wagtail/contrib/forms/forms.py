@@ -5,7 +5,7 @@ import django.forms
 from django.conf import settings
 from django.utils.html import conditional_escape
 from django.utils.translation import gettext_lazy as _
-from phonenumber_field.modelfields import PhoneNumberField
+from wagtail.utils.widgets import TelephoneInput
 
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.contrib.forms.utils import get_field_clean_name
@@ -49,7 +49,7 @@ class FormBuilder:
         return django.forms.DecimalField(**options)
 
     def create_tel_field(self, field, options):
-        return PhoneNumberField(**options)
+        return django.forms.CharField(widget=TelephoneInput, **options)
 
     def create_dropdown_field(self, field, options):
         options['choices'] = map(

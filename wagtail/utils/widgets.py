@@ -1,4 +1,4 @@
-from django.forms.widgets import Widget
+from django.forms.widgets import Widget, Input
 from django.utils.safestring import mark_safe
 
 
@@ -32,3 +32,8 @@ class WidgetWithScript(Widget):
 
     def render_js_init(self, id_, name, value):
         return ''
+
+
+class TelephoneInput(Input):
+    input_type = 'tel'
+    template_name = 'django/forms/widgets/textarea.html'
