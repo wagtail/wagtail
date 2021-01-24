@@ -1,4 +1,4 @@
-from django.forms.widgets import Widget, Input
+from django.forms.widgets import Input, Widget
 from django.utils.safestring import mark_safe
 
 
