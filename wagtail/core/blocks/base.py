@@ -127,15 +127,18 @@ class Block(metaclass=BaseBlock):
         if not self.meta.label:
             self.label = capfirst(force_str(name).replace('_', ' '))
 
-    def set_meta_options(self, options):
+    def set_meta_options(self, opts):
         """
-        Called when this block is used as the top-level block of a StreamField, to pass on any options
-        from the StreamField constructor that ought to be handled by the block, e.g.
+        Update this block's meta options (out of the ones designated as mutable) from the given dict.
+        Used by the StreamField constructor to pass on kwargs that are to be handled by the block,
+        since the block object has already been created by that point, e.g.:
         body = StreamField(SomeStreamBlock(), max_num=5)
         """
-        # Ignore all options here; block types that are allowed at the top level (i.e. currently just
-        # StreamBlock) and recognise these options will override this method
-        pass
+        for attr, value in opts.items():
+            if attr in self.MUTABLE_META_ATTRIBUTES:
+                setattr(self.meta, attr, value)
+            else:
+                raise TypeError("set_meta_options received unexpected option: %r" % attr)
 
     @property
     def media(self):
