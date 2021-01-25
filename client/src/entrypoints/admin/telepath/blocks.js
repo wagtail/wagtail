@@ -115,48 +115,64 @@ class StructBlock {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
-    const dom = $(`
-      <div class="${this.blockDef.meta.classname || ''}">
-      </div>
-    `);
-    $(placeholder).replaceWith(dom);
-
-    if (this.blockDef.meta.helpText) {
-      // help text is left unescaped as per Django conventions
-      dom.append(`
-        <span>
-          <div class="help">
-            ${this.blockDef.meta.helpIcon}
-            ${this.blockDef.meta.helpText}
-          </div>
-        </span>
-      `);
-    }
-
-
     this.childBlocks = {};
-    this.blockDef.childBlockDefs.forEach(childBlockDef => {
-      const childDom = $(`
-        <div class="field ${childBlockDef.meta.required ? 'required' : ''}">
-          <label class="field__label">${childBlockDef.meta.label}</label>
-          <div data-streamfield-block></div>
+
+    if (blockDef.meta.formTemplate) {
+      const html = blockDef.meta.formTemplate.replace(/__PREFIX__/g, prefix);
+      const dom = $(html);
+      $(placeholder).replaceWith(dom);
+      this.blockDef.childBlockDefs.forEach(childBlockDef => {
+        const childBlockElement = dom.find('[data-structblock-child="' + childBlockDef.name + '"]').get(0);
+        const childBlock = childBlockDef.render(
+          childBlockElement,
+          prefix + '-' + childBlockDef.name,
+          state[childBlockDef.name],
+          initialError?.blockErrors[childBlockDef.name]
+        );
+        this.childBlocks[childBlockDef.name] = childBlock;
+      });
+    } else {
+      const dom = $(`
+        <div class="${this.blockDef.meta.classname || ''}">
         </div>
       `);
-      dom.append(childDom);
-      const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
-      const labelElement = childDom.find('label').get(0);
-      const childBlock = childBlockDef.render(
-        childBlockElement,
-        prefix + '-' + childBlockDef.name,
-        state[childBlockDef.name],
-        initialError?.blockErrors[childBlockDef.name]
-      );
+      $(placeholder).replaceWith(dom);
 
-      this.childBlocks[childBlockDef.name] = childBlock;
-      if (childBlock.idForLabel) {
-        labelElement.setAttribute('for', childBlock.idForLabel);
+      if (this.blockDef.meta.helpText) {
+        // help text is left unescaped as per Django conventions
+        dom.append(`
+          <span>
+            <div class="help">
+              ${this.blockDef.meta.helpIcon}
+              ${this.blockDef.meta.helpText}
+            </div>
+          </span>
+        `);
       }
-    });
+
+      this.blockDef.childBlockDefs.forEach(childBlockDef => {
+        const childDom = $(`
+          <div class="field ${childBlockDef.meta.required ? 'required' : ''}">
+            <label class="field__label">${childBlockDef.meta.label}</label>
+            <div data-streamfield-block></div>
+          </div>
+        `);
+        dom.append(childDom);
+        const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
+        const labelElement = childDom.find('label').get(0);
+        const childBlock = childBlockDef.render(
+          childBlockElement,
+          prefix + '-' + childBlockDef.name,
+          state[childBlockDef.name],
+          initialError?.blockErrors[childBlockDef.name]
+        );
+
+        this.childBlocks[childBlockDef.name] = childBlock;
+        if (childBlock.idForLabel) {
+          labelElement.setAttribute('for', childBlock.idForLabel);
+        }
+      });
+    }
   }
 
   setState(state) {
