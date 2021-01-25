@@ -1008,27 +1008,28 @@ class StreamModel(models.Model):
 
 
 class MinMaxCountStreamModel(models.Model):
-    body = StreamField([
-        ('text', CharBlock()),
-        ('rich_text', RichTextBlock()),
-        ('image', ImageChooserBlock()),
-    ],
-        min_num=2,
-        max_num=5,
+    body = StreamField(
+        [
+            ('text', CharBlock()),
+            ('rich_text', RichTextBlock()),
+            ('image', ImageChooserBlock()),
+        ],
+        min_num=2, max_num=5
     )
 
 
 class BlockCountsStreamModel(models.Model):
-    body = StreamField([
-        ('text', CharBlock()),
-        ('rich_text', RichTextBlock()),
-        ('image', ImageChooserBlock()),
-    ],
+    body = StreamField(
+        [
+            ('text', CharBlock()),
+            ('rich_text', RichTextBlock()),
+            ('image', ImageChooserBlock()),
+        ],
         block_counts={
             "text": {"min_num": 1},
             "rich_text": {"max_num": 1},
             "image": {"min_num": 1, "max_num": 1},
-    }
+        }
     )
 
 
