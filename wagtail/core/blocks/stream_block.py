@@ -51,11 +51,6 @@ class BaseStreamBlock(Block):
 
         self.dependencies = self.child_blocks.values()
 
-    def set_meta_options(self, opts):
-        for attr in ['required', 'min_num', 'max_num', 'block_counts']:
-            if attr in opts:
-                setattr(self.meta, attr, opts[attr])
-
     def get_default(self):
         """
         Default values set on a StreamBlock should be a list of (type_name, value) tuples -
