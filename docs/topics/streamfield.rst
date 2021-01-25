@@ -49,7 +49,7 @@ This defines the set of available block types that can be used within this field
 
 ``StreamField`` also accepts the following optional keyword arguments:
 
-``blank`` (default: False)
+``blank`` (default: ``False``)
   When false, at least one block must be provided for the field to be considered valid.
 
 ``min_num``
@@ -63,7 +63,7 @@ This defines the set of available block types that can be used within this field
 
 .. versionadded:: 2.13
 
-    The ``min_num``, ``max_num`` and ``block_counts`` arguments were added. Previously, these were only available on the StreamBlock definition.
+    The ``min_num``, ``max_num`` and ``block_counts`` arguments were added. Previously, these were only available on the ``StreamBlock`` definition.
 
 
 Basic block types
