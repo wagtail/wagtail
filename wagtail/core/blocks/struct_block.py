@@ -2,13 +2,15 @@ import collections
 
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
+from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
+from django.utils.safestring import mark_safe
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
 
-from .base import Block, DeclarativeSubBlocksMetaclass, get_help_icon
+from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass, get_help_icon
 
 
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
@@ -51,6 +53,14 @@ class StructValue(collections.OrderedDict):
             (name, block.bind(self.get(name)))
             for name, block in self.block.child_blocks.items()
         ])
+
+
+class PlaceholderBoundBlock(BoundBlock):
+    """
+    Provides a render_form method that outputs a block placeholder, for use in custom form_templates
+    """
+    def render_form(self):
+        return format_html('<div data-structblock-child="{}"></div>', self.block.name)
 
 
 class BaseStructBlock(Block):
@@ -219,10 +229,38 @@ class BaseStructBlock(Block):
         return format_html('<dl>\n{}\n</dl>', format_html_join(
             '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', value.items()))
 
+    def render_form_template(self):
+        # Support for custom form_template options in meta. Originally form_template would have been
+        # invoked once for each occurrence of this block in the stream data, but this rendering now
+        # happens client-side, so we need to turn the Django template into one that can be used by
+        # the client-side code. This is done by rendering it up-front with placeholder objects as
+        # child blocks - these return <div data-structblock-child="first-name"></div> from their
+        # render_form_method.
+        # The change to client-side rendering means that the `value` and `errors` arguments on
+        # `get_form_context` no longer receive real data; these are passed the block's default value
+        # and None respectively.
+        context = self.get_form_context(self.get_default(), prefix='__PREFIX__', errors=None)
+        return mark_safe(render_to_string(self.meta.form_template, context))
+
+    def get_form_context(self, value, prefix='', errors=None):
+        return {
+            'children': collections.OrderedDict([
+                (
+                    name,
+                    PlaceholderBoundBlock(block, value.get(name), prefix="%s-%s" % (prefix, name))
+                )
+                for name, block in self.child_blocks.items()
+            ]),
+            'help_text': getattr(self.meta, 'help_text', None),
+            'classname': self.meta.form_classname,
+            'block_definition': self,
+            'prefix': prefix,
+        }
+
     class Meta:
         default = {}
         form_classname = 'struct-block'
-        form_template = 'wagtailadmin/block_forms/struct.html'
+        form_template = None
         value_class = StructValue
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
@@ -247,6 +285,9 @@ class StructBlockAdapter(Adapter):
         if help_text:
             meta['helpText'] = help_text
             meta['helpIcon'] = get_help_icon()
+
+        if block.meta.form_template:
+            meta['formTemplate'] = block.render_form_template()
 
         return [
             block.name,
