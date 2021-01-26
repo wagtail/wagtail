@@ -248,11 +248,12 @@ class ListChild {
   /*
   wrapper for an item inside a ListBlock
   */
-  constructor(blockDef, placeholder, prefix, index, initialState, opts) {
+  constructor(blockDef, placeholder, prefix, index, id, initialState, opts) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
     this.index = index;
+    this.id = id;
 
     this.onRequestDelete = opts && opts.onRequestDelete;
 
@@ -261,6 +262,7 @@ class ListChild {
         <input type="hidden" data-listblock-deleted id="${this.prefix}-deleted" name="${this.prefix}-deleted" value="">
         <input type="hidden"
           data-listblock-index id="${this.prefix}-order" name="${this.prefix}-order" value="${index}">
+        <input type="hidden" name="${this.prefix}-id" value="${this.id || ''}">
         <div>
           <div class="c-sf-container__block-container">
             <div class="c-sf-block">
@@ -397,7 +399,7 @@ class ListBlock {
     const placeholder = document.createElement('div');
     this.listContainer.append(placeholder);
 
-    const child = new ListChild(this.blockDef.childBlockDef, placeholder, prefix, index, value, {
+    const child = new ListChild(this.blockDef.childBlockDef, placeholder, prefix, index, null, value, {
       onRequestDelete: (i) => { this.deleteBlock(i); }
     });
     this.children.push(child);
