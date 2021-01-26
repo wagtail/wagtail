@@ -258,10 +258,9 @@ class ListChild {
     this.onRequestDelete = opts && opts.onRequestDelete;
 
     const dom = $(`
-      <div id="${this.prefix}-container" aria-hidden="false">
-        <input type="hidden" data-listblock-deleted id="${this.prefix}-deleted" name="${this.prefix}-deleted" value="">
-        <input type="hidden"
-          data-listblock-index id="${this.prefix}-order" name="${this.prefix}-order" value="${index}">
+      <div aria-hidden="false">
+        <input type="hidden" data-listblock-deleted  name="${this.prefix}-deleted" value="">
+        <input type="hidden" data-listblock-index name="${this.prefix}-order" value="${index}">
         <input type="hidden" name="${this.prefix}-type" value="${this.type}">
         <input type="hidden" name="${this.prefix}-id" value="${this.id || ''}">
 
@@ -275,12 +274,10 @@ class ListChild {
                 <h3 class="c-sf-block__header__title"></h3>
                 <div class="c-sf-block__actions">
                   <span class="c-sf-block__type">${this.blockDef.meta.label}</span>
-                  <button type="button" id="${this.prefix}-moveup" class="c-sf-block__actions__single"
-                      title="{% trans 'Move up' %}">
+                  <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move up' %}">
                     <i class="icon icon-arrow-up" aria-hidden="true"></i>
                   </button>
-                  <button type="button" id="${this.prefix}-movedown" class="c-sf-block__actions__single"
-                      title="{% trans 'Move down' %}">
+                  <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
                     <i class="icon icon-arrow-down" aria-hidden="true"></i>
                   </button>
                   <button type="button" data-listblock-delete-button
