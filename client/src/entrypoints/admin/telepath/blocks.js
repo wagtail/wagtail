@@ -255,6 +255,7 @@ class ListChild {
     this.index = index;
     this.id = id;
 
+    const animate = opts && opts.animate;
     this.onRequestDelete = opts && opts.onRequestDelete;
 
     const dom = $(`
@@ -308,6 +309,10 @@ class ListChild {
     dom.find('button[data-delete-button]').click(() => {
       if (this.onRequestDelete) this.onRequestDelete(this.index);
     });
+
+    if (animate) {
+      dom.hide().slideDown();
+    }
   }
 
   markDeleted({ animate = false }) {
