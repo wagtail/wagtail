@@ -259,7 +259,8 @@ class ListChild {
     const dom = $(`
       <div id="${this.prefix}-container" aria-hidden="false">
         <input type="hidden" data-listblock-deleted id="${this.prefix}-deleted" name="${this.prefix}-deleted" value="">
-        <input type="hidden" id="${this.prefix}-order" name="${this.prefix}-order" value="${index}">
+        <input type="hidden"
+          data-listblock-index id="${this.prefix}-order" name="${this.prefix}-order" value="${index}">
         <div>
           <div class="c-sf-container__block-container">
             <div class="c-sf-block">
@@ -301,6 +302,7 @@ class ListChild {
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
 
     this.deletedInput = dom.find('[data-listblock-deleted]');
+    this.indexInput = dom.find('[data-listblock-index]');
 
     dom.find('[data-listblock-delete-button]').click(() => {
       if (this.onRequestDelete) this.onRequestDelete(this.index);
@@ -320,6 +322,7 @@ class ListChild {
 
   setIndex(newIndex) {
     this.index = newIndex;
+    this.indexInput.val(newIndex);
   }
 
   setError(error) {
