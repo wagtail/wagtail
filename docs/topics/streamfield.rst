@@ -535,6 +535,7 @@ As with StructBlock, the list of sub-blocks can also be provided as a subclass o
         class Meta:
             icon='cogs'
 
+.. _streamfield_top_level_streamblock:
 
 Since ``StreamField`` accepts an instance of ``StreamBlock`` as a parameter, in place of a list of block types, this makes it possible to re-use a common set of block types without repeating definitions:
 

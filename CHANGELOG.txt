@@ -4,6 +4,8 @@ Changelog
 2.13 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Support passing `min_num`, `max_num` and `block_counts` arguments directly to `StreamField` (Haydn Greatnews, Matt Westcott)
+ * Fix: StreamField required status is now consistently handled by the `blank` keyword argument (Matt Westcott)
  * Fix: Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
 
 
