@@ -248,14 +248,17 @@ class ListChild {
   /*
   wrapper for an item inside a ListBlock
   */
-  constructor(blockDef, placeholder, prefix, index, initialState) {
+  constructor(blockDef, placeholder, prefix, index, initialState, opts) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
+    this.index = index;
+
+    this.onRequestDelete = opts && opts.onRequestDelete;
 
     const dom = $(`
       <div id="${this.prefix}-container" aria-hidden="false">
-        <input type="hidden" id="${this.prefix}-deleted" name="${this.prefix}-deleted" value="">
+        <input type="hidden" data-listblock-deleted id="${this.prefix}-deleted" name="${this.prefix}-deleted" value="">
         <input type="hidden" id="${this.prefix}-order" name="${this.prefix}-order" value="${index}">
         <div>
           <div class="c-sf-container__block-container">
@@ -275,8 +278,8 @@ class ListChild {
                       title="{% trans 'Move down' %}">
                     <i class="icon icon-arrow-down" aria-hidden="true"></i>
                   </button>
-                  <button type="button" id="${this.prefix}-delete" class="c-sf-block__actions__single"
-                      title="{% trans 'Delete' %}">
+                  <button type="button" data-listblock-delete-button
+                      class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
                     <i class="icon icon-bin" aria-hidden="true"></i>
                   </button>
                 </div>
@@ -293,8 +296,30 @@ class ListChild {
     `);
 
     $(placeholder).replaceWith(dom);
+    this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
+
+    this.deletedInput = dom.find('[data-listblock-deleted]');
+
+    dom.find('[data-listblock-delete-button]').click(() => {
+      if (this.onRequestDelete) this.onRequestDelete(this.index);
+    });
+  }
+
+  markDeleted({ animate = false }) {
+    this.deletedInput.val('1');
+    if (animate) {
+      $(this.element).slideUp().dequeue()
+        .fadeOut()
+        .attr('aria-hidden', 'true');
+    } else {
+      $(this.element).hide().attr('aria-hidden', 'true');
+    }
+  }
+
+  setIndex(newIndex) {
+    this.index = newIndex;
   }
 
   setError(error) {
@@ -352,7 +377,7 @@ class ListBlock {
       this.setError(initialError);
     }
 
-    dom.find('button').click(() => {
+    dom.find('button[data-streamfield-list-add]').click(() => {
       this.append(this.blockDef.initialChildState);
     });
   }
@@ -369,9 +394,22 @@ class ListBlock {
     const placeholder = document.createElement('div');
     this.listContainer.append(placeholder);
 
-    const child = new ListChild(this.blockDef.childBlockDef, placeholder, prefix, index, value);
+    const child = new ListChild(this.blockDef.childBlockDef, placeholder, prefix, index, value, {
+      onRequestDelete: (i) => { this.deleteBlock(i); }
+    });
     this.children.push(child);
     this.countInput.val(this.children.length);
+  }
+
+  deleteBlock(index) {
+    this.children[index].markDeleted({ animate: true });
+    this.children.splice(index, 1);
+
+    /* index numbers of children / menus above this index now need updating to match
+    their array indexes */
+    for (let i = index; i < this.children.length; i++) {
+      this.children[i].setIndex(i);
+    }
   }
 
   setState(values) {

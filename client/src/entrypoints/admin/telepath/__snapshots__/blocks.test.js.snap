@@ -11,7 +11,7 @@ exports[`telepath: wagtail.blocks.FieldBlock it renders correctly 1`] = `
       </div>"
 `;
 
-exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
+exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = `
 "<span>
           <div class=\\"help\\">
             <div class=\\"icon-help\\">?</div>
@@ -21,7 +21,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
 
         <div data-streamfield-list-container=\\"\\"><div id=\\"the-prefix-0-container\\" aria-hidden=\\"false\\">
-        <input type=\\"hidden\\" id=\\"the-prefix-0-deleted\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" data-listblock-deleted=\\"\\" id=\\"the-prefix-0-deleted\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" id=\\"the-prefix-0-order\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
         <div>
           <div class=\\"c-sf-container__block-container\\">
@@ -39,7 +39,101 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
                   <button type=\\"button\\" id=\\"the-prefix-0-movedown\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" id=\\"the-prefix-0-delete\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-listblock-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                    <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                </div>
+              </div>
+              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+                <div class=\\"c-sf-block__content-inner\\">
+                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><div id=\\"the-prefix-1-container\\" aria-hidden=\\"true\\" style=\\"overflow: hidden; height: 0px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;\\">
+        <input type=\\"hidden\\" data-listblock-deleted=\\"\\" id=\\"the-prefix-1-deleted\\" name=\\"the-prefix-1-deleted\\" value=\\"1\\">
+        <input type=\\"hidden\\" id=\\"the-prefix-1-order\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
+        <div>
+          <div class=\\"c-sf-container__block-container\\">
+            <div class=\\"c-sf-block\\">
+              <div class=\\"c-sf-block__header\\">
+                <span class=\\"c-sf-block__header__icon\\">
+                  <i class=\\"icon icon-pilcrow\\"></i>
+                </span>
+                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__actions\\">
+                  <span class=\\"c-sf-block__type\\"></span>
+                  <button type=\\"button\\" id=\\"the-prefix-1-moveup\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                    <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" id=\\"the-prefix-1-movedown\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                    <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" data-listblock-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                    <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                </div>
+              </div>
+              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+                <div class=\\"c-sf-block__content-inner\\">
+                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+        <button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+          <i aria-hidden=\\"true\\">+</i>
+        </button>
+      </div>"
+`;
+
+exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
+"<span>
+          <div class=\\"help\\">
+            <div class=\\"icon-help\\">?</div>
+            use <strong>a few</strong> of these
+          </div>
+        </span><div class=\\"c-sf-container \\">
+        <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
+
+        <div data-streamfield-list-container=\\"\\"><div id=\\"the-prefix-0-container\\" aria-hidden=\\"false\\">
+        <input type=\\"hidden\\" data-listblock-deleted=\\"\\" id=\\"the-prefix-0-deleted\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" id=\\"the-prefix-0-order\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
+        <div>
+          <div class=\\"c-sf-container__block-container\\">
+            <div class=\\"c-sf-block\\">
+              <div class=\\"c-sf-block__header\\">
+                <span class=\\"c-sf-block__header__icon\\">
+                  <i class=\\"icon icon-pilcrow\\"></i>
+                </span>
+                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__actions\\">
+                  <span class=\\"c-sf-block__type\\"></span>
+                  <button type=\\"button\\" id=\\"the-prefix-0-moveup\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                    <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" id=\\"the-prefix-0-movedown\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                    <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" data-listblock-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -60,7 +154,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
           </div>
         </div>
       </div><div id=\\"the-prefix-1-container\\" aria-hidden=\\"false\\">
-        <input type=\\"hidden\\" id=\\"the-prefix-1-deleted\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" data-listblock-deleted=\\"\\" id=\\"the-prefix-1-deleted\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" id=\\"the-prefix-1-order\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
         <div>
           <div class=\\"c-sf-container__block-container\\">
@@ -78,7 +172,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
                   <button type=\\"button\\" id=\\"the-prefix-1-movedown\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" id=\\"the-prefix-1-delete\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-listblock-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
