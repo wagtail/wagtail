@@ -21,8 +21,8 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
 
         <div data-streamfield-list-container=\\"\\"><div aria-hidden=\\"false\\">
-        <input type=\\"hidden\\" data-listblock-deleted=\\"\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
-        <input type=\\"hidden\\" data-listblock-index=\\"\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-id\\" value=\\"\\">
 
@@ -42,7 +42,7 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
                   <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-listblock-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -63,8 +63,8 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
           </div>
         </div>
       </div><div aria-hidden=\\"true\\" style=\\"overflow: hidden; height: 0px; padding-top: 0px; margin-top: 0px; padding-bottom: 0px; margin-bottom: 0px;\\">
-        <input type=\\"hidden\\" data-listblock-deleted=\\"\\" name=\\"the-prefix-1-deleted\\" value=\\"1\\">
-        <input type=\\"hidden\\" data-listblock-index=\\"\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"1\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-id\\" value=\\"\\">
 
@@ -84,7 +84,7 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
                   <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-listblock-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -121,8 +121,8 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
         <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
 
         <div data-streamfield-list-container=\\"\\"><div aria-hidden=\\"false\\">
-        <input type=\\"hidden\\" data-listblock-deleted=\\"\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
-        <input type=\\"hidden\\" data-listblock-index=\\"\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-id\\" value=\\"\\">
 
@@ -142,7 +142,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
                   <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-listblock-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -163,8 +163,8 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
           </div>
         </div>
       </div><div aria-hidden=\\"false\\">
-        <input type=\\"hidden\\" data-listblock-deleted=\\"\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
-        <input type=\\"hidden\\" data-listblock-index=\\"\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-id\\" value=\\"\\">
 
@@ -184,7 +184,7 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
                   <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-listblock-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -237,8 +237,8 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
           </button></div></div>
         </div>
       </div><div aria-hidden=\\"false\\">
-        <input type=\\"hidden\\" data-streamblock-deleted=\\"\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
-        <input type=\\"hidden\\" data-streamblock-index=\\"\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"test_block_a\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-id\\" value=\\"1\\">
 
@@ -258,7 +258,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
                   <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-streamblock-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -296,8 +296,8 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
           </button></div></div>
         </div>
       </div><div aria-hidden=\\"false\\">
-        <input type=\\"hidden\\" data-streamblock-deleted=\\"\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
-        <input type=\\"hidden\\" data-streamblock-index=\\"\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"test_block_b\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-id\\" value=\\"2\\">
 
@@ -317,7 +317,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
                   <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-streamblock-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>

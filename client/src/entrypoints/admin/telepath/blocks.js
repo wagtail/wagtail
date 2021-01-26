@@ -259,8 +259,8 @@ class ListChild {
 
     const dom = $(`
       <div aria-hidden="false">
-        <input type="hidden" data-listblock-deleted  name="${this.prefix}-deleted" value="">
-        <input type="hidden" data-listblock-index name="${this.prefix}-order" value="${index}">
+        <input type="hidden"  name="${this.prefix}-deleted" value="">
+        <input type="hidden" name="${this.prefix}-order" value="${index}">
         <input type="hidden" name="${this.prefix}-type" value="${this.type}">
         <input type="hidden" name="${this.prefix}-id" value="${this.id || ''}">
 
@@ -280,7 +280,7 @@ class ListChild {
                   <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
                     <i class="icon icon-arrow-down" aria-hidden="true"></i>
                   </button>
-                  <button type="button" data-listblock-delete-button
+                  <button type="button" data-delete-button
                       class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
                     <i class="icon icon-bin" aria-hidden="true"></i>
                   </button>
@@ -302,10 +302,10 @@ class ListChild {
     const blockElement = dom.find('[data-streamfield-block]').get(0);
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
 
-    this.deletedInput = dom.find('[data-listblock-deleted]');
-    this.indexInput = dom.find('[data-listblock-index]');
+    this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
+    this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
 
-    dom.find('[data-listblock-delete-button]').click(() => {
+    dom.find('button[data-delete-button]').click(() => {
       if (this.onRequestDelete) this.onRequestDelete(this.index);
     });
   }
@@ -492,8 +492,8 @@ class StreamChild {
 
     const dom = $(`
       <div aria-hidden="false">
-        <input type="hidden" data-streamblock-deleted name="${this.prefix}-deleted" value="">
-        <input type="hidden" data-streamblock-index name="${this.prefix}-order" value="${index}">
+        <input type="hidden" name="${this.prefix}-deleted" value="">
+        <input type="hidden" name="${this.prefix}-order" value="${index}">
         <input type="hidden" name="${this.prefix}-type" value="${this.type}">
         <input type="hidden" name="${this.prefix}-id" value="${this.id || ''}">
 
@@ -513,7 +513,7 @@ class StreamChild {
                   <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
                     <i class="icon icon-arrow-down" aria-hidden="true"></i>
                   </button>
-                  <button type="button" data-streamblock-delete-button
+                  <button type="button" data-delete-button
                       class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
                     <i class="icon icon-bin" aria-hidden="true"></i>
                   </button>
@@ -534,10 +534,10 @@ class StreamChild {
     const blockElement = dom.find('[data-streamfield-block]').get(0);
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', state);
 
-    this.indexInput = dom.find('[data-streamblock-index]');
-    this.deletedInput = dom.find('[data-streamblock-deleted]');
+    this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
+    this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
 
-    dom.find('[data-streamblock-delete-button]').click(() => {
+    dom.find('button[data-delete-button]').click(() => {
       if (this.onRequestDelete) this.onRequestDelete(this.index);
     });
 
