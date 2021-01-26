@@ -461,6 +461,11 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     expect(focus.mock.calls.length).toBe(1);
     expect(focus.mock.calls[0][0]).toBe('The widget');
   });
+
+  test('deleteBlock() deletes a block', () => {
+    boundField.deleteBlock(1);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
 });
 
 describe('telepath: wagtail.blocks.StreamBlock', () => {
