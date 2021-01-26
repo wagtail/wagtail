@@ -262,7 +262,9 @@ class ListChild {
         <input type="hidden" data-listblock-deleted id="${this.prefix}-deleted" name="${this.prefix}-deleted" value="">
         <input type="hidden"
           data-listblock-index id="${this.prefix}-order" name="${this.prefix}-order" value="${index}">
+        <input type="hidden" name="${this.prefix}-type" value="${this.type}">
         <input type="hidden" name="${this.prefix}-id" value="${this.id || ''}">
+
         <div>
           <div class="c-sf-container__block-container">
             <div class="c-sf-block">
@@ -272,7 +274,7 @@ class ListChild {
                 </span>
                 <h3 class="c-sf-block__header__title"></h3>
                 <div class="c-sf-block__actions">
-                  <span class="c-sf-block__type"></span>
+                  <span class="c-sf-block__type">${this.blockDef.meta.label}</span>
                   <button type="button" id="${this.prefix}-moveup" class="c-sf-block__actions__single"
                       title="{% trans 'Move up' %}">
                     <i class="icon icon-arrow-up" aria-hidden="true"></i>
