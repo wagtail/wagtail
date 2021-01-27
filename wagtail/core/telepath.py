@@ -217,6 +217,7 @@ class ValueContext:
     """
     def __init__(self, parent_context):
         self.parent_context = parent_context
+        self.raw_values = {}
         self.packed_values = {}
         self.next_id = 0
 
@@ -231,6 +232,10 @@ class ValueContext:
             # not seen this value before, so pack it and store in packed_values
             packed_val = self._pack_as_value(val)
             self.packed_values[obj_id] = packed_val
+            # Also keep a reference to the original value to stop it from getting deallocated
+            # and the ID being recycled
+            self.raw_values[obj_id] = val
+
             return packed_val
 
         if existing_packed_val.id is None:
