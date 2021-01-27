@@ -899,32 +899,43 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         from django.db.models.fields import BLANK_CHOICE_DASH
         self.blank_choice_dash_label = BLANK_CHOICE_DASH[0][1]
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_required_multiple_choice_block(self):
+    def test_adapt_multiple_choice_block(self):
         block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
-        html = block.render_form('coffee', prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_required_multiple_choice_block_with_default(self):
+        block.set_name('test_choiceblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_choiceblock')
+        self.assertIsInstance(js_args[1], forms.Select)
+        self.assertEqual(list(js_args[1].choices), [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee')
+        ])
+        self.assertEqual(js_args[2], {
+            'label': 'Test choiceblock',
+            'required': True,
+            'icon': 'placeholder',
+            'classname': 'field multiple_choice_field widget-select_multiple fieldname-test_choiceblock'
+        })
+
+    def test_multiple_choice_block_with_default(self):
         block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], default='tea')
-        html = block.render_form('coffee', prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+        self.assertEqual(block.get_default(), 'tea')
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_required_multiple_choice_block_with_callable_choices(self):
+    def test_adapt_multiple_choice_block_with_callable_choices(self):
         def callable_choices():
             return [('tea', 'Tea'), ('coffee', 'Coffee')]
 
         block = blocks.MultipleChoiceBlock(choices=callable_choices)
-        html = block.render_form('coffee', prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+
+        block.set_name('test_choiceblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertIsInstance(js_args[1], forms.Select)
+        self.assertEqual(list(js_args[1].choices), [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee')
+        ])
 
     def test_validate_required_multiple_choice_block(self):
         block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')])
@@ -939,24 +950,13 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         with self.assertRaises(ValidationError):
             block.clean(None)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_non_required_multiple_choice_block(self):
+    def test_adapt_non_required_multiple_choice_block(self):
         block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
-        html = block.render_form('coffee', prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_non_required_multiple_choice_block_with_callable_choices(self):
-        def callable_choices():
-            return [('tea', 'Tea'), ('coffee', 'Coffee')]
+        block.set_name('test_choiceblock')
+        js_args = FieldBlockAdapter().js_args(block)
 
-        block = blocks.MultipleChoiceBlock(choices=callable_choices, required=False)
-        html = block.render_form('coffee', prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertInHTML('<option value="coffee" selected="selected">Coffee</option>', html)
+        self.assertFalse(js_args[2]['required'])
 
     def test_validate_non_required_multiple_choice_block(self):
         block = blocks.MultipleChoiceBlock(choices=[('tea', 'Tea'), ('coffee', 'Coffee')], required=False)
@@ -968,34 +968,37 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(block.clean(''), [])
         self.assertEqual(block.clean(None), [])
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_multiple_choice_block_with_existing_blank_choice(self):
+    def test_adapt_multiple_choice_block_with_existing_blank_choice(self):
         block = blocks.MultipleChoiceBlock(
             choices=[('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')],
             required=False)
-        html = block.render_form("", prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
-        self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
-        self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertInHTML('<option value="coffee">Coffee</option>', html)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_multiple_choice_block_with_existing_blank_choice_and_with_callable_choices(self):
+        block.set_name('test_choiceblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(list(js_args[1].choices), [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee'),
+            ('', 'No thanks')
+        ])
+
+    def test_adapt_multiple_choice_block_with_existing_blank_choice_and_with_callable_choices(self):
         def callable_choices():
             return [('tea', 'Tea'), ('coffee', 'Coffee'), ('', 'No thanks')]
 
         block = blocks.MultipleChoiceBlock(
             choices=callable_choices,
             required=False)
-        html = block.render_form("", prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
-        self.assertInHTML('<option value="" selected="selected">No thanks</option>', html)
-        self.assertIn('<option value="tea">Tea</option>', html)
-        self.assertIn('<option value="coffee">Coffee</option>', html)
 
-    @unittest.expectedFailure  # TODO(telepath)
+        block.set_name('test_choiceblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(list(js_args[1].choices), [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee'),
+            ('', 'No thanks')
+        ])
+
     def test_named_groups_without_blank_option(self):
         block = blocks.MultipleChoiceBlock(
             choices=[
@@ -1009,19 +1012,20 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
                 ]),
             ])
 
-        # test rendering with the blank option selected
-        html = block.render_form(None, prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<optgroup label="Alcoholic">', html)
-        self.assertIn('<option value="tea">Tea</option>', html)
+        block.set_name('test_choiceblock')
+        js_args = FieldBlockAdapter().js_args(block)
 
-        # test rendering with a non-blank option selected
-        html = block.render_form('tea', prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertIn('<optgroup label="Alcoholic">', html)
-        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+        self.assertEqual(list(js_args[1].choices), [
+            ('Alcoholic', [
+                ('gin', 'Gin'),
+                ('whisky', 'Whisky'),
+            ]),
+            ('Non-alcoholic', [
+                ('tea', 'Tea'),
+                ('coffee', 'Coffee'),
+            ]),
+        ])
 
-    @unittest.expectedFailure  # TODO(telepath)
     def test_named_groups_with_blank_option(self):
         block = blocks.MultipleChoiceBlock(
             choices=[
@@ -1039,22 +1043,23 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
             ],
             required=False)
 
-        # test rendering with the blank option selected
-        html = block.render_form(None, prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
-        self.assertIn('<optgroup label="Alcoholic">', html)
-        self.assertIn('<option value="tea">Tea</option>', html)
+        block.set_name('test_choiceblock')
+        js_args = FieldBlockAdapter().js_args(block)
 
-        # test rendering with a non-blank option selected
-        html = block.render_form('tea', prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertNotIn('<option value="">%s</option>' % self.blank_choice_dash_label, html)
-        self.assertNotInHTML('<option value="" selected="selected">%s</option>' % self.blank_choice_dash_label, html)
-        self.assertIn('<optgroup label="Alcoholic">', html)
-        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+        self.assertEqual(list(js_args[1].choices), [
+            ('Alcoholic', [
+                ('gin', 'Gin'),
+                ('whisky', 'Whisky'),
+            ]),
+            ('Non-alcoholic', [
+                ('tea', 'Tea'),
+                ('coffee', 'Coffee'),
+            ]),
+            ('Not thirsty', [
+                ('', 'No thanks')
+            ]),
+        ])
 
-    @unittest.expectedFailure  # TODO(telepath)
     def test_subclassing(self):
         class BeverageMultipleChoiceBlock(blocks.MultipleChoiceBlock):
             choices = [
@@ -1063,9 +1068,14 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
             ]
 
         block = BeverageMultipleChoiceBlock(required=False)
-        html = block.render_form('tea', prefix='beverage')
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+
+        block.set_name('test_choiceblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(list(js_args[1].choices), [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee'),
+        ])
 
         # subclasses of ChoiceBlock should deconstruct to a basic ChoiceBlock for migrations
         self.assertEqual(
@@ -1148,7 +1158,6 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
         result = json.loads(json.dumps(result))
         self.assertEqual(result, ["Section 2", "Block 2"])
 
-    @unittest.expectedFailure  # TODO(telepath)
     def test_deconstruct_with_callable_choices(self):
         def callable_choices():
             return [
@@ -1157,10 +1166,14 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
             ]
 
         block = blocks.MultipleChoiceBlock(choices=callable_choices, required=False)
-        html = block.render_form('tea', prefix='beverage')
 
-        self.assertTagInHTML('<select multiple id="beverage" name="beverage" placeholder="">', html)
-        self.assertInHTML('<option value="tea" selected="selected">Tea</option>', html)
+        block.set_name('test_choiceblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(list(js_args[1].choices), [
+            ('tea', 'Tea'),
+            ('coffee', 'Coffee'),
+        ])
 
         self.assertEqual(
             block.deconstruct(),
