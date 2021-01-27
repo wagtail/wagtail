@@ -510,21 +510,31 @@ class TestRichTextBlock(TestCase):
             result, '<p>Merry <a href="/events/christmas/">Christmas</a>!</p>'
         )
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form(self):
-        """
-        render_form should produce the editor-specific rendition of the rich text value
-        (which includes e.g. 'data-linktype' attributes on <a> elements)
-        """
+    def test_adapter(self):
+        from wagtail.admin.rich_text import HalloRichTextArea
+
+        block = blocks.RichTextBlock(editor='hallo')
+
+        block.set_name('test_richtextblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_richtextblock')
+        self.assertIsInstance(js_args[1], HalloRichTextArea)
+        self.assertEqual(js_args[2], {
+            'label': 'Test richtextblock',
+            'required': True,
+            'icon': 'doc-full',
+            'classname': 'field char_field widget-hallo_rich_text_area fieldname-test_richtextblock'
+        })
+
+    def test_get_form_state(self):
         block = blocks.RichTextBlock(editor='hallo')
         value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
-        result = block.render_form(value, prefix='richtext')
-        self.assertIn(
-            (
-                '&lt;p&gt;Merry &lt;a data-linktype=&quot;page&quot; data-id=&quot;4&quot;'
-                ' data-parent-id=&quot;3&quot; href=&quot;/events/christmas/&quot;&gt;Christmas&lt;/a&gt;!&lt;/p&gt;'
-            ),
-            result
+        form_state = block.get_form_state(value)
+
+        self.assertEqual(
+            form_state,
+            '<p>Merry <a data-linktype="page" data-id="4" data-parent-id="3" href="/events/christmas/">Christmas</a>!</p>'
         )
 
     def test_validate_required_richtext_block(self):
