@@ -18,6 +18,7 @@ from django.utils.safestring import SafeData, SafeText, mark_safe
 from django.utils.translation import gettext_lazy as __
 
 from wagtail.core import blocks
+from wagtail.core.blocks.field_block import FieldBlockAdapter
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
@@ -56,8 +57,24 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(html, '<h1>Hello world!</h1>')
 
+    def test_charblock_adapter(self):
+        block = blocks.CharBlock(help_text='Some helpful text')
+
+        block.set_name('test_block')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_block')
+        self.assertIsInstance(js_args[1], forms.TextInput)
+        self.assertEqual(js_args[2], {
+            'label': 'Test block',
+            'helpText': 'Some helpful text',
+            'required': True,
+            'icon': 'placeholder',
+            'classname': 'field char_field widget-text_input fieldname-test_block'
+        })
+
     @unittest.expectedFailure  # TODO(telepath)
-    def test_charfield_form_classname(self):
+    def test_charblock_adapter_form_classname(self):
         """
         Meta data test for FormField; this checks if both the meta values
         form_classname and classname are accepted and are rendered
@@ -66,15 +83,18 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         block = blocks.CharBlock(
             form_classname='special-char-formclassname'
         )
-        html = block.render_form("Hello world!")
-        self.assertEqual(html.count(' special-char-formclassname'), 1)
 
-        # Checks if it is  backward compatible with classname
+        block.set_name('test_block')
+        js_args = FieldBlockAdapter().js_args(block)
+        self.assertIn(' special-char-formclassname', js_args[2]['classname'])
+
+        # Checks if it is backward compatible with classname
         block_with_classname = blocks.CharBlock(
             classname='special-char-classname'
         )
-        html = block_with_classname.render_form("Hello world!")
-        self.assertEqual(html.count(' special-char-classname'), 1)
+        block_with_classname.set_name('test_block')
+        js_args = FieldBlockAdapter().js_args(block_with_classname)
+        self.assertIn(' special-char-classname', js_args[2]['classname'])
 
     def test_charfield_render_with_template_with_extra_context(self):
         block = ContextCharBlock(template='tests/blocks/heading_block.html')
@@ -84,29 +104,11 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(html, '<h1 lang="fr">BONJOUR LE MONDE!</h1>')
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_charfield_render_form(self):
+    def test_charfield_get_form_state(self):
         block = blocks.CharBlock()
-        html = block.render_form("Hello world!")
+        form_state = block.get_form_state("Hello world!")
 
-        self.assertIn('<div class="field char_field widget-text_input">', html)
-        self.assertInHTML('<input id="" name="" placeholder="" type="text" value="Hello world!" />', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_charfield_render_form_with_prefix(self):
-        block = blocks.CharBlock()
-        html = block.render_form("Hello world!", prefix='foo')
-
-        self.assertInHTML('<input id="foo" name="foo" placeholder="" type="text" value="Hello world!" />', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_charfield_render_form_with_error(self):
-        block = blocks.CharBlock()
-        html = block.render_form(
-            "Hello world!",
-            errors=ErrorList([ValidationError("This field is required.")]))
-
-        self.assertIn('This field is required.', html)
+        self.assertEqual(form_state, "Hello world!")
 
     def test_charfield_searchable_content(self):
         block = blocks.CharBlock()
@@ -136,8 +138,7 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         self.assertEqual(html, "choice-2")
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_choicefield_render_form(self):
+    def test_choiceblock_adapter(self):
         class ChoiceBlock(blocks.FieldBlock):
             field = forms.ChoiceField(choices=(
                 ('choice-1', "Choice 1"),
@@ -145,12 +146,22 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
             ))
 
         block = ChoiceBlock()
-        html = block.render_form('choice-2')
 
-        self.assertIn('<div class="field choice_field widget-select">', html)
-        self.assertTagInHTML('<select id="" name="" placeholder="">', html)
-        self.assertInHTML('<option value="choice-1">Choice 1</option>', html)
-        self.assertInHTML('<option value="choice-2" selected="selected">Choice 2</option>', html)
+        block.set_name('test_choiceblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_choiceblock')
+        self.assertIsInstance(js_args[1], forms.Select)
+        self.assertEqual(js_args[1].choices, [
+            ('choice-1', "Choice 1"),
+            ('choice-2', "Choice 2"),
+        ])
+        self.assertEqual(js_args[2], {
+            'label': 'Test choiceblock',
+            'required': True,
+            'icon': 'placeholder',
+            'classname': 'field choice_field widget-select fieldname-test_choiceblock'
+        })
 
     def test_searchable_content(self):
         """
@@ -163,7 +174,6 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         block = CustomBlock()
         self.assertEqual(block.get_searchable_content("foo bar"), [])
 
-    @unittest.expectedFailure  # TODO(telepath)
     def test_form_handling_is_independent_of_serialisation(self):
         class Base64EncodingCharBlock(blocks.CharBlock):
             """A CharBlock with a deliberately perverse JSON (de)serialisation format
@@ -178,11 +188,8 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
                 return base64.b64encode(native_value)
 
         block = Base64EncodingCharBlock()
-        form_html = block.render_form('hello world', 'title')
-        self.assertIn('value="hello world"', form_html)
-
-        value_from_form = block.value_from_datadict({'title': 'hello world'}, {}, 'title')
-        self.assertEqual('hello world', value_from_form)
+        form_state = block.get_form_state('hello world')
+        self.assertEqual(form_state, "hello world")
 
     @unittest.expectedFailure  # TODO(telepath)
     def test_prepare_value_called(self):
@@ -228,11 +235,9 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
 
         # Check that the form value is serialized with a prefix correctly
         value = PrefixWrapper('foo')
-        html = block.render_form(value, 'url')
-        self.assertInHTML(
-            '<input id="url" name="url" placeholder="" type="text" value="{}" />'.format(
-                value.with_prefix()),
-            html)
+        form_state = block.get_form_state(value)
+
+        self.assertEqual(form_state, 'http://example.com/foo')
 
         # Check that the value was coerced back to a PrefixValue
         data = {'url': 'http://example.com/bar'}
