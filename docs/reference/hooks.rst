@@ -483,7 +483,7 @@ Hooks for customising the way users are directed through the process of creating
   .. code-block:: python
 
       @hooks.register('after_create_page')
-      def set_attribute_after_page_create(request, page)
+      def set_attribute_after_page_create(request, page):
          page.title = 'Persistent Title'
          new_revision = page.save_revision()
          if page.live:
