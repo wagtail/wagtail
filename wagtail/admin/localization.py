@@ -62,6 +62,7 @@ def get_js_translation_strings():
         'SEE_ALL': _('See all'),
         'CLOSE_EXPLORER': _('Close explorer'),
         'ALT_TEXT': _('Alt text'),
+        'DECORATIVE_IMAGE': _('Decorative image'),
         'WRITE_HERE': _('Write here…'),
         'HORIZONTAL_LINE': _('Horizontal line'),
         'LINE_BREAK': _('Line break'),

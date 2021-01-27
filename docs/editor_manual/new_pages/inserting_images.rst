@@ -53,7 +53,8 @@ In addition, Wagtail allows you to choose the format of your image.
 .. image:: ../../_static/images/screen18_image_format.png
 
 #. You can select how the image is displayed by selecting one of the format options.
-#. You must provide specific `alt text <https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Images_in_HTML#Alternative_text>`_ for your image.
+#. You can choose if the image is `decorative <https://www.w3.org/WAI/tutorials/images/decorative/>`_, in which case you will not need to enter alt text for your image.
+#. If you do not choose for the image to be decorative, you must provide specific `alt text <https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Images_in_HTML#Alternative_text>`_ for your image.
 
 The format options available are described below:
 

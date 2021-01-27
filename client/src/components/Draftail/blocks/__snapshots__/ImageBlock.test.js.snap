@@ -54,7 +54,7 @@ exports[`ImageBlock no data 1`] = `
   <p
     className="ImageBlock__alt"
   >
-    Alt text: “”
+    Decorative image
   </p>
   <button
     className="button Tooltip__button"
@@ -89,7 +89,7 @@ exports[`ImageBlock renders 1`] = `
   <p
     className="ImageBlock__alt"
   >
-    Alt text: “”
+    Decorative image
   </p>
   <button
     className="button Tooltip__button"

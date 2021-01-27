@@ -30,6 +30,7 @@ global.wagtailConfig = {
     SEE_ALL: 'See all',
     CLOSE_EXPLORER: 'Close explorer',
     ALT_TEXT: 'Alt text',
+    DECORATIVE_IMAGE: 'Decorative image',
     WRITE_HERE: 'Write here…',
     HORIZONTAL_LINE: 'Horizontal line',
     LINE_BREAK: 'Line break',

@@ -1034,9 +1034,19 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         response = self.get(params={'alt_text': "some previous alt text"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'value=\\"some previous alt text\\"')
+        self.assertNotContains(response, 'id=\\"id_image-chooser-insertion-image_is_decorative\\" checked')
+
+    def test_with_edit_params_no_alt_text_marks_as_decorative(self):
+        response = self.get(params={'alt_text': ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id=\\"id_image-chooser-insertion-image_is_decorative\\" checked')
 
     def test_post_response(self):
-        response = self.post({'image-chooser-insertion-format': 'left', 'image-chooser-insertion-alt_text': 'Arthur "two sheds" Jackson'})
+        response = self.post({
+            'image-chooser-insertion-format': 'left',
+            'image-chooser-insertion-image_is_decorative': False,
+            'image-chooser-insertion-alt_text': 'Arthur "two sheds" Jackson',
+        })
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
@@ -1050,6 +1060,27 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         self.assertEqual(result['format'], 'left')
         self.assertEqual(result['alt'], 'Arthur "two sheds" Jackson')
         self.assertIn('alt="Arthur &quot;two sheds&quot; Jackson"', result['html'])
+
+    def test_post_response_image_is_decorative_discards_alt_text(self):
+        response = self.post({
+            'image-chooser-insertion-format': 'left',
+            'image-chooser-insertion-alt_text': 'Arthur "two sheds" Jackson',
+            'image-chooser-insertion-image_is_decorative': True,
+        })
+        response_json = json.loads(response.content.decode())
+        result = response_json['result']
+
+        self.assertEqual(result['alt'], '')
+        self.assertIn('alt=""', result['html'])
+
+    def test_post_response_image_is_not_decorative_missing_alt_text(self):
+        response = self.post({
+            'image-chooser-insertion-format': 'left',
+            'image-chooser-insertion-alt_text': '',
+            'image-chooser-insertion-image_is_decorative': False,
+        })
+        response_json = json.loads(response.content.decode())
+        self.assertIn('Please add some alt text for your image or mark it as decorative', response_json['html'])
 
 
 class TestImageChooserUploadView(TestCase, WagtailTestUtils):
