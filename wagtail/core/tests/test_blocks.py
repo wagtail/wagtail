@@ -452,7 +452,6 @@ class TestRegexBlock(TestCase):
 
         self.assertIn('Enter a valid value.', context.exception.messages)
 
-    @unittest.expectedFailure  # TODO(telepath)
     def test_raises_custom_error_message(self):
         test_message = 'Not a valid library card number.'
         block = blocks.RegexBlock(regex=r'^[0-9]{3}$', error_messages={
@@ -463,12 +462,6 @@ class TestRegexBlock(TestCase):
             block.clean("[/]")
 
         self.assertIn(test_message, context.exception.messages)
-
-        html = block.render_form(
-            "[/]",
-            errors=ErrorList([ValidationError(test_message)]))
-
-        self.assertIn(test_message, html)
 
     def test_render_with_validator(self):
         def validate_is_foo(value):
@@ -2118,7 +2111,6 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             api_representation, ['Hello world!', 'Bonjour le monde!']
         )
 
-    @unittest.expectedFailure  # TODO(telepath)
     def render_form(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
