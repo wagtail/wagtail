@@ -233,9 +233,11 @@ class ValueContext:
             self.packed_values[obj_id] = packed_val
             return packed_val
 
-        # Assign existing_packed_val an ID so that we can create references to it
-        existing_packed_val.id = self.next_id
-        self.next_id += 1
+        if existing_packed_val.id is None:
+            # Assign existing_packed_val an ID so that we can create references to it
+            existing_packed_val.id = self.next_id
+            self.next_id += 1
+
         return existing_packed_val
 
     def _pack_as_value(self, obj):
