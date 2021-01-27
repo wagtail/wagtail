@@ -61,7 +61,7 @@ class FieldBlock(Block):
         return self.field.required
 
     def get_form_state(self, value):
-        return self.field.widget.format_value(self.value_for_form(value))
+        return self.field.widget.format_value(self.field.prepare_value(self.value_for_form(value)))
 
     class Meta:
         # No icon specified here, because that depends on the purpose that the
