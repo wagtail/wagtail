@@ -1,3 +1,6 @@
+import itertools
+import unittest
+
 from django.test import TestCase
 
 from wagtail.core.telepath import Adapter, JSContext, register
@@ -242,3 +245,56 @@ class TestPacking(TestCase):
                 ]
             },
         ])
+
+
+class Ark:
+    def __init__(self, animals):
+        self.animals = animals
+
+    def animals_by_type(self):
+        return itertools.groupby(self.animals, lambda animal: animal['type'])
+
+
+class ArkAdapter(Adapter):
+    js_constructor = 'boats.Ark'
+
+    def js_args(self, obj):
+        return [obj.animals_by_type()]
+
+
+register(ArkAdapter(), Ark)
+
+
+class TestIDCollisions(TestCase):
+    @unittest.expectedFailure
+    def test_grouper_object_collisions(self):
+        """
+        Certain functions such as itertools.groupby will cause new objects (namely, tuples and
+        custom itertools._grouper iterables) to be created in the course of iterating over the
+        object tree. If we're not careful, these will be released and the memory reallocated to
+        new objects while we're still iterating, leading to ID collisions.
+        """
+        # create 100 Ark objects all with distinct animals (no object references are re-used)
+        arks = [
+            Ark([
+                {'type': 'lion', 'name': 'Simba %i' % i}, {'type': 'lion', 'name': 'Nala %i' % i},
+                {'type': 'dog', 'name': 'Lady %i' % i}, {'type': 'dog', 'name': 'Tramp %i' % i},
+            ])
+            for i in range(0, 100)
+        ]
+
+        ctx = JSContext()
+        result = ctx.pack(arks)
+
+        self.assertEqual(len(result), 100)
+        for i, ark in enumerate(result):
+            # each object should be represented in full, with no _id or _ref keys
+            self.assertEqual(ark, {
+                '_type': 'boats.Ark',
+                '_args': [
+                    [
+                        ['lion', [{'type': 'lion', 'name': 'Simba %i' % i}, {'type': 'lion', 'name': 'Nala %i' % i}]],
+                        ['dog', [{'type': 'dog', 'name': 'Lady %i' % i}, {'type': 'dog', 'name': 'Tramp %i' % i}]],
+                    ]
+                ]
+            })
