@@ -80,8 +80,16 @@ class FieldBlockAdapter(Adapter):
             camelcase_to_underscore(block.field.__class__.__name__),
             'widget-' + camelcase_to_underscore(block.field.widget.__class__.__name__),
             'fieldname-' + block.name,
-            # TODO: if errors then add 'error'
         ]
+
+        form_classname = getattr(block.meta, 'form_classname', '')
+        if form_classname:
+            classname.append(form_classname)
+
+        # Provided for backwards compatibility. Replaced with 'form_classname'
+        legacy_classname = getattr(block.meta, 'classname', '')
+        if legacy_classname:
+            classname.append(legacy_classname)
 
         meta = {
             'label': block.label,
