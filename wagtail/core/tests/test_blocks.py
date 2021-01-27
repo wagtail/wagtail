@@ -1241,13 +1241,30 @@ class TestRawHTMLBlock(unittest.TestCase):
         self.assertEqual(result, '<blink>BÖÖM</blink>')
         self.assertIsInstance(result, SafeData)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form(self):
+    def test_get_form_state(self):
         block = blocks.RawHTMLBlock()
-        result = block.render_form(mark_safe('<blink>BÖÖM</blink>'), prefix='rawhtml')
-        self.assertIn('<textarea ', result)
-        self.assertIn('name="rawhtml"', result)
-        self.assertIn('&lt;blink&gt;BÖÖM&lt;/blink&gt;', result)
+        form_state = block.get_form_state('<blink>BÖÖM</blink>')
+
+        self.assertEqual(form_state, '<blink>BÖÖM</blink>')
+
+    def test_adapt(self):
+        block = blocks.RawHTMLBlock()
+
+        block.set_name('test_rawhtmlblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_rawhtmlblock')
+        self.assertIsInstance(js_args[1], forms.Textarea)
+        self.assertEqual(js_args[1].attrs, {
+            'cols': '40',
+            'rows': '10'
+        })
+        self.assertEqual(js_args[2], {
+            'label': 'Test rawhtmlblock',
+            'required': True,
+            'icon': 'code',
+            'classname': 'field char_field widget-textarea fieldname-test_rawhtmlblock'
+        })
 
     def test_form_response(self):
         block = blocks.RawHTMLBlock()
