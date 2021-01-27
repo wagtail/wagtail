@@ -190,7 +190,6 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
         form_state = block.get_form_state('hello world')
         self.assertEqual(form_state, "hello world")
 
-    @unittest.expectedFailure  # TODO(telepath)
     def test_prepare_value_called(self):
         """
         Check that Field.prepare_value is called before sending the value to
