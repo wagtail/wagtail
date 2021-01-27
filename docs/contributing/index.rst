@@ -65,5 +65,6 @@ More information
     html_guidelines
     css_guidelines
     javascript_guidelines
+    documentation_guidelines
     security
     release_process
