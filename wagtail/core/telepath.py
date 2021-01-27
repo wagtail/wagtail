@@ -248,10 +248,8 @@ class ValueContext:
 
         # as fallback, try handling as an iterable
         try:
-            return ListNode([self.pack(item) for item in obj])
-        except UnpackableTypeError:  # error while packing an item
-            raise
+            items = iter(obj)
         except TypeError:  # obj is not iterable
-            pass
-
-        raise UnpackableTypeError("don't know how to pack object: %r" % obj)
+            raise UnpackableTypeError("don't know how to pack object: %r" % obj)
+        else:
+            return ListNode([self.pack(item) for item in items])
