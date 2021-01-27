@@ -134,6 +134,35 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         modal.close();
     },
     'select_format': function(modal) {
+
+        var decorativeImage = document.querySelector('#id_image-chooser-insertion-image_is_decorative');
+        var altText = document.querySelector('#id_image-chooser-insertion-alt_text');
+        var altTextLabel = document.querySelector('[for="id_image-chooser-insertion-alt_text"]');
+
+        if (decorativeImage.checked) {
+            disableAltText();
+        } else {
+            enableAltText();
+        }
+
+        decorativeImage.addEventListener('change', function(event){
+            if (event.target.checked) {
+                disableAltText();
+            } else {
+                enableAltText();
+            }
+        });
+
+        function disableAltText() {
+            altText.setAttribute('disabled', 'disabled');
+            altTextLabel.classList.remove('required');
+        }
+
+        function enableAltText() {
+            altText.removeAttribute('disabled');
+            altTextLabel.classList.add('required');
+        }
+
         $('form', modal.body).on('submit', function() {
             $.post(this.action, $(this).serialize(), modal.loadResponseText, 'text');
 

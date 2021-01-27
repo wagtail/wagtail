@@ -241,6 +241,7 @@ def chooser_select_format(request, image_id):
     else:
         initial = {'alt_text': image.default_alt_text}
         initial.update(request.GET.dict())
+        initial['image_is_decorative'] = initial['alt_text'] == ''
         form = ImageInsertionForm(initial=initial, prefix='image-chooser-insertion')
 
     return render_modal_workflow(
