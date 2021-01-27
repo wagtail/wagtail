@@ -1,5 +1,4 @@
 import itertools
-import unittest
 
 from django.test import TestCase
 
@@ -266,7 +265,6 @@ register(ArkAdapter(), Ark)
 
 
 class TestIDCollisions(TestCase):
-    @unittest.expectedFailure
     def test_grouper_object_collisions(self):
         """
         Certain functions such as itertools.groupby will cause new objects (namely, tuples and
