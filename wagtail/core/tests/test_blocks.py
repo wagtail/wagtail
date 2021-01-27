@@ -73,7 +73,6 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
             'classname': 'field char_field widget-text_input fieldname-test_block'
         })
 
-    @unittest.expectedFailure  # TODO(telepath)
     def test_charblock_adapter_form_classname(self):
         """
         Meta data test for FormField; this checks if both the meta values
