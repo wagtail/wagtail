@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`telepath: wagtail.blocks.FieldBlock it renders correctly 1`] = `
+"<div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix\\" id=\\"the-prefix\\">The widget</p>
+            <span></span>
+          </div>
+        <p class=\\"help\\">drink <em>more</em> water</p></div>
+      </div>"
+`;
