@@ -95,11 +95,12 @@ class ImageInsertionForm(forms.Form):
     into a rich text area
     """
     format = forms.ChoiceField(
+        label=_("Format"),
         choices=[(format.name, format.label) for format in get_image_formats()],
         widget=forms.RadioSelect
     )
-    image_is_decorative = forms.BooleanField(required=False)
-    alt_text = forms.CharField(required=False)
+    image_is_decorative = forms.BooleanField(required=False, label=_("Image is decorative"))
+    alt_text = forms.CharField(required=False, label=_("Alt text"))
 
     def clean_alt_text(self):
         alt_text = self.cleaned_data['alt_text']
