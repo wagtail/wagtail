@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
+"<span>
+          <div class=\\"help\\">
+            <div class=\\"icon-help\\">?</div>
+            use <strong>plenty</strong> of these
+          </div>
+        </span><div class=\\"c-sf-container \\">
+        <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-stream-count=\\"\\" value=\\"2\\">
+        <div data-streamfield-stream-container=\\"\\"><div>
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+          <i aria-hidden=\\"true\\">+</i>
+        </button>
+        <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
+          <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"><div class=\\"c-sf-add-panel__grid\\"><button type=\\"button\\" class=\\"c-sf-button action-add-block-test_block_a\\">
+            <span class=\\"c-sf-button__icon\\">
+              <i class=\\"icon icon-placeholder\\"></i>
+            </span>
+            <span class=\\"c-sf-button__label\\">Test Block A</span>
+          </button><button type=\\"button\\" class=\\"c-sf-button action-add-block-test_block_b\\">
+            <span class=\\"c-sf-button__icon\\">
+              <i class=\\"icon icon-pilcrow\\"></i>
+            </span>
+            <span class=\\"c-sf-button__label\\">Test Block B</span>
+          </button></div></div>
+        </div>
+      </div><div aria-hidden=\\"false\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"test_block_a\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-id\\" value=\\"1\\">
+
+        <div>
+          <div class=\\"c-sf-container__block-container\\">
+            <div class=\\"c-sf-block\\">
+              <div class=\\"c-sf-block__header\\">
+                <span class=\\"c-sf-block__header__icon\\">
+                  <i class=\\"icon icon-placeholder\\"></i>
+                </span>
+                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__actions\\">
+                  <span class=\\"c-sf-block__type\\">Test Block A</span>
+                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                    <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                    <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                    <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                </div>
+              </div>
+              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+                <div class=\\"c-sf-block__content-inner\\">
+                  <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">Block A widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><div>
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+          <i aria-hidden=\\"true\\">+</i>
+        </button>
+        <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
+          <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"><div class=\\"c-sf-add-panel__grid\\"><button type=\\"button\\" class=\\"c-sf-button action-add-block-test_block_a\\">
+            <span class=\\"c-sf-button__icon\\">
+              <i class=\\"icon icon-placeholder\\"></i>
+            </span>
+            <span class=\\"c-sf-button__label\\">Test Block A</span>
+          </button><button type=\\"button\\" class=\\"c-sf-button action-add-block-test_block_b\\">
+            <span class=\\"c-sf-button__icon\\">
+              <i class=\\"icon icon-pilcrow\\"></i>
+            </span>
+            <span class=\\"c-sf-button__label\\">Test Block B</span>
+          </button></div></div>
+        </div>
+      </div><div aria-hidden=\\"false\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"test_block_b\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-id\\" value=\\"2\\">
+
+        <div>
+          <div class=\\"c-sf-container__block-container\\">
+            <div class=\\"c-sf-block\\">
+              <div class=\\"c-sf-block__header\\">
+                <span class=\\"c-sf-block__header__icon\\">
+                  <i class=\\"icon icon-pilcrow\\"></i>
+                </span>
+                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__actions\\">
+                  <span class=\\"c-sf-block__type\\">Test Block B</span>
+                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                    <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                    <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                    <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                </div>
+              </div>
+              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+                <div class=\\"c-sf-block__content-inner\\">
+                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">Block B widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><div>
+        <button data-streamblock-menu-open=\\"\\" type=\\"button\\" title=\\"Add\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+          <i aria-hidden=\\"true\\">+</i>
+        </button>
+        <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
+          <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"><div class=\\"c-sf-add-panel__grid\\"><button type=\\"button\\" class=\\"c-sf-button action-add-block-test_block_a\\">
+            <span class=\\"c-sf-button__icon\\">
+              <i class=\\"icon icon-placeholder\\"></i>
+            </span>
+            <span class=\\"c-sf-button__label\\">Test Block A</span>
+          </button><button type=\\"button\\" class=\\"c-sf-button action-add-block-test_block_b\\">
+            <span class=\\"c-sf-button__icon\\">
+              <i class=\\"icon icon-pilcrow\\"></i>
+            </span>
+            <span class=\\"c-sf-button__label\\">Test Block B</span>
+          </button></div></div>
+        </div>
+      </div></div>
+      </div>"
+`;
