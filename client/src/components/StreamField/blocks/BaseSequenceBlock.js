@@ -28,10 +28,12 @@ export class BaseSequenceChild {
                 <h3 class="c-sf-block__header__title"></h3>
                 <div class="c-sf-block__actions">
                   <span class="c-sf-block__type">${this.blockDef.meta.label}</span>
-                  <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move up' %}">
+                  <button type="button" data-move-up-button class="c-sf-block__actions__single"
+                      disabled title="{% trans 'Move up' %}">
                     <i class="icon icon-arrow-up" aria-hidden="true"></i>
                   </button>
-                  <button type="button" class="c-sf-block__actions__single" title="{% trans 'Move down' %}">
+                  <button type="button" data-move-down-button class="c-sf-block__actions__single"
+                      disabled title="{% trans 'Move down' %}">
                     <i class="icon icon-arrow-down" aria-hidden="true"></i>
                   </button>
                   <button type="button" data-delete-button
@@ -54,14 +56,18 @@ export class BaseSequenceChild {
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
-    this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
-
-    this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
-    this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
 
     dom.find('button[data-delete-button]').click(() => {
       if (this.onRequestDelete) this.onRequestDelete(this.index);
     });
+
+    this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
+    this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
+
+    this.moveUpButton = dom.find('button[data-move-up-button]');
+    this.moveDownButton = dom.find('button[data-move-down-button]');
+
+    this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
 
     if (animate) {
       dom.hide().slideDown();
@@ -77,6 +83,19 @@ export class BaseSequenceChild {
     } else {
       $(this.element).hide().attr('aria-hidden', 'true');
     }
+  }
+
+  enableMoveUp() {
+    this.moveUpButton.removeAttr('disabled');
+  }
+  disableMoveUp() {
+    this.moveUpButton.attr('disabled', 'true');
+  }
+  enableMoveDown() {
+    this.moveDownButton.removeAttr('disabled');
+  }
+  disableMoveDown() {
+    this.moveDownButton.attr('disabled', 'true');
   }
 
   setIndex(newIndex) {
