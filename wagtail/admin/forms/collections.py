@@ -68,6 +68,7 @@ class CollectionChoiceField(forms.ModelChoiceField):
 
 class CollectionForm(forms.ModelForm):
     parent = CollectionChoiceField(
+        label=_("Parent"),
         queryset=Collection.objects.all(),
         required=False,
         help_text=_(
@@ -279,6 +280,7 @@ def collection_member_permission_formset_factory(
         (i.e. group or user) for a specific collection
         """
         collection = CollectionChoiceField(
+            label=_("Collection"),
             queryset=Collection.objects.all().prefetch_related('group_permissions'),
             empty_label=None
         )
