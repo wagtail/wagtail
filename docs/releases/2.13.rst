@@ -14,6 +14,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Support passing ``min_num``, ``max_num`` and ``block_counts`` arguments directly to ``StreamField`` (Haydn Greatnews, Matt Westcott)
+ * Add the option to set rich text images as decorative, without alt text (Helen Chapman, Thibaud Colas)
 
 
 Bug fixes
@@ -21,6 +22,7 @@ Bug fixes
 
  * StreamField required status is now consistently handled by the ``blank`` keyword argument (Matt Westcott)
  * Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
+ * Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
 
 
 Upgrade considerations
