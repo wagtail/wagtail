@@ -33,7 +33,7 @@ Use heading levels to create sections, and allow users to link straight to a spe
 
 ### Lists
 
-Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bullets. Nest with indentation (4 spaces per level).
+Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bullets. Nest by indenting with 4 spaces.
 
 ```md
 - Bullet 1
@@ -156,18 +156,18 @@ Images are hard to keep up-to-date as documentation evolves, but can be worthwhi
 With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html) feature, Sphinx supports writing documentation in Python docstrings for subsequent integration in the project’s documentation pages. This is a very powerful feature which we highly recommend using to document Wagtail’s APIs.
 
     ```eval_rst
-    .. module:: wagtail.tests.testapp.views
+    .. module:: wagtail.core.utils
 
-    .. autofunction:: user_is_called_bob
+    .. autofunction:: cautious_slugify
     ```
 
 <details>
 <summary>Rendered output</summary>
 
 ```eval_rst
-.. module:: wagtail.tests.testapp.views
+.. module:: wagtail.core.utils
 
-.. autofunction:: user_is_called_bob
+.. autofunction:: cautious_slugify
 ```
 
 </details>
@@ -254,16 +254,18 @@ We can add supplementary information in documentation with the HTML `<details>` 
 
 <summary>Supplementary information</summary>
 
-This content will be visible when expanding the content.
+This will be visible when expanding the content.
 
 </details>
 ```
+
+Example:
 
 <details>
 
 <summary>Supplementary information</summary>
 
-This content will be visible when expanding the content.
+This will be visible when expanding the content.
 
 </details>
 
@@ -291,7 +293,7 @@ reStructuredText figures (`.. figure::`) only offer very marginal improvements o
 
 We generally want to favour Markdown over reStructuredText, to make it as simple as possible for newcomers to make documentation contributions to Wagtail. Always prefer Markdown, unless the document’s formatting highly depends on reStructuredText syntax.
 
-If you want to use a specifix Sphinx directive, consult with core contributors to see whether its usage is justified, and document its expected usage on this page.
+If you want to use a specific Sphinx directive, consult with core contributors to see whether its usage is justified, and document its expected usage on this page.
 
 ### Arbitrary HTML
 
