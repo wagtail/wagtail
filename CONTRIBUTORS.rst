@@ -494,6 +494,7 @@ Contributors
 * Matthias Rohmer
 * Joshua Marantz
 * Mike Brown
+* Helder Correia
 
 Translators
 ===========
