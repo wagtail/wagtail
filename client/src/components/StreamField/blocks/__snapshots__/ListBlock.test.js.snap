@@ -25,10 +25,10 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\"></span>
-                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"{% trans 'Move up' %}\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\" disabled=\\"disabled\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
                   <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
@@ -67,10 +67,10 @@ exports[`telepath: wagtail.blocks.ListBlock deleteBlock() deletes a block 1`] = 
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\"></span>
-                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
                   <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
@@ -125,10 +125,10 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\"></span>
-                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"{% trans 'Move up' %}\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
                   <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
@@ -167,10 +167,10 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\"></span>
-                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"{% trans 'Move down' %}\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
                   <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">

@@ -81,6 +81,25 @@ export class ListBlock {
     });
     this.children.push(child);
     this.countInput.val(this.children.length);
+
+    const isFirstChild = (index === 0);
+    /* isLastChild is always true for append, but we might as well get the logic for arbitrary
+    insertions right... */
+    const isLastChild = (index === this.children.length - 1);
+    if (!isFirstChild) {
+      child.enableMoveUp();
+      if (isLastChild) {
+        /* previous child (which was previously the last one) can now move down */
+        this.children[index - 1].enableMoveDown();
+      }
+    }
+    if (!isLastChild) {
+      child.enableMoveDown();
+      if (isFirstChild) {
+        /* next child (which was previously the first one) can now move up */
+        this.children[index + 1].enableMoveUp();
+      }
+    }
   }
 
   deleteBlock(index) {
@@ -91,6 +110,15 @@ export class ListBlock {
     their array indexes */
     for (let i = index; i < this.children.length; i++) {
       this.children[i].setIndex(i);
+    }
+
+    if (index === 0 && this.children.length > 0) {
+      /* we have removed the first child; the new first child cannot be moved up */
+      this.children[0].disableMoveUp();
+    }
+    if (index === this.children.length && this.children.length > 0) {
+      /* we have removed the last child; the new last child cannot be moved down */
+      this.children[this.children.length - 1].disableMoveDown();
     }
   }
 
