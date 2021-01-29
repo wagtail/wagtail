@@ -108,6 +108,11 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 
+  test('it renders menus on opening', () => {
+    boundBlock.menus[1].open();
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
   test('Widget constructors are called with correct parameters', () => {
     expect(constructor.mock.calls.length).toBe(2);
 
