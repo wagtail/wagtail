@@ -19,6 +19,7 @@ from django.utils.translation import gettext_lazy as __
 
 from wagtail.core import blocks
 from wagtail.core.blocks.field_block import FieldBlockAdapter
+from wagtail.core.blocks.list_block import ListBlockAdapter
 from wagtail.core.blocks.struct_block import StructBlockAdapter
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText
@@ -1575,7 +1576,7 @@ class TestStructBlock(SimpleTestCase):
             'label': 'Test structblock',
             'required': False,
             'icon': 'placeholder',
-            'classname': 'struct-block'
+            'classname': 'struct-block',
         })
 
         self.assertEqual(len(js_args[1]), 2)
@@ -2112,90 +2113,29 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             api_representation, ['Hello world!', 'Bonjour le monde!']
         )
 
-    def render_form(self):
+    def test_adapt(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
             link = blocks.URLBlock()
 
         block = blocks.ListBlock(LinkBlock)
 
-        html = block.render_form([
-            {
-                'title': "Wagtail",
-                'link': 'http://www.wagtail.io',
+        block.set_name('test_listblock')
+        js_args = ListBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_listblock')
+        self.assertIsInstance(js_args[1], LinkBlock)
+        self.assertEqual(js_args[2], {'title': None, 'link': None})
+        self.assertEqual(js_args[3], {
+            'label': 'Test listblock',
+            'icon': 'placeholder',
+            'classname': None,
+            'strings': {
+                'DELETE': 'Delete',
+                'MOVE_DOWN': 'Move down',
+                'MOVE_UP': 'Move up',
             },
-            {
-                'title': "Django",
-                'link': 'http://www.djangoproject.com',
-            },
-        ], prefix='links')
-
-        return html
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_wrapper_class(self):
-        html = self.render_form()
-
-        self.assertIn('<div class="c-sf-container">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_count_field(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" name="links-count" id="links-count" value="2">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_delete_field(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="links-0-deleted" name="links-0-deleted" value="">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_order_fields(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="links-0-order" name="links-0-order" value="0">', html)
-        self.assertIn('<input type="hidden" id="links-1-order" name="links-1-order" value="1">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_labels(self):
-        html = self.render_form()
-
-        self.assertIn('<label class="field__label" for="links-0-value-title">Title</label>', html)
-        self.assertIn('<label class="field__label" for="links-0-value-link">Link</label>', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_values(self):
-        html = self.render_form()
-
-        self.assertInHTML(
-            (
-                '<input id="links-0-value-title" name="links-0-value-title" placeholder="Title"'
-                ' type="text" value="Wagtail" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="links-0-value-link" name="links-0-value-link" placeholder="Link" type="url"'
-                ' value="http://www.wagtail.io" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="links-1-value-title" name="links-1-value-title" placeholder="Title" type="text"'
-                ' value="Django" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="links-1-value-link" name="links-1-value-link" placeholder="Link"'
-                ' type="url" value="http://www.djangoproject.com" />'
-            ),
-            html
-        )
+        })
 
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
@@ -2257,41 +2197,23 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         block_value = block.value_from_datadict(post_data, {}, 'shoppinglist')
         self.assertEqual(block_value[2], "item 2")
 
-    @unittest.expectedFailure  # TODO(telepath)
     def test_can_specify_default(self):
-        class ShoppingListBlock(blocks.StructBlock):
-            shop = blocks.CharBlock()
-            items = blocks.ListBlock(blocks.CharBlock(), default=['peas', 'beans', 'carrots'])
+        block = blocks.ListBlock(blocks.CharBlock(), default=['peas', 'beans', 'carrots'])
 
-        block = ShoppingListBlock()
-        # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
-        form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
+        self.assertEqual(block.get_default(), ['peas', 'beans', 'carrots'])
 
-        self.assertIn(
-            '<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="3">',
-            form_html
-        )
-        self.assertIn('value="peas"', form_html)
-
-    @unittest.expectedFailure  # TODO(telepath)
     def test_default_default(self):
         """
         if no explicit 'default' is set on the ListBlock, it should fall back on
         a single instance of the child block in its default state.
         """
-        class ShoppingListBlock(blocks.StructBlock):
-            shop = blocks.CharBlock()
-            items = blocks.ListBlock(blocks.CharBlock(default='chocolate'))
+        block = blocks.ListBlock(blocks.CharBlock(default='chocolate'))
 
-        block = ShoppingListBlock()
-        # the value here does not specify an 'items' field, so this should revert to the ListBlock's default
-        form_html = block.render_form(block.to_python({'shop': 'Tesco'}), prefix='shoppinglist')
+        self.assertEqual(block.get_default(), ['chocolate'])
 
-        self.assertIn(
-            '<input type="hidden" name="shoppinglist-items-count" id="shoppinglist-items-count" value="1">',
-            form_html
-        )
-        self.assertIn('value="chocolate"', form_html)
+        block.set_name('test_shoppinglistblock')
+        js_args = ListBlockAdapter().js_args(block)
+        self.assertEqual(js_args[2], 'chocolate')
 
     def test_default_value_is_distinct_instance(self):
         """
@@ -2313,8 +2235,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         # asda_shopping should not be modified
         self.assertEqual(asda_shopping['items'], ['chocolate'])
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_with_classname_via_kwarg(self):
+    def test_adapt_with_classname_via_kwarg(self):
         """form_classname from kwargs to be used as an additional class when rendering list block"""
 
         class LinkBlock(blocks.StructBlock):
@@ -2323,22 +2244,21 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
         block = blocks.ListBlock(LinkBlock, form_classname='special-list-class')
 
-        html = block.render_form([
-            {
-                'title': "Wagtail",
-                'link': 'http://www.wagtail.io',
-            },
-            {
-                'title': "Django",
-                'link': 'http://www.djangoproject.com',
-            },
-        ], prefix='links')
+        block.set_name('test_listblock')
+        js_args = ListBlockAdapter().js_args(block)
 
-        # including leading space to ensure class name gets added correctly
-        self.assertEqual(html.count(' special-list-class'), 1)
+        self.assertEqual(js_args[3], {
+            'label': 'Test listblock',
+            'icon': 'placeholder',
+            'classname': 'special-list-class',
+            'strings': {
+                'DELETE': 'Delete',
+                'MOVE_DOWN': 'Move down',
+                'MOVE_UP': 'Move up',
+            },
+        })
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_with_classname_via_class_meta(self):
+    def test_adapt_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering list block"""
 
         class LinkBlock(blocks.StructBlock):
@@ -2352,19 +2272,19 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
         block = CustomListBlock(LinkBlock)
 
-        html = block.render_form([
-            {
-                'title': "Wagtail",
-                'link': 'http://www.wagtail.io',
-            },
-            {
-                'title': "Django",
-                'link': 'http://www.djangoproject.com',
-            },
-        ], prefix='links')
+        block.set_name('test_listblock')
+        js_args = ListBlockAdapter().js_args(block)
 
-        # including leading space to ensure class name gets added correctly
-        self.assertEqual(html.count(' custom-list-class'), 1)
+        self.assertEqual(js_args[3], {
+            'label': 'Test listblock',
+            'icon': 'placeholder',
+            'classname': 'custom-list-class',
+            'strings': {
+                'DELETE': 'Delete',
+                'MOVE_DOWN': 'Move down',
+                'MOVE_UP': 'Move up',
+            },
+        })
 
 
 class TestListBlockWithFixtures(TestCase):
