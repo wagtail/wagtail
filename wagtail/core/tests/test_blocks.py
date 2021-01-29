@@ -13,13 +13,13 @@ from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
-from django.utils.html import format_html
 from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import gettext_lazy as __
 
 from wagtail.core import blocks
 from wagtail.core.blocks.field_block import FieldBlockAdapter
 from wagtail.core.blocks.list_block import ListBlockAdapter
+from wagtail.core.blocks.stream_block import StreamBlockAdapter
 from wagtail.core.blocks.struct_block import StructBlockAdapter
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText
@@ -2595,97 +2595,47 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         html = value[0].render_as_block(context={'language': 'fr'})
         self.assertEqual('<h1 lang="fr">Bonjour</h1>', html)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def render_form(self):
+    def test_adapt(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
             paragraph = blocks.CharBlock()
 
         block = ArticleBlock()
-        value = block.to_python([
-            {
-                'type': 'heading',
-                'value': "My title",
-                'id': '123123123',
+
+        block.set_name('test_streamblock')
+        js_args = StreamBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_streamblock')
+
+        # convert group_by iterable into a list
+        grouped_blocks = [
+            (group_name, list(group_iter))
+            for (group_name, group_iter) in js_args[1]
+        ]
+        self.assertEqual(len(grouped_blocks), 1)
+        group_name, block_iter = grouped_blocks[0]
+        self.assertEqual(group_name, '')
+        block_list = list(block_iter)
+        self.assertIsInstance(block_list[0], blocks.CharBlock)
+        self.assertEqual(block_list[0].name, 'heading')
+        self.assertIsInstance(block_list[1], blocks.CharBlock)
+        self.assertEqual(block_list[1].name, 'paragraph')
+
+        self.assertEqual(js_args[2], {'heading': None, 'paragraph': None})
+        self.assertEqual(js_args[3], {
+            'label': 'Test streamblock',
+            'icon': 'placeholder',
+            'classname': None,
+            'maxNum': None,
+            'minNum': None,
+            'blockCounts': {},
+            'required': True,
+            'strings': {
+                'DELETE': 'Delete',
+                'MOVE_DOWN': 'Move down',
+                'MOVE_UP': 'Move up',
             },
-            {
-                'type': 'paragraph',
-                'value': 'My first paragraph',
-            },
-            {
-                'type': 'paragraph',
-                'value': 'My second paragraph',
-            },
-        ])
-        return block.render_form(value, prefix='myarticle')
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_wrapper_class(self):
-        html = self.render_form()
-
-        self.assertIn('<div class="c-sf-container">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_count_field(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" name="myarticle-count" id="myarticle-count" value="3">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_delete_field(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="myarticle-0-deleted" name="myarticle-0-deleted" value="">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_order_fields(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="myarticle-0-order" name="myarticle-0-order" value="0">', html)
-        self.assertIn('<input type="hidden" id="myarticle-1-order" name="myarticle-1-order" value="1">', html)
-        self.assertIn('<input type="hidden" id="myarticle-2-order" name="myarticle-2-order" value="2">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_id_fields(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="myarticle-0-id" name="myarticle-0-id" value="123123123">', html)
-        self.assertIn('<input type="hidden" id="myarticle-1-id" name="myarticle-1-id" value="">', html)
-        self.assertIn('<input type="hidden" id="myarticle-2-id" name="myarticle-2-id" value="">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_type_fields(self):
-        html = self.render_form()
-
-        self.assertIn('<input type="hidden" id="myarticle-0-type" name="myarticle-0-type" value="heading">', html)
-        self.assertIn('<input type="hidden" id="myarticle-1-type" name="myarticle-1-type" value="paragraph">', html)
-        self.assertIn('<input type="hidden" id="myarticle-2-type" name="myarticle-2-type" value="paragraph">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_value_fields(self):
-        html = self.render_form()
-
-        self.assertInHTML(
-            (
-                '<input id="myarticle-0-value" name="myarticle-0-value" placeholder="Heading"'
-                ' type="text" value="My title" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="myarticle-1-value" name="myarticle-1-value" placeholder="Paragraph"'
-                ' type="text" value="My first paragraph" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="myarticle-2-value" name="myarticle-2-value" placeholder="Paragraph"'
-                ' type="text" value="My second paragraph" />'
-            ),
-            html
-        )
+        })
 
     def test_value_omitted_from_data(self):
         block = blocks.StreamBlock([
@@ -2813,56 +2763,6 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ('url', 'http://example.com/'),
         ])
         self.assertTrue(block.clean(value))
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_block_level_validation_renders_errors(self):
-        block = FooStreamBlock()
-
-        post_data = {'stream-count': '2'}
-        for i, value in enumerate(['bar', 'baz']):
-            post_data.update({
-                'stream-%d-deleted' % i: '',
-                'stream-%d-order' % i: str(i),
-                'stream-%d-type' % i: 'text',
-                'stream-%d-value' % i: value,
-            })
-
-        block_value = block.value_from_datadict(post_data, {}, 'stream')
-        with self.assertRaises(ValidationError) as catcher:
-            block.clean(block_value)
-
-        errors = ErrorList([
-            catcher.exception
-        ])
-
-        self.assertInHTML(
-            format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
-            block.render_form(block_value, prefix='stream', errors=errors))
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_block_level_validation_render_no_errors(self):
-        block = FooStreamBlock()
-
-        post_data = {'stream-count': '3'}
-        for i, value in enumerate(['foo', 'bar', 'baz']):
-            post_data.update({
-                'stream-%d-deleted' % i: '',
-                'stream-%d-order' % i: str(i),
-                'stream-%d-type' % i: 'text',
-                'stream-%d-value' % i: value,
-            })
-
-        block_value = block.value_from_datadict(post_data, {}, 'stream')
-
-        try:
-            block.clean(block_value)
-        except ValidationError:
-            self.fail('Should have passed validation')
-
-        self.assertInHTML(
-            format_html('<div class="help-block help-critical">{}</div>', FooStreamBlock.error),
-            block.render_form(block_value, prefix='stream'),
-            count=0)
 
     def test_ordering_in_form_submission_uses_order_field(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -2999,9 +2899,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         self.assertFalse(value1 == value3)
         self.assertTrue(value1 != value3)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_considers_group_attribute(self):
-        """If group attributes are set in Block Meta classes, render a <h4> for each different block"""
+    def test_adapt_considers_group_attribute(self):
+        """If group attributes are set in Block Meta classes, make sure the blocks are grouped together"""
 
         class Group1Block1(blocks.CharBlock):
             class Meta:
@@ -3029,10 +2928,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             ('b4', Group2Block2()),
             ('ngb', NoGroupBlock()),
         ])
-        html = block.render_form('')
-        self.assertNotIn('<h4 class="c-sf-add-panel__group-title"></h4>', block.render_form(''))
-        self.assertIn('<h4 class="c-sf-add-panel__group-title">group1</h4>', html)
-        self.assertIn('<h4 class="c-sf-add-panel__group-title">group2</h4>', html)
+
+        block.set_name('test_streamblock')
+        js_args = StreamBlockAdapter().js_args(block)
+
+        blockdefs_dict = dict(js_args[1])
+        self.assertEqual(blockdefs_dict.keys(), {'', 'group1', 'group2'})
 
     def test_value_from_datadict(self):
         class ArticleBlock(blocks.StreamBlock):
@@ -3309,8 +3210,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             {'type': 'heading', 'value': 'konnichiwa', 'id': '0003'},
         ])
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_with_classname_via_kwarg(self):
+    def test_adapt_with_classname_via_kwarg(self):
         """form_classname from kwargs to be used as an additional class when rendering stream block"""
 
         block = blocks.StreamBlock([
@@ -3318,26 +3218,25 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             (b'paragraph', blocks.CharBlock()),
         ], form_classname='rocket-section')
 
-        value = block.to_python([
-            {
-                'type': 'heading',
-                'value': "Falcon Heavy",
-                'id': '2',
+        block.set_name('test_streamblock')
+        js_args = StreamBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[3], {
+            'label': 'Test streamblock',
+            'icon': 'placeholder',
+            'minNum': None,
+            'maxNum': None,
+            'blockCounts': {},
+            'required': True,
+            'classname': 'rocket-section',
+            'strings': {
+                'DELETE': 'Delete',
+                'MOVE_DOWN': 'Move down',
+                'MOVE_UP': 'Move up',
             },
-            {
-                'type': 'paragraph',
-                'value': "Ultra heavy launch capability",
-                'id': '3',
-            }
-        ])
+        })
 
-        html = block.render_form(value)
-
-        # including leading space to ensure class name gets added correctly
-        self.assertEqual(html.count(' rocket-section'), 1)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_with_classname_via_class_meta(self):
+    def test_adapt_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering stream block"""
 
         class ProfileBlock(blocks.StreamBlock):
@@ -3347,18 +3246,24 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 form_classname = 'profile-block-large'
 
         block = ProfileBlock()
-        value = block.to_python([
-            {
-                'type': 'username',
-                'value': "renegadeM@ster",
-                'id': '789',
-            }
-        ])
 
-        html = block.render_form(value, prefix='profiles')
+        block.set_name('test_streamblock')
+        js_args = StreamBlockAdapter().js_args(block)
 
-        # including leading space to ensure class name gets added correctly
-        self.assertEqual(html.count(' profile-block-large'), 1)
+        self.assertEqual(js_args[3], {
+            'label': 'Test streamblock',
+            'icon': 'placeholder',
+            'minNum': None,
+            'maxNum': None,
+            'blockCounts': {},
+            'required': True,
+            'classname': 'profile-block-large',
+            'strings': {
+                'DELETE': 'Delete',
+                'MOVE_DOWN': 'Move down',
+                'MOVE_UP': 'Move up',
+            },
+        })
 
 
 class TestStructBlockWithFixtures(TestCase):
