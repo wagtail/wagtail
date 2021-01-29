@@ -63,15 +63,15 @@ Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bul
 
 ### Inline styles
 
-Use **bold** and _italic_ sparringly, inline `code` when relevant.
+Use **bold** and _italic_ sparingly, inline `code` when relevant.
 
 ```md
-Use **bold** and _italic_ sparringly, inline `code` when relevant.
+Use **bold** and _italic_ sparingly, inline `code` when relevant.
 ```
 
 ### Code blocks
 
-Make sure to include the correct language code for syntax highlighting, and to format your code according to our styleguides. Frequently used: `python`, `css`, `html`, `html+django`, `javascript`, `console`.
+Make sure to include the correct language code for syntax highlighting, and to format your code according to our coding guidelines. Frequently used: `python`, `css`, `html`, `html+django`, `javascript`, `console`.
 
     ```python
     INSTALLED_APPS = [
@@ -111,7 +111,7 @@ Reference links rely on creating a reference in reStructuredText. Prefer linking
 
 ### Note and warning call-outs
 
-Use notes and warnings sparringly, as they rely on reStructuredText syntax that is harder to author.
+Use notes and warnings sparingly, as they rely on reStructuredText syntax which is more complicated for future editors.
 
     ```eval_rst note:: Notes can provide complementary information.
     ```
@@ -247,7 +247,7 @@ Sphinx offers release-metadata directives to generate this information consisten
 
 ### Progressive disclosure
 
-We can add supplementary information in documentation with the HTML `<details>` element. This relies on HTML syntax, which can be hard to author consistently, so keep this type of formatting to a strict minimum.
+We can add supplementary information in documentation with the HTML `<details>` element. This relies on HTML syntax, which can be hard to author consistently, so keep this type of formatting to a minimum.
 
 ```html
 <details>
@@ -273,7 +273,7 @@ There is some formatting in the documentation which is technically supported, bu
 
 ### Call-outs
 
-We only use `note::` and `warning::` call-outs. Avoid `important::`, `topic::`, and `tip::`. If stumbling upon these, replace with `note::`.
+We only use `note::` and `warning::` call-outs. Avoid `important::`, `topic::`, and `tip::`. If you find one of these, please replace it with `note::`.
 
 ### Glossary
 
@@ -295,4 +295,4 @@ If you want to use a specifix Sphinx directive, consult with core contributors t
 
 ### Arbitrary HTML
 
-While our documentation tooling offers some support for embedding arbitrary HTML, this is highly frowned upon. Only do so if there is a strict necessity, only if the formatting is unlikely to need updates.
+While our documentation tooling offers some support for embedding arbitrary HTML, this is frowned upon. Only do so if there is a necessity, and if the formatting is unlikely to need updates.
