@@ -14,11 +14,12 @@ from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.test import SimpleTestCase, TestCase
 from django.utils.html import format_html
-from django.utils.safestring import SafeData, SafeText, mark_safe
+from django.utils.safestring import SafeData, mark_safe
 from django.utils.translation import gettext_lazy as __
 
 from wagtail.core import blocks
 from wagtail.core.blocks.field_block import FieldBlockAdapter
+from wagtail.core.blocks.struct_block import StructBlockAdapter
 from wagtail.core.models import Page
 from wagtail.core.rich_text import RichText
 from wagtail.tests.testapp.blocks import LinkBlock as CustomLinkBlock
@@ -1539,7 +1540,6 @@ class TestStructBlock(SimpleTestCase):
         expected = '<b>world</b>'
         self.assertEqual(str(body_bound_block), expected)
 
-    @unittest.expectedFailure  # TODO(telepath)
     def test_get_form_context(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -1560,36 +1560,31 @@ class TestStructBlock(SimpleTestCase):
         self.assertEqual(context['block_definition'], block)
         self.assertEqual(context['prefix'], 'mylink')
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form(self):
+    def test_adapt(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock(required=False)
             link = blocks.URLBlock(required=False)
 
         block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
 
-        self.assertIn('<div class="struct-block">', html)
-        self.assertIn('<div class="field char_field widget-text_input fieldname-title">', html)
-        self.assertIn('<label class="field__label" for="mylink-title">Title</label>', html)
-        self.assertInHTML(
-            '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Wagtail site" />', html
-        )
-        self.assertIn('<div class="field url_field widget-url_input fieldname-link">', html)
-        self.assertInHTML(
-            (
-                '<input id="mylink-link" name="mylink-link" placeholder="Link"'
-                ' type="url" value="http://www.wagtail.io" />'
-            ),
-            html
-        )
-        self.assertNotIn('<li class="required">', html)
+        block.set_name('test_structblock')
+        js_args = StructBlockAdapter().js_args(block)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_custom_render_form_template(self):
+        self.assertEqual(js_args[0], 'test_structblock')
+        self.assertEqual(js_args[2], {
+            'label': 'Test structblock',
+            'required': False,
+            'icon': 'placeholder',
+            'classname': 'struct-block'
+        })
+
+        self.assertEqual(len(js_args[1]), 2)
+        title_field, link_field = js_args[1]
+
+        self.assertEqual(title_field, block.child_blocks['title'])
+        self.assertEqual(link_field, block.child_blocks['link'])
+
+    def test_adapt_with_form_template(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock(required=False)
             link = blocks.URLBlock(required=False)
@@ -1598,17 +1593,19 @@ class TestStructBlock(SimpleTestCase):
                 form_template = 'tests/block_forms/struct_block_form_template.html'
 
         block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
 
-        self.assertIn('<div>Hello</div>', html)
-        self.assertHTMLEqual('<div>Hello</div>', html)
-        self.assertTrue(isinstance(html, SafeText))
+        block.set_name('test_structblock')
+        js_args = StructBlockAdapter().js_args(block)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_custom_render_form_template_jinja(self):
+        self.assertEqual(js_args[2], {
+            'label': 'Test structblock',
+            'required': False,
+            'icon': 'placeholder',
+            'classname': 'struct-block',
+            'formTemplate': '<div>Hello</div>'
+        })
+
+    def test_adapt_with_form_template_jinja(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock(required=False)
             link = blocks.URLBlock(required=False)
@@ -1617,79 +1614,17 @@ class TestStructBlock(SimpleTestCase):
                 form_template = 'tests/jinja2/struct_block_form_template.html'
 
         block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
 
-        self.assertIn('<div>Hello</div>', html)
-        self.assertHTMLEqual('<div>Hello</div>', html)
-        self.assertTrue(isinstance(html, SafeText))
+        block.set_name('test_structblock')
+        js_args = StructBlockAdapter().js_args(block)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_required_field_indicator(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock()
-            link = blocks.URLBlock(required=True)
-
-        block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
-
-        self.assertIn('<div class="field required">', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_unknown_field(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock()
-            link = blocks.URLBlock()
-
-        block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-            'image': 10,
-        }), prefix='mylink')
-
-        self.assertInHTML(
-            (
-                '<input id="mylink-title" name="mylink-title" placeholder="Title"'
-                ' type="text" value="Wagtail site" />'
-            ),
-            html
-        )
-        self.assertInHTML(
-            (
-                '<input id="mylink-link" name="mylink-link" placeholder="Link" type="url"'
-                ' value="http://www.wagtail.io" />'
-            ),
-            html
-        )
-
-        # Don't render the extra field
-        self.assertNotIn('mylink-image', html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_uses_default_value(self):
-        class LinkBlock(blocks.StructBlock):
-            title = blocks.CharBlock(default="Torchbox")
-            link = blocks.URLBlock(default="http://www.torchbox.com")
-
-        block = LinkBlock()
-        html = block.render_form(block.to_python({}), prefix='mylink')
-
-        self.assertInHTML(
-            '<input id="mylink-title" name="mylink-title" placeholder="Title" type="text" value="Torchbox" />', html
-        )
-        self.assertInHTML(
-            (
-                '<input id="mylink-link" name="mylink-link" placeholder="Link"'
-                ' type="url" value="http://www.torchbox.com" />'
-            ),
-            html
-        )
+        self.assertEqual(js_args[2], {
+            'label': 'Test structblock',
+            'required': False,
+            'icon': 'placeholder',
+            'classname': 'struct-block',
+            'formTemplate': '<div>Hello</div>'
+        })
 
     def test_get_default(self):
         class LinkBlock(blocks.StructBlock):
@@ -1700,8 +1635,7 @@ class TestStructBlock(SimpleTestCase):
         default_val = block.get_default()
         self.assertEqual(default_val.get('title'), 'Torchbox')
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_with_help_text(self):
+    def test_adapt_with_help_text_on_meta(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
             link = blocks.URLBlock()
@@ -1710,21 +1644,43 @@ class TestStructBlock(SimpleTestCase):
                 help_text = "Self-promotion is encouraged"
 
         block = LinkBlock()
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
 
-        self.assertInHTML('<div class="help"> <svg class="icon icon-help default" aria-hidden="true" focusable="false"><use href="#icon-help"></use></svg>  Self-promotion is encouraged</div>', html)
+        block.set_name('test_structblock')
+        js_args = StructBlockAdapter().js_args(block)
 
-        # check it can be overridden in the block constructor
-        block = LinkBlock(help_text="Self-promotion is discouraged")
-        html = block.render_form(block.to_python({
-            'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
-        }), prefix='mylink')
+        self.assertEqual(js_args[2], {
+            'label': 'Test structblock',
+            'required': False,
+            'icon': 'placeholder',
+            'classname': 'struct-block',
+            'helpIcon': (
+                '<svg class="icon icon-help default" aria-hidden="true" '
+                'focusable="false"><use href="#icon-help"></use></svg>'
+            ),
+            'helpText': 'Self-promotion is encouraged',
+        })
 
-        self.assertInHTML('<div class="help"> <svg class="icon icon-help default" aria-hidden="true" focusable="false"><use href="#icon-help"></use></svg>  Self-promotion is discouraged</div>', html)
+    def test_adapt_with_help_text_as_argument(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = LinkBlock(help_text="Self-promotion is encouraged")
+
+        block.set_name('test_structblock')
+        js_args = StructBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[2], {
+            'label': 'Test structblock',
+            'required': False,
+            'icon': 'placeholder',
+            'classname': 'struct-block',
+            'helpIcon': (
+                '<svg class="icon icon-help default" aria-hidden="true" '
+                'focusable="false"><use href="#icon-help"></use></svg>'
+            ),
+            'helpText': 'Self-promotion is encouraged'
+        })
 
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
