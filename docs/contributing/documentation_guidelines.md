@@ -33,7 +33,7 @@ Use heading levels to create sections, and allow users to link straight to a spe
 
 ### Lists
 
-Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bullets. Nest with indentation.
+Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bullets. Nest with indentation (4 spaces per level).
 
 ```md
 - Bullet 1
