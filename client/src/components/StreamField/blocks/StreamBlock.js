@@ -36,6 +36,7 @@ class StreamBlockMenu {
     this.index = opts && opts.index;
     this.onSelectBlockType = opts && opts.onSelectBlockType;
     this.isOpen = (opts && opts.isOpen) || false;
+    this.groupedChildBlockDefs = groupedChildBlockDefs;
 
     const dom = $(`
       <div>
@@ -56,15 +57,27 @@ class StreamBlockMenu {
     });
 
     this.outerContainer = dom.find('[data-streamblock-menu-outer]');
-    const innerContainer = dom.find('[data-streamblock-menu-inner]');
+    this.innerContainer = dom.find('[data-streamblock-menu-inner]');
+    this.hasRenderedMenu = false;
 
-    groupedChildBlockDefs.forEach(([group, blockDefs]) => {
+    if (this.isOpen) {
+      this.open({ animate: false });
+    } else {
+      this.close({ animate: false });
+    }
+  }
+
+  renderMenu() {
+    if (this.hasRenderedMenu) return;
+    this.hasRenderedMenu = true;
+
+    this.groupedChildBlockDefs.forEach(([group, blockDefs]) => {
       if (group) {
         const heading = $('<h4 class="c-sf-add-panel__group-title"></h4>').text(group);
-        innerContainer.append(heading);
+        this.innerContainer.append(heading);
       }
       const grid = $('<div class="c-sf-add-panel__grid"></div>');
-      innerContainer.append(grid);
+      this.innerContainer.append(grid);
       blockDefs.forEach(blockDef => {
         const button = $(`
           <button type="button" class="c-sf-button action-add-block-${blockDef.name}">
@@ -83,12 +96,6 @@ class StreamBlockMenu {
         });
       });
     });
-
-    if (this.isOpen) {
-      this.open({ animate: false });
-    } else {
-      this.close({ animate: false });
-    }
   }
 
   setIndex(newIndex) {
@@ -103,6 +110,7 @@ class StreamBlockMenu {
     }
   }
   open(opts) {
+    this.renderMenu();
     if (opts && opts.animate) {
       this.outerContainer.slideDown();
     } else {
