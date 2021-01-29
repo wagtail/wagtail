@@ -37,6 +37,10 @@ div.wy-side-nav-search {
     transform: rotate(4deg);
 }
 
+details {
+    margin-bottom: 1em;
+}
+
 /* Wagtail Space */
 a.wagtailspace {
     background: #00676a;
