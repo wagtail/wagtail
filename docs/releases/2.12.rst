@@ -48,6 +48,7 @@ Bug fixes
  * Gracefully handle oEmbed endpoints returning non-JSON responses (Matt Westcott)
  * Fix unique constraint on WorkflowState for SQL Server compatibility (David Beitey)
  * Reinstate chevron on collection dropdown (Mike Brown)
+ * Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
 
 
 Upgrade considerations

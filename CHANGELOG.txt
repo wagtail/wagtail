@@ -31,6 +31,7 @@ Changelog
  * Fix: Gracefully handle oEmbed endpoints returning non-JSON responses (Matt Westcott)
  * Fix: Fix unique constraint on WorkflowState for SQL Server compatibility (David Beitey)
  * Fix: Reinstate chevron on collection dropdown (Mike Brown)
+ * Fix: Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
 
 
 2.11.3 (10.12.2020)
