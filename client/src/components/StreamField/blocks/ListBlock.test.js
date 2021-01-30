@@ -166,4 +166,14 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     boundBlock.deleteBlock(1);
     expect(document.body.innerHTML).toMatchSnapshot();
   });
+
+  test('blocks can be reordered upward', () => {
+    boundBlock.moveBlock(1, 0);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('blocks can be reordered downward', () => {
+    boundBlock.moveBlock(0, 1);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
 });

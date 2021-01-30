@@ -235,4 +235,14 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
     expect(focus.mock.calls.length).toBe(1);
     expect(focus.mock.calls[0][0]).toBe('Block A widget');
   });
+
+  test('blocks can be reordered upward', () => {
+    boundBlock.moveBlock(1, 0);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('blocks can be reordered downward', () => {
+    boundBlock.moveBlock(0, 1);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
 });
