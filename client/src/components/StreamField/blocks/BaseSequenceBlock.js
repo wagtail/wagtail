@@ -10,6 +10,8 @@ export class BaseSequenceChild {
 
     const animate = opts && opts.animate;
     this.onRequestDelete = opts && opts.onRequestDelete;
+    this.onRequestMoveUp = opts && opts.onRequestMoveUp;
+    this.onRequestMoveDown = opts && opts.onRequestMoveDown;
 
     const dom = $(`
       <div aria-hidden="false">
@@ -65,7 +67,13 @@ export class BaseSequenceChild {
     this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
 
     this.moveUpButton = dom.find('button[data-move-up-button]');
+    this.moveUpButton.click(() => {
+      if (this.onRequestMoveUp) this.onRequestMoveUp(this.index);
+    });
     this.moveDownButton = dom.find('button[data-move-down-button]');
+    this.moveDownButton.click(() => {
+      if (this.onRequestMoveDown) this.onRequestMoveDown(this.index);
+    });
 
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
 
