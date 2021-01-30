@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*
+import pickle
+
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
-from django.test import TestCase, override_settings
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.utils.text import slugify
 from django.utils.translation import _trans
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.coreutils import (
+    InvokeViaAttributeShortcut,
     accepts_kwarg,
     camelcase_to_underscore,
     cautious_slugify,
@@ -135,6 +138,53 @@ class TestAcceptsKwarg(TestCase):
         self.assertFalse(accepts_kwarg(func_without_banana, "banana"))
         self.assertTrue(accepts_kwarg(func_with_banana, "banana"))
         self.assertTrue(accepts_kwarg(func_with_kwargs, "banana"))
+
+
+class TestTargetClass:
+    """
+    Used in TestInvokeViaAttributeShortcut (below)
+    """
+
+    def __init__(self):
+        self.target_method_called_with = []
+
+    def target_method(self, arg):
+        self.target_method_called_with.append(arg)
+
+
+class TestInvokeViaAttributeShortcut(SimpleTestCase):
+    def setUp(self):
+        self.target_object = TestTargetClass()
+        self.test_object = InvokeViaAttributeShortcut(
+            self.target_object, "target_method"
+        )
+
+    def test_basic(self):
+        for value in ("foo", "bar", "baz"):
+            # Use the shortcut to call the underlying method
+            getattr(self.test_object, value)
+            # Confirm that the underlying method was called
+            self.assertIn(value, self.target_object.target_method_called_with)
+
+    def test_pickleability(self):
+        try:
+            pickled = pickle.dumps(self.test_object, -1)
+        except Exception as e:
+            raise AssertionError(
+                "An error occured when attempting to pickle %r: %s"
+                % (self.test_object, e)
+            )
+        try:
+            self.test_object = pickle.loads(pickled)
+        except Exception as e:
+            raise AssertionError(
+                "An error occured when attempting to unpickle %r: %s"
+                % (self.test_object, e)
+            )
+
+        # Confirm unpickled object works the same
+        self.target_object = self.test_object.obj
+        self.test_basic()
 
 
 class TestFindAvailableSlug(TestCase):
