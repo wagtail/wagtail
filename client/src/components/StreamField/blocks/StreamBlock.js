@@ -235,7 +235,9 @@ export class StreamBlock {
 
     const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value, {
       animate,
-      onRequestDelete: (i) => { this.deleteBlock(i); }
+      onRequestDelete: (i) => { this.deleteBlock(i); },
+      onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },
+      onRequestMoveDown: (i) => { this.moveBlock(i, i + 1); },
     });
     this.children.splice(index, 0, child);
 
@@ -305,6 +307,58 @@ export class StreamBlock {
     if (index === this.children.length && this.children.length > 0) {
       /* we have removed the last child; the new last child cannot be moved down */
       this.children[this.children.length - 1].disableMoveDown();
+    }
+  }
+
+  moveBlock(oldIndex, newIndex) {
+    if (oldIndex === newIndex) return;
+    const menuToMove = this.menus[oldIndex];
+    const childToMove = this.children[oldIndex];
+
+    /* move HTML elements */
+    if (newIndex > oldIndex) {
+      $(menuToMove.element).insertAfter(this.children[newIndex].element);
+    } else {
+      $(menuToMove.element).insertBefore(this.menus[newIndex].element);
+    }
+    $(childToMove.element).insertAfter(menuToMove.element);
+
+    /* reorder items in the `menus` and `children` arrays */
+    this.menus.splice(oldIndex, 1);
+    this.menus.splice(newIndex, 0, menuToMove);
+    this.children.splice(oldIndex, 1);
+    this.children.splice(newIndex, 0, childToMove);
+
+    /* update index properties of moved items */
+    if (newIndex > oldIndex) {
+      for (let i = oldIndex; i <= newIndex; i++) {
+        this.menus[i].setIndex(i);
+        this.children[i].setIndex(i);
+      }
+    } else {
+      for (let i = newIndex; i <= oldIndex; i++) {
+        this.menus[i].setIndex(i);
+        this.children[i].setIndex(i);
+      }
+    }
+
+    /* enable/disable up/down arrows as required */
+    const maxIndex = this.children.length - 1;
+    if (oldIndex === 0) {
+      childToMove.enableMoveUp();
+      this.children[0].disableMoveUp();
+    }
+    if (oldIndex === maxIndex) {
+      childToMove.enableMoveDown();
+      this.children[maxIndex].disableMoveDown();
+    }
+    if (newIndex === 0) {
+      childToMove.disableMoveUp();
+      this.children[1].enableMoveUp();
+    }
+    if (newIndex === maxIndex) {
+      childToMove.disableMoveDown();
+      this.children[maxIndex - 1].enableMoveDown();
     }
   }
 
