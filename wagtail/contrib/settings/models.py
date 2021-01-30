@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 
 from wagtail.core.models import Site
 from wagtail.core.utils import InvokeViaAttributeShortcut
@@ -81,11 +82,14 @@ class BaseSetting(models.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Allows get_page_url() to be invoked using
-        # `obj.page_url.foreign_key_name` syntax
-        self.page_url = InvokeViaAttributeShortcut(self, 'get_page_url')
         # Per-instance page URL cache
         self._page_url_cache = {}
+
+    @cached_property
+    def page_url(self):
+        # Allows get_page_url() to be invoked using
+        # `obj.page_url.foreign_key_name` syntax
+        return InvokeViaAttributeShortcut(self, 'get_page_url')
 
     def get_page_url(self, attribute_name, request=None):
         """
@@ -117,3 +121,9 @@ class BaseSetting(models.Model):
 
         self._page_url_cache[attribute_name] = url
         return url
+
+    def __getstate__(self):
+        # Ignore 'page_url' when pickling
+        state = super().__getstate__()
+        state.pop('page_url', None)
+        return state
