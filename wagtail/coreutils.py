@@ -203,6 +203,13 @@ class InvokeViaAttributeShortcut:
         method = getattr(self.obj, self.method_name)
         return method(name)
 
+    def __getstate__(self):
+        return {"obj": self.obj, "method_name": self.method_name}
+
+    def __setstate__(self, state):
+        self.obj = state["obj"]
+        self.method_name = state["method_name"]
+
 
 def find_available_slug(parent, requested_slug, ignore_page_id=None):
     """
