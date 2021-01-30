@@ -1,3 +1,5 @@
+import pickle
+
 from django.test import TestCase, override_settings
 
 from wagtail.models import Site
@@ -49,6 +51,35 @@ class SettingModelTestCase(SiteSettingsTestMixin, TestCase):
             sign_up_page=site.root_page,
             general_terms_page=site.root_page,
             privacy_policy_page=self.other_site.root_page,
+        )
+
+    def test_importantpages_object_is_pickleable(self):
+        obj = self._create_importantpagessitesetting_object()
+        # Triggers creation of the InvokeViaAttributeShortcut instance,
+        # and also gives us a value we can use for comparisson
+        signup_page_url = obj.page_url.sign_up_page
+
+        # Attempt to pickle ImportantPages instance
+        try:
+            pickled = pickle.dumps(obj, -1)
+        except Exception as e:
+            raise AssertionError(
+                "An error occured when attempting to pickle %r: %s" % (obj, e)
+            )
+
+        # Now unpickle the pickled ImportantPages
+        try:
+            unpickled = pickle.loads(pickled)
+        except Exception as e:
+            raise AssertionError(
+                "An error occured when attempting to unpickle %r: %s" % (obj, e)
+            )
+
+        # Using 'page_url' should create a new InvokeViaAttributeShortcut
+        # instance, which should give the same result as the original
+        self.assertEqual(
+            unpickled.page_url.sign_up_page,
+            signup_page_url,
         )
 
     def test_select_related(self, expected_queries=4):
