@@ -4,7 +4,6 @@ import collections
 import json
 import unittest
 
-from datetime import date, datetime
 from decimal import Decimal
 
 # non-standard import name for gettext_lazy, to prevent strings from being picked up for translation
@@ -3592,54 +3591,89 @@ class TestStaticBlock(unittest.TestCase):
 
 class TestDateBlock(TestCase):
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form(self):
+    def test_adapt(self):
+        from wagtail.admin.widgets.datetime import AdminDateInput
+
         block = blocks.DateBlock()
-        value = date(2015, 8, 13)
-        result = block.render_form(value, prefix='dateblock')
 
-        # we should see the JS initialiser code:
-        # <script>initDateChooser("dateblock", {"dayOfWeekStart": 0, "format": "Y-m-d"});</script>
-        # except that we can't predict the order of the config options
-        self.assertIn('<script>initDateChooser("dateblock", {', result)
-        self.assertIn('"dayOfWeekStart": 0', result)
-        self.assertIn('"format": "Y-m-d"', result)
+        block.set_name('test_dateblock')
+        js_args = FieldBlockAdapter().js_args(block)
 
-        self.assertInHTML(
-            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="2015-08-13" autocomplete="off" />',
-            result
-        )
+        self.assertEqual(js_args[0], 'test_dateblock')
+        self.assertIsInstance(js_args[1], AdminDateInput)
+        self.assertEqual(js_args[1].js_format, 'Y-m-d')
+        self.assertEqual(js_args[2], {
+            'label': 'Test dateblock',
+            'required': True,
+            'icon': 'date',
+            'classname': 'field date_field widget-admin_date_input fieldname-test_dateblock'
+        })
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_with_format(self):
+    def test_adapt_with_format(self):
         block = blocks.DateBlock(format='%d.%m.%Y')
-        value = date(2015, 8, 13)
-        result = block.render_form(value, prefix='dateblock')
 
-        self.assertIn('<script>initDateChooser("dateblock", {', result)
-        self.assertIn('"dayOfWeekStart": 0', result)
-        self.assertIn('"format": "d.m.Y"', result)
-        self.assertInHTML(
-            '<input id="dateblock" name="dateblock" placeholder="" type="text" value="13.08.2015" autocomplete="off" />',
-            result
-        )
+        block.set_name('test_dateblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[1].js_format, 'd.m.Y')
+
+
+class TestTimeBlock(TestCase):
+
+    def test_adapt(self):
+        from wagtail.admin.widgets.datetime import AdminTimeInput
+
+        block = blocks.TimeBlock()
+
+        block.set_name('test_timeblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_timeblock')
+        self.assertIsInstance(js_args[1], AdminTimeInput)
+        self.assertEqual(js_args[1].js_format, 'H:i')
+        self.assertEqual(js_args[2], {
+            'label': 'Test timeblock',
+            'required': True,
+            'icon': 'time',
+            'classname': 'field time_field widget-admin_time_input fieldname-test_timeblock'
+        })
+
+    def test_adapt_with_format(self):
+        block = blocks.TimeBlock(format='%H:%M:%S')
+
+        block.set_name('test_timeblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[1].js_format, 'H:i:s')
 
 
 class TestDateTimeBlock(TestCase):
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_with_format(self):
+    def test_adapt(self):
+        from wagtail.admin.widgets.datetime import AdminDateTimeInput
+
+        block = blocks.DateTimeBlock()
+
+        block.set_name('test_datetimeblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_datetimeblock')
+        self.assertIsInstance(js_args[1], AdminDateTimeInput)
+        self.assertEqual(js_args[1].js_format, 'Y-m-d H:i')
+        self.assertEqual(js_args[2], {
+            'label': 'Test datetimeblock',
+            'required': True,
+            'icon': 'date',
+            'classname': 'field date_time_field widget-admin_date_time_input fieldname-test_datetimeblock'
+        })
+
+    def test_adapt_with_format(self):
         block = blocks.DateTimeBlock(format='%d.%m.%Y %H:%M')
-        value = datetime(2015, 8, 13, 10, 0)
-        result = block.render_form(value, prefix='datetimeblock')
-        self.assertIn(
-            '"format": "d.m.Y H:i"',
-            result
-        )
-        self.assertInHTML(
-            '<input id="datetimeblock" name="datetimeblock" placeholder="" type="text" value="13.08.2015 10:00" autocomplete="off" />',
-            result
-        )
+
+        block.set_name('test_datetimeblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[1].js_format, 'd.m.Y H:i')
 
 
 class TestSystemCheck(TestCase):
