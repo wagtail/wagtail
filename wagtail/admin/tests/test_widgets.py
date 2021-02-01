@@ -117,6 +117,26 @@ class TestAdminPageChooserWidget(TestCase):
 
 class TestAdminDateInput(TestCase):
 
+    def test_adapt(self):
+        widget = widgets.AdminDateInput()
+
+        js_args = widgets.AdminDateInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'Y-m-d'
+        })
+
+    def test_adapt_with_custom_format(self):
+        widget = widgets.AdminDateInput(format='%d.%m.%Y')
+
+        js_args = widgets.AdminDateInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'd.m.Y'
+        })
+
     def test_render_js_init(self):
         widget = widgets.AdminDateInput()
 
@@ -161,7 +181,84 @@ class TestAdminDateInput(TestCase):
         self.assertIn('vendor/star_date.js', media_html)
 
 
+class TestAdminTimeInput(TestCase):
+
+    def test_adapt(self):
+        widget = widgets.AdminTimeInput()
+
+        js_args = widgets.AdminTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'format': 'H:i',
+            'formatTime': 'H:i'
+        })
+
+    def test_adapt_with_custom_format(self):
+        widget = widgets.AdminTimeInput(format='%H:%M:%S')
+
+        js_args = widgets.AdminTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'format': 'H:i:s',
+            'formatTime': 'H:i:s'
+        })
+
+    def test_render_js_init(self):
+        widget = widgets.AdminTimeInput()
+
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+
+        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
+
+        # we should see the JS initialiser code:
+        # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
+        # except that we can't predict the order of the config options
+        self.assertIn('initTimeChooser("test\\u002Did", {', html)
+        self.assertIn('"format": "H:i"', html)
+
+    def test_render_js_init_with_format(self):
+        widget = widgets.AdminTimeInput(format='%H:%M:%S')
+
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+        self.assertIn(
+            '"format": "H:i:s"',
+            html,
+        )
+
+    @override_settings(WAGTAIL_TIME_FORMAT='%H:%M:%S')
+    def test_render_js_init_with_format_from_settings(self):
+        widget = widgets.AdminTimeInput()
+
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+        self.assertIn(
+            '"format": "H:i:s"',
+            html,
+        )
+
+
 class TestAdminDateTimeInput(TestCase):
+
+    def test_adapt(self):
+        widget = widgets.AdminDateTimeInput()
+
+        js_args = widgets.AdminDateTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'Y-m-d H:i',
+            'formatTime': 'H:i'
+        })
+
+    def test_adapt_with_custom_format(self):
+        widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M', time_format='%H:%M %p')
+
+        js_args = widgets.AdminDateTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'd.m.Y. H:i',
+            'formatTime': 'H:i A'
+        })
 
     def test_render_js_init(self):
         widget = widgets.AdminDateTimeInput()
