@@ -12,6 +12,7 @@ export class BaseSequenceChild {
     this.onRequestDelete = opts && opts.onRequestDelete;
     this.onRequestMoveUp = opts && opts.onRequestMoveUp;
     this.onRequestMoveDown = opts && opts.onRequestMoveDown;
+    const strings = (opts && opts.strings) || {};
 
     const dom = $(`
       <div aria-hidden="false">
@@ -31,15 +32,15 @@ export class BaseSequenceChild {
                 <div class="c-sf-block__actions">
                   <span class="c-sf-block__type">${this.blockDef.meta.label}</span>
                   <button type="button" data-move-up-button class="c-sf-block__actions__single"
-                      disabled title="{% trans 'Move up' %}">
+                      disabled title="${strings.MOVE_UP}">
                     <i class="icon icon-arrow-up" aria-hidden="true"></i>
                   </button>
                   <button type="button" data-move-down-button class="c-sf-block__actions__single"
-                      disabled title="{% trans 'Move down' %}">
+                      disabled title="${strings.MOVE_DOWN}">
                     <i class="icon icon-arrow-down" aria-hidden="true"></i>
                   </button>
                   <button type="button" data-delete-button
-                      class="c-sf-block__actions__single" title="{% trans 'Delete' %}">
+                      class="c-sf-block__actions__single" title="${strings.DELETE}">
                     <i class="icon icon-bin" aria-hidden="true"></i>
                   </button>
                 </div>

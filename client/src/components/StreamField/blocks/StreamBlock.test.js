@@ -84,7 +84,12 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
         helpIcon: '<div class="icon-help">?</div>',
         maxNum: null,
         minNum: null,
-        blockCounts: {}
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+        },
       }
     );
 
