@@ -1,5 +1,4 @@
 import json
-import unittest
 
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
@@ -18,13 +17,15 @@ from taggit.models import Tag
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core import hooks
+from wagtail.core.blocks.field_block import FieldBlockAdapter
 from wagtail.core.models import Locale, Page
 from wagtail.snippets.action_menu import ActionMenuItem, get_base_snippet_action_menu_items
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
-from wagtail.snippets.widgets import SnippetListingButton
+from wagtail.snippets.widgets import (
+    AdminSnippetChooser, SnippetChooserAdapter, SnippetListingButton)
 from wagtail.tests.snippets.forms import FancySnippetForm
 from wagtail.tests.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
@@ -1357,19 +1358,22 @@ class TestSnippetChooserBlock(TestCase):
         test_advert = Advert.objects.get(text='test_advert')
         self.assertEqual(block.to_python(test_advert.id), test_advert)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_form_render(self):
+    def test_adapt(self):
         block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
 
-        empty_form_html = block.render_form(None, 'advert')
-        self.assertInHTML('<input id="advert" name="advert" placeholder="" type="hidden" />', empty_form_html)
-        self.assertIn('createSnippetChooser("advert", "tests/advert");', empty_form_html)
+        block.set_name('test_snippetchooserblock')
+        js_args = FieldBlockAdapter().js_args(block)
 
-        test_advert = Advert.objects.get(text='test_advert')
-        test_advert_form_html = block.render_form(test_advert, 'advert')
-        expected_html = '<input id="advert" name="advert" placeholder="" type="hidden" value="%d" />' % test_advert.id
-        self.assertInHTML(expected_html, test_advert_form_html)
-        self.assertIn("pick an advert, any advert", test_advert_form_html)
+        self.assertEqual(js_args[0], 'test_snippetchooserblock')
+        self.assertIsInstance(js_args[1], AdminSnippetChooser)
+        self.assertEqual(js_args[1].target_model, Advert)
+        self.assertEqual(js_args[2], {
+            'label': 'Test snippetchooserblock',
+            'required': True,
+            'icon': 'snippet',
+            'helpText': 'pick an advert, any advert',
+            'classname': 'field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock'
+        })
 
     def test_form_response(self):
         block = SnippetChooserBlock(Advert)
@@ -1392,6 +1396,18 @@ class TestSnippetChooserBlock(TestCase):
 
         self.assertEqual(nonrequired_block.clean(test_advert), test_advert)
         self.assertEqual(nonrequired_block.clean(None), None)
+
+
+class TestAdminSnippetChooserWidget(TestCase, WagtailTestUtils):
+    def test_adapt(self):
+        widget = AdminSnippetChooser(Advert)
+
+        js_args = SnippetChooserAdapter().js_args(widget)
+
+        self.assertInHTML('<input type="hidden" name="__NAME__" id="__ID__">', js_args[0])
+        self.assertIn('>Choose advert<', js_args[0])
+        self.assertEqual(js_args[1], '__ID__')
+        self.assertEqual(js_args[2], 'tests/advert')
 
 
 class TestSnippetListViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
@@ -1505,19 +1521,22 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
         # None should deserialize to None
         self.assertEqual(block.to_python(None), None)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_form_render(self):
+    def test_adapt(self):
         block = SnippetChooserBlock(AdvertWithCustomPrimaryKey, help_text="pick an advert, any advert")
 
-        empty_form_html = block.render_form(None, 'advertwithcustomprimarykey')
-        self.assertInHTML('<input id="advertwithcustomprimarykey" name="advertwithcustomprimarykey" placeholder="" type="hidden" />', empty_form_html)
-        self.assertIn('createSnippetChooser("advertwithcustomprimarykey", "tests/advertwithcustomprimarykey");', empty_form_html)
+        block.set_name('test_snippetchooserblock')
+        js_args = FieldBlockAdapter().js_args(block)
 
-        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert/01')
-        test_advert_form_html = block.render_form(test_advert, 'advertwithcustomprimarykey')
-        expected_html = '<input id="advertwithcustomprimarykey" name="advertwithcustomprimarykey" placeholder="" type="hidden" value="%s" />' % test_advert.pk
-        self.assertInHTML(expected_html, test_advert_form_html)
-        self.assertIn("pick an advert, any advert", test_advert_form_html)
+        self.assertEqual(js_args[0], 'test_snippetchooserblock')
+        self.assertIsInstance(js_args[1], AdminSnippetChooser)
+        self.assertEqual(js_args[1].target_model, AdvertWithCustomPrimaryKey)
+        self.assertEqual(js_args[2], {
+            'label': 'Test snippetchooserblock',
+            'required': True,
+            'icon': 'snippet',
+            'helpText': 'pick an advert, any advert',
+            'classname': 'field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock'
+        })
 
     def test_form_response(self):
         block = SnippetChooserBlock(AdvertWithCustomPrimaryKey)
