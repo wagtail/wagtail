@@ -3593,55 +3593,65 @@ class TestPageChooserBlock(TestCase):
         # None should deserialize to None
         self.assertEqual(block.to_python(None), None)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_form_render(self):
+    def test_adapt(self):
+        from wagtail.admin.widgets.chooser import AdminPageChooser
+
         block = blocks.PageChooserBlock(help_text="pick a page, any page")
 
-        empty_form_html = block.render_form(None, 'page')
-        self.assertInHTML('<input id="page" name="page" placeholder="" type="hidden" />', empty_form_html)
-        self.assertIn('createPageChooser("page", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});', empty_form_html)
+        block.set_name('test_pagechooserblock')
+        js_args = FieldBlockAdapter().js_args(block)
 
-        christmas_page = Page.objects.get(slug='christmas')
-        christmas_form_html = block.render_form(christmas_page, 'page')
-        expected_html = '<input id="page" name="page" placeholder="" type="hidden" value="%d" />' % christmas_page.id
-        self.assertInHTML(expected_html, christmas_form_html)
-        self.assertIn("pick a page, any page", christmas_form_html)
+        self.assertEqual(js_args[0], 'test_pagechooserblock')
+        self.assertIsInstance(js_args[1], AdminPageChooser)
+        self.assertEqual(js_args[1].target_models, [Page])
+        self.assertFalse(js_args[1].can_choose_root)
+        self.assertEqual(js_args[2], {
+            'label': 'Test pagechooserblock',
+            'required': True,
+            'icon': 'redirect',
+            'helpText': 'pick a page, any page',
+            'classname': 'field model_choice_field widget-admin_page_chooser fieldname-test_pagechooserblock'
+        })
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_form_render_with_target_model_default(self):
-        block = blocks.PageChooserBlock()
-        empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});', empty_form_html)
-
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_form_render_with_target_model_string(self):
+    def test_adapt_with_target_model_string(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type='tests.SimplePage')
-        empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});', empty_form_html)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_form_render_with_target_model_literal(self):
+        block.set_name('test_pagechooserblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[1].target_models, [SimplePage])
+
+    def test_adapt_with_target_model_literal(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=SimplePage)
-        empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});', empty_form_html)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_form_render_with_target_model_multiple_strings(self):
+        block.set_name('test_pagechooserblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[1].target_models, [SimplePage])
+
+    def test_adapt_with_target_model_multiple_strings(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=['tests.SimplePage', 'tests.EventPage'])
-        empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", null, {"model_names": ["tests.simplepage", "tests.eventpage"], "can_choose_root": false, "user_perms": null});', empty_form_html)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_form_render_with_target_model_multiple_literals(self):
+        block.set_name('test_pagechooserblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[1].target_models, [SimplePage, EventPage])
+
+    def test_adapt_with_target_model_multiple_literals(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", page_type=[SimplePage, EventPage])
-        empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", null, {"model_names": ["tests.simplepage", "tests.eventpage"], "can_choose_root": false, "user_perms": null});', empty_form_html)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_form_render_with_can_choose_root(self):
+        block.set_name('test_pagechooserblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[1].target_models, [SimplePage, EventPage])
+
+    def test_adapt_with_can_choose_root(self):
         block = blocks.PageChooserBlock(help_text="pick a page, any page", can_choose_root=True)
-        empty_form_html = block.render_form(None, 'page')
-        self.assertIn('createPageChooser("page", null, {"model_names": ["wagtailcore.page"], "can_choose_root": true, "user_perms": null});', empty_form_html)
+
+        block.set_name('test_pagechooserblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertTrue(js_args[1].can_choose_root)
 
     def test_form_response(self):
         block = blocks.PageChooserBlock()
