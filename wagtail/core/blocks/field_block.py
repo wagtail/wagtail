@@ -293,18 +293,19 @@ class DateBlock(FieldBlock):
 
 class TimeBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, validators=(), **kwargs):
+    def __init__(self, required=True, help_text=None, format=None, validators=(), **kwargs):
         self.field_options = {
             'required': required,
             'help_text': help_text,
             'validators': validators
         }
+        self.format = format
         super().__init__(**kwargs)
 
     @cached_property
     def field(self):
         from wagtail.admin.widgets import AdminTimeInput
-        field_kwargs = {'widget': AdminTimeInput}
+        field_kwargs = {'widget': AdminTimeInput(format=self.format)}
         field_kwargs.update(self.field_options)
         return forms.TimeField(**field_kwargs)
 
