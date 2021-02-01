@@ -668,18 +668,6 @@ class TestEmbedBlock(TestCase):
         # Check that get_embed was called correctly
         get_embed.assert_any_call('http://www.example.com/foo')
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form(self):
-        """
-        The form field for an EmbedBlock should be a text input containing
-        the URL
-        """
-        block = EmbedBlock()
-
-        form_html = block.render_form(EmbedValue('http://www.example.com/foo'), prefix='myembed')
-        self.assertIn('<input ', form_html)
-        self.assertIn('value="http://www.example.com/foo"', form_html)
-
     def test_value_from_form(self):
         """
         EmbedBlock should be able to turn a URL submitted as part of a form
