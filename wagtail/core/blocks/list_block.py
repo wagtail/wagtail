@@ -3,6 +3,7 @@ import itertools
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.utils.html import format_html, format_html_join
+from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
@@ -163,6 +164,11 @@ class ListBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             'label': block.label, 'icon': block.meta.icon, 'classname': block.meta.form_classname,
+            'strings': {
+                'MOVE_UP': _("Move up"),
+                'MOVE_DOWN': _("Move down"),
+                'DELETE': _("Delete"),
+            },
         }
         help_text = getattr(block.meta, 'help_text', None)
         if help_text:

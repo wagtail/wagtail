@@ -647,6 +647,11 @@ class StreamBlockAdapter(Adapter):
             'classname': block.meta.form_classname,
             'maxNum': block.meta.max_num, 'minNum': block.meta.min_num,
             'blockCounts': block.meta.block_counts,
+            'strings': {
+                'MOVE_UP': _("Move up"),
+                'MOVE_DOWN': _("Move down"),
+                'DELETE': _("Delete"),
+            },
         }
         help_text = getattr(block.meta, 'help_text', None)
         if help_text:

@@ -31,13 +31,13 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
-                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\" disabled=\\"disabled\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -80,13 +80,13 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
-                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\" disabled=\\"disabled\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\" disabled=\\"disabled\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -148,13 +148,13 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
-                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\" disabled=\\"disabled\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -197,13 +197,13 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
-                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\" disabled=\\"disabled\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\" disabled=\\"disabled\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -265,13 +265,13 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
-                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"{% trans 'Move up' %}\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"Move up\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -314,13 +314,13 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
-                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"{% trans 'Move down' %}\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"Move down\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -382,13 +382,13 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
-                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"{% trans 'Move up' %}\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"Move up\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move down' %}\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
@@ -441,13 +441,13 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
                 <h3 class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
-                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Move up' %}\\">
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
                     <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"{% trans 'Move down' %}\\">
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"Move down\\">
                     <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
                   </button>
-                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"{% trans 'Delete' %}\\">
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
                     <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
                   </button>
                 </div>
