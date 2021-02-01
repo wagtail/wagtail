@@ -64,6 +64,11 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
         classname: null,
         helpText: 'use <strong>a few</strong> of these',
         helpIcon: '<div class="icon-help">?</div>',
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete',
+        },
       }
     );
 

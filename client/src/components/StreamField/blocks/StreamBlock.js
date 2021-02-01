@@ -238,6 +238,7 @@ export class StreamBlock {
       onRequestDelete: (i) => { this.deleteBlock(i); },
       onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },
       onRequestMoveDown: (i) => { this.moveBlock(i, i + 1); },
+      strings: this.blockDef.meta.strings,
     });
     this.children.splice(index, 0, child);
 
