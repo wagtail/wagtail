@@ -66,6 +66,10 @@ input[type=checkbox]:before {
     border: 1px solid #555;
 }
 
+.fields-wrapper {
+    position: relative;
+}
+
 .fields {
     max-width: none;
 }
@@ -114,16 +118,25 @@ input[type=checkbox]:before {
     line-height: 1.6em;
 }
 
+// Forgotten pasword link
 .help {
-    opacity: 1;
-    position: absolute;
     font-size: 1.3em;
-    margin-top: -0.5em;
-    right: 5%;
-    top: 213px;
+    margin-top: 0;
+    padding: 10px 0;
 
     @include media-breakpoint-up(sm) {
-        top: 65%;
+        position: absolute;
+        top: 139px;
+        right: 5%;
+        padding: 0;
+    }
+
+    &__link {
+        color: $color-white;
+
+        @include media-breakpoint-up(sm) {
+            color: $color-link;
+        }
     }
 }
 
