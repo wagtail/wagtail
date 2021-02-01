@@ -26,6 +26,31 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser()
         self.assertFalse(widget.is_hidden)
 
+    def test_adapt(self):
+        widget = widgets.AdminPageChooser()
+
+        js_args = widgets.PageChooserAdapter().js_args(widget)
+        self.assertInHTML("""<input id="__ID__" name="__NAME__" type="hidden" />""", js_args[0])
+        self.assertIn(">Choose a page<", js_args[0])
+        self.assertEqual(js_args[1], '__ID__')
+        self.assertEqual(js_args[2], {
+            'can_choose_root': False,
+            'model_names': ['wagtailcore.page'],
+            'user_perms': None
+        })
+
+    def test_adapt_with_target_model(self):
+        widget = widgets.AdminPageChooser(target_models=[SimplePage, EventPage])
+
+        js_args = widgets.PageChooserAdapter().js_args(widget)
+        self.assertEqual(js_args[2]['model_names'], ['tests.simplepage', 'tests.eventpage'])
+
+    def test_adapt_with_can_choose_root(self):
+        widget = widgets.AdminPageChooser(can_choose_root=True)
+
+        js_args = widgets.PageChooserAdapter().js_args(widget)
+        self.assertTrue(js_args[2]['can_choose_root'])
+
     def test_render_html(self):
         # render_html is mostly an internal API, but we do want to support calling it with None as
         # a value, to render a blank field without the JS initialiser (so that we can call that
