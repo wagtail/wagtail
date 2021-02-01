@@ -80,6 +80,7 @@ export class ListBlock {
       onRequestDelete: (i) => { this.deleteBlock(i); },
       onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },
       onRequestMoveDown: (i) => { this.moveBlock(i, i + 1); },
+      strings: this.blockDef.meta.strings,
     });
     this.children.push(child);
     this.countInput.val(this.children.length);
