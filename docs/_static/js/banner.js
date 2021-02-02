@@ -30,4 +30,26 @@ $(function () {
       $wagtailspace.detach();
     });
   }
+  
+  /**
+   * Very quick and dirty implementation for prototyping purposes.
+   */
+  const l = document.createElement('link');
+  l.rel = 'stylesheet';
+  l.href = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css';
+  document.body.appendChild(l);
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
+  s.onload = () => {
+    // Default to "latest" index for PR builds.
+    const version = window.READTHEDOCS_DATA.version.match(/^\d+$/) ? 'latest' : window.READTHEDOCS_DATA.version
+    docsearch({
+      apiKey: '8325c57d16798633e29d211c26c7b6f9',
+      indexName: 'wagtail',
+      inputSelector: '#rtd-search-form [name="q"]',
+      algoliaOptions: { 'facetFilters': [`version:${version}`] },
+      debug: true // Set debug to true if you want to inspect the dropdown
+    });
+  };
+  document.body.appendChild(s);
 });
