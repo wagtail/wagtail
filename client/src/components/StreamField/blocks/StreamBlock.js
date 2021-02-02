@@ -1,4 +1,5 @@
 import { BaseSequenceChild } from './BaseSequenceBlock';
+import { escapeHtml as h } from '../../../utils/text';
 
 /* global $ */
 
@@ -80,11 +81,11 @@ class StreamBlockMenu {
       this.innerContainer.append(grid);
       blockDefs.forEach(blockDef => {
         const button = $(`
-          <button type="button" class="c-sf-button action-add-block-${blockDef.name}">
+          <button type="button" class="c-sf-button action-add-block-${h(blockDef.name)}">
             <span class="c-sf-button__icon">
-              <i class="icon icon-${blockDef.meta.icon}"></i>
+              <i class="icon icon-${h(blockDef.meta.icon)}"></i>
             </span>
-            <span class="c-sf-button__label">${blockDef.meta.label}</span>
+            <span class="c-sf-button__label">${h(blockDef.meta.label)}</span>
           </button>
         `);
         grid.append(button);
@@ -142,8 +143,8 @@ export class StreamBlock {
     this.prefix = prefix;
 
     const dom = $(`
-      <div class="c-sf-container ${this.blockDef.meta.classname || ''}">
-        <input type="hidden" name="${prefix}-count" data-streamfield-stream-count value="0">
+      <div class="c-sf-container ${h(this.blockDef.meta.classname || '')}">
+        <input type="hidden" name="${h(prefix)}-count" data-streamfield-stream-count value="0">
         <div data-streamfield-stream-container></div>
       </div>
     `);

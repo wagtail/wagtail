@@ -1,6 +1,6 @@
 /* global $ */
 
-import { escapeHtml } from '../../../utils/text';
+import { escapeHtml as h } from '../../../utils/text';
 
 export class FieldBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -8,7 +8,7 @@ export class FieldBlock {
     this.type = blockDef.name;
 
     const dom = $(`
-      <div class="${this.blockDef.meta.classname || ''}">
+      <div class="${h(this.blockDef.meta.classname)}">
         <div class="field-content">
           <div class="input">
             <div data-streamfield-widget></div>
@@ -47,7 +47,7 @@ export class FieldBlock {
 
       const errorElement = document.createElement('p');
       errorElement.classList.add('error-message');
-      errorElement.innerHTML = errorList.map(error => `<span>${escapeHtml(error[0])}</span>`).join('');
+      errorElement.innerHTML = errorList.map(error => `<span>${h(error[0])}</span>`).join('');
       this.element.querySelector('.field-content').appendChild(errorElement);
     } else {
       this.element.classList.remove('error');
