@@ -251,3 +251,85 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });
+
+describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Create mocks for callbacks
+    constructor = jest.fn();
+    setState = jest.fn();
+    getState = jest.fn();
+    getValue = jest.fn();
+    focus = jest.fn();
+
+    // Define a test block
+    const blockDef = new StreamBlockDefinition(
+      '',
+      [
+        ['', [
+          new FieldBlockDefinition(
+            'test_block_a',
+            new DummyWidgetDefinition('Block A widget'),
+            {
+              label: 'Test Block <A>',
+              required: true,
+              icon: 'placeholder',
+              classname: 'field char_field widget-text_input fieldname-test_charblock'
+            }
+          ),
+          new FieldBlockDefinition(
+            'test_block_b',
+            new DummyWidgetDefinition('Block B widget'),
+            {
+              label: 'Test Block <B>',
+              required: true,
+              icon: 'pilcrow',
+              classname: 'field char_field widget-admin_auto_height_text_input fieldname-test_textblock'
+            }
+          ),
+        ]]
+      ],
+      {
+        test_block_a: 'Block A options',
+        test_block_b: 'Block B options',
+      },
+      {
+        label: '',
+        required: true,
+        icon: 'placeholder',
+        classname: null,
+        helpText: 'use <strong>plenty</strong> of these',
+        helpIcon: '<div class="icon-help">?</div>',
+        maxNum: null,
+        minNum: null,
+        blockCounts: {},
+        strings: {
+          MOVE_UP: 'Move up',
+          MOVE_DOWN: 'Move down',
+          DELETE: 'Delete & kill with fire',
+        },
+      }
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value'
+      },
+    ]);
+  });
+
+  test('it renders correctly', () => {
+    boundBlock.menus[0].open();
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+});

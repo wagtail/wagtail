@@ -1,5 +1,7 @@
 /* global $ */
 
+import { escapeHtml as h } from '../../../utils/text';
+
 export class BaseSequenceChild {
   constructor(blockDef, placeholder, prefix, index, id, initialState, opts) {
     this.blockDef = blockDef;
@@ -18,29 +20,29 @@ export class BaseSequenceChild {
       <div aria-hidden="false">
         <input type="hidden"  name="${this.prefix}-deleted" value="">
         <input type="hidden" name="${this.prefix}-order" value="${index}">
-        <input type="hidden" name="${this.prefix}-type" value="${this.type}">
-        <input type="hidden" name="${this.prefix}-id" value="${this.id || ''}">
+        <input type="hidden" name="${this.prefix}-type" value="${h(this.type || '')}">
+        <input type="hidden" name="${this.prefix}-id" value="${h(this.id || '')}">
 
         <div>
           <div class="c-sf-container__block-container">
             <div class="c-sf-block">
               <div class="c-sf-block__header">
                 <span class="c-sf-block__header__icon">
-                  <i class="icon icon-${this.blockDef.meta.icon}"></i>
+                  <i class="icon icon-${h(this.blockDef.meta.icon)}"></i>
                 </span>
                 <h3 class="c-sf-block__header__title"></h3>
                 <div class="c-sf-block__actions">
-                  <span class="c-sf-block__type">${this.blockDef.meta.label}</span>
+                  <span class="c-sf-block__type">${h(this.blockDef.meta.label)}</span>
                   <button type="button" data-move-up-button class="c-sf-block__actions__single"
-                      disabled title="${strings.MOVE_UP}">
+                      disabled title="${h(strings.MOVE_UP)}">
                     <i class="icon icon-arrow-up" aria-hidden="true"></i>
                   </button>
                   <button type="button" data-move-down-button class="c-sf-block__actions__single"
-                      disabled title="${strings.MOVE_DOWN}">
+                      disabled title="${h(strings.MOVE_DOWN)}">
                     <i class="icon icon-arrow-down" aria-hidden="true"></i>
                   </button>
                   <button type="button" data-delete-button
-                      class="c-sf-block__actions__single" title="${strings.DELETE}">
+                      class="c-sf-block__actions__single" title="${h(strings.DELETE)}">
                     <i class="icon icon-bin" aria-hidden="true"></i>
                   </button>
                 </div>
