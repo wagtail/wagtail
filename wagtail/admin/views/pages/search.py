@@ -43,7 +43,10 @@ def search(request):
     if 'content_type' in request.GET:
         pagination_query_params['content_type'] = request.GET['content_type']
 
-        app_label, model_name = request.GET['content_type'].split('.')
+        try:
+            app_label, model_name = request.GET['content_type'].split('.')
+        except ValueError:
+            raise Http404
 
         try:
             selected_content_type = ContentType.objects.get_by_natural_key(app_label, model_name)
