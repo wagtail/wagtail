@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -259,12 +259,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Vabandust, üleslaadimine ebaõnnestus."
 
-msgid "Update"
-msgstr "Uuenda"
-
-msgid "Delete"
-msgstr "Kustuta"
-
 msgid "You need a password to access this document."
 msgstr "Sellele dokumendile juurdepääsemiseks vajate parooli."
 
@@ -295,6 +289,9 @@ msgstr "Dokumendi '{0}' värskendamine on toimunud"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Faili ei leitud. Palun muutke allikat või kustutage dokument"
+
+msgid "Delete"
+msgstr "Kustuta"
 
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' on kustutatud."

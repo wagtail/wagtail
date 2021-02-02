@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-04-18 17:15+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -379,12 +379,6 @@ msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:
 msgid "Image updated."
 msgstr "Kuva päivitetty."
 
-msgid "Update"
-msgstr "Päivitä"
-
-msgid "Delete"
-msgstr "Poista"
-
 msgid "Image permissions"
 msgstr "Kuvan oikeudet"
 
@@ -409,6 +403,9 @@ msgid ""
 msgstr ""
 "Valittua kuvatiedostoa ei löytynyt. Ole hyvä ja valitse toinen kuvatiedosto "
 "tai poista kuva."
+
+msgid "Delete"
+msgstr "Poista"
 
 msgid "Image '{0}' deleted."
 msgstr "Kuva '{0}' poistettu."

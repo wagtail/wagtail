@@ -4,14 +4,14 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2020
+# Dan Braghis, 2014-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-02-01 18:17+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -518,3 +518,19 @@ msgstr "Aveți nevoie de o parolă pentru a accesa această pagină."
 
 msgid "Continue"
 msgstr "Continuă"
+
+msgid "English"
+msgstr "Engleză"
+
+msgid "French"
+msgstr "Franceză"
+
+msgid "German"
+msgstr "Germană"
+
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s colecție descendentă"
+msgstr[1] "%(count)s colecții desdendente"
+msgstr[2] "%(count)scolecții desdendente"

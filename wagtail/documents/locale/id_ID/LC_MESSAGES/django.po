@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -193,12 +193,6 @@ msgstr "Tambah ke koleksi:"
 msgid "Sorry, upload failed."
 msgstr "Maaf, pengunggahan gagal."
 
-msgid "Update"
-msgstr "Perbarui"
-
-msgid "Delete"
-msgstr "Hapus"
-
 msgid "You need a password to access this document."
 msgstr "Anda memerlukan kata sandi untuk mengakses dokumen ini."
 
@@ -230,6 +224,9 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 "Berkas tidak dapat ditemukan. Mohon untuk mengganti sumber atau hapus dokumen"
+
+msgid "Delete"
+msgstr "Hapus"
 
 msgid "Document '{0}' deleted."
 msgstr "Dokumen '{0}' dihapus."

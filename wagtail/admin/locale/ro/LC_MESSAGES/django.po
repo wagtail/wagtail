@@ -4,14 +4,14 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2020
+# Dan Braghis, 2014-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-02-01 19:03+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -137,6 +137,13 @@ msgstr "Introduceți adresa de e-mail pentru a reseta parola"
 msgid "URL"
 msgstr "Adresă de internet"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Selectați poziție ierarhică. Notă: o colecție nu poate deveni un descendent "
+"al său."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
@@ -188,6 +195,12 @@ msgstr[1] ""
 msgstr[2] ""
 "%(count)s de pagini în curs de copiere sunt active. Doriți să publicați și "
 "copiile lor?"
+
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Păstrează paginile noi actualizate cu modificări ulterioare"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -264,6 +277,9 @@ msgstr "Engleză"
 msgid "Spanish"
 msgstr "Spaniolă"
 
+msgid "Estonian"
+msgstr "Estonă"
+
 msgid "Finnish"
 msgstr "Finlandeză"
 
@@ -272,6 +288,9 @@ msgstr "Franceză"
 
 msgid "Galician"
 msgstr "Galiciană"
+
+msgid "Croatian"
+msgstr "Croată"
 
 msgid "Hungarian"
 msgstr "Ungară"
@@ -680,6 +699,16 @@ msgid ""
 "created will be displayed."
 msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs."
 
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail va elimina treptat suportul pentru IE11. Acest fapt vă poate afecta "
+"pe dvs. sau pe organizația dvs. <a href=\"%(url)s\">Aflați mai multe despre "
+"planurile noastre de support pentru IE11</a>."
+
 msgid "Your locked pages"
 msgstr "Paginile Dvs. blocate"
 
@@ -990,6 +1019,25 @@ msgid "Pages using %(page_type)s"
 msgstr "Pagini de tip %(page_type)s"
 
 #, python-format
+msgid "Convert alias %(title)s"
+msgstr "Convertează aliasul %(title)s"
+
+msgid "Convert alias"
+msgstr "Convertează alias"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr "Sigur doriți să convertiți acest alias în pagină obișnuită?"
+
+msgid "This action cannot be undone."
+msgstr "Această acțiune nu poate fi anulată"
+
+msgid "Yes, convert it"
+msgstr "Da, convertează"
+
+msgid "No, leave it as an alias"
+msgstr "Nu, păstrează ca alias"
+
+#, python-format
 msgid "Delete %(title)s"
 msgstr "Șterge %(title)s"
 
@@ -1164,6 +1212,15 @@ msgstr "Editare %(page_type)s"
 
 msgid "History"
 msgstr "Istorie"
+
+msgid "This page is an alias of another page."
+msgstr "Această pagină este un alias al altei pagini."
+
+msgid "Edit original page"
+msgstr "Editează pagina originală"
+
+msgid "Convert this alias into a regular page"
+msgstr "Convertează acest alias în pagină obișnuită"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1731,6 +1788,23 @@ msgstr ""
 "această aplicație. Vă rugăm să <a href=\"https://browsehappy.com/"
 "\">actualizați browser-ul Dvstră</a>."
 
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail necesită JavaScript pentru utilizare, dar e dezactivat "
+"la moment.<br />\n"
+"            Vedeți <a href=\"https://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">instrucțiuni despre cum să activați "
+"JavaScript în browserul dvs. web</a>.\n"
+"        "
+
 msgid "Skip to main content"
 msgstr "Săriți la conținutul principal"
 
@@ -2031,6 +2105,9 @@ msgstr "Colecția nu a putut fi salvată din cauza erorilor."
 msgid "Delete collection"
 msgstr "Șterge colecția"
 
+msgid "Please select another parent"
+msgstr "Selectați un alt părinte"
+
 msgid "Collection '{0}' deleted."
 msgstr "Colecția '{0}' a fost ștearsă."
 
@@ -2039,6 +2116,9 @@ msgstr "Sigur doriți să ștergeți această colecție?"
 
 msgid "Editing"
 msgstr "Editare"
+
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "Pagina '{0}' a fost convertită în pagină obișnuită."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Pagina '{0}' și {1} subpagini au fost copiate."
@@ -2476,6 +2556,20 @@ msgid "Copied"
 msgstr "A fost copiată"
 
 #, python-format
+msgid "Created an alias of %(title)s"
+msgstr "A creat un alias al %(title)s"
+
+msgid "Created an alias"
+msgstr "A creat un alias"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "A convertit alias-ul '%(title)s' în pagină obișnuită"
+
+msgid "Converted an alias into a regular page"
+msgstr "A convertit un alias în pagină obișnuită"
+
+#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "A mutată de la '%(old_parent)s' la '%(new_parent)s'"
 
@@ -2545,6 +2639,12 @@ msgstr "Redenumire"
 
 msgid "Revert"
 msgstr "A inversat"
+
+msgid "Create alias"
+msgstr "Crează alias"
+
+msgid "Convert alias into regular page"
+msgstr "Convertază alias în pagină obișnuită"
 
 msgid "Schedule publication"
 msgstr "Porgramează publicare"

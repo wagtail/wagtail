@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# benebun <benedikt.breinbauer@gmail.com>, 2021
 # Benedikt Willi <ben.willi@gmail.com>, 2020
 # Benjamin Thurm, 2018-2019
 # Daniel Manser <me@danielmanser.com>, 2015
@@ -34,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-20 11:15+0000\n"
+"Last-Translator: benebun <benedikt.breinbauer@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -749,7 +750,7 @@ msgid "Preview"
 msgstr "Vorschau"
 
 msgid "Your most recent edits"
-msgstr "Ihre letzen Änderungen"
+msgstr "Ihre letzten Änderungen"
 
 msgid "Status"
 msgstr "Status"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-07-20 13:05+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -367,12 +367,6 @@ msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주�
 msgid "Image updated."
 msgstr "이미지 수정됨."
 
-msgid "Update"
-msgstr "업데이트"
-
-msgid "Delete"
-msgstr "삭제"
-
 msgid "Image permissions"
 msgstr "이미지 권한"
 
@@ -397,6 +391,9 @@ msgid ""
 msgstr ""
 "소스 이미지 파일을 찾을 수 없습니다. 소스를 변경하거나 이미지를 삭제하여 주시"
 "기 바랍니다."
+
+msgid "Delete"
+msgstr "삭제"
 
 msgid "Image '{0}' deleted."
 msgstr "'{0}' 이미지가 삭제되었습니다."

@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Coen van der Kamp <cvanderkamp@gmail.com>, 2019-2020
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2019-2021
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-11-27 23:44+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-02-01 18:47+0000\n"
 "Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -35,6 +35,12 @@ msgstr "Wijzig"
 
 msgid "Edit any document"
 msgstr "Alle documenten wijzigen"
+
+msgid "Choose"
+msgstr "Kies"
+
+msgid "Select documents in choosers"
+msgstr "Selecteer documenten in keuzelijsten"
 
 msgid "title"
 msgstr "titel"
@@ -266,12 +272,6 @@ msgstr "Sorry, het uploaden is misgegaan."
 msgid "Document updated."
 msgstr "Document is bijgewerkt."
 
-msgid "Update"
-msgstr "Update"
-
-msgid "Delete"
-msgstr "Verwijderen"
-
 msgid "You need a password to access this document."
 msgstr "U heeft een wachtwoord nodig om dit document te bekijken."
 
@@ -305,6 +305,9 @@ msgid ""
 msgstr ""
 "Het bestand kon niet worden gevonden. Kies een ander bronbestand of "
 "verwijder het document."
+
+msgid "Delete"
+msgstr "Verwijderen"
 
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' verwijderd."

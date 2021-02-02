@@ -14,7 +14,7 @@
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2018,2020
+# Loic Teixeira, 2018,2020-2021
 # Loic Teixeira, 2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # nahuel, 2014
@@ -28,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-02-01 17:36+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -268,13 +268,13 @@ msgid "Add tasks to your workflow"
 msgstr "Ajoutez des tâches à votre workflow"
 
 msgid "Arabic"
-msgstr "Arabe"
+msgstr "arabe"
 
 msgid "Catalan"
 msgstr "catalan"
 
 msgid "Czech"
-msgstr "Tchèque"
+msgstr "tchèque"
 
 msgid "German"
 msgstr "allemand"
@@ -289,7 +289,7 @@ msgid "Spanish"
 msgstr "espagnol"
 
 msgid "Estonian"
-msgstr "Estonien"
+msgstr "estonien"
 
 msgid "Finnish"
 msgstr "finnois"
@@ -300,11 +300,14 @@ msgstr "français"
 msgid "Galician"
 msgstr "galicien"
 
+msgid "Croatian"
+msgstr "croate"
+
 msgid "Hungarian"
-msgstr "Hongrois"
+msgstr "hongrois"
 
 msgid "Indonesian"
-msgstr "Indonésien"
+msgstr "indonésien"
 
 msgid "Icelandic"
 msgstr "islandais"
@@ -313,7 +316,7 @@ msgid "Italian"
 msgstr "italien"
 
 msgid "Japanese"
-msgstr "Japonais"
+msgstr "japonais"
 
 msgid "Korean"
 msgstr "coréen"
@@ -322,7 +325,7 @@ msgid "Lithuanian"
 msgstr "lituanien"
 
 msgid "Mongolian"
-msgstr "Mongol"
+msgstr "mongol"
 
 msgid "Norwegian Bokmål"
 msgstr "norvégien bokmål"
@@ -331,7 +334,7 @@ msgid "Netherlands Dutch"
 msgstr "néerlandais"
 
 msgid "Persian"
-msgstr "Persan"
+msgstr "persan"
 
 msgid "Polish"
 msgstr "polonais"
@@ -352,25 +355,25 @@ msgid "Swedish"
 msgstr "suédois"
 
 msgid "Slovak"
-msgstr "Slovaque"
+msgstr "slovaque"
 
 msgid "Thai"
-msgstr "Thaï"
+msgstr "thaï"
 
 msgid "Turkish"
-msgstr "Turc"
+msgstr "turc"
 
 msgid "Turkish (Turkey)"
-msgstr "Turc (Turquie)"
+msgstr "turc (Turquie)"
 
 msgid "Ukrainian"
-msgstr "Ukrainien"
+msgstr "ukrainien"
 
 msgid "Chinese (Simplified)"
-msgstr "Chinois (Simplifié)"
+msgstr "chinois (Simplifié)"
 
 msgid "Chinese (Traditional)"
-msgstr "Chinois (Traditionnel)"
+msgstr "chinois (Traditionnel)"
 
 msgid "Edit"
 msgstr "Modifier"

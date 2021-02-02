@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2021-01-14 03:23+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-21 01:14+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
@@ -148,7 +148,7 @@ msgid "Editing"
 msgstr "Whakarerekē"
 
 msgid "Save"
-msgstr "Pupuritia"
+msgstr "Puritia"
 
 msgid "Filesize"
 msgstr "Kōnae korahi"
@@ -263,12 +263,6 @@ msgstr "Aroha mai, kua rahua te tukuatu."
 msgid "Document updated."
 msgstr "Kua whakahou te pukapuka."
 
-msgid "Update"
-msgstr "Whakahou"
-
-msgid "Delete"
-msgstr "Muku"
-
 msgid "You need a password to access this document."
 msgstr "E hiahia ana he kupu muna kia tomonga i tēnei pukapuka."
 
@@ -291,7 +285,7 @@ msgid "Document '{0}' added."
 msgstr "Pukapuka '{0}' kua tāpiri."
 
 msgid "The document could not be saved due to errors."
-msgstr "Ehara ka taea te pupuritia kī te pukapuka nei, he raruraru "
+msgstr "Ehara ka taea te puritia kī te pukapuka nei, he raruraru "
 
 msgid "Document '{0}' updated"
 msgstr "Pukapuka '{0}' kua whakahou"
@@ -301,6 +295,9 @@ msgid ""
 msgstr ""
 "Ehara ka tāea te rapu te kōnae nei. Panoni koa te mātāpuna, mukuhia tē "
 "pukapuka rānei."
+
+msgid "Delete"
+msgstr "Muku"
 
 msgid "Document '{0}' deleted."
 msgstr "Pukapuka '{0}' kua mukuhia."

@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-03-20 09:41+0000\n"
-"Last-Translator: Miłosz Miśkiewicz\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -403,12 +403,6 @@ msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją
 msgid "Image updated."
 msgstr "Uaktualniono obraz."
 
-msgid "Update"
-msgstr "Uaktualnij"
-
-msgid "Delete"
-msgstr "Usuń"
-
 msgid "Image permissions"
 msgstr "Uprawnienia obrazu"
 
@@ -433,6 +427,9 @@ msgid ""
 msgstr ""
 "Plik źródłowy obrazu nie mógł zostać znaleziony. Proszę zmień źródło lub "
 "usuń obraz."
+
+msgid "Delete"
+msgstr "Usuń"
 
 msgid "Image '{0}' deleted."
 msgstr "Usunięto obraz '{0}'."

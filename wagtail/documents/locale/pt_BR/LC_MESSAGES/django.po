@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -270,12 +270,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o envio falhou."
 
-msgid "Update"
-msgstr "Atualizar"
-
-msgid "Delete"
-msgstr "Excluir"
-
 msgid "You need a password to access this document."
 msgstr "Você precisa de uma senha para acessar este documento."
 
@@ -308,6 +302,9 @@ msgid ""
 msgstr ""
 "Este arquivo não pode ser encontrado. Por favor altere a fonte ou remova o "
 "documento"
+
+msgid "Delete"
+msgstr "Excluir"
 
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' apagado."

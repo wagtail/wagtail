@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2020
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2021
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Meteor0id, 2018-2019
@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-08-25 12:44+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-02-01 18:46+0000\n"
+"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -113,6 +113,12 @@ msgstr "Wijzig"
 
 msgid "Edit any image"
 msgstr "Alle afbeeldingen wijzigen"
+
+msgid "Choose"
+msgstr "Kies"
+
+msgid "Select images in choosers"
+msgstr "Selecteer afbeeldingen in keuzelijsten"
 
 msgid "title"
 msgstr "titel"
@@ -382,12 +388,6 @@ msgstr ""
 msgid "Image updated."
 msgstr "Afbeelding is bijgewerkt."
 
-msgid "Update"
-msgstr "Update"
-
-msgid "Delete"
-msgstr "Verwijderen"
-
 msgid "Image permissions"
 msgstr "Afbeeldingsmachtigingen"
 
@@ -412,6 +412,9 @@ msgid ""
 msgstr ""
 "Het bronbestand van de afbeelding kon niet worden gevonden. Kies een ander "
 "bronbestand of verwijder de afbeelding."
+
+msgid "Delete"
+msgstr "Verwijderen"
 
 msgid "Image '{0}' deleted."
 msgstr "Afbeelding '{0}' verwijderd."

@@ -8,7 +8,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2020
+# Loic Teixeira, 2020-2021
 # Loic Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-07-31 11:14+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-02-01 18:44+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -120,6 +120,12 @@ msgstr "Modifier"
 
 msgid "Edit any image"
 msgstr "Modifier n’importe quelle image"
+
+msgid "Choose"
+msgstr "Choisir"
+
+msgid "Select images in choosers"
+msgstr "Sélectionner une image dans le sélecteur d'images"
 
 msgid "title"
 msgstr "titre"
@@ -350,7 +356,7 @@ msgid "Status"
 msgstr "Statut"
 
 msgid "Edit this page"
-msgstr "Éditer cette page"
+msgstr "Modifier cette page"
 
 msgid "Add multiple images"
 msgstr "Ajouter plusieurs images"
@@ -390,12 +396,6 @@ msgstr ""
 msgid "Image updated."
 msgstr "Image mise à jour."
 
-msgid "Update"
-msgstr "Mettre à jour"
-
-msgid "Delete"
-msgstr "Supprimer"
-
 msgid "Image permissions"
 msgstr "Permissions d’image"
 
@@ -420,6 +420,9 @@ msgid ""
 msgstr ""
 "Le fichier image source n'a pas été trouvé. Veuillez changer la source ou "
 "supprimer l'image."
+
+msgid "Delete"
+msgstr "Supprimer"
 
 msgid "Image '{0}' deleted."
 msgstr "Image '{0}' supprimée."

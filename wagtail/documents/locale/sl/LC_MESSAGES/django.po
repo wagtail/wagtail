@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -167,12 +167,6 @@ msgstr "Dodaj v zbirko:"
 msgid "Sorry, upload failed."
 msgstr "Prenos žal ni uspel."
 
-msgid "Update"
-msgstr "Posodbi"
-
-msgid "Delete"
-msgstr "Izbriši"
-
 msgid "Document permissions"
 msgstr "Dovoljenja dokumenta"
 
@@ -196,6 +190,9 @@ msgid ""
 msgstr ""
 "Datoteke ni bilo možno najti. Spremenite izvor datoteke, ali izbrišite "
 "dokument"
+
+msgid "Delete"
+msgstr "Izbriši"
 
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' izbrisan."

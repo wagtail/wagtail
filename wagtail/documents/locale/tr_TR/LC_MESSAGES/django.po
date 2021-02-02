@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -262,12 +262,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Üzgünüm, yükleme başarısız oldu."
 
-msgid "Update"
-msgstr "Güncelle"
-
-msgid "Delete"
-msgstr "Sil"
-
 msgid "You need a password to access this document."
 msgstr "Bu belgeye erişebilmeniz için şifre gerekiyor."
 
@@ -298,6 +292,9 @@ msgstr "'{0}' belgesi güncellendi"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Belge bulunamıyor. Lütfen kaynağı değiştirin ya da belgeyi silin"
+
+msgid "Delete"
+msgstr "Sil"
 
 msgid "Document '{0}' deleted."
 msgstr "'{0}' belgesi silindi."

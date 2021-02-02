@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -185,12 +185,6 @@ msgstr "Pridėti į kolekciją:"
 msgid "Sorry, upload failed."
 msgstr "Atsiprašome, įkelti nepavyko."
 
-msgid "Update"
-msgstr "Atnaujinti"
-
-msgid "Delete"
-msgstr "Ištrinti"
-
 msgid "You need a password to access this document."
 msgstr "Jums reikia slaptažodžio kad galėtumėte pasiekti šį dokumentą."
 
@@ -223,6 +217,9 @@ msgstr "Dokumentas '{0}' atnaujintas"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Byla nebuvo rasta. Prašome pakeisti šaltinį arba ištrinti dokumentą"
+
+msgid "Delete"
+msgstr "Ištrinti"
 
 msgid "Document '{0}' deleted."
 msgstr "Dokumentas '{0}' ištrintas."

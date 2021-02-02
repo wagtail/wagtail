@@ -14,13 +14,14 @@
 # sergeybe <sergeybe@gmail.com>, 2020
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
 # Михаил Герасимов, 2019
+# Sergey Mazanov <mvver@outlook.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 13:56+0000\n"
-"Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-22 14:37+0000\n"
+"Last-Translator: Sergey Mazanov <mvver@outlook.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -45,6 +46,12 @@ msgstr "Править"
 
 msgid "Edit any document"
 msgstr "Редактировать любой документ"
+
+msgid "Choose"
+msgstr "Выберите"
+
+msgid "Select documents in choosers"
+msgstr "Укажите документ в выбранном"
 
 msgid "title"
 msgstr "заголовок"
@@ -294,12 +301,6 @@ msgstr "Извините, загрузка не удалась."
 msgid "Document updated."
 msgstr "Документ обновлен."
 
-msgid "Update"
-msgstr "Обновить"
-
-msgid "Delete"
-msgstr "Удалить"
-
 msgid "You need a password to access this document."
 msgstr "Вы должны ввести пароль, чтобы получить доступ к этому документу."
 
@@ -332,6 +333,9 @@ msgid ""
 msgstr ""
 "Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
 "документ"
+
+msgid "Delete"
+msgstr "Удалить"
 
 msgid "Document '{0}' deleted."
 msgstr "Документ '{0}' удален."

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -252,12 +252,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "죄송합니다, 업로드가 실패했습니다."
 
-msgid "Update"
-msgstr "수정"
-
-msgid "Delete"
-msgstr "삭제"
-
 msgid "You need a password to access this document."
 msgstr "이 문서에 접근하려면 비밀번호가 필요합니다."
 
@@ -289,6 +283,9 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 "파일을 찾을 수 없습니다. 소스를 변경하거나 파일을 삭제하여 주시기 바랍니다."
+
+msgid "Delete"
+msgstr "삭제"
 
 msgid "Document '{0}' deleted."
 msgstr "'{0}' 문서가 삭제 되었습니다."

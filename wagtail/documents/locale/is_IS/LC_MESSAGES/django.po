@@ -4,13 +4,13 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018
-# saevarom <saevar@saevar.is>, 2017-2020
+# saevarom <saevar@saevar.is>, 2017-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-27 11:10+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-02-01 13:46+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -34,6 +34,12 @@ msgstr "Breyta"
 
 msgid "Edit any document"
 msgstr "Breyta einhverri skrá"
+
+msgid "Choose"
+msgstr "Velja"
+
+msgid "Select documents in choosers"
+msgstr "Veldu skjal í valmynd"
 
 msgid "title"
 msgstr "titill"
@@ -266,12 +272,6 @@ msgstr "Því miður tókst ekki að hlaða upp skránum."
 msgid "Document updated."
 msgstr "Skjal uppfært."
 
-msgid "Update"
-msgstr "Uppfæra"
-
-msgid "Delete"
-msgstr "Eyða"
-
 msgid "You need a password to access this document."
 msgstr "Þú þarft lykilorð til að fá aðgang að þessari skrá"
 
@@ -302,6 +302,9 @@ msgstr "Skrá '{0}' uppfærð"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
+
+msgid "Delete"
+msgstr "Eyða"
 
 msgid "Document '{0}' deleted."
 msgstr "Skrá '{0}' hefur verið eytt."

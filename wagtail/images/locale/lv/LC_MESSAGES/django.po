@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -169,12 +169,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Augšupielāde neizdevās."
 
-msgid "Update"
-msgstr "Atjaunot"
-
-msgid "Delete"
-msgstr "Dzēst"
-
 msgid "Search images"
 msgstr "Meklēt attēlus"
 
@@ -186,6 +180,9 @@ msgstr "Labot vēlreiz"
 
 msgid "The image could not be saved due to errors."
 msgstr "Attēlu nevarēja saglabāt kļūdu dēļ."
+
+msgid "Delete"
+msgstr "Dzēst"
 
 msgid "Image '{0}' deleted."
 msgstr "Attēls '{0}' dzēsts."

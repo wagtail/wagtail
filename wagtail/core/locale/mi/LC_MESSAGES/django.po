@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2021-01-14 02:25+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-21 01:14+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
@@ -99,7 +99,7 @@ msgid ""
 "before you can save this site as default."
 msgstr ""
 "Kua whakatakoto a %(hostname)s hei te pae taunoa. Me whakakore koe tēnei i "
-"mua, hei pupuritia tēnei pae hei taunoa."
+"mua, hei puritia tēnei pae hei taunoa."
 
 msgid "title"
 msgstr "taitara"
@@ -515,6 +515,15 @@ msgstr "E hiahia ana he kupu muna kia tomonga i tēnei whārangi."
 
 msgid "Continue"
 msgstr "Tonu"
+
+msgid "English"
+msgstr "Ingarihi"
+
+msgid "French"
+msgstr "Wīwī"
+
+msgid "German"
+msgstr "Tiamana"
 
 #, python-format
 msgid "%(count)s descendant collection"

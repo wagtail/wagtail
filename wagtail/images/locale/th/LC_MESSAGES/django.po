@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -326,12 +326,6 @@ msgstr "รายงานข้อผิดพลาดนี้ของคุ
 msgid "Image updated."
 msgstr "รูปภาพถูกอัพเดทแล้ว"
 
-msgid "Update"
-msgstr "อัพเดท"
-
-msgid "Delete"
-msgstr "ลบ"
-
 msgid "Image permissions"
 msgstr "การอนุญาตรูปภาพ"
 
@@ -354,6 +348,9 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "ไม่สามารถพบต้นฉบับของไฟล์รูป กรุณาเปลี่ยนต้นฉบับหรือลบรูปทิ้ง"
+
+msgid "Delete"
+msgstr "ลบ"
 
 msgid "Image '{0}' deleted."
 msgstr "รูปภาพ'{0}'ถูกลบแล้ว"

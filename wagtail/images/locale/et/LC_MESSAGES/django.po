@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:11+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -373,12 +373,6 @@ msgstr "Teatage sellest veast oma veebimeistrile järgmise teabega:"
 msgid "Image updated."
 msgstr "Pilt on värskendatud."
 
-msgid "Update"
-msgstr "Uuenda"
-
-msgid "Delete"
-msgstr "Kustuta"
-
 msgid "Image permissions"
 msgstr "Pildi load"
 
@@ -401,6 +395,9 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "Allikapildifaili ei leitud. Palun muutke allikat või kustutage pilt."
+
+msgid "Delete"
+msgstr "Kustuta"
 
 msgid "Image '{0}' deleted."
 msgstr "Pilt '{0}' on kustutatud."

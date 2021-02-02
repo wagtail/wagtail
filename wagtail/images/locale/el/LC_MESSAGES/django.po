@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -295,12 +295,6 @@ msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με 
 msgid "Image updated."
 msgstr "Ενημέρωση εικόνας"
 
-msgid "Update"
-msgstr "Ενημέρωση"
-
-msgid "Delete"
-msgstr "Διαγραφή"
-
 msgid "Image permissions"
 msgstr "Άδειες εικόνων"
 
@@ -325,6 +319,9 @@ msgid ""
 msgstr ""
 "Το αρχείο προέλευσης της εικόνας δεν θα μπορεσε να βρεθεί. Παρακαλούμε να "
 "αλλάξετε την πηγή ή να διαγράψετε την εικόνα."
+
+msgid "Delete"
+msgstr "Διαγραφή"
 
 msgid "Image '{0}' deleted."
 msgstr "Η εικόνα '{0}' διαγράφηκε."
