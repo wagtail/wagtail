@@ -1,5 +1,7 @@
 /* global $ */
 
+import { escapeHtml as h } from '../../../utils/text';
+
 export class StructBlockValidationError {
   constructor(blockErrors) {
     this.blockErrors = blockErrors;
@@ -30,7 +32,7 @@ export class StructBlock {
       });
     } else {
       const dom = $(`
-        <div class="${this.blockDef.meta.classname || ''}">
+        <div class="${h(this.blockDef.meta.classname || '')}">
         </div>
       `);
       $(placeholder).replaceWith(dom);
@@ -50,7 +52,7 @@ export class StructBlock {
       this.blockDef.childBlockDefs.forEach(childBlockDef => {
         const childDom = $(`
           <div class="field ${childBlockDef.meta.required ? 'required' : ''}">
-            <label class="field__label">${childBlockDef.meta.label}</label>
+            <label class="field__label">${h(childBlockDef.meta.label)}</label>
             <div data-streamfield-block></div>
           </div>
         `);

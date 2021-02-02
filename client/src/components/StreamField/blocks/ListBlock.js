@@ -1,4 +1,5 @@
 import { BaseSequenceChild } from './BaseSequenceBlock';
+import { escapeHtml as h } from '../../../utils/text';
 
 /* global $ */
 
@@ -28,8 +29,8 @@ export class ListBlock {
     this.prefix = prefix;
 
     const dom = $(`
-      <div class="c-sf-container ${this.blockDef.meta.classname || ''}">
-        <input type="hidden" name="${prefix}-count" data-streamfield-list-count value="0">
+      <div class="c-sf-container ${h(this.blockDef.meta.classname || '')}">
+        <input type="hidden" name="${h(prefix)}-count" data-streamfield-list-count value="0">
 
         <div data-streamfield-list-container></div>
         <button type="button" title="Add" data-streamfield-list-add class="c-sf-add-button c-sf-add-button--visible">
