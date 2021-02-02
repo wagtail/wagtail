@@ -1,5 +1,4 @@
 import datetime
-import unittest
 
 from unittest import mock
 
@@ -916,7 +915,6 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
     Test that streamfields inside an inline child work
     """
 
-    @unittest.expectedFailure  # TODO(telepath)
     def test_inline_streamfield(self):
         homepage = Page.objects.get(id=2)
         self.login()
@@ -925,7 +923,7 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # response should include HTML declarations for streamfield child blocks
-        self.assertContains(response, '<div id="__PREFIX__-container" aria-hidden="false">')
+        self.assertContains(response, '<div id="sections-__prefix__-body" data-block="')
 
 
 class TestIssue2994(TestCase, WagtailTestUtils):
