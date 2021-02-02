@@ -651,6 +651,7 @@ class StreamBlockAdapter(Adapter):
                 'MOVE_UP': _("Move up"),
                 'MOVE_DOWN': _("Move down"),
                 'DELETE': _("Delete"),
+                'ADD': _("Add"),
             },
         }
         help_text = getattr(block.meta, 'help_text', None)

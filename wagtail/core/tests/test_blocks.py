@@ -2134,6 +2134,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 'DELETE': 'Delete',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
+                'ADD': 'Add',
             },
         })
 
@@ -2255,6 +2256,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 'DELETE': 'Delete',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
+                'ADD': 'Add',
             },
         })
 
@@ -2283,6 +2285,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 'DELETE': 'Delete',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
+                'ADD': 'Add',
             },
         })
 
@@ -2634,6 +2637,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 'DELETE': 'Delete',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
+                'ADD': 'Add',
             },
         })
 
@@ -3233,6 +3237,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 'DELETE': 'Delete',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
+                'ADD': 'Add',
             },
         })
 
@@ -3262,6 +3267,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 'DELETE': 'Delete',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
+                'ADD': 'Add',
             },
         })
 

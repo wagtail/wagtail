@@ -33,7 +33,8 @@ export class ListBlock {
         <input type="hidden" name="${h(prefix)}-count" data-streamfield-list-count value="0">
 
         <div data-streamfield-list-container></div>
-        <button type="button" title="Add" data-streamfield-list-add class="c-sf-add-button c-sf-add-button--visible">
+        <button type="button" title="${h(this.blockDef.meta.strings.ADD)}" data-streamfield-list-add
+            class="c-sf-add-button c-sf-add-button--visible">
           <i aria-hidden="true">+</i>
         </button>
       </div>

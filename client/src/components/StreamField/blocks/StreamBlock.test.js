@@ -89,6 +89,7 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
           DELETE: 'Delete',
+          ADD: 'Add',
         },
       }
     );
@@ -308,6 +309,7 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
           DELETE: 'Delete & kill with fire',
+          ADD: 'Add',
         },
       }
     );

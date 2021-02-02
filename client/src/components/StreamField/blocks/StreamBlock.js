@@ -41,7 +41,8 @@ class StreamBlockMenu {
 
     const dom = $(`
       <div>
-        <button data-streamblock-menu-open type="button" title="Add" class="c-sf-add-button c-sf-add-button--visible">
+        <button data-streamblock-menu-open type="button" title="${h(opts.strings.ADD)}"
+            class="c-sf-add-button c-sf-add-button--visible">
           <i aria-hidden="true">+</i>
         </button>
         <div data-streamblock-menu-outer>
@@ -202,6 +203,7 @@ export class StreamBlock {
           onSelectBlockType: (blockType, newIndex) => {
             this.insertFromMenu(blockType, newIndex);
           },
+          strings: this.blockDef.meta.strings,
         }
       )
     ];
@@ -250,6 +252,7 @@ export class StreamBlock {
         onSelectBlockType: (blockType, newIndex) => {
           this.insertFromMenu(blockType, newIndex);
         },
+        strings: this.blockDef.meta.strings,
       }
     );
     this.menus.splice(index + 1, 0, menu);
