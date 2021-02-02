@@ -1638,7 +1638,7 @@ class TestStructBlock(SimpleTestCase):
         default_val = block.get_default()
         self.assertEqual(default_val.get('title'), 'Torchbox')
 
-    def test_adapt_with_help_text(self):
+    def test_adapt_with_help_text_on_meta(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
             link = blocks.URLBlock()
@@ -1647,6 +1647,26 @@ class TestStructBlock(SimpleTestCase):
                 help_text = "Self-promotion is encouraged"
 
         block = LinkBlock()
+
+        block.set_name('test_structblock')
+        js_args = StructBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[2], {
+            'label': 'Test structblock',
+            'required': False,
+            'icon': 'placeholder',
+            'classname': 'struct-block',
+            'helpIcon': '<svg class="icon icon-help default" aria-hidden="true" '
+              'focusable="false"><use href="#icon-help"></use></svg>',
+            'helpText': 'Self-promotion is encouraged'
+        })
+
+    def test_adapt_with_help_text_as_argument(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = LinkBlock(help_text="Self-promotion is encouraged")
 
         block.set_name('test_structblock')
         js_args = StructBlockAdapter().js_args(block)
