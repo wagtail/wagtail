@@ -18,6 +18,7 @@ from django.utils.translation import gettext_lazy as __
 from wagtail.core import blocks
 from wagtail.core.blocks.field_block import FieldBlockAdapter
 from wagtail.core.blocks.list_block import ListBlockAdapter
+from wagtail.core.blocks.static_block import StaticBlockAdapter
 from wagtail.core.blocks.stream_block import StreamBlockAdapter
 from wagtail.core.blocks.struct_block import StructBlockAdapter
 from wagtail.core.models import Page
@@ -3517,56 +3518,86 @@ class TestPageChooserBlock(TestCase):
 
 
 class TestStaticBlock(unittest.TestCase):
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_with_constructor(self):
+    def test_adapt_with_constructor(self):
         block = blocks.StaticBlock(
             admin_text="Latest posts - This block doesn't need to be configured, it will be displayed automatically",
             template='tests/blocks/posts_static_block.html')
-        rendered_html = block.render_form(None)
 
-        self.assertEqual(rendered_html, "Latest posts - This block doesn't need to be configured, it will be displayed automatically")
+        block.set_name('posts_static_block')
+        js_args = StaticBlockAdapter().js_args(block)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_with_subclass(self):
+        self.assertEqual(js_args[0], 'posts_static_block')
+        self.assertEqual(js_args[1], {
+            'text': "Latest posts - This block doesn't need to be configured, it will be displayed automatically",
+            'icon': 'placeholder',
+            'label': 'Posts static block'
+        })
+
+    def test_adapt_with_subclass(self):
         class PostsStaticBlock(blocks.StaticBlock):
             class Meta:
                 admin_text = "Latest posts - This block doesn't need to be configured, it will be displayed automatically"
                 template = "tests/blocks/posts_static_block.html"
 
         block = PostsStaticBlock()
-        rendered_html = block.render_form(None)
 
-        self.assertEqual(rendered_html, "Latest posts - This block doesn't need to be configured, it will be displayed automatically")
+        block.set_name('posts_static_block')
+        js_args = StaticBlockAdapter().js_args(block)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_with_subclass_displays_default_text_if_no_admin_text(self):
+        self.assertEqual(js_args[0], 'posts_static_block')
+        self.assertEqual(js_args[1], {
+            'text': "Latest posts - This block doesn't need to be configured, it will be displayed automatically",
+            'icon': 'placeholder',
+            'label': 'Posts static block'
+        })
+
+    def test_adapt_with_subclass_displays_default_text_if_no_admin_text(self):
         class LabelOnlyStaticBlock(blocks.StaticBlock):
             class Meta:
                 label = "Latest posts"
 
         block = LabelOnlyStaticBlock()
-        rendered_html = block.render_form(None)
 
-        self.assertEqual(rendered_html, "Latest posts: this block has no options.")
+        block.set_name('posts_static_block')
+        js_args = StaticBlockAdapter().js_args(block)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_with_subclass_displays_default_text_if_no_admin_text_and_no_label(self):
+        self.assertEqual(js_args[0], 'posts_static_block')
+        self.assertEqual(js_args[1], {
+            'text': "Latest posts: this block has no options.",
+            'icon': 'placeholder',
+            'label': 'Latest posts'
+        })
+
+    def test_adapt_with_subclass_displays_default_text_if_no_admin_text_and_no_label(self):
         class NoMetaStaticBlock(blocks.StaticBlock):
             pass
 
         block = NoMetaStaticBlock()
-        rendered_html = block.render_form(None)
 
-        self.assertEqual(rendered_html, "This block has no options.")
+        block.set_name('posts_static_block')
+        js_args = StaticBlockAdapter().js_args(block)
 
-    @unittest.expectedFailure  # TODO(telepath)
-    def test_render_form_works_with_mark_safe(self):
+        self.assertEqual(js_args[0], 'posts_static_block')
+        self.assertEqual(js_args[1], {
+            'text': "Posts static block: this block has no options.",
+            'icon': 'placeholder',
+            'label': 'Posts static block'
+        })
+
+    def test_adapt_works_with_mark_safe(self):
         block = blocks.StaticBlock(
             admin_text=mark_safe("<b>Latest posts</b> - This block doesn't need to be configured, it will be displayed automatically"),
             template='tests/blocks/posts_static_block.html')
-        rendered_html = block.render_form(None)
 
-        self.assertEqual(rendered_html, "<b>Latest posts</b> - This block doesn't need to be configured, it will be displayed automatically")
+        block.set_name('posts_static_block')
+        js_args = StaticBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'posts_static_block')
+        self.assertEqual(js_args[1], {
+            'html': "<b>Latest posts</b> - This block doesn't need to be configured, it will be displayed automatically",
+            'icon': 'placeholder',
+            'label': 'Posts static block'
+        })
 
     def test_get_default(self):
         block = blocks.StaticBlock()
