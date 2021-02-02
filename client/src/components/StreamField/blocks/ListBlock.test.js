@@ -68,6 +68,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
           DELETE: 'Delete',
+          ADD: 'Add',
         },
       }
     );
