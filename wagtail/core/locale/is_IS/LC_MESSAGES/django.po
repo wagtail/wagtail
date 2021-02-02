@@ -4,13 +4,13 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020
-# saevarom <saevar@saevar.is>, 2019-2020
+# saevarom <saevar@saevar.is>, 2019-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-27 11:09+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-02-01 13:45+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -513,6 +513,15 @@ msgstr "Þú þarft lykilorð til að fá aðgang að þessari síðu"
 
 msgid "Continue"
 msgstr "Áfram"
+
+msgid "English"
+msgstr "Enska"
+
+msgid "French"
+msgstr "Franska"
+
+msgid "German"
+msgstr "Þýska"
 
 #, python-format
 msgid "%(count)s descendant collection"

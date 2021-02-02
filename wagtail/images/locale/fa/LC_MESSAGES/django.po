@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -287,12 +287,6 @@ msgstr "گزارش این خطا به وبمستر با اطلاعات زیر:"
 msgid "Image updated."
 msgstr "تصویر آپلود شد."
 
-msgid "Update"
-msgstr "بروزرسانی"
-
-msgid "Delete"
-msgstr "حذف"
-
 msgid "Image permissions"
 msgstr "مجوزهای تصویر"
 
@@ -315,6 +309,9 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "تصویر منبع پیدا نشد. لطفا منبع را تغییر دهید یا تصویر را حذف نمایید."
+
+msgid "Delete"
+msgstr "حذف"
 
 msgid "Image '{0}' deleted."
 msgstr "تصویر '{0}' حذف شد."

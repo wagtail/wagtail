@@ -15,13 +15,14 @@
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
+# Sergey Mazanov <mvver@outlook.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 14:04+0000\n"
-"Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-22 14:36+0000\n"
+"Last-Translator: Sergey Mazanov <mvver@outlook.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -528,6 +529,15 @@ msgstr "Вам нужен пароль для доступа к этой стр�
 
 msgid "Continue"
 msgstr "Продолжить"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "French"
+msgstr "Французский"
+
+msgid "German"
+msgstr "Немецкий"
 
 #, python-format
 msgid "%(count)s descendant collection"

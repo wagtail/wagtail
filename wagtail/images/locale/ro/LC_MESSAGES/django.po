@@ -4,13 +4,13 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2016,2018-2020
+# Dan Braghis, 2014-2016,2018-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-04-23 08:33+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-02-01 19:06+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -108,6 +108,12 @@ msgstr "Editează"
 
 msgid "Edit any image"
 msgstr "Editează orice imagine"
+
+msgid "Choose"
+msgstr "Selectează"
+
+msgid "Select images in choosers"
+msgstr "Selectare imagini în selectoare"
 
 msgid "title"
 msgstr "titlu"
@@ -390,12 +396,6 @@ msgstr "Raportează această eroare webmasterului cu următoarele informații:"
 msgid "Image updated."
 msgstr "Imaginea a fost actualizată."
 
-msgid "Update"
-msgstr "Actualizează"
-
-msgid "Delete"
-msgstr "Șterge"
-
 msgid "Image permissions"
 msgstr "Permisiuni imagine"
 
@@ -420,6 +420,9 @@ msgid ""
 msgstr ""
 "Fișierul sursă al imaginii nu a fost găsit. Schimbă sursa sau sterge "
 "imaginea."
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Image '{0}' deleted."
 msgstr "Imaginea '{0}' a fost ștearsă."

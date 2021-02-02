@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -176,12 +176,6 @@ msgstr "Afegir a la col·lecció:"
 msgid "Sorry, upload failed."
 msgstr "La pujada ha fallat."
 
-msgid "Update"
-msgstr "Actualitzar"
-
-msgid "Delete"
-msgstr "Eliminar"
-
 msgid "Document permissions"
 msgstr "Permisos de document"
 
@@ -211,6 +205,9 @@ msgstr "Document '{0}' actualitzat"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "No s'ha trobat el fitxer. Canvieu l'origen o elimineu el document."
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' esborrat."

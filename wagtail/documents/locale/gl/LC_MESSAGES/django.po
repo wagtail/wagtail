@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -170,12 +170,6 @@ msgstr "Engadir á colección:"
 msgid "Sorry, upload failed."
 msgstr "Síntoo, a subida fallou."
 
-msgid "Update"
-msgstr "Actualizar"
-
-msgid "Delete"
-msgstr "Eliminar"
-
 msgid "Document permissions"
 msgstr "Permisos do documento"
 
@@ -206,6 +200,9 @@ msgid ""
 msgstr ""
 "O arquivo non puido ser atopado. Por favor, cambia a fonte ou elimina o "
 "documento."
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' eliminado."

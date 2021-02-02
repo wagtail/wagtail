@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-11-02 19:46+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-19 08:09+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -515,6 +515,15 @@ msgstr "Ezen oldal megtekintéséhez jelszó szükséges."
 
 msgid "Continue"
 msgstr "Folytatás"
+
+msgid "English"
+msgstr "Angol"
+
+msgid "French"
+msgstr "Francia"
+
+msgid "German"
+msgstr "Német"
 
 #, python-format
 msgid "%(count)s descendant collection"

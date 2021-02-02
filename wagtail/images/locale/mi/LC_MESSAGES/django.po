@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2021-01-14 01:57+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-21 01:13+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
@@ -171,7 +171,16 @@ msgid "Add image"
 msgstr "Tāpiri whakaahua"
 
 msgid "Save"
-msgstr "Pupuritia"
+msgstr "Puritia"
+
+msgid "Delete image"
+msgstr "Muku whakaahua"
+
+msgid "Are you sure you want to delete this image?"
+msgstr "E pirangi ana koe kī te mukuhia tēnei whakahua?"
+
+msgid "Yes, delete"
+msgstr "Ae, muku"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -179,3 +188,21 @@ msgstr "E whakarerekē ana a whakahua %(title)s"
 
 msgid "Editing"
 msgstr "Whakarerekē"
+
+msgid "Images"
+msgstr "Ngā whakaahua"
+
+msgid "Image '{0}' updated."
+msgstr "Whakahua '{0}' kua whakahou"
+
+msgid "The image could not be saved due to errors."
+msgstr "Ehara ka taea te puritia kī te whakahua nei, he raruraru "
+
+msgid "Image '{0}' deleted."
+msgstr "Whakahua '{0}' kua mukuhia."
+
+msgid "Image '{0}' added."
+msgstr "Whakahua '{0}' kua tāpiri."
+
+msgid "The image could not be created due to errors."
+msgstr "Ehara ka taea ki te hangaia te whakahua nei, he raruraru "

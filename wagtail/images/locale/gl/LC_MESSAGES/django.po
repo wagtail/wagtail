@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -277,12 +277,6 @@ msgstr ""
 msgid "Image updated."
 msgstr "Imaxe actualizada."
 
-msgid "Update"
-msgstr "Actualizar"
-
-msgid "Delete"
-msgstr "Eliminar"
-
 msgid "Image permissions"
 msgstr "Permisos da imaxe"
 
@@ -307,6 +301,9 @@ msgid ""
 msgstr ""
 "O imaxe fonte non puido ser atopado. Por favor, cambia a fonte ou elimina a "
 "imaxe."
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Image '{0}' deleted."
 msgstr "Imaxe '{0}' eliminada."

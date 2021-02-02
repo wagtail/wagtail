@@ -5,15 +5,15 @@
 # Translators:
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2020
+# Dan Braghis, 2014-2021
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-02-01 19:13+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -208,6 +208,14 @@ msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s șters."
 msgstr[1] "%(count)d %(snippet_type)s șterse."
 msgstr[2] "%(count)d de %(snippet_type)s șterse."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editează '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Șterge '%(title)s'"
 
 #, python-format
 msgid "Choose %s"

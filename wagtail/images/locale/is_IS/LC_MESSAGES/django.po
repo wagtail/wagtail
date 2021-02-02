@@ -4,13 +4,13 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
-# saevarom <saevar@saevar.is>, 2015,2019-2020
+# saevarom <saevar@saevar.is>, 2015,2019-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-01-25 11:13+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-02-01 13:46+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -108,6 +108,12 @@ msgstr "Breyta"
 
 msgid "Edit any image"
 msgstr "Breyta einhverri mynd"
+
+msgid "Choose"
+msgstr "Velja"
+
+msgid "Select images in choosers"
+msgstr "Veldu mynd í valmynd"
 
 msgid "title"
 msgstr "titill"
@@ -377,12 +383,6 @@ msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
 msgid "Image updated."
 msgstr "Mynd uppfærð"
 
-msgid "Update"
-msgstr "Uppfæra"
-
-msgid "Delete"
-msgstr "Eyða"
-
 msgid "Image permissions"
 msgstr "Myndaheimildir"
 
@@ -406,6 +406,9 @@ msgid ""
 "the image."
 msgstr ""
 "Upprunamyndin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
+
+msgid "Delete"
+msgstr "Eyða"
 
 msgid "Image '{0}' deleted."
 msgstr "Mynd '{0}' eydd."

@@ -4,14 +4,15 @@
 #
 # Translators:
 # Adi Ron <adi@bnop.co>, 2019
+# Men770, 2021
 # Oleg Sverdlov <oleg.sverdlov@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-07-24 16:52+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-20 13:27+0000\n"
+"Last-Translator: Men770\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -21,12 +22,18 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
 "1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
+msgid "default"
+msgstr "ברירת מחדל"
+
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
 msgstr "עריכת %(setting_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "עריכה"
+
+msgid "Site"
+msgstr "אתר"
 
 msgid "Saving…"
 msgstr "שומר..."
@@ -39,6 +46,10 @@ msgstr "הגדרות"
 
 msgid "This setting could not be opened because there is no site defined."
 msgstr "לא ניתן לפתוח את ההגדרות בגלל שאף אתר לא מוגדר."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)sעודכנו"
 
 msgid "The setting could not be saved due to errors."
 msgstr "לא ניתן לשמור את ההגדרות עקב שגיאות."

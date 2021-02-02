@@ -4,14 +4,14 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2020
+# Dan Braghis, 2014-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-02-01 19:04+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,12 @@ msgstr "Editează"
 
 msgid "Edit any document"
 msgstr "Editează orice document"
+
+msgid "Choose"
+msgstr "Selectează"
+
+msgid "Select documents in choosers"
+msgstr "Selectează documente în selectoare"
 
 msgid "title"
 msgstr "titlu"
@@ -278,11 +284,8 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "Încărcarea a eșuat."
 
-msgid "Update"
-msgstr "Actualizează"
-
-msgid "Delete"
-msgstr "Șterge"
+msgid "Document updated."
+msgstr "Document actualizat."
 
 msgid "You need a password to access this document."
 msgstr "Aveți nevoie de o parolă pentru a accesa aceast document."
@@ -314,6 +317,9 @@ msgstr "Documentul '{0}' a fost actualizat."
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
+
+msgid "Delete"
+msgstr "Șterge"
 
 msgid "Document '{0}' deleted."
 msgstr "Documentul '{0}' a fost șters."

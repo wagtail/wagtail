@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -285,12 +285,6 @@ msgstr "Серверийн алдаа"
 msgid "Image updated."
 msgstr "Зураг шинэчлэгдлээ."
 
-msgid "Update"
-msgstr "Шинэчлэх"
-
-msgid "Delete"
-msgstr "Устгах"
-
 msgid "Image permissions"
 msgstr "Зургийн хандалтын эрх"
 
@@ -313,6 +307,9 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "Эх зураг олдсонгүй. Эх зургийг солих эсвэл устгана уу."
+
+msgid "Delete"
+msgstr "Устгах"
 
 msgid "Image '{0}' deleted."
 msgstr "'{0}' зураг устлаа."

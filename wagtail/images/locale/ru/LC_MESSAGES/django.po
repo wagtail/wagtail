@@ -15,13 +15,14 @@
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 # gsstver <gsstver@gmail.com>, 2016
+# Sergey Mazanov <mvver@outlook.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-05-09 08:08+0000\n"
-"Last-Translator: Mikhail Sidorov <pevzi23@gmail.com>\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-22 14:38+0000\n"
+"Last-Translator: Sergey Mazanov <mvver@outlook.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -120,6 +121,12 @@ msgstr "Правка"
 
 msgid "Edit any image"
 msgstr "Редактировать любое изображение"
+
+msgid "Choose"
+msgstr "Выберите"
+
+msgid "Select images in choosers"
+msgstr "Укажите изображения в выбранном"
 
 msgid "title"
 msgstr "заголовок"
@@ -406,12 +413,6 @@ msgstr "Сообщите об этой ошибке администратору
 msgid "Image updated."
 msgstr "Изображение обновлено."
 
-msgid "Update"
-msgstr "Обновить"
-
-msgid "Delete"
-msgstr "Удалить"
-
 msgid "Image permissions"
 msgstr "Права доступа к изображению"
 
@@ -436,6 +437,9 @@ msgid ""
 msgstr ""
 "Файл исходного изображения не найден. Пожалуйста, измените или удалите "
 "изображение."
+
+msgid "Delete"
+msgstr "Удалить"
 
 msgid "Image '{0}' deleted."
 msgstr "Изображение '{0}' удалено."

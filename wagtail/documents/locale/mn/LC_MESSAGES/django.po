@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -188,12 +188,6 @@ msgstr "Цуглуулга руу нэмэх"
 msgid "Sorry, upload failed."
 msgstr "Уучлаарай, хуулахад алдаа гарлаа."
 
-msgid "Update"
-msgstr "Шинэчлэх"
-
-msgid "Delete"
-msgstr "Устгах"
-
 msgid "You need a password to access this document."
 msgstr "Энэ файлыг үзэхийн тулд нууц үгийг нь оруулах хэрэгтэй."
 
@@ -221,6 +215,9 @@ msgstr "'{0}' файл шинэчлэгдлээ"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Файл олдсонгүй. Эх файлыг солих эсвэл устгана уу"
+
+msgid "Delete"
+msgstr "Устгах"
 
 msgid "Document '{0}' deleted."
 msgstr "'{0}' файл устлаа."

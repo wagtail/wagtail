@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -223,12 +223,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "عذرًا ، أخفق التحميل."
 
-msgid "Update"
-msgstr "حدث"
-
-msgid "Delete"
-msgstr "احذف"
-
 msgid "You need a password to access this document."
 msgstr "أنت بحاجة إلى كلمة مرور للوصول إلى هذا المستند."
 
@@ -260,6 +254,9 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr ""
 "كان من غبر الممكن العثور على الوثيقة. من فضلك غير المصدر أو احذف الوثيقة"
+
+msgid "Delete"
+msgstr "احذف"
 
 msgid "Document '{0}' deleted."
 msgstr "حذف '{0}' مستند"

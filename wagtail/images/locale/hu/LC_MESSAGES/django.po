@@ -4,13 +4,13 @@
 #
 # Translators:
 # aaao <aron.santa@gmail.com>, 2019
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
-"PO-Revision-Date: 2020-04-21 15:34+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-19 08:11+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -109,6 +109,12 @@ msgstr "Szerkeszt"
 
 msgid "Edit any image"
 msgstr "Bármelyik kép szerkesztése"
+
+msgid "Choose"
+msgstr "Kiválasztás"
+
+msgid "Select images in choosers"
+msgstr "Kiválaszthat képeket tallózáskor"
 
 msgid "title"
 msgstr "cím"
@@ -376,12 +382,6 @@ msgstr ""
 msgid "Image updated."
 msgstr "Kép frissítve."
 
-msgid "Update"
-msgstr "Frissítés"
-
-msgid "Delete"
-msgstr "Törlés"
-
 msgid "Image permissions"
 msgstr "Kép engedélyek"
 
@@ -406,6 +406,9 @@ msgid ""
 msgstr ""
 "A forrás kép nem található. Kérjük válasszon ki új forrás fájlt, vagy "
 "törölje a képet."
+
+msgid "Delete"
+msgstr "Törlés"
 
 msgid "Image '{0}' deleted."
 msgstr "'{0}' kép törölve."
