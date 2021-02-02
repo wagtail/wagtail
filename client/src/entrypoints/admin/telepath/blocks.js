@@ -3,6 +3,7 @@
 /* global $ */
 
 import { FieldBlockDefinition } from '../../../components/StreamField/blocks/FieldBlock';
+import { StaticBlockDefinition } from '../../../components/StreamField/blocks/StaticBlock';
 import { StructBlockDefinition, StructBlockValidationError } from '../../../components/StreamField/blocks/StructBlock';
 import { ListBlockDefinition, ListBlockValidationError } from '../../../components/StreamField/blocks/ListBlock';
 import { StreamBlockDefinition, StreamBlockValidationError } from '../../../components/StreamField/blocks/StreamBlock';
@@ -32,6 +33,7 @@ function initBlockWidget(id) {
 window.initBlockWidget = initBlockWidget;
 
 window.telepath.register('wagtail.blocks.FieldBlock', FieldBlockDefinition);
+window.telepath.register('wagtail.blocks.StaticBlock', StaticBlockDefinition);
 window.telepath.register('wagtail.blocks.StructBlock', StructBlockDefinition);
 window.telepath.register('wagtail.blocks.StructBlockValidationError', StructBlockValidationError);
 window.telepath.register('wagtail.blocks.ListBlock', ListBlockDefinition);
