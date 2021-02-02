@@ -11,7 +11,7 @@ Changelog
  * Fix: Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
 
 
-2.12 (xx.xx.xxxx) - IN DEVELOPMENT
+2.12 (02.02.2021)
 ~~~~~~~~~~~~~~~~~
 
  * Added a distinct 'choose' permission for images and documents (Robert Rollins)
