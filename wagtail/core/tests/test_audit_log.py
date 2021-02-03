@@ -189,9 +189,10 @@ class TestAuditLog(TestCase):
         section = self.root_page.add_child(
             instance=SimplePage(title="About us", slug="about", content="hello")
         )
+        user = get_user_model().objects.first()
+        section.move(self.home_page, user=user)
 
-        section.move(self.home_page)
-        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.move').count(), 1)
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.move', user=user).count(), 1)
 
     def test_page_delete(self):
         self.home_page.add_child(

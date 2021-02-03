@@ -34,11 +34,11 @@ def set_page_position(request, page_to_move_id):
             # right. If left, then left.
             old_position = list(parent_page.get_children()).index(page_to_move)
             if int(position) < old_position:
-                page_to_move.move(position_page, pos='left')
+                page_to_move.move(position_page, pos='left', user=request.user)
             elif int(position) > old_position:
-                page_to_move.move(position_page, pos='right')
+                page_to_move.move(position_page, pos='right', user=request.user)
         else:
             # Move page to end
-            page_to_move.move(parent_page, pos='last-child')
+            page_to_move.move(parent_page, pos='last-child', user=request.user)
 
     return HttpResponse('')

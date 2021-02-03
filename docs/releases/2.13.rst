@@ -42,6 +42,7 @@ Bug fixes
 * Fix pagination on 'view users in a group' (Sagar Agarwal)
 * Prevent page privacy menu from being triggered by pressing enter on a char field (Sagar Agarwal)
 * Validate host/scheme of return URLs on password authentication forms (Susan Dreher)
+* Reordering a page now includes the correct user in the audit log (Storm Heg)
 
 
 Upgrade considerations
