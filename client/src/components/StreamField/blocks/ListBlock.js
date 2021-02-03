@@ -30,7 +30,7 @@ class InsertPosition {
   */
   constructor(placeholder, index, opts) {
     this.index = index;
-    this.onInsert = opts && opts.onInsert;
+    this.onRequestInsert = opts && opts.onRequestInsert;
 
     const button = $(`
       <button type="button" title="${h(opts.strings.ADD)}" data-streamfield-list-add
@@ -42,8 +42,8 @@ class InsertPosition {
     this.element = button.get(0);
 
     button.click(() => {
-      if (this.onInsert) {
-        this.onInsert(this.index);
+      if (this.onRequestInsert) {
+        this.onRequestInsert(this.index);
       }
     });
   }
@@ -107,7 +107,7 @@ export class ListBlock {
     this.insertPositions = [
       new InsertPosition(
         placeholder, 0, {
-          onInsert: (newIndex) => {
+          onRequestInsert: (newIndex) => {
             this.insert(this.blockDef.initialChildState, newIndex, { animate: true });
           },
           strings: this.blockDef.meta.strings,
@@ -154,7 +154,7 @@ export class ListBlock {
 
     const insertPosition = new InsertPosition(
       insertPositionPlaceholder, index + 1, {
-        onInsert: (newIndex) => {
+        onRequestInsert: (newIndex) => {
           this.insert(this.blockDef.initialChildState, newIndex, { animate: true });
         },
         strings: this.blockDef.meta.strings,

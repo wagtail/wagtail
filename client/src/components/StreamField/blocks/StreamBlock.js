@@ -35,7 +35,7 @@ class StreamChild extends BaseSequenceChild {
 class StreamBlockMenu {
   constructor(placeholder, groupedChildBlockDefs, opts) {
     this.index = opts && opts.index;
-    this.onSelectBlockType = opts && opts.onSelectBlockType;
+    this.onRequestInsert = opts && opts.onRequestInsert;
     this.groupedChildBlockDefs = groupedChildBlockDefs;
 
     const dom = $(`
@@ -86,8 +86,8 @@ class StreamBlockMenu {
         `);
         grid.append(button);
         button.click(() => {
-          if (this.onSelectBlockType) {
-            this.onSelectBlockType(blockDef.name, this.index);
+          if (this.onRequestInsert) {
+            this.onRequestInsert(this.index, { type: blockDef.name });
           }
           this.close({ animate: true });
         });
@@ -194,7 +194,7 @@ export class StreamBlock {
       new StreamBlockMenu(
         placeholder, this.blockDef.groupedChildBlockDefs, {
           index: 0,
-          onSelectBlockType: (blockType, newIndex) => {
+          onRequestInsert: (newIndex, { type: blockType }) => {
             this.insertFromMenu(blockType, newIndex);
           },
           strings: this.blockDef.meta.strings,
@@ -243,7 +243,7 @@ export class StreamBlock {
     const menu = new StreamBlockMenu(
       menuPlaceholder, this.blockDef.groupedChildBlockDefs, {
         index: index + 1,
-        onSelectBlockType: (blockType, newIndex) => {
+        onRequestInsert: (newIndex, { type: blockType }) => {
           this.insertFromMenu(blockType, newIndex);
         },
         strings: this.blockDef.meta.strings,
