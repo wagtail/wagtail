@@ -1,4 +1,4 @@
-import { BaseSequenceChild } from './BaseSequenceBlock';
+import { BaseSequenceChild, BaseInsertionControl } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 
 /* global $ */
@@ -22,14 +22,14 @@ class ListChild extends BaseSequenceChild {
   }
 }
 
-class InsertPosition {
+class InsertPosition extends BaseInsertionControl {
   /*
   Represents a position in the DOM where a new list item can be inserted.
 
   This renders a + button. Later, these could also be used to represent drop zones for drag+drop reordering.
   */
-  constructor(placeholder, index, opts) {
-    this.index = index;
+  constructor(placeholder, opts) {
+    super(placeholder, opts);
     this.onRequestInsert = opts && opts.onRequestInsert;
 
     const button = $(`
@@ -46,14 +46,6 @@ class InsertPosition {
         this.onRequestInsert(this.index);
       }
     });
-  }
-
-  setIndex(newIndex) {
-    this.index = newIndex;
-  }
-
-  delete() {
-    $(this.element).hide().attr('aria-hidden', 'true');
   }
 }
 
@@ -106,7 +98,8 @@ export class ListBlock {
     this.listContainer.append(placeholder);
     this.insertPositions = [
       new InsertPosition(
-        placeholder, 0, {
+        placeholder, {
+          index: 0,
           onRequestInsert: (newIndex) => {
             this.insert(this.blockDef.initialChildState, newIndex, { animate: true });
           },
@@ -153,7 +146,8 @@ export class ListBlock {
     this.children.splice(index, 0, child);
 
     const insertPosition = new InsertPosition(
-      insertPositionPlaceholder, index + 1, {
+      insertPositionPlaceholder, {
+        index: index + 1,
         onRequestInsert: (newIndex) => {
           this.insert(this.blockDef.initialChildState, newIndex, { animate: true });
         },
