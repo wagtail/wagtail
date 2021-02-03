@@ -26,10 +26,6 @@ const exposedDependencies = {
 module.exports = function exports() {
   const entrypoints = {
     'admin': [
-      'blocks/list',
-      'blocks/sequence',
-      'blocks/stream',
-      'blocks/struct',
       'core',
       'date-time-chooser',
       'draftail',
