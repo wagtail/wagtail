@@ -2672,8 +2672,32 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
 
     def get_view_restrictions(self):
-        """Return a query set of all page view restrictions that apply to this page"""
-        return PageViewRestriction.objects.filter(page__in=self.get_ancestors(inclusive=True))
+        """
+        Return a query set of all page view restrictions that apply to this page.
+
+        This checks the current page and all ancestor pages for page view restrictions.
+
+        If any of those pages are aliases, it will resolve them to their source pages
+        before querying PageViewRestrictions so alias pages use the same view restrictions
+        as their source page and they cannot have their own.
+        """
+        page_ids_to_check = set()
+
+        def add_page_to_check_list(page):
+            # If the page is an alias, add the source page to the check list instead
+            if page.alias_of:
+                add_page_to_check_list(page.alias_of)
+            else:
+                page_ids_to_check.add(page.id)
+
+        # Check current page for view restrictions
+        add_page_to_check_list(self)
+
+        # Check each ancestor for view restrictions as well
+        for page in self.get_ancestors():
+            add_page_to_check_list(page)
+
+        return PageViewRestriction.objects.filter(page_id__in=page_ids_to_check)
 
     password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
 
