@@ -2062,6 +2062,45 @@ class TestUpdateAliases(TestCase):
         self.assertTrue(PageLogEntry.objects.filter(page=alias, action='wagtail.publish').exists())
         self.assertTrue(PageLogEntry.objects.filter(page=alias_alias, action='wagtail.publish').exists())
 
+    def test_update_aliases_publishes_drafts(self):
+        event_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Unpublish the event page so that the aliases will be created in draft
+        event_page.live = False
+        event_page.has_unpublished_changes = True
+        event_page.save(clean=False)
+
+        alias = event_page.create_alias(update_slug='new-event-page')
+        alias_alias = alias.create_alias(update_slug='new-event-page-2')
+
+        self.assertFalse(alias.live)
+        self.assertFalse(alias_alias.live)
+
+        # Publish the event page
+        event_page.live = True
+        event_page.has_unpublished_changes = False
+        event_page.save(clean=False)
+
+        # Nothing should've happened yet
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+        self.assertFalse(alias.live)
+        self.assertFalse(alias_alias.live)
+
+        PageLogEntry.objects.all().delete()
+
+        event_page.update_aliases()
+
+        # Check that the aliases have been updated
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+        self.assertTrue(alias.live)
+        self.assertTrue(alias_alias.live)
+
+        # Check log entries were created
+        self.assertTrue(PageLogEntry.objects.filter(page=alias, action='wagtail.publish').exists())
+        self.assertTrue(PageLogEntry.objects.filter(page=alias_alias, action='wagtail.publish').exists())
+
 
 class TestCopyForTranslation(TestCase):
     fixtures = ['test.json']
