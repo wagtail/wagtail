@@ -2,12 +2,14 @@
 
 function initTable(id, tableOptions) {
     var containerId = id + '-handsontable-container';
-    var tableHeaderCheckboxId = id + '-handsontable-header';
-    var colHeaderCheckboxId = id + '-handsontable-col-header';
+    var tableHeaderId = id + '-handsontable-header';
+    var colHeaderId = id + '-handsontable-col-header';
+    var headerChoiceId = id + '-table-header-choice';
     var tableCaptionId = id + '-handsontable-col-caption';
     var hiddenStreamInput = $('#' + id);
-    var tableHeaderCheckbox = $('#' + tableHeaderCheckboxId);
-    var colHeaderCheckbox = $('#' + colHeaderCheckboxId);
+    var tableHeader = $('#' + tableHeaderId);
+    var colHeader = $('#' + colHeaderId);
+    var headerChoice = $('#' + headerChoiceId);
     var tableCaption = $('#' + tableCaptionId);
     var hot;
     var defaultOptions;
@@ -26,7 +28,7 @@ function initTable(id, tableOptions) {
     };
     var getHeight = function() {
         var tableParent = $('#' + id).parent();
-        return tableParent.find('.htCore').height() + (tableParent.find('.input').height() * 2);
+        return tableParent.find('.htCore').height();
     };
     var resizeTargets = ['.input > .handsontable', '.wtHider', '.wtHolder'];
     var resizeHeight = function(height) {
@@ -43,6 +45,24 @@ function initTable(id, tableOptions) {
         parentDiv.find('.field-content').width(width);
         parentDiv.find('.fieldname-table .field-content .field-content').width('80%');
     }
+    var setHiddenHeaderValues = function(headerChoice) {
+        if (headerChoice == 'row') {
+            tableHeader.prop('value', true);
+            colHeader.prop('value', null);
+        }
+        if (headerChoice == 'column') {
+            tableHeader.prop('value', null);
+            colHeader.prop('value', true);
+        }
+        if (headerChoice == 'both') {
+            tableHeader.prop('value', true);
+            colHeader.prop('value', true);
+        }
+        if (headerChoice == 'neither') {
+            tableHeader.prop('value', null);
+            colHeader.prop('value', null);
+        }
+    }
 
     try {
         dataForForm = JSON.parse(hiddenStreamInput.val());
@@ -51,14 +71,17 @@ function initTable(id, tableOptions) {
     }
 
     if (dataForForm !== null) {
-        if (dataForForm.hasOwnProperty('first_row_is_table_header')) {
-            tableHeaderCheckbox.prop('checked', dataForForm.first_row_is_table_header);
-        }
-        if (dataForForm.hasOwnProperty('first_col_is_header')) {
-            colHeaderCheckbox.prop('checked', dataForForm.first_col_is_header);
+        if (dataForForm.hasOwnProperty('table_header_choice')) {
+            headerChoice.prop('value', dataForForm.table_header_choice);
+            setHiddenHeaderValues(dataForForm.table_header_choice);
         }
         if (dataForForm.hasOwnProperty('table_caption')) {
             tableCaption.prop('value', dataForForm.table_caption);
+        }
+    } else {
+        if (tableOptions.hasOwnProperty('table_header_choice')) {
+            headerChoice.prop('value', tableOptions.table_header_choice);
+            setHiddenHeaderValues(tableOptions.table_header_choice);
         }
     }
 
@@ -92,8 +115,9 @@ function initTable(id, tableOptions) {
         hiddenStreamInput.val(JSON.stringify({
             data: hot.getData(),
             cell: getCellsClassnames(),
-            first_row_is_table_header: tableHeaderCheckbox.prop('checked'),
-            first_col_is_header: colHeaderCheckbox.prop('checked'),
+            first_row_is_table_header: tableHeader.val(),
+            first_col_is_header: colHeader.val(),
+            table_header_choice: headerChoice.val(),
             table_caption: tableCaption.val()
         }));
     };
@@ -121,11 +145,8 @@ function initTable(id, tableOptions) {
         persist();
     };
 
-    tableHeaderCheckbox.on('change', function() {
-        persist();
-    });
-
-    colHeaderCheckbox.on('change', function() {
+    headerChoice.on('change', function() {
+        setHiddenHeaderValues(headerChoice.val());
         persist();
     });
 

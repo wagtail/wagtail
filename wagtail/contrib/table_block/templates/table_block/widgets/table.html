@@ -1,21 +1,24 @@
 {% load i18n %}
-<div class="field boolean_field widget-checkbox_input">
-    <label for="{{ widget.attrs.id }}-handsontable-header">{% trans 'Row header' %}</label>
+<div class="field choice_field select">
+    <label for="{{ widget.attrs.id }}-table-header-choice">{% trans 'Table headers' %}</label>
     <div class="field-content">
-        <div class="input">
-            <input type="checkbox" id="{{ widget.attrs.id }}-handsontable-header" name="handsontable-header"/>
-        </div>
-        <p class="help">{% trans 'Display the first row as a header.' %}</p>
-    </div>
-</div>
-<br/>
-<div class="field boolean_field widget-checkbox_input">
-    <label for="{{ widget.attrs.id }}-handsontable-col-header">{% trans 'Column header' %}</label>
-    <div class="field-content">
-        <div class="input">
-            <input type="checkbox" id="{{ widget.attrs.id }}-handsontable-col-header" name="handsontable-col-header"/>
-        </div>
-        <p class="help">{% trans 'Display the first column as a header.' %}</p>
+        <select id="{{ widget.attrs.id }}-table-header-choice" name="table-header-choice">
+            <option value="row">
+                {% trans 'Display the first row as a header' %}
+            </option>
+            <option value="column">
+                {% trans 'Display the first column as a header' %}
+            </option>
+            <option value="both">
+                {% trans 'Display the first row AND first column as headers' %}
+            </option>
+            <option value="neither">
+                {% trans 'No headers' %}
+            </option>
+        </select>
+        <p class="help">{% trans 'Which cells should be displayed as headers?' %}</p>
+        <input type="hidden" id="{{ widget.attrs.id }}-handsontable-header" name="handsontable-header"/>
+        <input type="hidden" id="{{ widget.attrs.id }}-handsontable-col-header" name="handsontable-col-header"/>
     </div>
 </div>
 <br/>

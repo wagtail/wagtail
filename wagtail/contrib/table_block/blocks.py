@@ -10,6 +10,7 @@ from wagtail.core.blocks import FieldBlock
 
 
 DEFAULT_TABLE_OPTIONS = {
+    'table_header_choice': 'row',
     'minSpareRows': 0,
     'startRows': 3,
     'startCols': 3,
@@ -45,17 +46,23 @@ class TableInput(forms.HiddenInput):
 
     def get_context(self, name, value, attrs=None):
         context = super().get_context(name, value, attrs)
-        table_caption = ''
-        if value and value != 'null':
-            table_caption = json.loads(value).get('table_caption', '')
         context['widget']['table_options_json'] = json.dumps(self.table_options)
-        context['widget']['table_caption'] = table_caption
-
+        if value and value != 'null':
+            data = json.loads(value)
+            row_header = data.get('first_row_is_table_header', '')
+            col_header = data.get('first_col_is_header', '')
+            context['widget']['table_header_choice'] = self._get_header_option(row_header, col_header)
+            context['widget']['table_caption'] = data.get('table_caption', '')
         return context
+
+    def _get_header_option(self, row_header, col_header):
+        if row_header:
+            return 'both' if col_header else 'row'
+        else:
+            return 'column' if col_header else 'neither'
 
 
 class TableBlock(FieldBlock):
-
     def __init__(self, required=True, help_text=None, table_options=None, **kwargs):
         """
         CharField's 'label' and 'initial' parameters are not exposed, as Block

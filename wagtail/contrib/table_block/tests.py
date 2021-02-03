@@ -100,10 +100,9 @@ class TestTableBlock(TestCase):
         """
         self.assertHTMLEqual(result, expected)
 
-    def test_do_not_render_html(self):
+    def test_do_not_render_html_by_default(self):
         """
-        Ensure that raw html doesn't render
-        by default.
+        Ensure that raw html doesn't render by default.
         """
         value = {'first_row_is_table_header': False, 'first_col_is_header': False,
                  'data': [['<p><strong>Test</strong></p>', None, None], [None, None, None],
@@ -120,6 +119,30 @@ class TestTableBlock(TestCase):
         """
 
         block = TableBlock()
+        result = block.render(value)
+        self.assertHTMLEqual(result, expected)
+
+    def test_does_render_html_if_allowed(self):
+        """
+        Ensure html renders if table_options set renderer to allow html
+        """
+        value = {'first_row_is_table_header': False, 'first_col_is_header': False,
+                 'data': [['<p><strong>Test</strong></p>', None, None], [None, None, None],
+                          [None, None, None]]}
+
+        expected = """
+            <table>
+                <tbody>
+                    <tr><td><p><strong>Test</strong></p></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                    <tr><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        """
+
+        new_options = self.default_table_options.copy()
+        new_options['renderer'] = 'html'
+        block = TableBlock(table_options=new_options)
         result = block.render(value)
         self.assertHTMLEqual(result, expected)
 
@@ -388,6 +411,9 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         self.assertIn('"editor": "text"', html)
         self.assertIn('"autoColumnSize": false', html)
         self.assertIn('"stretchH": "all"', html)
+        self.assertIn('"colHeaders": false', html)
+        self.assertIn('"rowHeaders": false', html)
+        self.assertIn('"table_header_choice": "row"', html)
 
     def test_searchable_content(self):
         """

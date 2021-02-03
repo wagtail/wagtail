@@ -69,6 +69,7 @@ When defining a TableBlock, Wagtail provides the ability to pass an optional ``t
  .. code-block:: python
 
     default_table_options = {
+        'table_header_choice': 'row',
         'minSpareRows': 0,
         'startRows': 3,
         'startCols': 3,
@@ -99,13 +100,15 @@ When defining a TableBlock, Wagtail provides the ability to pass an optional ``t
 Configuration Options
 ^^^^^^^^^^^^^^^^^^^^^
 
-Every key in the ``table_options`` dictionary maps to a `handsontable <https://handsontable.com/>`_ option. These settings can be changed to alter the behaviour of tables in Wagtail. The following options are available:
+The ``table_header_choice`` option determines if rows or columns are treated as headings. Valid values are ``row``, ``column``, ``both``, and ``neither``. The default is ``row``. This will cause the elements in the first row of your table to be rendered as ``th`` elements with ``scope = row``.
+
+The rest of the keys in the ``table_options`` dictionary each map to a `handsontable <https://handsontable.com/>`_ option. These settings can be changed to alter the behaviour of tables in Wagtail. The following options are available:
 
 * `minSpareRows <https://handsontable.com/docs/6.2.2/Options.html#minSpareRows>`_ - The number of rows to append to the end of an empty grid. The default setting is 0.
 * `startRows <https://handsontable.com/docs/6.2.2/Options.html#startRows>`_ - The default number of rows for a new table.
 * `startCols <https://handsontable.com/docs/6.2.2/Options.html#startCols>`_ - The default number of columns for new tables.
-* `colHeaders <https://handsontable.com/docs/6.2.2/Options.html#colHeaders>`_ - Can be set to ``True`` or ``False``. This setting designates if new tables should be created with column headers. **Note:** this only sets the behaviour for newly created tables. Page editors can override this by checking the the “Column header” checkbox in the table editor in the Wagtail admin.
-* `rowHeaders <https://handsontable.com/docs/6.2.2/Options.html#rowHeaders>`_ - Operates the same as ``colHeaders`` to designate if new tables should be created with the first column as a row header. Just like ``colHeaders`` this option can be overridden by the page editor in the Wagtail admin.
+* `colHeaders <https://handsontable.com/docs/6.2.2/Options.html#colHeaders>`_ - Can be set to ``True`` or ``False``. If this is set to ``True``, tables will display the default column headings ('A', 'B', 'C'...) in the admin interface. This does not add headings to the public display of your table block.
+* `rowHeaders <https://handsontable.com/docs/6.2.2/Options.html#rowHeaders>`_ - Can be set to ``True`` or ``False``. If this is set to ``True``, tables will display the default row headings ('1', '2', '3'...) in the admin interface. This does not add row headings to the public display of your table block.
 * `contextMenu <https://handsontable.com/docs/6.2.2/Options.html#contextMenu>`_ - Enables or disables the Handsontable right-click menu. By default this is set to ``True``. Alternatively you can provide a list or a dictionary with [specific options](https://handsontable.com/docs/6.2.2/demo-context-menu.html#page-specific).
 * `editor <https://handsontable.com/docs/6.2.2/Options.html#editor>`_ - Defines the editor used for table cells. The default setting is text.
 * `stretchH <https://handsontable.com/docs/6.2.2/Options.html#stretchH>`_ - Sets the default horizontal resizing of tables. Options include, 'none', 'last', and 'all'. By default TableBlock uses 'all' for the even resizing of columns.
@@ -120,7 +123,7 @@ A `complete list of handsontable options <https://handsontable.com/docs/6.2.2/Op
 Changing the default table_options
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To change the default table options just pass a new table_options dictionary when a new TableBlock is declared.
+To change the default table options, pass a new table_options dictionary with the values you would like to override when you define a your TableBlock.
 
  .. code-block:: python
 
@@ -128,15 +131,10 @@ To change the default table options just pass a new table_options dictionary whe
         'minSpareRows': 0,
         'startRows': 6,
         'startCols': 4,
-        'colHeaders': False,
-        'rowHeaders': False,
-        'contextMenu': True,
-        'editor': 'text',
         'stretchH': 'all',
         'height': 216,
-        'language': 'en',
-        'renderer': 'text',
         'autoColumnSize': False,
+        'table_header_choice': 'neither',
     }
 
     class DemoStreamBlock(StreamBlock):
@@ -147,8 +145,8 @@ To change the default table options just pass a new table_options dictionary whe
 Supporting cell alignment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can activate the `alignment` option by setting a custom `contextMenu` which allows you to set the alignment on a cell selection.
-HTML classes set by handsontable will be kept on the rendered block. You'll then be able to apply your own custom CSS rules to preserve the style. Those class names are:
+You can activate the ``alignment`` option by adding it to a custom ``contextMenu`` and using that when defining your TableBlock.
+HTML classes set by handsontable will be added to the rendered cell. You'll then be able to apply your own custom CSS rules to style the cells. Those class names are:
 
  * Horizontal: ``htLeft``, ``htCenter``, ``htRight``, ``htJustify``
  * Vertical: ``htTop``, ``htMiddle``, ``htBottom``
