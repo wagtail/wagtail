@@ -131,3 +131,23 @@ export class BaseSequenceChild {
     this.block.focus();
   }
 }
+
+export class BaseInsertionControl {
+  /* Base class for controls that appear between blocks in a sequence, to allow inserting new
+  blocks at that point. Subclasses should render an HTML structure with a single root element
+  (replacing the placeholder passed to the constructor) and set it as this.element.
+  When the user requests to insert a block, we call onRequestInsert passing the index number
+  and a dict of control-specific options. */
+  constructor(placeholder, opts) {
+    this.index = opts && opts.index;
+    this.onRequestInsert = opts && opts.onRequestInsert;
+  }
+
+  setIndex(newIndex) {
+    this.index = newIndex;
+  }
+
+  delete() {
+    $(this.element).hide().attr('aria-hidden', 'true');
+  }
+}
