@@ -62,7 +62,7 @@ export class ListBlock {
     }
 
     dom.find('button[data-streamfield-list-add]').click(() => {
-      this.append(this.blockDef.initialChildState);
+      this.append(this.blockDef.initialChildState, { animate: true });
     });
   }
 
@@ -72,13 +72,15 @@ export class ListBlock {
     this.children = [];
   }
 
-  append(value) {
+  append(value, opts) {
     const index = this.children.length;
     const prefix = this.prefix + '-' + index;
     const placeholder = document.createElement('div');
     this.listContainer.append(placeholder);
+    const animate = opts && opts.animate;
 
     const child = new ListChild(this.blockDef.childBlockDef, placeholder, prefix, index, null, value, {
+      animate,
       onRequestDelete: (i) => { this.deleteBlock(i); },
       onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },
       onRequestMoveDown: (i) => { this.moveBlock(i, i + 1); },
