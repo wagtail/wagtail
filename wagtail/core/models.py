@@ -1469,6 +1469,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Copy field content
             alias_updated = alias.with_content_json(_content_json)
 
+            # Publish the alias if it's currently in draft
+            alias_updated.live = True
+            alias_updated.has_unpublished_changes = False
+
             # Copy child relations
             child_object_map = specific_self.copy_all_child_relations(target=alias_updated, exclude=exclude_fields)
 
