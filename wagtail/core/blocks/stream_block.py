@@ -7,7 +7,6 @@ from collections.abc import MutableSequence
 
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
-from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html_join
 from django.utils.translation import gettext as _
@@ -91,23 +90,6 @@ class BaseStreamBlock(Block):
         return itertools.groupby(
             self.sorted_child_blocks(), key=lambda child_block: child_block.meta.group
         )
-
-    def render_list_member(self, block_type_name, value, prefix, index, errors=None, id=None):
-        """
-        Render the HTML for a single list item. This consists of a container, hidden fields
-        to manage ID/deleted state/type, delete/reorder buttons, and the child block's own HTML.
-        """
-        child_block = self.child_blocks[block_type_name]
-        child = child_block.bind(value, prefix="%s-value" % prefix, errors=errors)
-        return render_to_string('wagtailadmin/block_forms/stream_member.html', {
-            'child_blocks': self.sorted_child_blocks(),
-            'block_type_name': block_type_name,
-            'child_block': child_block,
-            'prefix': prefix,
-            'child': child,
-            'index': index,
-            'block_id': id,
-        })
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data['%s-count' % prefix])
