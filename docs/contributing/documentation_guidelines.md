@@ -46,7 +46,7 @@ Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bul
 3. Numbered list 3
 ```
 
-<details>
+<details markdown="block">
 
 <summary>Rendered output</summary>
 
@@ -93,7 +93,7 @@ An [internal link to another document](/reference/contrib/legacy_richtext.md).
 A [link to a reference](register_reports_menu_item).
 ```
 
-<details>
+<details markdown="block">
 
 <summary>Rendered output</summary>
 
@@ -119,7 +119,7 @@ Use notes and warnings sparingly, as they rely on reStructuredText syntax which 
     ```eval_rst warning:: Warnings can be scary.
     ```
 
-<details>
+<details markdown="block">
 
 <summary>Rendered output</summary>
 
@@ -143,7 +143,7 @@ Images are hard to keep up-to-date as documentation evolves, but can be worthwhi
 ![Screenshot of the workflow editing interface, with fields to change the workflow name, tasks, and assigned pages](/_static/images/screen44_workflow_edit.png)
 ```
 
-<details>
+<details markdown="block">
 
 <summary>Rendered output</summary>
 
@@ -161,7 +161,7 @@ With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc
     .. autofunction:: cautious_slugify
     ```
 
-<details>
+<details markdown="block">
 <summary>Rendered output</summary>
 
 ```eval_rst
@@ -186,7 +186,7 @@ Only use tables when needed, with the “simple” reStructuredText syntax, whic
     =============  =============
     ```
 
-<details>
+<details markdown="block">
 
 <summary>Rendered output</summary>
 
@@ -231,7 +231,7 @@ Sphinx offers release-metadata directives to generate this information consisten
     .. versionchanged:: 2.11
     ```
 
-<details>
+<details markdown="block">
 
 <summary>Rendered output</summary>
 
@@ -247,10 +247,10 @@ Sphinx offers release-metadata directives to generate this information consisten
 
 ### Progressive disclosure
 
-We can add supplementary information in documentation with the HTML `<details>` element. This relies on HTML syntax, which can be hard to author consistently, so keep this type of formatting to a minimum.
+We can add supplementary information in documentation with the HTML `<details markdown="block">` element. This relies on HTML syntax, which can be hard to author consistently, so keep this type of formatting to a minimum.
 
 ```html
-<details>
+<details markdown="block">
 
 <summary>Supplementary information</summary>
 
@@ -261,7 +261,7 @@ This will be visible when expanding the content.
 
 Example:
 
-<details>
+<details markdown="block">
 
 <summary>Supplementary information</summary>
 
