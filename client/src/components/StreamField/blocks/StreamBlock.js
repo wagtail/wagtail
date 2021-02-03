@@ -1,4 +1,4 @@
-import { BaseSequenceChild } from './BaseSequenceBlock';
+import { BaseSequenceChild, BaseInsertionControl } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 
 /* global $ */
@@ -32,11 +32,10 @@ class StreamChild extends BaseSequenceChild {
   }
 }
 
-class StreamBlockMenu {
-  constructor(placeholder, groupedChildBlockDefs, opts) {
-    this.index = opts && opts.index;
-    this.onRequestInsert = opts && opts.onRequestInsert;
-    this.groupedChildBlockDefs = groupedChildBlockDefs;
+class StreamBlockMenu extends BaseInsertionControl {
+  constructor(placeholder, opts) {
+    super(placeholder, opts);
+    this.groupedChildBlockDefs = opts.groupedChildBlockDefs;
 
     const dom = $(`
       <div>
@@ -95,10 +94,6 @@ class StreamBlockMenu {
     });
   }
 
-  setIndex(newIndex) {
-    this.index = newIndex;
-  }
-
   toggle() {
     if (this.isOpen) {
       this.close({ animate: true });
@@ -126,9 +121,6 @@ class StreamBlockMenu {
     this.addButton.removeClass('c-sf-add-button--close');
     this.outerContainer.attr('aria-hidden', 'true');
     this.isOpen = false;
-  }
-  delete() {
-    $(this.element).hide().attr('aria-hidden', 'true');
   }
 }
 
@@ -192,12 +184,13 @@ export class StreamBlock {
     this.streamContainer.append(placeholder);
     this.menus = [
       new StreamBlockMenu(
-        placeholder, this.blockDef.groupedChildBlockDefs, {
+        placeholder, {
           index: 0,
           onRequestInsert: (newIndex, { type: blockType }) => {
             this.insertFromMenu(blockType, newIndex);
           },
           strings: this.blockDef.meta.strings,
+          groupedChildBlockDefs: this.blockDef.groupedChildBlockDefs,
         }
       )
     ];
@@ -241,12 +234,13 @@ export class StreamBlock {
     this.children.splice(index, 0, child);
 
     const menu = new StreamBlockMenu(
-      menuPlaceholder, this.blockDef.groupedChildBlockDefs, {
+      menuPlaceholder, {
         index: index + 1,
         onRequestInsert: (newIndex, { type: blockType }) => {
           this.insertFromMenu(blockType, newIndex);
         },
         strings: this.blockDef.meta.strings,
+        groupedChildBlockDefs: this.blockDef.groupedChildBlockDefs,
       }
     );
     this.menus.splice(index + 1, 0, menu);
