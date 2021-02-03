@@ -36,7 +36,6 @@ class StreamBlockMenu {
   constructor(placeholder, groupedChildBlockDefs, opts) {
     this.index = opts && opts.index;
     this.onSelectBlockType = opts && opts.onSelectBlockType;
-    this.isOpen = (opts && opts.isOpen) || false;
     this.groupedChildBlockDefs = groupedChildBlockDefs;
 
     const dom = $(`
@@ -61,12 +60,8 @@ class StreamBlockMenu {
     this.outerContainer = dom.find('[data-streamblock-menu-outer]');
     this.innerContainer = dom.find('[data-streamblock-menu-inner]');
     this.hasRenderedMenu = false;
-
-    if (this.isOpen) {
-      this.open({ animate: false });
-    } else {
-      this.close({ animate: false });
-    }
+    this.isOpen = false;
+    this.close({ animate: false });
   }
 
   renderMenu() {
@@ -199,7 +194,6 @@ export class StreamBlock {
       new StreamBlockMenu(
         placeholder, this.blockDef.groupedChildBlockDefs, {
           index: 0,
-          isOpen: false,
           onSelectBlockType: (blockType, newIndex) => {
             this.insertFromMenu(blockType, newIndex);
           },
@@ -249,7 +243,6 @@ export class StreamBlock {
     const menu = new StreamBlockMenu(
       menuPlaceholder, this.blockDef.groupedChildBlockDefs, {
         index: index + 1,
-        isOpen: false,
         onSelectBlockType: (blockType, newIndex) => {
           this.insertFromMenu(blockType, newIndex);
         },
