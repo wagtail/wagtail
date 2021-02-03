@@ -1,0 +1,16 @@
+=============================================
+Wagtail 2.12.1 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Ensure aliases are published when the source page is published (Karl Hobley)
