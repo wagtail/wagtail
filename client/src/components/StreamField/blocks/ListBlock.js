@@ -47,6 +47,14 @@ class InsertPosition {
       }
     });
   }
+
+  setIndex(newIndex) {
+    this.index = newIndex;
+  }
+
+  delete() {
+    $(this.element).hide().attr('aria-hidden', 'true');
+  }
 }
 
 export class ListBlock {
@@ -77,6 +85,7 @@ export class ListBlock {
 
     this.children = [];
     this.insertPositions = [];
+    this.blockCounter = 0;
     this.countInput = dom.find('[data-streamfield-list-count]');
     this.listContainer = dom.find('[data-streamfield-list-container]');
     this.setState(initialState || []);
@@ -90,6 +99,7 @@ export class ListBlock {
     this.countInput.val(0);
     this.listContainer.empty();
     this.children = [];
+    this.blockCounter = 0;
 
     // Create initial insert position
     const placeholder = document.createElement('div');
@@ -97,8 +107,8 @@ export class ListBlock {
     this.insertPositions = [
       new InsertPosition(
         placeholder, 0, {
-          onInsert: () => {
-            this.append(this.blockDef.initialChildState, { animate: true });
+          onInsert: (newIndex) => {
+            this.insert(this.blockDef.initialChildState, newIndex, { animate: true });
           },
           strings: this.blockDef.meta.strings,
         }
@@ -106,10 +116,10 @@ export class ListBlock {
     ];
   }
 
-  append(value, opts) {
-    const index = this.children.length;
-    const prefix = this.prefix + '-' + index;
+  insert(value, index, opts) {
+    const prefix = this.prefix + '-' + this.blockCounter;
     const animate = opts && opts.animate;
+    this.blockCounter++;
 
     /*
     a new insert position and block will be inserted AFTER the insert position with the given index;
@@ -124,6 +134,14 @@ export class ListBlock {
     $(blockPlaceholder).insertAfter(existingInsertPositionElement);
     $(insertPositionPlaceholder).insertAfter(blockPlaceholder);
 
+    /* shuffle up indexes of all blocks / insert positions above this index */
+    for (let i = index; i < this.children.length; i++) {
+      this.children[i].setIndex(i + 1);
+    }
+    for (let i = index + 1; i < this.insertPositions.length; i++) {
+      this.insertPositions[i].setIndex(i + 1);
+    }
+
     const child = new ListChild(this.blockDef.childBlockDef, blockPlaceholder, prefix, index, null, value, {
       animate,
       onRequestDelete: (i) => { this.deleteBlock(i); },
@@ -131,23 +149,21 @@ export class ListBlock {
       onRequestMoveDown: (i) => { this.moveBlock(i, i + 1); },
       strings: this.blockDef.meta.strings,
     });
-    this.children.push(child);
+    this.children.splice(index, 0, child);
 
     const insertPosition = new InsertPosition(
       insertPositionPlaceholder, index + 1, {
-        onInsert: () => {
-          this.append(this.blockDef.initialChildState, { animate: true });
+        onInsert: (newIndex) => {
+          this.insert(this.blockDef.initialChildState, newIndex, { animate: true });
         },
         strings: this.blockDef.meta.strings,
       }
     );
-    this.insertPositions.push(insertPosition);
+    this.insertPositions.splice(index + 1, 0, insertPosition);
 
-    this.countInput.val(this.children.length);
+    this.countInput.val(this.blockCounter);
 
     const isFirstChild = (index === 0);
-    /* isLastChild is always true for append, but we might as well get the logic for arbitrary
-    insertions right... */
     const isLastChild = (index === this.children.length - 1);
     if (!isFirstChild) {
       child.enableMoveUp();
@@ -167,12 +183,17 @@ export class ListBlock {
 
   deleteBlock(index) {
     this.children[index].markDeleted({ animate: true });
+    this.insertPositions[index].delete();
     this.children.splice(index, 1);
+    this.insertPositions.splice(index, 1);
 
-    /* index numbers of children / menus above this index now need updating to match
+    /* index numbers of children / insert positions above this index now need updating to match
     their array indexes */
     for (let i = index; i < this.children.length; i++) {
       this.children[i].setIndex(i);
+    }
+    for (let i = index; i < this.insertPositions.length; i++) {
+      this.insertPositions[i].setIndex(i);
     }
 
     if (index === 0 && this.children.length > 0) {
@@ -187,26 +208,32 @@ export class ListBlock {
 
   moveBlock(oldIndex, newIndex) {
     if (oldIndex === newIndex) return;
+    const insertPositionToMove = this.insertPositions[oldIndex];
     const childToMove = this.children[oldIndex];
 
     /* move HTML elements */
     if (newIndex > oldIndex) {
-      $(childToMove.element).insertAfter(this.children[newIndex].element);
+      $(insertPositionToMove.element).insertAfter(this.children[newIndex].element);
     } else {
-      $(childToMove.element).insertBefore(this.children[newIndex].element);
+      $(insertPositionToMove.element).insertBefore(this.insertPositions[newIndex].element);
     }
+    $(childToMove.element).insertAfter(insertPositionToMove.element);
 
-    /* reorder items in the `children` array */
+    /* reorder items in the `insert positions` and `children` arrays */
+    this.insertPositions.splice(oldIndex, 1);
+    this.insertPositions.splice(newIndex, 0, insertPositionToMove);
     this.children.splice(oldIndex, 1);
     this.children.splice(newIndex, 0, childToMove);
 
     /* update index properties of moved items */
     if (newIndex > oldIndex) {
       for (let i = oldIndex; i <= newIndex; i++) {
+        this.insertPositions[i].setIndex(i);
         this.children[i].setIndex(i);
       }
     } else {
       for (let i = newIndex; i <= oldIndex; i++) {
+        this.insertPositions[i].setIndex(i);
         this.children[i].setIndex(i);
       }
     }
@@ -234,7 +261,7 @@ export class ListBlock {
   setState(values) {
     this.clear();
     values.forEach(val => {
-      this.append(val);
+      this.insert(val, this.children.length);
     });
   }
 
