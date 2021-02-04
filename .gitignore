@@ -2,7 +2,6 @@
 *.pyc
 .DS_Store
 /.coverage
-/false/
 /dist/
 /build/
 /MANIFEST
