@@ -257,7 +257,7 @@ The Wagtail documentation is built by Sphinx. To install Sphinx and compile the 
 
     $ cd /path/to/wagtail
     $ # Install the documentation dependencies
-    $ pip install -e .[docs]
+    $ pip install -e '.[docs]'
     $ # Compile the docs
     $ cd docs/
     $ make html
