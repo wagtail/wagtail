@@ -12,3 +12,4 @@ Reference
     signals
     settings
     project_template
+    jinja2
