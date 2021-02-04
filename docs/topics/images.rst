@@ -1,7 +1,7 @@
 .. _image_tag:
 
-Using images in templates
-=========================
+How to use images in templates
+==============================
 
 The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, setting its ``src``, ``width``, ``height`` and ``alt``. See also :ref:`image_tag_alt`.
 
