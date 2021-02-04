@@ -799,10 +799,10 @@ Page.promote_panels = [
         FieldPanel('slug'),
         FieldPanel('seo_title'),
         FieldPanel('search_description'),
-    ], gettext_lazy('Configuration for search engines')),
+    ], gettext_lazy('For search engines')),
     MultiFieldPanel([
         FieldPanel('show_in_menus'),
-    ], gettext_lazy('Configuration for site menus')),
+    ], gettext_lazy('For site menus')),
 ]
 
 Page.settings_panels = [
