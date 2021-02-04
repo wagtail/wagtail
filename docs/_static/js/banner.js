@@ -41,8 +41,11 @@ $(function () {
   const s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js';
   s.onload = () => {
-    // Default to "latest" index for PR builds.
-    const version = window.READTHEDOCS_DATA.version.match(/^\d+$/) ? 'latest' : window.READTHEDOCS_DATA.version
+    // PR builds have their version set to the PR ID (e.g. "6753").
+    // If the docs are built for a PR, use the "latest" search index.
+    // Otherwise, use the search index for the current version.
+    const rtd_version = (window.READTHEDOCS_DATA || {}).version || 'latest';
+    const version = rtd_version.match(/^\d+$/) ? 'latest' : rtd_version;
     docsearch({
       apiKey: '8325c57d16798633e29d211c26c7b6f9',
       indexName: 'wagtail',
