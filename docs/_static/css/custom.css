@@ -5,8 +5,14 @@ body.wy-body-for-nav {
     background-color: #e6e6e6; /*$color-grey-4*/
 }
 
-div.wy-nav-side {
+nav.wy-nav-side {
     background-color: #333;  /*color-grey-1*/
+    position: absolute;
+    overflow: inherit;
+}
+
+div.wy-side-scroll {
+    overflow: inherit;
 }
 
 div.wy-side-nav-search {
