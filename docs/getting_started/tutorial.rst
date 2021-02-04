@@ -2,7 +2,7 @@ Your first Wagtail site
 =======================
 
 .. note::
-   This tutorial covers setting up a brand new Wagtail project!
+   This tutorial covers setting up a brand new Wagtail project.
    If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
 
 Install and run Wagtail
