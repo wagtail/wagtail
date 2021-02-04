@@ -238,6 +238,7 @@ export class StreamBlock {
 
     const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value, {
       animate,
+      onRequestDuplicate: (i) => { this.duplicateBlock(i); },
       onRequestDelete: (i) => { this.deleteBlock(i); },
       onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },
       onRequestMoveDown: (i) => { this.moveBlock(i, i + 1); },
@@ -288,6 +289,13 @@ export class StreamBlock {
       value: this.blockDef.initialChildStates[blockType],
     }, index, { animate: true });
     newBlock.focus();
+  }
+
+  duplicateBlock(index) {
+    const childState = this.children[index].getState();
+    childState.id = null;
+    this.insert(childState, index + 1, { animate: true });
+    this.children[index + 1].focus();
   }
 
   deleteBlock(index) {
