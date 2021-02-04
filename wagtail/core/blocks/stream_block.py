@@ -650,6 +650,7 @@ class StreamBlockAdapter(Adapter):
             'strings': {
                 'MOVE_UP': _("Move up"),
                 'MOVE_DOWN': _("Move down"),
+                'DUPLICATE': _("Duplicate"),
                 'DELETE': _("Delete"),
                 'ADD': _("Add"),
             },
