@@ -159,7 +159,8 @@ workflows:
 
     backend:
       when: << pipeline.parameters.backend >>
-      jobs: backend
+      jobs:
+        - backend
 
     frontend:
       when: << pipeline.parameters.frontend >>
