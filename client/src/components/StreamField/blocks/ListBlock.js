@@ -22,6 +22,33 @@ class ListChild extends BaseSequenceChild {
   }
 }
 
+class InsertPosition {
+  /*
+  Represents a position in the DOM where a new list item can be inserted.
+
+  This renders a + button. Later, these could also be used to represent drop zones for drag+drop reordering.
+  */
+  constructor(placeholder, index, opts) {
+    this.index = index;
+    this.onInsert = opts && opts.onInsert;
+
+    const button = $(`
+      <button type="button" title="${h(opts.strings.ADD)}" data-streamfield-list-add
+          class="c-sf-add-button c-sf-add-button--visible">
+        <i aria-hidden="true">+</i>
+      </button>
+    `);
+    $(placeholder).replaceWith(button);
+    this.element = button.get(0);
+
+    button.click(() => {
+      if (this.onInsert) {
+        this.onInsert(this.index);
+      }
+    });
+  }
+}
+
 export class ListBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
     this.blockDef = blockDef;
@@ -33,10 +60,6 @@ export class ListBlock {
         <input type="hidden" name="${h(prefix)}-count" data-streamfield-list-count value="0">
 
         <div data-streamfield-list-container></div>
-        <button type="button" title="${h(this.blockDef.meta.strings.ADD)}" data-streamfield-list-add
-            class="c-sf-add-button c-sf-add-button--visible">
-          <i aria-hidden="true">+</i>
-        </button>
       </div>
     `);
     $(placeholder).replaceWith(dom);
@@ -53,6 +76,7 @@ export class ListBlock {
     }
 
     this.children = [];
+    this.insertPositions = [];
     this.countInput = dom.find('[data-streamfield-list-count]');
     this.listContainer = dom.find('[data-streamfield-list-container]');
     this.setState(initialState || []);
@@ -60,26 +84,47 @@ export class ListBlock {
     if (initialError) {
       this.setError(initialError);
     }
-
-    dom.find('button[data-streamfield-list-add]').click(() => {
-      this.append(this.blockDef.initialChildState, { animate: true });
-    });
   }
 
   clear() {
     this.countInput.val(0);
     this.listContainer.empty();
     this.children = [];
+
+    // Create initial insert position
+    const placeholder = document.createElement('div');
+    this.listContainer.append(placeholder);
+    this.insertPositions = [
+      new InsertPosition(
+        placeholder, 0, {
+          onInsert: () => {
+            this.append(this.blockDef.initialChildState, { animate: true });
+          },
+          strings: this.blockDef.meta.strings,
+        }
+      )
+    ];
   }
 
   append(value, opts) {
     const index = this.children.length;
     const prefix = this.prefix + '-' + index;
-    const placeholder = document.createElement('div');
-    this.listContainer.append(placeholder);
     const animate = opts && opts.animate;
 
-    const child = new ListChild(this.blockDef.childBlockDef, placeholder, prefix, index, null, value, {
+    /*
+    a new insert position and block will be inserted AFTER the insert position with the given index;
+    e.g if there are 3 blocks the children of listContainer will be
+    [insert pos 0, block 0, insert pos 1, block 1, insert pos 2, block 2, insert pos 3]
+    and inserting a new block at index 1 will create a new block 1 and insert position 2 after the
+    current menu 1, and increment everything after that point
+    */
+    const existingInsertPositionElement = this.insertPositions[index].element;
+    const blockPlaceholder = document.createElement('div');
+    const insertPositionPlaceholder = document.createElement('div');
+    $(blockPlaceholder).insertAfter(existingInsertPositionElement);
+    $(insertPositionPlaceholder).insertAfter(blockPlaceholder);
+
+    const child = new ListChild(this.blockDef.childBlockDef, blockPlaceholder, prefix, index, null, value, {
       animate,
       onRequestDelete: (i) => { this.deleteBlock(i); },
       onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },
@@ -87,6 +132,17 @@ export class ListBlock {
       strings: this.blockDef.meta.strings,
     });
     this.children.push(child);
+
+    const insertPosition = new InsertPosition(
+      insertPositionPlaceholder, index + 1, {
+        onInsert: () => {
+          this.append(this.blockDef.initialChildState, { animate: true });
+        },
+        strings: this.blockDef.meta.strings,
+      }
+    );
+    this.insertPositions.push(insertPosition);
+
     this.countInput.val(this.children.length);
 
     const isFirstChild = (index === 0);
