@@ -1,6 +1,29 @@
-version: 2
+version: 2.1
+
+parameters:
+  # This parameter is used to trigger the main workflow
+  trigger:
+    type: boolean
+    default: true
+
+  # A parameter per "package"
+  backend:
+    type: boolean
+    default: false
+  frontend:
+    type: boolean
+    default: false
 
 jobs:
+  trigger-workflows:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Trigger workflows
+          command: chmod +x .circleci/monorepo.sh && .circleci/monorepo.sh
+
   backend:
     docker:
       - image: cimg/python:3.8.11
@@ -124,9 +147,23 @@ jobs:
 
 workflows:
     version: 2
-    test:
+    # test:
+    #   jobs:
+    #     - backend
+    #     - frontend
+
+    ci:
+      when: << pipeline.parameters.trigger >>
       jobs:
-        - backend
+        - trigger-workflows
+
+    backend:
+      when: << pipeline.parameters.backend >>
+      jobs: backend
+
+    frontend:
+      when: << pipeline.parameters.frontend >>
+      jobs:
         - frontend
         - ui_tests:
             requires:

@@ -1,0 +1,6 @@
+{
+  "packages": {
+    "backend": ["wagtail/", ":!wagtail/**/static_src/"],
+    "frontend": ["client/", "gulpfile.js/", "wagtail/**/static_src/"]
+  }
+}
