@@ -218,7 +218,7 @@ For example:
             return TaskState.objects.none()
 
 
-``Task.get_description()```
+``Task.get_description()``
 
 A class method that returns the human-readable description for the task.
 
