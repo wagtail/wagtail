@@ -28,4 +28,6 @@ You will also need:
 
 ## Releases
 
-The front-end is bundled at the same time as the Wagtail project. This package also aims to be available separately on npm as [`wagtail`](https://www.npmjs.com/package/wagtail).
+The front-end is bundled at the same time as the Wagtail project.
+This package also aims to be available separately on npm as
+[`wagtail`](https://www.npmjs.com/package/wagtail).
