@@ -2132,6 +2132,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             'classname': None,
             'strings': {
                 'DELETE': 'Delete',
+                'DUPLICATE': 'Duplicate',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
                 'ADD': 'Add',
@@ -2254,6 +2255,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             'classname': 'special-list-class',
             'strings': {
                 'DELETE': 'Delete',
+                'DUPLICATE': 'Duplicate',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
                 'ADD': 'Add',
@@ -2283,6 +2285,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             'classname': 'custom-list-class',
             'strings': {
                 'DELETE': 'Delete',
+                'DUPLICATE': 'Duplicate',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
                 'ADD': 'Add',
@@ -2635,6 +2638,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             'required': True,
             'strings': {
                 'DELETE': 'Delete',
+                'DUPLICATE': 'Duplicate',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
                 'ADD': 'Add',
@@ -3235,6 +3239,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             'classname': 'rocket-section',
             'strings': {
                 'DELETE': 'Delete',
+                'DUPLICATE': 'Duplicate',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
                 'ADD': 'Add',
@@ -3265,6 +3270,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             'classname': 'profile-block-large',
             'strings': {
                 'DELETE': 'Delete',
+                'DUPLICATE': 'Duplicate',
                 'MOVE_DOWN': 'Move down',
                 'MOVE_UP': 'Move up',
                 'ADD': 'Add',
