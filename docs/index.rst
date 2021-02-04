@@ -43,3 +43,4 @@ Index
    editor_manual/index
    contributing/index
    releases/index
+   documentation-modes
