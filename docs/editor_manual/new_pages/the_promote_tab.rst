@@ -7,7 +7,7 @@ A common feature of the *Edit* pages for all page types is the three tabs at the
 The Promote tab
 ~~~~~~~~~~~~~~~
 
-The promote tab is where you can configure a page's metadata to help search engines find and index it. Below is a description of all default fields in the promote tab and what they do.
+The Promote tab is where you can configure a page's metadata, to help search engines find and index it. Below is a description of all the default fields under this tab.
 
 * **Slug:** The section of the URL that appears after your website's domain e.g. ``http://domain.com/blog/[my-slug]/``. This is automatically generated from the main page title, which is set in the Content tab. Slugs should be entirely lowercase, with words separated by hyphens (-). It is recommended that you don't change a page's slug once a page is published.
 * **Title tag:** This is the bold headline in search engine results. This is one of the most significant elements of how search engines rank the page. The keywords used here should align with the keywords you wish to be found for.
