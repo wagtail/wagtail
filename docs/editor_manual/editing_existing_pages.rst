@@ -13,13 +13,13 @@ Here is how you can access the edit screen of an existing page:
 * Underneath the title, you can find the page type and a link to the page history.
 * If published, a link to the live version of the page is shown on the top right.
 * You can change the title of the page by clicking into the title field.
-* When you are typing into a field, help text is often displayed on the right-hand side of the screen.
+* When you're typing into a field, help text is often displayed on the right-hand side of the screen.
 
 
 Workflow
 _________
 
-If the page is currently in workflow, you'll see an additional indicator underneath the title, giving the current workflow task. Clicking this will
+If the page is currently in a workflow, you'll see an additional indicator underneath the title, showing the current workflow task. Clicking this will
 show more information about the page's progress through the workflow, as well as any comments left by reviewers.
 
 .. image:: ../_static/images/screen12.5_edit_screen_in_moderation.png
