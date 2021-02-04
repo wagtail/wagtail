@@ -11,6 +11,7 @@ export class BaseSequenceChild {
     this.id = id;
 
     const animate = opts && opts.animate;
+    this.onRequestDuplicate = opts && opts.onRequestDuplicate;
     this.onRequestDelete = opts && opts.onRequestDelete;
     this.onRequestMoveUp = opts && opts.onRequestMoveUp;
     this.onRequestMoveDown = opts && opts.onRequestMoveDown;
@@ -41,6 +42,10 @@ export class BaseSequenceChild {
                       disabled title="${h(strings.MOVE_DOWN)}">
                     <i class="icon icon-arrow-down" aria-hidden="true"></i>
                   </button>
+                  <button type="button" data-duplicate-button
+                      class="c-sf-block__actions__single" title="${h(strings.DUPLICATE)}">
+                    <i class="icon icon-duplicate" aria-hidden="true"></i>
+                  </button>
                   <button type="button" data-delete-button
                       class="c-sf-block__actions__single" title="${h(strings.DELETE)}">
                     <i class="icon icon-bin" aria-hidden="true"></i>
@@ -61,6 +66,10 @@ export class BaseSequenceChild {
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
+
+    dom.find('button[data-duplicate-button]').click(() => {
+      if (this.onRequestDuplicate) this.onRequestDuplicate(this.index);
+    });
 
     dom.find('button[data-delete-button]').click(() => {
       if (this.onRequestDelete) this.onRequestDelete(this.index);

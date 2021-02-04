@@ -89,6 +89,7 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
           DELETE: 'Delete',
+          DUPLICATE: 'Duplicate',
           ADD: 'Add',
         },
       }
@@ -251,6 +252,22 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
     boundBlock.moveBlock(0, 1);
     expect(document.body.innerHTML).toMatchSnapshot();
   });
+
+  test('blocks can be duplicated', () => {
+    boundBlock.duplicateBlock(1);
+
+    expect(constructor.mock.calls.length).toBe(3);
+
+    expect(constructor.mock.calls[2][0]).toBe('Block B widget');
+    expect(constructor.mock.calls[2][1]).toEqual({
+      name: 'the-prefix-2-value',
+      id: 'the-prefix-2-value',
+      // new block gets state from the one being duplicated
+      initialState: 'state: Block B widget - the-prefix-1-value',
+    });
+
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
 });
 
 describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', () => {
@@ -309,6 +326,7 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
           MOVE_UP: 'Move up',
           MOVE_DOWN: 'Move down',
           DELETE: 'Delete & kill with fire',
+          DUPLICATE: 'Duplicate',
           ADD: 'Add',
         },
       }

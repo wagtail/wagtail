@@ -144,6 +144,7 @@ export class ListBlock {
 
     const child = new ListChild(this.blockDef.childBlockDef, blockPlaceholder, prefix, index, null, value, {
       animate,
+      onRequestDuplicate: (i) => { this.duplicateBlock(i); },
       onRequestDelete: (i) => { this.deleteBlock(i); },
       onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },
       onRequestMoveDown: (i) => { this.moveBlock(i, i + 1); },
@@ -179,6 +180,12 @@ export class ListBlock {
         this.children[index + 1].enableMoveUp();
       }
     }
+  }
+
+  duplicateBlock(index) {
+    const childState = this.children[index].getState();
+    this.insert(childState, index + 1, { animate: true });
+    this.children[index + 1].focus();
   }
 
   deleteBlock(index) {
