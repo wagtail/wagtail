@@ -29,6 +29,7 @@ on:
 
 jobs:
   test-sqlite:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -56,6 +57,7 @@ jobs:
           DATABASE_ENGINE: django.db.backends.sqlite3
 
   test-postgres:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -110,6 +112,7 @@ jobs:
           DISABLE_TIMEZONE: ${{ matrix.notz }}
 
   test-mysql:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -152,6 +155,7 @@ jobs:
   # https://github.com/elastic/elastic-github-actions doesn't work for Elasticsearch 5,
   # but https://github.com/getong/elasticsearch-action does
   test-sqlite-elasticsearch5:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -192,6 +196,7 @@ jobs:
           DATABASE_ENGINE: django.db.backends.sqlite3
 
   test-sqlite-elasticsearch7:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -236,6 +241,7 @@ jobs:
   # https://github.com/getong/elasticsearch-action doesn't work for Elasticsearch 6,
   # but https://github.com/elastic/elastic-github-actions does
   test-postgres-elasticsearch6:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -284,6 +290,7 @@ jobs:
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
 
   test-postgres-elasticsearch7:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
       matrix:
