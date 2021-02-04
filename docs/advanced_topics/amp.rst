@@ -1,5 +1,5 @@
-Building a site with AMP support
-================================
+How to build a site with AMP support
+====================================
 
 This recipe document describes a method for creating an
 `AMP <https://amp.dev/>`_ version of a Wagtail site and hosting it separately
