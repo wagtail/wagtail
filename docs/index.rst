@@ -39,6 +39,7 @@ Index
    topics/index
    advanced_topics/index
    reference/index
+   explanation/index
    support
    editor_manual/index
    contributing/index
