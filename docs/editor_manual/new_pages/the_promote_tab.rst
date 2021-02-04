@@ -11,7 +11,7 @@ The promote tab is where you can configure a page's metadata to help search engi
 
 * **Slug:** The section of the URL that appears after your website's domain e.g ``http://domain.com/blog/[my-slug]/``. This is automatically generated from the main page title set in the Content tab. Slugs should be entirely lowercase, with words separated by hyphens (-). It is recommended that you don't change a page's slug once a page is published.
 * **Title tag:** This is the bold headline in search engine results. This is one of the most significant elements of how search engines rank the page. The keywords used here should align with the keywords you wish to be found for.
-* **Meta description:** This is the descriptive text displayed underneath a headline in search engine results. It is designed to explain what this page is about. It has no impact on how Google chooses to rank your content, but it can impact on the likelihood that a user will click your result. Ideally 140 - 155 characters in length.
+* **Meta description:** This is the descriptive text displayed underneath a headline in search engine results. It is designed to explain what this page is about. It has no impact on how Google ranks your content, but it can impact on the likelihood that a user will click your result. Ideally 140 to 155 characters in length.
 * **Show in menus:** Ticking this box will ensure that the page is included in automatically generated menus on your site. Note: A page will only display in menus if all of its parent pages also have *Show in menus* ticked.
 
 
