@@ -287,3 +287,15 @@ h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
 .page-toc-navigation .toc>ul>li ul {
     display: block;
 }
+
+@media (min-width: 992px) {
+    .toc--main-nav {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .toc--right-column {
+        display: none;
+    }
+}

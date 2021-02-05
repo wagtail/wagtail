@@ -194,8 +194,10 @@
                                         {{ toctree }}
                                     {%- endif %}
                                     {%- if toc %}
-                                    <p class="caption"><span class="caption-text">PAGE CONTENTS</span></p>
-                                    {{ toc }}
+                                    <div class="toc--main-nav">
+                                      <p class="caption"><span class="caption-text">PAGE CONTENTS</span></p>
+                                      {{ toc }}
+                                    </div>
                                     {%- endif %}
                                 {%- endblock -%}
 <!-- /menu -->
@@ -212,7 +214,7 @@
 {% include "breadcrumbs.html" %}
 <!-- /breadcrumbs.html -->
                       {%- if toc %}
-                        <div class="page-toc-navigation">
+                        <div class="page-toc-navigation toc--right-column">
                     <nav>
                         <div class="toc-open">
                             <div class="toc" role="navigation" aria-label="main navigation">
