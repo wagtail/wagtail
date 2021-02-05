@@ -36,7 +36,6 @@ install_requires = [
     "xlsxwriter>=1.2.8,<2.0",
     "tablib[xls,xlsx]>=0.14.0",
     "anyascii>=0.1.5",
-    "t3SphinxThemeRtd==3.6.15",
 ]
 
 # Testing dependencies
@@ -78,7 +77,7 @@ documentation_extras = [
     'sphinx-autobuild>=0.6.0',
     'sphinx_rtd_theme>=0.1.9',
     'recommonmark>=0.7.1',
-    't3SphinxThemeRtd==3.6.15',
+    "sphinx-typo3-theme==4.4.3",
 ]
 
 setup(
