@@ -22,7 +22,8 @@ The second, *Promote*, is where you can set all the 'metadata' (data about data!
 The Settings Tab
 ~~~~~~~~~~~~~~~~
 
-The *Settings* tab has two fields by default.
+The *Settings* tab has three fields by default.
 
-* **Go Live date/time:** Sets the time at which the changes should go live when published. See :ref:`scheduled_publishing` for more details.
-* **Expiry date/time:** Sets the time at which this page should be unpublished.
+* **Go Live date/time:** Sets the date and time at which the changes should go live when published. See :ref:`scheduled_publishing` for more details.
+* **Expiry date/time:** Sets the date and time at which this page should be unpublished.
+* **Privacy:** Sets restrictions for who can view the page on the frontend. Also applies to all child pages.
