@@ -1,3 +1,5 @@
+:hidetoc: 1
+
 Welcome to Wagtail's documentation
 ==================================
 

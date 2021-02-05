@@ -18,6 +18,12 @@
 {%- if logo_width is not defined -%} {%- set logo_width = theme_logo_width -%} {%- endif -%}
 {%- if logo_height is not defined -%} {%- set logo_height = theme_logo_height -%} {%- endif -%}
 {%- set t3ctx = t3ctx or {} -%}
+{%- set hidetoc = '' %}
+{%- if meta is defined %}
+    {%- if 'hidetoc' in meta.keys() %}
+        {%- set hidetoc = meta.get('hidetoc') %}
+    {%- endif %}
+{%- endif %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -193,12 +199,12 @@
                                     {%- if toctree %}
                                         {{ toctree }}
                                     {%- endif %}
-                                    {%- if toc %}
+                                    {% if display_toc and not hidetoc %}
                                     <div class="toc--main-nav">
                                       <p class="caption"><span class="caption-text">PAGE CONTENTS</span></p>
                                       {{ toc }}
                                     </div>
-                                    {%- endif %}
+                                    {% endif %}
                                 {%- endblock -%}
 <!-- /menu -->
                             </div>
@@ -213,7 +219,7 @@
 <!-- breadcrumbs.html -->
 {% include "breadcrumbs.html" %}
 <!-- /breadcrumbs.html -->
-                      {%- if toc %}
+                      {% if display_toc and not hidetoc %}
                         <div class="page-toc-navigation toc--right-column">
                     <nav>
                         <div class="toc-open">
@@ -226,7 +232,7 @@
                         </div>
                     </nav>
                 </div>
-                      {%- endif %}
+                      {% endif %}
 
                         <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
                             <div itemprop="articleBody">
