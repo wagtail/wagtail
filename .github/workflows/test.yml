@@ -41,8 +41,9 @@ jobs:
 
     steps:
       - name: Debug commits object
-        run: echo "commits: ${{ github.event.commits }}"
-        run: echo "commits[0]: ${{ github.event.commits[0] }}"
+        run: |
+            echo "commits: ${{ github.event.commits }}"
+            echo "commits[0]: ${{ github.event.commits[0] }}"
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v2
