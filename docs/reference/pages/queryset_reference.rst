@@ -8,24 +8,24 @@ All models that inherit from :class:`~wagtail.core.models.Page` are given some e
 Examples
 ========
 
- - Selecting only live pages
+- Selecting only live pages
 
-    .. code-block:: python
+  .. code-block:: python
 
-        live_pages = Page.objects.live()
+      live_pages = Page.objects.live()
 
- - Selecting published EventPages that are descendants of events_index
+- Selecting published EventPages that are descendants of events_index
 
-    .. code-block:: python
+  .. code-block:: python
 
-        events = EventPage.objects.live().descendant_of(events_index)
+      events = EventPage.objects.live().descendant_of(events_index)
 
- - Getting a list of menu items
+- Getting a list of menu items
 
-    .. code-block:: python
+  .. code-block:: python
 
-        # This gets a QuerySet of live children of the homepage with ``show_in_menus`` set
-        menu_items = homepage.get_children().live().in_menu()
+      # This gets a QuerySet of live children of the homepage with ``show_in_menus`` set
+      menu_items = homepage.get_children().live().in_menu()
 
 
 Reference

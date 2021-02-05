@@ -9,12 +9,8 @@ to images.
 
 To do this, you need to add two models to your project:
 
- - The image model itself that inherits from
-   ``wagtail.images.models.AbstractImage``. This is where you would add
-   your additional fields
- - The renditions model that inherits from
-   ``wagtail.images.models.AbstractRendition``. This is used to store
-   renditions for the new model.
+- The image model itself that inherits from ``wagtail.images.models.AbstractImage``. This is where you would add your additional fields
+- The renditions model that inherits from ``wagtail.images.models.AbstractRendition``. This is used to store renditions for the new model.
 
 Here's an example:
 

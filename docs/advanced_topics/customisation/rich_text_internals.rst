@@ -3,10 +3,10 @@ Rich text internals
 
 At first glance, Wagtail's rich text capabilities appear to give editors direct control over a block of HTML content. In reality, it's necessary to give editors a representation of rich text content that is several steps removed from the final HTML output, for several reasons:
 
- * The editor interface needs to filter out certain kinds of unwanted markup; this includes malicious scripting, font styles pasted from an external word processor, and elements which would break the validity or consistency of the site design (for example, pages will generally reserve the ``<h1>`` element for the page title, and so it would be inappropriate to allow users to insert their own additional ``<h1>`` elements through rich text).
- * Rich text fields can specify a ``features`` argument to further restrict the elements permitted in the field - see :ref:`rich_text_features`.
- * Enforcing a subset of HTML helps to keep presentational markup out of the database, making the site more maintainable, and making it easier to repurpose site content (including, potentially, producing non-HTML output such as `LaTeX <https://www.latex-project.org/>`_).
- * Elements such as page links and images need to preserve metadata such as the page or image ID, which is not present in the final HTML representation.
+* The editor interface needs to filter out certain kinds of unwanted markup; this includes malicious scripting, font styles pasted from an external word processor, and elements which would break the validity or consistency of the site design (for example, pages will generally reserve the ``<h1>`` element for the page title, and so it would be inappropriate to allow users to insert their own additional ``<h1>`` elements through rich text).
+* Rich text fields can specify a ``features`` argument to further restrict the elements permitted in the field - see :ref:`rich_text_features`.
+* Enforcing a subset of HTML helps to keep presentational markup out of the database, making the site more maintainable, and making it easier to repurpose site content (including, potentially, producing non-HTML output such as `LaTeX <https://www.latex-project.org/>`_).
+* Elements such as page links and images need to preserve metadata such as the page or image ID, which is not present in the final HTML representation.
 
 This requires the rich text content to go through a number of validation and conversion steps; both between the editor interface and the version stored in the database, and from the database representation to the final rendered HTML.
 
@@ -48,10 +48,10 @@ Again, the ``embedtype`` attribute identifies a rule that shall be used to rewri
 
 A number of additional constraints apply to ``<a linktype="...">`` and ``<embed embedtype="..." />`` tags, to allow the conversion to be performed efficiently via string replacement:
 
- * The tag name and attributes must be lower-case
- * Attribute values must be quoted with double-quotes
- * ``embed`` elements must use XML self-closing tag syntax (i.e. end in ``/>`` instead of a closing ``</embed>`` tag)
- * The only HTML entities permitted in attribute values are ``&lt;``, ``&gt;``, ``&amp;`` and ``&quot;``
+* The tag name and attributes must be lower-case
+* Attribute values must be quoted with double-quotes
+* ``embed`` elements must use XML self-closing tag syntax (i.e. end in ``/>`` instead of a closing ``</embed>`` tag)
+* The only HTML entities permitted in attribute values are ``&lt;``, ``&gt;``, ``&amp;`` and ``&quot;``
 
 
 The feature registry

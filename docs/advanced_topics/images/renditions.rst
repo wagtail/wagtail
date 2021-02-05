@@ -8,7 +8,7 @@ and are stored as new image files in the site's ``[media]/images`` directory on 
 
 Image renditions can also be generated dynamically from Python via the native ``get_rendition()`` method, for example:
 
- .. code-block:: python
+.. code-block:: python
 
     newimage = myimage.get_rendition('fill-300x150|jpegquality-60')
 
@@ -19,14 +19,14 @@ Argument options are identical to the ``{% image %}`` template tag's filter spec
 The generated ``Rendition`` object will have properties specific to that version of the image, such as
 ``url``, ``width`` and ``height``, so something like this could be used in an API generator, for example:
 
- .. code-block:: python
+.. code-block:: python
 
     url = myimage.get_rendition('fill-300x186|jpegquality-60').url
 
 Properties belonging to the original image from which the generated Rendition was created, such as ``title``, can
 be accessed through the Rendition's ``image`` property:
 
- .. code-block:: python
+.. code-block:: python
 
     >>> newimage.image.title
     'Blue Sky'

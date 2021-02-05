@@ -13,4 +13,4 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
- * Delay dirty form check to prevent "unsaved changes" warning from being wrongly triggered (Thibaud Colas)
+* Delay dirty form check to prevent "unsaved changes" warning from being wrongly triggered (Thibaud Colas)

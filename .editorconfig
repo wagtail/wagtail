@@ -14,7 +14,7 @@ charset = utf-8
 [*.{css,py,scss,rst,md}]
 indent_size = 4
 
-[*.{js,json,yml}]
+[*.{js,json,yml,rst}]
 indent_size = 2
 
 [*.md]

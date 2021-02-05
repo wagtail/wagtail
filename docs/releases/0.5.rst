@@ -60,32 +60,32 @@ Minor features
 Core
 ----
 
- * Hooks can now be defined using decorator syntax:
+* Hooks can now be defined using decorator syntax:
 
-  .. code-block:: python
+.. code-block:: python
 
-    @hooks.register('construct_main_menu')
-    def construct_main_menu(request, menu_items):
-        menu_items.append(
-            MenuItem('Kittens!', '/kittens/', classnames='icon icon-folder-inverse', order=1000)
-        )
+  @hooks.register('construct_main_menu')
+  def construct_main_menu(request, menu_items):
+      menu_items.append(
+          MenuItem('Kittens!', '/kittens/', classnames='icon icon-folder-inverse', order=1000)
+      )
 
- * The lxml library (used for whitelisting and rewriting of rich text fields) has been replaced with the pure-python html5lib library, to simplify installation.
- * A ``page_unpublished`` signal has been added.
+* The lxml library (used for whitelisting and rewriting of rich text fields) has been replaced with the pure-python html5lib library, to simplify installation.
+* A ``page_unpublished`` signal has been added.
 
 
 Admin
 -----
 
- * Explorer nav now rendered separately and fetched with AJAX when needed.
+* Explorer nav now rendered separately and fetched with AJAX when needed.
 
-   This improves the general performance of the admin interface for large sites.
+  This improves the general performance of the admin interface for large sites.
 
 
 Bug fixes
 ~~~~~~~~~
 
- * Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface.
+* Updates to tag fields are now properly committed to the database when publishing directly from the page edit interface.
 
 
 Upgrade considerations
@@ -96,17 +96,17 @@ Urlconf entries for ``/admin/images/``, ``/admin/embeds/`` etc need to be remove
 
 If you created a Wagtail project prior to the release of Wagtail 0.3, it is likely to contain the following entries in its ``urls.py``:
 
-  .. code-block:: python
+.. code-block:: python
 
-    # TODO: some way of getting wagtailimages to register itself within wagtailadmin so that we
-    # don't have to define it separately here
-    url(r'^admin/images/', include(wagtailimages_urls)),
-    url(r'^admin/embeds/', include(wagtailembeds_urls)),
-    url(r'^admin/documents/', include(wagtaildocs_admin_urls)),
-    url(r'^admin/snippets/', include(wagtailsnippets_urls)),
-    url(r'^admin/search/', include(wagtailsearch_admin_urls)),
-    url(r'^admin/users/', include(wagtailusers_urls)),
-    url(r'^admin/redirects/', include(wagtailredirects_urls)),
+  # TODO: some way of getting wagtailimages to register itself within wagtailadmin so that we
+  # don't have to define it separately here
+  url(r'^admin/images/', include(wagtailimages_urls)),
+  url(r'^admin/embeds/', include(wagtailembeds_urls)),
+  url(r'^admin/documents/', include(wagtaildocs_admin_urls)),
+  url(r'^admin/snippets/', include(wagtailsnippets_urls)),
+  url(r'^admin/search/', include(wagtailsearch_admin_urls)),
+  url(r'^admin/users/', include(wagtailusers_urls)),
+  url(r'^admin/redirects/', include(wagtailredirects_urls)),
 
 
 These entries (and the corresponding ``from wagtail.wagtail* import ...`` lines) need to be removed from ``urls.py``. (The entry for ``/admin/`` should be left in, however.)

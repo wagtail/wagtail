@@ -54,44 +54,44 @@ The ":doc:`Your first Wagtail site </getting_started/tutorial>`" tutorial has be
 Other features
 ~~~~~~~~~~~~~~
 
- * Added support of a custom ``edit_handler`` for site settings. See :ref:`docs for the site settings module <edit_handlers_settings>`. (Axel Haustant)
- * Added ``get_landing_page_template`` getter method to ``AbstractForm`` (Gagaro)
- * Added ``Page.get_admin_display_title`` method to override how the title is displayed in the admin (Henk-Jan van Hasselaar)
- * Added support for specifying custom HTML attributes for table rows on ModelAdmin index pages. See :ref:`modeladmin_get_extra_attrs_for_row` (Andy Babic)
- * Added ``first_common_ancestor`` method to ``PageQuerySet`` (Tim Heap)
- * Page chooser now opens at the deepest ancestor page that covers all the pages of the required page type (Tim Heap)
- * ``PageChooserBlock`` now accepts a ``target_model`` option to specify the required page type (Tim Heap)
- * Modeladmin forms now respect ``fields`` / ``exclude`` options passed on custom model forms (Thejaswi Puthraya)
- * Added new StreamField block type ``StaticBlock`` for blocks that occupy a position in a stream but otherwise have no configuration; see :ref:`streamfield_staticblock` (Benoît Vogel)
- * Added new StreamField block type ``BlockQuoteBlock`` (Scot Hacker)
- * Updated Cloudflare cache module to use the v4 API (Albert O'Connor)
- * Added ``exclude_from_explorer`` attribute to the ``ModelAdmin`` class to allow hiding instances of a page type from Wagtail's explorer views (Andy Babic)
- * Added ``above_login``, ``below_login``, ``fields`` and ``login_form`` customisation blocks to the login page template - see :doc:`/advanced_topics/customisation/admin_templates` (Tim Heap)
- * ``ChoiceBlock`` now accepts a callable as the choices list (Mikalai Radchuk)
- * Redundant action buttons are now omitted from the root page in the explorer (Nick Smith)
- * Locked pages are now disabled from editing at the browser level (Edd Baldry)
- * Added :meth:`wagtail.core.query.PageQuerySet.in_site` method for filtering page QuerySets to pages within the specified site (Chris Rogers)
- * Added the ability to override the default index settings for Elasticsearch. See :ref:`wagtailsearch_backends_elasticsearch` (PyMan Claudio Marinozzi)
- * Extra options for the Elasticsearch constructor should be now defined with the new key ``OPTIONS`` of the ``WAGTAILSEARCH_BACKENDS`` setting (PyMan Claudio Marinozzi)
+* Added support of a custom ``edit_handler`` for site settings. See :ref:`docs for the site settings module <edit_handlers_settings>`. (Axel Haustant)
+* Added ``get_landing_page_template`` getter method to ``AbstractForm`` (Gagaro)
+* Added ``Page.get_admin_display_title`` method to override how the title is displayed in the admin (Henk-Jan van Hasselaar)
+* Added support for specifying custom HTML attributes for table rows on ModelAdmin index pages. See :ref:`modeladmin_get_extra_attrs_for_row` (Andy Babic)
+* Added ``first_common_ancestor`` method to ``PageQuerySet`` (Tim Heap)
+* Page chooser now opens at the deepest ancestor page that covers all the pages of the required page type (Tim Heap)
+* ``PageChooserBlock`` now accepts a ``target_model`` option to specify the required page type (Tim Heap)
+* Modeladmin forms now respect ``fields`` / ``exclude`` options passed on custom model forms (Thejaswi Puthraya)
+* Added new StreamField block type ``StaticBlock`` for blocks that occupy a position in a stream but otherwise have no configuration; see :ref:`streamfield_staticblock` (Benoît Vogel)
+* Added new StreamField block type ``BlockQuoteBlock`` (Scot Hacker)
+* Updated Cloudflare cache module to use the v4 API (Albert O'Connor)
+* Added ``exclude_from_explorer`` attribute to the ``ModelAdmin`` class to allow hiding instances of a page type from Wagtail's explorer views (Andy Babic)
+* Added ``above_login``, ``below_login``, ``fields`` and ``login_form`` customisation blocks to the login page template - see :doc:`/advanced_topics/customisation/admin_templates` (Tim Heap)
+* ``ChoiceBlock`` now accepts a callable as the choices list (Mikalai Radchuk)
+* Redundant action buttons are now omitted from the root page in the explorer (Nick Smith)
+* Locked pages are now disabled from editing at the browser level (Edd Baldry)
+* Added :meth:`wagtail.core.query.PageQuerySet.in_site` method for filtering page QuerySets to pages within the specified site (Chris Rogers)
+* Added the ability to override the default index settings for Elasticsearch. See :ref:`wagtailsearch_backends_elasticsearch` (PyMan Claudio Marinozzi)
+* Extra options for the Elasticsearch constructor should be now defined with the new key ``OPTIONS`` of the ``WAGTAILSEARCH_BACKENDS`` setting (PyMan Claudio Marinozzi)
 
 
 Bug fixes
 ~~~~~~~~~
 
- * ``AbstractForm`` now respects custom ``get_template`` methods on the page model (Gagaro)
- * Use specific page model for the parent page in the explore index (Gagaro)
- * Remove responsive styles in embed when there is no ratio available (Gagaro)
- * Parent page link in page search modal no longer disappears on hover (Dan Braghis)
- * ModelAdmin views now consistently call ``get_context_data`` (Andy Babic)
- * Header for search results on the redirects index page now shows the correct count when the listing is paginated (Nick Smith)
- * ``set_url_paths`` management command is now compatible with Django 1.10 (Benjamin Bach)
- * Form builder email notifications now output multiple values correctly (Sævar Öfjörð Magnússon)
- * Closing 'more' dropdown on explorer no longer jumps to the top of the page (Ducky)
- * Users with only publish permission are no longer given implicit permission to delete pages (Matt Westcott)
- * ``search_garbage_collect`` management command now works when wagtailsearchpromotions is not installed (Morgan Aubert)
- * ``wagtail.contrib.settings`` context processor no longer fails when ``request.site`` is unavailable (Diederik van der Boor)
- * ``TableBlock`` content is now indexed for search (Morgan Aubert)
- * ``Page.copy()`` is now marked as ``alters_data``, to prevent template code from triggering it (Diederik van der Boor)
+* ``AbstractForm`` now respects custom ``get_template`` methods on the page model (Gagaro)
+* Use specific page model for the parent page in the explore index (Gagaro)
+* Remove responsive styles in embed when there is no ratio available (Gagaro)
+* Parent page link in page search modal no longer disappears on hover (Dan Braghis)
+* ModelAdmin views now consistently call ``get_context_data`` (Andy Babic)
+* Header for search results on the redirects index page now shows the correct count when the listing is paginated (Nick Smith)
+* ``set_url_paths`` management command is now compatible with Django 1.10 (Benjamin Bach)
+* Form builder email notifications now output multiple values correctly (Sævar Öfjörð Magnússon)
+* Closing 'more' dropdown on explorer no longer jumps to the top of the page (Ducky)
+* Users with only publish permission are no longer given implicit permission to delete pages (Matt Westcott)
+* ``search_garbage_collect`` management command now works when wagtailsearchpromotions is not installed (Morgan Aubert)
+* ``wagtail.contrib.settings`` context processor no longer fails when ``request.site`` is unavailable (Diederik van der Boor)
+* ``TableBlock`` content is now indexed for search (Morgan Aubert)
+* ``Page.copy()`` is now marked as ``alters_data``, to prevent template code from triggering it (Diederik van der Boor)
 
 
 Upgrade considerations
@@ -121,8 +121,8 @@ You will then be able to run ``manage.py makemigrations`` and ``manage.py migrat
 
 Additionally, third-party code that accesses the Filter and Rendition models directly should note the following and make updates where applicable:
 
- * ``Filter`` will no longer be a Django model as of Wagtail 1.9, and as such, ORM operations on it (such as ``save()`` and ``Filter.objects``) are deprecated. It should be instantiated and used as an in-memory object instead - for example, ``flt, created = Filter.objects.get_or_create(spec='fill-100x100')`` should become ``flt = Filter(spec='fill-100x100')``.
- * The ``filter`` field of Rendition models is no longer in use; lookups should instead be performed on the ``filter_spec`` field, which contains a filter spec string such as ``'fill-100x100'``.
+* ``Filter`` will no longer be a Django model as of Wagtail 1.9, and as such, ORM operations on it (such as ``save()`` and ``Filter.objects``) are deprecated. It should be instantiated and used as an in-memory object instead - for example, ``flt, created = Filter.objects.get_or_create(spec='fill-100x100')`` should become ``flt = Filter(spec='fill-100x100')``.
+* The ``filter`` field of Rendition models is no longer in use; lookups should instead be performed on the ``filter_spec`` field, which contains a filter spec string such as ``'fill-100x100'``.
 
 
 ``wagtail.wagtailimages.models.get_image_model`` has moved

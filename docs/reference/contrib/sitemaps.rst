@@ -27,13 +27,13 @@ Basic configuration
 You firstly need to add ``"django.contrib.sitemaps"`` to INSTALLED_APPS in your
 Django settings file:
 
- .. code-block:: python
+.. code-block:: python
 
-    INSTALLED_APPS = [
-        ...
+  INSTALLED_APPS = [
+      ...
 
-        "django.contrib.sitemaps",
-    ]
+      "django.contrib.sitemaps",
+  ]
 
 
 Then, in ``urls.py``, you need to add a link to the
@@ -68,24 +68,24 @@ By default, the sitemap uses the hostname defined in the Wagtail Admin's
 ``Sites`` area. If your default site is called ``localhost``, then URLs in the
 sitemap will look like:
 
- .. code-block:: xml
+.. code-block:: xml
 
-    <url>
-        <loc>http://localhost/about/</loc>
-        <lastmod>2015-09-26</lastmod>
-    </url>
+  <url>
+      <loc>http://localhost/about/</loc>
+      <lastmod>2015-09-26</lastmod>
+  </url>
 
 
 For tools like Google Search Tools to properly index your site, you need to set
 a valid, crawlable hostname. If you change the site's hostname from
 ``localhost`` to ``mysite.com``, ``sitemap.xml`` will contain the correct URLs:
 
- .. code-block:: xml
+.. code-block:: xml
 
-    <url>
-        <loc>http://mysite.com/about/</loc>
-        <lastmod>2015-09-26</lastmod>
-    </url>
+  <url>
+      <loc>http://mysite.com/about/</loc>
+      <lastmod>2015-09-26</lastmod>
+  </url>
 
 
 If you change the site's port to ``443``, the ``https`` scheme will be used.
@@ -106,10 +106,10 @@ empty list.
 
 Each dictionary can contain the following:
 
- - **location** (required) - This is the full URL path to add into the sitemap.
- - **lastmod** - A python date or datetime set to when the page was last modified.
- - **changefreq**
- - **priority**
+- **location** (required) - This is the full URL path to add into the sitemap.
+- **lastmod** - A python date or datetime set to when the page was last modified.
+- **changefreq**
+- **priority**
 
 You can add more but you will need to override the
 ``sitemap.xml`` template in order for them to be displayed in the sitemap.

@@ -18,13 +18,13 @@ Installation
 
 Add ``"wagtail.contrib.routable_page"`` to your INSTALLED_APPS:
 
- .. code-block:: python
+.. code-block:: python
 
-     INSTALLED_APPS = [
-        ...
+    INSTALLED_APPS = [
+      ...
 
-        "wagtail.contrib.routable_page",
-     ]
+      "wagtail.contrib.routable_page",
+    ]
 
 
 The basics
@@ -183,26 +183,26 @@ The ``RoutablePageMixin`` class
 .. automodule:: wagtail.contrib.routable_page.models
 .. autoclass:: RoutablePageMixin
 
-    .. automethod:: render
+  .. automethod:: render
 
-    .. automethod:: get_subpage_urls
+  .. automethod:: get_subpage_urls
 
-    .. automethod:: resolve_subpage
+  .. automethod:: resolve_subpage
 
-        Example:
+    Example:
 
-        .. code-block:: python
+    .. code-block:: python
 
-            view, args, kwargs = page.resolve_subpage('/past/')
-            response = view(request, *args, **kwargs)
+        view, args, kwargs = page.resolve_subpage('/past/')
+        response = view(request, *args, **kwargs)
 
-    .. automethod:: reverse_subpage
+  .. automethod:: reverse_subpage
 
-        Example:
+    Example:
 
-        .. code-block:: python
+    .. code-block:: python
 
-            url = page.url + page.reverse_subpage('events_for_year', kwargs={'year': '2014'})
+        url = page.url + page.reverse_subpage('events_for_year', kwargs={'year': '2014'})
 
 
  .. _routablepageurl_template_tag:

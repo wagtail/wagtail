@@ -29,26 +29,26 @@ Wagtail’s admin now uses CSS custom properties for its primary teal color. App
 Other features
 ~~~~~~~~~~~~~~
 
- * Added support for Python 3.9
- * Added ``WAGTAILIMAGES_IMAGE_FORM_BASE`` and ``WAGTAILDOCS_DOCUMENT_FORM_BASE`` settings to customise the forms for images and documents (Dan Braghis)
- * Switch pagination icons to use SVG instead of icon fonts (Scott Cranfill)
- * Added string representation to image Format class (Andreas Nüßlein)
- * Support returning None from ``register_page_action_menu_item`` and ``register_snippet_action_menu_item`` to skip registering an item (Vadim Karpenko)
- * Fields on a custom image model can now be defined as required / ``blank=False`` (Matt Westcott)
- * Add combined index for Postgres search backend (Will Giddens)
- * Add ``Page.specific_deferred`` property for accessing specific page instance without up-front database queries (Andy Babic)
- * Add hash lookup to embeds to support URLs longer than 255 characters (Coen van der Kamp)
+* Added support for Python 3.9
+* Added ``WAGTAILIMAGES_IMAGE_FORM_BASE`` and ``WAGTAILDOCS_DOCUMENT_FORM_BASE`` settings to customise the forms for images and documents (Dan Braghis)
+* Switch pagination icons to use SVG instead of icon fonts (Scott Cranfill)
+* Added string representation to image Format class (Andreas Nüßlein)
+* Support returning None from ``register_page_action_menu_item`` and ``register_snippet_action_menu_item`` to skip registering an item (Vadim Karpenko)
+* Fields on a custom image model can now be defined as required / ``blank=False`` (Matt Westcott)
+* Add combined index for Postgres search backend (Will Giddens)
+* Add ``Page.specific_deferred`` property for accessing specific page instance without up-front database queries (Andy Babic)
+* Add hash lookup to embeds to support URLs longer than 255 characters (Coen van der Kamp)
 
 
 Bug fixes
 ~~~~~~~~~
 
- * Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)
- * Make sure document chooser pagination preserves the selected collection when moving between pages (Alex Sa)
- * Gracefully handle oEmbed endpoints returning non-JSON responses (Matt Westcott)
- * Fix unique constraint on WorkflowState for SQL Server compatibility (David Beitey)
- * Reinstate chevron on collection dropdown (Mike Brown)
- * Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
+* Stop menu icon overlapping the breadcrumb on small viewport widths in page editor (Karran Besen)
+* Make sure document chooser pagination preserves the selected collection when moving between pages (Alex Sa)
+* Gracefully handle oEmbed endpoints returning non-JSON responses (Matt Westcott)
+* Fix unique constraint on WorkflowState for SQL Server compatibility (David Beitey)
+* Reinstate chevron on collection dropdown (Mike Brown)
+* Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
 
 
 Upgrade considerations

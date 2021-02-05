@@ -108,8 +108,8 @@ In Wagtail, you can use any Django field class. Most field classes provided by t
 
 Wagtail also provides a couple of field classes of its own:
 
- - ``RichTextField`` - For rich text content
- - ``StreamField`` - A block-based content field (see: :doc:`/topics/streamfield`)
+- ``RichTextField`` - For rich text content
+- ``StreamField`` - A block-based content field (see: :doc:`/topics/streamfield`)
 
 For tagging, Wagtail fully supports `django-taggit <https://django-taggit.readthedocs.org/en/latest/>`_ so we recommend using that.
 
@@ -131,9 +131,9 @@ Editor panels
 
 There are a few attributes for defining how the page's fields will be arranged in the page editor interface:
 
- - ``content_panels`` - For content, such as main body text
- - ``promote_panels`` - For metadata, such as tags, thumbnail image and SEO title
- - ``settings_panels`` - For settings, such as publish date
+- ``content_panels`` - For content, such as main body text
+- ``promote_panels`` - For metadata, such as tags, thumbnail image and SEO title
+- ``settings_panels`` - For settings, such as publish date
 
 Each of these attributes is set to a list of ``EditHandler`` objects, which defines which fields appear on which tabs and how they are structured on each tab.
 
@@ -143,25 +143,25 @@ Here's a summary of the ``EditHandler`` classes that Wagtail provides out of the
 
 These allow editing of model fields. The ``FieldPanel`` class will choose the correct widget based on the type of the field, though ``StreamField`` fields need to use a specialised panel class.
 
- - :class:`~wagtail.admin.edit_handlers.FieldPanel`
- - :class:`~wagtail.admin.edit_handlers.StreamFieldPanel`
+- :class:`~wagtail.admin.edit_handlers.FieldPanel`
+- :class:`~wagtail.admin.edit_handlers.StreamFieldPanel`
 
 **Structural**
 
 These are used for structuring fields in the interface.
 
- - :class:`~wagtail.admin.edit_handlers.MultiFieldPanel` - For grouping similar fields together
- - :class:`~wagtail.admin.edit_handlers.InlinePanel` - For inlining child models
- - :class:`~wagtail.admin.edit_handlers.FieldRowPanel` - For organising multiple fields into a single row
+- :class:`~wagtail.admin.edit_handlers.MultiFieldPanel` - For grouping similar fields together
+- :class:`~wagtail.admin.edit_handlers.InlinePanel` - For inlining child models
+- :class:`~wagtail.admin.edit_handlers.FieldRowPanel` - For organising multiple fields into a single row
 
 **Chooser**
 
 ``ForeignKey`` fields to certain models can use one of the below ``ChooserPanel`` classes. These add a nice modal chooser interface, and the image/document choosers also allow uploading new files without leaving the page editor.
 
- - :class:`~wagtail.admin.edit_handlers.PageChooserPanel`
- - :class:`~wagtail.images.edit_handlers.ImageChooserPanel`
- - :class:`~wagtail.documents.edit_handlers.DocumentChooserPanel`
- - :class:`~wagtail.snippets.edit_handlers.SnippetChooserPanel`
+- :class:`~wagtail.admin.edit_handlers.PageChooserPanel`
+- :class:`~wagtail.images.edit_handlers.ImageChooserPanel`
+- :class:`~wagtail.documents.edit_handlers.DocumentChooserPanel`
+- :class:`~wagtail.snippets.edit_handlers.SnippetChooserPanel`
 
 .. note::
 
@@ -373,8 +373,8 @@ Wagtail can nest the content of other models within the page. This is useful for
 
 Each inline model requires the following:
 
- - It must inherit from :class:`wagtail.core.models.Orderable`
- - It must have a ``ParentalKey`` to the parent model
+- It must inherit from :class:`wagtail.core.models.Orderable`
+- It must have a ``ParentalKey`` to the parent model
 
 .. note:: django-modelcluster and ParentalKey
 

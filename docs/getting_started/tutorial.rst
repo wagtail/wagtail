@@ -35,17 +35,17 @@ This tutorial uses `venv <https://docs.python.org/3/tutorial/venv.html>`_, which
 
 **On Windows** (cmd.exe):
 
-    .. code-block:: bat
+.. code-block:: bat
 
-       $ python3 -m venv mysite\env
-       $ mysite\env\Scripts\activate.bat
+    $ python3 -m venv mysite\env
+    $ mysite\env\Scripts\activate.bat
 
 **On Unix or MacOS** (bash):
 
-    .. code-block:: console
+.. code-block:: console
 
-       $ python3 -m venv mysite/env
-       $ source mysite/env/bin/activate
+    $ python3 -m venv mysite/env
+    $ source mysite/env/bin/activate
 
 **For other shells** see the `venv documentation <https://docs.python.org/3/library/venv.html>`_.
 

@@ -13,13 +13,13 @@ Setting it up
 
 Firstly, add ``"wagtail.contrib.frontend_cache"`` to your INSTALLED_APPS:
 
- .. code-block:: python
+.. code-block:: python
 
-     INSTALLED_APPS = [
-        ...
+    INSTALLED_APPS = [
+      ...
 
-        "wagtail.contrib.frontend_cache"
-     ]
+      "wagtail.contrib.frontend_cache"
+    ]
 
 The ``wagtailfrontendcache`` module provides a set of signal handlers which will automatically purge the cache whenever a page is published or deleted. These signal handlers are automatically registered when the ``wagtail.contrib.frontend_cache`` app is loaded.
 
@@ -46,8 +46,8 @@ Set ``WAGTAILFRONTENDCACHE_LANGUAGES`` to a list of languages (typically equal t
 
 Finally, make sure you have configured your frontend cache to accept PURGE requests:
 
- - `Varnish <https://www.varnish-cache.org/docs/3.0/tutorial/purging.html>`_
- - `Squid <https://wiki.squid-cache.org/SquidFaq/OperatingSquid#How_can_I_purge_an_object_from_my_cache.3F>`_
+- `Varnish <https://www.varnish-cache.org/docs/3.0/tutorial/purging.html>`_
+- `Squid <https://wiki.squid-cache.org/SquidFaq/OperatingSquid#How_can_I_purge_an_object_from_my_cache.3F>`_
 
 
 .. _frontendcache_cloudflare:
