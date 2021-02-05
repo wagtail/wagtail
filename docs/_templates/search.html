@@ -1,0 +1,16 @@
+{%- extends "layout.html" %}
+{% set title = _('Search') %}
+
+{% block body %}
+  <noscript>
+  <div id="fallback" class="admonition warning">
+    <p class="last">
+      {% trans trimmed %}Please activate JavaScript to enable the search
+      functionality.{% endtrans %}
+    </p>
+  </div>
+  </noscript>
+
+  <div id="search-results">
+  </div>
+{% endblock %}

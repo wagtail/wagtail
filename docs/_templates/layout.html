@@ -1,5 +1,10 @@
 {% extends "!layout.html" %}
 
+{% block extrahead %}
+<link rel="stylesheet" href="{{ docsearch_base ~ 'docsearch.min.css' }}"/>
+<link rel="stylesheet" href="{{ pathto('_static/css/docsearch.overrides.css', 1) }}" />
+{% endblock %}
+
 {% block footer %}
 {{ super() }}
 <script async defer data-domain="docs.wagtail.io" src="https://plausible.io/js/plausible.js"></script>
@@ -17,12 +22,18 @@ function docSearchReady(script) {
    */
   const rtd_version = (window.READTHEDOCS_DATA || {}).version || 'latest';
   const version = rtd_version.match(/^\d+$/) ? 'latest' : rtd_version;
+
   docsearch({
     apiKey: '8325c57d16798633e29d211c26c7b6f9',
     indexName: 'wagtail',
     inputSelector: '#rtd-search-form [name="q"]',
-    algoliaOptions: { 'facetFilters': [`version:${version}`] },
-    debug: true
+    algoliaOptions: {
+      facetFilters: ['version:' + version],
+    },
+    autocompleteOptions: {
+      autoSelect: false
+    },
+    debug: true // Set debug to true if you want to inspect the dropdown
   });
 }
 
