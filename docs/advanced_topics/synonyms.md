@@ -102,8 +102,22 @@ Now we must update our site settings to use this. Wagtail expects the path to a 
 WAGTAILSEARCH_BACKENDS = {
     "default": {
         "BACKEND": "customsearch.elasticsearch7",
-        ...
+        "INDEX": "wagtail",
+        "OPTIONS": {},
+        "INDEX_SETTINGS": {
+            "settings": {
+                "analysis": {
+                    "analyzer": {
+                        "default": {"tokenizer": "whitespace", "filter": ["synonym"]},
+                    },
+                },
+            },
+        },
+    },
+}
 ```
+
+Note also that we have removed the `analysis.filter` section of the settings dict.
 
 ## 3. Make synonyms editable
 
