@@ -132,8 +132,8 @@ Search operator
 
 The search operator specifies how search should behave when the user has typed in multiple search terms. There are two possible values:
 
- - "or" - The results must match at least one term (default for Elasticsearch)
- - "and" - The results must match all terms (default for database search)
+- "or" - The results must match at least one term (default for Elasticsearch)
+- "and" - The results must match all terms (default for database search)
 
 Both operators have benefits and drawbacks. The "or" operator will return many more results but will likely contain a lot of results that aren't relevant. The "and" operator only returns results that contain all search terms, but require the user to be more precise with their query.
 

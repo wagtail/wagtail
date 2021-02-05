@@ -13,6 +13,6 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
- * Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
- * Ensure aliases are published when the source page is published (Karl Hobley)
- * Make page privacy rules apply to aliases (Karl Hobley)
+* Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
+* Ensure aliases are published when the source page is published (Karl Hobley)
+* Make page privacy rules apply to aliases (Karl Hobley)

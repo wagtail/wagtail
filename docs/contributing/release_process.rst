@@ -146,10 +146,10 @@ all following versions of Django.
 For example, consider a moment in time before release of Wagtail 1.5
 and after the following releases:
 
- * Django 1.8 (LTS)
- * Django 1.9
- * Wagtail 1.4 (LTS) - Released before Django 1.10 and supports Django 1.8 and 1.9
- * Django 1.10
+* Django 1.8 (LTS)
+* Django 1.9
+* Wagtail 1.4 (LTS) - Released before Django 1.10 and supports Django 1.8 and 1.9
+* Django 1.10
 
 Wagtail 1.5 will support Django 1.8 (LTS), 1.9, 1.10.
 Wagtail 1.4 will still support only Django 1.8 (LTS) and 1.9.

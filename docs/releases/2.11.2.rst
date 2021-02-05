@@ -22,9 +22,9 @@ This feature was developed by Cynthia Kiser and Luis Nell.
 Bug fixes
 ~~~~~~~~~
 
- * Improve performance of permission check on translations for edit page (Karl Hobley)
- * Gracefully handle missing Locale records on ``Locale.get_active`` and ``.localized`` (Matt Westcott)
- * Handle ``get_supported_language_variant`` returning a language variant not in ``LANGUAGES`` (Matt Westcott)
- * Reinstate missing icon on settings edit view (Jérôme Lebleu)
- * Avoid performance and pagination logic issues with a large number of languages (Karl Hobley)
- * Allow deleting the default locale (Matt Westcott)
+* Improve performance of permission check on translations for edit page (Karl Hobley)
+* Gracefully handle missing Locale records on ``Locale.get_active`` and ``.localized`` (Matt Westcott)
+* Handle ``get_supported_language_variant`` returning a language variant not in ``LANGUAGES`` (Matt Westcott)
+* Reinstate missing icon on settings edit view (Jérôme Lebleu)
+* Avoid performance and pagination logic issues with a large number of languages (Karl Hobley)
+* Allow deleting the default locale (Matt Westcott)

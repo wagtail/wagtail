@@ -78,7 +78,7 @@ Rustface
 
 Rustface_ is Python library with prebuilt wheel files provided for Linux and macOS. Although implemented in Rust it is pip-installable:
 
- .. code-block:: console
+.. code-block:: console
 
     $ pip install wheel
     $ pip install rustface
@@ -91,7 +91,7 @@ Rustface provides a plug-in that needs to be registered with Willow_.
 
 This should be done somewhere that gets run on application startup:
 
- .. code-block:: python
+.. code-block:: python
 
     from willow.registry import registry
     import rustface.willow
@@ -123,7 +123,7 @@ Switching on feature detection in Wagtail
 
 Once installed, you need to set the ``WAGTAILIMAGES_FEATURE_DETECTION_ENABLED`` setting to ``True`` to automatically detect faces/features whenever a new image is uploaded in to Wagtail or when an image without a focal point is saved (this is done via a pre-save signal handler):
 
- .. code-block:: python
+.. code-block:: python
 
     # settings.py
 
@@ -137,7 +137,7 @@ If you already have images in your Wagtail site and would like to run feature de
 
 For example, you can manually run feature detection on all images by running the following code in the python shell:
 
- .. code-block:: python
+.. code-block:: python
 
     from wagtail.images import get_image_model
 

@@ -41,11 +41,11 @@ This command moves a selection of pages from one section of the tree to another.
 
 Options:
 
- - **from**
-   This is the **id** of the page to move pages from. All descendants of this page will be moved to the destination. After the operation is complete, this page will have no children.
+- **from**
+  This is the **id** of the page to move pages from. All descendants of this page will be moved to the destination. After the operation is complete, this page will have no children.
 
- - **to**
-   This is the **id** of the page to move pages to.
+- **to**
+  This is the **id** of the page to move pages to.
 
 
 .. _purge_revisions:
@@ -75,8 +75,8 @@ This command rebuilds the search index from scratch. It is not required when usi
 
 It is recommended to run this command once a week and at the following times:
 
- - whenever any pages have been created through a script (after an import, for example)
- - whenever any changes have been made to models or search configuration
+- whenever any pages have been created through a script (after an import, for example)
+- whenever any changes have been made to models or search configuration
 
 The search may not return any results while this command is running, so avoid running it at peak times.
 

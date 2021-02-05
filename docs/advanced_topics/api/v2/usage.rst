@@ -17,9 +17,9 @@ Fetching content
 To fetch content over the API, perform a ``GET`` request against one of the
 following endpoints:
 
- - Pages ``/api/v2/pages/``
- - Images ``/api/v2/images/``
- - Documents ``/api/v2/documents/``
+- Pages ``/api/v2/pages/``
+- Images ``/api/v2/images/``
+- Documents ``/api/v2/documents/``
 
 .. note::
 
@@ -342,9 +342,9 @@ Search operator
 The ``search_operator`` specifies how multiple terms in the query should be
 handled. There are two possible values:
 
- - ``and`` - All terms in the search query (excluding stop words) must exist in
-   each result
- - ``or`` - At least one term in the search query must exist in each result
+- ``and`` - All terms in the search query (excluding stop words) must exist in
+  each result
+- ``or`` - At least one term in the search query must exist in each result
 
 The ``or`` operator is generally better than ``and`` as it allows the user to be
 inexact with their query and the ranking algorithm will make sure that
@@ -617,22 +617,22 @@ Changes since v1
 Breaking changes
 ----------------
 
- - The results list in listing responses has been renamed to ``items`` (was
-   previously either ``pages``, ``images`` or ``documents``)
+- The results list in listing responses has been renamed to ``items`` (was
+  previously either ``pages``, ``images`` or ``documents``)
 
 Major features
 --------------
 
- - The ``fields`` parameter has been improved to allow removing fields, adding
-   all fields and customising nested fields
+- The ``fields`` parameter has been improved to allow removing fields, adding
+  all fields and customising nested fields
 
 Minor features
 --------------
 
- - ``html_url``, ``slug``, ``first_published_at``, ``expires_at`` and
-   ``show_in_menus`` fields have been added to the pages endpoint
- - ``download_url`` field has been added to the documents endpoint
- - Multiple page types can be specified in ``type`` parameter on pages endpoint
- - ``true`` and ``false`` may now be used when filtering boolean fields
- - ``order`` can now be used in conjunction with ``search``
- - ``search_operator`` parameter was added
+- ``html_url``, ``slug``, ``first_published_at``, ``expires_at`` and
+  ``show_in_menus`` fields have been added to the pages endpoint
+- ``download_url`` field has been added to the documents endpoint
+- Multiple page types can be specified in ``type`` parameter on pages endpoint
+- ``true`` and ``false`` may now be used when filtering boolean fields
+- ``order`` can now be used in conjunction with ``search``
+- ``search_operator`` parameter was added
