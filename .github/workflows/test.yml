@@ -29,6 +29,12 @@ on:
 
 jobs:
   pre_ci:
+    # The primary purpose of this job is to get the commmit message for both
+    # push and PR events. It would be trivial if we just used push events,
+    # but GitHub Actions inexplicably doesn't make the most recent commit
+    # message available to PR events. This job gets the commit message and
+    # stores it in output that jobs can access via:
+    # needs.pre_ci.outputs.commit_message
     name: Prepare CI environment
     runs-on: ubuntu-latest
     steps:
@@ -72,8 +78,10 @@ jobs:
       commit_message: $( [ -z "${{ steps.pr_get_commit_message.outputs.pr_commit_message }}" ] && echo "${{ steps.push_get_commit_message.outputs.push_commit_message }}" || echo "${{ steps.pr_get_commit_message.outputs.pr_commit_message }}" )
 
   test-sqlite:
+    # Skip job if the event's commit message contains [skip ci]
     needs: pre_ci
     if: "!contains(needs.pre_ci.outputs.commit_message, '[skip ci]')"
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -84,10 +92,6 @@ jobs:
             django: "Django>=3.1,<3.2"
 
     steps:
-      - name: Debug commits object
-        run: |
-            echo "commits: ${{ toJSON(github.event.commits) }}"
-            echo "commits[0]: ${{ toJSON(github.event.commits[0]) }}"
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v2
@@ -105,7 +109,10 @@ jobs:
           DATABASE_ENGINE: django.db.backends.sqlite3
 
   test-postgres:
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    # Skip job if the event's commit message contains [skip ci]
+    needs: pre_ci
+    if: "!contains(needs.pre_ci.outputs.commit_message, '[skip ci]')"
+
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -160,7 +167,10 @@ jobs:
           DISABLE_TIMEZONE: ${{ matrix.notz }}
 
   test-mysql:
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    # Skip job if the event's commit message contains [skip ci]
+    needs: pre_ci
+    if: "!contains(needs.pre_ci.outputs.commit_message, '[skip ci]')"
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -203,7 +213,10 @@ jobs:
   # https://github.com/elastic/elastic-github-actions doesn't work for Elasticsearch 5,
   # but https://github.com/getong/elasticsearch-action does
   test-sqlite-elasticsearch5:
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    # Skip job if the event's commit message contains [skip ci]
+    needs: pre_ci
+    if: "!contains(needs.pre_ci.outputs.commit_message, '[skip ci]')"
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -244,7 +257,10 @@ jobs:
           DATABASE_ENGINE: django.db.backends.sqlite3
 
   test-sqlite-elasticsearch7:
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    # Skip job if the event's commit message contains [skip ci]
+    needs: pre_ci
+    if: "!contains(needs.pre_ci.outputs.commit_message, '[skip ci]')"
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -289,7 +305,10 @@ jobs:
   # https://github.com/getong/elasticsearch-action doesn't work for Elasticsearch 6,
   # but https://github.com/elastic/elastic-github-actions does
   test-postgres-elasticsearch6:
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    # Skip job if the event's commit message contains [skip ci]
+    needs: pre_ci
+    if: "!contains(needs.pre_ci.outputs.commit_message, '[skip ci]')"
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -338,7 +357,10 @@ jobs:
           USE_EMAIL_USER_MODEL: ${{ matrix.emailuser }}
 
   test-postgres-elasticsearch7:
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    # Skip job if the event's commit message contains [skip ci]
+    needs: pre_ci
+    if: "!contains(needs.pre_ci.outputs.commit_message, '[skip ci]')"
+
     runs-on: ubuntu-latest
     strategy:
       matrix:
