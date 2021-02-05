@@ -1,6 +1,9 @@
 import json
 
 from django import forms
+from django.core.exceptions import ValidationError
+from django.forms.fields import Field
+from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.functional import cached_property
@@ -10,7 +13,6 @@ from wagtail.core.blocks import FieldBlock
 
 
 DEFAULT_TABLE_OPTIONS = {
-    'table_header_choice': 'row',
     'minSpareRows': 0,
     'startRows': 3,
     'startCols': 3,
@@ -51,8 +53,8 @@ class TableInput(forms.HiddenInput):
             data = json.loads(value)
             row_header = data.get('first_row_is_table_header', '')
             col_header = data.get('first_col_is_header', '')
-            context['widget']['table_header_choice'] = self._get_header_option(row_header, col_header)
-            context['widget']['table_caption'] = data.get('table_caption', '')
+            data['table_header_choice'] = self._get_header_option(row_header, col_header)
+            context['widget']['value'] = json.dumps(data)
         return context
 
     def _get_header_option(self, row_header, col_header):
@@ -85,6 +87,16 @@ class TableBlock(FieldBlock):
 
     def value_for_form(self, value):
         return json.dumps(value)
+
+    def clean(self, value):
+        # Ensure we have a choice for the table_header_choice
+        if not value:
+            return value
+
+        if not value.get('table_header_choice', ''):
+            errors = ErrorList(Field.default_error_messages['required'])
+            raise ValidationError('Validation error in TableBlock', params=errors)
+        return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
     def is_html_renderer(self):
         return self.table_options['renderer'] == 'html'

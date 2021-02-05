@@ -1,8 +1,9 @@
 {% load i18n %}
-<div class="field choice_field select">
+<div class="field choice_field select required">
     <label for="{{ widget.attrs.id }}-table-header-choice">{% trans 'Table headers' %}</label>
     <div class="field-content">
         <select id="{{ widget.attrs.id }}-table-header-choice" name="table-header-choice">
+            <option value="">Select a header option</option>
             <option value="row">
                 {% trans 'Display the first row as a header' %}
             </option>

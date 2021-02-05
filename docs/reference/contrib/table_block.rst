@@ -134,7 +134,6 @@ To change the default table options, pass a new table_options dictionary with th
         'language': 'en',
         'renderer': 'text',
         'autoColumnSize': False,
-        'table_header_choice': 'neither',
     }
 
     class DemoStreamBlock(StreamBlock):

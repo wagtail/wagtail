@@ -46,19 +46,19 @@ function initTable(id, tableOptions) {
         parentDiv.find('.fieldname-table .field-content .field-content').width('80%');
     }
     var setHiddenHeaderValues = function(headerChoice) {
-        if (headerChoice == 'row') {
+        if (headerChoice === 'row') {
             tableHeader.prop('value', true);
             colHeader.prop('value', null);
         }
-        if (headerChoice == 'column') {
+        if (headerChoice === 'column') {
             tableHeader.prop('value', null);
             colHeader.prop('value', true);
         }
-        if (headerChoice == 'both') {
+        if (headerChoice === 'both') {
             tableHeader.prop('value', true);
             colHeader.prop('value', true);
         }
-        if (headerChoice == 'neither') {
+        if (headerChoice === 'neither') {
             tableHeader.prop('value', null);
             colHeader.prop('value', null);
         }
@@ -77,11 +77,6 @@ function initTable(id, tableOptions) {
         }
         if (dataForForm.hasOwnProperty('table_caption')) {
             tableCaption.prop('value', dataForForm.table_caption);
-        }
-    } else {
-        if (tableOptions.hasOwnProperty('table_header_choice')) {
-            headerChoice.prop('value', tableOptions.table_header_choice);
-            setHiddenHeaderValues(tableOptions.table_header_choice);
         }
     }
 
