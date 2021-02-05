@@ -53,7 +53,6 @@ This tutorial uses `venv <https://docs.python.org/3/tutorial/venv.html>`_, which
 
    If you're using version control (e.g. git), ``mysite`` will be the directory for your project.
    The ``env`` directory inside of it should be excluded from any version control.
-   
 
 Install Wagtail
 ~~~~~~~~~~~~~~~
@@ -73,7 +72,6 @@ the required project settings,
 a "home" app with a blank ``HomePage`` model and basic templates,
 and a sample "search" app.
 
-
 Because the folder ``mysite`` was already created by ``venv``, run ``wagtail start`` with an additional argument to specify the destination directory:
 
 .. code-block:: console
@@ -82,7 +80,7 @@ Because the folder ``mysite`` was already created by ``venv``, run ``wagtail sta
 
 .. note::
 
-   Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and   access each other's data. All of the apps need to be registered within the ``INSTALLED_APPS`` section of the ``settings`` file. Look at this        file to see how the ``start`` command has listed them in there.
+   Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and   access each other's data. All of the apps need to be registered within the ``INSTALLED_APPS`` section of the ``settings`` file. Look at this file to see how the ``start`` command has listed them in there.
 
 Install project dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -157,7 +155,7 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
             FieldPanel('body', classname="full"),
         ]
 
-``body`` is defined as ``RichTextField``, a special Wagtail field. When ``blank=True```, 
+``body`` is defined as ``RichTextField``, a special Wagtail field. When ``blank=True``, 
 it means that this field is not required and can be empty.  You
 can use any of the :doc:`Django core fields <django:ref/models/fields>`. ``content_panels`` define the
 capabilities and the layout of the editing interface. When you add fields to ``content_panels``, it enables them to be edited on the Wagtail interface. :doc:`More on creating Page models. <../topics/pages>`
@@ -190,9 +188,9 @@ Edit ``home/templates/home/home_page.html`` to contain the following:
         {{ page.body|richtext }}
     {% endblock %}
     
- ```base.html``` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you are able to override specific content within the parent template). 
+ ``base.html`` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you are able to override specific content within the parent template). 
  
- ```wagtailcore_tags```must also be loaded at the top of the template and provide additional tags to those provided by Django.
+ ``wagtailcore_tags``must also be loaded at the top of the template and provide additional tags to those provided by Django.
 
 .. figure:: ../_static/images/tutorial/tutorial_3.png
    :alt: Updated homepage
