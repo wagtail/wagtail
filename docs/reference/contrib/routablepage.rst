@@ -189,20 +189,20 @@ The ``RoutablePageMixin`` class
 
   .. automethod:: resolve_subpage
 
-      Example:
+    Example:
 
-      .. code-block:: python
+    .. code-block:: python
 
-          view, args, kwargs = page.resolve_subpage('/past/')
-          response = view(request, *args, **kwargs)
+        view, args, kwargs = page.resolve_subpage('/past/')
+        response = view(request, *args, **kwargs)
 
   .. automethod:: reverse_subpage
 
-      Example:
+    Example:
 
-      .. code-block:: python
+    .. code-block:: python
 
-          url = page.url + page.reverse_subpage('events_for_year', kwargs={'year': '2014'})
+        url = page.url + page.reverse_subpage('events_for_year', kwargs={'year': '2014'})
 
 
  .. _routablepageurl_template_tag:
