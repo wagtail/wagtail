@@ -9,10 +9,10 @@ additional fields.
 
 You need to complete the following steps in your project to do this:
 
- - Create a new document model that inherits from
-   ``wagtail.documents.models.AbstractDocument``. This is where you would
-   add additional fields.
- - Point ``WAGTAILDOCS_DOCUMENT_MODEL`` to the new model.
+- Create a new document model that inherits from
+  ``wagtail.documents.models.AbstractDocument``. This is where you would
+  add additional fields.
+- Point ``WAGTAILDOCS_DOCUMENT_MODEL`` to the new model.
 
 Here's an example:
 
