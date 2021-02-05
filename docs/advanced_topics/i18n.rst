@@ -39,11 +39,11 @@ If you're in a hurry, you can skip to `Configuration`_.
 
 In summary:
 
- - Wagtail stores content in a separate page tree for each locale
- - It has a built-in ``Locale`` model and all pages are linked to a ``Locale`` with the ``locale`` foreign key field
- - It records which pages are translations of each other using a shared UUID stored in the ``translation_key`` field
- - It automatically routes requests through translations of the site's homepage
- - It uses Django's ``i18n_patterns`` and ``LocaleMiddleware`` for language detection
+- Wagtail stores content in a separate page tree for each locale
+- It has a built-in ``Locale`` model and all pages are linked to a ``Locale`` with the ``locale`` foreign key field
+- It records which pages are translations of each other using a shared UUID stored in the ``translation_key`` field
+- It automatically routes requests through translations of the site's homepage
+- It uses Django's ``i18n_patterns`` and ``LocaleMiddleware`` for language detection
 
 Page structure
 ^^^^^^^^^^^^^^
@@ -55,11 +55,11 @@ homepages at the top level of the page hierarchy in the explorer.
 
 This approach has some advantages for the editor experience as well:
 
- - There is no default language for editing, so content can be authored in any
-   language and then translated to any other.
- - Translations of a page are separate pages so they can be published at
-   different times.
- - Editors can be given permission to edit content in one locale and not others.
+- There is no default language for editing, so content can be authored in any
+  language and then translated to any other.
+- Translations of a page are separate pages so they can be published at
+  different times.
+- Editors can be given permission to edit content in one locale and not others.
 
 How locales and translations are recorded in the database
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -67,9 +67,9 @@ How locales and translations are recorded in the database
 All pages (and any snippets that have translation enabled) have a ``locale`` and
 ``translation_key`` field:
 
- - ``locale`` is a foreign key to the ``Locale`` model
- - ``translation_key`` is a UUID that's used to find translations of a piece of content.
-   Translations of the same page/snippet share the same value in this field
+- ``locale`` is a foreign key to the ``Locale`` model
+- ``translation_key`` is a UUID that's used to find translations of a piece of content.
+  Translations of the same page/snippet share the same value in this field
 
 These two fields have a 'unique together' constraint so you can't have more than
 one translation in the same locale.
@@ -112,15 +112,15 @@ The locale records can be set up with an :ref:`optional management UI <enabling_
 in the shell. The possible values of the ``language_code`` field are controlled
 by the ``WAGTAIL_CONTENT_LANGUAGES`` setting.
 
- .. note:: Read this if you've changed ``LANGUAGE_CODE`` before enabling internationalisation
+.. note:: Read this if you've changed ``LANGUAGE_CODE`` before enabling internationalisation
 
-    On initial migration, Wagtail creates a ``Locale`` record for the language that
-    was set in the ``LANGUAGE_CODE`` setting at the time the migration was run. All
-    pages will be assigned to this ``Locale`` when Wagtail's internationalisation is disabled.
+  On initial migration, Wagtail creates a ``Locale`` record for the language that
+  was set in the ``LANGUAGE_CODE`` setting at the time the migration was run. All
+  pages will be assigned to this ``Locale`` when Wagtail's internationalisation is disabled.
 
-    If you have changed the ``LANGUAGE_CODE`` setting since updating to Wagtail 2.11,
-    you will need to manually update the record in the ``Locale`` model too before
-    enabling internationalisation, as your existing content will be assigned to the old code.
+  If you have changed the ``LANGUAGE_CODE`` setting since updating to Wagtail 2.11,
+  you will need to manually update the record in the ``Locale`` model too before
+  enabling internationalisation, as your existing content will be assigned to the old code.
 
 Configuration
 -------------
@@ -162,9 +162,9 @@ Configuring available languages
 Next we need to configure the available languages. There are two settings
 for this that are each used for different purposes:
 
- - ``LANGUAGES`` - This sets which languages are available on the frontend of the site.
- - ``WAGTAIL_CONTENT_LANGUAGES`` - This sets which the languages Wagtail content
-   can be authored in.
+- ``LANGUAGES`` - This sets which languages are available on the frontend of the site.
+- ``WAGTAIL_CONTENT_LANGUAGES`` - This sets which the languages Wagtail content
+  can be authored in.
 
 You can set both of these settings to the exact same value. For example, to
 enable English, French, and Spanish:
@@ -663,7 +663,7 @@ Changing the primary language of your Wagtail installation
 
 The default language of Wagtail is ``en-us`` (American English). You can change this by tweaking a couple of Django settings:
 
- - Make sure `USE_I18N <https://docs.djangoproject.com/en/stable/ref/settings/#use-i18n>`_ is set to ``True``
- - Set `LANGUAGE_CODE <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-LANGUAGE_CODE>`_ to your websites' primary language
+- Make sure `USE_I18N <https://docs.djangoproject.com/en/stable/ref/settings/#use-i18n>`_ is set to ``True``
+- Set `LANGUAGE_CODE <https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-LANGUAGE_CODE>`_ to your websites' primary language
 
 If there is a translation available for your language, the Wagtail admin backend should now be in the language you've chosen.
