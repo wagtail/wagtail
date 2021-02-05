@@ -46,11 +46,6 @@
                     {%- if theme_show_last_updated and last_updated %}
                     <p class="text-center">Last rendered: {{ last_updated|e }}</p>
                     {%- endif %}
-                    <p class="text-center">
-                        <a href="https://github.com/TYPO3-Documentation/sphinx_typo3_theme" rel="nofollow" target="_blank">
-                            TYPO3 Theme {{ theme_version|e }}
-                        </a>
-                    </p>
                 </div>
                 <div class="footer-meta">
                     {%- if theme_show_copyright %}
@@ -63,12 +58,6 @@
                         &copy; Copyright {{ copyright }}
                         {%- endif %}
                     </div>
-                    {%- endif %}
-                    {%- if theme_docstypo3org %}
-                    <ul class="footer-meta-navigation">
-                        <li><a href="https://typo3.org/legal-notice" rel="nofollow" target="_blank" title="Legal Notice">Legal Notice</a></li>
-                        <li><a href="https://typo3.org/privacy-policy" rel="nofollow" target="_blank" title="Privacy Policy">Privacy Policy</a></li>
-                    </ul>
                     {%- endif %}
                 </div>
             </div>
