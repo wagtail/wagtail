@@ -292,10 +292,10 @@ class Site(models.Model):
         Each root path is an instance of the `SiteRootPath` named tuple,
         and have the following attributes:
 
-         - `site_id` - The ID of the Site record
-         - `root_path` - The internal URL path of the site's home page (for example '/home/')
-         - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
-         - `language_code` - The language code of the site (for example 'en')
+        - `site_id` - The ID of the Site record
+        - `root_path` - The internal URL path of the site's home page (for example '/home/')
+        - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
+        - `language_code` - The language code of the site (for example 'en')
         """
         result = cache.get('wagtail_site_root_paths')
 
