@@ -307,7 +307,7 @@ h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
     color: #212121;
 }
 
-.py.function > dd > em.sig-param,
-.py.method > dd > em.sig-param {
+.py.function > dt > em.sig-param > span,
+.py.method > dt > em.sig-param > span {
     color: #212121;
 }
