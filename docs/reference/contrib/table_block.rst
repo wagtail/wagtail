@@ -12,13 +12,13 @@ Installation
 
 Add ``"wagtail.contrib.table_block"`` to your INSTALLED_APPS:
 
- .. code-block:: python
+.. code-block:: python
 
-     INSTALLED_APPS = [
-        ...
+    INSTALLED_APPS = [
+      ...
 
-        "wagtail.contrib.table_block",
-     ]
+      "wagtail.contrib.table_block",
+    ]
 
 
 Basic Usage
@@ -28,11 +28,11 @@ After installation, the TableBlock module can be used in a similar fashion to ot
 
 Import the TableBlock ``from wagtail.contrib.table_block.blocks import TableBlock`` and add it to your StreamField declaration.
 
- .. code-block:: python
+.. code-block:: python
 
-    class DemoStreamBlock(StreamBlock):
-        ...
-        table = TableBlock()
+  class DemoStreamBlock(StreamBlock):
+      ...
+      table = TableBlock()
 
 
 Then, on your page template, the ``{% include_block %}`` tag (called on either the individual block, or the StreamField value as a whole) will render any table blocks it encounters as an HTML ``<table>`` element:
