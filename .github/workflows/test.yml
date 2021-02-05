@@ -65,7 +65,7 @@ jobs:
     # "$( [ -z "commit message pr" ] && echo "" || echo "commit message pr" )",
     # which then resolves to just "commit message pr".
     #
-    # For Push events this will resolve to something like
+    # For Push events, this will resolve to something like
     # "$( [ -z "" ] && echo "commit message push"  || echo "" )",
     # which then resolves to just "commit message push".
     outputs:
