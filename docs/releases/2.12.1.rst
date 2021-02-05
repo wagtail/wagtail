@@ -13,4 +13,4 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
- * Ensure aliases are published when the source page is published (Karl Hobley)
+* Ensure aliases are published when the source page is published (Karl Hobley)
