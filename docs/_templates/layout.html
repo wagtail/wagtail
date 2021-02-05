@@ -1,0 +1,298 @@
+{#- TEMPLATE VAR SETTINGS -#}
+{%- set url_root = pathto('', 1) -%}
+{%- if url_root == '#' %}{% set url_root = '' %}{% endif -%}
+{%- if not embedded and docstitle %}
+    {%- set titlesuffix = " &mdash; "|safe + docstitle|e -%}
+{%- else %}
+    {%- set titlesuffix = "" -%}
+{%- endif -%}
+{%- set blacklist_script_files = [] -%}
+{%- set blacklist_script_files = blacklist_script_files + ['_static/jquery.js'] -%}
+{%- set blacklist_script_files = blacklist_script_files + ['_static/underscore.js'] -%}
+{%- set blacklist_script_files = blacklist_script_files + ['_static/doctools.js'] -%}
+{%- set blacklist_script_files = blacklist_script_files + ['_static/language_data.js'] -%}
+{%- if not logo -%} {%- set logo = theme_logo -%} {%- endif -%}
+{%- if logo_url is not defined -%} {%- set logo_url = theme_logo_url -%} {%- endif -%}
+{%- if logo_alt is not defined -%} {%- set logo_alt = theme_logo_alt -%} {%- endif -%}
+{%- if logo_title is not defined -%} {%- set logo_title = theme_logo_title -%} {%- endif -%}
+{%- if logo_width is not defined -%} {%- set logo_width = theme_logo_width -%} {%- endif -%}
+{%- if logo_height is not defined -%} {%- set logo_height = theme_logo_height -%} {%- endif -%}
+{%- set t3ctx = t3ctx or {} -%}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+{%- if metatags %}
+    {{ metatags }}
+{%- endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="docsearch:name" content="{{ project|striptags|e }}" />
+    <meta name="docsearch:package_type" content="{{ package_type|striptags|e }}" />
+    <meta name="docsearch:release" content="{{ release|striptags|e }}" />
+    <meta name="docsearch:version" content="{{ version|striptags|e }}" />
+{%- if t3ctx.last_modified_isoformat %}
+    <meta name="docsearch:modified" content="{{ t3ctx.last_modified_isoformat|e }}" />
+    <link rel="schema.dc" href="http://purl.org/dc/elements/1.1/" />
+    <meta name="dc.modified" content="{{ t3ctx.last_modified_isoformat|e }}" />
+    <meta property="article:modified_time" content="{{ t3ctx.last_modified_isoformat|e }}" />
+{%- endif %}
+{% block htmltitle %}
+    <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+{% endblock %}
+{%- if favicon %}
+    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}" />
+{%- endif %}
+    <link rel="stylesheet" type="text/css" href="{{ pathto('_static/' + style, 1) }}" />
+    <link rel="stylesheet" type="text/css" href="{{ pathto('_static/css/webfonts.css', 1) }}" />
+    <link rel="stylesheet" type="text/css" href="{{ pathto('_static/css/fontawesome.css', 1) }}" />
+{%- for css in css_files %}
+  {%- if css|attr("filename") %}
+    {{ css_tag(css) }}
+  {%- else %}
+    <link rel="stylesheet" type="text/css" href="{{ pathto(css, 1) }}" />
+  {%- endif %}
+{%- endfor %}
+<!-- linktags -->
+{%- block linktags %}
+  {%- if hasdoc('about') %}
+    <link rel="author" title="{{ _('About these documents') }}" href="{{ pathto('about') }}" />
+  {%- endif %}
+  {%- if hasdoc('genindex') %}
+    <link rel="index" title="{{ _('Index') }}" href="{{ pathto('genindex') }}" />
+  {%- endif %}
+  {%- if hasdoc('search') %}
+    <link rel="search" title="{{ _('Search') }}" href="{{ pathto('search') }}" />
+  {%- endif %}
+  {%- if hasdoc('copyright') %}
+    <link rel="copyright" title="{{ _('Copyright') }}" href="{{ pathto('copyright') }}" />
+  {%- endif %}
+    <link rel="top" title="{{ docstitle|e }}" href="{{ pathto(pagename) }}" />
+  {%- if parents %}
+    <link rel="up" title="{{ parents[-1].title|striptags|e }}" href="{{ parents[-1].link|e }}" />
+  {%- endif %}
+  {%- if next %}
+    <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
+  {%- endif %}
+  {%- if prev %}
+    <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
+  {%- endif %}
+{% endblock -%}
+<!-- /linktags -->
+<!-- extrahead -->
+{%- block extrahead %}{% endblock -%}
+<!-- /extrahead -->
+    <script src="{{ pathto('_static/js/modernizr.min.js', 1) }}"></script>
+{% if theme_docstypo3org -%}
+<!-- UNIVERSE BAR START -->
+    <script src="https://typo3.azureedge.net/typo3infrastructure/universe/dist/webcomponents-loader.js"></script>
+    <script type="module" src="https://typo3.azureedge.net/typo3infrastructure/universe/dist/typo3-universe.js"></script>
+<!-- UNIVERSE BAR END -->
+{%- endif %}
+</head>
+
+<body>
+
+    <div class="page">
+      {%- if theme_docstypo3org %}
+        <div class="page-topbar">
+            <div class="page-topbar-inner">
+                {%- block pagetopbar %}
+                <!-- UNIVERSE BAR START -->
+                <typo3-universe active="documentation">
+                    <div style="display: block; height: 44px; background-color: #313131;"></div>
+                </typo3-universe>
+                <!-- UNIVERSE BAR END -->
+                {%- endblock %}
+            </div>
+        </div>
+      {%- endif %}
+
+        <div class="page-header">
+            <div class="page-header-inner">
+<!-- pageheader -->
+{%- block pageheader %}
+{%- if logo and logo != 'None' %}
+
+{%- if logo_url %}
+<a href="{{ logo_url }}" {% if logo_title %}title="{{ logo_title|e }}" {% endif %}class="logo">
+
+{%- endif %}
+    <img src="{{ pathto('_static/' + logo, 1) }}"
+         {%- if logo_width %} width="{{ logo_width|e }}"{% endif %}
+         {%- if logo_height %} height="{{ logo_height|e }}"{% endif %}
+         {%- if logo_alt %} alt="{{ logo_alt|e }}"{% endif %}
+         {%- if logo_title and not logo_url %} title="{{ logo_title|e }}"{% endif %}
+         {%- if 1 %} class="logo-image" />{% endif %}
+
+{%- if logo_url %}
+</a>
+
+{%- endif %}
+
+{%- endif %}
+{%- endblock %}
+<!-- /pageheader -->
+            </div>
+        </div>
+
+        {% if theme_docstypo3org -%}
+            <!--# include virtual="/includes/header.html" -->
+        {%- endif %}
+
+        <div class="page-main">
+            <div class="page-main-inner">
+                <div class="page-main-navigation">
+                    <nav>
+                        <input type="checkbox" id="toggleToc" class="toc-checkbox">
+                        <div class="toc-header">
+                            {%- if not theme_is_homepage -%}
+                                <div class="toc-title">
+                                    <a class="toc-title-project" href="{{ pathto(master_doc) }}">{{ project|e }}</a>
+                                    {%- if theme_docstypo3org -%}
+                                        {%- if release -%}
+                                            <div class="toc-version-wrapper" id="toc-version-wrapper">
+                                                <div id="toc-version" class="toc-version">
+                                                    <span class="toc-version-prefix">Release:</span>
+                                                    <span class="toc-version-number">{{ release|e }}</span>
+                                                </div>
+                                                <div id="toc-version-options" class="toc-version-options">
+                                                    <p><span class="fa fa-spinner fa-spin"></span> Loading data.</p>
+                                                </div>
+                                            </div>
+                                        {%- elif version -%}
+                                            <div class="toc-version-wrapper" id="toc-version-wrapper">
+                                                <div id="toc-version" class="toc-version">
+                                                    <span class="toc-version-prefix">Version:</span>
+                                                    <span class="toc-version-number">{{ version|e }}</span>
+                                                </div>
+                                                <div id="toc-version-options" class="toc-version-options">
+                                                    <p><span class="fa fa-spinner fa-spin"></span> Loading data.</p>
+                                                </div>
+                                            </div>
+                                        {%- endif -%}
+                                    {%- endif -%}
+                                </div>
+                            {%- endif -%}
+                            <div class="toc-actions">
+                                <label for="toggleToc" class="toc-toggle">
+                                    Menu
+                                </label>
+                            </div>
+                        </div>
+                        <div class="toc-collapse">
+                            {%- if not theme_is_homepage and builder == 'html' %}
+<!-- searchbox.html -->
+{%- include "searchbox.html" %}
+<!-- /searchbox.html -->
+                            {%- endif %}
+                            <div class="toc" role="navigation" aria-label="main navigation">
+<!-- menu -->
+                                {%- block menu %}
+                                    {%- set toctree = toctree(maxdepth=8, collapse=False, includehidden=True, titles_only=True, ) -%}
+                                    {%- if toctree %}
+                                        {{ toctree }}
+                                    {%- endif %}
+                                    {%- if toc %}
+                                    <p class="caption"><span class="caption-text">PAGE CONTENTS</span></p>
+                                    {{ toc }}
+                                    {%- endif %}
+                                {%- endblock -%}
+<!-- /menu -->
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="page-main-content">
+                    <div class="rst-content">
+<!-- pager-hidden.html -->
+{% include "pager-hidden.html" %}
+<!-- /pager-hidden.html -->
+<!-- breadcrumbs.html -->
+{% include "breadcrumbs.html" %}
+<!-- /breadcrumbs.html -->
+                      {%- if toc %}
+                        <div class="page-toc-navigation">
+                    <nav>
+                        <div class="toc-open">
+                            <div class="toc" role="navigation" aria-label="main navigation">
+
+                                  <p class="caption"><span class="caption-text">PAGE CONTENTS</span></p>
+                                  {{ toc }}
+
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                      {%- endif %}
+
+                        <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+                            <div itemprop="articleBody">
+<!-- body -->
+                                {%- block body %}
+                                {% endblock -%}
+<!-- /body -->
+                            </div>
+                        </div>
+<!-- pager.html -->
+{% include "pager.html" %}
+<!-- /pager.html -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if theme_docstypo3org -%}
+            <!--# include virtual="/includes/footer.html" -->
+        {%- endif %}
+
+        <div class="page-footer">
+<!-- footer.html -->
+{% include "footer.html" %}
+<!-- /footer.html -->
+        </div>
+    </div>
+{% if not embedded %}
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT: '{{ url_root }}',
+            VERSION: '{{ release|e }}',
+            COLLAPSE_INDEX: false,
+            FILE_SUFFIX: '{{ '' if no_search_suffix else file_suffix }}',
+            HAS_SOURCE: {{ has_source| lower }}
+        };
+    </script>
+    <script type="text/javascript" src="{{ pathto('_static/js/jquery.min.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/underscore.min.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/doctools.min.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/popper.min.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/bootstrap.min.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/theme.min.js', 1) }}"></script>
+    {#- SEARCH #}
+    <script type="text/javascript" src="{{ pathto('_static/language_data.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/searchtools.min.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/js/autocomplete.min.js', 1) }}"></script>
+        {%- for scriptfile in script_files %}
+            {%- if scriptfile not in blacklist_script_files %}
+    {{ js_tag(scriptfile) }}
+            {%- endif %}
+        {%- endfor %}
+{%- endif %}
+    {# SEARCH -#}
+    <script type="text/javascript">
+        jQuery(function() { Search.loadIndex("{{ pathto('searchindex.js', 1) }}"); });
+    </script>
+    <script type="text/javascript" id="searchindexloader"></script>
+<!-- scripts2 -->
+    {%- block scripts2 %}{% endblock -%}
+<!-- /scripts2 -->
+<!-- footer2 -->
+    {%- block footer2 %}{% endblock -%}
+<!-- /footer2 -->
+  {%- if theme_docstypo3org %}
+    <script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="R9wBKTwzv"></script>
+    <script type="text/plain" data-usercentrics="Matomo" src="/js/piwik.js"></script>
+  {%- endif %}
+
+</body>
+</html>
