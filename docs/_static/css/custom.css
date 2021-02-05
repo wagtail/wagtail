@@ -112,8 +112,3 @@ a.wagtailspace:hover svg {
   -webkit-animation-name: bounce;
   animation-name: bounce;
 }
-
-.algolia-autocomplete .algolia-docsearch-suggestion--highlight {
-  color: #2980B9;
-  background: #F1C40F;
-}
