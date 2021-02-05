@@ -45,24 +45,6 @@ function initTable(id, tableOptions) {
         parentDiv.find('.field-content').width(width);
         parentDiv.find('.fieldname-table .field-content .field-content').width('80%');
     }
-    var setHiddenHeaderValues = function(headerChoice) {
-        if (headerChoice === 'row') {
-            tableHeader.prop('value', true);
-            colHeader.prop('value', null);
-        }
-        if (headerChoice === 'column') {
-            tableHeader.prop('value', null);
-            colHeader.prop('value', true);
-        }
-        if (headerChoice === 'both') {
-            tableHeader.prop('value', true);
-            colHeader.prop('value', true);
-        }
-        if (headerChoice === 'neither') {
-            tableHeader.prop('value', null);
-            colHeader.prop('value', null);
-        }
-    }
 
     try {
         dataForForm = JSON.parse(hiddenStreamInput.val());
@@ -73,7 +55,6 @@ function initTable(id, tableOptions) {
     if (dataForForm !== null) {
         if (dataForForm.hasOwnProperty('table_header_choice')) {
             headerChoice.prop('value', dataForForm.table_header_choice);
-            setHiddenHeaderValues(dataForForm.table_header_choice);
         }
         if (dataForForm.hasOwnProperty('table_caption')) {
             tableCaption.prop('value', dataForForm.table_caption);
@@ -141,7 +122,6 @@ function initTable(id, tableOptions) {
     };
 
     headerChoice.on('change', function() {
-        setHiddenHeaderValues(headerChoice.val());
         persist();
     });
 

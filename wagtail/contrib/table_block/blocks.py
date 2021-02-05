@@ -11,7 +11,6 @@ from django.utils.functional import cached_property
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks import FieldBlock
 
-
 DEFAULT_TABLE_OPTIONS = {
     'minSpareRows': 0,
     'startRows': 3,
@@ -89,11 +88,14 @@ class TableBlock(FieldBlock):
         return json.dumps(value)
 
     def clean(self, value):
-        # Ensure we have a choice for the table_header_choice
         if not value:
             return value
 
-        if not value.get('table_header_choice', ''):
+        if value.get('table_header_choice', ''):
+            value['first_row_is_table_header'] = value['table_header_choice'] in ['row', 'both']
+            value['first_col_is_header'] = value['table_header_choice'] in ['column', 'both']
+        else:
+            # Ensure we have a choice for the table_header_choice
             errors = ErrorList(Field.default_error_messages['required'])
             raise ValidationError('Validation error in TableBlock', params=errors)
         return self.value_from_form(self.field.clean(self.value_for_form(value)))
