@@ -107,8 +107,6 @@ The rest of the keys in the ``table_options`` dictionary each map to a `handsont
 * `minSpareRows <https://handsontable.com/docs/6.2.2/Options.html#minSpareRows>`_ - The number of rows to append to the end of an empty grid. The default setting is 0.
 * `startRows <https://handsontable.com/docs/6.2.2/Options.html#startRows>`_ - The default number of rows for a new table.
 * `startCols <https://handsontable.com/docs/6.2.2/Options.html#startCols>`_ - The default number of columns for new tables.
-* `colHeaders <https://handsontable.com/docs/6.2.2/Options.html#colHeaders>`_ - Can be set to ``True`` or ``False``. If this is set to ``True``, tables will display the default column headers ('A', 'B', 'C'...) in the admin interface. This does not add headers to the public display of your table block.
-* `rowHeaders <https://handsontable.com/docs/6.2.2/Options.html#rowHeaders>`_ - Can be set to ``True`` or ``False``. If this is set to ``True``, tables will display the default row headers ('1', '2', '3'...) in the admin interface. This does not add row headers to the public display of your table block.
 * `contextMenu <https://handsontable.com/docs/6.2.2/Options.html#contextMenu>`_ - Enables or disables the Handsontable right-click menu. By default this is set to ``True``. Alternatively you can provide a list or a dictionary with [specific options](https://handsontable.com/docs/6.2.2/demo-context-menu.html#page-specific).
 * `editor <https://handsontable.com/docs/6.2.2/Options.html#editor>`_ - Defines the editor used for table cells. The default setting is text.
 * `stretchH <https://handsontable.com/docs/6.2.2/Options.html#stretchH>`_ - Sets the default horizontal resizing of tables. Options include, 'none', 'last', and 'all'. By default TableBlock uses 'all' for the even resizing of columns.
@@ -133,6 +131,8 @@ To change the default table options, pass a new table_options dictionary with th
         'startCols': 4,
         'stretchH': 'all',
         'height': 216,
+        'language': 'en',
+        'renderer': 'text',
         'autoColumnSize': False,
         'table_header_choice': 'neither',
     }
