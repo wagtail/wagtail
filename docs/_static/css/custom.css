@@ -76,15 +76,6 @@ a.wagtailspace {
 }
 
 /* Bounce the UFO on hover  */
-@-webkit-keyframes bounce {
-  0%, 100% {
-    -webkit-transform: translateY(0);
-  }
-  50% {
-    -webkit-transform: translateY(-5px);
-  }
-}
-
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -95,15 +86,10 @@ a.wagtailspace {
 }
 
 a.wagtailspace:hover svg {
-  -webkit-animation-duration: .5s;
   animation-duration: .5s;
-  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-name: bounce;
   animation-name: bounce;
 }
 
@@ -185,15 +171,6 @@ a.wagtailspace {
 }
 
 /* Bounce the UFO on hover  */
-@-webkit-keyframes bounce {
-  0%, 100% {
-    -webkit-transform: translateY(0);
-  }
-  50% {
-    -webkit-transform: translateY(-5px);
-  }
-}
-
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -204,15 +181,10 @@ a.wagtailspace {
 }
 
 a.wagtailspace:hover svg {
-  -webkit-animation-duration: .5s;
   animation-duration: .5s;
-  -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  -webkit-animation-timing-function: linear;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-name: bounce;
   animation-name: bounce;
 }
 
