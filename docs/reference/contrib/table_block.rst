@@ -100,15 +100,15 @@ When defining a TableBlock, Wagtail provides the ability to pass an optional ``t
 Configuration Options
 ^^^^^^^^^^^^^^^^^^^^^
 
-The ``table_header_choice`` option determines if rows or columns are treated as headings. Valid values are ``row``, ``column``, ``both``, and ``neither``. The default is ``row``. This will cause the elements in the first row of your table to be rendered as ``th`` elements with ``scope = row``.
+The ``table_header_choice`` option determines if rows or columns are treated as headers. Valid values are ``row``, ``column``, ``both``, and ``neither``. The default is ``row``. This will cause the elements in the first row of your table to be rendered as ``th`` elements with ``scope = row``.
 
 The rest of the keys in the ``table_options`` dictionary each map to a `handsontable <https://handsontable.com/>`_ option. These settings can be changed to alter the behaviour of tables in Wagtail. The following options are available:
 
 * `minSpareRows <https://handsontable.com/docs/6.2.2/Options.html#minSpareRows>`_ - The number of rows to append to the end of an empty grid. The default setting is 0.
 * `startRows <https://handsontable.com/docs/6.2.2/Options.html#startRows>`_ - The default number of rows for a new table.
 * `startCols <https://handsontable.com/docs/6.2.2/Options.html#startCols>`_ - The default number of columns for new tables.
-* `colHeaders <https://handsontable.com/docs/6.2.2/Options.html#colHeaders>`_ - Can be set to ``True`` or ``False``. If this is set to ``True``, tables will display the default column headings ('A', 'B', 'C'...) in the admin interface. This does not add headings to the public display of your table block.
-* `rowHeaders <https://handsontable.com/docs/6.2.2/Options.html#rowHeaders>`_ - Can be set to ``True`` or ``False``. If this is set to ``True``, tables will display the default row headings ('1', '2', '3'...) in the admin interface. This does not add row headings to the public display of your table block.
+* `colHeaders <https://handsontable.com/docs/6.2.2/Options.html#colHeaders>`_ - Can be set to ``True`` or ``False``. If this is set to ``True``, tables will display the default column headers ('A', 'B', 'C'...) in the admin interface. This does not add headers to the public display of your table block.
+* `rowHeaders <https://handsontable.com/docs/6.2.2/Options.html#rowHeaders>`_ - Can be set to ``True`` or ``False``. If this is set to ``True``, tables will display the default row headers ('1', '2', '3'...) in the admin interface. This does not add row headers to the public display of your table block.
 * `contextMenu <https://handsontable.com/docs/6.2.2/Options.html#contextMenu>`_ - Enables or disables the Handsontable right-click menu. By default this is set to ``True``. Alternatively you can provide a list or a dictionary with [specific options](https://handsontable.com/docs/6.2.2/demo-context-menu.html#page-specific).
 * `editor <https://handsontable.com/docs/6.2.2/Options.html#editor>`_ - Defines the editor used for table cells. The default setting is text.
 * `stretchH <https://handsontable.com/docs/6.2.2/Options.html#stretchH>`_ - Sets the default horizontal resizing of tables. Options include, 'none', 'last', and 'all'. By default TableBlock uses 'all' for the even resizing of columns.
