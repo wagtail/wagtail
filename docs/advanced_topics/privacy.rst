@@ -5,9 +5,9 @@ Private pages
 
 Users with publish permission on a page can set it to be private by clicking the 'Privacy' control in the top right corner of the page explorer or editing interface. This sets a restriction on who is allowed to view the page and its sub-pages. Several different kinds of restriction are available:
 
- * **Accessible to logged-in users:** The user must log in to view the page. All user accounts are granted access, regardless of permission level.
- * **Accessible with the following password:** The user must enter the given password to view the page. This is appropriate for situations where you want to share a page with a trusted group of people, but giving them individual user accounts would be overkill. The same password is shared between all users, and this works independently of any user accounts that exist on the site.
- * **Accessible to users in specific groups:** The user must be logged in, and a member of one or more of the specified groups, in order to view the page.
+* **Accessible to logged-in users:** The user must log in to view the page. All user accounts are granted access, regardless of permission level.
+* **Accessible with the following password:** The user must enter the given password to view the page. This is appropriate for situations where you want to share a page with a trusted group of people, but giving them individual user accounts would be overkill. The same password is shared between all users, and this works independently of any user accounts that exist on the site.
+* **Accessible to users in specific groups:** The user must be logged in, and a member of one or more of the specified groups, in order to view the page.
 
 Similarly, documents can be made private by placing them in a collection with appropriate privacy settings (see :ref:`image_document_permissions`).
 
@@ -46,8 +46,8 @@ By setting ``PASSWORD_REQUIRED_TEMPLATE`` in your Django settings file, you can 
 
 This template will receive the same set of context variables that the blocked page would pass to its own template via ``get_context()`` - including ``page`` to refer to the page object itself - plus the following additional variables (which override any of the page's own context variables of the same name):
 
- - **form** - A Django form object for the password prompt; this will contain a field named ``password`` as its only visible field. A number of hidden fields may also be present, so the page must loop over ``form.hidden_fields`` if not using one of Django's rendering helpers such as ``form.as_p``.
- - **action_url** - The URL that the password form should be submitted to, as a POST request.
+- **form** - A Django form object for the password prompt; this will contain a field named ``password`` as its only visible field. A number of hidden fields may also be present, so the page must loop over ``form.hidden_fields`` if not using one of Django's rendering helpers such as ``form.as_p``.
+- **action_url** - The URL that the password form should be submitted to, as a POST request.
 
 A basic template suitable for use as ``PASSWORD_REQUIRED_TEMPLATE`` might look like this:
 
@@ -89,7 +89,7 @@ Setting a "password required" page for a specific page type
 
 The attribute ``password_required_template`` can be defined on a page model to use a custom template for the "password required" view, for that page type only. For example, if a site had a page type for displaying embedded videos along with a description, it might choose to use a custom "password required" template that displays the video description as usual, but shows the password form in place of the video embed.
 
- .. code-block:: python
+.. code-block:: python
 
     class VideoPage(Page):
         ...
