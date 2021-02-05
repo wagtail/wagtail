@@ -28,8 +28,51 @@ on:
 # - elasticsearch 7, django 3.1, python 3.9, sqlite, USE_EMAIL_USER_MODEL=yes
 
 jobs:
+  pre_ci:
+    name: Prepare CI environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+        with:
+          # We need to fetch with a depth of 2 for pull_request so we can do HEAD^2.
+          fetch-depth: 2
+
+      # If this workflow was triggered by a push, resolve the commit message from HEAD.
+      # It is stored in output steps, to be referenced with:
+      # ${{ steps.push_get_commit_message.outputs.push_commit_message }}
+      - name: "[Push] Get commit message"
+        if: github.event_name == 'push'
+        id: push_get_commit_message
+        run:
+          echo ::set-output name=push_commit_message::$(git log --format=%B -n 1 HEAD)
+
+      # If this workflow was triggered by a pull request (open or synchronize!),
+      # resolve the commit message from HEAD^2.
+      # It is stored in output steps, to be referenced with:
+      # ${{ steps.pr_get_commit_message.outputs.pr_commit_message }}
+      - name: "[Pull Request] Get commit message"
+        if: github.event_name == 'pull_request'
+        id: pr_get_commit_message
+        run: echo ::set-output name=pr_commit_message::$(git log --format=%B -n 1 HEAD^2)
+
+    # Finally we want to make the commit message available to other jobs.
+    # This can be done with job-level outputs, however, as we do not know
+    # whether the commit message was set in Push or Pull Request event,
+    # we need to do some Bash magic to resolve the one or the other.
+    #
+    # For Pull Request events, this will resolve to something like
+    # "$( [ -z "commit message pr" ] && echo "" || echo "commit message pr" )",
+    # which then resolves to just "commit message pr".
+    #
+    # For Push events this will resolve to something like
+    # "$( [ -z "" ] && echo "commit message push"  || echo "" )",
+    # which then resolves to just "commit message push".
+    outputs:
+      commit_message: $( [ -z "${{ steps.pr_get_commit_message.outputs.pr_commit_message }}" ] && echo "${{ steps.push_get_commit_message.outputs.push_commit_message }}" || echo "${{ steps.pr_get_commit_message.outputs.pr_commit_message }}" )
+
   test-sqlite:
-    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    if: "!contains(needs.pre_ci.outputs.commit_message, '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
       matrix:
