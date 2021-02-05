@@ -187,7 +187,7 @@ html_extra_path = ['robots.txt']
 # html_domain_indices = True
 
 # If false, no index is generated.
-# html_use_index = True
+html_use_index = False
 
 # If true, the index is split into individual pages for each letter.
 # html_split_index = False
@@ -301,12 +301,7 @@ texinfo_documents = [
 
 
 def setup(app):
-    docsearch_root = 'https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn'
-
-    app.add_css_file(f'{docsearch_root}/docsearch.min.css')
     app.add_css_file('css/custom.css')
-
-    app.add_js_file(f'{docsearch_root}/docsearch.min.js')
     app.add_js_file('js/banner.js')
 
     github_doc_root = 'https://github.com/wagtail/wagtail/tree/master/docs/'
