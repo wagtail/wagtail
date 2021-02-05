@@ -1,0 +1,78 @@
+{%- block footer -%}
+<footer>
+    <div class="frame frame-ruler-before frame-background-dark">
+        <div class="frame-container">
+            <div class="frame-inner">
+
+                {%- if theme_docstypo3org %}
+                {%-
+                    if theme_project_home
+                    or theme_project_contact
+                    or theme_project_discussions
+                    or theme_project_issues
+                    or theme_project_repository
+                %}
+                <ul class="footer-simplemenu">
+                    {%- if theme_project_home %}
+                    <li><a href="{{ theme_project_home|e }}" title="Home"><span>Home</span></a></li>
+                    {%- endif %}
+                    {%- if theme_project_contact -%}
+                    <li><a href="{{ theme_project_contact|e }}" title="Contact"><span>Contact</span></a></li>
+                    {%- endif %}
+                    {%- if theme_project_discussions %}
+                    <li><a href="{{ theme_project_discussions|e }}" title="Discussions"><span>Discussions</span></a></li>
+                    {%- endif %}
+                    {%- if theme_project_issues %}
+                    <li><a href="{{ theme_project_issues|e }}" title="Issues"><span>Issues</span></a></li>
+                    {%- endif %}
+                    {%- if theme_project_repository %}
+                    <li><a href="{{ theme_project_repository|e }}" title="Repository"><span>Repository</span></a></li>
+                    {%- endif %}
+                </ul>
+                {%- endif %}
+                {%- endif %}
+                <div class="footer-additional">
+                    {%- if theme_show_last_modified and t3ctx.last_modified %}
+                    {%- if t3ctx.commit_url %}
+                    <p class="text-center">
+                        Last updated: <a href="{{ t3ctx.commit_url|e }}" rel="nofollow" target="_blank" title="Last commit">
+                           {{ t3ctx.last_modified|e }}
+                        </a>
+                    </p>
+                    {%- else %}
+                    <p class="text-center">Last updated: {{ t3ctx.last_modified|e }}</p>
+                    {%- endif %}
+                    {%- endif %}
+                    {%- if theme_show_last_updated and last_updated %}
+                    <p class="text-center">Last rendered: {{ last_updated|e }}</p>
+                    {%- endif %}
+                    <p class="text-center">
+                        <a href="https://github.com/TYPO3-Documentation/sphinx_typo3_theme" rel="nofollow" target="_blank">
+                            TYPO3 Theme {{ theme_version|e }}
+                        </a>
+                    </p>
+                </div>
+                <div class="footer-meta">
+                    {%- if theme_show_copyright %}
+                    <div class="footer-meta-copyright">
+                        {%- if hasdoc('Copyright') %}
+                        <a href="{{ pathto('Copyright') }}">&copy; Copyright {{ copyright }}</a>
+                        {%- elif hasdoc('copyright') %}
+                        <a href="{{ pathto('copyright') }}">&copy; Copyright {{ copyright }}</a>
+                        {%- else %}
+                        &copy; Copyright {{ copyright }}
+                        {%- endif %}
+                    </div>
+                    {%- endif %}
+                    {%- if theme_docstypo3org %}
+                    <ul class="footer-meta-navigation">
+                        <li><a href="https://typo3.org/legal-notice" rel="nofollow" target="_blank" title="Legal Notice">Legal Notice</a></li>
+                        <li><a href="https://typo3.org/privacy-policy" rel="nofollow" target="_blank" title="Privacy Policy">Privacy Policy</a></li>
+                    </ul>
+                    {%- endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+{%- endblock %}
