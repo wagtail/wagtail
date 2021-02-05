@@ -32,8 +32,6 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 #     html_theme = 'sphinx_rtd_theme'
 #     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
-import sphinx_typo3_theme
-
 html_theme = 'sphinx_typo3_theme'
 
 # If extensions (or modules to document with autodoc) are in another directory,
