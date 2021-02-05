@@ -38,7 +38,7 @@ Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bul
 ```md
 - Bullet 1
 - Bullet 2
-    - Nested bullet 2
+  - Nested bullet 2
 - Bullet 3
 
 1. Numbered list 1
@@ -46,20 +46,16 @@ Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bul
 3. Numbered list 3
 ```
 
-<details markdown="block">
-
-<summary>Rendered output</summary>
+Output:
 
 - Bullet 1
 - Bullet 2
-    - Nested bullet 2
+  - Nested bullet 2
 - Bullet 3
 
 1. Numbered list 1
 2. Numbered list 2
 3. Numbered list 3
-
-</details>
 
 ### Inline styles
 
@@ -93,15 +89,11 @@ An [internal link to another document](/reference/contrib/legacy_richtext.md).
 A [link to a reference](register_reports_menu_item).
 ```
 
-<details markdown="block">
-
-<summary>Rendered output</summary>
+Output:
 
 An [external link](https://wwww.example.com).
 An [internal link to another document](/reference/contrib/legacy_richtext.md).
 A [link to a reference](register_reports_menu_item).
-
-</details>
 
 Reference links rely on creating a reference in reStructuredText. Prefer linking to the whole document if at all possible, otherwise create a reference by embedding reStructuredText with `eval_rst`:
 
@@ -119,17 +111,26 @@ Use notes and warnings sparingly, as they rely on reStructuredText syntax which 
     ```eval_rst warning:: Warnings can be scary.
     ```
 
-<details markdown="block">
+Output:
 
-<summary>Rendered output</summary>
-
-```eval_rst note:: Notes can provide complementary information.
+```eval_rst
+    .. note::
+        Notes can provide complementary information.
 ```
 
-```eval_rst warning:: Warnings can be scary.
+```eval_rst
+    .. warning:: Warnings can be scary.
 ```
 
-</details>
+Output:
+
+```eval_rst note::
+    Notes can provide complementary information.
+```
+
+```eval_rst warning::
+    Warnings can be scary.
+```
 
 ### Images
 
@@ -140,16 +141,12 @@ Images are hard to keep up-to-date as documentation evolves, but can be worthwhi
 - Use absolute paths for image files so they are more portable.
 
 ```md
-![Screenshot of the workflow editing interface, with fields to change the workflow name, tasks, and assigned pages](/_static/images/screen44_workflow_edit.png)
+![Screenshot of the Wagtail login form, with username and password fields](/_static/images/screen01_login.png)
 ```
 
-<details markdown="block">
+Output:
 
-<summary>Rendered output</summary>
-
-![Screenshot of the workflow editing interface, with fields to change the workflow name, tasks, and assigned pages](/_static/images/screen44_workflow_edit.png)
-
-</details>
+![Screenshot of the Wagtail login form, with username and password fields](/_static/images/screen01_login.png)
 
 ### Autodoc
 
@@ -161,46 +158,48 @@ With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc
     .. autofunction:: cautious_slugify
     ```
 
-<details markdown="block">
-<summary>Rendered output</summary>
+Output:
 
 ```eval_rst
-.. module:: wagtail.core.utils
+    .. module::
+        wagtail.core.utils
 
-.. autofunction:: cautious_slugify
+    .. autofunction::
+        cautious_slugify
 ```
 
-</details>
+Output:
+
+```eval_rst .. module::
+    wagtail.core.utils
+```
+
+Test2:
+
+```eval_rst
+    .. autofunction::
+        cautious_slugify
+```
 
 ### Tables
 
-Only use tables when needed, with the “simple” reStructuredText syntax, which is hard enough to format as it is.
+In Markdown:
 
-    ```eval_rst
-    =============  =============
-    Browser        Device/OS    
-    =============  =============
-    Stock browser  Android      
-    IE             Desktop      
-    Safari         Windows      
-    =============  =============
-    ```
-
-<details markdown="block">
-
-<summary>Rendered output</summary>
-
-```eval_rst
-=============  =============
-Browser        Device/OS    
-=============  =============
-Stock browser  Android      
-IE             Desktop      
-Safari         Windows      
-=============  =============
+```md
+| Browser       | Device OS |
+| ------------- | --------- |
+| Stock browser | Android   |
+| IE            | Desktop   |
+| Safari        | Windows   |
 ```
 
-</details>
+Output:
+
+| Browser       | Device OS |
+| ------------- | --------- |
+| Stock browser | Android   |
+| IE            | Desktop   |
+| Safari        | Windows   |
 
 ### Tables of content
 
@@ -231,9 +230,7 @@ Sphinx offers release-metadata directives to generate this information consisten
     .. versionchanged:: 2.11
     ```
 
-<details markdown="block">
-
-<summary>Rendered output</summary>
+Output:
 
 ```eval_rst
 .. versionadded:: 2.11
@@ -242,32 +239,6 @@ Sphinx offers release-metadata directives to generate this information consisten
 ```eval_rst
 .. versionchanged:: 2.11
 ```
-
-</details>
-
-### Progressive disclosure
-
-We can add supplementary information in documentation with the HTML `<details markdown="block">` element. This relies on HTML syntax, which can be hard to author consistently, so keep this type of formatting to a minimum.
-
-```html
-<details markdown="block">
-
-<summary>Supplementary information</summary>
-
-This will be visible when expanding the content.
-
-</details>
-```
-
-Example:
-
-<details markdown="block">
-
-<summary>Supplementary information</summary>
-
-This will be visible when expanding the content.
-
-</details>
 
 ## Formatting to avoid
 

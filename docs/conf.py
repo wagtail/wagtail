@@ -57,6 +57,7 @@ os.environ['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
+    'sphinx.ext.autosectionlabel',
 ]
 
 if not on_rtd:
@@ -299,6 +300,7 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 # texinfo_no_detailmenu = False
 
+autosectionlabel_prefix_document = True
 
 def setup(app):
     app.add_css_file('css/custom.css')
@@ -315,10 +317,12 @@ def setup(app):
     app.add_source_parser(MarkdownParser)
     app.add_config_value('markdown_parser_config', {
         'url_resolver': lambda url: github_doc_root + url,
+        'enable_auto_toc_tree': False,
         'enable_eval_rst': True,
         'extensions': [
             'fenced_code',
-            'md_in_html',
+            'tables',
+        #     'md_in_html',
         #     'nl2br',
         #     'sane_lists',
         #     'smarty',
