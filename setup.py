@@ -77,6 +77,7 @@ documentation_extras = [
     'sphinx-autobuild>=0.6.0',
     'sphinx_rtd_theme>=0.1.9',
     'recommonmark>=0.7.1',
+    't3SphinxThemeRtd==3.6.15',
 ]
 
 setup(
