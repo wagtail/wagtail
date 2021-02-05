@@ -148,7 +148,9 @@ intersphinx_mapping = {
 html_theme_options = {
     "logo_title": "Wagtail Documentation",
     "logo_alt": "Wagtail logo",
-    "logo_url": "https://docs.wagtail.io/",
+    "logo_url": "/",
+    "project_home": "https://wagtail.io/",
+    "project_repository": "https://github.com/wagtail/wagtail/"
 }
 
 
