@@ -52,6 +52,8 @@
     <link rel="stylesheet" type="text/css" href="{{ pathto('_static/' + style, 1) }}" />
     <link rel="stylesheet" type="text/css" href="{{ pathto('_static/css/webfonts.css', 1) }}" />
     <link rel="stylesheet" type="text/css" href="{{ pathto('_static/css/fontawesome.css', 1) }}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
 {%- for css in css_files %}
   {%- if css|attr("filename") %}
     {{ css_tag(css) }}
