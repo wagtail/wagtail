@@ -78,6 +78,10 @@ Because the folder ``mysite`` was already created by ``venv``, run ``wagtail sta
 
    $ wagtail start mysite mysite
 
+.. note::
+
+   Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and   access each other's data. All of the apps need to be registered within the ``INSTALLED_APPS`` section of the ``settings`` file. Look at this file to see how the ``start`` command has listed them in there.
+
 Install project dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -100,12 +104,16 @@ If you haven't updated the project settings, this will be a SQLite database file
 
    $ python manage.py migrate
 
+This command ensures that the tables in your database are matched to the models in your project. Every time you alter your model (eg. you may add a field to a model) you will need to run this command in order to update the database.
+
 Create an admin user
 ~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: console
 
    $ python manage.py createsuperuser
+
+When logged into the admin site, a superuser has full permissions and is able to view/create/manage the database.
 
 Start the server
 ~~~~~~~~~~~~~~~~
@@ -147,13 +155,14 @@ Edit ``home/models.py`` as follows, to add a ``body`` field to the model:
             FieldPanel('body', classname="full"),
         ]
 
-``body`` is defined as ``RichTextField``, a special Wagtail field. You
+``body`` is defined as ``RichTextField``, a special Wagtail field. When ``blank=True``,
+it means that this field is not required and can be empty.  You
 can use any of the :doc:`Django core fields <django:ref/models/fields>`. ``content_panels`` define the
-capabilities and the layout of the editing interface. :doc:`More on creating Page models. <../topics/pages>`
+capabilities and the layout of the editing interface. When you add fields to ``content_panels``, it enables them to be edited on the Wagtail interface. :doc:`More on creating Page models. <../topics/pages>`
 
-Run ``python manage.py makemigrations``, then
-``python manage.py migrate`` to update the database with your model
-changes. You must run the above commands each time you make changes to
+Run ``python manage.py makemigrations`` (this will create the migrations file), then
+``python manage.py migrate`` (this executes the migrations and updates the database with your model
+changes). You must run the above commands each time you make changes to
 the model definition.
 
 You can now edit the homepage within the Wagtail admin area (go to Pages, Homepage, then Edit) to see the new body field. Enter some text into the body field, and publish the page.
@@ -179,6 +188,10 @@ Edit ``home/templates/home/home_page.html`` to contain the following:
         {{ page.body|richtext }}
     {% endblock %}
 
+ ``base.html`` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you are able to override specific content within the parent template).
+
+ ``wagtailcore_tags``must also be loaded at the top of the template and provide additional tags to those provided by Django.
+
 .. figure:: ../_static/images/tutorial/tutorial_3.png
    :alt: Updated homepage
 
@@ -186,7 +199,8 @@ Edit ``home/templates/home/home_page.html`` to contain the following:
 Wagtail template tags
 ~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail provides a number of :ref:`template tags & filters <template-tags-and-filters>`
+In addition to Django's `template tags and filters <https://docs.djangoproject.com/en/3.1/ref/templates/builtins/>`__,
+Wagtail provides a number of it's own :ref:`template tags & filters <template-tags-and-filters>`
 which can be loaded by including ``{% load wagtailcore_tags %}`` at the top of
 your template file.
 
@@ -304,6 +318,8 @@ Now we need a model and template for our blog posts. In ``blog/models.py``:
             FieldPanel('intro'),
             FieldPanel('body', classname="full"),
         ]
+
+In the model above, we import ``index`` as this makes the model searchable. You can then list fields that you want to be searchable for the user.
 
 Run ``python manage.py makemigrations`` and ``python manage.py migrate``.
 

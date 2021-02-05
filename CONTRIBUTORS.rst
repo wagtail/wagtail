@@ -497,6 +497,7 @@ Contributors
 * Helder Correia
 * James Gutu
 * John Esther
+* Lara Thompson
 
 Translators
 ===========
