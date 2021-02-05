@@ -147,10 +147,6 @@ jobs:
 
 workflows:
     version: 2
-    # test:
-    #   jobs:
-    #     - backend
-    #     - frontend
 
     ci:
       when: << pipeline.parameters.trigger >>
