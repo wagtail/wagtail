@@ -7,7 +7,7 @@ readonly PROJECT_SLUG="${REPO_TYPE}/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_
 
 readonly SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 readonly TMP_DIR=${SCRIPT_DIR}/temp
-readonly CONFIG_FILE=${SCRIPT_DIR}/monorepo.json
+readonly CONFIG_FILE=${SCRIPT_DIR}/groups.json
 readonly CONCURRENCY=8
 
 readonly TRIGGER_PARAM_NAME="trigger"
@@ -15,14 +15,14 @@ readonly TRIGGER_PARAM_NAME="trigger"
 readonly BUILDS_FILE=${TMP_DIR}/builds.json
 readonly DATA_FILE=${TMP_DIR}/data.json
 
-# Get the list of configured packages or default ones.
-function read_config_packages {
-  c=$(jq --raw-output '(.packages // {}) | length' "$1")
+# Get the list of configured groups or default ones.
+function read_config_groups {
+  c=$(jq --raw-output '(.groups // {}) | length' "$1")
   if [[ "${c}" == "0" ]]; then
-    root_dir=$(jq --raw-output '.root // "packages"' "$1")
+    root_dir=$(jq --raw-output '.root // "groups"' "$1")
     find "${root_dir}/" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | awk -v d="${root_dir}" '{print $1 " " d "/" $1 "/"}'
   else
-    jq -r '.packages | to_entries | map(([.key] + .value) | join(" ")) | join ("\n")' "$1"
+    jq -r '.groups | to_entries | map(([.key] + .value) | join(" ")) | join ("\n")' "$1"
   fi
 }
 
@@ -230,24 +230,24 @@ function main {
   git_parent_commit=$( get_parent )
 
   statuses=$(\
-    read_config_packages "${CONFIG_FILE}" |
+    read_config_groups "${CONFIG_FILE}" |
     diff "${git_parent_commit}" "${BUILDS_FILE}" |
     jq --raw-input --slurp \
       'split("\n") | map(select(. != "")) | map(split(" ")) | map({ package: .[3], parent: .[1], branch: .[2], changes: .[0] | tonumber })')
 
   print_status "${statuses}"
-  changed_packages=$( echo "${statuses}" | jq '. | map(select(.changes > 0)) | length' )
-  total_packages=$( echo "${statuses}" | jq '. | length' )
+  changed_groups=$( echo "${statuses}" | jq '. | map(select(.changes > 0)) | length' )
+  total_groups=$( echo "${statuses}" | jq '. | length' )
 
-  echo "Number of packages changed: ${changed_packages} / ${total_packages}"
+  echo "Number of groups changed: ${changed_groups} / ${total_groups}"
 
-  if [[ "${changed_packages}" != "0" ]]; then
+  if [[ "${changed_groups}" != "0" ]]; then
     create_pipeline "$( create_request_body "${statuses}" )"
   else
-    echo "No changes in packages. Skip workflow trigger."
+    echo "No changes in groups. Skip workflow trigger."
   fi
 
-  if [[ "${MONOREPO_DEBUG}" == "true" ]]; then
+  if [[ "${CONDITIONAL_DEBUG}" == "true" ]]; then
     debug
   fi
 }

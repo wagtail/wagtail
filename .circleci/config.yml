@@ -6,7 +6,7 @@ parameters:
     type: boolean
     default: true
 
-  # A parameter per "package"
+  # A parameter per group
   backend:
     type: boolean
     default: false
@@ -22,7 +22,7 @@ jobs:
       - checkout
       - run:
           name: Trigger workflows
-          command: chmod +x .circleci/monorepo.sh && .circleci/monorepo.sh
+          command: chmod +x .circleci/conditional-builds.sh && .circleci/conditional-builds.sh
 
   backend:
     docker:
