@@ -32,7 +32,7 @@ function get_workflows {
   awk \
     -v api="https://circleci.com/api/v1.1/project/${PROJECT_SLUG}" \
     -v tree="/tree/${CIRCLE_BRANCH}" \
-    -v token="${CIRCLE_USER_TOKEN}" \
+    -v token="${CIRCLE_API_TOKEN}" \
     -v dir="${TMP_DIR}/data." \
     '{ print $1 " " token " " api tree "?shallow=true&limit=100&offset=" $1 " " dir sprintf("%04d", $1) ".json" }' |\
   xargs -n4 -P${CONCURRENCY} bash -c 'curl -u "$1:" -L -Ss -o $3 -w "\tGET: [%{response_code}] %{url_effective}\n" $2'
@@ -164,7 +164,7 @@ function create_pipeline {
     exit 0
   fi;
 
-  status_code=$(curl -s -u "${CIRCLE_USER_TOKEN}:" -o response.json -w "%{http_code}" -X POST --header "Content-Type: application/json" -d "$1" "${url}")
+  status_code=$(curl -s -u "${CIRCLE_API_TOKEN}:" -o response.json -w "%{http_code}" -X POST --header "Content-Type: application/json" -d "$1" "${url}")
 
   if [ "${status_code}" -ge "200" ] && [ "${status_code}" -lt "300" ]; then
       echo "API call succeeded [${status_code}]. Response: "
@@ -177,8 +177,8 @@ function create_pipeline {
 }
 
 function init {
-  if [[ "x${CIRCLE_USER_TOKEN}" == "x" ]]; then
-    echo "ENV variable CIRCLE_USER_TOKEN is empty. Please provide a user token."
+  if [[ "x${CIRCLE_API_TOKEN}" == "x" ]]; then
+    echo "ENV variable CIRCLE_API_TOKEN is empty. Please provide a user token."
     exit 1
   fi
 
