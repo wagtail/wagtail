@@ -72,6 +72,7 @@ jobs:
       commit_message: $( [ -z "${{ steps.pr_get_commit_message.outputs.pr_commit_message }}" ] && echo "${{ steps.push_get_commit_message.outputs.push_commit_message }}" || echo "${{ steps.pr_get_commit_message.outputs.pr_commit_message }}" )
 
   test-sqlite:
+    needs: pre_ci
     if: "!contains(needs.pre_ci.outputs.commit_message, '[skip ci]')"
     runs-on: ubuntu-latest
     strategy:
