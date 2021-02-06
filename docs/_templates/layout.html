@@ -60,32 +60,6 @@
     <link rel="stylesheet" type="text/css" href="{{ pathto(css, 1) }}" />
   {%- endif %}
 {%- endfor %}
-<!-- linktags -->
-{%- block linktags %}
-  {%- if hasdoc('about') %}
-    <link rel="author" title="{{ _('About these documents') }}" href="{{ pathto('about') }}" />
-  {%- endif %}
-  {%- if hasdoc('genindex') %}
-    <link rel="index" title="{{ _('Index') }}" href="{{ pathto('genindex') }}" />
-  {%- endif %}
-  {%- if hasdoc('search') %}
-    <link rel="search" title="{{ _('Search') }}" href="{{ pathto('search') }}" />
-  {%- endif %}
-  {%- if hasdoc('copyright') %}
-    <link rel="copyright" title="{{ _('Copyright') }}" href="{{ pathto('copyright') }}" />
-  {%- endif %}
-    <link rel="top" title="{{ docstitle|e }}" href="{{ pathto(pagename) }}" />
-  {%- if parents %}
-    <link rel="up" title="{{ parents[-1].title|striptags|e }}" href="{{ parents[-1].link|e }}" />
-  {%- endif %}
-  {%- if next %}
-    <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
-  {%- endif %}
-  {%- if prev %}
-    <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
-  {%- endif %}
-{% endblock -%}
-<!-- /linktags -->
 <!-- extrahead -->
 {%- block extrahead %}{% endblock -%}
 <!-- /extrahead -->
