@@ -14,7 +14,6 @@
 {%- if not logo -%} {%- set logo = theme_logo -%} {%- endif -%}
 {%- if logo_url is not defined -%} {%- set logo_url = theme_logo_url -%} {%- endif -%}
 {%- if logo_alt is not defined -%} {%- set logo_alt = theme_logo_alt -%} {%- endif -%}
-{%- if logo_title is not defined -%} {%- set logo_title = theme_logo_title -%} {%- endif -%}
 {%- if logo_width is not defined -%} {%- set logo_width = theme_logo_width -%} {%- endif -%}
 {%- if logo_height is not defined -%} {%- set logo_height = theme_logo_height -%} {%- endif -%}
 {%- set t3ctx = t3ctx or {} -%}
@@ -90,13 +89,6 @@
 <!-- extrahead -->
 {%- block extrahead %}{% endblock -%}
 <!-- /extrahead -->
-    <script src="{{ pathto('_static/js/modernizr.min.js', 1) }}"></script>
-{% if theme_docstypo3org -%}
-<!-- UNIVERSE BAR START -->
-    <script src="https://typo3.azureedge.net/typo3infrastructure/universe/dist/webcomponents-loader.js"></script>
-    <script type="module" src="https://typo3.azureedge.net/typo3infrastructure/universe/dist/typo3-universe.js"></script>
-<!-- UNIVERSE BAR END -->
-{%- endif %}
 </head>
 
 <body>
@@ -106,11 +98,6 @@
         <div class="page-topbar">
             <div class="page-topbar-inner">
                 {%- block pagetopbar %}
-                <!-- UNIVERSE BAR START -->
-                <typo3-universe active="documentation">
-                    <div style="display: block; height: 44px; background-color: #313131;"></div>
-                </typo3-universe>
-                <!-- UNIVERSE BAR END -->
                 {%- endblock %}
             </div>
         </div>
@@ -123,7 +110,7 @@
 {%- if logo and logo != 'None' %}
 
 {%- if logo_url %}
-<a href="{{ logo_url }}" {% if logo_title %}title="{{ logo_title|e }}" {% endif %}class="logo">
+<a href="{{ logo_url }}" class="logo">
 
 {%- endif %}
     <img src="{{ pathto('_static/' + logo, 1) }}"
@@ -143,10 +130,6 @@
 <!-- /pageheader -->
             </div>
         </div>
-
-        {% if theme_docstypo3org -%}
-            <!--# include virtual="/includes/header.html" -->
-        {%- endif %}
 
         <div class="page-main">
             <div class="page-main-inner">
