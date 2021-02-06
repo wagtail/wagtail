@@ -55,9 +55,11 @@ If you'd like to add Wagtail to an existing Django project instead, see :doc:`in
 
 There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including:
 
- * :doc:`Elasticsearch </advanced_topics/performance>`.
- * :ref:`image_feature_detection`.
+* :doc:`Elasticsearch </advanced_topics/performance>`
+* :ref:`image_feature_detection`
 
+Read more
+---------
 
 .. toctree::
     :maxdepth: 1
