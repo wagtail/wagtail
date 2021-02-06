@@ -229,7 +229,7 @@ class CustomSearchConfig(AppConfig):
         import customsearch.signal_handlers
 ```
 
-In `settings.INSTALLED_APPS`, use `customsearch.apps.CustomSearchConfig`, rather than `customsearch`.
+In `settings.INSTALLED_APPS`, use `"customsearch.apps.CustomSearchConfig"`, rather than `"customsearch"`.
 
 ### Use the cached value
 
@@ -359,4 +359,3 @@ class SynonymTest(TestCase):
 
 
 - [es_docs](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/analysis-synonym-tokenfilter.html)
-
