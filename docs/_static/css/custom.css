@@ -29,14 +29,6 @@ div.wy-side-nav-search {
     border-color: #d9d9d9; /*color-grey-3*/
 }
 
-.logo {
-    transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
-}
-
-.logo:hover {
-    transform: rotate(4deg);
-}
-
 details {
     margin-bottom: 1em;
 }
@@ -125,11 +117,34 @@ div.wy-side-nav-search {
 }
 
 .logo {
+    display: inline-block;
+    text-decoration: none;
+}
+.logo:hover {
+    text-decoration: none;
+}
+.logo:hover .logo-image {
+    transform: rotate(4deg);
     transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
 }
+.logo-image {
+    display: inline-block;
+    vertical-align: top;
+    height: 76px;
+    margin-top: 9px;
+}
+.header_title {
+    display: inline-block;
+    font-weight: bold;
+    margin-left: 12px;
+    margin-top: 24px;
+}
 
-.logo:hover {
-    transform: rotate(4deg);
+/* Align search with breadcrumb */
+@media (min-width: 992px) {
+    .page-main-navigation {
+        padding: 12px 20px 0 0;
+    }
 }
 
 details {
@@ -188,6 +203,32 @@ a.wagtailspace:hover svg {
   animation-name: bounce;
 }
 
+.page-header-inner, .page-main-inner {
+    width: 100%;
+    max-width: 1280px;
+}
+
+.toc--right-column {
+    width: 28rem;
+}
+
+.breadcrumb-bar {
+    margin-bottom: 0;
+}
+
+.flex_container {
+    display: flex;
+    width: 100%;
+}
+.flex_item_left {
+    width: calc(100% - 16rem);
+}
+
+.flex_item_right {
+    margin-top: 1.5rem;
+    width: 16rem;
+}
+
 a {
     color: #007d7e;
 }
@@ -209,15 +250,6 @@ a {
     background-color: #007d7e;
     border-color: #007d7e;
 }
-
-.logo {
-    display: inline-block;
-}
-.logo-image {
-    max-width: 64px;
-    transform: translateY(11px);
-}
-
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -250,10 +282,16 @@ h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
 
 .page-toc-navigation {
     font-size: 0.833rem;
-    float: right;
-    padding: 1rem 0 3rem 2rem;
-    width: 15rem;
-    background: white;
+    padding: 0 0 3rem 2rem;
+    width: 16rem;
+    position: sticky;
+    overflow-y: auto;
+    top: 0;
+    height: 100vh;
+}
+
+.page-toc-navigation .toc a {
+    padding-right: 0;
 }
 
 .page-toc-navigation .toc>ul>li ul {
@@ -269,6 +307,9 @@ h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
 @media (max-width: 991px) {
     .toc--right-column {
         display: none;
+    }
+    .flex_item_left {
+        width: 100%;
     }
 }
 
