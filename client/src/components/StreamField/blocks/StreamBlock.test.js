@@ -116,7 +116,7 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
   });
 
   test('it renders menus on opening', () => {
-    boundBlock.menus[1].open();
+    boundBlock.inserters[1].open();
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 
@@ -349,7 +349,7 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
   });
 
   test('it renders correctly', () => {
-    boundBlock.menus[0].open();
+    boundBlock.inserters[0].open();
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });
