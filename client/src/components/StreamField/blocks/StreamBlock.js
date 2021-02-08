@@ -98,10 +98,38 @@ class StreamBlockMenu {
         });
       });
     });
+
+    // Disable buttons for any disabled block types
+    this.disabledBlockTypes.forEach(blockType => {
+      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr('disabled', 'true');
+    });
   }
 
   setIndex(newIndex) {
     this.index = newIndex;
+  }
+
+  setNewBlockRestrictions(canAddBlock, disabledBlockTypes) {
+    this.canAddBlock = canAddBlock;
+    this.disabledBlockTypes = disabledBlockTypes;
+
+    // Disable/enable menu open button
+    if (this.canAddBlock) {
+      this.addButton.removeAttr('disabled');
+    } else {
+      this.addButton.attr('disabled', 'true');
+    }
+
+    // Close menu if its open and we no longer can add blocks
+    if (!canAddBlock && this.isOpen) {
+      this.close({ animate: true });
+    }
+
+    // Disable/enable individual block type buttons
+    $('button', this.innerContainer).removeAttr('disabled');
+    disabledBlockTypes.forEach(blockType => {
+      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr('disabled', 'true');
+    });
   }
 
   toggle() {
@@ -112,6 +140,10 @@ class StreamBlockMenu {
     }
   }
   open(opts) {
+    if (!this.canAddBlock) {
+      return;
+    }
+
     this.renderMenu();
     if (opts && opts.animate) {
       this.outerContainer.slideDown();
@@ -187,6 +219,51 @@ export class StreamBlock {
     }
   }
 
+  /*
+   * Called whenever a block is added or removed
+   *
+   * Updates the state of add / duplicate block buttons to prevent too many blocks being inserted.
+   */
+  checkBlockCounts() {
+    this.canAddBlock = true;
+
+    if (typeof this.blockDef.meta.maxNum === 'number' && this.children.length >= this.blockDef.meta.maxNum) {
+      this.canAddBlock = false;
+    }
+
+    // If we can add blocks, check if there are any block types that have count limits
+    this.disabledBlockTypes = new Set();
+    if (this.canAddBlock) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const blockType in this.blockDef.meta.blockCounts) {
+        if (this.blockDef.meta.blockCounts.hasOwnProperty(blockType)) {
+          const counts = this.blockDef.meta.blockCounts[blockType];
+
+          if (typeof counts.max_num === 'number') {
+            const currentBlockCount = this.children.filter(child => child.type === blockType).length;
+
+            if (currentBlockCount >= counts.max_num) {
+              this.disabledBlockTypes.add(blockType);
+            }
+          }
+        }
+      }
+    }
+
+    for (let i = 0; i < this.children.length; i++) {
+      const canDuplicate = this.canAddBlock && !this.disabledBlockTypes.has(this.children[i].type);
+
+      if (canDuplicate) {
+        this.children[i].enableDuplication();
+      } else {
+        this.children[i].disableDuplication();
+      }
+    }
+    for (let i = 0; i < this.menus.length; i++) {
+      this.menus[i].setNewBlockRestrictions(this.canAddBlock, this.disabledBlockTypes);
+    }
+  }
+
   clear() {
     this.countInput.val(0);
     this.streamContainer.empty();
@@ -207,6 +284,8 @@ export class StreamBlock {
         }
       )
     ];
+
+    this.checkBlockCounts();
   }
 
   insert({ type, value, id }, index, opts) {
@@ -279,6 +358,8 @@ export class StreamBlock {
       }
     }
 
+    this.checkBlockCounts();
+
     return child;
   }
 
@@ -296,6 +377,8 @@ export class StreamBlock {
     childState.id = null;
     this.insert(childState, index + 1, { animate: true });
     this.children[index + 1].focus();
+
+    this.checkBlockCounts();
   }
 
   deleteBlock(index) {
@@ -321,6 +404,8 @@ export class StreamBlock {
       /* we have removed the last child; the new last child cannot be moved down */
       this.children[this.children.length - 1].disableMoveDown();
     }
+
+    this.checkBlockCounts();
   }
 
   moveBlock(oldIndex, newIndex) {

@@ -67,7 +67,8 @@ export class BaseSequenceChild {
     this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
 
-    dom.find('button[data-duplicate-button]').click(() => {
+    this.duplicateButton = dom.find('button[data-duplicate-button]');
+    this.duplicateButton.click(() => {
       if (this.onRequestDuplicate) this.onRequestDuplicate(this.index);
     });
 
@@ -105,6 +106,12 @@ export class BaseSequenceChild {
     }
   }
 
+  enableDuplication() {
+    this.duplicateButton.removeAttr('disabled');
+  }
+  disableDuplication() {
+    this.duplicateButton.attr('disabled', 'true');
+  }
   enableMoveUp() {
     this.moveUpButton.removeAttr('disabled');
   }
