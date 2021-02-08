@@ -188,8 +188,8 @@ export class StreamBlock {
       this._createInsertionControl(
         placeholder, {
           index: 0,
-          onRequestInsert: (newIndex, { type: blockType }) => {
-            this.insertFromMenu(blockType, newIndex);
+          onRequestInsert: (index, opts) => {
+            this._onRequestInsert(index, opts);
           },
           strings: this.blockDef.meta.strings,
         }
@@ -208,7 +208,11 @@ export class StreamBlock {
   }
 
   insert({ type, value, id }, index, opts) {
-    const blockDef = this.blockDef.childBlockDefsByName[type];
+    const childBlockDef = this.blockDef.childBlockDefsByName[type];
+    return this._insert(childBlockDef, value, id, index, opts);
+  }
+
+  _insert(childBlockDef, initialState, id, index, opts) {
     const prefix = this.prefix + '-' + this.blockCounter;
     const animate = opts && opts.animate;
     this.blockCounter++;
@@ -234,7 +238,7 @@ export class StreamBlock {
       this.menus[i].setIndex(i + 1);
     }
 
-    const child = this._createChild(blockDef, blockPlaceholder, prefix, index, id, value, {
+    const child = this._createChild(childBlockDef, blockPlaceholder, prefix, index, id, initialState, {
       animate,
       onRequestDuplicate: (i) => { this.duplicateBlock(i); },
       onRequestDelete: (i) => { this.deleteBlock(i); },
@@ -247,8 +251,8 @@ export class StreamBlock {
     const menu = this._createInsertionControl(
       menuPlaceholder, {
         index: index + 1,
-        onRequestInsert: (newIndex, { type: blockType }) => {
-          this.insertFromMenu(blockType, newIndex);
+        onRequestInsert: (newIndex, inserterOpts) => {
+          this._onRequestInsert(newIndex, inserterOpts);
         },
         strings: this.blockDef.meta.strings,
       }
@@ -277,13 +281,12 @@ export class StreamBlock {
     return child;
   }
 
-  insertFromMenu(blockType, index) {
+  _onRequestInsert(index, { type }) {
     /* handle selecting an item from the 'add block' menu */
-    const newBlock = this.insert({
-      type: blockType,
-      value: this.blockDef.initialChildStates[blockType],
-    }, index, { animate: true });
-    newBlock.focus();
+    const childBlockDef = this.blockDef.childBlockDefsByName[type];
+    const childState = this.blockDef.initialChildStates[type];
+    const newChild = this._insert(childBlockDef, childState, null, index, { animate: true });
+    newChild.focus();
   }
 
   duplicateBlock(index) {
