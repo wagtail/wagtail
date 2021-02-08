@@ -62,6 +62,8 @@ class StreamBlockMenu extends BaseInsertionControl {
     this.innerContainer = dom.find('[data-streamblock-menu-inner]');
     this.hasRenderedMenu = false;
     this.isOpen = false;
+    this.canAddBlock = true;
+    this.disabledBlockTypes = new Set();
     this.close({ animate: false });
   }
 
@@ -94,6 +96,34 @@ class StreamBlockMenu extends BaseInsertionControl {
         });
       });
     });
+
+    // Disable buttons for any disabled block types
+    this.disabledBlockTypes.forEach(blockType => {
+      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr('disabled', 'true');
+    });
+  }
+
+  setNewBlockRestrictions(canAddBlock, disabledBlockTypes) {
+    this.canAddBlock = canAddBlock;
+    this.disabledBlockTypes = disabledBlockTypes;
+
+    // Disable/enable menu open button
+    if (this.canAddBlock) {
+      this.addButton.removeAttr('disabled');
+    } else {
+      this.addButton.attr('disabled', 'true');
+    }
+
+    // Close menu if its open and we no longer can add blocks
+    if (!canAddBlock && this.isOpen) {
+      this.close({ animate: true });
+    }
+
+    // Disable/enable individual block type buttons
+    $('button', this.innerContainer).removeAttr('disabled');
+    disabledBlockTypes.forEach(blockType => {
+      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr('disabled', 'true');
+    });
   }
 
   toggle() {
@@ -104,6 +134,10 @@ class StreamBlockMenu extends BaseInsertionControl {
     }
   }
   open(opts) {
+    if (!this.canAddBlock) {
+      return;
+    }
+
     this.renderMenu();
     if (opts && opts.animate) {
       this.outerContainer.slideDown();
@@ -176,6 +210,51 @@ export class StreamBlock extends BaseSequenceBlock {
     }
   }
 
+  /*
+   * Called whenever a block is added or removed
+   *
+   * Updates the state of add / duplicate block buttons to prevent too many blocks being inserted.
+   */
+  checkBlockCounts() {
+    this.canAddBlock = true;
+
+    if (typeof this.blockDef.meta.maxNum === 'number' && this.children.length >= this.blockDef.meta.maxNum) {
+      this.canAddBlock = false;
+    }
+
+    // If we can add blocks, check if there are any block types that have count limits
+    this.disabledBlockTypes = new Set();
+    if (this.canAddBlock) {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const blockType in this.blockDef.meta.blockCounts) {
+        if (this.blockDef.meta.blockCounts.hasOwnProperty(blockType)) {
+          const counts = this.blockDef.meta.blockCounts[blockType];
+
+          if (typeof counts.max_num === 'number') {
+            const currentBlockCount = this.children.filter(child => child.type === blockType).length;
+
+            if (currentBlockCount >= counts.max_num) {
+              this.disabledBlockTypes.add(blockType);
+            }
+          }
+        }
+      }
+    }
+
+    for (let i = 0; i < this.children.length; i++) {
+      const canDuplicate = this.canAddBlock && !this.disabledBlockTypes.has(this.children[i].type);
+
+      if (canDuplicate) {
+        this.children[i].enableDuplication();
+      } else {
+        this.children[i].disableDuplication();
+      }
+    }
+    for (let i = 0; i < this.inserters.length; i++) {
+      this.inserters[i].setNewBlockRestrictions(this.canAddBlock, this.disabledBlockTypes);
+    }
+  }
+
   _createChild(blockDef, placeholder, prefix, index, id, initialState, opts) {
     return new StreamChild(blockDef, placeholder, prefix, index, id, initialState, opts);
   }
@@ -191,6 +270,12 @@ export class StreamBlock extends BaseSequenceBlock {
     return this._insert(childBlockDef, value, id, index, opts);
   }
 
+  _insert(childBlockDef, value, id, index, opts) {
+    const result = super._insert(childBlockDef, value, id, index, opts);
+    this.checkBlockCounts();
+    return result;
+  }
+
   _getChildDataForInsertion({ type }) {
     /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
     return the block definition and initial state to be used for the new block.
@@ -201,11 +286,23 @@ export class StreamBlock extends BaseSequenceBlock {
     return [blockDef, initialState];
   }
 
+  clear() {
+    super.clear();
+    this.checkBlockCounts();
+  }
+
   duplicateBlock(index) {
     const childState = this.children[index].getState();
     childState.id = null;
     this.insert(childState, index + 1, { animate: true });
     this.children[index + 1].focus();
+
+    this.checkBlockCounts();
+  }
+
+  deleteBlock(index) {
+    super.deleteBlock(index);
+    this.checkBlockCounts();
   }
 
   setState(values) {
