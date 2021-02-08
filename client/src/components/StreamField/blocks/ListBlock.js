@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import { BaseSequenceChild, BaseInsertionControl } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 
@@ -97,7 +99,7 @@ export class ListBlock {
     const placeholder = document.createElement('div');
     this.listContainer.append(placeholder);
     this.insertPositions = [
-      new InsertPosition(
+      this._createInsertionControl(
         placeholder, {
           index: 0,
           onRequestInsert: (newIndex) => {
@@ -107,6 +109,14 @@ export class ListBlock {
         }
       )
     ];
+  }
+
+  _createChild(blockDef, placeholder, prefix, index, id, initialState, opts) {
+    return new ListChild(blockDef, placeholder, prefix, index, id, initialState, opts);
+  }
+
+  _createInsertionControl(placeholder, opts) {
+    return new InsertPosition(placeholder, opts);
   }
 
   insert(value, index, opts) {
@@ -135,7 +145,7 @@ export class ListBlock {
       this.insertPositions[i].setIndex(i + 1);
     }
 
-    const child = new ListChild(this.blockDef.childBlockDef, blockPlaceholder, prefix, index, null, value, {
+    const child = this._createChild(this.blockDef.childBlockDef, blockPlaceholder, prefix, index, null, value, {
       animate,
       onRequestDuplicate: (i) => { this.duplicateBlock(i); },
       onRequestDelete: (i) => { this.deleteBlock(i); },
@@ -145,7 +155,7 @@ export class ListBlock {
     });
     this.children.splice(index, 0, child);
 
-    const insertPosition = new InsertPosition(
+    const insertPosition = this._createInsertionControl(
       insertPositionPlaceholder, {
         index: index + 1,
         onRequestInsert: (newIndex) => {

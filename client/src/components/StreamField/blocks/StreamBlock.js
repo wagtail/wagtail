@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import { BaseSequenceChild, BaseInsertionControl } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 
@@ -183,17 +185,26 @@ export class StreamBlock {
     const placeholder = document.createElement('div');
     this.streamContainer.append(placeholder);
     this.menus = [
-      new StreamBlockMenu(
+      this._createInsertionControl(
         placeholder, {
           index: 0,
           onRequestInsert: (newIndex, { type: blockType }) => {
             this.insertFromMenu(blockType, newIndex);
           },
           strings: this.blockDef.meta.strings,
-          groupedChildBlockDefs: this.blockDef.groupedChildBlockDefs,
         }
       )
     ];
+  }
+
+  _createChild(blockDef, placeholder, prefix, index, id, initialState, opts) {
+    return new StreamChild(blockDef, placeholder, prefix, index, id, initialState, opts);
+  }
+
+  _createInsertionControl(placeholder, opts) {
+    // eslint-disable-next-line no-param-reassign
+    opts.groupedChildBlockDefs = this.blockDef.groupedChildBlockDefs;
+    return new StreamBlockMenu(placeholder, opts);
   }
 
   insert({ type, value, id }, index, opts) {
@@ -223,7 +234,7 @@ export class StreamBlock {
       this.menus[i].setIndex(i + 1);
     }
 
-    const child = new StreamChild(blockDef, blockPlaceholder, prefix, index, id, value, {
+    const child = this._createChild(blockDef, blockPlaceholder, prefix, index, id, value, {
       animate,
       onRequestDuplicate: (i) => { this.duplicateBlock(i); },
       onRequestDelete: (i) => { this.deleteBlock(i); },
@@ -233,14 +244,13 @@ export class StreamBlock {
     });
     this.children.splice(index, 0, child);
 
-    const menu = new StreamBlockMenu(
+    const menu = this._createInsertionControl(
       menuPlaceholder, {
         index: index + 1,
         onRequestInsert: (newIndex, { type: blockType }) => {
           this.insertFromMenu(blockType, newIndex);
         },
         strings: this.blockDef.meta.strings,
-        groupedChildBlockDefs: this.blockDef.groupedChildBlockDefs,
       }
     );
     this.menus.splice(index + 1, 0, menu);
@@ -248,8 +258,6 @@ export class StreamBlock {
     this.countInput.val(this.blockCounter);
 
     const isFirstChild = (index === 0);
-    /* isLastChild is always true for append, but we might as well get the logic for arbitrary
-    insertions right... */
     const isLastChild = (index === this.children.length - 1);
     if (!isFirstChild) {
       child.enableMoveUp();
