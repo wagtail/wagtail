@@ -353,3 +353,345 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });
+
+describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
+  // Define a test block
+  const blockDef = new StreamBlockDefinition(
+    '',
+    [
+      ['', [
+        new FieldBlockDefinition(
+          'test_block_a',
+          new DummyWidgetDefinition('Block A widget'),
+          {
+            label: 'Test Block <A>',
+            required: true,
+            icon: 'placeholder',
+            classname: 'field char_field widget-text_input fieldname-test_charblock'
+          }
+        ),
+        new FieldBlockDefinition(
+          'test_block_b',
+          new DummyWidgetDefinition('Block B widget'),
+          {
+            label: 'Test Block <B>',
+            required: true,
+            icon: 'pilcrow',
+            classname: 'field char_field widget-admin_auto_height_text_input fieldname-test_textblock'
+          }
+        ),
+      ]]
+    ],
+    {
+      test_block_a: 'Block A options',
+      test_block_b: 'Block B options',
+    },
+    {
+      label: '',
+      required: true,
+      icon: 'placeholder',
+      classname: null,
+      helpText: 'use <strong>plenty</strong> of these',
+      helpIcon: '<div class="icon-help">?</div>',
+      maxNum: 3,
+      minNum: null,
+      blockCounts: {},
+      strings: {
+        MOVE_UP: 'Move up',
+        MOVE_DOWN: 'Move down',
+        DELETE: 'Delete & kill with fire',
+        DUPLICATE: 'Duplicate',
+        ADD: 'Add',
+      },
+    }
+  );
+
+  const assertCanAddBlock = () => {
+    // Test duplicate button
+    // querySelector always returns the first element it sees so this only checks the first block
+    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toBe(null);
+
+    // Test menu
+    expect(document.querySelector('button[data-streamblock-menu-open]').getAttribute('disabled')).toBe(null);
+  };
+
+  const assertCannotAddBlock = () => {
+    // Test duplicate button
+    // querySelector always returns the first element it sees so this only checks the first block
+    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toEqual('disabled');
+
+    // Test menu
+    expect(document.querySelector('button[data-streamblock-menu-open]').getAttribute('disabled')).toEqual('disabled');
+  };
+
+  test('test can add block when under limit', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value'
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertCanAddBlock();
+  });
+
+  test('initialising at maxNum disables adding new block and duplication', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value'
+      },
+      {
+        id: '3',
+        type: 'test_block_b',
+        value: 'Third value'
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertCannotAddBlock();
+  });
+
+  test('insert disables new block', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value'
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertCanAddBlock();
+
+    boundBlock.insert({
+      id: '3',
+      type: 'test_block_b',
+      value: 'Third value'
+    }, 2);
+
+    assertCannotAddBlock();
+  });
+
+  test('delete enables new block', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value'
+      },
+      {
+        id: '3',
+        type: 'test_block_b',
+        value: 'Third value'
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertCannotAddBlock();
+
+    boundBlock.deleteBlock(2);
+
+    assertCanAddBlock();
+  });
+});
+
+describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', () => {
+  // Define a test block
+  const blockDef = new StreamBlockDefinition(
+    '',
+    [
+      ['', [
+        new FieldBlockDefinition(
+          'test_block_a',
+          new DummyWidgetDefinition('Block A widget'),
+          {
+            label: 'Test Block <A>',
+            required: true,
+            icon: 'placeholder',
+            classname: 'field char_field widget-text_input fieldname-test_charblock'
+          }
+        ),
+        new FieldBlockDefinition(
+          'test_block_b',
+          new DummyWidgetDefinition('Block B widget'),
+          {
+            label: 'Test Block <B>',
+            required: true,
+            icon: 'pilcrow',
+            classname: 'field char_field widget-admin_auto_height_text_input fieldname-test_textblock'
+          }
+        ),
+      ]]
+    ],
+    {
+      test_block_a: 'Block A options',
+      test_block_b: 'Block B options',
+    },
+    {
+      label: '',
+      required: true,
+      icon: 'placeholder',
+      classname: null,
+      helpText: 'use <strong>plenty</strong> of these',
+      helpIcon: '<div class="icon-help">?</div>',
+      maxNum: null,
+      minNum: null,
+      blockCounts: {
+        test_block_a: {
+          max_num: 2
+        }
+      },
+      strings: {
+        MOVE_UP: 'Move up',
+        MOVE_DOWN: 'Move down',
+        DELETE: 'Delete & kill with fire',
+        DUPLICATE: 'Duplicate',
+        ADD: 'Add',
+      },
+    }
+  );
+
+  const assertCanAddBlock = () => {
+    // Test duplicate button
+    // querySelector always returns the first element it sees so this only checks the first block
+    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toBe(null);
+
+    // Test menu item
+    expect(document.querySelector('button.action-add-block-test_block_a').getAttribute('disabled')).toBe(null);
+  };
+
+  const assertCannotAddBlock = () => {
+    // Test duplicate button
+    // querySelector always returns the first element it sees so this only checks the first block
+    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toEqual('disabled');
+
+    // Test menu item
+    expect(document.querySelector('button.action-add-block-test_block_a').getAttribute('disabled')).toEqual('disabled');
+  };
+
+  test('single instance allows creation of new block and duplication', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value'
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertCanAddBlock();
+  });
+
+  test('initialising at max_num disables adding new block of that type and duplication', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value'
+      },
+      {
+        id: '3',
+        type: 'test_block_a',
+        value: 'Third value'
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertCannotAddBlock();
+  });
+
+  test('insert disables new block', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value'
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertCanAddBlock();
+
+    boundBlock.insert({
+      id: '3',
+      type: 'test_block_a',
+      value: 'Third value'
+    }, 2);
+
+    assertCannotAddBlock();
+  });
+
+  test('delete enables new block', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value'
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value'
+      },
+      {
+        id: '3',
+        type: 'test_block_a',
+        value: 'Third value'
+      },
+    ]);
+    boundBlock.inserters[0].open();
+
+    assertCannotAddBlock();
+
+    boundBlock.deleteBlock(2);
+
+    assertCanAddBlock();
+  });
+});
