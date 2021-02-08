@@ -102,13 +102,21 @@ export class ListBlock {
       this._createInsertionControl(
         placeholder, {
           index: 0,
-          onRequestInsert: (newIndex) => {
-            this.insert(this.blockDef.initialChildState, newIndex, { animate: true });
+          onRequestInsert: (newIndex, opts) => {
+            this._onRequestInsert(newIndex, opts);
           },
           strings: this.blockDef.meta.strings,
         }
       )
     ];
+  }
+
+  _onRequestInsert(newIndex) {
+    /* 'opts' argument is discarded here, since ListBlock's insertion control does not pass any */
+    const childBlockDef = this.blockDef.childBlockDef;
+    const childState = this.blockDef.initialChildState;
+    const newChild = this._insert(childBlockDef, childState, null, newIndex, { animate: true });
+    newChild.focus();
   }
 
   _createChild(blockDef, placeholder, prefix, index, id, initialState, opts) {
@@ -120,6 +128,10 @@ export class ListBlock {
   }
 
   insert(value, index, opts) {
+    return this._insert(this.blockDef.childBlockDef, value, null, index, opts);
+  }
+
+  _insert(childBlockDef, initialState, id, index, opts) {
     const prefix = this.prefix + '-' + this.blockCounter;
     const animate = opts && opts.animate;
     this.blockCounter++;
@@ -145,7 +157,7 @@ export class ListBlock {
       this.insertPositions[i].setIndex(i + 1);
     }
 
-    const child = this._createChild(this.blockDef.childBlockDef, blockPlaceholder, prefix, index, null, value, {
+    const child = this._createChild(childBlockDef, blockPlaceholder, prefix, index, id, initialState, {
       animate,
       onRequestDuplicate: (i) => { this.duplicateBlock(i); },
       onRequestDelete: (i) => { this.deleteBlock(i); },
@@ -158,8 +170,8 @@ export class ListBlock {
     const insertPosition = this._createInsertionControl(
       insertPositionPlaceholder, {
         index: index + 1,
-        onRequestInsert: (newIndex) => {
-          this.insert(this.blockDef.initialChildState, newIndex, { animate: true });
+        onRequestInsert: (newIndex, inserterOpts) => {
+          this._onRequestInsert(newIndex, inserterOpts);
         },
         strings: this.blockDef.meta.strings,
       }
