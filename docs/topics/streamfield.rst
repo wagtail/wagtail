@@ -41,35 +41,12 @@ Using StreamField
         ]
 
 
-Note: StreamField is not backwards compatible with other field types such as RichTextField. If you need to migrate an existing field to StreamField, refer to :ref:`streamfield_migrating_richtext`.
-
-The parameter to ``StreamField`` is a list of ``(name, block_type)`` tuples. 'name' is used to identify the block type within templates and the internal JSON representation (and should follow standard Python conventions for variable names: lower-case and underscores, no spaces) and 'block_type' should be a block definition object as described below. (Alternatively, ``StreamField`` can be passed a single ``StreamBlock`` instance - see `Structural block types`_.)
-
-This defines the set of available block types that can be used within this field. The author of the page is free to use these blocks as many times as desired, in any order.
+In this example, the body field of ``BlogPage`` is defined as a ``StreamField`` where authors can compose content from three different block types: headings, paragraphs, and images, which can be used and repeated in any order. The block types available to authors are defined as a list of ``(name, block_type)`` tuples: 'name' is used to identify the block type within templates, and should follow the standard Python conventions for variable names: lower-case and underscores, no spaces.
 
 You can find the complete list of available block types in the :ref:`StreamField reference <streamfield_reference>`.
 
-Structural block types
-----------------------
-
-In addition to the basic block types, it is possible to define new block types made up of sub-blocks: for example, a 'person' block consisting of sub-blocks for first name, surname and image, or a 'carousel' block consisting of an unlimited number of image blocks. These structures can be nested to any depth, making it possible to have a structure containing a list, or a list of structures.
-
-.. _streamfield_personblock_example:
-
-This example demonstrates how the basic block types can be combined into a more complex block type based on ``StructBlock``:
-
-.. code-block:: python
-
-    from wagtail.core import blocks
-
-    class PersonBlock(blocks.StructBlock):
-        name = blocks.CharBlock()
-        height = blocks.DecimalBlock()
-        age = blocks.IntegerBlock()
-        email = blocks.EmailBlock()
-
-        class Meta:
-            template = 'blocks/person_block.html'
+.. note::
+   StreamField is not a direct replacement for other field types such as RichTextField. If you need to migrate an existing field to StreamField, refer to :ref:`streamfield_migrating_richtext`.
 
 
 .. _streamfield_template_rendering:
@@ -123,6 +100,221 @@ For more control over the rendering of specific block types, each block object p
         {% endfor %}
     </article>
 
+
+Combining blocks
+----------------
+
+In addition to using the built-in block types directly within StreamField, it's possible to construct new block types by combining sub-blocks in various ways. Examples of this could include:
+
+* An "image with caption" block consisting of an image chooser and a text field
+* A "related links" section, where an author can provide any number of links to other pages
+* A slideshow block, where each slide may be an image, text or video, arranged in any order
+
+Once a new block type has been built up in this way, you can use it anywhere where a built-in block type would be used - including using it as a component for yet another block type. For example, you could define an image gallery block where each item is an "image with caption" block.
+
+StructBlock
+~~~~~~~~~~~
+
+``StructBlock`` allows you to group several 'child' blocks together to be presented as a single block. The child blocks are passed to ``StructBlock`` as a list of ``(name, block_type)`` tuples:
+
+.. code-block:: python
+   :emphasize-lines: 2-7
+
+    body = StreamField([
+        ('person', blocks.StructBlock([
+            ('first_name', blocks.CharBlock()),
+            ('surname', blocks.CharBlock()),
+            ('photo', ImageChooserBlock(required=False)),
+            ('biography', blocks.RichTextBlock()),
+        ])),
+        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ])
+
+When reading back the content of a StreamField (such as when rendering a template), the value of a StructBlock is a dict-like object with keys corresponding to the block names given in the definition:
+
+.. code-block:: html+django
+
+    <article>
+        {% for block in page.body %}
+            {% if block.block_type == 'person' %}
+                <div class="person">
+                    {% image block.value.photo width-400 %}
+                    <h2>{{ block.value.first_name }} {{ block.value.surname }}</h2>
+                    {{ block.value.biography }}
+                </div>
+            {% else %}
+                (rendering for other block types)
+            {% endif %}
+        {% endfor %}
+    </article>
+
+
+Subclassing ``StructBlock``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Placing a StructBlock's list of child blocks inside a ``StreamField`` definition can often be hard to read, and makes it difficult for the same block to be reused in multiple places. As an alternative, ``StructBlock`` can be subclassed, with the child blocks defined as attributes on the subclass. The 'person' block in the above example could be rewritten as:
+
+.. code-block:: python
+
+    class PersonBlock(blocks.StructBlock):
+        first_name = blocks.CharBlock()
+        surname = blocks.CharBlock()
+        photo = ImageChooserBlock(required=False)
+        biography = blocks.RichTextBlock()
+
+``PersonBlock`` can then be used in a ``StreamField`` definition in the same way as the built-in block types:
+
+.. code-block:: python
+
+    body = StreamField([
+        ('person', PersonBlock()),
+        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ])
+
+
+Block icons
+~~~~~~~~~~~
+
+In the menu that content authors use to add new blocks to a StreamField, each block type has an associated icon. For StructBlock and other structural block types, a placeholder icon is used, since the purpose of these blocks is specific to your project. To set a custom icon, pass the option ``icon`` as either a keyword argument to ``StructBlock``, or an attribute on a ``Meta`` class:
+
+.. code-block:: python
+   :emphasize-lines: 7
+
+    body = StreamField([
+        ('person', blocks.StructBlock([
+            ('first_name', blocks.CharBlock()),
+            ('surname', blocks.CharBlock()),
+            ('photo', ImageChooserBlock(required=False)),
+            ('biography', blocks.RichTextBlock()),
+        ], icon='user')),
+        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ])
+
+.. code-block:: python
+   :emphasize-lines: 7-8
+
+    class PersonBlock(blocks.StructBlock):
+        first_name = blocks.CharBlock()
+        surname = blocks.CharBlock()
+        photo = ImageChooserBlock(required=False)
+        biography = blocks.RichTextBlock()
+
+        class Meta:
+            icon = 'user'
+
+For a list of the recognised icon identifiers, see the :ref:`styleguide`.
+
+
+ListBlock
+~~~~~~~~~
+
+``ListBlock`` defines a repeating block, allowing content authors to insert as many instances of a particular block type as they like. For example, a 'gallery' block consisting of multiple images can be defined as follows:
+
+.. code-block:: python
+   :emphasize-lines: 2
+
+    body = StreamField([
+        ('gallery', blocks.ListBlock(ImageChooserBlock())),
+        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ])
+
+When reading back the content of a StreamField (such as when rendering a template), the value of a ListBlock is a list of child values:
+
+.. code-block:: html+django
+
+    <article>
+        {% for block in page.body %}
+            {% if block.block_type == 'gallery' %}
+                <ul class="gallery">
+                    {% for img in block.value %}
+                        <li>{% image img width-400 %}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                (rendering for other block types)
+            {% endif %}
+        {% endfor %}
+    </article>
+
+
+StreamBlock
+~~~~~~~~~~~
+
+``StreamBlock`` defines a set of child block types that can be mixed and repeated in any sequence, via the same mechanism as StreamField itself. For example, a carousel that supports both image and video slides could be defined as follows:
+
+.. code-block:: python
+   :emphasize-lines: 2-5
+
+    body = StreamField([
+        ('carousel', blocks.StreamBlock([
+            'image': ImageChooserBlock(),
+            'video': EmbedBlock(),
+        ])),
+        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ])
+
+``StreamBlock`` can also be subclassed in the same way as ``StructBlock``, with the child blocks being specified as attributes on the class:
+
+.. code-block:: python
+
+    class PersonBlock(blocks.StreamBlock):
+        image = ImageChooserBlock()
+        video = EmbedBlock()
+
+        class Meta:
+            icon = 'image'
+
+A StreamBlock subclass defined in this way can also be passed to a ``StreamField`` definition, instead of passing a list of block types. This allows setting up a common set of block types to be used on multiple page types:
+
+.. code-block:: python
+
+    class CommonContentBlock(blocks.StreamBlock):
+        heading = blocks.CharBlock(form_classname="full title")
+        paragraph = blocks.RichTextBlock()
+        image = ImageChooserBlock()
+
+
+    class BlogPage(Page):
+        body = StreamField(CommonContentBlock())
+
+
+When reading back the content of a StreamField, the value of a StreamBlock is a sequence of block objects with ``block_type`` and ``value`` properties, just like the top-level value of the StreamField itself.
+
+.. code-block:: html+django
+
+    <article>
+        {% for block in page.body %}
+            {% if block.block_type == 'carousel' %}
+                <ul class="carousel">
+                    {% for slide in block.value %}
+                        {% if slide.block_type == 'image' %}
+                            <li class="image">{% image slide.value width-200 %}</li>
+                        {% else %}
+                            <li> class="video">{% include_block slide %}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                (rendering for other block types)
+            {% endif %}
+        {% endfor %}
+    </article>
+
+
+.. _streamfield_per_block_templates:
+
+Per-block templates
+-------------------
 
 By default, each block is rendered using simple, minimal HTML markup, or no markup at all. For example, a CharBlock value is rendered as plain text, while a ListBlock outputs its child blocks in a `<ul>` wrapper. To override this with your own custom HTML rendering, you can pass a ``template`` argument to the block, giving the filename of a template file to be rendered. This is particularly useful for custom block types derived from StructBlock:
 
