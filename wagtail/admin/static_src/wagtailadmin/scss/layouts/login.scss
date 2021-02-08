@@ -135,6 +135,7 @@ input[type=checkbox]:before {
         color: $color-white;
 
         @include media-breakpoint-up(sm) {
+            color: darken(#007d7e, 4%); // fallback for ie11
             color: $color-link;
         }
     }
