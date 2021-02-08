@@ -78,7 +78,7 @@ export class ListBlock {
     }
 
     this.children = [];
-    this.insertPositions = [];
+    this.inserters = [];
     this.blockCounter = 0;
     this.countInput = dom.find('[data-streamfield-list-count]');
     this.listContainer = dom.find('[data-streamfield-list-container]');
@@ -98,7 +98,7 @@ export class ListBlock {
     // Create initial insert position
     const placeholder = document.createElement('div');
     this.listContainer.append(placeholder);
-    this.insertPositions = [
+    this.inserters = [
       this._createInsertionControl(
         placeholder, {
           index: 0,
@@ -152,18 +152,18 @@ export class ListBlock {
     and inserting a new block at index 1 will create a new block 1 and insert position 2 after the
     current menu 1, and increment everything after that point
     */
-    const existingInsertPositionElement = this.insertPositions[index].element;
+    const existingInsertPositionElement = this.inserters[index].element;
     const blockPlaceholder = document.createElement('div');
-    const insertPositionPlaceholder = document.createElement('div');
+    const inserterPlaceholder = document.createElement('div');
     $(blockPlaceholder).insertAfter(existingInsertPositionElement);
-    $(insertPositionPlaceholder).insertAfter(blockPlaceholder);
+    $(inserterPlaceholder).insertAfter(blockPlaceholder);
 
     /* shuffle up indexes of all blocks / insert positions above this index */
     for (let i = index; i < this.children.length; i++) {
       this.children[i].setIndex(i + 1);
     }
-    for (let i = index + 1; i < this.insertPositions.length; i++) {
-      this.insertPositions[i].setIndex(i + 1);
+    for (let i = index + 1; i < this.inserters.length; i++) {
+      this.inserters[i].setIndex(i + 1);
     }
 
     const child = this._createChild(childBlockDef, blockPlaceholder, prefix, index, id, initialState, {
@@ -176,8 +176,8 @@ export class ListBlock {
     });
     this.children.splice(index, 0, child);
 
-    const insertPosition = this._createInsertionControl(
-      insertPositionPlaceholder, {
+    const inserter = this._createInsertionControl(
+      inserterPlaceholder, {
         index: index + 1,
         onRequestInsert: (newIndex, inserterOpts) => {
           this._onRequestInsert(newIndex, inserterOpts);
@@ -185,7 +185,7 @@ export class ListBlock {
         strings: this.blockDef.meta.strings,
       }
     );
-    this.insertPositions.splice(index + 1, 0, insertPosition);
+    this.inserters.splice(index + 1, 0, inserter);
 
     this.countInput.val(this.blockCounter);
 
@@ -215,17 +215,17 @@ export class ListBlock {
 
   deleteBlock(index) {
     this.children[index].markDeleted({ animate: true });
-    this.insertPositions[index].delete();
+    this.inserters[index].delete();
     this.children.splice(index, 1);
-    this.insertPositions.splice(index, 1);
+    this.inserters.splice(index, 1);
 
     /* index numbers of children / insert positions above this index now need updating to match
     their array indexes */
     for (let i = index; i < this.children.length; i++) {
       this.children[i].setIndex(i);
     }
-    for (let i = index; i < this.insertPositions.length; i++) {
-      this.insertPositions[i].setIndex(i);
+    for (let i = index; i < this.inserters.length; i++) {
+      this.inserters[i].setIndex(i);
     }
 
     if (index === 0 && this.children.length > 0) {
@@ -240,32 +240,32 @@ export class ListBlock {
 
   moveBlock(oldIndex, newIndex) {
     if (oldIndex === newIndex) return;
-    const insertPositionToMove = this.insertPositions[oldIndex];
+    const inserterToMove = this.inserters[oldIndex];
     const childToMove = this.children[oldIndex];
 
     /* move HTML elements */
     if (newIndex > oldIndex) {
-      $(insertPositionToMove.element).insertAfter(this.children[newIndex].element);
+      $(inserterToMove.element).insertAfter(this.children[newIndex].element);
     } else {
-      $(insertPositionToMove.element).insertBefore(this.insertPositions[newIndex].element);
+      $(inserterToMove.element).insertBefore(this.inserters[newIndex].element);
     }
-    $(childToMove.element).insertAfter(insertPositionToMove.element);
+    $(childToMove.element).insertAfter(inserterToMove.element);
 
     /* reorder items in the `insert positions` and `children` arrays */
-    this.insertPositions.splice(oldIndex, 1);
-    this.insertPositions.splice(newIndex, 0, insertPositionToMove);
+    this.inserters.splice(oldIndex, 1);
+    this.inserters.splice(newIndex, 0, inserterToMove);
     this.children.splice(oldIndex, 1);
     this.children.splice(newIndex, 0, childToMove);
 
     /* update index properties of moved items */
     if (newIndex > oldIndex) {
       for (let i = oldIndex; i <= newIndex; i++) {
-        this.insertPositions[i].setIndex(i);
+        this.inserters[i].setIndex(i);
         this.children[i].setIndex(i);
       }
     } else {
       for (let i = newIndex; i <= oldIndex; i++) {
-        this.insertPositions[i].setIndex(i);
+        this.inserters[i].setIndex(i);
         this.children[i].setIndex(i);
       }
     }
