@@ -281,11 +281,20 @@ export class StreamBlock {
     return child;
   }
 
-  _onRequestInsert(index, { type }) {
-    /* handle selecting an item from the 'add block' menu */
-    const childBlockDef = this.blockDef.childBlockDefsByName[type];
-    const childState = this.blockDef.initialChildStates[type];
-    const newChild = this._insert(childBlockDef, childState, null, index, { animate: true });
+  _getChildDataForInsertion({ type }) {
+    /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
+    return the block definition and initial state to be used for the new block.
+    For a StreamBlock, the dict of data consists of 'type' (the chosen block type name, as a string).
+    */
+    const blockDef = this.blockDef.childBlockDefsByName[type];
+    const initialState = this.blockDef.initialChildStates[type];
+    return [blockDef, initialState];
+  }
+
+  _onRequestInsert(index, opts) {
+    /* handler for an 'insert new block' action */
+    const [blockDef, initialState] = this._getChildDataForInsertion(opts);
+    const newChild = this._insert(blockDef, initialState, null, index, { animate: true });
     newChild.focus();
   }
 
