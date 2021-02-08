@@ -111,11 +111,20 @@ export class ListBlock {
     ];
   }
 
-  _onRequestInsert(newIndex) {
-    /* 'opts' argument is discarded here, since ListBlock's insertion control does not pass any */
-    const childBlockDef = this.blockDef.childBlockDef;
-    const childState = this.blockDef.initialChildState;
-    const newChild = this._insert(childBlockDef, childState, null, newIndex, { animate: true });
+  _getChildDataForInsertion() {
+    /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
+    return the block definition and initial state to be used for the new block.
+    For a ListBlock, no data is passed from the insertion control, as there is a single fixed child block definition.
+    */
+    const blockDef = this.blockDef.childBlockDef;
+    const initialState = this.blockDef.initialChildState;
+    return [blockDef, initialState];
+  }
+
+  _onRequestInsert(index, opts) {
+    /* handler for an 'insert new block' action */
+    const [blockDef, initialState] = this._getChildDataForInsertion(opts);
+    const newChild = this._insert(blockDef, initialState, null, index, { animate: true });
     newChild.focus();
   }
 
