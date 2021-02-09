@@ -106,8 +106,11 @@ class FieldBlockAdapter(Adapter):
             meta,
         ]
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
 
 
 register(FieldBlockAdapter(), FieldBlock)
