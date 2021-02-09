@@ -1,0 +1,193 @@
+// TODO: Reduce nesting further by splitting out more components.
+//
+// There's quite a lot of nesting in here which makes parsing some segments difficult.
+// Some of this is to deal with the fact that .c-sf-block can contain many .c-sf-block's and so is
+// legitimate. A lot of these would ideally be their own components (eg the actions) however there
+// is a lot of interdependency of the elements which makes this hard
+// without fairly intensive rethinking of the HTML.
+//
+// However, the new classes adequately sanitise streamfield only CSS so am leaving this for
+// now to avoid blocking the release of the new Streamfield. -@jonnyscholes
+
+.c-sf-block {
+    flex: 1 1 auto;
+    margin: $block-margin-vertical $block-margin-horizontal;
+    border: 1px solid $block-border-color;
+    border-radius: $border-radius;
+    background: white;
+    transition: border-color $hover-transition-duration ease-in-out;
+    transition-property: border-color, box-shadow;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: $header-padding-vertical $header-padding-horizontal;
+        user-select: none;
+        transition: background-color $hover-transition-duration ease-in-out;
+        cursor: default;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+        min-height: 30px;
+
+        @media (min-width: $screen-sm-min) {
+            padding-left: $content-padding-horizontal - $header-gutter;
+        }
+
+        &--collapsible {
+            cursor: pointer;
+        }
+
+        &--sortable {
+            cursor: grab;
+        }
+
+        &__title, &__icon {
+            color: $header-text-color;
+        }
+
+        &__title {
+            display: inline-block;
+            flex: 1 10 auto;
+            margin: 0;
+            font-size: 12px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        &__icon {
+            margin: 0 $header-gutter;
+            font-size: 20px;
+            transition: color $hover-transition-duration ease-in-out;
+        }
+    }
+
+    &__content {
+        &-inner {
+            padding: $content-padding-vertical $content-padding-horizontal;
+        }
+    }
+
+    &__actions {
+        flex: 0 1 auto;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        overflow-x: hidden;
+
+        &__single {
+            appearance: none;
+            border: 0 none;
+            background: none;
+            cursor: pointer;
+            color: $header-text-color;
+            opacity: 1;
+            transition: opacity $hover-transition-duration ease-in-out, background-color $hover-transition-duration ease-in-out;
+            transition-property: opacity, color, background-color;
+            font-size: $action-font-size;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 0 8px;
+
+            &:not(:last-of-type) {
+                margin-right: 3px;
+            }
+
+            &:focus,
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+
+                i {
+                    color: #333;
+                }
+            }
+
+            i {
+                font-style: normal;
+                transition: color $hover-transition-duration ease-in-out;
+
+                &:before {
+                    vertical-align: top;
+                    margin: 0 0 0 -2px;
+                }
+            }
+
+            &[disabled] {
+                opacity: 0.2;
+                pointer-events: none;
+            }
+        }
+    }
+
+    &__type {
+        margin: 0 $header-gutter;
+        text-align: right;
+        font-size: 12px;
+        color: $header-text-color;
+        user-select: none;
+        vertical-align: 2px;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &.c-sf-block--error {
+        border-color: $error-border-color;
+
+        > .c-sf-block__header {
+            background: $error-background-color;
+        }
+
+        &:hover,
+        &:focus {
+            border-color: $error-border-color-focus;
+
+            > .c-sf-block__header {
+                background: $error-background-color;
+            }
+        }
+
+        // Duplicated because of
+        // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16651302/
+        &:focus-within {
+            border-color: $error-border-color-focus;
+
+            > .c-sf-block__header {
+                background: $error-background-color;
+            }
+        }
+    }
+
+    &:hover,
+    &:focus {
+        border-color: $block-border-color-focus;
+        box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
+
+        > .c-sf-block__header {
+            background: $block-hover-background;
+
+            .c-sf-block__header__title,
+            .c-sf-block__actions__single {
+                color: $header-text-color-focus;
+            }
+        }
+    }
+
+    // Duplicated because of
+    // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16651302/
+    &:focus-within {
+        border-color: $block-border-color-focus;
+        box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
+
+        > .c-sf-block__header {
+            background: $block-hover-background;
+
+            .c-sf-block__header__title,
+            .c-sf-block__actions__single {
+                color: $header-text-color-focus;
+            }
+        }
+    }
+}
