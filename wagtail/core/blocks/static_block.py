@@ -1,3 +1,5 @@
+from django import forms
+from django.utils.functional import cached_property
 from django.utils.safestring import SafeString
 from django.utils.translation import gettext as _
 
@@ -51,8 +53,11 @@ class StaticBlockAdapter(Adapter):
             },
         ]
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
 
 
 register(StaticBlockAdapter(), StaticBlock)
