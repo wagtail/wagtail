@@ -44,14 +44,17 @@ class TableInput(forms.HiddenInput):
         self.table_options = table_options
         super().__init__(attrs=attrs)
 
-    class Media:
-        css = {'all': [
-            versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css')
-        ]}
-        js = [
-            versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
-            versioned_static('table_block/js/table.js')
-        ]
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={'all': [
+                versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css'),
+            ]},
+            js=[
+                versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
+                versioned_static('table_block/js/table.js'),
+            ]
+        )
 
 
 class TableInputAdapter(WidgetAdapter):

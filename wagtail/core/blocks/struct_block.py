@@ -1,5 +1,6 @@
 import collections
 
+from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.template.loader import render_to_string
@@ -28,8 +29,11 @@ class StructBlockValidationErrorAdapter(Adapter):
     def js_args(self, error):
         return [error.block_errors]
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
 
 
 register(StructBlockValidationErrorAdapter(), StructBlockValidationError)
@@ -295,8 +299,11 @@ class StructBlockAdapter(Adapter):
             meta,
         ]
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
 
 
 register(StructBlockAdapter(), StructBlock)

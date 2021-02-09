@@ -5,6 +5,7 @@ import warnings
 from collections import OrderedDict, defaultdict
 from collections.abc import MutableSequence
 
+from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
@@ -44,8 +45,11 @@ class StreamBlockValidationErrorAdapter(Adapter):
             for block_id, child_errors in error.block_errors.items()
         }]
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
 
 
 register(StreamBlockValidationErrorAdapter(), StreamBlockValidationError)
@@ -652,8 +656,11 @@ class StreamBlockAdapter(Adapter):
             meta,
         ]
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
 
 
 register(StreamBlockAdapter(), StreamBlock)
