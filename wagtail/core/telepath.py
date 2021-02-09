@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import MediaDefiningClass
+from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
 
@@ -167,26 +168,16 @@ class Adapter(BaseAdapter, metaclass=MediaDefiningClass):
         )
 
 
-adapters = {
-    # Primitive value types that are unchanged on serialisation
-    type(None): BaseAdapter(),
-    bool: BaseAdapter(),
-    int: BaseAdapter(),
-    float: BaseAdapter(),
-    str: StringAdapter(),
+class JSContextBase:
+    """
+    Base class for JSContext classes obtained through AdapterRegistry.js_context_class.
+    Subclasses of this are assigned a 'registry' class attribute pointing to the associated
+    AdapterRegistry.
 
-    # Container types to be serialised recursively
-    dict: DictAdapter(),
-    # Iterable types (list, tuple, odict_values...) do not have a reliably recognisable
-    # superclass, so will be handled as a special case
-}
-
-
-def register(adapter, cls):
-    adapters[cls] = adapter
-
-
-class JSContext:
+    A JSContext handles packing a set of values to be used in the same request; calls to
+    JSContext.pack will return the packed representation and also update the JSContext's media
+    property to include all JS needed to unpack the values seen so far.
+    """
     def __init__(self):
         self.media = forms.Media(js=[
             versioned_static('wagtailadmin/js/telepath/telepath.js')
@@ -206,6 +197,39 @@ class JSContext:
         return ValueContext(self).pack(obj).emit()
 
 
+class AdapterRegistry:
+    """
+    Manages the mapping of Python types to their corresponding adapter implementations.
+    """
+    def __init__(self):
+        self.adapters = {
+            # Primitive value types that are unchanged on serialisation
+            type(None): BaseAdapter(),
+            bool: BaseAdapter(),
+            int: BaseAdapter(),
+            float: BaseAdapter(),
+            str: StringAdapter(),
+
+            # Container types to be serialised recursively
+            dict: DictAdapter(),
+            # Iterable types (list, tuple, odict_values...) do not have a reliably recognisable
+            # superclass, so will be handled as a special case
+        }
+
+    def register(self, adapter, cls):
+        self.adapters[cls] = adapter
+
+    def find_adapter(self, cls):
+        for base in cls.__mro__:
+            adapter = self.adapters.get(base)
+            if adapter is not None:
+                return adapter
+
+    @cached_property
+    def js_context_class(self):
+        return type('JSContext', (JSContextBase,), {'registry': self})
+
+
 class ValueContext:
     """
     A context instantiated for each top-level value that JSContext.pack is called on.
@@ -217,6 +241,7 @@ class ValueContext:
     """
     def __init__(self, parent_context):
         self.parent_context = parent_context
+        self.registry = parent_context.registry
         self.raw_values = {}
         self.packed_values = {}
         self.next_id = 0
@@ -246,10 +271,9 @@ class ValueContext:
         return existing_packed_val
 
     def _pack_as_value(self, obj):
-        for cls in type(obj).__mro__:
-            adapter = adapters.get(cls)
-            if adapter:
-                return adapter.pack(obj, self)
+        adapter = self.registry.find_adapter(type(obj))
+        if adapter:
+            return adapter.pack(obj, self)
 
         # as fallback, try handling as an iterable
         try:
@@ -258,3 +282,14 @@ class ValueContext:
             raise UnpackableTypeError("don't know how to pack object: %r" % obj)
         else:
             return ListNode([self.pack(item) for item in items])
+
+
+# define a default registry of adapters. Typically this will be the only instance of
+# AdapterRegistry in use, although packages may define their own 'private' registry if they
+# have a set of adapters customised for their own use (e.g. with a custom JS path).
+registry = AdapterRegistry()
+JSContext = registry.js_context_class
+
+
+def register(adapter, cls):
+    registry.register(adapter, cls)
