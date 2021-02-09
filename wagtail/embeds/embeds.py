@@ -42,6 +42,10 @@ def get_embed(url, max_width=None, finder=None):
     if 'html' not in embed_dict or not embed_dict['html']:
         embed_dict['html'] = ''
 
+    # If the finder does not return an thumbnail_url, convert null to '' before inserting into the db
+    if 'thumbnail_url' not in embed_dict or not embed_dict['thumbnail_url']:
+        embed_dict['thumbnail_url'] = ''
+
     # Create database record
     embed, created = Embed.objects.get_or_create(
         hash=embed_hash,

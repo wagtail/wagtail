@@ -128,7 +128,6 @@ class TestEmbeds(TestCase):
         return {
             'title': "Test: " + url,
             'type': 'video',
-            'thumbnail_url': '',
             'width': max_width if max_width else 640,
             'height': 480,
             'html': "<p>Blah blah blah</p>",
@@ -142,6 +141,7 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.title, "Test: www.test.com/1234")
         self.assertEqual(embed.type, 'video')
         self.assertEqual(embed.width, 400)
+        self.assertEqual(embed.thumbnail_url, '')
 
         # Check ratio calculations
         self.assertEqual(embed.ratio, 480 / 400)
@@ -518,7 +518,6 @@ class TestFacebookOEmbed(TestCase):
                     "title": "test_title",
                     "author_name": "test_author",
                     "provider_name": "Facebook",
-                    "thumbnail_url": "test_thumbail_url",
                     "width": "test_width",
                     "height": "test_height",
                     "html": "<blockquote class=\\\"facebook-media\\\">Content</blockquote>"
@@ -539,7 +538,7 @@ class TestFacebookOEmbed(TestCase):
             'title': 'test_title',
             'author_name': 'test_author',
             'provider_name': 'Facebook',
-            'thumbnail_url': 'test_thumbail_url',
+            'thumbnail_url': None,
             'width': 'test_width',
             'height': 'test_height',
             'html': '<blockquote class="facebook-media">Content</blockquote>'
