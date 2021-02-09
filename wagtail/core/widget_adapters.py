@@ -5,6 +5,7 @@ and extract field values.
 """
 
 from django import forms
+from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
@@ -23,10 +24,11 @@ class WidgetAdapter(Adapter):
         media = super().get_media(widget)
         return media + widget.media
 
-    class Media:
-        js = [
-            versioned_static('wagtailadmin/js/telepath/widgets.js')
-        ]
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/widgets.js'),
+        ])
 
 
 register(WidgetAdapter(), forms.widgets.Input)

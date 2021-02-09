@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.admin.utils import quote
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
@@ -68,7 +69,7 @@ class AdminSnippetChooser(AdminChooser):
             model=json.dumps(self.model_string)
         )
 
-    @property
+    @cached_property
     def media(self):
         return forms.Media(js=[
             versioned_static('wagtailsnippets/js/snippet-chooser-modal.js'),
@@ -85,10 +86,11 @@ class SnippetChooserAdapter(WidgetAdapter):
             widget.id_for_label('__ID__'), widget.model_string
         ]
 
-    class Media:
-        js = [
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
             versioned_static('wagtailsnippets/js/snippet-chooser-telepath.js'),
-        ]
+        ])
 
 
 register(SnippetChooserAdapter(), AdminSnippetChooser)

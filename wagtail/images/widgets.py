@@ -3,6 +3,7 @@ import json
 from django import forms
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
@@ -77,10 +78,11 @@ class ImageChooserAdapter(WidgetAdapter):
             widget.id_for_label('__ID__'),
         ]
 
-    class Media:
-        js = [
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
             versioned_static('wagtailimages/js/image-chooser-telepath.js'),
-        ]
+        ])
 
 
 register(ImageChooserAdapter(), AdminImageChooser)
