@@ -1,7 +1,9 @@
 import itertools
 
+from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
+from django.utils.functional import cached_property
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
 
@@ -26,8 +28,11 @@ class ListBlockValidationErrorAdapter(Adapter):
     def js_args(self, error):
         return [[elist.as_data() if elist is not None else elist for elist in error.block_errors]]
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
 
 
 register(ListBlockValidationErrorAdapter(), ListBlockValidationError)
@@ -184,8 +189,11 @@ class ListBlockAdapter(Adapter):
             meta,
         ]
 
-    class Media:
-        js = [versioned_static('wagtailadmin/js/telepath/blocks.js')]
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
 
 
 register(ListBlockAdapter(), ListBlock)
