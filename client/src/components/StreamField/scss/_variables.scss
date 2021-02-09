@@ -1,6 +1,6 @@
 $grid-gutter-width: 30px !default;
 $header-padding-horizontal: 4px !default;
-$header-padding-vertical: 4px !default;
+$header-padding-vertical: 6px;
 $header-gutter: 8px !default;
 $block-margin-vertical: 4px !default;
 $block-margin-horizontal: 0 !default;
@@ -11,7 +11,7 @@ $type-button-padding-horizontal: 10px !default;
 $children-container-padding: $add-button-size / 2 !default;
 $content-padding-horizontal: 24px !default;
 $content-padding-vertical: 16px !default;
-$action-font-size: 15px !default;
+$action-font-size: 18px;
 $add-transition-duration: 0.3s !default;
 $hover-transition-duration: 0.3s !default;
 $bounce-transition-timing: cubic-bezier(0.175, 0.885, 0.32, 1.275) !default;
