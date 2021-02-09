@@ -1,0 +1,58 @@
+.c-sf-button {
+    $root: &;
+    display: flex;
+    flex: 1 1 200px;
+    margin: $add-panel-gutter;
+    appearance: none;
+    background: #eee;
+    padding: $type-button-padding-vertical $type-button-padding-horizontal;
+    border: 0 none;
+    border-radius: $border-radius;
+    outline: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color $hover-transition-duration ease-in-out;
+
+    &:hover,
+    &:focus {
+        background-color: $teal;
+
+        #{$root}__icon,
+        #{$root}__label {
+            color: white;
+        }
+    }
+
+    // Fallback for no `grid` support in IE11
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        display: inline-block;
+        margin: 0 10px 10px 0;
+    }
+
+    &__icon,
+    &__label {
+        display: inline-block;
+
+        // Fixes for label elements getting global `label` styles from Wagtail -@jonnyscholes
+        color: #333;
+        font-weight: 600;
+        font-size: 12px;
+        font-family: 'Open Sans', sans-serif;
+        transition: color $hover-transition-duration ease-in-out;
+    }
+
+    &__icon {
+        font-size: 16px;
+        padding-right: $type-button-padding-horizontal;
+
+        .icon {
+            &::before {
+                vertical-align: initial;
+            }
+        }
+    }
+
+    &__label {
+        padding-top: 2px;
+    }
+}
