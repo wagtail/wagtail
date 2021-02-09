@@ -1,0 +1,50 @@
+.c-sf-container {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: $children-container-padding 0;
+    transition: padding $hover-transition-duration ease-in-out;
+
+    &__block-container {
+        position: relative;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    &--add-in-gutter {
+        @media (min-width: $screen-sm-min) {
+            padding-left: $add-button-size;
+
+            .c-sf-add-button {
+                width: $add-button-size;
+                height: 0;
+                transform: translate(-100%, -$add-button-size / 2);
+                overflow: visible;
+            }
+        }
+    }
+
+    // TODO: Remove these references to classes that are styled by core Wagtail CSS. The best
+    // opportunity for this is propably as part of Wagtails general CSS overhaul. -@jonnyscholes
+    .field {
+        + .field {
+            padding-top: $grid-gutter-width / 2;
+        }
+
+        &__label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: $grid-gutter-width / 4;
+        }
+
+        &.required > label::after {
+            content: '*';
+            color: #cd3238;
+            font-weight: 700;
+            display: inline-block;
+            margin-left: 0.5em;
+            line-height: 1em;
+            font-size: 13px;
+        }
+    }
+}

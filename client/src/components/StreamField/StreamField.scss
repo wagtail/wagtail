@@ -1,8 +1,7 @@
 $header-padding-vertical: 6px;
 $action-font-size: 18px;
 
-
-@use '../../../../node_modules/react-streamfield/src/scss/index' with (
+@use './scss/index' with (
     $teal: $color-teal,
     $error-color: $color-red,
 );
