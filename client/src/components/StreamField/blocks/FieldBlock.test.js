@@ -13,11 +13,16 @@ let getValue = (_widgetName) => {};
 let focus = (_widgetName) => {};
 
 class DummyWidgetDefinition {
-  constructor(widgetName) {
+  constructor(widgetName, { throwErrorOnRender = false } = {}) {
     this.widgetName = widgetName;
+    this.throwErrorOnRender = throwErrorOnRender;
   }
 
   render(placeholder, name, id, initialState) {
+    if (this.throwErrorOnRender) {
+      throw new Error();
+    }
+
     const widgetName = this.widgetName;
     constructor(widgetName, { name, id, initialState });
 
@@ -102,5 +107,43 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
     boundBlock.focus();
     expect(focus.mock.calls.length).toBe(1);
     expect(focus.mock.calls[0][0]).toBe('The widget');
+  });
+});
+
+describe('telepath: wagtail.blocks.FieldBlock catches widget render errors', () => {
+  let boundBlock;
+
+  beforeEach(() => {
+    // Create mocks for callbacks
+    constructor = jest.fn();
+    setState = jest.fn();
+    getState = jest.fn();
+    getValue = jest.fn();
+    focus = jest.fn();
+
+    // Define a test block
+    const blockDef = new FieldBlockDefinition(
+      'test_field',
+      new DummyWidgetDefinition('The widget', { throwErrorOnRender: true }),
+      {
+        label: 'Test Field',
+        required: true,
+        icon: 'placeholder',
+        classname: 'field char_field widget-text_input fieldname-test_charblock',
+        helpText: 'drink <em>more</em> water'
+      }
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render(
+      $('#placeholder'),
+      'the-prefix',
+      'Test initial state'
+    );
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
   });
 });
