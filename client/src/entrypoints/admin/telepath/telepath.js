@@ -1,3 +1,3 @@
-import Telepath from '../../../utils/telepath';
+import Telepath from 'telepath-unpack';
 
 window.telepath = new Telepath();
