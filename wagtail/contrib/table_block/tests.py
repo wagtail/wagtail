@@ -1,7 +1,7 @@
 import json
-import unittest
 
 from django.test import SimpleTestCase, TestCase
+from django.test.selenium import SeleniumTestCase
 from django.urls import reverse
 from django.utils import translation
 
@@ -407,8 +407,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         self.assertIn('Brenik', search_content)
 
 
-# TODO(telepath) replace this with a functional test
-class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
+class TestTableBlockPageEdit(SeleniumTestCase, WagtailTestUtils):
     def setUp(self):
         self.value = {
             'first_row_is_table_header': True,
@@ -429,18 +428,16 @@ class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
         self.table_block_page = self.root_page.add_child(instance=table_block_page_instance)
         self.user = self.login()
 
-    @unittest.expectedFailure
-    def test_page_edit_page_view(self):
-        """
-        Test that edit page loads with saved table data and correct init function.
-        """
-        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.table_block_page.id,)))
-        # check page + field renders
-        self.assertContains(response, '<div data-contentpath="table" class="field char_field widget-table_input fieldname-table">')
-        # check data
-        self.assertContains(response, 'Battlestar')
-        self.assertContains(response, 'Galactica')
-        # check init
-        self.assertContains(response, 'initTable("table\\u002D0\\u002Dvalue"')
-        self.assertContains(response, 'minSpareRows')
-        self.assertContains(response, 'startRows')
+        # Add the session id cookie
+        # Note: We must open a tab before adding the cookie: https://stackoverflow.com/questions/48352380/org-openqa-selenium-invalidcookiedomainexception-document-is-cookie-averse-usin
+        self.selenium.get(self.live_server_url)
+        self.selenium.add_cookie({'name': 'sessionid', 'value': self.client.cookies['sessionid'].coded_value})
+
+        self.set_selenium_viewport_size(1440, 2000)
+
+    def test_edit_page_view(self):
+        self.selenium.get(self.live_server_url + reverse('wagtailadmin_pages:edit', args=[self.table_block_page.id]))
+
+        table_widget = self.selenium.find_element_by_css_selector('.widget-table_input')
+
+        self.assertScreenshotMatches('table_block/simple', table_widget)
