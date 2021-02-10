@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`telepath: wagtail.blocks.FieldBlock catches widget render errors it renders correctly 1`] = `
+"<div class=\\"field char_field widget-text_input fieldname-test_charblock error\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <div data-streamfield-widget=\\"\\"></div>
+            <span></span>
+          </div>
+        <p class=\\"error-message\\"><span>This widget failed to render, please check the console for details</span></p></div>
+      </div>"
+`;
+
 exports[`telepath: wagtail.blocks.FieldBlock it renders correctly 1`] = `
 "<div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
         <div class=\\"field-content\\">

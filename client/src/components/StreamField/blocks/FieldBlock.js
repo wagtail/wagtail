@@ -20,7 +20,18 @@ export class FieldBlock {
     $(placeholder).replaceWith(dom);
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
     this.element = dom[0];
-    this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix, initialState);
+
+    try {
+      this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix, initialState);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+      this.setError([
+        ['This widget failed to render, please check the console for details']
+      ]);
+      return;
+    }
+
     this.idForLabel = this.widget.idForLabel;
 
     if (this.blockDef.meta.helpText) {
@@ -36,7 +47,9 @@ export class FieldBlock {
   }
 
   setState(state) {
-    this.widget.setState(state);
+    if (this.widget) {
+      this.widget.setState(state);
+    }
   }
 
   setError(errorList) {
@@ -63,7 +76,9 @@ export class FieldBlock {
   }
 
   focus() {
-    this.widget.focus();
+    if (this.widget) {
+      this.widget.focus();
+    }
   }
 }
 
