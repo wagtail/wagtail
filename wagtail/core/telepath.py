@@ -171,21 +171,24 @@ class Adapter(BaseAdapter, metaclass=MediaDefiningClass):
 class JSContextBase:
     """
     Base class for JSContext classes obtained through AdapterRegistry.js_context_class.
-    Subclasses of this are assigned a 'registry' class attribute pointing to the associated
-    AdapterRegistry.
+    Subclasses of this are assigned the following class attributes:
+    registry - points to the associated AdapterRegistry
+    telepath_js_path - path to telepath.js (as per standard Django staticfiles conventions)
 
     A JSContext handles packing a set of values to be used in the same request; calls to
     JSContext.pack will return the packed representation and also update the JSContext's media
     property to include all JS needed to unpack the values seen so far.
     """
     def __init__(self):
-        self.media = forms.Media(js=[
-            versioned_static('wagtailadmin/js/telepath/telepath.js')
-        ])
+        self.media = self.base_media
 
         # Keep track of media declarations that have already added to self.media - ones that
         # exactly match a previous one can be ignored, as they will not affect the result
         self.media_fragments = set([str(self.media)])
+
+    @property
+    def base_media(self):
+        return forms.Media(js=[self.telepath_js_path])
 
     def add_media(self, media):
         media_str = str(media)
@@ -201,7 +204,10 @@ class AdapterRegistry:
     """
     Manages the mapping of Python types to their corresponding adapter implementations.
     """
-    def __init__(self):
+    js_context_base_class = JSContextBase
+
+    def __init__(self, telepath_js_path='telepath/js/telepath.js'):
+        self.telepath_js_path = telepath_js_path
         self.adapters = {
             # Primitive value types that are unchanged on serialisation
             type(None): BaseAdapter(),
@@ -227,7 +233,10 @@ class AdapterRegistry:
 
     @cached_property
     def js_context_class(self):
-        return type('JSContext', (JSContextBase,), {'registry': self})
+        return type('JSContext', (self.js_context_base_class,), {
+            'registry': self,
+            'telepath_js_path': self.telepath_js_path
+        })
 
 
 class ValueContext:
@@ -284,10 +293,38 @@ class ValueContext:
             return ListNode([self.pack(item) for item in items])
 
 
+# ------ cut ------
+# TEMP: this is how telepath as a standalone package is going to define a default registry
+
 # define a default registry of adapters. Typically this will be the only instance of
 # AdapterRegistry in use, although packages may define their own 'private' registry if they
 # have a set of adapters customised for their own use (e.g. with a custom JS path).
-registry = AdapterRegistry()
+
+# registry = AdapterRegistry()
+# JSContext = registry.js_context_class
+
+
+# def register(adapter, cls):
+#     registry.register(adapter, cls)
+# ------ cut ------
+
+
+# Wagtail-specific customisation to use versioned_static and wagtail-specific JS path
+
+
+class WagtailJSContextBase(JSContextBase):
+    @property
+    def base_media(self):
+        return forms.Media(js=[
+            versioned_static(self.telepath_js_path),
+        ])
+
+
+class WagtailAdapterRegistry(AdapterRegistry):
+    js_context_base_class = WagtailJSContextBase
+
+
+registry = WagtailAdapterRegistry(telepath_js_path='wagtailadmin/js/telepath/telepath.js')
 JSContext = registry.js_context_class
 
 
