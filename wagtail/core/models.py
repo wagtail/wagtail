@@ -759,10 +759,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     )
 
     seo_title = models.CharField(
-        verbose_name=_("page title"),
+        verbose_name=_("title tag"),
         max_length=255,
         blank=True,
-        help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")
+        help_text=_("The name of the page displayed on search engine results as the clickable headline.")
     )
 
     show_in_menus_default = False
@@ -771,7 +771,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         default=False,
         help_text=_("Whether a link to this page will appear in automatically generated menus")
     )
-    search_description = models.TextField(verbose_name=_('search description'), blank=True)
+    search_description = models.TextField(
+        verbose_name=_('meta description'),
+        blank=True,
+        help_text=_("The descriptive text displayed underneath a headline in search engine results.")
+    )
 
     go_live_at = models.DateTimeField(
         verbose_name=_("go live date/time"),
