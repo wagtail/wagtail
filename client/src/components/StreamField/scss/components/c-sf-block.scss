@@ -8,13 +8,12 @@
 //
 // However, the new classes adequately sanitise streamfield only CSS so am leaving this for
 // now to avoid blocking the release of the new Streamfield. -@jonnyscholes
-
 .c-sf-block {
     flex: 1 1 auto;
     margin: $block-margin-vertical $block-margin-horizontal;
     border: 1px solid $block-border-color;
     border-radius: $border-radius;
-    background: white;
+    background: #fff;
     transition: border-color $hover-transition-duration ease-in-out;
     transition-property: border-color, box-shadow;
 
@@ -42,7 +41,8 @@
             cursor: grab;
         }
 
-        &__title, &__icon {
+        &__title,
+        &__icon {
             color: $header-text-color;
         }
 
@@ -100,6 +100,7 @@
             &:hover {
                 background-color: rgba(0, 0, 0, 0.05);
 
+                /* stylelint-disable-next-line max-nesting-depth */
                 i {
                     color: #333;
                 }
@@ -109,6 +110,7 @@
                 font-style: normal;
                 transition: color $hover-transition-duration ease-in-out;
 
+                /* stylelint-disable-next-line max-nesting-depth */
                 &:before {
                     vertical-align: top;
                     margin: 0 0 0 -2px;

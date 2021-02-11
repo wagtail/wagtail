@@ -56,6 +56,7 @@
                 margin-bottom: 1.1em;
                 vertical-align: middle;
 
+                /* stylelint-disable-next-line max-nesting-depth */
                 &::before {
                     top: unset;
                 }
