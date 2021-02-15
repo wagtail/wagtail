@@ -161,7 +161,9 @@ class BaseDateTimeWidget extends Widget {
             setState(state) {
                 element.value = state;
             },
-            focus() {
+            focus(opts) {
+                // focusing opens the date picker, so don't do this if it's a 'soft' focus
+                if (opts && opts.soft) return;
                 element.focus();
             },
             idForLabel: id,
