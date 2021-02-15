@@ -113,10 +113,10 @@ export class StructBlock {
     return value;
   }
 
-  focus() {
+  focus(opts) {
     if (this.blockDef.childBlockDefs.length) {
       const firstChildName = this.blockDef.childBlockDefs[0].name;
-      this.childBlocks[firstChildName].focus();
+      this.childBlocks[firstChildName].focus(opts);
     }
   }
 }

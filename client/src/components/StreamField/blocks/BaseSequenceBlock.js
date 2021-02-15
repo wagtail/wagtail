@@ -136,8 +136,8 @@ export class BaseSequenceChild {
     this.block.setError(error);
   }
 
-  focus() {
-    this.block.focus();
+  focus(opts) {
+    this.block.focus(opts);
   }
 }
 
@@ -204,7 +204,8 @@ export class BaseSequenceBlock {
     /* handler for an 'insert new block' action */
     const [blockDef, initialState] = this._getChildDataForInsertion(opts);
     const newChild = this._insert(blockDef, initialState, null, index, { animate: true });
-    newChild.focus();
+    // focus the newly added field if we can do so without obtrusive UI behaviour
+    newChild.focus({ soft: true });
   }
 
 
@@ -369,9 +370,9 @@ export class BaseSequenceBlock {
     return this.children.map(child => child.getValue());
   }
 
-  focus() {
+  focus(opts) {
     if (this.children.length) {
-      this.children[0].focus();
+      this.children[0].focus(opts);
     }
   }
 }
