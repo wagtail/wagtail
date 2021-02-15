@@ -75,9 +75,9 @@ export class FieldBlock {
     return this.widget.getValue();
   }
 
-  focus() {
+  focus(opts) {
     if (this.widget) {
-      this.widget.focus();
+      this.widget.focus(opts);
     }
   }
 }

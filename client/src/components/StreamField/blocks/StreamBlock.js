@@ -295,7 +295,8 @@ export class StreamBlock extends BaseSequenceBlock {
     const childState = this.children[index].getState();
     childState.id = null;
     this.insert(childState, index + 1, { animate: true });
-    this.children[index + 1].focus();
+    // focus the newly added field if we can do so without obtrusive UI behaviour
+    this.children[index + 1].focus({ soft: true });
 
     this.checkBlockCounts();
   }
