@@ -53,6 +53,7 @@ Adding further blocks in StreamField
 * To add new blocks, click the '+' icons above or below the existing blocks.
 * You'll then be presented once again with the different blocks from which you may choose.
 * You can cancel the addition of a new block by clicking the cross at the top of the block selection interface.
+* You can duplicate a block (including the content) using the button towards the top right corner of an existing block.
 
 Reordering and deleting content in StreamField
 ==============================================
