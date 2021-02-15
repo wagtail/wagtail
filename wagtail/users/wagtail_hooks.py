@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.apps import apps
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Q
@@ -23,25 +23,32 @@ def register_admin_urls():
     ]
 
 
-def get_group_view_set_cls():
-    viewset_setting = 'WAGTAIL_GROUP_VIEW_SET'
-    if hasattr(settings, viewset_setting):
+def get_group_viewset_cls(app_config):
+    if app_config.group_viewset is None:
+        group_viewset_cls = GroupViewSet
+    else:
+        if not isinstance(app_config.group_viewset, str):
+            raise ImproperlyConfigured(
+                "'{:s}.group_viewset' refers to a class that is not class path".format(
+                    app_config.__class__.__name__
+                )
+            )
         try:
-            group_view_set_cls = import_string(getattr(settings, viewset_setting))
+            group_viewset_cls = import_string(app_config.group_viewset)
         except ImportError:
             raise ImproperlyConfigured(
-                "%s refers to a class '%s' that is not available" %
-                (viewset_setting, getattr(settings, viewset_setting))
+                "'{:s}.group_viewset' refers to a class that is not available".format(
+                    app_config.__class__.__name__
+                )
             )
-    else:
-        group_view_set_cls = GroupViewSet
-    return group_view_set_cls
+    return group_viewset_cls
 
 
 @hooks.register('register_admin_viewset')
 def register_viewset():
-    group_view_set_cls = get_group_view_set_cls()
-    return group_view_set_cls('wagtailusers_groups', url_prefix='groups')
+    app_config = apps.get_app_config("wagtailusers")
+    group_viewset_cls = get_group_viewset_cls(app_config)
+    return group_viewset_cls('wagtailusers_groups', url_prefix='groups')
 
 
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
