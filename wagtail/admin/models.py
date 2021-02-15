@@ -13,10 +13,9 @@ from wagtail.core.models import Page
 
 # A dummy model that exists purely to attach the access_admin permission type to, so that it
 # doesn't get identified as a stale content type and removed by the remove_stale_contenttypes
-# management command. managed = False ensures that this doesn't create a database table.
+# management command.
 class Admin(Model):
     class Meta:
-        managed = False
         default_permissions = []  # don't create the default add / change / delete / view perms
         permissions = [
             ('access_admin', "Can access Wagtail admin"),
