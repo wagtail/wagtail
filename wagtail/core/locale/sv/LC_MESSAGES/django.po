@@ -4,7 +4,7 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020
+# Martin Sandström <martin@marteinn.se>, 2020-2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2016-2017
 msgid ""
@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-02-02 19:20+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -518,6 +518,15 @@ msgstr "Du behöver ett lösenord för åtkomst till sidan."
 
 msgid "Continue"
 msgstr "Fortsätt"
+
+msgid "English"
+msgstr "Engelska"
+
+msgid "French"
+msgstr "Franska"
+
+msgid "German"
+msgstr "Tyska"
 
 #, python-format
 msgid "%(count)s descendant collection"

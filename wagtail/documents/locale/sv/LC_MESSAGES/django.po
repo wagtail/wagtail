@@ -4,15 +4,15 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020
+# Martin Sandström <martin@marteinn.se>, 2020-2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:31+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-02-02 19:28+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,12 @@ msgstr "Redigera"
 
 msgid "Edit any document"
 msgstr "Redigera alla dokument"
+
+msgid "Choose"
+msgstr "Välj"
+
+msgid "Select documents in choosers"
+msgstr "Markera dokument i väljare"
 
 msgid "title"
 msgstr "titel"
