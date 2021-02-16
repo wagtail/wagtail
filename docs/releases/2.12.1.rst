@@ -14,5 +14,6 @@ Bug fixes
 ~~~~~~~~~
 
  * Ensure aliases are published when the source page is published (Karl Hobley)
+ * Make page privacy rules apply to aliases (Karl Hobley)
  * Prevent error when saving embeds that do not include a thumbnail URL (Cynthia Kiser)
  * Prevent failure when running ``manage.py dumpdata`` with no arguments (Matt Westcott)
