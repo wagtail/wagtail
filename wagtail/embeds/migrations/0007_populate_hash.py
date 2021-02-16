@@ -1,4 +1,5 @@
 from django.db import migrations
+from django.db.models import Count, Min
 
 from wagtail.embeds.embeds import get_embed_hash
 
@@ -27,6 +28,14 @@ def migrate_forwards(apps, schema_editor):
     # save any leftovers
     if batch:
         Embed.objects.bulk_update(batch, ["hash"])
+
+    # delete duplicates
+    duplicates = Embed.objects.values('hash').annotate(
+        hash_count=Count('id'), min_id=Min('id')
+    ).filter(hash_count__gt=1)
+    for dup in duplicates:
+        # for each duplicated hash, delete all except the one with the lowest id
+        Embed.objects.filter(hash=dup['hash']).exclude(id=dup['min_id']).delete()
 
 
 class Migration(migrations.Migration):
