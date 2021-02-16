@@ -47,6 +47,7 @@ Changelog
 
  * Fix: Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
  * Fix: Ensure aliases are published when the source page is published (Karl Hobley)
+ * Fix: Make page privacy rules apply to aliases (Karl Hobley)
 
 
 2.11.3 (10.12.2020)
