@@ -1,5 +1,6 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 
 from wagtail.core.models import Orderable, Page, TranslatableMixin
 
@@ -30,3 +31,20 @@ class TestNonParentalChildObject(TranslatableMixin, Orderable):
         TestPage, on_delete=models.CASCADE, related_name="test_nonparentalchildobjects"
     )
     field = models.TextField()
+
+
+class ClusterableTestModel(TranslatableMixin, ClusterableModel):
+    title = models.CharField(max_length=255)
+
+
+class ClusterableTestModelChild(Orderable):
+    parent = ParentalKey(ClusterableTestModel, on_delete=models.CASCADE, related_name='children')
+    field = models.TextField()
+
+
+class ClusterableTestModelTranslatableChild(TranslatableMixin, Orderable):
+    parent = ParentalKey(ClusterableTestModel, on_delete=models.CASCADE, related_name='translatable_children')
+    field = models.TextField()
+
+    class Meta(TranslatableMixin.Meta, Orderable.Meta):
+        pass

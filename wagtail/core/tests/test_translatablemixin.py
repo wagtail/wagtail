@@ -5,7 +5,9 @@ from django.core import checks
 from django.test import TestCase
 
 from wagtail.core.models import Locale
-from wagtail.tests.i18n.models import InheritedTestModel, TestModel
+from wagtail.tests.i18n.models import (
+    ClusterableTestModel, ClusterableTestModelChild, ClusterableTestModelTranslatableChild,
+    InheritedTestModel, TestModel)
 
 
 def make_test_instance(model=None, **kwargs):
@@ -107,6 +109,46 @@ class TestTranslatableMixin(TestCase):
         # test with a model that inherits from `TestModel`
         inherited_model = make_test_instance(model=InheritedTestModel)
         self.assertEqual(inherited_model.get_translation_model(), TestModel)
+
+    def test_copy_inherited_model_for_translation(self):
+        instance = make_test_instance(model=InheritedTestModel)
+        copy = instance.copy_for_translation(locale=self.another_locale)
+
+        self.assertNotEqual(copy, instance)
+        self.assertEqual(copy.translation_key, instance.translation_key)
+        self.assertEqual(copy.locale, self.another_locale)
+
+    def test_copy_clusterable_model_for_translation(self):
+        instance = ClusterableTestModel.objects.create(
+            title="A test clusterable model",
+            children=[
+                ClusterableTestModelChild(field="A non-translatable child object"),
+            ],
+            translatable_children=[
+                ClusterableTestModelTranslatableChild(field="A translatable child object"),
+            ]
+        )
+
+        copy = instance.copy_for_translation(locale=self.another_locale)
+
+        instance_child = instance.children.get()
+        copy_child = copy.children.get()
+        instance_translatable_child = instance.translatable_children.get()
+        copy_translatable_child = copy.translatable_children.get()
+
+        self.assertNotEqual(copy, instance)
+        self.assertEqual(copy.translation_key, instance.translation_key)
+        self.assertEqual(copy.locale, self.another_locale)
+
+        # Check children were copied
+        self.assertNotEqual(copy_child, instance_child)
+        self.assertEqual(copy_child.field, "A non-translatable child object")
+        self.assertNotEqual(copy_translatable_child, instance_translatable_child)
+        self.assertEqual(copy_translatable_child.field, "A translatable child object")
+
+        # Check the translatable childs locale was updated but translation key is the same
+        self.assertEqual(copy_translatable_child.translation_key, instance_translatable_child.translation_key)
+        self.assertEqual(copy_translatable_child.locale, self.another_locale)
 
 
 class TestLocalized(TestCase):
