@@ -2694,7 +2694,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         add_page_to_check_list(self)
 
         # Check each ancestor for view restrictions as well
-        for page in self.get_ancestors():
+        for page in self.get_ancestors().only('alias_of'):
             add_page_to_check_list(page)
 
         return PageViewRestriction.objects.filter(page_id__in=page_ids_to_check)
