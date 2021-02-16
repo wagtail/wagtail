@@ -152,7 +152,11 @@ def _copy(source, exclude_fields=None, update_attrs=None):
                 continue
             setattr(target, field, value)
 
-    child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
+    if isinstance(source, ClusterableModel):
+        child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
+    else:
+        child_object_map = {}
+
     return target, child_object_map
 
 
@@ -491,9 +495,14 @@ class TranslatableMixin(models.Model):
 
         Note that the copy is initially unsaved.
         """
-        translated = self.__class__.objects.get(id=self.id)
-        translated.id = None
+        translated, child_object_map = _copy(self)
         translated.locale = locale
+
+        # Update locale on any translatable child objects as well
+        # Note: If this is not a subclass of ClusterableModel, child_object_map will always be '{}'
+        for (child_relation, old_pk), child_object in child_object_map.items():
+            if isinstance(child_object, TranslatableMixin):
+                child_object.locale = locale
 
         return translated
 
