@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.12.1 (xx.xx.xxxx) - IN DEVELOPMENT
+2.12.1 (16.02.2021)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure aliases are published when the source page is published (Karl Hobley)
