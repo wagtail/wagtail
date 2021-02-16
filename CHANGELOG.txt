@@ -17,6 +17,7 @@ Changelog
  * Fix: Ensure aliases are published when the source page is published (Karl Hobley)
  * Fix: Make page privacy rules apply to aliases (Karl Hobley)
  * Fix: Prevent error when saving embeds that do not include a thumbnail URL (Cynthia Kiser)
+ * Fix: Ensure that duplicate embed records are deleted when upgrading (Matt Westcott)
  * Fix: Prevent failure when running `manage.py dumpdata` with no arguments (Matt Westcott)
 
 
