@@ -44,3 +44,9 @@ The permission rules for images and documents work on a similar basis to pages. 
 Access to specific sets of images and documents can be controlled by setting up *collections*. By default all images and documents belong to the 'root' collection, but new collections can be created through the Settings -> Collections area of the admin interface. Permissions set on 'root' apply to all collections, so a user with 'edit' permission for images on root can edit all images; permissions set on other collections apply to that collection only.
 
 The 'choose' permission for images and documents determines which collections are visible within the chooser interface used to select images and document links for insertion into pages (and other models, such as snippets). Typically, all users are granted choose permission for all collections, allowing them to use any uploaded image or document on pages they create, but this permission can be limited to allow creating collections that are only available for use by specific groups.
+
+
+Displaying custom permissions in the admin
+------------------------------------------
+
+Most permissions will automatically show up in the wagtail admin Group edit form, however, you can also add them using the ``register_permissions`` hook (see :ref:`register_permissions`).

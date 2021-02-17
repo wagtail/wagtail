@@ -389,6 +389,21 @@ More details about the options that are available can be found at :doc:`/extendi
 
   Return a QuerySet of ``Permission`` objects to be shown in the Groups administration area.
 
+  .. code-block:: python
+
+      from django.contrib.auth.models import Permission
+      from wagtail.core import hooks
+
+
+      @hooks.register('register_permissions')
+      def register_permissions():
+          app = 'blog'
+          model = 'extramodelset'
+
+          return Permission.objects.filter(content_type__app_label=app, codename__in=[
+              f"view_{model}", f"add_{model}", f"change_{model}", f"delete_{model}"
+          ])
+
 
 .. _filter_form_submissions_for_user:
 
