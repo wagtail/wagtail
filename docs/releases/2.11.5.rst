@@ -1,0 +1,16 @@
+============================
+Wagtail 2.11.5 release notes
+============================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Pin django-treebeard to <4.5 to prevent migration conflicts (Matt Westcott)

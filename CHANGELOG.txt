@@ -44,6 +44,12 @@ Changelog
  * Fix: Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
 
 
+2.11.5 (18.02.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin django-treebeard to <4.5 to prevent migration conflicts (Matt Westcott)
+
+
 2.11.4 (16.02.2021)
 ~~~~~~~~~~~~~~~~~~~
 
