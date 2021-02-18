@@ -7,6 +7,7 @@ Release notes
    upgrading
    2.12.1
    2.12
+   2.11.5
    2.11.4
    2.11.3
    2.11.2
