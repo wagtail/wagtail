@@ -11,6 +11,12 @@ Changelog
  * Fix: Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
 
 
+2.12.2 (18.02.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Pin django-treebeard to <4.5 to prevent migration conflicts (Matt Westcott)
+
+
 2.12.1 (16.02.2021)
 ~~~~~~~~~~~~~~~~~~~
 
