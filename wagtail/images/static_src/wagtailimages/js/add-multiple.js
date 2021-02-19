@@ -59,7 +59,7 @@ $(function() {
                     data.context.each(function(index) {
                         var error = data.files[index].error;
                         if (error) {
-                            $(this).find('.error_messages').text(error);
+                            $(this).find('.error_messages').html(error);
                         }
                     });
                 }

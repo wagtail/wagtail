@@ -28,6 +28,7 @@ Other features
  * Simplify generic admin view templates plus ensure ``page_title`` and ``page_subtitle`` are used consistently (Matt Westcott)
  * Extend support for :ref:`collapsing edit panels <collapsible>` from just MultiFieldPanels to all kinds of panels (Fabien Le Frapper, Robbie Mackay)
  * Add object count to header within modeladmin listing view (Jonathan "Yoni" Knoll)
+ * Add ability to return HTML in multiple image upload errors (Gordon Pendleton)
 
 Bug fixes
 ~~~~~~~~~

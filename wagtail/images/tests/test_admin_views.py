@@ -3,9 +3,13 @@ import json
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
-from django.test import TestCase, override_settings
+from django.template.loader import render_to_string
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
+from django.utils.encoding import force_str
+from django.utils.html import escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlquote
+from django.utils.safestring import mark_safe
 
 from wagtail.core.models import Collection, GroupCollectionPermission, get_root_collection_id
 from wagtail.images.models import UploadedImage
@@ -1296,7 +1300,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
     """
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -1328,6 +1332,54 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertEqual(
             response.context['error_max_file_size'], "This file is too big. Maximum filesize 1000\xa0bytes."
         )
+
+    def test_add_error_max_file_size_escaped(self):
+        url = reverse('wagtailimages:add_multiple')
+        template_name = 'wagtailimages/multiple/add.html'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+        value = "Too big. <br/><br/><a href='/admin/images/add/'>Try this.</a>"
+        response_content = force_str(response.content)
+        self.assertNotIn(value, response_content)
+        self.assertNotIn(escapejs(value), response_content)
+
+        request = RequestFactory().get(url)
+        request.user = self.user
+        context = response.context_data.copy()
+        context['error_max_file_size'] = mark_safe(force_str(value))
+        data = render_to_string(
+            template_name,
+            context=context,
+            request=request,
+        )
+        self.assertNotIn(value, data)
+        self.assertIn(escapejs(value), data)
+
+    def test_add_error_accepted_file_types_escaped(self):
+        url = reverse('wagtailimages:add_multiple')
+        template_name = 'wagtailimages/multiple/add.html'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+        value = "Invalid image type. <a href='/help'>Get help.</a>"
+        response_content = force_str(response.content)
+        self.assertNotIn(value, response_content)
+        self.assertNotIn(escapejs(value), response_content)
+
+        request = RequestFactory().get(url)
+        request.user = self.user
+        context = response.context_data.copy()
+        context['error_accepted_file_types'] = mark_safe(force_str(value))
+        data = render_to_string(
+            template_name,
+            context=context,
+            request=request,
+        )
+        self.assertNotIn(value, data)
+        self.assertIn(escapejs(value), data)
 
     def test_add_post(self):
         """
