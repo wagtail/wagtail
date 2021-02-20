@@ -158,13 +158,23 @@ export class BaseSequenceChild {
     this.block.focus(opts);
   }
 
+  getTextLabel(opts) {
+    if (this.block.getTextLabel) {
+      return this.block.getTextLabel(opts);
+    }
+    return null;
+  }
+
   collapse() {
     this.contentElement.hide().attr('aria-hidden', 'true');
+    const label = this.getTextLabel({ maxLength: 50 });
+    this.titleElement.text(label || '');
     this.collapsed = true;
   }
 
   expand() {
     this.contentElement.show().attr('aria-hidden', 'false');
+    this.titleElement.text('');
     this.collapsed = false;
   }
 
@@ -412,6 +422,31 @@ export class BaseSequenceBlock {
 
   getValue() {
     return this.children.map(child => child.getValue());
+  }
+
+  getTextLabel(opts) {
+    /* Use as many child text labels as we can fit into maxLength */
+    const maxLength = opts && opts.maxLength;
+    let result = '';
+
+    for (const child of this.children) {
+      const childLabel = child.getTextLabel({ maxLength });
+      if (childLabel) {
+        if (!result) {
+          // always use the first child, truncated as necessary
+          result = childLabel;
+        } else {
+          const newResult = (result + ', ' + childLabel);
+          if (maxLength && newResult.length > maxLength - 1) {
+            // too long, so don't add this; return the current list with an ellipsis instead
+            if (!result.endsWith('…')) result += '…';
+            return result;
+          }
+          result = newResult;
+        }
+      }
+    }
+    return result;
   }
 
   focus(opts) {

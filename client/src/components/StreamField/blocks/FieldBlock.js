@@ -75,6 +75,13 @@ export class FieldBlock {
     return this.widget.getValue();
   }
 
+  getTextLabel(opts) {
+    if (this.widget.getTextLabel) {
+      return this.widget.getTextLabel(opts);
+    }
+    return null;
+  }
+
   focus(opts) {
     if (this.widget) {
       this.widget.focus(opts);
