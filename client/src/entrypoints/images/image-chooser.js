@@ -53,6 +53,14 @@ function createImageChooser(id) {
 
       state = newState;
     },
+    getTextLabel: (opts) => {
+      if (!state) return null;
+      const result = state.title;
+      if (opts && opts.maxLength && result.length > opts.maxLength) {
+        return result.substring(0, opts.maxLength - 1) + '…';
+      }
+      return result;
+    },
     focus: () => {
       $('.action-choose', chooserElement).focus();
     },
