@@ -113,6 +113,19 @@ export class StructBlock {
     return value;
   }
 
+  getTextLabel(opts) {
+    /* Use the text label of the first child block to return one */
+    for (const childDef of this.blockDef.childBlockDefs) {
+      const child = this.childBlocks[childDef.name];
+      if (child.getTextLabel) {
+        const val = child.getTextLabel(opts);
+        if (val) return val;
+      }
+    }
+    // no usable label found
+    return null;
+  }
+
   focus(opts) {
     if (this.blockDef.childBlockDefs.length) {
       const firstChildName = this.blockDef.childBlockDefs[0].name;

@@ -18,6 +18,15 @@ class BoundWidget {
     setState(state) {
         this.input.val(state);
     }
+    getTextLabel(opts) {
+        const val = this.getValue();
+        if (typeof val !== 'string') return null;
+        const maxLength = opts && opts.maxLength;
+        if (maxLength && val.length > maxLength) {
+            return val.substring(0, maxLength - 1) + '…';
+        }
+        return val;
+    }
     focus() {
         this.input.focus();
     }
