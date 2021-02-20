@@ -24,11 +24,11 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-placeholder\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"Move up\\">
@@ -45,7 +45,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
         <div class=\\"field-content\\">
@@ -76,11 +76,11 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-pilcrow\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
@@ -97,7 +97,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
         <div class=\\"field-content\\">
@@ -128,11 +128,11 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-pilcrow\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
@@ -149,7 +149,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
         <div class=\\"field-content\\">
@@ -199,11 +199,11 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-pilcrow\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
@@ -220,7 +220,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
         <div class=\\"field-content\\">
@@ -251,11 +251,11 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-placeholder\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
@@ -272,7 +272,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
         <div class=\\"field-content\\">
@@ -322,11 +322,11 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-pilcrow\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
@@ -343,7 +343,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
         <div class=\\"field-content\\">
@@ -374,11 +374,11 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-placeholder\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
@@ -395,7 +395,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
         <div class=\\"field-content\\">
@@ -445,11 +445,11 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-placeholder\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"Move up\\">
@@ -466,7 +466,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
         <div class=\\"field-content\\">
@@ -497,11 +497,11 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-pilcrow\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
@@ -518,7 +518,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
         <div class=\\"field-content\\">
@@ -568,11 +568,11 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-placeholder\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"Move up\\">
@@ -589,7 +589,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
         <div class=\\"field-content\\">
@@ -630,11 +630,11 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-pilcrow\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
@@ -651,7 +651,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
         <div class=\\"field-content\\">
@@ -711,11 +711,11 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-placeholder\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block &lt;A&gt;</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"Move up\\">
@@ -732,7 +732,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
         <div class=\\"field-content\\">
@@ -763,11 +763,11 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
         <div>
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
-              <div class=\\"c-sf-block__header\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
                 <span class=\\"c-sf-block__header__icon\\">
                   <i class=\\"icon icon-pilcrow\\"></i>
                 </span>
-                <h3 class=\\"c-sf-block__header__title\\"></h3>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\">
                   <span class=\\"c-sf-block__type\\">Test Block &lt;B&gt;</span>
                   <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
@@ -784,7 +784,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
                   </button>
                 </div>
               </div>
-              <div class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
                 <div class=\\"c-sf-block__content-inner\\">
                   <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
         <div class=\\"field-content\\">

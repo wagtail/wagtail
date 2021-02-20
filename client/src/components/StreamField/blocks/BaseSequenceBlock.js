@@ -17,6 +17,7 @@ export class BaseSequenceChild {
     this.onRequestDelete = opts && opts.onRequestDelete;
     this.onRequestMoveUp = opts && opts.onRequestMoveUp;
     this.onRequestMoveDown = opts && opts.onRequestMoveDown;
+    this.collapsed = opts && opts.collapsed;
     const strings = (opts && opts.strings) || {};
 
     const dom = $(`
@@ -29,11 +30,11 @@ export class BaseSequenceChild {
         <div>
           <div class="c-sf-container__block-container">
             <div class="c-sf-block">
-              <div class="c-sf-block__header">
+              <div data-block-header class="c-sf-block__header c-sf-block__header--collapsible">
                 <span class="c-sf-block__header__icon">
                   <i class="icon icon-${h(this.blockDef.meta.icon)}"></i>
                 </span>
-                <h3 class="c-sf-block__header__title"></h3>
+                <h3 data-block-title class="c-sf-block__header__title"></h3>
                 <div class="c-sf-block__actions">
                   <span class="c-sf-block__type">${h(this.blockDef.meta.label)}</span>
                   <button type="button" data-move-up-button class="c-sf-block__actions__single"
@@ -54,7 +55,7 @@ export class BaseSequenceChild {
                   </button>
                 </div>
               </div>
-              <div class="c-sf-block__content" aria-hidden="false">
+              <div data-block-content class="c-sf-block__content" aria-hidden="false">
                 <div class="c-sf-block__content-inner">
                   <div data-streamfield-block></div>
                 </div>
@@ -72,10 +73,18 @@ export class BaseSequenceChild {
     this.duplicateButton = dom.find('button[data-duplicate-button]');
     this.duplicateButton.click(() => {
       if (this.onRequestDuplicate) this.onRequestDuplicate(this.index);
+      return false;  // don't propagate to header's onclick event (which collapses the block)
+    });
+
+    this.titleElement = dom.find('[data-block-title]');
+    this.contentElement = dom.find('[data-block-content]');
+    dom.find('[data-block-header]').click(() => {
+      this.toggleCollapsedState();
     });
 
     dom.find('button[data-delete-button]').click(() => {
       if (this.onRequestDelete) this.onRequestDelete(this.index);
+      return false;  // don't propagate to header's onclick event (which collapses the block)
     });
 
     this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
@@ -84,13 +93,19 @@ export class BaseSequenceChild {
     this.moveUpButton = dom.find('button[data-move-up-button]');
     this.moveUpButton.click(() => {
       if (this.onRequestMoveUp) this.onRequestMoveUp(this.index);
+      return false;  // don't propagate to header's onclick event (which collapses the block)
     });
     this.moveDownButton = dom.find('button[data-move-down-button]');
     this.moveDownButton.click(() => {
       if (this.onRequestMoveDown) this.onRequestMoveDown(this.index);
+      return false;  // don't propagate to header's onclick event (which collapses the block)
     });
 
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
+
+    if (this.collapsed) {
+      this.collapse();
+    }
 
     if (animate) {
       dom.hide();
@@ -141,6 +156,24 @@ export class BaseSequenceChild {
 
   focus(opts) {
     this.block.focus(opts);
+  }
+
+  collapse() {
+    this.contentElement.hide().attr('aria-hidden', 'true');
+    this.collapsed = true;
+  }
+
+  expand() {
+    this.contentElement.show().attr('aria-hidden', 'false');
+    this.collapsed = false;
+  }
+
+  toggleCollapsedState() {
+    if (this.collapsed) {
+      this.expand();
+    } else {
+      this.collapse();
+    }
   }
 }
 
@@ -219,6 +252,7 @@ export class BaseSequenceBlock {
   _insert(childBlockDef, initialState, id, index, opts) {
     const prefix = this.prefix + '-' + this.blockCounter;
     const animate = opts && opts.animate;
+    const collapsed = opts && opts.collapsed;
     this.blockCounter++;
 
     /*
@@ -244,6 +278,7 @@ export class BaseSequenceBlock {
 
     const child = this._createChild(childBlockDef, blockPlaceholder, prefix, index, id, initialState, {
       animate,
+      collapsed,
       onRequestDuplicate: (i) => { this.duplicateBlock(i, { animate: true }); },
       onRequestDelete: (i) => { this.deleteBlock(i, { animate: true }); },
       onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },

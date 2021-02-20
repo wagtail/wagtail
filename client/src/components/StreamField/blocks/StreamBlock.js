@@ -296,10 +296,11 @@ export class StreamBlock extends BaseSequenceBlock {
   }
 
   duplicateBlock(index, opts) {
-    const childState = this.children[index].getState();
+    const child = this.children[index];
+    const childState = child.getState();
     const animate = opts && opts.animate;
     childState.id = null;
-    this.insert(childState, index + 1, { animate });
+    this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
     // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
 
