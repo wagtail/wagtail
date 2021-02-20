@@ -112,8 +112,9 @@ export class ListBlock extends BaseSequenceBlock {
   }
 
   duplicateBlock(index) {
-    const childState = this.children[index].getState();
-    this.insert(childState, index + 1, { animate: true });
+    const child = this.children[index];
+    const childState = child.getState();
+    this.insert(childState, index + 1, { animate: true, collapsed: child.collapsed });
     this.children[index + 1].focus({ soft: true });
   }
 
