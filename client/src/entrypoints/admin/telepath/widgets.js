@@ -137,6 +137,23 @@ class DraftailRichTextArea {
             setState() {
                 throw new Error('DraftailRichTextArea.setState is not implemented');
             },
+            getTextLabel(opts) {
+                const maxLength = opts && opts.maxLength;
+                if (!input.value) return '';
+                const value = JSON.parse(input.value);
+                if (!value || !value.blocks) return '';
+
+                let result = '';
+                for (const block of value.blocks) {
+                    if (block.text) {
+                        result += (result ? ' ' + block.text : block.text);
+                        if (maxLength && result.length > maxLength) {
+                            return result.substring(0, maxLength - 1) + '…';
+                        }
+                    }
+                }
+                return result;
+            },
             focus: () => {
                 input.draftailEditor.focus();
             },
