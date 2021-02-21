@@ -2,12 +2,13 @@
 
 Users might not always use the same terms as you to refer to something. An example might be 'waste', 'refuse', 'garbage', 'trash' and 'rubbish'. If you configure these as synonyms via the search engine, then you will not need to tag pages with every possible synonym, and a search query `Page.objects.search("gift")` could always return results including a page called "Donate to our Charity".
 
-```eval_rst note:: Stemming, and language-specific configuration
+```eval_rst
+.. note:: Stemming, and language-specific configuration
 
-Synonym searching is not necessary for the search engine to match a query "cherries" to a page _Cherry flavour ice cream_. The Postgres or Elasticsearch search backends should do that automatically, so long as you have the correct language configured. See 
+    Synonym searching is not necessary for the search engine to match a query "cherries" to a page _Cherry flavour ice cream_. The Postgres or Elasticsearch search backends should do that automatically, so long as you have the correct language configured. See
 
-- :doc:`/reference/contrib/postgres_search#language-postgresql-search-configuration`
-- `Elasticsearch documentation <https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-lang-analyzer.html>`_
+    - :doc:`/reference/contrib/postgres_search#language-postgresql-search-configuration`
+    - `Elasticsearch documentation <https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-lang-analyzer.html>`_
 ```
 
 This how-to guide will show you how to configure Elasticsearch to use synonym matching, first for a hardcoded source of synonyms, and then for 
