@@ -498,6 +498,7 @@ Contributors
 * James Gutu
 * John Esther
 * Lara Thompson
+* Tibor Leupold
 
 Translators
 ===========
