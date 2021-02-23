@@ -18,7 +18,7 @@ Django security issues should be reported directly to the Django Project, follow
 
 ## Supported versions
 
-At any given time, the Wagtail team provides official security supportfor several versions of Wagtail:
+At any given time, the Wagtail team provides official security support for several versions of Wagtail:
 
 - The master development branch, hosted on GitHub, which will become the next release of Wagtail, receives security support.
 - The two most recent Wagtail release series receive security support.
