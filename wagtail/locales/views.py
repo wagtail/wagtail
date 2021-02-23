@@ -64,7 +64,7 @@ class DeleteView(generic.DeleteView):
         return True
 
     def get_context_data(self, object=None):
-        context = context = super().get_context_data()
+        context = super().get_context_data()
         context['can_delete'] = self.can_delete(object)
         return context
 
