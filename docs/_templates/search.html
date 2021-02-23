@@ -14,3 +14,17 @@
   <div id="search-results">
   </div>
 {% endblock %}
+
+{% block footer %}
+{{ super() }}
+<script>
+  const urlParams = new URLSearchParams(window.location.search)
+  const query = urlParams.get('q')
+  const searchResultsContainer = document.getElementById('search-results')
+
+  const searchHeading = document.createElement('h1')
+  searchHeading.textContent = query
+
+  searchResultsContainer.appendChild(searchHeading)
+</script>
+{% endblock %}
