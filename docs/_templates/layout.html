@@ -23,7 +23,7 @@ function docSearchReady(script) {
   const rtd_version = (window.READTHEDOCS_DATA || {}).version || 'latest';
   const version = rtd_version.match(/^\d+$/) ? 'latest' : rtd_version;
 
-  docsearch({
+  const search = docsearch({
     apiKey: '8325c57d16798633e29d211c26c7b6f9',
     indexName: 'wagtail',
     inputSelector: '#rtd-search-form [name="q"]',
@@ -35,6 +35,8 @@ function docSearchReady(script) {
     },
     debug: true // Set debug to true if you want to inspect the dropdown
   });
+
+  return search
 }
 
 const s = document.createElement('script');
