@@ -14,5 +14,5 @@ It is possible to embed media into the body text of a web page by clicking the *
 
 * A placeholder of the media will be inserted into the text area.
 
-The embed button can be used to import media from a number of supported providers, you can see the `full list of supported providers in Wagtail’s source code <https://github.com/wagtail/wagtail/blob/master/wagtail/embeds/oembed_providers.py>`_.
+The embed button can be used to import media from a number of supported providers, you can see the `full list of supported providers in Wagtail’s source code <https://github.com/wagtail/wagtail/blob/main/wagtail/embeds/oembed_providers.py>`_.
 
