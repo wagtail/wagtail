@@ -55,6 +55,56 @@ function addResultsList(hits, parentElement) {
   parentElement.appendChild(searchResultsList)
 }
 
+function createHitElement(hitData) {
+  console.log(hitData)
+  const pageURL = extractPageLink(hitData.url)
+  const anchor = hitData.anchor
+  const result = hitData._highlightResult
+
+  const hitListElement = document.createElement('li')
+
+  let firstHierarchyLevel = undefined
+  let lastHierarchyLevel = undefined
+  for (levelLabel in result.hierarchy) {
+    if (firstHierarchyLevel === undefined ) {
+      firstHierarchyLevel = result.hierarchy[levelLabel]
+    }
+    lastHierarchyLevel = result.hierarchy[levelLabel]
+  }
+
+  const pageLink = document.createElement('a')
+  hitListElement.appendChild(pageLink)
+  pageLink.innerHTML = firstHierarchyLevel.value
+  pageLink.href = pageURL
+
+  const contextElement = document.createElement('div')
+  hitListElement.appendChild(contextElement)
+  contextElement.className = 'context'
+
+  console.log(lastHierarchyLevel)
+  if (lastHierarchyLevel && lastHierarchyLevel !== firstHierarchyLevel ) {
+    const contextLinkContainer = document.createElement('div')
+    contextElement.appendChild(contextLinkContainer)
+    const contextLink = document.createElement('a')
+    contextLinkContainer.appendChild(contextLink)
+    contextLink.innerHTML = lastHierarchyLevel.value
+    contextLink.href = pageURL + '#' + anchor
+  }
+
+  if (result.content) {
+    const contentElement = document.createElement('div')
+    contentElement.innerHTML = result.content.value
+    contextElement.appendChild(contentElement)
+  }
+
+  return hitListElement
+}
+
+function extractPageLink(url) {
+  const endPageUrlIndex = url.lastIndexOf('#')
+  return url.slice(0, endPageUrlIndex)
+}
+
 function getElementTypeForHierarchyLevelLabel(level) {
   const elementTypes = {
     'lvl0': 'h3',
@@ -66,35 +116,6 @@ function getElementTypeForHierarchyLevelLabel(level) {
     'lvl6': 'span',
   }
   return elementTypes[level]
-}
-
-function createHitElement(hitData) {
-  console.log(hitData)
-  const result = hitData._highlightResult
-
-  const hitListElement = document.createElement('li')
-
-  for (levelLabel in result.hierarchy) {
-    const elementType = getElementTypeForHierarchyLevelLabel(levelLabel)
-    const levelDiv = document.createElement(elementType)
-    const levelData = result.hierarchy[levelLabel]
-    levelDiv.innerHTML = levelData.value
-    hitListElement.appendChild(levelDiv)
-  }
-
-  if (result.content) {
-    const contentElement = document.createElement('div')
-    contentElement.className = 'context'
-    contentElement.innerHTML = result.content.value
-    hitListElement.appendChild(contentElement)
-  }
-
-  const hitAnchor = document.createElement('a')
-  hitAnchor.href = hitData.url
-  hitAnchor.textContent = hitData.url
-  hitListElement.appendChild(hitAnchor)
-
-  return hitListElement
 }
 
 window.onload = runSearchPageSearch
