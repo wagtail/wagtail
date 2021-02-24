@@ -31,7 +31,7 @@ function runSearchPageSearch(event) {
   index.search(
     query,
     {
-      hitsPerPage: 10,
+      hitsPerPage: 100,
       facetFilters: [getVersionFacetFilter()]
     }
   )
@@ -40,13 +40,14 @@ function runSearchPageSearch(event) {
 }
 
 function addHeadingForQuery(query, parentElement) {
-  const searchHeading = document.createElement('h1')
-  searchHeading.textContent = query
+  const searchHeading = document.createElement('h2')
+  searchHeading.textContent = `Search Results for "${query}"`
   parentElement.appendChild(searchHeading)
 }
 
 function addResultsList(hits, parentElement) {
   const searchResultsList = document.createElement('ul')
+  searchResultsList.className = "search"
   for (hit of hits) {
     const hitElement = createHitElement(hit)
     searchResultsList.appendChild(hitElement)
@@ -54,23 +55,44 @@ function addResultsList(hits, parentElement) {
   parentElement.appendChild(searchResultsList)
 }
 
+function getElementTypeForHierarchyLevelLabel(level) {
+  const elementTypes = {
+    'lvl0': 'h3',
+    'lvl1': 'h4',
+    'lvl2': 'span',
+    'lvl3': 'span',
+    'lvl4': 'span',
+    'lvl5': 'span',
+    'lvl6': 'span',
+  }
+  return elementTypes[level]
+}
+
 function createHitElement(hitData) {
   console.log(hitData)
+  const result = hitData._highlightResult
+
   const hitListElement = document.createElement('li')
-  hitListElement.style = "margin-bottom: 2rem"
+
+  for (levelLabel in result.hierarchy) {
+    const elementType = getElementTypeForHierarchyLevelLabel(levelLabel)
+    const levelDiv = document.createElement(elementType)
+    const levelData = result.hierarchy[levelLabel]
+    levelDiv.innerHTML = levelData.value
+    hitListElement.appendChild(levelDiv)
+  }
+
+  if (result.content) {
+    const contentElement = document.createElement('div')
+    contentElement.className = 'context'
+    contentElement.innerHTML = result.content.value
+    hitListElement.appendChild(contentElement)
+  }
+
   const hitAnchor = document.createElement('a')
   hitAnchor.href = hitData.url
+  hitAnchor.textContent = hitData.url
   hitListElement.appendChild(hitAnchor)
-  const hitAnchorContent = document.createElement('div')
-  hitAnchor.appendChild(hitAnchorContent)
-  // hitListElement.textContent = "Hit"
-  // hitListElement.innerHTML = hitData._highlightResult.hierarchy.lvl0.value
-  for (levelLabel in hitData._highlightResult.hierarchy) {
-    const levelData = hitData._highlightResult.hierarchy[levelLabel]
-    const levelDiv = document.createElement('div')
-    levelDiv.innerHTML = levelData.value
-    hitAnchorContent.appendChild(levelDiv)
-  }
 
   return hitListElement
 }
