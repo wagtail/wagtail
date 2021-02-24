@@ -18,6 +18,14 @@
 {% block footer %}
 {{ super() }}
 <script>
+
+function makeHitElement(hitData) {
+  console.log(hitData)
+  const hitListElement = document.createElement('li')
+  hitListElement.textContent = "Hit"
+  return hitListElement
+}
+
 function runSearchPageSearch(event) {
   const urlParams = new URLSearchParams(window.location.search)
   const query = urlParams.get('q')
@@ -31,7 +39,13 @@ function runSearchPageSearch(event) {
   const index = search.client.initIndex('wagtail')
   index.search(query).then(({ hits }) => {
     console.log(hits);
-  });
+    const searchResultsList = document.createElement('ul')
+    for (hit of hits) {
+      const hitElement = makeHitElement(hit)
+      searchResultsList.appendChild(hitElement)
+    }
+    searchResultsContainer.appendChild(searchResultsList)
+  }).catch((error) => console.log(error))
 }
 
 window.onload = runSearchPageSearch
