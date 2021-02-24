@@ -196,9 +196,9 @@ class TestAccountSectionUtilsMixin:
 
     def post_form(self, extra_post_data):
         post_data = {
-            'name-first_name': 'Test',
-            'name-last_name': 'User',
-            'email-email': self.user.email,
+            'name_email-first_name': 'Test',
+            'name_email-last_name': 'User',
+            'name_email-email': self.user.email,
             'notifications-submitted_notifications': 'false',
             'notifications-approved_notifications': 'false',
             'notifications-rejected_notifications': 'true',
@@ -227,12 +227,12 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
 
-        self.assertPanelActive(response, 'name')
-        self.assertPanelActive(response, 'email')
+        self.assertPanelActive(response, 'name_email')
         self.assertPanelActive(response, 'notifications')
         self.assertPanelActive(response, 'locale')
 
-        # These two fields may hide themselves
+        # These fields may hide themselves
+        self.assertContains(response, "Email:")
         self.assertContains(response, "Preferred language:")
         self.assertContains(response, "Current time zone:")
 
@@ -241,8 +241,8 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
     def test_change_name_post(self):
         response = self.post_form({
-            'name-first_name': 'Fox',
-            'name-last_name': 'Mulder',
+            'name_email-first_name': 'Fox',
+            'name_email-last_name': 'Mulder',
         })
 
         # Check that the user was redirected to the account page
@@ -255,7 +255,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
     def test_change_email_post(self):
         response = self.post_form({
-            'email-email': 'test@email.com',
+            'name_email-email': 'test@email.com',
         })
 
         # Check that the user was redirected to the account page
@@ -267,14 +267,14 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
     def test_change_email_not_valid(self):
         response = self.post_form({
-            'email-email': 'test@email',
+            'name_email-email': 'test@email',
         })
 
         # Check that the user wasn't redirected
         self.assertEqual(response.status_code, 200)
 
         # Check that a validation error was raised
-        self.assertTrue('email' in response.context['panels_by_tab'][profile_tab][1].get_form().errors.keys())
+        self.assertTrue('email' in response.context['panels_by_tab'][profile_tab][0].get_form().errors.keys())
 
         # Check that the email was not changed
         self.user.refresh_from_db()
@@ -287,7 +287,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
-        self.assertPanelNotActive(response, 'email')
+        self.assertNotContains(response, "Email:")
 
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_account_view_with_password_management_disabled(self):
