@@ -12,9 +12,9 @@
 {% set docsearch_base = 'https://cdn.jsdelivr.net/npm/docsearch.js@' ~ docsearch_version ~ '/dist/cdn/' %}
 
 <script>
-function docSearchReady(script) {
+function getReadTheDocsVersion() {
   /**
-   * Configure Algolia DocSearch.
+   * Get version of the currently served docs.
    *
    * PR builds have their version set to the PR ID (e.g. "6753").
    * If the docs are built for a PR, use the "latest" search index.
@@ -22,13 +22,23 @@ function docSearchReady(script) {
    */
   const rtd_version = (window.READTHEDOCS_DATA || {}).version || 'latest';
   const version = rtd_version.match(/^\d+$/) ? 'latest' : rtd_version;
+  return version
+}
 
+function getVersionFacetFilter() {
+  return 'version:' + getReadTheDocsVersion()
+}
+
+function docSearchReady(script) {
+  /**
+   * Configure Algolia DocSearch.
+   */
   const search = docsearch({
     apiKey: '8325c57d16798633e29d211c26c7b6f9',
     indexName: 'wagtail',
     inputSelector: '#rtd-search-form [name="q"]',
     algoliaOptions: {
-      facetFilters: ['version:' + version],
+      facetFilters: [getVersionFacetFilter()],
     },
     autocompleteOptions: {
       autoSelect: false

@@ -37,7 +37,13 @@ function runSearchPageSearch(event) {
 
   const search = docSearchReady()
   const index = search.client.initIndex('wagtail')
-  index.search(query).then(({ hits }) => {
+  index.search(
+    query,
+    {
+      hitsPerPage: 10,
+      facetFilters: [getVersionFacetFilter()]
+    }
+  ).then(({ hits }) => {
     console.log(hits);
     const searchResultsList = document.createElement('ul')
     for (hit of hits) {
