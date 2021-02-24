@@ -19,21 +19,12 @@
 {{ super() }}
 <script>
 
-function makeHitElement(hitData) {
-  console.log(hitData)
-  const hitListElement = document.createElement('li')
-  hitListElement.textContent = "Hit"
-  return hitListElement
-}
-
 function runSearchPageSearch(event) {
   const urlParams = new URLSearchParams(window.location.search)
   const query = urlParams.get('q')
-  const searchResultsContainer = document.getElementById('search-results')
 
-  const searchHeading = document.createElement('h1')
-  searchHeading.textContent = query
-  searchResultsContainer.appendChild(searchHeading)
+  const searchResultsContainer = document.getElementById('search-results')
+  addHeadingForQuery(query, searchResultsContainer)
 
   const docSearch = docSearchReady()
   const index = docSearch.client.initIndex('wagtail')
@@ -43,15 +34,45 @@ function runSearchPageSearch(event) {
       hitsPerPage: 10,
       facetFilters: [getVersionFacetFilter()]
     }
-  ).then(({ hits }) => {
-    console.log(hits);
-    const searchResultsList = document.createElement('ul')
-    for (hit of hits) {
-      const hitElement = makeHitElement(hit)
-      searchResultsList.appendChild(hitElement)
-    }
-    searchResultsContainer.appendChild(searchResultsList)
-  }).catch((error) => console.log(error))
+  )
+  .then(({ hits }) => addResultsList(hits, searchResultsContainer))
+  .catch((error) => console.log(error))
+}
+
+function addHeadingForQuery(query, parentElement) {
+  const searchHeading = document.createElement('h1')
+  searchHeading.textContent = query
+  parentElement.appendChild(searchHeading)
+}
+
+function addResultsList(hits, parentElement) {
+  const searchResultsList = document.createElement('ul')
+  for (hit of hits) {
+    const hitElement = createHitElement(hit)
+    searchResultsList.appendChild(hitElement)
+  }
+  parentElement.appendChild(searchResultsList)
+}
+
+function createHitElement(hitData) {
+  console.log(hitData)
+  const hitListElement = document.createElement('li')
+  hitListElement.style = "margin-bottom: 2rem"
+  const hitAnchor = document.createElement('a')
+  hitAnchor.href = hitData.url
+  hitListElement.appendChild(hitAnchor)
+  const hitAnchorContent = document.createElement('div')
+  hitAnchor.appendChild(hitAnchorContent)
+  // hitListElement.textContent = "Hit"
+  // hitListElement.innerHTML = hitData._highlightResult.hierarchy.lvl0.value
+  for (levelLabel in hitData._highlightResult.hierarchy) {
+    const levelData = hitData._highlightResult.hierarchy[levelLabel]
+    const levelDiv = document.createElement('div')
+    levelDiv.innerHTML = levelData.value
+    hitAnchorContent.appendChild(levelDiv)
+  }
+
+  return hitListElement
 }
 
 window.onload = runSearchPageSearch
