@@ -4,44 +4,58 @@
 {% block titletag %}{% trans "Account" %}{% endblock %}
 {% block content %}
     {% trans "Account" as account_str %}
-    {% include "wagtailadmin/shared/header.html" with title=account_str %}
+    {% include "wagtailadmin/shared/header.html" with title=account_str merged=1 tabbed=1 %}
 
-    <form action="{% url 'wagtailadmin_account' %}" method="post" enctype="multipart/form-data">
-        <ul class="objects">
-            {% for panel in panels %}
-                <li class="object">
-                    <div class="title-wrapper">
-                        <label>{{ panel.title }}</label>
-                    </div>
-                    <div class="object-layout">
-                        <div class="object-layout_big-part">
-                            <div class="top-padding">
-                                {{ panel.render }}
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-
-        <div class="nice-padding">
-            <button type="submit" class="button">{% trans 'Save account details' %}</button>
-        </div>
+    <ul class="tab-nav merged">
+        <li class="active"><a href="#profile">{% trans "Profile" %}</a></li>
 
         {% if menu_items %}
-            <h2>{% trans "More actions" %}</h2>
-            <ul class="listing">
-                {% for item in menu_items %}
-                    <li class="row row-flush">
-                        <div class="col6">
-                            <a href="{{ item.url }}" class="button button-primary">{{ item.label }}</a>
-                        </div>
-                        <small class="col6">{{ item.help_text }}</small>
-                    </li>
-                {% endfor %}
-            </ul>
+            <li><a href="#actions">{% trans "More actions" %}</a></li>
         {% endif %}
+    </ul>
 
+    <form action="{% url 'wagtailadmin_account' %}" method="post" enctype="multipart/form-data" novalidate>
+        <div class="tab-content">
+            {% csrf_token %}
+
+            <section id="profile" class="active">
+                <ul class="objects">
+                    {% for panel in panels %}
+                        <li class="object">
+                            <div class="title-wrapper">
+                                <label>{{ panel.title }}</label>
+                            </div>
+                            <div class="object-layout">
+                                <div class="object-layout_big-part">
+                                    <div class="top-padding">
+                                        {{ panel.render }}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="top-padding nice-padding">
+                    <button type="submit" class="button">{% trans 'Save account details' %}</button>
+                </div>
+            </section>
+
+            {% if menu_items %}
+                <section id="actions" class="nice-padding">
+                    <ul class="listing">
+                        {% for item in menu_items %}
+                            <li class="row row-flush">
+                                <div class="col6">
+                                    <a href="{{ item.url }}" class="button button-primary">{{ item.label }}</a>
+                                </div>
+                                <small class="col6">{{ item.help_text }}</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            {% endif %}
+        </div>
     </form>
 {% endblock %}
 
