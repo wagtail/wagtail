@@ -15,6 +15,7 @@ from django.db import transaction
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.template.loader import render_to_string
 from django.utils.html import mark_safe
+from django.utils.translation import get_language_info
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
@@ -396,7 +397,11 @@ class NotificationPreferencesForm(forms.ModelForm):
 
 
 def _get_language_choices():
-    return sorted(BLANK_CHOICE_DASH + get_available_admin_languages(),
+    language_choices = [
+        (lang_code, get_language_info(lang_code)['name_local'])
+        for lang_code, lang_name in get_available_admin_languages()
+    ]
+    return sorted(BLANK_CHOICE_DASH + language_choices,
                   key=lambda l: l[1].lower())
 
 
