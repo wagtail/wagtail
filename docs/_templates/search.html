@@ -18,7 +18,7 @@
 {% block footer %}
 {{ super() }}
 <script>
-function search(event) {
+function runSearchPageSearch(event) {
   const urlParams = new URLSearchParams(window.location.search)
   const query = urlParams.get('q')
   const searchResultsContainer = document.getElementById('search-results')
@@ -34,6 +34,6 @@ function search(event) {
   });
 }
 
-window.onload = search
+window.onload = runSearchPageSearch
 </script>
 {% endblock %}
