@@ -6,5 +6,5 @@
 {% block content %}
 {% endblock %}
 {% block preferences %}
-{% trans "Edit your notification preferences here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_account' %}
+{% trans "Edit your notification preferences here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_account' %}#notifications
 {% endblock %}

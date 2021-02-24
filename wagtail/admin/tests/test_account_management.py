@@ -13,7 +13,7 @@ from django.urls import reverse
 
 from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
-from wagtail.admin.views.account import change_password
+from wagtail.admin.views.account import change_password, profile_tab
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
@@ -181,11 +181,17 @@ class TestAuthentication(TestCase, WagtailTestUtils):
 
 class TestAccountSectionUtilsMixin:
     def assertPanelActive(self, response, name):
-        panels = set(panel.name for panel in response.context['panels'])
+        panels = set()
+        for panelset in response.context['panels_by_tab'].values():
+            for panel in panelset:
+                panels.add(panel.name)
         self.assertIn(name, panels, "Panel %s not active in response" % name)
 
     def assertPanelNotActive(self, response, name):
-        panels = set(panel.name for panel in response.context['panels'])
+        panels = set()
+        for panelset in response.context['panels_by_tab'].values():
+            for panel in panelset:
+                panels.add(panel.name)
         self.assertNotIn(name, panels, "Panel %s active in response" % name)
 
     def post_form(self, extra_post_data):
@@ -266,7 +272,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertEqual(response.status_code, 200)
 
         # Check that a validation error was raised
-        self.assertTrue('email' in response.context['panels'][1].get_form().errors.keys())
+        self.assertTrue('email' in response.context['panels_by_tab'][profile_tab][1].get_form().errors.keys())
 
         # Check that the email was not changed
         self.user.refresh_from_db()
@@ -573,10 +579,11 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
 
         # Find notifications panel through context
         notifications_panel = None
-        for panel in response.context['panels']:
-            if panel.name == 'notifications':
-                notifications_panel = panel
-                break
+        for panelset in response.context['panels_by_tab'].values():
+            for panel in panelset:
+                if panel.name == 'notifications':
+                    notifications_panel = panel
+                    break
 
         notifications_form = notifications_panel.get_form()
         self.assertIn('approved_notifications', notifications_form.fields.keys())
