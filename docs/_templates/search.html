@@ -31,11 +31,11 @@ function runSearchPageSearch(event) {
   index.search(
     query,
     {
-      hitsPerPage: 100,
+      hitsPerPage: 50,
       facetFilters: [getVersionFacetFilter()]
     }
   )
-  .then(({ hits }) => addResultsList(hits, searchResultsContainer))
+  .then(({ hits }) => addResultsList(hits, query, searchResultsContainer))
   .catch((error) => console.log(error))
 }
 
@@ -45,20 +45,20 @@ function addHeadingForQuery(query, parentElement) {
   parentElement.appendChild(searchHeading)
 }
 
-function addResultsList(hits, parentElement) {
+function addResultsList(hits, query, parentElement) {
   const searchResultsList = document.createElement('ul')
   searchResultsList.className = "search"
   for (hit of hits) {
-    const hitElement = createHitElement(hit)
+    const hitElement = createHitElement(hit, query)
     searchResultsList.appendChild(hitElement)
   }
   parentElement.appendChild(searchResultsList)
 }
 
-function createHitElement(hitData) {
-  console.log(hitData)
-  const pageURL = extractPageLink(hitData.url)
+function createHitElement(hitData, query) {
+  const pageURL = extractPageLink(hitData.url) + '?highlight=' + query
   const anchor = hitData.anchor
+  const anchorURL = pageURL + '#' + anchor
   const result = hitData._highlightResult
 
   const hitListElement = document.createElement('li')
@@ -81,14 +81,13 @@ function createHitElement(hitData) {
   hitListElement.appendChild(contextElement)
   contextElement.className = 'context'
 
-  console.log(lastHierarchyLevel)
   if (lastHierarchyLevel && lastHierarchyLevel !== firstHierarchyLevel ) {
     const contextLinkContainer = document.createElement('div')
     contextElement.appendChild(contextLinkContainer)
     const contextLink = document.createElement('a')
     contextLinkContainer.appendChild(contextLink)
     contextLink.innerHTML = lastHierarchyLevel.value
-    contextLink.href = pageURL + '#' + anchor
+    contextLink.href = anchorURL
   }
 
   if (result.content) {
