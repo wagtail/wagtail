@@ -400,15 +400,36 @@ def _get_language_choices():
                   key=lambda l: l[1].lower())
 
 
-class PreferredLanguageForm(forms.ModelForm):
+def _get_time_zone_choices():
+    time_zones = [(tz, str(l18n.tz_fullnames.get(tz, tz)))
+                  for tz in get_available_admin_time_zones()]
+    time_zones.sort(key=itemgetter(1))
+    return BLANK_CHOICE_DASH + time_zones
+
+
+class LocalePreferencesForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if len(get_available_admin_languages()) <= 1:
+            del self.fields['preferred_language']
+
+        if len(get_available_admin_time_zones()) <= 1:
+            del self.fields['current_time_zone']
+
     preferred_language = forms.ChoiceField(
         required=False, choices=_get_language_choices,
-        label=_('Preferred language')
+        label=_("Preferred language")
+    )
+
+    current_time_zone = forms.ChoiceField(
+        required=False, choices=_get_time_zone_choices,
+        label=_("Current time zone")
     )
 
     class Meta:
         model = UserProfile
-        fields = ("preferred_language",)
+        fields = ['preferred_language', 'current_time_zone']
 
 
 class EmailForm(forms.ModelForm):
@@ -426,24 +447,6 @@ class NameForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("first_name", "last_name",)
-
-
-def _get_time_zone_choices():
-    time_zones = [(tz, str(l18n.tz_fullnames.get(tz, tz)))
-                  for tz in get_available_admin_time_zones()]
-    time_zones.sort(key=itemgetter(1))
-    return BLANK_CHOICE_DASH + time_zones
-
-
-class CurrentTimeZoneForm(forms.ModelForm):
-    current_time_zone = forms.ChoiceField(
-        required=False, choices=_get_time_zone_choices,
-        label=_('Current time zone')
-    )
-
-    class Meta:
-        model = UserProfile
-        fields = ("current_time_zone",)
 
 
 class AvatarPreferencesForm(forms.ModelForm):

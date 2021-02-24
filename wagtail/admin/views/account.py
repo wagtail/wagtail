@@ -20,8 +20,7 @@ from wagtail.admin.localization import get_available_admin_languages, get_availa
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.users.forms import (
-    AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NameForm, NotificationPreferencesForm,
-    PreferredLanguageForm)
+    AvatarPreferencesForm, EmailForm, LocalePreferencesForm, NameForm, NotificationPreferencesForm)
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -159,26 +158,15 @@ class NotificationsSettingsPanel(BaseSettingsPanel):
         return self.get_form().fields
 
 
-class LanguageSettingsPanel(BaseSettingsPanel):
-    name = 'language'
-    title = gettext_lazy('Language')
-    order = 500
-    form_class = PreferredLanguageForm
+class LocaleSettingsPanel(BaseSettingsPanel):
+    name = 'locale'
+    title = gettext_lazy('Locale')
+    order = 400
+    form_class = LocalePreferencesForm
     form_object = 'profile'
 
     def is_active(self):
-        return len(get_available_admin_languages()) > 1
-
-
-class TimeZoneSettingsPanel(BaseSettingsPanel):
-    name = 'time-zone'
-    title = gettext_lazy('Time Zone')
-    order = 500
-    form_class = CurrentTimeZoneForm
-    form_object = 'profile'
-
-    def is_active(self):
-        return len(get_available_admin_time_zones()) > 1
+        return len(get_available_admin_languages()) > 1 or len(get_available_admin_time_zones()) > 1
 
 
 # Views
@@ -195,8 +183,7 @@ def account(request):
         EmailSettingsPanel(request, user, profile),
         AvatarSettingsPanel(request, user, profile),
         NotificationsSettingsPanel(request, user, profile),
-        LanguageSettingsPanel(request, user, profile),
-        TimeZoneSettingsPanel(request, user, profile),
+        LocaleSettingsPanel(request, user, profile),
     ]
     for fn in hooks.get_hooks('register_account_settings_panel'):
         panel = fn(request, user, profile)

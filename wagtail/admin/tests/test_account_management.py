@@ -203,8 +203,8 @@ class TestAccountSectionUtilsMixin:
             'notifications-approved_notifications': 'false',
             'notifications-rejected_notifications': 'true',
             'notifications-updated_comments_notifications': 'true',
-            'language-preferred_language': 'es',
-            'time-zone-current_time_zone': 'Europe/London',
+            'locale-preferred_language': 'es',
+            'locale-current_time_zone': 'Europe/London',
         }
         post_data.update(extra_post_data)
         return self.client.post(reverse('wagtailadmin_account'), post_data)
@@ -231,8 +231,11 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertPanelActive(response, 'name')
         self.assertPanelActive(response, 'email')
         self.assertPanelActive(response, 'notifications')
-        self.assertPanelActive(response, 'language')
-        self.assertPanelActive(response, 'time-zone')
+        self.assertPanelActive(response, 'locale')
+
+        # These two fields may hide themselves
+        self.assertContains(response, "Preferred language:")
+        self.assertContains(response, "Current time zone:")
 
         # Page should contain a 'Change password' option
         self.assertContains(response, "Change password")
@@ -385,7 +388,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
     def test_change_language_preferences(self):
         response = self.post_form({
-            'language-preferred_language': 'es',
+            'locale-preferred_language': 'es',
         })
 
         # Check that the user was redirected to the account page
@@ -407,7 +410,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         profile.save()
 
         response = self.post_form({
-            'language-preferred_language': '',
+            'locale-preferred_language': '',
         })
 
         # Check that the user was redirected to the account page
@@ -430,11 +433,11 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English')])
     def test_not_show_options_if_only_one_language_is_permitted(self):
         response = self.client.get(reverse('wagtailadmin_account'))
-        self.assertPanelNotActive(response, 'language')
+        self.assertNotContains(response, "Preferred language:")
 
     def test_change_current_time_zone(self):
         response = self.post_form({
-            'time-zone-current_time_zone': 'Pacific/Fiji',
+            'locale-current_time_zone': 'Pacific/Fiji',
         })
 
         # Check that the user was redirected to the account page
@@ -448,7 +451,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
     def test_unset_current_time_zone(self):
         response = self.post_form({
-            'time-zone-current_time_zone': '',
+            'locale-current_time_zone': '',
         })
 
         # Check that the user was redirected to the account page
@@ -471,7 +474,15 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
     @override_settings(WAGTAIL_USER_TIME_ZONES=['Europe/London'])
     def test_not_show_options_if_only_one_time_zone_is_permitted(self):
         response = self.client.get(reverse('wagtailadmin_account'))
-        self.assertPanelNotActive(response, 'time-zone')
+        self.assertNotContains(response, "Current time zone:")
+
+    @override_settings(
+        WAGTAIL_USER_TIME_ZONES=['Europe/London'],
+        WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English')]
+    )
+    def test_doesnt_render_locale_panel_when_only_one_timezone_and_one_locale_permitted(self):
+        response = self.client.get(reverse('wagtailadmin_account'))
+        self.assertPanelNotActive(response, 'locale')
 
 
 class TestAccountUploadAvatar(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
