@@ -104,19 +104,6 @@ function extractPageLink(url) {
   return url.slice(0, endPageUrlIndex)
 }
 
-function getElementTypeForHierarchyLevelLabel(level) {
-  const elementTypes = {
-    'lvl0': 'h3',
-    'lvl1': 'h4',
-    'lvl2': 'span',
-    'lvl3': 'span',
-    'lvl4': 'span',
-    'lvl5': 'span',
-    'lvl6': 'span',
-  }
-  return elementTypes[level]
-}
-
 window.onload = runSearchPageSearch
 </script>
 {% endblock %}
