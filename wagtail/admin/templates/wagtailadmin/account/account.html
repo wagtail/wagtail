@@ -1,23 +1,32 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{% trans "Account" %}{% endblock %}
 {% block content %}
     {% trans "Account" as account_str %}
     {% include "wagtailadmin/shared/header.html" with title=account_str %}
 
-    <div class="nice-padding">
-        <form action="{% url 'wagtailadmin_account' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+    <form action="{% url 'wagtailadmin_account' %}" method="post" enctype="multipart/form-data">
+        <ul class="objects">
             {% for panel in panels %}
-                <section>
-                    <h2>{{ panel.title }}</h2>
-                    {{ panel.render }}
-                </section>
+                <li class="object">
+                    <div class="title-wrapper">
+                        <label>{{ panel.title }}</label>
+                    </div>
+                    <div class="object-layout">
+                        <div class="object-layout_big-part">
+                            <div class="top-padding">
+                                {{ panel.render }}
+                            </div>
+                        </div>
+                    </div>
+                </li>
             {% endfor %}
+        </ul>
 
-            <button type="submit" class="button">{% trans 'Save' %}</button>
-        </form>
+        <div class="nice-padding">
+            <button type="submit" class="button">{% trans 'Save account details' %}</button>
+        </div>
 
         {% if menu_items %}
             <h2>{% trans "More actions" %}</h2>
@@ -32,5 +41,17 @@
                 {% endfor %}
             </ul>
         {% endif %}
-    </div>
+
+    </form>
+{% endblock %}
+
+{% block extra_css %}
+    {% include "wagtailadmin/pages/_editor_css.html" %}
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/workflow-edit.css' %}" type="text/css" />
+    {{ form.media.css }}
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
 {% endblock %}
