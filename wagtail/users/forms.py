@@ -432,21 +432,21 @@ class LocalePreferencesForm(forms.ModelForm):
         fields = ['preferred_language', 'current_time_zone']
 
 
-class EmailForm(forms.ModelForm):
-    email = forms.EmailField(required=True, label=_('Email'))
-
-    class Meta:
-        model = User
-        fields = ("email",)
-
-
-class NameForm(forms.ModelForm):
+class NameEmailForm(forms.ModelForm):
     first_name = forms.CharField(required=True, label=_('First Name'))
     last_name = forms.CharField(required=True, label=_('Last Name'))
+    email = forms.EmailField(required=True, label=_('Email'))
+
+    def __init__(self, *args, **kwargs):
+        from wagtail.admin.views.account import email_management_enabled
+        super().__init__(*args, **kwargs)
+
+        if not email_management_enabled():
+            del self.fields['email']
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name",)
+        fields = ['first_name', 'last_name', 'email']
 
 
 class AvatarPreferencesForm(forms.ModelForm):

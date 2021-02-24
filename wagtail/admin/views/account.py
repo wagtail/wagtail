@@ -20,7 +20,7 @@ from wagtail.admin.localization import get_available_admin_languages, get_availa
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.users.forms import (
-    AvatarPreferencesForm, EmailForm, LocalePreferencesForm, NameForm, NotificationPreferencesForm)
+    AvatarPreferencesForm, LocalePreferencesForm, NameEmailForm, NotificationPreferencesForm)
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 
@@ -114,21 +114,11 @@ class BaseSettingsPanel:
         return render_to_string(self.template_name, self.get_context_data(), request=self.request)
 
 
-class NameSettingsPanel(BaseSettingsPanel):
-    name = 'name'
-    title = gettext_lazy('Name')
+class NameEmailSettingsPanel(BaseSettingsPanel):
+    name = 'name_email'
+    title = gettext_lazy('Name and Email')
     order = 100
-    form_class = NameForm
-
-
-class EmailSettingsPanel(BaseSettingsPanel):
-    name = 'email'
-    title = gettext_lazy('Email')
-    order = 200
-    form_class = EmailForm
-
-    def is_active(self):
-        return email_management_enabled()
+    form_class = NameEmailForm
 
 
 class AvatarSettingsPanel(BaseSettingsPanel):
@@ -179,8 +169,7 @@ def account(request):
 
     # Panels
     panels = [
-        NameSettingsPanel(request, user, profile),
-        EmailSettingsPanel(request, user, profile),
+        NameEmailSettingsPanel(request, user, profile),
         AvatarSettingsPanel(request, user, profile),
         NotificationsSettingsPanel(request, user, profile),
         LocaleSettingsPanel(request, user, profile),
