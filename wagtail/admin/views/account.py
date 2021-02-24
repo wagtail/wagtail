@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -48,11 +50,26 @@ def password_reset_enabled():
     return getattr(settings, 'WAGTAIL_PASSWORD_RESET_ENABLED', password_management_enabled())
 
 
+# Tabs
+
+
+class SettingsTab:
+    def __init__(self, name, title, order=0):
+        self.name = name
+        self.title = title
+        self.order = order
+
+
+profile_tab = SettingsTab('profile', gettext_lazy("Profile"), order=100)
+notifications_tab = SettingsTab('notifications', gettext_lazy("Notifications"), order=200)
+
+
 # Panels
 
 class BaseSettingsPanel:
     name = ''
     title = ''
+    tab = profile_tab
     help_text = None
     template_name = 'wagtailadmin/account/settings_panels/base.html'
     form_class = None
@@ -127,7 +144,8 @@ class AvatarSettingsPanel(BaseSettingsPanel):
 class NotificationsSettingsPanel(BaseSettingsPanel):
     name = 'notifications'
     title = gettext_lazy('Notifications')
-    order = 400
+    tab = notifications_tab
+    order = 100
     form_class = NotificationPreferencesForm
     form_object = 'profile'
 
@@ -186,7 +204,17 @@ def account(request):
             panels.append(panel)
 
     panels = [panel for panel in panels if panel.is_active()]
-    panels.sort(key=lambda panel: panel.order)
+
+    # Get tabs and order them
+    tabs = list(set(panel.tab for panel in panels))
+    tabs.sort(key=lambda tab: tab.order)
+
+    # Get dict of tabs to ordered panels
+    panels_by_tab = OrderedDict([(tab, []) for tab in tabs])
+    for panel in panels:
+        panels_by_tab[panel.tab].append(panel)
+    for tab, tab_panels in panels_by_tab.items():
+        tab_panels.sort(key=lambda panel: panel.order)
 
     if request.method == 'POST':
         panel_forms = [panel.get_form() for panel in panels]
@@ -212,7 +240,7 @@ def account(request):
             menu_items.append(item)
 
     return TemplateResponse(request, 'wagtailadmin/account/account.html', {
-        'panels': panels,
+        'panels_by_tab': panels_by_tab,
         'menu_items': menu_items,
     })
 
