@@ -35,8 +35,8 @@ function runSearchPageSearch(event) {
   searchHeading.textContent = query
   searchResultsContainer.appendChild(searchHeading)
 
-  const search = docSearchReady()
-  const index = search.client.initIndex('wagtail')
+  const docSearch = docSearchReady()
+  const index = docSearch.client.initIndex('wagtail')
   index.search(
     query,
     {
