@@ -1,24 +1,20 @@
-Getting started
-===============
+# Getting started
 
-```eval_rst
-.. note::
+```note::
+
    These instructions assume familiarity with virtual environments and the
    `Django web framework <https://www.djangoproject.com/>`_.
    For more detailed instructions, see :doc:`tutorial`.
    To add Wagtail to an existing Django project, see :doc:`integrating_into_django`.
 ```
 
-Dependencies needed for installation
-------------------------------------
+## Dependencies needed for installation
 
 - [Python 3](https://www.python.org/downloads/)
 - **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
   See Pillow's [platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
 
-
-Quick install
--------------
+## Quick install
 
 Run the following in a virtual environment of your choice:
 
@@ -53,6 +49,8 @@ This will set you up with a new stand-alone Wagtail project.
 If you'd like to add Wagtail to an existing Django project instead, see [integrating into Django](integrating_into_django).
 
 There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including [Elasticsearch](search_performance) and [Image Feature Detection](feature_detection).
+
+## More in this section
 
 ```eval_rst
 .. toctree::
