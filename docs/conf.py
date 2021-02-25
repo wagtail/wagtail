@@ -59,6 +59,9 @@ extensions = [
     'recommonmark',
 ]
 
+# Allow section heading links like [Elasticsearch](advanced_topics/performance:search)
+autosectionlabel_prefix_document = True
+
 if not on_rtd:
     extensions.append('sphinxcontrib.spelling')
 
@@ -99,7 +102,17 @@ release = __version__
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = [
+    '_build',
+    # 'advanced_topics',
+    # 'contributing',
+    # 'editor_manual',
+    # 'getting_started',
+    # 'reference',
+    'releases',
+    # 'support',
+    # 'topics',
+]
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
