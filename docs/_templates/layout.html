@@ -1,5 +1,8 @@
 {% extends "!layout.html" %}
 
+{% set docsearch_version = '2' %}
+{% set docsearch_base = 'https://cdn.jsdelivr.net/npm/docsearch.js@' ~ docsearch_version ~ '/dist/cdn/' %}
+
 {% block extrahead %}
 <link rel="stylesheet" href="{{ docsearch_base ~ 'docsearch.min.css' }}"/>
 <link rel="stylesheet" href="{{ pathto('_static/css/docsearch.overrides.css', 1) }}" />
@@ -8,50 +11,47 @@
 {% block footer %}
 {{ super() }}
 <script async defer data-domain="docs.wagtail.io" src="https://plausible.io/js/plausible.js"></script>
-{% set docsearch_version = '2' %}
-{% set docsearch_base = 'https://cdn.jsdelivr.net/npm/docsearch.js@' ~ docsearch_version ~ '/dist/cdn/' %}
-
 <script>
-function getReadTheDocsVersion() {
-  /**
-   * Get version of the currently served docs.
-   *
-   * PR builds have their version set to the PR ID (e.g. "6753").
-   * If the docs are built for a PR, use the "latest" search index.
-   * Otherwise, use the search index for the current version.
-   */
-  const rtd_version = (window.READTHEDOCS_DATA || {}).version || 'latest';
-  const version = rtd_version.match(/^\d+$/) ? 'latest' : rtd_version;
-  return version
-}
+  function getReadTheDocsVersion() {
+    /**
+    * Get version of the currently served docs.
+    *
+    * PR builds have their version set to the PR ID (e.g. "6753").
+    * If the docs are built for a PR, use the "latest" search index.
+    * Otherwise, use the search index for the current version.
+    */
+    const rtd_version = (window.READTHEDOCS_DATA || {}).version || 'latest';
+    const version = rtd_version.match(/^\d+$/) ? 'latest' : rtd_version;
+    return version
+  }
 
-function getVersionFacetFilter() {
-  return 'version:' + getReadTheDocsVersion()
-}
+  function getVersionFacetFilter() {
+    return 'version:' + getReadTheDocsVersion()
+  }
 
-function docSearchReady(script) {
-  /**
-   * Configure Algolia DocSearch.
-   */
-  const search = docsearch({
-    apiKey: '8325c57d16798633e29d211c26c7b6f9',
-    indexName: 'wagtail',
-    inputSelector: '#rtd-search-form [name="q"]',
-    algoliaOptions: {
-      facetFilters: [getVersionFacetFilter()],
-    },
-    autocompleteOptions: {
-      autoSelect: false
-    },
-    debug: true // Set debug to true if you want to inspect the dropdown
-  });
+  function docSearchReady(script) {
+    /**
+    * Configure Algolia DocSearch.
+    */
+    const search = docsearch({
+      apiKey: '8325c57d16798633e29d211c26c7b6f9',
+      indexName: 'wagtail',
+      inputSelector: '#rtd-search-form [name="q"]',
+      algoliaOptions: {
+        facetFilters: [getVersionFacetFilter()],
+      },
+      autocompleteOptions: {
+        autoSelect: false
+      },
+      debug: true // Set debug to true if you want to inspect the dropdown
+    });
 
-  return search
-}
+    return search
+  }
 
-const s = document.createElement('script');
-s.src = '{{ docsearch_base }}docsearch.min.js';
-s.onload = docSearchReady;
-document.body.appendChild(s);
+  const s = document.createElement('script');
+  s.src = '{{ docsearch_base }}docsearch.min.js';
+  s.onload = docSearchReady;
+  document.body.appendChild(s);
 </script>
 {% endblock %}
