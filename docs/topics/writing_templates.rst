@@ -106,7 +106,7 @@ For example:
 See :ref:`image_tag` for full documentation.
 
 
-.. _rich-text-filter:
+.. _richtext-filter:
 
 Rich text (filter)
 ~~~~~~~~~~~~~~~~~~
