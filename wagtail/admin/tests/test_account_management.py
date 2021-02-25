@@ -13,7 +13,7 @@ from django.urls import reverse
 
 from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
-from wagtail.admin.views.account import change_password, profile_tab
+from wagtail.admin.views.account import account, profile_tab
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
@@ -231,14 +231,12 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertPanelActive(response, 'name_email')
         self.assertPanelActive(response, 'notifications')
         self.assertPanelActive(response, 'locale')
+        self.assertPanelActive(response, 'password')
 
         # These fields may hide themselves
         self.assertContains(response, "Email:")
         self.assertContains(response, "Preferred language:")
         self.assertContains(response, "Current time zone:")
-
-        # Page should contain a 'Change password' option
-        self.assertContains(response, "Change password")
 
     def test_change_name_post(self):
         response = self.post_form({
@@ -300,72 +298,54 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         # Page should NOT contain a 'Change password' option
         self.assertNotContains(response, "Change password")
 
-    def test_change_password_view(self):
-        """
-        This tests that the change password view responds with a change password page
-        """
-        # Get change password page
-        response = self.client.get(reverse('wagtailadmin_account_change_password'))
-
-        # Check that the user received a change password page
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/change_password.html')
-
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_change_password_view_disabled(self):
-        """
-        This tests that the change password view responds with a 404
-        when setting WAGTAIL_PASSWORD_MANAGEMENT_ENABLED is False
-        """
-        # Get change password page
-        response = self.client.get(reverse('wagtailadmin_account_change_password'))
+        response = self.client.get(reverse('wagtailadmin_account'))
+        self.assertPanelNotActive(response, 'password')
 
-        # Check that the user received a 404
-        self.assertEqual(response.status_code, 404)
-
-    def test_change_password_view_post(self):
-        """
-        This posts a new password to the change password view and checks
-        that the users password was changed
-        """
-        # Post new password to change password page
-        post_data = {
-            'old_password': 'password',
-            'new_password1': 'newpassword',
-            'new_password2': 'newpassword',
-        }
-        response = self.client.post(reverse('wagtailadmin_account_change_password'), post_data)
+    def test_change_password(self):
+        response = self.post_form({
+            'password-old_password': 'password',
+            'password-new_password1': 'newpassword',
+            'password-new_password2': 'newpassword',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
         # Check that the password was changed
-        self.assertTrue(get_user_model().objects.get(pk=self.user.pk).check_password('newpassword'))
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password('newpassword'))
 
-    def test_change_password_view_post_password_mismatch(self):
-        """
-        This posts a two passwords that don't match to the password change
-        view and checks that a validation error was raised
-        """
-        # Post new password to change password page
-        post_data = {
-            'new_password1': 'newpassword',
-            'new_password2': 'badpassword',
-        }
-        response = self.client.post(reverse('wagtailadmin_account_change_password'), post_data)
+    def test_change_password_post_password_mismatch(self):
+        response = self.post_form({
+            'password-old_password': 'password',
+            'password-new_password1': 'newpassword',
+            'password-new_password2': 'badpassword',
+        })
 
         # Check that the user wasn't redirected
         self.assertEqual(response.status_code, 200)
 
+        # Find password panel through context
+        password_panel = None
+        for panelset in response.context['panels_by_tab'].values():
+            for panel in panelset:
+                if panel.name == 'password':
+                    password_panel = panel
+                    break
+
         # Check that a validation error was raised
-        self.assertTrue('new_password2' in response.context['form'].errors.keys())
+        password_form = password_panel.get_form()
+        self.assertTrue('new_password2' in password_form.errors.keys())
         if DJANGO_VERSION >= (3, 0):
-            self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
+            self.assertTrue("The two password fields didn’t match." in password_form.errors['new_password2'])
         else:
-            self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
+            self.assertTrue("The two password fields didn't match." in password_form.errors['new_password2'])
 
         # Check that the password was not changed
-        self.assertTrue(get_user_model().objects.get(pk=self.user.pk).check_password('password'))
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password('password'))
 
     def test_change_notifications(self):
         response = self.post_form({
@@ -483,6 +463,13 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
     def test_doesnt_render_locale_panel_when_only_one_timezone_and_one_locale_permitted(self):
         response = self.client.get(reverse('wagtailadmin_account'))
         self.assertPanelNotActive(response, 'locale')
+
+    def test_sensitive_post_parameters(self):
+        request = RequestFactory().post('wagtailadmin_account', data={})
+        request.user = self.user
+        account(request)
+        self.assertTrue(hasattr(request, 'sensitive_post_parameters'))
+        self.assertEqual(request.sensitive_post_parameters, '__ALL__')
 
 
 class TestAccountUploadAvatar(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
@@ -833,10 +820,3 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         # Check that the user received a password reset complete page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/password_reset/complete.html')
-
-    def test_password_reset_sensitive_post_parameters(self):
-        request = RequestFactory().post('wagtailadmin_password_reset_confirm', data={})
-        request.user = get_user_model().objects.get(email='test@email.com')
-        change_password(request)
-        self.assertTrue(hasattr(request, 'sensitive_post_parameters'))
-        self.assertEqual(request.sensitive_post_parameters, '__ALL__')

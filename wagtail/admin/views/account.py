@@ -159,8 +159,35 @@ class LocaleSettingsPanel(BaseSettingsPanel):
         return len(get_available_admin_languages()) > 1 or len(get_available_admin_time_zones()) > 1
 
 
+class ChangePasswordPanel(BaseSettingsPanel):
+    name = 'password'
+    title = gettext_lazy('Password')
+    order = 500
+    form_class = PasswordChangeForm
+
+    def is_active(self):
+        return password_management_enabled() and self.user.has_usable_password()
+
+    def get_form(self):
+        # Note: don't bind the form unless a field is specified
+        # This prevents the validation error from displaying if the user wishes to ignore this
+        bind_form = False
+        if self.request.method == 'POST':
+            bind_form = any([
+                self.request.POST.get(self.name + '-old_password'),
+                self.request.POST.get(self.name + '-new_password1'),
+                self.request.POST.get(self.name + '-new_password2'),
+            ])
+
+        if bind_form:
+            return self.form_class(self.user, self.request.POST, prefix=self.name)
+        else:
+            return self.form_class(self.user, prefix=self.name)
+
+
 # Views
 
+@sensitive_post_parameters()
 def account(request):
     # Fetch the user and profile objects once and pass into each panel
     # We need to use the same instances for all forms so they don't overwrite each other
@@ -173,6 +200,7 @@ def account(request):
         AvatarSettingsPanel(request, user, profile),
         NotificationsSettingsPanel(request, user, profile),
         LocaleSettingsPanel(request, user, profile),
+        ChangePasswordPanel(request, user, profile),
     ]
     for fn in hooks.get_hooks('register_account_settings_panel'):
         panel = fn(request, user, profile)
@@ -195,10 +223,14 @@ def account(request):
     if request.method == 'POST':
         panel_forms = [panel.get_form() for panel in panels]
 
-        if all(form.is_valid() for form in panel_forms):
+        if all(form.is_valid() or not form.is_bound for form in panel_forms):
             with transaction.atomic():
                 for form in panel_forms:
-                    form.save()
+                    if form.is_bound:
+                        form.save()
+
+            # Prevent a password change from logging this user out
+            update_session_auth_hash(request, user)
 
             # Override the language when creating the success message
             # If the user has changed their language in this request, the message should
@@ -218,34 +250,6 @@ def account(request):
     return TemplateResponse(request, 'wagtailadmin/account/account.html', {
         'panels_by_tab': panels_by_tab,
         'menu_items': menu_items,
-    })
-
-
-@sensitive_post_parameters()
-def change_password(request):
-    if not password_management_enabled():
-        raise Http404
-
-    can_change_password = request.user.has_usable_password()
-
-    if can_change_password:
-        if request.method == 'POST':
-            form = PasswordChangeForm(request.user, request.POST)
-
-            if form.is_valid():
-                form.save()
-                update_session_auth_hash(request, form.user)
-
-                messages.success(request, _("Your password has been changed successfully!"))
-                return redirect('wagtailadmin_account')
-        else:
-            form = PasswordChangeForm(request.user)
-    else:
-        form = None
-
-    return TemplateResponse(request, 'wagtailadmin/account/change_password.html', {
-        'form': form,
-        'can_change_password': can_change_password,
     })
 
 

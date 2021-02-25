@@ -20,7 +20,6 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import PagesSummaryItem
-from wagtail.admin.views.account import password_management_enabled
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
@@ -245,16 +244,6 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
 def register_viewsets_urls():
     viewsets.populate()
     return viewsets.get_urlpatterns()
-
-
-@hooks.register('register_account_menu_item')
-def register_account_change_password(request):
-    if password_management_enabled() and request.user.has_usable_password():
-        return {
-            'url': reverse('wagtailadmin_account_change_password'),
-            'label': _('Change password'),
-            'help_text': _('Change the password you use to log in.'),
-        }
 
 
 @hooks.register('register_rich_text_features')

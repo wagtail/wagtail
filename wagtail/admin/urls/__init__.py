@@ -53,7 +53,6 @@ urlpatterns = [
     path('reports/', include(wagtailadmin_reports_urls, namespace='wagtailadmin_reports')),
 
     path('account/', account.account, name='wagtailadmin_account'),
-    path('account/change_password/', account.change_password, name='wagtailadmin_account_change_password'),
     path('logout/', account.LogoutView.as_view(), name='wagtailadmin_logout'),
 ]
 
