@@ -52,7 +52,7 @@ Your site is now accessible at `http://localhost:8000`, with the admin backend a
 This will set you up with a new stand-alone Wagtail project.
 If you'd like to add Wagtail to an existing Django project instead, see [integrating into Django](integrating_into_django).
 
-There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including [Elasticsearch](advanced_topics/performance:search) and [Image Feature Detection](/advanced_topics/images/feature_detection).
+There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including [Elasticsearch](search_performance) and [Image Feature Detection](feature_detection).
 
 ```eval_rst
 .. toctree::
