@@ -52,6 +52,8 @@ which include many images.
     }
 
 
+.. _search_performance:
+
 Search
 ------
 
