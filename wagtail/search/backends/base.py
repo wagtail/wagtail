@@ -1,5 +1,7 @@
 from warnings import warn
 
+from django.db.models.functions.datetime import Extract as ExtractDate
+from django.db.models.functions.datetime import ExtractYear
 from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
@@ -88,7 +90,16 @@ class BaseSearchQueryCompiler:
     def _get_filters_from_where_node(self, where_node, check_only=False):
         # Check if this is a leaf node
         if isinstance(where_node, Lookup):
-            field_attname = where_node.lhs.target.attname
+            if isinstance(where_node.lhs, ExtractDate):
+                if isinstance(where_node.lhs, ExtractYear):
+                    field_attname = where_node.lhs.lhs.target.attname
+                else:
+                    raise FilterError(
+                        'Cannot apply filter on search results: "' + where_node.lhs.lookup_name
+                        + '" queries are not supported.'
+                    )
+            else:
+                field_attname = where_node.lhs.target.attname
             lookup = where_node.lookup_name
             value = where_node.rhs
 
