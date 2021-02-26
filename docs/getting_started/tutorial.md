@@ -551,7 +551,7 @@ Adjust your blog page template to include the images:
 {% endblock %}
 ```
 
-Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` library, imported at the top of the template) to insert an `<img>` element, with a `fill-320x240` parameter to indicate that the image should be resized and cropped to fill a 320x240 rectangle. You can read more about using images in templates in the `docs <../topics/images>`{.interpreted-text role="doc"}.
+Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` library, imported at the top of the template) to insert an `<img>` element, with a `fill-320x240` parameter to indicate that the image should be resized and cropped to fill a 320x240 rectangle. You can read more about using images in templates in the [docs](../topics/images).
 
 ![](../_static/images/tutorial/tutorial_6.jpg)
 
