@@ -360,7 +360,7 @@ homepage should appear in the footer of each post page.
 ### Parents and Children
 
 Much of the work you\'ll be doing in Wagtail revolves around the concept of hierarchical
-\"tree\" structures consisting of nodes and leaves (see `../reference/pages/theory`{.interpreted-text role="doc"}).
+\"tree\" structures consisting of nodes and leaves (see [Theory](../reference/pages/theory)).
 In this case, the `BlogIndexPage` is a \"node\" and individual `BlogPage` instances
 are the \"leaves\".
 
