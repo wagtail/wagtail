@@ -159,12 +159,52 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``url`` (optional)
   A URL to an index page that lists the objects being described.
 
+
+``register_account_settings_panel``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Registers a new settings panel class to add to the "Account" view in the admin.
+
+This hook can be added to a sub-class of ``BaseSettingsPanel``. For example:
+
+  .. code-block:: python
+
+    from wagtail.admin.views.account import BaseSettingsPanel
+    from wagtail.core import hooks
+
+    @hooks.register('register_account_settings_panel')
+    class CustomSettingsPanel(BaseSettingsPanel):
+        name = 'custom'
+        title = "My custom settings"
+        order = 500
+        form_class = CustomSettingsForm
+
+Alternatively, it can also be added to a function. For example, this function is equivalent to the above:
+
+  .. code-block:: python
+
+    from wagtail.admin.views.account import BaseSettingsPanel
+    from wagtail.core import hooks
+
+    class CustomSettingsPanel(BaseSettingsPanel):
+        name = 'custom'
+        title = "My custom settings"
+        order = 500
+        form_class = CustomSettingsForm
+
+    @hooks.register('register_account_settings_panel')
+    def register_custom_settings_panel(request, user, profile):
+        return CustomSettingsPanel(request, user, profile)
+
+More details about the options that are available can be found at :doc:`/advanced_topics/customisation/custom_account_settings`.
+
+
 .. _register_account_menu_item:
 
 ``register_account_menu_item``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add an item to the “Account settings” page within the Wagtail admin.
+  Add an item to the "More actions" tab on the "Account" page within the Wagtail admin.
   The callable for this hook should return a dict with the keys
   ``url``, ``label`` and ``help_text``. For example:
 
