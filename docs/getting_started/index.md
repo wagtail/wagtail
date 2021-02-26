@@ -53,9 +53,12 @@ There are a few optional packages which are not installed by default but are rec
 > -   [Elasticsearch](/advanced_topics/performance).
 > -   [Feature Detection](image_feature_detection).
 
-::: {.toctree maxdepth="1"}
-tutorial
-demo_site
-integrating_into_django
-the_zen_of_wagtail
-:::
+```eval_rst
+.. toctree::
+    :maxdepth: 1
+
+    tutorial
+    demo_site
+    integrating_into_django
+    the_zen_of_wagtail
+```
