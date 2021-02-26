@@ -191,11 +191,11 @@ Edit `home/templates/home/home_page.html` to contain the following:
 ### Wagtail template tags
 
 In addition to Django\'s [template tags and filters](https://docs.djangoproject.com/en/3.1/ref/templates/builtins/),
-Wagtail provides a number of it\'s own `template tags & filters <template-tags-and-filters>`{.interpreted-text role="ref"}
+Wagtail provides a number of it\'s own [template tags & filters](template-tags-and-filters)
 which can be loaded by including `{% load wagtailcore_tags %}` at the top of
 your template file.
 
-In this tutorial, we use the [richtext]{.title-ref} filter to escape and print the contents
+In this tutorial, we use the _richtext_ filter to escape and print the contents
 of a `RichTextField`:
 
 ```html+django
