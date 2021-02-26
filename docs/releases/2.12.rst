@@ -49,8 +49,8 @@ Bug fixes
 * Fix unique constraint on WorkflowState for SQL Server compatibility (David Beitey)
 * Reinstate chevron on collection dropdown (Mike Brown)
 * Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
- * Move labels above the form field in the image format chooser, to avoid styling issues at tablet size (Helen Chapman)
- * ``{% include_block with context %}`` now passes local variables into the block template (Jonny Scholes)
+* Move labels above the form field in the image format chooser, to avoid styling issues at tablet size (Helen Chapman)
+* ``{% include_block with context %}`` now passes local variables into the block template (Jonny Scholes)
 
 
 Upgrade considerations
