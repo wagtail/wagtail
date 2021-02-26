@@ -25,19 +25,16 @@ class Operation:
     def construct(self, *args):
         raise NotImplementedError
 
+
+# Transforms
+
+
+class TransformOperation(Operation):
     def run(self, willow, image, env):
         raise NotImplementedError
 
 
-class DoNothingOperation(Operation):
-    def construct(self):
-        pass
-
-    def run(self, willow, image, env):
-        pass
-
-
-class FillOperation(Operation):
+class FillOperation(TransformOperation):
     vary_fields = ('focal_point_width', 'focal_point_height', 'focal_point_x', 'focal_point_y')
 
     def construct(self, size, *extra):
@@ -143,7 +140,7 @@ class FillOperation(Operation):
         return willow
 
 
-class MinMaxOperation(Operation):
+class MinMaxOperation(TransformOperation):
     def construct(self, size):
         # Get width and height
         width_str, height_str = size.split('x')
@@ -189,7 +186,7 @@ class MinMaxOperation(Operation):
         return willow.resize((width, height))
 
 
-class WidthHeightOperation(Operation):
+class WidthHeightOperation(TransformOperation):
     def construct(self, size):
         self.size = int(size)
 
@@ -225,7 +222,7 @@ class WidthHeightOperation(Operation):
         return willow.resize((width, height))
 
 
-class ScaleOperation(Operation):
+class ScaleOperation(TransformOperation):
     def construct(self, percent):
         self.percent = float(percent)
 
@@ -243,7 +240,23 @@ class ScaleOperation(Operation):
         return willow.resize((width, height))
 
 
-class JPEGQualityOperation(Operation):
+# Filters
+
+
+class FilterOperation(Operation):
+    def run(self, willow, image, env):
+        raise NotImplementedError
+
+
+class DoNothingOperation(FilterOperation):
+    def construct(self):
+        pass
+
+    def run(self, willow, image, env):
+        return willow
+
+
+class JPEGQualityOperation(FilterOperation):
     def construct(self, quality):
         self.quality = int(quality)
 
@@ -254,7 +267,7 @@ class JPEGQualityOperation(Operation):
         env['jpeg-quality'] = self.quality
 
 
-class WebPQualityOperation(Operation):
+class WebPQualityOperation(FilterOperation):
     def construct(self, quality):
         self.quality = int(quality)
 
@@ -265,7 +278,7 @@ class WebPQualityOperation(Operation):
         env['webp-quality'] = self.quality
 
 
-class FormatOperation(Operation):
+class FormatOperation(FilterOperation):
     def construct(self, format, *options):
         self.format = format
         self.options = options
@@ -279,7 +292,7 @@ class FormatOperation(Operation):
         env['output-format-options'] = self.options
 
 
-class BackgroundColorOperation(Operation):
+class BackgroundColorOperation(FilterOperation):
     def construct(self, color_string):
         self.color = parse_color_string(color_string)
 
