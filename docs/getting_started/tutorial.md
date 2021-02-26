@@ -48,14 +48,12 @@ $ source mysite/env/bin/activate
 
 **For other shells** see the [venv documentation](https://docs.python.org/3/library/venv.html).
 
-::: {.note}
-::: {.title}
-Note
-:::
+```eval_rst
+.. note::
 
-If you\'re using version control (e.g. git), `mysite` will be the directory for your project.
-The `env` directory inside of it should be excluded from any version control.
-:::
+   If you're using version control (e.g. git), ``mysite`` will be the directory for your project.
+   The ``env`` directory inside of it should be excluded from any version control.
+```
 
 ### Install Wagtail
 
