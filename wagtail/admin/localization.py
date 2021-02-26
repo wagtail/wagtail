@@ -111,4 +111,7 @@ def get_available_admin_languages():
 
 
 def get_available_admin_time_zones():
+    if not settings.USE_TZ:
+        return []
+
     return getattr(settings, 'WAGTAIL_USER_TIME_ZONES', pytz.common_timezones)

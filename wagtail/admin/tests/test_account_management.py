@@ -1,3 +1,5 @@
+import unittest
+
 import pytz
 
 from django import VERSION as DJANGO_VERSION
@@ -236,7 +238,11 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         # These fields may hide themselves
         self.assertContains(response, "Email:")
         self.assertContains(response, "Preferred language:")
-        self.assertContains(response, "Current time zone:")
+
+        if settings.USE_TZ:
+            self.assertContains(response, "Current time zone:")
+        else:
+            self.assertNotContains(response, "Current time zone:")
 
     def test_change_name_post(self):
         response = self.post_form({
@@ -415,6 +421,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         response = self.client.get(reverse('wagtailadmin_account'))
         self.assertNotContains(response, "Preferred language:")
 
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     def test_change_current_time_zone(self):
         response = self.post_form({
             'locale-current_time_zone': 'Pacific/Fiji',
@@ -429,6 +436,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         # Check that the current time zone is stored
         self.assertEqual(profile.current_time_zone, 'Pacific/Fiji')
 
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     def test_unset_current_time_zone(self):
         response = self.post_form({
             'locale-current_time_zone': '',
@@ -443,19 +451,28 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         # Check that the current time zone are stored
         self.assertEqual(profile.current_time_zone, '')
 
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(WAGTAIL_USER_TIME_ZONES=['Africa/Addis_Ababa', 'America/Argentina/Buenos_Aires'])
     def test_available_admin_time_zones_with_permitted_time_zones(self):
         self.assertListEqual(get_available_admin_time_zones(),
                              ['Africa/Addis_Ababa', 'America/Argentina/Buenos_Aires'])
 
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     def test_available_admin_time_zones_by_default(self):
         self.assertListEqual(get_available_admin_time_zones(), pytz.common_timezones)
 
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(WAGTAIL_USER_TIME_ZONES=['Europe/London'])
     def test_not_show_options_if_only_one_time_zone_is_permitted(self):
         response = self.client.get(reverse('wagtailadmin_account'))
         self.assertNotContains(response, "Current time zone:")
 
+    @unittest.skipIf(settings.USE_TZ, "Timezone support is enabled")
+    def test_not_show_options_if_timezone_support_disabled(self):
+        response = self.client.get(reverse('wagtailadmin_account'))
+        self.assertNotContains(response, "Current time zone:")
+
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(
         WAGTAIL_USER_TIME_ZONES=['Europe/London'],
         WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English')]
