@@ -63,14 +63,9 @@ function createHitElement(hitData, query) {
 
   const hitListElement = document.createElement('li')
 
-  let firstHierarchyLevel = undefined
-  let lastHierarchyLevel = undefined
-  for (levelLabel in result.hierarchy) {
-    if (firstHierarchyLevel === undefined ) {
-      firstHierarchyLevel = result.hierarchy[levelLabel]
-    }
-    lastHierarchyLevel = result.hierarchy[levelLabel]
-  }
+  const hierarchies = Object.values(result.hierarchy);
+  const firstHierarchyLevel = hierarchies[0];
+  const lastHierarchyLevel = hierarchies[hierarchies.length - 1];
 
   const pageLink = document.createElement('a')
   hitListElement.appendChild(pageLink)
