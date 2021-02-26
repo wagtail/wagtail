@@ -151,8 +151,8 @@ class HomePage(Page):
 
 `body` is defined as `RichTextField`, a special Wagtail field. When `blank=True`,
 it means that this field is not required and can be empty. You
-can use any of the `Django core fields <django:ref/models/fields>`{.interpreted-text role="doc"}. `content_panels` define the
-capabilities and the layout of the editing interface. When you add fields to `content_panels`, it enables them to be edited on the Wagtail interface. `More on creating Page models. <../topics/pages>`{.interpreted-text role="doc"}
+can use any of the [Django core fields](https://docs.djangoproject.com/en/stable/ref/models/fields). `content_panels` define the
+capabilities and the layout of the editing interface. When you add fields to `content_panels`, it enables them to be edited on the Wagtail interface. [More on creating Page models](../topics/pages).
 
 Run `python manage.py makemigrations` (this will create the migrations file), then
 `python manage.py migrate` (this executes the migrations and updates the database with your model
