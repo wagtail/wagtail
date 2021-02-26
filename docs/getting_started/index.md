@@ -32,7 +32,7 @@ $ wagtail start mysite
 
 This will create a new folder `mysite`, based on a template containing everything you need to get started.
 More information on that template is available in
-`the project template reference </reference/project_template>`{.interpreted-text role="doc"}.
+[the project template reference](/reference/project_template).
 
 Inside your `mysite` folder, run the setup steps necessary for any Django project:
 
@@ -46,12 +46,12 @@ $ ./manage.py runserver
 Your site is now accessible at `http://localhost:8000`, with the admin backend available at `http://localhost:8000/admin/`.
 
 This will set you up with a new stand-alone Wagtail project.
-If you\'d like to add Wagtail to an existing Django project instead, see `integrating_into_django`{.interpreted-text role="doc"}.
+If you\'d like to add Wagtail to an existing Django project instead, see [Integrating Wagtail into a Django project](integrating_into_django).
 
 There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including:
 
-> -   `Elasticsearch </advanced_topics/performance>`{.interpreted-text role="doc"}.
-> -   `image_feature_detection`{.interpreted-text role="ref"}.
+> -   [Elasticsearch](/advanced_topics/performance).
+> -   [Feature Detection](image_feature_detection).
 
 ::: {.toctree maxdepth="1"}
 tutorial
