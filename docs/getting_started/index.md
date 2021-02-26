@@ -1,66 +1,64 @@
-Getting started
-===============
+# Getting started
 
-.. note::
-   These instructions assume familiarity with virtual environments and the
-   `Django web framework <https://www.djangoproject.com/>`_.
-   For more detailed instructions, see :doc:`tutorial`.
-   To add Wagtail to an existing Django project, see :doc:`integrating_into_django`.
+::: {.note}
+::: {.title}
+Note
+:::
 
+These instructions assume familiarity with virtual environments and the
+[Django web framework](https://www.djangoproject.com/).
+For more detailed instructions, see `tutorial`{.interpreted-text role="doc"}.
+To add Wagtail to an existing Django project, see `integrating_into_django`{.interpreted-text role="doc"}.
+:::
 
-Dependencies needed for installation
-------------------------------------
+## Dependencies needed for installation
 
-* `Python 3 <https://www.python.org/downloads/>`_
-* **libjpeg** and **zlib**, libraries required for Django's **Pillow** library.
-  See Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+-   [Python 3](https://www.python.org/downloads/)
+-   **libjpeg** and **zlib**, libraries required for Django\'s **Pillow** library.
+    See Pillow\'s [platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
 
-
-Quick install
--------------
+## Quick install
 
 Run the following in a virtual environment of your choice:
 
-.. code-block:: console
+``` {.console}
+$ pip install wagtail
+```
 
-    $ pip install wagtail
+(Installing outside a virtual environment may require `sudo`.)
 
-(Installing outside a virtual environment may require ``sudo``.)
+Once installed, Wagtail provides a command similar to Django\'s `django-admin startproject` to generate a new site/project:
 
-Once installed, Wagtail provides a command similar to Django's ``django-admin startproject`` to generate a new site/project:
+``` {.console}
+$ wagtail start mysite
+```
 
-.. code-block:: console
-
-    $ wagtail start mysite
-
-This will create a new folder ``mysite``, based on a template containing everything you need to get started.
+This will create a new folder `mysite`, based on a template containing everything you need to get started.
 More information on that template is available in
-:doc:`the project template reference </reference/project_template>`.
+`the project template reference </reference/project_template>`{.interpreted-text role="doc"}.
 
-Inside your ``mysite`` folder, run the setup steps necessary for any Django project:
+Inside your `mysite` folder, run the setup steps necessary for any Django project:
 
-.. code-block:: console
+``` {.console}
+$ pip install -r requirements.txt
+$ ./manage.py migrate
+$ ./manage.py createsuperuser
+$ ./manage.py runserver
+```
 
-    $ pip install -r requirements.txt
-    $ ./manage.py migrate
-    $ ./manage.py createsuperuser
-    $ ./manage.py runserver
-
-Your site is now accessible at ``http://localhost:8000``, with the admin backend available at ``http://localhost:8000/admin/``.
+Your site is now accessible at `http://localhost:8000`, with the admin backend available at `http://localhost:8000/admin/`.
 
 This will set you up with a new stand-alone Wagtail project.
-If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
+If you\'d like to add Wagtail to an existing Django project instead, see `integrating_into_django`{.interpreted-text role="doc"}.
 
 There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including:
 
- * :doc:`Elasticsearch </advanced_topics/performance>`.
- * :ref:`image_feature_detection`.
+> -   `Elasticsearch </advanced_topics/performance>`{.interpreted-text role="doc"}.
+> -   `image_feature_detection`{.interpreted-text role="ref"}.
 
-
-.. toctree::
-    :maxdepth: 1
-
-    tutorial
-    demo_site
-    integrating_into_django
-    the_zen_of_wagtail
+::: {.toctree maxdepth="1"}
+tutorial
+demo_site
+integrating_into_django
+the_zen_of_wagtail
+:::
