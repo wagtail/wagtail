@@ -42,7 +42,7 @@ class OEmbedFinder(EmbedFinder):
     def accept(self, url):
         return self._get_endpoint(url) is not None
 
-    def find_embed(self, url, max_width=None):
+    def find_embed(self, url, max_width=None, max_height=None):
         # Find provider
         endpoint = self._get_endpoint(url)
         if endpoint is None:
@@ -54,6 +54,8 @@ class OEmbedFinder(EmbedFinder):
         params['format'] = 'json'
         if max_width:
             params['maxwidth'] = max_width
+        if max_height:
+            params['maxheight'] = max_height
 
         # Perform request
         request = Request(endpoint + '?' + urlencode(params))

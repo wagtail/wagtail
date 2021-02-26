@@ -6,26 +6,28 @@ from .finders import get_finders
 from .models import Embed
 
 
-def get_embed(url, max_width=None, finder=None):
-    embed_hash = get_embed_hash(url, max_width)
+def get_embed(url, max_width=None, max_height=None, finder=None):
+    print(url, max_width)
+    embed_hash = get_embed_hash(url, max_width, max_height)
 
     # Check database
     try:
         return Embed.objects.get(hash=embed_hash)
     except Embed.DoesNotExist:
         pass
+    print("does not exist")
 
     # Get/Call finder
     if not finder:
 
-        def finder(url, max_width=None):
+        def finder(url, max_width=None, max_height=None):
             for finder in get_finders():
                 if finder.accept(url):
-                    return finder.find_embed(url, max_width=max_width)
+                    return finder.find_embed(url, max_width=max_width, max_height=max_height)
 
             raise EmbedUnsupportedProviderException
 
-    embed_dict = finder(url, max_width)
+    embed_dict = finder(url, max_width, max_height)
 
     # Make sure width and height are valid integers before inserting into database
     try:
@@ -63,10 +65,13 @@ def get_embed(url, max_width=None, finder=None):
     return embed
 
 
-def get_embed_hash(url, max_width=None):
+def get_embed_hash(url, max_width=None, max_height=None):
     h = md5()
     h.update(url.encode("utf-8"))
     if max_width is not None:
         h.update(b"\n")
         h.update(str(max_width).encode("utf-8"))
+    if max_height is not None:
+        h.update(b"\n")
+        h.update(str(max_height).encode("utf-8"))
     return h.hexdigest()
