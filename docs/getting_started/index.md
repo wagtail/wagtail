@@ -1,15 +1,12 @@
 # Getting started
 
-::: {.note}
-::: {.title}
-Note
-:::
-
-These instructions assume familiarity with virtual environments and the
-[Django web framework](https://www.djangoproject.com/).
-For more detailed instructions, see `tutorial`{.interpreted-text role="doc"}.
-To add Wagtail to an existing Django project, see `integrating_into_django`{.interpreted-text role="doc"}.
-:::
+```eval_rst
+.. note::
+   These instructions assume familiarity with virtual environments and the
+   `Django web framework <https://www.djangoproject.com/>`_.
+   For more detailed instructions, see :doc:`tutorial`.
+   To add Wagtail to an existing Django project, see :doc:`integrating_into_django`.
+```
 
 ## Dependencies needed for installation
 
