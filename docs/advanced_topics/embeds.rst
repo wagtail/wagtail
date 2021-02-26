@@ -33,6 +33,9 @@ nest the embed code.
 The :class:`~wagtail.embeds.block.EmbedBlock` block type allows embeds
 to be placed into a ``StreamField``.
 
+The `max_width` and `max_height` init attributes will be passed to
+the oEmbed as `maxwidth` and `maxheight`.
+
 For example:
 
 .. code-block:: python
@@ -42,7 +45,7 @@ For example:
     class MyStreamField(blocks.StreamBlock):
         ...
 
-        embed = EmbedBlock()
+        embed = EmbedBlock(max_width=800, max_height=400)
 
 ``{% embed %}`` tag
 -------------------
