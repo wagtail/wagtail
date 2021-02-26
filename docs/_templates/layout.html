@@ -20,8 +20,8 @@
    * Otherwise, use the search index for the current version.
    */
   function getReadTheDocsVersion() {
-    const rtd_version = (window.READTHEDOCS_DATA || {}).version || 'latest';
-    const version = rtd_version.match(/^\d+$/) ? 'latest' : rtd_version;
+    const rtd_version = (window.READTHEDOCS_DATA || {}).version || 'latest'
+    const version = rtd_version.match(/^\d+$/) ? 'latest' : rtd_version
     return version
   }
 
@@ -55,14 +55,14 @@
         autoSelect: false
       },
       debug: getSearchDebugMode(),
-    });
+    })
 
     return search
   }
 
-  const s = document.createElement('script');
-  s.src = '{{ docsearch_base }}docsearch.min.js';
-  s.onload = docSearchReady;
-  document.body.appendChild(s);
+  const s = document.createElement('script')
+  s.src = '{{ docsearch_base }}docsearch.min.js'
+  s.onload = docSearchReady
+  document.body.appendChild(s)
 </script>
 {% endblock %}
