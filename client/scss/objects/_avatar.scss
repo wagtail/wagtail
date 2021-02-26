@@ -25,6 +25,11 @@
         height: 25px;
     }
 
+    &.large {
+        width: 100px;
+        height: 100px;
+    }
+
     &.square {
         border-radius: 0;
 

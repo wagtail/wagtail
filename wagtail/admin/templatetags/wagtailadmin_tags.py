@@ -475,14 +475,14 @@ def admin_urlquote(value):
 
 
 @register.simple_tag
-def avatar_url(user, size=50):
+def avatar_url(user, size=50, gravatar_only=False):
     """
     A template tag that receives a user and size and return
     the appropiate avatar url for that user.
     Example usage: {% avatar_url request.user 50 %}
     """
 
-    if hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
+    if not gravatar_only and hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
         return user.wagtail_userprofile.avatar.url
 
     if hasattr(user, 'email'):
