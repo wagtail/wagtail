@@ -170,7 +170,7 @@ separating capital letters with underscores (e.g. HomePage within the \'home\' a
 
 Edit `home/templates/home/home_page.html` to contain the following:
 
-``` {.html+django}
+```html+django
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
@@ -198,7 +198,7 @@ your template file.
 In this tutorial, we use the [richtext]{.title-ref} filter to escape and print the contents
 of a `RichTextField`:
 
-``` {.html+django}
+```html+django
 {% load wagtailcore_tags %}
 {{ page.body|richtext }}
 ```
@@ -246,7 +246,7 @@ Since the model is called `BlogIndexPage`, the default template name
 (unless we override it) will be `blog/templates/blog/blog_index_page.html`. Create this file
 with the following content:
 
-``` {.html+django}
+```html+django
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
@@ -313,7 +313,7 @@ Run `python manage.py makemigrations` and `python manage.py migrate`.
 
 Create a template at `blog/templates/blog/blog_page.html`:
 
-``` {.html+django}
+```html+django
 {% extends "base.html" %}
 
 {% load wagtailcore_tags %}
@@ -366,7 +366,7 @@ are the \"leaves\".
 
 Take another look at the guts of `blog_index_page.html`:
 
-``` {.html+django}
+```html+django
 {% for post in page.get_children %}
     <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
     {{ post.specific.intro }}
@@ -389,7 +389,7 @@ on the `BlogPage` model, so we need `.specific` to access it.
 
 To tighten up template code like this, we could use Django\'s `with` tag:
 
-``` {.html+django}
+```html+django
 {% for post in page.get_children %}
     {% with post=post.specific %}
         <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
@@ -524,7 +524,7 @@ Finally, adding the `InlinePanel` to `BlogPage.content_panels` makes the gallery
 
 Adjust your blog page template to include the images:
 
-``` {.html+django}
+```html+django
 {% extends "base.html" %}
 
 {% load wagtailcore_tags wagtailimages_tags %}
@@ -585,7 +585,7 @@ class BlogPage(Page):
 
 This method is now available from our templates. Update `blog_index_page.html` to include the main image as a thumbnail alongside each post:
 
-``` {.html+django}
+```html+django
 {% load wagtailcore_tags wagtailimages_tags %}
 
 ...
@@ -673,7 +673,7 @@ Edit one of your `BlogPage` instances, and you should now be able to tag posts:
 
 To render tags on a `BlogPage`, add this to `blog_page.html`:
 
-``` {.html+django}
+```html+django
 {% if page.tags.all.count %}
     <div class="tags">
         <h3>Tags</h3>
@@ -722,7 +722,7 @@ parallel to your Blog index. Give it the slug \"tags\" on the Promote tab.
 Access `/tags` and Django will tell you what you probably already knew:
 you need to create a template `blog/blog_tag_index_page.html`:
 
-``` {.html+django}
+```html+django
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 
@@ -838,7 +838,7 @@ Here we\'re making use of the `widget` keyword argument on the `FieldPanel` defi
 
 Finally, we can update the `blog_page.html` template to display the categories:
 
-``` {.html+django}
+```html+django
 <h1>{{ page.title }}</h1>
 <p class="meta">{{ page.date }}</p>
 
