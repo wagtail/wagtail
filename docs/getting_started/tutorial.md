@@ -133,7 +133,7 @@ Out of the box, the \"home\" app defines a blank `HomePage` model in `models.py`
 
 Edit `home/models.py` as follows, to add a `body` field to the model:
 
-``` {.python}
+```python
 from django.db import models
 
 from wagtail.core.models import Page
@@ -226,7 +226,7 @@ Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 
 Lets start with a simple index page for our blog. In `blog/models.py`:
 
-``` {.python}
+```python
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
@@ -278,7 +278,7 @@ You should now be able to access the url `/blog` on your site
 
 Now we need a model and template for our blog posts. In `blog/models.py`:
 
-``` {.python}
+```python
 from django.db import models
 
 from wagtail.core.models import Page
@@ -402,7 +402,7 @@ To tighten up template code like this, we could use Django\'s `with` tag:
 When you start writing more customized Wagtail code, you\'ll find a whole set of QuerySet
 modifiers to help you navigate the hierarchy.
 
-``` {.python}
+```python
 # Given a page object 'somepage':
 MyModel.objects.descendant_of(somepage)
 child_of(page) / not_child_of(somepage)
@@ -431,7 +431,7 @@ QuerySet in the model definition. Wagtail makes this possible via
 the overridable `get_context()` method. Modify your `BlogIndexPage`
 model like this:
 
-``` {.python}
+```python
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
@@ -460,7 +460,7 @@ Let\'s add the ability to attach an image gallery to our blog posts. While it\'s
 
 Add a new `BlogPageGalleryImage` model to `models.py`:
 
-``` {.python}
+```python
 from django.db import models
 
 # New imports added for ParentalKey, Orderable, InlinePanel, ImageChooserPanel
@@ -557,7 +557,7 @@ Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` libr
 
 Since our gallery images are database objects in their own right, we can now query and re-use them independently of the blog post body. Let\'s define a `main_image` method, which returns the image from the first gallery item (or `None` if no gallery items exist):
 
-``` {.python}
+```python
 class BlogPage(Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
@@ -614,7 +614,7 @@ Of course, we\'ll need a working tag-specific URL view as well.
 
 First, alter `models.py` once more:
 
-``` {.python}
+```python
 from django.db import models
 
 # New imports added for ClusterTaggableManager, TaggedItemBase, MultiFieldPanel
@@ -694,7 +694,7 @@ Visiting a blog post with tags should now show a set of linked
 buttons at the bottom - one for each tag. However, clicking a button
 will get you a 404, since we haven\'t yet defined a \"tags\" view. Add to `models.py`:
 
-``` {.python}
+```python
 class BlogTagIndexPage(Page):
 
     def get_context(self, request):
@@ -766,7 +766,7 @@ Let\'s add a category system to our blog. Unlike tags, where a page author can b
 
 First, we define a `BlogCategory` model. A category is not a page in its own right, and so we define it as a standard Django `models.Model` rather than inheriting from `Page`. Wagtail introduces the concept of \"snippets\" for reusable pieces of content that need to be managed through the admin interface, but do not exist as part of the page tree themselves; a model can be registered as a snippet by adding the `@register_snippet` decorator. All the field types we\'ve used so far on pages can be used on snippets too - here we\'ll give each category an icon image as well as a name. Add to `blog/models.py`:
 
-``` {.python}
+```python
 from wagtail.snippets.models import register_snippet
 
 
@@ -802,7 +802,7 @@ Migrate this change in, and create a few categories through the Snippets area wh
 
 We can now add categories to the `BlogPage` model, as a many-to-many field. The field type we use for this is `ParentalManyToManyField` - this is a variant of the standard Django `ManyToManyField` which ensures that the chosen objects are correctly stored against the page record in the revision history, in much the same way that `ParentalKey` replaces `ForeignKey` for one-to-many relations.
 
-``` {.python}
+```python
 # New imports added for forms and ParentalManyToManyField
 from django import forms
 from django.db import models
