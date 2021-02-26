@@ -34,7 +34,7 @@ This tutorial uses [venv](https://docs.python.org/3/tutorial/venv.html), which i
 
 **On Windows** (cmd.exe):
 
-``` {.bat}
+```bat
 $ python3 -m venv mysite\env
 $ mysite\env\Scripts\activate.bat
 ```
