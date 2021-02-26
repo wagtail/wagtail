@@ -14,7 +14,7 @@ Wagtail supports Python 3.6, 3.7, 3.8 and 3.9.
 
 To check whether you have an appropriate version of Python 3:
 
-``` {.console}
+```sh
 $ python3 --version
 ```
 
@@ -44,7 +44,7 @@ $ mysite\env\Scripts\activate.bat
 
 **On Unix or MacOS** (bash):
 
-``` {.console}
+```sh
 $ python3 -m venv mysite/env
 $ source mysite/env/bin/activate
 ```
@@ -64,7 +64,7 @@ The `env` directory inside of it should be excluded from any version control.
 
 Use pip, which is packaged with Python, to install Wagtail and its dependencies:
 
-``` {.console}
+```sh
 $ pip install wagtail
 ```
 
@@ -78,7 +78,7 @@ and a sample \"search\" app.
 
 Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
 
-``` {.console}
+```sh
 $ wagtail start mysite mysite
 ```
 
@@ -92,7 +92,7 @@ Generally, in Wagtail, each page type, or content type, is represented by a sing
 
 ### Install project dependencies
 
-``` {.console}
+```sh
 $ cd mysite
 $ pip install -r requirements.txt
 ```
@@ -106,7 +106,7 @@ and any other dependencies for the project you have just created.
 
 If you haven\'t updated the project settings, this will be a SQLite database file in the project directory.
 
-``` {.console}
+```sh
 $ python manage.py migrate
 ```
 
@@ -114,7 +114,7 @@ This command ensures that the tables in your database are matched to the models 
 
 ### Create an admin user
 
-``` {.console}
+```sh
 $ python manage.py createsuperuser
 ```
 
@@ -122,7 +122,7 @@ When logged into the admin site, a superuser has full permissions and is able to
 
 ### Start the server
 
-``` {.console}
+```sh
 $ python manage.py runserver
 ```
 
