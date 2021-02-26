@@ -56,9 +56,11 @@ function addResultsList(hits, query, parentElement) {
 }
 
 function createHitElement(hitData, query) {
-  const pageURL = extractPageLink(hitData.url) + '?highlight=' + query
-  const anchor = hitData.anchor
-  const anchorURL = pageURL + '#' + anchor
+  const pageURL = new URL(hitData.url)
+  pageURL.hash = '';
+  pageURL.searchParams.set('highlight', query);
+  const anchorURL = new URL(hitData.url);
+  anchorURL.searchParams.set('highlight', query);
   const result = hitData._highlightResult
 
   const hitListElement = document.createElement('li')
