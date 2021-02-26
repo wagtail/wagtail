@@ -416,7 +416,7 @@ somepage.get_descendants()
 somepage.get_siblings()
 ```
 
-For more information, see: `../reference/pages/queryset_reference`{.interpreted-text role="doc"}
+For more information, see: [Page QuerySet reference](../reference/pages/queryset_reference)
 
 ### Overriding Context
 
