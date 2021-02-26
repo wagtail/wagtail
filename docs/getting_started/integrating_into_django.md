@@ -7,7 +7,7 @@ Wagtail provides the `wagtail start` command and project template to get you sta
 
 Wagtail is currently compatible with Django 2.2, 3.0 and 3.1. First, install the `wagtail` package from PyPI:
 
-``` {.console}
+```sh
 $ pip install wagtail
 ```
 
