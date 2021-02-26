@@ -1,13 +1,10 @@
 # Your first Wagtail site
 
-::: {.note}
-::: {.title}
-Note
-:::
-
-This tutorial covers setting up a brand new Wagtail project.
-If you\'d like to add Wagtail to an existing Django project instead, see `integrating_into_django`{.interpreted-text role="doc"}.
-:::
+```eval_rst
+.. note::
+   This tutorial covers setting up a brand new Wagtail project.
+   If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
+```
 
 ## Install and run Wagtail
 
