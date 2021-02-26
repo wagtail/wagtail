@@ -59,7 +59,7 @@ Add a `WAGTAIL_SITE_NAME` - this will be displayed on the main dashboard of the 
 WAGTAIL_SITE_NAME = 'My Example Site'
 ```
 
-Various other settings are available to configure Wagtail\'s behaviour - see `/reference/settings`{.interpreted-text role="doc"}.
+Various other settings are available to configure Wagtail\'s behaviour - see [Settings](/reference/settings).
 
 ## URL configuration
 
@@ -116,6 +116,6 @@ Superuser accounts receive automatic access to the Wagtail admin interface; use 
 
 ## Start developing
 
-You\'re now ready to add a new app to your Django project (via `./manage.py startapp` - remember to add it to `INSTALLED_APPS`) and set up page models, as described in `/getting_started/tutorial`{.interpreted-text role="doc"}.
+You\'re now ready to add a new app to your Django project (via `./manage.py startapp` - remember to add it to `INSTALLED_APPS`) and set up page models, as described in [Your first Wagtail site](/getting_started/tutorial).
 
 Note that there\'s one small difference when not using the Wagtail project template: Wagtail creates an initial homepage of the basic type `Page`, which does not include any content fields beyond the title. You\'ll probably want to replace this with your own `HomePage` class - when you do so, ensure that you set up a site record (under Settings / Sites in the Wagtail admin) to point to the new homepage.
