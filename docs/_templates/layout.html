@@ -41,6 +41,8 @@
         facetFilters: [getVersionFacetFilter()],
       },
       autocompleteOptions: {
+        // Do NOT automatically select the first suggestion in the dropdown.
+        // https://github.com/algolia/autocomplete/blob/45fa32d008620cf52bf4a90530be338543dfba7f/README.md#global-options
         autoSelect: false
       },
       debug: true // Set debug to true if you want to inspect the dropdown
