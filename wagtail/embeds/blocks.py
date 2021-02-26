@@ -14,12 +14,14 @@ class EmbedValue:
     we want to be able to do {% embed value.url 500 %} without
     doing a redundant fetch of the embed at the default width.
     """
-    def __init__(self, url):
+    def __init__(self, url, max_width=None, max_height=None):
         self.url = url
+        self.max_width = max_width
+        self.max_height = max_height
 
     @cached_property
     def html(self):
-        return embed_to_frontend_html(self.url)
+        return embed_to_frontend_html(self.url, self.max_width, self.max_height)
 
     def __str__(self):
         return self.html
@@ -34,7 +36,7 @@ class EmbedBlock(blocks.URLBlock):
             return self.meta.default
         else:
             # assume default has been passed as a string
-            return EmbedValue(self.meta.default)
+            return EmbedValue(self.meta.default, getattr(self.meta, 'max_width', None), getattr(self.meta, 'max_height', None))
 
     def to_python(self, value):
         # The JSON representation of an EmbedBlock's value is a URL string;
@@ -42,7 +44,7 @@ class EmbedBlock(blocks.URLBlock):
         if not value:
             return None
         else:
-            return EmbedValue(value)
+            return EmbedValue(value, getattr(self.meta, 'max_width', None), getattr(self.meta, 'max_height', None))
 
     def get_prep_value(self, value):
         # serialisable value should be a URL string
@@ -63,7 +65,7 @@ class EmbedBlock(blocks.URLBlock):
         if not value:
             return None
         else:
-            return EmbedValue(value)
+            return EmbedValue(value, getattr(self.meta, 'max_width', None), getattr(self.meta, 'max_height', None))
 
     def clean(self, value):
         if isinstance(value, EmbedValue) and not value.html:

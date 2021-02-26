@@ -3,13 +3,14 @@ from hashlib import md5
 
 from django.utils.timezone import now
 
+from ..core.utils import accepts_kwarg
 from .exceptions import EmbedUnsupportedProviderException
 from .finders import get_finders
 from .models import Embed
 
 
-def get_embed(url, max_width=None, finder=None):
-    embed_hash = get_embed_hash(url, max_width)
+def get_embed(url, max_width=None, max_height=None, finder=None):
+    embed_hash = get_embed_hash(url, max_width, max_height)
 
     # Check database
     try:
@@ -20,14 +21,17 @@ def get_embed(url, max_width=None, finder=None):
     # Get/Call finder
     if not finder:
 
-        def finder(url, max_width=None):
+        def finder(url, max_width=None, max_height=None):
             for finder in get_finders():
                 if finder.accept(url):
-                    return finder.find_embed(url, max_width=max_width)
+                    kwargs = {}
+                    if accepts_kwarg(finder.find_embed, 'max_height'):
+                        kwargs['max_height'] = max_height
+                    return finder.find_embed(url, max_width=max_width, **kwargs)
 
             raise EmbedUnsupportedProviderException
 
-    embed_dict = finder(url, max_width)
+    embed_dict = finder(url, max_width, max_height)
 
     # Make sure width and height are valid integers before inserting into database
     try:
@@ -65,10 +69,13 @@ def get_embed(url, max_width=None, finder=None):
     return embed
 
 
-def get_embed_hash(url, max_width=None):
+def get_embed_hash(url, max_width=None, max_height=None):
     h = md5()
     h.update(url.encode("utf-8"))
     if max_width is not None:
         h.update(b"\n")
         h.update(str(max_width).encode("utf-8"))
+    if max_height is not None:
+        h.update(b"\n")
+        h.update(str(max_height).encode("utf-8"))
     return h.hexdigest()
