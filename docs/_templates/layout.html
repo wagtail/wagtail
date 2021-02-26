@@ -31,12 +31,23 @@
   }
 
   /**
-   * Return true (debug: on) when not hosted on Readthedocs.
+   * Return true (debug: on) when not hosted on Readthedocs or is PR preview.
    *
    * The debug mode allows inspection of the dropodown.
    */
   function getSearchDebugMode() {
-    return window.READTHEDOCS_DATA === undefined
+    let debug = false
+    if (window.READTHEDOCS_DATA === undefined) {
+      // When developing locally, the `window.READTHEDOCS_DATA` object does not exist.
+      debug = true
+    } else {
+      // When PR preview on Readthedocs, then the version can be converted into
+      // a number. This does not work for the production version identifiers
+      // like 'stable', 'latest', 'v2.12', etc. In that case `Number()` is `NaN`.
+      const versionNumber = Number(window.READTHEDOCS_DATA.version)
+      debug = !isNaN(versionNumber)
+    }
+    return debug
   }
 
   function docSearchReady(script) {
