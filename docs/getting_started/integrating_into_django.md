@@ -1,125 +1,119 @@
 .. _integrating_into_django:
+# Integrating Wagtail into a Django project {#integrating_into_django}
 
-Integrating Wagtail into a Django project
-=========================================
+Wagtail provides the `wagtail start` command and project template to get you started with a new Wagtail project as quickly as possible, but it\'s easy to integrate Wagtail into an existing Django project too.
 
-Wagtail provides the ``wagtail start`` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
+Wagtail is currently compatible with Django 2.2, 3.0 and 3.1. First, install the `wagtail` package from PyPI:
 
-Wagtail is currently compatible with Django 2.2, 3.0 and 3.1. First, install the ``wagtail`` package from PyPI:
+``` {.console}
+$ pip install wagtail
+```
 
-.. code-block:: console
+or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow\'s [platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
 
-    $ pip install wagtail
+## Settings
 
-or add the package to your existing requirements file. This will also install the **Pillow** library as a dependency, which requires libjpeg and zlib - see Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+In your settings file, add the following apps to `INSTALLED_APPS`:
 
-Settings
---------
+``` {.python}
+'wagtail.contrib.forms',
+'wagtail.contrib.redirects',
+'wagtail.embeds',
+'wagtail.sites',
+'wagtail.users',
+'wagtail.snippets',
+'wagtail.documents',
+'wagtail.images',
+'wagtail.search',
+'wagtail.admin',
+'wagtail.core',
 
-In your settings file, add the following apps to ``INSTALLED_APPS``:
+'modelcluster',
+'taggit',
+```
 
-.. code-block:: python
+Add the following entry to `MIDDLEWARE`:
 
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail.core',
+``` {.python}
+'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+```
 
-    'modelcluster',
-    'taggit',
+Add a `STATIC_ROOT` setting, if your project does not have one already:
 
-Add the following entry to ``MIDDLEWARE``:
+``` {.python}
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+```
 
-.. code-block:: python
+Add `MEDIA_ROOT` and `MEDIA_URL` settings, if your project does not have these already:
 
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+``` {.python}
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+```
 
-Add a ``STATIC_ROOT`` setting, if your project does not have one already:
+Add a `WAGTAIL_SITE_NAME` - this will be displayed on the main dashboard of the Wagtail admin backend:
 
-.. code-block:: python
+``` {.python}
+WAGTAIL_SITE_NAME = 'My Example Site'
+```
 
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+Various other settings are available to configure Wagtail\'s behaviour - see `/reference/settings`{.interpreted-text role="doc"}.
 
-Add ``MEDIA_ROOT`` and ``MEDIA_URL`` settings, if your project does not have these already:
+## URL configuration
 
-.. code-block:: python
+Now make the following additions to your `urls.py` file:
 
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    MEDIA_URL = '/media/'
+``` {.python}
+from django.urls import path, re_path, include
 
-Add a ``WAGTAIL_SITE_NAME`` - this will be displayed on the main dashboard of the Wagtail admin backend:
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.core import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
 
-.. code-block:: python
+urlpatterns = [
+    ...
+    path('cms/', include(wagtailadmin_urls)),
+    path('documents/', include(wagtaildocs_urls)),
+    path('pages/', include(wagtail_urls)),
+    ...
+]
+```
 
-    WAGTAIL_SITE_NAME = 'My Example Site'
+The URL paths here can be altered as necessary to fit your project\'s URL scheme.
 
-Various other settings are available to configure Wagtail's behaviour - see :doc:`/reference/settings`.
+`wagtailadmin_urls` provides the admin interface for Wagtail. This is separate from the Django admin interface (`django.contrib.admin`); Wagtail-only projects typically host the Wagtail admin at `/admin/`, but if this would clash with your project\'s existing admin backend then an alternative path can be used, such as `/cms/` here.
 
-URL configuration
------------------
+`wagtaildocs_urls` is the location from where document files will be served. This can be omitted if you do not intend to use Wagtail\'s document management features.
 
-Now make the following additions to your ``urls.py`` file:
+`wagtail_urls` is the base location from where the pages of your Wagtail site will be served. In the above example, Wagtail will handle URLs under `/pages/`, leaving the root URL and other paths to be handled as normal by your Django project. If you want Wagtail to handle the entire URL space including the root URL, this can be replaced with:
 
-.. code-block:: python
+``` {.python}
+re_path(r'', include(wagtail_urls)),
+```
 
-    from django.urls import path, re_path, include
+In this case, this should be placed at the end of the `urlpatterns` list, so that it does not override more specific URL patterns.
 
-    from wagtail.admin import urls as wagtailadmin_urls
-    from wagtail.core import urls as wagtail_urls
-    from wagtail.documents import urls as wagtaildocs_urls
+Finally, your project needs to be set up to serve user-uploaded files from `MEDIA_ROOT`. Your Django project may already have this in place, but if not, add the following snippet to `urls.py`:
 
-    urlpatterns = [
-        ...
-        path('cms/', include(wagtailadmin_urls)),
-        path('documents/', include(wagtaildocs_urls)),
-        path('pages/', include(wagtail_urls)),
-        ...
-    ]
+``` {.python}
+from django.conf import settings
+from django.conf.urls.static import static
 
-The URL paths here can be altered as necessary to fit your project's URL scheme.
+urlpatterns = [
+    # ... the rest of your URLconf goes here ...
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
 
-``wagtailadmin_urls`` provides the admin interface for Wagtail. This is separate from the Django admin interface (``django.contrib.admin``); Wagtail-only projects typically host the Wagtail admin at ``/admin/``, but if this would clash with your project's existing admin backend then an alternative path can be used, such as ``/cms/`` here.
+Note that this only works in development mode (`DEBUG = True`); in production, you will need to configure your web server to serve files from `MEDIA_ROOT`. For further details, see the Django documentation: [Serving files uploaded by a user during development](https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development) and [Deploying static files](https://docs.djangoproject.com/en/stable/howto/static-files/deployment/).
 
-``wagtaildocs_urls`` is the location from where document files will be served. This can be omitted if you do not intend to use Wagtail's document management features.
+With this configuration in place, you are ready to run `./manage.py migrate` to create the database tables used by Wagtail.
 
-``wagtail_urls`` is the base location from where the pages of your Wagtail site will be served. In the above example, Wagtail will handle URLs under ``/pages/``, leaving the root URL and other paths to be handled as normal by your Django project. If you want Wagtail to handle the entire URL space including the root URL, this can be replaced with:
+## User accounts
 
-.. code-block:: python
+Superuser accounts receive automatic access to the Wagtail admin interface; use `./manage.py createsuperuser` if you don\'t already have one. Custom user models are supported, with some restrictions; Wagtail uses an extension of Django\'s permissions framework, so your user model must at minimum inherit from `AbstractBaseUser` and `PermissionsMixin`.
 
-    re_path(r'', include(wagtail_urls)),
+## Start developing
 
-In this case, this should be placed at the end of the ``urlpatterns`` list, so that it does not override more specific URL patterns.
+You\'re now ready to add a new app to your Django project (via `./manage.py startapp` - remember to add it to `INSTALLED_APPS`) and set up page models, as described in `/getting_started/tutorial`{.interpreted-text role="doc"}.
 
-Finally, your project needs to be set up to serve user-uploaded files from ``MEDIA_ROOT``. Your Django project may already have this in place, but if not, add the following snippet to ``urls.py``:
-
-.. code-block:: python
-
-    from django.conf import settings
-    from django.conf.urls.static import static
-
-    urlpatterns = [
-        # ... the rest of your URLconf goes here ...
-    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-Note that this only works in development mode (``DEBUG = True``); in production, you will need to configure your web server to serve files from ``MEDIA_ROOT``. For further details, see the Django documentation: `Serving files uploaded by a user during development <https://docs.djangoproject.com/en/stable/howto/static-files/#serving-files-uploaded-by-a-user-during-development>`_ and `Deploying static files <https://docs.djangoproject.com/en/stable/howto/static-files/deployment/>`_.
-
-With this configuration in place, you are ready to run ``./manage.py migrate`` to create the database tables used by Wagtail.
-
-User accounts
--------------
-
-Superuser accounts receive automatic access to the Wagtail admin interface; use ``./manage.py createsuperuser`` if you don't already have one. Custom user models are supported, with some restrictions; Wagtail uses an extension of Django's permissions framework, so your user model must at minimum inherit from ``AbstractBaseUser`` and ``PermissionsMixin``.
-
-Start developing
-----------------
-
-You're now ready to add a new app to your Django project (via ``./manage.py startapp`` - remember to add it to ``INSTALLED_APPS``) and set up page models, as described in :doc:`/getting_started/tutorial`.
-
-Note that there's one small difference when not using the Wagtail project template: Wagtail creates an initial homepage of the basic type ``Page``, which does not include any content fields beyond the title. You'll probably want to replace this with your own ``HomePage`` class - when you do so, ensure that you set up a site record (under Settings / Sites in the Wagtail admin) to point to the new homepage.
+Note that there\'s one small difference when not using the Wagtail project template: Wagtail creates an initial homepage of the basic type `Page`, which does not include any content fields beyond the title. You\'ll probably want to replace this with your own `HomePage` class - when you do so, ensure that you set up a site record (under Settings / Sites in the Wagtail admin) to point to the new homepage.
