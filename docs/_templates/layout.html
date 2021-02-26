@@ -29,6 +29,15 @@
     return 'version:' + getReadTheDocsVersion()
   }
 
+  /**
+   * Return true (debug: on) when not hosted on Readthedocs.
+   *
+   * The debug mode allows inspection of the dropodown.
+   */
+  function getSearchDebugMode() {
+    return window.READTHEDOCS_DATA === undefined
+  }
+
   function docSearchReady(script) {
     /**
     * Configure Algolia DocSearch.
@@ -45,7 +54,7 @@
         // https://github.com/algolia/autocomplete/blob/45fa32d008620cf52bf4a90530be338543dfba7f/README.md#global-options
         autoSelect: false
       },
-      debug: true // Set debug to true if you want to inspect the dropdown
+      debug: getSearchDebugMode(),
     });
 
     return search
