@@ -11,6 +11,7 @@
 {% block footer %}
 {{ super() }}
 <script async defer data-domain="docs.wagtail.io" src="https://plausible.io/js/plausible.js"></script>
+<script src="{{ docsearch_base }}docsearch.min.js"></script>
 <script>
   /**
    * Get version of the currently served docs.
@@ -60,9 +61,6 @@
     return search
   }
 
-  const s = document.createElement('script')
-  s.src = '{{ docsearch_base }}docsearch.min.js'
-  s.onload = docSearchReady
-  document.body.appendChild(s)
+  window.onload(docSearchReady())
 </script>
 {% endblock %}
