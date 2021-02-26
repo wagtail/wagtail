@@ -794,13 +794,10 @@ class BlogCategory(models.Model):
         verbose_name_plural = 'blog categories'
 ```
 
-::: {.note}
-::: {.title}
-Note
-:::
-
-Note that we are using `panels` rather than `content_panels` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate \'content\' / \'promote\' / \'settings\' tabs as standard, and so there is no need to distinguish between \'content panels\' and \'promote panels\'.
-:::
+```eval_rst
+.. note::
+   Note that we are using ``panels`` rather than ``content_panels`` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
+```
 
 Migrate this change in, and create a few categories through the Snippets area which now appears in the admin menu.
 
