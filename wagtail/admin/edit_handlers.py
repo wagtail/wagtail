@@ -826,7 +826,6 @@ class CommentPanel(EditHandler):
         }
 
     template = "wagtailadmin/edit_handlers/comments/comment_panel.html"
-    js_template = "wagtailadmin/edit_handlers/comments/comment_panel.js"
     declarations_template = "wagtailadmin/edit_handlers/comments/comment_declarations.html"
 
     def html_declarations(self):
@@ -867,12 +866,7 @@ class CommentPanel(EditHandler):
 
     def render(self):
         panel = render_to_string(self.template, self.get_context())
-        js = "window.comments.initComments()"
-        return widget_with_script(panel, js)
-
-    def render_js_init(self):
-        return mark_safe(render_to_string(self.js_template, {}))
-
+        return panel
 
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
 
