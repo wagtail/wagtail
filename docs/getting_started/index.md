@@ -18,7 +18,7 @@
 
 Run the following in a virtual environment of your choice:
 
-``` {.console}
+```sh
 $ pip install wagtail
 ```
 
@@ -26,7 +26,7 @@ $ pip install wagtail
 
 Once installed, Wagtail provides a command similar to Django\'s `django-admin startproject` to generate a new site/project:
 
-``` {.console}
+```sh
 $ wagtail start mysite
 ```
 
@@ -36,7 +36,7 @@ More information on that template is available in
 
 Inside your `mysite` folder, run the setup steps necessary for any Django project:
 
-``` {.console}
+```sh
 $ pip install -r requirements.txt
 $ ./manage.py migrate
 $ ./manage.py createsuperuser
