@@ -760,7 +760,11 @@ something like this:
 
 ![](../_static/images/tutorial/tutorial_9.png)
 
-### Categories {#tutorial_categories}
+```eval_rst
+.. _tutorial_categories:
+```
+
+### Categories
 
 Let\'s add a category system to our blog. Unlike tags, where a page author can bring a tag into existence simply by using it on a page, our categories will be a fixed list, managed by the site owner through a separate area of the admin interface.
 
