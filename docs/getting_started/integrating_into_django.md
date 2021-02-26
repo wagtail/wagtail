@@ -17,7 +17,7 @@ or add the package to your existing requirements file. This will also install th
 
 In your settings file, add the following apps to `INSTALLED_APPS`:
 
-``` {.python}
+```python
 'wagtail.contrib.forms',
 'wagtail.contrib.redirects',
 'wagtail.embeds',
@@ -36,26 +36,26 @@ In your settings file, add the following apps to `INSTALLED_APPS`:
 
 Add the following entry to `MIDDLEWARE`:
 
-``` {.python}
+```python
 'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ```
 
 Add a `STATIC_ROOT` setting, if your project does not have one already:
 
-``` {.python}
+```python
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 ```
 
 Add `MEDIA_ROOT` and `MEDIA_URL` settings, if your project does not have these already:
 
-``` {.python}
+```python
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 ```
 
 Add a `WAGTAIL_SITE_NAME` - this will be displayed on the main dashboard of the Wagtail admin backend:
 
-``` {.python}
+```python
 WAGTAIL_SITE_NAME = 'My Example Site'
 ```
 
@@ -65,7 +65,7 @@ Various other settings are available to configure Wagtail\'s behaviour - see `/r
 
 Now make the following additions to your `urls.py` file:
 
-``` {.python}
+```python
 from django.urls import path, re_path, include
 
 from wagtail.admin import urls as wagtailadmin_urls
@@ -89,7 +89,7 @@ The URL paths here can be altered as necessary to fit your project\'s URL scheme
 
 `wagtail_urls` is the base location from where the pages of your Wagtail site will be served. In the above example, Wagtail will handle URLs under `/pages/`, leaving the root URL and other paths to be handled as normal by your Django project. If you want Wagtail to handle the entire URL space including the root URL, this can be replaced with:
 
-``` {.python}
+```python
 re_path(r'', include(wagtail_urls)),
 ```
 
@@ -97,7 +97,7 @@ In this case, this should be placed at the end of the `urlpatterns` list, so tha
 
 Finally, your project needs to be set up to serve user-uploaded files from `MEDIA_ROOT`. Your Django project may already have this in place, but if not, add the following snippet to `urls.py`:
 
-``` {.python}
+```python
 from django.conf import settings
 from django.conf.urls.static import static
 
