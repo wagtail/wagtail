@@ -270,4 +270,18 @@ Reference
 
         See also: :py:attr:`Page.specific <wagtail.core.models.Page.specific>`
 
+    .. automethod:: defer_streamfields
+
+        Example:
+
+        .. code-block:: python
+
+            # Apply to a queryset to avoid fetching StreamField values
+            # for a specific model
+            EventPage.objects.all().defer_streamfields()
+
+            # Or combine with specific() to avoid fetching StreamField
+            # values for all models
+            homepage.get_children().defer_streamfields().specific()
+
     .. automethod:: first_common_ancestor
