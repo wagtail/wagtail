@@ -871,9 +871,18 @@ class TestFirstCommonAncestor(TestCase):
     fixtures = ['test_specific.json']
 
     def setUp(self):
+        self.root_page = Page.objects.get(url_path='/home/')
         self.all_events = Page.objects.type(EventPage)
         self.regular_events = Page.objects.type(EventPage)\
             .exclude(url_path__contains='/other/')
+
+    def _create_streampage(self):
+        stream_page = StreamPage(
+            title='stream page',
+            slug='stream-page',
+            body='[{"type": "text", "value": "foo"}]',
+        )
+        self.root_page.add_child(instance=stream_page)
 
     def test_bookkeeping(self):
         self.assertEqual(self.all_events.count(), 4)
@@ -936,3 +945,17 @@ class TestFirstCommonAncestor(TestCase):
     def test_empty_queryset_strict(self):
         with self.assertRaises(Page.DoesNotExist):
             Page.objects.none().first_common_ancestor(strict=True)
+
+    def test_defer_streamfields_without_specific(self):
+        self._create_streampage()
+        for page in StreamPage.objects.all().defer_streamfields():
+            self.assertNotIn('body', page.__dict__)
+            with self.assertNumQueries(1):
+                page.body
+
+    def test_defer_streamfields_with_specific(self):
+        self._create_streampage()
+        for page in Page.objects.exact_type(StreamPage).defer_streamfields().specific():
+            self.assertNotIn('body', page.__dict__)
+            with self.assertNumQueries(1):
+                page.body

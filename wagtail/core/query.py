@@ -135,6 +135,18 @@ class TreeQuerySet(MP_NodeQuerySet):
 
 
 class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
+    def __init__(self, *args, **kwargs):
+        """Set custom instance attributes"""
+        super().__init__(*args, **kwargs)
+        # set by defer_streamfields()
+        self._defer_streamfields = False
+
+    def _clone(self):
+        """Ensure clones inherit custom attribute values."""
+        clone = super()._clone()
+        clone._defer_streamfields = self._defer_streamfields
+        return clone
+
     def live_q(self):
         return Q(live=True)
 
@@ -345,6 +357,20 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         for page in self.live():
             page.unpublish()
 
+    def defer_streamfields(self):
+        """
+        Apply to a queryset to prevent fetching/decoding of StreamField values on
+        evaluation. Useful when working with potentially large numbers of results,
+        where StreamField values are unlikely to be needed. For example, when
+        generating a sitemap or a long list of page links.
+        """
+        clone = self._clone()
+        clone._defer_streamfields = True  # used by specific_iterator()
+        streamfield_names = self.model.get_streamfield_names()
+        if not streamfield_names:
+            return clone
+        return clone.defer(*streamfield_names)
+
     def specific(self, defer=False):
         """
         This efficiently gets all the specific pages for the queryset, using
@@ -434,6 +460,8 @@ def specific_iterator(qs, defer=False):
             # Defer all specific fields
             fields = [field.attname for field in Page._meta.get_fields() if field.concrete]
             pages = pages.only(*fields)
+        elif qs._defer_streamfields:
+            pages = pages.defer_streamfields()
 
         pages_for_type = {page.pk: page for page in pages}
         pages_by_type[content_type] = pages_for_type

@@ -1,3 +1,4 @@
+import functools
 import json
 import logging
 import uuid
@@ -40,6 +41,7 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
+from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import (
@@ -671,6 +673,14 @@ def get_default_page_content_type():
     return ContentType.objects.get_for_model(Page)
 
 
+@functools.lru_cache(maxsize=None)
+def get_streamfield_names(model_class):
+    return tuple(
+        field.name for field in model_class._meta.concrete_fields
+        if isinstance(field, StreamField)
+    )
+
+
 class BasePageManager(models.Manager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by('path')
@@ -892,6 +902,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def get_streamfield_names(cls):
+        return get_streamfield_names(cls)
 
     def set_url_path(self, parent):
         """
