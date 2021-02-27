@@ -207,8 +207,11 @@ Reference
 
         .. code-block:: python
 
-            # Find all pages that are of type AbstractEmailForm, or a descendant of it
+            # Find all pages that are of type AbstractEmailForm, or one of it's subclasses
             form_pages = Page.objects.type(AbstractEmailForm)
+
+            # Find all pages that are of type AbstractEmailForm or AbstractEventPage, or one of their subclasses
+            form_and_event_pages = Page.objects.type(AbstractEmailForm, AbstractEventPage)
 
     .. automethod:: not_type
 
@@ -221,14 +224,30 @@ Reference
             # Find all pages that are of the exact type EventPage
             event_pages = Page.objects.exact_type(EventPage)
 
+            # Find all page of the exact type EventPage or NewsPage
+            news_and_events_pages = Page.objects.exact_type(EventPage, NewsPage)
+
+        .. note::
+
+            If you are only interested in pages of a single type, it is clearer (and often more efficient) to use
+            the specific model's manager to get a queryset. For example:
+
+            .. code-block:: python
+
+                event_pages = EventPage.objects.all()
+
     .. automethod:: not_exact_type
 
         Example:
 
         .. code-block:: python
 
-            # Find all pages that are not of the exact type EventPage (but may be a subclass)
-            non_event_pages = Page.objects.not_exact_type(EventPage)
+            # First, find all news and event pages
+            news_and_events = Page.objects.type(NewsPage, EventPage)
+
+            # Now exclude pages with an exact type of EventPage or NewsPage,
+            # leaving only instance of more 'specialist' types
+            specialised_news_and_events = news_and_events.not_exact_type(NewsPage, EventPage)
 
     .. automethod:: unpublish
 
