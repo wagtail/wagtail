@@ -180,43 +180,44 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.exclude(self.page_q(other))
 
-    def type_q(self, klass):
-        content_types = ContentType.objects.get_for_models(*[
+    def type_q(self, *types):
+        all_subclasses = set(
             model for model in apps.get_models()
-            if issubclass(model, klass)
-        ]).values()
+            if issubclass(model, types)
+        )
+        content_types = ContentType.objects.get_for_models(*all_subclasses)
+        return Q(content_type__in=list(content_types.values()))
 
-        return Q(content_type__in=list(content_types))
-
-    def type(self, model):
+    def type(self, *types):
         """
         This filters the QuerySet to only contain pages that are an instance
-        of the specified model (including subclasses).
+        of the specified model(s) (including subclasses).
         """
-        return self.filter(self.type_q(model))
+        return self.filter(self.type_q(*types))
 
-    def not_type(self, model):
+    def not_type(self, *types):
         """
-        This filters the QuerySet to not contain any pages which are an instance of the specified model.
+        This filters the QuerySet to exclude any pages which are an instance of the specified model(s).
         """
-        return self.exclude(self.type_q(model))
+        return self.exclude(self.type_q(*types))
 
-    def exact_type_q(self, klass):
-        return Q(content_type=ContentType.objects.get_for_model(klass))
+    def exact_type_q(self, *types):
+        content_types = ContentType.objects.get_for_models(*types)
+        return Q(content_type__in=list(content_types.values()))
 
-    def exact_type(self, model):
+    def exact_type(self, *types):
         """
-        This filters the QuerySet to only contain pages that are an instance of the specified model
+        This filters the QuerySet to only contain pages that are an instance of the specified model(s)
         (matching the model exactly, not subclasses).
         """
-        return self.filter(self.exact_type_q(model))
+        return self.filter(self.exact_type_q(*types))
 
-    def not_exact_type(self, model):
+    def not_exact_type(self, *types):
         """
-        This filters the QuerySet to not contain any pages which are an instance of the specified model
+        This filters the QuerySet to exclude any pages which are an instance of the specified model(s)
         (matching the model exactly, not subclasses).
         """
-        return self.exclude(self.exact_type_q(model))
+        return self.exclude(self.exact_type_q(*types))
 
     def public_q(self):
         from wagtail.core.models import PageViewRestriction
