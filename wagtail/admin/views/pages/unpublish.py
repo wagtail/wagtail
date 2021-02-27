@@ -30,8 +30,7 @@ def unpublish(request, page_id):
         page.unpublish(user=request.user)
 
         if include_descendants:
-            live_descendant_pages = page.get_descendants().live().specific()
-            for live_descendant_page in live_descendant_pages:
+            for live_descendant_page in page.get_descendants().live().defer_streamfields().specific():
                 if user_perms.for_page(live_descendant_page).can_unpublish():
                     live_descendant_page.unpublish()
 

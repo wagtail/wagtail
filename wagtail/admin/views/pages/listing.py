@@ -77,15 +77,10 @@ def index(request, parent_page_id=None):
     # allow drag-and-drop reordering
     do_paginate = ordering != 'ord'
 
-    if do_paginate or pages.count() < 100:
-        # Retrieve pages in their most specific form, so that custom
-        # get_admin_display_title and get_url_parts methods on subclasses are respected.
-        # However, skip this on unpaginated listings with >100 child pages as this could
-        # be a significant performance hit. (This should only happen on the reorder view,
-        # and hopefully no-one is having to do manual reordering on listings that large...)
-        pages = pages.specific(defer=True)
+    # We want specific page instances, but do not need streamfield values here
+    pages = pages.defer_streamfields().specific()
 
-    # allow hooks to modify the queryset
+    # allow hooks defer_streamfieldsyset
     for hook in hooks.get_hooks('construct_explorer_page_queryset'):
         pages = hook(parent_page, pages, request)
 
