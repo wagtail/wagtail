@@ -957,7 +957,7 @@ class TestPageGetSpecific(TestCase):
     def test_default(self):
         # Field values are fetched from the database, hence the query
         with self.assertNumQueries(1):
-            result = self.page.get_specific(copy_attrs=['foo', 'bar'])
+            result = self.page.get_specific()
 
         # The returned instance is the correct type
         self.assertIsInstance(result, SimplePage)
@@ -971,17 +971,15 @@ class TestPageGetSpecific(TestCase):
         with self.assertNumQueries(0):
             self.assertTrue(result.content)
 
-        # 'foo' and 'bar' attributes should have been copied over...
-        self.assertIs(result.foo, self.page.foo)
-        self.assertIs(result.bar, self.page.bar)
-
-        # ...but not 'baz'
-        self.assertFalse(hasattr(result, 'baz'))
+        # All non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertIs(getattr(result, attr), getattr(self.page, attr))
 
     def test_deferred(self):
         # Field values are NOT fetched from the database, hence no query
         with self.assertNumQueries(0):
-            result = self.page.get_specific(deferred=True, copy_attrs=['foo', 'bar'])
+            result = self.page.get_specific(deferred=True)
 
         # The returned instance is the correct type
         self.assertIsInstance(result, SimplePage)
@@ -995,12 +993,46 @@ class TestPageGetSpecific(TestCase):
         with self.assertNumQueries(1):
             self.assertTrue(result.content)
 
-        # 'foo' and 'bar' attributes should have been copied over...
+        # All non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertIs(getattr(result, attr), getattr(self.page, attr))
+
+    def test_copy_attrs(self):
+        result = self.page.get_specific(copy_attrs=['foo', 'bar'])
+
+        # foo and bar should have been copied over
         self.assertIs(result.foo, self.page.foo)
         self.assertIs(result.bar, self.page.bar)
 
-        # ...but not 'baz'
+        # but baz should not have been
         self.assertFalse(hasattr(result, 'baz'))
+
+    def test_copy_attrs_with_empty_list(self):
+        result = self.page.get_specific(copy_attrs=())
+
+        # No non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertFalse(hasattr(result, attr))
+
+    def test_copy_attrs_exclude(self):
+        result = self.page.get_specific(copy_attrs_exclude=['baz'])
+
+        # foo and bar should have been copied over
+        self.assertIs(result.foo, self.page.foo)
+        self.assertIs(result.bar, self.page.bar)
+
+        # but baz should not have been
+        self.assertFalse(hasattr(result, 'baz'))
+
+    def test_copy_attrs_exclude_with_empty_list(self):
+        result = self.page.get_specific(copy_attrs_exclude=())
+
+        # All non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertIs(getattr(result, attr), getattr(self.page, attr))
 
     def test_specific_cached_property(self):
         # invoking several times to demonstrate that field values
