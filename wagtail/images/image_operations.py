@@ -1,7 +1,7 @@
 import inspect
 
 from wagtail.images.exceptions import InvalidFilterSpecError
-from wagtail.images.rect import Rect
+from wagtail.images.rect import Rect, Vector
 from wagtail.images.utils import parse_color_string
 
 
@@ -29,8 +29,104 @@ class Operation:
 # Transforms
 
 
+class ImageTransform:
+    """
+    Tracks transformations that are performed on an image.
+
+    This allows multiple transforms to be processed in a single operation and also
+    accumulates the operations into a single scale/offset which can be used for
+    features such as transforming the focal point of the image.
+    """
+    def __init__(self, size):
+        self._check_size(size)
+        self.size = size
+        self.scale = (1.0, 1.0)
+        self.offset = (0.0, 0.0)
+
+    def clone(self):
+        clone = ImageTransform(self.size)
+        clone.scale = self.scale
+        clone.offset = self.offset
+        return clone
+
+    def resize(self, size):
+        """
+        Change the image size, stretching the transform to make it fit the new size.
+        """
+        self._check_size(size)
+        clone = self.clone()
+        clone.scale = (
+            clone.scale[0] * size[0] / self.size[0],
+            clone.scale[1] * size[1] / self.size[1]
+        )
+        clone.size = size
+        return clone
+
+    def crop(self, rect):
+        """
+        Crop the image to the specified rect.
+        """
+        self._check_size(tuple(rect.size))
+
+        # Transform the image so the top left of the rect is at (0, 0), then set the size
+        clone = self.clone()
+        clone.offset = (
+            clone.offset[0] - rect.left / self.scale[0],
+            clone.offset[1] - rect.top / self.scale[1]
+        )
+        clone.size = tuple(rect.size)
+        return clone
+
+    def transform_vector(self, vector):
+        """
+        Transforms the given vector into the coordinate space of the final image.
+
+        Use this to find out where a point on the source image would end up in the
+        final image after cropping/resizing has been performed.
+
+        Returns a new vector.
+        """
+        return Vector(
+            (vector.x + self.offset[0]) * self.scale[0],
+            (vector.y + self.offset[1]) * self.scale[1]
+        )
+
+    def untransform_vector(self, vector):
+        """
+        Transforms the given vector back to the coordinate space of the source image.
+
+        This performs the inverse of `transform_vector`. Use this to find where a point
+        in the final cropped/resized image originated from in the source image.
+
+        Returns a new vector.
+        """
+        return Vector(
+            vector.x / self.scale[0] - self.offset[0],
+            vector.y / self.scale[1] - self.offset[1]
+        )
+
+    def get_rect(self):
+        """
+        Returns a Rect representing the region of the original image to be cropped.
+        """
+        return Rect(
+            -self.offset[0],
+            -self.offset[1],
+            -self.offset[0] + self.size[0] / self.scale[0],
+            -self.offset[1] + self.size[1] / self.scale[1]
+        )
+
+    @staticmethod
+    def _check_size(size):
+        if not isinstance(size, tuple) or len(size) != 2 or int(size[0]) != size[0] or int(size[1]) != size[1]:
+            raise TypeError("Image size must be a 2-tuple of integers")
+
+        if size[0] < 1 or size[1] < 1:
+            raise ValueError("Image width and height must both be 1 or greater")
+
+
 class TransformOperation(Operation):
-    def run(self, willow, image, env):
+    def run(self, image, transform):
         raise NotImplementedError
 
 
@@ -59,8 +155,8 @@ class FillOperation(TransformOperation):
         if self.crop_closeness > 1:
             self.crop_closeness = 1
 
-    def run(self, willow, image, env):
-        image_width, image_height = willow.get_size()
+    def run(self, transform, image):
+        image_width, image_height = transform.size
         focal_point = image.get_focal_point()
 
         # Get crop aspect ratio
@@ -124,20 +220,20 @@ class FillOperation(TransformOperation):
         rect = rect.move_to_clamp(Rect(0, 0, image_width, image_height))
 
         # Crop!
-        willow = willow.crop(rect.round())
+        transform = transform.crop(rect.round())
 
         # Get scale for resizing
         # The scale should be the same for both the horizontal and
         # vertical axes
-        aftercrop_width, aftercrop_height = willow.get_size()
+        aftercrop_width, aftercrop_height = transform.size
         scale = self.width / aftercrop_width
 
         # Only resize if the image is too big
         if scale < 1.0:
             # Resize!
-            willow = willow.resize((self.width, self.height))
+            transform = transform.resize((self.width, self.height))
 
-        return willow
+        return transform
 
 
 class MinMaxOperation(TransformOperation):
@@ -147,15 +243,15 @@ class MinMaxOperation(TransformOperation):
         self.width = int(width_str)
         self.height = int(height_str)
 
-    def run(self, willow, image, env):
-        image_width, image_height = willow.get_size()
+    def run(self, transform, image):
+        image_width, image_height = transform.size
 
         horz_scale = self.width / image_width
         vert_scale = self.height / image_height
 
         if self.method == 'min':
             if image_width <= self.width or image_height <= self.height:
-                return
+                return transform
 
             if horz_scale > vert_scale:
                 width = self.width
@@ -166,7 +262,7 @@ class MinMaxOperation(TransformOperation):
 
         elif self.method == 'max':
             if image_width <= self.width and image_height <= self.height:
-                return
+                return transform
 
             if horz_scale < vert_scale:
                 width = self.width
@@ -177,25 +273,25 @@ class MinMaxOperation(TransformOperation):
 
         else:
             # Unknown method
-            return
+            return transform
 
-        # prevent zero width or height, it causes a ValueError on willow.resize
+        # prevent zero width or height, it causes a ValueError on transform.resize
         width = width if width > 0 else 1
         height = height if height > 0 else 1
 
-        return willow.resize((width, height))
+        return transform.resize((width, height))
 
 
 class WidthHeightOperation(TransformOperation):
     def construct(self, size):
         self.size = int(size)
 
-    def run(self, willow, image, env):
-        image_width, image_height = willow.get_size()
+    def run(self, transform, image):
+        image_width, image_height = transform.size
 
         if self.method == 'width':
             if image_width <= self.size:
-                return
+                return transform
 
             scale = self.size / image_width
 
@@ -204,7 +300,7 @@ class WidthHeightOperation(TransformOperation):
 
         elif self.method == 'height':
             if image_height <= self.size:
-                return
+                return transform
 
             scale = self.size / image_height
 
@@ -213,31 +309,31 @@ class WidthHeightOperation(TransformOperation):
 
         else:
             # Unknown method
-            return
+            return transform
 
-        # prevent zero width or height, it causes a ValueError on willow.resize
+        # prevent zero width or height, it causes a ValueError on transform.resize
         width = width if width > 0 else 1
         height = height if height > 0 else 1
 
-        return willow.resize((width, height))
+        return transform.resize((width, height))
 
 
 class ScaleOperation(TransformOperation):
     def construct(self, percent):
         self.percent = float(percent)
 
-    def run(self, willow, image, env):
-        image_width, image_height = willow.get_size()
+    def run(self, transform, image):
+        image_width, image_height = transform.size
 
         scale = self.percent / 100
         width = int(image_width * scale)
         height = int(image_height * scale)
 
-        # prevent zero width or height, it causes a ValueError on willow.resize
+        # prevent zero width or height, it causes a ValueError on transform.resize
         width = width if width > 0 else 1
         height = height if height > 0 else 1
 
-        return willow.resize((width, height))
+        return transform.resize((width, height))
 
 
 # Filters
