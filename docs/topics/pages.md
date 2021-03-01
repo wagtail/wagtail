@@ -104,7 +104,7 @@ In Wagtail, you can use any Django field class. Most field classes provided by t
 Wagtail also provides a couple of field classes of its own:
 
 -   `RichTextField` - For rich text content
--   `StreamField` - A block-based content field (see: `/topics/streamfield`{.interpreted-text role="doc"})
+-   `StreamField` - A block-based content field (see: [Freeform page content using StreamField](./streamfield))
 
 For tagging, Wagtail fully supports [django-taggit](https://django-taggit.readthedocs.org/en/latest/) so we recommend using that.
 
