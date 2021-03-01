@@ -134,25 +134,25 @@ Here\'s a summary of the `EditHandler` classes that Wagtail provides out of the 
 
 These allow editing of model fields. The `FieldPanel` class will choose the correct widget based on the type of the field, though `StreamField` fields need to use a specialised panel class.
 
--   [ADD TITLE HERE](~wagtail.admin.edit_handlers.FieldPanel)
--   [ADD TITLE HERE](~wagtail.admin.edit_handlers.StreamFieldPanel)
+-   [`FieldPanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.FieldPanel)
+-   [`StreamFieldPanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.StreamFieldPanel)
 
 **Structural**
 
 These are used for structuring fields in the interface.
 
--   [ADD TITLE HERE](~wagtail.admin.edit_handlers.MultiFieldPanel) - For grouping similar fields together
--   [ADD TITLE HERE](~wagtail.admin.edit_handlers.InlinePanel) - For inlining child models
--   [ADD TITLE HERE](~wagtail.admin.edit_handlers.FieldRowPanel) - For organising multiple fields into a single row
+-   [`MultiFieldPanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.MultiFieldPanel) - For grouping similar fields together
+-   [`InlinePanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.InlinePanel) - For inlining child models
+-   [`FieldRowPanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.FieldRowPanel) - For organising multiple fields into a single row
 
 **Chooser**
 
 `ForeignKey` fields to certain models can use one of the below `ChooserPanel` classes. These add a nice modal chooser interface, and the image/document choosers also allow uploading new files without leaving the page editor.
 
--   [ADD TITLE HERE](~wagtail.admin.edit_handlers.PageChooserPanel)
--   [ADD TITLE HERE](~wagtail.images.edit_handlers.ImageChooserPanel)
--   [ADD TITLE HERE](~wagtail.documents.edit_handlers.DocumentChooserPanel)
--   [ADD TITLE HERE](~wagtail.snippets.edit_handlers.SnippetChooserPanel)
+-   [`PageChooserPanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.PageChooserPanel)
+-   [`ImageChooserPanel`](/reference/pages/panels.html#wagtail.images.edit_handlers.ImageChooserPanel)
+-   [`DocumentChooserPanel`](/reference/pages/panels.html#wagtail.documents.edit_handlers.DocumentChooserPanel)
+-   [`SnippetChooserPanel`](/reference/pages/panels.html#wagtail.snippets.edit_handlers.SnippetChooserPanel)
 
 ::: {.note}
 ::: {.title}
