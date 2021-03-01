@@ -83,6 +83,7 @@ def get_js_translation_strings():
         'SAVING': _('Saving...'),
         'CANCEL': _('Cancel'),
         'DELETING': _('Deleting...'),
+        'ADD_A_COMMENT': _('Add a comment'),
         'SHOW_COMMENTS': _('Show comments'),
         'REPLY': _('Reply'),
         'RESOLVE': _('Resolve'),
