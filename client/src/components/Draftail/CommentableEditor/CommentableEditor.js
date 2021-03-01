@@ -1,10 +1,13 @@
 import { DraftailEditor, ToolbarButton, createEditorStateFromRaw, serialiseEditorStateToRaw } from 'draftail';
-import { RichUtils } from 'draft-js';
+import { EditorState, RichUtils } from 'draft-js';
+import { filterInlineStyles } from "draftjs-filters";
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
 
 import { STRINGS } from '../../../config/wagtailConfig';
 import Icon from '../../Icon/Icon';
-import { useSelector } from 'react-redux';
+
+const COMMENT_STYLE_IDENTIFIER = 'COMMENT-'
 
 class DraftailInlineAnnotation {
     constructor(field) {
@@ -40,7 +43,7 @@ function getCommentControl(commentApp, contentPath, fieldNode) {
       onClick={() => {
         const annotation = new DraftailInlineAnnotation(fieldNode)
         const commentId = commentApp.makeComment(annotation, contentPath);
-        onChange(RichUtils.toggleInlineStyle(getEditorState(), `COMMENT-${commentId}`))
+        onChange(RichUtils.toggleInlineStyle(getEditorState(), COMMENT_STYLE_IDENTIFIER + commentId))
       }}
     />
   }
@@ -97,11 +100,21 @@ function getCommentDecorator(commentApp) {
   return CommentDecorator
 }
 
-function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState, onSave, ...options}) {
+function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState, onSave, inlineStyles, ...options}) {
     const [editorState, setEditorState] = useState(() => createEditorStateFromRaw(rawContentState));
     const CommentControl = useMemo(() => getCommentControl(commentApp, contentPath, fieldNode), [commentApp, contentPath, fieldNode]);
     const CommentDecorator = useMemo(() => getCommentDecorator(commentApp), [commentApp])
+    const commentsSelector = useMemo(() => commentApp.utils.selectCommentsForContentPathFactory(contentPath), [contentPath, commentApp]);
+    const comments = useSelector(commentsSelector, shallowEqual)
     const enabled = useSelector(commentApp.selectors.selectEnabled);
+    const focusedId = useSelector(commentApp.selectors.selectFocused);
+
+    const commentStyles = useMemo(() => comments.map(comment => {return {
+      type: COMMENT_STYLE_IDENTIFIER + comment.localId,
+      style: enabled ? {
+        'background-color': (focusedId !== comment.localId) ? '#01afb0' : '#007d7e'
+      } : {}
+    }}), [comments, enabled]);
 
     const timeoutRef = useRef();
     useEffect(() => {
@@ -124,6 +137,7 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
       strategy: findCommentStyleRanges,
       component: CommentDecorator 
     }] : []}
+    inlineStyles={inlineStyles.concat(commentStyles)}
     {...options}
   />
 
