@@ -167,7 +167,10 @@ These are used for structuring fields in the interface.
 
 The page editor can be customised further. See [Customising the editing interface](/advanced_topics/customisation/page_editing_interface).
 
-### Parent page / subpage type rules {#page_type_business_rules}
+```eval_rst
+.. page_type_business_rules:
+```
+### Parent page / subpage type rules
 
 These two attributes allow you to control where page types may be used in your site. It allows you to define rules like \"blog entries may only be created under a blog index\".
 
