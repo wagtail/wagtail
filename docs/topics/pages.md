@@ -116,7 +116,7 @@ This should be a list of `SearchField` and `FilterField` objects. `SearchField` 
 
 In the above example, we\'ve indexed `body` for full-text search and `date` for filtering.
 
-The arguments that these field types accept are documented in `wagtailsearch_indexing_fields`{.interpreted-text role="ref"}.
+The arguments that these field types accept are documented in [indexing extra fields](wagtailsearch_indexing_fields).
 
 ### Editor panels
 
