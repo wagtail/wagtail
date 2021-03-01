@@ -568,6 +568,17 @@ class AbstractRendition(models.Model):
             url = settings.BASE_URL + url
         return url
 
+    @property
+    def filter(self):
+        return Filter(self.filter_spec)
+
+    @cached_property
+    def focal_point(self):
+        image_focal_point = self.image.get_focal_point()
+        if image_focal_point:
+            transform = self.filter.get_transform(self.image)
+            return image_focal_point.transform(transform)
+
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()
         attrs.update(extra_attributes)
