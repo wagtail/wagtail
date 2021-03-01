@@ -4,20 +4,20 @@ Each page type (a.k.a. content type) in Wagtail is represented by a Django model
 
 As all page types are Django models, you can use any field type that Django provides. See [Model field reference](https://docs.djangoproject.com/en/3.1/ref/models/fields/) for a complete list of field types you can use. Wagtail also provides [`wagtail.core.fields.RichTextField`]() which provides a WYSIWYG editor for editing rich-text content.
 
-::: {.topic}
-**Django models**
+```eval_rst
+.. note::
 
-If you\'re not yet familiar with Django models, have a quick look at the following links to get you started:
+    If you're not yet familiar with Django models, have a quick look at the following links to get you started:
 
--   `Creating models <django:creating-models>`{.interpreted-text role="ref"}
--   `Model syntax <django:topics/db/models>`{.interpreted-text role="doc"}
-:::
+    * :ref:`Creating models <django:creating-models>`
+    * :doc:`Model syntax <django:topics/db/models>`
+```
 
 ## An example Wagtail page model
 
 This example represents a typical blog post:
 
-``` {.python}
+```python
 from django.db import models
 
 from modelcluster.fields import ParentalKey
@@ -195,13 +195,13 @@ The `Page.get_url_parts(request)` method will not typically be called directly, 
 
 When overriding `get_url_parts()`, you should accept `*args, **kwargs`:
 
-``` {.python}
+```python
 def get_url_parts(self, *args, **kwargs):
 ```
 
 and pass those through at the point where you are calling `get_url_parts` on `super` (if applicable), e.g.:
 
-``` {.python}
+```python
 super().get_url_parts(*args, **kwargs)
 ```
 
@@ -245,7 +245,7 @@ All pages have a `get_context` method that is called whenever the template is re
 
 To add more variables to the template context, you can override this method:
 
-``` {.python}
+```python
 class BlogIndexPage(Page):
     ...
 
@@ -271,7 +271,7 @@ The variables can then be used in the template:
 
 Set the `template` attribute on the class to use a different template file:
 
-``` {.python}
+```python
 class BlogPage(Page):
     ...
 
@@ -282,7 +282,7 @@ class BlogPage(Page):
 
 The template can be changed on a per-instance basis by defining a `get_template` method on the page class. This method is called every time the page is rendered:
 
-``` {.python}
+```python
 class BlogPage(Page):
     ...
 
@@ -301,7 +301,7 @@ In this example, pages that have the `use_other_template` boolean field set will
 
 If you want to add AJAX functionality to a page, such as a paginated listing that updates in-place on the page rather than triggering a full page reload, you can set the `ajax_template` attribute to specify an alternative template to be used when the page is requested via an AJAX call (as indicated by the `X-Requested-With: XMLHttpRequest` HTTP header):
 
-``` {.python}
+```python
 class BlogPage(Page):
     ...
 
@@ -317,7 +317,7 @@ This method can also be overridden for complete control over page rendering.
 
 For example, here\'s a way to make a page respond with a JSON representation of itself:
 
-``` {.python}
+```python
 from django.http import JsonResponse
 
 
@@ -353,7 +353,7 @@ django-modelcluster and ParentalKey
 
 The model inlining feature is provided by [django-modelcluster](https://github.com/torchbox/django-modelcluster) and the `ParentalKey` field type must be imported from there:
 
-``` {.python}
+```python
 from modelcluster.fields import ParentalKey
 ```
 
@@ -362,7 +362,7 @@ from modelcluster.fields import ParentalKey
 
 For example, the following inline model can be used to add related links (a list of name, url pairs) to the `BlogPage` model:
 
-``` {.python}
+```python
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.core.models import Orderable
@@ -381,7 +381,7 @@ class BlogPageRelatedLink(Orderable):
 
 To add this to the admin interface, use the `~wagtail.admin.edit_handlers.InlinePanel`{.interpreted-text role="class"} edit panel class:
 
-``` {.python}
+```python
 content_panels = [
     ...
 
@@ -401,7 +401,7 @@ Pages can exist in Python code in two forms, an instance of `Page` or an instanc
 
 > When working with multiple page types together, you will typically use instances of Wagtail\'s `~wagtail.core.models.Page`{.interpreted-text role="class"} model, which don\'t give you access to any fields specific to their type.
 
-``` {.python}
+```python
 # Get all pages in the database
 >>> from wagtail.core.models import Page
 >>> Page.objects.all()
@@ -410,7 +410,7 @@ Pages can exist in Python code in two forms, an instance of `Page` or an instanc
 
 When working with a single page type, you can work with instances of the user-defined model. These give access to all the fields available in `Page`, along with any user-defined fields for that type.
 
-``` {.python}
+```python
 # Get all blog entries in the database
 >>> BlogPage.objects.all()
 [<BlogPage: A Blog post>, <BlogPage: Another Blog post>]
@@ -418,7 +418,7 @@ When working with a single page type, you can work with instances of the user-de
 
 You can convert a `Page` object to its more specific user-defined equivalent using the `.specific` property. This may cause an additional database lookup.
 
-``` {.python}
+```python
 >>> page = Page.objects.get(title="A Blog post")
 >>> page
 <Page: A Blog post>
@@ -435,7 +435,7 @@ You can convert a `Page` object to its more specific user-defined equivalent usi
 
 You can make your model names more friendly to users of Wagtail by using Django\'s internal `Meta` class with a `verbose_name`, e.g.:
 
-``` {.python}
+```python
 class HomePage(Page):
     ...
 
@@ -449,7 +449,7 @@ When users are given a choice of pages to create, the list of page types is gene
 
 `Page`-derived models *cannot* be given a default ordering by using the standard Django approach of adding an `ordering` attribute to the internal `Meta` class.
 
-``` {.python}
+```python
 class NewsItemPage(Page):
     publication_date = models.DateField()
     ...
@@ -460,7 +460,7 @@ class NewsItemPage(Page):
 
 This is because `Page` enforces ordering QuerySets by path. Instead, you must apply the ordering explicitly when constructing a QuerySet:
 
-``` {.python}
+```python
 news_items = NewsItemPage.objects.live().order_by('-publication_date')
 ```
 
@@ -468,7 +468,7 @@ news_items = NewsItemPage.objects.live().order_by('-publication_date')
 
 You can add a custom `Manager` to your `Page` class. Any custom Managers should inherit from `wagtail.core.models.PageManager`{.interpreted-text role="class"}:
 
-``` {.python}
+```python
 from django.db import models
 from wagtail.core.models import Page, PageManager
 
@@ -483,7 +483,7 @@ class EventPage(Page):
 
 Alternately, if you only need to add extra `QuerySet` methods, you can inherit from `wagtail.core.models.PageQuerySet`{.interpreted-text role="class"}, and call `~django.db.models.managers.Manager.from_queryset`{.interpreted-text role="func"} to build a custom `Manager`:
 
-``` {.python}
+```python
 from django.db import models
 from django.utils import timezone
 from wagtail.core.models import Page, PageManager, PageQuerySet
