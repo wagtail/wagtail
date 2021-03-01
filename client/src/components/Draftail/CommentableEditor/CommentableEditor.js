@@ -28,22 +28,22 @@ class DraftailInlineAnnotation {
       }
       return 0
     }
-  }
+}
 
 function getCommentControl(commentApp, contentPath, fieldNode) {
-    return ({getEditorState, onChange}) => {
+  return ({getEditorState, onChange}) => {
     return <ToolbarButton
-    name='comment'
-    active={false}
-    title={STRINGS.ADD_A_COMMENT}
-    icon={<Icon name="comment"/>}
-    onClick={() => {
+      name='comment'
+      active={false}
+      title={STRINGS.ADD_A_COMMENT}
+      icon={<Icon name="comment"/>}
+      onClick={() => {
         const annotation = new DraftailInlineAnnotation(fieldNode)
         const commentId = commentApp.makeComment(annotation, contentPath);
         onChange(RichUtils.toggleInlineStyle(getEditorState(), `COMMENT-${commentId}`))
-    }}
+      }}
     />
-}
+  }
 }
 
 function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState, onSave, ...options}) {
