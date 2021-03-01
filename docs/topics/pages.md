@@ -211,7 +211,7 @@ super().get_url_parts(*args, **kwargs)
 While you could pass only the `request` keyword argument, passing all arguments as-is ensures compatibility with any
 future changes to these method signatures.
 
-For more information, please see [ADD TITLE HERE](wagtail.core.models.Page.get_url_parts).
+For more information, please see [`wagtail.core.models.Page.get_url_parts`](/reference/pages/model_reference.html#wagtail.core.models.Page.get_url_parts).
 
 #### Obtaining URLs for page instances
 
