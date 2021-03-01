@@ -128,31 +128,31 @@ There are a few attributes for defining how the page\'s fields will be arranged 
 
 Each of these attributes is set to a list of `EditHandler` objects, which defines which fields appear on which tabs and how they are structured on each tab.
 
-Here\'s a summary of the `EditHandler` classes that Wagtail provides out of the box. See `/reference/pages/panels`{.interpreted-text role="doc"} for full descriptions.
+Here\'s a summary of the `EditHandler` classes that Wagtail provides out of the box. See [ADD TITLE HERE](/reference/pages/panels) for full descriptions.
 
 **Basic**
 
 These allow editing of model fields. The `FieldPanel` class will choose the correct widget based on the type of the field, though `StreamField` fields need to use a specialised panel class.
 
--   `~wagtail.admin.edit_handlers.FieldPanel`{.interpreted-text role="class"}
--   `~wagtail.admin.edit_handlers.StreamFieldPanel`{.interpreted-text role="class"}
+-   [ADD TITLE HERE](~wagtail.admin.edit_handlers.FieldPanel)
+-   [ADD TITLE HERE](~wagtail.admin.edit_handlers.StreamFieldPanel)
 
 **Structural**
 
 These are used for structuring fields in the interface.
 
--   `~wagtail.admin.edit_handlers.MultiFieldPanel`{.interpreted-text role="class"} - For grouping similar fields together
--   `~wagtail.admin.edit_handlers.InlinePanel`{.interpreted-text role="class"} - For inlining child models
--   `~wagtail.admin.edit_handlers.FieldRowPanel`{.interpreted-text role="class"} - For organising multiple fields into a single row
+-   [ADD TITLE HERE](~wagtail.admin.edit_handlers.MultiFieldPanel) - For grouping similar fields together
+-   [ADD TITLE HERE](~wagtail.admin.edit_handlers.InlinePanel) - For inlining child models
+-   [ADD TITLE HERE](~wagtail.admin.edit_handlers.FieldRowPanel) - For organising multiple fields into a single row
 
 **Chooser**
 
 `ForeignKey` fields to certain models can use one of the below `ChooserPanel` classes. These add a nice modal chooser interface, and the image/document choosers also allow uploading new files without leaving the page editor.
 
--   `~wagtail.admin.edit_handlers.PageChooserPanel`{.interpreted-text role="class"}
--   `~wagtail.images.edit_handlers.ImageChooserPanel`{.interpreted-text role="class"}
--   `~wagtail.documents.edit_handlers.DocumentChooserPanel`{.interpreted-text role="class"}
--   `~wagtail.snippets.edit_handlers.SnippetChooserPanel`{.interpreted-text role="class"}
+-   [ADD TITLE HERE](~wagtail.admin.edit_handlers.PageChooserPanel)
+-   [ADD TITLE HERE](~wagtail.images.edit_handlers.ImageChooserPanel)
+-   [ADD TITLE HERE](~wagtail.documents.edit_handlers.DocumentChooserPanel)
+-   [ADD TITLE HERE](~wagtail.snippets.edit_handlers.SnippetChooserPanel)
 
 ::: {.note}
 ::: {.title}
@@ -166,7 +166,7 @@ To link to any other model type, you should use `FieldPanel`, which will create 
 
 #### Customising the page editor interface
 
-The page editor can be customised further. See `/advanced_topics/customisation/page_editing_interface`{.interpreted-text role="doc"}.
+The page editor can be customised further. See [ADD TITLE HERE](/advanced_topics/customisation/page_editing_interface).
 
 ### Parent page / subpage type rules {#page_type_business_rules}
 
@@ -183,7 +183,7 @@ Setting `parent_page_types` to an empty list is a good way of preventing a parti
 
 ### Page URLs {#page_urls}
 
-The most common method of retrieving page URLs is by using the `{% pageurl %}` template tag. Since it\'s called from a template, `pageurl` automatically includes the optimizations mentioned below. For more information, see `pageurl_tag`{.interpreted-text role="ref"}.
+The most common method of retrieving page URLs is by using the `{% pageurl %}` template tag. Since it\'s called from a template, `pageurl` automatically includes the optimizations mentioned below. For more information, see [ADD TITLE HERE](pageurl_tag).
 
 Page models also include several low-level methods for overriding or accessing page URLs.
 
@@ -206,7 +206,7 @@ super().get_url_parts(*args, **kwargs)
 While you could pass only the `request` keyword argument, passing all arguments as-is ensures compatibility with any
 future changes to these method signatures.
 
-For more information, please see `wagtail.core.models.Page.get_url_parts`{.interpreted-text role="meth"}.
+For more information, please see [ADD TITLE HERE](wagtail.core.models.Page.get_url_parts).
 
 #### Obtaining URLs for page instances
 
@@ -215,9 +215,9 @@ The `Page.get_url(request)` method can be called whenever a page URL is needed. 
 A common use case for `get_url(request)` is in any custom template tag your project may include for generating navigation menus. When writing such a custom template tag, ensure that it includes `takes_context=True` and use `context.get('request')` to safely pass the
 request or `None` if no request exists in the context.
 
-For more information, please see `wagtail.core.models.Page.get_url`{.interpreted-text role="meth"}.
+For more information, please see [ADD TITLE HERE](wagtail.core.models.Page.get_url).
 
-In the event a full URL (including the protocol and domain) is needed, `Page.get_full_url(request)` can be used instead. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information. For more information, please see `wagtail.core.models.Page.get_full_url`{.interpreted-text role="meth"}.
+In the event a full URL (including the protocol and domain) is needed, `Page.get_full_url(request)` can be used instead. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information. For more information, please see [ADD TITLE HERE](wagtail.core.models.Page.get_full_url).
 
 ## Template rendering
 
@@ -339,7 +339,7 @@ Wagtail can nest the content of other models within the page. This is useful for
 
 Each inline model requires the following:
 
--   It must inherit from `wagtail.core.models.Orderable`{.interpreted-text role="class"}
+-   It must inherit from [ADD TITLE HERE](wagtail.core.models.Orderable)
 -   It must have a `ParentalKey` to the parent model
 
 ::: {.note}
@@ -377,7 +377,7 @@ class BlogPageRelatedLink(Orderable):
     ]
 ```
 
-To add this to the admin interface, use the `~wagtail.admin.edit_handlers.InlinePanel`{.interpreted-text role="class"} edit panel class:
+To add this to the admin interface, use the [ADD TITLE HERE](~wagtail.admin.edit_handlers.InlinePanel) edit panel class:
 
 ```python
 content_panels = [
@@ -393,11 +393,11 @@ The first argument must match the value of the `related_name` attribute of the `
 
 Wagtail uses Django\'s `multi-table inheritance <django:multi-table-inheritance>`{.interpreted-text role="ref"} feature to allow multiple page models to be used in the same tree.
 
-Each page is added to both Wagtail\'s builtin `~wagtail.core.models.Page`{.interpreted-text role="class"} model as well as its user-defined model (such as the `BlogPage` model created earlier).
+Each page is added to both Wagtail\'s builtin [ADD TITLE HERE](~wagtail.core.models.Page) model as well as its user-defined model (such as the `BlogPage` model created earlier).
 
 Pages can exist in Python code in two forms, an instance of `Page` or an instance of the page model.
 
-> When working with multiple page types together, you will typically use instances of Wagtail\'s `~wagtail.core.models.Page`{.interpreted-text role="class"} model, which don\'t give you access to any fields specific to their type.
+> When working with multiple page types together, you will typically use instances of Wagtail\'s [ADD TITLE HERE](~wagtail.core.models.Page) model, which don\'t give you access to any fields specific to their type.
 
 ```python
 # Get all pages in the database
@@ -464,7 +464,7 @@ news_items = NewsItemPage.objects.live().order_by('-publication_date')
 
 ### Custom Page managers {#custom_page_managers}
 
-You can add a custom `Manager` to your `Page` class. Any custom Managers should inherit from `wagtail.core.models.PageManager`{.interpreted-text role="class"}:
+You can add a custom `Manager` to your `Page` class. Any custom Managers should inherit from [ADD TITLE HERE](wagtail.core.models.PageManager):
 
 ```python
 from django.db import models
@@ -479,7 +479,7 @@ class EventPage(Page):
     objects = EventPageManager()
 ```
 
-Alternately, if you only need to add extra `QuerySet` methods, you can inherit from `wagtail.core.models.PageQuerySet`{.interpreted-text role="class"}, and call `~django.db.models.managers.Manager.from_queryset`{.interpreted-text role="func"} to build a custom `Manager`:
+Alternately, if you only need to add extra `QuerySet` methods, you can inherit from [ADD TITLE HERE](wagtail.core.models.PageQuerySet) to build a custom `Manager`:
 
 ```python
 from django.db import models
