@@ -100,7 +100,7 @@ function getCommentDecorator(commentApp) {
   return CommentDecorator
 }
 
-function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState, onSave, inlineStyles, ...options}) {
+function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState, onSave, inlineStyles, editorRef, ...options}) {
     const [editorState, setEditorState] = useState(() => createEditorStateFromRaw(rawContentState));
     const CommentControl = useMemo(() => getCommentControl(commentApp, contentPath, fieldNode), [commentApp, contentPath, fieldNode]);
     const CommentDecorator = useMemo(() => getCommentDecorator(commentApp), [commentApp])
@@ -130,6 +130,7 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
     }, [editorState]);
 
     return <DraftailEditor
+    ref={editorRef}
     onChange={setEditorState}
     editorState={editorState}
     controls={enabled ? [CommentControl] : []}

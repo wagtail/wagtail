@@ -96,7 +96,6 @@ const initEditor = (selector, options, currentScript) => {
   };
 
   const sharedProps = {
-    ref: editorRef,
     rawContentState: rawContentState,
     onSave: serialiseInputValue,
     placeholder: STRINGS.WRITE_HERE,
@@ -124,6 +123,7 @@ const initEditor = (selector, options, currentScript) => {
   const editor = (window.commentApp && contentPath !== '') ?
     <Provider store={window.commentApp.store}>
       <CommentableEditor
+        editorRef={editorRef}
         commentApp={window.commentApp}
         fieldNode={field.parentNode}
         contentPath={contentPath}
@@ -131,6 +131,7 @@ const initEditor = (selector, options, currentScript) => {
       />
     </Provider>
   : <DraftailEditor
+    ref={editorRef}
     {...sharedProps}
   />;
 
