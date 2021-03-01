@@ -302,6 +302,22 @@ class TestRenditions(TestCase):
         new_rendition = self.image.get_rendition('width-500')
         self.assertFalse(hasattr(new_rendition, '_from_cache'))
 
+    def test_focal_point(self):
+        self.image.focal_point_x = 100
+        self.image.focal_point_y = 200
+        self.image.focal_point_width = 50
+        self.image.focal_point_height = 20
+        self.image.save()
+
+        # Generate a rendition that's half the size of the original
+        rendition = self.image.get_rendition('width-320')
+
+        self.assertEqual(rendition.focal_point.round(), Rect(37, 95, 63, 105))
+        self.assertEqual(rendition.focal_point.centroid.x, 50)
+        self.assertEqual(rendition.focal_point.centroid.y, 100)
+        self.assertEqual(rendition.focal_point.width, 25)
+        self.assertEqual(rendition.focal_point.height, 10)
+
 
 class TestUsageCount(TestCase):
     fixtures = ['test.json']
