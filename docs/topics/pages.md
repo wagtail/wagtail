@@ -84,7 +84,7 @@ class BlogPageRelatedLink(Orderable):
 ```
 
 ```eval_rst
-.. important::
+.. note::
 
     Ensure that none of your field names are the same as your class names. This will cause errors due to the way Django handles relations (`read more <https://github.com/wagtail/wagtail/issues/503>`_). In our examples we have avoided this by appending "Page" to each model name.
 ```
