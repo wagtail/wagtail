@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { STRINGS } from '../../../config/wagtailConfig';
 import Icon from '../../Icon/Icon';
+import { useSelector } from 'react-redux';
 
 class DraftailInlineAnnotation {
     constructor(field) {
@@ -47,7 +48,8 @@ function getCommentControl(commentApp, contentPath, fieldNode) {
 
 function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState, onSave, ...options}) {
     const [editorState, setEditorState] = useState(() => createEditorStateFromRaw(rawContentState));
-    const CommentControl = useMemo(() => getCommentControl(commentApp, contentPath, fieldNode), [commentApp, contentPath, fieldNode])
+    const CommentControl = useMemo(() => getCommentControl(commentApp, contentPath, fieldNode), [commentApp, contentPath, fieldNode]);
+    const enabled = useSelector(commentApp.selectors.selectEnabled);
 
     const timeoutRef = useRef();
     useEffect(() => {
@@ -65,7 +67,7 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
     return <DraftailEditor
     onChange={setEditorState}
     editorState={editorState}
-    controls={[CommentControl]}
+    controls={enabled ? [CommentControl] : []}
     {...options}
   />
 
