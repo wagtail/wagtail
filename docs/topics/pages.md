@@ -165,7 +165,7 @@ These are used for structuring fields in the interface.
 
 #### Customising the page editor interface
 
-The page editor can be customised further. See [ADD TITLE HERE](/advanced_topics/customisation/page_editing_interface).
+The page editor can be customised further. See [Customising the editing interface](/advanced_topics/customisation/page_editing_interface).
 
 ### Parent page / subpage type rules {#page_type_business_rules}
 
