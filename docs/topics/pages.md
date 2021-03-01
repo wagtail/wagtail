@@ -154,15 +154,14 @@ These are used for structuring fields in the interface.
 -   [`DocumentChooserPanel`](/reference/pages/panels.html#wagtail.documents.edit_handlers.DocumentChooserPanel)
 -   [`SnippetChooserPanel`](/reference/pages/panels.html#wagtail.snippets.edit_handlers.SnippetChooserPanel)
 
-::: {.note}
-::: {.title}
-Note
-:::
+```eval_rst
+.. note::
 
-In order to use one of these choosers, the model being linked to must either be a page, image, document or snippet.
+    In order to use one of these choosers, the model being linked to must either be a page, image, document or snippet.
 
-To link to any other model type, you should use `FieldPanel`, which will create a dropdown box.
-:::
+    Linking to any other model type is currently unsupported, you will need to use ``FieldPanel`` which will create a dropdown box.
+```
+
 
 #### Customising the page editor interface
 
