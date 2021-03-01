@@ -2072,14 +2072,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
         specific_self = self.specific
         if keep_live:
-            base_update_attrs = {}
+            base_update_attrs = {
+                'alias_of': None,
+            }
         else:
             base_update_attrs = {
                 'live': False,
                 'has_unpublished_changes': True,
                 'live_revision': None,
                 'first_published_at': None,
-                'last_published_at': None
+                'last_published_at': None,
+                'alias_of': None,
             }
 
         if user:

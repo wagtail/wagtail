@@ -1698,6 +1698,22 @@ class TestCopyPage(TestCase):
         )
         self.assertFalse(signal_fired)
 
+    def test_copy_alias_page(self):
+        about_us = SimplePage.objects.get(url_path='/home/about-us/')
+        about_us_alias = about_us.create_alias(update_slug='about-us-alias')
+
+        about_us_alias_copy = about_us_alias.copy(update_attrs={
+            'slug': 'about-us-alias-copy'
+        })
+
+        self.assertIsInstance(about_us_alias_copy, SimplePage)
+        self.assertEqual(about_us_alias_copy.slug, 'about-us-alias-copy')
+        self.assertNotEqual(about_us_alias_copy.id, about_us.id)
+        self.assertEqual(about_us_alias_copy.url_path, '/home/about-us-alias-copy/')
+
+        # The copy should just be a copy of the original page, not an alias
+        self.assertIsNone(about_us_alias_copy.alias_of)
+
 
 class TestCreateAlias(TestCase):
     fixtures = ['test.json']
