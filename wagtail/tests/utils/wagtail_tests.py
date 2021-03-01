@@ -1,9 +1,13 @@
 import warnings
+import zlib
 
 from contextlib import contextmanager
+from pathlib import Path
 
 from django.contrib.auth import get_user_model
+from django.test.selenium import SeleniumTestCase
 from django.test.testcases import assert_and_parse_html
+from PIL import Image
 
 
 class WagtailTestUtils:
@@ -214,3 +218,52 @@ class WagtailTestUtils:
             )
         else:
             self.assertTrue(real_count != 0, msg_prefix + "Couldn't find '%s' in template script" % needle)
+
+    def set_selenium_viewport_size(self, width, height):
+        if not isinstance(self, SeleniumTestCase):
+            raise TypeError("set_selenium_viewport_size can only be called on a subclass of SeleniumTestCase")
+
+        self.selenium.set_window_size(width, height)
+
+        # Measure the difference between the actual document width and the
+        # desired viewport width so we can account for scrollbars:
+        measured = self.selenium.execute_script("return {width: document.body.clientWidth, height: document.body.clientHeight};")
+        delta = width - measured['width']
+
+        self.selenium.set_window_size(width + delta, height)
+
+    def assertScreenshotMatches(self, filename, element):
+        if not isinstance(self, SeleniumTestCase):
+            raise TypeError("assertScreenshotMatches can only be called on a subclass of SeleniumTestCase")
+
+        # Only run screenshot tests in headless mode
+        # There can be slight size differences between headless/non-headless
+        if not type(SeleniumTestCase).headless:
+            self.skipTest("Screenshot tests only run in headless mode. Use the --selenium-headless argument to enable this.")
+
+        path = Path('wagtail/tests/screenshots/') / Path(self.browser) / Path(filename)
+        path = path.with_suffix('.png')
+
+        if not path.exists():
+            # Screenshot doesn't exist. Generate one
+            if not path.parent.exists():
+                path.parent.mkdir(parents=True)
+            element.screenshot(str(path.absolute()))
+
+        else:
+            # Generate a new screenshot
+            changed_path = path.with_suffix('.changed.png')
+            element.screenshot(str(changed_path.absolute()))
+
+            # Load both screenshots
+            existing = Image.open(str(path.absolute()))
+            new = Image.open(str(changed_path.absolute()))
+
+            # Compare their sizes
+            self.assertEqual(new.width, existing.width)
+            self.assertEqual(new.height, existing.height)
+
+            # Compare their content
+            existing_hash = zlib.crc32(existing.tobytes())
+            new_hash = zlib.crc32(new.tobytes())
+            self.assertEqual(new_hash, existing_hash, "The screenshot has changed")

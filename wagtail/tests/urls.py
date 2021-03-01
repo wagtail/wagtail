@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.http import HttpResponse
 from django.urls import include, path
 
@@ -40,7 +42,7 @@ urlpatterns = [
     path('testapp/', include(testapp_urls)),
 
     path('fallback/', lambda: HttpResponse('ok'), name='fallback'),
-
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + [
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
     path('', include(wagtail_urls)),

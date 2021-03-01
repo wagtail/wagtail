@@ -7,9 +7,24 @@ import sys
 import warnings
 
 from django.core.management import execute_from_command_line
+from django.test.selenium import SeleniumTestCaseBase
 
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
+
+
+class ActionSelenium(argparse.Action):
+    """
+    Validate the comma-separated list of requested browsers.
+    """
+    def __call__(self, parser, namespace, values, option_string=None):
+        browsers = values.split(',')
+        for browser in browsers:
+            try:
+                SeleniumTestCaseBase.import_webdriver(browser)
+            except ImportError:
+                raise argparse.ArgumentError(self, "Selenium browser specification '%s' is not valid." % browser)
+        setattr(namespace, self.dest, browsers)
 
 
 def make_parser():
@@ -22,6 +37,11 @@ def make_parser():
     parser.add_argument('--emailuser', action='store_true')
     parser.add_argument('--disabletimezone', action='store_true')
     parser.add_argument('--bench', action='store_true')
+    parser.add_argument(
+        '--selenium', action=ActionSelenium, metavar='BROWSERS',
+        help='A comma-separated list of browsers to run the Selenium tests against.',
+    )
+    parser.add_argument('--selenium-headless', action='store_true')
     return parser
 
 
@@ -71,7 +91,15 @@ def runtests():
     if args.disabletimezone:
         os.environ['DISABLE_TIMEZONE'] = '1'
 
-    if args.bench:
+    if args.selenium:
+        execute_from_command_line([sys.argv[0], 'collectstatic'])
+
+        SeleniumTestCaseBase.browsers = args.selenium
+        SeleniumTestCaseBase.headless = args.selenium_headless
+
+        argv = [sys.argv[0], 'test', '--tag=selenium'] + rest
+
+    elif args.bench:
         benchmarks = [
             'wagtail.admin.tests.benches',
         ]
