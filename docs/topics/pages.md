@@ -185,7 +185,7 @@ Setting `parent_page_types` to an empty list is a good way of preventing a parti
 
 ### Page URLs {#page_urls}
 
-The most common method of retrieving page URLs is by using the `{% pageurl %}` template tag. Since it\'s called from a template, `pageurl` automatically includes the optimizations mentioned below. For more information, see [ADD TITLE HERE](pageurl_tag).
+The most common method of retrieving page URLs is by using the `{% pageurl %}` template tag. Since it\'s called from a template, `pageurl` automatically includes the optimizations mentioned below. For more information, see [pageurl](pageurl_tag).
 
 Page models also include several low-level methods for overriding or accessing page URLs.
 
