@@ -16,7 +16,8 @@ Other features
 * Support passing ``min_num``, ``max_num`` and ``block_counts`` arguments directly to ``StreamField`` (Haydn Greatnews, Matt Westcott)
 * Add the option to set rich text images as decorative, without alt text (Helen Chapman, Thibaud Colas)
 * Add support for ``__year`` filter in Elasticsearch queries (Seb Brown)
-* Support passing multiple models as arguments to ``type()``, ``not_type()``, ``exact_type()`` and ``no_exact_type()`` methods on ``PageQuerySet`` (Andy Babic)
+* Support passing multiple models as arguments to ``type()``, ``not_type()``, ``exact_type()`` and ``not_exact_type()`` methods on ``PageQuerySet`` (Andy Babic)
+* Updated default attribute copying behaviour of ``Page.get_specific()`` and added the ``copy_attrs_exclude`` option (Andy Babic)
 
 
 Bug fixes
