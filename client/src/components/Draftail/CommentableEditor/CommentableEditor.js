@@ -186,15 +186,18 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
     const timeoutRef = useRef();
     useEffect(() => {
       window.clearTimeout(timeoutRef.current);
+      const filteredEditorState = EditorState.push(
+        editorState,
+        filterInlineStyles(inlineStyles.map(style => style.type), editorState.getCurrentContent())
+      );
       timeoutRef.current = window.setTimeout(
-        onSave(serialiseEditorStateToRaw(editorState)),
+        onSave(serialiseEditorStateToRaw(filteredEditorState)),
         250,
       );
       return () => {
-        onSave(serialiseEditorStateToRaw(editorState));
         window.clearTimeout(timeoutRef.current);
       }
-    }, [editorState]);
+    }, [editorState, inlineStyles]);
 
     return <DraftailEditor
     ref={editorRef}
