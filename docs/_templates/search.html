@@ -96,11 +96,6 @@ function createHitElement(hitData, query) {
   return hitListElement
 }
 
-function extractPageLink(url) {
-  const endPageUrlIndex = url.lastIndexOf('#')
-  return url.slice(0, endPageUrlIndex)
-}
-
 window.onload = runSearchPageSearch
 </script>
 {% endblock %}
