@@ -870,6 +870,7 @@ class CommentPanel(EditHandler):
 
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
 
+
 Page.content_panels = [
     CommentPanel(),
     FieldPanel('title', classname="full title"),
