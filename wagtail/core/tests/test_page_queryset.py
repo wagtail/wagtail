@@ -834,11 +834,9 @@ class TestSpecificQuery(TestCase):
             # The query should be lazy.
             qs = root.get_descendants().specific(defer=True)
 
-        with self.assertNumQueries(5):
-            # This still performs 5 queries (one for each specific class)
-            # even though we're only pulling in fields from the base Page
-            # model.
-            # TODO: Find a way to make this perform a single query
+        with self.assertNumQueries(1):
+            # This did use 5 queries (one for each specific class),
+            # But now only performs a single query
             pages = list(qs)
 
         self.assertIsInstance(pages, list)

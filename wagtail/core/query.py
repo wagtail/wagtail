@@ -7,7 +7,7 @@ from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import CharField, Q
 from django.db.models.functions import Length, Substr
-from django.db.models.query import BaseIterable
+from django.db.models.query import BaseIterable, ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.search.queryset import SearchableQuerySetMixin
@@ -350,10 +350,8 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         This efficiently gets all the specific pages for the queryset, using
         the minimum number of queries.
 
-        When the "defer" keyword argument is set to True, only the basic page
-        fields will be loaded and all specific fields will be deferred. It
-        will still generate a query for each page type though (this may be
-        improved to generate only a single query in a future release).
+        When the "defer" keyword argument is set to True, only generic page
+        field values will be loaded and all specific fields will be deferred.
         """
         clone = self._clone()
         if defer:
@@ -475,6 +473,17 @@ class SpecificIterable(BaseIterable):
         return specific_iterator(self.queryset)
 
 
-class DeferredSpecificIterable(BaseIterable):
+class DeferredSpecificIterable(ModelIterable):
     def __iter__(self):
-        return specific_iterator(self.queryset, defer=True)
+        for obj in super().__iter__():
+            if obj.specific_class:
+                yield obj.specific_deferred
+            else:
+                warnings.warn(
+                    "A specific version of the following page could not be returned "
+                    "because the specific page model is not present on the active "
+                    f"branch: <Page id='{obj.id}' title='{obj.title}' "
+                    f"type='{obj.content_type}'>",
+                    category=RuntimeWarning
+                )
+                yield obj
