@@ -1,5 +1,5 @@
 import { DraftailEditor, ToolbarButton, createEditorStateFromRaw, serialiseEditorStateToRaw } from 'draftail';
-import { EditorState, RichUtils } from 'draft-js';
+import { EditorState, Modifier, RichUtils, SelectionState } from 'draft-js';
 import { filterInlineStyles } from "draftjs-filters";
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
@@ -8,6 +8,14 @@ import { STRINGS } from '../../../config/wagtailConfig';
 import Icon from '../../Icon/Icon';
 
 const COMMENT_STYLE_IDENTIFIER = 'COMMENT-'
+
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  }, [value]); // Only re-run if value changes
+  return ref.current;
+}
 
 class DraftailInlineAnnotation {
     constructor(field) {
@@ -33,6 +41,17 @@ class DraftailInlineAnnotation {
     }
 }
 
+function getFullSelectionState(contentState) {
+  // Get a selection state corresponding to the full contentState
+  const lastBlock = contentState.getLastBlock();
+  let fullSelectionState = SelectionState.createEmpty();
+  fullSelectionState = fullSelectionState.set('anchorKey', contentState.getFirstBlock().getKey());
+  fullSelectionState = fullSelectionState.set('focusKey', lastBlock.getKey());
+  fullSelectionState = fullSelectionState.set('anchorOffset', 0);
+  fullSelectionState = fullSelectionState.set('focusOffset', lastBlock.getLength());
+  return fullSelectionState
+}
+
 function getCommentControl(commentApp, contentPath, fieldNode) {
   return ({getEditorState, onChange}) => {
     return <ToolbarButton
@@ -50,7 +69,7 @@ function getCommentControl(commentApp, contentPath, fieldNode) {
 }
 
 function findCommentStyleRanges(contentBlock, callback) {
-    contentBlock.findStyleRanges((metadata) => metadata.getStyle().some((style) => style.startsWith('COMMENT')), (start, end) => {callback(start, end)})
+    contentBlock.findStyleRanges((metadata) => metadata.getStyle().some((style) => style.startsWith(COMMENT_STYLE_IDENTIFIER)), (start, end) => {callback(start, end)})
 }
 
 function getCommentDecorator(commentApp) {
@@ -60,7 +79,8 @@ function getCommentDecorator(commentApp) {
     // going over links/other entities
     const blockKey = children[0].props.block.getKey()
     const start = children[0].props.start
-    const commentId = useMemo(() => parseInt(contentState.getBlockForKey(blockKey).getInlineStyleAt(start).find((style) => style.startsWith('COMMENT')).slice(8)), [blockKey, start]);
+
+    const commentId = useMemo(() => parseInt(contentState.getBlockForKey(blockKey).getInlineStyleAt(start).find((style) => style.startsWith(COMMENT_STYLE_IDENTIFIER)).slice(8)), [blockKey, start]);
     const annotationNode = useRef(null);
     useEffect(() => {
       // Add a ref to the annotation, allowing the comment to float alongside the attached text.
@@ -100,21 +120,68 @@ function getCommentDecorator(commentApp) {
   return CommentDecorator
 }
 
+function forceResetEditorState(editorState, replacementContent) {
+  const content = replacementContent ? replacementContent : editorState.getCurrentContent()
+  const state = EditorState.set(
+    EditorState.createWithContent(
+      content,
+      editorState.getDecorator(),
+    ),
+    {
+      selection: editorState.getSelection(),
+      undoStack: editorState.getUndoStack(),
+      redoStack: editorState.getRedoStack(),
+    },
+  );
+  return EditorState.acceptSelection(state, state.getSelection())
+};
+
 function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState, onSave, inlineStyles, editorRef, ...options}) {
     const [editorState, setEditorState] = useState(() => createEditorStateFromRaw(rawContentState));
     const CommentControl = useMemo(() => getCommentControl(commentApp, contentPath, fieldNode), [commentApp, contentPath, fieldNode]);
-    const CommentDecorator = useMemo(() => getCommentDecorator(commentApp), [commentApp])
     const commentsSelector = useMemo(() => commentApp.utils.selectCommentsForContentPathFactory(contentPath), [contentPath, commentApp]);
-    const comments = useSelector(commentsSelector, shallowEqual)
+    const CommentDecorator = useMemo(() => getCommentDecorator(commentApp), [commentApp])
+    const comments = useSelector(commentsSelector, shallowEqual);
     const enabled = useSelector(commentApp.selectors.selectEnabled);
     const focusedId = useSelector(commentApp.selectors.selectFocused);
 
-    const commentStyles = useMemo(() => comments.map(comment => {return {
-      type: COMMENT_STYLE_IDENTIFIER + comment.localId,
+    const ids = useMemo(() => comments.map(comment => comment.localId), [comments]);
+
+    const commentStyles = useMemo(() => ids.map(id => {return {
+      type: COMMENT_STYLE_IDENTIFIER + id,
       style: enabled ? {
-        'background-color': (focusedId !== comment.localId) ? '#01afb0' : '#007d7e'
+        'background-color': (focusedId !== id) ? '#01afb0' : '#007d7e'
       } : {}
-    }}), [comments, enabled]);
+    }}), [ids, enabled]);
+
+    const [uniqueStyleId, setUniqueStyleId] = useState(0)
+
+    const previousFocused = usePrevious(focusedId);
+    const previousIds = usePrevious(ids);
+    const previousEnabled = usePrevious(enabled);
+    useEffect(() => {
+      // Only trigger a focus-related rerender if the current focused comment is inside the field, or the previous one was
+      const validFocusChange = previousFocused !== focusedId && (previousIds && previousIds.includes(previousFocused) || ids.includes(focusedId))
+
+      if ((!validFocusChange) && previousIds === ids && previousEnabled === enabled) {
+        return
+      }
+
+      // Filter out any invalid styles - deleted comments, or now unneeded STYLE_RERENDER forcing styles
+      const filteredContent = filterInlineStyles(inlineStyles.map(style => style.type).concat(ids.map(id => COMMENT_STYLE_IDENTIFIER + id)), editorState.getCurrentContent())
+      // Force reset the editor state to ensure redecoration, and apply a new (blank) inline style to force inline style rerender
+      // This must be entirely new for the rerender to trigger, hence the unique style id, as with the undo stack we cannot guarantee
+      // that a previous style won't persist without filtering everywhere, which seems a bit too heavyweight
+      // This hack can be removed when draft-js triggers inline style rerender on props change
+      setEditorState(editorState => forceResetEditorState(editorState, 
+        Modifier.applyInlineStyle(
+          filteredContent,
+          getFullSelectionState(filteredContent),
+          'STYLE_RERENDER_'+uniqueStyleId
+        )
+      ))
+      setUniqueStyleId((id) => (id + 1) % 200);
+    }, [focusedId, enabled, inlineStyles, ids, editorState])
 
     const timeoutRef = useRef();
     useEffect(() => {
