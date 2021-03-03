@@ -6,6 +6,7 @@ $.widget('IKS.hallowagtaillink', {
     editable: null
   },
   populateToolbar(toolbar) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const widget = this;
     // eslint-disable-next-line func-names
     const getEnclosingLink = function () {

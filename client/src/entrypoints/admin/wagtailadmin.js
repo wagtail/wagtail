@@ -14,7 +14,7 @@ import {
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
   // in production, and does not break unit tests either.
-  // eslint-disable-next-line global-require
+  // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
   const axe = require('react-axe');
   axe(React, ReactDOM, 1000);
 }

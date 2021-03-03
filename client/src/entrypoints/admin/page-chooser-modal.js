@@ -43,7 +43,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
           success(data) {
             request = null;
             $('.page-results', modal.body).html(data);
-            // eslint-disable-next-line no-use-before-define
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
             ajaxifySearchResults();
           },
           error() {
@@ -53,7 +53,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       } else {
         /* search box is empty - restore original page browser HTML */
         $('.page-results', modal.body).html(initialPageResultsHtml);
-        // eslint-disable-next-line no-use-before-define
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         ajaxifyBrowseResults();
       }
       return false;
