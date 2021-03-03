@@ -22,6 +22,7 @@ Changelog
  * Add support for `non_field_errors` rendering in Workflow action modal (LB (Ben Johnston))
  * Support calling `get_image_model` and `get_document_model` at import time (Matt Westcott)
  * When copying a page, default the 'Publish copied page' field to false (Justin Slay)
+ * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)

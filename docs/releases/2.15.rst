@@ -33,6 +33,7 @@ Other features
  * Add support for ``non_field_errors`` rendering in Workflow action modal (LB (Ben Johnston))
  * Support calling ``get_image_model`` and ``get_document_model`` at import time (Matt Westcott)
  * When copying a page, default the 'Publish copied page' field to false (Justin Slay)
+ * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
 
 Bug fixes
 ~~~~~~~~~

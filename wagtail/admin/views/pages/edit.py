@@ -252,11 +252,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         return messages.button(
             reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
             _('View draft'),
-            new_window=True
+            new_window=False
         )
 
     def get_view_live_message_button(self):
-        return messages.button(self.page.url, _('View live'), new_window=True)
+        return messages.button(self.page.url, _('View live'), new_window=False)
 
     def get_compare_with_live_message_button(self):
         return messages.button(

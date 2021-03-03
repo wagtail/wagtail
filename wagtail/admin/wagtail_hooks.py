@@ -168,7 +168,7 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             reverse('wagtailadmin_pages:view_draft', args=[page.id]),
             attrs={
                 'aria-label': _("Preview draft version of '%(title)s'") % {'title': page.get_admin_display_title()},
-                'target': '_blank', 'rel': 'noopener noreferrer'
+                'rel': 'noopener noreferrer'
             },
             priority=20
         )
@@ -177,7 +177,7 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             _('View live'),
             page.url,
             attrs={
-                'target': "_blank", 'rel': 'noopener noreferrer',
+                'rel': 'noopener noreferrer',
                 'aria-label': _("View live version of '%(title)s'") % {'title': page.get_admin_display_title()},
             },
             priority=30
