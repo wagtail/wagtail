@@ -347,21 +347,17 @@ Each inline model requires the following:
 -   It must inherit from [wagtail.core.models.Orderable](/reference/pages/model_reference.html#wagtail.core.models.Orderable)
 -   It must have a `ParentalKey` to the parent model
 
-::: {.note}
-::: {.title}
-Note
-:::
+```eval_rst
+.. note:: django-modelcluster and ParentalKey
 
-django-modelcluster and ParentalKey
+    The model inlining feature is provided by `django-modelcluster <https://github.com/torchbox/django-modelcluster>`_ and the ``ParentalKey`` field type must be imported from there:
 
-The model inlining feature is provided by [django-modelcluster](https://github.com/torchbox/django-modelcluster) and the `ParentalKey` field type must be imported from there:
+    .. code-block:: python
 
-```python
-from modelcluster.fields import ParentalKey
+        from modelcluster.fields import ParentalKey
+
+    ``ParentalKey`` is a subclass of Django's ``ForeignKey``, and takes the same arguments.
 ```
-
-`ParentalKey` is a subclass of Django's `ForeignKey`, and takes the same arguments.
-:::
 
 For example, the following inline model can be used to add related links (a list of name, url pairs) to the `BlogPage` model:
 
