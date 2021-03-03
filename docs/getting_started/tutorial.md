@@ -29,7 +29,7 @@ If this does not return a version number or returns a version lower than 3.6, yo
 
 ### Create and activate a virtual environment
 
-We recommend using a virtual environment, which provides an isolated Python environment.
+We recommend using a virtual environment, which isolates installed dependencies from other projects.
 This tutorial uses [venv](https://docs.python.org/3/tutorial/venv.html), which is packaged with Python 3.
 
 **On Windows** (cmd.exe):
