@@ -39,7 +39,7 @@ $ python3 -m venv mysite\env
 $ mysite\env\Scripts\activate.bat
 ```
 
-**On Unix or MacOS** (bash):
+**On GNU/Linux or MacOS** (bash):
 
 ```sh
 $ python3 -m venv mysite/env
