@@ -464,7 +464,7 @@ news_items = NewsItemPage.objects.live().order_by('-publication_date')
 ```
 
 ```eval_rst
-..custom_page_managers:
+.. custom_page_managers:
 ```
 ### Custom Page managers
 
@@ -483,7 +483,7 @@ class EventPage(Page):
     objects = EventPageManager()
 ```
 
-Alternately, if you only need to add extra `QuerySet` methods, you can inherit from [ADD TITLE HERE](wagtail.core.models.PageQuerySet) to build a custom `Manager`:
+Alternately, if you only need to add extra `QuerySet` methods, you can inherit from `wagtail.core.models.PageQuerySet` to build a custom `Manager`:
 
 ```python
 from django.db import models
