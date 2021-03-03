@@ -163,7 +163,7 @@ function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNod
 
 function findCommentStyleRanges(contentBlock: ContentBlock, callback: (start: number, end: number) => void, filterFn?: (metadata: CharacterMetadata) => boolean) {
   // Find comment style ranges that do not overlap an existing entity
-  const filterFunction = filterFn ? filterFn : (metadata: CharacterMetadata) => metadata.getStyle().some((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER));
+  const filterFunction = filterFn || ((metadata: CharacterMetadata) => metadata.getStyle().some((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER)));
   const entityRanges: Array<[number, number]> = [];
   contentBlock.findEntityRanges(character => character.getEntity() !== null, (start, end) => entityRanges.push([start, end]));
   contentBlock.findStyleRanges(
@@ -201,8 +201,7 @@ function getCommentDecorator(commentApp: CommentApp) {
     const start: number = children[0].props.start;
 
     const commentId = useMemo(
-      () => 
-      {
+      () => {
         const block = contentState.getBlockForKey(blockKey);
         const styles = block.getInlineStyleAt(start).filter((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER)) as Immutable.OrderedSet<string>;
         let styleToUse: string;
@@ -212,23 +211,22 @@ function getCommentDecorator(commentApp: CommentApp) {
           // have at least one clickable section. This logic is a bit heavier than ideal for a decorator given how often we are forced to
           // redecorate, but will only be used on overlapping comments
 
-          // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like 
-          // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade, 
+          // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
+          // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
           // this casting should be removed
           let styleFreq = styles.map((style) => {
-            let counter = 0
-            findCommentStyleRanges(block, () => {counter = counter + 1}, (metadata) => metadata.getStyle().some(rangeStyle => rangeStyle === style));
-            return [style, counter]
-          }) as unknown as Immutable.OrderedSet<[string, number]>
-          
-          styleFreq =  styleFreq.sort((a, b) => a[1] - b[1]) as Immutable.OrderedSet<[string, number]>
-        
-          styleToUse = styleFreq.first()[0];
+            let counter = 0;
+            findCommentStyleRanges(block, () => { counter = counter + 1; }, (metadata) => metadata.getStyle().some(rangeStyle => rangeStyle === style));
+            return [style, counter];
+          }) as unknown as Immutable.OrderedSet<[string, number]>;
 
+          styleFreq =  styleFreq.sort((a, b) => a[1] - b[1]) as Immutable.OrderedSet<[string, number]>;
+
+          styleToUse = styleFreq.first()[0];
         } else {
           styleToUse = styles.first();
         }
-        return parseInt(styleToUse.slice(8));
+        return parseInt(styleToUse.slice(8), 10);
       }, [blockKey, start]);
     const annotationNode = useRef(null);
     useEffect(() => {
@@ -410,7 +408,14 @@ function CommentableEditor({
   return (
     <DraftailEditor
       ref={editorRef}
-      onChange={setEditorState}
+      onChange={(state: EditorState) => {
+        let newEditorState = state;
+        if (['undo', 'redo'].includes(state.getLastChangeType())) {
+          const filteredContent = filterInlineStyles(inlineStyles.map(style => style.type).concat(ids.map(id => COMMENT_STYLE_IDENTIFIER + id)), state.getCurrentContent());
+          newEditorState = forceResetEditorState(state, filteredContent);
+        }
+        setEditorState(newEditorState);
+      }}
       editorState={editorState}
       controls={enabled ? [CommentControl] : []}
       decorators={
@@ -426,8 +431,8 @@ function CommentableEditor({
       inlineStyles={inlineStyles.concat(commentStyles)}
       plugins={enabled ? [{
         customStyleFn: (styleSet: DraftInlineStyle) => {
-          // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like 
-          // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade, 
+          // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
+          // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
           // this casting should be removed
           const localCommentStyles = styleSet.filter(style => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER)) as Immutable.OrderedSet<string>;
           const numStyles = localCommentStyles.count();
