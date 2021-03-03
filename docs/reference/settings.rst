@@ -31,9 +31,9 @@ When ``WAGTAIL_APPEND_SLASH`` is ``False``, requests to Wagtail pages will be se
 
 .. note::
 
-  If you use the ``False`` setting, keep in mind that serving your pages both with and without slashes may affect search engines' ability to index your site. See `this Google Webmaster Blog post`_ for more details.
+  If you use the ``False`` setting, keep in mind that serving your pages both with and without slashes may affect search engines' ability to index your site. See `this Google Search Central Blog post`_ for more details.
 
-.. _this Google Webmaster Blog post: https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html
+.. _this Google Search Central Blog post: https://developers.google.com/search/blog/2010/04/to-slash-or-not-to-slash
 
 Search
 ======
