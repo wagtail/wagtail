@@ -91,7 +91,7 @@ class BlogPageRelatedLink(Orderable):
 
 ## Writing page models
 
-Here we\'ll describe each section of the above example to help you create your own page models.
+Here we'll describe each section of the above example to help you create your own page models.
 
 ### Database fields
 
@@ -114,13 +114,13 @@ The `search_fields` attribute defines which fields are added to the search index
 
 This should be a list of `SearchField` and `FilterField` objects. `SearchField` adds a field for full-text search. `FilterField` adds a field for filtering the results. A field can be indexed with both `SearchField` and `FilterField` at the same time (but only one instance of each).
 
-In the above example, we\'ve indexed `body` for full-text search and `date` for filtering.
+In the above example, we've indexed `body` for full-text search and `date` for filtering.
 
 The arguments that these field types accept are documented in [indexing extra fields](wagtailsearch_indexing_fields).
 
 ### Editor panels
 
-There are a few attributes for defining how the page\'s fields will be arranged in the page editor interface:
+There are a few attributes for defining how the page's fields will be arranged in the page editor interface:
 
 -   `content_panels` - For content, such as main body text
 -   `promote_panels` - For metadata, such as tags, thumbnail image and SEO title
@@ -128,7 +128,7 @@ There are a few attributes for defining how the page\'s fields will be arranged 
 
 Each of these attributes is set to a list of `EditHandler` objects, which defines which fields appear on which tabs and how they are structured on each tab.
 
-Here\'s a summary of the `EditHandler` classes that Wagtail provides out of the box. See [ADD TITLE HERE](/reference/pages/panels) for full descriptions.
+Here's a summary of the `EditHandler` classes that Wagtail provides out of the box. See [ADD TITLE HERE](/reference/pages/panels) for full descriptions.
 
 **Basic**
 
@@ -172,14 +172,14 @@ The page editor can be customised further. See [Customising the editing interfac
 ```
 ### Parent page / subpage type rules
 
-These two attributes allow you to control where page types may be used in your site. It allows you to define rules like \"blog entries may only be created under a blog index\".
+These two attributes allow you to control where page types may be used in your site. It allows you to define rules like "blog entries may only be created under a blog index".
 
 Both take a list of model classes or model names. Model names are of the format `app_label.ModelName`. If the `app_label` is omitted, the same app is assumed.
 
 -   `parent_page_types` limits which page types this type can be created under
 -   `subpage_types` limits which page types can be created under this type
 
-By default, any page type can be created under any page type and it is not necessary to set these attributes if that\'s the desired behaviour.
+By default, any page type can be created under any page type and it is not necessary to set these attributes if that's the desired behaviour.
 
 Setting `parent_page_types` to an empty list is a good way of preventing a particular page type from being created in the editor interface.
 
@@ -188,7 +188,7 @@ Setting `parent_page_types` to an empty list is a good way of preventing a parti
 ```
 ### Page URLs {#page_urls}
 
-The most common method of retrieving page URLs is by using the `{% pageurl %}` template tag. Since it\'s called from a template, `pageurl` automatically includes the optimizations mentioned below. For more information, see [pageurl](pageurl_tag).
+The most common method of retrieving page URLs is by using the `{% pageurl %}` template tag. Since it's called from a template, `pageurl` automatically includes the optimizations mentioned below. For more information, see [pageurl](pageurl_tag).
 
 Page models also include several low-level methods for overriding or accessing page URLs.
 
@@ -318,7 +318,7 @@ All page classes have a `serve()` method that internally calls the `get_context`
 
 This method can also be overridden for complete control over page rendering.
 
-For example, here\'s a way to make a page respond with a JSON representation of itself:
+For example, here's a way to make a page respond with a JSON representation of itself:
 
 ```python
 from django.http import JsonResponse
@@ -360,7 +360,7 @@ The model inlining feature is provided by [django-modelcluster](https://github.c
 from modelcluster.fields import ParentalKey
 ```
 
-`ParentalKey` is a subclass of Django\'s `ForeignKey`, and takes the same arguments.
+`ParentalKey` is a subclass of Django's `ForeignKey`, and takes the same arguments.
 :::
 
 For example, the following inline model can be used to add related links (a list of name, url pairs) to the `BlogPage` model:
@@ -396,13 +396,13 @@ The first argument must match the value of the `related_name` attribute of the `
 
 ## Working with pages
 
-Wagtail uses Django\'s `multi-table inheritance <django:multi-table-inheritance>`{.interpreted-text role="ref"} feature to allow multiple page models to be used in the same tree.
+Wagtail uses Django's `multi-table inheritance <django:multi-table-inheritance>`{.interpreted-text role="ref"} feature to allow multiple page models to be used in the same tree.
 
-Each page is added to both Wagtail\'s builtin [ADD TITLE HERE](~wagtail.core.models.Page) model as well as its user-defined model (such as the `BlogPage` model created earlier).
+Each page is added to both Wagtail's builtin [ADD TITLE HERE](~wagtail.core.models.Page) model as well as its user-defined model (such as the `BlogPage` model created earlier).
 
 Pages can exist in Python code in two forms, an instance of `Page` or an instance of the page model.
 
-> When working with multiple page types together, you will typically use instances of Wagtail\'s [ADD TITLE HERE](~wagtail.core.models.Page) model, which don\'t give you access to any fields specific to their type.
+> When working with multiple page types together, you will typically use instances of Wagtail's [ADD TITLE HERE](~wagtail.core.models.Page) model, which don't give you access to any fields specific to their type.
 
 ```python
 # Get all pages in the database
@@ -436,7 +436,7 @@ You can convert a `Page` object to its more specific user-defined equivalent usi
 
 ### Friendly model names
 
-You can make your model names more friendly to users of Wagtail by using Django\'s internal `Meta` class with a `verbose_name`, e.g.:
+You can make your model names more friendly to users of Wagtail by using Django's internal `Meta` class with a `verbose_name`, e.g.:
 
 ```python
 class HomePage(Page):
@@ -446,7 +446,7 @@ class HomePage(Page):
         verbose_name = "homepage"
 ```
 
-When users are given a choice of pages to create, the list of page types is generated by splitting your model names on each of their capital letters. Thus a `HomePage` model would be named \"Home Page\" which is a little clumsy. Defining `verbose_name` as in the example above would change this to read \"Homepage\", which is slightly more conventional.
+When users are given a choice of pages to create, the list of page types is generated by splitting your model names on each of their capital letters. Thus a `HomePage` model would be named "Home Page" which is a little clumsy. Defining `verbose_name` as in the example above would change this to read "Homepage", which is slightly more conventional.
 
 ### Page QuerySet ordering
 
