@@ -72,6 +72,7 @@ Action                               Notes
 ``wagtail.revert``                   The page was reverted to a previous draft
 ``wagtail.copy``                     The page was copied to a new location
 ``wagtail.move``                     The page was moved to a new location
+``wagtail.reorder``                  The order of the page under it's parent was changed
 ``wagtail.view_restriction.create``  The page was restricted
 ``wagtail.view_restriction.edit``    The page restrictions were updated
 ``wagtail.view_restriction.delete``  The page restrictions were removed

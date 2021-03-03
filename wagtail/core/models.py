@@ -2062,7 +2062,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         PageLogEntry.objects.log_action(
             instance=self,
-            action='wagtail.move',
+            # Check if page was reordered (reordering doesn't change the parent)
+            action='wagtail.reorder' if parent_before.id == target.id else 'wagtail.move',
             user=user,
             data={
                 'source': {

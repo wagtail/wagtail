@@ -866,6 +866,14 @@ def register_core_log_actions(actions):
         except KeyError:
             return _('Moved')
 
+    def reorder_message(data):
+        try:
+            return _("Reordered under '%(parent)s'") % {
+                'parent': data['destination']['title'],
+            }
+        except KeyError:
+            return _('Reordered')
+
     def schedule_publish_message(data):
         try:
             if data['revision']['has_live_version']:
@@ -935,6 +943,7 @@ def register_core_log_actions(actions):
     actions.register_action('wagtail.create_alias', _('Create alias'), create_alias_message)
     actions.register_action('wagtail.convert_alias', _('Convert alias into regular page'), convert_alias_message)
     actions.register_action('wagtail.move', _('Move'), move_message)
+    actions.register_action('wagtail.reorder', _('Reorder'), reorder_message)
     actions.register_action('wagtail.publish.schedule', _("Schedule publication"), schedule_publish_message)
     actions.register_action('wagtail.schedule.cancel', _("Unschedule publication"), unschedule_publish_message)
     actions.register_action('wagtail.view_restriction.create', _("Add view restrictions"), add_view_restriction)

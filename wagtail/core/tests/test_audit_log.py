@@ -185,6 +185,23 @@ class TestAuditLog(TestCase):
             ['wagtail.publish', 'wagtail.copy', 'wagtail.create']
         )
 
+    def test_page_reorder(self):
+        section_1 = self.root_page.add_child(
+            instance=SimplePage(title="Child 1", slug="child-1", content="hello")
+        )
+        self.root_page.add_child(
+            instance=SimplePage(title="Child 2", slug="child-2", content="hello")
+        )
+
+        user = get_user_model().objects.first()
+
+        # Reorder section 1 to be the last page under root_page.
+        # This should log as `wagtail.reorder` because the page was moved under the same parent page
+        section_1.move(self.root_page, user=user, pos="last-child")
+
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.reorder', user=user).count(), 1)
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.move', user=user).count(), 0)
+
     def test_page_move(self):
         section = self.root_page.add_child(
             instance=SimplePage(title="About us", slug="about", content="hello")
@@ -193,6 +210,7 @@ class TestAuditLog(TestCase):
         section.move(self.home_page, user=user)
 
         self.assertEqual(PageLogEntry.objects.filter(action='wagtail.move', user=user).count(), 1)
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.reorder', user=user).count(), 0)
 
     def test_page_delete(self):
         self.home_page.add_child(
