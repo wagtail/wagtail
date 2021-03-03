@@ -30,7 +30,7 @@ If this does not return a version number or returns a version lower than 3.6, yo
 ### Create and activate a virtual environment
 
 We recommend using a virtual environment, which isolates installed dependencies from other projects.
-This tutorial uses [venv](https://docs.python.org/3/tutorial/venv.html), which is packaged with Python 3.
+This tutorial uses [`venv`](https://docs.python.org/3/tutorial/venv.html), which is packaged with Python 3.
 
 **On Windows** (cmd.exe):
 
@@ -46,7 +46,7 @@ $ python3 -m venv mysite/env
 $ source mysite/env/bin/activate
 ```
 
-**For other shells** see the [venv documentation](https://docs.python.org/3/library/venv.html).
+**For other shells** see the [`venv` documentation](https://docs.python.org/3/library/venv.html).
 
 ```eval_rst
 .. note::
