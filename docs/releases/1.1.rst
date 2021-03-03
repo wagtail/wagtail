@@ -38,11 +38,11 @@ Permissions fixes in the admin interface
 
 A number of inconsistencies around permissions in the admin interface were fixed in this release:
 
- * Removed all permissions for "User profile" (not used)
- * Removed "delete" permission for Images and documents (not used)
- * Users can now access images and documents when they only have the "change" permission (previously required "add" permission as well)
- * Permissions for Users now taken from custom user model, if set (previously always used permissions on Django's builtin User model)
- * Groups and Users now respond consistently to their respective "add", "change" and "delete" permissions
+* Removed all permissions for "User profile" (not used)
+* Removed "delete" permission for Images and documents (not used)
+* Users can now access images and documents when they only have the "change" permission (previously required "add" permission as well)
+* Permissions for Users now taken from custom user model, if set (previously always used permissions on Django's builtin User model)
+* Groups and Users now respond consistently to their respective "add", "change" and "delete" permissions
 
 Searchable snippets
 ~~~~~~~~~~~~~~~~~~~
@@ -52,47 +52,47 @@ Snippets that inherit from ``wagtail.wagtailsearch.index.Indexed`` are now given
 Minor features
 ~~~~~~~~~~~~~~
 
- * Implemented deletion of form submissions
- * Implemented pagination in the page chooser modal
- * Changed INSTALLED_APPS in project template to list apps in precedence order
- * The ``{% image %}`` tag now supports filters on the image variable, e.g. ``{% image primary_img|default:secondary_img width-500 %}``
- * Moved the style guide menu item into the Settings sub-menu
- * Search backends can now be specified by module (e.g. ``wagtail.wagtailsearch.backends.elasticsearch``), rather than a specific class (``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``)
- * Added ``descendant_of`` filter to the API
- * Added optional directory argument to "wagtail start" command
- * Non-superusers can now view/edit/delete sites if they have the correct permissions
- * Image file size is now stored in the database, to avoid unnecessary filesystem lookups
- * Page URL lookups hit the cache/database less often
- * Updated URLs within the admin backend to use namespaces
- * The ``update_index`` task now indexes objects in batches of 1000, to indicate progress and avoid excessive memory use
- * Added database indexes on PageRevision and Image to improve performance on large sites
- * Search in page chooser now uses Wagtail's search framework, to order results by relevance
- * ``PageChooserPanel`` now supports passing a list (or tuple) of accepted page types
- * The snippet type parameter of ``SnippetChooserPanel`` can now be omitted, or passed as a model name string rather than a model class
- * Added aliases for the ``self`` template variable to accommodate Jinja as a templating engine: ``page`` for pages, ``field_panel`` for field panels / edit handlers, and ``value`` for blocks
- * Added signposting text to the explorer to steer editors away from creating pages at the root level unless they are setting up new sites
- * "Clear choice" and "Edit this page" buttons are no longer shown on the page field of the group page permissions form
- * Altered styling of stream controls to be more like all other buttons
- * Added ability to mark page models as not available for creation using the flag ``is_creatable``; pages that are abstract Django models are automatically made non-creatable
- * New translations for Norwegian Bokmål and Icelandic
+* Implemented deletion of form submissions
+* Implemented pagination in the page chooser modal
+* Changed INSTALLED_APPS in project template to list apps in precedence order
+* The ``{% image %}`` tag now supports filters on the image variable, e.g. ``{% image primary_img|default:secondary_img width-500 %}``
+* Moved the style guide menu item into the Settings sub-menu
+* Search backends can now be specified by module (e.g. ``wagtail.wagtailsearch.backends.elasticsearch``), rather than a specific class (``wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch``)
+* Added ``descendant_of`` filter to the API
+* Added optional directory argument to "wagtail start" command
+* Non-superusers can now view/edit/delete sites if they have the correct permissions
+* Image file size is now stored in the database, to avoid unnecessary filesystem lookups
+* Page URL lookups hit the cache/database less often
+* Updated URLs within the admin backend to use namespaces
+* The ``update_index`` task now indexes objects in batches of 1000, to indicate progress and avoid excessive memory use
+* Added database indexes on PageRevision and Image to improve performance on large sites
+* Search in page chooser now uses Wagtail's search framework, to order results by relevance
+* ``PageChooserPanel`` now supports passing a list (or tuple) of accepted page types
+* The snippet type parameter of ``SnippetChooserPanel`` can now be omitted, or passed as a model name string rather than a model class
+* Added aliases for the ``self`` template variable to accommodate Jinja as a templating engine: ``page`` for pages, ``field_panel`` for field panels / edit handlers, and ``value`` for blocks
+* Added signposting text to the explorer to steer editors away from creating pages at the root level unless they are setting up new sites
+* "Clear choice" and "Edit this page" buttons are no longer shown on the page field of the group page permissions form
+* Altered styling of stream controls to be more like all other buttons
+* Added ability to mark page models as not available for creation using the flag ``is_creatable``; pages that are abstract Django models are automatically made non-creatable
+* New translations for Norwegian Bokmål and Icelandic
 
 Bug fixes
 ~~~~~~~~~
 
- * Text areas in the non-default tab of the page editor now resize to the correct height
- * Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
- * H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
- * The ``wagtailimages`` module is now compatible with remote storage backends that do not allow reopening closed files
- * Search no longer crashes when auto-indexing a model that doesn't have an ``id`` field
- * The ``wagtailfrontendcache`` module's HTTP backend has been rewritten to reliably direct requests to the configured cache hostname
- * Resizing single pixel images with the "fill" filter no longer raises ``ZeroDivisionError`` or "tile cannot extend outside image"
- * The QuerySet returned from ``search`` operations when using the database search backend now correctly preserves additional properties of the original query, such as ``prefetch_related`` / ``select_related``
- * Responses from the external image URL generator are correctly marked as streaming and will no longer fail when used with Django's cache middleware
- * Page copy now works with pages that use multiple inheritance
- * Form builder pages now pick up template variables defined in the ``get_context`` method
- * When copying a page, IDs of child objects within page revision records were not remapped to the new objects; this would cause those objects to be lost from the original page when editing the new one
- * Newly added redirects now take effect on all sites, rather than just the site that the Wagtail admin backend was accessed through
- * Add user form no longer throws a hard error on validation failure
+* Text areas in the non-default tab of the page editor now resize to the correct height
+* Tabs in "insert link" modal in the rich text editor no longer disappear (Tim Heap)
+* H2 elements in rich text fields were accidentally given a click() binding when put insite a collapsible multi field panel
+* The ``wagtailimages`` module is now compatible with remote storage backends that do not allow reopening closed files
+* Search no longer crashes when auto-indexing a model that doesn't have an ``id`` field
+* The ``wagtailfrontendcache`` module's HTTP backend has been rewritten to reliably direct requests to the configured cache hostname
+* Resizing single pixel images with the "fill" filter no longer raises ``ZeroDivisionError`` or "tile cannot extend outside image"
+* The QuerySet returned from ``search`` operations when using the database search backend now correctly preserves additional properties of the original query, such as ``prefetch_related`` / ``select_related``
+* Responses from the external image URL generator are correctly marked as streaming and will no longer fail when used with Django's cache middleware
+* Page copy now works with pages that use multiple inheritance
+* Form builder pages now pick up template variables defined in the ``get_context`` method
+* When copying a page, IDs of child objects within page revision records were not remapped to the new objects; this would cause those objects to be lost from the original page when editing the new one
+* Newly added redirects now take effect on all sites, rather than just the site that the Wagtail admin backend was accessed through
+* Add user form no longer throws a hard error on validation failure
 
 
 Upgrade considerations

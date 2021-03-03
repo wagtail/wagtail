@@ -384,9 +384,9 @@ Methods and properties
 
         The scheme part of the URL is calculated based on value of the :attr:`~Site.port` field:
 
-         - 80 = ``http://``
-         - 443 = ``https://``
-         - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (eg. ``http://mysite.com:8000/``)
+        - 80 = ``http://``
+        - 443 = ``https://``
+        - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (eg. ``http://mysite.com:8000/``)
 
     .. automethod:: get_site_root_paths
 
@@ -478,9 +478,9 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
 
 Every time a page is edited a new ``PageRevision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
- - Revisions can be created from any :class:`~wagtail.core.models.Page` object by calling its :meth:`~Page.save_revision` method
- - The content of the page is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
- - You can retrieve a ``PageRevision`` as a :class:`~wagtail.core.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
+- Revisions can be created from any :class:`~wagtail.core.models.Page` object by calling its :meth:`~Page.save_revision` method
+- The content of the page is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
+- You can retrieve a ``PageRevision`` as a :class:`~wagtail.core.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
 
 Database fields
 ~~~~~~~~~~~~~~~

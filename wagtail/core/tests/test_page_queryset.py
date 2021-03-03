@@ -298,24 +298,34 @@ class TestPageQuerySet(TestCase):
 
         # Check that "someone elses event" is in the results
         event = Page.objects.get(url_path='/home/events/someone-elses-event/')
-        self.assertTrue(pages.filter(id=event.id).exists())
+        self.assertIn(event, pages)
 
         # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
         # is in the results
         event = Page.objects.get(url_path='/home/events/saint-patrick/')
-        self.assertTrue(pages.filter(id=event.id).exists())
+        self.assertIn(event, pages)
 
-    def test_type_includes_subclasses(self):
-        from wagtail.contrib.forms.models import AbstractEmailForm
-        pages = Page.objects.type(AbstractEmailForm)
+    def test_type_with_multiple_models(self):
+        pages = Page.objects.type(EventPage, SimplePage)
 
-        # Check that all objects are instances of AbstractEmailForm
+        # Check that all objects are EventPages or SimplePages
         for page in pages:
-            self.assertIsInstance(page.specific, AbstractEmailForm)
+            self.assertTrue(
+                isinstance(page.specific, (EventPage, SimplePage))
+            )
 
-        # Check that the contact form page is in the results
-        contact_us = Page.objects.get(url_path='/home/contact-us/')
-        self.assertTrue(pages.filter(id=contact_us.id).exists())
+        # Check that "someone elses event" is in the results
+        event = Page.objects.get(url_path='/home/events/someone-elses-event/')
+        self.assertIn(event, pages)
+
+        # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
+        # is in the results
+        event = Page.objects.get(url_path='/home/events/saint-patrick/')
+        self.assertIn(event, pages)
+
+        # Check that "About us" (an instance of SimplePage) is in the results
+        about_us = Page.objects.get(url_path='/home/about-us/')
+        self.assertIn(about_us, pages)
 
     def test_not_type(self):
         pages = Page.objects.not_type(EventPage)
@@ -324,41 +334,104 @@ class TestPageQuerySet(TestCase):
         for page in pages:
             self.assertNotIsInstance(page.specific, EventPage)
 
+        # Check that "About us" is in the results
+        about_us = Page.objects.get(url_path='/home/about-us/')
+        self.assertIn(about_us, pages)
+
         # Check that the homepage is in the results
         homepage = Page.objects.get(url_path='/home/')
-        self.assertTrue(pages.filter(id=homepage.id).exists())
+        self.assertIn(homepage, pages)
+
+    def test_not_type_with_multiple_models(self):
+        pages = Page.objects.not_type(EventPage, SimplePage)
+
+        # Check that no objects are EventPages or SimplePages
+        for page in pages:
+            self.assertFalse(
+                isinstance(page.specific, (EventPage, SimplePage))
+            )
+
+        # Check that "About us" is NOT in the results
+        about_us = Page.objects.get(url_path='/home/about-us/')
+        self.assertNotIn(about_us, pages)
+
+        # Check that the homepage IS in the results
+        homepage = Page.objects.get(url_path='/home/')
+        self.assertIn(homepage, pages)
 
     def test_exact_type(self):
         pages = Page.objects.exact_type(EventPage)
 
         # Check that all objects are EventPages (and not a subclass)
         for page in pages:
-            self.assertEqual(type(page.specific), EventPage)
+            self.assertIs(page.specific_class, EventPage)
 
         # Check that "someone elses event" is in the results
         event = Page.objects.get(url_path='/home/events/someone-elses-event/')
-        self.assertTrue(pages.filter(id=event.id).exists())
+        self.assertIn(event, pages)
 
         # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
         # is NOT in the results
-        event = Page.objects.get(url_path='/home/events/saint-patrick/')
-        self.assertFalse(pages.filter(id=event.id).exists())
+        single_event = Page.objects.get(url_path='/home/events/saint-patrick/')
+        self.assertNotIn(single_event, pages)
+
+    def test_exact_type_with_multiple_models(self):
+        pages = Page.objects.exact_type(EventPage, Page)
+
+        # Check that all objects are EventPages or Pages (and not a subclass)
+        for page in pages:
+            self.assertIn(page.specific_class, (EventPage, Page))
+
+        # Check that "someone elses event" is in the results
+        event = Page.objects.get(url_path='/home/events/someone-elses-event/')
+        self.assertIn(event, pages)
+
+        # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage
+        # and Page) is NOT in the results
+        single_event = Page.objects.get(url_path='/home/events/saint-patrick/')
+        self.assertNotIn(single_event, pages)
+
+        # Check that the homepage (a generic Page only) is in the results
+        homepage = Page.objects.get(url_path='/home/')
+        self.assertIn(homepage, pages)
+
+        # Check that "About us" (an instance of SimplePage, a subclass of Page)
+        # is NOT in the results
+        about_us = Page.objects.get(url_path='/home/about-us/')
+        self.assertNotIn(about_us, pages)
 
     def test_not_exact_type(self):
         pages = Page.objects.not_exact_type(EventPage)
 
         # Check that no objects are EventPages
         for page in pages:
-            self.assertNotEqual(type(page.specific), EventPage)
+            self.assertIsNot(page.specific_class, EventPage)
 
         # Check that the homepage is in the results
         homepage = Page.objects.get(url_path='/home/')
-        self.assertTrue(pages.filter(id=homepage.id).exists())
+        self.assertIn(homepage, pages)
 
         # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
         # is in the results
         event = Page.objects.get(url_path='/home/events/saint-patrick/')
-        self.assertTrue(pages.filter(id=event.id).exists())
+        self.assertIn(event, pages)
+
+    def test_not_exact_type_with_multiple_models(self):
+        pages = Page.objects.not_exact_type(EventPage, Page)
+
+        # Check that no objects are EventPages or generic Pages
+        for page in pages:
+            self.assertNotIn(page.specific_class, (EventPage, Page))
+
+        # Check that "Saint Patrick" (an instance of SingleEventPage, a subclass of EventPage)
+        # is in the results
+        event = Page.objects.get(url_path='/home/events/saint-patrick/')
+        self.assertIn(event, pages)
+
+        # Check that "About us" (an instance of SimplePage, a subclass of Page)
+        # is in the results
+        about_us = Page.objects.get(url_path='/home/about-us/')
+        self.assertIn(about_us, pages)
 
     def test_public(self):
         events_index = Page.objects.get(url_path='/home/events/')
@@ -761,11 +834,9 @@ class TestSpecificQuery(TestCase):
             # The query should be lazy.
             qs = root.get_descendants().specific(defer=True)
 
-        with self.assertNumQueries(5):
-            # This still performs 5 queries (one for each specific class)
-            # even though we're only pulling in fields from the base Page
-            # model.
-            # TODO: Find a way to make this perform a single query
+        with self.assertNumQueries(1):
+            # This did use 5 queries (one for each specific class),
+            # But now only performs a single query
             pages = list(qs)
 
         self.assertIsInstance(pages, list)
@@ -800,9 +871,18 @@ class TestFirstCommonAncestor(TestCase):
     fixtures = ['test_specific.json']
 
     def setUp(self):
+        self.root_page = Page.objects.get(url_path='/home/')
         self.all_events = Page.objects.type(EventPage)
         self.regular_events = Page.objects.type(EventPage)\
             .exclude(url_path__contains='/other/')
+
+    def _create_streampage(self):
+        stream_page = StreamPage(
+            title='stream page',
+            slug='stream-page',
+            body='[{"type": "text", "value": "foo"}]',
+        )
+        self.root_page.add_child(instance=stream_page)
 
     def test_bookkeeping(self):
         self.assertEqual(self.all_events.count(), 4)
@@ -865,3 +945,17 @@ class TestFirstCommonAncestor(TestCase):
     def test_empty_queryset_strict(self):
         with self.assertRaises(Page.DoesNotExist):
             Page.objects.none().first_common_ancestor(strict=True)
+
+    def test_defer_streamfields_without_specific(self):
+        self._create_streampage()
+        for page in StreamPage.objects.all().defer_streamfields():
+            self.assertNotIn('body', page.__dict__)
+            with self.assertNumQueries(1):
+                page.body
+
+    def test_defer_streamfields_with_specific(self):
+        self._create_streampage()
+        for page in Page.objects.exact_type(StreamPage).defer_streamfields().specific():
+            self.assertNotIn('body', page.__dict__)
+            with self.assertNumQueries(1):
+                page.body

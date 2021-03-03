@@ -13,4 +13,4 @@ What's changed
 Bug fixes
 ~~~~~~~~~
 
- * Fixed erroneous rendering of up arrow icons (Rob Moorman)
+* Fixed erroneous rendering of up arrow icons (Rob Moorman)

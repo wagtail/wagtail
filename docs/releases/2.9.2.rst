@@ -13,4 +13,4 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
- * Prevent startup failure when ``wagtail.contrib.sitemaps`` is in ``INSTALLED_APPS`` (Matt Westcott)
+* Prevent startup failure when ``wagtail.contrib.sitemaps`` is in ``INSTALLED_APPS`` (Matt Westcott)

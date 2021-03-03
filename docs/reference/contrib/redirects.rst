@@ -55,26 +55,26 @@ This command imports and creates redirects from a file supplied by the user.
 
 Options:
 
- - **src**
-   This is the path to the file you wish to import redirects from.
+- **src**
+  This is the path to the file you wish to import redirects from.
 
- - **site**
-   This is the **site** for the site you wish to save redirects to.
+- **site**
+  This is the **site** for the site you wish to save redirects to.
 
- - **permanent**
-   If the redirects imported should be **permanent** (True) or not (False). It's True by default.
+- **permanent**
+  If the redirects imported should be **permanent** (True) or not (False). It's True by default.
 
- - **from**
-   The column index you want to use as redirect from value.
+- **from**
+  The column index you want to use as redirect from value.
 
- - **to**
-   The column index you want to use as redirect to value.
+- **to**
+  The column index you want to use as redirect to value.
 
- - **dry_run**
-   Lets you run a import without doing any changes.
+- **dry_run**
+  Lets you run a import without doing any changes.
 
- - **ask**
-   Lets you inspect and approve each redirect before it is created.
+- **ask**
+  Lets you inspect and approve each redirect before it is created.
 
 
 

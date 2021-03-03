@@ -1,3 +1,4 @@
+import functools
 import json
 import logging
 import uuid
@@ -40,6 +41,7 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
+from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import (
@@ -292,10 +294,10 @@ class Site(models.Model):
         Each root path is an instance of the `SiteRootPath` named tuple,
         and have the following attributes:
 
-         - `site_id` - The ID of the Site record
-         - `root_path` - The internal URL path of the site's home page (for example '/home/')
-         - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
-         - `language_code` - The language code of the site (for example 'en')
+        - `site_id` - The ID of the Site record
+        - `root_path` - The internal URL path of the site's home page (for example '/home/')
+        - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
+        - `language_code` - The language code of the site (for example 'en')
         """
         result = cache.get('wagtail_site_root_paths')
 
@@ -671,6 +673,14 @@ def get_default_page_content_type():
     return ContentType.objects.get_for_model(Page)
 
 
+@functools.lru_cache(maxsize=None)
+def get_streamfield_names(model_class):
+    return tuple(
+        field.name for field in model_class._meta.concrete_fields
+        if isinstance(field, StreamField)
+    )
+
+
 class BasePageManager(models.Manager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by('path')
@@ -892,6 +902,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def get_streamfield_names(cls):
+        return get_streamfield_names(cls)
 
     def set_url_path(self, parent):
         """
@@ -1169,11 +1183,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
         )
 
-    def get_specific(self, deferred=False, copy_attrs=None):
+    def get_specific(self, deferred=False, copy_attrs=None, copy_attrs_exclude=None):
         """
         .. versionadded:: 2.12
 
         Return this page in its most specific subclassed form.
+
+        .. versionchanged:: 2.13
+            * When ``copy_attrs`` is not supplied, all known non-field attribute
+              values are copied to the returned object. Previously, no non-field
+              values would be copied.
+            * The ``copy_attrs_exclude`` option was added.
 
         By default, a database query is made to fetch all field values for the
         specific object. If you only require access to custom methods or other
@@ -1182,10 +1202,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         specific field values from the returned object will trigger additional
         database queries.
 
-        If there are attribute values on this object that you wish to be copied
-        over to the specific version (for example: evaluated relationship field
-        values, annotations or cached properties), use `copy_attrs`` to pass an
-        iterable of names of attributes you wish to be copied.
+        By default, references to all non-field attribute values are copied
+        from current object to the returned one. This includes:
+        * Values set by a queryset, for example: annotations, or values set as
+          a result of using ``select_related()`` or ``prefetch_related()``.
+        * Any ``cached_property`` values that have been evaluated.
+        * Attributes set elsewhere in Python code.
+
+        For fine-grained control over which non-field values are copied to the
+        returned object, you can use ``copy_attrs`` to specify a complete list
+        of attribute names to include. Alternatively, you can use
+        ``copy_attrs_exclude`` to specify a list of attribute names to exclude.
 
         If called on a page object that is already an instance of the most
         specific class (e.g. an ``EventPage``), the object will be returned
@@ -1225,10 +1252,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Fetch object from database
             specific_obj = model_class._default_manager.get(id=self.id)
 
-        # Copy additional attribute values
-        for attr in copy_attrs or ():
-            if attr in self.__dict__:
+        # Copy non-field attribute values
+        if copy_attrs is not None:
+            for attr in (attr for attr in copy_attrs if attr in self.__dict__):
                 setattr(specific_obj, attr, getattr(self, attr))
+        else:
+            exclude = copy_attrs_exclude or ()
+            for k, v in (
+                (k, v) for k, v in self.__dict__.items()
+                if k not in exclude
+            ):
+                # only set values that haven't already been set
+                specific_obj.__dict__.setdefault(k, v)
 
         return specific_obj
 
@@ -2051,14 +2086,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
         specific_self = self.specific
         if keep_live:
-            base_update_attrs = {}
+            base_update_attrs = {
+                'alias_of': None,
+            }
         else:
             base_update_attrs = {
                 'live': False,
                 'has_unpublished_changes': True,
                 'live_revision': None,
                 'first_published_at': None,
-                'last_published_at': None
+                'last_published_at': None,
+                'alias_of': None,
             }
 
         if user:

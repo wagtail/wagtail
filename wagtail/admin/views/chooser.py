@@ -93,8 +93,8 @@ def browse(request, parent_page_id=None):
 
     parent_page = parent_page.specific
 
-    # Get children of parent page
-    pages = parent_page.get_children().specific()
+    # Get children of parent page (without streamfields)
+    pages = parent_page.get_children().defer_streamfields().specific()
 
     # allow hooks to modify the queryset
     for hook in hooks.get_hooks('construct_page_chooser_queryset'):
