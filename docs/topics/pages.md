@@ -220,9 +220,9 @@ The `Page.get_url(request)` method can be called whenever a page URL is needed. 
 A common use case for `get_url(request)` is in any custom template tag your project may include for generating navigation menus. When writing such a custom template tag, ensure that it includes `takes_context=True` and use `context.get('request')` to safely pass the
 request or `None` if no request exists in the context.
 
-For more information, please see [ADD TITLE HERE](wagtail.core.models.Page.get_url).
+For more information, please see [wagtail.core.models.Page.get_url](/reference/pages/model_reference.html#wagtail.core.models.Page.get_url).
 
-In the event a full URL (including the protocol and domain) is needed, `Page.get_full_url(request)` can be used instead. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information. For more information, please see [ADD TITLE HERE](wagtail.core.models.Page.get_full_url).
+In the event a full URL (including the protocol and domain) is needed, `Page.get_full_url(request)` can be used instead. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information. For more information, please see [wagtail.core.models.Page.get_full_url](/reference/pages/model_reference.html#wagtail.core.models.Page.get_full_url).
 
 ## Template rendering
 
@@ -240,7 +240,7 @@ You just need to create a template in a location where it can be accessed with t
 
 ### Template context
 
-Wagtail renders templates with the `page` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, use `{{ page.title }}`. All variables provided by `context processors <subclassing-context-requestcontext>`{.interpreted-text role="ref"} are also available.
+Wagtail renders templates with the `page` variable bound to the page instance being rendered. Use this to access the content of the page. For example, to get the title of the current page, use `{{ page.title }}`. All variables provided by [context processors](https://docs.djangoproject.com/en/stable/ref/templates/api/#subclassing-context-requestcontext) are also available.
 
 #### Customising template context
 
