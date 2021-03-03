@@ -378,7 +378,7 @@ class BlogPageRelatedLink(Orderable):
     ]
 ```
 
-To add this to the admin interface, use the [ADD TITLE HERE](~wagtail.admin.edit_handlers.InlinePanel) edit panel class:
+To add this to the admin interface, use the [`InlinePanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.InlinePanel) edit panel class:
 
 ```python
 content_panels = [
@@ -392,13 +392,13 @@ The first argument must match the value of the `related_name` attribute of the `
 
 ## Working with pages
 
-Wagtail uses Django's `multi-table inheritance <django:multi-table-inheritance>`{.interpreted-text role="ref"} feature to allow multiple page models to be used in the same tree.
+Wagtail uses Django's [multi-table inheritance](https://docs.djangoproject.com/en/3.1/topics/db/models/#multi-table-inheritance) feature to allow multiple page models to be used in the same tree.
 
-Each page is added to both Wagtail's builtin [ADD TITLE HERE](~wagtail.core.models.Page) model as well as its user-defined model (such as the `BlogPage` model created earlier).
+Each page is added to both Wagtail's builtin [`Page`](/reference/pages/model_reference.html#wagtail.core.models.Page) model as well as its user-defined model (such as the `BlogPage` model created earlier).
 
-Pages can exist in Python code in two forms, an instance of `Page` or an instance of the page model.
+Pages can exist in Python code in two forms, an instance of [`Page`](/reference/pages/model_reference.html#wagtail.core.models.Page) or an instance of the page model.
 
-> When working with multiple page types together, you will typically use instances of Wagtail's [ADD TITLE HERE](~wagtail.core.models.Page) model, which don't give you access to any fields specific to their type.
+> When working with multiple page types together, you will typically use instances of Wagtail's [`Page`](/reference/pages/model_reference.html#wagtail.core.models.Page) model, which don't give you access to any fields specific to their type.
 
 ```python
 # Get all pages in the database
