@@ -6,7 +6,7 @@ import {
   createEditorStateFromRaw,
   serialiseEditorStateToRaw,
 } from 'draftail';
-import { ContentBlock, ContentState, EditorState, Modifier, RawDraftContentState, RichUtils, SelectionState } from 'draft-js';
+import { ContentBlock, ContentState, DraftInlineStyle, EditorState, Modifier, RawDraftContentState, RichUtils, SelectionState } from 'draft-js';
 import type { DraftEditorLeaf } from 'draft-js/lib/DraftEditorLeaf.react';
 import { filterInlineStyles } from 'draftjs-filters';
 import React, { MutableRefObject, ReactText, useEffect, useMemo, useRef, useState } from 'react';
@@ -315,14 +315,9 @@ function CommentableEditor({
   const commentStyles: Array<InlineStyle> = useMemo(
     () =>
       ids.map((id) => ({
-        type: `${COMMENT_STYLE_IDENTIFIER}${id}`,
-        style: enabled
-          ? {
-            'background-color': focusedId !== id ? '#01afb0' : '#007d7e',
-          }
-          : {},
+        type: `${COMMENT_STYLE_IDENTIFIER}${id}`
       })),
-    [ids, enabled, focusedId]
+    [ids]
   );
 
   const [uniqueStyleId, setUniqueStyleId] = useState(0);
@@ -408,6 +403,33 @@ function CommentableEditor({
           : []
       }
       inlineStyles={inlineStyles.concat(commentStyles)}
+      plugins={enabled ? [{
+        customStyleFn: (styleSet: DraftInlineStyle) => {
+          // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like 
+          // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade, 
+          // this casting should be removed
+          const localCommentStyles = styleSet.filter(style => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER)) as Immutable.OrderedSet<string>;
+          const numStyles = localCommentStyles.count();
+          if (numStyles > 0) {
+            // There is at least one comment in the range
+            const commentIds = localCommentStyles.map(style => parseInt((style as string).slice(8), 10)) as unknown as Immutable.OrderedSet<number>;
+            let background = '#01afb0';
+            if (commentIds.has(focusedId)) {
+              // Use the focused colour if one of the comments is focused
+              background = '#007d7e';
+            } else if (numStyles > 1) {
+              // Otherwise if we're in a region with overlapping comments, use a slightly darker colour than usual
+              // to indicate that
+              background = '#01999a';
+            }
+            return {
+              'background-color': background
+            };
+          }
+          return undefined;
+        }
+      }] : []
+      }
       {...options}
     />
   );
