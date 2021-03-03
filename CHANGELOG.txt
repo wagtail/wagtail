@@ -10,6 +10,7 @@ Changelog
  * Support passing multiple models as arguments to `type()`, `not_type()`, `exact_type()` and `not_exact_type()` methods on `PageQuerySet` (Andy Babic)
  * Update default attribute copying behaviour of `Page.get_specific()` and added the `copy_attrs_exclude` option (Andy Babic)
  * Update `PageQueryset.specific(defer=True)` to only perform a single database query (Andy Babic)
+ * Add `PageQueryset.defer_streamfields()` (Andy Babic)
  * Fix: StreamField required status is now consistently handled by the `blank` keyword argument (Matt Westcott)
  * Fix: Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
  * Fix: Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
