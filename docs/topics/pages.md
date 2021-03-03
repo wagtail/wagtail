@@ -344,7 +344,7 @@ Wagtail can nest the content of other models within the page. This is useful for
 
 Each inline model requires the following:
 
--   It must inherit from [ADD TITLE HERE](wagtail.core.models.Orderable)
+-   It must inherit from [wagtail.core.models.Orderable](/reference/pages/model_reference.html#wagtail.core.models.Orderable)
 -   It must have a `ParentalKey` to the parent model
 
 ::: {.note}
