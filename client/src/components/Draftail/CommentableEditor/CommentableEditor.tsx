@@ -6,7 +6,7 @@ import {
   createEditorStateFromRaw,
   serialiseEditorStateToRaw,
 } from 'draftail';
-import { ContentBlock, ContentState, DraftInlineStyle, EditorState, Modifier, RawDraftContentState, RichUtils, SelectionState } from 'draft-js';
+import { CharacterMetadata, ContentBlock, ContentState, DraftInlineStyle, EditorState, Modifier, RawDraftContentState, RichUtils, SelectionState } from 'draft-js';
 import type { DraftEditorLeaf } from 'draft-js/lib/DraftEditorLeaf.react';
 import { filterInlineStyles } from 'draftjs-filters';
 import React, { MutableRefObject, ReactText, useEffect, useMemo, useRef, useState } from 'react';
@@ -161,12 +161,13 @@ function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNod
   );
 }
 
-function findCommentStyleRanges(contentBlock: ContentBlock, callback: (start: number, end: number) => void) {
+function findCommentStyleRanges(contentBlock: ContentBlock, callback: (start: number, end: number) => void, filterFn?: (metadata: CharacterMetadata) => boolean) {
   // Find comment style ranges that do not overlap an existing entity
+  const filterFunction = filterFn ? filterFn : (metadata: CharacterMetadata) => metadata.getStyle().some((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER));
   const entityRanges: Array<[number, number]> = [];
   contentBlock.findEntityRanges(character => character.getEntity() !== null, (start, end) => entityRanges.push([start, end]));
   contentBlock.findStyleRanges(
-    (metadata) => metadata.getStyle().some((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER)),
+    filterFunction,
     (start, end) => {
       const interferingEntityRanges = entityRanges.filter(value => value[1] > start).filter(value => value[0] < end);
       let currentPosition = start;
@@ -200,15 +201,35 @@ function getCommentDecorator(commentApp: CommentApp) {
     const start: number = children[0].props.start;
 
     const commentId = useMemo(
-      () => parseInt(
-        contentState
-          .getBlockForKey(blockKey)
-          .getInlineStyleAt(start)
-          .find((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER))
-          .slice(8),
-        10),
-      [blockKey, start]
-    );
+      () => 
+      {
+        const block = contentState.getBlockForKey(blockKey);
+        const styles = block.getInlineStyleAt(start).filter((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER)) as Immutable.OrderedSet<string>;
+        let styleToUse: string;
+        if (styles.count() > 1) {
+          // We're dealing with overlapping comments.
+          // Find the least frequently occurring style and use that - this isn't foolproof, but in most cases should ensure that all comments
+          // have at least one clickable section. This logic is a bit heavier than ideal for a decorator given how often we are forced to
+          // redecorate, but will only be used on overlapping comments
+
+          // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like 
+          // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade, 
+          // this casting should be removed
+          let styleFreq = styles.map((style) => {
+            let counter = 0
+            findCommentStyleRanges(block, () => {counter = counter + 1}, (metadata) => metadata.getStyle().some(rangeStyle => rangeStyle === style));
+            return [style, counter]
+          }) as unknown as Immutable.OrderedSet<[string, number]>
+          
+          styleFreq =  styleFreq.sort((a, b) => a[1] - b[1]) as Immutable.OrderedSet<[string, number]>
+        
+          styleToUse = styleFreq.first()[0];
+
+        } else {
+          styleToUse = styles.first();
+        }
+        return parseInt(styleToUse.slice(8));
+      }, [blockKey, start]);
     const annotationNode = useRef(null);
     useEffect(() => {
       // Add a ref to the annotation, allowing the comment to float alongside the attached text.
@@ -396,7 +417,7 @@ function CommentableEditor({
         enabled
           ? [
             {
-              strategy: findCommentStyleRanges,
+              strategy: (block: ContentBlock, callback: (start: number, end: number) => void) => findCommentStyleRanges(block, callback),
               component: CommentDecorator,
             },
           ]
