@@ -262,7 +262,7 @@ class BlogIndexPage(Page):
 
 The variables can then be used in the template:
 
-``` {.HTML+Django}
+```html+django
 {{ page.title }}
 
 {% for entry in blog_entries %}
