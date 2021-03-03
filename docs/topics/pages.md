@@ -463,9 +463,12 @@ This is because `Page` enforces ordering QuerySets by path. Instead, you must ap
 news_items = NewsItemPage.objects.live().order_by('-publication_date')
 ```
 
-### Custom Page managers {#custom_page_managers}
+```eval_rst
+..custom_page_managers:
+```
+### Custom Page managers
 
-You can add a custom `Manager` to your `Page` class. Any custom Managers should inherit from [ADD TITLE HERE](wagtail.core.models.PageManager):
+You can add a custom `Manager` to your `Page` class. Any custom Managers should inherit from `wagtail.core.models.PageManager`:
 
 ```python
 from django.db import models
