@@ -2786,9 +2786,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @property
     def workflow_in_progress(self):
         """Returns True if a workflow is in progress on the current page, otherwise False"""
-        return WorkflowState.objects.filter(page=self, status=WorkflowState.STATUS_IN_PROGRESS).exists()
+        return self.current_workflow_state is not None and self.current_workflow_state.status == WorkflowState.STATUS_IN_PROGRESS
 
-    @property
+    @cached_property
     def current_workflow_state(self):
         """Returns the in progress or needs changes workflow state on this page, if it exists"""
         try:
