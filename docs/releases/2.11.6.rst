@@ -1,0 +1,17 @@
+=============================================
+Wagtail 2.11.6 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Prevent crash when copying an alias page (Karl Hobley)
+
