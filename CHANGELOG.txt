@@ -67,6 +67,7 @@ Changelog
 2.11.6 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~
 
+ * Fix: Un-pin django-treebeard following upstream fix for migration issue (Matt Westcott)
  * Fix: Prevent crash when copying an alias page (Karl Hobley)
 
 
