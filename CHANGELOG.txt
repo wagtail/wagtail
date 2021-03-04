@@ -58,6 +58,12 @@ Changelog
  * Fix: Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
 
 
+2.11.6 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent crash when copying an alias page (Karl Hobley)
+
+
 2.11.5 (18.02.2021)
 ~~~~~~~~~~~~~~~~~~~
 
