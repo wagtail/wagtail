@@ -180,11 +180,11 @@ Edit `home/templates/home/home_page.html` to contain the following:
 {% block content %}
     {{ page.body|richtext }}
 {% endblock %}
-
-``base.html`` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you are able to override specific content within the parent template).
-
-``wagtailcore_tags``must also be loaded at the top of the template and provide additional tags to those provided by Django.
 ```
+
+`base.html` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you are able to override specific content within the parent template).
+
+`wagtailcore_tags` must also be loaded at the top of the template and provide additional tags to those provided by Django.
 
 ![](../_static/images/tutorial/tutorial_3.png)
 
