@@ -14,7 +14,6 @@ from wagtail.admin.edit_handlers import (
     ObjectList, TabbedInterface, extract_panel_definitions_from_model_class)
 from wagtail.core.models import Locale, Site
 
-from .forms import SiteSwitchForm
 from .models import BaseTranslatableSetting
 from .permissions import user_can_edit_setting_type
 from .registry import registry
@@ -108,11 +107,6 @@ def edit(request, app_name, model_name, site_pk):
 
     edit_handler = edit_handler.bind_to(form=form)
 
-    # Show a site switcher form if there are multiple sites
-    site_switcher = None
-    if Site.objects.count() > 1:
-        site_switcher = SiteSwitchForm(site, model)
-
     context = {
         'opts': model._meta,
         'setting_type_name': setting_type_name,
@@ -120,7 +114,13 @@ def edit(request, app_name, model_name, site_pk):
         'edit_handler': edit_handler,
         'form': form,
         'site': site,
-        'site_switcher': site_switcher,
+        'site_choices': [
+            {
+                'site': site_choice,
+                'url': reverse('wagtailsettings:edit', args=[app_name, model_name, site_choice.pk]) + ('?locale=' + locale.language_code) if locale else ''
+            }
+            for site_choice in Site.objects.all().exclude(id=site.id)
+        ],
         'tabbed': isinstance(edit_handler, TabbedInterface),
         'locale': None,
         'translations': [],
