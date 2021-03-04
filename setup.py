@@ -23,7 +23,7 @@ install_requires = [
     "Django>=2.2,<3.2",
     "django-modelcluster>=5.1,<6.0",
     "django-taggit>=1.0,<2.0",
-    "django-treebeard>=4.2.0,<4.5",
+    "django-treebeard>=4.2.0,<5.0,!=4.5",
     "djangorestframework>=3.11.1,<4.0",
     "django-filter>=2.2,<3.0",
     "draftjs_exporter>=2.1.5,<3.0",
