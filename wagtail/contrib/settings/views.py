@@ -1,18 +1,21 @@
 from functools import lru_cache
 
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
     ObjectList, TabbedInterface, extract_panel_definitions_from_model_class)
-from wagtail.core.models import Site
+from wagtail.core.models import Locale, Site
 
 from .forms import SiteSwitchForm
+from .models import BaseTranslatableSetting
 from .permissions import user_can_edit_setting_type
 from .registry import registry
 
@@ -57,7 +60,27 @@ def edit(request, app_name, model_name, site_pk):
 
     setting_type_name = model._meta.verbose_name
 
-    instance = model.for_site(site)
+    # Locale filter (if required)
+    enable_locale_filter = getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and issubclass(model, BaseTranslatableSetting)
+    if enable_locale_filter:
+        if 'locale' in request.GET:
+            try:
+                locale = Locale.objects.get(language_code=request.GET['locale'])
+            except Locale.DoesNotExist:
+                # Redirect to setting without locale
+                return redirect('wagtailsettings:edit', app_name, model_name, site_pk)
+        else:
+            # Default to active locale (this will take into account the user's chosen admin language)
+            locale = Locale.get_active()
+    else:
+        locale = None
+
+    # Fetch or create the instance
+    if issubclass(model, BaseTranslatableSetting):
+        instance = model.for_site_locale(site, locale)
+    else:
+        instance = model.for_site(site)
+
     edit_handler = get_setting_edit_handler(model)
     edit_handler = edit_handler.bind_to(instance=instance, request=request)
     form_class = edit_handler.get_form_class()
@@ -75,7 +98,7 @@ def edit(request, app_name, model_name, site_pk):
                     'instance': instance
                 }
             )
-            return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
+            return redirect(reverse('wagtailsettings:edit', args=[app_name, model_name, site.pk]) + ('?locale=' + locale.language_code) if locale else '')
         else:
             messages.validation_error(
                 request, _("The setting could not be saved due to errors."), form
@@ -90,7 +113,7 @@ def edit(request, app_name, model_name, site_pk):
     if Site.objects.count() > 1:
         site_switcher = SiteSwitchForm(site, model)
 
-    return TemplateResponse(request, 'wagtailsettings/edit.html', {
+    context = {
         'opts': model._meta,
         'setting_type_name': setting_type_name,
         'instance': instance,
@@ -99,4 +122,20 @@ def edit(request, app_name, model_name, site_pk):
         'site': site,
         'site_switcher': site_switcher,
         'tabbed': isinstance(edit_handler, TabbedInterface),
-    })
+        'locale': None,
+        'translations': [],
+    }
+
+    if enable_locale_filter:
+        context.update({
+            'locale': locale,
+            'translations': [
+                {
+                    'locale': locale,
+                    'url': reverse('wagtailsettings:edit', args=[app_name, model_name, site.pk]) + '?locale=' + locale.language_code
+                }
+                for locale in Locale.objects.all().exclude(id=locale.id)
+            ],
+        })
+
+    return TemplateResponse(request, 'wagtailsettings/edit.html', context)

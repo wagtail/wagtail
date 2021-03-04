@@ -1,26 +1,24 @@
+import uuid
+
 from django.db import models
 
-from wagtail.core.models import Site
+from wagtail.core.models import Locale, Site, TranslatableMixin
 from wagtail.core.utils import InvokeViaAttributeShortcut
 
 from .registry import register_setting
 
 
-__all__ = ['BaseSetting', 'register_setting']
+__all__ = ['BaseSetting', 'BaseTranslatableSetting', 'register_setting']
 
 
-class BaseSetting(models.Model):
-    """
-    The abstract base model for settings. Subclasses must be registered using
-    :func:`~wagtail.contrib.settings.registry.register_setting`
-    """
-
+class AbstractBaseSetting(models.Model):
     # Override to fetch ForeignKey values in the same query when
     # retrieving settings via for_site()
     select_related = None
 
-    site = models.OneToOneField(
-        Site, unique=True, db_index=True, editable=False, on_delete=models.CASCADE)
+    # Subclasses provide a 'site' field
+    # It's not provided here as BaseSetting needs it to be unique, but
+    # BaseTranslatableSetting uses unique_together with 'locale' instead.
 
     class Meta:
         abstract = True
@@ -43,31 +41,6 @@ class BaseSetting(models.Model):
         if cls.select_related is not None:
             queryset = queryset.select_related(*cls.select_related)
         return queryset
-
-    @classmethod
-    def for_site(cls, site):
-        """
-        Get or create an instance of this setting for the site.
-        """
-        queryset = cls.base_queryset()
-        instance, created = queryset.get_or_create(site=site)
-        return instance
-
-    @classmethod
-    def for_request(cls, request):
-        """
-        Get or create an instance of this model for the request,
-        and cache the result on the request for faster repeat access.
-        """
-        attr_name = cls.get_cache_attr_name()
-        if hasattr(request, attr_name):
-            return getattr(request, attr_name)
-        site = Site.find_for_request(request)
-        site_settings = cls.for_site(site)
-        # to allow more efficient page url generation
-        site_settings._request = request
-        setattr(request, attr_name, site_settings)
-        return site_settings
 
     @classmethod
     def get_cache_attr_name(cls):
@@ -117,3 +90,88 @@ class BaseSetting(models.Model):
 
         self._page_url_cache[attribute_name] = url
         return url
+
+
+class BaseSetting(AbstractBaseSetting):
+    """
+    The abstract base model for settings. Subclasses must be registered using
+    :func:`~wagtail.contrib.settings.registry.register_setting`
+    """
+    site = models.OneToOneField(
+        Site, unique=True, db_index=True, editable=False, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+
+    @classmethod
+    def for_site(cls, site):
+        """
+        Get or create an instance of this setting for the site.
+        """
+        queryset = cls.base_queryset()
+        instance, created = queryset.get_or_create(site=site)
+        return instance
+
+    @classmethod
+    def for_request(cls, request):
+        """
+        Get or create an instance of this model for the request,
+        and cache the result on the request for faster repeat access.
+        """
+        attr_name = cls.get_cache_attr_name()
+        if hasattr(request, attr_name):
+            return getattr(request, attr_name)
+        site = Site.find_for_request(request)
+        site_settings = cls.for_site(site)
+        # to allow more efficient page url generation
+        site_settings._request = request
+        setattr(request, attr_name, site_settings)
+        return site_settings
+
+
+class BaseTranslatableSetting(TranslatableMixin, AbstractBaseSetting):
+    """
+    The abstract base model for translatable settings. Subclasses must be registered using
+    :func:`~wagtail.contrib.settings.registry.register_setting`
+    """
+
+    site = models.ForeignKey(
+        Site, db_index=True, editable=False, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+        unique_together = [
+            ('site', 'locale'),
+            ('translation_key', 'locale'),
+        ]
+
+    @classmethod
+    def _get_translation_key(self, site_id):
+        # The translation key should be derived from the site ID
+        # This is because we want only one instance per site/locale, so the site ID is basically the translation key
+        return uuid.uuid5(uuid.UUID('4e47faf7-d91f-411f-8a8f-51a05d75f992'), str(site_id))
+
+    @classmethod
+    def for_site_locale(cls, site, locale):
+        """
+        Get or create an instance of this setting for the site.
+        """
+        queryset = cls.base_queryset()
+        instance, created = queryset.get_or_create(site=site, locale=locale, translation_key=cls._get_translation_key(site.id))
+        return instance
+
+    @classmethod
+    def for_request(cls, request):
+        """
+        Get or create an instance of this model for the request,
+        and cache the result on the request for faster repeat access.
+        """
+        attr_name = cls.get_cache_attr_name()
+        if hasattr(request, attr_name):
+            return getattr(request, attr_name)
+        site = Site.find_for_request(request)
+        site_settings = cls.for_site_locale(site, Locale.get_active())
+        # to allow more efficient page url generation
+        site_settings._request = request
+        setattr(request, attr_name, site_settings)
+        return site_settings

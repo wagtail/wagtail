@@ -15,24 +15,35 @@
                 </div>
             </div>
             <div class="right">
-                {% if site_switcher %}
-                <div class="field choice_field">
-                    <form method="get" class="setting-site-switch-form" id="settings-site-switch" novalidate>
-                        <label for="{{ site_switcher.site.id_for_label }}">
-                            {% trans "Site" %}:
-                        </label>
-                        <div class="input">
-                            {{ site_switcher.site }}
-                            <span></span>
-                        </div>
-                    </form>
-                </div>
-                {% endif %}
+                <ul class="fields row rowflush" style="list-style-type: none;">
+                    {% if locale %}
+                        <li class="col">
+                            <div class="field">
+                                {% include 'wagtailadmin/shared/locale_selector.html' with class='c-dropdown--large' %}
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if site_switcher %}
+                        <li class="col">
+                            <div class="field choice_field">
+                                <form method="get" class="setting-site-switch-form" id="settings-site-switch" novalidate>
+                                    <label for="{{ site_switcher.site.id_for_label }}">
+                                        {% trans "Site" %}:
+                                    </label>
+                                    <div class="input">
+                                        {{ site_switcher.site }}
+                                        <span></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </header>
 
-    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name site.pk %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+    <form action="{% url 'wagtailsettings:edit' opts.app_label opts.model_name site.pk %}{% if locale %}?locale={{ locale.language_code }}{% endif %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
