@@ -1000,6 +1000,58 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 405)
 
+    def test_edit_after_change_language_code(self):
+        """
+        Verify that changing LANGUAGE_CODE with no corresponding database change does not break editing
+        """
+        # Add a draft revision
+        self.child_page.title = "Hello world updated"
+        self.child_page.save_revision()
+
+        # Hack the Locale model to simulate a page tree that was created with LANGUAGE_CODE = 'de'
+        # (which is not a valid content language under the current configuration)
+        Locale.objects.update(language_code='de')
+
+        # Tests that the edit page loads
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+        # Tests simple editing
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to edit page
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+
+    def test_edit_after_change_language_code_without_revisions(self):
+        """
+        Verify that changing LANGUAGE_CODE with no corresponding database change does not break editing
+        """
+        # Hack the Locale model to simulate a page tree that was created with LANGUAGE_CODE = 'de'
+        # (which is not a valid content language under the current configuration)
+        Locale.objects.update(language_code='de')
+
+        PageRevision.objects.filter(page_id=self.child_page.id).delete()
+
+        # Tests that the edit page loads
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+        self.assertEqual(response.status_code, 200)
+
+        # Tests simple editing
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), post_data)
+
+        # Should be redirected to edit page
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
+
 
 class TestPageEditReordering(TestCase, WagtailTestUtils):
     def setUp(self):

@@ -330,10 +330,6 @@ def pk(obj):
 
 
 class LocaleManager(models.Manager):
-    def get_queryset(self):
-        # Exclude any locales that have an invalid language code
-        return super().get_queryset().filter(language_code__in=get_content_languages().keys())
-
     def get_for_language(self, language_code):
         """
         Gets a Locale from a language code.
