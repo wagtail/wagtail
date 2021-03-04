@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.11.6 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent crash when copying an alias page (Karl Hobley)
+
+
 2.11.5 (18.02.2021)
 ~~~~~~~~~~~~~~~~~~~
 
