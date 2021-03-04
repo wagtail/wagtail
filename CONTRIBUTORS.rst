@@ -502,6 +502,7 @@ Contributors
 * Joan Eliot
 * Sagar Agarwal
 * Susan Dreher
+* Dale Evans
 
 Translators
 ===========
