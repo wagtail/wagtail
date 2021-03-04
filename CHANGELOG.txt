@@ -19,6 +19,12 @@ Changelog
  * Fix: `{% include_block with context %}` now passes local variables into the block template (Jonny Scholes)
 
 
+2.12.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent crash when copying an alias page (Karl Hobley)
+
+
 2.12.2 (18.02.2021)
 ~~~~~~~~~~~~~~~~~~~
 
