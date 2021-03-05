@@ -1,5 +1,12 @@
 {
-  "extends": "wagtail",
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "wagtail",
+    "plugin:@typescript-eslint/recommended"
+  ],
 
   "env": {
     "jest": true
@@ -12,35 +19,26 @@
       }
     }
   },
-
   "rules": {
-    "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }]
+    "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }],
+    // note you must disable the base rule as it can report incorrect errors
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   },
 
   "overrides": [
     {
-        "files": ["*.ts", "*.tsx"],
-
-        "parser": "@typescript-eslint/parser",
-        "plugins": [
-          "@typescript-eslint"
-        ],
-        "extends": [
-          "wagtail",
-          "plugin:@typescript-eslint/recommended"
-        ],
-        "rules": {
-          "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }],
-
-          // note you must disable the base rule as it can report incorrect errors
-          "no-use-before-define": "off",
-          "@typescript-eslint/no-use-before-define": ["error"],
-
-          "@typescript-eslint/explicit-module-boundary-types": "off",
-          "@typescript-eslint/explicit-member-accessibility": "off",
-          "@typescript-eslint/explicit-function-return-type": "off",
-          "@typescript-eslint/no-explicit-any": "off"
-        }
+      // Rules we don’t want to enforce for test and tooling code.
+      "files": ["*.test.ts", "*.test.tsx", "*.test.js", "webpack.config.js"],
+      "rules": {
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-var-requires": "off"
+      }
     }
   ]
 }

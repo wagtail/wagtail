@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 window.halloPlugins = {};
 
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function registerHalloPlugin(name, opts) {  // lgtm[js/unused-local-variable]
   /* Obsolete - used on Wagtail <1.12 to register plugins for the hallo.js editor.
   Defined here so that third-party plugins can continue to call it to provide Wagtail <1.12

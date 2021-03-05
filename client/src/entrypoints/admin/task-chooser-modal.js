@@ -13,7 +13,7 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       // eslint-disable-next-line func-names
       $('.pagination a', context).on('click', function () {
         const page = this.getAttribute('data-page');
-        // eslint-disable-next-line no-use-before-define
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         setPage(page);
         return false;
       });
