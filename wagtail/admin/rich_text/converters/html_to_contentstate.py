@@ -17,6 +17,9 @@ FORCE_WHITESPACE = 2
 # match one or more consecutive normal spaces, new-lines, tabs and form-feeds
 WHITESPACE_RE = re.compile(r'[ \t\n\f\r]+')
 
+# the attribute name to persist the Draftail block key between FE and db
+BLOCK_KEY_NAME = 'data-block-key'
+
 
 class HandlerState:
     def __init__(self):
@@ -97,7 +100,7 @@ class BlockElementHandler:
         self.block_type = block_type
 
     def create_block(self, name, attrs, state, contentstate):
-        return Block(self.block_type, depth=state.list_depth)
+        return Block(self.block_type, depth=state.list_depth, key=attrs.get(BLOCK_KEY_NAME))
 
     def handle_starttag(self, name, attrs, state, contentstate):
         attr_dict = dict(attrs)  # convert attrs from list of (name, value) tuples to a dict
@@ -121,7 +124,7 @@ class ListItemElementHandler(BlockElementHandler):
 
     def create_block(self, name, attrs, state, contentstate):
         assert state.list_item_type is not None, "%s element found outside of an enclosing list element" % name
-        return Block(state.list_item_type, depth=state.list_depth)
+        return Block(state.list_item_type, depth=state.list_depth, key=attrs.get(BLOCK_KEY_NAME))
 
 
 class InlineStyleElementHandler:

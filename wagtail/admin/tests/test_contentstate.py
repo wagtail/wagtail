@@ -3,13 +3,16 @@ import json
 from unittest.mock import patch
 
 from django.test import TestCase
+from draftjs_exporter.dom import DOM
+from draftjs_exporter.html import HTML as HTMLExporter
 
-from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
+from wagtail.admin.rich_text.converters.contentstate import (
+    ContentstateConverter, persist_key_for_block)
 from wagtail.embeds.models import Embed
 
 
-def content_state_equal(v1, v2):
-    "Test whether two contentState structures are equal, ignoring 'key' properties"
+def content_state_equal(v1, v2, match_keys=False):
+    "Test whether two contentState structures are equal, ignoring 'key' properties if match_keys=False"
     if type(v1) != type(v2):
         return False
 
@@ -17,14 +20,14 @@ def content_state_equal(v1, v2):
         if set(v1.keys()) != set(v2.keys()):
             return False
         return all(
-            k == 'key' or content_state_equal(v, v2[k])
+            (k == 'key' and not match_keys) or content_state_equal(v, v2[k], match_keys=match_keys)
             for k, v in v1.items()
         )
     elif isinstance(v1, list):
         if len(v1) != len(v2):
             return False
         return all(
-            content_state_equal(a, b) for a, b in zip(v1, v2)
+            content_state_equal(a, b, match_keys=match_keys) for a, b in zip(v1, v2)
         )
     else:
         return v1 == v2
@@ -33,25 +36,25 @@ def content_state_equal(v1, v2):
 class TestHtmlToContentState(TestCase):
     fixtures = ['test.json']
 
-    def assertContentStateEqual(self, v1, v2):
-        "Assert that two contentState structures are equal, ignoring 'key' properties"
-        self.assertTrue(content_state_equal(v1, v2), "%r does not match %r" % (v1, v2))
+    def assertContentStateEqual(self, v1, v2, match_keys=False):
+        "Assert that two contentState structures are equal, ignoring 'key' properties if match_keys is False"
+        self.assertTrue(content_state_equal(v1, v2, match_keys=match_keys), "%r does not match %r" % (v1, v2))
 
     def test_paragraphs(self):
         converter = ContentstateConverter(features=[])
         result = json.loads(converter.from_database_format(
             '''
-            <p>Hello world!</p>
-            <p>Goodbye world!</p>
+            <p data-block-key='00000'>Hello world!</p>
+            <p data-block-key='00001'>Goodbye world!</p>
             '''
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {},
             'blocks': [
                 {'inlineStyleRanges': [], 'text': 'Hello world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Goodbye world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Goodbye world!', 'depth': 0, 'type': 'unstyled', 'key': '00001', 'entityRanges': []},
             ]
-        })
+        }, match_keys=True)
 
     def test_unknown_block_becomes_paragraph(self):
         converter = ContentstateConverter(features=[])
@@ -186,10 +189,10 @@ class TestHtmlToContentState(TestCase):
         converter = ContentstateConverter(features=['h1', 'ol', 'bold', 'italic'])
         result = json.loads(converter.from_database_format(
             '''
-            <h1>The rules of Fight Club</h1>
+            <h1 data-block-key='00000'>The rules of Fight Club</h1>
             <ol>
-                <li>You do not talk about Fight Club.</li>
-                <li>You <b>do <em>not</em> talk</b> about Fight Club.</li>
+                <li data-block-key='00001'>You do not talk about Fight Club.</li>
+                <li data-block-key='00002'>You <b>do <em>not</em> talk</b> about Fight Club.</li>
             </ol>
             '''
         ))
@@ -197,31 +200,31 @@ class TestHtmlToContentState(TestCase):
             'entityMap': {},
             'blocks': [
                 {'inlineStyleRanges': [], 'text': 'The rules of Fight Club', 'depth': 0, 'type': 'header-one', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00001', 'entityRanges': []},
                 {
                     'inlineStyleRanges': [
                         {'offset': 4, 'length': 11, 'style': 'BOLD'}, {'offset': 7, 'length': 3, 'style': 'ITALIC'}
                     ],
-                    'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00000', 'entityRanges': []
+                    'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00002', 'entityRanges': []
                 },
             ]
-        })
+        }, match_keys=True)
 
     def test_nested_list(self):
         converter = ContentstateConverter(features=['h1', 'ul'])
         result = json.loads(converter.from_database_format(
             '''
-            <h1>Shopping list</h1>
+            <h1 data-block-key='00000'>Shopping list</h1>
             <ul>
-                <li>Milk</li>
-                <li>
+                <li data-block-key='00001'>Milk</li>
+                <li data-block-key='00002'>
                     Flour
                     <ul>
-                        <li>Plain</li>
-                        <li>Self-raising</li>
+                        <li data-block-key='00003'>Plain</li>
+                        <li data-block-key='00004'>Self-raising</li>
                     </ul>
                 </li>
-                <li>Eggs</li>
+                <li data-block-key='00005'>Eggs</li>
             </ul>
             '''
         ))
@@ -229,13 +232,13 @@ class TestHtmlToContentState(TestCase):
             'entityMap': {},
             'blocks': [
                 {'inlineStyleRanges': [], 'text': 'Shopping list', 'depth': 0, 'type': 'header-one', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Milk', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Flour', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Plain', 'depth': 1, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Self-raising', 'depth': 1, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Eggs', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Milk', 'depth': 0, 'type': 'unordered-list-item', 'key': '00001', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Flour', 'depth': 0, 'type': 'unordered-list-item', 'key': '00002', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Plain', 'depth': 1, 'type': 'unordered-list-item', 'key': '00003', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Self-raising', 'depth': 1, 'type': 'unordered-list-item', 'key': '00004', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Eggs', 'depth': 0, 'type': 'unordered-list-item', 'key': '00005', 'entityRanges': []},
             ]
-        })
+        }, match_keys=True)
 
     def test_external_link(self):
         converter = ContentstateConverter(features=['link'])
@@ -878,3 +881,66 @@ class TestContentStateToHtml(TestCase):
 
         result = converter.to_database_format(contentstate_json)
         self.assertEqual(result, '<p>an <a>external</a> link</p>')
+
+    def test_paragraphs_retain_keys(self):
+        converter = ContentstateConverter(features=[])
+        contentState = json.dumps({
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Hello world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Goodbye world!', 'depth': 0, 'type': 'unstyled', 'key': '00001', 'entityRanges': []},
+            ]
+        })
+        result = converter.to_database_format(contentState)
+        self.assertHTMLEqual(result, '''
+            <p data-block-key='00000'>Hello world!</p>
+            <p data-block-key='00001'>Goodbye world!</p>
+            ''')
+
+    def test_wrapped_block_retains_key(self):
+        # Test a block which uses a wrapper correctly receives the key defined on the inner element
+        converter = ContentstateConverter(features=['h1', 'ol', 'bold', 'italic'])
+        result = converter.to_database_format(json.dumps({
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'The rules of Fight Club', 'depth': 0, 'type': 'header-one', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00001', 'entityRanges': []},
+                {
+                    'inlineStyleRanges': [],
+                    'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00002', 'entityRanges': []
+                },
+            ]
+        }))
+        self.assertHTMLEqual(result, '''
+            <h1 data-block-key='00000'>The rules of Fight Club</h1>
+            <ol>
+                <li data-block-key='00001'>You do not talk about Fight Club.</li>
+                <li data-block-key='00002'>You do not talk about Fight Club.</li>
+            </ol>
+        ''')
+
+    def test_wrap_block_function(self):
+        # Draft JS exporter's block_map config can also contain a function to handle a particular block
+        # Test that persist_key_for_block still works with such a function, making the resultant conversion
+        # keep the same block key between html and contentstate
+        exporter_config = {
+            'block_map': {
+                'unstyled': persist_key_for_block(lambda props: DOM.create_element('p', {}, props['children'])),
+            },
+            'style_map': {},
+            'entity_decorators': {},
+            'composite_decorators': [],
+            'engine': DOM.STRING,
+        }
+        contentState = {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Hello world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Goodbye world!', 'depth': 0, 'type': 'unstyled', 'key': '00001', 'entityRanges': []},
+            ]
+        }
+        result = HTMLExporter(exporter_config).render(contentState)
+        self.assertHTMLEqual(result, '''
+            <p data-block-key='00000'>Hello world!</p>
+            <p data-block-key='00001'>Goodbye world!</p>
+            ''')
