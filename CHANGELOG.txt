@@ -19,7 +19,7 @@ Changelog
  * Fix: `{% include_block with context %}` now passes local variables into the block template (Jonny Scholes)
 
 
-2.12.3 (xx.xx.xxxx) - IN DEVELOPMENT
+2.12.3 (05.03.2021)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Un-pin django-treebeard following upstream fix for migration issue (Matt Westcott)
