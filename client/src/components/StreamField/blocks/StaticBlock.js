@@ -1,5 +1,3 @@
-/* global $ */
-
 import { escapeHtml as h } from '../../../utils/text';
 
 export class StaticBlock {
@@ -17,10 +15,10 @@ export class StaticBlock {
     placeholder.replaceWith(element);
   }
 
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   setState(_state) {}
 
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   setError(_errorList) {}
 
   getState() {
@@ -31,6 +29,7 @@ export class StaticBlock {
     return null;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   focus() {}
 }
 
