@@ -31,7 +31,7 @@
   }
 
   /**
-   * Return true (debug: on) when not hosted on Readthedocs or is PR preview.
+   * Return true (debug: on) for local builds or Read the Docs PR previews.
    *
    * The debug mode allows inspection of the dropodown.
    */
@@ -53,6 +53,7 @@
   function docSearchReady(script) {
     /**
     * Configure Algolia DocSearch.
+    * See https://github.com/algolia/docsearch-configs/blob/master/configs/wagtail.json for index configuration.
     */
     const search = docsearch({
       apiKey: '8325c57d16798633e29d211c26c7b6f9',

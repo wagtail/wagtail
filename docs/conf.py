@@ -187,8 +187,8 @@ html_extra_path = ['robots.txt']
 # html_domain_indices = True
 
 # If false, no index is generated.
-# Since we are implementing search with Docsearch, we do not need Sphinx to
-# generate it's own index. It might not hurt to keep the Sphinx index, but it
+# Since we are implementing search with Algolia DocSearch, we do not need Sphinx to
+# generate its own index. It might not hurt to keep the Sphinx index, but it
 # could potentially speed up the build process.
 html_use_index = False
 
