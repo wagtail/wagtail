@@ -15,4 +15,4 @@ Bug fixes
 
  * Un-pin django-treebeard following upstream fix for migration issue (Matt Westcott)
  * Prevent crash when copying an alias page (Karl Hobley)
-
+ * Prevent errors on page editing after changing LANGUAGE_CODE (Matt Westcott)
