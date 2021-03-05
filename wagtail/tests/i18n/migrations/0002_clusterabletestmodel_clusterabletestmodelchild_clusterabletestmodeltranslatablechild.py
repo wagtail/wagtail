@@ -9,7 +9,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0061_change_promote_tab_helpt_text_and_verbose_names'),
+        ('wagtailcore', '0059_apply_collection_ordering'),
         ('i18n', '0001_initial'),
     ]
 
