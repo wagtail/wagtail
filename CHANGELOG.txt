@@ -70,6 +70,7 @@ Changelog
 
  * Fix: Un-pin django-treebeard following upstream fix for migration issue (Matt Westcott)
  * Fix: Prevent crash when copying an alias page (Karl Hobley)
+ * Fix: Prevent errors on page editing after changing LANGUAGE_CODE (Matt Westcott)
 
 
 2.11.5 (18.02.2021)
