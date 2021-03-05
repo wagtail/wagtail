@@ -19,6 +19,7 @@ Changelog
  * Fix: Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
  * Fix: Move labels above the form field in the image format chooser, to avoid styling issues at tablet size (Helen Chapman)
  * Fix: `{% include_block with context %}` now passes local variables into the block template (Jonny Scholes)
+ * Fix: Fix pagination on 'view users in a group' (Sagar Agarwal)
 
 
 2.12.3 (05.03.2021)

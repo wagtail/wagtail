@@ -500,6 +500,7 @@ Contributors
 * Lara Thompson
 * Tibor Leupold
 * Joan Eliot
+* Sagar Agarwal
 
 Translators
 ===========

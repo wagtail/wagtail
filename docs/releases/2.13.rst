@@ -38,6 +38,7 @@ Bug fixes
 * StreamField required status is now consistently handled by the ``blank`` keyword argument (Matt Westcott)
 * Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
 * Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
+* Fix pagination on 'view users in a group' (Sagar Agarwal)
 
 
 Upgrade considerations
