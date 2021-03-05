@@ -163,17 +163,17 @@ export class BaseInsertionControl {
 
 
 export class BaseSequenceBlock {
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _createChild(blockDef, placeholder, prefix, index, id, initialState, opts) {
     throw new Error('not implemented');
   }
 
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _createInsertionControl(placeholder, opts) {
     throw new Error('not implemented');
   }
 
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _getChildDataForInsertion(opts) {
     throw new Error('not implemented');
   }

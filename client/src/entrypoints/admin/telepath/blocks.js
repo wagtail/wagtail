@@ -1,7 +1,3 @@
-/* eslint-disable no-warning-comments */
-
-/* global $ */
-
 import { FieldBlockDefinition } from '../../../components/StreamField/blocks/FieldBlock';
 import { StaticBlockDefinition } from '../../../components/StreamField/blocks/StaticBlock';
 import { StructBlockDefinition, StructBlockValidationError } from '../../../components/StreamField/blocks/StructBlock';

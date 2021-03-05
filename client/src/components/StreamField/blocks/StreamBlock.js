@@ -351,7 +351,7 @@ export class StreamBlockDefinition {
     this.groupedChildBlockDefs = groupedChildBlockDefs;
     this.initialChildStates = initialChildStates;
     this.childBlockDefsByName = {};
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.groupedChildBlockDefs.forEach(([group, blockDefs]) => {
       blockDefs.forEach(blockDef => {
         this.childBlockDefsByName[blockDef.name] = blockDef;

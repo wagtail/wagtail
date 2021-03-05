@@ -103,7 +103,7 @@ function initTable(id, tableOptions) {
     persist();
   };
 
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const metaEvent = function (row, column, key, value) {
     if (isInitialized && key === 'className') {
       persist();
@@ -114,7 +114,7 @@ function initTable(id, tableOptions) {
     isInitialized = true;
   };
 
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const structureEvent = function (index, amount) {
     resizeHeight(getHeight());
     persist();
@@ -233,6 +233,7 @@ class TableInput {
         input.value = JSON.stringify(state);
         initTable(id, options);
       },
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       focus() {},
     };
     widget.setState(initialState);
