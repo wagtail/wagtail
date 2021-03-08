@@ -50,7 +50,7 @@
     return debug
   }
 
-  function docSearchReady(script) {
+  function docSearchReady() {
     /**
     * Configure Algolia DocSearch.
     * See https://github.com/algolia/docsearch-configs/blob/master/configs/wagtail.json for index configuration.
@@ -73,6 +73,6 @@
     return search
   }
 
-  window.onload(docSearchReady())
+  docSearchReady();
 </script>
 {% endblock %}
