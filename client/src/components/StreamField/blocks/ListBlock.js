@@ -33,6 +33,7 @@ class InsertPosition extends BaseInsertionControl {
   constructor(placeholder, opts) {
     super(placeholder, opts);
     this.onRequestInsert = opts && opts.onRequestInsert;
+    const animate = opts && opts.animate;
 
     const button = $(`
       <button type="button" title="${h(opts.strings.ADD)}" data-streamfield-list-add
@@ -48,6 +49,10 @@ class InsertPosition extends BaseInsertionControl {
         this.onRequestInsert(this.index);
       }
     });
+
+    if (animate) {
+      button.hide().slideDown();
+    }
   }
 }
 
