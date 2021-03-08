@@ -38,6 +38,7 @@ class StreamBlockMenu extends BaseInsertionControl {
   constructor(placeholder, opts) {
     super(placeholder, opts);
     this.groupedChildBlockDefs = opts.groupedChildBlockDefs;
+    const animate = opts.animate;
 
     const dom = $(`
       <div>
@@ -65,6 +66,9 @@ class StreamBlockMenu extends BaseInsertionControl {
     this.canAddBlock = true;
     this.disabledBlockTypes = new Set();
     this.close({ animate: false });
+    if (animate) {
+      dom.hide().slideDown();
+    }
   }
 
   renderMenu() {

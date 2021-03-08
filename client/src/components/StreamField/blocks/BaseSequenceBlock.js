@@ -156,8 +156,12 @@ export class BaseInsertionControl {
     this.index = newIndex;
   }
 
-  delete() {
-    $(this.element).hide().attr('aria-hidden', 'true');
+  delete({ animate = false }) {
+    if (animate) {
+      $(this.element).slideUp().attr('aria-hidden', 'true');
+    } else {
+      $(this.element).hide().attr('aria-hidden', 'true');
+    }
   }
 }
 
@@ -252,6 +256,7 @@ export class BaseSequenceBlock {
           this._onRequestInsert(newIndex, inserterOpts);
         },
         strings: this.blockDef.meta.strings,
+        animate,
       }
     );
     this.inserters.splice(index + 1, 0, inserter);
@@ -281,7 +286,7 @@ export class BaseSequenceBlock {
   deleteBlock(index, opts) {
     const animate = opts && opts.animate;
     this.children[index].markDeleted({ animate });
-    this.inserters[index].delete();
+    this.inserters[index].delete({ animate });
     this.children.splice(index, 1);
     this.inserters.splice(index, 1);
 
