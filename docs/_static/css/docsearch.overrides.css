@@ -3,3 +3,7 @@
   color: #2980B9;
   background: #F1C40F;
 }
+
+.algolia-autocomplete {
+    width: 100%;
+}
