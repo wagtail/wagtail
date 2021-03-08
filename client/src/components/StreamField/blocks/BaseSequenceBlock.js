@@ -93,7 +93,10 @@ export class BaseSequenceChild {
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
 
     if (animate) {
-      dom.hide().slideDown();
+      dom.hide();
+      setTimeout(() => {
+        dom.slideDown();
+      }, 10);
     }
   }
 
