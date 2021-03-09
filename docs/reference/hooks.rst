@@ -191,7 +191,8 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   Add an item to the Wagtail admin menu. The callable passed to this hook must return an instance of ``wagtail.admin.menu.MenuItem``. New items can be constructed from the ``MenuItem`` class by passing in a ``label`` which will be the text in the menu item, and the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up). Additionally, the following keyword arguments are accepted:
 
   :name: an internal name used to identify the menu item; defaults to the slugified form of the label.
-  :classnames: additional classnames applied to the link, used to give it an icon
+  :icon_name: icon to display against the menu item
+  :classnames: additional classnames applied to the link
   :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu
 
@@ -208,7 +209,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('register_admin_menu_item')
     def register_frank_menu_item():
-      return MenuItem('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
+      return MenuItem('Frank', reverse('frank'), icon_name='folder-inverse', order=10000)
 
 
 .. _register_admin_urls:
