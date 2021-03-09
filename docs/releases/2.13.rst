@@ -22,6 +22,7 @@ Other features
 * Update default attribute copying behaviour of ``Page.get_specific()`` and added the ``copy_attrs_exclude`` option (Andy Babic)
 * Update ``PageQueryset.specific(defer=True)`` to only perform a single database query (Andy Babic)
 * Switched ``register_setting``, ``register_settings_menu_item`` to use SVG icons (Thibaud Colas)
+* Add support to SVG icons for ``SearchArea`` subclasses in ``register_admin_search_area`` (Thibaud Colas)
 
 Bug fixes
 ~~~~~~~~~
