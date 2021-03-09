@@ -21,7 +21,7 @@ Other features
 * Support passing multiple models as arguments to ``type()``, ``not_type()``, ``exact_type()`` and ``not_exact_type()`` methods on ``PageQuerySet`` (Andy Babic)
 * Update default attribute copying behaviour of ``Page.get_specific()`` and added the ``copy_attrs_exclude`` option (Andy Babic)
 * Update ``PageQueryset.specific(defer=True)`` to only perform a single database query (Andy Babic)
-
+* Switched ``register_setting``, ``register_settings_menu_item`` to use SVG icons (Thibaud Colas)
 
 Bug fixes
 ~~~~~~~~~
@@ -38,3 +38,24 @@ Updated handling of non-required StreamFields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The rules for determining whether a StreamField is required (i.e. at least one block must be provided) have been simplified and made consistent with other field types. Non-required fields are now indicated by ``blank=True`` on the ``StreamField`` definition; the default is ``blank=False`` (the field is required). In previous versions, to make a field non-required, it was necessary to define :ref:`a top-level StreamBlock<streamfield_top_level_streamblock>` with ``required=False`` (which applied the validation rule) as well as setting ``blank=True`` (which removed the asterisk from the form field). You should review your use of StreamField to check that ``blank=True`` is used on the fields you wish to make optional.
+
+Switched ``register_setting``, ``register_settings_menu_item`` to use SVG icons
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Setting menu items now use SVG icons by default. For sites reusing built-in Wagtail icons, no changes should be required. For sites using custom font icons, update the menu items’ definition to use the ``classnames`` attribute:
+
+.. code-block:: python
+
+    # With register_setting,
+    # Before:
+    @register_setting(icon='custom-cog')
+    # After:
+    @register_setting(icon='', classnames='icon icon-custom-cog')
+
+    # Or with register_settings_menu_item,
+    @hooks.register('register_settings_menu_item')
+    def register_frank_menu_item():
+        # Before:
+        return SettingMenuItem(CustomSetting, icon='custom-cog')
+        # After:
+        return SettingMenuItem(CustomSetting, icon='', classnames='icon icon-custom-cog')
