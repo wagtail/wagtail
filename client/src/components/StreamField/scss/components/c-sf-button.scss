@@ -23,6 +23,11 @@
         }
     }
 
+    &[disabled] {
+        opacity: 0.2;
+        pointer-events: none;
+    }
+
     // Fallback for no `grid` support in IE11
     /* stylelint-disable-next-line scss/media-feature-value-dollar-variable */
     @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
