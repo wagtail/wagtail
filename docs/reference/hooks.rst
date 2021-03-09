@@ -288,7 +288,8 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   :label: text displayed in the "Other Searches" option box.
   :name: an internal name used to identify the search option; defaults to the slugified form of the label.
   :url: the URL of the target search page.
-  :classnames: additional CSS classnames applied to the link, used to give it an icon.
+  :classnames: arbitrary CSS classnames applied to the link
+  :icon_name: icon to display next to the label.
   :attrs: additional HTML attributes to apply to the link.
   :order: an integer which determines the item's position in the list of options.
 
@@ -307,7 +308,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('register_admin_search_area')
     def register_frank_search_area():
-        return SearchArea('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
+        return SearchArea('Frank', reverse('frank'), icon_name='folder-inverse', order=10000)
 
 
 .. _register_permissions:

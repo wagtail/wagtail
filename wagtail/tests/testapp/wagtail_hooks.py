@@ -69,7 +69,8 @@ def register_custom_search_area():
     return MyCustomSearchArea(
         'My Search',
         '/customsearch/',
-        classnames='icon icon-custom',
+        classnames='search--custom-class',
+        icon_name='custom',
         attrs={'is-custom': 'true'},
         order=10000)
 
