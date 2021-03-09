@@ -291,18 +291,19 @@ export class StreamBlock extends BaseSequenceBlock {
     this.checkBlockCounts();
   }
 
-  duplicateBlock(index) {
+  duplicateBlock(index, opts) {
     const childState = this.children[index].getState();
+    const animate = opts && opts.animate;
     childState.id = null;
-    this.insert(childState, index + 1, { animate: true });
+    this.insert(childState, index + 1, { animate });
     // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
 
     this.checkBlockCounts();
   }
 
-  deleteBlock(index) {
-    super.deleteBlock(index);
+  deleteBlock(index, opts) {
+    super.deleteBlock(index, opts);
     this.checkBlockCounts();
   }
 

@@ -237,8 +237,8 @@ export class BaseSequenceBlock {
 
     const child = this._createChild(childBlockDef, blockPlaceholder, prefix, index, id, initialState, {
       animate,
-      onRequestDuplicate: (i) => { this.duplicateBlock(i); },
-      onRequestDelete: (i) => { this.deleteBlock(i); },
+      onRequestDuplicate: (i) => { this.duplicateBlock(i, { animate: true }); },
+      onRequestDelete: (i) => { this.deleteBlock(i, { animate: true }); },
       onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },
       onRequestMoveDown: (i) => { this.moveBlock(i, i + 1); },
       strings: this.blockDef.meta.strings,
@@ -278,8 +278,9 @@ export class BaseSequenceBlock {
     return child;
   }
 
-  deleteBlock(index) {
-    this.children[index].markDeleted({ animate: true });
+  deleteBlock(index, opts) {
+    const animate = opts && opts.animate;
+    this.children[index].markDeleted({ animate });
     this.inserters[index].delete();
     this.children.splice(index, 1);
     this.inserters.splice(index, 1);
