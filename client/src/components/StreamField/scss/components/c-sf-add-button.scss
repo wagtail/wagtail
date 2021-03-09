@@ -36,4 +36,9 @@
     &--close i {
         transform: rotate(45deg);
     }
+
+    &[disabled] {
+        opacity: 0.2;
+        pointer-events: none;
+    }
 }
