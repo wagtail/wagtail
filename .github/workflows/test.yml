@@ -13,7 +13,7 @@ on:
 # - all supported databases against current Python and Django
 # - at least one test run for each older supported version of Python and Django
 # - at least one test run for each supported Elasticsearch version
-# - a test run against Django's git master and active stable branch (allowing failures)
+# - a test run against Django's git main and active stable branch (allowing failures)
 # - test runs with USE_EMAIL_USER_MODEL=yes and DISABLE_TIMEZONE=yes
 
 # Current configuration:
@@ -25,7 +25,7 @@ on:
 # - django 3.1, python 3.9, postgres, USE_EMAIL_USER_MODEL=yes
 # - django 3.1, python 3.9, postgres, DISABLE_TIMEZONE=yes
 # - django stable/3.2.x, python 3.9, postgres (allow failures)
-# - django master, python 3.9, postgres (allow failures)
+# - django main, python 3.9, postgres (allow failures)
 # - elasticsearch 5, django 2.2, python 3.6, sqlite
 # - elasticsearch 6, django 3.0, python 3.7, postgres
 # - elasticsearch 7, django 3.1, python 3.8, postgres
@@ -80,7 +80,7 @@ jobs:
             django: "git+https://github.com/django/django.git@stable/3.2.x#egg=Django"
             experimental: true
           - python: 3.9
-            django: "git+https://github.com/django/django.git@master#egg=Django"
+            django: "git+https://github.com/django/django.git@main#egg=Django"
             experimental: true
 
     services:
