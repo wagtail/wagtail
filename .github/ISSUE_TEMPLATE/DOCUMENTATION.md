@@ -1,14 +1,14 @@
 ---
 name: "📜📖📄📘 📚  Documentation enhancement"
-about: Suggest edits for Wagtail documentation
+about: Suggest edits for the Wagtail documentation
 title: ''
-labels: 'type:Documentation'
+labels: 'Documentation'
 assignees: ''
 
 ---
 
 <!--
-  Summarize the documentation change you're suggesting in the Issue title.
+  Summarise the documentation change you’re suggesting in the Issue title.
 -->
 
 ### Pertinent section of the Wagtail docs 
@@ -36,9 +36,7 @@ assignees: ''
 ### Details
 
 <!--
-  - If you're proposing a correction, quote the text of the current docs that needs improvement and then describe what needs fixing. Then describe what is wrong with it, in detail. 
-  - If you're proposing new content, quote a short passage from the place in the docs where you think it should go. Then describe what you would like to see added.
-  - If you're suggesting reorganization or some other change, describe the change. 
+  Provide a clear and concise description of what you want to happen.
 -->
 
 (Write your answer here.)
