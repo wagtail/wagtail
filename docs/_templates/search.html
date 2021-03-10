@@ -63,6 +63,72 @@ function runSearchPageSearch(event, page=0) {
   .catch((error) => console.log(error))
 }
 
+function displayPagination(page, totalPages) {
+  const paginationDiv = document.querySelector("#pagination")
+  const paginationList = paginationDiv.querySelector(".pagination-list")
+  
+  // Disable previous/next button if showing first/last page
+  paginationDiv.querySelector(".pagination-previous").disabled = false
+  if (page == 0) {
+    paginationDiv.querySelector(".pagination-previous").disabled = true
+  }
+  paginationDiv.querySelector(".pagination-next").disabled = false
+  if (page == totalPages - 1) {
+    paginationDiv.querySelector(".pagination-next").disabled = true
+  } 
+
+  // Display at most "toBeDisplayed" page links in the paginator
+  const toBeDisplayed = 10
+  let [start, end] = setStartEndForPaginator(page, totalPages, toBeDisplayed)
+
+  for (let i = start; i < end; i++) {
+    let newPaginationItem = document.createElement("li")
+    let newPaginationLink = document.createElement("a")
+    newPaginationLink.classList.add("pagination-link")
+    newPaginationLink.innerHTML = i + 1
+    if (i == page) {
+        newPaginationLink.setAttribute("aria-label", `page ${i+1}`)
+        newPaginationLink.setAttribute("aria-current", `page`)
+        newPaginationLink.classList.add("is-current")
+    } else {
+        newPaginationLink.setAttribute("aria-label", `Go to page ${i+1}`)
+    }
+
+    // Register event handlers
+    newPaginationLink.onclick = function(event) {
+        runSearchPageSearch(event, page=i)
+    };
+    paginationDiv.querySelector(".pagination-previous").onclick = function(event) {
+        runSearchPageSearch(event, page=page - 1)
+    };
+    paginationDiv.querySelector(".pagination-next").onclick = function(event) {
+        runSearchPageSearch(event, page=page + 1)
+    };
+
+    newPaginationItem.append(newPaginationLink)
+    paginationList.append(newPaginationItem)
+  }
+}
+
+function setStartEndForPaginator(currentPage, totalPages, nbPagesLinkToDisplay) {
+  let start = 0
+  let end = totalPages
+
+  if (totalPages > nbPagesLinkToDisplay) {
+    start = currentPage
+
+    if (totalPages - currentPage < nbPagesLinkToDisplay) {
+      start = totalPages - nbPagesLinkToDisplay
+    } 
+    
+    if (totalPages - start > nbPagesLinkToDisplay) {
+      end = currentPage + nbPagesLinkToDisplay
+    }
+  }
+
+  return [start, end]
+}
+
 function addHeadingForQuery(query, parentElement) {
   const searchHeading = document.createElement('h1')
   searchHeading.textContent = `Search results for “${query}”`
