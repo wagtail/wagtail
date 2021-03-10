@@ -25,23 +25,41 @@
 {{ super() }}
 <script>
 
-function runSearchPageSearch() {
+function runSearchPageSearch(event, page=0) {
   const urlParams = new URLSearchParams(window.location.search)
   const query = urlParams.get('q')
 
   const searchResultsContainer = document.getElementById('search-results')
+
+  // Erase previous results
+  searchResultsContainer.innerHTML = ""
+  document.querySelector('.pagination-list').innerHTML = ""
   addHeadingForQuery(query, searchResultsContainer)
 
+  const hitsPerPage = 10
   const docSearch = docSearchReady()
   const index = docSearch.client.initIndex('wagtail')
   index.search(
     query,
     {
-      hitsPerPage: 50,
+      page: page,
+      hitsPerPage: hitsPerPage,
       facetFilters: [getVersionFacetFilter()]
     }
   )
-  .then(({ hits }) => addResultsList(hits, query, searchResultsContainer))
+  .then(result => {
+    // Display pagination if more than 1 page returned
+    document.querySelector("#pagination").style.display = "none"
+    let nbPages = result["nbPages"] 
+    if (nbPages > 1) {
+      document.querySelector("#pagination").style.display = "flex"
+      displayPagination(page, nbPages)
+    }
+
+    // Display hits
+    let hits = result["hits"]
+    addResultsList(hits, query, searchResultsContainer)
+  })
   .catch((error) => console.log(error))
 }
 
