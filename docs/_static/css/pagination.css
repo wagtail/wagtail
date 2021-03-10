@@ -1,0 +1,27 @@
+#pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-previous {
+    margin-right: 2rem;
+}
+
+.pagination-next {
+    margin-left: 2rem;
+}
+
+.pagination-list {
+    display: flex;
+}
+
+.pagination-list li {
+    margin: auto 0.5rem;
+}
+
+.is-current {
+    border: 1px;
+    padding: 0.25rem;
+    background-color: #3091d1;
+    color: #d0d6da;
+}
