@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.http import is_safe_url
 
 from wagtail.core import hooks
 from wagtail.core.forms import PasswordViewRestrictionForm
@@ -35,9 +37,13 @@ def authenticate_with_password(request, page_view_restriction_id, page_id):
     if request.method == 'POST':
         form = PasswordViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid():
-            restriction.mark_as_passed(request)
+            return_url = form.cleaned_data['return_url']
 
-            return redirect(form.cleaned_data['return_url'])
+            if not is_safe_url(return_url, request.get_host(), request.is_secure()):
+                return_url = settings.LOGIN_REDIRECT_URL
+
+            restriction.mark_as_passed(request)
+            return redirect(return_url)
     else:
         form = PasswordViewRestrictionForm(instance=restriction)
 
