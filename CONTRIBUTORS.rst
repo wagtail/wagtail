@@ -499,6 +499,7 @@ Contributors
 * John Esther
 * Lara Thompson
 * Tibor Leupold
+* Joan Eliot
 
 Translators
 ===========
