@@ -159,7 +159,7 @@ def register_images_search_area():
     return ImagesSearchArea(
         _('Images'), reverse('wagtailimages:index'),
         name='images',
-        classnames='icon icon-image',
+        icon_name='image',
         order=200)
 
 

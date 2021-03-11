@@ -83,6 +83,43 @@ class TestPagePrivacy(TestCase, WagtailTestUtils):
         response = self.client.get('/secret-plans/steal-underpants/')
         self.assertEqual(response.templates[0].name, 'tests/event_page.html')
 
+    def test_view_restrictions_apply_to_aliases(self):
+        secret_plans_page = Page.objects.get(url_path='/home/secret-plans/')
+        secret_plans_alias_page = secret_plans_page.create_alias(update_slug='alias-secret-plans')
+
+        response = self.client.get('/alias-secret-plans/')
+
+        self.assertEqual(response.templates[0].name, 'wagtailcore/password_required.html')
+
+        submit_url = "/_util/authenticate_with_password/%d/%d/" % (self.view_restriction.id, secret_plans_alias_page.id)
+        self.assertContains(response, '<form action="%s"' % submit_url)
+        self.assertContains(
+            response,
+            '<input id="id_return_url" name="return_url" type="hidden" value="/alias-secret-plans/" />',
+            html=True
+        )
+
+    def test_view_restrictions_apply_to_subpages_of_aliases(self):
+        secret_plans_page = Page.objects.get(url_path='/home/secret-plans/')
+        secret_plans_alias_page = secret_plans_page.create_alias(update_slug='alias-secret-plans')
+
+        underpants_page = Page.objects.get(url_path='/home/secret-plans/steal-underpants/')
+        underpants_alias_page = underpants_page.create_alias(parent=secret_plans_alias_page)
+
+        response = self.client.get('/alias-secret-plans/steal-underpants/')
+
+        # check that we're overriding the default password_required template for this page type
+        self.assertEqual(response.templates[0].name, 'tests/event_page_password_required.html')
+
+        submit_url = "/_util/authenticate_with_password/%d/%d/" % (self.view_restriction.id, underpants_alias_page.id)
+        self.assertContains(response, '<title>Steal underpants</title>')
+        self.assertContains(response, '<form action="%s"' % submit_url)
+        self.assertContains(
+            response,
+            '<input id="id_return_url" name="return_url" type="hidden" value="/alias-secret-plans/steal-underpants/" />',
+            html=True
+        )
+
     def test_group_restriction_with_anonymous_user(self):
         response = self.client.get('/secret-event-editor-plans/')
         self.assertRedirects(response, '/_util/login/?next=/secret-event-editor-plans/')

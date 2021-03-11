@@ -1,0 +1,9 @@
+.search .algolia-docsearch-suggestion--highlight,
+.algolia-autocomplete .algolia-docsearch-suggestion--highlight {
+  color: #2980B9;
+  background: #F1C40F;
+}
+
+.algolia-autocomplete {
+    width: 100%;
+}

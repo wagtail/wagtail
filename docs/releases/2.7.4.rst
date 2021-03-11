@@ -17,4 +17,4 @@ Many thanks to Timothy Bautista for reporting this issue.
 Additional fixes
 ~~~~~~~~~~~~~~~~
 
- * Expand Pillow dependency range to include 7.x (Harris Lapiroff, Matt Westcott)
+* Expand Pillow dependency range to include 7.x (Harris Lapiroff, Matt Westcott)

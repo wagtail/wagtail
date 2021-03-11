@@ -1,12 +1,12 @@
 <h1 align="center">
-    <img width="343" src="https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/wagtail.svg" alt="Wagtail">
+    <img width="343" src="https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/wagtail.svg" alt="Wagtail">
     <br>
     <br>
 </h1>
 
 Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers.
 
-![Wagtail screenshot](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/wagtail-screenshot-with-browser.png)
+![Wagtail screenshot](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/wagtail-screenshot-with-browser.png)
 
 ### Features
 
@@ -88,7 +88,7 @@ Feature releases of Wagtail are released every three months. Selected releases a
 
 #### Nightly releases
 
-To try out the latest features before a release, we also create builds from master every night. You can find instructions on how to install the latest nightly release at https://releases.wagtail.io/nightly/index.html
+To try out the latest features before a release, we also create builds from `main` every night. You can find instructions on how to install the latest nightly release at https://releases.wagtail.io/nightly/index.html
 
 ### Contributing
 
@@ -99,23 +99,23 @@ You might like to start by reviewing the [contributing guidelines](https://docs.
 We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
 
 ### License
-[BSD](https://github.com/wagtail/wagtail/blob/master/LICENSE)
+[BSD](https://github.com/wagtail/wagtail/blob/main/LICENSE)
 
 ### Thanks
 
 We thank the following organisations for their services used in Wagtail's development:
 
-[![Browserstack](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/browserstack-logo.svg)](https://www.browserstack.com/)<br>
+[![Browserstack](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/browserstack-logo.svg)](https://www.browserstack.com/)<br>
 [BrowserStack](https://www.browserstack.com/) provides the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
 
-[![squash.io](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/squash-logo.svg)](https://www.squash.io/)<br>
+[![squash.io](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/squash-logo.svg)](https://www.squash.io/)<br>
 [Squash](https://www.squash.io/) provides the project with free test environments for reviewing pull requests.
 
 
 [![Build Status](https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg)](https://github.com/wagtail/wagtail/actions)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/) 
-[![Coverage](https://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master)](https://codecov.io/github/wagtail/wagtail?branch=master)
+[![Coverage](https://codecov.io/github/wagtail/wagtail/coverage.svg?branch=main)](https://codecov.io/github/wagtail/wagtail?branch=main)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:python)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:javascript)

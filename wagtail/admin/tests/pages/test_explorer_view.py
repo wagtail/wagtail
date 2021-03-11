@@ -243,21 +243,6 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_explore', args=(new_event.id, )))
         self.assertContains(response, 'New event 0 (single event)')
 
-    def test_ordering_less_than_100_pages_uses_specific_page_with_custom_display_title(self):
-        # Reorder view should also use specific pages
-        # (provided there are <100 pages in the listing, as this may be a significant
-        # performance hit on larger listings)
-        # There are 3 pages created in setUp, so 96 more add to a total of 99.
-        self.make_event_pages(count=96)
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )) + '?ordering=ord')
-        self.assertContains(response, 'New event 0 (single event)')
-
-    def test_ordering_100_or_more_pages_uses_generic_page_without_custom_display_title(self):
-        # There are 3 pages created in setUp, so 97 more add to a total of 100.
-        self.make_event_pages(count=97)
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )) + '?ordering=ord')
-        self.assertNotContains(response, 'New event 0 (single event)')
-
     def test_parent_page_is_specific(self):
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.child_page.id, )))
         self.assertEqual(response.status_code, 200)

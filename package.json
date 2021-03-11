@@ -110,7 +110,7 @@
     "gulp:prod:build": "gulp build",
     "webpack:dev:watch": "webpack --config ./client/webpack.config.js --mode development --progress --watch",
     "webpack:prod:build": "webpack --config ./client/webpack.config.js --mode production",
-    "lint:js": "eslint --max-warnings 16 ./client",
+    "lint:js": "eslint --report-unused-disable-directives --max-warnings 16 ./client",
     "lint:css": "stylelint **/*.scss",
     "lint": "npm run lint:js && npm run lint:css",
     "test": "npm run test:unit",

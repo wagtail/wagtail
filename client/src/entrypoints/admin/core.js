@@ -247,7 +247,7 @@ $(() => {
 
     $input.on('keyup cut paste change', () => {
       clearTimeout($input.data('timer'));
-      // eslint-disable-next-line no-use-before-define
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       $input.data('timer', setTimeout(search, 200));
     });
 
@@ -259,7 +259,7 @@ $(() => {
       const workingClasses = 'icon-spinner';
 
       const newQuery = $input.val();
-      // eslint-disable-next-line no-use-before-define
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       const currentQuery = getURLParam('q');
       // only do the query if it has changed for trimmed queries
       // eg. " " === "" and "firstword " ==== "firstword"

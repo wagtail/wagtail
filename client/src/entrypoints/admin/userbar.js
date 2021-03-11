@@ -17,33 +17,33 @@ document.addEventListener('DOMContentLoaded', (e) => {
     // in accordance with: https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/
     trigger.addEventListener('touchend', (e2) => {
       e.preventDefault();
-      // eslint-disable-next-line no-use-before-define
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       toggleUserbar(e2);
     });
   } else {
     userbar.classList.add('no-touch');
   }
 
-  // eslint-disable-next-line no-use-before-define
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   trigger.addEventListener(clickEvent, toggleUserbar, false);
 
   // make sure userbar is hidden when navigating back
-  // eslint-disable-next-line no-use-before-define
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   window.addEventListener('pageshow', hideUserbar, false);
 
   function showUserbar() {
     userbar.classList.add(className);
-    // eslint-disable-next-line no-use-before-define
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     list.addEventListener(clickEvent, sandboxClick, false);
-    // eslint-disable-next-line no-use-before-define
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.addEventListener(clickEvent, clickOutside, false);
   }
 
   function hideUserbar() {
     userbar.classList.remove(className);
-    // eslint-disable-next-line no-use-before-define
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     list.addEventListener(clickEvent, sandboxClick, false);
-    // eslint-disable-next-line no-use-before-define
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.removeEventListener(clickEvent, clickOutside, false);
   }
 

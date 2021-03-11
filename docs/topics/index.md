@@ -1,7 +1,6 @@
-===========
-Usage guide
-===========
+# Usage guide
 
+```eval_rst
 .. toctree::
     :maxdepth: 2
 
@@ -12,3 +11,4 @@ Usage guide
     snippets
     streamfield
     permissions
+```

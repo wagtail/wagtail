@@ -580,6 +580,15 @@ table.listing {
         padding: 0.8em;
         float: left;
     }
+
+    &__icon {
+        width: 1em;
+        height: 1em;
+        margin-right: 0.2em;
+        vertical-align: middle;
+        position: relative;
+        top: -1px;
+    }
 }
 
 

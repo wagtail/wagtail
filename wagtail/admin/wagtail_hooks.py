@@ -79,7 +79,7 @@ class PageSearchArea(SearchArea):
         super().__init__(
             _('Pages'), reverse('wagtailadmin_pages:search'),
             name='pages',
-            classnames='icon icon-folder-open-inverse',
+            icon_name='folder-open-inverse',
             order=100)
 
     def is_shown(self, request):
@@ -204,7 +204,6 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
         if next_url:
             url += '?' + urlencode({'next': next_url})
 
-        urlencode
         yield Button(
             _('Copy'),
             url,

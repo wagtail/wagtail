@@ -40,8 +40,13 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
 
     def test_menu_item_icon(self):
         menu_item = SettingMenuItem(IconSetting, icon='tag', classnames='test-class')
-        classnames = set(menu_item.classnames.split(' '))
-        self.assertEqual(classnames, {'icon', 'icon-tag', 'test-class'})
+        self.assertEqual(menu_item.icon_name, 'tag')
+        self.assertEqual(menu_item.classnames, 'test-class')
+
+    def test_menu_item_icon_fontawesome(self):
+        menu_item = SettingMenuItem(IconSetting, icon='fa-suitcase', classnames='test-class')
+        self.assertEqual(menu_item.icon_name, '')
+        self.assertEqual(set(menu_item.classnames.split(' ')), {'icon', 'icon-fa-suitcase', 'test-class'})
 
 
 class BaseTestSettingView(TestCase, WagtailTestUtils):

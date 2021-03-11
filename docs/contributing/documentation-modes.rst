@@ -6,10 +6,10 @@ Writing documentation
 Wagtail documentation is written in **four modes** of information delivery.
 Each type of information delivery has a purpose and targets a specific audience.
 
-  * :ref:`doc-mode-tutorial`, learning-oriented
-  * :ref:`doc-mode-how-to-guide`, goal-oriented
-  * :ref:`doc-mode-reference`, information-oriented
-  * :ref:`doc-mode-explanation`, understanding-oriented
+* :ref:`doc-mode-tutorial`, learning-oriented
+* :ref:`doc-mode-how-to-guide`, goal-oriented
+* :ref:`doc-mode-reference`, information-oriented
+* :ref:`doc-mode-explanation`, understanding-oriented
 
 We are following `Daniele Procida's documention system <https://documentation.divio.com/>`__.
 

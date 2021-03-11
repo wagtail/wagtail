@@ -86,13 +86,13 @@ Anatomy of a Wagtail Request
 
 For going beyond the basics of model definition and interrelation, it might help to know how Wagtail handles requests and constructs responses. In short, it goes something like:
 
-    #.  Django gets a request and routes through Wagtail's URL dispatcher definitions
-    #.  Wagtail checks the hostname of the request to determine which ``Site`` record will handle this request.
-    #.  Starting from the root page of that site, Wagtail traverses the page tree, calling the ``route()`` method and letting each page model decide whether it will handle the request itself or pass it on to a child page.
-    #.  The page responsible for handling the request returns a ``RouteResult`` object from ``route()``, which identifies the page along with any additional ``args``/``kwargs`` to be passed to ``serve()``.
-    #.  Wagtail calls ``serve()``, which constructs a context using ``get_context()``
-    #.  ``serve()`` finds a template to pass it to using ``get_template()``
-    #.  A response object is returned by ``serve()`` and Django responds to the requester.
+#.  Django gets a request and routes through Wagtail's URL dispatcher definitions
+#.  Wagtail checks the hostname of the request to determine which ``Site`` record will handle this request.
+#.  Starting from the root page of that site, Wagtail traverses the page tree, calling the ``route()`` method and letting each page model decide whether it will handle the request itself or pass it on to a child page.
+#.  The page responsible for handling the request returns a ``RouteResult`` object from ``route()``, which identifies the page along with any additional ``args``/``kwargs`` to be passed to ``serve()``.
+#.  Wagtail calls ``serve()``, which constructs a context using ``get_context()``
+#.  ``serve()`` finds a template to pass it to using ``get_template()``
+#.  A response object is returned by ``serve()`` and Django responds to the requester.
 
 You can apply custom behaviour to this process by overriding ``Page`` class methods such as ``route()`` and ``serve()`` in your own models. For examples, see :ref:`model_recipes`.
 

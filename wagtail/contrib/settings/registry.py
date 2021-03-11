@@ -12,11 +12,16 @@ from .permissions import user_can_edit_setting_type
 class SettingMenuItem(MenuItem):
     def __init__(self, model, icon='cog', classnames='', **kwargs):
 
-        icon_classes = 'icon icon-' + icon
-        if classnames:
-            classnames += ' ' + icon_classes
+        # Special-case FontAwesome icons to avoid the breaking changes for those customizations.
+        if icon.startswith('fa-'):
+            icon_name = ''
+            icon_classes = 'icon icon-' + icon
+            if classnames:
+                classnames += ' ' + icon_classes
+            else:
+                classnames = icon_classes
         else:
-            classnames = icon_classes
+            icon_name = icon
 
         self.model = model
         super().__init__(
@@ -24,6 +29,7 @@ class SettingMenuItem(MenuItem):
             url=reverse('wagtailsettings:edit', args=[
                 model._meta.app_label, model._meta.model_name]),
             classnames=classnames,
+            icon_name=icon_name,
             **kwargs)
 
     def is_shown(self, request):

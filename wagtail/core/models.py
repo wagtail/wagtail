@@ -1,3 +1,4 @@
+import functools
 import json
 import logging
 import uuid
@@ -40,6 +41,7 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
+from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import (
@@ -150,7 +152,11 @@ def _copy(source, exclude_fields=None, update_attrs=None):
                 continue
             setattr(target, field, value)
 
-    child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
+    if isinstance(source, ClusterableModel):
+        child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
+    else:
+        child_object_map = {}
+
     return target, child_object_map
 
 
@@ -292,10 +298,10 @@ class Site(models.Model):
         Each root path is an instance of the `SiteRootPath` named tuple,
         and have the following attributes:
 
-         - `site_id` - The ID of the Site record
-         - `root_path` - The internal URL path of the site's home page (for example '/home/')
-         - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
-         - `language_code` - The language code of the site (for example 'en')
+        - `site_id` - The ID of the Site record
+        - `root_path` - The internal URL path of the site's home page (for example '/home/')
+        - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
+        - `language_code` - The language code of the site (for example 'en')
         """
         result = cache.get('wagtail_site_root_paths')
 
@@ -328,10 +334,6 @@ def pk(obj):
 
 
 class LocaleManager(models.Manager):
-    def get_queryset(self):
-        # Exclude any locales that have an invalid language code
-        return super().get_queryset().filter(language_code__in=get_content_languages().keys())
-
     def get_for_language(self, language_code):
         """
         Gets a Locale from a language code.
@@ -493,9 +495,14 @@ class TranslatableMixin(models.Model):
 
         Note that the copy is initially unsaved.
         """
-        translated = self.__class__.objects.get(id=self.id)
-        translated.id = None
+        translated, child_object_map = _copy(self)
         translated.locale = locale
+
+        # Update locale on any translatable child objects as well
+        # Note: If this is not a subclass of ClusterableModel, child_object_map will always be '{}'
+        for (child_relation, old_pk), child_object in child_object_map.items():
+            if isinstance(child_object, TranslatableMixin):
+                child_object.locale = locale
 
         return translated
 
@@ -671,6 +678,14 @@ def get_default_page_content_type():
     return ContentType.objects.get_for_model(Page)
 
 
+@functools.lru_cache(maxsize=None)
+def get_streamfield_names(model_class):
+    return tuple(
+        field.name for field in model_class._meta.concrete_fields
+        if isinstance(field, StreamField)
+    )
+
+
 class BasePageManager(models.Manager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by('path')
@@ -759,10 +774,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     )
 
     seo_title = models.CharField(
-        verbose_name=_("page title"),
+        verbose_name=_("title tag"),
         max_length=255,
         blank=True,
-        help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")
+        help_text=_("The name of the page displayed on search engine results as the clickable headline.")
     )
 
     show_in_menus_default = False
@@ -771,7 +786,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         default=False,
         help_text=_("Whether a link to this page will appear in automatically generated menus")
     )
-    search_description = models.TextField(verbose_name=_('search description'), blank=True)
+    search_description = models.TextField(
+        verbose_name=_('meta description'),
+        blank=True,
+        help_text=_("The descriptive text displayed underneath a headline in search engine results.")
+    )
 
     go_live_at = models.DateTimeField(
         verbose_name=_("go live date/time"),
@@ -888,6 +907,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def get_streamfield_names(cls):
+        return get_streamfield_names(cls)
 
     def set_url_path(self, parent):
         """
@@ -1165,11 +1188,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
         )
 
-    def get_specific(self, deferred=False, copy_attrs=None):
+    def get_specific(self, deferred=False, copy_attrs=None, copy_attrs_exclude=None):
         """
         .. versionadded:: 2.12
 
         Return this page in its most specific subclassed form.
+
+        .. versionchanged:: 2.13
+            * When ``copy_attrs`` is not supplied, all known non-field attribute
+              values are copied to the returned object. Previously, no non-field
+              values would be copied.
+            * The ``copy_attrs_exclude`` option was added.
 
         By default, a database query is made to fetch all field values for the
         specific object. If you only require access to custom methods or other
@@ -1178,10 +1207,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         specific field values from the returned object will trigger additional
         database queries.
 
-        If there are attribute values on this object that you wish to be copied
-        over to the specific version (for example: evaluated relationship field
-        values, annotations or cached properties), use `copy_attrs`` to pass an
-        iterable of names of attributes you wish to be copied.
+        By default, references to all non-field attribute values are copied
+        from current object to the returned one. This includes:
+        * Values set by a queryset, for example: annotations, or values set as
+          a result of using ``select_related()`` or ``prefetch_related()``.
+        * Any ``cached_property`` values that have been evaluated.
+        * Attributes set elsewhere in Python code.
+
+        For fine-grained control over which non-field values are copied to the
+        returned object, you can use ``copy_attrs`` to specify a complete list
+        of attribute names to include. Alternatively, you can use
+        ``copy_attrs_exclude`` to specify a list of attribute names to exclude.
 
         If called on a page object that is already an instance of the most
         specific class (e.g. an ``EventPage``), the object will be returned
@@ -1221,10 +1257,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Fetch object from database
             specific_obj = model_class._default_manager.get(id=self.id)
 
-        # Copy additional attribute values
-        for attr in copy_attrs or ():
-            if attr in self.__dict__:
+        # Copy non-field attribute values
+        if copy_attrs is not None:
+            for attr in (attr for attr in copy_attrs if attr in self.__dict__):
                 setattr(specific_obj, attr, getattr(self, attr))
+        else:
+            exclude = copy_attrs_exclude or ()
+            for k, v in (
+                (k, v) for k, v in self.__dict__.items()
+                if k not in exclude
+            ):
+                # only set values that haven't already been set
+                specific_obj.__dict__.setdefault(k, v)
 
         return specific_obj
 
@@ -2047,14 +2091,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
         specific_self = self.specific
         if keep_live:
-            base_update_attrs = {}
+            base_update_attrs = {
+                'alias_of': None,
+            }
         else:
             base_update_attrs = {
                 'live': False,
                 'has_unpublished_changes': True,
                 'live_revision': None,
                 'first_published_at': None,
-                'last_published_at': None
+                'last_published_at': None,
+                'alias_of': None,
             }
 
         if user:
@@ -2668,8 +2715,32 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
 
     def get_view_restrictions(self):
-        """Return a query set of all page view restrictions that apply to this page"""
-        return PageViewRestriction.objects.filter(page__in=self.get_ancestors(inclusive=True))
+        """
+        Return a query set of all page view restrictions that apply to this page.
+
+        This checks the current page and all ancestor pages for page view restrictions.
+
+        If any of those pages are aliases, it will resolve them to their source pages
+        before querying PageViewRestrictions so alias pages use the same view restrictions
+        as their source page and they cannot have their own.
+        """
+        page_ids_to_check = set()
+
+        def add_page_to_check_list(page):
+            # If the page is an alias, add the source page to the check list instead
+            if page.alias_of:
+                add_page_to_check_list(page.alias_of)
+            else:
+                page_ids_to_check.add(page.id)
+
+        # Check current page for view restrictions
+        add_page_to_check_list(self)
+
+        # Check each ancestor for view restrictions as well
+        for page in self.get_ancestors().only('alias_of'):
+            add_page_to_check_list(page)
+
+        return PageViewRestriction.objects.filter(page_id__in=page_ids_to_check)
 
     password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
 

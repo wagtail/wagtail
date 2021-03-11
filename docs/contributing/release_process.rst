@@ -89,10 +89,10 @@ Supported versions
 At any moment in time, Wagtail's developer team will support a set of releases to
 varying levels.
 
-* The current development master will get new features and bug fixes
+* The current development ``main`` will get new features and bug fixes
   requiring non-trivial refactoring.
 
-* Patches applied to the master branch must also be applied to the last feature
+* Patches applied to the ``main`` branch must also be applied to the last feature
   release branch, to be released in the next patch release of that feature
   series, when they fix critical problems:
 
@@ -110,7 +110,7 @@ varying levels.
   release for bugs that would have prevented a release in the first place
   (release blockers).
 
-* Security fixes and data loss bugs will be applied to the current master, the
+* Security fixes and data loss bugs will be applied to the current ``main``, the
   last feature release branch, and any other supported long-term
   support release branches.
 
@@ -123,16 +123,16 @@ varying levels.
 As a concrete example, consider a moment in time halfway between the release of
 Wagtail 1.6 and 1.7. At this point in time:
 
-* Features will be added to ``master``, to be released as Wagtail 1.7.
+* Features will be added to ``main``, to be released as Wagtail 1.7.
 
 * Critical bug fixes will be applied to the ``stable/1.6.x`` branch, and
   released as 1.6.1, 1.6.2, etc.
 
 * Security fixes and bug fixes for data loss issues will be applied to
-  ``master`` and to the ``stable/1.6.x`` and ``stable/1.4.x`` (LTS) branches.
+  ``main`` and to the ``stable/1.6.x`` and ``stable/1.4.x`` (LTS) branches.
   They will trigger the release of ``1.6.1``, ``1.4.8``, etc.
 
-* Documentation fixes will be applied to master, and, if easily backported, to
+* Documentation fixes will be applied to ``main``, and, if easily backported, to
   the latest stable branch, ``1.6.x``.
 
 Supported versions of Django
@@ -146,10 +146,10 @@ all following versions of Django.
 For example, consider a moment in time before release of Wagtail 1.5
 and after the following releases:
 
- * Django 1.8 (LTS)
- * Django 1.9
- * Wagtail 1.4 (LTS) - Released before Django 1.10 and supports Django 1.8 and 1.9
- * Django 1.10
+* Django 1.8 (LTS)
+* Django 1.9
+* Wagtail 1.4 (LTS) - Released before Django 1.10 and supports Django 1.8 and 1.9
+* Django 1.10
 
 Wagtail 1.5 will support Django 1.8 (LTS), 1.9, 1.10.
 Wagtail 1.4 will still support only Django 1.8 (LTS) and 1.9.
@@ -187,7 +187,7 @@ get everything on it done.
 At the end of phase two, any unfinished features will be postponed until the
 next release.
 
-At this point, the ``stable/A.B.x`` branch will be forked from ``master``.
+At this point, the ``stable/A.B.x`` branch will be forked from ``main``.
 
 Phase three: bugfixes
 ~~~~~~~~~~~~~~~~~~~~~
@@ -208,7 +208,7 @@ candidate - this ensures that translators have the full period between the relea
 candidate and the final release to bring translations up to date. Translations
 will be re-imported immediately before the final release.
 
-In parallel to this phase, ``master`` can receive new features, to be released
+In parallel to this phase, ``main`` can receive new features, to be released
 in the ``A.B+1`` cycle.
 
 Bug-fix releases
@@ -218,7 +218,7 @@ After a feature release (e.g. A.B), the previous release will go into bugfix
 mode.
 
 The branch for the previous feature release (e.g. ``stable/A.B-1.x``) will
-include bugfixes. Critical bugs fixed on master must *also* be fixed on the
+include bugfixes. Critical bugs fixed on ``main`` must *also* be fixed on the
 bugfix branch; this means that commits need to cleanly separate bug fixes from
-feature additions. The developer who commits a fix to master will be
+feature additions. The developer who commits a fix to ``main`` will be
 responsible for also applying the fix to the current bugfix branch.

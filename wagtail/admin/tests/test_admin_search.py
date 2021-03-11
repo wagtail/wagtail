@@ -34,23 +34,24 @@ class TestSearchAreas(BaseSearchAreaTestCase):
     def test_other_searches(self):
         search_url = reverse('wagtailadmin_pages:search')
         query = "Hello"
-        base_css = "icon icon-custom"
-        test_string = '<a href="/customsearch/?q=%s" class="%s" is-custom="true">My Search</a>'
+        base_css = "search--custom-class"
+        icon = '<svg class="icon icon-custom filter-options__icon" aria-hidden="true" focusable="false"><use href="#icon-custom"></use></svg>'
+        test_string = '<a href="/customsearch/?q=%s" class="%s" is-custom="true">%sMy Search</a>'
         # Testing the option link exists
         response = self.client.get(search_url, {'q': query})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/search.html')
         self.assertTemplateUsed(response, 'wagtailadmin/shared/search_area.html')
         self.assertTemplateUsed(response, 'wagtailadmin/shared/search_other.html')
-        self.assertContains(response, test_string % (query, base_css), html=True)
+        self.assertContains(response, test_string % (query, base_css, icon), html=True)
 
         # Testing is_shown
         response = self.client.get(search_url, {'q': query, 'hide-option': "true"})
-        self.assertNotContains(response, test_string % (query, base_css), status_code=200, html=True)
+        self.assertNotContains(response, test_string % (query, base_css, icon), status_code=200, html=True)
 
         # Testing is_active
         response = self.client.get(search_url, {'q': query, 'active-option': "true"})
-        self.assertContains(response, test_string % (query, base_css + " nolink"), status_code=200, html=True)
+        self.assertContains(response, test_string % (query, base_css + " nolink", icon), status_code=200, html=True)
 
     def test_menu_search(self):
         rendered = self.menu_search()
@@ -102,7 +103,7 @@ class TestSearchAreaNoPagePermissions(BaseSearchAreaTestCase):
         self.assertIn('action="/customsearch/"', rendered)
 
     def test_search_other(self):
-        """The pages search link should be hidden."""
+        """The pages search link should be hidden, custom search should be visible."""
         rendered = self.search_other()
         self.assertNotIn(reverse('wagtailadmin_pages:search'), rendered)
         self.assertIn('/customsearch/', rendered)
