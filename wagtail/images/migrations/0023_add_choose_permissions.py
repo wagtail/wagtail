@@ -77,7 +77,7 @@ def remove_choose_permission_from_collections(apps, _schema_editor):
     GroupCollectionPermission = apps.get_model('wagtailcore.GroupCollectionPermission')
     choose_permission = get_choose_permission(apps)
 
-    GroupCollectionPermission.objects.filter(permission=choose_permission).delete()
+    GroupCollectionPermission.objects.filter(permission__in=choose_permission).delete()
 
 
 class Migration(migrations.Migration):
