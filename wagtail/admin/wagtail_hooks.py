@@ -204,7 +204,6 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
         if next_url:
             url += '?' + urlencode({'next': next_url})
 
-        urlencode
         yield Button(
             _('Copy'),
             url,
