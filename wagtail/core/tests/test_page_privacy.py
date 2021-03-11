@@ -53,9 +53,9 @@ class TestPagePrivacy(TestCase, WagtailTestUtils):
         # posting an invalid return_url will redirect to default login redirect
         with self.settings(LOGIN_REDIRECT_URL='/'):
             response = self.client.post(submit_url, {
-                    'password': 'swordfish',
-                    'return_url': 'https://invaliddomain.com',
-                })
+                'password': 'swordfish',
+                'return_url': 'https://invaliddomain.com',
+            })
             self.assertRedirects(response, '/')
 
     def test_view_restrictions_apply_to_subpages(self):
