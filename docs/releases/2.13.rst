@@ -40,6 +40,7 @@ Bug fixes
 * Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
 * Fix pagination on 'view users in a group' (Sagar Agarwal)
 * Prevent page privacy menu from being triggered by pressing enter on a char field (Sagar Agarwal)
+* Validate host/scheme of return URLs on password authentication forms (Susan Dreher)
 
 
 Upgrade considerations

@@ -21,6 +21,7 @@ Changelog
  * Fix: `{% include_block with context %}` now passes local variables into the block template (Jonny Scholes)
  * Fix: Fix pagination on 'view users in a group' (Sagar Agarwal)
  * Fix: Prevent page privacy menu from being triggered by pressing enter on a char field (Sagar Agarwal)
+ * Fix: Validate host/scheme of return URLs on password authentication forms (Susan Dreher)
 
 
 2.12.3 (05.03.2021)

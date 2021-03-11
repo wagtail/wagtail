@@ -501,6 +501,7 @@ Contributors
 * Tibor Leupold
 * Joan Eliot
 * Sagar Agarwal
+* Susan Dreher
 
 Translators
 ===========

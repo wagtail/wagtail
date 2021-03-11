@@ -72,6 +72,16 @@ class TestCollectionPrivacyDocument(TestCase, WagtailTestUtils):
         # now requests to the documents url should pass authentication
         response = self.client.get(doc_url)
 
+        self.client.logout()
+
+        # posting an invalid return_url will redirect to default login redirect
+        with self.settings(LOGIN_REDIRECT_URL='/'):
+            response = self.client.post(submit_url, {
+                'password': 'swordfish',
+                'return_url': 'https://invaliddomain.com',
+            })
+            self.assertRedirects(response, '/')
+
     def test_group_restriction_with_anonymous_user(self):
         response, url = self.get_document(self.group_collection)
         self.assertRedirects(response, '/_util/login/?next={}'.format(url))
