@@ -165,6 +165,35 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         results = response.context['users'].object_list
         self.assertIn(self.test_user, results)
 
+    def test_search_query_one_searchable_field(self):
+        custom_user_with_country = self.create_user(
+            username='testjoe',
+            email='testjoe@email.com',
+            password='password',
+            first_name='Joe',
+            last_name='Doe',
+            country="testcountry"
+        )
+        response = self.get({'q': "country"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context['users'].object_list
+        self.assertIn(custom_user_with_country, results)
+
+    def test_search_query_searchable_multiple_fields(self):
+        custom_user_with_country = self.create_user(
+            username='testjoe',
+            email='testjoe@email.com',
+            password='password',
+            first_name='Joe',
+            last_name='Doe',
+            country="testcountry"
+        )
+        response = self.get({'q': "country first name last name"})
+        self.assertEqual(response.status_code, 200)
+        results = response.context['users'].object_list
+        self.assertIn(custom_user_with_country, results)
+        self.assertIn(self.test_user, results)
+
     def test_search_query_multiple_fields(self):
         response = self.get({'q': "first name last name"})
         self.assertEqual(response.status_code, 200)

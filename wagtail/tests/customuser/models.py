@@ -7,6 +7,8 @@ from django.db import models
 from wagtail.admin.auth import permission_denied  # noqa
 from wagtail.admin.edit_handlers import FieldPanel
 
+from wagtail.search import index
+
 from .fields import ConvertedValueField
 
 
@@ -35,7 +37,7 @@ class CustomUserManager(BaseUserManager):
                                  **extra_fields)
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class CustomUser(index.Indexed, AbstractBaseUser, PermissionsMixin):
     identifier = ConvertedValueField(primary_key=True)
     username = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=255, blank=True)
@@ -60,4 +62,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     panels = [
         FieldPanel('first_name'),
         FieldPanel('last_name'),
+    ]
+
+    search_fields = [
+        index.SearchField('country', partial_match=True, boost=10)
     ]
