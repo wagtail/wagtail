@@ -63,13 +63,17 @@ def index(request, *args):
         group_filter = Q(groups=group) if args else Q()
 
     model_fields = [f.name for f in User._meta.get_fields()]
-
     if 'q' in request.GET:
         form = SearchForm(request.GET, placeholder=_("Search users"))
         if form.is_valid():
             q = form.cleaned_data['q']
             is_searching = True
             conditions = Q()
+            custom_fields_lookups = {}
+
+            if hasattr(User, 'search_fields'):
+                custom_fields_lookups = ['%s__icontains' % str(search_field.field_name)
+                                         for search_field in User.search_fields]
 
             for term in q.split():
                 if 'username' in model_fields:
@@ -83,6 +87,11 @@ def index(request, *args):
 
                 if 'email' in model_fields:
                     conditions |= Q(email__icontains=term)
+
+                if len(custom_fields_lookups) > 0:
+                    or_queries = [Q(**{custom_field: term})
+                                  for custom_field in custom_fields_lookups]
+                    conditions |= reduce(operator.or_, or_queries)
 
             users = User.objects.filter(group_filter & conditions)
     else:
