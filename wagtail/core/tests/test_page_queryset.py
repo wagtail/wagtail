@@ -7,7 +7,8 @@ from django.test import TestCase
 from wagtail.core.models import Locale, Page, PageViewRestriction, Site
 from wagtail.core.signals import page_unpublished
 from wagtail.search.query import MATCH_ALL
-from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage, StreamPage
+from wagtail.tests.testapp.models import (
+    EventIndex, EventPage, SimplePage, SingleEventPage, StreamPage)
 
 
 class TestPageQuerySet(TestCase):
@@ -784,6 +785,47 @@ class TestSpecificQuery(TestCase):
         self.assertIn(Page.objects.get(url_path='/home/events/christmas/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/events/').specific, pages)
         self.assertIn(Page.objects.get(url_path='/home/about-us/').specific, pages)
+
+    def test_specific_preserves_select_related(self):
+        queryset = Page.objects.live().in_menu().select_related('eventpage__feed_image').specific()
+
+        # using select_related() does not increase the number of queries
+        with self.assertNumQueries(1):
+            pages = set(queryset)
+
+        # the result should contain the same results
+        self.assertEqual(pages, {
+            SimplePage.objects.get(url_path='/home/other/'),
+            EventPage.objects.get(url_path='/home/events/christmas/'),
+            EventIndex.objects.get(url_path='/home/events/'),
+            SimplePage.objects.get(url_path='/home/about-us/'),
+        })
+
+        # accessing the feed_image of event pages shouldn't require a query
+        with self.assertNumQueries(0):
+            for page in pages:
+                if page.specific_class is EventPage:
+                    self.assertTrue(page.feed_image)
+
+    def test_specific_with_prefetch_related(self):
+        queryset = Page.objects.exact_type(EventPage).prefetch_related('related_links').specific()
+
+        # the prefetch_related should result in an additional query to fetch related_links
+        with self.assertNumQueries(2):
+            pages = set(queryset)
+
+        # the result should contain the same results
+        self.assertEqual(pages, {
+            EventPage.objects.get(url_path='/home/events/christmas/'),
+            EventPage.objects.get(url_path='/home/events/someone-elses-event/'),
+            EventPage.objects.get(url_path='/home/events/tentative-unpublished-event/'),
+            EventPage.objects.get(url_path='/home/other/special-event/'),
+        })
+
+        # accessing prefetched values shouldn't result in additional queries
+        with self.assertNumQueries(0):
+            for page in pages:
+                list(page.related_links.all())
 
     def test_specific_gracefully_handles_missing_models(self):
         # 3567 - PageQuerySet.specific should gracefully handle pages whose class definition
