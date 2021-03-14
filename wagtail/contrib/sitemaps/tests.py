@@ -63,8 +63,8 @@ class TestSitemapGenerator(TestCase):
             hostname='other.example.com', port=80, root_page=self.other_site_homepage
         )
 
-        # Clear the cache to that runs are deterministic regarding the sql count
-        ContentType.objects.clear_cache()
+        # populate cache so that test runs have deterministic query counts
+        ContentType.objects.get_for_models(Page, SimplePage, EventIndex)
 
     def get_request_and_django_site(self, url):
         request = RequestFactory().get(url)
@@ -93,7 +93,7 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(17):
+        with self.assertNumQueries(13):
             urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage
@@ -108,7 +108,7 @@ class TestSitemapGenerator(TestCase):
         # pre-seed find_for_request cache, so that it's not counted towards the query count
         Site.find_for_request(request)
 
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(10):
             urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage
@@ -120,7 +120,7 @@ class TestSitemapGenerator(TestCase):
         req_protocol = request.scheme
 
         sitemap = Sitemap()
-        with self.assertNumQueries(19):
+        with self.assertNumQueries(15):
             urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage
@@ -136,7 +136,7 @@ class TestSitemapGenerator(TestCase):
         # pre-seed find_for_request cache, so that it's not counted towards the query count
         Site.find_for_request(request)
 
-        with self.assertNumQueries(16):
+        with self.assertNumQueries(12):
             urls = [url['location'] for url in sitemap.get_urls(1, django_site, req_protocol)]
 
         self.assertIn('http://localhost/', urls)  # Homepage

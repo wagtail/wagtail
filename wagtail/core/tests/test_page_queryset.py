@@ -674,6 +674,10 @@ class TestSpecificQuery(TestCase):
 
     fixtures = ['test_specific.json']
 
+    def setUp(self):
+        # populate cache so that test runs have deterministic query counts
+        ContentType.objects.get_for_models(Page, SimplePage, EventIndex, EventPage)
+
     def test_specific(self):
         root = Page.objects.get(url_path='/home/')
 
@@ -681,9 +685,7 @@ class TestSpecificQuery(TestCase):
             # The query should be lazy.
             qs = root.get_descendants().specific()
 
-        with self.assertNumQueries(4):
-            # One query to get page type and ID, one query per page type:
-            # EventIndex, EventPage, SimplePage
+        with self.assertNumQueries(1):
             pages = list(qs)
 
         self.assertIsInstance(pages, list)
@@ -708,8 +710,7 @@ class TestSpecificQuery(TestCase):
         with self.assertNumQueries(0):
             qs = Page.objects.live().order_by('-url_path')[:3].specific()
 
-        with self.assertNumQueries(3):
-            # Metadata, EventIndex and EventPage
+        with self.assertNumQueries(1):
             pages = list(qs)
 
         self.assertEqual(len(pages), 3)
@@ -726,8 +727,7 @@ class TestSpecificQuery(TestCase):
         with self.assertNumQueries(0):
             qs = Page.objects.specific().live().in_menu().order_by('-url_path')[:4]
 
-        with self.assertNumQueries(4):
-            # Metadata, EventIndex, EventPage, SimplePage.
+        with self.assertNumQueries(1):
             pages = list(qs)
 
         self.assertEqual(len(pages), 4)
@@ -740,12 +740,12 @@ class TestSpecificQuery(TestCase):
 
     def test_specific_query_with_annotations_performs_no_additional_queries(self):
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(1):
             pages = list(Page.objects.live().specific())
 
             self.assertEqual(len(pages), 7)
 
-        with self.assertNumQueries(5):
+        with self.assertNumQueries(1):
             pages = list(Page.objects.live().specific().annotate(count=Count('pk')))
 
             self.assertEqual(len(pages), 7)
@@ -802,16 +802,16 @@ class TestSpecificQuery(TestCase):
         ])
 
     def test_specific_gracefully_handles_missing_rows(self):
-        # 5928 - PageQuerySet.specific should gracefully handle pages whose ContentType
+        # 5928 - PageQuerySet.specific should gracefully handle pages whose
         # row in the specific table no longer exists
 
         # Trick specific_iterator into always looking for EventPages
+        eventpage_ctype = ContentType.objects.get_for_model(EventPage)
         with mock.patch(
-            'wagtail.core.query.ContentType.objects.get_for_id',
-            return_value=ContentType.objects.get_for_model(EventPage),
+            'wagtail.core.query.ContentType.objects.get_for_models',
+            return_value={EventIndex: eventpage_ctype, SimplePage: eventpage_ctype}
         ):
-            with self.assertWarnsRegex(RuntimeWarning, "Specific versions of the following pages could not be found"):
-                pages = list(Page.objects.get(url_path='/home/').get_children().specific())
+            pages = list(Page.objects.get(url_path='/home/').get_children().specific())
 
             # All missing pages should be supplemented with generic pages
             self.assertEqual(pages, [
