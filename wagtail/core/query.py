@@ -1,13 +1,12 @@
 import posixpath
 import warnings
 
-from collections import defaultdict
-
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import CharField, Q
 from django.db.models.functions import Length, Substr
-from django.db.models.query import BaseIterable, ModelIterable
+from django.db.models.query import ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
 from wagtail.search.queryset import SearchableQuerySetMixin
@@ -229,7 +228,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         This filters the QuerySet to exclude any pages which are an instance of the specified model(s)
         (matching the model exactly, not subclasses).
         """
-        return self.exclude(self.exact_type_q(*types))
+        return self.exclude(self.exact_type_q(*types, excluding=True))
 
     def public_q(self):
         from wagtail.core.models import PageViewRestriction
@@ -419,86 +418,103 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.exclude(self.translation_of_q(page, inclusive))
 
 
-def specific_iterator(qs, defer=False):
-    """
-    This efficiently iterates all the specific pages in a queryset, using
-    the minimum number of queries.
+class SpecificIterable(ModelIterable):
 
-    This should be called from ``PageQuerySet.specific``
-    """
-    from wagtail.core.models import Page
+    def get_specific_lookups(self):
+        """
+        Return a dictionary of concrete subclasses that might appear in the
+        queryset result, along with the strings that can be used by
+        'select_related' to include the data for that model in the result.
+        """
+        return self.queryset.model.get_concrete_subclasses()
 
-    annotation_aliases = qs.query.annotations.keys()
-    values = qs.values('pk', 'content_type', *annotation_aliases)
+    def apply_specific_lookups(self, specific_lookups):
+        # Use select_related() to fetch subclass model data
+        # while retaining existing 'select_related' values
+        previous_select_related = self.queryset.query.select_related
+        queryset = self.queryset.select_related(*specific_lookups.values())
+        if isinstance(previous_select_related, dict):
+            queryset.query.select_related.update(previous_select_related)
+        self.queryset = queryset
 
-    annotations_by_pk = defaultdict(list)
-    if annotation_aliases:
-        # Extract annotation results keyed by pk so we can reapply to fetched pages.
-        for data in values:
-            annotations_by_pk[data['pk']] = {k: v for k, v in data.items() if k in annotation_aliases}
+    def defer_specific_streamfields(self, specific_lookups):
+        if not self.queryset._defer_streamfields:
+            return
 
-    pks_and_types = [[v['pk'], v['content_type']] for v in values]
-    pks_by_type = defaultdict(list)
-    for pk, content_type in pks_and_types:
-        pks_by_type[content_type].append(pk)
+        # Gather streamfield names from subclasses
+        field_names = []
+        for model, related_name in specific_lookups.items():
+            field_names.extend(model.get_streamfield_names(prefix=related_name))
+        if field_names:
+            # defer collected streamfield names
+            self.queryset = self.queryset.defer(*field_names)
 
-    # Content types are cached by ID, so this will not run any queries.
-    content_types = {pk: ContentType.objects.get_for_id(pk)
-                     for _, pk in pks_and_types}
-
-    # Get the specific instances of all pages, one model class at a time.
-    pages_by_type = {}
-    missing_pks = []
-
-    for content_type, pks in pks_by_type.items():
-        # look up model class for this content type, falling back on the original
-        # model (i.e. Page) if the more specific one is missing
-        model = content_types[content_type].model_class() or qs.model
-        pages = model.objects.filter(pk__in=pks)
-
-        if defer:
-            # Defer all specific fields
-            fields = [field.attname for field in Page._meta.get_fields() if field.concrete]
-            pages = pages.only(*fields)
-        elif qs._defer_streamfields:
-            pages = pages.defer_streamfields()
-
-        pages_for_type = {page.pk: page for page in pages}
-        pages_by_type[content_type] = pages_for_type
-        missing_pks.extend(
-            pk for pk in pks if pk not in pages_for_type
-        )
-
-    # Fetch generic pages to supplement missing items
-    if missing_pks:
-        generic_pages = Page.objects.filter(pk__in=missing_pks).select_related('content_type').in_bulk()
-        warnings.warn(
-            "Specific versions of the following pages could not be found. "
-            "This is most likely because a database migration has removed "
-            "the relevant table or record since the page was created:\n{}".format([
-                {'id': p.id, 'title': p.title, 'type': p.content_type}
-                for p in generic_pages.values()
-            ]), category=RuntimeWarning
-        )
-    else:
-        generic_pages = {}
-
-    # Yield all pages in the order they occurred in the original query.
-    for pk, content_type in pks_and_types:
-        try:
-            page = pages_by_type[content_type][pk]
-        except KeyError:
-            page = generic_pages[pk]
-        if annotation_aliases:
-            # Reapply annotations before returning
-            for annotation, value in annotations_by_pk.get(page.pk, {}).items():
-                setattr(page, annotation, value)
-        yield page
-
-
-class SpecificIterable(BaseIterable):
     def __iter__(self):
-        return specific_iterator(self.queryset)
+        specific_lookups = self.get_specific_lookups()
+
+        # Avoid additional work if there is no upgrading to be done
+        if not specific_lookups:
+            return super().__iter__()
+
+        self.apply_specific_lookups(specific_lookups)
+
+        if self.queryset._defer_streamfields:
+            self.defer_specific_streamfields(specific_lookups)
+
+        content_types = ContentType.objects.get_for_models(*specific_lookups.keys())
+        ctypeid_to_model = {
+            ctype.id: model for model, ctype in content_types.items()
+        }
+
+        for obj in super().__iter__():
+            target_model = ctypeid_to_model.get(obj.content_type_id)
+            if target_model is None:
+                yield obj
+                continue
+
+            related_name = specific_lookups.get(target_model)
+            if related_name:
+                yield self.upgrade_instance(obj, related_name)
+            else:
+                yield obj
+
+    @staticmethod
+    def upgrade_instance(obj, rel_name):
+        """
+        Upgrade a Page object to its most specific type, copying prefetched
+        data and any other attribute values.
+        """
+        if not rel_name:
+            return obj
+
+        new_obj = obj
+        for rel in rel_name.split("__"):
+            try:
+                new_obj = getattr(new_obj, rel)
+            except (ObjectDoesNotExist, AttributeError):
+                warnings.warn(
+                    "The specific version of the following page could not be "
+                    "returned, because its row in the specific model's table "
+                    "could not be found: <Page id:{} title:'{}' url_path:'{}'>"
+                    .format(obj.id, obj.title, obj.url_path),
+                    category=RuntimeWarning,
+                    stacklevel=3,
+                )
+                return new_obj
+
+        # copy prefetches
+        if hasattr(obj, "_prefetched_objects_cache"):
+            if not hasattr(new_obj, "_prefetched_objects_cache"):
+                new_obj._prefetched_objects_cache = {}
+            new_obj._prefetched_objects_cache.update(obj._prefetched_objects_cache)
+
+        # copy all other attributes values
+        for k, v in (
+            (k, v) for k, v in obj.__dict__.items() if k not in new_obj.__dict__
+        ):
+            setattr(new_obj, k, v)
+
+        return new_obj
 
 
 class DeferredSpecificIterable(ModelIterable):
