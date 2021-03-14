@@ -6,7 +6,6 @@ from django.db import models
 # on the user model)
 from wagtail.admin.auth import permission_denied  # noqa
 from wagtail.admin.edit_handlers import FieldPanel
-
 from wagtail.search import index
 
 from .fields import ConvertedValueField
