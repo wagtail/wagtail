@@ -1,3 +1,7 @@
+import operator
+
+from functools import reduce
+
 from django.conf import settings
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
