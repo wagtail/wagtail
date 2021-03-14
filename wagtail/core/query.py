@@ -139,12 +139,32 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         super().__init__(*args, **kwargs)
         # set by defer_streamfields()
         self._defer_streamfields = False
+        # set by type(), exact_type() or page()
+        self._types_requested = set()
+        # set by not_type() or not_exact_type()
+        self._types_excluded = set()
 
     def _clone(self):
         """Ensure clones inherit custom attribute values."""
         clone = super()._clone()
         clone._defer_streamfields = self._defer_streamfields
+        # these sets must be recreated in order to avoid
+        # unintended cross-queryset contamination
+        clone._types_requested = self._types_requested.copy()
+        clone._types_excluded = self._types_excluded.copy()
         return clone
+
+    def __and__(self, other):
+        combined = super().__and__(other)
+        combined._types_requested = self._types_requested & other._types_requested
+        combined._types_excluded = self._types_excluded & other._types_excluded
+        return combined
+
+    def __or__(self, other):
+        combined = super().__or__(other)
+        combined._types_requested = self._types_requested | other._types_requested
+        combined._types_excluded = self._types_excluded | other._types_excluded
+        return combined
 
     def live_q(self):
         return Q(live=True)
@@ -183,6 +203,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         This filters the QuerySet so it only contains the specified page.
         """
+        self._types_requested = {other.specific_class}
         return self.filter(self.page_q(other))
 
     def not_page(self, other):
@@ -191,11 +212,15 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.exclude(self.page_q(other))
 
-    def type_q(self, *types):
+    def type_q(self, *types, excluding=False):
         all_subclasses = set(
             model for model in apps.get_models()
             if issubclass(model, types)
         )
+        if excluding:
+            self._types_excluded.update(all_subclasses)
+        else:
+            self._types_requested = all_subclasses
         content_types = ContentType.objects.get_for_models(*all_subclasses)
         return Q(content_type__in=list(content_types.values()))
 
@@ -210,9 +235,13 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         This filters the QuerySet to exclude any pages which are an instance of the specified model(s).
         """
-        return self.exclude(self.type_q(*types))
+        return self.exclude(self.type_q(*types, excluding=True))
 
-    def exact_type_q(self, *types):
+    def exact_type_q(self, *types, excluding=False):
+        if excluding:
+            self._types_excluded.update(types)
+        else:
+            self._types_requested = set(types)
         content_types = ContentType.objects.get_for_models(*types)
         return Q(content_type__in=list(content_types.values()))
 
@@ -426,7 +455,22 @@ class SpecificIterable(ModelIterable):
         queryset result, along with the strings that can be used by
         'select_related' to include the data for that model in the result.
         """
-        return self.queryset.model.get_concrete_subclasses()
+        generic_type = self.queryset.model
+        all_type_info = generic_type.get_concrete_subclasses()
+
+        requested_types = self.queryset._types_requested
+        excluded_types = self.queryset._types_excluded
+
+        if not requested_types and not excluded_types:
+            return all_type_info
+
+        if requested_types:
+            types_of_interest = requested_types
+        else:
+            types_of_interest = set(all_type_info.keys())
+        return {
+            k: v for k, v in all_type_info.items() if k in types_of_interest and k not in excluded_types
+        }
 
     def apply_specific_lookups(self, specific_lookups):
         # Use select_related() to fetch subclass model data
