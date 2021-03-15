@@ -165,6 +165,11 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         results = response.context['users'].object_list
         self.assertIn(self.test_user, results)
 
+    @unittest.skipUnless(settings.AUTH_USER_MODEL == 'customuser.CustomUser', "Only applicable to CustomUser")
+    @override_settings(
+        WAGTAIL_USER_CREATION_FORM='wagtail.users.tests.CustomUserCreationForm',
+        WAGTAIL_USER_CUSTOM_FIELDS=['country', 'document'],
+    )
     def test_search_query_one_searchable_field(self):
         custom_user_with_country = self.create_user(
             username='testjoe',
@@ -179,6 +184,11 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         results = response.context['users'].object_list
         self.assertIn(custom_user_with_country, results)
 
+    @unittest.skipUnless(settings.AUTH_USER_MODEL == 'customuser.CustomUser', "Only applicable to CustomUser")
+    @override_settings(
+        WAGTAIL_USER_CREATION_FORM='wagtail.users.tests.CustomUserCreationForm',
+        WAGTAIL_USER_CUSTOM_FIELDS=['country', 'document'],
+    )
     def test_search_query_searchable_multiple_fields(self):
         custom_user_with_country = self.create_user(
             username='testjoe',
