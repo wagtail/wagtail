@@ -1,7 +1,7 @@
 .. _streamfield:
 
-How to use StreamField
-======================
+How to use StreamField for mixed content
+========================================
 
 StreamField provides a content editing model suitable for pages that do not follow a fixed structure -- such as blog posts or news stories -- where the text may be interspersed with subheadings, images, pull quotes and video. It's also suitable for more specialised content types, such as maps and charts (or, for a programming blog, code snippets). In this model, these different content types are represented as a sequence of 'blocks', which can be repeated and arranged in any order.
 
