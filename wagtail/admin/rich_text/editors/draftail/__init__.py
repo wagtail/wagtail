@@ -18,6 +18,9 @@ class DraftailRichTextArea(widgets.HiddenInput):
     # this class's constructor accepts a 'features' kwarg
     accepts_features = True
 
+    # Draftail has its own commenting
+    show_add_comment_button = False
+
     def get_panel(self):
         return RichTextFieldPanel
 

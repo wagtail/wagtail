@@ -134,6 +134,17 @@ function initFieldLevelCommentWidget(fieldElement) {
   }
 }
 
+export function initAddCommentButton(buttonElement) {
+  const widget = new FieldLevelCommentWidget({
+    fieldNode: buttonElement,
+    commentAdditionNode: buttonElement,
+    annotationTemplateNode: document.querySelector('#comment-icon')
+  });
+  if (widget.contentpath) {
+    window.commentApp.registerWidget(widget);
+  }
+}
+
 export default {
   initComments,
   FieldLevelCommentWidget,
