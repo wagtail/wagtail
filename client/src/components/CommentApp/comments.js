@@ -230,10 +230,10 @@ class FieldLevelCommentWidget {
   }
 }
 
-function initFieldLevelCommentWidget(fieldElement) {
+export function initAddCommentButton(buttonElement) {
   const widget = new FieldLevelCommentWidget({
-    fieldNode: fieldElement,
-    commentAdditionNode: fieldElement.querySelector('[data-comment-add]'),
+    fieldNode: buttonElement,
+    commentAdditionNode: buttonElement,
     annotationTemplateNode: document.querySelector('#comment-icon'),
     commentApp: window.commentApp
   });
@@ -246,6 +246,4 @@ export default {
   getContentPath,
   initComments,
   attachTabNav,
-  FieldLevelCommentWidget,
-  initFieldLevelCommentWidget
 };
