@@ -311,6 +311,60 @@ When reading back the content of a StreamField, the value of a StreamBlock is a 
     </article>
 
 
+Limiting block counts
+~~~~~~~~~~~~~~~~~~~~~
+
+By default, a StreamField can contain an unlimited number of blocks. The ``min_num`` and ``max_num`` options on ``StreamField`` or ``StreamBlock`` allow you to set a minimum or maximum number of blocks:
+
+.. code-block:: python
+
+    body = StreamField([
+        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ], min_num=2, max_num=5)
+
+Or equivalently:
+
+.. code-block:: python
+
+    class CommonContentBlock(blocks.StreamBlock):
+        heading = blocks.CharBlock(form_classname="full title")
+        paragraph = blocks.RichTextBlock()
+        image = ImageChooserBlock()
+
+        class Meta:
+            min_num = 2
+            max_num = 5
+
+
+The ``block_counts`` option can be used to set a minimum or maximum count for specific block types. This accepts a dict, mapping block names to a dict containing either or both of ``min_num`` and ``max_num``. For example, to permit between 1 and 3 'heading' blocks:
+
+.. code-block:: python
+
+    body = StreamField([
+        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ], block_counts={
+        'heading': {'min_num': 1, 'max_num': 3},
+    })
+
+Or equivalently:
+
+.. code-block:: python
+
+    class CommonContentBlock(blocks.StreamBlock):
+        heading = blocks.CharBlock(form_classname="full title")
+        paragraph = blocks.RichTextBlock()
+        image = ImageChooserBlock()
+
+        class Meta:
+            block_counts = {
+                'heading': {'min_num': 1, 'max_num': 3},
+            }
+
+
 .. _streamfield_per_block_templates:
 
 Per-block templates
