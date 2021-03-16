@@ -11,3 +11,4 @@ Customising Wagtail
     extending_hallo
     admin_templates
     custom_user_models
+    streamfield_blocks
