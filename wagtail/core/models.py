@@ -1411,6 +1411,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if clean:
             self.full_clean()
 
+        new_comments = self.comments.filter(pk__isnull=True)
+        for comment in new_comments:
+            # We need to ensure comments have an id in the revision, so positions can be identified correctly
+            comment.save()
+
         # Create revision
         revision = self.revisions.create(
             content_json=self.to_json(),
@@ -1419,10 +1424,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             approved_go_live_at=approved_go_live_at,
         )
 
-        update_fields = ['comments']
-
-        for comment in self.comments.filter(pk__isnull=True):
+        for comment in new_comments:
             comment.revision_created = revision
+
+        update_fields = ['comments']
 
         self.latest_revision_created_at = revision.created_at
         update_fields.append('latest_revision_created_at')
@@ -2817,7 +2822,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.translation_key = self.translation_key
         obj.locale = self.locale
         obj.alias_of_id = self.alias_of_id
-        obj.comments = self.comments.all()
+        revision_comments = obj.comments
+        page_comments = self.comments.all()
+
+        for comment in page_comments:
+            # attempt to retrieve the comment position from the revision's stored version
+            # of the comment
+            try:
+                revision_comment = revision_comments.get(id=comment.id)
+                comment.position = revision_comment.position
+            except Comment.DoesNotExist:
+                pass
+        obj.comments = page_comments
 
         return obj
 
@@ -3069,6 +3085,10 @@ class PageRevision(models.Model):
             page.live_revision = None
 
         page.save()
+
+        for comment in page.comments.all().only('position'):
+            comment.save(update_fields=['position'])
+
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
@@ -4870,9 +4890,7 @@ class PageLogEntry(BaseLogEntry):
 
 class Comment(ClusterableModel):
     """
-    A comment on a field, or a field within a streamfield block. This model stores the comment data that applies to all page revisions.
-    Any data which applies only for a single revision, or may change between revisions (such as position within a field) is stored on
-    CommentPosition.
+    A comment on a field, or a field within a streamfield block
     """
     page = ParentalKey(Page, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
@@ -4881,7 +4899,9 @@ class Comment(ClusterableModel):
     contentpath = models.TextField()
     # This stores the field or field within a streamfield block that the comment is applied on, in the form: 'field', or 'field.block_id.field'
     # This must be unchanging across all revisions, so we will not support (current-format) ListBlock or the contents of InlinePanels initially.
-    # When these are included, it should probably be in the form of a "changable contentpath" extension within CommentPosition
+
+    position = models.TextField(blank=True)
+    # This stores the position within a field, to be interpreted by the field's frontend widget. It may change between revisions
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -4896,25 +4916,21 @@ class Comment(ClusterableModel):
     def __str__(self):
         return "Comment on Page '{0}', left by {1}: '{2}'".format(self.page, self.user, self.text)
 
-
-class CommentPosition(models.Model):
-    """
-    The revision-specific position data for a Comment. If the Comment is field level, it may not have a CommentPosition at all.
-    """
-
-    revision = models.ForeignKey(PageRevision, on_delete=models.CASCADE, related_name='comment_position')
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='positions')
-
-    position = models.TextField()
-    # The position of the comment within a field. The meaning and content of this is determined by the field itself: for example,
-    # for a RichTextField this could be a paragraph id and numerical offsets to indicate a text range
-
-    class Meta:
-        verbose_name = _('comment position')
-        verbose_name_plural = _('comment positions')
-
-    def __str__(self):
-        return "CommentPosition for Comment '{0}' on PageRevision '{1}'".format(self.comment.text, self.revision)
+    def save(self, update_position=False, **kwargs):
+        # Don't save the position unless specifically instructed to, as the position will normally be retrieved from the revision
+        update_fields = kwargs.pop('update_fields', None)
+        if not update_position and (not update_fields or 'position' not in update_fields):
+            if self.id:
+                # The instance is already saved; we can use `update_fields`
+                update_fields = update_fields if update_fields else self._meta.get_fields()
+                update_fields = [field.name for field in update_fields if field.name not in {'position', 'id'}]
+            else:
+                # This is a new instance, we have to preserve and then restore the position via a variable
+                position = self.position
+                result = super().save(**kwargs)
+                self.position = position
+                return result
+        return super().save(update_fields=update_fields, **kwargs)
 
 
 class CommentReply(models.Model):
