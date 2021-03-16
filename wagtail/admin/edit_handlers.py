@@ -433,6 +433,7 @@ class FieldPanel(EditHandler):
             self.widget = widget
         super().__init__(*args, **kwargs)
         self.field_name = field_name
+        self.comments_enabled = not kwargs.pop('disable_comments', False)
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
@@ -481,6 +482,7 @@ class FieldPanel(EditHandler):
         return mark_safe(render_to_string(self.field_template, {
             'field': self.bound_field,
             'field_type': self.field_type(),
+            'show_add_comment_button': self.comments_enabled and getattr(self.bound_field.field.widget, 'show_add_comment_button', True),
         }))
 
     def required_fields(self):
@@ -581,6 +583,7 @@ class BaseChooserPanel(FieldPanel):
             'field': self.bound_field,
             self.object_type_name: instance_obj,
             'is_chosen': bool(instance_obj),  # DEPRECATED - passed to templates for backwards compatibility only
+            'show_add_comment_button': self.comments_enabled and getattr(self.bound_field.field.widget, 'show_add_comment_button', True),
         }
         return mark_safe(render_to_string(self.field_template, context))
 

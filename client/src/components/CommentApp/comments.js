@@ -14,6 +14,9 @@ function initComments() {
     window.commentApp.renderApp(
       commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS
     );
+
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    document.querySelectorAll('[data-component="add-comment-button"]').forEach(initAddCommentButton);
   });
 }
 
@@ -230,10 +233,10 @@ class FieldLevelCommentWidget {
   }
 }
 
-function initFieldLevelCommentWidget(fieldElement) {
+export function initAddCommentButton(buttonElement) {
   const widget = new FieldLevelCommentWidget({
-    fieldNode: fieldElement,
-    commentAdditionNode: fieldElement.querySelector('[data-comment-add]'),
+    fieldNode: buttonElement,
+    commentAdditionNode: buttonElement,
     annotationTemplateNode: document.querySelector('#comment-icon'),
     commentApp: window.commentApp
   });
@@ -246,6 +249,4 @@ export default {
   getContentPath,
   initComments,
   attachTabNav,
-  FieldLevelCommentWidget,
-  initFieldLevelCommentWidget
 };
