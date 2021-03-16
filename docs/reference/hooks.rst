@@ -1311,7 +1311,7 @@ Audit log
 
         from wagtail.core import hooks
 
-        @hook.register('register_log_actions')
+        @hooks.register('register_log_actions')
         def additional_log_actions(actions):
             actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
 
