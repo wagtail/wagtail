@@ -134,6 +134,25 @@ class DraftailInlineAnnotation implements Annotation {
   }
 }
 
+
+function applyInlineStyleToRange({ contentState, style, blockKey, start, end }:
+  {contentState: ContentState,
+    style: string,
+    blockKey: BlockKey,
+    start: number,
+    end: number}
+) {
+  return Modifier.applyInlineStyle(contentState,
+    new SelectionState({
+      anchorKey: blockKey,
+      anchorOffset: start,
+      focusKey: blockKey,
+      focusOffset: end
+    }),
+    style
+  );
+}
+
 /**
  * Get a selection state corresponding to the full contentState.
  */
@@ -161,7 +180,7 @@ function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNod
       icon={<Icon name="comment" />}
       onClick={() => {
         const annotation = new DraftailInlineAnnotation(fieldNode);
-        const commentId = commentApp.makeComment(annotation, contentPath);
+        const commentId = commentApp.makeComment(annotation, contentPath, '[]');
         onChange(
           RichUtils.toggleInlineStyle(
             getEditorState(),
@@ -424,6 +443,35 @@ function CommentableEditor({
     setUniqueStyleId((id) => (id + 1) % 200);
   }, [focusedId, enabled, inlineStyles, ids, editorState]);
 
+  useEffect(() => {
+    // if there are any comments without annotations, we need to add them to the EditorState
+    let contentState = editorState.getCurrentContent();
+    let hasUpdated = false;
+    comments.filter(comment => !comment.annotation).forEach((comment) => {
+      commentApp.updateAnnotation(new DraftailInlineAnnotation(fieldNode), comment.localId);
+      const style = `${COMMENT_STYLE_IDENTIFIER}${comment.localId}`;
+      try {
+        const positions = JSON.parse(comment.position);
+        positions.forEach((position) => {
+          contentState = applyInlineStyleToRange({
+            contentState,
+            blockKey: position.key,
+            start: position.start,
+            end: position.end,
+            style
+          });
+          hasUpdated = true;
+        });
+      } catch (err) {
+        console.error(`Error loading comment position for comment ${comment.localId}`);
+        console.error(err);
+      }
+    });
+    if (hasUpdated) {
+      setEditorState(forceResetEditorState(editorState, contentState));
+    }
+  }, [comments]);
+
   const timeoutRef = useRef<number | undefined>();
   useEffect(() => {
     // This replicates the onSave logic in Draftail, but only saves the state with all
@@ -438,7 +486,50 @@ function CommentableEditor({
       'change-inline-style'
     );
     timeoutRef.current = window.setTimeout(
-      () => onSave(serialiseEditorStateToRaw(filteredEditorState)),
+      () => {
+        onSave(serialiseEditorStateToRaw(filteredEditorState));
+
+        // Next, update comment positions in the redux store
+
+        // Construct a map of comment id -> array of style ranges
+        const commentPositions = new Map();
+        editorState.getCurrentContent().getBlocksAsArray().forEach(
+          (block) => {
+            const key = block.getKey();
+            block.findStyleRanges((metadata) => metadata.getStyle().some(styleIsComment),
+              (start, end) => {
+                block.getInlineStyleAt(start).filter(styleIsComment).forEach(
+                  (style) => {
+                    const id = getIdForCommentStyle(style);
+                    let existingPosition = commentPositions.get(id);
+                    if (!existingPosition) {
+                      existingPosition = [];
+                    }
+                    existingPosition.push({
+                      key: key,
+                      start: start,
+                      end: end
+                    });
+                    commentPositions.set(id, existingPosition);
+                  }
+                );
+              });
+          }
+        );
+        comments.filter(comment => comment.annotation).forEach((comment) => {
+          // if a comment has an annotation - ie the field has it inserted - update its position
+          const newPosition = commentPositions.get(comment.localId);
+          const serializedNewPosition = newPosition ? JSON.stringify(newPosition) : '[]';
+          if (comment.position !== serializedNewPosition) {
+            commentApp.store.dispatch(
+              commentApp.actions.updateComment(
+                comment.localId,
+                { position: serializedNewPosition }
+              )
+            );
+          }
+        });
+      },
       250
     );
     return () => {
