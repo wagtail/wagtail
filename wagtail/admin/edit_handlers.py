@@ -821,7 +821,7 @@ class CommentPanel(EditHandler):
         return {
             'comments': {
                 'form': CommentFormWithRequest,
-                'fields': ['text', 'contentpath'],
+                'fields': ['text', 'contentpath', 'position'],
             }
         }
 
