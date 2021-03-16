@@ -20,7 +20,7 @@ export class BaseSequenceChild {
     const strings = (opts && opts.strings) || {};
 
     const dom = $(`
-      <div aria-hidden="false">
+      <div aria-hidden="false" ${this.id ? `data-contentpath="${h(this.id)}"` : 'data-contentpath-disabled'}>
         <input type="hidden"  name="${this.prefix}-deleted" value="">
         <input type="hidden" name="${this.prefix}-order" value="${index}">
         <input type="hidden" name="${this.prefix}-type" value="${h(this.type || '')}">

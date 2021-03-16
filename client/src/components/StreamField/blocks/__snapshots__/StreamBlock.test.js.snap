@@ -15,7 +15,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"test_block_a\\">
@@ -67,7 +67,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"2\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"test_block_b\\">
@@ -119,7 +119,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath-disabled=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-order\\" value=\\"2\\">
         <input type=\\"hidden\\" name=\\"the-prefix-2-type\\" value=\\"test_block_b\\">
@@ -190,7 +190,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"2\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"0\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"test_block_b\\">
@@ -242,7 +242,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"test_block_a\\">
@@ -313,7 +313,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"2\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"0\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"test_block_b\\">
@@ -365,7 +365,7 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"test_block_a\\">
@@ -436,7 +436,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"test_block_a\\">
@@ -488,7 +488,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"2\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"test_block_b\\">
@@ -559,7 +559,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"test_block_a\\">
@@ -621,7 +621,7 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
             <span class=\\"c-sf-button__label\\">Test Block B</span>
           </button></div></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"2\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"test_block_b\\">
@@ -702,7 +702,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
             <span class=\\"c-sf-button__label\\">Test Block &lt;B&gt;</span>
           </button></div></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
         <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"test_block_a\\">
@@ -754,7 +754,7 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
         <div data-streamblock-menu-outer=\\"\\" style=\\"display: none;\\" aria-hidden=\\"true\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"></div>
         </div>
-      </div><div aria-hidden=\\"false\\">
+      </div><div aria-hidden=\\"false\\" data-contentpath=\\"2\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
         <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"test_block_b\\">
