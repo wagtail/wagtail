@@ -70,6 +70,7 @@ class ModelAdmin(WagtailRegisterable):
 
     model = None
     menu_label = None
+    menu_name = None
     menu_icon = None
     menu_order = None
     list_display = ('__str__',)
@@ -164,6 +165,12 @@ class ModelAdmin(WagtailRegisterable):
         Returns the label text to be used for the menu item.
         """
         return self.menu_label or self.opts.verbose_name_plural.title()
+
+    def get_menu_name(self):
+        """
+        Returns the name of the menu item.
+        """
+        return self.menu_name
 
     def get_menu_icon(self):
         """
@@ -584,6 +591,7 @@ class ModelAdminGroup(WagtailRegisterable):
     """
     items = ()
     menu_label = None
+    menu_name = None
     menu_order = None
     menu_icon = None
 
@@ -599,6 +607,12 @@ class ModelAdminGroup(WagtailRegisterable):
 
     def get_menu_label(self):
         return self.menu_label or self.get_app_label_from_subitems()
+
+    def get_menu_name(self):
+        """
+        Returns the name of the menu item representing this group.
+        """
+        return self.menu_name
 
     def get_app_label_from_subitems(self):
         for instance in self.modeladmin_instances:

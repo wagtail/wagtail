@@ -18,6 +18,7 @@ class ModelAdminMenuItem(MenuItem):
             icon_name = menu_icon
         super().__init__(
             label=model_admin.get_menu_label(), url=url,
+            name=model_admin.get_menu_name(),
             classnames=classnames, icon_name=icon_name, order=order)
 
     def is_shown(self, request):
@@ -40,6 +41,7 @@ class GroupMenuItem(SubmenuMenuItem):
             icon_name = menu_icon
         super().__init__(
             label=modeladmingroup.get_menu_label(), menu=menu,
+            name=modeladmingroup.get_menu_name(),
             classnames=classnames, icon_name=icon_name, order=order, )
 
     def is_shown(self, request):
