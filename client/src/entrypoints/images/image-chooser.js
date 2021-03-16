@@ -93,10 +93,6 @@ function createImageChooser(id) {
     chooser.clear();
   });
 
-  if (window.comments) {
-    window.comments.initFieldLevelCommentWidget(chooserElement[0]);
-  }
-
   return chooser;
 }
 window.createImageChooser = createImageChooser;

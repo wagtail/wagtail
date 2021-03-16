@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags %}
+{% load wagtailadmin_tags i18n %}
 <div class="field {{ field|fieldtype }} {{ field|widgettype }} {{ field_classes }}" data-contentpath="{{ field.name }}">
     {% if show_label|default_if_none:True %}{{ field.label_tag }}{% endif %}
     <div class="field-content">
@@ -6,7 +6,7 @@
             {% block form_field %}
                 {{ field|render_with_errors }}
             {% endblock %}
-            
+
             {# This span only used on rare occasions by certain types of input #}
             <span></span>
         </div>
@@ -20,6 +20,10 @@
                     <span>{{ error|escape }}</span>
                 {% endfor %}
             </p>
+        {% endif %}
+
+        {% if show_add_comment_button %}
+            <button type="button" data-component="add-comment-button" class="button button-secondary button-small" aria-label="{% trans 'Add comment' %}"><svg class="icon icon-comment initial" aria-hidden="true" focusable="false"><use href="#icon-comment"></use></svg></button>
         {% endif %}
     </div>
 </div>
