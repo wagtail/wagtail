@@ -185,6 +185,8 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
 
     const timeoutRef = useRef();
     useEffect(() => {
+      // This replicates the onSave logic in Draftail, but only saves the state with all
+      // comment styles filtered out
       window.clearTimeout(timeoutRef.current);
       const filteredEditorState = EditorState.push(
         editorState,
