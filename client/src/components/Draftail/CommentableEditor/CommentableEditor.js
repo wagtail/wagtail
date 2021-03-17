@@ -13,7 +13,7 @@ function usePrevious(value) {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
-  }, [value]); // Only re-run if value changes
+  }, [value]);
   return ref.current;
 }
 
