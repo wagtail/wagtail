@@ -92,7 +92,7 @@ class BasicFieldLevelAnnotation {
   }
   onUnfocus() {
     this.node.classList.add('button-secondary');
-    this.node.ariaLabel = STRINGS.UNFOCUS_COMMENT;
+    this.node.ariaLabel = STRINGS.FOCUS_COMMENT;
     // TODO: ensure comment is focused accessibly when this is clicked,
     // and that screenreader users can return to the annotation point when desired
   }
