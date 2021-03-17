@@ -107,14 +107,14 @@ function getCommentDecorator(commentApp) {
     }
     // TODO: determine the correct way to make this accessible, allowing both editing and focus jumps
     return (
-      <a 
-        type="button"
+      <span 
+        role="button"
         ref={annotationNode}
         onClick={onClick}
         data-annotation
       >
         {children}
-      </a>
+      </span>
     )
   }
   return CommentDecorator
