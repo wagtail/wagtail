@@ -158,7 +158,7 @@ class FieldLevelCommentWidget {
             annotation,
             comment.localId
           );
-          annotation.subscribeToUpdates(comment.localId, this.commentApp.store);
+          annotation.subscribeToUpdates(comment.localId);
         });
       }
       if (enabledChanged || commentsChanged) {
