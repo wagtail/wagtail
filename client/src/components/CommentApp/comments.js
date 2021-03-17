@@ -56,7 +56,7 @@ class BasicFieldLevelAnnotation {
     this.unsubscribe = store.subscribe(() => {
       const state = store.getState();
       const comment = selectComment(state);
-      if (comment === undefined) {
+      if (!comment) {
         this.onDelete();
       }
       const nowFocused = (selectFocused(state) === localId);
