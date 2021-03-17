@@ -177,7 +177,7 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
         Modifier.applyInlineStyle(
           filteredContent,
           getFullSelectionState(filteredContent),
-          'STYLE_RERENDER_'+uniqueStyleId
+          `STYLE_RERENDER_'${uniqueStyleId}`
         )
       ))
       setUniqueStyleId((id) => (id + 1) % 200);
