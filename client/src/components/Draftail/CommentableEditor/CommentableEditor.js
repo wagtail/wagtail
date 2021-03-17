@@ -41,8 +41,10 @@ class DraftailInlineAnnotation {
     }
 }
 
+/**
+ * Get a selection state corresponding to the full contentState.
+ */
 function getFullSelectionState(contentState) {
-  // Get a selection state corresponding to the full contentState
   const lastBlock = contentState.getLastBlock();
   let fullSelectionState = SelectionState.createEmpty();
   fullSelectionState = fullSelectionState.set('anchorKey', contentState.getFirstBlock().getKey());
