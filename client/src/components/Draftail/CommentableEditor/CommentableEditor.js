@@ -48,8 +48,8 @@ function getFullSelectionState(contentState) {
   const lastBlock = contentState.getLastBlock();
   let fullSelectionState = SelectionState.createEmpty();
   fullSelectionState = fullSelectionState.set('anchorKey', contentState.getFirstBlock().getKey());
-  fullSelectionState = fullSelectionState.set('focusKey', lastBlock.getKey());
   fullSelectionState = fullSelectionState.set('anchorOffset', 0);
+  fullSelectionState = fullSelectionState.set('focusKey', lastBlock.getKey());
   fullSelectionState = fullSelectionState.set('focusOffset', lastBlock.getLength());
   return fullSelectionState
 }
