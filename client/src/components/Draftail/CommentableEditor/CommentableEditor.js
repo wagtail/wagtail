@@ -62,7 +62,7 @@ function getCommentControl(commentApp, contentPath, fieldNode) {
       onClick={() => {
         const annotation = new DraftailInlineAnnotation(fieldNode)
         const commentId = commentApp.makeComment(annotation, contentPath);
-        onChange(RichUtils.toggleInlineStyle(getEditorState(), COMMENT_STYLE_IDENTIFIER + commentId))
+        onChange(RichUtils.toggleInlineStyle(getEditorState(), `${COMMENT_STYLE_IDENTIFIER}${commentId}`))
       }}
     />
   }
@@ -148,7 +148,7 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
     const ids = useMemo(() => comments.map(comment => comment.localId), [comments]);
 
     const commentStyles = useMemo(() => ids.map(id => {return {
-      type: COMMENT_STYLE_IDENTIFIER + id,
+      type: `${COMMENT_STYLE_IDENTIFIER}${id}`,
       style: enabled ? {
         'background-color': (focusedId !== id) ? '#01afb0' : '#007d7e'
       } : {}
@@ -168,7 +168,7 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
       }
 
       // Filter out any invalid styles - deleted comments, or now unneeded STYLE_RERENDER forcing styles
-      const filteredContent = filterInlineStyles(inlineStyles.map(style => style.type).concat(ids.map(id => COMMENT_STYLE_IDENTIFIER + id)), editorState.getCurrentContent())
+      const filteredContent = filterInlineStyles(inlineStyles.map(style => style.type).concat(ids.map(id => `${COMMENT_STYLE_IDENTIFIER}${id}`)), editorState.getCurrentContent())
       // Force reset the editor state to ensure redecoration, and apply a new (blank) inline style to force inline style rerender
       // This must be entirely new for the rerender to trigger, hence the unique style id, as with the undo stack we cannot guarantee
       // that a previous style won't persist without filtering everywhere, which seems a bit too heavyweight
