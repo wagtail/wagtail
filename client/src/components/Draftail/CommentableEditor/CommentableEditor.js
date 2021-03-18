@@ -143,10 +143,7 @@ function getCommentDecorator(commentApp) {
 
       // Pin and focus the clicked comment
       commentApp.store.dispatch(
-        commentApp.actions.setFocusedComment(commentId)
-      );
-      commentApp.store.dispatch(
-        commentApp.actions.setPinnedComment(commentId)
+        commentApp.actions.setFocusedComment(commentId, {updatePinnedComment: true})
       );
     }
     // TODO: determine the correct way to make this accessible, allowing both editing and focus jumps
@@ -196,7 +193,7 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
       style: enabled ? {
         'background-color': (focusedId !== id) ? '#01afb0' : '#007d7e'
       } : {}
-    })), [ids, enabled]);
+    })), [ids, enabled, focusedId]);
 
     const [uniqueStyleId, setUniqueStyleId] = useState(0)
 
@@ -221,7 +218,7 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
         Modifier.applyInlineStyle(
           filteredContent,
           getFullSelectionState(filteredContent),
-          `STYLE_RERENDER_'${uniqueStyleId}`
+          `STYLE_RERENDER_${uniqueStyleId}`
         )
       ))
       setUniqueStyleId((id) => (id + 1) % 200);
