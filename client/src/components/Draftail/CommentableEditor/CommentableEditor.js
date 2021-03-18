@@ -20,21 +20,60 @@ function usePrevious(value) {
 class DraftailInlineAnnotation {
     constructor(field) {
       this.field = field;
-      this.inlineRefs = new Set()
+      this.inlineRefs = new Map();
+      this.focusedBlockKey = '';
+      this.cachedMedianRef = null;
     }
-    addRef(ref) {
-      this.inlineRefs.add(ref);
+    addRef(ref, blockKey) {
+      this.inlineRefs.set(ref, blockKey);
+
+      // We're adding a ref, so remove the cached median refs - this needs to be recalculated
+      this.cachedMedianRef = null;
     }
     removeRef(ref) {
       this.inlineRefs.delete(ref);
+
+      // We're deleting a ref, so remove the cached median refs - this needs to be recalculated
+      this.cachedMedianRef = null;
     }
-    getDesiredPosition() {
-      const nodeTops = Array.from(this.inlineRefs).map(ref => ref.current).filter(node => node).map(node => node.getBoundingClientRect().top)
-      if (nodeTops.length > 0) {
-        return nodeTops.reduce((a,b) => a + b, 0)/nodeTops.length + document.documentElement.scrollTop
+    setFocusedBlockKey(blockKey) {
+      this.focusedBlockKey = blockKey;
+    }
+    static getHeightForRef(ref) {
+      return ref.current.getBoundingClientRect().top
+    }
+    static getMedianRef(refArray) {
+      const refs = refArray.sort((a, b) => this.getHeightForRef(a) - this.getHeightForRef(b))
+      const length = refs.length
+      if (length > 0) {
+        return refs[Math.ceil(length/2 - 1)]
       }
+      return null
+    }
+    getDesiredPosition(focused = false) {
+      // The comment should always aim to float by an annotation, rather than between them, so uses the median height decorator ref
+      let medianRef = null
+      if (focused) {
+        // If the comment is focused, calculate the median of refs only within the focused block, to ensure the comment is visisble
+        // if the highlight has somehow been split up
+        medianRef = this.constructor.getMedianRef(Array.from(this.inlineRefs.keys()).filter((ref) => this.inlineRefs.get(ref) === this.focusedBlockKey));
+      } else if (!this.cachedMedianRef) {
+        // Our cache is empty - try to update it
+        medianRef = this.constructor.getMedianRef(Array.from(this.inlineRefs.keys()));
+        this.cachedMedianRef = medianRef;
+      } else {
+        // Use the cached median refs
+        medianRef = this.cachedMedianRef;
+      }
+      
+      if (medianRef) {
+        // We have a median ref - calculate its height
+        return this.constructor.getHeightForRef(medianRef) + document.documentElement.scrollTop
+      }
+
       const fieldNode = this.field
       if (fieldNode) {
+        // Fallback to the field node, if the comment has no decorator refs
         return fieldNode.getBoundingClientRect().top + document.documentElement.scrollTop
       }
       return 0
@@ -89,7 +128,7 @@ function getCommentDecorator(commentApp) {
       // This adds rather than sets the ref, so that a comment may be attached across paragraphs or around entities
       const annotation = commentApp.layout.commentAnnotations.get(commentId)
       if (annotation) {
-        annotation.addRef(annotationNode);
+        annotation.addRef(annotationNode, blockKey);
       }
       return () => {
         const annotation = commentApp.layout.commentAnnotations.get(commentId)
@@ -97,8 +136,11 @@ function getCommentDecorator(commentApp) {
           annotation.removeRef(annotationNode);
         }
       }
-    });
+    }, [commentId, annotationNode, blockKey]);
     const onClick = () => {
+      // Ensure the comment will appear alongside the current block
+      commentApp.layout.commentAnnotations.get(commentId).setFocusedBlockKey(blockKey);
+
       // Pin and focus the clicked comment
       commentApp.store.dispatch(
         commentApp.actions.setFocusedComment(commentId)
