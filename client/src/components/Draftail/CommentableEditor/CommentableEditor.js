@@ -191,12 +191,12 @@ function CommentableEditor({commentApp, fieldNode, contentPath, rawContentState,
 
     const ids = useMemo(() => comments.map(comment => comment.localId), [comments]);
 
-    const commentStyles = useMemo(() => ids.map(id => {return {
+    const commentStyles = useMemo(() => ids.map(id => ({
       type: `${COMMENT_STYLE_IDENTIFIER}${id}`,
       style: enabled ? {
         'background-color': (focusedId !== id) ? '#01afb0' : '#007d7e'
       } : {}
-    }}), [ids, enabled]);
+    })), [ids, enabled]);
 
     const [uniqueStyleId, setUniqueStyleId] = useState(0)
 
