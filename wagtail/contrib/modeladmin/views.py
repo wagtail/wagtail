@@ -14,6 +14,7 @@ from django.core.exceptions import (
     SuspiciousOperation)
 from django.core.paginator import InvalidPage, Paginator
 from django.db import models
+from django.db.models.expressions import Combinable, OrderBy
 from django.db.models.fields.related import ManyToManyField, OneToOneRel
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
@@ -487,8 +488,16 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
                     order_field = self.get_ordering_field(field_name)
                     if not order_field:
                         continue  # No 'admin_order_field', skip it
+                    if isinstance(order_field, OrderBy):
+                        if pfx == '-':
+                            order_field = order_field.copy()
+                            order_field.reverse_ordering()
+                        ordering.append(order_field)
+                    elif hasattr(order_field, 'resolve_expression'):
+                        # order_field is an expression.
+                        ordering.append(order_field.desc() if pfx == '-' else order_field.asc())
                     # reverse order if order_field has already "-" as prefix
-                    if order_field.startswith('-') and pfx == "-":
+                    elif order_field.startswith('-') and pfx == '-':
                         ordering.append(order_field[1:])
                     else:
                         ordering.append(pfx + order_field)
@@ -523,7 +532,15 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
             # know the right column numbers absolutely, because there might be
             # morr than one column associated with that ordering, so we guess.
             for field in ordering:
-                if field.startswith('-'):
+                if isinstance(field, (Combinable, OrderBy)):
+                    if not isinstance(field, OrderBy):
+                        field = field.asc()
+                    if isinstance(field.expression, models.F):
+                        order_type = 'desc' if field.descending else 'asc'
+                        field = field.expression.name
+                    else:
+                        continue
+                elif field.startswith('-'):
                     field = field[1:]
                     order_type = 'desc'
                 else:
