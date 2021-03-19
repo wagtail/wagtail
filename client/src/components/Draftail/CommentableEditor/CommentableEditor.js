@@ -29,18 +29,18 @@ class DraftailInlineAnnotation {
     */
     constructor(field) {
       this.field = field;
-      this.inlineRefs = new Map();
+      this.decoratorRefs = new Map();
       this.focusedBlockKey = '';
       this.cachedMedianRef = null;
     }
-    addRef(ref, blockKey) {
-      this.inlineRefs.set(ref, blockKey);
+    addDecoratorRef(ref, blockKey) {
+      this.decoratorRefs.set(ref, blockKey);
 
       // We're adding a ref, so remove the cached median refs - this needs to be recalculated
       this.cachedMedianRef = null;
     }
-    removeRef(ref) {
-      this.inlineRefs.delete(ref);
+    removeDecoratorRef(ref) {
+      this.decoratorRefs.delete(ref);
 
       // We're deleting a ref, so remove the cached median refs - this needs to be recalculated
       this.cachedMedianRef = null;
@@ -60,15 +60,15 @@ class DraftailInlineAnnotation {
       return null
     }
     getDesiredPosition(focused = false) {
-      // The comment should always aim to float by an annotation, rather than between them, so uses the median height decorator ref
+      // The comment should always aim to float by an annotation, rather than between them, so calculate which annotation is the median one by height and float the comment by that
       let medianRef = null
       if (focused) {
         // If the comment is focused, calculate the median of refs only within the focused block, to ensure the comment is visisble
         // if the highlight has somehow been split up
-        medianRef = this.constructor.getMedianRef(Array.from(this.inlineRefs.keys()).filter((ref) => this.inlineRefs.get(ref) === this.focusedBlockKey));
+        medianRef = this.constructor.getMedianRef(Array.from(this.decoratorRefs.keys()).filter((ref) => this.decoratorRefs.get(ref) === this.focusedBlockKey));
       } else if (!this.cachedMedianRef) {
         // Our cache is empty - try to update it
-        medianRef = this.constructor.getMedianRef(Array.from(this.inlineRefs.keys()));
+        medianRef = this.constructor.getMedianRef(Array.from(this.decoratorRefs.keys()));
         this.cachedMedianRef = medianRef;
       } else {
         // Use the cached median refs
@@ -137,12 +137,12 @@ function getCommentDecorator(commentApp) {
       // This adds rather than sets the ref, so that a comment may be attached across paragraphs or around entities
       const annotation = commentApp.layout.commentAnnotations.get(commentId)
       if (annotation) {
-        annotation.addRef(annotationNode, blockKey);
+        annotation.addDecoratorRef(annotationNode, blockKey);
       }
       return () => {
         const annotation = commentApp.layout.commentAnnotations.get(commentId)
         if (annotation) {
-          annotation.removeRef(annotationNode);
+          annotation.removeDecoratorRef(annotationNode);
         }
       }
     }, [commentId, annotationNode, blockKey]);
