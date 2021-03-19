@@ -17,7 +17,16 @@ function usePrevious(value) {
   return ref.current;
 }
 
+/**
+ * Controls the positioning of a comment that has been added to Draftail.
+ * `getDesiredPosition` is called by the comments app to determine the height
+ * at which to float the comment.
+ */
 class DraftailInlineAnnotation {
+    /**
+    * Create an inline annotation
+    * @param {Element} field - an element to provide the fallback position for comments without any inline decorators
+    */
     constructor(field) {
       this.field = field;
       this.inlineRefs = new Map();

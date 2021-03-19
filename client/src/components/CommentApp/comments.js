@@ -32,14 +32,30 @@ function getContentPath(fieldNode) {
   return contentpaths.join('.');
 }
 
+/**
+ * Controls the positioning of a field level comment, and the display of the button
+ * used to focus and pin the attached comment
+ * `getDesiredPosition` is called by the comments app to determine the height
+ * at which to float the comment.
+ */
 class BasicFieldLevelAnnotation {
+  /**
+  * Create a field-level annotation
+  * @param {Element} fieldNode - an element to provide the comment position
+  * @param {Element} node - the button to focus/pin the comment
+  * @param commentApp - the commentApp the annotation is integrating with
+  */
   constructor(fieldNode, node, commentApp) {
     this.node = node;
     this.fieldNode = fieldNode;
-    this.position = '';
     this.unsubscribe = null;
     this.commentApp = commentApp;
   }
+  /**
+  * Subscribes the annotation to update when the state of a particular comment changes,
+  * and to focus that comment when clicked
+  * @param {number} localId - the localId of the comment to subscribe to
+  */
   subscribeToUpdates(localId) {
     const { selectFocused, selectEnabled } = this.commentApp.selectors;
     const selectComment = this.commentApp.utils.selectCommentFactory(localId);
