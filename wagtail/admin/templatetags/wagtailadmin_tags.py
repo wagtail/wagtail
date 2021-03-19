@@ -65,7 +65,7 @@ def main_nav(context):
 
 
 @register.inclusion_tag('wagtailadmin/shared/breadcrumb.html', takes_context=True)
-def explorer_breadcrumb(context, page, include_self=False):
+def explorer_breadcrumb(context, page, include_self=True):
     user = context['request'].user
 
     # find the closest common ancestor of the pages that this user has direct explore permission
