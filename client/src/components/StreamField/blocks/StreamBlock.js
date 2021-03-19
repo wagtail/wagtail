@@ -1,5 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { BaseSequenceBlock, BaseSequenceChild, BaseInsertionControl } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 
@@ -287,7 +289,7 @@ export class StreamBlock extends BaseSequenceBlock {
     */
     const blockDef = this.blockDef.childBlockDefsByName[type];
     const initialState = this.blockDef.initialChildStates[type];
-    return [blockDef, initialState];
+    return [blockDef, initialState, uuidv4()];
   }
 
   clear() {
