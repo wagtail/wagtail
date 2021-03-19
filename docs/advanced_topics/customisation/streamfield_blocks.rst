@@ -143,7 +143,7 @@ Custom block types
 
 If you need to implement a custom UI, or handle a datatype that is not provided by Wagtail's built-in block types (and cannot be built up as a structure of existing fields), it is possible to define your own custom block types. For further guidance, refer to the source code of Wagtail's built-in block classes.
 
-For block types that simply wrap an existing Django form field, Wagtail provides an abstract class ``wagtail.core.blocks.FieldBlock`` as a helper. Subclasses just need to set a ``field`` property that returns the form field object:
+For block types that simply wrap an existing Django form field, Wagtail provides an abstract class ``wagtail.core.blocks.FieldBlock`` as a helper. Subclasses should set a ``field`` property that returns the form field object:
 
 .. code-block:: python
 
@@ -151,6 +151,9 @@ For block types that simply wrap an existing Django form field, Wagtail provides
         def __init__(self, required=True, help_text=None, **kwargs):
             self.field = forms.GenericIPAddressField(required=required, help_text=help_text)
             super().__init__(**kwargs)
+
+
+Since the StreamField editing interface needs to create blocks dynamically, certain complex widget types will need additional JavaScript code to define how to render and populate them on the client-side. If a field uses a widget type that does not inherit from one of the classes inheriting from ``django.forms.widgets.Input``, ``django.forms.Textarea``, ``django.forms.Select`` or ``django.forms.RadioSelect``, or has customised client-side behaviour to the extent where it is not possible to read or write its data simply by accessing the form element's ``value`` property, you will need to provide a JavaScript handler object, implementing the methods detailed on :ref:`streamfield_widget_api`.
 
 
 Handling block definitions within migrations
