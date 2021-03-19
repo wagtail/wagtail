@@ -18,7 +18,7 @@ import TooltipEntity from './decorators/TooltipEntity';
 import EditorFallback from './EditorFallback/EditorFallback';
 import CommentableEditor from './CommentableEditor/CommentableEditor';
 
-import comments from '../CommentApp/comments'
+import comments from '../CommentApp/comments';
 
 // 1024x1024 SVG path rendering of the "↵" character, that renders badly in MS Edge.
 const BR_ICON = 'M.436 633.471l296.897-296.898v241.823h616.586V94.117h109.517v593.796H297.333v242.456z';
@@ -114,9 +114,9 @@ const initEditor = (selector, options, currentScript) => {
     inlineStyles: inlineStyles.map(wrapWagtailIcon),
     entityTypes,
     enableHorizontalRule
-  }
+  };
 
-  const contentPath = comments.getContentPath(field)
+  const contentPath = comments.getContentPath(field);
 
   // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock - and the comments system is initialized
   // then use CommentableEditor, otherwise plain DraftailEditor
@@ -130,10 +130,10 @@ const initEditor = (selector, options, currentScript) => {
         {...sharedProps}
       />
     </Provider>
-  : <DraftailEditor
-    ref={editorRef}
-    {...sharedProps}
-  />;
+    : <DraftailEditor
+      ref={editorRef}
+      {...sharedProps}
+    />;
 
   ReactDOM.render(<EditorFallback field={field}>{editor}</EditorFallback>, editorWrapper);
 };

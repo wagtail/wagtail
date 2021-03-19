@@ -121,7 +121,7 @@ class BasicFieldLevelAnnotation {
   setOnClickHandler(localId) {
     this.node.addEventListener('click', () => {
       this.commentApp.store.dispatch(
-        this.commentApp.actions.setFocusedComment(localId, {updatePinnedComment: true})
+        this.commentApp.actions.setFocusedComment(localId, { updatePinnedComment: true })
       );
     });
   }
