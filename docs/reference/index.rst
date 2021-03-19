@@ -6,7 +6,7 @@ Reference
     :maxdepth: 2
 
     pages/index
-    streamfield_reference
+    streamfield/index
     contrib/index
     management_commands
     hooks
