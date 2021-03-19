@@ -21,14 +21,14 @@ describe('Explorer', () => {
   });
 
   it('renders', () => {
-    expect(shallow(<Explorer store={store} />)).toMatchSnapshot();
-    expect(shallow(<Provider store={store}><Explorer /></Provider>)).toMatchSnapshot();
+    expect(shallow(<Explorer store={store} />).dive()).toMatchSnapshot();
+    expect(shallow(<Provider store={store}><Explorer /></Provider>).dive()).toMatchSnapshot();
   });
 
   it('visible', () => {
     store.dispatch(actions.toggleExplorer(1));
-    expect(shallow(<Explorer store={store} />)).toMatchSnapshot();
     expect(shallow(<Explorer store={store} />).dive()).toMatchSnapshot();
+    expect(shallow(<Explorer store={store} />).dive().dive()).toMatchSnapshot();
   });
 
   describe('actions', () => {
@@ -40,12 +40,12 @@ describe('Explorer', () => {
     });
 
     it('gotoPage', () => {
-      wrapper.prop('gotoPage')();
+      wrapper.dive().prop('gotoPage')();
       expect(store.dispatch).toHaveBeenCalled();
     });
 
     it('onClose', () => {
-      wrapper.prop('onClose')();
+      wrapper.dive().prop('onClose')();
       expect(store.dispatch).toHaveBeenCalled();
     });
   });
