@@ -252,8 +252,8 @@ export class BaseSequenceBlock {
 
   _onRequestInsert(index, opts) {
     /* handler for an 'insert new block' action */
-    const [blockDef, initialState] = this._getChildDataForInsertion(opts);
-    const newChild = this._insert(blockDef, initialState, null, index, { animate: true });
+    const [blockDef, initialState, id] = this._getChildDataForInsertion(opts);
+    const newChild = this._insert(blockDef, initialState, id || null, index, { animate: true });
     // focus the newly added field if we can do so without obtrusive UI behaviour
     newChild.focus({ soft: true });
   }

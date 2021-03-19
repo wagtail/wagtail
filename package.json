@@ -104,6 +104,7 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "telepath-unpack": "^0.0.3",
+    "uuid": "^8.3.2",
     "wagtail-comment-frontend": "0.0.6",
     "whatwg-fetch": "^2.0.3"
   },
