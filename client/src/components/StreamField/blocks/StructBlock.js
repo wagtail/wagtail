@@ -51,7 +51,7 @@ export class StructBlock {
 
       this.blockDef.childBlockDefs.forEach(childBlockDef => {
         const childDom = $(`
-          <div class="field ${childBlockDef.meta.required ? 'required' : ''}">
+          <div class="field ${childBlockDef.meta.required ? 'required' : ''}" data-contentpath="${childBlockDef.name}">
             <label class="field__label">${h(childBlockDef.meta.label)}</label>
             <div data-streamfield-block></div>
           </div>
