@@ -43,7 +43,7 @@ Using StreamField
 
 In this example, the body field of ``BlogPage`` is defined as a ``StreamField`` where authors can compose content from three different block types: headings, paragraphs, and images, which can be used and repeated in any order. The block types available to authors are defined as a list of ``(name, block_type)`` tuples: 'name' is used to identify the block type within templates, and should follow the standard Python conventions for variable names: lower-case and underscores, no spaces.
 
-You can find the complete list of available block types in the :ref:`StreamField reference <streamfield_reference>`.
+You can find the complete list of available block types in the :ref:`StreamField block reference <streamfield_block_reference>`.
 
 .. note::
    StreamField is not a direct replacement for other field types such as RichTextField. If you need to migrate an existing field to StreamField, refer to :ref:`streamfield_migrating_richtext`.

@@ -1,7 +1,10 @@
-.. _streamfield_reference:
+.. _streamfield_block_reference:
 
-StreamField reference
-=====================
+StreamField block reference
+===========================
+
+This document details the block types provided by Wagtail for use in :ref:`StreamField <streamfield>`, and how they can be combined into new block types.
+
 
 .. class:: wagtail.core.fields.StreamField(blocks, blank=False, min_num=None, max_num=None, block_counts=None)
 
