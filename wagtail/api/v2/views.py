@@ -20,8 +20,7 @@ from .filters import (
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
-    BadRequestError, filter_page_type, get_object_detail_url, page_models_from_string,
-    parse_fields_parameter)
+    BadRequestError, get_object_detail_url, page_models_from_string, parse_fields_parameter)
 
 
 class BaseAPIViewSet(GenericViewSet):
@@ -477,7 +476,7 @@ class PagesAPIViewSet(BaseAPIViewSet):
             return models[0].objects.filter(id__in=self.get_base_queryset().values_list('id', flat=True))
 
         else:  # len(models) > 1
-            return filter_page_type(self.get_base_queryset(), models)
+            return self.get_base_queryset().type(*models)
 
     def get_object(self):
         base = super().get_object()
