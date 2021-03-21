@@ -43,15 +43,6 @@ def page_models_from_string(string):
     return tuple(page_models)
 
 
-def filter_page_type(queryset, page_models):
-    qs = queryset.none()
-
-    for model in page_models:
-        qs |= queryset.type(model)
-
-    return qs
-
-
 def can_choose_page(page, permission_proxy, desired_classes, can_choose_root=True, user_perm=None):
     """Returns boolean indicating of the user can choose page.
     will check if the root page can be selected and if user permissions
@@ -88,7 +79,7 @@ def browse(request, parent_page_id=None):
         # Find the highest common ancestor for the specific classes passed in
         # In many cases, such as selecting an EventPage under an EventIndex,
         # this will help the administrator find their page quicker.
-        all_desired_pages = filter_page_type(Page.objects.all(), desired_classes)
+        all_desired_pages = Page.objects.all().type(*desired_classes)
         parent_page = all_desired_pages.first_common_ancestor()
 
     parent_page = parent_page.specific
@@ -105,7 +96,7 @@ def browse(request, parent_page_id=None):
         # restrict the page listing to just those pages that:
         # - are of the given content type (taking into account class inheritance)
         # - or can be navigated into (i.e. have children)
-        choosable_pages = filter_page_type(pages, desired_classes)
+        choosable_pages = pages.type(*desired_classes)
         descendable_pages = pages.filter(numchild__gt=0)
         pages = choosable_pages | descendable_pages
 
@@ -167,7 +158,7 @@ def search(request, parent_page_id=None):
         pages = pages.exclude(
             depth=1  # never include root
         )
-        pages = filter_page_type(pages, desired_classes)
+        pages = pages.type(*desired_classes)
         pages = pages.specific()
         pages = pages.search(search_form.cleaned_data['q'])
     else:
