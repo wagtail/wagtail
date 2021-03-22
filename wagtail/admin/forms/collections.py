@@ -71,7 +71,7 @@ class CollectionForm(forms.ModelForm):
     parent = CollectionChoiceField(
         label=gettext_lazy("Parent"),
         queryset=Collection.objects.all(),
-        required=False,
+        required=True,
         help_text=gettext_lazy(
             "Select hierarchical position. Note: a collection cannot become a child of itself or one of its "
             "descendants."
@@ -81,15 +81,6 @@ class CollectionForm(forms.ModelForm):
     class Meta:
         model = Collection
         fields = ('name',)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        if self.instance._state.adding:
-            self.initial['parent'] = Collection.get_first_root_node().pk
-        else:
-            self.initial['parent'] = self.instance.get_parent().pk
-            self.fields['parent'].disabled_queryset = self.instance.get_descendants(inclusive=True)
 
 
 class BaseCollectionMemberForm(forms.ModelForm):

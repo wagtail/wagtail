@@ -1,3 +1,4 @@
+from django.forms import HiddenInput
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext_lazy
@@ -22,8 +23,13 @@ class Index(IndexView):
     header_icon = 'folder-open-1'
 
     def get_queryset(self):
-        # Only return descendants of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_descendants()
+        if self.request.user.is_superuser:
+            # Only return descendants of the root node, so that the root is not editable
+            return Collection.get_first_root_node().get_descendants()
+        else:
+            return self.permission_policy.collections_user_has_any_permission_for(
+                self.request.user, ['add', 'change', 'delete']
+            )
 
 
 class Create(CreateView):
@@ -36,10 +42,17 @@ class Create(CreateView):
     index_url_name = 'wagtailadmin_collections:index'
     header_icon = 'folder-open-1'
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Now filter collections offered in parent field by current user's add permissions
+        collections = self.permission_policy.collections_user_has_permission_for(self.request.user, 'add')
+        form.fields['parent'].queryset = collections
+        return form
+
     def save_instance(self):
         instance = self.form.save(commit=False)
         parent_pk = self.form.data.get('parent')
-        parent = Collection.objects.get(pk=parent_pk) if parent_pk else Collection.get_first_root_node()
+        parent = Collection.objects.get(pk=parent_pk)
         parent.add_child(instance=instance)
         return instance
 
@@ -58,6 +71,33 @@ class Edit(EditView):
     context_object_name = 'collection'
     header_icon = 'folder-open-1'
 
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            # Only return descendants of the root node, so that the root is not editable
+            return Collection.get_first_root_node().get_descendants()
+        else:
+            return self.permission_policy.collections_user_has_any_permission_for(
+                self.request.user, ['change']
+            )
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        user = self.request.user
+        current_parent = form.instance.get_parent()
+        # If this is currently at the top of the user's collection hierarchy,
+        # do not let the user move this collection.
+        if not self.permission_policy.user_has_permission_for_instance(user, 'add', current_parent):
+            form.fields['parent'].widget = HiddenInput()
+        else:
+            # Filter collections offered in parent field by current user's add permissions
+            collections = self.permission_policy.collections_user_has_permission_for(user, 'add')
+            form.fields['parent'].queryset = collections
+            form.fields['parent'].disabled_queryset = form.instance.get_descendants(inclusive=True)
+            form.fields['parent'].empty_label = None
+
+        form.initial['parent'] = current_parent.pk
+        return form
+
     def save_instance(self):
         instance = self.form.save()
         parent_pk = self.form.data.get('parent')
@@ -75,9 +115,15 @@ class Edit(EditView):
             return self.form_invalid(form)
         return super().form_valid(form)
 
-    def get_queryset(self):
-        # Only return descendants of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_descendants().order_by('path')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Can not delete the collection where the delete permission is assigned
+        context['can_delete'] = (
+            self.permission_policy.descendants_of_collections_with_user_perm(
+                self.request.user, ['delete']
+            ).first()
+        )
+        return context
 
 
 class Delete(DeleteView):
@@ -91,8 +137,13 @@ class Delete(DeleteView):
     header_icon = 'folder-open-1'
 
     def get_queryset(self):
-        # Only return children of the root node, so that the root is not editable
-        return Collection.get_first_root_node().get_descendants().order_by('path')
+        if self.request.user.is_superuser:
+            # Only return descendants of the root node, so that the root is not editable
+            return Collection.get_first_root_node().get_descendants()
+        else:
+            return self.permission_policy.descendants_of_collections_with_user_perm(
+                self.request.user, ['delete']
+            )
 
     def get_collection_contents(self):
         collection_contents = [
