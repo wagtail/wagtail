@@ -1128,6 +1128,9 @@ class TestGroupCreateView(TestCase, WagtailTestUtils):
             'page_permissions-TOTAL_FORMS': ['0'],
             'page_permissions-MAX_NUM_FORMS': ['1000'],
             'page_permissions-INITIAL_FORMS': ['0'],
+            'collection_permissions-TOTAL_FORMS': ['0'],
+            'collection_permissions-MAX_NUM_FORMS': ['1000'],
+            'collection_permissions-INITIAL_FORMS': ['0'],
             'document_permissions-TOTAL_FORMS': ['0'],
             'document_permissions-MAX_NUM_FORMS': ['1000'],
             'document_permissions-INITIAL_FORMS': ['0'],
@@ -1308,6 +1311,9 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
             'image_permissions-TOTAL_FORMS': ['0'],
             'image_permissions-MAX_NUM_FORMS': ['1000'],
             'image_permissions-INITIAL_FORMS': ['0'],
+            'collection_permissions-TOTAL_FORMS': ['0'],
+            'collection_permissions-MAX_NUM_FORMS': ['1000'],
+            'collection_permissions-INITIAL_FORMS': ['0'],
         }
         for k, v in post_defaults.items():
             post_data[k] = post_data.get(k, v)
@@ -1468,8 +1474,8 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
 
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and exactly 4 non-breaking spaces
         # after the <option> tag.
-        # There are 3 instances because it appears twice in the form template javascript.
-        self.assertContains(response, '>&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler Plans', count=3)
+        # There are 4 instances because we have one document permission + 3 in the form template javascript.
+        self.assertContains(response, '>&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler Plans', count=4)
 
     def test_group_edit_loads_with_page_permissions_shown(self):
         # The test group has one page permission to begin with
