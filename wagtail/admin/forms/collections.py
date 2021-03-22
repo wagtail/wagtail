@@ -308,3 +308,14 @@ def collection_member_permission_formset_factory(
         extra=0,
         can_delete=True
     )
+
+
+GroupCollectionManagementPermissionFormSet = collection_member_permission_formset_factory(
+    Collection,
+    [
+        ('add_collection', _("Add"), _("Add collections")),
+        ('change_collection', _("Edit"), _("Edit collections")),
+        ('delete_collection', _("Delete"), _("Delete collections")),
+    ],
+    'wagtailadmin/permissions/includes/collection_management_permissions_form.html'
+)
