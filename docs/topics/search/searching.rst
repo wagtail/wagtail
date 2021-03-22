@@ -340,7 +340,7 @@ For example:
     ...    print(event.title, event._score)
     ...
     ("Easter", 2.5),
-    ("Haloween", 1.7),
+    ("Halloween", 1.7),
     ("Christmas", 1.5),
 
 Note that the score itself is arbitrary and it is only useful for comparison
