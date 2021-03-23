@@ -1,13 +1,15 @@
-import PropTypes from 'prop-types';
+import type { CommentApp } from 'wagtail-comment-frontend';
+import type { Annotation } from 'wagtail-comment-frontend/src/utils/annotation';
 import {
   DraftailEditor,
   ToolbarButton,
   createEditorStateFromRaw,
   serialiseEditorStateToRaw,
 } from 'draftail';
-import { EditorState, Modifier, RichUtils, SelectionState } from 'draft-js';
+import { ContentBlock, ContentState, EditorState, Modifier, RawDraftContentState, RichUtils, SelectionState } from 'draft-js';
+import type { DraftEditorLeaf } from 'draft-js/lib/DraftEditorLeaf.react';
 import { filterInlineStyles } from 'draftjs-filters';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { MutableRefObject, ReactText, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 
 import { STRINGS } from '../../../config/wagtailConfig';
@@ -15,49 +17,60 @@ import Icon from '../../Icon/Icon';
 
 const COMMENT_STYLE_IDENTIFIER = 'COMMENT-';
 
-function usePrevious(value) {
-  const ref = useRef();
+function usePrevious<Type>(value: Type) {
+  const ref = useRef(value);
   useEffect(() => {
     ref.current = value;
   }, [value]);
   return ref.current;
 }
 
+type DecoratorRef = MutableRefObject<HTMLSpanElement | null>;
+type BlockKey = string;
+
 /**
  * Controls the positioning of a comment that has been added to Draftail.
  * `getDesiredPosition` is called by the comments app to determine the height
  * at which to float the comment.
  */
-class DraftailInlineAnnotation {
+class DraftailInlineAnnotation implements Annotation {
   /**
    * Create an inline annotation
    * @param {Element} field - an element to provide the fallback position for comments without any inline decorators
    */
-  constructor(field) {
+  field: Element
+  decoratorRefs: Map<DecoratorRef, BlockKey>
+  focusedBlockKey: BlockKey
+  cachedMedianRef: DecoratorRef | null
+
+  constructor(field: Element) {
     this.field = field;
     this.decoratorRefs = new Map();
     this.focusedBlockKey = '';
     this.cachedMedianRef = null;
   }
-  addDecoratorRef(ref, blockKey) {
+  addDecoratorRef(ref: DecoratorRef, blockKey: BlockKey) {
     this.decoratorRefs.set(ref, blockKey);
 
     // We're adding a ref, so remove the cached median refs - this needs to be recalculated
     this.cachedMedianRef = null;
   }
-  removeDecoratorRef(ref) {
+  removeDecoratorRef(ref: DecoratorRef) {
     this.decoratorRefs.delete(ref);
 
     // We're deleting a ref, so remove the cached median refs - this needs to be recalculated
     this.cachedMedianRef = null;
   }
-  setFocusedBlockKey(blockKey) {
+  setFocusedBlockKey(blockKey: BlockKey) {
     this.focusedBlockKey = blockKey;
   }
-  static getHeightForRef(ref) {
-    return ref.current.getBoundingClientRect().top;
+  static getHeightForRef(ref: DecoratorRef) {
+    if (ref.current) {
+      return ref.current.getBoundingClientRect().top;
+    }
+    return 0;
   }
-  static getMedianRef(refArray) {
+  static getMedianRef(refArray: Array<DecoratorRef>) {
     const refs = refArray.sort(
       (a, b) => this.getHeightForRef(a) - this.getHeightForRef(b)
     );
@@ -69,18 +82,18 @@ class DraftailInlineAnnotation {
   }
   getDesiredPosition(focused = false) {
     // The comment should always aim to float by an annotation, rather than between them, so calculate which annotation is the median one by height and float the comment by that
-    let medianRef = null;
+    let medianRef: null | DecoratorRef = null;
     if (focused) {
       // If the comment is focused, calculate the median of refs only within the focused block, to ensure the comment is visisble
       // if the highlight has somehow been split up
-      medianRef = this.constructor.getMedianRef(
+      medianRef = DraftailInlineAnnotation.getMedianRef(
         Array.from(this.decoratorRefs.keys()).filter(
           (ref) => this.decoratorRefs.get(ref) === this.focusedBlockKey
         )
       );
     } else if (!this.cachedMedianRef) {
       // Our cache is empty - try to update it
-      medianRef = this.constructor.getMedianRef(
+      medianRef = DraftailInlineAnnotation.getMedianRef(
         Array.from(this.decoratorRefs.keys())
       );
       this.cachedMedianRef = medianRef;
@@ -92,7 +105,7 @@ class DraftailInlineAnnotation {
     if (medianRef) {
       // We have a median ref - calculate its height
       return (
-        this.constructor.getHeightForRef(medianRef) +
+        DraftailInlineAnnotation.getHeightForRef(medianRef) +
         document.documentElement.scrollTop
       );
     }
@@ -112,24 +125,23 @@ class DraftailInlineAnnotation {
 /**
  * Get a selection state corresponding to the full contentState.
  */
-function getFullSelectionState(contentState) {
+function getFullSelectionState(contentState: ContentState) {
   const lastBlock = contentState.getLastBlock();
-  let fullSelectionState = SelectionState.createEmpty();
-  fullSelectionState = fullSelectionState.set(
-    'anchorKey',
-    contentState.getFirstBlock().getKey()
-  );
-  fullSelectionState = fullSelectionState.set('anchorOffset', 0);
-  fullSelectionState = fullSelectionState.set('focusKey', lastBlock.getKey());
-  fullSelectionState = fullSelectionState.set(
-    'focusOffset',
-    lastBlock.getLength()
-  );
-  return fullSelectionState;
+  return new SelectionState({
+    anchorKey: contentState.getFirstBlock().getKey(),
+    anchorOffset: 0,
+    focusKey: lastBlock.getKey(),
+    focusOffset: lastBlock.getLength()
+  });
 }
 
-function getCommentControl(commentApp, contentPath, fieldNode) {
-  return ({ getEditorState, onChange }) => (
+interface ControlProps {
+  getEditorState: () => EditorState,
+  onChange: (editorState: EditorState) => void
+}
+
+function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNode: Element) {
+  return ({ getEditorState, onChange }: ControlProps) => (
     <ToolbarButton
       name="comment"
       active={false}
@@ -149,35 +161,42 @@ function getCommentControl(commentApp, contentPath, fieldNode) {
   );
 }
 
-function findCommentStyleRanges(contentBlock, callback) {
+function findCommentStyleRanges(contentBlock: ContentBlock, callback: (start: number, end: number) => void) {
   contentBlock.findStyleRanges(
     (metadata) =>
       metadata
         .getStyle()
-        .some((style) => style.startsWith(COMMENT_STYLE_IDENTIFIER)),
+        .some((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER)),
     (start, end) => {
       callback(start, end);
     }
   );
 }
 
-function getCommentDecorator(commentApp) {
-  const CommentDecorator = ({ contentState, children }) => {
+interface DecoratorProps {
+  contentState: ContentState,
+  children?: Array<DraftEditorLeaf>
+}
+
+function getCommentDecorator(commentApp: CommentApp) {
+  const CommentDecorator = ({ contentState, children }: DecoratorProps) => {
     // The comment decorator makes a comment clickable, allowing it to be focused.
     // It does not provide styling, as draft-js imposes a 1 decorator/string limit, which would prevent comment highlights
     // going over links/other entities
-    const blockKey = children[0].props.block.getKey();
-    const start = children[0].props.start;
+    if (!children) {
+      return null;
+    }
+    const blockKey: BlockKey = children[0].props.block.getKey();
+    const start: number = children[0].props.start;
 
     const commentId = useMemo(
-      () =>
-        parseInt(
-          contentState
-            .getBlockForKey(blockKey)
-            .getInlineStyleAt(start)
-            .find((style) => style.startsWith(COMMENT_STYLE_IDENTIFIER))
-            .slice(8)
-        ),
+      () => parseInt(
+        contentState
+          .getBlockForKey(blockKey)
+          .getInlineStyleAt(start)
+          .find((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER))
+          .slice(8),
+        10),
       [blockKey, start]
     );
     const annotationNode = useRef(null);
@@ -185,21 +204,18 @@ function getCommentDecorator(commentApp) {
       // Add a ref to the annotation, allowing the comment to float alongside the attached text.
       // This adds rather than sets the ref, so that a comment may be attached across paragraphs or around entities
       const annotation = commentApp.layout.commentAnnotations.get(commentId);
-      if (annotation) {
+      if (annotation && annotation instanceof DraftailInlineAnnotation) {
         annotation.addDecoratorRef(annotationNode, blockKey);
+        return () => annotation.removeDecoratorRef(annotationNode);
       }
-      return () => {
-        const annotation = commentApp.layout.commentAnnotations.get(commentId);
-        if (annotation) {
-          annotation.removeDecoratorRef(annotationNode);
-        }
-      };
+      return undefined; //eslint demands an explicit return here
     }, [commentId, annotationNode, blockKey]);
     const onClick = () => {
       // Ensure the comment will appear alongside the current block
-      commentApp.layout.commentAnnotations
-        .get(commentId)
-        .setFocusedBlockKey(blockKey);
+      const annotation = commentApp.layout.commentAnnotations.get(commentId);
+      if (annotation && annotation instanceof DraftailInlineAnnotation  && annotationNode) {
+        annotation.setFocusedBlockKey(blockKey);
+      }
 
       // Pin and focus the clicked comment
       commentApp.store.dispatch(
@@ -223,7 +239,7 @@ function getCommentDecorator(commentApp) {
   return CommentDecorator;
 }
 
-function forceResetEditorState(editorState, replacementContent) {
+function forceResetEditorState(editorState: EditorState, replacementContent: ContentState) {
   const content = replacementContent || editorState.getCurrentContent();
   const state = EditorState.set(
     EditorState.createWithContent(content, editorState.getDecorator()),
@@ -236,6 +252,24 @@ function forceResetEditorState(editorState, replacementContent) {
   return EditorState.acceptSelection(state, state.getSelection());
 }
 
+interface InlineStyle {
+  label?: string,
+  description?: string,
+  icon?: string | string[] | Node,
+  type: string,
+  style?: Record<string, string | number | ReactText | undefined >
+}
+
+interface CommentableEditorProps {
+  commentApp: CommentApp,
+  fieldNode: Element,
+  contentPath: string,
+  rawContentState: RawDraftContentState,
+  onSave: (rawContent: RawDraftContentState) => void,
+  inlineStyles: Array<InlineStyle>,
+  editorRef: MutableRefObject<HTMLInputElement>
+}
+
 function CommentableEditor({
   commentApp,
   fieldNode,
@@ -245,7 +279,7 @@ function CommentableEditor({
   inlineStyles,
   editorRef,
   ...options
-}) {
+}: CommentableEditorProps) {
   const [editorState, setEditorState] = useState(() =>
     createEditorStateFromRaw(rawContentState)
   );
@@ -268,7 +302,7 @@ function CommentableEditor({
     comments,
   ]);
 
-  const commentStyles = useMemo(
+  const commentStyles: Array<InlineStyle> = useMemo(
     () =>
       ids.map((id) => ({
         type: `${COMMENT_STYLE_IDENTIFIER}${id}`,
@@ -302,7 +336,7 @@ function CommentableEditor({
     }
 
     // Filter out any invalid styles - deleted comments, or now unneeded STYLE_RERENDER forcing styles
-    const filteredContent = filterInlineStyles(
+    const filteredContent: ContentState = filterInlineStyles(
       inlineStyles
         .map((style) => style.type)
         .concat(ids.map((id) => `${COMMENT_STYLE_IDENTIFIER}${id}`)),
@@ -312,9 +346,9 @@ function CommentableEditor({
     // This must be entirely new for the rerender to trigger, hence the unique style id, as with the undo stack we cannot guarantee
     // that a previous style won't persist without filtering everywhere, which seems a bit too heavyweight
     // This hack can be removed when draft-js triggers inline style rerender on props change
-    setEditorState((editorState) =>
+    setEditorState((state) =>
       forceResetEditorState(
-        editorState,
+        state,
         Modifier.applyInlineStyle(
           filteredContent,
           getFullSelectionState(filteredContent),
@@ -325,7 +359,7 @@ function CommentableEditor({
     setUniqueStyleId((id) => (id + 1) % 200);
   }, [focusedId, enabled, inlineStyles, ids, editorState]);
 
-  const timeoutRef = useRef();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>();
   useEffect(() => {
     // This replicates the onSave logic in Draftail, but only saves the state with all
     // comment styles filtered out
@@ -335,10 +369,11 @@ function CommentableEditor({
       filterInlineStyles(
         inlineStyles.map((style) => style.type),
         editorState.getCurrentContent()
-      )
+      ),
+      'change-inline-style'
     );
     timeoutRef.current = window.setTimeout(
-      onSave(serialiseEditorStateToRaw(filteredEditorState)),
+      () => onSave(serialiseEditorStateToRaw(filteredEditorState)),
       250
     );
     return () => {
