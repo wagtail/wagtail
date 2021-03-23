@@ -373,12 +373,15 @@ Structural block types
 
    .. code-block:: python
 
-       ('person', blocks.StructBlock([
-           ('first_name', blocks.CharBlock()),
-           ('surname', blocks.CharBlock()),
-           ('photo', ImageChooserBlock(required=False)),
-           ('biography', blocks.RichTextBlock()),
-       ], icon='user'))
+       body = StreamField([
+           # ...
+           ('person', blocks.StructBlock([
+               ('first_name', blocks.CharBlock()),
+               ('surname', blocks.CharBlock()),
+               ('photo', ImageChooserBlock(required=False)),
+               ('biography', blocks.RichTextBlock()),
+           ], icon='user')),
+       ])
 
 
    Alternatively, StructBlock can be subclassed to specify a reusable set of sub-blocks:
@@ -421,17 +424,23 @@ Structural block types
 
    .. code-block:: python
 
-       ('ingredients_list', blocks.ListBlock(blocks.CharBlock(label="Ingredient")))
+       body = StreamField([
+           # ...
+           ('ingredients_list', blocks.ListBlock(blocks.CharBlock(label="Ingredient"))),
+       ])
 
 
    Any block type is valid as the sub-block type, including structural types:
 
    .. code-block:: python
 
-       ('ingredients_list', blocks.ListBlock(blocks.StructBlock([
-           ('ingredient', blocks.CharBlock()),
-           ('amount', blocks.CharBlock(required=False)),
-       ])))
+       body = StreamField([
+           # ...
+           ('ingredients_list', blocks.ListBlock(blocks.StructBlock([
+               ('ingredient', blocks.CharBlock()),
+               ('amount', blocks.CharBlock(required=False)),
+           ]))),
+       ])
 
    The following additional option is available as either a keyword argument or a Meta class attribute:
 
@@ -444,17 +453,20 @@ Structural block types
 
    .. code-block:: python
 
-       ('carousel', blocks.StreamBlock(
-           [
-               ('image', ImageChooserBlock()),
-               ('quotation', blocks.StructBlock([
-                   ('text', blocks.TextBlock()),
-                   ('author', blocks.CharBlock()),
-               ])),
-               ('video', EmbedBlock()),
-           ],
-           icon='cogs'
-       ))
+       body = StreamField([
+           # ...
+           ('carousel', blocks.StreamBlock(
+               [
+                   ('image', ImageChooserBlock()),
+                   ('quotation', blocks.StructBlock([
+                       ('text', blocks.TextBlock()),
+                       ('author', blocks.CharBlock()),
+                   ])),
+                   ('video', EmbedBlock()),
+               ],
+               icon='cogs'
+           )),
+       ])
 
 
    As with StructBlock, the list of sub-blocks can also be provided as a subclass of StreamBlock:
@@ -490,12 +502,15 @@ Structural block types
    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
 
     .. code-block:: python
-        :emphasize-lines: 4
+       :emphasize-lines: 6
 
-        ('event_promotions', blocks.StreamBlock([
-            ('hashtag', blocks.CharBlock()),
-            ('post_date', blocks.DateBlock()),
-        ], form_classname='event-promotions'))
+       body = StreamField([
+           # ...
+           ('event_promotions', blocks.StreamBlock([
+               ('hashtag', blocks.CharBlock()),
+               ('post_date', blocks.DateBlock()),
+           ], form_classname='event-promotions')),
+       ])
 
     .. code-block:: python
         :emphasize-lines: 6
