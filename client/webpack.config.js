@@ -56,6 +56,7 @@ module.exports = function exports() {
       'wagtailadmin',
       'workflow-action',
       'workflow-status',
+      'bulk-actions'
     ],
     'images': [
       'image-chooser',
