@@ -118,6 +118,13 @@ const initEditor = (selector, options, currentScript) => {
 
   const contentPath = comments.getContentPath(field);
 
+  const styles = getComputedStyle(document.documentElement);
+  const colors = {
+    standardHighlight: styles.getPropertyValue('--color-primary-light'),
+    overlappingHighlight: styles.getPropertyValue('--color-primary-lighter'),
+    focusedHighlight: styles.getPropertyValue('--color-primary')
+  };
+
   // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -
   // and the comments system is initialized then use CommentableEditor, otherwise plain DraftailEditor
   const editor = (window.commentApp && contentPath !== '') ?
@@ -127,6 +134,7 @@ const initEditor = (selector, options, currentScript) => {
         commentApp={window.commentApp}
         fieldNode={field.parentNode}
         contentPath={contentPath}
+        colorConfig={colors}
         {...sharedProps}
       />
     </Provider>
