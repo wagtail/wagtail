@@ -253,6 +253,7 @@ class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Delete collection")
 
     def test_cannot_edit_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
@@ -336,6 +337,7 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         # Can edit the name and move to new parent
         self.assertEqual(type(form_fields['name'].widget).__name__, 'TextInput')
         self.assertEqual(type(form_fields['parent'].widget).__name__, 'SelectWithDisabledOptions')
+        self.assertContains(response, "Delete collection")
 
     def test_marketing_user_cannot_move_collection_permissions_are_assigned_to(self):
         response = self.get(collection_id=self.marketing_collection.id)
@@ -345,6 +347,7 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         # is the collection that gives me permission on a section of hierarchy
         self.assertEqual(type(form_fields['name'].widget).__name__, 'TextInput')
         self.assertEqual(type(form_fields['parent'].widget).__name__, 'HiddenInput')
+        self.assertNotContains(response, "Delete collection")
 
 
 class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
