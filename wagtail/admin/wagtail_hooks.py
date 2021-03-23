@@ -154,6 +154,58 @@ def register_workflow_tasks_menu_item():
     return WorkflowTasksMenuItem(_('Workflow tasks'), reverse('wagtailadmin_workflows:task_index'), icon_name='thumbtack', order=150)
 
 
+@hooks.register('register_bulk_action_filters')
+def bulk_action_filters():
+    yield Button(
+            _('All'),
+            '',
+            attrs={'aria-label': _("All pages")},
+            priority=10
+        )
+
+    yield Button(
+            _('Status: Draft'),
+            '',
+            attrs={'aria-label': _("Draft pages")},
+            priority=10
+        )
+
+    yield Button(
+            _('Status: Live'),
+            '',
+            attrs={'aria-label': _("Live pages")},
+            priority=10
+        )
+
+
+@hooks.register('register_bulk_action_choices')
+def bulk_action_choices(is_parent=False, next_url=None):
+    yield PageListingButton(
+        _('Move'),
+        '',
+        attrs={'aria-label': _("Move pages")},
+        priority=10
+    )
+    yield PageListingButton(
+        _('Publish'),
+        '',
+        attrs={'aria-label': _("Publish pages")},
+        priority=20
+    )
+    yield PageListingButton(
+        _('Unpublish'),
+        '',
+        attrs={'aria-label': _("Unpublish pages")},
+        priority=30
+    )
+    yield PageListingButton(
+        _('Delete'),
+        '',
+        attrs={'aria-label': _("Delete pages")},
+        priority=40
+    )
+
+
 @hooks.register('register_page_listing_buttons')
 def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
     if page_perms.can_edit():
