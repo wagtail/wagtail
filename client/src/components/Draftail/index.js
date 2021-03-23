@@ -118,8 +118,8 @@ const initEditor = (selector, options, currentScript) => {
 
   const contentPath = comments.getContentPath(field);
 
-  // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock - and the comments system is initialized
-  // then use CommentableEditor, otherwise plain DraftailEditor
+  // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -
+  // and the comments system is initialized then use CommentableEditor, otherwise plain DraftailEditor
   const editor = (window.commentApp && contentPath !== '') ?
     <Provider store={window.commentApp.store}>
       <CommentableEditor
