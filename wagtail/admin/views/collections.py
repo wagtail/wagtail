@@ -118,11 +118,13 @@ class Edit(EditView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Can not delete the collection where the delete permission is assigned
-        context['can_delete'] = (
-            self.permission_policy.descendants_of_collections_with_user_perm(
+        if self.request.user.is_superuser:
+            can_delete = True
+        else:
+            can_delete = self.permission_policy.descendants_of_collections_with_user_perm(
                 self.request.user, ['delete']
-            ).first()
-        )
+            ).filter(pk=self.object.pk).first()
+        context['can_delete'] = can_delete
         return context
 
 
