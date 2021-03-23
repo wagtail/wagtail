@@ -144,7 +144,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             )
             messages.warning(self.request, lock_message, extra_tags='lock')
 
-        elif self.page.locked and self.page_perms.page_locked():
+        elif self.page.locked and self.page_perms.page_locked:
             # the page can also be locked at a permissions level if in a workflow, on a task the user is not a reviewer for
             # this should be indicated separately
             if self.page.locked_by and self.page.locked_at:
@@ -214,7 +214,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         self.is_cancelling_workflow = bool(self.request.POST.get('action-cancel-workflow')) and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
 
-        if self.form.is_valid() and not self.page_perms.page_locked():
+        if self.form.is_valid() and not self.page_perms.page_locked:
             return self.form_valid(self.form)
         else:
             return self.form_invalid(self.form)
@@ -488,7 +488,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             self.workflow_state.cancel(user=self.request.user)
             self.add_cancel_workflow_confirmation_message()
 
-        if self.page_perms.page_locked():
+        if self.page_perms.page_locked:
             messages.error(self.request, _("The page could not be saved as it is locked"))
         else:
             messages.validation_error(
@@ -523,7 +523,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             'form': self.form,
             'next': self.next_url,
             'has_unsaved_changes': self.has_unsaved_changes,
-            'page_locked': self.page_perms.page_locked(),
+            'page_locked': self.page_perms.page_locked,
             'workflow_state': self.workflow_state if self.workflow_state and self.workflow_state.is_active else None,
             'current_task_state': self.page.current_workflow_task_state,
             'publishing_will_cancel_workflow': self.workflow_tasks and getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True),

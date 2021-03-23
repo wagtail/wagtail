@@ -143,12 +143,12 @@ def confirm_workflow_cancellation(request, page_id):
 @user_passes_test(user_has_any_page_permission)
 def workflow_status(request, page_id):
     page = get_object_or_404(Page, id=page_id)
-
-    if not page.current_workflow_state:
+    current_workflow_state = page.current_workflow_state
+    if not current_workflow_state:
         raise PermissionDenied
 
     workflow_tasks = []
-    workflow_state = page.current_workflow_state
+    workflow_state = current_workflow_state
     if not workflow_state:
         # Show last workflow state
         workflow_state = page.workflow_states.order_by('created_at').last()
