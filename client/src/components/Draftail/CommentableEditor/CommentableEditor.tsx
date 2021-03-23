@@ -161,9 +161,17 @@ function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNod
   );
 }
 
+function styleIsComment(style: string | undefined) {
+  return style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER);
+}
+
+function getIdForCommentStyle(style: string) {
+  return parseInt(style.slice(COMMENT_STYLE_IDENTIFIER.length), 10);
+}
+
 function findCommentStyleRanges(contentBlock: ContentBlock, callback: (start: number, end: number) => void, filterFn?: (metadata: CharacterMetadata) => boolean) {
   // Find comment style ranges that do not overlap an existing entity
-  const filterFunction = filterFn || ((metadata: CharacterMetadata) => metadata.getStyle().some((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER)));
+  const filterFunction = filterFn || ((metadata: CharacterMetadata) => metadata.getStyle().some(styleIsComment));
   const entityRanges: Array<[number, number]> = [];
   contentBlock.findEntityRanges(character => character.getEntity() !== null, (start, end) => entityRanges.push([start, end]));
   contentBlock.findStyleRanges(
@@ -203,7 +211,7 @@ function getCommentDecorator(commentApp: CommentApp) {
     const commentId = useMemo(
       () => {
         const block = contentState.getBlockForKey(blockKey);
-        const styles = block.getInlineStyleAt(start).filter((style) => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER)) as Immutable.OrderedSet<string>;
+        const styles = block.getInlineStyleAt(start).filter(styleIsComment) as Immutable.OrderedSet<string>;
         let styleToUse: string;
         if (styles.count() > 1) {
           // We're dealing with overlapping comments.
@@ -226,7 +234,7 @@ function getCommentDecorator(commentApp: CommentApp) {
         } else {
           styleToUse = styles.first();
         }
-        return parseInt(styleToUse.slice(8), 10);
+        return getIdForCommentStyle(styleToUse);
       }, [blockKey, start]);
     const annotationNode = useRef(null);
     useEffect(() => {
@@ -434,11 +442,11 @@ function CommentableEditor({
           // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
           // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
           // this casting should be removed
-          const localCommentStyles = styleSet.filter(style => style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER)) as Immutable.OrderedSet<string>;
+          const localCommentStyles = styleSet.filter(styleIsComment) as Immutable.OrderedSet<string>;
           const numStyles = localCommentStyles.count();
           if (numStyles > 0) {
             // There is at least one comment in the range
-            const commentIds = localCommentStyles.map(style => parseInt((style as string).slice(8), 10)) as unknown as Immutable.OrderedSet<number>;
+            const commentIds = localCommentStyles.map(style => getIdForCommentStyle(style as string)) as unknown as Immutable.OrderedSet<number>;
             let background = '#01afb0';
             if (commentIds.has(focusedId)) {
               // Use the focused colour if one of the comments is focused
