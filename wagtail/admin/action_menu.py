@@ -38,7 +38,10 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
             'parent_page' (if view = 'create') = the parent page of the page being created
             'user_page_permissions' = a UserPagePermissionsProxy for the current user, to test permissions against
         """
-        return (context['view'] == 'create' or not context['user_page_permissions'].for_page(context['page']).page_locked())
+        return (
+            context['view'] == 'create'
+            or not self.get_user_page_permissions_tester(context).page_locked()
+        )
 
     def get_context(self, request, parent_context):
         """Defines context for the template, overridable to use more data"""

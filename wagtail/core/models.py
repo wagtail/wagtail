@@ -2842,21 +2842,23 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def current_workflow_state(self):
         """Returns the in progress or needs changes workflow state on this page, if it exists"""
         try:
-            return WorkflowState.objects.active().get(page=self)
+            return WorkflowState.objects.active().select_related("current_task_state__task").get(page=self)
         except WorkflowState.DoesNotExist:
             return
 
     @property
     def current_workflow_task_state(self):
         """Returns (specific class of) the current task state of the workflow on this page, if it exists"""
-        if self.current_workflow_state and self.current_workflow_state.status == WorkflowState.STATUS_IN_PROGRESS and self.current_workflow_state.current_task_state:
-            return self.current_workflow_state.current_task_state.specific
+        current_workflow_state = self.current_workflow_state
+        if current_workflow_state and current_workflow_state.status == WorkflowState.STATUS_IN_PROGRESS and current_workflow_state.current_task_state:
+            return current_workflow_state.current_task_state.specific
 
     @property
     def current_workflow_task(self):
         """Returns (specific class of) the current task in progress on this page, if it exists"""
-        if self.current_workflow_task_state:
-            return self.current_workflow_task_state.task.specific
+        current_workflow_task_state = self.current_workflow_task_state
+        if current_workflow_task_state:
+            return current_workflow_task_state.task.specific
 
     class Meta:
         verbose_name = _('page')
@@ -3314,8 +3316,9 @@ class PagePermissionTester:
         return self.page.locked_by_id == self.user.pk
 
     def page_locked(self):
-        if self.page.current_workflow_task:
-            if self.page.current_workflow_task.page_locked_for_user(self.page, self.user):
+        current_workflow_task = self.page.current_workflow_task
+        if current_workflow_task:
+            if current_workflow_task.page_locked_for_user(self.page, self.user):
                 return True
 
         if not self.page.locked:
@@ -3353,8 +3356,9 @@ class PagePermissionTester:
         if 'add' in self.permissions and self.page.owner_id == self.user.pk:
             return True
 
-        if self.page.current_workflow_task:
-            if self.page.current_workflow_task.user_can_access_editor(self.page, self.user):
+        current_workflow_task = self.page.current_workflow_task
+        if current_workflow_task:
+            if current_workflow_task.user_can_access_editor(self.page, self.user):
                 return True
 
         return False
@@ -3428,9 +3432,9 @@ class PagePermissionTester:
     def can_lock(self):
         if self.user.is_superuser:
             return True
-
-        if self.page.current_workflow_task:
-            return self.page.current_workflow_task.user_can_lock(self.page, self.user)
+        current_workflow_task = self.page.current_workflow_task
+        if current_workflow_task:
+            return current_workflow_task.user_can_lock(self.page, self.user)
 
         if 'lock' in self.permissions:
             return True
@@ -3444,8 +3448,9 @@ class PagePermissionTester:
         if self.user_has_lock():
             return True
 
-        if self.page.current_workflow_task:
-            return self.page.current_workflow_task.user_can_unlock(self.page, self.user)
+        current_workflow_task = self.page.current_workflow_task
+        if current_workflow_task:
+            return current_workflow_task.user_can_unlock(self.page, self.user)
 
         if 'unlock' in self.permissions:
             return True
