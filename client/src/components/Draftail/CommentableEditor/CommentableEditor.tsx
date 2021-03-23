@@ -208,7 +208,7 @@ function getCommentDecorator(commentApp: CommentApp) {
         annotation.addDecoratorRef(annotationNode, blockKey);
         return () => annotation.removeDecoratorRef(annotationNode);
       }
-      return undefined; //eslint demands an explicit return here
+      return undefined; // eslint demands an explicit return here
     }, [commentId, annotationNode, blockKey]);
     const onClick = () => {
       // Ensure the comment will appear alongside the current block
