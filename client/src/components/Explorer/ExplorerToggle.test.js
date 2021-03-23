@@ -30,7 +30,7 @@ describe('ExplorerToggle', () => {
     });
 
     it('onToggle', () => {
-      wrapper.prop('onToggle')();
+      wrapper.dive().prop('onToggle')();
       expect(store.dispatch).toHaveBeenCalled();
     });
   });
