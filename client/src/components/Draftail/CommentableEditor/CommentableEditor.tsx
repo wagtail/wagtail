@@ -321,6 +321,12 @@ interface InlineStyle {
   style?: Record<string, string | number | ReactText | undefined >
 }
 
+interface ColorConfigProp {
+  standardHighlight: string,
+  overlappingHighlight: string,
+  focusedHighlight: string
+}
+
 interface CommentableEditorProps {
   commentApp: CommentApp,
   fieldNode: Element,
@@ -329,6 +335,7 @@ interface CommentableEditorProps {
   onSave: (rawContent: RawDraftContentState) => void,
   inlineStyles: Array<InlineStyle>,
   editorRef: MutableRefObject<HTMLInputElement>
+  colorConfig: ColorConfigProp
 }
 
 function CommentableEditor({
@@ -339,6 +346,7 @@ function CommentableEditor({
   onSave,
   inlineStyles,
   editorRef,
+  colorConfig: { standardHighlight, overlappingHighlight, focusedHighlight },
   ...options
 }: CommentableEditorProps) {
   const [editorState, setEditorState] = useState(() =>
@@ -481,14 +489,14 @@ function CommentableEditor({
             const commentIds = localCommentStyles.map(
               style => getIdForCommentStyle(style as string)
             ) as unknown as Immutable.OrderedSet<number>;
-            let background = '#01afb0';
+            let background = standardHighlight;
             if (commentIds.has(focusedId)) {
               // Use the focused colour if one of the comments is focused
-              background = '#007d7e';
+              background = focusedHighlight;
             } else if (numStyles > 1) {
               // Otherwise if we're in a region with overlapping comments, use a slightly darker colour than usual
               // to indicate that
-              background = '#01999a';
+              background = overlappingHighlight;
             }
             return {
               'background-color': background
