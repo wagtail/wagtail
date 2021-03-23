@@ -5,7 +5,36 @@ Form widget client-side API
 
 In order for the StreamField editing interface to dynamically create form fields, any Django form widgets used within StreamField blocks must have an accompanying JavaScript implementation, defining how the widget is rendered client-side and populated with data, and how to extract data from that field. Wagtail provides this implementation for widgets inheriting from ``django.forms.widgets.Input``, ``django.forms.Textarea``, ``django.forms.Select`` and ``django.forms.RadioSelect``. For any other widget types, or ones which require custom client-side behaviour, you will need to provide your own implementation.
 
-The `telepath <https://wagtail.github.io/telepath/>`__ library is used to set up mappings between Python widget classes and their corresponding JavaScript implementations. To create a mapping, define a subclass of ``wagtail.core.telepath.Adapter`` and register it with ``wagtail.core.telepath.register``.
+The `telepath <https://wagtail.github.io/telepath/>`__ library is used to set up mappings between Python widget classes and their corresponding JavaScript implementations. To create a mapping, define a subclass of ``wagtail.core.widget_adapters.WidgetAdapter`` and register it with ``wagtail.core.telepath.register``.
+
+.. code-block:: python
+
+   from wagtail.core.telepath import register
+   from wagtail.core.widget_adapters import WidgetAdapter
+
+   class FancyInputAdapter(WidgetAdapter):
+       # Identifier matching the one registered on the client side
+       js_constructor = 'myapp.widgets.FancyInput'
+
+       # Arguments passed to the client-side object
+       def js_args(self, widget):
+           return [
+               # Arguments typically include the widget's HTML representation
+               # and label ID rendered with __NAME__ and __ID__ placeholders,
+               # for use in the client-side render() method
+               widget.render('__NAME__', None, attrs={'id': '__ID__'}),
+               widget.id_for_label('__ID__'),
+               widget.extra_options,
+           ]
+
+       class Media:
+           # JS / CSS includes required in addition to the widget's own media;
+           # generally this will include the client-side adapter definition
+           js = ['myapp/js/fancy-input-adapter.js']
+
+
+   register(FancyInputAdapter(), FancyInput)
+
 
 The JavaScript object associated with a widget instance should provide a single method:
 
