@@ -310,6 +310,11 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
             collection=self.marketing_collection,
             permission=self.change_permission
         )
+        self.users_delete_permission = GroupCollectionPermission.objects.create(
+            group=self.marketing_group,
+            collection=self.marketing_collection,
+            permission=self.delete_permission
+        )
         self.login(self.marketing_user, password='password')
 
     def get(self, collection_id, params={}):
