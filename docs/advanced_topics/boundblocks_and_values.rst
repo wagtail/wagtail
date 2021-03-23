@@ -1,7 +1,7 @@
 .. _boundblocks_and_values:
 
-About BoundBlocks and values
-----------------------------
+About StreamField BoundBlocks and values
+----------------------------------------
 
 All StreamField block types accept a ``template`` parameter to determine how they will be rendered on a page. However, for blocks that handle basic Python data types, such as ``CharBlock`` and ``IntegerBlock``, there are some limitations on where the template will take effect, since those built-in types (``str``, ``int`` and so on) cannot be 'taught' about their template rendering. As an example of this, consider the following block definition:
 
