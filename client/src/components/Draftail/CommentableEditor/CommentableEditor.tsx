@@ -6,7 +6,17 @@ import {
   createEditorStateFromRaw,
   serialiseEditorStateToRaw,
 } from 'draftail';
-import { CharacterMetadata, ContentBlock, ContentState, DraftInlineStyle, EditorState, Modifier, RawDraftContentState, RichUtils, SelectionState } from 'draft-js';
+import {
+  CharacterMetadata,
+  ContentBlock,
+  ContentState,
+  DraftInlineStyle,
+  EditorState,
+  Modifier,
+  RawDraftContentState,
+  RichUtils,
+  SelectionState
+} from 'draft-js';
 import type { DraftEditorLeaf } from 'draft-js/lib/DraftEditorLeaf.react';
 import { filterInlineStyles } from 'draftjs-filters';
 import React, { MutableRefObject, ReactText, useEffect, useMemo, useRef, useState } from 'react';
@@ -72,7 +82,7 @@ class DraftailInlineAnnotation implements Annotation {
   }
   static getMedianRef(refArray: Array<DecoratorRef>) {
     const refs = refArray.sort(
-      (a, b) => this.getHeightForRef(a) - this.getHeightForRef(b)
+      (firstRef, secondRef) => this.getHeightForRef(firstRef) - this.getHeightForRef(secondRef)
     );
     const length = refs.length;
     if (length > 0) {
@@ -81,10 +91,12 @@ class DraftailInlineAnnotation implements Annotation {
     return null;
   }
   getDesiredPosition(focused = false) {
-    // The comment should always aim to float by an annotation, rather than between them, so calculate which annotation is the median one by height and float the comment by that
+    // The comment should always aim to float by an annotation, rather than between them
+    // so calculate which annotation is the median one by height and float the comment by that
     let medianRef: null | DecoratorRef = null;
     if (focused) {
-      // If the comment is focused, calculate the median of refs only within the focused block, to ensure the comment is visisble
+      // If the comment is focused, calculate the median of refs only
+      // within the focused block, to ensure the comment is visisble
       // if the highlight has somehow been split up
       medianRef = DraftailInlineAnnotation.getMedianRef(
         Array.from(this.decoratorRefs.keys()).filter(
@@ -169,11 +181,17 @@ function getIdForCommentStyle(style: string) {
   return parseInt(style.slice(COMMENT_STYLE_IDENTIFIER.length), 10);
 }
 
-function findCommentStyleRanges(contentBlock: ContentBlock, callback: (start: number, end: number) => void, filterFn?: (metadata: CharacterMetadata) => boolean) {
+function findCommentStyleRanges(
+  contentBlock: ContentBlock,
+  callback: (start: number, end: number) => void,
+  filterFn?: (metadata: CharacterMetadata) => boolean) {
   // Find comment style ranges that do not overlap an existing entity
   const filterFunction = filterFn || ((metadata: CharacterMetadata) => metadata.getStyle().some(styleIsComment));
   const entityRanges: Array<[number, number]> = [];
-  contentBlock.findEntityRanges(character => character.getEntity() !== null, (start, end) => entityRanges.push([start, end]));
+  contentBlock.findEntityRanges(
+    character => character.getEntity() !== null,
+    (start, end) => entityRanges.push([start, end])
+  );
   contentBlock.findStyleRanges(
     filterFunction,
     (start, end) => {
@@ -200,8 +218,8 @@ interface DecoratorProps {
 function getCommentDecorator(commentApp: CommentApp) {
   const CommentDecorator = ({ contentState, children }: DecoratorProps) => {
     // The comment decorator makes a comment clickable, allowing it to be focused.
-    // It does not provide styling, as draft-js imposes a 1 decorator/string limit, which would prevent comment highlights
-    // going over links/other entities
+    // It does not provide styling, as draft-js imposes a 1 decorator/string limit,
+    // which would prevent comment highlights going over links/other entities
     if (!children) {
       return null;
     }
@@ -215,8 +233,9 @@ function getCommentDecorator(commentApp: CommentApp) {
         let styleToUse: string;
         if (styles.count() > 1) {
           // We're dealing with overlapping comments.
-          // Find the least frequently occurring style and use that - this isn't foolproof, but in most cases should ensure that all comments
-          // have at least one clickable section. This logic is a bit heavier than ideal for a decorator given how often we are forced to
+          // Find the least frequently occurring style and use that - this isn't foolproof, but in
+          // most cases should ensure that all comments have at least one clickable section. This
+          // logic is a bit heavier than ideal for a decorator given how often we are forced to
           // redecorate, but will only be used on overlapping comments
 
           // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
@@ -224,11 +243,16 @@ function getCommentDecorator(commentApp: CommentApp) {
           // this casting should be removed
           let styleFreq = styles.map((style) => {
             let counter = 0;
-            findCommentStyleRanges(block, () => { counter = counter + 1; }, (metadata) => metadata.getStyle().some(rangeStyle => rangeStyle === style));
+            findCommentStyleRanges(block,
+              () => { counter = counter + 1; },
+              (metadata) => metadata.getStyle().some(rangeStyle => rangeStyle === style)
+            );
             return [style, counter];
           }) as unknown as Immutable.OrderedSet<[string, number]>;
 
-          styleFreq =  styleFreq.sort((a, b) => a[1] - b[1]) as Immutable.OrderedSet<[string, number]>;
+          styleFreq =  styleFreq.sort(
+            (firstStyleCount, secondStyleCount) => firstStyleCount[1] - secondStyleCount[1]
+          ) as Immutable.OrderedSet<[string, number]>;
 
           styleToUse = styleFreq.first()[0];
         } else {
@@ -374,9 +398,10 @@ function CommentableEditor({
         .concat(ids.map((id) => `${COMMENT_STYLE_IDENTIFIER}${id}`)),
       editorState.getCurrentContent()
     );
-    // Force reset the editor state to ensure redecoration, and apply a new (blank) inline style to force inline style rerender
-    // This must be entirely new for the rerender to trigger, hence the unique style id, as with the undo stack we cannot guarantee
-    // that a previous style won't persist without filtering everywhere, which seems a bit too heavyweight
+    // Force reset the editor state to ensure redecoration, and apply a new (blank) inline style to force
+    // inline style rerender. This must be entirely new for the rerender to trigger, hence the unique
+    // style id, as with the undo stack we cannot guarantee that a previous style won't persist without
+    // filtering everywhere, which seems a bit too heavyweight.
     // This hack can be removed when draft-js triggers inline style rerender on props change
     setEditorState((state) =>
       forceResetEditorState(
@@ -419,7 +444,12 @@ function CommentableEditor({
       onChange={(state: EditorState) => {
         let newEditorState = state;
         if (['undo', 'redo'].includes(state.getLastChangeType())) {
-          const filteredContent = filterInlineStyles(inlineStyles.map(style => style.type).concat(ids.map(id => COMMENT_STYLE_IDENTIFIER + id)), state.getCurrentContent());
+          const filteredContent = filterInlineStyles(
+            inlineStyles
+              .map(style => style.type)
+              .concat(ids.map(id => `${COMMENT_STYLE_IDENTIFIER}${id}`)),
+            state.getCurrentContent()
+          );
           newEditorState = forceResetEditorState(state, filteredContent);
         }
         setEditorState(newEditorState);
@@ -430,7 +460,9 @@ function CommentableEditor({
         enabled
           ? [
             {
-              strategy: (block: ContentBlock, callback: (start: number, end: number) => void) => findCommentStyleRanges(block, callback),
+              strategy: (
+                block: ContentBlock, callback: (start: number, end: number) => void
+              ) => findCommentStyleRanges(block, callback),
               component: CommentDecorator,
             },
           ]
@@ -446,7 +478,9 @@ function CommentableEditor({
           const numStyles = localCommentStyles.count();
           if (numStyles > 0) {
             // There is at least one comment in the range
-            const commentIds = localCommentStyles.map(style => getIdForCommentStyle(style as string)) as unknown as Immutable.OrderedSet<number>;
+            const commentIds = localCommentStyles.map(
+              style => getIdForCommentStyle(style as string)
+            ) as unknown as Immutable.OrderedSet<number>;
             let background = '#01afb0';
             if (commentIds.has(focusedId)) {
               // Use the focused colour if one of the comments is focused
