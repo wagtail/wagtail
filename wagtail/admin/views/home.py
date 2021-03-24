@@ -35,17 +35,6 @@ class UpgradeNotificationPanel:
             return ""
 
 
-class IE11WarningPanel:
-    name = 'ie11_warning'
-    order = 110
-
-    def __init__(self, request):
-        self.request = request
-
-    def render(self):
-        return render_to_string('wagtailadmin/home/ie11_warning.html', {}, request=self.request)
-
-
 class PagesForModerationPanel:
     name = 'pages_for_moderation'
     order = 200
@@ -170,7 +159,6 @@ def home(request):
     panels = [
         SiteSummaryPanel(request),
         UpgradeNotificationPanel(request),
-        IE11WarningPanel(request),
         WorkflowPagesToModeratePanel(request),
         PagesForModerationPanel(request),
         UserPagesInWorkflowModerationPanel(request),
