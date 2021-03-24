@@ -79,6 +79,14 @@
         {% endblocktrans %}
     </noscript>
 
+    {% block ie11warning %}
+        <div data-ie11-warning hidden>
+            <div class="capabilitymessage">
+                {% blocktrans with url="https://docs.wagtail.io/en/stable/editor_manual/browser_issues.html#ie11" %}Wagtail is gradually removing support for IE11, which may affect you or your organisation. <a href="{{ url }}">Learn more about our IE11 support plans</a>.{% endblocktrans %}
+            </div>
+        </div>
+    {% endblock %}
+
     {% block js %}{% endblock %}
 
     <a class="skiplink button" href="#main" data-skiplink>{% trans 'Skip to main content' %}</a>

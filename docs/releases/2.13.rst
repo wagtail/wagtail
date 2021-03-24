@@ -50,6 +50,12 @@ Bug fixes
 Upgrade considerations
 ======================
 
+End of Internet Explorer 11 support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail 2.13 will be the last Wagtail release to support IE11. Users accessing the admin with IE11 will be shown a warning message advising that support is being phased out.
+
+
 Updated handling of non-required StreamFields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
