@@ -1,5 +1,6 @@
 import type { CommentApp } from 'wagtail-comment-frontend';
 import type { Annotation } from 'wagtail-comment-frontend/src/utils/annotation';
+import type { Comment } from 'wagtail-comment-frontend/src/state/comments';
 import {
   DraftailEditor,
   ToolbarButton,
@@ -192,7 +193,7 @@ function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNod
   );
 }
 
-function styleIsComment(style: string | undefined) {
+function styleIsComment(style: string | undefined): style is string {
   return style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER);
 }
 
@@ -226,7 +227,59 @@ function findCommentStyleRanges(
       if (currentPosition < end) {
         callback(start, end);
       }
-    });
+    }
+  );
+}
+
+
+function updateCommentPositions({ editorState, comments, commentApp }:
+  {
+    editorState: EditorState,
+    comments: Array<Comment>,
+    commentApp: CommentApp
+  }) {
+  // Construct a map of comment id -> array of style ranges
+  const commentPositions = new Map();
+
+  editorState.getCurrentContent().getBlocksAsArray().forEach(
+    (block) => {
+      const key = block.getKey();
+      block.findStyleRanges((metadata) => metadata.getStyle().some(styleIsComment),
+        (start, end) => {
+          block.getInlineStyleAt(start).filter(styleIsComment).forEach(
+            (style) => {
+              // We have already filtered out any undefined styles, so cast here
+              const id = getIdForCommentStyle(style as string);
+              let existingPosition = commentPositions.get(id);
+              if (!existingPosition) {
+                existingPosition = [];
+              }
+              existingPosition.push({
+                key: key,
+                start: start,
+                end: end
+              });
+              commentPositions.set(id, existingPosition);
+            }
+          );
+        });
+    }
+  );
+
+
+  comments.filter(comment => comment.annotation).forEach((comment) => {
+    // if a comment has an annotation - ie the field has it inserted - update its position
+    const newPosition = commentPositions.get(comment.localId);
+    const serializedNewPosition = newPosition ? JSON.stringify(newPosition) : '[]';
+    if (comment.position !== serializedNewPosition) {
+      commentApp.store.dispatch(
+        commentApp.actions.updateComment(
+          comment.localId,
+          { position: serializedNewPosition }
+        )
+      );
+    }
+  });
 }
 
 interface DecoratorProps {
@@ -407,8 +460,8 @@ function CommentableEditor({
     // Only trigger a focus-related rerender if the current focused comment is inside the field, or the previous one was
     const validFocusChange =
       previousFocused !== focusedId &&
-      ((previousIds && previousIds.includes(previousFocused)) ||
-        ids.includes(focusedId));
+      ((previousFocused && previousIds && previousIds.includes(previousFocused)) ||
+        focusedId && ids.includes(focusedId));
 
     if (
       !validFocusChange &&
@@ -490,45 +543,7 @@ function CommentableEditor({
         onSave(serialiseEditorStateToRaw(filteredEditorState));
 
         // Next, update comment positions in the redux store
-
-        // Construct a map of comment id -> array of style ranges
-        const commentPositions = new Map();
-        editorState.getCurrentContent().getBlocksAsArray().forEach(
-          (block) => {
-            const key = block.getKey();
-            block.findStyleRanges((metadata) => metadata.getStyle().some(styleIsComment),
-              (start, end) => {
-                block.getInlineStyleAt(start).filter(styleIsComment).forEach(
-                  (style) => {
-                    const id = getIdForCommentStyle(style);
-                    let existingPosition = commentPositions.get(id);
-                    if (!existingPosition) {
-                      existingPosition = [];
-                    }
-                    existingPosition.push({
-                      key: key,
-                      start: start,
-                      end: end
-                    });
-                    commentPositions.set(id, existingPosition);
-                  }
-                );
-              });
-          }
-        );
-        comments.filter(comment => comment.annotation).forEach((comment) => {
-          // if a comment has an annotation - ie the field has it inserted - update its position
-          const newPosition = commentPositions.get(comment.localId);
-          const serializedNewPosition = newPosition ? JSON.stringify(newPosition) : '[]';
-          if (comment.position !== serializedNewPosition) {
-            commentApp.store.dispatch(
-              commentApp.actions.updateComment(
-                comment.localId,
-                { position: serializedNewPosition }
-              )
-            );
-          }
-        });
+        updateCommentPositions({ editorState, comments, commentApp });
       },
       250
     );
@@ -581,7 +596,7 @@ function CommentableEditor({
               style => getIdForCommentStyle(style as string)
             ) as unknown as Immutable.OrderedSet<number>;
             let background = standardHighlight;
-            if (commentIds.has(focusedId)) {
+            if (focusedId && commentIds.has(focusedId)) {
               // Use the focused colour if one of the comments is focused
               background = focusedHighlight;
             } else if (numStyles > 1) {
