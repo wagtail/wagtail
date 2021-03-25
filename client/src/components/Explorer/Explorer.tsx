@@ -15,7 +15,6 @@ interface ExplorerProps {
   currentPageId: number | null,
   nodes: NodeState,
   onClose(): void;
-  popPage(): void;
   gotoPage(id: number, transition: number): void;
 }
 
