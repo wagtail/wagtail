@@ -51,6 +51,7 @@
     "@types/draft-js": "^0.10.45",
     "@types/react": "^16.9.53",
     "@types/react-redux": "^7.1.16",
+    "@types/redux": "^3.6.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "@wagtail/stylelint-config-wagtail": "^0.1.1",
