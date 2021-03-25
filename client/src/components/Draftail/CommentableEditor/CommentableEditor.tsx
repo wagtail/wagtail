@@ -359,7 +359,7 @@ function CommentableEditor({
     setUniqueStyleId((id) => (id + 1) % 200);
   }, [focusedId, enabled, inlineStyles, ids, editorState]);
 
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>();
+  const timeoutRef = useRef<number | undefined>();
   useEffect(() => {
     // This replicates the onSave logic in Draftail, but only saves the state with all
     // comment styles filtered out
