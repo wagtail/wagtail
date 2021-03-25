@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { DraftailEditor } from 'draftail';
+import { Provider } from 'react-redux';
 
 import { IS_IE11, STRINGS } from '../../config/wagtailConfig';
 
@@ -15,6 +16,9 @@ import ModalWorkflowSource from './sources/ModalWorkflowSource';
 import Tooltip from './Tooltip/Tooltip';
 import TooltipEntity from './decorators/TooltipEntity';
 import EditorFallback from './EditorFallback/EditorFallback';
+import CommentableEditor from './CommentableEditor/CommentableEditor';
+
+import comments from '../CommentApp/comments';
 
 // 1024x1024 SVG path rendering of the "↵" character, that renders badly in MS Edge.
 const BR_ICON = 'M.436 633.471l296.897-296.898v241.823h616.586V94.117h109.517v593.796H297.333v242.456z';
@@ -91,33 +95,47 @@ const initEditor = (selector, options, currentScript) => {
     field.draftailEditor = ref;
   };
 
-  const editor = (
-    <EditorFallback field={field}>
-      <DraftailEditor
-        ref={editorRef}
-        rawContentState={rawContentState}
-        onSave={serialiseInputValue}
-        placeholder={STRINGS.WRITE_HERE}
-        spellCheck={true}
-        enableLineBreak={{
-          description: STRINGS.LINE_BREAK,
-          icon: BR_ICON,
-        }}
-        showUndoControl={{ description: STRINGS.UNDO }}
-        showRedoControl={{ description: STRINGS.REDO }}
-        maxListNesting={4}
-        // Draft.js + IE 11 presents some issues with pasting rich text. Disable rich paste there.
-        stripPastedStyles={IS_IE11}
-        {...options}
-        blockTypes={blockTypes.map(wrapWagtailIcon)}
-        inlineStyles={inlineStyles.map(wrapWagtailIcon)}
-        entityTypes={entityTypes}
-        enableHorizontalRule={enableHorizontalRule}
-      />
-    </EditorFallback>
-  );
+  const sharedProps = {
+    rawContentState: rawContentState,
+    onSave: serialiseInputValue,
+    placeholder: STRINGS.WRITE_HERE,
+    spellCheck: true,
+    enableLineBreak: {
+      description: STRINGS.LINE_BREAK,
+      icon: BR_ICON,
+    },
+    showUndoControl: { description: STRINGS.UNDO },
+    showRedoControl: { description: STRINGS.REDO },
+    maxListNesting: 4,
+    // Draft.js + IE 11 presents some issues with pasting rich text. Disable rich paste there.
+    stripPastedStyles: IS_IE11,
+    ...options,
+    blockTypes: blockTypes.map(wrapWagtailIcon),
+    inlineStyles: inlineStyles.map(wrapWagtailIcon),
+    entityTypes,
+    enableHorizontalRule
+  };
 
-  ReactDOM.render(editor, editorWrapper);
+  const contentPath = comments.getContentPath(field);
+
+  // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock - and the comments system is initialized
+  // then use CommentableEditor, otherwise plain DraftailEditor
+  const editor = (window.commentApp && contentPath !== '') ?
+    <Provider store={window.commentApp.store}>
+      <CommentableEditor
+        editorRef={editorRef}
+        commentApp={window.commentApp}
+        fieldNode={field.parentNode}
+        contentPath={contentPath}
+        {...sharedProps}
+      />
+    </Provider>
+    : <DraftailEditor
+      ref={editorRef}
+      {...sharedProps}
+    />;
+
+  ReactDOM.render(<EditorFallback field={field}>{editor}</EditorFallback>, editorWrapper);
 };
 
 export default {
