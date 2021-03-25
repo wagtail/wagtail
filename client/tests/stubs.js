@@ -51,6 +51,7 @@ global.wagtailConfig = {
     SAVING: 'Saving...',
     CANCEL: 'Cancel',
     DELETING: 'Deleting...',
+    ADD_A_COMMENT: 'Add a comment',
     SHOW_COMMENTS: 'Show comments',
     REPLY: 'Reply',
     RESOLVE: 'Resolve',
