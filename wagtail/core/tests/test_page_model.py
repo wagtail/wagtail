@@ -19,8 +19,8 @@ from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.core.models import (
-    Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site, get_page_models,
-    get_translatable_models)
+    Comment, Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site,
+    get_page_models, get_translatable_models)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
@@ -1144,6 +1144,27 @@ class TestCopyPage(TestCase):
         self.assertEqual(
             new_christmas_event.categories.all().in_bulk(),
             christmas_event.categories.all().in_bulk()
+        )
+
+    def test_copy_page_does_not_copy_comments(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        christmas_event.comments = [Comment(text='test', user=christmas_event.owner)]
+        christmas_event.save()
+
+        # Copy the page as in `test_copy_page_copies_child_objects()``, but using exclude_fields
+        # to prevent 'advert_placements' from being copied to the new version
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
+
+        # Check that the comments weren't removed from old page
+        self.assertEqual(christmas_event.comments.count(), 1, "Comments were removed from the original page")
+
+        # Check that comments were NOT copied over
+        self.assertFalse(
+            new_christmas_event.comments.exists(),
+            "Comments were copied"
         )
 
     def test_copy_page_does_not_copy_child_objects_if_accessor_name_in_exclude_fields(self):
