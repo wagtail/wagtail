@@ -54,12 +54,19 @@ window.initTagField = initTagField;
  *  - confirmationMessage - The message to display in the prompt.
  *  - alwaysDirty - When set to true the form will always be considered dirty,
  *    prompting the user even when nothing has been changed.
+ *  - commentApp - The CommentApp used by the commenting system, if the dirty check
+ *    should include comments
+ *  - includeFooterSaveWarning - When set to true, shows, hides, and alters the text
+ *    of the footer save warning appropriately depending whether there are unsaved
+ *    changes
 */
 
 function enableDirtyFormCheck(formSelector, options) {
   const $form = $(formSelector);
   const confirmationMessage = options.confirmationMessage || ' ';
   const alwaysDirty = options.alwaysDirty || false;
+  const commentApp = options.commentApp || null;
+  const includeFooterSaveWarning = options.includeFooterSaveWarning || false;
   let initialData = null;
   let formSubmitted = false;
 
@@ -67,17 +74,123 @@ function enableDirtyFormCheck(formSelector, options) {
     formSubmitted = true;
   });
 
+  let isDirty = alwaysDirty;
+  let isCommentsDirty = false;
+  if (commentApp) {
+    isCommentsDirty = commentApp.selectors.selectIsDirty(commentApp.store.getState())
+    commentApp.store.subscribe(() => {
+      const newIsCommentsDirty = commentApp.selectors.selectIsDirty(commentApp.store.getState());
+      if (newIsCommentsDirty !== isCommentsDirty) {
+        isCommentsDirty = newIsCommentsDirty;
+        updateFooter(isDirty, isCommentsDirty);
+      }
+    })
+  }
+
+  let updateFooterTextTimeout = -1;
+  const updateFooter = (formDirty, commentsDirty) => {
+    if (!includeFooterSaveWarning) {
+      return
+    }
+    const warningContainer = $('[data-unsaved-warning]')
+    const warnings = warningContainer.find('[data-unsaved-type]');
+    const anyDirty = formDirty || commentsDirty
+    const typeVisibility = {
+      'all': formDirty && commentsDirty,
+      'any': anyDirty,
+      'comments': commentsDirty && !formDirty,
+      'edits': formDirty && !commentsDirty
+    }
+
+    let hiding = false;
+    if (anyDirty) {
+      warningContainer.removeClass('footer-container--hidden')
+    } else {
+      if (!warningContainer.hasClass('footer-container--hidden')) {
+        hiding = true
+      }
+      warningContainer.addClass('footer-container--hidden')
+    }
+    window.clearTimeout(updateFooterTextTimeout)
+    const updateWarnings = () => {
+      for (const warning of warnings) {
+      const visible = typeVisibility[warning.dataset.unsavedType]
+      warning.hidden = !visible;
+    }
+  }
+    if (hiding) {
+      // If hiding, we want to keep the text as-is before it disappears
+      window.setTimeout(updateWarnings, 3000)
+    } else {
+      updateWarnings()
+    }
+  }
+  updateFooter(isDirty, isCommentsDirty);
+
+  let updateIsDirtyTimeout = -1;
+
+  const isFormDirty = () => {
+    if (alwaysDirty) {
+      return true
+    } else if (!initialData) {
+      return false
+    }
+
+    const formData = new FormData($form[0])
+    const keys = Array.from(formData.keys()).filter((key) => !key.startsWith('comments-'))
+    if (keys.length !== initialData.size) {
+      return true
+    }
+
+    return keys.some((key) => {
+      const newValue = formData.getAll(key);
+      const oldValue = initialData.get(key);
+      if (newValue === oldValue) {
+        return false
+      } else if (Array.isArray(newValue) && Array.isArray(oldValue)) {
+        return newValue.length !== oldValue.length || newValue.some((value, index) => value !== oldValue[index]);
+      }
+      return false;
+    })
+  }
+
+  const updateIsDirty = () => {
+    const previousIsDirty = isDirty;
+    isDirty = isFormDirty();
+    if (previousIsDirty !== isDirty) {
+      updateFooter(isDirty, isCommentsDirty);
+    }
+  }
+
   // Delay snapshotting the form’s data to avoid race conditions with form widgets that might process the values.
   // User interaction with the form within that delay also won’t trigger the confirmation message.
-  setTimeout(() => {
-    initialData = $form.serialize();
-  }, 1000 * 10);
+  if (!alwaysDirty) {
+    setTimeout(() => {
+      const initialFormData = new FormData($form[0]);
+      initialData = new Map();
+      Array.from(initialFormData.keys())
+      .filter(key => !key.startsWith('comments-'))
+      .forEach(key => initialData.set(key, initialFormData.getAll(key)))
+
+      $form.on('change keyup DOMSubtreeModified', () => {
+        if (isDirty) {
+          // We already know the form is dirty, and is relatively unlikely to become clean again, so
+          // run the dirty check on a relatively long timer that we reset on any form update
+          clearTimeout(updateIsDirtyTimeout);
+          updateIsDirtyTimeout = setTimeout(updateIsDirty, 3000);
+        } else {
+          updateIsDirty()
+        }
+      }).trigger('change');
+    }, 1000 * 10);
+  }
 
   // eslint-disable-next-line consistent-return
   window.addEventListener('beforeunload', (event) => {
-    const isDirty = initialData && $form.serialize() !== initialData;
+    clearTimeout(updateIsDirtyTimeout);
+    updateIsDirty();
     const displayConfirmation = (
-      !formSubmitted && (alwaysDirty || isDirty)
+      !formSubmitted && (isDirty || isCommentsDirty)
     );
 
     if (displayConfirmation) {

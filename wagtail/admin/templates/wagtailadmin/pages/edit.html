@@ -54,7 +54,9 @@
         {% endif %}
 
         <footer>
-            <nav aria-label="{% trans 'Actions' %}">
+            <ul>
+                <li class="footer-container">
+                <nav aria-label="{% trans 'Actions' %}">
                 <ul>
                     <li class="actions actions--primary">
                         <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
@@ -87,6 +89,9 @@
                     {% endblock %}
                 </ul>
             </nav>
+                </li>
+                {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
+            </ul>
         </footer>
     </form>
     {% endblock %}
@@ -160,6 +165,9 @@
                     {% if has_unsaved_changes %}
                         alwaysDirty: true,
                     {% endif %}
+
+                    commentApp: window.commentApp,
+                    includeFooterSaveWarning: true
                 }
             );
         });
