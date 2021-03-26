@@ -65,7 +65,7 @@ def main_nav(context):
 
 
 @register.inclusion_tag('wagtailadmin/shared/breadcrumb.html', takes_context=True)
-def explorer_breadcrumb(context, page, include_self=False):
+def explorer_breadcrumb(context, page, include_self=True, trailing_arrow=False):
     user = context['request'].user
 
     # find the closest common ancestor of the pages that this user has direct explore permission
@@ -75,7 +75,8 @@ def explorer_breadcrumb(context, page, include_self=False):
         return {'pages': Page.objects.none()}
 
     return {
-        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True).specific()
+        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True).specific(),
+        'trailing_arrow': trailing_arrow
     }
 
 
