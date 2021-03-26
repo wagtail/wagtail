@@ -138,6 +138,37 @@ class TestTemplateTag(TemplateTestCase):
         with self.assertRaises(RuntimeError):
             template.render(context)
 
+    def test_get_settings_variable_assignment_request_context(self):
+        """
+        Check that assigning the setting to a context variable with
+        {% get_settings as wagtail_settings %} works.
+        """
+        request = self.get_request(site=self.other_site)
+        context = Context({'request': request})
+        template = Template('{% load wagtailsettings_tags %}'
+                            '{% get_settings as wagtail_settings %}'
+                            '{{ wagtail_settings.tests.testsetting.title}}')
+
+        self.assertEqual(template.render(context), self.other_site_settings.title)
+        # Also check that the default 'settings' variable hasn't been set
+        template = Template('{% load wagtailsettings_tags %}'
+                            '{% get_settings as wagtail_settings %}'
+                            '{{ settings.tests.testsetting.title}}')
+
+        self.assertEqual(template.render(context), '')
+
+    def test_get_settings_variable_assigment_use_default(self):
+        """
+        Check that assigning the setting to a context variable with
+        {% get_settings use_default_site=True as wagtail_settings %} works.
+        """
+        context = Context()
+        template = Template('{% load wagtailsettings_tags %}'
+                            '{% get_settings use_default_site=True as wagtail_settings %}'
+                            '{{ wagtail_settings.tests.testsetting.title }}')
+
+        self.assertEqual(template.render(context), self.default_site_settings.title)
+
 
 class TestSettingsJinja(TemplateTestCase):
 
