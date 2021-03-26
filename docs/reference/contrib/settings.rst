@@ -170,6 +170,15 @@ If there is no ``request`` available in the template at all, you can use the set
 
 .. note:: You can not reliably get the correct settings instance for the current site from this template tag if the request object is not available. This is only relevant for multisite instances of Wagtail.
 
+By default, the tag will create or update a ``settings`` variable in the context. If you want to
+assign to a different context variable instead, use ``{% get_settings as other_variable_name %}``:
+
+.. code-block:: html+django
+
+    {% load wagtailsettings_tags %}
+    {% get_settings as wagtail_settings %}
+    {{ wagtail_settings.app_label.SocialMediaSettings.instagram }}
+
 .. _settings_tag_jinja2:
 
 Using in Jinja2 templates
