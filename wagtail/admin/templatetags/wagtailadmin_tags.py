@@ -502,12 +502,13 @@ def bulk_action_filters(context):
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
                         takes_context=True)
-def bulk_action_choices(context):
+def bulk_action_choices(context, page):
+    next_url = context.request.path
     button_hooks = hooks.get_hooks('register_bulk_action_choices')
 
     buttons = []
     for hook in button_hooks:
-        buttons.extend(hook())
+        buttons.extend(hook(page, next_url=next_url))
 
     buttons.sort()
 
