@@ -1,0 +1,33 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{% blocktrans count counter=pages|length with title=page.get_admin_display_title  %}Delete 1 page {% plural %}Delete {{ counter }} pages{% endblocktrans %}{% endblock %}
+
+{% block content %}
+    {% trans "Delete" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p>{% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}Are you sure you want to delete these pages?{% endblocktrans %}</p>
+        <ul>
+            {% for page in pages %}
+            <li>
+                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
+                <ul>
+                    {% if page.descendant_count %}
+                        {% blocktrans count counter=page.descendant_count %}
+                            <li>This will also delete one more subpage.</li>
+                        {% plural %}
+                            <li>This will also delete {{ counter }} more subpages.</li>
+                        {% endblocktrans %}
+                    {% endif %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        <form action="{{ submit_url }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
+            <a href="{{ next }}" class="button button-secondary">{% trans "No, don't delete" %}</a>
+        </form>
+    </div>
+{% endblock %}

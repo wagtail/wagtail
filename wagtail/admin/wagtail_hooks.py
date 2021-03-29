@@ -158,49 +158,49 @@ def register_workflow_tasks_menu_item():
 def bulk_action_filters():
     yield Button(
             _('All'),
-            '',
-            attrs={'aria-label': _("All pages")},
+            '?filters=',
+            attrs={'title': _("All pages"), 'filter': _("")},
             priority=10
         )
 
     yield Button(
             _('Status: Draft'),
-            '',
-            attrs={'aria-label': _("Draft pages")},
-            priority=10
+            '?filters=status:draft',
+            attrs={'title': _("Draft pages"), 'filter': _("status:draft")},
+            priority=20
         )
 
     yield Button(
             _('Status: Live'),
-            '',
-            attrs={'aria-label': _("Live pages")},
-            priority=10
+            '?filters=status:live',
+            attrs={'title': _("Live pages"), 'filter': _("status:live")},
+            priority=30
         )
 
 
 @hooks.register('register_bulk_action_choices')
-def bulk_action_choices(is_parent=False, next_url=None):
+def bulk_action_choices(page, is_parent=False, next_url=None):
     yield PageListingButton(
         _('Move'),
-        '',
+        reverse('wagtailadmin_bulk_delete', args=[page.id]) + '?' + urlencode({'next': next_url}),
         attrs={'aria-label': _("Move pages")},
         priority=10
     )
     yield PageListingButton(
         _('Publish'),
-        '',
+        reverse('wagtailadmin_bulk_publish', args=[page.id]) + '?' + urlencode({'next': next_url}),
         attrs={'aria-label': _("Publish pages")},
         priority=20
     )
     yield PageListingButton(
         _('Unpublish'),
-        '',
+        reverse('wagtailadmin_bulk_unpublish', args=[page.id]) + '?' + urlencode({'next': next_url}),
         attrs={'aria-label': _("Unpublish pages")},
         priority=30
     )
     yield PageListingButton(
         _('Delete'),
-        '',
+        reverse('wagtailadmin_bulk_delete', args=[page.id]) + '?' + urlencode({'next': next_url}),
         attrs={'aria-label': _("Delete pages")},
         priority=40
     )
