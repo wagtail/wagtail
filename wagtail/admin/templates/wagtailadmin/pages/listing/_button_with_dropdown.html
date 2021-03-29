@@ -10,7 +10,7 @@
         <ul class="c-dropdown__menu u-toggle  u-arrow u-arrow--tl u-background">
         {% for button in buttons %}
             <li class="c-dropdown__item ">
-                <a href="{{ button.url }}" aria-label="{{ button.attrs.title }}" class="u-link is-live {{ button.classes|join:' ' }}">
+                <a href="{{ button.url }}" {% if button.attrs.filter %}data-filter={{button.attrs.filter}}{% endif %} aria-label="{{ button.attrs.title }}" class="u-link is-live {{ button.classes|join:' ' }}">
                     {{ button.label }}
                 </a>
             </li>

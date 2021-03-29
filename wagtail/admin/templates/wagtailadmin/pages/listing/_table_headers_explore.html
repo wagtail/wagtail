@@ -22,16 +22,16 @@ ordering: the current sort parameter
             <input type="checkbox" aria-label="Bulk action checkbox" />
             {% bulk_action_filters %}
             <div class="bulk-actions-choices u-hidden">
-                <span>All 8 on this page selected. Select all 43 in listing |</span>
-                <ul>{% bulk_action_choices %}</ul>
+                <span><span class="num-pages">All {{pages|length}}</span> on this page selected. Select all <span class="num-pages-in-listing">0</span> in listing |</span>
+                <ul>{% bulk_action_choices parent_page %}</ul>
             </div>
         </div>
     </th>
     <th class="search">
         <div class="nav-search">
-            <button class="button" type="submit">Search</button>
+            <button class="button" form="filter_search" type="submit">Search</button>
             <label for="page-search-q">Search</label>
-            <input aria-label="Search text" type="text" id="page-search" name="q" placeholder="Search">
+            <input aria-label="Search text" type="text" form="filter_search" value="{{filter_query}}" name="filters" placeholder="Search">
         </div>
     </th>
     {% if show_parent %}
