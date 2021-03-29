@@ -1,0 +1,46 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans count counter=pages|length with title=page.get_admin_display_title %}Publish 1 page {% plural %}Publish {{ counter }} pages{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Unpublish" as unpublish_str %}
+    {% include "wagtailadmin/shared/header.html" with title=unpublish_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <p>{% trans "Are you sure you want to publish these pages?" %}</p>
+        <ul>
+            {% for page in pages %}
+            <li>
+                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
+                <ul>
+                    {% if page.draft_descendant_count %}
+                        {% blocktrans count counter=page.draft_descendant_count %}
+                            <li>This page has one unpublished subpage</li>
+                        {% plural %}
+                            <li>This page has {{ counter }} unpublished subpages</li>
+                        {% endblocktrans %}
+                    {% endif %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        <form action="{{ submit_url }}" method="POST">
+            {% csrf_token %}
+            {% if has_draft_descendants %}
+            <ul class="fields">
+                <li>
+                    <div class="field boolean_field checkbox_input">
+                        <div class="field-content">
+                            <div class="input">
+                                <input id="id_include_descendants" name="include_descendants" type="checkbox">
+                                <label for="id_include_descendants" class="plain-checkbox-label">{% trans "Publish subpages" %}</label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            {% endif %}
+            <input type="submit" value="{% trans 'Yes, publish' %}" class="button" />
+            <a href="{{ next }}" class="button button-secondary">{% trans "No, don't publish" %}</a>
+        </form>
+    </div>
+{% endblock %}
