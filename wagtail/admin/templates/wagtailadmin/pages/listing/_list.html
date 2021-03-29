@@ -46,7 +46,7 @@
                 {% page_permissions page as page_perms %}
                 <tr {% if ordering == "ord" %}id="page_{{ page.id|unlocalize }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
                     <td>
-                        <input data-page-id="{{page.id}}" class="bulk-action-checkbox" aria-label="Page select checkbox" type="checkbox" />
+                        <input data-page-status="{% if page.live %}live{% else %}draft{% endif %}" data-page-id="{{page.id}}" class="bulk-action-checkbox" aria-label="Page select checkbox" type="checkbox" />
                     </td>
                     <td class="title" valign="top" data-listing-page-title>
                         {% block page_title %}
@@ -80,5 +80,5 @@
 
 <script src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 <script>
-    window.AddBulkActionCheckboxEventListeners()
+    window.AddBulkActionEventListeners()
 </script>
