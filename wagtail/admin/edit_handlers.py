@@ -15,7 +15,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
-from wagtail.admin.templatetags.wagtailadmin_tags import user_display_name
+from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
@@ -841,8 +841,14 @@ class CommentPanel(EditHandler):
         self.comments = comments
 
     def get_context(self):
+        def user_data(user):
+            return {
+                'name': user_display_name(user),
+                'avatar_url': avatar_url(user)
+            }
+
         user = getattr(self.request, 'user', None)
-        authors = {user.pk: user_display_name(user)} if user else {}
+        authors = {user.pk: user_data(user)} if user else {}
         user_pks = {user.pk}
         serialized_comments = []
         for comment in self.comments:
@@ -852,7 +858,7 @@ class CommentPanel(EditHandler):
             for reply in comment.replies.all():
                 user_pks.add(reply.user_id)
 
-        authors = {user.pk: user_display_name(user) for user in get_user_model().objects.filter(pk__in=user_pks)}
+        authors = {user.pk: user_data(user) for user in get_user_model().objects.filter(pk__in=user_pks)}
 
         comments_data = {
             'comments': serialized_comments,
