@@ -7,7 +7,6 @@ from .models import Embed
 
 
 def get_embed(url, max_width=None, max_height=None, finder=None):
-    print(url, max_width)
     embed_hash = get_embed_hash(url, max_width, max_height)
 
     # Check database
@@ -15,7 +14,6 @@ def get_embed(url, max_width=None, max_height=None, finder=None):
         return Embed.objects.get(hash=embed_hash)
     except Embed.DoesNotExist:
         pass
-    print("does not exist")
 
     # Get/Call finder
     if not finder:

@@ -120,7 +120,7 @@ class TestEmbeds(TestCase):
     def setUp(self):
         self.hit_count = 0
 
-    def dummy_finder(self, url, max_width=None):
+    def dummy_finder(self, url, max_width=None, max_height=None):
         # Up hit count
         self.hit_count += 1
 
@@ -172,7 +172,7 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.width, 400)
         self.assertFalse(embed.is_responsive)
 
-    def dummy_finder_invalid_width(self, url, max_width=None):
+    def dummy_finder_invalid_width(self, url, max_width=None, max_height=None):
         # Return a record with an invalid width
         return {
             'title': "Test: " + url,
@@ -190,7 +190,7 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.width, None)
 
     def test_no_html(self):
-        def no_html_finder(url, max_width=None):
+        def no_html_finder(url, max_width=None, max_height=None):
             """
             A finder which returns everything but HTML
             """
@@ -641,7 +641,7 @@ class TestEmbedBlock(TestCase):
         self.assertIn('<h1>Hello world!</h1>', result)
 
         # Check that get_embed was called correctly
-        get_embed.assert_any_call('http://www.example.com/foo')
+        get_embed.assert_any_call('http://www.example.com/foo', None, None)
 
     @patch('wagtail.embeds.embeds.get_embed')
     def test_render_within_structblock(self, get_embed):
@@ -666,7 +666,7 @@ class TestEmbedBlock(TestCase):
         self.assertIn('<h1>Hello world!</h1>', result)
 
         # Check that get_embed was called correctly
-        get_embed.assert_any_call('http://www.example.com/foo')
+        get_embed.assert_any_call('http://www.example.com/foo', None, None)
 
     def test_render_form(self):
         """
