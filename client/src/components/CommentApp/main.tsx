@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
-import root from 'react-shadow';
 
 import type { Annotation } from './utils/annotation';
 import { LayoutController } from './utils/layout';
@@ -27,8 +26,7 @@ import {
 import CommentComponent from './components/Comment';
 import { CommentFormSetComponent } from './components/Form';
 import TopBarComponent from './components/TopBar';
-
-import styles from '!css-to-string-loader!css-loader!sass-loader!./main.scss'; // eslint-disable-line import/no-unresolved
+import { INITIAL_STATE as INITIAL_SETTINGS_STATE } from './state/settings';
 
 export interface TranslatableStrings {
   COMMENT: string;
@@ -128,19 +126,14 @@ function renderCommentsUi(
   /* eslint-disable react/no-danger */
   // The dangerouslySetInnerHTML will no longer be necessary when the styling is moved into Wagtail's CSS
   return (
-    <root.div>
-      <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap"
-        rel="stylesheet"
-      />
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
+    <>
       <TopBarComponent
         commentsEnabled={commentsEnabled}
         store={store}
         strings={strings}
       />
       <ol className="comments-list">{commentsRendered}</ol>
-    </root.div>
+    </>
   );
   /* eslint-enable react/no-danger */
 }
@@ -161,10 +154,7 @@ export class CommentApp {
 
   constructor() {
     this.store = createStore(reducer, {
-      settings: {
-        user: null,
-        commentsEnabled: true
-      }
+      settings: INITIAL_SETTINGS_STATE
     });
     this.layout = new LayoutController();
   }

@@ -116,7 +116,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       );
     };
 
-    const replies = [];
+    const replies: React.ReactNode[] = [];
     let replyBeingEdited = false;
     for (const reply of comment.replies.values()) {
       if (reply.mode === 'saving' || reply.mode === 'editing') {
