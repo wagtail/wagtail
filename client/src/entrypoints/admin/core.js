@@ -172,7 +172,7 @@ function enableDirtyFormCheck(formSelector, options) {
       .filter(key => !key.startsWith('comments-'))
       .forEach(key => initialData.set(key, initialFormData.getAll(key)))
 
-      $form.on('change keyup DOMSubtreeModified', () => {
+      const updateDirtyCheck = () => {
         if (isDirty) {
           // We already know the form is dirty, and is relatively unlikely to become clean again, so
           // run the dirty check on a relatively long timer that we reset on any form update
@@ -181,7 +181,32 @@ function enableDirtyFormCheck(formSelector, options) {
         } else {
           updateIsDirty()
         }
-      }).trigger('change');
+      }
+
+      $form.on('change keyup', updateDirtyCheck).trigger('change');
+
+      const validInputNodeInList = (nodeList) => {
+        for (const node of nodeList) {
+          if (node.nodeType === node.ELEMENT_NODE && ['INPUT', 'TEXTAREA', 'SELECT'].includes(node.tagName)) {
+            return true
+          }
+        }
+        return false
+      }
+
+      const observer = new MutationObserver((mutationList) => {
+        for (const mutation of mutationList) {
+          if (validInputNodeInList(mutation.addedNodes) || validInputNodeInList(mutation.removedNodes)) {
+            updateDirtyCheck();
+            return;
+          }
+        }
+      });
+      observer.observe($form[0], {
+        childList: true,
+        attributes: false,
+        subtree: true
+      });
     }, 1000 * 10);
   }
 
