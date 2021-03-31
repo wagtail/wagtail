@@ -94,6 +94,8 @@ def get_js_translation_strings():
         'SAVE_COMMENT_WARNING': _('This will be saved when the page is saved'),
         'FOCUS_COMMENT': _('Focus comment'),
         'UNFOCUS_COMMENT': _('Unfocus comment'),
+        'COMMENT': _('Comment'),
+        'MORE_ACTIONS': _('More actions'),
 
         'MONTHS': [str(m) for m in MONTHS.values()],
 
