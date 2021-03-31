@@ -1,10 +1,10 @@
 import type { Annotation } from '../utils/annotation';
 import * as actions from '../actions/comments';
 import { update } from './utils';
-import produce, { enableMapSet, enableES5 } from "immer";
+import produce, { enableMapSet, enableES5 } from 'immer';
 
-enableES5()
-enableMapSet()
+enableES5();
+enableMapSet();
 
 export interface Author {
   id: any;
@@ -139,7 +139,8 @@ export interface CommentsState {
   comments: Map<number, Comment>;
   focusedComment: number | null;
   pinnedComment: number | null;
-  remoteCommentCount: number; // This is redundant, but stored for efficiency as it will change only as the app adds its loaded comments
+  // This is redundant, but stored for efficiency as it will change only as the app adds its loaded comments
+  remoteCommentCount: number;
 }
 
 const INITIAL_STATE: CommentsState = {
@@ -150,89 +151,92 @@ const INITIAL_STATE: CommentsState = {
 };
 
 export const reducer = produce((draft: CommentsState, action: actions.Action) => {
+  /* eslint-disable no-param-reassign */
   switch (action.type) {
-    case actions.ADD_COMMENT: {
-      draft.comments.set(action.comment.localId, action.comment);
-      if (action.comment.remoteId) {
-        draft.remoteCommentCount += 1;
-      }
-      break;
+  case actions.ADD_COMMENT: {
+    draft.comments.set(action.comment.localId, action.comment);
+    if (action.comment.remoteId) {
+      draft.remoteCommentCount += 1;
     }
-    case actions.UPDATE_COMMENT: {
-      const comment = draft.comments.get(action.commentId);
-      if (comment) {
-        update(comment, action.update)
-      }
-      break;
-    }
-    case actions.DELETE_COMMENT: {
-      const comment = draft.comments.get(action.commentId);
-      if (!comment) {
-        break
-      } else if (!comment.remoteId) {
-        // If the comment doesn't exist in the database, there's no need to keep it around locally
-        draft.comments.delete(action.commentId);
-      } else {
-        comment.deleted = true;
-      }
-
-      // Unset focusedComment if the focused comment is the one being deleted
-      if (draft.focusedComment === action.commentId) {
-        draft.focusedComment = null;
-      }
-      if (draft.pinnedComment === action.commentId) {
-        draft.pinnedComment = null;
-      }
-      break;
-    }
-    case actions.SET_FOCUSED_COMMENT: {
-      if ((action.commentId === null) || (draft.comments.has(action.commentId))) {
-        draft.focusedComment = action.commentId;
-        if (action.updatePinnedComment) {
-          draft.pinnedComment = action.commentId;
-        }
-      }
-      break;
-    }
-    case actions.ADD_REPLY: {
-      const comment = draft.comments.get(action.commentId);
-      if (!comment) {
-        break
-      }
-      if (action.reply.remoteId) {
-        comment.remoteReplyCount += 1;
-      }
-      comment.replies.set(action.reply.localId, action.reply);
-      break;
-    }
-    case actions.UPDATE_REPLY: {
-      const comment = draft.comments.get(action.commentId);
-      if (!comment) {
-        break;
-      }
-      const reply = comment.replies.get(action.replyId);
-      if (!reply) {
-        break;
-      }
-      update(reply, action.update)
-      break;
-    }
-    case actions.DELETE_REPLY: {
-      const comment = draft.comments.get(action.commentId);
-      if (!comment) {
-        break;
-      }
-      const reply = comment.replies.get(action.replyId);
-      if (!reply) {
-        break;
-      }
-      if (!reply.remoteId) {
-        // The reply doesn't exist in the database, so we don't need to store it locally
-         comment.replies.delete(reply.localId);
-      } else {
-        reply.deleted = true;
-      }
-      break;
-    }
+    break;
   }
-}, INITIAL_STATE)
+  case actions.UPDATE_COMMENT: {
+    const comment = draft.comments.get(action.commentId);
+    if (comment) {
+      update(comment, action.update);
+    }
+    break;
+  }
+  case actions.DELETE_COMMENT: {
+    const comment = draft.comments.get(action.commentId);
+    if (!comment) {
+      break;
+    } else if (!comment.remoteId) {
+      // If the comment doesn't exist in the database, there's no need to keep it around locally
+      draft.comments.delete(action.commentId);
+    } else {
+      comment.deleted = true;
+    }
+
+    // Unset focusedComment if the focused comment is the one being deleted
+    if (draft.focusedComment === action.commentId) {
+      draft.focusedComment = null;
+    }
+    if (draft.pinnedComment === action.commentId) {
+      draft.pinnedComment = null;
+    }
+    break;
+  }
+  case actions.SET_FOCUSED_COMMENT: {
+    if ((action.commentId === null) || (draft.comments.has(action.commentId))) {
+      draft.focusedComment = action.commentId;
+      if (action.updatePinnedComment) {
+        draft.pinnedComment = action.commentId;
+      }
+    }
+    break;
+  }
+  case actions.ADD_REPLY: {
+    const comment = draft.comments.get(action.commentId);
+    if (!comment) {
+      break;
+    }
+    if (action.reply.remoteId) {
+      comment.remoteReplyCount += 1;
+    }
+    comment.replies.set(action.reply.localId, action.reply);
+    break;
+  }
+  case actions.UPDATE_REPLY: {
+    const comment = draft.comments.get(action.commentId);
+    if (!comment) {
+      break;
+    }
+    const reply = comment.replies.get(action.replyId);
+    if (!reply) {
+      break;
+    }
+    update(reply, action.update);
+    break;
+  }
+  case actions.DELETE_REPLY: {
+    const comment = draft.comments.get(action.commentId);
+    if (!comment) {
+      break;
+    }
+    const reply = comment.replies.get(action.replyId);
+    if (!reply) {
+      break;
+    }
+    if (!reply.remoteId) {
+      // The reply doesn't exist in the database, so we don't need to store it locally
+      comment.replies.delete(reply.localId);
+    } else {
+      reply.deleted = true;
+    }
+    break;
+  }
+  default:
+    break;
+  }
+}, INITIAL_STATE);

@@ -4,7 +4,8 @@ import { INITIAL_STATE } from '../state/settings';
 import { selectCommentsForContentPathFactory } from './index';
 
 test('Select comments for contentpath', () => {
-  // test that the selectCommentsForContentPathFactory can generate selectors for the two contentpaths in basicCommentsState
+  // test that the selectCommentsForContentPathFactory can generate selectors for the two
+  // contentpaths in basicCommentsState
   const state = {
     comments: basicCommentsState,
     settings: INITIAL_STATE,

@@ -18,23 +18,7 @@ import { LayoutController } from '../utils/layout';
 import { getNextCommentId } from './sequences';
 import { defaultStrings } from '../main';
 
-import styles from '!css-to-string-loader!css-loader!sass-loader!./../main.scss';
 import CommentComponent from '../components/Comment/index';
-
-/* eslint-disable react/no-danger */
-// TODO: replace this when commenting is moved into Wagtail proper
-export function Styling() {
-  return (
-    <>
-      <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans&amp;display=swap"
-        rel="stylesheet"
-      />
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
-    </>
-  );
-}
-/* eslint-enable react/no-danger */
 
 export function RenderCommentsForStorybook({
   store,
@@ -73,10 +57,7 @@ export function RenderCommentsForStorybook({
   ));
 
   return (
-    <>
-      <Styling />
-      <ol className="comments-list">{commentsRendered}</ol>
-    </>
+    <ol className="comments-list">{commentsRendered}</ol>
   );
 }
 
@@ -116,7 +97,7 @@ export function addTestComment(
   );
 
   if (options.focused) {
-    store.dispatch(setFocusedComment(commentId, {updatePinnedComment: true}));
+    store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true }));
   }
 
   return commentId;

@@ -4,7 +4,7 @@ import { createStore } from 'redux';
 
 import type { Annotation } from './utils/annotation';
 import { LayoutController } from './utils/layout';
-import { getOrDefault } from './utils/maps'
+import { getOrDefault } from './utils/maps';
 import { getNextCommentId, getNextReplyId } from './utils/sequences';
 import { Store, reducer } from './state';
 import { Comment, newCommentReply, newComment, Author } from './state/comments';
@@ -86,6 +86,7 @@ export interface InitialComment {
 }
 /* eslint-enable */
 
+// eslint-disable-next-line camelcase
 const getAuthor = (authors: Map<string, {name: string, avatar_url: string}>, id: any): Author => {
   const authorData = getOrDefault(authors, String(id), { name: '', avatar_url: '' });
 
@@ -93,7 +94,7 @@ const getAuthor = (authors: Map<string, {name: string, avatar_url: string}>, id:
     id,
     name: authorData.name,
     avatarUrl: authorData.avatar_url,
-  }
+  };
 };
 
 function renderCommentsUi(
@@ -123,8 +124,6 @@ function renderCommentsUi(
       strings={strings}
     />
   ));
-  /* eslint-disable react/no-danger */
-  // The dangerouslySetInnerHTML will no longer be necessary when the styling is moved into Wagtail's CSS
   return (
     <>
       <TopBarComponent
@@ -158,12 +157,13 @@ export class CommentApp {
     });
     this.layout = new LayoutController();
   }
+  // eslint-disable-next-line camelcase
   setUser(userId: any, authors: Map<string, {name: string, avatar_url: string}>) {
     this.store.dispatch(
       updateGlobalSettings({
         user: getAuthor(authors, userId)
       })
-    )
+    );
   }
   updateAnnotation(
     annotation: Annotation,
@@ -173,7 +173,7 @@ export class CommentApp {
     this.store.dispatch(
       updateComment(
         commentId,
-        {annotation: annotation}
+        { annotation: annotation }
       )
     );
   }
@@ -185,8 +185,8 @@ export class CommentApp {
 
     // const layout engine know the annotation so it would position the comment correctly
     this.layout.setCommentAnnotation(commentId, annotation);
-  };
-  makeComment(annotation: Annotation, contentpath: string, position: string = '') {
+  }
+  makeComment(annotation: Annotation, contentpath: string, position = '') {
     const commentId = getNextCommentId();
 
     this.attachAnnotationLayout(annotation, commentId);
@@ -209,14 +209,15 @@ export class CommentApp {
     );
 
     // Focus and pin the comment
-    this.store.dispatch(setFocusedComment(commentId, {updatePinnedComment: true}));
+    this.store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true }));
     return commentId;
-  };
+  }
   renderApp(
     element: HTMLElement,
     outputElement: HTMLElement,
     userId: any,
     initialComments: InitialComment[],
+    // eslint-disable-next-line camelcase
     authors: Map<string, {name: string, avatar_url: string}>,
     translationStrings: TranslatableStrings | null
   ) {
@@ -312,7 +313,7 @@ export class CommentApp {
       // If this is the initial focused comment. Focus and pin it
       // TODO: Scroll to this comment
       if (initialFocusedCommentId && comment.pk === initialFocusedCommentId) {
-        this.store.dispatch(setFocusedComment(commentId, {updatePinnedComment: true}));
+        this.store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true }));
       }
     }
 
@@ -327,7 +328,7 @@ export class CommentApp {
         if (!e.target.closest('#comments, [data-annotation]')) {
           // Running store.dispatch directly here seems to prevent the event from being handled anywhere else
           setTimeout(() => {
-            this.store.dispatch(setFocusedComment(null, {updatePinnedComment: true}));
+            this.store.dispatch(setFocusedComment(null, { updatePinnedComment: true }));
           }, 1);
         }
       }

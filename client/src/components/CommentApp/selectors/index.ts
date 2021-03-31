@@ -18,9 +18,9 @@ export function selectCommentFactory(localId: number) {
   return createSelector(selectComments, (comments) => {
     const comment = comments.get(localId);
     if (comment !== undefined && comment.deleted) {
-      return undefined
+      return undefined;
     }
-    return comment
+    return comment;
   }
 
   );

@@ -1,9 +1,11 @@
-import dateFormat from "dateformat";
-import React, { FunctionComponent } from "react";
-import type { Store } from '../../state';
-import { TranslatableStrings } from "../../main";
+/* eslint-disable react/prop-types */
 
-import { Author } from "../../state/comments";
+import dateFormat from 'dateformat';
+import React, { FunctionComponent } from 'react';
+import type { Store } from '../../state';
+import { TranslatableStrings } from '../../main';
+
+import { Author } from '../../state/comments';
 
 
 interface CommentReply {
@@ -20,7 +22,9 @@ interface CommentHeaderProps {
   onDelete?(commentReply: CommentReply, store: Store): void;
 }
 
-export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({ commentReply, store, strings, onResolve, onEdit, onDelete }) => {
+export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
+  commentReply, store, strings, onResolve, onEdit, onDelete
+}) => {
   const { author, date } = commentReply;
 
   const onClickResolve = (e: React.MouseEvent) => {
@@ -70,7 +74,8 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({ commentRe
           </div>
         }
       </div>
-      {author && author.avatarUrl && <img className="comment-header__avatar" src={author.avatarUrl} />}
+      {author && author.avatarUrl &&
+        <img className="comment-header__avatar" src={author.avatarUrl} role="presentation" />}
       <p className="comment-header__author">{author ? author.name : ''}</p>
       <p className="comment-header__date">{dateFormat(date, 'h:MM mmmm d')}</p>
     </div>

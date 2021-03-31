@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 
 import type { Store } from '../../state';
@@ -26,6 +28,7 @@ export async function saveCommentReply(
       })
     );
   } catch (err) {
+    /* eslint-disable-next-line no-console */
     console.error(err);
     store.dispatch(
       updateReply(comment.localId, reply.localId, {
@@ -268,7 +271,8 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
     const { comment, reply, store, strings } = this.props;
 
     // Show edit/delete buttons if this reply was authored by the current user
-    let onEdit, onDelete;
+    let onEdit;
+    let onDelete;
     if (reply.author === null || this.props.user && this.props.user.id === reply.author.id) {
       onEdit = () => {
         store.dispatch(
@@ -285,7 +289,7 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
             mode: 'delete_confirm',
           })
         );
-      }
+      };
     }
 
     return (

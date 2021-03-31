@@ -75,7 +75,7 @@ test('Existing comment updated', () => {
   const updateAction = actions.updateComment(1, commentUpdate);
   const newState = reducer(basicCommentsState, updateAction);
   const comment = newState.comments.get(1);
-  expect(comment).toBeDefined()
+  expect(comment).toBeDefined();
   if (comment) {
     expect(comment.mode).toBe('editing');
   }
@@ -111,7 +111,7 @@ test('Comment focused', () => {
 });
 
 test('Invalid comment not focused', () => {
-  const focusAction = actions.setFocusedComment(9000, {updatePinnedComment: true});
+  const focusAction = actions.setFocusedComment(9000, { updatePinnedComment: true });
   const newState = reducer(basicCommentsState, focusAction);
   expect(newState.focusedComment).toBe(basicCommentsState.focusedComment);
   expect(newState.pinnedComment).toBe(basicCommentsState.pinnedComment);
@@ -131,7 +131,7 @@ test('Reply added', () => {
   const addAction = actions.addReply(1, reply);
   const newState = reducer(basicCommentsState, addAction);
   const comment = newState.comments.get(1);
-  expect(comment).toBeDefined()
+  expect(comment).toBeDefined();
   if (comment) {
     const stateReply = comment.replies.get(10);
     expect(stateReply).toBeDefined();
@@ -162,9 +162,8 @@ test('Remote reply added', () => {
     expect(stateReply).toBeDefined();
     expect(stateReply).toBe(reply);
     if (originalComment) {
-      expect(comment.remoteReplyCount).toBe(originalComment.remoteReplyCount + 1)
+      expect(comment.remoteReplyCount).toBe(originalComment.remoteReplyCount + 1);
     }
-
   }
 });
 
@@ -174,8 +173,8 @@ test('Reply updated', () => {
   };
   const updateAction = actions.updateReply(1, 2, replyUpdate);
   const newState = reducer(basicCommentsState, updateAction);
-  const comment = newState.comments.get(1)
-  expect(comment).toBeDefined()
+  const comment = newState.comments.get(1);
+  expect(comment).toBeDefined();
   if (comment) {
     const reply = comment.replies.get(2);
     expect(reply).toBeDefined();
@@ -190,7 +189,7 @@ test('Local reply deleted', () => {
   const deleteAction = actions.deleteReply(1, 3);
   const newState = reducer(basicCommentsState, deleteAction);
   const comment = newState.comments.get(1);
-  expect(comment).toBeDefined()
+  expect(comment).toBeDefined();
   if (comment) {
     expect(comment.replies.has(3)).toBe(false);
   }
@@ -202,10 +201,10 @@ test('Remote reply deleted', () => {
   const newState = reducer(basicCommentsState, deleteAction);
   const comment = newState.comments.get(1);
   const originalComment = basicCommentsState.comments.get(1);
-  expect(comment).toBeDefined()
-  expect(originalComment).toBeDefined()
+  expect(comment).toBeDefined();
+  expect(originalComment).toBeDefined();
   if (comment && originalComment) {
-    expect(comment.remoteReplyCount).toBe(originalComment.remoteReplyCount)
+    expect(comment.remoteReplyCount).toBe(originalComment.remoteReplyCount);
     const reply = comment.replies.get(2);
     expect(reply).toBeDefined();
     if (reply) {

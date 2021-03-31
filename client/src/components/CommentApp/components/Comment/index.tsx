@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -33,6 +35,7 @@ async function saveComment(comment: Comment, store: Store) {
       })
     );
   } catch (err) {
+    /* eslint-disable-next-line no-console */
     console.error(err);
     store.dispatch(
       updateComment(comment.localId, {
@@ -52,6 +55,7 @@ async function doDeleteComment(comment: Comment, store: Store) {
   try {
     store.dispatch(deleteComment(comment.localId));
   } catch (err) {
+    /* eslint-disable-next-line no-console */
     console.error(err);
     store.dispatch(
       updateComment(comment.localId, {
@@ -449,7 +453,8 @@ export default class CommentComponent extends React.Component<CommentProps> {
     const { comment, store, strings } = this.props;
 
     // Show edit/delete buttons if this comment was authored by the current user
-    let onEdit, onDelete;
+    let onEdit;
+    let onDelete;
     if (comment.author === null || this.props.user && this.props.user.id === comment.author.id) {
       onEdit = () => {
         store.dispatch(
@@ -471,7 +476,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
 
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} onResolve={doDeleteComment} onEdit={onEdit} onDelete={onDelete} />
+        <CommentHeader
+          commentReply={comment}
+          store={store}
+          strings={strings}
+          onResolve={doDeleteComment}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies()}
       </>
@@ -520,7 +532,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
     };
 
     const onDoubleClick = () => {
-      this.props.store.dispatch(setFocusedComment(this.props.comment.localId, {updatePinnedComment: true}));
+      this.props.store.dispatch(setFocusedComment(this.props.comment.localId, { updatePinnedComment: true }));
     };
 
     const top = this.props.layout.getCommentPosition(

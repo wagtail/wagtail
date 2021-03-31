@@ -1,5 +1,5 @@
 import type { Annotation } from './annotation';
-import { getOrDefault } from './maps'
+import { getOrDefault } from './maps';
 
 const GAP = 20.0; // Gap between comments in pixels
 const TOP_MARGIN = 100.0; // Spacing from the top to the first comment in pixels
@@ -46,7 +46,7 @@ export class LayoutController {
     const annotation = this.commentAnnotations.get(commentId);
 
     if (!annotation) {
-      return
+      return;
     }
 
     this.commentDesiredPositions.set(
@@ -64,10 +64,11 @@ export class LayoutController {
   refresh() {
     const oldDesiredPositions = new Map(this.commentDesiredPositions);
     this.refreshDesiredPositions();
-    // It's not great to be recalculating all positions so regularly, but Wagtail's FE widgets aren't very constrained
-    // so could change layout in any number of ways. If we have a stable FE widget framework in the future, this could be used to trigger
-    // the position refresh more intelligently, or alternatively once comments is incorporated into the page form, a MutationObserver could
-    // potentially track most types of changes.
+    // It's not great to be recalculating all positions so regularly, but Wagtail's FE widgets
+    // aren't very constrained so could change layout in any number of ways. If we have a stable FE
+    // widget framework in the future, this could be used to trigger the position refresh more
+    // intelligently, or alternatively once comments is incorporated into the page form, a
+    // MutationObserver could potentially track most types of changes.
     if (this.commentDesiredPositions !== oldDesiredPositions) {
       this.isDirty = true;
     }
@@ -107,8 +108,8 @@ export class LayoutController {
       overlaps = false;
       const newBlocks: Block[] = [];
       let previousBlock: Block | null = null;
-      const pinnedCommentPosition = this.pinnedComment ? this.commentDesiredPositions.get(this.pinnedComment) : undefined
-
+      const pinnedCommentPosition = this.pinnedComment ?
+        this.commentDesiredPositions.get(this.pinnedComment) : undefined;
 
       for (const block of blocks) {
         if (previousBlock) {
@@ -165,7 +166,7 @@ export class LayoutController {
       let currentPosition = block.position;
       block.comments.forEach((commentId) => {
         this.commentCalculatedPositions.set(commentId, currentPosition);
-        const height = this.commentHeights.get(commentId)
+        const height = this.commentHeights.get(commentId);
         if (height) {
           currentPosition += height + GAP;
         }

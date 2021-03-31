@@ -92,7 +92,7 @@ export function deleteComment(commentId: number): DeleteCommentAction {
 
 export function setFocusedComment(
   commentId: number | null,
-  {updatePinnedComment} = {updatePinnedComment: false}
+  { updatePinnedComment } = { updatePinnedComment: false }
 ): SetFocusedCommentAction {
   return {
     type: SET_FOCUSED_COMMENT,
