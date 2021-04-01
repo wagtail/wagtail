@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
+from wagtail.core import hooks
 from wagtail.core.models import Locale, Page
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import SimplePage, StreamPage
@@ -370,6 +371,18 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
         self.assertEqual(content, {
             'message': 'filtering by for_explorer without child_of is not supported',
         })
+
+    def test_for_explorer_construct_explorer_page_queryset_ordering(self):
+        def set_custom_ordering(parent_page, pages, request):
+            return pages.order_by('-title')
+
+        with hooks.register_temporarily('construct_explorer_page_queryset', set_custom_ordering):
+            response = self.get_response(for_explorer=True, child_of=2)
+
+        content = json.loads(response.content.decode('UTF-8'))
+        page_id_list = self.get_page_id_list(content)
+
+        self.assertEqual(page_id_list, [6, 20, 4, 12, 5])
 
     # HAS CHILDREN FILTER
 
