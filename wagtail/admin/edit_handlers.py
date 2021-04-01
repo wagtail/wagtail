@@ -11,9 +11,8 @@ from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy
-from taggit.managers import TaggableManager
-
 from modelcluster.models import get_serializable_data_for_fields
+from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
@@ -819,7 +818,7 @@ class CommentPanel(EditHandler):
         return {
             'comments': {
                 'form': CommentFormWithRequest,
-                'fields': ['text', 'contentpath', 'position'],
+                'fields': ['text', 'contentpath', 'position', 'resolved'],
             }
         }
 

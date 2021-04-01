@@ -85,6 +85,7 @@ export interface InitialComment {
   contentpath: string;
   position: string;
   deleted: boolean;
+  resolved: boolean;
 }
 /* eslint-enable */
 
@@ -114,7 +115,7 @@ function renderCommentsUi(
     commentsToRender = [];
   }
   // Hide all resolved/deleted comments
-  commentsToRender = commentsToRender.filter(({ deleted }) => !deleted);
+  commentsToRender = commentsToRender.filter(({ deleted, resolved }) => !(deleted || resolved));
   const commentsRendered = commentsToRender.map((comment) => (
     <CommentComponent
       key={comment.localId}
@@ -286,7 +287,8 @@ export class CommentApp {
             {
               remoteId: comment.pk,
               text: comment.text,
-              deleted: comment.deleted
+              deleted: comment.deleted,
+              resolved: comment.resolved
             }
           )
         )

@@ -2820,8 +2820,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.locale = self.locale
         obj.alias_of_id = self.alias_of_id
         revision_comments = obj.comments
-        page_comments = self.comments.all()
-
+        page_comments = self.comments.filter(resolved=False)
         for comment in page_comments:
             # attempt to retrieve the comment position from the revision's stored version
             # of the comment
@@ -4884,6 +4883,8 @@ class Comment(ClusterableModel):
 
     revision_created = models.ForeignKey(PageRevision, on_delete=models.CASCADE, related_name='created_comments', null=True, blank=True)
     # Comments are only shown on revisions after revision_created
+
+    resolved = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('comment')
