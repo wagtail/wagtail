@@ -76,14 +76,20 @@ function enableDirtyFormCheck(formSelector, options) {
 
   let isDirty = alwaysDirty;
   let isCommentsDirty = false;
+
+  let updateIsCommentsDirtyTimeout = -1;
   if (commentApp) {
     isCommentsDirty = commentApp.selectors.selectIsDirty(commentApp.store.getState())
     commentApp.store.subscribe(() => {
-      const newIsCommentsDirty = commentApp.selectors.selectIsDirty(commentApp.store.getState());
-      if (newIsCommentsDirty !== isCommentsDirty) {
-        isCommentsDirty = newIsCommentsDirty;
-        updateFooter(isDirty, isCommentsDirty);
-      }
+      // Update on a timeout to match the timings for responding to page form changes
+      clearTimeout(updateIsCommentsDirtyTimeout);
+      updateIsCommentsDirtyTimeout = setTimeout(() => {
+        const newIsCommentsDirty = commentApp.selectors.selectIsDirty(commentApp.store.getState());
+        if (newIsCommentsDirty !== isCommentsDirty) {
+          isCommentsDirty = newIsCommentsDirty;
+          updateFooter(isDirty, isCommentsDirty);
+        }
+      }, isCommentsDirty ? 3000: 300);
     })
   }
 
@@ -111,7 +117,7 @@ function enableDirtyFormCheck(formSelector, options) {
       }
       warningContainer.addClass('footer-container--hidden')
     }
-    window.clearTimeout(updateFooterTextTimeout)
+    clearTimeout(updateFooterTextTimeout)
     const updateWarnings = () => {
       for (const warning of warnings) {
       const visible = typeVisibility[warning.dataset.unsavedType]
@@ -120,7 +126,7 @@ function enableDirtyFormCheck(formSelector, options) {
   }
     if (hiding) {
       // If hiding, we want to keep the text as-is before it disappears
-      window.setTimeout(updateWarnings, 3000)
+      updateFooterTextTimeout = setTimeout(updateWarnings, 1050)
     } else {
       updateWarnings()
     }
@@ -173,14 +179,12 @@ function enableDirtyFormCheck(formSelector, options) {
       .forEach(key => initialData.set(key, initialFormData.getAll(key)))
 
       const updateDirtyCheck = () => {
-        if (isDirty) {
-          // We already know the form is dirty, and is relatively unlikely to become clean again, so
-          // run the dirty check on a relatively long timer that we reset on any form update
-          clearTimeout(updateIsDirtyTimeout);
-          updateIsDirtyTimeout = setTimeout(updateIsDirty, 3000);
-        } else {
-          updateIsDirty()
-        }
+        clearTimeout(updateIsDirtyTimeout);
+        // If the form is dirty, it is relatively unlikely to become clean again, so
+        // run the dirty check on a relatively long timer that we reset on any form update
+        // otherwise, use a short timer both for nicer UX and to ensure widgets
+        // like Draftail have time to serialize their data
+        updateIsDirtyTimeout = setTimeout(updateIsDirty, isDirty ? 3000: 300);
       }
 
       $form.on('change keyup', updateDirtyCheck).trigger('change');
