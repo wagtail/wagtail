@@ -72,6 +72,7 @@ export interface InitialCommentReply {
   text: string;
   created_at: string;
   updated_at: string;
+  deleted: boolean;
 }
 
 export interface InitialComment {
@@ -83,6 +84,7 @@ export interface InitialComment {
   replies: InitialCommentReply[];
   contentpath: string;
   position: string;
+  deleted: boolean;
 }
 /* eslint-enable */
 
@@ -284,6 +286,7 @@ export class CommentApp {
             {
               remoteId: comment.pk,
               text: comment.text,
+              deleted: comment.deleted
             }
           )
         )
@@ -298,7 +301,11 @@ export class CommentApp {
               getNextReplyId(),
               getAuthor(authors, reply.user),
               Date.parse(reply.created_at),
-              { remoteId: reply.pk, text: reply.text }
+              {
+                remoteId: reply.pk,
+                text: reply.text,
+                deleted: reply.deleted
+              }
             )
           )
         );
