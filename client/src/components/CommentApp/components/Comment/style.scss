@@ -1,0 +1,100 @@
+.comment {
+    @include box;
+
+    font-size: 1.5em;
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    transition: top 0.5s ease 0s, right 0.5s ease 0s, height 0.5s ease 0s;
+    pointer-events: auto;
+
+    &__text {
+        color: $color-box-text;
+        font-size: 0.8em;
+        margin-top: 32px;
+        margin-bottom: 0;
+
+        &--mode-deleting {
+            color: $color-grey-1;
+        }
+    }
+
+    form {
+        padding-top: 20px;
+    }
+
+    &--mode-deleting &__text {
+        color: $color-grey-3;
+    }
+
+    &__replies {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    &__button {
+        @include button;
+    }
+
+    &__actions &__button,
+    &__confirm-delete &__button,
+    &__reply-actions &__button {
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    &__confirm-delete,
+    &__error {
+        color: $color-box-text;
+        font-weight: bold;
+        font-size: 0.8em;
+
+        button {
+            margin-left: 10px;
+            /* stylelint-disable-next-line declaration-no-important */
+            margin-right: 0 !important;
+        }
+    }
+
+    &__error {
+        color: $color-white;
+        background-color: $color-red-dark;
+        border-radius: 3px;
+        padding: 5px;
+        padding-left: 10px;
+        height: 26px;
+        line-height: 26px;
+        vertical-align: middle;
+
+        button {
+            height: 26px;
+            float: right;
+            margin-left: 5px;
+            color: $color-white;
+            background-color: $color-red-very-dark;
+            border-color: $color-red-very-dark;
+            padding: 2px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 0.65em;
+            font-weight: bold;
+        }
+
+        &::after {
+            display: block;
+            content: '';
+            clear: both;
+        }
+    }
+
+    &__progress {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 0.8em;
+    }
+
+    &__reply-input {
+        /* stylelint-disable-next-line declaration-no-important */
+        margin-top: 20px !important;
+    }
+}

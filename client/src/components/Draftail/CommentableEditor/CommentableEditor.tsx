@@ -1,6 +1,6 @@
-import type { CommentApp } from 'wagtail-comment-frontend';
-import type { Annotation } from 'wagtail-comment-frontend/src/utils/annotation';
-import type { Comment } from 'wagtail-comment-frontend/src/state/comments';
+import type { CommentApp } from '../../CommentApp/main';
+import type { Annotation } from '../../CommentApp/utils/annotation';
+import type { Comment } from '../../CommentApp/state/comments';
 import {
   DraftailEditor,
   ToolbarButton,
