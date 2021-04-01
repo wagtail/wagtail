@@ -1,0 +1,89 @@
+.comment-reply {
+    margin-top: 40px;
+    pointer-events: auto;
+    position: relative;
+
+    &__text {
+        color: $color-box-text;
+        font-size: 0.8em;
+        margin-top: 32px;
+        margin-bottom: 0;
+
+        &--mode-deleting {
+            color: $color-grey-1;
+        }
+    }
+
+    &--mode-deleting &__avatar {
+        opacity: 0.5;
+    }
+
+    &--mode-deleting &__text {
+        color: $color-grey-3;
+    }
+
+    &__button {
+        @include button;
+    }
+
+    &__actions,
+    &__confirm-delete,
+    &__progress,
+    &__error {
+        &::after {
+            display: block;
+            content: '';
+            clear: both;
+        }
+    }
+
+    &__actions &__button,
+    &__confirm-delete &__button {
+        margin-top: 5px;
+        margin-right: 5px;
+    }
+
+    &__confirm-delete,
+    &__error {
+        color: $color-box-text;
+        font-weight: bold;
+        font-size: 0.8em;
+
+        button {
+            margin-left: 10px;
+            /* stylelint-disable-next-line declaration-no-important */
+            margin-right: 0 !important;
+        }
+    }
+
+    &__error {
+        color: $color-white;
+        background-color: $color-red-dark;
+        border-radius: 3px;
+        padding: 5px;
+        padding-left: 10px;
+        height: 26px;
+        line-height: 26px;
+        vertical-align: middle;
+
+        button {
+            height: 26px;
+            float: right;
+            margin-left: 5px;
+            color: $color-white;
+            background-color: $color-red-very-dark;
+            border-color: $color-red-very-dark;
+            padding: 2px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 0.65em;
+            font-weight: bold;
+        }
+    }
+
+    &__progress {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 0.8em;
+    }
+}
