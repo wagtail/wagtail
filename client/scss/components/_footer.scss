@@ -38,8 +38,6 @@ footer {
         font-size: 0.9em;
         display: flex;
         align-items: center;
-        margin-right: 0.5em;
-        padding-right: 1em;
 
         .icon {
             font-size: 1.2em;
@@ -47,7 +45,7 @@ footer {
         }
 
         p {
-            margin: 0;
+            margin: -0.15em 0 0 0;
         }
 
         &__emphasis {
@@ -126,6 +124,11 @@ footer {
             &--hidden {
                 display: none;
             }
+            &.save-warning {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
         }
     }
 
@@ -148,8 +151,8 @@ footer {
                 margin-left: -$border-curvature;
             }
 
-            .save-warning {
-                max-height: 3em;
+            &.save-warning {
+                padding-right: 50px;
             }
         }
     }
