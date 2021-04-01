@@ -1,11 +1,11 @@
 from urllib.parse import urlencode
 
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.shortcuts import get_list_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.db import transaction
 
 from wagtail.admin import messages
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
@@ -17,7 +17,7 @@ def publish(request, parent_page_id):
     next_url = get_valid_next_url_from_request(request)
     if not next_url:
         next_url = reverse('wagtailadmin_explore', args=[parent_page_id])
-    
+
     page_ids = list(map(int, request.GET.getlist('id')))
     pages = []
 
