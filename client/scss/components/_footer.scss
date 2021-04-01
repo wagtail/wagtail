@@ -121,6 +121,7 @@ footer {
             &:not(:first-child) {
                 border-radius: 0;
             }
+
             &--hidden {
                 display: none;
             }
@@ -152,6 +153,7 @@ footer {
                 margin-left: -$border-curvature;
             }
         }
+
         .footer__save-warning {
             margin-right: 50px;
         }

@@ -46,7 +46,7 @@ window.initTagField = initTagField;
  * Enables a "dirty form check", prompting the user if they are navigating away
  * from a page with unsaved changes, as well as optionally controlling other
  * behaviour via a callback
- * 
+ *
  * It takes the following parameters:
  *
  *  - formSelector - A CSS selector to select the form to apply this check to.
@@ -72,9 +72,9 @@ function enableDirtyFormCheck(formSelector, options) {
 
   const updateCallback = (formDirty, commentsDirty) => {
     if (callback) {
-      callback(formDirty, commentsDirty)
+      callback(formDirty, commentsDirty);
     }
-  }
+  };
 
   $form.on('submit', () => {
     formSubmitted = true;
