@@ -25,7 +25,6 @@ import {
 } from './selectors';
 import CommentComponent from './components/Comment';
 import { CommentFormSetComponent } from './components/Form';
-import TopBarComponent from './components/TopBar';
 import { INITIAL_STATE as INITIAL_SETTINGS_STATE } from './state/settings';
 
 export interface TranslatableStrings {
@@ -125,14 +124,7 @@ function renderCommentsUi(
     />
   ));
   return (
-    <>
-      <TopBarComponent
-        commentsEnabled={commentsEnabled}
-        store={store}
-        strings={strings}
-      />
-      <ol className="comments-list">{commentsRendered}</ol>
-    </>
+    <ol className="comments-list">{commentsRendered}</ol>
   );
   /* eslint-enable react/no-danger */
 }
