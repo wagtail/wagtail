@@ -4,6 +4,7 @@ import type { State } from '../state';
 
 export const selectComments = (state: State) => state.comments.comments;
 export const selectFocused = (state: State) => state.comments.focusedComment;
+export const selectRemoteCommentCount = (state: State) => state.comments.remoteCommentCount;
 
 export function selectCommentsForContentPathFactory(contentpath: string) {
   return createSelector(selectComments, (comments) =>
@@ -27,3 +28,21 @@ export function selectCommentFactory(localId: number) {
 }
 
 export const selectEnabled = (state: State) => state.settings.commentsEnabled;
+
+export const selectIsDirty = createSelector(
+  selectComments,
+  selectRemoteCommentCount,
+  (comments, remoteCommentCount) => {
+    if (remoteCommentCount !== comments.size) {
+      return true;
+    }
+    return Array.from(comments.values()).some(comment => {
+      if (comment.deleted ||
+        comment.replies.size !== comment.remoteReplyCount ||
+        comment.originalText !== comment.text
+      ) {
+        return true;
+      }
+      return Array.from(comment.replies.values()).some(reply => reply.deleted || reply.originalText !== reply.text);
+    });
+  });

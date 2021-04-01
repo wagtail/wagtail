@@ -30,6 +30,7 @@ test('New comment added to state', () => {
     author: { id: 1, name: 'test user' },
     date: 0,
     text: 'new comment',
+    originalText: 'new comment',
     newReply: '',
     newText: '',
     remoteReplyCount: 0,
@@ -55,6 +56,7 @@ test('Remote comment added to state', () => {
     author: { id: 1, name: 'test user' },
     date: 0,
     text: 'new comment',
+    originalText: 'new comment',
     newReply: '',
     newText: '',
     remoteReplyCount: 0,
@@ -70,7 +72,7 @@ test('Remote comment added to state', () => {
 
 test('Existing comment updated', () => {
   const commentUpdate: CommentUpdate = {
-    mode: 'editing',
+    mode: 'editing'
   };
   const updateAction = actions.updateComment(1, commentUpdate);
   const newState = reducer(basicCommentsState, updateAction);
@@ -125,6 +127,7 @@ test('Reply added', () => {
     author: { id: 1, name: 'test user' },
     date: 0,
     text: 'a new reply',
+    originalText: 'a new reply',
     newText: '',
     deleted: false,
   };
@@ -149,6 +152,7 @@ test('Remote reply added', () => {
     author: { id: 1, name: 'test user' },
     date: 0,
     text: 'a new reply',
+    originalText: 'a new reply',
     newText: '',
     deleted: false,
   };

@@ -29,6 +29,7 @@ export interface CommentReply {
   author: Author | null;
   date: number;
   text: string;
+  originalText: string;
   newText: string;
   deleted: boolean;
 }
@@ -56,12 +57,13 @@ export function newCommentReply(
     author,
     date,
     text,
+    originalText: text,
     newText: '',
     deleted: false,
   };
 }
 
-export type CommentReplyUpdate = Partial<CommentReply>;
+export type CommentReplyUpdate = Partial<Omit<CommentReply, 'originalText'>>;
 
 export type CommentMode =
   | 'default'
@@ -85,6 +87,7 @@ export interface Comment {
   author: Author | null;
   date: number;
   text: string;
+  originalText: string;
   replies: Map<number, CommentReply>;
   newReply: string;
   newText: string;
@@ -122,6 +125,7 @@ export function newComment(
     author,
     date,
     text,
+    originalText: text,
     replies,
     newReply: '',
     newText: '',
@@ -133,7 +137,7 @@ export function newComment(
   };
 }
 
-export type CommentUpdate = Partial<Comment>;
+export type CommentUpdate = Partial<Omit<Comment, 'originalText'>>;
 
 export interface CommentsState {
   comments: Map<number, Comment>;
@@ -143,7 +147,7 @@ export interface CommentsState {
   remoteCommentCount: number;
 }
 
-const INITIAL_STATE: CommentsState = {
+export const INITIAL_STATE: CommentsState = {
   comments: new Map(),
   focusedComment: null,
   pinnedComment: null,
