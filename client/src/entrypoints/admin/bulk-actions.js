@@ -93,7 +93,7 @@ function FilterEventListener(e) {
         BULK_ACTION_PAGE_CHECKBOX_INPUT dataset */
     const [_key, value] = filter.split(':');
     const key = _key[0].toUpperCase() + _key.slice(1);
-    document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => {
+    for (const el of document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)) {
       if (`page${key}` in el.dataset) {
         if (el.dataset[`page${key}`] === value) {
           if (!el.checked) {
@@ -107,7 +107,7 @@ function FilterEventListener(e) {
           }
         }
       }
-    })
+    }
   } else {
     /* If filter string is empty, select all checkboxes */
     document.querySelector(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH}`).checked = true;
