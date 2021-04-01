@@ -5,6 +5,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin.tests.pages.timestamps import local_datetime
+from wagtail.core import hooks
 from wagtail.core.models import GroupPagePermission, Locale, Page
 from wagtail.tests.testapp.models import SimplePage, SingleEventPage, StandardIndex
 from wagtail.tests.utils import WagtailTestUtils
@@ -149,6 +150,19 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
         page_ids = [page.id for page in response.context['pages']]
         self.assertEqual(page_ids, [self.child_page.id])
+
+    def test_construct_explorer_page_queryset_hook_with_ordering(self):
+        def set_custom_ordering(parent_page, pages, request):
+            return pages.order_by('-title')
+
+        with hooks.register_temporarily('construct_explorer_page_queryset', set_custom_ordering):
+            response = self.client.get(
+                reverse('wagtailadmin_explore', args=(self.root_page.id, ))
+            )
+
+        # child pages should be ordered by according to the hook preference
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.old_page.id, self.new_page.id, self.child_page.id])
 
     def test_construct_page_listing_buttons_hook(self):
         # testapp implements a construct_page_listing_buttons hook
