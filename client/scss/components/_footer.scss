@@ -17,7 +17,7 @@ footer {
         }
     }
 
-    .footer-container {
+    .footer__container {
         border-radius: $border-curvature $border-curvature 0 0;
         background: $color-grey-1;
         color: $color-white;
@@ -29,13 +29,13 @@ footer {
             box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
         }
 
-        &.footer-container--hidden {
+        &.footer__container--hidden {
             transform: translateY(100%);
         }
     }
 
-    .save-warning {
-        font-size: 0.9em;
+    .footer__save-warning {
+        font-size: 0.95em;
         display: flex;
         align-items: center;
 
@@ -45,12 +45,12 @@ footer {
         }
 
         p {
-            margin: -0.15em 0 0 0;
+            margin: -0.2em 0 0 0;
         }
+    }
 
-        &__emphasis {
-            color: $color-orange;
-        }
+    .footer__emphasis {
+        color: $color-orange;
     }
 
     .actions {
@@ -99,7 +99,7 @@ footer {
     @include media-breakpoint-down(xs) {
         .actions,
         .preview,
-        .footer-container,
+        .footer__container,
         .preview .dropdown {
             width: 100%;
         }
@@ -117,18 +117,19 @@ footer {
             }
         }
 
-        .footer-container{
+        .footer__container {
             &:not(:first-child) {
                 border-radius: 0;
             }
             &--hidden {
                 display: none;
             }
-            &.save-warning {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-            }
+        }
+
+        .footer__save-warning {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
         }
     }
 
@@ -143,17 +144,16 @@ footer {
             display: flex;
         }
 
-        .footer-container {
+        .footer__container {
             padding: 0.75em;
             margin-right: 0;
 
             &:not(:first-child) {
                 margin-left: -$border-curvature;
             }
-
-            &.save-warning {
-                padding-right: 50px;
-            }
+        }
+        .footer__save-warning {
+            margin-right: 50px;
         }
     }
 }

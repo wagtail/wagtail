@@ -393,12 +393,12 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
 
   let hiding = false;
   if (anyDirty) {
-    warningContainer.removeClass('footer-container--hidden');
+    warningContainer.removeClass('footer__container--hidden');
   } else {
-    if (!warningContainer.hasClass('footer-container--hidden')) {
+    if (!warningContainer.hasClass('footer__container--hidden')) {
       hiding = true;
     }
-    warningContainer.addClass('footer-container--hidden');
+    warningContainer.addClass('footer__container--hidden');
   }
   clearTimeout(updateFooterTextTimeout);
   const updateWarnings = () => {
