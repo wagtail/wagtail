@@ -2,6 +2,7 @@
 
 import dateFormat from 'dateformat';
 import React, { FunctionComponent } from 'react';
+import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
 import { TranslatableStrings } from '../../main';
 
@@ -57,6 +58,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
         {onResolve &&
           <div className="comment-header__action comment-header__action--resolve">
             <button type="button" aria-label={strings.RESOLVE} onClick={onClickResolve}>
+              <Icon name="check" />
             </button>
           </div>
         }
@@ -64,6 +66,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
           <div className="comment-header__action comment-header__action--more">
             <details>
               <summary aria-label={strings.MORE_ACTIONS} aria-haspopup="menu" role="button">
+                <Icon name="ellipsis-v" />
               </summary>
 
               <div className="comment-header__more-actions">

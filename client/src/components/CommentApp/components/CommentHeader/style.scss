@@ -47,16 +47,12 @@
             border: unset;
             -moz-outline-radius: 10px;
 
-            &::before {
-                content: '';
+            svg {
                 position: absolute;
-                top: 0;
-                left: 0;
-                width: 50px;
-                height: 50px;
-                mask-position: center;
-                mask-size: 25px 25px;
-                mask-repeat: no-repeat;
+                top: 12.5px;
+                left: 12.5px;
+                width: 25px;
+                height: 25px;
             }
 
             &:hover {
@@ -75,19 +71,16 @@
         }
 
         &--resolve {
-            > button::before,
-            > details > summary::before {
-                background-color: $color-teal;
-                mask-image: url('./icons/check-solid.svg');
+            > button,
+            > details > summary {
+                color: $color-teal;
             }
         }
 
         &--more {
-            > button::before,
-            > details > summary::before {
-                background-color: $color-grey-25;
-                background-position: center;
-                mask-image: url('./icons/ellipsis-v-solid.svg');
+            > button,
+            > details > summary {
+                color: $color-grey-25;
             }
         }
     }
