@@ -1,4 +1,4 @@
-import { initCommentApp } from 'wagtail-comment-frontend';
+import { initCommentApp } from './main';
 import { STRINGS } from '../../config/wagtailConfig';
 
 function initComments() {
