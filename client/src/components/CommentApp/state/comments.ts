@@ -38,6 +38,7 @@ export interface NewReplyOptions {
   remoteId?: number | null;
   mode?: CommentReplyMode;
   text?: string;
+  deleted?: boolean;
 }
 
 export function newCommentReply(
@@ -48,6 +49,7 @@ export function newCommentReply(
     remoteId = null,
     mode = 'default',
     text = '',
+    deleted = false
   }: NewReplyOptions
 ): CommentReply {
   return {
@@ -59,7 +61,7 @@ export function newCommentReply(
     text,
     originalText: text,
     newText: '',
-    deleted: false,
+    deleted,
   };
 }
 
@@ -99,6 +101,7 @@ export interface NewCommentOptions {
   mode?: CommentMode;
   text?: string;
   replies?: Map<number, CommentReply>;
+  deleted?: boolean;
 }
 
 export function newComment(
@@ -112,6 +115,7 @@ export function newComment(
     remoteId = null,
     mode = 'default',
     text = '',
+    deleted = false,
     replies = new Map(),
   }: NewCommentOptions
 ): Comment {
@@ -129,7 +133,7 @@ export function newComment(
     replies,
     newReply: '',
     newText: '',
-    deleted: false,
+    deleted,
     remoteReplyCount: Array.from(replies.values()).reduce(
       (n, reply) => (reply.remoteId !== null ? n + 1 : n),
       0
