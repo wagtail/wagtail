@@ -1,0 +1,62 @@
+$checkbox-size: 26px;
+$checkbox-check-size: $checkbox-size * 0.75;
+$checkbox-check-padding: ($checkbox-size - $checkbox-check-size) / 2;
+
+.checkbox {
+    display: inline-block;
+    line-height: $checkbox-size;
+    position: relative;
+
+    label {
+        display: inline-block;
+        text-align: right;
+        padding-right: $checkbox-size + 10px;
+        font-size: 0.8em;
+        font-weight: bold;
+        padding-top: 8px;
+        cursor: pointer;
+    }
+
+    input[type='checkbox'] {
+        opacity: 0;
+    }
+
+    label::before {
+        content: '';
+        display: inline-block;
+        height: $checkbox-size;
+        width: $checkbox-size;
+        margin-left: 5px;
+        background-color: $color-white;
+        border: 1px solid #333;
+        border-radius: 3px;
+        position: absolute;
+        top: 3px;
+        right: 0;
+    }
+
+    label::after {
+        content: '';
+        display: inline-block;
+        background-color: $color-box-background;
+        mask-image: url('./icons/check-solid.svg');
+        mask-repeat: no-repeat;
+        width: $checkbox-check-size;
+        height: 100%;
+        position: absolute;
+        right: $checkbox-check-padding * 1.25;
+        top: $checkbox-check-padding * 2.5;
+    }
+
+    input[type='checkbox'] + label::after {
+        visibility: hidden;
+    }
+
+    input[type='checkbox']:checked + label::after {
+        visibility: visible;
+    }
+
+    input[type='checkbox']:focus + label::before {
+        @include focus-outline;
+    }
+}
