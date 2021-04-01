@@ -44,8 +44,9 @@ window.initTagField = initTagField;
 
 /*
  * Enables a "dirty form check", prompting the user if they are navigating away
- * from a page with unsaved changes.
- *
+ * from a page with unsaved changes, as well as optionally controlling other
+ * behaviour via a callback
+ * 
  * It takes the following parameters:
  *
  *  - formSelector - A CSS selector to select the form to apply this check to.
@@ -56,9 +57,8 @@ window.initTagField = initTagField;
  *    prompting the user even when nothing has been changed.
  *  - commentApp - The CommentApp used by the commenting system, if the dirty check
  *    should include comments
- *  - includeFooterSaveWarning - When set to true, shows, hides, and alters the text
- *    of the footer save warning appropriately depending whether there are unsaved
- *    changes
+ *  - callback - A function to be run when the dirty status of the form, or the comments
+ *    system (if using) changes, taking formDirty, commentsDirty as arguments
 */
 
 function enableDirtyFormCheck(formSelector, options) {
@@ -66,9 +66,15 @@ function enableDirtyFormCheck(formSelector, options) {
   const confirmationMessage = options.confirmationMessage || ' ';
   const alwaysDirty = options.alwaysDirty || false;
   const commentApp = options.commentApp || null;
-  const includeFooterSaveWarning = options.includeFooterSaveWarning || false;
+  const callback = options.callback || null;
   let initialData = null;
   let formSubmitted = false;
+
+  const updateCallback = (formDirty, commentsDirty) => {
+    if (callback) {
+      callback(formDirty, commentsDirty)
+    }
+  }
 
   $form.on('submit', () => {
     formSubmitted = true;
@@ -79,7 +85,7 @@ function enableDirtyFormCheck(formSelector, options) {
 
   let updateIsCommentsDirtyTimeout = -1;
   if (commentApp) {
-    isCommentsDirty = commentApp.selectors.selectIsDirty(commentApp.store.getState())
+    isCommentsDirty = commentApp.selectors.selectIsDirty(commentApp.store.getState());
     commentApp.store.subscribe(() => {
       // Update on a timeout to match the timings for responding to page form changes
       clearTimeout(updateIsCommentsDirtyTimeout);
@@ -87,86 +93,48 @@ function enableDirtyFormCheck(formSelector, options) {
         const newIsCommentsDirty = commentApp.selectors.selectIsDirty(commentApp.store.getState());
         if (newIsCommentsDirty !== isCommentsDirty) {
           isCommentsDirty = newIsCommentsDirty;
-          updateFooter(isDirty, isCommentsDirty);
+          updateCallback(isDirty, isCommentsDirty);
         }
-      }, isCommentsDirty ? 3000: 300);
-    })
+      }, isCommentsDirty ? 3000 : 300);
+    });
   }
 
-  let updateFooterTextTimeout = -1;
-  const updateFooter = (formDirty, commentsDirty) => {
-    if (!includeFooterSaveWarning) {
-      return
-    }
-    const warningContainer = $('[data-unsaved-warning]')
-    const warnings = warningContainer.find('[data-unsaved-type]');
-    const anyDirty = formDirty || commentsDirty
-    const typeVisibility = {
-      'all': formDirty && commentsDirty,
-      'any': anyDirty,
-      'comments': commentsDirty && !formDirty,
-      'edits': formDirty && !commentsDirty
-    }
-
-    let hiding = false;
-    if (anyDirty) {
-      warningContainer.removeClass('footer-container--hidden')
-    } else {
-      if (!warningContainer.hasClass('footer-container--hidden')) {
-        hiding = true
-      }
-      warningContainer.addClass('footer-container--hidden')
-    }
-    clearTimeout(updateFooterTextTimeout)
-    const updateWarnings = () => {
-      for (const warning of warnings) {
-      const visible = typeVisibility[warning.dataset.unsavedType]
-      warning.hidden = !visible;
-    }
-  }
-    if (hiding) {
-      // If hiding, we want to keep the text as-is before it disappears
-      updateFooterTextTimeout = setTimeout(updateWarnings, 1050)
-    } else {
-      updateWarnings()
-    }
-  }
-  updateFooter(isDirty, isCommentsDirty);
+  updateCallback(isDirty, isCommentsDirty);
 
   let updateIsDirtyTimeout = -1;
 
   const isFormDirty = () => {
     if (alwaysDirty) {
-      return true
+      return true;
     } else if (!initialData) {
-      return false
+      return false;
     }
 
-    const formData = new FormData($form[0])
-    const keys = Array.from(formData.keys()).filter((key) => !key.startsWith('comments-'))
+    const formData = new FormData($form[0]);
+    const keys = Array.from(formData.keys()).filter((key) => !key.startsWith('comments-'));
     if (keys.length !== initialData.size) {
-      return true
+      return true;
     }
 
     return keys.some((key) => {
       const newValue = formData.getAll(key);
       const oldValue = initialData.get(key);
       if (newValue === oldValue) {
-        return false
+        return false;
       } else if (Array.isArray(newValue) && Array.isArray(oldValue)) {
         return newValue.length !== oldValue.length || newValue.some((value, index) => value !== oldValue[index]);
       }
       return false;
-    })
-  }
+    });
+  };
 
   const updateIsDirty = () => {
     const previousIsDirty = isDirty;
     isDirty = isFormDirty();
     if (previousIsDirty !== isDirty) {
-      updateFooter(isDirty, isCommentsDirty);
+      updateCallback(isDirty, isCommentsDirty);
     }
-  }
+  };
 
   // Delay snapshotting the form’s data to avoid race conditions with form widgets that might process the values.
   // User interaction with the form within that delay also won’t trigger the confirmation message.
@@ -175,8 +143,8 @@ function enableDirtyFormCheck(formSelector, options) {
       const initialFormData = new FormData($form[0]);
       initialData = new Map();
       Array.from(initialFormData.keys())
-      .filter(key => !key.startsWith('comments-'))
-      .forEach(key => initialData.set(key, initialFormData.getAll(key)))
+        .filter(key => !key.startsWith('comments-'))
+        .forEach(key => initialData.set(key, initialFormData.getAll(key)));
 
       const updateDirtyCheck = () => {
         clearTimeout(updateIsDirtyTimeout);
@@ -184,19 +152,19 @@ function enableDirtyFormCheck(formSelector, options) {
         // run the dirty check on a relatively long timer that we reset on any form update
         // otherwise, use a short timer both for nicer UX and to ensure widgets
         // like Draftail have time to serialize their data
-        updateIsDirtyTimeout = setTimeout(updateIsDirty, isDirty ? 3000: 300);
-      }
+        updateIsDirtyTimeout = setTimeout(updateIsDirty, isDirty ? 3000 : 300);
+      };
 
       $form.on('change keyup', updateDirtyCheck).trigger('change');
 
       const validInputNodeInList = (nodeList) => {
         for (const node of nodeList) {
           if (node.nodeType === node.ELEMENT_NODE && ['INPUT', 'TEXTAREA', 'SELECT'].includes(node.tagName)) {
-            return true
+            return true;
           }
         }
-        return false
-      }
+        return false;
+      };
 
       const observer = new MutationObserver((mutationList) => {
         for (const mutation of mutationList) {
