@@ -10,7 +10,7 @@ export function selectCommentsForContentPathFactory(contentpath: string) {
   return createSelector(selectComments, (comments) =>
     [...comments.values()].filter(
       (comment: Comment) =>
-        comment.contentpath === contentpath && !comment.deleted
+        comment.contentpath === contentpath && !(comment.deleted || comment.resolved)
     )
   );
 }
@@ -18,7 +18,7 @@ export function selectCommentsForContentPathFactory(contentpath: string) {
 export function selectCommentFactory(localId: number) {
   return createSelector(selectComments, (comments) => {
     const comment = comments.get(localId);
-    if (comment !== undefined && comment.deleted) {
+    if (comment !== undefined && (comment.deleted || comment.resolved)) {
       return undefined;
     }
     return comment;
@@ -38,6 +38,7 @@ export const selectIsDirty = createSelector(
     }
     return Array.from(comments.values()).some(comment => {
       if (comment.deleted ||
+        comment.resolved ||
         comment.replies.size !== comment.remoteReplyCount ||
         comment.originalText !== comment.text
       ) {

@@ -91,6 +91,7 @@ export interface Comment {
   remoteId: number | null;
   mode: CommentMode;
   deleted: boolean;
+  resolved: boolean;
   author: Author | null;
   date: number;
   replies: Map<number, CommentReply>;
@@ -110,8 +111,9 @@ export interface NewCommentOptions {
   remoteId?: number | null;
   mode?: CommentMode;
   text?: string;
-  replies?: Map<number, CommentReply>;
+  resolved?: boolean;
   deleted?: boolean;
+  replies?: Map<number, CommentReply>;
 }
 
 export function newComment(
@@ -125,6 +127,7 @@ export function newComment(
     remoteId = null,
     mode = 'default',
     text = '',
+    resolved = false,
     deleted = false,
     replies = new Map(),
   }: NewCommentOptions
@@ -144,6 +147,7 @@ export function newComment(
     newReply: '',
     newText: '',
     deleted,
+    resolved,
     remoteReplyCount: Array.from(replies.values()).reduce(
       (n, reply) => (reply.remoteId !== null ? n + 1 : n),
       0

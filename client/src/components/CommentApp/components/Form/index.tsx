@@ -126,6 +126,11 @@ export function CommentFormComponent({
         prefix={fullPrefix}
       />
       <PrefixedHiddenInput
+        fieldName="resolved"
+        value={comment.resolved ? 1 : ''}
+        prefix={fullPrefix}
+      />
+      <PrefixedHiddenInput
         fieldName="id"
         value={comment.remoteId}
         prefix={fullPrefix}
