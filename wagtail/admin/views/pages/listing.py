@@ -33,7 +33,7 @@ def apply_filters(filter_query):
         except ValueError:
             # in case filter_query has a wrong format, ignore the erroneous filter
             continue
-    
+
     filters_to_be_applied = {}
 
     for _arg, filter_value in filter_args.items():

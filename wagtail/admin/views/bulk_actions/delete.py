@@ -1,10 +1,10 @@
 from urllib.parse import urlencode
 
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import redirect, get_list_or_404
 from django.db import transaction
-from django.urls import reverse
+from django.shortcuts import get_list_or_404, redirect
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
@@ -17,7 +17,7 @@ def delete(request, parent_page_id):
     next_url = get_valid_next_url_from_request(request)
     if not next_url:
         next_url = reverse('wagtailadmin_explore', args=[parent_page_id])
-    
+
     page_ids = list(map(int, request.GET.getlist('id')))
     pages = []
 
@@ -26,7 +26,7 @@ def delete(request, parent_page_id):
         if not page.permissions_for_user(request.user).can_delete():
             raise PermissionDenied
         pages.append(page)
-    
+
     if request.method == 'GET':
         _pages = []
         for page in pages:
@@ -61,6 +61,5 @@ def delete(request, parent_page_id):
                     if hasattr(result, 'status_code'):
                         return result
 
-        messages.success(request, _(f'You have successfully deleted {num_parent_pages} pages including '
-                                        '{num_child_pages} child pages.'))
+        messages.success(request, _(f'You have successfully deleted {num_parent_pages} pages including {num_child_pages} child pages.'))
     return redirect(next_url)
