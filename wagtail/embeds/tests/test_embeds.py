@@ -1,3 +1,4 @@
+import datetime
 import json
 import unittest
 import urllib.request
@@ -9,6 +10,7 @@ from django import template
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.timezone import make_aware
 
 from wagtail.core import blocks
 from wagtail.embeds import oembed_providers
@@ -419,6 +421,37 @@ class TestOembed(TestCase):
             'width': 'test_width',
             'height': 'test_height',
             'html': 'test_html'
+        })
+
+    @patch('django.utils.timezone.now')
+    @patch('urllib.request.urlopen')
+    @patch('json.loads')
+    def test_oembed_suggested_cache_lifetime_return_values(self, loads, urlopen, now):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {
+            'type': 'something',
+            'url': 'http://www.example.com',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'test_provider_name',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': 'test_html',
+            'cache_age': 3600
+        }
+        now.return_value = make_aware(datetime.datetime(2001, 2, 3))
+        result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
+        self.assertEqual(result, {
+            'type': 'something',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'test_provider_name',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': 'test_html',
+            'cache_until': make_aware(datetime.datetime(2001, 2, 3, hour=1))
         })
 
     def test_oembed_accepts_known_provider(self):
