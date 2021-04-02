@@ -173,6 +173,25 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.type, 'video')
         self.assertEqual(embed.width, 400)
         self.assertFalse(embed.is_responsive)
+        self.assertIsNone(embed.cache_until)
+    
+    def dummy_cache_until_finder(self, url, max_width=None):
+        # Up hit count
+        self.hit_count += 1
+
+        # Return a pretend record
+        return {
+            'title': "Test: " + url,
+            'type': 'video',
+            'width': max_width if max_width else 640,
+            'height': 480,
+            'html': "<p>Blah blah blah</p>",
+            'cache_until': make_aware(datetime.datetime(2001, 2, 3)),
+        }
+    
+    def test_get_embed_cache_until(self):
+        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        self.assertEqual(embed.cache_until, make_aware(datetime.datetime(2001, 2, 3)))
 
     def dummy_finder_invalid_width(self, url, max_width=None):
         # Return a record with an invalid width
