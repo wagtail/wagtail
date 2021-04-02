@@ -1,10 +1,13 @@
 import json
 import re
 
+from datetime import timedelta
 from urllib import request as urllib_request
 from urllib.error import URLError
 from urllib.parse import urlencode
 from urllib.request import Request
+
+from django.utils import timezone
 
 from wagtail.embeds.exceptions import EmbedNotFoundException
 from wagtail.embeds.oembed_providers import all_providers
@@ -71,7 +74,7 @@ class OEmbedFinder(EmbedFinder):
             html = oembed.get('html')
 
         # Return embed as a dict
-        return {
+        result = {
             'title': oembed.get('title', ''),
             'author_name': oembed.get('author_name', ''),
             'provider_name': oembed.get('provider_name', ''),
@@ -81,6 +84,12 @@ class OEmbedFinder(EmbedFinder):
             'height': oembed.get('height'),
             'html': html,
         }
+
+        cache_age = oembed.get('cache_age')
+        if cache_age is not None:
+            result['cache_until'] = timezone.now() + timedelta(seconds=cache_age)
+
+        return result
 
 
 embed_finder_class = OEmbedFinder

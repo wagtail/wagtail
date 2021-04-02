@@ -1,3 +1,4 @@
+import datetime
 import json
 import unittest
 import urllib.request
@@ -9,6 +10,7 @@ from django import template
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.timezone import make_aware
 
 from wagtail.core import blocks
 from wagtail.embeds import oembed_providers
@@ -171,6 +173,25 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.type, 'video')
         self.assertEqual(embed.width, 400)
         self.assertFalse(embed.is_responsive)
+        self.assertIsNone(embed.cache_until)
+
+    def dummy_cache_until_finder(self, url, max_width=None):
+        # Up hit count
+        self.hit_count += 1
+
+        # Return a pretend record
+        return {
+            'title': "Test: " + url,
+            'type': 'video',
+            'width': max_width if max_width else 640,
+            'height': 480,
+            'html': "<p>Blah blah blah</p>",
+            'cache_until': make_aware(datetime.datetime(2001, 2, 3)),
+        }
+
+    def test_get_embed_cache_until(self):
+        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        self.assertEqual(embed.cache_until, make_aware(datetime.datetime(2001, 2, 3)))
 
     def dummy_finder_invalid_width(self, url, max_width=None):
         # Return a record with an invalid width
@@ -419,6 +440,37 @@ class TestOembed(TestCase):
             'width': 'test_width',
             'height': 'test_height',
             'html': 'test_html'
+        })
+
+    @patch('django.utils.timezone.now')
+    @patch('urllib.request.urlopen')
+    @patch('json.loads')
+    def test_oembed_cache_until(self, loads, urlopen, now):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {
+            'type': 'something',
+            'url': 'http://www.example.com',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'test_provider_name',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': 'test_html',
+            'cache_age': 3600
+        }
+        now.return_value = make_aware(datetime.datetime(2001, 2, 3))
+        result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
+        self.assertEqual(result, {
+            'type': 'something',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'test_provider_name',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': 'test_html',
+            'cache_until': make_aware(datetime.datetime(2001, 2, 3, hour=1))
         })
 
     def test_oembed_accepts_known_provider(self):
