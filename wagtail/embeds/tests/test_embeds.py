@@ -426,7 +426,7 @@ class TestOembed(TestCase):
     @patch('django.utils.timezone.now')
     @patch('urllib.request.urlopen')
     @patch('json.loads')
-    def test_oembed_suggested_cache_lifetime_return_values(self, loads, urlopen, now):
+    def test_oembed_cache_until(self, loads, urlopen, now):
         urlopen.return_value = self.dummy_response
         loads.return_value = {
             'type': 'something',
