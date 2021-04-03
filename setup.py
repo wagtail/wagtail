@@ -62,6 +62,9 @@ testing_extras = [
     # For templates linting
     'jinjalint>=0.5',
 
+    # Pipenv hack to fix broken dependency causing CircleCI failures
+    'docutils==0.17',
+
     # django-taggit 1.3.0 made changes to verbose_name which affect migrations;
     # the test suite migrations correspond to >=1.3.0
     'django-taggit>=1.3.0,<2.0',
