@@ -115,8 +115,8 @@
     {{ edit_handler.html_declarations }}
 
     <script>
-        {% if publishing_will_cancel_workflow %}
         $(function() {
+            {% if publishing_will_cancel_workflow %}
             /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
             let cancellationConfirmed = false;
             $('[name=action-publish]').click((e) => {
@@ -124,31 +124,29 @@
                     e.stopImmediatePropagation();
                     e.preventDefault();
                     ModalWorkflow({
-                    'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
-                    'onload': {
-                        'confirm': function(modal, jsonData) {
-                            $('[data-confirm-cancellation]', modal.body).click((event) => {
+                        'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
+                        'onload': {
+                            'confirm': function(modal, jsonData) {
+                                $('[data-confirm-cancellation]', modal.body).click((event) => {
+                                    cancellationConfirmed = true;
+                                    modal.close();
+                                    e.currentTarget.click();
+                                })
+                                $('[data-cancel-dialog]', modal.body).click((event) => {
+                                    modal.close();
+                                })
+                            },
+                            'no_confirmation_needed': function(modal, jsonData) {
+                                modal.close();
                                 cancellationConfirmed = true;
-                                modal.close();
                                 e.currentTarget.click();
-                            })
-                            $('[data-cancel-dialog]', modal.body).click((event) => {
-                                modal.close();
-                            })
+                            }
                         },
-                        'no_confirmation_needed': function(modal, jsonData) {
-                            modal.close();
-                            cancellationConfirmed = true;
-                            e.currentTarget.click();
-                        }
-                    },
-                });
+                    });
                 }
-                });
-        });
-        {% endif %}
+            });
+            {% endif %}
 
-        $(function() {
             /* Make user confirm before leaving the editor if there are unsaved changes */
             {% trans "This page has unsaved changes." as confirmation_message %}
             enableDirtyFormCheck(
@@ -161,10 +159,8 @@
                     {% endif %}
                 }
             );
-        });
 
-        /* Tooltips used by the workflow status component */
-        $(function() {
+            /* Tooltips used by the workflow status component */
             $('[data-wagtail-tooltip]').tooltip({
                 animation: false,
                 title: function() {
@@ -173,11 +169,9 @@
                 trigger: 'hover',
                 placement: 'bottom',
             });
-        });
 
-        $(function() {
-            document.addEventListener('DOMContentLoaded', ActivateWorkflowActionsForEditView('#page-edit-form'));
-            document.addEventListener('DOMContentLoaded', LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}'));
-        })
+            ActivateWorkflowActionsForEditView('#page-edit-form');
+            LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}');
+        });
     </script>
 {% endblock %}
