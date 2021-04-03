@@ -63,7 +63,7 @@ testing_extras = [
     'jinjalint>=0.5',
 
     # Pipenv hack to fix broken dependency causing CircleCI failures
-    'docutils==0.17',
+    'docutils==0.15',
 
     # django-taggit 1.3.0 made changes to verbose_name which affect migrations;
     # the test suite migrations correspond to >=1.3.0
@@ -74,7 +74,7 @@ testing_extras = [
 documentation_extras = [
     'pyenchant>=3.1.1,<4',
     'sphinxcontrib-spelling>=5.4.0,<6',
-    'Sphinx>=1.5.2',
+    'Sphinx==3.5.2',
     'sphinx-autobuild>=0.6.0',
     'sphinx_rtd_theme>=0.1.9',
     'recommonmark>=0.7.1',
