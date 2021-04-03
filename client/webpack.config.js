@@ -88,6 +88,7 @@ module.exports = function exports() {
 
   return {
     entry: entry,
+    target: ['web', 'es5'],  // Note: can remove after dropping IE11
     output: {
       path: path.resolve('.'),
       publicPath: '/static/js/'
@@ -110,7 +111,31 @@ module.exports = function exports() {
       rules: [
         {
           test: /\.(js|ts)x?$/,
-          loader: 'ts-loader',
+          use: [
+            // Note: Babel loader is only required for compiling ES6 JavaScript (draftail and telepath) to ES5
+            // It can be removed when we remove IE11 support
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  [
+                    '@babel/preset-env',
+                    {
+                      targets: {
+                        ie: 11,
+                      },
+                    }
+                  ]
+                ],
+                plugins: [
+                  ['@babel/plugin-transform-runtime']
+                ],
+              }
+            },
+            {
+              loader: 'ts-loader'
+            }
+          ],
           exclude: /node_modules/,
         },
       ].concat(Object.keys(exposedDependencies).map((name) => {
