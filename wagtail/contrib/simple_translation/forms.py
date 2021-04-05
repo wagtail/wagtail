@@ -1,12 +1,11 @@
 from django import forms
-from django.utils.translation import gettext_lazy
-from django.utils.translation import ngettext
+from django.utils.translation import gettext_lazy, ngettext
 
 from wagtail.core.models import Locale, Page
 
 
 class SubmitTranslationForm(forms.Form):
-    # Note: We don't actually use select_all in Python., is is just the
+    # Note: We don't actually use select_all in Python, it is just the
     # easiest way to add the widget to the form. It's controlled in JS.
     select_all = forms.BooleanField(label=gettext_lazy("Select all"), required=False)
     locales = forms.ModelMultipleChoiceField(
