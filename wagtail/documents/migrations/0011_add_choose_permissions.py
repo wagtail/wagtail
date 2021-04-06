@@ -54,7 +54,7 @@ def get_choose_permission(apps):
     return Permission.objects.filter(
         content_type=document_content_type,
         codename__in=['choose_document']
-    )
+    ).first()
 
 
 def copy_choose_permission_to_collections(apps, _schema_editor):
@@ -64,7 +64,8 @@ def copy_choose_permission_to_collections(apps, _schema_editor):
 
     root_collection = Collection.objects.get(depth=1)
 
-    for permission in get_choose_permission(apps):
+    permission = get_choose_permission(apps)
+    if permission:
         for group in Group.objects.filter(permissions=permission):
             GroupCollectionPermission.objects.create(
                 group=group,
@@ -76,8 +77,8 @@ def copy_choose_permission_to_collections(apps, _schema_editor):
 def remove_choose_permission_from_collections(apps, _schema_editor):
     GroupCollectionPermission = apps.get_model('wagtailcore.GroupCollectionPermission')
     choose_permission = get_choose_permission(apps)
-
-    GroupCollectionPermission.objects.filter(permission=choose_permission).delete()
+    if choose_permission:
+        GroupCollectionPermission.objects.filter(permission=choose_permission).delete()
 
 
 class Migration(migrations.Migration):
