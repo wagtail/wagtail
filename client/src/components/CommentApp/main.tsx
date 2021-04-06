@@ -21,7 +21,8 @@ import {
   selectCommentsForContentPathFactory,
   selectCommentFactory,
   selectEnabled,
-  selectFocused
+  selectFocused,
+  selectIsDirty
 } from './selectors';
 import CommentComponent from './components/Comment';
 import { CommentFormSetComponent } from './components/Form';
@@ -139,7 +140,8 @@ export class CommentApp {
   selectors = {
     selectComments,
     selectEnabled,
-    selectFocused
+    selectFocused,
+    selectIsDirty
   }
   actions = commentActionFunctions;
 

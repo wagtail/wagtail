@@ -1,11 +1,7 @@
 footer {
+    $border-curvature: 3px;
     @include transition(bottom 0.5s ease 1s);
     @include row();
-    border-radius: 3px 3px 0 0;
-    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
-    background: $color-grey-1;
-    color: $color-white;
-    margin-top: $mobile-nice-padding;
 
     ul {
         @include unlist();
@@ -15,10 +11,46 @@ footer {
         float: left;
         margin-right: 1em;
 
-        li,  // dropdown li
+        .dropdown li,  // dropdown li
         &:last-child {
             margin-right: 0;
         }
+    }
+
+    .footer__container {
+        border-radius: $border-curvature $border-curvature 0 0;
+        background: $color-grey-1;
+        color: $color-white;
+        margin-top: 0;
+        transition: transform 1s;
+
+        &:first-child {
+            margin-top: 0;
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+        }
+
+        &.footer__container--hidden {
+            transform: translateY(100%);
+        }
+    }
+
+    .footer__save-warning {
+        font-size: 0.95em;
+        display: flex;
+        align-items: center;
+
+        .icon {
+            font-size: 1.2em;
+            margin-right: 0.5em;
+        }
+
+        p {
+            margin: -0.2em 0 0 0;
+        }
+    }
+
+    .footer__emphasise-span-tags span {
+        color: $color-orange;
     }
 
     .actions {
@@ -67,9 +99,12 @@ footer {
     @include media-breakpoint-down(xs) {
         .actions,
         .preview,
+        .footer__container,
         .preview .dropdown {
             width: 100%;
         }
+
+        margin-top: $mobile-nice-padding;
 
         .meta {
             p {
@@ -81,6 +116,22 @@ footer {
                 left: auto;
             }
         }
+
+        .footer__container {
+            &:not(:first-child) {
+                border-radius: 0;
+            }
+
+            &--hidden {
+                display: none;
+            }
+        }
+
+        .footer__save-warning {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
     }
 
     @include media-breakpoint-up(sm) {
@@ -89,6 +140,22 @@ footer {
         width: auto;
         position: fixed;
         bottom: 0;
-        padding: 0.75em;
+
+        > ul {
+            display: flex;
+        }
+
+        .footer__container {
+            padding: 0.75em;
+            margin-right: 0;
+
+            &:not(:first-child) {
+                margin-left: -$border-curvature;
+            }
+        }
+
+        .footer__save-warning {
+            margin-right: 50px;
+        }
     }
 }

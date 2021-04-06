@@ -28,9 +28,15 @@ export interface CommentReply {
   mode: CommentReplyMode;
   author: Author | null;
   date: number;
-  text: string;
-  newText: string;
   deleted: boolean;
+  // There are three variables used for text
+  // text is the canonical text, that will be output to the form
+  // newText stores the edited version of the text until it is saved
+  // originalText stores the text upon reply creation, and is
+  // used to check whether existing replies have been edited
+  text: string;
+  originalText: string;
+  newText: string;
 }
 
 export interface NewReplyOptions {
@@ -56,12 +62,13 @@ export function newCommentReply(
     author,
     date,
     text,
+    originalText: text,
     newText: '',
     deleted: false,
   };
 }
 
-export type CommentReplyUpdate = Partial<CommentReply>;
+export type CommentReplyUpdate = Partial<Omit<CommentReply, 'originalText'>>;
 
 export type CommentMode =
   | 'default'
@@ -84,11 +91,17 @@ export interface Comment {
   deleted: boolean;
   author: Author | null;
   date: number;
-  text: string;
   replies: Map<number, CommentReply>;
   newReply: string;
-  newText: string;
   remoteReplyCount: number;
+  // There are three variables used for text
+  // text is the canonical text, that will be output to the form
+  // newText stores the edited version of the text until it is saved
+  // originalText stores the text upon comment creation, and is
+  // used to check whether existing comments have been edited
+  text: string;
+  originalText: string;
+  newText: string;
 }
 
 export interface NewCommentOptions {
@@ -122,6 +135,7 @@ export function newComment(
     author,
     date,
     text,
+    originalText: text,
     replies,
     newReply: '',
     newText: '',
@@ -133,7 +147,7 @@ export function newComment(
   };
 }
 
-export type CommentUpdate = Partial<Comment>;
+export type CommentUpdate = Partial<Omit<Comment, 'originalText'>>;
 
 export interface CommentsState {
   comments: Map<number, Comment>;
@@ -143,7 +157,7 @@ export interface CommentsState {
   remoteCommentCount: number;
 }
 
-const INITIAL_STATE: CommentsState = {
+export const INITIAL_STATE: CommentsState = {
   comments: new Map(),
   focusedComment: null,
   pinnedComment: null,
