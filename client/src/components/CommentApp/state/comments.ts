@@ -28,10 +28,15 @@ export interface CommentReply {
   mode: CommentReplyMode;
   author: Author | null;
   date: number;
+  deleted: boolean;
+  // There are three variables used for text
+  // text is the canonical text, that will be output to the form
+  // newText stores the edited version of the text until it is saved
+  // originalText stores the text upon reply creation, and is
+  // used to check whether existing replies have been edited
   text: string;
   originalText: string;
   newText: string;
-  deleted: boolean;
 }
 
 export interface NewReplyOptions {
@@ -86,12 +91,17 @@ export interface Comment {
   deleted: boolean;
   author: Author | null;
   date: number;
-  text: string;
-  originalText: string;
   replies: Map<number, CommentReply>;
   newReply: string;
-  newText: string;
   remoteReplyCount: number;
+  // There are three variables used for text
+  // text is the canonical text, that will be output to the form
+  // newText stores the edited version of the text until it is saved
+  // originalText stores the text upon comment creation, and is
+  // used to check whether existing comments have been edited
+  text: string;
+  originalText: string;
+  newText: string;
 }
 
 export interface NewCommentOptions {
