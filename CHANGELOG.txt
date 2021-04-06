@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.12.4 (xx.xx.xxxx)
+~~~~~~~~~~~~~~~~~~~
+
+* Fix: Reverse migration errors in images and documents (Mike Brown)
+
+
 2.12.3 (05.03.2021)
 ~~~~~~~~~~~~~~~~~~~
 

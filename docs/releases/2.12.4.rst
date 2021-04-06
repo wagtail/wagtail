@@ -1,0 +1,16 @@
+=============================================
+Wagtail 2.12.4 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+* Reverse migration errors in images and documents (Mike Brown) 
