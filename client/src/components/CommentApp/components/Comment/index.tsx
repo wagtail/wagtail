@@ -65,7 +65,7 @@ async function doDeleteComment(comment: Comment, store: Store) {
   }
 }
 
-async function resolveComment(comment: Comment, store: Store) {
+function resolveComment(comment: Comment, store: Store) {
   store.dispatch(
     updateComment(comment.localId, {
       resolved: true,
