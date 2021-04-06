@@ -3,6 +3,7 @@ from functools import wraps
 from unittest import mock
 
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.core import checks
@@ -1174,8 +1175,12 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.assertTrue(comment_form.is_valid())
         comment_form.save()
         resolved_comment = Comment.objects.get(pk=self.comment.pk)
-        self.assertEqual(resolved_comment.resolved_at, datetime(2017, 1, 1, 12, 0, 0, tzinfo=utc))
         self.assertEqual(resolved_comment.resolved_by, self.commenting_user)
+
+        if settings.USE_TZ:
+            self.assertEqual(resolved_comment.resolved_at, datetime(2017, 1, 1, 12, 0, 0, tzinfo=utc))
+        else:
+            self.assertEqual(resolved_comment.resolved_at, datetime(2017, 1, 1, 12, 0, 0))
 
     def test_comment_reply_form_validation(self):
 
