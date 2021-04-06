@@ -1,0 +1,13 @@
+.Draftail-Toolbar {
+    display: flex;
+    flex-wrap: wrap;
+
+    .Draftail-ToolbarGroup:last-child {
+        flex-grow: 1;
+    }
+
+    .Draftail-CommentControl {
+        float: right;
+        color: $color-teal;
+    }
+}

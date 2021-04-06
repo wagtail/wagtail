@@ -174,22 +174,24 @@ interface ControlProps {
 
 function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNode: Element) {
   return ({ getEditorState, onChange }: ControlProps) => (
-    <ToolbarButton
-      name="comment"
-      active={false}
-      title={STRINGS.ADD_A_COMMENT}
-      icon={<Icon name="comment" />}
-      onClick={() => {
-        const annotation = new DraftailInlineAnnotation(fieldNode);
-        const commentId = commentApp.makeComment(annotation, contentPath, '[]');
-        onChange(
-          RichUtils.toggleInlineStyle(
-            getEditorState(),
-            `${COMMENT_STYLE_IDENTIFIER}${commentId}`
-          )
-        );
-      }}
-    />
+    <span className="Draftail-CommentControl">
+      <ToolbarButton
+        name="comment"
+        active={false}
+        title={STRINGS.ADD_A_COMMENT}
+        icon={<Icon name="comment" />}
+        onClick={() => {
+          const annotation = new DraftailInlineAnnotation(fieldNode);
+          const commentId = commentApp.makeComment(annotation, contentPath, '[]');
+          onChange(
+            RichUtils.toggleInlineStyle(
+              getEditorState(),
+              `${COMMENT_STYLE_IDENTIFIER}${commentId}`
+            )
+          );
+        }}
+      />
+    </span>
   );
 }
 
