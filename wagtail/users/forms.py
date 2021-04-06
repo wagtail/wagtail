@@ -18,7 +18,7 @@ from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
-from wagtail.admin.widgets import AdminPageChooser
+from wagtail.admin.widgets import AdminPageChooser, SwitchInput
 from wagtail.core import hooks
 from wagtail.core.models import (
     PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page,
@@ -385,7 +385,12 @@ class NotificationPreferencesForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ("submitted_notifications", "approved_notifications", "rejected_notifications")
+        fields = ['submitted_notifications', 'approved_notifications', 'rejected_notifications']
+        widgets = {
+            'submitted_notifications': SwitchInput(),
+            'approved_notifications': SwitchInput(),
+            'rejected_notifications': SwitchInput(),
+        }
 
 
 def _get_language_choices():
