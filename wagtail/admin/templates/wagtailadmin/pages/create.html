@@ -6,7 +6,7 @@
 {% block bodyclass %}page-editor create model-{{ content_type.model }}{% endblock %}
 
 {% block content %}
-
+    <div id="comments"></div>
     <header class="merged tab-merged">
         {% explorer_breadcrumb parent_page include_self=1 trailing_arrow=True %}
 
@@ -38,38 +38,43 @@
         {{ edit_handler.render_form_content }}
 
         <footer>
-            <nav aria-label="{% trans 'Actions' %}">
-                <ul>
-                    <li class="actions actions--primary">
-                        <div class="dropdown dropup dropdown-button dropdown-button--white match-width {% if is_revision %}warning{% endif %}">
-                            {{ action_menu.render_html }}
-                        </div>
-                    </li>
-
-                    {% if preview_modes %}
-                        <li class="preview">
-                            {% trans 'Preview' as preview_label %}
-                            {% if preview_modes|length > 1 %}
-                                <div class="dropdown dropup dropdown-button match-width">
-                                    {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
-                                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
-                                    <ul>
-                                        {% for mode_name, mode_display_name in preview_modes %}
-                                            <li>
-                                                {% include "wagtailadmin/pages/_preview_button_on_create.html" with mode=mode_name label=mode_display_name %}
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
+            <ul>
+                <li class="footer__container">
+                    <nav aria-label="{% trans 'Actions' %}">
+                        <ul>
+                            <li class="actions actions--primary">
+                                <div class="dropdown dropup dropdown-button dropdown-button--white match-width {% if is_revision %}warning{% endif %}">
+                                    {{ action_menu.render_html }}
                                 </div>
-                            {% else %}
-                                {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                            </li>
+        
+                            {% if preview_modes %}
+                                <li class="preview">
+                                    {% trans 'Preview' as preview_label %}
+                                    {% if preview_modes|length > 1 %}
+                                        <div class="dropdown dropup dropdown-button match-width">
+                                            {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                                            <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+                                            <ul>
+                                                {% for mode_name, mode_display_name in preview_modes %}
+                                                    <li>
+                                                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with mode=mode_name label=mode_display_name %}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% else %}
+                                        {% include "wagtailadmin/pages/_preview_button_on_create.html" with label=preview_label icon=1 %}
+                                    {% endif %}
+                                </li>
                             {% endif %}
-                        </li>
-                    {% endif %}
-                    {% block extra_footer_actions %}
-                    {% endblock %}
-                </ul>
-            </nav>
+                            {% block extra_footer_actions %}
+                            {% endblock %}
+                        </ul>
+                    </nav>
+                </li>
+                {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
+            </ul>
         </footer>
     </form>
 
@@ -111,6 +116,8 @@
                     {% if has_unsaved_changes %}
                         alwaysDirty: true,
                     {% endif %}
+                    commentApp: window.commentApp,
+                    callback: window.updateFooterSaveWarning
                 }
             );
         });

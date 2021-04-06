@@ -54,16 +54,18 @@
         {% endif %}
 
         <footer>
-            <nav aria-label="{% trans 'Actions' %}">
-                <ul>
-                    <li class="actions actions--primary">
-                        <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+            <ul>
+                <li class="footer__container">
+                    <nav aria-label="{% trans 'Actions' %}">
+                        <ul>
+                            <li class="actions actions--primary">
+                                <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
                             {{ action_menu.render_html }}
-                        </div>
-                    </li>
+                                </div>
+                            </li>
 
-                    {% if preview_modes %}
-                        <li class="preview">
+                            {% if preview_modes %}
+                                <li class="preview">
                             {% trans 'Preview' as preview_label %}
                             {% if preview_modes|length > 1 %}
                                 <div class="dropdown dropup dropdown-button match-width">
@@ -80,13 +82,16 @@
                             {% else %}
                                 {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
                             {% endif %}
-                        </li>
-                    {% endif %}
+                                </li>
+                            {% endif %}
 
-                    {% block extra_footer_actions %}
-                    {% endblock %}
-                </ul>
-            </nav>
+                            {% block extra_footer_actions %}
+                            {% endblock %}
+                        </ul>
+                    </nav>
+                </li>
+                {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
+            </ul>
         </footer>
     </form>
     {% endblock %}
@@ -158,6 +163,9 @@
                     {% if has_unsaved_changes %}
                         alwaysDirty: true,
                     {% endif %}
+
+                    commentApp: window.commentApp,
+                    callback: window.updateFooterSaveWarning
                 }
             );
 
