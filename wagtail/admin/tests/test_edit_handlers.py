@@ -1,13 +1,16 @@
-from datetime import date
+from datetime import date, datetime
 from functools import wraps
 from unittest import mock
 
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
+from freezegun import freeze_time
+from pytz import utc
 
 from wagtail.admin.edit_handlers import (
     CommentPanel, FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel,
@@ -1147,8 +1150,37 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         )
 
         comment_form = form.formsets['comments'].forms[0]
+        self.assertFalse(comment_form.is_valid())
+        # Users cannot delete comments from other users
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_comment_resolve(self):
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-resolved': 1,
+            'comments-0-replies-TOTAL_FORMS': 0,
+            'comments-0-replies-INITIAL_FORMS': 0,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+        },
+            instance=self.event_page
+        )
+        comment_form = form.formsets['comments'].forms[0]
         self.assertTrue(comment_form.is_valid())
-        # Users can delete comments from other users - this is the resolve action
+        comment_form.save()
+        resolved_comment = Comment.objects.get(pk=self.comment.pk)
+        self.assertEqual(resolved_comment.resolved_by, self.commenting_user)
+
+        if settings.USE_TZ:
+            self.assertEqual(resolved_comment.resolved_at, datetime(2017, 1, 1, 12, 0, 0, tzinfo=utc))
+        else:
+            self.assertEqual(resolved_comment.resolved_at, datetime(2017, 1, 1, 12, 0, 0))
 
     def test_comment_reply_form_validation(self):
 

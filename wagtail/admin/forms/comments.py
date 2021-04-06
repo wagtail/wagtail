@@ -1,5 +1,5 @@
-from django.forms import ValidationError
-from django.forms.formsets import DELETION_FIELD_NAME
+from django.forms import BooleanField, ValidationError
+from django.utils.timezone import now
 from django.utils.translation import gettext as _
 
 from .models import WagtailAdminModelForm
@@ -32,6 +32,8 @@ class CommentForm(WagtailAdminModelForm):
     """
     user = None
 
+    resolved = BooleanField(required=False)
+
     def clean(self):
         cleaned_data = super().clean()
         user = self.user
@@ -40,8 +42,17 @@ class CommentForm(WagtailAdminModelForm):
             self.instance.user = user
         elif self.instance.user != user:
             # trying to edit someone else's comment
-            if any(field for field in self.changed_data if field != DELETION_FIELD_NAME):
-                # users can delete each other's base comments, as this is just the "resolve" action
+            if any(field for field in self.changed_data if field != 'resolved'):
+                # users can resolve each other's base comments
                 self.add_error(None, ValidationError(_("You cannot edit another user's comment.")))
-
         return cleaned_data
+
+    def save(self, *args, **kwargs):
+        if self.cleaned_data.get('resolved', False):
+            if not getattr(self.instance, 'resolved_at'):
+                self.instance.resolved_at = now()
+                self.instance.resolved_by = self.user
+        else:
+            self.instance.resolved_by = None
+            self.instance.resolved_at = None
+        return super().save(*args, **kwargs)
