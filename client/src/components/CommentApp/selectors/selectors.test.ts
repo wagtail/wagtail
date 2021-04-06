@@ -71,6 +71,10 @@ test('Select is dirty', () => {
 
   expect(selectIsDirty(stateWithDeletedComment)).toBe(true);
 
+  const stateWithResolvedComment = reducer(stateWithSavedComment, actions.updateComment(1, { resolved: true }));
+
+  expect(selectIsDirty(stateWithResolvedComment)).toBe(true);
+
   const stateWithEditedComment = reducer(stateWithSavedComment, actions.updateComment(1, { text: 'edited_text' }));
 
   expect(selectIsDirty(stateWithEditedComment)).toBe(true);
