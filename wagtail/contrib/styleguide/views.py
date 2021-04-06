@@ -7,7 +7,8 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.rich_text import get_rich_text_editor_widget
 from wagtail.admin.widgets import (
-    AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput)
+    AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput,
+    SwitchInput)
 from wagtail.core.models import Page
 from wagtail.documents.widgets import AdminDocumentChooser
 from wagtail.images.widgets import AdminImageChooser
@@ -26,6 +27,8 @@ class ExampleForm(forms.Form):
         self.fields['datetime'].widget = AdminDateTimeInput()
         self.fields['auto_height_text'].widget = AdminAutoHeightTextInput()
         self.fields['default_rich_text'].widget = get_rich_text_editor_widget('default')
+        self.fields['switch'].widget = SwitchInput()
+        self.fields['disabled_switch'].widget = SwitchInput(attrs={'disabled': True})
 
     CHOICES = (
         ('choice1', 'choice 1'),
@@ -43,6 +46,8 @@ class ExampleForm(forms.Form):
     select = forms.ChoiceField(choices=CHOICES)
     radio_select = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
     boolean = forms.BooleanField(required=False)
+    switch = forms.BooleanField(required=False)
+    disabled_switch = forms.BooleanField(required=False)
     page_chooser = forms.BooleanField(required=True)
     image_chooser = forms.BooleanField(required=True)
     document_chooser = forms.BooleanField(required=True)
