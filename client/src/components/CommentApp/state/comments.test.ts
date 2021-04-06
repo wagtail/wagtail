@@ -34,6 +34,7 @@ test('New comment added to state', () => {
     newReply: '',
     newText: '',
     remoteReplyCount: 0,
+    resolved: false,
     replies: new Map(),
   };
   const commentAction = actions.addComment(newComment);
@@ -53,6 +54,7 @@ test('Remote comment added to state', () => {
     remoteId: 10,
     mode: 'default',
     deleted: false,
+    resolved: false,
     author: { id: 1, name: 'test user' },
     date: 0,
     text: 'new comment',
