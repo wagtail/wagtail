@@ -818,7 +818,7 @@ class CommentPanel(EditHandler):
         return {
             'comments': {
                 'form': CommentFormWithRequest,
-                'fields': ['text', 'contentpath', 'position', 'resolved'],
+                'fields': ['text', 'contentpath', 'position'],
             }
         }
 
@@ -851,6 +851,7 @@ class CommentPanel(EditHandler):
             user_pks.add(form.instance.user_id)
             data = get_serializable_data_for_fields(form.instance)
             data['deleted'] = form.cleaned_data.get('DELETE', False) if bound else False
+            data['resolved'] = form.cleaned_data.get('resolved', False) if bound else form.instance.resolved_at is not None
             data['replies'] = replies
             serialized_comments.append(data)
 
