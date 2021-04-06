@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy
+from modelcluster.models import get_serializable_data_for_fields
 from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
@@ -794,10 +795,6 @@ class PrivacyModalPanel(EditHandler):
 
 
 class CommentPanel(EditHandler):
-    def __init__(self, *args, **kwargs):
-        self.comments = []
-        super().__init__(*args, **kwargs)
-
     def required_formsets(self):
         # add the comments formset
         # we need to pass in the current user for validation on the formset
@@ -831,15 +828,6 @@ class CommentPanel(EditHandler):
     def html_declarations(self):
         return render_to_string(self.declarations_template)
 
-    def on_form_bound(self):
-        comments = []
-        comment_forms = self.form.formsets['comments'].forms
-        for form in comment_forms:
-            instance = form.instance
-            instance.replies = [reply_form.instance for reply_form in form.formsets['replies'].forms]
-            comments.append(instance)
-        self.comments = comments
-
     def get_context(self):
         def user_data(user):
             return {
@@ -851,12 +839,21 @@ class CommentPanel(EditHandler):
         authors = {user.pk: user_data(user)} if user else {}
         user_pks = {user.pk}
         serialized_comments = []
-        for comment in self.comments:
+        bound = self.form.is_bound
+        for form in self.form.formsets['comments'].forms if self.form else []:
             # iterate over comments to retrieve users (to get display names) and serialized versions
-            user_pks.add(comment.user_id)
-            serialized_comments.append(comment.serializable_data())
-            for reply in comment.replies.all():
-                user_pks.add(reply.user_id)
+            replies = []
+            for reply_form in form.formsets['replies'].forms:
+                user_pks.add(reply_form.instance.user_id)
+                reply_data = get_serializable_data_for_fields(reply_form.instance)
+                reply_data['deleted'] = reply_form.cleaned_data.get('DELETE', False) if bound else False
+                replies.append(reply_data)
+            user_pks.add(form.instance.user_id)
+            data = get_serializable_data_for_fields(form.instance)
+            data['deleted'] = form.cleaned_data.get('DELETE', False) if bound else False
+            data['resolved'] = form.cleaned_data.get('resolved', False) if bound else form.instance.resolved_at is not None
+            data['replies'] = replies
+            serialized_comments.append(data)
 
         authors = {user.pk: user_data(user) for user in get_user_model().objects.filter(pk__in=user_pks)}
 

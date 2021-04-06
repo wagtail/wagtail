@@ -72,6 +72,7 @@ export interface InitialCommentReply {
   text: string;
   created_at: string;
   updated_at: string;
+  deleted: boolean;
 }
 
 export interface InitialComment {
@@ -83,6 +84,8 @@ export interface InitialComment {
   replies: InitialCommentReply[];
   contentpath: string;
   position: string;
+  deleted: boolean;
+  resolved: boolean;
 }
 /* eslint-enable */
 
@@ -112,7 +115,7 @@ function renderCommentsUi(
     commentsToRender = [];
   }
   // Hide all resolved/deleted comments
-  commentsToRender = commentsToRender.filter(({ deleted }) => !deleted);
+  commentsToRender = commentsToRender.filter(({ deleted, resolved }) => !(deleted || resolved));
   const commentsRendered = commentsToRender.map((comment) => (
     <CommentComponent
       key={comment.localId}
@@ -284,6 +287,8 @@ export class CommentApp {
             {
               remoteId: comment.pk,
               text: comment.text,
+              deleted: comment.deleted,
+              resolved: comment.resolved
             }
           )
         )
@@ -298,7 +303,11 @@ export class CommentApp {
               getNextReplyId(),
               getAuthor(authors, reply.user),
               Date.parse(reply.created_at),
-              { remoteId: reply.pk, text: reply.text }
+              {
+                remoteId: reply.pk,
+                text: reply.text,
+                deleted: reply.deleted
+              }
             )
           )
         );

@@ -65,6 +65,14 @@ async function doDeleteComment(comment: Comment, store: Store) {
   }
 }
 
+function resolveComment(comment: Comment, store: Store) {
+  store.dispatch(
+    updateComment(comment.localId, {
+      resolved: true,
+    })
+  );
+}
+
 export interface CommentProps {
   store: Store;
   comment: Comment;
@@ -480,7 +488,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           commentReply={comment}
           store={store}
           strings={strings}
-          onResolve={doDeleteComment}
+          onResolve={resolveComment}
           onEdit={onEdit}
           onDelete={onDelete}
         />
