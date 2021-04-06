@@ -8,6 +8,7 @@ const remoteReply: CommentReply = {
   author: { id: 1, name: 'test user' },
   date: 0,
   text: 'a reply',
+  originalText: 'a reply',
   newText: '',
   deleted: false,
 };
@@ -19,6 +20,7 @@ const localReply: CommentReply = {
   author: { id: 1, name: 'test user' },
   date: 0,
   text: 'another reply',
+  originalText: 'another new reply',
   newText: '',
   deleted: false,
 };
@@ -34,6 +36,7 @@ const remoteComment: Comment = {
   author: { id: 1, name: 'test user' },
   date: 0,
   text: 'test text',
+  originalText: 'test text',
   newReply: '',
   newText: '',
   remoteReplyCount: 1,
@@ -51,6 +54,7 @@ const localComment: Comment = {
   author: { id: 1, name: 'test user' },
   date: 0,
   text: 'unsaved comment',
+  originalText: 'unsaved comment',
   newReply: '',
   newText: '',
   replies: new Map(),
