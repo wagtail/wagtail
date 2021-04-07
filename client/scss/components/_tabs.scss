@@ -72,6 +72,16 @@
         margin-top: 0;
         background-color: $color-header-bg;
     }
+
+    li.right {
+        float: right;
+        margin-right: 0;
+        margin-left: 2px;
+    }
+
+    li.wide {
+        width: unset;
+    }
 }
 
 .tab-content {

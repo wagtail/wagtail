@@ -47,3 +47,9 @@ export const selectIsDirty = createSelector(
       return Array.from(comment.replies.values()).some(reply => reply.deleted || reply.originalText !== reply.text);
     });
   });
+
+export const selectCommentCount = (state: State) => (
+  [...state.comments.comments.values()].filter(
+    (comment: Comment) => !comment.deleted && !comment.resolved
+  ).length
+);
