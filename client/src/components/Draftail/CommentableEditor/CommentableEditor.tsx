@@ -174,22 +174,24 @@ interface ControlProps {
 
 function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNode: Element) {
   return ({ getEditorState, onChange }: ControlProps) => (
-    <ToolbarButton
-      name="comment"
-      active={false}
-      title={STRINGS.ADD_A_COMMENT}
-      icon={<Icon name="comment" />}
-      onClick={() => {
-        const annotation = new DraftailInlineAnnotation(fieldNode);
-        const commentId = commentApp.makeComment(annotation, contentPath, '[]');
-        onChange(
-          RichUtils.toggleInlineStyle(
-            getEditorState(),
-            `${COMMENT_STYLE_IDENTIFIER}${commentId}`
-          )
-        );
-      }}
-    />
+    <span className="Draftail-CommentControl">
+      <ToolbarButton
+        name="comment"
+        active={false}
+        title={STRINGS.ADD_A_COMMENT}
+        icon={<Icon name="comment" />}
+        onClick={() => {
+          const annotation = new DraftailInlineAnnotation(fieldNode);
+          const commentId = commentApp.makeComment(annotation, contentPath, '[]');
+          onChange(
+            RichUtils.toggleInlineStyle(
+              getEditorState(),
+              `${COMMENT_STYLE_IDENTIFIER}${commentId}`
+            )
+          );
+        }}
+      />
+    </span>
   );
 }
 
@@ -599,6 +601,10 @@ function CommentableEditor({
             if (focusedId && commentIds.has(focusedId)) {
               // Use the focused colour if one of the comments is focused
               background = focusedHighlight;
+              return {
+                'background-color': background,
+                'color': standardHighlight
+              };
             } else if (numStyles > 1) {
               // Otherwise if we're in a region with overlapping comments, use a slightly darker colour than usual
               // to indicate that
