@@ -377,6 +377,33 @@ $(() => {
         $icon.addClass('icon-view').removeClass('icon-spinner');
       });
   });
+
+  // Comments toggle
+  $('.comments-toggle input[type=checkbox]').change((e) => {
+    // Show/hide comments
+    window.commentApp.setVisible(e.target.checked);
+
+    // Show/hide comment notifications toggle
+    if (e.target.checked) {
+      $('.comment-notifications-toggle').show();
+    } else {
+      $('.comment-notifications-toggle').hide();
+    }
+  });
+
+  // Keep number of comments up to date with comment app
+  const updateCommentCount = () => {
+    const commentCount = window.commentApp.selectors.selectCommentCount(window.commentApp.store.getState());
+
+    if (commentCount > 0) {
+      $('.comments-toggle__count').text(commentCount);
+    } else {
+      // Note: CSS will hide the circle when its content is empty
+      $('.comments-toggle__count').text('');
+    }
+  };
+  window.commentApp.store.subscribe(updateCommentCount);
+  updateCommentCount();
 });
 
 let updateFooterTextTimeout = -1;

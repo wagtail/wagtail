@@ -1,0 +1,84 @@
+.comments-controls {
+    padding-right: $mobile-nice-padding;
+
+    @include media-breakpoint-up(sm) {
+        padding-right: $desktop-nice-padding;
+    }
+}
+
+.comments-toggle {
+    float: right;
+    position: relative;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+
+    // Wagtail adds some top padding to labels on mobile
+    padding: 0;
+
+    &__icon {
+        position: absolute;
+        left: 0;
+        bottom: 10px;
+        width: 30px;
+        height: 30px;
+        color: $color-white;
+        opacity: 0.6;
+        transition: opacity 100ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &__count {
+        position: absolute;
+        top: -10px;
+        right: 0;
+        width: 22px;
+        height: 22px;
+        box-sizing: border-box;
+        border-radius: 50%;
+        background-color: #00b0b1;
+        border: 1px solid #007d7e;
+        color: $color-white;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    [type=checkbox] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        top: -20px;
+    }
+
+    [type=checkbox]:checked + &__icon {
+        opacity: 1;
+    }
+
+    [type=checkbox]:focus + &__icon {
+        outline: 3px solid $color-focus-outline;
+    }
+}
+
+.comment-notifications-toggle {
+    float: right;
+    height: 42px;
+    margin-right: 30px;
+
+    label {
+        padding: 0;
+        margin: 0;
+        padding-top: 5px;
+        font-weight: normal;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: $color-white;
+    }
+
+    .switch__toggle {
+        margin-left: 15px;
+    }
+}

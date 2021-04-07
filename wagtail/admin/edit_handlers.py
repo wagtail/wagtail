@@ -365,11 +365,13 @@ class TabbedInterface(BaseFormEditHandler):
 
     def __init__(self, *args, **kwargs):
         self.base_form_class = kwargs.pop('base_form_class', None)
+        self.show_comments_toggle = kwargs.pop('show_comments_toggle', False)
         super().__init__(*args, **kwargs)
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
         kwargs['base_form_class'] = self.base_form_class
+        kwargs['show_comments_toggle'] = self.show_comments_toggle
         return kwargs
 
 
@@ -921,7 +923,7 @@ def get_edit_handler(cls):
                                    heading=gettext_lazy('Settings'),
                                    classname='settings'))
 
-        edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
+        edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class, show_comments_toggle=True)
 
     return edit_handler.bind_to(model=cls)
 
