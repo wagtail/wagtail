@@ -152,47 +152,42 @@ export default class CommentComponent extends React.Component<CommentProps> {
     // Hide new reply if a reply is being edited as well
     const newReplyHidden = hideNewReply || replyBeingEdited;
 
-    let replyActions = <></>;
-    if (!newReplyHidden && isFocused && comment.newReply.length > 0) {
-      replyActions = (
-        <div className="comment__reply-actions">
-          <button
-            type="submit"
-            className="comment__button comment__button--primary"
-          >
-            {strings.REPLY}
-          </button>
-          <button
-            type="button"
-            onClick={onClickCancelReply}
-            className="comment__button"
-          >
-            {strings.CANCEL}
-          </button>
-        </div>
-      );
-    }
-
-    let replyTextarea = <></>;
+    let replyForm = <></>;
     if (!newReplyHidden && (isFocused || comment.newReply)) {
-      replyTextarea = (
-        <textarea
-          className="comment__reply-input"
-          placeholder="Enter your reply..."
-          value={comment.newReply}
-          onChange={onChangeNewReply}
-          style={{ resize: 'none' }}
-        />
+      replyForm = (
+        <form onSubmit={sendReply}>
+          <textarea
+            className="comment__reply-input"
+            placeholder="Enter your reply..."
+            value={comment.newReply}
+            onChange={onChangeNewReply}
+            style={{ resize: 'none' }}
+            rows={1}
+          />
+          <div className="comment__reply-actions">
+            <button
+              type="submit"
+              className="comment__button comment__button--primary"
+            >
+              {strings.REPLY}
+            </button>
+            <button
+              type="button"
+              onClick={onClickCancelReply}
+              className="comment__button"
+            >
+              {strings.CANCEL}
+            </button>
+          </div>
+
+        </form>
       );
     }
 
     return (
       <>
         <ul className="comment__replies">{replies}</ul>
-        <form onSubmit={sendReply}>
-          {replyTextarea}
-          {replyActions}
-        </form>
+        {replyForm}
       </>
     );
   }

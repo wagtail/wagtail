@@ -41,6 +41,8 @@ $color-focus-outline: #ffbf47;
 $color-text-base: darken($color-white, 85);
 $color-text-input: darken($color-white, 90);
 
+$color-comment-separator: #e6e6e6;
+
 // Color states
 $color-state-live: #59b524;
 $color-state-draft: #808080;
@@ -64,32 +66,29 @@ $color-textarea-placeholder-text: $color-grey-2;
 @mixin box {
     background-color: $color-box-background;
     border: 1px solid $color-box-border;
-    padding: 25px;
-    font-size: 16px;
-    border-radius: 10px;
+    padding: 10px;
+    font-size: 11px;
+    border-radius: 5px;
     color: $color-box-text;
 
     &--focused {
-        border: 1px solid $color-box-border-focused;
-        box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+        border-color: #bbb;
+        box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
     }
 
     textarea {
         font-family: 'Open Sans', sans-serif;
-        font-size: 0.8em;
         margin: 0;
-        margin-top: 5px;
         padding: 10px;
         width: 100%;
         background-color: $color-textarea-background;
-        border: 2px solid $color-textarea-border;
+        border: 1px solid $color-textarea-border;
         box-sizing: border-box;
-        border-radius: 7px;
-        -moz-outline-radius: 10px;
+        border-radius: 5px;
+        -moz-outline-radius: 8px;
         color: $color-box-text;
 
         &::placeholder {
-            font-style: italic;
             color: $color-textarea-placeholder-text;
             opacity: 1;
         }
@@ -109,17 +108,17 @@ $color-textarea-placeholder-text: $color-grey-2;
 @mixin button {
     background-color: inherit;
     border: 1px solid $color-grey-3;
-    border-radius: 5px;
-    -moz-outline-radius: 7px;
+    border-radius: 3px;
+    -moz-outline-radius: 6px;
     color: $color-teal;
     cursor: pointer;
     text-transform: uppercase;
     font-family: inherit;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
-    height: 35px;
-    padding-left: 10px;
-    padding-right: 10px;
+    height: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
 
     &--primary {
         color: $color-white;
