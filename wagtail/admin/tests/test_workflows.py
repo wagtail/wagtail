@@ -748,6 +748,27 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertRegex(response.content.decode('utf-8'), r'Awaiting[\s|\n]+{}'.format(self.page.current_workflow_task.name))
         self.assertNotContains(response, 'Draft')
 
+    def test_submit_sends_mail(self):
+        self.submit()
+        # 3 emails sent:
+        # - to moderator - submitted for approval in moderation stage test_task_1
+        # - to superuser - submitted for approval in moderation stage test_task_1
+        # - to superuser - submitted to workflow test_workflow
+        self.assertEqual(len(mail.outbox), 3)
+
+        # the 'submitted to workflow' email should include the submitter's name
+        workflow_message = None
+        for msg in mail.outbox:
+            if msg.subject == 'The page "Hello world! (simple page)" has been submitted to workflow "test_workflow"':
+                workflow_message = msg
+                break
+
+        self.assertTrue(workflow_message)
+        self.assertIn(
+            'The page "Hello world! (simple page)" has been submitted for moderation to workflow "test_workflow" by submitter',
+            workflow_message.body
+        )
+
     @mock.patch.object(EmailMultiAlternatives, 'send', side_effect=IOError('Server down'))
     def test_email_send_error(self, mock_fn):
         logging.disable(logging.CRITICAL)
