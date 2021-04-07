@@ -22,7 +22,8 @@ import {
   selectCommentFactory,
   selectEnabled,
   selectFocused,
-  selectIsDirty
+  selectIsDirty,
+  selectCommentCount
 } from './selectors';
 import CommentComponent from './components/Comment';
 import { CommentFormSetComponent } from './components/Form';
@@ -144,7 +145,8 @@ export class CommentApp {
     selectComments,
     selectEnabled,
     selectFocused,
-    selectIsDirty
+    selectIsDirty,
+    selectCommentCount
   }
   actions = commentActionFunctions;
 
@@ -208,6 +210,11 @@ export class CommentApp {
     // Focus and pin the comment
     this.store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true }));
     return commentId;
+  }
+  setVisible(visible: boolean) {
+    this.store.dispatch(updateGlobalSettings({
+      commentsEnabled: visible,
+    }));
   }
   renderApp(
     element: HTMLElement,

@@ -1,10 +1,30 @@
-{% load wagtailadmin_tags %}
+{% load wagtailadmin_tags i18n %}
 <ul class="tab-nav merged" role="tablist">
     {% for child in self.children %}
         <li class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}">
             <a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}">{{ child.heading }}</a>
         </li>
     {% endfor %}
+
+    {% if self.show_comments_toggle %}
+        <li class="right wide">
+            <div class="comments-controls">
+                <label class="comments-toggle" aria-label="{% trans 'Show comments' %}">
+                    <input type="checkbox" checked>
+                    {% icon name="comment-dots" class_name="comments-toggle__icon" %}
+                    <div class="comments-toggle__count">{# populated in page-editor.js #}</div>
+                </label>
+
+                <div class="comment-notifications-toggle">
+                    <label class="switch switch--teal-background">
+                        {% trans "Comment notifications" %}
+                        <input type="checkbox" checked>
+                        <span class="switch__toggle"></span>
+                    </label>
+                </div>
+            </div>
+        </li>
+    {% endif %}
 </ul>
 
 <div class="tab-content">
