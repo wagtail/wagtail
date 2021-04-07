@@ -331,6 +331,11 @@ class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
 
         return recipients
 
+    def get_context(self, workflow_state, **kwargs):
+        context = super().get_context(workflow_state, **kwargs)
+        context['requested_by'] = workflow_state.requested_by
+        return context
+
 
 class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
     """A base notifier to send email updates for GroupApprovalTask events"""
