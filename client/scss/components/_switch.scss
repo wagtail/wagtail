@@ -81,4 +81,32 @@ $switch-color-middle-grey: #777;
         opacity: 0;
         pointer-events: none;
     }
+
+    // Colour changes for when displaying on teal background
+    &--teal-background {
+        $background: #005b5e;
+
+        .switch__toggle {
+            &::before {
+                background-color: $background;
+                border: $switch-border solid $background;
+                opacity: 0.6;
+            }
+
+            &::after {
+                background-color: $color-white;
+                opacity: 0.5;
+            }
+        }
+
+        [type=checkbox]:checked + .switch__toggle::before {
+            // Override the white-background styling
+            background-color: $background;
+            border-color: $background;
+        }
+
+        [type=checkbox]:checked + .switch__toggle::after {
+            opacity: 1;
+        }
+    }
 }
