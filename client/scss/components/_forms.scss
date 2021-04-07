@@ -107,11 +107,11 @@ select::-ms-expand {
             display: none;
         }
     }
-}
 
-// the site setting dropdown is auto width, so the chevron will overlap with text if not padded
-.choice_field .setting-site-switch-form .input select {
-    padding-right: 5em;
+    // Override default select padding so the chevron will overlap with long option text
+    select {
+        padding-right: 5em;
+    }
 }
 
 // Other text
