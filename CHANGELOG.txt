@@ -16,6 +16,7 @@ Changelog
  * Add support to SVG icons for ``SearchArea`` subclasses in ``register_admin_search_area`` (Thibaud Colas)
  * Add `wagtail.reorder` page audit log action (Storm Heg)
  * `get_settings` template tag now supports specifying the variable name with `{% get_settings as var %}` (Samir Shah)
+ * Reinstate submitter's name on moderation notification email (Matt Westcott)
  * Fix: StreamField required status is now consistently handled by the `blank` keyword argument (Matt Westcott)
  * Fix: Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
  * Fix: Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)

@@ -1,10 +1,11 @@
 {% extends 'wagtailadmin/notifications/base.txt' %}
 
-{% load i18n %}
+{% load wagtailadmin_tags i18n %}
 
 {% block content %}
-{% blocktrans with workflow=workflow.name|safe title=page.get_admin_display_title|safe %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}".{% endblocktrans %}
-
+{% if requested_by %}{% blocktrans with workflow=workflow.name|safe title=page.get_admin_display_title|safe requester=requested_by|user_display_name|safe %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}" by {{ requester }}.{% endblocktrans %}
+{% else %}{% blocktrans with workflow=workflow.name|safe title=page.get_admin_display_title|safe %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}".{% endblocktrans %}
+{% endif %}
 
 {% trans "You can edit the page here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}
 

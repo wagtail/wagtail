@@ -33,6 +33,7 @@ Other features
 * Add support to SVG icons for ``SearchArea`` subclasses in ``register_admin_search_area`` (Thibaud Colas)
 * Add specialized ``wagtail.reorder`` page audit log action. This was previously covered by the ``wagtail.move`` action (Storm Heg)
 * ``get_settings`` template tag now supports specifying the variable name with ``{% get_settings as var %}`` (Samir Shah)
+* Reinstate submitter's name on moderation notification email (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~
