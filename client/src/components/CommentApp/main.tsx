@@ -271,7 +271,8 @@ export class CommentApp {
         () => {
           // Render again if layout has changed (eg, a comment was added, deleted or resized)
           // This will just update the "top" style attributes in the comments to get them to move
-          if (this.layout.refresh()) {
+          this.layout.refreshDesiredPositions(state.settings.currentTab);
+          if (this.layout.refreshLayout()) {
             ReactDOM.render(
               renderCommentsUi(this.store, this.layout, commentList, strings),
               element
