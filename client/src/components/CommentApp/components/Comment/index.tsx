@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import ReactDOM from 'react-dom';
 
 import type { Store } from '../../state';
@@ -84,6 +84,13 @@ export interface CommentProps {
 }
 
 export default class CommentComponent extends React.Component<CommentProps> {
+  focusTargetRef: MutableRefObject<HTMLTextAreaElement | null>
+  focusTimeoutId: number | undefined
+
+  constructor(props: CommentProps) {
+    super(props);
+    this.focusTargetRef = React.createRef();
+  }
   renderReplies({ hideNewReply = false } = {}): React.ReactFragment {
     const { comment, isFocused, store, user, strings } = this.props;
 
@@ -557,11 +564,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
     if (element instanceof HTMLElement) {
       // If this is a new comment, focus in the edit box
       if (this.props.comment.mode === 'creating') {
-        const textAreaElement = element.querySelector('textarea');
-
-        if (textAreaElement instanceof HTMLTextAreaElement) {
-          textAreaElement.focus();
-        }
+        clearTimeout(this.focusTimeoutId)
+        this.focusTimeoutId = setTimeout(
+          () => {
+            if (this.focusTargetRef.current) {
+              this.focusTargetRef.current.focus()
+            }   
+          }
+        , 10);
       }
 
       this.props.layout.setCommentElement(this.props.comment.localId, element);
@@ -573,6 +583,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   componentWillUnmount() {
+    clearTimeout(this.focusTimeoutId)
     this.props.layout.setCommentElement(this.props.comment.localId, null);
   }
 
