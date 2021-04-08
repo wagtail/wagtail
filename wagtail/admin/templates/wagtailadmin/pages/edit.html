@@ -188,5 +188,10 @@
             document.addEventListener('DOMContentLoaded', ActivateWorkflowActionsForEditView('#page-edit-form'));
             document.addEventListener('DOMContentLoaded', LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}'));
         })
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enable tabbing of comments
+            window.comments.attachTabNav(document.querySelector('.tab-nav'));
+        });
     </script>
 {% endblock %}
