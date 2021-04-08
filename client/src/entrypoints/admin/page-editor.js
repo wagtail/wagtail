@@ -384,10 +384,13 @@ $(() => {
     window.commentApp.setVisible(e.target.checked);
 
     // Show/hide comment notifications toggle
+    // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
     if (e.target.checked) {
       $('.comment-notifications-toggle').show();
+      $('.tab-content').addClass('tab-content--comments-enabled');
     } else {
       $('.comment-notifications-toggle').hide();
+      $('.tab-content').removeClass('tab-content--comments-enabled');
     }
   });
 

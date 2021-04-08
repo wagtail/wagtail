@@ -482,6 +482,8 @@ footer .preview {
 
 @include media-breakpoint-up(sm) {
     .object {
+        transition: padding-right 0.5s ease 0s;
+
         fieldset {
             // Override column mixin for column items.
             display: block;
@@ -563,6 +565,11 @@ footer .preview {
         &.empty .add {
             margin: 0 0 0 -50px;
         }
+    }
+
+    // Make room for comments on the right when enabled
+    .tab-content--comments-enabled .object {
+        padding-right: 350px;
     }
 }
 

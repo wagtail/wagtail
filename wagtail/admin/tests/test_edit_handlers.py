@@ -316,7 +316,7 @@ class TestTabbedInterface(TestCase):
         self.assertIn('<a href="#tab-speakers" class="" data-tab="speakers">Speakers</a>', result)
 
         # result should contain tab panels
-        self.assertIn('<div class="tab-content">', result)
+        self.assertIn('<div class="tab-content tab-content--comments-enabled">', result)
         self.assertIn('<section id="tab-event-details" class="shiny active" role="tabpanel" aria-labelledby="tab-label-event-details" data-tab="event-details">', result)
         self.assertIn('<section id="tab-speakers" class=" " role="tabpanel" aria-labelledby="tab-label-speakers" data-tab="speakers">', result)
 
