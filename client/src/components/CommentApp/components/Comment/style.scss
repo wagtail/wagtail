@@ -22,6 +22,12 @@
 
     form {
         border-top: 1px solid$color-comment-separator;
+        margin-top: 10px;
+    }
+
+    &--mode-creating form {
+        border-top: none;
+        margin-top: 10px;
     }
 
     &--mode-deleting &__text {

@@ -16,6 +16,7 @@ import { getNextReplyId } from '../../utils/sequences';
 import CommentReplyComponent from '../CommentReply';
 import type { TranslatableStrings } from '../../main';
 import { CommentHeader }  from '../CommentHeader';
+import TextArea from '../TextArea';
 
 async function saveComment(comment: Comment, store: Store) {
   store.dispatch(
@@ -91,12 +92,10 @@ export default class CommentComponent extends React.Component<CommentProps> {
       return <></>;
     }
 
-    const onChangeNewReply = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      e.preventDefault();
-
+    const onChangeNewReply = (value: string) => {
       store.dispatch(
         updateComment(comment.localId, {
-          newReply: e.target.value,
+          newReply: value,
         })
       );
     };
@@ -156,13 +155,11 @@ export default class CommentComponent extends React.Component<CommentProps> {
     if (!newReplyHidden && (isFocused || comment.newReply)) {
       replyForm = (
         <form onSubmit={sendReply}>
-          <textarea
+          <TextArea
             className="comment__reply-input"
             placeholder="Enter your reply..."
             value={comment.newReply}
             onChange={onChangeNewReply}
-            style={{ resize: 'none' }}
-            rows={1}
           />
           <div className="comment__reply-actions">
             <button
@@ -195,12 +192,10 @@ export default class CommentComponent extends React.Component<CommentProps> {
   renderCreating(): React.ReactFragment {
     const { comment, store, strings } = this.props;
 
-    const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      e.preventDefault();
-
+    const onChangeText = (value: string) => {
       store.dispatch(
         updateComment(comment.localId, {
-          newText: e.target.value,
+          newText: value,
         })
       );
     };
@@ -220,12 +215,12 @@ export default class CommentComponent extends React.Component<CommentProps> {
       <>
         <CommentHeader commentReply={comment} store={store} strings={strings} />
         <form onSubmit={onSave}>
-          <textarea
+          <TextArea
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
-            style={{ resize: 'none' }}
             placeholder="Enter your comments..."
+            focusOnMount={true}
           />
           <div className="comment__actions">
             <button
@@ -250,12 +245,10 @@ export default class CommentComponent extends React.Component<CommentProps> {
   renderEditing(): React.ReactFragment {
     const { comment, store, strings } = this.props;
 
-    const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      e.preventDefault();
-
+    const onChangeText = (value: string) => {
       store.dispatch(
         updateComment(comment.localId, {
-          newText: e.target.value,
+          newText: value,
         })
       );
     };
@@ -281,11 +274,11 @@ export default class CommentComponent extends React.Component<CommentProps> {
       <>
         <CommentHeader commentReply={comment} store={store} strings={strings} />
         <form onSubmit={onSave}>
-          <textarea
+          <TextArea
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
-            style={{ resize: 'none' }}
+            focusOnMount={true}
           />
           <div className="comment__actions">
             <button

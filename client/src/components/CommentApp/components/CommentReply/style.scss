@@ -25,6 +25,10 @@
         color: $color-grey-3;
     }
 
+    form {
+        margin-top: 10px;
+    }
+
     &__button {
         @include button;
     }
