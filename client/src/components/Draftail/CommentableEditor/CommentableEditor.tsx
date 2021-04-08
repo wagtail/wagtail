@@ -91,6 +91,9 @@ class DraftailInlineAnnotation implements Annotation {
     }
     return null;
   }
+  getTab() {
+    return this.field.closest('section[data-tab]')?.getAttribute('data-tab');
+  }
   getDesiredPosition(focused = false) {
     // The comment should always aim to float by an annotation, rather than between them
     // so calculate which annotation is the median one by height and float the comment by that

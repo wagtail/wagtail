@@ -78,6 +78,7 @@ export interface CommentProps {
   store: Store;
   comment: Comment;
   isFocused: boolean;
+  isVisible: boolean;
   layout: LayoutController;
   user: Author | null;
   strings: TranslatableStrings;
@@ -541,6 +542,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           position: 'absolute',
           top: `${top}px`,
           right: `${right}px`,
+          display: this.props.isVisible ? 'block' : 'none',
         }}
         data-comment-id={this.props.comment.localId}
         onClick={onClick}
@@ -565,10 +567,13 @@ export default class CommentComponent extends React.Component<CommentProps> {
       }
 
       this.props.layout.setCommentElement(this.props.comment.localId, element);
-      this.props.layout.setCommentHeight(
-        this.props.comment.localId,
-        element.offsetHeight
-      );
+
+      if (this.props.isVisible) {
+        this.props.layout.setCommentHeight(
+          this.props.comment.localId,
+          element.offsetHeight
+        );
+      }
     }
   }
 
@@ -580,7 +585,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
     const element = ReactDOM.findDOMNode(this);
 
     // Keep height up to date so that other comments will be moved out of the way
-    if (element instanceof HTMLElement) {
+    if (this.props.isVisible && element instanceof HTMLElement) {
       this.props.layout.setCommentHeight(
         this.props.comment.localId,
         element.offsetHeight
