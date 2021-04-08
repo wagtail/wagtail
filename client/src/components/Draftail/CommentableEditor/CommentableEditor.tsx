@@ -20,7 +20,7 @@ import {
 } from 'draft-js';
 import type { DraftEditorLeaf } from 'draft-js/lib/DraftEditorLeaf.react';
 import { filterInlineStyles } from 'draftjs-filters';
-import React, { MutableRefObject, ReactText, useEffect, useMemo, useRef, useState } from 'react';
+import React, { MutableRefObject, ReactNode, ReactText, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 
 import { STRINGS } from '../../../config/wagtailConfig';
@@ -44,7 +44,7 @@ type BlockKey = string;
  * `getDesiredPosition` is called by the comments app to determine the height
  * at which to float the comment.
  */
-class DraftailInlineAnnotation implements Annotation {
+export class DraftailInlineAnnotation implements Annotation {
   /**
    * Create an inline annotation
    * @param {Element} field - an element to provide the fallback position for comments without any inline decorators
@@ -241,7 +241,7 @@ function findCommentStyleRanges(
 }
 
 
-function updateCommentPositions({ editorState, comments, commentApp }:
+export function updateCommentPositions({ editorState, comments, commentApp }:
   {
     editorState: EditorState,
     comments: Array<Comment>,
@@ -291,6 +291,39 @@ function updateCommentPositions({ editorState, comments, commentApp }:
   });
 }
 
+export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
+  const styles = block.getInlineStyleAt(offset).filter(styleIsComment) as Immutable.OrderedSet<string>;
+  let styleToUse: string;
+  if (styles.count() > 1) {
+    // We're dealing with overlapping comments.
+    // Find the least frequently occurring style and use that - this isn't foolproof, but in
+    // most cases should ensure that all comments have at least one clickable section. This
+    // logic is a bit heavier than ideal for a decorator given how often we are forced to
+    // redecorate, but will only be used on overlapping comments
+
+    // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
+    // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
+    // this casting should be removed
+    let styleFreq = styles.map((style) => {
+      let counter = 0;
+      findCommentStyleRanges(block,
+        () => { counter = counter + 1; },
+        (metadata) => metadata.getStyle().some(rangeStyle => rangeStyle === style)
+      );
+      return [style, counter];
+    }) as unknown as Immutable.OrderedSet<[string, number]>;
+
+    styleFreq =  styleFreq.sort(
+      (firstStyleCount, secondStyleCount) => firstStyleCount[1] - secondStyleCount[1]
+    ) as Immutable.OrderedSet<[string, number]>;
+
+    styleToUse = styleFreq.first()[0];
+  } else {
+    styleToUse = styles.first();
+  }
+  return getIdForCommentStyle(styleToUse);
+}
+
 interface DecoratorProps {
   contentState: ContentState,
   children?: Array<DraftEditorLeaf>
@@ -310,36 +343,7 @@ function getCommentDecorator(commentApp: CommentApp) {
     const commentId = useMemo(
       () => {
         const block = contentState.getBlockForKey(blockKey);
-        const styles = block.getInlineStyleAt(start).filter(styleIsComment) as Immutable.OrderedSet<string>;
-        let styleToUse: string;
-        if (styles.count() > 1) {
-          // We're dealing with overlapping comments.
-          // Find the least frequently occurring style and use that - this isn't foolproof, but in
-          // most cases should ensure that all comments have at least one clickable section. This
-          // logic is a bit heavier than ideal for a decorator given how often we are forced to
-          // redecorate, but will only be used on overlapping comments
-
-          // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
-          // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
-          // this casting should be removed
-          let styleFreq = styles.map((style) => {
-            let counter = 0;
-            findCommentStyleRanges(block,
-              () => { counter = counter + 1; },
-              (metadata) => metadata.getStyle().some(rangeStyle => rangeStyle === style)
-            );
-            return [style, counter];
-          }) as unknown as Immutable.OrderedSet<[string, number]>;
-
-          styleFreq =  styleFreq.sort(
-            (firstStyleCount, secondStyleCount) => firstStyleCount[1] - secondStyleCount[1]
-          ) as Immutable.OrderedSet<[string, number]>;
-
-          styleToUse = styleFreq.first()[0];
-        } else {
-          styleToUse = styles.first();
-        }
-        return getIdForCommentStyle(styleToUse);
+        return findLeastCommonCommentId(block, start);
       }, [blockKey, start]);
     const annotationNode = useRef(null);
     useEffect(() => {
@@ -394,6 +398,35 @@ function forceResetEditorState(editorState: EditorState, replacementContent: Con
   return EditorState.acceptSelection(state, state.getSelection());
 }
 
+export function addCommentsToEditor(
+  contentState: ContentState,
+  comments: Comment[],
+  commentApp: CommentApp,
+  getAnnotation: () => Annotation
+) {
+  let newContentState = contentState;
+  comments.filter(comment => !comment.annotation).forEach((comment) => {
+    commentApp.updateAnnotation(getAnnotation(), comment.localId);
+    const style = `${COMMENT_STYLE_IDENTIFIER}${comment.localId}`;
+    try {
+      const positions = JSON.parse(comment.position);
+      positions.forEach((position) => {
+        newContentState = applyInlineStyleToRange({
+          contentState: newContentState,
+          blockKey: position.key,
+          start: position.start,
+          end: position.end,
+          style
+        });
+      });
+    } catch (err) {
+      console.error(`Error loading comment position for comment ${comment.localId}`);
+      console.error(err);
+    }
+  });
+  return newContentState;
+}
+
 interface InlineStyle {
   label?: string,
   description?: string,
@@ -415,7 +448,7 @@ interface CommentableEditorProps {
   rawContentState: RawDraftContentState,
   onSave: (rawContent: RawDraftContentState) => void,
   inlineStyles: Array<InlineStyle>,
-  editorRef: MutableRefObject<HTMLInputElement>
+  editorRef: (editor: ReactNode) => void
   colorConfig: ColorConfigProp
 }
 
@@ -507,30 +540,10 @@ function CommentableEditor({
 
   useEffect(() => {
     // if there are any comments without annotations, we need to add them to the EditorState
-    let contentState = editorState.getCurrentContent();
-    let hasUpdated = false;
-    comments.filter(comment => !comment.annotation).forEach((comment) => {
-      commentApp.updateAnnotation(new DraftailInlineAnnotation(fieldNode), comment.localId);
-      const style = `${COMMENT_STYLE_IDENTIFIER}${comment.localId}`;
-      try {
-        const positions = JSON.parse(comment.position);
-        positions.forEach((position) => {
-          contentState = applyInlineStyleToRange({
-            contentState,
-            blockKey: position.key,
-            start: position.start,
-            end: position.end,
-            style
-          });
-          hasUpdated = true;
-        });
-      } catch (err) {
-        console.error(`Error loading comment position for comment ${comment.localId}`);
-        console.error(err);
-      }
-    });
-    if (hasUpdated) {
-      setEditorState(forceResetEditorState(editorState, contentState));
+    const contentState = editorState.getCurrentContent();
+    const newContentState = addCommentsToEditor(contentState, comments, commentApp, () => new DraftailInlineAnnotation(fieldNode));
+    if (contentState !== newContentState) {
+      setEditorState(forceResetEditorState(editorState, newContentState));
     }
   }, [comments]);
 
