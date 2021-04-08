@@ -17,6 +17,15 @@ function initComments() {
   });
 }
 
+function attachTabNav(tabNavElem) {
+  // Attaches the commenting app to the given tab navigation element
+  window.commentApp.setCurrentTab(tabNavElem.dataset.currentTab);
+
+  tabNavElem.addEventListener('switch', (e) => {
+    window.commentApp.setCurrentTab(e.detail.tab);
+  });
+}
+
 function getContentPath(fieldNode) {
   // Return the total contentpath for an element as a string, in the form field.streamfield_uid.block...
   if (fieldNode.closest('data-contentpath-disabled')) {
@@ -233,6 +242,7 @@ function initFieldLevelCommentWidget(fieldElement) {
 export default {
   getContentPath,
   initComments,
+  attachTabNav,
   FieldLevelCommentWidget,
   initFieldLevelCommentWidget
 };

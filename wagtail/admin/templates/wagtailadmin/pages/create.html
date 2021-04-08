@@ -47,7 +47,7 @@
                                     {{ action_menu.render_html }}
                                 </div>
                             </li>
-        
+
                             {% if preview_modes %}
                                 <li class="preview">
                                     {% trans 'Preview' as preview_label %}
@@ -120,6 +120,9 @@
                     callback: window.updateFooterSaveWarning
                 }
             );
+
+            // Enable tabbing of comments
+            window.comments.attachTabNav(document.querySelector('.tab-nav'));
         });
     </script>
 {% endblock %}

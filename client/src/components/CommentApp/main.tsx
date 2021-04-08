@@ -185,6 +185,9 @@ export class CommentApp {
     // const layout engine know the annotation so it would position the comment correctly
     this.layout.setCommentAnnotation(commentId, annotation);
   }
+  setCurrentTab(tab: string | null) {
+    this.store.dispatch(updateGlobalSettings({ currentTab: tab }));
+  }
   makeComment(annotation: Annotation, contentpath: string, position = '') {
     const commentId = getNextCommentId();
 
