@@ -825,3 +825,56 @@ class TestHtmlToContentState(TestCase):
             ],
             'entityMap': {}
         })
+
+
+class TestContentStateToHtml(TestCase):
+    def test_external_link(self):
+        converter = ContentstateConverter(features=['link'])
+        contentstate_json = json.dumps({
+            'entityMap': {
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}}
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an external link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+        result = converter.to_database_format(contentstate_json)
+        self.assertEqual(result, '<p>an <a href="http://wagtail.io">external</a> link</p>')
+
+    def test_local_link(self):
+        converter = ContentstateConverter(features=['link'])
+        contentstate_json = json.dumps({
+            'entityMap': {
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': '/some/local/path/'}}
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an external link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+        result = converter.to_database_format(contentstate_json)
+        self.assertEqual(result, '<p>an <a href="/some/local/path/">external</a> link</p>')
+
+    def test_reject_javascript_link(self):
+        converter = ContentstateConverter(features=['link'])
+        contentstate_json = json.dumps({
+            'entityMap': {
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': "javascript:alert('oh no')"}}
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an external link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+        result = converter.to_database_format(contentstate_json)
+        self.assertEqual(result, '<p>an <a>external</a> link</p>')
