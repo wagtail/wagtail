@@ -3,7 +3,7 @@ version: 2
 jobs:
   backend:
     docker:
-      - image: circleci/python:3.6.4
+      - image: circleci/python:3.7.3
     steps:
       - checkout
       - restore_cache:
