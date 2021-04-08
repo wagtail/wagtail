@@ -8,6 +8,7 @@ const OFFSET = -50; // How many pixels from the annotation position should the c
 export class LayoutController {
   commentElements: Map<number, HTMLElement> = new Map();
   commentAnnotations: Map<number, Annotation> = new Map();
+  commentTabs: Map<number, string | null> = new Map();
   commentDesiredPositions: Map<number, number> = new Map();
   commentHeights: Map<number, number> = new Map();
   pinnedComment: number | null = null;
@@ -26,6 +27,7 @@ export class LayoutController {
 
   setCommentAnnotation(commentId: number, annotation: Annotation) {
     this.commentAnnotations.set(commentId, annotation);
+    this.commentTabs.set(commentId, annotation.getTab() || null);
     this.updateDesiredPosition(commentId);
     this.isDirty = true;
   }
@@ -176,6 +178,11 @@ export class LayoutController {
     this.isDirty = false;
 
     return true;
+  }
+
+  getCommentVisible(tab: string | null, commentId: number): boolean {
+    const commentTab = getOrDefault(this.commentTabs, commentId, null);
+    return commentTab === tab;
   }
 
   getCommentPosition(commentId: number) {

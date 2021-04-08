@@ -108,7 +108,7 @@ function renderCommentsUi(
   strings: TranslatableStrings
 ): React.ReactElement {
   const state = store.getState();
-  const { commentsEnabled, user } = state.settings;
+  const { commentsEnabled, user, currentTab } = state.settings;
   const focusedComment = state.comments.focusedComment;
   let commentsToRender = comments;
 
@@ -125,6 +125,7 @@ function renderCommentsUi(
       user={user}
       comment={comment}
       isFocused={comment.localId === focusedComment}
+      isVisible={layout.getCommentVisible(currentTab, comment.localId)}
       strings={strings}
     />
   ));

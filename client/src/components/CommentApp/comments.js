@@ -134,6 +134,9 @@ class BasicFieldLevelAnnotation {
       );
     });
   }
+  getTab() {
+    return this.fieldNode.closest('section[data-tab]')?.getAttribute('data-tab');
+  }
   getDesiredPosition() {
     return (
       this.fieldNode.getBoundingClientRect().top +
