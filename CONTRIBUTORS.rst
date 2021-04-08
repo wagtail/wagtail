@@ -503,6 +503,7 @@ Contributors
 * Sagar Agarwal
 * Susan Dreher
 * Dale Evans
+* Vlad Podgurschi
 
 Translators
 ===========
