@@ -84,6 +84,7 @@ export class LayoutController {
     }
 
     interface Block {
+      tab: string | null;
       position: number;
       height: number;
       comments: number[];
@@ -92,8 +93,9 @@ export class LayoutController {
     }
 
     // Build list of blocks (starting with one for each comment)
-    let blocks: Block[] = Array.from(this.commentElements.keys()).map(
+    const allBlocks: Block[] = Array.from(this.commentElements.keys()).map(
       (commentId) => ({
+        tab: getOrDefault(this.commentTabs, commentId, null),
         position: getOrDefault(this.commentDesiredPositions, commentId, 0),
         height: getOrDefault(this.commentHeights, commentId, 0),
         comments: [commentId],
@@ -103,79 +105,97 @@ export class LayoutController {
       })
     );
 
-    // Sort blocks
-    blocks.sort(
-      (block, comparisonBlock) => block.position - comparisonBlock.position
-    );
+    // Group blocks by tabs
+    const blocksByTab: Map<string | null, Block[]> = new Map();
+    allBlocks.forEach(block => {
+      const blocks = blocksByTab.get(block.tab) || [];
+      blocks.push(block);
+      blocksByTab.set(block.tab, blocks);
+    });
 
-    // Resolve overlapping blocks
-    let overlaps = true;
-    while (overlaps) {
-      overlaps = false;
-      const newBlocks: Block[] = [];
-      let previousBlock: Block | null = null;
-      const pinnedCommentPosition = this.pinnedComment ?
-        this.commentDesiredPositions.get(this.pinnedComment) : undefined;
+    // Get location of pinned comment
+    const pinnedCommentPosition = this.pinnedComment ?
+      this.commentDesiredPositions.get(this.pinnedComment) : undefined;
+    const pinnedCommentTab = this.pinnedComment ?
+      this.commentTabs.get(this.pinnedComment) : undefined;
 
-      for (const block of blocks) {
-        if (previousBlock) {
-          if (
-            previousBlock.position + previousBlock.height + GAP >
-            block.position
-          ) {
-            overlaps = true;
+    // For each tab, resolve positions of all the comments
+    Array.from(blocksByTab.entries()).forEach(([tab, blocks]) => {
+      const pinnedCommentOnThisTab = this.pinnedComment && pinnedCommentTab === tab;
 
-            // Merge the blocks
-            previousBlock.comments.push(...block.comments);
+      // Sort blocks
+      blocks.sort(
+        (block, comparisonBlock) => block.position - comparisonBlock.position
+      );
 
-            if (block.containsPinnedComment) {
-              previousBlock.containsPinnedComment = true;
-              previousBlock.pinnedCommentPosition =
-                block.pinnedCommentPosition + previousBlock.height;
-            }
-            previousBlock.height += block.height;
+      // Resolve overlapping blocks
+      let currentBlocks = blocks;
+      let overlaps = true;
+      while (overlaps) {
+        overlaps = false;
+        const newBlocks: Block[] = [];
+        let previousBlock: Block | null = null;
 
-            // Make sure comments don't disappear off the top of the page
-            // But only if a comment isn't focused
+        for (const block of currentBlocks) {
+          if (previousBlock) {
             if (
-              !this.pinnedComment &&
-              previousBlock.position < TOP_MARGIN + OFFSET
+              previousBlock.position + previousBlock.height + GAP >
+              block.position
             ) {
-              previousBlock.position =
-                TOP_MARGIN + previousBlock.height - OFFSET;
-            }
+              overlaps = true;
 
-            // If this block contains the focused comment, position it so
-            // the focused comment is in it's desired position
-            if (
-              pinnedCommentPosition &&
-              previousBlock.containsPinnedComment
-            ) {
-              previousBlock.position =
-                pinnedCommentPosition -
-                previousBlock.pinnedCommentPosition;
-            }
+              // Merge the blocks
+              previousBlock.comments.push(...block.comments);
 
-            continue;
+              if (block.containsPinnedComment) {
+                previousBlock.containsPinnedComment = true;
+                previousBlock.pinnedCommentPosition =
+                  block.pinnedCommentPosition + previousBlock.height;
+              }
+              previousBlock.height += block.height;
+
+              // Make sure comments don't disappear off the top of the page
+              // But only if a comment isn't focused
+              if (
+                !pinnedCommentOnThisTab &&
+                previousBlock.position < TOP_MARGIN + OFFSET
+              ) {
+                previousBlock.position =
+                  TOP_MARGIN + previousBlock.height - OFFSET;
+              }
+
+              // If this block contains the focused comment, position it so
+              // the focused comment is in it's desired position
+              if (
+                pinnedCommentPosition &&
+                previousBlock.containsPinnedComment
+              ) {
+                previousBlock.position =
+                  pinnedCommentPosition -
+                  previousBlock.pinnedCommentPosition;
+              }
+
+              continue;
+            }
           }
+
+          newBlocks.push(block);
+          previousBlock = block;
         }
 
-        newBlocks.push(block);
-        previousBlock = block;
+        currentBlocks = newBlocks;
       }
 
-      blocks = newBlocks;
-    }
-
-    // Write positions
-    blocks.forEach((block) => {
-      let currentPosition = block.position;
-      block.comments.forEach((commentId) => {
-        this.commentCalculatedPositions.set(commentId, currentPosition);
-        const height = this.commentHeights.get(commentId);
-        if (height) {
-          currentPosition += height + GAP;
-        }
+      // Write positions
+      currentBlocks.forEach((block) => {
+        let currentPosition = block.position;
+        block.comments.forEach((commentId) => {
+          this.commentCalculatedPositions.set(commentId, currentPosition);
+          const height = this.commentHeights.get(commentId);
+          if (height) {
+            currentPosition += height + GAP;
+          }
+        });
       });
     });
 
