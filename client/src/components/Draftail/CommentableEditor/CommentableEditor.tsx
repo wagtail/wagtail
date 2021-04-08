@@ -174,7 +174,7 @@ interface ControlProps {
 
 function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNode: Element) {
   return ({ getEditorState, onChange }: ControlProps) => (
-    <span className="Draftail-CommentControl">
+    <span className="Draftail-CommentControl" data-comment-add>
       <ToolbarButton
         name="comment"
         active={false}
@@ -183,10 +183,14 @@ function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNod
         onClick={() => {
           const annotation = new DraftailInlineAnnotation(fieldNode);
           const commentId = commentApp.makeComment(annotation, contentPath, '[]');
+          const editorState = getEditorState();
           onChange(
-            RichUtils.toggleInlineStyle(
-              getEditorState(),
-              `${COMMENT_STYLE_IDENTIFIER}${commentId}`
+            EditorState.acceptSelection(
+              RichUtils.toggleInlineStyle(
+                editorState,
+                `${COMMENT_STYLE_IDENTIFIER}${commentId}`
+              ),
+              editorState.getSelection()
             )
           );
         }}
@@ -445,6 +449,8 @@ function CommentableEditor({
     comments,
   ]);
 
+  const controls = useMemo(() => (enabled ? [CommentControl] : []), [enabled, CommentControl]);
+
   const commentStyles: Array<InlineStyle> = useMemo(
     () =>
       ids.map((id) => ({
@@ -571,7 +577,7 @@ function CommentableEditor({
         setEditorState(newEditorState);
       }}
       editorState={editorState}
-      controls={enabled ? [CommentControl] : []}
+      controls={controls}
       decorators={
         enabled
           ? [
