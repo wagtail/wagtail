@@ -27,7 +27,7 @@
     {% endif %}
 </ul>
 
-<div class="tab-content">
+<div class="tab-content tab-content--comments-enabled">
     {% for child in self.children %}
         <section id="tab-{{ child.heading|cautious_slugify }}" class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tabpanel" aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}" data-tab="{{ child.heading|cautious_slugify }}">
             {{ child.render_as_object }}
