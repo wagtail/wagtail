@@ -725,7 +725,6 @@ def register_icons(icons):
         'cogs.svg',
         'collapse-down.svg',
         'collapse-up.svg',
-        'comment-dots.svg',
         'comment.svg',
         'cross.svg',
         'date.svg',
