@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React, { MutableRefObject } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -564,14 +562,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
     if (element instanceof HTMLElement) {
       // If this is a new comment, focus in the edit box
       if (this.props.comment.mode === 'creating') {
-        clearTimeout(this.focusTimeoutId)
+        clearTimeout(this.focusTimeoutId);
         this.focusTimeoutId = setTimeout(
           () => {
             if (this.focusTargetRef.current) {
-              this.focusTargetRef.current.focus()
-            }   
+              this.focusTargetRef.current.focus();
+            }
           }
-        , 10);
+          , 10);
       }
 
       this.props.layout.setCommentElement(this.props.comment.localId, element);
@@ -583,7 +581,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.focusTimeoutId)
+    clearTimeout(this.focusTimeoutId);
     this.props.layout.setCommentElement(this.props.comment.localId, null);
   }
 
