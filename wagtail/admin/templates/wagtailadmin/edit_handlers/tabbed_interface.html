@@ -1,8 +1,8 @@
 {% load wagtailadmin_tags i18n %}
-<ul class="tab-nav merged" role="tablist">
+<ul class="tab-nav merged" role="tablist" data-current-tab="{{ self.children.0.heading|cautious_slugify }}">
     {% for child in self.children %}
         <li class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}">
-            <a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}">{{ child.heading }}</a>
+            <a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}" data-tab="{{ child.heading|cautious_slugify }}">{{ child.heading }}</a>
         </li>
     {% endfor %}
 
@@ -29,7 +29,7 @@
 
 <div class="tab-content">
     {% for child in self.children %}
-        <section id="tab-{{ child.heading|cautious_slugify }}" class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tabpanel" aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}">
+        <section id="tab-{{ child.heading|cautious_slugify }}" class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tabpanel" aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}" data-tab="{{ child.heading|cautious_slugify }}">
             {{ child.render_as_object }}
         </section>
     {% endfor %}
