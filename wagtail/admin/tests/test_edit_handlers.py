@@ -203,9 +203,8 @@ class TestPageEditHandlers(TestCase):
         with mock.patch.object(ValidatedPage, 'base_form_class', new=BadFormClass):
             errors = checks.run_checks()
 
-            # ignore CSS loading errors (to avoid spurious failures on CI servers that
-            # don't build the CSS)
-            errors = [e for e in errors if e.id != 'wagtailadmin.W001']
+            # Only look at errors (e.g. ignore warnings about CSS not being built)
+            errors = [e for e in errors if e.level >= checks.ERROR]
 
             # Errors may appear out of order, so sort them by id
             errors.sort(key=lambda e: e.id)
