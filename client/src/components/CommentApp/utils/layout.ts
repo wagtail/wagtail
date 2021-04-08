@@ -57,15 +57,16 @@ export class LayoutController {
     );
   }
 
-  refreshDesiredPositions() {
-    this.commentAnnotations.forEach((_, commentId) =>
-      this.updateDesiredPosition(commentId)
-    );
-  }
-
-  refresh() {
+  refreshDesiredPositions(tab: string | null = null) {
+    /* Finds the current annotation positions of all the comments on the specified tab */
     const oldDesiredPositions = new Map(this.commentDesiredPositions);
-    this.refreshDesiredPositions();
+
+    this.commentAnnotations.forEach((_, commentId) => {
+      if (this.getCommentVisible(tab, commentId)) {
+        this.updateDesiredPosition(commentId);
+      }
+    });
+
     // It's not great to be recalculating all positions so regularly, but Wagtail's FE widgets
     // aren't very constrained so could change layout in any number of ways. If we have a stable FE
     // widget framework in the future, this could be used to trigger the position refresh more
@@ -74,7 +75,10 @@ export class LayoutController {
     if (this.commentDesiredPositions !== oldDesiredPositions) {
       this.isDirty = true;
     }
+  }
 
+  refreshLayout() {
+    /* Updates positions of all comments based on their annotation locations, and resolves any overlapping comments */
     if (!this.isDirty) {
       return false;
     }
