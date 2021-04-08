@@ -6,3 +6,4 @@ class WagtailUsersAppConfig(AppConfig):
     name = 'wagtail.users'
     label = 'wagtailusers'
     verbose_name = _("Wagtail users")
+    default_auto_field = 'django.db.models.AutoField'

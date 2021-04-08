@@ -8,6 +8,7 @@ class WagtailEmbedsAppConfig(AppConfig):
     name = 'wagtail.embeds'
     label = 'wagtailembeds'
     verbose_name = _("Wagtail embeds")
+    default_auto_field = 'django.db.models.AutoField'
 
     def ready(self):
         # Check configuration on startup
