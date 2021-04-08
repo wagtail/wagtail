@@ -181,6 +181,9 @@
 
             ActivateWorkflowActionsForEditView('#page-edit-form');
             LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}');
+
+            // Enable tabbing of comments
+            window.comments.attachTabNav(document.querySelector('.tab-nav'));
         });
     </script>
 {% endblock %}
