@@ -1,13 +1,16 @@
 .comment-reply {
-    margin-top: 40px;
+    padding-top: 20px;
     pointer-events: auto;
     position: relative;
+    border-top: 1px solid $color-comment-separator;
 
     &__text {
         color: $color-box-text;
-        font-size: 0.8em;
-        margin-top: 32px;
+        font-size: 13px;
+        line-height: 19px;
         margin-bottom: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
 
         &--mode-deleting {
             color: $color-grey-1;
@@ -20,6 +23,10 @@
 
     &--mode-deleting &__text {
         color: $color-grey-3;
+    }
+
+    form {
+        margin-top: 10px;
     }
 
     &__button {
@@ -84,6 +91,6 @@
     &__progress {
         margin-top: 20px;
         font-weight: bold;
-        font-size: 0.8em;
+        font-size: 13px;
     }
 }
