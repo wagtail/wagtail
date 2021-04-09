@@ -1,18 +1,19 @@
 .comment {
     @include box;
 
-    font-size: 1.5em;
     width: 100%;
-    max-width: 400px;
+    max-width: 275px;
     display: block;
     transition: top 0.5s ease 0s, right 0.5s ease 0s, height 0.5s ease 0s;
     pointer-events: auto;
 
     &__text {
         color: $color-box-text;
-        font-size: 0.8em;
-        margin-top: 32px;
+        font-size: 13px;
+        line-height: 19px;
         margin-bottom: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
 
         &--mode-deleting {
             color: $color-grey-1;
@@ -20,7 +21,13 @@
     }
 
     form {
-        padding-top: 20px;
+        border-top: 1px solid$color-comment-separator;
+        margin-top: 10px;
+    }
+
+    &--mode-creating form {
+        border-top: 0;
+        margin-top: 10px;
     }
 
     &--mode-deleting &__text {
@@ -30,6 +37,7 @@
     &__replies {
         list-style-type: none;
         padding: 0;
+        margin: 0;
     }
 
     &__button {
@@ -47,7 +55,7 @@
     &__error {
         color: $color-box-text;
         font-weight: bold;
-        font-size: 0.8em;
+        font-size: 13px;
 
         button {
             margin-left: 10px;
@@ -90,7 +98,7 @@
     &__progress {
         margin-top: 20px;
         font-weight: bold;
-        font-size: 0.8em;
+        font-size: 13px;
     }
 
     &__reply-input {

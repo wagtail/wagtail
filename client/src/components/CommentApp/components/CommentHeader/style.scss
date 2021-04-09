@@ -3,17 +3,18 @@
 
     &__avatar {
         position: absolute;
-        width: 40px;
-        height: 40px;
-        border-radius: 20px;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
     }
 
     &__author,
     &__date {
-        max-width: calc(100% - 160px);  // Leave room for actions to the right and avatar to the left
+        max-width: calc(100% - 110px);  // Leave room for actions to the right and avatar to the left
         margin: 0;
-        margin-left: 57px;
-        font-size: 0.7em;
+        margin-left: 45px;
+        font-size: 11px;
+        line-height: 15px;
     }
 
     &__date {
@@ -27,8 +28,10 @@
 
     &__action {
         float: left;
-        margin-left: 10px;
+        margin-left: 5px;
         border-radius: 5px;
+        width: 30px;
+        height: 30px;
 
         &:hover {
             background-color: $color-grey-7;
@@ -40,19 +43,21 @@
             list-style-type: none;
             // Hides triangle on Chrome
             &::-webkit-details-marker { display: none; }
-            width: 50px;
-            height: 50px;
+            width: 30px;
+            height: 30px;
             position: relative;
             background-color: unset;
             border: unset;
             -moz-outline-radius: 10px;
+            padding: 0;
+            box-sizing: border-box;
 
             svg {
                 position: absolute;
-                top: 12.5px;
-                left: 12.5px;
-                width: 25px;
-                height: 25px;
+                top: 7.5px;
+                left: 7.5px;
+                width: 15px;
+                height: 15px;
             }
 
             &:hover {
@@ -66,7 +71,7 @@
             > div {
                 position: absolute;
                 right: 0;
-                top: 60px;
+                top: 35px;
             }
         }
 
@@ -87,22 +92,22 @@
 
     &__more-actions {
         background-color: #333;
-        padding: 0.75rem 1rem;
-        min-width: 8rem;
+        color: $color-grey-5;
         text-transform: none;
         position: absolute;
         z-index: 1000;
         list-style: none;
         text-align: left;
+        border-radius: 3px;
 
         &:before {
             content: '';
-            border: 0.35rem solid transparent;
+            border: 6px solid transparent;
             border-bottom-color: #333;
             display: block;
             position: absolute;
             bottom: 100%;
-            right: 1rem;
+            right: 9px;
         }
 
         button {
@@ -110,9 +115,9 @@
             background: unset;
             border: unset;
             color: #fff;
-            padding: 10px;
-            font-size: 20px;
-            width: 120px;
+            padding: 5px 10px;
+            font-size: 13px;
+            width: 100px;
             text-align: left;
 
             &:hover {
