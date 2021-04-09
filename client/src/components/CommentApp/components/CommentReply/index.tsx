@@ -7,6 +7,7 @@ import type { Comment, CommentReply, Author } from '../../state/comments';
 import { updateReply, deleteReply } from '../../actions/comments';
 import type { TranslatableStrings } from '../../main';
 import { CommentHeader }  from '../CommentHeader';
+import TextArea from '../TextArea';
 
 export async function saveCommentReply(
   comment: Comment,
@@ -72,12 +73,10 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
   renderEditing(): React.ReactFragment {
     const { comment, reply, store, strings } = this.props;
 
-    const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      e.preventDefault();
-
+    const onChangeText = (value: string) => {
       store.dispatch(
         updateReply(comment.localId, reply.localId, {
-          newText: e.target.value,
+          newText: value,
         })
       );
     };
@@ -102,11 +101,10 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
       <>
         <CommentHeader commentReply={reply} store={store} strings={strings} />
         <form onSubmit={onSave}>
-          <textarea
+          <TextArea
             className="comment-reply__input"
             value={reply.newText}
             onChange={onChangeText}
-            style={{ resize: 'none' }}
           />
           <div className="comment-reply__actions">
             <button
