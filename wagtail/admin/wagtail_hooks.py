@@ -180,30 +180,31 @@ def bulk_action_filters():
 
 @hooks.register('register_bulk_action_choices')
 def bulk_action_choices(page, is_parent=False, next_url=None):
-    yield PageListingButton(
-        _('Move'),
-        reverse('wagtailadmin_bulk_delete', args=[page.id]) + '?' + urlencode({'next': next_url}),
-        attrs={'aria-label': _("Move pages")},
-        priority=10
-    )
-    yield PageListingButton(
-        _('Publish'),
-        reverse('wagtailadmin_bulk_publish', args=[page.id]) + '?' + urlencode({'next': next_url}),
-        attrs={'aria-label': _("Publish pages")},
-        priority=20
-    )
-    yield PageListingButton(
-        _('Unpublish'),
-        reverse('wagtailadmin_bulk_unpublish', args=[page.id]) + '?' + urlencode({'next': next_url}),
-        attrs={'aria-label': _("Unpublish pages")},
-        priority=30
-    )
-    yield PageListingButton(
-        _('Delete'),
-        reverse('wagtailadmin_bulk_delete', args=[page.id]) + '?' + urlencode({'next': next_url}),
-        attrs={'aria-label': _("Delete pages")},
-        priority=40
-    )
+    if page:
+        yield PageListingButton(
+            _('Move'),
+            reverse('wagtailadmin_bulk_delete', args=[page.id]) + '?' + urlencode({'next': next_url}),
+            attrs={'aria-label': _("Move pages")},
+            priority=10
+        )
+        yield PageListingButton(
+            _('Publish'),
+            reverse('wagtailadmin_bulk_publish', args=[page.id]) + '?' + urlencode({'next': next_url}),
+            attrs={'aria-label': _("Publish pages")},
+            priority=20
+        )
+        yield PageListingButton(
+            _('Unpublish'),
+            reverse('wagtailadmin_bulk_unpublish', args=[page.id]) + '?' + urlencode({'next': next_url}),
+            attrs={'aria-label': _("Unpublish pages")},
+            priority=30
+        )
+        yield PageListingButton(
+            _('Delete'),
+            reverse('wagtailadmin_bulk_delete', args=[page.id]) + '?' + urlencode({'next': next_url}),
+            attrs={'aria-label': _("Delete pages")},
+            priority=40
+        )
 
 
 @hooks.register('register_page_listing_buttons')

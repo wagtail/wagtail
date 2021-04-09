@@ -5,6 +5,7 @@ const BULK_ACTION_CHOICES_DIV = 'bulk-actions-choices';
 const BULK_ACTION_NUM_PAGES_SPAN = 'num-pages';
 const BULK_ACTION_NUM_PAGES_IN_LISTING_SPAN = 'num-pages-in-listing';
 const TABLE_HEADERS_TR = 'table-headers';
+let parentPageId;
 
 const checkedState = {
   checkedPages: new Set(),
@@ -71,14 +72,14 @@ function getParameterByName(name) {
 
 
 /* Updates the content of BULK_ACTION_NUM_PAGES_IN_LISTING_SPAN with the new count of pages */
-function udpateNumPagesInListing(filterQueryString) {
+function updateNumPagesInListing(filterQueryString) {
   // eslint-disable-next-line no-undef
   $.ajax({
-    url: 'filter-count/',
+    url: parentPageId ? `/admin/pages/${parentPageId}/filter-count/` : '/admin/pages/filter-count/',
     data: { filters: filterQueryString },
     success: (response) => {
       document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING_SPAN}`).textContent = response.count;
-    }
+    },
   });
 }
 
@@ -86,7 +87,7 @@ function udpateNumPagesInListing(filterQueryString) {
 function FilterEventListener(e) {
   e.preventDefault();
   const filter = e.target.dataset.filter || '';
-  udpateNumPagesInListing(filter);
+  updateNumPagesInListing(filter);
   const changeEvent = new Event('change');
   if (filter.length) {
     /* split the filter string into [key,value] pairs and check for the values in the
@@ -141,7 +142,8 @@ function AddBulkActionEventListeners() {
   document.querySelectorAll(`.${BULK_ACTION_CHOICES_DIV} > ul > li > a`).forEach(
     elem => elem.addEventListener('click', BulkActionEventListeners)
   );
-  udpateNumPagesInListing(getParameterByName('filters'));
+  parentPageId = document.querySelector(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH}`).dataset.parentId;
+  updateNumPagesInListing(getParameterByName('filters'));
 }
 
 window.AddBulkActionEventListeners = AddBulkActionEventListeners;
