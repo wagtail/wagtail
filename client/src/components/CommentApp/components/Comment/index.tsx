@@ -221,6 +221,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader commentReply={comment} store={store} strings={strings} />
         <form onSubmit={onSave}>
           <TextArea
+            ref={this.focusTargetRef}
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
@@ -279,6 +280,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader commentReply={comment} store={store} strings={strings} />
         <form onSubmit={onSave}>
           <TextArea
+            ref={this.focusTargetRef}
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}

@@ -1,6 +1,4 @@
-/* eslint-disable react/prop-types */
-
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
 export interface TextAreaProps {
   value: string;
@@ -10,7 +8,7 @@ export interface TextAreaProps {
   focusOnMount?: boolean;
 }
 
-const TextArea: FunctionComponent<TextAreaProps> = React.forwardRef(({
+const TextArea = React.forwardRef<HTMLTextAreaElement | null, TextAreaProps>(({
   value,
   className,
   placeholder,
@@ -25,7 +23,7 @@ const TextArea: FunctionComponent<TextAreaProps> = React.forwardRef(({
 
   // Resize the textarea whenever the value is changed
   const textAreaElement = React.useRef<HTMLTextAreaElement>(null);
-  React.useImperativeHandle(ref, () => textAreaElement.current);
+  React.useImperativeHandle<HTMLTextAreaElement | null, HTMLTextAreaElement | null>(ref, () => textAreaElement.current);
 
   React.useEffect(() => {
     if (textAreaElement.current) {
