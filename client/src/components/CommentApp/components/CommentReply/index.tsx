@@ -105,7 +105,6 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
             className="comment-reply__input"
             value={reply.newText}
             onChange={onChangeText}
-            focusOnMount={true}
           />
           <div className="comment-reply__actions">
             <button

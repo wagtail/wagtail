@@ -220,7 +220,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
             value={comment.newText}
             onChange={onChangeText}
             placeholder="Enter your comments..."
-            focusOnMount={true}
           />
           <div className="comment__actions">
             <button
@@ -278,7 +277,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
-            focusOnMount={true}
           />
           <div className="comment__actions">
             <button
