@@ -91,6 +91,9 @@ class DraftailInlineAnnotation implements Annotation {
     }
     return null;
   }
+  getTab() {
+    return this.field.closest('section[data-tab]')?.getAttribute('data-tab');
+  }
   getDesiredPosition(focused = false) {
     // The comment should always aim to float by an annotation, rather than between them
     // so calculate which annotation is the median one by height and float the comment by that
@@ -174,7 +177,7 @@ interface ControlProps {
 
 function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNode: Element) {
   return ({ getEditorState, onChange }: ControlProps) => (
-    <span className="Draftail-CommentControl">
+    <span className="Draftail-CommentControl" data-comment-add>
       <ToolbarButton
         name="comment"
         active={false}
@@ -183,10 +186,14 @@ function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNod
         onClick={() => {
           const annotation = new DraftailInlineAnnotation(fieldNode);
           const commentId = commentApp.makeComment(annotation, contentPath, '[]');
+          const editorState = getEditorState();
           onChange(
-            RichUtils.toggleInlineStyle(
-              getEditorState(),
-              `${COMMENT_STYLE_IDENTIFIER}${commentId}`
+            EditorState.acceptSelection(
+              RichUtils.toggleInlineStyle(
+                editorState,
+                `${COMMENT_STYLE_IDENTIFIER}${commentId}`
+              ),
+              editorState.getSelection()
             )
           );
         }}

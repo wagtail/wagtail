@@ -296,15 +296,26 @@ $(() => {
   });
 
   /* tabs */
+  const showTab = (tabButtonElem) => {
+    $(tabButtonElem).tab('show');
+
+    // Update data-current-tab attribe on the .tab-nav element
+    const tabNavElem = tabButtonElem.closest('.tab-nav');
+    tabNavElem.dataset.currentTab = tabButtonElem.dataset.tab;
+
+    // Trigger switch event
+    tabNavElem.dispatchEvent(new CustomEvent('switch', { detail: { tab: tabButtonElem.dataset.tab } }));
+  };
+
   if (window.location.hash) {
     const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
-    $('a[href="' + cleanedHash + '"]').tab('show');
+    showTab(document.querySelector('a[href="' + cleanedHash + '"]'));
   }
 
   // eslint-disable-next-line func-names
   $(document).on('click', '.tab-nav a', function (e) {
     e.preventDefault();
-    $(this).tab('show');
+    showTab(this);
     window.history.replaceState(null, null, $(this).attr('href'));
   });
 

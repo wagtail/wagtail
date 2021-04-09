@@ -1,6 +1,4 @@
-/* eslint-disable react/prop-types */
-
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import ReactDOM from 'react-dom';
 
 import type { Store } from '../../state';
@@ -78,12 +76,20 @@ export interface CommentProps {
   store: Store;
   comment: Comment;
   isFocused: boolean;
+  isVisible: boolean;
   layout: LayoutController;
   user: Author | null;
   strings: TranslatableStrings;
 }
 
 export default class CommentComponent extends React.Component<CommentProps> {
+  focusTargetRef: MutableRefObject<HTMLTextAreaElement | null>
+  focusTimeoutId: number | undefined
+
+  constructor(props: CommentProps) {
+    super(props);
+    this.focusTargetRef = React.createRef();
+  }
   renderReplies({ hideNewReply = false } = {}): React.ReactFragment {
     const { comment, isFocused, store, user, strings } = this.props;
 
@@ -216,6 +222,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader commentReply={comment} store={store} strings={strings} />
         <form onSubmit={onSave}>
           <TextArea
+            ref={this.focusTargetRef}
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
@@ -274,6 +281,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader commentReply={comment} store={store} strings={strings} />
         <form onSubmit={onSave}>
           <TextArea
+            ref={this.focusTargetRef}
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
@@ -541,6 +549,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           position: 'absolute',
           top: `${top}px`,
           right: `${right}px`,
+          display: this.props.isVisible ? 'block' : 'none',
         }}
         data-comment-id={this.props.comment.localId}
         onClick={onClick}
@@ -557,22 +566,29 @@ export default class CommentComponent extends React.Component<CommentProps> {
     if (element instanceof HTMLElement) {
       // If this is a new comment, focus in the edit box
       if (this.props.comment.mode === 'creating') {
-        const textAreaElement = element.querySelector('textarea');
-
-        if (textAreaElement instanceof HTMLTextAreaElement) {
-          textAreaElement.focus();
-        }
+        clearTimeout(this.focusTimeoutId);
+        this.focusTimeoutId = setTimeout(
+          () => {
+            if (this.focusTargetRef.current) {
+              this.focusTargetRef.current.focus();
+            }
+          }
+          , 10);
       }
 
       this.props.layout.setCommentElement(this.props.comment.localId, element);
-      this.props.layout.setCommentHeight(
-        this.props.comment.localId,
-        element.offsetHeight
-      );
+
+      if (this.props.isVisible) {
+        this.props.layout.setCommentHeight(
+          this.props.comment.localId,
+          element.offsetHeight
+        );
+      }
     }
   }
 
   componentWillUnmount() {
+    clearTimeout(this.focusTimeoutId);
     this.props.layout.setCommentElement(this.props.comment.localId, null);
   }
 
@@ -580,7 +596,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
     const element = ReactDOM.findDOMNode(this);
 
     // Keep height up to date so that other comments will be moved out of the way
-    if (element instanceof HTMLElement) {
+    if (this.props.isVisible && element instanceof HTMLElement) {
       this.props.layout.setCommentHeight(
         this.props.comment.localId,
         element.offsetHeight
