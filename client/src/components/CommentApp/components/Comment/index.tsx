@@ -557,6 +557,15 @@ export default class CommentComponent extends React.Component<CommentProps> {
     const element = ReactDOM.findDOMNode(this);
 
     if (element instanceof HTMLElement) {
+      // If this is a new comment, focus in the edit box
+      if (this.props.comment.mode === 'creating') {
+        const textAreaElement = element.querySelector('textarea');
+
+        if (textAreaElement instanceof HTMLTextAreaElement) {
+          textAreaElement.focus();
+        }
+      }
+
       this.props.layout.setCommentElement(this.props.comment.localId, element);
       this.props.layout.setCommentHeight(
         this.props.comment.localId,
