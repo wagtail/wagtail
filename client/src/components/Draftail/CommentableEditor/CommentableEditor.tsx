@@ -449,8 +449,6 @@ function CommentableEditor({
     comments,
   ]);
 
-  const controls = useMemo(() => (enabled ? [CommentControl] : []), [enabled, CommentControl]);
-
   const commentStyles: Array<InlineStyle> = useMemo(
     () =>
       ids.map((id) => ({
@@ -577,7 +575,7 @@ function CommentableEditor({
         setEditorState(newEditorState);
       }}
       editorState={editorState}
-      controls={controls}
+      controls={enabled ? [CommentControl] : []}
       decorators={
         enabled
           ? [
