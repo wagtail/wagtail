@@ -15,7 +15,7 @@ from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
-from wagtail.admin.views import account, bulk_actions, chooser, home, tags, userbar
+from wagtail.admin.views import account, bulk_actions, chooser, filters, home, tags, userbar
 from wagtail.admin.views.pages import listing
 from wagtail.core import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
@@ -33,7 +33,8 @@ urlpatterns = [
     # TODO: Move into wagtailadmin_pages namespace
     path('pages/', listing.index, name='wagtailadmin_explore_root'),
     path('pages/<int:parent_page_id>/', listing.index, name='wagtailadmin_explore'),
-    path('pages/<int:parent_page_id>/filter-count/', listing.filter_count, name='wagtailadmin_filter_count'),
+    path('pages/filter-count/', filters.filter_count, name='wagtailadmin_filter_count'),
+    path('pages/<int:parent_page_id>/filter-count/', filters.filter_count, name='wagtailadmin_filter_count'),
 
     # bulk actions
     path('pages/<int:parent_page_id>/multiple/delete/', bulk_actions.delete, name='wagtailadmin_bulk_delete'),
