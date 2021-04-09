@@ -47,6 +47,7 @@ Other features
 * Add support for exporting redirects (Martin Sandström)
 * Support slicing on StreamField / StreamBlock values (Matt Westcott)
 * Switch Wagtail choosers to use SVG icons instead of font icon (Storm Heg)
+* Save revision when restart workflow (Ihor Marhitych)
 
 
 Bug fixes

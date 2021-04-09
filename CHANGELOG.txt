@@ -24,6 +24,7 @@ Changelog
  * Add support for exporting redirects (Martin Sandström)
  * Support slicing on StreamField / StreamBlock values (Matt Westcott)
  * Switch Wagtail choosers to use SVG icons instead of font icon (Storm Heg)
+ * Save revision when restart workflow (Ihor Marhitych)
  * Fix: StreamField required status is now consistently handled by the `blank` keyword argument (Matt Westcott)
  * Fix: Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
  * Fix: Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
