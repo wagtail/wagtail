@@ -394,15 +394,18 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
     def restart_workflow_action(self):
         self.page = self.form.save(commit=False)
 
-        self.workflow_state.cancel(user=self.request.user)
+        # save revision
+        self.page.save_revision(
+            user=self.request.user,
+            log_action=True,  # Always log the new revision on edit
+            previous_revision=(self.previous_revision if self.is_reverting else None)
+        )
 
-        if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
-            # If the workflow was in the needs changes state, resume the existing workflow on submission
-            self.workflow_state.resume(self.request.user)
-        else:
-            # Otherwise start a new workflow
-            workflow = self.page.get_workflow()
-            workflow.start(self.page, self.request.user)
+        # cancel workflow
+        self.workflow_state.cancel(user=self.request.user)
+        # start new workflow
+        workflow = self.page.get_workflow()
+        workflow.start(self.page, self.request.user)
 
         message = _(
             "Workflow on page '{0}' has been restarted."
