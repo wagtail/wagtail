@@ -337,10 +337,10 @@ export class CommentApp {
     this.store.subscribe(render);
 
     // Unfocus when document body is clicked
-    document.body.addEventListener('click', (e) => {
+    document.body.addEventListener('mousedown', (e) => {
       if (e.target instanceof HTMLElement) {
         // ignore if click target is a comment or an annotation
-        if (!e.target.closest('#comments, [data-annotation]')) {
+        if (!e.target.closest('#comments, [data-annotation], [data-comment-add]')) {
           // Running store.dispatch directly here seems to prevent the event from being handled anywhere else
           setTimeout(() => {
             this.store.dispatch(setFocusedComment(null, { updatePinnedComment: true }));
