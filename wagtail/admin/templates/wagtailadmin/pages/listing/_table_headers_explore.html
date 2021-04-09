@@ -17,7 +17,7 @@ ordering: the current sort parameter
 {% endcomment %}
 
 <tr class="table-headers">
-    <th class="bulk-actions-filter-checkbox">
+    <th class="bulk-actions-filter-checkbox" data-parent-id="{{ parent_page.id }}">
         <div>
             <input type="checkbox" aria-label="Bulk action checkbox" />
             {% bulk_action_filters %}

@@ -1,49 +1,15 @@
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.navigation import get_explorable_root_page
+from wagtail.admin.views.filters import apply_filters
 from wagtail.core import hooks
 from wagtail.core.models import Page, UserPagePermissionsProxy
-
-
-def apply_filters(filter_query):
-    # filter_query should be of the format 'filter1:value1 filter2:value2'
-    filter_query = filter_query.strip()
-    if not filter_query:
-        return dict()
-    filter_query = filter_query.split(' ')
-    filters = {
-        'status': {
-            'live': dict(live=True),
-            'draft': dict(live=False),
-        }
-    }
-    filter_args = dict()  # will be of format { filter_name: value }
-    filters_to_be_applied = dict()
-    for _arg in filter_query:
-        try:
-            k, v = _arg.split(':')
-            filter_args[k] = v
-        except ValueError:
-            # in case filter_query has a wrong format, ignore the erroneous filter
-            continue
-
-    filters_to_be_applied = {}
-
-    for _arg, filter_value in filter_args.items():
-        if _arg not in filters:
-            continue
-        if filter_value not in filters[_arg]:
-            continue
-        filters_to_be_applied.update(filters[_arg][filter_value])
-
-    return filters_to_be_applied
 
 
 @user_passes_test(user_has_any_page_permission)
@@ -79,7 +45,7 @@ def index(request, parent_page_id=None):
     # latter will be considered by design
     filter_query = request.GET.get('filters', '')
     filters_to_be_applied = apply_filters(filter_query)
-    pages = pages.filter(**filters_to_be_applied)
+    pages = pages.filter(filters_to_be_applied)
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-latest_revision_created_at')
@@ -161,34 +127,3 @@ def index(request, parent_page_id=None):
         })
 
     return TemplateResponse(request, 'wagtailadmin/pages/index.html', context)
-
-
-@user_passes_test(user_has_any_page_permission)
-def filter_count(request, parent_page_id=None):
-    if parent_page_id:
-        parent_page = get_object_or_404(Page, id=parent_page_id)
-    else:
-        parent_page = Page.get_first_root_node()
-
-    # This will always succeed because of the @user_passes_test above.
-    root_page = get_explorable_root_page(request.user)
-
-    # If this page isn't a descendant of the user's explorable root page,
-    # then redirect to that explorable root page instead.
-    if not (
-        parent_page.pk == root_page.pk
-        or parent_page.is_descendant_of(root_page)
-    ):
-        return redirect('wagtailadmin_explore', root_page.pk)
-
-    parent_page = parent_page.specific
-
-    user_perms = UserPagePermissionsProxy(request.user)
-    pages = (
-        parent_page.get_children().prefetch_related(
-            "content_type", "sites_rooted_here"
-        )
-        & user_perms.explorable_pages()
-    )
-    filter_query = request.GET.dict().get('filters', 'is:page')
-    return JsonResponse(dict(count=pages.filter(**apply_filters(filter_query)).count()))
