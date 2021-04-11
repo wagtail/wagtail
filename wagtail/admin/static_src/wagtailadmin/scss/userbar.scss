@@ -124,6 +124,7 @@ $positions: (
     margin: 0 !important;
     overflow: hidden;
     background-color: $color-white;
+    border: 2px solid transparent;
     border-radius: 50%;
     color: $color-black;
     padding: 0 !important;
@@ -150,6 +151,11 @@ $positions: (
         font-size: 32px;
         width: auto;
         margin: 0;
+    }
+
+    &:focus {
+        border-color: $color-black;
+        outline: none;
     }
 }
 
@@ -242,9 +248,12 @@ $positions: (
 
         &:hover,
         &:focus {
-            outline: none;
             color: $color-white;
             background-color: rgba(100, 100, 100, 0.15);
+        }
+
+        &:focus {
+            outline: $color-white 2px solid;
         }
 
         &-icon {

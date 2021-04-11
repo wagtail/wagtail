@@ -33,14 +33,23 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
   function showUserbar() {
     userbar.classList.add(className);
+    trigger.setAttribute('aria-expanded', 'true');
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     list.addEventListener(clickEvent, sandboxClick, false);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.addEventListener(clickEvent, clickOutside, false);
+
+    // The userbar has role=menu which means that the first link should be focused on popup
+    // For weird reasons shifting focus only works after some amount of delay
+    // Which is why we are forced to use setTimeout
+    setTimeout(() => {
+      list.querySelector('a').focus();
+    }, 300); // Less than 300ms doesn't seem to work
   }
 
   function hideUserbar() {
     userbar.classList.remove(className);
+    trigger.setAttribute('aria-expanded', 'false');
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     list.addEventListener(clickEvent, sandboxClick, false);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
