@@ -114,34 +114,6 @@ class CollectionPermissionLookupMixin:
         """
         return self.collections_user_has_any_permission_for(user, [action])
 
-    def descendants_of_collections_with_user_perm(self, user, actions):
-        """
-        Return a queryset of collections on which this user has a GroupCollectionPermission
-        record for any of the given actions because they have permission on an ancestor
-        """
-        # Get the permission objects corresponding to these actions
-        permissions = self._get_permission_objects_for_actions(actions)
-
-        # Get the collections that have a GroupCollectionPermission record
-        # for any of these permissions and any of the user's groups;
-        # create a list of their paths
-        collection_root_paths = Collection.objects.filter(
-            group_permissions__group__in=user.groups.all(),
-            group_permissions__permission__in=permissions
-        ).values_list('path', flat=True)
-
-        if collection_root_paths:
-            # build a filter expression that will filter our model to just those
-            # instances in collections with a path that starts with one of the above
-            collection_path_filter = Q(path__startswith=collection_root_paths[0])
-            for path in collection_root_paths[1:]:
-                collection_path_filter = collection_path_filter | Q(path__startswith=path)
-
-            return Collection.objects.all().filter(collection_path_filter).exclude(path__in=collection_root_paths)
-        else:
-            # no matching collections
-            return Collection.objects.none()
-
 
 class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy):
     """
@@ -176,14 +148,14 @@ class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuth
         Return whether the given user has permission to perform the given action on the
         given model instance
         """
-        return self._check_perm(user, [action], collection=instance)
+        return self._check_perm(user, [action], collection=instance.collection)
 
     def user_has_any_permission_for_instance(self, user, actions, instance):
         """
         Return whether the given user has permission to perform any of the given actions
         on the given model instance
         """
-        return self._check_perm(user, actions, collection=instance)
+        return self._check_perm(user, actions, collection=instance.collection)
 
     def instances_user_has_any_permission_for(self, user, actions):
         """
@@ -205,7 +177,7 @@ class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuth
         Return a queryset of all users who have permission to perform any of the given
         actions on the given model instance
         """
-        return self._users_with_perm(actions, collection=instance)
+        return self._users_with_perm(actions, collection=instance.collection)
 
     def collections_user_has_any_permission_for(self, user, actions):
         """
@@ -395,4 +367,55 @@ class CollectionOwnershipPermissionPolicy(
         else:
             # action is not recognised, and so non-superusers
             # cannot perform it on any existing collections
+            return Collection.objects.none()
+
+
+class CollectionMangementPermissionPolicy(CollectionPermissionPolicy):
+    def user_has_permission_for_instance(self, user, action, instance):
+        """
+        Return whether the given user has permission to perform the given action on the
+        given model instance
+        """
+        return self._check_perm(user, [action], collection=instance)
+
+    def user_has_any_permission_for_instance(self, user, actions, instance):
+        """
+        Return whether the given user has permission to perform any of the given actions
+        on the given model instance
+        """
+        return self._check_perm(user, actions, collection=instance)
+
+    def users_with_any_permission_for_instance(self, actions, instance):
+        """
+        Return a queryset of all users who have permission to perform any of the given
+        actions on the given model instance
+        """
+        return self._users_with_perm(actions, collection=instance)
+
+    def descendants_of_collections_with_user_perm(self, user, actions):
+        """
+        Return a queryset of collections on which this user has a GroupCollectionPermission
+        record for any of the given actions because they have permission on an ancestor
+        """
+        # Get the permission objects corresponding to these actions
+        permissions = self._get_permission_objects_for_actions(actions)
+
+        # Get the collections that have a GroupCollectionPermission record
+        # for any of these permissions and any of the user's groups;
+        # create a list of their paths
+        collection_root_paths = Collection.objects.filter(
+            group_permissions__group__in=user.groups.all(),
+            group_permissions__permission__in=permissions
+        ).values_list('path', flat=True)
+
+        if collection_root_paths:
+            # build a filter expression that will filter our model to just those
+            # instances in collections with a path that starts with one of the above
+            collection_path_filter = Q(path__startswith=collection_root_paths[0])
+            for path in collection_root_paths[1:]:
+                collection_path_filter = collection_path_filter | Q(path__startswith=path)
+
+            return Collection.objects.all().filter(collection_path_filter).exclude(path__in=collection_root_paths)
+        else:
+            # no matching collections
             return Collection.objects.none()
