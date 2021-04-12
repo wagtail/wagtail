@@ -11,7 +11,7 @@ Each type of information delivery has a purpose and targets a specific audience.
 * :ref:`doc-mode-reference`, information-oriented
 * :ref:`doc-mode-explanation`, understanding-oriented
 
-We are following `Daniele Procida's documention system <https://documentation.divio.com/>`__.
+We are following Daniele Procida's `Diátaxis documentation framework <https://diataxis.fr/>`__.
 
 
 .. _choose-a-writing-mode:
@@ -54,7 +54,7 @@ Don’t
   The expected actions and outcomes should be unambiguous.
 - Assume that learners have a prior understanding of the subject.
 
-`More about tutorials <https://documentation.divio.com/tutorials/>`__
+`More about tutorials <https://diataxis.fr/tutorials/>`__
 
 
 .. _doc-mode-how-to-guide:
@@ -79,7 +79,7 @@ Don’t
 
 - Use an unnecessarily strict tone of voice. For example: “You must absolutely NOT do X.”
 
-`More about how-to guides <https://documentation.divio.com/how-to-guides/>`__
+`More about how-to guides <https://diataxis.fr/how-to-guides/>`__
 
 
 .. _doc-mode-reference:
@@ -94,7 +94,7 @@ For example: “Inherit from the Page model”.
 
 Most references will be auto-generated based on doc-strings in the Python code.
 
-`More about reference <https://documentation.divio.com/reference/>`__
+`More about reference <https://diataxis.fr/reference/>`__
 
 
 .. _doc-mode-explanation:
@@ -108,4 +108,4 @@ There is little or no code involved in explanations,
 which are used to deepen the theoretical understanding of a practical draft.
 Explanations are used to establish connections and may require some prior knowledge of the principles being explored.
 
-`More about explanation <https://documentation.divio.com/explanation/>`__
+`More about explanation <https://diataxis.fr/explanation/>`__
