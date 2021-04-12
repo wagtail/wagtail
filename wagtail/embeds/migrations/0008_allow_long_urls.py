@@ -24,13 +24,24 @@ class Migration(migrations.Migration):
             name="url",
             field=models.TextField(),
         ),
+        # Converting URLField to TextField with a default specified (even with preserve_default=False)
+        # fails with Django 3.0 and MySQL >=8.0.13 (see https://code.djangoproject.com/ticket/32503) -
+        # work around this by altering in two stages, first making the URLField non-null then converting
+        # to TextField
+        migrations.AlterField(
+            model_name="embed",
+            name="thumbnail_url",
+            field=models.URLField(
+                blank=True,
+                default="",
+            ),
+            preserve_default=False,
+        ),
         migrations.AlterField(
             model_name="embed",
             name="thumbnail_url",
             field=models.TextField(
                 blank=True,
-                default="",
             ),
-            preserve_default=False,
         ),
     ]
