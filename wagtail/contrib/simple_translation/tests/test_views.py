@@ -261,5 +261,5 @@ class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
         view.object = self.en_snippet
         self.assertEqual(
             view.get_success_message(self.fr_locale),
-            f"Successfully created French for translatable snippet 'TranslatableSnippet object ({self.en_locale.id})'",
+            f"Successfully created French for translatable snippet 'TranslatableSnippet object ({self.en_snippet.id})'",
         )
