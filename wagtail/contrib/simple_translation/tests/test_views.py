@@ -1,16 +1,13 @@
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
-from django.test import override_settings, RequestFactory
+from django.test import RequestFactory, override_settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
 
 from wagtail.contrib.simple_translation.forms import SubmitTranslationForm
 from wagtail.contrib.simple_translation.views import (
-    SubmitTranslationView,
-    SubmitPageTranslationView,
-    SubmitSnippetTranslationView,
-)
+    SubmitPageTranslationView, SubmitSnippetTranslationView, SubmitTranslationView)
 from wagtail.core.models import Locale, Page, ParentNotTranslatedError
 from wagtail.tests.i18n.models import TestPage
 from wagtail.tests.snippets.models import TranslatableSnippet
