@@ -86,7 +86,7 @@ class TestPageListing(TestCase):
         missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
 
         # Turn a BlogEntryPage into this content_type
-        models.BlogEntryPage.objects.filter(id=16).update(content_type=missing_page_content_type)
+        models.BlogEntryPage.objects.filter(id=16).order_by().update(content_type=missing_page_content_type)
 
         # get page listing with missing model
         response = self.get_response()
@@ -985,7 +985,7 @@ class TestPageDetail(TestCase):
         self.assertEqual(list(content['meta'].keys()), meta_field_order)
 
     def test_null_foreign_key(self):
-        models.BlogEntryPage.objects.filter(id=16).update(feed_image_id=None)
+        models.BlogEntryPage.objects.filter(id=16).order_by().update(feed_image_id=None)
 
         response = self.get_response(16)
         content = json.loads(response.content.decode('UTF-8'))
@@ -998,7 +998,7 @@ class TestPageDetail(TestCase):
         missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
 
         # Turn a BlogEntryPage into this content_type
-        models.BlogEntryPage.objects.filter(id=16).update(content_type=missing_page_content_type)
+        models.BlogEntryPage.objects.filter(id=16).order_by().update(content_type=missing_page_content_type)
 
         # get missing model page
         response = self.get_response(16)
