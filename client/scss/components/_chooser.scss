@@ -26,6 +26,14 @@ overriden here? hmm.
     .chosen {
         position: relative;
 
+        .icon {
+            color: $color-grey-3;
+            @include svg-icon(2.5em);
+            vertical-align: middle;
+            margin-right: 0.625rem;
+        }
+
+        // TODO: [icon-font] remove when the Wagtail icon font is removed
         &:before {
             vertical-align: middle;
             font-family: wagtail;
@@ -81,46 +89,25 @@ overriden here? hmm.
     }
 }
 
-.page-chooser {
+// TODO: [icon-font] remove when the Wagtail icon font is removed
+.page-chooser,
+.snippet-chooser,
+.document-chooser,
+.image-chooser {
     .unchosen,
     .chosen {
         &:before {
-            content: map-get($icons, 'doc-empty-inverse');
-        }
-    }
-}
-
-.snippet-chooser {
-    .unchosen,
-    .chosen {
-        &:before {
-            content: map-get($icons, 'snippet');
-        }
-    }
-}
-
-.document-chooser {
-    .unchosen,
-    .chosen {
-        &:before {
-            content: map-get($icons, 'doc-full-inverse');
+            display: none;
         }
     }
 }
 
 .image-chooser {
-    .unchosen,
-    .chosen {
-        &:before {
-            content: map-get($icons, 'image');
-        }
-    }
-
     .chosen {
         padding-left: $thumbnail-width;
 
         &:before {
-            content: '';
+            display: inline-block;
         }
 
         .preview-image {

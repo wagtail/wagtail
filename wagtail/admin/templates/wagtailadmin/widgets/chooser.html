@@ -5,10 +5,10 @@
     Any element with the 'action-choose' class will open the page chooser modal
     when clicked.
 {% endcomment %}
-
 <div id="{{ attrs.id }}-chooser" class="chooser {% block chooser_class %}page-chooser{% endblock %} {% if not value %}blank{% endif %}" {% block chooser_attributes %}{% endblock %}>
 
     <div class="chosen">
+        {% block chosen_icon %}{% endblock chosen_icon %}
         {% block chosen_state_view %}
             <span class="title">{{ display_title }}</span>
         {% endblock %}
@@ -29,6 +29,7 @@
     </div>
 
     <div class="unchosen">
+        {% block unchosen_icon %}{% endblock unchosen_icon %}
         <button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_one_text }}</button>
     </div>
 
