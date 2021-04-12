@@ -15,6 +15,8 @@ export const ADD_REPLY = 'add-reply';
 export const UPDATE_REPLY = 'update-reply';
 export const DELETE_REPLY = 'delete-reply';
 
+export const INVALIDATE_CONTENT_PATH = 'invalidate-content-path';
+
 export interface AddCommentAction {
   type: typeof ADD_COMMENT;
   comment: Comment;
@@ -56,6 +58,11 @@ export interface DeleteReplyAction {
   replyId: number;
 }
 
+export interface InvalidateContentPathAction {
+  type: typeof INVALIDATE_CONTENT_PATH;
+  contentPath: string;
+}
+
 export type Action =
   | AddCommentAction
   | UpdateCommentAction
@@ -63,7 +70,8 @@ export type Action =
   | SetFocusedCommentAction
   | AddReplyAction
   | UpdateReplyAction
-  | DeleteReplyAction;
+  | DeleteReplyAction
+  | InvalidateContentPathAction;
 
 export function addComment(comment: Comment): AddCommentAction {
   return {
@@ -136,6 +144,13 @@ export function deleteReply(
   };
 }
 
+export function invalidateContentPath(contentPath: string): InvalidateContentPathAction {
+  return {
+    type: INVALIDATE_CONTENT_PATH,
+    contentPath,
+  };
+}
+
 export const commentActionFunctions = {
   addComment,
   updateComment,
@@ -144,4 +159,5 @@ export const commentActionFunctions = {
   addReply,
   updateReply,
   deleteReply,
+  invalidateContentPath,
 };

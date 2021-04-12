@@ -174,6 +174,23 @@ export const INITIAL_STATE: CommentsState = {
 
 export const reducer = produce((draft: CommentsState, action: actions.Action) => {
   /* eslint-disable no-param-reassign */
+  const deleteComment = (comment: Comment) => {
+    if (!comment.remoteId) {
+      // If the comment doesn't exist in the database, there's no need to keep it around locally
+      draft.comments.delete(comment.localId);
+    } else {
+      comment.deleted = true;
+    }
+
+    // Unset focusedComment if the focused comment is the one being deleted
+    if (draft.focusedComment === comment.localId) {
+      draft.focusedComment = null;
+    }
+    if (draft.pinnedComment === comment.localId) {
+      draft.pinnedComment = null;
+    }
+  };
+
   switch (action.type) {
   case actions.ADD_COMMENT: {
     draft.comments.set(action.comment.localId, action.comment);
@@ -193,20 +210,9 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
     const comment = draft.comments.get(action.commentId);
     if (!comment) {
       break;
-    } else if (!comment.remoteId) {
-      // If the comment doesn't exist in the database, there's no need to keep it around locally
-      draft.comments.delete(action.commentId);
-    } else {
-      comment.deleted = true;
     }
 
-    // Unset focusedComment if the focused comment is the one being deleted
-    if (draft.focusedComment === action.commentId) {
-      draft.focusedComment = null;
-    }
-    if (draft.pinnedComment === action.commentId) {
-      draft.pinnedComment = null;
-    }
+    deleteComment(comment);
     break;
   }
   case actions.SET_FOCUSED_COMMENT: {
@@ -255,6 +261,17 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
       comment.replies.delete(reply.localId);
     } else {
       reply.deleted = true;
+    }
+    break;
+  }
+  case actions.INVALIDATE_CONTENT_PATH: {
+    // Delete any comments that exist in the contentpath
+    // TODO: Switch to resolved when we add that state back
+    const comments = draft.comments;
+    for (const comment of comments.values()) {
+      if (comment.contentpath.startsWith(action.contentPath)) {
+        deleteComment(comment);
+      }
     }
     break;
   }
