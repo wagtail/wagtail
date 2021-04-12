@@ -619,7 +619,8 @@ This is a minimal user interface that allows to create copies of translatables (
 Content editors need to translate the content and publish the pages.
 
 To enable add ``"wagtail.contrib.simple_translation"`` to ``INSTALLED_APPS``
-and run ``python manage.py migrate`` to create the necessary permissions.
+and run ``python manage.py migrate`` to create the ``submit_translation`` permissions.
+In the Wagtail admin, go to settings and give some users or groups the "Can submit translations" permission.
 
 .. note::
    Simple Translation is optional. It can be switched out by third-party packages. Like the more advanced `wagtail-localize <https://github.com/wagtail/wagtail-localize>`_.
