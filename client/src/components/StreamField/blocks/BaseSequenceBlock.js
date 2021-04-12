@@ -3,6 +3,7 @@
 /* global $ */
 
 import { escapeHtml as h } from '../../../utils/text';
+import { getContentPath } from '../../CommentApp/comments';
 
 export class BaseSequenceChild {
   constructor(blockDef, placeholder, prefix, index, id, initialState, opts) {
@@ -123,6 +124,13 @@ export class BaseSequenceChild {
         .attr('aria-hidden', 'true');
     } else {
       $(this.element).hide().attr('aria-hidden', 'true');
+    }
+
+    // Inform the comment app that the content path of this block is no longer valid
+    // This will hide any comments that were previously on the block
+    const contentPath = getContentPath(this.element);
+    if (contentPath && window.commentApp) {
+      window.commentApp.invalidateContentPath(contentPath);
     }
   }
 

@@ -26,7 +26,7 @@ function attachTabNav(tabNavElem) {
   });
 }
 
-function getContentPath(fieldNode) {
+export function getContentPath(fieldNode) {
   // Return the total contentpath for an element as a string, in the form field.streamfield_uid.block...
   if (fieldNode.closest('data-contentpath-disabled')) {
     return '';
