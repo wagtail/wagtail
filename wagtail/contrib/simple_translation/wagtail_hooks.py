@@ -1,5 +1,3 @@
-from urllib.parse import urlencode
-
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.urls import include, path, reverse
