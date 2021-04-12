@@ -1,7 +1,7 @@
 Collections
 ~~~~~~~~~~~
 
-Access to specific sets of images and documents can be controlled by setting up ‘collections’. By default all images and documents belong to the ‘root’ collection, but new collections can be created through the **Settings -> Collections** area of the admin interface.
+Access to specific sets of images and documents can be controlled by setting up ‘collections’. By default all images and documents belong to the ‘root’ collection, but users with appropriate permissions can create new collections through the **Settings -> Collections** area of the admin interface.
 
 .. image:: ../../_static/images/collections_list.png
 
@@ -37,4 +37,4 @@ ________________
 .. image:: ../../_static/images/collections_privacy_overlay.png
 
 .. Note::
-    Permissions set on ‘root’ apply to all collections, so a user with ‘edit’ permission for images on root can edit all images; permissions set on other collections apply to that collection only.
+    Permissions set on a collection apply to that collection and all collections below it in the hierarchy. So if you make the 'root' collection private, all documents on the site will be private.
