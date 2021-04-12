@@ -13,7 +13,8 @@ import {
   addReply,
   setFocusedComment,
   updateComment,
-  commentActionFunctions
+  commentActionFunctions,
+  invalidateContentPath
 } from './actions/comments';
 import { updateGlobalSettings } from './actions/settings';
 import {
@@ -219,6 +220,10 @@ export class CommentApp {
     this.store.dispatch(updateGlobalSettings({
       commentsEnabled: visible,
     }));
+  }
+  invalidateContentPath(contentPath: string) {
+    // Called when a given content path on the form is no longer valid (eg, a block has been deleted)
+    this.store.dispatch(invalidateContentPath(contentPath));
   }
   renderApp(
     element: HTMLElement,
