@@ -126,24 +126,37 @@ const initEditor = (selector, options, currentScript) => {
   };
 
   // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -
-  // and the comments system is initialized then use CommentableEditor, otherwise plain DraftailEditor
-  const editor = (window.commentApp && contentPath !== '') ?
-    <Provider store={window.commentApp.store}>
-      <CommentableEditor
-        editorRef={editorRef}
-        commentApp={window.commentApp}
-        fieldNode={field.parentNode}
-        contentPath={contentPath}
-        colorConfig={colors}
-        {...sharedProps}
-      />
-    </Provider>
-    : <DraftailEditor
-      ref={editorRef}
-      {...sharedProps}
-    />;
-
-  ReactDOM.render(<EditorFallback field={field}>{editor}</EditorFallback>, editorWrapper);
+  // and the comments module has been loaded then use CommentableEditor, otherwise plain DraftailEditor
+  if (window.comments && contentPath !== '') {
+    window.comments.addOnInitCommentAppListener((commentApp) => {
+      ReactDOM.render(
+        <EditorFallback field={field}>
+          <Provider store={commentApp.store}>
+            <CommentableEditor
+              editorRef={editorRef}
+              commentApp={commentApp}
+              fieldNode={field.parentNode}
+              contentPath={contentPath}
+              colorConfig={colors}
+              {...sharedProps}
+            />
+          </Provider>
+        </EditorFallback>,
+        editorWrapper
+      );
+    });
+  } else {
+    // Render plain DraftailEditor
+    ReactDOM.render(
+      <EditorFallback field={field}>
+        <DraftailEditor
+          ref={editorRef}
+          {...sharedProps}
+        />
+      </EditorFallback>,
+      editorWrapper
+    );
+  }
 };
 
 export default {

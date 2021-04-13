@@ -1,6 +1,8 @@
 import { initCommentApp } from './main';
 import { STRINGS } from '../../config/wagtailConfig';
 
+const onInitCommentAppListeners = [];
+
 function initComments(formElem) {
   window.commentApp = initCommentApp();
 
@@ -63,7 +65,19 @@ function initComments(formElem) {
   window.commentApp.store.subscribe(updateCommentCount);
   updateCommentCount();
 
+  // Run init event listeners
+  onInitCommentAppListeners.forEach(listener => listener(window.commentApp));
+
   return window.commentApp;
+}
+
+function addOnInitCommentAppListener(listener) {
+  onInitCommentAppListeners.push(listener);
+
+  // Call the listener immediately if the comment app is already initialised
+  if (window.commentApp) {
+    listener(window.commentApp);
+  }
 }
 
 export function getContentPath(fieldNode) {
@@ -285,4 +299,5 @@ export function initAddCommentButton(buttonElement) {
 export default {
   getContentPath,
   initComments,
+  addOnInitCommentAppListener,
 };
