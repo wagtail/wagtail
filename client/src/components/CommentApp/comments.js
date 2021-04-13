@@ -233,7 +233,7 @@ class FieldLevelCommentWidget {
   }
 }
 
-export function initAddCommentButton(buttonElement) {
+export function initAddCommentButton(buttonElement, skipDoubleInitialisedCheck = false) {
   const widget = new FieldLevelCommentWidget({
     fieldNode: buttonElement,
     commentAdditionNode: buttonElement,
@@ -249,4 +249,5 @@ export default {
   getContentPath,
   initComments,
   attachTabNav,
+  initAddCommentButton,
 };
