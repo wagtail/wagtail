@@ -1372,7 +1372,9 @@ class TestSnippetChooserBlock(TestCase):
             'required': True,
             'icon': 'snippet',
             'helpText': 'pick an advert, any advert',
-            'classname': 'field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock'
+            'classname': 'field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_form_response(self):
@@ -1535,7 +1537,9 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
             'required': True,
             'icon': 'snippet',
             'helpText': 'pick an advert, any advert',
-            'classname': 'field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock'
+            'classname': 'field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_form_response(self):

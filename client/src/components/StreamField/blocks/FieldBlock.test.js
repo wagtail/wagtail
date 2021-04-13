@@ -110,6 +110,52 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
   });
 });
 
+describe('telepath: wagtail.blocks.FieldBlock with comments enabled', () => {
+  let boundBlock;
+
+  window.comments = {
+    initAddCommentButton: jest.fn(),
+  };
+
+  beforeEach(() => {
+    // Create mocks for callbacks
+    constructor = jest.fn();
+    setState = jest.fn();
+    getState = jest.fn();
+    getValue = jest.fn();
+    focus = jest.fn();
+
+    // Define a test block
+    const blockDef = new FieldBlockDefinition(
+      'test_field',
+      new DummyWidgetDefinition('The widget'),
+      {
+        label: 'Test Field',
+        required: true,
+        icon: 'placeholder',
+        classname: 'field char_field widget-text_input fieldname-test_charblock',
+        helpText: 'drink <em>more</em> water',
+        showAddCommentButton: true,
+        strings: {
+          ADD_COMMENT: 'Add Comment'
+        }
+      }
+    );
+
+    // Render it
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    boundBlock = blockDef.render(
+      $('#placeholder'),
+      'the-prefix',
+      'Test initial state'
+    );
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+});
+
 describe('telepath: wagtail.blocks.FieldBlock catches widget render errors', () => {
   let boundBlock;
 
