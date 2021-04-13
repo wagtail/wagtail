@@ -2,16 +2,23 @@ import { initCommentApp } from './main';
 import { STRINGS } from '../../config/wagtailConfig';
 
 const onInitCommentAppListeners = [];
+let commentApp = null;
 
 function initComments(formElem) {
-  window.commentApp = initCommentApp();
+  if (commentApp) {
+    // esline-disable-next-line no-console
+    console.warning('initComments: Comments already initialised!');
+    return undefined;
+  }
+
+  commentApp = initCommentApp();
 
   // Attach the tab navigation, if the form has it
   const tabNavElem = formElem.querySelector('.tab-nav');
   if (tabNavElem) {
-    window.commentApp.setCurrentTab(tabNavElem.dataset.currentTab);
+    commentApp.setCurrentTab(tabNavElem.dataset.currentTab);
     tabNavElem.addEventListener('switch', (e) => {
-      window.commentApp.setCurrentTab(e.detail.tab);
+      commentApp.setCurrentTab(e.detail.tab);
     });
   }
 
@@ -23,7 +30,7 @@ function initComments(formElem) {
     throw new Error('Comments app failed to initialise. Missing HTML element');
   }
   const data = JSON.parse(dataElement.textContent);
-  window.commentApp.renderApp(
+  commentApp.renderApp(
     commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS
   );
 
@@ -37,7 +44,7 @@ function initComments(formElem) {
   const tabContentElem = formElem.querySelector('.tab-content');
   commentsToggleElem.addEventListener('change', (e) => {
     // Show/hide comments
-    window.commentApp.setVisible(e.target.checked);
+    commentApp.setVisible(e.target.checked);
 
     // Show/hide comment notifications toggle
     // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
@@ -53,7 +60,7 @@ function initComments(formElem) {
   // Keep number of comments up to date with comment app
   const commentCountElem = formElem.querySelector('.comments-toggle__count');
   const updateCommentCount = () => {
-    const commentCount = window.commentApp.selectors.selectCommentCount(window.commentApp.store.getState());
+    const commentCount = commentApp.selectors.selectCommentCount(commentApp.store.getState());
 
     if (commentCount > 0) {
       commentCountElem.innerText = commentCount.toString();
@@ -62,21 +69,21 @@ function initComments(formElem) {
       commentCountElem.innerText = '';
     }
   };
-  window.commentApp.store.subscribe(updateCommentCount);
+  commentApp.store.subscribe(updateCommentCount);
   updateCommentCount();
 
   // Run init event listeners
-  onInitCommentAppListeners.forEach(listener => listener(window.commentApp));
+  onInitCommentAppListeners.forEach(listener => listener(commentApp));
 
-  return window.commentApp;
+  return commentApp;
 }
 
 function addOnInitCommentAppListener(listener) {
   onInitCommentAppListeners.push(listener);
 
   // Call the listener immediately if the comment app is already initialised
-  if (window.commentApp) {
-    listener(window.commentApp);
+  if (commentApp) {
+    listener(commentApp);
   }
 }
 
@@ -106,13 +113,11 @@ class BasicFieldLevelAnnotation {
   * Create a field-level annotation
   * @param {Element} fieldNode - an element to provide the comment position
   * @param {Element} node - the button to focus/pin the comment
-  * @param commentApp - the commentApp the annotation is integrating with
   */
-  constructor(fieldNode, node, commentApp) {
+  constructor(fieldNode, node) {
     this.node = node;
     this.fieldNode = fieldNode;
     this.unsubscribe = null;
-    this.commentApp = commentApp;
   }
   /**
   * Subscribes the annotation to update when the state of a particular comment changes,
@@ -120,9 +125,9 @@ class BasicFieldLevelAnnotation {
   * @param {number} localId - the localId of the comment to subscribe to
   */
   subscribeToUpdates(localId) {
-    const { selectFocused, selectEnabled } = this.commentApp.selectors;
-    const selectComment = this.commentApp.utils.selectCommentFactory(localId);
-    const store = this.commentApp.store;
+    const { selectFocused, selectEnabled } = commentApp.selectors;
+    const selectComment = commentApp.utils.selectCommentFactory(localId);
+    const store = commentApp.store;
     const initialState = store.getState();
     let focused = selectFocused(initialState) === localId;
     let shown = selectEnabled(initialState);
@@ -183,8 +188,8 @@ class BasicFieldLevelAnnotation {
   }
   setOnClickHandler(localId) {
     this.node.addEventListener('click', () => {
-      this.commentApp.store.dispatch(
-        this.commentApp.actions.setFocusedComment(localId, { updatePinnedComment: true })
+      commentApp.store.dispatch(
+        commentApp.actions.setFocusedComment(localId, { updatePinnedComment: true })
       );
     });
   }
@@ -203,27 +208,25 @@ class FieldLevelCommentWidget {
   constructor({
     fieldNode,
     commentAdditionNode,
-    annotationTemplateNode,
-    commentApp
+    annotationTemplateNode
   }) {
     this.fieldNode = fieldNode;
     this.contentpath = getContentPath(fieldNode);
     this.commentAdditionNode = commentAdditionNode;
     this.annotationTemplateNode = annotationTemplateNode;
     this.shown = false;
-    this.commentApp = commentApp;
   }
   register() {
-    const { selectEnabled } = this.commentApp.selectors;
-    const initialState = this.commentApp.store.getState();
+    const { selectEnabled } = commentApp.selectors;
+    const initialState = commentApp.store.getState();
     let currentlyEnabled = selectEnabled(initialState);
-    const selectCommentsForContentPath = this.commentApp.utils.selectCommentsForContentPathFactory(
+    const selectCommentsForContentPath = commentApp.utils.selectCommentsForContentPathFactory(
       this.contentpath
     );
     let currentComments = selectCommentsForContentPath(initialState);
     this.updateVisibility(currentComments.length === 0 && currentlyEnabled);
-    const unsubscribeWidget = this.commentApp.store.subscribe(() => {
-      const state = this.commentApp.store.getState();
+    const unsubscribeWidget = commentApp.store.subscribe(() => {
+      const state = commentApp.store.getState();
       const newComments = selectCommentsForContentPath(state);
       const newEnabled = selectEnabled(state);
       const commentsChanged = (currentComments !== newComments);
@@ -233,7 +236,7 @@ class FieldLevelCommentWidget {
         currentComments = newComments;
         currentComments.filter((comment) => comment.annotation === null).forEach((comment) => {
           const annotation = this.getAnnotationForComment(comment);
-          this.commentApp.updateAnnotation(
+          commentApp.updateAnnotation(
             annotation,
             comment.localId
           );
@@ -251,14 +254,14 @@ class FieldLevelCommentWidget {
       // Add annotations for any comments already in the store
       if (comment.contentpath === this.contentpath) {
         const annotation = this.getAnnotationForComment(comment);
-        this.commentApp.updateAnnotation(annotation, comment.localId);
+        commentApp.updateAnnotation(annotation, comment.localId);
         annotation.subscribeToUpdates(comment.localId);
       }
     });
     this.commentAdditionNode.addEventListener('click', () => {
       // Make the widget button clickable to add a comment
       const annotation = this.getAnnotationForComment();
-      const localId = this.commentApp.makeComment(annotation, this.contentpath);
+      const localId = commentApp.makeComment(annotation, this.contentpath);
       annotation.subscribeToUpdates(localId);
     });
     return unsubscribeWidget; // TODO: listen for widget deletion and use this
@@ -280,7 +283,7 @@ class FieldLevelCommentWidget {
     annotationNode.id = '';
     annotationNode.classList.remove('u-hidden');
     this.commentAdditionNode.insertAdjacentElement('afterend', annotationNode);
-    return new BasicFieldLevelAnnotation(this.fieldNode, annotationNode, this.commentApp);
+    return new BasicFieldLevelAnnotation(this.fieldNode, annotationNode);
   }
 }
 
@@ -296,7 +299,7 @@ export function initAddCommentButton(buttonElement, skipDoubleInitialisedCheck =
   }
 
   // If comment system not loaded yet, create a listener to set up this button when it loads
-  if (!window.commentApp) {
+  if (!commentApp) {
     addOnInitCommentAppListener(() => initAddCommentButton(buttonElement, true));
     return;
   }
@@ -305,7 +308,6 @@ export function initAddCommentButton(buttonElement, skipDoubleInitialisedCheck =
     fieldNode: buttonElement,
     commentAdditionNode: buttonElement,
     annotationTemplateNode: document.querySelector('#comment-icon'),
-    commentApp: window.commentApp
   });
   if (widget.contentpath) {
     widget.register();
@@ -313,8 +315,8 @@ export function initAddCommentButton(buttonElement, skipDoubleInitialisedCheck =
 }
 
 function invalidateContentPath(contentPath) {
-  if (window.commentApp) {
-    window.commentApp.invalidateContentPath(contentPath);
+  if (commentApp) {
+    commentApp.invalidateContentPath(contentPath);
   }
 }
 
