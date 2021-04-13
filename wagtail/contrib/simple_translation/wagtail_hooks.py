@@ -28,7 +28,7 @@ def register_admin_urls():
 
     return [
         path(
-            "localize/",
+            "translation/",
             include(
                 (urls, "simple_translation"),
                 namespace="simple_translation",
