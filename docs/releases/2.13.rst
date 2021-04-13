@@ -35,6 +35,7 @@ Other features
 * ``get_settings`` template tag now supports specifying the variable name with ``{% get_settings as var %}`` (Samir Shah)
 * Reinstate submitter's name on moderation notification email (Matt Westcott)
 * Add a new switch input widget as an alternative to checkboxes (Karl Hobley)
+* Allow ``{% pageurl %}`` fallback to be a direct URL or an object with a ``get_absolute_url`` method (Andy Babic)
 
 Bug fixes
 ~~~~~~~~~

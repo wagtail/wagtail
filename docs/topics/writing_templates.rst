@@ -174,7 +174,7 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
     <a href="{% pageurl page.get_parent %}">Back to index</a>
 
 
-A ``fallback`` keyword argument can be provided - this should be a URL route name that takes no parameters, and will be used as a substitute URL when the passed page is ``None``.
+A ``fallback`` keyword argument can be provided - this can be a URL string, a named URL route that can be resolved with no parameters, or an object with a ``get_absolute_url`` method, and will be used as a substitute URL when the passed page is ``None``.
 
 .. code-block:: html+django
 
