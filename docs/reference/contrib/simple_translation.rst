@@ -3,10 +3,10 @@
 Simple translation
 ==================
 
-Simple Translation is a user interface that allows to create copies of translatables (pages and snippets) into another language.
+The simple_translation module provides a user interface that allows users to copy pages and translatable snippets into another language.
 
-- Copies are in the source language (not translated)
-- Copies of pages are in draft mode
+- Copies are created in the source language (not translated)
+- Copies of pages are in draft status
 
 Content editors need to translate the content and publish the pages.
 
