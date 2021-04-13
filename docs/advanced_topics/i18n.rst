@@ -619,7 +619,8 @@ The simple_translation module provides a user interface that allows users to cop
 
 Content editors need to translate the content and publish the pages.
 
-To enable add ``"wagtail.contrib.simple_translation"`` to ``INSTALLED_APPS``.
+To enable add ``"wagtail.contrib.simple_translation"`` to ``INSTALLED_APPS``
+and run ``python manage.py migrate`` to create the ``submit_translation`` permissions.
 In the Wagtail admin, go to settings and give some users or groups the "Can submit translations" permission.
 
 .. note::
