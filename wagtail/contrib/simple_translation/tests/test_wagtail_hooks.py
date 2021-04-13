@@ -32,7 +32,7 @@ class TestWagtailHooksURLs(TestCase):
     def test_register_admin_urls_page(self):
         self.assertEqual(
             reverse("simple_translation:submit_page_translation", args=(1,)),
-            "/admin/localize/submit/page/1/",
+            "/admin/translation/submit/page/1/",
         )
 
     def test_register_admin_urls_snippet(self):
@@ -44,7 +44,7 @@ class TestWagtailHooksURLs(TestCase):
                 "simple_translation:submit_snippet_translation",
                 args=(app_label, model_name, pk),
             ),
-            "/admin/localize/submit/snippet/foo/bar/1/",
+            "/admin/translation/submit/snippet/foo/bar/1/",
         )
 
 
