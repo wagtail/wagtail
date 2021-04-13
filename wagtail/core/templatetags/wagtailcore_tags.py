@@ -1,5 +1,5 @@
 from django import template
-from django.shortcuts import reverse
+from django.shortcuts import resolve_url
 from django.template.defaulttags import token_kwargs
 from django.template.loader import render_to_string
 from django.utils.encoding import force_str
@@ -21,7 +21,7 @@ def pageurl(context, page, fallback=None):
     If kwargs contains a fallback view name and page is None, the fallback view url will be returned.
     """
     if page is None and fallback:
-        return reverse(fallback)
+        return resolve_url(fallback)
 
     if not hasattr(page, 'relative_url'):
         raise ValueError("pageurl tag expected a Page object, got %r" % page)
