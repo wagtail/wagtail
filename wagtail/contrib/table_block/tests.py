@@ -392,7 +392,9 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
             'label': 'Test tableblock',
             'required': True,
             'icon': 'table',
-            'classname': 'field char_field widget-table_input fieldname-test_tableblock'
+            'classname': 'field char_field widget-table_input fieldname-test_tableblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_searchable_content(self):

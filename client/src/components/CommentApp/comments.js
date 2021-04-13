@@ -284,7 +284,23 @@ class FieldLevelCommentWidget {
   }
 }
 
-export function initAddCommentButton(buttonElement) {
+const initialisedAddCommentButtons = new Set();
+
+export function initAddCommentButton(buttonElement, skipDoubleInitialisedCheck = false) {
+  // Prevent double-initialisation of the same add button
+  if (!skipDoubleInitialisedCheck) {
+    if (initialisedAddCommentButtons.has(buttonElement)) {
+      return;
+    }
+    initialisedAddCommentButtons.add(buttonElement);
+  }
+
+  // If comment system not loaded yet, create a listener to set up this button when it loads
+  if (!window.commentApp) {
+    addOnInitCommentAppListener(() => initAddCommentButton(buttonElement, true));
+    return;
+  }
+
   const widget = new FieldLevelCommentWidget({
     fieldNode: buttonElement,
     commentAdditionNode: buttonElement,
@@ -300,4 +316,5 @@ export default {
   getContentPath,
   initComments,
   addOnInitCommentAppListener,
+  initAddCommentButton,
 };
