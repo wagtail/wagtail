@@ -41,6 +41,18 @@ export class FieldBlock {
       this.element.querySelector('.field-content').appendChild(helpElement);
     }
 
+    if (window.comments && this.blockDef.meta.showAddCommentButton) {
+      const addCommentButtonElement = document.createElement('button');
+      addCommentButtonElement.type = 'button';
+      addCommentButtonElement.setAttribute('aria-label', blockDef.meta.strings.ADD_COMMENT);
+      addCommentButtonElement.classList.add('button');
+      addCommentButtonElement.classList.add('button-secondary');
+      addCommentButtonElement.classList.add('button-small');
+      addCommentButtonElement.innerHTML = '<svg class="icon icon-comment initial" aria-hidden="true" focusable="false"><use href="#icon-comment"></use></svg>';
+      this.element.querySelector('.field-content').appendChild(addCommentButtonElement);
+      window.comments.initAddCommentButton(addCommentButtonElement);
+    }
+
     if (initialError) {
       this.setError(initialError);
     }

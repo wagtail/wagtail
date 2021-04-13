@@ -8,6 +8,7 @@ from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import RichText, get_text_for_indexing
@@ -96,6 +97,10 @@ class FieldBlockAdapter(Adapter):
             'required': block.required,
             'icon': block.meta.icon,
             'classname': ' '.join(classname),
+            'showAddCommentButton': getattr(block.field.widget, 'show_add_comment_button', True),
+            'strings': {
+                'ADD_COMMENT': _('Add Comment')
+            },
         }
         if block.field.help_text:
             meta['helpText'] = block.field.help_text
