@@ -88,6 +88,9 @@
 {% endblock %}
 
 {% block extra_js %}
+    <script>
+
+    </script>
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
 
@@ -123,9 +126,6 @@
                     callback: window.updateFooterSaveWarning
                 }
             );
-
-            // Enable comments
-            window.comments.initComments(document.getElementById('page-edit-form'));
         });
     </script>
 {% endblock %}
