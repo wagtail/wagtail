@@ -72,7 +72,9 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
             'helpText': 'Some helpful text',
             'required': True,
             'icon': 'placeholder',
-            'classname': 'field char_field widget-text_input fieldname-test_block'
+            'classname': 'field char_field widget-text_input fieldname-test_block',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_charblock_adapter_form_classname(self):
@@ -161,7 +163,9 @@ class TestFieldBlock(WagtailTestUtils, SimpleTestCase):
             'label': 'Test choiceblock',
             'required': True,
             'icon': 'placeholder',
-            'classname': 'field choice_field widget-select fieldname-test_choiceblock'
+            'classname': 'field choice_field widget-select fieldname-test_choiceblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_searchable_content(self):
@@ -526,7 +530,28 @@ class TestRichTextBlock(TestCase):
             'label': 'Test richtextblock',
             'required': True,
             'icon': 'doc-full',
-            'classname': 'field char_field widget-hallo_rich_text_area fieldname-test_richtextblock'
+            'classname': 'field char_field widget-hallo_rich_text_area fieldname-test_richtextblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
+        })
+
+    def test_adapter_with_draftail(self):
+        from wagtail.admin.rich_text import DraftailRichTextArea
+
+        block = blocks.RichTextBlock()
+
+        block.set_name('test_richtextblock')
+        js_args = FieldBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_richtextblock')
+        self.assertIsInstance(js_args[1], DraftailRichTextArea)
+        self.assertEqual(js_args[2], {
+            'label': 'Test richtextblock',
+            'required': True,
+            'icon': 'doc-full',
+            'classname': 'field char_field widget-draftail_rich_text_area fieldname-test_richtextblock',
+            'showAddCommentButton': False,  # Draftail manages its own comments
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_get_form_state(self):
@@ -604,7 +629,9 @@ class TestChoiceBlock(WagtailTestUtils, SimpleTestCase):
             'label': 'Test choiceblock',
             'required': True,
             'icon': 'placeholder',
-            'classname': 'field choice_field widget-select fieldname-test_choiceblock'
+            'classname': 'field choice_field widget-select fieldname-test_choiceblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_choice_block_with_default(self):
@@ -917,7 +944,9 @@ class TestMultipleChoiceBlock(WagtailTestUtils, SimpleTestCase):
             'label': 'Test choiceblock',
             'required': True,
             'icon': 'placeholder',
-            'classname': 'field multiple_choice_field widget-select_multiple fieldname-test_choiceblock'
+            'classname': 'field multiple_choice_field widget-select_multiple fieldname-test_choiceblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_multiple_choice_block_with_default(self):
@@ -1265,7 +1294,9 @@ class TestRawHTMLBlock(unittest.TestCase):
             'label': 'Test rawhtmlblock',
             'required': True,
             'icon': 'code',
-            'classname': 'field char_field widget-textarea fieldname-test_rawhtmlblock'
+            'classname': 'field char_field widget-textarea fieldname-test_rawhtmlblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_form_response(self):
@@ -3403,7 +3434,9 @@ class TestPageChooserBlock(TestCase):
             'required': True,
             'icon': 'redirect',
             'helpText': 'pick a page, any page',
-            'classname': 'field model_choice_field widget-admin_page_chooser fieldname-test_pagechooserblock'
+            'classname': 'field model_choice_field widget-admin_page_chooser fieldname-test_pagechooserblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_adapt_with_target_model_string(self):
@@ -3649,7 +3682,9 @@ class TestDateBlock(TestCase):
             'label': 'Test dateblock',
             'required': True,
             'icon': 'date',
-            'classname': 'field date_field widget-admin_date_input fieldname-test_dateblock'
+            'classname': 'field date_field widget-admin_date_input fieldname-test_dateblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_adapt_with_format(self):
@@ -3678,7 +3713,9 @@ class TestTimeBlock(TestCase):
             'label': 'Test timeblock',
             'required': True,
             'icon': 'time',
-            'classname': 'field time_field widget-admin_time_input fieldname-test_timeblock'
+            'classname': 'field time_field widget-admin_time_input fieldname-test_timeblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_adapt_with_format(self):
@@ -3707,7 +3744,9 @@ class TestDateTimeBlock(TestCase):
             'label': 'Test datetimeblock',
             'required': True,
             'icon': 'date',
-            'classname': 'field date_time_field widget-admin_date_time_input fieldname-test_datetimeblock'
+            'classname': 'field date_time_field widget-admin_date_time_input fieldname-test_datetimeblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
         })
 
     def test_adapt_with_format(self):
