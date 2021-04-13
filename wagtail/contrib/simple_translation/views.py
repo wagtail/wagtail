@@ -64,7 +64,7 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
                     else:
                         self.object.copy_for_translation(
                             locale
-                        ).save()  # pragma: no cover  # TODO snippet trans.
+                        ).save()  # pragma: no cover
 
                 if len(form.cleaned_data["locales"]) == 1:
                     locales = form.cleaned_data["locales"][0].get_display_name()
