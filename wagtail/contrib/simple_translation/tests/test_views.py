@@ -57,7 +57,7 @@ class TestSubmitTranslationView(WagtailTestUtils, TestCase):
         self.assertIsInstance(form, SubmitTranslationForm)
 
     def test_get_success_url(self):
-        with self.assertRaises(NotImplementedError, None):
+        with self.assertRaises(NotImplementedError):
             view = SubmitTranslationView()
             view.object = self.en_homepage
             view.get_success_url()
