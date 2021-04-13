@@ -68,7 +68,7 @@ class TestWagtailHooksButtons(Utils):
     def test_page_listing_more_buttons(self):
         # Root, no button
         root_page = self.en_blog_index.get_root()
-        user = get_user_model().objects.create(username="jos")
+        user = get_user_model().objects.create_user(username="jos")
         assert list(page_listing_more_buttons(root_page, self.PagePerms(user))) == []
 
         # No permissions, no button
@@ -77,7 +77,7 @@ class TestWagtailHooksButtons(Utils):
 
         # Homepage is translated to all languages, no button
         perm = Permission.objects.get(codename="submit_translation")
-        user = get_user_model().objects.create(
+        user = get_user_model().objects.create_user(
             username="henk"
         )
         # New user, to prevent permission cache.
