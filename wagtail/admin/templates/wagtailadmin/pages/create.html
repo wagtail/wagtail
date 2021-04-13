@@ -106,6 +106,9 @@
         $(function(){
             $('#page-edit-form .tab-content section.active input').first().trigger('focus');
 
+            // Enable comments
+            const commentApp = window.comments.initComments(document.getElementById('page-edit-form'));
+
             /* Make user confirm before leaving the editor if there are unsaved changes */
             {% trans "This page has unsaved changes." as confirmation_message %}
             enableDirtyFormCheck(
@@ -116,13 +119,13 @@
                     {% if has_unsaved_changes %}
                         alwaysDirty: true,
                     {% endif %}
-                    commentApp: window.commentApp,
+                    commentApp: commentApp,
                     callback: window.updateFooterSaveWarning
                 }
             );
 
-            // Enable tabbing of comments
-            window.comments.attachTabNav(document.querySelector('.tab-nav'));
+            // Enable comments
+            window.comments.initComments(document.getElementById('page-edit-form'));
         });
     </script>
 {% endblock %}

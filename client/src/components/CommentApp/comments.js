@@ -1,29 +1,35 @@
 import { initCommentApp } from './main';
 import { STRINGS } from '../../config/wagtailConfig';
 
-function initComments() {
+function initComments(formElem) {
   window.commentApp = initCommentApp();
-  document.addEventListener('DOMContentLoaded', () => {
-    const commentsElement = document.getElementById('comments');
-    const commentsOutputElement = document.getElementById('comments-output');
-    const dataElement = document.getElementById('comments-data');
-    if (!commentsElement || !commentsOutputElement || !dataElement) {
-      throw new Error('Comments app failed to initialise. Missing HTML element');
-    }
-    const data = JSON.parse(dataElement.textContent);
-    window.commentApp.renderApp(
-      commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS
-    );
-  });
-}
 
-function attachTabNav(tabNavElem) {
-  // Attaches the commenting app to the given tab navigation element
-  window.commentApp.setCurrentTab(tabNavElem.dataset.currentTab);
+  // Attach the tab navigation, if the form has it
+  const tabNavElem = formElem.querySelector('.tab-nav');
+  if (tabNavElem) {
+    window.commentApp.setCurrentTab(tabNavElem.dataset.currentTab);
+    tabNavElem.addEventListener('switch', (e) => {
+      window.commentApp.setCurrentTab(e.detail.tab);
+    });
+  }
 
-  tabNavElem.addEventListener('switch', (e) => {
-    window.commentApp.setCurrentTab(e.detail.tab);
-  });
+  // Render the comments overlay
+  const commentsElement = document.getElementById('comments');
+  const commentsOutputElement = document.getElementById('comments-output');
+  const dataElement = document.getElementById('comments-data');
+  if (!commentsElement || !commentsOutputElement || !dataElement) {
+    throw new Error('Comments app failed to initialise. Missing HTML element');
+  }
+  const data = JSON.parse(dataElement.textContent);
+  window.commentApp.renderApp(
+    commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS
+  );
+
+  // Initialise annotations
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  formElem.querySelectorAll('[data-comment-add]').forEach(initAddCommentButton);
+
+  return window.commentApp;
 }
 
 export function getContentPath(fieldNode) {
@@ -245,5 +251,4 @@ export function initAddCommentButton(buttonElement) {
 export default {
   getContentPath,
   initComments,
-  attachTabNav,
 };

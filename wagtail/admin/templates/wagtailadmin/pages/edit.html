@@ -153,6 +153,9 @@
             });
             {% endif %}
 
+            // Enable comments
+            const commentApp = window.comments.initComments(document.getElementById('page-edit-form'));
+
             /* Make user confirm before leaving the editor if there are unsaved changes */
             {% trans "This page has unsaved changes." as confirmation_message %}
             enableDirtyFormCheck(
@@ -164,7 +167,7 @@
                         alwaysDirty: true,
                     {% endif %}
 
-                    commentApp: window.commentApp,
+                    commentApp: commentApp,
                     callback: window.updateFooterSaveWarning
                 }
             );
@@ -181,9 +184,6 @@
 
             ActivateWorkflowActionsForEditView('#page-edit-form');
             LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}');
-
-            // Enable tabbing of comments
-            window.comments.attachTabNav(document.querySelector('.tab-nav'));
         });
     </script>
 {% endblock %}
