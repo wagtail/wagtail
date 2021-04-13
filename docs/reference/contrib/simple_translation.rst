@@ -26,6 +26,4 @@ Add ``"wagtail.contrib.simple_translation"`` to INSTALLED_APPS in your settings 
       "wagtail.contrib.simple_translation",
   ]
 
-Run ``python manage.py migrate`` to create the necessary permissions.
-
 In the Wagtail admin, go to settings and give some users or groups the "Can submit translations" permission.
