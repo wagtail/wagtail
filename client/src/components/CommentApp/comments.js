@@ -29,6 +29,40 @@ function initComments(formElem) {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   formElem.querySelectorAll('[data-comment-add]').forEach(initAddCommentButton);
 
+  // Initialise comments toggle
+  const commentsToggleElem = formElem.querySelector('.comments-toggle input[type=checkbox]');
+  const commentNotificationsToggleElem = formElem.querySelector('.comment-notifications-toggle');
+  const tabContentElem = formElem.querySelector('.tab-content');
+  commentsToggleElem.addEventListener('change', (e) => {
+    // Show/hide comments
+    window.commentApp.setVisible(e.target.checked);
+
+    // Show/hide comment notifications toggle
+    // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
+    if (e.target.checked) {
+      $(commentNotificationsToggleElem).show();
+      tabContentElem.classList.add('tab-content--comments-enabled');
+    } else {
+      $(commentNotificationsToggleElem).hide();
+      tabContentElem.classList.remove('tab-content--comments-enabled');
+    }
+  });
+
+  // Keep number of comments up to date with comment app
+  const commentCountElem = formElem.querySelector('.comments-toggle__count');
+  const updateCommentCount = () => {
+    const commentCount = window.commentApp.selectors.selectCommentCount(window.commentApp.store.getState());
+
+    if (commentCount > 0) {
+      commentCountElem.innerText = commentCount.toString();
+    } else {
+      // Note: CSS will hide the circle when its content is empty
+      commentCountElem.innerText = '';
+    }
+  };
+  window.commentApp.store.subscribe(updateCommentCount);
+  updateCommentCount();
+
   return window.commentApp;
 }
 
