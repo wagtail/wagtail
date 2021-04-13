@@ -312,9 +312,16 @@ export function initAddCommentButton(buttonElement, skipDoubleInitialisedCheck =
   }
 }
 
+function invalidateContentPath(contentPath) {
+  if (window.commentApp) {
+    window.commentApp.invalidateContentPath(contentPath);
+  }
+}
+
 export default {
   getContentPath,
   initComments,
   addOnInitCommentAppListener,
   initAddCommentButton,
+  invalidateContentPath,
 };
