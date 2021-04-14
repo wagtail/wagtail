@@ -5,6 +5,10 @@ import { StaticBlockDefinition } from './StaticBlock';
 import $ from 'jquery';
 window.$ = $;
 
+window.comments = {
+  getContentPath: jest.fn(),
+};
+
 describe('telepath: wagtail.blocks.StaticBlock', () => {
   let boundBlock;
 

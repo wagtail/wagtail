@@ -2,6 +2,10 @@ window.$ = require('../../../../wagtail/admin/static_src/wagtailadmin/js/vendor/
 // eslint-disable-next-line no-unused-expressions
 require('../../../../wagtail/admin/static_src/wagtailadmin/js/vendor/urlify').default;
 
+window.comments = {
+  getContentPath: jest.fn(),
+};
+
 const cleanForSlug = require('./page-editor').cleanForSlug;
 
 describe('page-editor tests', () => {
