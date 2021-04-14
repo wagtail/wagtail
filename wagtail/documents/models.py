@@ -207,7 +207,8 @@ class Document(AbstractDocument):
         ]
 
 
-document_served = Signal(providing_args=['request'])
+# provides args: request
+document_served = Signal()
 
 
 class UploadedDocument(models.Model):
