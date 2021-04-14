@@ -381,7 +381,7 @@ $(() => {
   // Comments toggle
   $('.comments-toggle input[type=checkbox]').change((e) => {
     // Show/hide comments
-    window.commentApp.setVisible(e.target.checked);
+    window.comments.commentApp.setVisible(e.target.checked);
 
     // Show/hide comment notifications toggle
     // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
@@ -396,7 +396,7 @@ $(() => {
 
   // Keep number of comments up to date with comment app
   const updateCommentCount = () => {
-    const commentCount = window.commentApp.selectors.selectCommentCount(window.commentApp.store.getState());
+    const commentCount = window.comments.commentApp.selectors.selectCommentCount(window.comments.commentApp.store.getState());
 
     if (commentCount > 0) {
       $('.comments-toggle__count').text(commentCount);
@@ -405,7 +405,7 @@ $(() => {
       $('.comments-toggle__count').text('');
     }
   };
-  window.commentApp.store.subscribe(updateCommentCount);
+  window.comments.commentApp.store.subscribe(updateCommentCount);
   updateCommentCount();
 });
 

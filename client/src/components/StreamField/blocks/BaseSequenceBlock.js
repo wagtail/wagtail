@@ -129,8 +129,8 @@ export class BaseSequenceChild {
     // Inform the comment app that the content path of this block is no longer valid
     // This will hide any comments that were previously on the block
     const contentPath = getContentPath(this.element);
-    if (contentPath && window.commentApp) {
-      window.commentApp.invalidateContentPath(contentPath);
+    if (contentPath && window.comments.commentApp) {
+      window.comments.commentApp.invalidateContentPath(contentPath);
     }
   }
 
