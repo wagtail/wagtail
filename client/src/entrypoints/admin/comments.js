@@ -240,6 +240,40 @@ window.comments = (() => {
         commentApp.setCurrentTab(e.detail.tab);
       });
     }
+
+    // Comments toggle
+    const commentToggle = formElement.querySelector('.comments-toggle input[type=checkbox]');
+    const commentNotificationsToggle = formElement.querySelector('.comment-notifications-toggle');
+    const tabContentElement = formElement.querySelector('.tab-content');
+    commentToggle.addEventListener('change', (e) => {
+      // Show/hide comments
+      commentApp.setVisible(e.target.checked);
+
+      // Show/hide comment notifications toggle
+      // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
+      if (e.target.checked) {
+        $(commentNotificationsToggle).show();
+        tabContentElement.classList.add('tab-content--comments-enabled');
+      } else {
+        $(commentNotificationsToggle).hide();
+        tabContentElement.classList.remove('tab-content--comments-enabled');
+      }
+    });
+
+    // Keep number of comments up to date with comment app
+    const commentCounter = formElement.querySelector('.comments-toggle__count');
+    const updateCommentCount = () => {
+      const commentCount = commentApp.selectors.selectCommentCount(commentApp.store.getState());
+
+      if (commentCount > 0) {
+        commentCounter.innerText = commentCount.toString();
+      } else {
+        // Note: CSS will hide the circle when its content is empty
+        commentCounter.innerText = '';
+      }
+    };
+    commentApp.store.subscribe(updateCommentCount);
+    updateCommentCount();
   }
 
   return {
