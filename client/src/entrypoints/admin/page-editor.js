@@ -377,36 +377,6 @@ $(() => {
         $icon.addClass('icon-view').removeClass('icon-spinner');
       });
   });
-
-  // Comments toggle
-  $('.comments-toggle input[type=checkbox]').change((e) => {
-    // Show/hide comments
-    window.comments.commentApp.setVisible(e.target.checked);
-
-    // Show/hide comment notifications toggle
-    // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
-    if (e.target.checked) {
-      $('.comment-notifications-toggle').show();
-      $('.tab-content').addClass('tab-content--comments-enabled');
-    } else {
-      $('.comment-notifications-toggle').hide();
-      $('.tab-content').removeClass('tab-content--comments-enabled');
-    }
-  });
-
-  // Keep number of comments up to date with comment app
-  const updateCommentCount = () => {
-    const commentCount = window.comments.commentApp.selectors.selectCommentCount(window.comments.commentApp.store.getState());
-
-    if (commentCount > 0) {
-      $('.comments-toggle__count').text(commentCount);
-    } else {
-      // Note: CSS will hide the circle when its content is empty
-      $('.comments-toggle__count').text('');
-    }
-  };
-  window.comments.commentApp.store.subscribe(updateCommentCount);
-  updateCommentCount();
 });
 
 let updateFooterTextTimeout = -1;
