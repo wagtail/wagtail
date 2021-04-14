@@ -6,6 +6,10 @@ import './widgets';
 import $ from 'jquery';
 window.$ = $;
 
+window.comments = {
+  getContentPath: jest.fn(),
+};
+
 describe('telepath: wagtail.widgets.Widget', () => {
   let boundWidget;
 

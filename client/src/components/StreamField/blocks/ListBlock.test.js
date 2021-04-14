@@ -6,6 +6,10 @@ import { ListBlockDefinition } from './ListBlock';
 import $ from 'jquery';
 window.$ = $;
 
+window.comments = {
+  getContentPath: jest.fn(),
+};
+
 // Define some callbacks in global scope that can be mocked in tests
 let constructor = (_widgetName, _name, _id, _initialState) => {};
 let setState = (_widgetName, _state) => {};
