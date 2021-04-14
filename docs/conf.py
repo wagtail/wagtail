@@ -80,7 +80,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Wagtail Documentation'
-copyright = '{year:d}, Torchbox'.format(year=datetime.now().year)
+copyright = f'{datetime.now().year}, Torchbox and contributors'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
