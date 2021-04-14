@@ -21,10 +21,9 @@ This document describes how to configure Wagtail for authoring content in
 multiple languages.
 
 .. note::
-    Wagtail provides the infrastructure for creating and serving content in multiple languages,
-    but does not itself provide an admin interface for managing translations of the same content
-    across different languages. For this, the `wagtail-localize <https://github.com/wagtail/wagtail-localize>`_
-    app must be installed separately.
+    Wagtail provides the infrastructure for creating and serving content in multiple languages.
+    There are two options for managing translations across different languages in the admin interface:
+    :ref:`wagtail.contrib.simple_translation<simple_translation>` or the more advanced `wagtail-localize <https://github.com/wagtail/wagtail-localize>`_ (third-party package).
 
 This document only covers the internationalisation of content managed by Wagtail.
 For information on how to translate static content in template files, JavaScript
@@ -611,9 +610,22 @@ data migration).
 Translation workflow
 --------------------
 
-As mentioned at the beginning, Wagtail does not supply any built-in user interface
-or external integration that provides a translation workflow. This has been left
-for third-party packages to solve.
+As mentioned at the beginning, Wagtail does supply ``wagtail.contrib.simple_translation``.
+
+The simple_translation module provides a user interface that allows users to copy pages and translatable snippets into another language.
+
+- Copies are created in the source language (not translated)
+- Copies of pages are in draft status
+
+Content editors need to translate the content and publish the pages.
+
+To enable add ``"wagtail.contrib.simple_translation"`` to ``INSTALLED_APPS``
+and run ``python manage.py migrate`` to create the ``submit_translation`` permissions.
+In the Wagtail admin, go to settings and give some users or groups the "Can submit translations" permission.
+
+.. note::
+   Simple Translation is optional. It can be switched out by third-party packages. Like the more advanced `wagtail-localize <https://github.com/wagtail/wagtail-localize>`_.
+
 
 Wagtail Localize
 ^^^^^^^^^^^^^^^^
