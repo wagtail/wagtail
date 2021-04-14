@@ -127,11 +127,11 @@ const initEditor = (selector, options, currentScript) => {
 
   // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -
   // and the comments system is initialized then use CommentableEditor, otherwise plain DraftailEditor
-  const editor = (window.commentApp && contentPath !== '') ?
-    <Provider store={window.commentApp.store}>
+  const editor = (window.comments.commentApp && contentPath !== '') ?
+    <Provider store={window.comments.commentApp.store}>
       <CommentableEditor
         editorRef={editorRef}
-        commentApp={window.commentApp}
+        commentApp={window.comments.commentApp}
         fieldNode={field.parentNode}
         contentPath={contentPath}
         colorConfig={colors}
