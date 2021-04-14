@@ -18,8 +18,6 @@ import TooltipEntity from './decorators/TooltipEntity';
 import EditorFallback from './EditorFallback/EditorFallback';
 import CommentableEditor from './CommentableEditor/CommentableEditor';
 
-import comments from '../CommentApp/comments';
-
 // 1024x1024 SVG path rendering of the "↵" character, that renders badly in MS Edge.
 const BR_ICON = 'M.436 633.471l296.897-296.898v241.823h616.586V94.117h109.517v593.796H297.333v242.456z';
 
@@ -116,7 +114,7 @@ const initEditor = (selector, options, currentScript) => {
     enableHorizontalRule
   };
 
-  const contentPath = comments.getContentPath(field);
+  const contentPath = window.comments.getContentPath(field);
 
   const styles = getComputedStyle(document.documentElement);
   const colors = {

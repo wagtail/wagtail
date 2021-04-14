@@ -6,6 +6,10 @@ import draftail, {
   EmbedBlock,
 } from './index';
 
+window.comments = {
+  getContentPath: jest.fn(),
+};
+
 describe('Draftail', () => {
   describe('#initEditor', () => {
     beforeEach(() => {
