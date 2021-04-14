@@ -349,7 +349,7 @@ export class CommentApp {
           // Running store.dispatch directly here seems to prevent the event from being handled anywhere else
           setTimeout(() => {
             this.store.dispatch(setFocusedComment(null, { updatePinnedComment: true }));
-          }, 1);
+          }, 200);
         }
       }
     });
