@@ -13,6 +13,7 @@ import {
   ContentState,
   DraftInlineStyle,
   EditorState,
+  KeyBindingUtil,
   Modifier,
   RawDraftContentState,
   RichUtils,
@@ -26,7 +27,13 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { STRINGS } from '../../../config/wagtailConfig';
 import Icon from '../../Icon/Icon';
 
+const { isOptionKeyCommand } = KeyBindingUtil;
+
 const COMMENT_STYLE_IDENTIFIER = 'COMMENT-';
+
+// Hack taken from https://github.com/springload/draftail/blob/main/lib/api/behavior.js#L30
+// Can be replaced with usesMacOSHeuristics once we upgrade draft-js
+const IS_MAC_OS = isOptionKeyCommand({ altKey: true } as any) === true;
 
 function usePrevious<Type>(value: Type) {
   const ref = useRef(value);
@@ -170,6 +177,20 @@ function getFullSelectionState(contentState: ContentState) {
   });
 }
 
+function addNewComment(editorState: EditorState, fieldNode: Element, commentApp: CommentApp, contentPath: string) {
+  const annotation = new DraftailInlineAnnotation(fieldNode);
+  const commentId = commentApp.makeComment(annotation, contentPath, '[]');
+  return (
+    EditorState.acceptSelection(
+      RichUtils.toggleInlineStyle(
+        editorState,
+        `${COMMENT_STYLE_IDENTIFIER}${commentId}`
+      ),
+      editorState.getSelection()
+    )
+  );
+}
+
 interface ControlProps {
   getEditorState: () => EditorState,
   onChange: (editorState: EditorState) => void
@@ -181,20 +202,11 @@ function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNod
       <ToolbarButton
         name="comment"
         active={false}
-        title={STRINGS.ADD_A_COMMENT}
+        title={`${STRINGS.ADD_A_COMMENT}\n${IS_MAC_OS ? '⌘ + Alt + M' : 'Ctrl + Alt + M'}`}
         icon={<Icon name="comment" />}
         onClick={() => {
-          const annotation = new DraftailInlineAnnotation(fieldNode);
-          const commentId = commentApp.makeComment(annotation, contentPath, '[]');
-          const editorState = getEditorState();
           onChange(
-            EditorState.acceptSelection(
-              RichUtils.toggleInlineStyle(
-                editorState,
-                `${COMMENT_STYLE_IDENTIFIER}${commentId}`
-              ),
-              editorState.getSelection()
-            )
+            addNewComment(getEditorState(), fieldNode, commentApp, contentPath)
           );
         }}
       />
@@ -291,10 +303,17 @@ export function updateCommentPositions({ editorState, comments, commentApp }:
   });
 }
 
+/**
+ * Given a contentBlock and offset within it, find the id of the comment at that offset which
+ * has the fewest style ranges within the block, or null if no comment exists at the offset
+ */
 export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
   const styles = block.getInlineStyleAt(offset).filter(styleIsComment) as Immutable.OrderedSet<string>;
   let styleToUse: string;
-  if (styles.count() > 1) {
+  const styleCount = styles.count();
+  if (styleCount === 0) {
+    return null;
+  } else if (styleCount > 1) {
     // We're dealing with overlapping comments.
     // Find the least frequently occurring style and use that - this isn't foolproof, but in
     // most cases should ensure that all comments have at least one clickable section. This
@@ -349,6 +368,9 @@ function getCommentDecorator(commentApp: CommentApp) {
     useEffect(() => {
       // Add a ref to the annotation, allowing the comment to float alongside the attached text.
       // This adds rather than sets the ref, so that a comment may be attached across paragraphs or around entities
+      if (!commentId) {
+        return;
+      }
       const annotation = commentApp.layout.commentAnnotations.get(commentId);
       if (annotation && annotation instanceof DraftailInlineAnnotation) {
         annotation.addDecoratorRef(annotationNode, blockKey);
@@ -358,6 +380,9 @@ function getCommentDecorator(commentApp: CommentApp) {
     }, [commentId, annotationNode, blockKey]);
     const onClick = () => {
       // Ensure the comment will appear alongside the current block
+      if (!commentId) {
+        return;
+      }
       const annotation = commentApp.layout.commentAnnotations.get(commentId);
       if (annotation && annotation instanceof DraftailInlineAnnotation  && annotationNode) {
         annotation.setFocusedBlockKey(blockKey);
@@ -606,6 +631,31 @@ function CommentableEditor({
       }
       inlineStyles={inlineStyles.concat(commentStyles)}
       plugins={enabled ? [{
+        keyBindingFn: (e: React.KeyboardEvent) => {
+          if ((e.metaKey || e.ctrlKey) && e.altKey && e.key.toLowerCase() === 'm') {
+            return 'comment';
+          }
+          return undefined;
+        },
+        handleKeyCommand: (command: string, state: EditorState) => {
+          if (enabled && command === 'comment') {
+            const selection = state.getSelection();
+            const content = state.getCurrentContent();
+            if (selection.isCollapsed()) {
+              // We might be trying to focus an existing comment - check if we're in a comment range
+              const id = findLeastCommonCommentId(content.getBlockForKey(selection.getAnchorKey()), selection.getAnchorOffset());
+              if (id) {
+                // Focus the comment
+                commentApp.store.dispatch(commentApp.actions.setFocusedComment(id, { updatePinnedComment: true }));
+                return 'handled';
+              }
+            }
+            // Otherwise, add a new comment
+            setEditorState(addNewComment(state, fieldNode, commentApp, contentPath));
+            return 'handled';
+          }
+          return 'not-handled';
+        },
         customStyleFn: (styleSet: DraftInlineStyle) => {
           // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
           // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
