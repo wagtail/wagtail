@@ -7,31 +7,6 @@ import { STRINGS } from '../../config/wagtailConfig';
 window.comments = (() => {
   const commentApp = initCommentApp();
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const commentsElement = document.getElementById('comments');
-    const commentsOutputElement = document.getElementById('comments-output');
-    const dataElement = document.getElementById('comments-data');
-    if (!commentsElement || !commentsOutputElement || !dataElement) {
-      throw new Error('Comments app failed to initialise. Missing HTML element');
-    }
-    const data = JSON.parse(dataElement.textContent);
-    commentApp.renderApp(
-      commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS
-    );
-
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    document.querySelectorAll('[data-component="add-comment-button"]').forEach(initAddCommentButton);
-  });
-
-  function attachTabNav(tabNavElem) {
-    // Attaches the commenting app to the given tab navigation element
-    commentApp.setCurrentTab(tabNavElem.dataset.currentTab);
-
-    tabNavElem.addEventListener('switch', (e) => {
-      commentApp.setCurrentTab(e.detail.tab);
-    });
-  }
-
   function getContentPath(fieldNode) {
     // Return the total contentpath for an element as a string, in the form field.streamfield_uid.block...
     if (fieldNode.closest('data-contentpath-disabled')) {
@@ -243,10 +218,34 @@ window.comments = (() => {
     }
   }
 
+  function initCommentsInterface(formElement) {
+    const commentsElement = document.getElementById('comments');
+    const commentsOutputElement = document.getElementById('comments-output');
+    const dataElement = document.getElementById('comments-data');
+    if (!commentsElement || !commentsOutputElement || !dataElement) {
+      throw new Error('Comments app failed to initialise. Missing HTML element');
+    }
+    const data = JSON.parse(dataElement.textContent);
+    commentApp.renderApp(
+      commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS
+    );
+
+    formElement.querySelectorAll('[data-component="add-comment-button"]').forEach(initAddCommentButton);
+
+    // Attach the commenting app to the tab navigation, if it exists
+    const tabNavElement = formElement.querySelector('.tab-nav');
+    if (tabNavElement) {
+      commentApp.setCurrentTab(tabNavElement.dataset.currentTab);
+      tabNavElement.addEventListener('switch', (e) => {
+        commentApp.setCurrentTab(e.detail.tab);
+      });
+    }
+  }
+
   return {
     commentApp,
     getContentPath,
-    attachTabNav,
     initAddCommentButton,
+    initCommentsInterface,
   };
 })();

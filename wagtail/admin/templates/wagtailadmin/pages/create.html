@@ -121,8 +121,8 @@
                 }
             );
 
-            // Enable tabbing of comments
-            window.comments.attachTabNav(document.querySelector('.tab-nav'));
+            // Initialise comments UI
+            window.comments.initCommentsInterface(document.getElementById('page-edit-form'));
         });
     </script>
 {% endblock %}
