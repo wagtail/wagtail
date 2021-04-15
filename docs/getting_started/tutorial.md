@@ -205,7 +205,7 @@ of a `RichTextField`:
 
 Produces:
 
-``` {.html}
+```html
 <p>
     <b>Welcome</b> to our new site!
 </p>

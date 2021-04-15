@@ -1210,6 +1210,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         By default, references to all non-field attribute values are copied
         from current object to the returned one. This includes:
+
         * Values set by a queryset, for example: annotations, or values set as
           a result of using ``select_related()`` or ``prefetch_related()``.
         * Any ``cached_property`` values that have been evaluated.
