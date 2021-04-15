@@ -17,6 +17,14 @@ The StreamField editing interface has been rebuilt on a client-side rendering mo
 
 This feature was developed by Matt Westcott and Karl Hobley and sponsored by `YouGov <https://yougov.co.uk/>`_, inspired by earlier work on `react-streamfield <https://github.com/wagtail/wagtail-react-streamfield>`_ completed by Bertrand Bordage through the `Wagtail's First Hatch <https://www.kickstarter.com/projects/noripyt/wagtails-first-hatch>`_ crowdfunder.
 
+Simple translation module
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In Wagtail 2.12 we shipped the new localisation support, but in order to translate content an external library had to be used, such as `wagtail-localize <https://www.wagtail-localize.org>`_.
+
+In this release, a new contrib app has been introduced called :doc:`simple_translation </reference/contrib/simple_translation>`. This allows you to create copies of pages and translatable snippets in other languages and translate them as regular Wagtail pages. It does not include any more advanced translation features such as using external services, PO files, or an interface that helps keep translations in sync with the original language.
+
+This module was contributed by Coen van der Kamp.
 
 Other features
 ~~~~~~~~~~~~~~
