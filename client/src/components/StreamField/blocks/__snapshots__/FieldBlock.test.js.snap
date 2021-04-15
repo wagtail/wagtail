@@ -29,6 +29,6 @@ exports[`telepath: wagtail.blocks.FieldBlock with comments enabled it renders co
             <p name=\\"the-prefix\\" id=\\"the-prefix\\">The widget</p>
             <span></span>
           </div>
-        <p class=\\"help\\">drink <em>more</em> water</p><button type=\\"button\\" aria-label=\\"Add Comment\\" class=\\"button button-secondary button-small\\"><svg class=\\"icon icon-comment initial\\" aria-hidden=\\"true\\" focusable=\\"false\\"><use href=\\"#icon-comment\\"></use></svg></button></div>
+        <p class=\\"help\\">drink <em>more</em> water</p><button type=\\"button\\" aria-label=\\"Add Comment\\" class=\\"button button-secondary button-small u-hidden\\"><svg class=\\"icon icon-comment initial\\" aria-hidden=\\"true\\" focusable=\\"false\\"><use href=\\"#icon-comment\\"></use></svg></button></div>
       </div>"
 `;
