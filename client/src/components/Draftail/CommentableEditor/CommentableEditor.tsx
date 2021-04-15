@@ -392,6 +392,7 @@ function getCommentDecorator(commentApp: CommentApp) {
       commentApp.store.dispatch(
         commentApp.actions.setFocusedComment(commentId, {
           updatePinnedComment: true,
+          forceFocus: false
         })
       );
     };
@@ -646,7 +647,7 @@ function CommentableEditor({
               const id = findLeastCommonCommentId(content.getBlockForKey(selection.getAnchorKey()), selection.getAnchorOffset());
               if (id) {
                 // Focus the comment
-                commentApp.store.dispatch(commentApp.actions.setFocusedComment(id, { updatePinnedComment: true }));
+                commentApp.store.dispatch(commentApp.actions.setFocusedComment(id, { updatePinnedComment: true, forceFocus: true }));
                 return 'handled';
               }
             }

@@ -1,5 +1,6 @@
 import React, { MutableRefObject } from 'react';
 import ReactDOM from 'react-dom';
+import FocusTrap from 'focus-trap-react';
 
 import type { Store } from '../../state';
 import { Author, Comment, newCommentReply } from '../../state/comments';
@@ -76,6 +77,7 @@ export interface CommentProps {
   store: Store;
   comment: Comment;
   isFocused: boolean;
+  forceFocus: boolean;
   isVisible: boolean;
   layout: LayoutController;
   user: Author | null;
@@ -530,11 +532,11 @@ export default class CommentComponent extends React.Component<CommentProps> {
     }
 
     const onClick = () => {
-      this.props.store.dispatch(setFocusedComment(this.props.comment.localId));
+      this.props.store.dispatch(setFocusedComment(this.props.comment.localId, { updatePinnedComment: false, forceFocus: true }));
     };
 
     const onDoubleClick = () => {
-      this.props.store.dispatch(setFocusedComment(this.props.comment.localId, { updatePinnedComment: true }));
+      this.props.store.dispatch(setFocusedComment(this.props.comment.localId, { updatePinnedComment: true, forceFocus: true }));
     };
 
     const top = this.props.layout.getCommentPosition(
@@ -542,7 +544,17 @@ export default class CommentComponent extends React.Component<CommentProps> {
     );
     const right = this.props.isFocused ? 50 : 0;
     return (
-      <li
+      <FocusTrap
+        focusTrapOptions={{
+          preventScroll: true,
+          clickOutsideDeactivates: true,
+          onDeactivate: () => {this.props.store.dispatch(setFocusedComment(null, { updatePinnedComment: true, forceFocus: false }))},
+          initialFocus: '[data-comment-id]'
+        } as any}
+        active={this.props.isFocused && this.props.forceFocus}
+      >
+        <li
+        tabIndex={-1}
         key={this.props.comment.localId}
         className={`comment comment--mode-${this.props.comment.mode} ${this.props.isFocused ? 'comment--focused' : ''}`}
         style={{
@@ -557,6 +569,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       >
         {inner}
       </li>
+      </FocusTrap>
     );
   }
 

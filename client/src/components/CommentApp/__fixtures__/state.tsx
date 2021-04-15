@@ -65,6 +65,7 @@ const localComment: Comment = {
 
 export const basicCommentsState: CommentsState = {
   focusedComment: 1,
+  forceFocus: false,
   pinnedComment: 1,
   remoteCommentCount: 1,
   comments: new Map([[remoteComment.localId, remoteComment], [localComment.localId, localComment]]),

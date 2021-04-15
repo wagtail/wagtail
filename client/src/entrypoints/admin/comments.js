@@ -109,7 +109,7 @@ window.comments = (() => {
     setOnClickHandler(localId) {
       this.node.addEventListener('click', () => {
         commentApp.store.dispatch(
-          commentApp.actions.setFocusedComment(localId, { updatePinnedComment: true })
+          commentApp.actions.setFocusedComment(localId, { updatePinnedComment: true, forceFocus: true })
         );
       });
     }
