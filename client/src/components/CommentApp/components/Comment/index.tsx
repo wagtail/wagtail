@@ -1,4 +1,4 @@
-import React, { MutableRefObject } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import FocusTrap from 'focus-trap-react';
 
@@ -85,13 +85,6 @@ export interface CommentProps {
 }
 
 export default class CommentComponent extends React.Component<CommentProps> {
-  focusTargetRef: MutableRefObject<HTMLTextAreaElement | null>
-  focusTimeoutId: number | undefined
-
-  constructor(props: CommentProps) {
-    super(props);
-    this.focusTargetRef = React.createRef();
-  }
   renderReplies({ hideNewReply = false } = {}): React.ReactFragment {
     const { comment, isFocused, store, user, strings } = this.props;
 
@@ -198,7 +191,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderCreating(): React.ReactFragment {
-    const { comment, store, strings } = this.props;
+    const { comment, store, strings, isFocused } = this.props;
 
     const onChangeText = (value: string) => {
       store.dispatch(
@@ -224,7 +217,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader commentReply={comment} store={store} strings={strings} />
         <form onSubmit={onSave}>
           <TextArea
-            ref={this.focusTargetRef}
+            focusTarget={isFocused}
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
@@ -251,7 +244,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderEditing(): React.ReactFragment {
-    const { comment, store, strings } = this.props;
+    const { comment, store, strings, isFocused } = this.props;
 
     const onChangeText = (value: string) => {
       store.dispatch(
@@ -283,7 +276,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader commentReply={comment} store={store} strings={strings} />
         <form onSubmit={onSave}>
           <TextArea
-            ref={this.focusTargetRef}
+            focusTarget={isFocused}
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
@@ -549,12 +542,13 @@ export default class CommentComponent extends React.Component<CommentProps> {
           preventScroll: true,
           clickOutsideDeactivates: true,
           onDeactivate: () => {this.props.store.dispatch(setFocusedComment(null, { updatePinnedComment: true, forceFocus: false }))},
-          initialFocus: '[data-comment-id]'
-        } as any}
+          initialFocus: '[data-focus-target="true"]',
+        } as any} // For some reason, the types for FocusTrap props don't yet include preventScroll. Remove casting when fixed.
         active={this.props.isFocused && this.props.forceFocus}
       >
         <li
         tabIndex={-1}
+        data-focus-target={this.props.isFocused && !['creating', 'editing'].includes(this.props.comment.mode)}
         key={this.props.comment.localId}
         className={`comment comment--mode-${this.props.comment.mode} ${this.props.isFocused ? 'comment--focused' : ''}`}
         style={{
@@ -577,18 +571,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
     const element = ReactDOM.findDOMNode(this);
 
     if (element instanceof HTMLElement) {
-      // If this is a new comment, focus in the edit box
-      if (this.props.comment.mode === 'creating') {
-        clearTimeout(this.focusTimeoutId);
-        this.focusTimeoutId = setTimeout(
-          () => {
-            if (this.focusTargetRef.current) {
-              this.focusTargetRef.current.focus();
-            }
-          }
-          , 10);
-      }
-
       this.props.layout.setCommentElement(this.props.comment.localId, element);
 
       if (this.props.isVisible) {
@@ -601,7 +583,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.focusTimeoutId);
     this.props.layout.setCommentElement(this.props.comment.localId, null);
   }
 
