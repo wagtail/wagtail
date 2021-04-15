@@ -209,7 +209,7 @@ window.comments = (() => {
 
   function initAddCommentButton(buttonElement, skipDoubleInitialisedCheck = false) {
     const widget = new FieldLevelCommentWidget({
-      fieldNode: buttonElement,
+      fieldNode: buttonElement.closest('[data-contentpath]'),
       commentAdditionNode: buttonElement,
       annotationTemplateNode: document.querySelector('#comment-icon'),
     });
