@@ -42,10 +42,8 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
             'page' (if view = 'edit' or 'revisions_revert') = the page being edited
             'parent_page' (if view = 'create') = the parent page of the page being created
             'user_page_permissions' = a UserPagePermissionsProxy for the current user, to test permissions against
-        and might containing:
-            'user_page_permissions_tester' = a PagePermissionTester for the current user and the current page
-        P.S.: 'user_page_permissions_tester' from context will use existing
-            PagePermissionTester and save few or more db queries
+            may also contain:
+            'user_page_permissions_tester' = a PagePermissionTester for the current user and page
         """
         return (
             context['view'] == 'create'
