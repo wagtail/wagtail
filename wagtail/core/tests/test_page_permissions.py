@@ -614,7 +614,7 @@ class TestPagePermission(TestCase):
 
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
-        self.assertFalse(perms.page_locked)
+        self.assertFalse(perms.page_locked())
 
     def test_page_locked_for_locked_page(self):
         user = get_user_model().objects.get(email='eventmoderator@example.com')
@@ -629,12 +629,12 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         # The user who locked the page shouldn't see the page as locked
-        self.assertFalse(perms.page_locked)
+        self.assertFalse(perms.page_locked())
 
         # Other users should see the page as locked
         other_user = get_user_model().objects.get(email='eventeditor@example.com')
         other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
-        self.assertTrue(other_perms.page_locked)
+        self.assertTrue(other_perms.page_locked())
 
     @override_settings(WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK=True)
     def test_page_locked_for_locked_page_with_global_lock_enabled(self):
@@ -650,12 +650,12 @@ class TestPagePermission(TestCase):
         perms = UserPagePermissionsProxy(user).for_page(christmas_page)
 
         # The user who locked the page should now also see the page as locked
-        self.assertTrue(perms.page_locked)
+        self.assertTrue(perms.page_locked())
 
         # Other users should see the page as locked, like before
         other_user = get_user_model().objects.get(email='eventeditor@example.com')
         other_perms = UserPagePermissionsProxy(other_user).for_page(christmas_page)
-        self.assertTrue(other_perms.page_locked)
+        self.assertTrue(other_perms.page_locked())
 
     def test_page_locked_in_workflow(self):
         workflow, task = self.create_workflow_and_task()
@@ -670,19 +670,19 @@ class TestPagePermission(TestCase):
 
         # the moderator is in the group assigned to moderate the task, so the page should
         # not be locked for them
-        self.assertFalse(moderator_perms.page_locked)
+        self.assertFalse(moderator_perms.page_locked())
 
         superuser_perms = UserPagePermissionsProxy(superuser).for_page(christmas_page)
 
         # superusers can moderate any GroupApprovalTask, so the page should not be locked
         # for them
-        self.assertFalse(superuser_perms.page_locked)
+        self.assertFalse(superuser_perms.page_locked())
 
         editor_perms = UserPagePermissionsProxy(editor).for_page(christmas_page)
 
         # the editor is not in the group assigned to moderate the task, so the page should
         # be locked for them
-        self.assertTrue(editor_perms.page_locked)
+        self.assertTrue(editor_perms.page_locked())
 
     def test_page_lock_in_workflow(self):
         workflow, task = self.create_workflow_and_task()

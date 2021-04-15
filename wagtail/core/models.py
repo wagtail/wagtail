@@ -3312,7 +3312,6 @@ class PagePermissionTester:
     def user_has_lock(self):
         return self.page.locked_by_id == self.user.pk
 
-    @cached_property
     def page_locked(self):
         current_workflow_task = self.page.current_workflow_task
         if current_workflow_task:
@@ -3405,7 +3404,7 @@ class PagePermissionTester:
             return False
         if (not self.page.live) or self.page_is_root:
             return False
-        if self.page_locked:
+        if self.page_locked():
             return False
 
         return self.user.is_superuser or ('publish' in self.permissions)
@@ -3419,7 +3418,7 @@ class PagePermissionTester:
         return self.user.is_superuser or ('publish' in self.permissions)
 
     def can_submit_for_moderation(self):
-        return not self.page_locked and self.page.has_workflow and not self.page.workflow_in_progress
+        return not self.page_locked() and self.page.has_workflow and not self.page.workflow_in_progress
 
     def can_set_view_restrictions(self):
         return self.can_publish()

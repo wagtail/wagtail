@@ -49,7 +49,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
         """
         return (
             context['view'] == 'create'
-            or not self.get_user_page_permissions_tester(context).page_locked
+            or not self.get_user_page_permissions_tester(context).page_locked()
         )
 
     def get_context(self, request, parent_context):
@@ -84,7 +84,7 @@ class PublishMenuItem(ActionMenuItem):
         else:  # view == 'edit' or 'revisions_revert'
             perms_tester = self.get_user_page_permissions_tester(context)
             return (
-                not perms_tester.page_locked
+                not perms_tester.page_locked()
                 and perms_tester.can_publish()
             )
 
@@ -108,7 +108,7 @@ class SubmitForModerationMenuItem(ActionMenuItem):
 
         if context['view'] == 'edit':
             perms_tester = self.get_user_page_permissions_tester(context)
-            return perms_tester.can_submit_for_moderation() and not perms_tester.page_locked
+            return perms_tester.can_submit_for_moderation() and not perms_tester.page_locked()
         # context == revisions_revert
         return False
 
@@ -147,7 +147,7 @@ class WorkflowMenuItem(ActionMenuItem):
     def is_shown(self, request, context):
         if context['view'] == 'edit':
             perms_tester = self.get_user_page_permissions_tester(context)
-            return not perms_tester.page_locked
+            return not perms_tester.page_locked()
 
 
 class RestartWorkflowMenuItem(ActionMenuItem):
@@ -164,7 +164,7 @@ class RestartWorkflowMenuItem(ActionMenuItem):
             perms_tester = self.get_user_page_permissions_tester(context)
             return (
                 perms_tester.can_submit_for_moderation()
-                and not perms_tester.page_locked
+                and not perms_tester.page_locked()
                 and workflow_state
                 and workflow_state.user_can_cancel(request.user)
             )
@@ -194,7 +194,7 @@ class UnpublishMenuItem(ActionMenuItem):
         if context['view'] == 'edit':
             perms_tester = self.get_user_page_permissions_tester(context)
             return (
-                not perms_tester.page_locked
+                not perms_tester.page_locked()
                 and perms_tester.can_unpublish()
             )
 
@@ -212,7 +212,7 @@ class DeleteMenuItem(ActionMenuItem):
         if context['view'] == 'edit':
             perms_tester = self.get_user_page_permissions_tester(context)
             return (
-                not perms_tester.page_locked
+                not perms_tester.page_locked()
                 and perms_tester.can_delete()
             )
 
@@ -280,7 +280,7 @@ class PageLockedMenuItem(ActionMenuItem):
     def is_shown(self, request, context):
         return (
             'page' in context
-            and self.get_user_page_permissions_tester(context).page_locked
+            and self.get_user_page_permissions_tester(context).page_locked()
         )
 
     def get_context(self, request, parent_context):
