@@ -505,6 +505,10 @@ class StreamValue(MutableSequence):
         return StreamValue.StreamChild(block_def, value, id=block_id)
 
     def __getitem__(self, i):
+        if isinstance(i, slice):
+            start, stop, step = i.indices(len(self._bound_blocks))
+            return [self[j] for j in range(start, stop, step)]
+
         if self._bound_blocks[i] is None:
             raw_value = self._raw_data[i]
             self._prefetch_blocks(raw_value['type'])

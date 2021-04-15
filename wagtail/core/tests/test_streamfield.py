@@ -27,6 +27,11 @@ class TestLazyStreamField(TestCase):
         self.no_image = StreamModel.objects.create(body=json.dumps([
             {'type': 'text', 'value': 'foo'}]))
         self.nonjson_body = StreamModel.objects.create(body="<h1>hello world</h1>")
+        self.three_items = StreamModel.objects.create(body=json.dumps([
+            {'type': 'text', 'value': 'foo'},
+            {'type': 'image', 'value': self.image.pk},
+            {'type': 'text', 'value': 'bar'},
+        ]))
 
     def test_lazy_load(self):
         """
@@ -49,6 +54,29 @@ class TestLazyStreamField(TestCase):
             # Everything has been fetched now, no further database queries.
             self.assertEqual(body[0].value, self.image)
             self.assertEqual(body[1].value, 'foo')
+
+    def test_slice(self):
+        with self.assertNumQueries(1):
+            instance = StreamModel.objects.get(pk=self.three_items.pk)
+
+        with self.assertNumQueries(1):
+            # Access the image item from the stream. The image is fetched now
+            instance.body[1].value
+
+        with self.assertNumQueries(0):
+            # taking a slice of a StreamValue should re-use already-fetched values
+            values = [block.value for block in instance.body[1:3]]
+            self.assertEqual(values, [self.image, 'bar'])
+
+        with self.assertNumQueries(0):
+            # test slicing with negative indexing
+            values = [block.value for block in instance.body[-2:]]
+            self.assertEqual(values, [self.image, 'bar'])
+
+        with self.assertNumQueries(0):
+            # test slicing with skips
+            values = [block.value for block in instance.body[0:3:2]]
+            self.assertEqual(values, ['foo', 'bar'])
 
     def test_lazy_load_no_images(self):
         """
