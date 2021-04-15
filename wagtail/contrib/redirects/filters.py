@@ -1,4 +1,5 @@
 import django_filters
+
 from django.utils.translation import gettext as _
 
 from wagtail.admin.filters import WagtailFilterSet
