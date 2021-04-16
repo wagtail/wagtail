@@ -260,7 +260,7 @@ window.comments = (() => {
     formElement.querySelectorAll('[data-component="add-comment-button"]').forEach(initAddCommentButton);
 
     // Attach the commenting app to the tab navigation, if it exists
-    const tabNavElement = formElement.querySelector('.tab-nav');
+    const tabNavElement = formElement.querySelector('[data-tab-nav]');
     if (tabNavElement) {
       commentApp.setCurrentTab(tabNavElement.dataset.currentTab);
       tabNavElement.addEventListener('switch', (e) => {
