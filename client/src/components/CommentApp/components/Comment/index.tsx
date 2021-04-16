@@ -6,6 +6,7 @@ import { Author, Comment, newCommentReply } from '../../state/comments';
 import {
   updateComment,
   deleteComment,
+  resolveComment,
   setFocusedComment,
   addReply
 } from '../../actions/comments';
@@ -64,11 +65,9 @@ async function doDeleteComment(comment: Comment, store: Store) {
   }
 }
 
-function resolveComment(comment: Comment, store: Store) {
+function doResolveComment(comment: Comment, store: Store) {
   store.dispatch(
-    updateComment(comment.localId, {
-      resolved: true,
-    })
+    resolveComment(comment.localId)
   );
 }
 
@@ -482,7 +481,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           commentReply={comment}
           store={store}
           strings={strings}
-          onResolve={resolveComment}
+          onResolve={doResolveComment}
           onEdit={onEdit}
           onDelete={onDelete}
         />
