@@ -165,6 +165,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           />
           <div className="comment__reply-actions">
             <button
+              disabled={comment.newReply.length === 0}
               type="submit"
               className="comment__button comment__button--primary"
             >
@@ -226,6 +227,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           />
           <div className="comment__actions">
             <button
+              disabled={comment.newText.length === 0}
               type="submit"
               className="comment__button comment__button--primary"
             >
@@ -284,6 +286,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           />
           <div className="comment__actions">
             <button
+              disabled={comment.newText.length === 0}
               type="submit"
               className="comment__button comment__button--primary"
             >

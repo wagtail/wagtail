@@ -221,6 +221,9 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
   case actions.UPDATE_COMMENT: {
     const comment = draft.comments.get(action.commentId);
     if (comment) {
+      if (action.update.newText && action.update.newText.length === 0) {
+        break;
+      }
       update(comment, action.update);
     }
     break;
@@ -255,7 +258,7 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
   }
   case actions.ADD_REPLY: {
     const comment = draft.comments.get(action.commentId);
-    if (!comment) {
+    if ((!comment) || action.reply.text.length === 0) {
       break;
     }
     if (action.reply.remoteId) {
@@ -271,6 +274,9 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
     }
     const reply = comment.replies.get(action.replyId);
     if (!reply) {
+      break;
+    }
+    if (action.update.newText && action.update.newText.length === 0) {
       break;
     }
     update(reply, action.update);
