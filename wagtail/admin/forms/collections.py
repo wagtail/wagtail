@@ -6,6 +6,7 @@ from django.db import transaction
 from django.db.models import Min
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 from wagtail.core.models import Collection, CollectionViewRestriction, GroupCollectionPermission
 
@@ -68,9 +69,10 @@ class CollectionChoiceField(forms.ModelChoiceField):
 
 class CollectionForm(forms.ModelForm):
     parent = CollectionChoiceField(
+        label=gettext_lazy("Parent"),
         queryset=Collection.objects.all(),
         required=False,
-        help_text=_(
+        help_text=gettext_lazy(
             "Select hierarchical position. Note: a collection cannot become a child of itself or one of its "
             "descendants."
         )
@@ -279,6 +281,7 @@ def collection_member_permission_formset_factory(
         (i.e. group or user) for a specific collection
         """
         collection = CollectionChoiceField(
+            label=_("Collection"),
             queryset=Collection.objects.all().prefetch_related('group_permissions'),
             empty_label=None
         )

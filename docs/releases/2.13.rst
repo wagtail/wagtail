@@ -60,6 +60,7 @@ Bug fixes
 * Validate host/scheme of return URLs on password authentication forms (Susan Dreher)
 * Reordering a page now includes the correct user in the audit log (Storm Heg)
 * Fix reverse migration errors in images and documents (Mike Brown)
+* Make "Collection" and "Parent" form field labels translatable (Thibaud Colas)
 
 
 Upgrade considerations

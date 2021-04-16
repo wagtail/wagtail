@@ -20,7 +20,7 @@ def formfield_for_dbfield(db_field, **kwargs):
     if db_field.name == 'file':
         return WagtailImageField(label=capfirst(db_field.verbose_name), **kwargs)
     elif db_field.name == 'collection':
-        return CollectionChoiceField(queryset=Collection.objects.all(), empty_label=None, **kwargs)
+        return CollectionChoiceField(label=_("Collection"), queryset=Collection.objects.all(), empty_label=None, **kwargs)
 
     # For all other fields, just call its formfield() method.
     return db_field.formfield(**kwargs)
