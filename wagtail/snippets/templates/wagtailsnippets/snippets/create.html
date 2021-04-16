@@ -9,10 +9,10 @@
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
-        <footer>
+        <footer class="footer">
             <nav aria-label="{% trans 'Actions' %}">
                 <ul>
-                    <li class="actions actions--primary">
+                    <li class="actions actions--primary footer__container">
                         <div class="dropdown dropup dropdown-button match-width">
                             {{ action_menu.render_html }}
                         </div>

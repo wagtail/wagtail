@@ -36,9 +36,9 @@
         {% csrf_token %}
         {{ edit_handler.render_form_content }}
 
-        <footer>
+        <footer class="footer">
             <ul>
-                <li class="actions dropdown dropup match-width">
+                <li class="actions dropdown dropup match-width footer__container">
                     <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Saving…' %}">{% icon name="spinner" %}<em>{% trans 'Save' %}</em></button>
                 </li>
             </ul>
