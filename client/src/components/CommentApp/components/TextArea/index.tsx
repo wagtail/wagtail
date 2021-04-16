@@ -7,6 +7,7 @@ export interface TextAreaProps {
   onChange?(newValue: string): void;
   focusOnMount?: boolean;
   focusTarget?: boolean;
+  additionalAttributes?: React.ComponentPropsWithoutRef<'textarea'>
 }
 
 const TextArea = React.forwardRef<HTMLTextAreaElement | null, TextAreaProps>(({
@@ -15,7 +16,8 @@ const TextArea = React.forwardRef<HTMLTextAreaElement | null, TextAreaProps>(({
   placeholder,
   onChange,
   focusOnMount,
-  focusTarget = false
+  focusTarget = false,
+  additionalAttributes = {}
 }, ref) => {
   const onChangeValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (onChange) {
@@ -52,6 +54,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement | null, TextAreaProps>(({
       ref={textAreaElement}
       onChange={onChangeValue}
       value={value}
+      {...additionalAttributes}
     />
   );
 });
