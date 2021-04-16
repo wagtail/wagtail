@@ -4953,3 +4953,15 @@ class CommentReply(models.Model):
 
     def __str__(self):
         return "CommentReply left by '{0}': '{1}'".format(self.user, self.text)
+
+
+class PageSubscription(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='page_subscriptions')
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name='subscribers')
+
+    comment_notifications = models.BooleanField()
+
+    class Meta:
+        unique_together = [
+            ('page', 'user'),
+        ]

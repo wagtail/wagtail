@@ -801,6 +801,12 @@ class PrivacyModalPanel(EditHandler):
 
 
 class CommentPanel(EditHandler):
+
+    def required_fields(self):
+        # Adds the comment notifications field to the form.
+        # Note, this field is defined directly on WagtailAdminPageForm.
+        return ['comment_notifications']
+
     def required_formsets(self):
         # add the comments formset
         # we need to pass in the current user for validation on the formset
@@ -876,6 +882,7 @@ class CommentPanel(EditHandler):
     def render(self):
         panel = render_to_string(self.template, self.get_context())
         return panel
+
 
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
 
