@@ -1,14 +1,15 @@
 {% load wagtailadmin_tags i18n %}
-<ul class="tab-nav merged" role="tablist" data-current-tab="{{ self.children.0.heading|cautious_slugify }}">
-    {% for child in self.children %}
-        <li class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}">
-            <a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}" data-tab="{{ child.heading|cautious_slugify }}">{{ child.heading }}</a>
-        </li>
-    {% endfor %}
-
+<div class="tab-nav merged">
+    <ul data-tab-nav role="tablist" data-current-tab="{{ self.children.0.heading|cautious_slugify }}">
+        {% for child in self.children %}
+            <li class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}">
+                <a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}" data-tab="{{ child.heading|cautious_slugify }}">{{ child.heading }}</a>
+            </li>
+        {% endfor %}
+    </ul>
     {% if self.show_comments_toggle %}
         {% with comments_number=self.form.formsets.comments|length %}
-            <li class="right wide">
+            <div class="right wide">
                 <div class="comments-controls">
                     <label class="comments-toggle" aria-label="{% trans 'Show comments' %}">
                         <input type="checkbox" {% if comments_number %}checked{% endif %}>
@@ -19,15 +20,23 @@
                     <div class="comment-notifications-toggle" {% if not comments_number %}hidden{% endif %}>
                         <label class="switch switch--teal-background">
                             {% trans "Comment notifications" %}
-                            {{ self.form.comment_notifications }}
+                            <input type="checkbox" checked>
                             <span class="switch__toggle"></span>
                         </label>
+
+                        <div class="comment-notifications-toggle" {% if not comments_number %}hidden{% endif %}>
+                            <label class="switch switch--teal-background">
+                                {% trans "Comment notifications" %}
+                                {{ self.form.comment_notifications }}
+                                <span class="switch__toggle"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </li>
+            </div>
         {% endwith %}
     {% endif %}
-</ul>
+</div>
 
 <div class="tab-content tab-content--comments-enabled">
     {% for child in self.children %}
