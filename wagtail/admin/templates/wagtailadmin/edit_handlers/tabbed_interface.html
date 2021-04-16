@@ -18,7 +18,7 @@
                 <div class="comment-notifications-toggle">
                     <label class="switch switch--teal-background">
                         {% trans "Comment notifications" %}
-                        <input type="checkbox" checked>
+                        {{ self.form.comment_notifications }}
                         <span class="switch__toggle"></span>
                     </label>
                 </div>

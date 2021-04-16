@@ -14,7 +14,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import GroupPagePermission, Locale, Page, PageRevision, Site
+from wagtail.core.models import (
+    GroupPagePermission, Locale, Page, PageRevision, PageSubscription, Site)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory, EventPage,
@@ -1952,3 +1953,77 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
 
         edit_translation_url = reverse('wagtailadmin_pages:edit', args=[self.translated_christmas_page.id])
         self.assertNotContains(response, f'<a href="{edit_translation_url}" aria-label="French" class="u-link is-live">')
+
+
+class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        child_page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="hello",
+        )
+        self.root_page.add_child(instance=child_page)
+        child_page.save_revision().publish()
+        self.child_page = SimplePage.objects.get(id=child_page.id)
+
+        # Login
+        self.user = self.login()
+
+    def test_commment_notifications_switched_off(self):
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<input type="checkbox" name="comment_notifications" id="id_comment_notifications">')
+
+    def test_commment_notifications_switched_on(self):
+        PageSubscription.objects.create(
+            page=self.child_page,
+            user=self.user,
+            comment_notifications=True
+        )
+
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<input type="checkbox" name="comment_notifications" id="id_comment_notifications" checked>')
+
+    def test_post_with_comment_notifications_switched_on(self):
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comment_notifications': 'on'
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the subscription
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
+        subscription = page.subscribers.get()
+
+        self.assertEqual(subscription.user, self.user)
+        self.assertTrue(subscription.comment_notifications)
+
+    def test_post_with_comment_notifications_switched_off(self):
+        # Switch on comment notifications so we can test switching them off
+        subscription = PageSubscription.objects.create(
+            page=self.child_page,
+            user=self.user,
+            comment_notifications=True
+        )
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the subscription
+        subscription.refresh_from_db()
+        self.assertFalse(subscription.comment_notifications)
