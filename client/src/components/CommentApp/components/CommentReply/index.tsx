@@ -109,6 +109,7 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
           <div className="comment-reply__actions">
             <button
               type="submit"
+              disabled={reply.newText.length === 0}
               className="comment-reply__button comment-reply__button--primary"
             >
               {strings.SAVE}
