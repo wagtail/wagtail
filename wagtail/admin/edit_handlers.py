@@ -474,6 +474,7 @@ class FieldPanel(EditHandler):
             'self': self,
             self.TEMPLATE_VAR: self,
             'field': self.bound_field,
+            'show_add_comment_button': self.comments_enabled and getattr(self.bound_field.field.widget, 'show_add_comment_button', True),
         }))
 
     field_template = "wagtailadmin/edit_handlers/field_panel_field.html"

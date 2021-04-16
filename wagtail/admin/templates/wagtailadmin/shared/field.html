@@ -21,9 +21,13 @@
                 {% endfor %}
             </p>
         {% endif %}
-
-        {% if show_add_comment_button %}
-            <button type="button" data-component="add-comment-button" class="button button-secondary button-small u-hidden" aria-label="{% trans 'Add comment' %}"><svg class="icon icon-comment initial" aria-hidden="true" focusable="false"><use href="#icon-comment"></use></svg></button>
-        {% endif %}
     </div>
+
+    {% if show_add_comment_button %}
+        <div class="field-comment-control">
+            <button type="button" data-component="add-comment-button" class="button button-secondary button-small u-hidden" aria-label="{% trans 'Add comment' %}">
+                <svg class="icon icon-comment-add initial" aria-hidden="true" focusable="false"><use href="#icon-comment-add"></use></svg>
+            </button>
+        </div>
+    {% endif %}
 </div>
