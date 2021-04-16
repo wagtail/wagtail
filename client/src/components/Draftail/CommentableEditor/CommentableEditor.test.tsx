@@ -101,6 +101,7 @@ describe('CommentableEditor', () => {
             overlappingHighlight: '#00FF00',
             focusedHighlight: '#000000',
           }}
+          isCommentShortcut={() => false}
         />
       </Provider>
     );

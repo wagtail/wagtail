@@ -431,9 +431,9 @@ class FieldPanel(EditHandler):
         widget = kwargs.pop('widget', None)
         if widget is not None:
             self.widget = widget
+        self.comments_enabled = not kwargs.pop('disable_comments', False)
         super().__init__(*args, **kwargs)
         self.field_name = field_name
-        self.comments_enabled = not kwargs.pop('disable_comments', False)
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
@@ -936,6 +936,10 @@ Page.get_edit_handler = get_edit_handler
 
 
 class StreamFieldPanel(FieldPanel):
+    def __init__(self, *args, **kwargs):
+        disable_comments = kwargs.pop('disable_comments', True)
+        super().__init__(*args, **kwargs, disable_comments=disable_comments)
+
     def classes(self):
         classes = super().classes()
         classes.append("stream-field")

@@ -43,6 +43,7 @@ export interface SetFocusedCommentAction {
   type: typeof SET_FOCUSED_COMMENT;
   commentId: number | null;
   updatePinnedComment: boolean;
+  forceFocus: boolean;
 }
 
 export interface AddReplyAction {
@@ -115,12 +116,13 @@ export function resolveComment(commentId: number): ResolveCommentAction {
 
 export function setFocusedComment(
   commentId: number | null,
-  { updatePinnedComment } = { updatePinnedComment: false }
+  { updatePinnedComment, forceFocus } = { updatePinnedComment: false, forceFocus: false }
 ): SetFocusedCommentAction {
   return {
     type: SET_FOCUSED_COMMENT,
     commentId,
-    updatePinnedComment
+    updatePinnedComment,
+    forceFocus
   };
 }
 

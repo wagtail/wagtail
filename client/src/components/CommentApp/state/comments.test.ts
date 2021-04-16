@@ -132,16 +132,19 @@ test('Remote comment resolved', () => {
 });
 
 test('Comment focused', () => {
-  const focusAction = actions.setFocusedComment(4);
+  const focusAction = actions.setFocusedComment(4, { updatePinnedComment: true, forceFocus: true });
   const newState = reducer(basicCommentsState, focusAction);
   expect(newState.focusedComment).toBe(4);
+  expect(newState.pinnedComment).toBe(4);
+  expect(newState.forceFocus).toBe(true);
 });
 
 test('Invalid comment not focused', () => {
-  const focusAction = actions.setFocusedComment(9000, { updatePinnedComment: true });
+  const focusAction = actions.setFocusedComment(9000, { updatePinnedComment: true, forceFocus: true });
   const newState = reducer(basicCommentsState, focusAction);
   expect(newState.focusedComment).toBe(basicCommentsState.focusedComment);
   expect(newState.pinnedComment).toBe(basicCommentsState.pinnedComment);
+  expect(newState.forceFocus).toBe(false);
 });
 
 test('Reply added', () => {
