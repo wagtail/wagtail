@@ -178,11 +178,28 @@ window.comments = (() => {
           annotation.subscribeToUpdates(comment.localId);
         }
       });
-      this.commentAdditionNode.addEventListener('click', () => {
-        // Make the widget button clickable to add a comment
+      const addComment = () => {
         const annotation = this.getAnnotationForComment();
         const localId = commentApp.makeComment(annotation, this.contentpath);
         annotation.subscribeToUpdates(localId);
+      }
+      this.commentAdditionNode.addEventListener('click', () => {
+        // Make the widget button clickable to add a comment
+        addComment();
+      });
+      this.fieldNode.addEventListener('keyup', (e) => {
+        if (currentlyEnabled && (e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === 'm') {
+          if (currentComments.length === 0) {
+            addComment();
+          } else {
+            commentApp.store.dispatch(
+              commentApp.actions.setFocusedComment(
+                currentComments[0].localId,
+                { updatePinnedComment: true, forceFocus: true }
+              )
+            );
+          }
+        }
       });
       return unsubscribeWidget; // TODO: listen for widget deletion and use this
     }
