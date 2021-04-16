@@ -17,7 +17,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import Page, UserPagePermissionsProxy, WorkflowState
+from wagtail.core.models import Page, PageSubscription, UserPagePermissionsProxy, WorkflowState
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -115,6 +115,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if response:
             return response
 
+        try:
+            self.subscription = PageSubscription.objects.get(page=self.page, user=self.request.user)
+        except PageSubscription.DoesNotExist:
+            self.subscription = PageSubscription(page=self.page, user=self.request.user)
+
         self.edit_handler = self.page_class.get_edit_handler()
         self.edit_handler = self.edit_handler.bind_to(instance=self.page, request=self.request)
         self.form_class = self.edit_handler.get_form_class()
@@ -182,7 +187,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     extra_tags="lock"
                 )
 
-        self.form = self.form_class(instance=self.page, parent_page=self.parent)
+        self.form = self.form_class(instance=self.page, subscription=self.subscription, parent_page=self.parent)
         self.has_unsaved_changes = False
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
         self.add_legacy_moderation_warning()
@@ -209,7 +214,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return HttpResponse(status=405)
 
         self.form = self.form_class(
-            self.request.POST, self.request.FILES, instance=self.page, parent_page=self.parent
+            self.request.POST, self.request.FILES, instance=self.page, subscription=self.subscription, parent_page=self.parent
         )
 
         self.is_cancelling_workflow = bool(self.request.POST.get('action-cancel-workflow')) and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
@@ -249,6 +254,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def save_action(self):
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         # Save revision
         self.page.save_revision(
@@ -268,6 +274,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def publish_action(self):
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         # Save revision
         revision = self.page.save_revision(
@@ -357,6 +364,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def submit_action(self):
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         # Save revision
         self.page.save_revision(
@@ -393,6 +401,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def restart_workflow_action(self):
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         # save revision
         self.page.save_revision(
@@ -427,6 +436,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def perform_workflow_action(self):
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         if self.has_content_changes:
             # Save revision
@@ -452,6 +462,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
     def cancel_workflow_action(self):
         self.workflow_state.cancel(user=self.request.user)
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         # Save revision
         self.page.save_revision(
