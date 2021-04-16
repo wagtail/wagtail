@@ -1,11 +1,21 @@
 import { initCommentApp } from '../../components/CommentApp/main';
 import { STRINGS } from '../../config/wagtailConfig';
 
+const KEYCODE_M = 77
+
 /**
  * Entry point loaded when the comments system is in use.
  */
 window.comments = (() => {
   const commentApp = initCommentApp();
+
+  /**
+  * Returns true if the provided keyboard event is using the 'add/focus comment' keyboard
+  * shortcut
+  */
+  function isCommentShortcut(e) {
+    return (e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === KEYCODE_M
+  }
 
   function getContentPath(fieldNode) {
     // Return the total contentpath for an element as a string, in the form field.streamfield_uid.block...
@@ -188,7 +198,7 @@ window.comments = (() => {
         addComment();
       });
       this.fieldNode.addEventListener('keyup', (e) => {
-        if (currentlyEnabled && (e.ctrlKey || e.metaKey) && e.altKey && e.key.toLowerCase() === 'm') {
+        if (currentlyEnabled && isCommentShortcut(e)) {
           if (currentComments.length === 0) {
             addComment();
           } else {
@@ -296,6 +306,7 @@ window.comments = (() => {
   return {
     commentApp,
     getContentPath,
+    isCommentShortcut,
     initAddCommentButton,
     initCommentsInterface,
   };

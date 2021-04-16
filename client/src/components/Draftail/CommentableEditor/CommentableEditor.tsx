@@ -475,6 +475,7 @@ interface CommentableEditorProps {
   inlineStyles: Array<InlineStyle>,
   editorRef: (editor: ReactNode) => void
   colorConfig: ColorConfigProp
+  isCommentShortcut: (e: React.KeyboardEvent) => boolean
 }
 
 function CommentableEditor({
@@ -486,6 +487,7 @@ function CommentableEditor({
   inlineStyles,
   editorRef,
   colorConfig: { standardHighlight, overlappingHighlight, focusedHighlight },
+  isCommentShortcut,
   ...options
 }: CommentableEditorProps) {
   const [editorState, setEditorState] = useState(() =>
@@ -632,7 +634,7 @@ function CommentableEditor({
       inlineStyles={inlineStyles.concat(commentStyles)}
       plugins={enabled ? [{
         keyBindingFn: (e: React.KeyboardEvent) => {
-          if ((e.metaKey || e.ctrlKey) && e.altKey && e.key.toLowerCase() === 'm') {
+          if (isCommentShortcut(e)) {
             return 'comment';
           }
           return undefined;
