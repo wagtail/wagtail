@@ -70,6 +70,14 @@
       debug: getSearchDebugMode(),
     })
 
+    // Change page styles when the dropdown is open, to lock scrolling.
+    search.autocomplete.on('autocomplete:updated', function (event) {
+      const isOpen = event.target.value.trim() !== '';
+      document.body.classList.toggle('body--autocomplete-open', isOpen);
+    });
+    search.autocomplete.on('autocomplete:closed', function (event) {
+      document.body.classList.toggle('body--autocomplete-open', false);
+    });
     return search
   }
 
