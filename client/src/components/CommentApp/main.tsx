@@ -256,7 +256,7 @@ export class CommentApp {
 
       ReactDOM.render(
         <CommentFormSetComponent
-          comments={commentList}
+          comments={commentList.filter(comment => comment.mode !== 'creating')}
           remoteCommentCount={state.comments.remoteCommentCount}
         />,
         outputElement

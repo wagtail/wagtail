@@ -132,6 +132,10 @@ $color-textarea-placeholder-text: $color-grey-2;
         background-color: $color-red-very-dark;
     }
 
+    &:disabled {
+        opacity: 0.3;
+    }
+
     // Disable Firefox's focus styling becase we add our own.
     &::-moz-focus-inner {
         border: 0;
