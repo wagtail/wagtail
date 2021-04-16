@@ -90,8 +90,8 @@
   },
   "dependencies": {
     "core-js": "^2.5.3",
-    "draft-js": "^0.11.7",
-    "draftail": "^1.3.0",
+    "draft-js": "^0.10.5",
+    "draftail": "^1.4.1",
     "draftjs-filters": "^2.5.0",
     "element-closest": "^2.0.2",
     "focus-trap-react": "^8.4.2",
