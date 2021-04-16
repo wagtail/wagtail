@@ -214,9 +214,16 @@ export default class CommentComponent extends React.Component<CommentProps> {
       store.dispatch(deleteComment(comment.localId));
     };
 
+    const descriptionId = `comment-description-${comment.localId}`;
+
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} />
+        <CommentHeader
+          descriptionId={descriptionId}
+          commentReply={comment}
+          store={store}
+          strings={strings}
+        />
         <form onSubmit={onSave}>
           <TextArea
             focusTarget={isFocused}
@@ -224,6 +231,9 @@ export default class CommentComponent extends React.Component<CommentProps> {
             value={comment.newText}
             onChange={onChangeText}
             placeholder="Enter your comments..."
+            additionalAttributes={{
+              'aria-describedby': descriptionId
+            }}
           />
           <div className="comment__actions">
             <button
@@ -274,14 +284,24 @@ export default class CommentComponent extends React.Component<CommentProps> {
       );
     };
 
+    const descriptionId = `comment-description-${comment.localId}`;
+
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} />
+        <CommentHeader
+          descriptionId={descriptionId}
+          commentReply={comment}
+          store={store}
+          strings={strings}
+        />
         <form onSubmit={onSave}>
           <TextArea
             focusTarget={isFocused}
             className="comment__input"
             value={comment.newText}
+            additionalAttributes={{
+              'aria-describedby': descriptionId
+            }}
             onChange={onChangeText}
           />
           <div className="comment__actions">
@@ -311,7 +331,11 @@ export default class CommentComponent extends React.Component<CommentProps> {
 
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} />
+        <CommentHeader
+          commentReply={comment}
+          store={store}
+          strings={strings}
+        />
         <p className="comment__text">{comment.text}</p>
         <div className="comment__progress">{strings.SAVING}</div>
         {this.renderReplies({ hideNewReply: true })}

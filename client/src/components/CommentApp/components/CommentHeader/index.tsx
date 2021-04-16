@@ -21,10 +21,11 @@ interface CommentHeaderProps {
   onResolve?(commentReply: CommentReply, store: Store): void;
   onEdit?(commentReply: CommentReply, store: Store): void;
   onDelete?(commentReply: CommentReply, store: Store): void;
+  descriptionId?: string;
 }
 
 export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
-  commentReply, store, strings, onResolve, onEdit, onDelete
+  commentReply, store, strings, onResolve, onEdit, onDelete, descriptionId
 }) => {
   const { author, date } = commentReply;
 
@@ -79,8 +80,10 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
       </div>
       {author && author.avatarUrl &&
         <img className="comment-header__avatar" src={author.avatarUrl} role="presentation" />}
-      <p className="comment-header__author">{author ? author.name : ''}</p>
-      <p className="comment-header__date">{dateFormat(date, 'h:MM mmmm d')}</p>
+      <span id={descriptionId}>
+        <p className="comment-header__author">{author ? author.name : ''}</p>
+        <p className="comment-header__date">{dateFormat(date, 'h:MM mmmm d')}</p>
+      </span>
     </div>
   );
 };
