@@ -7,7 +7,7 @@
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=user.get_username merged=1 tabbed=1 icon="user" %}
 
-    <ul class="tab-nav merged">
+    <ul class="tab-nav merged" data-tab-nav>
         <li class="active"><a href="#account">{% trans "Account" %}</a></li>
         <li><a href="#roles">{% trans "Roles" %}</a></li>
     </ul>

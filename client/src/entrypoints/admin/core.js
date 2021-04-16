@@ -299,8 +299,8 @@ $(() => {
   const showTab = (tabButtonElem) => {
     $(tabButtonElem).tab('show');
 
-    // Update data-current-tab attribe on the .tab-nav element
-    const tabNavElem = tabButtonElem.closest('.tab-nav');
+    // Update data-current-tab attribute on the [data-tab-nav] element
+    const tabNavElem = tabButtonElem.closest('[data-tab-nav]');
     tabNavElem.dataset.currentTab = tabButtonElem.dataset.tab;
 
     // Trigger switch event
@@ -313,7 +313,7 @@ $(() => {
   }
 
   // eslint-disable-next-line func-names
-  $(document).on('click', '.tab-nav a', function (e) {
+  $(document).on('click', '[data-tab-nav] a', function (e) {
     e.preventDefault();
     showTab(this);
     window.history.replaceState(null, null, $(this).attr('href'));
@@ -322,7 +322,7 @@ $(() => {
   // eslint-disable-next-line func-names
   $(document).on('click', '.tab-toggle', function (e) {
     e.preventDefault();
-    $('.tab-nav a[href="' + $(this).attr('href') + '"]').trigger('click');
+    $('[data-tab-nav] a[href="' + $(this).attr('href') + '"]').trigger('click');
   });
 
   // eslint-disable-next-line func-names

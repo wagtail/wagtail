@@ -289,7 +289,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
-        self.assertNotContains(response, '<ul class="tab-nav merged" role="tablist" data-current-tab="advert">')
+        self.assertNotContains(response, '<ul data-tab-nav role="tablist" data-current-tab="advert">')
         self.assertNotContains(response, '<a href="#tab-advert" class="active" data-tab="advert">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#tab-other" class="" data-tab="other">Other</a>', html=True)
 
@@ -299,7 +299,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
-        self.assertContains(response, '<ul class="tab-nav merged" role="tablist" data-current-tab="advert">')
+        self.assertContains(response, '<ul data-tab-nav role="tablist" data-current-tab="advert">')
         self.assertContains(response, '<a href="#tab-advert" class="active" data-tab="advert">Advert</a>', html=True)
         self.assertContains(response, '<a href="#tab-other" class="" data-tab="other">Other</a>', html=True)
 
@@ -542,7 +542,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
-        self.assertNotContains(response, '<ul class="tab-nav merged" role="tablist" data-current-tab="advert">')
+        self.assertNotContains(response, '<ul data-tab-nav role="tablist" data-current-tab="advert">')
         self.assertNotContains(response, '<a href="#advert" class="active" data-tab="advert">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#other" class="" data-tab="other">Other</a>', html=True)
 
@@ -701,7 +701,7 @@ class TestEditTabbedSnippet(BaseTestSnippetEditView):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
-        self.assertContains(response, '<ul class="tab-nav merged" role="tablist" data-current-tab="advert">')
+        self.assertContains(response, '<ul data-tab-nav role="tablist" data-current-tab="advert">')
         self.assertContains(response, '<a href="#tab-advert" class="active" data-tab="advert">Advert</a>', html=True)
         self.assertContains(response, '<a href="#tab-other" class="" data-tab="other">Other</a>', html=True)
 
