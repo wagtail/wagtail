@@ -69,7 +69,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
                 <Icon name="ellipsis-v" />
               </summary>
 
-              <div className="comment-header__more-actions">
+              <div className="comment-header__more-actions" role="menu">
                 {onEdit && <button type="button" role="menuitem" onClick={onClickEdit}>{strings.EDIT}</button>}
                 {onDelete && <button type="button" role="menuitem" onClick={onClickDelete}>{strings.DELETE}</button>}
               </div>
