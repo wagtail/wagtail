@@ -34,6 +34,7 @@ Changelog
  * Fix: Validate host/scheme of return URLs on password authentication forms (Susan Dreher)
  * Fix: Reordering a page now includes the correct user in the audit log (Storm Heg)
  * Fix: Reverse migration errors in images and documents (Mike Brown)
+ * Fix: Apply enough chevron padding to all applicable select elements (Scott Cranfill)
 
 
 2.12.3 (05.03.2021)
