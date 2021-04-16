@@ -20,17 +20,9 @@
                     <div class="comment-notifications-toggle" {% if not comments_number %}hidden{% endif %}>
                         <label class="switch switch--teal-background">
                             {% trans "Comment notifications" %}
-                            <input type="checkbox" checked>
+                            {{ self.form.comment_notifications }}
                             <span class="switch__toggle"></span>
                         </label>
-
-                        <div class="comment-notifications-toggle" {% if not comments_number %}hidden{% endif %}>
-                            <label class="switch switch--teal-background">
-                                {% trans "Comment notifications" %}
-                                {{ self.form.comment_notifications }}
-                                <span class="switch__toggle"></span>
-                            </label>
-                        </div>
                     </div>
                 </div>
             </div>
