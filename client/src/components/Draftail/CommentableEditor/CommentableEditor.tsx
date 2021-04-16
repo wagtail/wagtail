@@ -396,7 +396,6 @@ function getCommentDecorator(commentApp: CommentApp) {
         })
       );
     };
-    // TODO: determine the correct way to make this accessible, allowing both editing and focus jumps
     return (
       <span
         role="button"
