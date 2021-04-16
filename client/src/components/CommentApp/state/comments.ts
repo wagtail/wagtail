@@ -191,6 +191,22 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
     }
   };
 
+  const resolveComment = (comment: Comment) => {
+    if (!comment.remoteId) {
+      // If the comment doesn't exist in the database, there's no need to keep it around locally
+      draft.comments.delete(comment.localId);
+    } else {
+      comment.resolved = true;
+    }
+    // Unset focusedComment if the focused comment is the one being resolved
+    if (draft.focusedComment === comment.localId) {
+      draft.focusedComment = null;
+    }
+    if (draft.pinnedComment === comment.localId) {
+      draft.pinnedComment = null;
+    }
+  };
+
   switch (action.type) {
   case actions.ADD_COMMENT: {
     draft.comments.set(action.comment.localId, action.comment);
@@ -213,6 +229,15 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
     }
 
     deleteComment(comment);
+    break;
+  }
+  case actions.RESOLVE_COMMENT: {
+    const comment = draft.comments.get(action.commentId);
+    if (!comment) {
+      break;
+    }
+
+    resolveComment(comment);
     break;
   }
   case actions.SET_FOCUSED_COMMENT: {
@@ -270,7 +295,7 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
     const comments = draft.comments;
     for (const comment of comments.values()) {
       if (comment.contentpath.startsWith(action.contentPath)) {
-        deleteComment(comment);
+        resolveComment(comment);
       }
     }
     break;

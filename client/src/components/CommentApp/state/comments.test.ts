@@ -92,6 +92,13 @@ test('Local comment deleted', () => {
   expect(newState.comments.has(4)).toBe(false);
 });
 
+test('Local comment resolved', () => {
+  // Test that resolving a comment without a remoteId removes it from the state entirely
+  const resolveAction = actions.resolveComment(4);
+  const newState = reducer(basicCommentsState, resolveAction);
+  expect(newState.comments.has(4)).toBe(false);
+});
+
 test('Remote comment deleted', () => {
   // Test that deleting a comment without a remoteId does not remove it from the state, but marks it as deleted
   const deleteAction = actions.deleteComment(1);
@@ -100,6 +107,22 @@ test('Remote comment deleted', () => {
   expect(comment).toBeDefined();
   if (comment) {
     expect(comment.deleted).toBe(true);
+  }
+  expect(newState.focusedComment).toBe(null);
+  expect(newState.pinnedComment).toBe(null);
+  expect(newState.remoteCommentCount).toBe(
+    basicCommentsState.remoteCommentCount
+  );
+});
+
+test('Remote comment resolved', () => {
+  // Test that resolving a comment without a remoteId does not remove it from the state, but marks it as resolved
+  const resolveAction = actions.resolveComment(1);
+  const newState = reducer(basicCommentsState, resolveAction);
+  const comment = newState.comments.get(1);
+  expect(comment).toBeDefined();
+  if (comment) {
+    expect(comment.resolved).toBe(true);
   }
   expect(newState.focusedComment).toBe(null);
   expect(newState.pinnedComment).toBe(null);
