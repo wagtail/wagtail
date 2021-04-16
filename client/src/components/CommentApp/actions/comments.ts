@@ -8,6 +8,7 @@ import type {
 export const ADD_COMMENT = 'add-comment';
 export const UPDATE_COMMENT = 'update-comment';
 export const DELETE_COMMENT = 'delete-comment';
+export const RESOLVE_COMMENT = 'resolve-comment';
 export const SET_FOCUSED_COMMENT = 'set-focused-comment';
 export const SET_PINNED_COMMENT = 'set-pinned-comment';
 
@@ -30,6 +31,11 @@ export interface UpdateCommentAction {
 
 export interface DeleteCommentAction {
   type: typeof DELETE_COMMENT;
+  commentId: number;
+}
+
+export interface ResolveCommentAction {
+  type: typeof RESOLVE_COMMENT;
   commentId: number;
 }
 
@@ -67,6 +73,7 @@ export type Action =
   | AddCommentAction
   | UpdateCommentAction
   | DeleteCommentAction
+  | ResolveCommentAction
   | SetFocusedCommentAction
   | AddReplyAction
   | UpdateReplyAction
@@ -97,6 +104,14 @@ export function deleteComment(commentId: number): DeleteCommentAction {
     commentId,
   };
 }
+
+export function resolveComment(commentId: number): ResolveCommentAction {
+  return {
+    type: RESOLVE_COMMENT,
+    commentId,
+  };
+}
+
 
 export function setFocusedComment(
   commentId: number | null,
@@ -155,6 +170,7 @@ export const commentActionFunctions = {
   addComment,
   updateComment,
   deleteComment,
+  resolveComment,
   setFocusedComment,
   addReply,
   updateReply,
