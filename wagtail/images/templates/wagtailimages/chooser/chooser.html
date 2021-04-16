@@ -7,7 +7,7 @@
 {{ uploadform.media.css }}
 
 {% if uploadform %}
-    <ul class="tab-nav merged">
+    <ul class="tab-nav merged" data-tab-nav>
         <li class="{% if not uploadform.errors %}active{% endif %}"><a href="#search" >{% trans "Search" %}</a></li>
         <li class="{% if uploadform.errors %}active{% endif %}"><a href="#upload">{% trans "Upload" %}</a></li>
     </ul>

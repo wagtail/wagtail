@@ -254,7 +254,7 @@ function initErrorDetection() {
   // now identify them on each tab
   // eslint-disable-next-line no-restricted-syntax, guard-for-in
   for (const index in errorSections) {
-    $('.tab-nav a[href="#' + index + '"]').addClass('errors').attr('data-count', errorSections[index]);
+    $('[data-tab-nav] a[href="#' + index + '"]').addClass('errors').attr('data-count', errorSections[index]);
   }
 }
 window.initErrorDetection = initErrorDetection;
