@@ -369,7 +369,7 @@ function getCommentDecorator(commentApp: CommentApp) {
       // Add a ref to the annotation, allowing the comment to float alongside the attached text.
       // This adds rather than sets the ref, so that a comment may be attached across paragraphs or around entities
       if (!commentId) {
-        return;
+        return undefined;
       }
       const annotation = commentApp.layout.commentAnnotations.get(commentId);
       if (annotation && annotation instanceof DraftailInlineAnnotation) {
@@ -445,8 +445,10 @@ export function addCommentsToEditor(
         });
       });
     } catch (err) {
+      /* eslint-disable no-console */
       console.error(`Error loading comment position for comment ${comment.localId}`);
       console.error(err);
+      /* esline-enable no-console */
     }
   });
   return newContentState;
@@ -568,7 +570,9 @@ function CommentableEditor({
   useEffect(() => {
     // if there are any comments without annotations, we need to add them to the EditorState
     const contentState = editorState.getCurrentContent();
-    const newContentState = addCommentsToEditor(contentState, comments, commentApp, () => new DraftailInlineAnnotation(fieldNode));
+    const newContentState = addCommentsToEditor(
+      contentState, comments, commentApp, () => new DraftailInlineAnnotation(fieldNode)
+    );
     if (contentState !== newContentState) {
       setEditorState(forceResetEditorState(editorState, newContentState));
     }
@@ -645,10 +649,15 @@ function CommentableEditor({
             const content = state.getCurrentContent();
             if (selection.isCollapsed()) {
               // We might be trying to focus an existing comment - check if we're in a comment range
-              const id = findLeastCommonCommentId(content.getBlockForKey(selection.getAnchorKey()), selection.getAnchorOffset());
+              const id = findLeastCommonCommentId(
+                content.getBlockForKey(selection.getAnchorKey()),
+                selection.getAnchorOffset()
+              );
               if (id) {
                 // Focus the comment
-                commentApp.store.dispatch(commentApp.actions.setFocusedComment(id, { updatePinnedComment: true, forceFocus: true }));
+                commentApp.store.dispatch(
+                  commentApp.actions.setFocusedComment(id, { updatePinnedComment: true, forceFocus: true })
+                );
                 return 'handled';
               }
             }

@@ -1,7 +1,7 @@
 import { initCommentApp } from '../../components/CommentApp/main';
 import { STRINGS } from '../../config/wagtailConfig';
 
-const KEYCODE_M = 77
+const KEYCODE_M = 77;
 
 /**
  * Entry point loaded when the comments system is in use.
@@ -14,7 +14,7 @@ window.comments = (() => {
   * shortcut
   */
   function isCommentShortcut(e) {
-    return (e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === KEYCODE_M
+    return (e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === KEYCODE_M;
   }
 
   function getContentPath(fieldNode) {
@@ -192,7 +192,7 @@ window.comments = (() => {
         const annotation = this.getAnnotationForComment();
         const localId = commentApp.makeComment(annotation, this.contentpath);
         annotation.subscribeToUpdates(localId);
-      }
+      };
       this.commentAdditionNode.addEventListener('click', () => {
         // Make the widget button clickable to add a comment
         addComment();
@@ -234,7 +234,7 @@ window.comments = (() => {
     }
   }
 
-  function initAddCommentButton(buttonElement, skipDoubleInitialisedCheck = false) {
+  function initAddCommentButton(buttonElement) {
     const widget = new FieldLevelCommentWidget({
       fieldNode: buttonElement.closest('[data-contentpath]'),
       commentAdditionNode: buttonElement,

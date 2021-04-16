@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FocusTrap from 'focus-trap-react';
@@ -525,11 +527,15 @@ export default class CommentComponent extends React.Component<CommentProps> {
     }
 
     const onClick = () => {
-      this.props.store.dispatch(setFocusedComment(this.props.comment.localId, { updatePinnedComment: false, forceFocus: true }));
+      this.props.store.dispatch(
+        setFocusedComment(this.props.comment.localId, { updatePinnedComment: false, forceFocus: true })
+      );
     };
 
     const onDoubleClick = () => {
-      this.props.store.dispatch(setFocusedComment(this.props.comment.localId, { updatePinnedComment: true, forceFocus: true }));
+      this.props.store.dispatch(
+        setFocusedComment(this.props.comment.localId, { updatePinnedComment: true, forceFocus: true })
+      );
     };
 
     const top = this.props.layout.getCommentPosition(
@@ -541,28 +547,34 @@ export default class CommentComponent extends React.Component<CommentProps> {
         focusTrapOptions={{
           preventScroll: true,
           clickOutsideDeactivates: true,
-          onDeactivate: () => {this.props.store.dispatch(setFocusedComment(null, { updatePinnedComment: true, forceFocus: false }))},
+          onDeactivate: () => {
+            this.props.store.dispatch(
+              setFocusedComment(null, { updatePinnedComment: true, forceFocus: false })
+            );
+          },
           initialFocus: '[data-focus-target="true"]',
-        } as any} // For some reason, the types for FocusTrap props don't yet include preventScroll. Remove casting when fixed.
+        } as any} // For some reason, the types for FocusTrap props don't yet include preventScroll.
         active={this.props.isFocused && this.props.forceFocus}
       >
         <li
-        tabIndex={-1}
-        data-focus-target={this.props.isFocused && !['creating', 'editing'].includes(this.props.comment.mode)}
-        key={this.props.comment.localId}
-        className={`comment comment--mode-${this.props.comment.mode} ${this.props.isFocused ? 'comment--focused' : ''}`}
-        style={{
-          position: 'absolute',
-          top: `${top}px`,
-          right: `${right}px`,
-          display: this.props.isVisible ? 'block' : 'none',
-        }}
-        data-comment-id={this.props.comment.localId}
-        onClick={onClick}
-        onDoubleClick={onDoubleClick}
-      >
-        {inner}
-      </li>
+          tabIndex={-1}
+          data-focus-target={this.props.isFocused && !['creating', 'editing'].includes(this.props.comment.mode)}
+          key={this.props.comment.localId}
+          className={
+            `comment comment--mode-${this.props.comment.mode} ${this.props.isFocused ? 'comment--focused' : ''}`
+          }
+          style={{
+            position: 'absolute',
+            top: `${top}px`,
+            right: `${right}px`,
+            display: this.props.isVisible ? 'block' : 'none',
+          }}
+          data-comment-id={this.props.comment.localId}
+          onClick={onClick}
+          onDoubleClick={onDoubleClick}
+        >
+          {inner}
+        </li>
       </FocusTrap>
     );
   }
