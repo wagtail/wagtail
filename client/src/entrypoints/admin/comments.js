@@ -1,11 +1,21 @@
 import { initCommentApp } from '../../components/CommentApp/main';
 import { STRINGS } from '../../config/wagtailConfig';
 
+const KEYCODE_M = 77;
+
 /**
  * Entry point loaded when the comments system is in use.
  */
 window.comments = (() => {
   const commentApp = initCommentApp();
+
+  /**
+  * Returns true if the provided keyboard event is using the 'add/focus comment' keyboard
+  * shortcut
+  */
+  function isCommentShortcut(e) {
+    return (e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === KEYCODE_M;
+  }
 
   function getContentPath(fieldNode) {
     // Return the total contentpath for an element as a string, in the form field.streamfield_uid.block...
@@ -109,7 +119,7 @@ window.comments = (() => {
     setOnClickHandler(localId) {
       this.node.addEventListener('click', () => {
         commentApp.store.dispatch(
-          commentApp.actions.setFocusedComment(localId, { updatePinnedComment: true })
+          commentApp.actions.setFocusedComment(localId, { updatePinnedComment: true, forceFocus: true })
         );
       });
     }
@@ -178,11 +188,28 @@ window.comments = (() => {
           annotation.subscribeToUpdates(comment.localId);
         }
       });
-      this.commentAdditionNode.addEventListener('click', () => {
-        // Make the widget button clickable to add a comment
+      const addComment = () => {
         const annotation = this.getAnnotationForComment();
         const localId = commentApp.makeComment(annotation, this.contentpath);
         annotation.subscribeToUpdates(localId);
+      };
+      this.commentAdditionNode.addEventListener('click', () => {
+        // Make the widget button clickable to add a comment
+        addComment();
+      });
+      this.fieldNode.addEventListener('keyup', (e) => {
+        if (currentlyEnabled && isCommentShortcut(e)) {
+          if (currentComments.length === 0) {
+            addComment();
+          } else {
+            commentApp.store.dispatch(
+              commentApp.actions.setFocusedComment(
+                currentComments[0].localId,
+                { updatePinnedComment: true, forceFocus: true }
+              )
+            );
+          }
+        }
       });
       return unsubscribeWidget; // TODO: listen for widget deletion and use this
     }
@@ -207,7 +234,7 @@ window.comments = (() => {
     }
   }
 
-  function initAddCommentButton(buttonElement, skipDoubleInitialisedCheck = false) {
+  function initAddCommentButton(buttonElement) {
     const widget = new FieldLevelCommentWidget({
       fieldNode: buttonElement.closest('[data-contentpath]'),
       commentAdditionNode: buttonElement,
@@ -279,6 +306,7 @@ window.comments = (() => {
   return {
     commentApp,
     getContentPath,
+    isCommentShortcut,
     initAddCommentButton,
     initCommentsInterface,
   };

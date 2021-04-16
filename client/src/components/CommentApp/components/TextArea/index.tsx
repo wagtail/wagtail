@@ -6,6 +6,7 @@ export interface TextAreaProps {
   placeholder?: string;
   onChange?(newValue: string): void;
   focusOnMount?: boolean;
+  focusTarget?: boolean;
 }
 
 const TextArea = React.forwardRef<HTMLTextAreaElement | null, TextAreaProps>(({
@@ -13,7 +14,8 @@ const TextArea = React.forwardRef<HTMLTextAreaElement | null, TextAreaProps>(({
   className,
   placeholder,
   onChange,
-  focusOnMount
+  focusOnMount,
+  focusTarget = false
 }, ref) => {
   const onChangeValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (onChange) {
@@ -42,6 +44,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement | null, TextAreaProps>(({
 
   return (
     <textarea
+      data-focus-target={focusTarget}
       rows={1}
       style={{ resize: 'none', overflowY: 'hidden' }}
       className={className}

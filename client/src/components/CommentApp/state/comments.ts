@@ -159,6 +159,7 @@ export type CommentUpdate = Partial<Omit<Comment, 'originalText'>>;
 
 export interface CommentsState {
   comments: Map<number, Comment>;
+  forceFocus: boolean;
   focusedComment: number | null;
   pinnedComment: number | null;
   // This is redundant, but stored for efficiency as it will change only as the app adds its loaded comments
@@ -167,6 +168,7 @@ export interface CommentsState {
 
 export const INITIAL_STATE: CommentsState = {
   comments: new Map(),
+  forceFocus: false,
   focusedComment: null,
   pinnedComment: null,
   remoteCommentCount: 0,
@@ -185,6 +187,7 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
     // Unset focusedComment if the focused comment is the one being deleted
     if (draft.focusedComment === comment.localId) {
       draft.focusedComment = null;
+      draft.forceFocus = false;
     }
     if (draft.pinnedComment === comment.localId) {
       draft.pinnedComment = null;
@@ -246,6 +249,7 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
       if (action.updatePinnedComment) {
         draft.pinnedComment = action.commentId;
       }
+      draft.forceFocus = action.forceFocus;
     }
     break;
   }

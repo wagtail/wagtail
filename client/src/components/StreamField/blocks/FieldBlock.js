@@ -45,6 +45,7 @@ export class FieldBlock {
       const addCommentButtonElement = document.createElement('button');
       addCommentButtonElement.type = 'button';
       addCommentButtonElement.setAttribute('aria-label', blockDef.meta.strings.ADD_COMMENT);
+      addCommentButtonElement.setAttribute('data-comment-add', '');
       addCommentButtonElement.classList.add('button');
       addCommentButtonElement.classList.add('button-secondary');
       addCommentButtonElement.classList.add('button-small');
