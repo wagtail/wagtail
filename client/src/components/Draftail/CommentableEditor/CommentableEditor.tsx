@@ -178,15 +178,23 @@ function getFullSelectionState(contentState: ContentState) {
 }
 
 function addNewComment(editorState: EditorState, fieldNode: Element, commentApp: CommentApp, contentPath: string) {
+  let state = editorState;
   const annotation = new DraftailInlineAnnotation(fieldNode);
   const commentId = commentApp.makeComment(annotation, contentPath, '[]');
+  const selection = editorState.getSelection();
+  // If the selection is collapsed, add the comment highlight on the whole field
+  state = EditorState.acceptSelection(
+    editorState,
+    selection.isCollapsed() ? getFullSelectionState(editorState.getCurrentContent()) : selection
+  );
+
   return (
     EditorState.acceptSelection(
       RichUtils.toggleInlineStyle(
-        editorState,
+        state,
         `${COMMENT_STYLE_IDENTIFIER}${commentId}`
       ),
-      editorState.getSelection()
+      selection
     )
   );
 }
