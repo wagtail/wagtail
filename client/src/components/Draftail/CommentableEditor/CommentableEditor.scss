@@ -2,14 +2,6 @@
     display: flex;
     flex-wrap: wrap;
 
-    .Draftail-ToolbarButton[name^='COMMENT-'] {
-        // This is necessary because all inline styles added to Draftail currently
-        // get a toolbar icon, even if empty. This causes the programmatically
-        // added comment styles to get empty icons. This should be fixed in Draftail
-        // soon - when it is, this can be removed
-        display: none;
-    }
-
     .Draftail-ToolbarGroup:last-child {
         flex-grow: 1;
     }
