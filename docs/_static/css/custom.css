@@ -7,12 +7,15 @@ body.wy-body-for-nav {
 
 nav.wy-nav-side {
     background-color: #333;  /*color-grey-1*/
-    position: absolute;
-    overflow: inherit;
 }
 
-div.wy-side-scroll {
-    overflow: inherit;
+.body--autocomplete-open .wy-nav-side {
+    position: absolute;
+    overflow: visible;
+}
+
+.body--autocomplete-open .wy-side-scroll {
+    overflow: visible;
 }
 
 div.wy-side-nav-search {
