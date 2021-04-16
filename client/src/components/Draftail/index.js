@@ -133,6 +133,7 @@ const initEditor = (selector, options, currentScript) => {
         fieldNode={field.parentNode}
         contentPath={contentPath}
         colorConfig={colors}
+        isCommentShortcut={window.comments.isCommentShortcut}
         {...sharedProps}
       />
     </Provider>

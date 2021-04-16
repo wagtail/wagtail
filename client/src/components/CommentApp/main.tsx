@@ -110,7 +110,7 @@ function renderCommentsUi(
 ): React.ReactElement {
   const state = store.getState();
   const { commentsEnabled, user, currentTab } = state.settings;
-  const focusedComment = state.comments.focusedComment;
+  const { focusedComment, forceFocus } = state.comments;
   let commentsToRender = comments;
 
   if (!commentsEnabled || !user) {
@@ -126,6 +126,7 @@ function renderCommentsUi(
       user={user}
       comment={comment}
       isFocused={comment.localId === focusedComment}
+      forceFocus={forceFocus}
       isVisible={layout.getCommentVisible(currentTab, comment.localId)}
       strings={strings}
     />
@@ -213,7 +214,7 @@ export class CommentApp {
     );
 
     // Focus and pin the comment
-    this.store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true }));
+    this.store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true, forceFocus: true }));
     return commentId;
   }
   setVisible(visible: boolean) {
@@ -333,7 +334,7 @@ export class CommentApp {
       // If this is the initial focused comment. Focus and pin it
       // TODO: Scroll to this comment
       if (initialFocusedCommentId && comment.pk === initialFocusedCommentId) {
-        this.store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true }));
+        this.store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true, forceFocus: true }));
       }
     }
 
@@ -348,8 +349,8 @@ export class CommentApp {
         if (!e.target.closest('#comments, [data-annotation], [data-comment-add]')) {
           // Running store.dispatch directly here seems to prevent the event from being handled anywhere else
           setTimeout(() => {
-            this.store.dispatch(setFocusedComment(null, { updatePinnedComment: true }));
-          }, 1);
+            this.store.dispatch(setFocusedComment(null, { updatePinnedComment: true, forceFocus: false }));
+          }, 200);
         }
       }
     });

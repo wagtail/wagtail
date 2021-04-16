@@ -1,5 +1,8 @@
-import React, { MutableRefObject } from 'react';
+/* eslint-disable react/prop-types */
+
+import React from 'react';
 import ReactDOM from 'react-dom';
+import FocusTrap from 'focus-trap-react';
 
 import type { Store } from '../../state';
 import { Author, Comment, newCommentReply } from '../../state/comments';
@@ -75,6 +78,7 @@ export interface CommentProps {
   store: Store;
   comment: Comment;
   isFocused: boolean;
+  forceFocus: boolean;
   isVisible: boolean;
   layout: LayoutController;
   user: Author | null;
@@ -82,13 +86,6 @@ export interface CommentProps {
 }
 
 export default class CommentComponent extends React.Component<CommentProps> {
-  focusTargetRef: MutableRefObject<HTMLTextAreaElement | null>
-  focusTimeoutId: number | undefined
-
-  constructor(props: CommentProps) {
-    super(props);
-    this.focusTargetRef = React.createRef();
-  }
   renderReplies({ hideNewReply = false } = {}): React.ReactFragment {
     const { comment, isFocused, store, user, strings } = this.props;
 
@@ -195,7 +192,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderCreating(): React.ReactFragment {
-    const { comment, store, strings } = this.props;
+    const { comment, store, strings, isFocused } = this.props;
 
     const onChangeText = (value: string) => {
       store.dispatch(
@@ -221,7 +218,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader commentReply={comment} store={store} strings={strings} />
         <form onSubmit={onSave}>
           <TextArea
-            ref={this.focusTargetRef}
+            focusTarget={isFocused}
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
@@ -248,7 +245,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderEditing(): React.ReactFragment {
-    const { comment, store, strings } = this.props;
+    const { comment, store, strings, isFocused } = this.props;
 
     const onChangeText = (value: string) => {
       store.dispatch(
@@ -280,7 +277,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader commentReply={comment} store={store} strings={strings} />
         <form onSubmit={onSave}>
           <TextArea
-            ref={this.focusTargetRef}
+            focusTarget={isFocused}
             className="comment__input"
             value={comment.newText}
             onChange={onChangeText}
@@ -529,11 +526,15 @@ export default class CommentComponent extends React.Component<CommentProps> {
     }
 
     const onClick = () => {
-      this.props.store.dispatch(setFocusedComment(this.props.comment.localId));
+      this.props.store.dispatch(
+        setFocusedComment(this.props.comment.localId, { updatePinnedComment: false, forceFocus: true })
+      );
     };
 
     const onDoubleClick = () => {
-      this.props.store.dispatch(setFocusedComment(this.props.comment.localId, { updatePinnedComment: true }));
+      this.props.store.dispatch(
+        setFocusedComment(this.props.comment.localId, { updatePinnedComment: true, forceFocus: true })
+      );
     };
 
     const top = this.props.layout.getCommentPosition(
@@ -541,21 +542,39 @@ export default class CommentComponent extends React.Component<CommentProps> {
     );
     const right = this.props.isFocused ? 50 : 0;
     return (
-      <li
-        key={this.props.comment.localId}
-        className={`comment comment--mode-${this.props.comment.mode} ${this.props.isFocused ? 'comment--focused' : ''}`}
-        style={{
-          position: 'absolute',
-          top: `${top}px`,
-          right: `${right}px`,
-          display: this.props.isVisible ? 'block' : 'none',
-        }}
-        data-comment-id={this.props.comment.localId}
-        onClick={onClick}
-        onDoubleClick={onDoubleClick}
+      <FocusTrap
+        focusTrapOptions={{
+          preventScroll: true,
+          clickOutsideDeactivates: true,
+          onDeactivate: () => {
+            this.props.store.dispatch(
+              setFocusedComment(null, { updatePinnedComment: true, forceFocus: false })
+            );
+          },
+          initialFocus: '[data-focus-target="true"]',
+        } as any} // For some reason, the types for FocusTrap props don't yet include preventScroll.
+        active={this.props.isFocused && this.props.forceFocus}
       >
-        {inner}
-      </li>
+        <li
+          tabIndex={-1}
+          data-focus-target={this.props.isFocused && !['creating', 'editing'].includes(this.props.comment.mode)}
+          key={this.props.comment.localId}
+          className={
+            `comment comment--mode-${this.props.comment.mode} ${this.props.isFocused ? 'comment--focused' : ''}`
+          }
+          style={{
+            position: 'absolute',
+            top: `${top}px`,
+            right: `${right}px`,
+            display: this.props.isVisible ? 'block' : 'none',
+          }}
+          data-comment-id={this.props.comment.localId}
+          onClick={onClick}
+          onDoubleClick={onDoubleClick}
+        >
+          {inner}
+        </li>
+      </FocusTrap>
     );
   }
 
@@ -563,18 +582,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
     const element = ReactDOM.findDOMNode(this);
 
     if (element instanceof HTMLElement) {
-      // If this is a new comment, focus in the edit box
-      if (this.props.comment.mode === 'creating') {
-        clearTimeout(this.focusTimeoutId);
-        this.focusTimeoutId = setTimeout(
-          () => {
-            if (this.focusTargetRef.current) {
-              this.focusTargetRef.current.focus();
-            }
-          }
-          , 10);
-      }
-
       this.props.layout.setCommentElement(this.props.comment.localId, element);
 
       if (this.props.isVisible) {
@@ -587,7 +594,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.focusTimeoutId);
     this.props.layout.setCommentElement(this.props.comment.localId, null);
   }
 
