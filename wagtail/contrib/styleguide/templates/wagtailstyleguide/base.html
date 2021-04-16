@@ -709,7 +709,7 @@
         <section id="tabs">
             <h2>Tabs</h2>
 
-            <ul class="tab-nav">
+            <ul class="tab-nav" data-tab-nav>
                 <li class="active"><a href="#tab1">Tab 1</a></li>
                 <li><a href="#tab2">Tab 2</a></li>
             </ul>
@@ -717,7 +717,7 @@
             <p>Tabs are currently only used following headers, where they often appear merged with the bottom of the header:</p>
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
-            <ul class="tab-nav merged">
+            <ul class="tab-nav merged" data-tab-nav>
                 <li class="active"><a href="#">Tab1</a></li>
                 <li><a href="#">Tab2</a></li>
             </ul>
@@ -725,7 +725,7 @@
             <p>Tabs can also indicate errors:</p>
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
-            <ul class="tab-nav merged">
+            <ul class="tab-nav merged" data-tab-nav>
                 <li class="active"><a href="#" class="errors" data-count="123">Tab1</a></li>
                 <li><a href="#" class="errors" data-count="1">Tab2</a></li>
             </ul>
