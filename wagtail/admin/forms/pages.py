@@ -103,15 +103,31 @@ class PageViewRestrictionForm(BaseViewRestrictionForm):
 
 
 class WagtailAdminPageForm(WagtailAdminModelForm):
+    comment_notifications = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
 
     class Meta:
         # (dealing with Treebeard's tree-related fields that really should have
         # been editable=False)
         exclude = ['content_type', 'path', 'depth', 'numchild']
 
-    def __init__(self, data=None, files=None, parent_page=None, *args, **kwargs):
-        super().__init__(data, files, *args, **kwargs)
+    def __init__(self, data=None, files=None, parent_page=None, subscription=None, *args, **kwargs):
+        self.subscription = subscription
+
+        initial = kwargs.pop('initial', {})
+        if self.subscription:
+            initial['comment_notifications'] = subscription.comment_notifications
+
+        super().__init__(data, files, *args, initial=initial, **kwargs)
         self.parent_page = parent_page
+
+    def save(self, commit=True):
+        # Save updates to PageSubscription
+        if self.subscription:
+            self.subscription.comment_notifications = self.cleaned_data['comment_notifications']
+            if commit:
+                self.subscription.save()
+
+        return super().save(commit=commit)
 
     def clean(self):
         cleaned_data = super().clean()

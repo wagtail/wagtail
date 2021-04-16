@@ -16,7 +16,7 @@ from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core.models import Locale, Page, UserPagePermissionsProxy
+from wagtail.core.models import Locale, Page, PageSubscription, UserPagePermissionsProxy
 
 
 def add_subpage(request, parent_page_id):
@@ -91,13 +91,16 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.edit_handler = self.edit_handler.bind_to(request=self.request, instance=self.page)
         self.form_class = self.edit_handler.get_form_class()
 
+        # Note: Comment notifications should be enabled by default for pages that a user creates
+        self.subscription = PageSubscription(page=self.page, user=self.request.user, comment_notifications=True)
+
         self.next_url = get_valid_next_url_from_request(self.request)
 
         return super().dispatch(request)
 
     def post(self, request):
         self.form = self.form_class(
-            self.request.POST, self.request.FILES, instance=self.page, parent_page=self.parent_page
+            self.request.POST, self.request.FILES, instance=self.page, subscription=self.subscription, parent_page=self.parent_page
         )
 
         if self.form.is_valid():
@@ -134,6 +137,10 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         # Save revision
         self.page.save_revision(user=self.request.user, log_action=False)
 
+        # Save subscription settings
+        self.subscription.page = self.page
+        self.subscription.save()
+
         # Notification
         messages.success(self.request, _("Page '{0}' created.").format(self.page.get_admin_display_title()))
 
@@ -152,6 +159,10 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         # Save revision
         revision = self.page.save_revision(user=self.request.user, log_action=False)
+
+        # Save subscription settings
+        self.subscription.page = self.page
+        self.subscription.save()
 
         # Publish
         response = self.run_hook('before_publish_page', self.request, self.page)
@@ -202,6 +213,10 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         workflow = self.page.get_workflow()
         workflow.start(self.page, self.request.user)
 
+        # Save subscription settings
+        self.subscription.page = self.page
+        self.subscription.save()
+
         # Notification
         buttons = []
         if self.page.is_previewable():
@@ -247,7 +262,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def get(self, request):
         signals.init_new_page.send(sender=CreateView, page=self.page, parent=self.parent_page)
-        self.form = self.form_class(instance=self.page, parent_page=self.parent_page)
+        self.form = self.form_class(instance=self.page, subscription=self.subscription, parent_page=self.parent_page)
         self.has_unsaved_changes = False
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
 

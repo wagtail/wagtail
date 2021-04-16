@@ -1120,3 +1120,55 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
 
         add_translation_url = reverse('wagtailadmin_pages:add', args=['demosite', 'homepage', self.root_page.id]) + '?locale=fr'
         self.assertNotContains(response, f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">')
+
+
+class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Login
+        self.user = self.login()
+
+    def test_commment_notifications_switched_on_by_default(self):
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=['tests', 'simplepage', self.root_page.id]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<input type="checkbox" name="comment_notifications" id="id_comment_notifications" checked>')
+
+    def test_post_with_comment_notifications_switched_on(self):
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comment_notifications': 'on'
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:add', args=['tests', 'simplepage', self.root_page.id]), post_data)
+
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[page.id]))
+
+        # Check the subscription
+        subscription = page.subscribers.get()
+
+        self.assertEqual(subscription.user, self.user)
+        self.assertTrue(subscription.comment_notifications)
+
+    def test_post_with_comment_notifications_switched_off(self):
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:add', args=['tests', 'simplepage', self.root_page.id]), post_data)
+
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[page.id]))
+
+        # Check the subscription
+        subscription = page.subscribers.get()
+
+        self.assertEqual(subscription.user, self.user)
+        self.assertFalse(subscription.comment_notifications)
