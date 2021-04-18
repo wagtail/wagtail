@@ -12,6 +12,71 @@ from treebeard.mp_tree import MP_NodeQuerySet
 from wagtail.search.queryset import SearchableQuerySetMixin
 
 
+SPECIFIC_CLASS_UNAVAILABLE_CODE = 'SPECIFIC_CLASS_UNAVAILABLE'
+SPECIFIC_DATA_UNAVAILABLE_CODE = 'SPECIFIC_DATA_UNAVAILABLE'
+
+
+class PageUpcastErrorsWarning(RuntimeWarning):
+    pass
+
+
+class PageUpcastError:
+    """
+    Represents an error that occured while upcasting a page to its most
+    specific type during evaluation of a ``PageQuerySet``.
+    """
+    __slots__ = ['page_id', 'url_path', 'content_type', 'code']
+
+    def __init__(self, page_id: int, url_path: str, content_type: ContentType, code: str) -> None:
+        self.page_id = page_id
+        self.url_path = url_path
+        self.content_type = content_type
+        self.code = code
+
+
+class PageUpcastErrorList:
+    """
+    Represents a series of ``UpcastError`` that occured while upcasting
+    pages to their most specific type.
+    """
+    __slots__ = ["queryset", "errors"]
+
+    def __init__(self, queryset: 'PageQuerySet'):
+        self.queryset = queryset
+        self.errors = []
+
+    def __iter__(self):
+        return iter(self.errors)
+
+    def __bool__(self):
+        return bool(self.errors)
+
+    def __str__(self) -> str:
+        if not self.errors:
+            return '[]'
+        return (
+            f"A recently evaluated {self.queryset.__class__} could "
+            f"only return generic {self.queryset.model} instances "
+            f"for some items, because of the following errors:\n{self.errors}"
+        )
+
+    def add(self, page, code: str) -> None:
+        """
+        Log an upcast error for ``page`` (a ``Page`` instance) with the
+        provided ``code``.
+        """
+        self.errors.append(
+            PageUpcastError(page_id=page.id, url_path=page.url_path, content_type=page.cached_content_type, code=code)
+        )
+
+    def warn(self, stacklevel: int = 1) -> None:
+        """
+        If upcast errors have been added, generate a warning.
+        """
+        if self.errors:
+            warnings.warn(str(self), category=PageUpcastErrorsWarning, stacklevel=stacklevel)
+
+
 class TreeQuerySet(MP_NodeQuerySet):
     """
     Extends Treebeard's MP_NodeQuerySet with additional useful tree-related operations.
@@ -137,6 +202,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
     def __init__(self, *args, **kwargs):
         """Set custom instance attributes"""
         super().__init__(*args, **kwargs)
+        self.upcast_errors = PageUpcastErrorList(self)
         # custom iterable to conditionally apply upcasting
         self._iterable_class = PageIterable
         # PageIterable utilizes the following values:
@@ -179,6 +245,17 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         combined._types_requested = self._types_requested | other._types_requested
         combined._types_excluded = self._types_excluded | other._types_excluded
         return combined
+
+    def log_upcast_error(self, obj, code: str):
+        self.upcast_errors.add(obj, code)
+
+    def _fetch_all(self):
+        """
+        Overrides QuerySet._fetch_all() to warn about upcast errors on
+        evaluation.
+        """
+        super()._fetch_all()
+        self.upcast_errors.warn(stacklevel=3)
 
     def live_q(self):
         return Q(live=True)
@@ -478,6 +555,35 @@ class PageIterable(ModelIterable):
 
 
 class SpecificIterable(ModelIterable):
+    def __iter__(self):
+        specific_lookups = self.get_specific_lookups()
+
+        # Avoid additional work if there is no upgrading to be done
+        if not specific_lookups:
+            return super().__iter__()
+
+        self.apply_specific_lookups(specific_lookups)
+
+        if self.queryset._defer_streamfields:
+            self.defer_specific_streamfields(specific_lookups)
+
+        content_types = ContentType.objects.get_for_models(*specific_lookups.keys())
+        ctypeid_to_model = {
+            ctype.id: model for model, ctype in content_types.items()
+        }
+
+        for obj in super().__iter__():
+            target_model = ctypeid_to_model.get(obj.content_type_id)
+            if target_model is None:
+                yield obj
+                continue
+
+            related_name = specific_lookups.get(target_model)
+            if related_name:
+                yield self.upgrade_instance(obj, related_name)
+            else:
+                self.queryset.upcast_errors.add(obj, code=SPECIFIC_CLASS_UNAVAILABLE_CODE)
+                yield obj
 
     def get_specific_lookups(self):
         """
@@ -523,37 +629,7 @@ class SpecificIterable(ModelIterable):
             # defer collected streamfield names
             self.queryset = self.queryset.defer(*field_names)
 
-    def __iter__(self):
-        specific_lookups = self.get_specific_lookups()
-
-        # Avoid additional work if there is no upgrading to be done
-        if not specific_lookups:
-            return super().__iter__()
-
-        self.apply_specific_lookups(specific_lookups)
-
-        if self.queryset._defer_streamfields:
-            self.defer_specific_streamfields(specific_lookups)
-
-        content_types = ContentType.objects.get_for_models(*specific_lookups.keys())
-        ctypeid_to_model = {
-            ctype.id: model for model, ctype in content_types.items()
-        }
-
-        for obj in super().__iter__():
-            target_model = ctypeid_to_model.get(obj.content_type_id)
-            if target_model is None:
-                yield obj
-                continue
-
-            related_name = specific_lookups.get(target_model)
-            if related_name:
-                yield self.upgrade_instance(obj, related_name)
-            else:
-                yield obj
-
-    @staticmethod
-    def upgrade_instance(obj, rel_name):
+    def upgrade_instance(self, obj, rel_name):
         """
         Upgrade a Page object to its most specific type, copying prefetched
         data and any other attribute values.
@@ -566,14 +642,7 @@ class SpecificIterable(ModelIterable):
             try:
                 new_obj = getattr(new_obj, rel)
             except (ObjectDoesNotExist, AttributeError):
-                warnings.warn(
-                    "The specific version of the following page could not be "
-                    "returned, because its row in the specific model's table "
-                    "could not be found: <Page id:{} title:'{}' url_path:'{}'>"
-                    .format(obj.id, obj.title, obj.url_path),
-                    category=RuntimeWarning,
-                    stacklevel=3,
-                )
+                self.queryset.log_upcast_error(obj, code=SPECIFIC_DATA_UNAVAILABLE_CODE)
                 return new_obj
 
         # copy prefetches
@@ -597,11 +666,5 @@ class DeferredSpecificIterable(ModelIterable):
             if obj.specific_class:
                 yield obj.specific_deferred
             else:
-                warnings.warn(
-                    "A specific version of the following page could not be returned "
-                    "because the specific page model is not present on the active "
-                    f"branch: <Page id='{obj.id}' title='{obj.title}' "
-                    f"type='{obj.content_type}'>",
-                    category=RuntimeWarning
-                )
+                self.queryset.log_upcast_error(obj, code=SPECIFIC_CLASS_UNAVAILABLE_CODE)
                 yield obj
