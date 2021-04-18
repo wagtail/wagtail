@@ -453,7 +453,7 @@ class TestPageListing(TestCase):
 
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [16])
-    
+
     def test_filtering_on_foreign_key(self):
         response = self.get_response(type="demosite.contactpage", feed_image=7)
         content = json.loads(response.content.decode('UTF-8'))
@@ -509,7 +509,7 @@ class TestPageListing(TestCase):
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "field filter error. 'abc' is not a valid value for feed_image (invalid literal for int() with base 10: 'abc')"})
-    
+
     def test_filtering_boolean_validation(self):
         response = self.get_response(show_in_menus='abc')
         content = json.loads(response.content.decode('UTF-8'))
