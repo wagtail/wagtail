@@ -496,7 +496,7 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "query parameter is not an operation or a recognised field: not_a_field"})
 
-    def test_filtering_int_validation(self):
+    def test_filtering_id_int_validation(self):
         response = self.get_response(id='abc')
         content = json.loads(response.content.decode('UTF-8'))
 
