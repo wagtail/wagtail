@@ -7,3 +7,11 @@
 .algolia-autocomplete {
     width: 100%;
 }
+
+#search-results a,
+a.algolia-docsearch-suggestion {
+    border-bottom: 0;
+}
+#search-results  h2 {
+    display: none;
+}
