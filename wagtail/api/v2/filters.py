@@ -34,7 +34,7 @@ class FieldsFilter(BaseFilterBackend):
                 try:
                     if isinstance(field, (models.BooleanField, models.NullBooleanField)):
                         value = parse_boolean(value)
-                    elif isinstance(field, (models.IntegerField, models.AutoField)):
+                    elif isinstance(field, (models.IntegerField, models.ForeignKey, models.AutoField)):
                         value = int(value)
                 except ValueError as e:
                     raise BadRequestError("field filter error. '%s' is not a valid value for %s (%s)" % (
