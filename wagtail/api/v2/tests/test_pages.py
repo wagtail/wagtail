@@ -453,6 +453,13 @@ class TestPageListing(TestCase):
 
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [16])
+    
+    def test_filtering_on_foreign_key(self):
+        response = self.get_response(type="demosite.contactpage", feed_image=7)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [12])
 
     def test_filtering_on_boolean(self):
         response = self.get_response(show_in_menus='false')
