@@ -137,16 +137,24 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
     def __init__(self, *args, **kwargs):
         """Set custom instance attributes"""
         super().__init__(*args, **kwargs)
-        # set by defer_streamfields()
+        # custom iterable to conditionally apply upcasting
+        self._iterable_class = PageIterable
+        # PageIterable utilizes the following values:
+        # updated by specific() and generic()
+        self._yield_specific_instances = False
+        self._defer_specific_fields = False
+        # updated by defer_streamfields()
         self._defer_streamfields = False
-        # set by type(), exact_type() or page()
+        # updated by type(), exact_type() or page()
         self._types_requested = set()
-        # set by not_type() or not_exact_type()
+        # updated by not_type() or not_exact_type()
         self._types_excluded = set()
 
     def _clone(self):
         """Ensure clones inherit custom attribute values."""
         clone = super()._clone()
+        clone._yield_specific_instances = self._yield_specific_instances
+        clone._defer_specific_fields = self._defer_specific_fields
         clone._defer_streamfields = self._defer_streamfields
         # these sets must be recreated in order to avoid
         # unintended cross-queryset contamination
@@ -154,14 +162,20 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         clone._types_excluded = self._types_excluded.copy()
         return clone
 
-    def __and__(self, other):
+    def __and__(self, other: 'PageQuerySet'):
         combined = super().__and__(other)
+        combined._yield_specific_instances = self._yield_specific_instances or other._yield_specific_instances
+        combined._defer_specific_fields = self._defer_specific_fields or other._defer_specific_fields
+        combined._defer_streamfields = self._defer_streamfields or other._defer_streamfields
         combined._types_requested = self._types_requested & other._types_requested
         combined._types_excluded = self._types_excluded & other._types_excluded
         return combined
 
-    def __or__(self, other):
+    def __or__(self, other: 'PageQuerySet'):
         combined = super().__or__(other)
+        combined._yield_specific_instances = self._yield_specific_instances or other._yield_specific_instances
+        combined._defer_specific_fields = self._defer_specific_fields or other._defer_specific_fields
+        combined._defer_streamfields = self._defer_streamfields or other._defer_streamfields
         combined._types_requested = self._types_requested | other._types_requested
         combined._types_excluded = self._types_excluded | other._types_excluded
         return combined
@@ -408,10 +422,11 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         field values will be loaded and all specific fields will be deferred.
         """
         clone = self._clone()
+        clone._yield_specific_instances = True
         if defer:
-            clone._iterable_class = DeferredSpecificIterable
+            clone._defer_specific_fields = True
         else:
-            clone._iterable_class = SpecificIterable
+            clone._defer_specific_fields = False
         return clone
 
     def in_site(self, site):
@@ -445,6 +460,21 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         from the results.
         """
         return self.exclude(self.translation_of_q(page, inclusive))
+
+
+class PageIterable(ModelIterable):
+    """
+    A custom iterable class used by ``PageQuerySet`` to support on-the-fly
+    upcasting of generic ``Page`` instances to their 'most specific' type.
+    """
+    def __iter__(self):
+        if not self.queryset._yield_specific_instances:
+            iterable = super()
+        if self.queryset._defer_specific_fields:
+            iterable = DeferredSpecificIterable(self.queryset)
+        else:
+            iterable = SpecificIterable(self.queryset)
+        yield from iterable
 
 
 class SpecificIterable(ModelIterable):
