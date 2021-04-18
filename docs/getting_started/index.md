@@ -1,3 +1,7 @@
+```eval_rst
+:hidetoc: 1
+```
+
 # Getting started
 
 ```eval_rst
