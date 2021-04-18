@@ -1,4 +1,8 @@
-<form id="rtd-search-form" class="wy-form" action="{{ pathto('search') }}" method="get" role="search">
-  <input type="text" name="q" placeholder="{{ _('Search docs') }}" />
-  <input type="submit" style="visibility:hidden;position:absolute">
-</form>
+{%- if builder != "singlehtml" %}
+<div id="searchbox" class="" role="search">
+    <form id="search-form" action="{{ pathto('search') }}" autocomplete="off" method="get">
+        <input class="form-control p-3 h-100" type="text" name="q" placeholder="Search" aria-label="Search" id="searchinput" />
+        <input type="submit" style="visibility:hidden;position:absolute">
+    </form>
+</div>
+{%- endif %}
