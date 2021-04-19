@@ -358,7 +358,10 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
   });
 
   test('focus() focuses the text input', () => {
+    // focus happens on a timeout, so use a mock to make it happen instantly
+    jest.useFakeTimers();
     boundWidget.focus();
+    jest.runAllTimers();
     expect(document.activeElement).toBe(document.querySelector('.public-DraftEditor-content'));
   });
 });
