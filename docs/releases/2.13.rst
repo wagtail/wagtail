@@ -17,6 +17,12 @@ The StreamField editing interface has been rebuilt on a client-side rendering mo
 
 This feature was developed by Matt Westcott and Karl Hobley and sponsored by `YouGov <https://yougov.co.uk/>`_, inspired by earlier work on `react-streamfield <https://github.com/wagtail/wagtail-react-streamfield>`_ completed by Bertrand Bordage through the `Wagtail's First Hatch <https://www.kickstarter.com/projects/noripyt/wagtails-first-hatch>`_ crowdfunder.
 
+Commenting
+~~~~~~~~~~
+
+The page editor now supports leaving comments on fields and StreamField blocks, by entering commenting mode (using the button in the top right of the editor). Inline comments are available in rich text fields using the Draftail editor.
+
+This feature was developed by Jacob Topp-Mugglestone, Karl Hobley and Simon Evans and sponsored by `The Motley Fool <https://www.fool.com/>`_.
 
 Other features
 ~~~~~~~~~~~~~~
@@ -35,6 +41,7 @@ Other features
 * ``get_settings`` template tag now supports specifying the variable name with ``{% get_settings as var %}`` (Samir Shah)
 * Reinstate submitter's name on moderation notification email (Matt Westcott)
 * Add a new switch input widget as an alternative to checkboxes (Karl Hobley)
+* Add a visible indicator of unsaved changes to the page editor (Jacob Topp-Mugglestone)
 
 Bug fixes
 ~~~~~~~~~
@@ -95,3 +102,16 @@ Setting menu items now use SVG icons by default. For sites reusing built-in Wagt
         return SettingMenuItem(CustomSetting, icon='custom-cog')
         # After:
         return SettingMenuItem(CustomSetting, icon='', classnames='icon icon-custom-cog')
+
+
+CommentPanel
+~~~~~~~~~~~~
+
+``Page.content_panels`` now includes `CommentPanel`, which is used to save and load comments. If you are overriding page edit handlers and
+want to use the new commenting system, your list of edit handlers should be updated to include ``CommentPanel``.
+
+New data attribute in rich text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To allow paragraphs in rich text to be identified consistently by the commenting system, the unique block key used in the Draftail editor
+for each block level element is now saved in the generated database html in the ``data-block-key`` attribute.
