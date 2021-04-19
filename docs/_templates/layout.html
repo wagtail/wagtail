@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="{{ pathto('_static/css/docsearch.overrides.css', 1) }}" />
 {% endblock %}
 
-{% block footer %}
-{{ super() }}
+{% block search %}
 <script async defer data-domain="docs.wagtail.io" src="https://plausible.io/js/plausible.js"></script>
 <script src="{{ docsearch_base }}docsearch.min.js"></script>
 <script>
