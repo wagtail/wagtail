@@ -495,6 +495,7 @@ Contributors
 * Joshua Marantz
 * Mike Brown
 * Helder Correia
+* Kevin Breen
 
 Translators
 ===========
