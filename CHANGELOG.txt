@@ -93,6 +93,12 @@ Changelog
  * Fix: Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
 
 
+2.11.7 (19.04.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2021-29434 - fix improper validation of URLs ('Cross-site Scripting') in rich text fields (Kevin Breen, Matt Westcott)
+
+
 2.11.6 (05.03.2021)
 ~~~~~~~~~~~~~~~~~~~
 
