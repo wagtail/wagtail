@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import override
 
 from wagtail.admin.auth import users_with_page_permission
-from wagtail.core.models import GroupApprovalTask, PageRevision, TaskState, WorkflowState
+from wagtail.core.models import GroupApprovalTask, TaskState, WorkflowState
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.users.models import UserProfile
 
@@ -62,25 +62,29 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     return mail.send()
 
 
-def send_notification(page_revision_id, notification, excluded_user_id):
-    # Get revision
-    revision = PageRevision.objects.get(id=page_revision_id)
-
+def send_moderation_notification(revision, notification, excluded_user=None):
     # Get list of recipients
     if notification == 'submitted':
         # Get list of publishers
         include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
-        recipients = users_with_page_permission(revision.page, 'publish', include_superusers)
+        recipient_users = users_with_page_permission(revision.page, 'publish', include_superusers)
     elif notification in ['rejected', 'approved']:
         # Get submitter
-        recipients = [revision.user]
+        recipient_users = [revision.user]
     else:
         return False
 
+    if excluded_user:
+        recipient_users = [user for user in recipient_users if user != excluded_user]
+
+    return send_notification(recipient_users, notification, {'revision': revision})
+
+
+def send_notification(recipient_users, notification, extra_context):
     # Get list of email addresses
     email_recipients = [
-        recipient for recipient in recipients
-        if recipient.email and recipient.pk != excluded_user_id and getattr(
+        recipient for recipient in recipient_users
+        if recipient.email and getattr(
             UserProfile.get_for_user(recipient),
             notification + '_notifications'
         )
@@ -97,9 +101,9 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
     # Common context to template
     context = {
-        "revision": revision,
         "settings": settings,
     }
+    context.update(extra_context)
 
     connection = get_connection()
 
