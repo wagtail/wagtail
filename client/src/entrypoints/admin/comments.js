@@ -272,20 +272,26 @@ window.comments = (() => {
     const commentToggle = formElement.querySelector('.comments-toggle input[type=checkbox]');
     const commentNotificationsToggle = formElement.querySelector('.comment-notifications-toggle');
     const tabContentElement = formElement.querySelector('.tab-content');
-    commentToggle.addEventListener('change', (e) => {
+
+    const updateCommentVisibility = (visible) => {
       // Show/hide comments
-      commentApp.setVisible(e.target.checked);
+      commentApp.setVisible(visible);
 
       // Show/hide comment notifications toggle
       // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
-      if (e.target.checked) {
+      if (visible) {
         $(commentNotificationsToggle).show();
         tabContentElement.classList.add('tab-content--comments-enabled');
       } else {
         $(commentNotificationsToggle).hide();
         tabContentElement.classList.remove('tab-content--comments-enabled');
       }
+    };
+
+    commentToggle.addEventListener('change', (e) => {
+      updateCommentVisibility(e.target.checked);
     });
+    updateCommentVisibility(commentToggle.checked);
 
     // Keep number of comments up to date with comment app
     const commentCounter = formElement.querySelector('.comments-toggle__count');
