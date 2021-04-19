@@ -7,23 +7,25 @@
     {% endfor %}
 
     {% if self.show_comments_toggle %}
-        <li class="right wide">
-            <div class="comments-controls">
-                <label class="comments-toggle" aria-label="{% trans 'Show comments' %}">
-                    <input type="checkbox" checked>
-                    {% icon name="comment" class_name="comments-toggle__icon" %}
-                    <div class="comments-toggle__count">{# populated in page-editor.js #}</div>
-                </label>
-
-                <div class="comment-notifications-toggle">
-                    <label class="switch switch--teal-background">
-                        {% trans "Comment notifications" %}
-                        {{ self.form.comment_notifications }}
-                        <span class="switch__toggle"></span>
+        {% with comments_number=self.form.formsets.comments|length %}
+            <li class="right wide">
+                <div class="comments-controls">
+                    <label class="comments-toggle" aria-label="{% trans 'Show comments' %}">
+                        <input type="checkbox" {% if comments_number %}checked{% endif %}>
+                        {% icon name="comment" class_name="comments-toggle__icon" %}
+                        <div class="comments-toggle__count">{# populated in page-editor.js #}</div>
                     </label>
+
+                    <div class="comment-notifications-toggle" {% if not comments_number %}hidden{% endif %}>
+                        <label class="switch switch--teal-background">
+                            {% trans "Comment notifications" %}
+                            {{ self.form.comment_notifications }}
+                            <span class="switch__toggle"></span>
+                        </label>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
+        {% endwith %}
     {% endif %}
 </ul>
 
