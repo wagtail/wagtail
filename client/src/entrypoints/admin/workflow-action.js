@@ -12,7 +12,8 @@ window._addHiddenInput = addHiddenInput;
 
 /* When a workflow action button is clicked, either show a modal or make a POST request to the workflow action view */
 function ActivateWorkflowActionsForDashboard(csrfToken) {
-  document.querySelectorAll('[data-workflow-action-url]').forEach((buttonElement) => {
+  const workflowActionElements = document.querySelectorAll('[data-workflow-action-url]');
+  [...workflowActionElements].forEach((buttonElement) => {
     buttonElement.addEventListener('click', (e) => {
       // Stop the button from submitting the form
       e.preventDefault();
@@ -57,7 +58,8 @@ window.ActivateWorkflowActionsForDashboard = ActivateWorkflowActionsForDashboard
 function ActivateWorkflowActionsForEditView(formSelector) {
   const form = $(formSelector).get(0);
 
-  document.querySelectorAll('[data-workflow-action-name]').forEach((buttonElement) => {
+  const workflowActionElements = document.querySelectorAll('[data-workflow-action-name]');
+  [...workflowActionElements].forEach((buttonElement) => {
     buttonElement.addEventListener('click', (e) => {
       if ('workflowActionModalUrl' in buttonElement.dataset) {
         // This action requires opening a modal to collect additional data.
