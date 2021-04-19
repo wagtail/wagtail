@@ -1,3 +1,4 @@
+import contextlib
 import datetime
 import os
 
@@ -5,6 +6,7 @@ from unittest import mock
 
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
+from django.core import mail
 from django.core.files.base import ContentFile
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, modify_settings, override_settings
@@ -12,10 +14,11 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.edit_handlers import CommentPanel
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
-    GroupPagePermission, Locale, Page, PageRevision, PageSubscription, Site)
+    Comment, GroupPagePermission, Locale, Page, PageRevision, PageSubscription, Site)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory, EventPage,
@@ -2027,3 +2030,177 @@ class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
         # Check the subscription
         subscription.refresh_from_db()
         self.assertFalse(subscription.comment_notifications)
+
+
+@contextlib.contextmanager
+def enable_comment_panel(model):
+    """
+    Adds CommentPanel into settings_panels of the given model
+
+    FIXME: This is a temporary workaround. Pages should have CommentPanel in settings_panels anyway,
+           but that currently breaks a lot of tests.
+    """
+    previous_settings_panels = model.settings_panels
+
+    model.settings_panels = previous_settings_panels + [CommentPanel()]
+    model.get_edit_handler.cache_clear()
+
+    try:
+        yield
+    finally:
+        model.settings_panels = previous_settings_panels
+        model.get_edit_handler.cache_clear()
+
+
+class TestCommentingNotifications(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        child_page = SimplePage(
+            title="Hello world!",
+            slug="hello-world",
+            content="hello",
+        )
+        self.root_page.add_child(instance=child_page)
+        child_page.save_revision().publish()
+        self.child_page = SimplePage.objects.get(id=child_page.id)
+
+        # Login
+        self.user = self.login()
+
+        # Add a couple more users
+        self.subscriber = self.create_user('subscriber')
+        self.non_subscriber = self.create_user('non-subscriber')
+
+        PageSubscription.objects.create(
+            page=self.child_page,
+            user=self.user,
+            comment_notifications=True
+        )
+
+        PageSubscription.objects.create(
+            page=self.child_page,
+            user=self.subscriber,
+            comment_notifications=True
+        )
+
+    def test_notification_on_new_comment(self):
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comments-TOTAL_FORMS': '1',
+            'comments-INITIAL_FORMS': '0',
+            'comments-MIN_NUM_FORMS': '0',
+            'comments-MAX_NUM_FORMS': '',
+            'comments-0-DELETE': '',
+            'comments-0-resolved': '',
+            'comments-0-id': '',
+            'comments-0-contentpath': 'title',
+            'comments-0-text': 'A test comment',
+            'comments-0-position': '',
+            'comments-0-replies-TOTAL_FORMS': '0',
+            'comments-0-replies-INITIAL_FORMS': '0',
+            'comments-0-replies-MIN_NUM_FORMS': '0',
+            'comments-0-replies-MAX_NUM_FORMS': '0'
+        }
+
+        with enable_comment_panel(SimplePage):
+            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the comment was added
+        comment = self.child_page.comments.get()
+        self.assertEqual(comment.text, 'A test comment')
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, [self.subscriber.email])
+        self.assertEqual(mail.outbox[0].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
+        self.assertIn('New comments:\n\n - "A test comment"\n\n', mail.outbox[0].body)
+
+    def test_notification_on_resolved_comment(self):
+        comment = Comment.objects.create(
+            page=self.child_page,
+            user=self.user,
+            text="A test comment",
+            contentpath="title",
+        )
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comments-TOTAL_FORMS': '1',
+            'comments-INITIAL_FORMS': '1',
+            'comments-MIN_NUM_FORMS': '0',
+            'comments-MAX_NUM_FORMS': '',
+            'comments-0-DELETE': '',
+            'comments-0-resolved': 'on',
+            'comments-0-id': str(comment.id),
+            'comments-0-contentpath': 'title',
+            'comments-0-text': 'A test comment',
+            'comments-0-position': '',
+            'comments-0-replies-TOTAL_FORMS': '0',
+            'comments-0-replies-INITIAL_FORMS': '0',
+            'comments-0-replies-MIN_NUM_FORMS': '0',
+            'comments-0-replies-MAX_NUM_FORMS': '0'
+        }
+
+        with enable_comment_panel(SimplePage):
+            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the comment was resolved
+        comment.refresh_from_db()
+        self.assertTrue(comment.resolved_at)
+        self.assertEqual(comment.resolved_by, self.user)
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, [self.subscriber.email])
+        self.assertEqual(mail.outbox[0].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
+        self.assertIn('Resolved comments:\n\n - "A test comment"\n\n', mail.outbox[0].body)
+
+    def test_notification_on_deleted_comment(self):
+        comment = Comment.objects.create(
+            page=self.child_page,
+            user=self.user,
+            text="A test comment",
+            contentpath="title",
+        )
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comments-TOTAL_FORMS': '1',
+            'comments-INITIAL_FORMS': '1',
+            'comments-MIN_NUM_FORMS': '0',
+            'comments-MAX_NUM_FORMS': '',
+            'comments-0-DELETE': 'on',
+            'comments-0-resolved': '',
+            'comments-0-id': str(comment.id),
+            'comments-0-contentpath': 'title',
+            'comments-0-text': 'A test comment',
+            'comments-0-position': '',
+            'comments-0-replies-TOTAL_FORMS': '0',
+            'comments-0-replies-INITIAL_FORMS': '0',
+            'comments-0-replies-MIN_NUM_FORMS': '0',
+            'comments-0-replies-MAX_NUM_FORMS': '0'
+        }
+
+        with enable_comment_panel(SimplePage):
+            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the comment was deleted
+        self.assertFalse(self.child_page.comments.exists())
+
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, [self.subscriber.email])
+        self.assertEqual(mail.outbox[0].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
+        self.assertIn('Deleted comments:\n\n - "A test comment"\n\n', mail.outbox[0].body)
