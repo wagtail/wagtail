@@ -155,7 +155,9 @@ class DraftailRichTextArea {
                 return result;
             },
             focus: () => {
-                input.draftailEditor.focus();
+                setTimeout(() => {
+                    input.draftailEditor.focus();
+                }, 50);
             },
         };
     }
