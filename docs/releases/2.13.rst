@@ -124,9 +124,3 @@ change here) and want to use the new commenting system, your list of edit handle
             # My existing panels here
             CommentPanel(),
         ]
-
-New data attribute in rich text
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-To allow paragraphs in rich text to be identified consistently by the commenting system, the unique block key used in the Draftail editor
-for each block level element is now saved in the generated database html in the ``data-block-key`` attribute.
