@@ -364,6 +364,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
             'submitted_notifications': 'false',
             'approved_notifications': 'false',
             'rejected_notifications': 'true',
+            'updated_comments_notifications': 'true',
         }
         response = self.client.post(reverse('wagtailadmin_account_notification_preferences'), post_data)
 
@@ -376,6 +377,7 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertFalse(profile.submitted_notifications)
         self.assertFalse(profile.approved_notifications)
         self.assertTrue(profile.rejected_notifications)
+        self.assertTrue(profile.updated_comments_notifications)
 
     def test_language_preferences_view(self):
         """
@@ -622,6 +624,7 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
         self.assertIn('approved_notifications', response.context['form'].fields.keys())
         self.assertIn('rejected_notifications', response.context['form'].fields.keys())
         self.assertNotIn('submitted_notifications', response.context['form'].fields.keys())
+        self.assertIn('updated_comments_notifications', response.context['form'].fields.keys())
 
 
 class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):

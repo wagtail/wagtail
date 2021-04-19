@@ -39,6 +39,12 @@ class UserProfile(models.Model):
         help_text=_("Receive notification when your page edit is rejected")
     )
 
+    updated_comments_notifications = models.BooleanField(
+        verbose_name=_('updated comments notifications'),
+        default=True,
+        help_text=_("Receive notification when comments have been created, resolved, or deleted on a page that you have subscribed to receive comment notifications on")
+    )
+
     preferred_language = models.CharField(
         verbose_name=_('preferred language'),
         max_length=10,
