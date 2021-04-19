@@ -37,6 +37,13 @@ Changelog
  * Fix: Apply enough chevron padding to all applicable select elements (Scott Cranfill)
 
 
+2.12.4 (xx.xx.xxxx)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Reverse migration errors in images and documents (Mike Brown)
+ * Fix: Avoid wagtailembeds migration failure on MySQL 8.0.13+ (Matt Westcott)
+ 
+ 
 2.12.3 (05.03.2021)
 ~~~~~~~~~~~~~~~~~~~
 
