@@ -888,7 +888,6 @@ class CommentPanel(EditHandler):
 
 
 Page.content_panels = [
-    CommentPanel(),
     FieldPanel('title', classname="full title"),
 ]
 
@@ -906,6 +905,7 @@ Page.promote_panels = [
 Page.settings_panels = [
     PublishingPanel(),
     PrivacyModalPanel(),
+    CommentPanel(),
 ]
 
 Page.base_form_class = WagtailAdminPageForm

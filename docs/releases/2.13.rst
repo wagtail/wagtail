@@ -131,11 +131,11 @@ Setting menu items now use SVG icons by default. For sites reusing built-in Wagt
         return SettingMenuItem(CustomSetting, icon='', classnames='icon icon-custom-cog')
 
 
-CommentPanel
-~~~~~~~~~~~~
+``CommentPanel``
+~~~~~~~~~~~~~~~~
 
-``Page.content_panels`` now includes `CommentPanel`, which is used to save and load comments. If you are overriding page edit handlers
-without directly extending ``Page.content_panels`` (ie ``content_panels = Page.content_panels + [ FieldPanel('my_field') ]`` would need no
+``Page.settings_panels`` now includes ``CommentPanel``, which is used to save and load comments. If you are overriding page settings edit handlers
+without directly extending ``Page.settings_panels`` (ie ``settings_panels = Page.settings_panels + [ FieldPanel('my_field') ]`` would need no
 change here) and want to use the new commenting system, your list of edit handlers should be updated to include ``CommentPanel``. For example:
 
 .. code-block:: python
@@ -147,7 +147,7 @@ change here) and want to use the new commenting system, your list of edit handle
 
 
     class HomePage(Page):
-        content_panels = [
+        settings_panels = [
             # My existing panels here
             CommentPanel(),
         ]
