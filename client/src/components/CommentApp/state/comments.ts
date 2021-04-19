@@ -301,7 +301,6 @@ export const reducer = produce((draft: CommentsState, action: actions.Action) =>
   }
   case actions.INVALIDATE_CONTENT_PATH: {
     // Delete any comments that exist in the contentpath
-    // TODO: Switch to resolved when we add that state back
     const comments = draft.comments;
     for (const comment of comments.values()) {
       if (comment.contentpath.startsWith(action.contentPath)) {
