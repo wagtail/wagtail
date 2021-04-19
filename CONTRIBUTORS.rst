@@ -505,6 +505,7 @@ Contributors
 * Dale Evans
 * Vlad Podgurschi
 * Kevin Breen
+* Ihor Marhitych
 
 Translators
 ===========

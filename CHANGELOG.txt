@@ -35,6 +35,7 @@ Changelog
  * Fix: Reordering a page now includes the correct user in the audit log (Storm Heg)
  * Fix: Reverse migration errors in images and documents (Mike Brown)
  * Fix: Apply enough chevron padding to all applicable select elements (Scott Cranfill)
+ * Fix: Reduce database queries in the page edit view (Ihor Marhitych)
 
 
 2.12.4 (19.04.2021)
@@ -43,8 +44,8 @@ Changelog
  * Fix: CVE-2021-29434 - fix improper validation of URLs ('Cross-site Scripting') in rich text fields (Kevin Breen, Matt Westcott)
  * Fix: Reverse migration errors in images and documents (Mike Brown)
  * Fix: Avoid wagtailembeds migration failure on MySQL 8.0.13+ (Matt Westcott)
- 
- 
+
+
 2.12.3 (05.03.2021)
 ~~~~~~~~~~~~~~~~~~~
 

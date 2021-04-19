@@ -62,6 +62,7 @@ Bug fixes
 * Fix reverse migration errors in images and documents (Mike Brown)
 * Make "Collection" and "Parent" form field labels translatable (Thibaud Colas)
 * Apply enough chevron padding to all applicable select elements (Scott Cranfill)
+* Reduce database queries in the page edit view (Ihor Marhitych)
 
 
 Upgrade considerations
