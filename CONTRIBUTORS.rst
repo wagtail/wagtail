@@ -488,6 +488,7 @@ Contributors
 * Andreas Morgenstern
 * Kristin Riebe
 * Helder Correia
+* Kevin Breen
 
 Translators
 ===========
