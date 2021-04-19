@@ -37,7 +37,7 @@ Changelog
  * Fix: Apply enough chevron padding to all applicable select elements (Scott Cranfill)
 
 
-2.12.4 (xx.xx.xxxx)
+2.12.4 (19.04.2021)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: CVE-2021-29434 - fix improper validation of URLs ('Cross-site Scripting') in rich text fields (Kevin Breen, Matt Westcott)
