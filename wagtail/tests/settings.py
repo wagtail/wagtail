@@ -177,6 +177,8 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 if os.environ.get('USE_EMAIL_USER_MODEL'):
     INSTALLED_APPS.append('wagtail.tests.emailuser')
     AUTH_USER_MODEL = 'emailuser.EmailUser'
