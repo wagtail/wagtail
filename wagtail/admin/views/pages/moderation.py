@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_GET
 
 from wagtail.admin import messages
-from wagtail.admin.mail import send_notification
+from wagtail.admin.mail import send_moderation_notification
 from wagtail.core.models import PageRevision
 
 
@@ -28,7 +28,7 @@ def approve_moderation(request, revision_id):
         buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit')))
         messages.success(request, message, buttons=buttons)
 
-        if not send_notification(revision.id, 'approved', request.user.pk):
+        if not send_moderation_notification(revision, 'approved', request.user):
             messages.error(request, _("Failed to send approval notifications"))
 
     return redirect('wagtailadmin_home')
@@ -50,7 +50,7 @@ def reject_moderation(request, revision_id):
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))
         ])
 
-        if not send_notification(revision.id, 'rejected', request.user.pk):
+        if not send_moderation_notification(revision, 'rejected', request.user):
             messages.error(request, _("Failed to send rejection notifications"))
 
     return redirect('wagtailadmin_home')
