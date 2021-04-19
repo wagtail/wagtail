@@ -33,6 +33,7 @@ html_theme_path = [sphinx_wagtail_theme.get_html_theme_path()]
 
 html_theme_options = dict(
     project_name="Wagtail Documentation",
+    github_url="https://github.com/wagtail/sphinx_wagtail_theme/blob/main/docs/"
 )
 
 # If extensions (or modules to document with autodoc) are in another directory,
