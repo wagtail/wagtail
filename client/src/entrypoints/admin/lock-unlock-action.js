@@ -1,7 +1,8 @@
 /* When a lock/unlock action button is clicked, make a POST request to the relevant view */
 
 function LockUnlockAction(csrfToken, next) {
-  document.querySelectorAll('[data-locking-action]').forEach((buttonElement) => {
+  const actionElements = document.querySelectorAll('[data-locking-action]');
+  [...actionElements].forEach((buttonElement) => {
     buttonElement.addEventListener('click', (e) => {
       // Stop the button from submitting the form
       e.preventDefault();
