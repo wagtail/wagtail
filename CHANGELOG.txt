@@ -18,6 +18,7 @@ Changelog
  * `get_settings` template tag now supports specifying the variable name with `{% get_settings as var %}` (Samir Shah)
  * Reinstate submitter's name on moderation notification email (Matt Westcott)
  * Add a new switch input widget as an alternative to checkboxes (Karl Hobley)
+ * Add a visible indicator of unsaved changes to the page editor (Jacob Topp-Mugglestone)
  * Fix: StreamField required status is now consistently handled by the `blank` keyword argument (Matt Westcott)
  * Fix: Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
  * Fix: Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
