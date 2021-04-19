@@ -35,6 +35,13 @@ Feedback and feature requests may be reported to the `theme issue list <https://
 
 This theme is developed by Storm Heg, Tibor Leupold, Thibaud Colas and Coen van der Kamp.
 
+Commenting
+~~~~~~~~~~
+
+The page editor now supports leaving comments on fields and StreamField blocks, by entering commenting mode (using the button in the top right of the editor). Inline comments are available in rich text fields using the Draftail editor.
+
+This feature was developed by Jacob Topp-Mugglestone, Karl Hobley and Simon Evans and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
 Other features
 ~~~~~~~~~~~~~~
 
@@ -58,7 +65,7 @@ Other features
 * Support slicing on StreamField / StreamBlock values (Matt Westcott)
 * Switch Wagtail choosers to use SVG icons instead of font icon (Storm Heg)
 * Save revision when restart workflow (Ihor Marhitych)
-
+* Add a visible indicator of unsaved changes to the page editor (Jacob Topp-Mugglestone)
 
 Bug fixes
 ~~~~~~~~~
@@ -122,3 +129,25 @@ Setting menu items now use SVG icons by default. For sites reusing built-in Wagt
         return SettingMenuItem(CustomSetting, icon='custom-cog')
         # After:
         return SettingMenuItem(CustomSetting, icon='', classnames='icon icon-custom-cog')
+
+
+CommentPanel
+~~~~~~~~~~~~
+
+``Page.content_panels`` now includes `CommentPanel`, which is used to save and load comments. If you are overriding page edit handlers
+without directly extending ``Page.content_panels`` (ie ``content_panels = Page.content_panels + [ FieldPanel('my_field') ]`` would need no
+change here) and want to use the new commenting system, your list of edit handlers should be updated to include ``CommentPanel``. For example:
+
+.. code-block:: python
+
+    from django.db import models
+
+    from wagtail.core.models import Page
+    from wagtail.admin.edit_handlers import CommentPanel
+
+
+    class HomePage(Page):
+        content_panels = [
+            # My existing panels here
+            CommentPanel(),
+        ]

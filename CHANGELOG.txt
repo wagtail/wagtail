@@ -27,6 +27,7 @@ Changelog
  * Support slicing on StreamField / StreamBlock values (Matt Westcott)
  * Switch Wagtail choosers to use SVG icons instead of font icon (Storm Heg)
  * Save revision when restart workflow (Ihor Marhitych)
+ * Add a visible indicator of unsaved changes to the page editor (Jacob Topp-Mugglestone)
  * Fix: StreamField required status is now consistently handled by the `blank` keyword argument (Matt Westcott)
  * Fix: Show 'required' asterisks for blocks inside required StreamFields (Matt Westcott)
  * Fix: Make image chooser "Select format" fields translatable (Helen Chapman, Thibaud Colas)
