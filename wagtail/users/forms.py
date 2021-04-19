@@ -382,14 +382,16 @@ class NotificationPreferencesForm(forms.ModelForm):
         if not user_perms.can_edit_pages():
             del self.fields['approved_notifications']
             del self.fields['rejected_notifications']
+            del self.fields['updated_comments_notifications']
 
     class Meta:
         model = UserProfile
-        fields = ['submitted_notifications', 'approved_notifications', 'rejected_notifications']
+        fields = ['submitted_notifications', 'approved_notifications', 'rejected_notifications', 'updated_comments_notifications']
         widgets = {
             'submitted_notifications': SwitchInput(),
             'approved_notifications': SwitchInput(),
             'rejected_notifications': SwitchInput(),
+            'updated_comments_notifications': SwitchInput(),
         }
 
 
