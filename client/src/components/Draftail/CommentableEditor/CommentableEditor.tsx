@@ -478,6 +478,9 @@ interface CommentableEditorProps {
   editorRef: (editor: ReactNode) => void
   colorConfig: ColorConfigProp
   isCommentShortcut: (e: React.KeyboardEvent) => boolean
+  // Unfortunately the EditorPlugin type isn't exported in our version of 'draft-js-plugins-editor'
+  plugins?: Record<string, unknown>[]
+  controls?: Array<(props: ControlProps) => JSX.Element>
 }
 
 function CommentableEditor({
@@ -490,6 +493,8 @@ function CommentableEditor({
   editorRef,
   colorConfig: { standardHighlight, overlappingHighlight, focusedHighlight },
   isCommentShortcut,
+  plugins = [],
+  controls = [],
   ...options
 }: CommentableEditorProps) {
   const [editorState, setEditorState] = useState(() =>
@@ -622,21 +627,15 @@ function CommentableEditor({
         setEditorState(newEditorState);
       }}
       editorState={editorState}
-      controls={enabled ? [CommentControl] : []}
-      decorators={
-        enabled
-          ? [
-            {
-              strategy: (
-                block: ContentBlock, callback: (start: number, end: number) => void
-              ) => findCommentStyleRanges(block, callback),
-              component: CommentDecorator,
-            },
-          ]
-          : []
-      }
+      controls={enabled ? controls.concat([CommentControl]) : controls}
       inlineStyles={inlineStyles.concat(commentStyles)}
-      plugins={enabled ? [{
+      plugins={enabled ? plugins.concat([{
+        decorators: [{
+          strategy: (
+            block: ContentBlock, callback: (start: number, end: number) => void
+          ) => findCommentStyleRanges(block, callback),
+          component: CommentDecorator,
+        }],
         keyBindingFn: (e: React.KeyboardEvent) => {
           if (isCommentShortcut(e)) {
             return 'comment';
@@ -697,7 +696,7 @@ function CommentableEditor({
           }
           return undefined;
         }
-      }] : []
+      }]) : plugins
       }
       {...options}
     />
