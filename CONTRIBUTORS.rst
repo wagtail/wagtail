@@ -504,6 +504,7 @@ Contributors
 * Susan Dreher
 * Dale Evans
 * Vlad Podgurschi
+* Kevin Breen
 
 Translators
 ===========
