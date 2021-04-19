@@ -14,6 +14,7 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
+from wagtail.admin.mail import send_notification
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
@@ -54,6 +55,45 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             )
 
         messages.success(self.request, message)
+
+    def send_commenting_notifications(self):
+        """
+        Sends notifications about any changes to comments to anyone who is subscribed.
+        """
+        # Skip if this page does not have CommentPanel enabled
+        if 'comments' not in self.form.formsets:
+            return
+
+        # Get changes
+        comments_formset = self.form.formsets['comments']
+        new_comments = comments_formset.new_objects
+        deleted_comments = comments_formset.deleted_objects
+
+        # Assume any changed comments that are resolved were only just resolved
+        resolved_comments = []
+        for changed_comment, changed_fields in comments_formset.changed_objects:
+            if changed_comment.resolved_at and 'resolved' in changed_fields:
+                resolved_comments.append(changed_comment)
+
+        # Skip if no changes were made
+        if not new_comments and not deleted_comments and not resolved_comments:
+            return
+
+        # Get subscribers
+        subscribers = PageSubscription.objects.filter(page=self.page, comment_notifications=True).select_related('user')
+        recipient_users = [subscriber.user for subscriber in subscribers if subscriber.user != self.request.user]
+
+        # Skip if no recipients
+        if not recipient_users:
+            return
+
+        return send_notification(recipient_users, 'updated_comments', {
+            'page': self.page,
+            'editor': self.request.user,
+            'new_comments': new_comments,
+            'resolved_comments': resolved_comments,
+            'deleted_comments': deleted_comments,
+        })
 
     def get_edit_message_button(self):
         return messages.button(
@@ -265,6 +305,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         self.add_save_confirmation_message()
 
+        self.send_commenting_notifications()
+
         response = self.run_hook('after_edit_page', self.request, self.page)
         if response:
             return response
@@ -295,6 +337,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             changed=self.has_content_changes,
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
+
+        self.send_commenting_notifications()
 
         # Need to reload the page because the URL may have changed, and we
         # need the up-to-date URL for the "View Live" button.
@@ -372,6 +416,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             log_action=True,  # Always log the new revision on edit
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
+
+        self.send_commenting_notifications()
 
         if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
             # If the workflow was in the needs changes state, resume the existing workflow on submission
