@@ -758,9 +758,12 @@ class TestPermissionsCached(TestCase, WagtailTestUtils):
         # and only does one query per modeladmin
         with CaptureQueriesContext(connection) as queries:
             self.client.get('/admin/modeladmintest/author/')
+            self.assertGreater(len(queries), 0)
+
             count = 0
             for q in queries:
                 sql = q['sql']
+                print(sql)
                 if 'codename' in sql and 'author' in sql:
                     count += 1
             self.assertEqual(count, 1)
