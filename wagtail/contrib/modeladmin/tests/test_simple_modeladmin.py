@@ -3,7 +3,9 @@ from unittest import mock
 
 from django.contrib.auth.models import Group
 from django.core import checks
+from django.db import connection
 from django.test import TestCase
+from django.test.utils import CaptureQueriesContext
 from openpyxl import load_workbook
 
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
@@ -743,3 +745,23 @@ There are no default tabs on non-Page models so there will be no\
         # clean up for future checks
         delattr(Publisher, 'content_panels')
         delattr(Publisher, 'edit_handler')
+
+
+class TestPermissionsCached(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+
+    def test_inspect_view(self):
+        # Ensure that the permissions helper caches the model permissions
+        # and only does one query per modeladmin
+        with CaptureQueriesContext(connection) as queries:
+            r = self.client.get('/admin/modeladmintest/author/')
+            count = 0
+            for q in queries:
+                sql = q['sql']
+                if ('auth_permission"."codename"' in sql and
+                        '"django_content_type"."model" = \'author\'' in sql):
+                    count += 1
+            self.assertEqual(count, 1)
