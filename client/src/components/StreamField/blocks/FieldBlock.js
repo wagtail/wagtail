@@ -42,6 +42,10 @@ export class FieldBlock {
     }
 
     if (window.comments && this.blockDef.meta.showAddCommentButton) {
+      const fieldCommentControlElement = document.createElement('div');
+      fieldCommentControlElement.classList.add('field-comment-control');
+      this.element.appendChild(fieldCommentControlElement);
+
       const addCommentButtonElement = document.createElement('button');
       addCommentButtonElement.type = 'button';
       addCommentButtonElement.setAttribute('aria-label', blockDef.meta.strings.ADD_COMMENT);
@@ -50,8 +54,8 @@ export class FieldBlock {
       addCommentButtonElement.classList.add('button-secondary');
       addCommentButtonElement.classList.add('button-small');
       addCommentButtonElement.classList.add('u-hidden');
-      addCommentButtonElement.innerHTML = '<svg class="icon icon-comment initial" aria-hidden="true" focusable="false"><use href="#icon-comment"></use></svg>';
-      this.element.querySelector('.field-content').appendChild(addCommentButtonElement);
+      addCommentButtonElement.innerHTML = '<svg class="icon icon-comment-add initial" aria-hidden="true" focusable="false"><use href="#icon-comment-add"></use></svg>';
+      fieldCommentControlElement.appendChild(addCommentButtonElement);
       window.comments.initAddCommentButton(addCommentButtonElement);
     }
 

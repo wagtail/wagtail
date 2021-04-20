@@ -429,3 +429,92 @@ li.inline:first-child {
         }
     }
 }
+
+.field-comment-control {
+    display: none;
+}
+
+.tab-content--comments-enabled {
+    .field {
+        position: relative;
+    }
+
+    .field-content {
+        padding-right: 60px;
+    }
+
+    .widget-draftail_rich_text_area .field-content {
+        padding-right: 0;
+    }
+
+    .field-comment-control {
+        display: block;
+        top: 0;
+        right: 0;
+        height: 100%;
+        line-height: 100%;
+
+        &--object {
+            right: 20px;
+
+            @include media-breakpoint-up(lg) {
+                right: 350px;
+            }
+        }
+
+        @include media-breakpoint-up(md) {
+            position: absolute;
+        }
+
+        button {
+            @include transition(opacity 0.2s ease);
+            border: 0;
+            background: none;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            border-radius: 3px;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+
+            // Hide by default, reveal on hover of parent
+            @include media-breakpoint-up(md) {
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-50%);
+                right: 0;
+            }
+
+            &:hover {
+                cursor: pointer;
+                background-color: $color-grey-3;
+            }
+
+            > svg {
+                width: 16px;
+                height: 16px;
+                color: $color-teal;
+            }
+        }
+    }
+
+    .field-row .field-comment-control {
+        top: 0;
+    }
+
+    .object {
+        &:hover {
+            .field-comment-control button {
+                opacity: 1;
+                pointer-events: initial;
+            }
+        }
+    }
+
+    .object.model_choice_field {
+        .object-help {
+            right: 153px;
+        }
+    }
+}
