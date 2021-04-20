@@ -7,7 +7,7 @@ Wagtail is an open source CMS written in `Python <https://www.python.org/>`_ and
 
 Below are some useful links to help you get started with Wagtail.
 
-If you'd like to get a quick feel for Wagtail, `explore the Wagtail Bakery <https://divio.com/wagtail>`_, a fully-functional interactive demo (hosted at Divio Cloud).
+If you'd like to get a quick feel for Wagtail, try spinning up a `temporary developer environment <https://gitpod.io/#https://github.com/wagtail/wagtail-gitpod>`_ in your browser (running on Gitpod - here's `how it works <https://wagtail.io/blog/gitpod/>`_).
 
 * **First steps**
 
