@@ -1,7 +1,9 @@
 import json
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
+from django.db.models import Prefetch, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -18,7 +20,7 @@ from wagtail.admin.mail import send_notification
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import Page, PageSubscription, UserPagePermissionsProxy, WorkflowState
+from wagtail.core.models import Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy, WorkflowState
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -79,15 +81,46 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if not new_comments and not deleted_comments and not resolved_comments:
             return
 
-        # Get subscribers
+        relevant_comment_ids = [comment.pk for comment in new_comments + resolved_comments]
+
+        # Get global page comment subscribers
         subscribers = PageSubscription.objects.filter(page=self.page, comment_notifications=True).select_related('user')
-        recipient_users = [subscriber.user for subscriber in subscribers if subscriber.user != self.request.user]
+        global_recipient_users = [subscriber.user for subscriber in subscribers if subscriber.user != self.request.user]
+
+        # Get subscribers to individual threads
+        replies = CommentReply.objects.filter(comment_id__in=relevant_comment_ids)
+        comments = Comment.objects.filter(id__in=relevant_comment_ids)
+        thread_users = get_user_model().objects.exclude(pk=self.request.user.pk).exclude(pk__in=subscribers.values_list('user_id', flat=True)).prefetch_related(
+            Prefetch('comment_replies', queryset=replies),
+            Prefetch('comments', queryset=comments)
+        ).exclude(
+            Q(comment_replies__isnull=True) & Q(comments__isnull=True)
+        )
 
         # Skip if no recipients
-        if not recipient_users:
+        if not (global_recipient_users or thread_users):
             return
+        thread_users = [(user, set(list(user.comment_replies.values_list('comment_id', flat=True)) + list(user.comments.values_list('pk', flat=True)))) for user in thread_users]
+        mailed_users = set()
 
-        return send_notification(recipient_users, 'updated_comments', {
+        for current_user, current_threads in thread_users:
+            if current_user in mailed_users:
+                continue
+            users = [current_user]
+            mailed_users.add(current_user)
+            for user, threads in thread_users:
+                if user not in mailed_users and threads == current_threads:
+                    users.append(user)
+                    mailed_users.add(user)
+            send_notification(users, 'updated_comments', {
+                'page': self.page,
+                'editor': self.request.user,
+                'new_comments': [comment for comment in new_comments if comment.pk in threads],
+                'resolved_comments': [comment for comment in resolved_comments if comment.pk in threads],
+                'deleted_comments': [],
+            })
+
+        return send_notification(global_recipient_users, 'updated_comments', {
             'page': self.page,
             'editor': self.request.user,
             'new_comments': new_comments,
