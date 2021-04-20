@@ -5,6 +5,7 @@
 # Translators:
 # benebun <benedikt.breinbauer@gmail.com>, 2021
 # Benedikt Willi <ben.willi@gmail.com>, 2020
+# Benjamin Kaspar <bennykaspar@gmail.com>, 2021
 # Benjamin Thurm, 2018-2019
 # Daniel Manser <me@danielmanser.com>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017,2019-2020
@@ -36,8 +37,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-20 11:15+0000\n"
-"Last-Translator: benebun <benedikt.breinbauer@gmail.com>\n"
+"PO-Revision-Date: 2021-04-15 08:32+0000\n"
+"Last-Translator: Benjamin Kaspar <bennykaspar@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -705,6 +706,16 @@ msgid ""
 msgstr ""
 "Das ist Ihr Dashboard, auf dem nützliche Informationen zu den Inhalten, die "
 "Sie erstellen, zusammengestellt werden."
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail entfernt schrittweise die Unterstützung für IE11, was Sie oder Ihr "
+"Unternehmen betreffen kann. <a href=\"%(url)s\">Erfahren Sie mehr über "
+"unsere IE11-Supportpläne</a>."
 
 msgid "Your locked pages"
 msgstr "Ihre gesperrte Seiten"

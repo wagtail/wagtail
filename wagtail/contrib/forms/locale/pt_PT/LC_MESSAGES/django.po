@@ -4,7 +4,7 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014,2016
-# Luís Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2020
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:30+0000\n"
 "PO-Revision-Date: 2020-07-27 18:14+0000\n"
-"Last-Translator: Luís Favas <al62006@utad.eu>\n"
+"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
