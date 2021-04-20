@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="{{ pathto('_static/css/docsearch.overrides.css', 1) }}" />
 {% endblock %}
 
-{% block footer %}
-{{ super() }}
+{% block search %}
 <script async defer data-domain="docs.wagtail.io" src="https://plausible.io/js/plausible.js"></script>
 <script src="{{ docsearch_base }}docsearch.min.js"></script>
 <script>
@@ -58,7 +57,7 @@
     const search = docsearch({
       apiKey: '8325c57d16798633e29d211c26c7b6f9',
       indexName: 'wagtail',
-      inputSelector: '#rtd-search-form [name="q"]',
+      inputSelector: '#searchbox [name="q"]',
       algoliaOptions: {
         facetFilters: [getVersionFacetFilter()],
       },
