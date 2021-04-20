@@ -2,10 +2,18 @@
     @include box;
 
     width: 100%;
-    max-width: 275px;
     display: block;
     transition: top 0.5s ease 0s, right 0.5s ease 0s, height 0.5s ease 0s;
     pointer-events: auto;
+    box-sizing: border-box;
+
+    @include media-breakpoint-up(sm) {
+        max-width: 200px;
+    }
+
+    @include media-breakpoint-up(lg) {
+        max-width: 275px;
+    }
 
     &__text {
         color: $color-box-text;
