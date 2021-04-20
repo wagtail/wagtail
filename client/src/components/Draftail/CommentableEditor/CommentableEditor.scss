@@ -9,27 +9,23 @@
     .Draftail-CommentControl {
         float: right;
         color: $color-teal;
+    }
+}
 
-        button {
-            span {
-                &:last-of-type {
-                    display: none;
-                }
-            }
+.Draftail-CommentControl .Draftail-ToolbarButton {
+    .icon-comment-large-reversed {
+        display: none;
+    }
 
-            &:hover {
-                border-color: transparent;
+    &:hover {
+        border-color: transparent;
 
-                span {
-                    &:first-of-type {
-                        display: none;
-                    }
+        .icon-comment-large-outline {
+            display: none;
+        }
 
-                    &:last-of-type {
-                        display: block;
-                    }
-                }
-            }
+        .icon-comment-large-reversed {
+            display: block;
         }
     }
 }
