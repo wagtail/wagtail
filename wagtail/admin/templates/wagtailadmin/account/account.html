@@ -6,7 +6,7 @@
     {% trans "Account" as account_str %}
     {% include "wagtailadmin/shared/header.html" with title=account_str merged=1 tabbed=1 %}
 
-    <ul class="tab-nav merged">
+    <ul class="tab-nav merged" data-tab-nav>
         {% for tab in panels_by_tab.keys %}
             <li{% if forloop.first %} class="active"{% endif %}><a href="#{{ tab.name }}">{{ tab.title }}</a></li>
         {% endfor %}
