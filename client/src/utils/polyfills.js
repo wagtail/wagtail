@@ -10,3 +10,5 @@ import 'whatwg-fetch';
 import 'element-closest';
 // IE11
 import 'formdata-polyfill';
+// IE11
+import 'url-search-params-polyfill';
