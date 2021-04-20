@@ -503,7 +503,8 @@ li.inline:first-child {
         top: 0;
     }
 
-    .object {
+    li.model_choice_field,
+    li.char_field {
         &:hover {
             .field-comment-control button {
                 opacity: 1;
