@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,67 +74,87 @@ msgstr ""
 msgid "Right-aligned"
 msgstr ""
 
-#: forms.py:106
+#: forms.py:23
+msgid "Collection"
+msgstr ""
+
+#: forms.py:98
+msgid "Format"
+msgstr ""
+
+#: forms.py:102
+msgid "Image is decorative"
+msgstr ""
+
+#: forms.py:103
+msgid "Alt text"
+msgstr ""
+
+#: forms.py:115
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+
+#: forms.py:122
 msgid "Filter"
 msgstr ""
 
-#: forms.py:108
+#: forms.py:124
 msgid "Original size"
 msgstr ""
 
-#: forms.py:109
+#: forms.py:125
 msgid "Resize to width"
 msgstr ""
 
-#: forms.py:110
+#: forms.py:126
 msgid "Resize to height"
 msgstr ""
 
-#: forms.py:111
+#: forms.py:127
 msgid "Resize to min"
 msgstr ""
 
-#: forms.py:112
+#: forms.py:128
 msgid "Resize to max"
 msgstr ""
 
-#: forms.py:113
+#: forms.py:129
 msgid "Resize to fill"
 msgstr ""
 
-#: forms.py:116
+#: forms.py:132
 msgid "Width"
 msgstr ""
 
-#: forms.py:117
+#: forms.py:133
 msgid "Height"
 msgstr ""
 
-#: forms.py:118
+#: forms.py:134
 msgid "Closeness"
 msgstr ""
 
-#: forms.py:124
+#: forms.py:140
 msgid "Add"
 msgstr ""
 
-#: forms.py:124
+#: forms.py:140
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:125 views/images.py:290
+#: forms.py:141 views/images.py:290
 msgid "Edit"
 msgstr ""
 
-#: forms.py:125
+#: forms.py:141
 msgid "Edit any image"
 msgstr ""
 
-#: forms.py:126
+#: forms.py:142
 msgid "Choose"
 msgstr ""
 
-#: forms.py:126
+#: forms.py:142
 msgid "Select images in choosers"
 msgstr ""
 
@@ -174,7 +194,7 @@ msgstr ""
 msgid "images"
 msgstr ""
 
-#: templates/wagtailimages/chooser/chooser.html:3 widgets.py:15
+#: templates/wagtailimages/chooser/chooser.html:3 widgets.py:18
 msgid "Choose an image"
 msgstr ""
 
@@ -520,10 +540,10 @@ msgid_plural "%(count)s images"
 msgstr[0] ""
 msgstr[1] ""
 
-#: widgets.py:16
+#: widgets.py:19
 msgid "Change image"
 msgstr ""
 
-#: widgets.py:17
+#: widgets.py:20
 msgid "Edit this image"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,26 +38,26 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: views.py:54
+#: views.py:59
 msgid "Search something"
 msgstr ""
 
-#: views.py:58
+#: views.py:63
 msgid "Success message"
 msgstr ""
 
-#: views.py:59 views.py:63 views.py:67
+#: views.py:64 views.py:68 views.py:72
 msgid "View live"
 msgstr ""
 
-#: views.py:60 views.py:64 views.py:68
+#: views.py:65 views.py:69 views.py:73
 msgid "Edit"
 msgstr ""
 
-#: views.py:62
+#: views.py:67
 msgid "Warning message"
 msgstr ""
 
-#: views.py:66
+#: views.py:71
 msgid "Error message"
 msgstr ""
