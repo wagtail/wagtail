@@ -3,10 +3,8 @@
 {% block greeting %}
 {% blocktrans with username=user.get_short_name|default:user.get_username %}Hello {{ username }},{% endblocktrans %}
 {% endblock %}
-
 {% block content %}
 {% endblock %}
-
 {% block preferences %}
 {% trans "Edit your notification preferences here:" %} {{ settings.BASE_URL }}{% url 'wagtailadmin_account_notification_preferences' %}
 {% endblock %}
