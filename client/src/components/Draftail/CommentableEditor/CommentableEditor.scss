@@ -11,3 +11,21 @@
         color: $color-teal;
     }
 }
+
+.Draftail-CommentControl .Draftail-ToolbarButton {
+    .icon-comment-large-reversed {
+        display: none;
+    }
+
+    &:hover {
+        border-color: transparent;
+
+        .icon-comment-large-outline {
+            display: none;
+        }
+
+        .icon-comment-large-reversed {
+            display: block;
+        }
+    }
+}
