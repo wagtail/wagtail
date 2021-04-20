@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.forms import PasswordChangeForm
 from django.db import transaction
 from django.http import Http404
 from django.shortcuts import redirect
@@ -15,7 +14,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, override
 from django.views.decorators.debug import sensitive_post_parameters
 
-from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
+from wagtail.admin.forms.auth import LoginForm, PasswordChangeForm, PasswordResetForm
 from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy
