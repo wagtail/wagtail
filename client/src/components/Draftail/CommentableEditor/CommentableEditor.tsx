@@ -211,7 +211,7 @@ function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNod
         name="comment"
         active={false}
         title={`${STRINGS.ADD_A_COMMENT}\n${IS_MAC_OS ? '⌘ + Alt + M' : 'Ctrl + Alt + M'}`}
-        icon={<Icon name="comment" />}
+        icon={<Icon name="comment-large-outline" />}
         onClick={() => {
           onChange(
             addNewComment(getEditorState(), fieldNode, commentApp, contentPath)
