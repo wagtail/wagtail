@@ -18,7 +18,7 @@ from wagtail.admin.edit_handlers import CommentPanel
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
-    Comment, GroupPagePermission, Locale, Page, PageRevision, PageSubscription, Site)
+    Comment, CommentReply, GroupPagePermission, Locale, Page, PageRevision, PageSubscription, Site)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory, EventPage,
@@ -2074,6 +2074,7 @@ class TestCommentingNotifications(TestCase, WagtailTestUtils):
         # Add a couple more users
         self.subscriber = self.create_user('subscriber')
         self.non_subscriber = self.create_user('non-subscriber')
+        self.non_subscriber_2 = self.create_user('non-subscriber-2')
 
         PageSubscription.objects.create(
             page=self.child_page,
@@ -2168,6 +2169,66 @@ class TestCommentingNotifications(TestCase, WagtailTestUtils):
         self.assertEqual(mail.outbox[1].to, [self.subscriber.email])
         self.assertEqual(mail.outbox[1].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
         self.assertIn('Resolved comments:\n\n - "A test comment"\n\n', mail.outbox[1].body)
+
+    def test_notification_on_new_reply(self):
+        comment = Comment.objects.create(
+            page=self.child_page,
+            user=self.non_subscriber,
+            text="A test comment",
+            contentpath="title",
+        )
+
+        reply = CommentReply.objects.create(
+            comment=comment,
+            user=self.non_subscriber_2,
+            text='an old reply'
+        )
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comments-TOTAL_FORMS': '1',
+            'comments-INITIAL_FORMS': '1',
+            'comments-MIN_NUM_FORMS': '0',
+            'comments-MAX_NUM_FORMS': '',
+            'comments-0-DELETE': '',
+            'comments-0-resolved': '',
+            'comments-0-id': str(comment.id),
+            'comments-0-contentpath': 'title',
+            'comments-0-text': 'A test comment',
+            'comments-0-position': '',
+            'comments-0-replies-TOTAL_FORMS': '2',
+            'comments-0-replies-INITIAL_FORMS': '1',
+            'comments-0-replies-MIN_NUM_FORMS': '0',
+            'comments-0-replies-MAX_NUM_FORMS': '',
+            'comments-0-replies-0-id': str(reply.id),
+            'comments-0-replies-0-text': 'an old reply',
+            'comments-0-replies-1-id': '',
+            'comments-0-replies-1-text': 'a new reply'
+        }
+
+        with enable_comment_panel(SimplePage):
+            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the comment reply was added
+        comment.refresh_from_db()
+        self.assertEqual(comment.replies.last().text, 'a new reply')
+
+        self.assertEqual(len(mail.outbox), 3)
+
+        recipients = [mail.to for mail in mail.outbox]
+        # The other non subscriber replied in the thread, so should get an email
+        self.assertIn([self.non_subscriber_2.email], recipients)
+
+        # The non subscriber created the comment, so should get an email
+        self.assertIn([self.non_subscriber.email], recipients)
+
+        self.assertIn([self.subscriber.email], recipients)
+        self.assertEqual(mail.outbox[2].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
+        self.assertIn('New replies to: A test comment\n\n   - a new reply', mail.outbox[2].body)
 
     def test_notification_on_deleted_comment(self):
         comment = Comment.objects.create(
