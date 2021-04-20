@@ -846,7 +846,7 @@ class TestContentStateToHtml(TestCase):
         })
 
         result = converter.to_database_format(contentstate_json)
-        self.assertEqual(result, '<p>an <a href="http://wagtail.io">external</a> link</p>')
+        self.assertEqual(result, '<p data-block-key="00000">an <a href="http://wagtail.io">external</a> link</p>')
 
     def test_local_link(self):
         converter = ContentstateConverter(features=['link'])
@@ -863,7 +863,7 @@ class TestContentStateToHtml(TestCase):
         })
 
         result = converter.to_database_format(contentstate_json)
-        self.assertEqual(result, '<p>an <a href="/some/local/path/">external</a> link</p>')
+        self.assertEqual(result, '<p data-block-key="00000">an <a href="/some/local/path/">external</a> link</p>')
 
     def test_reject_javascript_link(self):
         converter = ContentstateConverter(features=['link'])
@@ -880,7 +880,7 @@ class TestContentStateToHtml(TestCase):
         })
 
         result = converter.to_database_format(contentstate_json)
-        self.assertEqual(result, '<p>an <a>external</a> link</p>')
+        self.assertEqual(result, '<p data-block-key="00000">an <a>external</a> link</p>')
 
     def test_paragraphs_retain_keys(self):
         converter = ContentstateConverter(features=[])
