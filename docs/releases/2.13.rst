@@ -42,6 +42,11 @@ The page editor now supports leaving comments on fields and StreamField blocks, 
 
 This feature was developed by Jacob Topp-Mugglestone, Karl Hobley and Simon Evans and sponsored by `The Motley Fool <https://www.fool.com/>`_.
 
+Combined account settings
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The "Account settings" section available at the bottom of the admin menu has been updated to include all settings on a single form. This feature was developed by Karl Hobley.
+
 Other features
 ~~~~~~~~~~~~~~
 
