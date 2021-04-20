@@ -449,28 +449,42 @@ li.inline:first-child {
 
     .field-comment-control {
         display: block;
-        position: absolute;
         top: 0;
         right: 0;
         height: 100%;
         line-height: 100%;
 
         &--object {
-            right: 350px;
+            right: 20px;
+
+            @include media-breakpoint-up(lg) {
+                right: 350px;
+            }
+        }
+
+        @include media-breakpoint-up(md) {
+            position: absolute;
         }
 
         button {
+            @include transition(opacity 0.2s ease);
             border: 0;
             background: none;
             width: 30px;
             height: 30px;
             padding: 0;
             border-radius: 3px;
-
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
-            right: 0;
+            right: 10px;
+
+            // Hide by default, reveal on hover of parent
+            @include media-breakpoint-up(md) {
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-50%);
+                right: 0;
+            }
 
             &:hover {
                 cursor: pointer;
@@ -489,7 +503,18 @@ li.inline:first-child {
         top: 0;
     }
 
-    .object.full .field-comment-control {
+    .object {
+        &:hover {
+            .field-comment-control button {
+                opacity: 1;
+                pointer-events: initial;
+            }
+        }
+    }
 
+    .object.model_choice_field {
+        .object-help {
+            right: 153px;
+        }
     }
 }
