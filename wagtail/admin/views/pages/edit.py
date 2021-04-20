@@ -20,7 +20,8 @@ from wagtail.admin.mail import send_notification
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy, WorkflowState
+from wagtail.core.models import (
+    Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy, WorkflowState)
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -70,18 +71,28 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         comments_formset = self.form.formsets['comments']
         new_comments = comments_formset.new_objects
         deleted_comments = comments_formset.deleted_objects
+        relevant_comment_ids = []
 
         # Assume any changed comments that are resolved were only just resolved
         resolved_comments = []
         for changed_comment, changed_fields in comments_formset.changed_objects:
             if changed_comment.resolved_at and 'resolved' in changed_fields:
                 resolved_comments.append(changed_comment)
+                relevant_comment_ids.append(changed_comment.pk)
+
+        replied_comments = []
+        for comment_form in comments_formset.forms:
+            replies = getattr(comment_form.formsets['replies'], 'new_objects', [])
+            if replies:
+                replied_comments.append({
+                    'comment': comment_form.instance,
+                    'replies': replies
+                })
+                relevant_comment_ids.append(comment_form.instance.pk)
 
         # Skip if no changes were made
-        if not new_comments and not deleted_comments and not resolved_comments:
+        if not new_comments and not deleted_comments and not resolved_comments and not replied_comments:
             return
-
-        relevant_comment_ids = [comment.pk for comment in new_comments + resolved_comments]
 
         # Get global page comment subscribers
         subscribers = PageSubscription.objects.filter(page=self.page, comment_notifications=True).select_related('user')
@@ -104,6 +115,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         mailed_users = set()
 
         for current_user, current_threads in thread_users:
+            # We are trying to avoid calling send_notification for each user for performance reasons
+            # so group the users receiving the same thread notifications together here
             if current_user in mailed_users:
                 continue
             users = [current_user]
@@ -118,6 +131,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 'new_comments': [comment for comment in new_comments if comment.pk in threads],
                 'resolved_comments': [comment for comment in resolved_comments if comment.pk in threads],
                 'deleted_comments': [],
+                'replied_comments': [comment for comment in replied_comments if comment['comment'].pk in threads]
             })
 
         return send_notification(global_recipient_users, 'updated_comments', {
@@ -126,6 +140,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             'new_comments': new_comments,
             'resolved_comments': resolved_comments,
             'deleted_comments': deleted_comments,
+            'replied_comments': replied_comments
         })
 
     def get_edit_message_button(self):
