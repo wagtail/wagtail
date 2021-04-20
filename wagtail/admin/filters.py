@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
 from wagtail.admin.widgets import AdminDateInput, BooleanButtonSelect, ButtonSelect, FilteredSelect
-from wagtail.core.logging import page_log_action_registry
+from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.models import Page, PageLogEntry, Task, TaskState, Workflow, WorkflowState
 
 

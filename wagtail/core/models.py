@@ -43,7 +43,7 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
-from wagtail.core.logging import page_log_action_registry
+from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import (
     page_published, page_unpublished, post_page_move, pre_page_move, task_approved, task_cancelled,
