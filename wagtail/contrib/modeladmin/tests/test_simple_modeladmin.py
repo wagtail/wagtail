@@ -3,9 +3,7 @@ from unittest import mock
 
 from django.contrib.auth.models import Group
 from django.core import checks
-from django.db import connection
 from django.test import TestCase
-from django.test.utils import CaptureQueriesContext
 from openpyxl import load_workbook
 
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
@@ -756,14 +754,5 @@ class TestPermissionsCached(TestCase, WagtailTestUtils):
     def test_inspect_view(self):
         # Ensure that the permissions helper caches the model permissions
         # and only does one query per modeladmin
-        with CaptureQueriesContext(connection) as queries:
+        with self.assertNumQueries(35):
             self.client.get('/admin/modeladmintest/author/')
-            self.assertGreater(len(queries), 0)
-
-            count = 0
-            for q in queries:
-                sql = q['sql']
-                print(sql)
-                if 'codename' in sql and 'author' in sql:
-                    count += 1
-            self.assertEqual(count, 1)
