@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-03-11 14:58+0000\n"
+"Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,10 @@ msgstr "Netinkamas %s paveiksliukas."
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Byla yra per didelė (%%s). Didžiausias bylos dydis yra %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Byla turi per daug taškų (%%s). Didžiausias taškų kiekis yra %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -107,6 +111,9 @@ msgstr "Redaguoti"
 msgid "Edit any image"
 msgstr "Redaguoti bet kurį paveiksliuką"
 
+msgid "Choose"
+msgstr "Pasirinkti"
+
 msgid "title"
 msgstr "pavadinimas"
 
@@ -127,6 +134,12 @@ msgstr "įkelta vartotojo"
 
 msgid "tags"
 msgstr "žymenos"
+
+msgid "image"
+msgstr "paveiksliukas"
+
+msgid "images"
+msgstr "paveiksliukai"
 
 msgid "Choose an image"
 msgstr "Pasirinkti paveiksliuką"
@@ -181,6 +194,9 @@ msgstr "Ar tikrai norite ištrinti šį paveiksliuką?"
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
 
+msgid "No, don't delete"
+msgstr "Ne, neištrinti"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Redaguojamas paveiksliukas %(title)s"
@@ -230,6 +246,9 @@ msgstr "Populiarios žymenos:"
 
 msgid "Clear choice"
 msgstr "Išvalyti pasirinkimus"
+
+msgid "pixels"
+msgstr "taškai"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

@@ -5,14 +5,14 @@
 # Translators:
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2020
+# Dan Braghis, 2014-2021
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:31+0000\n"
-"PO-Revision-Date: 2020-07-27 20:17+0000\n"
+"PO-Revision-Date: 2021-04-06 19:05+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -73,7 +73,7 @@ msgstr ""
 "Nu puteți avea înregistrări de permisiune multiple pentru aceeași pagină."
 
 msgid "Preferred language"
-msgstr "Limbra preferată"
+msgstr "Limba preferată"
 
 msgid "Current time zone"
 msgstr "Fus orar curent"

@@ -5,14 +5,14 @@
 # Translators:
 # Antoni Aloy <aaloy@apsl.net>, 2016
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020
+# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-03-24 12:33+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,7 @@ msgid "This copy will be a child of this given parent page."
 msgstr "Aquesta còpia serà filla de la plana pare donada."
 
 msgid "Copy subpages"
-msgstr "Copiar subplanes"
+msgstr "Copiar subpàgines"
 
 #, python-format
 msgid "This will copy %(count)s subpage."
@@ -1349,6 +1349,9 @@ msgstr "Estat de bloqueig"
 msgid "Locked"
 msgstr "Bloquejada"
 
+msgid "No locked pages found."
+msgstr "No s'ha trobat cap pàgina bloquejada."
+
 msgid "By Task"
 msgstr "Per tasca"
 
@@ -1407,6 +1410,9 @@ msgstr "Creant..."
 msgid "Create"
 msgstr "Crear"
 
+msgid "Assigned pages"
+msgstr "Pàgines assignades"
+
 msgid "Choose a task"
 msgstr "Trieu una tasca"
 
@@ -1421,6 +1427,13 @@ msgstr "Amagar les tasques deshabilitades"
 
 msgid "Show disabled tasks"
 msgstr "Mostrar les tasques deshabilitades"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "Pàgines que utlitzen el fluxe de treball '%(name)s'"
+
+msgid "Pages that use workflow"
+msgstr "Pàgines que utilitzen el fluxe de treball"
 
 #, python-format
 msgid "by %(modified_by)s"

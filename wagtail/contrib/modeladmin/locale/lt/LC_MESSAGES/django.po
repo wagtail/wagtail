@@ -4,13 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017
+# Naglis Jonaitis, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:31+0000\n"
-"PO-Revision-Date: 2020-04-21 13:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-03-11 14:53+0000\n"
+"Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail modelių administravimas"
 
 msgid "Parent page"
 msgstr "Tėvinis puslapis"
@@ -110,6 +114,9 @@ msgstr "Grįžti atgal į sąrašą"
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
 
+msgid "No, don't delete"
+msgstr "Ne, neištrinti"
+
 msgid "Home"
 msgstr "Namai"
 
@@ -128,6 +135,12 @@ msgstr "Ieškoti"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Ieškoti %(name)s"
+
+msgid "Download XLSX"
+msgstr "Parsiųsti XLSX"
+
+msgid "Download CSV"
+msgstr "Parsisiųsti CSV"
 
 msgid "Filter"
 msgstr "Filtras"
@@ -154,6 +167,9 @@ msgstr ""
 "\n"
 "Kodėl gi <a href=\"%(url)s\">nepridėjus vieno</a>?"
 
+msgid "Pagination"
+msgstr "Skaidymas į puslapius"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Puslapis %(current_page)s iš %(num_pages)s."
@@ -167,6 +183,10 @@ msgstr "Buvęs"
 
 msgid "Next"
 msgstr "Kitas"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' sukurtas."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -187,6 +207,10 @@ msgid "Editing %s"
 msgstr "Redaguojamas %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' atnaujintas."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s negalėjo būti išsaugotas dėl klaidų."
 
@@ -201,6 +225,10 @@ msgid ""
 msgstr ""
 "Ar tikrai norite ištrinti šį %s? Jei kiti elementai jūsų tinklalapyje yra su "
 "juo susieti, tai gali paveikti ir juos."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' ištrintas."
 
 msgid "Inspecting"
 msgstr "Tikrinama"
