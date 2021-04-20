@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -251,17 +251,17 @@ msgstr ""
 msgid "Delete '%(title)s'"
 msgstr ""
 
-#: widgets.py:19
+#: widgets.py:22
 #, python-format
 msgid "Choose %s"
 msgstr ""
 
-#: widgets.py:20
+#: widgets.py:23
 #, python-format
 msgid "Choose another %s"
 msgstr ""
 
-#: widgets.py:21
+#: widgets.py:24
 #, python-format
 msgid "Edit this %s"
 msgstr ""
