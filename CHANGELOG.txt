@@ -4,6 +4,7 @@ Changelog
 2.13 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * The documentation now uses Sphinx Wagtail Theme https://github.com/wagtail/sphinx_wagtail_theme (Storm Heg, Tibor Leupold, Thibaud Colas and Coen van der Kamp).
  * New StreamField implementation with performance and functionality improvements (Matt Westcott, Karl Hobley)
  * Added a simple translation module into `wagtail.contrib.simple_translation` (Coen van der Kamp)
  * Add support for Django 3.2

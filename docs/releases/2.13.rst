@@ -26,6 +26,13 @@ In this release, a new contrib app has been introduced called :doc:`simple_trans
 
 This module was contributed by Coen van der Kamp.
 
+Sphinx Wagtail Theme
+~~~~~~~~~~~~~~~~~~~~
+
+The `documentation <https://docs.wagtial.io/>` now uses `Sphinx Wagtail Theme <https://github.com/wagtail/sphinx_wagtail_theme>`.
+
+This theme is developed by Storm Heg, Tibor Leupold, Thibaud Colas and Coen van der Kamp.
+
 Other features
 ~~~~~~~~~~~~~~
 
