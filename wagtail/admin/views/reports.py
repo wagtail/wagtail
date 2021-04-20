@@ -214,5 +214,5 @@ class LogEntriesView(ReportView):
         return PageLogEntry.objects.filter(q)
 
     def get_action_label(self, action):
-        from wagtail.core.logging import page_log_action_registry
+        from wagtail.core.log_actions import page_log_action_registry
         return force_str(page_log_action_registry.get_action_label(action))
