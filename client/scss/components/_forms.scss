@@ -486,14 +486,26 @@ li.inline:first-child {
                 right: 0;
             }
 
+            .icon-reversed {
+                display: none;
+            }
+
             &:hover {
                 cursor: pointer;
-                background-color: $color-grey-3;
+
+                // stylelint-disable max-nesting-depth
+                .icon-default {
+                    display: none;
+                }
+
+                .icon-reversed {
+                    display: block;
+                }
             }
 
             > svg {
-                width: 16px;
-                height: 16px;
+                width: 30px;
+                height: 30px;
                 color: $color-teal;
             }
         }
