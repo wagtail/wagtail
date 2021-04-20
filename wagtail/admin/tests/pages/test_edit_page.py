@@ -26,6 +26,7 @@ from wagtail.tests.testapp.models import (
     TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.utils.form_data import inline_formset, nested_form_data
+from wagtail.users.models import UserProfile
 
 
 class TestPageEdit(TestCase, WagtailTestUtils):
@@ -2204,3 +2205,41 @@ class TestCommentingNotifications(TestCase, WagtailTestUtils):
         self.assertEqual(mail.outbox[0].to, [self.subscriber.email])
         self.assertEqual(mail.outbox[0].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
         self.assertIn('Deleted comments:\n\n - "A test comment"\n\n', mail.outbox[0].body)
+
+    def test_updated_comments_notifications_profile_setting(self):
+        # Users can disable commenting notifications globally from account settings
+        profile = UserProfile.get_for_user(self.subscriber)
+        profile.updated_comments_notifications = False
+        profile.save()
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comments-TOTAL_FORMS': '1',
+            'comments-INITIAL_FORMS': '0',
+            'comments-MIN_NUM_FORMS': '0',
+            'comments-MAX_NUM_FORMS': '',
+            'comments-0-DELETE': '',
+            'comments-0-resolved': '',
+            'comments-0-id': '',
+            'comments-0-contentpath': 'title',
+            'comments-0-text': 'A test comment',
+            'comments-0-position': '',
+            'comments-0-replies-TOTAL_FORMS': '0',
+            'comments-0-replies-INITIAL_FORMS': '0',
+            'comments-0-replies-MIN_NUM_FORMS': '0',
+            'comments-0-replies-MAX_NUM_FORMS': '0'
+        }
+
+        with enable_comment_panel(SimplePage):
+            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the comment was added
+        comment = self.child_page.comments.get()
+        self.assertEqual(comment.text, 'A test comment')
+
+        # This time, no emails should be submitted because the only subscriber has disabled these emails globally
+        self.assertEqual(len(mail.outbox), 0)
