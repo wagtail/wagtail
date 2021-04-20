@@ -2125,7 +2125,7 @@ class TestCommentingNotifications(TestCase, WagtailTestUtils):
     def test_notification_on_resolved_comment(self):
         comment = Comment.objects.create(
             page=self.child_page,
-            user=self.user,
+            user=self.non_subscriber,
             text="A test comment",
             contentpath="title",
         )
@@ -2160,10 +2160,14 @@ class TestCommentingNotifications(TestCase, WagtailTestUtils):
         self.assertTrue(comment.resolved_at)
         self.assertEqual(comment.resolved_by, self.user)
 
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, [self.subscriber.email])
+        self.assertEqual(len(mail.outbox), 2)
+        # The non subscriber created the comment, so should also get an email
+        self.assertEqual(mail.outbox[0].to, [self.non_subscriber.email])
         self.assertEqual(mail.outbox[0].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
         self.assertIn('Resolved comments:\n\n - "A test comment"\n\n', mail.outbox[0].body)
+        self.assertEqual(mail.outbox[1].to, [self.subscriber.email])
+        self.assertEqual(mail.outbox[1].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
+        self.assertIn('Resolved comments:\n\n - "A test comment"\n\n', mail.outbox[1].body)
 
     def test_notification_on_deleted_comment(self):
         comment = Comment.objects.create(
