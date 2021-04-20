@@ -29,7 +29,9 @@ This module was contributed by Coen van der Kamp.
 Sphinx Wagtail Theme
 ~~~~~~~~~~~~~~~~~~~~
 
-The `documentation <https://docs.wagtial.io/>` now uses `Sphinx Wagtail Theme <https://github.com/wagtail/sphinx_wagtail_theme>`.
+The `documentation <https://docs.wagtail.io/>`_ now uses `Sphinx Wagtail Theme <https://github.com/wagtail/sphinx_wagtail_theme>`_.
+
+Feedback and feature requests may be reported to the `theme issue list <https://github.com/wagtail/sphinx_wagtail_theme/issues>`_.
 
 This theme is developed by Storm Heg, Tibor Leupold, Thibaud Colas and Coen van der Kamp.
 
