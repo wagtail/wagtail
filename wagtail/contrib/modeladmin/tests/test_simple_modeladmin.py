@@ -757,11 +757,10 @@ class TestPermissionsCached(TestCase, WagtailTestUtils):
         # Ensure that the permissions helper caches the model permissions
         # and only does one query per modeladmin
         with CaptureQueriesContext(connection) as queries:
-            r = self.client.get('/admin/modeladmintest/author/')
+            self.client.get('/admin/modeladmintest/author/')
             count = 0
             for q in queries:
                 sql = q['sql']
-                if ('auth_permission"."codename"' in sql and
-                        '"django_content_type"."model" = \'author\'' in sql):
+                if 'codename' in sql and 'author' in sql:
                     count += 1
             self.assertEqual(count, 1)
