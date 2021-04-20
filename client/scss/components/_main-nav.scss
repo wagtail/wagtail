@@ -101,7 +101,7 @@
         }
     }
 
-    .footer-submenu {
+    .nav-footer-submenu {
         a {
             border-left: 3px solid transparent;
             overflow: hidden;
@@ -328,14 +328,14 @@ body.explorer-open {
         margin-bottom: $nav-footer-closed-height;
         @include transition(margin-bottom 0.2s ease);
 
-        .footer {
+        .nav-footer {
             position: fixed;
             width: $menu-width;
             bottom: 0;
             background-color: $nav-footer-submenu-bg;
         }
 
-        .footer-submenu {
+        .nav-footer-submenu {
             @include transition(max-height 0.2s ease);
             max-height: 0;
         }
@@ -343,7 +343,7 @@ body.explorer-open {
         &--open-footer {
             margin-bottom: $nav-footer-open-height;
 
-            .footer-submenu {
+            .nav-footer-submenu {
                 max-height: $nav-footer-submenu-height;
             }
         }
@@ -522,7 +522,7 @@ footer,
 
 @include media-breakpoint-up(sm) {
     .nav-main {
-        .footer {
+        .nav-footer {
             z-index: 2;
         }
     }
