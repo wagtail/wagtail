@@ -34,7 +34,7 @@ class FieldsFilter(BaseFilterBackend):
                 try:
                     if isinstance(field, (models.BooleanField, models.NullBooleanField)):
                         value = parse_boolean(value)
-                    elif isinstance(field, (models.IntegerField, models.ForeignKey, models.AutoField)):
+                    elif isinstance(field, (models.IntegerField, models.AutoField)):
                         value = int(value)
                     elif isinstance(field, models.ForeignKey):
                         value = field.get_prep_value(value)
