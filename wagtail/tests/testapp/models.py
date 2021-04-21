@@ -20,8 +20,8 @@ from taggit.managers import TaggableManager
 from taggit.models import ItemBase, TagBase, TaggedItemBase
 
 from wagtail.admin.edit_handlers import (
-    CommentPanel, FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel,
-    StreamFieldPanel, TabbedInterface)
+    FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
+    TabbedInterface)
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.mail import send_mail
 from wagtail.contrib.forms.forms import FormBuilder
@@ -59,12 +59,6 @@ COMMON_PANELS = (
     FieldPanel('show_in_menus'),
     FieldPanel('search_description'),
 )
-
-
-SETTINGS_PANELS_WITHOUT_COMMENTING = [
-    panel for panel in Page.settings_panels
-    if not isinstance(panel, CommentPanel)
-]
 
 
 # Link fields
@@ -152,9 +146,6 @@ class SimplePage(Page):
         FieldPanel('content'),
     ]
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
     def get_admin_display_title(self):
         return "%s (simple page)" % super().get_admin_display_title()
 
@@ -173,9 +164,6 @@ class PageWithExcludedCopyField(Page):
         FieldPanel('special_field'),
         FieldPanel('content'),
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 class PageWithOldStyleRouteMethod(Page):
@@ -199,9 +187,6 @@ class FilePage(Page):
         FieldPanel('title', classname="full title"),
         FieldPanel('file_field'),
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 # Event page
@@ -343,9 +328,6 @@ class EventPage(Page):
         ImageChooserPanel('feed_image'),
     ]
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 class HeadCountRelatedModelUsingPK(models.Model):
     """Related model that uses a custom primary key (pk) not id"""
@@ -371,9 +353,6 @@ class FormClassAdditionalFieldPage(Page):
         FieldPanel('body'),
         FieldPanel('code'),  # not in model, see set base_form_class
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
     base_form_class = FormClassAdditionalFieldPageForm
 
@@ -408,9 +387,6 @@ class SingleEventPage(EventPage):
         return "%s (single event)" % super().get_admin_display_title()
 
     content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 # "custom" sitemap object
@@ -484,9 +460,6 @@ class EventIndex(Page):
         FieldPanel('intro', classname="full"),
     ]
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields', on_delete=models.CASCADE)
@@ -515,9 +488,6 @@ class FormPage(AbstractEmailForm):
         ], "Email")
     ]
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 # FormPage with a non-HTML extension
 
@@ -537,9 +507,6 @@ class JadeFormPage(AbstractEmailForm):
             FieldPanel('subject', classname="full"),
         ], "Email")
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 # Form page that redirects to a different page
@@ -581,9 +548,6 @@ class FormPageWithRedirect(AbstractEmailForm):
             FieldPanel('subject', classname="full"),
         ], "Email")
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 # FormPage with a custom FormSubmission
@@ -655,9 +619,6 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
         ], "Email")
     ]
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 class FormFieldWithCustomSubmission(AbstractFormField):
     page = ParentalKey(FormPageWithCustomSubmission, on_delete=models.CASCADE, related_name='custom_form_fields')
@@ -718,9 +679,6 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
         ], "Email")
     ]
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 # FormPage with cutom FormBuilder
 
@@ -768,9 +726,6 @@ class FormPageWithCustomFormBuilder(AbstractEmailForm):
             FieldPanel('subject', classname="full"),
         ], "Email")
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 # Snippets
@@ -881,9 +836,6 @@ class StandardIndex(Page):
 
     promote_panels = []
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 class StandardChild(Page):
     pass
@@ -934,9 +886,6 @@ class TaggedPage(Page):
         FieldPanel('title', classname="full title"),
         FieldPanel('tags'),
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 class SingletonPage(Page):
@@ -1117,9 +1066,6 @@ class StreamPage(Page):
 
     preview_modes = []
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 class DefaultStreamPage(Page):
     body = StreamField([
@@ -1132,9 +1078,6 @@ class DefaultStreamPage(Page):
         FieldPanel('title'),
         StreamFieldPanel('body'),
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 class MTIBasePage(Page):
@@ -1306,9 +1249,6 @@ class DefaultRichTextFieldPage(Page):
         FieldPanel('body'),
     ]
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 class DefaultRichBlockFieldPage(Page):
     body = StreamField([
@@ -1328,9 +1268,6 @@ class CustomRichTextFieldPage(Page):
         FieldPanel('body'),
     ]
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 class CustomRichBlockFieldPage(Page):
     body = StreamField([
@@ -1342,9 +1279,6 @@ class CustomRichBlockFieldPage(Page):
         StreamFieldPanel('body'),
     ]
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 class RichTextFieldWithFeaturesPage(Page):
     body = RichTextField(features=['quotation', 'embed', 'made-up-feature'])
@@ -1353,9 +1287,6 @@ class RichTextFieldWithFeaturesPage(Page):
         FieldPanel('title', classname="full title"),
         FieldPanel('body'),
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 # a page that only contains RichTextField within an InlinePanel,
@@ -1374,9 +1305,6 @@ class SectionedRichTextPage(Page):
         FieldPanel('title', classname="full title"),
         InlinePanel('sections')
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 class InlineStreamPageSection(Orderable):
@@ -1397,17 +1325,11 @@ class InlineStreamPage(Page):
         InlinePanel('sections')
     ]
 
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
-
 
 class TableBlockStreamPage(Page):
     table = StreamField([('table', TableBlock())])
 
     content_panels = [StreamFieldPanel('table')]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 class UserProfile(models.Model):
@@ -1592,9 +1514,6 @@ class RestaurantPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('tags'),
     ]
-
-    # FIXME: Workaround to fix management form errors in tests caused by CommentPanel
-    settings_panels = SETTINGS_PANELS_WITHOUT_COMMENTING
 
 
 class RestaurantTag(TagBase):
