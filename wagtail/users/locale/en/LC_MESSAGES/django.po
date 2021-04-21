@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,75 +21,75 @@ msgstr ""
 msgid "Wagtail users"
 msgstr ""
 
-#: forms.py:51
+#: forms.py:52
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:55
+#: forms.py:56
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:78
+#: forms.py:79
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:79
+#: forms.py:80
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:82 forms.py:408
+#: forms.py:83 forms.py:443
 msgid "Email"
 msgstr ""
 
-#: forms.py:83 forms.py:416
+#: forms.py:84 forms.py:441
 msgid "First Name"
 msgstr ""
 
-#: forms.py:84 forms.py:417
+#: forms.py:85 forms.py:442
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:87
+#: forms.py:88
 msgid "Password"
 msgstr ""
 
-#: forms.py:89
+#: forms.py:90
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:91
+#: forms.py:92
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:93
+#: forms.py:94
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:96 forms.py:224
+#: forms.py:97 forms.py:225
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:97 forms.py:226
+#: forms.py:98 forms.py:227
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:220
+#: forms.py:221
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:324
+#: forms.py:325
 msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 
-#: forms.py:399
+#: forms.py:427
 msgid "Preferred language"
 msgstr ""
 
-#: forms.py:434
+#: forms.py:432
 msgid "Current time zone"
 msgstr ""
 
-#: forms.py:444
+#: forms.py:459
 msgid "Upload a profile picture"
 msgstr ""
 
@@ -118,30 +118,40 @@ msgid "Receive notification when your page edit is rejected"
 msgstr ""
 
 #: models.py:43
-msgid "preferred language"
+msgid "updated comments notifications"
 msgstr ""
 
 #: models.py:45
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+
+#: models.py:49
+msgid "preferred language"
+msgstr ""
+
+#: models.py:51
 msgid "Select language for the admin"
 msgstr ""
 
-#: models.py:50
+#: models.py:56
 msgid "current time zone"
 msgstr ""
 
-#: models.py:52
+#: models.py:58
 msgid "Select your current time zone"
 msgstr ""
 
-#: models.py:57
+#: models.py:63
 msgid "profile picture"
 msgstr ""
 
-#: models.py:76
+#: models.py:82
 msgid "user profile"
 msgstr ""
 
-#: models.py:77
+#: models.py:83
 msgid "user profiles"
 msgstr ""
 
@@ -357,19 +367,19 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/wagtailusers/users/results.html:20
+#: templates/wagtailusers/users/results.html:21
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 
-#: templates/wagtailusers/users/results.html:27
+#: templates/wagtailusers/users/results.html:28
 #, python-format
 msgid ""
 "The %(group_name)s group has no users configured. Why not <a href="
 "\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 
-#: templates/wagtailusers/users/results.html:30
+#: templates/wagtailusers/users/results.html:31
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"

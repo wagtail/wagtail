@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
-# Naglis Jonaitis, 2020
+# Naglis Jonaitis, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-03-11 15:01+0000\n"
+"Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -1046,11 +1046,17 @@ msgstr[3] ""
 "\n"
 " Yra %(counter)s atitinkančių puslapių"
 
+msgid "Page types"
+msgstr "Puslapių tipai"
+
 msgid "Enter a search term above"
 msgstr "Aukščiau įveskite paieškos frazę"
 
 msgid "No pages use"
 msgstr "Jokie puslapiai nenaudoja"
+
+msgid "Edit / Review"
+msgstr "Redaguoti / Peržiūrėti"
 
 msgid "Edit page"
 msgstr "Redaguoti puslapį"

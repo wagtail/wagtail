@@ -25,7 +25,7 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
-from wagtail.core.logging import page_log_action_registry
+from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.models import (
     Collection, CollectionViewRestriction, Locale, Page, PageLogEntry, PageViewRestriction,
     UserPagePermissionsProxy)

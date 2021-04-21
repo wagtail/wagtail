@@ -508,7 +508,7 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(content, {'message': "field filter error. 'abc' is not a valid value for feed_image (Field 'id' expected a number but got 'abc'.)"})
+        self.assertEqual(content['message'][:61], "field filter error. 'abc' is not a valid value for feed_image")
 
     def test_filtering_boolean_validation(self):
         response = self.get_response(show_in_menus='abc')

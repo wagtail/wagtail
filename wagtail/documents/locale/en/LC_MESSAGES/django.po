@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,10 @@ msgstr ""
 
 #: apps.py:8
 msgid "Wagtail documents"
+msgstr ""
+
+#: forms.py:17 templates/wagtaildocs/documents/list.html:22
+msgid "Collection"
 msgstr ""
 
 #: forms.py:79
@@ -57,7 +61,7 @@ msgstr ""
 msgid "created at"
 msgstr ""
 
-#: models.py:32 models.py:222
+#: models.py:32 models.py:223
 msgid "uploaded by user"
 msgstr ""
 
@@ -73,7 +77,7 @@ msgstr ""
 msgid "documents"
 msgstr ""
 
-#: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:14
+#: templates/wagtaildocs/chooser/chooser.html:2 widgets.py:17
 msgid "Choose a document"
 msgstr ""
 
@@ -214,10 +218,6 @@ msgstr ""
 
 #: templates/wagtaildocs/documents/list.html:20
 msgid "File"
-msgstr ""
-
-#: templates/wagtaildocs/documents/list.html:22
-msgid "Collection"
 msgstr ""
 
 #: templates/wagtaildocs/documents/list.html:27
@@ -379,10 +379,10 @@ msgid_plural "%(count)s documents"
 msgstr[0] ""
 msgstr[1] ""
 
-#: widgets.py:15
+#: widgets.py:18
 msgid "Choose another document"
 msgstr ""
 
-#: widgets.py:16
+#: widgets.py:19
 msgid "Edit this document"
 msgstr ""

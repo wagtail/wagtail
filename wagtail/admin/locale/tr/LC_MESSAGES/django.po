@@ -11,14 +11,15 @@
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
+# suayip uzulmez <suayip.541@gmail.com>, 2021
 # Umut Bektaş <info@umutbektas.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-10 04:12+0000\n"
-"Last-Translator: Fatih Koç koç <fatihinemaili@gmail.com>\n"
+"PO-Revision-Date: 2021-03-31 12:14+0000\n"
+"Last-Translator: suayip uzulmez <suayip.541@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -785,6 +786,9 @@ msgstr "Sayfa gizliliği. Şimdiki durum: Gizli"
 msgid "Publishing…"
 msgstr "Yayınlanıyor…"
 
+msgid "Publish this version"
+msgstr "Bu düzeltmeyi yayınla"
+
 msgid "Saving…"
 msgstr "Kaydediliyor…"
 
@@ -1231,6 +1235,10 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Sayfa türleri"
 
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Üzgünüz, <em>\"%(query_string)s\"</em> ile eşleşen sayfa yok."
+
 msgid "Enter a search term above"
 msgstr "Bir arama kelimesi girin"
 
@@ -1288,6 +1296,33 @@ msgstr "Şimdiki sayfa durumu:"
 
 msgid "Other searches"
 msgstr "Diğer aramalar"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Bu yazılım tarafından desteklenmeyen, <strong>eski</strong> bir tarayıcı "
+"kullanıyorsunuz. Lütfen <a href=\"https://browsehappy.com/\">tarayıcınızı "
+"yükseltin</a>."
+
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"Wagtail kullanmak için JavaScript gerekli ancak şu an devre dışıdır.<br /"
+">           \n"
+"\n"
+"Bu adresten <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">tarayıcınızda JavaScript'i nasıl "
+"aktifleştireceğinize dair talimatları</a> görebilirsiniz.\n"
+"    "
 
 msgid "Go to Wagtail admin interface"
 msgstr "Wagtail yönetici arayüzüne git"

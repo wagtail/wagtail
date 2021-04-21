@@ -26,15 +26,6 @@ In this release, a new contrib app has been introduced called :doc:`simple_trans
 
 This module was contributed by Coen van der Kamp.
 
-Sphinx Wagtail Theme
-~~~~~~~~~~~~~~~~~~~~
-
-The `documentation <https://docs.wagtail.io/>`_ now uses `Sphinx Wagtail Theme <https://github.com/wagtail/sphinx_wagtail_theme>`_.
-
-Feedback and feature requests may be reported to the `theme issue list <https://github.com/wagtail/sphinx_wagtail_theme/issues>`_.
-
-This theme is developed by Storm Heg, Tibor Leupold, Thibaud Colas and Coen van der Kamp.
-
 Commenting
 ~~~~~~~~~~
 
@@ -46,6 +37,20 @@ Combined account settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The "Account settings" section available at the bottom of the admin menu has been updated to include all settings on a single form. This feature was developed by Karl Hobley.
+
+Redirect export
+~~~~~~~~~~~~~~~
+
+The redirects module now includes support for exporting the list of redirects to XLSX or CSV. This feature was developed by Martin Sandström.
+
+Sphinx Wagtail Theme
+~~~~~~~~~~~~~~~~~~~~
+
+The `documentation <https://docs.wagtail.io/>`_ now uses `Sphinx Wagtail Theme <https://github.com/wagtail/sphinx_wagtail_theme>`_.
+
+Feedback and feature requests may be reported to the `theme issue list <https://github.com/wagtail/sphinx_wagtail_theme/issues>`_.
+
+This theme is developed by Storm Heg, Tibor Leupold, Thibaud Colas and Coen van der Kamp.
 
 Other features
 ~~~~~~~~~~~~~~
@@ -66,7 +71,6 @@ Other features
 * Reinstate submitter's name on moderation notification email (Matt Westcott)
 * Add a new switch input widget as an alternative to checkboxes (Karl Hobley)
 * Allow ``{% pageurl %}`` fallback to be a direct URL or an object with a ``get_absolute_url`` method (Andy Babic)
-* Add support for exporting redirects (Martin Sandström)
 * Support slicing on StreamField / StreamBlock values (Matt Westcott)
 * Switch Wagtail choosers to use SVG icons instead of font icon (Storm Heg)
 * Save revision when restart workflow (Ihor Marhitych)

@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Luís Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2020
 #
 #, fuzzy
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 17:30+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Luís Favas <al62006@utad.eu>, 2020\n"
+"Last-Translator: Luís Tiago Favas <al62006@utad.eu>, 2020\n"
 "Language-Team: Portuguese (Portugal) (https://www.transifex.com/torchbox/"
 "teams/8009/pt_PT/)\n"
 "MIME-Version: 1.0\n"
