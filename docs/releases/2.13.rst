@@ -46,11 +46,11 @@ The redirects module now includes support for exporting the list of redirects to
 Sphinx Wagtail Theme
 ~~~~~~~~~~~~~~~~~~~~
 
-The `documentation <https://docs.wagtail.io/>`_ now uses `Sphinx Wagtail Theme <https://github.com/wagtail/sphinx_wagtail_theme>`_.
+The `documentation <https://docs.wagtail.io/>`_ now uses our brand new `Sphinx Wagtail Theme <https://github.com/wagtail/sphinx_wagtail_theme>`_, with a search feature powered by `Algolia DocSearch <https://docsearch.algolia.com/>`_.
 
-Feedback and feature requests may be reported to the `theme issue list <https://github.com/wagtail/sphinx_wagtail_theme/issues>`_.
+Feedback and feature requests for the theme may be reported to the `sphinx_wagtail_theme issue list <https://github.com/wagtail/sphinx_wagtail_theme/issues>`_, and to Wagtail’s issues for the search.
 
-This theme is developed by Storm Heg, Tibor Leupold, Thibaud Colas and Coen van der Kamp.
+Thank you to Storm Heg, Tibor Leupold, Thibaud Colas, Coen van der Kamp, Olly Willans, Naomi Morduch Toubman, Scott Cranfill, and Andy Chosak for making this happen!
 
 Other features
 ~~~~~~~~~~~~~~
