@@ -145,6 +145,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
             comment={comment}
             reply={reply}
             strings={strings}
+            isFocused={isFocused}
           />
         );
       }
@@ -223,6 +224,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           commentReply={comment}
           store={store}
           strings={strings}
+          focused={isFocused}
         />
         <form onSubmit={onSave}>
           <TextArea
@@ -293,6 +295,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           commentReply={comment}
           store={store}
           strings={strings}
+          focused={isFocused}
         />
         <form onSubmit={onSave}>
           <TextArea
@@ -327,7 +330,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderSaving(): React.ReactFragment {
-    const { comment, store, strings } = this.props;
+    const { comment, store, strings, isFocused } = this.props;
 
     return (
       <>
@@ -335,6 +338,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           commentReply={comment}
           store={store}
           strings={strings}
+          focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
         <div className="comment__progress">{strings.SAVING}</div>
@@ -344,7 +348,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderSaveError(): React.ReactFragment {
-    const { comment, store, strings } = this.props;
+    const { comment, store, strings, isFocused } = this.props;
 
     const onClickRetry = async (e: React.MouseEvent) => {
       e.preventDefault();
@@ -354,7 +358,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
 
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} />
+        <CommentHeader commentReply={comment} store={store} strings={strings} focused={isFocused} />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies({ hideNewReply: true })}
         <div className="comment__error">
@@ -372,7 +376,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderDeleteConfirm(): React.ReactFragment {
-    const { comment, store, strings } = this.props;
+    const { comment, store, strings, isFocused } = this.props;
 
     const onClickDelete = async (e: React.MouseEvent) => {
       e.preventDefault();
@@ -392,7 +396,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
 
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} />
+        <CommentHeader commentReply={comment} store={store} strings={strings} focused={isFocused} />
         <p className="comment__text">{comment.text}</p>
         <div className="comment__confirm-delete">
           {strings.CONFIRM_DELETE_COMMENT}
@@ -417,11 +421,11 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderDeleting(): React.ReactFragment {
-    const { comment, store, strings } = this.props;
+    const { comment, store, strings, isFocused } = this.props;
 
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} />
+        <CommentHeader commentReply={comment} store={store} strings={strings} focused={isFocused} />
         <p className="comment__text">{comment.text}</p>
         <div className="comment__progress">{strings.DELETING}</div>
         {this.renderReplies({ hideNewReply: true })}
@@ -430,7 +434,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderDeleteError(): React.ReactFragment {
-    const { comment, store, strings } = this.props;
+    const { comment, store, strings, isFocused } = this.props;
 
     const onClickRetry = async (e: React.MouseEvent) => {
       e.preventDefault();
@@ -450,7 +454,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
 
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} />
+        <CommentHeader commentReply={comment} store={store} strings={strings} focused={isFocused} />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies({ hideNewReply: true })}
         <div className="comment__error">
@@ -475,7 +479,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderDefault(): React.ReactFragment {
-    const { comment, store, strings } = this.props;
+    const { comment, store, strings, isFocused } = this.props;
 
     // Show edit/delete buttons if this comment was authored by the current user
     let onEdit;
@@ -508,6 +512,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           onResolve={doResolveComment}
           onEdit={onEdit}
           onDelete={onDelete}
+          focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies()}
@@ -554,7 +559,9 @@ export default class CommentComponent extends React.Component<CommentProps> {
 
     const onClick = () => {
       this.props.store.dispatch(
-        setFocusedComment(this.props.comment.localId, { updatePinnedComment: false, forceFocus: true })
+        setFocusedComment(this.props.comment.localId,
+          { updatePinnedComment: false, forceFocus: this.props.isFocused && this.props.forceFocus }
+        )
       );
     };
 
