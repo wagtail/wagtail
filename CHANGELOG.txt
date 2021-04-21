@@ -13,6 +13,7 @@ Changelog
  * Allow specifying `max_width` and `max_height` on EmbedBlock (Petr Dlouhý)
  * Add warning when StreamField is used without a StreamFieldPanel (Naomi Morduch Toubman)
  * Added keyboard and screen reader support to Wagtail user bar (LB Johnston, Storm Heg)
+ * Added instructions on copying and aliasing pages to the editor's guide in documentation (Vlad Podgurschi)
  * Fix: Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
  * Fix: Ordering specified in `construct_explorer_page_queryset` hook is now taken into account again by the page explorer API (Andre Fonseca)
  * Fix: Deleting a page from its listing view no longer results in a 404 error (Tidjani Dia)

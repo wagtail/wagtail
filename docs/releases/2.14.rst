@@ -21,6 +21,7 @@ Other features
  * Allow specifying ``max_width`` and ``max_height`` on EmbedBlock (Petr Dlouhý)
  * Add warning when StreamField is used without a StreamFieldPanel (Naomi Morduch Toubman)
  * Added keyboard and screen reader support to Wagtail user bar (LB Johnston, Storm Heg)
+ * Added instructions on copying and aliasing pages to the editor's guide in documentation (Vlad Podgurschi)
 
 Bug fixes
 ~~~~~~~~~
