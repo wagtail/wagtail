@@ -95,7 +95,12 @@ window.comments = (() => {
       this.setOnClickHandler(localId);
     }
     onDelete() {
-      this.node.remove();
+      // IE11
+      if (!this.node.remove) {
+        this.node.parentNode.removeChild(this.node);
+      } else {
+        this.node.remove();
+      }
       if (this.unsubscribe) {
         this.unsubscribe();
       }
@@ -257,7 +262,7 @@ window.comments = (() => {
       commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS
     );
 
-    formElement.querySelectorAll('[data-component="add-comment-button"]').forEach(initAddCommentButton);
+    Array.from(formElement.querySelectorAll('[data-component="add-comment-button"]')).forEach(initAddCommentButton);
 
     // Attach the commenting app to the tab navigation, if it exists
     const tabNavElement = formElement.querySelector('[data-tab-nav]');
