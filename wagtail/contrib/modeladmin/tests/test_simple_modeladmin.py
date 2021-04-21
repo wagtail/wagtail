@@ -8,7 +8,7 @@ from openpyxl import load_workbook
 
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Site
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.modeladmintest.models import Author, Book, Publisher, RelatedLink, Token
@@ -755,4 +755,5 @@ class TestPermissionsCached(TestCase, WagtailTestUtils):
         # Ensure that the permissions helper caches the model permissions
         # and only does one query per modeladmin
         with self.assertNumQueries(35):
+            Site.get_site_root_paths()
             self.client.get('/admin/modeladmintest/author/')
