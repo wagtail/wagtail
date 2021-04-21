@@ -503,6 +503,11 @@ li.inline:first-child {
                 }
             }
 
+            &:focus {
+                opacity: 1;
+                pointer-events: initial;
+            }
+
             > svg {
                 width: 30px;
                 height: 30px;
