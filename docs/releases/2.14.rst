@@ -17,7 +17,7 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
-
+ - Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
 
 Upgrade considerations
 ======================
