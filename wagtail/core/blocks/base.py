@@ -10,6 +10,7 @@ from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.utils.encoding import force_str
+from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -475,8 +476,25 @@ class BlockWidget(forms.Widget):
     def __init__(self, block_def, attrs=None):
         super().__init__(attrs=attrs)
         self.block_def = block_def
-        self.js_context = JSContext()
-        self.block_json = json.dumps(self.js_context.pack(self.block_def))
+        self._js_context = None
+
+    def _build_block_json(self):
+        self._js_context = JSContext()
+        self._block_json = json.dumps(self._js_context.pack(self.block_def))
+
+    @property
+    def js_context(self):
+        if self._js_context is None:
+            self._build_block_json()
+
+        return self._js_context
+
+    @property
+    def block_json(self):
+        if self._js_context is None:
+            self._build_block_json()
+
+        return self._block_json
 
     def render_with_errors(self, name, value, attrs=None, errors=None, renderer=None):
         value_json = json.dumps(self.block_def.get_form_state(value))
@@ -499,7 +517,7 @@ class BlockWidget(forms.Widget):
     def render(self, name, value, attrs=None, renderer=None):
         return self.render_with_errors(name, value, attrs=attrs, errors=None, renderer=renderer)
 
-    @property
+    @cached_property
     def media(self):
         return self.js_context.media + forms.Media(
             js=[

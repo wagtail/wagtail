@@ -31,7 +31,8 @@ from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import CharBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock
+from wagtail.core.blocks import (
+    CharBlock, FieldBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet, Task, TranslatableMixin
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -1537,3 +1538,28 @@ class TaggedRestaurant(ItemBase):
 
 class SimpleTask(Task):
     pass
+
+
+# StreamField media definitions must not be evaluated at startup (e.g. during system checks) -
+# these may fail if e.g. ManifestStaticFilesStorage is in use and collectstatic has not been run.
+# Check this with a media definition that deliberately errors; if media handling is not set up
+# correctly, then the mere presence of this model definition will cause startup to fail.
+class DeadlyTextInput(forms.TextInput):
+    @property
+    def media(self):
+        raise Exception("BOOM! Attempted to evaluate DeadlyTextInput.media")
+
+
+class DeadlyCharBlock(FieldBlock):
+    def __init__(self, *args, **kwargs):
+        self.field = forms.CharField(widget=DeadlyTextInput())
+        super().__init__(*args, **kwargs)
+
+
+class DeadlyStreamPage(Page):
+    body = StreamField([
+        ('title', DeadlyCharBlock()),
+    ])
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+    ]
