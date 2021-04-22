@@ -264,17 +264,26 @@ function initCollapsibleBlocks() {
   $('.object.multi-field.collapsible').each(function () {
     const $li = $(this);
     const $fieldset = $li.find('fieldset');
+    const onAnimationComplete = () => $fieldset.get(0).dispatchEvent(new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }));
     if ($li.hasClass('collapsed') && $li.find('.error-message').length === 0) {
-      $fieldset.hide();
+      $fieldset.hide({
+        complete: onAnimationComplete
+      });
     }
 
     $li.find('> .title-wrapper').on('click', () => {
       if (!$li.hasClass('collapsed')) {
         $li.addClass('collapsed');
-        $fieldset.hide('slow');
+        $fieldset.hide({
+          duration: 'slow',
+          complete: onAnimationComplete
+        });
       } else {
         $li.removeClass('collapsed');
-        $fieldset.show('show');
+        $fieldset.show({
+          duration: 'slow',
+          complete: onAnimationComplete
+        });
       }
     });
   });
