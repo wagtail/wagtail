@@ -35,8 +35,8 @@ window.comments = (() => {
   /**
    * Controls the positioning of a field level comment, and the display of the button
    * used to focus and pin the attached comment
-   * `getDesiredPosition` is called by the comments app to determine the height
-   * at which to float the comment.
+   * `getAnchorNode` is called by the comments app to determine which node to
+   * float the comment alongside
    */
   class BasicFieldLevelAnnotation {
     /**
@@ -131,11 +131,8 @@ window.comments = (() => {
     getTab() {
       return this.fieldNode.closest('section[data-tab]')?.getAttribute('data-tab');
     }
-    getDesiredPosition() {
-      return (
-        this.fieldNode.getBoundingClientRect().top +
-        document.documentElement.scrollTop
-      );
+    getAnchorNode() {
+      return this.fieldNode;
     }
   }
 

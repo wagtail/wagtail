@@ -48,8 +48,8 @@ type BlockKey = string;
 
 /**
  * Controls the positioning of a comment that has been added to Draftail.
- * `getDesiredPosition` is called by the comments app to determine the height
- * at which to float the comment.
+ * `getAnchorNode` is called by the comments app to determine which node
+ * to float the comment alongside
  */
 export class DraftailInlineAnnotation implements Annotation {
   /**
@@ -101,7 +101,7 @@ export class DraftailInlineAnnotation implements Annotation {
   getTab() {
     return this.field.closest('section[data-tab]')?.getAttribute('data-tab');
   }
-  getDesiredPosition(focused = false) {
+  getAnchorNode(focused = false) {
     // The comment should always aim to float by an annotation, rather than between them
     // so calculate which annotation is the median one by height and float the comment by that
     let medianRef: null | DecoratorRef = null;
@@ -125,23 +125,8 @@ export class DraftailInlineAnnotation implements Annotation {
       medianRef = this.cachedMedianRef;
     }
 
-    if (medianRef) {
-      // We have a median ref - calculate its height
-      return (
-        DraftailInlineAnnotation.getHeightForRef(medianRef) +
-        document.documentElement.scrollTop
-      );
-    }
-
-    const fieldNode = this.field;
-    if (fieldNode) {
-      // Fallback to the field node, if the comment has no decorator refs
-      return (
-        fieldNode.getBoundingClientRect().top +
-        document.documentElement.scrollTop
-      );
-    }
-    return 0;
+    // Fallback to the field node, if the comment has no decorator refs
+    return medianRef?.current || this.field;
   }
 }
 
