@@ -1,0 +1,24 @@
+===========================================
+Wagtail 2.14 release notes - IN DEVELOPMENT
+===========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Other features
+~~~~~~~~~~~~~~
+
+ - Added ``ancestor_of`` API filter. See :ref:`apiv2_filter_by_tree_position`. (Jaap Roes)
+
+Bug fixes
+~~~~~~~~~
+
+ - Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
+
+Upgrade considerations
+======================

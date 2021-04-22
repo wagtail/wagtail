@@ -38,7 +38,8 @@
         }
 
         > button,
-        > details > summary {
+        > details > summary,
+        .details-fallback > .details-fallback__summary {  // IE11 uses divs instead with these classes
             // Hides triangle on Firefox
             list-style-type: none;
             // Hides triangle on Chrome
@@ -65,7 +66,8 @@
             }
         }
 
-        > details {
+        > details,
+        > .details-fallback {  // IE11 uses divs instead with these classes
             position: relative;
 
             > div {
@@ -77,14 +79,16 @@
 
         &--resolve {
             > button,
-            > details > summary {
+            > details > summary,
+            > .details-fallback > .details-fallback__summary {  // IE11 uses divs instead with these classes
                 color: $color-teal;
             }
         }
 
         &--more {
             > button,
-            > details > summary {
+            > details > summary,
+            > .details-fallback > .details-fallback__summary {  // IE11 uses divs instead with these classes
                 color: $color-grey-25;
             }
         }
@@ -112,8 +116,8 @@
 
         button {
             display: block;
-            background: unset;
-            border: unset;
+            background: none;
+            border: 0;
             color: #fff;
             padding: 5px 10px;
             font-size: 13px;
@@ -131,4 +135,13 @@
 .comment--mode-deleting .comment-header,
 .comment-reply--mode-deleting .comment-header {
     opacity: 0.5;
+}
+
+// IE11 only uses these classes
+.details-fallback .comment-header__more-actions {
+    display: none;
+}
+
+.details-fallback--open .comment-header__more-actions {
+    display: block;
 }

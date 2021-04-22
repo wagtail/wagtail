@@ -1,13 +1,50 @@
 /* eslint-disable react/prop-types */
 
 import dateFormat from 'dateformat';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
 import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
 import { TranslatableStrings } from '../../main';
+import { IS_IE11 } from '../../../../config/wagtailConfig';
 
 import { Author } from '../../state/comments';
 
+// Details/Summary components that just become <details>/<summary> tags
+// except for IE11 where they become <div> tags to allow us to style them
+const Details: React.FunctionComponent<React.ComponentPropsWithoutRef<'details'>> = ({ children, open, ...extraProps }) => {
+  if (IS_IE11) {
+    return (
+      <div className={'details-fallback' + (open ? ' details-fallback--open' : '')} {...extraProps}>
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <details {...extraProps}>
+      {children}
+    </details>
+  );
+};
+
+const Summary: React.FunctionComponent<React.ComponentPropsWithoutRef<'summary'>> = ({ children, ...extraProps }) => {
+  if (IS_IE11) {
+    return (
+      <button
+        className="details-fallback__summary"
+        {...extraProps}
+      >
+        {children}
+      </button>
+    );
+  }
+
+  return (
+    <summary {...extraProps}>
+      {children}
+    </summary>
+  );
+};
 
 interface CommentReply {
   author: Author | null;
@@ -22,10 +59,11 @@ interface CommentHeaderProps {
   onEdit?(commentReply: CommentReply, store: Store): void;
   onDelete?(commentReply: CommentReply, store: Store): void;
   descriptionId?: string;
+  focused: boolean;
 }
 
 export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
-  commentReply, store, strings, onResolve, onEdit, onDelete, descriptionId
+  commentReply, store, strings, onResolve, onEdit, onDelete, descriptionId, focused
 }) => {
   const { author, date } = commentReply;
 
@@ -53,6 +91,24 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
     }
   };
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    if (menuOpen && !focused) {
+      setMenuOpen(false);
+    }
+  }, [focused]);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const toggleMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setMenuOpen(!menuOpen);
+  };
+  useEffect(() => {
+    if (menuOpen) {
+      setTimeout(() => menuRef.current?.focus(), 1);
+    }
+  }, [menuOpen]);
+
   return (
     <div className="comment-header">
       <div className="comment-header__actions">
@@ -65,16 +121,22 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
         }
         {(onEdit || onDelete) &&
           <div className="comment-header__action comment-header__action--more">
-            <details>
-              <summary aria-label={strings.MORE_ACTIONS} aria-haspopup="menu" role="button">
+            <Details open={menuOpen} onClick={toggleMenu}>
+              <Summary
+                aria-label={strings.MORE_ACTIONS}
+                aria-haspopup="menu"
+                role="button"
+                onClick={toggleMenu}
+                aria-expanded={menuOpen}
+              >
                 <Icon name="ellipsis-v" />
-              </summary>
+              </Summary>
 
-              <div className="comment-header__more-actions" role="menu">
+              <div className="comment-header__more-actions" role="menu" ref={menuRef}>
                 {onEdit && <button type="button" role="menuitem" onClick={onClickEdit}>{strings.EDIT}</button>}
                 {onDelete && <button type="button" role="menuitem" onClick={onClickDelete}>{strings.DELETE}</button>}
               </div>
-            </details>
+            </Details>
           </div>
         }
       </div>

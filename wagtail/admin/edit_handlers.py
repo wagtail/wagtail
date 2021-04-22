@@ -852,7 +852,9 @@ class CommentPanel(EditHandler):
         user_pks = {user.pk}
         serialized_comments = []
         bound = self.form.is_bound
-        for form in self.form.formsets['comments'].forms if self.form else []:
+        comment_formset = self.form.formsets.get('comments')
+        comment_forms = comment_formset.forms if comment_formset else []
+        for form in comment_forms:
             # iterate over comments to retrieve users (to get display names) and serialized versions
             replies = []
             for reply_form in form.formsets['replies'].forms:

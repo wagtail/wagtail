@@ -1,6 +1,5 @@
 import itertools
 import uuid
-import warnings
 
 from collections import OrderedDict, defaultdict
 from collections.abc import MutableSequence
@@ -14,7 +13,6 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
-from wagtail.utils.deprecation import RemovedInWagtail214Warning
 
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass, get_help_icon
 
@@ -418,38 +416,6 @@ class StreamValue(MutableSequence):
         def __repr__(self):
             return repr(list(self))
 
-    class TupleView(MutableSequence):
-        """
-        RemovedInWagtail214Warning:
-        Internal helper class to replicate the old behaviour of StreamValue.stream_data on a
-        non-lazy StreamValue. This only exists for backwards compatibility and can be dropped
-        once stream_data has been retired.
-        """
-        def __init__(self, stream_value):
-            self.stream_value = stream_value
-
-        def __getitem__(self, i):
-            # convert BoundBlock to tuple representation on retrieval
-            return self.stream_value[i]._as_tuple()
-
-        # all other methods can be proxied directly to StreamValue, since its assignment /
-        # insertion methods accept the tuple representation
-
-        def __len__(self):
-            return len(self.stream_value)
-
-        def __setitem__(self, i, item):
-            self.stream_value[i] = item
-
-        def __delitem__(self, i):
-            del self.stream_value[i]
-
-        def insert(self, i, item):
-            self.stream_value.insert(i, item)
-
-        def __repr__(self):
-            return repr(list(self))
-
     def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
         """
         Construct a StreamValue linked to the given StreamBlock,
@@ -529,19 +495,6 @@ class StreamValue(MutableSequence):
     @cached_property
     def raw_data(self):
         return StreamValue.RawDataView(self)
-
-    @cached_property
-    def stream_data(self):
-        warnings.warn(
-            "The stream_data property of StreamField / StreamBlock values is deprecated.\n"
-            "HINT: Instead of value.stream_data[i], retrieve block objects with value[i] "
-            "or access the raw JSON-like data via value.raw_data[i].",
-            RemovedInWagtail214Warning
-        )
-        if self.is_lazy:
-            return StreamValue.RawDataView(self)
-        else:
-            return StreamValue.TupleView(self)
 
     def _prefetch_blocks(self, type_name):
         """
