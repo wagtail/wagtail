@@ -36,7 +36,7 @@ install_requires = [
     "xlsxwriter>=1.2.8,<2.0",
     "tablib[xls,xlsx]>=0.14.0",
     "anyascii>=0.1.5",
-    "telepath>=0.1,<1",
+    "telepath>=0.1.1,<1",
 ]
 
 # Testing dependencies
