@@ -271,6 +271,8 @@ For example, to find a page with the slug "about":
         ]
     }
 
+.. _apiv2_filter_by_tree_position:
+
 Filtering by tree position (pages only)
 ---------------------------------------
 

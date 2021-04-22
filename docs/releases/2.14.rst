@@ -13,6 +13,7 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
+ - Added ``ancestor_of`` API filter. See :ref:`apiv2_filter_by_tree_position`. (Jaap Roes)
 
 Bug fixes
 ~~~~~~~~~
