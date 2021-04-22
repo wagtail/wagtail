@@ -51,9 +51,11 @@ export class LayoutController {
       return;
     }
 
+    const currentNodeTop = annotation.getAnchorNode(commentId === this.pinnedComment).getBoundingClientRect().top;
+
     this.commentDesiredPositions.set(
       commentId,
-      annotation.getDesiredPosition(commentId === this.pinnedComment) + OFFSET
+      currentNodeTop !== 0 ? currentNodeTop + document.documentElement.scrollTop + OFFSET : 0
     );
   }
 
@@ -62,7 +64,7 @@ export class LayoutController {
     const oldDesiredPositions = new Map(this.commentDesiredPositions);
 
     this.commentAnnotations.forEach((_, commentId) => {
-      if (this.getCommentVisible(tab, commentId)) {
+      if (this.getCommentTabVisible(tab, commentId)) {
         this.updateDesiredPosition(commentId);
       }
     });
@@ -204,9 +206,13 @@ export class LayoutController {
     return true;
   }
 
-  getCommentVisible(tab: string | null, commentId: number): boolean {
+  getCommentTabVisible(tab: string | null, commentId: number): boolean {
     const commentTab = getOrDefault(this.commentTabs, commentId, null);
     return commentTab === tab;
+  }
+
+  getCommentVisible(tab: string | null, commentId: number): boolean {
+    return this.getCommentTabVisible(tab, commentId) && getOrDefault(this.commentDesiredPositions, commentId, 1) > 0;
   }
 
   getCommentPosition(commentId: number) {

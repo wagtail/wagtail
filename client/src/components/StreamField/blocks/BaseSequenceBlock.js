@@ -177,12 +177,14 @@ export class BaseSequenceChild {
     const label = this.getTextLabel({ maxLength: 50 });
     this.titleElement.text(label || '');
     this.collapsed = true;
+    this.contentElement.get(0).dispatchEvent(new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }));
   }
 
   expand() {
     this.contentElement.show().attr('aria-hidden', 'false');
     this.titleElement.text('');
     this.collapsed = false;
+    this.contentElement.get(0).dispatchEvent(new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }));
   }
 
   toggleCollapsedState() {
