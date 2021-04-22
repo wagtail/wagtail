@@ -6,7 +6,6 @@ import produce from 'immer';
 export interface SettingsState {
   user: Author | null;
   commentsEnabled: boolean;
-  showResolvedComments: boolean;
   currentTab: string | null;
 }
 
@@ -15,8 +14,7 @@ export type SettingsStateUpdate = Partial<SettingsState>;
 // Reducer with initial state
 export const INITIAL_STATE: SettingsState = {
   user: null,
-  commentsEnabled: true,
-  showResolvedComments: false,
+  commentsEnabled: false,
   currentTab: null,
 };
 

@@ -110,6 +110,7 @@ describe('CommentableEditor', () => {
     commentApp = new CommentApp();
   });
   it('has control', () => {
+    commentApp.setVisible(true);
     const editor = mount(getEditorComponent(commentApp));
     const controls = editor.findWhere(
       (n) => n.name() === 'ToolbarButton' && n.prop('name') === 'comment'
