@@ -754,6 +754,6 @@ class TestPermissionsCached(TestCase, WagtailTestUtils):
     def test_inspect_view(self):
         # Ensure that the permissions helper caches the model permissions
         # and only does one query per modeladmin
+        Site.get_site_root_paths()
         with self.assertNumQueries(35):
-            Site.get_site_root_paths()
             self.client.get('/admin/modeladmintest/author/')
