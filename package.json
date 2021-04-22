@@ -107,6 +107,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "telepath-unpack": "^0.0.3",
+    "url-search-params-polyfill": "^8.1.1",
     "uuid": "^8.3.2",
     "whatwg-fetch": "^2.0.3"
   },
