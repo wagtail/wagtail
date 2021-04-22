@@ -1,0 +1,23 @@
+===========================================
+Wagtail 2.14 release notes - IN DEVELOPMENT
+===========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Other features
+~~~~~~~~~~~~~~
+
+
+Bug fixes
+~~~~~~~~~
+
+ - Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
+
+Upgrade considerations
+======================

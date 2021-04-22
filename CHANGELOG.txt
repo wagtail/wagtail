@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.14 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~
+
+ - Fix: Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
+
+
 2.13 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
