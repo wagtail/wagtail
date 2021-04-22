@@ -274,8 +274,7 @@ For example, to find a page with the slug "about":
 Filtering by tree position (pages only)
 ---------------------------------------
 
-Pages can additionally be filtered by their position of the tree. For this,
-there are two parameters you can use: ``?child_of`` and ``?descendant_of``.
+Pages can additionally be filtered by their relation to other pages in the tree.
 
 The ``?child_of`` filter takes the id of a page and filters the list of results
 to contain only direct children of that page.
@@ -322,8 +321,17 @@ id of the homepage to the filter:
         ]
     }
 
-The ``?descendant_of`` filter also takes the id of a page but includes all
-descendants (children of children) instead of just directly children.
+The ``?ancestor_of`` filter takes the id of a page and filters the list
+to only include ancestors of that page (parent, grandparent etc.) all the
+way down to the site's root page.
+
+For example, when combined with the ``type`` filter it can be used to
+find the particular ``blog.BlogIndexPage`` a ``blog.BlogPage`` belongs
+to. By itself, it can be used to to construct a breadcrumb trail from
+the current page back to the site's root page.
+
+The ``?descendant_of`` filter takes the id of a page and filter the list
+to only include descendants of that page (children, grandchildren etc.).
 
 Search
 ------

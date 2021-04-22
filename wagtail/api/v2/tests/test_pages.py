@@ -563,6 +563,44 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "parent page doesn't exist"})
 
+    # ANCESTOR OF FILTER
+
+    def test_ancestor_of_filter(self):
+        response = self.get_response(ancestor_of=10)
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [2, 6])
+
+    def test_ancestor_of_with_type(self):
+        response = self.get_response(type='demosite.eventindexpage', ancestor_of=8)
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [4])
+
+    def test_ancestor_of_unknown_page_gives_error(self):
+        response = self.get_response(ancestor_of=1000)
+        content = response.json()
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "descendant page doesn't exist"})
+
+    def test_ancestor_of_not_integer_gives_error(self):
+        response = self.get_response(ancestor_of='abc')
+        content = response.json()
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "ancestor_of must be a positive integer"})
+
+    def test_ancestor_of_home_page_ignores_root(self):
+        # Root page is not in any site, so pretend it doesn't exist
+        response = self.get_response(ancestor_of=2)
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [])
+
     # DESCENDANT OF FILTER
 
     def test_descendant_of_filter(self):
@@ -582,11 +620,11 @@ class TestPageListing(TestCase):
         self.assertEqual(page_id_list, [4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12])
 
     def test_descendant_of_with_type(self):
-        response = self.get_response(type='tests.EventPage', descendant_of=6)
+        response = self.get_response(type='demosite.eventindexpage', descendant_of=2)
         content = json.loads(response.content.decode('UTF-8'))
 
         page_id_list = self.get_page_id_list(content)
-        self.assertEqual(page_id_list, [])
+        self.assertEqual(page_id_list, [4])
 
     def test_descendant_of_unknown_page_gives_error(self):
         response = self.get_response(descendant_of=1000)
