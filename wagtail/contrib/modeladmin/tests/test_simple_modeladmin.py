@@ -2,6 +2,7 @@ from io import BytesIO
 from unittest import mock
 
 from django.contrib.auth.models import Group
+from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.test import TestCase
 from openpyxl import load_workbook
@@ -754,6 +755,7 @@ class TestPermissionsCached(TestCase, WagtailTestUtils):
     def test_inspect_view(self):
         # Ensure that the permissions helper caches the model permissions
         # and only does one query per modeladmin
+        ContentType.clear_cache()
         Site.get_site_root_paths()
         with self.assertNumQueries(35):
             self.client.get('/admin/modeladmintest/author/')
