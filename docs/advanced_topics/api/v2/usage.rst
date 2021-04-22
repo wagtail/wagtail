@@ -323,7 +323,7 @@ id of the homepage to the filter:
 
 The ``?ancestor_of`` filter takes the id of a page and filters the list
 to only include ancestors of that page (parent, grandparent etc.) all the
-down to the site's root page.
+way down to the site's root page.
 
 For example, when combined with the ``type`` filter it can be used to
 find the particular ``blog.BlogIndexPage`` a ``blog.BlogPage`` belongs

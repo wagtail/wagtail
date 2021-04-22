@@ -620,11 +620,11 @@ class TestPageListing(TestCase):
         self.assertEqual(page_id_list, [4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12])
 
     def test_descendant_of_with_type(self):
-        response = self.get_response(type='tests.EventPage', descendant_of=6)
+        response = self.get_response(type='demosite.eventindexpage', descendant_of=2)
         content = json.loads(response.content.decode('UTF-8'))
 
         page_id_list = self.get_page_id_list(content)
-        self.assertEqual(page_id_list, [])
+        self.assertEqual(page_id_list, [4])
 
     def test_descendant_of_unknown_page_gives_error(self):
         response = self.get_response(descendant_of=1000)
