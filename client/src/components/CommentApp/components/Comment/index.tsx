@@ -127,6 +127,11 @@ export default class CommentComponent extends React.Component<CommentProps> {
           newReply: '',
         })
       );
+
+      store.dispatch(setFocusedComment(null));
+
+      // Stop the event bubbling so that the comment isn't immediately refocused
+      e.stopPropagation();
     };
 
     const replies: React.ReactNode[] = [];
