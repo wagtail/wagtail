@@ -52,6 +52,26 @@ class Widget {
 window.telepath.register('wagtail.widgets.Widget', Widget);
 
 
+class BoundCheckboxInput extends BoundWidget {
+    getValue() {
+        return this.input.is(':checked');
+    }
+    getState() {
+        return this.input.is(':checked');
+    }
+    setState(state) {
+        // if false, set attribute value to null to remove it
+        this.input.attr('checked', state || null);
+    }
+}
+
+
+class CheckboxInput extends Widget {
+    boundWidgetClass = BoundCheckboxInput;
+}
+window.telepath.register('wagtail.widgets.CheckboxInput', CheckboxInput);
+
+
 class BoundRadioSelect {
     constructor(element, name, idForLabel, initialState) {
         this.element = element;
