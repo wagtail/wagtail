@@ -48,6 +48,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/builder-webpack5": "^6.2.9",
+    "@storybook/react": "^6.2.9",
     "@types/draft-js": "^0.10.45",
     "@types/react": "^16.9.53",
     "@types/react-redux": "^7.1.16",
@@ -57,6 +63,7 @@
     "@wagtail/stylelint-config-wagtail": "^0.1.1",
     "autoprefixer": "^9.8.0",
     "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.2",
     "cssnano": "^4.1.10",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
@@ -75,6 +82,7 @@
     "gulp-size": "^3.0.0",
     "gulp-sourcemaps": "~2.6.1",
     "gulp-util": "~3.0.8",
+    "html-webpack-plugin": "^5.3.1",
     "jest": "^26.6.0",
     "npm-run-all": "^4.1.5",
     "postcss-custom-properties": "^10.0.0",
@@ -126,6 +134,8 @@
     "test": "npm run test:unit",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
-    "test:unit:coverage": "jest --coverage"
+    "test:unit:coverage": "jest --coverage",
+    "storybook": "start-storybook -c client/.storybook -p 6006",
+    "build-storybook": "build-storybook -c client/.storybook"
   }
 }
