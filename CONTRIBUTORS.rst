@@ -506,6 +506,7 @@ Contributors
 * Vlad Podgurschi
 * Kevin Breen
 * Ihor Marhitych
+* Andre Fonseca
 * Tidjani Dia
 
 Translators

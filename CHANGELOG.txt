@@ -48,6 +48,7 @@ Changelog
  * Fix: Reverse migration errors in images and documents (Mike Brown)
  * Fix: Apply enough chevron padding to all applicable select elements (Scott Cranfill)
  * Fix: Reduce database queries in the page edit view (Ihor Marhitych)
+ * Fix: Ordering specified in `construct_explorer_page_queryset` hook is now taken into account again by the page explorer API (Andre Fonseca)
 
 
 2.12.4 (19.04.2021)
