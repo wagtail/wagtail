@@ -648,6 +648,7 @@ def register_icons(icons):
         'bold.svg',
         'chain-broken.svg',
         'check.svg',
+        'chevron-down.svg',
         'clipboard-list.svg',
         'code.svg',
         'cog.svg',
