@@ -321,6 +321,15 @@ class TestEmailBlock(unittest.TestCase):
             block.clean("foo@example.net")
 
 
+class TestBooleanBlock(unittest.TestCase):
+    def test_get_form_state(self):
+        block = blocks.BooleanBlock(required=False)
+        form_state = block.get_form_state(True)
+        self.assertEqual(form_state, True)
+        form_state = block.get_form_state(False)
+        self.assertEqual(form_state, False)
+
+
 class TestBlockQuoteBlock(unittest.TestCase):
     def test_render(self):
         block = blocks.BlockQuoteBlock()

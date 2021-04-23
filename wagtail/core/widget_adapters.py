@@ -37,6 +37,13 @@ register(WidgetAdapter(), forms.Select)
 register(WidgetAdapter(), forms.CheckboxSelectMultiple)
 
 
+class CheckboxInputAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.CheckboxInput'
+
+
+register(CheckboxInputAdapter(), forms.CheckboxInput)
+
+
 class RadioSelectAdapter(WidgetAdapter):
     js_constructor = 'wagtail.widgets.RadioSelect'
 
