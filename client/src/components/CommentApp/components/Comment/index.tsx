@@ -509,6 +509,15 @@ export default class CommentComponent extends React.Component<CommentProps> {
       };
     }
 
+    let notice = '';
+    if (!comment.remoteId) {
+      // Save the page to add this comment
+      notice = strings.SAVE_PAGE_TO_ADD_COMMENT;
+    } else if (comment.text !== comment.originalText) {
+      // Save the page to save changes to this comment
+      notice = strings.SAVE_PAGE_TO_SAVE_COMMENT_CHANGES;
+    }
+
     return (
       <>
         <CommentHeader
@@ -522,15 +531,13 @@ export default class CommentComponent extends React.Component<CommentProps> {
         />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies()}
-        {!comment.remoteId &&
-          <>
-            <div className="comment__notice-placeholder">
-              <div className="comment__notice">
-                <Icon name="info-circle" />
-                {strings.SAVE_PAGE_TO_ADD_COMMENT}
-              </div>
+        {notice &&
+          <div className="comment__notice-placeholder">
+            <div className="comment__notice">
+              <Icon name="info-circle" />
+              {notice}
             </div>
-          </>
+          </div>
         }
       </>
     );

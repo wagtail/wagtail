@@ -95,6 +95,7 @@ def get_js_translation_strings():
         'COMMENT': _('Comment'),
         'MORE_ACTIONS': _('More actions'),
         'SAVE_PAGE_TO_ADD_COMMENT': _('Save the page to add this comment'),
+        'SAVE_PAGE_TO_SAVE_COMMENT_CHANGES': _('Save the page to save changes to this comment'),
 
         'MONTHS': [str(m) for m in MONTHS.values()],
 
