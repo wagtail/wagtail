@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import FocusTrap from 'focus-trap-react';
 
+import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
 import { Author, Comment, newCommentReply } from '../../state/comments';
 import {
@@ -508,6 +509,23 @@ export default class CommentComponent extends React.Component<CommentProps> {
       };
     }
 
+    const hasUnsavedReplies =
+      Array.from(comment.replies.values())
+        .filter(reply => !reply.remoteId || reply.text !== reply.originalText)
+        .length > 0;
+
+    let notice = '';
+    if (!comment.remoteId) {
+      // Save the page to add this comment
+      notice = strings.SAVE_PAGE_TO_ADD_COMMENT;
+    } else if (comment.text !== comment.originalText) {
+      // Save the page to save changes to this comment
+      notice = strings.SAVE_PAGE_TO_SAVE_COMMENT_CHANGES;
+    } else if (hasUnsavedReplies) {
+      // Save the page to save replies
+      notice = strings.SAVE_PAGE_TO_SAVE_REPLY;
+    }
+
     return (
       <>
         <CommentHeader
@@ -521,6 +539,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
         />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies()}
+        {notice &&
+          <div className="comment__notice-placeholder">
+            <div className="comment__notice" role="status">
+              <Icon name="info-circle" />
+              {notice}
+            </div>
+          </div>
+        }
       </>
     );
   }
