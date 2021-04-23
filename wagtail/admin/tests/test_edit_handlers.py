@@ -1031,9 +1031,9 @@ There are no tabs on non-Page model editing within InlinePanels.""",
         """Checks should NOT warn if InlinePanel models use tabbed panels AND edit_handler"""
 
         EventPageSpeaker.content_panels = [FieldPanel('first_name')]
-        EventPageSpeaker.edit_handler = TabbedInterface(
+        EventPageSpeaker.edit_handler = TabbedInterface([
             ObjectList([FieldPanel('last_name')], heading='test')
-        )
+        ])
 
         # should not be any errors
         self.assertEqual(self.get_checks_result(), [])
