@@ -8,7 +8,6 @@ $switch-outline-radius: $switch-border-radius + $switch-outline;
 
 // All the greys in Wagtail are really dark or really bright
 $switch-color-middle-grey: #777;
-$switch-teal-light: #03b0b1;
 
 .switch {
     display: inline-flex;
@@ -85,6 +84,8 @@ $switch-teal-light: #03b0b1;
 
     // Colour changes for when displaying on teal background
     &--teal-background {
+        $background: #03b0b1;
+
         .switch__toggle {
             &::before {
                 background-color: #b9b9b9;
@@ -99,8 +100,8 @@ $switch-teal-light: #03b0b1;
 
         [type=checkbox]:checked + .switch__toggle::before {
             // Override the white-background styling
-            background-color: $switch-teal-light;
-            border-color: $switch-teal-light;
+            background-color: $background;
+            border-color: $background;
             opacity: 1;
         }
     }
