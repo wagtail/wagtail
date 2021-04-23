@@ -88,8 +88,8 @@ $switch-color-middle-grey: #777;
 
         .switch__toggle {
             &::before {
-                background-color: $background;
-                border: $switch-border solid $background;
+                background-color: #b9b9b9;
+                border: $switch-border solid #b9b9b9;
                 opacity: 0.6;
             }
 
