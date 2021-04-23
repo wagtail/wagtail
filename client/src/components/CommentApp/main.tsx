@@ -48,6 +48,7 @@ export interface TranslatableStrings {
   MORE_ACTIONS: string;
   SAVE_PAGE_TO_ADD_COMMENT: string;
   SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: string;
+  SAVE_PAGE_TO_SAVE_REPLY: string;
 }
 
 export const defaultStrings = {
@@ -68,6 +69,7 @@ export const defaultStrings = {
   MORE_ACTIONS: 'More actions',
   SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
   SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save changes to this comment',
+  SAVE_PAGE_TO_SAVE_REPLY: 'Save the page to save replies',
 };
 
 /* eslint-disable camelcase */

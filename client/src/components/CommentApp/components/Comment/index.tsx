@@ -509,6 +509,11 @@ export default class CommentComponent extends React.Component<CommentProps> {
       };
     }
 
+    const hasUnsavedReplies =
+      Array.from(comment.replies.values())
+        .filter(reply => !reply.remoteId || reply.text !== reply.originalText)
+        .length > 0;
+
     let notice = '';
     if (!comment.remoteId) {
       // Save the page to add this comment
@@ -516,6 +521,9 @@ export default class CommentComponent extends React.Component<CommentProps> {
     } else if (comment.text !== comment.originalText) {
       // Save the page to save changes to this comment
       notice = strings.SAVE_PAGE_TO_SAVE_COMMENT_CHANGES;
+    } else if (hasUnsavedReplies) {
+      // Save the page to save replies
+      notice = strings.SAVE_PAGE_TO_SAVE_REPLY;
     }
 
     return (
