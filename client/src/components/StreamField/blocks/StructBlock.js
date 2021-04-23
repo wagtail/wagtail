@@ -143,8 +143,8 @@ export class StructBlockDefinition {
 
   render(placeholder, prefix, initialState, initialError) {
     const block = new StructBlock(this, placeholder, prefix, initialState, initialError);
-    if (this.meta.onBlockRender) {
-      // If a function name was specified for onBlockRender, look it up in the window scope and call it.
+    // If meta.onBlockRender was specified, look it up in the window scope and call it if it's a function.
+    if (this.meta.onBlockRender && typeof window[this.meta.onBlockRender] === 'function') {
       window[this.meta.onBlockRender](prefix, block);
     }
     return block
