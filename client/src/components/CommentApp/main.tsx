@@ -46,6 +46,7 @@ export interface TranslatableStrings {
   CONFIRM_DELETE_COMMENT: string;
   SAVE_ERROR: string;
   MORE_ACTIONS: string;
+  SAVE_PAGE_TO_ADD_COMMENT: string;
 }
 
 export const defaultStrings = {
@@ -64,6 +65,7 @@ export const defaultStrings = {
   CONFIRM_DELETE_COMMENT: 'Are you sure?',
   SAVE_ERROR: 'Save error',
   MORE_ACTIONS: 'More actions',
+  SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
 };
 
 /* eslint-disable camelcase */

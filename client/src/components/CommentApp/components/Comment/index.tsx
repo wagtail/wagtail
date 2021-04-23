@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import FocusTrap from 'focus-trap-react';
 
+import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
 import { Author, Comment, newCommentReply } from '../../state/comments';
 import {
@@ -521,6 +522,16 @@ export default class CommentComponent extends React.Component<CommentProps> {
         />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies()}
+        {!comment.remoteId &&
+          <>
+            <div className="comment__notice-placeholder">
+              <div className="comment__notice">
+                <Icon name="info-circle" />
+                {strings.SAVE_PAGE_TO_ADD_COMMENT}
+              </div>
+            </div>
+          </>
+        }
       </>
     );
   }

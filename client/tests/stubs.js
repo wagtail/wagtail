@@ -61,7 +61,8 @@ global.wagtailConfig = {
     SAVE_ERROR: 'Save error',
     SAVE_COMMENT_WARNING: 'This will be saved when the page is saved',
     FOCUS_COMMENT: 'Focus comment',
-    UNFOCUS_COMMENT: 'Unfocus comment'
+    UNFOCUS_COMMENT: 'Unfocus comment',
+    SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
   },
   WAGTAIL_I18N_ENABLED: true,
   LOCALES: [

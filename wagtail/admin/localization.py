@@ -94,6 +94,7 @@ def get_js_translation_strings():
         'UNFOCUS_COMMENT': _('Unfocus comment'),
         'COMMENT': _('Comment'),
         'MORE_ACTIONS': _('More actions'),
+        'SAVE_PAGE_TO_ADD_COMMENT': _('Save the page to add this comment'),
 
         'MONTHS': [str(m) for m in MONTHS.values()],
 
