@@ -5,11 +5,30 @@ from django.db.models.signals import post_delete, pre_delete
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.http import urlencode
 
+from wagtail.admin.wagtail_hooks import page_listing_more_buttons
 from wagtail.core.models import Page
 from wagtail.core.signals import page_unpublished
 from wagtail.tests.testapp.models import SimplePage, StandardChild, StandardIndex
 from wagtail.tests.utils import WagtailTestUtils
+
+
+class PagePerms:
+    def can_move(self):
+        return False
+
+    def can_copy(self):
+        return False
+
+    def can_delete(self):
+        return True
+
+    def can_unpublish(self):
+        return False
+
+    def can_view_revisions(self):
+        return False
 
 
 class TestPageDelete(TestCase, WagtailTestUtils):
@@ -202,3 +221,30 @@ class TestPageDelete(TestCase, WagtailTestUtils):
 
         # page should be deleted
         self.assertFalse(Page.objects.filter(id=self.child_page.id).exists())
+
+    def test_delete_button_next_url(self):
+        page_perms = PagePerms()
+        page = self.child_page
+        base_url = reverse('wagtailadmin_pages:delete', args=[page.id])
+
+        next_url = "a/random/url/"
+        full_url = base_url + '?' + urlencode({'next': next_url})
+        button = page_listing_more_buttons(
+            page,
+            page_perms,
+            is_parent=False,
+            next_url=next_url
+        )
+
+        # page_listing_more_button yields only Delete button
+        self.assertEqual(next(button).url, full_url)
+
+        next_url = reverse('wagtailadmin_explore', args=[page.id])
+        button = page_listing_more_buttons(
+            page,
+            page_perms,
+            is_parent=False,
+            next_url=next_url
+        )
+
+        self.assertEqual(next(button).url, base_url)
