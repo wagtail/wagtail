@@ -686,6 +686,7 @@ def register_icons(icons):
         'home.svg',
         'horizontalrule.svg',
         'image.svg',  # aka picture
+        'info-circle.svg',
         'italic.svg',
         'link.svg',
         'link-external.svg',

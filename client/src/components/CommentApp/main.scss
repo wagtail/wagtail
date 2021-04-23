@@ -14,6 +14,8 @@ $color-salmon: #f37e77;
 $color-salmon-light: #fcf2f2;
 $color-white: #fff;
 $color-black: #000;
+$color-amber-0: #e9b04d;
+$color-amber-1: #faecd5;
 
 // darker to lighter
 $color-grey-1: darken($color-white, 80);
@@ -58,6 +60,7 @@ $color-textarea-background-focused: #f2fcfc;
 $color-textarea-border: #ccc;
 $color-textarea-border-focused: #00b0b1;
 $color-textarea-placeholder-text: $color-grey-2;
+$box-border-radius: 5px;
 
 @mixin focus-outline {
     outline: $color-focus-outline solid 3px;
@@ -68,7 +71,7 @@ $color-textarea-placeholder-text: $color-grey-2;
     border: 1px solid $color-box-border;
     padding: 10px;
     font-size: 11px;
-    border-radius: 5px;
+    border-radius: $box-border-radius;
     color: $color-box-text;
 
     &--focused {
@@ -102,6 +105,30 @@ $color-textarea-placeholder-text: $color-grey-2;
 
     *:focus {
         @include focus-outline;
+    }
+
+    &__notice-placeholder {
+        padding-bottom: 60px;
+    }
+
+    &__notice {
+        background-color: $color-amber-1;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border-bottom-left-radius: $box-border-radius;
+        border-bottom-right-radius: $box-border-radius;
+
+        svg.icon {
+            color: $color-amber-0;
+            width: 14px;
+            height: 14px;
+            margin-right: 10px;
+            vertical-align: text-bottom;
+        }
     }
 }
 
