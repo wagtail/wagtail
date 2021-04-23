@@ -12,7 +12,7 @@
             <div class="right wide">
                 <div class="comments-controls">
                     <label class="comments-toggle" aria-label="{% trans 'Show comments' %}">
-                        <span class="comments-toggle__label">Comments</span>
+                        <span class="comments-toggle__label">{% trans "Comments" %}</span>
                         <div class="comments-toggle__icon-wrapper">
                             <input type="checkbox" {% if comments_number %}checked{% endif %}>
                             {% icon name="comment" class_name="comments-toggle__icon" %}
@@ -26,7 +26,7 @@
                     </button>
 
                     <div class="comment-notifications-dropdown">
-                        <p class="comment-notifications-dropdown__title">Commenting on this page</p>
+                        <p class="comment-notifications-dropdown__title">{% trans "Commenting on this page" %}</p>
                         <div class="comment-notifications-toggle">
                             <label class="switch switch--teal-background">
                                 {% trans "Comment notifications" %}
