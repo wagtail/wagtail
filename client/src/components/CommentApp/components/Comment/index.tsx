@@ -579,7 +579,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
     const top = this.props.layout.getCommentPosition(
       this.props.comment.localId
     );
-    const right = this.props.isFocused ? 50 : 0;
+    const right = this.props.isFocused ? 10 : 0;
     return (
       <FocusTrap
         focusTrapOptions={{

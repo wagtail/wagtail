@@ -2,12 +2,13 @@
     @include box;
 
     width: 100%;
+    max-width: calc(100vw - 60px);
     display: block;
     transition: top 0.5s ease 0s, right 0.5s ease 0s, height 0.5s ease 0s;
     pointer-events: auto;
     box-sizing: border-box;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
         max-width: 200px;
     }
 
