@@ -3,7 +3,6 @@
     display: flex;
     flex-flow: column nowrap;
     padding: $children-container-padding 0;
-    transition: padding $hover-transition-duration ease-in-out;
 
     // TODO: #CSSoverhaul the bse icon style here - the margin - should be reconsidered when
     // re-building the icon component as part of the CSS  These styles come from global
