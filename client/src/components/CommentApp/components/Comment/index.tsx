@@ -541,7 +541,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         {this.renderReplies()}
         {notice &&
           <div className="comment__notice-placeholder">
-            <div className="comment__notice">
+            <div className="comment__notice" role="status">
               <Icon name="info-circle" />
               {notice}
             </div>
