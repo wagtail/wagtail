@@ -21,7 +21,7 @@ const Details: React.FunctionComponent<React.ComponentPropsWithoutRef<'details'>
   }
 
   return (
-    <details {...extraProps}>
+    <details open={open} {...extraProps}>
       {children}
     </details>
   );
