@@ -231,21 +231,21 @@ class TestPageDelete(TestCase, WagtailTestUtils):
         full_url = base_url + '?' + urlencode({'next': next_url})
 
         # page_listing_more_button generator yields only `Delete button`
-        button = next(page_listing_more_buttons(
+        delete_button = next(page_listing_more_buttons(
             page,
             page_perms,
             is_parent=False,
             next_url=next_url
         ))
 
-        self.assertEqual(button.url, full_url)
+        self.assertEqual(delete_button.url, full_url)
 
         next_url = reverse('wagtailadmin_explore', args=[page.id])
-        button = next(page_listing_more_buttons(
+        delete_button = next(page_listing_more_buttons(
             page,
             page_perms,
             is_parent=False,
             next_url=next_url
         ))
 
-        self.assertEqual(button.url, base_url)
+        self.assertEqual(delete_button.url, base_url)
