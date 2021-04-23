@@ -1,20 +1,40 @@
 .comments-controls {
-    padding-right: $mobile-nice-padding;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2px;
+    height: 42px;
+    padding-bottom: 8px;
+    box-sizing: border-box;
 
     @include media-breakpoint-up(sm) {
-        padding-right: $desktop-nice-padding;
+        padding-right: 30px;
+        height: 43px;
     }
 }
 
 .comments-toggle {
-    float: right;
+    $root: &;
+    float: none;
     position: relative;
-    width: 42px;
-    height: 42px;
     cursor: pointer;
+    display: flex;
+    width: auto;
+    align-items: center;
 
     // Wagtail adds some top padding to labels on mobile
     padding: 0;
+
+    &--active,
+    &:hover {
+        #{$root}__label {
+            opacity: 1;
+        }
+
+        #{$root}__icon {
+            color: $color-white;
+        }
+    }
 
     &__icon {
         position: absolute;
@@ -22,29 +42,46 @@
         bottom: 3px;
         width: 52px;
         height: 52px;
-        color: $color-white;
-        opacity: 0.6;
-        transition: opacity 100ms cubic-bezier(0.4, 0, 0.2, 1);
+        color: #004345;
+        transition: color 100ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     &__count {
         position: absolute;
-        top: -10px;
-        right: 0;
-        width: 22px;
-        height: 22px;
+        top: -1px;
+        right: -8px;
+        width: 19px;
+        height: 19px;
         box-sizing: border-box;
         border-radius: 50%;
-        background-color: #00b0b1;
+        background-color: $color-salmon;
         border: 1px solid #007d7e;
-        color: $color-white;
-        font-size: 10px;
-        font-weight: bold;
+        color: #fff;
+        font-size: 9px;
+        font-weight: 700;
         text-align: center;
+        line-height: 17px;
 
         &:empty {
             display: none;
         }
+    }
+
+    &__icon-wrapper {
+        width: 28px;
+        height: 52px;
+        position: relative;
+    }
+
+    &__label {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: $color-white;
+        font-weight: 400;
+        margin-right: 10px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 100ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     [type=checkbox] {
@@ -57,25 +94,18 @@
     [type=checkbox]:checked + &__icon {
         opacity: 1;
     }
-
-    [type=checkbox]:focus + &__icon {
-        outline: 3px solid $color-focus-outline;
-    }
 }
 
 .comment-notifications-toggle {
-    float: right;
-    height: 42px;
-    margin-right: 30px;
-
     label {
         padding: 0;
         margin: 0;
         padding-top: 5px;
         font-weight: normal;
-        font-size: 11px;
-        text-transform: uppercase;
+        font-size: 13px;
         color: $color-white;
+        display: flex;
+        justify-content: space-between;
     }
 
     .switch__toggle {
