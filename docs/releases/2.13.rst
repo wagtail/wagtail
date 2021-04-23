@@ -90,7 +90,7 @@ Bug fixes
 * Make "Collection" and "Parent" form field labels translatable (Thibaud Colas)
 * Apply enough chevron padding to all applicable select elements (Scott Cranfill)
 * Reduce database queries in the page edit view (Ihor Marhitych)
-* Ordering specified in the `construct_explorer_page_queryset` hook is now taken into account again by the page explorer API (Andre Fonseca)
+* Ordering specified in the ``construct_explorer_page_queryset`` hook is now taken into account again by the page explorer API (Andre Fonseca)
 
 
 Upgrade considerations
