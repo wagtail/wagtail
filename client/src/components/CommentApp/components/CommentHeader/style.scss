@@ -77,14 +77,6 @@
             }
         }
 
-        &--resolve {
-            > button,
-            > details > summary,
-            > .details-fallback > .details-fallback__summary {  // IE11 uses divs instead with these classes
-                color: $color-teal;
-            }
-        }
-
         &--more {
             > button,
             > details > summary,
