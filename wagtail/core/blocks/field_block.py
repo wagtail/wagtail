@@ -258,6 +258,12 @@ class BooleanBlock(FieldBlock):
         self.field = forms.BooleanField(required=required, help_text=help_text)
         super().__init__(**kwargs)
 
+    def get_form_state(self, value):
+        # Bypass widget.format_value, because CheckboxInput uses that to prepare the "value"
+        # attribute (as distinct from the "checked" attribute that represents the actual checkbox
+        # state, which it handles in get_context).
+        return bool(value)
+
     class Meta:
         icon = "tick-inverse"
 

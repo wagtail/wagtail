@@ -107,6 +107,51 @@ describe('telepath: wagtail.widgets.RadioSelect', () => {
   });
 });
 
+describe('telepath: wagtail.widgets.CheckboxInput', () => {
+  let boundWidget;
+
+  beforeEach(() => {
+    // Create a placeholder to render the widget
+    document.body.innerHTML = '<div id="placeholder"></div>';
+
+    // Unpack and render a radio select widget
+    const widgetDef = window.telepath.unpack({
+      _type: 'wagtail.widgets.CheckboxInput',
+      _args: [
+        '<input type="checkbox" name="__NAME__" id="__ID__">',
+        '__ID__'
+      ]
+    });
+    boundWidget = widgetDef.render($('#placeholder'), 'sugar', 'id-sugar', true);
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
+    expect(document.querySelector('input[id="id-sugar"]').checked).toBe(true);
+  });
+
+  test('getValue() returns the current value', () => {
+    expect(boundWidget.getValue()).toBe(true);
+  });
+
+  test('getState() returns the current state', () => {
+    expect(boundWidget.getState()).toBe(true);
+  });
+
+  test('setState() changes the current state', () => {
+    boundWidget.setState(false);
+    expect(document.querySelector('input[id="id-sugar"]').checked).toBe(false);
+    boundWidget.setState(true);
+    expect(document.querySelector('input[id="id-sugar"]').checked).toBe(true);
+  });
+
+  test('focus() focuses the checkbox', () => {
+    boundWidget.focus();
+
+    expect(document.activeElement).toBe(document.querySelector('input[id="id-sugar"]'));
+  });
+});
+
 describe('telepath: wagtail.widgets.PageChooser', () => {
   let boundWidget;
 
