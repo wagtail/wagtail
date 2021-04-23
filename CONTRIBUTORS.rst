@@ -506,7 +506,6 @@ Contributors
 * Vlad Podgurschi
 * Kevin Breen
 * Ihor Marhitych
-* Andre Fonseca
 
 Translators
 ===========
