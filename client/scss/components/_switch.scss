@@ -84,8 +84,6 @@ $switch-color-middle-grey: #777;
 
     // Colour changes for when displaying on teal background
     &--teal-background {
-        $background: #03B0B1;
-
         .switch__toggle {
             &::before {
                 background-color: #b9b9b9;
@@ -100,8 +98,8 @@ $switch-color-middle-grey: #777;
 
         [type=checkbox]:checked + .switch__toggle::before {
             // Override the white-background styling
-            background-color: $background;
-            border-color: $background;
+            background-color: $teal-light;
+            border-color: $teal-light;
             opacity: 1;
         }
     }
