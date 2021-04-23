@@ -277,6 +277,8 @@ window.comments = (() => {
     const commentToggleWrapper = formElement.querySelector('.comments-toggle');
     const commentToggle = formElement.querySelector('.comments-toggle input[type=checkbox]');
     const tabContentElement = formElement.querySelector('.tab-content');
+    const commentNotificationsToggleButton = formElement.querySelector('.comment-notifications-toggle-button');
+    const commentNotificationsDropdown = formElement.querySelector('.comment-notifications-dropdown');
 
     const updateCommentVisibility = (visible) => {
       // Show/hide comments
@@ -286,7 +288,7 @@ window.comments = (() => {
       if (visible) {
         tabContentElement.classList.add('tab-content--comments-enabled');
         commentToggleWrapper.classList.add('comments-toggle--active');
-        commentNotificationsToggleButton.classList.add('comment-notifications-toggle-button--active')
+        commentNotificationsToggleButton.classList.add('comment-notifications-toggle-button--active');
       } else {
         tabContentElement.classList.remove('tab-content--comments-enabled');
         commentToggleWrapper.classList.remove('comments-toggle--active');
@@ -295,9 +297,6 @@ window.comments = (() => {
         commentNotificationsToggleButton.classList.remove('comment-notifications-toggle-button--icon-toggle');
       }
     };
-
-    const commentNotificationsToggleButton = formElement.querySelector('.comment-notifications-toggle-button');
-    const commentNotificationsDropdown = formElement.querySelector('.comment-notifications-dropdown');
 
     commentNotificationsToggleButton.addEventListener('click', () => {
       commentNotificationsDropdown.classList.toggle('comment-notifications-dropdown--active');
