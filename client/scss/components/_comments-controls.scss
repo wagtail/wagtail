@@ -94,10 +94,6 @@
     [type=checkbox]:checked + &__icon {
         opacity: 1;
     }
-
-    [type=checkbox]:focus + &__icon {
-        outline: 3px solid $color-focus-outline;
-    }
 }
 
 .comment-notifications-toggle {
