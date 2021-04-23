@@ -481,8 +481,6 @@ footer .preview {
 
 @include media-breakpoint-up(sm) {
     .object {
-        transition: padding-right 0.5s ease 0s;
-
         fieldset {
             // Override column mixin for column items.
             display: block;
