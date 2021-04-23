@@ -112,14 +112,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
   return (
     <div className="comment-header">
       <div className="comment-header__actions">
-        {onResolve &&
-          <div className="comment-header__action comment-header__action--resolve">
-            <button type="button" aria-label={strings.RESOLVE} onClick={onClickResolve}>
-              <Icon name="check" />
-            </button>
-          </div>
-        }
-        {(onEdit || onDelete) &&
+        {(onEdit || onDelete || onResolve) &&
           <div className="comment-header__action comment-header__action--more">
             <Details open={menuOpen} onClick={toggleMenu}>
               <Summary
@@ -135,6 +128,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
               <div className="comment-header__more-actions" role="menu" ref={menuRef}>
                 {onEdit && <button type="button" role="menuitem" onClick={onClickEdit}>{strings.EDIT}</button>}
                 {onDelete && <button type="button" role="menuitem" onClick={onClickDelete}>{strings.DELETE}</button>}
+                {onResolve && <button type="button" role="menuitem" onClick={onClickResolve}>{strings.RESOLVE}</button>}
               </div>
             </Details>
           </div>
