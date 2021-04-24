@@ -41,7 +41,8 @@
     "setupFiles": [
       "./client/tests/adapter.js",
       "./client/tests/stubs.js",
-      "./client/tests/mock-fetch.js"
+      "./client/tests/mock-fetch.js",
+      "./client/tests/mock-jquery.js"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
