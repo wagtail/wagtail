@@ -8,5 +8,9 @@ module.exports = {
   ],
   "core": {
     "builder": "webpack5"
-  }
+  },
+  "webpackFinal": (config) => {
+    config.resolve.fallback.crypto = false;
+    return config;
+  },
 }
