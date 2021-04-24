@@ -49,11 +49,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
-    "@storybook/addon-actions": "^6.2.9",
-    "@storybook/addon-essentials": "^6.2.9",
-    "@storybook/addon-links": "^6.2.9",
-    "@storybook/builder-webpack5": "^6.2.9",
-    "@storybook/react": "^6.2.9",
+    "@storybook/addon-actions": "^6.3.0-alpha.14",
+    "@storybook/addon-essentials": "^6.3.0-alpha.14",
+    "@storybook/addon-links": "^6.3.0-alpha.14",
+    "@storybook/builder-webpack5": "^6.3.0-alpha.14",
+    "@storybook/react": "^6.3.0-alpha.14",
     "@types/draft-js": "^0.10.45",
     "@types/react": "^16.9.53",
     "@types/react-redux": "^7.1.16",
@@ -65,6 +65,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "cssnano": "^4.1.10",
+    "dotenv-webpack": "^7.0.2",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "enzyme-to-json": "^3.3.0",
@@ -93,8 +94,8 @@
     "ts-jest": "^26.4.1",
     "ts-loader": "^8.0.6",
     "typescript": "^4.0.3",
-    "webpack": "^5.11.0",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^5.35.1",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "core-js": "^2.5.3",
