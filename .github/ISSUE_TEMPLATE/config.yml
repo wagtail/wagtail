@@ -1,3 +1,4 @@
+blank_issues_enabled: false
 contact_links:
   - name: 🙋 Ask questions on Stack Overflow (prefered)
     url: https://stackoverflow.com/questions/tagged/wagtail
