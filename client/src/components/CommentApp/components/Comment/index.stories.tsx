@@ -8,7 +8,7 @@ import {
   addTestComment,
 } from '../../utils/storybook';
 
-export default { title: 'Comment' };
+export default { title: 'Commenting/Comment' };
 
 export function addNewComment() {
   const store: Store = createStore(reducer);

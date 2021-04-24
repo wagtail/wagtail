@@ -20,6 +20,10 @@ import { defaultStrings } from '../main';
 
 import CommentComponent from '../components/Comment/index';
 
+// Requires Wagtail static to be built, so raises error on CI
+// eslint-disable-next-line import/no-unresolved
+import '../../../../../wagtail/admin/static/wagtailadmin/css/core.css';
+
 export function RenderCommentsForStorybook({
   store,
   author,
@@ -51,6 +55,7 @@ export function RenderCommentsForStorybook({
         }
       }
       comment={comment}
+      isVisible={true}
       isFocused={comment.localId === state.comments.focusedComment}
       strings={defaultStrings}
     />
