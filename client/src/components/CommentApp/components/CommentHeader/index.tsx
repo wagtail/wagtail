@@ -101,6 +101,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
 
   const toggleMenu = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setMenuOpen(!menuOpen);
   };
   useEffect(() => {
