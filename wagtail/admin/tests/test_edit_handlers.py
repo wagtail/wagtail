@@ -1031,9 +1031,9 @@ There are no tabs on non-Page model editing within InlinePanels.""",
         """Checks should NOT warn if InlinePanel models use tabbed panels AND edit_handler"""
 
         EventPageSpeaker.content_panels = [FieldPanel('first_name')]
-        EventPageSpeaker.edit_handler = TabbedInterface(
+        EventPageSpeaker.edit_handler = TabbedInterface([
             ObjectList([FieldPanel('last_name')], heading='test')
-        )
+        ])
 
         # should not be any errors
         self.assertEqual(self.get_checks_result(), [])
@@ -1054,11 +1054,19 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.object_list = ObjectList([
             CommentPanel()
         ]).bind_to(model=EventPage, request=self.request)
+        self.tabbed_interface = TabbedInterface([self.object_list])
         self.EventPageForm = self.object_list.get_form_class()
         self.event_page = EventPage.objects.get(slug='christmas')
         self.comment = Comment.objects.create(page=self.event_page, text='test', user=self.other_user, contentpath='test_contentpath')
         self.reply_1 = CommentReply.objects.create(comment=self.comment, text='reply_1', user=self.other_user)
         self.reply_2 = CommentReply.objects.create(comment=self.comment, text='reply_2', user=self.commenting_user)
+
+    def test_comments_toggle_enabled(self):
+        """
+        Test that the comments toggle is enabled for a TabbedInterface containing CommentPanel, and disabled otherwise
+        """
+        self.assertTrue(self.tabbed_interface.show_comments_toggle)
+        self.assertFalse(TabbedInterface([ObjectList(self.event_page.content_panels)]).show_comments_toggle)
 
     def test_context(self):
         """

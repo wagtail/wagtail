@@ -363,10 +363,13 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
 class TabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/edit_handlers/tabbed_interface.html"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, show_comments_toggle=None, **kwargs):
         self.base_form_class = kwargs.pop('base_form_class', None)
-        self.show_comments_toggle = kwargs.pop('show_comments_toggle', False)
         super().__init__(*args, **kwargs)
+        if show_comments_toggle is not None:
+            self.show_comments_toggle = show_comments_toggle
+        else:
+            self.show_comments_toggle = 'comment_notifications' in self.required_fields()
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
@@ -936,7 +939,7 @@ def get_edit_handler(cls):
                                    heading=gettext_lazy('Settings'),
                                    classname='settings'))
 
-        edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class, show_comments_toggle=True)
+        edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
 
     return edit_handler.bind_to(model=cls)
 
