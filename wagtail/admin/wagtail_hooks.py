@@ -210,6 +210,11 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
         )
     if page_perms.can_delete():
         url = reverse('wagtailadmin_pages:delete', args=[page.id])
+
+        # After deleting the page, it is impossible to redirect to it.
+        if next_url == reverse('wagtailadmin_explore', args=[page.id]):
+            next_url = None
+
         if next_url:
             url += '?' + urlencode({'next': next_url})
 
@@ -230,7 +235,6 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             attrs={'title': _("Unpublish page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=40
         )
-
     if page_perms.can_view_revisions():
         yield Button(
             _('History'),

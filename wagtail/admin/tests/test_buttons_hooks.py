@@ -1,10 +1,29 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from wagtail.admin import widgets as wagtailadmin_widgets
+from wagtail.admin.wagtail_hooks import page_listing_more_buttons
 from wagtail.core import hooks
 from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailTestUtils
+
+
+class PagePerms:
+    def can_move(self):
+        return False
+
+    def can_copy(self):
+        return False
+
+    def can_delete(self):
+        return True
+
+    def can_unpublish(self):
+        return False
+
+    def can_view_revisions(self):
+        return False
 
 
 class TestButtonsHooks(TestCase, WagtailTestUtils):
@@ -81,3 +100,31 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
 
         self.assertContains(response, 'One more more button')
         self.assertContains(response, 'Another useless dropdown button in &quot;One more more button&quot; dropdown')
+
+    def test_delete_button_next_url(self):
+        page_perms = PagePerms()
+        page = self.root_page
+        base_url = reverse('wagtailadmin_pages:delete', args=[page.id])
+
+        next_url = "a/random/url/"
+        full_url = base_url + '?' + urlencode({'next': next_url})
+
+        # page_listing_more_button generator yields only `Delete button`
+        delete_button = next(page_listing_more_buttons(
+            page,
+            page_perms,
+            is_parent=False,
+            next_url=next_url
+        ))
+
+        self.assertEqual(delete_button.url, full_url)
+
+        next_url = reverse('wagtailadmin_explore', args=[page.id])
+        delete_button = next(page_listing_more_buttons(
+            page,
+            page_perms,
+            is_parent=False,
+            next_url=next_url
+        ))
+
+        self.assertEqual(delete_button.url, base_url)
