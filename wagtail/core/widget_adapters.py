@@ -5,6 +5,7 @@ and extract field values.
 """
 
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
@@ -49,3 +50,21 @@ class RadioSelectAdapter(WidgetAdapter):
 
 
 register(RadioSelectAdapter(), forms.RadioSelect)
+
+
+class ValidationErrorAdapter(Adapter):
+    js_constructor = 'wagtail.errors.ValidationError'
+
+    def js_args(self, error):
+        return [
+            error.messages,
+        ]
+
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/widgets.js'),
+        ])
+
+
+register(ValidationErrorAdapter(), ValidationError)

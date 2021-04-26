@@ -27,7 +27,15 @@ class StructBlockValidationErrorAdapter(Adapter):
     js_constructor = 'wagtail.blocks.StructBlockValidationError'
 
     def js_args(self, error):
-        return [error.block_errors]
+        if error.block_errors is None:
+            return [None]
+        else:
+            return [
+                {
+                    name: error_list.as_data()
+                    for name, error_list in error.block_errors.items()
+                }
+            ]
 
     @cached_property
     def media(self):

@@ -235,3 +235,10 @@ class AdminDateTimeInput extends BaseDateTimeWidget {
     initChooserFn = window.initDateTimeChooser;
 }
 window.telepath.register('wagtail.widgets.AdminDateTimeInput', AdminDateTimeInput);
+
+class ValidationError {
+    constructor(messages) {
+        this.messages = messages;
+    }
+}
+window.telepath.register('wagtail.errors.ValidationError', ValidationError);
