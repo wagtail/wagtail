@@ -160,7 +160,10 @@ $box-border-radius: 5px;
     }
 
     &:disabled {
-        opacity: 0.3;
+        background-color: $color-grey-3;
+        border-color: $color-grey-3;
+        color: $color-grey-2;
+        cursor: default;
     }
 
     // Disable Firefox's focus styling becase we add our own.
