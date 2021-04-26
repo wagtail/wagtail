@@ -590,7 +590,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       this.props.comment.localId
     );
     const right = this.props.isFocused ? 50 : 0;
-    const mobileRight = this.props.isFocused ? 45 : -2000;
+    const mobileRight = this.props.isFocused ? 35 : -2000;
 
     return (
       <FocusTrap
@@ -614,9 +614,8 @@ export default class CommentComponent extends React.Component<CommentProps> {
             `comment comment--mode-${this.props.comment.mode} ${this.props.isFocused ? 'comment--focused' : ''}`
           }
           style={{
-            position: this.state.isMobile ? 'fixed' : 'absolute',
-            top: this.state.isMobile ? 'auto' : `${top}px`,
-            bottom: this.state.isMobile ? '40px' : 'auto',
+            position: 'absolute',
+            top: `${top}px`,
             right: this.state.isMobile ? `${mobileRight}px` : `${right}px`,
             display: this.props.isVisible ? 'block' : 'none',
           }}
