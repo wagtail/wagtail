@@ -591,3 +591,112 @@ exports[`telepath: wagtail.blocks.ListBlock it renders correctly 1`] = `
       </button></div>
       </div>"
 `;
+
+exports[`telepath: wagtail.blocks.ListBlock setError passes error messages to children 1`] = `
+"<span>
+          <div class=\\"help\\">
+            <div class=\\"icon-help\\">?</div>
+            use <strong>a few</strong> of these
+          </div>
+        </span><div class=\\"c-sf-container \\">
+        <input type=\\"hidden\\" name=\\"the-prefix-count\\" data-streamfield-list-count=\\"\\" value=\\"2\\">
+
+        <div data-streamfield-list-container=\\"\\"><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <i aria-hidden=\\"true\\">+</i>
+      </button><div aria-hidden=\\"false\\" data-contentpath-disabled=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-order\\" value=\\"0\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-type\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-0-id\\" value=\\"\\">
+
+        <div>
+          <div class=\\"c-sf-container__block-container\\">
+            <div class=\\"c-sf-block\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
+                <span class=\\"c-sf-block__header__icon\\">
+                  <i class=\\"icon icon-pilcrow\\"></i>
+                </span>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__actions\\">
+                  <span class=\\"c-sf-block__type\\"></span>
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"Move up\\">
+                    <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
+                    <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" data-duplicate-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
+                    <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
+                    <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                </div>
+              </div>
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+                <div class=\\"c-sf-block__content-inner\\">
+                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname-\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-0-value\\" id=\\"the-prefix-0-value\\">The widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <i aria-hidden=\\"true\\">+</i>
+      </button><div aria-hidden=\\"false\\" data-contentpath-disabled=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-deleted\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-order\\" value=\\"1\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-type\\" value=\\"\\">
+        <input type=\\"hidden\\" name=\\"the-prefix-1-id\\" value=\\"\\">
+
+        <div>
+          <div class=\\"c-sf-container__block-container\\">
+            <div class=\\"c-sf-block\\">
+              <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
+                <span class=\\"c-sf-block__header__icon\\">
+                  <i class=\\"icon icon-pilcrow\\"></i>
+                </span>
+                <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
+                <div class=\\"c-sf-block__actions\\">
+                  <span class=\\"c-sf-block__type\\"></span>
+                  <button type=\\"button\\" data-move-up-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
+                    <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" data-move-down-button=\\"\\" class=\\"c-sf-block__actions__single\\" disabled=\\"\\" title=\\"Move down\\">
+                    <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" data-duplicate-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
+                    <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                  <button type=\\"button\\" data-delete-button=\\"\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
+                    <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+                  </button>
+                </div>
+              </div>
+              <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
+                <div class=\\"c-sf-block__content-inner\\">
+                  <div class=\\"field char_field widget-admin_auto_height_text_input fieldname- error\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-1-value\\" id=\\"the-prefix-1-value\\">The widget</p>
+            <span></span>
+          </div>
+        <p class=\\"error-message\\"><span>Not as good as the first one</span></p></div>
+      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><button type=\\"button\\" title=\\"Add\\" data-streamfield-list-add=\\"\\" class=\\"c-sf-add-button c-sf-add-button--visible\\">
+        <i aria-hidden=\\"true\\">+</i>
+      </button></div>
+      </div>"
+`;

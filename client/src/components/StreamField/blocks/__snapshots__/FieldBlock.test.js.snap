@@ -22,6 +22,17 @@ exports[`telepath: wagtail.blocks.FieldBlock it renders correctly 1`] = `
       </div>"
 `;
 
+exports[`telepath: wagtail.blocks.FieldBlock setError() renders errors 1`] = `
+"<div class=\\"field char_field widget-text_input fieldname-test_charblock error\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix\\" id=\\"the-prefix\\">The widget</p>
+            <span></span>
+          </div>
+        <p class=\\"help\\">drink <em>more</em> water</p><p class=\\"error-message\\"><span>Field must not contain the letter E</span><span>Field must contain a story about kittens</span></p></div>
+      </div>"
+`;
+
 exports[`telepath: wagtail.blocks.FieldBlock with comments enabled it renders correctly 1`] = `
 "<div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
         <div class=\\"field-content\\">
