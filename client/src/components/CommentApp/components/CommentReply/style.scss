@@ -64,6 +64,12 @@
         button {
             float: right;
         }
+
+        &::after {
+            display: block;
+            content: ' ';
+            clear: both;
+        }
     }
 
     &__error {
