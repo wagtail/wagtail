@@ -186,9 +186,13 @@ export default class CommentComponent extends React.Component<CommentProps> {
               {strings.CANCEL}
             </button>
           </div>
-
         </form>
       );
+    } else if (replies.length === 0) {
+      // If there is no form, or replies, don't add any elements to the dom
+      // This is in case there is a warning after the comment, some special styling
+      // is added if that element is that last child so we can't have any hidden elements here.
+      return <></>;
     }
 
     return (
@@ -509,11 +513,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
       };
     }
 
-    const hasUnsavedReplies =
-      Array.from(comment.replies.values())
-        .filter(reply => !reply.remoteId || reply.text !== reply.originalText)
-        .length > 0;
-
     let notice = '';
     if (!comment.remoteId) {
       // Save the page to add this comment
@@ -521,9 +520,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
     } else if (comment.text !== comment.originalText) {
       // Save the page to save this comment
       notice = strings.SAVE_PAGE_TO_SAVE_COMMENT_CHANGES;
-    } else if (hasUnsavedReplies) {
-      // Save the page to save replies
-      notice = strings.SAVE_PAGE_TO_SAVE_REPLY;
     }
 
     return (
@@ -538,7 +534,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
           focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
-        {this.renderReplies()}
         {notice &&
           <div className="comment__notice-placeholder">
             <div className="comment__notice" role="status">
@@ -547,6 +542,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
             </div>
           </div>
         }
+        {this.renderReplies()}
       </>
     );
   }
