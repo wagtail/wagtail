@@ -440,7 +440,11 @@ li.inline:first-child {
     }
 
     .field-content {
-        padding-right: 60px;
+        padding-right: 45px;
+
+        @include media-breakpoint-up(sm) {
+            padding-right: 60px;
+        }
     }
 
     .widget-draftail_rich_text_area .field-content {
@@ -448,6 +452,7 @@ li.inline:first-child {
     }
 
     .field-comment-control {
+        position: absolute;
         display: block;
         top: 0;
         right: 0;
@@ -462,10 +467,6 @@ li.inline:first-child {
             }
         }
 
-        @include media-breakpoint-up(md) {
-            position: absolute;
-        }
-
         button {
             @include transition(opacity 0.2s ease);
             border: 0;
@@ -476,7 +477,11 @@ li.inline:first-child {
             border-radius: 3px;
             position: absolute;
             top: 50%;
-            right: 10px;
+            right: 0;
+
+            @include media-breakpoint-up(sm) {
+                right: 10px;
+            }
 
             // Hide by default, reveal on hover of parent
             @include media-breakpoint-up(md) {

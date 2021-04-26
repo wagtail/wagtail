@@ -566,17 +566,17 @@ footer .preview {
 
     // Make room for comments on the right when enabled
     .tab-content--comments-enabled .object {
-        padding-right: 100px;
+        padding-right: 27%;
 
         &.full {
-            padding-right: 100px;
+            padding-right: 36%;
         }
 
         @include media-breakpoint-up(lg) {
-            padding-right: 266px;
+            padding-right: 30%;
 
             &.full {
-                padding-right: 450px;
+                padding-right: 36%;
             }
         }
     }
