@@ -63,7 +63,7 @@ global.wagtailConfig = {
     FOCUS_COMMENT: 'Focus comment',
     UNFOCUS_COMMENT: 'Unfocus comment',
     SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
-    SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save changes to this comment',
+    SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save this comment',
     SAVE_PAGE_TO_SAVE_REPLY: 'Save the page to save replies',
   },
   WAGTAIL_I18N_ENABLED: true,
