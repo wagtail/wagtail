@@ -44,10 +44,14 @@
         }
     }
 
-    &__actions &__button,
+    &__actions &__button {
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
     &__confirm-delete &__button {
-        margin-top: 5px;
-        margin-right: 5px;
+        margin-left: 10px;
+        margin-bottom: 10px;
     }
 
     &__confirm-delete,
@@ -55,11 +59,16 @@
         color: $color-box-text;
         font-weight: bold;
         font-size: 13px;
+        margin-top: 10px;
 
         button {
-            margin-left: 10px;
-            /* stylelint-disable-next-line declaration-no-important */
-            margin-right: 0 !important;
+            float: right;
+        }
+
+        &::after {
+            display: block;
+            content: ' ';
+            clear: both;
         }
     }
 

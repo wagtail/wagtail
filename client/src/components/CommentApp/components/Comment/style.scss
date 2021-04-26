@@ -47,11 +47,14 @@
 
     form {
         border-top: 1px solid $color-comment-separator;
-        margin-top: 10px;
     }
 
     &--mode-creating form {
         border-top: 0;
+        margin-top: 10px;
+    }
+
+    &--mode-editing form {
         margin-top: 10px;
     }
 
@@ -70,10 +73,14 @@
     }
 
     &__actions &__button,
-    &__confirm-delete &__button,
     &__reply-actions &__button {
         margin-right: 10px;
         margin-top: 10px;
+    }
+
+    &__confirm-delete &__button {
+        margin-left: 10px;
+        margin-bottom: 10px;
     }
 
     &__confirm-delete,
@@ -81,11 +88,16 @@
         color: $color-box-text;
         font-weight: bold;
         font-size: 13px;
+        margin-top: 10px;
 
         button {
-            margin-left: 10px;
-            /* stylelint-disable-next-line declaration-no-important */
-            margin-right: 0 !important;
+            float: right;
+        }
+
+        &::after {
+            display: block;
+            content: ' ';
+            clear: both;
         }
     }
 
