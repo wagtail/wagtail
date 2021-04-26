@@ -86,16 +86,6 @@ export interface CommentProps {
 }
 
 export default class CommentComponent extends React.Component<CommentProps> {
-  state = { isMobile: false };
-
-  updateDimensions = () => {
-    if (window.innerWidth < 800) {
-      this.setState({ isMobile: true });
-    } else {
-      this.setState({ isMobile: false });
-    }
-  };
-
   renderReplies({ hideNewReply = false } = {}): React.ReactFragment {
     const { comment, isFocused, store, user, strings } = this.props;
 
@@ -589,8 +579,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
     const top = this.props.layout.getCommentPosition(
       this.props.comment.localId
     );
-    const right = this.props.isFocused ? 50 : 0;
-    const mobileRight = this.props.isFocused ? 35 : -2000;
 
     return (
       <FocusTrap
@@ -616,7 +604,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
           style={{
             position: 'absolute',
             top: `${top}px`,
-            right: this.state.isMobile ? `${mobileRight}px` : `${right}px`,
             display: this.props.isVisible ? 'block' : 'none',
           }}
           data-comment-id={this.props.comment.localId}
@@ -643,13 +630,10 @@ export default class CommentComponent extends React.Component<CommentProps> {
       }
     }
 
-    this.updateDimensions();
-    window.addEventListener('resize', this.updateDimensions);
   }
 
   componentWillUnmount() {
     this.props.layout.setCommentElement(this.props.comment.localId, null);
-    window.removeEventListener('resize', this.updateDimensions);
   }
 
   componentDidUpdate() {
