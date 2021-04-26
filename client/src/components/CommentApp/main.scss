@@ -61,6 +61,7 @@ $color-textarea-border: #ccc;
 $color-textarea-border-focused: #00b0b1;
 $color-textarea-placeholder-text: $color-grey-2;
 $box-border-radius: 5px;
+$box-padding: 10px;
 
 @mixin focus-outline {
     outline: $color-focus-outline solid 3px;
@@ -69,7 +70,7 @@ $box-border-radius: 5px;
 @mixin box {
     background-color: $color-box-background;
     border: 1px solid $color-box-border;
-    padding: 10px;
+    padding: $box-padding;
     font-size: 11px;
     border-radius: $box-border-radius;
     color: $color-box-text;
@@ -108,19 +109,18 @@ $box-border-radius: 5px;
     }
 
     &__notice-placeholder {
+        position: relative;
         padding-bottom: 40px;
     }
 
     &__notice {
         background-color: $color-amber-1;
         position: absolute;
-        left: 0;
+        left: -$box-padding;
         bottom: 0;
-        width: 100%;
+        width: calc(100% + #{$box-padding} * 2);
         padding: 5px 10px;
         box-sizing: border-box;
-        border-bottom-left-radius: $box-border-radius;
-        border-bottom-right-radius: $box-border-radius;
 
         svg.icon {
             color: $color-amber-0;
@@ -129,6 +129,12 @@ $box-border-radius: 5px;
             margin-right: 10px;
             vertical-align: text-bottom;
         }
+    }
+
+    > :last-child &__notice {
+        bottom: -$box-padding;
+        border-bottom-left-radius: $box-border-radius;
+        border-bottom-right-radius: $box-border-radius;
     }
 }
 
