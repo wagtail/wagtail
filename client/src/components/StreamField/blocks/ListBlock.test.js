@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { FieldBlockDefinition } from './FieldBlock';
-import { ListBlockDefinition } from './ListBlock';
+import { ListBlockDefinition, ListBlockValidationError } from './ListBlock';
 
 import $ from 'jquery';
 window.$ = $;
@@ -34,6 +34,12 @@ class DummyWidgetDefinition {
       focus() { focus(widgetName); },
       idForLabel: id,
     };
+  }
+}
+
+class ValidationError {
+  constructor(messages) {
+    this.messages = messages;
   }
 }
 
@@ -200,6 +206,16 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
       initialState: 'state: The widget - the-prefix-1-value',
     });
 
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('setError passes error messages to children', () => {
+    boundBlock.setError([
+      new ListBlockValidationError([
+        null,
+        [new ValidationError(['Not as good as the first one'])],
+      ]),
+    ]);
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });

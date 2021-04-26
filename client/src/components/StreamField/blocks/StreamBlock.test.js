@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { FieldBlockDefinition } from './FieldBlock';
-import { StreamBlockDefinition } from './StreamBlock';
+import { StreamBlockDefinition, StreamBlockValidationError } from './StreamBlock';
 
 import $ from 'jquery';
 window.$ = $;
@@ -34,6 +34,12 @@ class DummyWidgetDefinition {
       focus() { focus(widgetName); },
       idForLabel: id,
     };
+  }
+}
+
+class ValidationError {
+  constructor(messages) {
+    this.messages = messages;
   }
 }
 
@@ -270,6 +276,21 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
       initialState: 'state: Block B widget - the-prefix-1-value',
     });
 
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('setError renders error messages', () => {
+    boundBlock.setError([
+      new StreamBlockValidationError(
+        [
+          /* non-block error */
+          new ValidationError(['At least three blocks are required']),
+        ],
+        {
+          /* block error */
+          1: [new ValidationError(['Not as good as the first one'])],
+        }),
+    ]);
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 });

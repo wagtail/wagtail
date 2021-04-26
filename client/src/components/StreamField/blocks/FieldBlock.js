@@ -27,7 +27,7 @@ export class FieldBlock {
       // eslint-disable-next-line no-console
       console.error(e);
       this.setError([
-        ['This widget failed to render, please check the console for details']
+        { messages: ['This widget failed to render, please check the console for details'] }
       ]);
       return;
     }
@@ -78,7 +78,7 @@ export class FieldBlock {
 
       const errorElement = document.createElement('p');
       errorElement.classList.add('error-message');
-      errorElement.innerHTML = errorList.map(error => `<span>${h(error[0])}</span>`).join('');
+      errorElement.innerHTML = errorList.map(error => `<span>${h(error.messages[0])}</span>`).join('');
       this.element.querySelector('.field-content').appendChild(errorElement);
     } else {
       this.element.classList.remove('error');

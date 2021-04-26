@@ -41,6 +41,12 @@ class DummyWidgetDefinition {
   }
 }
 
+class ValidationError {
+  constructor(messages) {
+    this.messages = messages;
+  }
+}
+
 describe('telepath: wagtail.blocks.FieldBlock', () => {
   let boundBlock;
 
@@ -116,6 +122,14 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
     boundBlock.focus();
     expect(focus.mock.calls.length).toBe(1);
     expect(focus.mock.calls[0][0]).toBe('The widget');
+  });
+
+  test('setError() renders errors', () => {
+    boundBlock.setError([
+      new ValidationError(['Field must not contain the letter E']),
+      new ValidationError(['Field must contain a story about kittens']),
+    ]);
+    expect(document.body.innerHTML).toMatchSnapshot();
   });
 });
 

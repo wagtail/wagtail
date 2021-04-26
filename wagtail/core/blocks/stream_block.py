@@ -38,7 +38,7 @@ class StreamBlockValidationErrorAdapter(Adapter):
     js_constructor = 'wagtail.blocks.StreamBlockValidationError'
 
     def js_args(self, error):
-        return [error.non_block_errors, {
+        return [error.non_block_errors.as_data(), {
             block_id: child_errors.as_data()
             for block_id, child_errors in error.block_errors.items()
         }]
