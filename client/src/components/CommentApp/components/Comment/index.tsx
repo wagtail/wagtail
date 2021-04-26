@@ -519,7 +519,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       // Save the page to add this comment
       notice = strings.SAVE_PAGE_TO_ADD_COMMENT;
     } else if (comment.text !== comment.originalText) {
-      // Save the page to save changes to this comment
+      // Save the page to save this comment
       notice = strings.SAVE_PAGE_TO_SAVE_COMMENT_CHANGES;
     } else if (hasUnsavedReplies) {
       // Save the page to save replies

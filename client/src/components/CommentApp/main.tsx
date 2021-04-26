@@ -68,7 +68,7 @@ export const defaultStrings = {
   SAVE_ERROR: 'Save error',
   MORE_ACTIONS: 'More actions',
   SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
-  SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save changes to this comment',
+  SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save this comment',
   SAVE_PAGE_TO_SAVE_REPLY: 'Save the page to save replies',
 };
 
