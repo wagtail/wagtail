@@ -629,7 +629,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
         );
       }
     }
-
   }
 
   componentWillUnmount() {
