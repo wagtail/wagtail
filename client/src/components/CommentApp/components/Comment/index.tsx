@@ -408,7 +408,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
           {strings.CONFIRM_DELETE_COMMENT}
           <button
             type="button"
-            className="comment__button comment__button--red"
+            className="comment__button comment__button--primary"
             onClick={onClickDelete}
           >
             {strings.DELETE}

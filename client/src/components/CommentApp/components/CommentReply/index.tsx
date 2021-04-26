@@ -199,7 +199,7 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
           {strings.CONFIRM_DELETE_COMMENT}
           <button
             type="button"
-            className="comment-reply__button comment-reply__button--red"
+            className="comment-reply__button comment-reply__button--primary"
             onClick={onClickDelete}
           >
             {strings.DELETE}
