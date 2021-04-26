@@ -147,6 +147,6 @@ export class StructBlockDefinition {
     if (this.meta.onBlockRender && typeof window[this.meta.onBlockRender] === 'function') {
       window[this.meta.onBlockRender](prefix, block);
     }
-    return block
+    return block;
   }
 }
