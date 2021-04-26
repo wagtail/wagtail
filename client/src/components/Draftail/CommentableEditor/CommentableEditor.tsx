@@ -353,6 +353,8 @@ function getCommentDecorator(commentApp: CommentApp) {
     if (!children) {
       return null;
     }
+
+    const enabled = useSelector(commentApp.selectors.selectEnabled);
     const blockKey: BlockKey = children[0].props.block.getKey();
     const start: number = children[0].props.start;
 
@@ -375,6 +377,13 @@ function getCommentDecorator(commentApp: CommentApp) {
       }
       return undefined; // eslint demands an explicit return here
     }, [commentId, annotationNode, blockKey]);
+
+    if (!enabled) {
+      return <>
+        {children}
+      </>;
+    }
+
     const onClick = () => {
       // Ensure the comment will appear alongside the current block
       if (!commentId) {
@@ -398,6 +407,7 @@ function getCommentDecorator(commentApp: CommentApp) {
         role="button"
         ref={annotationNode}
         onClick={onClick}
+        aria-label={STRINGS.FOCUS_COMMENT}
         data-annotation
       >
         {children}
@@ -626,7 +636,7 @@ function CommentableEditor({
       editorState={editorState}
       controls={enabled ? controls.concat([CommentControl]) : controls}
       inlineStyles={inlineStyles.concat(commentStyles)}
-      plugins={enabled ? plugins.concat([{
+      plugins={plugins.concat([{
         decorators: [{
           strategy: (
             block: ContentBlock, callback: (start: number, end: number) => void
@@ -664,6 +674,9 @@ function CommentableEditor({
           return 'not-handled';
         },
         customStyleFn: (styleSet: DraftInlineStyle) => {
+          if (!enabled) {
+            return undefined;
+          }
           // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
           // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
           // this casting should be removed
@@ -693,8 +706,7 @@ function CommentableEditor({
           }
           return undefined;
         }
-      }]) : plugins
-      }
+      }])}
       {...options}
     />
   );
