@@ -98,23 +98,38 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
     }
   }, [focused]);
   const menuRef = useRef<HTMLDivElement>(null);
+  const menuContainerRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setMenuOpen(!menuOpen);
   };
+
   useEffect(() => {
     if (menuOpen) {
       setTimeout(() => menuRef.current?.focus(), 1);
     }
   }, [menuOpen]);
 
+  const handleClickOutside = (e: MouseEvent) => {
+    if (menuContainerRef.current && e.target instanceof Node && !menuContainerRef.current.contains(e.target)) {
+      setMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, []);
+
   return (
     <div className="comment-header">
       <div className="comment-header__actions">
         {(onEdit || onDelete || onResolve) &&
-          <div className="comment-header__action comment-header__action--more">
+          <div className="comment-header__action comment-header__action--more" ref={menuContainerRef}>
             <Details open={menuOpen} onClick={toggleMenu}>
               <Summary
                 aria-label={strings.MORE_ACTIONS}
