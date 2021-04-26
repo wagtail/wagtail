@@ -605,7 +605,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
     const top = this.props.layout.getCommentPosition(
       this.props.comment.localId
     );
-    const right = this.props.isFocused ? 50 : 0;
+
     return (
       <FocusTrap
         focusTrapOptions={{
@@ -630,7 +630,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
           style={{
             position: 'absolute',
             top: `${top}px`,
-            right: `${right}px`,
             display: this.props.isVisible ? 'block' : 'none',
           }}
           data-comment-id={this.props.comment.localId}

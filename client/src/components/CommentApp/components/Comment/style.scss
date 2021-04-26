@@ -1,18 +1,35 @@
 .comment {
     @include box;
 
-    width: 100%;
+    width: calc(100vw - 40px);
+    max-width: calc(100vw - 19%);
     display: block;
     transition: top 0.5s ease 0s, right 0.5s ease 0s, height 0.5s ease 0s;
     pointer-events: auto;
     box-sizing: border-box;
+    right: -2000px;
 
     @include media-breakpoint-up(sm) {
+        width: calc(100vw - 40px);
+        max-width: 400px;
+        left: initial;
+    }
+
+    @include media-breakpoint-up(md) {
         max-width: 200px;
+        right: 0;
     }
 
     @include media-breakpoint-up(lg) {
         max-width: 275px;
+    }
+
+    &--focused {
+        right: 35px;
+
+        @include media-breakpoint-up(md) {
+            right: 50px;
+        }
     }
 
     &__text {
