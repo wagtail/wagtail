@@ -120,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Only handle keyboard input if the userbar is open
     if (userbar.classList.contains(isActiveClass)) {
       if (event.key === 'Escape') {
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         hideUserbar();
         setFocusToTrigger();
         return;
