@@ -344,6 +344,24 @@ class Test404(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=/admin/sdfgdsfgdsfgsdf')
 
 
+class TestAdminURLAppendSlash(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+    @override_settings(APPEND_SLASH=True)
+    def test_return_correct_view_for_correct_url_without_ending_slash(self):
+        self.login()
+
+        # Remove the ending slash from URL
+        response = self.client.get(reverse('wagtailadmin_explore_root')[:-1], follow=True)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+        self.assertEqual(Page.objects.get(id=1), response.context['parent_page'])
+        self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.root_page.id).exists())
+
+
 class TestRemoveStaleContentTypes(TestCase):
     def test_remove_stale_content_types_preserves_access_admin_permission(self):
         call_command('remove_stale_contenttypes', interactive=False)
