@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
   // Listen for keyboard events
   window.addEventListener('keydown', handleKeyDown);
 
+  function setFocusToTrigger() {
+    setTimeout(() => trigger.focus(), 300);
+  }
+
   function isFocusOnItems() {
     let isFocused = false;
     list.querySelectorAll('a').forEach((element) => {
@@ -80,6 +84,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
       if (event.key === 'Escape') {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         hideUserbar();
+        setFocusToTrigger();
         return;
       }
 
