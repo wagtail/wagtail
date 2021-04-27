@@ -21,7 +21,8 @@ from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
-    Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy, WorkflowState)
+    Comment, CommentReply, Page, PageLogEntry, PageSubscription, UserPagePermissionsProxy,
+    WorkflowState)
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -163,6 +164,80 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             'deleted_comments': deleted_comments,
             'replied_comments': replied_comments
         })
+
+    def log_commenting_changes(self, revision):
+        """
+        Generates log entries for any changes made to comments or replies.
+        """
+        # Skip if this page does not have CommentPanel enabled
+        if 'comments' not in self.form.formsets:
+            return
+
+        new_comments, deleted_comments, resolved_comments, edited_comments, replied_comments = self.get_commenting_changes()
+
+        # Skip if no changes were made
+        if not new_comments and not deleted_comments and not resolved_comments and not edited_comments and not replied_comments:
+            return
+
+        for comment in new_comments:
+            PageLogEntry.objects.log_action(
+                instance=self.page,
+                action='wagtail.comments.create',
+                user=self.request.user,
+                revision=revision,
+                data={
+                    'comment': {
+                        'id': comment.pk,
+                        'contentpath': comment.contentpath,
+                        'text': comment.text,
+                    }
+                }
+            )
+
+        for comment in edited_comments:
+            PageLogEntry.objects.log_action(
+                instance=self.page,
+                action='wagtail.comments.edit',
+                user=self.request.user,
+                revision=revision,
+                data={
+                    'comment': {
+                        'id': comment.pk,
+                        'contentpath': comment.contentpath,
+                        'text': comment.text,
+                    }
+                }
+            )
+
+        for comment in resolved_comments:
+            PageLogEntry.objects.log_action(
+                instance=self.page,
+                action='wagtail.comments.resolve',
+                user=self.request.user,
+                revision=revision,
+                data={
+                    'comment': {
+                        'id': comment.pk,
+                        'contentpath': comment.contentpath,
+                        'text': comment.text,
+                    }
+                }
+            )
+
+        for comment in deleted_comments:
+            PageLogEntry.objects.log_action(
+                instance=self.page,
+                action='wagtail.comments.delete',
+                user=self.request.user,
+                revision=revision,
+                data={
+                    'comment': {
+                        'id': comment.pk,
+                        'contentpath': comment.contentpath,
+                        'text': comment.text,
+                    }
+                }
+            )
 
     def get_edit_message_button(self):
         return messages.button(
@@ -366,7 +441,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.subscription.save()
 
         # Save revision
-        self.page.save_revision(
+        revision = self.page.save_revision(
             user=self.request.user,
             log_action=True,  # Always log the new revision on edit
             previous_revision=(self.previous_revision if self.is_reverting else None)
@@ -374,6 +449,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         self.add_save_confirmation_message()
 
+        self.log_commenting_changes(revision)
         self.send_commenting_notifications()
 
         response = self.run_hook('after_edit_page', self.request, self.page)
@@ -407,6 +483,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
 
+        self.log_commenting_changes(revision)
         self.send_commenting_notifications()
 
         # Need to reload the page because the URL may have changed, and we
@@ -480,12 +557,13 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.subscription.save()
 
         # Save revision
-        self.page.save_revision(
+        revision = self.page.save_revision(
             user=self.request.user,
             log_action=True,  # Always log the new revision on edit
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
 
+        self.log_commenting_changes(revision)
         self.send_commenting_notifications()
 
         if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
