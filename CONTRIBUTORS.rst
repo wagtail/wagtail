@@ -19,16 +19,19 @@ Core team
 * Matthew Westcott (Torchbox)
 * Mike Dingjan (Lab Digital)
 * Naomi Morduch Toubman
+* Scott Cranfill (consumerfinance.gov)
 * Thibaud Colas (Torchbox)
 * Tom Dyson (Torchbox)
-* Will Barton (consumerfinance.gov)
 
 Core team alumni
 ================
 
+* Emily Horsman
 * Josh Barr
 * Mikalai Radchuk
+* Rob Moorman
 * Tim Heap
+* Will Barton
 
 Contributors
 ============
