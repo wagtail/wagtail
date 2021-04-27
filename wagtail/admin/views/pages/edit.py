@@ -86,16 +86,27 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             if 'text' in changed_fields:
                 edited_comments.append(changed_comment)
 
-        replied_comments = []
+        new_replies = []
+        deleted_replies = []
+        edited_replies = []
         for comment_form in comments_formset.forms:
+            # New
             replies = getattr(comment_form.formsets['replies'], 'new_objects', [])
             if replies:
-                replied_comments.append({
-                    'comment': comment_form.instance,
-                    'replies': replies
-                })
+                new_replies.append((comment_form.instance, replies))
 
-        return new_comments, deleted_comments, resolved_comments, edited_comments, replied_comments
+            # Deleted
+            replies = getattr(comment_form.formsets['replies'], 'deleted_objects', [])
+            if replies:
+                deleted_replies.append((comment_form.instance, replies))
+
+            # Edited
+            replies = getattr(comment_form.formsets['replies'], 'changed_objects', [])
+            replies = [reply for reply, changed_fields in replies if 'text' in changed_fields]
+            if replies:
+                edited_replies.append((comment_form.instance, replies))
+
+        return new_comments, deleted_comments, resolved_comments, edited_comments, new_replies, deleted_replies, edited_replies
 
     def send_commenting_notifications(self):
         """
@@ -105,11 +116,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if 'comments' not in self.form.formsets:
             return
 
-        new_comments, deleted_comments, resolved_comments, edited_comments, replied_comments = self.get_commenting_changes()
+        new_comments, deleted_comments, resolved_comments, edited_comments, replied_comments, deleted_replies, edited_replies = self.get_commenting_changes()
 
         relevant_comment_ids = []
         relevant_comment_ids.extend(comment.pk for comment in resolved_comments)
-        relevant_comment_ids.extend(comment['comment'].pk for comment in replied_comments)
+        relevant_comment_ids.extend(comment.pk for comment, replies in replied_comments)
 
         # Skip if no changes were made
         # Note: We don't email about edited comments so ignore those here
@@ -153,7 +164,14 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 'new_comments': [comment for comment in new_comments if comment.pk in threads],
                 'resolved_comments': [comment for comment in resolved_comments if comment.pk in threads],
                 'deleted_comments': [],
-                'replied_comments': [comment for comment in replied_comments if comment['comment'].pk in threads]
+                'replied_comments': [
+                    {
+                        'comment': comment,
+                        'replies': replies,
+                    }
+                    for comment, replies in replied_comments
+                    if comment.pk in threads
+                ]
             })
 
         return send_notification(global_recipient_users, 'updated_comments', {
@@ -162,7 +180,13 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             'new_comments': new_comments,
             'resolved_comments': resolved_comments,
             'deleted_comments': deleted_comments,
-            'replied_comments': replied_comments
+            'replied_comments': [
+                {
+                    'comment': comment,
+                    'replies': replies,
+                }
+                for comment, replies in replied_comments
+            ]
         })
 
     def log_commenting_changes(self, revision):
@@ -173,10 +197,10 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if 'comments' not in self.form.formsets:
             return
 
-        new_comments, deleted_comments, resolved_comments, edited_comments, replied_comments = self.get_commenting_changes()
+        new_comments, deleted_comments, resolved_comments, edited_comments, new_replies, deleted_replies, edited_replies = self.get_commenting_changes()
 
         # Skip if no changes were made
-        if not new_comments and not deleted_comments and not resolved_comments and not edited_comments and not replied_comments:
+        if not new_comments and not deleted_comments and not resolved_comments and not edited_comments and not new_replies and not deleted_replies and not edited_replies:
             return
 
         for comment in new_comments:
@@ -238,6 +262,66 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     }
                 }
             )
+
+        for comment, replies in new_replies:
+            for reply in replies:
+                PageLogEntry.objects.log_action(
+                    instance=self.page,
+                    action='wagtail.comments.create_reply',
+                    user=self.request.user,
+                    revision=revision,
+                    data={
+                        'comment': {
+                            'id': comment.pk,
+                            'contentpath': comment.contentpath,
+                            'text': comment.text,
+                        },
+                        'reply': {
+                            'id': reply.pk,
+                            'text': reply.text,
+                        }
+                    }
+                )
+
+        for comment, replies in deleted_replies:
+            for reply in replies:
+                PageLogEntry.objects.log_action(
+                    instance=self.page,
+                    action='wagtail.comments.delete_reply',
+                    user=self.request.user,
+                    revision=revision,
+                    data={
+                        'comment': {
+                            'id': comment.pk,
+                            'contentpath': comment.contentpath,
+                            'text': comment.text,
+                        },
+                        'reply': {
+                            'id': reply.pk,
+                            'text': reply.text,
+                        }
+                    }
+                )
+
+        for comment, replies in edited_replies:
+            for reply in replies:
+                PageLogEntry.objects.log_action(
+                    instance=self.page,
+                    action='wagtail.comments.edit_reply',
+                    user=self.request.user,
+                    revision=revision,
+                    data={
+                        'comment': {
+                            'id': comment.pk,
+                            'contentpath': comment.contentpath,
+                            'text': comment.text,
+                        },
+                        'reply': {
+                            'id': reply.pk,
+                            'text': reply.text,
+                        }
+                    }
+                )
 
     def get_edit_message_button(self):
         return messages.button(

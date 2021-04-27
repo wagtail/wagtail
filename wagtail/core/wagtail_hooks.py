@@ -276,6 +276,39 @@ def register_core_log_actions(actions):
 
     resolve_comment_message.takes_log_entry = True
 
+    def create_reply_message(log_entry):
+        try:
+            return _('Replied to comment on field %(field)s: "%(text)s"') % {
+                'field': _field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
+                'text': log_entry.data['reply']['text'],
+            }
+        except KeyError:
+            return _('Replied to a comment')
+
+    create_reply_message.takes_log_entry = True
+
+    def edit_reply_message(log_entry):
+        try:
+            return _('Edited a reply to a comment on field %(field)s: "%(text)s"') % {
+                'field': _field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
+                'text': log_entry.data['reply']['text'],
+            }
+        except KeyError:
+            return _("Edited a reply")
+
+    edit_reply_message.takes_log_entry = True
+
+    def delete_reply_message(log_entry):
+        try:
+            return _('Deleted a reply to a comment on field %(field)s: "%(text)s"') % {
+                'field': _field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
+                'text': log_entry.data['reply']['text'],
+            }
+        except KeyError:
+            return _("Deleted a reply")
+
+    delete_reply_message.takes_log_entry = True
+
     actions.register_action('wagtail.rename', _('Rename'), rename_message)
     actions.register_action('wagtail.revert', _('Revert'), revert_message)
     actions.register_action('wagtail.copy', _('Copy'), copy_message)
@@ -292,6 +325,9 @@ def register_core_log_actions(actions):
     actions.register_action('wagtail.comments.edit', _('Edit comment'), edit_comment_message)
     actions.register_action('wagtail.comments.delete', _('Delete comment'), delete_comment_message)
     actions.register_action('wagtail.comments.resolve', _('Resolve comment'), resolve_comment_message)
+    actions.register_action('wagtail.comments.create_reply', _('Reply to comment'), create_reply_message)
+    actions.register_action('wagtail.comments.edit_reply', _('Edit reply to comment'), edit_reply_message)
+    actions.register_action('wagtail.comments.delete_reply', _('Delete reply to comment'), delete_reply_message)
 
 
 @hooks.register('register_log_actions')
