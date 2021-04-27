@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -26,6 +26,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Base Wagtail"
+
+msgid "Add"
+msgstr "Aggiungi"
 
 msgid "This block has no options."
 msgstr "Questo blocco non ha opzioni"
@@ -125,25 +128,12 @@ msgstr "URL path"
 msgid "owner"
 msgstr "proprietario"
 
-msgid "page title"
-msgstr "titolo pagina"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Optional. Titolo 'Search Engine Friendly'. Questo apparirà nella barra del "
-"titolo del browser."
-
 msgid "show in menus"
 msgstr "mostra nel menu"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Se un link a questa pagina apparirà nei menu generati automaticamente"
-
-msgid "search description"
-msgstr "descrizione della ricerca"
 
 msgid "go live date/time"
 msgstr "vai live data/ora"
@@ -213,9 +203,6 @@ msgstr "revisione pagina"
 
 msgid "page revisions"
 msgstr "revisioni pagina"
-
-msgid "Add"
-msgstr "Aggiungi"
 
 msgid "Add/edit pages you own"
 msgstr "Aggiungi/modifica pagine di tua proprietà"

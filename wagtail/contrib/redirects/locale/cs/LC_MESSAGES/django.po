@@ -6,13 +6,13 @@
 # IT Management <hudan@itmanagement.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2020
 # Marek Turnovec <aesculap@gmail.com>, 2016
-# Mirek Zvolský <zvolsky@seznam.cz>, 2020
+# Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-08-03 20:06+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 13:13+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -25,6 +25,18 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtail přesměrování"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Permanent"
+msgstr "Trvalé"
+
+msgid "Temporary"
+msgstr "Dočasné"
+
+msgid "All"
+msgstr "Všechna"
 
 msgid "From site"
 msgstr "Z webu"
@@ -165,14 +177,17 @@ msgstr "Chyba"
 msgid "Continue"
 msgstr "Pokračovat"
 
+msgid "Export redirects"
+msgstr "Export přesměrování"
+
 msgid "Site"
 msgstr "Web"
 
-msgid "Type"
-msgstr "Typ"
-
 msgid "Edit this redirect"
 msgstr "Upravit toto přesměrování"
+
+msgid "No redirects found."
+msgstr "Nenalezena žádná přesměrování."
 
 #, python-format
 msgid ""
@@ -249,3 +264,6 @@ msgstr[0] "Načteno %(total)d přiřazení"
 msgstr[1] "Načteno %(total)d přiřazení"
 msgstr[2] "Načteno %(total)d přiřazení"
 msgstr[3] "Načteno %(total)d přiřazení"
+
+msgid "Export Redirects"
+msgstr "Export přesměrování"

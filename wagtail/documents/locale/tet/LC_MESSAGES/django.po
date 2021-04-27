@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -21,6 +21,9 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokumentu sira"
+
+msgid "Collection"
+msgstr "Koleksaun"
 
 msgid "Add"
 msgstr "Hatama"
@@ -66,9 +69,6 @@ msgstr "Dokumentu sira"
 
 msgid "Title"
 msgstr "Titlu"
-
-msgid "Collection"
-msgstr "Koleksaun"
 
 msgid "Search documents"
 msgstr "Buka documentu"

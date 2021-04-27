@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-08-11 12:17+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtail tilvísanir"
+
+msgid "Type"
+msgstr "Tegund"
 
 msgid "From site"
 msgstr "Frá síðu"
@@ -163,9 +166,6 @@ msgstr "Áfram"
 
 msgid "Site"
 msgstr "Síðu"
-
-msgid "Type"
-msgstr "Tegund"
 
 msgid "Edit this redirect"
 msgstr "Breyta þessari tilvísun"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail core"
+
+msgid "Add"
+msgstr "เพิ่ม"
 
 msgid "This block has no options."
 msgstr "บล็อคนี้ไม่มีตัวเลือก"
@@ -118,23 +121,12 @@ msgstr "ช่องทางของ URL"
 msgid "owner"
 msgstr "เจ้าของ"
 
-msgid "page title"
-msgstr "ชื่อหน้า"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr "สามารถเลือกได้, หัวข้อนี้ใช้กับเว็บไซด์ที่ช่วยในการค้นหา มันจะปรากฎบริเวณด้านบนของหน้าจอ"
-
 msgid "show in menus"
 msgstr "ปรากฎในเมนู"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "อย่างไรก็ตามลิงค์ของหน้านี้จะปรากฎขึ้นโดยอัตโนมัติในเมนู"
-
-msgid "search description"
-msgstr "ค้นหาคำอธิบาย"
 
 msgid "go live date/time"
 msgstr "ถ่ายทอดสด วันที่/เวลา"
@@ -201,9 +193,6 @@ msgstr "หน้าที่แก้ไขแล้ว"
 
 msgid "page revisions"
 msgstr "หน้าที่แก้ไขแล้ว"
-
-msgid "Add"
-msgstr "เพิ่ม"
 
 msgid "Add/edit pages you own"
 msgstr "เพิ่มหรือแก้ไขหน้าเพจของคุณ"

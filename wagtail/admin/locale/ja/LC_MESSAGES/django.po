@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -66,9 +66,6 @@ msgstr "予定公開日"
 msgid "Privacy"
 msgstr "公開設定"
 
-msgid "Common page configuration"
-msgstr "ページの一般設定"
-
 msgid "Content"
 msgstr "コンテンツ"
 
@@ -94,8 +91,14 @@ msgstr "%sを入力してください"
 msgid "Enter your email address to reset your password"
 msgstr "パスワードをリセットするにはEメールアドレスを入力してください"
 
+msgid "Parent"
+msgstr "上位階層"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "同一コレクション内で複数の権限を持つことはできません"
+
+msgid "Collection"
+msgstr "コレクション"
 
 msgid "New title"
 msgstr "新規タイトル"
@@ -173,99 +176,6 @@ msgstr "この項目は必須です"
 msgid "Please select at least one group."
 msgstr "1グループ以上を選択してください"
 
-msgid "Arabic"
-msgstr "アラビア語"
-
-msgid "Catalan"
-msgstr "カタルーニャ語"
-
-msgid "Czech"
-msgstr "チェコ語"
-
-msgid "German"
-msgstr "ドイツ語"
-
-msgid "Greek"
-msgstr "ギリシャ語"
-
-msgid "English"
-msgstr "英語"
-
-msgid "Spanish"
-msgstr "スペイン語"
-
-msgid "Finnish"
-msgstr "フィンランド語"
-
-msgid "French"
-msgstr "フランス語"
-
-msgid "Galician"
-msgstr "ガリシア語"
-
-msgid "Hungarian"
-msgstr "ハンガリー語"
-
-msgid "Indonesian"
-msgstr "インドネシア語"
-
-msgid "Icelandic"
-msgstr "アイスランド語"
-
-msgid "Italian"
-msgstr "イタリア語"
-
-msgid "Korean"
-msgstr "韓国語"
-
-msgid "Lithuanian"
-msgstr "リトアニア語"
-
-msgid "Mongolian"
-msgstr "モンゴル語"
-
-msgid "Norwegian Bokmål"
-msgstr "ノルウェー・書籍語"
-
-msgid "Netherlands Dutch"
-msgstr "オランダ語"
-
-msgid "Persian"
-msgstr "ペルシア語"
-
-msgid "Polish"
-msgstr "ポーランド語"
-
-msgid "Brazilian Portuguese"
-msgstr "ブラジル・ポルトガル語"
-
-msgid "Portuguese"
-msgstr "ポルトガル語"
-
-msgid "Romanian"
-msgstr "ルーマニア語"
-
-msgid "Russian"
-msgstr "ロシア語"
-
-msgid "Swedish"
-msgstr "スウェーデン語"
-
-msgid "Slovak"
-msgstr "スロヴァキア語"
-
-msgid "Thai"
-msgstr "タイ語"
-
-msgid "Ukrainian"
-msgstr "ウクライナ語"
-
-msgid "Chinese (Simplified)"
-msgstr "中国語（簡体字）"
-
-msgid "Chinese (Traditional)"
-msgstr "中国語（繁体字）"
-
 msgid "Edit"
 msgstr "編集"
 
@@ -341,6 +251,9 @@ msgstr "'{title}'を編集します"
 msgid "Page explorer"
 msgstr "ページ探索"
 
+msgid "Save"
+msgstr "保存"
+
 msgid "Error 404: Page not found"
 msgstr "404エラー：ページが見つかりません"
 
@@ -356,18 +269,6 @@ msgstr "Wagtail管理画面へ移動"
 msgid "Account"
 msgstr "アカウント"
 
-msgid "Change profile picture"
-msgstr "プロファイル写真を変更します"
-
-msgid "Your current profile picture:"
-msgstr "現在プロファイル写真"
-
-msgid "Update"
-msgstr "アップデート"
-
-msgid "Change email"
-msgstr "メールアドレスを変更します"
-
 msgid "Change password"
 msgstr "パスワードを変更する"
 
@@ -375,15 +276,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "パスワードを変更することができません。サイトの管理者に連絡してください。"
-
-msgid "Set Time Zone"
-msgstr "タイムゾーン設定"
-
-msgid "Language Preferences"
-msgstr "言語設定"
-
-msgid "Notification preferences"
-msgstr "通知設定"
 
 msgid "Reset password"
 msgstr "パスワードを再設定"
@@ -437,12 +329,6 @@ msgstr "ダッシュボード"
 
 msgid "Menu"
 msgstr "メニュー"
-
-msgid "Move up"
-msgstr "上に移動"
-
-msgid "Move down"
-msgstr "下に移動"
 
 msgid "Explorer"
 msgstr "エクスプローラー"
@@ -515,9 +401,6 @@ msgstr ""
 "プライバシー設定により、このコレクション内のドキュメントを閲覧できるユーザー"
 "が決まります。"
 
-msgid "Save"
-msgstr "保存"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "コレクションのプライバシーを設定する。現在の状態：公開"
 
@@ -550,8 +433,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "%(label)sを追加"
 
+msgid "Move up"
+msgstr "上に移動"
+
+msgid "Move down"
+msgstr "下に移動"
+
 msgid "Yes, delete"
 msgstr "はい、削除します"
+
+msgid "Update"
+msgstr "アップデート"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -575,9 +467,6 @@ msgstr "公開"
 
 msgid "Pages awaiting moderation"
 msgstr "承認待ちのページ"
-
-msgid "Parent"
-msgstr "上位階層"
 
 msgid "Type"
 msgstr "タイプ"
@@ -1119,9 +1008,6 @@ msgstr "検索語を入力"
 msgid "No pages use"
 msgstr "この語を使用するページはありません。"
 
-msgid "Collection"
-msgstr "コレクション"
-
 msgid "Locked"
 msgstr "ロックあり"
 
@@ -1186,18 +1072,6 @@ msgstr "'%(parent)s'内の子ページの順序を'%(label)s'で降順に並べ�
 
 msgid "Test"
 msgstr "テスト"
-
-msgid "Your password has been changed successfully!"
-msgstr "パスワードが変更されました。"
-
-msgid "Your email has been changed successfully!"
-msgstr "メールを更新済み"
-
-msgid "Your preferences have been updated."
-msgstr "設定が更新されました。"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "設定が更新されました。"
 
 msgid "You have been successfully logged out."
 msgstr "ログアウトに成功しました。"
@@ -1327,30 +1201,6 @@ msgstr "ページ：'{0}' が非公開に設定されました。"
 
 msgid "More"
 msgstr "詳細表示"
-
-msgid "Set profile picture"
-msgstr "プロファイル写真を設定します"
-
-msgid "Change the email address linked to your account."
-msgstr "アカウントに設定された電子メールアドレスを変更して下さい。"
-
-msgid "Change the password you use to log in."
-msgstr "ログインに使用するパスワードを変更します。"
-
-msgid "Choose which email notifications to receive."
-msgstr "受信するEメール通知を選択します。"
-
-msgid "Language preferences"
-msgstr "言語設定"
-
-msgid "Choose the language you want to use here."
-msgstr "使用した言語を選択してください"
-
-msgid "Current Time Zone"
-msgstr "現在タイムゾーン"
-
-msgid "Choose your current time zone."
-msgstr "現在タイムゾーンを選択"
 
 msgid "Bulleted list"
 msgstr "箇条書きにされたリスト"

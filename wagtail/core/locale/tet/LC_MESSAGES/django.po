@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail fuan"
+
+msgid "Add"
+msgstr "Hatama"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -123,14 +126,8 @@ msgstr "Dalan URL"
 msgid "owner"
 msgstr "nain"
 
-msgid "page title"
-msgstr "titlu pajina"
-
 msgid "show in menus"
 msgstr "Hatudu iha menus sira"
-
-msgid "search description"
-msgstr "deskrisaun iha buka resultado sira"
 
 msgid "go live date/time"
 msgstr "Ba husi hela data/tempu"
@@ -197,9 +194,6 @@ msgstr "Pajina revizaun"
 
 msgid "page revisions"
 msgstr "Pajina revizaun sira"
-
-msgid "Add"
-msgstr "Hatama"
 
 msgid "Add/edit pages you own"
 msgstr "Hatama/hadia pajina ita nia rasik."

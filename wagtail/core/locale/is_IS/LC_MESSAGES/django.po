@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-02-01 13:45+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail kjarni"
+
+msgid "Add"
+msgstr "Bæta við"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -132,25 +135,12 @@ msgstr "Slóð"
 msgid "owner"
 msgstr "eigandi"
 
-msgid "page title"
-msgstr "titill síðu"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Valkvætt. Leitarvélabestaður titill. Þessi titill mun birtast efst í "
-"vafraglugganum."
-
 msgid "show in menus"
 msgstr "sýna í valmyndum"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Segir til um hvor hlekkur á þessa síðu verður til í valmyndum"
-
-msgid "search description"
-msgstr "leitarlýsing"
 
 msgid "go live date/time"
 msgstr "setja í loftið dags/tíma"
@@ -232,9 +222,6 @@ msgstr "útgáfa"
 
 msgid "page revisions"
 msgstr "útgáfur"
-
-msgid "Add"
-msgstr "Bæta við"
 
 msgid "Add/edit pages you own"
 msgstr "Bæta við/breyta síðum sem þú átt"

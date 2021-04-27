@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -25,6 +25,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add"
+msgstr "Προσθήκη"
 
 msgid "This block has no options."
 msgstr "Αυτό το block δεν έχει επιλογές."
@@ -115,16 +118,6 @@ msgstr "Διεύθυνση URL"
 msgid "owner"
 msgstr "ιδιοκτήτης"
 
-msgid "page title"
-msgstr "τίτλος σελίδας"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Προαιρετικό. Τίτλος που είναι 'φιλικός προς τις μηχανές αναζήτησης'. Θα "
-"εμφανιστεί στην κορυφή του παραθύρου."
-
 msgid "show in menus"
 msgstr "εμφάνιση στα μενού"
 
@@ -133,9 +126,6 @@ msgid ""
 msgstr ""
 "Επιλέξτε αν μια σύνδεση σε αυτή τη σελίδα θα εμφανιστεί στα μενού που "
 "δημιουργούνται αυτόματα"
-
-msgid "search description"
-msgstr "περιγραφή αναζήτησης"
 
 msgid "go live date/time"
 msgstr "ημερομηνία/ώρα δημοσίευσης"
@@ -196,9 +186,6 @@ msgstr "αναθεώρηση σελίδας"
 
 msgid "page revisions"
 msgstr "αναθεωρήσεις σελίδων"
-
-msgid "Add"
-msgstr "Προσθήκη"
 
 msgid "Add/edit pages you own"
 msgstr "Προσθέστε/επεξεργαστείτε σελίδες που σας ανήκουν"

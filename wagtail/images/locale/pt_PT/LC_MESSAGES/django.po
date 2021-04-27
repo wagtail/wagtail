@@ -5,6 +5,7 @@
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
 # Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 17:07+0000\n"
+"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -71,6 +72,23 @@ msgstr "Alinhar à esquerda"
 msgid "Right-aligned"
 msgstr "Alinhar à direita"
 
+msgid "Collection"
+msgstr "Coleção"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "Image is decorative"
+msgstr "A imagem é decorativa"
+
+msgid "Alt text"
+msgstr "Texto alternativo"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Por favor adicione algum texto alternativo para a sua imagem ou marque-a "
+"como decorativa"
+
 msgid "Filter"
 msgstr "Filtro"
 
@@ -112,6 +130,12 @@ msgstr "Alterar"
 
 msgid "Edit any image"
 msgstr "Alterar qualquer imagem"
+
+msgid "Choose"
+msgstr "Escolher"
+
+msgid "Select images in choosers"
+msgstr "Selecionar imagens das escolhas"
 
 msgid "title"
 msgstr "título"

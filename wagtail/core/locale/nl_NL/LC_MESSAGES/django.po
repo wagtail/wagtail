@@ -6,15 +6,15 @@
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2019-2021
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018,2020
-# Meteor0id, 2018
+# Meteor0id, 2018,2021
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-02-01 18:39+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 11:09+0000\n"
+"Last-Translator: Meteor0id\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,18 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail core"
+
+msgid "Add Comment"
+msgstr "Commentaar toevoegen"
+
+msgid "Move up"
+msgstr "Omhoog"
+
+msgid "Move down"
+msgstr "Omlaag"
+
+msgid "Add"
+msgstr "Toevoegen"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -135,16 +147,6 @@ msgstr "URL pad"
 msgid "owner"
 msgstr "eigenaar"
 
-msgid "page title"
-msgstr "paginatitel"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Optioneel. 'Zoekmachine vriendelijke' titel. Deze titel wordt getoond in de "
-"top van de browser."
-
 msgid "show in menus"
 msgstr "toon in menu's"
 
@@ -153,9 +155,6 @@ msgid ""
 msgstr ""
 "Indien aangevinkt komt er een link naar deze pagina in automatisch "
 "gegenereerde menu's te staan."
-
-msgid "search description"
-msgstr "zoekomschrijving"
 
 msgid "go live date/time"
 msgstr "Publiceer op"
@@ -237,9 +236,6 @@ msgstr "pagina revisie"
 
 msgid "page revisions"
 msgstr "pagina revisie"
-
-msgid "Add"
-msgstr "Toevoegen"
 
 msgid "Add/edit pages you own"
 msgstr "Eigen pagina's toevoegen/wijzigen"

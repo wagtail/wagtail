@@ -8,7 +8,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2020
+# Loic Teixeira, 2020-2021
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-28 14:09+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-24 08:51+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -28,7 +28,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "Wagtail redirects"
-msgstr "Redirections Wagtail"
+msgstr "Règles de Redirections Wagtail"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Permanent"
+msgstr "Permanente"
+
+msgid "Temporary"
+msgstr "Temporaire"
+
+msgid "All"
+msgstr "Tous"
 
 msgid "From site"
 msgstr "Du site"
@@ -37,7 +49,7 @@ msgid "All sites"
 msgstr "Tous les sites"
 
 msgid "A redirect with this path already exists."
-msgstr "Une redirection avec ce chemin existe déjà."
+msgstr "Une règle de redirection avec ce chemin existe déjà."
 
 msgid "File to import"
 msgstr "Fichier à importer"
@@ -65,9 +77,9 @@ msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
-"Recommandé. Les redirections permanentes vous assurent que les moteurs de "
-"recherche oublies la vieille page (la « Redirection depuis ») et indexe la "
-"nouvelle à la place."
+"Recommandé. Les règles de redirection permanentes vous assurent que les "
+"moteurs de recherche oublient la vieille page (définie sous « redirige "
+"depuis ») et indexe la nouvelle à la place."
 
 msgid "redirect to a page"
 msgstr "redirige vers une page"
@@ -79,19 +91,19 @@ msgid "temporary"
 msgstr "temporaire"
 
 msgid "redirect"
-msgstr "redirige"
+msgstr "règle de redirection"
 
 msgid "Add redirect"
-msgstr "Ajouter une redirection"
+msgstr "Ajouter une règle de redirection"
 
 msgid "Save"
 msgstr "Enregistrer"
 
 msgid "Redirects"
-msgstr "Redirections"
+msgstr "Règles de Redirection"
 
 msgid "Import redirects"
-msgstr "Importer des redirections"
+msgstr "Importer des règles de redirection"
 
 msgid ""
 "\n"
@@ -103,7 +115,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"<p>Selectionnez un ficher dans lequel chaque ligne représente une "
+"<p>Selectionnez un ficher dans lequel chaque ligne représente une règle de "
 "redirection et où chaque ligne est composé de deux colonnes représentant la "
 "<code>source</code> et <code>destination</code> (le nom des colonnes est "
 "libre).</p>\n"
@@ -115,13 +127,13 @@ msgstr "Importer"
 
 #, python-format
 msgid "Delete redirect %(title)s"
-msgstr "Supprimer la redirection %(title)s"
+msgstr "Supprimer la règle de redirection %(title)s"
 
 msgid "Delete"
 msgstr "Supprimer"
 
 msgid "Are you sure you want to delete this redirect?"
-msgstr "Êtes-vous sûr(e) de vouloir supprimer cette redirection ?"
+msgstr "Êtes-vous sûr(e) de vouloir supprimer cette règle de redirection ?"
 
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
@@ -146,7 +158,7 @@ msgid "Editing"
 msgstr "Modification"
 
 msgid "Delete redirect"
-msgstr "Supprimer la redirection"
+msgstr "Supprimer la règle de redirection"
 
 msgid "Summary"
 msgstr "Sommaire"
@@ -155,7 +167,8 @@ msgstr "Sommaire"
 msgid ""
 "Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
 msgstr ""
-"%(total)s redirections trouvées, %(successes)s créées et %(errors)s erreurs."
+"%(total)s règles de redirection trouvées, %(successes)s créées et %(errors)s "
+"erreurs."
 
 msgid "From"
 msgstr "Depuis"
@@ -169,14 +182,17 @@ msgstr "Erreur"
 msgid "Continue"
 msgstr "Continuer"
 
+msgid "Export redirects"
+msgstr "Exporter les règles de redirection"
+
 msgid "Site"
 msgstr "Site"
 
-msgid "Type"
-msgstr "Type"
-
 msgid "Edit this redirect"
-msgstr "Éditer cette redirection"
+msgstr "Modifier cette règle de redirection"
+
+msgid "No redirects found."
+msgstr "Aucune règle de redirection trouvée."
 
 #, python-format
 msgid ""
@@ -197,36 +213,37 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Désolé, aucune redirection ne correspond à \"<em>%(query_string)s</em>\""
+"Désolé, aucune règle de redirection ne correspond à \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
 "No redirects have been created. Why not <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Aucune redirection n'a été créée. Pourquoi ne pas <a href="
+"Aucune règle de redirection n'a été créée. Pourquoi ne pas <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">en ajouter une</a> ?"
 
 msgid "Search redirects"
-msgstr "Rechercher une redirection"
+msgstr "Rechercher une règle de redirection"
 
 msgid "Redirect '{0}' updated."
-msgstr "Redirection '{0}' mise à jour."
+msgstr "Règle de Redirection « {0} » mise à jour."
 
 msgid "Edit"
 msgstr "Modifier"
 
 msgid "The redirect could not be saved due to errors."
-msgstr "La redirection ne peut être enregistrée du fait d'erreurs."
+msgstr "La règle de redirection ne peut être enregistrée du fait d'erreurs."
 
 msgid "Redirect '{0}' deleted."
-msgstr "Redirection '{0}' supprimée."
+msgstr "Règle de Redirection « {0} » supprimée."
 
 msgid "Redirect '{0}' added."
-msgstr "Rediredtion '{0}' ajoutée."
+msgstr "Règle de Redirection « {0} » ajoutée."
 
 msgid "The redirect could not be created due to errors."
-msgstr "La redirection ne peut être créée du fait d'erreurs."
+msgstr "La règle de redirection ne peut être créée du fait d'erreurs."
 
 msgid "File format of type \"{}\" is not supported"
 msgstr "Le format de fichier « {} » n'est pas supporté"
@@ -242,5 +259,8 @@ msgstr "%(error)s erreurs lors de la lecture du fichier : %(filename)s"
 #, python-format
 msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
-msgstr[0] "%(total)d redirection importée"
-msgstr[1] "%(total)d redirections importées"
+msgstr[0] "%(total)d règle de redirection importée"
+msgstr[1] "%(total)d règles de redirection importées"
+
+msgid "Export Redirects"
+msgstr "Exporter les règles de redirection"

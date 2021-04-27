@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-03-24 12:33+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -82,9 +82,6 @@ msgstr "Planifica la publicació"
 msgid "Privacy"
 msgstr "Privadesa"
 
-msgid "Common page configuration"
-msgstr "Configuració de la pàgina comú"
-
 msgid "Content"
 msgstr "Contingut"
 
@@ -137,6 +134,9 @@ msgstr "Escriu el teu correu per reiniciar la teva contrasenya"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Pare"
+
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
@@ -147,6 +147,9 @@ msgstr ""
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
+
+msgid "Collection"
+msgstr "Col·lecció"
 
 msgid "New title"
 msgstr "Nou títol"
@@ -251,111 +254,6 @@ msgstr "Poseu-li un nom al fluxe de treball"
 msgid "Add tasks to your workflow"
 msgstr "Afegir tasques al fluxe de treball"
 
-msgid "Arabic"
-msgstr "Aràbic"
-
-msgid "Catalan"
-msgstr "Català"
-
-msgid "Czech"
-msgstr "Txec"
-
-msgid "German"
-msgstr "Alemany"
-
-msgid "Greek"
-msgstr "Grec"
-
-msgid "English"
-msgstr "Anglès"
-
-msgid "Spanish"
-msgstr "Espanyol"
-
-msgid "Estonian"
-msgstr "Estonià"
-
-msgid "Finnish"
-msgstr "Finès"
-
-msgid "French"
-msgstr "Francès"
-
-msgid "Galician"
-msgstr "Gallec"
-
-msgid "Hungarian"
-msgstr "Hongarès"
-
-msgid "Indonesian"
-msgstr "Indonesi"
-
-msgid "Icelandic"
-msgstr "Islandès"
-
-msgid "Italian"
-msgstr "Italià"
-
-msgid "Japanese"
-msgstr "Japonès"
-
-msgid "Korean"
-msgstr "Coreà"
-
-msgid "Lithuanian"
-msgstr "Lituà"
-
-msgid "Mongolian"
-msgstr "Mongol"
-
-msgid "Norwegian Bokmål"
-msgstr "Noruec"
-
-msgid "Netherlands Dutch"
-msgstr "Holandès"
-
-msgid "Persian"
-msgstr "Persa"
-
-msgid "Polish"
-msgstr "Polonès"
-
-msgid "Brazilian Portuguese"
-msgstr "Portuguès de Brasil"
-
-msgid "Portuguese"
-msgstr "Portuguès"
-
-msgid "Romanian"
-msgstr "Romanès"
-
-msgid "Russian"
-msgstr "Rus"
-
-msgid "Swedish"
-msgstr "Suec"
-
-msgid "Slovak"
-msgstr "Eslovac"
-
-msgid "Thai"
-msgstr "Tai"
-
-msgid "Turkish"
-msgstr "Turc"
-
-msgid "Turkish (Turkey)"
-msgstr "Turc (Turquia)"
-
-msgid "Ukrainian"
-msgstr "Ucraïnès"
-
-msgid "Chinese (Simplified)"
-msgstr "Xinès (Simplificat)"
-
-msgid "Chinese (Traditional)"
-msgstr "Xinès (Tradicional)"
-
 msgid "Edit"
 msgstr "Edita"
 
@@ -433,9 +331,14 @@ msgstr "Mostra pàgines filles de '{title}'"
 msgid "Page explorer"
 msgstr "Explorador de pàgines"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Desconegut/da %(action)s"
+msgid "Save"
+msgstr "Desar"
+
+msgid "Cancel"
+msgstr "Cancel·lar"
+
+msgid "Comment"
+msgstr "Comentari"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pàgina no trobada"
@@ -452,21 +355,6 @@ msgstr "Anar a l'administració de Wagtail"
 msgid "Account"
 msgstr "Compte"
 
-msgid "Change profile picture"
-msgstr "Modificar imatge de perfil"
-
-msgid "Your current profile picture:"
-msgstr "La vostra imatge de perfil actual:"
-
-msgid "Update"
-msgstr "Actualitzar"
-
-msgid "Change email"
-msgstr "Modificar correu electrònic"
-
-msgid "Change name"
-msgstr "Canvia el nom"
-
 msgid "Change password"
 msgstr "Canviar contrasenya"
 
@@ -475,15 +363,6 @@ msgid ""
 msgstr ""
 "La teva contrasenya no es pot canviar des d'aquí. Si us plau contacta amb "
 "l'administrador de la web"
-
-msgid "Set Time Zone"
-msgstr "Estableix zona horària"
-
-msgid "Language Preferences"
-msgstr "Preferències de llengua"
-
-msgid "Notification preferences"
-msgstr "Preferències de notificació"
 
 msgid "Reset password"
 msgstr "Reiniciar contrasenya"
@@ -537,12 +416,6 @@ msgstr "Tauler de control"
 
 msgid "Menu"
 msgstr "Menú"
-
-msgid "Move up"
-msgstr "Puja"
-
-msgid "Move down"
-msgstr "Baixa"
 
 msgid "Explorer"
 msgstr "Explorador"
@@ -637,9 +510,6 @@ msgstr "Aquesta col·lecció ha estat feta privada per una col·lecció pare."
 msgid "You can edit the privacy settings on:"
 msgstr "Podeu editar la configuració de privadesa a:"
 
-msgid "Save"
-msgstr "Desar"
-
 msgid "Public"
 msgstr "Publica"
 
@@ -666,8 +536,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Afegir %(label)s"
 
+msgid "Move up"
+msgstr "Puja"
+
+msgid "Move down"
+msgstr "Baixa"
+
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
+
+msgid "Update"
+msgstr "Actualitzar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -701,9 +580,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Pàgines a l'espera de moderació"
-
-msgid "Parent"
-msgstr "Pare"
 
 msgid "Type"
 msgstr "Tipus"
@@ -976,9 +852,6 @@ msgstr "No despublicar-la"
 msgid "Publish page"
 msgstr "Publica la pàgina"
 
-msgid "Cancel"
-msgstr "Cancel·lar"
-
 msgid "Pages using"
 msgstr "Pàgines en ús"
 
@@ -1020,9 +893,6 @@ msgstr "Usuari"
 
 msgid "Date / Time"
 msgstr "Data / Hora"
-
-msgid "Comment"
-msgstr "Comentari"
 
 msgid "Live version"
 msgstr "Versió en viu"
@@ -1325,9 +1195,6 @@ msgstr "La tasca és incompleta"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Aquesta pàgina encara no s'ha enviat a moderació"
 
-msgid "Collection"
-msgstr "Col·lecció"
-
 msgid "Download XLSX"
 msgstr "Baixa XLSX"
 
@@ -1474,9 +1341,6 @@ msgstr "esborrany"
 msgid "Test"
 msgstr "Provar"
 
-msgid "Your password has been changed successfully!"
-msgstr "S'ha canviat la teva contrasenya!"
-
 msgid "You have been successfully logged out."
 msgstr "Heu finalitzat la sessió."
 
@@ -1612,21 +1476,6 @@ msgstr "Afegir un fluxe de treball"
 msgid "More"
 msgstr "Més"
 
-msgid "Change the email address linked to your account."
-msgstr "Modificar l'adreça de correu electrònic vinculada al vostre compte."
-
-msgid "Change the password you use to log in."
-msgstr "Canvia la password que fas servir per connectar-te"
-
-msgid "Choose which email notifications to receive."
-msgstr "Seleccioni quines notificacions de correu vol rebre."
-
-msgid "Language preferences"
-msgstr "Preferències de llengua"
-
-msgid "Current Time Zone"
-msgstr "Zona horària actual"
-
 msgid "Link"
 msgstr "Enllaç"
 
@@ -1635,58 +1484,6 @@ msgstr "Codi"
 
 msgid "Locked Pages"
 msgstr "Pàgines bloquejades"
-
-msgid "Created"
-msgstr "Creada"
-
-msgid "Deleted"
-msgstr "Suprimida"
-
-msgid "Unpublished"
-msgstr "Despublicada"
-
-msgid "Unlocked"
-msgstr "Desbloquejat"
-
-msgid "Approved"
-msgstr "Aprovat"
-
-msgid "Rejected"
-msgstr "Rebutjat"
-
-msgid "Reverted to previous revision"
-msgstr "S'ha revertit a la revisió anterior"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "S'ha copiat de %(title)s"
-
-msgid "Copied"
-msgstr "Copiat"
-
-msgid "Added view restriction"
-msgstr "S'ha afegit una restricció de visualització"
-
-msgid "Add view restrictions"
-msgstr "Afegir restriccions de visualització"
-
-msgid "Workflow cancelled"
-msgstr "El fluxe de treballa està cancel·lat"
-
-msgid "Workflow: start"
-msgstr "Fluxe de treball: inicia"
-
-msgid "Workflow: approve task"
-msgstr "Fluxe de treball: aprova la tasca"
-
-msgid "Workflow: reject task"
-msgstr "Fluxe de treball: rebutja la tasca"
-
-msgid "Workflow: resume task"
-msgstr "Fluxe de treball: reprèn la tasca"
-
-msgid "Workflow: cancel"
-msgstr "Fluxe de treball: cancel·la"
 
 msgid "Yes"
 msgstr "Sí"

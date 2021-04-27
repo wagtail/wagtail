@@ -5,15 +5,15 @@
 # Translators:
 # Martin Sandström <martin@marteinn.se>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018
-# Thomas Kunambi <kunambi@gmail.com>, 2015,2017
+# Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-18 18:13+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 22:02+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,18 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtail omdirigeringar"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Permanent"
+msgstr "Permanent"
+
+msgid "Temporary"
+msgstr "Temporär"
+
+msgid "All"
+msgstr "Alla"
 
 msgid "From site"
 msgstr "Från sajt"
@@ -164,14 +176,17 @@ msgstr "Fel"
 msgid "Continue"
 msgstr "Fortsätt"
 
+msgid "Export redirects"
+msgstr "Exportera omdirigeringar"
+
 msgid "Site"
 msgstr "Sajt"
 
-msgid "Type"
-msgstr "Typ"
-
 msgid "Edit this redirect"
 msgstr "Redigera denna omdirigering"
+
+msgid "No redirects found."
+msgstr "Inga omdirigeringar funna."
 
 #, python-format
 msgid ""
@@ -240,3 +255,6 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Importerade %(total)d omdirigering"
 msgstr[1] "Importerade %(total)d omdirigeringar"
+
+msgid "Export Redirects"
+msgstr "Exportera omdirigeringar"

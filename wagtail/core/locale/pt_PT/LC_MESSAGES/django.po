@@ -5,6 +5,7 @@
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
 # Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-23 18:13+0000\n"
+"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,24 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Núcleo Wagtail"
+
+msgid "Add Comment"
+msgstr "Adicionar Comentário"
+
+msgid "Move up"
+msgstr "Mover para cima"
+
+msgid "Move down"
+msgstr "Mover para baixo"
+
+msgid "Duplicate"
+msgstr "Duplicado"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Add"
+msgstr "Adicionar"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -52,6 +71,10 @@ msgstr "Introduziu uma senha incorreta. Por favor tente novamente."
 
 msgid "Comment"
 msgstr "Comentário"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Desconhecido %(action)s"
 
 msgid "hostname"
 msgstr "nome do servidor"
@@ -136,15 +159,15 @@ msgstr "Caminho do URL"
 msgid "owner"
 msgstr "dono"
 
-msgid "page title"
-msgstr "título da página"
+msgid "title tag"
+msgstr "etiqueta do titulo"
 
 msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
+"The name of the page displayed on search engine results as the clickable "
+"headline."
 msgstr ""
-"Opcional. Título \"Otimizado para Motores de Busca\". Irá aparecer no topo "
-"da janela do navegador."
+"O nome da página mostrado nos resultados de motores de pesquisa como o "
+"cabeçalho com a hiperligação "
 
 msgid "show in menus"
 msgstr "mostrar nos menus"
@@ -155,8 +178,15 @@ msgstr ""
 "Determina se um link para esta página irá aparecer nos menus gerados "
 "automaticamente"
 
-msgid "search description"
-msgstr "descrição de pesquisa"
+msgid "meta description"
+msgstr "descrição meta"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"O texto descritivo mostrado por debaixo do cabeçalho nos resultados de um "
+"motor de pesquisa"
 
 msgid "go live date/time"
 msgstr "publicar em data/hora"
@@ -238,9 +268,6 @@ msgstr "versão da página"
 
 msgid "page revisions"
 msgstr "versões de página"
-
-msgid "Add"
-msgstr "Adicionar"
 
 msgid "Add/edit pages you own"
 msgstr "Crie/altere as suas páginas"
@@ -485,6 +512,9 @@ msgstr "entrada no diário"
 msgid "log entries"
 msgstr "entradas no diário"
 
+msgid "The log action '{}' has not been registered."
+msgstr "A ação de registo '{}' não foi registada."
+
 #, python-format
 msgid "user %(id)d (deleted)"
 msgstr "utilizador %(id)d (eliminado)"
@@ -497,6 +527,18 @@ msgstr "entrada no diário da página"
 
 msgid "page log entries"
 msgstr "entradas no diário da página"
+
+msgid "comment"
+msgstr "comentário"
+
+msgid "comments"
+msgstr "comentários"
+
+msgid "comment reply"
+msgstr "comentar resposta"
+
+msgid "comment replies"
+msgstr "comentar respostas"
 
 msgid "Log in"
 msgstr "Entrar"
@@ -521,8 +563,256 @@ msgstr "É preciso uma senha para aceder a esta página."
 msgid "Continue"
 msgstr "Continuar"
 
+msgid "English"
+msgstr "Inglês "
+
+msgid "French"
+msgstr "Francês"
+
+msgid "German"
+msgstr "Alemão"
+
 #, python-format
 msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s coleção descendente"
 msgstr[1] "%(count)s coleções decendentes"
+
+msgid "Create"
+msgstr "Criar"
+
+msgid "Created"
+msgstr "Criado"
+
+msgid "Save draft"
+msgstr "Guardar rascunho"
+
+msgid "Draft saved"
+msgstr "Rascunho guardado"
+
+msgid "Deleted"
+msgstr "Eliminado"
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "Publish scheduled draft"
+msgstr "Publicar rascunho agendado"
+
+msgid "Published scheduled draft"
+msgstr "Rascunho agendado publicado"
+
+msgid "Unpublish"
+msgstr "Retirar de publicação"
+
+msgid "Unpublished"
+msgstr "Retirado de publicação"
+
+msgid "Unpublish scheduled draft"
+msgstr "Não publicar o rascunho agendado"
+
+msgid "Unpublished scheduled draft"
+msgstr "Rascunho agendado não publicado"
+
+msgid "Locked"
+msgstr "Trancada"
+
+msgid "Unlocked"
+msgstr "Destrancada"
+
+msgid "Reject"
+msgstr "Rejeitar"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Reverter para a versão anterior com id %(revision_id)s de %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Voltar para a versão anterior"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Copiado de %(title)s"
+
+msgid "Copied"
+msgstr "Copiado"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Criado um pseudónimo para %(title)s"
+
+msgid "Created an alias"
+msgstr "Criado um pseudónimo"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "O pseudónimo '%(title)s' foi convertido numa página normal"
+
+msgid "Converted an alias into a regular page"
+msgstr "Pseudónimo convertido numa página normal"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Movido de '%(old_parent)s' para '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Movido"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Reordenado em '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Reordenado"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisão %(revision_id)s de %(created_at)s agendado para publicação a "
+"%(go_live_at)s"
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Página agendada para publicação a %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Página agendada para publicação"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisão %(revision_id)s de %(created_at)s retirada do agendamento de "
+"publicação a %(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Página retirada de agenda de publicação a %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Página retirada da agenda de publicação"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Adicionada a restrição de visualização '%(restriction)s'"
+
+msgid "Added view restriction"
+msgstr "Restrição de visualização adicionada"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Atualizada a restrição de visualização para '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Restrição de visualização atualizada"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Removida restrição de visualização '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "Restrição de visualização removida"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Nome alterado de '%(old)s' para '%(new)s'"
+
+msgid "Renamed"
+msgstr "Nome alterado"
+
+msgid "Rename"
+msgstr "Renomear"
+
+msgid "Revert"
+msgstr "Reverter"
+
+msgid "Copy"
+msgstr "Copiar"
+
+msgid "Create alias"
+msgstr "Criar pseudónimo"
+
+msgid "Convert alias into regular page"
+msgstr "Converter um pseudónimo numa página normal"
+
+msgid "Move"
+msgstr "Mover"
+
+msgid "Reorder"
+msgstr "Reordenar"
+
+msgid "Schedule publication"
+msgstr "Agendar publicação"
+
+msgid "Unschedule publication"
+msgstr "Retirar da agenda a publicação"
+
+msgid "Add view restrictions"
+msgstr "Adicionar restrições de visualização"
+
+msgid "Update view restrictions"
+msgstr "Atualizar restrições de visualização"
+
+msgid "Remove view restrictions"
+msgstr "Remover restrições de visualização"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' iniciado. Próximo passo '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Fluxo de trabalho iniciado"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Aprovado '%(task)s'. Próximo passo '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Aprovado a '%(task)s'. Completo '%(workflow)s'"
+
+msgid "Workflow task approved"
+msgstr "Tarefa do fluxo de trabalho aprovada"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Rejeitado '%(task)s'. Alterações requisitadas"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr ""
+"Tarefa do fluxo de trabalho rejeitada. O fluxo de trabalho está completo"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "Submissão repetida '%(task)s'. Fluxo de trabalho resumido'"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr ""
+"Tarefa do fluxo de trabalho submetida novamente. Fluxo de trabalho resumido"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "'%(workflow)s' cancelado devido a '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Fluxo de trabalho cancelado"
+
+msgid "Workflow: start"
+msgstr "Fluxo de trabalho: iniciado"
+
+msgid "Workflow: approve task"
+msgstr "Fluxo de trabalho: aprovar tarefa"
+
+msgid "Workflow: reject task"
+msgstr "Fluxo de trabalho: rejeitar tarefa"
+
+msgid "Workflow: resume task"
+msgstr "Fluxo de trabalho: resumir tarefa"
+
+msgid "Workflow: cancel"
+msgstr "Fluxo de trabalho: cancelar"

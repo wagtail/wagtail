@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
+
+msgid "Add"
+msgstr "дадаць"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -128,16 +131,6 @@ msgstr "шлях URL"
 msgid "owner"
 msgstr "уладальнік"
 
-msgid "page title"
-msgstr "загаловак старонкі"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Не абавязкова. 'Прыязны для пошукавага сэрвісу' загаловак. Ён з'явіцца "
-"уверсе вокны браўзэра."
-
 msgid "show in menus"
 msgstr "паказваць у меню"
 
@@ -146,9 +139,6 @@ msgid ""
 msgstr ""
 "Ці павінна спасылка на гэтую старонку адлюстроўвацца ў аўтаматычна "
 "генераваных меню"
-
-msgid "search description"
-msgstr "апісанне для пошуку / SEO"
 
 msgid "go live date/time"
 msgstr "дата / час публікацыі"
@@ -221,9 +211,6 @@ msgstr "версія старонкі"
 
 msgid "page revisions"
 msgstr "версіі старонкі"
-
-msgid "Add"
-msgstr "дадаць"
 
 msgid "Add/edit pages you own"
 msgstr "Дадаць / рэдагаваць свае старонкі"

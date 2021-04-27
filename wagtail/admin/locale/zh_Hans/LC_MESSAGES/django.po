@@ -23,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-26 06:54+0000\n"
-"Last-Translator: Ford Guo <agile.guo@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -95,9 +95,6 @@ msgstr "定时发布"
 msgid "Privacy"
 msgstr "私有设置"
 
-msgid "Common page configuration"
-msgstr "常用页面配置"
-
 msgid "Content"
 msgstr "内容"
 
@@ -150,8 +147,14 @@ msgstr "输入邮件地址以重置密码"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "上一级"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
+
+msgid "Collection"
+msgstr "集合"
 
 msgid "New title"
 msgstr "新标题"
@@ -245,108 +248,6 @@ msgstr "请给你的工作流一个名称"
 msgid "Add tasks to your workflow"
 msgstr "增加任务到你的工作流"
 
-msgid "Arabic"
-msgstr "阿拉伯语"
-
-msgid "Catalan"
-msgstr "加泰罗尼亚语"
-
-msgid "Czech"
-msgstr "捷克语"
-
-msgid "German"
-msgstr "德语"
-
-msgid "Greek"
-msgstr "希腊语"
-
-msgid "English"
-msgstr "英语"
-
-msgid "Spanish"
-msgstr "西班牙语"
-
-msgid "Finnish"
-msgstr "芬兰语"
-
-msgid "French"
-msgstr "法语"
-
-msgid "Galician"
-msgstr "加利西亚语"
-
-msgid "Hungarian"
-msgstr "匈牙利语"
-
-msgid "Indonesian"
-msgstr "印度尼西亚"
-
-msgid "Icelandic"
-msgstr "冰岛语"
-
-msgid "Italian"
-msgstr "意大利语"
-
-msgid "Japanese"
-msgstr "日语"
-
-msgid "Korean"
-msgstr "韩国语"
-
-msgid "Lithuanian"
-msgstr "立陶宛语"
-
-msgid "Mongolian"
-msgstr "蒙古语"
-
-msgid "Norwegian Bokmål"
-msgstr "挪威博克马尔语"
-
-msgid "Netherlands Dutch"
-msgstr "荷兰语"
-
-msgid "Persian"
-msgstr "波斯语"
-
-msgid "Polish"
-msgstr "波兰语"
-
-msgid "Brazilian Portuguese"
-msgstr "巴西葡萄牙语"
-
-msgid "Portuguese"
-msgstr "葡萄牙语"
-
-msgid "Romanian"
-msgstr "罗马尼亚语"
-
-msgid "Russian"
-msgstr "俄语"
-
-msgid "Swedish"
-msgstr "瑞典语"
-
-msgid "Slovak"
-msgstr "斯洛伐克语"
-
-msgid "Thai"
-msgstr "泰语"
-
-msgid "Turkish"
-msgstr "土耳其语"
-
-msgid "Turkish (Turkey)"
-msgstr "土耳其语（土耳其）"
-
-msgid "Ukrainian"
-msgstr "乌克兰语"
-
-msgid "Chinese (Simplified)"
-msgstr "中文（简体）"
-
-msgid "Chinese (Traditional)"
-msgstr "中文（繁体）"
-
 msgid "Edit"
 msgstr "编辑"
 
@@ -423,9 +324,14 @@ msgstr "查看 '{title}' 的子页面"
 msgid "Page explorer"
 msgstr "页面管理"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "未知的 %(action)s"
+msgid "Save"
+msgstr "保存"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Comment"
+msgstr "评论"
 
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"
@@ -442,36 +348,12 @@ msgstr "转到管理界面"
 msgid "Account"
 msgstr "帐号"
 
-msgid "Change profile picture"
-msgstr "更改配置图片"
-
-msgid "Your current profile picture:"
-msgstr "你现在的头像"
-
-msgid "Update"
-msgstr "更新"
-
-msgid "Change email"
-msgstr "更改邮箱"
-
-msgid "Change name"
-msgstr "修改名字"
-
 msgid "Change password"
 msgstr "修改密码"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "您不能修改密码，请联系管理员。"
-
-msgid "Set Time Zone"
-msgstr "设置时区"
-
-msgid "Language Preferences"
-msgstr "语言首选项"
-
-msgid "Notification preferences"
-msgstr "提醒设置"
 
 msgid "Reset password"
 msgstr "重置密码"
@@ -521,12 +403,6 @@ msgstr "控制面板"
 
 msgid "Menu"
 msgstr "菜单"
-
-msgid "Move up"
-msgstr "上移"
-
-msgid "Move down"
-msgstr "下移"
 
 msgid "Explorer"
 msgstr "资源管理"
@@ -612,9 +488,6 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "私有设置决定谁可以查看这个集合中的文档。"
 
-msgid "Save"
-msgstr "保存"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "设置选集的隐私状态。当前状态：公开"
 
@@ -645,8 +518,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "增加 %(label)s"
 
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
 msgid "Yes, delete"
 msgstr "是的， 删除"
+
+msgid "Update"
+msgstr "更新"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -678,9 +560,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "页面等待审核中"
-
-msgid "Parent"
-msgstr "上一级"
 
 msgid "Type"
 msgstr "类型"
@@ -1060,9 +939,6 @@ msgstr "发布此页面将会取消当前工作流."
 msgid "Would you still like to publish this page?"
 msgstr "你确定仍然要发布此页面吗?"
 
-msgid "Cancel"
-msgstr "取消"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "使用%(page_class_verbose_name)s的页面"
@@ -1119,9 +995,6 @@ msgstr "用户"
 
 msgid "Date / Time"
 msgstr "日期/时间"
-
-msgid "Comment"
-msgstr "评论"
 
 msgid "Live version"
 msgstr "发布版本"
@@ -1511,9 +1384,6 @@ msgstr "未完成的任务"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "此页面尚未提交审核"
 
-msgid "Collection"
-msgstr "集合"
-
 msgid "No pages match this report's criteria."
 msgstr "没有页面符合此报告的条件。"
 
@@ -1861,21 +1731,6 @@ msgstr "草稿"
 msgid "Test"
 msgstr "测试"
 
-msgid "Your password has been changed successfully!"
-msgstr "密码成功修改！"
-
-msgid "Your email has been changed successfully!"
-msgstr "您的电子邮件已成功更改！"
-
-msgid "Your name has been changed successfully!"
-msgstr "您的名字已修改成功！"
-
-msgid "Your preferences have been updated."
-msgstr "你的首选项已被更新。"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "已更新您的配置！"
-
 msgid "You have been successfully logged out."
 msgstr "注销成功"
 
@@ -2209,36 +2064,6 @@ msgstr "取消发布页面“%(title)s”"
 msgid "View page history for '%(title)s'"
 msgstr "查看“%(title)s”的页面历史"
 
-msgid "Set profile picture"
-msgstr "头像设置"
-
-msgid "Change your profile picture."
-msgstr "更改您的头像。"
-
-msgid "Change the email address linked to your account."
-msgstr "更改账户关联邮箱"
-
-msgid "Change the password you use to log in."
-msgstr "修改用于登录的密码"
-
-msgid "Choose which email notifications to receive."
-msgstr "选择接收哪些邮件提醒"
-
-msgid "Language preferences"
-msgstr "语言首选项"
-
-msgid "Choose the language you want to use here."
-msgstr "请在这里选择你想使用的语言。"
-
-msgid "Current Time Zone"
-msgstr "当前时区"
-
-msgid "Choose your current time zone."
-msgstr "选择你的当前时区"
-
-msgid "Change your first and last name on your account."
-msgstr "更改账户的姓名"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "标题%(level)d"
@@ -2278,192 +2103,6 @@ msgstr "已锁定的页面"
 
 msgid "Reports"
 msgstr "报告"
-
-msgid "Created"
-msgstr "已创建"
-
-msgid "Deleted"
-msgstr "已删除"
-
-msgid "Publish scheduled draft"
-msgstr "发布已预定的草稿"
-
-msgid "Published scheduled draft"
-msgstr "已发布预定的草稿"
-
-msgid "Unpublished"
-msgstr "取消发布"
-
-msgid "Unpublish scheduled draft"
-msgstr "取消发布已预定的草稿"
-
-msgid "Unpublished scheduled draft"
-msgstr "已取消发布预定的草稿"
-
-msgid "Unlocked"
-msgstr "已解锁"
-
-msgid "Approved"
-msgstr "已批准"
-
-msgid "Rejected"
-msgstr "已拒绝"
-
-#, python-format
-msgid ""
-"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
-msgstr "已还原为上一版本，id为%(revision_id)s创建时间为%(created_at)s"
-
-msgid "Reverted to previous revision"
-msgstr "已还原为上一版本"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "从%(title)s复制"
-
-msgid "Copied"
-msgstr "已复制"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "从“%(old_parent)s”移动到“%(new_parent)s”"
-
-msgid "Moved"
-msgstr "已移动"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
-"%(go_live_at)s."
-msgstr ""
-"修订版本%(revision_id)s创建于%(created_at)s，已计划在%(go_live_at)s发布。"
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "页面已计划在%(go_live_at)s发布"
-
-msgid "Page scheduled for publishing"
-msgstr "页面已计划发布"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
-"%(go_live_at)s."
-msgstr ""
-"修订版本%(revision_id)s创建于%(created_at)s，已取消计划在%(go_live_at)s发布。"
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "页面已取消计划在%(go_live_at)s发布"
-
-msgid "Page unscheduled from publishing"
-msgstr "页面已取消计划发布"
-
-#, python-format
-msgid "Added the '%(restriction)s' view restriction"
-msgstr "已添加“%(restriction)s”查看限制"
-
-msgid "Added view restriction"
-msgstr "已添加查看限制"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "已更新查看限制为“%(restriction)s”"
-
-msgid "Updated view restriction"
-msgstr "已更新查看限制"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "已移除“%(restriction)s”查看限制"
-
-msgid "Removed view restriction"
-msgstr "已移除查看限制"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "已从“%(old)s”重命名为“%(new)s”"
-
-msgid "Renamed"
-msgstr "已重命名"
-
-msgid "Rename"
-msgstr "重命名"
-
-msgid "Revert"
-msgstr "还原"
-
-msgid "Create alias"
-msgstr "创建别名"
-
-msgid "Convert alias into regular page"
-msgstr "将别名转换成常规页面"
-
-msgid "Schedule publication"
-msgstr "计划发布"
-
-msgid "Unschedule publication"
-msgstr "取消计划发布"
-
-msgid "Add view restrictions"
-msgstr "添加查看限制"
-
-msgid "Update view restrictions"
-msgstr "更新查看限制"
-
-msgid "Remove view restrictions"
-msgstr "移除查看限制"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "“%(workflow)s”已启动，下一步是“%(task)s”"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "“”已批准，下一步是“%(task)s%(next_task)s”"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "“%(task)s”已批准，“%(workflow)s”已完成"
-
-msgid "Workflow task approved"
-msgstr "工作流任务已批准"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "“%(task)s”已拒绝，已请求变更"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "工作流任务已拒绝，工作流完成"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "重新提交“%(task)s”，工作流已恢复"
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "工作流任务已重新提交，工作流已恢复"
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "“%(workflow)s”已在“%(task)s”取消"
-
-msgid "Workflow cancelled"
-msgstr "工作流已取消"
-
-msgid "Workflow: start"
-msgstr "工作流：启动"
-
-msgid "Workflow: approve task"
-msgstr "工作流：批准任务"
-
-msgid "Workflow: reject task"
-msgstr "工作流：拒绝任务"
-
-msgid "Workflow: resume task"
-msgstr "工作流：恢复任务"
-
-msgid "Workflow: cancel"
-msgstr "工作流：取消"
 
 msgid "Yes"
 msgstr "是"

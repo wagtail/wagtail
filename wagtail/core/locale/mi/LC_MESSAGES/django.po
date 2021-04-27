@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-21 01:14+0000\n"
-"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Iho-a-Wagtail"
+
+msgid "Add"
+msgstr "Tāpiri"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -132,16 +135,6 @@ msgstr "Tukutata URL"
 msgid "owner"
 msgstr "Rangatira"
 
-msgid "page title"
-msgstr "Taitara-a-whārangi"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Kōwhiri. He taitara e 'Whakahoahoa kī te haha-initia'. Ka kitea tēnei ī "
-"runga ō te mata ipurangi."
-
 msgid "show in menus"
 msgstr "Kitea kī roto i te pae tahua"
 
@@ -150,9 +143,6 @@ msgid ""
 msgstr ""
 "Mēna ka kitea he taukea ki tēnei whārangi ki roto i ngā pae tahua aunoa-"
 "waihanga"
-
-msgid "search description"
-msgstr "haha-a-whaaturanga"
 
 msgid "go live date/time"
 msgstr "Haere mataora rā/ taima"
@@ -234,9 +224,6 @@ msgstr "Whārangi whakahou"
 
 msgid "page revisions"
 msgstr "Ngā whārangi whakahou"
-
-msgid "Add"
-msgstr "Tāpiri"
 
 msgid "Add/edit pages you own"
 msgstr "Tāpiri/ whakarerekē ou whārangi"

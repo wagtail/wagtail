@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -27,6 +27,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail コア"
+
+msgid "Add"
+msgstr "追加"
 
 msgid "This block has no options."
 msgstr "このブロックはオプションがありません。"
@@ -125,24 +128,12 @@ msgstr "URLパス"
 msgid "owner"
 msgstr "オーナー"
 
-msgid "page title"
-msgstr "ページタイトル"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"オプション：サーチエンジン用のタイトル（ブラウザ画面の上部に表示されます）"
-
 msgid "show in menus"
 msgstr "メニューに表示"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "このページへのリンクを自動生成されたメニューに表示しますか？"
-
-msgid "search description"
-msgstr "ページの概要"
 
 msgid "go live date/time"
 msgstr "公開予定日時"
@@ -209,9 +200,6 @@ msgstr "ページの修正"
 
 msgid "page revisions"
 msgstr "ページの修正"
-
-msgid "Add"
-msgstr "追加"
 
 msgid "Add/edit pages you own"
 msgstr "自分のページを追加/編集"

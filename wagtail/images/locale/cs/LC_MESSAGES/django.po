@@ -7,14 +7,14 @@
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
 # Marek Turnovec <aesculap@gmail.com>, 2016
-# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 13:16+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -71,6 +71,23 @@ msgstr "Zarovnané doleva"
 msgid "Right-aligned"
 msgstr "Zarovnané doprava"
 
+msgid "Collection"
+msgstr "Soubor (kolekce)"
+
+msgid "Format"
+msgstr "Formát"
+
+msgid "Image is decorative"
+msgstr "Obrázek je dekorační"
+
+msgid "Alt text"
+msgstr "Alternativní text"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Prosím buď zadejte alternativní text pro váš obrázek a nebo jej označte jako "
+"dekorační"
+
 msgid "Filter"
 msgstr "Filtr"
 
@@ -112,6 +129,12 @@ msgstr "Upravit"
 
 msgid "Edit any image"
 msgstr "Upravit jakýkoliv obrázek"
+
+msgid "Choose"
+msgstr "Vyber"
+
+msgid "Select images in choosers"
+msgstr "Vyber obrázky pomocí výběrových prvků"
 
 msgid "title"
 msgstr "název"

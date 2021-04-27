@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-10-28 09:40+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtail preusmjeravanja"
+
+msgid "Type"
+msgstr "Vrsta"
 
 msgid "From site"
 msgstr "Sa stranice"
@@ -163,9 +166,6 @@ msgstr "Nastavi"
 
 msgid "Site"
 msgstr "Sjedište"
-
-msgid "Type"
-msgstr "Vrsta"
 
 msgid "Edit this redirect"
 msgstr "Uredi ovo preusmjerivanje"

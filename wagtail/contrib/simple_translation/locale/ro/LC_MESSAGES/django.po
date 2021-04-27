@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Julian C <jcuotpc@gmail.com>, 2021
+# Dan Braghis, 2021
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-21 09:32+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Dan Braghis, 2021\n"
+"Language-Team: Romanian (https://www.transifex.com/torchbox/teams/8009/ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+
+msgid "Wagtail simple translation"
+msgstr "Wagtail traducere simplă"
+
+msgid "Select all"
+msgstr "Seleactază toate"
+
+msgid "Locales"
+msgstr "Localizări"
+
+msgid "All child pages will be created."
+msgstr "Toate paginile descendente vor fi create."
+
+msgid "Include subtree ({} page)"
+msgid_plural "Include subtree ({} pages)"
+msgstr[0] "Include pagini descendente ({} pagină)"
+msgstr[1] "Include pagini descendente ({} pagini)"
+msgstr[2] "Include pagini descendente ({} pagini)"
+
+msgid "Submit"
+msgstr "Trimite"
+
+msgid "Translate"
+msgstr "Traduce"
+
+msgid "{} locales"
+msgstr "{} localizări"
+
+msgid "Translate page"
+msgstr "Traduce pagină"
+
+msgid "The page '{page_title}' was successfully created in {locales}"
+msgstr "Pagina '{page_title}' a fost creată în {locales}"
+
+msgid "Translate {model_name}"
+msgstr "Traduce {model_name}"
+
+msgid "Successfully created {locales} for {model_name} '{object}'"
+msgstr "{locales} creat cu success pentru {model_name} '{object}'"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Traduce '%(title)s'"

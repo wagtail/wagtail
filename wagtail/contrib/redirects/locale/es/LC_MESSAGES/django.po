@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-19 19:08+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Redirecciones Wagtail"
+
+msgid "Type"
+msgstr "Tipo"
 
 msgid "From site"
 msgstr "Desde el sitio"
@@ -176,9 +179,6 @@ msgstr "Continuar"
 
 msgid "Site"
 msgstr "Sitio"
-
-msgid "Type"
-msgstr "Tipo"
 
 msgid "Edit this redirect"
 msgstr "Editar esta redirección"

@@ -9,14 +9,15 @@
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018,2020
 # Meteor0id, 2019
 # Ramon de Jezus <rdejezus@leukeleu.nl>, 2020
+# Storm Heg <storm@stormbase.digital>, 2021
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-27 23:44+0000\n"
-"Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-22 19:02+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -86,9 +87,6 @@ msgstr "Geplande publicatie"
 msgid "Privacy"
 msgstr "Privacy"
 
-msgid "Common page configuration"
-msgstr "Algemene pagina-instellingen"
-
 msgid "Content"
 msgstr "Inhoud"
 
@@ -141,6 +139,9 @@ msgstr "Vul uw e-mailadres in om uw wachtwoord te herstellen"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Bovenliggende pagina"
+
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
@@ -152,6 +153,12 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Het is niet mogelijk om meerdere machtigingen voor dezelfde collectie in te "
 "stellen."
+
+msgid "Collection"
+msgstr "Collectie"
+
+msgid "You cannot edit another user's comment."
+msgstr "Je kunt het commentaar van een andere gebruiker niet wijzigen."
 
 msgid "New title"
 msgstr "Nieuwe titel"
@@ -261,114 +268,6 @@ msgstr "Geef je workflow een naam"
 msgid "Add tasks to your workflow"
 msgstr "Voeg taken aan je workflow toe"
 
-msgid "Arabic"
-msgstr "Arabisch"
-
-msgid "Catalan"
-msgstr "Catalaans"
-
-msgid "Czech"
-msgstr "Tsjechisch"
-
-msgid "German"
-msgstr "Duits"
-
-msgid "Greek"
-msgstr "Grieks"
-
-msgid "English"
-msgstr "Engels"
-
-msgid "Spanish"
-msgstr "Spaans"
-
-msgid "Estonian"
-msgstr "Estisch"
-
-msgid "Finnish"
-msgstr "Fins"
-
-msgid "French"
-msgstr "Frans"
-
-msgid "Galician"
-msgstr "Galicisch"
-
-msgid "Croatian"
-msgstr "Kroatisch"
-
-msgid "Hungarian"
-msgstr "Hongaars"
-
-msgid "Indonesian"
-msgstr "Indonesisch"
-
-msgid "Icelandic"
-msgstr "IJslands"
-
-msgid "Italian"
-msgstr "Italiaans"
-
-msgid "Japanese"
-msgstr "Japans"
-
-msgid "Korean"
-msgstr "Koreaans"
-
-msgid "Lithuanian"
-msgstr "Litouws"
-
-msgid "Mongolian"
-msgstr "Mongools"
-
-msgid "Norwegian Bokmål"
-msgstr "Noors Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Nederlands"
-
-msgid "Persian"
-msgstr "Perzisch"
-
-msgid "Polish"
-msgstr "Pools"
-
-msgid "Brazilian Portuguese"
-msgstr "Braziliaans Portugees"
-
-msgid "Portuguese"
-msgstr "Portugees"
-
-msgid "Romanian"
-msgstr "Roemeens"
-
-msgid "Russian"
-msgstr "Russisch"
-
-msgid "Swedish"
-msgstr "Zweeds"
-
-msgid "Slovak"
-msgstr "Slowaaks"
-
-msgid "Thai"
-msgstr "Thais"
-
-msgid "Turkish"
-msgstr "Turks"
-
-msgid "Turkish (Turkey)"
-msgstr "Turks (Turkije)"
-
-msgid "Ukrainian"
-msgstr "Oekraïens"
-
-msgid "Chinese (Simplified)"
-msgstr "Chinees (Vereenvoudigd)"
-
-msgid "Chinese (Traditional)"
-msgstr "Chinees (Traditioneel)"
-
 msgid "Edit"
 msgstr "Wijzig"
 
@@ -447,9 +346,26 @@ msgstr "Toon onderliggende pagina's van '{title}'"
 msgid "Page explorer"
 msgstr "Paginaverkenner"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Onbekend %(action)s"
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Add a comment"
+msgstr "Voeg commentaar toe"
+
+msgid "Show comments"
+msgstr "Toon commentaar"
+
+msgid "Reply"
+msgstr "Reageer"
+
+msgid "Comment"
+msgstr "Opmerking"
+
+msgid "More actions"
+msgstr "Meer acties"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pagina niet gevonden"
@@ -466,21 +382,6 @@ msgstr "Ga naar de Wagtail admin"
 msgid "Account"
 msgstr "Account"
 
-msgid "Change profile picture"
-msgstr "Wijzig profiel foto"
-
-msgid "Your current profile picture:"
-msgstr "Je huidige profiel foto:"
-
-msgid "Update"
-msgstr "Bijwerken"
-
-msgid "Change email"
-msgstr "Wijzig email"
-
-msgid "Change name"
-msgstr "Naam wijzigen"
-
 msgid "Change password"
 msgstr "Wijzig wachtwoord"
 
@@ -489,15 +390,6 @@ msgid ""
 msgstr ""
 "Uw wachtwoord kan hier niet gewijzigd worden. Neem contact op met een "
 "beheerder van deze site."
-
-msgid "Set Time Zone"
-msgstr "Zet tijd zone"
-
-msgid "Language Preferences"
-msgstr "Taalvoorkeuren"
-
-msgid "Notification preferences"
-msgstr "Notificatievoorkeuren"
 
 msgid "Reset password"
 msgstr "Wachtwoord resetten"
@@ -550,12 +442,6 @@ msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Move up"
-msgstr "Verplaats naar boven"
-
-msgid "Move down"
-msgstr "Verplaats naar beneden"
 
 msgid "Explorer"
 msgstr "Verkenner"
@@ -652,9 +538,6 @@ msgstr ""
 "De privacy instellingen bepalen wie documenten in deze collectie mogen "
 "bekijken."
 
-msgid "Save"
-msgstr "Opslaan"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Privacy-status van deze collectie. Huidige status: Openbaar"
 
@@ -688,8 +571,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Voeg %(label)s toe"
 
+msgid "Move up"
+msgstr "Verplaats naar boven"
+
+msgid "Move down"
+msgstr "Verplaats naar beneden"
+
 msgid "Yes, delete"
 msgstr "Ja, verwijderen"
+
+msgid "Update"
+msgstr "Bijwerken"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -701,16 +593,6 @@ msgid ""
 msgstr ""
 "Dit is uw dashboard waarop praktische informatie over content die u heeft "
 "gemaakt getoond zal worden."
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail stopt geleidelijk met het ondersteunen van IE11. Dit kan invloed op "
-"je organisatie hebben. <a href=\"%(url)s\">Lees meer over onze IE11 support "
-"mogelijkheden</a>."
 
 msgid "Your locked pages"
 msgstr "Jouw geblokkeerde pagina's"
@@ -733,9 +615,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Pagina's die op goedkeuring wachten"
-
-msgid "Parent"
-msgstr "Bovenliggende pagina"
 
 msgid "Type"
 msgstr "Type"
@@ -906,6 +785,9 @@ msgid ""
 msgstr ""
 "De pagina \"%(title)s\" is ingediend ter goedkeuring in beoordelingsfase "
 "\"%(task)s\""
+
+msgid "New replies"
+msgstr "Nieuwe reacties"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
@@ -1157,9 +1039,6 @@ msgstr "Deze pagina publiceren zal de huidige workflow annuleren."
 msgid "Would you still like to publish this page?"
 msgstr "Wil je nog altijd deze pagina publiceren?"
 
-msgid "Cancel"
-msgstr "Annuleren"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Pagina's die %(page_class_verbose_name)s gebruiken"
@@ -1222,9 +1101,6 @@ msgstr "Gebruiker"
 
 msgid "Date / Time"
 msgstr "Datum / tijd"
-
-msgid "Comment"
-msgstr "Opmerking"
 
 msgid "Live version"
 msgstr "Live versie"
@@ -1632,9 +1508,6 @@ msgstr "Incomplete taak"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Deze pagina is nog niet ingediend voor beoordeling"
 
-msgid "Collection"
-msgstr "Collectie"
-
 msgid "No pages match this report's criteria."
 msgstr "Geen pagina's komen overeen met de rapport-criteria."
 
@@ -1773,6 +1646,16 @@ msgstr ""
 "\" rel=\"noopener noreferrer\">instructies om om Javascript in te schakelen "
 "zijn hier te vinden</a>.\n"
 "        "
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail stopt geleidelijk met het ondersteunen van IE11. Dit kan invloed op "
+"je organisatie hebben. <a href=\"%(url)s\">Lees meer over onze IE11 support "
+"mogelijkheden</a>."
 
 msgid "Skip to main content"
 msgstr "Ga naar de inhoud"
@@ -2023,20 +1906,8 @@ msgstr "concept"
 msgid "Test"
 msgstr "Test"
 
-msgid "Your password has been changed successfully!"
-msgstr "Uw wachtwoord is succesvol gewijzigd!"
-
-msgid "Your email has been changed successfully!"
-msgstr "Uw e-mailadres is succesvol gewijzigd!"
-
-msgid "Your name has been changed successfully!"
-msgstr "Je naam is succesvol gewijzigd!"
-
-msgid "Your preferences have been updated."
-msgstr "Uw voorkeuren zijn aangepast."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Uw instellingen zijn succesvol gewijzigd!"
+msgid "Your account settings have been changed successfully!"
+msgstr "Uw accountinstellingen zijn succesvol opgeslagen!"
 
 msgid "You have been successfully logged out."
 msgstr "U bent succesvol uitgelogd."
@@ -2391,36 +2262,6 @@ msgstr "Trek publicatie van pagina '%(title)s' in."
 msgid "View page history for '%(title)s'"
 msgstr "Bekijk de versiegeschiedenis voor '%(title)s'"
 
-msgid "Set profile picture"
-msgstr "Profielfoto instellen"
-
-msgid "Change your profile picture."
-msgstr "Wijzig je profielafbeelding."
-
-msgid "Change the email address linked to your account."
-msgstr "Wijzig het e-mailadres dat aan uw account is gekoppeld."
-
-msgid "Change the password you use to log in."
-msgstr "Wijzig het wachtwoord waarmee u inlogt."
-
-msgid "Choose which email notifications to receive."
-msgstr "Kies hier welke e-mailnotificaties u wilt ontvangen."
-
-msgid "Language preferences"
-msgstr "Taalvoorkeuren"
-
-msgid "Choose the language you want to use here."
-msgstr "Kies de taal die u hier wilt gebruiken."
-
-msgid "Current Time Zone"
-msgstr "Huidige tijdzone"
-
-msgid "Choose your current time zone."
-msgstr "Wijzig uw tijdzone"
-
-msgid "Change your first and last name on your account."
-msgstr "Wijzig je voor- en achternaam in je account."
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Kop %(level)d"
@@ -2460,209 +2301,6 @@ msgstr "Blokkeer pagina's"
 
 msgid "Reports"
 msgstr "Rapporten"
-
-msgid "Created"
-msgstr "Aangemaakt"
-
-msgid "Deleted"
-msgstr "Verwijderd"
-
-msgid "Publish scheduled draft"
-msgstr "Publiceer concept volgens planning"
-
-msgid "Published scheduled draft"
-msgstr "Gepubliceerd concept volgens planning"
-
-msgid "Unpublished"
-msgstr "Publicatie intrekken"
-
-msgid "Unpublish scheduled draft"
-msgstr "Trek concept met planning terug"
-
-msgid "Unpublished scheduled draft"
-msgstr "Concept met planning teruggetrokken"
-
-msgid "Unlocked"
-msgstr "Deblokkeer"
-
-msgid "Approved"
-msgstr "Goedgekeurd"
-
-msgid "Rejected"
-msgstr "Afgekeurd"
-
-#, python-format
-msgid ""
-"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
-msgstr ""
-"Teruggedraaid naar vorige revisie met id %(revision_id)s van %(created_at)s"
-
-msgid "Reverted to previous revision"
-msgstr "Ga terug naar vorige versie"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "Gekopieerd van %(title)s"
-
-msgid "Copied"
-msgstr "Gekopieerd"
-
-#, python-format
-msgid "Created an alias of %(title)s"
-msgstr "Een alias naar %(title)s is aangemaakt"
-
-msgid "Created an alias"
-msgstr "Een alias is aangemaakt"
-
-#, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "Converteer de alias '%(title)s' naar een normale pagina"
-
-msgid "Converted an alias into a regular page"
-msgstr "Converteer een alias naar een normale pagina"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "Verplaatst van '%(old_parent)s' naar '%(new_parent)s'"
-
-msgid "Moved"
-msgstr "Verplaatst"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Revisie %(revision_id)s van %(created_at)s ingepland voor publicatie op "
-"%(go_live_at)s."
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Pagina ingepland voor publicatie op %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Pagina is ingepland voor publicatie"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Revisie %(revision_id)s van %(created_at)s is niet meer ingepland voor "
-"publicatie op %(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Pagina niet meer ingepland voor publicatie op %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Pagina niet meer ingepland voor publicatie"
-
-#, python-format
-msgid "Added the '%(restriction)s' view restriction"
-msgstr "Weergavebeperking '%(restriction)s' toegevoegd"
-
-msgid "Added view restriction"
-msgstr "Weergavebeperking toegevoegd"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "Wijzig de weergavebeperking in '%(restriction)s'"
-
-msgid "Updated view restriction"
-msgstr "Weergavebeperking is gewijzigd"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "De weergavebeperking '%(restriction)s' is verwijderd"
-
-msgid "Removed view restriction"
-msgstr "Verwijderde weergavebeperking"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Hernoemd van '%(old)s' naar '%(new)s'"
-
-msgid "Renamed"
-msgstr "Hernoemd"
-
-msgid "Rename"
-msgstr "Hernoem"
-
-msgid "Revert"
-msgstr "Ongedaan maken"
-
-msgid "Create alias"
-msgstr "Alias aanmaken"
-
-msgid "Convert alias into regular page"
-msgstr "Converteer alias naar een normale pagina"
-
-msgid "Schedule publication"
-msgstr "Publicatie plannen"
-
-msgid "Unschedule publication"
-msgstr "Publicatie planning verwijderen"
-
-msgid "Add view restrictions"
-msgstr "Voeg weergavebeperkingen toe"
-
-msgid "Update view restrictions"
-msgstr "Wijzig weergavebeperkingen"
-
-msgid "Remove view restrictions"
-msgstr "Verwijder weergavebeperkingen"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "'%(workflow)s' gestart. Volgende stap '%(task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "Goedgekeurd op '%(task)s'. Volgende stap '%(next_task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "Goedgekeurd op '%(task)s'. '%(workflow)s' afgerond"
-
-msgid "Workflow task approved"
-msgstr "Workflow-taak goedgekeurd"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "Afgekeurd op '%(task)s'. Wijziging verzocht"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "Workflow-taak afgekeurd. Workflow complete"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Opnieuw ingediend '%(task)s'. Workflow hervat'"
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "Workflow-taak opnieuw ingediend. Workflow hervat"
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "Geannuleerd '%(workflow)s' op '%(task)s'"
-
-msgid "Workflow cancelled"
-msgstr "Workflow geannuleerd"
-
-msgid "Workflow: start"
-msgstr "Workflow: start"
-
-msgid "Workflow: approve task"
-msgstr "Workflow: taak goedkeuren"
-
-msgid "Workflow: reject task"
-msgstr "Workflow: taak afkeuren"
-
-msgid "Workflow: resume task"
-msgstr "Workflow: taak hervatten"
-
-msgid "Workflow: cancel"
-msgstr "Workflow: annuleren"
 
 msgid "Yes"
 msgstr "Ja"

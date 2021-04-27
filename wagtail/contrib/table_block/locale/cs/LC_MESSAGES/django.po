@@ -5,13 +5,13 @@
 # Translators:
 # IT Management <hudan@itmanagement.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2020
-# Mirek Zvolský <zvolsky@seznam.cz>, 2020
+# Mirek Zvolský <zvolsky@seznam.cz>, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-04-22 07:36+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 13:11+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -46,3 +46,6 @@ msgid ""
 msgstr ""
 "Hlavička, která popisuje obecně účel tabulky. Je užitečná pro uživatele se "
 "čtečkami textu obrazovky"
+
+msgid "Table"
+msgstr "Tabulka"

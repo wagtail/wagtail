@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-08-13 12:16+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtailin uudelleenohjaukset"
+
+msgid "Type"
+msgstr "Tyyppi"
 
 msgid "From site"
 msgstr "Sivustolta"
@@ -169,9 +172,6 @@ msgstr "Jatka"
 
 msgid "Site"
 msgstr "Sivusto"
-
-msgid "Type"
-msgstr "Tyyppi"
 
 msgid "Edit this redirect"
 msgstr "Muokkaa tätä uudelleenohjausta"

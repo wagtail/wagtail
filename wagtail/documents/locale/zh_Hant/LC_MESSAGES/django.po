@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail 文件"
+
+msgid "Collection"
+msgstr "集合"
 
 msgid "Add"
 msgstr "新增"
@@ -163,9 +166,6 @@ msgstr "標題"
 
 msgid "File"
 msgstr "文件"
-
-msgid "Collection"
-msgstr "集合"
 
 msgid "Created"
 msgstr "已創建"

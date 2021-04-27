@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Add"
+msgstr "Pridať"
 
 msgid "This block has no options."
 msgstr "Tento odstavec nemá žiadne voľby."
@@ -122,24 +125,12 @@ msgstr "URL cesta"
 msgid "owner"
 msgstr "vlastník"
 
-msgid "page title"
-msgstr "titulok stránky"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Voliteľné. Titulok pre vyhľadávače. Toto sa zobrazí navrchu okna prehliadača."
-
 msgid "show in menus"
 msgstr "zobraziť v menu"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Odkaz na túto stránku sa zobrazí v navigácií"
-
-msgid "search description"
-msgstr "popis hľadania"
 
 msgid "go live date/time"
 msgstr "dátum a čas publikácie"
@@ -203,9 +194,6 @@ msgstr "revízia stránky"
 
 msgid "page revisions"
 msgstr "revízie stránky"
-
-msgid "Add"
-msgstr "Pridať"
 
 msgid "Add/edit pages you own"
 msgstr "Pridať/upraviť stránky ktoré vlastníte"

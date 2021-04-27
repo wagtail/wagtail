@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -24,6 +24,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Перенаправлення Wagtail "
+
+msgid "Type"
+msgstr "Тип"
 
 msgid "From site"
 msgstr "З сайту"
@@ -103,9 +106,6 @@ msgstr "До"
 
 msgid "Site"
 msgstr "Сайт"
-
-msgid "Type"
-msgstr "Тип"
 
 msgid "Edit this redirect"
 msgstr "Редагувати це перенаправлення"

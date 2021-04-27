@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-08-25 12:43+0000\n"
-"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtail redirects"
+
+msgid "Type"
+msgstr "Type"
 
 msgid "From site"
 msgstr "Vanaf site"
@@ -165,9 +168,6 @@ msgstr "Doorgaan"
 
 msgid "Site"
 msgstr "Site"
-
-msgid "Type"
-msgstr "Type"
 
 msgid "Edit this redirect"
 msgstr "Wijzig deze redirect"

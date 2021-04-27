@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-10-23 11:09+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtail suunab ümber"
+
+msgid "Type"
+msgstr "Tüüp"
 
 msgid "From site"
 msgstr "Saidilt"
@@ -165,9 +168,6 @@ msgstr "Jätka"
 
 msgid "Site"
 msgstr "Sait"
-
-msgid "Type"
-msgstr "Tüüp"
 
 msgid "Edit this redirect"
 msgstr "Muutke seda ümbersuunamist"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -83,9 +83,6 @@ msgstr "Адкладзеная публікацыя"
 msgid "Privacy"
 msgstr "Сакрэтнасць"
 
-msgid "Common page configuration"
-msgstr "Агульныя настройкі старонкі"
-
 msgid "Content"
 msgstr "Змест"
 
@@ -123,8 +120,14 @@ msgstr "Калі ласка, увядзіце адрас электроннай 
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Бацькоўскі элемент"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Вы не можаце мець некалькі дазволаў для адной і той жа калекцыі."
+
+msgid "Collection"
+msgstr "Калекцыя"
 
 msgid "New title"
 msgstr "Новая назва"
@@ -213,108 +216,6 @@ msgstr "Гэта поле з'яўляецца абавязковым."
 msgid "Please select at least one group."
 msgstr "Калі ласка, выберыце мінімум 1 гурт."
 
-msgid "Arabic"
-msgstr "Арабская"
-
-msgid "Catalan"
-msgstr "Каталонская"
-
-msgid "Czech"
-msgstr "Чэшская"
-
-msgid "German"
-msgstr "Нямецкая"
-
-msgid "Greek"
-msgstr "Грэцкая"
-
-msgid "English"
-msgstr "Англійская"
-
-msgid "Spanish"
-msgstr "Іспанская"
-
-msgid "Finnish"
-msgstr "Фінскі"
-
-msgid "French"
-msgstr "Французская"
-
-msgid "Galician"
-msgstr "Галісійская"
-
-msgid "Hungarian"
-msgstr "Венгерская"
-
-msgid "Indonesian"
-msgstr "Інданезійская"
-
-msgid "Icelandic"
-msgstr "Ісландская"
-
-msgid "Italian"
-msgstr "Італьянская"
-
-msgid "Japanese"
-msgstr "Японская"
-
-msgid "Korean"
-msgstr "Карэйская"
-
-msgid "Lithuanian"
-msgstr "Літоўская"
-
-msgid "Mongolian"
-msgstr "Мангольская"
-
-msgid "Norwegian Bokmål"
-msgstr "Нарвэская букмал"
-
-msgid "Netherlands Dutch"
-msgstr "Голландская"
-
-msgid "Persian"
-msgstr "Персідская / Фарсі"
-
-msgid "Polish"
-msgstr "Польскі"
-
-msgid "Brazilian Portuguese"
-msgstr "Бразільскі партугальская"
-
-msgid "Portuguese"
-msgstr "Партугальская"
-
-msgid "Romanian"
-msgstr "Румынская"
-
-msgid "Russian"
-msgstr "Руская"
-
-msgid "Swedish"
-msgstr "Шведская"
-
-msgid "Slovak"
-msgstr "Славацкая мова"
-
-msgid "Thai"
-msgstr "Тайская"
-
-msgid "Turkish"
-msgstr "Турэцкі"
-
-msgid "Turkish (Turkey)"
-msgstr "Турэцкая (Турцыя)"
-
-msgid "Ukrainian"
-msgstr "Украінская мова"
-
-msgid "Chinese (Simplified)"
-msgstr "Кітайская (Спрошчаны)"
-
-msgid "Chinese (Traditional)"
-msgstr "Кітайская (Традыцыйная)"
-
 msgid "Edit"
 msgstr "Рэдактаваць"
 
@@ -391,6 +292,9 @@ msgstr "Прагляд даччынай старонкі «{title}»"
 msgid "Page explorer"
 msgstr "Агляд старонак"
 
+msgid "Save"
+msgstr "Захаваць"
+
 msgid "Error 404: Page not found"
 msgstr "Памылка 404: старонка не знойдзена"
 
@@ -406,21 +310,6 @@ msgstr "Перайсці да адміністратара Wagtail"
 msgid "Account"
 msgstr "Аккаунт"
 
-msgid "Change profile picture"
-msgstr "Змяніць выгляд профіля"
-
-msgid "Your current profile picture:"
-msgstr "Ваша існуючае афармленне профіля:"
-
-msgid "Update"
-msgstr "Аднаўленне"
-
-msgid "Change email"
-msgstr "Змяніць электронную пошту"
-
-msgid "Change name"
-msgstr "Змяніце імя"
-
 msgid "Change password"
 msgstr "Змяніць пароль"
 
@@ -429,15 +318,6 @@ msgid ""
 msgstr ""
 "Ваш пароль не можа быць зменены. Калі ласка, звярніцеся да адміністратара "
 "сайта."
-
-msgid "Set Time Zone"
-msgstr "Уладкаванне часавога поясу"
-
-msgid "Language Preferences"
-msgstr "Наладка мовы"
-
-msgid "Notification preferences"
-msgstr "Наладка паведамленняў"
 
 msgid "Reset password"
 msgstr "Заменя пароля"
@@ -491,12 +371,6 @@ msgstr "Панэль кіравання"
 
 msgid "Menu"
 msgstr "Меню"
-
-msgid "Move up"
-msgstr "Падвінуць наверх"
-
-msgid "Move down"
-msgstr "Падвінусь уніз"
 
 msgid "Explorer"
 msgstr "Даследчык"
@@ -605,9 +479,6 @@ msgstr ""
 "Параметры прыватнасці вызначаюць, хто можа праглядаць дакументы ў гэтай "
 "калекцыі."
 
-msgid "Save"
-msgstr "Захаваць"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Усталяваны статус прыватнасці: грамадскі"
 
@@ -640,8 +511,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Дадаць %(label)s"
 
+msgid "Move up"
+msgstr "Падвінуць наверх"
+
+msgid "Move down"
+msgstr "Падвінусь уніз"
+
 msgid "Yes, delete"
 msgstr "Так. Выдаліць"
+
+msgid "Update"
+msgstr "Аднаўленне"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -671,9 +551,6 @@ msgstr "Размешчана"
 
 msgid "Pages awaiting moderation"
 msgstr "Старонкі, якія чакаюць мадэрацыі"
-
-msgid "Parent"
-msgstr "Бацькоўскі элемент"
 
 msgid "Type"
 msgstr "Тып"
@@ -1271,9 +1148,6 @@ msgstr "Калі ласка, увядзіце крытэр пошуку вышэ
 msgid "No pages use"
 msgstr "Няма старонак выкарыстоўваюць"
 
-msgid "Collection"
-msgstr "Калекцыя"
-
 msgid "No pages match this report's criteria."
 msgstr "Няма старонак задавальняюць крытэры справаздачы."
 
@@ -1397,21 +1271,6 @@ msgstr ""
 
 msgid "Test"
 msgstr "Тэст"
-
-msgid "Your password has been changed successfully!"
-msgstr "Ваш пароль паспяхова зменены!"
-
-msgid "Your email has been changed successfully!"
-msgstr "Ваш email паспяхова памяняўся"
-
-msgid "Your name has been changed successfully!"
-msgstr "Ваша імя было паспяхова зменена!"
-
-msgid "Your preferences have been updated."
-msgstr "Вашы налады былі абноўленыя."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Вашы налады былі паспяхова абноўленыя!"
 
 msgid "You have been successfully logged out."
 msgstr "Вы паспяхова выйшлі"
@@ -1587,36 +1446,6 @@ msgstr "Выдаліць старонку '%(title)s'"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Выдаліць з публікацыі '%(title)s'"
-
-msgid "Set profile picture"
-msgstr "Ўсталяваць фота профілю"
-
-msgid "Change your profile picture."
-msgstr "Змяніць фатаграфію вашага профілю."
-
-msgid "Change the email address linked to your account."
-msgstr "Змяніць адрас электроннай пошты, прывязаны да вашага профілю."
-
-msgid "Change the password you use to log in."
-msgstr "Змяніць пароль, які вы выкарыстоўваеце для ўваходу."
-
-msgid "Choose which email notifications to receive."
-msgstr "Выберыце якія апавяшчэння прымаць на электронную пошту."
-
-msgid "Language preferences"
-msgstr "Налады мовы"
-
-msgid "Choose the language you want to use here."
-msgstr "Абярыце мову, які хочаце выкарыстаць."
-
-msgid "Current Time Zone"
-msgstr "Гадзінны пояс"
-
-msgid "Choose your current time zone."
-msgstr "Выбраць гадзінны пояс."
-
-msgid "Change your first and last name on your account."
-msgstr "Змяніць імя і прозвішча ў вашым профілі."
 
 #, python-format
 msgid "Heading %(level)d"

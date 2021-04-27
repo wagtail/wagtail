@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -70,9 +70,6 @@ msgstr "Data pubblicazione"
 msgid "Privacy"
 msgstr "Privacy"
 
-msgid "Common page configuration"
-msgstr "Configurazione pagina"
-
 msgid "Content"
 msgstr "Contenuto"
 
@@ -101,9 +98,15 @@ msgstr "Digita la tua email per resettare la password"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Padre"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Spiacente, ma non puoi avere diverse registrazioni per la stessa raccolta."
+
+msgid "Collection"
+msgstr "Raccolta"
 
 msgid "New title"
 msgstr "Nuovo titolo"
@@ -183,108 +186,6 @@ msgstr "Questo campo è obbligatorio"
 msgid "Please select at least one group."
 msgstr "Seleziona almeno un gruppo."
 
-msgid "Arabic"
-msgstr "Arabo"
-
-msgid "Catalan"
-msgstr "Catalano"
-
-msgid "Czech"
-msgstr "Ceco"
-
-msgid "German"
-msgstr "Tedesco"
-
-msgid "Greek"
-msgstr "Greco"
-
-msgid "English"
-msgstr "Inglese"
-
-msgid "Spanish"
-msgstr "Spagnolo"
-
-msgid "Finnish"
-msgstr "Finnico"
-
-msgid "French"
-msgstr "Francese"
-
-msgid "Galician"
-msgstr "Galician"
-
-msgid "Hungarian"
-msgstr "Ungherese"
-
-msgid "Indonesian"
-msgstr "Indonesiano"
-
-msgid "Icelandic"
-msgstr "Icelandic"
-
-msgid "Italian"
-msgstr "Italiano"
-
-msgid "Japanese"
-msgstr "Giapponese"
-
-msgid "Korean"
-msgstr "Koreano"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Mongolian"
-msgstr "Mongolo"
-
-msgid "Norwegian Bokmål"
-msgstr "Norwegian Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Netherlands Dutch"
-
-msgid "Persian"
-msgstr "Persian"
-
-msgid "Polish"
-msgstr "Polish"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilian Portuguese"
-
-msgid "Portuguese"
-msgstr "Portuguese"
-
-msgid "Romanian"
-msgstr "Romanian"
-
-msgid "Russian"
-msgstr "Russian"
-
-msgid "Swedish"
-msgstr "Svedese"
-
-msgid "Slovak"
-msgstr "Slovacco"
-
-msgid "Thai"
-msgstr "Tailandese"
-
-msgid "Turkish"
-msgstr "Turco"
-
-msgid "Turkish (Turkey)"
-msgstr "Turco (Turchia)"
-
-msgid "Ukrainian"
-msgstr "Ucraino"
-
-msgid "Chinese (Simplified)"
-msgstr "Cinese (semplificato)"
-
-msgid "Chinese (Traditional)"
-msgstr "Cinese (tradizionale)"
-
 msgid "Edit"
 msgstr "Modifica"
 
@@ -363,6 +264,9 @@ msgstr "Mostra sotto-pagine di '{title}'"
 msgid "Page explorer"
 msgstr "Esplora pagine"
 
+msgid "Save"
+msgstr "Salva"
+
 msgid "Error 404: Page not found"
 msgstr "Errore 404: Pagina non trovata"
 
@@ -378,21 +282,6 @@ msgstr "Vai all'interfaccia admin di Wagtail"
 msgid "Account"
 msgstr "Account"
 
-msgid "Change profile picture"
-msgstr "Cambia immagine del profilo"
-
-msgid "Your current profile picture:"
-msgstr "La tua immagine attuale del profilo:"
-
-msgid "Update"
-msgstr "Aggiorna"
-
-msgid "Change email"
-msgstr "Cambia email"
-
-msgid "Change name"
-msgstr "Cambia nome"
-
 msgid "Change password"
 msgstr "Cambia password"
 
@@ -401,15 +290,6 @@ msgid ""
 msgstr ""
 "La tua password non può esser cambiata qui. Per favore contatta "
 "l'amministratore del sito"
-
-msgid "Set Time Zone"
-msgstr "Imposta il fuso orario"
-
-msgid "Language Preferences"
-msgstr "Impostazioni Lingua"
-
-msgid "Notification preferences"
-msgstr "Preferenze delle notifiche"
 
 msgid "Reset password"
 msgstr "Inserisci password"
@@ -463,12 +343,6 @@ msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Move up"
-msgstr "Sposta su"
-
-msgid "Move down"
-msgstr "Sposta giù"
 
 msgid "Explorer"
 msgstr "Explorer"
@@ -552,9 +426,6 @@ msgstr ""
 "Impostazioni privacy determinano chi può vedere i documenti in questa "
 "raccolta."
 
-msgid "Save"
-msgstr "Salva"
-
 msgid "Public"
 msgstr "Pubblico"
 
@@ -581,8 +452,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Aggiungi %(label)s"
 
+msgid "Move up"
+msgstr "Sposta su"
+
+msgid "Move down"
+msgstr "Sposta giù"
+
 msgid "Yes, delete"
 msgstr "Si, elimina"
+
+msgid "Update"
+msgstr "Aggiorna"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -606,9 +486,6 @@ msgstr "Live"
 
 msgid "Pages awaiting moderation"
 msgstr "Pagine in attesa di moderazione"
-
-msgid "Parent"
-msgstr "Padre"
 
 msgid "Type"
 msgstr "Tipo"
@@ -1177,9 +1054,6 @@ msgstr "Inserisce un termine di ricerca sopra"
 msgid "No pages use"
 msgstr "Nessuna pagina usata"
 
-msgid "Collection"
-msgstr "Raccolta"
-
 msgid "Locked"
 msgstr "Bloccato"
 
@@ -1238,21 +1112,6 @@ msgstr "Compara con la versione live"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Your password has been changed successfully!"
-msgstr "La tua password è stato modificata con successo"
-
-msgid "Your email has been changed successfully!"
-msgstr "La tua email è stata cambiata con successo!"
-
-msgid "Your name has been changed successfully!"
-msgstr "Hai cambiato nome con successo!"
-
-msgid "Your preferences have been updated."
-msgstr "Le tue impostazioni sono state aggiornate."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Le tue preferenze sono state aggiornate con successo!"
 
 msgid "You have been successfully logged out."
 msgstr "Logout eseguito con successo."
@@ -1412,36 +1271,6 @@ msgstr "Elimina pagina '%(title)s'"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "Depubblica '%(title)s'"
-
-msgid "Set profile picture"
-msgstr "Imposta la foto del profilo"
-
-msgid "Change your profile picture."
-msgstr "Modifica la tua immagine del profilo."
-
-msgid "Change the email address linked to your account."
-msgstr "Cambia l'indirizzo email collegato al tuo account."
-
-msgid "Change the password you use to log in."
-msgstr "Cambia la password che usi per loggarti."
-
-msgid "Choose which email notifications to receive."
-msgstr "Scegli quale notifiche vuoi ricevere via email."
-
-msgid "Language preferences"
-msgstr "Impostazioni lingua"
-
-msgid "Choose the language you want to use here."
-msgstr "Scegli la lingua che vuoi usare qui."
-
-msgid "Current Time Zone"
-msgstr "Fuso orario attuale"
-
-msgid "Choose your current time zone."
-msgstr "Scegli il tuo fuso orario corrente."
-
-msgid "Change your first and last name on your account."
-msgstr "Modifica nome e cognome del tuo account."
 
 #, python-format
 msgid "Heading %(level)d"

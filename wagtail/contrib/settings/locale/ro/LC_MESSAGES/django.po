@@ -4,14 +4,15 @@
 #
 # Translators:
 # Dan Braghis, 2016
-# Dan Braghis, 2016,2018,2020
+# Dan Braghis, 2016,2018,2020-2021
+# Julian C <jcuotpc@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-27 20:18+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 10:58+0000\n"
+"Last-Translator: Julian C <jcuotpc@gmail.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -32,10 +33,10 @@ msgid "Editing"
 msgstr "Editare"
 
 msgid "Site"
-msgstr "Sait"
+msgstr "Sit"
 
 msgid "Saving…"
-msgstr "În curse de salvare…"
+msgstr "În curs de salvare..."
 
 msgid "Save"
 msgstr "Salvează"

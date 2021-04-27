@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-03-11 15:01+0000\n"
-"Last-Translator: Naglis Jonaitis\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -61,9 +61,6 @@ msgstr "Planuotas publikavimas"
 msgid "Privacy"
 msgstr "Privatumas"
 
-msgid "Common page configuration"
-msgstr "Bendra puslapio konfigūracija"
-
 msgid "Content"
 msgstr "Turinys"
 
@@ -90,8 +87,14 @@ msgid "Enter your email address to reset your password"
 msgstr ""
 "Įveskite savo elektroninio pašto adresą kad atstatytumėte savo slaptažodį"
 
+msgid "Parent"
+msgstr "Tėvas"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcijai."
+
+msgid "Collection"
+msgstr "Kolekcija"
 
 msgid "New title"
 msgstr "Naujas pavadinimas"
@@ -184,72 +187,6 @@ msgstr "Šis laukas yra privalomas."
 msgid "Please select at least one group."
 msgstr "Prašome pasirinkti bent vieną grupę."
 
-msgid "Catalan"
-msgstr "Katalonų"
-
-msgid "German"
-msgstr "Vokiečių"
-
-msgid "Greek"
-msgstr "Graikų"
-
-msgid "English"
-msgstr "Anglų"
-
-msgid "Spanish"
-msgstr "Ispanų"
-
-msgid "Finnish"
-msgstr "Suomių"
-
-msgid "French"
-msgstr "Prancūzų"
-
-msgid "Galician"
-msgstr "Galisų"
-
-msgid "Icelandic"
-msgstr "Islandų"
-
-msgid "Italian"
-msgstr "Italų"
-
-msgid "Korean"
-msgstr "Korėjiečių"
-
-msgid "Lithuanian"
-msgstr "Lietuvių"
-
-msgid "Norwegian Bokmål"
-msgstr "Norvegų Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Nyderlandų olandų"
-
-msgid "Persian"
-msgstr "Persų"
-
-msgid "Polish"
-msgstr "Lenkų"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilų portugalų"
-
-msgid "Portuguese"
-msgstr "Portugalų"
-
-msgid "Romanian"
-msgstr "Rumunų"
-
-msgid "Russian"
-msgstr "Rusų"
-
-msgid "Swedish"
-msgstr "Švedų"
-
-msgid "Slovak"
-msgstr "Slovakų"
-
 msgid "Edit"
 msgstr "Redaguoti"
 
@@ -298,6 +235,12 @@ msgstr "Uždaryti"
 msgid "Edit '{title}'"
 msgstr "Redaguoti '{title}'"
 
+msgid "Save"
+msgstr "Išsaugoti"
+
+msgid "Cancel"
+msgstr "Atšaukti"
+
 msgid "Error 404: Page not found"
 msgstr "Klaida 404: Puslapis nerastas"
 
@@ -313,9 +256,6 @@ msgstr "Eiti į Wagtail administravimą"
 msgid "Account"
 msgstr "Vartotojas"
 
-msgid "Update"
-msgstr "Atnaujinti"
-
 msgid "Change password"
 msgstr "Keisti slaptažodį"
 
@@ -324,12 +264,6 @@ msgid ""
 msgstr ""
 "Čia jūsų slaptažodis negali būti pakeistas. Susisiekite su tinklalapio "
 "administratoriumi."
-
-msgid "Language Preferences"
-msgstr "Kalbos nustatymai"
-
-msgid "Notification preferences"
-msgstr "Pranešimų nustatymai"
 
 msgid "Reset password"
 msgstr "Atstatyti slaptažodį"
@@ -363,12 +297,6 @@ msgstr "Prietaisų skydas"
 
 msgid "Menu"
 msgstr "Meniu"
-
-msgid "Move up"
-msgstr "Perkelti aukštyn"
-
-msgid "Move down"
-msgstr "Perkelti žemyn"
 
 msgid "Explorer"
 msgstr "Naršyklė"
@@ -440,9 +368,6 @@ msgstr ""
 "Privatumo nustatymai nustato kas galės žiūrėti dokumentus esančius šioje "
 "kolekcijoje."
 
-msgid "Save"
-msgstr "Išsaugoti"
-
 msgid "Public"
 msgstr "Viešas"
 
@@ -468,8 +393,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Pridėti %(label)s"
 
+msgid "Move up"
+msgstr "Perkelti aukštyn"
+
+msgid "Move down"
+msgstr "Perkelti žemyn"
+
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
+
+msgid "Update"
+msgstr "Atnaujinti"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -493,9 +427,6 @@ msgstr "Veikiantis"
 
 msgid "Pages awaiting moderation"
 msgstr "Puslapiai laukiantys moderacijos"
-
-msgid "Parent"
-msgstr "Tėvas"
 
 msgid "Type"
 msgstr "Tipas"
@@ -721,9 +652,6 @@ msgstr "Taip, nebepublikuoti"
 
 msgid "No, don't unpublish"
 msgstr "Ne, publikuoti"
-
-msgid "Cancel"
-msgstr "Atšaukti"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1061,9 +989,6 @@ msgstr "Redaguoti / Peržiūrėti"
 msgid "Edit page"
 msgstr "Redaguoti puslapį"
 
-msgid "Collection"
-msgstr "Kolekcija"
-
 msgid "Download XLSX"
 msgstr "Parsiųsti XLSX"
 
@@ -1113,12 +1038,6 @@ msgstr "Palyginti su veikiančia versija"
 
 msgid "Test"
 msgstr "Testas"
-
-msgid "Your password has been changed successfully!"
-msgstr "Jūsų slaptažodis buvo sėkmingai atnaujintas!"
-
-msgid "Your preferences have been updated."
-msgstr "Jūsų nustatymai buvo atnaujinti."
 
 msgid "You have been successfully logged out."
 msgstr "Jūs sėkmingai atsijungėte."
@@ -1246,18 +1165,6 @@ msgstr "Įjungti"
 msgid "More"
 msgstr "Daugiau"
 
-msgid "Change the password you use to log in."
-msgstr "Pakeiskite slaptažodį kurį naudojate prisijungimui."
-
-msgid "Choose which email notifications to receive."
-msgstr "Pasirinkite kuriuos elektroninio pašto pranešimus norite gauti."
-
-msgid "Language preferences"
-msgstr "Kalbos nustatymai"
-
-msgid "Choose the language you want to use here."
-msgstr "Pasirinkite kuria kalbą norite naudoti čia."
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Antraštė %(level)d"
@@ -1285,9 +1192,6 @@ msgstr "Užrakinti puslapiai"
 
 msgid "Reports"
 msgstr "Ataskaitos"
-
-msgid "Unlocked"
-msgstr "Atrakinta"
 
 msgid "Choose an item"
 msgstr "Pasirinkti elementą"

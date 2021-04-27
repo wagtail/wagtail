@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Add"
+msgstr "Dodaj"
 
 msgid "hostname"
 msgstr "ime strežnika"
@@ -76,23 +79,12 @@ msgstr "URL pot"
 msgid "owner"
 msgstr "lastnik"
 
-msgid "page title"
-msgstr "naziv strani"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr "Opcijsko. Naziv strani, kot želite da je viden na spletnih iskalnikih."
-
 msgid "show in menus"
 msgstr "prikazuj v meniju"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Določa, ali bo stran vidna v avtomatskih menijih"
-
-msgid "search description"
-msgstr "Opis za iskalnike"
 
 msgid "go live date/time"
 msgstr "datum začetka objave"
@@ -153,9 +145,6 @@ msgstr "različica strani"
 
 msgid "page revisions"
 msgstr "različice strani"
-
-msgid "Add"
-msgstr "Dodaj"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/uredi strani v vaši lasti"

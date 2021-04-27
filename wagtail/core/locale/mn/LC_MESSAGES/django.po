@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Add"
+msgstr "Нэмэх"
 
 msgid "This block has no options."
 msgstr "Статик блок нь ямар нэг сонголтгүй."
@@ -96,14 +99,8 @@ msgstr "URL зам"
 msgid "owner"
 msgstr "эзэмшигч"
 
-msgid "page title"
-msgstr "хуудасны гарчиг"
-
 msgid "show in menus"
 msgstr "цэсэнд харуулах"
-
-msgid "search description"
-msgstr "хайлтын тайлбар"
 
 msgid "go live date/time"
 msgstr "нийтлэгдэх өдөр/цаг"
@@ -170,9 +167,6 @@ msgstr "хуудасны өөрчлөлтийн түүх"
 
 msgid "page revisions"
 msgstr "хуудасны өөрчлөлтийн түүхүүд"
-
-msgid "Add"
-msgstr "Нэмэх"
 
 msgid "Add/edit pages you own"
 msgstr "Өөрийн хуудсаа нэмэх/засах"

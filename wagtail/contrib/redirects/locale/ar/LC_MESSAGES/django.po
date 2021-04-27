@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -26,6 +26,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtail اعادات توجية"
+
+msgid "Type"
+msgstr "نوع"
 
 msgid "From site"
 msgstr "من الموقع"
@@ -104,9 +107,6 @@ msgstr "إلى"
 
 msgid "Site"
 msgstr "موقع"
-
-msgid "Type"
-msgstr "نوع"
 
 msgid "Edit this redirect"
 msgstr "تحرير إعادة التوجيه"

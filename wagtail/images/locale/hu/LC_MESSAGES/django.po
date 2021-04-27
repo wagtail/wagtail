@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-19 08:11+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 06:18+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -67,6 +67,23 @@ msgstr "Balra zárt"
 
 msgid "Right-aligned"
 msgstr "Jobbra zárt"
+
+msgid "Collection"
+msgstr "Gyűjtemény"
+
+msgid "Format"
+msgstr "Formátum"
+
+msgid "Image is decorative"
+msgstr "A kép dekoratív"
+
+msgid "Alt text"
+msgstr "Alt szöveg"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Kérjük adjon hozzá egy alternatív szöveget, vagy jelölje meg dekoratív "
+"képként."
 
 msgid "Filter"
 msgstr "Szűrő"

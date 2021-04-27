@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -27,6 +27,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtailin ydinominaisuudet"
+
+msgid "Add"
+msgstr "Lisää"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -137,25 +140,12 @@ msgstr "URL polku"
 msgid "owner"
 msgstr "omistaja"
 
-msgid "page title"
-msgstr "sivun otsikko"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Vapaaehtoinen. Hakukoneystävällinen otsikko. Tämä näkyy selainikkunan "
-"otsikkona."
-
 msgid "show in menus"
 msgstr "näytä valikoissa"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Näytä linkki tälle sivulle automaattisesti tuotetuissa valikoissa"
-
-msgid "search description"
-msgstr "hakukuvaus"
 
 msgid "go live date/time"
 msgstr "julkaisupäivämäärä ja -aika"
@@ -234,9 +224,6 @@ msgstr "sivuversio"
 
 msgid "page revisions"
 msgstr "sivuversiot"
-
-msgid "Add"
-msgstr "Lisää"
 
 msgid "Add/edit pages you own"
 msgstr "Lisää/muokkaa sivuja jota omistat"

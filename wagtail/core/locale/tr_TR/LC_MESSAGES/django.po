@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -27,6 +27,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail core (çekirdek)"
+
+msgid "Add"
+msgstr "Ekle"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -130,16 +133,6 @@ msgstr "URL yolu"
 msgid "owner"
 msgstr "sahibi"
 
-msgid "page title"
-msgstr "sayfa başlığı"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"İsteğe bağlı. 'Arama Motoru Dostu' başlık. Bu başlık, tarayıcı penceresinin "
-"en üstünde bulunacaktır."
-
 msgid "show in menus"
 msgstr "menülerde göster"
 
@@ -147,9 +140,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Otomatik olarak oluşturulan menülerde, bu sayfaya bir bağlantı olacaktır"
-
-msgid "search description"
-msgstr "arama açıklaması"
 
 msgid "go live date/time"
 msgstr "yayın başlangış tarihi/zamanı"
@@ -216,9 +206,6 @@ msgstr "sayfa revizyon"
 
 msgid "page revisions"
 msgstr "sayfa revizyonları"
-
-msgid "Add"
-msgstr "Ekle"
 
 msgid "Add/edit pages you own"
 msgstr "Sahip olduğun sayfalara ekle/düzenle"

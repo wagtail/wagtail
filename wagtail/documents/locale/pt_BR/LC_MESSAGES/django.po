@@ -6,16 +6,16 @@
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2017
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2020
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2021
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 13:15+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Documentos Wagtail"
+
+msgid "Collection"
+msgstr "Coleção"
 
 msgid "Add"
 msgstr "Adicionar"
@@ -38,6 +41,12 @@ msgstr "Editar"
 
 msgid "Edit any document"
 msgstr "Editar qualquer documento"
+
+msgid "Choose"
+msgstr "Escolha"
+
+msgid "Select documents in choosers"
+msgstr "Selecione documentos em seletores"
 
 msgid "title"
 msgstr "título"
@@ -175,9 +184,6 @@ msgstr "Título"
 msgid "File"
 msgstr "Arquivo"
 
-msgid "Collection"
-msgstr "Coleção"
-
 msgid "Created"
 msgstr "Criado"
 
@@ -269,6 +275,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Desculpe, o envio falhou."
+
+msgid "Document updated."
+msgstr "Documento atualizado."
 
 msgid "You need a password to access this document."
 msgstr "Você precisa de uma senha para acessar este documento."

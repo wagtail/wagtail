@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -75,9 +75,6 @@ msgstr "انتشار زمانبندی‌شده"
 msgid "Privacy"
 msgstr "حریم"
 
-msgid "Common page configuration"
-msgstr "پیکربندی متداول صفحه"
-
 msgid "Content"
 msgstr "محتوا"
 
@@ -127,8 +124,14 @@ msgstr "برای بازنشانی رمز، نشانی ایمیل خود را و�
 msgid "URL"
 msgstr "لینک"
 
+msgid "Parent"
+msgstr "والد"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "برای یک مجموعه نمی‌توانید چندین مجوز انتخاب کنید."
+
+msgid "Collection"
+msgstr "مجموعه"
 
 msgid "New title"
 msgstr "عنوان جدید"
@@ -209,108 +212,6 @@ msgstr "این فیلد لازم است."
 msgid "Please select at least one group."
 msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
 
-msgid "Arabic"
-msgstr "عربی"
-
-msgid "Catalan"
-msgstr "کاتالان"
-
-msgid "Czech"
-msgstr "چک"
-
-msgid "German"
-msgstr "آلمانی"
-
-msgid "Greek"
-msgstr "یونانی"
-
-msgid "English"
-msgstr "انگلیسی"
-
-msgid "Spanish"
-msgstr "اسپانیولی"
-
-msgid "Finnish"
-msgstr "فنلاندی"
-
-msgid "French"
-msgstr "فرانسوی"
-
-msgid "Galician"
-msgstr "گالیسیایی"
-
-msgid "Hungarian"
-msgstr "مجارستان"
-
-msgid "Indonesian"
-msgstr "اندونزی"
-
-msgid "Icelandic"
-msgstr "ایسلندی"
-
-msgid "Italian"
-msgstr "ایتالیایی"
-
-msgid "Japanese"
-msgstr "ژاپنی"
-
-msgid "Korean"
-msgstr "کره ای"
-
-msgid "Lithuanian"
-msgstr "لیتوانیایی"
-
-msgid "Mongolian"
-msgstr "مغولی"
-
-msgid "Norwegian Bokmål"
-msgstr "بوکمال نروژی"
-
-msgid "Netherlands Dutch"
-msgstr "آلمانی هلندی"
-
-msgid "Persian"
-msgstr "فارسی"
-
-msgid "Polish"
-msgstr "لهستانی"
-
-msgid "Brazilian Portuguese"
-msgstr "پرتغالی برزیل"
-
-msgid "Portuguese"
-msgstr "پرتغالی"
-
-msgid "Romanian"
-msgstr "رومانیایی"
-
-msgid "Russian"
-msgstr "روسی"
-
-msgid "Swedish"
-msgstr "سوئدی"
-
-msgid "Slovak"
-msgstr "اسلواکیایی"
-
-msgid "Thai"
-msgstr "تایلندی"
-
-msgid "Turkish"
-msgstr "ترکی"
-
-msgid "Turkish (Turkey)"
-msgstr "ترکی (ترکیه)"
-
-msgid "Ukrainian"
-msgstr "اوکراینی"
-
-msgid "Chinese (Simplified)"
-msgstr "چینی (ساده)"
-
-msgid "Chinese (Traditional)"
-msgstr "چینی (سنتی)"
-
 msgid "Edit"
 msgstr "تصحیح"
 
@@ -387,6 +288,12 @@ msgstr "دیدن صفحات فرزند {title}"
 msgid "Page explorer"
 msgstr "کاوشگر صفحه"
 
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "Cancel"
+msgstr "لغو"
+
 msgid "Error 404: Page not found"
 msgstr "ارور 404: صفحه یافت نشد"
 
@@ -402,36 +309,12 @@ msgstr "رفتن به صفحه ادمین وگتیل"
 msgid "Account"
 msgstr "حساب کاربری"
 
-msgid "Change profile picture"
-msgstr "تغییر عکس پروفایل"
-
-msgid "Your current profile picture:"
-msgstr "عکس پروفایل فعلی"
-
-msgid "Update"
-msgstr "بروزرسانی"
-
-msgid "Change email"
-msgstr "تغییر آدرس ایمیل"
-
-msgid "Change name"
-msgstr "تغییر نام"
-
 msgid "Change password"
 msgstr "تغییر رمزعبور"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "رمزعبور شما نمیتواند تغییر کند. لطفا با راهبر سایت تماس بگیرید."
-
-msgid "Set Time Zone"
-msgstr "تغییر منطقه‌ی زمانی"
-
-msgid "Language Preferences"
-msgstr "تنظیمات زبان"
-
-msgid "Notification preferences"
-msgstr "تنظیمات نوتیفیکیشن"
 
 msgid "Reset password"
 msgstr "بازنشانی رمزعبور"
@@ -481,12 +364,6 @@ msgstr "داشبورد"
 
 msgid "Menu"
 msgstr "منو"
-
-msgid "Move up"
-msgstr "حرکت به بالا"
-
-msgid "Move down"
-msgstr "حرکت به پایین"
 
 msgid "Explorer"
 msgstr "کاوشگر"
@@ -579,9 +456,6 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "تنظیمات حریم تشخیص میدهد که چه کسی میتواند این مجموعه را ببیند"
 
-msgid "Save"
-msgstr "ذخیره"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "حریم مجموعه را مشخص کنید. حالت فعلی: عمومی"
 
@@ -613,8 +487,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "افزودن  %(label)s لیبل"
 
+msgid "Move up"
+msgstr "حرکت به بالا"
+
+msgid "Move down"
+msgstr "حرکت به پایین"
+
 msgid "Yes, delete"
 msgstr "بله حذف شود"
+
+msgid "Update"
+msgstr "بروزرسانی"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -644,9 +527,6 @@ msgstr "منتشر شده"
 
 msgid "Pages awaiting moderation"
 msgstr "صفحه های نیازمند نظارت"
-
-msgid "Parent"
-msgstr "والد"
 
 msgid "Type"
 msgstr "نوع"
@@ -907,9 +787,6 @@ msgstr "انتشار صفحه"
 
 msgid "Would you still like to publish this page?"
 msgstr "آیا هنوز مایل به انتشار این صفحه هستید؟"
-
-msgid "Cancel"
-msgstr "لغو"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1250,9 +1127,6 @@ msgstr "ویرایش صفحه"
 msgid "Requested by"
 msgstr "درخواست شده توسط"
 
-msgid "Collection"
-msgstr "مجموعه"
-
 msgid "No pages match this report's criteria."
 msgstr "هیچ صفحه‌ای با نیازهای این گزارش همخوانی ندارد."
 
@@ -1394,21 +1268,6 @@ msgstr "هم‌اکنون"
 
 msgid "Test"
 msgstr "تست"
-
-msgid "Your password has been changed successfully!"
-msgstr "رمز عبور شما با موفقیت تغییر یافت!"
-
-msgid "Your email has been changed successfully!"
-msgstr "ایمیل شما با موفقیت تغییر یافت!"
-
-msgid "Your name has been changed successfully!"
-msgstr "نام شما با موفقیت تغییر یافت!"
-
-msgid "Your preferences have been updated."
-msgstr "ترجیحات شما بروزرسانی شد."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "تنظیمات شما با موفقیت بروزرسانی شد!"
 
 msgid "You have been successfully logged out."
 msgstr "با موفقیت خارج شدید."
@@ -1584,36 +1443,6 @@ msgstr "حذف صفحه %(title)s"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "لغوانتشار صفحه %(title)s"
-
-msgid "Set profile picture"
-msgstr "ایجاد عکس پروفایل"
-
-msgid "Change your profile picture."
-msgstr "تغییر عکس پروفایل"
-
-msgid "Change the email address linked to your account."
-msgstr "تغییر آدرس ایمیل وابسته به اکانت شما."
-
-msgid "Change the password you use to log in."
-msgstr "رمزعبورتان را برای ورود تغییر دهید."
-
-msgid "Choose which email notifications to receive."
-msgstr "آگاهسازی های ایمیلی را می‌خواهید دریافت کنید انتخاب نمایید."
-
-msgid "Language preferences"
-msgstr "ترجیحات زبان"
-
-msgid "Choose the language you want to use here."
-msgstr "زبانی که میخواهید بکار بگیرید را انتخاب کنید."
-
-msgid "Current Time Zone"
-msgstr "منطقه‌ی زمانی فعلی"
-
-msgid "Choose your current time zone."
-msgstr "منطقه‌ی زمانی فعلی خود را انتخاب کنید."
-
-msgid "Change your first and last name on your account."
-msgstr "تغییر نام و نام خانوادگی اکانت."
 
 msgid "Bulleted list"
 msgstr "لیست نقطه‌ای"

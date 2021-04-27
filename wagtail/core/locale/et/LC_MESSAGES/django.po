@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail südamik"
+
+msgid "Add"
+msgstr "Lisama"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -132,25 +135,12 @@ msgstr "URL-i tee"
 msgid "owner"
 msgstr "omanik"
 
-msgid "page title"
-msgstr "lehe pealkiri"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Valikuline. Pealkiri „Otsingumootorisõbralik”. See kuvatakse brauseriakna "
-"ülaosas."
-
 msgid "show in menus"
 msgstr "saade menüüdes"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Kas link sellele lehele kuvatakse automaatselt loodud menüüdes"
-
-msgid "search description"
-msgstr "otsingu kirjeldus"
 
 msgid "go live date/time"
 msgstr "mine otse kuupäev / kellaaeg"
@@ -232,9 +222,6 @@ msgstr "lehekülje redaktsioon"
 
 msgid "page revisions"
 msgstr "lehekülje parandused"
-
-msgid "Add"
-msgstr "Lisama"
 
 msgid "Add/edit pages you own"
 msgstr "Lisage / muutke omatavaid lehti"

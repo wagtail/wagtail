@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -81,9 +81,6 @@ msgstr "Planirano objavljivanje"
 msgid "Privacy"
 msgstr "Privatnost"
 
-msgid "Common page configuration"
-msgstr "Uobičajena konfiguracija stranice"
-
 msgid "Content"
 msgstr "Sadržaj"
 
@@ -136,6 +133,9 @@ msgstr "Unesite vašu email adresu kako bi ponovno postavili vašu lozinku"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Roditelj"
+
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
@@ -145,6 +145,9 @@ msgstr ""
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nije moguće dodati više skupova dozvola za istu zbirku."
+
+msgid "Collection"
+msgstr "Zbirka"
 
 msgid "New title"
 msgstr "Novi naslov"
@@ -251,111 +254,6 @@ msgstr "Nazovite vaš tijek rada"
 msgid "Add tasks to your workflow"
 msgstr "Dodajte zadatke u vaš tijek rada"
 
-msgid "Arabic"
-msgstr "Arapski"
-
-msgid "Catalan"
-msgstr "Katalonski"
-
-msgid "Czech"
-msgstr "Češki"
-
-msgid "German"
-msgstr "Njemački"
-
-msgid "Greek"
-msgstr "Grčki"
-
-msgid "English"
-msgstr "Engleski"
-
-msgid "Spanish"
-msgstr "Španjolski"
-
-msgid "Estonian"
-msgstr "Estonski"
-
-msgid "Finnish"
-msgstr "Finski"
-
-msgid "French"
-msgstr "Francuski"
-
-msgid "Galician"
-msgstr "Galicijski"
-
-msgid "Hungarian"
-msgstr "Mađarski"
-
-msgid "Indonesian"
-msgstr "Indonezijski"
-
-msgid "Icelandic"
-msgstr "Islandski"
-
-msgid "Italian"
-msgstr "Talijanski"
-
-msgid "Japanese"
-msgstr "Japanski"
-
-msgid "Korean"
-msgstr "Korejski"
-
-msgid "Lithuanian"
-msgstr "Litavski"
-
-msgid "Mongolian"
-msgstr "Mongolski"
-
-msgid "Norwegian Bokmål"
-msgstr "Norveški Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Nizozemski"
-
-msgid "Persian"
-msgstr "Perzijski"
-
-msgid "Polish"
-msgstr "Poljski"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilski portugalski"
-
-msgid "Portuguese"
-msgstr "Portuglaski"
-
-msgid "Romanian"
-msgstr "Rumunjski"
-
-msgid "Russian"
-msgstr "Ruski"
-
-msgid "Swedish"
-msgstr "Švedski"
-
-msgid "Slovak"
-msgstr "Slovački"
-
-msgid "Thai"
-msgstr "Tajlandski"
-
-msgid "Turkish"
-msgstr "Turski"
-
-msgid "Turkish (Turkey)"
-msgstr "Turski (Turska)"
-
-msgid "Ukrainian"
-msgstr "Ukrajinski"
-
-msgid "Chinese (Simplified)"
-msgstr "Kineski (pojednostavljeni)"
-
-msgid "Chinese (Traditional)"
-msgstr "Kineski (tradicionalni)"
-
 msgid "Edit"
 msgstr "Uredi"
 
@@ -430,6 +328,15 @@ msgstr "Pogledaj djecu stranice '{title}'"
 msgid "Page explorer"
 msgstr "Pretraživač stranica"
 
+msgid "Save"
+msgstr "Spremi"
+
+msgid "Cancel"
+msgstr "Odustani"
+
+msgid "Comment"
+msgstr "Komentar"
+
 msgid "Error 404: Page not found"
 msgstr "Greška 404: Stranica nije pronađena"
 
@@ -445,21 +352,6 @@ msgstr "Idi na Wagtail administraciju"
 msgid "Account"
 msgstr "Korisnički račun"
 
-msgid "Change profile picture"
-msgstr "Promijenite profilnu sliku"
-
-msgid "Your current profile picture:"
-msgstr "Vaša trenutna slika profila"
-
-msgid "Update"
-msgstr "Ažuriraj"
-
-msgid "Change email"
-msgstr "Promijeni email"
-
-msgid "Change name"
-msgstr "Promijeni ime"
-
 msgid "Change password"
 msgstr "Promijeni lozinku"
 
@@ -468,15 +360,6 @@ msgid ""
 msgstr ""
 "Vaša lozinka se ne može promijeniti ovdje. Molimo kontaktirajte "
 "administratora sjedišta."
-
-msgid "Set Time Zone"
-msgstr "Postavi vremensku zonu"
-
-msgid "Language Preferences"
-msgstr "Jezične postavke"
-
-msgid "Notification preferences"
-msgstr "Postavke obavijesti"
 
 msgid "Reset password"
 msgstr "Ponovno postavi lozinku"
@@ -530,12 +413,6 @@ msgstr "Kontrolna ploča"
 
 msgid "Menu"
 msgstr "Izbornik"
-
-msgid "Move up"
-msgstr "Pomakni prema gore"
-
-msgid "Move down"
-msgstr "Pomakni prema dolje"
 
 msgid "Explorer"
 msgstr "Pretraživač"
@@ -633,9 +510,6 @@ msgid ""
 msgstr ""
 "Postavke privatnosti određuju tko može vidjeti dokumente u ovoj zbirci."
 
-msgid "Save"
-msgstr "Spremi"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Postavi privatnost zbirke. Trenutni status: Javno"
 
@@ -667,8 +541,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Dodaj %(label)s"
 
+msgid "Move up"
+msgstr "Pomakni prema gore"
+
+msgid "Move down"
+msgstr "Pomakni prema dolje"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
+
+msgid "Update"
+msgstr "Ažuriraj"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -680,16 +563,6 @@ msgid ""
 msgstr ""
 "Ovo je vaša kontrolna ploča koja će prikazivati korisne informacije o "
 "sadržaju koji stvorite."
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail postepeno uklanja podršku za IE11 što može utjecati na vas ili vašu "
-"organizaciju. <a href=\"%(url)s\">Saznajte više o planovima za IE11 podršku</"
-"a>."
 
 msgid "Your locked pages"
 msgstr "Vaše zaključane stranice"
@@ -709,9 +582,6 @@ msgstr "Uživo"
 #, python-format
 msgid "%(time_period)s"
 msgstr "%(time_period)s"
-
-msgid "Parent"
-msgstr "Roditelj"
 
 msgid "Type"
 msgstr "Tip"
@@ -1088,9 +958,6 @@ msgstr "Objavljivanje stranice će otkazati trenutni tijek rada."
 msgid "Would you still like to publish this page?"
 msgstr "Želite li i dalje objaviti ovu stranicu?"
 
-msgid "Cancel"
-msgstr "Odustani"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Stranice koje koriste %(page_class_verbose_name)s"
@@ -1144,9 +1011,6 @@ msgstr "Korisnik"
 
 msgid "Date / Time"
 msgstr "Datum / Vrijeme"
-
-msgid "Comment"
-msgstr "Komentar"
 
 msgid "Live version"
 msgstr "Verzija uživo"
@@ -1505,9 +1369,6 @@ msgstr "Odobren zadatak"
 msgid "Incomplete task"
 msgstr "Nepotpun zadatak"
 
-msgid "Collection"
-msgstr "Zbirka"
-
 msgid "Download XLSX"
 msgstr "Preuzmi XLSX"
 
@@ -1603,6 +1464,16 @@ msgstr ""
 "Ovdje se nalaze <a href=\"https://www.enable-javascript.com/\" target="
 "\"_blank\" rel=\"noopener noreferrer\">upute kako uključiti JavaScript u "
 "vašem web pregledniku</a>."
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail postepeno uklanja podršku za IE11 što može utjecati na vas ili vašu "
+"organizaciju. <a href=\"%(url)s\">Saznajte više o planovima za IE11 podršku</"
+"a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Idi na Wagtail administracijsko sučelje"
@@ -1839,21 +1710,6 @@ msgstr "skica"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Your password has been changed successfully!"
-msgstr "Vaša lozinka je uspješno promijenjena!"
-
-msgid "Your email has been changed successfully!"
-msgstr "Vaš email je uspješno promijenjen!"
-
-msgid "Your name has been changed successfully!"
-msgstr "Vaše ime je uspješno promijenjeno!"
-
-msgid "Your preferences have been updated."
-msgstr "Vaše postavke su promijenjene."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Vaše postavke su uspješno promijenjene!"
 
 msgid "You have been successfully logged out."
 msgstr "Uspješno ste odjavljeni."
@@ -2156,36 +2012,6 @@ msgstr "Odjavi stranicu '%(title)s'"
 msgid "View page history for '%(title)s'"
 msgstr "Pogledaj povijest stranice '%(title)s'"
 
-msgid "Set profile picture"
-msgstr "Postavi sliku profila"
-
-msgid "Change your profile picture."
-msgstr "Promijenite vašu profilnu sliku"
-
-msgid "Change the email address linked to your account."
-msgstr "Promijenite email adresu povezanu s vašim korisničkim računom."
-
-msgid "Change the password you use to log in."
-msgstr "Promijenite lozinku koju koristite za prijavu."
-
-msgid "Choose which email notifications to receive."
-msgstr "Odaberite email na koji želite primati obavijesti."
-
-msgid "Language preferences"
-msgstr "Jezične postavke"
-
-msgid "Choose the language you want to use here."
-msgstr "Ovdje odaberite jezik koji želite."
-
-msgid "Current Time Zone"
-msgstr "Odabrana vremenska zona"
-
-msgid "Choose your current time zone."
-msgstr "Odaberite vašu vremensku zonu."
-
-msgid "Change your first and last name on your account."
-msgstr "Promijenite ime i prezime na svom korisničkom računu."
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Naslov %(level)d"
@@ -2225,162 +2051,6 @@ msgstr "Zaključane Stranice"
 
 msgid "Reports"
 msgstr "Izvješća"
-
-msgid "Created"
-msgstr "Stvoreno"
-
-msgid "Deleted"
-msgstr "Izbrisano"
-
-msgid "Publish scheduled draft"
-msgstr "Objavi zakazanu skicu"
-
-msgid "Published scheduled draft"
-msgstr "Objavljena zakazana skica"
-
-msgid "Unpublished"
-msgstr "Odjavljeno"
-
-msgid "Unpublish scheduled draft"
-msgstr "Odjavi zakazanu skicu"
-
-msgid "Unpublished scheduled draft"
-msgstr "Odjavljena zakazana skica"
-
-msgid "Unlocked"
-msgstr "Otključano"
-
-msgid "Approved"
-msgstr "Odobreno"
-
-msgid "Rejected"
-msgstr "Odbijeno"
-
-msgid "Reverted to previous revision"
-msgstr "Vraćeno na prijašnju verziju"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "Kopirano iz %(title)s"
-
-msgid "Copied"
-msgstr "Kopirano"
-
-#, python-format
-msgid "Created an alias of %(title)s"
-msgstr "Stvoren je alias za %(title)s"
-
-msgid "Created an alias"
-msgstr "Stvoren je alias"
-
-#, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "Alias '%(title)s' je pretvoren u običnu stranicu"
-
-msgid "Converted an alias into a regular page"
-msgstr "Alias je pretvoren u običnu stranicu"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "Premješteno iz '%(old_parent)s' u '%(new_parent)s'"
-
-msgid "Moved"
-msgstr "Premješteno"
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Stranici je zakazano objavljivanje u %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Stranici je zakazano objavljivanje"
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Stranici je otkazano objavljivanje u %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Stranici je otkazano objavljivanje"
-
-#, python-format
-msgid "Added the '%(restriction)s' view restriction"
-msgstr "Dodano je '%(restriction)s' ograničenje pogleda"
-
-msgid "Added view restriction"
-msgstr "Dodano je ograničenja pogleda"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "Ažurirano je ograničenje pogleda na '%(restriction)s'"
-
-msgid "Updated view restriction"
-msgstr "Ažurirano je ograničenje pogleda"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Uklonjeno '%(restriction)s' ograničenje pogleda"
-
-msgid "Removed view restriction"
-msgstr "Uklonjeno je ograničenje pogleda"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Preimenovano iz '%(old)s' u '%(new)s'"
-
-msgid "Renamed"
-msgstr "Preimenovano"
-
-msgid "Rename"
-msgstr "Preimenuj"
-
-msgid "Revert"
-msgstr "Vrati na staro"
-
-msgid "Create alias"
-msgstr "Stvori alias"
-
-msgid "Convert alias into regular page"
-msgstr "Alias je pretvoren u običnu stranicu"
-
-msgid "Schedule publication"
-msgstr "Zakaži objavu"
-
-msgid "Add view restrictions"
-msgstr "Dodaj ograničenja pogleda"
-
-msgid "Update view restrictions"
-msgstr "Ažuriraj ograničenja pogleda"
-
-msgid "Remove view restrictions"
-msgstr "Ukloni ograničenja pogleda"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "'%(workflow)s' je započeo. Sljedeći korak '%(task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "Odobreno u '%(task)s'. Sljedeći korak '%(next_task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "Odoboreno u '%(task)s'. '%(workflow)s' završen"
-
-msgid "Workflow task approved"
-msgstr "Zadatak tijeka rada je odobren"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "Odbijeno u '%(task)s'. Zahtijeva promjene"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "Tijek rada odbijen. Tijek rada završen"
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "Otkazan '%(workflow)s' u '%(task)s'"
-
-msgid "Workflow cancelled"
-msgstr "Tijek rada otkazan"
 
 msgid "Yes"
 msgstr "Da"

@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-18 05:25+0000\n"
-"Last-Translator: Reshi Mahendra <reshimahendra@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -86,9 +86,6 @@ msgstr "Penerbitan terjadwal"
 msgid "Privacy"
 msgstr "Privasi"
 
-msgid "Common page configuration"
-msgstr "Konfigurasi halaman umum"
-
 msgid "Content"
 msgstr "Konten"
 
@@ -141,9 +138,15 @@ msgstr "Masukkan alamat surel untuk atur ulang kata sandi anda"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Induk"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Anda tidak boleh memiliki lebih dari satu izin untuk koleksi yang sama."
+
+msgid "Collection"
+msgstr "Koleksi"
 
 msgid "New title"
 msgstr "Judul baru"
@@ -230,96 +233,6 @@ msgstr "Harap memilih minimal satu grup."
 msgid "All types"
 msgstr "Semua tipe"
 
-msgid "Arabic"
-msgstr "Arab"
-
-msgid "Catalan"
-msgstr "Katalan"
-
-msgid "German"
-msgstr "Jerman"
-
-msgid "Greek"
-msgstr "Yunani"
-
-msgid "English"
-msgstr "Inggris"
-
-msgid "Spanish"
-msgstr "Spanyol"
-
-msgid "Finnish"
-msgstr "Finlandia"
-
-msgid "French"
-msgstr "Perancis"
-
-msgid "Galician"
-msgstr "Galicia"
-
-msgid "Hungarian"
-msgstr "Hunggaria"
-
-msgid "Indonesian"
-msgstr "Indonesia"
-
-msgid "Icelandic"
-msgstr "Islandia"
-
-msgid "Italian"
-msgstr "Italia"
-
-msgid "Japanese"
-msgstr "Jepang"
-
-msgid "Korean"
-msgstr "Korea"
-
-msgid "Lithuanian"
-msgstr "Lituania"
-
-msgid "Mongolian"
-msgstr "Mongolia"
-
-msgid "Norwegian Bokmål"
-msgstr "Norwegia"
-
-msgid "Netherlands Dutch"
-msgstr "Belanda"
-
-msgid "Persian"
-msgstr "Persia"
-
-msgid "Polish"
-msgstr "Polandia"
-
-msgid "Brazilian Portuguese"
-msgstr "Portugis Brasil"
-
-msgid "Portuguese"
-msgstr "Portugis"
-
-msgid "Romanian"
-msgstr "Romania"
-
-msgid "Russian"
-msgstr "Rusia"
-
-msgid "Swedish"
-msgstr "Swedia"
-
-msgid "Slovak"
-msgstr "Slowakia"
-
-msgid "Thai"
-msgstr "Thailand"
-
-msgid "Turkish"
-msgstr "Turki"
-
-msgid "Ukrainian"
-msgstr "Ukraina"
-
 msgid "Edit"
 msgstr "Ubah"
 
@@ -389,6 +302,9 @@ msgstr "Ubah '{title}'"
 msgid "Page explorer"
 msgstr "Perambah halaman"
 
+msgid "Save"
+msgstr "Simpan"
+
 msgid "Error 404: Page not found"
 msgstr "Galat 404: Halaman tidak ditemukan"
 
@@ -404,21 +320,6 @@ msgstr "Pergi ke pengelolaan Wagtail"
 msgid "Account"
 msgstr "Akun"
 
-msgid "Change profile picture"
-msgstr "Ubah gambar profil"
-
-msgid "Your current profile picture:"
-msgstr "Gambar profil anda saat ini:"
-
-msgid "Update"
-msgstr "Perbarui"
-
-msgid "Change email"
-msgstr "Ubah surel"
-
-msgid "Change name"
-msgstr "Ubah nama"
-
 msgid "Change password"
 msgstr "Ganti kata sandi"
 
@@ -426,15 +327,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Kata sandi Anda tidak dapat diubah di sini. Harap hubungi pengelola situs."
-
-msgid "Set Time Zone"
-msgstr "Atur Zona Waktu"
-
-msgid "Language Preferences"
-msgstr "Preferensi Bahasa"
-
-msgid "Notification preferences"
-msgstr "Preferensi notifikasi"
 
 msgid "Reset password"
 msgstr "Atur ulang kata sandi"
@@ -488,12 +380,6 @@ msgstr "Dasbor"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Move up"
-msgstr "Geser ke atas"
-
-msgid "Move down"
-msgstr "Geser ke bawah"
 
 msgid "Explorer"
 msgstr "Penjelajah"
@@ -568,9 +454,6 @@ msgstr ""
 "Konfigurasi privasi menentukan siapa yang dapat melihat isi dokumen dalam "
 "koleksi ini."
 
-msgid "Save"
-msgstr "Simpan"
-
 msgid "Public"
 msgstr "Publik"
 
@@ -597,8 +480,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Tambah %(label)s"
 
+msgid "Move up"
+msgstr "Geser ke atas"
+
+msgid "Move down"
+msgstr "Geser ke bawah"
+
 msgid "Yes, delete"
 msgstr "Ya, hapus"
+
+msgid "Update"
+msgstr "Perbarui"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -622,9 +514,6 @@ msgstr "Terpublikasi"
 
 msgid "Pages awaiting moderation"
 msgstr "Halaman yang sedang menunggu moderasi"
-
-msgid "Parent"
-msgstr "Induk"
 
 msgid "Type"
 msgstr "Tipe"
@@ -1153,9 +1042,6 @@ msgstr "Masukkan kata kunci pencarian di atas"
 msgid "No pages use"
 msgstr "Tidak ada halaman yang menggunakan"
 
-msgid "Collection"
-msgstr "Koleksi"
-
 msgid "Locked"
 msgstr "Terkunci"
 
@@ -1202,18 +1088,6 @@ msgstr "Bandingkan dengan versi aktif"
 
 msgid "Test"
 msgstr "Uji"
-
-msgid "Your password has been changed successfully!"
-msgstr "Kata sandi Anda telah berhasil diubah!"
-
-msgid "Your email has been changed successfully!"
-msgstr "Surel Anda telah berhasil diubah! "
-
-msgid "Your preferences have been updated."
-msgstr "Preferensi anda telah diperbarui."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Preferensi anda telah berhasil diperbarui!"
 
 msgid "You have been successfully logged out."
 msgstr "Anda berhasil keluar."
@@ -1334,30 +1208,6 @@ msgstr "Halaman '{0}' ditarik dari publikasi."
 
 msgid "More"
 msgstr "Lainnya"
-
-msgid "Set profile picture"
-msgstr "Atur gambar profil"
-
-msgid "Change the email address linked to your account."
-msgstr "Ubah alamat surel yang terkait dengan akun Anda."
-
-msgid "Change the password you use to log in."
-msgstr "Ganti kata sandi yang Anda gunakan untuk masuk."
-
-msgid "Choose which email notifications to receive."
-msgstr "Pilih jenis notifikasi surel mana yang akan diterima."
-
-msgid "Language preferences"
-msgstr "Preferensi bahasa"
-
-msgid "Choose the language you want to use here."
-msgstr "Pilih bahasa yang akan Anda gunakan disini."
-
-msgid "Current Time Zone"
-msgstr "Zona Waktu Saat Ini"
-
-msgid "Choose your current time zone."
-msgstr "Pilih zona waktu saat ini."
 
 msgid "Bulleted list"
 msgstr "Daftar Bullet"

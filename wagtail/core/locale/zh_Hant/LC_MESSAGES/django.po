@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail 核心組件"
+
+msgid "Add"
+msgstr "新增"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -126,23 +129,12 @@ msgstr "URL路徑"
 msgid "owner"
 msgstr "所有者"
 
-msgid "page title"
-msgstr "頁面標題"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr "可選。“對搜索引擎友好”的標題。這將出現在瀏覽器頂部"
-
 msgid "show in menus"
 msgstr "在選單中顯示"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "是否需要在自動生成的選單中出現此頁面的Link。"
-
-msgid "search description"
-msgstr "搜索描述"
 
 msgid "go live date/time"
 msgstr "上線日期/時間"
@@ -218,9 +210,6 @@ msgstr "頁版本"
 
 msgid "page revisions"
 msgstr "頁版本"
-
-msgid "Add"
-msgstr "新增"
 
 msgid "Add/edit pages you own"
 msgstr "新增/編輯所屬的頁面"

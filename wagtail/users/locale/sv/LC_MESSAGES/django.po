@@ -6,14 +6,14 @@
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
 # Martin Sandström <martin@marteinn.se>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2015,2017
+# Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
-"PO-Revision-Date: 2020-11-18 18:14+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 22:00+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -98,6 +98,16 @@ msgstr "Nekande notifieringar"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Emotta notis när din sideditering är avvisad"
+
+msgid "updated comments notifications"
+msgstr "uppdaterade kommentarnotifieringar"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Ta emot notifieringar när kommentarer har skapats, lösts, eller raderats på "
+"en sida som du har prenumererat att få kommentarnotifikationer från"
 
 msgid "preferred language"
 msgstr "föredraget språk"
