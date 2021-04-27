@@ -1,6 +1,6 @@
 blank_issues_enabled: false
 contact_links:
-  - name: 🙋 Ask questions on Stack Overflow (prefered)
+  - name: 🙋 Ask questions on Stack Overflow (preferred)
     url: https://stackoverflow.com/questions/tagged/wagtail
     about: Ask structured and fully-formed questions about Wagtail or about building a site with Wagtail
   - name: 🙋 Ask questions on Slack
