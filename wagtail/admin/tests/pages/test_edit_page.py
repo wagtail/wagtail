@@ -2283,6 +2283,57 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(log_entry.data['comment']['contentpath'], comment.contentpath)
         self.assertEqual(log_entry.data['comment']['text'], comment.text)
 
+    def test_delete_comment(self):
+        comment = Comment.objects.create(
+            page=self.child_page,
+            user=self.user,
+            text="A test comment",
+            contentpath="title",
+        )
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comments-TOTAL_FORMS': '1',
+            'comments-INITIAL_FORMS': '1',
+            'comments-MIN_NUM_FORMS': '0',
+            'comments-MAX_NUM_FORMS': '',
+            'comments-0-DELETE': 'on',
+            'comments-0-resolved': '',
+            'comments-0-id': str(comment.id),
+            'comments-0-contentpath': 'title',
+            'comments-0-text': 'A test comment',
+            'comments-0-position': '',
+            'comments-0-replies-TOTAL_FORMS': '0',
+            'comments-0-replies-INITIAL_FORMS': '0',
+            'comments-0-replies-MIN_NUM_FORMS': '0',
+            'comments-0-replies-MAX_NUM_FORMS': '0'
+        }
+
+        with enable_comment_panel(SimplePage):
+            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the comment was deleted
+        self.assertFalse(self.child_page.comments.exists())
+
+        # Check notification email
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, [self.subscriber.email])
+        self.assertEqual(mail.outbox[0].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
+        self.assertIn('Deleted comments:\n - "A test comment"\n\n', mail.outbox[0].body)
+
+        # Check audit log
+        log_entry = PageLogEntry.objects.get(action='wagtail.comments.delete')
+        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.user, self.user)
+        self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
+        self.assertEqual(log_entry.data['comment']['id'], comment.id)
+        self.assertEqual(log_entry.data['comment']['contentpath'], comment.contentpath)
+        self.assertEqual(log_entry.data['comment']['text'], comment.text)
+
     def test_new_reply(self):
         comment = Comment.objects.create(
             page=self.child_page,
@@ -2344,12 +2395,29 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(mail.outbox[2].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
         self.assertIn('  New replies to: "A test comment"\n   - "a new reply"', mail.outbox[2].body)
 
-    def test_delete_comment(self):
+        # Check audit log
+        log_entry = PageLogEntry.objects.get(action='wagtail.comments.create_reply')
+        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.user, self.user)
+        self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
+        self.assertEqual(log_entry.data['comment']['id'], comment.id)
+        self.assertEqual(log_entry.data['comment']['contentpath'], comment.contentpath)
+        self.assertEqual(log_entry.data['comment']['text'], comment.text)
+        self.assertNotEqual(log_entry.data['reply']['id'], reply.id)
+        self.assertEqual(log_entry.data['reply']['text'], 'a new reply')
+
+    def test_edit_reply(self):
         comment = Comment.objects.create(
             page=self.child_page,
-            user=self.user,
+            user=self.non_subscriber,
             text="A test comment",
             contentpath="title",
+        )
+
+        reply = CommentReply.objects.create(
+            comment=comment,
+            user=self.user,
+            text='an old reply'
         )
 
         post_data = {
@@ -2360,16 +2428,18 @@ class TestCommenting(TestCase, WagtailTestUtils):
             'comments-INITIAL_FORMS': '1',
             'comments-MIN_NUM_FORMS': '0',
             'comments-MAX_NUM_FORMS': '',
-            'comments-0-DELETE': 'on',
+            'comments-0-DELETE': '',
             'comments-0-resolved': '',
             'comments-0-id': str(comment.id),
             'comments-0-contentpath': 'title',
             'comments-0-text': 'A test comment',
             'comments-0-position': '',
-            'comments-0-replies-TOTAL_FORMS': '0',
-            'comments-0-replies-INITIAL_FORMS': '0',
+            'comments-0-replies-TOTAL_FORMS': '1',
+            'comments-0-replies-INITIAL_FORMS': '1',
             'comments-0-replies-MIN_NUM_FORMS': '0',
-            'comments-0-replies-MAX_NUM_FORMS': '0'
+            'comments-0-replies-MAX_NUM_FORMS': '',
+            'comments-0-replies-0-id': str(reply.id),
+            'comments-0-replies-0-text': 'an edited reply',
         }
 
         with enable_comment_panel(SimplePage):
@@ -2377,23 +2447,82 @@ class TestCommenting(TestCase, WagtailTestUtils):
 
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
-        # Check the comment was deleted
-        self.assertFalse(self.child_page.comments.exists())
+        # Check the comment reply was edited
+        reply.refresh_from_db()
+        self.assertEqual(reply.text, 'an edited reply')
 
-        # Check notification email
-        self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, [self.subscriber.email])
-        self.assertEqual(mail.outbox[0].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
-        self.assertIn('Deleted comments:\n - "A test comment"\n\n', mail.outbox[0].body)
+        # Check no notification was sent
+        self.assertEqual(len(mail.outbox), 0)
 
         # Check audit log
-        log_entry = PageLogEntry.objects.get(action='wagtail.comments.delete')
+        log_entry = PageLogEntry.objects.get(action='wagtail.comments.edit_reply')
         self.assertEqual(log_entry.page, self.child_page.page_ptr)
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
         self.assertEqual(log_entry.data['comment']['id'], comment.id)
         self.assertEqual(log_entry.data['comment']['contentpath'], comment.contentpath)
         self.assertEqual(log_entry.data['comment']['text'], comment.text)
+        self.assertEqual(log_entry.data['reply']['id'], reply.id)
+        self.assertEqual(log_entry.data['reply']['text'], 'an edited reply')
+
+    def test_delete_reply(self):
+        comment = Comment.objects.create(
+            page=self.child_page,
+            user=self.non_subscriber,
+            text="A test comment",
+            contentpath="title",
+        )
+
+        reply = CommentReply.objects.create(
+            comment=comment,
+            user=self.user,
+            text='an old reply'
+        )
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comments-TOTAL_FORMS': '1',
+            'comments-INITIAL_FORMS': '1',
+            'comments-MIN_NUM_FORMS': '0',
+            'comments-MAX_NUM_FORMS': '',
+            'comments-0-DELETE': '',
+            'comments-0-resolved': '',
+            'comments-0-id': str(comment.id),
+            'comments-0-contentpath': 'title',
+            'comments-0-text': 'A test comment',
+            'comments-0-position': '',
+            'comments-0-replies-TOTAL_FORMS': '1',
+            'comments-0-replies-INITIAL_FORMS': '1',
+            'comments-0-replies-MIN_NUM_FORMS': '0',
+            'comments-0-replies-MAX_NUM_FORMS': '',
+            'comments-0-replies-0-id': str(reply.id),
+            'comments-0-replies-0-text': 'an old reply',
+            'comments-0-replies-0-DELETE': 'on',
+        }
+
+        with enable_comment_panel(SimplePage):
+            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the comment reply was deleted
+        self.assertFalse(comment.replies.exists())
+
+        # Check no notification was sent
+        self.assertEqual(len(mail.outbox), 0)
+
+        # Check audit log
+        log_entry = PageLogEntry.objects.get(action='wagtail.comments.delete_reply')
+        self.assertEqual(log_entry.page, self.child_page.page_ptr)
+        self.assertEqual(log_entry.user, self.user)
+        self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
+        self.assertEqual(log_entry.data['comment']['id'], comment.id)
+        self.assertEqual(log_entry.data['comment']['contentpath'], comment.contentpath)
+        self.assertEqual(log_entry.data['comment']['text'], comment.text)
+        self.assertEqual(log_entry.data['reply']['id'], reply.id)
+        self.assertEqual(log_entry.data['reply']['text'], reply.text)
 
     def test_updated_comments_notifications_profile_setting(self):
         # Users can disable commenting notifications globally from account settings
