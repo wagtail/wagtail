@@ -1068,6 +1068,21 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.assertTrue(self.tabbed_interface.show_comments_toggle)
         self.assertFalse(TabbedInterface([ObjectList(self.event_page.content_panels)]).show_comments_toggle)
 
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
+    def test_comments_disabled_setting(self):
+        """
+        Test that the comment panel is missing if WAGTAILADMIN_COMMENTS_ENABLED=False
+        """
+        self.assertFalse(any(isinstance(panel, CommentPanel) for panel in Page.settings_panels))
+        self.assertFalse(Page.get_edit_handler().show_comments_toggle)
+
+    def test_comments_enabled_setting(self):
+        """
+        Test that the comment panel is present by default
+        """
+        self.assertTrue(any(isinstance(panel, CommentPanel) for panel in Page.settings_panels))
+        self.assertTrue(Page.get_edit_handler().show_comments_toggle)
+
     def test_context(self):
         """
         Test that the context contains the data about existing comments necessary to initialize the commenting app
