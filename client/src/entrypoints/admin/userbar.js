@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
   const trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
   const list = userbar.querySelector('.wagtail-userbar-items');
   const listItems = list.querySelectorAll('li');
-  const className = 'is-active';
+  const isActiveClass = 'is-active';
   const hasTouch = 'ontouchstart' in window;
   const clickEvent = 'click';
 
@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   window.addEventListener('pageshow', hideUserbar, false);
 
+  // Listen for keyboard events
+  window.addEventListener('keydown', handleKeyDown);
+
   function isFocusOnItems() {
     let isFocused = false;
     list.querySelectorAll('a').forEach((element) => {
@@ -46,7 +49,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     if (listItems.length > 0) {
       setTimeout(() => {
         listItems[0].firstElementChild.focus();
-      }, 100);
+      }, 100); // Workaround for focus bug
     }
   }
 
@@ -54,67 +57,93 @@ document.addEventListener('DOMContentLoaded', (e) => {
     if (listItems.length > 0) {
       setTimeout(() => {
         listItems[listItems.length - 1].firstElementChild.focus();
-      }, 100);
+      }, 100);  // Workaround for focus bug
     }
   }
 
   function setFocusToNextItem() {
     listItems.forEach((element, idx) => {
+      // Check which item is currently focused
       if (element.firstElementChild === document.activeElement) {
         setTimeout(() => {
           if (idx + 1 < listItems.length) {
+            // Focus the next item
             listItems[idx + 1].firstElementChild.focus();
           }
-        }, 100);
+        }, 100); // Workaround for focus bug
       }
     });
   }
 
   function setFocusToPreviousItem() {
+    // Check which item is currently focused
     listItems.forEach((element, idx) => {
       if (element.firstElementChild === document.activeElement) {
         setTimeout(() => {
           if (idx > 0) {
+            // Focus the previous item
             listItems[idx - 1].firstElementChild.focus();
           }
-        }, 100);
+        }, 100);  // Workaround for focus bug
       }
     });
   }
 
   function handleKeyDown(event) {
-    if (event.key === 'Escape') {
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      hideUserbar();
-      return;
-    }
+    // Only handle keyboard input if the userbar is open
+    if(userbar.classList.contains(isActiveClass)) {
+      if (event.key === 'Escape') {
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        hideUserbar();
+        return;
+      }
 
-    if (isFocusOnItems()) {
-      switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault();
-        setFocusToNextItem();
-        break;
-      case 'ArrowUp':
-        event.preventDefault();
-        setFocusToPreviousItem();
-        break;
-      case 'Home':
-        event.preventDefault();
-        setFocusToFirstItem();
-        break;
-      case 'End':
-        event.preventDefault();
-        setFocusToLastItem();
-        break;
-      default:
-        break;
+      if (isFocusOnItems()) {
+        switch (event.key) {
+        case 'ArrowDown':
+          event.preventDefault();
+          setFocusToNextItem();
+          break;
+        case 'ArrowUp':
+          event.preventDefault();
+          setFocusToPreviousItem();
+          break;
+        case 'Home':
+          event.preventDefault();
+          setFocusToFirstItem();
+          break;
+        case 'End':
+          event.preventDefault();
+          setFocusToLastItem();
+          break;
+        default:
+          break;
+        }
+      }
+    }
+    // Check if the userbar is focused (but not open yet) and should be opened by keyboard input
+    else {
+      if(trigger === document.activeElement) {
+        switch (event.key) {
+          case "ArrowUp":
+            event.preventDefault();
+            showUserbar(false);
+            setTimeout(() => setFocusToFirstItem(), 300); // Workaround for focus bug
+            break;
+          case "ArrowDown":
+            event.preventDefault();
+            showUserbar(false);
+            setTimeout(() => setFocusToLastItem(), 300); // Workaround for focus bug
+            break;
+          default:
+            break;
+        }
       }
     }
   }
 
-  function showUserbar() {
-    userbar.classList.add(className);
+  function showUserbar(shouldFocus) {
+    userbar.classList.add(isActiveClass);
     trigger.setAttribute('aria-expanded', 'true');
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     list.addEventListener(clickEvent, sandboxClick, false);
@@ -124,29 +153,28 @@ document.addEventListener('DOMContentLoaded', (e) => {
     // The userbar has role=menu which means that the first link should be focused on popup
     // For weird reasons shifting focus only works after some amount of delay
     // Which is why we are forced to use setTimeout
-    setTimeout(() => {
-      list.querySelector('a').focus();
-    }, 300); // Less than 300ms doesn't seem to work
-
-    list.addEventListener('keydown', handleKeyDown);
+    if(shouldFocus) {
+      setTimeout(() => {
+        list.querySelector('a').focus();
+      }, 300); // Less than 300ms doesn't seem to work
+    }
   }
 
   function hideUserbar() {
-    userbar.classList.remove(className);
+    userbar.classList.remove(isActiveClass);
     trigger.setAttribute('aria-expanded', 'false');
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     list.addEventListener(clickEvent, sandboxClick, false);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.removeEventListener(clickEvent, clickOutside, false);
-    list.removeEventListener('keydown', handleKeyDown, false);
   }
 
   function toggleUserbar(e2) {
     e2.stopPropagation();
-    if (userbar.classList.contains(className)) {
+    if (userbar.classList.contains(isActiveClass)) {
       hideUserbar();
     } else {
-      showUserbar();
+      showUserbar(true);
     }
   }
 
