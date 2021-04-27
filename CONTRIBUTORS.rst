@@ -1,34 +1,34 @@
 Core team
 =========
 
-* Matthew Westcott (Torchbox)
-* Karl Hobley (Torchbox)
-* Tom Dyson (Torchbox)
-* Thibaud Colas (Torchbox)
-* Janneke Janssen (Lukkien)
-* Mike Dingjan (Lab Digital)
-* Bertrand Bordage (NoriPyt)
-* Loïc Teixeira (Springload)
-* Andy Chosak (consumerfinance.gov)
-* Will Barton (consumerfinance.gov)
-* LB Johnston
-* Coen van der Kamp (Four Digits)
-* Codie Roelf (Praekelt)
-* Lisa Adams (Praekelt)
-* Naomi Morduch Toubman
-* Kalob Taulien
-* Jonny Scholes (Neon Jungle)
 * Andy Babic (Torchbox)
+* Andy Chosak (consumerfinance.gov)
+* Bertrand Bordage (NoriPyt)
+* Codie Roelf (Praekelt)
+* Coen van der Kamp (Four Digits)
 * Dan Braghis (Torchbox)
 * Dawn Wages
 * Jacob Topp-Mugglestone (Torchbox)
+* Janneke Janssen (Lukkien)
+* Jonny Scholes (Neon Jungle)
+* Kalob Taulien
+* Karl Hobley (Torchbox)
+* LB Johnston
+* Lisa Adams (Praekelt)
+* Loïc Teixeira (Springload)
+* Matthew Westcott (Torchbox)
+* Mike Dingjan (Lab Digital)
+* Naomi Morduch Toubman
+* Thibaud Colas (Torchbox)
+* Tom Dyson (Torchbox)
+* Will Barton (consumerfinance.gov)
 
 Core team alumni
 ================
 
 * Josh Barr
-* Tim Heap
 * Mikalai Radchuk
+* Tim Heap
 
 Contributors
 ============
