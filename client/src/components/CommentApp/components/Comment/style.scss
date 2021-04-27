@@ -1,13 +1,26 @@
 .comment {
     @include box;
 
-    width: calc(100vw - 40px);
-    max-width: calc(100vw - 19%);
     display: block;
     transition: top 0.5s ease 0s, right 0.5s ease 0s, height 0.5s ease 0s;
     pointer-events: auto;
     box-sizing: border-box;
     right: -2000px;
+    min-height: 130px;
+    max-height: 300px;
+    width: calc(100vw - 70px);
+    max-width: initial;
+    overflow: auto;
+
+    // Scroll shadows
+    background: linear-gradient($color-white 30%, rgba(255, 255, 255, 0)),
+        linear-gradient(rgba(255, 255, 255, 0), $color-white 70%) 0 100%,
+        radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)),
+        radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)) 0 100%;
+    background-repeat: no-repeat;
+    background-color: $color-white;
+    background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+    background-attachment: local, local, scroll, scroll;
 
     @include media-breakpoint-up(sm) {
         width: calc(100vw - 40px);

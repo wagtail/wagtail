@@ -27,8 +27,10 @@
 
     &--active,
     &:hover {
-        #{$root}__label {
-            opacity: 1;
+        @include media-breakpoint-up(md) {
+            #{$root}__label {
+                opacity: 1;
+            }
         }
 
         #{$root}__icon {
