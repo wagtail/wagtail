@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
   const userbar = document.querySelector('[data-wagtail-userbar]');
   const trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
   const list = userbar.querySelector('.wagtail-userbar-items');
+  const listItems = list.querySelectorAll('li');
   const className = 'is-active';
   const hasTouch = 'ontouchstart' in window;
   const clickEvent = 'click';
@@ -31,6 +32,87 @@ document.addEventListener('DOMContentLoaded', (e) => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   window.addEventListener('pageshow', hideUserbar, false);
 
+  function isFocusOnItems() {
+    let isFocused = false;
+    list.querySelectorAll('a').forEach((element) => {
+      if (element === document.activeElement) {
+        isFocused = true;
+      }
+    });
+    return isFocused;
+  }
+
+  function setFocusToFirstItem() {
+    if (listItems.length > 0) {
+      setTimeout(() => {
+        listItems[0].firstElementChild.focus();
+      }, 100);
+    }
+  }
+
+  function setFocusToLastItem() {
+    if (listItems.length > 0) {
+      setTimeout(() => {
+        listItems[listItems.length - 1].firstElementChild.focus();
+      }, 100);
+    }
+  }
+
+  function setFocusToNextItem() {
+    listItems.forEach((element, idx) => {
+      if (element.firstElementChild === document.activeElement) {
+        setTimeout(() => {
+          if (idx + 1 < listItems.length) {
+            listItems[idx + 1].firstElementChild.focus();
+          }
+        }, 100);
+      }
+    });
+  }
+
+  function setFocusToPreviousItem() {
+    listItems.forEach((element, idx) => {
+      if (element.firstElementChild === document.activeElement) {
+        setTimeout(() => {
+          if (idx > 0) {
+            listItems[idx - 1].firstElementChild.focus();
+          }
+        }, 100);
+      }
+    });
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === 'Escape') {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      hideUserbar();
+      return;
+    }
+
+    if (isFocusOnItems()) {
+      switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        setFocusToNextItem();
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        setFocusToPreviousItem();
+        break;
+      case 'Home':
+        event.preventDefault();
+        setFocusToFirstItem();
+        break;
+      case 'End':
+        event.preventDefault();
+        setFocusToLastItem();
+        break;
+      default:
+        break;
+      }
+    }
+  }
+
   function showUserbar() {
     userbar.classList.add(className);
     trigger.setAttribute('aria-expanded', 'true');
@@ -45,6 +127,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
     setTimeout(() => {
       list.querySelector('a').focus();
     }, 300); // Less than 300ms doesn't seem to work
+
+    list.addEventListener('keydown', handleKeyDown);
   }
 
   function hideUserbar() {
@@ -54,6 +138,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     list.addEventListener(clickEvent, sandboxClick, false);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.removeEventListener(clickEvent, clickOutside, false);
+    list.removeEventListener('keydown', handleKeyDown, false);
   }
 
   function toggleUserbar(e2) {
