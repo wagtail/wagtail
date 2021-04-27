@@ -59,26 +59,31 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         messages.success(self.request, message)
 
-    def send_commenting_notifications(self):
+    def get_commenting_changes(self):
         """
-        Sends notifications about any changes to comments to anyone who is subscribed.
-        """
-        # Skip if this page does not have CommentPanel enabled
-        if 'comments' not in self.form.formsets:
-            return
+        Finds comments that have been changed during this request.
 
+        Returns a tuple of 5 lists:
+         - New comments
+         - Deleted comments
+         - Resolved comments
+         - Edited comments
+         - Replied comments (dict containing the instance and list of replies)
+        """
         # Get changes
         comments_formset = self.form.formsets['comments']
         new_comments = comments_formset.new_objects
         deleted_comments = comments_formset.deleted_objects
-        relevant_comment_ids = []
 
         # Assume any changed comments that are resolved were only just resolved
         resolved_comments = []
+        edited_comments = []
         for changed_comment, changed_fields in comments_formset.changed_objects:
             if changed_comment.resolved_at and 'resolved' in changed_fields:
                 resolved_comments.append(changed_comment)
-                relevant_comment_ids.append(changed_comment.pk)
+
+            if 'text' in changed_fields:
+                edited_comments.append(changed_comment)
 
         replied_comments = []
         for comment_form in comments_formset.forms:
@@ -88,9 +93,25 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     'comment': comment_form.instance,
                     'replies': replies
                 })
-                relevant_comment_ids.append(comment_form.instance.pk)
+
+        return new_comments, deleted_comments, resolved_comments, edited_comments, replied_comments
+
+    def send_commenting_notifications(self):
+        """
+        Sends notifications about any changes to comments to anyone who is subscribed.
+        """
+        # Skip if this page does not have CommentPanel enabled
+        if 'comments' not in self.form.formsets:
+            return
+
+        new_comments, deleted_comments, resolved_comments, edited_comments, replied_comments = self.get_commenting_changes()
+
+        relevant_comment_ids = []
+        relevant_comment_ids.extend(comment.pk for comment in resolved_comments)
+        relevant_comment_ids.extend(comment['comment'].pk for comment in replied_comments)
 
         # Skip if no changes were made
+        # Note: We don't email about edited comments so ignore those here
         if not new_comments and not deleted_comments and not resolved_comments and not replied_comments:
             return
 
