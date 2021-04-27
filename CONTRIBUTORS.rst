@@ -6,6 +6,7 @@ Core team
 * Bertrand Bordage (NoriPyt)
 * Codie Roelf (Praekelt)
 * Coen van der Kamp (Four Digits)
+* Cynthia Kiser (Caltech)
 * Dan Braghis (Torchbox)
 * Dawn Wages
 * Jacob Topp-Mugglestone (Torchbox)
@@ -16,10 +17,12 @@ Core team
 * LB Johnston
 * Lisa Adams (Praekelt)
 * Loïc Teixeira (Springload)
+* Martin Sandström (Fröjd)
 * Matthew Westcott (Torchbox)
 * Mike Dingjan (Lab Digital)
 * Naomi Morduch Toubman
 * Scott Cranfill (consumerfinance.gov)
+* Storm Heg
 * Thibaud Colas (Torchbox)
 * Tom Dyson (Torchbox)
 
