@@ -200,6 +200,16 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 
 Changes whether the Submit for Moderation button is displayed in the action menu.
 
+Comments
+========
+
+.. code-block:: python
+
+  # Disable commenting
+  WAGTAILADMIN_COMMENTS_ENABLED = False
+
+Sets whether commenting is enabled for pages.
+
 Images
 ======
 

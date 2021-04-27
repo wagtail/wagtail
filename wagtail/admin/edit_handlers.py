@@ -2,9 +2,12 @@ import functools
 import re
 
 from django import forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.core.signals import setting_changed
 from django.db.models.fields import CharField, TextField
+from django.dispatch import receiver
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
@@ -890,30 +893,34 @@ class CommentPanel(EditHandler):
 
 
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
+def set_default_page_edit_handlers(cls):
+    cls.content_panels = [
+        FieldPanel('title', classname="full title"),
+    ]
+
+    cls.promote_panels = [
+        MultiFieldPanel([
+            FieldPanel('slug'),
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+        ], gettext_lazy('For search engines')),
+        MultiFieldPanel([
+            FieldPanel('show_in_menus'),
+        ], gettext_lazy('For site menus')),
+    ]
+
+    cls.settings_panels = [
+        PublishingPanel(),
+        PrivacyModalPanel(),
+    ]
+
+    if getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True):
+        cls.settings_panels.append(CommentPanel())
+
+    cls.base_form_class = WagtailAdminPageForm
 
 
-Page.content_panels = [
-    FieldPanel('title', classname="full title"),
-]
-
-Page.promote_panels = [
-    MultiFieldPanel([
-        FieldPanel('slug'),
-        FieldPanel('seo_title'),
-        FieldPanel('search_description'),
-    ], gettext_lazy('For search engines')),
-    MultiFieldPanel([
-        FieldPanel('show_in_menus'),
-    ], gettext_lazy('For site menus')),
-]
-
-Page.settings_panels = [
-    PublishingPanel(),
-    PrivacyModalPanel(),
-    CommentPanel(),
-]
-
-Page.base_form_class = WagtailAdminPageForm
+set_default_page_edit_handlers(Page)
 
 
 @cached_classmethod
@@ -945,6 +952,16 @@ def get_edit_handler(cls):
 
 
 Page.get_edit_handler = get_edit_handler
+
+
+@receiver(setting_changed)
+def reset_page_edit_handler_cache(**kwargs):
+    """
+    Clear page edit handler cache when global WAGTAILADMIN_COMMENTS_ENABLED settings are changed
+    """
+    if kwargs["setting"] == 'WAGTAILADMIN_COMMENTS_ENABLED':
+        set_default_page_edit_handlers(Page)
+        Page.get_edit_handler.cache_clear()
 
 
 class StreamFieldPanel(FieldPanel):
