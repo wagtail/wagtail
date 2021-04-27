@@ -417,7 +417,7 @@ function getCommentDecorator(commentApp: CommentApp) {
   return CommentDecorator;
 }
 
-function forceResetEditorState(editorState: EditorState, replacementContent: ContentState) {
+function forceResetEditorState(editorState: EditorState, replacementContent?: ContentState) {
   const content = replacementContent || editorState.getCurrentContent();
   const state = EditorState.set(
     EditorState.createWithContent(content, editorState.getDecorator()),
@@ -425,6 +425,7 @@ function forceResetEditorState(editorState: EditorState, replacementContent: Con
       selection: editorState.getSelection(),
       undoStack: editorState.getUndoStack(),
       redoStack: editorState.getRedoStack(),
+      inlineStyleOverride: editorState.getInlineStyleOverride()
     }
   );
   return EditorState.acceptSelection(state, state.getSelection());
@@ -459,6 +460,36 @@ export function addCommentsToEditor(
     }
   });
   return newContentState;
+}
+
+type Direction = 'RTL' | 'LTR'
+
+function handleArrowAtContentEnd(
+  state: EditorState,
+  setEditorState: (newState: EditorState) => void,
+  direction: Direction
+) {
+  // If at the end of content and pressing in the same direction as the text, remove the comment style from
+  // further typing
+  const newState = state;
+  const selection = newState.getSelection();
+  const lastBlock = newState.getCurrentContent().getLastBlock();
+  const textDirection = newState.getDirectionMap().get(lastBlock.getKey());
+
+  if (!(
+    textDirection === direction
+    && selection.isCollapsed()
+    && selection.getAnchorKey() === lastBlock.getKey()
+    && selection.getAnchorOffset() === lastBlock.getLength()
+  )) {
+    return;
+  }
+  setEditorState(
+    EditorState.setInlineStyleOverride(
+      newState,
+      newState.getCurrentInlineStyle().filter(style => !styleIsComment(style)) as DraftInlineStyle
+    )
+  );
 }
 
 interface InlineStyle {
@@ -630,6 +661,18 @@ function CommentableEditor({
             state.getCurrentContent()
           );
           newEditorState = forceResetEditorState(state, filteredContent);
+        } else if (state.getLastChangeType() === 'split-block') {
+          const content = newEditorState.getCurrentContent();
+          const selection = newEditorState.getSelection();
+          const style = content.getBlockForKey(selection.getAnchorKey()).getInlineStyleAt(selection.getAnchorOffset());
+          // If starting a new paragraph (and not splitting an existing comment)
+          // ensure any new text entered doesn't get a comment style
+          if (!style.some(styleName => styleIsComment(styleName))) {
+            newEditorState = EditorState.setInlineStyleOverride(
+              newEditorState,
+              newEditorState.getCurrentInlineStyle().filter(styleName => !styleIsComment(styleName)) as DraftInlineStyle
+            );
+          }
         }
         setEditorState(newEditorState);
       }}
@@ -648,6 +691,18 @@ function CommentableEditor({
             return 'comment';
           }
           return undefined;
+        },
+        onRightArrow: (_: React.KeyboardEvent, { getEditorState }) => {
+          // In later versions of draft-js, this is deprecated and can be handled via handleKeyCommand instead
+          // when draftail upgrades, this logic can be moved there
+
+          handleArrowAtContentEnd(getEditorState(), setEditorState, 'LTR');
+        },
+        onLeftArrow: (_: React.KeyboardEvent, { getEditorState }) => {
+          // In later versions of draft-js, this is deprecated and can be handled via handleKeyCommand instead
+          // when draftail upgrades, this logic can be moved there
+
+          handleArrowAtContentEnd(getEditorState(), setEditorState, 'RTL');
         },
         handleKeyCommand: (command: string, state: EditorState) => {
           if (enabled && command === 'comment') {
