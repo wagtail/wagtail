@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-22 14:36+0000\n"
-"Last-Translator: Sergey Mazanov <mvver@outlook.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
+
+msgid "Add"
+msgstr "Добавить"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -145,16 +148,6 @@ msgstr "Путь URL"
 msgid "owner"
 msgstr "владелец"
 
-msgid "page title"
-msgstr "заголовок страницы"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Не обязательно. 'Дружелюбный для Поисковых Сервисов' заголовок. Он появится "
-"вверху окна браузера."
-
 msgid "show in menus"
 msgstr "показывать в меню"
 
@@ -163,9 +156,6 @@ msgid ""
 msgstr ""
 "Должна ли ссылка на эту страницу отображаться в автоматически генерируемых "
 "меню"
-
-msgid "search description"
-msgstr "описание для поиска/SEO"
 
 msgid "go live date/time"
 msgstr "дата/время публикации"
@@ -247,9 +237,6 @@ msgstr "версия страницы"
 
 msgid "page revisions"
 msgstr "версии страницы"
-
-msgid "Add"
-msgstr "Добавить"
 
 msgid "Add/edit pages you own"
 msgstr "Добавить/редактировать свои страницы"

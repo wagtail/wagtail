@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail inti"
+
+msgid "Add"
+msgstr "Tambah"
 
 msgid "This block has no options."
 msgstr "Tidak ada pilihan untuk blok ini."
@@ -127,16 +130,6 @@ msgstr "jalur URL"
 msgid "owner"
 msgstr "pemilik"
 
-msgid "page title"
-msgstr "judul halaman"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Pilihan. Judul yang 'Ramah Mesin Pencari'. Judul ini akan tampil di atas "
-"jendela peramban. "
-
 msgid "show in menus"
 msgstr "tampilkan dalam menu"
 
@@ -145,9 +138,6 @@ msgid ""
 msgstr ""
 "Apakah tautan ke halaman ini akan tampil dalam menu yang dibuat secara "
 "otomatis"
-
-msgid "search description"
-msgstr "deskripsi pencarian"
 
 msgid "go live date/time"
 msgstr "tanggal/jam aktif"
@@ -223,9 +213,6 @@ msgstr "revisi halaman"
 
 msgid "page revisions"
 msgstr "daftar revisi halaman"
-
-msgid "Add"
-msgstr "Tambah"
 
 msgid "Add/edit pages you own"
 msgstr "Tambah/ubah halaman anda sendiri"

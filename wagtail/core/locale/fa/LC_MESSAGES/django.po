@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Add"
+msgstr "افزودن"
 
 msgid "This block has no options."
 msgstr "این قطعه هیچ گزینه ای ندارد."
@@ -108,16 +111,6 @@ msgstr "مسیر نشانی"
 msgid "owner"
 msgstr "مالک"
 
-msgid "page title"
-msgstr "عنوان صفحه"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"اختیاری. عنوانی دوستانه برای موتورهای جستجو. در بالای پنجره مرورگر نشان داده "
-"می‌شود."
-
 msgid "show in menus"
 msgstr "نمایش در منوها"
 
@@ -126,9 +119,6 @@ msgid ""
 msgstr ""
 "این که آیا یک لینک به این صفحه در منوهای ساخته شده بصورت خودکار نمایش داده "
 "می‌شود یا نه"
-
-msgid "search description"
-msgstr "شرح جستجو"
 
 msgid "go live date/time"
 msgstr "تاریخ/ساعت تبدیل به زنده"
@@ -192,9 +182,6 @@ msgstr "بازبینی صفحه"
 
 msgid "page revisions"
 msgstr "بازبینی‌های صفحه"
-
-msgid "Add"
-msgstr "افزودن"
 
 msgid "Add/edit pages you own"
 msgstr "افزودن/ویرایش صفحه های خودتان"

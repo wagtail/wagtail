@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-02-01 17:44+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-24 09:34+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -31,6 +31,24 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Noyau de Wagtail"
+
+msgid "Add Comment"
+msgstr "Ajouter un commentaire"
+
+msgid "Move up"
+msgstr "Monter"
+
+msgid "Move down"
+msgstr "Descendre"
+
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Add"
+msgstr "Ajouter"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -60,6 +78,10 @@ msgstr ""
 
 msgid "Comment"
 msgstr "Commentaire"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "%(action)s inconnu(e)"
 
 msgid "hostname"
 msgstr "nom d'hôte"
@@ -144,15 +166,15 @@ msgstr "URL"
 msgid "owner"
 msgstr "propriétaire"
 
-msgid "page title"
-msgstr "titre de la page"
+msgid "title tag"
+msgstr "balise titre"
 
 msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
+"The name of the page displayed on search engine results as the clickable "
+"headline."
 msgstr ""
-"Facultatif. Titre SEO. Ce titre apparaîtra en haut de la fenêtre de votre "
-"navigateur."
+"Le nom de la page qui sera affiché sur les moteurs de recherche en tant "
+"qu'entête cliquable."
 
 msgid "show in menus"
 msgstr "faire apparaître dans les menus"
@@ -163,8 +185,15 @@ msgstr ""
 "Si un lien vers cette page devra apparaître dans les menus générés "
 "automatiquement"
 
-msgid "search description"
-msgstr "description de la recherche"
+msgid "meta description"
+msgstr "méta-description"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Le texte descriptif affiché sous l'entête dans les résultats des moteurs de "
+"recherche."
 
 msgid "go live date/time"
 msgstr "date/heure de publication"
@@ -246,9 +275,6 @@ msgstr "version de page"
 
 msgid "page revisions"
 msgstr "versions de page"
-
-msgid "Add"
-msgstr "Ajouter"
 
 msgid "Add/edit pages you own"
 msgstr "Ajouter/modifier vos pages"
@@ -494,6 +520,9 @@ msgstr "entrée de journal"
 msgid "log entries"
 msgstr "entrées de journal"
 
+msgid "The log action '{}' has not been registered."
+msgstr "L'action de journal « {} » n'a pas été déclarée."
+
 #, python-format
 msgid "user %(id)d (deleted)"
 msgstr "utilisateur %(id)d (supprimé)"
@@ -506,6 +535,18 @@ msgstr "entrée de journal de page"
 
 msgid "page log entries"
 msgstr "entrées de journal de page"
+
+msgid "comment"
+msgstr "commentaire"
+
+msgid "comments"
+msgstr "commentaires"
+
+msgid "comment reply"
+msgstr "Réponse de commentaire"
+
+msgid "comment replies"
+msgstr "Réponses de commentaire"
 
 msgid "Log in"
 msgstr "Connexion"
@@ -545,3 +586,243 @@ msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s sous-collection"
 msgstr[1] "%(count)s sous-collections"
+
+msgid "Create"
+msgstr "Créer"
+
+msgid "Created"
+msgstr "Créé(e)"
+
+msgid "Save draft"
+msgstr "Enregistrer le brouillon"
+
+msgid "Draft saved"
+msgstr "Brouillon sauvegardé"
+
+msgid "Deleted"
+msgstr "Supprimée"
+
+msgid "Published"
+msgstr "Publiée"
+
+msgid "Publish scheduled draft"
+msgstr "Publier le brouillon programmé"
+
+msgid "Published scheduled draft"
+msgstr "Le brouillon programmé a été publié"
+
+msgid "Unpublish"
+msgstr "Dépublier"
+
+msgid "Unpublished"
+msgstr "Dépubliée"
+
+msgid "Unpublish scheduled draft"
+msgstr "Dépublier le brouillon programmé"
+
+msgid "Unpublished scheduled draft"
+msgstr "Le brouillon programmé à été dépublié"
+
+msgid "Locked"
+msgstr "Verrouillé(e)"
+
+msgid "Unlocked"
+msgstr "Déverrouillé(e)"
+
+msgid "Reject"
+msgstr "Rejeter"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Revenu à la version précédente avec l'ID %(revision_id)s depuis la version "
+"avec l'ID %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Revenu à la version précédente"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Copiée depuis %(title)s"
+
+msgid "Copied"
+msgstr "Copiée"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Alias de %(title)s créé "
+
+msgid "Created an alias"
+msgstr "Alias créé"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "L'alias « %(title)s » a été converti en une page normale"
+
+msgid "Converted an alias into a regular page"
+msgstr "Un alias a été converti en une page normale"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Déplacé de '%(old_parent)s' à '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Déplacé(e)"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Réordonné(e)(s) sous « %(parent)s »"
+
+msgid "Reordered"
+msgstr "Réordonné(e)(s)"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Version %(revision_id)s du %(created_at)s programmée pour publication à "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Page planifiée pour la publication à %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Page planifiée pour la publication"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Version %(revision_id)s du %(created_at)s déprogrammée pour publication à "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Page planifiée pour la publication à %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "La publication de la page a été déplanifiée"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "La règle de confidentialité « %(restriction)s » a été ajoutée"
+
+msgid "Added view restriction"
+msgstr "Règle de confidentialité ajoutée"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Mettre à jour la règle de confidentialité à « %(restriction)s »"
+
+msgid "Updated view restriction"
+msgstr "La règle de confidentialité a été mise à jour"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "La règle de confidentialité « %(restriction)s » a été supprimée"
+
+msgid "Removed view restriction"
+msgstr "Règle de confidentialité supprimée"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Renommé de « %(old)s » à « %(new)s »"
+
+msgid "Renamed"
+msgstr "Renommé(e)"
+
+msgid "Rename"
+msgstr "Renommer"
+
+msgid "Revert"
+msgstr "Revenir en arrière"
+
+msgid "Copy"
+msgstr "Copier"
+
+msgid "Create alias"
+msgstr "Créer un alias"
+
+msgid "Convert alias into regular page"
+msgstr "Convertir un alias en page normale"
+
+msgid "Move"
+msgstr "Déplacer"
+
+msgid "Reorder"
+msgstr "Réordonner"
+
+msgid "Schedule publication"
+msgstr "Programmer la publication"
+
+msgid "Unschedule publication"
+msgstr "Déprogrammer la publication"
+
+msgid "Add view restrictions"
+msgstr "Ajouter des règles de confidentialité"
+
+msgid "Update view restrictions"
+msgstr "Mettre à jour les règles de confidentialité"
+
+msgid "Remove view restrictions"
+msgstr "Supprimer les règles de confidentialité"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr ""
+"Le workflow « %(workflow)s » a été commencé. La prochaine étape est "
+"« %(task)s »"
+
+msgid "Workflow started"
+msgstr "Workflow commencé"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Approuvé à « %(task)s ». La prochaine étape est « %(next_task)s »"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Approuvé à « %(task)s ». Workflow « %(workflow)s » terminé"
+
+msgid "Workflow task approved"
+msgstr "Tâche de workflow approuvée"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Rejeté à « %(task)s ». Modifications demandées"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "La tâche de workflow a été rejetée. Le workflow est terminé"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "La tâche « %(task)s » a été resoumisse. Le workflow a repris"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "La tâche du workflow a été resoumisse. Le workflow a repris"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Le workflow « %(workflow)s » a été annulé à « %(task)s »"
+
+msgid "Workflow cancelled"
+msgstr "Workflow annulé"
+
+msgid "Workflow: start"
+msgstr "Workflow : commencer"
+
+msgid "Workflow: approve task"
+msgstr "Workflow : approuver la tâche"
+
+msgid "Workflow: reject task"
+msgstr "Workflow : rejeter la tâche"
+
+msgid "Workflow: resume task"
+msgstr "Workflow : reprendre la tâche"
+
+msgid "Workflow: cancel"
+msgstr "Workflow : annuler"

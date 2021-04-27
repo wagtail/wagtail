@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -62,9 +62,6 @@ msgstr "Horariu Publikasaun"
 msgid "Privacy"
 msgstr "Privasidade"
 
-msgid "Common page configuration"
-msgstr "Konfigurasaun pagina hotu-hotu"
-
 msgid "Content"
 msgstr "Konteudu"
 
@@ -90,8 +87,14 @@ msgstr "Hatama ita nia 1%s"
 msgid "Enter your email address to reset your password"
 msgstr "Hatama ita boot nia enderessu email hodi defini fali ita boot nia seña"
 
+msgid "Parent"
+msgstr "Inan-aman"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Ita labele hatama permisaun rua ba koleksaun ida"
+
+msgid "Collection"
+msgstr "Kolleksaun"
 
 msgid "New title"
 msgstr "Titlu foun"
@@ -169,102 +172,6 @@ msgstr "Ita boot prezia hatama informasaun nee "
 msgid "Please select at least one group."
 msgstr "Favor ida hili grupu ida ka tan"
 
-msgid "Arabic"
-msgstr "Arabic"
-
-msgid "Catalan"
-msgstr "Catalan"
-
-msgid "Czech"
-msgstr "Czech"
-
-msgid "German"
-msgstr "German"
-
-msgid "Greek"
-msgstr "Greek"
-
-msgid "English"
-msgstr "English"
-
-msgid "Spanish"
-msgstr " Espanhól"
-
-msgid "Finnish"
-msgstr "Finnish"
-
-msgid "French"
-msgstr "Fransa"
-
-msgid "Galician"
-msgstr "Galician"
-
-msgid "Hungarian"
-msgstr "Hungarian"
-
-msgid "Indonesian"
-msgstr "Bahasa"
-
-msgid "Icelandic"
-msgstr "Icelandic"
-
-msgid "Italian"
-msgstr "Italian"
-
-msgid "Japanese"
-msgstr "Japanese"
-
-msgid "Korean"
-msgstr "Korean"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Mongolian"
-msgstr "Mongolian"
-
-msgid "Norwegian Bokmål"
-msgstr "Norwegian Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Netherlands Dutch"
-
-msgid "Persian"
-msgstr "Persian"
-
-msgid "Polish"
-msgstr "Polish"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilian Portuguese"
-
-msgid "Portuguese"
-msgstr "Portuguese"
-
-msgid "Romanian"
-msgstr "Romanian"
-
-msgid "Russian"
-msgstr "Russian"
-
-msgid "Swedish"
-msgstr "Sweden"
-
-msgid "Slovak"
-msgstr "Slovak"
-
-msgid "Thai"
-msgstr "Thai"
-
-msgid "Ukrainian"
-msgstr "Ukrainian"
-
-msgid "Chinese (Simplified)"
-msgstr "Chinese (Simplified)"
-
-msgid "Chinese (Traditional)"
-msgstr "Chinese (Traditional)"
-
 msgid "Edit"
 msgstr "Hadia"
 
@@ -341,6 +248,9 @@ msgstr "Haree pajina oan sira husi '{title}'"
 msgid "Page explorer"
 msgstr "Explora pajina"
 
+msgid "Save"
+msgstr "Rai"
+
 msgid "Error 404: Page not found"
 msgstr "Erru 404: Pajina la hetan"
 
@@ -356,21 +266,6 @@ msgstr "Ba administrasaun Wagtail"
 msgid "Account"
 msgstr "Konta"
 
-msgid "Change profile picture"
-msgstr "Troka imajen perfil"
-
-msgid "Your current profile picture:"
-msgstr "Ita boot nia imagen perfil:"
-
-msgid "Update"
-msgstr "Troka"
-
-msgid "Change email"
-msgstr "Troka email"
-
-msgid "Change name"
-msgstr "Troka naran"
-
 msgid "Change password"
 msgstr "Troka seña"
 
@@ -378,15 +273,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ita boot labele troka seña iha nee. Favor koalia malu situ administrador."
-
-msgid "Set Time Zone"
-msgstr "Troka Zona Tempu"
-
-msgid "Language Preferences"
-msgstr "Preferensia Lian"
-
-msgid "Notification preferences"
-msgstr "Preferensia Notifikasaun"
 
 msgid "Reset password"
 msgstr "Inisiu troka seña"
@@ -439,12 +325,6 @@ msgstr "Painel kontrolu"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Move up"
-msgstr "Muda ba leten"
-
-msgid "Move down"
-msgstr "Muda ba kraik"
 
 msgid "Explorer"
 msgstr "Explora"
@@ -532,9 +412,6 @@ msgstr ""
 "Konfigurasaun privado determina se mak bele haree dokumentu sira iha "
 "koleksaun nee."
 
-msgid "Save"
-msgstr "Rai"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Troka koleksaun privadu. Status agora: Publiku"
 
@@ -566,8 +443,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr " Hatama %(label)s"
 
+msgid "Move up"
+msgstr "Muda ba leten"
+
+msgid "Move down"
+msgstr "Muda ba kraik"
+
 msgid "Yes, delete"
 msgstr "Sin, hamoos"
+
+msgid "Update"
+msgstr "Troka"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -590,9 +476,6 @@ msgstr "Ativu"
 
 msgid "Pages awaiting moderation"
 msgstr "Pajina sira hein ba moderasaun"
-
-msgid "Parent"
-msgstr "Inan-aman"
 
 msgid "Type"
 msgstr "Tipu"
@@ -1128,9 +1011,6 @@ msgstr "Hatama termu buka iha leten"
 msgid "No pages use"
 msgstr "Laiha pajina nebee uza"
 
-msgid "Collection"
-msgstr "Kolleksaun"
-
 msgid "Locked"
 msgstr "Xavi tiha ona"
 
@@ -1180,21 +1060,6 @@ msgstr "Husi  %(modified_by)s"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Your password has been changed successfully!"
-msgstr "ita boot nia seña troka ona ho sussessu!"
-
-msgid "Your email has been changed successfully!"
-msgstr "ita boot nia email troka ona ho sussessu!"
-
-msgid "Your name has been changed successfully!"
-msgstr "ita boot nia naran troka ona ho sussessu!"
-
-msgid "Your preferences have been updated."
-msgstr "Ita boot nia preferensia atualiza ona."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Ita boot nia preferensia atualiza ona ho sussessu!"
 
 msgid "You have been successfully logged out."
 msgstr "Ita boot sai ona ho sussessu."

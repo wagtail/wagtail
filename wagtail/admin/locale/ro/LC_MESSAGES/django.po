@@ -5,13 +5,14 @@
 # Translators:
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2021
+# Julian C <jcuotpc@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-02-01 19:03+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 11:55+0000\n"
+"Last-Translator: Julian C <jcuotpc@gmail.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -82,8 +83,11 @@ msgstr "Publicare programată"
 msgid "Privacy"
 msgstr "Confidențialitate"
 
-msgid "Common page configuration"
-msgstr "Configurație de pagini generală"
+msgid "For search engines"
+msgstr "Pentru mașini de căutare"
+
+msgid "For site menus"
+msgstr "Pentru meniuri"
 
 msgid "Content"
 msgstr "Conținut"
@@ -137,6 +141,9 @@ msgstr "Introduceți adresa de e-mail pentru a reseta parola"
 msgid "URL"
 msgstr "Adresă de internet"
 
+msgid "Parent"
+msgstr "Bază"
+
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
@@ -147,6 +154,12 @@ msgstr ""
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
+
+msgid "Collection"
+msgstr "Colecție"
+
+msgid "You cannot edit another user's comment."
+msgstr "Nu puteți edita comentariile altui utilizator"
 
 msgid "New title"
 msgstr "Titlu nou"
@@ -256,114 +269,6 @@ msgstr "Dați un nume fluxului de lucru"
 msgid "Add tasks to your workflow"
 msgstr "Adăugați sarcini la fluxul de lucru"
 
-msgid "Arabic"
-msgstr "Arabă"
-
-msgid "Catalan"
-msgstr "Catalană"
-
-msgid "Czech"
-msgstr "Cehă"
-
-msgid "German"
-msgstr "Germană"
-
-msgid "Greek"
-msgstr "Greacă"
-
-msgid "English"
-msgstr "Engleză"
-
-msgid "Spanish"
-msgstr "Spaniolă"
-
-msgid "Estonian"
-msgstr "Estonă"
-
-msgid "Finnish"
-msgstr "Finlandeză"
-
-msgid "French"
-msgstr "Franceză"
-
-msgid "Galician"
-msgstr "Galiciană"
-
-msgid "Croatian"
-msgstr "Croată"
-
-msgid "Hungarian"
-msgstr "Ungară"
-
-msgid "Indonesian"
-msgstr "Indoneză"
-
-msgid "Icelandic"
-msgstr "Islandeză"
-
-msgid "Italian"
-msgstr "Italiană"
-
-msgid "Japanese"
-msgstr "Japoneză"
-
-msgid "Korean"
-msgstr "coreeană"
-
-msgid "Lithuanian"
-msgstr "Lituaniană"
-
-msgid "Mongolian"
-msgstr "Mongolă"
-
-msgid "Norwegian Bokmål"
-msgstr "Norvegiană"
-
-msgid "Netherlands Dutch"
-msgstr "Olandeză"
-
-msgid "Persian"
-msgstr "Persiană"
-
-msgid "Polish"
-msgstr "Poloneză"
-
-msgid "Brazilian Portuguese"
-msgstr "Portugheză Braziliană"
-
-msgid "Portuguese"
-msgstr "Portugheză"
-
-msgid "Romanian"
-msgstr "Română"
-
-msgid "Russian"
-msgstr "Rusă"
-
-msgid "Swedish"
-msgstr "suedeză"
-
-msgid "Slovak"
-msgstr "Slovacă"
-
-msgid "Thai"
-msgstr "Tailandeză"
-
-msgid "Turkish"
-msgstr "Turcă"
-
-msgid "Turkish (Turkey)"
-msgstr "Turcă (Turcia)"
-
-msgid "Ukrainian"
-msgstr "ucraineană"
-
-msgid "Chinese (Simplified)"
-msgstr "Chineza (Simplificată)"
-
-msgid "Chinese (Traditional)"
-msgstr "Chineza (Tradițională)"
-
 msgid "Edit"
 msgstr "Editează"
 
@@ -390,6 +295,9 @@ msgstr "Închide exploratorul"
 
 msgid "Alt text"
 msgstr "Text alternativ"
+
+msgid "Decorative image"
+msgstr "Imagine decorativă"
 
 msgid "Write here…"
 msgstr "Scrieți aici…"
@@ -440,9 +348,56 @@ msgstr "Vezi paginile dependente de '{title}'"
 msgid "Page explorer"
 msgstr "Explorator de pagini"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Acțiune necunoscută %(action)s"
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Saving..."
+msgstr "În curs de salvare..."
+
+msgid "Cancel"
+msgstr "Anulează"
+
+msgid "Deleting..."
+msgstr "În curs de ștergere..."
+
+msgid "Add a comment"
+msgstr "Adaugă un comentariu"
+
+msgid "Show comments"
+msgstr "Afișează comentarii"
+
+msgid "Reply"
+msgstr "Raspunde"
+
+msgid "Resolve"
+msgstr "Rezolva"
+
+msgid "Retry"
+msgstr "Încearcă din nou"
+
+msgid "Delete error"
+msgstr "Eroare de ștergere"
+
+msgid "Are you sure?"
+msgstr "Ești sigur?"
+
+msgid "Save error"
+msgstr "Eroare de salvare"
+
+msgid "This will be saved when the page is saved"
+msgstr "Va fi salvat când se salveaza pagina"
+
+msgid "Focus comment"
+msgstr "Focalizează comentariu"
+
+msgid "Unfocus comment"
+msgstr "Defocalizează comentariu"
+
+msgid "Comment"
+msgstr "Comentariu"
+
+msgid "More actions"
+msgstr "Mai multe acțiuni"
 
 msgid "Error 404: Page not found"
 msgstr "Eroare 404: Pagina nu a fost găsită"
@@ -459,20 +414,8 @@ msgstr "Spre interfața de administrare Wagtail"
 msgid "Account"
 msgstr "Cont"
 
-msgid "Change profile picture"
-msgstr "Schimbă poza de profil"
-
-msgid "Your current profile picture:"
-msgstr "Poză profil curentă:"
-
-msgid "Update"
-msgstr "Actualizează"
-
-msgid "Change email"
-msgstr "Schimbă e-mail"
-
-msgid "Change name"
-msgstr "Schimbă numele"
+msgid "Save account details"
+msgstr "Salvează detaliile contului"
 
 msgid "Change password"
 msgstr "Schimbă parola"
@@ -482,15 +425,6 @@ msgid ""
 msgstr ""
 "Parola nu poate fi schimbată aici. Vă rugăm să contactați administratorii "
 "sitului."
-
-msgid "Set Time Zone"
-msgstr "Setează fus orar"
-
-msgid "Language Preferences"
-msgstr "Preferințe limbă"
-
-msgid "Notification preferences"
-msgstr "Preferințe de notificare"
 
 msgid "Reset password"
 msgstr "Resetează parola"
@@ -538,17 +472,17 @@ msgstr "Resetarea parolei"
 msgid "Reset your password"
 msgstr "Resetează parola"
 
+msgid "Upload a profile picture:"
+msgstr "Încarca poza profil"
+
+msgid "Reset to default"
+msgstr "Resetează la starea implicită"
+
 msgid "Dashboard"
 msgstr "Bord"
 
 msgid "Menu"
 msgstr "Meniu"
-
-msgid "Move up"
-msgstr "Deplasează în sus"
-
-msgid "Move down"
-msgstr "Deplasează în jos"
 
 msgid "Explorer"
 msgstr "Explorator"
@@ -653,9 +587,6 @@ msgstr ""
 "Setările de confidențialitate determinp cine poate să vizualizeze "
 "documentele din această colecție"
 
-msgid "Save"
-msgstr "Salvează"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Setați confidențialitatea colecției. Starea actuală: Public"
 
@@ -687,8 +618,23 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Adaugă %(label)s"
 
+msgid "Move up"
+msgstr "Deplasează în sus"
+
+msgid "Move down"
+msgstr "Deplasează în jos"
+
+msgid "Add comment"
+msgstr "Adaugă comentariu"
+
+msgid "Comment notifications"
+msgstr "Notificări comentarii"
+
 msgid "Yes, delete"
 msgstr "Da, șterge"
+
+msgid "Update"
+msgstr "Actualizează"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -698,16 +644,6 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs."
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail va elimina treptat suportul pentru IE11. Acest fapt vă poate afecta "
-"pe dvs. sau pe organizația dvs. <a href=\"%(url)s\">Aflați mai multe despre "
-"planurile noastre de support pentru IE11</a>."
 
 msgid "Your locked pages"
 msgstr "Paginile Dvs. blocate"
@@ -730,9 +666,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Pagini în moderație"
-
-msgid "Parent"
-msgstr "Bază"
 
 msgid "Type"
 msgstr "Tip"
@@ -912,6 +845,41 @@ msgstr ""
 "\"%(task)s\""
 
 #, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s are comentarii actualizate pentru \"%(title)s\""
+
+msgid "New comments"
+msgstr "Comentarii noi"
+
+msgid "Resolved comments"
+msgstr "Comentarii finalizate"
+
+msgid "Deleted comments"
+msgstr "Comentarii șterse"
+
+msgid "New replies"
+msgstr "Răspunsuri noi"
+
+msgid "New replies to:"
+msgstr "Răspunsuri noi către:"
+
+msgid "New comments:"
+msgstr "Comentarii noi:"
+
+msgid "Resolved comments:"
+msgstr "Comentarii finalizate:"
+
+msgid "Deleted comments:"
+msgstr "Comentarii șterse:"
+
+msgid "New replies:"
+msgstr "Răspunsuri noi:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s are comentarii actualizate pentru \"%(title)s\""
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
 msgstr ""
 "Pagina \"%(title)s\" a fost aprobată în fluxul de lucru \"%(workflow)s\"."
@@ -943,6 +911,14 @@ msgstr "Următorul comentariu a fost lăsat: \"%(comment)s\""
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Pagina \"%(title)s\" a fost respinsă în \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Pagina \"%(title)s\" a fost trimisă pentru moderare in fluxul de lucru "
+"\"%(workflow)s\" de către %(requester)s"
 
 #, python-format
 msgid ""
@@ -988,6 +964,18 @@ msgstr "Confidențialitatea paginii. Starea actuală: Public"
 
 msgid "Page privacy. Current status: Private"
 msgstr "Confidențialitatea paginii. Starea actuală: Privat"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Aveți <span>editări nesalvate</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Aveți <span>comentarii nesalvate</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "Aveți <span>editări</span> și <span>comentarii</span> nesalvate"
+
+msgid "Save the page before leaving"
+msgstr "Salvați pagina înainte de plecare"
 
 msgid "Publishing…"
 msgstr "În curs de publicare…"
@@ -1169,9 +1157,6 @@ msgstr "Publicarea paginii va anula fluxul de lucru curent."
 msgid "Would you still like to publish this page?"
 msgstr "Doriți să publicați această pagină?"
 
-msgid "Cancel"
-msgstr "Anulează"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Pagini folosing %(page_class_verbose_name)s"
@@ -1234,9 +1219,6 @@ msgstr "Utilizator"
 
 msgid "Date / Time"
 msgstr "Dată / Timp"
-
-msgid "Comment"
-msgstr "Comentariu"
 
 msgid "Live version"
 msgstr "Versiune live"
@@ -1663,9 +1645,6 @@ msgstr "Sarcină incompletă"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Această pagină incă n-a fost trimisă pentru moderarare"
 
-msgid "Collection"
-msgstr "Colecție"
-
 msgid "No pages match this report's criteria."
 msgstr "Nici o pagină nu corespunde criteriilor acestui raport."
 
@@ -1804,6 +1783,16 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">instrucțiuni despre cum să activați "
 "JavaScript în browserul dvs. web</a>.\n"
 "        "
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail va elimina treptat suportul pentru IE11. Acest fapt vă poate afecta "
+"pe dvs. sau pe organizația dvs. <a href=\"%(url)s\">Aflați mai multe despre "
+"planurile noastre de support pentru IE11</a>."
 
 msgid "Skip to main content"
 msgstr "Săriți la conținutul principal"
@@ -2066,20 +2055,26 @@ msgstr "ciornă"
 msgid "Test"
 msgstr "Test"
 
-msgid "Your password has been changed successfully!"
-msgstr "Parola a fost schimbată cu succes!"
+msgid "Profile"
+msgstr "Profil"
 
-msgid "Your email has been changed successfully!"
-msgstr "E-mailul a fost schimbat cu succes!"
+msgid "Notifications"
+msgstr "Notificări"
 
-msgid "Your name has been changed successfully!"
-msgstr "Numele a fost schimbat cu succes!"
+msgid "Name and Email"
+msgstr "Nume și adresa de email"
 
-msgid "Your preferences have been updated."
-msgstr "Preferințele au fost schimbare."
+msgid "Profile picture"
+msgstr "Poza de profil"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Preferințele au fost schimbate cu success!"
+msgid "Locale"
+msgstr "Localizare"
+
+msgid "Password"
+msgstr "Parola"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Setările contului tău au fost schimbate!"
 
 msgid "You have been successfully logged out."
 msgstr "V-ați deconectat cu success."
@@ -2439,36 +2434,6 @@ msgstr "Pagină nepublicată '%(title)s'"
 msgid "View page history for '%(title)s'"
 msgstr "Vezi istoria paginii pentru '%(title)s'"
 
-msgid "Set profile picture"
-msgstr "Setează poză profil"
-
-msgid "Change your profile picture."
-msgstr "Schimbă poza de profil."
-
-msgid "Change the email address linked to your account."
-msgstr "Schimbă e-mailul asociat de contul D-stră."
-
-msgid "Change the password you use to log in."
-msgstr "Schimbați parola folosită pentru access."
-
-msgid "Choose which email notifications to receive."
-msgstr "Alege ce notificări să primiți prin e-mail."
-
-msgid "Language preferences"
-msgstr "Preferințe limbă"
-
-msgid "Choose the language you want to use here."
-msgstr "Selectați limba dorită"
-
-msgid "Current Time Zone"
-msgstr "Fus orar curent"
-
-msgid "Choose your current time zone."
-msgstr "Alege fus orar curent"
-
-msgid "Change your first and last name on your account."
-msgstr "Schimbați numele și prenumele din contul dvs."
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Antet %(level)d"
@@ -2508,209 +2473,6 @@ msgstr "Pagini blocate"
 
 msgid "Reports"
 msgstr "Rapoarte"
-
-msgid "Created"
-msgstr "A creat"
-
-msgid "Deleted"
-msgstr "A șters"
-
-msgid "Publish scheduled draft"
-msgstr "Publică ciorna programată"
-
-msgid "Published scheduled draft"
-msgstr "A publicat ciorna programată"
-
-msgid "Unpublished"
-msgstr "A anulat publicarea"
-
-msgid "Unpublish scheduled draft"
-msgstr "Anulează publicarea ciornei programate"
-
-msgid "Unpublished scheduled draft"
-msgstr "A anulat publicare ciornei programate"
-
-msgid "Unlocked"
-msgstr "A deblochat"
-
-msgid "Approved"
-msgstr "A aprobat"
-
-msgid "Rejected"
-msgstr "A respins"
-
-#, python-format
-msgid ""
-"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
-msgstr ""
-"Revenit la versiunea precendentă cu ID %(revision_id)s de la %(created_at)s"
-
-msgid "Reverted to previous revision"
-msgstr "A revenit la o versiune precedentă"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "A fost copiată de la %(title)s"
-
-msgid "Copied"
-msgstr "A fost copiată"
-
-#, python-format
-msgid "Created an alias of %(title)s"
-msgstr "A creat un alias al %(title)s"
-
-msgid "Created an alias"
-msgstr "A creat un alias"
-
-#, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "A convertit alias-ul '%(title)s' în pagină obișnuită"
-
-msgid "Converted an alias into a regular page"
-msgstr "A convertit un alias în pagină obișnuită"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "A mutată de la '%(old_parent)s' la '%(new_parent)s'"
-
-msgid "Moved"
-msgstr "A fost mutată"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Revizia %(revision_id)s de la %(created_at)s a fost programată pentru "
-"publicare la %(go_live_at)s"
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Pagina a fost programată pentru publicare la %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Pagina a fost programată pentru publicare"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Programarea reviziei %(revision_id)s de la %(created_at)s pentru publicare "
-"la %(go_live_at)s a fost anulată"
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Programarea paginii pentru publicare la %(go_live_at)s a fost anulată"
-
-msgid "Page unscheduled from publishing"
-msgstr "Programarea paginii pentru publicare a fost anulată"
-
-#, python-format
-msgid "Added the '%(restriction)s' view restriction"
-msgstr "A adăugat restricția de vizualizare '%(restriction)s'"
-
-msgid "Added view restriction"
-msgstr "A adăugat restricție de vizualizare"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "A actualizat restricția de vizualizare '%(restriction)s'"
-
-msgid "Updated view restriction"
-msgstr "A actualizat restricția de vizualizare"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Restricția de vizualizare '%(restriction)s' a fost eliminată"
-
-msgid "Removed view restriction"
-msgstr "Restricția de vizualizare a fost eliminată"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "A fost redenumită din '%(old)s' în '%(new)s'"
-
-msgid "Renamed"
-msgstr "A fost redenumită"
-
-msgid "Rename"
-msgstr "Redenumire"
-
-msgid "Revert"
-msgstr "A inversat"
-
-msgid "Create alias"
-msgstr "Crează alias"
-
-msgid "Convert alias into regular page"
-msgstr "Convertază alias în pagină obișnuită"
-
-msgid "Schedule publication"
-msgstr "Porgramează publicare"
-
-msgid "Unschedule publication"
-msgstr "Anulează programare publicare"
-
-msgid "Add view restrictions"
-msgstr "Adaugă restricții de vizualizare"
-
-msgid "Update view restrictions"
-msgstr "Actualizează restricții de vizualizare"
-
-msgid "Remove view restrictions"
-msgstr "Elimină restricții de vizualizare"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "%(workflow)s a început. Faza următoare '%(task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "A fost probată la '%(task)s'. Faza următoare '%(next_task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "A fost probată la '%(task)s'. '%(workflow)s' complet"
-
-msgid "Workflow task approved"
-msgstr "Sarcina de flux lucru a fost aprobată"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "A fost respinsă la '%(task)s'. Au fost solicitate modificări"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "Sarcina de flux de lucru a fost respinsă. Flux de lucru complet"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "A retrimis '%(task)s'. Flux de lucru rezumat"
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "Sarcină de lucru retrimisă. Flux de lucru rezumat"
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "'%(workflow)s' a fost anulat la '%(task)s'"
-
-msgid "Workflow cancelled"
-msgstr "Flux de lucru anulat"
-
-msgid "Workflow: start"
-msgstr "Flux de lucru: începe"
-
-msgid "Workflow: approve task"
-msgstr "Flux de lucru: aprobă sarcină"
-
-msgid "Workflow: reject task"
-msgstr "Flux de lucru: respinge sarcină"
-
-msgid "Workflow: resume task"
-msgstr "Flux de lucru: reluează sarcină"
-
-msgid "Workflow: cancel"
-msgstr "Flux de lucru: anulează"
 
 msgid "Yes"
 msgstr "Da"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Nucli de Wagtail"
+
+msgid "Add"
+msgstr "Afegir"
 
 msgid "This block has no options."
 msgstr "Aquest bloc no té opcions."
@@ -121,16 +124,6 @@ msgstr "ruta URL"
 msgid "owner"
 msgstr "propietari"
 
-msgid "page title"
-msgstr "títol de la pàgina"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Opcional. Títol de 'Motor de cerca amigable'. Això apareixerà al cap damunt "
-"de la finetra del navegador"
-
 msgid "show in menus"
 msgstr "mostrar als menús"
 
@@ -138,9 +131,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Si s'enllaça cap aquesta pàgina apareixerà automàticament als menús generats"
-
-msgid "search description"
-msgstr "cercar la descripció"
 
 msgid "go live date/time"
 msgstr "data/hora de pas a en viu"
@@ -222,9 +212,6 @@ msgstr "revisió de pàgina"
 
 msgid "page revisions"
 msgstr "revisions de pàgines"
-
-msgid "Add"
-msgstr "Afegir"
 
 msgid "Add/edit pages you own"
 msgstr "Afegir/editar pàgines pròpies"

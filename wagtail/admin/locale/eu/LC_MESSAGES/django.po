@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Basque (http://www.transifex.com/torchbox/wagtail/language/"
 "eu/)\n"
@@ -30,6 +30,9 @@ msgstr "Izenburua"
 
 msgid "Enter your email address to reset your password"
 msgstr "Idatzi zure eposta helbidea zure pasahitza berrezartzeko"
+
+msgid "Parent"
+msgstr "Gurasoa"
 
 msgid "Search"
 msgstr "Bilatu"
@@ -72,12 +75,6 @@ msgstr "Zure pasahitza berrezarri"
 msgid "Dashboard"
 msgstr "Kontrol panela"
 
-msgid "Move up"
-msgstr "Gora mugitu"
-
-msgid "Move down"
-msgstr "Behera mugitu"
-
 msgid "Explorer"
 msgstr "Arakatzailea"
 
@@ -102,6 +99,12 @@ msgstr "Esteka txertatu"
 msgid "Add an external link"
 msgstr "Kanpo esteka bat gehitu"
 
+msgid "Move up"
+msgstr "Gora mugitu"
+
+msgid "Move down"
+msgstr "Behera mugitu"
+
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Ongi etorri %(site_name)s Wagtail CMSra"
@@ -118,9 +121,6 @@ msgstr "Orrialde hau editatu"
 
 msgid "Pages awaiting moderation"
 msgstr "Moderatzeke dauden orrialdeak"
-
-msgid "Parent"
-msgstr "Gurasoa"
 
 msgid "Approve"
 msgstr "Baieztatu"
@@ -139,9 +139,6 @@ msgstr "Egoera"
 
 msgid "Home"
 msgstr "Etxea"
-
-msgid "Change the password you use to log in."
-msgstr "Saioa hasteko erabiltzen duzun pasahitza aldatu."
 
 msgid "Choose an item"
 msgstr "Elementu bat aukeratu"

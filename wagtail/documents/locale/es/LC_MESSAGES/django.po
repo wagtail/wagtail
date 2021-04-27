@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -32,6 +32,9 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Documentos Wagtail"
+
+msgid "Collection"
+msgstr "Colección"
 
 msgid "Add"
 msgstr "Agregar"
@@ -179,9 +182,6 @@ msgstr "Título"
 
 msgid "File"
 msgstr "Archivo"
-
-msgid "Collection"
-msgstr "Colección"
 
 msgid "Created"
 msgstr "Creado en"

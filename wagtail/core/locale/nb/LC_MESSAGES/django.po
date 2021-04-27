@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail-kjernen"
+
+msgid "Add"
+msgstr "Legg til"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -127,15 +130,6 @@ msgstr "URL-sti"
 msgid "owner"
 msgstr "eier"
 
-msgid "page title"
-msgstr "sidetittel"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Valgfritt. \"Søkemotorvennlig\" tittel. Vises øverst på nettleservinduet."
-
 msgid "show in menus"
 msgstr "vis i menyer"
 
@@ -143,9 +137,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Hvorvidt en lenke til denne siden skal vises i automatisk genererte menyer"
-
-msgid "search description"
-msgstr "søkemotorbeskrivelse"
 
 msgid "go live date/time"
 msgstr "publiseringsdato"
@@ -218,9 +209,6 @@ msgstr "sideutgave"
 
 msgid "page revisions"
 msgstr "sideutgaver"
-
-msgid "Add"
-msgstr "Legg til"
 
 msgid "Add/edit pages you own"
 msgstr "Legg til/rediger sider du eier"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "웨그테일 리다이렉트"
+
+msgid "Type"
+msgstr "타입"
 
 msgid "From site"
 msgstr "사이트"
@@ -101,9 +104,6 @@ msgstr "목적지"
 
 msgid "Site"
 msgstr "사이트"
-
-msgid "Type"
-msgstr "타입"
 
 msgid "Edit this redirect"
 msgstr "이 리다이렉트 수정"

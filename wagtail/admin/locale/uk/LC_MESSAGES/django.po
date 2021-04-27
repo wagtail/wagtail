@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -75,9 +75,6 @@ msgstr "Запланована публікація"
 msgid "Privacy"
 msgstr "Приватність"
 
-msgid "Common page configuration"
-msgstr "Загальні налаштування сторінки"
-
 msgid "Content"
 msgstr "Контент"
 
@@ -106,9 +103,15 @@ msgstr "Введіть ваш %s"
 msgid "Enter your email address to reset your password"
 msgstr "Введіть вашу е-мейл адресу для скидання паролю"
 
+msgid "Parent"
+msgstr "Предок"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Ви не можете мати декілька записів дозволів для однієї і тієї ж колекції."
+
+msgid "Collection"
+msgstr "Колекція"
 
 msgid "New title"
 msgstr "Новий заголовок"
@@ -200,75 +203,6 @@ msgstr "Це поле необхідно заповнити"
 msgid "Please select at least one group."
 msgstr "Будь ласка, виберіть як мінімум одну групу"
 
-msgid "Catalan"
-msgstr "Каталонська"
-
-msgid "German"
-msgstr "Німецька"
-
-msgid "Greek"
-msgstr "Грецька"
-
-msgid "English"
-msgstr "Англійська"
-
-msgid "Spanish"
-msgstr "Іспанська"
-
-msgid "Finnish"
-msgstr "Фінська"
-
-msgid "French"
-msgstr "Французька"
-
-msgid "Galician"
-msgstr "Галісійська "
-
-msgid "Icelandic"
-msgstr "Ісландська"
-
-msgid "Italian"
-msgstr "Італійська"
-
-msgid "Korean"
-msgstr "Корейська"
-
-msgid "Lithuanian"
-msgstr "Литовська"
-
-msgid "Norwegian Bokmål"
-msgstr "Норвезький букмол"
-
-msgid "Netherlands Dutch"
-msgstr "Нідерландська мова"
-
-msgid "Persian"
-msgstr "Перська"
-
-msgid "Polish"
-msgstr "Польська"
-
-msgid "Brazilian Portuguese"
-msgstr "Бразильська португальська"
-
-msgid "Portuguese"
-msgstr "Португальска"
-
-msgid "Romanian"
-msgstr "Румунська"
-
-msgid "Russian"
-msgstr "Російська"
-
-msgid "Swedish"
-msgstr "Шведська"
-
-msgid "Slovak"
-msgstr "Словацька"
-
-msgid "Ukrainian"
-msgstr "Українська"
-
 msgid "Edit"
 msgstr "Редагування"
 
@@ -334,6 +268,9 @@ msgstr "Закрити"
 msgid "Edit '{title}'"
 msgstr "Редагувати '{title}'"
 
+msgid "Save"
+msgstr "Зберегти"
+
 msgid "Error 404: Page not found"
 msgstr "Помилка 404: сторінку не знайдено"
 
@@ -349,18 +286,6 @@ msgstr "Перехід до адмінпанелі"
 msgid "Account"
 msgstr "Обліковий запис"
 
-msgid "Change profile picture"
-msgstr "Змінити зображення профілю"
-
-msgid "Your current profile picture:"
-msgstr "Ваше поточне зображення профілю"
-
-msgid "Update"
-msgstr "Оновити"
-
-msgid "Change email"
-msgstr "Змінити email"
-
 msgid "Change password"
 msgstr "Зміна паролю"
 
@@ -368,15 +293,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ваш пароль неможливо змінити. Будь-ласка, зверніться до адміністратора."
-
-msgid "Set Time Zone"
-msgstr "Задати часовий пояс"
-
-msgid "Language Preferences"
-msgstr "Налаштування мови"
-
-msgid "Notification preferences"
-msgstr "Налаштування повідомлень"
 
 msgid "Reset password"
 msgstr "Скинути пароль"
@@ -430,12 +346,6 @@ msgstr "Панель"
 
 msgid "Menu"
 msgstr "Меню"
-
-msgid "Move up"
-msgstr "Пересунути вгору"
-
-msgid "Move down"
-msgstr "Пересунути вниз"
 
 msgid "Explorer"
 msgstr "Управління файлами"
@@ -514,9 +424,6 @@ msgstr ""
 "Налаштування приватності визначають, хто зможе переглядати документи у цій "
 "колекції."
 
-msgid "Save"
-msgstr "Зберегти"
-
 msgid "Public"
 msgstr "Загальнодоступний"
 
@@ -543,8 +450,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Додати %(label)s"
 
+msgid "Move up"
+msgstr "Пересунути вгору"
+
+msgid "Move down"
+msgstr "Пересунути вниз"
+
 msgid "Yes, delete"
 msgstr "Так, видалити"
+
+msgid "Update"
+msgstr "Оновити"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -568,9 +484,6 @@ msgstr "Наживо"
 
 msgid "Pages awaiting moderation"
 msgstr "Сторінки очікують на модерацію"
-
-msgid "Parent"
-msgstr "Предок"
 
 msgid "Type"
 msgstr "Тип"
@@ -1185,9 +1098,6 @@ msgstr "Введіть пошукову фразу"
 msgid "No pages use"
 msgstr "Не використовується жодна сторінка"
 
-msgid "Collection"
-msgstr "Колекція"
-
 msgid "Locked"
 msgstr "Заблоковано"
 
@@ -1240,18 +1150,6 @@ msgstr "Порівняти із версією наживо"
 
 msgid "Test"
 msgstr "Тест"
-
-msgid "Your password has been changed successfully!"
-msgstr "Ваш пароль успішно змінено!"
-
-msgid "Your email has been changed successfully!"
-msgstr "Ваш email успішно змінений!"
-
-msgid "Your preferences have been updated."
-msgstr "Ваші вподобання оновлено."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Ваші параметри успішно оновлені!"
 
 msgid "You have been successfully logged out."
 msgstr "Ви успішно вийшли."
@@ -1391,30 +1289,6 @@ msgstr "Більше"
 msgid "Unpublish page '%(title)s'"
 msgstr "Зняти з публікації сторінку '%(title)s'"
 
-msgid "Set profile picture"
-msgstr "Задати зображення профілю"
-
-msgid "Change the email address linked to your account."
-msgstr "Змінити email адресу вашого аккаунту. "
-
-msgid "Change the password you use to log in."
-msgstr "Змінити пароль, використаний для входу."
-
-msgid "Choose which email notifications to receive."
-msgstr "Виберіть пошту, на яку надходитимуть повідомлення"
-
-msgid "Language preferences"
-msgstr "Налаштування мови"
-
-msgid "Choose the language you want to use here."
-msgstr "Виберіть мову, яку ви хочете тут використовувати"
-
-msgid "Current Time Zone"
-msgstr "Поточний часовий пояс"
-
-msgid "Choose your current time zone."
-msgstr "Оберіть поточний часовий пояс"
-
 msgid "Bulleted list"
 msgstr "Маркований список"
 
@@ -1429,13 +1303,6 @@ msgstr "Курсив"
 
 msgid "Link"
 msgstr "Посилання"
-
-msgid "Unpublished"
-msgstr "Знято з публікації"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Перейменовано з '%(old)s' в '%(new)s'"
 
 msgid "Choose an item"
 msgstr "Оберіть елемент"

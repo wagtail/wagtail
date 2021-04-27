@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-03-24 06:49+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-24 09:18+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -100,8 +100,11 @@ msgstr "Publication programmée"
 msgid "Privacy"
 msgstr "Confidentialité"
 
-msgid "Common page configuration"
-msgstr "Configuration générale"
+msgid "For search engines"
+msgstr "Pour les moteurs de recherche"
+
+msgid "For site menus"
+msgstr "Pour les menus du site"
 
 msgid "Content"
 msgstr "Contenu"
@@ -155,6 +158,9 @@ msgstr "Entrez votre adresse e-mail pour réinitialiser votre mot de passe"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Parent"
+
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
@@ -164,6 +170,12 @@ msgstr ""
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vous ne pouvez avoir plusieurs permissions pour la même collection."
+
+msgid "Collection"
+msgstr "Collection"
+
+msgid "You cannot edit another user's comment."
+msgstr "Vous ne pouvez pas modifier le commentaire d'un autre utilisateur."
 
 msgid "New title"
 msgstr "Nouveau titre"
@@ -267,114 +279,6 @@ msgstr "Donnez un nom à votre workflow"
 msgid "Add tasks to your workflow"
 msgstr "Ajoutez des tâches à votre workflow"
 
-msgid "Arabic"
-msgstr "arabe"
-
-msgid "Catalan"
-msgstr "catalan"
-
-msgid "Czech"
-msgstr "tchèque"
-
-msgid "German"
-msgstr "allemand"
-
-msgid "Greek"
-msgstr "grec"
-
-msgid "English"
-msgstr "anglais"
-
-msgid "Spanish"
-msgstr "espagnol"
-
-msgid "Estonian"
-msgstr "estonien"
-
-msgid "Finnish"
-msgstr "finnois"
-
-msgid "French"
-msgstr "français"
-
-msgid "Galician"
-msgstr "galicien"
-
-msgid "Croatian"
-msgstr "croate"
-
-msgid "Hungarian"
-msgstr "hongrois"
-
-msgid "Indonesian"
-msgstr "indonésien"
-
-msgid "Icelandic"
-msgstr "islandais"
-
-msgid "Italian"
-msgstr "italien"
-
-msgid "Japanese"
-msgstr "japonais"
-
-msgid "Korean"
-msgstr "coréen"
-
-msgid "Lithuanian"
-msgstr "lituanien"
-
-msgid "Mongolian"
-msgstr "mongol"
-
-msgid "Norwegian Bokmål"
-msgstr "norvégien bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "néerlandais"
-
-msgid "Persian"
-msgstr "persan"
-
-msgid "Polish"
-msgstr "polonais"
-
-msgid "Brazilian Portuguese"
-msgstr "portugais brésilien"
-
-msgid "Portuguese"
-msgstr "portugais"
-
-msgid "Romanian"
-msgstr "roumain"
-
-msgid "Russian"
-msgstr "russe"
-
-msgid "Swedish"
-msgstr "suédois"
-
-msgid "Slovak"
-msgstr "slovaque"
-
-msgid "Thai"
-msgstr "thaï"
-
-msgid "Turkish"
-msgstr "turc"
-
-msgid "Turkish (Turkey)"
-msgstr "turc (Turquie)"
-
-msgid "Ukrainian"
-msgstr "ukrainien"
-
-msgid "Chinese (Simplified)"
-msgstr "chinois (Simplifié)"
-
-msgid "Chinese (Traditional)"
-msgstr "chinois (Traditionnel)"
-
 msgid "Edit"
 msgstr "Modifier"
 
@@ -401,6 +305,9 @@ msgstr "Fermer l’explorateur"
 
 msgid "Alt text"
 msgstr "Texte alternatif"
+
+msgid "Decorative image"
+msgstr "Image décorative"
 
 msgid "Write here…"
 msgstr "Écrire ici..."
@@ -453,9 +360,50 @@ msgstr "Voir les sous-pages de '{title}'"
 msgid "Page explorer"
 msgstr "Explorateur"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "%(action)s inconnu(e)"
+msgid "Save"
+msgstr "Sauvegarder"
+
+msgid "Saving..."
+msgstr "Enregistrement…"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Deleting..."
+msgstr "Suppression…"
+
+msgid "Add a comment"
+msgstr "Ajouter un commentaire"
+
+msgid "Show comments"
+msgstr "Afficher les commentaires"
+
+msgid "Reply"
+msgstr "Répondre"
+
+msgid "Resolve"
+msgstr "Archiver"
+
+msgid "Retry"
+msgstr "Réessayer"
+
+msgid "Delete error"
+msgstr "Supprimer l'erreur"
+
+msgid "Are you sure?"
+msgstr "Êtes-vous sûr(e) ?"
+
+msgid "Save error"
+msgstr "Enregistrer l'erreur"
+
+msgid "This will be saved when the page is saved"
+msgstr "Ce sera enregistré lorsque la page sera enregistrée"
+
+msgid "Comment"
+msgstr "Commentaire"
+
+msgid "More actions"
+msgstr "Plus d'actions"
 
 msgid "Error 404: Page not found"
 msgstr "Erreur 404 : Page introuvable"
@@ -472,20 +420,8 @@ msgstr "Aller sur l’administration de Wagtail"
 msgid "Account"
 msgstr "Compte"
 
-msgid "Change profile picture"
-msgstr "Changer la photo de profil"
-
-msgid "Your current profile picture:"
-msgstr "Votre photo de profil actuelle :"
-
-msgid "Update"
-msgstr "Mettre à jour"
-
-msgid "Change email"
-msgstr "Changer l’e-mail"
-
-msgid "Change name"
-msgstr "Changer le nom"
+msgid "Save account details"
+msgstr "Enregistrer les informations du compte"
 
 msgid "Change password"
 msgstr "Changer le mot de passe"
@@ -494,15 +430,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Votre mot de passe ne peut être changé ici. Contactez un administrateur."
-
-msgid "Set Time Zone"
-msgstr "Définir le fuseau horaire"
-
-msgid "Language Preferences"
-msgstr "Préférences de langue"
-
-msgid "Notification preferences"
-msgstr "Préférences de notifications"
 
 msgid "Reset password"
 msgstr "Réinitialiser le mot de passe"
@@ -551,17 +478,17 @@ msgstr "Réinitialisation de mot de passe"
 msgid "Reset your password"
 msgstr "Réinitialisez votre mot de passe"
 
+msgid "Upload a profile picture:"
+msgstr "Transférer une photo de profil :"
+
+msgid "Reset to default"
+msgstr "Réinitialiser aux valeurs par défaut"
+
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Move up"
-msgstr "Monter"
-
-msgid "Move down"
-msgstr "Descendre"
 
 msgid "Explorer"
 msgstr "Explorateur"
@@ -657,9 +584,6 @@ msgstr ""
 "Les paramètres de confidentialité déterminent qui est autorisé à voir les "
 "documents de cette collection."
 
-msgid "Save"
-msgstr "Sauvegarder"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Définir la confidentialité de la collection. Statut actuel : Public"
 
@@ -693,8 +617,23 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Ajouter un(e) %(label)s"
 
+msgid "Move up"
+msgstr "Monter"
+
+msgid "Move down"
+msgstr "Descendre"
+
+msgid "Add comment"
+msgstr "Ajouter un commentaire"
+
+msgid "Comment notifications"
+msgstr "Notifications de commentaire"
+
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
+
+msgid "Update"
+msgstr "Mettre à jour"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -706,16 +645,6 @@ msgid ""
 msgstr ""
 "Ceci est votre tableau de bord sur lequel des informations importantes sur "
 "le contenu que vous avez créé seront affichées."
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail supprime progressivement la compatibilité avec IE11, ce qui risque "
-"d'impacter votre organisation. <a href=\"%(url)s\">En savoir plus sur le "
-"programme de compatibilité IE11."
 
 msgid "Your locked pages"
 msgstr "Vos pages verrouillées"
@@ -738,9 +667,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Pages en attente de modération"
-
-msgid "Parent"
-msgstr "Parent"
 
 msgid "Type"
 msgstr "Type"
@@ -913,6 +839,41 @@ msgstr ""
 "« %(task)s »."
 
 #, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s a mis à jour des commentaires sur la page « %(title)s »."
+
+msgid "New comments"
+msgstr "Nouveaux commentaires"
+
+msgid "Resolved comments"
+msgstr "Commentaires archivés"
+
+msgid "Deleted comments"
+msgstr "Commentaires supprimés"
+
+msgid "New replies"
+msgstr "Nouvelles réponses"
+
+msgid "New replies to:"
+msgstr "Nouvelles réponses pour :"
+
+msgid "New comments:"
+msgstr "Nouveaux commentaires :"
+
+msgid "Resolved comments:"
+msgstr "Commentaires archivés :"
+
+msgid "Deleted comments:"
+msgstr "Commentaires supprimés :"
+
+msgid "New replies:"
+msgstr "Nouvelles réponses :"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s a mis à jour des commentaires sur la page « %(title)s »"
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
 msgstr ""
 "La page « %(title)s » a été approuvée dans le workflow « %(workflow)s »."
@@ -944,6 +905,14 @@ msgstr "Le commentaire suivant a été saisi : « %(comment)s »"
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "La page « %(title)s » a été rejeté dans le workflow « %(workflow)s »."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"La page « %(title)s » a été soumise pour modération dans le workflow "
+"« %(workflow)s » par %(requester)s."
 
 #, python-format
 msgid ""
@@ -990,6 +959,20 @@ msgstr "Confidentialité de la page. Statut actuel : Public"
 
 msgid "Page privacy. Current status: Private"
 msgstr "Confidentialité de la page. Statut actuel : Privé"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Vous avez des <span>modifications non enregistrées</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Vous avez des <span>commentaires non enregistrés</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr ""
+"Vous avez <span>des modifications</span> et <span>des commentaires non "
+"enregistrés</span> "
+
+msgid "Save the page before leaving"
+msgstr "Enregistrer la page avant de quitter"
 
 msgid "Publishing…"
 msgstr "Publication..."
@@ -1171,9 +1154,6 @@ msgstr "Publier cette page annulera le workflow actuel."
 msgid "Would you still like to publish this page?"
 msgstr "Êtes vous sûr(e) de toujours vouloir publier cette page ?"
 
-msgid "Cancel"
-msgstr "Annuler"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Pages utilisant %(page_class_verbose_name)s"
@@ -1236,9 +1216,6 @@ msgstr "Utilisateur"
 
 msgid "Date / Time"
 msgstr "Date/Heure"
-
-msgid "Comment"
-msgstr "Commentaire"
 
 msgid "Live version"
 msgstr "Version publique"
@@ -1642,9 +1619,6 @@ msgstr "Tâche incomplète"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Cette page n'as pas encore été soumise pour modération"
 
-msgid "Collection"
-msgstr "Collection"
-
 msgid "No pages match this report's criteria."
 msgstr "Aucune page ne correspond aux critères de ce rapport."
 
@@ -1783,6 +1757,16 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">instructions à suivre pour activer "
 "JavaScript dans votre navigateur</a>.\n"
 "        "
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail supprime progressivement la compatibilité avec IE11, ce qui risque "
+"d'impacter votre organisation. <a href=\"%(url)s\">En savoir plus sur le "
+"programme de compatibilité IE11."
 
 msgid "Skip to main content"
 msgstr "Aller à contenu principal"
@@ -2032,20 +2016,26 @@ msgstr "brouillon"
 msgid "Test"
 msgstr "Test"
 
-msgid "Your password has been changed successfully!"
-msgstr "Votre mot de passe a été changé avec succès !"
+msgid "Profile"
+msgstr "Compte"
 
-msgid "Your email has been changed successfully!"
-msgstr "Votre e-mail a été changé avec succès !"
+msgid "Notifications"
+msgstr "Notifications"
 
-msgid "Your name has been changed successfully!"
-msgstr "Votre nom a été changé avec succès !"
+msgid "Name and Email"
+msgstr "Nom et e-mail"
 
-msgid "Your preferences have been updated."
-msgstr "Vos préférences ont été mises à jour."
+msgid "Profile picture"
+msgstr "Photo de profil"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Vos préférences ont été mises à jour avec succès !"
+msgid "Locale"
+msgstr "Région"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Vos paramètres de compte ont été mis à jour avec succès !"
 
 msgid "You have been successfully logged out."
 msgstr "Vous avez été déconnecté avec succès"
@@ -2402,36 +2392,6 @@ msgstr "Dépublier la page '%(title)s'"
 msgid "View page history for '%(title)s'"
 msgstr "Voir l'historique de la page pour « %(title)s »"
 
-msgid "Set profile picture"
-msgstr "Définir une photo de profil"
-
-msgid "Change your profile picture."
-msgstr "Changer votre photo de profil"
-
-msgid "Change the email address linked to your account."
-msgstr "Changer l’adresse e-mail liée à votre compte."
-
-msgid "Change the password you use to log in."
-msgstr "Changer le mot de passe utilisé pour vous identifier."
-
-msgid "Choose which email notifications to receive."
-msgstr "Choisissez les notifications par e-mail à recevoir."
-
-msgid "Language preferences"
-msgstr "Préférences de langue"
-
-msgid "Choose the language you want to use here."
-msgstr "Choisissez la langue que vous souhaitez utiliser ici."
-
-msgid "Current Time Zone"
-msgstr "Fuseau horaire actuel"
-
-msgid "Choose your current time zone."
-msgstr "Choisissez votre fuseau horaire actuel."
-
-msgid "Change your first and last name on your account."
-msgstr "Changer le nom et prénom liés à votre compte."
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "En-tête %(level)d "
@@ -2471,213 +2431,6 @@ msgstr "Pages Verrouillées"
 
 msgid "Reports"
 msgstr "Rapports"
-
-msgid "Created"
-msgstr "Créée"
-
-msgid "Deleted"
-msgstr "Supprimée"
-
-msgid "Publish scheduled draft"
-msgstr "Publier le brouillon programmé"
-
-msgid "Published scheduled draft"
-msgstr "Le brouillon programmé à été publié"
-
-msgid "Unpublished"
-msgstr "Dépubliée"
-
-msgid "Unpublish scheduled draft"
-msgstr "Dépublier le brouillon programmé"
-
-msgid "Unpublished scheduled draft"
-msgstr "Le brouillon programmé à été dépublié"
-
-msgid "Unlocked"
-msgstr "Déverrouillé(e)"
-
-msgid "Approved"
-msgstr "Approuvée"
-
-msgid "Rejected"
-msgstr "Rejeté(e)"
-
-#, python-format
-msgid ""
-"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
-msgstr ""
-"Revenu à la version précédente avec l'ID %(revision_id)s depuis la version "
-"avec l'ID %(created_at)s"
-
-msgid "Reverted to previous revision"
-msgstr "Revenu à la version précédente"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "Copiée depuis %(title)s"
-
-msgid "Copied"
-msgstr "Copiée"
-
-#, python-format
-msgid "Created an alias of %(title)s"
-msgstr "Alias de %(title)s créé "
-
-msgid "Created an alias"
-msgstr "Alias créé"
-
-#, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "L'alias « %(title)s » a été converti en une page normale"
-
-msgid "Converted an alias into a regular page"
-msgstr "Un alias a été converti en une page normale"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "Déplacé de '%(old_parent)s' à '%(new_parent)s'"
-
-msgid "Moved"
-msgstr "Déplacé(e)"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Version %(revision_id)s du %(created_at)s programmée pour publication à "
-"%(go_live_at)s."
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Page planifiée pour la publication à %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Page planifiée pour la publication"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Version %(revision_id)s du %(created_at)s déprogrammée pour publication à "
-"%(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Page planifiée pour la publication à %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "La publication de la page a été déplanifiée"
-
-#, python-format
-msgid "Added the '%(restriction)s' view restriction"
-msgstr "La règle de confidentialité « %(restriction)s » a été ajoutée"
-
-msgid "Added view restriction"
-msgstr "Règle de confidentialité ajoutée"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr ""
-"Mettre à jour la règle de confidentialité et utiliser « %(restriction)s »"
-
-msgid "Updated view restriction"
-msgstr "Mettre à jour la règle de confidentialité"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "La règle de confidentialité « %(restriction)s » a été supprimée"
-
-msgid "Removed view restriction"
-msgstr "Règle de confidentialité supprimée"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Renommé de '%(old)s' à '%(new)s'"
-
-msgid "Renamed"
-msgstr "Renommée"
-
-msgid "Rename"
-msgstr "Renommer"
-
-msgid "Revert"
-msgstr "Revenir en arrière"
-
-msgid "Create alias"
-msgstr "Creer un alias"
-
-msgid "Convert alias into regular page"
-msgstr "Convertir un alias en page normale"
-
-msgid "Schedule publication"
-msgstr "Programmer la publication"
-
-msgid "Unschedule publication"
-msgstr "Déprogrammer la publication"
-
-msgid "Add view restrictions"
-msgstr "Ajouter des règles de confidentialité"
-
-msgid "Update view restrictions"
-msgstr "Mettre à jour les règles de confidentialité"
-
-msgid "Remove view restrictions"
-msgstr "Supprimer les règles de confidentialité"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr ""
-"Le workflow « %(workflow)s » a été commencé. La prochaine étape est "
-"« %(task)s »"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "Approuvé à « %(task)s ». La prochaine étape est « %(next_task)s »"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "Approuvé à « %(task)s ». Workflow « %(workflow)s » terminé"
-
-msgid "Workflow task approved"
-msgstr "Tâche de workflow annulée"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "Rejeté à « %(task)s ». Modifications demandées"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "La tâche de workflow a été rejetée. Le workflow est terminé"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "La tâche « %(task)s » à été resoumisse. Le workflow a repris"
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "La tâche du workflow à été resoumisse. Le workflow a repris"
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "Le workflow « %(workflow)s » a été annulé à « %(task)s »"
-
-msgid "Workflow cancelled"
-msgstr "Workflow annulé"
-
-msgid "Workflow: start"
-msgstr "Workflow : commencer"
-
-msgid "Workflow: approve task"
-msgstr "Workflow : approuver la tâche"
-
-msgid "Workflow: reject task"
-msgstr "Workflow : rejeter la tâche"
-
-msgid "Workflow: resume task"
-msgstr "Workflow : reprendre la tâche"
-
-msgid "Workflow: cancel"
-msgstr "Workflow : annuler"
 
 msgid "Yes"
 msgstr "Oui"

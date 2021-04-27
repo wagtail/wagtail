@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -27,6 +27,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Rdzeń Wagtail"
+
+msgid "Add"
+msgstr "Dodaj"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -137,16 +140,6 @@ msgstr "Ścieżka URL"
 msgid "owner"
 msgstr "właściciel"
 
-msgid "page title"
-msgstr "tytuł strony"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Opcjonalne. Tytuł 'przyjazny wyszukiwarkom'. Będzie widoczny się na górze "
-"okna przeglądarki."
-
 msgid "show in menus"
 msgstr "pokazuj w menu"
 
@@ -154,9 +147,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Czy link do tej strony zostanie wyświetlony w menu tworzonym automatycznie."
-
-msgid "search description"
-msgstr "opis wyszukiwania"
 
 msgid "go live date/time"
 msgstr "data/czas publikacji"
@@ -238,9 +228,6 @@ msgstr "wersja strony"
 
 msgid "page revisions"
 msgstr "wersje strony"
-
-msgid "Add"
-msgstr "Dodaj"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/edytuj swoje strony"

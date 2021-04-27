@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Nikola Kadic <kadicnikola3@gmail.com>, 2021
+# Nikola Kadić <kadicnikola3@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: 2021-03-23 14:43+0000\n"
-"Last-Translator: Nikola Kadic <kadicnikola3@gmail.com>\n"
+"Last-Translator: Nikola Kadić <kadicnikola3@gmail.com>\n"
 "Language-Team: Serbian (http://www.transifex.com/torchbox/wagtail/language/"
 "sr/)\n"
 "MIME-Version: 1.0\n"

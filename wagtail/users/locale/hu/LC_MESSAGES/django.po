@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2020
+# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2021
 # B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
-"PO-Revision-Date: 2020-07-24 17:26+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 06:17+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -98,6 +98,17 @@ msgstr "elutasítási értesítések"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Értesítést kap, ha egy saját szerkesztett oldalt elutasítottak"
+
+msgid "updated comments notifications"
+msgstr "értesítés frissített megjegyzésekről"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Értesítés küldése, ha egy olyan oldalon, amelynél feliratkozott a megjegyzés "
+"értesítésekre, új megjegyzés keletkezik, törlődik, vagy egy megjegyzést "
+"valaki megold."
 
 msgid "preferred language"
 msgstr "alapértelmezett nyelv"

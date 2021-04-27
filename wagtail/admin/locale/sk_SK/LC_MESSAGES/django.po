@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -55,9 +55,6 @@ msgstr "Naplánovať publikovanie"
 msgid "Privacy"
 msgstr "Súkromie"
 
-msgid "Common page configuration"
-msgstr "Základné nastavenia stránky"
-
 msgid "Content"
 msgstr "Obsah"
 
@@ -83,8 +80,14 @@ msgstr "Zadajte vaše %s"
 msgid "Enter your email address to reset your password"
 msgstr "Zadajte vašu emailovú adresu pre obnovu hesla"
 
+msgid "Parent"
+msgstr "Rodič"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
+
+msgid "Collection"
+msgstr "Kolekcie"
 
 msgid "New title"
 msgstr "Nový titulok"
@@ -174,69 +177,6 @@ msgstr "Toto pole je povinné."
 msgid "Please select at least one group."
 msgstr "Prosím, vyberte aspoň jednu skupinu."
 
-msgid "Catalan"
-msgstr "Katalánsky"
-
-msgid "German"
-msgstr "Nemecky"
-
-msgid "Greek"
-msgstr "Grécky"
-
-msgid "English"
-msgstr "Anglicky"
-
-msgid "Spanish"
-msgstr "Španielsky"
-
-msgid "Finnish"
-msgstr "Fínsky"
-
-msgid "French"
-msgstr "Francúzsky"
-
-msgid "Galician"
-msgstr "Galicijsky"
-
-msgid "Icelandic"
-msgstr "Islandsky"
-
-msgid "Italian"
-msgstr "Taliansky"
-
-msgid "Korean"
-msgstr "Kórejsky"
-
-msgid "Lithuanian"
-msgstr "Litovsky"
-
-msgid "Norwegian Bokmål"
-msgstr " Norsky"
-
-msgid "Netherlands Dutch"
-msgstr "Holandsky"
-
-msgid "Persian"
-msgstr "Perzsky"
-
-msgid "Polish"
-msgstr "Poľsky"
-
-msgid "Brazilian Portuguese"
-msgstr "Portugalsky (Brazília)"
-
-msgid "Portuguese"
-msgstr "Portugalsky"
-
-msgid "Romanian"
-msgstr "Rumunsky"
-
-msgid "Russian"
-msgstr "Rusky"
-
-msgid "Swedish"
-msgstr "Švédsky"
-
 msgid "Edit"
 msgstr "Upraviť"
 
@@ -264,6 +204,9 @@ msgstr "Zavrieť"
 msgid "Edit '{title}'"
 msgstr "Upraviť '{title}'"
 
+msgid "Save"
+msgstr "Uložiť"
+
 msgid "Error 404: Page not found"
 msgstr "Chyba 404: Stránka nebola nájdená"
 
@@ -279,9 +222,6 @@ msgstr "Choď do administrátorskej časti"
 msgid "Account"
 msgstr "Účet"
 
-msgid "Update"
-msgstr "Aktualizovať"
-
 msgid "Change password"
 msgstr "Zmeniť heslo"
 
@@ -289,12 +229,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Vaše heslo nemôže byť zmenené. Prosím kontaktujte administrátora sídla."
-
-msgid "Language Preferences"
-msgstr "Nastavenia jazyka"
-
-msgid "Notification preferences"
-msgstr "Notifikačné nastavenia"
 
 msgid "Reset password"
 msgstr "Resetovať heslo"
@@ -328,12 +262,6 @@ msgstr "Nástenka"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Move up"
-msgstr "Posunúť vyššie"
-
-msgid "Move down"
-msgstr "Posunúť nižšie"
 
 msgid "Explorer"
 msgstr "Prehliadač"
@@ -408,9 +336,6 @@ msgid ""
 msgstr ""
 "Nastavenia súkromia určujú, kto bude môcť prezerať dokumenty v kolekcii."
 
-msgid "Save"
-msgstr "Uložiť"
-
 msgid "Public"
 msgstr "Verejná"
 
@@ -432,8 +357,17 @@ msgstr ""
 "Zatiaľ neboli vytvorené žiadne kolekcie. Kliknite a <a href="
 "\"%(add_collection_url)s\">pridajte prvú</a>."
 
+msgid "Move up"
+msgstr "Posunúť vyššie"
+
+msgid "Move down"
+msgstr "Posunúť nižšie"
+
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
+
+msgid "Update"
+msgstr "Aktualizovať"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -457,9 +391,6 @@ msgstr "Live"
 
 msgid "Pages awaiting moderation"
 msgstr "Stránky čakajúce na moderáciu"
-
-msgid "Parent"
-msgstr "Rodič"
 
 msgid "Type"
 msgstr "Typ"
@@ -993,9 +924,6 @@ msgstr "Zadajte hľadaný výraz"
 msgid "No pages use"
 msgstr "Nepoužívajú žiadne stránky"
 
-msgid "Collection"
-msgstr "Kolekcie"
-
 msgid "Locked"
 msgstr "Zamknuté"
 
@@ -1042,12 +970,6 @@ msgstr "Porovnaj s live verziou"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Your password has been changed successfully!"
-msgstr "Vaše heslo bolo úspešne zmenené"
-
-msgid "Your preferences have been updated."
-msgstr "Vaše preferencie boli aktulizované."
 
 msgid "You have been successfully logged out."
 msgstr "Boli ste úspešne odhlásení."
@@ -1165,18 +1087,6 @@ msgstr "Stránka '{0}' bola odpublikovaná."
 
 msgid "More"
 msgstr "Viac"
-
-msgid "Change the password you use to log in."
-msgstr "Zmeniť heslo ktoré používate na prihlásenie."
-
-msgid "Choose which email notifications to receive."
-msgstr "Zvoľte ktoré emailové notifikácie chcete dostávať"
-
-msgid "Language preferences"
-msgstr "Nastavenia jazyka"
-
-msgid "Choose the language you want to use here."
-msgstr "Vyberte jazyk, ktorá tu chcete používať."
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"

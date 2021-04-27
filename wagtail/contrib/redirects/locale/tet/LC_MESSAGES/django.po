@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtail troka dalan"
+
+msgid "Type"
+msgstr "Tipu"
 
 msgid "From site"
 msgstr "Husi situs"
@@ -100,9 +103,6 @@ msgstr "Ba "
 
 msgid "Site"
 msgstr "situs"
-
-msgid "Type"
-msgstr "Tipu"
 
 msgid "Edit this redirect"
 msgstr "Hadia dalan ida ne'e"

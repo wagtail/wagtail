@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -72,9 +72,6 @@ msgstr "Plānota publicēšana"
 msgid "Privacy"
 msgstr "Privātums"
 
-msgid "Common page configuration"
-msgstr "Lapas kopējie iestatījumi"
-
 msgid "Content"
 msgstr "Saturs"
 
@@ -127,6 +124,9 @@ msgstr "Ievadiet savu e-pasta adresi, lai atjaunotu paroli"
 msgid "URL"
 msgstr "Adrese"
 
+msgid "Parent"
+msgstr "Augstāka līmeņa vienība"
+
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
@@ -136,6 +136,9 @@ msgstr ""
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
+
+msgid "Collection"
+msgstr "Kolekcija"
 
 msgid "New title"
 msgstr "Jauns virsraksts"
@@ -242,105 +245,6 @@ msgstr "Piešķir darbplūsmai nosaukumu"
 msgid "Add tasks to your workflow"
 msgstr "Pievieno uzdevumus savai darbplūsmai "
 
-msgid "Arabic"
-msgstr "arābu"
-
-msgid "Catalan"
-msgstr "kataloniešu"
-
-msgid "Czech"
-msgstr "čehu"
-
-msgid "German"
-msgstr "vācu"
-
-msgid "Greek"
-msgstr "grieķu"
-
-msgid "English"
-msgstr "angļu"
-
-msgid "Spanish"
-msgstr "spāņu"
-
-msgid "Estonian"
-msgstr "igauņu"
-
-msgid "Finnish"
-msgstr "somu"
-
-msgid "French"
-msgstr "franču"
-
-msgid "Galician"
-msgstr "galisiešu"
-
-msgid "Hungarian"
-msgstr "ungāru"
-
-msgid "Indonesian"
-msgstr "indonēziešu"
-
-msgid "Icelandic"
-msgstr "islandiešu"
-
-msgid "Italian"
-msgstr "itāļu"
-
-msgid "Japanese"
-msgstr "japāņu"
-
-msgid "Korean"
-msgstr "koreiešu"
-
-msgid "Lithuanian"
-msgstr "lietuviešu"
-
-msgid "Mongolian"
-msgstr "mongoļu"
-
-msgid "Persian"
-msgstr "persiešu"
-
-msgid "Polish"
-msgstr "poļu"
-
-msgid "Brazilian Portuguese"
-msgstr "brazīļu portugāļu"
-
-msgid "Portuguese"
-msgstr "portugāļu"
-
-msgid "Romanian"
-msgstr "rumāņu"
-
-msgid "Russian"
-msgstr "krievu"
-
-msgid "Swedish"
-msgstr "zviedru"
-
-msgid "Slovak"
-msgstr "slovāku"
-
-msgid "Thai"
-msgstr "taju"
-
-msgid "Turkish"
-msgstr "turku"
-
-msgid "Turkish (Turkey)"
-msgstr "turku (Turcija)"
-
-msgid "Ukrainian"
-msgstr "ukraiņu"
-
-msgid "Chinese (Simplified)"
-msgstr "ķīniešu (vienkāršota)"
-
-msgid "Chinese (Traditional)"
-msgstr "ķīniešu (tradicionāla)"
-
 msgid "Edit"
 msgstr "Labot"
 
@@ -417,9 +321,8 @@ msgstr "Apskatīt '{title}' zemāka līmeņa lapas"
 msgid "Page explorer"
 msgstr "Lapu pārlūks"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Nezināma %(action)s"
+msgid "Save"
+msgstr "Saglabāt"
 
 msgid "Error 404: Page not found"
 msgstr "Kļūda 404: lapa nav atrasta"
@@ -436,36 +339,12 @@ msgstr "Doties uz Wagtail administrāciju"
 msgid "Account"
 msgstr "Konts"
 
-msgid "Change profile picture"
-msgstr "Mainīt profila attēlu"
-
-msgid "Your current profile picture:"
-msgstr "Pašreizējais profila attēls:"
-
-msgid "Update"
-msgstr "Atjaunot"
-
-msgid "Change email"
-msgstr "Mainīt e-pastu"
-
-msgid "Change name"
-msgstr "Mainīt vārdu"
-
 msgid "Change password"
 msgstr "Mainīt paroli"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "Šeit nav iespējams mainīt jūsu paroli. Sazinieties are administratoru."
-
-msgid "Set Time Zone"
-msgstr "Iestatīt laika zonu"
-
-msgid "Language Preferences"
-msgstr "Valodas uzstādījumi"
-
-msgid "Notification preferences"
-msgstr "Paziņojumu iestatījumi"
 
 msgid "Reset password"
 msgstr "Mainīt paroli"
@@ -517,12 +396,6 @@ msgstr "Informācijas panelis"
 
 msgid "Menu"
 msgstr "Izvēlne"
-
-msgid "Move up"
-msgstr "Uz augšu"
-
-msgid "Move down"
-msgstr "Uz leju"
 
 msgid "Explorer"
 msgstr "Pārlūks"
@@ -603,9 +476,6 @@ msgstr ""
 "Privātuma iestatījumi nosaka, kurš var skatīt šajā kolekcijā esošos "
 "dokumentus."
 
-msgid "Save"
-msgstr "Saglabāt"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Iestatiet kolekcijas privātumu. Pašreizējais statuss: Publisks"
 
@@ -629,8 +499,17 @@ msgstr "Nosaukums"
 msgid "Add %(label)s"
 msgstr "Pievienot %(label)s"
 
+msgid "Move up"
+msgstr "Uz augšu"
+
+msgid "Move down"
+msgstr "Uz leju"
+
 msgid "Yes, delete"
 msgstr "Dzēst"
+
+msgid "Update"
+msgstr "Atjaunot"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -642,16 +521,6 @@ msgid ""
 msgstr ""
 "Šis ir jūsu informācijas panelis, kurā saņemsiet noderīgu informāciju par "
 "saturu ko esat izveidojis."
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail pakāpeniski atsakās no IE11 atbalsta, kas var ietekmēt jūs vai jūsu "
-"organizāciju. <a href=\"%(url)s\">Uzziniet vairāk par mūsu IE11 atbalsta "
-"plāniem</a>."
 
 msgid "Your locked pages"
 msgstr "Jūsu slēgtās lapas"
@@ -674,9 +543,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Lapām nepieciešama moderācija"
-
-msgid "Parent"
-msgstr "Augstāka līmeņa vienība"
 
 msgid "Type"
 msgstr "Veids"
@@ -957,9 +823,6 @@ msgstr "Lūdzu ievadiet meklēšanas terminu"
 msgid "No pages use"
 msgstr "Neviena lapa nelieto"
 
-msgid "Collection"
-msgstr "Kolekcija"
-
 msgid "Locked"
 msgstr "Slēgts"
 
@@ -982,6 +845,16 @@ msgstr "Iziet"
 msgid "Other searches"
 msgstr "Citi meklējumi"
 
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail pakāpeniski atsakās no IE11 atbalsta, kas var ietekmēt jūs vai jūsu "
+"organizāciju. <a href=\"%(url)s\">Uzziniet vairāk par mūsu IE11 atbalsta "
+"plāniem</a>."
+
 msgid "Go to Wagtail admin interface"
 msgstr "Doties uz Wagtail administrācijas intefeisu"
 
@@ -997,9 +870,6 @@ msgstr "autors %(modified_by)s"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Your password has been changed successfully!"
-msgstr "Parole mainīta veiksmīgi."
 
 msgid "You have been successfully logged out."
 msgstr "Jūs esat veiksmīgi izgājis no sistēmas."
@@ -1111,158 +981,6 @@ msgstr "Page '{0}' unpublished."
 
 msgid "More"
 msgstr "Vairāk"
-
-msgid "Change the password you use to log in."
-msgstr "Nomainīt autorizācijas paroli."
-
-msgid "Choose which email notifications to receive."
-msgstr "Izvēlēties e-pasta paziņojumus"
-
-msgid "Language preferences"
-msgstr "Valodas uzstādījumi"
-
-msgid "Choose the language you want to use here."
-msgstr "Izvēlieties valodu, kādu vēlaties lietot."
-
-msgid "Copied"
-msgstr "Kopēts"
-
-#, python-format
-msgid "Created an alias of %(title)s"
-msgstr "Izveidota %(title)s aizstājējlapa"
-
-msgid "Created an alias"
-msgstr "Izveidota aizstājējlapa"
-
-#, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "Konvertēta aizstājējlapa '%(title)s' par parastu lapu"
-
-msgid "Converted an alias into a regular page"
-msgstr "Konvertēta no aizstājējlapas par parastu lapu"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "Pārvietota no %(old_parent)s uz %(new_parent)s"
-
-msgid "Moved"
-msgstr "Pārvietota"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Pārskatījumam %(revision_id)s no %(created_at)s ieplānota publicēšanai "
-"%(go_live_at)s."
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Lapa ieplānota publicēšanai %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Lapa ieplānota publicēšanai"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Pārskatījumam %(revision_id)s no %(created_at)s atcelta %(go_live_at)s "
-"plānotā publicēšana"
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Lapai atcelta plānotā publicēšana %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Lapai atcelta plānotā publicēšana"
-
-#, python-format
-msgid "Added the '%(restriction)s' view restriction"
-msgstr "Pievienots %(restriction)s apskates ierobežojums"
-
-msgid "Added view restriction"
-msgstr "PIevienots apskates ierobežojums"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "Atjaunināts %(restriction)s apskates ierobežojums"
-
-msgid "Updated view restriction"
-msgstr "Atjaunināts apskates ierobežojums"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Noņemts %(restriction)s apskates ierobežojums"
-
-msgid "Removed view restriction"
-msgstr "Noņemts apskates ierobežojums"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Pārsaukts no '%(old)s' uz '%(new)s'"
-
-msgid "Renamed"
-msgstr "Pārsaukts"
-
-msgid "Rename"
-msgstr "Pārsaukt"
-
-msgid "Revert"
-msgstr "Agriezt"
-
-msgid "Create alias"
-msgstr "Izveidot aizstājlapu"
-
-msgid "Convert alias into regular page"
-msgstr "Konvertēt aizstājlapu par parastu lapu"
-
-msgid "Schedule publication"
-msgstr "Plānot publicēšanu"
-
-msgid "Unschedule publication"
-msgstr "Atplānot publicēšanu"
-
-msgid "Add view restrictions"
-msgstr "Pievienot apskates ierobežojumus"
-
-msgid "Update view restrictions"
-msgstr "Atjaunināt apskates ierobežojumus"
-
-msgid "Remove view restrictions"
-msgstr "Noņemt apskates ierobežojumus"
-
-msgid "Workflow task approved"
-msgstr "Darbplūsmas uzdevums apstiprināts."
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "Darbplūsmas uzdevums noraidīts. Darbplūsma pabeigta."
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Atkārtoti iesniegts %(task)s. Darbplūsma atsākta."
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "Darbplūsmas uzdevums atkārtoti iesniegts. Darbplūsma atsākta."
-
-msgid "Workflow cancelled"
-msgstr "Darbplūsma atcelta"
-
-msgid "Workflow: start"
-msgstr "Darbplūsma: uzsākt"
-
-msgid "Workflow: approve task"
-msgstr "Darbplūsma: apstiprināt uzdevumu"
-
-msgid "Workflow: reject task"
-msgstr "Darbplūsma: noraidīt uzdevumu"
-
-msgid "Workflow: resume task"
-msgstr "Darbplūsma: atsākt uzdevumu"
-
-msgid "Workflow: cancel"
-msgstr "Darbplūsma: atcelt"
 
 msgid "Yes"
 msgstr "Jā"

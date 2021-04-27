@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -54,9 +54,6 @@ msgstr "Προγραμματισμενη δημοσιευση"
 msgid "Privacy"
 msgstr "Ιδιωτικότητα"
 
-msgid "Common page configuration"
-msgstr "Κοινές ρυθμίσεις σελίδων"
-
 msgid "Content"
 msgstr "Περιεχομενο"
 
@@ -82,8 +79,14 @@ msgstr "Εισάγετε το %s"
 msgid "Enter your email address to reset your password"
 msgstr "Εισάγετε τη διεύθυνση email σας για να ανανεώσετε τον κωδικό σας"
 
+msgid "Parent"
+msgstr "Πατρική"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Δε μπορείτε να έχετε πολλαπλά δικαιώματα για την ίδια συλλογή"
+
+msgid "Collection"
+msgstr "Συλλογή"
 
 msgid "New title"
 msgstr "Νέος τίτλος"
@@ -168,14 +171,14 @@ msgstr "Σελίδες"
 msgid "Edit '{title}'"
 msgstr "Επεξεργασία '{title}'"
 
+msgid "Save"
+msgstr "Αποθηκευση"
+
 msgid "Go to Wagtail admin"
 msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
 
 msgid "Account"
 msgstr "Λογαριασμός"
-
-msgid "Update"
-msgstr "Ενημέρωση"
 
 msgid "Change password"
 msgstr "Αλλαγή κωδικού"
@@ -184,9 +187,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ο κωδικός σας δε μπορεί να αλλαχτεί εδώ. Παρακαλώ ενημερώστε το διαχειριστή."
-
-msgid "Notification preferences"
-msgstr "Προτιμήσεις ειδοποιήσεων"
 
 msgid "Reset password"
 msgstr "Ανανέωση κωδικού"
@@ -221,12 +221,6 @@ msgstr "Πίνακας ελέγχου"
 
 msgid "Menu"
 msgstr "Μενού"
-
-msgid "Move up"
-msgstr "Μετακίνηση πάνω"
-
-msgid "Move down"
-msgstr "Μετακίνηση κάτω"
 
 msgid "Explorer"
 msgstr "Εξερευνητής"
@@ -280,9 +274,6 @@ msgstr "Προσθήκη εξωτερικής σύνδεσης"
 msgid "You can edit the privacy settings on:"
 msgstr "Μπορείτε να επεξεργαστείτε τις ρυθμίσεις απορρήτου στο:"
 
-msgid "Save"
-msgstr "Αποθηκευση"
-
 msgid "Public"
 msgstr "Δημοσιο"
 
@@ -306,8 +297,17 @@ msgstr ""
 "Δεν υπάρχουν συλλογές. Θέλετε να <a href=\"%(add_collection_url)s"
 "\">προσθέσετε μία</a>;"
 
+msgid "Move up"
+msgstr "Μετακίνηση πάνω"
+
+msgid "Move down"
+msgstr "Μετακίνηση κάτω"
+
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
+
+msgid "Update"
+msgstr "Ενημέρωση"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -331,9 +331,6 @@ msgstr "Live"
 
 msgid "Pages awaiting moderation"
 msgstr "Σελίδες προς έλεγχο"
-
-msgid "Parent"
-msgstr "Πατρική"
 
 msgid "Type"
 msgstr "Τύπος"
@@ -808,9 +805,6 @@ msgstr "Εισάγετε όρο αναζήτησης"
 msgid "No pages use"
 msgstr "Δεν υπάρχουν σελίδες που χρησιμοποιείτε"
 
-msgid "Collection"
-msgstr "Συλλογή"
-
 msgid "Locked"
 msgstr "Κλειδωμένο"
 
@@ -854,9 +848,6 @@ msgstr "Σύγκριση με την live έκδοση"
 
 msgid "Test"
 msgstr "Δοκιμή"
-
-msgid "Your password has been changed successfully!"
-msgstr "Ο κωδικός σας αλλάχτηκε με επιτυχία!"
 
 msgid "You have been successfully logged out."
 msgstr "Έχετε αποσυνδεθεί."
@@ -974,12 +965,6 @@ msgstr "Έγινε αποδημοσίευση της '{0}'."
 
 msgid "More"
 msgstr "Περισσοτερα"
-
-msgid "Change the password you use to log in."
-msgstr "Αλλάξτε τον κωδικό σας"
-
-msgid "Choose which email notifications to receive."
-msgstr "Επιλέξτε ποιες ειδοποιήσεις email θα λαμβάνετε."
 
 msgid "Choose an item"
 msgstr "Επιλέξατε αντικείμενο"

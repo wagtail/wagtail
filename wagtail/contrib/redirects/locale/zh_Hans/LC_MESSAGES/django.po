@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-08-02 12:35+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,9 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtail 重定向"
+
+msgid "Type"
+msgstr "类型"
 
 msgid "From site"
 msgstr "来自站点"
@@ -162,9 +165,6 @@ msgstr "继续"
 
 msgid "Site"
 msgstr "站点"
-
-msgid "Type"
-msgstr "类型"
 
 msgid "Edit this redirect"
 msgstr "编辑重定向"

@@ -1,0 +1,65 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Luís Tiago Favas <al62006@utad.eu>, 2021
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-21 09:32+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Luís Tiago Favas <al62006@utad.eu>, 2021\n"
+"Language-Team: Portuguese (Portugal) (https://www.transifex.com/torchbox/"
+"teams/8009/pt_PT/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Tradução simples Wagtail"
+
+msgid "Select all"
+msgstr "Selecionar todos"
+
+msgid "Locales"
+msgstr "Dialetos"
+
+msgid "All child pages will be created."
+msgstr "Todas as páginas filhas serão criadas."
+
+msgid "Include subtree ({} page)"
+msgid_plural "Include subtree ({} pages)"
+msgstr[0] "Incluir sub-árvore ({} página)"
+msgstr[1] "Incluir sub-árvore  ({} páginas)"
+
+msgid "Submit"
+msgstr "Submeter"
+
+msgid "Translate"
+msgstr "Traduzir"
+
+msgid "{} locales"
+msgstr "{} dialetos"
+
+msgid "Translate page"
+msgstr "Traduzir página"
+
+msgid "The page '{page_title}' was successfully created in {locales}"
+msgstr "A página '{page_title}'  foi criada com sucesso em  {locales}"
+
+msgid "Translate {model_name}"
+msgstr "Traduzir {model_name}"
+
+msgid "Successfully created {locales} for {model_name} '{object}'"
+msgstr "Criado com sucesso {locales} para {model_name} '{object}'"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Traduzir '%(title)s'"

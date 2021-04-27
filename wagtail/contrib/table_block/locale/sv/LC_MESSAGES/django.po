@@ -4,14 +4,14 @@
 #
 # Translators:
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2017
+# Thomas Kunambi <kunambi@gmail.com>, 2017,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2019-12-02 09:01+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 21:58+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -44,3 +44,6 @@ msgid ""
 msgstr ""
 "En rubrik som identifierar tabellens övergripande ämne och är användbar för "
 "skärmläsare"
+
+msgid "Table"
+msgstr "Tabell"

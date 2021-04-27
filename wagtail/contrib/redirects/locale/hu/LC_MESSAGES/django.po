@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-24 17:33+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 06:18+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -21,6 +21,18 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Átirányítások"
+
+msgid "Type"
+msgstr "Típus"
+
+msgid "Permanent"
+msgstr "Állandó"
+
+msgid "Temporary"
+msgstr "Átmeneti"
+
+msgid "All"
+msgstr "Összes"
 
 msgid "From site"
 msgstr "Webhelyről"
@@ -162,14 +174,17 @@ msgstr "Hiba"
 msgid "Continue"
 msgstr "Folytatás"
 
+msgid "Export redirects"
+msgstr "Átirányítások exportálása"
+
 msgid "Site"
 msgstr "Webhely"
 
-msgid "Type"
-msgstr "Típus"
-
 msgid "Edit this redirect"
 msgstr "Átirányítás szerkesztése"
+
+msgid "No redirects found."
+msgstr "Nincs átirányítás."
 
 #, python-format
 msgid ""
@@ -238,3 +253,6 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "%(total)d átirányítás importálva"
 msgstr[1] "%(total)d átirányítás importálva"
+
+msgid "Export Redirects"
+msgstr "Átirányítások exportálása"

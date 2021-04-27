@@ -11,15 +11,15 @@
 # Martin Sandström <martin@marteinn.se>, 2020
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
-# Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2020
+# Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2020-2021
 # Thomas Kunambi <kunambi@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-18 18:16+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 21:52+0000\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -89,8 +89,11 @@ msgstr "Schemalagd publicering"
 msgid "Privacy"
 msgstr "Sekretess"
 
-msgid "Common page configuration"
-msgstr "Gemensam sidkonfiguration"
+msgid "For search engines"
+msgstr "För sökmotorer"
+
+msgid "For site menus"
+msgstr "För sajtmenyer"
 
 msgid "Content"
 msgstr "Innehåll"
@@ -144,6 +147,9 @@ msgstr "Ange din e-postadress för att återställa ditt lösenord"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Topp"
+
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
@@ -153,6 +159,12 @@ msgstr ""
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
+
+msgid "Collection"
+msgstr "Samling"
+
+msgid "You cannot edit another user's comment."
+msgstr "Du kan inte editera andra användares kommentarer"
 
 msgid "New title"
 msgstr "Ny titel"
@@ -254,114 +266,6 @@ msgstr "Ge ditt arbetsflöde ett namn"
 msgid "Add tasks to your workflow"
 msgstr "Lägg till uppgifter till ditt arbetsflöde"
 
-msgid "Arabic"
-msgstr "Arabiska"
-
-msgid "Catalan"
-msgstr "Katalanska"
-
-msgid "Czech"
-msgstr "Tjeckiska"
-
-msgid "German"
-msgstr "Tyska"
-
-msgid "Greek"
-msgstr "Grekiska"
-
-msgid "English"
-msgstr "Engelska"
-
-msgid "Spanish"
-msgstr "Spanska"
-
-msgid "Estonian"
-msgstr "Estniska"
-
-msgid "Finnish"
-msgstr "Finska"
-
-msgid "French"
-msgstr "Franska"
-
-msgid "Galician"
-msgstr "Galiciska"
-
-msgid "Croatian"
-msgstr "Kroatiska"
-
-msgid "Hungarian"
-msgstr "Ungerska"
-
-msgid "Indonesian"
-msgstr "Indonesisk"
-
-msgid "Icelandic"
-msgstr "Isländska"
-
-msgid "Italian"
-msgstr "Italienska"
-
-msgid "Japanese"
-msgstr "Japanska"
-
-msgid "Korean"
-msgstr "Koreanska"
-
-msgid "Lithuanian"
-msgstr "Litauiska"
-
-msgid "Mongolian"
-msgstr "Mongoliska"
-
-msgid "Norwegian Bokmål"
-msgstr "Norska Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Nederländska"
-
-msgid "Persian"
-msgstr "Persiska"
-
-msgid "Polish"
-msgstr "Polska"
-
-msgid "Brazilian Portuguese"
-msgstr "Brasiliansk portugisiska"
-
-msgid "Portuguese"
-msgstr "Portugisiska"
-
-msgid "Romanian"
-msgstr "Romänska"
-
-msgid "Russian"
-msgstr "Ryska"
-
-msgid "Swedish"
-msgstr "Svenska"
-
-msgid "Slovak"
-msgstr "Slovakiska"
-
-msgid "Thai"
-msgstr "Thailändska"
-
-msgid "Turkish"
-msgstr "Turkiska"
-
-msgid "Turkish (Turkey)"
-msgstr "Turkiska (Turkiet)"
-
-msgid "Ukrainian"
-msgstr "Ukrainska"
-
-msgid "Chinese (Simplified)"
-msgstr "Kinesiska (Förenklad)"
-
-msgid "Chinese (Traditional)"
-msgstr "Kinesiska (Traditionell)"
-
 msgid "Edit"
 msgstr "Redigera"
 
@@ -388,6 +292,9 @@ msgstr "Stäng utforskaren"
 
 msgid "Alt text"
 msgstr "Alternativ text"
+
+msgid "Decorative image"
+msgstr "Dekorativ bild"
 
 msgid "Write here…"
 msgstr "Skriv här..."
@@ -440,9 +347,56 @@ msgstr "Visa undersidor av '{title}'"
 msgid "Page explorer"
 msgstr "Sidutforskare"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Okänd %(action)s"
+msgid "Save"
+msgstr "Spara"
+
+msgid "Saving..."
+msgstr "Sparar..."
+
+msgid "Cancel"
+msgstr "Avbryt"
+
+msgid "Deleting..."
+msgstr "Raderar..."
+
+msgid "Add a comment"
+msgstr "Lägg till kommentar"
+
+msgid "Show comments"
+msgstr "Visa kommentarer"
+
+msgid "Reply"
+msgstr "Svara"
+
+msgid "Resolve"
+msgstr "Lös"
+
+msgid "Retry"
+msgstr "Försök igen"
+
+msgid "Delete error"
+msgstr "Raderingsfel"
+
+msgid "Are you sure?"
+msgstr "Är du säker?"
+
+msgid "Save error"
+msgstr "Fel vid sparande"
+
+msgid "This will be saved when the page is saved"
+msgstr "Detta blir sparat när sidan sparas"
+
+msgid "Focus comment"
+msgstr "Fokusera kommentar"
+
+msgid "Unfocus comment"
+msgstr "Avfokusera kommentar"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "More actions"
+msgstr "Fler åtgärder"
 
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
@@ -459,20 +413,8 @@ msgstr "Gå till Wagtail admin"
 msgid "Account"
 msgstr "Konto"
 
-msgid "Change profile picture"
-msgstr "Ändra profilbild"
-
-msgid "Your current profile picture:"
-msgstr "Nuvarande profilbild:"
-
-msgid "Update"
-msgstr "Uppdatera"
-
-msgid "Change email"
-msgstr "Byt e-postadress"
-
-msgid "Change name"
-msgstr "Ändra namn"
+msgid "Save account details"
+msgstr "Spara kontodetaljer"
 
 msgid "Change password"
 msgstr "Byt lösenord"
@@ -481,15 +423,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ditt lösenord inte inte ändras här. Vänligen kontakta en administratör."
-
-msgid "Set Time Zone"
-msgstr "Ställ in tidszon"
-
-msgid "Language Preferences"
-msgstr "Språkpreferens"
-
-msgid "Notification preferences"
-msgstr "Notisinställningar"
 
 msgid "Reset password"
 msgstr "Återställ lösenord"
@@ -538,17 +471,17 @@ msgstr "Återställ lösenord"
 msgid "Reset your password"
 msgstr "Återställ ditt lösenord"
 
+msgid "Upload a profile picture:"
+msgstr "Ladda upp profilbild:"
+
+msgid "Reset to default"
+msgstr "Återställ till standard"
+
 msgid "Dashboard"
 msgstr "Instrumentpanel"
 
 msgid "Menu"
 msgstr "Meny"
-
-msgid "Move up"
-msgstr "Flytta upp"
-
-msgid "Move down"
-msgstr "Flytta ner"
 
 msgid "Explorer"
 msgstr "Utforskare"
@@ -645,9 +578,6 @@ msgstr ""
 "Sekretessinställningarna bestämmer vem som kan se dokument i den här "
 "samlingen. "
 
-msgid "Save"
-msgstr "Spara"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Ställer in samlingens integritet. Nuvarande status: Publik"
 
@@ -680,8 +610,23 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Lägg till %(label)s"
 
+msgid "Move up"
+msgstr "Flytta upp"
+
+msgid "Move down"
+msgstr "Flytta ner"
+
+msgid "Add comment"
+msgstr "Lägg till kommentar"
+
+msgid "Comment notifications"
+msgstr "Kommentarnotifiering"
+
 msgid "Yes, delete"
 msgstr "Ja, radera"
+
+msgid "Update"
+msgstr "Uppdatera"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -693,15 +638,6 @@ msgid ""
 msgstr ""
 "Detta är din instrumentbräda där hjälpsam information om innehållet du "
 "skapat kommer att visas."
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail tar gradvis bort stöd för IE11, vilket kan påverka dig eller din "
-"organisation. <a href=\"%(url)s\">Läs mer om vår IE11 supportplan</a>."
 
 msgid "Your locked pages"
 msgstr "Dina låsta sidor"
@@ -724,9 +660,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Sidor som väntar på moderation"
-
-msgid "Parent"
-msgstr "Topp"
 
 msgid "Type"
 msgstr "Typ"
@@ -897,6 +830,41 @@ msgstr ""
 "\"%(task)s\" "
 
 #, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s har uppdaterat kommentarer på \"%(title)s\"."
+
+msgid "New comments"
+msgstr "Nya kommentarer"
+
+msgid "Resolved comments"
+msgstr "Lösta kommentarer"
+
+msgid "Deleted comments"
+msgstr "Raderade kommentarer"
+
+msgid "New replies"
+msgstr "Nya svar"
+
+msgid "New replies to:"
+msgstr "Nya svar till:"
+
+msgid "New comments:"
+msgstr "Nya kommentarer:"
+
+msgid "Resolved comments:"
+msgstr "Lösta kommentarer:"
+
+msgid "Deleted comments:"
+msgstr "Raderade kommentarer:"
+
+msgid "New replies:"
+msgstr "Nya svar:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s har uppdaterat kommentarer på \"%(title)s\""
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
 msgstr "Sidan \"%(title)s\" har blivit godkänd i arbetsflöde \"%(workflow)s\"."
 
@@ -927,6 +895,14 @@ msgstr "Följande kommentar lämnades: \"%(comment)s\""
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Sidan \"%(title)s\" blivit avvisad i \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Sidan \"%(title)s\" har blivit skickad för moderering till arbetsflödet "
+"\"%(workflow)s\" av %(requester)s."
 
 #, python-format
 msgid ""
@@ -972,6 +948,18 @@ msgstr "Sidans integritet. Nuvarande status: Publik"
 
 msgid "Page privacy. Current status: Private"
 msgstr "Sidans integritet. Nuvarande status: Privat"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Du har <span>osparade ändringar</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Du har <span>osparade kommentarer</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "Du har <span>osparade ändringar</span> och <span>kommentarer</span>"
+
+msgid "Save the page before leaving"
+msgstr "Spara sidan innan du lämnar"
 
 msgid "Publishing…"
 msgstr "Publicerar..."
@@ -1152,9 +1140,6 @@ msgstr "Publicering av denna sida avbryter det aktuella arbetsflödet."
 msgid "Would you still like to publish this page?"
 msgstr "Vill du fortfarande publicera denna sida?"
 
-msgid "Cancel"
-msgstr "Avbryt"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Sidor som använder %(page_class_verbose_name)s"
@@ -1217,9 +1202,6 @@ msgstr "Användare"
 
 msgid "Date / Time"
 msgstr "Datum / Tid"
-
-msgid "Comment"
-msgstr "Kommentar"
 
 msgid "Live version"
 msgstr "Publicerad version"
@@ -1637,9 +1619,6 @@ msgstr "Ej slutförd uppgift"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Denna sida här ännu inte lämnats in för moderering"
 
-msgid "Collection"
-msgstr "Samling"
-
 msgid "No pages match this report's criteria."
 msgstr "Inga sidor matchade kriterierna för denna rapport."
 
@@ -1773,6 +1752,15 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">instruktioner om hur du aktiverar "
 "JavaScript i din webbläsare</a>.\n"
 "        "
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail tar gradvis bort stöd för IE11, vilket kan påverka dig eller din "
+"organisation. <a href=\"%(url)s\">Läs mer om vår IE11 supportplan</a>."
 
 msgid "Skip to main content"
 msgstr "Hoppa till huvudinnehåll"
@@ -2022,20 +2010,26 @@ msgstr "utkast"
 msgid "Test"
 msgstr "Test"
 
-msgid "Your password has been changed successfully!"
-msgstr "Ditt lösenord har framgångsrikt uppdaterats!"
+msgid "Profile"
+msgstr "Profil"
 
-msgid "Your email has been changed successfully!"
-msgstr "Din e-postadress har ändrats!"
+msgid "Notifications"
+msgstr "Notifieringar"
 
-msgid "Your name has been changed successfully!"
-msgstr "Ditt namn har ändrats!"
+msgid "Name and Email"
+msgstr "Namn och e-post"
 
-msgid "Your preferences have been updated."
-msgstr "Dina inställningar har uppdaterats."
+msgid "Profile picture"
+msgstr "Profilbild"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Dina inställningar har uppdaterats!"
+msgid "Locale"
+msgstr "Plats"
+
+msgid "Password"
+msgstr "Lösenord"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Dina kontoinställningar har uppdaterats med bra resultat!"
 
 msgid "You have been successfully logged out."
 msgstr "Du har framgångsrikt loggats ut."
@@ -2389,36 +2383,6 @@ msgstr "Avpublicera sidan '%(title)s'"
 msgid "View page history for '%(title)s'"
 msgstr "Visa sidohistorik för '%(title)s'"
 
-msgid "Set profile picture"
-msgstr "Ange profilbild"
-
-msgid "Change your profile picture."
-msgstr "Ändra din profilbild."
-
-msgid "Change the email address linked to your account."
-msgstr "Ändra e-postadressen som är länkad till ditt konto."
-
-msgid "Change the password you use to log in."
-msgstr "Byt lösenordet du använder för att logga in"
-
-msgid "Choose which email notifications to receive."
-msgstr "Välj vilka e-postnotiser du vill ta emot"
-
-msgid "Language preferences"
-msgstr "Språkpreferens"
-
-msgid "Choose the language you want to use here."
-msgstr "Välj det språk du vill använda här."
-
-msgid "Current Time Zone"
-msgstr "Aktuell tidszon"
-
-msgid "Choose your current time zone."
-msgstr "Välj din nuvarande tidszon"
-
-msgid "Change your first and last name on your account."
-msgstr "Ändra ditt för- och efternamn för ditt konto."
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Rubrik %(level)d"
@@ -2458,209 +2422,6 @@ msgstr "Låsta sidor"
 
 msgid "Reports"
 msgstr "Rapporter"
-
-msgid "Created"
-msgstr "Skapades"
-
-msgid "Deleted"
-msgstr "Raderad"
-
-msgid "Publish scheduled draft"
-msgstr "Publicera schemalagt utkast"
-
-msgid "Published scheduled draft"
-msgstr "Publicerade schemalagt utkast"
-
-msgid "Unpublished"
-msgstr "Avpublicerad"
-
-msgid "Unpublish scheduled draft"
-msgstr "Avpublicera schemalagt utkast"
-
-msgid "Unpublished scheduled draft"
-msgstr "Avpublicerade schemalagt utkast"
-
-msgid "Unlocked"
-msgstr "Olåst"
-
-msgid "Approved"
-msgstr "Godkänd"
-
-msgid "Rejected"
-msgstr "Avvisad"
-
-#, python-format
-msgid ""
-"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
-msgstr ""
-"Återgick till föregående revision med id %(revision_id)s från %(created_at)s"
-
-msgid "Reverted to previous revision"
-msgstr "Återgå till föregående revision"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "Kopierad från %(title)s"
-
-msgid "Copied"
-msgstr "Kopierad"
-
-#, python-format
-msgid "Created an alias of %(title)s"
-msgstr "Skapade ett alias av %(title)s"
-
-msgid "Created an alias"
-msgstr "Skapade alias"
-
-#, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "Konverterade alias '%(title)s' till en vanlig sida"
-
-msgid "Converted an alias into a regular page"
-msgstr "Konverterade alias till en vanlig sida"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "Flyttade från '%(old_parent)s' till '%(new_parent)s'"
-
-msgid "Moved"
-msgstr "Flyttad"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Revision %(revision_id)s från %(created_at)s schemlagd för publicering vid "
-"%(go_live_at)s."
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Sida schemalagd för publicering vid %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Sida schemalagd för publicering"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Revision %(revision_id)s från %(created_at)s schemaläggning för publicering "
-"borttagen vid %(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Sidans schemaläggning för publicering borttagen vid %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Sidans schemaläggning för publicering borttagen"
-
-#, python-format
-msgid "Added the '%(restriction)s' view restriction"
-msgstr "La till visningsrestriktionen '%(restriction)s'"
-
-msgid "Added view restriction"
-msgstr "Lade till visningsrestriktion"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "Uppdaterade visningsrestriktionen för '%(restriction)s'"
-
-msgid "Updated view restriction"
-msgstr "Uppdaterade sidovisningsrestriktion"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Tog bort visningsrestriktionen '%(restriction)s'"
-
-msgid "Removed view restriction"
-msgstr "Tog bort visningsrestriktion"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Döpte om från '%(old)s' till '%(new)s'"
-
-msgid "Renamed"
-msgstr "Omdöpt"
-
-msgid "Rename"
-msgstr "Döp om"
-
-msgid "Revert"
-msgstr "Återgå"
-
-msgid "Create alias"
-msgstr "Skapa alias"
-
-msgid "Convert alias into regular page"
-msgstr "Konvertera alias till vanlig sida"
-
-msgid "Schedule publication"
-msgstr "Schemalägg publicering"
-
-msgid "Unschedule publication"
-msgstr "Schemalägg inte publicering"
-
-msgid "Add view restrictions"
-msgstr "Lägg till visningsrestriktion"
-
-msgid "Update view restrictions"
-msgstr "Uppdatera sidovisningsrestriktioner"
-
-msgid "Remove view restrictions"
-msgstr "Ta bort visningsrestriktion"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "'%(workflow)s' påbörjat. Nästa steg '%(task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "Godkänd i '%(task)s'. Nästa steg '%(next_task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "Godkändes vid '%(task)s'. '%(workflow)s' slutförd"
-
-msgid "Workflow task approved"
-msgstr "Arbetsflödets uppgift godkänd"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "Avvisades i '%(task)s'. Förändringar begärda"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "Arbetsflödesuppgift avvisad. Arbetsflöde slutfört"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Skickade om '%(task)s'. Arbetsflöde återupptaget'"
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "Skickade om arbetsflödets uppgift. Arbetsflöde återupptaget"
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "Avbröt '%(workflow)s' vid '%(task)s'"
-
-msgid "Workflow cancelled"
-msgstr "Arbetsflöde avbrutet"
-
-msgid "Workflow: start"
-msgstr "Arbetsflöde: påbörja"
-
-msgid "Workflow: approve task"
-msgstr "Arbetsflöde: godkänn uppgift"
-
-msgid "Workflow: reject task"
-msgstr "Arbetsflöde: avvisa uppgift"
-
-msgid "Workflow: resume task"
-msgstr "Arbetsflöde: återuppta uppgift"
-
-msgid "Workflow: cancel"
-msgstr "Arbetsflöde: avbryt"
 
 msgid "Yes"
 msgstr "Ja"

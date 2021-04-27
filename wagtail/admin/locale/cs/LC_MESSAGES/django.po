@@ -12,16 +12,16 @@
 # Martina Oleksakova <martina.oleksakova@tul.cz>, 2018
 # Martin Galda <martingalda9@gmail.com>, 2017-2018
 # Matt Westcott <matthew@torchbox.com>, 2018
-# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
 # IT Management <hudan@itmanagement.cz>, 2018
 # Tomáš Jeřábek <tomas@tomasjerabek.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-28 20:16+0000\n"
-"Last-Translator: Tomáš Jeřábek <tomas@tomasjerabek.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 13:54+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -92,8 +92,11 @@ msgstr "Naplánovaná publikace"
 msgid "Privacy"
 msgstr "Viditelnost"
 
-msgid "Common page configuration"
-msgstr "Nastavení stránky"
+msgid "For search engines"
+msgstr "Pro vyhledávače"
+
+msgid "For site menus"
+msgstr "Pro menu webu"
 
 msgid "Content"
 msgstr "Obsah"
@@ -147,6 +150,9 @@ msgstr "Pro obnovení hesla zadejte svou e-mailovou adresu"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Nadřazená stránka"
+
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
@@ -156,6 +162,12 @@ msgstr ""
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
+
+msgid "Collection"
+msgstr "Kolekce"
+
+msgid "You cannot edit another user's comment."
+msgstr "Nemůžete změnit komentář jiného uživatele."
 
 msgid "New title"
 msgstr "Nový název"
@@ -267,114 +279,6 @@ msgstr "Pojmenujte tento postup"
 msgid "Add tasks to your workflow"
 msgstr "Přidejte úlohy do tohoto postupu"
 
-msgid "Arabic"
-msgstr "Arabic"
-
-msgid "Catalan"
-msgstr "Catalan"
-
-msgid "Czech"
-msgstr "Čeština"
-
-msgid "German"
-msgstr "German"
-
-msgid "Greek"
-msgstr "Greek"
-
-msgid "English"
-msgstr "English"
-
-msgid "Spanish"
-msgstr "Spanish"
-
-msgid "Estonian"
-msgstr "Estonština"
-
-msgid "Finnish"
-msgstr "Finnish"
-
-msgid "French"
-msgstr "French"
-
-msgid "Galician"
-msgstr "Galician"
-
-msgid "Croatian"
-msgstr "Chorvatština"
-
-msgid "Hungarian"
-msgstr "Maďarština"
-
-msgid "Indonesian"
-msgstr "Indonesian"
-
-msgid "Icelandic"
-msgstr "Icelandic"
-
-msgid "Italian"
-msgstr "Italian"
-
-msgid "Japanese"
-msgstr "Japonština"
-
-msgid "Korean"
-msgstr "Korean"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Mongolian"
-msgstr "mongolština"
-
-msgid "Norwegian Bokmål"
-msgstr "Norwegian Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Netherlands Dutch"
-
-msgid "Persian"
-msgstr "Persian"
-
-msgid "Polish"
-msgstr "Polish"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilian Portuguese"
-
-msgid "Portuguese"
-msgstr "Portuguese"
-
-msgid "Romanian"
-msgstr "Romanian"
-
-msgid "Russian"
-msgstr "Russian"
-
-msgid "Swedish"
-msgstr "Swedish"
-
-msgid "Slovak"
-msgstr "Slovak"
-
-msgid "Thai"
-msgstr "thajština"
-
-msgid "Turkish"
-msgstr "Turečtina"
-
-msgid "Turkish (Turkey)"
-msgstr "Turečtina (Turecko)"
-
-msgid "Ukrainian"
-msgstr "Ukrainian"
-
-msgid "Chinese (Simplified)"
-msgstr "čínština (zjednodušená)"
-
-msgid "Chinese (Traditional)"
-msgstr "čínština (tradiční)"
-
 msgid "Edit"
 msgstr "Upravit"
 
@@ -401,6 +305,9 @@ msgstr "Zavřít explorer"
 
 msgid "Alt text"
 msgstr "Alternativní text"
+
+msgid "Decorative image"
+msgstr "Dekorační obrázek"
 
 msgid "Write here…"
 msgstr "Pište zde..."
@@ -451,9 +358,56 @@ msgstr "Ukázat podstránky '{title}'"
 msgid "Page explorer"
 msgstr "Explorer"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Není známo %(action)s"
+msgid "Save"
+msgstr "Uložit"
+
+msgid "Saving..."
+msgstr "Ukládám ..."
+
+msgid "Cancel"
+msgstr "Storno"
+
+msgid "Deleting..."
+msgstr "Rušení ..."
+
+msgid "Add a comment"
+msgstr "Přidej komentář"
+
+msgid "Show comments"
+msgstr "Ukaž komentáře"
+
+msgid "Reply"
+msgstr "Odpovědět"
+
+msgid "Resolve"
+msgstr "Odsouhlasit"
+
+msgid "Retry"
+msgstr "Zkusit znova"
+
+msgid "Delete error"
+msgstr "Chyba při rušení"
+
+msgid "Are you sure?"
+msgstr "Jste si jist(a)?"
+
+msgid "Save error"
+msgstr "Chyba při ukládání"
+
+msgid "This will be saved when the page is saved"
+msgstr "Bude uloženo, jakmile uložíte stránku"
+
+msgid "Focus comment"
+msgstr "Zvýraznit komentář"
+
+msgid "Unfocus comment"
+msgstr "Nezvýrazňovat komentář"
+
+msgid "Comment"
+msgstr "Komentář"
+
+msgid "More actions"
+msgstr "Další akce"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Stránka nebyla nalezena"
@@ -470,20 +424,8 @@ msgstr "Přejít do redakčního systému"
 msgid "Account"
 msgstr "Účet"
 
-msgid "Change profile picture"
-msgstr "Změnit profilovou fotografii"
-
-msgid "Your current profile picture:"
-msgstr "Vaše aktuální profilová fotografie:"
-
-msgid "Update"
-msgstr "Uložit"
-
-msgid "Change email"
-msgstr "Změnit email"
-
-msgid "Change name"
-msgstr "Změnit jméno"
+msgid "Save account details"
+msgstr "Uložit detaily účtu"
 
 msgid "Change password"
 msgstr "Změnit heslo"
@@ -493,15 +435,6 @@ msgid ""
 msgstr ""
 "Vaše heslo nelze změnit pomocí této stránky. Kontaktujte prosím "
 "administrátora."
-
-msgid "Set Time Zone"
-msgstr "Nastavit časové pásmo"
-
-msgid "Language Preferences"
-msgstr "Nastavení jazyka"
-
-msgid "Notification preferences"
-msgstr "Nastavení notifikací"
 
 msgid "Reset password"
 msgstr "Obnovit heslo"
@@ -548,17 +481,17 @@ msgstr "Obnovení hesla"
 msgid "Reset your password"
 msgstr "Nastavit nové heslo"
 
+msgid "Upload a profile picture:"
+msgstr "Nahrát profilový obrázek:"
+
+msgid "Reset to default"
+msgstr "Zpět na původní hodnoty"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Move up"
-msgstr "Posunout nahoru"
-
-msgid "Move down"
-msgstr "Posunout dolů"
 
 msgid "Explorer"
 msgstr "Obsah"
@@ -669,9 +602,6 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "Nastavení soukromí určuje kdo má přístup k dokumentům v této kolekci."
 
-msgid "Save"
-msgstr "Uložit"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Nastavení viditelnosti kolekce. Aktuální stav: Veřejná"
 
@@ -703,8 +633,23 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Přidat %(label)s"
 
+msgid "Move up"
+msgstr "Posunout nahoru"
+
+msgid "Move down"
+msgstr "Posunout dolů"
+
+msgid "Add comment"
+msgstr "Přidat komentář"
+
+msgid "Comment notifications"
+msgstr "Notifikace o komentářích"
+
 msgid "Yes, delete"
 msgstr "Ano, smazat"
+
+msgid "Update"
+msgstr "Uložit"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -714,15 +659,6 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "Na tomto dashboardu najdete základní přehled spravovaného obsahu."
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail postupně odstraňuje podporu IE11, což může ovlivnit vaše řešení. <a "
-"href=\"%(url)s\">Zjistěte více o našich plánech s omezením podpory IE11</a>."
 
 msgid "Your locked pages"
 msgstr "Vámi uzamčené stránky"
@@ -745,9 +681,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Stránky čekající na schválení"
-
-msgid "Parent"
-msgstr "Nadřazená stránka"
 
 msgid "Type"
 msgstr "Typ"
@@ -925,6 +858,41 @@ msgstr ""
 "Stránka \"%(title)s\" byla uložena ke schválení během posouzení \"%(task)s\""
 
 #, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s aktualizoval komentáře u \"%(title)s\"."
+
+msgid "New comments"
+msgstr "Nové komentáře"
+
+msgid "Resolved comments"
+msgstr "Odsouhlasené komentáře"
+
+msgid "Deleted comments"
+msgstr "Zrušené komentáře"
+
+msgid "New replies"
+msgstr "Nové reakce"
+
+msgid "New replies to:"
+msgstr "Nové reakce na:"
+
+msgid "New comments:"
+msgstr "Nové komentáře:"
+
+msgid "Resolved comments:"
+msgstr "Odsouhlasené komentáře:"
+
+msgid "Deleted comments:"
+msgstr "Zrušené komentáře:"
+
+msgid "New replies:"
+msgstr "Nové reakce:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s aktualizoval komentáře u \"%(title)s\""
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
 msgstr "Stránka \"%(title)s\" byla schválena v postupu \"%(workflow)s\"."
 
@@ -955,6 +923,14 @@ msgstr "Byl přidán tento komentář: \"%(comment)s\""
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Stránka \"%(title)s\" byla zamítnuta během \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Stránka \"%(title)s\" byla uložena k posouzení pro postup \"%(workflow)s\" "
+"od %(requester)s."
 
 #, python-format
 msgid ""
@@ -996,6 +972,18 @@ msgstr "Soukromí stránky. Aktuální stav: Veřejná"
 
 msgid "Page privacy. Current status: Private"
 msgstr "Viditelnosti stránky. Aktuální stav: Privátní"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Máte <span>neuložené změny</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "You have <span>neuložené komentáře</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "Máte <span>neuložené změny</span> a <span>komentáře</span>"
+
+msgid "Save the page before leaving"
+msgstr "Uložit stránku před jejím opuštěním"
 
 msgid "Publishing…"
 msgstr "Publikování..."
@@ -1185,9 +1173,6 @@ msgstr "Zveřejnění této stránky přeruší aktuální postup."
 msgid "Would you still like to publish this page?"
 msgstr "Opravdu chcete zveřejnit tuto stránku?"
 
-msgid "Cancel"
-msgstr "Storno"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Stránky, které používají %(page_class_verbose_name)s"
@@ -1250,9 +1235,6 @@ msgstr "Uživatel"
 
 msgid "Date / Time"
 msgstr "Datum / Čas"
-
-msgid "Comment"
-msgstr "Komentář"
 
 msgid "Live version"
 msgstr "Publikovaná verze"
@@ -1675,9 +1657,6 @@ msgstr "Neúplná úloha"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Tato stránka zatím nebyla uložena k posouzení"
 
-msgid "Collection"
-msgstr "Kolekce"
-
 msgid "No pages match this report's criteria."
 msgstr "Žádná stránka neodpovídá parametrům výkazu."
 
@@ -1814,6 +1793,15 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">pokyny, jak povolíte JavaScript ve "
 "vašem prohlížeči</a>.\n"
 "        "
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail postupně odstraňuje podporu IE11, což může ovlivnit vaše řešení. <a "
+"href=\"%(url)s\">Zjistěte více o našich plánech s omezením podpory IE11</a>."
 
 msgid "Skip to main content"
 msgstr "Přeskočit na hlavní obsah"
@@ -2076,20 +2064,26 @@ msgstr "návrh"
 msgid "Test"
 msgstr "Test"
 
-msgid "Your password has been changed successfully!"
-msgstr "Vaše heslo bylo úspěšně změněno!"
+msgid "Profile"
+msgstr "Profil"
 
-msgid "Your email has been changed successfully!"
-msgstr "Váš email byl úspěšně změněn!"
+msgid "Notifications"
+msgstr "Notifikace"
 
-msgid "Your name has been changed successfully!"
-msgstr "Vaše jméno bylo úspěšně změněno!"
+msgid "Name and Email"
+msgstr "Jméno a email"
 
-msgid "Your preferences have been updated."
-msgstr "Vaše nastavení bylo aktualizováno."
+msgid "Profile picture"
+msgstr "Profilový obrázek"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Vaše nastavení bylo úspěšně aktualizováno!"
+msgid "Locale"
+msgstr "Místní nastavení (locale)"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Nastavení vašeho účtu byla úspěšně změněna."
 
 msgid "You have been successfully logged out."
 msgstr "Právě jste se úspěšně odhlásili."
@@ -2452,36 +2446,6 @@ msgstr "Zrušit publikaci stránky %(title)s"
 msgid "View page history for '%(title)s'"
 msgstr "Zobrazit historii stránky '%(title)s'"
 
-msgid "Set profile picture"
-msgstr "Nastavit profilovou fotografii"
-
-msgid "Change your profile picture."
-msgstr "Změnit profilovou fotografii."
-
-msgid "Change the email address linked to your account."
-msgstr "Změnit e-mailovou adresu, přiřazenou k vašemu účtu."
-
-msgid "Change the password you use to log in."
-msgstr "Změnit heslo používané k přihlášení."
-
-msgid "Choose which email notifications to receive."
-msgstr "Zvolit které e-mailové notifikace si přejete dostávat."
-
-msgid "Language preferences"
-msgstr "Nastavení jazyka"
-
-msgid "Choose the language you want to use here."
-msgstr "Vyberte jazyk, který zde chcete použít."
-
-msgid "Current Time Zone"
-msgstr "Aktuální časové pásmo"
-
-msgid "Choose your current time zone."
-msgstr "Zvolte vaše aktuální časové pásmo."
-
-msgid "Change your first and last name on your account."
-msgstr "Změnit jméno a příjmení u vašeho účtu."
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Hlavička %(level)d"
@@ -2521,208 +2485,6 @@ msgstr "Uzamčené stránky"
 
 msgid "Reports"
 msgstr "Výkazy"
-
-msgid "Created"
-msgstr "Vytvořeno"
-
-msgid "Deleted"
-msgstr "Zrušeno"
-
-msgid "Publish scheduled draft"
-msgstr "Zveřejnit naplánovaný návrh"
-
-msgid "Published scheduled draft"
-msgstr "Byl zveřejněn naplánovaný návrh"
-
-msgid "Unpublished"
-msgstr "Nezveřejněno"
-
-msgid "Unpublish scheduled draft"
-msgstr "Nezveřejnit naplánovaný návrh"
-
-msgid "Unpublished scheduled draft"
-msgstr "Nebyl zveřejněn naplánovaný návrh"
-
-msgid "Unlocked"
-msgstr "Odemčeno"
-
-msgid "Approved"
-msgstr "Schváleno"
-
-msgid "Rejected"
-msgstr "Odmítnuto"
-
-#, python-format
-msgid ""
-"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
-msgstr "Vráceno na předchozí verzi id %(revision_id)s v %(created_at)s"
-
-msgid "Reverted to previous revision"
-msgstr "Vráceno na předchozí verzi"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "Zkopírováno z %(title)s"
-
-msgid "Copied"
-msgstr "Zkopírováno"
-
-#, python-format
-msgid "Created an alias of %(title)s"
-msgstr "Byl vytvořen alias od %(title)s"
-
-msgid "Created an alias"
-msgstr "Byl vytvořen alias"
-
-#, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "Byl změněn alias '%(title)s' na regulérní stránku"
-
-msgid "Converted an alias into a regular page"
-msgstr "Byl změněn alias na regulérní stránku"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "Přesunuto z '%(old_parent)s' ke '%(new_parent)s'"
-
-msgid "Moved"
-msgstr "Přesunuto"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Verze %(revision_id)s ze %(created_at)s naplánována ke zveřejnění na"
-"%(go_live_at)s."
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Stránka naplánována ke zveřejnění na %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Stránka naplánována ke zveřejnění"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Stránce %(revision_id)s z %(created_at)s byl zastaven plán ke zveřejnění v "
-"%(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Stránce bylo zastaveno plánované zveřejnění v %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Stránce bylo zastaveno plánované zveřejnění"
-
-#, python-format
-msgid "Added the '%(restriction)s' view restriction"
-msgstr "Přidáno '%(restriction)s' omezení zobrazení"
-
-msgid "Added view restriction"
-msgstr "Přidáno omezení zobrazení"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "Aktualizováno '%(restriction)s' omezení zobrazení"
-
-msgid "Updated view restriction"
-msgstr "Aktualizováno omezení zobrazení"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Odstraněno '%(restriction)s' omezení zobrazení"
-
-msgid "Removed view restriction"
-msgstr "Odstraněno omezení zobrazení"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Přejmenováno z '%(old)s' na '%(new)s'"
-
-msgid "Renamed"
-msgstr "Přejmenováno"
-
-msgid "Rename"
-msgstr "Přejmenovat"
-
-msgid "Revert"
-msgstr "Vrátit"
-
-msgid "Create alias"
-msgstr "Vytvořit alias"
-
-msgid "Convert alias into regular page"
-msgstr "Změnit alias na regulérní stránku"
-
-msgid "Schedule publication"
-msgstr "Naplánuj zveřejnění"
-
-msgid "Unschedule publication"
-msgstr "Zastav plánované zveřejnění"
-
-msgid "Add view restrictions"
-msgstr "Přidej omezení zobrazení"
-
-msgid "Update view restrictions"
-msgstr "Změň omezení zobrazení"
-
-msgid "Remove view restrictions"
-msgstr "Odstraň omezení zobrazení"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "'%(workflow)s' byl spuštěn. Další krok '%(task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "Schváleno '%(task)s'. Další krok '%(next_task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "Schváleno '%(task)s'. '%(workflow)s' dokončen"
-
-msgid "Workflow task approved"
-msgstr "Úloha postupu byla schválena"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "Rejected at '%(task)s'. Changes requested"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "Úloha postupu byla odmítnuta. Postup byl dokončen"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Znova potvrzena úloha '%(task)s'. Postup byl obnoven"
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "Znova potvrzena úloha postupu. Postup byl obnoven"
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "Stornován postup '%(workflow)s' během '%(task)s'"
-
-msgid "Workflow cancelled"
-msgstr "Postup byl stornován"
-
-msgid "Workflow: start"
-msgstr "Postup: zahájit"
-
-msgid "Workflow: approve task"
-msgstr "Postup: schválit úlohu"
-
-msgid "Workflow: reject task"
-msgstr "Postup: odmítnout úlohu"
-
-msgid "Workflow: resume task"
-msgstr "Postup: obnovit úlohu"
-
-msgid "Workflow: cancel"
-msgstr "Postup: stornovat"
 
 msgid "Yes"
 msgstr "Ano"

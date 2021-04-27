@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-02-04 00:36+0000\n"
-"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -80,9 +80,6 @@ msgstr "Hōtaka whakaputaputa"
 msgid "Privacy"
 msgstr "Noho matatapu"
 
-msgid "Common page configuration"
-msgstr "Whakatakoto noa whārangi"
-
 msgid "Content"
 msgstr "Rārangi take"
 
@@ -134,6 +131,9 @@ msgstr "Tāuru tō īmera i roto kia tautuhi anō tō kupu muna"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Parent"
+msgstr "Mātua"
 
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
@@ -255,114 +255,6 @@ msgstr "Hoatu he ingoa ki to mahi pūheke"
 msgid "Add tasks to your workflow"
 msgstr "Tāpiri waitara ki ō mahi pūheke"
 
-msgid "Arabic"
-msgstr "Ārapi"
-
-msgid "Catalan"
-msgstr "Catalan"
-
-msgid "Czech"
-msgstr "Tiekerowākia"
-
-msgid "German"
-msgstr "Tiamana"
-
-msgid "Greek"
-msgstr "Kariki"
-
-msgid "English"
-msgstr "Ingarihi"
-
-msgid "Spanish"
-msgstr "Pāniora"
-
-msgid "Estonian"
-msgstr "Estonian"
-
-msgid "Finnish"
-msgstr "Finnish"
-
-msgid "French"
-msgstr "Wīwī"
-
-msgid "Galician"
-msgstr "Galician"
-
-msgid "Croatian"
-msgstr "Croatian"
-
-msgid "Hungarian"
-msgstr "Hanekaria"
-
-msgid "Indonesian"
-msgstr "Indonesian"
-
-msgid "Icelandic"
-msgstr "Tiorangi"
-
-msgid "Italian"
-msgstr "Itari"
-
-msgid "Japanese"
-msgstr "Hapanihi"
-
-msgid "Korean"
-msgstr "Korean"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Mongolian"
-msgstr "Mongolian"
-
-msgid "Norwegian Bokmål"
-msgstr "Nōwei"
-
-msgid "Netherlands Dutch"
-msgstr "Tati"
-
-msgid "Persian"
-msgstr "Irāki"
-
-msgid "Polish"
-msgstr "Pōrana"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilian Portuguese"
-
-msgid "Portuguese"
-msgstr "Potukara"
-
-msgid "Romanian"
-msgstr "Romēnia"
-
-msgid "Russian"
-msgstr "Rūhia"
-
-msgid "Swedish"
-msgstr "Huītene"
-
-msgid "Slovak"
-msgstr "Slovak"
-
-msgid "Thai"
-msgstr "Tai"
-
-msgid "Turkish"
-msgstr "Tākei"
-
-msgid "Turkish (Turkey)"
-msgstr "Tākei (Tākei)"
-
-msgid "Ukrainian"
-msgstr "Ukrainian"
-
-msgid "Chinese (Simplified)"
-msgstr "Hainamana (Whakangāwari)"
-
-msgid "Chinese (Traditional)"
-msgstr "Hainamana (Tuturu)"
-
 msgid "Edit"
 msgstr "Whakarerekē"
 
@@ -439,9 +331,8 @@ msgstr "Tirohia ki ngā whārangi tamariki ō '{taitara}'"
 msgid "Page explorer"
 msgstr "Kaihōpara-a-whārangi"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "tautangata %(action)s"
+msgid "Save"
+msgstr "Puritia"
 
 msgid "Error 404: Page not found"
 msgstr "Hē 404: Kua ngaro te whārangi"
@@ -458,21 +349,6 @@ msgstr "Haere ki whakahaere tikanga-a-Wagtail"
 msgid "Account"
 msgstr "Rongorua"
 
-msgid "Change profile picture"
-msgstr "Panoni tō whakaahua kōtaha"
-
-msgid "Your current profile picture:"
-msgstr "Tō whakaahua kōtaha ō nāeanei"
-
-msgid "Update"
-msgstr "Whakahou"
-
-msgid "Change email"
-msgstr "Panoni tō Īmera"
-
-msgid "Change name"
-msgstr "Panoni tō īmera"
-
 msgid "Change password"
 msgstr "Panoni tō kupu muna"
 
@@ -481,15 +357,6 @@ msgid ""
 msgstr ""
 "Ehara ka taea e koe ki te panoni i tō kupu muna i konei. Whakapā koa tō kai "
 "whakahaere-a-pae."
-
-msgid "Set Time Zone"
-msgstr "Kōwhiri rohe wā"
-
-msgid "Language Preferences"
-msgstr "Tautuhinga kōrero"
-
-msgid "Notification preferences"
-msgstr "Tautuhinga whakaaturanga"
 
 msgid "Reset password"
 msgstr "Tautuhi anō tō kupu muna"
@@ -541,12 +408,6 @@ msgstr "Papatohu"
 
 msgid "Menu"
 msgstr "Tahua"
-
-msgid "Move up"
-msgstr "Mū ki runga"
-
-msgid "Move down"
-msgstr "Mū ki raro"
 
 msgid "Explorer"
 msgstr "Kaihōpara"
@@ -635,9 +496,6 @@ msgstr "He paraiweti tēnei kohikohinga mai i te matua kohikohinga."
 msgid "You can edit the privacy settings on:"
 msgstr "Ka taea e koe ki te whakarerekē ngā tautuhinga paraiweti ki:"
 
-msgid "Save"
-msgstr "Puritia"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Kohikohinga noho matatapu. Tūnga i te wā nei: Mārakerake"
 
@@ -649,6 +507,15 @@ msgstr "Kohikohinga noho matatapu. Tūnga i te wā nei: Matatapu"
 
 msgid "Private"
 msgstr "Matatapu"
+
+msgid "Move up"
+msgstr "Mū ki runga"
+
+msgid "Move down"
+msgstr "Mū ki raro"
+
+msgid "Update"
+msgstr "Whakahou"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -665,9 +532,6 @@ msgstr "Whakarerekē i tēnei whārangi"
 
 msgid "Pages awaiting moderation"
 msgstr "Ngā whārangi e tatari ana hei whakaōrite"
-
-msgid "Parent"
-msgstr "Mātua"
 
 msgid "Edited"
 msgstr "Kua whakarerekē"
@@ -747,15 +611,6 @@ msgstr "E pirangi ana koe kī te mukuhia tēnei whārangi?"
 
 msgid "Home"
 msgstr "Kainga"
-
-msgid "Set profile picture"
-msgstr "Parākiri tō whakaahua kōtaha"
-
-msgid "Change your profile picture."
-msgstr "Panoni tō whakaahua kōtaha"
-
-msgid "Change the password you use to log in."
-msgstr "Panoni te kupu muna e mahi ana koe hei takirunga."
 
 msgid "Choose an item"
 msgstr "Kōwhiri he tūemi"

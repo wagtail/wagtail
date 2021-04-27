@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -80,9 +80,6 @@ msgstr "Ajastettu julkistus"
 msgid "Privacy"
 msgstr "Yksityisyys"
 
-msgid "Common page configuration"
-msgstr "Yleiset sivuasetukset"
-
 msgid "Content"
 msgstr "Sisältö"
 
@@ -117,8 +114,14 @@ msgstr "Syötä sähköpostiosoitteesi palauttaaksesi salasanasi"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Isäntä"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
+
+msgid "Collection"
+msgstr "Kokoelma"
 
 msgid "New title"
 msgstr "Uusi otsikko"
@@ -215,111 +218,6 @@ msgstr "Anna työnkululle nimi"
 msgid "Add tasks to your workflow"
 msgstr "Lisää tehtäviä työnkulkuun"
 
-msgid "Arabic"
-msgstr "arabia"
-
-msgid "Catalan"
-msgstr "katalaani"
-
-msgid "Czech"
-msgstr "tšekki"
-
-msgid "German"
-msgstr "saksa"
-
-msgid "Greek"
-msgstr "kreikka"
-
-msgid "English"
-msgstr "englanti"
-
-msgid "Spanish"
-msgstr "espanja"
-
-msgid "Estonian"
-msgstr "viro"
-
-msgid "Finnish"
-msgstr "suomi"
-
-msgid "French"
-msgstr "ranska"
-
-msgid "Galician"
-msgstr "galicia"
-
-msgid "Hungarian"
-msgstr "unkari"
-
-msgid "Indonesian"
-msgstr "indonesia"
-
-msgid "Icelandic"
-msgstr "islanti"
-
-msgid "Italian"
-msgstr "italia"
-
-msgid "Japanese"
-msgstr "japani"
-
-msgid "Korean"
-msgstr "korea"
-
-msgid "Lithuanian"
-msgstr "liettua"
-
-msgid "Mongolian"
-msgstr "mongolia"
-
-msgid "Norwegian Bokmål"
-msgstr "norja (bokmål)"
-
-msgid "Netherlands Dutch"
-msgstr "alankomaidenhollanti"
-
-msgid "Persian"
-msgstr "persia"
-
-msgid "Polish"
-msgstr "puola"
-
-msgid "Brazilian Portuguese"
-msgstr "brasilianportugali"
-
-msgid "Portuguese"
-msgstr "portugali"
-
-msgid "Romanian"
-msgstr "romania"
-
-msgid "Russian"
-msgstr "venäjä"
-
-msgid "Swedish"
-msgstr "ruotsi"
-
-msgid "Slovak"
-msgstr "slovakki"
-
-msgid "Thai"
-msgstr "thai"
-
-msgid "Turkish"
-msgstr "turkki"
-
-msgid "Turkish (Turkey)"
-msgstr "turkki (Turkki)"
-
-msgid "Ukrainian"
-msgstr "ukraina"
-
-msgid "Chinese (Simplified)"
-msgstr "kiina (yksinkertaistettu)"
-
-msgid "Chinese (Traditional)"
-msgstr "kiina (perinteinen)"
-
 msgid "Edit"
 msgstr "Muokkaa"
 
@@ -398,9 +296,14 @@ msgstr "Näytä sivun '{title}' alasivut"
 msgid "Page explorer"
 msgstr "Sivuselain"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Tuntematon %(action)s"
+msgid "Save"
+msgstr "Tallenna"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+msgid "Comment"
+msgstr "Kommentti"
 
 msgid "Error 404: Page not found"
 msgstr "Virhe 404: Sivua ei löytynyt"
@@ -417,21 +320,6 @@ msgstr "Siirry Wagtailin hallintaan"
 msgid "Account"
 msgstr "Tili"
 
-msgid "Change profile picture"
-msgstr "Vaihda profiilikuvasi"
-
-msgid "Your current profile picture:"
-msgstr "Nykyinen profiilikuvasi:"
-
-msgid "Update"
-msgstr "Päivitä"
-
-msgid "Change email"
-msgstr "Vaihda sähköpostiosoite"
-
-msgid "Change name"
-msgstr "Vaihda nimi"
-
 msgid "Change password"
 msgstr "Vaihda salasana"
 
@@ -440,15 +328,6 @@ msgid ""
 msgstr ""
 "Salasanaasi ei voi muuttaa täällä. Ole hyvä ja ota yhteys sivuston "
 "ylläpitäjään."
-
-msgid "Set Time Zone"
-msgstr "Aseta aikavyöhyke"
-
-msgid "Language Preferences"
-msgstr "Kieliasetukset"
-
-msgid "Notification preferences"
-msgstr "Ilmoitusasetukset"
 
 msgid "Reset password"
 msgstr "Palauta salasana"
@@ -500,12 +379,6 @@ msgstr "Kojelauta"
 
 msgid "Menu"
 msgstr "Valikko"
-
-msgid "Move up"
-msgstr "Siirrä ylös"
-
-msgid "Move down"
-msgstr "Siirrä alas"
 
 msgid "Explorer"
 msgstr "Sivuselain"
@@ -600,9 +473,6 @@ msgstr ""
 "Yksityisyysasetukset määräävät, kuka saa nähdä tässä kokoelmassa olevat "
 "dokumentit."
 
-msgid "Save"
-msgstr "Tallenna"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Aseta kokoelman yksityisyys. Nyt: Julkinen"
 
@@ -635,8 +505,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Lisää %(label)s"
 
+msgid "Move up"
+msgstr "Siirrä ylös"
+
+msgid "Move down"
+msgstr "Siirrä alas"
+
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
+
+msgid "Update"
+msgstr "Päivitä"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -666,9 +545,6 @@ msgstr "Julkinen"
 
 msgid "Pages awaiting moderation"
 msgstr "Tarkistusta odottavia sivuja"
-
-msgid "Parent"
-msgstr "Isäntä"
 
 msgid "Type"
 msgstr "Tyyppi"
@@ -939,9 +815,6 @@ msgstr "Tämän sivun julkaisu peruuttaa nykyisen työnkulun."
 msgid "Would you still like to publish this page?"
 msgstr "Haluatko silti julkaista tämän sivun?"
 
-msgid "Cancel"
-msgstr "Peruuta"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Sivut, joiden luokka on %(page_class_verbose_name)s"
@@ -991,9 +864,6 @@ msgstr "Käyttäjä"
 
 msgid "Date / Time"
 msgstr "Päivä/aika"
-
-msgid "Comment"
-msgstr "Kommentti"
 
 msgid "Live version"
 msgstr "Esillä oleva versio"
@@ -1323,9 +1193,6 @@ msgstr "Muokkaa sivua"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Tätä sivua ei ole lähetetty tarkastettavaksi vielä"
 
-msgid "Collection"
-msgstr "Kokoelma"
-
 msgid "No pages match this report's criteria."
 msgstr "Raportin hakuehtoja vastaavia sivuja ei löytynyt."
 
@@ -1550,21 +1417,6 @@ msgstr "Juuri nyt"
 
 msgid "Test"
 msgstr "Testi"
-
-msgid "Your password has been changed successfully!"
-msgstr "Salasanasi on vaihdettu."
-
-msgid "Your email has been changed successfully!"
-msgstr "Sähköpostiosoitteesi on vaihdettu!"
-
-msgid "Your name has been changed successfully!"
-msgstr "Nimesi on vaihdettu!"
-
-msgid "Your preferences have been updated."
-msgstr "Asetuksesi on päivitetty."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Asetuksesi on päivitetty."
 
 msgid "You have been successfully logged out."
 msgstr "Olet kirjautunut ulos."
@@ -1812,36 +1664,6 @@ msgstr "Peruuta sivun '%(title)s' julkaisu"
 msgid "View page history for '%(title)s'"
 msgstr "Näytä sivun '%(title)s' historia"
 
-msgid "Set profile picture"
-msgstr "Aseta profiilin kuva"
-
-msgid "Change your profile picture."
-msgstr "Vaihda profiilisi kuva."
-
-msgid "Change the email address linked to your account."
-msgstr "Vaihda tilisi sähköpostiosoite."
-
-msgid "Change the password you use to log in."
-msgstr "Vaihda salasana jota käytät sisäänkirjautumiseen."
-
-msgid "Choose which email notifications to receive."
-msgstr "Valitse mitä sähköposti-ilmoituksia saat."
-
-msgid "Language preferences"
-msgstr "Kielivalinnat"
-
-msgid "Choose the language you want to use here."
-msgstr "Valitse kieli, jota haluat käyttää täällä."
-
-msgid "Current Time Zone"
-msgstr "Nykyinen aikavyöhyke"
-
-msgid "Choose your current time zone."
-msgstr "Valitse nykyinen aikavyöhykkeesi."
-
-msgid "Change your first and last name on your account."
-msgstr "Vaihda tilisi etu- ja sukunimi."
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Otsikko %(level)d"
@@ -1881,46 +1703,6 @@ msgstr "Lukitut sivut"
 
 msgid "Reports"
 msgstr "Raportit"
-
-msgid "Created"
-msgstr "Luotu"
-
-msgid "Deleted"
-msgstr "Poistettu"
-
-msgid "Approved"
-msgstr "Hyväksytty"
-
-msgid "Copied"
-msgstr "Kopioitu"
-
-msgid "Moved"
-msgstr "Siirretty"
-
-msgid "Renamed"
-msgstr "Nimetty uudelleen"
-
-msgid "Rename"
-msgstr "Nimeä uudelleen"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "'%(workflow)s' käynnistetty. Seuraava vaihe '%(task)s'"
-
-msgid "Workflow task approved"
-msgstr "Työnkulun tehtävä hyväksytty"
-
-msgid "Workflow cancelled"
-msgstr "Työnkulku peruttu"
-
-msgid "Workflow: start"
-msgstr "Työnkulku: aloitettu"
-
-msgid "Workflow: approve task"
-msgstr "Työnkulku: hyväksy tehtävä"
-
-msgid "Workflow: cancel"
-msgstr "Työnkulku: peruttu"
 
 msgid "Yes"
 msgstr "Kyllä"

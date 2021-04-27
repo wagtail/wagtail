@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -54,11 +54,6 @@ msgstr "การจัดพิมพ์ตาราง"
 msgid "Privacy"
 msgstr "ความเป็นส่วนตัว , ข้อมูลส่วนตัว"
 
-msgid "Common page configuration"
-msgstr ""
-"หน้าที่ใช้ร่วมกัน\n"
-"โครงร่าง,โครงสร้าง"
-
 msgid "Content"
 msgstr "เนื้อหา"
 
@@ -84,8 +79,14 @@ msgstr "ใส่%s"
 msgid "Enter your email address to reset your password"
 msgstr "กรอกอีเมลของคุณเพื่อรีเซ็ตรหัสผ่านของคุณ"
 
+msgid "Parent"
+msgstr "หน้าหลัก,หน้าแรก"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "คุณไม่สามารถมีใบอนุญาติที่จดทะเบียนซ้ำกันได้"
+
+msgid "Collection"
+msgstr "ชุด"
 
 msgid "New title"
 msgstr "หัวข้อใหม่"
@@ -161,81 +162,6 @@ msgstr "ต้องระบุข้อมูลในเนื้อหาน
 msgid "Please select at least one group."
 msgstr "โปรดเลือกอย่างน้อยหนึ่งกลุ่ม"
 
-msgid "Arabic"
-msgstr "ภาษาอาราบิก"
-
-msgid "Catalan"
-msgstr "ภาษาคาทาลัน"
-
-msgid "German"
-msgstr "ภาษาเยอรมัน"
-
-msgid "Greek"
-msgstr "ภาษากรีซ"
-
-msgid "English"
-msgstr "อังกฤษ"
-
-msgid "Spanish"
-msgstr "ภาษาสเปน"
-
-msgid "Finnish"
-msgstr "ภาษาฟินแลนด์"
-
-msgid "French"
-msgstr "ภาษาฝรั่งเศส"
-
-msgid "Galician"
-msgstr "ภาษากาลีเซีย"
-
-msgid "Indonesian"
-msgstr "ภาษาอินโดนีเซีย"
-
-msgid "Icelandic"
-msgstr "ภาษาไอร์แลนด์"
-
-msgid "Italian"
-msgstr "ภาษาอิตาเลี่ยน"
-
-msgid "Korean"
-msgstr "ภาษาเกาหลี"
-
-msgid "Lithuanian"
-msgstr "ภาษาลิทูเอเนียน"
-
-msgid "Norwegian Bokmål"
-msgstr "ภาษานอร์เวย์"
-
-msgid "Netherlands Dutch"
-msgstr "ภาษาฮอลแลนด์"
-
-msgid "Persian"
-msgstr "ภาษาเปอร์เซีย"
-
-msgid "Polish"
-msgstr "ภาษาโปลแลนด์"
-
-msgid "Brazilian Portuguese"
-msgstr "ภาษาโปรตุเกสที่ใช้ในประเทศบราซิล"
-
-msgid "Portuguese"
-msgstr "ภาษาโปรตุกีส"
-
-msgid "Romanian"
-msgstr "ภาษาโรมันเนีย"
-
-msgid "Russian"
-msgstr "ภาษารัสเซีย"
-
-msgid "Swedish"
-msgstr "ภาษาสวีเดน"
-
-msgid "Slovak"
-msgstr "ภาษาสโลวาเกีย"
-
-msgid "Ukrainian"
-msgstr "ภาษายูเครเนี่ยน"
-
 msgid "Edit"
 msgstr "แก้ไข"
 
@@ -300,6 +226,9 @@ msgstr "ปิด"
 msgid "Edit '{title}'"
 msgstr "แก้ไข'{title}'"
 
+msgid "Save"
+msgstr "เซฟ , เก็บรักษาข้อมูล"
+
 msgid "Error 404: Page not found"
 msgstr "Error 404 : ไม่พบเนื้อหา"
 
@@ -315,33 +244,12 @@ msgstr "ไปยังหน้า Wagtail admin"
 msgid "Account"
 msgstr "ชื่อบัญชี"
 
-msgid "Change profile picture"
-msgstr "เปลี่ยนรูปหน้าประวัติส่วนตัว"
-
-msgid "Your current profile picture:"
-msgstr "รูปปัจจุบันของคุณ"
-
-msgid "Update"
-msgstr "ล่าสุด"
-
-msgid "Change email"
-msgstr "เปลี่ยนอีเมล"
-
 msgid "Change password"
 msgstr "เปลี่ยนรหัสผ่าน"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "รหัสผ่านของคุณไม่สามารถเปลี่ยนได้ที่นี่ โปรดติดต่อผู้บริหารของเว็บไซด์"
-
-msgid "Set Time Zone"
-msgstr "ตั้งเวลา"
-
-msgid "Language Preferences"
-msgstr "เลือกภาษา / การตั้งค่าภาษา"
-
-msgid "Notification preferences"
-msgstr "การตั้งค่าประกาศ"
 
 msgid "Reset password"
 msgstr "ตั้งรหัสใหม่อีกครั้ง"
@@ -391,12 +299,6 @@ msgstr "แผงควบคุม , หน้าจอที่ควบคุ
 
 msgid "Menu"
 msgstr "เมนู"
-
-msgid "Move up"
-msgstr "เลื่อนขึ้น"
-
-msgid "Move down"
-msgstr "เลื่อนลง"
 
 msgid "Explorer"
 msgstr "อินเตอร์เน็ตเอ็กซ์โปรเล่อร์"
@@ -469,9 +371,6 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "การตั้งค่าข้อมูลส่วนตัวว่าใครสามารถเข้าถึงข้อมูลนี้ได้"
 
-msgid "Save"
-msgstr "เซฟ , เก็บรักษาข้อมูล"
-
 msgid "Public"
 msgstr "สาธารณะ"
 
@@ -495,10 +394,19 @@ msgstr "ไม่มีชุดไหนถูกสร้าง ทำไม�
 msgid "Add %(label)s"
 msgstr "เพิ่ม %(label)s"
 
+msgid "Move up"
+msgstr "เลื่อนขึ้น"
+
+msgid "Move down"
+msgstr "เลื่อนลง"
+
 msgid "Yes, delete"
 msgstr ""
 "ใช่,\n"
 "ลบ"
+
+msgid "Update"
+msgstr "ล่าสุด"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -520,9 +428,6 @@ msgstr "กำลังแสดงสดอยู่,ถ่ายทอดส�
 
 msgid "Pages awaiting moderation"
 msgstr "หน้าที่กำลังรอทำการตรวจอยู่"
-
-msgid "Parent"
-msgstr "หน้าหลัก,หน้าแรก"
 
 msgid "Type"
 msgstr "รูปแบบ"
@@ -1029,9 +934,6 @@ msgstr "เข้าสู่การค้นหาคำที่หาอย
 msgid "No pages use"
 msgstr "ไม่มีหน้าท่ีใช้"
 
-msgid "Collection"
-msgstr "ชุด"
-
 msgid "Locked"
 msgstr "ล็อกเรียบร้อยแล้ว"
 
@@ -1078,18 +980,6 @@ msgstr "เปรียบเทียบกับรุ่นถ่ายทอ
 
 msgid "Test"
 msgstr "ทดสอบ"
-
-msgid "Your password has been changed successfully!"
-msgstr "รหัสผ่านของคุณถูกเปลี่ยนสำเร็จแล้ว"
-
-msgid "Your email has been changed successfully!"
-msgstr "อีเมลของคุณถูกเปลี่ยนสำเร็จแล้ว"
-
-msgid "Your preferences have been updated."
-msgstr "การตั้งค่าของคุณอัพเดทแล้ว"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "การตั้งค่าของคุณอัพเดทสำเร็จแล้ว"
 
 msgid "You have been successfully logged out."
 msgstr "คุณออกจากระบบเรียบร้อยแล้ว"
@@ -1214,30 +1104,6 @@ msgstr "หน้า{0} ยกเลิกจัดพิมพ์แล้ว"
 
 msgid "More"
 msgstr "เพิ่ม"
-
-msgid "Set profile picture"
-msgstr "ตั้งค่ารูปโปรไฟล์"
-
-msgid "Change the email address linked to your account."
-msgstr "เปลี่ยนลิงค์ที่อยู่อีเมลในบัญชีของคุณ"
-
-msgid "Change the password you use to log in."
-msgstr "เปลี่ยนรหัสผ่านที่ใช้ล็อกอินของคุณ"
-
-msgid "Choose which email notifications to receive."
-msgstr "เลือกว่าจะใช้อีเมลไหนที่จะรับการแจ้งเตือน"
-
-msgid "Language preferences"
-msgstr "การตั้งค้าภาษา"
-
-msgid "Choose the language you want to use here."
-msgstr "เลือกภาษาที่คุณต้องการจะใช้ที่นี่"
-
-msgid "Current Time Zone"
-msgstr "โซนเวลาปัจจุบัน"
-
-msgid "Choose your current time zone."
-msgstr "เลือกโซนเวลาปัจจุบันของคุณ"
 
 msgid "Bulleted list"
 msgstr "รายการสัญลักษณ์"

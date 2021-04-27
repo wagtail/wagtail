@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:24+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail jezgra"
+
+msgid "Add"
+msgstr "Dodaj"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -132,16 +135,6 @@ msgstr "URL putanja"
 msgid "owner"
 msgstr "vlasnik"
 
-msgid "page title"
-msgstr "naslov stranice"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Neobaezno. Naslov razumljiv tražilicama. Ovo će se prikazati na vrhu prozora "
-"preglednika."
-
 msgid "show in menus"
 msgstr "prikaži u izborniku"
 
@@ -149,9 +142,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Hoće li se poveznica na ovu stranicu pojavljivati u generiranim izbornicima"
-
-msgid "search description"
-msgstr "opis"
 
 msgid "go live date/time"
 msgstr "Objavi u datum/vrijeme"
@@ -233,9 +223,6 @@ msgstr "revizija stranice"
 
 msgid "page revisions"
 msgstr "revizije stranice"
-
-msgid "Add"
-msgstr "Dodaj"
 
 msgid "Add/edit pages you own"
 msgstr "Dodaj/uredi vlastite stranice"

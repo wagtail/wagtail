@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-02-01 18:17+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 21:56+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -23,6 +23,24 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Nucleu Wagtail"
+
+msgid "Add Comment"
+msgstr "Adaugă comentariu"
+
+msgid "Move up"
+msgstr "Deplasează în sus"
+
+msgid "Move down"
+msgstr "Deplasează în jos"
+
+msgid "Duplicate"
+msgstr "Duplică"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "Add"
+msgstr "Adaugă"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -50,6 +68,10 @@ msgstr "Parola introdusă nu este corectă. Vă rugăm să încercați din nou."
 
 msgid "Comment"
 msgstr "Comentariu"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Acțiune necunoscută %(action)s"
 
 msgid "hostname"
 msgstr "nume gazdă"
@@ -134,15 +156,15 @@ msgstr "Cale"
 msgid "owner"
 msgstr "proprietar"
 
-msgid "page title"
-msgstr "titlu pagină"
+msgid "title tag"
+msgstr "etichetă de titlu"
 
 msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
+"The name of the page displayed on search engine results as the clickable "
+"headline."
 msgstr ""
-"Opțional. Titlu favorabil motoarelor de căutare. Apare în partea de sus a "
-"browserului."
+"Numele paginii afișat ca title pe care se poate face clic în rezultatele "
+"motoarelor de căutare."
 
 msgid "show in menus"
 msgstr "arată în meniuri"
@@ -153,8 +175,14 @@ msgstr ""
 "Dacă un link către această pagină va apărea în meniurile generate în mod "
 "automat"
 
-msgid "search description"
-msgstr "descriere pentru căutare"
+msgid "meta description"
+msgstr "descriere meta"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Textul descriptiv afișat sub titluri în rezultatele motoarelor de căutare."
 
 msgid "go live date/time"
 msgstr "data/timpul de publicare"
@@ -236,9 +264,6 @@ msgstr "revizie pagină"
 
 msgid "page revisions"
 msgstr "revizii pagină"
-
-msgid "Add"
-msgstr "Adaugă"
 
 msgid "Add/edit pages you own"
 msgstr "Adaugă/editeaza pagini deținute"
@@ -483,6 +508,9 @@ msgstr "intrare jurnal"
 msgid "log entries"
 msgstr "intrări jurnal"
 
+msgid "The log action '{}' has not been registered."
+msgstr "Acțiunea de jurnal '{}' a fost înregistrată."
+
 #, python-format
 msgid "user %(id)d (deleted)"
 msgstr "Utilizator %(id)d(șters)"
@@ -495,6 +523,18 @@ msgstr "intrare jurnal de pagină"
 
 msgid "page log entries"
 msgstr "intrări jurnal de pagină"
+
+msgid "comment"
+msgstr "comentariu"
+
+msgid "comments"
+msgstr "comentarii"
+
+msgid "comment reply"
+msgstr "comentariu răspuns "
+
+msgid "comment replies"
+msgstr "comentarii răspuns"
 
 msgid "Log in"
 msgstr "Logare"
@@ -534,3 +574,241 @@ msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s colecție descendentă"
 msgstr[1] "%(count)s colecții desdendente"
 msgstr[2] "%(count)scolecții desdendente"
+
+msgid "Create"
+msgstr "Creeare"
+
+msgid "Created"
+msgstr "A creat"
+
+msgid "Save draft"
+msgstr "Salvare ciornă"
+
+msgid "Draft saved"
+msgstr "Ciornă salvată"
+
+msgid "Deleted"
+msgstr "A șters"
+
+msgid "Published"
+msgstr "Publicată"
+
+msgid "Publish scheduled draft"
+msgstr "Publicare ciornei programate"
+
+msgid "Published scheduled draft"
+msgstr "A publicat ciorna programată"
+
+msgid "Unpublish"
+msgstr "Anulare publicare"
+
+msgid "Unpublished"
+msgstr "Publicare anulată"
+
+msgid "Unpublish scheduled draft"
+msgstr "Anularea publicarii ciornei programate"
+
+msgid "Unpublished scheduled draft"
+msgstr "Publicarea ciornei programate a fost anulată"
+
+msgid "Locked"
+msgstr "A blocat"
+
+msgid "Unlocked"
+msgstr "A deblochat"
+
+msgid "Reject"
+msgstr "Respingere"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"A revenit la versiunea precendentă cu id %(revision_id)s de la %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "A revenit la versiunea precedentă"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "A fost copiată de la %(title)s"
+
+msgid "Copied"
+msgstr "A fost copiată"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "A creat un alias al %(title)s"
+
+msgid "Created an alias"
+msgstr "A creat un alias"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "A convertit alias-ul '%(title)s' în pagină obișnuită"
+
+msgid "Converted an alias into a regular page"
+msgstr "A convertit un alias în pagină obișnuită"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "A mutat de la '%(old_parent)s' la '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "A mutat"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "A reordonat sub '%(parent)s'"
+
+msgid "Reordered"
+msgstr "A reordonat"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revizia %(revision_id)s de la %(created_at)s a fost programată pentru "
+"publicare la %(go_live_at)s"
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Pagina a fost programată pentru publicare la %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Pagina a fost programată pentru publicare"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Programarea reviziei %(revision_id)s de la %(created_at)s pentru publicare "
+"la %(go_live_at)s a fost anulată"
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Programarea paginii pentru publicare la %(go_live_at)s a fost anulată"
+
+msgid "Page unscheduled from publishing"
+msgstr "Programarea paginii pentru publicare a fost anulată"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "A adăugat restricția de vizualizare '%(restriction)s'"
+
+msgid "Added view restriction"
+msgstr "A adăugat restricție de vizualizare"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "A actualizat restricția de vizualizare '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "A actualizat restricția de vizualizare"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "A eliminat restricția de vizualizare '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "A eliminat restricția de vizualizare"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "A redenumit din '%(old)s' în '%(new)s'"
+
+msgid "Renamed"
+msgstr "A redenumit"
+
+msgid "Rename"
+msgstr "Redenumire"
+
+msgid "Revert"
+msgstr "Inversare"
+
+msgid "Copy"
+msgstr "Copiere"
+
+msgid "Create alias"
+msgstr "Creare alias"
+
+msgid "Convert alias into regular page"
+msgstr "Convertire alias în pagină obișnuită"
+
+msgid "Move"
+msgstr "Mutare"
+
+msgid "Reorder"
+msgstr "Reordonare"
+
+msgid "Schedule publication"
+msgstr "Programare publicare"
+
+msgid "Unschedule publication"
+msgstr "Anulare programarii de publicare"
+
+msgid "Add view restrictions"
+msgstr "Adăugare restricții de vizualizare"
+
+msgid "Update view restrictions"
+msgstr "Actualizare restricții de vizualizare"
+
+msgid "Remove view restrictions"
+msgstr "Eliminare restricții de vizualizare"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "Fluxul de lucru %(workflow)s început. Sarcina următoare '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Flux de lucru început"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Aprobat la sarcina '%(task)s'. Faza următoare '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr ""
+"Aprobat la sarcina '%(task)s'. Fluxul de lucru '%(workflow)s' finalizat"
+
+msgid "Workflow task approved"
+msgstr "Sarcina de lucru a fost aprobată"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Respins la faza '%(task)s'. Au fost solicitate modificări"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Sarcina de lucru respinsă. Flux de lucru finalizat"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "Sarcina '%(task)s' retrimisă. Flux de lucru rezumat"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Sarcină de lucru retrimisă. Flux de lucru rezumat"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Flux de lucru '%(workflow)s' anulat la sarcina '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Flux de lucru anulat"
+
+msgid "Workflow: start"
+msgstr "Flux de lucru: începere"
+
+msgid "Workflow: approve task"
+msgstr "Flux de lucru: aprobare sarcină"
+
+msgid "Workflow: reject task"
+msgstr "Flux de lucru: respingere sarcină"
+
+msgid "Workflow: resume task"
+msgstr "Flux de lucru: reluare sarcină"
+
+msgid "Workflow: cancel"
+msgstr "Flux de lucru: anulare"

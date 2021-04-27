@@ -10,7 +10,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2018,2020
+# Loic Teixeira, 2018,2020-2021
 # nahuel, 2014
 # nahuel, 2014
 # incognitae <pierre@onoffdesign.com>, 2016
@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
-"PO-Revision-Date: 2020-07-28 14:27+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-24 09:06+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -98,7 +98,7 @@ msgid "Receive notification when a page is submitted for moderation"
 msgstr "Recevoir une notification quand une page est soumise pour modération"
 
 msgid "approved notifications"
-msgstr "Notifications approuvées"
+msgstr "notifications approuvées"
 
 msgid "Receive notification when your page edit is approved"
 msgstr ""
@@ -110,6 +110,17 @@ msgstr "notifications rejetées"
 msgid "Receive notification when your page edit is rejected"
 msgstr ""
 "Recevoir une notification quand vos modifications de page sont rejetées"
+
+msgid "updated comments notifications"
+msgstr "notifications commentaires mis à jour"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Recevoir une notification quand un commentaire a été créé, archivé ou "
+"supprimé sur une page pour laquelle vous avez souscrit aux notifications de "
+"commentaires"
 
 msgid "preferred language"
 msgstr "langue préférée"

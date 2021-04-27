@@ -9,16 +9,16 @@
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018,2020
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2018,2020-2021
 # Marcio Mazza <marciomazza@gmail.com>, 2016
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 13:55+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,24 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Núcleo de Wagtail"
+
+msgid "Add Comment"
+msgstr "Adicionar comentário"
+
+msgid "Move up"
+msgstr "Mover para cima"
+
+msgid "Move down"
+msgstr "Mover para baixo"
+
+msgid "Duplicate"
+msgstr "Duplicar"
+
+msgid "Delete"
+msgstr "Remover"
+
+msgid "Add"
+msgstr "Adicionar"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -53,6 +71,13 @@ msgstr "Senha"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "A senha que você digitou não está correta. Por favor, tente novamente."
+
+msgid "Comment"
+msgstr "Comentário"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "%(action)s desconhecida"
 
 msgid "hostname"
 msgstr "nome do host"
@@ -137,15 +162,15 @@ msgstr "Caminho URL"
 msgid "owner"
 msgstr "proprietário"
 
-msgid "page title"
-msgstr "título da página"
+msgid "title tag"
+msgstr "tag de título"
 
 msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
+"The name of the page displayed on search engine results as the clickable "
+"headline."
 msgstr ""
-"Opcional. Título 'Amigável para Mecanismos de Busca'. Isto irá aparecer no "
-"topo da janela do navegador."
+"O nome da página exibida nos resultados do mecanismo de pesquisa como o "
+"título clicável."
 
 msgid "show in menus"
 msgstr "exibir nos menus"
@@ -155,8 +180,15 @@ msgid ""
 msgstr ""
 "Um link para esta página irá aparecer nos menus gerados automaticamente"
 
-msgid "search description"
-msgstr "descrição da busca"
+msgid "meta description"
+msgstr "meta descrição"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"O texto descritivo exibido abaixo de um título nos resultados do mecanismo "
+"de pesquisa."
 
 msgid "go live date/time"
 msgstr "data/hora para publicar"
@@ -238,9 +270,6 @@ msgstr "revisão desta página"
 
 msgid "page revisions"
 msgstr "revisões desta página"
-
-msgid "Add"
-msgstr "Adicionar"
 
 msgid "Add/edit pages you own"
 msgstr "Adicionar/editar suas páginas"
@@ -350,6 +379,9 @@ msgstr "ativo"
 msgid "tasks"
 msgstr "tarefas"
 
+msgid "Request changes"
+msgstr "Solicitar mudanças"
+
 msgid "Approve"
 msgstr "Aprovar"
 
@@ -398,6 +430,18 @@ msgstr "terminado por"
 msgid "system"
 msgstr "sistema"
 
+msgid "comment"
+msgstr "comentário"
+
+msgid "comments"
+msgstr "comentários"
+
+msgid "comment reply"
+msgstr "resposta de comentário"
+
+msgid "comment replies"
+msgstr "respostas de comentários"
+
 msgid "Log in"
 msgstr "Entrar"
 
@@ -419,3 +463,130 @@ msgstr "Você precisa de uma senha para acessar esta página."
 
 msgid "Continue"
 msgstr "Continuar"
+
+msgid "Create"
+msgstr "Criar"
+
+msgid "Created"
+msgstr "Criado"
+
+msgid "Save draft"
+msgstr "Salvar rascunho"
+
+msgid "Draft saved"
+msgstr "Rascunho salvo"
+
+msgid "Deleted"
+msgstr "Excluído"
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Unpublished"
+msgstr "Não publicado"
+
+msgid "Locked"
+msgstr "Bloqueado"
+
+msgid "Unlocked"
+msgstr "Desbloqueado"
+
+msgid "Reject"
+msgstr "Rejeitar"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Revertido para a revisão anterior com id %(revision_id)s de %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Revertido para a revisão anterior"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Copiado de %(title)s"
+
+msgid "Copied"
+msgstr "Copiado"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Criado um alias de %(title)s"
+
+msgid "Created an alias"
+msgstr "Criado um alias"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Convertido o alias '%(title)s' em uma página normal"
+
+msgid "Converted an alias into a regular page"
+msgstr "Convertido um alias em uma página normal"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Movido de '%(old_parent)s' para '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Movido"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Reordenado em '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Reordenado"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisão %(revision_id)s de %(created_at)s agendado para publicação em "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Página agendada para publicação em %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Página agendada para publicação"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Removida a restrição de visualização de '%(restriction)s' "
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Renomeado de '%(old)s' para '%(new)s'"
+
+msgid "Renamed"
+msgstr "Renomeado"
+
+msgid "Rename"
+msgstr "Renomear"
+
+msgid "Revert"
+msgstr "Reverter"
+
+msgid "Copy"
+msgstr "Copiar"
+
+msgid "Create alias"
+msgstr "Criar alias"
+
+msgid "Convert alias into regular page"
+msgstr "Converta o alias em uma página normal"
+
+msgid "Move"
+msgstr "Mover"
+
+msgid "Reorder"
+msgstr "Reordenar"
+
+msgid "Schedule publication"
+msgstr "Agendar publicação"

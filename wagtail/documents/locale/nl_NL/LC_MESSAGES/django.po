@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: 2021-02-01 18:47+0000\n"
 "Last-Translator: Coen van der Kamp <cvanderkamp@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail documenten"
+
+msgid "Collection"
+msgstr "Collectie"
 
 msgid "Add"
 msgstr "Toevoegen"
@@ -175,9 +178,6 @@ msgstr "Titel"
 
 msgid "File"
 msgstr "File"
-
-msgid "Collection"
-msgstr "Collectie"
 
 msgid "Created"
 msgstr "Aangemaakt"

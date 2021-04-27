@@ -8,16 +8,16 @@
 # Gladson <gladsonbrito@gmail.com>, 2014
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016-2020
+# Luiz Boaretto <lboaretto@gmail.com>, 2016-2021
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 13:17+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -73,6 +73,22 @@ msgstr "Alinhado à esquerda"
 msgid "Right-aligned"
 msgstr "Alinhado à direita"
 
+msgid "Collection"
+msgstr "Coleção"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "Image is decorative"
+msgstr "A imagem é decorativa"
+
+msgid "Alt text"
+msgstr "Texto alternativo"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Adicione algum texto alternativo à sua imagem ou marque-a como decorativa"
+
 msgid "Filter"
 msgstr "Filtro"
 
@@ -114,6 +130,12 @@ msgstr "Editar"
 
 msgid "Edit any image"
 msgstr "Editar qualquer imagem"
+
+msgid "Choose"
+msgstr "Escolha"
+
+msgid "Select images in choosers"
+msgstr "Selecione as imagens nos seletores"
 
 msgid "title"
 msgstr "título"

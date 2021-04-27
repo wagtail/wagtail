@@ -6,7 +6,7 @@
 # benebun <benedikt.breinbauer@gmail.com>, 2021
 # Benedikt Willi <ben.willi@gmail.com>, 2020
 # Benjamin Kaspar <bennykaspar@gmail.com>, 2021
-# Benjamin Thurm, 2018-2019
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018-2019
 # Daniel Manser <me@danielmanser.com>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017,2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016,2018
@@ -36,9 +36,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-04-15 08:32+0000\n"
-"Last-Translator: Benjamin Kaspar <bennykaspar@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -108,9 +108,6 @@ msgstr "Geplante Veröffentlichung"
 msgid "Privacy"
 msgstr "Privatsphäre"
 
-msgid "Common page configuration"
-msgstr "Allgemeine Seitenkonfiguration"
-
 msgid "Content"
 msgstr "Inhalt"
 
@@ -163,9 +160,15 @@ msgstr "Geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort zurückzusetzen"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Übergeordnetes Element"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Sie können nicht mehrere Berechtigungseinträge für dieselbe Sammlung anlegen."
+
+msgid "Collection"
+msgstr "Sammlung"
 
 msgid "New title"
 msgstr "Neuer Titel"
@@ -272,108 +275,6 @@ msgstr "Geben Sie Ihrem Arbeitsablauf einen Namen"
 msgid "Add tasks to your workflow"
 msgstr "Fügen Sie Ihrem Arbeitsablauf Arbeitsschritte hinzu"
 
-msgid "Arabic"
-msgstr "Arabisch"
-
-msgid "Catalan"
-msgstr "Katalanisch"
-
-msgid "Czech"
-msgstr "Tschechisch"
-
-msgid "German"
-msgstr "Deutsch"
-
-msgid "Greek"
-msgstr "Griechisch"
-
-msgid "English"
-msgstr "Englisch"
-
-msgid "Spanish"
-msgstr "Spanisch"
-
-msgid "Finnish"
-msgstr "Finnisch"
-
-msgid "French"
-msgstr "Französisch"
-
-msgid "Galician"
-msgstr "Galicisch"
-
-msgid "Hungarian"
-msgstr "Ungarisch"
-
-msgid "Indonesian"
-msgstr "Indonesisch"
-
-msgid "Icelandic"
-msgstr "Isländisch"
-
-msgid "Italian"
-msgstr "Italienisch"
-
-msgid "Japanese"
-msgstr "Japanisch"
-
-msgid "Korean"
-msgstr "Koreanisch"
-
-msgid "Lithuanian"
-msgstr "Litauisch"
-
-msgid "Mongolian"
-msgstr "Mongolisch"
-
-msgid "Norwegian Bokmål"
-msgstr "Norwegische Buchsprache"
-
-msgid "Netherlands Dutch"
-msgstr "Niederländisch"
-
-msgid "Persian"
-msgstr "Persisch"
-
-msgid "Polish"
-msgstr "Polnisch"
-
-msgid "Brazilian Portuguese"
-msgstr "Brasilianisches Portugiesisch"
-
-msgid "Portuguese"
-msgstr "Portugiesisch"
-
-msgid "Romanian"
-msgstr "Rumänisch"
-
-msgid "Russian"
-msgstr "Russisch"
-
-msgid "Swedish"
-msgstr "Schwedisch"
-
-msgid "Slovak"
-msgstr "Slowakisch"
-
-msgid "Thai"
-msgstr "Thailändisch"
-
-msgid "Turkish"
-msgstr "Türkisch"
-
-msgid "Turkish (Turkey)"
-msgstr "Türkisch (Türkei)"
-
-msgid "Ukrainian"
-msgstr "Ukrainisch"
-
-msgid "Chinese (Simplified)"
-msgstr "Chinesisch (vereinfacht)"
-
-msgid "Chinese (Traditional)"
-msgstr "Chinesisch (traditionell)"
-
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -452,6 +353,15 @@ msgstr "Unterseiten von ‚{title}‘ anzeigen"
 msgid "Page explorer"
 msgstr "Seitenübersicht"
 
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Comment"
+msgstr "Kommentar"
+
 msgid "Error 404: Page not found"
 msgstr "Fehler 404: Seite nicht gefunden"
 
@@ -467,21 +377,6 @@ msgstr "Zum Wagtail Admin-Interface"
 msgid "Account"
 msgstr "Benutzerkonto"
 
-msgid "Change profile picture"
-msgstr "Profilbild ändern"
-
-msgid "Your current profile picture:"
-msgstr "Ihr aktuelles Profilbild:"
-
-msgid "Update"
-msgstr "Update"
-
-msgid "Change email"
-msgstr "E-Mail-Adresse ändern"
-
-msgid "Change name"
-msgstr "Name ändern"
-
 msgid "Change password"
 msgstr "Passwort ändern"
 
@@ -490,15 +385,6 @@ msgid ""
 msgstr ""
 "Sie können Ihr Passwort hier nicht ändern. Bitte kontaktieren Sie einen "
 "Administrator der Website."
-
-msgid "Set Time Zone"
-msgstr "Zeitzone einstellen"
-
-msgid "Language Preferences"
-msgstr "Spracheinstellungen"
-
-msgid "Notification preferences"
-msgstr "Benachrichtigungseinstellungen"
 
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
@@ -553,12 +439,6 @@ msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menü"
-
-msgid "Move up"
-msgstr "Nach oben"
-
-msgid "Move down"
-msgstr "Nach unten"
 
 msgid "Explorer"
 msgstr "Explorer"
@@ -657,9 +537,6 @@ msgstr ""
 "Die Privatsphäre-Einstellungen legen fest, wer Dokumente in dieser Sammlung "
 "einsehen darf."
 
-msgid "Save"
-msgstr "Speichern"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Privatsphäre der Sammlung einstellen. Aktueller Status: Öffentlich"
 
@@ -693,8 +570,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "%(label)s hinzufügen"
 
+msgid "Move up"
+msgstr "Nach oben"
+
+msgid "Move down"
+msgstr "Nach unten"
+
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
+
+msgid "Update"
+msgstr "Update"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -706,16 +592,6 @@ msgid ""
 msgstr ""
 "Das ist Ihr Dashboard, auf dem nützliche Informationen zu den Inhalten, die "
 "Sie erstellen, zusammengestellt werden."
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail entfernt schrittweise die Unterstützung für IE11, was Sie oder Ihr "
-"Unternehmen betreffen kann. <a href=\"%(url)s\">Erfahren Sie mehr über "
-"unsere IE11-Supportpläne</a>."
 
 msgid "Your locked pages"
 msgstr "Ihre gesperrte Seiten"
@@ -738,9 +614,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Seiten, die auf Freischaltung warten"
-
-msgid "Parent"
-msgstr "Übergeordnetes Element"
 
 msgid "Type"
 msgstr "Typ"
@@ -1156,9 +1029,6 @@ msgstr ""
 msgid "Would you still like to publish this page?"
 msgstr "Möchten Sie diese Seite dennoch veröffentlichen?"
 
-msgid "Cancel"
-msgstr "Abbrechen"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Seiten, die %(page_class_verbose_name)s verwenden"
@@ -1212,9 +1082,6 @@ msgstr "Benutzer"
 
 msgid "Date / Time"
 msgstr "Zeitpunkt"
-
-msgid "Comment"
-msgstr "Kommentar"
 
 msgid "Live version"
 msgstr "Live-Version"
@@ -1610,9 +1477,6 @@ msgstr "Unvollständige Aufgabe"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Diese Seite wurde noch nicht zur Moderation eingereicht"
 
-msgid "Collection"
-msgstr "Sammlung"
-
 msgid "No pages match this report's criteria."
 msgstr "Es gibt keine Seiten welche den Kriterien dieses Reports entsprechen"
 
@@ -1729,6 +1593,16 @@ msgstr ""
 "Sie verwenden einen <strong>veralteten</strong> Browser, der von dieser "
 "Software nicht unterstützt wird. Bitte <a href=\"https://browsehappy.com/"
 "\">aktualisieren Sie Ihren Browser</a>."
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail entfernt schrittweise die Unterstützung für IE11, was Sie oder Ihr "
+"Unternehmen betreffen kann. <a href=\"%(url)s\">Erfahren Sie mehr über "
+"unsere IE11-Supportpläne</a>."
 
 msgid "Go to Wagtail admin interface"
 msgstr "Zum Wagtail Admin-Interface"
@@ -1880,21 +1754,6 @@ msgstr "Entwurf"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Your password has been changed successfully!"
-msgstr "Ihr Passwort wurde erfolgreich geändert!"
-
-msgid "Your email has been changed successfully!"
-msgstr "Ihre E-Mail-Adresse wurde erfolgreich geändert!"
-
-msgid "Your name has been changed successfully!"
-msgstr "Ihr Name wurde erfolgreich geändert!"
-
-msgid "Your preferences have been updated."
-msgstr "Ihre Einstellungen wurden aktualisiert."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Ihre Einstellungen wurden erfolgreich geändert!"
 
 msgid "You have been successfully logged out."
 msgstr "Sie wurden erfolgreich abgemeldet."
@@ -2169,36 +2028,6 @@ msgstr "Seite '%(title)s' löschen"
 msgid "Unpublish page '%(title)s'"
 msgstr "Veröffentlichung der Seite '%(title)s' aufheben"
 
-msgid "Set profile picture"
-msgstr "Profilbild einstellen"
-
-msgid "Change your profile picture."
-msgstr "Ihr Profilbild ändern."
-
-msgid "Change the email address linked to your account."
-msgstr "E-Mail-Adresse ändern, die mit Ihrem Konto verknüpft ist."
-
-msgid "Change the password you use to log in."
-msgstr "Ändern Sie das Passwort, dass Sie verwenden um sich anzumelden."
-
-msgid "Choose which email notifications to receive."
-msgstr "Wählen Sie, welche E-Mail-Benachrichtigungen Sie erhalten möchten!"
-
-msgid "Language preferences"
-msgstr "Spracheinstellungen"
-
-msgid "Choose the language you want to use here."
-msgstr "Wählen Sie die Sprache aus, die Sie hier verwenden möchten."
-
-msgid "Current Time Zone"
-msgstr "Aktuelle Zeitzone"
-
-msgid "Choose your current time zone."
-msgstr "Wählen Sie Ihre aktuelle Zeitzone."
-
-msgid "Change your first and last name on your account."
-msgstr "Vor- und Nachname für Ihren Account ändern."
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Überschrift %(level)d"
@@ -2238,60 +2067,6 @@ msgstr "Gesperrte Seiten"
 
 msgid "Reports"
 msgstr "Berichte"
-
-msgid "Created"
-msgstr "Erstellt"
-
-msgid "Deleted"
-msgstr "Gelöscht"
-
-msgid "Unpublished"
-msgstr "Veröffentlichung aufgehoben"
-
-msgid "Unlocked"
-msgstr "Entsperrt"
-
-msgid "Approved"
-msgstr "Freigegeben"
-
-msgid "Rejected"
-msgstr "Abgelehnt"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "Von %(title)s kopiert"
-
-msgid "Copied"
-msgstr "Kopiert"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "Von ‚%(old_parent)s‘ nach ‚%(new_parent)s‘ verschoben"
-
-msgid "Moved"
-msgstr "Verschoben"
-
-msgid "Page scheduled for publishing"
-msgstr "Seite zur Veröffentlichung eingeplant"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Von ‚%(old)s‘ nach ‚%(new)s‘ umbenannt"
-
-msgid "Renamed"
-msgstr "Umbenannt"
-
-msgid "Rename"
-msgstr "Umbenennen"
-
-msgid "Schedule publication"
-msgstr "Veröffentlichung einplanen"
-
-msgid "Unschedule publication"
-msgstr "Geplante Veröffentlichung aufheben"
-
-msgid "Workflow cancelled"
-msgstr "Arbeitsablauf abgebrochen"
 
 msgid "Yes"
 msgstr "Ja"
