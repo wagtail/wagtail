@@ -40,7 +40,7 @@ For example, let's say you have a page about Brioche in the Breads section. You 
 
 Here is how to create an alias to an existing page:
 
-* The first step is the same as it was for :ref:`copying-page-label`. When you hover over a page in an :doc:`Explorer page <finding_your_way_around/the_explorer_page>`, click on *More* and then *Copy*.
+* The first step is the same as it is for :ref:`copying-page-label`. When you hover over a page in the :doc:`Explorer page <finding_your_way_around/the_explorer_page>`, click on *More* and then *Copy*.
 * When you get to the copy page form, you can then choose another page as the parent page. Click the *Choose another page* button.
 
 
