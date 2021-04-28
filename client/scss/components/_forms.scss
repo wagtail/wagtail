@@ -525,10 +525,18 @@ li.inline:first-child {
         top: 0;
     }
 
-    li.model_choice_field,
-    li.char_field {
+    .field:not(.block_field) {
         &:hover {
             .field-comment-control button {
+                opacity: 1;
+                pointer-events: initial;
+            }
+        }
+    }
+
+    .object {
+        &:hover {
+            .field-comment-control--object button {
                 opacity: 1;
                 pointer-events: initial;
             }
