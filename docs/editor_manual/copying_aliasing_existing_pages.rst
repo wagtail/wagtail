@@ -52,7 +52,7 @@ Here is how to create an alias to an existing page:
 
 
 .. image:: ../_static/images/screen12.7_2_alias_choose_new_parent_page.png
-   :alt: Selecting and clicking on a new page to act as the new parent page.
+   :alt: Selecting and clicking the desired parent page.
 
 
 * Make sure the *Alias* checkbox is ticked. 
