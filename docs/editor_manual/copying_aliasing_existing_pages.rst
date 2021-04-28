@@ -23,7 +23,7 @@ Here is how to copy an existing page:
    :alt: Copy page form with the options to change the title, slug, parent page, published status and option to create an alias.
 
 
-* Once you change the information required, press *Copy this page* and the page will be successfully copied and appear in the Explorer page.
+* Once you completed this form, press *Copy this page*. The page will then be copied and appear in the Explorer page.
 
 
 .. image:: ../_static/images/screen12.6_3_copy_success.png
