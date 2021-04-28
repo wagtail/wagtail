@@ -16,7 +16,7 @@ Here is how to copy an existing page:
    :alt: Copy action available when hovering over a page in an explorer page
 
 
-* You are then taken to a new page where you can input the new information including the new title, new slug and choosing the parent page (if you want to change it). Please note that you can also publish the copied page right away and crate an alias (please see :ref:`aliasing-page-label` for more information about aliasing pages).
+* You are then taken to a form where you can enter the copy's title, slug and choose the parent page (if you want to change it). You then get the option to publish the copied page right away and an option to mark the copy as an alias of the original page (see :ref:`aliasing-page-label` for more information about aliasing pages).
 
 
 .. image:: ../_static/images/screen12.6_2_copy_input_information.png
