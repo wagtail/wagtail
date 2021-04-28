@@ -45,7 +45,7 @@ Here is how to create an alias to an existing page:
 
 
 .. image:: ../_static/images/screen12.7_1_alias_choose_parent_page_button.png
-   :alt: Clicking the choose another page button during the copy page form in orderto change the parent of the copied page.
+   :alt: Clicking the choose another page button during the copy page form in order to change the parent of the copied page.
 
 
 * Select and click on the new page to act as the parent page.
