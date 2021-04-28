@@ -38,7 +38,7 @@ ______________
 When copying a page, you also have the option to mark it as an alias. The content of an aliased page will stay in sync with the original. This is particularly useful when a page is required to be available in multiple places.
 For example, let's say you have a page about Brioche in the Breads section. You then want to also make this page available in the Pastries section. One way to do this is to create a copy of the Brioche page and change the parent page to the Pastries page. However you now need to remember to update this copy each time the original is modified. If a copy is marked as an alias Wagtail will do this for you each time a modification to the original page is published.
 
-Here is how you can create an alias to an existing page:
+Here is how to create an alias to an existing page:
 
 * The first step is the same as it was for :ref:`copying-page-label`. When you hover over a page in an :doc:`Explorer page <finding_your_way_around/the_explorer_page>`, click on *More* and then *Copy*.
 * When you get to the copy page form, you can then choose another page as the parent page. Click the *Choose another page* button.
