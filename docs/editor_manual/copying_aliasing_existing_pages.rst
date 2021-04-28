@@ -8,7 +8,7 @@ _____________
 
 Sometimes you might not need to create a new page from scratch. For example, you could have several pages that are very similar in terms of structure, but differ in content. In that case, you can copy an existing page and only change the required parts.
 
-Here is how you can copy an existing page:
+Here is how to copy an existing page:
 
 * When you hover over a page in an :doc:`Explorer page <finding_your_way_around/the_explorer_page>`, click on *More* and then *Copy*.
 
