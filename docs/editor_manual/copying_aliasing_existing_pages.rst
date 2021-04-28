@@ -6,7 +6,7 @@ Copying and creating aliases to existing pages
 Copying Pages
 _____________
 
-Sometimes you might not want to create a new page from scrach. You could have several pages that are very similar to each other in terms of structure, but the content could differ slightly. In that case, you could copy an existing page and only change the required parts.
+Sometimes you might not need to create a new page from scratch. For example, you could have several pages that are very similar in terms of structure, but differ in content. In that case, you can copy an existing page and only change the required parts.
 
 Here is how you can copy an existing page:
 
@@ -73,4 +73,3 @@ Here is how you can create an alias to an existing page:
 
 .. image:: ../_static/images/screen12.7_4_alias_page_edit_notification.png
    :alt: Editing an alias page notifies it is an alias and offers to either edit the original page or change to a regular copy.
-
