@@ -63,7 +63,7 @@ Here is how you can create an alias to an existing page:
    :alt: Clicking on the Copy this page button to confirm aliasing.
 
 
-* The aliased page will then appear under the new parent page.
+* The aliased page will then appear under the new parent in the Explorer.
 
 
 .. image:: ../_static/images/screen12.7_3_alias_page_new_parent.png
