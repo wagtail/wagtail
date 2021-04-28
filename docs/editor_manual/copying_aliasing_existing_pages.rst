@@ -55,7 +55,8 @@ Here is how you can create an alias to an existing page:
    :alt: Selecting and clicking on a new page to act as the new parent page.
 
 
-* Make sure the Alias checkbox is ticked. You can then complete the page aliasing by clicking on the *Copy this page* button.
+* Make sure the *Alias* checkbox is ticked. 
+* You can then complete the page aliasing by clicking on the *Copy this page* button.
 
 
 .. image:: ../_static/images/screen12.7_3_alias_confirm_changes.png
