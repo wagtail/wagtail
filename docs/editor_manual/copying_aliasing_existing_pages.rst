@@ -70,7 +70,7 @@ Here is how you can create an alias to an existing page:
    :alt: The aliased page appearing under the new parent page in the Explorer page.
 
 
-* If you try to edit the aliased page, you will get notified that it is an alias of another page and be offered two options: either to edit the original page (with changes appearing in both places) or convert the alias page into a regular page (i.e. a regular copy).
+* When you try to edit the aliased page, you are notified that it is an alias of another page. You will then be offered two options: edit the original page (with changes appearing in both places) or convert the alias page into a regular page (i.e. a regular copy, not updated when the original changes).
 
 
 .. image:: ../_static/images/screen12.7_4_alias_page_edit_notification.png
