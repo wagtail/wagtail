@@ -27,7 +27,7 @@ Here is how to copy an existing page:
 
 
 .. image:: ../_static/images/screen12.6_3_copy_success.png
-   :alt: Successful copying of the page resulting in it being available in an explorer page.
+   :alt: Successful copying of a page results in it being available in the Explorer page.
 
 
 .. _aliasing-page-label:
