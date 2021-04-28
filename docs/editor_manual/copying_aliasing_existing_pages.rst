@@ -74,4 +74,4 @@ Here is how you can create an alias to an existing page:
 
 
 .. image:: ../_static/images/screen12.7_4_alias_page_edit_notification.png
-   :alt: Editing an alias page notifies it is an alias and offers to either edit the original page or change to a regular copy.
+   :alt: Editing an alias page notifies it is an alias and offers to either edit the original page or change the alias to a regular page.
