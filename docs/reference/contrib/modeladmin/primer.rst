@@ -164,7 +164,7 @@ each view:
 
 To add extra information to a block within one of the above Wagtail templates, use Django's ``{{ block.super }}`` within the ``{% block ... %}`` that you wish to extend.  For example, if you wish to display an image in an edit form below the fields of the model that is being edited, you could do the following:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% extends "modeladmin/edit.html" %}
     {% load static %}

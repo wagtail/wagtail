@@ -51,7 +51,7 @@ This template will receive the same set of context variables that the blocked pa
 
 A basic template suitable for use as ``PASSWORD_REQUIRED_TEMPLATE`` might look like this:
 
- .. code-block:: html+django
+ .. code-block:: jinja+django
 
     <!DOCTYPE HTML>
     <html>

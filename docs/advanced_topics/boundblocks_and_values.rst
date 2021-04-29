@@ -13,7 +13,7 @@ All StreamField block types accept a ``template`` parameter to determine how the
 
 where ``blocks/heading.html`` consists of:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     <h1>{{ value }}</h1>
 
@@ -28,7 +28,7 @@ This gives us a block that behaves as an ordinary text field, but wraps its outp
             # ...
         ])
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailcore_tags %}
 
@@ -58,7 +58,7 @@ Most of the time, you won't need to worry about these internal details; Wagtail 
 
 In ``blocks/event.html``:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailcore_tags %}
 
@@ -69,7 +69,7 @@ In ``blocks/event.html``:
 
 In this case, ``value.heading`` returns the plain string value rather than a ``BoundBlock``; this is necessary because otherwise the comparison in ``{% if value.heading == 'Party!' %}`` would never succeed. This in turn means that ``{% include_block value.heading %}`` renders as the plain string, without the ``<h1>`` tags. To get the HTML rendering, you need to explicitly access the ``BoundBlock`` instance through ``value.bound_blocks.heading``:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailcore_tags %}
 
@@ -80,7 +80,7 @@ In this case, ``value.heading`` returns the plain string value rather than a ``B
 
 In practice, it would probably be more natural and readable to make the ``<h1>`` tag explicit in the EventBlock's template:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailcore_tags %}
 

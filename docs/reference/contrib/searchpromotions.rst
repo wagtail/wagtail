@@ -39,7 +39,7 @@ Displaying on a search results page
 
 To retrieve a list of promoted search results for a particular search query, you can use the ``{% get_search_promotions %}`` template tag from the ``wagtailsearchpromotions_tags`` templatetag library:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailcore_tags wagtailsearchpromotions_tags %}
 

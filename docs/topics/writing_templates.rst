@@ -86,13 +86,13 @@ The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, set
 
 The syntax for the ``image`` tag is thus:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% image [image] [resize-rule] %}
 
 For example:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailimages_tags %}
     ...
@@ -115,7 +115,7 @@ This filter takes a chunk of HTML content and renders it as safe HTML in the pag
 
 Only fields using ``RichTextField`` need this applied in the template.
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailcore_tags %}
     ...
@@ -167,7 +167,7 @@ Internal links (tag)
 
 Takes a Page object and returns a relative URL (``/foo/bar/``) if within the same Site as the current page, or absolute (``http://example.com/foo/bar/``) if not.
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailcore_tags %}
     ...
@@ -176,7 +176,7 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
 
 A ``fallback`` keyword argument can be provided - this can be a URL string, a named URL route that can be resolved with no parameters, or an object with a ``get_absolute_url`` method, and will be used as a substitute URL when the passed page is ``None``.
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailcore_tags %}
 
@@ -198,7 +198,7 @@ Takes any ``slug`` as defined in a page's "Promote" tab and returns the URL for 
 
 Like ``pageurl``, this will try to provide a relative link if possible, but will default to an absolute link if the Page is on a different Site. This is most useful when creating shared page furniture, e.g. top level navigation or site-wide links.
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailcore_tags %}
     ...
@@ -212,7 +212,7 @@ Static files (tag)
 
 Used to load anything from your static files directory. Use of this tag avoids rewriting all static paths if hosting arrangements change, as they might between development and live environments.
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load static %}
     ...
@@ -231,7 +231,7 @@ Multi-site support
 
 Returns the Site object corresponding to the current request.
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailcore_tags %}
 
@@ -246,7 +246,7 @@ This tag provides a contextual flyout menu for logged-in users. The menu gives e
 
 This tag may be used on regular Django views, without page object. The user bar will contain one item pointing to the admin.
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailuserbar %}
     ...
@@ -254,7 +254,7 @@ This tag may be used on regular Django views, without page object. The user bar 
 
 By default the User Bar appears in the bottom right of the browser window, inset from the edge. If this conflicts with your design it can be moved by passing a parameter to the template tag. These examples show you how to position the userbar in each corner of the screen:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     ...
     {% wagtailuserbar 'top-left' %}
@@ -278,7 +278,7 @@ Varying output between preview and live
 
 Sometimes you may wish to vary the template output depending on whether the page is being previewed or viewed live. For example, if you have visitor tracking code such as Google Analytics in place on your site, it's a good idea to leave this out when previewing, so that editor activity doesn't appear in your analytics reports. Wagtail provides a ``request.is_preview`` variable to distinguish between preview and live:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% if not request.is_preview %}
         <script>

@@ -332,7 +332,7 @@ If both settings are set to the same value, this example should work well for yo
 otherwise skip to the next section that has a more complicated example which takes
 this into account.
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {# make sure these are at the top of the file #}
     {% load i18n wagtailcore_tags %}
@@ -348,7 +348,7 @@ this into account.
 
 Let's break this down:
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% if page %}
         ...
@@ -356,7 +356,7 @@ Let's break this down:
 
 If this is part of a shared base template it may be used in situations where no page object is available, such as 404 error responses, so check that we have a page before proceeding.
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% for translation in page.get_translations.live %}
         ...
@@ -364,14 +364,14 @@ If this is part of a shared base template it may be used in situations where no 
 
 This ``for`` block iterates through all published translations of the current page.
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% get_language_info for translation.locale.language_code as lang %}
 
 This is a Django built-in tag that gets info about the language of the translation.
 For more information, see `get_language_info() in the Django docs <https://docs.djangoproject.com/en/3.1/topics/i18n/translation/#django.utils.translation.get_language_info>`_.
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     <a href="{% pageurl translation %}" rel="alternate" hreflang="{{ language_code }}">
         {{ lang.name_local }}
@@ -410,7 +410,7 @@ context processor to your ``TEMPLATES`` setting:
 
 Now for the example itself:
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% for language_code, language_name in LANGUAGES %}
         {% get_language_info for language_code as lang %}
@@ -424,7 +424,7 @@ Now for the example itself:
 
 Let's break this down too:
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% for language_code, language_name in LANGUAGES %}
         ...
@@ -434,13 +434,13 @@ This ``for`` block iterates through all of the configured languages on the site.
 The ``LANGUAGES`` variable comes from the ``django.template.context_processors.i18n``
 context processor.
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% get_language_info for language_code as lang %}
 
 Does exactly the same as the previous example.
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% language language_code %}
         ...
@@ -449,7 +449,7 @@ Does exactly the same as the previous example.
 This ``language`` tag comes from Django's ``i18n`` tag library. It changes the
 active language for just the code contained within it.
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     <a href="{% pageurl page.localized %}" rel="alternate" hreflang="{{ language_code }}">
         {{ lang.name_local }}

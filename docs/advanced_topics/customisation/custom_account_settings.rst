@@ -143,7 +143,7 @@ You can provide a custom template for the panel by specifying a template name:
         template_name = 'myapp/admin/custom_settings.html'
 
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {# templates/myapp/admin/custom_settings.html #}
 

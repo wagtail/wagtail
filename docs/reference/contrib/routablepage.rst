@@ -215,7 +215,7 @@ The ``routablepageurl`` template tag
 
     Example:
 
-    .. code-block:: html+django
+    .. code-block:: jinja+django
 
         {% load wagtailroutablepage_tags %}
 

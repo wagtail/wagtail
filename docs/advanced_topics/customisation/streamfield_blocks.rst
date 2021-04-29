@@ -129,7 +129,7 @@ Once this is defined, set the block's ``value_class`` option to instruct it to u
 
 Your extended value class methods will now be available in your template:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% for block in page.body %}
         {% if block.block_type == 'link' %}

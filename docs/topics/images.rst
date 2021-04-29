@@ -7,7 +7,7 @@ The ``image`` tag inserts an XHTML-compatible ``img`` element into the page, set
 
 The syntax for the tag is thus:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% image [image] [resize-rule] %}
 
@@ -15,7 +15,7 @@ The syntax for the tag is thus:
 
 For example:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailimages_tags %}
     ...
@@ -39,7 +39,7 @@ The available resizing methods are as follows:
     ``max``
         (takes two dimensions)
 
-        .. code-block:: html+django
+        .. code-block:: jinja+django
 
             {% image page.photo max-1000x500 %}
 
@@ -56,7 +56,7 @@ The available resizing methods are as follows:
     ``min``
         (takes two dimensions)
 
-        .. code-block:: html+django
+        .. code-block:: jinja+django
 
             {% image page.photo min-500x200 %}
 
@@ -73,7 +73,7 @@ The available resizing methods are as follows:
     ``width``
         (takes one dimension)
 
-        .. code-block:: html+django
+        .. code-block:: jinja+django
 
             {% image page.photo width-640 %}
 
@@ -82,7 +82,7 @@ The available resizing methods are as follows:
     ``height``
         (takes one dimension)
 
-        .. code-block:: html+django
+        .. code-block:: jinja+django
 
             {% image page.photo height-480 %}
 
@@ -91,7 +91,7 @@ The available resizing methods are as follows:
     ``scale``
         (takes percentage)
 
-        .. code-block:: html+django
+        .. code-block:: jinja+django
 
             {% image page.photo scale-50 %}
 
@@ -100,7 +100,7 @@ The available resizing methods are as follows:
     ``fill``
         (takes two dimensions and an optional ``-c`` parameter)
 
-        .. code-block:: html+django
+        .. code-block:: jinja+django
 
             {% image page.photo fill-200x200 %}
 
@@ -128,7 +128,7 @@ The available resizing methods are as follows:
 
         You can do this by appending ``-c<percentage>`` at the end of the resize-rule. For example, if you would like the image to be cropped as closely as possible to its focal point, add ``-c100``:
 
-        .. code-block:: html+django
+        .. code-block:: jinja+django
 
             {% image page.photo fill-200x200-c100 %}
 
@@ -150,7 +150,7 @@ The available resizing methods are as follows:
     ``original``
         (takes no dimensions)
 
-        .. code-block:: html+django
+        .. code-block:: jinja+django
 
             {% image page.photo original %}
 
@@ -173,7 +173,7 @@ Wagtail provides two shortcuts to give greater control over the ``img`` element:
 
 Extra attributes can be specified with the syntax ``attribute="value"``:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% image page.photo width-400 class="foo" id="bar" %}
 
@@ -183,7 +183,7 @@ You can set a more relevant `alt` attribute this way, overriding the one automat
 
 Wagtail can assign the image data to another variable using Django's ``as`` syntax:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% image page.photo width-400 as tmp_photo %}
 
@@ -209,7 +209,7 @@ The ``attrs`` shortcut
 
 You can also use the ``attrs`` property as a shorthand to output the attributes ``src``, ``width``, ``height`` and ``alt`` in one go:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     <img {{ tmp_photo.attrs }} class="my-custom-class" />
 
@@ -220,7 +220,7 @@ Alternative HTML tags
 The ``as`` keyword allows alternative HTML image tags (such as ``<picture>`` or ``<amp-img>``) to be used.
 For example, to use the ``<picture>`` tag:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     <picture>
         {% image page.photo width-800 as wide_photo %}
@@ -230,7 +230,7 @@ For example, to use the ``<picture>`` tag:
 
 And to use the ``<amp-img>`` tag (based on the `Mountains example <https://amp.dev/documentation/components/amp-img/#example:-specifying-a-fallback-image>`_ from the AMP docs):
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% image image width-550 format-webp as webp_image %}
     {% image image width-550 format-jpeg as jpeg_image %}
@@ -290,7 +290,7 @@ It is also possible to override the output format on a per-tag basis by using th
 
 For example, to make the tag always convert the image to a JPEG, use ``format-jpeg``:
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% image page.photo width-400 format-jpeg %}
 
@@ -301,7 +301,7 @@ Lossless WebP
 
 You can encode the image into lossless WebP format by using the ``format-webp-lossless`` filter:
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% image page.photo width-400 format-webp-lossless %}
 
@@ -320,7 +320,7 @@ doesn't fit your design, you can specify a color using the ``bgcolor`` filter.
 This filter takes a single argument, which is a CSS 3 or 6 digit hex code
 representing the color you would like to use:
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {# Sets the image background to black #}
     {% image page.photo width-400 bgcolor-000 format-jpeg %}
@@ -364,7 +364,7 @@ It's also possible to have different JPEG and WebP qualities on individual tags
 by using ``jpegquality`` and ``webpquality`` filters. This will always override
 the default setting:
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% image page.photo_jpeg width-400 jpegquality-40 %}
     {% image page.photo_webp width-400 webpquality-50 %}
@@ -373,7 +373,7 @@ Note that this will have no effect on PNG or GIF files. If you want all images
 to be low quality, you can use this filter with ``format-jpeg`` or ``format-webp``
 (which forces all images to output in JPEG or WebP format):
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% image page.photo width-400 format-jpeg jpegquality-40 %}
     {% image page.photo width-400 format-webp webpquality-50 %}

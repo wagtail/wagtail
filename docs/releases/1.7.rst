@@ -134,7 +134,7 @@ The data model for image renditions will be changed in Wagtail 1.8 to eliminate 
 
 The ``embed`` template filter, used to translate the URL of a media resource (such as a YouTube video) into a corresponding embeddable HTML fragment, has now been converted to a template tag. Any template code such as:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailembeds_tags %}
     ...
@@ -142,7 +142,7 @@ The ``embed`` template filter, used to translate the URL of a media resource (su
 
 should now be rewritten as:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
     {% load wagtailembeds_tags %}
     ...

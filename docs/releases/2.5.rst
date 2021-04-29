@@ -121,13 +121,13 @@ should be replaced with:
 
 Additionally, the ``is_ajax`` flag on the template ``wagtailadmin/shared/pagination_nav.html`` has been deprecated in favour of a new template ``wagtailadmin/shared/ajax_pagination_nav.html``:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
   {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj is_ajax=1 %}
 
 should become:
 
-.. code-block:: html+django
+.. code-block:: jinja+django
 
   {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=page_obj %}
 

@@ -54,7 +54,7 @@ You can nest embeds into a template by passing the URL and an optional
 
 The ``max_width`` argument is sent to the provider when fetching the embed code.
 
-.. code-block:: html+Django
+.. code-block:: jinja+Django
 
     {% load wagtailembeds_tags %}
 
