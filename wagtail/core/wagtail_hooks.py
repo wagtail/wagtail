@@ -381,8 +381,11 @@ def register_workflow_log_actions(actions):
         except (KeyError, TypeError):
             return _('Workflow cancelled')
 
+    def workflow_comment(data):
+        return data.get('comment', '')
+
     actions.register_action('wagtail.workflow.start', _('Workflow: start'), workflow_start_message)
-    actions.register_action('wagtail.workflow.approve', _('Workflow: approve task'), workflow_approve_message)
-    actions.register_action('wagtail.workflow.reject', _('Workflow: reject task'), workflow_reject_message)
+    actions.register_action('wagtail.workflow.approve', _('Workflow: approve task'), workflow_approve_message, workflow_comment)
+    actions.register_action('wagtail.workflow.reject', _('Workflow: reject task'), workflow_reject_message, workflow_comment)
     actions.register_action('wagtail.workflow.resume', _('Workflow: resume task'), workflow_resume_message)
     actions.register_action('wagtail.workflow.cancel', _('Workflow: cancel'), workflow_cancel_message)

@@ -23,6 +23,9 @@ class LogActionRegistry:
         # Holds the action messsages, keyed by action
         self.messages = {}
 
+        # Holds the comments, keyed by action
+        self.comments = {}
+
     def scan_for_actions(self):
         if not self.has_scanned_for_actions:
             for fn in hooks.get_hooks(self.hook_name):
@@ -35,9 +38,11 @@ class LogActionRegistry:
     def get_actions(self):
         return self.scan_for_actions()
 
-    def register_action(self, action, label, message):
+    def register_action(self, action, label, message, comment=None):
         self.actions[action] = (label, message)
         self.messages[action] = message
+        if comment:
+            self.comments[action] = comment
         self.choices.append((action, label))
 
     def get_choices(self):
@@ -47,6 +52,10 @@ class LogActionRegistry:
     def get_messages(self):
         self.scan_for_actions()
         return self.messages
+
+    def get_comments(self):
+        self.scan_for_actions()
+        return self.comments
 
     def format_message(self, log_entry):
         message = self.get_messages().get(log_entry.action, _('Unknown %(action)s') % {'action': log_entry.action})
@@ -60,10 +69,15 @@ class LogActionRegistry:
         return message
 
     def format_comment(self, log_entry):
-        if log_entry.data:
-            return log_entry.data.get('comment', '')
+        message = self.get_comments().get(log_entry.action, '')
+        if callable(message):
+            if getattr(message, 'takes_log_entry', False):
+                message = message(log_entry)
+            else:
+                # Pre Wagtail 2.14, we only passed the data into the message generator
+                message = message(log_entry.data)
 
-        return ''
+        return message
 
     def get_action_label(self, action):
         return self.get_actions()[action][0]
