@@ -36,7 +36,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            {{ entry|format_action_log_message }}
+                            {{ entry.format_message }}
                         </td>
                         <td>
                             {% include "wagtailadmin/shared/user_avatar.html" with user=entry.user username=entry.user_display_name %}

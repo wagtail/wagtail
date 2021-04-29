@@ -4856,11 +4856,11 @@ class BaseLogEntry(models.Model):
     def object_id(self):
         raise NotImplementedError
 
-    @cached_property
-    def comment(self):
-        if self.data:
-            return self.data.get('comment', '')
-        return ''
+    def format_message(self):
+        return self.action_registry.format_message(self)
+
+    def format_comment(self):
+        return self.action_registry.format_comment(self)
 
 
 class PageLogEntry(BaseLogEntry):
