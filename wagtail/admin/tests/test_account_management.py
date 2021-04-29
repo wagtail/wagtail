@@ -2,7 +2,6 @@ import unittest
 
 import pytz
 
-from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
@@ -344,10 +343,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         # Check that a validation error was raised
         password_form = password_panel.get_form()
         self.assertTrue('new_password2' in password_form.errors.keys())
-        if DJANGO_VERSION >= (3, 0):
-            self.assertTrue("The two password fields didn’t match." in password_form.errors['new_password2'])
-        else:
-            self.assertTrue("The two password fields didn't match." in password_form.errors['new_password2'])
+        self.assertTrue("The two password fields didn’t match." in password_form.errors['new_password2'])
 
         # Check that the password was not changed
         self.user.refresh_from_db()
@@ -722,10 +718,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.password_reset_uid = force_str(urlsafe_base64_encode(force_bytes(self.user.pk)))
 
         # Create url_args
-        if DJANGO_VERSION >= (3, 0):
-            token = auth_views.PasswordResetConfirmView.reset_url_token
-        else:
-            token = auth_views.INTERNAL_RESET_URL_TOKEN
+        token = auth_views.PasswordResetConfirmView.reset_url_token
 
         self.url_kwargs = dict(uidb64=self.password_reset_uid, token=token)
 
@@ -807,11 +800,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
 
         # Check that a validation error was raised
         self.assertTrue('new_password2' in response.context['form'].errors.keys())
-
-        if DJANGO_VERSION >= (3, 0):
-            self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
-        else:
-            self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
+        self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
         self.assertTrue(get_user_model().objects.get(email='test@email.com').check_password('password'))
