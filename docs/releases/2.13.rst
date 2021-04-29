@@ -52,10 +52,14 @@ Feedback and feature requests for the theme may be reported to the `sphinx_wagta
 
 Thank you to Storm Heg, Tibor Leupold, Thibaud Colas, Coen van der Kamp, Olly Willans, Naomi Morduch Toubman, Scott Cranfill, and Andy Chosak for making this happen!
 
+Django 3.2 support
+~~~~~~~~~~~~~~~~~~
+
+Django 3.2 is formally supported in this release. Note that Wagtail 2.13 will be the last release to support Django 2.2.
+
 Other features
 ~~~~~~~~~~~~~~
 
-* Add support for Django 3.2
 * Support passing ``min_num``, ``max_num`` and ``block_counts`` arguments directly to ``StreamField`` (Haydn Greatnews, Matt Westcott)
 * Add the option to set rich text images as decorative, without alt text (Helen Chapman, Thibaud Colas)
 * Add support for ``__year`` filter in Elasticsearch queries (Seb Brown)
