@@ -51,7 +51,11 @@ class LogActionRegistry:
     def format_message(self, log_entry):
         message = self.get_messages().get(log_entry.action, _('Unknown %(action)s') % {'action': log_entry.action})
         if callable(message):
-            message = message(log_entry.data)
+            if getattr(message, 'takes_log_entry', False):
+                message = message(log_entry)
+            else:
+                # Pre Wagtail 2.14, we only passed the data into the message generator
+                message = message(log_entry.data)
 
         return message
 
