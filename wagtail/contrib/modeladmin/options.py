@@ -126,7 +126,7 @@ class ModelAdmin(WagtailRegisterable):
             self.model, self.inspect_view_enabled)
         self.url_helper = self.get_url_helper_class()(self.model)
 
-        # Needed to support RelatedFieldListFilter in Django 2.2+
+        # Needed to support RelatedFieldListFilter
         # See: https://github.com/wagtail/wagtail/issues/5105
         self.admin_site = default_django_admin_site
 

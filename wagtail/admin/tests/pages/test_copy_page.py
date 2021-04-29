@@ -1,4 +1,3 @@
-from django import VERSION as DJANGO_VERSION
 from django.contrib.auth.models import Group, Permission
 from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
@@ -319,14 +318,9 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that a form error was raised
-        if DJANGO_VERSION >= (3, 0):
-            self.assertFormError(
-                response, 'form', 'new_slug', "Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or hyphens."
-            )
-        else:
-            self.assertFormError(
-                response, 'form', 'new_slug', "Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or hyphens."
-            )
+        self.assertFormError(
+            response, 'form', 'new_slug', "Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or hyphens."
+        )
 
     def test_page_copy_post_valid_unicode_slug(self):
         post_data = {

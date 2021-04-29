@@ -33,16 +33,12 @@ from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from .forms import ParentChooserForm
 
 
-try:
-    from django.db.models.sql.constants import QUERY_TERMS
-except ImportError:
-    # Django 2.1+ does not have QUERY_TERMS anymore
-    QUERY_TERMS = {
-        'contains', 'day', 'endswith', 'exact', 'gt', 'gte', 'hour',
-        'icontains', 'iendswith', 'iexact', 'in', 'iregex', 'isnull',
-        'istartswith', 'lt', 'lte', 'minute', 'month', 'range', 'regex',
-        'search', 'second', 'startswith', 'week_day', 'year',
-    }
+QUERY_TERMS = {
+    'contains', 'day', 'endswith', 'exact', 'gt', 'gte', 'hour',
+    'icontains', 'iendswith', 'iexact', 'in', 'iregex', 'isnull',
+    'istartswith', 'lt', 'lte', 'minute', 'month', 'range', 'regex',
+    'search', 'second', 'startswith', 'week_day', 'year',
+}
 
 
 class WMABaseView(TemplateView):
@@ -255,7 +251,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
     IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR, EXPORT_VAR)
 
     # sortable_by is required by the django.contrib.admin.templatetags.admin_list.result_headers
-    # template tag as of Django 2.1 - see https://docs.djangoproject.com/en/2.1/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
+    # template tag - see https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
     sortable_by = None
 
     @method_decorator(login_required)

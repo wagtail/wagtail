@@ -4,6 +4,7 @@ Changelog
 2.14 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Removed support for Django 2.2
  * Added ``ancestor_of`` API filter (Jaap Roes)
  * Fix: Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
  * Fix: Ordering specified in `construct_explorer_page_queryset` hook is now taken into account again by the page explorer API (Andre Fonseca)

@@ -24,3 +24,8 @@ Bug fixes
 
 Upgrade considerations
 ======================
+
+Removed support for Django 2.2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django 2.2 is no longer supported as of this release; please upgrade to Django 3.0 or above before upgrading Wagtail.

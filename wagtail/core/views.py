@@ -2,16 +2,11 @@ from django.conf import settings
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.http import url_has_allowed_host_and_scheme
 
 from wagtail.core import hooks
 from wagtail.core.forms import PasswordViewRestrictionForm
 from wagtail.core.models import Page, PageViewRestriction, Site
-
-
-try:
-    from django.utils.http import url_has_allowed_host_and_scheme
-except ImportError:  # fallback for Django 2.2
-    from django.utils.http import is_safe_url as url_has_allowed_host_and_scheme
 
 
 def serve(request, path):
