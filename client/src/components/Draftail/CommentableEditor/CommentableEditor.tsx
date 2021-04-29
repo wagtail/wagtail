@@ -579,8 +579,11 @@ function CommentableEditor({
 
     if (
       !validFocusChange &&
-      previousIds === ids &&
-      previousEnabled === enabled
+      previousEnabled === enabled &&
+      (
+        previousIds === ids ||
+        (previousIds.length === ids.length && previousIds.every((value, index) => value === ids[index]))
+      )
     ) {
       return;
     }
