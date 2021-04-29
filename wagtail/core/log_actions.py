@@ -59,6 +59,12 @@ class LogActionRegistry:
 
         return message
 
+    def format_comment(self, log_entry):
+        if log_entry.data:
+            return log_entry.data.get('comment', '')
+
+        return ''
+
     def get_action_label(self, action):
         return self.get_actions()[action][0]
 

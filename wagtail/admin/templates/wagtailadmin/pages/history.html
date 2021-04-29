@@ -29,11 +29,13 @@
                     <tr>
                         <td>
                             {% if entry.revision %}<span class="report__results--text">{% endif %}
-                            {{ entry|format_action_log_message }}
+                            {{ entry.format_message }}
                             {% if entry.revision %}</span>{% endif %}
-                            {% if entry.comment %}
-                                <span class="report__results--comment">{% trans "Comment" %}: "<em>{{ entry.comment }}</em>"</span>
-                            {% endif %}
+                            {% with entry.format_comment as comment %}
+                                {% if comment %}
+                                    <span class="report__results--comment">{% trans "Comment" %}: <em>{{ comment }}</em></span>
+                                {% endif %}
+                            {% endwith %}
                             {% if entry.revision %}
                                 {% if entry.action == 'wagtail.publish' %}
                                     {% if entry.revision == page.live_revision %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}

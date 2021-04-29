@@ -25,9 +25,8 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
-from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.models import (
-    Collection, CollectionViewRestriction, Locale, Page, PageLogEntry, PageViewRestriction,
+    Collection, CollectionViewRestriction, Locale, Page, PageViewRestriction,
     UserPagePermissionsProxy)
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
@@ -577,13 +576,6 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
         if use_shorthand:
             return timesince_simple(last_update)
         return _("%(time_period)s ago") % {'time_period': timesince(last_update)}
-
-
-@register.filter
-def format_action_log_message(log_entry):
-    if not isinstance(log_entry, PageLogEntry):
-        return ''
-    return page_log_action_registry.format_message(log_entry)
 
 
 @register.simple_tag
