@@ -21,8 +21,7 @@ from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
-    Comment, CommentReply, Page, PageLogEntry, PageSubscription, UserPagePermissionsProxy,
-    WorkflowState)
+    Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy, WorkflowState)
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -209,123 +208,48 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return
 
         for comment in changes['new_comments']:
-            PageLogEntry.objects.log_action(
-                instance=self.page,
-                action='wagtail.comments.create',
-                user=self.request.user,
-                revision=revision,
-                data={
-                    'comment': {
-                        'id': comment.pk,
-                        'contentpath': comment.contentpath,
-                        'text': comment.text,
-                    }
-                }
+            comment.log_create(
+                page_revision=revision,
+                user=self.request.user
             )
 
         for comment in changes['edited_comments']:
-            PageLogEntry.objects.log_action(
-                instance=self.page,
-                action='wagtail.comments.edit',
-                user=self.request.user,
-                revision=revision,
-                data={
-                    'comment': {
-                        'id': comment.pk,
-                        'contentpath': comment.contentpath,
-                        'text': comment.text,
-                    }
-                }
+            comment.log_edit(
+                page_revision=revision,
+                user=self.request.user
             )
 
         for comment in changes['resolved_comments']:
-            PageLogEntry.objects.log_action(
-                instance=self.page,
-                action='wagtail.comments.resolve',
-                user=self.request.user,
-                revision=revision,
-                data={
-                    'comment': {
-                        'id': comment.pk,
-                        'contentpath': comment.contentpath,
-                        'text': comment.text,
-                    }
-                }
+            comment.log_resolve(
+                page_revision=revision,
+                user=self.request.user
             )
 
         for comment in changes['deleted_comments']:
-            PageLogEntry.objects.log_action(
-                instance=self.page,
-                action='wagtail.comments.delete',
-                user=self.request.user,
-                revision=revision,
-                data={
-                    'comment': {
-                        'id': comment.pk,
-                        'contentpath': comment.contentpath,
-                        'text': comment.text,
-                    }
-                }
+            comment.log_delete(
+                page_revision=revision,
+                user=self.request.user
             )
 
         for comment, replies in changes['new_replies']:
             for reply in replies:
-                PageLogEntry.objects.log_action(
-                    instance=self.page,
-                    action='wagtail.comments.create_reply',
-                    user=self.request.user,
-                    revision=revision,
-                    data={
-                        'comment': {
-                            'id': comment.pk,
-                            'contentpath': comment.contentpath,
-                            'text': comment.text,
-                        },
-                        'reply': {
-                            'id': reply.pk,
-                            'text': reply.text,
-                        }
-                    }
-                )
-
-        for comment, replies in changes['deleted_replies']:
-            for reply in replies:
-                PageLogEntry.objects.log_action(
-                    instance=self.page,
-                    action='wagtail.comments.delete_reply',
-                    user=self.request.user,
-                    revision=revision,
-                    data={
-                        'comment': {
-                            'id': comment.pk,
-                            'contentpath': comment.contentpath,
-                            'text': comment.text,
-                        },
-                        'reply': {
-                            'id': reply.pk,
-                            'text': reply.text,
-                        }
-                    }
+                reply.log_create(
+                    page_revision=revision,
+                    user=self.request.user
                 )
 
         for comment, replies in changes['edited_replies']:
             for reply in replies:
-                PageLogEntry.objects.log_action(
-                    instance=self.page,
-                    action='wagtail.comments.edit_reply',
-                    user=self.request.user,
-                    revision=revision,
-                    data={
-                        'comment': {
-                            'id': comment.pk,
-                            'contentpath': comment.contentpath,
-                            'text': comment.text,
-                        },
-                        'reply': {
-                            'id': reply.pk,
-                            'text': reply.text,
-                        }
-                    }
+                reply.log_edit(
+                    page_revision=revision,
+                    user=self.request.user
+                )
+
+        for comment, replies in changes['deleted_replies']:
+            for reply in replies:
+                reply.log_delete(
+                    page_revision=revision,
+                    user=self.request.user
                 )
 
     def get_edit_message_button(self):

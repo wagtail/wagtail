@@ -4951,6 +4951,33 @@ class Comment(ClusterableModel):
                 return result
         return super().save(update_fields=update_fields, **kwargs)
 
+    def _log(self, action, page_revision=None, user=None):
+        PageLogEntry.objects.log_action(
+            instance=self.page,
+            action=action,
+            user=user,
+            revision=page_revision,
+            data={
+                'comment': {
+                    'id': self.pk,
+                    'contentpath': self.contentpath,
+                    'text': self.text,
+                }
+            }
+        )
+
+    def log_create(self, **kwargs):
+        self._log('wagtail.comments.create', **kwargs)
+
+    def log_edit(self, **kwargs):
+        self._log('wagtail.comments.edit', **kwargs)
+
+    def log_resolve(self, **kwargs):
+        self._log('wagtail.comments.resolve', **kwargs)
+
+    def log_delete(self, **kwargs):
+        self._log('wagtail.comments.delete', **kwargs)
+
 
 class CommentReply(models.Model):
     comment = ParentalKey(Comment, on_delete=models.CASCADE, related_name='replies')
@@ -4965,6 +4992,34 @@ class CommentReply(models.Model):
 
     def __str__(self):
         return "CommentReply left by '{0}': '{1}'".format(self.user, self.text)
+
+    def _log(self, action, page_revision=None, user=None):
+        PageLogEntry.objects.log_action(
+            instance=self.comment.page,
+            action=action,
+            user=user,
+            revision=page_revision,
+            data={
+                'comment': {
+                    'id': self.comment.pk,
+                    'contentpath': self.comment.contentpath,
+                    'text': self.comment.text,
+                },
+                'reply': {
+                    'id': self.pk,
+                    'text': self.text,
+                }
+            }
+        )
+
+    def log_create(self, **kwargs):
+        self._log('wagtail.comments.create_reply', **kwargs)
+
+    def log_edit(self, **kwargs):
+        self._log('wagtail.comments.edit_reply', **kwargs)
+
+    def log_delete(self, **kwargs):
+        self._log('wagtail.comments.delete_reply', **kwargs)
 
 
 class PageSubscription(models.Model):
