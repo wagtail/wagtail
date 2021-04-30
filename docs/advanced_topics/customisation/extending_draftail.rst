@@ -304,7 +304,7 @@ Finally, we register the JS components of our plugin:
 
 And that’s it! All of this setup will finally produce the following HTML on the site’s front-end:
 
-.. code-block:: html
+.. code-block:: html+django
 
     <p>
         Anyone following Elon Musk’s <span data-stock="TSLA">$TSLA</span> should also look into <span data-stock="BTC">$BTC</span>.

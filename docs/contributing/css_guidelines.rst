@@ -133,7 +133,7 @@ When styling a component, start with an element + class namespace,
 prefer direct descendant selectors by default, and use as little
 specificity as possible. Here is a good example:
 
-.. code-block:: html
+.. code-block:: html+django
 
     <ul class="category-list">
         <li class="item">Category 1</li>
