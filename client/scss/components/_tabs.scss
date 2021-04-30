@@ -82,6 +82,11 @@
     li.wide {
         width: unset;
     }
+
+    .right {
+        max-height: 1.44em;
+        overflow: visible;
+    }
 }
 
 .tab-content {
