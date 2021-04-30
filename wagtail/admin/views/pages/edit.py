@@ -106,25 +106,30 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             if replies:
                 edited_replies.append((comment_form.instance, replies))
 
-        return new_comments, deleted_comments, resolved_comments, edited_comments, new_replies, deleted_replies, edited_replies
+        return {
+            'new_comments': new_comments,
+            'deleted_comments': deleted_comments,
+            'resolved_comments': resolved_comments,
+            'edited_comments': edited_comments,
+            'new_replies': new_replies,
+            'deleted_replies': deleted_replies,
+            'edited_replies': edited_replies,
+        }
 
-    def send_commenting_notifications(self):
+    def send_commenting_notifications(self, changes):
         """
         Sends notifications about any changes to comments to anyone who is subscribed.
         """
-        # Skip if this page does not have CommentPanel enabled
-        if 'comments' not in self.form.formsets:
-            return
-
-        new_comments, deleted_comments, resolved_comments, edited_comments, replied_comments, deleted_replies, edited_replies = self.get_commenting_changes()
-
         relevant_comment_ids = []
-        relevant_comment_ids.extend(comment.pk for comment in resolved_comments)
-        relevant_comment_ids.extend(comment.pk for comment, replies in replied_comments)
+        relevant_comment_ids.extend(comment.pk for comment in changes['resolved_comments'])
+        relevant_comment_ids.extend(comment.pk for comment, replies in changes['new_replies'])
 
         # Skip if no changes were made
         # Note: We don't email about edited comments so ignore those here
-        if not new_comments and not deleted_comments and not resolved_comments and not replied_comments:
+        if (not changes['new_comments']
+                and not changes['deleted_comments']
+                and not changes['resolved_comments']
+                and not changes['new_replies']):
             return
 
         # Get global page comment subscribers
@@ -161,15 +166,15 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             send_notification(users, 'updated_comments', {
                 'page': self.page,
                 'editor': self.request.user,
-                'new_comments': [comment for comment in new_comments if comment.pk in threads],
-                'resolved_comments': [comment for comment in resolved_comments if comment.pk in threads],
+                'new_comments': [comment for comment in changes['new_comments'] if comment.pk in threads],
+                'resolved_comments': [comment for comment in changes['resolved_comments'] if comment.pk in threads],
                 'deleted_comments': [],
                 'replied_comments': [
                     {
                         'comment': comment,
                         'replies': replies,
                     }
-                    for comment, replies in replied_comments
+                    for comment, replies in changes['new_replies']
                     if comment.pk in threads
                 ]
             })
@@ -177,33 +182,33 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         return send_notification(global_recipient_users, 'updated_comments', {
             'page': self.page,
             'editor': self.request.user,
-            'new_comments': new_comments,
-            'resolved_comments': resolved_comments,
-            'deleted_comments': deleted_comments,
+            'new_comments': changes['new_comments'],
+            'resolved_comments': changes['resolved_comments'],
+            'deleted_comments': changes['deleted_comments'],
             'replied_comments': [
                 {
                     'comment': comment,
                     'replies': replies,
                 }
-                for comment, replies in replied_comments
+                for comment, replies in changes['new_replies']
             ]
         })
 
-    def log_commenting_changes(self, revision):
+    def log_commenting_changes(self, changes, revision):
         """
         Generates log entries for any changes made to comments or replies.
         """
-        # Skip if this page does not have CommentPanel enabled
-        if 'comments' not in self.form.formsets:
-            return
-
-        new_comments, deleted_comments, resolved_comments, edited_comments, new_replies, deleted_replies, edited_replies = self.get_commenting_changes()
-
         # Skip if no changes were made
-        if not new_comments and not deleted_comments and not resolved_comments and not edited_comments and not new_replies and not deleted_replies and not edited_replies:
+        if (not changes['new_comments']
+                and not changes['deleted_comments']
+                and not changes['resolved_comments']
+                and not changes['edited_comments']
+                and not changes['new_replies']
+                and not changes['deleted_replies']
+                and not changes['edited_replies']):
             return
 
-        for comment in new_comments:
+        for comment in changes['new_comments']:
             PageLogEntry.objects.log_action(
                 instance=self.page,
                 action='wagtail.comments.create',
@@ -218,7 +223,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 }
             )
 
-        for comment in edited_comments:
+        for comment in changes['edited_comments']:
             PageLogEntry.objects.log_action(
                 instance=self.page,
                 action='wagtail.comments.edit',
@@ -233,7 +238,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 }
             )
 
-        for comment in resolved_comments:
+        for comment in changes['resolved_comments']:
             PageLogEntry.objects.log_action(
                 instance=self.page,
                 action='wagtail.comments.resolve',
@@ -248,7 +253,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 }
             )
 
-        for comment in deleted_comments:
+        for comment in changes['deleted_comments']:
             PageLogEntry.objects.log_action(
                 instance=self.page,
                 action='wagtail.comments.delete',
@@ -263,7 +268,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 }
             )
 
-        for comment, replies in new_replies:
+        for comment, replies in changes['new_replies']:
             for reply in replies:
                 PageLogEntry.objects.log_action(
                     instance=self.page,
@@ -283,7 +288,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     }
                 )
 
-        for comment, replies in deleted_replies:
+        for comment, replies in changes['deleted_replies']:
             for reply in replies:
                 PageLogEntry.objects.log_action(
                     instance=self.page,
@@ -303,7 +308,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     }
                 )
 
-        for comment, replies in edited_replies:
+        for comment, replies in changes['edited_replies']:
             for reply in replies:
                 PageLogEntry.objects.log_action(
                     instance=self.page,
@@ -533,8 +538,10 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         self.add_save_confirmation_message()
 
-        self.log_commenting_changes(revision)
-        self.send_commenting_notifications()
+        if 'comments' in self.form.formsets:
+            changes = self.get_commenting_changes()
+            self.log_commenting_changes(changes, revision)
+            self.send_commenting_notifications(changes)
 
         response = self.run_hook('after_edit_page', self.request, self.page)
         if response:
@@ -567,8 +574,10 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
 
-        self.log_commenting_changes(revision)
-        self.send_commenting_notifications()
+        if 'comments' in self.form.formsets:
+            changes = self.get_commenting_changes()
+            self.log_commenting_changes(changes, revision)
+            self.send_commenting_notifications(changes)
 
         # Need to reload the page because the URL may have changed, and we
         # need the up-to-date URL for the "View Live" button.
@@ -647,8 +656,10 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
 
-        self.log_commenting_changes(revision)
-        self.send_commenting_notifications()
+        if 'comments' in self.form.formsets:
+            changes = self.get_commenting_changes()
+            self.log_commenting_changes(changes, revision)
+            self.send_commenting_notifications(changes)
 
         if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
             # If the workflow was in the needs changes state, resume the existing workflow on submission
