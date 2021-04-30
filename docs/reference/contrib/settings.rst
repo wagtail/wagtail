@@ -205,7 +205,7 @@ Add ``wagtail.contrib.settings.jinja2tags.settings`` extension to your Jinja2 se
 
 Then access the settings through the ``settings()`` template function:
 
-.. code-block:: html+django
+.. code-block:: html+jinja
 
     {{ settings("app_label.SocialMediaSettings").twitter }}
 
