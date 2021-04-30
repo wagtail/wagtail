@@ -213,13 +213,13 @@ Then access the settings through the ``settings()`` template function:
 
 This will look for a ``request`` variable in the template context, and find the correct site to use from that. If for some reason you do not have a ``request`` available, you can instead use the settings defined for the default site:
 
-.. code-block:: html+django
+.. code-block:: html+jinja
 
     {{ settings("app_label.SocialMediaSettings", use_default_site=True).instagram }}
 
 You can store the settings instance in a variable to save some typing, if you have to use multiple values from one model:
 
-.. code-block:: html+django
+.. code-block:: html+jinja
 
     {% with social_settings=settings("app_label.SocialMediaSettings") %}
         Follow us on Twitter at @{{ social_settings.twitter }},
