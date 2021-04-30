@@ -56,7 +56,7 @@ Template rendering
 
 StreamField provides an HTML representation for the stream content as a whole, as well as for each individual block. To include this HTML into your page, use the ``{% include_block %}`` tag:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
 
@@ -67,7 +67,7 @@ StreamField provides an HTML representation for the stream content as a whole, a
 
 In the default rendering, each block of the stream is wrapped in a ``<div class="block-my_block_name">`` element (where ``my_block_name`` is the block name given in the StreamField definition). If you wish to provide your own HTML markup, you can instead iterate over the field's value, and invoke ``{% include_block %}`` on each block in turn:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
 
@@ -82,7 +82,7 @@ In the default rendering, each block of the stream is wrapped in a ``<div class=
 
 For more control over the rendering of specific block types, each block object provides ``block_type`` and ``value`` properties:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
 
@@ -134,7 +134,7 @@ StructBlock
 
 When reading back the content of a StreamField (such as when rendering a template), the value of a StructBlock is a dict-like object with keys corresponding to the block names given in the definition:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     <article>
         {% for block in page.body %}
@@ -228,7 +228,7 @@ ListBlock
 
 When reading back the content of a StreamField (such as when rendering a template), the value of a ListBlock is a list of child values:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     <article>
         {% for block in page.body %}
@@ -290,7 +290,7 @@ A StreamBlock subclass defined in this way can also be passed to a ``StreamField
 
 When reading back the content of a StreamField, the value of a StreamBlock is a sequence of block objects with ``block_type`` and ``value`` properties, just like the top-level value of the StreamField itself.
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     <article>
         {% for block in page.body %}
@@ -403,7 +403,7 @@ Or, when defined as a subclass of StructBlock:
 
 Within the template, the block value is accessible as the variable ``value``:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% load wagtailimages_tags %}
 
@@ -415,7 +415,7 @@ Within the template, the block value is accessible as the variable ``value``:
 
 Since ``first_name``, ``surname``, ``photo`` and ``biography`` are defined as blocks in their own right, this could also be written as:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% load wagtailcore_tags wagtailimages_tags %}
 
@@ -427,7 +427,7 @@ Since ``first_name``, ``surname``, ``photo`` and ``biography`` are defined as bl
 
 Writing ``{{ my_block }}`` is roughly equivalent to ``{% include_block my_block %}``, but the short form is more restrictive, as it does not pass variables from the calling template such as ``request`` or ``page``; for this reason, it is recommended that you only use it for simple values that do not render HTML of their own. For example, if our PersonBlock used the template:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% load wagtailimages_tags %}
 
@@ -444,7 +444,7 @@ Writing ``{{ my_block }}`` is roughly equivalent to ``{% include_block my_block 
 
 then the ``request.user.is_authenticated`` test would not work correctly when rendering the block through a ``{{ ... }}`` tag:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {# Incorrect: #}
 
@@ -468,7 +468,7 @@ then the ``request.user.is_authenticated`` test would not work correctly when re
 
 Like Django's ``{% include %}`` tag, ``{% include_block %}`` also allows passing additional variables to the included template, through the syntax ``{% include_block my_block with foo="bar" %}``:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {# In page template: #}
 

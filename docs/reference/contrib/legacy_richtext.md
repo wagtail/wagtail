@@ -19,6 +19,6 @@ INSTALLED_APPS = [
 
 The `{{ page.body|richtext }}` template filter will now render:
 
-```jinja+django
+```html+django
 <div class="rich-text">...</div>
 ```

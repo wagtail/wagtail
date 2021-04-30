@@ -83,7 +83,7 @@ Image operations can be chained by joining them with a ``|`` character:
 
 In your templates:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% load wagtailimages_tags %}
     ...

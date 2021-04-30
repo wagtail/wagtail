@@ -249,7 +249,7 @@ Sphinx offers release-metadata directives to generate this information consisten
 
 We can add supplementary information in documentation with the HTML `<details>` element. This relies on HTML syntax, which can be hard to author consistently, so keep this type of formatting to a minimum.
 
-```jinja
+```html
 <details>
 
 <summary>Supplementary information</summary>

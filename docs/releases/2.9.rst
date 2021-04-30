@@ -110,7 +110,7 @@ For example:
     def get_menu_items(request):
         return Site.find_for_request(request).root_page.get_children().live()
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {# old version #}
 

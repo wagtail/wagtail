@@ -45,7 +45,7 @@ Template tags, functions & filters
 
 Generate a URL for a Page instance:
 
-.. code-block:: jinja+jinja
+.. code-block:: html+jinja
 
     <a href="{{ pageurl(page.more_information) }}">More information</a>
 
@@ -56,7 +56,7 @@ See :ref:`pageurl_tag` for more information
 
 Generate a URL for a Page with a slug:
 
-.. code-block:: jinja+jinja
+.. code-block:: html+jinja
 
     <a href="{{ slugurl("about") }}">About us</a>
 
@@ -67,7 +67,7 @@ See :ref:`slugurl_tag` for more information
 
 Resize an image, and print an ``<img>`` tag:
 
-.. code-block:: jinja+jinja
+.. code-block:: html+jinja
 
     {# Print an image tag #}
     {{ image(page.header_image, "fill-1024x200", class="header-image") }}
@@ -83,7 +83,7 @@ See :ref:`image_tag` for more information
 
 Transform Wagtail's internal HTML representation, expanding internal references to pages and images.
 
-.. code-block:: jinja+jinja
+.. code-block:: html+jinja
 
     {{ page.body|richtext }}
 
@@ -94,7 +94,7 @@ See :ref:`rich-text-filter` for more information
 
 Output the Wagtail contextual flyout menu for editing pages from the front end
 
-.. code-block:: jinja+jinja
+.. code-block:: html+jinja
 
     {{ wagtailuserbar() }}
 
@@ -107,7 +107,7 @@ Output the HTML representation for the stream content as a whole, as well as for
 
 Allows to pass template context (by default) to the StreamField template.
 
-.. code-block:: jinja+jinja
+.. code-block:: html+jinja
 
     {% include_block page.body %}
     {% include_block page.body with context %} {# The same as the previous #}

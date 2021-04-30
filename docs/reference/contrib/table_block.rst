@@ -37,7 +37,7 @@ Import the TableBlock ``from wagtail.contrib.table_block.blocks import TableBloc
 
 Then, on your page template, the ``{% include_block %}`` tag (called on either the individual block, or the StreamField value as a whole) will render any table blocks it encounters as an HTML ``<table>`` element:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
 
@@ -45,7 +45,7 @@ Then, on your page template, the ``{% include_block %}`` tag (called on either t
 
 Or:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
 

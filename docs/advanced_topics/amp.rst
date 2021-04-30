@@ -213,7 +213,7 @@ Now add the path to this context processor to the
 You should now be able to use the ``amp_mode_active`` variable in templates.
 For example:
 
-.. code-block:: jinja+Django
+.. code-block:: html+Django
 
     {% if amp_mode_active %}
         AMP MODE IS ACTIVE!

@@ -52,7 +52,7 @@ template directory ``wagtailusers/users``.
 
 Template create.html:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
   {% extends "wagtailusers/users/create.html" %}
 
@@ -63,7 +63,7 @@ Template create.html:
 
 Template edit.html:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
   {% extends "wagtailusers/users/edit.html" %}
 

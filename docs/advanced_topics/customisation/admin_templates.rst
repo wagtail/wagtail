@@ -31,7 +31,7 @@ The template blocks that are available to customise the branding in the admin in
 
 To replace the default logo, create a template file ``dashboard/templates/wagtailadmin/base.html`` that overrides the block ``branding_logo``:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% extends "wagtailadmin/base.html" %}
     {% load static %}
@@ -49,7 +49,7 @@ The logo also appears on the wagtail userbar; to replace it there too, create a 
 
 To replace the favicon displayed when viewing admin pages, create a template file ``dashboard/templates/wagtailadmin/admin_base.html`` that overrides the block ``branding_favicon``:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% extends "wagtailadmin/admin_base.html" %}
     {% load static %}
@@ -63,7 +63,7 @@ To replace the favicon displayed when viewing admin pages, create a template fil
 
 To replace the title prefix (which is 'Wagtail' by default), create a template file ``dashboard/templates/wagtailadmin/admin_base.html`` that overrides the block ``branding_title``:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% extends "wagtailadmin/admin_base.html" %}
 
@@ -74,7 +74,7 @@ To replace the title prefix (which is 'Wagtail' by default), create a template f
 
 To replace the login message, create a template file ``dashboard/templates/wagtailadmin/login.html`` that overrides the block ``branding_login``:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% extends "wagtailadmin/login.html" %}
 
@@ -85,7 +85,7 @@ To replace the login message, create a template file ``dashboard/templates/wagta
 
 To replace the welcome message on the dashboard, create a template file ``dashboard/templates/wagtailadmin/home.html`` that overrides the block ``branding_welcome``:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% extends "wagtailadmin/home.html" %}
 
@@ -160,7 +160,7 @@ Returns the value of ``root_site``, unless it evaluates to ``None``. In that cas
 
 To use these variables, create a template file ``dashboard/templates/wagtailadmin/home.html``, just as if you were overriding one of the template blocks in the dashboard, and use them as you would any other Django template variable:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% extends "wagtailadmin/home.html" %}
 
@@ -176,7 +176,7 @@ To add extra controls to the login form, create a template file ``dashboard/temp
 
 To add content above or below the login form, override these blocks:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% extends "wagtailadmin/login.html" %}
 
@@ -187,7 +187,7 @@ To add content above or below the login form, override these blocks:
 
 To add extra fields to the login form, override the ``fields`` block. You will need to add ``{{ block.super }}`` somewhere in your block to include the username and password fields:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% extends "wagtailadmin/login.html" %}
 
@@ -208,7 +208,7 @@ To add extra fields to the login form, override the ``fields`` block. You will n
 
 To add extra buttons to the login form, override the ``submit_buttons`` block. You will need to add ``{{ block.super }}`` somewhere in your block to include the sign in button:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% extends "wagtailadmin/login.html" %}
 
@@ -222,7 +222,7 @@ To add extra buttons to the login form, override the ``submit_buttons`` block. Y
 
 To completely customise the login form, override the ``login_form`` block. This block wraps the whole contents of the ``<form>`` element:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% extends "wagtailadmin/login.html" %}
 

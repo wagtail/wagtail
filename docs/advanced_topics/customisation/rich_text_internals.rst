@@ -20,13 +20,13 @@ Data format
 
 Rich text data (as handled by :ref:`RichTextField <rich-text>`, and ``RichTextBlock`` within :doc:`StreamField </topics/streamfield>`) is stored in the database in a format that is similar, but not identical, to HTML. For example, a link to a page might be stored as:
 
-.. code-block:: jinja
+.. code-block:: html
 
     <p><a linktype="page" id="3">Contact us</a> for more information.</p>
 
 Here, the ``linktype`` attribute identifies a rule that shall be used to rewrite the tag. When rendered on a template through the ``|richtext`` filter (see :ref:`rich-text-filter`), this is converted into valid HTML:
 
-.. code-block:: jinja
+.. code-block:: html
 
     <p><a href="/contact-us/">Contact us</a> for more information.</p>
 
@@ -34,13 +34,13 @@ In the case of ``RichTextBlock``, the block's value is a ``RichText`` object whi
 
 Likewise, an image inside rich text content might be stored as:
 
-.. code-block:: jinja
+.. code-block:: html
 
     <embed embedtype="image" id="10" alt="A pied wagtail" format="left" />
 
 which is converted into an ``img`` element when rendered:
 
-.. code-block:: jinja
+.. code-block:: html
 
     <img alt="A pied wagtail" class="richtext-image left" height="294" src="/media/images/pied-wagtail.width-500_ENyKffb.jpg" width="500">
 

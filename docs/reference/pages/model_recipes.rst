@@ -190,7 +190,7 @@ We can now make use of the many-to-many tag relationship in our views and templa
 
 Here, ``blog_entries.filter(tags__name=tag)`` follows the ``tags`` relation on ``BlogPage``, to filter the listing to only those pages with a matching tag name before passing this to the template for rendering. We can now update the ``blog_page.html`` template to show a list of tags associated with the page, with links back to the filtered index page:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% for tag in page.tags.all %}
         <a href="{% pageurl page.blog_index %}?tag={{ tag }}">{{ tag }}</a>

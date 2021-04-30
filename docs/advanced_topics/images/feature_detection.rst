@@ -113,7 +113,7 @@ The face detection algorithm produces a focal area that is tightly cropped to th
 For images with a single face this can be okay in some cases, e.g. thumbnails, it might be overly tight for "headshots".
 Image renditions can encompass more of the head by reducing the crop percentage (``-c<percentage>``), at the end of the resize-rule, down to as low as 0%:
 
-.. code-block:: jinja+django
+.. code-block:: html+django
 
     {% image page.photo fill-200x200-c0 %}
 
