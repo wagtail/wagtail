@@ -1031,3 +1031,147 @@ Database fields
         (foreign key to :class:`PageRevision`)
 
         A foreign key to the current page revision.
+
+
+
+``Comment``
+===========
+
+Represents a comment on a page.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: Comment
+
+    .. attribute:: page
+
+        (parental key to :class:`Page`)
+
+        A parental key to the page the comment has been added to.
+
+    .. attribute:: user
+
+        (foreign key to user model)
+
+        A foreign key to the user who added this comment.
+
+    .. attribute:: text
+
+        (text)
+
+        The text content of the comment.
+
+    .. attribute:: contentpath
+
+        (text)
+
+        The path to the field or streamfield block the comment is attached to,
+        in the form ``field`` or ``field.streamfield_block_id``.
+
+    .. attribute:: position
+
+        (text)
+
+        An identifier for the position of the comment within its field. The format
+        used is determined by the field.
+
+    .. attribute:: created_at
+
+        (date/time)
+
+        The date/time when the comment was created.
+
+    .. attribute:: updated_at
+
+        (date/time)
+
+        The date/time when the comment was updated.
+
+    .. attribute:: revision_created
+
+        (foreign key to :class:`PageRevision`)
+
+        A foreign key to the revision on which the comment was created.
+
+    .. attribute:: resolved_at
+
+        (date/time)
+
+        The date/time when the comment was resolved, if any.
+
+    .. attribute:: resolved_by
+
+        (foreign key to user model)
+
+        A foreign key to the user who resolved this comment, if any.
+
+
+
+``CommentReply``
+================
+
+Represents a reply to a comment thread.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: CommentReply
+
+    .. attribute:: comment
+
+        (parental key to :class:`Comment`)
+
+        A parental key to the comment that started the thread.
+
+    .. attribute:: user
+
+        (foreign key to user model)
+
+        A foreign key to the user who added this comment.
+
+    .. attribute:: text
+
+        (text)
+
+        The text content of the comment.
+
+    .. attribute:: created_at
+
+        (date/time)
+
+        The date/time when the comment was created.
+
+    .. attribute:: updated_at
+
+        (date/time)
+
+        The date/time when the comment was updated.
+
+
+
+``PageSubscription``
+====================
+
+Represents a user's subscription to email notifications about page events.
+Currently only used for comment notifications.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: PageSubscription
+
+    .. attribute:: page
+
+        (parental key to :class:`Page`)
+
+    .. attribute:: user
+
+        (foreign key to user model)
+
+    .. attribute:: comment_notifications
+
+        (boolean)
+
+        Whether the user should receive comment notifications for all comments,
+        or just comments in threads they participate in.
