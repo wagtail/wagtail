@@ -355,7 +355,7 @@ class TestAdminURLAppendSlash(TestCase, WagtailTestUtils):
         self.login()
 
         # APPEND_SLASH is True by default
-        # Remove the ending slash from URL
+        # Remove trailing slash from URL
         response = self.client.get(reverse('wagtailadmin_explore_root')[:-1], follow=True)
 
         # Check that correct page is returned after CommonMiddleware redirect
