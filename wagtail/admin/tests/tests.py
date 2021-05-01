@@ -333,15 +333,17 @@ class TestUserHasAnyPagePermission(TestCase, WagtailTestUtils):
 class Test404(TestCase, WagtailTestUtils):
     def test_admin_404_template_used(self):
         self.login()
-        response = self.client.get('/admin/sdfgdsfgdsfgsdf')
+        response = self.client.get('/admin/sdfgdsfgdsfgsdf', follow=True)
+
+        # Check 400 error after CommonMiddleware redirect
         self.assertEqual(response.status_code, 404)
         self.assertTemplateUsed(response, 'wagtailadmin/404.html')
 
     def test_not_logged_in_redirect(self):
-        response = self.client.get('/admin/sdfgdsfgdsfgsdf')
+        response = self.client.get('/admin/sdfgdsfgdsfgsdf/')
 
         # Check that the user was redirected to the login page and that next was set correctly
-        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=/admin/sdfgdsfgdsfgsdf')
+        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=/admin/sdfgdsfgdsfgsdf/')
 
 
 class TestAdminURLAppendSlash(TestCase, WagtailTestUtils):
