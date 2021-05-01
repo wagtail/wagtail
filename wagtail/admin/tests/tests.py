@@ -349,13 +349,14 @@ class TestAdminURLAppendSlash(TestCase, WagtailTestUtils):
         # Find root page
         self.root_page = Page.objects.get(id=2)
 
-    @override_settings(APPEND_SLASH=True)
     def test_return_correct_view_for_correct_url_without_ending_slash(self):
         self.login()
 
+        # APPEND_SLASH is True by default
         # Remove the ending slash from URL
         response = self.client.get(reverse('wagtailadmin_explore_root')[:-1], follow=True)
 
+        # Check that correct page is returned after CommonMiddleware redirect
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
         self.assertEqual(Page.objects.get(id=1), response.context['parent_page'])
