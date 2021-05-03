@@ -228,7 +228,7 @@ You can store the settings instance in a variable to save some typing, if you ha
 
 Or, alternately, using the ``set`` tag:
 
-.. code-block:: html+django
+.. code-block:: html+jinja
 
     {% set social_settings=settings("app_label.SocialMediaSettings") %}
 
