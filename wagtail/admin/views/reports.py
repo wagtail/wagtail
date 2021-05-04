@@ -1,5 +1,8 @@
 import datetime
 
+import django_filters
+
+from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q, Subquery
 from django.utils.encoding import force_str
@@ -7,12 +10,105 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.list import BaseListView
 
-from wagtail.admin.filters import (
-    LockedPagesReportFilterSet, SiteHistoryReportFilterSet, WorkflowReportFilterSet,
-    WorkflowTasksReportFilterSet)
+from wagtail.admin.filters import DateRangePickerWidget, FilteredModelChoiceFilter, WagtailFilterSet
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
+from wagtail.admin.widgets import ButtonSelect
+from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.models import (
-    Page, PageLogEntry, TaskState, UserPagePermissionsProxy, WorkflowState)
+    Page, PageLogEntry, Task, TaskState, UserPagePermissionsProxy, Workflow, WorkflowState)
+
+
+class LockedPagesReportFilterSet(WagtailFilterSet):
+    locked_at = django_filters.DateFromToRangeFilter(widget=DateRangePickerWidget)
+
+    class Meta:
+        model = Page
+        fields = ['locked_by', 'locked_at', 'live']
+
+
+def get_requested_by_queryset(request):
+    User = get_user_model()
+    return User.objects.filter(
+        pk__in=set(WorkflowState.objects.values_list('requested_by__pk', flat=True))
+    ).order_by(User.USERNAME_FIELD)
+
+
+class WorkflowReportFilterSet(WagtailFilterSet):
+    created_at = django_filters.DateFromToRangeFilter(label=_("Started at"), widget=DateRangePickerWidget)
+    reviewable = django_filters.ChoiceFilter(
+        label=_("Show"),
+        method='filter_reviewable',
+        choices=(
+            ('true', _("Awaiting my review")),
+        ),
+        empty_label=_("All"),
+        widget=ButtonSelect
+    )
+    requested_by = django_filters.ModelChoiceFilter(
+        field_name='requested_by', queryset=get_requested_by_queryset
+    )
+
+    def filter_reviewable(self, queryset, name, value):
+        if value and self.request and self.request.user:
+            queryset = queryset.filter(current_task_state__in=TaskState.objects.reviewable_by(self.request.user))
+        return queryset
+
+    class Meta:
+        model = WorkflowState
+        fields = ['reviewable', 'workflow', 'status', 'requested_by', 'created_at']
+
+
+class WorkflowTasksReportFilterSet(WagtailFilterSet):
+    started_at = django_filters.DateFromToRangeFilter(label=_("Started at"), widget=DateRangePickerWidget)
+    finished_at = django_filters.DateFromToRangeFilter(label=_("Completed at"), widget=DateRangePickerWidget)
+    workflow = django_filters.ModelChoiceFilter(
+        field_name='workflow_state__workflow', queryset=Workflow.objects.all(), label=_("Workflow")
+    )
+
+    # When a workflow is chosen in the 'id_workflow' selector, filter this list of tasks
+    # to just the ones whose workflows attribute includes the selected workflow.
+    task = FilteredModelChoiceFilter(
+        queryset=Task.objects.all(), filter_field='id_workflow', filter_accessor='workflows'
+    )
+
+    reviewable = django_filters.ChoiceFilter(
+        label=_("Show"),
+        method='filter_reviewable',
+        choices=(
+            ('true', _("Awaiting my review")),
+        ),
+        empty_label=_("All"),
+        widget=ButtonSelect
+    )
+
+    def filter_reviewable(self, queryset, name, value):
+        if value and self.request and self.request.user:
+            queryset = queryset.filter(id__in=TaskState.objects.reviewable_by(self.request.user).values_list('id', flat=True))
+        return queryset
+
+    class Meta:
+        model = TaskState
+        fields = ['reviewable', 'workflow', 'task', 'status', 'started_at', 'finished_at']
+
+
+def get_audit_log_users_queryset(request):
+    User = get_user_model()
+    return User.objects.filter(
+        pk__in=set(PageLogEntry.objects.values_list('user__pk', flat=True))
+    ).order_by(User.USERNAME_FIELD)
+
+
+class SiteHistoryReportFilterSet(WagtailFilterSet):
+    action = django_filters.ChoiceFilter(choices=page_log_action_registry.get_choices)
+    timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
+    label = django_filters.CharFilter(label=_('Title'), lookup_expr='icontains')
+    user = django_filters.ModelChoiceFilter(
+        field_name='user', queryset=get_audit_log_users_queryset
+    )
+
+    class Meta:
+        model = PageLogEntry
+        fields = ['label', 'action', 'user', 'timestamp']
 
 
 class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
