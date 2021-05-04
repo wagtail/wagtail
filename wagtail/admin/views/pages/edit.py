@@ -197,16 +197,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         """
         Generates log entries for any changes made to comments or replies.
         """
-        # Skip if no changes were made
-        if (not changes['new_comments']
-                and not changes['deleted_comments']
-                and not changes['resolved_comments']
-                and not changes['edited_comments']
-                and not changes['new_replies']
-                and not changes['deleted_replies']
-                and not changes['edited_replies']):
-            return
-
         for comment in changes['new_comments']:
             comment.log_create(
                 page_revision=revision,
