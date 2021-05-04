@@ -2,6 +2,7 @@ from datetime import timedelta
 
 import django_filters
 
+from django import forms
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
@@ -19,14 +20,26 @@ from wagtail.core.models import (
 
 class PageHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(choices=page_log_action_registry.get_choices)
+    hide_commenting_actions = django_filters.BooleanFilter(
+        label=_('Hide commenting actions'),
+        method='filter_hide_commenting_actions',
+        widget=forms.CheckboxInput,
+    )
     user = django_filters.ModelChoiceFilter(
         field_name='user', queryset=lambda request: PageLogEntry.objects.all().get_users()
     )
     timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
 
+    def filter_hide_commenting_actions(self, queryset, name, value):
+        if value:
+            queryset = queryset.exclude(
+                action__startswith='wagtail.comments'
+            )
+        return queryset
+
     class Meta:
         model = PageLogEntry
-        fields = ['action', 'user', 'timestamp']
+        fields = ['action', 'user', 'timestamp', 'hide_commenting_actions']
 
 
 def workflow_history(request, page_id):

@@ -2,6 +2,7 @@ import datetime
 
 import django_filters
 
+from django import forms
 from django.db.models import Q, Subquery
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
@@ -15,15 +16,27 @@ from .base import ReportView
 
 class SiteHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(choices=page_log_action_registry.get_choices)
+    hide_commenting_actions = django_filters.BooleanFilter(
+        label=_('Hide commenting actions'),
+        method='filter_hide_commenting_actions',
+        widget=forms.CheckboxInput,
+    )
     timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
     label = django_filters.CharFilter(label=_('Title'), lookup_expr='icontains')
     user = django_filters.ModelChoiceFilter(
         field_name='user', queryset=lambda request: PageLogEntry.objects.all().get_users()
     )
 
+    def filter_hide_commenting_actions(self, queryset, name, value):
+        if value:
+            queryset = queryset.exclude(
+                action__startswith='wagtail.comments'
+            )
+        return queryset
+
     class Meta:
         model = PageLogEntry
-        fields = ['label', 'action', 'user', 'timestamp']
+        fields = ['label', 'action', 'user', 'timestamp', 'hide_commenting_actions']
 
 
 class LogEntriesView(ReportView):

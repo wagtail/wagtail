@@ -35,9 +35,17 @@
             margin-bottom: 20px;
         }
 
+        input[type='checkbox'] {
+            display: block;
+            width: unset;
+            height: unset;
+            margin-bottom: 10px;
+        }
+
         // Get rid of Wagtail's overrides
         label {
-            display: unset;
+            float: unset;
+            display: block;
             width: unset;
         }
 
