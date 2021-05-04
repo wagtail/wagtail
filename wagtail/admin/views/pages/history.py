@@ -1,5 +1,8 @@
 from datetime import timedelta
 
+import django_filters
+
+from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
@@ -8,10 +11,30 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
-from wagtail.admin.filters import PageHistoryReportFilterSet
+from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
+from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.models import (
     Page, PageLogEntry, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState)
+
+
+def get_audit_log_users_queryset(request):
+    User = get_user_model()
+    return User.objects.filter(
+        pk__in=set(PageLogEntry.objects.values_list('user__pk', flat=True))
+    ).order_by(User.USERNAME_FIELD)
+
+
+class PageHistoryReportFilterSet(WagtailFilterSet):
+    action = django_filters.ChoiceFilter(choices=page_log_action_registry.get_choices)
+    user = django_filters.ModelChoiceFilter(
+        field_name='user', queryset=get_audit_log_users_queryset
+    )
+    timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
+
+    class Meta:
+        model = PageLogEntry
+        fields = ['action', 'user', 'timestamp']
 
 
 def workflow_history(request, page_id):
