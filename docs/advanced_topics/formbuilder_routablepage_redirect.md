@@ -16,14 +16,14 @@ Make sure `"wagtail.contrib.routable_page"` is added to `INSTALLED_APPS`, see []
 from django.shortcuts import redirect
 
 from wagtail.contrib.forms.models import AbstractEmailForm
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 
 
 class FormPage(RoutablePageMixin, AbstractEmailForm):
 
     # fields, content_panels, …
 
-    @route(r"^$")
+    @path("")
     def index_route(self, request, *args, **kwargs):
         """Serve the form, and validate it on POST"""
         return super(AbstractEmailForm, self).serve(request, *args, **kwargs)
@@ -36,7 +36,7 @@ class FormPage(RoutablePageMixin, AbstractEmailForm):
             url += "?id=%s" % form_submission.id
         return redirect(self.url + url, permanent=False)
 
-    @route(r"^thank-you/$")
+    @path("thank-you/")
     def thank_you(self, request):
         """Return the superclass's landing page, after redirect."""
         form_submission = None
