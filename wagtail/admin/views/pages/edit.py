@@ -462,7 +462,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         self.add_save_confirmation_message()
 
-        if 'comments' in self.form.formsets:
+        if self.has_content_changes and 'comments' in self.form.formsets:
             changes = self.get_commenting_changes()
             self.log_commenting_changes(changes, revision)
             self.send_commenting_notifications(changes)
@@ -498,7 +498,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
 
-        if 'comments' in self.form.formsets:
+        if self.has_content_changes and 'comments' in self.form.formsets:
             changes = self.get_commenting_changes()
             self.log_commenting_changes(changes, revision)
             self.send_commenting_notifications(changes)
@@ -580,7 +580,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
 
-        if 'comments' in self.form.formsets:
+        if self.has_content_changes and 'comments' in self.form.formsets:
             changes = self.get_commenting_changes()
             self.log_commenting_changes(changes, revision)
             self.send_commenting_notifications(changes)
@@ -616,11 +616,16 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.subscription.save()
 
         # save revision
-        self.page.save_revision(
+        revision = self.page.save_revision(
             user=self.request.user,
             log_action=True,  # Always log the new revision on edit
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
+
+        if self.has_content_changes and 'comments' in self.form.formsets:
+            changes = self.get_commenting_changes()
+            self.log_commenting_changes(changes, revision)
+            self.send_commenting_notifications(changes)
 
         # cancel workflow
         self.workflow_state.cancel(user=self.request.user)
@@ -652,11 +657,16 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         if self.has_content_changes:
             # Save revision
-            self.page.save_revision(
+            revision = self.page.save_revision(
                 user=self.request.user,
                 log_action=True,  # Always log the new revision on edit
                 previous_revision=(self.previous_revision if self.is_reverting else None)
             )
+
+            if 'comments' in self.form.formsets:
+                changes = self.get_commenting_changes()
+                self.log_commenting_changes(changes, revision)
+                self.send_commenting_notifications(changes)
 
         extra_workflow_data_json = self.request.POST.get('workflow-action-extra-data', '{}')
         extra_workflow_data = json.loads(extra_workflow_data_json)
@@ -677,11 +687,16 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.subscription.save()
 
         # Save revision
-        self.page.save_revision(
+        revision = self.page.save_revision(
             user=self.request.user,
             log_action=True,  # Always log the new revision on edit
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
+
+        if self.has_content_changes and 'comments' in self.form.formsets:
+            changes = self.get_commenting_changes()
+            self.log_commenting_changes(changes, revision)
+            self.send_commenting_notifications(changes)
 
         # Notifications
         self.add_cancel_workflow_confirmation_message()
