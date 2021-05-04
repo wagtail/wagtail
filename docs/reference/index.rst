@@ -4,6 +4,7 @@ Reference
 
 .. toctree::
     :maxdepth: 2
+    :titlesonly:
 
     pages/index
     streamfield/index
