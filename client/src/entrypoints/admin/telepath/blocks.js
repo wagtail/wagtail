@@ -43,7 +43,7 @@ function initBlockWidget(id) {
     data-value: JSON-encoded value for this block
   */
 
-  const body = document.getElementById(id);
+  const body = document.querySelector('#' + id + '[data-block]');
 
   // unpack the block definition and value
   const blockDefData = JSON.parse(body.dataset.block);
