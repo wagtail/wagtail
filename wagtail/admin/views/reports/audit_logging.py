@@ -2,7 +2,6 @@ import datetime
 
 import django_filters
 
-from django.contrib.auth import get_user_model
 from django.db.models import Q, Subquery
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
@@ -14,19 +13,12 @@ from wagtail.core.models import Page, PageLogEntry, UserPagePermissionsProxy
 from .base import ReportView
 
 
-def get_audit_log_users_queryset(request):
-    User = get_user_model()
-    return User.objects.filter(
-        pk__in=set(PageLogEntry.objects.values_list('user__pk', flat=True))
-    ).order_by(User.USERNAME_FIELD)
-
-
 class SiteHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(choices=page_log_action_registry.get_choices)
     timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
     label = django_filters.CharFilter(label=_('Title'), lookup_expr='icontains')
     user = django_filters.ModelChoiceFilter(
-        field_name='user', queryset=get_audit_log_users_queryset
+        field_name='user', queryset=lambda request: PageLogEntry.objects.all().get_users()
     )
 
     class Meta:
