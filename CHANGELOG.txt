@@ -102,6 +102,7 @@ Changelog
  * Adopt new design, including logo, for login and password reset pages (Paarth Agarwal, LB (Ben) Johnston)
  * Remove usage of inline script to focus on the username field, instead use `autofocus` (LB (Ben) Johnston)
  * Improve organisation of the settings reference page in the documentation (Akash Kumar Sen)
+ * Added `path` and `re_path` decorators to the `RoutablePageMixin` module which emulate their Django URL utils equivalent, redirect `re_path` to the original `route` decorator (Tidiane Dia)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)

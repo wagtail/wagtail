@@ -10,7 +10,7 @@ The `RoutablePageMixin` mixin provides a convenient way for a page to respond on
 
 A `Page` using `RoutablePageMixin` exists within the page tree like any other page, but URL paths underneath it are checked against a list of patterns. If none of the patterns match, control is passed to subpages as usual (or failing that, a 404 error is thrown).
 
-By default a route for `r'^$'` exists, which serves the content exactly like a normal `Page` would. It can be overridden by using `@route(r'^$')` on any other method of the inheriting class.
+By default a route for `r'^$'` exists, which serves the content exactly like a normal `Page` would. It can be overridden by using `@re_path(r'^$')` or `@path('')` on any other method of the inheriting class.
 
 ## Installation
 
@@ -26,7 +26,11 @@ INSTALLED_APPS = [
 
 ## The basics
 
-To use `RoutablePageMixin`, you need to make your class inherit from both {class}`wagtail.contrib.routable_page.models.RoutablePageMixin` and {class}`wagtail.models.Page`, then define some view methods and decorate them with `wagtail.contrib.routable_page.models.route`. These view methods behave like ordinary Django view functions, and must return an `HttpResponse` object; typically this is done through a call to `django.shortcuts.render`.
+To use `RoutablePageMixin`, you need to make your class inherit from both :class:`wagtail.contrib.routable_page.models.RoutablePageMixin` and {class}`wagtail.models.Page`, then define some view methods and decorate them with `path` or `re_path`.
+
+These view methods behave like ordinary Django view functions, and must return an `HttpResponse` object; typically this is done through a call to `django.shortcuts.render`.
+
+The `path` and `re_path` decorators from `wagtail.contrib.routable_page.models.path` are similar to [the Django `django.urls` `path` and `re_path` functions](django:topics/http/urls). The former allows the use of plain paths and converters while the latter lets you specify your URL patterns as regular expressions.
 
 Here's an example of an `EventIndexPage` with three views, assuming that an `EventPage` model with an `event_date` field has been defined elsewhere:
 
@@ -35,7 +39,7 @@ import datetime
 from django.http import JsonResponse
 from wagtail.fields import RichTextField
 from wagtail.models import Page
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 
 
 class EventIndexPage(RoutablePageMixin, Page):
@@ -44,7 +48,7 @@ class EventIndexPage(RoutablePageMixin, Page):
     # render the intro text on a template with {{ page.intro|richtext }}
     intro = RichTextField()
 
-    @route(r'^$') # will override the default Page serving mechanism
+    @path('') # will override the default Page serving mechanism
     def current_events(self, request):
         """
         View function for the current events page
@@ -58,7 +62,7 @@ class EventIndexPage(RoutablePageMixin, Page):
             'events': events,
         })
 
-    @route(r'^past/$')
+    @path('past/')
     def past_events(self, request):
         """
         View function for the past events page
@@ -76,8 +80,8 @@ class EventIndexPage(RoutablePageMixin, Page):
         )
 
     # Multiple routes!
-    @route(r'^year/(\d+)/$')
-    @route(r'^year/current/$')
+    @path('year/<int:year>/')
+    @path('year/current/')
     def events_for_year(self, request, year=None):
         """
         View function for the events for year page
@@ -92,7 +96,7 @@ class EventIndexPage(RoutablePageMixin, Page):
             'events': events,
         })
 
-    @route(r'^year/(\d+)/count/$')
+    @re_path(r'^year/(\d+)/count/$')
     def count_for_year(self, request, year=None):
         """
         View function that returns a simple JSON response that
@@ -112,7 +116,7 @@ Another way of returning an `HttpResponse` is to call the `serve` method of anot
 For example, `EventIndexPage` could be extended with a `next/` route that displays the page for the next event:
 
 ```python
-@route(r'^next/$')
+@path('next/')
 def next_event(self, request):
     """
     Display the page for the next event
@@ -145,7 +149,7 @@ This method only returns the part of the URL within the page. To get the full UR
 
 ### Changing route names
 
-The route name defaults to the name of the view. You can override this name with the `name` keyword argument on `@route`:
+The route name defaults to the name of the view. You can override this name with the `name` keyword argument on `@path` or `re_path`:
 
 ```python
 from wagtail.models import Page
@@ -155,7 +159,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 class EventPage(RoutablePageMixin, Page):
     ...
 
-    @route(r'^year/(\d+)/$', name='year')
+    @re_path(r'^year/(\d+)/$', name='year')
     def events_for_year(self, request, year):
         """
         View function for the events for year page
