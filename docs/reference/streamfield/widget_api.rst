@@ -49,7 +49,11 @@ The JavaScript object associated with a widget instance should provide a single 
 
 A widget's state will often be the same as the form field's value, but may contain additional data beyond what is processed in the form submission. For example, a page chooser widget consists of a hidden form field containing the page ID, and a read-only label showing the page title: in this case, the page ID by itself does not provide enough information to render the widget, and so the state is defined as a dictionary with `id` and `title` items.
 
-The value returned by ``render`` is a 'bound widget' object allowing this widget instance's data to be accessed. This object should implement the following methods:
+The value returned by ``render`` is a 'bound widget' object allowing this widget instance's data to be accessed. This object should implement the following attributes and methods:
+
+.. js:attribute:: idForLabel
+
+   The HTML ID to use as the ``for`` attribute of a label referencing this widget, or null if no suitable HTML element exists.
 
 .. js:function:: getValue()
 
