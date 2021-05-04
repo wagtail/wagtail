@@ -331,13 +331,14 @@ class TestUserHasAnyPagePermission(TestCase, WagtailTestUtils):
 
 
 class Test404(TestCase, WagtailTestUtils):
-    def test_admin_404_template_used(self):
+    def test_admin_404_template_used_append_slash_true(self):
         self.login()
-        response = self.client.get('/admin/sdfgdsfgdsfgsdf', follow=True)
+        with self.settings(APPEND_SLASH=True):
+            response = self.client.get('/admin/sdfgdsfgdsfgsdf', follow=True)
 
-        # Check 400 error after CommonMiddleware redirect
-        self.assertEqual(response.status_code, 404)
-        self.assertTemplateUsed(response, 'wagtailadmin/404.html')
+            # Check 404 error after CommonMiddleware redirect
+            self.assertEqual(response.status_code, 404)
+            self.assertTemplateUsed(response, 'wagtailadmin/404.html')
 
     def test_not_logged_in_redirect(self):
         response = self.client.get('/admin/sdfgdsfgdsfgsdf/')
@@ -353,16 +354,15 @@ class TestAdminURLAppendSlash(TestCase, WagtailTestUtils):
 
     def test_return_correct_view_for_correct_url_without_ending_slash(self):
         self.login()
+        with self.settings(APPEND_SLASH=True):
+            # Remove trailing slash from URL
+            response = self.client.get(reverse('wagtailadmin_explore_root')[:-1], follow=True)
 
-        # APPEND_SLASH is True by default
-        # Remove trailing slash from URL
-        response = self.client.get(reverse('wagtailadmin_explore_root')[:-1], follow=True)
-
-        # Check that correct page is returned after CommonMiddleware redirect
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
-        self.assertEqual(Page.objects.get(id=1), response.context['parent_page'])
-        self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.root_page.id).exists())
+            # Check that correct page is returned after CommonMiddleware redirect
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+            self.assertEqual(Page.objects.get(id=1), response.context['parent_page'])
+            self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.root_page.id).exists())
 
 
 class TestRemoveStaleContentTypes(TestCase):
