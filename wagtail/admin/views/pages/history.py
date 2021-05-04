@@ -2,7 +2,6 @@ from datetime import timedelta
 
 import django_filters
 
-from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
@@ -18,17 +17,10 @@ from wagtail.core.models import (
     Page, PageLogEntry, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState)
 
 
-def get_audit_log_users_queryset(request):
-    User = get_user_model()
-    return User.objects.filter(
-        pk__in=set(PageLogEntry.objects.values_list('user__pk', flat=True))
-    ).order_by(User.USERNAME_FIELD)
-
-
 class PageHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(choices=page_log_action_registry.get_choices)
     user = django_filters.ModelChoiceFilter(
-        field_name='user', queryset=get_audit_log_users_queryset
+        field_name='user', queryset=lambda request: PageLogEntry.objects.all().get_users()
     )
     timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
 

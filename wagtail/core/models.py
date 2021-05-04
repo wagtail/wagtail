@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 from django import forms
 from django.apps import apps
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
@@ -4693,7 +4694,23 @@ class TaskState(models.Model):
         verbose_name_plural = _('Task states')
 
 
+class LogEntryQuerySet(models.QuerySet):
+    def get_users(self):
+        """
+        Returns a QuerySet of Users who have created at least one log entry in this QuerySet.
+
+        The returned queryset is ordered by the username.
+        """
+        User = get_user_model()
+        return User.objects.filter(
+            pk__in=set(self.values_list('user__pk', flat=True))
+        ).order_by(User.USERNAME_FIELD)
+
+
 class BaseLogEntryManager(models.Manager):
+    def get_queryset(self):
+        return LogEntryQuerySet(self.model, using=self._db)
+
     def log_action(self, instance, action, **kwargs):
         """
         :param instance: The model instance we are logging an action for
