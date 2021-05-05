@@ -271,7 +271,7 @@ With these additions, the following template code will now trigger
 a single database query instead of three (one to fetch the settings,
 and two more to fetch each page):
 
-.. code-block:: html
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
     {% pageurl settings.app_label.ImportantPages.donate_page %}
@@ -286,7 +286,7 @@ and you regularly need to output the URLs of those pages in your project,
 you can likely use the setting model's ``page_url`` shortcut to do that more
 cleanly. For example, instead of doing the following:
 
-.. code-block:: html
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
     {% pageurl settings.app_label.ImportantPages.donate_page %}
@@ -294,7 +294,7 @@ cleanly. For example, instead of doing the following:
 
 You could write:
 
-.. code-block:: html
+.. code-block:: html+django
 
     {{ settings.app_label.ImportantPages.page_url.donate_page }}
     {{ settings.app_label.ImportantPages.page_url.sign_up_page }}

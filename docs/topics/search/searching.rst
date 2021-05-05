@@ -383,7 +383,7 @@ Here's an example Django view that could be used to add a "search" page to your 
 
 And here's a template to go with it:
 
-.. code-block:: html
+.. code-block:: html+django
 
     {% extends "base.html" %}
     {% load wagtailcore_tags %}
