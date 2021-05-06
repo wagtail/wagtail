@@ -3050,7 +3050,7 @@ class PageRevision(models.Model):
             page.live = False
         else:
             page.live = True
-            # at this point, the page has unpublished changes iff there are newer revisions than this one
+            # at this point, the page has unpublished changes if and only if there are newer revisions than this one
             page.has_unpublished_changes = not self.is_latest_revision()
             # If page goes live clear the approved_go_live_at of all revisions
             page.revisions.update(approved_go_live_at=None)
