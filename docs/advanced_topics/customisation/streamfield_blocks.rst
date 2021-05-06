@@ -31,7 +31,7 @@ You can then provide custom CSS for this block, targeted at the specified classn
 For more extensive customisations that require changes to the HTML markup as well, you can override the ``form_template`` attribute in ``Meta`` to specify your own template path. The following variables are available on this template:
 
 ``children``
-  An ``OrderedDict`` of ``BoundBlock``\s for all of the child blocks making up this ``StructBlock``; typically your template will call ``render_form`` on each of these.
+  An ``OrderedDict`` of ``BoundBlock``\s for all of the child blocks making up this ``StructBlock``.
 
 ``help_text``
   The help text for this block, if specified.
@@ -63,6 +63,37 @@ To add additional variables, you can override the block's ``get_form_context`` m
         class Meta:
             icon = 'user'
             form_template = 'myapp/block_forms/person.html'
+
+
+A form template for a StructBlock must include the output of ``render_form`` for each child block in the ``children`` dict, inside a container element with a ``data-contentpath`` attribute equal to the block's name. This attribute is used by the commenting framework to attach comments to the correct fields. The StructBlock's form template is also responsible for rendering labels for each field, but this (and all other HTML markup) can be customised as you see fit. The template below replicates the default StructBlock form rendering:
+
+.. code-block:: html+django
+
+    {% load wagtailadmin_tags  %}
+
+    <div class="{{ classname }}">
+        {% if help_text %}
+            <span>
+                <div class="help">
+                    {% icon name="help" class_name="default" %}
+                    {{ help_text }}
+                </div>
+            </span>
+        {% endif %}
+
+        {% for child in children.values %}
+            <div class="field {% if child.block.required %}required{% endif %}" data-contentpath="{{ child.block.name }}">
+                {% if child.block.label %}
+                    <label class="field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label>
+                {% endif %}
+                {{ child.render_form }}
+            </div>
+        {% endfor %}
+    </div>
+
+.. versionadded:: 2.13
+
+    The ``data-contentpath`` attribute is now required on a containing element around the ``render_form`` output.
 
 
 .. _custom_value_class_for_structblock:
