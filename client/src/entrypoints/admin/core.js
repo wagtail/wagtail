@@ -308,8 +308,10 @@ $(() => {
   };
 
   if (window.location.hash) {
+    /* look for a tab matching the URL hash and activate it if found */
     const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
-    showTab(document.querySelector('a[href="' + cleanedHash + '"]'));
+    const tab = document.querySelector('a[href="' + cleanedHash + '"][data-tab]');
+    if (tab) showTab(tab);
   }
 
   // eslint-disable-next-line func-names
