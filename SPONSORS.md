@@ -44,3 +44,4 @@ The features below were developed thanks to the sponsorship of these organsation
 
 - Telepath for StreamField editing - [YouGov](https://yougov.co.uk/)
 
+- Commenting - [The Motley Fool](https://www.fool.com/)
