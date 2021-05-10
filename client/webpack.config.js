@@ -42,6 +42,7 @@ module.exports = function exports() {
       'page-chooser',
       'page-editor',
       'privacy-switch',
+      'sidebar-legacy',
       'task-chooser-modal',
       'task-chooser',
       'telepath/blocks',

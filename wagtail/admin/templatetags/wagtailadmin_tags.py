@@ -10,6 +10,7 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Min, QuerySet
+from django.forms import Media
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
@@ -95,7 +96,11 @@ def search_other(context, current=None):
 
 @register.simple_tag
 def main_nav_js():
-    return admin_menu.media['js']
+    return Media(
+        js=[
+            versioned_static('wagtailadmin/js/sidebar-legacy.js')
+        ]
+    ) + admin_menu.media['js']
 
 
 @register.filter("ellipsistrim")
