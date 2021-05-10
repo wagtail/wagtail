@@ -1601,10 +1601,12 @@ class TestGroupViewSet(TestCase):
         self.assertEqual(group_viewset.icon, 'custom-icon')
 
     def test_get_group_viewset_cls_custom_form_invalid_value(self):
-        with unittest.mock.patch.object(self.app_config, 'group_viewset', new=12345):
+        with unittest.mock.patch.object(self.app_config, 'group_viewset', new='asdfasdf'):
             with self.assertRaises(ImproperlyConfigured) as exc_info:
                 get_group_viewset_cls(self.app_config)
-            self.assertTrue('refers to a class that is not class path' in str(exc_info.exception))
+            self.assertIn(
+                "asdfasdf doesn't look like a module path", str(exc_info.exception)
+            )
 
     def test_get_group_viewset_cls_custom_form_does_not_exist(self):
         with unittest.mock.patch.object(
@@ -1612,4 +1614,7 @@ class TestGroupViewSet(TestCase):
         ):
             with self.assertRaises(ImproperlyConfigured) as exc_info:
                 get_group_viewset_cls(self.app_config)
-            self.assertTrue('refers to a class that is not available' in str(exc_info.exception))
+            self.assertIn(
+                'Module "wagtail.users.tests" does not define a "CustomClassDoesNotExist" attribute/class',
+                str(exc_info.exception)
+            )

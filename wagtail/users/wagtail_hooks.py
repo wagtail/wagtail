@@ -12,7 +12,6 @@ from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.users.urls import users
 from wagtail.users.utils import user_can_delete_user
-from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.widgets import UserListingButton
 
 
@@ -24,23 +23,15 @@ def register_admin_urls():
 
 
 def get_group_viewset_cls(app_config):
-    if app_config.group_viewset is None:
-        group_viewset_cls = GroupViewSet
-    else:
-        if not isinstance(app_config.group_viewset, str):
-            raise ImproperlyConfigured(
-                "'{:s}.group_viewset' refers to a class that is not class path".format(
-                    app_config.__class__.__name__
-                )
+    try:
+        group_viewset_cls = import_string(app_config.group_viewset)
+    except (AttributeError, ImportError) as e:
+        raise ImproperlyConfigured(
+            "Invalid setting for {appconfig}.group_viewset: {message}".format(
+                appconfig=app_config.__class__.__name__,
+                message=e
             )
-        try:
-            group_viewset_cls = import_string(app_config.group_viewset)
-        except ImportError:
-            raise ImproperlyConfigured(
-                "'{:s}.group_viewset' refers to a class that is not available".format(
-                    app_config.__class__.__name__
-                )
-            )
+        )
     return group_viewset_cls
 
 
