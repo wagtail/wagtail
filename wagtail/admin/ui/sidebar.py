@@ -12,7 +12,7 @@ class BaseSidebarAdapter(Adapter):
     @cached_property
     def media(self):
         return forms.Media(js=[
-            versioned_static('wagtailadmin/js/telepath/sidebar.js'),
+            versioned_static('wagtailadmin/js/sidebar.js'),
         ])
 
 

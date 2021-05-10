@@ -96,11 +96,36 @@ def search_other(context, current=None):
 
 @register.simple_tag
 def main_nav_js():
-    return Media(
-        js=[
-            versioned_static('wagtailadmin/js/sidebar-legacy.js')
-        ]
-    ) + admin_menu.media['js']
+    if 'slim-sidebar' in getattr(settings, 'WAGTAIL_EXPERIMENTAL_FEATURES', []):
+        return Media(
+            js=[
+                versioned_static('wagtailadmin/js/telepath/telepath.js'),
+                versioned_static('wagtailadmin/js/sidebar.js'),
+            ]
+        )
+
+    else:
+        return Media(
+            js=[
+                versioned_static('wagtailadmin/js/sidebar-legacy.js')
+            ]
+        ) + admin_menu.media['js']
+
+
+@register.simple_tag
+def main_nav_css():
+    if 'slim-sidebar' in getattr(settings, 'WAGTAIL_EXPERIMENTAL_FEATURES', []):
+        return Media(
+            css={
+                'all': [
+                    versioned_static('wagtailadmin/css/sidebar.css')
+                ]
+            }
+        )
+
+    else:
+        # Legacy sidebar CSS in core.css
+        return admin_menu.media['css']
 
 
 @register.filter("ellipsistrim")
