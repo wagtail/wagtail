@@ -5,9 +5,6 @@ import {
   LoadingSpinner,
   Portal,
   Transition,
-  Explorer,
-  ExplorerToggle,
-  initExplorer,
 } from './index';
 
 describe('wagtail package API', () => {
@@ -33,17 +30,5 @@ describe('wagtail package API', () => {
 
   it('has Transition', () => {
     expect(Transition).toBeDefined();
-  });
-
-  it('has Explorer', () => {
-    expect(Explorer).toBeDefined();
-  });
-
-  it('has ExplorerToggle', () => {
-    expect(ExplorerToggle).toBeDefined();
-  });
-
-  it('has initExplorer', () => {
-    expect(initExplorer).toBeDefined();
   });
 });
