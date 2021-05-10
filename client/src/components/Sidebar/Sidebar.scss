@@ -1,0 +1,54 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    width: $menu-width;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: $nav-grey-1;
+    z-index: 1;
+
+    @include transition(width 0.3s ease);
+
+    &--slim {
+        width: $menu-width-slim;
+    }
+
+    &__inner {
+        height: 100%;
+        background: $nav-grey-1;
+        // On medium, make it possible for the nav links to scroll.
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    &__collapse-toggle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #ccc;
+        background-color: transparent;
+        border: 0;
+        padding: 7px;
+        margin: 2px;
+        margin-left: 7px;
+        border-radius: 3px;
+
+        &:hover {
+            background-color: rgba(100, 100, 100, 0.15);
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
+
+@import 'menu/MenuItem';
+@import 'menu/SubMenuItem';
+@import 'modules/CustomBranding';
+@import 'modules/MainMenu';
+@import 'modules/Search';
+@import 'modules/WagtailBranding';

@@ -1,0 +1,127 @@
+.sidebar-sub-menu-trigger-icon {
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 0.8125em;
+    right: 0.5em;
+
+    @include transition(transform 0.3s ease, top 0.3s ease, right 0.3s ease, width 0.3s ease, height 0.3s ease);
+
+    &--open {
+        transform-origin: 50% 50%;
+        transform: rotate(180deg);
+    }
+}
+
+.sidebar-sub-menu-panel {
+    visibility: hidden;
+    background: $nav-submenu-bg;
+    transform: translate3d(0, 0, 0);
+    position: fixed;
+    height: 100vh;
+    width: $menu-width;
+    padding: 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+
+    @include transition(left 0.3s ease);
+
+    > h2,
+    &__list {
+        width: $menu-width;
+    }
+
+    > h2 {
+        display: block;
+        padding: 0.2em 0;
+        font-size: 1.2em;
+        font-weight: 500;
+        text-transform: none;
+        text-align: center;
+        color: $color-menu-text;
+
+        &:before {
+            font-size: 4em;
+            display: block;
+            text-align: center;
+            margin: 0 0 0.2em;
+            width: 100%;
+            opacity: 0.15;
+        }
+    }
+
+    > ul,
+    ul > li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    ul > li {
+        position: relative;
+
+        @include transition(border-color 0.3s ease);
+    }
+
+    > ul {
+        overflow: auto;
+        flex-grow: 1;
+    }
+
+    > ul > li {
+        border: 0;
+    }
+
+    &__footer {
+        margin: 0;
+        text-align: center;
+        color: $color-menu-text;
+        line-height: $nav-footer-closed-height;
+        padding: 0;
+    }
+
+    &--visible {
+        visibility: visible;
+        box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
+    }
+
+    @at-root .sidebar--slim #{&} {
+        left: $menu-width-slim - $menu-width;
+    }
+    // Don't apply this to nested submenus though
+    @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
+        left: 0;
+    }
+
+    &--open {
+        left: $menu-width;
+
+        // If another submenu is opening, display this menu behind it
+        z-index: -1;
+
+        @at-root .sidebar--slim #{&} {
+            left: $menu-width-slim;
+        }
+        // Don't apply this to nested submenus though
+        @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
+            left: $menu-width;
+        }
+    }
+}
+
+.sidebar-sub-menu-item {
+    &--open {
+        background: $nav-submenu-bg;
+
+        > a {
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+}

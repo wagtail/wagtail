@@ -32,7 +32,7 @@ This is for resets and other rules that affect large collections of bare element
 * Changes to them should be very rare.
 */
 
-// @import 'generic/generic';
+@import 'generic/generic';
 
 
 /* ELEMENTS
@@ -40,10 +40,10 @@ These are base styles for bare HTML elements.
 * Changes to them should be very rare.
 */
 
-// @import 'elements/elements';
-// @import 'elements/typography';
-// @import 'elements/forms';
-// @import 'elements/root';
+@import 'elements/elements';
+@import 'elements/typography';
+@import 'elements/forms';
+@import 'elements/root';
 
 
 /* OBJECTS
@@ -52,6 +52,8 @@ These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
 * These classes are prefixed with `.o-`.
 */
 
+@import 'objects/objects';
+@import 'objects/avatar';
 
 
 /* COMPONENTS
@@ -60,3 +62,13 @@ These are classes for components.
 * React component styles live in the same folders as their React components,
   which is the preferred pattern over housing them in the scss folder.
 */
+
+@import '../src/components/Transition/Transition';
+@import '../src/components/LoadingSpinner/LoadingSpinner';
+@import '../src/components/PublicationStatus/PublicationStatus';
+@import '../src/components/Explorer/Explorer';
+@import '../src/components/Sidebar/Sidebar';
+
+
+// Legacy
+@import 'components/icons';

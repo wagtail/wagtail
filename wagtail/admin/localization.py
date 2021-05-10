@@ -97,6 +97,9 @@ def get_js_translation_strings():
         'SAVE_PAGE_TO_ADD_COMMENT': _('Save the page to add this comment'),
         'SAVE_PAGE_TO_SAVE_COMMENT_CHANGES': _('Save the page to save this comment'),
         'SAVE_PAGE_TO_SAVE_REPLY': _('Save the page to save this reply'),
+        'DASHBOARD': _('Dashboard'),
+        'EDIT_YOUR_ACCOUNT': _('Edit your account'),
+        'SEARCH': _('Search'),
 
         'MONTHS': [str(m) for m in MONTHS.values()],
 
