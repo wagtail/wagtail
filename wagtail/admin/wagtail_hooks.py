@@ -654,6 +654,8 @@ def register_reports_menu():
 @hooks.register('register_icons')
 def register_icons(icons):
     for icon in [
+        'angle-double-left.svg',
+        'angle-double-right.svg',
         'arrow-down-big.svg',
         'arrow-down.svg',
         'arrow-left.svg',
