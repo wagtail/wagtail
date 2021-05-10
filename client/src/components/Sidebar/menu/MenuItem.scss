@@ -1,0 +1,63 @@
+.sidebar-menu-item {
+    > a {
+        position: relative;
+        white-space: nowrap;
+        border-left: 3px solid transparent;
+
+        -webkit-font-smoothing: auto;
+        text-decoration: none;
+        display: block;
+        color: $color-menu-text;
+        padding: 0.8em 1.7em;
+        font-size: 1em;
+        font-weight: normal;
+
+        // Note, font-weights lower than normal,
+        // and font-size smaller than 1em (80% ~= 12.8px),
+        // makes the strokes thinner than 1px on non-retina screens
+        // making the text semi-transparent
+        &:hover,
+        &:focus {
+            background-color: $nav-item-hover-bg;
+            color: $color-white;
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        @include transition(border-color 0.3s ease);
+
+        &:before {
+            font-size: 1rem;
+            vertical-align: -15%;
+            margin-right: 0.5em;
+        }
+
+        // only really used for spinners and settings menu
+        &:after {
+            font-size: 1.5em;
+            margin: 0;
+            position: absolute;
+            right: 0.5em;
+            top: 0.5em;
+            margin-top: 0;
+        }
+    }
+
+    &--in-sub-menu {
+        white-space: normal;
+        padding: 0.9em 1.7em 0.9em 4.5em;
+
+        &:hover {
+            background-color: rgba(100, 100, 100, 0.2);
+        }
+    }
+
+    &--active {
+        background: $nav-item-active-bg;
+        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+
+        > a {
+            border-left-color: $color-salmon;
+            color: $color-white;
+        }
+    }
+}

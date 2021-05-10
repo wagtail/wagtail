@@ -1,0 +1,88 @@
+// stylelint-disable declaration-no-important
+.sidebar-search {
+    position: relative;
+    padding: 0 1em 1em;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+
+    label {
+        @include visuallyhidden;
+    }
+
+    input,
+    button {
+        border-radius: 0;
+        font-size: 1em;
+        border: 0;
+    }
+
+    input {
+        cursor: pointer;
+        border: 1px solid $nav-search-border;
+        background-color: $nav-search-bg;
+        color: $nav-search-color;
+        padding: 0.8em 2.5em 0.8em 1em;
+        font-weight: 600;
+        opacity: 1;
+        // Need !important to override body.ready class
+        transition: background-color 0.2s ease, opacity 0.3s ease !important;
+        visibility: hidden;
+
+        @at-root .sidebar--slim #{&} {
+            opacity: 0;
+        }
+
+        &:hover {
+            background-color: $nav-search-hover-bg;
+        }
+
+        &:active,
+        &:focus {
+            background-color: $nav-search-focus-bg;
+            color: $nav-search-focus-color;
+        }
+
+        &::placeholder {
+            color: $color-menu-text;
+        }
+    }
+
+    &--visible input {
+        visibility: visible;
+    }
+
+    button {
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        right: 1em;
+        bottom: 0;
+        padding: 0;
+        width: 3em;
+        transition: right 0.3s ease;
+
+        @at-root .sidebar--slim #{&} {
+            right: 0.5em;
+        }
+
+        &:hover {
+            background-color: $nav-item-hover-bg;
+        }
+
+        &:active {
+            background-color: $nav-item-active-bg;
+        }
+
+        &:before {
+            font-family: wagtail;
+            font-weight: 200;
+            text-transform: none;
+            content: map-get($icons, 'search');
+            display: block;
+            height: 100%;
+            line-height: 3.3em;
+            padding: 0 1em;
+        }
+    }
+}

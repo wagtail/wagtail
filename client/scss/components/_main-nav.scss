@@ -302,6 +302,12 @@ body.explorer-open {
     body.nav-open .wrapper {
         transform: none;
         padding-left: $menu-width;
+
+        @include transition(padding-left 0.3s ease);
+    }
+
+    body.sidebar-collapsed .wrapper {
+        padding-left: $menu-width-slim;
     }
 
     .nav-wrapper {
