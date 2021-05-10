@@ -672,8 +672,13 @@ def locales():
     ])
 
 
+@register.simple_tag()
+def slim_sidebar_enabled():
+    return 'slim-sidebar' in getattr(settings, 'WAGTAIL_EXPERIMENTAL_FEATURES', [])
+
+
 @register.simple_tag(takes_context=True)
-def menu_props(context):
+def sidebar_props(context):
     request = context['request']
     search_areas = admin_search_areas.search_items_for_request(request)
     if search_areas:
