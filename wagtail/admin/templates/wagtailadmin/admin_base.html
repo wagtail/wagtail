@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}" type="text/css" />
     {% hook_output 'insert_global_admin_css' %}
 
+    {% main_nav_css %}
+
     {% block extra_css %}{% endblock %}
 {% endblock %}
 
