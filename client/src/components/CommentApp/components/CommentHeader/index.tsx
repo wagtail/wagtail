@@ -11,21 +11,23 @@ import { Author } from '../../state/comments';
 
 // Details/Summary components that just become <details>/<summary> tags
 // except for IE11 where they become <div> tags to allow us to style them
-const Details: React.FunctionComponent<React.ComponentPropsWithoutRef<'details'>> = ({ children, open, ...extraProps }) => {
-  if (IS_IE11) {
+const Details: React.FunctionComponent<React.ComponentPropsWithoutRef<'details'>> = (
+  ({ children, open, ...extraProps }) => {
+    if (IS_IE11) {
+      return (
+        <div className={'details-fallback' + (open ? ' details-fallback--open' : '')} {...extraProps}>
+          {children}
+        </div>
+      );
+    }
+
     return (
-      <div className={'details-fallback' + (open ? ' details-fallback--open' : '')} {...extraProps}>
+      <details open={open} {...extraProps}>
         {children}
-      </div>
+      </details>
     );
   }
-
-  return (
-    <details open={open} {...extraProps}>
-      {children}
-    </details>
-  );
-};
+);
 
 const Summary: React.FunctionComponent<React.ComponentPropsWithoutRef<'summary'>> = ({ children, ...extraProps }) => {
   if (IS_IE11) {

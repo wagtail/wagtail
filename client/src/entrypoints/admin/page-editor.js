@@ -264,7 +264,9 @@ function initCollapsibleBlocks() {
   $('.object.multi-field.collapsible').each(function () {
     const $li = $(this);
     const $fieldset = $li.find('fieldset');
-    const onAnimationComplete = () => $fieldset.get(0).dispatchEvent(new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }));
+    const onAnimationComplete = () => $fieldset.get(0).dispatchEvent(
+      new CustomEvent('commentAnchorVisibilityChange', { bubbles: true })
+    );
     if ($li.hasClass('collapsed') && $li.find('.error-message').length === 0) {
       $fieldset.hide({
         complete: onAnimationComplete
