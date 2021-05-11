@@ -250,7 +250,7 @@ class TestRenditions(TestCase):
     def test_alt_attribute(self):
         rendition = self.image.get_rendition('width-400')
         self.assertEqual(rendition.alt, "Test image")
-        
+
     def test_full_url(self):
         full_url = self.image.get_rendition('original').full_url
         full_url_string = "http://testserver/media/images/test.original.png"

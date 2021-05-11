@@ -525,7 +525,7 @@ class AbstractRendition(models.Model):
             ('height', self.height),
             ('alt', self.alt),
         ])
-    
+
     @property
     def full_url(self):
         url = self.url
