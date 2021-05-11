@@ -237,6 +237,12 @@ ul.listing {
         vertical-align: inherit;
     }
 
+    .no.button-secondary:hover {
+        border-color: $color-button-no-hover;
+        background-color: $color-button-no-hover;
+        color: $color-white;
+    }
+
     .button-secondary {
         border-color: $color-grey-3;
         background: $color-white;
