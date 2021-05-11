@@ -187,7 +187,7 @@ Wagtail can assign the image data to another variable using Django's ``as`` synt
 
     {% image page.photo width-400 as tmp_photo %}
 
-    <img src="{{ tmp_photo.url }}" width="{{ tmp_photo.width }}"
+    <img src="{{ tmp_photo.full_url }}" width="{{ tmp_photo.width }}"
         height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
 
 
@@ -201,7 +201,7 @@ Therefore, if you'd added the field ``author`` to your AbstractImage in the abov
 
 
 .. Note::
-    The image property used for the ``src`` attribute is actually ``image.url``, not ``image.src``.
+    The image property used for the ``src`` attribute is actually ``image.full_url``, not ``image.src``.
 
 
 The ``attrs`` shortcut
@@ -224,7 +224,7 @@ For example, to use the ``<picture>`` tag:
 
     <picture>
         {% image page.photo width-800 as wide_photo %}
-        <source srcset="{{ wide_photo.url }}" media="(min-width: 800px)">
+        <source srcset="{{ wide_photo.full_url }}" media="(min-width: 800px)">
         {% image page.photo width-400 %}
     </picture>
 
@@ -238,12 +238,12 @@ And to use the ``<amp-img>`` tag (based on the `Mountains example <https://amp.d
     <amp-img alt="{{ image.alt }}"
         width="{{ webp_image.width }}"
         height="{{ webp_image.height }}"
-        src="{{ webp_image.url }}">
+        src="{{ webp_image.full_url }}">
         <amp-img alt="{{ image.alt }}"
             fallback
             width="{{ jpeg_image.width }}"
             height="{{ jpeg_image.height }}"
-            src="{{ jpeg_image.url }}"></amp-img>
+            src="{{ jpeg_image.full_url }}"></amp-img>
     </amp-img>
 
 
