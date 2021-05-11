@@ -53,6 +53,7 @@
     "@storybook/addon-actions": "^6.3.0-alpha.14",
     "@storybook/addon-essentials": "^6.3.0-alpha.14",
     "@storybook/addon-links": "^6.3.0-alpha.14",
+    "@storybook/addon-storyshots": "^6.3.0-alpha.14",
     "@storybook/builder-webpack5": "^6.3.0-alpha.14",
     "@storybook/react": "^6.3.0-alpha.14",
     "@testing-library/jest-dom": "^5.12.0",
@@ -103,7 +104,6 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@storybook/addon-storyshots": "^6.2.9",
     "core-js": "^2.5.3",
     "draft-js": "^0.10.5",
     "draftail": "^1.4.1",
