@@ -164,3 +164,9 @@ change here) and want to use the new commenting system, your list of edit handle
             # My existing panels here
             CommentPanel(),
         ]
+
+
+Feedback
+========
+
+We would love to `receive your feedback <https://forms.gle/G5WYo6sLiZiwdfsQA>`_ on this release.
