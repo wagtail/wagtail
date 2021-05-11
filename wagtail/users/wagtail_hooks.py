@@ -1,6 +1,9 @@
+from django.apps import apps
 from django.contrib.auth.models import Permission
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Q
 from django.urls import include, path, reverse
+from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.menu import MenuItem
@@ -9,7 +12,6 @@ from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.users.urls import users
 from wagtail.users.utils import user_can_delete_user
-from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.widgets import UserListingButton
 
 
@@ -20,9 +22,24 @@ def register_admin_urls():
     ]
 
 
+def get_group_viewset_cls(app_config):
+    try:
+        group_viewset_cls = import_string(app_config.group_viewset)
+    except (AttributeError, ImportError) as e:
+        raise ImproperlyConfigured(
+            "Invalid setting for {appconfig}.group_viewset: {message}".format(
+                appconfig=app_config.__class__.__name__,
+                message=e
+            )
+        )
+    return group_viewset_cls
+
+
 @hooks.register('register_admin_viewset')
 def register_viewset():
-    return GroupViewSet('wagtailusers_groups', url_prefix='groups')
+    app_config = apps.get_app_config("wagtailusers")
+    group_viewset_cls = get_group_viewset_cls(app_config)
+    return group_viewset_cls('wagtailusers_groups', url_prefix='groups')
 
 
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
