@@ -1,14 +1,16 @@
-Custom group edit/create page
-=============================
+How to customise group edit/create views
+========================================
 
-Custom group edit/create page example
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The views for managing groups within the app are collected into a 'viewset' class, which acts as a single point of reference for all shared components of those views, such as forms. By subclassing the viewset, it is possible to override those components and customise the behaviour of the group management interface.
 
-This example shows how to customize group 'edit' and 'create' page in Wagtail
+Custom edit/create forms
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+This example shows how to customize forms on the 'edit group' and 'create group' views in the Wagtail
 admin.
 
 Let's say you need to connect Active Directory groups with Django groups.
-So create a model for Active Directory groups.
+We create a model for Active Directory groups as follows:
 
 .. code-block:: python
 
@@ -27,8 +29,8 @@ So create a model for Active Directory groups.
         verbose_name = "AD group"
         verbose_name_plural = "AD groups"
 
-However, there is no role field on the Wagtail group 'edit' or 'create' page.
-To add it, inherit from Wagtail group form and add a new field.
+However, there is no role field on the Wagtail group 'edit' or 'create' view.
+To add it, inherit from ``wagtail.users.forms.GroupForm`` and add a new field:
 
 .. code-block:: python
 
@@ -61,8 +63,8 @@ To add it, inherit from Wagtail group form and add a new field.
           instance.adgroups.set(self.cleaned_data["adgroups"])
           return instance
 
-Now add your custom form into group viewset by inheriting default Wagtail
-``GroupViewSet`` class and overriding ``get_form_class`` method.
+Now add your custom form into the group viewset by inheriting the default Wagtail
+``GroupViewSet`` class and overriding the ``get_form_class`` method.
 
 .. code-block:: python
 
@@ -75,7 +77,7 @@ Now add your custom form into group viewset by inheriting default Wagtail
       def get_form_class(self, for_update=False):
           return GroupForm
 
-Append the field into group 'edit'/'create' templates.
+Add the field to the group 'edit'/'create' templates:
 
 .. code-block:: html+Django
 
@@ -86,9 +88,10 @@ Append the field into group 'edit'/'create' templates.
       {% include "wagtailadmin/shared/field_as_li.html" with field=form.adgroups %}
   {% endblock extra_fields %}
 
-Finally configure ``wagtail.users`` application for using the viewset. Create
-``myapplication/apps.py`` module in the main application package and configure
-``AppConfig``.
+Finally we configure the ``wagtail.users`` application to use the custom viewset,
+by setting up a custom ``AppConfig`` class. Within your project folder (i.e. the
+package containing the top-level settings and urls modules), create ``apps.py``
+(if it does not exist already) and add:
 
 .. code-block:: python
 
@@ -98,8 +101,8 @@ Finally configure ``wagtail.users`` application for using the viewset. Create
   class CustomUsersAppConfig(WagtailUsersAppConfig):
       group_viewset = "myapplication.someapp.viewsets.GroupViewSet"
 
-And put path to ``CustomUsersAppConfig`` into ``settings.INSTALLED_APPS``
-instead of ``wagtail.users``.
+Replace ``wagtail.users`` in ``settings.INSTALLED_APPS`` with the path to
+``CustomUsersAppConfig``.
 
 .. code-block:: python
 
