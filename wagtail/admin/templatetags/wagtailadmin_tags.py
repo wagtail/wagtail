@@ -8,10 +8,12 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Min, QuerySet
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.html import avoid_wrapping, format_html, format_html_join
@@ -24,10 +26,12 @@ from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
+from wagtail.admin.ui import sidebar
 from wagtail.core import hooks
 from wagtail.core.models import (
     Collection, CollectionViewRestriction, Locale, Page, PageViewRestriction,
     UserPagePermissionsProxy)
+from wagtail.core.telepath import JSContext
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import escape_script
@@ -637,3 +641,29 @@ def locales():
         }
         for locale in Locale.objects.all()
     ])
+
+
+@register.simple_tag(takes_context=True)
+def menu_props(context):
+    request = context['request']
+    search_areas = admin_search_areas.search_items_for_request(request)
+    if search_areas:
+        search_area = search_areas[0]
+    else:
+        search_area = None
+
+    account_menu = [
+        sidebar.LinkMenuItem('account', _("Account"), reverse('wagtailadmin_account'), icon_name='user'),
+        sidebar.LinkMenuItem('logout', _("Logout"), reverse('wagtailadmin_logout'), icon_name='logout'),
+    ]
+
+    modules = [
+        sidebar.WagtailBrandingModule(),
+        sidebar.SearchModule(search_area) if search_area else None,
+        sidebar.MainMenuModule(admin_menu.render_component(request), account_menu, request.user),
+    ]
+    modules = [module for module in modules if module is not None]
+
+    return json.dumps({
+        'modules': JSContext().pack(modules),
+    }, cls=DjangoJSONEncoder)
