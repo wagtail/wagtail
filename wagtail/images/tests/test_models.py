@@ -252,9 +252,10 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.alt, "Test image")
 
     def test_full_url(self):
-        full_url = self.image.get_rendition('original').full_url
-        full_url_string = "http://testserver/media/images/test.original.png"
-        self.assertEqual(full_url, full_url_string)
+        ren_img = self.image.get_rendition('original')
+        full_url = ren_img.full_url
+        img_name = ren_img.file.name.split('/')[1]
+        self.assertEqual(full_url, "http://testserver/media/images/{}".format(img_name))
 
     @override_settings(
         CACHES={
