@@ -1,3 +1,5 @@
+.. _customising_group_views:
+
 How to customise group edit/create views
 ========================================
 

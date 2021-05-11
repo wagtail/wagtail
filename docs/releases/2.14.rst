@@ -14,6 +14,7 @@ Other features
 ~~~~~~~~~~~~~~
 
  * Added ``ancestor_of`` API filter. See :ref:`apiv2_filter_by_tree_position`. (Jaap Roes)
+ * Added support for customising group management views. See :ref:`customising_group_views`. (Jan Seifert)
 
 Bug fixes
 ~~~~~~~~~
