@@ -1,6 +1,7 @@
 from datetime import timedelta
 from unittest import mock
 
+from django.conf import settings
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
@@ -55,7 +56,7 @@ class TestNotificationStaticTemplateTag(TestCase):
     @override_settings(STATIC_URL='/static/')
     def test_local_notification_static(self):
         url = notification_static('wagtailadmin/images/email-header.jpg')
-        self.assertEqual('/static/wagtailadmin/images/email-header.jpg', url)
+        self.assertEqual('{}/static/wagtailadmin/images/email-header.jpg'.format(settings.BASE_URL), url)
 
     @override_settings(STATIC_URL='/static/', BASE_URL='http://localhost:8000')
     def test_local_notification_static_baseurl(self):
