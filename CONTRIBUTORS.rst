@@ -514,6 +514,7 @@ Contributors
 * Ihor Marhitych
 * Andre Fonseca
 * Tidjani Dia
+* Jan Seifert
 
 Translators
 ===========
