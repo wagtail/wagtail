@@ -525,6 +525,13 @@ class AbstractRendition(models.Model):
             ('height', self.height),
             ('alt', self.alt),
         ])
+    
+    @property
+    def full_url(self):
+        url = self.url
+        if settings.BASE_URL and url.startswith("/"):
+            url = settings.BASE_URL + url
+        return url
 
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()
