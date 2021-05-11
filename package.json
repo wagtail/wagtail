@@ -55,7 +55,10 @@
     "@storybook/addon-links": "^6.3.0-alpha.14",
     "@storybook/builder-webpack5": "^6.3.0-alpha.14",
     "@storybook/react": "^6.3.0-alpha.14",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
     "@types/draft-js": "^0.10.45",
+    "@types/jest-axe": "^3.5.1",
     "@types/react": "^16.9.53",
     "@types/react-redux": "^7.1.16",
     "@types/redux": "^3.6.0",
@@ -86,6 +89,7 @@
     "gulp-util": "~3.0.8",
     "html-webpack-plugin": "^5.3.1",
     "jest": "^26.6.0",
+    "jest-axe": "^4.1.0",
     "npm-run-all": "^4.1.5",
     "postcss-custom-properties": "^10.0.0",
     "react-axe": "^3.1.0",
@@ -99,6 +103,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "@storybook/addon-storyshots": "^6.2.9",
     "core-js": "^2.5.3",
     "draft-js": "^0.10.5",
     "draftail": "^1.4.1",
@@ -137,6 +142,7 @@
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
     "test:unit:coverage": "jest --coverage",
+    "test:smoke": "jest --config client/tests/smoke/jest.config.smoke.js",
     "storybook": "start-storybook -c client/.storybook -p 6006",
     "build-storybook": "build-storybook -c client/.storybook"
   }
