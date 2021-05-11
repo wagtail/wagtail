@@ -13,5 +13,6 @@ Principles
 
 * Write `valid HTML <https://validator.w3.org/nu/>`_. We target the HTML5 doctype.
 * Write `semantic HTML <https://html5doctor.com/element-index/>`_.
+* Consult `ARIA Authoring Practices <https://w3c.github.io/aria-practices/>`_, in particular `No ARIA is better than Bad ARIA <https://w3c.github.io/aria-practices/#no_aria_better_bad_aria>`_.
 * Attach JavaScript behavior with ``data-`` attributes, rather than classes or IDs.
 * For comments, use Django templates syntax instead of HTML.
