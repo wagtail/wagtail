@@ -6,9 +6,10 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Ed <724195301@qq.com>, 2018
 # First Last <abc+github@mynook.info>, 2019
-# GH Y <sopium@mysterious.site>, 2020
+# Yin Guanhao <sopium@mysterious.site>, 2020
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# Yin Guanhao <sopium@mysterious.site>, 2021
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2020
 msgid ""
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-03 04:15+0000\n"
+"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +44,12 @@ msgstr "编辑"
 
 msgid "Edit any document"
 msgstr "编辑任意文档"
+
+msgid "Choose"
+msgstr "选择"
+
+msgid "Select documents in choosers"
+msgstr "在选择器中选择文档"
 
 msgid "title"
 msgstr "标题"
@@ -256,6 +263,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "对不起，上传失败。"
+
+msgid "Document updated."
+msgstr "文档已更新"
 
 msgid "You need a password to access this document."
 msgstr "你需要一个密码来访问这个文档。"

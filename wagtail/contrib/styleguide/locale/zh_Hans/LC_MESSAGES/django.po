@@ -4,14 +4,15 @@
 #
 # Translators:
 # Ed <724195301@qq.com>, 2018
+# Yin Guanhao <sopium@mysterious.site>, 2021
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-03 04:05+0000\n"
+"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +32,9 @@ msgstr "保存"
 
 msgid "Delete image"
 msgstr "删除图像"
+
+msgid "Home"
+msgstr "首页"
 
 msgid "Search something"
 msgstr "搜索"

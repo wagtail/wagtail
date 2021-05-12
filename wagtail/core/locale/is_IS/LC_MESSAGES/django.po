@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021
 # saevarom <saevar@saevar.is>, 2019-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-04-30 09:42+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,21 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail kjarni"
+
+msgid "Add Comment"
+msgstr "Bæta við athugasemd"
+
+msgid "Move up"
+msgstr "Færa upp"
+
+msgid "Move down"
+msgstr "Færa niður"
+
+msgid "Duplicate"
+msgstr "Afrita"
+
+msgid "Delete"
+msgstr "Eyða"
 
 msgid "Add"
 msgstr "Bæta við"
@@ -52,6 +67,10 @@ msgstr "Lykilorðið sem þú slóst inn er ekki rétt. Vinsamlegast reynið aft
 
 msgid "Comment"
 msgstr "Athugasemd"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Óþekkt %(action)s"
 
 msgid "hostname"
 msgstr "slóð"
@@ -135,12 +154,28 @@ msgstr "Slóð"
 msgid "owner"
 msgstr "eigandi"
 
+msgid "title tag"
+msgstr "titill síðu"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "Nafn síðunnar sem birtist á leitarvélum sem smellanleg fyrirsögn"
+
 msgid "show in menus"
 msgstr "sýna í valmyndum"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Segir til um hvor hlekkur á þessa síðu verður til í valmyndum"
+
+msgid "meta description"
+msgstr "lýsing"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr "Lýsandi texti sem birtist undir fyrirsögn í leitarvélum."
 
 msgid "go live date/time"
 msgstr "setja í loftið dags/tíma"
@@ -466,6 +501,9 @@ msgstr "atburðaskráning"
 msgid "log entries"
 msgstr "atburðaskráningar"
 
+msgid "The log action '{}' has not been registered."
+msgstr "Aðgerð í atburðaskrá '{}' hefur ekki verið skráð."
+
 #, python-format
 msgid "user %(id)d (deleted)"
 msgstr "notandi %(id)d (eytt)"
@@ -478,6 +516,18 @@ msgstr "atburðaskráning síðu"
 
 msgid "page log entries"
 msgstr "atburðaskráningar síðu"
+
+msgid "comment"
+msgstr "athugasemd"
+
+msgid "comments"
+msgstr "athugasemdir"
+
+msgid "comment reply"
+msgstr "svar við athugasemd"
+
+msgid "comment replies"
+msgstr "svör við athugasemdum"
 
 msgid "Log in"
 msgstr "Innskrá"
@@ -515,3 +565,239 @@ msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s undirsafn"
 msgstr[1] "%(count)s undirsöfn"
+
+msgid "Create"
+msgstr "Búa til"
+
+msgid "Created"
+msgstr "Bjó til"
+
+msgid "Save draft"
+msgstr "Vista drög"
+
+msgid "Draft saved"
+msgstr "Drög vistuð"
+
+msgid "Deleted"
+msgstr "Eytt"
+
+msgid "Published"
+msgstr "Sett í birtingu"
+
+msgid "Publish scheduled draft"
+msgstr "Birta tímasett uppkast"
+
+msgid "Published scheduled draft"
+msgstr "Birti tímasett uppkast"
+
+msgid "Unpublish"
+msgstr "Taka úr loftinu"
+
+msgid "Unpublished"
+msgstr "Tekið úr loftinu"
+
+msgid "Unpublish scheduled draft"
+msgstr "Taka tímasett uppkast úr loftinu"
+
+msgid "Unpublished scheduled draft"
+msgstr "Tók tímasett uppkast úr loftinu"
+
+msgid "Locked"
+msgstr "Læst"
+
+msgid "Unlocked"
+msgstr "Aflæst"
+
+msgid "Reject"
+msgstr "Hafna"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr "Skipti yfir í fyrri útgáfu nr. %(revision_id)s frá %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Skipta yfir í fyrri útgáfu"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Afritað frá %(title)s"
+
+msgid "Copied"
+msgstr "Afritað"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Bjó til spegil af %(title)s"
+
+msgid "Created an alias"
+msgstr "Bjó til spegilsíðu"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Breytti spegilsíðunni '%(title)s' í venjulega síðu"
+
+msgid "Converted an alias into a regular page"
+msgstr "Breytti spegilsíðu í venjulega síðu"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Færð frá '%(old_parent)s' til '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Færð"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Endurraðaði undir '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Endurraðaði"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Útgáfa %(revision_id)s frá %(created_at)s sett í tímastillta birtingu fyrir "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Síða tímasett fyrir birtingu %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Síða tímasett fyrir birtingu"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Útgáfa %(revision_id)s frá %(created_at)s tekin úr tímastilltri birtingu "
+"fyrir %(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Tímastilling birtingar %(go_live_at)s tekin af síðu"
+
+msgid "Page unscheduled from publishing"
+msgstr "Tímastilling birtingar tekin af síðu"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Bætti við '%(restriction)s' skoðunartakmörkun"
+
+msgid "Added view restriction"
+msgstr "Bætti við skoðunartakmörkunum"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Uppfærði skoðunartakmarkanir í  '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Uppfærði skoðunartakmarkanir"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Fjarlægði skoðunartakmörkunina '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "Fjarlægði skoðunartakmarkanir"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Endurnefndi '%(old)s' sem '%(new)s'"
+
+msgid "Renamed"
+msgstr "Endurnefnt"
+
+msgid "Rename"
+msgstr "Endurnefna"
+
+msgid "Revert"
+msgstr "Afturkalla"
+
+msgid "Copy"
+msgstr "Afrita"
+
+msgid "Create alias"
+msgstr "Búa til spegilsíðu"
+
+msgid "Convert alias into regular page"
+msgstr "Breyta spegilsíðu í venjulega síðu"
+
+msgid "Move"
+msgstr "Færa"
+
+msgid "Reorder"
+msgstr "Endurraða"
+
+msgid "Schedule publication"
+msgstr "Tímasetja birtingu"
+
+msgid "Unschedule publication"
+msgstr "Hætta við tímasetta birtingu"
+
+msgid "Add view restrictions"
+msgstr "Bæta við skoðunartakmörkunum"
+
+msgid "Update view restrictions"
+msgstr "Breyta skoðunartakmörkunum"
+
+msgid "Remove view restrictions"
+msgstr "Fjarlægja skoðunartakmarkanir"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' hafið. Næsta skref '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Vinnuflæði byrjað"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Samþykkt í skrefi '%(task)s'. Næsta skref '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Samþykkt í skrefi '%(task)s'. '%(workflow)s' lokið"
+
+msgid "Workflow task approved"
+msgstr "Vinnuflæðiskref samþykkt"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Hafnað í '%(task)s'. Beðið um breytingar"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Vinnuflæðiskrefi hafnað. Vinnuflæði lokið"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "Endursendi skref '%(task)s'. Vinnuflæði endurvakið'"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Vinnuflæðiskref endursent. Vinnuflæði endurvakið"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Hætt við vinnuflæði '%(workflow)s' í skrefi '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Hætt við vinnuflæði"
+
+msgid "Workflow: start"
+msgstr "Vinnuflæði: byrja"
+
+msgid "Workflow: approve task"
+msgstr "Vinnuflæði: samþykkja skref"
+
+msgid "Workflow: reject task"
+msgstr "Vinnuflæði: hafna skrefi"
+
+msgid "Workflow: resume task"
+msgstr "Vinnuflæði: halda áfram með skref"
+
+msgid "Workflow: cancel"
+msgstr "Vinnuflæði: hætta við"

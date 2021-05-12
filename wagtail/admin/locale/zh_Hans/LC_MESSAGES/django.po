@@ -11,11 +11,12 @@
 # First Last <abc+github@mynook.info>, 2019
 # Ford Guo <agile.guo@gmail.com>, 2020
 # Fred Zeng <979738295@qq.com>, 2016
-# GH Y <sopium@mysterious.site>, 2020
+# Yin Guanhao <sopium@mysterious.site>, 2020
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Aosp T, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
 # yi huang <yi.codeplayer@gmail.com>, 2018
+# Yin Guanhao <sopium@mysterious.site>, 2021
 # 祝沙军 <zhushajun@gmail.com>, 2017,2020
 # 汇民 王 <whuim@qq.com>, 2017-2020
 # 飘 赵 <275980464@qq.com>, 2016
@@ -24,8 +25,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-03 03:58+0000\n"
+"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +96,12 @@ msgstr "定时发布"
 msgid "Privacy"
 msgstr "私有设置"
 
+msgid "For search engines"
+msgstr "用于搜索引擎"
+
+msgid "For site menus"
+msgstr "用于站点菜单"
+
 msgid "Content"
 msgstr "内容"
 
@@ -150,11 +157,19 @@ msgstr "URL"
 msgid "Parent"
 msgstr "上一级"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr "选择层级位置。注意：一个集合不能成为它自己或它的一个后代的子节点。"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
 
 msgid "Collection"
 msgstr "集合"
+
+msgid "You cannot edit another user's comment."
+msgstr "你不能编辑另一个用户的评论。"
 
 msgid "New title"
 msgstr "新标题"
@@ -196,6 +211,9 @@ msgstr[0] "正在复制的 %(count)s 个页面已是发布状态，你要发布�
 
 msgid "Alias"
 msgstr "别名"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "在将来有更改时也更新新页面"
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -275,6 +293,9 @@ msgstr "关闭资源管理"
 msgid "Alt text"
 msgstr "替代文字"
 
+msgid "Decorative image"
+msgstr "装饰性图片"
+
 msgid "Write here…"
 msgstr "写在这里..."
 
@@ -327,11 +348,53 @@ msgstr "页面管理"
 msgid "Save"
 msgstr "保存"
 
+msgid "Saving..."
+msgstr "正在保存……"
+
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Deleting..."
+msgstr "正在删除……"
+
+msgid "Add a comment"
+msgstr "添加一个评论"
+
+msgid "Show comments"
+msgstr "显示评论"
+
+msgid "Reply"
+msgstr "回复"
+
+msgid "Resolve"
+msgstr "解决"
+
+msgid "Retry"
+msgstr "重试"
+
+msgid "Delete error"
+msgstr "删除错误"
+
+msgid "Are you sure?"
+msgstr "你确定吗？"
+
+msgid "Save error"
+msgstr "保存错误"
+
+msgid "This will be saved when the page is saved"
+msgstr "这会在页面被保存时一起被保存"
+
+msgid "Focus comment"
+msgstr "聚焦评论"
+
+msgid "Unfocus comment"
+msgstr "取消聚焦评论"
+
 msgid "Comment"
 msgstr "评论"
+
+msgid "More actions"
+msgstr "更多动作"
 
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"
@@ -347,6 +410,9 @@ msgstr "转到管理界面"
 
 msgid "Account"
 msgstr "帐号"
+
+msgid "Save account details"
+msgstr "保存帐号详情"
 
 msgid "Change password"
 msgstr "修改密码"
@@ -397,6 +463,12 @@ msgstr "密码已重置。"
 
 msgid "Reset your password"
 msgstr "重设密码"
+
+msgid "Upload a profile picture:"
+msgstr "上传头像图片"
+
+msgid "Reset to default"
+msgstr "重置为默认值"
 
 msgid "Dashboard"
 msgstr "控制面板"
@@ -482,7 +554,7 @@ msgid "This collection has been made private by a parent collection."
 msgstr "这个集合已经被父集合设为私有。"
 
 msgid "You can edit the privacy settings on:"
-msgstr "你可以在这里修改此私有设置："
+msgstr "你可以在这里修改此隐私设置："
 
 msgid ""
 "Privacy settings determine who is able to view documents in this collection."
@@ -523,6 +595,12 @@ msgstr "上移"
 
 msgid "Move down"
 msgstr "下移"
+
+msgid "Add comment"
+msgstr "添加评论"
+
+msgid "Comment notifications"
+msgstr "评论通知"
 
 msgid "Yes, delete"
 msgstr "是的， 删除"
@@ -718,6 +796,41 @@ msgid ""
 msgstr "页面“%(title)s”已在审核阶段“%(task)s”提交审批"
 
 #, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s更新了对于“%(title)s”的评论"
+
+msgid "New comments"
+msgstr "新评论"
+
+msgid "Resolved comments"
+msgstr "已解决的评论"
+
+msgid "Deleted comments"
+msgstr "已删除的评论"
+
+msgid "New replies"
+msgstr "新回复"
+
+msgid "New replies to:"
+msgstr "新回复给："
+
+msgid "New comments:"
+msgstr "新评论："
+
+msgid "Resolved comments:"
+msgstr "已解决的评论："
+
+msgid "Deleted comments:"
+msgstr "已删除的评论："
+
+msgid "New replies:"
+msgstr "新回复："
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s更新了对于“%(title)s”的评论"
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
 msgstr "页面“%(title)s”已在工作流“%(workflow)s”中批准。"
 
@@ -745,6 +858,12 @@ msgstr "留下了以下评论：“%(comment)s”"
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "页面“%(title)s”在“%(workflow)s”期间被拒绝。"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr "页面“%(title)s”已由%(requester)s提交到工作流“%(workflow)s”以进行审核。"
 
 #, python-format
 msgid ""
@@ -786,6 +905,18 @@ msgstr "页面的隐私状态。当前状态：公开"
 msgid "Page privacy. Current status: Private"
 msgstr "页面的隐私状态。当前状态：私密"
 
+msgid "You have <span>unsaved edits</span>"
+msgstr "你有<span>未保存的编辑</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "你有<span>未保存的评论</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "你有<span>未保存的编辑</span>和<span>评论</span>"
+
+msgid "Save the page before leaving"
+msgstr "在离开之前保存页面"
+
 msgid "Publishing…"
 msgstr "正在发布..."
 
@@ -814,6 +945,19 @@ msgstr "选择创建的页面类型"
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr " %(page_type)s类型的页面"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "转换别名%(title)s"
+
+msgid "Convert alias"
+msgstr "转换别名"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr "你确定要将这个别名转换为常规页面吗？"
+
+msgid "This action cannot be undone."
+msgstr "这个动作无法撤销"
 
 msgid "Yes, convert it"
 msgstr "是, 转换它"
@@ -980,8 +1124,14 @@ msgstr "编辑 %(page_type)s"
 msgid "History"
 msgstr "历史"
 
+msgid "This page is an alias of another page."
+msgstr "这个页面是另一个页面的别名。"
+
 msgid "Edit original page"
 msgstr "编辑原始页面"
+
+msgid "Convert this alias into a regular page"
+msgstr "将这个别名转换成常规页面"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1504,6 +1654,31 @@ msgstr ""
 "您正在使用一个本软件不支持的<strong>过期的</strong> 浏览器。请 <a href="
 "\"https://browsehappy.com/\">更新浏览器</a>。"
 
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            使用 Wagtail 需要JavaScript支持，但是当前已被禁用。<br />\n"
+"            请查看 <a href=\"https://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">操作指导：如何在你的浏览器中启用 "
+"JavaScript</a>。\n"
+"        "
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail 正在逐步移除对 IE11 的支持，这可能影响您或您的组织。<a href=\"%(url)s"
+"\">了解更多关于我们的 IE11 支持计划</a>。"
+
 msgid "Skip to main content"
 msgstr "跳到主要内容"
 
@@ -1731,6 +1906,27 @@ msgstr "草稿"
 msgid "Test"
 msgstr "测试"
 
+msgid "Profile"
+msgstr "资料"
+
+msgid "Notifications"
+msgstr "通知"
+
+msgid "Name and Email"
+msgstr "姓名和电子邮件"
+
+msgid "Profile picture"
+msgstr "资料图片"
+
+msgid "Locale"
+msgstr "区域"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "您的帐号设置已经修改成功。"
+
 msgid "You have been successfully logged out."
 msgstr "注销成功"
 
@@ -1755,6 +1951,9 @@ msgstr "无法保存集合，出现错误。"
 msgid "Delete collection"
 msgstr "删除集合"
 
+msgid "Please select another parent"
+msgstr "请选择另一个父结点"
+
 msgid "Collection '{0}' deleted."
 msgstr "集合 '{0}' 已删除"
 
@@ -1763,6 +1962,9 @@ msgstr "确定删除此集合？"
 
 msgid "Editing"
 msgstr "正在编辑"
+
+msgid "Page '{0}' has been converted into a regular page."
+msgstr "页面“{0}”已经被转换成一个常规页面。"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "页面 '{0}' 和 {1} 个子页面已复制。"

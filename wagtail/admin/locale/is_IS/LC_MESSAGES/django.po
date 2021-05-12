@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-26 09:17+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"PO-Revision-Date: 2021-04-30 09:54+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -367,6 +367,9 @@ msgstr "Sýna athugasemdir"
 
 msgid "Reply"
 msgstr "Svara"
+
+msgid "Resolve"
+msgstr "Leysa"
 
 msgid "Retry"
 msgstr "Reyna aftur"
@@ -829,8 +832,15 @@ msgstr ""
 "Síðan \"%(title)s\" hefur verið send inn til yfirferðar  í skrefi \"%(task)s"
 "\"."
 
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s hefur uppfært athugasemdir í \"%(title)s\"."
+
 msgid "New comments"
 msgstr "Ný athugasemd"
+
+msgid "Resolved comments"
+msgstr "Leystar athugasemdir"
 
 msgid "Deleted comments"
 msgstr "Eyddar athugasemdir"
@@ -844,11 +854,18 @@ msgstr "Ný svör við:"
 msgid "New comments:"
 msgstr "Nýjar athugasemdir:"
 
+msgid "Resolved comments:"
+msgstr "Leystar athugasemdir:"
+
 msgid "Deleted comments:"
 msgstr "Eyddar athugasemdir:"
 
 msgid "New replies:"
 msgstr "Ný svör:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s hefur uppfært athugasemdir í \"%(title)s\""
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
@@ -882,6 +899,14 @@ msgstr "Eftirfarandi athugasemd var eftir: \"%(comment)s\""
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Síðunni \"%(title)s\" hefur verið hafnað í \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Síðan \"%(title)s\" hefur verið send til yfirferðar í vinnuflæði "
+"\"%(workflow)s\" af %(requester)s."
 
 #, python-format
 msgid ""
@@ -925,6 +950,19 @@ msgstr "Aðgengi síðu. Núverandi staða: Í birtingu"
 
 msgid "Page privacy. Current status: Private"
 msgstr "Aðgengi síðu. Núverandi staða: Læst"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Þú ert með <span>óvistaðar breytingar</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Þú ert með <span>óvistaðar athugasemdir</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr ""
+"Þú ert með <span>óvistaðar breytingar</span> og <span>athugasemdir</span>"
+
+msgid "Save the page before leaving"
+msgstr "Vista síðuna áður en farið er"
 
 msgid "Publishing…"
 msgstr "Set í birtingu..."
@@ -1974,6 +2012,27 @@ msgstr "uppkast"
 
 msgid "Test"
 msgstr "Prufa"
+
+msgid "Profile"
+msgstr "Prófíll"
+
+msgid "Notifications"
+msgstr "Tilkynningar"
+
+msgid "Name and Email"
+msgstr "Nafn og netfang"
+
+msgid "Profile picture"
+msgstr "Prófílmynd"
+
+msgid "Locale"
+msgstr "Þýðing"
+
+msgid "Password"
+msgstr "Lykilorð"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Stillingarnar þínar hafa verið uppfærðar!"
 
 msgid "You have been successfully logged out."
 msgstr "Þú hefur verið skráður út."

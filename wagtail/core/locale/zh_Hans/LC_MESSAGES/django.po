@@ -11,6 +11,7 @@
 # Fred Zeng <979738295@qq.com>, 2016
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# Yin Guanhao <sopium@mysterious.site>, 2021
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2020
 msgid ""
@@ -18,8 +19,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-03 02:43+0000\n"
+"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +31,21 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail 核心组件"
+
+msgid "Add Comment"
+msgstr "添加评论"
+
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Duplicate"
+msgstr "创建副本"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "Add"
 msgstr "添加"
@@ -46,7 +62,7 @@ msgid "The minimum number of items is %d"
 msgstr "条目的最小数是%d"
 
 msgid "This field is required."
-msgstr "必需字段。"
+msgstr "这个字段是必需的。"
 
 #, python-format
 msgid "The maximum number of items is %d"
@@ -60,6 +76,10 @@ msgstr "密码错误，请重新输入"
 
 msgid "Comment"
 msgstr "评论"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "未知的 %(action)s"
 
 msgid "hostname"
 msgstr "主机名"
@@ -138,12 +158,28 @@ msgstr "URL路径"
 msgid "owner"
 msgstr "所有者"
 
+msgid "title tag"
+msgstr "标题标签"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr "显示在搜索引擎结果中，作为可点击的标题的页面名称。"
+
 msgid "show in menus"
 msgstr "在菜单中显示"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "是否需要在自动生成的菜单中出现此页面的链接。"
+
+msgid "meta description"
+msgstr "元描述"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr "显示在搜索引擎结果中，位于标题之下的描述性文字。"
 
 msgid "go live date/time"
 msgstr "上线日期/时间"
@@ -188,7 +224,7 @@ msgid "draft"
 msgstr "草稿"
 
 msgid "live + scheduled"
-msgstr "在用 + 已预定"
+msgstr "在用 + 已计划"
 
 msgid "live + in moderation"
 msgstr "发布+审核中"
@@ -461,6 +497,9 @@ msgstr "日志条目"
 msgid "log entries"
 msgstr "日志条目"
 
+msgid "The log action '{}' has not been registered."
+msgstr "日志动作“{}”未被注册"
+
 #, python-format
 msgid "user %(id)d (deleted)"
 msgstr "用户 %(id)d (已删除)"
@@ -473,6 +512,18 @@ msgstr "页面日志条目"
 
 msgid "page log entries"
 msgstr "页面日志条目"
+
+msgid "comment"
+msgstr "评论"
+
+msgid "comments"
+msgstr "评论"
+
+msgid "comment reply"
+msgstr "评论回复"
+
+msgid "comment replies"
+msgstr "评论回复"
 
 msgid "Log in"
 msgstr "登录"
@@ -494,7 +545,250 @@ msgstr "你需要访问该页面的密码。"
 msgid "Continue"
 msgstr "继续"
 
+msgid "English"
+msgstr "英语"
+
+msgid "French"
+msgstr "法语"
+
+msgid "German"
+msgstr "德语"
+
 #, python-format
 msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s 子集合"
+
+msgid "Create"
+msgstr "创建"
+
+msgid "Created"
+msgstr "已创建"
+
+msgid "Save draft"
+msgstr "保存草稿"
+
+msgid "Draft saved"
+msgstr "已保存草稿"
+
+msgid "Deleted"
+msgstr "已删除"
+
+msgid "Published"
+msgstr "已发布"
+
+msgid "Publish scheduled draft"
+msgstr "发布已计划的草稿"
+
+msgid "Published scheduled draft"
+msgstr "已发布已计划的草稿"
+
+msgid "Unpublish"
+msgstr "取消发布"
+
+msgid "Unpublished"
+msgstr "取消发布"
+
+msgid "Unpublish scheduled draft"
+msgstr "取消发布已计划的草稿"
+
+msgid "Unpublished scheduled draft"
+msgstr "已取消发布已计划的草稿"
+
+msgid "Locked"
+msgstr "已锁定"
+
+msgid "Unlocked"
+msgstr "已解锁"
+
+msgid "Reject"
+msgstr "拒绝"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr "已还原为上一版本，id为%(revision_id)s创建时间为%(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "已还原为上一版本"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "已复制自%(title)s"
+
+msgid "Copied"
+msgstr "已复制"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "为%(title)s创建一个别名"
+
+msgid "Created an alias"
+msgstr "已创建别名"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "已将别名%(title)s转换为常规页面"
+
+msgid "Converted an alias into a regular page"
+msgstr "已经将一个别名转换为常规页面"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "已从“%(old_parent)s”移动到“%(new_parent)s”"
+
+msgid "Moved"
+msgstr "已移动"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "已在%(parent)s下重新排序"
+
+msgid "Reordered"
+msgstr "已重新排序"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"修订版本%(revision_id)s创建于%(created_at)s，已计划在%(go_live_at)s发布。"
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "页面已计划在%(go_live_at)s发布"
+
+msgid "Page scheduled for publishing"
+msgstr "页面已计划发布"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"修订版本%(revision_id)s创建于%(created_at)s，已取消计划在%(go_live_at)s发布。"
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "页面已取消计划在%(go_live_at)s发布"
+
+msgid "Page unscheduled from publishing"
+msgstr "页面已取消计划发布"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "已添加“%(restriction)s”查看限制"
+
+msgid "Added view restriction"
+msgstr "已添加查看限制"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "已更新查看限制为“%(restriction)s”"
+
+msgid "Updated view restriction"
+msgstr "已更新查看限制"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "已移除“%(restriction)s”查看限制"
+
+msgid "Removed view restriction"
+msgstr "已移除查看限制"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "已从“%(old)s”重命名为“%(new)s”"
+
+msgid "Renamed"
+msgstr "已重命名"
+
+msgid "Rename"
+msgstr "重命名"
+
+msgid "Revert"
+msgstr "还原"
+
+msgid "Copy"
+msgstr "复制"
+
+msgid "Create alias"
+msgstr "创建别名"
+
+msgid "Convert alias into regular page"
+msgstr "将别名转换成常规页面"
+
+msgid "Move"
+msgstr "移动"
+
+msgid "Reorder"
+msgstr "重新排序"
+
+msgid "Schedule publication"
+msgstr "计划发布"
+
+msgid "Unschedule publication"
+msgstr "取消计划发布"
+
+msgid "Add view restrictions"
+msgstr "添加查看限制"
+
+msgid "Update view restrictions"
+msgstr "更新查看限制"
+
+msgid "Remove view restrictions"
+msgstr "移除查看限制"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "“%(workflow)s”已启动，下一步是“%(task)s”"
+
+msgid "Workflow started"
+msgstr "工作流已启动"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "“%(task)s”已批准，下一步是“%(next_task)s”"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "“%(task)s”已批准，“%(workflow)s”已完成"
+
+msgid "Workflow task approved"
+msgstr "工作流任务已批准"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "“%(task)s”已拒绝，已请求变更"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "工作流任务已拒绝，工作流完成"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "重新提交“%(task)s”，工作流已恢复"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "工作流任务已重新提交，工作流已恢复"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "“%(workflow)s”已在“%(task)s”取消"
+
+msgid "Workflow cancelled"
+msgstr "工作流已取消"
+
+msgid "Workflow: start"
+msgstr "工作流：启动"
+
+msgid "Workflow: approve task"
+msgstr "工作流：批准任务"
+
+msgid "Workflow: reject task"
+msgstr "工作流：拒绝任务"
+
+msgid "Workflow: resume task"
+msgstr "工作流：恢复任务"
+
+msgid "Workflow: cancel"
+msgstr "工作流：取消"

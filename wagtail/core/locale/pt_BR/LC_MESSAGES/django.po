@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 13:55+0000\n"
+"PO-Revision-Date: 2021-05-10 10:50+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -370,6 +370,15 @@ msgstr "grupo de permissão de coleção"
 msgid "group collection permissions"
 msgstr "grupo de permissões de coleção"
 
+msgid "workflow"
+msgstr "fluxo de trabalho"
+
+msgid "workflow page"
+msgstr "página de fluxo de trabalho"
+
+msgid "workflow pages"
+msgstr "páginas de fluxo de trabalho"
+
 msgid "task"
 msgstr "tarefa"
 
@@ -378,6 +387,9 @@ msgstr "ativo"
 
 msgid "tasks"
 msgstr "tarefas"
+
+msgid "workflows"
+msgstr "fluxos de trabalho"
 
 msgid "Request changes"
 msgstr "Solicitar mudanças"
@@ -402,6 +414,9 @@ msgstr "Necessita de mudanças"
 
 msgid "Cancelled"
 msgstr "Cancelado"
+
+msgid "status"
+msgstr "status"
 
 msgid "requested by"
 msgstr "solicitado por"

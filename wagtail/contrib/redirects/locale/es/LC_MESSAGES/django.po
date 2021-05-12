@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # Daniel Chimeno <daniel@chimeno.me>, 2016
@@ -20,8 +20,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-04-27 17:04+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,15 @@ msgstr "Redirecciones Wagtail"
 
 msgid "Type"
 msgstr "Tipo"
+
+msgid "Permanent"
+msgstr "Permanente"
+
+msgid "Temporary"
+msgstr "Temporal"
+
+msgid "All"
+msgstr "Todo"
 
 msgid "From site"
 msgstr "Desde el sitio"
@@ -177,11 +186,17 @@ msgstr "Error"
 msgid "Continue"
 msgstr "Continuar"
 
+msgid "Export redirects"
+msgstr "Exportar redirecciones"
+
 msgid "Site"
 msgstr "Sitio"
 
 msgid "Edit this redirect"
 msgstr "Editar esta redirección"
+
+msgid "No redirects found."
+msgstr "No se encontraron redirecciones."
 
 #, python-format
 msgid ""
@@ -253,3 +268,6 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "%(total)d redirecciones importadas"
 msgstr[1] "%(total)d redirecciones importadas"
+
+msgid "Export Redirects"
+msgstr "Exportar Redirecciones"

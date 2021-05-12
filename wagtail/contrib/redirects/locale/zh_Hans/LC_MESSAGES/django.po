@@ -7,14 +7,15 @@
 # Ed <724195301@qq.com>, 2018
 # hanfeng <appweb.cn@gmail.com>, 2014
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# Yin Guanhao <sopium@mysterious.site>, 2021
 # 汇民 王 <whuim@qq.com>, 2017,2019-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-03 04:19+0000\n"
+"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +29,15 @@ msgstr "Wagtail 重定向"
 
 msgid "Type"
 msgstr "类型"
+
+msgid "Permanent"
+msgstr "永久"
+
+msgid "Temporary"
+msgstr "临时的"
+
+msgid "All"
+msgstr "所有"
 
 msgid "From site"
 msgstr "来自站点"
@@ -163,11 +173,17 @@ msgstr "错误"
 msgid "Continue"
 msgstr "继续"
 
+msgid "Export redirects"
+msgstr "导出重定向"
+
 msgid "Site"
 msgstr "站点"
 
 msgid "Edit this redirect"
 msgstr "编辑重定向"
+
+msgid "No redirects found."
+msgstr "没有找到重定向"
 
 #, python-format
 msgid ""
@@ -231,3 +247,6 @@ msgstr "尝试读取文件%(filename)s时遇到%(error)s个错误："
 msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "已导入%(total)d个重定向"
+
+msgid "Export Redirects"
+msgstr "导出重定向"

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2020
+# Amós Oviedo <amos.oviedo@gmail.com>, 2020-2021
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2020
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>, 2020
@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-04-27 16:28+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -92,6 +92,12 @@ msgstr "Publicación programada"
 msgid "Privacy"
 msgstr "Privacidad"
 
+msgid "For search engines"
+msgstr "Para motores de búsqueda"
+
+msgid "For site menus"
+msgstr "Para menús del sitio"
+
 msgid "Content"
 msgstr "Contenido"
 
@@ -160,6 +166,9 @@ msgstr ""
 
 msgid "Collection"
 msgstr "Colección"
+
+msgid "You cannot edit another user's comment."
+msgstr "No puedes editar el comentario de otro usuario."
 
 msgid "New title"
 msgstr "Nuevo título"
@@ -291,6 +300,9 @@ msgstr "Cerrar explorador"
 msgid "Alt text"
 msgstr "Texto alternativo"
 
+msgid "Decorative image"
+msgstr "Imagen decorativa"
+
 msgid "Write here…"
 msgstr "Escribir aquí..."
 
@@ -345,11 +357,53 @@ msgstr "Explorador de página"
 msgid "Save"
 msgstr "Guardar"
 
+msgid "Saving..."
+msgstr "Guardando..."
+
 msgid "Cancel"
 msgstr "Cancelar"
 
+msgid "Deleting..."
+msgstr "Eliminando..."
+
+msgid "Add a comment"
+msgstr "Añadir un comentario"
+
+msgid "Show comments"
+msgstr "Mostrar comentarios"
+
+msgid "Reply"
+msgstr "Responder"
+
+msgid "Resolve"
+msgstr "Resolver"
+
+msgid "Retry"
+msgstr "Reintentar"
+
+msgid "Delete error"
+msgstr "Eliminar error"
+
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+msgid "Save error"
+msgstr "Guardar error"
+
+msgid "This will be saved when the page is saved"
+msgstr "Esto será guardado cuando la página sea guardada"
+
+msgid "Focus comment"
+msgstr "Enfocar comentario"
+
+msgid "Unfocus comment"
+msgstr "Desenfocar comentario"
+
 msgid "Comment"
 msgstr "Comentario"
+
+msgid "More actions"
+msgstr "Más acciones"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Página no encontrada."
@@ -365,6 +419,9 @@ msgstr "Ir al Administrador Wagtail"
 
 msgid "Account"
 msgstr "Cuenta"
+
+msgid "Save account details"
+msgstr "Guardar detalles de la cuenta"
 
 msgid "Change password"
 msgstr "Cambiar contraseña"
@@ -421,6 +478,12 @@ msgstr "Restablecer contraseña"
 
 msgid "Reset your password"
 msgstr "Restablecer tu contraseña"
+
+msgid "Upload a profile picture:"
+msgstr "Cargar una foto de perfil:"
+
+msgid "Reset to default"
+msgstr "Restablecer por defecto"
 
 msgid "Dashboard"
 msgstr "Panel de control"
@@ -559,6 +622,12 @@ msgstr "Subir"
 
 msgid "Move down"
 msgstr "Bajar"
+
+msgid "Add comment"
+msgstr "Añadir comentario"
+
+msgid "Comment notifications"
+msgstr "Notificaciones de comentario"
 
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
@@ -774,6 +843,41 @@ msgstr ""
 "moderación \"%(task)s\" "
 
 #, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s ha actualizado comentarios en \"%(title)s\"."
+
+msgid "New comments"
+msgstr "Comentarios nuevos"
+
+msgid "Resolved comments"
+msgstr "Comentarios resueltos"
+
+msgid "Deleted comments"
+msgstr "Comentarios eliminados"
+
+msgid "New replies"
+msgstr "Respuestas nuevas"
+
+msgid "New replies to:"
+msgstr "Respuestas nuevas a:"
+
+msgid "New comments:"
+msgstr "Comentarios nuevos:"
+
+msgid "Resolved comments:"
+msgstr "Comentarios resueltos:"
+
+msgid "Deleted comments:"
+msgstr "Comentarios eliminados:"
+
+msgid "New replies:"
+msgstr "Respuestas nuevas:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s ha actualizado comentarios en \"%(title)s\""
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
 msgstr ""
 "La página \"%(title)s\" ha sido aprobada en flujo de trabajo \"%(workflow)s"
@@ -806,6 +910,14 @@ msgstr "El siguiente comentario fue dejado: \"%(comment)s\""
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "La página \"%(title)s\" ha sido rechazada durante \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"La página \"%(title)s\" ha sido enviado para moderación al flujo de trabajo "
+"\"%(workflow)s\" por %(requester)s."
 
 #, python-format
 msgid ""
@@ -849,6 +961,18 @@ msgstr "Privacidad de página. Estado actual: Público"
 
 msgid "Page privacy. Current status: Private"
 msgstr "Privacidad de página. Estado actual: Privado"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Tienes <span>ediciones no guardadas</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Tienes <span>comentarios no guardados</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "Tienes <span>ediciones no guardadas</span> y <span>comentarios</span>"
+
+msgid "Save the page before leaving"
+msgstr "Guardar la página antes de salir"
 
 msgid "Publishing…"
 msgstr "Publicando..."
@@ -1899,8 +2023,29 @@ msgstr "borrador"
 msgid "Test"
 msgstr "Prueba"
 
+msgid "Profile"
+msgstr "Perfil"
+
+msgid "Notifications"
+msgstr "Notificaciones"
+
+msgid "Name and Email"
+msgstr "Nombre y Correo Electrónico"
+
+msgid "Profile picture"
+msgstr "Foto de perfil"
+
+msgid "Locale"
+msgstr "Región"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "¡La configuración de tu cuenta se ha cambiado correctamente!"
+
 msgid "You have been successfully logged out."
-msgstr "Ha cerrado sesión exitosamente."
+msgstr "Se ha cerrado sesión correctamente."
 
 msgid "Collections"
 msgstr "Colecciones"

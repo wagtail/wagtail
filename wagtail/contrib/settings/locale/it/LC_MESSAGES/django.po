@@ -3,8 +3,8 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Carlo Miron <C8E@miron.it>, 2016
-# Carlo Miron <C8E@miron.it>, 2016
+# Carlo Miron <carlo@miron.it>, 2016
+# Carlo Miron <carlo@miron.it>, 2016
 # Edd Baldry <edd.baldry@gmail.com>, 2016
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
