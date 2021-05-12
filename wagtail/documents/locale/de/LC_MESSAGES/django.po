@@ -11,6 +11,7 @@
 # karlsander <karlsander@gmail.com>, 2014
 # Matthias Martin, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# oliverengel <imwebunterwegs@icloud.com>, 2021
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
@@ -22,8 +23,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-02 19:13+0000\n"
+"Last-Translator: oliverengel <imwebunterwegs@icloud.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +50,12 @@ msgstr "Bearbeiten"
 
 msgid "Edit any document"
 msgstr "Jedes Dokument bearbeiten"
+
+msgid "Choose"
+msgstr "Auswählen"
+
+msgid "Select documents in choosers"
+msgstr "Wähle Dokumente im Chooser aus"
 
 msgid "title"
 msgstr "Titel"
@@ -272,6 +279,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Entschuldigung, der Upload ist fehlgeschlagen."
+
+msgid "Document updated."
+msgstr "Dokument aktualisiert."
 
 msgid "You need a password to access this document."
 msgstr "Sie benötigen ein Passwort um dieses Dokument aufzurufen."

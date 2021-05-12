@@ -23,6 +23,7 @@
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # Norman Uekermann <nue@melexis.com>, 2019
+# oliverengel <imwebunterwegs@icloud.com>, 2021
 # pcraston <patrick@craston.com>, 2014
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # pcraston <patrick@craston.com>, 2014
@@ -37,8 +38,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-02 19:11+0000\n"
+"Last-Translator: oliverengel <imwebunterwegs@icloud.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -359,6 +360,12 @@ msgstr "Speichern"
 msgid "Cancel"
 msgstr "Abbrechen"
 
+msgid "Add a comment"
+msgstr "Ein Kommentar hinzufügen"
+
+msgid "Show comments"
+msgstr "Kommentare zeigen"
+
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -576,6 +583,9 @@ msgstr "Nach oben"
 msgid "Move down"
 msgstr "Nach unten"
 
+msgid "Add comment"
+msgstr "Kommentar hinzufügen"
+
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
 
@@ -786,6 +796,24 @@ msgid ""
 msgstr ""
 "Die Seite „%(title)s“ wurde zur Freigabe in Moderationsphase „%(task)s“ "
 "eingereicht."
+
+msgid "New comments"
+msgstr "Neue Kommentare"
+
+msgid "Resolved comments"
+msgstr "Gelöste Kommentare"
+
+msgid "Deleted comments"
+msgstr "Gelöschte Kommentare"
+
+msgid "New comments:"
+msgstr "Neue Kommentare:"
+
+msgid "Resolved comments:"
+msgstr "Gelöste Kommentare:"
+
+msgid "Deleted comments:"
+msgstr "Gelöschte Kommentare:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."

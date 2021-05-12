@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-22 19:02+0000\n"
+"PO-Revision-Date: 2021-04-30 09:28+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
@@ -86,6 +86,12 @@ msgstr "Geplande publicatie"
 
 msgid "Privacy"
 msgstr "Privacy"
+
+msgid "For search engines"
+msgstr "Voor zoekmachines"
+
+msgid "For site menus"
+msgstr "Voor site menu's"
 
 msgid "Content"
 msgstr "Inhoud"
@@ -158,7 +164,7 @@ msgid "Collection"
 msgstr "Collectie"
 
 msgid "You cannot edit another user's comment."
-msgstr "Je kunt het commentaar van een andere gebruiker niet wijzigen."
+msgstr "Je kunt opmerkingen  van een andere gebruiker niet wijzigen."
 
 msgid "New title"
 msgstr "Nieuwe titel"
@@ -295,6 +301,9 @@ msgstr "Sluit verkenner"
 msgid "Alt text"
 msgstr "Alt tekst"
 
+msgid "Decorative image"
+msgstr "Decoratieve afbeelding"
+
 msgid "Write here…"
 msgstr "Schrijf hier..."
 
@@ -349,17 +358,47 @@ msgstr "Paginaverkenner"
 msgid "Save"
 msgstr "Opslaan"
 
+msgid "Saving..."
+msgstr "Bezig met opslaan..."
+
 msgid "Cancel"
 msgstr "Annuleren"
 
+msgid "Deleting..."
+msgstr "Bezig met verwijderen..."
+
 msgid "Add a comment"
-msgstr "Voeg commentaar toe"
+msgstr "Voeg opmerking toe"
 
 msgid "Show comments"
-msgstr "Toon commentaar"
+msgstr "Toon opmerkingen"
 
 msgid "Reply"
 msgstr "Reageer"
+
+msgid "Resolve"
+msgstr "Markeer als opgelost"
+
+msgid "Retry"
+msgstr "Opnieuw proberen"
+
+msgid "Delete error"
+msgstr "Verwijder fout"
+
+msgid "Are you sure?"
+msgstr "Weet je het zeker?"
+
+msgid "Save error"
+msgstr "Opslaan mislukt"
+
+msgid "This will be saved when the page is saved"
+msgstr "Dit wordt opgeslagen als de pagina wordt opgeslagen"
+
+msgid "Focus comment"
+msgstr "Focus opmerking"
+
+msgid "Unfocus comment"
+msgstr "Ontfocus opmerking"
 
 msgid "Comment"
 msgstr "Opmerking"
@@ -381,6 +420,9 @@ msgstr "Ga naar de Wagtail admin"
 
 msgid "Account"
 msgstr "Account"
+
+msgid "Save account details"
+msgstr "Account details opslaan"
 
 msgid "Change password"
 msgstr "Wijzig wachtwoord"
@@ -436,6 +478,12 @@ msgstr "Wachtwoord herstel"
 
 msgid "Reset your password"
 msgstr "Reset uw wachtwoord"
+
+msgid "Upload a profile picture:"
+msgstr "Upload een profiel foto:"
+
+msgid "Reset to default"
+msgstr "Reset naar standaard foto"
 
 msgid "Dashboard"
 msgstr "Dashboard"
@@ -576,6 +624,12 @@ msgstr "Verplaats naar boven"
 
 msgid "Move down"
 msgstr "Verplaats naar beneden"
+
+msgid "Add comment"
+msgstr "Voeg opmerking toe"
+
+msgid "Comment notifications"
+msgstr "Opmerkingen notificaties"
 
 msgid "Yes, delete"
 msgstr "Ja, verwijderen"
@@ -786,8 +840,40 @@ msgstr ""
 "De pagina \"%(title)s\" is ingediend ter goedkeuring in beoordelingsfase "
 "\"%(task)s\""
 
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)sheeft opmerkingen op \"%(title)s\" gewijzigd."
+
+msgid "New comments"
+msgstr "Nieuwe opmerkingen"
+
+msgid "Resolved comments"
+msgstr "Opgeloste opmerkingen"
+
+msgid "Deleted comments"
+msgstr "Verwijderde opmerkingen"
+
 msgid "New replies"
 msgstr "Nieuwe reacties"
+
+msgid "New replies to:"
+msgstr "Nieuwe reacties op:"
+
+msgid "New comments:"
+msgstr "Nieuwe opmerkingen:"
+
+msgid "Resolved comments:"
+msgstr "Opgeloste opmerkingen:"
+
+msgid "Deleted comments:"
+msgstr "Verwijderde opmerkingen:"
+
+msgid "New replies:"
+msgstr "Nieuwe reacties:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)sheeft opmerkingen op \"%(title)s\" gewijzigd"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
@@ -820,6 +906,14 @@ msgstr "De volgende reactie is toegevoegd: \"%(comment)s\""
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "De pagina \"%(title)s\" is afgekeurd in \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"De pagina \"%(title)s\" is ingediend ter goedkeuring in workflow "
+"\"%(workflow)s\" door %(requester)s."
 
 #, python-format
 msgid ""
@@ -864,6 +958,19 @@ msgstr "Privacy-status van deze pagina. Huidige status: Openbaar"
 
 msgid "Page privacy. Current status: Private"
 msgstr "Privacy-status van deze pagina. Huidige status: Privé "
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "U heeft <span> niet-opgeslagen wijzigingen</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "U heeft<span>niet-opgeslagen opmerkingen</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr ""
+"U heeft <span>niet-opgeslagen wijzigingen</span> en <span>opmerkingen</span>"
+
+msgid "Save the page before leaving"
+msgstr "Sla de pagina op voordat u deze verlaat"
 
 msgid "Publishing…"
 msgstr "Bezig met publiceren..."
@@ -1905,6 +2012,24 @@ msgstr "concept"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Profile"
+msgstr "Profiel"
+
+msgid "Notifications"
+msgstr "Notificaties"
+
+msgid "Name and Email"
+msgstr "Naam en e-mail"
+
+msgid "Profile picture"
+msgstr "Profielfoto"
+
+msgid "Locale"
+msgstr "Taalregio"
+
+msgid "Password"
+msgstr "Wachtwoord"
 
 msgid "Your account settings have been changed successfully!"
 msgstr "Uw accountinstellingen zijn succesvol opgeslagen!"

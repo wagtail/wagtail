@@ -14,6 +14,7 @@
 # Aosp T, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # yi huang <yi.codeplayer@gmail.com>, 2018
+# Yin Guanhao <sopium@mysterious.site>, 2021
 # 祝沙军 <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017,2019-2020
 # 祝沙军 <zhushajun@gmail.com>, 2016
@@ -22,8 +23,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-03 04:32+0000\n"
+"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -106,6 +107,14 @@ msgstr "已拒绝通知"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "当您的页面编辑动作被拒绝时接收提醒。"
+
+msgid "updated comments notifications"
+msgstr "更新的评论通知"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr "在您订阅了评论通知的页面中有评论被创建、解决或删除时接收通知"
 
 msgid "preferred language"
 msgstr "首选语言"

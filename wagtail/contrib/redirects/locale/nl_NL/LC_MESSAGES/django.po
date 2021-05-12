@@ -6,14 +6,15 @@
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2020
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018
 # Meteor0id, 2018
+# Storm Heg <storm@stormbase.digital>, 2021
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-04-30 09:03+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +28,15 @@ msgstr "Wagtail redirects"
 
 msgid "Type"
 msgstr "Type"
+
+msgid "Permanent"
+msgstr "Permanent"
+
+msgid "Temporary"
+msgstr "Tijdelijk"
+
+msgid "All"
+msgstr "Alle"
 
 msgid "From site"
 msgstr "Vanaf site"
@@ -166,11 +176,17 @@ msgstr "Fout"
 msgid "Continue"
 msgstr "Doorgaan"
 
+msgid "Export redirects"
+msgstr "Exporteer redirects"
+
 msgid "Site"
 msgstr "Site"
 
 msgid "Edit this redirect"
 msgstr "Wijzig deze redirect"
+
+msgid "No redirects found."
+msgstr "Geen redirects gevonden"
 
 #, python-format
 msgid ""
@@ -241,3 +257,6 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "%(total)d redirect geïmporteerd"
 msgstr[1] "%(total)d redirects geïmporteerd"
+
+msgid "Export Redirects"
+msgstr "Exporteer Redirects"

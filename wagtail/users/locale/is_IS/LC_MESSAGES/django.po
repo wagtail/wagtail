@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021
 # saevarom <saevar@saevar.is>, 2017-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-04-30 09:25+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -98,6 +98,16 @@ msgstr "höfnunar tilkynningar"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Fá sendar tilkynningar þegar breytingar sem þú gerir á síðu er hafnað"
+
+msgid "updated comments notifications"
+msgstr "uppfærðar athugasemda tilkynningar"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Fáðu tilkynningar þegar athugasemdir hafa verið gerðar, leyst úr eða eytt á "
+"síðu sem þú hefur skráð þig fyrir tilkynningum frá."
 
 msgid "preferred language"
 msgstr "kjör tungumál"

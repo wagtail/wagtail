@@ -7,14 +7,15 @@
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018
 # Meteor0id, 2018-2019
+# Storm Heg <storm@stormbase.digital>, 2021
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-04-30 09:01+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -71,6 +72,21 @@ msgstr "Links uitgelijnd"
 
 msgid "Right-aligned"
 msgstr "Rechts uitgelijnd"
+
+msgid "Collection"
+msgstr "Collectie"
+
+msgid "Format"
+msgstr "Formaat"
+
+msgid "Image is decorative"
+msgstr "Afbeelding is decoratief"
+
+msgid "Alt text"
+msgstr "Alt tekst"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr "Voeg alt tekst toe of markeer de afbeelding als decoratief"
 
 msgid "Filter"
 msgstr "Filter"

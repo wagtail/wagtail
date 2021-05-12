@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Amós Oviedo <amos.oviedo@gmail.com>, 2021
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-21 09:32+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2021\n"
+"Language-Team: Spanish (https://www.transifex.com/torchbox/teams/8009/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Traducción simple de Wagtail"
+
+msgid "Select all"
+msgstr "Seleccionar todo"
+
+msgid "Locales"
+msgstr "Regiones"
+
+msgid "All child pages will be created."
+msgstr "Todas las páginas hijas serán creadas."
+
+msgid "Include subtree ({} page)"
+msgid_plural "Include subtree ({} pages)"
+msgstr[0] "Incluir subárbol ({} página)"
+msgstr[1] "Incluir subárbol ({} páginas)"
+
+msgid "Submit"
+msgstr "Enviar"
+
+msgid "Translate"
+msgstr "Traducir"
+
+msgid "{} locales"
+msgstr "{} regiones"
+
+msgid "Translate page"
+msgstr "Traducir página"
+
+msgid "The page '{page_title}' was successfully created in {locales}"
+msgstr "La página '{page_title}' fue creada con éxito en {locales}"
+
+msgid "Translate {model_name}"
+msgstr "Traducir {model_name}"
+
+msgid "Successfully created {locales} for {model_name} '{object}'"
+msgstr "Creado con éxito {locales} para {model_name} '{object}'"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Traducir '%(title)s'"

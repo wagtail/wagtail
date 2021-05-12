@@ -7,16 +7,17 @@
 # Ed <724195301@qq.com>, 2018
 # Feng Wang <wangfeng.w@gmail.com>, 2015
 # First Last <abc+github@mynook.info>, 2019
-# GH Y <sopium@mysterious.site>, 2020
+# Yin Guanhao <sopium@mysterious.site>, 2020
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
+# Yin Guanhao <sopium@mysterious.site>, 2021
 # 汇民 王 <whuim@qq.com>, 2017-2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-03 04:18+0000\n"
+"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -70,6 +71,21 @@ msgstr "左对齐"
 msgid "Right-aligned"
 msgstr "右对齐"
 
+msgid "Collection"
+msgstr "集合"
+
+msgid "Format"
+msgstr "格式化"
+
+msgid "Image is decorative"
+msgstr "图片是装饰性的"
+
+msgid "Alt text"
+msgstr "替代文本"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr "请为您的图片添加替代文本，或将其标记为装饰性的。"
+
 msgid "Filter"
 msgstr "过滤器"
 
@@ -111,6 +127,12 @@ msgstr "编辑"
 
 msgid "Edit any image"
 msgstr "编辑任意图片"
+
+msgid "Choose"
+msgstr "选择"
+
+msgid "Select images in choosers"
+msgstr "在选择器中选择图片"
 
 msgid "title"
 msgstr "标题"

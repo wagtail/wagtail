@@ -10,6 +10,7 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# oliverengel <imwebunterwegs@icloud.com>, 2021
 # pcraston <patrick@craston.com>, 2014
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # pcraston <patrick@craston.com>, 2014
@@ -22,8 +23,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-02 19:18+0000\n"
+"Last-Translator: oliverengel <imwebunterwegs@icloud.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +38,15 @@ msgstr "Wagtail Umleitungen"
 
 msgid "Type"
 msgstr "Typ"
+
+msgid "Permanent"
+msgstr "Permanent"
+
+msgid "Temporary"
+msgstr "Temporär"
+
+msgid "All"
+msgstr "Alle"
 
 msgid "From site"
 msgstr "Von Website"
@@ -179,11 +189,17 @@ msgstr "Fehler"
 msgid "Continue"
 msgstr "Weiter"
 
+msgid "Export redirects"
+msgstr "Weiterleitungen exportieren"
+
 msgid "Site"
 msgstr "Seite"
 
 msgid "Edit this redirect"
 msgstr "Diese Weiterleitung bearbeiten"
+
+msgid "No redirects found."
+msgstr "Keine Weiterleitungen gefunden."
 
 #, python-format
 msgid ""
@@ -253,3 +269,6 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "%(total)d Weiterleitung wurde importiert."
 msgstr[1] "%(total)d Weiterleitungen wurden importiert."
+
+msgid "Export Redirects"
+msgstr "Weiterleitungen exportieren"

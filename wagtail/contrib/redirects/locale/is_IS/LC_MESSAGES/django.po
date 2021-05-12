@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018,2020
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2016,2018,2020-2021
 # saevarom <saevar@saevar.is>, 2015,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-04-29 13:14+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,15 @@ msgstr "Wagtail tilvísanir"
 
 msgid "Type"
 msgstr "Tegund"
+
+msgid "Permanent"
+msgstr "Endanleg"
+
+msgid "Temporary"
+msgstr "Tímabundin"
+
+msgid "All"
+msgstr "Allar"
 
 msgid "From site"
 msgstr "Frá síðu"
@@ -164,11 +173,17 @@ msgstr "Villa"
 msgid "Continue"
 msgstr "Áfram"
 
+msgid "Export redirects"
+msgstr "Flytja út tilvísanir"
+
 msgid "Site"
 msgstr "Síðu"
 
 msgid "Edit this redirect"
 msgstr "Breyta þessari tilvísun"
+
+msgid "No redirects found."
+msgstr "Engar tilvísanir fundust"
 
 #, python-format
 msgid ""
@@ -239,3 +254,6 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Las inn %(total)d tilvísun"
 msgstr[1] "Las inn %(total)d tilvísanir"
+
+msgid "Export Redirects"
+msgstr "Flytja út tilvísanir"

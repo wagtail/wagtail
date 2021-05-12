@@ -7,14 +7,15 @@
 # Franklin Kingma <franklin@statix.net>, 2015
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018,2020
 # Meteor0id, 2018,2021
+# Storm Heg <storm@stormbase.digital>, 2021
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 11:09+0000\n"
-"Last-Translator: Meteor0id\n"
+"PO-Revision-Date: 2021-04-30 08:58+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +35,12 @@ msgstr "Omhoog"
 
 msgid "Move down"
 msgstr "Omlaag"
+
+msgid "Duplicate"
+msgstr "Dupliceer"
+
+msgid "Delete"
+msgstr "Verwijder"
 
 msgid "Add"
 msgstr "Toevoegen"
@@ -64,6 +71,10 @@ msgstr "Het wachtwoord dat u heeft ingevuld is niet juist. Probeer opnieuw."
 
 msgid "Comment"
 msgstr "Opmerking"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Onbekend %(action)s"
 
 msgid "hostname"
 msgstr "hostname"
@@ -147,6 +158,16 @@ msgstr "URL pad"
 msgid "owner"
 msgstr "eigenaar"
 
+msgid "title tag"
+msgstr "titel tag"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"De naam van de pagina wordt in zoekmachine resultaten als klikbare kop "
+"getoond."
+
 msgid "show in menus"
 msgstr "toon in menu's"
 
@@ -155,6 +176,15 @@ msgid ""
 msgstr ""
 "Indien aangevinkt komt er een link naar deze pagina in automatisch "
 "gegenereerde menu's te staan."
+
+msgid "meta description"
+msgstr "meta beschrijving"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"De beschrijving die getoont wordt onder de kop in de zoekmachine resultaten."
 
 msgid "go live date/time"
 msgstr "Publiceer op"
@@ -480,6 +510,9 @@ msgstr "logboekvermelding"
 msgid "log entries"
 msgstr "logboekvermeldingen"
 
+msgid "The log action '{}' has not been registered."
+msgstr "De logboek actie '{}' is niet geregistreerd."
+
 #, python-format
 msgid "user %(id)d (deleted)"
 msgstr "gebruiker %(id)d (verwijderd)"
@@ -492,6 +525,18 @@ msgstr "pagina-logboekvermelding"
 
 msgid "page log entries"
 msgstr "pagina-logboekvermeldingen"
+
+msgid "comment"
+msgstr "opmerking"
+
+msgid "comments"
+msgstr "opmerkingen"
+
+msgid "comment reply"
+msgstr "opmerking reactie"
+
+msgid "comment replies"
+msgstr "opmerking reacties"
 
 msgid "Log in"
 msgstr "Inloggen"
@@ -530,3 +575,240 @@ msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s onderliggende collectie"
 msgstr[1] "%(count)s onderliggende collecties"
+
+msgid "Create"
+msgstr "Aanmaken"
+
+msgid "Created"
+msgstr "Aangemaakt"
+
+msgid "Save draft"
+msgstr "Bewaar concept"
+
+msgid "Draft saved"
+msgstr "Concept opgeslagen"
+
+msgid "Deleted"
+msgstr "Verwijderd"
+
+msgid "Published"
+msgstr "Gepubliceerd"
+
+msgid "Publish scheduled draft"
+msgstr "Publiceer concept volgens planning"
+
+msgid "Published scheduled draft"
+msgstr "Concept gepubliceerd volgens planning"
+
+msgid "Unpublish"
+msgstr "Publicatie intrekken"
+
+msgid "Unpublished"
+msgstr "Publicatie ongedaan maken"
+
+msgid "Unpublish scheduled draft"
+msgstr "Trek concept met planning terug"
+
+msgid "Unpublished scheduled draft"
+msgstr "Concept met planning teruggetrokken"
+
+msgid "Locked"
+msgstr "Geblokkeerd"
+
+msgid "Unlocked"
+msgstr "Gedeblokkeerd"
+
+msgid "Reject"
+msgstr "Keur af"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Teruggedraaid naar vorige revisie met id %(revision_id)s van %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Ga terug naar vorige versie"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Gekopieerd van %(title)s"
+
+msgid "Copied"
+msgstr "Gekopieerd"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Een alias naar %(title)s is aangemaakt"
+
+msgid "Created an alias"
+msgstr "Een alias is aangemaakt"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Converteer de alias '%(title)s' naar een normale pagina"
+
+msgid "Converted an alias into a regular page"
+msgstr "Converteer een alias naar een normale pagina"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Verplaatst van '%(old_parent)s' naar '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Verplaatst"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Volgorde gewijzigd onder '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Volgorde gewijzigd"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisie %(revision_id)s van %(created_at)s ingepland voor publicatie op "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Pagina ingepland voor publicatie op %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Pagina is ingepland voor publicatie"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisie %(revision_id)s van %(created_at)s is niet meer ingepland voor "
+"publicatie op %(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Pagina niet meer ingepland voor publicatie op %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Pagina niet meer ingepland voor publicatie"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Weergavebeperking '%(restriction)s' toegevoegd"
+
+msgid "Added view restriction"
+msgstr "Weergavebeperking toegevoegd"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Wijzig de weergavebeperking in '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Weergavebeperking is gewijzigd"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "De weergavebeperking '%(restriction)s' is verwijderd"
+
+msgid "Removed view restriction"
+msgstr "Verwijderde weergavebeperking"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Hernoemd van '%(old)s' naar '%(new)s'"
+
+msgid "Renamed"
+msgstr "Hernoemd"
+
+msgid "Rename"
+msgstr "Hernoem"
+
+msgid "Revert"
+msgstr "Ongedaan maken"
+
+msgid "Copy"
+msgstr "Kopiëren"
+
+msgid "Create alias"
+msgstr "Alias aanmaken"
+
+msgid "Convert alias into regular page"
+msgstr "Converteer alias naar een normale pagina"
+
+msgid "Move"
+msgstr "Verplaats"
+
+msgid "Reorder"
+msgstr "Volgorde gewijzigd"
+
+msgid "Schedule publication"
+msgstr "Publicatie plannen"
+
+msgid "Unschedule publication"
+msgstr "Publicatie planning verwijderen"
+
+msgid "Add view restrictions"
+msgstr "Voeg weergavebeperkingen toe"
+
+msgid "Update view restrictions"
+msgstr "Wijzig weergavebeperkingen"
+
+msgid "Remove view restrictions"
+msgstr "Verwijder weergavebeperkingen"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' gestart. Volgende stap '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Workflow gestart"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Goedgekeurd op '%(task)s'. Volgende stap '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Goedgekeurd op '%(task)s'. '%(workflow)s' afgerond"
+
+msgid "Workflow task approved"
+msgstr "Workflow-taak goedgekeurd"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Afgekeurd op '%(task)s'. Wijziging verzocht"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Workflow-taak afgekeurd. Workflow complete"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "Opnieuw ingediend '%(task)s'. Workflow hervat'"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Workflow-taak opnieuw ingediend. Workflow hervat"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Geannuleerd '%(workflow)s' op '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Workflow geannuleerd"
+
+msgid "Workflow: start"
+msgstr "Workflow: start"
+
+msgid "Workflow: approve task"
+msgstr "Workflow: taak goedkeuren"
+
+msgid "Workflow: reject task"
+msgstr "Workflow: taak afkeuren"
+
+msgid "Workflow: resume task"
+msgstr "Workflow: taak hervatten"
+
+msgid "Workflow: cancel"
+msgstr "Workflow: annuleren"
