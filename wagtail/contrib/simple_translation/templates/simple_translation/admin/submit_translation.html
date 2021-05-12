@@ -21,9 +21,11 @@
                         {% include "wagtailadmin/shared/field_as_li.html" %}
                     {% endfor %}
                 {% endblock %}
-                <li>
-                    <input type="submit" value="{% trans 'Submit' %}" class="button" />
-                </li>
+                {% if form.show_submit %}
+                    <li>
+                        <input type="submit" value="{% trans 'Submit' %}" class="button" />
+                    </li>
+                {% endif %}
             </ul>
         </form>
     </div>
@@ -40,7 +42,9 @@
 
             selectAll.addEventListener('change', function() {
                 for (var i = 0; i < locales.length; i++) {
-                    locales[i].checked = selectAll.checked;
+                    if (locales[i].disabled === false) {
+                        locales[i].checked = selectAll.checked;
+                    }
                 }
             });
         });
