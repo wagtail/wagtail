@@ -83,7 +83,7 @@
             > .details-fallback > .details-fallback__summary {  // IE11 uses divs instead with these classes
                 color: #767676;
 
-                 // stylelint-disable-next-line max-nesting-depth
+                // stylelint-disable-next-line max-nesting-depth
                 &:hover {
                     color: $color-grey-25;
                 }

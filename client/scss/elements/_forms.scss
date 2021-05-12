@@ -44,6 +44,11 @@ label,
         float: none;
     }
 
+    &.disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
     @include media-breakpoint-up(sm) {
         @include column(2);
         padding-top: 1.2em;
@@ -215,6 +220,10 @@ input[type=checkbox]:before {
 
 input[type=checkbox]:checked:before {
     color: $color-teal;
+}
+
+input[type=checkbox][disabled]:before {
+    cursor: not-allowed;
 }
 
 
