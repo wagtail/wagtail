@@ -13,7 +13,7 @@ Changelog
  * Fix: The Wagtail admin urls will now respect the `APPEND_SLASH` setting (Tidjani Dia)
 
 
-2.13 (xx.xx.xxxx) - IN DEVELOPMENT
+2.13 (12.05.2021)
 ~~~~~~~~~~~~~~~~~
 
  * New StreamField implementation with performance and functionality improvements (Matt Westcott, Karl Hobley)
