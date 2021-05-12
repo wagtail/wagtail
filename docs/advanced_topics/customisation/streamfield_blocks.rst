@@ -31,7 +31,7 @@ You can then provide custom CSS for this block, targeted at the specified classn
 For more extensive customisations that require changes to the HTML markup as well, you can override the ``form_template`` attribute in ``Meta`` to specify your own template path. The following variables are available on this template:
 
 ``children``
-  An ``OrderedDict`` of ``BoundBlock``\s for all of the child blocks making up this ``StructBlock``; typically your template will call ``render_form`` on each of these.
+  An ``OrderedDict`` of ``BoundBlock``\s for all of the child blocks making up this ``StructBlock``.
 
 ``help_text``
   The help text for this block, if specified.
@@ -63,6 +63,142 @@ To add additional variables, you can override the block's ``get_form_context`` m
         class Meta:
             icon = 'user'
             form_template = 'myapp/block_forms/person.html'
+
+
+A form template for a StructBlock must include the output of ``render_form`` for each child block in the ``children`` dict, inside a container element with a ``data-contentpath`` attribute equal to the block's name. This attribute is used by the commenting framework to attach comments to the correct fields. The StructBlock's form template is also responsible for rendering labels for each field, but this (and all other HTML markup) can be customised as you see fit. The template below replicates the default StructBlock form rendering:
+
+.. code-block:: html+django
+
+    {% load wagtailadmin_tags  %}
+
+    <div class="{{ classname }}">
+        {% if help_text %}
+            <span>
+                <div class="help">
+                    {% icon name="help" class_name="default" %}
+                    {{ help_text }}
+                </div>
+            </span>
+        {% endif %}
+
+        {% for child in children.values %}
+            <div class="field {% if child.block.required %}required{% endif %}" data-contentpath="{{ child.block.name }}">
+                {% if child.block.label %}
+                    <label class="field__label" {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>{{ child.block.label }}</label>
+                {% endif %}
+                {{ child.render_form }}
+            </div>
+        {% endfor %}
+    </div>
+
+.. versionadded:: 2.13
+
+    The ``data-contentpath`` attribute is now required on a containing element around the ``render_form`` output.
+
+
+Additional JavaScript on ``StructBlock`` forms
+----------------------------------------------
+
+Often it may be desirable to attach custom JavaScript behaviour to a StructBlock form. For example, given a block such as:
+
+.. code-block:: python
+
+    class AddressBlock(StructBlock):
+        street = CharBlock()
+        town = CharBlock()
+        state = CharBlock(required=False)
+        country = ChoiceBlock(choices=[
+            ('us', 'United States'),
+            ('ca', 'Canada'),
+            ('mx', 'Mexico'),
+        ])
+
+we may wish to disable the 'state' field when a country other than United States is selected. Since new blocks can be added dynamically, we need to integrate with StreamField's own front-end logic to ensure that our custom JavaScript code is executed when a new block is initialised.
+
+StreamField uses the `telepath <https://wagtail.github.io/telepath/>`__ library to map Python block classes such as ``StructBlock`` to a corresponding JavaScript implementation. These JavaScript implementations can be accessed through the ``window.wagtailStreamField.blocks`` namespace, as the following classes:
+
+* ``FieldBlockDefinition``
+* ``ListBlockDefinition``
+* ``StaticBlockDefinition``
+* ``StreamBlockDefinition``
+* ``StructBlockDefinition``
+
+First, we define a telepath adapter for ``AddressBlock``, so that it uses our own JavaScript class in place of the default ``StructBlockDefinition``. This can be done in the same module as the ``AddressBlock`` definition:
+
+.. code-block:: python
+
+    from wagtail.core.blocks.struct_block import StructBlockAdapter
+    from wagtail.core.telepath import register
+    from django import forms
+    from django.utils.functional import cached_property
+
+    class AddressBlockAdapter(StructBlockAdapter):
+        js_constructor = 'myapp.blocks.AddressBlock'
+
+        @cached_property
+        def media(self):
+            structblock_media = super().media
+            return forms.Media(
+                js=structblock_media._js + ['js/address-block.js'],
+                css=structblock_media._css
+            )
+
+    register(AddressBlockAdapter(), AddressBlock)
+
+
+Here ``'myapp.blocks.AddressBlock'`` is the identifier for our JavaScript class that will be registered with the telepath client-side code, and ``'js/address-block.js'`` is the file that defines it (as a path within any static file location recognised by Django). This implementation subclasses StructBlockDefinition and adds our custom code to the ``render`` method:
+
+.. code-block:: javascript
+
+    class AddressBlockDefinition extends window.wagtailStreamField.blocks.StructBlockDefinition {
+        render(placeholder, prefix, initialState, initialError) {
+            const block = super.render(placeholder, prefix, initialState, initialError);
+
+            const stateField = $(document).find('#' + prefix + '-state');
+            const countryField = $(document).find('#' + prefix + '-country');
+            const updateStateInput = () => {
+                if (countryField.val() == 'us') {
+                    stateField.removeAttr('disabled');
+                } else {
+                    stateField.attr('disabled', true);
+                }
+            }
+            updateStateInput();
+            countryField.on('change', updateStateInput);
+
+            return block;
+        }
+    }
+    window.telepath.register('myapp.blocks.AddressBlock', AddressBlockDefinition);
+
+Note that this code makes use of ES6 language features that are unavailable in IE11 - if IE11 support is required, this could be rewritten as:
+
+.. code-block:: javascript
+
+    function AddressBlockDefinition() {
+        window.wagtailStreamField.blocks.StructBlockDefinition.apply(this, arguments);
+    }
+
+    AddressBlockDefinition.prototype.render = function(placeholder, prefix, initialState, initialError) {
+        var block = window.wagtailStreamField.blocks.StructBlockDefinition.prototype.render.apply(
+            this, arguments
+        );
+
+        var stateField = $(document).find('#' + prefix + '-state');
+        var countryField = $(document).find('#' + prefix + '-country');
+        function updateStateInput() {
+            if (countryField.val() == 'us') {
+                stateField.removeAttr('disabled');
+            } else {
+                stateField.attr('disabled', true);
+            }
+        }
+        updateStateInput();
+        countryField.on('change', updateStateInput);
+
+        return block;
+    }
+    window.telepath.register('myapp.blocks.AddressBlock', AddressBlockDefinition);
 
 
 .. _custom_value_class_for_structblock:
