@@ -7,6 +7,7 @@ import { MainMenuModuleDefinition } from './modules/MainMenu';
 import { PageExplorerMenuItemDefinition } from './menu/PageExplorerMenuItem';
 import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
 import { SubMenuItemDefinition } from './menu/SubMenuItem';
+import SVGIconSprite from '../SVGIconSprite';
 
 export default { title: 'Sidebar/Sidebar', parameters: { layout: 'fullscreen' } };
 
@@ -194,6 +195,7 @@ export function sidebar() {
 
   return (
     <div className="wrapper">
+      <SVGIconSprite />
       <Sidebar modules={modules} currentPath={currentPath} navigate={navigate} />
       <main id="main" className="content-wrapper" role="main">
         <div className="content">
