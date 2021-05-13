@@ -23,6 +23,7 @@ import CommentComponent from '../components/Comment/index';
 // Requires Wagtail static to be built, so raises error on CI
 // eslint-disable-next-line import/no-unresolved
 import '../../../../../wagtail/admin/static/wagtailadmin/css/core.css';
+import SVGIconSprite from '../../SVGIconSprite';
 
 export function RenderCommentsForStorybook({
   store,
@@ -62,7 +63,10 @@ export function RenderCommentsForStorybook({
   ));
 
   return (
-    <ol className="comments-list">{commentsRendered}</ol>
+    <>
+      <SVGIconSprite />
+      <ol className="comments-list">{commentsRendered}</ol>
+    </>
   );
 }
 
