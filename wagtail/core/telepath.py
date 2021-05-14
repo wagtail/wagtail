@@ -26,7 +26,7 @@ def register(adapter, cls):
 
 def adapter(js_constructor, base=Adapter):
     """
-    Allows a class to implement its adapting logic with an `adapt()` method on the class itself.
+    Allows a class to implement its adapting logic with a `js_args()` method on the class itself.
     This just helps reduce the amount of code you have to write.
 
     For example:
