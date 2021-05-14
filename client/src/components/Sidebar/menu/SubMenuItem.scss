@@ -31,12 +31,12 @@
 
     @include transition(left 0.3s ease);
 
-    h2,
+    > h2,
     &__list {
         width: $menu-width;
     }
 
-    h2 {
+    > h2 {
         display: block;
         padding: 0.2em 0;
         font-size: 1.2em;
@@ -55,12 +55,25 @@
         }
     }
 
-    ul {
+    > ul,
+    ul > li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    ul > li {
+        position: relative;
+
+        @include transition(border-color 0.3s ease);
+    }
+
+    > ul {
         overflow: auto;
         flex-grow: 1;
     }
 
-    li {
+    > ul >li {
         border: 0;
     }
 
