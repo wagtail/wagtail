@@ -20,6 +20,8 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import PagesSummaryItem
+from wagtail.admin.ui.sidebar import PageExplorerMenuItem as PageExplorerMenuItemComponent
+from wagtail.admin.ui.sidebar import SettingsMenuItem as SettingsMenuItemComponent
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
@@ -44,6 +46,14 @@ class ExplorerMenuItem(MenuItem):
 
         return context
 
+    def render_component(self, request):
+        start_page = get_explorable_root_page(request.user)
+
+        if start_page:
+            return PageExplorerMenuItemComponent(self.name, self.label, self.url, start_page.id, icon_name=self.icon_name, classnames=self.classnames)
+        else:
+            return super().render_component(request)
+
 
 @hooks.register('register_admin_menu_item')
 def register_explorer_menu_item():
@@ -56,6 +66,9 @@ def register_explorer_menu_item():
 
 class SettingsMenuItem(SubmenuMenuItem):
     template = 'wagtailadmin/shared/menu_settings_menu_item.html'
+
+    def render_component(self, request):
+        return SettingsMenuItemComponent(self.name, self.label, self.menu.render_component(request), icon_name=self.icon_name, classnames=self.classnames)
 
 
 @hooks.register('register_admin_menu_item')

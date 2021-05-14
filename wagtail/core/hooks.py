@@ -35,21 +35,22 @@ def register(hook_name, fn=None, order=0):
 
 
 class TemporaryHook(ContextDecorator):
-    def __init__(self, hook_name, fn, order):
-        self.hook_name = hook_name
-        self.fn = fn
+    def __init__(self, hooks, order):
+        self.hooks = hooks
         self.order = order
 
     def __enter__(self):
-        if self.hook_name not in _hooks:
-            _hooks[self.hook_name] = []
-        _hooks[self.hook_name].append((self.fn, self.order))
+        for hook_name, fn in self.hooks:
+            if hook_name not in _hooks:
+                _hooks[hook_name] = []
+            _hooks[hook_name].append((fn, self.order))
 
     def __exit__(self, exc_type, exc_value, traceback):
-        _hooks[self.hook_name].remove((self.fn, self.order))
+        for hook_name, fn in self.hooks:
+            _hooks[hook_name].remove((fn, self.order))
 
 
-def register_temporarily(hook_name, fn, order=0):
+def register_temporarily(hook_name_or_hooks, fn=None, *, order=0):
     """
     Register hook for ``hook_name`` temporarily. This is useful for testing hooks.
 
@@ -72,8 +73,27 @@ def register_temporarily(hook_name, fn, order=0):
             # Hook is registered here
 
         # Hook is unregistered here
+
+    To register multiple hooks at the same time, pass in a list of 2-tuples:
+
+        def my_hook(...):
+            pass
+
+        def my_other_hook(...):
+            pass
+
+        with hooks.register_temporarily([
+                ('hook_name', my_hook),
+                ('hook_name', my_other_hook),
+            ]):
+            # Hooks are registered here
     """
-    return TemporaryHook(hook_name, fn, order)
+    if not isinstance(hook_name_or_hooks, list) and fn is not None:
+        hooks = [(hook_name_or_hooks, fn)]
+    else:
+        hooks = hook_name_or_hooks
+
+    return TemporaryHook(hooks, order)
 
 
 _searched_for_hooks = False
