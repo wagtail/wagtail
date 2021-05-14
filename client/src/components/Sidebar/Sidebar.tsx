@@ -1,14 +1,8 @@
 /* eslint-disable react/prop-types */
 
-import React, { MutableRefObject } from 'react';
+import React from 'react';
 
 import Icon from './common/Icon';
-
-// A React context to pass some data down to the ExplorerMenuItem component
-interface ExplorerContext {
-  wrapperRef: MutableRefObject<HTMLDivElement | null> | null;
-}
-export const ExplorerContext = React.createContext<ExplorerContext>({ wrapperRef: null });
 
 export interface ModuleRenderContext {
     currentPath: string;
@@ -39,7 +33,6 @@ const usePersistedState = <T, _>(key: string, defaultValue: T): [T, (value: T) =
 };
 
 export const Sidebar: React.FunctionComponent<SidebarProps> =  ({ modules, currentPath, navigate }) => {
-  const explorerWrapperRef = React.useRef<HTMLDivElement | null>(null);
   const [collapsed, setCollapsed] = usePersistedState('wagtail-sidebar-collapsed', window.innerWidth < 800);
 
   const onClickCollapseToggle = (e: React.MouseEvent) => {
@@ -56,11 +49,8 @@ export const Sidebar: React.FunctionComponent<SidebarProps> =  ({ modules, curre
           {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}
         </button>
 
-        <ExplorerContext.Provider value={{ wrapperRef: explorerWrapperRef }}>
-          {renderedModules}
-        </ExplorerContext.Provider>
+        {renderedModules}
       </div>
-      <div className="sidebar__explorer-wrapper" ref={explorerWrapperRef} data-explorer-menu />
     </aside>
   );
 };
