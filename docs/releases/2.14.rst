@@ -23,6 +23,7 @@ Bug fixes
  * Ordering specified in the ``construct_explorer_page_queryset`` hook is now taken into account again by the page explorer API (Andre Fonseca)
  * Deleting a page from its listing view no longer results in a 404 error (Tidjani Dia)
  * The Wagtail admin urls will now respect the ``APPEND_SLASH`` setting (Tidjani Dia)
+ * Prevent “Forgotten password” link from overlapping with field on mobile devices (Helen Chapman)
 
 Upgrade considerations
 ======================
