@@ -9,6 +9,8 @@ import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
 import { SubMenuItemDefinition } from './menu/SubMenuItem';
 import SVGIconSprite from '../SVGIconSprite';
 
+import '../../../../wagtail/admin/static/wagtailadmin/css/sidebar.css';
+
 export default { title: 'Sidebar/Sidebar', parameters: { layout: 'fullscreen' } };
 
 export function sidebar() {

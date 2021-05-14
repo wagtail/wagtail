@@ -3,12 +3,12 @@
 import React from 'react';
 
 import Icon from '../common/Icon';
-import { MenuItemDefinition, MenuItemProps, MenuItemWrapper } from './MenuItem';
+import { MenuItemDefinition, MenuItemProps } from './MenuItem';
 
 export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDefinition>> = (
   { item, path, state, dispatch, navigate }) => {
   const isActive = state.activePath.startsWith(path);
-  const isInSubmenu = path.split('.').length > 2;
+  const isInSubMenu = path.split('.').length > 2;
 
   const onClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -29,12 +29,12 @@ export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDef
   };
 
   return (
-    <MenuItemWrapper isActive={isActive} isInSubmenu={isInSubmenu}>
+    <li className={'sidebar-menu-item' + (isActive ? ' sidebar-menu-item--active' : '') + (isInSubMenu ? ' sidebar-menu-item--in-sub-menu': '')}>
       <a href="#" onClick={onClick} className={item.classNames}>
         {item.iconName && <Icon name={item.iconName} className="icon--menuitem" />}
         <span className="menuitem-label">{item.label}</span>
       </a>
-    </MenuItemWrapper>
+    </li>
   );
 };
 

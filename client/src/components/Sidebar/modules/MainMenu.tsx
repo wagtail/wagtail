@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react';
-import styled, { css } from 'styled-components';
 
-import * as mixins from '../common/mixins';
 import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
 import { MenuItemDefinition } from '../menu/MenuItem';
 import { SubMenuItemDefinition } from '../menu/SubMenuItem';
@@ -58,193 +56,6 @@ function menuReducer(state: MenuState, action: MenuAction) {
 
   return newState;
 }
-
-interface MainNavProps {
-    collapsed: boolean;
-    fullyExpanded: boolean;
-    openFooter: boolean;
-}
-
-const MainNav = styled.nav<MainNavProps>`
-    overflow: auto;
-    margin-bottom: ${(props: MainNavProps) => (
-    props.openFooter
-      ? '127px' /* $nav-footer-open-height */
-      : '50px' /* $nav-footer-closed-height */
-  )};
-    opacity: 1;
-
-    ${mixins.transition('margin-bottom 0.3s ease')}
-
-    ul,
-    li {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    }
-
-    li {
-        ${mixins.transition('border-color 0.3s ease')}
-        position: relative;
-    }
-
-    a {
-        ${mixins.transition('border-color 0.3s ease')}
-        -webkit-font-smoothing: auto;
-        text-decoration: none;
-        display: block;
-        color: #ccc;  // $color-menu-text;
-        padding: 0.8em 1.7em;
-        font-size: 1em;
-        font-weight: normal;
-        // Note, font-weights lower than normal,
-        // and font-size smaller than 1em (80% ~= 12.8px),
-        // makes the strokes thinner than 1px on non-retina screens
-        // making the text semi-transparent
-        &:hover,
-        &:focus {
-            background-color: rgba(100, 100, 100, 0.15);  // $nav-item-hover-bg;
-            color: #fff;  // $color-white
-            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-        }
-    }
-
-    *:focus {
-        ${mixins.showFocusOutlineInside()}
-    }
-
-    .icon--menuitem {
-        width: 1.25em;
-        height: 1.25em;
-        margin-right: 0.5em;
-        vertical-align: text-top;
-    }
-
-    .icon--submenu-header {
-        display: block;
-        width: 4rem;
-        height: 4rem;
-        margin: 0 auto 0.8em;
-        opacity: 0.15;
-    }
-
-    > ul > li > a {
-        // Need !important to override body.ready class
-        transition: padding 0.3s ease !important;
-
-        .menuitem-label {
-            transition: opacity 0.3s ease;
-        }
-    }
-
-    ${(props) => props.collapsed && css`
-        > ul > li > a {
-            padding: 0.8em 0.8em;
-
-            .menuitem-label {
-                opacity: 0;
-            }
-
-            .icon-arrow-right {
-                top: 1.0em;
-                right: 0.15em;
-                width: 1em;
-                height:1em;
-            }
-        }
-    `}
-
-    ${(props) => !props.fullyExpanded && css`
-        overflow-x: hidden;
-    `}
-`;
-
-interface FooterWrapperProps {
-    collapsed: boolean;
-    isOpen: boolean;
-}
-
-const FooterWrapper = styled.li<FooterWrapperProps>`
-    position: fixed !important;  // override li styling in MenuWrapper
-    width: 200px;  // $menu-width;
-    bottom: 0;
-    background-color: #262626;  // $nav-footer-submenu-bg;
-    transition: width 0.3s ease !important;  // Override body.ready
-
-    ${(props) => (props.collapsed && !props.isOpen) && css`
-        width: 50px;
-    `}
-
-    > ul {
-        ${mixins.transition('max-height 0.3s ease')}
-
-        max-height: ${(props: FooterWrapperProps) => (props.isOpen ? '77px' /* $nav-footer-submenu-height */: '0')};
-
-        a {
-            border-left: 3px solid transparent;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-
-            &:before {
-                font-size: 1rem;
-                margin-right: 0.5em;
-                vertical-align: -10%;
-            }
-        }
-    }
-
-    .account {
-        ${mixins.clearfix()}
-        background: #1a1a1a;  // $nav-footer-account-bg;
-        color: #ccc;  // $color-menu-text;
-        text-transform: uppercase;
-        display: block;
-        cursor: pointer;
-        position: relative;
-
-        &:hover {
-            background-color: rgba(100, 100, 100, 0.15);
-            color: #fff;  // $color-white
-            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-        }
-
-        .avatar {
-            float: left;
-
-            &:before {
-                color: inherit;
-                border-color: inherit;
-            }
-        }
-
-        em {
-            box-sizing: border-box;
-            padding-right: 1.8em;
-            margin-top: 1.2em;
-            margin-left: 0.9em;
-            font-style: normal;
-            font-weight: 700;
-            width: 135px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            position: absolute;
-            left: 50px;  // Width of avatar
-            transition: left 0.3s ease;
-
-            ${(props) => (props.collapsed && !props.isOpen) && css`
-                left: -150px;  // menu closed with - menu open width
-            `}
-
-            &:after {
-                font-size: 1.5em;
-                position: absolute;
-                right: 0.25em;
-            }
-        }
-    }
-`;
 
 interface MenuProps {
     collapsed: boolean;
@@ -368,12 +179,12 @@ export const Menu: React.FunctionComponent<MenuProps> = (
   };
 
   return (
-    <MainNav collapsed={collapsed} fullyExpanded={fullyExpanded} openFooter={accountSettingsOpen}>
+    <nav className={'sidebar-main-menu' + (fullyExpanded ? ' sidebar-main-menu--fully-expanded' : '') + (accountSettingsOpen ? ' sidebar-main-menu--open-footer' : '')}>
       <ul>
         {renderMenu('', menuItems, state, dispatch, collapsed, navigate)}
 
-        <FooterWrapper collapsed={collapsed} isOpen={accountSettingsOpen}>
-          <div className="account" title={'Edit your account'} onClick={onClickAccountSettings}>{/* GETTEXT */}
+        <li className={'sidebar-footer' + (accountSettingsOpen ? ' sidebar-footer--open' : '')}>
+          <div className="sidebar-footer__account" title={'Edit your account'} onClick={onClickAccountSettings}>{/* GETTEXT */}
             <span className="avatar square avatar-on-dark">
               <img src={user.avatarUrl} alt="" />
             </span>
@@ -383,9 +194,9 @@ export const Menu: React.FunctionComponent<MenuProps> = (
           <ul>
             {renderMenu('', accountMenuItems, state, dispatch, collapsed, navigate)}
           </ul>
-        </FooterWrapper>
+        </li>
       </ul>
-    </MainNav>
+    </nav>
   );
 };
 

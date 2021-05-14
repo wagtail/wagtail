@@ -4,15 +4,14 @@ import React from 'react';
 
 import Button from '../common/Button';
 import Icon from '../common/Icon';
-import { SubMenuItemTriggerIcon } from './SubMenuItem';
-import { MenuItemProps, MenuItemWrapper } from './MenuItem';
+import { MenuItemProps } from './MenuItem';
 import { LinkMenuItemDefinition } from './LinkMenuItem';
 
 export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExplorerMenuItemDefinition>> = (
   { path, item, state, dispatch }) => {
   const isOpen = state.navigationPath.startsWith(path);
   const isActive = isOpen || state.activePath.startsWith(path);
-  const isInSubmenu = path.split('.').length > 2;
+  const isInSubMenu = path.split('.').length > 2;
   const [isVisible, setIsVisible] = React.useState(false);
 
   React.useEffect(() => {
@@ -54,13 +53,13 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
   };
 
   return (
-    <MenuItemWrapper isActive={isActive} isInSubmenu={isInSubmenu}>
+    <li className={'sidebar-menu-item' + (isActive ? ' sidebar-menu-item--active' : '') + (isInSubMenu ? ' sidebar-menu-item--in-sub-menu': '')}>
       <Button dialogTrigger={true} onClick={onClick}>
         <Icon name="folder-open-inverse" className="icon--menuitem" />
         <span className="menuitem-label">{item.label}</span>
-        <SubMenuItemTriggerIcon name="arrow-right" isOpen={isOpen} />
+        <Icon className={'sidebar-sub-menu-trigger-icon' + (isOpen ? ' sidebar-sub-menu-trigger-icon--open' : '')} name="arrow-right" />
       </Button>
-    </MenuItemWrapper>
+    </li>
   );
 };
 
