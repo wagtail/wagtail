@@ -6,6 +6,9 @@ import Button from '../common/Button';
 import Icon from '../common/Icon';
 import { MenuItemProps } from './MenuItem';
 import { LinkMenuItemDefinition } from './LinkMenuItem';
+import { Provider } from 'react-redux';
+import Explorer, { initExplorerStore } from '../../Explorer';
+import { toggleExplorer } from '../../Explorer/actions';
 
 export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExplorerMenuItemDefinition>> = (
   { path, item, state, dispatch }) => {
@@ -14,10 +17,20 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
   const isInSubMenu = path.split('.').length > 2;
   const [isVisible, setIsVisible] = React.useState(false);
 
+  const [store, setStore] = React.useState<any>(null);
+
   React.useEffect(() => {
     if (isOpen) {
       // isOpen is set at the moment the user clicks the menu item
       setIsVisible(true);
+
+      let theStore = store;
+      if (!theStore) {
+        theStore = initExplorerStore();
+        setStore(theStore);
+      }
+
+      theStore.dispatch(toggleExplorer(item.startPageId));
     } else if (!isOpen && isVisible) {
       // When a submenu is closed, we have to wait for the close animation
       // to finish before making it invisible
@@ -59,6 +72,13 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
         <span className="menuitem-label">{item.label}</span>
         <Icon className={'sidebar-sub-menu-trigger-icon' + (isOpen ? ' sidebar-sub-menu-trigger-icon--open' : '')} name="arrow-right" />
       </Button>
+      <div>
+        {store &&
+          <Provider store={store}>
+            <Explorer />
+          </Provider>
+        }
+      </div>
     </li>
   );
 };
@@ -66,7 +86,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
 export class PageExplorerMenuItemDefinition extends LinkMenuItemDefinition {
     startPageId: number;
 
-    constructor({ name, label, url, start_page_id: startPageId, icon_name: iconName = null, classnames = undefined }) {
+    constructor({ name, label, url, icon_name: iconName = null, classnames = undefined }, startPageId) {
       super({ name, label, url, icon_name: iconName, classnames });
       this.startPageId = startPageId;
     }

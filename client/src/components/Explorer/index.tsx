@@ -10,10 +10,7 @@ import ExplorerToggle from './ExplorerToggle';
 import explorer from './reducers/explorer';
 import nodes from './reducers/nodes';
 
-/**
- * Initialises the explorer component on the given nodes.
- */
-const initExplorer = (explorerNode, toggleNode) => {
+const initExplorerStore = () => {
   const rootReducer = combineReducers({
     explorer,
     nodes,
@@ -28,11 +25,18 @@ const initExplorer = (explorerNode, toggleNode) => {
   //   middleware.push(perfMiddleware);
   // }
 
-  const store = createStore(rootReducer, {}, compose(
+  return createStore(rootReducer, {}, compose(
     applyMiddleware(...middleware),
     // Expose store to Redux DevTools extension.
     window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : func => func
   ));
+};
+
+/**
+ * Initialises the explorer component on the given nodes.
+ */
+const initExplorer = (explorerNode, toggleNode) => {
+  const store = initExplorerStore();
 
   const startPage = parseInt(toggleNode.getAttribute('data-explorer-start-page'), 10);
 
@@ -54,4 +58,5 @@ export default Explorer;
 export {
   ExplorerToggle,
   initExplorer,
+  initExplorerStore,
 };
