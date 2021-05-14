@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import { MenuAction, MenuState } from '../modules/MainMenu';
 
 export interface MenuItemRenderContext {

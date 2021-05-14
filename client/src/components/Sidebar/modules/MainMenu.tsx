@@ -149,7 +149,7 @@ export const Menu: React.FunctionComponent<MenuProps> = (
   // Whenever the menu is uncollapsed, wait until it has fully expanded before adding the `overflow: auto` rule back
   // This prevents an ugly flash of the scrollbar while the animation is in progress
   const [fullyExpanded, setFullyExpanded] = React.useState(collapsed);
-  // esline-disable-next-line consistent-return
+  // eslint-disable-next-line consistent-return
   React.useEffect(() => {
     if (collapsed) {
       setFullyExpanded(false);

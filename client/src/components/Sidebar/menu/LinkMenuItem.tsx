@@ -29,7 +29,7 @@ export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDef
   };
 
   return (
-    <li className={'sidebar-menu-item' + (isActive ? ' sidebar-menu-item--active' : '') + (isInSubMenu ? ' sidebar-menu-item--in-sub-menu': '')}>
+    <li className={'sidebar-menu-item' + (isActive ? ' sidebar-menu-item--active' : '') + (isInSubMenu ? ' sidebar-menu-item--in-sub-menu' : '')}>
       <a href="#" onClick={onClick} className={item.classNames}>
         {item.iconName && <Icon name={item.iconName} className="icon--menuitem" />}
         <span className="menuitem-label">{item.label}</span>

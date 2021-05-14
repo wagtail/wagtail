@@ -53,7 +53,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
   };
 
   return (
-    <li className={'sidebar-menu-item' + (isActive ? ' sidebar-menu-item--active' : '') + (isInSubMenu ? ' sidebar-menu-item--in-sub-menu': '')}>
+    <li className={'sidebar-menu-item' + (isActive ? ' sidebar-menu-item--active' : '') + (isInSubMenu ? ' sidebar-menu-item--in-sub-menu' : '')}>
       <Button dialogTrigger={true} onClick={onClick}>
         <Icon name="folder-open-inverse" className="icon--menuitem" />
         <span className="menuitem-label">{item.label}</span>

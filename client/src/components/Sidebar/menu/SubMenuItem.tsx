@@ -43,7 +43,7 @@ export const SubMenuItem: React.FunctionComponent<MenuItemProps<SubMenuItemDefin
   };
 
   return (
-    <li className={'sidebar-menu-item sidebar-sub-menu-item' + (isActive ? ' sidebar-menu-item--active': '') + (isOpen ? ' sidebar-sub-menu-item--open': '')}>
+    <li className={'sidebar-menu-item sidebar-sub-menu-item' + (isActive ? ' sidebar-menu-item--active' : '') + (isOpen ? ' sidebar-sub-menu-item--open' : '')}>
       <a
         href="#"
         onClick={onClick}

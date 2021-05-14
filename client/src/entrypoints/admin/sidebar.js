@@ -19,5 +19,5 @@ window.telepath.register('wagtail.sidebar.SearchModule', SearchModuleDefinition)
 window.telepath.register('wagtail.sidebar.MainMenuModule', MainMenuModuleDefinition);
 
 document.addEventListener('DOMContentLoaded', () => {
-    initSidebar();
+  initSidebar();
 });
