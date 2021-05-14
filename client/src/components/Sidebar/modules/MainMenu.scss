@@ -79,6 +79,19 @@
     background-color: $nav-footer-submenu-bg;
     transition: width 0.3s ease !important;  // Override body.ready
 
+    > ul,
+    ul > li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    ul > li {
+        position: relative;
+
+        @include transition(border-color 0.3s ease);
+    }
+
     > ul {
         @include transition(max-height 0.3s ease);
 
