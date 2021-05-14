@@ -89,9 +89,9 @@ If you need to register multiple hooks in a ``with`` block, you can pass the hoo
         pass
 
     with hooks.register_temporarily([
-            ('hook_name', my_hook),
-            ('hook_name', my_other_hook),
-        ]):
+        ('hook_name', my_hook),
+        ('hook_name', my_other_hook),
+    ]):
         # All hooks are registered here
         ..
 

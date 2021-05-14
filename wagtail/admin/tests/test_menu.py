@@ -24,9 +24,9 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
         menu = Menu(register_hook_name='register_menu_item')
 
         with hooks.register_temporarily([
-                ('register_menu_item', menu_item_hook("Pages", '/pages/')),
-                ('register_menu_item', menu_item_hook("Images", '/images/')),
-            ]):  # noqa
+            ('register_menu_item', menu_item_hook("Pages", '/pages/')),
+            ('register_menu_item', menu_item_hook("Images", '/images/')),
+        ]):
             rendered = menu.render_component(self.request)
 
         self.assertIsInstance(rendered, list)
@@ -42,10 +42,10 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
             items[:] = [item for item in items if not item.name == 'images']
 
         with hooks.register_temporarily([
-                ('register_menu_item', menu_item_hook("Pages", '/pages/')),
-                ('register_menu_item', menu_item_hook("Images", '/images/')),
-                ('construct_menu', remove_images),
-            ]):  # noqa
+            ('register_menu_item', menu_item_hook("Pages", '/pages/')),
+            ('register_menu_item', menu_item_hook("Images", '/images/')),
+            ('construct_menu', remove_images),
+        ]):
             rendered = menu.render_component(self.request)
 
         self.assertEqual(
@@ -60,9 +60,9 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
         submenu = Menu(register_hook_name='register_submenu_item')
 
         with hooks.register_temporarily([
-                ('register_menu_item', menu_item_hook("My lovely submenu", submenu, cls=SubmenuMenuItem)),
-                ('register_submenu_item', menu_item_hook("Pages", '/pages/')),
-            ]):  # noqa
+            ('register_menu_item', menu_item_hook("My lovely submenu", submenu, cls=SubmenuMenuItem)),
+            ('register_submenu_item', menu_item_hook("Pages", '/pages/')),
+        ]):
             rendered = menu.render_component(self.request)
 
         self.assertIsInstance(rendered, list)
@@ -78,9 +78,9 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
         menu = Menu(register_hook_name='register_menu_item')
 
         with hooks.register_temporarily([
-                ('register_menu_item', menu_item_hook("Pages", '/pages/')),
-                ('register_menu_item', menu_item_hook("Secret pages", '/pages/secret/', cls=AdminOnlyMenuItem)),
-            ]):  # noqa
+            ('register_menu_item', menu_item_hook("Pages", '/pages/')),
+            ('register_menu_item', menu_item_hook("Secret pages", '/pages/secret/', cls=AdminOnlyMenuItem)),
+        ]):
             rendered = menu.render_component(self.request)
             self.request.user = self.create_user(username='non-admin')
             rendered_non_admin = menu.render_component(self.request)
