@@ -194,10 +194,18 @@ export function sidebar() {
   // Add ready class to body to enable CSS transitions
   document.body.classList.add('ready');
 
+  const onExpandCollapse = (collapsed: boolean) => {
+    if (collapsed) {
+      document.body.classList.add('sidebar-collapsed');
+    } else {
+      document.body.classList.remove('sidebar-collapsed');
+    }
+  };
+
   return (
     <div className="wrapper">
       <SVGIconSprite />
-      <Sidebar modules={modules} currentPath={currentPath} navigate={navigate} />
+      <Sidebar modules={modules} currentPath={currentPath} navigate={navigate} onExpandCollapse={onExpandCollapse} />
       <main id="main" className="content-wrapper" role="main">
         <div className="content">
           <b>Current path:</b> {currentPath}

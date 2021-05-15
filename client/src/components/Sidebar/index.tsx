@@ -20,8 +20,16 @@ export function initSidebar() {
   if (element instanceof HTMLElement && element.dataset.props) {
     const props = (window as any).telepath.unpack(JSON.parse(element.dataset.props));
 
+    const onExpandCollapse = (collapsed: boolean) => {
+      if (collapsed) {
+        document.body.classList.add('sidebar-collapsed');
+      } else {
+        document.body.classList.remove('sidebar-collapsed');
+      }
+    };
+
     ReactDOM.render(
-      <Sidebar modules={props.modules} currentPath={window.location.pathname} navigate={navigate} />,
+      <Sidebar modules={props.modules} currentPath={window.location.pathname} navigate={navigate} onExpandCollapse={onExpandCollapse} />,
       element,
       () => {
         document.body.classList.add('ready');

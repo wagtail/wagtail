@@ -18,6 +18,7 @@ export interface SidebarProps {
     modules: ModuleDefinition[];
     currentPath: string;
     navigate(url: string): Promise<void>;
+    onExpandCollapse?(collapsed: boolean);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,12 +33,20 @@ const usePersistedState = <T, _>(key: string, defaultValue: T): [T, (value: T) =
   return [state, setState];
 };
 
-export const Sidebar: React.FunctionComponent<SidebarProps> =  ({ modules, currentPath, navigate }) => {
+export const Sidebar: React.FunctionComponent<SidebarProps> =  ({ modules, currentPath, navigate, onExpandCollapse }) => {
   const [collapsed, setCollapsed] = usePersistedState('wagtail-sidebar-collapsed', window.innerWidth < 800);
+
+  if (collapsed && onExpandCollapse) {
+    onExpandCollapse(true);
+  }
 
   const onClickCollapseToggle = (e: React.MouseEvent) => {
     e.preventDefault();
     setCollapsed(!collapsed);
+
+    if (onExpandCollapse) {
+      onExpandCollapse(!collapsed);
+    }
   };
 
   const renderedModules = modules.map(module => module.render({ collapsed, navigate, currentPath }));
