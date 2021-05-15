@@ -88,10 +88,6 @@
     &--visible {
         visibility: visible;
         box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
-
-        a {
-            padding-left: 3.5em;
-        }
     }
 
     @at-root .sidebar--collapsed #{&} {
