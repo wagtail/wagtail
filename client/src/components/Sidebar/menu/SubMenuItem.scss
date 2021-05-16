@@ -77,10 +77,9 @@
 
     &__footer {
         margin: 0;
+        padding: 0.9em 1.7em;
         text-align: center;
         color: $color-menu-text;
-        line-height: $nav-footer-closed-height;
-        padding: 0;
     }
 
     &--visible {

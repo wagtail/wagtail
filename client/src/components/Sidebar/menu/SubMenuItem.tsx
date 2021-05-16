@@ -88,6 +88,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
         <ul aria-labelledby={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}>
           {renderMenu(path, item.menuItems, slim, state, dispatch, navigate)}
         </ul>
+        {item.footerText && <p className="sidebar-sub-menu-panel__footer">{item.footerText}</p>}
       </div>
     </li>
   );
@@ -98,14 +99,16 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
   label: string;
   menuItems: MenuItemDefinition[];
   iconName: string | null;
-  classNames?: string
+  classNames?: string;
+  footerText: string;
 
   constructor(
     {
       name,
       label,
       icon_name: iconName = null,
-      classnames = undefined
+      classnames = undefined,
+      footer_text: footerText = '',
     }: any,
     menuItems: MenuItemDefinition[]
   ) {
@@ -114,6 +117,7 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
     this.menuItems = menuItems;
     this.iconName = iconName;
     this.classNames = classnames;
+    this.footerText = footerText;
   }
 
   render({ path, slim, state, dispatch, navigate }) {
@@ -129,7 +133,4 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
       />
     );
   }
-}
-
-export class SettingsMenuItemDefinition extends SubMenuItemDefinition {
 }

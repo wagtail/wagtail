@@ -8,6 +8,7 @@ from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
+from wagtail import __version__
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
@@ -22,7 +23,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import PagesSummaryItem
 from wagtail.admin.ui.sidebar import PageExplorerMenuItem as PageExplorerMenuItemComponent
-from wagtail.admin.ui.sidebar import SettingsMenuItem as SettingsMenuItemComponent
+from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
@@ -69,7 +70,14 @@ class SettingsMenuItem(SubmenuMenuItem):
     template = 'wagtailadmin/shared/menu_settings_menu_item.html'
 
     def render_component(self, request):
-        return SettingsMenuItemComponent(self.name, self.label, self.menu.render_component(request), icon_name=self.icon_name, classnames=self.classnames)
+        return SubMenuItemComponent(
+            self.name,
+            self.label,
+            self.menu.render_component(request),
+            icon_name=self.icon_name,
+            classnames=self.classnames,
+            footer_text="Wagtail v." + __version__
+        )
 
 
 @hooks.register('register_admin_menu_item')
