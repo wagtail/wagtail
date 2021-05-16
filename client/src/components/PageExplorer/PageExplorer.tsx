@@ -16,6 +16,7 @@ interface PageExplorerProps {
   nodes: NodeState,
   onClose(): void;
   gotoPage(id: number, transition: number): void;
+  navigate(url: string): Promise<void>;
 }
 
 const PageExplorer: React.FunctionComponent<PageExplorerProps> = ({
@@ -25,6 +26,7 @@ const PageExplorer: React.FunctionComponent<PageExplorerProps> = ({
   nodes,
   gotoPage,
   onClose,
+  navigate,
 }) => ((isVisible && currentPageId) ? (
   <PageExplorerPanel
     depth={depth}
@@ -32,6 +34,7 @@ const PageExplorer: React.FunctionComponent<PageExplorerProps> = ({
     nodes={nodes}
     gotoPage={gotoPage}
     onClose={onClose}
+    navigate={navigate}
   />
 ) : null);
 

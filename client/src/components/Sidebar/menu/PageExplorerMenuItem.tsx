@@ -11,7 +11,7 @@ import PageExplorer, { initPageExplorerStore } from '../../PageExplorer';
 import { openPageExplorer, closePageExplorer } from '../../PageExplorer/actions';
 
 export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExplorerMenuItemDefinition>> = (
-  { path, item, state, dispatch }) => {
+  { path, item, state, dispatch, navigate }) => {
   const isOpen = state.navigationPath.startsWith(path);
   const isActive = isOpen || state.activePath.startsWith(path);
   const isInSubMenu = path.split('.').length > 2;
@@ -81,7 +81,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
       <div>
         {store.current &&
           <Provider store={store.current}>
-            <PageExplorer />
+            <PageExplorer navigate={navigate} />
           </Provider>
         }
       </div>

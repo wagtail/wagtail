@@ -40,13 +40,15 @@ interface PageExplorerHeaderProps {
   depth: number;
   onClick(e: any): void
   gotoPage(id: number, transition: number): void;
+  navigate(url: string): Promise<void>;
 }
 
 /**
  * The bar at the top of the explorer, displaying the current level
  * and allowing access back to the parent level.
  */
-const PageExplorerHeader: React.FunctionComponent<PageExplorerHeaderProps> = ({ page, depth, onClick, gotoPage }) => {
+const PageExplorerHeader: React.FunctionComponent<PageExplorerHeaderProps> = (
+  { page, depth, onClick, gotoPage, navigate }) => {
   const isRoot = depth === 0;
   const isSiteRoot = page.id === 0;
 
@@ -56,6 +58,7 @@ const PageExplorerHeader: React.FunctionComponent<PageExplorerHeaderProps> = ({ 
         href={!isSiteRoot ? `${ADMIN_URLS.PAGES}${page.id}/` : ADMIN_URLS.PAGES}
         className="c-page-explorer__header__title"
         onClick={onClick}
+        navigate={navigate}
       >
         <div className="c-page-explorer__header__title__inner">
           <Icon

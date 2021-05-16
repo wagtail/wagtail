@@ -19,6 +19,7 @@ interface PageExplorerPanelProps {
   page: PageState;
   onClose(): void;
   gotoPage(id: number, transition: number): void;
+  navigate(url: string): Promise<void>;
 }
 
 interface PageExplorerPanelState {
@@ -128,6 +129,7 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
               key={id}
               item={nodes[id]}
               onClick={this.onItemClick.bind(null, id)}
+              navigate={this.props.navigate}
             />
           ))}
         </div>
@@ -177,6 +179,7 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
                 page={page}
                 onClick={this.onHeaderClick}
                 gotoPage={gotoPage}
+                navigate={this.props.navigate}
               />
 
               {this.renderChildren()}
