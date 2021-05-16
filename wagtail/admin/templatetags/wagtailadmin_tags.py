@@ -96,7 +96,7 @@ def search_other(context, current=None):
 
 @register.simple_tag
 def main_nav_js():
-    if 'slim-sidebar' in getattr(settings, 'WAGTAIL_EXPERIMENTAL_FEATURES', []):
+    if slim_sidebar_enabled():
         return Media(
             js=[
                 versioned_static('wagtailadmin/js/telepath/telepath.js'),
@@ -114,7 +114,7 @@ def main_nav_js():
 
 @register.simple_tag
 def main_nav_css():
-    if 'slim-sidebar' in getattr(settings, 'WAGTAIL_EXPERIMENTAL_FEATURES', []):
+    if slim_sidebar_enabled():
         return Media(
             css={
                 'all': [
@@ -671,6 +671,11 @@ def locales():
         }
         for locale in Locale.objects.all()
     ])
+
+
+@register.simple_tag()
+def slim_sidebar_enabled():
+    return 'slim-sidebar' in getattr(settings, 'WAGTAIL_EXPERIMENTAL_FEATURES', [])
 
 
 @register.simple_tag(takes_context=True)
