@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageExplorerItem children 1`] = `
+<div
+  className="c-page-explorer__item"
+>
+  <Button
+    className="c-page-explorer__item__link"
+    href="/admin/pages/5/"
+  >
+    <Icon
+      className="icon--menuitem"
+      name="folder-inverse"
+    />
+    <h3
+      className="c-page-explorer__item__title"
+    >
+      test
+    </h3>
+  </Button>
+  <Button
+    className="c-page-explorer__item__action c-page-explorer__item__action--small"
+    href="/admin/pages/5/edit/"
+  >
+    <Icon
+      className="icon--item-action"
+      name="edit"
+      title="Edit 'test'"
+    />
+  </Button>
+  <Button
+    className="c-page-explorer__item__action"
+    href="/admin/pages/5/"
+    onClick={[Function]}
+  >
+    <Icon
+      className="icon--item-action"
+      name="arrow-right"
+      title="View child pages of 'test'"
+    />
+  </Button>
+</div>
+`;
+
+exports[`PageExplorerItem renders 1`] = `
+<div
+  className="c-page-explorer__item"
+>
+  <Button
+    className="c-page-explorer__item__link"
+    href="/admin/pages/5/"
+  >
+    <h3
+      className="c-page-explorer__item__title"
+    >
+      test
+    </h3>
+  </Button>
+  <Button
+    className="c-page-explorer__item__action c-page-explorer__item__action--small"
+    href="/admin/pages/5/edit/"
+  >
+    <Icon
+      className="icon--item-action"
+      name="edit"
+      title="Edit 'test'"
+    />
+  </Button>
+</div>
+`;
+
+exports[`PageExplorerItem should show a publication status if not live 1`] = `
+<div
+  className="c-page-explorer__item"
+>
+  <Button
+    className="c-page-explorer__item__link"
+    href="/admin/pages/5/"
+  >
+    <Icon
+      className="icon--menuitem"
+      name="folder-inverse"
+    />
+    <h3
+      className="c-page-explorer__item__title"
+    >
+      test
+    </h3>
+    <span
+      className="c-page-explorer__meta"
+    >
+      <PublicationStatus
+        status={
+          Object {
+            "has_unpublished_changes": true,
+            "live": false,
+            "status": "test",
+          }
+        }
+      />
+    </span>
+  </Button>
+  <Button
+    className="c-page-explorer__item__action c-page-explorer__item__action--small"
+    href="/admin/pages/5/edit/"
+  >
+    <Icon
+      className="icon--item-action"
+      name="edit"
+      title="Edit 'test'"
+    />
+  </Button>
+  <Button
+    className="c-page-explorer__item__action"
+    href="/admin/pages/5/"
+    onClick={[Function]}
+  >
+    <Icon
+      className="icon--item-action"
+      name="arrow-right"
+      title="View child pages of 'test'"
+    />
+  </Button>
+</div>
+`;
+
+exports[`PageExplorerItem should show a publication status with unpublished changes 1`] = `
+<div
+  className="c-page-explorer__item"
+>
+  <Button
+    className="c-page-explorer__item__link"
+    href="/admin/pages/5/"
+  >
+    <Icon
+      className="icon--menuitem"
+      name="folder-inverse"
+    />
+    <h3
+      className="c-page-explorer__item__title"
+    >
+      test
+    </h3>
+    <span
+      className="c-page-explorer__meta"
+    >
+      <PublicationStatus
+        status={
+          Object {
+            "has_unpublished_changes": true,
+            "live": true,
+            "status": "test",
+          }
+        }
+      />
+    </span>
+  </Button>
+  <Button
+    className="c-page-explorer__item__action c-page-explorer__item__action--small"
+    href="/admin/pages/5/edit/"
+  >
+    <Icon
+      className="icon--item-action"
+      name="edit"
+      title="Edit 'test'"
+    />
+  </Button>
+  <Button
+    className="c-page-explorer__item__action"
+    href="/admin/pages/5/"
+    onClick={[Function]}
+  >
+    <Icon
+      className="icon--item-action"
+      name="arrow-right"
+      title="View child pages of 'test'"
+    />
+  </Button>
+</div>
+`;

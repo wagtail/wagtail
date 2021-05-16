@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageExplorerHeader #depth at root 1`] = `
+<div
+  className="c-page-explorer__header"
+>
+  <Button
+    className="c-page-explorer__header__title"
+    href="/admin/pages/undefined/"
+    onClick={[MockFunction]}
+  >
+    <div
+      className="c-page-explorer__header__title__inner"
+    >
+      <Icon
+        className="icon--explorer-header"
+        name="home"
+      />
+      <span>
+        Pages
+      </span>
+    </div>
+  </Button>
+</div>
+`;
+
+exports[`PageExplorerHeader #page 1`] = `
+<div
+  className="c-page-explorer__header"
+>
+  <Button
+    className="c-page-explorer__header__title"
+    href="/admin/pages/a/"
+    onClick={[MockFunction]}
+  >
+    <div
+      className="c-page-explorer__header__title__inner"
+    >
+      <Icon
+        className="icon--explorer-header"
+        name="arrow-left"
+      />
+      <span>
+        test
+      </span>
+    </div>
+  </Button>
+</div>
+`;
+
+exports[`PageExplorerHeader basic 1`] = `
+<div
+  className="c-page-explorer__header"
+>
+  <Button
+    className="c-page-explorer__header__title"
+    href="/admin/pages/undefined/"
+    onClick={[MockFunction]}
+  >
+    <div
+      className="c-page-explorer__header__title__inner"
+    >
+      <Icon
+        className="icon--explorer-header"
+        name="arrow-left"
+      />
+      <span>
+        Pages
+      </span>
+    </div>
+  </Button>
+</div>
+`;
