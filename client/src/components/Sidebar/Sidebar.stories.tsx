@@ -118,6 +118,7 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
           label: 'Settings',
           icon_name: 'cogs',
           classnames: '',
+          footer_text: 'Wagtail Version',
         },
         [
           new LinkMenuItemDefinition({
@@ -372,6 +373,7 @@ export function withLargeSubmenu() {
         label: 'Large menu',
         icon_name: 'cogs',
         classnames: '',
+        footer_text: 'Footer text',
       },
       menuItems
     )

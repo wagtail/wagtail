@@ -6,7 +6,7 @@ from django.urls import reverse
 from wagtail.admin.search import SearchArea
 from wagtail.admin.ui.sidebar import (
     CustomBrandingModule, LinkMenuItem, MainMenuModule, PageExplorerMenuItem, SearchModule,
-    SettingsMenuItem, SubMenuItem, WagtailBrandingModule)
+    SubMenuItem, WagtailBrandingModule)
 from wagtail.core.telepath import JSContext
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -50,6 +50,40 @@ class TestAdaptSubMenuItem(TestCase):
         packed = JSContext().pack(
             SubMenuItem('sub-menu', "Sub menu", [
                 LinkMenuItem('link', "Link", '/link/', icon_name='link-icon'),
+            ], footer_text='Footer text')
+        )
+
+        self.assertEqual(packed, {
+            '_type': 'wagtail.sidebar.SubMenuItem',
+            '_args': [
+                {
+                    'name': 'sub-menu',
+                    'label': 'Sub menu',
+                    'icon_name': '',
+                    'classnames': '',
+                    'footer_text': 'Footer text'
+                },
+                [
+                    {
+                        '_type': 'wagtail.sidebar.LinkMenuItem',
+                        '_args': [
+                            {
+                                'name': 'link',
+                                'label': 'Link',
+                                'icon_name': 'link-icon',
+                                'classnames': '',
+                                'url': '/link/'
+                            }
+                        ]
+                    }
+                ]
+            ]
+        })
+
+    def test_adapt_without_footer_text(self):
+        packed = JSContext().pack(
+            SubMenuItem('sub-menu', "Sub menu", [
+                LinkMenuItem('link', "Link", '/link/', icon_name='link-icon'),
             ])
         )
 
@@ -60,7 +94,8 @@ class TestAdaptSubMenuItem(TestCase):
                     'name': 'sub-menu',
                     'label': 'Sub menu',
                     'icon_name': '',
-                    'classnames': ''
+                    'classnames': '',
+                    'footer_text': ''
                 },
                 [
                     {
@@ -95,41 +130,6 @@ class TestAdaptPageExplorerMenuItem(TestCase):
                     'url': '/pages/'
                 },
                 1
-            ]
-        })
-
-
-class TestAdaptSettingsMenuItem(TestCase):
-    def test_adapt(self):
-        packed = JSContext().pack(
-            SettingsMenuItem('settings', "Settings", [
-                LinkMenuItem('groups', "Groups", '/groups/', icon_name='people'),
-            ])
-        )
-
-        self.assertEqual(packed, {
-            '_type': 'wagtail.sidebar.SettingsMenuItem',
-            '_args': [
-                {
-                    'name': 'settings',
-                    'label': 'Settings',
-                    'icon_name': '',
-                    'classnames': ''
-                },
-                [
-                    {
-                        '_type': 'wagtail.sidebar.LinkMenuItem',
-                        '_args': [
-                            {
-                                'name': 'groups',
-                                'label': 'Groups',
-                                'icon_name': 'people',
-                                'classnames': '',
-                                'url': '/groups/'
-                            }
-                        ]
-                    }
-                ]
             ]
         })
 
