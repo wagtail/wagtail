@@ -7,17 +7,7 @@ $menu-footer-height: 50px;
 
 @import 'PageExplorerItem';
 
-.page-explorer__wrapper,
-.page-explorer__wrapper * {
-    box-sizing: border-box;
-}
-
-.page-explorer__wrapper {
-    display: flex;
-    flex: 1;
-}
-
-.page-explorer {
+.page-explorer-panel {
     width: 100%;
     display: flex;
     flex-direction: column;

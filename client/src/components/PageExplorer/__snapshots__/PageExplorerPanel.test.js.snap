@@ -13,7 +13,7 @@ exports[`PageExplorerPanel general rendering #isError 1`] = `
   paused={false}
 >
   <div
-    className="page-explorer"
+    className="page-explorer-panel"
     role="dialog"
   >
     <Button
@@ -93,7 +93,7 @@ exports[`PageExplorerPanel general rendering #isFetching 1`] = `
   paused={false}
 >
   <div
-    className="page-explorer"
+    className="page-explorer-panel"
     role="dialog"
   >
     <Button
@@ -154,7 +154,7 @@ exports[`PageExplorerPanel general rendering #items 1`] = `
   paused={false}
 >
   <div
-    className="page-explorer"
+    className="page-explorer-panel"
     role="dialog"
   >
     <Button
@@ -243,7 +243,7 @@ exports[`PageExplorerPanel general rendering no children 1`] = `
   paused={false}
 >
   <div
-    className="page-explorer"
+    className="page-explorer-panel"
     role="dialog"
   >
     <Button
@@ -301,7 +301,7 @@ exports[`PageExplorerPanel general rendering renders 1`] = `
   paused={false}
 >
   <div
-    className="page-explorer"
+    className="page-explorer-panel"
     role="dialog"
   >
     <Button

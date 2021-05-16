@@ -26,7 +26,7 @@ describe('PageExplorer', () => {
   });
 
   it('visible', () => {
-    store.dispatch(actions.togglePageExplorer(1));
+    store.dispatch(actions.openPageExplorer(1));
     expect(shallow(<PageExplorer store={store} />).dive()).toMatchSnapshot();
     expect(shallow(<PageExplorer store={store} />).dive().dive()).toMatchSnapshot();
   });

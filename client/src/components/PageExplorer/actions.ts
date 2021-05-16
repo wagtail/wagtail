@@ -72,19 +72,17 @@ function getTranslations(id) {
   };
 }
 
-const openPageExplorer = createAction('OPEN_EXPLORER', id => ({ id }));
-export const closePageExplorer = createAction('CLOSE_EXPLORER');
+const openPageExplorerPrivate = createAction('OPEN_EXPLORER', id => ({ id }));
+export const closePageExplorerPrivate = createAction('CLOSE_EXPLORER');
 
-export function togglePageExplorer(id: number): ThunkActionType {
+export function openPageExplorer(id: number): ThunkActionType {
   return (dispatch, getState) => {
     const { explorer, nodes } = getState();
 
-    if (explorer.isVisible) {
-      dispatch(closePageExplorer());
-    } else {
+    if (!explorer.isVisible) {
       const page = nodes[id];
 
-      dispatch(openPageExplorer(id));
+      dispatch(openPageExplorerPrivate(id));
 
       if (!page) {
         dispatch(getChildren(id));
@@ -99,6 +97,16 @@ export function togglePageExplorer(id: number): ThunkActionType {
       if (isNotRoot) {
         dispatch(getPage(id));
       }
+    }
+  };
+}
+
+export function closePageExplorer(): ThunkActionType {
+  return (dispatch, getState) => {
+    const { explorer } = getState();
+
+    if (explorer.isVisible) {
+      dispatch(closePageExplorerPrivate());
     }
   };
 }

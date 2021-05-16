@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`actions closePageExplorer close 1`] = `Array []`;
+
 exports[`actions gotoPage creates action 1`] = `
 Array [
   Object {
@@ -48,16 +50,7 @@ Array [
 ]
 `;
 
-exports[`actions togglePageExplorer close 1`] = `
-Array [
-  Object {
-    "payload": undefined,
-    "type": "CLOSE_EXPLORER",
-  },
-]
-`;
-
-exports[`actions togglePageExplorer open 1`] = `
+exports[`actions openPageExplorer open 1`] = `
 Array [
   Object {
     "payload": Object {
@@ -68,7 +61,7 @@ Array [
 ]
 `;
 
-exports[`actions togglePageExplorer open at root 1`] = `
+exports[`actions openPageExplorer open at root 1`] = `
 Array [
   Object {
     "payload": Object {
@@ -85,7 +78,7 @@ Array [
 ]
 `;
 
-exports[`actions togglePageExplorer open first time 1`] = `
+exports[`actions openPageExplorer open first time 1`] = `
 Array [
   Object {
     "payload": Object {

@@ -41,10 +41,9 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
         name: 'explorer',
         label: 'Pages',
         url: '/admin/pages',
-        start_page_id: 1,
         icon_name: 'folder-open-inverse',
         classnames: '',
-      }),
+      }, 1),
       new LinkMenuItemDefinition({
         name: 'images',
         label: 'Images',

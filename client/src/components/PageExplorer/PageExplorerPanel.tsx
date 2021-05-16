@@ -165,7 +165,7 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
       >
         <div
           role="dialog"
-          className="page-explorer"
+          className="page-explorer-panel"
         >
           <Button className="c-page-explorer__close">
             {STRINGS.CLOSE_EXPLORER}

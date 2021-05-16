@@ -19,32 +19,16 @@ const stubState = {
 };
 
 describe('actions', () => {
-  describe('closePageExplorer', () => {
+  describe('openPageExplorer', () => {
     it('exists', () => {
-      expect(actions.closePageExplorer).toBeDefined();
-    });
-
-    it('creates action', () => {
-      expect(actions.closePageExplorer().type).toEqual('CLOSE_EXPLORER');
-    });
-  });
-
-  describe('togglePageExplorer', () => {
-    it('exists', () => {
-      expect(actions.togglePageExplorer).toBeDefined();
-    });
-
-    it('close', () => {
-      const store = mockStore(stubState);
-      store.dispatch(actions.togglePageExplorer(5));
-      expect(store.getActions()).toMatchSnapshot();
+      expect(actions.openPageExplorer).toBeDefined();
     });
 
     it('open', () => {
       const stub = Object.assign({}, stubState);
       stub.explorer.isVisible = false;
       const store = mockStore(stub);
-      store.dispatch(actions.togglePageExplorer(5));
+      store.dispatch(actions.openPageExplorer(5));
       expect(store.getActions()).toMatchSnapshot();
     });
 
@@ -52,7 +36,7 @@ describe('actions', () => {
       const stub = { explorer: stubState.explorer, nodes: {} };
       stub.explorer.isVisible = false;
       const store = mockStore(stub);
-      store.dispatch(actions.togglePageExplorer(5));
+      store.dispatch(actions.openPageExplorer(5));
       expect(store.getActions()).toMatchSnapshot();
     });
 
@@ -60,7 +44,19 @@ describe('actions', () => {
       const stub = Object.assign({}, stubState);
       stub.explorer.isVisible = false;
       const store = mockStore(stub);
-      store.dispatch(actions.togglePageExplorer(1));
+      store.dispatch(actions.openPageExplorer(1));
+      expect(store.getActions()).toMatchSnapshot();
+    });
+  });
+
+  describe('closePageExplorer', () => {
+    it('exists', () => {
+      expect(actions.closePageExplorer).toBeDefined();
+    });
+
+    it('close', () => {
+      const store = mockStore(stubState);
+      store.dispatch(actions.closePageExplorer());
       expect(store.getActions()).toMatchSnapshot();
     });
   });
