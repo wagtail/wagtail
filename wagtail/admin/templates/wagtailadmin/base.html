@@ -2,24 +2,28 @@
 {% load wagtailadmin_tags wagtailcore_tags i18n %}
 
 {% block furniture %}
-    <aside class="nav-wrapper" data-nav-primary>
+    {% slim_sidebar_enabled as slim_sidebar_enabled %}
+    <aside id="wagtail-sidebar" class="nav-wrapper" {% if slim_sidebar_enabled %}data-props="{% menu_props %}"{% else %}data-nav-primary{% endif %}>
         <div class="inner">
             <a href="{% url 'wagtailadmin_home' %}" class="logo" aria-label="{% trans 'Dashboard' %}">
                 {% block branding_logo %}
-                    {# Mobile-only logo: #}
-                    <div class="wagtail-logo-container__mobile u-hidden@sm">
-                        <img class="wagtail-logo wagtail-logo__full" src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="" width="80" />
-                    </div>
+                    {% if not slim_sidebar_enabled %}
+                        {# Mobile-only logo: #}
+                        <div class="wagtail-logo-container__mobile u-hidden@sm">
+                            <img class="wagtail-logo wagtail-logo__full" src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="" width="80" />
+                        </div>
 
-                    {# Desktop logo (animated): #}
-                    {% include "wagtailadmin/shared/animated_logo.html" %}
+                        {# Desktop logo (animated): #}
+                        {% include "wagtailadmin/shared/animated_logo.html" %}
+                    {% endif %}
                 {% endblock %}
                 <span class="u-hidden@sm">{% trans "Dashboard" %}</span>
             </a>
 
-            {% menu_search %}
-            {% main_nav %}
-
+            {% if not slim_sidebar_enabled %}
+                {% menu_search %}
+                {% main_nav %}
+            {% endif %}
         </div>
         <div class="explorer__wrapper" data-explorer-menu></div>
     </aside>
