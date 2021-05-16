@@ -18,6 +18,7 @@ $menu-footer-height: 50px;
         position: fixed;
         z-index: 500;
         left: $menu-width;
+        top: 0;
     }
 
     *:focus {
