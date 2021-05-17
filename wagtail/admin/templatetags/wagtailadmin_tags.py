@@ -689,7 +689,7 @@ def menu_props(context):
 
     account_menu = [
         sidebar.LinkMenuItem('account', _("Account"), reverse('wagtailadmin_account'), icon_name='user'),
-        sidebar.LinkMenuItem('logout', _("Logout"), reverse('wagtailadmin_logout'), icon_name='logout'),
+        sidebar.LinkMenuItem('logout', _("Log out"), reverse('wagtailadmin_logout'), icon_name='logout'),
     ]
 
     modules = [
