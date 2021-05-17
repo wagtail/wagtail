@@ -182,7 +182,7 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
       }),
       new LinkMenuItemDefinition({
         name: 'logout',
-        label: 'Logout',
+        label: 'Log out',
         url: '/admin/logout/',
         icon_name: 'logout',
         classnames: '',
@@ -195,7 +195,12 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
   );
 }
 
-function renderSidebarStory(modules: ModuleDefinition[]) {
+interface RenderSidebarStoryOptions {
+  rtl?: boolean;
+  strings?: Strings;
+}
+
+function renderSidebarStory(modules: ModuleDefinition[], { rtl = false, strings = null }: RenderSidebarStoryOptions = {}) {
   // Enable focus outlines so we can test them
   React.useEffect(() => {
     initFocusOutline();
@@ -222,12 +227,18 @@ function renderSidebarStory(modules: ModuleDefinition[]) {
     }
   };
 
+  if (rtl) {
+    document.documentElement.setAttribute('dir', 'rtl');
+  } else {
+    document.documentElement.setAttribute('dir', 'ltr');
+  }
+
   return (
     <div className="wrapper">
       <Sidebar
         modules={modules}
         currentPath={currentPath}
-        strings={STRINGS}
+        strings={strings || STRINGS}
         navigate={navigate}
         onExpandCollapse={onExpandCollapse}
       />
@@ -378,4 +389,181 @@ export function withoutSearch() {
     wagtailBrandingModule(),
     bogStandardMenuModule(),
   ]);
+}
+
+// Translations taken from actual translation files at the time the code was written
+// There were a few strings missing in reports/workflows. I left these as English as
+// it's likely there will be a few untranslated strings on an Arabic site anyway.
+const STRINGS_AR: Strings = {
+  DASHBOARD: 'لوحة التحكم',
+  EDIT_YOUR_ACCOUNT: 'تعديل حسابك',
+  SEARCH: 'بحث',
+};
+
+function arabicMenuModule(): MainMenuModuleDefinition {
+  return new MainMenuModuleDefinition(
+    [
+      new PageExplorerMenuItemDefinition({
+        name: 'explorer',
+        label: 'صفحات',
+        url: '/admin/pages',
+        start_page_id: 1,
+        icon_name: 'folder-open-inverse',
+        classnames: '',
+      }),
+      new LinkMenuItemDefinition({
+        name: 'images',
+        label: 'صور',
+        url: '/admin/images/',
+        icon_name: 'image',
+        classnames: '',
+      }),
+      new LinkMenuItemDefinition({
+        name: 'documents',
+        label: 'وثائق',
+        url: '/admin/documents/',
+        icon_name: 'doc-full-inverse',
+        classnames: '',
+      }),
+      new LinkMenuItemDefinition({
+        name: 'snippets',
+        label: 'قصاصات',
+        url: '/admin/snippets/',
+        icon_name: 'snippet',
+        classnames: '',
+      }),
+      new LinkMenuItemDefinition({
+        name: 'forms',
+        label: 'نماذج',
+        url: '/admin/forms/',
+        icon_name: 'form',
+        classnames: '',
+      }),
+      new SubMenuItemDefinition(
+        {
+          name: 'reports',
+          label: 'التقارير',
+          icon_name: 'site',
+          classnames: '',
+        },
+        [
+          new LinkMenuItemDefinition({
+            name: 'locked-pages',
+            label: 'Locked Pages',
+            url: '/admin/reports/locked/',
+            icon_name: 'lock',
+            classnames: '',
+          }),
+          new LinkMenuItemDefinition({
+            name: 'workflows',
+            label: 'Workflows',
+            url: '/admin/reports/workflow/',
+            icon_name: 'tasks',
+            classnames: '',
+          }),
+          new LinkMenuItemDefinition({
+            name: 'workflow-tasks',
+            label: 'Workflow tasks',
+            url: '/admin/reports/workflow_tasks/',
+            icon_name: 'thumbtack',
+            classnames: '',
+          }),
+          new LinkMenuItemDefinition({
+            name: 'site-history',
+            label: 'Site history',
+            url: '/admin/reports/site-history/',
+            icon_name: 'history',
+            classnames: '',
+          }),
+        ]
+      ),
+      new SubMenuItemDefinition(
+        {
+          name: 'settings',
+          label: 'إعدادات',
+          icon_name: 'cogs',
+          classnames: '',
+        },
+        [
+          new LinkMenuItemDefinition({
+            name: 'workflows',
+            label: 'Workflows',
+            url: '/admin/workflows/list/',
+            icon_name: 'tasks',
+            classnames: '',
+          }),
+          new LinkMenuItemDefinition({
+            name: 'workflow-tasks',
+            label: 'Workflow tasks',
+            url: '/admin/workflows/tasks/index/',
+            icon_name: 'thumbtack',
+            classnames: '',
+          }),
+          new LinkMenuItemDefinition({
+            name: 'users',
+            label: 'مستخدمين',
+            url: '/admin/users/',
+            icon_name: 'user',
+            classnames: '',
+          }),
+          new LinkMenuItemDefinition({
+            name: 'groups',
+            label: 'مجموعات',
+            url: '/admin/groups/',
+            icon_name: 'group',
+            classnames: '',
+          }),
+          new LinkMenuItemDefinition({
+            name: 'sites',
+            label: 'مواقع',
+            url: '/admin/sites/',
+            icon_name: 'site',
+            classnames: '',
+          }),
+          new LinkMenuItemDefinition({
+            name: 'collections',
+            label: 'مجموعات',
+            url: '/admin/collections/',
+            icon_name: 'folder-open-1',
+            classnames: '',
+          }),
+          new LinkMenuItemDefinition({
+            name: 'redirects',
+            label: 'اعادة التوجيهات',
+            url: '/admin/redirects/',
+            icon_name: 'redirect',
+            classnames: '',
+          }),
+        ]
+      ),
+    ],
+    [
+      new LinkMenuItemDefinition({
+        name: 'account',
+        label: 'حساب',
+        url: '/admin/account/',
+        icon_name: 'user',
+        classnames: '',
+      }),
+      new LinkMenuItemDefinition({
+        name: 'logout',
+        label: 'تسجيل الخروج',
+        url: '/admin/logout/',
+        icon_name: 'logout',
+        classnames: '',
+      }),
+    ],
+    {
+      name: 'Admin',
+      avatarUrl: 'https://gravatar.com/avatar/e31ec811942afbf7b9ce0ac5affe426f?s=200&d=robohash&r=x',
+    }
+  );
+}
+
+export function rightToLeft() {
+  return renderSidebarStory([
+    wagtailBrandingModule(),
+    searchModule(),
+    arabicMenuModule(),
+  ], { rtl: true, strings: STRINGS_AR });
 }
