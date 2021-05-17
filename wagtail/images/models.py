@@ -579,6 +579,28 @@ class AbstractRendition(models.Model):
             transform = self.filter.get_transform(self.image)
             return image_focal_point.transform(transform)
 
+    @property
+    def background_position_style(self):
+        """
+        Returns a `background-position` rule to be put in the inline style of an element which uses the rendition for its background.
+
+        This positions the rendition according to the value of the focal point. This is helpful for when the element does not have
+        the same aspect ratio as the rendition.
+
+        For example:
+
+            {% image page.image fill-1920x600 as image %}
+            <div style="background-image: url('{{ image.url }}'); {{ image.background_position_style }}">
+            </div>
+        """
+        focal_point = self.focal_point
+        if focal_point:
+            horz = int((focal_point.x * 100) // self.width)
+            vert = int((focal_point.y * 100) // self.height)
+            return 'background-position: {}% {}%;'.format(horz, vert)
+        else:
+            return 'background-position: 50% 50%;'
+
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()
         attrs.update(extra_attributes)

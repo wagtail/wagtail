@@ -318,6 +318,14 @@ class TestRenditions(TestCase):
         self.assertEqual(rendition.focal_point.width, 25)
         self.assertEqual(rendition.focal_point.height, 10)
 
+        self.assertEqual(rendition.background_position_style, 'background-position: 15% 41%;')
+
+    def test_background_position_style_default(self):
+        # Generate a rendition that's half the size of the original
+        rendition = self.image.get_rendition('width-320')
+
+        self.assertEqual(rendition.background_position_style, 'background-position: 50% 50%;')
+
 
 class TestUsageCount(TestCase):
     fixtures = ['test.json']
