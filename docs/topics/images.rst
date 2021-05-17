@@ -190,18 +190,51 @@ Wagtail can assign the image data to another variable using Django's ``as`` synt
     <img src="{{ tmp_photo.url }}" width="{{ tmp_photo.width }}"
         height="{{ tmp_photo.height }}" alt="{{ tmp_photo.alt }}" class="my-custom-class" />
 
+.. Note::
+    The image property used for the ``src`` attribute is ``image.url``, not ``image.src``.
 
-This syntax exposes the underlying image Rendition (``tmp_photo``) to the developer. A "Rendition" contains the information specific to the way you've requested to format the image using the resize-rule, i.e. dimensions and source URL.
+This syntax exposes the underlying image Rendition (``tmp_photo``) to the developer. A "Rendition" contains the information specific to the way you've requested to format the image using the resize-rule, i.e. dimensions and source URL. The following properties are available:
+
+.. attribute:: url
+
+    URL to the resized version of the image. This may be a local URL (such as ``/static/images/example.jpg``) or a full URL (such as ``https://assets.example.com/images/example.jpg``), depending on how static files are configured.
+
+.. attribute:: width
+
+    Image width after resizing.
+
+.. attribute:: height
+
+    Image height after resizing.
+
+.. attribute:: alt
+
+    Alternative text for the image, typically taken from the image title.
+
+.. attribute:: attrs
+
+    A shorthand for outputting the attributes ``src``, ``width``, ``height`` and ``alt`` in one go:
+
+    .. code-block:: html+django
+
+        <img {{ tmp_photo.attrs }} class="my-custom-class" />
+
+.. attribute:: full_url
+
+    Same as ``url``, but always returns a full absolute URL. This requires ``BASE_URL`` to be set in the project settings.
+
+    This is useful for images that will be re-used outside of the current site, such as social share images:
+
+    .. code-block:: html+django
+
+        <meta name="twitter:image" content="{{ tmp_photo.full_url }}">
+
 
 If your site defines a custom image model using ``AbstractImage``, any additional fields you add to an image (e.g. a copyright holder) are **not** included in the rendition.
 
 Therefore, if you'd added the field ``author`` to your AbstractImage in the above example, you'd access it using ``{{ page.photo.author }}`` rather than ``{{ tmp_photo.author }}``.
 
 (Due to the links in the database between renditions and their parent image, you *could* access it as ``{{ tmp_photo.image.author }}``, but that has reduced readability.)
-
-
-.. Note::
-    The image property used for the ``src`` attribute is actually ``image.url``, not ``image.src``.
 
 
 The ``attrs`` shortcut
