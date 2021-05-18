@@ -5,14 +5,9 @@ exports[`ExplorerHeader #depth at root 1`] = `
   className="c-explorer__header"
 >
   <Button
-    accessibleLabel={null}
     className="c-explorer__header__title"
-    dialogTrigger={false}
     href="/admin/pages/undefined/"
-    isLoading={false}
     onClick={[MockFunction]}
-    preventDefault={true}
-    target={null}
   >
     <div
       className="c-explorer__header__title__inner"
@@ -35,14 +30,9 @@ exports[`ExplorerHeader #page 1`] = `
   className="c-explorer__header"
 >
   <Button
-    accessibleLabel={null}
     className="c-explorer__header__title"
-    dialogTrigger={false}
     href="/admin/pages/a/"
-    isLoading={false}
     onClick={[MockFunction]}
-    preventDefault={true}
-    target={null}
   >
     <div
       className="c-explorer__header__title__inner"
@@ -65,14 +55,9 @@ exports[`ExplorerHeader basic 1`] = `
   className="c-explorer__header"
 >
   <Button
-    accessibleLabel={null}
     className="c-explorer__header__title"
-    dialogTrigger={false}
     href="/admin/pages/undefined/"
-    isLoading={false}
     onClick={[MockFunction]}
-    preventDefault={true}
-    target={null}
   >
     <div
       className="c-explorer__header__title__inner"
