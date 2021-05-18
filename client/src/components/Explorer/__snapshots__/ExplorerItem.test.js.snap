@@ -5,14 +5,8 @@ exports[`ExplorerItem children 1`] = `
   className="c-explorer__item"
 >
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__link"
-    dialogTrigger={false}
     href="/admin/pages/5/"
-    isLoading={false}
-    onClick={null}
-    preventDefault={true}
-    target={null}
   >
     <Icon
       className="icon--menuitem"
@@ -26,14 +20,8 @@ exports[`ExplorerItem children 1`] = `
     </h3>
   </Button>
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__action c-explorer__item__action--small"
-    dialogTrigger={false}
     href="/admin/pages/5/edit/"
-    isLoading={false}
-    onClick={null}
-    preventDefault={true}
-    target={null}
   >
     <Icon
       className="icon--item-action"
@@ -42,14 +30,9 @@ exports[`ExplorerItem children 1`] = `
     />
   </Button>
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__action"
-    dialogTrigger={false}
     href="/admin/pages/5/"
-    isLoading={false}
     onClick={[Function]}
-    preventDefault={true}
-    target={null}
   >
     <Icon
       className="icon--item-action"
@@ -65,14 +48,8 @@ exports[`ExplorerItem renders 1`] = `
   className="c-explorer__item"
 >
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__link"
-    dialogTrigger={false}
     href="/admin/pages/5/"
-    isLoading={false}
-    onClick={null}
-    preventDefault={true}
-    target={null}
   >
     <h3
       className="c-explorer__item__title"
@@ -81,14 +58,8 @@ exports[`ExplorerItem renders 1`] = `
     </h3>
   </Button>
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__action c-explorer__item__action--small"
-    dialogTrigger={false}
     href="/admin/pages/5/edit/"
-    isLoading={false}
-    onClick={null}
-    preventDefault={true}
-    target={null}
   >
     <Icon
       className="icon--item-action"
@@ -104,14 +75,8 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
   className="c-explorer__item"
 >
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__link"
-    dialogTrigger={false}
     href="/admin/pages/5/"
-    isLoading={false}
-    onClick={null}
-    preventDefault={true}
-    target={null}
   >
     <Icon
       className="icon--menuitem"
@@ -138,14 +103,8 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     </span>
   </Button>
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__action c-explorer__item__action--small"
-    dialogTrigger={false}
     href="/admin/pages/5/edit/"
-    isLoading={false}
-    onClick={null}
-    preventDefault={true}
-    target={null}
   >
     <Icon
       className="icon--item-action"
@@ -154,14 +113,9 @@ exports[`ExplorerItem should show a publication status if not live 1`] = `
     />
   </Button>
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__action"
-    dialogTrigger={false}
     href="/admin/pages/5/"
-    isLoading={false}
     onClick={[Function]}
-    preventDefault={true}
-    target={null}
   >
     <Icon
       className="icon--item-action"
@@ -177,14 +131,8 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
   className="c-explorer__item"
 >
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__link"
-    dialogTrigger={false}
     href="/admin/pages/5/"
-    isLoading={false}
-    onClick={null}
-    preventDefault={true}
-    target={null}
   >
     <Icon
       className="icon--menuitem"
@@ -211,14 +159,8 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     </span>
   </Button>
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__action c-explorer__item__action--small"
-    dialogTrigger={false}
     href="/admin/pages/5/edit/"
-    isLoading={false}
-    onClick={null}
-    preventDefault={true}
-    target={null}
   >
     <Icon
       className="icon--item-action"
@@ -227,14 +169,9 @@ exports[`ExplorerItem should show a publication status with unpublished changes 
     />
   </Button>
   <Button
-    accessibleLabel={null}
     className="c-explorer__item__action"
-    dialogTrigger={false}
     href="/admin/pages/5/"
-    isLoading={false}
     onClick={[Function]}
-    preventDefault={true}
-    target={null}
   >
     <Icon
       className="icon--item-action"

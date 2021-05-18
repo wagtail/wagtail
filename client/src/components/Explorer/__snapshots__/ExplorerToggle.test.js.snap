@@ -2,14 +2,8 @@
 
 exports[`ExplorerToggle basic 1`] = `
 <Button
-  accessibleLabel={null}
-  className=""
   dialogTrigger={true}
-  href="#"
-  isLoading={false}
   onClick={[Function]}
-  preventDefault={true}
-  target={null}
 >
   <Icon
     className="icon--menuitem"
