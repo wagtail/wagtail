@@ -10,9 +10,7 @@ exports[`PageCount plural 1`] = `
      5 pages
   </span>
   <Icon
-    className={null}
     name="arrow-right"
-    title={null}
   />
 </a>
 `;
@@ -27,9 +25,7 @@ exports[`PageCount works 1`] = `
      1 page
   </span>
   <Icon
-    className={null}
     name="arrow-right"
-    title={null}
   />
 </a>
 `;

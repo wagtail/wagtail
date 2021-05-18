@@ -8,7 +8,6 @@ exports[`ExplorerToggle basic 1`] = `
   <Icon
     className="icon--menuitem"
     name="folder-open-inverse"
-    title={null}
   />
   <span>
     To infinity and beyond!
@@ -16,7 +15,6 @@ exports[`ExplorerToggle basic 1`] = `
   <Icon
     className="icon--submenu-trigger"
     name="arrow-right"
-    title={null}
   />
 </Button>
 `;

@@ -52,8 +52,6 @@ Object {
 
 exports[`Draftail #wrapWagtailIcon works 1`] = `
 <Icon
-  className={null}
   name="media"
-  title={null}
 />
 `;

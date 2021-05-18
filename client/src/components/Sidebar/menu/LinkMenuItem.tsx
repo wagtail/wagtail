@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import Icon from '../common/Icon';
+import Icon from '../../Icon/Icon';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
 
 export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDefinition>> = (
