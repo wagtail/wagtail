@@ -15,7 +15,6 @@ exports[`ExplorerHeader #depth at root 1`] = `
       <Icon
         className="icon--explorer-header"
         name="home"
-        title={null}
       />
       <span>
         Pages
@@ -40,7 +39,6 @@ exports[`ExplorerHeader #page 1`] = `
       <Icon
         className="icon--explorer-header"
         name="arrow-left"
-        title={null}
       />
       <span>
         test
@@ -65,7 +63,6 @@ exports[`ExplorerHeader basic 1`] = `
       <Icon
         className="icon--explorer-header"
         name="arrow-left"
-        title={null}
       />
       <span>
         Pages

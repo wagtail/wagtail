@@ -55,9 +55,7 @@ exports[`Document no data 1`] = `
   entityKey="2"
   icon={
     <Icon
-      className={null}
       name="warning"
-      title={null}
     />
   }
   label="Missing document"
@@ -124,9 +122,7 @@ exports[`Document works 1`] = `
   entityKey="1"
   icon={
     <Icon
-      className={null}
       name="doc-full"
-      title={null}
     />
   }
   label="example.pdf"

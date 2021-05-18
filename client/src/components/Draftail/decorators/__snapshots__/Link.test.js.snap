@@ -55,9 +55,7 @@ exports[`Link works 1`] = `
   entityKey="1"
   icon={
     <Icon
-      className={null}
       name="link"
-      title={null}
     />
   }
   label="www.example.com"

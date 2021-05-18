@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 
-import Button from '../common/Button';
-import Icon from '../common/Icon';
+import Button from '../../Button/Button';
+import Icon from '../../Icon/Icon';
 import { MenuItemProps } from './MenuItem';
 import { LinkMenuItemDefinition } from './LinkMenuItem';
 
