@@ -174,7 +174,7 @@ The route name defaults to the name of the view. You can override this name with
 
 .. code-block:: python
 
-    >>> event_page.reverse_subpage('year', args=(2015, ))
+    >>> event_page.url + event_page.reverse_subpage('year', args=(2015, ))
     '/events/year/2015/'
 
 The ``RoutablePageMixin`` class
