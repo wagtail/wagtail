@@ -116,6 +116,7 @@ $positions: (
 
 // stylelint-disable declaration-no-important
 .#{$namespace}-userbar-trigger {
+    all: initial;
     display: flex;
     align-items: center;
     justify-content: center;
