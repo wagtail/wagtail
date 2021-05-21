@@ -515,6 +515,7 @@ Contributors
 * Andre Fonseca
 * Tidjani Dia
 * Jan Seifert
+* hardcodd
 
 Translators
 ===========
