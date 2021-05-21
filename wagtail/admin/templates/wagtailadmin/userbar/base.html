@@ -24,7 +24,7 @@
                 {% endblock %}
                 <span class="wagtail-userbar-help-text">{% trans 'View Wagtail quick actions' %}</span>
             </button>
-            <ul aria-labelledby="wagtail-userbar-trigger" class="wagtail-userbar-items" role="menu">
+            <ul aria-labelledby="wagtail-userbar-trigger" class="wagtail-userbar-items" id="wagtail-userbar-items" role="menu">
                 {% for item in items %}
                     {{ item|safe }}
                 {% endfor %}
