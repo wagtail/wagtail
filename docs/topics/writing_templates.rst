@@ -246,7 +246,7 @@ This tag provides a contextual flyout menu for logged-in users. The menu gives e
 
 This tag may be used on regular Django views, without page object. The user bar will contain one item pointing to the admin.
 
-We recommend putting the tag near the top of the ``<body>`` element so keyboard users can reach it. You should consider putting the tag after any navigation and `skip links <https://webaim.org/techniques/skipnav/>`_ but before the main content of your page.
+We recommend putting the tag near the top of the ``<body>`` element so keyboard users can reach it. You should consider putting the tag after any `skip links <https://webaim.org/techniques/skipnav/>`_ but before the navigation and main content of your page.
 
 .. code-block:: html+django
 
@@ -254,11 +254,11 @@ We recommend putting the tag near the top of the ``<body>`` element so keyboard 
     ...
     <body>
       <a id="#content">Skip to content</a>
+      {% wagtailuserbar %} {# This is a good place for the userbar #}
       <nav>
       ...
       </nav>
-      {% wagtailuserbar %} {# This is a good place for the userbar #}
-      <main id="content>
+      <main id="content">
       ...
       </main>
     </body>
