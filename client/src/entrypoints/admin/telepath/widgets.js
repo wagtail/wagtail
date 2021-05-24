@@ -48,6 +48,10 @@ class Widget {
         // eslint-disable-next-line new-cap
         return new this.boundWidgetClass(dom, name, idForLabel, initialState);
     }
+    bind(dom, name, id, initialState) {
+        // eslint-disable-next-line new-cap
+        return new this.boundWidgetClass($(dom), name, id, initialState);
+    }
 }
 window.telepath.register('wagtail.widgets.Widget', Widget);
 

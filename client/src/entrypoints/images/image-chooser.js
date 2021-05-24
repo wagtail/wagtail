@@ -7,6 +7,8 @@ function createImageChooser(id) {
   const editLink = chooserElement.find('.edit-link');
   const chooserBaseUrl = chooserElement.data('chooserUrl');
 
+  const rawChooserElement = chooserElement.get(0);
+  if (rawChooserElement.widget) return rawChooserElement.widget;
   /*
   Construct initial state of the chooser from the rendered (static) HTML and arguments passed to
   createImageChooser. State is either null (= no image chosen) or a dict of id, edit_link,
@@ -93,6 +95,7 @@ function createImageChooser(id) {
     chooser.clear();
   });
 
+  rawChooserElement.widget = chooser;
   return chooser;
 }
 window.createImageChooser = createImageChooser;
