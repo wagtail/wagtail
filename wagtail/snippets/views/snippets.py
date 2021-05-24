@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import ngettext
-from django.views import View
+from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
@@ -75,27 +75,34 @@ def index(request):
         raise PermissionDenied
 
 
-class ListView(View):
+class ListView(TemplateView):
     def get(self, request, app_label, model_name):
-        model = get_snippet_model_from_url_params(app_label, model_name)
+        self.app_label = app_label
+        self.model_name = model_name
+        self.model = get_snippet_model_from_url_params(app_label, model_name)
 
         permissions = [
-            get_permission_name(action, model)
+            get_permission_name(action, self.model)
             for action in ['add', 'change', 'delete']
         ]
         if not any([request.user.has_perm(perm) for perm in permissions]):
             raise PermissionDenied
 
-        items = model.objects.all()
-        enable_locale_filter = getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and issubclass(model, TranslatableMixin)
+        return super().get(request)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        items = self.model.objects.all()
+        enable_locale_filter = getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and issubclass(self.model, TranslatableMixin)
 
         if enable_locale_filter:
-            if 'locale' in request.GET:
+            if 'locale' in self.request.GET:
                 try:
-                    locale = Locale.objects.get(language_code=request.GET['locale'])
+                    locale = Locale.objects.get(language_code=self.request.GET['locale'])
                 except Locale.DoesNotExist:
                     # Redirect to snippet without locale
-                    return redirect('wagtailsnippets:list', app_label, model_name)
+                    return redirect('wagtailsnippets:list', self.app_label, self.model_name)
             else:
                 # Default to active locale (this will take into account the user's chosen admin language)
                 locale = Locale.get_active()
@@ -111,12 +118,12 @@ class ListView(View):
             items = items.order_by('pk')
 
         # Search
-        is_searchable = class_is_indexed(model)
+        is_searchable = class_is_indexed(self.model)
         is_searching = False
         search_query = None
-        if is_searchable and 'q' in request.GET:
-            search_form = SearchForm(request.GET, placeholder=_("Search %(snippet_type_name)s") % {
-                'snippet_type_name': model._meta.verbose_name_plural
+        if is_searchable and 'q' in self.request.GET:
+            search_form = SearchForm(self.request.GET, placeholder=_("Search %(snippet_type_name)s") % {
+                'snippet_type_name': self.model._meta.verbose_name_plural
             })
 
             if search_form.is_valid():
@@ -128,30 +135,24 @@ class ListView(View):
 
         else:
             search_form = SearchForm(placeholder=_("Search %(snippet_type_name)s") % {
-                'snippet_type_name': model._meta.verbose_name_plural
+                'snippet_type_name': self.model._meta.verbose_name_plural
             })
 
         paginator = Paginator(items, per_page=20)
-        paginated_items = paginator.get_page(request.GET.get('p'))
+        paginated_items = paginator.get_page(self.request.GET.get('p'))
 
-        # Template
-        if request.is_ajax():
-            template = 'wagtailsnippets/snippets/results.html'
-        else:
-            template = 'wagtailsnippets/snippets/type_index.html'
-
-        context = {
-            'model_opts': model._meta,
+        context.update({
+            'model_opts': self.model._meta,
             'items': paginated_items,
-            'can_add_snippet': request.user.has_perm(get_permission_name('add', model)),
-            'can_delete_snippets': request.user.has_perm(get_permission_name('delete', model)),
+            'can_add_snippet': self.request.user.has_perm(get_permission_name('add', self.model)),
+            'can_delete_snippets': self.request.user.has_perm(get_permission_name('delete', self.model)),
             'is_searchable': is_searchable,
             'search_form': search_form,
             'is_searching': is_searching,
             'query_string': search_query,
             'locale': None,
             'translations': [],
-        }
+        })
 
         if enable_locale_filter:
             context.update({
@@ -159,13 +160,19 @@ class ListView(View):
                 'translations': [
                     {
                         'locale': locale,
-                        'url': reverse('wagtailsnippets:list', args=[app_label, model_name]) + '?locale=' + locale.language_code
+                        'url': reverse('wagtailsnippets:list', args=[self.app_label, self.model_name]) + '?locale=' + locale.language_code
                     }
                     for locale in Locale.objects.all().exclude(id=locale.id)
                 ],
             })
 
-        return TemplateResponse(request, template, context)
+        return context
+
+    def get_template_names(self):
+        if self.request.is_ajax():
+            return ['wagtailsnippets/snippets/results.html']
+        else:
+            return ['wagtailsnippets/snippets/type_index.html']
 
 
 def create(request, app_label, model_name):
