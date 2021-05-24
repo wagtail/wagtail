@@ -12,6 +12,7 @@ urlpatterns = [
     path('choose/<slug:app_label>/<slug:model_name>/<str:pk>/', chooser.chosen, name='chosen'),
 
     path('<slug:app_label>/<slug:model_name>/', snippets.ListView.as_view(), name='list'),
+    path('<slug:app_label>/<slug:model_name>/results/', snippets.ListResultsView.as_view(), name='list_results'),
     path('<slug:app_label>/<slug:model_name>/add/', snippets.create, name='add'),
     path('<slug:app_label>/<slug:model_name>/edit/<str:pk>/', snippets.edit, name='edit'),
     path('<slug:app_label>/<slug:model_name>/multiple/delete/', snippets.delete, name='delete-multiple'),

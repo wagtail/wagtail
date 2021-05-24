@@ -6,7 +6,7 @@
     {{ block.super }}
     <script>
         window.headerSearch = {
-            url: "{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}",
+            url: "{% url 'wagtailsnippets:list_results' model_opts.app_label model_opts.model_name %}",
             termInput: "#id_q",
             targetOutput: "#snippet-results"
         }
