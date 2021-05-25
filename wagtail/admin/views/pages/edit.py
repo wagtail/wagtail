@@ -305,7 +305,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         try:
             self.subscription = PageSubscription.objects.get(page=self.page, user=self.request.user)
         except PageSubscription.DoesNotExist:
-            self.subscription = PageSubscription(page=self.page, user=self.request.user)
+            self.subscription = PageSubscription(page=self.page, user=self.request.user, comment_notifications=False)
 
         self.edit_handler = self.page_class.get_edit_handler()
         self.edit_handler = self.edit_handler.bind_to(instance=self.page, request=self.request)

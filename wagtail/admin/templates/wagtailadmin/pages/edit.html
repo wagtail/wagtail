@@ -189,8 +189,11 @@
             ActivateWorkflowActionsForEditView('#page-edit-form');
             LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}');
 
+            {% get_comments_enabled as comments_enabled %}
+            {% if comments_enabled %}
             // Initialise comments UI
             window.comments.initCommentsInterface(document.getElementById('page-edit-form'));
+            {% endif %}
         });
     </script>
 {% endblock %}

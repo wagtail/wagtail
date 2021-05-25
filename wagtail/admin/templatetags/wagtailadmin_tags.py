@@ -702,3 +702,8 @@ def menu_props(context):
     return json.dumps({
         'modules': JSContext().pack(modules),
     }, cls=DjangoJSONEncoder)
+
+
+@register.simple_tag
+def get_comments_enabled():
+    return getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True)
