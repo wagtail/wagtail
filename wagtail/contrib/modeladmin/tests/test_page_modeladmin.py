@@ -54,6 +54,11 @@ class TestIndexView(TestCase, WagtailTestUtils):
         # There should still be four results
         self.assertEqual(response.context['result_count'], 4)
 
+    def test_using_core_page(self):
+        # The core page is slightly different to other pages
+        response = self.client.get('/admin/wagtailcore/page/')
+        self.assertEqual(response.status_code, 200)
+
 
 class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
