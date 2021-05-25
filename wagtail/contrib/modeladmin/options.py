@@ -240,6 +240,9 @@ class ModelAdmin(WagtailRegisterable):
         ordering = self.get_ordering(request)
         if ordering:
             qs = qs.order_by(*ordering)
+        if self.is_pagemodel:
+            # If we're listing pages, exclude the root page
+            qs = qs.exclude(depth=1)
         return qs
 
     def get_search_fields(self, request):

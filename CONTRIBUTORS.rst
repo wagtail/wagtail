@@ -518,6 +518,7 @@ Contributors
 * hardcodd
 * Chris Pollard
 * Godswill Melford
+* Jake Howard
 
 Translators
 ===========
