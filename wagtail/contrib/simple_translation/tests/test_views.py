@@ -253,7 +253,7 @@ class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
             "pk": 99,
         }
         self.assertEqual(
-            view.get_success_url(), "/admin/snippets/some_app/some_model/99/"
+            view.get_success_url(), "/admin/snippets/some_app/some_model/edit/99/"
         )
 
     def test_get_success_message(self):

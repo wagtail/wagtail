@@ -14,6 +14,7 @@ Changelog
  * Fix: Deleting a page from its listing view no longer results in a 404 error (Tidjani Dia)
  * Fix: The Wagtail admin urls will now respect the `APPEND_SLASH` setting (Tidjani Dia)
  * Fix: Prevent “Forgotten password” link from overlapping with field on mobile devices (Helen Chapman)
+ * Fix: Snippet admin urls are now namespaced to avoid ambiguity with the primary key component of the url (Matt Westcott)
 
 
 2.13 (12.05.2021)

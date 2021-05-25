@@ -405,3 +405,15 @@ def usage(request, app_label, model_name, pk):
         'instance': instance,
         'used_by': used_by
     })
+
+
+def redirect_to_edit(request, app_label, model_name, pk):
+    return redirect('wagtailsnippets:edit', app_label, model_name, pk, permanent=True)
+
+
+def redirect_to_delete(request, app_label, model_name, pk):
+    return redirect('wagtailsnippets:delete', app_label, model_name, pk, permanent=True)
+
+
+def redirect_to_usage(request, app_label, model_name, pk):
+    return redirect('wagtailsnippets:usage', app_label, model_name, pk, permanent=True)

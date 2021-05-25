@@ -1527,6 +1527,19 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Used 0 times')
         self.assertContains(response, self.snippet_a.usage_url())
 
+    def test_redirect_to_edit(self):
+        response = self.client.get('/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/')
+        self.assertRedirects(response, '/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/edit/snippet_2F01/', status_code=301)
+
+    def test_redirect_to_delete(self):
+        response = self.client.get('/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/delete/')
+        self.assertRedirects(response, '/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/delete/snippet_2F01/', status_code=301)
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_redirect_to_usage(self):
+        response = self.client.get('/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/usage/')
+        self.assertRedirects(response, '/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/usage/snippet_2F01/', status_code=301)
+
 
 class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
     fixtures = ['test.json']
