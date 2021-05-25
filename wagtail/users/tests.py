@@ -153,6 +153,7 @@ class TestUserIndexView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailusers/users/index.html')
         self.assertContains(response, 'testuser')
 
+    @unittest.skipIf(settings.AUTH_USER_MODEL == 'emailuser.EmailUser', 'Negative UUID not possible')
     def test_allows_negative_ids(self):
         # see https://github.com/wagtail/wagtail/issues/565
         self.create_user('guardian', 'guardian@example.com', 'gu@rd14n', pk=-1)
@@ -658,7 +659,8 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Password confirmation:')
 
     def test_nonexistant_redirect(self):
-        self.assertEqual(self.get(user_id=100000).status_code, 404)
+        invalid_id = '99999999-9999-9999-9999-999999999999' if settings.AUTH_USER_MODEL == 'emailuser.EmailUser' else 100000
+        self.assertEqual(self.get(user_id=invalid_id).status_code, 404)
 
     def test_simple_post(self):
         response = self.post({
