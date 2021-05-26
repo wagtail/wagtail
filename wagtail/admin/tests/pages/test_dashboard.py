@@ -90,3 +90,28 @@ class TestRecentEditsPanel(TestCase, WagtailTestUtils):
         self.assertEqual(panel.last_edits[0][0].page, Page.objects.get(pk=self.child_page.id))
         # check if the page in this list is the specific page of this revision
         self.assertEqual(panel.last_edits[0][1], Page.objects.get(pk=self.child_page.id).specific)
+
+
+class TestRecentEditsQueryCount(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.bob = self.create_superuser(username='bob', password='password')
+
+        # make a bunch of page edits (all to EventPages, so that calls to specific() don't add
+        # an unpredictable number of queries)
+        pages_to_edit = Page.objects.filter(id__in=[4, 5, 6, 9, 12, 13]).specific()
+        for page in pages_to_edit:
+            page.save_revision(user=self.bob)
+
+    def test_panel_query_count(self):
+        # fake a request object with bob as the user
+        self.client.user = self.bob
+        with self.assertNumQueries(4):
+            # Instantiating RecentEditsPanel should not generate N+1 queries -
+            # i.e. any number less than 6 would be reasonable here
+            panel = RecentEditsPanel(self.client)
+
+        # check that the panel is still actually returning results
+        html = panel.render()
+        self.assertIn("Ameristralia Day", html)

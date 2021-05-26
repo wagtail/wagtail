@@ -151,7 +151,7 @@ class RecentEditsPanel:
         page_keys = [pr.page_id for pr in last_edits]
         pages = Page.objects.specific().in_bulk(page_keys)
         self.last_edits = [
-            [review, pages.get(review.page.pk)] for review in last_edits
+            [revision, pages.get(revision.page_id)] for revision in last_edits
         ]
 
     def render(self):
