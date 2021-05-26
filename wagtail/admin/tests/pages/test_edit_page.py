@@ -103,6 +103,19 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response,
                             '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>')
 
+        # test that workflow actions are shown
+        self.assertContains(
+            response, '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">'
+        )
+
+    @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
+    def test_workflow_buttons_not_shown_when_workflow_disabled(self):
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response, 'value="Submit to Moderators approval"'
+        )
+
     def test_edit_draft_page_with_no_revisions(self):
         # Tests that the edit page loads
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.unpublished_page.id, )))

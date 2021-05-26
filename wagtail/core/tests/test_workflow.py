@@ -102,6 +102,27 @@ class TestWorkflows(TestCase):
         self.assertTrue(workflow_2.all_pages().filter(id=hello_page.id).exists())
         self.assertTrue(workflow_2.all_pages().filter(id=goodbye_page.id).exists())
 
+    @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
+    def test_workflow_methods_generate_no_queries_when_disabled(self):
+        homepage = Page.objects.get(url_path='/home/')
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.has_workflow, False)
+
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.get_workflow(), None)
+
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.workflow_in_progress, False)
+
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.current_workflow_state, None)
+
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.current_workflow_task_state, None)
+
+        with self.assertNumQueries(0):
+            self.assertEqual(homepage.current_workflow_task, None)
+
     @freeze_time("2017-01-01 12:00:00")
     def test_start_workflow_on_page(self):
         # test the first WorkflowState and TaskState models are set up correctly when Workflow.start(page) is used.

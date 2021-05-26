@@ -116,6 +116,18 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(response, 'testapp/js/siren.js')
         # test construct_page_action_menu hook
         self.assertContains(response, '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>')
+        # test that workflow actions are shown
+        self.assertContains(
+            response, '<button type="submit" name="action-submit" value="Submit for moderation" class="button">'
+        )
+
+    @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
+    def test_workflow_buttons_not_shown_when_workflow_disabled(self):
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response, 'value="Submit for moderation"'
+        )
 
     def test_create_multipart(self):
         """

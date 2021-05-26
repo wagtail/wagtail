@@ -17,6 +17,7 @@ Other features
  * Added support for customising group management views. See :ref:`customising_group_views`. (Jan Seifert)
  * Added ``full_url`` property to image renditions (Shreyash Srivastava)
  * Added locale selector when choosing translatable snippets (Karl Hobley)
+ * Added ``WAGTAIL_WORKFLOW_ENABLED`` setting for enabling / disabling moderation workflows globally (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~

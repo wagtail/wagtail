@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -116,6 +117,9 @@ def register_collections_menu_item():
 
 class WorkflowsMenuItem(MenuItem):
     def is_shown(self, request):
+        if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            return False
+
         return workflow_permission_policy.user_has_any_permission(
             request.user, ['add', 'change', 'delete']
         )
@@ -123,6 +127,9 @@ class WorkflowsMenuItem(MenuItem):
 
 class WorkflowTasksMenuItem(MenuItem):
     def is_shown(self, request):
+        if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            return False
+
         return task_permission_policy.user_has_any_permission(
             request.user, ['add', 'change', 'delete']
         )
@@ -617,7 +624,7 @@ class LockedPagesMenuItem(MenuItem):
 
 class WorkflowReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return True
+        return getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True)
 
 
 class SiteHistoryReportMenuItem(MenuItem):

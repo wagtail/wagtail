@@ -9,6 +9,7 @@ Changelog
  * Added support for customising group management views (Jan Seifert)
  * Added `full_url` property to image renditions (Shreyash Srivastava)
  * Added locale selector when choosing translatable snippets (Karl Hobley)
+ * Added `WAGTAIL_WORKFLOW_ENABLED` setting for enabling / disabling moderation workflows globally (Matt Westcott)
  * Fix: Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
  * Fix: Ordering specified in `construct_explorer_page_queryset` hook is now taken into account again by the page explorer API (Andre Fonseca)
  * Fix: Deleting a page from its listing view no longer results in a 404 error (Tidjani Dia)
