@@ -57,15 +57,18 @@ class UserPagesInWorkflowModerationPanel:
 
     def __init__(self, request):
         self.request = request
-        # Find in progress workflow states which are either requested by the user or on pages owned by the user
-        self.workflow_states = (
-            WorkflowState.objects.active()
-            .filter(Q(page__owner=request.user) | Q(requested_by=request.user))
-            .select_related(
-                'page', 'current_task_state', 'current_task_state__task', 'current_task_state__page_revision'
+        if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            # Find in progress workflow states which are either requested by the user or on pages owned by the user
+            self.workflow_states = (
+                WorkflowState.objects.active()
+                .filter(Q(page__owner=request.user) | Q(requested_by=request.user))
+                .select_related(
+                    'page', 'current_task_state', 'current_task_state__task', 'current_task_state__page_revision'
+                )
+                .order_by('-current_task_state__started_at')
             )
-            .order_by('-current_task_state__started_at')
-        )
+        else:
+            self.workflow_states = WorkflowState.objects.none()
 
     def render(self):
         return render_to_string('wagtailadmin/home/user_pages_in_workflow_moderation.html', {
@@ -79,15 +82,18 @@ class WorkflowPagesToModeratePanel:
 
     def __init__(self, request):
         self.request = request
-        states = (
-            TaskState.objects.reviewable_by(request.user)
-            .select_related('page_revision', 'task', 'page_revision__page')
-            .order_by('-started_at')
-        )
-        self.states = [
-            (state, state.task.specific.get_actions(page=state.page_revision.page, user=request.user), state.workflow_state.all_tasks_with_status())
-            for state in states
-        ]
+        if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            states = (
+                TaskState.objects.reviewable_by(request.user)
+                .select_related('page_revision', 'task', 'page_revision__page')
+                .order_by('-started_at')
+            )
+            self.states = [
+                (state, state.task.specific.get_actions(page=state.page_revision.page, user=request.user), state.workflow_state.all_tasks_with_status())
+                for state in states
+            ]
+        else:
+            self.states = []
 
     def render(self):
         return render_to_string('wagtailadmin/home/workflow_pages_to_moderate.html', {

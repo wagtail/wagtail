@@ -26,6 +26,42 @@ def delete_existing_workflows():
     WorkflowTask.objects.all().delete()
 
 
+class TestWorkflowMenus(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+        self.editor = self.create_user(
+            username='editor',
+            email='editor@email.com',
+            password='password',
+        )
+        editors = Group.objects.get(name='Editors')
+        editors.user_set.add(self.editor)
+
+    def test_workflow_settings_and_reports_menus_are_shown_to_admin(self):
+        response = self.client.get('/admin/')
+        self.assertContains(response, 'href="/admin/workflows/list/"')
+        self.assertContains(response, 'href="/admin/workflows/tasks/index/"')
+        self.assertContains(response, 'href="/admin/reports/workflow/"')
+        self.assertContains(response, 'href="/admin/reports/workflow_tasks/"')
+
+    def test_workflow_settings_menus_are_not_shown_to_editor(self):
+        self.login(user=self.editor)
+        response = self.client.get('/admin/')
+        self.assertNotContains(response, 'href="/admin/workflows/list/"')
+        self.assertNotContains(response, 'href="/admin/workflows/tasks/index/"')
+        self.assertContains(response, 'href="/admin/reports/workflow/"')
+        self.assertContains(response, 'href="/admin/reports/workflow_tasks/"')
+
+    @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
+    def test_workflow_menus_are_hidden_when_workflows_are_disabled(self):
+        response = self.client.get('/admin/')
+        self.assertNotContains(response, 'href="/admin/workflows/list/"')
+        self.assertNotContains(response, 'href="/admin/workflows/tasks/index/"')
+        self.assertNotContains(response, 'href="/admin/reports/workflow/"')
+        self.assertNotContains(response, 'href="/admin/reports/workflow_tasks/"')
+
+
 class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
 
     def setUp(self):

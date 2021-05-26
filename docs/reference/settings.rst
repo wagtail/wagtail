@@ -714,6 +714,12 @@ Workflow
 
 .. code-block:: python
 
+  WAGTAIL_WORKFLOW_ENABLED = False
+
+Specifies whether moderation workflows are enabled (default: True). When disabled, editors will no longer be given the option to submit pages to a workflow, and the settings areas for admins to configure workflows and tasks will be unavailable.
+
+.. code-block:: python
+
   WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True
 
 Moderation workflows can be used in two modes. The first is to require that all tasks must approve a specific page revision for the workflow to complete. As a result,

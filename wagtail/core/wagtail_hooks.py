@@ -64,20 +64,20 @@ def register_collection_permissions():
     )
 
 
-@hooks.register('register_permissions')
-def register_workflow_permissions():
-    return Permission.objects.filter(
-        content_type__app_label='wagtailcore',
-        codename__in=['add_workflow', 'change_workflow', 'delete_workflow']
-    )
+if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+    @hooks.register('register_permissions')
+    def register_workflow_permissions():
+        return Permission.objects.filter(
+            content_type__app_label='wagtailcore',
+            codename__in=['add_workflow', 'change_workflow', 'delete_workflow']
+        )
 
-
-@hooks.register('register_permissions')
-def register_task_permissions():
-    return Permission.objects.filter(
-        content_type__app_label='wagtailcore',
-        codename__in=['add_task', 'change_task', 'delete_task']
-    )
+    @hooks.register('register_permissions')
+    def register_task_permissions():
+        return Permission.objects.filter(
+            content_type__app_label='wagtailcore',
+            codename__in=['add_task', 'change_task', 'delete_task']
+        )
 
 
 @hooks.register('describe_collection_contents')

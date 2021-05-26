@@ -2835,10 +2835,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @property
     def has_workflow(self):
         """Returns True if the page or an ancestor has an active workflow assigned, otherwise False"""
+        if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            return False
         return self.get_ancestors(inclusive=True).filter(workflowpage__isnull=False).filter(workflowpage__workflow__active=True).exists()
 
     def get_workflow(self):
         """Returns the active workflow assigned to the page or its nearest ancestor"""
+        if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            return None
+
         if hasattr(self, 'workflowpage') and self.workflowpage.workflow.active:
             return self.workflowpage.workflow
         else:
@@ -2852,11 +2857,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @property
     def workflow_in_progress(self):
         """Returns True if a workflow is in progress on the current page, otherwise False"""
+        if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            return False
         return WorkflowState.objects.filter(page=self, status=WorkflowState.STATUS_IN_PROGRESS).exists()
 
     @property
     def current_workflow_state(self):
         """Returns the in progress or needs changes workflow state on this page, if it exists"""
+        if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            return None
         try:
             return WorkflowState.objects.active().select_related("current_task_state__task").get(page=self)
         except WorkflowState.DoesNotExist:

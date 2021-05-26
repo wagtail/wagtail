@@ -311,8 +311,12 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.edit_handler = self.edit_handler.bind_to(instance=self.page, request=self.request)
         self.form_class = self.edit_handler.get_form_class()
 
-        # Retrieve current workflow state if set, default to last workflow state
-        self.workflow_state = self.page.current_workflow_state or self.page.workflow_states.order_by('created_at').last()
+        if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            # Retrieve current workflow state if set, default to last workflow state
+            self.workflow_state = self.page.current_workflow_state or self.page.workflow_states.order_by('created_at').last()
+        else:
+            self.workflow_state = None
+
         if self.workflow_state:
             self.workflow_tasks = self.workflow_state.all_tasks_with_status()
         else:
