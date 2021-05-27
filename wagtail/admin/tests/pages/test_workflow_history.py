@@ -13,7 +13,9 @@ class TestWorkflowHistoryDetail(TestCase, WagtailTestUtils):
         self.user = self.create_test_user()
         self.login(self.user)
 
-        self.christmas_event = Page.objects.get(url_path="/home/events/christmas/")
+        self.christmas_event = Page.objects.get(
+            url_path="/home/events/christmas/"
+        ).specific
         self.christmas_event.save_revision()
 
         workflow = self.christmas_event.get_workflow()

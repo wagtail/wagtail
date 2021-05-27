@@ -891,10 +891,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         :param clean: Set this to False to skip cleaning page content before saving this revision
         :return: the newly created revision
         """
+        # Raise error if this is not the specific version of the page
+        if not isinstance(self, self.specific_class):
+            raise RuntimeError(
+                "page.save_revision() must be called on the specific version of the page. "
+                "Call page.specific.save_revision() instead."
+            )
+
         # Raise an error if this page is an alias.
         if self.alias_of_id:
             raise RuntimeError(
-                "save_revision() was called on an alias page. "
+                "page.save_revision() was called on an alias page. "
                 "Revisions are not required for alias pages as they are an exact copy of another page."
             )
 

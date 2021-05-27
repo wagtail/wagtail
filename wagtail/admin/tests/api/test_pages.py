@@ -852,7 +852,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
 
     def test_meta_status_live_draft(self):
         # Save revision without republish
-        Page.objects.get(id=16).save_revision()
+        Page.objects.get(id=16).specific.save_revision()
 
         response = self.get_response(16)
         content = json.loads(response.content.decode("UTF-8"))
@@ -867,7 +867,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         # Unpublish and save revision with go live date in the future
         Page.objects.get(id=16).unpublish()
         tomorrow = timezone.now() + datetime.timedelta(days=1)
-        Page.objects.get(id=16).save_revision(approved_go_live_at=tomorrow)
+        Page.objects.get(id=16).specific.save_revision(approved_go_live_at=tomorrow)
 
         response = self.get_response(16)
         content = json.loads(response.content.decode("UTF-8"))
@@ -1474,7 +1474,7 @@ class TestPublishPageAction(AdminAPITestCase):
             content,
             {
                 "message": (
-                    "save_revision() was called on an alias page. "
+                    "page.save_revision() was called on an alias page. "
                     "Revisions are not required for alias pages as they are an exact copy of another page."
                 )
             },
@@ -1797,11 +1797,11 @@ class TestRevertToPageRevisionAction(AdminAPITestCase):
         self.events_page = Page.objects.get(id=3)
 
         # Create revision to revert back to
-        self.first_revision = self.events_page.save_revision()
+        self.first_revision = self.events_page.specific.save_revision()
 
         # Change page title
         self.events_page.title = "Evenements"
-        self.events_page.save_revision().publish()
+        self.events_page.specific.save_revision().publish()
 
     def get_response(self, page_id, data):
         return self.client.post(
