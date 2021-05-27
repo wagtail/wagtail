@@ -975,6 +975,21 @@ class TestPrevNextSiblings(TestCase):
         )
 
 
+class TestSaveRevision(TestCase):
+    fixtures = ["test.json"]
+
+    def test_raises_error_if_non_specific_page_used(self):
+        christmas_event = Page.objects.get(url_path="/home/events/christmas/")
+
+        with self.assertRaises(RuntimeError) as e:
+            christmas_event.save_revision()
+
+        self.assertEqual(
+            e.exception.args[0],
+            "page.save_revision() must be called on the specific version of the page. Call page.specific.save_revision() instead.",
+        )
+
+
 class TestLiveRevision(TestCase):
     fixtures = ["test.json"]
 
@@ -1734,7 +1749,7 @@ class TestCopyPage(TestCase):
         old_christmas_event = (
             events_index.get_children().filter(slug="christmas").first()
         )
-        old_christmas_event.save_revision()
+        old_christmas_event.specific.save_revision()
 
         # Copy it
         new_events_index = events_index.copy(
@@ -2981,7 +2996,7 @@ class TestIssue735(TestCase):
     fixtures = ["test.json"]
 
     def test_child_urls_updated_on_parent_publish(self):
-        event_index = Page.objects.get(url_path="/home/events/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
 
         # Change the event index slug and publish it
@@ -3021,8 +3036,10 @@ class TestIssue1216(TestCase):
     fixtures = ["test.json"]
 
     def test_url_path_can_exceed_255_characters(self):
-        event_index = Page.objects.get(url_path="/home/events/")
-        christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
+        event_index = Page.objects.get(url_path="/home/events/").specific
+        christmas_event = EventPage.objects.get(
+            url_path="/home/events/christmas/"
+        ).specific
 
         # Change the christmas_event slug first - this way, we test that the process for
         # updating child url paths also handles >255 character paths correctly
