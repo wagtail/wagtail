@@ -887,7 +887,10 @@ class CommentPanel(EditHandler):
             data['replies'] = replies
             serialized_comments.append(data)
 
-        authors = {str(user.pk): user_data(user) for user in get_user_model().objects.filter(pk__in=user_pks)}
+        authors = {
+            str(user.pk): user_data(user)
+            for user in get_user_model().objects.filter(pk__in=user_pks).select_related('wagtail_userprofile')
+        }
 
         comments_data = {
             'comments': serialized_comments,
