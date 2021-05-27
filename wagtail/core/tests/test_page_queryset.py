@@ -754,8 +754,8 @@ class TestSpecificQuery(TestCase):
         # Ensure annotations are reapplied to specific() page queries
 
         pages = Page.objects.live()
-        pages.first().save_revision()
-        pages.last().save_revision()
+        pages.first().specific.save_revision()
+        pages.last().specific.save_revision()
 
         results = Page.objects.live().specific().annotate(revision_count=Count('revisions'))
 
