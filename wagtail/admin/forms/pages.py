@@ -105,6 +105,9 @@ class PageViewRestrictionForm(BaseViewRestrictionForm):
 class WagtailAdminPageForm(WagtailAdminModelForm):
     comment_notifications = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
 
+    # Could be set to False by a subclass constructed by TabbedInterface
+    show_comments_toggle = True
+
     class Meta:
         # (dealing with Treebeard's tree-related fields that really should have
         # been editable=False)
@@ -121,9 +124,12 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
 
         self.parent_page = parent_page
 
+        if not self.show_comments_toggle:
+            del self.fields['comment_notifications']
+
     def save(self, commit=True):
-        # Save updates to PageSubscription
-        if self.subscription:
+        # Save comment notifications updates to PageSubscription
+        if self.show_comments_toggle and self.subscription:
             self.subscription.comment_notifications = self.cleaned_data['comment_notifications']
             if commit:
                 self.subscription.save()

@@ -645,3 +645,8 @@ def locales():
         }
         for locale in Locale.objects.all()
     ])
+
+
+@register.simple_tag
+def get_comments_enabled():
+    return getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True)

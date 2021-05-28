@@ -2,6 +2,7 @@ import functools
 import re
 
 from django import forms
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
@@ -373,6 +374,18 @@ class TabbedInterface(BaseFormEditHandler):
             self.show_comments_toggle = show_comments_toggle
         else:
             self.show_comments_toggle = 'comment_notifications' in self.required_fields()
+
+    def get_form_class(self):
+        form_class = super().get_form_class()
+
+        # Set show_comments_toggle attibute on form class
+        return type(
+            form_class.__name__,
+            (form_class, ),
+            {
+                'show_comments_toggle': self.show_comments_toggle
+            }
+        )
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
@@ -961,7 +974,9 @@ def reset_page_edit_handler_cache(**kwargs):
     """
     if kwargs["setting"] == 'WAGTAILADMIN_COMMENTS_ENABLED':
         set_default_page_edit_handlers(Page)
-        Page.get_edit_handler.cache_clear()
+        for model in apps.get_models():
+            if issubclass(model, Page):
+                model.get_edit_handler.cache_clear()
 
 
 class StreamFieldPanel(FieldPanel):
