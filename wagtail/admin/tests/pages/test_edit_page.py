@@ -2044,6 +2044,27 @@ class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
         subscription.refresh_from_db()
         self.assertFalse(subscription.comment_notifications)
 
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
+    def test_comments_disabled(self):
+        response = self.client.get(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, '<input type="checkbox" name="comment_notifications" id="id_comment_notifications">')
+
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
+    def test_post_comments_disabled(self):
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comment_notifications': 'on'  # Testing that this gets ignored
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the subscription
+        self.assertFalse(PageSubscription.objects.get().comment_notifications)
+
 
 class TestCommenting(TestCase, WagtailTestUtils):
     """
