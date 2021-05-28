@@ -14,7 +14,6 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.edit_handlers import CommentPanel
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
@@ -2054,26 +2053,6 @@ class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
         self.assertFalse(PageSubscription.objects.get().comment_notifications)
 
 
-@contextlib.contextmanager
-def enable_comment_panel(model):
-    """
-    Adds CommentPanel into settings_panels of the given model
-
-    FIXME: This is a temporary workaround. Pages should have CommentPanel in settings_panels anyway,
-           but that currently breaks a lot of tests.
-    """
-    previous_settings_panels = model.settings_panels
-
-    model.settings_panels = previous_settings_panels + [CommentPanel()]
-    model.get_edit_handler.cache_clear()
-
-    try:
-        yield
-    finally:
-        model.settings_panels = previous_settings_panels
-        model.get_edit_handler.cache_clear()
-
-
 class TestCommentingNotifications(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
@@ -2130,8 +2109,7 @@ class TestCommentingNotifications(TestCase, WagtailTestUtils):
             'comments-0-replies-MAX_NUM_FORMS': '0'
         }
 
-        with enable_comment_panel(SimplePage):
-            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
 
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
@@ -2172,8 +2150,7 @@ class TestCommentingNotifications(TestCase, WagtailTestUtils):
             'comments-0-replies-MAX_NUM_FORMS': '0'
         }
 
-        with enable_comment_panel(SimplePage):
-            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
 
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
@@ -2229,8 +2206,7 @@ class TestCommentingNotifications(TestCase, WagtailTestUtils):
             'comments-0-replies-1-text': 'a new reply'
         }
 
-        with enable_comment_panel(SimplePage):
-            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
 
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
@@ -2279,8 +2255,7 @@ class TestCommentingNotifications(TestCase, WagtailTestUtils):
             'comments-0-replies-MAX_NUM_FORMS': '0'
         }
 
-        with enable_comment_panel(SimplePage):
-            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
 
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
@@ -2318,8 +2293,7 @@ class TestCommentingNotifications(TestCase, WagtailTestUtils):
             'comments-0-replies-MAX_NUM_FORMS': '0'
         }
 
-        with enable_comment_panel(SimplePage):
-            response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
 
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
