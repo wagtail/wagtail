@@ -867,7 +867,6 @@ class CommentPanel(EditHandler):
             }
 
         user = getattr(self.request, 'user', None)
-        authors = {user.pk: user_data(user)} if user else {}
         user_pks = {user.pk}
         serialized_comments = []
         bound = self.form.is_bound
@@ -888,7 +887,7 @@ class CommentPanel(EditHandler):
             data['replies'] = replies
             serialized_comments.append(data)
 
-        authors = {user.pk: user_data(user) for user in get_user_model().objects.filter(pk__in=user_pks)}
+        authors = {str(user.pk): user_data(user) for user in get_user_model().objects.filter(pk__in=user_pks)}
 
         comments_data = {
             'comments': serialized_comments,
