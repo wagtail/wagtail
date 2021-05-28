@@ -17,6 +17,7 @@ Changelog
  * Fix: Prevent “Forgotten password” link from overlapping with field on mobile devices (Helen Chapman)
  * Fix: Snippet admin urls are now namespaced to avoid ambiguity with the primary key component of the url (Matt Westcott)
  * Fix: Save order of promoted search results (Hardcodd)
+ * Fix: Prevent error on copying pages with ClusterTaggableManager relations and multi-level inheritance (Chris Pollard)
 
 
 2.13.1 (01.06.2021)
