@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 
@@ -25,6 +27,7 @@ class EmailUserManager(BaseUserManager):
 
 
 class EmailUser(AbstractBaseUser, PermissionsMixin):
+    uuid = models.UUIDField(default=uuid.uuid4, primary_key=True)
     email = models.EmailField(max_length=255, unique=True)
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)

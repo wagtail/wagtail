@@ -9,6 +9,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
+from django.utils.html import json_script
 from freezegun import freeze_time
 from pytz import utc
 
@@ -1100,8 +1101,13 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.assertEqual(data['comments'][0]['replies'][0]['user'], self.reply_1.user.pk)
         self.assertEqual(data['comments'][0]['replies'][1]['user'], self.reply_2.user.pk)
 
-        self.assertIn(self.commenting_user.pk, data['authors'])
-        self.assertIn(self.other_user.pk, data['authors'])
+        self.assertIn(str(self.commenting_user.pk), data['authors'])
+        self.assertIn(str(self.other_user.pk), data['authors'])
+
+        try:
+            json_script(data, 'comments-data')
+        except TypeError:
+            self.fail("Failed to serialize comments data. This is likely due to a custom user model using an unsupported field.")
 
     def test_form(self):
         """
