@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.13.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure comment notification checkbox is fully hidden when commenting is disabled (Karl Hobley)
+
+
 2.13 (12.05.2021)
 ~~~~~~~~~~~~~~~~~
 
