@@ -18,6 +18,12 @@ Changelog
  * Fix: Snippet admin urls are now namespaced to avoid ambiguity with the primary key component of the url (Matt Westcott)
 
 
+2.13.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure comment notification checkbox is fully hidden when commenting is disabled (Karl Hobley)
+
+
 2.13 (12.05.2021)
 ~~~~~~~~~~~~~~~~~
 
