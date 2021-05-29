@@ -36,7 +36,24 @@ class SourceImageIOError(IOError):
 
 
 class ImageQuerySet(SearchableQuerySetMixin, models.QuerySet):
-    pass
+    def prefetch_renditions(self, *filters):
+        """
+        Prefetches generated renditions for the given filters.
+        """
+        # Get a list of filter spec strings. The given value could contain Filter objects
+        filter_specs = [
+            filter.spec if isinstance(filter, Filter) else filter for filter in filters
+        ]
+
+        rendition_model = self.model.get_rendition_model()
+
+        return self.prefetch_related(
+            models.Prefetch(
+                'renditions',
+                queryset=rendition_model.objects.filter(filter_spec__in=filter_specs),
+                to_attr='prefetched_renditions'
+            )
+        )
 
 
 def get_upload_to(instance, filename):
@@ -280,6 +297,12 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
         cache_key = filter.get_cache_key(self)
         Rendition = self.get_rendition_model()
+
+        # Check if the rendition was prefetched
+        prefetched_renditions = getattr(self, 'prefetched_renditions', [])
+        for rendition in prefetched_renditions:
+            if rendition.filter_spec == filter.spec and rendition.focal_point_key == cache_key:
+                return rendition
 
         try:
             rendition_caching = True
