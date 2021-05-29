@@ -13,12 +13,12 @@ class PageLinkHandler(LinkHandler):
 
     @classmethod
     def get_instance(cls, attrs):
-        return super().get_instance(attrs).specific
+        return super().get_instance(attrs).specific_deferred
 
     @classmethod
     def expand_db_attributes(cls, attrs):
         try:
             page = cls.get_instance(attrs)
-            return '<a href="%s">' % escape(page.localized.specific.url)
+            return '<a href="%s">' % escape(page.localized.specific_deferred.url)
         except Page.DoesNotExist:
             return "<a>"
