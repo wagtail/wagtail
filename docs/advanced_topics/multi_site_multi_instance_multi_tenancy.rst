@@ -26,13 +26,13 @@ Some projects require content editors to have permissions on specific sites and 
 Multi-instance
 --------------
 
-Multi-instance is a Wagtail project configuration where a single code base is used by multiple websites. Each website has its server process, settings file, and a dedicated database and media directory. This guarantees the total separation of all content.
+Multi-instance is a Wagtail project configuration where a single set of project files is used by multiple websites. Each website has its own settings file, and a dedicated database and media directory. Each website runs in its own server process. This guarantees the *total separation* of *all content*.
 
 Assume the domains a.com and b.com. Settings files can be `base.py`, `acom.py`, and `bcom.py`. The base settings will contain all settings like normal. The contents of site-specific settings override the base settings:
 
 .. code-block:: python
 
-   # acom.py
+   # settings/acom.py
    from base import *  # noqa
 
    ALLOWED_HOSTS = ['a.com']
@@ -40,8 +40,14 @@ Assume the domains a.com and b.com. Settings files can be `base.py`, `acom.py`, 
    DATABASES["PASSWORD"] = "password-for-acom"
    MEDIA_DIR = BASE_DIR / "acom-media"
 
+Each site can be started with its own settings file. In development ``./manage.py runserver --settings settings.acom``.
+In production, for example with uWSGI, specify the correct settings with ``env = DJANGO_SETTINGS_MODULE=settings.acom``.
 
-Because each site has its database and media folder, nothing can 'leak' to another site. But this also means that content cannot be shared between sites as one can do when using the multi-site option.
+Because each site has its own database and media folder, nothing can 'leak' to another site. But this also means that content cannot be shared between sites as one can do when using the multi-site option.
+
+In this configuration, multiple sites share the same, single set of project files. Deployment would update the single set of project files and reload each instance.
+
+This multi-instance configuration isn't that different from deploying the project code several times. However, having a single set of project files, and only differentiate with settings files, is the closest Wagtail can get to true multi-tenancy. Every site is identical, content is separated, including user management. 'Adding a new tenant' is adding a new settings file and running a new instance.
 
 In a multi-instance configuration, each instance requires a certain amount of server resources (CPU and memory). That means adding sites will increase server load. This only scales up to a certain point.
 
@@ -72,6 +78,8 @@ But several features do not currently support multi-tenancy:
 - Workflows and workflow tasks
 - Site history
 - Redirects
+
+Permission configuration for built-in models like Sites, Site settings and Users is not site-specific, so any user with permission to edit a single entry can edit them all. This limitation can be mostly circumvented by only allowing superusers to manage these models.
 
 Python, Django, and Wagtail allow you to override, extend and customize functionality. Here are some ideas that may help you create a multi-tenancy solution for your site:
 
