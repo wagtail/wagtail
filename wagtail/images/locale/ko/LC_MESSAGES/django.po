@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -69,6 +69,12 @@ msgstr "좌측 정렬"
 msgid "Right-aligned"
 msgstr "우측 정렬"
 
+msgid "Collection"
+msgstr "모음"
+
+msgid "Alt text"
+msgstr "대체 텍스트"
+
 msgid "Filter"
 msgstr "필터"
 
@@ -110,6 +116,9 @@ msgstr "수정"
 
 msgid "Edit any image"
 msgstr "이미지 수정"
+
+msgid "Choose"
+msgstr "선택"
 
 msgid "title"
 msgstr "제목"

@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2021
 #
 #, fuzzy
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/torchbox/"
 "teams/8009/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -77,6 +77,11 @@ msgstr "Lokalitet '{0}' je izbrisan."
 
 msgid "Are you sure you want to delete this locale?"
 msgstr "Jeste li sigurni da želite izbrisati lokalitet?"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr ""
+"Lokalitet nije moguće izbrisati zato što ne postoji niti jedan drugi "
+"lokalitet."
 
 msgid ""
 "This locale cannot be deleted because there are pages and/or other objects "

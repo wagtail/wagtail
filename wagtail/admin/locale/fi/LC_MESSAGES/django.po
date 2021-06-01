@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -88,6 +88,12 @@ msgstr "Nosto"
 
 msgid "Settings"
 msgstr "Asetukset"
+
+msgid "Date from"
+msgstr "Lähtien"
+
+msgid "Date to"
+msgstr "Asti"
 
 msgid "All"
 msgstr "Kaikki"
@@ -298,6 +304,9 @@ msgstr "Sivuselain"
 
 msgid "Save"
 msgstr "Tallenna"
+
+msgid "Saving..."
+msgstr "Tallennetaan..."
 
 msgid "Cancel"
 msgstr "Peruuta"
@@ -1389,6 +1398,9 @@ msgstr "Työnkulkua käyttävät sivut"
 msgid "by %(modified_by)s"
 msgstr "tekijänä %(modified_by)s"
 
+msgid "Not started"
+msgstr "Ei aloitettu"
+
 msgid "See full history"
 msgstr "Näytä koko historia"
 
@@ -1415,8 +1427,20 @@ msgstr "0 minuuttia"
 msgid "Just now"
 msgstr "Juuri nyt"
 
+msgid "live"
+msgstr "julkaistu"
+
+msgid "live + draft"
+msgstr "julkaistu + luonnos"
+
+msgid "draft"
+msgstr "luonnos"
+
 msgid "Test"
 msgstr "Testi"
+
+msgid "Password"
+msgstr "Salasana"
 
 msgid "You have been successfully logged out."
 msgstr "Olet kirjautunut ulos."

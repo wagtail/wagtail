@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
+"PO-Revision-Date: 2021-05-17 17:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -197,6 +197,10 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d%(snippet_type)s kustutatud."
 msgstr[1] "%(count)d%(snippet_type)s kustutatud."
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Redigeeri '%(title)s'"
 
 #, python-format
 msgid "Choose %s"

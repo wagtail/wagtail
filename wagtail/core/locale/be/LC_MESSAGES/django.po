@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
+
+msgid "Move up"
+msgstr "Падвінуць наверх"
+
+msgid "Move down"
+msgstr "Падвінусь уніз"
+
+msgid "Delete"
+msgstr "Выдаліць"
 
 msgid "Add"
 msgstr "дадаць"
@@ -90,6 +99,9 @@ msgstr "сайт"
 
 msgid "sites"
 msgstr "сайты"
+
+msgid "default"
+msgstr "па змаўчанні"
 
 #, python-format
 msgid ""
@@ -311,6 +323,9 @@ msgstr "права доступу да калекцыі ў гурта"
 msgid "group collection permissions"
 msgstr "правы доступу да калекцыі ў гурта"
 
+msgid "Approve"
+msgstr "Пацвярдзіць"
+
 msgid "Log in"
 msgstr "Увайсці"
 
@@ -333,3 +348,36 @@ msgstr "Вам патрэбен пароль для доступу да гэта
 
 msgid "Continue"
 msgstr "Працягнуць"
+
+msgid "English"
+msgstr "Англійская"
+
+msgid "French"
+msgstr "Французская"
+
+msgid "German"
+msgstr "Нямецкая"
+
+msgid "Created"
+msgstr "Створаны"
+
+msgid "Save draft"
+msgstr "Захаваць чарнавік"
+
+msgid "Unpublish"
+msgstr "Адмяніць публікацыю"
+
+msgid "Locked"
+msgstr "Заблакавана"
+
+msgid "Unlocked"
+msgstr "Разблакавана"
+
+msgid "Reject"
+msgstr "Адхіліць"
+
+msgid "Copy"
+msgstr "Скапіяваць"
+
+msgid "Move"
+msgstr "Рухайцеся"

@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Date from"
+msgstr "Data dende"
+
+msgid "Date to"
+msgstr "Data ata"
 
 msgid "Single line text"
 msgstr "Liña de texto simple"
@@ -58,6 +64,9 @@ msgstr "Hora de envío"
 
 msgid "form submission"
 msgstr "formulario de envío"
+
+msgid "name"
+msgstr "nome"
 
 msgid "label"
 msgstr "etiqueta"

@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
+"sl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sl\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+msgid "Edit"
+msgstr "Uredi"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Uredi %s"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Unpublish"
+msgstr "Umakni iz objave"
+
+msgid "Copy"
+msgstr "Kopiraj"
+
+msgid "Saving…"
+msgstr "Shranjevanje ..."
+
+msgid "Save"
+msgstr "Shrani"
+
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+msgid "Home"
+msgstr "Domov"
+
+msgid "Download CSV"
+msgstr "Prenesi CSV"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Previous"
+msgstr "Prejšnja"
+
+msgid "Next"
+msgstr "Naslednja"
+
+msgid "New"
+msgstr "Nov"
+
+msgid "Editing"
+msgstr "Urejanje"

@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,12 @@ msgstr "Зүүн-зэрэгцүүлэх"
 msgid "Right-aligned"
 msgstr "Баруун-зэрэгцүүлэх"
 
+msgid "Collection"
+msgstr "Цуглуулга"
+
+msgid "Alt text"
+msgstr "Зургийн тайлбар текст"
+
 msgid "Filter"
 msgstr "Шүүлтүүр"
 
@@ -87,6 +93,9 @@ msgstr "Засах"
 
 msgid "Edit any image"
 msgstr "Ямар ч хуудсыг засах"
+
+msgid "Choose"
+msgstr "Сонгох"
 
 msgid "title"
 msgstr "гарчиг"
@@ -224,6 +233,9 @@ msgstr "Хэрэглээ"
 
 msgid "Images"
 msgstr "Зургууд"
+
+msgid "Clear choice"
+msgstr "Сонголтыг цэвэрлэх"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

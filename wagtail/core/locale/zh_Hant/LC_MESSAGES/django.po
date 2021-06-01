@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail 核心組件"
+
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
+msgid "Delete"
+msgstr "刪除"
 
 msgid "Add"
 msgstr "新增"
@@ -51,6 +60,10 @@ msgstr "密碼錯誤，請重新輸入"
 
 msgid "Comment"
 msgstr "評論"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "未知 %(action)s"
 
 msgid "hostname"
 msgstr "主機名稱"
@@ -450,3 +463,162 @@ msgstr "你需要訪問該頁面的密碼。"
 
 msgid "Continue"
 msgstr "繼續"
+
+msgid "English"
+msgstr "英語"
+
+msgid "French"
+msgstr "法語"
+
+msgid "German"
+msgstr "德語"
+
+msgid "Create"
+msgstr "建立"
+
+msgid "Created"
+msgstr "已建立"
+
+msgid "Save draft"
+msgstr "保存草稿"
+
+msgid "Draft saved"
+msgstr "已儲存草稿"
+
+msgid "Deleted"
+msgstr "已刪除"
+
+msgid "Published"
+msgstr "已發佈"
+
+msgid "Unpublish"
+msgstr "取消發佈"
+
+msgid "Unpublished"
+msgstr "取消發佈"
+
+msgid "Locked"
+msgstr "已鎖定"
+
+msgid "Unlocked"
+msgstr "已解鎖"
+
+msgid "Reject"
+msgstr "駁回"
+
+msgid "Reverted to previous revision"
+msgstr "已還原至前版本"
+
+msgid "Copied"
+msgstr "已複製"
+
+msgid "Created an alias"
+msgstr "建立別名"
+
+msgid "Converted an alias into a regular page"
+msgstr "轉換別名為一般頁面"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "由 '%(old_parent)s' 移動至 '%(new_parent)s'"
+
+msgid "Added view restriction"
+msgstr "新增檢視限制"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "更新檢視限制為 '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "已更新檢視限制"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "移除檢視限制 '%(restriction)s'"
+
+msgid "Removed view restriction"
+msgstr "已移除檢視限制"
+
+msgid "Renamed"
+msgstr "已更名"
+
+msgid "Rename"
+msgstr "重新命名"
+
+msgid "Revert"
+msgstr "復原"
+
+msgid "Copy"
+msgstr "複製"
+
+msgid "Create alias"
+msgstr "建立別名"
+
+msgid "Convert alias into regular page"
+msgstr "轉換別名為一般頁面"
+
+msgid "Move"
+msgstr "移動"
+
+msgid "Add view restrictions"
+msgstr "新增檢視限制"
+
+msgid "Update view restrictions"
+msgstr "更新檢視限制"
+
+msgid "Remove view restrictions"
+msgstr "移除檢視限制"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "已開始 '%(workflow)s' ，下一步驟 '%(task)s'"
+
+msgid "Workflow started"
+msgstr "已開始工作流程"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "已核准 '%(task)s' ，下一步驟 '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "已核准 '%(task)s' ，'%(workflow)s' 完成"
+
+msgid "Workflow task approved"
+msgstr "已核准工作流程作業"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "已駁回 '%(task)s' ，需進行變更"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "已駁回工作流程作業。工作流程完成"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "重新提交 '%(task)s' ，已繼續工作流程"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "重新提交工作流程作業，已繼續工作流程"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "已取消 '%(workflow)s' 於 '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "已取消工作流程"
+
+msgid "Workflow: start"
+msgstr "工作流程：開始"
+
+msgid "Workflow: approve task"
+msgstr "工作流程：核准作業"
+
+msgid "Workflow: reject task"
+msgstr "工作流程：駁回作業"
+
+msgid "Workflow: resume task"
+msgstr "工作流程：繼續作業"
+
+msgid "Workflow: cancel"
+msgstr "工作流程：取消"

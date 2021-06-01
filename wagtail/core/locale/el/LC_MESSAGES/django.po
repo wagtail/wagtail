@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -26,11 +26,23 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Move up"
+msgstr "Πάνω"
+
+msgid "Move down"
+msgstr "Κάτω"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
 msgid "Add"
 msgstr "Προσθήκη"
 
 msgid "This block has no options."
 msgstr "Αυτό το block δεν έχει επιλογές."
+
+msgid "This field is required."
+msgstr "Το πεδίο αυτό είναι απαραίτητο"
 
 msgid "Password"
 msgstr "Κωδικός"
@@ -239,6 +251,9 @@ msgstr ""
 msgid "password"
 msgstr "κωδικός"
 
+msgid "groups"
+msgstr "ομάδες"
+
 msgid "page view restriction"
 msgstr "περιορισμός προβολής σελίδων"
 
@@ -259,6 +274,9 @@ msgstr "άδεια"
 
 msgid "group collection permission"
 msgstr "άδεια ομάδας συλλογών"
+
+msgid "Approve"
+msgstr "Έγκριση"
 
 msgid "Log in"
 msgstr "Είσοδος"
@@ -281,3 +299,24 @@ msgstr "Θα χρειαστείτε κωδικό για να δείτε αυτή
 
 msgid "Continue"
 msgstr "Συνέχεια"
+
+msgid "Save draft"
+msgstr "Αποθήκευση σχεδίου"
+
+msgid "Unpublish"
+msgstr "Κατάργηση δημοσίευσης"
+
+msgid "Locked"
+msgstr "Κλειδωμένο"
+
+msgid "Unlocked"
+msgstr "Ξεκλειδωμενο"
+
+msgid "Reject"
+msgstr "Απόρριψη"
+
+msgid "Copy"
+msgstr "Αντιγραφή"
+
+msgid "Move"
+msgstr "Μετακίνηση"

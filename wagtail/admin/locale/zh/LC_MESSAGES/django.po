@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:40+0000\n"
+"Last-Translator: Orangle Liu <orangleliu@gmail.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,9 @@ msgstr "删除"
 msgid "You do not have permission to access the admin"
 msgstr "您没有进入后台的权限"
 
+msgid "None"
+msgstr "没有"
+
 msgid "Content"
 msgstr "内容"
 
@@ -53,6 +56,9 @@ msgstr "请输入密码"
 
 msgid "Enter your email address to reset your password"
 msgstr "输入您的电子邮箱来重置您的密码"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Parent"
 msgstr "上一级"
@@ -72,8 +78,14 @@ msgstr "搜索词"
 msgid "Edit"
 msgstr "编辑"
 
+msgid "Server Error"
+msgstr "服务错误"
+
 msgid "Save"
 msgstr "保存"
+
+msgid "Saving..."
+msgstr "正在保存"
 
 msgid "Account"
 msgstr "账号"
@@ -138,6 +150,9 @@ msgstr "插入一个链接"
 
 msgid "Add an external link"
 msgstr "添加一个外部链接"
+
+msgid "Name"
+msgstr "名字"
 
 msgid "Move up"
 msgstr "向上移动"
@@ -240,6 +255,9 @@ msgstr "这个页面 \"%(page)s\" 已经提交审核"
 
 msgid "Page privacy"
 msgstr "页面隐私"
+
+msgid "Saving…"
+msgstr "正在保存"
 
 msgid "Save draft"
 msgstr "保存草稿"
@@ -355,12 +373,27 @@ msgstr "第%(page_num)s页 共%(total_pages)s页"
 msgid "Home"
 msgstr "主页"
 
+msgid "Account settings"
+msgstr "账号设置"
+
 msgid "Log out"
 msgstr "登出"
 
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "作者%(modified_by)s"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Editing"
+msgstr "正在编辑"
+
+msgid "View draft"
+msgstr "查看草稿"
+
+msgid "View live"
+msgstr "查看在线版"
 
 msgid "Page '{0}' created."
 msgstr "第 '{0}' 页已创建。"
@@ -388,6 +421,9 @@ msgstr "第 '{0}' 页已移动。"
 
 msgid "Page '{0}' unpublished."
 msgstr "第 '{0}' 页已取消发布"
+
+msgid "More"
+msgstr "更多"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

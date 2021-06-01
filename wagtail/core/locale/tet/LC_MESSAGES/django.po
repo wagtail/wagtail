@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail fuan"
+
+msgid "Move up"
+msgstr "Muda ba leten"
+
+msgid "Move down"
+msgstr "Muda ba karik"
+
+msgid "Delete"
+msgstr "Hamoos"
 
 msgid "Add"
 msgstr "Hatama"
@@ -249,6 +258,9 @@ msgstr "Koleksaun sira"
 msgid "permission"
 msgstr "Permisaun"
 
+msgid "Approve"
+msgstr "Aprova"
+
 msgid "Log in"
 msgstr "Tama"
 
@@ -263,3 +275,33 @@ msgstr "Ita presiza sena hodi asesu ba pajina ida ne'e."
 
 msgid "Continue"
 msgstr "Kontinua"
+
+msgid "English"
+msgstr "English"
+
+msgid "French"
+msgstr "Fransa"
+
+msgid "German"
+msgstr "German"
+
+msgid "Save draft"
+msgstr "Salva hanesan esbosu"
+
+msgid "Unpublish"
+msgstr "La publika "
+
+msgid "Locked"
+msgstr "Xavi tiha ona"
+
+msgid "Unlocked"
+msgstr "Loke tiha ona"
+
+msgid "Reject"
+msgstr "Rejeita"
+
+msgid "Copy"
+msgstr "kopia"
+
+msgid "Move"
+msgstr "Muda"

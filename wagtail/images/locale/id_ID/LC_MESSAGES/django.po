@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -60,6 +60,12 @@ msgstr "Rata kiri"
 msgid "Right-aligned"
 msgstr "Rata kanan"
 
+msgid "Collection"
+msgstr "Koleksi"
+
+msgid "Alt text"
+msgstr "Teks alt"
+
 msgid "Filter"
 msgstr "Saring"
 
@@ -101,6 +107,9 @@ msgstr "Ubah"
 
 msgid "Edit any image"
 msgstr "Ubah gambar apa saja"
+
+msgid "Choose"
+msgstr "Pilih"
 
 msgid "title"
 msgstr "judul"
@@ -222,6 +231,9 @@ msgstr "Penggunaan"
 
 msgid "Images"
 msgstr "Gambar"
+
+msgid "Clear choice"
+msgstr "Kosongkan pilihan"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

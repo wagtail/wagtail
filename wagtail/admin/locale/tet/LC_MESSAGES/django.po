@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Peter Coward <peter@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,9 @@ msgstr "Halo la publika"
 
 msgid "Delete"
 msgstr "Hamoos"
+
+msgid "Lock"
+msgstr "Xavi"
 
 msgid "Save Draft"
 msgstr "Rai hanesan ezbosu"
@@ -71,6 +74,12 @@ msgstr "Promove"
 msgid "Settings"
 msgstr "Konfigurasaun"
 
+msgid "Date from"
+msgstr "Data husi"
+
+msgid "Date to"
+msgstr "Data to'o"
+
 msgid "Date"
 msgstr "Data"
 
@@ -86,6 +95,9 @@ msgstr "Hatama ita nia 1%s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Hatama ita boot nia enderessu email hodi defini fali ita boot nia seña"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Parent"
 msgstr "Inan-aman"
@@ -1011,6 +1023,12 @@ msgstr "Hatama termu buka iha leten"
 msgid "No pages use"
 msgstr "Laiha pajina nebee uza"
 
+msgid "Download CSV"
+msgstr "Download CSV"
+
+msgid "Filter"
+msgstr "Filtru"
+
 msgid "Locked"
 msgstr "Xavi tiha ona"
 
@@ -1058,8 +1076,20 @@ msgstr "Hatudu iha Esplorador"
 msgid "by %(modified_by)s"
 msgstr "Husi  %(modified_by)s"
 
+msgid "live"
+msgstr "Hela"
+
+msgid "live + draft"
+msgstr "Hela + esbosu"
+
+msgid "draft"
+msgstr "Esbosu"
+
 msgid "Test"
 msgstr "Test"
+
+msgid "Password"
+msgstr "Seña"
 
 msgid "You have been successfully logged out."
 msgstr "Ita boot sai ona ho sussessu."
@@ -1093,6 +1123,9 @@ msgstr "Ita boot serteza hamoos koleksaun nee?"
 
 msgid "Editing"
 msgstr "Hadia hela"
+
+msgid "View live"
+msgstr "Haree iha situ"
 
 msgid "Page '{0}' deleted."
 msgstr "Pajina '{0}' hammos ona."

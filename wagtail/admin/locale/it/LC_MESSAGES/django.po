@@ -11,6 +11,7 @@
 # giammi <gian-maria.daffre@giammi.org>, 2016,2018
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
 # LB (Ben Johnston) <mail@lb.ee>, 2019
+# Marco Lerco <marcolerco@gmail.com>, 2021
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
@@ -18,8 +19,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +35,18 @@ msgstr "Pubblica"
 msgid "Submit for moderation"
 msgstr "Invia per la moderazione"
 
+msgid "Resubmit to {}"
+msgstr "Invia di nuovo a {}"
+
+msgid "Submit to {}"
+msgstr "Invia a {}"
+
+msgid "Restart workflow "
+msgstr "Riavvia il flusso di lavoro"
+
+msgid "Cancel workflow "
+msgstr "Cancella il flusso di lavoro"
+
 msgid "Unpublish"
 msgstr "Annulla pubblicazione"
 
@@ -43,6 +56,9 @@ msgstr "Elimina"
 msgid "Lock"
 msgstr "Blocca"
 
+msgid "Apply editor lock"
+msgstr "Applica il blocco dell'editor"
+
 msgid "Unlock"
 msgstr "Sblocca"
 
@@ -51,6 +67,10 @@ msgstr "Salva Bozza"
 
 msgid "Page locked"
 msgstr "Pagina bloccata"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s e Pubblica"
 
 msgid "Wagtail admin"
 msgstr "Gestione Wagtail"
@@ -70,6 +90,12 @@ msgstr "Data pubblicazione"
 msgid "Privacy"
 msgstr "Privacy"
 
+msgid "For search engines"
+msgstr "Per i motori di ricerca"
+
+msgid "For site menus"
+msgstr "Per i menu del sito"
+
 msgid "Content"
 msgstr "Contenuto"
 
@@ -78,6 +104,30 @@ msgstr "Promuovi"
 
 msgid "Settings"
 msgstr "Impostazioni"
+
+msgid "Date from"
+msgstr "Data da"
+
+msgid "Date to"
+msgstr "Data a"
+
+msgid "All"
+msgstr "Tutto"
+
+msgid "Started at"
+msgstr "Iniziato alle"
+
+msgid "Show"
+msgstr "Mostra"
+
+msgid "Awaiting my review"
+msgstr "In attesa della mia review"
+
+msgid "Completed at"
+msgstr "Completato alle"
+
+msgid "Workflow"
+msgstr "Flusso di lavoro"
 
 msgid "Date"
 msgstr "Data"
@@ -101,12 +151,22 @@ msgstr "URL"
 msgid "Parent"
 msgstr "Padre"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Seleziona la posizione gerarchica. Nota: una collezione non può diventare "
+"figlia di se stessa o di uno dei suoi discendenti."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Spiacente, ma non puoi avere diverse registrazioni per la stessa raccolta."
 
 msgid "Collection"
 msgstr "Raccolta"
+
+msgid "You cannot edit another user's comment."
+msgstr "Non puoi modificare il commento di un altro utente."
 
 msgid "New title"
 msgstr "Nuovo titolo"
@@ -150,6 +210,12 @@ msgstr[0] ""
 msgstr[1] ""
 "%(count)s delle pagina copiate sono live. Vuoi pubblicare le loro copie?"
 
+msgid "Alias"
+msgstr "Alias"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Mantieni aggiornate le nuove pagine con le modifiche future"
+
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "Non hai il permesso per copiare la pagina \"%(page_title)s\""
@@ -185,6 +251,23 @@ msgstr "Questo campo è obbligatorio"
 
 msgid "Please select at least one group."
 msgstr "Seleziona almeno un gruppo."
+
+msgid "All types"
+msgstr "Tutti i tipi"
+
+msgid "This page already has workflow '{0}' assigned."
+msgstr "Questa pagina ha già il flusso di lavoro \"{0}\" assegnato."
+
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr ""
+"Non è possibile assegnare più volte questo flusso di lavoro alla stessa "
+"pagina."
+
+msgid "Give your workflow a name"
+msgstr "Dai un nome al tuo flusso di lavoro"
+
+msgid "Add tasks to your workflow"
+msgstr "Aggiungi attività al tuo flusso di lavoro"
 
 msgid "Edit"
 msgstr "Modifica"
@@ -267,6 +350,9 @@ msgstr "Esplora pagine"
 msgid "Save"
 msgstr "Salva"
 
+msgid "Saving..."
+msgstr "Salvataggio in corso..."
+
 msgid "Error 404: Page not found"
 msgstr "Errore 404: Pagina non trovata"
 
@@ -281,6 +367,9 @@ msgstr "Vai all'interfaccia admin di Wagtail"
 
 msgid "Account"
 msgstr "Account"
+
+msgid "Save account details"
+msgstr "Salva i dettagli dell'account"
 
 msgid "Change password"
 msgstr "Cambia password"
@@ -757,6 +846,9 @@ msgstr "Questa pagina ha delle modifiche non salvate."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Modifica %(page_type)s: %(title)s"
 
+msgid "User"
+msgstr "Utente"
+
 msgid "Live version"
 msgstr "Live version"
 
@@ -1054,6 +1146,12 @@ msgstr "Inserisce un termine di ricerca sopra"
 msgid "No pages use"
 msgstr "Nessuna pagina usata"
 
+msgid "Download CSV"
+msgstr "Scarica CSV"
+
+msgid "Filter"
+msgstr "Filtro"
+
 msgid "Locked"
 msgstr "Bloccato"
 
@@ -1110,8 +1208,20 @@ msgstr "di %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Compara con la versione live"
 
+msgid "live"
+msgstr "live"
+
+msgid "live + draft"
+msgstr "live + bozza"
+
+msgid "draft"
+msgstr "bozza"
+
 msgid "Test"
 msgstr "Test"
+
+msgid "Password"
+msgstr "Password"
 
 msgid "You have been successfully logged out."
 msgstr "Logout eseguito con successo."
@@ -1236,6 +1346,9 @@ msgstr "revisione {0} di \"{1}\""
 
 msgid "Page '{0}' unpublished."
 msgstr "Pagina '{0}' non pubblicata."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
 
 #, python-format
 msgid "Preview draft version of '%(title)s'"

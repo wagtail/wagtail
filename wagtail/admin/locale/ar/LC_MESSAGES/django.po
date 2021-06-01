@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -81,6 +81,12 @@ msgstr "ترويج"
 
 msgid "Settings"
 msgstr "إعدادات"
+
+msgid "Date from"
+msgstr "التاريخ من"
+
+msgid "Date to"
+msgstr "تاريخ لـ"
 
 msgid "Date"
 msgstr "تاريخ"
@@ -272,6 +278,9 @@ msgstr "مستكشف الصفحة"
 
 msgid "Save"
 msgstr "احفظ"
+
+msgid "Saving..."
+msgstr "يتم الحفظ..."
 
 msgid "Error 404: Page not found"
 msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
@@ -686,6 +695,9 @@ msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "قيد التعديل %(page_type)s :%(title)s"
 
+msgid "User"
+msgstr "مستعمل"
+
 msgid "Live version"
 msgstr "نسخة حية"
 
@@ -910,6 +922,12 @@ msgstr "أدخل مصطلح البحث أعلاه"
 msgid "No pages use"
 msgstr "لا توجد صفحات تستخدم"
 
+msgid "Download CSV"
+msgstr "تنزيل ملف CSV"
+
+msgid "Filter"
+msgstr "فلتر"
+
 msgid "Locked"
 msgstr "مغلق"
 
@@ -954,8 +972,20 @@ msgstr "بواسطة %(modified_by)s"
 msgid "Compare with live version"
 msgstr "مقارنة مع النسخة الحية"
 
+msgid "live"
+msgstr "حي"
+
+msgid "live + draft"
+msgstr "حي + مسودة"
+
+msgid "draft"
+msgstr "مسود"
+
 msgid "Test"
 msgstr "اختبار"
+
+msgid "Password"
+msgstr "كلمة السر"
 
 msgid "You have been successfully logged out."
 msgstr "لقد تم تسجيل بنجاح."
@@ -1073,6 +1103,9 @@ msgstr "مراجعة {0} من \"{1}\""
 
 msgid "Page '{0}' unpublished."
 msgstr "الصفحة '{0}' غير منشورة."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "الإبلاغ عن هذا الخطأ إلى مشرف الموقع الخاص بك بالمعلومات التالية:"
 
 msgid "More"
 msgstr "المزيد"

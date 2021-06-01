@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -247,11 +247,20 @@ msgstr "Esta páxina xa ten o fluxo de traballo '{0}' asignado."
 msgid "Edit"
 msgstr "Editar"
 
+msgid "Page"
+msgstr "Páxina"
+
 msgid "Pages"
 msgstr "Páxinas"
 
+msgid "Server Error"
+msgstr "Erro do Servidor"
+
 msgid "Save"
 msgstr "Gardar"
+
+msgid "Saving..."
+msgstr "Gardando..."
 
 msgid "Go to Wagtail admin"
 msgstr "Ir ao administrador de Wagtail"
@@ -499,6 +508,9 @@ msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Os cambios de privacidade aplícanse a todas as fillas desta páxina tamén."
 
+msgid "Saving…"
+msgstr "Gardando…"
+
 msgid "Replace current draft"
 msgstr "Substituír borrador actual"
 
@@ -597,6 +609,9 @@ msgstr "Nova %(page_type)s"
 
 msgid "New"
 msgstr "Nova"
+
+msgid "Actions"
+msgstr "Accións"
 
 msgid "This page has unsaved changes."
 msgstr "Esta páxina ten cambios sen gardar."
@@ -787,6 +802,12 @@ msgstr "Introduce o termo de procura arriba"
 msgid "No pages use"
 msgstr "Non hay uso de páxinas"
 
+msgid "Download CSV"
+msgstr "Descargar CSV"
+
+msgid "Filter"
+msgstr "Filtro"
+
 msgid "Locked"
 msgstr "Bloqueada"
 
@@ -802,6 +823,9 @@ msgstr "Todas as coleccións"
 
 msgid "Edit your account"
 msgstr "Editar a túa conta"
+
+msgid "Account settings"
+msgstr "Axustes de conta"
 
 msgid "Log out"
 msgstr "Pechar sesión"
@@ -822,8 +846,20 @@ msgstr "Mostrar no Navegador"
 msgid "by %(modified_by)s"
 msgstr "por %(modified_by)s"
 
+msgid "live"
+msgstr "en vivo"
+
+msgid "live + draft"
+msgstr "en vivo + borrador"
+
+msgid "draft"
+msgstr "borrador"
+
 msgid "Test"
 msgstr "Test"
+
+msgid "Password"
+msgstr "Contrasinal"
 
 msgid "You have been successfully logged out."
 msgstr "Fuches desconectado correctamente."
@@ -932,6 +968,10 @@ msgstr "Páxina '{0}' movida."
 
 msgid "Page '{0}' unpublished."
 msgstr "Páxina '{0}' non publicada."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informar deste erro ao teu administrador da web coa seguinte información:"
 
 msgid "More"
 msgstr "Máis"

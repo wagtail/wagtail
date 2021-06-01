@@ -10,7 +10,7 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
-# oliverengel <imwebunterwegs@icloud.com>, 2021
+# Oliver Engel, 2021
 # pcraston <patrick@craston.com>, 2014
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # pcraston <patrick@craston.com>, 2014
@@ -24,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: 2021-05-02 19:18+0000\n"
-"Last-Translator: oliverengel <imwebunterwegs@icloud.com>\n"
+"Last-Translator: Oliver Engel\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"

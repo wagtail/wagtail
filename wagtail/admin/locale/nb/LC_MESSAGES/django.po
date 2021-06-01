@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -75,6 +75,12 @@ msgstr "Fremming"
 
 msgid "Settings"
 msgstr "Innstillinger"
+
+msgid "Date from"
+msgstr "Fra-dato"
+
+msgid "Date to"
+msgstr "Til-dato"
 
 msgid "All"
 msgstr "Alle"
@@ -266,6 +272,9 @@ msgstr "Sideutforsker"
 
 msgid "Save"
 msgstr "Lagre"
+
+msgid "Saving..."
+msgstr "Lagrer..."
 
 msgid "Error 404: Page not found"
 msgstr "404 Feil: Fant ikke siden"
@@ -796,6 +805,9 @@ msgstr "Denne siden har endringer som ikke er lagret."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Redigerer %(page_type)s: %(title)s"
 
+msgid "User"
+msgstr "Bruker"
+
 msgid "Live version"
 msgstr "Publisert versjon"
 
@@ -1096,6 +1108,9 @@ msgstr "Last ned XLSX"
 msgid "Download CSV"
 msgstr "Last ned CSV"
 
+msgid "Filter"
+msgstr "Filter"
+
 msgid "No pages found."
 msgstr "Ingen sider funnet."
 
@@ -1212,8 +1227,20 @@ msgstr ""
 "Sorter rekkefølgen av undersidene under «%(parent)s» på «%(label)s» i "
 "synkende rekkefølge."
 
+msgid "live"
+msgstr "publisert"
+
+msgid "live + draft"
+msgstr "publisert + kladd"
+
+msgid "draft"
+msgstr "kladd"
+
 msgid "Test"
 msgstr "Test"
+
+msgid "Password"
+msgstr "Passord"
 
 msgid "You have been successfully logged out."
 msgstr "Du er nå logget ut."
@@ -1350,6 +1377,9 @@ msgstr "revisjon {0} av \"{1}\""
 
 msgid "Page '{0}' unpublished."
 msgstr "Siden \"{0}\" er avpublisert."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
 
 #, python-format
 msgid "Edit '%(title)s'"

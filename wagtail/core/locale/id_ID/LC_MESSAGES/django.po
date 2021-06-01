@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail inti"
+
+msgid "Move up"
+msgstr "Geser ke atas"
+
+msgid "Move down"
+msgstr "Geser ke bawah"
+
+msgid "Delete"
+msgstr "Hapus"
 
 msgid "Add"
 msgstr "Tambah"
@@ -89,6 +98,9 @@ msgstr "situs"
 
 msgid "sites"
 msgstr "situs-situs"
+
+msgid "default"
+msgstr "default"
 
 #, python-format
 msgid ""
@@ -304,6 +316,9 @@ msgstr "izin"
 msgid "group collection permission"
 msgstr "izin grup koleksi"
 
+msgid "Approve"
+msgstr "Menyetujui"
+
 msgid "Log in"
 msgstr "Masuk"
 
@@ -325,3 +340,33 @@ msgstr "Anda perlu kata sandi untuk mengakses halaman ini."
 
 msgid "Continue"
 msgstr "Lanjut"
+
+msgid "English"
+msgstr "Inggris"
+
+msgid "French"
+msgstr "Perancis"
+
+msgid "German"
+msgstr "Jerman"
+
+msgid "Save draft"
+msgstr "Simpan konsep"
+
+msgid "Unpublish"
+msgstr "Batal Publikasi"
+
+msgid "Locked"
+msgstr "Terkunci"
+
+msgid "Unlocked"
+msgstr "Kunci terbuka"
+
+msgid "Reject"
+msgstr "Tolak"
+
+msgid "Copy"
+msgstr "Salin"
+
+msgid "Move"
+msgstr "Pindahkan"

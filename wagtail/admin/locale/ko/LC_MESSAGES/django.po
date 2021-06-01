@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -75,6 +75,12 @@ msgstr "홍보"
 
 msgid "Settings"
 msgstr "설정"
+
+msgid "Date from"
+msgstr "시작일"
+
+msgid "Date to"
+msgstr "종료일"
 
 msgid "All"
 msgstr "모두"
@@ -264,6 +270,9 @@ msgstr "페이지 탐색"
 
 msgid "Save"
 msgstr "저장"
+
+msgid "Saving..."
+msgstr "저장 중..."
 
 msgid "Error 404: Page not found"
 msgstr "에러 404: 페이지를 찾을 수 없습니다"
@@ -761,6 +770,9 @@ msgstr "이 페이지는 저장되지 않은 변경사항이 있습니다."
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "%(page_type)s: %(title)s 수정"
 
+msgid "User"
+msgstr "사용자"
+
 msgid "Live version"
 msgstr "라이브 버전"
 
@@ -1036,6 +1048,9 @@ msgstr "XLSX 다운로드"
 msgid "Download CSV"
 msgstr "CSV 다운로드"
 
+msgid "Filter"
+msgstr "필터"
+
 msgid "No pages found."
 msgstr "찾은 페이지 없음."
 
@@ -1154,8 +1169,20 @@ msgstr ""
 "'%(parent)s' 페이지의 하위 페이지의 순서를  %(label)s'에 대해 내림차순으로 정"
 "렬합니다."
 
+msgid "live"
+msgstr "라이브"
+
+msgid "live + draft"
+msgstr "라이브 + 초안"
+
+msgid "draft"
+msgstr "초안"
+
 msgid "Test"
 msgstr "테스트"
+
+msgid "Password"
+msgstr "비밀번호"
 
 msgid "You have been successfully logged out."
 msgstr "성공적으로 로그아웃 되었습니다."
@@ -1292,6 +1319,9 @@ msgstr "\"{1}\"의 수정안 {0}"
 
 msgid "Page '{0}' unpublished."
 msgstr "'{0}' 페이지의 게시가 해제 되었습니다"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
 
 #, python-format
 msgid "Edit '%(title)s'"

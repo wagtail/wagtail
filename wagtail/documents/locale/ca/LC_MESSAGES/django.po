@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Collection"
+msgstr "Col·lecció"
 
 msgid "Add"
 msgstr "Afegir"
@@ -32,6 +35,9 @@ msgstr "Editar"
 
 msgid "Edit any document"
 msgstr "Editar algun document"
+
+msgid "Choose"
+msgstr "Seleccionar"
 
 msgid "title"
 msgstr "títol"
@@ -92,6 +98,9 @@ msgstr "Estàs segur que vols esborrar aquest document?"
 msgid "Yes, delete"
 msgstr "Si, esborra"
 
+msgid "No, don't delete"
+msgstr "No, no esborrar"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Editant %(title)s"
@@ -108,6 +117,9 @@ msgstr "Mida del fitxer"
 msgid "File not found"
 msgstr "No s'ha trobat el fitxer"
 
+msgid "Usage"
+msgstr "Ús"
+
 msgid "Documents"
 msgstr "Documents"
 
@@ -116,6 +128,9 @@ msgstr "Títol"
 
 msgid "File"
 msgstr "Arxiu"
+
+msgid "Created"
+msgstr "Creada"
 
 #, python-format
 msgid "%(time_period)s ago"

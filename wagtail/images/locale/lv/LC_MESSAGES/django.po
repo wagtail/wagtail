@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,12 @@ msgstr "Fails pārāk liels (%%s). Maksimālais faila izmērs %s."
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Fails pārāk liels. Maksimālais faila izmērs ir %s."
 
+msgid "Collection"
+msgstr "Kolekcija"
+
+msgid "Alt text"
+msgstr "Alt teksts"
+
 msgid "Filter"
 msgstr "Atsijāt"
 
@@ -62,8 +68,14 @@ msgstr "Platums"
 msgid "Height"
 msgstr "Augstums"
 
+msgid "Add"
+msgstr "Pievienot"
+
 msgid "Edit"
 msgstr "Labot"
+
+msgid "Choose"
+msgstr "Izvēlēties"
 
 msgid "Choose an image"
 msgstr "Izvēlēties attēlu"
@@ -120,6 +132,9 @@ msgstr "Fails netika atrasts"
 msgid "Images"
 msgstr "Attēli"
 
+msgid "Clear choice"
+msgstr "Atcelt izvēli"
+
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr "Nav attēlu, kas atbilst \"<em>%(query_string)s</em>\""
@@ -139,6 +154,9 @@ msgstr "Lietojums"
 
 msgid "Title"
 msgstr "Virsraksts"
+
+msgid "Parent"
+msgstr "Augstāka līmeņa vienība"
 
 msgid "Type"
 msgstr "Veids"
@@ -168,6 +186,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Augšupielāde neizdevās."
+
+msgid "Server Error"
+msgstr "Servera kļūda"
 
 msgid "Search images"
 msgstr "Meklēt attēlus"

@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -289,6 +289,9 @@ msgstr "Sayfa bulucu"
 
 msgid "Save"
 msgstr "Kaydet"
+
+msgid "Saving..."
+msgstr "Kaydediliyor"
 
 msgid "Error 404: Page not found"
 msgstr "Hata 404: Sayfa bulunamadı"
@@ -1131,6 +1134,9 @@ msgstr "XLSX İndir"
 msgid "Download CSV"
 msgstr "CSV İndir"
 
+msgid "Filter"
+msgstr "Filtrele"
+
 msgid "No pages found."
 msgstr "Sayfa bulunamadı."
 
@@ -1230,8 +1236,20 @@ msgstr ""
 "'%(parent)s' sayfasına ait olan alt sayfaları '%(label)s' göre azalan "
 "şekilde sırala."
 
+msgid "live"
+msgstr "canlı"
+
+msgid "live + draft"
+msgstr "canlı + taslak"
+
+msgid "draft"
+msgstr "taslak"
+
 msgid "Test"
 msgstr "Test"
+
+msgid "Password"
+msgstr "Parola"
 
 msgid "You have been successfully logged out."
 msgstr "Başarılı bir şekilde çıkış yaptınız."
@@ -1356,6 +1374,9 @@ msgstr "sürüm {0} / \"{1}\""
 
 msgid "Page '{0}' unpublished."
 msgstr "Sayfa '{0}' yayından kaldırıldı."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Bu hatayı site yöneticine şu bilgiyle bildirin:"
 
 #, python-format
 msgid "Edit '%(title)s'"

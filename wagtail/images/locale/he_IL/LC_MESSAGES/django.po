@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: 2ba49a64a97dc0c30b67cbb6522d98c8_d0a1309 "
+"<5628a6f4d3ab86b48aef276247790766_814>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -58,8 +59,14 @@ msgstr "גובה"
 msgid "Closeness"
 msgstr "קרבה"
 
+msgid "Add"
+msgstr "הוספה"
+
 msgid "Edit"
 msgstr "ערוך"
+
+msgid "Choose"
+msgstr "בחרו"
 
 msgid "Choose an image"
 msgstr "בחרו תמונה"
@@ -123,6 +130,9 @@ msgstr "קובץ לא נמצא "
 
 msgid "Images"
 msgstr "תמונות "
+
+msgid "Clear choice"
+msgstr "נקה בחירה"
 
 msgid "Generating URL"
 msgstr "מייצר כתובת"

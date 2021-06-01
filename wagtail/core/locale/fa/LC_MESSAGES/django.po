@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,23 @@ msgstr ""
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Move up"
+msgstr "حرکت به بالا"
+
+msgid "Move down"
+msgstr "حرکت به پایین"
+
+msgid "Delete"
+msgstr "حذف"
+
 msgid "Add"
 msgstr "افزودن"
 
 msgid "This block has no options."
 msgstr "این قطعه هیچ گزینه ای ندارد."
+
+msgid "This field is required."
+msgstr "این فیلد لازم است."
 
 msgid "Password"
 msgstr "رمزعبور"
@@ -72,6 +84,9 @@ msgstr "سایت"
 
 msgid "sites"
 msgstr "سایت ها"
+
+msgid "default"
+msgstr "پیشفرض"
 
 #, python-format
 msgid ""
@@ -207,6 +222,9 @@ msgstr "حذف صفحه ها با زیرصفحه ها"
 msgid "Lock"
 msgstr "قفل"
 
+msgid "Unlock"
+msgstr "حذف قفل"
+
 msgid "group"
 msgstr "گروه"
 
@@ -270,6 +288,12 @@ msgstr "مجوز"
 msgid "group collection permission"
 msgstr "مجوز مجموعه گروه"
 
+msgid "Approve"
+msgstr "تایید"
+
+msgid "Not started"
+msgstr "شروع نشده"
+
 msgid "Log in"
 msgstr "ورود"
 
@@ -291,3 +315,36 @@ msgstr "برای دسترسی به این صفحه نیاز به رمزعبور 
 
 msgid "Continue"
 msgstr "ادامه"
+
+msgid "English"
+msgstr "انگلیسی"
+
+msgid "French"
+msgstr "فرانسوی"
+
+msgid "German"
+msgstr "آلمانی"
+
+msgid "Create"
+msgstr "ساختن"
+
+msgid "Save draft"
+msgstr "ذخیره پیشنویس"
+
+msgid "Unpublish"
+msgstr "لغو انتشار"
+
+msgid "Locked"
+msgstr "قفل شده"
+
+msgid "Unlocked"
+msgstr "گشوده"
+
+msgid "Reject"
+msgstr "رد"
+
+msgid "Copy"
+msgstr "کپی"
+
+msgid "Move"
+msgstr "انتقال"

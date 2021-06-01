@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 08:23+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,15 @@ msgstr "Wagtail preusmjeravanja"
 
 msgid "Type"
 msgstr "Vrsta"
+
+msgid "Permanent"
+msgstr "Trajno"
+
+msgid "Temporary"
+msgstr "Privremeno"
+
+msgid "All"
+msgstr "Sve"
 
 msgid "From site"
 msgstr "Sa stranice"
@@ -164,11 +173,17 @@ msgstr "Greška"
 msgid "Continue"
 msgstr "Nastavi"
 
+msgid "Export redirects"
+msgstr "Izvezi preusmjeravanja"
+
 msgid "Site"
 msgstr "Sjedište"
 
 msgid "Edit this redirect"
 msgstr "Uredi ovo preusmjerivanje"
+
+msgid "No redirects found."
+msgstr "Nema pronađenih preusmjeravanja."
 
 #, python-format
 msgid ""
@@ -241,3 +256,6 @@ msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Uvezeno je %(total)d preusmjeravanje"
 msgstr[1] "Uvezeno je %(total)d presumjeravanja"
 msgstr[2] "Uvezeno je %(total)d presumjeravanja"
+
+msgid "Export Redirects"
+msgstr "Izvoz preusmjeravanja"

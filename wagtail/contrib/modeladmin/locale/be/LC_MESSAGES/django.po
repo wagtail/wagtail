@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Edit"
+msgstr "Рэдагаваць"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Рэдактаваць гэта %s"
+
+msgid "Delete"
+msgstr "Выдаліць"
+
+msgid "Unpublish"
+msgstr "Адмяніць публікацыю"
+
+msgid "Copy"
+msgstr "Скапіяваць"
+
+msgid "Continue"
+msgstr "Працягнуць"
+
+msgid "Saving…"
+msgstr "Захаваць..."
+
+msgid "Save"
+msgstr "Захаваць"
+
+msgid "Yes, delete"
+msgstr "Так. Выдаліць"
+
+msgid "No, don't delete"
+msgstr "Не, не выдаляць"
+
+msgid "Home"
+msgstr "Галоўная"
+
+msgid "Download XLSX"
+msgstr "Спампаваць XLSX"
+
+msgid "Download CSV"
+msgstr "Спампаваць CSV"
+
+msgid "Filter"
+msgstr "Фільтр"
+
+msgid "Pagination"
+msgstr "Пагінацыя"
+
+msgid "Previous"
+msgstr "Папярэдні"
+
+msgid "Next"
+msgstr "Наступная"
+
+msgid "New"
+msgstr "Новы"
+
+msgid "Editing"
+msgstr "Рэдагаванне"

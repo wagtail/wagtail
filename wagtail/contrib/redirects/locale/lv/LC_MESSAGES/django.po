@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +24,21 @@ msgstr ""
 msgid "Type"
 msgstr "Veids"
 
+msgid "Permanent"
+msgstr "Pastāvīgs"
+
+msgid "All"
+msgstr "Viss"
+
 msgid "From site"
 msgstr "No vietnes"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Atbalstītie formāti: %(supported_formats)s."
+
+msgid "site"
+msgstr "vietne"
 
 msgid "Add redirect"
 msgstr "Pievienot novirzījumu"
@@ -45,6 +58,9 @@ msgstr "Dzēst"
 
 msgid "Yes, delete"
 msgstr "Dzēst"
+
+msgid "Preview"
+msgstr "Priekšskatīt"
 
 #, python-format
 msgid "Editing %(title)s"

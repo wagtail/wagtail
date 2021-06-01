@@ -7,6 +7,7 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Oliver Engel, 2021
 # Bohreromir, 2020
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Matt Westcott <matthew@torchbox.com>, 2015
@@ -14,7 +15,7 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
-# oliverengel <imwebunterwegs@icloud.com>, 2021
+# Oliver Engel, 2021
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
@@ -26,8 +27,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-02 19:20+0000\n"
-"Last-Translator: oliverengel <imwebunterwegs@icloud.com>\n"
+"PO-Revision-Date: 2021-05-25 13:48+0000\n"
+"Last-Translator: Oliver Engel\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +39,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail Kern"
+
+msgid "Add Comment"
+msgstr "Kommentar hinzufügen"
+
+msgid "Move up"
+msgstr "Nach oben"
+
+msgid "Move down"
+msgstr "Nach unten"
 
 msgid "Duplicate"
 msgstr "Duplizieren"
@@ -387,8 +397,103 @@ msgstr "Aufgaben"
 msgid "workflows"
 msgstr "Arbeitsabläufe"
 
+msgid "Approve"
+msgstr "Freigeben"
+
+msgid "Approve with comment"
+msgstr "Mit Kommentar genehmigen"
+
+msgid "Members of the chosen Wagtail Groups can approve this task"
+msgstr ""
+"Mitglieder der ausgewählten Wagtail-Gruppe können diese Aufgabe genehmigen"
+
+msgid "In progress"
+msgstr "In Bearbeitung"
+
+msgid "Approved"
+msgstr "Freigegeben"
+
+msgid "Needs changes"
+msgstr "Änderungen benötigt"
+
+msgid "Cancelled"
+msgstr "Gelöscht"
+
+msgid "status"
+msgstr "Status"
+
+msgid "requested by"
+msgstr "angefragt von"
+
+msgid "current task state"
+msgstr "Aktueller Zustand der Aufgabe"
+
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Arbeitsablauf ‚{0}‘ auf Seite ‚{1}‘: {2}"
+
+msgid "Not started"
+msgstr "Nicht begonnen"
+
+msgid "Workflow state"
+msgstr "Zustand des Arbeitsablaufes"
+
+msgid "Workflow states"
+msgstr "Zustände des Arbeitsablaufes"
+
+msgid "Rejected"
+msgstr "Abgelehnt"
+
+msgid "Skipped"
+msgstr "Übersprungen"
+
+msgid "workflow state"
+msgstr "Zustand des Arbeitsablaufes"
+
+msgid "started at"
+msgstr "Gestartet am"
+
+msgid "finished at"
+msgstr "Beendet am"
+
+msgid "finished by"
+msgstr "Beendet von"
+
+msgid "Task state"
+msgstr "Zustand der Aufgabe"
+
+msgid "Task states"
+msgstr "Zustände der Aufgabe"
+
+msgid "timestamp (UTC)"
+msgstr "Zeitstempel (UTC)"
+
+msgid "log entry"
+msgstr "Protokolleintrag"
+
+msgid "log entries"
+msgstr "Protokolleinträge"
+
+msgid "The log action '{}' has not been registered."
+msgstr "Die Protokollaktion '{}' wurde nicht registriert."
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "Benutzer %(id)d (gelöscht)"
+
+msgid "system"
+msgstr "System"
+
+msgid "page log entry"
+msgstr "Seitenprotokolleintrag"
+
+msgid "page log entries"
+msgstr "Seitenprotokolleinträge"
+
+msgid "comment"
+msgstr "Kommentar"
+
+msgid "comments"
+msgstr "Kommentare"
 
 msgid "Log in"
 msgstr "Anmelden"
@@ -413,3 +518,130 @@ msgstr "Sie benötigen ein Passwort um diese Seite aufzurufen."
 
 msgid "Continue"
 msgstr "Weiter"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "French"
+msgstr "Französisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid "Create"
+msgstr "Erstellen"
+
+msgid "Created"
+msgstr "Erstellt"
+
+msgid "Save draft"
+msgstr "Entwurf speichern"
+
+msgid "Draft saved"
+msgstr "Entwurf gespeichert"
+
+msgid "Deleted"
+msgstr "Gelöscht"
+
+msgid "Published"
+msgstr "Veröffentlicht"
+
+msgid "Publish scheduled draft"
+msgstr "Geplanten Entwurf veröffentlichen"
+
+msgid "Published scheduled draft"
+msgstr "Geplanter Entwurf veröffentlicht"
+
+msgid "Unpublish"
+msgstr "Veröffentlichung aufheben"
+
+msgid "Unpublished"
+msgstr "Veröffentlichung aufgehoben"
+
+msgid "Unpublish scheduled draft"
+msgstr "Geplanten Entwurf zurücknehmen"
+
+msgid "Unpublished scheduled draft"
+msgstr "Geplanten Entwurf zurückgenommen"
+
+msgid "Locked"
+msgstr "Gesperrt"
+
+msgid "Unlocked"
+msgstr "Entsperrt"
+
+msgid "Reject"
+msgstr "Ablehnen"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr ""
+"Zu vorheriger Revision mit ID %(revision_id)s vom %(created_at)s "
+"zurückgekehrt"
+
+msgid "Reverted to previous revision"
+msgstr "Zu vorheriger Revison zurückgekehrt"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Von %(title)s kopiert"
+
+msgid "Copied"
+msgstr "Kopiert"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Von ‚%(old_parent)s‘ nach ‚%(new_parent)s‘ verschoben"
+
+msgid "Moved"
+msgstr "Verschoben"
+
+msgid "Page scheduled for publishing"
+msgstr "Seite zur Veröffentlichung eingeplant"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Von ‚%(old)s‘ nach ‚%(new)s‘ umbenannt"
+
+msgid "Renamed"
+msgstr "Umbenannt"
+
+msgid "Rename"
+msgstr "Umbenennen"
+
+msgid "Revert"
+msgstr "Zurückkehren"
+
+msgid "Copy"
+msgstr "Kopieren"
+
+msgid "Move"
+msgstr "Verschieben"
+
+msgid "Schedule publication"
+msgstr "Veröffentlichung einplanen"
+
+msgid "Unschedule publication"
+msgstr "Geplante Veröffentlichung aufheben"
+
+msgid "Workflow started"
+msgstr "Arbeitsablauf gestartet"
+
+msgid "Workflow cancelled"
+msgstr "Arbeitsablauf abgebrochen"
+
+msgid "Workflow: start"
+msgstr "Arbeitsablauf: Start"
+
+msgid "Workflow: approve task"
+msgstr "Arbeitsablauf: Aufgabe genehmigen"
+
+msgid "Workflow: reject task"
+msgstr "Arbeitsablauf: Aufgabe ablehnen"
+
+msgid "Workflow: resume task"
+msgstr "Arbeitsablauf: Aufgabe fortsetzen"
+
+msgid "Workflow: cancel"
+msgstr "Arbeitsablauf: Abbruch"

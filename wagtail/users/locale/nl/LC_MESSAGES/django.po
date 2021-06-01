@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:36+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -190,6 +190,9 @@ msgstr ""
 "Helaas, er zijn geen gebruikers die overeenkomen met de zoekterm \"<em>"
 "%(query_string)s</em>\""
 
+msgid "Groups"
+msgstr "Groepen"
+
 msgid "Search groups"
 msgstr "Zoek groepen"
 
@@ -216,6 +219,9 @@ msgstr "Bewerk"
 
 msgid "The user could not be created due to errors."
 msgstr "De gebruiker kon vanwege foutmeldingen niet toegevoegd worden."
+
+msgid "User '{0}' updated."
+msgstr "Gebruiker '{0}' is gewijzigd."
 
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege foutmeldingen niet opgeslagen worden."

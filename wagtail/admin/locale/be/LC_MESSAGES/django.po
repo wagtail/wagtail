@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -1157,6 +1157,9 @@ msgstr "Спампаваць XLSX"
 msgid "Download CSV"
 msgstr "Спампаваць CSV"
 
+msgid "Filter"
+msgstr "Фільтр"
+
 msgid "No pages found."
 msgstr "Старонкі не знойдзены."
 
@@ -1269,8 +1272,20 @@ msgstr ""
 "Адсартаваць даччыныя старонкі з '%(parent)s' у '%(label)s у парадку "
 "змяншэння."
 
+msgid "live"
+msgstr "апублікавана"
+
+msgid "live + draft"
+msgstr "апублікавана + чарнавік"
+
+msgid "draft"
+msgstr "чарнавік"
+
 msgid "Test"
 msgstr "Тэст"
+
+msgid "Password"
+msgstr "Пароль"
 
 msgid "You have been successfully logged out."
 msgstr "Вы паспяхова выйшлі"
@@ -1407,6 +1422,10 @@ msgstr "версія {0} старонкі \"{1}\""
 
 msgid "Page '{0}' unpublished."
 msgstr "Старонка '{0}' знята з публікацыі."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Паведаміце аб гэтай памылцы адміністратару і пакажыце наступную інфармацыю:"
 
 #, python-format
 msgid "Edit '%(title)s'"

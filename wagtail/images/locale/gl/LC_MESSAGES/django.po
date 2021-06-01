@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,9 @@ msgstr "Este arquivo é demasiado grande (%%s). Tamaño máximo de arquivo %s."
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Este arquivo é demasiado grande. Tamaño máximo de arquivo %s."
+
+msgid "Collection"
+msgstr "Colección"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -91,6 +94,9 @@ msgstr "Editar"
 msgid "Edit any image"
 msgstr "Editar calquera imaxe"
 
+msgid "Choose"
+msgstr "Seleccionar"
+
 msgid "title"
 msgstr "título"
 
@@ -111,6 +117,9 @@ msgstr "subido por usuario"
 
 msgid "tags"
 msgstr "etiquetas"
+
+msgid "image"
+msgstr "Imaxe"
 
 msgid "Choose an image"
 msgstr "Seleccionar unha imaxe"
@@ -181,6 +190,9 @@ msgstr "Arquivo non atopado"
 
 msgid "Images"
 msgstr "Imaxes"
+
+msgid "Clear choice"
+msgstr "Borrar selección"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

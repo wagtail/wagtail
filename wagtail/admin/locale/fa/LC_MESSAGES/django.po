@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -290,6 +290,9 @@ msgstr "کاوشگر صفحه"
 
 msgid "Save"
 msgstr "ذخیره"
+
+msgid "Saving..."
+msgstr "درحال ذخیره..."
 
 msgid "Cancel"
 msgstr "لغو"
@@ -1136,6 +1139,9 @@ msgstr "دانلود XLSX"
 msgid "Download CSV"
 msgstr "دانلود CSV"
 
+msgid "Filter"
+msgstr "فیلتر"
+
 msgid "No pages found."
 msgstr "صفحه‌ای یافت نشد"
 
@@ -1266,8 +1272,20 @@ msgstr "0 دقیقه"
 msgid "Just now"
 msgstr "هم‌اکنون"
 
+msgid "live"
+msgstr "زنده"
+
+msgid "live + draft"
+msgstr "زنده + پیشنویس"
+
+msgid "draft"
+msgstr "پیشنویس"
+
 msgid "Test"
 msgstr "تست"
+
+msgid "Password"
+msgstr "رمزعبور"
 
 msgid "You have been successfully logged out."
 msgstr "با موفقیت خارج شدید."
@@ -1404,6 +1422,9 @@ msgstr "بازبینی {0} از {1}"
 
 msgid "Page '{0}' unpublished."
 msgstr "صفحه '{0}' لغو انتشار شد."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "گزارش این خطا به وبمستر با اطلاعات زیر:"
 
 #, python-format
 msgid "Edit '%(title)s'"

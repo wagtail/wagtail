@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -348,6 +348,9 @@ msgstr "Przeglądarka stron"
 
 msgid "Save"
 msgstr "Zapisz"
+
+msgid "Saving..."
+msgstr "Zapisywanie..."
 
 msgid "Cancel"
 msgstr "Anuluj"
@@ -1850,6 +1853,9 @@ msgstr "szkic"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Password"
+msgstr "Hasło"
 
 msgid "You have been successfully logged out."
 msgstr "Zostałeś pomyślnie wylogowany."

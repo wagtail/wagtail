@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Move up"
+msgstr "Дээшээ зөөх"
+
+msgid "Move down"
+msgstr "Доошоо зөөх"
+
+msgid "Delete"
+msgstr "Устгах"
 
 msgid "Add"
 msgstr "Нэмэх"
@@ -252,6 +261,9 @@ msgstr "бүлэг цуглуулгын эрх"
 msgid "group collection permissions"
 msgstr "бүлэг цуглуулгын эрх"
 
+msgid "Approve"
+msgstr "Зөвшөөрөх"
+
 msgid "Log in"
 msgstr "Нэвтрэх"
 
@@ -273,3 +285,33 @@ msgstr "Энэ хуудсанд хандахын тулд нууц үг оруу
 
 msgid "Continue"
 msgstr "Үргэлжлүүлэх"
+
+msgid "English"
+msgstr "Англи хэл"
+
+msgid "French"
+msgstr "Франц"
+
+msgid "German"
+msgstr "Герман"
+
+msgid "Save draft"
+msgstr "Ноорог хадгалах"
+
+msgid "Unpublish"
+msgstr "Нийтлэхгүй байх"
+
+msgid "Locked"
+msgstr "Түгжигдсэн"
+
+msgid "Unlocked"
+msgstr "Түгжигдээгүй"
+
+msgid "Reject"
+msgstr "Татгалзах"
+
+msgid "Copy"
+msgstr "Хуулах"
+
+msgid "Move"
+msgstr "Зөөх"

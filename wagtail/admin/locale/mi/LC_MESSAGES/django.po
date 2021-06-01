@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:40+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -146,6 +146,9 @@ msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Kāore koe ka taea ngā rekoata–whakaae e nui ake ki te kotahi anake, ki roto "
 "ī te kohikohinga ōrite."
+
+msgid "Collection"
+msgstr "Kohikohinga"
 
 msgid "New title"
 msgstr "Taitara hou"
@@ -334,6 +337,9 @@ msgstr "Kaihōpara-a-whārangi"
 msgid "Save"
 msgstr "Puritia"
 
+msgid "Comment"
+msgstr "Tākupu"
+
 msgid "Error 404: Page not found"
 msgstr "Hē 404: Kua ngaro te whārangi"
 
@@ -508,11 +514,17 @@ msgstr "Kohikohinga noho matatapu. Tūnga i te wā nei: Matatapu"
 msgid "Private"
 msgstr "Matatapu"
 
+msgid "Name"
+msgstr "Ingoa"
+
 msgid "Move up"
 msgstr "Mū ki runga"
 
 msgid "Move down"
 msgstr "Mū ki raro"
+
+msgid "Yes, delete"
+msgstr "Ae, muku"
 
 msgid "Update"
 msgstr "Whakahou"
@@ -532,6 +544,9 @@ msgstr "Whakarerekē i tēnei whārangi"
 
 msgid "Pages awaiting moderation"
 msgstr "Ngā whārangi e tatari ana hei whakaōrite"
+
+msgid "Type"
+msgstr "Momo"
 
 msgid "Edited"
 msgstr "Kua whakarerekē"
@@ -592,6 +607,9 @@ msgstr "Whārangi noho matatapu. Tūnga i te wā nei: Mārakerake"
 msgid "Page privacy. Current status: Public"
 msgstr "Whārangi noho matatapu. Tūnga i te wā nei: Mārakerake"
 
+msgid "Saving…"
+msgstr "pupuru ana..."
+
 #, python-format
 msgid "Create a page in %(title)s"
 msgstr "Hangaia he whārangi ki %(title)s"
@@ -609,8 +627,49 @@ msgstr "Muku %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "E pirangi ana koe kī te mukuhia tēnei whārangi?"
 
+msgid "New"
+msgstr "Hou"
+
+msgid "Actions"
+msgstr "Hohenga"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s mai rā anō"
+
+msgid "Filter"
+msgstr "Tātari"
+
 msgid "Home"
 msgstr "Kainga"
+
+msgid "Not started"
+msgstr "Kāhore ē timata"
+
+msgid "live"
+msgstr "mataora"
+
+msgid "live + draft"
+msgstr "mataora + hukihuki"
+
+msgid "draft"
+msgstr "hukihuki"
+
+msgid "Password"
+msgstr "Kupu muna"
+
+msgid "Editing"
+msgstr "Whakarerekē"
+
+msgid "View live"
+msgstr "Mātaki mataora"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Pūrongorongo tēnei hapa ki to māhita ipurangi mē ngā pārongo nei: "
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Whakarerekē '%(title)s'"
 
 msgid "Choose an item"
 msgstr "Kōwhiri he tūemi"

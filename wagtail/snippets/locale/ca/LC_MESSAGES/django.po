@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:37+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -48,6 +48,9 @@ msgstr "Estàs segur que vols esborrar aquest %(snippet_type_name)s?"
 msgid "Yes, delete"
 msgstr "Si, esborra"
 
+msgid "No, don't delete"
+msgstr "No, no esborrar"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Nou %(snippet_type_name)s"
@@ -55,12 +58,18 @@ msgstr "Nou %(snippet_type_name)s"
 msgid "New"
 msgstr "Nou"
 
+msgid "Actions"
+msgstr "Accions"
+
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Editant %(snippet_type_name)s - %(instance)s"
 
 msgid "Editing"
 msgstr "Editant"
+
+msgid "Usage"
+msgstr "Ús"
 
 msgid "Snippets"
 msgstr "Fragments"

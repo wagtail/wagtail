@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,9 @@ msgstr "Στοίχιση αριστερά"
 msgid "Right-aligned"
 msgstr "Στοίχιση δεξιά"
 
+msgid "Collection"
+msgstr "Συλλογή"
+
 msgid "Filter"
 msgstr "Φίλτρο"
 
@@ -106,6 +109,9 @@ msgstr "Επεξεργασία"
 msgid "Edit any image"
 msgstr "Επεξεργασία όλων των εικόνων"
 
+msgid "Choose"
+msgstr "Επιλογή"
+
 msgid "title"
 msgstr "τίτλος"
 
@@ -126,6 +132,9 @@ msgstr "ανέβηκε από το χρήστη"
 
 msgid "tags"
 msgstr "ετικέτες"
+
+msgid "image"
+msgstr "Εικόνα"
 
 msgid "Choose an image"
 msgstr "Επιλέξατε εικόνα"
@@ -196,6 +205,9 @@ msgstr "Το αρχείο δεν βρέθηκε"
 
 msgid "Images"
 msgstr "Εικόνες"
+
+msgid "Clear choice"
+msgstr "Διαγραφή επιλογής"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

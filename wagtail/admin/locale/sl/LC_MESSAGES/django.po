@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,9 @@ msgstr "Umakni iz objave"
 
 msgid "Delete"
 msgstr "Izbriši"
+
+msgid "Lock"
+msgstr "Zakleni"
 
 msgid "Page locked"
 msgstr "Stran je zaklenjena"
@@ -78,6 +81,9 @@ msgstr "Vnesite vaše %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vnesite vaš e-naslov za ponastavitev gesla"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Parent"
 msgstr "Nadrejeni"
@@ -199,6 +205,9 @@ msgstr "Zapri raziskovalca"
 
 msgid "Save"
 msgstr "Shrani"
+
+msgid "Saving..."
+msgstr "Shranjevanje..."
 
 msgid "Error 404: Page not found"
 msgstr "Napaka 404: strani ni bilo mogoče najti"
@@ -450,6 +459,9 @@ msgstr "Stran je zasebna, ker je kot zasebna označena nadrejena stran."
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavitve zasebnosti veljajo tudi za vse podrejene strani."
 
+msgid "Saving…"
+msgstr "Shranjevanje ..."
+
 msgid "Replace current draft"
 msgstr "Nadomesti trenutni osnutek"
 
@@ -528,6 +540,9 @@ msgstr "Nov %(page_type)s"
 
 msgid "New"
 msgstr "Nov"
+
+msgid "Actions"
+msgstr "Dejanja"
 
 msgid "This page has unsaved changes."
 msgstr "Na strani so ne shranjene spremembe."
@@ -663,6 +678,12 @@ msgstr "Vnesite iskalni niz v zgornje polje"
 msgid "No pages use"
 msgstr "Nobena stran ne uporablja"
 
+msgid "Download CSV"
+msgstr "Prenesi CSV"
+
+msgid "Filter"
+msgstr "Filter"
+
 msgid "Locked"
 msgstr "Zaklenjeno"
 
@@ -698,11 +719,26 @@ msgstr "Prikaži v Raziskovalcu"
 msgid "by %(modified_by)s"
 msgstr "avtor %(modified_by)s"
 
+msgid "live"
+msgstr "v živo"
+
+msgid "live + draft"
+msgstr "objavljeno + osnutek"
+
+msgid "draft"
+msgstr "osnutek"
+
 msgid "Test"
 msgstr "Test"
 
+msgid "Password"
+msgstr "Geslo"
+
 msgid "Collections"
 msgstr "Zbirke"
+
+msgid "Editing"
+msgstr "Urejanje"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stran '{0}' in {1} podstrani kopiranih."
@@ -772,6 +808,9 @@ msgstr "Stran '{0}' premaknjena."
 
 msgid "Page '{0}' unpublished."
 msgstr "Stran '{0}' umaknjena iz objave."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Javite napako skrbniku strani, skupaj s sledečimi informacijami:"
 
 msgid "Choose an item"
 msgstr "Izberite element"

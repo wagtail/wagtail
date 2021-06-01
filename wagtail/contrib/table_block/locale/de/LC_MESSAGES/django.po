@@ -6,14 +6,14 @@
 # Henrik Kröger <hedwig@riseup.net>, 2018
 # Bohreromir, 2019
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
-# oliverengel <imwebunterwegs@icloud.com>, 2021
+# Oliver Engel, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: 2021-05-02 19:18+0000\n"
-"Last-Translator: oliverengel <imwebunterwegs@icloud.com>\n"
+"Last-Translator: Oliver Engel\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
