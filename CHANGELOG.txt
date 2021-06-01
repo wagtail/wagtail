@@ -19,7 +19,7 @@ Changelog
  * Fix: Save order of promoted search results (Hardcodd)
 
 
-2.13.1 (xx.xx.xxxx) - IN DEVELOPMENT
+2.13.1 (01.06.2021)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure comment notification checkbox is fully hidden when commenting is disabled (Karl Hobley)
