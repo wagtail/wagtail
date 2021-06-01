@@ -24,6 +24,7 @@ Changelog
 
  * Fix: Ensure comment notification checkbox is fully hidden when commenting is disabled (Karl Hobley)
  * Fix: Prevent commenting from failing for user models with UUID primary keys (Jacob Topp-Mugglestone)
+ * Fix: Fix incorrect link in comment notification HTML email (Matt Westcott)
 
 
 2.13 (12.05.2021)
