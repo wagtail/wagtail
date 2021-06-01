@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: shengsheng gz <gzshengsheng@139.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Choose"
+msgstr "选择"
+
+msgid "title"
+msgstr "标题"
+
+msgid "file"
+msgstr "文件"
+
+msgid "created at"
+msgstr "创建于"
+
+msgid "tags"
+msgstr "标签"
 
 msgid "Choose an image"
 msgstr "选择一个图片"
@@ -29,6 +50,9 @@ msgstr "上传"
 
 msgid "Popular tags"
 msgstr "流行的标签"
+
+msgid "Uploading…"
+msgstr "上传中"
 
 msgid "Latest images"
 msgstr "最新图片"
@@ -64,17 +88,50 @@ msgstr "编辑图片 %(title)s"
 msgid "Editing"
 msgstr "编辑"
 
+msgid "Filesize"
+msgstr "文件大小"
+
+msgid "File not found"
+msgstr "未找到文件"
+
 msgid "Images"
 msgstr "图片"
 
+msgid "Clear choice"
+msgstr "清除选择"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "预览"
+
 msgid "Title"
 msgstr "标题"
+
+msgid "Parent"
+msgstr "上一级"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Edit this page"
+msgstr "编辑这个页面"
+
+msgid "Server Error"
+msgstr "服务错误"
 
 msgid "Image '{0}' updated."
 msgstr "图片 '{0}' 已更新"
 
 msgid "The image could not be saved due to errors."
 msgstr "图片 因为有错不能被保存"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "Image '{0}' deleted."
 msgstr "图片 '{0}' 已删除."

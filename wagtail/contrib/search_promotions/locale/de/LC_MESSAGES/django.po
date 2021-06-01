@@ -5,6 +5,7 @@
 # Translators:
 # Ettore Atalan <atalanttore@googlemail.com>, 2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# Oliver Engel, 2021
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # pcraston <patrick@craston.com>, 2014
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2020-08-08 17:07+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2021-05-20 10:19+0000\n"
+"Last-Translator: Oliver Engel\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -128,11 +129,23 @@ msgstr "Neues hervorgehobenes Suchergebnis hinzufügen"
 msgid "Search term(s)"
 msgstr "Suchbegriff/e"
 
+msgid "Order by search term alphabetically"
+msgstr "Sortiere alphabetisch nach Suchbegriff"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Sortiere rückwärts-alphabetisch nach Suchbegriff"
+
 msgid "Promoted results"
 msgstr "Hervorgehobene Suchergebnisse"
 
 msgid "Views (past week)"
 msgstr "Aufrufe (letze Woche)"
+
+msgid "Order by views (lowest first)"
+msgstr "Sortiere nach View (geringster zuerst)"
+
+msgid "Order by views (highest first)"
+msgstr "Sortiere nach View (höchster zuerst)"
 
 msgid "Edit this promotion"
 msgstr "Dieses hervorgehobene Suchergebnis bearbeiten"

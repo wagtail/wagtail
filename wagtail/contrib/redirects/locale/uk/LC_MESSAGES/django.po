@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Vladyslav Herasymenko <drimacus182@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,9 @@ msgstr "Перенаправлення Wagtail "
 msgid "Type"
 msgstr "Тип"
 
+msgid "All"
+msgstr "Усі"
+
 msgid "From site"
 msgstr "З сайту"
 
@@ -36,6 +39,10 @@ msgstr "Усі сайти"
 
 msgid "A redirect with this path already exists."
 msgstr "Перенаправлення з цим шляхом вже існує."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Підтримувані формати: %(supported_formats)s."
 
 msgid "redirect from"
 msgstr "перенаправити з"
@@ -88,6 +95,9 @@ msgstr "Ви впевнені, що бажаєте видалити це пер�
 msgid "Yes, delete"
 msgstr "Так, видалити"
 
+msgid "Preview"
+msgstr "Попередній перегляд"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Редагування %(title)s"
@@ -103,6 +113,9 @@ msgstr "З"
 
 msgid "To"
 msgstr "До"
+
+msgid "Continue"
+msgstr "Продовжити"
 
 msgid "Site"
 msgstr "Сайт"

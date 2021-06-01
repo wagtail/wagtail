@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Base Wagtail"
+
+msgid "Move up"
+msgstr "Sposta su"
+
+msgid "Move down"
+msgstr "Sposta giù"
+
+msgid "Delete"
+msgstr "Elimina"
 
 msgid "Add"
 msgstr "Aggiungi"
@@ -88,6 +97,9 @@ msgstr "sito"
 
 msgid "sites"
 msgstr "siti"
+
+msgid "default"
+msgstr "default"
 
 #, python-format
 msgid ""
@@ -297,6 +309,9 @@ msgstr "permesso della collezione del gruppo"
 msgid "group collection permissions"
 msgstr "Permessi gruppo raccolta"
 
+msgid "Approve"
+msgstr "Approva"
+
 msgid "Log in"
 msgstr "Log in"
 
@@ -316,3 +331,33 @@ msgstr "Devi avere una password per accedere a questa pagina."
 
 msgid "Continue"
 msgstr "Continua"
+
+msgid "English"
+msgstr "Inglese"
+
+msgid "French"
+msgstr "Francese"
+
+msgid "German"
+msgstr "Tedesco"
+
+msgid "Save draft"
+msgstr "Salva bozza"
+
+msgid "Unpublish"
+msgstr "Annulla pubblicazione"
+
+msgid "Locked"
+msgstr "Bloccato"
+
+msgid "Unlocked"
+msgstr "Sbloccato"
+
+msgid "Reject"
+msgstr "Rigettato"
+
+msgid "Copy"
+msgstr "Copia"
+
+msgid "Move"
+msgstr "Sposta"

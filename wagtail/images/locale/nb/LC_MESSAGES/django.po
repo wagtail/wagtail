@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -68,6 +68,12 @@ msgstr "Venstrejustert"
 msgid "Right-aligned"
 msgstr "Høyrejustert"
 
+msgid "Collection"
+msgstr "Samling"
+
+msgid "Alt text"
+msgstr "Alt-tekst"
+
 msgid "Filter"
 msgstr "Filter"
 
@@ -109,6 +115,9 @@ msgstr "Endre"
 
 msgid "Edit any image"
 msgstr "Rediger ethvert bilde"
+
+msgid "Choose"
+msgstr "Velg"
 
 msgid "title"
 msgstr "tittel"

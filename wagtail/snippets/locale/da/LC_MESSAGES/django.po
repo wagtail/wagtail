@@ -1,0 +1,61 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:37+0000\n"
+"Last-Translator: Mads Kronborg <madskronborg99@gmail.com>\n"
+"Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
+"da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Choose"
+msgstr "Vælg"
+
+msgid "Search"
+msgstr "Søg"
+
+msgid "Saving…"
+msgstr "Gemmer..."
+
+msgid "Yes, delete"
+msgstr "Ja, slet"
+
+msgid "New"
+msgstr "Ny"
+
+msgid "Editing"
+msgstr "Redigerer"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Parent"
+msgstr "Forældre"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Rediger denne side"
+
+msgid "Edit"
+msgstr "Rediger"

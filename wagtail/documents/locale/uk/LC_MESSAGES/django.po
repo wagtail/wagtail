@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,9 @@ msgstr ""
 msgid "Wagtail documents"
 msgstr "Документи Wagtail"
 
+msgid "Collection"
+msgstr "Колекція"
+
 msgid "Add"
 msgstr "Додати"
 
@@ -36,6 +39,9 @@ msgstr "Редагувати"
 
 msgid "Edit any document"
 msgstr "Редагувати будь-який документ"
+
+msgid "Choose"
+msgstr "Вибрати"
 
 msgid "title"
 msgstr "заголовок"

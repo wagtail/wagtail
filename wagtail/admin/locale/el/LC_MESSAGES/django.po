@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: George Giannoulopoulos <vdotoree@yahoo.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,9 @@ msgstr "Αποέκδοση"
 
 msgid "Delete"
 msgstr "Διαγραφή"
+
+msgid "Lock"
+msgstr "Κλείδωμα"
 
 msgid "Page locked"
 msgstr "Σελίδα κλειδωμένη"
@@ -78,6 +81,9 @@ msgstr "Εισάγετε το %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Εισάγετε τη διεύθυνση email σας για να ανανεώσετε τον κωδικό σας"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Parent"
 msgstr "Πατρική"
@@ -165,14 +171,23 @@ msgstr "Παρακαλούμε επιλέξτε τουλάχιστον μια ο
 msgid "Edit"
 msgstr "Διόρθωση"
 
+msgid "Page"
+msgstr "Σελίδα"
+
 msgid "Pages"
 msgstr "Σελίδες"
+
+msgid "Server Error"
+msgstr "Σφάλμα"
 
 msgid "Edit '{title}'"
 msgstr "Επεξεργασία '{title}'"
 
 msgid "Save"
 msgstr "Αποθηκευση"
+
+msgid "Saving..."
+msgstr "Αποθήκευση..."
 
 msgid "Go to Wagtail admin"
 msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
@@ -423,6 +438,9 @@ msgstr ""
 "Τυχόν αλλαγές Προστασίας Προσωπικών Δεδομένων θα ισχύουν για όλες τις "
 "υποσελίδες αυτής της σελίδας."
 
+msgid "Saving…"
+msgstr "Γίνεται αποθήκευση…"
+
 msgid "Replace current draft"
 msgstr "Αντικατάσταση του τρέχοντος draft"
 
@@ -562,12 +580,18 @@ msgstr "Νέα %(page_type)s"
 msgid "New"
 msgstr "Νέο"
 
+msgid "Actions"
+msgstr "Ενέργειες"
+
 msgid "This page has unsaved changes."
 msgstr "Η σελίδα έχει μη αποθηκευμένες αλλαγές."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Επεξεργασία %(page_type)s: %(title)s"
+
+msgid "User"
+msgstr "Χρήστης"
 
 msgid "Current draft"
 msgstr "Τρέχον σχέδιο"
@@ -805,6 +829,12 @@ msgstr "Εισάγετε όρο αναζήτησης"
 msgid "No pages use"
 msgstr "Δεν υπάρχουν σελίδες που χρησιμοποιείτε"
 
+msgid "Download CSV"
+msgstr "Ληψη CSV"
+
+msgid "Filter"
+msgstr "Φίλτρο"
+
 msgid "Locked"
 msgstr "Κλειδωμένο"
 
@@ -846,8 +876,20 @@ msgstr "από %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Σύγκριση με την live έκδοση"
 
+msgid "live"
+msgstr "live"
+
+msgid "live + draft"
+msgstr "live + draft "
+
+msgid "draft"
+msgstr "draft"
+
 msgid "Test"
 msgstr "Δοκιμή"
+
+msgid "Password"
+msgstr "Κωδικός"
 
 msgid "You have been successfully logged out."
 msgstr "Έχετε αποσυνδεθεί."
@@ -962,6 +1004,9 @@ msgstr "Τελευταίες"
 
 msgid "Page '{0}' unpublished."
 msgstr "Έγινε αποδημοσίευση της '{0}'."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με τις εξής πληροφορίες:"
 
 msgid "More"
 msgstr "Περισσοτερα"

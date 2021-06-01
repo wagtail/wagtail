@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:37+0000\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -227,6 +227,10 @@ msgid "Inactive"
 msgstr "Neaktyvus"
 
 #, python-format
+msgid "%(time_period)s ago"
+msgstr "prieš %(time_period)s"
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Atsiprašome, jokie vartotojai neatitiko \"<em>%(query_string)s</em>\""
 
@@ -259,6 +263,9 @@ msgstr "Redaguoti"
 
 msgid "The user could not be created due to errors."
 msgstr "Šis vartotojas negalėjo būti sukurtas dėl klaidų."
+
+msgid "User '{0}' updated."
+msgstr "Vartotojas '{0}' atnaujintas."
 
 msgid "The user could not be saved due to errors."
 msgstr "Šis vartotojas negali būti išsaugotas dėl klaidų."

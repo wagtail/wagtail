@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Move up"
+msgstr "向上移动"
+
+msgid "Move down"
+msgstr "向下移动"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Password"
+msgstr "密码"
 
 msgid ""
 "Set this to something other than 80 if you need a specific port number to "
@@ -32,6 +47,9 @@ msgid ""
 msgstr ""
 "如果是真的，这个网站将处理没有一个属于自己的主机名的其他所有主机名的请求"
 
+msgid "title"
+msgstr "标题"
+
 msgid "The page title as you'd like it to be seen by the public"
 msgstr "页面标题，你想被大众所看到的"
 
@@ -43,3 +61,36 @@ msgstr "一个出现在URL的名字 比如 http://domain.com/blog/[my-slug]/"
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "一个链接到这页的链接会显示在自动生成的菜单中"
+
+msgid "This slug is already in use"
+msgstr "这个唯一的地址已被占用"
+
+msgid "created at"
+msgstr "创建于"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Publish"
+msgstr "发布"
+
+msgid "Approve"
+msgstr "通过"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "您的账号和密码不匹配，请重试。"
+
+msgid "Save draft"
+msgstr "保存草稿"
+
+msgid "Unpublish"
+msgstr "取消发布"
+
+msgid "Reject"
+msgstr "拒绝"
+
+msgid "Copy"
+msgstr "复制"
+
+msgid "Move"
+msgstr "移动"

@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Martin Janšto <mato@jansto.sk>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,15 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Move up"
+msgstr "Posunúť vyššie"
+
+msgid "Move down"
+msgstr "Posunúť nižšie"
+
+msgid "Delete"
+msgstr "Vymazať"
 
 msgid "Add"
 msgstr "Pridať"
@@ -85,6 +94,9 @@ msgstr "stránka"
 
 msgid "sites"
 msgstr "stránky"
+
+msgid "default"
+msgstr "predvolené"
 
 #, python-format
 msgid ""
@@ -282,6 +294,9 @@ msgstr "oprávnenie"
 msgid "group collection permission"
 msgstr "oprávnenia skupiny ku kolekcii"
 
+msgid "Approve"
+msgstr "Schváliť"
+
 msgid "Log in"
 msgstr "Prihlásiť"
 
@@ -303,3 +318,33 @@ msgstr "K prístupu na túto stránku potrebujete heslo."
 
 msgid "Continue"
 msgstr "Pokračovať"
+
+msgid "English"
+msgstr "Anglicky"
+
+msgid "French"
+msgstr "Francúzsky"
+
+msgid "German"
+msgstr "Nemecky"
+
+msgid "Save draft"
+msgstr "Uložiť koncept"
+
+msgid "Unpublish"
+msgstr "Odpublikovať"
+
+msgid "Locked"
+msgstr "Zamknuté"
+
+msgid "Unlocked"
+msgstr "Odomknuté"
+
+msgid "Reject"
+msgstr "Odmietnuť"
+
+msgid "Copy"
+msgstr "Kopírovať"
+
+msgid "Move"
+msgstr "Presunúť"

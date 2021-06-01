@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,12 @@ msgstr "웨그테일 리다이렉트"
 msgid "Type"
 msgstr "타입"
 
+msgid "Permanent"
+msgstr "영구적"
+
+msgid "All"
+msgstr "모두"
+
 msgid "From site"
 msgstr "사이트"
 
@@ -35,6 +41,10 @@ msgstr "모든 사이트"
 
 msgid "A redirect with this path already exists."
 msgstr "해당 경로의 리다이렉트는 이미 있습니다."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "지원 포맷: %(supported_formats)s"
 
 msgid "redirect from"
 msgstr "경로"
@@ -86,6 +96,9 @@ msgstr "선택한 리다이렉트를 정말 삭제할까요?"
 msgid "Yes, delete"
 msgstr "네, 지우겠습니다."
 
+msgid "Preview"
+msgstr "미리보기"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "%(title)s 수정"
@@ -101,6 +114,9 @@ msgstr "진입 경로"
 
 msgid "To"
 msgstr "목적지"
+
+msgid "Continue"
+msgstr "계속"
 
 msgid "Site"
 msgstr "사이트"

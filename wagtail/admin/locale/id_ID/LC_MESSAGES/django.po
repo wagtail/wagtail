@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -304,6 +304,12 @@ msgstr "Perambah halaman"
 
 msgid "Save"
 msgstr "Simpan"
+
+msgid "Saving..."
+msgstr "Menyimpan..."
+
+msgid "Comment"
+msgstr "Komentar"
 
 msgid "Error 404: Page not found"
 msgstr "Galat 404: Halaman tidak ditemukan"
@@ -1042,6 +1048,12 @@ msgstr "Masukkan kata kunci pencarian di atas"
 msgid "No pages use"
 msgstr "Tidak ada halaman yang menggunakan"
 
+msgid "Download CSV"
+msgstr "Unduh CSV"
+
+msgid "Filter"
+msgstr "Saring"
+
 msgid "Locked"
 msgstr "Terkunci"
 
@@ -1086,8 +1098,20 @@ msgstr "oleh %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Bandingkan dengan versi aktif"
 
+msgid "live"
+msgstr "aktif"
+
+msgid "live + draft"
+msgstr "aktif + konsep"
+
+msgid "draft"
+msgstr "konsep"
+
 msgid "Test"
 msgstr "Uji"
+
+msgid "Password"
+msgstr "Kata Kunci"
 
 msgid "You have been successfully logged out."
 msgstr "Anda berhasil keluar."
@@ -1205,6 +1229,9 @@ msgstr "revisi {0} dari \"{1}\""
 
 msgid "Page '{0}' unpublished."
 msgstr "Halaman '{0}' ditarik dari publikasi."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"
 
 msgid "More"
 msgstr "Lainnya"

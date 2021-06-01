@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Martin Janšto <mato@jansto.sk>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,9 @@ msgstr "Nezverejniť"
 
 msgid "Delete"
 msgstr "Vymazať"
+
+msgid "Lock"
+msgstr "Zamknúť"
 
 msgid "Page locked"
 msgstr "Stránka je uzamknutá"
@@ -64,6 +67,12 @@ msgstr "Propagovať"
 msgid "Settings"
 msgstr "Nastavenia"
 
+msgid "Date from"
+msgstr "Dátum od"
+
+msgid "Date to"
+msgstr "Dátum do"
+
 msgid "Date"
 msgstr "Dátum"
 
@@ -79,6 +88,9 @@ msgstr "Zadajte vaše %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Zadajte vašu emailovú adresu pre obnovu hesla"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Parent"
 msgstr "Rodič"
@@ -206,6 +218,9 @@ msgstr "Upraviť '{title}'"
 
 msgid "Save"
 msgstr "Uložiť"
+
+msgid "Saving..."
+msgstr "Ukladám..."
 
 msgid "Error 404: Page not found"
 msgstr "Chyba 404: Stránka nebola nájdená"
@@ -478,6 +493,9 @@ msgstr "Táto stránka bola zmenená na súkromnú svojou rodičovskou stránkou
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
 
+msgid "Saving…"
+msgstr "Ukladám…"
+
 msgid "Replace current draft"
 msgstr "Prepísať aktuálny koncept"
 
@@ -632,12 +650,18 @@ msgstr "Nový  %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
+msgid "Actions"
+msgstr "Akcie"
+
 msgid "This page has unsaved changes."
 msgstr "Táto stránka má neuložené zmeny."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Upravujete %(page_type)s: %(title)s"
+
+msgid "User"
+msgstr "Používateľ"
 
 msgid "Live version"
 msgstr "Živá verzia"
@@ -924,6 +948,12 @@ msgstr "Zadajte hľadaný výraz"
 msgid "No pages use"
 msgstr "Nepoužívajú žiadne stránky"
 
+msgid "Download CSV"
+msgstr "Stiahnuť CSV"
+
+msgid "Filter"
+msgstr "Filter"
+
 msgid "Locked"
 msgstr "Zamknuté"
 
@@ -968,8 +998,20 @@ msgstr "od %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Porovnaj s live verziou"
 
+msgid "live"
+msgstr "live"
+
+msgid "live + draft"
+msgstr "live  + koncept"
+
+msgid "draft"
+msgstr "koncept"
+
 msgid "Test"
 msgstr "Test"
+
+msgid "Password"
+msgstr "Heslo"
 
 msgid "You have been successfully logged out."
 msgstr "Boli ste úspešne odhlásení."
@@ -1084,6 +1126,9 @@ msgstr "Najnovšie"
 
 msgid "Page '{0}' unpublished."
 msgstr "Stránka '{0}' bola odpublikovaná."
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Nahláste túto chybu Vášmu webmasterovi s nasledujúcimi informáciami:"
 
 msgid "More"
 msgstr "Viac"

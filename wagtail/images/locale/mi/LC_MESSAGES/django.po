@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -68,6 +68,12 @@ msgstr "Tīaroaro-mauī"
 msgid "Right-aligned"
 msgstr "Tīaroaro-matau"
 
+msgid "Collection"
+msgstr "Kohikohinga"
+
+msgid "Alt text"
+msgstr "Manohi kuputuhi"
+
 msgid "Filter"
 msgstr "Tātari"
 
@@ -109,6 +115,9 @@ msgstr "Whakarerekē"
 
 msgid "Edit any image"
 msgstr "Whakarerekē ngā whakaahua"
+
+msgid "Choose"
+msgstr "Kōhiti"
 
 msgid "title"
 msgstr "taitara"
@@ -182,6 +191,9 @@ msgstr "E pirangi ana koe kī te mukuhia tēnei whakahua?"
 msgid "Yes, delete"
 msgstr "Ae, muku"
 
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "E whakarerekē ana a whakahua %(title)s"
@@ -189,14 +201,72 @@ msgstr "E whakarerekē ana a whakahua %(title)s"
 msgid "Editing"
 msgstr "Whakarerekē"
 
+msgid "Filesize"
+msgstr "Kōnae korahi"
+
+msgid "File not found"
+msgstr "Ehara i kimi te kōnae"
+
+msgid "Usage"
+msgstr "Whakamahi"
+
 msgid "Images"
 msgstr "Ngā whakaahua"
+
+msgid "Clear choice"
+msgstr "Kōwhiri whakapara"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Titiro"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Te whakamahi ō %(title)s"
+
+msgid "Usage of"
+msgstr "Te whakamahi ō "
+
+msgid "Title"
+msgstr "Taitara"
+
+msgid "Parent"
+msgstr "Mātua"
+
+msgid "Type"
+msgstr "Momo"
+
+msgid "Status"
+msgstr "Tūnga"
+
+msgid "Edit this page"
+msgstr "Whakarerekē i tēnei whārangi"
+
+msgid "Or choose from your computer"
+msgstr "Kōhiti nō tō rorohiko rānei"
+
+msgid "Add to collection:"
+msgstr "Tāpiri ki te kohikohinga:"
+
+msgid "Sorry, upload failed."
+msgstr "Aroha mai, kua rahua te tukuatu."
+
+msgid "Server Error"
+msgstr "Hapa rorohiko"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Pūrongorongo tēnei hapa ki to māhita ipurangi mē ngā pārongo nei: "
 
 msgid "Image '{0}' updated."
 msgstr "Whakahua '{0}' kua whakahou"
 
 msgid "The image could not be saved due to errors."
 msgstr "Ehara ka taea te puritia kī te whakahua nei, he raruraru "
+
+msgid "Delete"
+msgstr "Muku"
 
 msgid "Image '{0}' deleted."
 msgstr "Whakahua '{0}' kua mukuhia."

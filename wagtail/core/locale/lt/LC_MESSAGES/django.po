@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,15 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Move up"
+msgstr "Perkelti aukštyn"
+
+msgid "Move down"
+msgstr "Perkelti žemyn"
+
+msgid "Delete"
+msgstr "Ištrinti"
 
 msgid "Add"
 msgstr "Pridėti"
@@ -87,6 +96,9 @@ msgstr "tinklalapis"
 
 msgid "sites"
 msgstr "tinklalapiai"
+
+msgid "default"
+msgstr "numatytasis"
 
 #, python-format
 msgid ""
@@ -294,6 +306,9 @@ msgstr "leidimai"
 msgid "group collection permission"
 msgstr "grupės kolekcijos leidimas"
 
+msgid "Approve"
+msgstr "Patvirtinti"
+
 #, python-format
 msgid "user %(id)d (deleted)"
 msgstr "vartotojas %(id)d (ištrintas)"
@@ -320,3 +335,36 @@ msgstr "Jums reikia slaptažodžio kad pasiekti šį puslapį."
 
 msgid "Continue"
 msgstr "Tęsti"
+
+msgid "English"
+msgstr "Anglų"
+
+msgid "French"
+msgstr "Prancūzų"
+
+msgid "German"
+msgstr "Vokiečių"
+
+msgid "Save draft"
+msgstr "Išsaugoti juodraštį"
+
+msgid "Published"
+msgstr "Publikuotas"
+
+msgid "Unpublish"
+msgstr "Nebepublikuoti"
+
+msgid "Locked"
+msgstr "Užrakinta"
+
+msgid "Unlocked"
+msgstr "Atrakinta"
+
+msgid "Reject"
+msgstr "Atmesti"
+
+msgid "Copy"
+msgstr "Kopijuoti"
+
+msgid "Move"
+msgstr "Perkelti"

@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,9 @@ msgstr "Нийтлэхгүй байх"
 
 msgid "Delete"
 msgstr "Устгах"
+
+msgid "Lock"
+msgstr "Түгжих"
 
 msgid "Page locked"
 msgstr "Хуудас түгжигдсэн"
@@ -63,6 +66,12 @@ msgstr "Бусад тохиргоо"
 msgid "Settings"
 msgstr "Тохиргоо"
 
+msgid "Date from"
+msgstr "Эхлэх огноо"
+
+msgid "Date to"
+msgstr "Дуусах огноо"
+
 msgid "Date"
 msgstr "Огноо"
 
@@ -78,6 +87,9 @@ msgstr "Өөрийн%s оруулна уу"
 
 msgid "Enter your email address to reset your password"
 msgstr "Нууц үгээ шинээр сэргээхийн тулд имейл хаягаа оруулна уу"
+
+msgid "URL"
+msgstr "URL хаяг"
 
 msgid "Parent"
 msgstr "Эцэг"
@@ -809,6 +821,12 @@ msgstr "Хайлтын утгаа дээд хэсэгт оруулна уу"
 msgid "No pages use"
 msgstr "Хуудас хэрэглээгүй"
 
+msgid "Download CSV"
+msgstr "CSV татах"
+
+msgid "Filter"
+msgstr "Шүүлтүүр"
+
 msgid "Locked"
 msgstr "Түгжигдсэн"
 
@@ -846,8 +864,20 @@ msgstr "%(modified_by)s-р"
 msgid "Compare with live version"
 msgstr "Нийтлэгдсэн хувилбартай харьцуулах"
 
+msgid "live"
+msgstr "нийтлэгдсэн"
+
+msgid "live + draft"
+msgstr "нийтлэгдсэн + ноорог"
+
+msgid "draft"
+msgstr "ноорог"
+
 msgid "Test"
 msgstr "Тест"
+
+msgid "Password"
+msgstr "Нууц үг"
 
 msgid "You have been successfully logged out."
 msgstr "Та системээс гарлаа."

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,12 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Ngā whakapeau ō Wagtail"
+
+msgid "Type"
+msgstr "Momo"
+
+msgid "All"
+msgstr "Katoa"
 
 msgid "From site"
 msgstr "Mai i te pae nei"
@@ -94,6 +100,9 @@ msgstr "E pirangi ana koe kī te mukuhia tēnei whakapeau?"
 msgid "Yes, delete"
 msgstr "Ae, muku"
 
+msgid "Preview"
+msgstr "Titiro"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Whakarerekē %(title)s"
@@ -107,11 +116,20 @@ msgstr "Mukuhia te whakapeau"
 msgid "To"
 msgstr "Ki"
 
+msgid "Continue"
+msgstr "Tonu"
+
+msgid "Site"
+msgstr "Pae"
+
 msgid "Edit this redirect"
 msgstr "Whakarerekē i tēnei whakapeau"
 
 msgid "Redirect '{0}' updated."
 msgstr "Whakapeau '{0}' kua whakahou"
+
+msgid "Edit"
+msgstr "Whakarerekē"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "Ehara ka taea te whakapeau nei kī te puritia, he raruraru"

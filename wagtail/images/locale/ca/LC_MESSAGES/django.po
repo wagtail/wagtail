@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Antoni Aloy <aaloy@apsl.net>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,12 @@ msgstr "Alineat a l'esquerra"
 msgid "Right-aligned"
 msgstr "Alineat a la dreta"
 
+msgid "Collection"
+msgstr "Col·lecció"
+
+msgid "Alt text"
+msgstr "Text alternatiu"
+
 msgid "Filter"
 msgstr "Filtrar"
 
@@ -102,6 +108,9 @@ msgstr "Editar"
 
 msgid "Edit any image"
 msgstr "Editar alguna imatge"
+
+msgid "Choose"
+msgstr "Seleccionar"
 
 msgid "title"
 msgstr "títol"

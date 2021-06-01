@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
+
+msgid "Move up"
+msgstr "Двигать вверх"
+
+msgid "Move down"
+msgstr "Двигать вниз"
+
+msgid "Delete"
+msgstr "Удалить"
 
 msgid "Add"
 msgstr "Добавить"
@@ -65,6 +74,10 @@ msgstr "Введённый вами пароль неверный. Попроб�
 
 msgid "Comment"
 msgstr "Комментарий"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Неизвестное %(action)s"
 
 msgid "hostname"
 msgstr "имя хоста"
@@ -533,3 +546,229 @@ msgstr[0] "%(count)s коллекция потомков"
 msgstr[1] "%(count)s коллекции потомков"
 msgstr[2] "%(count)s коллекций потомков"
 msgstr[3] "%(count)s коллекции потомков"
+
+msgid "Create"
+msgstr "Создать"
+
+msgid "Created"
+msgstr "Создан"
+
+msgid "Save draft"
+msgstr "Сохранить черновик"
+
+msgid "Draft saved"
+msgstr "Черновик сохранен"
+
+msgid "Deleted"
+msgstr "Удален"
+
+msgid "Published"
+msgstr "Опубликовано"
+
+msgid "Publish scheduled draft"
+msgstr "Опубликовать запланированный черновик"
+
+msgid "Published scheduled draft"
+msgstr "Опубликованный запланированный черновик"
+
+msgid "Unpublish"
+msgstr "Отменить публикацию"
+
+msgid "Unpublished"
+msgstr "Снято с публикации"
+
+msgid "Unpublish scheduled draft"
+msgstr "Отменить публикацию запланированного черновика"
+
+msgid "Unpublished scheduled draft"
+msgstr "Снятый с публикации запланированный черновик"
+
+msgid "Locked"
+msgstr "Заблокировано"
+
+msgid "Unlocked"
+msgstr "Разблокировано"
+
+msgid "Reject"
+msgstr "Отклонить"
+
+#, python-format
+msgid ""
+"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
+msgstr "Возвращен к версии %(revision_id)s от %(created_at)s"
+
+msgid "Reverted to previous revision"
+msgstr "Возвращен к предыдущей версии"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Скопирован с %(title)s"
+
+msgid "Copied"
+msgstr "Скопирован"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Создан псевдоним %(title)s"
+
+msgid "Created an alias"
+msgstr "Создан псевдоним"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into a regular page"
+msgstr "Сконвертирован псевдоним '%(title)s' в обычную страницу"
+
+msgid "Converted an alias into a regular page"
+msgstr "Сконвертирован псевдоним в обычную страницу"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Перемещен из '%(old_parent)s' в '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Перемещен"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Версия %(revision_id)s от %(created_at)s запланирована к публикации "
+"%(go_live_at)s."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Страница запланирована к публикации %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Страница запланирована к публикации"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Версия %(revision_id)s от %(created_at)s больше не запланирована к "
+"публикации %(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Страница снята с расписания публикации на %(go_live_at)s."
+
+msgid "Page unscheduled from publishing"
+msgstr "Страница снята с расписания публикации"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Добавлено '%(restriction)s' ограничение на просмотр"
+
+msgid "Added view restriction"
+msgstr "Добавленно ограничение просмотра"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Обновлены ограничение просмотра в '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Обновлены ограничение просмотра"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Удалено '%(restriction)s' запрет просмотра"
+
+msgid "Removed view restriction"
+msgstr "Удалено ограничение просмотра"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Переименован из '%(old)s' в '%(new)s'"
+
+msgid "Renamed"
+msgstr "Переименован"
+
+msgid "Rename"
+msgstr "Переименовать"
+
+msgid "Revert"
+msgstr "Вернуть назад"
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Create alias"
+msgstr "Создать псевдоним"
+
+msgid "Convert alias into regular page"
+msgstr "Сконвертировать псевдоним в обычную страницу"
+
+msgid "Move"
+msgstr "Переместить"
+
+msgid "Schedule publication"
+msgstr "Запланированная публикация"
+
+msgid "Unschedule publication"
+msgstr "Внеплановая публикация "
+
+msgid "Add view restrictions"
+msgstr "Добавить ограничение просмотра"
+
+msgid "Update view restrictions"
+msgstr "Обновить ограничения просмотра"
+
+msgid "Remove view restrictions"
+msgstr "Убрать ограничения просмотра"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' запущен. Следующий шаг '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Рабочий процесс запущен"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Утверждено на шаге '%(task)s'. Следующий шаг '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Утверждено на шаге %(task)s. Рабочий процесс %(workflow)s окончен"
+
+msgid "Workflow task approved"
+msgstr "Задача рабочего процесса"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Отклонено на задаче '%(task)s'. Запрошены изменения"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Задача рабочего процесса отклонена. Процесс завершен."
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "Задача '%(task)s' выполнена еще раз. Рабочий процесс возобновлен."
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Задача выполнена еще раз. Рабочий процесс возобновлен."
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Отменен '%(workflow)s' в '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Рабочий процесс отменен."
+
+msgid "Workflow: start"
+msgstr "Рабочий процесс: запустить"
+
+msgid "Workflow: approve task"
+msgstr "Рабочий процесс: утвердить задачу"
+
+msgid "Workflow: reject task"
+msgstr "Рабочий процесс: отклонить задачу"
+
+msgid "Workflow: resume task"
+msgstr "Рабочий процесс: возобновить задачу"
+
+msgid "Workflow: cancel"
+msgstr "Рабочий процесс: отменен"

@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -323,6 +323,9 @@ msgstr "Lapu pārlūks"
 
 msgid "Save"
 msgstr "Saglabāt"
+
+msgid "Saving..."
+msgstr "Saglabā..."
 
 msgid "Error 404: Page not found"
 msgstr "Kļūda 404: lapa nav atrasta"
@@ -652,6 +655,9 @@ msgstr "Lapa \"%(page)s\" tika iesniegta moderācijai"
 msgid "Page privacy"
 msgstr "Lapas privātuma iestatījumi"
 
+msgid "Saving…"
+msgstr "Saglabā..."
+
 msgid "Replace current draft"
 msgstr "Aizvietot pašreizējo melnrakstu"
 
@@ -723,12 +729,18 @@ msgstr "Jauns %(page_type)s"
 msgid "New"
 msgstr "Jauns"
 
+msgid "Actions"
+msgstr "Darbības"
+
 msgid "This page has unsaved changes."
 msgstr "Šai lapai ir nesaglabātas izmaiņas"
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Labo %(page_type)s: %(title)s"
+
+msgid "User"
+msgstr "Lietotājs"
 
 msgid "Current draft"
 msgstr "Patreizējā sagatave"
@@ -823,6 +835,12 @@ msgstr "Lūdzu ievadiet meklēšanas terminu"
 msgid "No pages use"
 msgstr "Neviena lapa nelieto"
 
+msgid "Download CSV"
+msgstr "Lejupielādēt CSV failu"
+
+msgid "Filter"
+msgstr "Atsijāt"
+
 msgid "Locked"
 msgstr "Slēgts"
 
@@ -868,8 +886,14 @@ msgstr "Parādīt pārlūkā"
 msgid "by %(modified_by)s"
 msgstr "autors %(modified_by)s"
 
+msgid "draft"
+msgstr "melnraksts"
+
 msgid "Test"
 msgstr "Test"
+
+msgid "Password"
+msgstr "Parole"
 
 msgid "You have been successfully logged out."
 msgstr "Jūs esat veiksmīgi izgājis no sistēmas."

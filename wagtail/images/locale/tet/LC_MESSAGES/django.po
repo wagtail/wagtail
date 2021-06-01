@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Peter Coward <peter@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -67,6 +67,12 @@ msgstr " Alinha-karuk"
 msgid "Right-aligned"
 msgstr " Alinha-Loos"
 
+msgid "Collection"
+msgstr "Kolleksaun"
+
+msgid "Alt text"
+msgstr "Alt testu"
+
 msgid "Filter"
 msgstr " Filtru"
 
@@ -109,6 +115,9 @@ msgstr "Hadia"
 msgid "Edit any image"
 msgstr "Hadia imagen ruma"
 
+msgid "Choose"
+msgstr "Hili"
+
 msgid "title"
 msgstr "titlu"
 
@@ -142,6 +151,24 @@ msgstr "Hili imagen ida"
 msgid "Search"
 msgstr "Buka"
 
+msgid "Save"
+msgstr "Rai"
+
+msgid "Delete image"
+msgstr "Hamoos imagen"
+
+msgid "Yes, delete"
+msgstr "Loos, hamoos"
+
+msgid "No, don't delete"
+msgstr "Lae, Labele hamoos"
+
+msgid "Editing"
+msgstr "Hadia hela"
+
+msgid "Usage"
+msgstr "Uza"
+
 #, python-format
 msgid ""
 "You haven't uploaded any images. Why not <a href="
@@ -158,6 +185,31 @@ msgstr "URL"
 
 msgid "Preview"
 msgstr "Pré-visualizasaun"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "%(title)s uza iha nee"
+
+msgid "Usage of"
+msgstr "uza iha nee"
+
+msgid "Title"
+msgstr "Titlu"
+
+msgid "Parent"
+msgstr "inan-aman"
+
+msgid "Type"
+msgstr "Tipu"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Hadia pajina nee"
+
+msgid "Server Error"
+msgstr "Servidor erru"
 
 msgid "Image permissions"
 msgstr "Permisaun imajen"

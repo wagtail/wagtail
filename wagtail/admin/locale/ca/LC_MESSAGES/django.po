@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -333,6 +333,9 @@ msgstr "Explorador de pàgines"
 
 msgid "Save"
 msgstr "Desar"
+
+msgid "Saving..."
+msgstr "Desant..."
 
 msgid "Cancel"
 msgstr "Cancel·lar"
@@ -1341,6 +1344,9 @@ msgstr "esborrany"
 msgid "Test"
 msgstr "Provar"
 
+msgid "Password"
+msgstr "Contrasenya"
+
 msgid "You have been successfully logged out."
 msgstr "Heu finalitzat la sessió."
 
@@ -1472,6 +1478,11 @@ msgstr "Títol de la pàgina"
 
 msgid "Add a workflow"
 msgstr "Afegir un fluxe de treball"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informeu d'aquest error a l'administrador del lloc web amb la següent "
+"informació:"
 
 msgid "More"
 msgstr "Més"

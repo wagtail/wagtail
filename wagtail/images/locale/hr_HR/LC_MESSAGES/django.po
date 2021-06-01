@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2020-2021
 # Luka Matijević <lumatijev@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 08:26+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -68,6 +68,22 @@ msgstr "Lijevo poravnano"
 msgid "Right-aligned"
 msgstr "Desno poravnano"
 
+msgid "Collection"
+msgstr "Zbirka"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Image is decorative"
+msgstr "Slika je dekorativna"
+
+msgid "Alt text"
+msgstr "Alternativni tekst"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Molimo dodajte alternativni tekst slici ili ju označite kao dekorativnu."
+
 msgid "Filter"
 msgstr "Filter"
 
@@ -109,6 +125,9 @@ msgstr "Uredi"
 
 msgid "Edit any image"
 msgstr "Uređivanje bilo koje slike"
+
+msgid "Choose"
+msgstr "Odaberi"
 
 msgid "title"
 msgstr "naslov"

@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +21,23 @@ msgstr ""
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Move up"
+msgstr "Subir"
+
+msgid "Move down"
+msgstr "Baixar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
 msgid "Add"
 msgstr "Engadir"
+
+msgid "This field is required."
+msgstr "Este campo é requirido."
+
+msgid "Password"
+msgstr "Contrasinal"
 
 msgid "hostname"
 msgstr "Nome do equipo"
@@ -63,6 +78,9 @@ msgstr "sitio web"
 
 msgid "sites"
 msgstr "sitios web"
+
+msgid "default"
+msgstr "por defecto"
 
 #, python-format
 msgid ""
@@ -188,6 +206,9 @@ msgstr "Publicar calquera páxina"
 msgid "Lock"
 msgstr "Bloquear"
 
+msgid "Unlock"
+msgstr "Desbloquear"
+
 msgid "group"
 msgstr "grupo"
 
@@ -200,8 +221,17 @@ msgstr "permiso de grupo da páxina"
 msgid "group page permissions"
 msgstr "Permisos de grupo da páxina"
 
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, accesible co seguinte contrasinal"
+
 msgid "password"
 msgstr "contrasinal"
+
+msgid "groups"
+msgstr "grupos"
 
 msgid "page view restriction"
 msgstr "restrición da vista da páxina"
@@ -223,3 +253,55 @@ msgstr "permiso"
 
 msgid "group collection permission"
 msgstr "permiso de grupo da colección"
+
+msgid "Approve"
+msgstr "Aprobar"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr "O teu usuario e contrasinal non coinciden. Por favor, téntao de novo."
+
+msgid "Continue"
+msgstr "Continuar"
+
+msgid "Save draft"
+msgstr "Gardar borrador"
+
+msgid "Unpublish"
+msgstr "Cancelar publicación"
+
+msgid "Locked"
+msgstr "Bloqueada"
+
+msgid "Unlocked"
+msgstr "Desbloqueada"
+
+msgid "Reject"
+msgstr "Rexeitar"
+
+msgid "Copy"
+msgstr "Copiar"
+
+msgid "Move"
+msgstr "Mover"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "'%(workflow)s' en '%(task)s' cancelado"
+
+msgid "Workflow cancelled"
+msgstr "Fluxo de traballo cancelado"
+
+msgid "Workflow: start"
+msgstr "Fluxo de traballo: comezar"
+
+msgid "Workflow: approve task"
+msgstr "Fluxo de traballo: aprobar tarefa"
+
+msgid "Workflow: reject task"
+msgstr "Fluxo de traballo: rexeitar tarefa"
+
+msgid "Workflow: resume task"
+msgstr "Fluxo de traballo: renovar tarefa"
+
+msgid "Workflow: cancel"
+msgstr "Fluxo de traballo: cancelar"

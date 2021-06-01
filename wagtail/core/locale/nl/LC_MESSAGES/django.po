@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: mahulst\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Move up"
+msgstr "Verplaats omhoog"
+
+msgid "Move down"
+msgstr "Verplaats naar beneden"
+
+msgid "Delete"
+msgstr "Verwijder"
+
+msgid "Add"
+msgstr "Toevoegen"
+
+msgid "This field is required."
+msgstr "Dit veld is verplicht"
+
+msgid "Password"
+msgstr "Wachtwoord"
 
 msgid "hostname"
 msgstr "hostname"
@@ -59,6 +77,9 @@ msgstr "site"
 
 msgid "sites"
 msgstr "sites"
+
+msgid "default"
+msgstr "standaard"
 
 #, python-format
 msgid ""
@@ -126,6 +147,9 @@ msgstr "voor het eerst gepubliceerd op"
 msgid "latest revision created at"
 msgstr "laatste versie aangemaakt op"
 
+msgid "This slug is already in use"
+msgstr "Deze slug is al in gebruik"
+
 msgid "scheduled"
 msgstr "ingepland"
 
@@ -156,11 +180,23 @@ msgstr "pagina versies"
 msgid "Add/edit pages you own"
 msgstr "Alle pagina's toevoegen of bewerken die je beheert"
 
+msgid "Edit"
+msgstr "Wijzig"
+
 msgid "Edit any page"
 msgstr "Alle pagina's bewerken"
 
+msgid "Publish"
+msgstr "Publiceer"
+
 msgid "Publish any page"
 msgstr "Alle pagina's publiceren"
+
+msgid "Lock"
+msgstr "Vergrendelen"
+
+msgid "Unlock"
+msgstr "Ontgrendelen"
 
 msgid "group page permission"
 msgstr "Groep pagina bevoegdheid"
@@ -168,8 +204,46 @@ msgstr "Groep pagina bevoegdheid"
 msgid "group page permissions"
 msgstr "Groep pagina bevoegdheden"
 
+msgid "Public"
+msgstr "Publiekelijk"
+
+msgid "Private, accessible with the following password"
+msgstr "Afgeschermd, toegankelijk met het volgende wachtwoord"
+
+msgid "groups"
+msgstr "groepen"
+
 msgid "page view restriction"
 msgstr "Pagina bekijk beperking"
 
 msgid "page view restrictions"
 msgstr "Pagina bekijk beperkingen"
+
+msgid "Approve"
+msgstr "Goedkeuren"
+
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Deze combinatie van gebruikersnaam en wachtwoord zijn onbekend. Probeer "
+"alstublieft opnieuw."
+
+msgid "Save draft"
+msgstr "Concept opslaan"
+
+msgid "Unpublish"
+msgstr "Publicatie ongedaan maken"
+
+msgid "Locked"
+msgstr "Vergrendeld"
+
+msgid "Unlocked"
+msgstr "Ontgrendeld"
+
+msgid "Reject"
+msgstr "Afwijzen"
+
+msgid "Copy"
+msgstr "Kopieer"
+
+msgid "Move"
+msgstr "Verplaats"

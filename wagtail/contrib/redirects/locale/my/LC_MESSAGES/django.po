@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>\n"
 "Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
 "my/)\n"
 "MIME-Version: 1.0\n"
@@ -63,3 +63,15 @@ msgstr "ဖျက်သိမ်းပါ"
 
 msgid "Are you sure you want to delete this redirect?"
 msgstr "ဤရီဒါရိုက်ကို ဖျက်သိမ်းဖို့ သေချာပါပြီလား။"
+
+msgid "Yes, delete"
+msgstr "ဟုတ်ပြီ၊ ဖျက်သိမ်းပါ"
+
+msgid "Editing"
+msgstr "ပြင်ဆင်နေသည်"
+
+msgid "Site"
+msgstr "ဆိုက်"
+
+msgid "Edit"
+msgstr "ပြင်ဆင်ပါ"

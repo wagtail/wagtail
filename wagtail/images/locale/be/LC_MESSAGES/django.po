@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Collection"
+msgstr "Калекцыя"
+
+msgid "Alt text"
+msgstr "Тэкст падказкі"
+
+msgid "Filter"
+msgstr "Фільтр"
+
+msgid "Add"
+msgstr "дадаць"
+
+msgid "Edit"
+msgstr "Рэдагаваць"
+
+msgid "Choose"
+msgstr "Выбраць"
+
+msgid "title"
+msgstr "загаловак"
+
+msgid "file"
+msgstr "Файл"
+
+msgid "created at"
+msgstr "створана"
+
+msgid "uploaded by user"
+msgstr "Запампована карыстальнікам"
+
+msgid "tags"
+msgstr "Тэгі"
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Upload"
+msgstr "Запампаваць"
+
+msgid "Uploading…"
+msgstr "Запампоўваецца..."
+
+msgid "Save"
+msgstr "Захаваць"
+
+msgid "Delete image"
+msgstr "Выдаліць выяву"
+
+msgid "Yes, delete"
+msgstr "Так. Выдаліць"
+
+msgid "No, don't delete"
+msgstr "Не, не выдаляць"
+
+msgid "Editing"
+msgstr "Рэдагаванне"
+
+msgid "Filesize"
+msgstr "Памер файла"
+
+msgid "File not found"
+msgstr "Файл не знойдзены"
+
+msgid "Usage"
+msgstr "Выкарыстоўванне"
+
+msgid "Clear choice"
+msgstr "Ачысціць выбар"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Папярэдні прагляд"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Выкарыстоўванне %(title)s"
+
+msgid "Usage of"
+msgstr "Выкарыстанне"
+
+msgid "Title"
+msgstr "Загаловак"
+
+msgid "Parent"
+msgstr "Бацькоўскі элемент"
+
+msgid "Type"
+msgstr "Тып"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Edit this page"
+msgstr "Змяніць гэтую старонку"
+
+msgid "Or choose from your computer"
+msgstr "Або абярыце на вашым кампутары"
+
+msgid "Add to collection:"
+msgstr "Дадаць да калекцыі:"
+
+msgid "Sorry, upload failed."
+msgstr "На жаль, не атрымалася запампаваць."
+
+msgid "Server Error"
+msgstr "Памылка Сервера"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Паведаміце аб гэтай памылцы адміністратару і пакажыце наступную інфармацыю:"
+
+msgid "Delete"
+msgstr "Выдаліць"

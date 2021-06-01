@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Halim Turan <halim_turan_61@hotmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail core (çekirdek)"
+
+msgid "Move up"
+msgstr "Yukarı çıkar"
+
+msgid "Move down"
+msgstr "Aşağı indir"
+
+msgid "Delete"
+msgstr "Sil"
 
 msgid "Add"
 msgstr "Ekle"
@@ -231,6 +240,9 @@ msgstr "Alt sayfası olan sayfaları sil"
 msgid "Lock"
 msgstr "Kilitle"
 
+msgid "Unlock"
+msgstr "Kilidi kaldır"
+
 msgid "group"
 msgstr "grup"
 
@@ -297,6 +309,9 @@ msgstr "grup koleksiyon izni"
 msgid "group collection permissions"
 msgstr "grup koleksiyon izinleri"
 
+msgid "Approve"
+msgstr "Onayla"
+
 msgid "Log in"
 msgstr "Giriş yap"
 
@@ -318,3 +333,33 @@ msgstr "Bu sayfaya erişmek için şifre gerekiyor."
 
 msgid "Continue"
 msgstr "Devam et"
+
+msgid "English"
+msgstr "İngilizce"
+
+msgid "French"
+msgstr "Fransızca"
+
+msgid "German"
+msgstr "Almanca"
+
+msgid "Save draft"
+msgstr "Taslağı kaydet"
+
+msgid "Unpublish"
+msgstr "Yayından Kaldır"
+
+msgid "Locked"
+msgstr "Kilitlendi"
+
+msgid "Unlocked"
+msgstr "Kilitsiz"
+
+msgid "Reject"
+msgstr "Reddet"
+
+msgid "Copy"
+msgstr "Kopyala"
+
+msgid "Move"
+msgstr "Taşı"

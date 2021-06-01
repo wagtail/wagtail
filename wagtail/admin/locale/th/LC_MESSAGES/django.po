@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Jon Combe <jon@naremit.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,9 @@ msgstr "ยกเลิกประกาศ"
 
 msgid "Delete"
 msgstr "ลบ"
+
+msgid "Lock"
+msgstr "ล็อค"
 
 msgid "Page locked"
 msgstr "หน้านี้ถูกล็อกไว้"
@@ -63,6 +66,12 @@ msgstr "โปรโมท"
 msgid "Settings"
 msgstr "การตั้งค่า"
 
+msgid "Date from"
+msgstr "จากวันที่"
+
+msgid "Date to"
+msgstr "ถึงวันที่"
+
 msgid "Date"
 msgstr "วันที่"
 
@@ -78,6 +87,9 @@ msgstr "ใส่%s"
 
 msgid "Enter your email address to reset your password"
 msgstr "กรอกอีเมลของคุณเพื่อรีเซ็ตรหัสผ่านของคุณ"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Parent"
 msgstr "หน้าหลัก,หน้าแรก"
@@ -934,6 +946,12 @@ msgstr "เข้าสู่การค้นหาคำที่หาอย
 msgid "No pages use"
 msgstr "ไม่มีหน้าท่ีใช้"
 
+msgid "Download CSV"
+msgstr "ดาวโหลด ช่องที่ให้เขียนตอบสำหรับเกบข้อมูลแบบตาราง"
+
+msgid "Filter"
+msgstr "คัดกรอง"
+
 msgid "Locked"
 msgstr "ล็อกเรียบร้อยแล้ว"
 
@@ -978,8 +996,20 @@ msgstr "โดย %(modified_by)s"
 msgid "Compare with live version"
 msgstr "เปรียบเทียบกับรุ่นถ่ายทอดสด"
 
+msgid "live"
+msgstr "ถ่ายทอดสด"
+
+msgid "live + draft"
+msgstr "ถ่ายทอดสด +ร่าง,ข้อความที่ต้องการเก็บเอาไว้ใช้ใหม่"
+
+msgid "draft"
+msgstr "ร่าง"
+
 msgid "Test"
 msgstr "ทดสอบ"
+
+msgid "Password"
+msgstr "รหัสผ่าน"
 
 msgid "You have been successfully logged out."
 msgstr "คุณออกจากระบบเรียบร้อยแล้ว"
@@ -1101,6 +1131,9 @@ msgstr "การแก้ไข{0}ของหน้า{1}"
 
 msgid "Page '{0}' unpublished."
 msgstr "หน้า{0} ยกเลิกจัดพิมพ์แล้ว"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "รายงานข้อผิดพลาดนี้ของคุณกับเจ้าของเว็บไซด์ดยให้ทำตามข้อมูลนี้"
 
 msgid "More"
 msgstr "เพิ่ม"

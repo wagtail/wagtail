@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-01-21 01:16+0000\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
@@ -19,5 +19,45 @@ msgstr ""
 "Language: mi\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Edit"
+msgstr "Whakarerekē"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Whakarerekē i tēnei %s"
+
+msgid "Delete"
+msgstr "Muku"
+
+msgid "Unpublish"
+msgstr "whakakore te whakaputa"
+
+msgid "image"
+msgstr "whakaahua"
+
+msgid "Continue"
+msgstr "Tonu"
+
+msgid "Saving…"
+msgstr "pupuru ana..."
+
 msgid "Save"
 msgstr "Puritia"
+
+msgid "Yes, delete"
+msgstr "Ae, muku"
+
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
+msgid "Home"
+msgstr "Kainga"
+
+msgid "Filter"
+msgstr "Tātari"
+
+msgid "New"
+msgstr "Hou"
+
+msgid "Editing"
+msgstr "Whakarerekē"

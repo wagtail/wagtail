@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Iho-a-Wagtail"
+
+msgid "Move up"
+msgstr "Mū ki runga"
+
+msgid "Move down"
+msgstr "Mū ki raro"
+
+msgid "Delete"
+msgstr "Muku"
 
 msgid "Add"
 msgstr "Tāpiri"
@@ -51,6 +60,10 @@ msgstr "Kua hē tou kupu muna. Whakamātau koa anō."
 
 msgid "Comment"
 msgstr "Tākupu"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "tautangata %(action)s"
 
 msgid "hostname"
 msgstr "Ingoa-a-manuhiri"
@@ -517,3 +530,12 @@ msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s tuhanga kohikohinga"
 msgstr[1] "%(count)s tuhanga kohikohinga"
+
+msgid "Created"
+msgstr "Hangaia"
+
+msgid "Unpublish"
+msgstr "whakakore te whakaputa"
+
+msgid "Reject"
+msgstr "Parahako"

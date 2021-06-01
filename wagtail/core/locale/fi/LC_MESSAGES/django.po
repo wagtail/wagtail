@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Aarni Koskela\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtailin ydinominaisuudet"
+
+msgid "Move up"
+msgstr "Siirrä ylös"
+
+msgid "Move down"
+msgstr "Siirrä alas"
+
+msgid "Delete"
+msgstr "Poista"
 
 msgid "Add"
 msgstr "Lisää"
@@ -57,6 +66,10 @@ msgstr "Antamasi salasana ei ole oikein. Koeta uudestaan."
 
 msgid "Comment"
 msgstr "Kommentti"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Tuntematon %(action)s"
 
 msgid "hostname"
 msgstr "isäntäosoite"
@@ -381,3 +394,82 @@ msgstr "Tarvitset salasanan päästäksesi tälle sivulle"
 
 msgid "Continue"
 msgstr "Jatka"
+
+msgid "English"
+msgstr "englanti"
+
+msgid "French"
+msgstr "ranska"
+
+msgid "German"
+msgstr "saksa"
+
+msgid "Create"
+msgstr "Luo"
+
+msgid "Created"
+msgstr "Luotu"
+
+msgid "Save draft"
+msgstr "Tallenna luonnos"
+
+msgid "Draft saved"
+msgstr "Luonnos tallennettu"
+
+msgid "Deleted"
+msgstr "Poistettu"
+
+msgid "Published"
+msgstr "Julkaistu"
+
+msgid "Unpublish"
+msgstr "Piilota"
+
+msgid "Locked"
+msgstr "Lukittu"
+
+msgid "Unlocked"
+msgstr "Ei lukittu"
+
+msgid "Reject"
+msgstr "Hylkää"
+
+msgid "Copied"
+msgstr "Kopioitu"
+
+msgid "Moved"
+msgstr "Siirretty"
+
+msgid "Renamed"
+msgstr "Nimetty uudelleen"
+
+msgid "Rename"
+msgstr "Nimeä uudelleen"
+
+msgid "Copy"
+msgstr "Kopioi"
+
+msgid "Move"
+msgstr "SIirrä"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' käynnistetty. Seuraava vaihe '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Työnkulku aloitettu"
+
+msgid "Workflow task approved"
+msgstr "Työnkulun tehtävä hyväksytty"
+
+msgid "Workflow cancelled"
+msgstr "Työnkulku peruttu"
+
+msgid "Workflow: start"
+msgstr "Työnkulku: aloitettu"
+
+msgid "Workflow: approve task"
+msgstr "Työnkulku: hyväksy tehtävä"
+
+msgid "Workflow: cancel"
+msgstr "Työnkulku: peruttu"

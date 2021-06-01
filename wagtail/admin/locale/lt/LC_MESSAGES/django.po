@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +36,9 @@ msgstr "Ištrinti"
 
 msgid "Lock"
 msgstr "Užrakinti"
+
+msgid "Apply editor lock"
+msgstr "Taikyti redaktoriaus užraktą"
 
 msgid "Unlock"
 msgstr "Atrakinti"
@@ -70,6 +73,12 @@ msgstr "Skelbti"
 msgid "Settings"
 msgstr "Nustatymai"
 
+msgid "Date from"
+msgstr "Data nuo"
+
+msgid "Date to"
+msgstr "Data iki"
+
 msgid "Date"
 msgstr "Data"
 
@@ -86,6 +95,9 @@ msgstr "Įveskite savo %s"
 msgid "Enter your email address to reset your password"
 msgstr ""
 "Įveskite savo elektroninio pašto adresą kad atstatytumėte savo slaptažodį"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "Parent"
 msgstr "Tėvas"
@@ -238,8 +250,14 @@ msgstr "Redaguoti '{title}'"
 msgid "Save"
 msgstr "Išsaugoti"
 
+msgid "Saving..."
+msgstr "Saugojama..."
+
 msgid "Cancel"
 msgstr "Atšaukti"
+
+msgid "Comment"
+msgstr "Komentaras"
 
 msgid "Error 404: Page not found"
 msgstr "Klaida 404: Puslapis nerastas"
@@ -798,6 +816,9 @@ msgstr "Pridėti vidinį puslapį"
 msgid "Sites menu"
 msgstr "Tinklalapių meniu"
 
+msgid "Pagination"
+msgstr "Skaidymas į puslapius"
+
 #, python-format
 msgid ""
 "\n"
@@ -992,12 +1013,21 @@ msgstr "Redaguoti puslapį"
 msgid "Download XLSX"
 msgstr "Parsiųsti XLSX"
 
+msgid "Download CSV"
+msgstr "Parsisiųsti CSV"
+
+msgid "Filter"
+msgstr "Filtras"
+
 msgid "Locked"
 msgstr "Užrakinta"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Puslapis %(page_num)s iš %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Naršymo kelias"
 
 msgid "Root"
 msgstr "Šakninis"
@@ -1020,6 +1050,9 @@ msgstr "Atsijungti"
 msgid "Other searches"
 msgstr "Kitos paieškos"
 
+msgid "Published"
+msgstr "Publikuotas"
+
 msgid "Go to Wagtail admin interface"
 msgstr "Eiti į Wagtail administravimo sąsają."
 
@@ -1036,8 +1069,20 @@ msgstr "pagal %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Palyginti su veikiančia versija"
 
+msgid "live"
+msgstr "veikiantis"
+
+msgid "live + draft"
+msgstr "veikiantis + juodraštis"
+
+msgid "draft"
+msgstr "juodraštis"
+
 msgid "Test"
 msgstr "Testas"
+
+msgid "Password"
+msgstr "Slaptažodis"
 
 msgid "You have been successfully logged out."
 msgstr "Jūs sėkmingai atsijungėte."
@@ -1161,6 +1206,11 @@ msgstr "Išjungti"
 
 msgid "Enable"
 msgstr "Įjungti"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Praneškite apie šią klaidą savo tinklalapio administratoriui su sekančia "
+"informacija:"
 
 msgid "More"
 msgstr "Daugiau"

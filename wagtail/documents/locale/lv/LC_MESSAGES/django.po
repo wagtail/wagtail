@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,17 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
+msgid "Collection"
+msgstr "Kolekcija"
+
 msgid "Add"
 msgstr "Pievienot"
 
 msgid "Edit"
 msgstr "Labot"
+
+msgid "Choose"
+msgstr "Izvēlēties"
 
 msgid "Choose a document"
 msgstr "Izvēlēties dokumentu"
@@ -93,6 +99,9 @@ msgstr "%(title)s lietojums"
 msgid "Usage of"
 msgstr "Lietojums"
 
+msgid "Parent"
+msgstr "Augstāka līmeņa vienība"
+
 msgid "Type"
 msgstr "Veids"
 
@@ -101,6 +110,15 @@ msgstr "Statuss"
 
 msgid "Edit this page"
 msgstr "Labot šo lapu"
+
+msgid "Or choose from your computer"
+msgstr "Izvēlēties no datora"
+
+msgid "Sorry, upload failed."
+msgstr "Augšupielāde neizdevās."
+
+msgid "Server Error"
+msgstr "Servera kļūda"
 
 msgid "Search documents"
 msgstr "Meklēt dokumentus"
@@ -119,6 +137,9 @@ msgstr "Dzēst"
 
 msgid "Document '{0}' deleted."
 msgstr "Dokuments '{0}' tika dzēsts."
+
+msgid "Document"
+msgstr "Dokuments"
 
 msgid "Choose another document"
 msgstr "Izvēlēties citu dokumentu."

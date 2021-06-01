@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Mads Kronborg <madskronborg99@gmail.com>\n"
+"Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
+"da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Move up"
+msgstr "Bevæg op"
+
+msgid "Move down"
+msgstr "Bevæg ned"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Add"
+msgstr "Tilføj"
+
+msgid "This field is required."
+msgstr "Dette felt er påkrævet."
+
+msgid "title"
+msgstr "Titel"
+
+msgid "This slug is already in use"
+msgstr "Dette slug er allerede i brug"
+
+msgid "created at"
+msgstr "oprettet"
+
+msgid "Edit"
+msgstr "Rediger"
+
+msgid "Publish"
+msgstr "Udgiv"
+
+msgid "Public"
+msgstr "Offentlig"
+
+msgid "Approve"
+msgstr "Godkend"
+
+msgid "English"
+msgstr "Engelsk"
+
+msgid "French"
+msgstr "Fransk"
+
+msgid "German"
+msgstr "Tysk"
+
+msgid "Save draft"
+msgstr "Gem skitse"
+
+msgid "Unpublish"
+msgstr "Afpublicer"
+
+msgid "Locked"
+msgstr "Låst"
+
+msgid "Unlocked"
+msgstr "Ulåst"
+
+msgid "Reject"
+msgstr "Afvis"
+
+msgid "Copy"
+msgstr "Kopi"
+
+msgid "Move"
+msgstr "Flyt"

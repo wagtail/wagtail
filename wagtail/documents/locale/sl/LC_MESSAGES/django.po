@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Collection"
+msgstr "Zbirka"
 
 msgid "Add"
 msgstr "Dodaj"
@@ -32,6 +35,9 @@ msgstr "Uredi"
 
 msgid "Edit any document"
 msgstr "Uredi katerikoli dokument"
+
+msgid "Choose"
+msgstr "Izberite"
 
 msgid "title"
 msgstr "naziv"
@@ -172,6 +178,12 @@ msgstr "Dovoljenja dokumenta"
 
 msgid "Add a document permission"
 msgstr "Dodaj dovoljenje dokumenta"
+
+msgid "Server Error"
+msgstr "Napaka na strežniku"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Javite napako skrbniku strani, skupaj s sledečimi informacijami:"
 
 msgid "Search documents"
 msgstr "Iskanje po dokumentih"
