@@ -536,6 +536,7 @@ Contributors
 * Onkar Apte
 * Justin Slay
 * Desai Akshata
+* Krzysztof Jeziorny
 
 Translators
 ===========

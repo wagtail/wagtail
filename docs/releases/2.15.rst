@@ -49,6 +49,7 @@ Bug fixes
  * Screen readers can now access login screen field labels (Amy Chan)
  * Admin breadcrumbs home icon now shows for users with access to a subtree only (Stefan Hammer)
  * Add handling of invalid inline styles submitted to ``RichText`` so ``ConfigException`` is not thrown (Alex Tomkins)
+ * Ensure comment notifications dropdown handles longer translations without overflowing content (Krzysztof Jeziorny)
 
 Upgrade considerations
 ======================
