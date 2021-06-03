@@ -19,7 +19,7 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.db import migrations, models, transaction
-from django.db.models import DEFERRED, Q, Value
+from django.db.models import DEFERRED, OneToOneRel, Q, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Lower, Substr
 from django.db.models.signals import pre_save
@@ -683,6 +683,28 @@ def get_streamfield_names(model_class):
     )
 
 
+def _get_subclass_related_names(values, model_class, known_subclasses=None, prefix=None):
+    if known_subclasses is None:
+        known_subclasses = set(
+            model for model in get_page_models()
+            if not model._meta.abstract and issubclass(model, model_class)
+        )
+
+    for rel in (
+        rel for rel in model_class._meta.related_objects
+        if isinstance(rel, OneToOneRel) and rel.related_model in known_subclasses
+    ):
+        rel_name = f'{prefix}__{rel.name}' if prefix else rel.name
+        values[rel.related_model] = rel_name
+        _get_subclass_related_names(values, rel.related_model, known_subclasses, rel_name)
+    return values
+
+
+@functools.lru_cache(maxsize=None)
+def get_concrete_subclasses(model_class):
+    return _get_subclass_related_names({}, model_class)
+
+
 class BasePageManager(models.Manager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by('path')
@@ -908,6 +930,26 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @classmethod
     def get_streamfield_names(cls):
         return get_streamfield_names(cls)
+
+    @classmethod
+    def get_concrete_subclasses(cls):
+        """
+        Returns a dict of 'related_name' strings that can be used in Django ORM
+        queries to access instances of all concrete subclasses of this model -
+        keyed by the relevant subclass. For example:
+
+        .. code-block:: console
+
+            >>> from wagtail.core.models import Page
+            >>> Page.get_concrete_subclasses()
+            {
+                <class 'standardpages.models.StandardPage'>: 'standardpage',
+                <class 'events.models.EventIndexPage'>: 'eventindexpage',
+                <class 'events.models.EventPage'>: 'eventpage',
+                <class 'events.models.SpecialEventPage'>: 'eventpage__specialeventpage',
+            }
+        """
+        return get_concrete_subclasses(cls)
 
     def set_url_path(self, parent):
         """
