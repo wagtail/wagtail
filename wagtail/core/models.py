@@ -928,8 +928,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return self.title
 
     @classmethod
-    def get_streamfield_names(cls):
-        return get_streamfield_names(cls)
+    def get_streamfield_names(cls, prefix=None):
+        if not prefix:
+            return get_streamfield_names(cls)
+        return tuple(f'{prefix}__{name}' for name in get_streamfield_names(cls))
 
     @classmethod
     def get_concrete_subclasses(cls):
