@@ -1,7 +1,7 @@
 Getting started
 ~~~~~~~~~~~~~~~
 
-The Wagtail demo site
+The Wagtail demo site for jenna and phil
 _____________________
 
 The examples in this document are based on `Torchbox.com <https://torchbox.com>`_. However, the instructions are general enough as to be applicable to any Wagtail site.
