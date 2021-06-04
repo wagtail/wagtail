@@ -112,7 +112,7 @@ class StreamField(models.Field):
                 # but better to handle it just in case...
                 return StreamValue(self.stream_block, [])
 
-            return self.stream_block.to_python(unpacked_value)
+            return self.stream_block.to_python(unpacked_value, root=True)
         else:
             # See if it looks like the standard non-smart representation of a
             # StreamField value: a list of (block_name, value) tuples
@@ -133,7 +133,7 @@ class StreamField(models.Field):
             # fields.)
             return value.raw_text
         else:
-            return json.dumps(self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder)
+            return json.dumps(self.stream_block.get_prep_value(value, root=True), cls=DjangoJSONEncoder)
 
     def from_db_value(self, value, expression, connection):
         return self.to_python(value)

@@ -6,6 +6,7 @@ from collections.abc import MutableSequence
 
 from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
+from django.db import models
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 from django.utils.html import format_html_join
@@ -13,6 +14,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
+from wagtail.core.utils import resolve_model_string
 
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass, get_help_icon
 
@@ -177,11 +179,18 @@ class BaseStreamBlock(Block):
 
         return StreamValue(self, cleaned_data)
 
-    def to_python(self, value):
+    def to_python(self, value, root=False):
         # the incoming JSONish representation is a list of dicts, each with a 'type' and 'value' field
         # (and possibly an 'id' too).
         # This is passed to StreamValue to be expanded lazily - but first we reject any unrecognised
         # block types from the list
+
+        if root and isinstance(value, dict):
+            return StreamValue(self, [
+                child_data for child_data in value['value']
+                if child_data['type'] in self.child_blocks
+            ], is_lazy=True, refs=value['refs'])
+
         return StreamValue(self, [
             child_data for child_data in value
             if child_data['type'] in self.child_blocks
@@ -238,7 +247,7 @@ class BaseStreamBlock(Block):
             for block_map in block_maps
         ]
 
-    def get_prep_value(self, value):
+    def get_prep_value(self, value, root=False):
         if not value:
             # Falsy values (including None, empty string, empty list, and
             # empty StreamValue) become an empty stream
@@ -247,7 +256,7 @@ class BaseStreamBlock(Block):
             # value is a StreamValue - delegate to its get_prep_value() method
             # (which has special-case handling for lazy StreamValues to avoid useless
             # round-trips to the full data representation and back)
-            return value.get_prep_value()
+            return value.get_prep_value(root=root)
 
     def get_form_state(self, value):
         if not value:
@@ -416,7 +425,7 @@ class StreamValue(MutableSequence):
         def __repr__(self):
             return repr(list(self))
 
-    def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
+    def __init__(self, stream_block, stream_data, is_lazy=False, refs=None, raw_text=None):
         """
         Construct a StreamValue linked to the given StreamBlock,
         with child values given in stream_data.
@@ -438,6 +447,7 @@ class StreamValue(MutableSequence):
         """
         self.stream_block = stream_block  # the StreamBlock object that handles this value
         self.is_lazy = is_lazy
+        self.refs = refs
         self.raw_text = raw_text
 
         if is_lazy:
@@ -446,12 +456,95 @@ class StreamValue(MutableSequence):
             self._raw_data = stream_data
             self._bound_blocks = [None] * len(stream_data)
         else:
+            if self.refs:
+                stream_data = self._load_refs(stream_data)
+                self.refs = None
+
             # store native stream data in _bound_blocks; on serialization it will be converted to
             # a JSON-ish representation via block.get_prep_value.
             self._raw_data = [None] * len(stream_data)
             self._bound_blocks = [
                 self._construct_stream_child(item) for item in stream_data
             ]
+
+    def _extract_refs_from_value(self, value, refs):
+        """
+        Extracts references to model instances from the JSON-like object and appends them to the given "refs" array.
+
+        Returns a new JSON-like object with the instances replaced with { "_ref": refid } objects.
+        Note that the refs array is mutated in place.
+        """
+        def add_ref(obj):
+            """
+            Adds an instance to the refs array. If the instance was already added, the existing index is returned.
+            """
+            if obj in refs:
+                return refs.index(obj)
+            refs.append(obj)
+            return len(refs) - 1
+
+        if isinstance(value, list):
+            return [
+                self._extract_refs_from_value(child_value, refs)
+                for child_value in value
+            ]
+
+        elif isinstance(value, dict):
+            return {
+                child_key: self._extract_refs_from_value(child_value, refs)
+                for child_key, child_value in value.items()
+            }
+
+        elif isinstance(value, models.Model):
+            # Replace model instance with index into refs array
+            return {
+                '_ref': add_ref(value)
+            }
+
+        else:
+            return value
+
+    def _reinsert_refs_into_value(self, value, refs):
+        """
+        Inserts the instances into the stream value that were previously extracted using _extract_refs_from_value
+        """
+        if isinstance(value, list):
+            return [
+                self._reinsert_refs_into_value(child_value, refs)
+                for child_value in value
+            ]
+
+        elif isinstance(value, dict):
+            # Replace { "_ref": refid } objects with model instances
+            if value.keys() == set('_ref'):
+                return refs[value['_ref']]
+
+            return {
+                child_key: self._reinsert_refs_into_value(child_value, refs)
+                for child_key, child_value in value.items()
+            }
+
+        else:
+            return value
+
+    def _load_refs(self, value):
+        # Bulk load referenced external objects
+        pks_by_model_name = defaultdict(list)
+        for model_name, pk in value['refs']:
+            pks_by_model_name[model_name].append(pk)
+
+        instances_by_model_name_pk = {}
+        for model_name, pks in pks_by_model_name.items():
+            model = resolve_model_string(model_name)
+            instances_by_model_name_pk[model_name] = model.objects.in_bulk(pks)
+
+        # Now build an array with the fetched instances in the same order they are in the refs array
+        loaded_refs = [
+            instances_by_model_name_pk[model_name][pk]
+            for model_name, pk in value['refs']
+        ]
+
+        return self._reinsert_refs_into_value(value, loaded_refs)
 
     def _construct_stream_child(self, item):
         """
@@ -471,6 +564,10 @@ class StreamValue(MutableSequence):
         return StreamValue.StreamChild(block_def, value, id=block_id)
 
     def __getitem__(self, i):
+        if self.refs:
+            self._raw_data = self._load_refs(self._raw_data)
+            self.refs = None
+
         if isinstance(i, slice):
             start, stop, step = i.indices(len(self._bound_blocks))
             return [self[j] for j in range(start, stop, step)]
@@ -494,6 +591,10 @@ class StreamValue(MutableSequence):
 
     @cached_property
     def raw_data(self):
+        if self.refs:
+            self._raw_data = self._load_refs(self._raw_data)
+            self.refs = None
+
         return StreamValue.RawDataView(self)
 
     def _prefetch_blocks(self, type_name):
@@ -521,7 +622,7 @@ class StreamValue(MutableSequence):
                 child_block, value, id=self._raw_data[i].get('id')
             )
 
-    def get_prep_value(self):
+    def get_prep_value(self, root=False):
         prep_value = []
 
         for i, item in enumerate(self._bound_blocks):
@@ -540,6 +641,23 @@ class StreamValue(MutableSequence):
                     raw_item['id'] = str(uuid.uuid4())
 
                 prep_value.append(raw_item)
+
+        # If this is the root stream value (as opposed to a nested one), go through
+        # the block data and extract any references to external objects.
+        # We then store their IDs at the top of the streamfield so we can easily
+        # bulk-load them when we load this value later.
+        if root:
+            refs = []
+            prep_value = self._extract_refs_from_value(prep_value, refs)
+
+            return {
+                'version': 1,
+                'value': prep_value,
+                'refs': [
+                    [ref._meta.app_label + '.' + ref.__class__.__name__, ref.pk]
+                    for ref in refs
+                ]
+            }
 
         return prep_value
 
