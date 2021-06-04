@@ -255,8 +255,8 @@ StreamBlock
 
     body = StreamField([
         ('carousel', blocks.StreamBlock([
-            'image': ImageChooserBlock(),
-            'video': EmbedBlock(),
+            ('image', ImageChooserBlock()),
+            ('video', EmbedBlock()),
         ])),
         ('heading', blocks.CharBlock(form_classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
