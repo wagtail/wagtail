@@ -665,6 +665,11 @@ class ChooserBlock(FieldBlock):
         # the incoming serialised value should be None or an ID
         if value is None:
             return value
+
+        elif isinstance(value, self.target_model):
+            # Value bulk loaded by streamfield
+            return value
+
         else:
             try:
                 return self.target_model.objects.get(pk=value)
@@ -684,7 +689,7 @@ class ChooserBlock(FieldBlock):
         if value is None:
             return None
         else:
-            return value.pk
+            return value
 
     def value_from_form(self, value):
         # ModelChoiceField sometimes returns an ID, and sometimes an instance; we want the instance
@@ -707,6 +712,9 @@ class ChooserBlock(FieldBlock):
         if isinstance(value, self.target_model):
             value = value.pk
         return super().clean(value)
+
+    def get_api_representation(self, value, context=None):
+        return value.pk if value else None
 
     class Meta:
         # No icon specified here, because that depends on the purpose that the

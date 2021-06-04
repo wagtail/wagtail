@@ -1366,7 +1366,7 @@ class TestSnippetChooserBlock(TestCase):
         block = SnippetChooserBlock(Advert)
         test_advert = Advert.objects.get(text='test_advert')
 
-        self.assertEqual(block.get_prep_value(test_advert), test_advert.id)
+        self.assertEqual(block.get_prep_value(test_advert), test_advert)
 
         # None should serialize to None
         self.assertEqual(block.get_prep_value(None), None)
@@ -1377,6 +1377,8 @@ class TestSnippetChooserBlock(TestCase):
         test_advert = Advert.objects.get(text='test_advert')
 
         self.assertEqual(block.to_python(test_advert.id), test_advert)
+
+        self.assertEqual(block.to_python(test_advert), test_advert)
 
         # None should deserialize to None
         self.assertEqual(block.to_python(None), None)
@@ -1549,7 +1551,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
         block = SnippetChooserBlock(AdvertWithCustomPrimaryKey)
         test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert/01')
 
-        self.assertEqual(block.get_prep_value(test_advert), test_advert.pk)
+        self.assertEqual(block.get_prep_value(test_advert), test_advert)
 
         # None should serialize to None
         self.assertEqual(block.get_prep_value(None), None)
@@ -1560,6 +1562,8 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
         test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert/01')
 
         self.assertEqual(block.to_python(test_advert.pk), test_advert)
+
+        self.assertEqual(block.to_python(test_advert), test_advert)
 
         # None should deserialize to None
         self.assertEqual(block.to_python(None), None)

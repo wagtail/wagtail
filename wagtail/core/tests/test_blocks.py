@@ -3411,7 +3411,7 @@ class TestPageChooserBlock(TestCase):
         block = blocks.PageChooserBlock()
         christmas_page = Page.objects.get(slug='christmas')
 
-        self.assertEqual(block.get_prep_value(christmas_page), christmas_page.id)
+        self.assertEqual(block.get_prep_value(christmas_page), christmas_page)
 
         # None should serialize to None
         self.assertEqual(block.get_prep_value(None), None)
@@ -3422,6 +3422,8 @@ class TestPageChooserBlock(TestCase):
         christmas_page = Page.objects.get(slug='christmas')
 
         self.assertEqual(block.to_python(christmas_page.id), christmas_page)
+
+        self.assertEqual(block.to_python(christmas_page), christmas_page)
 
         # None should deserialize to None
         self.assertEqual(block.to_python(None), None)
