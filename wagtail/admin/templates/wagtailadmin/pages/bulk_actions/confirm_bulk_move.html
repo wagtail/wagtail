@@ -1,0 +1,22 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block titletag %}{% blocktrans count counter=num_pages %}Move 1 page{% plural %}Move {{ counter }} pages {% endblocktrans %}
+{% endblock %}
+{% block content %}
+    {% trans "Move" as move_str %}
+    {% include "wagtailadmin/shared/header.html" with title=move_str icon="doc-empty-inverse" %}
+    <div class="nice-padding">
+        {% for page_to_move in pages_to_move %}
+        {% if page_to_move.is_leaf %}
+            <p>{% blocktrans with title=destination.get_admin_display_title subtitle=page_to_move.get_admin_display_title %}Are you sure you want to move the page {{subtitle}} into '{{ title }}'?{% endblocktrans %}</p>
+        {% else %}
+            <p>{% blocktrans with title=destination.get_admin_display_title subtitle=page_to_move.get_admin_display_title %}Are you sure you want to move the page {{subtitle}} and all of its children into '{{ title }}'?{% endblocktrans %}</p>
+        {% endif %}
+        {% endfor %}
+
+        <form action="{{ submit_url }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Yes, move these pages' %}" class="button">
+        </form>
+    </div>
+{% endblock %}
