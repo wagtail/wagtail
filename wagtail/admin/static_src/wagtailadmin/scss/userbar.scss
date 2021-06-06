@@ -155,8 +155,7 @@ $positions: (
     }
 
     &:focus {
-        border-color: $color-black;
-        outline: none;
+        outline: 5px auto -webkit-focus-ring-color;
     }
 }
 
