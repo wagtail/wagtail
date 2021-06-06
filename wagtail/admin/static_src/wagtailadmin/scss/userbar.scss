@@ -160,7 +160,8 @@ $positions: (
     }
 
     &:focus {
-        outline: 5px auto -webkit-focus-ring-color;
+        outline: auto;
+        outline-offset: 5px;
     }
 }
 
