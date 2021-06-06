@@ -142,9 +142,14 @@ $positions: (
     }
 
     .#{$namespace}-userbar-help-text {
+        // Visually hide the help text
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
         position: absolute;
-        top: 100%;
-        left: 0;
+        white-space: nowrap;
+        width: 1px;
     }
 
     .#{$namespace}-icon:before {
