@@ -40,6 +40,9 @@ urlpatterns = [
     path('pages/<int:parent_page_id>/multiple/delete/', bulk_actions.delete, name='wagtailadmin_bulk_delete'),
     path('pages/<int:parent_page_id>/multiple/unpublish/', bulk_actions.unpublish, name='wagtailadmin_bulk_unpublish'),
     path('pages/<int:parent_page_id>/multiple/publish/', bulk_actions.publish, name='wagtailadmin_bulk_publish'),
+    path('pages/<int:parent_page_id>/multiple/move/', bulk_actions.move, name='wagtailadmin_bulk_move'),
+    path('pages/<int:parent_page_id>/multiple/move/<int:dest_page_id>/', bulk_actions.move, name='wagtailadmin_bulk_move'),
+    path('pages/<int:parent_page_id>/multiple/move/<int:dest_page_id>/confirm/', bulk_actions.move_confirm, name='wagtailadmin_bulk_move_confirm'),
 
     path('pages/', include(wagtailadmin_pages_urls, namespace='wagtailadmin_pages')),
 
