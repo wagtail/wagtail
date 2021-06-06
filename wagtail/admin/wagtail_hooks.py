@@ -183,7 +183,7 @@ def bulk_action_choices(page, is_parent=False, next_url=None):
     if page:
         yield PageListingButton(
             _('Move'),
-            reverse('wagtailadmin_bulk_delete', args=[page.id]) + '?' + urlencode({'next': next_url}),
+            reverse('wagtailadmin_bulk_move', args=[page.id]) + '?' + urlencode({'next': next_url}),
             attrs={'aria-label': _("Move pages")},
             priority=10
         )
