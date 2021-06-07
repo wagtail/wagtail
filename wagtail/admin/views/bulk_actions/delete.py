@@ -26,6 +26,10 @@ def delete(request, parent_page_id):
         if not page.permissions_for_user(request.user).can_delete():
             raise PermissionDenied
         pages.append(page)
+        for fn in hooks.get_hooks('before_delete_page'):
+            result = fn(request, page)
+            if hasattr(result, 'status_code'):
+                return result
 
     if request.method == 'GET':
         _pages = []
@@ -50,10 +54,6 @@ def delete(request, parent_page_id):
             for page in pages:
                 num_parent_pages += 1
                 num_child_pages += page.get_descendant_count()
-                for fn in hooks.get_hooks('before_delete_page'):
-                    result = fn(request, page)
-                    if hasattr(result, 'status_code'):
-                        return result
                 page.delete(user=request.user)
 
                 for fn in hooks.get_hooks('after_delete_page'):
