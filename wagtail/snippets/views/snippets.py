@@ -75,7 +75,11 @@ def index(request):
         raise PermissionDenied
 
 
-class BaseListView(TemplateView):
+class ListView(TemplateView):
+
+    # If true, returns just the 'results' include, for use in AJAX responses from search
+    results_only = False
+
     def get(self, request, app_label, model_name):
         self.app_label = app_label
         self.model_name = model_name
@@ -168,14 +172,11 @@ class BaseListView(TemplateView):
 
         return context
 
-
-class ListView(BaseListView):
-    template_name = 'wagtailsnippets/snippets/type_index.html'
-
-
-class ListResultsView(BaseListView):
-    # Returns just the 'results' include, for use in AJAX responses from search
-    template_name = 'wagtailsnippets/snippets/results.html'
+    def get_template_names(self):
+        if self.results_only:
+            return ['wagtailsnippets/snippets/results.html']
+        else:
+            return ['wagtailsnippets/snippets/type_index.html']
 
 
 def create(request, app_label, model_name):
