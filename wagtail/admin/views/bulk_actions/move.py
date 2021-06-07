@@ -45,7 +45,6 @@ def move(request, parent_page_id, dest_page_id=None):
     child_pages = list(child_pages)
     paginator = Paginator(child_pages, per_page=50)
     child_pages = paginator.get_page(request.GET.get('p'))
-    print(len(child_pages))
 
     if request.method == 'GET':
         args = [parent_page_id]
@@ -82,7 +81,7 @@ def move_confirm(request, parent_page_id, dest_page_id):
                 request,
                 _("The slug '{0}' is already in use at the selected parent page. Make sure the slug is unique and try again").format(page_to_move.slug)
             )
-            return redirect('wagtailadmin_pages:move_choose_destination', page_to_move.id, dest_page_id)
+            return redirect(reverse('wagtailadmin_bulk_move', args=[parent_page_id, dest_page_id]) + '?' + urlencode([('id', page_id) for page_id in page_ids]))
         for fn in hooks.get_hooks('before_move_page'):
             result = fn(request, page_to_move, destination)
             if hasattr(result, 'status_code'):
