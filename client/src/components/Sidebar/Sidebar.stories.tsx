@@ -9,7 +9,6 @@ import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
 import { SubMenuItemDefinition } from './menu/SubMenuItem';
 import { initFocusOutline } from '../../utils/focus';
 
-// eslint-disable-next-line import/no-unresolved
 import '../../../../wagtail/admin/static/wagtailadmin/css/sidebar.css';
 import { CustomBrandingModuleDefinition } from './modules/CustomBranding';
 
