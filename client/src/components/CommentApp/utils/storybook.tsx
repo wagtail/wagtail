@@ -20,8 +20,7 @@ import { defaultStrings } from '../main';
 
 import CommentComponent from '../components/Comment/index';
 
-// Requires Wagtail static to be built, so raises error on CI
-// eslint-disable-next-line import/no-unresolved
+// Requires Wagtail static to be built
 import '../../../../../wagtail/admin/static/wagtailadmin/css/core.css';
 
 export function RenderCommentsForStorybook({

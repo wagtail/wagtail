@@ -41,6 +41,7 @@ jobs:
           paths:
             - ~/project/node_modules/
           key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm run build
       - run: npm run lint:js
       - run: npm run lint:css
       - run: npm run test:unit:coverage -- --runInBand
