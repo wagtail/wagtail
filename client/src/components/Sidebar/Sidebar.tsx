@@ -115,7 +115,10 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   );
 
   return (
-    <aside className={'sidebar' + (slim ? ' sidebar--slim' : '')} onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
+    <aside
+      className={'sidebar' + (slim ? ' sidebar--slim' : '')}
+      onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}
+    >
       <div className="sidebar__inner">
         <button onClick={onClickCollapseToggle} className="button sidebar__collapse-toggle">
           {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}
