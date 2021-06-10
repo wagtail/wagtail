@@ -4,10 +4,7 @@
     color: #aaa;
     -webkit-font-smoothing: auto;
     position: relative;
-    margin: 2em auto;
-    text-align: center;
-    padding: 10px 0;
-    transition: padding 0.3s ease;
+    transition: padding 150ms ease;
 
     &:hover {
         color: $color-white;

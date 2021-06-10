@@ -37,11 +37,9 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = (
 
   return (
     <form className={className} action={searchUrl} method="get" onSubmit={onSubmitForm}>
-      <div>
-        <label htmlFor="menu-search-q">{strings.SEARCH}</label>
-        <input type="text" id="menu-search-q" name="q" placeholder={strings.SEARCH} />
-        <button className="button" type="submit">{strings.SEARCH}</button>
-      </div>
+      <label className="sidebar-search__label" htmlFor="menu-search-q">{strings.SEARCH}</label>
+      <input className="sidebar-search__input" type="text" id="menu-search-q" name="q" placeholder={strings.SEARCH} />
+      <button className="button sidebar-search__submit" type="submit">{strings.SEARCH}</button>
     </form>
   );
 };

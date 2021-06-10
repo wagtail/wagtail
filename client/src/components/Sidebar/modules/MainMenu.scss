@@ -1,25 +1,16 @@
 // stylelint-disable declaration-no-important
 .sidebar-main-menu {
-    overflow: auto;
-    overflow-x: hidden;
     margin-bottom: 50px;
-    @include transition(margin-bottom 0.3s ease);
+    @include transition(margin-bottom 150ms ease);
 
     &--open-footer {
         margin-bottom: 127px;
     }
 
-    > ul,
-    ul > li {
+    &__list {
         margin: 0;
         padding: 0;
         list-style-type: none;
-    }
-
-    ul > li {
-        position: relative;
-
-        @include transition(border-color 0.3s ease);
     }
 
     *:focus {
@@ -40,32 +31,6 @@
         margin: 0 auto 0.8em;
         opacity: 0.15;
     }
-
-    > ul > li > a {
-        // Need !important to override body.ready class
-        transition: padding 0.3s ease !important;
-
-        .menuitem-label {
-            transition: opacity 0.3s ease;
-        }
-    }
-
-    @at-root .sidebar--slim #{&} {
-        > ul > li > a {
-            padding: 0.8em 0.8em;
-
-            .menuitem-label {
-                opacity: 0;
-            }
-
-            .icon-arrow-right {
-                top: 1em;
-                right: 0.15em;
-                width: 1em;
-                height: 1em;
-            }
-        }
-    }
 }
 
 .sidebar-footer {
@@ -73,7 +38,7 @@
     width: $menu-width;
     bottom: 0;
     background-color: $nav-footer-submenu-bg;
-    transition: width 0.3s ease !important;  // Override body.ready
+    transition: width 150ms ease !important;  // Override body.ready
 
     > ul,
     ul > li {
@@ -85,11 +50,11 @@
     ul > li {
         position: relative;
 
-        @include transition(border-color 0.3s ease);
+        @include transition(border-color 150ms ease);
     }
 
     > ul {
-        @include transition(max-height 0.3s ease);
+        @include transition(max-height 150ms ease);
 
         max-height: 0;
 
@@ -125,6 +90,8 @@
 
         .avatar {
             float: left;
+            width: 60px;
+            height: 60px;
 
             &:before {
                 color: inherit;
@@ -145,7 +112,7 @@
             text-overflow: ellipsis;
             position: absolute;
             left: 50px;  // Width of avatar
-            transition: left 0.3s ease;
+            transition: left 150ms ease;
 
             &:after {
                 font-size: 1.5em;

@@ -27,7 +27,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
       // to finish before making it invisible
       setTimeout(() => {
         setIsVisible(false);
-      }, 300);
+      }, 150);
     }
   }, [isOpen]);
 
@@ -72,7 +72,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
       <a
         href="#"
         onClick={onClick}
-        className={item.classNames}
+        className={`sidebar-menu-item__link ${item.classNames}`}
         aria-haspopup="true"
         aria-expanded={isOpen ? 'true' : 'false'}
       >
@@ -81,10 +81,10 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
       </a>
       <div className={sidebarSubMenuPanelClassName} style={{ zIndex: -depth }}>
-        <h2 id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`} className={item.classNames}>
+        <p id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`} className={item.classNames}>
           {item.iconName && <Icon name={item.iconName} className="icon--submenu-header" />}
           {item.label}
-        </h2>
+        </p>
         <ul aria-labelledby={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}>
           {renderMenu(path, item.menuItems, slim, state, dispatch, navigate)}
         </ul>

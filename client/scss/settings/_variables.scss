@@ -97,7 +97,7 @@ $font-serif: Roboto Slab, Georgia, serif;
 // misc sizing
 $thumbnail-width: 130px;
 $menu-width: 200px;
-$menu-width-slim: 50px;
+$menu-width-slim: 60px;
 
 $menu-width-max: 320px;
 $mobile-nav-indent: 50px;
@@ -112,6 +112,7 @@ $object-title-height: 40px;
 // Nav
 $nav-grey-1: darken($color-white, 80);
 $nav-grey-2: darken($color-white, 60);
+$nav-grey-3: #262626;
 $nav-item-hover-bg: rgba(100, 100, 100, 0.15);
 $nav-item-active-bg: darken($color-white, 90);
 $nav-submenu-bg: darken($color-white, 85);

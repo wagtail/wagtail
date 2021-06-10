@@ -61,7 +61,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     setExpandingOrCollapsing(true);
     const finishTimeout = setTimeout(() => {
       setExpandingOrCollapsing(false);
-    }, 300);
+    }, 150);
 
     return () => {
       clearTimeout(finishTimeout);
@@ -91,7 +91,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     clearTimeout(startPeekingTimeout.current);
     clearTimeout(stopPeekingTimeout.current);
     startPeekingTimeout.current = setTimeout(() => {
-      setPeeking(true);
+      // setPeeking(true);
     }, 100);
   };
 
@@ -99,8 +99,8 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     clearTimeout(startPeekingTimeout.current);
     clearTimeout(stopPeekingTimeout.current);
     stopPeekingTimeout.current = setTimeout(() => {
-      setPeeking(false);
-    }, 300);
+      // setPeeking(false);
+    }, 150);
   };
 
   // Render modules

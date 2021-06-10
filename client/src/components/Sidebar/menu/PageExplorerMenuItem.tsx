@@ -23,7 +23,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
       // to finish before making it invisible
       setTimeout(() => {
         setIsVisible(false);
-      }, 300);
+      }, 150);
     }
   }, [isOpen]);
 
@@ -65,7 +65,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
 
   return (
     <li className={className}>
-      <Button dialogTrigger={true} onClick={onClick}>
+      <Button dialogTrigger={true} onClick={onClick} className="sidebar-menu-item__link">
         <Icon name="folder-open-inverse" className="icon--menuitem" />
         <span className="menuitem-label">{item.label}</span>
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
