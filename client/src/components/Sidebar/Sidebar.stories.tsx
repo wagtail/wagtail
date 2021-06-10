@@ -201,7 +201,9 @@ interface RenderSidebarStoryOptions {
   strings?: Strings;
 }
 
-function renderSidebarStory(modules: ModuleDefinition[], { rtl = false, strings = null }: RenderSidebarStoryOptions = {}) {
+function renderSidebarStory(
+  modules: ModuleDefinition[], { rtl = false, strings = null }: RenderSidebarStoryOptions = {}
+) {
   // Enable focus outlines so we can test them
   React.useEffect(() => {
     initFocusOutline();

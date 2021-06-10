@@ -112,6 +112,7 @@ window.comments = (() => {
     onUnfocus() {
       this.node.classList.add('button-secondary');
       this.node.ariaLabel = STRINGS.FOCUS_COMMENT;
+      // eslint-disable-next-line no-warning-comments
       // TODO: ensure comment is focused accessibly when this is clicked,
       // and that screenreader users can return to the annotation point when desired
     }
@@ -213,6 +214,7 @@ window.comments = (() => {
           }
         }
       });
+      // eslint-disable-next-line no-warning-comments
       return unsubscribeWidget; // TODO: listen for widget deletion and use this
     }
     updateVisibility(newShown) {
