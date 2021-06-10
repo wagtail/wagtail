@@ -3,6 +3,7 @@ from django.shortcuts import resolve_url
 from django.template.defaulttags import token_kwargs
 from django.template.loader import render_to_string
 from django.utils.encoding import force_str
+from django.utils.html import conditional_escape
 
 from wagtail import VERSION, __version__
 from wagtail.core.models import Page, Site
@@ -130,9 +131,14 @@ class IncludeBlockNode(template.Node):
                 for var_name, var_value in self.extra_context.items():
                     new_context[var_name] = var_value.resolve(context)
 
-            return value.render_as_block(context=new_context)
+            output = value.render_as_block(context=new_context)
         else:
-            return force_str(value)
+            output = value
+
+        if context.autoescape:
+            return conditional_escape(output)
+        else:
+            return force_str(output)
 
 
 @register.tag
