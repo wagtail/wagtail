@@ -83,36 +83,25 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     }
   };
 
-  // Set up an event handler to switch peeking on/off when the mouse cursor hovers the sidebar
-  const wrapperRef = React.useRef<HTMLDivElement | null>(null);
-  React.useEffect(() => {
-    if (!wrapperRef.current) {
-      return;
-    }
+  // Switch peeking on/off when the mouse cursor hovers the sidebar
+  const startPeekingTimeout = React.useRef<any>(null);
+  const stopPeekingTimeout = React.useRef<any>(null);
 
-    const element = wrapperRef.current;
-    let startPeekingTimeout;
-    let stopPeekingTimeout;
+  const onMouseEnterHandler = () => {
+    clearTimeout(startPeekingTimeout.current);
+    clearTimeout(stopPeekingTimeout.current);
+    startPeekingTimeout.current = setTimeout(() => {
+      setPeeking(true);
+    }, 100);
+  };
 
-    const onMouseEnterHandler = () => {
-      clearTimeout(startPeekingTimeout);
-      clearTimeout(stopPeekingTimeout);
-      startPeekingTimeout = setTimeout(() => {
-        setPeeking(true);
-      }, 100);
-    };
-
-    const onMouseLeaveHandler = () => {
-      clearTimeout(startPeekingTimeout);
-      clearTimeout(stopPeekingTimeout);
-      stopPeekingTimeout = setTimeout(() => {
-        setPeeking(false);
-      }, 300);
-    };
-
-    element.addEventListener('mouseenter', onMouseEnterHandler);
-    element.addEventListener('mouseleave', onMouseLeaveHandler);
-  }, []);
+  const onMouseLeaveHandler = () => {
+    clearTimeout(startPeekingTimeout.current);
+    clearTimeout(stopPeekingTimeout.current);
+    stopPeekingTimeout.current = setTimeout(() => {
+      setPeeking(false);
+    }, 300);
+  };
 
   // Render modules
   const renderedModules = modules.map(
@@ -126,7 +115,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   );
 
   return (
-    <aside className={'sidebar' + (slim ? ' sidebar--slim' : '')} ref={wrapperRef}>
+    <aside className={'sidebar' + (slim ? ' sidebar--slim' : '')} onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
       <div className="sidebar__inner">
         <button onClick={onClickCollapseToggle} className="button sidebar__collapse-toggle">
           {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}
