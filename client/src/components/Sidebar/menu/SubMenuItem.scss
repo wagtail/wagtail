@@ -15,19 +15,9 @@
 }
 
 .sidebar-sub-menu-panel {
-    visibility: hidden;
     background: $nav-submenu-bg;
-    transform: translate3d(0, 0, 0);
-    position: fixed;
-    height: 100vh;
     width: $menu-width;
-    padding: 0;
-    top: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-
-    @include transition(left 0.3s ease);
+    height: 100vh;
 
     > h2,
     &__list {
@@ -80,34 +70,6 @@
         padding: 0.9em 1.7em;
         text-align: center;
         color: $color-menu-text;
-    }
-
-    &--visible {
-        visibility: visible;
-        box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
-    }
-
-    @at-root .sidebar--slim #{&} {
-        left: $menu-width-slim - $menu-width;
-    }
-    // Don't apply this to nested submenus though
-    @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
-        left: 0;
-    }
-
-    &--open {
-        left: $menu-width;
-
-        // If another submenu is opening, display this menu behind it
-        z-index: -1;
-
-        @at-root .sidebar--slim #{&} {
-            left: $menu-width-slim;
-        }
-        // Don't apply this to nested submenus though
-        @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
-            left: $menu-width;
-        }
     }
 }
 
