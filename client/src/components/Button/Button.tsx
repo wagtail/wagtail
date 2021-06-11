@@ -9,14 +9,18 @@ const handleClick = (
   navigate: (url: string) => Promise<void>,
   e: React.MouseEvent
 ) => {
-  if (preventDefault && href === '#' || navigate) {
+  if (preventDefault && href === '#') {
     e.preventDefault();
     e.stopPropagation();
   }
 
   if (onClick) {
     onClick(e);
-  } else if (navigate) {
+  }
+
+  // If a navigate hander has been specified, replace the default behaviour
+  if (navigate && !e.defaultPrevented) {
+    e.preventDefault();
     navigate(href);
   }
 };
