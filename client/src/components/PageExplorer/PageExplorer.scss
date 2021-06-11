@@ -7,30 +7,17 @@ $menu-footer-height: 50px;
 
 @import 'PageExplorerItem';
 
-.page-explorer-panel {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-
-    @include media-breakpoint-up(sm) {
-        width: 485px;
-        height: 100vh;
-        position: fixed;
-        z-index: 500;
-        left: $menu-width;
-        top: 0;
-    }
+.c-page-explorer {
+    width: 485px;
+    height: 100vh;
+    background: $c-page-explorer-bg;
+    overflow: hidden;
+    flex: 1;
 
     *:focus {
         @include show-focus-outline-inside;
     }
-}
 
-.c-page-explorer {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    background: $c-page-explorer-bg;
 
     @include media-breakpoint-up(sm) {
         box-shadow: 2px 2px 5px $c-page-explorer-bg-active;

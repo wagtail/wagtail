@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 
 import React from 'react';
-import FocusTrap from 'focus-trap-react';
 
 import { STRINGS, MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
-import Button from '../Button/Button';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import Transition, { PUSH, POP } from '../Transition/Transition';
 import PageExplorerHeader from './PageExplorerHeader';
@@ -52,20 +50,6 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
     this.setState({
       transition: isPush ? PUSH : POP,
     });
-  }
-
-  componentDidMount() {
-    document.querySelector('[data-explorer-menu-item]')?.classList.add('submenu-active');
-    document.body.classList.add('explorer-open');
-    document.addEventListener('mousedown', this.clickOutside);
-    document.addEventListener('touchend', this.clickOutside);
-  }
-
-  componentWillUnmount() {
-    document.querySelector('[data-explorer-menu-item]')?.classList.remove('submenu-active');
-    document.body.classList.remove('explorer-open');
-    document.removeEventListener('mousedown', this.clickOutside);
-    document.removeEventListener('touchend', this.clickOutside);
   }
 
   clickOutside(e) {
@@ -154,43 +138,27 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
   }
 
   render() {
-    const { page, onClose, depth, gotoPage } = this.props;
-    const { transition, paused } = this.state;
+    const { page, depth, gotoPage } = this.props;
+    const { transition } = this.state;
 
     return (
-      <FocusTrap
-        paused={paused || !page || page.isFetchingChildren || page.isFetchingTranslations}
-        focusTrapOptions={{
-          initialFocus: '.c-page-explorer__header__title',
-          onDeactivate: onClose,
-        }}
-      >
-        <div
-          role="dialog"
-          className="page-explorer-panel"
-        >
-          <Button className="c-page-explorer__close">
-            {STRINGS.CLOSE_EXPLORER}
-          </Button>
-          <Transition name={transition} className="c-page-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
-            <div key={depth} className="c-transition-group">
-              <PageExplorerHeader
-                depth={depth}
-                page={page}
-                onClick={this.onHeaderClick}
-                gotoPage={gotoPage}
-                navigate={this.props.navigate}
-              />
+      <Transition name={transition} className="c-page-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
+        <div key={depth} className="c-transition-group">
+          <PageExplorerHeader
+            depth={depth}
+            page={page}
+            onClick={this.onHeaderClick}
+            gotoPage={gotoPage}
+            navigate={this.props.navigate}
+          />
 
-              {this.renderChildren()}
+          {this.renderChildren()}
 
-              {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
-                <PageCount page={page} />
-              ) : null}
-            </div>
-          </Transition>
+          {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
+            <PageCount page={page} />
+          ) : null}
         </div>
-      </FocusTrap>
+      </Transition>
     );
   }
 }

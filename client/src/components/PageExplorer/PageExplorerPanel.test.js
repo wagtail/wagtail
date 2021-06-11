@@ -132,22 +132,6 @@ describe('PageExplorerPanel', () => {
       const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
       expect(wrapper.setProps({ depth: 0 }).state('transition')).toBe('pop');
     });
-
-    it('componentDidMount', () => {
-      document.body.innerHTML = '<div data-explorer-menu-item></div>';
-      const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
-      wrapper.instance().componentDidMount();
-      expect(document.querySelector('[data-explorer-menu-item]').classList.contains('submenu-active')).toBe(true);
-      expect(document.body.classList.contains('explorer-open')).toBe(true);
-    });
-
-    it('componentWillUnmount', () => {
-      document.body.innerHTML = '<div class="submenu-active" data-explorer-menu-item></div>';
-      const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
-      wrapper.instance().componentWillUnmount();
-      expect(document.querySelector('[data-explorer-menu-item]').classList.contains('submenu-active')).toBe(false);
-      expect(document.body.classList.contains('explorer-open')).toBe(false);
-    });
   });
 
   describe('clickOutside', () => {

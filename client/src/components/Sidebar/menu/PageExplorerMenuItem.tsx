@@ -9,6 +9,7 @@ import { LinkMenuItemDefinition } from './LinkMenuItem';
 import { Provider } from 'react-redux';
 import PageExplorer, { initPageExplorerStore } from '../../PageExplorer';
 import { openPageExplorer, closePageExplorer } from '../../PageExplorer/actions';
+import { SidebarPanel } from '../SidebarPanel';
 
 export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExplorerMenuItemDefinition>> = (
   { path, item, state, dispatch, navigate }) => {
@@ -79,11 +80,13 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
       </Button>
       <div>
-        {store.current &&
-          <Provider store={store.current}>
-            <PageExplorer navigate={navigate} />
-          </Provider>
-        }
+        <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={1}>
+          {store.current &&
+            <Provider store={store.current}>
+              <PageExplorer navigate={navigate} />
+            </Provider>
+          }
+        </SidebarPanel>
       </div>
     </li>
   );
