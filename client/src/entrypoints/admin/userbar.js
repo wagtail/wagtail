@@ -5,13 +5,12 @@
 document.addEventListener('DOMContentLoaded', () => {
   const userbar = document.querySelector('[data-wagtail-userbar]');
   const trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
-  const list = userbar.querySelector('.wagtail-userbar-items');
+  const list = userbar.querySelector('[role=menu]');
   const listItems = list.querySelectorAll('li');
   const isActiveClass = 'is-active';
-  const clickEvent = 'click';
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  trigger.addEventListener(clickEvent, toggleUserbar, false);
+  trigger.addEventListener('click', toggleUserbar, false);
 
   // make sure userbar is hidden when navigating back
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -26,9 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     userbar.classList.add(isActiveClass);
     trigger.setAttribute('aria-expanded', 'true');
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    list.addEventListener(clickEvent, sandboxClick, false);
+    list.addEventListener('click', sandboxClick, false);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    window.addEventListener(clickEvent, clickOutside, false);
+    window.addEventListener('click', clickOutside, false);
 
     // The userbar has role=menu which means that the first link should be focused on popup
     // For weird reasons shifting focus only works after some amount of delay
@@ -44,9 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
     userbar.classList.remove(isActiveClass);
     trigger.setAttribute('aria-expanded', 'false');
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    list.addEventListener(clickEvent, sandboxClick, false);
+    list.addEventListener('click', sandboxClick, false);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    window.removeEventListener(clickEvent, clickOutside, false);
+    window.removeEventListener('click', clickOutside, false);
   }
 
   function toggleUserbar(e2) {

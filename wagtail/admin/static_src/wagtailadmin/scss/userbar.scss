@@ -136,11 +136,6 @@ $positions: (
     text-decoration: none !important;
     position: relative;
 
-    .#{$namespace}-userbar.touch.is-active &,
-    .#{$namespace}-userbar.no-touch &:hover {
-        box-shadow: $box-shadow-props, 0 3px 15px 0 rgba(107, 214, 230, 0.95);
-    }
-
     .#{$namespace}-userbar-help-text {
         // Visually hide the help text
         clip: rect(0 0 0 0);
