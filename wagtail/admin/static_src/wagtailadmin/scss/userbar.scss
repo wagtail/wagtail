@@ -159,7 +159,7 @@ $positions: (
         margin: 0;
     }
 
-    &:focus {
+    &:focus-visible {
         outline: auto;
         outline-offset: 5px;
     }
