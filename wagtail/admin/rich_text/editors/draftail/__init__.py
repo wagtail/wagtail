@@ -96,3 +96,23 @@ class DraftailRichTextAreaAdapter(WidgetAdapter):
 
 
 register(DraftailRichTextAreaAdapter(), DraftailRichTextArea)
+
+
+class DraftailRichTextInput(DraftailRichTextArea):
+    template_name = 'wagtailadmin/widgets/draftail_rich_text_input.html'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.converter = ContentstateConverter(self.features, unstyled_element='span')
+
+
+class DraftailRichTextInputAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.DraftailRichTextInput'
+
+    def js_args(self, widget):
+        print('DraftailRichTextInputAdapter')
+        return [
+            widget.options,
+        ]
+
+register(DraftailRichTextInputAdapter(), DraftailRichTextInput)

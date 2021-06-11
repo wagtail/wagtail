@@ -20,7 +20,7 @@ from taggit.managers import TaggableManager
 from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import InlineRichTextField, RichTextField
 from wagtail.core.models import Page
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.decorators import cached_classmethod
@@ -516,6 +516,9 @@ class FieldPanel(EditHandler):
                 return compare.ForeignObjectComparison
 
             if isinstance(field, RichTextField):
+                return compare.RichTextFieldComparison
+
+            if isinstance(field, InlineRichTextField):
                 return compare.RichTextFieldComparison
 
             if isinstance(field, (CharField, TextField)):

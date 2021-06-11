@@ -27,6 +27,13 @@ class RichTextField(models.TextField):
         return [get_text_for_indexing(source)]
 
 
+class InlineRichTextField(RichTextField):
+    def __init__(self, *args, **kwargs):
+        editor = kwargs.pop('editor', 'inline_default')
+        print(editor)
+        super().__init__(*args, **kwargs, editor=editor)
+
+
 # https://github.com/django/django/blob/64200c14e0072ba0ffef86da46b2ea82fd1e019a/django/db/models/fields/subclassing.py#L31-L44
 class Creator:
     """

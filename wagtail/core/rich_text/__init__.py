@@ -71,6 +71,10 @@ class RichText:
         return bool(self.source)
 
 
+class InlineRichText(RichText):
+    pass
+
+
 class EntityHandler:
     """
     An 'entity' is a placeholder tag within the saved rich text, which needs to be rewritten

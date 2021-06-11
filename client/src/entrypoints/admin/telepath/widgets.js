@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 
-/* global $ */
+/* global $, draftail */
 
 class BoundWidget {
     constructor(element, name, idForLabel, initialState) {
@@ -132,6 +132,8 @@ window.telepath.register('wagtail.widgets.AdminAutoHeightTextInput', AdminAutoHe
 
 
 class DraftailRichTextArea {
+    initEditor = draftail.initEditor
+
     constructor(options) {
         this.options = options;
     }
@@ -144,8 +146,7 @@ class DraftailRichTextArea {
         input.name = name;
         input.value = initialState;
         container.appendChild(input);
-        // eslint-disable-next-line no-undef
-        draftail.initEditor('#' + id, options, document.currentScript);
+        this.initEditor('#' + id, options);
 
         return {
             getValue() {
@@ -183,6 +184,12 @@ class DraftailRichTextArea {
     }
 }
 window.telepath.register('wagtail.widgets.DraftailRichTextArea', DraftailRichTextArea);
+
+class DraftailRichTextInput extends DraftailRichTextArea {
+  initEditor = draftail.initInlineEditor
+}
+
+window.telepath.register('wagtail.widgets.DraftailRichTextInput', DraftailRichTextInput);
 
 
 class BoundHalloRichTextArea extends BoundWidget {

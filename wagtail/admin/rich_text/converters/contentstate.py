@@ -80,13 +80,13 @@ def persist_key_for_block(config):
 
 
 class ContentstateConverter():
-    def __init__(self, features=None):
+    def __init__(self, features=None, unstyled_element='p'):
         self.features = features
-        self.html_to_contentstate_handler = HtmlToContentStateHandler(features)
+        self.html_to_contentstate_handler = HtmlToContentStateHandler(features, unstyled_element)
 
         exporter_config = {
             'block_map': {
-                'unstyled': persist_key_for_block('p'),
+                'unstyled': persist_key_for_block(unstyled_element),
                 'atomic': render_children,
                 'fallback': block_fallback,
             },

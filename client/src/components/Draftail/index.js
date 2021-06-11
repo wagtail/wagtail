@@ -13,6 +13,7 @@ export { default as ImageBlock } from './blocks/ImageBlock';
 export { default as EmbedBlock } from './blocks/EmbedBlock';
 
 import ModalWorkflowSource from './sources/ModalWorkflowSource';
+import singleLinePlugin from './plugins/singleLinePlugin';
 import Tooltip from './Tooltip/Tooltip';
 import TooltipEntity from './decorators/TooltipEntity';
 import EditorFallback from './EditorFallback/EditorFallback';
@@ -145,8 +146,26 @@ const initEditor = (selector, options, currentScript) => {
   ReactDOM.render(<EditorFallback field={field}>{editor}</EditorFallback>, editorWrapper);
 };
 
+/**
+ * Initialises the DraftailEditor for a given field, in single-line mode.
+ * @param {string} selector
+ * @param {Object} options
+ * @param {Element} currentScript
+ */
+const initInlineEditor = (selector, options, currentScript) => {
+  const inlinePlugins = [singleLinePlugin()];
+  const plugins = options.plugins ? [...options.plugins] : [];
+  const inlineOptions = {
+    ...options,
+    enableLineBreak: false,
+    plugins: plugins.concat(inlinePlugins),
+  };
+  return initEditor(selector, inlineOptions, currentScript);
+};
+
 export default {
   initEditor,
+  initInlineEditor,
   registerPlugin,
   // Components exposed for third-party reuse.
   ModalWorkflowSource,

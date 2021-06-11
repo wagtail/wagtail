@@ -11,7 +11,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.core.rich_text import RichText, get_text_for_indexing
+from wagtail.core.rich_text import InlineRichText, RichText, get_text_for_indexing
 from wagtail.core.telepath import Adapter, register
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 
@@ -612,6 +612,24 @@ class RichTextBlock(FieldBlock):
 
     class Meta:
         icon = "doc-full"
+
+
+class InlineRichTextBlock(RichTextBlock):
+
+    def __init__(self, required=True, help_text=None, editor='inline_default', features=None, validators=(), **kwargs):
+        super().__init__(editor=editor, **kwargs)
+
+    def get_default(self):
+        if isinstance(self.meta.default, InlineRichText):
+            return self.meta.default
+        else:
+            return InlineRichText(self.meta.default)
+
+    def to_python(self, value):
+        return InlineRichText(value)
+
+    def value_from_form(self, value):
+        return InlineRichText(value)
 
 
 class RawHTMLBlock(FieldBlock):

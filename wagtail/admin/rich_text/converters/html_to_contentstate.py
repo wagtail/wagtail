@@ -276,10 +276,10 @@ class LineBreakHandler:
 
 
 class HtmlToContentStateHandler(HTMLParser):
-    def __init__(self, features=()):
+    def __init__(self, features=(), unstyled_element='p'):
         self.paragraph_handler = BlockElementHandler('unstyled')
         self.element_handlers = HTMLRuleset({
-            'p': self.paragraph_handler,
+            unstyled_element: self.paragraph_handler,
             'br': LineBreakHandler(),
         })
         for feature in features:
