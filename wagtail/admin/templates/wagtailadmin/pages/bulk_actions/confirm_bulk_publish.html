@@ -23,6 +23,16 @@
             </li>
             {% endfor %}
         </ul>
+        {% if pages_with_no_access %}
+        <span>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be published{% plural %}The following pages cannot be published{% endblocktrans %} </span>
+        <ul>
+            {% for page in pages_with_no_access %}
+            <li>
+                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         <form action="{{ submit_url }}" method="POST">
             {% csrf_token %}
             {% if has_draft_descendants %}
