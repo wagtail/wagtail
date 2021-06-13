@@ -1,9 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans count counter=pages|length with title=page.get_admin_display_title %}Publish 1 page {% plural %}Publish {{ counter }} pages{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans count counter=pages|length %}Publish 1 page {% plural %}Publish {{ counter }} pages{% endblocktrans %}{% endblock %}
 {% block content %}
-    {% trans "Unpublish" as unpublish_str %}
-    {% include "wagtailadmin/shared/header.html" with title=unpublish_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
+    {% trans "Publish" as publish_str %}
+    {% include "wagtailadmin/shared/header.html" with title=publish_str icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
         <p>{% trans "Are you sure you want to publish these pages?" %}</p>
