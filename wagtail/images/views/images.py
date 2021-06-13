@@ -10,8 +10,8 @@ from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
-from django.views import View
 from django.views.decorators.vary import vary_on_headers
+from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
@@ -33,21 +33,24 @@ INDEX_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_INDEX_PAGE_SIZE', 20)
 USAGE_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_USAGE_PAGE_SIZE', 20)
 
 
-class IndexView(View):
+class IndexView(TemplateView):
     @method_decorator(permission_checker.require_any('add', 'change', 'delete'))
     @method_decorator(vary_on_headers('X-Requested-With'))
     def get(self, request):
-        Image = get_image_model()
+        return super().get(request)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         # Get images (filtered by user permission)
         images = permission_policy.instances_user_has_any_permission_for(
-            request.user, ['change', 'delete']
+            self.request.user, ['change', 'delete']
         ).order_by('-created_at')
 
         # Search
         query_string = None
-        if 'q' in request.GET:
-            form = SearchForm(request.GET, placeholder=_("Search images"))
+        if 'q' in self.request.GET:
+            form = SearchForm(self.request.GET, placeholder=_("Search images"))
             if form.is_valid():
                 query_string = form.cleaned_data['q']
 
@@ -57,7 +60,7 @@ class IndexView(View):
 
         # Filter by collection
         current_collection = None
-        collection_id = request.GET.get('collection_id')
+        collection_id = self.request.GET.get('collection_id')
         if collection_id:
             try:
                 current_collection = Collection.objects.get(id=collection_id)
@@ -66,7 +69,7 @@ class IndexView(View):
                 pass
 
         # Filter by tag
-        current_tag = request.GET.get('tag')
+        current_tag = self.request.GET.get('tag')
         if current_tag:
             try:
                 images = images.filter(tags__name=current_tag)
@@ -74,34 +77,42 @@ class IndexView(View):
                 current_tag = None
 
         paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
-        images = paginator.get_page(request.GET.get('p'))
+        images = paginator.get_page(self.request.GET.get('p'))
 
         collections = permission_policy.collections_user_has_any_permission_for(
-            request.user, ['add', 'change']
+            self.request.user, ['add', 'change']
         )
         if len(collections) < 2:
             collections = None
 
         # Create response
-        if request.is_ajax():
-            return TemplateResponse(request, 'wagtailimages/images/results.html', {
+        if self.request.is_ajax():
+            context.update({
                 'images': images,
                 'query_string': query_string,
                 'is_searching': bool(query_string),
             })
         else:
-            return TemplateResponse(request, 'wagtailimages/images/index.html', {
+            context.update({
                 'images': images,
                 'query_string': query_string,
                 'is_searching': bool(query_string),
 
                 'search_form': form,
-                'popular_tags': popular_tags_for_model(Image),
+                'popular_tags': popular_tags_for_model(get_image_model()),
                 'current_tag': current_tag,
                 'collections': collections,
                 'current_collection': current_collection,
-                'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
+                'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
             })
+
+        return context
+
+    def get_template_names(self):
+        if self.request.is_ajax():
+            return ['wagtailimages/images/results.html']
+        else:
+            return ['wagtailimages/images/index.html']
 
 
 @permission_checker.require('change')
