@@ -8,7 +8,9 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
+from django.views import View
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
@@ -31,74 +33,75 @@ INDEX_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_INDEX_PAGE_SIZE', 20)
 USAGE_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_USAGE_PAGE_SIZE', 20)
 
 
-@permission_checker.require_any('add', 'change', 'delete')
-@vary_on_headers('X-Requested-With')
-def index(request):
-    Image = get_image_model()
+class IndexView(View):
+    @method_decorator(permission_checker.require_any('add', 'change', 'delete'))
+    @method_decorator(vary_on_headers('X-Requested-With'))
+    def get(self, request):
+        Image = get_image_model()
 
-    # Get images (filtered by user permission)
-    images = permission_policy.instances_user_has_any_permission_for(
-        request.user, ['change', 'delete']
-    ).order_by('-created_at')
+        # Get images (filtered by user permission)
+        images = permission_policy.instances_user_has_any_permission_for(
+            request.user, ['change', 'delete']
+        ).order_by('-created_at')
 
-    # Search
-    query_string = None
-    if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder=_("Search images"))
-        if form.is_valid():
-            query_string = form.cleaned_data['q']
+        # Search
+        query_string = None
+        if 'q' in request.GET:
+            form = SearchForm(request.GET, placeholder=_("Search images"))
+            if form.is_valid():
+                query_string = form.cleaned_data['q']
 
-            images = images.search(query_string)
-    else:
-        form = SearchForm(placeholder=_("Search images"))
+                images = images.search(query_string)
+        else:
+            form = SearchForm(placeholder=_("Search images"))
 
-    # Filter by collection
-    current_collection = None
-    collection_id = request.GET.get('collection_id')
-    if collection_id:
-        try:
-            current_collection = Collection.objects.get(id=collection_id)
-            images = images.filter(collection=current_collection)
-        except (ValueError, Collection.DoesNotExist):
-            pass
+        # Filter by collection
+        current_collection = None
+        collection_id = request.GET.get('collection_id')
+        if collection_id:
+            try:
+                current_collection = Collection.objects.get(id=collection_id)
+                images = images.filter(collection=current_collection)
+            except (ValueError, Collection.DoesNotExist):
+                pass
 
-    # Filter by tag
-    current_tag = request.GET.get('tag')
-    if current_tag:
-        try:
-            images = images.filter(tags__name=current_tag)
-        except (AttributeError):
-            current_tag = None
+        # Filter by tag
+        current_tag = request.GET.get('tag')
+        if current_tag:
+            try:
+                images = images.filter(tags__name=current_tag)
+            except (AttributeError):
+                current_tag = None
 
-    paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
-    images = paginator.get_page(request.GET.get('p'))
+        paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
+        images = paginator.get_page(request.GET.get('p'))
 
-    collections = permission_policy.collections_user_has_any_permission_for(
-        request.user, ['add', 'change']
-    )
-    if len(collections) < 2:
-        collections = None
+        collections = permission_policy.collections_user_has_any_permission_for(
+            request.user, ['add', 'change']
+        )
+        if len(collections) < 2:
+            collections = None
 
-    # Create response
-    if request.is_ajax():
-        return TemplateResponse(request, 'wagtailimages/images/results.html', {
-            'images': images,
-            'query_string': query_string,
-            'is_searching': bool(query_string),
-        })
-    else:
-        return TemplateResponse(request, 'wagtailimages/images/index.html', {
-            'images': images,
-            'query_string': query_string,
-            'is_searching': bool(query_string),
+        # Create response
+        if request.is_ajax():
+            return TemplateResponse(request, 'wagtailimages/images/results.html', {
+                'images': images,
+                'query_string': query_string,
+                'is_searching': bool(query_string),
+            })
+        else:
+            return TemplateResponse(request, 'wagtailimages/images/index.html', {
+                'images': images,
+                'query_string': query_string,
+                'is_searching': bool(query_string),
 
-            'search_form': form,
-            'popular_tags': popular_tags_for_model(Image),
-            'current_tag': current_tag,
-            'collections': collections,
-            'current_collection': current_collection,
-            'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
-        })
+                'search_form': form,
+                'popular_tags': popular_tags_for_model(Image),
+                'current_tag': current_tag,
+                'collections': collections,
+                'current_collection': current_collection,
+                'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
+            })
 
 
 @permission_checker.require('change')
