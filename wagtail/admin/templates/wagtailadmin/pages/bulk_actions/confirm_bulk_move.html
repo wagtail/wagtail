@@ -6,13 +6,29 @@
     {% trans "Move" as move_str %}
     {% include "wagtailadmin/shared/header.html" with title=move_str icon="doc-empty-inverse" %}
     <div class="nice-padding">
-        {% for page_to_move in pages_to_move %}
-        {% if page_to_move.is_leaf %}
-            <p>{% blocktrans with title=destination.get_admin_display_title subtitle=page_to_move.get_admin_display_title %}Are you sure you want to move the page {{subtitle}} into '{{ title }}'?{% endblocktrans %}</p>
-        {% else %}
-            <p>{% blocktrans with title=destination.get_admin_display_title subtitle=page_to_move.get_admin_display_title %}Are you sure you want to move the page {{subtitle}} and all of its children into '{{ title }}'?{% endblocktrans %}</p>
+        <p>{% trans "Are you sure you want to move these pages into" %} {{destination.title}}?</p>
+        <ul>
+            {% for page in pages_to_move %}
+            <li>
+                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
+                {% if not page.is_leaf %}
+                <ul>
+                    <li>{% trans "This page has child pages" %}</li>
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% if pages_with_no_access %}
+        <span>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be moved{% plural %}The following pages cannot be moved{% endblocktrans %} </span>
+        <ul>
+            {% for page in pages_with_no_access %}
+            <li>
+                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
         {% endif %}
-        {% endfor %}
 
         <form action="{{ submit_url }}" method="POST">
             {% csrf_token %}

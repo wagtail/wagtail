@@ -1,6 +1,5 @@
 from urllib.parse import urlencode
 
-from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.shortcuts import get_list_or_404, redirect
 from django.template.response import TemplateResponse
@@ -21,13 +20,14 @@ def unpublish(request, parent_page_id):
     page_ids = list(map(int, request.GET.getlist('id')))
     user_perms = UserPagePermissionsProxy(request.user)
     pages = []
+    pages_with_no_access = []
 
     for page in get_list_or_404(Page, id__in=page_ids):
         page = page.specific
         if not user_perms.for_page(page).can_unpublish():
-            raise PermissionDenied
-        pages.append(page)
-        page.unpublish
+            pages_with_no_access.append(page)
+        else:
+            pages.append(page)
 
     if request.method == 'GET':
         _pages = []
@@ -39,6 +39,7 @@ def unpublish(request, parent_page_id):
 
         return TemplateResponse(request, 'wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html', {
             'pages': _pages,
+            'pages_with_no_access': pages_with_no_access,
             'next': next_url,
             'submit_url': (
                 reverse('wagtailadmin_bulk_unpublish', args=[parent_page_id])
