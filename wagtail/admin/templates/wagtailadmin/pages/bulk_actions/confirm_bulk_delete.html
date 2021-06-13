@@ -4,10 +4,10 @@
 
 {% block content %}
     {% trans "Delete" as del_str %}
-    {% include "wagtailadmin/shared/header.html" with title=del_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
-        <p>{% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}Are you sure you want to delete these pages?{% endblocktrans %}</p>
+        <p>{% trans "Are you sure you want to delete these pages?" %}</p>
         <ul>
             {% for page in pages %}
             <li>
