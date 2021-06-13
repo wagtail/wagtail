@@ -1,6 +1,5 @@
 from urllib.parse import urlencode
 
-from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.shortcuts import get_list_or_404, redirect
 from django.template.response import TemplateResponse
@@ -20,16 +19,14 @@ def delete(request, parent_page_id):
 
     page_ids = list(map(int, request.GET.getlist('id')))
     pages = []
+    pages_with_no_access = []
 
     for page in get_list_or_404(Page, id__in=page_ids):
         page = page.specific
         if not page.permissions_for_user(request.user).can_delete():
-            raise PermissionDenied
-        pages.append(page)
-        for fn in hooks.get_hooks('before_delete_page'):
-            result = fn(request, page)
-            if hasattr(result, 'status_code'):
-                return result
+            pages_with_no_access.append(page)
+        else:
+            pages.append(page)
 
     if request.method == 'GET':
         _pages = []
@@ -41,6 +38,7 @@ def delete(request, parent_page_id):
 
         return TemplateResponse(request, 'wagtailadmin/pages/bulk_actions/confirm_bulk_delete.html', {
             'pages': _pages,
+            'pages_with_no_access': pages_with_no_access,
             'next': next_url,
             'submit_url': (
                 reverse('wagtailadmin_bulk_delete', args=[parent_page_id])
@@ -54,6 +52,11 @@ def delete(request, parent_page_id):
             for page in pages:
                 num_parent_pages += 1
                 num_child_pages += page.get_descendant_count()
+                for fn in hooks.get_hooks('before_delete_page'):
+                    result = fn(request, page)
+                    if hasattr(result, 'status_code'):
+                        return result
+
                 page.delete(user=request.user)
 
                 for fn in hooks.get_hooks('after_delete_page'):
