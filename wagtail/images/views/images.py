@@ -8,8 +8,9 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
-from django.views.decorators.vary import vary_on_headers
+from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
@@ -31,74 +32,85 @@ INDEX_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_INDEX_PAGE_SIZE', 20)
 USAGE_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_USAGE_PAGE_SIZE', 20)
 
 
-@permission_checker.require_any('add', 'change', 'delete')
-@vary_on_headers('X-Requested-With')
-def index(request):
-    Image = get_image_model()
+class BaseListingView(TemplateView):
+    @method_decorator(permission_checker.require_any('add', 'change', 'delete'))
+    def get(self, request):
+        return super().get(request)
 
-    # Get images (filtered by user permission)
-    images = permission_policy.instances_user_has_any_permission_for(
-        request.user, ['change', 'delete']
-    ).order_by('-created_at')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    # Search
-    query_string = None
-    if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder=_("Search images"))
-        if form.is_valid():
-            query_string = form.cleaned_data['q']
+        # Get images (filtered by user permission)
+        images = permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ['change', 'delete']
+        ).order_by('-created_at')
 
-            images = images.search(query_string)
-    else:
-        form = SearchForm(placeholder=_("Search images"))
+        # Search
+        query_string = None
+        if 'q' in self.request.GET:
+            self.form = SearchForm(self.request.GET, placeholder=_("Search images"))
+            if self.form.is_valid():
+                query_string = self.form.cleaned_data['q']
 
-    # Filter by collection
-    current_collection = None
-    collection_id = request.GET.get('collection_id')
-    if collection_id:
-        try:
-            current_collection = Collection.objects.get(id=collection_id)
-            images = images.filter(collection=current_collection)
-        except (ValueError, Collection.DoesNotExist):
-            pass
+                images = images.search(query_string)
+        else:
+            self.form = SearchForm(placeholder=_("Search images"))
 
-    # Filter by tag
-    current_tag = request.GET.get('tag')
-    if current_tag:
-        try:
-            images = images.filter(tags__name=current_tag)
-        except (AttributeError):
-            current_tag = None
+        # Filter by collection
+        self.current_collection = None
+        collection_id = self.request.GET.get('collection_id')
+        if collection_id:
+            try:
+                self.current_collection = Collection.objects.get(id=collection_id)
+                images = images.filter(collection=self.current_collection)
+            except (ValueError, Collection.DoesNotExist):
+                pass
 
-    paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
-    images = paginator.get_page(request.GET.get('p'))
+        # Filter by tag
+        self.current_tag = self.request.GET.get('tag')
+        if self.current_tag:
+            try:
+                images = images.filter(tags__name=self.current_tag)
+            except (AttributeError):
+                self.current_tag = None
 
-    collections = permission_policy.collections_user_has_any_permission_for(
-        request.user, ['add', 'change']
-    )
-    if len(collections) < 2:
-        collections = None
+        paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
+        images = paginator.get_page(self.request.GET.get('p'))
 
-    # Create response
-    if request.is_ajax():
-        return TemplateResponse(request, 'wagtailimages/images/results.html', {
+        context.update({
             'images': images,
             'query_string': query_string,
             'is_searching': bool(query_string),
         })
-    else:
-        return TemplateResponse(request, 'wagtailimages/images/index.html', {
-            'images': images,
-            'query_string': query_string,
-            'is_searching': bool(query_string),
 
-            'search_form': form,
-            'popular_tags': popular_tags_for_model(Image),
-            'current_tag': current_tag,
+        return context
+
+
+class IndexView(BaseListingView):
+    template_name = 'wagtailimages/images/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        collections = permission_policy.collections_user_has_any_permission_for(
+            self.request.user, ['add', 'change']
+        )
+        if len(collections) < 2:
+            collections = None
+
+        context.update({
+            'search_form': self.form,
+            'popular_tags': popular_tags_for_model(get_image_model()),
+            'current_tag': self.current_tag,
             'collections': collections,
-            'current_collection': current_collection,
-            'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
+            'current_collection': self.current_collection,
+            'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
         })
+        return context
+
+
+class ListingResultsView(BaseListingView):
+    template_name = 'wagtailimages/images/results.html'
 
 
 @permission_checker.require('change')
