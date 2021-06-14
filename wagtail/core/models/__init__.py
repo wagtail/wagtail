@@ -52,11 +52,10 @@ from wagtail.core.signals import (
 from wagtail.core.sites import get_site_for_hostname
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
-from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
+from wagtail.core.utils import (
+    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, find_available_slug, get_content_languages,
+    get_supported_content_language_variant, resolve_model_string)
 from wagtail.search import index
-
-from .utils import (
-    find_available_slug, get_content_languages, get_supported_content_language_variant)
 
 
 logger = logging.getLogger('wagtail.core')
