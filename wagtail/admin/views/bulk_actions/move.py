@@ -5,6 +5,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
 from wagtail.admin import messages
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
@@ -111,5 +112,12 @@ def move_confirm(request, parent_page_id, dest_page_id):
             result = fn(request, page_to_move)
             if hasattr(result, 'status_code'):
                 return result
-        messages.success(request, _(f"{len(page_ids)} pages moved."))
+        success_message = ngettext(
+            "%(num_pages)d page has been moved",
+            "%(num_pages)d pages have been moved",
+            len(pages_to_move)
+        ) % {
+            'num_pages': len(pages_to_move)
+        }
+        messages.success(request, success_message)
         return redirect(next_url)
