@@ -17,14 +17,7 @@ exports[`ExplorerPanel general rendering #isError 1`] = `
     role="dialog"
   >
     <Button
-      accessibleLabel={null}
       className="c-explorer__close"
-      dialogTrigger={false}
-      href="#"
-      isLoading={false}
-      onClick={null}
-      preventDefault={true}
-      target={null}
     >
       Close explorer
     </Button>
@@ -104,14 +97,7 @@ exports[`ExplorerPanel general rendering #isFetching 1`] = `
     role="dialog"
   >
     <Button
-      accessibleLabel={null}
       className="c-explorer__close"
-      dialogTrigger={false}
-      href="#"
-      isLoading={false}
-      onClick={null}
-      preventDefault={true}
-      target={null}
     >
       Close explorer
     </Button>
@@ -172,14 +158,7 @@ exports[`ExplorerPanel general rendering #items 1`] = `
     role="dialog"
   >
     <Button
-      accessibleLabel={null}
       className="c-explorer__close"
-      dialogTrigger={false}
-      href="#"
-      isLoading={false}
-      onClick={null}
-      preventDefault={true}
-      target={null}
     >
       Close explorer
     </Button>
@@ -268,14 +247,7 @@ exports[`ExplorerPanel general rendering no children 1`] = `
     role="dialog"
   >
     <Button
-      accessibleLabel={null}
       className="c-explorer__close"
-      dialogTrigger={false}
-      href="#"
-      isLoading={false}
-      onClick={null}
-      preventDefault={true}
-      target={null}
     >
       Close explorer
     </Button>
@@ -333,14 +305,7 @@ exports[`ExplorerPanel general rendering renders 1`] = `
     role="dialog"
   >
     <Button
-      accessibleLabel={null}
       className="c-explorer__close"
-      dialogTrigger={false}
-      href="#"
-      isLoading={false}
-      onClick={null}
-      preventDefault={true}
-      target={null}
     >
       Close explorer
     </Button>

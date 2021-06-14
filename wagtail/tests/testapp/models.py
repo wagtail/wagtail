@@ -889,6 +889,14 @@ class TaggedPage(Page):
     ]
 
 
+class TaggedChildPage(TaggedPage):
+    pass
+
+
+class TaggedGrandchildPage(TaggedChildPage):
+    pass
+
+
 class SingletonPage(Page):
     @classmethod
     def can_create_at(cls, parent):

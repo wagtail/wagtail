@@ -28,7 +28,7 @@ from wagtail.tests.testapp.models import (
     CustomPageQuerySet, EventCategory, EventIndex, EventPage, EventPageSpeaker, GenericSnippetPage,
     ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
     PageWithExcludedCopyField, SimpleChildPage, SimplePage, SimpleParentPage, SingleEventPage,
-    SingletonPage, StandardIndex, StreamPage, TaggedPage)
+    SingletonPage, StandardIndex, StreamPage, TaggedGrandchildPage, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -1525,6 +1525,36 @@ class TestCopyPage(TestCase):
 
         # new page should also have two tags
         new_tagged_item_ids = [item.id for item in new_tagged_page.tagged_items.all()]
+        self.assertEqual(len(new_tagged_item_ids), 2)
+        self.assertTrue(all(new_tagged_item_ids))
+
+        # new tagged_item IDs should differ from old ones
+        self.assertTrue(all([
+            item_id not in old_tagged_item_ids
+            for item_id in new_tagged_item_ids
+        ]))
+
+    def test_copy_subclassed_page_copies_tags(self):
+        # create and publish a TaggedGrandchildPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        sub_tagged_page = TaggedGrandchildPage(title='My very special tagged page', slug='my-special-tagged-page')
+        sub_tagged_page.tags.add('wagtail', 'bird')
+        event_index.add_child(instance=sub_tagged_page)
+        sub_tagged_page.save_revision().publish()
+
+        old_tagged_item_ids = [item.id for item in sub_tagged_page.tagged_items.all()]
+        # there should be two items here, with defined (truthy) IDs
+        self.assertEqual(len(old_tagged_item_ids), 2)
+        self.assertTrue(all(old_tagged_item_ids))
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_sub_tagged_page = sub_tagged_page.copy(to=homepage)
+
+        self.assertNotEqual(sub_tagged_page.id, new_sub_tagged_page.id)
+
+        # new page should also have two tags
+        new_tagged_item_ids = [item.id for item in new_sub_tagged_page.tagged_items.all()]
         self.assertEqual(len(new_tagged_item_ids), 2)
         self.assertTrue(all(new_tagged_item_ids))
 

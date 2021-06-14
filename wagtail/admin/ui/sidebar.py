@@ -60,12 +60,14 @@ class LinkMenuItem(MenuItem):
 
 @adapter('wagtail.sidebar.SubMenuItem', base=BaseSidebarAdapter)
 class SubMenuItem(MenuItem):
-    def __init__(self, name: str, label: str, menu_items: List[MenuItem], icon_name: str = '', classnames: str = ''):
+    def __init__(self, name: str, label: str, menu_items: List[MenuItem], icon_name: str = '', classnames: str = '', footer_text: str = ''):
         super().__init__(name, label, icon_name=icon_name, classnames=classnames)
         self.menu_items = menu_items
+        self.footer_text = footer_text
 
     def js_args(self):
         args = super().js_args()
+        args[0]['footer_text'] = self.footer_text
         args.append(self.menu_items)
         return args
 
@@ -77,6 +79,7 @@ class SubMenuItem(MenuItem):
             and self.menu_items == other.menu_items
             and self.icon_name == other.icon_name
             and self.classnames == other.classnames
+            and self.footer_text == other.footer_text
         )
 
 
@@ -101,11 +104,6 @@ class PageExplorerMenuItem(LinkMenuItem):
             and self.icon_name == other.icon_name
             and self.classnames == other.classnames
         )
-
-
-@adapter('wagtail.sidebar.SettingsMenuItem', base=BaseSidebarAdapter)
-class SettingsMenuItem(SubMenuItem):
-    pass
 
 
 # Modules

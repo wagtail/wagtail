@@ -28,6 +28,7 @@ Bug fixes
  * The Wagtail admin urls will now respect the ``APPEND_SLASH`` setting (Tidjani Dia)
  * Prevent “Forgotten password” link from overlapping with field on mobile devices (Helen Chapman)
  * Snippet admin urls are now namespaced to avoid ambiguity with the primary key component of the url (Matt Westcott)
+ * Prevent error on copying pages with ClusterTaggableManager relations and multi-level inheritance (Chris Pollard)
 
 Upgrade considerations
 ======================

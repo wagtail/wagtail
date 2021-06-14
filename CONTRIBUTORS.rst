@@ -516,6 +516,7 @@ Contributors
 * Tidjani Dia
 * Jan Seifert
 * hardcodd
+* Chris Pollard
 
 Translators
 ===========

@@ -124,7 +124,7 @@ def _copy_m2m_relations(source, target, exclude_fields=None, update_attrs=None):
         if field.many_to_many and field.name not in exclude_fields and not field.auto_created and not isinstance(field, ParentalManyToManyField):
             try:
                 # Do not copy m2m links with a through model that has a ParentalKey to the model being copied - these will be copied as child objects
-                through_model_parental_links = [field for field in field.through._meta.get_fields() if isinstance(field, ParentalKey) and (field.related_model == source.__class__ or field.related_model in source._meta.parents)]
+                through_model_parental_links = [field for field in field.through._meta.get_fields() if isinstance(field, ParentalKey) and issubclass(source.__class__, field.related_model)]
                 if through_model_parental_links:
                     continue
             except AttributeError:

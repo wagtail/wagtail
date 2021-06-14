@@ -1,0 +1,177 @@
+// stylelint-disable declaration-no-important
+.sidebar-main-menu {
+    overflow: auto;
+    overflow-x: hidden;
+    margin-bottom: 50px;
+    @include transition(margin-bottom 0.3s ease);
+
+    &--open-footer {
+        margin-bottom: 127px;
+    }
+
+    > ul,
+    ul > li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    ul > li {
+        position: relative;
+
+        @include transition(border-color 0.3s ease);
+    }
+
+    *:focus {
+        @include show-focus-outline-inside;
+    }
+
+    .icon--menuitem {
+        width: 1.25em;
+        height: 1.25em;
+        margin-right: 0.5em;
+        vertical-align: text-top;
+    }
+
+    .icon--submenu-header {
+        display: block;
+        width: 4rem;
+        height: 4rem;
+        margin: 0 auto 0.8em;
+        opacity: 0.15;
+    }
+
+    > ul > li > a {
+        // Need !important to override body.ready class
+        transition: padding 0.3s ease !important;
+
+        .menuitem-label {
+            transition: opacity 0.3s ease;
+        }
+    }
+
+    @at-root .sidebar--slim #{&} {
+        > ul > li > a {
+            padding: 0.8em 0.8em;
+
+            .menuitem-label {
+                opacity: 0;
+            }
+
+            .icon-arrow-right {
+                top: 1em;
+                right: 0.15em;
+                width: 1em;
+                height: 1em;
+            }
+        }
+    }
+}
+
+.sidebar-footer {
+    position: fixed !important;  // override li styling in MenuWrapper
+    width: $menu-width;
+    bottom: 0;
+    background-color: $nav-footer-submenu-bg;
+    transition: width 0.3s ease !important;  // Override body.ready
+
+    > ul,
+    ul > li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    ul > li {
+        position: relative;
+
+        @include transition(border-color 0.3s ease);
+    }
+
+    > ul {
+        @include transition(max-height 0.3s ease);
+
+        max-height: 0;
+
+        a {
+            border-left: 3px solid transparent;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            &:before {
+                font-size: 1rem;
+                margin-right: 0.5em;
+                vertical-align: -10%;
+            }
+        }
+    }
+
+    &__account {
+        background: $nav-footer-account-bg;
+        color: $color-menu-text;
+        text-transform: uppercase;
+        display: block;
+        cursor: pointer;
+        position: relative;
+
+        @include clearfix;
+
+        &:hover {
+            background-color: rgba(100, 100, 100, 0.15);
+            color: $color-white;
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .avatar {
+            float: left;
+
+            &:before {
+                color: inherit;
+                border-color: inherit;
+            }
+        }
+
+        em {
+            box-sizing: border-box;
+            padding-right: 1.8em;
+            margin-top: 1.2em;
+            margin-left: 0.9em;
+            font-style: normal;
+            font-weight: 700;
+            width: 135px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            position: absolute;
+            left: 50px;  // Width of avatar
+            transition: left 0.3s ease;
+
+            &:after {
+                font-size: 1.5em;
+                position: absolute;
+                right: 0.25em;
+            }
+        }
+    }
+
+    @at-root .sidebar--slim #{&} {
+        width: $menu-width-slim;
+
+        &__account em {
+            left: $menu-width-slim - $menu-width;
+        }
+    }
+
+    &--open {
+        width: $menu-width !important;  // Override collapsed style
+
+        > ul {
+            max-height: $nav-footer-submenu-height;
+        }
+    }
+
+    &--open &__account em {
+        left: 50px !important;  // Override collapsed style
+    }
+}

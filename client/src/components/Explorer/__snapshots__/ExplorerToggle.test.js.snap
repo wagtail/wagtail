@@ -2,19 +2,12 @@
 
 exports[`ExplorerToggle basic 1`] = `
 <Button
-  accessibleLabel={null}
-  className=""
   dialogTrigger={true}
-  href="#"
-  isLoading={false}
   onClick={[Function]}
-  preventDefault={true}
-  target={null}
 >
   <Icon
     className="icon--menuitem"
     name="folder-open-inverse"
-    title={null}
   />
   <span>
     To infinity and beyond!
@@ -22,7 +15,6 @@ exports[`ExplorerToggle basic 1`] = `
   <Icon
     className="icon--submenu-trigger"
     name="arrow-right"
-    title={null}
   />
 </Button>
 `;
