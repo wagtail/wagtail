@@ -42,7 +42,7 @@ install_requires = [
 # Testing dependencies
 testing_extras = [
     # Required for running the tests
-    'python-dateutil>=2.2',
+    'python-dateutil>=2.7',
     'pytz>=2014.7',
     'elasticsearch>=5.0,<6.0',
     'Jinja2>=2.11,<3.0',
