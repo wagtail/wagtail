@@ -4871,6 +4871,10 @@ class BaseLogEntry(models.Model):
     def format_comment(self):
         return self.action_registry.format_comment(self)
 
+    @property
+    def comment(self):
+        return self.format_comment()
+
 
 class PageLogEntry(BaseLogEntry):
     page = models.ForeignKey(
