@@ -4,7 +4,8 @@ from django.db import transaction
 from django.shortcuts import get_list_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
 from wagtail.admin import messages
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
@@ -64,5 +65,29 @@ def delete(request, parent_page_id):
                     if hasattr(result, 'status_code'):
                         return result
 
-        messages.success(request, _(f'You have successfully deleted {num_parent_pages} pages including {num_child_pages} child pages.'))
+        if num_parent_pages == 1:
+            if num_child_pages == 0:
+                success_message = _("1 page has been deleted")
+            else:
+                success_message = ngettext(
+                    "1 page and %(num_child_pages)d child page have been deleted",
+                    "1 page and %(num_child_pages)d child pages have been deleted",
+                    num_child_pages
+                ) % {
+                    'num_child_pages': num_child_pages
+                }
+        else:
+            if num_child_pages == 0:
+                success_message = _("%(num_parent_pages)d pages have been deleted") % {'num_parent_pages': num_parent_pages}
+            else:
+                success_message = ngettext(
+                    "%(num_parent_pages)d pages and %(num_child_pages)d child page have been deleted",
+                    "%(num_parent_pages)d pages and %(num_child_pages)d child pages have been deleted",
+                    num_child_pages
+                ) % {
+                    'num_child_pages': num_child_pages,
+                    'num_parent_pages': num_parent_pages
+                }
+
+        messages.success(request, _(success_message))
     return redirect(next_url)
