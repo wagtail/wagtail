@@ -3490,12 +3490,25 @@ class BaseViewRestriction(models.Model):
         verbose_name = _('view restriction')
         verbose_name_plural = _('view restrictions')
 
-    def save(self, user=None, specific_instance=None, **kwargs):
+
+class PageViewRestriction(BaseViewRestriction):
+    page = models.ForeignKey(
+        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
+    )
+
+    passed_view_restrictions_session_key = 'passed_page_view_restrictions'
+
+    class Meta:
+        verbose_name = _('page view restriction')
+        verbose_name_plural = _('page view restrictions')
+
+    def save(self, user=None, **kwargs):
         """
         Custom save handler to include logging.
         :param user: the user add/updating the view restriction
         :param specific_instance: the specific model instance the restriction applies to
         """
+        specific_instance = self.page.specific
         is_new = self.id is None
         super().save(**kwargs)
 
@@ -3512,12 +3525,13 @@ class BaseViewRestriction(models.Model):
                 }
             )
 
-    def delete(self, user=None, specific_instance=None, **kwargs):
+    def delete(self, user=None, **kwargs):
         """
         Custom delete handler to aid in logging
         :param user: the user removing the view restriction
         :param specific_instance: the specific model instance the restriction applies to
         """
+        specific_instance = self.page.specific
         if specific_instance:
             PageLogEntry.objects.log_action(
                 instance=specific_instance,
@@ -3531,24 +3545,6 @@ class BaseViewRestriction(models.Model):
                 }
             )
         return super().delete(**kwargs)
-
-
-class PageViewRestriction(BaseViewRestriction):
-    page = models.ForeignKey(
-        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
-    )
-
-    passed_view_restrictions_session_key = 'passed_page_view_restrictions'
-
-    class Meta:
-        verbose_name = _('page view restriction')
-        verbose_name_plural = _('page view restrictions')
-
-    def save(self, user=None, **kwargs):
-        return super().save(user, specific_instance=self.page.specific, **kwargs)
-
-    def delete(self, user=None, **kwargs):
-        return super().delete(user, specific_instance=self.page.specific, **kwargs)
 
 
 class BaseCollectionManager(models.Manager):
