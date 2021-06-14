@@ -4333,6 +4333,9 @@ class BaseLogEntryManager(models.Manager):
     def get_queryset(self):
         return LogEntryQuerySet(self.model, using=self._db)
 
+    def get_instance_title(self, instance):
+        return str(instance)
+
     def log_action(self, instance, action, **kwargs):
         """
         :param instance: The model instance we are logging an action for
@@ -4347,10 +4350,7 @@ class BaseLogEntryManager(models.Manager):
         data = kwargs.pop('data', '')
         title = kwargs.pop('title', None)
         if not title:
-            if isinstance(instance, Page):
-                title = instance.specific_deferred.get_admin_display_title()
-            else:
-                title = str(instance)
+            title = self.get_instance_title(instance)
 
         timestamp = kwargs.pop('timestamp', timezone.now())
         return self.model.objects.create(
@@ -4376,6 +4376,9 @@ class BaseLogEntryManager(models.Manager):
 
 
 class PageLogEntryManager(BaseLogEntryManager):
+
+    def get_instance_title(self, instance):
+        return instance.specific_deferred.get_admin_display_title()
 
     def log_action(self, instance, action, **kwargs):
         kwargs.update(page=instance)
