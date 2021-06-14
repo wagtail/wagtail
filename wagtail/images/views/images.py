@@ -10,7 +10,6 @@ from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
-from django.views.decorators.vary import vary_on_headers
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
@@ -33,9 +32,8 @@ INDEX_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_INDEX_PAGE_SIZE', 20)
 USAGE_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_USAGE_PAGE_SIZE', 20)
 
 
-class IndexView(TemplateView):
+class BaseListingView(TemplateView):
     @method_decorator(permission_checker.require_any('add', 'change', 'delete'))
-    @method_decorator(vary_on_headers('X-Requested-With'))
     def get(self, request):
         return super().get(request)
 
@@ -50,34 +48,49 @@ class IndexView(TemplateView):
         # Search
         query_string = None
         if 'q' in self.request.GET:
-            form = SearchForm(self.request.GET, placeholder=_("Search images"))
-            if form.is_valid():
-                query_string = form.cleaned_data['q']
+            self.form = SearchForm(self.request.GET, placeholder=_("Search images"))
+            if self.form.is_valid():
+                query_string = self.form.cleaned_data['q']
 
                 images = images.search(query_string)
         else:
-            form = SearchForm(placeholder=_("Search images"))
+            self.form = SearchForm(placeholder=_("Search images"))
 
         # Filter by collection
-        current_collection = None
+        self.current_collection = None
         collection_id = self.request.GET.get('collection_id')
         if collection_id:
             try:
-                current_collection = Collection.objects.get(id=collection_id)
-                images = images.filter(collection=current_collection)
+                self.current_collection = Collection.objects.get(id=collection_id)
+                images = images.filter(collection=self.current_collection)
             except (ValueError, Collection.DoesNotExist):
                 pass
 
         # Filter by tag
-        current_tag = self.request.GET.get('tag')
-        if current_tag:
+        self.current_tag = self.request.GET.get('tag')
+        if self.current_tag:
             try:
-                images = images.filter(tags__name=current_tag)
+                images = images.filter(tags__name=self.current_tag)
             except (AttributeError):
-                current_tag = None
+                self.current_tag = None
 
         paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
         images = paginator.get_page(self.request.GET.get('p'))
+
+        context.update({
+            'images': images,
+            'query_string': query_string,
+            'is_searching': bool(query_string),
+        })
+
+        return context
+
+
+class IndexView(BaseListingView):
+    template_name = 'wagtailimages/images/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         collections = permission_policy.collections_user_has_any_permission_for(
             self.request.user, ['add', 'change']
@@ -85,34 +98,19 @@ class IndexView(TemplateView):
         if len(collections) < 2:
             collections = None
 
-        # Create response
-        if self.request.is_ajax():
-            context.update({
-                'images': images,
-                'query_string': query_string,
-                'is_searching': bool(query_string),
-            })
-        else:
-            context.update({
-                'images': images,
-                'query_string': query_string,
-                'is_searching': bool(query_string),
-
-                'search_form': form,
-                'popular_tags': popular_tags_for_model(get_image_model()),
-                'current_tag': current_tag,
-                'collections': collections,
-                'current_collection': current_collection,
-                'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
-            })
-
+        context.update({
+            'search_form': self.form,
+            'popular_tags': popular_tags_for_model(get_image_model()),
+            'current_tag': self.current_tag,
+            'collections': collections,
+            'current_collection': self.current_collection,
+            'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
+        })
         return context
 
-    def get_template_names(self):
-        if self.request.is_ajax():
-            return ['wagtailimages/images/results.html']
-        else:
-            return ['wagtailimages/images/index.html']
+
+class ListingResultsView(BaseListingView):
+    template_name = 'wagtailimages/images/results.html'
 
 
 @permission_checker.require('change')
