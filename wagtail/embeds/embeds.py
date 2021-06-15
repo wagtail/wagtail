@@ -1,6 +1,7 @@
 from datetime import datetime
 from hashlib import md5
 
+from ..core.utils import accepts_kwarg
 from .exceptions import EmbedUnsupportedProviderException
 from .finders import get_finders
 from .models import Embed
@@ -21,7 +22,10 @@ def get_embed(url, max_width=None, max_height=None, finder=None):
         def finder(url, max_width=None, max_height=None):
             for finder in get_finders():
                 if finder.accept(url):
-                    return finder.find_embed(url, max_width=max_width, max_height=max_height)
+                    kwargs = {}
+                    if accepts_kwarg(finder.find_embed, 'max_height'):
+                        kwargs['max_height'] = max_height
+                    return finder.find_embed(url, max_width=max_width, **kwargs)
 
             raise EmbedUnsupportedProviderException
 
