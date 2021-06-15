@@ -185,3 +185,28 @@ class BaseLogEntry(models.Model):
             return self.formatter.format_comment(self)
         else:
             return ''
+
+
+class ModelLogEntryManager(BaseLogEntryManager):
+    def log_action(self, instance, action, **kwargs):
+        kwargs.update(object_id=str(instance.pk))
+        return super().log_action(instance, action, **kwargs)
+
+
+class ModelLogEntry(BaseLogEntry):
+    """
+    Simple logger for generic Django models
+    """
+    object_id = models.CharField(max_length=255, blank=False, db_index=True)
+
+    objects = ModelLogEntryManager()
+
+    class Meta:
+        ordering = ['-timestamp', '-id']
+        verbose_name = _('model log entry')
+        verbose_name_plural = _('model log entries')
+
+    def __str__(self):
+        return "ModelLogEntry %d: '%s' on '%s' with id %s" % (
+            self.pk, self.action, self.object_verbose_name(), self.object_id
+        )
