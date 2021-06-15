@@ -28,6 +28,13 @@ youtube = {
     ],
 }
 
+datastudio = {
+    "endpoint": "https://datastudio.google.com/oembed",
+    "urls": [
+        r'^https?://(?:[-\w]+\.)?datastudio\.google\.com/embed/.+$',
+    ],
+}
+
 deviantart = {
     "endpoint": "https://backend.deviantart.com/oembed",
     "urls": [
@@ -628,7 +635,7 @@ reddit = {
 }
 
 all_providers = [
-    speakerdeck, app_net, youtube, deviantart, blip_tv, dailymotion, flikr,
+    speakerdeck, app_net, youtube, datastudio, deviantart, blip_tv, dailymotion, flikr,
     hulu, nfb, qik, revision3, scribd, viddler, vimeo, dotsub, yfrog,
     clickthrough, kinomap, photobucket, slideshare,
     major_league_gaming, opera, skitch, twitter, soundcloud, collegehumor,
