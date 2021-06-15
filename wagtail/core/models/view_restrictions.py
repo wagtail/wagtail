@@ -1,3 +1,10 @@
+"""
+Base model definitions for validating front-end user access to resources such as pages and
+documents. These may be subclassed to accommodate specific models such as Page or Collection,
+but the definitions here should remain generic and not depend on the base wagtail.core.models
+module or specific models defined there.
+"""
+
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
