@@ -52,9 +52,9 @@ from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.query import PageQuerySet
 from wagtail.core.signals import (
-    page_published, page_unpublished, post_page_move, pre_page_move, task_approved, task_cancelled,
-    task_rejected, task_submitted, workflow_approved, workflow_cancelled, workflow_rejected,
-    workflow_submitted)
+    page_published, page_unpublished, post_page_move, pre_page_move, pre_validate_delete,
+    task_approved, task_cancelled, task_rejected, task_submitted, workflow_approved,
+    workflow_cancelled, workflow_rejected, workflow_submitted)
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import (
@@ -220,22 +220,11 @@ class Locale(models.Model):
 
     @transaction.atomic
     def delete(self, *args, **kwargs):
-        # if we're deleting the locale used on the root page node, reassign that to a new locale first
-        root_page_with_this_locale = Page.objects.filter(depth=1, locale=self)
-        if root_page_with_this_locale.exists():
-            # Select the default locale, if one exists and isn't the one being deleted
-            try:
-                new_locale = Locale.get_default()
-                default_locale_is_ok = (new_locale != self)
-            except (Locale.DoesNotExist, LookupError):
-                default_locale_is_ok = False
-
-            if not default_locale_is_ok:
-                # fall back on any remaining locale
-                new_locale = Locale.all_objects.exclude(pk=self.pk).first()
-
-            root_page_with_this_locale.update(locale=new_locale)
-
+        # Provide a signal like pre_delete, but sent before on_delete validation.
+        # This allows us to use the signal to fix up references to the locale to be deleted
+        # that would otherwise fail validation.
+        # Workaround for https://code.djangoproject.com/ticket/6870
+        pre_validate_delete.send(sender=Locale, instance=self)
         return super().delete(*args, **kwargs)
 
     def language_code_is_valid(self):
@@ -246,6 +235,25 @@ class Locale(models.Model):
 
     def __str__(self):
         return force_str(self.get_display_name() or self.language_code)
+
+
+@receiver(pre_validate_delete, sender=Locale)
+def reassign_root_page_locale_on_delete(sender, instance, **kwargs):
+    # if we're deleting the locale used on the root page node, reassign that to a new locale first
+    root_page_with_this_locale = Page.objects.filter(depth=1, locale=instance)
+    if root_page_with_this_locale.exists():
+        # Select the default locale, if one exists and isn't the one being deleted
+        try:
+            new_locale = Locale.get_default()
+            default_locale_is_ok = (new_locale != instance)
+        except (Locale.DoesNotExist, LookupError):
+            default_locale_is_ok = False
+
+        if not default_locale_is_ok:
+            # fall back on any remaining locale
+            new_locale = Locale.all_objects.exclude(pk=instance.pk).first()
+
+        root_page_with_this_locale.update(locale=new_locale)
 
 
 class TranslatableMixin(models.Model):
