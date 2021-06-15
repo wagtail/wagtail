@@ -1,3 +1,9 @@
+"""
+Base model definitions for audit logging. These may be subclassed to accommodate specific models
+such as Page, but the definitions here should remain generic and not depend on the base
+wagtail.core.models module or specific models such as Page.
+"""
+
 import json
 
 from django.conf import settings

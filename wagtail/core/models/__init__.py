@@ -1,3 +1,14 @@
+"""
+wagtail.core.models is split into submodules for maintainability. All definitions intended as
+public should be imported here (with 'noqa' comments as required) and outside code should continue
+to import them from wagtail.core.models (e.g. `from wagtail.core.models import Site`, not
+`from wagtail.core.models.sites import Site`.)
+
+Submodules should take care to keep the direction of dependencies consistent; where possible they
+should implement low-level generic functionality which is then imported by higher-level models such
+as Page.
+"""
+
 import functools
 import json
 import logging
