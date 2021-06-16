@@ -60,7 +60,7 @@ from wagtail.core.utils import (
     get_supported_content_language_variant, resolve_model_string)
 from wagtail.search import index
 
-from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet  # noqa
+from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet, ModelLogEntry  # noqa
 from .collections import (  # noqa
     BaseCollectionManager, Collection, CollectionManager, CollectionMember,
     CollectionViewRestriction, GroupCollectionPermission, GroupCollectionPermissionManager,
