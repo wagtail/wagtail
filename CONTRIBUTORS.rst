@@ -517,6 +517,7 @@ Contributors
 * Jan Seifert
 * hardcodd
 * Chris Pollard
+* Godswill Melford
 
 Translators
 ===========
