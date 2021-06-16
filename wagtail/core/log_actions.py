@@ -45,12 +45,18 @@ class LogActionRegistry:
         # Holds a list of action, action label tuples for use in filters
         self.choices = []
 
+        # Tracks which LogEntry model should be used for a given object class
+        self.log_entry_models = {}
+
     def scan_for_actions(self):
         if not self.has_scanned_for_actions:
             for fn in hooks.get_hooks('register_log_actions'):
                 fn(self)
 
             self.has_scanned_for_actions = True
+
+    def register_model(self, cls, log_entry_model):
+        self.log_entry_models[cls] = log_entry_model
 
     def register_action(self, action, *args):
 
@@ -92,5 +98,25 @@ class LogActionRegistry:
     def get_action_label(self, action):
         return self.formatters[action].label
 
+    def log(self, instance, action, **kwargs):
+        self.scan_for_actions()
+
+        # find the log entry model for the given object type
+        log_entry_model = None
+        for cls in type(instance).__mro__:
+            log_entry_model = self.log_entry_models.get(cls)
+            if log_entry_model:
+                break
+
+        if log_entry_model is None:
+            # no logger registered for this object type - silently bail
+            return
+
+        return log_entry_model.objects.log_action(instance, action, **kwargs)
+
 
 registry = LogActionRegistry()
+
+
+def log(instance, action, **kwargs):
+    return registry.log(instance, action, **kwargs)
