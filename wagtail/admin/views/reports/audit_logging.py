@@ -8,14 +8,14 @@ from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.core.log_actions import page_log_action_registry
+from wagtail.core.log_actions import registry as log_action_registry
 from wagtail.core.models import Page, PageLogEntry, UserPagePermissionsProxy
 
 from .base import ReportView
 
 
 class SiteHistoryReportFilterSet(WagtailFilterSet):
-    action = django_filters.ChoiceFilter(choices=page_log_action_registry.get_choices)
+    action = django_filters.ChoiceFilter(choices=log_action_registry.get_choices)
     hide_commenting_actions = django_filters.BooleanFilter(
         label=_('Hide commenting actions'),
         method='filter_hide_commenting_actions',
@@ -93,5 +93,5 @@ class LogEntriesView(ReportView):
         ).prefetch_related('page')
 
     def get_action_label(self, action):
-        from wagtail.core.log_actions import page_log_action_registry
-        return force_str(page_log_action_registry.get_action_label(action))
+        from wagtail.core.log_actions import log_action_registry
+        return force_str(log_action_registry.get_action_label(action))
