@@ -321,7 +321,7 @@ class TestAuditLogHooks(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
     def test_register_log_actions_hook(self):
-        log_actions = LogActionRegistry('register_log_actions')
+        log_actions = LogActionRegistry()
         self.assertTrue(log_actions.action_exists('wagtail.create'))
 
     def test_action_must_be_registered(self):
@@ -342,12 +342,12 @@ class TestAuditLogHooks(TestCase, WagtailTestUtils):
         PageLogEntry.objects.update(action='test.custom_action')
         log_entry.refresh_from_db()
 
-        log_actions = LogActionRegistry('register_log_actions')
+        log_actions = LogActionRegistry()
         self.assertEqual(log_entry.message, "Unknown test.custom_action")
         self.assertFalse(log_actions.action_exists('test.custom_action'))
 
         with self.register_hook('register_log_actions', test_hook):
-            log_actions = LogActionRegistry('register_log_actions')
+            log_actions = LogActionRegistry()
             self.assertTrue(log_actions.action_exists('test.custom_action'))
             self.assertEqual(log_actions.get_formatter(log_entry).format_message(log_entry), "Tested!")
             self.assertEqual(log_actions.get_action_label('test.custom_action'), 'Custom action')
