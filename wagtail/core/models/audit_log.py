@@ -15,6 +15,8 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.core.log_actions import registry as log_action_registry
+
 
 class LogEntryQuerySet(models.QuerySet):
     def get_users(self):
@@ -104,8 +106,6 @@ class BaseLogEntry(models.Model):
 
     objects = BaseLogEntryManager()
 
-    action_registry = None
-
     class Meta:
         abstract = True
         verbose_name = _('log entry')
@@ -117,7 +117,7 @@ class BaseLogEntry(models.Model):
         return super().save(*args, **kwargs)
 
     def clean(self):
-        if not self.action_registry.action_exists(self.action):
+        if not log_action_registry.action_exists(self.action):
             raise ValidationError({'action': _("The log action '{}' has not been registered.").format(self.action)})
 
     def __str__(self):
@@ -170,7 +170,7 @@ class BaseLogEntry(models.Model):
 
     @cached_property
     def formatter(self):
-        return self.action_registry.get_formatter(self)
+        return log_action_registry.get_formatter(self)
 
     @cached_property
     def message(self):

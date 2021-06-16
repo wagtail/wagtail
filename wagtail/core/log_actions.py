@@ -93,4 +93,4 @@ class LogActionRegistry:
         return self.formatters[action].label
 
 
-page_log_action_registry = LogActionRegistry()
+registry = LogActionRegistry()

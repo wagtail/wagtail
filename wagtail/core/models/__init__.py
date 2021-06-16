@@ -48,7 +48,6 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
-from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.query import PageQuerySet
 from wagtail.core.signals import (
     page_published, page_unpublished, post_page_move, pre_page_move, pre_validate_delete,
@@ -3997,8 +3996,6 @@ class PageLogEntry(BaseLogEntry):
     )
 
     objects = PageLogEntryManager()
-
-    action_registry = page_log_action_registry
 
     class Meta:
         ordering = ['-timestamp', '-id']
