@@ -1,0 +1,20 @@
+============================
+Wagtail 2.13.2 release notes
+============================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+CVE-2021-32681: Improper escaping of HTML ('Cross-site Scripting') in Wagtail StreamField blocks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release addresses a cross-site scripting (XSS) vulnerability in StreamField. When the ``{% include_block %}`` template tag is used to output the value of a plain-text StreamField block (``CharBlock``, ``TextBlock`` or a similar user-defined block derived from ``FieldBlock``), and that block does not specify a template for rendering, the tag output is not properly escaped as HTML. This could allow users to insert arbitrary HTML or scripting. This vulnerability is only exploitable by users with the ability to author StreamField content (i.e. users with 'editor' access to the Wagtail admin).
+
+Site implementors who wish to retain the existing behaviour of allowing editors to insert HTML content in these blocks (and are willing to accept the risk of untrusted editors inserting arbitrary code) may disable the escaping by surrounding the relevant ``{% include_block %}`` tag in ``{% autoescape off %}...{% endautoescape %}``.
+
+Many thanks to Karen Tracey for reporting this issue. For further details, please see `the CVE-2021-32681 security advisory <https://github.com/wagtail/wagtail/security/advisories/GHSA-xfrw-hxr5-ghqf>`_.
