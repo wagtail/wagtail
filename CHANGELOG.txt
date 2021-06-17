@@ -20,6 +20,12 @@ Changelog
  * Fix: Prevent error on copying pages with ClusterTaggableManager relations and multi-level inheritance (Chris Pollard)
 
 
+2.13.2 (17.06.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2021-32681 - fix improper escaping of HTML ('Cross-site Scripting') in Wagtail StreamField blocks (Karen Tracey, Matt Westcott)
+
+
 2.13.1 (01.06.2021)
 ~~~~~~~~~~~~~~~~~~~
 
