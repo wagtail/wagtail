@@ -126,6 +126,12 @@ Changelog
  * Fix: Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
 
 
+2.11.8 (17.06.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2021-32681 - fix improper escaping of HTML ('Cross-site Scripting') in Wagtail StreamField blocks (Karen Tracey, Matt Westcott)
+
+
 2.11.7 (19.04.2021)
 ~~~~~~~~~~~~~~~~~~~
 
