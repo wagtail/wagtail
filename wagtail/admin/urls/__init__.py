@@ -15,8 +15,9 @@ from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
-from wagtail.admin.views import account, bulk_actions, chooser, filters, home, tags, userbar
+from wagtail.admin.views import account, chooser, filters, home, tags, userbar
 from wagtail.admin.views.pages import listing
+from wagtail.admin.views.pages.bulk_actions import index as bulk_actions
 from wagtail.core import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
@@ -37,12 +38,7 @@ urlpatterns = [
     path('pages/<int:parent_page_id>/filter-count/', filters.filter_count, name='wagtailadmin_filter_count'),
 
     # bulk actions
-    path('pages/<int:parent_page_id>/multiple/delete/', bulk_actions.delete, name='wagtailadmin_bulk_delete'),
-    path('pages/<int:parent_page_id>/multiple/unpublish/', bulk_actions.unpublish, name='wagtailadmin_bulk_unpublish'),
-    path('pages/<int:parent_page_id>/multiple/publish/', bulk_actions.publish, name='wagtailadmin_bulk_publish'),
-    path('pages/<int:parent_page_id>/multiple/move/', bulk_actions.move, name='wagtailadmin_bulk_move'),
-    path('pages/<int:parent_page_id>/multiple/move/<int:dest_page_id>/', bulk_actions.move, name='wagtailadmin_bulk_move'),
-    path('pages/<int:parent_page_id>/multiple/move/<int:dest_page_id>/confirm/', bulk_actions.move_confirm, name='wagtailadmin_bulk_move_confirm'),
+    path('pages/<int:parent_page_id>/multiple/<str:action>/', bulk_actions, name='wagtailadmin_bulk_action'),
 
     path('pages/', include(wagtailadmin_pages_urls, namespace='wagtailadmin_pages')),
 
