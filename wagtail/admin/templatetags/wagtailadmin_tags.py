@@ -20,6 +20,7 @@ from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.html import avoid_wrapping, format_html, format_html_join
+from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
@@ -30,6 +31,7 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
+from wagtail.admin.widgets import PageListingButton
 from wagtail.core import hooks
 from wagtail.core.models import (
     Collection, CollectionViewRestriction, Locale, Page, PageViewRestriction,
@@ -502,17 +504,29 @@ def bulk_action_filters(context):
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
                         takes_context=True)
-def bulk_action_choices(context, page):
-    next_url = context.request.path
-    button_hooks = hooks.get_hooks('register_bulk_action_choices')
-
-    buttons = []
+def page_bulk_action_choices(context, page):
+    bulk_actions_list = []
+    if page:
+        bulk_actions = hooks.get_hooks('register_page_bulk_action')
+        for action_func in bulk_actions:
+            action = action_func(context.request, page.id)
+            bulk_actions_list.append(action)
+    button_hooks = hooks.get_hooks('construct_page_bulk_action_choices')
     for hook in button_hooks:
-        buttons.extend(hook(page, next_url=next_url))
+        bulk_actions_list = hook(context.request, bulk_actions_list)
 
-    buttons.sort()
+    bulk_actions_list.sort(key=lambda x: x.action_priority)
+    
+    bulk_action_buttons = [
+        PageListingButton(
+            action.display_name,
+            reverse('wagtailadmin_bulk_action', args=[page.id, action.action_type]) + '?' + urlencode({'next': action.next_url}),
+            attrs={'aria-label': action.aria_label},
+            priority=action.action_priority
+        ) for action in bulk_actions_list
+    ]
 
-    return {'buttons': buttons}
+    return {'buttons': bulk_action_buttons}
 
 
 @register.simple_tag
