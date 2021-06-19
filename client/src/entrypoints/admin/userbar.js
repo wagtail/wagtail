@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const listItems = list.querySelectorAll('li');
   const isActiveClass = 'is-active';
 
+  // querySelector for all items that can be focused.
+  // source: https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus
+  const focusableItemSelector = `a[href]:not([tabindex='-1']),
+    button:not([disabled]):not([tabindex='-1']),
+    input:not([disabled]):not([tabindex='-1']),
+    [tabindex]:not([tabindex='-1'])`;
+
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   trigger.addEventListener('click', toggleUserbar, false);
 
@@ -37,9 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // For weird reasons shifting focus only works after some amount of delay
     // Which is why we are forced to use setTimeout
     if (shouldFocus) {
-      setTimeout(() => {
-        list.querySelector('a').focus();
-      }, 300); // Less than 300ms doesn't seem to work
+      // Find the first focusable element (if any) and focus it
+      if (list.querySelector(focusableItemSelector)) {
+        setTimeout(() => {
+          // eslint-disable-next-line @typescript-eslint/no-use-before-define
+          setFocusToFirstItem();
+        }, 300); // Less than 300ms doesn't seem to work
+      }
     }
   }
 
@@ -70,13 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function isFocusOnItems() {
-    let isFocused = false;
-    list.querySelectorAll('a').forEach((element) => {
-      if (element === document.activeElement) {
-        isFocused = true;
-      }
-    });
-    return isFocused;
+    return document.activeElement && !!document.activeElement.closest('.wagtail-userbar-items');
   }
 
   function setFocusToFirstItem() {
