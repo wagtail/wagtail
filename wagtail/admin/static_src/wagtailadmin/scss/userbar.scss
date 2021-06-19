@@ -188,6 +188,11 @@ $positions: (
     transition-duration: 0.15s;
     transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 
+    // TODO: disable stylelint warning in upstream package
+    @media (prefers-reduced-motion: reduce) {
+        transition: none !important;
+    }
+
     .#{$namespace}-userbar.is-active & {
         opacity: 1;
         transform: translateY(0);
@@ -220,6 +225,14 @@ $positions: (
     font-family: 'Open Sans', sans-serif;
     font-size: 16px !important;
     text-decoration: none !important;
+
+    // TODO: disable stylelint warning in upstream package
+    @media (prefers-reduced-motion: reduce) {
+        transition: none !important;
+
+        // Force disable transitions for all items
+        transition-delay: 0s !important;
+    }
 
     &:first-child {
         border-top-left-radius: $userbar-radius;
