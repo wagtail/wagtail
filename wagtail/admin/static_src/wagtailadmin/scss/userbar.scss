@@ -154,9 +154,8 @@ $positions: (
         margin: 0;
     }
 
-    &:focus-visible {
-        outline: auto;
-        outline-offset: 5px;
+    &:focus {
+        outline: $color-focus-outline solid 3px;
     }
 }
 
@@ -254,7 +253,7 @@ $positions: (
         }
 
         &:focus {
-            outline: $color-white 2px solid;
+            outline: $color-focus-outline solid 3px;
         }
 
         &-icon {
