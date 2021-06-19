@@ -95,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
           if (idx + 1 < listItems.length) {
             // Focus the next item
             listItems[idx + 1].firstElementChild.focus();
+          } else {
+            setFocusToFirstItem();
           }
         }, 100); // Workaround for focus bug
       }
@@ -109,6 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
           if (idx > 0) {
             // Focus the previous item
             listItems[idx - 1].firstElementChild.focus();
+          } else {
+            setFocusToLastItem();
           }
         }, 100); // Workaround for focus bug
       }
