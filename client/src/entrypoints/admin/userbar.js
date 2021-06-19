@@ -16,9 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   window.addEventListener('pageshow', hideUserbar, false);
 
-  // Listen for keyboard events
+  // Handle keyboard events on the trigger
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  window.addEventListener('keydown', handleKeyDown);
+  userbar.addEventListener('keydown', handleTriggerKeyDown);
 
 
   function showUserbar(shouldFocus) {
@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
     list.addEventListener('click', sandboxClick, false);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.addEventListener('click', clickOutside, false);
+
+    // Start handling keyboard input now that the userbar is open.
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    userbar.addEventListener('keydown', handleUserbarItemsKeyDown, false);
 
     // The userbar has role=menu which means that the first link should be focused on popup
     // For weird reasons shifting focus only works after some amount of delay
@@ -46,6 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     list.addEventListener('click', sandboxClick, false);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.removeEventListener('click', clickOutside, false);
+
+    // Cease handling keyboard input now that the userbar is closed.
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    userbar.removeEventListener('keydown', handleUserbarItemsKeyDown, false);
   }
 
   function toggleUserbar(e2) {
@@ -119,7 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function handleKeyDown(event) {
+  /**
+    This handler is responsible for keyboard input when items inside the userbar are focused.
+    It should only listen when the userbar is open.
+
+    It is responsible for:
+    - Shifting focus using the arrow / home / end keys.
+    - Closing the menu when 'Escape' is pressed.
+  */
+  function handleUserbarItemsKeyDown(event) {
     // Only handle keyboard input if the userbar is open
     if (trigger.getAttribute('aria-expanded') === 'true') {
       if (event.key === 'Escape') {
@@ -152,8 +168,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       return;
     }
+  }
+
+  /**
+    This handler is responsible for opening the userbar with the arrow keys
+    if it's focused and not open yet. It should always be listening.
+  */
+  function handleTriggerKeyDown(event) {
     // Check if the userbar is focused (but not open yet) and should be opened by keyboard input
-    if (trigger === document.activeElement) {
+    if (trigger === document.activeElement && trigger.getAttribute('aria-expanded') === 'false') {
       switch (event.key) {
       case 'ArrowUp':
         event.preventDefault();
