@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleKeyDown(event) {
     // Only handle keyboard input if the userbar is open
-    if (trigger.getAttribute('aria-expanded')) {
+    if (trigger.getAttribute('aria-expanded') === 'true') {
       if (event.key === 'Escape') {
         hideUserbar();
         setFocusToTrigger();
