@@ -158,12 +158,18 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'ArrowUp':
         event.preventDefault();
         showUserbar(false);
-        setTimeout(() => setFocusToFirstItem(), 300); // Workaround for focus bug
+
+        // Workaround for focus bug
+        // Needs extra delay to account for the userbar open animation. Otherwise won't focus properly.
+        setTimeout(() => setFocusToLastItem(), 300);
         break;
       case 'ArrowDown':
         event.preventDefault();
         showUserbar(false);
-        setTimeout(() => setFocusToLastItem(), 300); // Workaround for focus bug
+
+        // Workaround for focus bug
+        // Needs extra delay to account for the userbar open animation. Otherwise won't focus properly.
+        setTimeout(() => setFocusToFirstItem(), 300);
         break;
       default:
         break;
