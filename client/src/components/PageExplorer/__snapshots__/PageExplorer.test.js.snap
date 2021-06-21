@@ -5,7 +5,6 @@ exports[`PageExplorer renders 1`] = `
   currentPageId={null}
   depth={0}
   gotoPage={[Function]}
-  isVisible={false}
   nodes={Object {}}
   onClose={[Function]}
   store={
@@ -27,7 +26,6 @@ exports[`PageExplorer visible 1`] = `
   currentPageId={1}
   depth={0}
   gotoPage={[Function]}
-  isVisible={true}
   nodes={
     Object {
       "1": Object {
@@ -64,54 +62,4 @@ exports[`PageExplorer visible 1`] = `
 />
 `;
 
-exports[`PageExplorer visible 2`] = `
-<PageExplorerPanel
-  depth={0}
-  gotoPage={[Function]}
-  nodes={
-    Object {
-      "1": Object {
-        "children": Object {
-          "count": 0,
-          "items": Array [],
-        },
-        "id": 0,
-        "isError": false,
-        "isFetchingChildren": true,
-        "isFetchingTranslations": false,
-        "meta": Object {
-          "children": Object {},
-          "parent": null,
-          "status": Object {
-            "has_unpublished_changes": true,
-            "live": false,
-            "status": "",
-          },
-        },
-      },
-    }
-  }
-  onClose={[Function]}
-  page={
-    Object {
-      "children": Object {
-        "count": 0,
-        "items": Array [],
-      },
-      "id": 0,
-      "isError": false,
-      "isFetchingChildren": true,
-      "isFetchingTranslations": false,
-      "meta": Object {
-        "children": Object {},
-        "parent": null,
-        "status": Object {
-          "has_unpublished_changes": true,
-          "live": false,
-          "status": "",
-        },
-      },
-    }
-  }
-/>
-`;
+exports[`PageExplorer visible 2`] = `""`;

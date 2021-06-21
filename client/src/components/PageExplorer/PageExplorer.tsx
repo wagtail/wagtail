@@ -39,7 +39,6 @@ const PageExplorer: React.FunctionComponent<PageExplorerProps> = ({
 ) : null);
 
 const mapStateToProps = (state: State) => ({
-  isVisible: state.explorer.isVisible,
   depth: state.explorer.depth,
   currentPageId: state.explorer.currentPageId,
   nodes: state.nodes,

@@ -1,6 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`actions closePageExplorer close 1`] = `Array []`;
+exports[`actions closePageExplorer close 1`] = `
+Array [
+  Object {
+    "payload": undefined,
+    "type": "CLOSE_EXPLORER",
+  },
+]
+`;
 
 exports[`actions gotoPage creates action 1`] = `
 Array [

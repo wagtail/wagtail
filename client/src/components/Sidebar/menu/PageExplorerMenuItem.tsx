@@ -36,11 +36,10 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
       // to finish before making it invisible
       setTimeout(() => {
         setIsVisible(false);
+        if (store.current) {
+          store.current.dispatch(closePageExplorer());
+        }
       }, 300);
-
-      if (store.current) {
-        store.current.dispatch(closePageExplorer());
-      }
     }
   }, [isOpen]);
 
@@ -80,10 +79,10 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
       </Button>
       <div>
-        <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={1}>
+        <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={1} widthPx={485}>
           {store.current &&
             <Provider store={store.current}>
-              <PageExplorer navigate={navigate} />
+              <PageExplorer isVisible={isVisible} navigate={navigate} />
             </Provider>
           }
         </SidebarPanel>

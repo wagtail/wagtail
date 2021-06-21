@@ -73,40 +73,28 @@ function getTranslations(id) {
 }
 
 const openPageExplorerPrivate = createAction('OPEN_EXPLORER', id => ({ id }));
-export const closePageExplorerPrivate = createAction('CLOSE_EXPLORER');
+export const closePageExplorer = createAction('CLOSE_EXPLORER');
 
 export function openPageExplorer(id: number): ThunkActionType {
   return (dispatch, getState) => {
-    const { explorer, nodes } = getState();
+    const { nodes } = getState();
 
-    if (!explorer.isVisible) {
-      const page = nodes[id];
+    const page = nodes[id];
 
-      dispatch(openPageExplorerPrivate(id));
+    dispatch(openPageExplorerPrivate(id));
 
-      if (!page) {
-        dispatch(getChildren(id));
+    if (!page) {
+      dispatch(getChildren(id));
 
-        if (id !== 1) {
-          dispatch(getTranslations(id));
-        }
-      }
-
-      // We need to get the title of the starting page, only if it is not the site's root.
-      const isNotRoot = id !== 1;
-      if (isNotRoot) {
-        dispatch(getPage(id));
+      if (id !== 1) {
+        dispatch(getTranslations(id));
       }
     }
-  };
-}
 
-export function closePageExplorer(): ThunkActionType {
-  return (dispatch, getState) => {
-    const { explorer } = getState();
-
-    if (explorer.isVisible) {
-      dispatch(closePageExplorerPrivate());
+    // We need to get the title of the starting page, only if it is not the site's root.
+    const isNotRoot = id !== 1;
+    if (isNotRoot) {
+      dispatch(getPage(id));
     }
   };
 }
