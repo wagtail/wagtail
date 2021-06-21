@@ -9,7 +9,7 @@
     background: $nav-grey-3;
     z-index: 1;
 
-    @include transition(width 0.3s ease);
+    @include transition(width $menu-transition-duration ease);
 
     &--slim {
         width: $menu-width-slim;
@@ -24,7 +24,7 @@
     }
 
     &__collapse-toggle {
-        @include transition(background-color 150ms ease);
+        @include transition(background-color $menu-transition-duration ease);
         position: absolute;
         top: 12px;
         left: 12px;

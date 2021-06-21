@@ -1,5 +1,6 @@
 .sidebar-menu-item {
     > a {
+        @include transition(border-color $menu-transition-duration ease, background-color $menu-transition-duration ease);
         position: relative;
         white-space: nowrap;
         border-left: 3px solid transparent;
@@ -22,8 +23,6 @@
             color: $color-white;
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
         }
-
-        @include transition(border-color 0.3s ease);
 
         &:before {
             font-size: 1rem;
