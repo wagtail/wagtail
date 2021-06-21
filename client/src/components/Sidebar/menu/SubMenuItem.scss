@@ -1,10 +1,12 @@
 .sidebar-sub-menu-trigger-icon {
     display: block;
-    width: 1.5em;
-    height: 1.5em;
+    width: 20px;
+    height: 20px;
     position: absolute;
-    top: 0.8125em;
-    right: 0.5em;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
 
     @include transition(transform $menu-transition-duration ease, width $menu-transition-duration ease, height $menu-transition-duration ease);
 
@@ -12,43 +14,28 @@
         transform-origin: 50% 50%;
         transform: rotate(180deg);
     }
+
+    .sidebar--slim & {
+        width: 16px;
+        height: 16px;
+        transform: translate3d(13px, 0, 0);
+    }
 }
 
 .sidebar-sub-menu-panel {
-    background: $nav-submenu-bg;
-    width: $menu-width;
+    visibility: hidden;
+    background: #1a1a1a;
+    transform: translate3d(0, 0, 0);
+    position: fixed;
     height: 100vh;
+    width: $menu-width;
+    padding: 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
 
-    > h2,
-    &__list {
-        width: $menu-width;
-    }
-
-    > h2 {
-        display: block;
-        padding: 0.2em 0;
-        font-size: 1.2em;
-        font-weight: 500;
-        text-transform: none;
-        text-align: center;
-        color: $color-menu-text;
-
-        &:before {
-            font-size: 4em;
-            display: block;
-            text-align: center;
-            margin: 0 0 0.2em;
-            width: 100%;
-            opacity: 0.15;
-        }
-    }
-
-    > ul,
-    ul > li {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    }
+    @include transition(transform $menu-transition-duration ease);
 
     ul > li {
         position: relative;
@@ -59,6 +46,8 @@
     > ul {
         overflow: auto;
         flex-grow: 1;
+        padding: 0;
+        margin: 0;
     }
 
     > ul > li {
@@ -75,14 +64,8 @@
 
 .sidebar-sub-menu-item {
     &--open {
-        background: $nav-submenu-bg;
-
         > a {
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-
-            &:hover {
-                background-color: transparent;
-            }
         }
     }
 }
