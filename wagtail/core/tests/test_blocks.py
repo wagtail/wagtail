@@ -3340,6 +3340,48 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         })
 
+    def test_block_types(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.CharBlock()
+
+        block = ArticleBlock()
+        value = block.to_python([
+            {
+                'type': 'heading',
+                'value': "My title",
+            },
+            {
+                'type': 'paragraph',
+                'value': 'My first paragraph',
+            },
+            {
+                'type': 'paragraph',
+                'value': 'My second paragraph',
+            },
+        ])
+
+        self.assertEqual(
+            value.blocks_by_type(),
+            {
+                "heading": ["My title"],
+                "paragraph": ['My first paragraph', 'My second paragraph']
+            }
+        )
+
+        self.assertEqual(
+            value.blocks_of_type(block_type="paragraph"),
+            ['My first paragraph', 'My second paragraph']
+        )
+
+        self.assertEqual(
+            value.blocks_of_type(block_type="invalid_type"),
+            []
+        )
+
+        self.assertEqual(value.first_block_of_type(block_type="heading"), "My title")
+        self.assertIs(value.first_block_of_type(block_type="invalid_type"), None)
+
     def test_adapt_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering stream block"""
 
