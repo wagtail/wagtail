@@ -3343,7 +3343,8 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
     def test_block_types(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
-            paragraph = blocks.CharBlock()
+            paragraph = blocks.RichTextBlock()
+            date = blocks.DateBlock()
 
         block = ArticleBlock()
         value = block.to_python([
@@ -3361,25 +3362,29 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         ])
 
-        self.assertEqual(
-            value.blocks_by_type(),
-            {
-                "heading": ["My title"],
-                "paragraph": ['My first paragraph', 'My second paragraph']
-            }
-        )
+        blocks_by_type = value.blocks_by_type()
+        result_types = [
+            [type(el) for el in block]
+            for block in blocks_by_type.values()
+        ]
+        self.assertEqual(result_types, [
+            [blocks.StreamValue.StreamChild],
+            [blocks.StreamValue.StreamChild] * 2
+        ])
 
-        self.assertEqual(
-            value.blocks_of_type(block_type="paragraph"),
-            ['My first paragraph', 'My second paragraph']
-        )
+        paragraph_blocks = value.blocks_of_type(block_type="paragraph")
+        self.assertEqual(len(paragraph_blocks), 2)
+        for block in paragraph_blocks:
+            self.assertEqual(block.block_type, 'paragraph')
 
-        self.assertEqual(
-            value.blocks_of_type(block_type="invalid_type"),
-            []
-        )
+        self.assertEqual(value.blocks_of_type(block_type="date"), [])
+        self.assertEqual(value.blocks_of_type(block_type="invalid_type"), [])
 
-        self.assertEqual(value.first_block_of_type(block_type="heading"), "My title")
+        first_heading_block = value.first_block_of_type(block_type="heading")
+        self.assertEqual(first_heading_block.block_type, "heading")
+        self.assertEqual(first_heading_block.value, "My title")
+
+        self.assertIs(value.first_block_of_type(block_type="date"), None)
         self.assertIs(value.first_block_of_type(block_type="invalid_type"), None)
 
     def test_adapt_with_classname_via_class_meta(self):

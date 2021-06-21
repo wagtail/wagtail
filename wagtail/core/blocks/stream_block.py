@@ -558,7 +558,7 @@ class StreamValue(MutableSequence):
         if block_type not in self.stream_block.child_blocks:
             return []
 
-        return self.blocks_by_type()[block_type]
+        return self.blocks_by_type().get(block_type, [])
 
     def first_block_of_type(self, block_type):
         if block_type not in self.stream_block.child_blocks:
