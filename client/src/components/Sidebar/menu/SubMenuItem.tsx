@@ -6,6 +6,7 @@ import Icon from '../../Icon/Icon';
 
 import { renderMenu } from '../modules/MainMenu';
 import { SidebarPanel } from '../SidebarPanel';
+import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
 
 interface SubMenuItemProps extends MenuItemProps<SubMenuItemDefinition> {
@@ -28,7 +29,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
       // to finish before making it invisible
       setTimeout(() => {
         setIsVisible(false);
-      }, 300);
+      }, SIDEBAR_TRANSITION_DURATION);
     }
   }, [isOpen]);
 

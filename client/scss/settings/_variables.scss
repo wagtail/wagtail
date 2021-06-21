@@ -100,7 +100,12 @@ $menu-width: 200px;
 $menu-width-slim: 60px;
 
 $menu-width-max: 320px;
+
 $mobile-nav-indent: 50px;
+
+// transitions
+// Please keep in sync with SIDEBAR_TRANSITION_DURATION variable in `client/src/components/Sidebar/Sidebar.tsx`
+$menu-transition-duration: 150ms;
 
 $focus-outline-width: 3px;
 

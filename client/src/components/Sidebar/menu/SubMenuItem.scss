@@ -6,7 +6,7 @@
     top: 0.8125em;
     right: 0.5em;
 
-    @include transition(transform 0.3s ease, top 0.3s ease, right 0.3s ease, width 0.3s ease, height 0.3s ease);
+    @include transition(transform $menu-transition-duration ease, width $menu-transition-duration ease, height $menu-transition-duration ease);
 
     &--open {
         transform-origin: 50% 50%;
@@ -53,7 +53,7 @@
     ul > li {
         position: relative;
 
-        @include transition(border-color 0.3s ease);
+        @include transition(border-color $menu-transition-duration ease);
     }
 
     > ul {

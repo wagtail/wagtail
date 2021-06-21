@@ -73,7 +73,7 @@
     width: $menu-width;
     bottom: 0;
     background-color: $nav-footer-submenu-bg;
-    transition: width 0.3s ease !important;  // Override body.ready
+    transition: width $menu-transition-duration ease !important;  // Override body.ready
 
     > ul,
     ul > li {
@@ -85,11 +85,11 @@
     ul > li {
         position: relative;
 
-        @include transition(border-color 0.3s ease);
+        @include transition(border-color $menu-transition-duration ease);
     }
 
     > ul {
-        @include transition(max-height 0.3s ease);
+        @include transition(max-height $menu-transition-duration ease);
 
         max-height: 0;
 
@@ -145,7 +145,7 @@
             text-overflow: ellipsis;
             position: absolute;
             left: 50px;  // Width of avatar
-            transition: left 0.3s ease;
+            transition: left $menu-transition-duration ease;
 
             &:after {
                 font-size: 1.5em;
