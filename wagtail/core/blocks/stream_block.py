@@ -547,12 +547,10 @@ class StreamValue(MutableSequence):
         blocks = {}
         for item in self:
             block_type = item.block_type
-            block_value = item.value
-
             if block_type in blocks:
-                blocks[block_type].append(block_value)
+                blocks[block_type].append(item)
             else:
-                blocks[block_type] = [block_value]
+                blocks[block_type] = [item]
 
         return blocks
 
@@ -568,7 +566,7 @@ class StreamValue(MutableSequence):
 
         for item in self:
             if item.block_type == block_type:
-                return item.value
+                return item
 
     def __eq__(self, other):
         if not isinstance(other, StreamValue) or len(other) != len(self):
