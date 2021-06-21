@@ -24,7 +24,7 @@
             {% endfor %}
         </ul>
         {% if pages_with_no_access %}
-        <span>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be unpublished{% plural %}The following pages cannot be unpublished{% endblocktrans %} </span>
+        <span>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be unpublished{% plural %}The following pages cannot be unpublished{% endblocktrans %}</span>
         <ul>
             {% for page in pages_with_no_access %}
             <li>
