@@ -76,6 +76,8 @@ Changelog
  * Add an extra confirmation prompt when deleting pages with a large number of child pages (Jaspreet Singh)
  * Adopt the slim header in page listing views, with buttons moved under the "Actions" dropdown (Paarth Agarwal)
  * Improve help block styles in Windows High Contrast Mode with less reliance on communication via colour alone (Anuja Verma)
+ * Replace latin abbreviations (i.e. / e.g.) with common English phrases so that documentation is easier to understand (Dominik Lech)
+ * Add shortcut for accessing StreamField blocks by block name with new `blocks_by_name` and `first_block_by_name` methods on `StreamValue` (Tidiane Dia, Matt Westcott)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
  * Fix: Remove extra padding for headers with breadcrumbs on mobile viewport (Steven Steinwand)
@@ -2204,7 +2206,6 @@ Changelog
  * Added a system check to warn if Pillow is compiled without JPEG / PNG support
  * Page chooser now prevents users from selecting the root node where this would be invalid
  * New translations for Dutch (Netherlands), Georgian, Swedish and Turkish (Turkey)
- * Replace latin abbreviations (i.e. / e.g.) with common English phrases so that documentation is easier to understand (Dominik Lech)
  * Fix: Page slugs are no longer auto-updated from the page title if the page is already published
  * Fix: Deleting a page permission from the groups admin UI does not immediately submit the form
  * Fix: Wagtail userbar is shown on pages that do not pass a `page` variable to the template (e.g. because they override the `serve` method)

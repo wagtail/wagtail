@@ -1,7 +1,7 @@
 import itertools
 import uuid
 from collections import OrderedDict, defaultdict
-from collections.abc import MutableSequence
+from collections.abc import Mapping, MutableSequence
 
 from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
@@ -460,6 +460,52 @@ class StreamValue(MutableSequence):
         def __repr__(self):
             return repr(list(self))
 
+    class BlockNameLookup(Mapping):
+        """
+        Dict-like object returned from `blocks_by_name`, for looking up a stream's blocks by name.
+        Uses lazy evaluation on access, so that we're not redundantly constructing StreamChild
+        instances for blocks of different names.
+        """
+
+        def __init__(self, stream_value, find_all=True):
+            self.stream_value = stream_value
+            self.block_names = stream_value.stream_block.child_blocks.keys()
+            self.find_all = (
+                find_all  # whether to return all results rather than just the first
+            )
+
+        def __getitem__(self, block_name):
+            result = [] if self.find_all else None
+
+            if block_name not in self.block_names:
+                # skip the search and return an empty result
+                return result
+
+            for i in range(len(self.stream_value)):
+                # Skip over blocks that have not yet been instantiated from _raw_data and are of
+                # different names to the one we're looking for
+                if (
+                    self.stream_value._bound_blocks[i] is None
+                    and self.stream_value._raw_data[i]["type"] != block_name
+                ):
+                    continue
+
+                block = self.stream_value[i]
+                if block.block_type == block_name:
+                    if self.find_all:
+                        result.append(block)
+                    else:
+                        return block
+
+            return result
+
+        def __iter__(self):
+            for block_name in self.block_names:
+                yield block_name
+
+        def __len__(self):
+            return len(self.block_names)
+
     def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
         """
         Construct a StreamValue linked to the given StreamBlock,
@@ -589,6 +635,20 @@ class StreamValue(MutableSequence):
                 prep_value.append(raw_item)
 
         return prep_value
+
+    def blocks_by_name(self, block_name=None):
+        lookup = StreamValue.BlockNameLookup(self, find_all=True)
+        if block_name:
+            return lookup[block_name]
+        else:
+            return lookup
+
+    def first_block_by_name(self, block_name=None):
+        lookup = StreamValue.BlockNameLookup(self, find_all=False)
+        if block_name:
+            return lookup[block_name]
+        else:
+            return lookup
 
     def __eq__(self, other):
         if not isinstance(other, StreamValue) or len(other) != len(self):
