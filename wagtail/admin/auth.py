@@ -14,6 +14,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import override
 
 from wagtail.admin import messages
+from wagtail.core.log_actions import LogContext
 from wagtail.core.models import GroupPagePermission
 
 
@@ -167,30 +168,31 @@ def require_admin_access(view_func):
                     l18n.set_language(preferred_language)
                     time_zone = user.wagtail_userprofile.get_current_time_zone()
                     activate_tz(time_zone)
-                if preferred_language:
-                    with override(preferred_language):
-                        response = view_func(request, *args, **kwargs)
+                with LogContext(user=user):
+                    if preferred_language:
+                        with override(preferred_language):
+                            response = view_func(request, *args, **kwargs)
 
-                    if hasattr(response, "render"):
-                        # If the response has a render() method, Django treats it
-                        # like a TemplateResponse, so we should do the same
-                        # In this case, we need to guarantee that when the TemplateResponse
-                        # is rendered, it is done within the override context manager
-                        # or the user preferred_language will not be used
-                        # (this could be replaced with simply rendering the TemplateResponse
-                        # for simplicity but this does remove some of its middleware modification
-                        # potential)
-                        render = response.render
+                        if hasattr(response, "render"):
+                            # If the response has a render() method, Django treats it
+                            # like a TemplateResponse, so we should do the same
+                            # In this case, we need to guarantee that when the TemplateResponse
+                            # is rendered, it is done within the override context manager
+                            # or the user preferred_language will not be used
+                            # (this could be replaced with simply rendering the TemplateResponse
+                            # for simplicity but this does remove some of its middleware modification
+                            # potential)
+                            render = response.render
 
-                        def overridden_render(response):
-                            with override(preferred_language):
-                                return render()
+                            def overridden_render(response):
+                                with override(preferred_language):
+                                    return render()
 
-                        response.render = types.MethodType(overridden_render, response)
-                        # decorate the response render method with the override context manager
-                    return response
-                else:
-                    return view_func(request, *args, **kwargs)
+                            response.render = types.MethodType(overridden_render, response)
+                            # decorate the response render method with the override context manager
+                        return response
+                    else:
+                        return view_func(request, *args, **kwargs)
 
             except PermissionDenied:
                 if request.is_ajax():
