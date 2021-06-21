@@ -1,5 +1,8 @@
 .sidebar-menu-item {
-    > a {
+    @include transition(border-color $menu-transition-duration ease);
+    position: relative;
+
+    &__link {
         @include transition(border-color $menu-transition-duration ease, background-color $menu-transition-duration ease);
         position: relative;
         white-space: nowrap;
@@ -9,9 +12,9 @@
         text-decoration: none;
         display: block;
         color: $color-menu-text;
-        padding: 0.8em 1.7em;
-        font-size: 1em;
-        font-weight: normal;
+        padding: 11px 20px;
+        font-size: 13px;
+        font-weight: 400;
 
         // Note, font-weights lower than normal,
         // and font-size smaller than 1em (80% ~= 12.8px),
@@ -43,7 +46,6 @@
 
     &--in-sub-menu {
         white-space: normal;
-        padding: 0.9em 1.7em 0.9em 4.5em;
 
         &:hover {
             background-color: rgba(100, 100, 100, 0.2);
