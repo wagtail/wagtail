@@ -20,7 +20,7 @@
             {% endfor %}
         </ul>
         {% if pages_with_no_access %}
-        <span>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be moved{% plural %}The following pages cannot be moved{% endblocktrans %} </span>
+        <span>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be moved{% plural %}The following pages cannot be moved{% endblocktrans %}</span>
         <ul>
             {% for page in pages_with_no_access %}
             <li>
