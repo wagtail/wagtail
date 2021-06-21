@@ -3969,6 +3969,73 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         )
 
+    def test_block_names(self):
+        class ArticleBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.TextBlock()
+            date = blocks.DateBlock()
+
+        block = ArticleBlock()
+        value = block.to_python(
+            [
+                {
+                    "type": "heading",
+                    "value": "My title",
+                },
+                {
+                    "type": "paragraph",
+                    "value": "My first paragraph",
+                },
+                {
+                    "type": "paragraph",
+                    "value": "My second paragraph",
+                },
+            ]
+        )
+        blocks_by_name = value.blocks_by_name()
+        assert isinstance(blocks_by_name, blocks.StreamValue.BlockNameLookup)
+
+        # unpack results to a dict of {block name: list of block values} for easier comparison
+        result = {
+            block_name: [block.value for block in blocks]
+            for block_name, blocks in blocks_by_name.items()
+        }
+        self.assertEqual(
+            result,
+            {
+                "heading": ["My title"],
+                "paragraph": ["My first paragraph", "My second paragraph"],
+                "date": [],
+            },
+        )
+
+        paragraph_blocks = value.blocks_by_name(block_name="paragraph")
+        # We can also access by indexing on the stream
+        self.assertEqual(paragraph_blocks, value.blocks_by_name()["paragraph"])
+
+        self.assertEqual(len(paragraph_blocks), 2)
+        for block in paragraph_blocks:
+            self.assertEqual(block.block_type, "paragraph")
+
+        self.assertEqual(value.blocks_by_name(block_name="date"), [])
+        self.assertEqual(value.blocks_by_name(block_name="invalid_type"), [])
+
+        first_heading_block = value.first_block_by_name(block_name="heading")
+        self.assertEqual(first_heading_block.block_type, "heading")
+        self.assertEqual(first_heading_block.value, "My title")
+
+        self.assertIs(value.first_block_by_name(block_name="date"), None)
+        self.assertIs(value.first_block_by_name(block_name="invalid_type"), None)
+
+        # first_block_by_name with no argument returns a dict-like lookup of first blocks per name
+        first_blocks_by_name = value.first_block_by_name()
+        first_heading_block = first_blocks_by_name["heading"]
+        self.assertEqual(first_heading_block.block_type, "heading")
+        self.assertEqual(first_heading_block.value, "My title")
+
+        self.assertIs(first_blocks_by_name["date"], None)
+        self.assertIs(first_blocks_by_name["invalid_type"], None)
+
     def test_adapt_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering stream block"""
 
