@@ -25,7 +25,7 @@
             {% endfor %}
         </ul>
         {% if pages_with_no_access %}
-        <p>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be deleted{% plural %}The following pages cannot be deleted{% endblocktrans %} </p>
+        <span>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be deleted{% plural %}The following pages cannot be deleted{% endblocktrans %}</span>
         <ul>
             {% for page in pages_with_no_access %}
             <li>
