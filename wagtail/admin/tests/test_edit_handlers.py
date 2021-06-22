@@ -24,8 +24,8 @@ from wagtail.core.models import Comment, CommentReply, Page, Site
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
-    EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, RestaurantPage,
-    RestaurantTag, SimplePage, ValidatedPage)
+    DefaultStreamPage, EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel,
+    RestaurantPage, RestaurantTag, SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -216,6 +216,28 @@ class TestPageEditHandlers(TestCase):
             errors.sort(key=lambda e: e.id)
 
             self.assertEqual(errors, [invalid_base_form, invalid_edit_handler])
+
+    @clear_edit_handler(DefaultStreamPage)
+    def test_check_invalid_streamfield_edit_handler(self):
+        """
+        Set the edit handler for body (a StreamField) to be
+        a FieldPanel instead of a StreamFieldPanel.
+        Check that the correct warning is raised.
+        """
+
+        invalid_edit_handler = checks.Warning(
+            "DefaultStreamPage.body is a StreamField, but uses FieldPanel",
+            hint="Ensure that it uses a StreamFieldPanel, or change the field type",
+            obj=DefaultStreamPage,
+            id='wagtailadmin.W003')
+
+        with mock.patch.object(DefaultStreamPage, 'content_panels', new=[FieldPanel('body')]):
+            checks_result = checks.run_checks(tags=['panels'])
+
+            # Only look at warnings for DefaultStreamPage
+            warning = [warning for warning in checks_result if warning.obj == DefaultStreamPage]
+
+            self.assertEqual(warning, [invalid_edit_handler])
 
     @clear_edit_handler(ValidatedPage)
     def test_custom_edit_handler_form_class(self):
