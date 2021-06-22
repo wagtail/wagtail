@@ -36,7 +36,7 @@ export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDef
 
   return (
     <li className={className}>
-      <a href="#" onClick={onClick} className={item.classNames}>
+      <a href="#" onClick={onClick}>
         {item.iconName && <Icon name={item.iconName} className="icon--menuitem" />}
         <span className="menuitem-label">{item.label}</span>
       </a>
@@ -49,14 +49,12 @@ export class LinkMenuItemDefinition implements MenuItemDefinition {
   label: string;
   url: string;
   iconName: string | null;
-  classNames?: string;
 
-  constructor({ name, label, url, icon_name: iconName = null, classnames = undefined }) {
+  constructor({ name, label, url, icon_name: iconName = null }) {
     this.name = name;
     this.label = label;
     this.url = url;
     this.iconName = iconName;
-    this.classNames = classnames;
   }
 
   render({ path, state, dispatch, navigate }) {

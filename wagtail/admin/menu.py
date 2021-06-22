@@ -52,7 +52,7 @@ class MenuItem(metaclass=MediaDefiningClass):
         return render_to_string(self.template, context, request=request)
 
     def render_component(self, request):
-        return LinkMenuItemComponent(self.name, self.label, self.url, icon_name=self.icon_name, classnames=self.classnames)
+        return LinkMenuItemComponent(self.name, self.label, self.url, icon_name=self.icon_name)
 
 
 class Menu:
@@ -128,7 +128,7 @@ class SubmenuMenuItem(MenuItem):
         return context
 
     def render_component(self, request):
-        return SubMenuItemComponent(self.name, self.label, self.menu.render_component(request), icon_name=self.icon_name, classnames=self.classnames)
+        return SubMenuItemComponent(self.name, self.label, self.menu.render_component(request), icon_name=self.icon_name)
 
 
 class AdminOnlyMenuItem(MenuItem):

@@ -19,7 +19,6 @@ class TestAdaptLinkMenuItem(TestCase):
             '_type': 'wagtail.sidebar.LinkMenuItem',
             '_args': [
                 {
-                    'classnames': '',
                     'icon_name': '',
                     'label': 'Link',
                     'name': 'link',
@@ -29,13 +28,12 @@ class TestAdaptLinkMenuItem(TestCase):
         })
 
     def test_adapt_with_classnames_and_icon(self):
-        packed = JSContext().pack(LinkMenuItem('link', "Link", '/link/', icon_name='link-icon', classnames='some classes'))
+        packed = JSContext().pack(LinkMenuItem('link', "Link", '/link/', icon_name='link-icon'))
 
         self.assertEqual(packed, {
             '_type': 'wagtail.sidebar.LinkMenuItem',
             '_args': [
                 {
-                    'classnames': 'some classes',
                     'icon_name': 'link-icon',
                     'label': 'Link',
                     'name': 'link',
@@ -60,7 +58,6 @@ class TestAdaptSubMenuItem(TestCase):
                     'name': 'sub-menu',
                     'label': 'Sub menu',
                     'icon_name': '',
-                    'classnames': '',
                     'footer_text': 'Footer text'
                 },
                 [
@@ -71,7 +68,6 @@ class TestAdaptSubMenuItem(TestCase):
                                 'name': 'link',
                                 'label': 'Link',
                                 'icon_name': 'link-icon',
-                                'classnames': '',
                                 'url': '/link/'
                             }
                         ]
@@ -94,7 +90,6 @@ class TestAdaptSubMenuItem(TestCase):
                     'name': 'sub-menu',
                     'label': 'Sub menu',
                     'icon_name': '',
-                    'classnames': '',
                     'footer_text': ''
                 },
                 [
@@ -105,7 +100,6 @@ class TestAdaptSubMenuItem(TestCase):
                                 'name': 'link',
                                 'label': 'Link',
                                 'icon_name': 'link-icon',
-                                'classnames': '',
                                 'url': '/link/'
                             }
                         ]
@@ -123,7 +117,6 @@ class TestAdaptPageExplorerMenuItem(TestCase):
             '_type': 'wagtail.sidebar.PageExplorerMenuItem',
             '_args': [
                 {
-                    'classnames': '',
                     'icon_name': '',
                     'label': 'Pages',
                     'name': 'pages',
@@ -206,7 +199,7 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
                     {
                         '_type': 'wagtail.sidebar.LinkMenuItem',
                         '_args': [
-                            {'name': 'pages', 'label': 'Pages', 'icon_name': '', 'classnames': '', 'url': '/pages/'}
+                            {'name': 'pages', 'label': 'Pages', 'icon_name': '', 'url': '/pages/'}
                         ]
                     }
                 ],
@@ -214,13 +207,13 @@ class TestAdaptMainMenuModule(DjangoTestCase, WagtailTestUtils):
                     {
                         '_type': 'wagtail.sidebar.LinkMenuItem',
                         '_args': [
-                            {'name': 'account', 'label': 'Account', 'icon_name': 'user', 'classnames': '', 'url': reverse('wagtailadmin_account')}
+                            {'name': 'account', 'label': 'Account', 'icon_name': 'user', 'url': reverse('wagtailadmin_account')}
                         ]
                     },
                     {
                         '_type': 'wagtail.sidebar.LinkMenuItem',
                         '_args': [
-                            {'name': 'logout', 'label': 'Logout', 'icon_name': 'logout', 'classnames': '', 'url': reverse('wagtailadmin_logout')}
+                            {'name': 'logout', 'label': 'Logout', 'icon_name': 'logout', 'url': reverse('wagtailadmin_logout')}
                         ]
                     }
                 ],

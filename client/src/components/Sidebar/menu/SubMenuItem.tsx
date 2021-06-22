@@ -67,7 +67,6 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
       <a
         href="#"
         onClick={onClick}
-        className={item.classNames}
         aria-haspopup="true"
         aria-expanded={isOpen ? 'true' : 'false'}
       >
@@ -77,7 +76,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
       </a>
       <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={depth}>
         <div className="sidebar-sub-menu-panel">
-          <h2 id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`} className={item.classNames}>
+          <h2 id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}>
             {item.iconName && <Icon name={item.iconName} className="icon--submenu-header" />}
             {item.label}
           </h2>
@@ -96,7 +95,6 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
   label: string;
   menuItems: MenuItemDefinition[];
   iconName: string | null;
-  classNames?: string;
   footerText: string;
 
   constructor(
@@ -104,7 +102,6 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
       name,
       label,
       icon_name: iconName = null,
-      classnames = undefined,
       footer_text: footerText = '',
     }: any,
     menuItems: MenuItemDefinition[]
@@ -113,7 +110,6 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
     this.label = label;
     this.menuItems = menuItems;
     this.iconName = iconName;
-    this.classNames = classnames;
     this.footerText = footerText;
   }
 

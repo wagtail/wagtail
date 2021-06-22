@@ -94,8 +94,8 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
 export class PageExplorerMenuItemDefinition extends LinkMenuItemDefinition {
   startPageId: number;
 
-  constructor({ name, label, url, icon_name: iconName = null, classnames = undefined }, startPageId: number) {
-    super({ name, label, url, icon_name: iconName, classnames });
+  constructor({ name, label, url, icon_name: iconName = null }, startPageId: number) {
+    super({ name, label, url, icon_name: iconName });
     this.startPageId = startPageId;
   }
 

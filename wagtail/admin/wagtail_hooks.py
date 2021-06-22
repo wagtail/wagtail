@@ -52,7 +52,7 @@ class ExplorerMenuItem(MenuItem):
         start_page = get_explorable_root_page(request.user)
 
         if start_page:
-            return PageExplorerMenuItemComponent(self.name, self.label, self.url, start_page.id, icon_name=self.icon_name, classnames=self.classnames)
+            return PageExplorerMenuItemComponent(self.name, self.label, self.url, start_page.id, icon_name=self.icon_name)
         else:
             return super().render_component(request)
 
@@ -75,7 +75,6 @@ class SettingsMenuItem(SubmenuMenuItem):
             self.label,
             self.menu.render_component(request),
             icon_name=self.icon_name,
-            classnames=self.classnames,
             footer_text="Wagtail v." + __version__
         )
 

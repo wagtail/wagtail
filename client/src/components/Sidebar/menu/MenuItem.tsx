@@ -12,7 +12,6 @@ export interface MenuItemDefinition {
   name: string;
   label: string;
   iconName: string | null;
-  classNames?: string;
   render(context: MenuItemRenderContext): React.ReactFragment;
 }
 

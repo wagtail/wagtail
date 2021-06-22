@@ -19,11 +19,10 @@ class BaseSidebarAdapter(Adapter):
 # Main menu
 
 class MenuItem:
-    def __init__(self, name: str, label: str, icon_name: str = '', classnames: str = ''):
+    def __init__(self, name: str, label: str, icon_name: str = ''):
         self.name = name
         self.label = label
         self.icon_name = icon_name
-        self.classnames = classnames
 
     def js_args(self):
         return [
@@ -31,15 +30,14 @@ class MenuItem:
                 'name': self.name,
                 'label': self.label,
                 'icon_name': self.icon_name,
-                'classnames': self.classnames,
             }
         ]
 
 
 @adapter('wagtail.sidebar.LinkMenuItem', base=BaseSidebarAdapter)
 class LinkMenuItem(MenuItem):
-    def __init__(self, name: str, label: str, url: str, icon_name: str = '', classnames: str = ''):
-        super().__init__(name, label, icon_name=icon_name, classnames=classnames)
+    def __init__(self, name: str, label: str, url: str, icon_name: str = ''):
+        super().__init__(name, label, icon_name=icon_name)
         self.url = url
 
     def js_args(self):
@@ -54,14 +52,13 @@ class LinkMenuItem(MenuItem):
             and self.label == other.label
             and self.url == other.url
             and self.icon_name == other.icon_name
-            and self.classnames == other.classnames
         )
 
 
 @adapter('wagtail.sidebar.SubMenuItem', base=BaseSidebarAdapter)
 class SubMenuItem(MenuItem):
-    def __init__(self, name: str, label: str, menu_items: List[MenuItem], icon_name: str = '', classnames: str = '', footer_text: str = ''):
-        super().__init__(name, label, icon_name=icon_name, classnames=classnames)
+    def __init__(self, name: str, label: str, menu_items: List[MenuItem], icon_name: str = '', footer_text: str = ''):
+        super().__init__(name, label, icon_name=icon_name)
         self.menu_items = menu_items
         self.footer_text = footer_text
 
@@ -78,15 +75,14 @@ class SubMenuItem(MenuItem):
             and self.label == other.label
             and self.menu_items == other.menu_items
             and self.icon_name == other.icon_name
-            and self.classnames == other.classnames
             and self.footer_text == other.footer_text
         )
 
 
 @adapter('wagtail.sidebar.PageExplorerMenuItem', base=BaseSidebarAdapter)
 class PageExplorerMenuItem(LinkMenuItem):
-    def __init__(self, name: str, label: str, url: str, start_page_id: int, icon_name: str = '', classnames: str = ''):
-        super().__init__(name, label, url, icon_name=icon_name, classnames=classnames)
+    def __init__(self, name: str, label: str, url: str, start_page_id: int, icon_name: str = ''):
+        super().__init__(name, label, url, icon_name=icon_name)
         self.start_page_id = start_page_id
 
     def js_args(self):
@@ -102,7 +98,6 @@ class PageExplorerMenuItem(LinkMenuItem):
             and self.url == other.url
             and self.start_page_id == other.start_page_id
             and self.icon_name == other.icon_name
-            and self.classnames == other.classnames
         )
 
 
