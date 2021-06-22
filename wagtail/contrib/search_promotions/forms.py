@@ -3,8 +3,7 @@ from django.forms.models import inlineformset_factory
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.widgets import AdminPageChooser
-from wagtail.contrib.search_promotions.models import SearchPromotion
-from wagtail.search.models import Query
+from wagtail.contrib.search_promotions.models import Query, SearchPromotion
 
 
 class SearchPromotionForm(forms.ModelForm):

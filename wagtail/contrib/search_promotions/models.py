@@ -5,7 +5,6 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.search.models import Query as WagtailSearchQuery
 from wagtail.search.utils import MAX_QUERY_STRING_LENGTH, normalise_query_string
 
 
@@ -93,10 +92,7 @@ class QueryDailyHits(models.Model):
 
 class SearchPromotion(models.Model):
     query = models.ForeignKey(
-        WagtailSearchQuery,
-        db_index=True,
-        related_name="editors_picks",
-        on_delete=models.CASCADE,
+        Query, db_index=True, related_name="editors_picks", on_delete=models.CASCADE
     )
     page = models.ForeignKey(
         "wagtailcore.Page", verbose_name=_("page"), on_delete=models.CASCADE
