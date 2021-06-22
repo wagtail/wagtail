@@ -85,7 +85,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
           <ul aria-labelledby={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}>
             {renderMenu(path, item.menuItems, slim, state, dispatch, navigate)}
           </ul>
-          {item.footerText && <p className="sidebar-panel__footer">{item.footerText}</p>}
+          {item.footerText && <p className="sidebar-sub-menu-panel__footer">{item.footerText}</p>}
         </div>
       </SidebarPanel>
     </li>
