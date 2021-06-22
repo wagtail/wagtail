@@ -17,7 +17,14 @@ export const SidebarPanel: React.FunctionComponent<SidebarPanelProps> = (
     + (isOpen ? ' sidebar-panel--open' : '')
   );
 
-  const style = { zIndex: -depth };
+  const style = { zIndex: -depth * 2 };
+
+  const isClosing = isVisible && !isOpen;
+  if (isClosing) {
+    // When closing, make sure this panel displays behind any new panel that is opening
+    style.zIndex--;
+  }
+
   if (widthPx) {
     style['--width'] = widthPx + 'px';
   }

@@ -15,6 +15,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
   { path, item, state, dispatch, navigate }) => {
   const isOpen = state.navigationPath.startsWith(path);
   const isActive = isOpen || state.activePath.startsWith(path);
+  const depth = path.split('.').length;
   const isInSubMenu = path.split('.').length > 2;
   const [isVisible, setIsVisible] = React.useState(false);
 
@@ -79,7 +80,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
       </Button>
       <div>
-        <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={1} widthPx={485}>
+        <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={depth} widthPx={485}>
           {store.current &&
             <Provider store={store.current}>
               <PageExplorer isVisible={isVisible} navigate={navigate} />
