@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import * as React from 'react';
+import Icon from '../../Icon/Icon';
 
 import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
 import { MenuItemDefinition } from '../menu/MenuItem';
@@ -169,8 +170,12 @@ export const Menu: React.FunctionComponent<MenuProps> = (
             <span className="avatar square avatar-on-dark">
               <img src={user.avatarUrl} alt="" />
             </span>
-            <em className={'icon ' + (accountSettingsOpen ? 'icon-arrow-down-after' : 'icon-arrow-up-after')}>
+            <em>
               {user.name}
+              <Icon
+                className="sidebar-footer__account--icon"
+                name={(accountSettingsOpen ? 'arrow-down' : 'arrow-up')}
+              />
             </em>
           </div>
 

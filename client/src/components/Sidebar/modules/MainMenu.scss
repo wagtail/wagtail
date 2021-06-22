@@ -132,6 +132,13 @@
             }
         }
 
+        &--icon {
+            height: 1.5em;
+            width: 1.5em;
+            position: absolute;
+            right: 0.25em;
+        }
+
         em {
             box-sizing: border-box;
             padding-right: 1.8em;
@@ -146,12 +153,6 @@
             position: absolute;
             left: 50px;  // Width of avatar
             transition: left $menu-transition-duration ease;
-
-            &:after {
-                font-size: 1.5em;
-                position: absolute;
-                right: 0.25em;
-            }
         }
     }
 
