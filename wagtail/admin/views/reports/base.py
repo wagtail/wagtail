@@ -1,11 +1,11 @@
 from django.utils.translation import gettext_lazy as _
-from django.views.generic.base import TemplateResponseMixin
-from django.views.generic.list import BaseListView
+from django.views.generic.base import TemplateResponseMixin, View
+from django.views.generic.list import MultipleObjectMixin
 
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 
 
-class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
+class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, MultipleObjectMixin, View):
     header_icon = ""
     page_kwarg = "p"
     template_name = "wagtailadmin/reports/base_report.html"
@@ -22,12 +22,18 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, BaseListView):
 
         return filters, queryset
 
-    def dispatch(self, request, *args, **kwargs):
+    def get_filtered_queryset(self):
+        return self.filter_queryset(self.get_queryset())
+
+    def get(self, request, *args, **kwargs):
+        self.filters, self.object_list = self.get_filtered_queryset()
         self.is_export = self.request.GET.get("export") in self.FORMATS
         if self.is_export:
             self.paginate_by = None
-            return self.as_spreadsheet(self.filter_queryset(self.get_queryset())[1], self.request.GET.get("export"))
-        return super().dispatch(request, *args, **kwargs)
+            return self.as_spreadsheet(self.object_list, self.request.GET.get("export"))
+        else:
+            context = self.get_context_data()
+            return self.render_to_response(context)
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
