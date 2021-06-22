@@ -114,8 +114,6 @@ const initEditor = (selector, options, currentScript) => {
     enableHorizontalRule
   };
 
-  const contentPath = window.comments.getContentPath(field);
-
   const styles = getComputedStyle(document.documentElement);
   const colors = {
     standardHighlight: styles.getPropertyValue('--color-primary-light'),
@@ -125,7 +123,8 @@ const initEditor = (selector, options, currentScript) => {
 
   // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -
   // and the comments system is initialized then use CommentableEditor, otherwise plain DraftailEditor
-  const editor = (window.comments.commentApp && contentPath !== '') ?
+  const contentPath = window.comments?.getContentPath(field) || '';
+  const editor = (window.comments?.commentApp && contentPath !== '') ?
     <Provider store={window.comments.commentApp.store}>
       <CommentableEditor
         editorRef={editorRef}
