@@ -68,7 +68,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
       <a
         href="#"
         onClick={onClick}
-        className={item.classNames}
+        className={`sidebar-menu-item__link ${item.classNames}`}
         aria-haspopup="true"
         aria-expanded={isOpen ? 'true' : 'false'}
       >
