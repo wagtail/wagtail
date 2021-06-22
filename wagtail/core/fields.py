@@ -12,8 +12,13 @@ class RichTextField(models.TextField):
     def __init__(self, *args, **kwargs):
         self.editor = kwargs.pop('editor', 'default')
         self.features = kwargs.pop('features', None)
-        # TODO: preserve 'editor' and 'features' when deconstructing for migrations
         super().__init__(*args, **kwargs)
+        
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs['features'] = self.features
+        kwargs['editor'] = self.editor
+        return name, path, args, kwargs
 
     def formfield(self, **kwargs):
         from wagtail.admin.rich_text import get_rich_text_editor_widget
