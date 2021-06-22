@@ -31,9 +31,6 @@
     &--open {
         left: $menu-width;
 
-        // If another submenu is opening, display this menu behind it
-        z-index: -1;
-
         @at-root .sidebar--slim #{&} {
             left: $menu-width-slim;
         }
