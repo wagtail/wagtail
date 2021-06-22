@@ -1,17 +1,18 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans count counter=num_pages %}Move 1 page{% plural %}Move {{ counter }} pages {% endblocktrans %}
+{% block titletag %}{% blocktrans count counter=pages|length %}Move 1 page{% plural %}Move {{ counter }} pages{% endblocktrans %}
 {% endblock %}
 {% block content %}
+    
     {% trans "Move" as move_str %}
     {% include "wagtailadmin/shared/header.html" with title=move_str icon="doc-empty-inverse" %}
     <div class="nice-padding">
-        <p>{% trans "Are you sure you want to move these pages into" %} {{destination.title}}?</p>
+        <span>{% trans "Are you sure you want to move these pages?" %}</span>
         <ul>
-            {% for page in pages_to_move %}
+            {% for page in pages %}
             <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
-                {% if not page.is_leaf %}
+                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
+                {% if not page.page.is_leaf %}
                 <ul>
                     <li>{% trans "This page has child pages" %}</li>
                 </ul>
@@ -30,9 +31,52 @@
         </ul>
         {% endif %}
 
+        {% if pages_without_destination_access %}
+        <span>{% blocktrans with dest_title=destination.title count counter=pages_with_no_access|length %}The following page cannot be moved to {{dest_title}} {% plural %}The following pages cannot be moved to {{dest_title}}{% endblocktrans %}</span>
+        <ul>
+            {% for page in pages_without_destination_access %}
+            <li>
+                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if pages_with_duplicate_slugs %}
+        <span>{% blocktrans count counter=pages_with_duplicate_slugs|length %}The following page cannot be moved due to duplicate slug{% plural %}The following pages cannot be moved due to duplicate slugs{% endblocktrans %}</span>
+        <ul>
+            {% for page in pages_with_duplicate_slugs %}
+            <li>
+                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
         <form action="{{ submit_url }}" method="POST">
             {% csrf_token %}
+            <ul class="fields">
+            {% include "wagtailadmin/shared/field_as_li.html" with field=form.chooser %}
+            {% if pages_without_destination_access or pages_with_duplicate_slugs %}
+            <li>
+                <div class="field boolean_field checkbox_input">
+                    <div class="field-content">
+                        <div class="input">
+                            <input id="id_move_applicable" name="move_applicable" type="checkbox">
+                            <label for="id_move_applicable" class="plain-checkbox-label">{% trans "Move only applicable pages" %}</label>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+            </ul>
             <input type="submit" value="{% trans 'Yes, move these pages' %}" class="button">
         </form>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% include "wagtailadmin/pages/_editor_js.html" %}
+    {{ form.media.js }}
 {% endblock %}
