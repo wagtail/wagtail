@@ -39,6 +39,7 @@ Bug fixes
  * Respect cache_age parameters on embeds (Gordon Pendleton)
  * Page comparison view now reflects request-level customisations to edit handlers (Matt Westcott)
  * Add ``block.super`` to remaining ``extra_js`` & ``extra_css`` blocks (Andrew Stone)
+ * Ensure that ``editor`` and ``features`` arguments on RichTextField are preserved by ``clone()`` (Daniel)
 
 Upgrade considerations
 ======================
