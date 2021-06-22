@@ -201,13 +201,14 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
     this.user = user;
   }
 
-  render({ slim, currentPath, strings, navigate }) {
+  render({ slim, key, currentPath, strings, navigate }) {
     return (
       <Menu
         menuItems={this.menuItems}
         accountMenuItems={this.accountMenuItems}
         user={this.user}
         slim={slim}
+        key={key}
         currentPath={currentPath}
         strings={strings}
         navigate={navigate}

@@ -36,7 +36,7 @@ export class CustomBrandingModuleDefinition implements ModuleDefinition {
     this.html = html;
   }
 
-  render({ strings, navigate }) {
-    return <CustomBranding homeUrl={this.homeUrl} html={this.html} strings={strings} navigate={navigate} />;
+  render({ strings, navigate, key }) {
+    return <CustomBranding key={key} homeUrl={this.homeUrl} html={this.html} strings={strings} navigate={navigate} />;
   }
 }

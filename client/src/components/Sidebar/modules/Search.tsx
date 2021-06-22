@@ -53,11 +53,12 @@ export class SearchModuleDefinition implements ModuleDefinition {
     this.searchUrl = searchUrl;
   }
 
-  render({ slim, expandingOrCollapsing, strings, navigate }) {
+  render({ slim, key, expandingOrCollapsing, strings, navigate }) {
     return (
       <SearchInput
         searchUrl={this.searchUrl}
         slim={slim}
+        key={key}
         expandingOrCollapsing={expandingOrCollapsing}
         strings={strings}
         navigate={navigate}

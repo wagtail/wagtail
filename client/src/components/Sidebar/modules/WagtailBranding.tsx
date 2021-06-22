@@ -81,7 +81,10 @@ export class WagtailBrandingModuleDefinition implements ModuleDefinition {
     this.images = images;
   }
 
-  render({ strings, navigate }) {
-    return <WagtailBranding homeUrl={this.homeUrl} images={this.images} strings={strings} navigate={navigate} />;
+  render({ strings, key, navigate }) {
+    return (<WagtailBranding
+      key={key} homeUrl={this.homeUrl} images={this.images}
+      strings={strings} navigate={navigate}
+    />);
   }
 }
