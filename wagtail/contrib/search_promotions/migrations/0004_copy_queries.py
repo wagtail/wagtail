@@ -6,10 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailsearchpromotions', '0003_query_querydailyhits'),
+        ("wagtailsearchpromotions", "0003_query_querydailyhits"),
     ]
 
     operations = [
-        migrations.RunSQL('INSERT INTO wagtailsearchpromotions_query SELECT * FROM wagtailsearch_query', ''),
-        migrations.RunSQL('INSERT INTO wagtailsearchpromotions_querydailyhits SELECT * FROM wagtailsearch_querydailyhits', ''),
+        migrations.RunSQL(
+            "INSERT INTO wagtailsearchpromotions_query SELECT * FROM wagtailsearch_query",
+            "",
+        ),
+        migrations.RunSQL(
+            "INSERT INTO wagtailsearchpromotions_querydailyhits SELECT * FROM wagtailsearch_querydailyhits",
+            "",
+        ),
     ]
