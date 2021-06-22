@@ -11,6 +11,7 @@ export interface Strings {
 }
 
 export interface ModuleRenderContext {
+  key: number;
   slim: boolean;
   expandingOrCollapsing: boolean;
   currentPath: string;
@@ -105,7 +106,8 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
 
   // Render modules
   const renderedModules = modules.map(
-    module => module.render({
+    (module, index) => module.render({
+      key: index,
       slim,
       expandingOrCollapsing,
       currentPath,
