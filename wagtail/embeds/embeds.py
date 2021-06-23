@@ -13,7 +13,7 @@ def get_embed(url, max_width=None, finder=None):
 
     # Check database
     try:
-        return Embed.objects.exclude(cache_until__lte=now()).get(hash=embed_hash)
+        return Embed.objects.exclude(cache_until__isnull=False, cache_until__lte=now()).get(hash=embed_hash)
     except Embed.DoesNotExist:
         pass
 
