@@ -13,7 +13,7 @@
     flex-direction: column;
     overflow: hidden;
 
-    @include transition(left 0.3s ease);
+    @include transition(left $menu-transition-duration ease);
 
     &--visible {
         visibility: visible;

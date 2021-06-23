@@ -3,7 +3,7 @@
     overflow: auto;
     overflow-x: hidden;
     margin-bottom: 50px;
-    @include transition(margin-bottom 0.3s ease);
+    @include transition(margin-bottom $menu-transition-duration ease);
 
     &--open-footer {
         margin-bottom: 127px;
@@ -19,7 +19,7 @@
     ul > li {
         position: relative;
 
-        @include transition(border-color 0.3s ease);
+        @include transition(border-color $menu-transition-duration ease);
     }
 
     *:focus {
@@ -43,10 +43,10 @@
 
     > ul > li > a {
         // Need !important to override body.ready class
-        transition: padding 0.3s ease !important;
+        transition: padding $menu-transition-duration ease !important;
 
         .menuitem-label {
-            transition: opacity 0.3s ease;
+            transition: opacity $menu-transition-duration ease;
         }
     }
 
