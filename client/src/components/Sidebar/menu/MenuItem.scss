@@ -1,4 +1,5 @@
 .sidebar-menu-item {
+    $root: &;
     @include transition(border-color $menu-transition-duration ease);
     position: relative;
 
@@ -6,6 +7,7 @@
         @include transition(border-color $menu-transition-duration ease, background-color $menu-transition-duration ease);
         position: relative;
         display: flex;
+        white-space: nowrap;
         border-left: 3px solid transparent;
 
         -webkit-font-smoothing: auto;
@@ -44,6 +46,11 @@
     }
 
     &--in-sub-menu {
+        #{$root}__link {
+            // Links inside a submenu should have normal wrapping
+            white-space: normal;
+        }
+
         &:hover {
             background-color: rgba(100, 100, 100, 0.2);
         }
