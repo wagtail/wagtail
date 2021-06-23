@@ -33,6 +33,7 @@ Bug fixes
  * Prevent error when filtering page search results with a malformed content_type (Chris Pollard)
  * Prevent multiple submissions of "update" form when uploading images / documents (Mike Brown)
  * Ensure HTML title is populated on project template 404 page (Matt Westcott)
+ * Respect cache_age parameters on embeds (Gordon Pendleton)
 
 Upgrade considerations
 ======================
