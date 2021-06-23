@@ -204,7 +204,7 @@ class TestEmbeds(TestCase):
         embed.save()
         embed_3 = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
         self.assertEqual(self.hit_count, 2)
-        
+
         # ensure we've received the same embed
         self.assertEqual(embed, embed_2)
         self.assertEqual(embed, embed_3)
