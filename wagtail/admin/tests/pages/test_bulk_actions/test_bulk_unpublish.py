@@ -1,9 +1,7 @@
 from unittest import mock
 
-from django.http.response import HttpResponse
-
 from django.contrib.auth.models import Permission
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -113,7 +111,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
 
         # Check that the page_unpublished signal was fired
         self.assertEqual(mock_handler.call_count, len(self.pages_to_be_unpublished))
-        
+
         for i, child_page in enumerate(self.pages_to_be_unpublished):
             mock_call = mock_handler.mock_calls[i][2]
             self.assertEqual(mock_call['sender'], child_page.specific_class)
@@ -121,7 +119,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
             self.assertIsInstance(mock_call['instance'], child_page.specific_class)
 
     def test_after_unpublish_page(self):
-        
+
         def hook_func(request, action_type, pages, action_class_instance):
             self.assertEqual(action_type, 'unpublish')
             self.assertIsInstance(request, HttpRequest)
@@ -142,7 +140,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
             self.assertEqual(child_page.status_string, _("draft"))
 
     def test_before_unpublish_page(self):
-        
+
         def hook_func(request, action_type, pages, action_class_instance):
             self.assertEqual(action_type, 'unpublish')
             self.assertIsInstance(request, HttpRequest)

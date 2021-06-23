@@ -516,7 +516,7 @@ def page_bulk_action_choices(context, page):
         bulk_actions_list = hook(context.request, bulk_actions_list)
 
     bulk_actions_list.sort(key=lambda x: x.action_priority)
-    
+
     bulk_action_buttons = [
         PageListingButton(
             action.display_name,

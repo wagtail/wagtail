@@ -12,14 +12,16 @@ from wagtail.core import hooks
 
 class BulkAction(ABC, TemplateView):
     @abstractproperty
-    def display_name(self): pass
+    def display_name(self):
+        pass
 
     @abstractproperty
-    def action_type(self): pass
-    
-    @abstractproperty
-    def aria_label(self): pass
+    def action_type(self):
+        pass
 
+    @abstractproperty
+    def aria_label(self):
+        pass
 
     num_child_objects = 0
     num_parent_objects = 0
@@ -86,7 +88,7 @@ class BulkAction(ABC, TemplateView):
             else:
                 objects.append(obj)
         return objects, objects_with_no_access
-    
+
     def get_context_data(self, **kwargs):
         objects, objects_with_no_access = self.get_actionable_objects()
         _objects = []

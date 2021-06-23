@@ -91,7 +91,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
 
         # Get move page
         response = self.client.get(self.url)
-        
+
         self.assertEqual(response.status_code, 200)
 
         html = response.content.decode()
@@ -130,7 +130,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
         self.root_page.add_child(instance=page)
 
         response = self.client.post(self.url, {'chooser': page.id})
-        
+
         html = response.content.decode()
 
         self.assertInHTML('<span>The following pages cannot be moved to {}</span>'.format(page.title), html)
@@ -153,7 +153,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
         self.section_b.add_child(instance=temp_page_2)
 
         response = self.client.post(self.url, {'chooser': self.section_b.id})
-        
+
         html = response.content.decode()
 
         self.assertInHTML('<span>The following pages cannot be moved due to duplicate slugs</span>', html)
@@ -168,7 +168,6 @@ class TestBulkMove(TestCase, WagtailTestUtils):
         self.assertInHTML(needle, html)
 
         self.assertContains(response, '<input id="id_move_applicable" name="move_applicable" type="checkbox">')
-
 
     def test_bulk_move_ignore_permission_errors(self):
         temp_page_1 = SimplePage(title="Hello world!", slug="hello-world-b", content="hello")

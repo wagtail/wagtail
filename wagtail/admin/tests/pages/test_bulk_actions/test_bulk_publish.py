@@ -1,9 +1,7 @@
 from unittest import mock
 
-from django.http.response import HttpResponse
-
 from django.contrib.auth.models import Permission
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -120,7 +118,7 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
             self.assertIsInstance(mock_call['instance'], child_page.specific_class)
 
     def test_after_publish_page(self):
-        
+
         def hook_func(request, action_type, pages, action_class_instance):
             self.assertEqual(action_type, 'publish')
             self.assertIsInstance(request, HttpRequest)
@@ -141,7 +139,7 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
             self.assertEqual(child_page.status_string, _("live"))
 
     def test_before_publish_page(self):
-        
+
         def hook_func(request, action_type, pages, action_class_instance):
             self.assertEqual(action_type, 'publish')
             self.assertIsInstance(request, HttpRequest)
