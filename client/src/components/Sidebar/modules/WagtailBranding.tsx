@@ -54,19 +54,23 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({ homeUr
   };
 
   const desktopClassName = (
-    'sidebar-wagtail-branding__desktop'
-    + (isWagging ? ' sidebar-wagtail-branding__desktop--wagging' : '')
+    'sidebar-wagtail-branding'
+    + (isWagging ? ' sidebar-wagtail-branding--wagging' : '')
   );
 
   return (
-    <a className="sidebar-wagtail-branding" href="#" onClick={onClick} aria-label={strings.DASHBOARD}>
-      <div className={desktopClassName} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}>
-        <div>
-          <img data-part="body" src={images.desktopLogoBody} alt="" />
-          <img data-part="tail" src={images.desktopLogoTail} alt="" />
-          <img data-part="eye--open" src={images.desktopLogoEyeOpen} alt="" />
-          <img data-part="eye--closed" src={images.desktopLogoEyeClosed} alt="" />
-        </div>
+    <a
+      className={desktopClassName} href="#" aria-label={strings.DASHBOARD}
+      onClick={onClick} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
+    >
+      <div className="sidebar-wagtail-branding__icon-wrapper">
+        <img className="sidebar-wagtail-branding__icon" data-part="body" src={images.desktopLogoBody} alt="" />
+        <img className="sidebar-wagtail-branding__icon" data-part="tail" src={images.desktopLogoTail} alt="" />
+        <img className="sidebar-wagtail-branding__icon" data-part="eye--open" src={images.desktopLogoEyeOpen} alt="" />
+        <img
+          className="sidebar-wagtail-branding__icon" data-part="eye--closed" src={images.desktopLogoEyeClosed}
+          alt=""
+        />
       </div>
     </a>
   );
