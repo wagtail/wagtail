@@ -8,7 +8,7 @@
     margin: 2em auto;
     text-align: center;
     padding: 10px 0;
-    transition: padding 0.3s ease;
+    transition: padding $menu-transition-duration ease;
 
     &:hover {
         color: $color-white;
@@ -35,14 +35,14 @@
         background-color: #555;
         border-radius: 50%;
         margin: 0 auto;
-        transition: transform 0.3s cubic-bezier(0.28, 0.15, 0, 2.1), width 0.3s ease, height 0.3s ease;
+        transition: transform $menu-transition-duration cubic-bezier(0.28, 0.15, 0, 2.1), width $menu-transition-duration ease, height $menu-transition-duration ease;
 
         > div {
             margin: auto;
             position: relative;
             width: 52px;
             height: 100px;
-            transition: width 0.3s ease, height 0.3s ease;
+            transition: width $menu-transition-duration ease, height $menu-transition-duration ease;
 
             @at-root .sidebar--slim #{&} {
                 width: 20px;
