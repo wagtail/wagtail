@@ -258,7 +258,7 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
     def test_before_delete_page_hook(self):
-        
+
         def hook_func(request, action_type, pages, action_class_instance):
             self.assertEqual(action_type, 'delete')
             self.assertIsInstance(request, HttpRequest)
@@ -293,7 +293,6 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
-
 
         # Check that the child pages to be deleted are gone
         for child_page in self.pages_to_be_deleted:
