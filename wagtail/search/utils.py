@@ -2,6 +2,7 @@ import operator
 import re
 
 from functools import partial
+from django.apps import apps
 
 from .query import MATCH_NONE, Phrase, PlainText
 
@@ -130,3 +131,23 @@ def parse_query_string(query_string, operator=None, zero_terms=MATCH_NONE):
         search_query = zero_terms
 
     return filters, search_query
+
+
+def get_descendant_models(model):
+    """
+    Returns all descendants of a model, including the model itself.
+    """
+    descendant_models = {other_model for other_model in apps.get_models()
+                         if issubclass(other_model, model)}
+    descendant_models.add(model)
+    return descendant_models
+
+
+def get_descendants_content_types_pks(model):
+    """
+    Returns content types ids for the descendants of this model, including it.
+    """
+    from django.contrib.contenttypes.models import ContentType
+    return [ct.pk for ct in
+            ContentType.objects.get_for_models(*get_descendant_models(model))
+            .values()]
