@@ -10,11 +10,10 @@ from .models import Embed
 
 def get_embed(url, max_width=None, finder=None):
     embed_hash = get_embed_hash(url, max_width)
-    qs = Embed.objects.exclude(cache_until__lte=now())
 
     # Check database
     try:
-        return qs.get(hash=embed_hash)
+        return Embed.objects.get(hash=embed_hash, cache_until__lte=now())
     except Embed.DoesNotExist:
         pass
 
@@ -50,7 +49,7 @@ def get_embed(url, max_width=None, finder=None):
         embed_dict['thumbnail_url'] = ''
 
     # Create database record
-    embed, created = qs.update_or_create(
+    embed, created = Embed.objects.update_or_create(
         hash=embed_hash,
         defaults=dict(
             url=url,
