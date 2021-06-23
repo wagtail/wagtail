@@ -19,7 +19,7 @@ class UnpublishBulkAction(PageBulkAction):
             **super().object_context(page),
             'live_descendant_count': page.get_descendants().live().count(),
         }
-        
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['has_live_descendants'] = any(map(lambda x: x['live_descendant_count'] > 0, context['pages']))
@@ -67,6 +67,7 @@ class UnpublishBulkAction(PageBulkAction):
             else:
                 success_message = _("%(num_parent_objects)d pages have been unpublished") % {'num_parent_objects': self.num_parent_objects}
         return success_message
+
 
 @hooks.register('register_page_bulk_action')
 def unpublish(request, parent_page_id):

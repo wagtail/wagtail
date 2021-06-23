@@ -13,7 +13,7 @@ class PublishBulkAction(PageBulkAction):
 
     def check_perm(self, page):
         return page.permissions_for_user(self.request.user).can_publish()
-        
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['has_draft_descendants'] = any(map(lambda x: x['page'].get_descendants().not_live().count(), context['pages']))
