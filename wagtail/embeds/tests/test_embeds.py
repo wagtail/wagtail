@@ -195,14 +195,20 @@ class TestEmbeds(TestCase):
         self.assertEqual(self.hit_count, 1)
 
         # expired cache_until should be ignored
-        get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        embed_2 = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
         self.assertEqual(self.hit_count, 2)
 
         # future cache_until should not be ignored
-        embed.cache_until = now() + datetime.timedelta(minutes=1)
+        future_dt = now() + datetime.timedelta(minutes=1)
+        embed.cache_until = future_dt
         embed.save()
-        get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        embed_3 = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
         self.assertEqual(self.hit_count, 2)
+        
+        # ensure we've received the same embed
+        self.assertEqual(embed, embed_2)
+        self.assertEqual(embed, embed_3)
+        self.assertEqual(embed_3.cache_until, future_dt)
 
     def dummy_finder_invalid_width(self, url, max_width=None):
         # Return a record with an invalid width
