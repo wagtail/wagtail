@@ -193,11 +193,11 @@ class TestEmbeds(TestCase):
         embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
         self.assertEqual(embed.cache_until, make_aware(datetime.datetime(2001, 2, 3)))
         self.assertEqual(self.hit_count, 1)
-        
+
         # expired cache_unti should be ignored
         embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
         self.assertEqual(self.hit_count, 2)
-        
+
         # future cache_until should not be ignored
         embed.cache_until = now() + datetime.timedelta(minutes=1)
         embed.save()
