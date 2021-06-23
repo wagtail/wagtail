@@ -1,6 +1,8 @@
 from datetime import datetime
 from hashlib import md5
 
+from django.utils.timezone import now
+
 from .exceptions import EmbedUnsupportedProviderException
 from .finders import get_finders
 from .models import Embed
@@ -8,10 +10,11 @@ from .models import Embed
 
 def get_embed(url, max_width=None, finder=None):
     embed_hash = get_embed_hash(url, max_width)
+    qs = Embed.objects.exclude(cache_until__lte=now())
 
     # Check database
     try:
-        return Embed.objects.get(hash=embed_hash)
+        return qs.get(hash=embed_hash)
     except Embed.DoesNotExist:
         pass
 
@@ -47,12 +50,12 @@ def get_embed(url, max_width=None, finder=None):
         embed_dict['thumbnail_url'] = ''
 
     # Create database record
-    embed, created = Embed.objects.get_or_create(
+    embed, created = qs.update_or_create(
         hash=embed_hash,
         defaults=dict(
             url=url,
             max_width=max_width,
-            **embed_dict,
+            **embed_dict
         )
     )
 
