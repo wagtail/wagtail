@@ -5,12 +5,11 @@
     &__link {
         @include transition(border-color $menu-transition-duration ease, background-color $menu-transition-duration ease);
         position: relative;
-        white-space: nowrap;
+        display: flex;
         border-left: 3px solid transparent;
 
         -webkit-font-smoothing: auto;
         text-decoration: none;
-        display: block;
         color: $color-menu-text;
         padding: 11px 20px;
         font-size: 13px;
@@ -45,8 +44,6 @@
     }
 
     &--in-sub-menu {
-        white-space: normal;
-
         &:hover {
             background-color: rgba(100, 100, 100, 0.2);
         }
