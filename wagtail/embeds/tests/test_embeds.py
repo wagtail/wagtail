@@ -195,7 +195,7 @@ class TestEmbeds(TestCase):
         self.assertEqual(self.hit_count, 1)
 
         # expired cache_until should be ignored
-        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
         self.assertEqual(self.hit_count, 2)
 
         # future cache_until should not be ignored
