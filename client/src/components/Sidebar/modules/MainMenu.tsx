@@ -63,13 +63,14 @@ interface MenuProps {
   accountMenuItems: MenuItemDefinition[];
   user: MainMenuModuleDefinition['user'];
   slim: boolean;
+  expandingOrCollapsing: boolean;
   currentPath: string;
   strings: Strings;
   navigate(url: string): Promise<void>;
 }
 
 export const Menu: React.FunctionComponent<MenuProps> = (
-  { menuItems, accountMenuItems, user, slim, currentPath, strings, navigate }) => {
+  { menuItems, accountMenuItems, user, expandingOrCollapsing, slim, currentPath, strings, navigate }) => {
   // navigationPath and activePath are two dot-delimited path's referencing a menu item
   // They are created by concatenating the name fields of all the menu/sub-menu items leading to the relevant one.
   // For example, the "Users" item in the "Settings" sub-menu would have the path 'settings.users'
@@ -134,6 +135,16 @@ export const Menu: React.FunctionComponent<MenuProps> = (
       document.removeEventListener('keydown', onKeydown);
     };
   }, []);
+
+  // Whenever the parent Sidebar component collapses or expands, close any open menus
+  React.useEffect(() => {
+    if (expandingOrCollapsing) {
+      dispatch({
+        type: 'set-navigation-path',
+        path: ''
+      });
+    }
+  }, [expandingOrCollapsing]);
 
   const onClickAccountSettings = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -206,13 +217,14 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
     this.user = user;
   }
 
-  render({ slim, key, currentPath, strings, navigate }) {
+  render({ slim, expandingOrCollapsing, key, currentPath, strings, navigate }) {
     return (
       <Menu
         menuItems={this.menuItems}
         accountMenuItems={this.accountMenuItems}
         user={this.user}
         slim={slim}
+        expandingOrCollapsing={expandingOrCollapsing}
         key={key}
         currentPath={currentPath}
         strings={strings}
