@@ -10,7 +10,7 @@ from django import template
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from django.utils.timezone import make_aware
+from django.utils.timezone import make_aware, now
 
 from wagtail.core import blocks
 from wagtail.embeds import oembed_providers
@@ -192,6 +192,17 @@ class TestEmbeds(TestCase):
     def test_get_embed_cache_until(self):
         embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
         self.assertEqual(embed.cache_until, make_aware(datetime.datetime(2001, 2, 3)))
+        self.assertEqual(self.hit_count, 1)
+        
+        # expired cache_unti should be ignored
+        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        self.assertEqual(self.hit_count, 2)
+        embed.cache_until = now() + datetime.timedelta(minutes=1)
+        embed.save()
+        
+        # future cache_until should not be ignored
+        get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        self.assertEqual(self.hit_count, 2)
 
     def dummy_finder_invalid_width(self, url, max_width=None):
         # Return a record with an invalid width
