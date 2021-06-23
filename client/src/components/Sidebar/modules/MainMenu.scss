@@ -3,7 +3,7 @@
     overflow: auto;
     overflow-x: hidden;
     margin-bottom: 50px;
-    @include transition(margin-bottom 0.3s ease);
+    @include transition(margin-bottom $menu-transition-duration ease);
 
     &--open-footer {
         margin-bottom: 127px;
@@ -19,7 +19,7 @@
     ul > li {
         position: relative;
 
-        @include transition(border-color 0.3s ease);
+        @include transition(border-color $menu-transition-duration ease);
     }
 
     *:focus {
@@ -29,6 +29,7 @@
     .icon--menuitem {
         width: 1.25em;
         height: 1.25em;
+        min-width: 1.25em;
         margin-right: 0.5em;
         vertical-align: text-top;
     }
@@ -43,10 +44,10 @@
 
     > ul > li > a {
         // Need !important to override body.ready class
-        transition: padding 0.3s ease !important;
+        transition: padding $menu-transition-duration ease !important;
 
         .menuitem-label {
-            transition: opacity 0.3s ease;
+            transition: opacity $menu-transition-duration ease;
         }
     }
 
@@ -73,7 +74,7 @@
     width: $menu-width;
     bottom: 0;
     background-color: $nav-footer-submenu-bg;
-    transition: width 0.3s ease !important;  // Override body.ready
+    transition: width $menu-transition-duration ease !important;  // Override body.ready
 
     > ul,
     ul > li {
@@ -85,11 +86,11 @@
     ul > li {
         position: relative;
 
-        @include transition(border-color 0.3s ease);
+        @include transition(border-color $menu-transition-duration ease);
     }
 
     > ul {
-        @include transition(max-height 0.3s ease);
+        @include transition(max-height $menu-transition-duration ease);
 
         max-height: 0;
 
@@ -132,6 +133,13 @@
             }
         }
 
+        &--icon {
+            height: 1.5em;
+            width: 1.5em;
+            position: absolute;
+            right: 0.25em;
+        }
+
         em {
             box-sizing: border-box;
             padding-right: 1.8em;
@@ -145,13 +153,7 @@
             text-overflow: ellipsis;
             position: absolute;
             left: 50px;  // Width of avatar
-            transition: left 0.3s ease;
-
-            &:after {
-                font-size: 1.5em;
-                position: absolute;
-                right: 0.25em;
-            }
+            transition: left $menu-transition-duration ease;
         }
     }
 

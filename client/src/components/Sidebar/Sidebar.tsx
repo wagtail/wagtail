@@ -4,6 +4,9 @@ import * as React from 'react';
 
 import Icon from '../Icon/Icon';
 
+// Please keep in sync with $menu-transition-duration variable in `client/scss/settings/_variables.scss`
+export const SIDEBAR_TRANSITION_DURATION = 150;
+
 export interface Strings {
   DASHBOARD: string;
   EDIT_YOUR_ACCOUNT: string,
@@ -62,7 +65,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     setExpandingOrCollapsing(true);
     const finishTimeout = setTimeout(() => {
       setExpandingOrCollapsing(false);
-    }, 300);
+    }, SIDEBAR_TRANSITION_DURATION);
 
     return () => {
       clearTimeout(finishTimeout);
@@ -101,7 +104,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     clearTimeout(stopPeekingTimeout.current);
     stopPeekingTimeout.current = setTimeout(() => {
       setPeeking(false);
-    }, 300);
+    }, SIDEBAR_TRANSITION_DURATION);
   };
 
   // Render modules

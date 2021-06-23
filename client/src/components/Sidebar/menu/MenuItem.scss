@@ -1,16 +1,21 @@
 .sidebar-menu-item {
-    > a {
+    $root: &;
+    @include transition(border-color $menu-transition-duration ease);
+    position: relative;
+
+    &__link {
+        @include transition(border-color $menu-transition-duration ease, background-color $menu-transition-duration ease);
         position: relative;
+        display: flex;
         white-space: nowrap;
         border-left: 3px solid transparent;
 
         -webkit-font-smoothing: auto;
         text-decoration: none;
-        display: block;
         color: $color-menu-text;
-        padding: 0.8em 1.7em;
-        font-size: 1em;
-        font-weight: normal;
+        padding: 11px 20px;
+        font-size: 13px;
+        font-weight: 400;
 
         // Note, font-weights lower than normal,
         // and font-size smaller than 1em (80% ~= 12.8px),
@@ -22,8 +27,6 @@
             color: $color-white;
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
         }
-
-        @include transition(border-color 0.3s ease);
 
         &:before {
             font-size: 1rem;
@@ -43,8 +46,10 @@
     }
 
     &--in-sub-menu {
-        white-space: normal;
-        padding: 0.9em 1.7em 0.9em 4.5em;
+        #{$root}__link {
+            // Links inside a submenu should have normal wrapping
+            white-space: normal;
+        }
 
         &:hover {
             background-color: rgba(100, 100, 100, 0.2);
@@ -59,5 +64,64 @@
             border-left-color: $color-salmon;
             color: $color-white;
         }
+    }
+}
+
+.menuitem-label {
+    @include transition(opacity $menu-transition-duration ease);
+}
+
+.menuitem-tooltip {
+    position: absolute;
+    left: calc(100% + 5px);
+    z-index: 5;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    height: 27px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+    transition: opacity $menu-transition-duration cubic-bezier(0.42, 0, 0.58, 1), transform $menu-transition-duration cubic-bezier(0.42, 0, 0.58, 1);
+
+    &__inner {
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 3px;
+        position: relative;
+        padding: 7px 9px;
+        color: #ccc;
+        height: 27px;
+        font-size: 12px;
+        line-height: 11px;
+        background: #262626;
+
+        &::before {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 0;
+            left: 0;
+            top: 50%;
+            height: 0;
+            border-style: solid;
+            border-width: 5px 5px 5px 0;
+            border-color: transparent #262626 transparent transparent;
+            transform: translate(calc(-100%), -50%);
+        }
+    }
+
+    &--visible {
+        .sidebar-collapsed & {
+            pointer-events: initial;
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+    }
+}
+
+.sidebar--slim {
+    .menuitem-label {
+        opacity: 0;
     }
 }
