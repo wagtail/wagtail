@@ -10,5 +10,5 @@ def index(request, parent_page_id, action, rest=''):
         if _action.action_type != action:
             continue
         return _action.dispatch(request, parent_page_id)
-        
+
     return Http404()
