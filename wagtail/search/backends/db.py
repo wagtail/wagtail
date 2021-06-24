@@ -1,4 +1,11 @@
-from .database import SearchBackend
+import sys
+from wagtail.utils.deprecation import MovedDefinitionHandler, RemovedInWagtail216Warning
 
+MOVED_DEFINITIONS = {
+    'DatabaseSearchQueryCompiler': ('wagtail.search.backends.database', 'DatabaseSearchQueryCompiler'),
+    'DatabaseSearchResults': ('wagtail.search.backends.database', 'DatabaseSearchResults'),
+    'DatabaseSearchBackend': ('wagtail.search.backends.database', 'DatabaseSearchBackend'),
+    'SearchBackend': ('wagtail.search.backends.database', 'SearchBackend'),
+}
 
-SearchBackend = SearchBackend  # This is just to avoid triggering the F401 warning (unused import)
+sys.modules[__name__] = MovedDefinitionHandler(sys.modules[__name__], MOVED_DEFINITIONS, RemovedInWagtail216Warning)
