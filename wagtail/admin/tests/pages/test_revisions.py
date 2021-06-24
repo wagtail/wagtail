@@ -7,7 +7,7 @@ from django.utils.dateparse import parse_date
 
 from wagtail.admin.tests.pages.timestamps import local_datetime
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import EventPage, FormClassAdditionalFieldPage
+from wagtail.tests.testapp.models import EventPage, FormClassAdditionalFieldPage, SecretPage
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -246,6 +246,61 @@ class TestCompareRevisions(TestCase, WagtailTestUtils):
             response,
             '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>',
             html=True
+        )
+
+
+class TestCompareRevisionsWithPerUserEditHandlers(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.home = Page.objects.get(url_path='/home/')
+        self.secret_page = SecretPage(
+            title="Secret page",
+            boring_data="InnocentCorp is the leading supplier of door hinges",
+            secret_data="for flying saucers",
+        )
+        self.home.add_child(instance=self.secret_page)
+        self.old_revision = self.secret_page.save_revision()
+        self.secret_page.boring_data = "InnocentCorp is the leading supplier of rubber sprockets"
+        self.secret_page.secret_data = "for fake moon landings"
+        self.new_revision = self.secret_page.save_revision()
+        self.compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.secret_page.id, self.old_revision.id, self.new_revision.id)
+        )
+
+    def test_comparison_as_superuser(self):
+        self.login()
+        response = self.client.get(self.compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response,
+            'InnocentCorp is the leading supplier of <span class="deletion">door hinges</span><span class="addition">rubber sprockets</span>',
+            html=True
+        )
+        self.assertContains(
+            response,
+            'for <span class="deletion">flying saucers</span><span class="addition">fake moon landings</span>',
+            html=True
+        )
+
+    def test_comparison_as_ordinary_user(self):
+        user = self.create_user(username='editor', password='password')
+        user.groups.add(Group.objects.get(name='Site-wide editors'))
+        self.login(username='editor', password='password')
+
+        response = self.client.get(self.compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response,
+            'InnocentCorp is the leading supplier of <span class="deletion">door hinges</span><span class="addition">rubber sprockets</span>',
+            html=True
+        )
+        self.assertNotContains(
+            response,
+            'moon landings',
         )
 
 
