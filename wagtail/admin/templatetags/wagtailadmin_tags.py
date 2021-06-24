@@ -504,13 +504,12 @@ def bulk_action_filters(context):
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
                         takes_context=True)
-def page_bulk_action_choices(context, page):
+def page_bulk_action_choices(context):
     bulk_actions_list = []
-    if page:
-        bulk_actions = hooks.get_hooks('register_page_bulk_action')
-        for action_func in bulk_actions:
-            action = action_func(context.request, page.id)
-            bulk_actions_list.append(action)
+    bulk_actions = hooks.get_hooks('register_page_bulk_action')
+    for action_func in bulk_actions:
+        action = action_func(context.request)
+        bulk_actions_list.append(action)
     button_hooks = hooks.get_hooks('construct_page_bulk_action_choices')
     for hook in button_hooks:
         bulk_actions_list = hook(context.request, bulk_actions_list)
@@ -520,7 +519,7 @@ def page_bulk_action_choices(context, page):
     bulk_action_buttons = [
         PageListingButton(
             action.display_name,
-            reverse('wagtailadmin_bulk_action', args=[page.id, action.action_type]) + '?' + urlencode({'next': action.next_url}),
+            reverse('wagtailadmin_bulk_action', args=[action.action_type]) + '?' + urlencode({'next': action.next_url}),
             attrs={'aria-label': action.aria_label},
             priority=action.action_priority
         ) for action in bulk_actions_list
