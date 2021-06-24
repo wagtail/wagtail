@@ -15,12 +15,6 @@
         list-style-type: none;
     }
 
-    ul > li {
-        position: relative;
-
-        @include transition(border-color $menu-transition-duration ease);
-    }
-
     *:focus {
         @include show-focus-outline-inside;
     }
