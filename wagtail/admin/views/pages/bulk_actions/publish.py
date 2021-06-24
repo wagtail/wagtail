@@ -66,5 +66,5 @@ class PublishBulkAction(PageBulkAction):
 
 
 @hooks.register('register_page_bulk_action')
-def publish(request, parent_page_id):
-    return PublishBulkAction(request, parent_page_id)
+def publish(request):
+    return PublishBulkAction(request)
