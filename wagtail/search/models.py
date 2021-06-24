@@ -130,7 +130,7 @@ class BaseIndexEntry(models.Model):
     """
 
     content_type = models.ForeignKey(
-        ContentType, on_delete=models.CASCADE, related_name="search_content_type"
+        ContentType, on_delete=models.CASCADE, related_name="+"
     )
     # We do not use an IntegerField since primary keys are not always integers.
     object_id = models.TextField()
