@@ -169,7 +169,7 @@ export const Menu: React.FunctionComponent<MenuProps> = (
 
   return (
     <nav className={className}>
-      <ul>
+      <ul className="sidebar-main-menu__list">
         {renderMenu('', menuItems, slim, state, dispatch, navigate)}
 
         <li className={'sidebar-footer' + (accountSettingsOpen ? ' sidebar-footer--open' : '')}>
