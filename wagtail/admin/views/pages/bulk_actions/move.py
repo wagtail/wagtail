@@ -85,8 +85,8 @@ class MoveBulkAction(PageBulkAction):
 
     # register temporary hook to check for move related permissions
     @hooks.register_temporarily('before_bulk_action', before_bulk_move)
-    def post(self, request, parent_object_id, **kwargs):
-        return super().post(request, parent_object_id, **kwargs)
+    def post(self, request):
+        return super().post(request)
 
 
 @hooks.register('register_page_bulk_action')
