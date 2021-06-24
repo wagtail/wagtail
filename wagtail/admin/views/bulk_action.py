@@ -30,13 +30,12 @@ class BulkAction(ABC, TemplateView):
     model = None
     object_key = 'object'
 
-    def __init__(self, request, parent_object_id):
+    def __init__(self, request):
         self.include_descendants = request.POST.get("include_descendants", False)
         self.request = request
-        self.parent_object_id = parent_object_id
         next_url = get_valid_next_url_from_request(request)
         if not next_url:
-            next_url = reverse('wagtailadmin_explore', args=[parent_object_id])
+            next_url = request.path
         self.next_url = next_url
 
     @classmethod
@@ -101,7 +100,7 @@ class BulkAction(ABC, TemplateView):
             'submit_url': self.request.path + '?' + self.request.META['QUERY_STRING']
         }
 
-    def post(self, request, parent_object_id, **kwargs):
+    def post(self, request):
         objects, _ = self.get_actionable_objects()
         with transaction.atomic():
             before_hook_result = self.__run_before_hooks(self.action_type, request, objects)
