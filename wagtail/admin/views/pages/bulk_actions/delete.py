@@ -54,5 +54,5 @@ class DeleteBulkAction(PageBulkAction):
 
 
 @hooks.register('register_page_bulk_action')
-def delete(request, parent_page_id):
-    return DeleteBulkAction(request, parent_page_id)
+def delete(request):
+    return DeleteBulkAction(request)

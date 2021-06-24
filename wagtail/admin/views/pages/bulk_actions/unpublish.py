@@ -70,5 +70,5 @@ class UnpublishBulkAction(PageBulkAction):
 
 
 @hooks.register('register_page_bulk_action')
-def unpublish(request, parent_page_id):
-    return UnpublishBulkAction(request, parent_page_id)
+def unpublish(request):
+    return UnpublishBulkAction(request)
