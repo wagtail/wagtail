@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 
+import Icon from '../../Icon/Icon';
 import { ModuleDefinition, Strings } from '../Sidebar';
 
 interface SearchInputProps {
@@ -36,10 +37,12 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = (
   );
 
   return (
-    <form className={className} action={searchUrl} method="get" onSubmit={onSubmitForm}>
+    <form role="search" className={className} action={searchUrl} method="get" onSubmit={onSubmitForm}>
       <label className="sidebar-search__label" htmlFor="menu-search-q">{strings.SEARCH}</label>
       <input className="sidebar-search__input" type="text" id="menu-search-q" name="q" placeholder={strings.SEARCH} />
-      <button className="button sidebar-search__submit" type="submit">{strings.SEARCH}</button>
+      <button className="button sidebar-search__submit" type="submit" aria-label={strings.SEARCH}>
+        <Icon className="icon--menuitem" name="search" />
+      </button>
     </form>
   );
 };

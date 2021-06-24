@@ -45,26 +45,10 @@
         padding: 0;
         width: 35px;
         height: 35px;
-        font-size: 17px;
         transition: opacity 600ms ease-in-out;
 
         .sidebar--slim & {
             width: 100%;
-        }
-
-        &:before {
-            font-family: wagtail;
-            font-weight: 200;
-            text-transform: none;
-            content: map-get($icons, 'search');
-            display: block;
-            height: 100%;
-            line-height: 35px;
-            text-align: left;
-
-            .sidebar--slim & {
-                text-align: center;
-            }
         }
 
         &:hover {
