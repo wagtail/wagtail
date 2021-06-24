@@ -1,5 +1,7 @@
 import sys
+
 from wagtail.utils.deprecation import MovedDefinitionHandler, RemovedInWagtail216Warning
+
 
 MOVED_DEFINITIONS = {
     'DatabaseSearchQueryCompiler': ('wagtail.search.backends.database', 'DatabaseSearchQueryCompiler'),
