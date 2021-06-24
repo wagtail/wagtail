@@ -43,10 +43,9 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
             for grandchild_page in grandchild_pages:
                 child_page.add_child(instance=grandchild_page)
 
-        self.url = reverse('wagtailadmin_bulk_action', args=(self.root_page.id, 'delete')) + '?'
+        self.url = reverse('wagtailadmin_bulk_action', args=('delete', )) + '?'
         for child_page in self.pages_to_be_deleted:
             self.url += f'&id={child_page.id}'
-        self.redirect_url = reverse('wagtailadmin_explore', args=(self.root_page.id, ))
 
         # Login
         self.user = self.login()
@@ -124,7 +123,7 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         response = self.client.post(self.url)
 
         # Should be redirected to explorer page
-        self.assertRedirects(response, self.redirect_url)
+        self.assertEqual(response.status_code, 302)
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
@@ -171,7 +170,7 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         response = self.client.post(self.url)
 
         # Should be redirected to explorer page
-        self.assertRedirects(response, self.redirect_url)
+        self.assertEqual(response.status_code, 302)
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
@@ -227,7 +226,7 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         response = self.client.post(self.url)
 
         # Should be redirected to explorer page
-        self.assertRedirects(response, self.redirect_url)
+        self.assertEqual(response.status_code, 302)
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
