@@ -26,6 +26,7 @@ Changelog
  * Fix: Prevent multiple submissions of "update" form when uploading images / documents (Mike Brown)
  * Fix: Ensure HTML title is populated on project template 404 page (Matt Westcott)
  * Fix: Respect cache_age parameters on embeds (Gordon Pendleton)
+ * Fix: Page comparison view now reflects request-level customisations to edit handlers (Matt Westcott)
 
 
 2.13.3 (xx.xx.20xx) - IN DEVELOPMENT
