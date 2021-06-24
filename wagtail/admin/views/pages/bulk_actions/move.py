@@ -90,5 +90,5 @@ class MoveBulkAction(PageBulkAction):
 
 
 @hooks.register('register_page_bulk_action')
-def move(request, parent_page_id):
-    return MoveBulkAction(request, parent_page_id)
+def move(request):
+    return MoveBulkAction(request)
