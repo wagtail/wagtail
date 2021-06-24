@@ -15,7 +15,7 @@ from wagtail.admin.urls import pages as wagtailadmin_pages_urls
 from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_urls
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
-from wagtail.admin.views import account, chooser, home, tags, userbar
+from wagtail.admin.views import account, chooser, home, sidebar, tags, userbar
 from wagtail.admin.views.pages import listing
 from wagtail.core import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
@@ -54,6 +54,7 @@ urlpatterns = [
 
     path('account/', account.account, name='wagtailadmin_account'),
     path('logout/', account.LogoutView.as_view(), name='wagtailadmin_logout'),
+    path('sidebar/update-preferences/', sidebar.SetSidebarPreferencesView.as_view(), name='wagtailadmin_sidebar_preferences'),
 ]
 
 

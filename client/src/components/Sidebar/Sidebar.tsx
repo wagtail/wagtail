@@ -3,6 +3,7 @@
 import * as React from 'react';
 
 import Icon from '../Icon/Icon';
+import { SidebarPreferences, SidebarPreferencesDefinition } from './SidebarPreferences';
 
 // Please keep in sync with $menu-transition-duration variable in `client/scss/settings/_variables.scss`
 export const SIDEBAR_TRANSITION_DURATION = 150;
@@ -30,17 +31,27 @@ export interface SidebarProps {
   modules: ModuleDefinition[];
   currentPath: string;
   strings: Strings;
+  preferences: SidebarPreferencesDefinition;
   navigate(url: string): Promise<void>;
   onExpandCollapse?(collapsed: boolean);
 }
 
 export const Sidebar: React.FunctionComponent<SidebarProps> = (
-  { modules, currentPath, strings, navigate, onExpandCollapse }) => {
+  { modules, currentPath, preferences, strings, navigate, onExpandCollapse }) => {
   // 'collapsed' is a persistent state that is controlled by the arrow icon at the top
   // It records the user's general preference for a collapsed/uncollapsed menu
   // This is just a hint though, and we may still collapse the menu if the screen is too small
   // Also, we may display the full menu temporarily in collapsed mode (see 'peeking' below)
-  const [collapsed, setCollapsed] = React.useState(window.innerWidth < 800);
+  const [collapsed, setCollapsed] = React.useState((): boolean => {
+    if (window.innerWidth < 800 || preferences.collapsed) {
+      return true;
+    }
+    return false;
+  });
+
+  const [preferencesController] = React.useState(
+    (): SidebarPreferences => new SidebarPreferences(preferences)
+  );
 
   // Call onExpandCollapse(true) if menu is initialised in collapsed state
   React.useEffect(() => {
@@ -85,6 +96,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     if (onExpandCollapse) {
       onExpandCollapse(!collapsed);
     }
+    preferencesController.update({ collapsed: !collapsed });
   };
 
   // Switch peeking on/off when the mouse cursor hovers the sidebar

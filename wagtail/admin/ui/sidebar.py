@@ -16,6 +16,22 @@ class BaseSidebarAdapter(Adapter):
         ])
 
 
+# Preferences
+@adapter('wagtail.sidebar.SidebarPreferences', base=BaseSidebarAdapter)
+class SidebarPreferences:
+    def __init__(self, collapsed: bool, preferences_url: str):
+        self.collapsed = collapsed
+        self.preferences_url = preferences_url
+
+    def js_args(self):
+        return [
+            {
+                'collapsed': self.collapsed,
+                'preferencesUrl': self.preferences_url,
+            }
+        ]
+
+
 # Main menu
 
 class MenuItem:

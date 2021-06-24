@@ -2,6 +2,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Sidebar } from './Sidebar';
+import { SidebarPreferencesDefinition } from './SidebarPreferences';
 
 export function initSidebar() {
   const element = document.getElementById('wagtail-sidebar');
@@ -20,6 +21,12 @@ export function initSidebar() {
   if (element instanceof HTMLElement && element.dataset.props) {
     const props = window.telepath.unpack(JSON.parse(element.dataset.props));
 
+    const preferences: SidebarPreferencesDefinition = props.preferences;
+
+    if (preferences.collapsed) {
+      document.body.classList.add('sidebar-collapsed');
+    }
+
     const onExpandCollapse = (collapsed: boolean) => {
       if (collapsed) {
         document.body.classList.add('sidebar-collapsed');
@@ -33,6 +40,7 @@ export function initSidebar() {
         modules={props.modules}
         strings={wagtailConfig.STRINGS}
         currentPath={window.location.pathname}
+        preferences={preferences}
         navigate={navigate}
         onExpandCollapse={onExpandCollapse}
       />,

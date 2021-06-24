@@ -7,7 +7,9 @@ import { CustomBrandingModuleDefinition } from '../../components/Sidebar/modules
 import { WagtailBrandingModuleDefinition } from '../../components/Sidebar/modules/WagtailBranding';
 import { SearchModuleDefinition } from '../../components/Sidebar/modules/Search';
 import { MainMenuModuleDefinition } from '../../components/Sidebar/modules/MainMenu';
+import { SidebarPreferencesDefinition } from '../../components/Sidebar/SidebarPreferences.ts';
 
+window.telepath.register('wagtail.sidebar.SidebarPreferences', SidebarPreferencesDefinition);
 window.telepath.register('wagtail.sidebar.LinkMenuItem', LinkMenuItemDefinition);
 window.telepath.register('wagtail.sidebar.SubMenuItem', SubMenuItemDefinition);
 window.telepath.register('wagtail.sidebar.PageExplorerMenuItem', PageExplorerMenuItemDefinition);

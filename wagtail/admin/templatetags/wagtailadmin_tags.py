@@ -15,6 +15,7 @@ from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.urls import reverse
+from django.urls.base import reverse_lazy
 from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.html import avoid_wrapping, format_html, format_html_join
@@ -28,6 +29,7 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
+from wagtail.admin.views.sidebar import SidebarPreferencesSerializer
 from wagtail.core import hooks
 from wagtail.core.models import (
     Collection, CollectionViewRestriction, Locale, Page, PageViewRestriction,
@@ -687,6 +689,14 @@ def menu_props(context):
     else:
         search_area = None
 
+    ser = SidebarPreferencesSerializer(data=request.session.get('sidebar_preferences', None))
+    ser.is_valid()
+
+    preferences = sidebar.SidebarPreferences(
+        collapsed=ser.data.get('collapsed', False),
+        preferences_url=reverse_lazy('wagtailadmin_sidebar_preferences'),
+    )
+
     account_menu = [
         sidebar.LinkMenuItem('account', _("Account"), reverse('wagtailadmin_account'), icon_name='user'),
         sidebar.LinkMenuItem('logout', _("Log out"), reverse('wagtailadmin_logout'), icon_name='logout'),
@@ -701,6 +711,7 @@ def menu_props(context):
 
     return json.dumps({
         'modules': JSContext().pack(modules),
+        'preferences': JSContext().pack(preferences),
     }, cls=DjangoJSONEncoder)
 
 
