@@ -37,10 +37,12 @@ class InstagramOEmbedFinder(EmbedFinder):
                 return True
         return False
 
-    def find_embed(self, url, max_width=None):
+    def find_embed(self, url, max_width=None, max_height=None):
         params = {'url': url, 'format': 'json'}
         if max_width:
             params['maxwidth'] = max_width
+        if max_height:
+            params['maxheight'] = max_height
         if self.omitscript:
             params['omitscript'] = 'true'
 
