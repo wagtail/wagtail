@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import views as auth_views
 from django.db import transaction
+from django.forms import Media
 from django.http import Http404
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
@@ -219,8 +220,9 @@ def account(request):
     for tab, tab_panels in panels_by_tab.items():
         tab_panels.sort(key=lambda panel: panel.order)
 
+    panel_forms = [panel.get_form() for panel in panels]
+
     if request.method == 'POST':
-        panel_forms = [panel.get_form() for panel in panels]
 
         if all(form.is_valid() or not form.is_bound for form in panel_forms):
             with transaction.atomic():
@@ -239,6 +241,10 @@ def account(request):
 
             return redirect('wagtailadmin_account')
 
+    media = Media()
+    for form in panel_forms:
+        media += form.media
+
     # Menu items
     menu_items = []
     for fn in hooks.get_hooks('register_account_menu_item'):
@@ -249,6 +255,7 @@ def account(request):
     return TemplateResponse(request, 'wagtailadmin/account/account.html', {
         'panels_by_tab': panels_by_tab,
         'menu_items': menu_items,
+        'media': media,
     })
 
 

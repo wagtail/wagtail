@@ -243,6 +243,9 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         else:
             self.assertNotContains(response, "Current time zone:")
 
+        # Form media should be included on the page
+        self.assertContains(response, 'vendor/colorpicker.js')
+
     def test_change_name_post(self):
         response = self.post_form({
             'name_email-first_name': 'Fox',
