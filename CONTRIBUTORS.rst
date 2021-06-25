@@ -519,6 +519,7 @@ Contributors
 * Chris Pollard
 * Godswill Melford
 * Jake Howard
+* Petr Dlouhý
 
 Translators
 ===========
