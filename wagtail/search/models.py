@@ -156,7 +156,6 @@ class BaseIndexEntry(models.Model):
     def model(self):
         return self.content_type.model
 
-    # TODO: this needs to be changed --decide later a new name
     @classmethod
     def add_generic_relations(cls):
         for model in apps.get_models():
