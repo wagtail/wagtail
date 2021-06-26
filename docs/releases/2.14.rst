@@ -20,6 +20,7 @@ Other features
  * Added ``WAGTAIL_WORKFLOW_ENABLED`` setting for enabling / disabling moderation workflows globally (Matt Westcott)
  * Allow specifying ``max_width`` and ``max_height`` on EmbedBlock (Petr Dlouhý)
  * Add warning when StreamField is used without a StreamFieldPanel (Naomi Morduch Toubman)
+ * Added keyboard and screen reader support to Wagtail user bar (LB Johnston, Storm Heg)
 
 Bug fixes
 ~~~~~~~~~
@@ -44,3 +45,10 @@ Removed support for Django 2.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Django 2.2 is no longer supported as of this release; please upgrade to Django 3.0 or above before upgrading Wagtail.
+
+User bar with keyboard and screen reader support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Wagtail user bar (“edit bird”) widget now supports keyboard and screen reader navigation. To make the most of this, we now recommend placing the widget near the top of the page ``<body>``, so users can reach it without having to go through the whole page. See :ref:`wagtailuserbar_tag` for more information.
+
+For implementers of custom user bar menu items, we also now require the addition of ``role="menuitem"`` on the ``a`` element to provide the correct semantics. See :ref:`construct_wagtail_userbar` for more information.
