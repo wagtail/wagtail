@@ -160,6 +160,7 @@ $positions: (
 }
 
 .#{$namespace}-userbar-items {
+    all: revert;
     display: block;
     list-style: none;
     position: absolute;
@@ -188,7 +189,7 @@ $positions: (
     transition-duration: 0.15s;
     transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 
-    // TODO: disable stylelint warning in upstream package
+    // stylelint-disable-next-line scss/media-feature-value-dollar-variable
     @media (prefers-reduced-motion: reduce) {
         transition: none !important;
     }
@@ -216,6 +217,7 @@ $positions: (
 
 
 .#{$namespace}-userbar__item {
+    all: revert;
     margin: 0;
     background-color: $color-grey-1;
     opacity: 0;
@@ -226,7 +228,7 @@ $positions: (
     font-size: 16px !important;
     text-decoration: none !important;
 
-    // TODO: disable stylelint warning in upstream package
+    // stylelint-disable-next-line scss/media-feature-value-dollar-variable
     @media (prefers-reduced-motion: reduce) {
         transition: none !important;
 
