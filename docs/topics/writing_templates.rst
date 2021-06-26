@@ -246,11 +246,22 @@ This tag provides a contextual flyout menu for logged-in users. The menu gives e
 
 This tag may be used on regular Django views, without page object. The user bar will contain one item pointing to the admin.
 
+We recommend putting the tag near the top of the ``<body>`` element so keyboard users can reach it. You should consider putting the tag after any `skip links <https://webaim.org/techniques/skipnav/>`_ but before the navigation and main content of your page.
+
 .. code-block:: html+django
 
     {% load wagtailuserbar %}
     ...
-    {% wagtailuserbar %}
+    <body>
+      <a id="#content">Skip to content</a>
+      {% wagtailuserbar %} {# This is a good place for the userbar #}
+      <nav>
+      ...
+      </nav>
+      <main id="content">
+      ...
+      </main>
+    </body>
 
 By default the User Bar appears in the bottom right of the browser window, inset from the edge. If this conflicts with your design it can be moved by passing a parameter to the template tag. These examples show you how to position the userbar in each corner of the screen:
 

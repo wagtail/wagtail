@@ -116,6 +116,7 @@ $positions: (
 
 // stylelint-disable declaration-no-important
 .#{$namespace}-userbar-trigger {
+    all: initial;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -124,6 +125,7 @@ $positions: (
     margin: 0 !important;
     overflow: hidden;
     background-color: $color-white;
+    border: 2px solid transparent;
     border-radius: 50%;
     color: $color-black;
     padding: 0 !important;
@@ -134,15 +136,15 @@ $positions: (
     text-decoration: none !important;
     position: relative;
 
-    .#{$namespace}-userbar.touch.is-active &,
-    .#{$namespace}-userbar.no-touch &:hover {
-        box-shadow: $box-shadow-props, 0 3px 15px 0 rgba(107, 214, 230, 0.95);
-    }
-
     .#{$namespace}-userbar-help-text {
+        // Visually hide the help text
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
         position: absolute;
-        top: 100%;
-        left: 0;
+        white-space: nowrap;
+        width: 1px;
     }
 
     .#{$namespace}-icon:before {
@@ -151,9 +153,14 @@ $positions: (
         width: auto;
         margin: 0;
     }
+
+    &:focus {
+        outline: $color-focus-outline solid 3px;
+    }
 }
 
 .#{$namespace}-userbar-items {
+    all: revert;
     display: block;
     list-style: none;
     position: absolute;
@@ -182,6 +189,11 @@ $positions: (
     transition-duration: 0.15s;
     transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 
+    // stylelint-disable-next-line scss/media-feature-value-dollar-variable
+    @media (prefers-reduced-motion: reduce) {
+        transition: none !important;
+    }
+
     .#{$namespace}-userbar.is-active & {
         opacity: 1;
         transform: translateY(0);
@@ -205,6 +217,7 @@ $positions: (
 
 
 .#{$namespace}-userbar__item {
+    all: revert;
     margin: 0;
     background-color: $color-grey-1;
     opacity: 0;
@@ -214,6 +227,14 @@ $positions: (
     font-family: 'Open Sans', sans-serif;
     font-size: 16px !important;
     text-decoration: none !important;
+
+    // stylelint-disable-next-line scss/media-feature-value-dollar-variable
+    @media (prefers-reduced-motion: reduce) {
+        transition: none !important;
+
+        // Force disable transitions for all items
+        transition-delay: 0s !important;
+    }
 
     &:first-child {
         border-top-left-radius: $userbar-radius;
@@ -242,9 +263,12 @@ $positions: (
 
         &:hover,
         &:focus {
-            outline: none;
             color: $color-white;
             background-color: rgba(100, 100, 100, 0.15);
+        }
+
+        &:focus {
+            outline: $color-focus-outline solid 3px;
         }
 
         &-icon {
