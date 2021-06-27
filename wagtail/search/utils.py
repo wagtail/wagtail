@@ -5,6 +5,7 @@ from functools import partial
 from itertools import zip_longest
 
 from django.apps import apps
+from django.db import connections
 
 from wagtail.search.index import Indexed, RelatedFields, SearchField
 
@@ -180,6 +181,11 @@ def get_search_fields(search_fields):
         elif isinstance(search_field, RelatedFields):
             for sub_field in get_search_fields(search_field.fields):
                 yield sub_field
+
+
+def get_postgresql_connections():
+    return [connection for connection in connections.all()
+            if connection.vendor == 'postgresql']
 
 
 WEIGHTS = 'ABCD'
