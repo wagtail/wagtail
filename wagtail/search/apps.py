@@ -19,5 +19,5 @@ class WagtailSearchAppConfig(AppConfig):
 
         if not apps.is_installed('wagtail.contrib.postgres_search'):
             # We shall not add the generic relations if they have already been added by the legacy postgres_search app (doing so would duplicate the relationships)
-            # TODO: When the concrete IndexEntry models are available we should, add the generic relations here
-            pass
+            from wagtail.core.models.search import IndexEntry
+            IndexEntry.add_generic_relations()
