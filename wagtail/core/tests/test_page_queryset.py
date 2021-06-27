@@ -775,7 +775,7 @@ class TestSpecificQuery(TestCase):
         # specific type when searching a specific queryset.
 
         pages = list(Page.objects.specific().live().in_menu().search(
-            MATCH_ALL, backend='wagtail.search.backends.db'))
+            MATCH_ALL, backend='wagtail.search.backends.database'))
 
         # Check that each page is in the queryset with the correct type.
         # We don't care about order here

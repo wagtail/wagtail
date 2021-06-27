@@ -5,17 +5,19 @@ import unittest
 from collections import OrderedDict
 from datetime import date
 from io import StringIO
+from unittest import mock
 
 from django.conf import settings
 from django.core import management
+from django.db import connection
 from django.test import TestCase
 from django.test.utils import override_settings
 from taggit.models import Tag
 
 from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
-from wagtail.search.backends.base import FieldError, FilterFieldError
-from wagtail.search.backends.db import DatabaseSearchBackend
+from wagtail.search.backends.base import BaseSearchBackend, FieldError, FilterFieldError
+from wagtail.search.backends.database.fallback import DatabaseSearchBackend
 from wagtail.search.query import MATCH_ALL, MATCH_NONE, And, Boost, Not, Or, Phrase, PlainText
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
@@ -689,21 +691,45 @@ class BackendTests(WagtailTestUtils):
 
 @override_settings(
     WAGTAILSEARCH_BACKENDS={
-        'default': {'BACKEND': 'wagtail.search.backends.db'}
+        'default': {'BACKEND': 'wagtail.search.backends.database'}
     }
 )
 class TestBackendLoader(TestCase):
-    def test_import_by_name(self):
+    @mock.patch('wagtail.search.backends.database.connection')
+    def test_import_by_name_unknown_db_vendor(self, connection):
+        connection.vendor = 'unknown'
         db = get_search_backend(backend='default')
         self.assertIsInstance(db, DatabaseSearchBackend)
 
-    def test_import_by_path(self):
-        db = get_search_backend(backend='wagtail.search.backends.db')
+    @mock.patch('wagtail.search.backends.database.connection')
+    def test_import_by_path_unknown_db_vendor(self, connection):
+        connection.vendor = 'unknown'
+        db = get_search_backend(backend='wagtail.search.backends.database')
         self.assertIsInstance(db, DatabaseSearchBackend)
 
-    def test_import_by_full_path(self):
-        db = get_search_backend(backend='wagtail.search.backends.db.DatabaseSearchBackend')
+    @mock.patch('wagtail.search.backends.database.connection')
+    def test_import_by_full_path_unknown_db_vendor(self, connection):
+        connection.vendor = 'unknown'
+        db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
         self.assertIsInstance(db, DatabaseSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'postgresql', 'Only applicable to PostgreSQL database systems')
+    def test_import_by_name_postgres_db_vendor(self):
+        from wagtail.search.backends.database.postgres.postgres import PostgresSearchBackend
+        db = get_search_backend(backend='default')
+        self.assertIsInstance(db, PostgresSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'postgresql', 'Only applicable to PostgreSQL database systems')
+    def test_import_by_path_postgres_db_vendor(self):
+        from wagtail.search.backends.database.postgres.postgres import PostgresSearchBackend
+        db = get_search_backend(backend='wagtail.search.backends.database')
+        self.assertIsInstance(db, PostgresSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'postgresql', 'Only applicable to PostgreSQL database systems')
+    def test_import_by_full_path_postgres_db_vendor(self):
+        from wagtail.search.backends.database.postgres.postgres import PostgresSearchBackend
+        db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
+        self.assertIsInstance(db, PostgresSearchBackend)
 
     def test_nonexistent_backend_import(self):
         self.assertRaises(
@@ -717,7 +743,8 @@ class TestBackendLoader(TestCase):
         backends = list(get_search_backends())
 
         self.assertEqual(len(backends), 1)
-        self.assertIsInstance(backends[0], DatabaseSearchBackend)
+        if not issubclass(type(backends[0]), BaseSearchBackend):
+            self.fail()
 
     @override_settings(
         WAGTAILSEARCH_BACKENDS={}
@@ -726,15 +753,16 @@ class TestBackendLoader(TestCase):
         backends = list(get_search_backends())
 
         self.assertEqual(len(backends), 1)
-        self.assertIsInstance(backends[0], DatabaseSearchBackend)
+        if not issubclass(type(backends[0]), BaseSearchBackend):
+            self.fail()
 
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.search.backends.db'
+                'BACKEND': 'wagtail.search.backends.database'
             },
             'another-backend': {
-                'BACKEND': 'wagtail.search.backends.db'
+                'BACKEND': 'wagtail.search.backends.database'
             },
         }
     )
@@ -752,7 +780,7 @@ class TestBackendLoader(TestCase):
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.search.backends.db',
+                'BACKEND': 'wagtail.search.backends.database',
                 'AUTO_UPDATE': False,
             },
         }
@@ -765,7 +793,7 @@ class TestBackendLoader(TestCase):
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.search.backends.db',
+                'BACKEND': 'wagtail.search.backends.database',
                 'AUTO_UPDATE': False,
             },
         }
