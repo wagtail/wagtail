@@ -4,7 +4,9 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
-from django.db import models
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
+from django.db import connection, models
 from django.db.models.functions import Cast
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -161,3 +163,32 @@ class BaseIndexEntry(models.Model):
         for model in apps.get_models():
             if class_is_indexed(model):
                 TextIDGenericRelation(cls).contribute_to_class(model, "index_entries")
+
+
+class AbstractPostgresIndexEntry(BaseIndexEntry):
+    """
+    This class is the specific IndexEntry model for PostgreSQL database systems.
+    It inherits the fields defined in BaseIndexEntry, and adds PostgreSQL-specific
+    fields (tsvectors), plus indexes for doing full-text search on those fields.
+    """
+
+    # TODO: Add per-object boosting.
+    autocomplete = SearchVectorField()
+    title = SearchVectorField()
+    body = SearchVectorField()
+
+    class Meta(BaseIndexEntry.Meta):
+        abstract = True
+        # An additional computed GIN index on 'title || body' is created in a SQL migration
+        # covers the default case of PostgresSearchQueryCompiler.get_index_vectors.
+        indexes = [
+            GinIndex(fields=["autocomplete"]),
+            GinIndex(fields=["title"]),
+            GinIndex(fields=["body"]),
+        ]
+
+
+if connection.vendor == 'postgresql':
+    AbstractIndexEntry = AbstractPostgresIndexEntry
+else:
+    AbstractIndexEntry = BaseIndexEntry
