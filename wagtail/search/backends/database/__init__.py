@@ -1,7 +1,7 @@
 from django.db import connection
 
 from .fallback import DatabaseSearchBackend
-from .postgres import PostgresSearchBackend
+from .postgres.postgres import PostgresSearchBackend
 
 
 def SearchBackend(params):
