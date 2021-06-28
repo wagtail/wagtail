@@ -21,7 +21,7 @@ class FacebookOEmbedFinder(EmbedFinder):
     https://developers.facebook.com/docs/plugins/oembed
     '''
     facebook_video = {
-        "endpoint": "https://graph.facebook.com/v9.0/oembed_video",
+        "endpoint": "https://graph.facebook.com/v11.0/oembed_video",
         "urls": [
             r'^https://(?:www\.)?facebook\.com/.+?/videos/.+$',
             r'^https://(?:www\.)?facebook\.com/video\.php\?(?:v|id)=.+$',
@@ -30,7 +30,7 @@ class FacebookOEmbedFinder(EmbedFinder):
     }
 
     facebook_post = {
-        "endpoint": "https://graph.facebook.com/v9.0/oembed_post",
+        "endpoint": "https://graph.facebook.com/v11.0/oembed_post",
         "urls": [
             r'^https://(?:www\.)?facebook\.com/.+?/(?:posts|activity)/.+$',
             r'^https://(?:www\.)?facebook\.com/photo\.php\?fbid=.+$',
