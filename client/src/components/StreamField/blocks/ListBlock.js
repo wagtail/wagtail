@@ -130,12 +130,13 @@ export class ListBlock extends BaseSequenceBlock {
     }
     const error = errorList[0];
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const blockIndex in error.blockErrors) {
-      if (error.blockErrors.hasOwnProperty(blockIndex)) {
-        this.children[blockIndex].setError(error.blockErrors[blockIndex]);
+    // error.blockErrors = a list with the same length as the data,
+    // with nulls for items without errors
+    error.blockErrors.forEach((blockError, blockIndex) => {
+      if (blockError) {
+        this.children[blockIndex].setError(blockError);
       }
-    }
+    });
   }
 }
 
