@@ -20,7 +20,7 @@ class InstagramOEmbedFinder(EmbedFinder):
     An embed finder that supports the authenticated Instagram oEmbed Endpoint.
     https://developers.facebook.com/docs/instagram/oembed
     '''
-    INSTAGRAM_ENDPOINT = 'https://graph.facebook.com/v9.0/instagram_oembed'
+    INSTAGRAM_ENDPOINT = 'https://graph.facebook.com/v11.0/instagram_oembed'
     INSTAGRAM_URL_PATTERNS = [r'^https?://(?:www\.)?instagram\.com/p/.+$',
                               r'^https?://(?:www\.)?instagram\.com/tv/.+$',
                               ]
