@@ -58,16 +58,6 @@ Search
 
 Define a search backend. For a full explanation, see :ref:`wagtailsearch_backends`.
 
-``WAGTAILSEARCH_RESULTS_TEMPLATE``, ``WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX``
----------------------------------------------------------------------------
-
-.. code-block:: python
-
-  WAGTAILSEARCH_RESULTS_TEMPLATE = 'myapp/search_results.html'
-  WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
-
-Override the templates used by the search front-end views.
-
 .. _wagtailsearch_hits_max_age:
 
 ``WAGTAILSEARCH_HITS_MAX_AGE``
