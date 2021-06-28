@@ -552,7 +552,7 @@ class TestInstagramOEmbed(TestCase):
         request = urlopen.call_args[0][0]
         self.assertEqual(
             request.get_full_url(),
-            "https://graph.facebook.com/v9.0/instagram_oembed?url=https%3A%2F%2Finstagr.am%2Fp%2FCHeRxmnDSYe%2F&format=json"
+            "https://graph.facebook.com/v11.0/instagram_oembed?url=https%3A%2F%2Finstagr.am%2Fp%2FCHeRxmnDSYe%2F&format=json"
         )
         self.assertEqual(request.get_header('Authorization'), "Bearer 123|abc")
 
@@ -616,7 +616,7 @@ class TestFacebookOEmbed(TestCase):
         request = urlopen.call_args[0][0]
         self.assertEqual(
             request.get_full_url(),
-            "https://graph.facebook.com/v9.0/oembed_video?url=https%3A%2F%2Ffb.watch%2FABC123eew%2F&format=json"
+            "https://graph.facebook.com/v11.0/oembed_video?url=https%3A%2F%2Ffb.watch%2FABC123eew%2F&format=json"
         )
         self.assertEqual(request.get_header('Authorization'), "Bearer 123|abc")
 
