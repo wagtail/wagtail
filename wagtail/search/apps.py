@@ -1,9 +1,9 @@
 from django.apps import AppConfig, apps
+from django.db import connection
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.search.backends.database.postgres.weights import set_weights
 from wagtail.search.signal_handlers import register_signal_handlers
-
-from .utils import set_weights
 
 
 class WagtailSearchAppConfig(AppConfig):
@@ -15,9 +15,10 @@ class WagtailSearchAppConfig(AppConfig):
     def ready(self):
         register_signal_handlers()
 
-        set_weights()
+        if connection.vendor == 'postgresql':
+            set_weights()
 
         if not apps.is_installed('wagtail.contrib.postgres_search'):
             # We shall not add the generic relations if they have already been added by the legacy postgres_search app (doing so would duplicate the relationships)
-            from wagtail.core.models.search import IndexEntry
+            from wagtail.search.models import IndexEntry
             IndexEntry.add_generic_relations()

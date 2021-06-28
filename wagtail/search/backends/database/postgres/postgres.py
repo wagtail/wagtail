@@ -13,13 +13,14 @@ from django.db.models.sql.subqueries import InsertQuery
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 
-from ...index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
-from ...models import AbstractPostgresIndexEntry as IndexEntry
-from ...query import And, Boost, Lexeme, MatchAll, Not, Or, Phrase, PlainText, RawSearchQuery
-from ...utils import (
+from ....index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
+from ....models import AbstractPostgresIndexEntry as IndexEntry
+from ....query import And, Boost, Lexeme, MatchAll, Not, Or, Phrase, PlainText, RawSearchQuery
+from ....utils import (
     ADD, MUL, OR, get_content_type_pk, get_descendants_content_types_pks,
-    get_postgresql_connections, get_sql_weights, get_weight)
-from ..base import BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError
+    get_postgresql_connections)
+from .weights import get_sql_weights, get_weight
+from ...base import BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError
 
 
 EMPTY_VECTOR = SearchVector(Value('', output_field=TextField()))

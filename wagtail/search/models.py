@@ -192,3 +192,8 @@ if connection.vendor == 'postgresql':
     AbstractIndexEntry = AbstractPostgresIndexEntry
 else:
     AbstractIndexEntry = BaseIndexEntry
+
+
+class IndexEntry(AbstractIndexEntry):
+    class Meta(AbstractIndexEntry.Meta):
+        abstract = False
