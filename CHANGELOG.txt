@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.13.3 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent error when using rich text on views where commenting is unavailable (Jacob Topp-Mugglestone)
+ * Fix: Include form media on account settings page (Matt Westcott)
+
+
 2.13.2 (17.06.2021)
 ~~~~~~~~~~~~~~~~~~~
 

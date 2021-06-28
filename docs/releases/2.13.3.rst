@@ -1,0 +1,17 @@
+=============================================
+Wagtail 2.13.3 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Prevent error when using rich text on views where commenting is unavailable (Jacob Topp-Mugglestone)
+ * Include form media on account settings page (Matt Westcott)
