@@ -1,4 +1,4 @@
-from django.apps import AppConfig, apps
+from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.search.signal_handlers import register_signal_handlers
@@ -16,8 +16,3 @@ class WagtailSearchAppConfig(AppConfig):
         register_signal_handlers()
 
         set_weights()
-
-        if not apps.is_installed('wagtail.contrib.postgres_search'):
-            # We shall not add the generic relations if they have already been added by the legacy postgres_search app (doing so would duplicate the relationships)
-            # TODO: When the concrete IndexEntry models are available we should, add the generic relations here
-            pass
