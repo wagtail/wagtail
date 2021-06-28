@@ -3,8 +3,6 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.search.signal_handlers import register_signal_handlers
 
-from .utils import set_weights
-
 
 class WagtailSearchAppConfig(AppConfig):
     name = 'wagtail.search'
@@ -14,5 +12,3 @@ class WagtailSearchAppConfig(AppConfig):
 
     def ready(self):
         register_signal_handlers()
-
-        set_weights()
