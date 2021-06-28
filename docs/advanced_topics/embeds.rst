@@ -199,6 +199,10 @@ For example, this is how you can instruct Youtube to return videos in HTTPS
 Facebook and Instagram
 ----------------------
 
+As of September 2021, your Facebook app has to be reviewed and accepted by
+Facebook. You can find the announcement in the API `changelog
+<https://developers.facebook.com/docs/graph-api/changelog/version11.0/#oembed>`.
+
 As of October 2020, Facebook deprecated their public oEmbed APIs. If you would
 like to embed Facebook or Instagram posts in your site, you will need to
 use the new authenticated APIs. This requires you to set up a Facebook
