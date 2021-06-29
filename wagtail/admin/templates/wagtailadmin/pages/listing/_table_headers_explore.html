@@ -17,6 +17,21 @@ ordering: the current sort parameter
 {% endcomment %}
 
 <tr class="table-headers">
+    {% if show_ordering_column %}
+    <th class="ord{% if orderable and ordering == 'ord' %} ord--active{% endif %}">
+        {% if orderable %}
+            {% if ordering == "ord" %}
+                <a href="{% url 'wagtailadmin_explore' parent_page.id %}" title="{% trans 'Disable ordering of child pages' %}">
+                    {% icon name="order" %}{% trans 'Sort' %}
+                </a>
+            {% else %}
+                <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" title="{% trans 'Enable ordering of child pages' %}">
+                    {% icon name="order" %}{% trans 'Sort' %}
+                </a>
+            {% endif %}
+        {% endif %}
+    </th>
+    {% else %}
     <th class="bulk-actions-filter-checkbox" data-parent-id="{{ parent_page.id }}">
         <div>
             <input type="checkbox" aria-label="Bulk action checkbox" />
@@ -33,12 +48,9 @@ ordering: the current sort parameter
             </div>
         </div>
     </th>
-    <th class="search">
-        <div class="nav-search">
-            <button class="button" form="filter_search" type="submit">{% trans "Search" %}</button>
-            <label for="page-search-q">Search</label>
-            <input aria-label='{% trans "Search text" %}' type="text" form="filter_search" value="{{filter_query}}" name="filters" placeholder='{% trans "Search" %}'>
-        </div>
+    {% endif %}
+    <th>
+        {% trans 'Page' %}
     </th>
     {% if show_parent %}
         <th class="parent">
