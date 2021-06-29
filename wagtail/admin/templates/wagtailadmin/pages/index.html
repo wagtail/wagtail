@@ -9,13 +9,12 @@
 
         {% explorer_breadcrumb parent_page %}
     </header>
-    <form method="GET" id="filter_search"></form>
 
     <form id="page-reorder-form">
         {% csrf_token %}
 
         {% page_permissions parent_page as parent_page_perms %}
-        {% include "wagtailadmin/pages/listing/_list_explore.html" with sortable=1 sortable_by_type=1 full_width=1 show_ordering_column=1 parent_page=parent_page orderable=parent_page_perms.can_reorder_children %}
+        {% include "wagtailadmin/pages/listing/_list_explore.html" with sortable=1 sortable_by_type=1 full_width=1 show_ordering_column=show_ordering_column parent_page=parent_page orderable=parent_page_perms.can_reorder_children %}
 
         {% if do_paginate %}
             {% url 'wagtailadmin_explore' parent_page.id as pagination_base_url %}
@@ -30,7 +29,9 @@
     {% comment %} modal-workflow is required by the view restrictions interface {% endcomment %}
     <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
-
+    {% if not show_ordering_column %}
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
+    {% endif %}
     <script type="text/javascript">
         {% if ordering == 'ord' %}
             $(function() {

@@ -129,7 +129,7 @@ function BulkActionEventListeners(e) {
 
 
 /* Adds all event listeners */
-function AddBulkActionEventListeners() {
+(function AddBulkActionEventListeners() {
   document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)
     .forEach(el => {
       checkedState.numPages++;
@@ -144,6 +144,4 @@ function AddBulkActionEventListeners() {
   );
   parentPageId = document.querySelector(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH}`).dataset.parentId;
   updateNumPagesInListing(getParameterByName('filters'));
-}
-
-window.AddBulkActionEventListeners = AddBulkActionEventListeners;
+})()
