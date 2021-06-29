@@ -522,6 +522,7 @@ Contributors
 * Petr Dlouhý
 * Andrew Stone
 * Daniel Fairhead
+* Kevin Gutiérrez
 
 Translators
 ===========

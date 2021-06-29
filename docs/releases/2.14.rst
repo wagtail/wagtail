@@ -42,6 +42,7 @@ Bug fixes
  * Page comparison view now reflects request-level customisations to edit handlers (Matt Westcott)
  * Add ``block.super`` to remaining ``extra_js`` & ``extra_css`` blocks (Andrew Stone)
  * Ensure that ``editor`` and ``features`` arguments on RichTextField are preserved by ``clone()`` (Daniel Fairhead)
+ * Rename 'spin' CSS animation to avoid clashes with other libraries (Kevin Gutiérrez)
 
 Upgrade considerations
 ======================

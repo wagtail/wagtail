@@ -77,12 +77,12 @@
 .icon-spinner:after,
 .icon-spinner:before {  // iconfont
     width: 1em;
-    animation: spin 0.5s infinite linear;
+    animation: spin-wag 0.5s infinite linear;
     display: inline-block;
 }
 
 svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
-    animation: spin 0.5s infinite linear;
+    animation: spin-wag 0.5s infinite linear;
 }
 
 .icon-horizontalrule:before {
@@ -120,7 +120,7 @@ svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
     }
 }
 
-@keyframes spin {
+@keyframes spin-wag {
     0% {
         transform: rotate(0deg);
     }
