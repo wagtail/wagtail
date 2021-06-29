@@ -3,6 +3,10 @@ import re
 
 from functools import partial
 
+from django.apps import apps
+
+from wagtail.search.index import RelatedFields, SearchField
+
 from .query import MATCH_NONE, Phrase, PlainText
 
 
@@ -130,3 +134,48 @@ def parse_query_string(query_string, operator=None, zero_terms=MATCH_NONE):
         search_query = zero_terms
 
     return filters, search_query
+
+
+def get_descendant_models(model):
+    """
+    Returns all descendants of a model, including the model itself.
+    """
+    descendant_models = {other_model for other_model in apps.get_models()
+                         if issubclass(other_model, model)}
+    descendant_models.add(model)
+    return descendant_models
+
+
+def get_content_type_pk(model):
+    # We import it locally because this file is loaded before apps are ready.
+    from django.contrib.contenttypes.models import ContentType
+    return ContentType.objects.get_for_model(model).pk
+
+
+def get_ancestors_content_types_pks(model):
+    """
+    Returns content types ids for the ancestors of this model, excluding it.
+    """
+    from django.contrib.contenttypes.models import ContentType
+    return [ct.pk for ct in
+            ContentType.objects.get_for_models(*model._meta.get_parent_list())
+            .values()]
+
+
+def get_descendants_content_types_pks(model):
+    """
+    Returns content types ids for the descendants of this model, including it.
+    """
+    from django.contrib.contenttypes.models import ContentType
+    return [ct.pk for ct in
+            ContentType.objects.get_for_models(*get_descendant_models(model))
+            .values()]
+
+
+def get_search_fields(search_fields):
+    for search_field in search_fields:
+        if isinstance(search_field, SearchField):
+            yield search_field
+        elif isinstance(search_field, RelatedFields):
+            for sub_field in get_search_fields(search_field.fields):
+                yield sub_field
