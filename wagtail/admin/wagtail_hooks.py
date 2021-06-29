@@ -296,6 +296,14 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             priority=50
         )
 
+    if is_parent:
+        yield Button(
+            _('Sort menu order'),
+            '?ordering=ord',
+            attrs={'title': _("Change ordering of child pages of '%(title)s'") % {'title': page.get_admin_display_title()}},
+            priority=60
+        )
+
 
 @hooks.register('register_admin_urls')
 def register_viewsets_urls():

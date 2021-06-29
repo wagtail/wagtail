@@ -7,7 +7,6 @@ from django.urls import reverse
 
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.navigation import get_explorable_root_page
-from wagtail.admin.views.filters import apply_filters
 from wagtail.core import hooks
 from wagtail.core.models import Page, UserPagePermissionsProxy
 
@@ -39,13 +38,6 @@ def index(request, parent_page_id=None):
         )
         & user_perms.explorable_pages()
     )
-
-    # filter pages
-    # the query should be ?filters=filter1:value1 filter2:value2.... If there are duplicate filters, the filter value of the
-    # latter will be considered by design
-    filter_query = request.GET.get('filters', '')
-    filters_to_be_applied = apply_filters(filter_query)
-    pages = pages.filter(filters_to_be_applied)
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-latest_revision_created_at')
@@ -111,7 +103,7 @@ def index(request, parent_page_id=None):
         'do_paginate': do_paginate,
         'locale': None,
         'translations': [],
-        'filter_query': filter_query,
+        'show_ordering_column': 'ordering' in request.GET.dict()
     }
 
     if getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and not parent_page.is_root():
