@@ -43,7 +43,7 @@ class BaseListingView(TemplateView):
         # Get images (filtered by user permission)
         images = permission_policy.instances_user_has_any_permission_for(
             self.request.user, ['change', 'delete']
-        ).order_by('-created_at')
+        ).order_by('-created_at').select_related('collection')
 
         # Search
         query_string = None
