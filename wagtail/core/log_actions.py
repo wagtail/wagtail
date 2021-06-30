@@ -1,5 +1,10 @@
-from threading import local
 from warnings import warn
+
+
+try:
+    from asgiref.local import Local
+except ImportError:  # fallback for Django <3.0
+    from threading import local as Local
 
 from wagtail.core import hooks
 from wagtail.utils.deprecation import RemovedInWagtail217Warning
@@ -31,7 +36,7 @@ class LogFormatter:
         return self.comment
 
 
-_active = local()
+_active = Local()
 
 
 class LogContext:
