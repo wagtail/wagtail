@@ -66,10 +66,10 @@
 {% block extra_css %}
     {% include "wagtailadmin/pages/_editor_css.html" %}
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/account.css' %}" type="text/css" />
-    {{ form.media.css }}
+    {{ media.css }}
 {% endblock %}
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ form.media.js }}
+    {{ media.js }}
 {% endblock %}

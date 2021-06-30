@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import PageExplorer, { initPageExplorerStore } from '../../PageExplorer';
 import { openPageExplorer, closePageExplorer } from '../../PageExplorer/actions';
 import { SidebarPanel } from '../SidebarPanel';
+import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 
 export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExplorerMenuItemDefinition>> = (
   { path, item, state, dispatch, navigate }) => {
@@ -40,7 +41,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
         if (store.current) {
           store.current.dispatch(closePageExplorer());
         }
-      }, 300);
+      }, SIDEBAR_TRANSITION_DURATION);
     }
   }, [isOpen]);
 
@@ -74,7 +75,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
 
   return (
     <li className={className}>
-      <Button dialogTrigger={true} onClick={onClick}>
+      <Button dialogTrigger={true} onClick={onClick} className="sidebar-menu-item__link">
         <Icon name="folder-open-inverse" className="icon--menuitem" />
         <span className="menuitem-label">{item.label}</span>
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />

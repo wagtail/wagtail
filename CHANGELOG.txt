@@ -10,6 +10,9 @@ Changelog
  * Added `full_url` property to image renditions (Shreyash Srivastava)
  * Added locale selector when choosing translatable snippets (Karl Hobley)
  * Added `WAGTAIL_WORKFLOW_ENABLED` setting for enabling / disabling moderation workflows globally (Matt Westcott)
+ * Allow specifying `max_width` and `max_height` on EmbedBlock (Petr Dlouhý)
+ * Add warning when StreamField is used without a StreamFieldPanel (Naomi Morduch Toubman)
+ * Added keyboard and screen reader support to Wagtail user bar (LB Johnston, Storm Heg)
  * Fix: Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
  * Fix: Ordering specified in `construct_explorer_page_queryset` hook is now taken into account again by the page explorer API (Andre Fonseca)
  * Fix: Deleting a page from its listing view no longer results in a 404 error (Tidjani Dia)
@@ -22,6 +25,16 @@ Changelog
  * Fix: Prevent error when filtering page search results with a malformed content_type (Chris Pollard)
  * Fix: Prevent multiple submissions of "update" form when uploading images / documents (Mike Brown)
  * Fix: Ensure HTML title is populated on project template 404 page (Matt Westcott)
+ * Fix: Respect cache_age parameters on embeds (Gordon Pendleton)
+ * Fix: Page comparison view now reflects request-level customisations to edit handlers (Matt Westcott)
+
+
+2.13.3 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent error when using rich text on views where commenting is unavailable (Jacob Topp-Mugglestone)
+ * Fix: Include form media on account settings page (Matt Westcott)
+ * Fix: Avoid error when rendering validation error messages on ListBlock children (Matt Westcott)
 
 
 2.13.2 (17.06.2021)

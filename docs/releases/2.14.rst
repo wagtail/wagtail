@@ -18,6 +18,9 @@ Other features
  * Added ``full_url`` property to image renditions (Shreyash Srivastava)
  * Added locale selector when choosing translatable snippets (Karl Hobley)
  * Added ``WAGTAIL_WORKFLOW_ENABLED`` setting for enabling / disabling moderation workflows globally (Matt Westcott)
+ * Allow specifying ``max_width`` and ``max_height`` on EmbedBlock (Petr Dlouhý)
+ * Add warning when StreamField is used without a StreamFieldPanel (Naomi Morduch Toubman)
+ * Added keyboard and screen reader support to Wagtail user bar (LB Johnston, Storm Heg)
 
 Bug fixes
 ~~~~~~~~~
@@ -33,6 +36,8 @@ Bug fixes
  * Prevent error when filtering page search results with a malformed content_type (Chris Pollard)
  * Prevent multiple submissions of "update" form when uploading images / documents (Mike Brown)
  * Ensure HTML title is populated on project template 404 page (Matt Westcott)
+ * Respect cache_age parameters on embeds (Gordon Pendleton)
+ * Page comparison view now reflects request-level customisations to edit handlers (Matt Westcott)
 
 Upgrade considerations
 ======================
@@ -41,3 +46,10 @@ Removed support for Django 2.2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Django 2.2 is no longer supported as of this release; please upgrade to Django 3.0 or above before upgrading Wagtail.
+
+User bar with keyboard and screen reader support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Wagtail user bar (“edit bird”) widget now supports keyboard and screen reader navigation. To make the most of this, we now recommend placing the widget near the top of the page ``<body>``, so users can reach it without having to go through the whole page. See :ref:`wagtailuserbar_tag` for more information.
+
+For implementers of custom user bar menu items, we also now require the addition of ``role="menuitem"`` on the ``a`` element to provide the correct semantics. See :ref:`construct_wagtail_userbar` for more information.

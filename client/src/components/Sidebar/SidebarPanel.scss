@@ -13,7 +13,7 @@
     flex-direction: column;
     overflow: hidden;
 
-    @include transition(left 0.3s ease);
+    @include transition(left $menu-transition-duration ease);
 
     &--visible {
         visibility: visible;
@@ -31,9 +31,6 @@
     &--open {
         left: $menu-width;
 
-        @at-root .sidebar--slim #{&} {
-            left: $menu-width-slim;
-        }
         // Don't apply this to nested submenus though
         @at-root .sidebar--slim .sidebar-panel #{&} {
             left: $menu-width;

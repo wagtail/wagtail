@@ -12,7 +12,13 @@ export { default as Document } from './decorators/Document';
 export { default as ImageBlock } from './blocks/ImageBlock';
 export { default as EmbedBlock } from './blocks/EmbedBlock';
 
-import ModalWorkflowSource from './sources/ModalWorkflowSource';
+import {
+  ModalWorkflowSource,
+  ImageModalWorkflowSource,
+  EmbedModalWorkflowSource,
+  LinkModalWorkflowSource,
+  DocumentModalWorkflowSource
+} from './sources/ModalWorkflowSource';
 import Tooltip from './Tooltip/Tooltip';
 import TooltipEntity from './decorators/TooltipEntity';
 import EditorFallback from './EditorFallback/EditorFallback';
@@ -114,8 +120,6 @@ const initEditor = (selector, options, currentScript) => {
     enableHorizontalRule
   };
 
-  const contentPath = window.comments.getContentPath(field);
-
   const styles = getComputedStyle(document.documentElement);
   const colors = {
     standardHighlight: styles.getPropertyValue('--color-primary-light'),
@@ -125,7 +129,8 @@ const initEditor = (selector, options, currentScript) => {
 
   // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -
   // and the comments system is initialized then use CommentableEditor, otherwise plain DraftailEditor
-  const editor = (window.comments.commentApp && contentPath !== '') ?
+  const contentPath = window.comments?.getContentPath(field) || '';
+  const editor = (window.comments?.commentApp && contentPath !== '') ?
     <Provider store={window.comments.commentApp.store}>
       <CommentableEditor
         editorRef={editorRef}
@@ -150,6 +155,10 @@ export default {
   registerPlugin,
   // Components exposed for third-party reuse.
   ModalWorkflowSource,
+  ImageModalWorkflowSource,
+  EmbedModalWorkflowSource,
+  LinkModalWorkflowSource,
+  DocumentModalWorkflowSource,
   Tooltip,
   TooltipEntity,
 };

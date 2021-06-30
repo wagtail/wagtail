@@ -10,7 +10,7 @@ from django import template
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.urls import reverse
-from django.utils.timezone import make_aware
+from django.utils.timezone import make_aware, now
 
 from wagtail.core import blocks
 from wagtail.embeds import oembed_providers
@@ -122,7 +122,7 @@ class TestEmbeds(TestCase):
     def setUp(self):
         self.hit_count = 0
 
-    def dummy_finder(self, url, max_width=None):
+    def dummy_finder(self, url, max_width=None, max_height=None):
         # Up hit count
         self.hit_count += 1
 
@@ -175,7 +175,7 @@ class TestEmbeds(TestCase):
         self.assertFalse(embed.is_responsive)
         self.assertIsNone(embed.cache_until)
 
-    def dummy_cache_until_finder(self, url, max_width=None):
+    def dummy_cache_until_finder(self, url, max_width=None, max_height=None):
         # Up hit count
         self.hit_count += 1
 
@@ -192,8 +192,25 @@ class TestEmbeds(TestCase):
     def test_get_embed_cache_until(self):
         embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
         self.assertEqual(embed.cache_until, make_aware(datetime.datetime(2001, 2, 3)))
+        self.assertEqual(self.hit_count, 1)
 
-    def dummy_finder_invalid_width(self, url, max_width=None):
+        # expired cache_until should be ignored
+        embed_2 = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        self.assertEqual(self.hit_count, 2)
+
+        # future cache_until should not be ignored
+        future_dt = now() + datetime.timedelta(minutes=1)
+        embed.cache_until = future_dt
+        embed.save()
+        embed_3 = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        self.assertEqual(self.hit_count, 2)
+
+        # ensure we've received the same embed
+        self.assertEqual(embed, embed_2)
+        self.assertEqual(embed, embed_3)
+        self.assertEqual(embed_3.cache_until, future_dt)
+
+    def dummy_finder_invalid_width(self, url, max_width=None, max_height=None):
         # Return a record with an invalid width
         return {
             'title': "Test: " + url,
@@ -211,7 +228,7 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.width, None)
 
     def test_no_html(self):
-        def no_html_finder(url, max_width=None):
+        def no_html_finder(url, max_width=None, max_height=None):
             """
             A finder which returns everything but HTML
             """
@@ -693,7 +710,7 @@ class TestEmbedBlock(TestCase):
         self.assertIn('<h1>Hello world!</h1>', result)
 
         # Check that get_embed was called correctly
-        get_embed.assert_any_call('http://www.example.com/foo')
+        get_embed.assert_any_call('http://www.example.com/foo', None, None)
 
     @patch('wagtail.embeds.embeds.get_embed')
     def test_render_within_structblock(self, get_embed):
@@ -718,7 +735,7 @@ class TestEmbedBlock(TestCase):
         self.assertIn('<h1>Hello world!</h1>', result)
 
         # Check that get_embed was called correctly
-        get_embed.assert_any_call('http://www.example.com/foo')
+        get_embed.assert_any_call('http://www.example.com/foo', None, None)
 
     def test_value_from_form(self):
         """

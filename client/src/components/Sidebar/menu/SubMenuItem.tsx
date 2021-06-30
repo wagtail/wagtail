@@ -6,6 +6,7 @@ import Icon from '../../Icon/Icon';
 
 import { renderMenu } from '../modules/MainMenu';
 import { SidebarPanel } from '../SidebarPanel';
+import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
 
 interface SubMenuItemProps extends MenuItemProps<SubMenuItemDefinition> {
@@ -28,7 +29,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
       // to finish before making it invisible
       setTimeout(() => {
         setIsVisible(false);
-      }, 300);
+      }, SIDEBAR_TRANSITION_DURATION);
     }
   }, [isOpen]);
 
@@ -67,7 +68,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
       <a
         href="#"
         onClick={onClick}
-        className={item.classNames}
+        className={`sidebar-menu-item__link ${item.classNames}`}
         aria-haspopup="true"
         aria-expanded={isOpen ? 'true' : 'false'}
       >
@@ -84,7 +85,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
           <ul aria-labelledby={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}>
             {renderMenu(path, item.menuItems, slim, state, dispatch, navigate)}
           </ul>
-          {item.footerText && <p className="sidebar-panel__footer">{item.footerText}</p>}
+          {item.footerText && <p className="sidebar-sub-menu-panel__footer">{item.footerText}</p>}
         </div>
       </SidebarPanel>
     </li>
