@@ -12,6 +12,9 @@ from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainTex
 from wagtail.search.utils import AND, OR
 
 
+# This file contains a dummy implementation of the database backend, to be used only if the current default database is neither PostgreSQL, nor MySQL, nor SQLite.
+
+
 MATCH_ALL = "_ALL_"
 MATCH_NONE = "_NONE_"
 

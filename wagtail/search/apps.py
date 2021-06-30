@@ -15,6 +15,7 @@ class WagtailSearchAppConfig(AppConfig):
         register_signal_handlers()
 
         if connection.vendor == 'postgresql':
+            # Only PostgreSQL has support for tsvector weights
             from wagtail.search.backends.database.postgres.weights import set_weights
             set_weights()
 

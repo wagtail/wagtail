@@ -2,8 +2,9 @@
 
 import django.contrib.postgres.indexes
 import django.contrib.postgres.search
-from django.db import connection, migrations, models
 import django.db.models.deletion
+
+from django.db import connection, migrations, models
 
 
 class Migration(migrations.Migration):
@@ -13,6 +14,7 @@ class Migration(migrations.Migration):
         ('wagtailsearch', '0004_querydailyhits_verbose_name_plural'),
     ]
 
+    # We need to run different operations in the migration, depending on the actual database system that is being used right now. For example, if we're using PostgreSQL, we need to create the model for the wagtail.search.models.IndexEntry that has the appropriate structure for PostgreSQL (the IndexEntry definition is altered depending on which database system is currently installed).
     if connection.vendor == 'postgresql':
         operations = [
             migrations.CreateModel(
@@ -50,4 +52,5 @@ class Migration(migrations.Migration):
             ),
         ]
     else:
+        # If we don't recognise the database vendor, don't create the IndexEntry model
         operations = []
