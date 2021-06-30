@@ -2,7 +2,6 @@ from django.apps import AppConfig, apps
 from django.db import connection
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.search.backends.database.postgres.weights import set_weights
 from wagtail.search.signal_handlers import register_signal_handlers
 
 
@@ -16,6 +15,7 @@ class WagtailSearchAppConfig(AppConfig):
         register_signal_handlers()
 
         if connection.vendor == 'postgresql':
+            from wagtail.search.backends.database.postgres.weights import set_weights
             set_weights()
 
         if not apps.is_installed('wagtail.contrib.postgres_search'):
