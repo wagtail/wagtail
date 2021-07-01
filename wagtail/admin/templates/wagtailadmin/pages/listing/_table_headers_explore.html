@@ -37,13 +37,8 @@ ordering: the current sort parameter
             <input type="checkbox" aria-label="Bulk action checkbox" />
             {% bulk_action_filters %}
             <div class="bulk-actions-choices u-hidden">
-                <span>
-                    {% blocktrans count counter=pages|length %}
-                    <span class="num-pages">1 page</span> on this page selected. Select all <span class="num-pages-in-listing">0</span> in listing |
-                    {% plural %}
-                    <span class="num-pages">All {{counter}} pages</span> on this page selected. Select all <span class="num-pages-in-listing">0</span> in listing |
-                    {% endblocktrans %}
-                </span>
+                <span class="num-pages"></span>
+                <a class="num-pages-in-listing u-hidden" href='#'>{{ select_all_page_text }}</a>
                 <ul>{% page_bulk_action_choices %}</ul>
             </div>
         </div>
