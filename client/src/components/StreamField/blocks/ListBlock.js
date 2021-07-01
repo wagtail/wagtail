@@ -106,8 +106,8 @@ export class ListBlock extends BaseSequenceBlock {
     return [blockDef, initialState];
   }
 
-  _createChild(blockDef, placeholder, prefix, index, id, initialState, opts) {
-    return new ListChild(blockDef, placeholder, prefix, index, id, initialState, opts);
+  _createChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
+    return new ListChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts);
   }
 
   _createInsertionControl(placeholder, opts) {
