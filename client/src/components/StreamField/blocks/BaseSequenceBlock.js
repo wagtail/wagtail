@@ -34,18 +34,15 @@ class ActionButton {
 }
 
 export class BaseSequenceChild {
-  constructor(blockDef, placeholder, prefix, index, id, initialState, opts) {
+  constructor(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
     this.index = index;
     this.id = id;
+    this.sequence = sequence;
 
     const animate = opts && opts.animate;
-    this.onRequestDuplicate = opts && opts.onRequestDuplicate;
-    this.onRequestDelete = opts && opts.onRequestDelete;
-    this.onRequestMoveUp = opts && opts.onRequestMoveUp;
-    this.onRequestMoveDown = opts && opts.onRequestMoveDown;
     this.collapsed = opts && opts.collapsed;
     const strings = (opts && opts.strings) || {};
 
@@ -95,26 +92,26 @@ export class BaseSequenceChild {
     this.moveUpButton = new ActionButton(actionsContainer, 'arrow-up', strings.MOVE_UP, {
       disabled: true,
       onClick: () => {
-        if (this.onRequestMoveUp) this.onRequestMoveUp(this.index);
+        this.sequence.moveBlockUp(this.index);
       }
     });
 
     this.moveDownButton = new ActionButton(actionsContainer, 'arrow-down', strings.MOVE_DOWN, {
       disabled: true,
       onClick: () => {
-        if (this.onRequestMoveDown) this.onRequestMoveDown(this.index);
+        this.sequence.moveBlockDown(this.index);
       }
     });
 
     this.duplicateButton = new ActionButton(actionsContainer, 'duplicate', strings.DUPLICATE, {
       onClick: () => {
-        if (this.onRequestDuplicate) this.onRequestDuplicate(this.index);
+        this.sequence.duplicateBlock(this.index, { animate: true });
       }
     });
 
     this.deleteButton = new ActionButton(actionsContainer, 'bin', strings.DELETE, {
       onClick: () => {
-        if (this.onRequestDelete) this.onRequestDelete(this.index);
+        this.sequence.deleteBlock(this.index, { animate: true });
       }
     });
 
@@ -240,7 +237,7 @@ export class BaseInsertionControl {
 
 export class BaseSequenceBlock {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _createChild(blockDef, placeholder, prefix, index, id, initialState, opts) {
+  _createChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
     throw new Error('not implemented');
   }
 
@@ -312,13 +309,9 @@ export class BaseSequenceBlock {
       this.inserters[i].setIndex(i + 1);
     }
 
-    const child = this._createChild(childBlockDef, blockPlaceholder, prefix, index, id, initialState, {
+    const child = this._createChild(childBlockDef, blockPlaceholder, prefix, index, id, initialState, this, {
       animate,
       collapsed,
-      onRequestDuplicate: (i) => { this.duplicateBlock(i, { animate: true }); },
-      onRequestDelete: (i) => { this.deleteBlock(i, { animate: true }); },
-      onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },
-      onRequestMoveDown: (i) => { this.moveBlock(i, i + 1); },
       strings: this.blockDef.meta.strings,
     });
     this.children.splice(index, 0, child);
@@ -433,6 +426,14 @@ export class BaseSequenceBlock {
       childToMove.disableMoveDown();
       this.children[maxIndex - 1].enableMoveDown();
     }
+  }
+
+  moveBlockUp(index) {
+    this.moveBlock(index, index - 1);
+  }
+
+  moveBlockDown(index) {
+    this.moveBlock(index, index + 1);
   }
 
   setState(values) {
