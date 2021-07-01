@@ -4,6 +4,35 @@
 
 import { escapeHtml as h } from '../../../utils/text';
 
+class ActionButton {
+  constructor(container, iconName, label, opts) {
+    this.dom = $(`
+      <button type="button" class="c-sf-block__actions__single" title="${h(label)}">
+        <i class="icon icon-${h(iconName)}" aria-hidden="true"></i>
+      </button>
+    `);
+    $(container).append(this.dom);
+
+    if (opts?.disabled) {
+      this.disable();
+    }
+
+    if (opts?.onClick) {
+      this.dom.click(() => {
+        opts.onClick();
+        return false;  // don't propagate to header's onclick event (which collapses the block)
+      });
+    }
+  }
+
+  enable() {
+    this.dom.removeAttr('disabled');
+  }
+  disable() {
+    this.dom.attr('disabled', 'true');
+  }
+}
+
 export class BaseSequenceChild {
   constructor(blockDef, placeholder, prefix, index, id, initialState, opts) {
     this.blockDef = blockDef;
@@ -35,24 +64,8 @@ export class BaseSequenceChild {
                   <i class="icon icon-${h(this.blockDef.meta.icon)}"></i>
                 </span>
                 <h3 data-block-title class="c-sf-block__header__title"></h3>
-                <div class="c-sf-block__actions">
+                <div class="c-sf-block__actions" data-block-actions>
                   <span class="c-sf-block__type">${h(this.blockDef.meta.label)}</span>
-                  <button type="button" data-move-up-button class="c-sf-block__actions__single"
-                      disabled title="${h(strings.MOVE_UP)}">
-                    <i class="icon icon-arrow-up" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" data-move-down-button class="c-sf-block__actions__single"
-                      disabled title="${h(strings.MOVE_DOWN)}">
-                    <i class="icon icon-arrow-down" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" data-duplicate-button
-                      class="c-sf-block__actions__single" title="${h(strings.DUPLICATE)}">
-                    <i class="icon icon-duplicate" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" data-delete-button
-                      class="c-sf-block__actions__single" title="${h(strings.DELETE)}">
-                    <i class="icon icon-bin" aria-hidden="true"></i>
-                  </button>
                 </div>
               </div>
               <div data-block-content class="c-sf-block__content" aria-hidden="false">
@@ -69,36 +82,40 @@ export class BaseSequenceChild {
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
-
-    this.duplicateButton = dom.find('button[data-duplicate-button]');
-    this.duplicateButton.click(() => {
-      if (this.onRequestDuplicate) this.onRequestDuplicate(this.index);
-      return false;  // don't propagate to header's onclick event (which collapses the block)
-    });
-
+    const actionsContainer = dom.find('[data-block-actions]').get(0);
     this.titleElement = dom.find('[data-block-title]');
     this.contentElement = dom.find('[data-block-content]');
+    this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
+    this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
+
     dom.find('[data-block-header]').click(() => {
       this.toggleCollapsedState();
     });
 
-    dom.find('button[data-delete-button]').click(() => {
-      if (this.onRequestDelete) this.onRequestDelete(this.index);
-      return false;  // don't propagate to header's onclick event (which collapses the block)
+    this.moveUpButton = new ActionButton(actionsContainer, 'arrow-up', strings.MOVE_UP, {
+      disabled: true,
+      onClick: () => {
+        if (this.onRequestMoveUp) this.onRequestMoveUp(this.index);
+      }
     });
 
-    this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
-    this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
-
-    this.moveUpButton = dom.find('button[data-move-up-button]');
-    this.moveUpButton.click(() => {
-      if (this.onRequestMoveUp) this.onRequestMoveUp(this.index);
-      return false;  // don't propagate to header's onclick event (which collapses the block)
+    this.moveDownButton = new ActionButton(actionsContainer, 'arrow-down', strings.MOVE_DOWN, {
+      disabled: true,
+      onClick: () => {
+        if (this.onRequestMoveDown) this.onRequestMoveDown(this.index);
+      }
     });
-    this.moveDownButton = dom.find('button[data-move-down-button]');
-    this.moveDownButton.click(() => {
-      if (this.onRequestMoveDown) this.onRequestMoveDown(this.index);
-      return false;  // don't propagate to header's onclick event (which collapses the block)
+
+    this.duplicateButton = new ActionButton(actionsContainer, 'duplicate', strings.DUPLICATE, {
+      onClick: () => {
+        if (this.onRequestDuplicate) this.onRequestDuplicate(this.index);
+      }
+    });
+
+    this.deleteButton = new ActionButton(actionsContainer, 'bin', strings.DELETE, {
+      onClick: () => {
+        if (this.onRequestDelete) this.onRequestDelete(this.index);
+      }
     });
 
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
@@ -134,22 +151,22 @@ export class BaseSequenceChild {
   }
 
   enableDuplication() {
-    this.duplicateButton.removeAttr('disabled');
+    this.duplicateButton.enable();
   }
   disableDuplication() {
-    this.duplicateButton.attr('disabled', 'true');
+    this.duplicateButton.disable();
   }
   enableMoveUp() {
-    this.moveUpButton.removeAttr('disabled');
+    this.moveUpButton.enable();
   }
   disableMoveUp() {
-    this.moveUpButton.attr('disabled', 'true');
+    this.moveUpButton.disable();
   }
   enableMoveDown() {
-    this.moveDownButton.removeAttr('disabled');
+    this.moveDownButton.enable();
   }
   disableMoveDown() {
-    this.moveDownButton.attr('disabled', 'true');
+    this.moveDownButton.disable();
   }
 
   setIndex(newIndex) {

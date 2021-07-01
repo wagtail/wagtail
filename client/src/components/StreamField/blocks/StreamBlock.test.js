@@ -434,7 +434,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
   const assertCanAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toBe(null);
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toBe(null);
 
     // Test menu
     expect(document.querySelector('button[data-streamblock-menu-open]').getAttribute('disabled')).toBe(null);
@@ -443,7 +443,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
   const assertCannotAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toEqual('disabled');
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toEqual('disabled');
 
     // Test menu
     expect(document.querySelector('button[data-streamblock-menu-open]').getAttribute('disabled')).toEqual('disabled');
@@ -607,7 +607,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
   const assertCanAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toBe(null);
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toBe(null);
 
     // Test menu item
     expect(document.querySelector('button.action-add-block-test_block_a').getAttribute('disabled')).toBe(null);
@@ -616,7 +616,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
   const assertCannotAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toEqual('disabled');
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toEqual('disabled');
 
     // Test menu item
     expect(document.querySelector('button.action-add-block-test_block_a').getAttribute('disabled')).toEqual('disabled');
