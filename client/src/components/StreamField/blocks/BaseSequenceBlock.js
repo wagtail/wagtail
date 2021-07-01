@@ -2,6 +2,7 @@
 
 /* global $ */
 
+import EventEmitter from 'events';
 import { escapeHtml as h } from '../../../utils/text';
 
 class ActionButton {
@@ -33,7 +34,7 @@ class ActionButton {
   }
 }
 
-export class BaseSequenceChild {
+export class BaseSequenceChild extends EventEmitter {
   constructor(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
@@ -89,27 +90,46 @@ export class BaseSequenceChild {
       this.toggleCollapsedState();
     });
 
-    this.moveUpButton = new ActionButton(actionsContainer, 'arrow-up', strings.MOVE_UP, {
+    const moveUpButton = new ActionButton(actionsContainer, 'arrow-up', strings.MOVE_UP, {
       disabled: true,
       onClick: () => {
         this.sequence.moveBlockUp(this.index);
       }
     });
+    this.on('enableMoveUp', () => {
+      moveUpButton.enable();
+    });
+    this.on('disableMoveUp', () => {
+      moveUpButton.disable();
+    });
 
-    this.moveDownButton = new ActionButton(actionsContainer, 'arrow-down', strings.MOVE_DOWN, {
+    const moveDownButton = new ActionButton(actionsContainer, 'arrow-down', strings.MOVE_DOWN, {
       disabled: true,
       onClick: () => {
         this.sequence.moveBlockDown(this.index);
       }
     });
+    this.on('enableMoveDown', () => {
+      moveDownButton.enable();
+    });
+    this.on('disableMoveDown', () => {
+      moveDownButton.disable();
+    });
 
-    this.duplicateButton = new ActionButton(actionsContainer, 'duplicate', strings.DUPLICATE, {
+    const duplicateButton = new ActionButton(actionsContainer, 'duplicate', strings.DUPLICATE, {
       onClick: () => {
         this.sequence.duplicateBlock(this.index, { animate: true });
       }
     });
+    this.on('enableDuplication', () => {
+      duplicateButton.enable();
+    });
+    this.on('disableDuplication', () => {
+      duplicateButton.disable();
+    });
 
-    this.deleteButton = new ActionButton(actionsContainer, 'bin', strings.DELETE, {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const deleteButton = new ActionButton(actionsContainer, 'bin', strings.DELETE, {
       onClick: () => {
         this.sequence.deleteBlock(this.index, { animate: true });
       }
@@ -148,22 +168,22 @@ export class BaseSequenceChild {
   }
 
   enableDuplication() {
-    this.duplicateButton.enable();
+    this.emit('enableDuplication');
   }
   disableDuplication() {
-    this.duplicateButton.disable();
+    this.emit('disableDuplication');
   }
   enableMoveUp() {
-    this.moveUpButton.enable();
+    this.emit('enableMoveUp');
   }
   disableMoveUp() {
-    this.moveUpButton.disable();
+    this.emit('disableMoveUp');
   }
   enableMoveDown() {
-    this.moveDownButton.enable();
+    this.emit('enableMoveDown');
   }
   disableMoveDown() {
-    this.moveDownButton.disable();
+    this.emit('disableMoveDown');
   }
 
   setIndex(newIndex) {
