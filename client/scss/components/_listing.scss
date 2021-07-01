@@ -64,6 +64,12 @@ ul.listing {
                 opacity: 0.5;
                 right: 0;
             }
+
+            &.num-pages-in-listing {
+                color: $color-teal;
+                text-transform: none;
+                padding: 0 1em;
+            }
         }
     }
 
@@ -95,7 +101,7 @@ ul.listing {
             }
 
             .bulk-actions-choices,
-            .bulk-actions-choices ul {
+            .bulk-actions-choices > ul {
                 display: flex;
                 align-items: center;
             }
