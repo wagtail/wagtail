@@ -1,15 +1,19 @@
+/* global wagtailConfig */
+/* global $ */
+
 const BULK_ACTION_PAGE_CHECKBOX_INPUT = 'bulk-action-checkbox';
 const BULK_ACTION_SELECT_ALL_CHECKBOX_TH = 'bulk-actions-filter-checkbox';
 const BULK_ACTION_FILTERS_CLASS = `${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} .c-dropdown__item a`;
 const BULK_ACTION_CHOICES_DIV = 'bulk-actions-choices';
 const BULK_ACTION_NUM_PAGES_SPAN = 'num-pages';
-const BULK_ACTION_NUM_PAGES_IN_LISTING_SPAN = 'num-pages-in-listing';
+const BULK_ACTION_NUM_PAGES_IN_LISTING = 'num-pages-in-listing';
 const TABLE_HEADERS_TR = 'table-headers';
-let parentPageId;
 
 const checkedState = {
   checkedPages: new Set(),
   numPages: 0,
+  listingPageIds: [],
+  selectAllInListing: false
 };
 
 /* Event listener for the `Select All` checkbox */
@@ -25,6 +29,7 @@ function SelectBulkActionsFilter(e) {
 
 /* Event listener for individual page checkbox */
 function SelectBulkActionsCheckboxes(e) {
+  if (checkedState.selectAllInListing) checkedState.selectAllInListing = false;
   const prevLength = checkedState.checkedPages.size;
   if (e.target.checked) checkedState.checkedPages.add(+e.target.dataset.pageId);
   else {
@@ -58,36 +63,48 @@ function SelectBulkActionsCheckboxes(e) {
 
   if (checkedState.checkedPages.size > 0) {
     /* Update text on number of pages */
-    document.querySelector(`.${BULK_ACTION_NUM_PAGES_SPAN}`).textContent =
-    `${checkedState.checkedPages.size === checkedState.numPages ? 'All ' : ''} ${checkedState.checkedPages.size}`;
+    let numPagesSelected = '';
+    if (checkedState.checkedPages.size === checkedState.numPages) {
+      document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.remove('u-hidden');
+      if (checkedState.numPages === 1) {
+        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_SINGULAR;
+      } else {
+        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL.replace('{0}', checkedState.checkedPages.size);
+      }
+    } else {
+      document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.add('u-hidden');
+      if (checkedState.checkedPages.size === 1) {
+        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_SINGULAR;
+      } else {
+        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_PLURAL.replace(
+          '{0}', checkedState.checkedPages.size
+        );
+      }
+    }
+    document.querySelector(`.${BULK_ACTION_NUM_PAGES_SPAN}`).textContent = numPagesSelected;
   }
 }
 
-
-/* Gets the value of given name from the query string in url */
-function getParameterByName(name) {
-  var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-  return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-
-
-/* Updates the content of BULK_ACTION_NUM_PAGES_IN_LISTING_SPAN with the new count of pages */
-function updateNumPagesInListing(filterQueryString) {
-  // eslint-disable-next-line no-undef
-  $.ajax({
-    url: parentPageId ? `/admin/pages/${parentPageId}/filter-count/` : '/admin/pages/filter-count/',
-    data: { filters: filterQueryString },
-    success: (response) => {
-      document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING_SPAN}`).textContent = response.count;
-    },
-  });
+function fetchAllPageIdsInListing(e) {
+  if (checkedState.listingPageIds.length === 0) {
+    e.preventDefault();
+    $.ajax({
+      url: '?fetchPageIds=1',
+      success: (response) => {
+        checkedState.listingPageIds = response.page_ids;
+      },
+    });
+  }
+  checkedState.selectAllInListing = true;
+  document.querySelector(`.${BULK_ACTION_NUM_PAGES_SPAN}`).
+    textContent = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL_IN_LISTING;
+  document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.add('u-hidden');
 }
 
 /* Event listener for filter dropdown options */
 function FilterEventListener(e) {
   e.preventDefault();
   const filter = e.target.dataset.filter || '';
-  updateNumPagesInListing(filter);
   const changeEvent = new Event('change');
   if (filter.length) {
     /* split the filter string into [key,value] pairs and check for the values in the
@@ -121,7 +138,7 @@ function BulkActionEventListeners(e) {
   e.preventDefault();
   const url = e.target.getAttribute('href');
   let queryString = '';
-  checkedState.checkedPages.forEach(pageId => {
+  (checkedState.selectAllInListing ? checkedState.listingPageIds : checkedState.checkedPages).forEach(pageId => {
     queryString += `&id=${pageId}`;
   });
   window.location.href = url + queryString;
@@ -129,7 +146,7 @@ function BulkActionEventListeners(e) {
 
 
 /* Adds all event listeners */
-(function AddBulkActionEventListeners() {
+function addBulkActionListeners() {
   document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)
     .forEach(el => {
       checkedState.numPages++;
@@ -142,6 +159,7 @@ function BulkActionEventListeners(e) {
   document.querySelectorAll(`.${BULK_ACTION_CHOICES_DIV} > ul > li > a`).forEach(
     elem => elem.addEventListener('click', BulkActionEventListeners)
   );
-  parentPageId = document.querySelector(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH}`).dataset.parentId;
-  updateNumPagesInListing(getParameterByName('filters'));
-})()
+  document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).addEventListener('click', fetchAllPageIdsInListing);
+}
+
+addBulkActionListeners();
