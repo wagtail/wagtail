@@ -6,24 +6,22 @@ import EventEmitter from 'events';
 import { escapeHtml as h } from '../../../utils/text';
 
 class ActionButton {
-  constructor(container, iconName, label, opts) {
+  constructor(sequenceChild, iconName, label) {
+    this.sequenceChild = sequenceChild;
     this.dom = $(`
       <button type="button" class="c-sf-block__actions__single" title="${h(label)}">
         <i class="icon icon-${h(iconName)}" aria-hidden="true"></i>
       </button>
     `);
+
+    this.dom.on('click', () => {
+      if (this.onClick) this.onClick();
+      return false;  // don't propagate to header's onclick event (which collapses the block)
+    });
+  }
+
+  render(container) {
     $(container).append(this.dom);
-
-    if (opts?.disabled) {
-      this.disable();
-    }
-
-    if (opts?.onClick) {
-      this.dom.click(() => {
-        opts.onClick();
-        return false;  // don't propagate to header's onclick event (which collapses the block)
-      });
-    }
   }
 
   enable() {
@@ -31,6 +29,65 @@ class ActionButton {
   }
   disable() {
     this.dom.attr('disabled', 'true');
+  }
+}
+
+class MoveUpButton extends ActionButton {
+  render(container) {
+    super.render(container);
+    this.disable();
+
+    this.sequenceChild.on('enableMoveUp', () => {
+      this.enable();
+    });
+    this.sequenceChild.on('disableMoveUp', () => {
+      this.disable();
+    });
+  }
+
+  onClick() {
+    this.sequenceChild.moveUp();
+  }
+}
+
+class MoveDownButton extends ActionButton {
+  render(container) {
+    super.render(container);
+    this.disable();
+
+    this.sequenceChild.on('enableMoveDown', () => {
+      this.enable();
+    });
+    this.sequenceChild.on('disableMoveDown', () => {
+      this.disable();
+    });
+  }
+
+  onClick() {
+    this.sequenceChild.moveDown();
+  }
+}
+
+class DuplicateButton extends ActionButton {
+  render(container) {
+    super.render(container);
+
+    this.sequenceChild.on('enableDuplication', () => {
+      this.enable();
+    });
+    this.sequenceChild.on('disableDuplication', () => {
+      this.disable();
+    });
+  }
+
+  onClick() {
+    this.sequenceChild.duplicate({ animate: true });
+  }
+}
+
+class DeleteButton extends ActionButton {
+  onClick() {
+    this.sequenceChild.delete({ animate: true });
   }
 }
 
@@ -80,7 +137,7 @@ export class BaseSequenceChild extends EventEmitter {
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
-    const actionsContainer = dom.find('[data-block-actions]').get(0);
+    this.actionsContainerElement = dom.find('[data-block-actions]').get(0);
     this.titleElement = dom.find('[data-block-title]');
     this.contentElement = dom.find('[data-block-content]');
     this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
@@ -90,50 +147,10 @@ export class BaseSequenceChild extends EventEmitter {
       this.toggleCollapsedState();
     });
 
-    const moveUpButton = new ActionButton(actionsContainer, 'arrow-up', strings.MOVE_UP, {
-      disabled: true,
-      onClick: () => {
-        this.sequence.moveBlockUp(this.index);
-      }
-    });
-    this.on('enableMoveUp', () => {
-      moveUpButton.enable();
-    });
-    this.on('disableMoveUp', () => {
-      moveUpButton.disable();
-    });
-
-    const moveDownButton = new ActionButton(actionsContainer, 'arrow-down', strings.MOVE_DOWN, {
-      disabled: true,
-      onClick: () => {
-        this.sequence.moveBlockDown(this.index);
-      }
-    });
-    this.on('enableMoveDown', () => {
-      moveDownButton.enable();
-    });
-    this.on('disableMoveDown', () => {
-      moveDownButton.disable();
-    });
-
-    const duplicateButton = new ActionButton(actionsContainer, 'duplicate', strings.DUPLICATE, {
-      onClick: () => {
-        this.sequence.duplicateBlock(this.index, { animate: true });
-      }
-    });
-    this.on('enableDuplication', () => {
-      duplicateButton.enable();
-    });
-    this.on('disableDuplication', () => {
-      duplicateButton.disable();
-    });
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const deleteButton = new ActionButton(actionsContainer, 'bin', strings.DELETE, {
-      onClick: () => {
-        this.sequence.deleteBlock(this.index, { animate: true });
-      }
-    });
+    this.addActionButton(new MoveUpButton(this, 'arrow-up', strings.MOVE_UP));
+    this.addActionButton(new MoveDownButton(this, 'arrow-down', strings.MOVE_DOWN));
+    this.addActionButton(new DuplicateButton(this, 'duplicate', strings.DUPLICATE));
+    this.addActionButton(new DeleteButton(this, 'bin', strings.DELETE));
 
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
 
@@ -147,6 +164,26 @@ export class BaseSequenceChild extends EventEmitter {
         dom.slideDown();
       }, 10);
     }
+  }
+
+  addActionButton(button) {
+    button.render(this.actionsContainerElement);
+  }
+
+  moveUp() {
+    this.sequence.moveBlockUp(this.index);
+  }
+
+  moveDown() {
+    this.sequence.moveBlockDown(this.index);
+  }
+
+  duplicate(opts) {
+    this.sequence.duplicateBlock(this.index, opts);
+  }
+
+  delete(opts) {
+    this.sequence.deleteBlock(this.index, opts);
   }
 
   markDeleted({ animate = false }) {
