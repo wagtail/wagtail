@@ -1203,6 +1203,30 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.assertFalse(comment_form.is_valid())
         # Users cannot delete comments from other users
 
+    def test_users_can_edit_comment_positions(self):
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-position': 'a_new_position',  # Try to change the position of a comment
+            'comments-0-DELETE': 0,
+            'comments-0-replies-TOTAL_FORMS': 0,
+            'comments-0-replies-INITIAL_FORMS': 0,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+        self.assertTrue(comment_form.is_valid())
+        # Users can change the positions of other users' comments within a field
+        # eg by editing a rich text field
+
     @freeze_time("2017-01-01 12:00:00")
     def test_comment_resolve(self):
         form = self.EventPageForm({
