@@ -520,6 +520,7 @@ Contributors
 * Godswill Melford
 * Jake Howard
 * Petr Dlouhý
+* Andrew Stone
 
 Translators
 ===========
