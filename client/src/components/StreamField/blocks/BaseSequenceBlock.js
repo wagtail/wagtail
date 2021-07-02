@@ -6,11 +6,16 @@ import EventEmitter from 'events';
 import { escapeHtml as h } from '../../../utils/text';
 
 class ActionButton {
-  constructor(sequenceChild, iconName, label) {
+  constructor(sequenceChild) {
     this.sequenceChild = sequenceChild;
+  }
+
+  render(container) {
+    const label = this.sequenceChild.strings[this.labelIdentifier] || this.labelIdentifier;
+
     this.dom = $(`
       <button type="button" class="c-sf-block__actions__single" title="${h(label)}">
-        <i class="icon icon-${h(iconName)}" aria-hidden="true"></i>
+        <i class="icon icon-${h(this.icon)}" aria-hidden="true"></i>
       </button>
     `);
 
@@ -18,9 +23,7 @@ class ActionButton {
       if (this.onClick) this.onClick();
       return false;  // don't propagate to header's onclick event (which collapses the block)
     });
-  }
 
-  render(container) {
     $(container).append(this.dom);
 
     if (this.enableEvent) {
@@ -52,6 +55,8 @@ class MoveUpButton extends ActionButton {
   enableEvent = 'enableMoveUp';
   disableEvent = 'disableMoveUp';
   initiallyDisabled = true;
+  icon = 'arrow-up';
+  labelIdentifier = 'MOVE_UP';
 
   onClick() {
     this.sequenceChild.moveUp();
@@ -62,6 +67,8 @@ class MoveDownButton extends ActionButton {
   enableEvent = 'enableMoveDown';
   disableEvent = 'disableMoveDown';
   initiallyDisabled = true;
+  icon = 'arrow-down';
+  labelIdentifier = 'MOVE_DOWN';
 
   onClick() {
     this.sequenceChild.moveDown();
@@ -71,6 +78,8 @@ class MoveDownButton extends ActionButton {
 class DuplicateButton extends ActionButton {
   enableEvent = 'enableDuplication';
   disableEvent = 'disableDuplication';
+  icon = 'duplicate';
+  labelIdentifier = 'DUPLICATE';
 
   onClick() {
     this.sequenceChild.duplicate({ animate: true });
@@ -78,6 +87,9 @@ class DuplicateButton extends ActionButton {
 }
 
 class DeleteButton extends ActionButton {
+  icon = 'bin';
+  labelIdentifier = 'DELETE';
+
   onClick() {
     this.sequenceChild.delete({ animate: true });
   }
@@ -94,7 +106,7 @@ export class BaseSequenceChild extends EventEmitter {
 
     const animate = opts && opts.animate;
     this.collapsed = opts && opts.collapsed;
-    const strings = (opts && opts.strings) || {};
+    this.strings = (opts && opts.strings) || {};
 
     const dom = $(`
       <div aria-hidden="false" ${this.id ? `data-contentpath="${h(this.id)}"` : 'data-contentpath-disabled'}>
@@ -139,10 +151,10 @@ export class BaseSequenceChild extends EventEmitter {
       this.toggleCollapsedState();
     });
 
-    this.addActionButton(new MoveUpButton(this, 'arrow-up', strings.MOVE_UP));
-    this.addActionButton(new MoveDownButton(this, 'arrow-down', strings.MOVE_DOWN));
-    this.addActionButton(new DuplicateButton(this, 'duplicate', strings.DUPLICATE));
-    this.addActionButton(new DeleteButton(this, 'bin', strings.DELETE));
+    this.addActionButton(new MoveUpButton(this));
+    this.addActionButton(new MoveDownButton(this));
+    this.addActionButton(new DuplicateButton(this));
+    this.addActionButton(new DeleteButton(this));
 
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
 
