@@ -22,6 +22,22 @@ class ActionButton {
 
   render(container) {
     $(container).append(this.dom);
+
+    if (this.enableEvent) {
+      this.sequenceChild.on(this.enableEvent, () => {
+        this.enable();
+      });
+    }
+
+    if (this.disableEvent) {
+      this.sequenceChild.on(this.disableEvent, () => {
+        this.disable();
+      });
+    }
+
+    if (this.initiallyDisabled) {
+      this.disable();
+    }
   }
 
   enable() {
@@ -33,17 +49,9 @@ class ActionButton {
 }
 
 class MoveUpButton extends ActionButton {
-  render(container) {
-    super.render(container);
-    this.disable();
-
-    this.sequenceChild.on('enableMoveUp', () => {
-      this.enable();
-    });
-    this.sequenceChild.on('disableMoveUp', () => {
-      this.disable();
-    });
-  }
+  enableEvent = 'enableMoveUp';
+  disableEvent = 'disableMoveUp';
+  initiallyDisabled = true;
 
   onClick() {
     this.sequenceChild.moveUp();
@@ -51,17 +59,9 @@ class MoveUpButton extends ActionButton {
 }
 
 class MoveDownButton extends ActionButton {
-  render(container) {
-    super.render(container);
-    this.disable();
-
-    this.sequenceChild.on('enableMoveDown', () => {
-      this.enable();
-    });
-    this.sequenceChild.on('disableMoveDown', () => {
-      this.disable();
-    });
-  }
+  enableEvent = 'enableMoveDown';
+  disableEvent = 'disableMoveDown';
+  initiallyDisabled = true;
 
   onClick() {
     this.sequenceChild.moveDown();
@@ -69,16 +69,8 @@ class MoveDownButton extends ActionButton {
 }
 
 class DuplicateButton extends ActionButton {
-  render(container) {
-    super.render(container);
-
-    this.sequenceChild.on('enableDuplication', () => {
-      this.enable();
-    });
-    this.sequenceChild.on('disableDuplication', () => {
-      this.disable();
-    });
-  }
+  enableEvent = 'enableDuplication';
+  disableEvent = 'disableDuplication';
 
   onClick() {
     this.sequenceChild.duplicate({ animate: true });
