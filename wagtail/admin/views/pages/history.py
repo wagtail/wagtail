@@ -170,6 +170,7 @@ class PageHistoryView(ReportView):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
         context['page'] = self.page
         context['subtitle'] = self.page.get_admin_display_title()
+        context['page_latest_revision'] = self.page.get_latest_revision()
 
         return context
 
