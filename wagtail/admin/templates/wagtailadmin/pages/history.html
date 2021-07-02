@@ -38,7 +38,7 @@
                             {% endwith %}
                             {% if entry.revision %}
                                 {% if entry.action == 'wagtail.publish' %}
-                                    {% if entry.revision == page.live_revision %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}
+                                    {% if entry.revision_id == page.live_revision_id %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}
                                 {% elif entry.content_changed %}
                                     {% if entry.revision == page_latest_revision %}<span class="status-tag primary">{% trans 'Current draft' %}</span>{% endif %}
                                     {% include "wagtailadmin/pages/revisions/_actions.html" with revision=entry.revision %}
