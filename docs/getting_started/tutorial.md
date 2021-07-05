@@ -152,7 +152,7 @@ class HomePage(Page):
 `body` is defined as `RichTextField`, a special Wagtail field. When `blank=True`,
 it means that this field is not required and can be empty. You
 can use any of the [Django core fields](https://docs.djangoproject.com/en/stable/ref/models/fields). `content_panels` define the
-capabilities and the layout of the editing interface. When you add fields to `content_panels`, it enables them to be edited on the Wagtail interface. [More on creating Page models](../topics/pages).
+capabilities and the layout of the editing interface. When you add fields to `content_panels`, it enables them to be edited on the Wagtail interface. [More on creating Page models](../topics/pages.md).
 
 Run `python manage.py makemigrations` (this will create the migrations file), then
 `python manage.py migrate` (this executes the migrations and updates the database with your model
@@ -360,7 +360,7 @@ homepage should appear in the footer of each post page.
 ### Parents and Children
 
 Much of the work you'll be doing in Wagtail revolves around the concept of hierarchical
-"tree" structures consisting of nodes and leaves (see [Theory](../reference/pages/theory)).
+"tree" structures consisting of nodes and leaves (see [Theory](../reference/pages/theory.rst)).
 In this case, the `BlogIndexPage` is a "node" and individual `BlogPage` instances
 are the "leaves".
 
@@ -416,7 +416,7 @@ somepage.get_descendants()
 somepage.get_siblings()
 ```
 
-For more information, see: [Page QuerySet reference](../reference/pages/queryset_reference)
+For more information, see: [Page QuerySet reference](../reference/pages/queryset_reference.rst)
 
 ### Overriding Context
 
@@ -551,7 +551,7 @@ Adjust your blog page template to include the images:
 {% endblock %}
 ```
 
-Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` library, imported at the top of the template) to insert an `<img>` element, with a `fill-320x240` parameter to indicate that the image should be resized and cropped to fill a 320x240 rectangle. You can read more about using images in templates in the [docs](../topics/images).
+Here we use the `{% image %}` tag (which exists in the `wagtailimages_tags` library, imported at the top of the template) to insert an `<img>` element, with a `fill-320x240` parameter to indicate that the image should be resized and cropped to fill a 320x240 rectangle. You can read more about using images in templates in the [docs](../topics/images.rst).
 
 ![](../_static/images/tutorial/tutorial_6.jpg)
 
@@ -862,6 +862,6 @@ Finally, we can update the `blog_page.html` template to display the categories:
 
 ## Where next
 
--   Read the Wagtail [topics](../topics/index) and [reference](../reference/index) documentation
--   Learn how to implement [StreamField](../topics/streamfield) for freeform page content
--   Browse through the [advanced topics](../advanced_topics/index) section and read [third-party tutorials](../advanced_topics/third_party_tutorials)
+-   Read the Wagtail [topics](../topics/index.md) and [reference](../reference/index.rst) documentation
+-   Learn how to implement [StreamField](../topics/.rst) for freeform page content
+-   Browse through the [advanced topics](../advanced_topics/index.rst) section and read [third-party tutorials](../advanced_topics/third_party_tutorials.rst)
