@@ -88,7 +88,7 @@ class LogEntriesView(ReportView):
                 PageLogEntry.objects.filter(deleted=True).values('page_id')
             ))
 
-        return PageLogEntry.objects.filter(q)
+        return PageLogEntry.objects.filter(q).select_related('page', 'user', 'user__wagtail_userprofile')
 
     def get_action_label(self, action):
         from wagtail.core.log_actions import page_log_action_registry
