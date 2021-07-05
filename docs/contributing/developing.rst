@@ -31,7 +31,9 @@ With your preferred virtualenv activated, install the Wagtail package in develop
 
 .. code-block:: console
 
-    $ pip install -e '.[testing,docs]' -U
+    $ pip install -e .[testing,docs] -U
+    $ # or if using zsh as your shell:
+    $ #    pip install -e '.[testing,docs]' -U
 
 Install Node through nvm (optional):
 
@@ -257,7 +259,9 @@ The Wagtail documentation is built by Sphinx. To install Sphinx and compile the 
 
     $ cd /path/to/wagtail
     $ # Install the documentation dependencies
-    $ pip install -e '.[docs]'
+    $ pip install -e .[docs]
+    $ # or if using zsh as your shell:
+    $ #    pip install -e '.[docs]' -U
     $ # Compile the docs
     $ cd docs/
     $ make html
