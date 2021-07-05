@@ -74,9 +74,7 @@ class LogEntriesView(ReportView):
         )
 
     def get_queryset(self):
-        q = Q(
-            page__in=UserPagePermissionsProxy(self.request.user).explorable_pages().values_list('pk', flat=True)
-        )
+        q = Q(page__in=UserPagePermissionsProxy(self.request.user).explorable_pages())
 
         root_page_permissions = Page.get_first_root_node().permissions_for_user(self.request.user)
         if (
@@ -88,7 +86,11 @@ class LogEntriesView(ReportView):
                 PageLogEntry.objects.filter(deleted=True).values('page_id')
             ))
 
-        return PageLogEntry.objects.filter(q).select_related('page', 'user', 'user__wagtail_userprofile')
+        # Using prefech_related() on page, as select_related() generates an INNER JOIN,
+        # which filters out entries for deleted pages
+        return PageLogEntry.objects.filter(q).select_related(
+            'user', 'user__wagtail_userprofile'
+        ).prefetch_related('page')
 
     def get_action_label(self, action):
         from wagtail.core.log_actions import page_log_action_registry
