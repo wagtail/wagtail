@@ -29,7 +29,7 @@ Changelog
  * Fix: Page comparison view now reflects request-level customisations to edit handlers (Matt Westcott)
 
 
-2.13.3 (xx.xx.20xx) - IN DEVELOPMENT
+2.13.3 (05.07.2021)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Prevent error when using rich text on views where commenting is unavailable (Jacob Topp-Mugglestone)
