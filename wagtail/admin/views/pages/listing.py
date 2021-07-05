@@ -84,6 +84,9 @@ def index(request, parent_page_id=None):
     for hook in hooks.get_hooks('construct_explorer_page_queryset'):
         pages = hook(parent_page, pages, request)
 
+    # Annotate queryset with various states to be used later for performance optimisations`
+    pages = pages.with_workflow_state().with_approved_schedule().with_site_root_state()
+
     # Pagination
     if do_paginate:
         paginator = Paginator(pages, per_page=50)
