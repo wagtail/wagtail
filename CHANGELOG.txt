@@ -34,6 +34,7 @@ Changelog
  * Fix: Add `block.super` to remaining `extra_js` & `extra_css` blocks (Andrew Stone)
  * Fix: Ensure that `editor` and `features` arguments on RichTextField are preserved by `clone()` (Daniel Fairhead)
  * Fix: Rename 'spin' CSS animation to avoid clashes with other libraries (Kevin Gutiérrez)
+ * Fix: Prevent crash when copying a page from a section where the user has no publish permission (Karl Hobley)
 
 
 2.13.3 (05.07.2021)

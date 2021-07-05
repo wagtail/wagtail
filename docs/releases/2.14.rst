@@ -45,6 +45,7 @@ Bug fixes
  * Add ``block.super`` to remaining ``extra_js`` & ``extra_css`` blocks (Andrew Stone)
  * Ensure that ``editor`` and ``features`` arguments on RichTextField are preserved by ``clone()`` (Daniel Fairhead)
  * Rename 'spin' CSS animation to avoid clashes with other libraries (Kevin Gutiérrez)
+ * Prevent crash when copying a page from a section where the user has no publish permission (Karl Hobley)
 
 Upgrade considerations
 ======================
