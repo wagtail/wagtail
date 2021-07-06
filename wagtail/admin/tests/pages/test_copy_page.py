@@ -556,7 +556,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # treebeard should report no consistency problems with the tree
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
 
-    def test_page_copy_alias_post_without_destination_publish_permission(self):
+    def test_page_copy_alias_post_without_source_publish_permission(self):
         # Check for issue #7293 - If the user has permission to publish at a destination, but not the source.
         # Wagtail would crash on attempt to copy
 
