@@ -231,10 +231,25 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
 
   test('setError passes error messages to children', () => {
     boundBlock.setError([
-      new ListBlockValidationError([
-        null,
-        [new ValidationError(['Not as good as the first one'])],
-      ]),
+      new ListBlockValidationError(
+        [
+          null,
+          [new ValidationError(['Not as good as the first one'])],
+        ],
+        []
+      ),
+    ]);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('setError renders non-block errors', () => {
+    boundBlock.setError([
+      new ListBlockValidationError(
+        [null, null],
+        [
+          new ValidationError(['At least three blocks are required']),
+        ]
+      ),
     ]);
     expect(document.body.innerHTML).toMatchSnapshot();
   });
