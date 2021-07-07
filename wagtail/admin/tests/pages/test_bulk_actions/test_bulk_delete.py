@@ -65,14 +65,15 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
                 edit_page_url=reverse('wagtailadmin_pages:edit', args=[child_page.id]),
                 page_title=child_page.title
             )
-            needle += '<ul>'
             descendants = len(self.grandchildren_pages.get(child_page, []))
             if descendants:
+                needle += '<p>'
                 if descendants == 1:
-                    needle += '<li>This will also delete one more subpage.</li>'
+                    needle += 'This will also delete one more subpage.'
                 else:
-                    needle += f'<li>This will also delete {descendants} more subpages.</li>'
-            needle += '</ul></li>'
+                    needle += f'This will also delete {descendants} more subpages.'
+                needle += '</p>'
+            needle += '</li>'
             self.assertInHTML(needle, html)
 
     def test_page_delete_specific_admin_title(self):
@@ -102,7 +103,7 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML('<span>The following pages cannot be deleted</span>', html)
+        self.assertInHTML('<p>The following pages cannot be deleted</p>', html)
 
         needle = '<ul>'
         for child_page in self.pages_to_be_deleted:

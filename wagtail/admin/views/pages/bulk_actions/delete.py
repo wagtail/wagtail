@@ -10,6 +10,7 @@ class DeleteBulkAction(PageBulkAction):
     action_type = "delete"
     aria_label = "Delete pages"
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_delete.html"
+    action_priority = 30
 
     def check_perm(self, page):
         return page.permissions_for_user(self.request.user).can_delete()
