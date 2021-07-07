@@ -29,6 +29,11 @@
     {% comment %} modal-workflow is required by the view restrictions interface {% endcomment %}
     <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+    
+    {% comment %}
+    The first column will display checkboxes only if ordering is not being carried out, in which case
+    that column will have the drag and drop buttons to enable ordering
+    {% endcomment %}
     {% if not show_ordering_column %}
     <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
     {% endif %}

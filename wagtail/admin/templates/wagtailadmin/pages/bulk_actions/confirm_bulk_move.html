@@ -7,21 +7,27 @@
     {% trans "Move" as move_str %}
     {% include "wagtailadmin/shared/header.html" with title=move_str icon="doc-empty-inverse" %}
     <div class="nice-padding">
-        <span>{% trans "Are you sure you want to move these pages?" %}</span>
+        {% if pages %}
+        <p>{% trans "Are you sure you want to move these pages?" %}</p>
         <ul>
             {% for page in pages %}
             <li>
                 <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
                 {% if not page.page.is_leaf %}
-                <ul>
-                    <li>{% trans "This page has child pages" %}</li>
-                </ul>
+                <p>
+                    {% blocktrans count counter=page.child_pages %}
+                    This page has one child page
+                    {% plural %}
+                    This page has {{ counter }} child pages
+                    {% endblocktrans %}
+                </p>
                 {% endif %}
             </li>
             {% endfor %}
         </ul>
+        {% endif %}
         {% if pages_with_no_access %}
-        <span>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be moved{% plural %}The following pages cannot be moved{% endblocktrans %}</span>
+        <p>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be moved{% plural %}The following pages cannot be moved{% endblocktrans %}</p>
         <ul>
             {% for page in pages_with_no_access %}
             <li>
@@ -32,7 +38,7 @@
         {% endif %}
 
         {% if pages_without_destination_access %}
-        <span>{% blocktrans with dest_title=destination.title count counter=pages_with_no_access|length %}The following page cannot be moved to {{dest_title}} {% plural %}The following pages cannot be moved to {{dest_title}}{% endblocktrans %}</span>
+        <p>{% blocktrans with dest_title=destination.title count counter=pages_with_no_access|length %}The following page cannot be moved to {{dest_title}} {% plural %}The following pages cannot be moved to {{dest_title}}{% endblocktrans %}</p>
         <ul>
             {% for page in pages_without_destination_access %}
             <li>
@@ -43,7 +49,7 @@
         {% endif %}
 
         {% if pages_with_duplicate_slugs %}
-        <span>{% blocktrans count counter=pages_with_duplicate_slugs|length %}The following page cannot be moved due to duplicate slug{% plural %}The following pages cannot be moved due to duplicate slugs{% endblocktrans %}</span>
+        <p>{% blocktrans count counter=pages_with_duplicate_slugs|length %}The following page cannot be moved due to duplicate slug{% plural %}The following pages cannot be moved due to duplicate slugs{% endblocktrans %}</p>
         <ul>
             {% for page in pages_with_duplicate_slugs %}
             <li>
@@ -53,6 +59,7 @@
         </ul>
         {% endif %}
 
+        {% if pages %}
         <form action="{{ submit_url }}" method="POST">
             {% csrf_token %}
             <ul class="fields">
@@ -71,7 +78,11 @@
             {% endif %}
             </ul>
             <input type="submit" value="{% trans 'Yes, move these pages' %}" class="button">
+            <a href="{{ next }}" class="button button-secondary">{% trans "No, don't move" %}</a>
         </form>
+        {% else %}
+        <a href="{{ next }}" class="button button-secondary">{% trans "Go back" %}</a>
+        {% endif %}
     </div>
 {% endblock %}
 

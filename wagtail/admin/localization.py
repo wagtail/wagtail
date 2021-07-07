@@ -108,6 +108,7 @@ def get_js_translation_strings():
         'WEEKDAYS': [str(WEEKDAYS[d % 7]) for d in range(-1, 6)],
         'WEEKDAYS_SHORT': [str(WEEKDAYS_ABBR[d % 7]) for d in range(-1, 6)],
 
+        # used by bulk actions
         'NUM_PAGES_SELECTED_SINGULAR': _('1 page selected'),
         'NUM_PAGES_SELECTED_PLURAL': _("{0} pages selected"),
         'NUM_PAGES_SELECTED_ALL': _("All {0} pages on this screen selected"),
