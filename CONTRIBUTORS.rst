@@ -521,6 +521,7 @@ Contributors
 * Jake Howard
 * Petr Dlouhý
 * Andrew Stone
+* Daniel Fairhead
 
 Translators
 ===========
