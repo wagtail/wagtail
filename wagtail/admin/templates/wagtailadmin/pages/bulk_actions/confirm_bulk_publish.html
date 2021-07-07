@@ -6,25 +6,27 @@
     {% include "wagtailadmin/shared/header.html" with title=publish_str icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
-        <p>{% trans "Are you sure you want to publish these pages?" %}</p>
-        <ul>
-            {% for page in pages %}
-            <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
-                <ul>
+        {% if pages %}
+            <p>{% trans "Are you sure you want to publish these pages?" %}</p>
+            <ul>
+                {% for page in pages %}
+                <li>
+                    <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
                     {% if page.draft_descendant_count %}
+                    <p>
                         {% blocktrans count counter=page.draft_descendant_count %}
-                            <li>This page has one unpublished subpage</li>
+                        This page has one unpublished subpage
                         {% plural %}
-                            <li>This page has {{ counter }} unpublished subpages</li>
+                        This page has {{ counter }} unpublished subpages
                         {% endblocktrans %}
+                    </p>
                     {% endif %}
-                </ul>
-            </li>
-            {% endfor %}
-        </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         {% if pages_with_no_access %}
-        <span>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be published{% plural %}The following pages cannot be published{% endblocktrans %}</span>
+        <p>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be published{% plural %}The following pages cannot be published{% endblocktrans %}</p>
         <ul>
             {% for page in pages_with_no_access %}
             <li>
@@ -33,6 +35,7 @@
             {% endfor %}
         </ul>
         {% endif %}
+        {% if pages %}
         <form action="{{ submit_url }}" method="POST">
             {% csrf_token %}
             {% if has_draft_descendants %}
@@ -52,5 +55,8 @@
             <input type="submit" value="{% trans 'Yes, publish' %}" class="button" />
             <a href="{{ next }}" class="button button-secondary">{% trans "No, don't publish" %}</a>
         </form>
+        {% else %}
+        <a href="{{ next }}" class="button button-secondary">{% trans "Go back" %}</a>
+        {% endif %}
     </div>
 {% endblock %}

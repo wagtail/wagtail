@@ -69,7 +69,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML('<span>Are you sure you want to move these pages?</span>', html)
+        self.assertInHTML('<p>Are you sure you want to move these pages?</p>', html)
 
         needle = '<ul>'
         for child_page in self.pages_to_be_moved:
@@ -96,7 +96,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML('<span>The following pages cannot be moved</span>', html)
+        self.assertInHTML('<p>The following pages cannot be moved</p>', html)
 
         needle = '<ul>'
         for child_page in self.pages_to_be_moved:
@@ -133,7 +133,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML('<span>The following pages cannot be moved to {}</span>'.format(page.title), html)
+        self.assertInHTML('<p>The following pages cannot be moved to {}</p>'.format(page.title), html)
 
         needle = '<ul>'
         for child_page in self.pages_to_be_moved:
@@ -156,7 +156,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML('<span>The following pages cannot be moved due to duplicate slugs</span>', html)
+        self.assertInHTML('<p>The following pages cannot be moved due to duplicate slugs</p>', html)
 
         needle = '<ul>'
         for child_page in self.pages_to_be_moved:
