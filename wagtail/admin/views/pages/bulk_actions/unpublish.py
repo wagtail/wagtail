@@ -10,6 +10,7 @@ class UnpublishBulkAction(PageBulkAction):
     action_type = "unpublish"
     aria_label = _("Unpublish pages")
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html"
+    action_priority = 50
 
     def check_perm(self, page):
         return page.permissions_for_user(self.request.user).can_unpublish()

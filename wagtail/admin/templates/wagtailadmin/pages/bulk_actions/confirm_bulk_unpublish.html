@@ -6,25 +6,27 @@
     {% include "wagtailadmin/shared/header.html" with title=unpublish_str icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
+        {% if pages %}
         <p>{% trans "Are you sure you want to unpublish these pages?" %}</p>
         <ul>
             {% for page in pages %}
             <li>
                 <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
-                <ul>
+                <p>
                     {% if page.live_descendant_count %}
                         {% blocktrans count counter=page.live_descendant_count %}
-                            <li>This page has one subpage</li>
+                        This page has one subpage
                         {% plural %}
-                            <li>This page has {{ counter }} subpages</li>
+                        This page has {{ counter }} subpages
                         {% endblocktrans %}
                     {% endif %}
-                </ul>
+                </p>
             </li>
             {% endfor %}
         </ul>
+        {% endif %}
         {% if pages_with_no_access %}
-        <span>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be unpublished{% plural %}The following pages cannot be unpublished{% endblocktrans %}</span>
+        <p>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be unpublished{% plural %}The following pages cannot be unpublished{% endblocktrans %}</p>
         <ul>
             {% for page in pages_with_no_access %}
             <li>
@@ -33,6 +35,7 @@
             {% endfor %}
         </ul>
         {% endif %}
+        {% if pages %}
         <form action="{{ submit_url }}" method="POST">
             {% csrf_token %}
             {% if has_live_descendants %}
@@ -52,5 +55,8 @@
             <input type="submit" value="{% trans 'Yes, unpublish' %}" class="button" />
             <a href="{{ next }}" class="button button-secondary">{% trans "No, don't unpublish" %}</a>
         </form>
+        {% else %}
+        <a href="{{ next }}" class="button button-secondary">{% trans "Go back" %}</a>
+        {% endif %}
     </div>
 {% endblock %}

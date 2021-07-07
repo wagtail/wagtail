@@ -10,6 +10,7 @@ class PublishBulkAction(PageBulkAction):
     action_type = "publish"
     aria_label = _("Publish pages")
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_publish.html"
+    action_priority = 40
 
     def check_perm(self, page):
         return page.permissions_for_user(self.request.user).can_publish()
