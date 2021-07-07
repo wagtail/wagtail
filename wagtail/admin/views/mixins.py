@@ -5,7 +5,9 @@ from collections import OrderedDict
 
 from django.core.exceptions import FieldDoesNotExist
 from django.http import HttpResponse, StreamingHttpResponse
+from django.utils.dateformat import Formatter
 from django.utils.encoding import force_str
+from django.utils.formats import get_format
 from django.utils.translation import gettext as _
 from xlsxwriter.workbook import Workbook
 
@@ -60,6 +62,61 @@ class Echo:
 
 def list_to_str(value):
     return force_str(", ".join(value))
+
+
+class ExcelDateFormatter(Formatter):
+    data = None
+
+    _formats = {
+        "d": "DD",
+        "j": "D",
+        "D": "NN",
+        "l": "NNNN",
+        "S": "",
+        "w": "",
+        "z": "",
+        "W": "",
+        "m": "MM",
+        "n": "M",
+        "M": "MMM",
+        "b": "MMM",
+        "F": "MMMM",
+        "E": "MMM",
+        "N": "MMM.",
+        "y": "YY",
+        "Y": "YYYY",
+        "L": "",
+        "o": "",
+        "g": "H",
+        "G": "H",
+        "h": "HH",
+        "H": "HH",
+        "i": "MM",
+        "s": "SS",
+        "u": "",
+        "a": "AM/PM",
+        "A": "AM/PM",
+        "P": "HH:MM AM/PM",
+        "e": "",
+        "I": "",
+        "O": "",
+        "T": "",
+        "Z": "",
+        "c": "YYYY-MM-DD HH:MM:SS",
+        "r": "NN, MMM D YY HH:MM:SS",
+        "U": "[HH]:MM:SS",
+    }
+
+    def get(self):
+        format = get_format("SHORT_DATETIME_FORMAT")
+        return self.format(format)
+
+    def __getattr__(self, name):
+        if name in self._formats:
+            return lambda: self._formats[name]
+        raise AttributeError(
+            f"'{type(self).__name__}' object has no attribute '{name}'"
+        )
 
 
 class SpreadsheetExportMixin:
@@ -161,7 +218,7 @@ class SpreadsheetExportMixin:
                 "in_memory": True,
                 "constant_memory": True,
                 "remove_timezone": True,
-                "default_date_format": "dd/mm/yy hh:mm:ss",
+                "default_date_format": ExcelDateFormatter().get(),
             },
         )
         worksheet = workbook.add_worksheet()
