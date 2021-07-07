@@ -5,7 +5,6 @@ from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.navigation import get_explorable_root_page
@@ -111,8 +110,7 @@ def index(request, parent_page_id=None):
         'do_paginate': do_paginate,
         'locale': None,
         'translations': [],
-        'show_ordering_column': 'ordering' in request.GET.dict(),
-        'select_all_page_text': _("Select all pages in listing")
+        'show_ordering_column': 'ordering' in request.GET.dict()
     }
 
     if getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and not parent_page.is_root():
