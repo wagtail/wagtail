@@ -75,7 +75,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML('<span>The following pages cannot be unpublished</span>', html)
+        self.assertInHTML('<p>The following pages cannot be unpublished</p>', html)
 
         needle = '<ul>'
         for child_page in self.pages_to_be_unpublished:

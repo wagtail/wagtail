@@ -51,6 +51,7 @@ class MoveBulkAction(PageBulkAction):
     action_type = "move"
     aria_label = "Move pages"
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_move.html"
+    action_priority = 10
 
     def check_perm(self, page):
         return page.permissions_for_user(self.request.user).can_move()
@@ -64,6 +65,11 @@ class MoveBulkAction(PageBulkAction):
             'num_pages': self.num_parent_objects
         }
         return success_message
+
+    def object_context(self, obj):
+        context = super().object_context(obj)
+        context['child_pages'] = context['page'].get_descendants().count()
+        return context
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

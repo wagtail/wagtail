@@ -18,8 +18,7 @@
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
             <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% block parent_page_row_classname %}{% endblock %}">
-                <td></td>
-                <td class="title" {% if show_ordering_column %}colspan="2"{% endif %}>
+                <td class="title" colspan="2">
                     {% block parent_page_title %}
                     {% endblock %}
                 </td>
