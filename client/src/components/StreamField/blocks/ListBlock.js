@@ -6,8 +6,9 @@ import { escapeHtml as h } from '../../../utils/text';
 /* global $ */
 
 export class ListBlockValidationError {
-  constructor(blockErrors) {
+  constructor(blockErrors, nonBlockErrors) {
     this.blockErrors = blockErrors;
+    this.nonBlockErrors = nonBlockErrors;
   }
 }
 
@@ -87,6 +88,7 @@ export class ListBlock extends BaseSequenceBlock {
     this.blockCounter = 0;
     this.countInput = dom.find('[data-streamfield-list-count]');
     this.sequenceContainer = dom.find('[data-streamfield-list-container]');
+    this.container = dom;
     this.setState(initialState || []);
 
     if (initialError) {
@@ -129,6 +131,21 @@ export class ListBlock extends BaseSequenceBlock {
       return;
     }
     const error = errorList[0];
+
+    // Non block errors
+    const container = this.container[0];
+    container.querySelectorAll(':scope > .help-block.help-critical').forEach(element => element.remove());
+
+    if (error.nonBlockErrors.length > 0) {
+      // Add a help block for each error raised
+      error.nonBlockErrors.forEach(nonBlockError => {
+        const errorElement = document.createElement('p');
+        errorElement.classList.add('help-block');
+        errorElement.classList.add('help-critical');
+        errorElement.innerHTML = h(nonBlockError.messages[0]);
+        container.insertBefore(errorElement, container.childNodes[0]);
+      });
+    }
 
     // error.blockErrors = a list with the same length as the data,
     // with nulls for items without errors
