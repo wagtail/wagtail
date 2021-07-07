@@ -3,11 +3,14 @@ import datetime
 from io import BytesIO
 
 from django.conf import settings
+from django.conf.locale import LANG_INFO
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.urls import reverse
-from django.utils import timezone
+from django.utils import timezone, translation
 from openpyxl import load_workbook
 
+from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.core.models import Page, PageLogEntry
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -194,3 +197,15 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
             self.edit_log_2,
             self.edit_log_3,
         ])
+
+
+@override_settings(
+    USE_L10N=True,
+)
+class TestExcelDateFormatter(TestCase):
+    def test_all_locales(self):
+        formatter = ExcelDateFormatter()
+
+        for lang in LANG_INFO.keys():
+            with self.subTest(lang), translation.override(lang):
+                self.assertNotEqual(formatter.get(), "")

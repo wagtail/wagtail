@@ -34,6 +34,7 @@ Other features
  * Support calling ``get_image_model`` and ``get_document_model`` at import time (Matt Westcott)
  * When copying a page, default the 'Publish copied page' field to false (Justin Slay)
  * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
+ * Added ``ExcelDateFormatter`` to ``wagtail.admin.views.mixins`` so that dates in Excel exports will appear in the locale's ``SHORT_DATETIME_FORMAT`` (Andrew Stone)
 
 Bug fixes
 ~~~~~~~~~
