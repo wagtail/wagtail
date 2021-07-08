@@ -34,6 +34,7 @@ class Migration(migrations.Migration):
             field=models.URLField(
                 blank=True,
                 default="",
+                max_length=255,
             ),
             preserve_default=False,
         ),
