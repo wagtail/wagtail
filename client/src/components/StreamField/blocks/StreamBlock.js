@@ -221,7 +221,8 @@ export class StreamBlock extends BaseSequenceBlock {
    *
    * Updates the state of add / duplicate block buttons to prevent too many blocks being inserted.
    */
-  checkBlockCounts() {
+  blockCountChanged() {
+    super.blockCountChanged();
     this.canAddBlock = true;
 
     if (typeof this.blockDef.meta.maxNum === 'number' && this.children.length >= this.blockDef.meta.maxNum) {
@@ -276,12 +277,6 @@ export class StreamBlock extends BaseSequenceBlock {
     return this._insert(childBlockDef, value, id, index, opts);
   }
 
-  _insert(childBlockDef, value, id, index, opts) {
-    const result = super._insert(childBlockDef, value, id, index, opts);
-    this.checkBlockCounts();
-    return result;
-  }
-
   _getChildDataForInsertion({ type }) {
     /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
     return the block definition and initial state to be used for the new block.
@@ -292,11 +287,6 @@ export class StreamBlock extends BaseSequenceBlock {
     return [blockDef, initialState, uuidv4()];
   }
 
-  clear() {
-    super.clear();
-    this.checkBlockCounts();
-  }
-
   duplicateBlock(index, opts) {
     const child = this.children[index];
     const childState = child.getState();
@@ -305,13 +295,6 @@ export class StreamBlock extends BaseSequenceBlock {
     this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
     // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
-
-    this.checkBlockCounts();
-  }
-
-  deleteBlock(index, opts) {
-    super.deleteBlock(index, opts);
-    this.checkBlockCounts();
   }
 
   setState(values) {
