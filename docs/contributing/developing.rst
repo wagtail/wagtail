@@ -213,25 +213,30 @@ Safari         Windows        All
 Accessibility targets
 ---------------------
 
-We want to make Wagtail accessible for users of a wide variety of assistive technologies. The specific standard we aim for is `WCAG2.1 <https://www.w3.org/TR/WCAG21/>`_, AA level. Wagtail’s administration user interface isn’t accessible at the moment (see `issue #4199 <https://github.com/wagtail/wagtail/issues/4199>`_), but here are specific assistive technologies we aim to test for, and ultimately support:
+We want to make Wagtail accessible for users of a wide variety of assistive technologies. The specific standard we aim for is `WCAG2.1 <https://www.w3.org/TR/WCAG21/>`_, AA level. Here are specific assistive technologies we aim to test for, and ultimately support:
 
-=============  ====================
-Type           Assistive technology
-=============  ====================
-Screen reader  `NVDA <https://www.nvaccess.org/download/>`_ on Windows with Firefox ESR
-Screen reader  `VoiceOver <https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web>`_ on macOS with Safari
-Magnification  `Windows Magnifier <https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier>`_
-Magnification  macOS Zoom
-Voice control  Windows Speech Recognition
-Voice control  macOS Dictation
-Screen reader  Mobile `VoiceOver <https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web>`_ on iOS, or `TalkBack <https://support.google.com/accessibility/android/answer/6283677?hl=en-GB>`_ on Android
-=============  ====================
+* `NVDA <https://www.nvaccess.org/download/>`_ on Windows with Firefox ESR
+* `VoiceOver <https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web>`_ on macOS with Safari
+* `Windows Magnifier <https://support.microsoft.com/en-gb/help/11542/windows-use-magnifier>`_ and macOS Zoom
+* Windows Speech Recognition and macOS Dictation
+* Mobile `VoiceOver <https://support.apple.com/en-gb/guide/voiceover-guide/welcome/web>`_ on iOS, or `TalkBack <https://support.google.com/accessibility/android/answer/6283677?hl=en-GB>`_ on Android
+* Windows `High-contrast mode <https://support.microsoft.com/en-us/windows/use-high-contrast-mode-in-windows-10-fedc744c-90ac-69df-aed5-c8a90125e696>`_
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialised training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
 
 * `react-axe <https://github.com/dequelabs/react-axe>`_ integrated directly in our build tools, to identify actionable issues. Logs its results in the browser console.
 * `Axe <https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd>`_ Chrome extension for more comprehensive automated tests of a given page.
 * `Accessibility Insights for Web <https://accessibilityinsights.io/docs/en/web/overview>`_ Chrome extension for semi-automated tests, and manual audits.
+
+Known accessibility issues
+--------------------------
+
+Wagtail’s administration interface isn’t fully accessible at the moment. We actively work on fixing issues both as part of ongoing maintenance and bigger overhauls. To learn about known issues, check out:
+
+* The `WCAG2.1 AA for CMS admin <https://github.com/wagtail/wagtail/projects/5>`_ issues backlog.
+* Our `2021 accessibility audit <https://docs.google.com/spreadsheets/d/1l7tnpEyJiC5BWE_JX0XCkknyrjxYA5T2aee5JgPnmi4/edit>`_.
+
+The audit also states which parts of Wagtail have and haven’t been tested, how issues affect WCAG 2.1 compliance, and the likely impact on users.
 
 Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~
