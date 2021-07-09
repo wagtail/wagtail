@@ -55,6 +55,14 @@ class InsertPosition extends BaseInsertionControl {
       button.hide().slideDown();
     }
   }
+
+  enable() {
+    $(this.element).removeAttr('disabled');
+  }
+
+  disable() {
+    $(this.element).attr('disabled', 'true');
+  }
 }
 
 export class ListBlock extends BaseSequenceBlock {
@@ -112,6 +120,35 @@ export class ListBlock extends BaseSequenceBlock {
 
   _createInsertionControl(placeholder, opts) {
     return new InsertPosition(placeholder, opts);
+  }
+
+  /*
+   * Called whenever a block is added or removed
+   *
+   * Updates the state of add / duplicate block buttons to prevent too many blocks being inserted.
+   */
+  blockCountChanged() {
+    super.blockCountChanged();
+
+    if (typeof this.blockDef.meta.maxNum === 'number') {
+      if (this.children.length >= this.blockDef.meta.maxNum) {
+        /* prevent adding new blocks */
+        for (let i = 0; i < this.inserters.length; i++) {
+          this.inserters[i].disable();
+        }
+        for (let i = 0; i < this.children.length; i++) {
+          this.children[i].disableDuplication();
+        }
+      } else {
+        /* allow adding new blocks */
+        for (let i = 0; i < this.inserters.length; i++) {
+          this.inserters[i].enable();
+        }
+        for (let i = 0; i < this.children.length; i++) {
+          this.children[i].enableDuplication();
+        }
+      }
+    }
   }
 
   insert(value, index, opts) {
