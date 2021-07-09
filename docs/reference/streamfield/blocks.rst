@@ -440,9 +440,11 @@ Structural block types
            ]))),
        ])
 
-   The following additional option is available as either a keyword argument or a Meta class attribute:
+   The following additional options are available as either keyword arguments or Meta class attributes:
 
    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
+   :param min_num: Minimum number of sub-blocks that the list must have.
+   :param max_num: Maximum number of sub-blocks that the list may have.
 
 
 .. class:: wagtail.core.blocks.StreamBlock

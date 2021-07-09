@@ -98,6 +98,16 @@ class ListBlock(Block):
             else:
                 errors.append(None)
 
+        if self.meta.min_num is not None and self.meta.min_num > len(value):
+            non_block_errors.append(ValidationError(
+                _('The minimum number of items is %d') % self.meta.min_num
+            ))
+
+        if self.meta.max_num is not None and self.meta.max_num < len(value):
+            non_block_errors.append(ValidationError(
+                _('The maximum number of items is %d') % self.meta.max_num
+            ))
+
         if any(errors) or non_block_errors:
             raise ListBlockValidationError(block_errors=errors, non_block_errors=non_block_errors)
 
@@ -172,6 +182,10 @@ class ListBlock(Block):
         # descendant block type
         icon = "placeholder"
         form_classname = None
+        min_num = None
+        max_num = None
+
+    MUTABLE_META_ATTRIBUTES = ['min_num', 'max_num']
 
 
 class ListBlockAdapter(Adapter):
@@ -192,6 +206,12 @@ class ListBlockAdapter(Adapter):
         if help_text:
             meta['helpText'] = help_text
             meta['helpIcon'] = get_help_icon()
+
+        if block.meta.min_num is not None:
+            meta['minNum'] = block.meta.min_num
+
+        if block.meta.max_num is not None:
+            meta['maxNum'] = block.meta.max_num
 
         return [
             block.name,
