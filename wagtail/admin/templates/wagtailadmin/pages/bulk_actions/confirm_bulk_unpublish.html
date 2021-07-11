@@ -26,11 +26,15 @@
         </ul>
         {% endif %}
         {% if pages_with_no_access %}
-        <p>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be unpublished{% plural %}The following pages cannot be unpublished{% endblocktrans %}</p>
+        <p>{% blocktrans count counter=pages_with_no_access|length %}You don't have permission to unpublish this page{% plural %}You don't have permission to unpublish these pages{% endblocktrans %}</p>
         <ul>
             {% for page in pages_with_no_access %}
             <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
+                {% if page.can_edit %}
+                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
+                {% else %}
+                {{ page.page.title }}
+                {% endif %}
             </li>
             {% endfor %}
         </ul>
@@ -40,16 +44,7 @@
             {% csrf_token %}
             {% if has_live_descendants %}
             <ul class="fields">
-                <li>
-                    <div class="field boolean_field checkbox_input">
-                        <div class="field-content">
-                            <div class="input">
-                                <input id="id_include_descendants" name="include_descendants" type="checkbox">
-                                <label for="id_include_descendants" class="plain-checkbox-label">{% trans "Unpublish subpages" %}</label>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                {% include "wagtailadmin/shared/field_as_li.html" with field=form.include_descendants %}
             </ul>                
             {% endif %}
             <input type="submit" value="{% trans 'Yes, unpublish' %}" class="button" />

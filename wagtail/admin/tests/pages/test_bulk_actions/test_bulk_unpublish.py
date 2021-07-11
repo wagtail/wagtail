@@ -75,14 +75,11 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML('<p>The following pages cannot be unpublished</p>', html)
+        self.assertInHTML("<p>You don't have permission to unpublish these pages</p>", html)
 
         needle = '<ul>'
         for child_page in self.pages_to_be_unpublished:
-            needle += '<li><a href="{edit_page_url}" target="_blank" rel="noopener noreferrer">{page_title}</a></li>'.format(
-                edit_page_url=reverse('wagtailadmin_pages:edit', args=[child_page.id]),
-                page_title=child_page.title
-            )
+            needle += '<li>{page_title}</li>'.format(page_title=child_page.title)
         needle += '</ul>'
 
         self.assertInHTML(needle, html)
@@ -167,7 +164,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html')
         # Check the form does not contain the checkbox field include_descendants
-        self.assertNotContains(response, '<input id="id_include_descendants" name="include_descendants" type="checkbox">')
+        self.assertContains(response, '<input type="checkbox" name="include_descendants" id="id_include_descendants">', count=0)
 
 
 class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
@@ -216,7 +213,7 @@ class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html')
         # Check the form contains the checkbox field include_descendants
-        self.assertContains(response, '<input id="id_include_descendants" name="include_descendants" type="checkbox">')
+        self.assertContains(response, '<input type="checkbox" name="include_descendants" id="id_include_descendants">')
 
     def test_unpublish_include_children_view_post(self):
         """

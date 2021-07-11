@@ -1,5 +1,4 @@
 /* global wagtailConfig */
-/* global $ */
 
 const BULK_ACTION_PAGE_CHECKBOX_INPUT = 'bulk-action-checkbox';
 const BULK_ACTION_SELECT_ALL_CHECKBOX_TH = 'bulk-actions-filter-checkbox';
@@ -12,7 +11,6 @@ const TABLE_HEADERS_TR = 'table-headers';
 const checkedState = {
   checkedPages: new Set(),
   numPages: 0,
-  listingPageIds: [],
   selectAllInListing: false
 };
 
@@ -39,7 +37,7 @@ function SelectBulkActionsCheckboxes(e) {
   }
 
   if (checkedState.checkedPages.size === 0) {
-    /* when all checboxes are unchecked */
+    /* when all checkboxes are unchecked */
     document.querySelectorAll(`.${TABLE_HEADERS_TR} > th`).forEach(el => el.classList.remove('u-hidden'));
     document.querySelector(`.${BULK_ACTION_CHOICES_DIV}`).classList.add('u-hidden');
     document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => el.classList.remove('show'));
@@ -47,7 +45,6 @@ function SelectBulkActionsCheckboxes(e) {
   } else if (checkedState.checkedPages.size === 1 && prevLength === 0) {
     /* when 1 checkbox is checked for the first time */
     document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => {
-      el.classList.remove('show');
       el.classList.add('show');
     });
     document.querySelectorAll(`.${TABLE_HEADERS_TR} > th`).forEach(el => el.classList.add('u-hidden'));
@@ -85,16 +82,7 @@ function SelectBulkActionsCheckboxes(e) {
   }
 }
 
-function fetchAllPageIdsInListing(e) {
-  if (checkedState.listingPageIds.length === 0) {
-    e.preventDefault();
-    $.ajax({
-      url: '?fetchPageIds=1',
-      success: (response) => {
-        checkedState.listingPageIds = response.page_ids;
-      },
-    });
-  }
+function selectAllPageIdsInListing() {
   checkedState.selectAllInListing = true;
   document.querySelector(`.${BULK_ACTION_NUM_PAGES_SPAN}`).
     textContent = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL_IN_LISTING;
@@ -138,9 +126,14 @@ function BulkActionEventListeners(e) {
   e.preventDefault();
   const url = e.target.getAttribute('href');
   let queryString = '';
-  (checkedState.selectAllInListing ? checkedState.listingPageIds : checkedState.checkedPages).forEach(pageId => {
-    queryString += `&id=${pageId}`;
-  });
+  if (checkedState.selectAllInListing) {
+    const parentPageId = document.querySelector(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH}`).dataset.parentId;
+    queryString += `&id=all&childOf=${parentPageId}`;
+  } else {
+    checkedState.checkedPages.forEach(pageId => {
+      queryString += `&id=${pageId}`;
+    });
+  }
   window.location.href = url + queryString;
 }
 
@@ -159,7 +152,7 @@ function addBulkActionListeners() {
   document.querySelectorAll(`.${BULK_ACTION_CHOICES_DIV} > ul > li > a`).forEach(
     elem => elem.addEventListener('click', BulkActionEventListeners)
   );
-  document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).addEventListener('click', fetchAllPageIdsInListing);
+  document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).addEventListener('click', selectAllPageIdsInListing);
 }
 
 addBulkActionListeners();
