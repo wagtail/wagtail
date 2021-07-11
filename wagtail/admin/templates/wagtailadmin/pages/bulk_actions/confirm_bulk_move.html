@@ -27,11 +27,15 @@
         </ul>
         {% endif %}
         {% if pages_with_no_access %}
-        <p>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be moved{% plural %}The following pages cannot be moved{% endblocktrans %}</p>
+        <p>{% blocktrans count counter=pages_with_no_access|length %}You don't have permission to move this page{% plural %}You don't have permission to move these pages{% endblocktrans %}</p>
         <ul>
             {% for page in pages_with_no_access %}
             <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
+                {% if page.can_edit %}
+                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
+                {% else %}
+                {{ page.page.title }}
+                {% endif %}
             </li>
             {% endfor %}
         </ul>
@@ -65,16 +69,7 @@
             <ul class="fields">
             {% include "wagtailadmin/shared/field_as_li.html" with field=form.chooser %}
             {% if pages_without_destination_access or pages_with_duplicate_slugs %}
-            <li>
-                <div class="field boolean_field checkbox_input">
-                    <div class="field-content">
-                        <div class="input">
-                            <input id="id_move_applicable" name="move_applicable" type="checkbox">
-                            <label for="id_move_applicable" class="plain-checkbox-label">{% trans "Move only applicable pages" %}</label>
-                        </div>
-                    </div>
-                </div>
-            </li>
+            {% include "wagtailadmin/shared/field_as_li.html" with field=form.move_applicable %}
             {% endif %}
             </ul>
             <input type="submit" value="{% trans 'Yes, move these pages' %}" class="button">
