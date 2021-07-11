@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load wagtailadmin_tags i18n %}
 {% block titletag %}{% trans 'Search' %}{% endblock %}
 {% block extra_js %}
     {{ block.super }}
@@ -11,6 +11,7 @@
             targetOutput: "#page-results"
         }
     </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
 {% block content %}
