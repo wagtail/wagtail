@@ -1,4 +1,4 @@
-from abc import ABC, abstractproperty
+from abc import ABC, abstractmethod
 
 from django.db import transaction
 from django.shortcuts import get_list_or_404, redirect
@@ -10,15 +10,18 @@ from wagtail.core import hooks
 
 
 class BulkAction(ABC, TemplateView):
-    @abstractproperty
+    @property
+    @abstractmethod
     def display_name(self):
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def action_type(self):
         pass
 
-    @abstractproperty
+    @property
+    @abstractmethod
     def aria_label(self):
         pass
 
@@ -78,7 +81,11 @@ class BulkAction(ABC, TemplateView):
     def get_actionable_objects(self):
         objects = []
         objects_with_no_access = []
-        object_ids = list(map(int, self.request.GET.getlist('id')))
+        object_ids = self.request.GET.getlist('id')
+        if 'all' in object_ids:
+            parent_page_id = int(self.request.GET.get('childOf'))
+            object_ids = self.model.objects.get(id=parent_page_id).get_children().values_list('id', flat=True)
+        object_ids = list(map(int, object_ids))
 
         for obj in self.get_queryset(object_ids):
             if not self.check_perm(obj):
@@ -99,8 +106,14 @@ class BulkAction(ABC, TemplateView):
             'submit_url': self.request.path + '?' + self.request.META['QUERY_STRING']
         }
 
+    def prepare_action(self, objects):
+        return
+
     def post(self, request):
         objects, _ = self.get_actionable_objects()
+        resp = self.prepare_action(objects)
+        if hasattr(resp, 'status_code'):
+            return resp
         with transaction.atomic():
             before_hook_result = self.__run_before_hooks(self.action_type, request, objects)
             if before_hook_result is not None:

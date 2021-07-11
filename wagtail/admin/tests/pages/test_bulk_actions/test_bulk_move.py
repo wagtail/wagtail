@@ -96,17 +96,16 @@ class TestBulkMove(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML('<p>The following pages cannot be moved</p>', html)
+        self.assertInHTML("<p>You don't have permission to move these pages</p>", html)
 
         needle = '<ul>'
         for child_page in self.pages_to_be_moved:
-            needle += '<li><a href="{edit_page_url}" target="_blank" rel="noopener noreferrer">{page_title}</a></li>'.format(
-                edit_page_url=reverse('wagtailadmin_pages:edit', args=[child_page.id]),
-                page_title=child_page.title
-            )
+            needle += '<li>{page_title}</li>'.format(page_title=child_page.title)
         needle += '</ul>'
 
         self.assertInHTML(needle, html)
+
+        self.assertTagInHTML('''<form action="{}" method="POST"></form>'''.format(self.url), html, count=0)
 
     def test_user_without_bulk_delete_permission_can_move(self):
         # to verify that a user without bulk delete permission is able to move a page with a child page
@@ -144,7 +143,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
         needle += '</ul>'
         self.assertInHTML(needle, html)
 
-        self.assertContains(response, '<input id="id_move_applicable" name="move_applicable" type="checkbox">')
+        self.assertContains(response, '<input type="checkbox" name="move_applicable" id="id_move_applicable">')
 
     def test_bulk_move_slug_already_taken(self):
         temp_page_1 = SimplePage(title="Hello world!", slug="hello-world-b", content="hello")
@@ -167,7 +166,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
         needle += '</ul>'
         self.assertInHTML(needle, html)
 
-        self.assertContains(response, '<input id="id_move_applicable" name="move_applicable" type="checkbox">')
+        self.assertContains(response, '<input type="checkbox" name="move_applicable" id="id_move_applicable">')
 
     def test_bulk_move_ignore_permission_errors(self):
         temp_page_1 = SimplePage(title="Hello world!", slug="hello-world-b", content="hello")
