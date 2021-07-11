@@ -20,30 +20,10 @@ class MoveForm(forms.Form):
             widget=widgets.AdminPageChooser(can_choose_root=True, user_perms='move_to'),
             label=_("Select a new parent page"),
         )
-
-
-def before_bulk_move(request, action_type, pages, action_instance):
-    if action_type != 'move':
-        return
-    move_applicable = request.POST.dict().get("move_applicable", False)
-    if move_applicable:
-        return
-    destination_page_id = request.POST.dict()['chooser']
-    destination = get_object_or_404(Page, id=destination_page_id)
-    pages_without_destination_access = []
-    pages_with_duplicate_slugs = []
-    for page in pages:
-        if not page.permissions_for_user(request.user).can_move_to(destination):
-            pages_without_destination_access.append(page)
-        if not Page._slug_is_available(page.slug, destination, page=page):
-            pages_with_duplicate_slugs.append(page)
-    if pages_without_destination_access or pages_with_duplicate_slugs:
-        return TemplateResponse(request, action_instance.template_name, {
-            'pages_without_destination_access': pages_without_destination_access,
-            "pages_with_duplicate_slugs": pages_with_duplicate_slugs,
-            'destination': destination,
-            **action_instance.get_context_data(destination=destination)
-        })
+        self.fields['move_applicable'] = forms.BooleanField(
+            label=_("Move only applicable pages"),
+            required=False
+        )
 
 
 class MoveBulkAction(PageBulkAction):
@@ -77,6 +57,28 @@ class MoveBulkAction(PageBulkAction):
         context['form'] = MoveForm(destination=destination)
         return context
 
+    def prepare_action(self, pages):
+        request = self.request
+        move_applicable = request.POST.dict().get("move_applicable", False)
+        if move_applicable:
+            return
+        destination_page_id = request.POST.dict()['chooser']
+        destination = get_object_or_404(Page, id=destination_page_id)
+        pages_without_destination_access = []
+        pages_with_duplicate_slugs = []
+        for page in pages:
+            if not page.permissions_for_user(request.user).can_move_to(destination):
+                pages_without_destination_access.append(page)
+            if not Page._slug_is_available(page.slug, destination, page=page):
+                pages_with_duplicate_slugs.append(page)
+        if pages_without_destination_access or pages_with_duplicate_slugs:
+            return TemplateResponse(request, self.template_name, {
+                'pages_without_destination_access': pages_without_destination_access,
+                "pages_with_duplicate_slugs": pages_with_duplicate_slugs,
+                'destination': destination,
+                **self.get_context_data(destination=destination)
+            })
+
     def execute_action(cls, pages):
         destination_page_id = cls.request.POST.dict().pop("chooser")
         destination = get_object_or_404(Page, id=destination_page_id)
@@ -89,8 +91,6 @@ class MoveBulkAction(PageBulkAction):
             page.move(destination, pos='last-child', user=cls.request.user)
             cls.num_parent_objects += 1
 
-    # register temporary hook to check for move related permissions
-    @hooks.register_temporarily('before_bulk_action', before_bulk_move)
     def post(self, request):
         return super().post(request)
 

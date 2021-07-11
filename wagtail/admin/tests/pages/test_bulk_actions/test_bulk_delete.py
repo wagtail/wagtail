@@ -103,17 +103,15 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML('<p>The following pages cannot be deleted</p>', html)
+        self.assertInHTML("<p>You don't have permission to delete these pages</p>", html)
 
         needle = '<ul>'
         for child_page in self.pages_to_be_deleted:
-            needle += '<li><a href="{edit_page_url}" target="_blank" rel="noopener noreferrer">{page_title}</a></li>'.format(
-                edit_page_url=reverse('wagtailadmin_pages:edit', args=[child_page.id]),
-                page_title=child_page.title
-            )
+            needle += '<li>{page_title}</li>'.format(page_title=child_page.title)
         needle += '</ul>'
 
         self.assertInHTML(needle, html)
+        self.assertTagInHTML('''<form action="{}" method="POST"></form>'''.format(self.url), html, count=0)
 
     def test_bulk_delete_post(self):
         # Connect a mock signal handler to page_unpublished signal
