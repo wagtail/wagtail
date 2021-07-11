@@ -12,26 +12,31 @@
         <ul>
             {% for page in pages %}
             <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
+                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{page.page.title }}</a>
                 {% if page.descendant_count %}
-                    <p>
+                <p>
                     {% blocktrans count counter=page.descendant_count %}
                     This will also delete one more subpage.
                     {% plural %}
                     This will also delete {{ counter }} more subpages.
                     {% endblocktrans %}
-                    </p>
+                </p>
                 {% endif %}
             </li>
             {% endfor %}
         </ul>
         {% endif %}
         {% if pages_with_no_access %}
-        <p>{% blocktrans count counter=pages_with_no_access|length %}The following page cannot be deleted{% plural %}The following pages cannot be deleted{% endblocktrans %}</p>
+        <p>{% blocktrans count counter=pages_with_no_access|length %}You don't have permission to delete this page{% plural %}
+            You don't have permission to delete these pages{% endblocktrans %}</p>
         <ul>
             {% for page in pages_with_no_access %}
             <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
+                {% if page.can_edit %}
+                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
+                {% else %}
+                {{ page.page.title }}
+                {% endif %}
             </li>
             {% endfor %}
         </ul>

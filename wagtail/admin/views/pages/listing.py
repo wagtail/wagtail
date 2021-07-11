@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -39,12 +38,6 @@ def index(request, parent_page_id=None):
         )
         & user_perms.explorable_pages()
     )
-
-    fetch_page_ids = request.GET.get('fetchPageIds', '0')
-    if fetch_page_ids == '1':
-        return JsonResponse({
-            'page_ids': list(pages.values_list('id', flat=True))
-        })
 
     # Get page ordering
     ordering = request.GET.get('ordering', '-latest_revision_created_at')

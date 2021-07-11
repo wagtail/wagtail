@@ -497,7 +497,7 @@ def bulk_action_filters(context):
     for hook in button_hooks:
         buttons.extend(hook())
 
-    buttons.sort()
+    buttons.sort(key=lambda x: x.priority)
 
     return {'buttons': buttons}
 
