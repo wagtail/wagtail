@@ -137,11 +137,11 @@ def register_core_log_actions(actions):
 
     def convert_alias_message(data):
         try:
-            return _("Converted the alias '%(title)s' into a regular page") % {
+            return _("Converted the alias '%(title)s' into an ordinary page") % {
                 'title': data['page']['title'],
             }
         except KeyError:
-            return _("Converted an alias into a regular page")
+            return _("Converted an alias into an ordinary page")
 
     def move_message(data):
         try:
@@ -313,7 +313,7 @@ def register_core_log_actions(actions):
     actions.register_action('wagtail.revert', _('Revert'), revert_message)
     actions.register_action('wagtail.copy', _('Copy'), copy_message)
     actions.register_action('wagtail.create_alias', _('Create alias'), create_alias_message)
-    actions.register_action('wagtail.convert_alias', _('Convert alias into regular page'), convert_alias_message)
+    actions.register_action('wagtail.convert_alias', _('Convert alias into ordinary page'), convert_alias_message)
     actions.register_action('wagtail.move', _('Move'), move_message)
     actions.register_action('wagtail.reorder', _('Reorder'), reorder_message)
     actions.register_action('wagtail.publish.schedule', _("Schedule publication"), schedule_publish_message)
