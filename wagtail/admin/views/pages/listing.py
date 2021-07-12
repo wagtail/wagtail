@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.core.paginator import Paginator
-from django.db.models import Count, Prefetch
-from django.db.models.expressions import Exists, OuterRef
+from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -9,54 +8,7 @@ from django.urls import reverse
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core import hooks
-from wagtail.core.models import Page, PageRevision, UserPagePermissionsProxy, WorkflowState
-from wagtail.core.models.sites import Site
-
-
-def prefetch_workflow_states(queryset):
-    """
-    Performance optimisation for listing pages.
-    Prefetches the active workflow states on each page in this queryset.
-    """
-    workflow_states = WorkflowState.objects.active().select_related(
-        "current_task_state__task"
-    )
-
-    return queryset.prefetch_related(
-        Prefetch(
-            "workflow_states",
-            queryset=workflow_states,
-            to_attr="_current_workflow_states",
-        )
-    )
-
-
-def annotate_approved_schedule(queryset):
-    """
-    Performance optimisation for listing pages.
-    Annotates each page with the existence of an approved go live time.
-    """
-    return queryset.annotate(
-        _approved_schedule=Exists(
-            PageRevision.objects.exclude(approved_go_live_at__isnull=True).filter(
-                page__pk=OuterRef("pk")
-            )
-        )
-    )
-
-
-def annotate_site_root_state(queryset):
-    """
-    Performance optimisation for listing pages.
-    Annotates each object with whether it is a root page of any site.
-    """
-    return queryset.annotate(
-        _is_site_root=Exists(
-            Site.objects.filter(
-                root_page__translation_key=OuterRef("translation_key")
-            )
-        )
-    )
+from wagtail.core.models import Page, UserPagePermissionsProxy
 
 
 @user_passes_test(user_has_any_page_permission)
@@ -133,11 +85,10 @@ def index(request, parent_page_id=None):
         pages = hook(parent_page, pages, request)
 
     # Annotate queryset with various states to be used later for performance optimisations
-    pages = annotate_site_root_state(
-        annotate_approved_schedule(
-            prefetch_workflow_states(pages)
-        )
-    )
+    if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+        pages = pages.prefetch_workflow_states()
+
+    pages = pages.annotate_site_root_state().annotate_approved_schedule()
 
     # Pagination
     if do_paginate:

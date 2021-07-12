@@ -450,6 +450,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         This includes translations of site root pages as well.
         """
+        # `_is_site_root` may be populated by `annotate_site_root_state` on `PageQuerySet` as a
+        # performance optimisation
         if hasattr(self, "_is_site_root"):
             return self._is_site_root
 
@@ -1456,6 +1458,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def approved_schedule(self):
+        # `_approved_schedule` may be populated by `annotate_approved_schedule` on `PageQuerySet` as a
+        # performance optimisation
         if hasattr(self, "_approved_schedule"):
             return self._approved_schedule
 
@@ -2317,6 +2321,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             return False
 
+        # `_current_workflow_states` may be populated by `prefetch_workflow_states` on `PageQuerySet` as a
+        # performance optimisation
         if hasattr(self, "_current_workflow_states"):
             for state in self._current_workflow_states:
                 if state.status == WorkflowState.STATUS_IN_PROGRESS:
@@ -2331,6 +2337,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             return None
 
+        # `_current_workflow_states` may be populated by `prefetch_workflow_states` on `pagequeryset` as a
+        # performance optimisation
         if hasattr(self, "_current_workflow_states"):
             try:
                 return self._current_workflow_states[0]
