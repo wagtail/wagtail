@@ -26,6 +26,7 @@ Other features
  * Allow ListBlock to raise validation errors that are not attached to an individual child block (Matt Westcott)
  * Use ``DATETIME_FORMAT`` for localization in templates (Andrew Stone)
  * Added documentation on multi site, multi instance and multi tenancy setups (Coen Van Der Kamp)
+ * Updated Facebook / Instagram oEmbed endpoints to v11.0 (Thomas Kremmel)
 
 Bug fixes
 ~~~~~~~~~
@@ -62,3 +63,8 @@ User bar with keyboard and screen reader support
 The Wagtail user bar (“edit bird”) widget now supports keyboard and screen reader navigation. To make the most of this, we now recommend placing the widget near the top of the page ``<body>``, so users can reach it without having to go through the whole page. See :ref:`wagtailuserbar_tag` for more information.
 
 For implementers of custom user bar menu items, we also now require the addition of ``role="menuitem"`` on the ``a`` element to provide the correct semantics. See :ref:`construct_wagtail_userbar` for more information.
+
+Deprecation of Facebook / Instagram oEmbed product
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As of June 2021, the procedure for setting up a Facebook app to handle Facebook / Instagram embedded content (see :ref:`facebook_and_instagram_embeds`) has changed. It is now necessary to activate the "oEmbed Read" feature on the app, and submit it to Facebook for review. Apps that activated the oEmbed Product before June 8, 2021 must be migrated to oEmbed Read by September 7, 2021 to continue working. No change to the Wagtail code or configuration is required.

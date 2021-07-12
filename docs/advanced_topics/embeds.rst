@@ -210,10 +210,11 @@ and `Instagram <https://developers.facebook.com/docs/instagram/oembed>`_ documen
 As of June 2021, the `oEmbed Product` has been replaced with the `oEmbed Read`
 feature. In order to embed Facebook and Instagram posts your app must activate
 the `oEmbed Read` feature. Furthermore the app must be reviewed and accepted
-by Facebook. You can find the announcement in the API `changelog
-<https://developers.facebook.com/docs/graph-api/changelog/version11.0/#oembed>`.
-Apps that activated the `oEmbed Product` before June 8, 2021 need to activate
-the `oEmbed Read` feature and review their app before September 7, 2021.
+by Facebook. You can find the announcement in the `API changelog
+<https://developers.facebook.com/docs/graph-api/changelog/version11.0/#oembed>`_.
+
+Apps that activated the oEmbed Product before June 8, 2021 need to activate
+the oEmbed Read feature and review their app before September 7, 2021.
 
 Once you have your app access tokens (App ID and App Secret), add the Facebook and/or
 Instagram finders to your ``WAGTAILEMBEDS_FINDERS`` setting and configure them with
