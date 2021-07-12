@@ -282,7 +282,7 @@ Utilising the ``page_url`` setting shortcut
 -------------------------------------------
 
 If, like in the previous section, your settings model references pages,
-and you regularly need to output the URLs of those pages in your project,
+and you often need to output the URLs of those pages in your project,
 you can likely use the setting model's ``page_url`` shortcut to do that more
 cleanly. For example, instead of doing the following:
 

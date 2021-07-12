@@ -10,7 +10,7 @@ The ``RoutablePageMixin`` mixin provides a convenient way for a page to respond 
 
 A ``Page`` using ``RoutablePageMixin`` exists within the page tree like any other page, but URL paths underneath it are checked against a list of patterns. If none of the patterns match, control is passed to subpages as usual (or failing that, a 404 error is thrown).
 
-By default a route for ``r'^$'`` exists, which serves the content exactly like a regular ``Page`` would. It can be overridden by using ``@route(r'^$')`` on any other method of the inheriting class.
+By default a route for ``r'^$'`` exists, which serves the content exactly like a normal ``Page`` would. It can be overridden by using ``@route(r'^$')`` on any other method of the inheriting class.
 
 
 Installation
