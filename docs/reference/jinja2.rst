@@ -9,7 +9,7 @@ Wagtail supports Jinja2 templating for all front end features. More information 
 Configuring Django
 ==================
 
-Django needs to be configured to support Jinja2 templates. As the Wagtail admin is written using regular Django templates, Django has to be configured to use both templating engines. Add the following configuration to the ``TEMPLATES`` setting for your app:
+Django needs to be configured to support Jinja2 templates. As the Wagtail admin is written using standard Django templates, Django has to be configured to use both templating engines. Add the following configuration to the ``TEMPLATES`` setting for your app:
 
 .. code-block:: python
 
