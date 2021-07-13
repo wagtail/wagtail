@@ -39,6 +39,12 @@ Changelog
  * Fix: Prevent crash when copying a page from a section where the user has no publish permission (Karl Hobley)
 
 
+2.13.4 (13.07.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent embed thumbnail_url migration from failing on URLs longer than 200 characters (Matt Westcott)
+
+
 2.13.3 (05.07.2021)
 ~~~~~~~~~~~~~~~~~~~
 
