@@ -61,23 +61,17 @@ function SelectBulkActionsCheckboxes(e) {
   if (checkedState.checkedPages.size > 0) {
     /* Update text on number of pages */
     let numPagesSelected = '';
-    if (checkedState.checkedPages.size === checkedState.numPages) {
-      document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.remove('u-hidden');
-      if (checkedState.numPages === 1) {
-        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_SINGULAR;
-      } else {
-        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL.replace('{0}', checkedState.checkedPages.size);
-      }
+    const numCheckPages = checkedState.checkedPages.size;
+    if (numCheckPages === 1) {
+      numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_SINGULAR;
     } else {
-      document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.add('u-hidden');
-      if (checkedState.checkedPages.size === 1) {
-        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_SINGULAR;
+      if (numCheckPages === checkedState.numPages) {
+        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL.replace('{0}', numCheckPages);
       } else {
-        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_PLURAL.replace(
-          '{0}', checkedState.checkedPages.size
-        );
+        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_PLURAL.replace('{0}', numCheckPages);
       }
     }
+    document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.add('u-hidden');
     document.querySelector(`.${BULK_ACTION_NUM_PAGES_SPAN}`).textContent = numPagesSelected;
   }
 }
