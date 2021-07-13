@@ -21,4 +21,13 @@
     <div id="page-results">
         {% include "wagtailadmin/pages/search_results.html" %}
     </div>
+    <footer class="footer bulk-actions-choices hidden">
+        <div class="footer__container">
+            <div class="bulk-actions-filter-checkbox">
+                <input type="checkbox" aria-label="Bulk action checkbox" />
+            </div>
+            <ul>{% page_bulk_action_choices %}</ul>
+            <span class="num-pages"></span>
+        </div>
+    </footer>
 {% endblock %}
