@@ -105,6 +105,12 @@ Changelog
  * Fix: Reduce database queries in the page edit view (Ihor Marhitych)
 
 
+2.12.6 (13.07.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent embed thumbnail_url migration from failing on URLs longer than 200 characters (Matt Westcott)
+
+
 2.12.5 (17.06.2021)
 ~~~~~~~~~~~~~~~~~~~
 
