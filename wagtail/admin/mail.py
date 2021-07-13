@@ -41,6 +41,7 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
         elif hasattr(settings, 'DEFAULT_FROM_EMAIL'):
             from_email = settings.DEFAULT_FROM_EMAIL
         else:
+            # We are no longer using the term `webmaster` except in this case, where we continue to match Django's default: https://github.com/django/django/blob/stable/3.2.x/django/conf/global_settings.py#L223
             from_email = 'webmaster@localhost'
 
     connection = kwargs.get('connection', False) or get_connection(

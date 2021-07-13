@@ -449,7 +449,7 @@ Email Notifications
 
   WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@myhost.io'
 
-Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Wagtail will fall back to using Django's ``DEFAULT_FROM_EMAIL`` setting if set, or ``webmaster@localhost`` if not.
+Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Wagtail will fall back to using Django's ``DEFAULT_FROM_EMAIL`` setting.
 
 ``WAGTAILADMIN_NOTIFICATION_USE_HTML``
 --------------------------------------
