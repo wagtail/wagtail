@@ -7,13 +7,14 @@
 # Eugene <eugene.mechanism@gmail.com>, 2014-2015
 # Никита Викторович <hnknta@gmail.com>, 2014
 # sergeybe <sergeybe@gmail.com>, 2020
+# Влад <integration.into.society@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
+"PO-Revision-Date: 2021-06-23 12:53+0000\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,9 @@ msgstr "Тип"
 
 msgid "Permanent"
 msgstr "Постоянный"
+
+msgid "Temporary"
+msgstr "Временный"
 
 msgid "All"
 msgstr "Все"
@@ -173,11 +177,17 @@ msgstr "Ошибка"
 msgid "Continue"
 msgstr "Продолжить"
 
+msgid "Export redirects"
+msgstr "Экспорт перенаправлений"
+
 msgid "Site"
 msgstr "Сайт"
 
 msgid "Edit this redirect"
 msgstr "Редактировать это перенаправление"
+
+msgid "No redirects found."
+msgstr "Перенаправлений не найдено."
 
 #, python-format
 msgid ""
@@ -253,3 +263,6 @@ msgstr[0] "Импотрировано %(total)d перенаправление"
 msgstr[1] "Импортировано %(total)d перенаправлений "
 msgstr[2] "Имортировано %(total)d перенаправлений"
 msgstr[3] "Импортровано %(total)d перенаправлений"
+
+msgid "Export Redirects"
+msgstr "Экспорт перенаправлений"

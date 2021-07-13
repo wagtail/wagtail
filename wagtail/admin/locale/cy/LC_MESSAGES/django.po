@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Adam Hughes <adamhughes31@gmail.com>, 2017,2020
+# Adam Hughes <adamhughes31@gmail.com>, 2017,2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:40+0000\n"
+"PO-Revision-Date: 2021-06-04 20:25+0000\n"
 "Last-Translator: Adam Hughes <adamhughes31@gmail.com>\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
@@ -157,11 +157,62 @@ msgstr "Golygu"
 msgid "Server Error"
 msgstr "Gwall Gweinydd"
 
+msgid "Missing document"
+msgstr "Dogfen ar goll"
+
+msgid "Close"
+msgstr "Cau"
+
 msgid "Save"
 msgstr "Cadw"
 
 msgid "Saving..."
 msgstr "Cadw..."
+
+msgid "Reply"
+msgstr "Ymateb"
+
+msgid "Resolve"
+msgstr "Datrys"
+
+msgid "Retry"
+msgstr "Ailgynnig"
+
+msgid "Are you sure?"
+msgstr "Wyt ti'n siwr?"
+
+msgid "Save error"
+msgstr "Arbed gwall"
+
+msgid "Comment"
+msgstr "Sylw"
+
+msgid "Error 404"
+msgstr "Gwall 404"
+
+msgid "Go to Wagtail admin"
+msgstr "Ewch i Wagtail Admin"
+
+msgid "Account"
+msgstr "Cyfrif"
+
+msgid "Save account details"
+msgstr "Cadw manylion cyfrif"
+
+msgid "Change password"
+msgstr "Newid cyfrinair"
+
+msgid "Reset password"
+msgstr "Ailosod cyfrinair"
+
+msgid "Login"
+msgstr "Mewngofnodi"
+
+msgid "Invalid password reset link"
+msgstr "Dolen ailosod cyfrinair annilys"
+
+msgid "Check your email"
+msgstr "Gwiriwch eich e-bost"
 
 msgid "Update"
 msgstr "Diweddariad"

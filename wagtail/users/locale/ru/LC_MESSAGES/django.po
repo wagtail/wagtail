@@ -13,6 +13,7 @@
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2017
+# Влад <integration.into.society@gmail.com>, 2021
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 msgid ""
@@ -20,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-06-22 22:00+0000\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -112,6 +113,16 @@ msgstr "уведомления при отклонении"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Принимать уведомление при отклонении вашей редакции страницы."
+
+msgid "updated comments notifications"
+msgstr "обновленные уведомления о комментариях"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Получать уведомление, когда комментарии были созданы, закрыты или удалены на "
+"странице, на которую вы подписались"
 
 msgid "preferred language"
 msgstr "Предпочтительный язык"

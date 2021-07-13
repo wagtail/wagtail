@@ -13,6 +13,7 @@
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
+# Влад <integration.into.society@gmail.com>, 2021
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 # Sergey Mazanov <mvver@outlook.com>, 2021
@@ -21,8 +22,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
+"PO-Revision-Date: 2021-06-22 21:46+0000\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -36,11 +37,17 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
 
+msgid "Add Comment"
+msgstr "Добавить комментарий"
+
 msgid "Move up"
 msgstr "Двигать вверх"
 
 msgid "Move down"
 msgstr "Двигать вниз"
+
+msgid "Duplicate"
+msgstr "Дубликат"
 
 msgid "Delete"
 msgstr "Удалить"
@@ -161,6 +168,13 @@ msgstr "Путь URL"
 msgid "owner"
 msgstr "владелец"
 
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Кликабельное название страницы, отображаемое в результатах поисковой системы "
+"в виде заголовка."
+
 msgid "show in menus"
 msgstr "показывать в меню"
 
@@ -169,6 +183,14 @@ msgid ""
 msgstr ""
 "Должна ли ссылка на эту страницу отображаться в автоматически генерируемых "
 "меню"
+
+msgid "meta description"
+msgstr "мета-описание"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr "Описание, отображаемое под заголовком в результатах поиска."
 
 msgid "go live date/time"
 msgstr "дата/время публикации"
@@ -506,6 +528,18 @@ msgstr "страница записи журнала"
 
 msgid "page log entries"
 msgstr "страница записей журнала"
+
+msgid "comment"
+msgstr "комментарий"
+
+msgid "comments"
+msgstr "комментарии"
+
+msgid "comment reply"
+msgstr "ответ на комментарий"
+
+msgid "comment replies"
+msgstr "ответы на комментарий"
 
 msgid "Log in"
 msgstr "Войти"
