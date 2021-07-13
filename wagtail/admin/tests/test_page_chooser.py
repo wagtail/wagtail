@@ -496,6 +496,11 @@ class TestAutomaticRootPageDetection(TestCase, WagtailTestUtils):
 class TestChooserExternalLink(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
+        self.internal_page = SimplePage(
+            title='About',
+            content='About Foo'
+        )
+        Page.objects.get(pk=2).add_child(instance=self.internal_page)
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page_external_link'), params)
@@ -570,6 +575,33 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['step'], 'external_link_chosen')  # indicates success / post back to calling page
         self.assertEqual(response_json['result']['url'], "/admin/")
         self.assertEqual(response_json['result']['title'], "admin")
+
+    def test_convert_external_to_internal_link(self):
+        response = self.post({'external-link-chooser-url': 'http://localhost/about/', 'external-link-chooser-link_text': 'about'})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'external_link_chosen')
+        self.assertEqual(response_json['result']['url'], "/about/")
+        self.assertEqual(response_json['result']['id'], self.internal_page.pk)
+
+    def test_convert_external_link_with_query_parameters_to_internal_link(self):
+        response = self.post({'external-link-chooser-url': 'http://localhost/about?test=1', 'external-link-chooser-link_text': 'about'})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # Query parameters will get stripped, so the user should get asked to confirm the conversion
+        self.assertEqual(response_json['step'], 'confirm_external_to_internal')
+
+        self.assertEqual(response_json['external']['url'], "http://localhost/about?test=1")
+        self.assertEqual(response_json['internal']['id'], self.internal_page.pk)
+
+    def test_convert_relative_external_link_to_internal_link(self):
+        response = self.post({'external-link-chooser-url': '/about/', 'external-link-chooser-link_text': 'about'})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'external_link_chosen')
+        self.assertEqual(response_json['result']['url'], "/about/")
+        self.assertEqual(response_json['result']['id'], self.internal_page.pk)
 
 
 class TestChooserAnchorLink(TestCase, WagtailTestUtils):
