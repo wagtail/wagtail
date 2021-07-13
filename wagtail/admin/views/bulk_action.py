@@ -31,6 +31,7 @@ class BulkAction(ABC, TemplateView):
     action_priority = 100
     model = None
     object_key = 'object'
+    classes = set()
 
     def __init__(self, request):
         self.include_descendants = request.POST.get("include_descendants", False)

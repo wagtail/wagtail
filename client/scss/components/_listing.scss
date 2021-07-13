@@ -493,6 +493,60 @@ ul.listing {
     }
 }
 
+footer.bulk-actions-choices {
+    @include transition(bottom 0.5s ease 0.5s);
+
+    &.hidden {
+        bottom: -200px;
+    }
+
+    .bulk-actions-more {
+        &.is-open {
+            ul.u-toggle {
+                display: flex;
+            }
+        }
+
+        ul {
+            bottom: 50px;
+            left: 30px;
+            flex-direction: column;
+        }
+    }
+}
+
+.footer__container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+
+    .bulk-actions-filter-checkbox {
+        display: flex;
+        align-items: center;
+        padding-right: 0.2em;
+        border-right: 1px solid darken($color-white, 50);
+    }
+
+    > span {
+        text-transform: none;
+        margin: 0 5px;
+    }
+
+    .num-pages-in-listing {
+        color: $color-teal-light;
+    }
+
+    a.button-secondary {
+        font-weight: 700;
+        color: $color-teal;
+    }
+
+    a.button-secondary,
+    a.button-secondary.serious {
+        background-color: $color-white;
+    }
+}
+
 .image-choice {
     // Force the link to be displayed as a block, so its focus outline has the right shape.
     display: block;
