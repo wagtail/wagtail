@@ -540,11 +540,6 @@ A StreamField's value behaves as a list, and blocks can be inserted, overwritten
     my_page.save()
 
 
-.. versionadded:: 2.12
-
-    In earlier versions, a StreamField value could be replaced by assigning a new list of *(block_type, value)* tuples, but not modified in-place.
-
-
 .. _streamfield_migrating_richtext:
 
 Migrating RichTextFields to StreamField

@@ -67,10 +67,6 @@ Field block types
    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
-   .. versionchanged:: 2.11
-
-       The ``class`` attribute was previously set via the keyword argument ``classname``.
-
 
 .. class:: wagtail.core.blocks.TextBlock
 

@@ -72,8 +72,6 @@ Set the number of days (default 7) that search query logs are kept for; these ar
 Internationalisation
 ====================
 
-.. versionadded:: 2.11
-
 Wagtail supports internationalisation of content by maintaining separate trees
 of pages for each language.
 
