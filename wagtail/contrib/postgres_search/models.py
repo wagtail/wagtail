@@ -78,4 +78,4 @@ class IndexEntry(models.Model):
         for model in apps.get_models():
             if class_is_indexed(model):
                 TextIDGenericRelation(cls).contribute_to_class(model,
-                                                               'index_entries')
+                                                               'postgres_index_entries')

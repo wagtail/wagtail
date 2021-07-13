@@ -13,17 +13,15 @@ from django.db.models.sql.subqueries import InsertQuery
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 
-from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
-from wagtail.search.index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
-from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
-from wagtail.search.utils import ADD, MUL, OR
-
-from .models import IndexEntry
+from ....index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
+from ....models import IndexEntry
+from ....query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
+from ....utils import (
+    ADD, MUL, OR, get_content_type_pk, get_descendants_content_types_pks,
+    get_postgresql_connections)
+from ...base import BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError
 from .query import Lexeme, RawSearchQuery
-from .utils import (
-    get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
-    get_sql_weights, get_weight)
+from .weights import get_sql_weights, get_weight
 
 
 EMPTY_VECTOR = SearchVector(Value('', output_field=TextField()))
@@ -33,6 +31,7 @@ class ObjectIndexer:
     """
     Responsible for extracting data from an object to be inserted into the index.
     """
+
     def __init__(self, obj, backend):
         self.obj = obj
         self.search_fields = obj.get_search_fields()
@@ -469,8 +468,8 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def get_index_vectors(self, search_query):
         return [
-            (F('postgres_index_entries__title'), F('postgres_index_entries__title_norm')),
-            (F('postgres_index_entries__body'), 1.0),
+            (F('index_entries__title'), F('index_entries__title_norm')),
+            (F('index_entries__body'), 1.0),
         ]
 
     def get_fields_vectors(self, search_query):
@@ -563,7 +562,7 @@ class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
         return self.queryset.model.get_autocomplete_search_fields()
 
     def get_index_vectors(self, search_query):
-        return [(F('postgres_index_entries__autocomplete'), 1.0)]
+        return [(F('index_entries__autocomplete'), 1.0)]
 
     def get_fields_vectors(self, search_query):
         return [
@@ -700,6 +699,3 @@ class PostgresSearchBackend(BaseSearchBackend):
 
     def delete(self, obj):
         self.get_index_for_object(obj).delete_item(obj)
-
-
-SearchBackend = PostgresSearchBackend

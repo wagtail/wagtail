@@ -3,6 +3,9 @@ import sys
 from wagtail.utils.deprecation import MovedDefinitionHandler, RemovedInWagtail216Warning
 
 
+# If users still import their backend from here, they will get a deprecation warning. The actual backend implementation is now in a submodule (database).
+
+
 MOVED_DEFINITIONS = {
     'DatabaseSearchQueryCompiler': ('wagtail.search.backends.database', 'DatabaseSearchQueryCompiler'),
     'DatabaseSearchResults': ('wagtail.search.backends.database', 'DatabaseSearchResults'),
