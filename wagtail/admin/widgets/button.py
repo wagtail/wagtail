@@ -65,12 +65,35 @@ class BaseDropdownMenuButton(Button):
     def dropdown_buttons(self):
         raise NotImplementedError
 
-    def render(self):
-        return render_to_string(self.template_name, {
+    def get_context_data(self):
+        return {
             'buttons': self.dropdown_buttons,
             'label': self.label,
             'title': self.attrs.get('title'),
-            'is_parent': self.is_parent})
+            'is_parent': self.is_parent
+        }
+
+    def render(self):
+        return render_to_string(self.template_name, self.get_context_data())
+
+
+class ButtonWithDropdown(BaseDropdownMenuButton):
+    template_name = 'wagtailadmin/pages/listing/_button_with_dropdown.html'
+
+    def __init__(self, *args, **kwargs):
+        self.btn_classes = kwargs.pop('btn_classes', set())
+        self.buttons_data = kwargs.pop('buttons_data', [])
+        super().__init__(*args, **kwargs)
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['btn_classes'] = self.btn_classes
+        context['classes'] = self.classes
+        return context
+
+    @cached_property
+    def dropdown_buttons(self):
+        return [Button(**button) for button in self.buttons_data]
 
 
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):

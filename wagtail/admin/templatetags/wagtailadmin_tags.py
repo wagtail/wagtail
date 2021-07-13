@@ -31,7 +31,7 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
-from wagtail.admin.widgets import PageListingButton
+from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
 from wagtail.core import hooks
 from wagtail.core.models import (
     Collection, CollectionViewRestriction, Locale, Page, PageViewRestriction,
@@ -512,18 +512,43 @@ def page_bulk_action_choices(context):
         bulk_actions_list.append(action)
     button_hooks = hooks.get_hooks('construct_page_bulk_action_choices')
     for hook in button_hooks:
-        bulk_actions_list = hook(context.request, bulk_actions_list)
+        hook(context.request, bulk_actions_list)
 
     bulk_actions_list.sort(key=lambda x: x.action_priority)
+
+    bulk_action_more_list = []
+    if len(bulk_actions_list) > 4:
+        bulk_action_more_list = bulk_actions_list[4:]
+        bulk_actions_list = bulk_actions_list[:4]
 
     bulk_action_buttons = [
         PageListingButton(
             action.display_name,
             reverse('wagtailadmin_bulk_action', args=[action.action_type]) + '?' + urlencode({'next': action.next_url}),
             attrs={'aria-label': action.aria_label},
-            priority=action.action_priority
+            priority=action.action_priority,
+            classes=action.classes
         ) for action in bulk_actions_list
     ]
+
+    if bulk_action_more_list:
+        more_button = ButtonWithDropdown(
+            label=_("MORE"),
+            attrs={
+                'target': '_blank', 'rel': 'noopener noreferrer',
+                'title': _("View more bulk actions")
+            },
+            classes={'bulk-actions-more', 'dropup'},
+            btn_classes={'button', 'button-small'},
+            buttons_data=[{
+                'label': action.display_name,
+                'url': reverse('wagtailadmin_bulk_action', args=[action.action_type]) + '?' + urlencode({'next': action.next_url}),
+                'attrs': {'aria-label': action.aria_label},
+                'priority': action.action_priority,
+            } for action in bulk_action_more_list]
+        )
+        more_button.is_parent = True
+        bulk_action_buttons.append(more_button)
 
     return {'buttons': bulk_action_buttons}
 
