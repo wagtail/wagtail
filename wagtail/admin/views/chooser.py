@@ -1,14 +1,17 @@
+import re
+
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
+from django.urls.base import reverse
 
 from wagtail.admin.forms.choosers import (
     AnchorLinkChooserForm, EmailLinkChooserForm, ExternalLinkChooserForm, PhoneLinkChooserForm)
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core import hooks
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.core.models import Page, Site, UserPagePermissionsProxy
 from wagtail.core.utils import resolve_model_string
 
 
@@ -190,8 +193,9 @@ def external_link(request):
         form = ExternalLinkChooserForm(request.POST, initial=initial_data, prefix='external-link-chooser')
 
         if form.is_valid():
+            submitted_url = form.cleaned_data['url']
             result = {
-                'url': form.cleaned_data['url'],
+                'url': submitted_url,
                 'title': form.cleaned_data['link_text'].strip() or form.cleaned_data['url'],
                 # If the user has explicitly entered / edited something in the link_text field,
                 # always use that text. If not, we should favour keeping the existing link/selection
@@ -201,6 +205,82 @@ def external_link(request):
                 'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
             }
 
+            # Next, we should check if the url matches an internal page
+            # Strip the url of its query/fragment link parameters - these won't match a page
+            url_without_query = re.split(r"\?|#", submitted_url)[0]
+
+            # Start by finding any sites the url could potentially match
+            sites = getattr(request, '_wagtail_cached_site_root_paths', Site.get_site_root_paths())
+
+            match_relative_paths = submitted_url.startswith('/') and len(sites) == 1
+            # We should only match relative urls if there's only a single site
+            # Otherwise this could get very annoying accidentally matching coincidentally
+            # named pages on different sites
+
+            if match_relative_paths:
+                possible_sites = [
+                    (pk, url_without_query)
+                    for pk, path, url, language_code
+                    in sites
+                ]
+            else:
+                possible_sites = [
+                    (pk, url_without_query[len(url):])
+                    for pk, path, url, language_code
+                    in sites
+                    if submitted_url.startswith(url)
+                ]
+
+            # Loop over possible sites to identify a page match
+            for pk, url in possible_sites:
+                try:
+                    route = Site.objects.get(pk=pk).root_page.specific.route(
+                        request,
+                        [component for component in url.split('/') if component]
+                    )
+
+                    matched_page = route.page.specific
+
+                    internal_data = {
+                        'id': matched_page.pk,
+                        'parentId': matched_page.get_parent().pk,
+                        'adminTitle': matched_page.draft_title,
+                        'editUrl': reverse('wagtailadmin_pages:edit', args=(matched_page.pk,)),
+                        'url': matched_page.url
+                    }
+
+                    # Let's check what this page's normal url would be
+                    normal_url = matched_page.get_url_parts(request=request)[-1] if match_relative_paths else matched_page.get_full_url(request=request)
+
+                    # If that's what the user provided, great. Let's just convert the external
+                    # url to an internal link automatically
+                    if normal_url == submitted_url:
+                        return render_modal_workflow(
+                            request,
+                            None,
+                            None,
+                            None,
+                            json_data={'step': 'external_link_chosen', 'result': internal_data}
+                        )
+                    # If not, they might lose query parameters or routable page information
+                    # Let's confirm the conversion with them explicitly
+                    else:
+                        return render_modal_workflow(
+                            request,
+                            'wagtailadmin/chooser/confirm_external_to_internal.html',
+                            None,
+                            {
+                                'submitted_url': submitted_url,
+                                'internal_url': normal_url,
+                                'page': matched_page.draft_title,
+                            },
+                            json_data={'step': 'confirm_external_to_internal', 'external': result, 'internal': internal_data}
+                        )
+
+                except Http404:
+                    continue
+
+            # Otherwise, with no internal matches, fall back to an external url
             return render_modal_workflow(
                 request, None, None,
                 None, json_data={'step': 'external_link_chosen', 'result': result}

@@ -179,5 +179,19 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     modal.respond('pageChosen', jsonData.result);
     modal.close();
   },
+  confirm_external_to_internal(modal, jsonData) {
+    // eslint-disable-next-line func-names, prefer-arrow-callback
+    $('[data-action-confirm]', modal.body).on('click', function () {
+      modal.respond('pageChosen', jsonData.internal);
+      modal.close();
+      return false;
+    });
+    // eslint-disable-next-line func-names, prefer-arrow-callback
+    $('[data-action-deny]', modal.body).on('click', function () {
+      modal.respond('pageChosen', jsonData.external);
+      modal.close();
+      return false;
+    });
+  },
 };
 window.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS;
