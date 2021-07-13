@@ -36,15 +36,10 @@ ordering: the current sort parameter
         <div>
             <input type="checkbox" aria-label="Bulk action checkbox" />
             {% bulk_action_filters %}
-            <div class="bulk-actions-choices u-hidden">
-                <span class="num-pages"></span>
-                <a class="num-pages-in-listing u-hidden" href='#'>{% trans "Select all pages in listing" %}</a>
-                <ul>{% page_bulk_action_choices %}</ul>
-            </div>
         </div>
     </th>
     {% endif %}
-    <th>
+    <th class="title">
         {% trans 'Page' %}
     </th>
     {% if show_parent %}
