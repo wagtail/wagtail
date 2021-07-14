@@ -4,7 +4,7 @@ Changelog
 2.15 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
- * ...
+ * Support `min_num` / `max_num` options on ListBlock (Matt Westcott)
 
 
 2.14 (xx.xx.xxxx) - IN DEVELOPMENT

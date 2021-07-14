@@ -15,7 +15,7 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
- * ...
+ * Support ``min_num`` / ``max_num`` options on ListBlock (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~
