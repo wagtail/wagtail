@@ -290,7 +290,7 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
   const assertCanAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toBe(null);
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toBe(null);
 
     // Test menu
     expect(document.querySelector('button[data-streamfield-list-add]').getAttribute('disabled')).toBe(null);
@@ -299,7 +299,7 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
   const assertCannotAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toEqual('disabled');
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toEqual('disabled');
 
     // Test menu
     expect(document.querySelector('button[data-streamfield-list-add]').getAttribute('disabled')).toEqual('disabled');
