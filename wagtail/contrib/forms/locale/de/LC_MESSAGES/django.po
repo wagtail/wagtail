@@ -7,7 +7,7 @@
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
-# Oliver Engel, 2021
+# oliverengel <codeangel@posteo.de>, 2021
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # Matthias Martin, 2019
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: 2021-05-25 13:50+0000\n"
-"Last-Translator: Oliver Engel\n"
+"Last-Translator: oliverengel <codeangel@posteo.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"

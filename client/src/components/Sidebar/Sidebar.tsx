@@ -4,6 +4,9 @@ import * as React from 'react';
 
 import Icon from '../Icon/Icon';
 
+// Please keep in sync with $menu-transition-duration variable in `client/scss/settings/_variables.scss`
+export const SIDEBAR_TRANSITION_DURATION = 150;
+
 export interface Strings {
   DASHBOARD: string;
   EDIT_YOUR_ACCOUNT: string,
@@ -11,6 +14,7 @@ export interface Strings {
 }
 
 export interface ModuleRenderContext {
+  key: number;
   slim: boolean;
   expandingOrCollapsing: boolean;
   currentPath: string;
@@ -61,7 +65,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     setExpandingOrCollapsing(true);
     const finishTimeout = setTimeout(() => {
       setExpandingOrCollapsing(false);
-    }, 300);
+    }, SIDEBAR_TRANSITION_DURATION);
 
     return () => {
       clearTimeout(finishTimeout);
@@ -100,12 +104,13 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     clearTimeout(stopPeekingTimeout.current);
     stopPeekingTimeout.current = setTimeout(() => {
       setPeeking(false);
-    }, 300);
+    }, SIDEBAR_TRANSITION_DURATION);
   };
 
   // Render modules
   const renderedModules = modules.map(
-    module => module.render({
+    (module, index) => module.render({
+      key: index,
       slim,
       expandingOrCollapsing,
       currentPath,
@@ -115,7 +120,10 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   );
 
   return (
-    <aside className={'sidebar' + (slim ? ' sidebar--slim' : '')} onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
+    <aside
+      className={'sidebar' + (slim ? ' sidebar--slim' : '')}
+      onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}
+    >
       <div className="sidebar__inner">
         <button onClick={onClickCollapseToggle} className="button sidebar__collapse-toggle">
           {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}

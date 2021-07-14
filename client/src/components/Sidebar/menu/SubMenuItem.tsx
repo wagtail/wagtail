@@ -5,6 +5,8 @@ import * as React from 'react';
 import Icon from '../../Icon/Icon';
 
 import { renderMenu } from '../modules/MainMenu';
+import { SidebarPanel } from '../SidebarPanel';
+import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
 
 interface SubMenuItemProps extends MenuItemProps<SubMenuItemDefinition> {
@@ -27,7 +29,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
       // to finish before making it invisible
       setTimeout(() => {
         setIsVisible(false);
-      }, 300);
+      }, SIDEBAR_TRANSITION_DURATION);
     }
   }, [isOpen]);
 
@@ -61,18 +63,12 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
     + (isOpen ? ' sidebar-sub-menu-trigger-icon--open' : '')
   );
 
-  const sidebarSubMenuPanelClassName = (
-    'sidebar-sub-menu-panel'
-    + (isVisible ? ' sidebar-sub-menu-panel--visible' : '')
-    + (isOpen ? ' sidebar-sub-menu-panel--open' : '')
-  );
-
   return (
     <li className={className}>
       <a
         href="#"
         onClick={onClick}
-        className={item.classNames}
+        className={`sidebar-menu-item__link ${item.classNames}`}
         aria-haspopup="true"
         aria-expanded={isOpen ? 'true' : 'false'}
       >
@@ -80,16 +76,18 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
         <span className="menuitem-label">{item.label}</span>
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
       </a>
-      <div className={sidebarSubMenuPanelClassName} style={{ zIndex: -depth }}>
-        <h2 id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`} className={item.classNames}>
-          {item.iconName && <Icon name={item.iconName} className="icon--submenu-header" />}
-          {item.label}
-        </h2>
-        <ul aria-labelledby={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}>
-          {renderMenu(path, item.menuItems, slim, state, dispatch, navigate)}
-        </ul>
-        {item.footerText && <p className="sidebar-sub-menu-panel__footer">{item.footerText}</p>}
-      </div>
+      <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={depth}>
+        <div className="sidebar-sub-menu-panel">
+          <h2 id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`} className={item.classNames}>
+            {item.iconName && <Icon name={item.iconName} className="icon--submenu-header" />}
+            {item.label}
+          </h2>
+          <ul aria-labelledby={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}>
+            {renderMenu(path, item.menuItems, slim, state, dispatch, navigate)}
+          </ul>
+          {item.footerText && <p className="sidebar-sub-menu-panel__footer">{item.footerText}</p>}
+        </div>
+      </SidebarPanel>
     </li>
   );
 };

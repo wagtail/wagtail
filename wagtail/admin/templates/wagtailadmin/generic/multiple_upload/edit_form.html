@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load wagtailadmin_tags i18n %}
 
 {% include "wagtailadmin/shared/non_field_errors.html" %}
 
@@ -13,7 +13,7 @@
             {% endif %}
         {% endfor %}
         <li>
-            <input type="submit" value="{% trans 'Update' %}" class="button" />
+            <button type="submit" class="button button-longrunning">{% icon name="spinner" %}{% trans 'Update' %}</button>
             <a href="{{ delete_action }}" class="delete button button-secondary no">{% trans "Delete" %}</a>
         </li>
     </ul>

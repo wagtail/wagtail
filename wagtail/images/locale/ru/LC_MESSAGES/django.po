@@ -12,6 +12,7 @@
 # Rustam Mirzaev <mirus@2x2.pw>, 2017
 # sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
+# Влад <integration.into.society@gmail.com>, 2021
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 # gsstver <gsstver@gmail.com>, 2016
@@ -21,8 +22,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Nikita Tonkoshkur <humapen@gmail.com>\n"
+"PO-Revision-Date: 2021-06-22 21:53+0000\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -83,8 +84,18 @@ msgstr "По правому краю"
 msgid "Collection"
 msgstr "Коллекция"
 
+msgid "Format"
+msgstr "Формат"
+
+msgid "Image is decorative"
+msgstr "Изображение декоративное"
+
 msgid "Alt text"
 msgstr "Текст подсказки"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Добавьте замещающий текст для изображения или отметьте его как декоративное."
 
 msgid "Filter"
 msgstr "Фильтр"

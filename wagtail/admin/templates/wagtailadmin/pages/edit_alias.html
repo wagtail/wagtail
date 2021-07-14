@@ -9,7 +9,7 @@
             <a class="button button-secondary" href="{% url 'wagtailadmin_pages:edit' page.alias_of_id %}">{% trans "Edit original page" %}</a>
 
             {% url 'wagtailadmin_pages:edit' page.id as this_url %}
-            <a class="button button-secondary" href="{% url 'wagtailadmin_pages:convert_alias' page.id %}?next={{ this_url|urlencode }}">{% trans "Convert this alias into a regular page" %}</a>
+            <a class="button button-secondary" href="{% url 'wagtailadmin_pages:convert_alias' page.id %}?next={{ this_url|urlencode }}">{% trans "Convert this alias into an ordinary page" %}</a>
         </p>
     </div>
 {% endblock %}

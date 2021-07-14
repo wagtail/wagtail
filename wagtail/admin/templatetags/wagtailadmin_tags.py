@@ -204,17 +204,17 @@ def test_page_is_public(context, page):
     Usage: {% test_page_is_public page as is_public %}
     Sets 'is_public' to True iff there are no page view restrictions in place on
     this page.
-    Caches the list of page view restrictions in the context, to avoid repeated
+    Caches the list of page view restrictions on the request, to avoid repeated
     DB queries on repeated calls.
     """
-    if 'all_page_view_restriction_paths' not in context:
-        context['all_page_view_restriction_paths'] = PageViewRestriction.objects.select_related('page').values_list(
+    if not hasattr(context["request"], "all_page_view_restriction_paths"):
+        context['request'].all_page_view_restriction_paths = PageViewRestriction.objects.select_related('page').values_list(
             'page__path', flat=True
         )
 
     is_private = any([
         page.path.startswith(restricted_path)
-        for restricted_path in context['all_page_view_restriction_paths']
+        for restricted_path in context["request"].all_page_view_restriction_paths
     ])
 
     return not is_private

@@ -9,7 +9,6 @@ import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
 import { SubMenuItemDefinition } from './menu/SubMenuItem';
 import { initFocusOutline } from '../../utils/focus';
 
-// eslint-disable-next-line import/no-unresolved
 import '../../../../wagtail/admin/static/wagtailadmin/css/sidebar.css';
 import { CustomBrandingModuleDefinition } from './modules/CustomBranding';
 
@@ -42,10 +41,9 @@ function bogStandardMenuModule(): MainMenuModuleDefinition {
         name: 'explorer',
         label: 'Pages',
         url: '/admin/pages',
-        start_page_id: 1,
         icon_name: 'folder-open-inverse',
         classnames: '',
-      }),
+      }, 1),
       new LinkMenuItemDefinition({
         name: 'images',
         label: 'Images',
@@ -201,7 +199,9 @@ interface RenderSidebarStoryOptions {
   strings?: Strings;
 }
 
-function renderSidebarStory(modules: ModuleDefinition[], { rtl = false, strings = null }: RenderSidebarStoryOptions = {}) {
+function renderSidebarStory(
+  modules: ModuleDefinition[], { rtl = false, strings = null }: RenderSidebarStoryOptions = {}
+) {
   // Enable focus outlines so we can test them
   React.useEffect(() => {
     initFocusOutline();

@@ -7,11 +7,12 @@
 # Benedikt Willi <ben.willi@gmail.com>, 2020
 # Benjamin Kaspar <bennykaspar@gmail.com>, 2021
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018-2019
+# oliverengel <codeangel@posteo.de>, 2021
 # Daniel Manser <me@danielmanser.com>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017,2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016,2018
 # hpoul <herbert.transifex@m.poul.at>, 2015
-# Oliver Engel, 2021
+# oliverengel <codeangel@posteo.de>, 2021
 # Jannis Vajen, 2016
 # Bohreromir, 2020
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
@@ -24,7 +25,7 @@
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # Norman Uekermann <nue@melexis.com>, 2019
-# Oliver Engel, 2021
+# oliverengel <codeangel@posteo.de>, 2021
 # pcraston <patrick@craston.com>, 2014
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # pcraston <patrick@craston.com>, 2014
@@ -39,8 +40,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-25 13:22+0000\n"
-"Last-Translator: Oliver Engel\n"
+"PO-Revision-Date: 2021-06-25 10:56+0000\n"
+"Last-Translator: oliverengel <codeangel@posteo.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -110,6 +111,12 @@ msgstr "Geplante Veröffentlichung"
 msgid "Privacy"
 msgstr "Privatsphäre"
 
+msgid "For search engines"
+msgstr "Für Suchmaschine"
+
+msgid "For site menus"
+msgstr "Für Seitenmenü"
+
 msgid "Content"
 msgstr "Inhalt"
 
@@ -165,12 +172,22 @@ msgstr "URL"
 msgid "Parent"
 msgstr "Übergeordnetes Element"
 
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Wähle eine hierarchische Position. Beachte: Eine Sammlung kann kein Kind von "
+"sich selbst oder eines Nachkommen werden."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Sie können nicht mehrere Berechtigungseinträge für dieselbe Sammlung anlegen."
 
 msgid "Collection"
 msgstr "Sammlung"
+
+msgid "You cannot edit another user's comment."
+msgstr "Sie können ein Kommentar eines anderen Benutzers nicht bearbeiten."
 
 msgid "New title"
 msgstr "Neuer Titel"
@@ -222,6 +239,9 @@ msgstr[1] ""
 
 msgid "Alias"
 msgstr "Pseudonym"
+
+msgid "Keep the new pages updated with future changes"
+msgstr "Halte neue Seiten mit zukünftigen Änderungen aktuell."
 
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
@@ -923,6 +943,14 @@ msgstr "Die Seite \"%(title)s\" wurde während \"%(workflow)s\" abgelehnt."
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Die Seite „%(title)s“ wurde von %(requester)szur Moderation in Arbeitsablauf "
+"„%(workflow)s“ eingereicht."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
 "\"%(workflow)s\"."
 msgstr ""
 "Die Seite „%(title)s“ wurde zur Moderation in Arbeitsablauf „%(workflow)s“ "
@@ -1014,6 +1042,11 @@ msgstr "Pseudonym %(title)s konvertieren"
 
 msgid "Convert alias"
 msgstr "Pseudonym konvertieren"
+
+msgid "Are you sure you want to convert this alias into a regular page?"
+msgstr ""
+"Sind Sie sicher, dass Sie diesen Alias in eine reguläre Seite umwandeln "
+"wollen?"
 
 msgid "This action cannot be undone."
 msgstr "Diese Aktion kann nicht rückgängig gemacht werden."
@@ -2079,6 +2112,9 @@ msgstr "Beim Speichern der Sammlung sind Fehler aufgetreten."
 msgid "Delete collection"
 msgstr "Sammlung löschen"
 
+msgid "Please select another parent"
+msgstr "Bitte wählen Sie einen anderen Elterteil aus."
+
 msgid "Collection '{0}' deleted."
 msgstr "Sammlung ‚{0}‘ gelöscht."
 
@@ -2159,8 +2195,16 @@ msgstr "Arbeitsablauf auf Seite ‚{0}‘ wurde abgebrochen."
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Version von {0} von Seite '{1}' wurde zur Veröffentlichung eingeplant."
 
+msgid "Page '{0}' is live and this version has been scheduled for publishing."
+msgstr ""
+"Seite '{0}' ist veröffentlicht und diese Version wurde zur Veröffentlichung "
+"eingeplant."
+
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Seite ‚{0}‘ wurde zur Veröffentlichung eingeplant."
+
+msgid "Version from {0} of page '{1}' has been published."
+msgstr "Version von {0} von Seite '{1}' wurde veröffentlicht."
 
 msgid "Page '{0}' has been published."
 msgstr "Seite ‚{0}‘ wurde veröffentlicht."
@@ -2208,6 +2252,14 @@ msgstr ""
 msgid "Page '{0}' moved."
 msgstr "Seite ‚{0}‘ verschoben."
 
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Sie betrachten eine frühere Version dieser Seite vom <b>%(created_at)s</b> "
+"von %(user)s"
+
 msgid "Earliest"
 msgstr "Früheste"
 
@@ -2217,8 +2269,15 @@ msgstr "Späteste"
 msgid "revision {0} of \"{1}\""
 msgstr "Revision {0} von \"{1}\""
 
+msgid "Version {0} of \"{1}\" unscheduled."
+msgstr "Geplante Veröffentlichung der Version {0} von \"{1}\" aufgehoben."
+
 msgid "Page '{0}' unpublished."
 msgstr "Veröffentlichung der Seite \"{0}\" aufgehoben."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr ""
+"Die Seite'{0}' wartet derzeit nicht auf Moderation in der Aufgabe '{1}'."
 
 msgid "Locked pages"
 msgstr "Gesperrte Seiten"
@@ -2280,6 +2339,22 @@ msgstr "Arbeitsablauf deaktivieren"
 msgid "Workflow '{0}' disabled."
 msgstr "Arbeitsablauf ‚{0}‘ deaktiviert."
 
+#, python-format
+msgid ""
+"This workflow is in progress on %(states_in_progress)d page. Disabling this "
+"workflow will cancel moderation on this page."
+msgid_plural ""
+"This workflow is in progress on %(states_in_progress)d pages. Disabling this "
+"workflow will cancel moderation on these pages."
+msgstr[0] ""
+"Dieser Arbeitsablauf ist in Bearbeitung auf %(states_in_progress)d Seite. "
+"Die Deaktivierung dieses Arbeitsablaufes wird die Moderation dieser Seite "
+"abbrechen."
+msgstr[1] ""
+"Dieser Arbeitsablauf ist in Bearbeitung auf %(states_in_progress)d Seiten. "
+"Die Deaktivierung dieses Arbeitsablaufes wird die Moderation diesen Seiten "
+"abbrechen. "
+
 msgid "Workflow '{0}' enabled."
 msgstr "Arbeitsablauf ‚{0}‘ aktiviert."
 
@@ -2307,6 +2382,22 @@ msgstr "Aufgabe deaktivieren"
 
 msgid "Task '{0}' disabled."
 msgstr "Aufgabe ‚{0}‘ deaktiviert."
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow."
+msgstr[0] ""
+"Diese Aufgabe ist in Bearbeitung auf %(states_in_progress)d Seite. Die "
+"Deaktivierung dieser Aufgabe wird verursachen, dass sie im Arbeitsablauf der "
+"Moderation übersprungen wird."
+msgstr[1] ""
+"Diese Aufgabe ist in Bearbeitung auf %(states_in_progress)d Seiten. Die "
+"Deaktivierung dieser Aufgabe wird verursachen, dass sie im Arbeitsablauf der "
+"Moderation übersprungen wird."
 
 msgid "Task '{0}' enabled."
 msgstr "Aufgabe ‚{0}‘ aktiviert."

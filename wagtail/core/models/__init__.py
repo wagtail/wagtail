@@ -1,62 +1,77 @@
+"""
+wagtail.core.models is split into submodules for maintainability. All definitions intended as
+public should be imported here (with 'noqa' comments as required) and outside code should continue
+to import them from wagtail.core.models (e.g. `from wagtail.core.models import Site`, not
+`from wagtail.core.models.sites import Site`.)
+
+Submodules should take care to keep the direction of dependencies consistent; where possible they
+should implement low-level generic functionality which is then imported by higher-level models such
+as Page.
+"""
+
 import functools
 import json
 import logging
 import uuid
 
-from collections import namedtuple
 from io import StringIO
 from urllib.parse import urlparse
 
 from django import forms
-from django.apps import apps
 from django.conf import settings
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group, Permission
+from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.cache import cache
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
-from django.db import migrations, models, transaction
+from django.db import models, transaction
 from django.db.models import DEFERRED, Q, Value
 from django.db.models.expressions import OuterRef, Subquery
-from django.db.models.functions import Concat, Lower, Substr
-from django.db.models.signals import pre_save
+from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
 from django.http import Http404
-from django.http.request import split_domain_port
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
-from django.utils import timezone, translation
+from django.utils import timezone
+from django.utils import translation as translation
 from django.utils.cache import patch_cache_control
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
-from django.utils.html import format_html
 from django.utils.module_loading import import_string
-from django.utils.safestring import mark_safe
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import page_log_action_registry
-from wagtail.core.query import PageQuerySet, TreeQuerySet
+from wagtail.core.query import PageQuerySet
 from wagtail.core.signals import (
-    page_published, page_unpublished, post_page_move, pre_page_move, task_approved, task_cancelled,
-    task_rejected, task_submitted, workflow_approved, workflow_cancelled, workflow_rejected,
-    workflow_submitted)
-from wagtail.core.sites import get_site_for_hostname
+    page_published, page_unpublished, post_page_move, pre_page_move, pre_validate_delete,
+    task_approved, task_cancelled, task_rejected, task_submitted, workflow_approved,
+    workflow_cancelled, workflow_rejected, workflow_submitted)
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
-from wagtail.core.utils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore, resolve_model_string
+from wagtail.core.utils import (
+    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, find_available_slug,
+    get_supported_content_language_variant, resolve_model_string)
 from wagtail.search import index
 
-from .utils import (
-    find_available_slug, get_content_languages, get_supported_content_language_variant)
+from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet  # noqa
+from .collections import (  # noqa
+    BaseCollectionManager, Collection, CollectionManager, CollectionMember,
+    CollectionViewRestriction, GroupCollectionPermission, GroupCollectionPermissionManager,
+    get_root_collection_id)
+from .copying import _copy, _copy_m2m_relations, _extract_field_data  # noqa
+from .i18n import (  # noqa
+    BootstrapTranslatableMixin, BootstrapTranslatableModel, Locale, LocaleManager,
+    TranslatableMixin, bootstrap_translatable_model, get_translatable_models)
+from .sites import Site, SiteManager, SiteRootPath  # noqa
+from .view_restrictions import BaseViewRestriction
 
 
 logger = logging.getLogger('wagtail.core')
@@ -64,517 +79,23 @@ logger = logging.getLogger('wagtail.core')
 PAGE_TEMPLATE_VAR = 'page'
 
 
-def _extract_field_data(source, exclude_fields=None):
-    """
-    Get dictionaries representing the model's field data.
-
-    This excludes many to many fields (which are handled by _copy_m2m_relations)'
-    """
-    exclude_fields = exclude_fields or []
-    data_dict = {}
-
-    for field in source._meta.get_fields():
-        # Ignore explicitly excluded fields
-        if field.name in exclude_fields:
-            continue
-
-        # Ignore reverse relations
-        if field.auto_created:
-            continue
-
-        # Copy parental m2m relations
-        if field.many_to_many:
-            if isinstance(field, ParentalManyToManyField):
-                parental_field = getattr(source, field.name)
-                if hasattr(parental_field, 'all'):
-                    values = parental_field.all()
-                    if values:
-                        data_dict[field.name] = values
-            continue
-
-        # Ignore parent links (page_ptr)
-        if isinstance(field, models.OneToOneField) and field.remote_field.parent_link:
-            continue
-
-        if isinstance(field, models.ForeignKey):
-            # Use attname to copy the ID instead of retrieving the instance
-
-            # Note: We first need to set the field to None to unset any object
-            # that's there already just setting _id on its own won't change the
-            # field until its saved.
-
-            data_dict[field.name] = None
-            data_dict[field.attname] = getattr(source, field.attname)
-
-        else:
-            data_dict[field.name] = getattr(source, field.name)
-
-    return data_dict
-
-
-def _copy_m2m_relations(source, target, exclude_fields=None, update_attrs=None):
-    """
-    Copies non-ParentalManyToMany m2m relations
-    """
-    update_attrs = update_attrs or {}
-    exclude_fields = exclude_fields or []
-
-    for field in source._meta.get_fields():
-        # Copy m2m relations. Ignore explicitly excluded fields, reverse relations, and Parental m2m fields.
-        if field.many_to_many and field.name not in exclude_fields and not field.auto_created and not isinstance(field, ParentalManyToManyField):
-            try:
-                # Do not copy m2m links with a through model that has a ParentalKey to the model being copied - these will be copied as child objects
-                through_model_parental_links = [field for field in field.through._meta.get_fields() if isinstance(field, ParentalKey) and issubclass(source.__class__, field.related_model)]
-                if through_model_parental_links:
-                    continue
-            except AttributeError:
-                pass
-
-            if field.name in update_attrs:
-                value = update_attrs[field.name]
-
-            else:
-                value = getattr(source, field.name).all()
-
-            getattr(target, field.name).set(value)
-
-
-def _copy(source, exclude_fields=None, update_attrs=None):
-    data_dict = _extract_field_data(source, exclude_fields=exclude_fields)
-    target = source.__class__(**data_dict)
-
-    if update_attrs:
-        for field, value in update_attrs.items():
-            if field not in data_dict:
-                continue
-            setattr(target, field, value)
-
-    if isinstance(source, ClusterableModel):
-        child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
-    else:
-        child_object_map = {}
-
-    return target, child_object_map
-
-
-class SiteManager(models.Manager):
-    def get_queryset(self):
-        return super(SiteManager, self).get_queryset().order_by(Lower("hostname"))
-
-    def get_by_natural_key(self, hostname, port):
-        return self.get(hostname=hostname, port=port)
-
-
-SiteRootPath = namedtuple('SiteRootPath', 'site_id root_path root_url language_code')
-
-
-class Site(models.Model):
-    hostname = models.CharField(verbose_name=_('hostname'), max_length=255, db_index=True)
-    port = models.IntegerField(
-        verbose_name=_('port'),
-        default=80,
-        help_text=_(
-            "Set this to something other than 80 if you need a specific port number to appear in URLs"
-            " (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."
-        )
-    )
-    site_name = models.CharField(
-        verbose_name=_('site name'),
-        max_length=255,
-        blank=True,
-        help_text=_("Human-readable name for the site.")
-    )
-    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here',
-                                  on_delete=models.CASCADE)
-    is_default_site = models.BooleanField(
-        verbose_name=_('is default site'),
-        default=False,
-        help_text=_(
-            "If true, this site will handle requests for all other hostnames that do not have a site entry of their own"
-        )
-    )
-
-    objects = SiteManager()
-
-    class Meta:
-        unique_together = ('hostname', 'port')
-        verbose_name = _('site')
-        verbose_name_plural = _('sites')
-
-    def natural_key(self):
-        return (self.hostname, self.port)
-
-    def __str__(self):
-        default_suffix = " [{}]".format(_("default"))
-        if self.site_name:
-            return (
-                self.site_name
-                + (default_suffix if self.is_default_site else "")
-            )
-        else:
-            return (
-                self.hostname
-                + ("" if self.port == 80 else (":%d" % self.port))
-                + (default_suffix if self.is_default_site else "")
-            )
-
-    @staticmethod
-    def find_for_request(request):
-        """
-        Find the site object responsible for responding to this HTTP
-        request object. Try:
-
-        * unique hostname first
-        * then hostname and port
-        * if there is no matching hostname at all, or no matching
-          hostname:port combination, fall back to the unique default site,
-          or raise an exception
-
-        NB this means that high-numbered ports on an extant hostname may
-        still be routed to a different hostname which is set as the default
-
-        The site will be cached via request._wagtail_site
-        """
-
-        if request is None:
-            return None
-
-        if not hasattr(request, '_wagtail_site'):
-            site = Site._find_for_request(request)
-            setattr(request, '_wagtail_site', site)
-        return request._wagtail_site
-
-    @staticmethod
-    def _find_for_request(request):
-        hostname = split_domain_port(request.get_host())[0]
-        port = request.get_port()
-        site = None
+@receiver(pre_validate_delete, sender=Locale)
+def reassign_root_page_locale_on_delete(sender, instance, **kwargs):
+    # if we're deleting the locale used on the root page node, reassign that to a new locale first
+    root_page_with_this_locale = Page.objects.filter(depth=1, locale=instance)
+    if root_page_with_this_locale.exists():
+        # Select the default locale, if one exists and isn't the one being deleted
         try:
-            site = get_site_for_hostname(hostname, port)
-        except Site.DoesNotExist:
-            pass
-            # copy old SiteMiddleware behavior
-        return site
+            new_locale = Locale.get_default()
+            default_locale_is_ok = (new_locale != instance)
+        except (Locale.DoesNotExist, LookupError):
+            default_locale_is_ok = False
 
-    @property
-    def root_url(self):
-        if self.port == 80:
-            return 'http://%s' % self.hostname
-        elif self.port == 443:
-            return 'https://%s' % self.hostname
-        else:
-            return 'http://%s:%d' % (self.hostname, self.port)
+        if not default_locale_is_ok:
+            # fall back on any remaining locale
+            new_locale = Locale.all_objects.exclude(pk=instance.pk).first()
 
-    def clean_fields(self, exclude=None):
-        super().clean_fields(exclude)
-        # Only one site can have the is_default_site flag set
-        try:
-            default = Site.objects.get(is_default_site=True)
-        except Site.DoesNotExist:
-            pass
-        except Site.MultipleObjectsReturned:
-            raise
-        else:
-            if self.is_default_site and self.pk != default.pk:
-                raise ValidationError(
-                    {'is_default_site': [
-                        _(
-                            "%(hostname)s is already configured as the default site."
-                            " You must unset that before you can save this site as default."
-                        )
-                        % {'hostname': default.hostname}
-                    ]}
-                )
-
-    @staticmethod
-    def get_site_root_paths():
-        """
-        Return a list of `SiteRootPath` instances, most specific path
-        first - used to translate url_paths into actual URLs with hostnames
-
-        Each root path is an instance of the `SiteRootPath` named tuple,
-        and have the following attributes:
-
-        - `site_id` - The ID of the Site record
-        - `root_path` - The internal URL path of the site's home page (for example '/home/')
-        - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
-        - `language_code` - The language code of the site (for example 'en')
-        """
-        result = cache.get('wagtail_site_root_paths')
-
-        # Wagtail 2.11 changed the way site root paths were stored. This can cause an upgraded 2.11
-        # site to break when loading cached site root paths that were cached with 2.10.2 or older
-        # versions of Wagtail. The line below checks if the any of the cached site urls is consistent
-        # with an older version of Wagtail and invalidates the cache.
-        if result is None or any(len(site_record) == 3 for site_record in result):
-            result = []
-
-            for site in Site.objects.select_related('root_page', 'root_page__locale').order_by('-root_page__url_path', '-is_default_site', 'hostname'):
-                if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
-                    result.extend([
-                        SiteRootPath(site.id, root_page.url_path, site.root_url, root_page.locale.language_code)
-                        for root_page in site.root_page.get_translations(inclusive=True).select_related('locale')
-                    ])
-                else:
-                    result.append(SiteRootPath(site.id, site.root_page.url_path, site.root_url, site.root_page.locale.language_code))
-
-            cache.set('wagtail_site_root_paths', result, 3600)
-
-        return result
-
-
-def pk(obj):
-    if isinstance(obj, models.Model):
-        return obj.pk
-    else:
-        return obj
-
-
-class LocaleManager(models.Manager):
-    def get_for_language(self, language_code):
-        """
-        Gets a Locale from a language code.
-        """
-        return self.get(language_code=get_supported_content_language_variant(language_code))
-
-
-class Locale(models.Model):
-    #: The language code that represents this locale
-    #:
-    #: The language code can either be a language code on its own (such as ``en``, ``fr``),
-    #: or it can include a region code (such as ``en-gb``, ``fr-fr``).
-    language_code = models.CharField(max_length=100, unique=True)
-
-    # Objects excludes any Locales that have been removed from LANGUAGES, This effectively disables them
-    # The Locale management UI needs to be able to see these so we provide a separate manager `all_objects`
-    objects = LocaleManager()
-    all_objects = models.Manager()
-
-    class Meta:
-        ordering = [
-            "language_code",
-        ]
-
-    @classmethod
-    def get_default(cls):
-        """
-        Returns the default Locale based on the site's LANGUAGE_CODE setting
-        """
-        return cls.objects.get_for_language(settings.LANGUAGE_CODE)
-
-    @classmethod
-    def get_active(cls):
-        """
-        Returns the Locale that corresponds to the currently activated language in Django.
-        """
-        try:
-            return cls.objects.get_for_language(translation.get_language())
-        except (cls.DoesNotExist, LookupError):
-            return cls.get_default()
-
-    @transaction.atomic
-    def delete(self, *args, **kwargs):
-        # if we're deleting the locale used on the root page node, reassign that to a new locale first
-        root_page_with_this_locale = Page.objects.filter(depth=1, locale=self)
-        if root_page_with_this_locale.exists():
-            # Select the default locale, if one exists and isn't the one being deleted
-            try:
-                new_locale = Locale.get_default()
-                default_locale_is_ok = (new_locale != self)
-            except (Locale.DoesNotExist, LookupError):
-                default_locale_is_ok = False
-
-            if not default_locale_is_ok:
-                # fall back on any remaining locale
-                new_locale = Locale.all_objects.exclude(pk=self.pk).first()
-
-            root_page_with_this_locale.update(locale=new_locale)
-
-        return super().delete(*args, **kwargs)
-
-    def language_code_is_valid(self):
-        return self.language_code in get_content_languages()
-
-    def get_display_name(self):
-        return get_content_languages().get(self.language_code)
-
-    def __str__(self):
-        return force_str(self.get_display_name() or self.language_code)
-
-
-class TranslatableMixin(models.Model):
-    translation_key = models.UUIDField(default=uuid.uuid4, editable=False)
-    locale = models.ForeignKey(Locale, on_delete=models.PROTECT, related_name="+", editable=False)
-
-    class Meta:
-        abstract = True
-        unique_together = [("translation_key", "locale")]
-
-    @classmethod
-    def check(cls, **kwargs):
-        errors = super(TranslatableMixin, cls).check(**kwargs)
-        is_translation_model = cls.get_translation_model() is cls
-
-        # Raise error if subclass has removed the unique_together constraint
-        # No need to check this on multi-table-inheritance children though as it only needs to be applied to
-        # the table that has the translation_key/locale fields
-        if is_translation_model and ("translation_key", "locale") not in cls._meta.unique_together:
-            errors.append(
-                checks.Error(
-                    "{0}.{1} is missing a unique_together constraint for the translation key and locale fields"
-                    .format(cls._meta.app_label, cls.__name__),
-                    hint="Add ('translation_key', 'locale') to {}.Meta.unique_together".format(cls.__name__),
-                    obj=cls,
-                    id='wagtailcore.E003',
-                )
-            )
-
-        return errors
-
-    @property
-    def localized(self):
-        """
-        Finds the translation in the current active language.
-
-        If there is no translation in the active language, self is returned.
-        """
-        try:
-            locale = Locale.get_active()
-        except (LookupError, Locale.DoesNotExist):
-            return self
-
-        if locale.id == self.locale_id:
-            return self
-
-        return self.get_translation_or_none(locale) or self
-
-    def get_translations(self, inclusive=False):
-        """
-        Returns a queryset containing the translations of this instance.
-        """
-        translations = self.__class__.objects.filter(
-            translation_key=self.translation_key
-        )
-
-        if inclusive is False:
-            translations = translations.exclude(id=self.id)
-
-        return translations
-
-    def get_translation(self, locale):
-        """
-        Finds the translation in the specified locale.
-
-        If there is no translation in that locale, this raises a ``model.DoesNotExist`` exception.
-        """
-        return self.get_translations(inclusive=True).get(locale_id=pk(locale))
-
-    def get_translation_or_none(self, locale):
-        """
-        Finds the translation in the specified locale.
-
-        If there is no translation in that locale, this returns None.
-        """
-        try:
-            return self.get_translation(locale)
-        except self.__class__.DoesNotExist:
-            return None
-
-    def has_translation(self, locale):
-        """
-        Returns True if a translation exists in the specified locale.
-        """
-        return self.get_translations(inclusive=True).filter(locale_id=pk(locale)).exists()
-
-    def copy_for_translation(self, locale):
-        """
-        Creates a copy of this instance with the specified locale.
-
-        Note that the copy is initially unsaved.
-        """
-        translated, child_object_map = _copy(self)
-        translated.locale = locale
-
-        # Update locale on any translatable child objects as well
-        # Note: If this is not a subclass of ClusterableModel, child_object_map will always be '{}'
-        for (child_relation, old_pk), child_object in child_object_map.items():
-            if isinstance(child_object, TranslatableMixin):
-                child_object.locale = locale
-
-        return translated
-
-    def get_default_locale(self):
-        """
-        Finds the default locale to use for this object.
-
-        This will be called just before the initial save.
-        """
-        # Check if the object has any parental keys to another translatable model
-        # If so, take the locale from the object referenced in that parental key
-        parental_keys = [
-            field
-            for field in self._meta.get_fields()
-            if isinstance(field, ParentalKey)
-            and issubclass(field.related_model, TranslatableMixin)
-        ]
-
-        if parental_keys:
-            parent_id = parental_keys[0].value_from_object(self)
-            return (
-                parental_keys[0]
-                .related_model.objects.defer().select_related("locale")
-                .get(id=parent_id)
-                .locale
-            )
-
-        return Locale.get_default()
-
-    @classmethod
-    def get_translation_model(cls):
-        """
-        Returns this model's "Translation model".
-
-        The "Translation model" is the model that has the ``locale`` and
-        ``translation_key`` fields.
-        Typically this would be the current model, but it may be a
-        super-class if multi-table inheritance is in use (as is the case
-        for ``wagtailcore.Page``).
-        """
-        return cls._meta.get_field("locale").model
-
-
-def bootstrap_translatable_model(model, locale):
-    """
-    This function populates the "translation_key", and "locale" fields on model instances that were created
-    before wagtail-localize was added to the site.
-
-    This can be called from a data migration, or instead you could use the "boostrap_translatable_models"
-    management command.
-    """
-    for instance in (
-        model.objects.filter(translation_key__isnull=True).defer().iterator()
-    ):
-        instance.translation_key = uuid.uuid4()
-        instance.locale = locale
-        instance.save(update_fields=["translation_key", "locale"])
-
-
-class BootstrapTranslatableModel(migrations.RunPython):
-    def __init__(self, model_string, language_code=None):
-        if language_code is None:
-            language_code = get_supported_content_language_variant(settings.LANGUAGE_CODE)
-
-        def forwards(apps, schema_editor):
-            model = apps.get_model(model_string)
-            Locale = apps.get_model("wagtailcore.Locale")
-
-            locale = Locale.objects.get(language_code=language_code)
-            bootstrap_translatable_model(model, locale)
-
-        def backwards(apps, schema_editor):
-            pass
-
-        super().__init__(forwards, backwards)
+        root_page_with_this_locale.update(locale=new_locale)
 
 
 class ParentNotTranslatedError(Exception):
@@ -583,78 +104,6 @@ class ParentNotTranslatedError(Exception):
     parent page is not translated and copy_parents is False.
     """
     pass
-
-
-class BootstrapTranslatableMixin(TranslatableMixin):
-    """
-    A version of TranslatableMixin without uniqueness constraints.
-
-    This is to make it easy to transition existing models to being translatable.
-
-    The process is as follows:
-     - Add BootstrapTranslatableMixin to the model
-     - Run makemigrations
-     - Create a data migration for each app, then use the BootstrapTranslatableModel operation in
-       wagtail.core.models on each model in that app
-     - Change BootstrapTranslatableMixin to TranslatableMixin
-     - Run makemigrations again
-     - Migrate!
-    """
-    translation_key = models.UUIDField(null=True, editable=False)
-    locale = models.ForeignKey(
-        Locale, on_delete=models.PROTECT, null=True, related_name="+", editable=False
-    )
-
-    @classmethod
-    def check(cls, **kwargs):
-        # skip the check in TranslatableMixin that enforces the unique-together constraint
-        return super(TranslatableMixin, cls).check(**kwargs)
-
-    class Meta:
-        abstract = True
-
-
-def get_translatable_models(include_subclasses=False):
-    """
-    Returns a list of all concrete models that inherit from TranslatableMixin.
-    By default, this only includes models that are direct children of TranslatableMixin,
-    to get all models, set the include_subclasses attribute to True.
-    """
-    translatable_models = [
-        model
-        for model in apps.get_models()
-        if issubclass(model, TranslatableMixin) and not model._meta.abstract
-    ]
-
-    if include_subclasses is False:
-        # Exclude models that inherit from another translatable model
-        root_translatable_models = set()
-
-        for model in translatable_models:
-            root_translatable_models.add(model.get_translation_model())
-
-        translatable_models = [
-            model for model in translatable_models if model in root_translatable_models
-        ]
-
-    return translatable_models
-
-
-@receiver(pre_save)
-def set_locale_on_new_instance(sender, instance, **kwargs):
-    if not isinstance(instance, TranslatableMixin):
-        return
-
-    if instance.locale_id is not None:
-        return
-
-    # If this is a fixture load, use the global default Locale
-    # as the page tree is probably in an flux
-    if kwargs["raw"]:
-        instance.locale = Locale.get_default()
-        return
-
-    instance.locale = instance.get_default_locale()
 
 
 PAGE_MODEL_CLASSES = []
@@ -1001,7 +450,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         This includes translations of site root pages as well.
         """
-        return Site.objects.filter(root_page__translation_key=self.translation_key).exists()
+        # `_is_site_root` may be populated by `annotate_site_root_state` on `PageQuerySet` as a
+        # performance optimisation
+        if hasattr(self, "_is_site_root"):
+            return self._is_site_root
+
+        return Site.objects.filter(
+            root_page__translation_key=self.translation_key
+        ).exists()
 
     @transaction.atomic
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
@@ -2002,6 +1458,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def approved_schedule(self):
+        # `_approved_schedule` may be populated by `annotate_approved_schedule` on `PageQuerySet` as a
+        # performance optimisation
+        if hasattr(self, "_approved_schedule"):
+            return self._approved_schedule
+
         return self.revisions.exclude(approved_go_live_at__isnull=True).exists()
 
     def has_unpublished_subtree(self):
@@ -2859,6 +2320,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """Returns True if a workflow is in progress on the current page, otherwise False"""
         if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             return False
+
+        # `_current_workflow_states` may be populated by `prefetch_workflow_states` on `PageQuerySet` as a
+        # performance optimisation
+        if hasattr(self, "_current_workflow_states"):
+            for state in self._current_workflow_states:
+                if state.status == WorkflowState.STATUS_IN_PROGRESS:
+                    return True
+            return False
+
         return WorkflowState.objects.filter(page=self, status=WorkflowState.STATUS_IN_PROGRESS).exists()
 
     @property
@@ -2866,6 +2336,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """Returns the in progress or needs changes workflow state on this page, if it exists"""
         if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             return None
+
+        # `_current_workflow_states` may be populated by `prefetch_workflow_states` on `pagequeryset` as a
+        # performance optimisation
+        if hasattr(self, "_current_workflow_states"):
+            try:
+                return self._current_workflow_states[0]
+            except IndexError:
+                return
+
         try:
             return WorkflowState.objects.active().select_related("current_task_state__task").get(page=self)
         except WorkflowState.DoesNotExist:
@@ -3601,69 +3080,24 @@ class PagePermissionTester:
         return not self.page_is_root
 
 
-class BaseViewRestriction(models.Model):
-    NONE = 'none'
-    PASSWORD = 'password'
-    GROUPS = 'groups'
-    LOGIN = 'login'
-
-    RESTRICTION_CHOICES = (
-        (NONE, _("Public")),
-        (LOGIN, _("Private, accessible to logged-in users")),
-        (PASSWORD, _("Private, accessible with the following password")),
-        (GROUPS, _("Private, accessible to users in specific groups")),
+class PageViewRestriction(BaseViewRestriction):
+    page = models.ForeignKey(
+        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
     )
 
-    restriction_type = models.CharField(
-        max_length=20, choices=RESTRICTION_CHOICES)
-    password = models.CharField(verbose_name=_('password'), max_length=255, blank=True)
-    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True)
-
-    def accept_request(self, request):
-        if self.restriction_type == BaseViewRestriction.PASSWORD:
-            passed_restrictions = request.session.get(self.passed_view_restrictions_session_key, [])
-            if self.id not in passed_restrictions:
-                return False
-
-        elif self.restriction_type == BaseViewRestriction.LOGIN:
-            if not request.user.is_authenticated:
-                return False
-
-        elif self.restriction_type == BaseViewRestriction.GROUPS:
-            if not request.user.is_superuser:
-                current_user_groups = request.user.groups.all()
-
-                if not any(group in current_user_groups for group in self.groups.all()):
-                    return False
-
-        return True
-
-    def mark_as_passed(self, request):
-        """
-        Update the session data in the request to mark the user as having passed this
-        view restriction
-        """
-        has_existing_session = (settings.SESSION_COOKIE_NAME in request.COOKIES)
-        passed_restrictions = request.session.setdefault(self.passed_view_restrictions_session_key, [])
-        if self.id not in passed_restrictions:
-            passed_restrictions.append(self.id)
-            request.session[self.passed_view_restrictions_session_key] = passed_restrictions
-        if not has_existing_session:
-            # if this is a session we've created, set it to expire at the end
-            # of the browser session
-            request.session.set_expiry(0)
+    passed_view_restrictions_session_key = 'passed_page_view_restrictions'
 
     class Meta:
-        abstract = True
-        verbose_name = _('view restriction')
-        verbose_name_plural = _('view restrictions')
+        verbose_name = _('page view restriction')
+        verbose_name_plural = _('page view restrictions')
 
-    def save(self, user=None, specific_instance=None, **kwargs):
+    def save(self, user=None, **kwargs):
         """
         Custom save handler to include logging.
         :param user: the user add/updating the view restriction
         :param specific_instance: the specific model instance the restriction applies to
         """
+        specific_instance = self.page.specific
         is_new = self.id is None
         super().save(**kwargs)
 
@@ -3680,12 +3114,13 @@ class BaseViewRestriction(models.Model):
                 }
             )
 
-    def delete(self, user=None, specific_instance=None, **kwargs):
+    def delete(self, user=None, **kwargs):
         """
         Custom delete handler to aid in logging
         :param user: the user removing the view restriction
         :param specific_instance: the specific model instance the restriction applies to
         """
+        specific_instance = self.page.specific
         if specific_instance:
             PageLogEntry.objects.log_action(
                 instance=specific_instance,
@@ -3699,184 +3134,6 @@ class BaseViewRestriction(models.Model):
                 }
             )
         return super().delete(**kwargs)
-
-
-class PageViewRestriction(BaseViewRestriction):
-    page = models.ForeignKey(
-        'Page', verbose_name=_('page'), related_name='view_restrictions', on_delete=models.CASCADE
-    )
-
-    passed_view_restrictions_session_key = 'passed_page_view_restrictions'
-
-    class Meta:
-        verbose_name = _('page view restriction')
-        verbose_name_plural = _('page view restrictions')
-
-    def save(self, user=None, **kwargs):
-        return super().save(user, specific_instance=self.page.specific, **kwargs)
-
-    def delete(self, user=None, **kwargs):
-        return super().delete(user, specific_instance=self.page.specific, **kwargs)
-
-
-class BaseCollectionManager(models.Manager):
-    def get_queryset(self):
-        return TreeQuerySet(self.model).order_by('path')
-
-
-CollectionManager = BaseCollectionManager.from_queryset(TreeQuerySet)
-
-
-class CollectionViewRestriction(BaseViewRestriction):
-    collection = models.ForeignKey(
-        'Collection',
-        verbose_name=_('collection'),
-        related_name='view_restrictions',
-        on_delete=models.CASCADE
-    )
-
-    passed_view_restrictions_session_key = 'passed_collection_view_restrictions'
-
-    class Meta:
-        verbose_name = _('collection view restriction')
-        verbose_name_plural = _('collection view restrictions')
-
-
-class Collection(TreebeardPathFixMixin, MP_Node):
-    """
-    A location in which resources such as images and documents can be grouped
-    """
-    name = models.CharField(max_length=255, verbose_name=_('name'))
-
-    objects = CollectionManager()
-    # Tell treebeard to order Collections' paths such that they are ordered by name at each level.
-    node_order_by = ['name']
-
-    def __str__(self):
-        return self.name
-
-    def get_ancestors(self, inclusive=False):
-        return Collection.objects.ancestor_of(self, inclusive)
-
-    def get_descendants(self, inclusive=False):
-        return Collection.objects.descendant_of(self, inclusive)
-
-    def get_siblings(self, inclusive=True):
-        return Collection.objects.sibling_of(self, inclusive)
-
-    def get_next_siblings(self, inclusive=False):
-        return self.get_siblings(inclusive).filter(path__gte=self.path).order_by('path')
-
-    def get_prev_siblings(self, inclusive=False):
-        return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
-
-    def get_view_restrictions(self):
-        """Return a query set of all collection view restrictions that apply to this collection"""
-        return CollectionViewRestriction.objects.filter(collection__in=self.get_ancestors(inclusive=True))
-
-    def get_indented_name(self, indentation_start_depth=2, html=False):
-        """
-        Renders this Collection's name as a formatted string that displays its hierarchical depth via indentation.
-        If indentation_start_depth is supplied, the Collection's depth is rendered relative to that depth.
-        indentation_start_depth defaults to 2, the depth of the first non-Root Collection.
-        Pass html=True to get a HTML representation, instead of the default plain-text.
-
-        Example text output: "    ↳ Pies"
-        Example HTML output: "&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Pies"
-        """
-        display_depth = self.depth - indentation_start_depth
-        # A Collection with a display depth of 0 or less (Root's can be -1), should have no indent.
-        if display_depth <= 0:
-            return self.name
-
-        # Indent each level of depth by 4 spaces (the width of the ↳ character in our admin font), then add ↳
-        # before adding the name.
-        if html:
-            # NOTE: &#x21b3 is the hex HTML entity for ↳.
-            return format_html(
-                "{indent}{icon} {name}",
-                indent=mark_safe('&nbsp;' * 4 * display_depth),
-                icon=mark_safe('&#x21b3'),
-                name=self.name
-            )
-        # Output unicode plain-text version
-        return "{}↳ {}".format(' ' * 4 * display_depth, self.name)
-
-    class Meta:
-        verbose_name = _('collection')
-        verbose_name_plural = _('collections')
-
-
-def get_root_collection_id():
-    return Collection.get_first_root_node().id
-
-
-class CollectionMember(models.Model):
-    """
-    Base class for models that are categorised into collections
-    """
-    collection = models.ForeignKey(
-        Collection,
-        default=get_root_collection_id,
-        verbose_name=_('collection'),
-        related_name='+',
-        on_delete=models.CASCADE
-    )
-
-    search_fields = [
-        index.FilterField('collection'),
-    ]
-
-    class Meta:
-        abstract = True
-
-
-class GroupCollectionPermissionManager(models.Manager):
-    def get_by_natural_key(self, group, collection, permission):
-        return self.get(group=group,
-                        collection=collection,
-                        permission=permission)
-
-
-class GroupCollectionPermission(models.Model):
-    """
-    A rule indicating that a group has permission for some action (e.g. "create document")
-    within a specified collection.
-    """
-    group = models.ForeignKey(
-        Group,
-        verbose_name=_('group'),
-        related_name='collection_permissions',
-        on_delete=models.CASCADE
-    )
-    collection = models.ForeignKey(
-        Collection,
-        verbose_name=_('collection'),
-        related_name='group_permissions',
-        on_delete=models.CASCADE
-    )
-    permission = models.ForeignKey(
-        Permission,
-        verbose_name=_('permission'),
-        on_delete=models.CASCADE
-    )
-
-    def __str__(self):
-        return "Group %d ('%s') has permission '%s' on collection %d ('%s')" % (
-            self.group.id, self.group,
-            self.permission,
-            self.collection.id, self.collection
-        )
-
-    def natural_key(self):
-        return (self.group, self.collection, self.permission)
-
-    objects = GroupCollectionPermissionManager()
-
-    class Meta:
-        unique_together = ('group', 'collection', 'permission')
-        verbose_name = _('group collection permission')
-        verbose_name_plural = _('group collection permissions')
 
 
 class WorkflowPage(models.Model):
@@ -4703,173 +3960,14 @@ class TaskState(models.Model):
         verbose_name_plural = _('Task states')
 
 
-class LogEntryQuerySet(models.QuerySet):
-    def get_users(self):
-        """
-        Returns a QuerySet of Users who have created at least one log entry in this QuerySet.
-
-        The returned queryset is ordered by the username.
-        """
-        User = get_user_model()
-        return User.objects.filter(
-            pk__in=set(self.values_list('user__pk', flat=True))
-        ).order_by(User.USERNAME_FIELD)
-
-
-class BaseLogEntryManager(models.Manager):
-    def get_queryset(self):
-        return LogEntryQuerySet(self.model, using=self._db)
-
-    def log_action(self, instance, action, **kwargs):
-        """
-        :param instance: The model instance we are logging an action for
-        :param action: The action. Should be namespaced to app (e.g. wagtail.create, wagtail.workflow.start)
-        :param kwargs: Addition fields to for the model deriving from BaseLogEntry
-            - user: The user performing the action
-            - title: the instance title
-            - data: any additional metadata
-            - content_changed, deleted - Boolean flags
-        :return: The new log entry
-        """
-        data = kwargs.pop('data', '')
-        title = kwargs.pop('title', None)
-        if not title:
-            if isinstance(instance, Page):
-                title = instance.specific_deferred.get_admin_display_title()
-            else:
-                title = str(instance)
-
-        timestamp = kwargs.pop('timestamp', timezone.now())
-        return self.model.objects.create(
-            content_type=ContentType.objects.get_for_model(instance, for_concrete_model=False),
-            label=title,
-            action=action,
-            timestamp=timestamp,
-            data_json=json.dumps(data),
-            **kwargs,
-        )
-
-    def get_for_model(self, model):
-        # Return empty queryset if the given object is not valid.
-        if not issubclass(model, models.Model):
-            return self.none()
-
-        ct = ContentType.objects.get_for_model(model)
-
-        return self.filter(content_type=ct)
-
-    def get_for_user(self, user_id):
-        return self.filter(user=user_id)
-
-
 class PageLogEntryManager(BaseLogEntryManager):
+
+    def get_instance_title(self, instance):
+        return instance.specific_deferred.get_admin_display_title()
 
     def log_action(self, instance, action, **kwargs):
         kwargs.update(page=instance)
         return super().log_action(instance, action, **kwargs)
-
-
-class BaseLogEntry(models.Model):
-    content_type = models.ForeignKey(
-        ContentType,
-        models.SET_NULL,
-        verbose_name=_('content type'),
-        blank=True, null=True,
-        related_name='+',
-    )
-    label = models.TextField()
-
-    action = models.CharField(max_length=255, blank=True, db_index=True)
-    data_json = models.TextField(blank=True)
-    timestamp = models.DateTimeField(verbose_name=_('timestamp (UTC)'))
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,  # Null if actioned by system
-        blank=True,
-        on_delete=models.DO_NOTHING,
-        db_constraint=False,
-        related_name='+',
-    )
-
-    # Flags for additional context to the 'action' made by the user (or system).
-    content_changed = models.BooleanField(default=False, db_index=True)
-    deleted = models.BooleanField(default=False)
-
-    objects = BaseLogEntryManager()
-
-    action_registry = None
-
-    class Meta:
-        abstract = True
-        verbose_name = _('log entry')
-        verbose_name_plural = _('log entries')
-        ordering = ['-timestamp']
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        return super().save(*args, **kwargs)
-
-    def clean(self):
-        self.action_registry.scan_for_actions()
-
-        if self.action not in self.action_registry.actions:
-            raise ValidationError({'action': _("The log action '{}' has not been registered.").format(self.action)})
-
-    def __str__(self):
-        return "LogEntry %d: '%s' on '%s'" % (
-            self.pk, self.action, self.object_verbose_name()
-        )
-
-    @cached_property
-    def user_display_name(self):
-        """
-        Returns the display name of the associated user;
-        get_full_name if available and non-empty, otherwise get_username.
-        Defaults to 'system' when none is provided
-        """
-        if self.user_id:
-            try:
-                user = self.user
-            except self._meta.get_field('user').related_model.DoesNotExist:
-                # User has been deleted
-                return _('user %(id)d (deleted)') % {'id': self.user_id}
-
-            try:
-                full_name = user.get_full_name().strip()
-            except AttributeError:
-                full_name = ''
-            return full_name or user.get_username()
-
-        else:
-            return _('system')
-
-    @cached_property
-    def data(self):
-        """
-        Provides deserialized data
-        """
-        if self.data_json:
-            return json.loads(self.data_json)
-        else:
-            return {}
-
-    @cached_property
-    def object_verbose_name(self):
-        model_class = self.content_type.model_class()
-        if model_class is None:
-            return self.content_type_id
-
-        return model_class._meta.verbose_name.title
-
-    def object_id(self):
-        raise NotImplementedError
-
-    def format_message(self):
-        return self.action_registry.format_message(self)
-
-    def format_comment(self):
-        return self.action_registry.format_comment(self)
 
 
 class PageLogEntry(BaseLogEntry):

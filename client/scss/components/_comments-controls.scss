@@ -41,7 +41,7 @@
         bottom: 3px;
         width: 52px;
         height: 52px;
-        color: #004345;
+        color: $color-teal-dark;
         transition: color 100ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -54,8 +54,8 @@
         box-sizing: border-box;
         border-radius: 50%;
         background-color: $color-salmon;
-        border: 1px solid #007d7e;
-        color: #fff;
+        border: 1px solid $color-teal;
+        color: $color-white;
         font-size: 9px;
         font-weight: 700;
         text-align: center;

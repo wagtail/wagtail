@@ -26,5 +26,8 @@ msgstr ""
 msgid "Locales"
 msgstr "Lokalizacje"
 
+msgid "Submit"
+msgstr "Wyślij"
+
 msgid "Translate"
 msgstr "Tłumacz"

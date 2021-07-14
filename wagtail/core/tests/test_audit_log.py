@@ -263,7 +263,7 @@ class TestAuditLog(TestCase):
         for action in ['approve', 'reject']:
             with self.subTest(action):
                 task_state = workflow_state.current_task_state
-                task_state.task.on_action(task_state, user=None, action_name=action)
+                task_state.task.on_action(task_state, user=None, action_name=action, comment="This is my comment")
                 workflow_state.refresh_from_db()
 
                 entry = PageLogEntry.objects.filter(action='wagtail.workflow.{}'.format(action))
@@ -283,8 +283,9 @@ class TestAuditLog(TestCase):
                             'title': workflow_state.current_task_state.task.name,
                         },
                     },
-                    'comment': '',
+                    'comment': 'This is my comment',
                 })
+                self.assertEqual(entry[0].comment, "This is my comment")
 
     def test_workflow_completions_logs_publishing_user(self):
         workflow = Workflow.objects.create(name='test_workflow')

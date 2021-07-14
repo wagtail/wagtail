@@ -6,7 +6,8 @@
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 # shuhei hirota, 2019
 # Kinoshita Shinji <shinji.kino@gmail.com>, 2020
-# Koji Miyazawa, 2021
+# kojikojikojikoji, 2021
+# kojikojikojikoji, 2021
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2019
 # Tri Minh <minh.nguyentri.95@gmail.com>, 2019
 # 小口英昭 <oguchi@bluff-lab.com>, 2019
@@ -18,8 +19,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: shuhei hirota\n"
+"PO-Revision-Date: 2021-07-02 13:33+0000\n"
+"Last-Translator: Goto Hayato <habita.gh@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +55,9 @@ msgstr "削除"
 
 msgid "Lock"
 msgstr "ロックする"
+
+msgid "Apply editor lock"
+msgstr "エディターロック機能を適用する"
 
 msgid "Unlock"
 msgstr "ロックを解除"
@@ -277,6 +281,9 @@ msgstr "エクスプローラーを閉じる。"
 msgid "Alt text"
 msgstr "Alt 属性に記載するテキスト"
 
+msgid "Decorative image"
+msgstr "装飾画像"
+
 msgid "Write here…"
 msgstr "入力してください"
 
@@ -363,6 +370,9 @@ msgstr "本当によろしいですか？"
 
 msgid "Save error"
 msgstr "保存失敗"
+
+msgid "This will be saved when the page is saved"
+msgstr "ページと同時に保存されます"
 
 msgid "Focus comment"
 msgstr "コメントにフォーカス"
@@ -680,7 +690,7 @@ msgid "Task started"
 msgstr "タスク開始時刻"
 
 msgid "Changes requested at"
-msgstr "変更要請時刻"
+msgstr "修正依頼"
 
 msgid "Awaiting"
 msgstr "待機中"
@@ -772,6 +782,9 @@ msgstr "解決済みのコメント"
 msgid "Deleted comments:"
 msgstr "削除されたコメント"
 
+msgid "New replies:"
+msgstr "新しい返信"
+
 msgid "Page privacy"
 msgstr "ページの公開設定"
 
@@ -830,6 +843,12 @@ msgstr "作成するページのタイプを選択"
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)sを使用するページ"
+
+msgid "This action cannot be undone."
+msgstr "このアクションは元に戻せません。"
+
+msgid "Yes, convert it"
+msgstr "はい。変換します。"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -916,6 +935,9 @@ msgstr "はい、非公開に設定します。"
 
 msgid "No, don't unpublish"
 msgstr "いいえ、非公開にしません"
+
+msgid "Publish page"
+msgstr "公開する"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1280,6 +1302,9 @@ msgstr "子ページを追加"
 
 msgid "Show in Explorer"
 msgstr "エクスプローラーに表示"
+
+msgid "Create"
+msgstr "作成"
 
 #, python-format
 msgid "by %(modified_by)s"

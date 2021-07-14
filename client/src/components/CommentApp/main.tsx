@@ -338,6 +338,7 @@ export class CommentApp {
       }
 
       // If this is the initial focused comment. Focus and pin it
+      // eslint-disable-next-line no-warning-comments
       // TODO: Scroll to this comment
       if (initialFocusedCommentId && comment.pk === initialFocusedCommentId) {
         this.store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true, forceFocus: true }));

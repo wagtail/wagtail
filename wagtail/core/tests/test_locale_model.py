@@ -58,3 +58,15 @@ class TestLocaleModel(TestCase):
     def test_str_when_languages_uses_gettext(self):
         locale = Locale.objects.get(language_code="en")
         self.assertIsInstance(locale.__str__(), str)
+
+    @override_settings(LANGUAGE_CODE="fr")
+    def test_change_root_page_locale_on_locale_deletion(self):
+        """
+        On deleting the locale used for the root page (but no 'real' pages), the
+        root page should be reassigned to a new locale (the default one, if possible)
+        """
+        # change 'real' pages first
+        Page.objects.filter(depth__gt=1).update(locale=Locale.objects.get(language_code="fr"))
+        self.assertEqual(Page.get_first_root_node().locale.language_code, "en")
+        Locale.objects.get(language_code="en").delete()
+        self.assertEqual(Page.get_first_root_node().locale.language_code, "fr")

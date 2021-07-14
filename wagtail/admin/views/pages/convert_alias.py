@@ -48,7 +48,7 @@ def convert_alias(request, page_id):
                 },
             )
 
-            messages.success(request, _("Page '{0}' has been converted into a regular page.").format(page.get_admin_display_title()))
+            messages.success(request, _("Page '{0}' has been converted into an ordinary page.").format(page.get_admin_display_title()))
 
             for fn in hooks.get_hooks('after_convert_alias_page'):
                 result = fn(request, page)

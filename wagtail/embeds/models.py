@@ -35,6 +35,7 @@ class Embed(models.Model):
     width = models.IntegerField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)
     last_updated = models.DateTimeField(auto_now=True)
+    cache_until = models.DateTimeField(null=True, blank=True, db_index=True)
 
     class Meta:
         verbose_name = _("embed")

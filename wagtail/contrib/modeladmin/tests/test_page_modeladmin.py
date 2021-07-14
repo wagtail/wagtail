@@ -54,6 +54,14 @@ class TestIndexView(TestCase, WagtailTestUtils):
         # There should still be four results
         self.assertEqual(response.context['result_count'], 4)
 
+    def test_using_core_page(self):
+        # The core page is slightly different to other pages, so exclude it
+        response = self.client.get('/admin/wagtailcore/page/')
+        self.assertEqual(response.status_code, 200)
+
+        root_page = Page.objects.get(depth=1)
+        self.assertNotIn(root_page, response.context['paginator'].object_list)
+
 
 class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
@@ -186,6 +194,12 @@ class TestEditView(TestCase, WagtailTestUtils):
     def test_non_existent(self):
         response = self.get(100)
 
+        self.assertEqual(response.status_code, 404)
+
+    def test_using_core_page(self):
+        # The core page is slightly different to other pages, so exclude it
+        root_page = Page.objects.get(depth=1)
+        response = self.client.get('/admin/wagtailcore/page/{}/'.format(root_page.id))
         self.assertEqual(response.status_code, 404)
 
 

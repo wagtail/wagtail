@@ -261,8 +261,8 @@ export class StreamBlock extends BaseSequenceBlock {
     }
   }
 
-  _createChild(blockDef, placeholder, prefix, index, id, initialState, opts) {
-    return new StreamChild(blockDef, placeholder, prefix, index, id, initialState, opts);
+  _createChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
+    return new StreamChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts);
   }
 
   _createInsertionControl(placeholder, opts) {

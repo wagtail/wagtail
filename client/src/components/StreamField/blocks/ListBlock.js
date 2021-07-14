@@ -6,8 +6,9 @@ import { escapeHtml as h } from '../../../utils/text';
 /* global $ */
 
 export class ListBlockValidationError {
-  constructor(blockErrors) {
+  constructor(blockErrors, nonBlockErrors) {
     this.blockErrors = blockErrors;
+    this.nonBlockErrors = nonBlockErrors;
   }
 }
 
@@ -87,6 +88,7 @@ export class ListBlock extends BaseSequenceBlock {
     this.blockCounter = 0;
     this.countInput = dom.find('[data-streamfield-list-count]');
     this.sequenceContainer = dom.find('[data-streamfield-list-container]');
+    this.container = dom;
     this.setState(initialState || []);
 
     if (initialError) {
@@ -104,8 +106,8 @@ export class ListBlock extends BaseSequenceBlock {
     return [blockDef, initialState];
   }
 
-  _createChild(blockDef, placeholder, prefix, index, id, initialState, opts) {
-    return new ListChild(blockDef, placeholder, prefix, index, id, initialState, opts);
+  _createChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
+    return new ListChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts);
   }
 
   _createInsertionControl(placeholder, opts) {
@@ -130,12 +132,28 @@ export class ListBlock extends BaseSequenceBlock {
     }
     const error = errorList[0];
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const blockIndex in error.blockErrors) {
-      if (error.blockErrors.hasOwnProperty(blockIndex)) {
-        this.children[blockIndex].setError(error.blockErrors[blockIndex]);
-      }
+    // Non block errors
+    const container = this.container[0];
+    container.querySelectorAll(':scope > .help-block.help-critical').forEach(element => element.remove());
+
+    if (error.nonBlockErrors.length > 0) {
+      // Add a help block for each error raised
+      error.nonBlockErrors.forEach(nonBlockError => {
+        const errorElement = document.createElement('p');
+        errorElement.classList.add('help-block');
+        errorElement.classList.add('help-critical');
+        errorElement.innerHTML = h(nonBlockError.messages[0]);
+        container.insertBefore(errorElement, container.childNodes[0]);
+      });
     }
+
+    // error.blockErrors = a list with the same length as the data,
+    // with nulls for items without errors
+    error.blockErrors.forEach((blockError, blockIndex) => {
+      if (blockError) {
+        this.children[blockIndex].setError(blockError);
+      }
+    });
   }
 }
 

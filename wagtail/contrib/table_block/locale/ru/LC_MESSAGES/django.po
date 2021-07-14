@@ -7,13 +7,14 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # sergeybe <sergeybe@gmail.com>, 2020
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Влад <integration.into.society@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-06-22 22:01+0000\n"
+"Last-Translator: Влад <integration.into.society@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -48,3 +49,6 @@ msgid ""
 msgstr ""
 "Заголовок, который определяет общую тему таблицы и полезен для пользователей "
 "программ чтения с экрана."
+
+msgid "Table"
+msgstr "Таблица"

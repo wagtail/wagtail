@@ -1,33 +1,34 @@
 .sidebar-sub-menu-trigger-icon {
     display: block;
-    width: 1.5em;
-    height: 1.5em;
+    width: 20px;
+    height: 20px;
     position: absolute;
-    top: 0.8125em;
-    right: 0.5em;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
 
-    @include transition(transform 0.3s ease, top 0.3s ease, right 0.3s ease, width 0.3s ease, height 0.3s ease);
+    @include transition(transform $menu-transition-duration ease, width $menu-transition-duration ease, height $menu-transition-duration ease);
 
     &--open {
         transform-origin: 50% 50%;
         transform: rotate(180deg);
     }
+
+    .sidebar--slim & {
+        width: 16px;
+        height: 16px;
+        transform: translate3d(13px, 0, 0);
+    }
 }
 
+
 .sidebar-sub-menu-panel {
-    visibility: hidden;
-    background: $nav-submenu-bg;
-    transform: translate3d(0, 0, 0);
-    position: fixed;
-    height: 100vh;
-    width: $menu-width;
-    padding: 0;
-    top: 0;
-    left: 0;
     display: flex;
     flex-direction: column;
-
-    @include transition(left 0.3s ease);
+    background: $nav-submenu-bg;
+    width: $menu-width;
+    height: 100vh;
 
     > h2,
     &__list {
@@ -53,22 +54,17 @@
         }
     }
 
-    > ul,
-    ul > li {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    }
 
     ul > li {
         position: relative;
 
-        @include transition(border-color 0.3s ease);
+        @include transition(border-color $menu-transition-duration ease);
     }
 
     > ul {
-        overflow: auto;
         flex-grow: 1;
+        padding: 0;
+        margin: 0;
     }
 
     > ul > li {
@@ -88,39 +84,33 @@
     }
 
     @at-root .sidebar--slim #{&} {
-        left: $menu-width-slim - $menu-width;
+        transform: translate3d($menu-width-slim - $menu-width, 0, 0);
     }
     // Don't apply this to nested submenus though
     @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
-        left: 0;
+        transform: translate3d(0, 0, 0);
     }
 
     &--open {
-        left: $menu-width;
+        transform: translate3d($menu-width, 0, 0);
 
         // If another submenu is opening, display this menu behind it
         z-index: -1;
 
         @at-root .sidebar--slim #{&} {
-            left: $menu-width-slim;
+            transform: translate3d($menu-width-slim, 0, 0);
         }
         // Don't apply this to nested submenus though
         @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
-            left: $menu-width;
+            transform: translate3d($menu-width, 0, 0);
         }
     }
 }
 
 .sidebar-sub-menu-item {
     &--open {
-        background: $nav-submenu-bg;
-
         > a {
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-
-            &:hover {
-                background-color: transparent;
-            }
         }
     }
 }

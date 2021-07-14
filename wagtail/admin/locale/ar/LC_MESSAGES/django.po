@@ -8,6 +8,7 @@
 # Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
 # Amr Awad <amro.khir@gmail.com>, 2020
+# HossamElDin Mohamed <garo5070@gmail.com>, 2021
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
@@ -17,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
+"PO-Revision-Date: 2021-06-22 14:05+0000\n"
+"Last-Translator: HossamElDin Mohamed <garo5070@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +55,10 @@ msgstr "حفظ مسودة"
 
 msgid "Page locked"
 msgstr "الصفحة مغلقة"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s و إنشر"
 
 msgid "Wagtail admin"
 msgstr "مشرف Wagtail"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:141 views/images.py:290
+#: forms.py:141 views/images.py:302
 msgid "Edit"
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr ""
 msgid "created at"
 msgstr ""
 
-#: models.py:73 models.py:601
+#: models.py:73 models.py:608
 msgid "uploaded by user"
 msgstr ""
 
@@ -491,41 +491,41 @@ msgstr ""
 msgid "Add an image permission"
 msgstr ""
 
-#: views/images.py:47 views/images.py:53
+#: views/images.py:51 views/images.py:57
 msgid "Search images"
 msgstr ""
 
-#: views/images.py:139
+#: views/images.py:151
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:140
+#: views/images.py:152
 msgid "Edit again"
 msgstr ""
 
-#: views/images.py:144
+#: views/images.py:156
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:159
+#: views/images.py:171
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
 
-#: views/images.py:161
+#: views/images.py:173
 msgid "Delete"
 msgstr ""
 
-#: views/images.py:259
+#: views/images.py:271
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:289
+#: views/images.py:301
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:294
+#: views/images.py:306
 msgid "The image could not be created due to errors."
 msgstr ""
 

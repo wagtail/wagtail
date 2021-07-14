@@ -1,4 +1,5 @@
 import json
+import warnings
 
 from django.forms import Media, widgets
 from django.utils.functional import cached_property
@@ -37,7 +38,12 @@ class DraftailRichTextArea(widgets.HiddenInput):
 
         for feature in self.features:
             plugin = feature_registry.get_editor_plugin('draftail', feature)
-            if plugin:
+            if plugin is None:
+                warnings.warn(
+                    f"Draftail received an unknown feature '{feature}'.",
+                    category=RuntimeWarning
+                )
+            else:
                 plugin.construct_options(self.options)
                 self.plugins.append(plugin)
 

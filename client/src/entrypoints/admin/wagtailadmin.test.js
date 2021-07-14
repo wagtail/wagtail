@@ -1,7 +1,5 @@
 jest.mock('../..');
 
-const wagtail = require('../..');
-
 document.addEventListener = jest.fn();
 
 require('./wagtailadmin');

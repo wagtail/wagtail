@@ -11,8 +11,6 @@ Internationalisation
 Multi-language content
 ======================
 
-.. versionadded:: 2.11
-
 Overview
 --------
 

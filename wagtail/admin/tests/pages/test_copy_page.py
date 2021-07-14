@@ -555,3 +555,35 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
+
+    def test_page_copy_alias_post_without_source_publish_permission(self):
+        # Check for issue #7293 - If the user has permission to publish at a destination, but not the source.
+        # Wagtail would crash on attempt to copy
+
+        # Create a new section
+        self.destination_page = self.root_page.add_child(instance=SimplePage(
+            title="Destination page",
+            slug='destination-page',
+            content="hello",
+            live=True,
+            has_unpublished_changes=False,
+        ))
+
+        # Make user a moderator and make it so they can only publish at the destination page
+        self.user.is_superuser = False
+        self.user.groups.add(Group.objects.get(name="Moderators"))
+        self.user.save()
+        GroupPagePermission.objects.filter(permission_type='publish').update(page=self.destination_page)
+
+        post_data = {
+            'new_title': self.test_child_page.title,
+            'new_slug': self.test_child_page.slug,
+            'new_parent_page': str(self.destination_page.id),
+            'copy_subpages': False,
+            'publish_copies': False,
+            'alias': False,
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:copy', args=[self.test_child_page.id]), post_data)
+
+        # We only need to check that it didn't crash
+        self.assertEqual(response.status_code, 302)

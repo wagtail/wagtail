@@ -4020,6 +4020,54 @@ class TestIncludeBlockTag(TestCase):
         })
         self.assertIn('<body><h1 class="important">bonjour</h1></body>', result)
 
+    def test_include_block_html_escaping(self):
+        """
+        Output of include_block should be escaped as per Django autoescaping rules
+        """
+        block = blocks.CharBlock()
+        bound_block = block.bind(block.to_python('some <em>evil</em> HTML'))
+
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': bound_block,
+        })
+        self.assertIn('<body>some &lt;em&gt;evil&lt;/em&gt; HTML</body>', result)
+
+        # {% autoescape off %} should be respected
+        result = render_to_string('tests/blocks/include_block_autoescape_off_test.html', {
+            'test_block': bound_block,
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
+
+        # The same escaping should be applied when passed a plain value rather than a BoundBlock -
+        # a typical situation where this would occur would be rendering an item of a StructBlock,
+        # e.g. {% include_block person_block.first_name %} as opposed to
+        # {% include_block person_block.bound_blocks.first_name %}
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': 'some <em>evil</em> HTML',
+        })
+        self.assertIn('<body>some &lt;em&gt;evil&lt;/em&gt; HTML</body>', result)
+
+        result = render_to_string('tests/blocks/include_block_autoescape_off_test.html', {
+            'test_block': 'some <em>evil</em> HTML',
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
+
+        # Blocks that explicitly return 'safe HTML'-marked values (such as RawHTMLBlock) should
+        # continue to produce unescaped output
+        block = blocks.RawHTMLBlock()
+        bound_block = block.bind(block.to_python('some <em>evil</em> HTML'))
+
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': bound_block,
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
+
+        # likewise when applied to a plain 'safe HTML' value rather than a BoundBlock
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': mark_safe('some <em>evil</em> HTML'),
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
+
 
 class BlockUsingGetTemplateMethod(blocks.Block):
 

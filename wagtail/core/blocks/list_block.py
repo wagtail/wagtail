@@ -17,16 +17,26 @@ __all__ = ['ListBlock', 'ListBlockValidationError']
 
 
 class ListBlockValidationError(ValidationError):
-    def __init__(self, block_errors):
-        self.block_errors = block_errors
-        super().__init__('Validation error in ListBlock', params=block_errors)
+    def __init__(self, block_errors=None, non_block_errors=None):
+        self.non_block_errors = non_block_errors or ErrorList()
+        self.block_errors = block_errors or []
+
+        params = {}
+        if block_errors:
+            params['block_errors'] = block_errors
+        if non_block_errors:
+            params['non_block_errors'] = non_block_errors
+        super().__init__('Validation error in ListBlock', params=params)
 
 
 class ListBlockValidationErrorAdapter(Adapter):
     js_constructor = 'wagtail.blocks.ListBlockValidationError'
 
     def js_args(self, error):
-        return [[elist.as_data() if elist is not None else elist for elist in error.block_errors]]
+        return [
+            [elist.as_data() if elist is not None else elist for elist in error.block_errors],
+            error.non_block_errors.as_data(),
+        ]
 
     @cached_property
     def media(self):
@@ -79,6 +89,7 @@ class ListBlock(Block):
     def clean(self, value):
         result = []
         errors = []
+        non_block_errors = ErrorList()
         for child_val in value:
             try:
                 result.append(self.child_block.clean(child_val))
@@ -87,8 +98,8 @@ class ListBlock(Block):
             else:
                 errors.append(None)
 
-        if any(errors):
-            raise ListBlockValidationError(errors)
+        if any(errors) or non_block_errors:
+            raise ListBlockValidationError(block_errors=errors, non_block_errors=non_block_errors)
 
         return result
 

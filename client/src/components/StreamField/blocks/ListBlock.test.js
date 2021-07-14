@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { FieldBlockDefinition } from './FieldBlock';
+import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
 import { ListBlockDefinition, ListBlockValidationError } from './ListBlock';
 
 import $ from 'jquery';
@@ -43,6 +43,26 @@ class ValidationError {
   }
 }
 
+
+/* ListBlock should not call setError on its children with a null value; FieldBlock handles this
+gracefully, so define a custom one that doesn't
+*/
+
+class ParanoidFieldBlock extends FieldBlock {
+  setError(errorList) {
+    if (!errorList) {
+      throw new Error('ParanoidFieldBlock.setError was passed a null errorList');
+    }
+    return super.setError(errorList);
+  }
+}
+
+class ParanoidFieldBlockDefinition extends FieldBlockDefinition {
+  render(placeholder, prefix, initialState, initialError) {
+    return new ParanoidFieldBlock(this, placeholder, prefix, initialState, initialError);
+  }
+}
+
 describe('telepath: wagtail.blocks.ListBlock', () => {
   let boundBlock;
 
@@ -57,7 +77,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     // Define a test block
     const blockDef = new ListBlockDefinition(
       'test_listblock',
-      new FieldBlockDefinition(
+      new ParanoidFieldBlockDefinition(
         '',
         new DummyWidgetDefinition('The widget'),
         {
@@ -211,10 +231,25 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
 
   test('setError passes error messages to children', () => {
     boundBlock.setError([
-      new ListBlockValidationError([
-        null,
-        [new ValidationError(['Not as good as the first one'])],
-      ]),
+      new ListBlockValidationError(
+        [
+          null,
+          [new ValidationError(['Not as good as the first one'])],
+        ],
+        []
+      ),
+    ]);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('setError renders non-block errors', () => {
+    boundBlock.setError([
+      new ListBlockValidationError(
+        [null, null],
+        [
+          new ValidationError(['At least three blocks are required']),
+        ]
+      ),
     ]);
     expect(document.body.innerHTML).toMatchSnapshot();
   });

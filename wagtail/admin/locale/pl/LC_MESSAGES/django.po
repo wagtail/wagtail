@@ -8,7 +8,7 @@
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Mateusz <undefined5102@gmail.com>, 2015
 # Matt Westcott <matthew@torchbox.com>, 2018
-# Miłosz Miśkiewicz, 2017-2020
+# Miłosz Miśkiewicz, 2017-2021
 # Miłosz Miśkiewicz, 2016-2017
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Мирон Левицкий <miron200504@gmail.com>, 2018
@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"PO-Revision-Date: 2021-06-17 08:16+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -90,6 +90,12 @@ msgstr "Zaplanowane opublikowanie"
 msgid "Privacy"
 msgstr "Prywatność"
 
+msgid "For search engines"
+msgstr "Dla silników wyszukiwania"
+
+msgid "For site menus"
+msgstr "Dla menu serwisów"
+
 msgid "Content"
 msgstr "Treść"
 
@@ -157,6 +163,9 @@ msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcj
 
 msgid "Collection"
 msgstr "Kolekcja"
+
+msgid "You cannot edit another user's comment."
+msgstr "Nie możesz zmieniać komentarza innego użytkownika."
 
 msgid "New title"
 msgstr "Nowy tytuł"
@@ -295,6 +304,9 @@ msgstr "Zamknij przeglądarke"
 msgid "Alt text"
 msgstr "Tekst alternatywny"
 
+msgid "Decorative image"
+msgstr "Obrazek dekoracyjny"
+
 msgid "Write here…"
 msgstr "Pisz tutaj..."
 
@@ -355,8 +367,47 @@ msgstr "Zapisywanie..."
 msgid "Cancel"
 msgstr "Anuluj"
 
+msgid "Deleting..."
+msgstr "Usuwanie..."
+
+msgid "Add a comment"
+msgstr "Dodaj komentarz"
+
+msgid "Show comments"
+msgstr "Pokaż komentarze"
+
+msgid "Reply"
+msgstr "Odpowiedz"
+
+msgid "Resolve"
+msgstr "Rozwiąż"
+
+msgid "Retry"
+msgstr "Ponów"
+
+msgid "Delete error"
+msgstr "Błąd usuwania"
+
+msgid "Are you sure?"
+msgstr "Czy jesteś pewny?"
+
+msgid "Save error"
+msgstr "Błąd zapisu"
+
+msgid "This will be saved when the page is saved"
+msgstr "Zostanie zapisane w momencie zapisu strony"
+
+msgid "Focus comment"
+msgstr "Wyróżnij komentarz"
+
+msgid "Unfocus comment"
+msgstr "Usuń wyróżnienie komentarza"
+
 msgid "Comment"
 msgstr "Komentarz"
+
+msgid "More actions"
+msgstr "Więcej akcji"
 
 msgid "Error 404: Page not found"
 msgstr "Błąd 404: Strona nie została znaleziona"
@@ -372,6 +423,9 @@ msgstr "Idź do panelu administratora Wagtaila"
 
 msgid "Account"
 msgstr "Konto"
+
+msgid "Save account details"
+msgstr "Zapisz szczegóły konta"
 
 msgid "Change password"
 msgstr "Zmień hasło"
@@ -428,6 +482,12 @@ msgstr "Reset hasła"
 
 msgid "Reset your password"
 msgstr "Zresetuj swoje hasło"
+
+msgid "Upload a profile picture:"
+msgstr "Wgraj zdjęcie profilowe:"
+
+msgid "Reset to default"
+msgstr "Przywróć domyślne"
 
 msgid "Dashboard"
 msgstr "Kokpit"
@@ -582,6 +642,12 @@ msgstr "Przesuń w górę"
 
 msgid "Move down"
 msgstr "Przesuń w dół"
+
+msgid "Add comment"
+msgstr "Dodaj komentarz"
+
+msgid "Comment notifications"
+msgstr "Powiadomienia komentarza"
 
 msgid "Yes, delete"
 msgstr "Tak, usuń"
@@ -758,6 +824,65 @@ msgstr "Możesz podejrzeć stronę tutaj:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Strona \"%(page)s\" została przekazana do przeglądu"
 
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"Strona \"%(title)s\" została zaakceptowana na etapie moderacji \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "Strona \"%(title)s\" została zaakceptowana w \"%(task)s\"."
+
+msgid "New comments"
+msgstr "Nowe komentarze"
+
+msgid "Resolved comments"
+msgstr "Rozwiązane komentarze"
+
+msgid "Deleted comments"
+msgstr "Usunięte komentarze"
+
+msgid "New replies"
+msgstr "Nowe odpowiedzi"
+
+msgid "New replies to:"
+msgstr "Nowe odpowiedzi do:"
+
+msgid "New comments:"
+msgstr "Nowe komentarze:"
+
+msgid "Resolved comments:"
+msgstr "Rozwiązane komentarze:"
+
+msgid "Deleted comments:"
+msgstr "Usunięte komentarze:"
+
+msgid "New replies:"
+msgstr "Nowe odpowiedzi:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s zaktualizował komentarze w \"%(title)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr ""
+"Strona \"%(title)s\" została zaakceptowana w workflow \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr ""
+"Strona \"%(title)s\" została zaakceptowana w workflow \"%(workflow)s\"."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "Poniższy komentarz został zostawiony: \"%(comment)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "Strona \"%(title)s\" została odrzucona podczas \"%(workflow)s\"."
+
 msgid "Page privacy"
 msgstr "Prywatność strony"
 
@@ -790,6 +915,18 @@ msgstr "Widoczność strony. Aktualny status: Publiczny"
 
 msgid "Page privacy. Current status: Private"
 msgstr "Widoczność strony. Aktualny status: Prywatny"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Masz <span>niezapisanych edycji</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Masz <span>niezapisanych komentarzy</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "Masz <span>niezapisanych edycji</span> i <span>komentarzy</span>"
+
+msgid "Save the page before leaving"
+msgstr "Zapisz stronę przed wyjściem"
 
 msgid "Publishing…"
 msgstr "Publikowanie..."
@@ -957,6 +1094,12 @@ msgstr "Anuluj publikację"
 msgid "Publish page"
 msgstr "Opublikuj stronę"
 
+msgid "Publishing this page will cancel the current workflow."
+msgstr "Publikacja tej strony anuluje obecny workflow."
+
+msgid "Would you still like to publish this page?"
+msgstr "Czy w dalszym ciągu chcesz opublikować tą stronę?"
+
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Strony wykorzystujące %(page_class_verbose_name)s"
@@ -990,6 +1133,10 @@ msgstr "Strona posiada niezapisane zmiany"
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Edycja %(page_type)s: %(title)s"
+
+#, python-format
+msgid "Editing %(page_type)s"
+msgstr "Edycja %(page_type)s"
 
 msgid "History"
 msgstr "Historia"
@@ -1854,8 +2001,26 @@ msgstr "szkic"
 msgid "Test"
 msgstr "Test"
 
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Notifications"
+msgstr "Notyfikacje"
+
+msgid "Name and Email"
+msgstr "Imię i email"
+
+msgid "Profile picture"
+msgstr "Obrazek profilowy"
+
+msgid "Locale"
+msgstr "Lokalizacja"
+
 msgid "Password"
 msgstr "Hasło"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Ustawienia Twojego konta zostały zmienione pomyślnie!"
 
 msgid "You have been successfully logged out."
 msgstr "Zostałeś pomyślnie wylogowany."
@@ -2016,6 +2181,14 @@ msgstr ""
 msgid "Page '{0}' moved."
 msgstr "Przesunięto stronę '{0}'."
 
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Oglądasz wcześniejszą wersję strony z <b>%(created_at)s</b> autorstwa "
+"%(user)s"
+
 msgid "Earliest"
 msgstr "Najstarsze"
 
@@ -2025,8 +2198,14 @@ msgstr "Najnowsze"
 msgid "revision {0} of \"{1}\""
 msgstr "rewizja {0} z \"{1}\""
 
+msgid "Version {0} of \"{1}\" unscheduled."
+msgstr "Wersja {0} z \"{1}\" odplanowana."
+
 msgid "Page '{0}' unpublished."
 msgstr "Cofnięto publikację strony '{0}'."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr "Strona '{0}' nie oczekuje na moderację w zadaniu '{1}'."
 
 msgid "Locked pages"
 msgstr "Zablokowane strony"

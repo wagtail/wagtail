@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-20 20:19+0100\n"
 "PO-Revision-Date: 2020-09-02 08:44+0000\n"
-"Last-Translator: Erlend Eelmets <debcf78e@opayq.com>\n"
+"Last-Translator: Erlend <debcf78e@opayq.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"

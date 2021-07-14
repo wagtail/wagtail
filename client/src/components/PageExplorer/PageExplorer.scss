@@ -1,0 +1,208 @@
+$c-page-explorer-bg: #4c4e4d;
+$c-page-explorer-bg-dark: $nav-grey-1;
+$c-page-explorer-bg-active: rgba(0, 0, 0, 0.425);
+$c-page-explorer-secondary: #a5a5a5;
+$c-page-explorer-easing: cubic-bezier(0.075, 0.82, 0.165, 1);
+$menu-footer-height: 50px;
+
+@import 'PageExplorerItem';
+
+.c-page-explorer {
+    width: 485px;
+    height: 100vh;
+    background: $c-page-explorer-bg;
+    overflow: hidden;
+    flex: 1;
+
+    *:focus {
+        @include show-focus-outline-inside;
+    }
+
+
+    @include media-breakpoint-up(sm) {
+        box-shadow: 2px 2px 5px $c-page-explorer-bg-active;
+    }
+}
+
+.c-page-explorer > .c-transition-group {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    z-index: 150;
+}
+
+.c-page-explorer__close {
+    padding: 1em;
+    color: $c-page-explorer-secondary;
+    border-bottom: 1px solid rgba(200, 200, 200, 0.1);
+    cursor: pointer;
+    display: none;
+
+    &:focus {
+        background-color: $c-page-explorer-bg-active;
+        color: $color-white;
+    }
+
+    // Overrides for default link hover.
+    &:hover {
+        color: $c-page-explorer-secondary;
+    }
+
+    @include media-breakpoint-down(xs) {
+        .explorer-open & {
+            display: block;
+        }
+    }
+}
+
+.c-page-explorer__drawer {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.c-page-explorer__header {
+    display: block;
+    background-color: $c-page-explorer-bg-dark;
+    border-bottom: 1px solid $c-page-explorer-bg-dark;
+    color: $color-white;
+}
+
+.c-page-explorer__header__title {
+    color: inherit;
+
+    &:focus {
+        background-color: $c-page-explorer-bg-active;
+        color: $color-white;
+    }
+
+    // Overrides for default link hover.
+    &:hover {
+        color: $color-white;
+    }
+
+    @include hover {
+        background-color: $c-page-explorer-bg-active;
+    }
+}
+
+.c-page-explorer__header__title__inner {
+    width: 70%;
+    float: left;
+    padding: 1em 0.75em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .icon {
+        color: $c-page-explorer-secondary;
+        margin-right: 0.25rem;
+        font-size: 1rem;
+    }
+
+    .icon--explorer-header {
+        width: 1.25em;
+        height: 1.25em;
+        margin-right: 0.25rem;
+        vertical-align: text-top;
+        color: $c-page-explorer-secondary;
+    }
+
+    @include media-breakpoint-up(sm) {
+        padding: 1em 1.5em;
+    }
+}
+
+.c-page-explorer__header__select {
+    $margin: 10px;
+    position: relative;
+
+    > select {
+        width: calc(30% - #{$margin * 2});
+        height: calc(100% - #{$margin * 2});
+        margin-top: $margin;
+        margin-right: $margin;
+        float: right;
+        padding: 0;
+        padding-left: 10px;
+
+        background-color: $c-page-explorer-bg-dark;
+        border-radius: 0;
+        border-color: #4c4e4d;
+        color: $color-white;
+
+        &:disabled {
+            border: 0;
+        }
+
+        &:hover:enabled {
+            cursor: pointer;
+        }
+
+        &:hover:disabled {
+            color: inherit;
+            background-color: inherit;
+            cursor: inherit;
+        }
+
+        // Reset the arrow on `<select>`s in IE10+.
+        &::-ms-expand {
+            display: none;
+        }
+    }
+
+    // Add select arrow back on browsers where native ui has been removed
+    > span:after {
+        z-index: 0;
+        position: absolute;
+        right: $margin;
+        top: $margin + 3px;
+        bottom: 0;
+        width: 2em;
+        font-family: wagtail;
+        content: map-get($icons, 'arrow-down');
+        text-align: center;
+        font-size: 1.2em;
+        pointer-events: none;
+        color: $color-grey-3;
+
+        .ie & {
+            display: none;
+        }
+    }
+}
+
+.c-page-explorer__placeholder {
+    padding: 1em;
+    color: $color-white;
+
+    @include media-breakpoint-up(sm) {
+        padding: 1em 1.75em;
+    }
+}
+
+.c-page-explorer__see-more {
+    display: block;
+    padding: 1em;
+    background: rgba(0, 0, 0, 0.3);
+    color: $color-white;
+
+    &:focus {
+        color: $c-page-explorer-secondary;
+        background: $c-page-explorer-bg-active;
+    }
+
+    // Overrides for default link hover.
+    &:hover {
+        color: $color-white;
+    }
+
+    @include hover {
+        background: $c-page-explorer-bg-active;
+    }
+
+    @include media-breakpoint-up(sm) {
+        padding: 1em 1.75em;
+        height: $menu-footer-height;
+    }
+}

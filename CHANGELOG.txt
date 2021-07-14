@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.15 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~
+
+ * ...
+
+
 2.14 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
@@ -10,6 +16,15 @@ Changelog
  * Added `full_url` property to image renditions (Shreyash Srivastava)
  * Added locale selector when choosing translatable snippets (Karl Hobley)
  * Added `WAGTAIL_WORKFLOW_ENABLED` setting for enabling / disabling moderation workflows globally (Matt Westcott)
+ * Allow specifying `max_width` and `max_height` on EmbedBlock (Petr Dlouhý)
+ * Add warning when StreamField is used without a StreamFieldPanel (Naomi Morduch Toubman)
+ * Added keyboard and screen reader support to Wagtail user bar (LB Johnston, Storm Heg)
+ * Add Google Data Studio to the list of oEmbed providers (Petr Dlouhý)
+ * Added instructions on copying and aliasing pages to the editor's guide in documentation (Vlad Podgurschi)
+ * Allow ListBlock to raise validation errors that are not attached to an individual child block (Matt Westcott)
+ * Use `DATETIME_FORMAT` for localization in templates (Andrew Stone)
+ * Added documentation on multi site, multi instance and multi tenancy setups (Coen Van Der Kamp)
+ * Updated Facebook / Instagram oEmbed endpoints to v11.0 (Thomas Kremmel)
  * Fix: Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
  * Fix: Ordering specified in `construct_explorer_page_queryset` hook is now taken into account again by the page explorer API (Andre Fonseca)
  * Fix: Deleting a page from its listing view no longer results in a 404 error (Tidjani Dia)
@@ -18,6 +33,39 @@ Changelog
  * Fix: Snippet admin urls are now namespaced to avoid ambiguity with the primary key component of the url (Matt Westcott)
  * Fix: Save order of promoted search results (Hardcodd)
  * Fix: Prevent error on copying pages with ClusterTaggableManager relations and multi-level inheritance (Chris Pollard)
+ * Fix: Prevent failure on root page when registering the Page model with ModelAdmin (Jake Howard)
+ * Fix: Prevent error when filtering page search results with a malformed content_type (Chris Pollard)
+ * Fix: Prevent multiple submissions of "update" form when uploading images / documents (Mike Brown)
+ * Fix: Ensure HTML title is populated on project template 404 page (Matt Westcott)
+ * Fix: Respect cache_age parameters on embeds (Gordon Pendleton)
+ * Fix: Page comparison view now reflects request-level customisations to edit handlers (Matt Westcott)
+ * Fix: Add `block.super` to remaining `extra_js` & `extra_css` blocks (Andrew Stone)
+ * Fix: Ensure that `editor` and `features` arguments on RichTextField are preserved by `clone()` (Daniel Fairhead)
+ * Fix: Rename 'spin' CSS animation to avoid clashes with other libraries (Kevin Gutiérrez)
+ * Fix: Prevent crash when copying a page from a section where the user has no publish permission (Karl Hobley)
+ * Fix: Ensure that rich text conversion correctly handles images / embeds inside links or inline styles (Matt Westcott)
+
+
+2.13.4 (13.07.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent embed thumbnail_url migration from failing on URLs longer than 200 characters (Matt Westcott)
+
+
+2.13.3 (05.07.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent error when using rich text on views where commenting is unavailable (Jacob Topp-Mugglestone)
+ * Fix: Include form media on account settings page (Matt Westcott)
+ * Fix: Avoid error when rendering validation error messages on ListBlock children (Matt Westcott)
+ * Fix: Prevent comments CSS from overriding admin UI colour customisations (Matt Westcott)
+ * Fix: Avoid validation error when editing rich text content preceding a comment (Jacob Topp-Mugglestone)
+
+
+2.13.2 (17.06.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2021-32681 - fix improper escaping of HTML ('Cross-site Scripting') in Wagtail StreamField blocks (Karen Tracey, Matt Westcott)
 
 
 2.13.1 (01.06.2021)
@@ -68,6 +116,18 @@ Changelog
  * Fix: Reverse migration errors in images and documents (Mike Brown)
  * Fix: Apply enough chevron padding to all applicable select elements (Scott Cranfill)
  * Fix: Reduce database queries in the page edit view (Ihor Marhitych)
+
+
+2.12.6 (13.07.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent embed thumbnail_url migration from failing on URLs longer than 200 characters (Matt Westcott)
+
+
+2.12.5 (17.06.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2021-32681 - fix improper escaping of HTML ('Cross-site Scripting') in Wagtail StreamField blocks (Karen Tracey, Matt Westcott)
 
 
 2.12.4 (19.04.2021)
@@ -124,6 +184,12 @@ Changelog
  * Fix: Fix unique constraint on WorkflowState for SQL Server compatibility (David Beitey)
  * Fix: Reinstate chevron on collection dropdown (Mike Brown)
  * Fix: Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
+
+
+2.11.8 (17.06.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2021-32681 - fix improper escaping of HTML ('Cross-site Scripting') in Wagtail StreamField blocks (Karen Tracey, Matt Westcott)
 
 
 2.11.7 (19.04.2021)
