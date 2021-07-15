@@ -57,6 +57,13 @@ function SelectBulkActionsCheckboxes(e) {
       const el = _el;
       el.checked = true;
     });
+    if (checkedState.shouldShowAllInListingText) {
+      document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.remove('u-hidden');
+    }
+  } else {
+    if (checkedState.shouldShowAllInListingText) {
+      document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.add('u-hidden');
+    }
   }
 
   if (checkedState.checkedPages.size > 0) {
@@ -72,7 +79,6 @@ function SelectBulkActionsCheckboxes(e) {
         numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_PLURAL.replace('{0}', numCheckPages);
       }
     }
-    document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.add('u-hidden');
     document.querySelector(`.${BULK_ACTION_NUM_PAGES_SPAN}`).textContent = numPagesSelected;
   }
 }
