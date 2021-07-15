@@ -488,13 +488,21 @@ ul.listing {
 }
 
 footer.bulk-actions-choices {
-    @include transition(bottom 0.5s ease 0.5s);
+    @include transition(bottom 0.1s ease 0.5s);
 
     &.hidden {
         bottom: -200px;
     }
 
+    a.button {
+        font-weight: 700;
+    }
+
     .bulk-actions-more {
+        .button:not(:hover) {
+            color: $color-teal;
+        }
+
         &.is-open {
             ul.u-toggle {
                 display: flex;
@@ -509,7 +517,7 @@ footer.bulk-actions-choices {
     }
 }
 
-.footer__container {
+.bulk-actions-choices .footer__container {
     display: flex;
     justify-content: space-around;
     width: 100%;
@@ -530,13 +538,7 @@ footer.bulk-actions-choices {
         color: $color-teal-light;
     }
 
-    a.button-secondary {
-        font-weight: 700;
-        color: $color-teal;
-    }
-
-    a.button-secondary,
-    a.button-secondary.serious {
+    .button:not(:hover) {
         background-color: $color-white;
     }
 }
