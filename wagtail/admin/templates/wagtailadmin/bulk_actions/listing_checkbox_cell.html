@@ -1,0 +1,8 @@
+{% load i18n wagtailadmin_tags %}
+<td>
+    <input
+    {% if obj_type == 'page' %}
+    data-page-status="{% if obj.live %}live{% else %}draft{% endif %}" 
+    {% endif %}
+    data-page-id="{{obj.id}}" class="bulk-action-checkbox" aria-label="{{checkbox_aria_label}}" type="checkbox" />
+</td>
