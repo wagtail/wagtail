@@ -42,15 +42,14 @@
     </thead>
     <tbody>
         {% if pages %}
+            {% trans "Page select checkbox" as checkbox_aria_label %}
             {% for page in pages %}
                 {% page_permissions page as page_perms %}
                 <tr {% if ordering == "ord" %}id="page_{{ page.id|unlocalize }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
                     {% if show_ordering_column %}
                     <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% else %}
-                    <td>
-                        <input data-page-status="{% if page.live %}live{% else %}draft{% endif %}" data-page-id="{{page.id}}" class="bulk-action-checkbox" aria-label="Page select checkbox" type="checkbox" />
-                    </td>
+                    {% include 'wagtailadmin/bulk_actions/listing_checkbox_cell.html' with obj_type='page' obj=page aria_label=checkbox_aria_label %}
                     {% endif %}
                     <td class="title" valign="top" data-listing-page-title>
                         {% block page_title %}
