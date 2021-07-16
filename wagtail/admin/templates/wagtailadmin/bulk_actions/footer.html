@@ -1,0 +1,11 @@
+{% load wagtailadmin_tags i18n %}
+<footer class="footer bulk-actions-choices hidden">
+    <div class="footer__container">
+        <div class="bulk-actions-filter-checkbox">
+            <input type="checkbox" aria-label='{% trans "Bulk action checkbox" %}' />
+        </div>
+        <ul>{% page_bulk_action_choices %}</ul>
+        <span class="num-pages"></span>
+        <a class="num-pages-in-listing u-hidden" href='#'>{{ select_all_obj_text }}</a>
+    </div>
+</footer>
