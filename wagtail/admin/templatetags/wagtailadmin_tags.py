@@ -506,7 +506,7 @@ def bulk_action_filters(context):
                         takes_context=True)
 def bulk_action_choices(context, hook_name):
     corresponding_urls = {
-        'register_page_bulk_action': 'wagtailadmin_bulk_action',
+        'register_page_bulk_action': 'wagtailadmin_page_bulk_action',
     }
     if hook_name not in corresponding_urls:
         return {'buttons': []}
