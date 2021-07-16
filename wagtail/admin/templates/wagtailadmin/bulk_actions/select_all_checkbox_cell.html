@@ -1,0 +1,7 @@
+{% load i18n wagtailadmin_tags %}
+<th class="bulk-actions-filter-checkbox" data-parent-id="{{ parent.id }}">
+    <div>
+        <input type="checkbox" aria-label='{% trans "Bulk action checkbox" }' />
+        {% bulk_action_filters %}
+    </div>
+</th>
