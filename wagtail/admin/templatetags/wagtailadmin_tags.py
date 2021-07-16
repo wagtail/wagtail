@@ -527,7 +527,7 @@ def page_bulk_action_choices(context):
             reverse('wagtailadmin_bulk_action', args=[action.action_type]) + '?' + urlencode({'next': action.next_url}),
             attrs={'aria-label': action.aria_label},
             priority=action.action_priority,
-            classes=action.classes
+            classes=action.classes | {'bulk-action-btn'},
         ) for action in bulk_actions_list
     ]
 
@@ -545,6 +545,7 @@ def page_bulk_action_choices(context):
                 'url': reverse('wagtailadmin_bulk_action', args=[action.action_type]) + '?' + urlencode({'next': action.next_url}),
                 'attrs': {'aria-label': action.aria_label},
                 'priority': action.action_priority,
+                'classes': {'bulk-action-btn'},
             } for action in bulk_action_more_list]
         )
         more_button.is_parent = True
