@@ -4,12 +4,12 @@ const BULK_ACTION_PAGE_CHECKBOX_INPUT = 'bulk-action-checkbox';
 const BULK_ACTION_SELECT_ALL_CHECKBOX_TH = 'bulk-actions-filter-checkbox';
 const BULK_ACTION_FILTERS_CLASS = `${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} .c-dropdown__item a`;
 const BULK_ACTION_CHOICES_DIV = 'bulk-actions-choices';
-const BULK_ACTION_NUM_PAGES_SPAN = 'num-pages';
-const BULK_ACTION_NUM_PAGES_IN_LISTING = 'num-pages-in-listing';
+const BULK_ACTION_NUM_OBJECTS_SPAN = 'num-objects';
+const BULK_ACTION_NUM_OBJECTS_IN_LISTING = 'num-objects-in-listing';
 
 const checkedState = {
-  checkedPages: new Set(),
-  numPages: 0,
+  checkedObjects: new Set(),
+  numObjects: 0,
   selectAllInListing: false,
   shouldShowAllInListingText: true
 };
@@ -28,22 +28,22 @@ function SelectBulkActionsFilter(e) {
 /* Event listener for individual page checkbox */
 function SelectBulkActionsCheckboxes(e) {
   if (checkedState.selectAllInListing) checkedState.selectAllInListing = false;
-  const prevLength = checkedState.checkedPages.size;
-  if (e.target.checked) checkedState.checkedPages.add(+e.target.dataset.pageId);
+  const prevLength = checkedState.checkedObjects.size;
+  if (e.target.checked) checkedState.checkedObjects.add(+e.target.dataset.objectId);
   else {
     /* unchecks `Select all` checkbox as soon as one page is unchecked */
     document.querySelectorAll(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} input`).forEach(_el => {
       const el = _el;
       el.checked = false;
     });
-    checkedState.checkedPages.delete(+e.target.dataset.pageId);
+    checkedState.checkedObjects.delete(+e.target.dataset.objectId);
   }
 
-  if (checkedState.checkedPages.size === 0) {
+  if (checkedState.checkedObjects.size === 0) {
     /* when all checkboxes are unchecked */
     document.querySelector(`.${BULK_ACTION_CHOICES_DIV}`).classList.add('hidden');
     document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => el.classList.remove('show'));
-  } else if (checkedState.checkedPages.size === 1 && prevLength === 0) {
+  } else if (checkedState.checkedObjects.size === 1 && prevLength === 0) {
     /* when 1 checkbox is checked for the first time */
     document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => {
       el.classList.add('show');
@@ -51,43 +51,43 @@ function SelectBulkActionsCheckboxes(e) {
     document.querySelector(`.${BULK_ACTION_CHOICES_DIV}`).classList.remove('hidden');
   }
 
-  if (checkedState.checkedPages.size === checkedState.numPages) {
+  if (checkedState.checkedObjects.size === checkedState.numObjects) {
     /* when all checkboxes in the page are checked */
     document.querySelectorAll(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} input`).forEach(_el => {
       const el = _el;
       el.checked = true;
     });
     if (checkedState.shouldShowAllInListingText) {
-      document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.remove('u-hidden');
+      document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`).classList.remove('u-hidden');
     }
   } else {
     if (checkedState.shouldShowAllInListingText) {
-      document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.add('u-hidden');
+      document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`).classList.add('u-hidden');
     }
   }
 
-  if (checkedState.checkedPages.size > 0) {
+  if (checkedState.checkedObjects.size > 0) {
     /* Update text on number of pages */
     let numPagesSelected = '';
-    const numCheckPages = checkedState.checkedPages.size;
+    const numCheckPages = checkedState.checkedObjects.size;
     if (numCheckPages === 1) {
       numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_SINGULAR;
     } else {
-      if (numCheckPages === checkedState.numPages) {
+      if (numCheckPages === checkedState.numObjects) {
         numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL.replace('{0}', numCheckPages);
       } else {
         numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_PLURAL.replace('{0}', numCheckPages);
       }
     }
-    document.querySelector(`.${BULK_ACTION_NUM_PAGES_SPAN}`).textContent = numPagesSelected;
+    document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_SPAN}`).textContent = numPagesSelected;
   }
 }
 
 function selectAllPageIdsInListing() {
   checkedState.selectAllInListing = true;
-  document.querySelector(`.${BULK_ACTION_NUM_PAGES_SPAN}`).
+  document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_SPAN}`).
     textContent = `${wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL_IN_LISTING}.`;
-  document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.add('u-hidden');
+  document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`).classList.add('u-hidden');
 }
 
 /* Event listener for filter dropdown options */
@@ -134,8 +134,8 @@ function BulkActionEventListeners(e) {
     const parentPageId = document.querySelector(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH}`).dataset.parentId;
     queryString += `&id=all&childOf=${parentPageId}`;
   } else {
-    checkedState.checkedPages.forEach(pageId => {
-      queryString += `&id=${pageId}`;
+    checkedState.checkedObjects.forEach(objectId => {
+      queryString += `&id=${objectId}`;
     });
   }
   window.location.href = `${url}${queryString}`;
@@ -146,7 +146,7 @@ function BulkActionEventListeners(e) {
 function addBulkActionListeners() {
   document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)
     .forEach(el => {
-      checkedState.numPages++;
+      checkedState.numObjects++;
       el.addEventListener('change', SelectBulkActionsCheckboxes);
     });
   document.querySelectorAll(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} input`).forEach(el => {
@@ -158,7 +158,7 @@ function addBulkActionListeners() {
   document.querySelectorAll(`.${BULK_ACTION_CHOICES_DIV} .bulk-action-btn`).forEach(
     elem => elem.addEventListener('click', BulkActionEventListeners)
   );
-  const selectAllInListingText = document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`);
+  const selectAllInListingText = document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`);
   if (selectAllInListingText) selectAllInListingText.addEventListener('click', selectAllPageIdsInListing);
   else checkedState.shouldShowAllInListingText = false;
 }
