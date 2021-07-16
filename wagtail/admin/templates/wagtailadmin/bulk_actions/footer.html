@@ -4,8 +4,10 @@
         <div class="bulk-actions-filter-checkbox">
             <input type="checkbox" aria-label='{% trans "Bulk action checkbox" %}' />
         </div>
-        <ul>{% page_bulk_action_choices %}</ul>
-        <span class="num-pages"></span>
-        <a class="num-pages-in-listing u-hidden" href='#'>{{ select_all_obj_text }}</a>
+        <ul>{% bulk_action_choices bulk_action_register_hook %}</ul>
+        <span class="num-objects"></span>
+        {% if select_all_obj_text %}
+        <a class="num-objects-in-listing u-hidden" href='#'>{{ select_all_obj_text }}</a>
+        {% endif %}
     </div>
 </footer>
