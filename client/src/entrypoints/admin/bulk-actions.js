@@ -86,7 +86,7 @@ function SelectBulkActionsCheckboxes(e) {
 function selectAllPageIdsInListing() {
   checkedState.selectAllInListing = true;
   document.querySelector(`.${BULK_ACTION_NUM_PAGES_SPAN}`).
-    textContent = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL_IN_LISTING + '.';
+    textContent = `${wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL_IN_LISTING}.`;
   document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`).classList.add('u-hidden');
 }
 
@@ -99,7 +99,7 @@ function FilterEventListener(e) {
     /* split the filter string into [key,value] pairs and check for the values in the
         BULK_ACTION_PAGE_CHECKBOX_INPUT dataset */
     const [_key, value] = filter.split(':');
-    const key = _key[0].toUpperCase() + _key.slice(1);
+    const key = `${_key[0].toUpperCase()}${_key.slice(1)}`;
     for (const el of document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)) {
       if (`page${key}` in el.dataset) {
         if (el.dataset[`page${key}`] === value) {
@@ -138,7 +138,7 @@ function BulkActionEventListeners(e) {
       queryString += `&id=${pageId}`;
     });
   }
-  window.location.href = url + queryString;
+  window.location.href = `${url}${queryString}`;
 }
 
 
@@ -155,7 +155,7 @@ function addBulkActionListeners() {
   document.querySelectorAll(`.${BULK_ACTION_FILTERS_CLASS}`).forEach(
     elem => elem.addEventListener('click', FilterEventListener)
   );
-  document.querySelectorAll(`.${BULK_ACTION_CHOICES_DIV} ul > li > a`).forEach(
+  document.querySelectorAll(`.${BULK_ACTION_CHOICES_DIV} .bulk-action-btn`).forEach(
     elem => elem.addEventListener('click', BulkActionEventListeners)
   );
   const selectAllInListingText = document.querySelector(`.${BULK_ACTION_NUM_PAGES_IN_LISTING}`);
