@@ -20,8 +20,9 @@ function buildExpandingFormset(prefix, opts = {}) {
   }
 
   // eslint-disable-next-line consistent-return
-  addButton.on('click', () => {
+  addButton.on('click', (e) => {
     if (addButton.hasClass('disabled')) return false;
+    e.preventDefault();
     const newFormHtml = emptyFormTemplate
       .replace(/__prefix__/g, formCount)
       .replace(/<-(-*)\/script>/g, '<$1/script>');
