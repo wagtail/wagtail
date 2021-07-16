@@ -504,15 +504,20 @@ def bulk_action_filters(context):
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
                         takes_context=True)
-def page_bulk_action_choices(context):
+def bulk_action_choices(context, hook_name):
+    corresponding_urls = {
+        'register_page_bulk_action': 'wagtailadmin_bulk_action',
+    }
+    if hook_name not in corresponding_urls:
+        return {'buttons': []}
+
+    corresponding_url = corresponding_urls[hook_name]
+
     bulk_actions_list = []
-    bulk_actions = hooks.get_hooks('register_page_bulk_action')
+    bulk_actions = hooks.get_hooks(hook_name)
     for action_func in bulk_actions:
         action = action_func(context.request)
         bulk_actions_list.append(action)
-    button_hooks = hooks.get_hooks('construct_page_bulk_action_choices')
-    for hook in button_hooks:
-        hook(context.request, bulk_actions_list)
 
     bulk_actions_list.sort(key=lambda x: x.action_priority)
 
@@ -524,7 +529,7 @@ def page_bulk_action_choices(context):
     bulk_action_buttons = [
         PageListingButton(
             action.display_name,
-            reverse('wagtailadmin_bulk_action', args=[action.action_type]) + '?' + urlencode({'next': action.next_url}),
+            reverse(corresponding_url, args=[action.action_type]) + '?' + urlencode({'next': action.next_url}),
             attrs={'aria-label': action.aria_label},
             priority=action.action_priority,
             classes=action.classes | {'bulk-action-btn'},
@@ -542,7 +547,7 @@ def page_bulk_action_choices(context):
             btn_classes={'button', 'button-small'},
             buttons_data=[{
                 'label': action.display_name,
-                'url': reverse('wagtailadmin_bulk_action', args=[action.action_type]) + '?' + urlencode({'next': action.next_url}),
+                'url': reverse(corresponding_url, args=[action.action_type]) + '?' + urlencode({'next': action.next_url}),
                 'attrs': {'aria-label': action.aria_label},
                 'priority': action.action_priority,
                 'classes': {'bulk-action-btn'},
