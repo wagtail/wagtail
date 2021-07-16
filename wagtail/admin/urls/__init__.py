@@ -36,7 +36,7 @@ urlpatterns = [
     path('pages/<int:parent_page_id>/', listing.index, name='wagtailadmin_explore'),
 
     # bulk actions
-    path('pages/multiple/<str:action>/', bulk_actions, name='wagtailadmin_bulk_action'),
+    path('pages/multiple/<str:action>/', bulk_actions, name='wagtailadmin_page_bulk_action'),
 
     path('pages/', include(wagtailadmin_pages_urls, namespace='wagtailadmin_pages')),
 
