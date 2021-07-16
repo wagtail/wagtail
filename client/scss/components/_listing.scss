@@ -509,6 +509,10 @@ footer.bulk-actions-choices {
             color: $color-teal;
         }
 
+        .c-dropdown__button {
+            text-transform: uppercase;
+        }
+
         &.is-open {
             ul.u-toggle {
                 display: flex;

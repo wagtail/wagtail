@@ -533,7 +533,7 @@ def page_bulk_action_choices(context):
 
     if bulk_action_more_list:
         more_button = ButtonWithDropdown(
-            label=_("MORE"),
+            label=_("More"),
             attrs={
                 'target': '_blank', 'rel': 'noopener noreferrer',
                 'title': _("View more bulk actions")
