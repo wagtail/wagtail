@@ -1,0 +1,52 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags i18n %}
+{% block titletag %}{% blocktrans count counter=documents|length %}Delete 1 document {% plural %}Delete {{ counter }} documents{% endblocktrans %}{% endblock %}
+{% block content %}
+    {% trans "Delete documents" as del_str %}
+    {% include "wagtailadmin/shared/header.html" with title=del_str icon="doc-full-inverse" %}
+
+    <div class="nice-padding">
+        {% if documents %}
+        <p>
+            {% blocktrans count num_docs=documents|length %}
+            Are you sure you want to delete this document?
+            {% plural %}
+            Are you sure you want to delete these documents?
+            {% endblocktrans %}
+        </p>
+        <ul>
+        {% for document in documents %}
+            <li>
+                <a href="{% url 'wagtaildocs:edit' document.document.id %}"  target="_blank" rel="noopener noreferrer">{{document.document.title}}</a>
+                {% usage_count_enabled as uc_enabled %}
+                {% if uc_enabled %}
+                <p>
+                    <a href="{{ document.document.usage_url }}">{% blocktrans count usage_count=document.document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                </p>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% if documents_with_no_access %}
+        <p>{% blocktrans count counter=documents_with_no_access|length %}You don't have permission to delete this document{% plural %}
+            You don't have permission to delete these documents{% endblocktrans %}</p>
+        <ul>
+            {% for doc in documents_with_no_access %}
+            <li>
+                <a href="{% url 'wagtaildocs:edit' doc.id %}" target="_blank" rel="noopener noreferrer">{{ doc.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if documents %}
+        <form action="{{ submit_url }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value='{% trans "Yes, delete" %}' class="button serious" />
+            <a href="{{ next }}" class="button button-secondary">{% trans "No, don't delete" %}</a>
+        </form>
+        {% else %}
+        <a href="{{ next }}" class="button button-secondary">{% trans "Go back" %}</a>
+        {% endif %}
+    </div>
+{% endblock %}
