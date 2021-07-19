@@ -4,7 +4,8 @@ from django.test import TestCase
 
 from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.core.permission_policies.collections import (
-    CollectionOwnershipPermissionPolicy, CollectionPermissionPolicy)
+    CollectionMangementPermissionPolicy, CollectionOwnershipPermissionPolicy,
+    CollectionPermissionPolicy)
 from wagtail.core.tests.test_permission_policies import PermissionPolicyTestUtils
 from wagtail.documents.models import Document
 from wagtail.tests.utils import WagtailTestUtils
@@ -947,4 +948,293 @@ class TestCollectionOwnershipPermissionPolicy(PermissionPolicyTestCase):
                 self.anonymous_user, ['change', 'delete']
             ),
             []
+        )
+
+
+class TestCollectionManagementPermission(PermissionPolicyTestUtils, TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.policy = CollectionMangementPermissionPolicy(Collection)
+
+        # Permissions
+        collection_content_type = ContentType.objects.get_for_model(Collection)
+        add_collection_permission = Permission.objects.get(
+            content_type=collection_content_type, codename='add_collection'
+        )
+        change_collection_permission = Permission.objects.get(
+            content_type=collection_content_type, codename='change_collection'
+        )
+        delete_collection_permission = Permission.objects.get(
+            content_type=collection_content_type, codename='delete_collection'
+        )
+
+        # Collections
+        self.root_collection = Collection.get_first_root_node()
+        self.reports_collection = self.root_collection.add_child(name="Reports")
+        self.reports_2020_collection = self.reports_collection.add_child(name="Reports 2020")
+
+        # Users with their groups/permissions
+        self.superuser = self.create_superuser(
+            'superuser', 'superuser@example.com', 'password'
+        )
+        self.inactive_superuser = self.create_superuser(
+            'inactivesuperuser', 'inactivesuperuser@example.com', 'password'
+        )
+        self.inactive_superuser.is_active = False
+        self.inactive_superuser.save()
+
+        # a user with change collection permission on reports via the report_changers group
+        report_changers_group = Group.objects.create(name="Report changers")
+        GroupCollectionPermission.objects.create(
+            group=report_changers_group,
+            collection=self.reports_collection,
+            permission=change_collection_permission
+        )
+
+        self.report_changer = self.create_user(
+            'reportchanger', 'reportchanger@example.com', 'password'
+        )
+        self.report_changer.groups.add(report_changers_group)
+
+        # a user with add collection permission on reports via the report_adders group
+        report_adders_group = Group.objects.create(name="Report adders")
+        GroupCollectionPermission.objects.create(
+            group=report_adders_group,
+            collection=self.reports_collection,
+            permission=add_collection_permission
+        )
+        self.report_adder = self.create_user(
+            'reportadder', 'reportadder@example.com', 'password'
+        )
+        self.report_adder.groups.add(report_adders_group)
+
+        # a user with delete collection permission on reports via the report_deleters group
+        report_deleters_group = Group.objects.create(name="Report deleters")
+        GroupCollectionPermission.objects.create(
+            group=report_deleters_group,
+            collection=self.reports_collection,
+            permission=delete_collection_permission
+        )
+        self.report_deleter = self.create_user(
+            'reportdeleter', 'reportdeleter@example.com', 'password'
+        )
+        self.report_deleter.groups.add(report_deleters_group)
+
+        # a user with no permissions
+        self.useless_user = self.create_user(
+            'uselessuser', 'uselessuser@example.com', 'password'
+        )
+
+        self.anonymous_user = AnonymousUser()
+
+    def test_user_has_permission(self):
+        self.assertUserPermissionMatrix([
+            (self.superuser, True, True, True, True),
+            (self.inactive_superuser, False, False, False, False),
+            (self.report_changer, False, True, False, False),
+            (self.report_adder, True, False, False, False),
+            (self.report_deleter, False, False, True, False),
+            (self.useless_user, False, False, False, False),
+            (self.anonymous_user, False, False, False, False),
+        ])
+
+    def test_user_has_any_permission(self):
+        users_with_permissions = [self.superuser, self.report_changer, self.report_adder, self.report_deleter]
+        users_without_permissions = [self.inactive_superuser, self.useless_user, self.anonymous_user]
+
+        for user in users_with_permissions:
+            self.assertTrue(
+                self.policy.user_has_any_permission(user, ['add', 'change', 'delete'])
+            )
+        for user in users_without_permissions:
+            self.assertFalse(
+                self.policy.user_has_any_permission(user, ['add', 'change', 'delete'])
+            )
+
+    def test_users_with_any_permission(self):
+        users_with_add_or_change_or_delete_permission = self.policy.users_with_any_permission(
+            ['add', 'change', 'delete']
+        )
+
+        self.assertResultSetEqual(users_with_add_or_change_or_delete_permission, [
+            self.superuser,
+            self.report_changer,
+            self.report_adder,
+            self.report_deleter,
+        ])
+
+    def test_users_with_permission(self):
+        users_with_change_permission = self.policy.users_with_permission('change')
+
+        self.assertResultSetEqual(users_with_change_permission, [
+            self.superuser,
+            self.report_changer,
+        ])
+
+        users_with_custom_permission = self.policy.users_with_permission('frobnicate')
+
+        self.assertResultSetEqual(users_with_custom_permission, [
+            self.superuser,
+        ])
+
+    def test_only_superuser_has_permission_for_root_collection(self):
+        self.assertUserInstancePermissionMatrix(self.root_collection, [
+            (self.superuser, True, True, True),
+            (self.inactive_superuser, False, False, False),
+            (self.report_changer, False, False, False),
+            (self.report_adder, False, False, False),
+            (self.report_deleter, False, False, False),
+            (self.useless_user, False, False, False),
+            (self.anonymous_user, False, False, False),
+        ])
+
+    def test_user_has_permission_for_instance(self):
+        # Reports collection is editable - as are its children
+        self.assertUserInstancePermissionMatrix(self.reports_collection, [
+            (self.superuser, True, True, True),
+            (self.inactive_superuser, False, False, False),
+            (self.report_changer, True, False, False),
+            (self.report_deleter, False, True, False),
+            (self.useless_user, False, False, False),
+            (self.anonymous_user, False, False, False),
+        ])
+
+        self.assertUserInstancePermissionMatrix(self.reports_2020_collection, [
+            (self.superuser, True, True, True),
+            (self.inactive_superuser, False, False, False),
+            (self.report_changer, True, False, False),
+            (self.report_deleter, False, True, False),
+            (self.useless_user, False, False, False),
+            (self.anonymous_user, False, False, False),
+        ])
+
+    def test_user_has_any_permission_for_instance(self):
+        users_with_permissions = [self.superuser, self.report_changer, self.report_adder, self.report_deleter]
+
+        for user in users_with_permissions:
+            self.assertTrue(
+                self.policy.user_has_any_permission_for_instance(
+                    user, ['add', 'change', 'delete'], self.reports_collection
+                )
+            )
+
+        self.assertFalse(
+            self.policy.user_has_any_permission_for_instance(
+                self.report_adder, ['add', 'change', 'delete'], self.root_collection
+            )
+        )
+
+        self.assertTrue(
+            self.policy.user_has_any_permission_for_instance(
+                self.superuser, ['add', 'change', 'delete'], self.root_collection
+            )
+        )
+
+    def test_instances_user_has_permission_for(self):
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_permission_for(self.superuser, 'change'),
+            [self.root_collection, self.reports_collection, self.reports_2020_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_permission_for(self.report_adder, 'add'),
+            [self.reports_collection, self.reports_2020_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_permission_for(self.report_adder, 'change'),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_permission_for(self.inactive_superuser, 'change'),
+            []
+        )
+
+    def test_instances_user_has_any_permission_for(self):
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_any_permission_for(self.superuser, ['add', 'change']),
+            [self.root_collection, self.reports_collection, self.reports_2020_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_any_permission_for(self.report_adder, ['add', 'change']),
+            [self.reports_collection, self.reports_2020_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.instances_user_has_any_permission_for(self.inactive_superuser, ['add', 'change']),
+            []
+        )
+
+    def test_users_with_permission_for_instance(self):
+        self.assertResultSetEqual(
+            self.policy.users_with_permission_for_instance('change', self.root_collection),
+            [
+                self.superuser
+            ]
+        )
+        self.assertResultSetEqual(
+            self.policy.users_with_permission_for_instance('change', self.reports_collection),
+            [
+                self.superuser, self.report_changer
+            ]
+        )
+        self.assertResultSetEqual(
+            self.policy.users_with_permission_for_instance('add', self.reports_collection),
+            [
+                self.superuser, self.report_adder
+            ]
+        )
+
+    def test_users_with_any_permission_for_instance(self):
+        self.assertResultSetEqual(
+            self.policy.users_with_any_permission_for_instance(
+                ['add', 'change', 'delete'], self.reports_2020_collection
+            ),
+            [
+                self.superuser, self.report_adder, self.report_changer, self.report_deleter
+            ]
+        )
+
+    def test_collections_user_has_permission_for(self):
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(self.superuser, 'change'),
+            [self.root_collection, self.reports_collection, self.reports_2020_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(self.report_adder, 'add'),
+            [self.reports_collection, self.reports_2020_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(self.report_adder, 'change'),
+            []
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_permission_for(self.inactive_superuser, 'change'),
+            []
+        )
+
+    def test_collections_user_has_any_permission_for(self):
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(self.superuser, ['add', 'change']),
+            [self.root_collection, self.reports_collection, self.reports_2020_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(self.report_adder, ['add', 'change']),
+            [self.reports_collection, self.reports_2020_collection]
+        )
+
+        self.assertResultSetEqual(
+            self.policy.collections_user_has_any_permission_for(self.inactive_superuser, ['add', 'change']),
+            []
+        )
+
+    def test_descendants_of_collections_with_user_perm(self):
+        self.assertResultSetEqual(
+            self.policy.descendants_of_collections_with_user_perm(self.report_adder, ['add', 'change']),
+            [self.reports_2020_collection]
         )

@@ -12,7 +12,6 @@ from wagtail import __version__
 from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.forms.collections import GroupCollectionManagementPermissionFormSet
-from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
