@@ -59,14 +59,6 @@ def register_core_features(features):
     features.default_features.append('ul')
 
 
-@hooks.register('register_permissions')
-def register_collection_permissions():
-    return Permission.objects.filter(
-        content_type__app_label='wagtailcore',
-        codename__in=['add_collection', 'change_collection', 'delete_collection']
-    )
-
-
 if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
     @hooks.register('register_permissions')
     def register_workflow_permissions():

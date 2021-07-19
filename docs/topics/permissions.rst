@@ -43,7 +43,7 @@ The permission rules for images and documents work on a similar basis to pages. 
 
 Access to specific sets of images and documents can be controlled by setting up *collections*. By default all images and documents belong to the 'root' collection, but users with appropriate permissions can create new collections the Settings -> Collections area of the admin interface. Permissions set on 'root' apply to all collections, so a user with 'edit' permission for images in the root collection can edit all images; permissions set on other collections only apply to that collection and any of its sub-collections.
 
-The 'choose' permission for images and documents determines which collections are visible within the chooser interface used to select images and document links for insertion into pages (and other models, such as snippets). Typically, all users are granted choose permission for all collections, allowing them to use any uploaded image or document on pages they create, but this permission can be limited to allow creating collections that are only available for use by specific groups.
+The 'choose' permission for images and documents determines which collections are visible within the chooser interface used to select images and document links for insertion into pages (and other models, such as snippets). Typically, all users are granted choose permission for all collections, allowing them to use any uploaded image or document on pages they create, but this permission can be limited to allow creating collections that are only visible to specific groups.
 
 .. _collection_management_permissions:
 
@@ -54,7 +54,10 @@ Permission for managing collections themselves can be attached at any point in t
 
 * **Add** - grants the ability to create new collections underneath this collection.
 * **Edit** - grants the ability to edit the name of the collection, change its location in the collection tree, and to change the privacy settings for documents within this collection.
-* **Delete** - grants the ability to delete collections that were added below this collection. *Note:* a collection must be empty before it can be deleted.
+* **Delete** - grants the ability to delete collections that were added below this collection. *Note:* a collection must have no subcollections under it and the collection itself must be empty before it can be deleted.
+
+.. Note::
+    Users are not allowed to move or delete the collection that is used to assign them permission to manage collections.
 
 Displaying custom permissions in the admin
 ------------------------------------------

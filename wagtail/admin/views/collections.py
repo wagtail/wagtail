@@ -76,17 +76,21 @@ class Edit(EditView):
             # Only return descendants of the root node, so that the root is not editable
             return Collection.get_first_root_node().get_descendants()
         else:
-            return self.permission_policy.collections_user_has_any_permission_for(
-                self.request.user, ['change']
+            return self.permission_policy.collections_user_has_permission_for(
+                self.request.user, 'change'
             )
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         user = self.request.user
-        current_parent = form.instance.get_parent()
-        # If this is currently at the top of the user's collection hierarchy,
+        # If this instance is a collection used to assign permissions for this user,
         # do not let the user move this collection.
-        if not self.permission_policy.user_has_permission_for_instance(user, 'add', current_parent):
+        if self.permission_policy.user_has_any_permission_directly_on_instance(
+            user, ['add', 'change', 'delete'], form.instance
+        ):
+            form.fields['parent'].widget = HiddenInput()
+        # or if user does not have add permission anywhere, then can't move collection
+        elif not self.permission_policy.user_has_permission(user, 'add'):
             form.fields['parent'].widget = HiddenInput()
         else:
             # Filter collections offered in parent field by current user's add permissions
@@ -95,7 +99,7 @@ class Edit(EditView):
             form.fields['parent'].disabled_queryset = form.instance.get_descendants(inclusive=True)
             form.fields['parent'].empty_label = None
 
-        form.initial['parent'] = current_parent.pk
+        form.initial['parent'] = form.instance.get_parent().pk
         return form
 
     def save_instance(self):
@@ -117,10 +121,10 @@ class Edit(EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Can not delete the collection where the delete permission is assigned
         if self.request.user.is_superuser:
             can_delete = True
         else:
+            # Can not delete the collection where the delete permission is assigned
             can_delete = self.permission_policy.descendants_of_collections_with_user_perm(
                 self.request.user, ['delete']
             ).filter(pk=self.object.pk).first()

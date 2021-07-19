@@ -107,6 +107,22 @@ class CollectionPermissionLookupMixin:
             self._users_with_perm_filter(actions, collection=collection)
         ).distinct()
 
+    def collections_user_has_any_permission_for(self, user, actions):
+        """
+        Return a queryset of all collections in which the given user has
+        permission to perform any of the given actions
+        """
+        if user.is_active and user.is_superuser:
+            # active superusers can perform any action (including unrecognised ones)
+            # in any collection
+            return Collection.objects.all()
+
+        elif not user.is_authenticated:
+            return Collection.objects.none()
+
+        else:
+            return self._collections_with_perm(user, actions)
+
     def collections_user_has_permission_for(self, user, action):
         """
         Return a queryset of all collections in which the given user has
@@ -178,22 +194,6 @@ class CollectionPermissionPolicy(CollectionPermissionLookupMixin, BaseDjangoAuth
         actions on the given model instance
         """
         return self._users_with_perm(actions, collection=instance.collection)
-
-    def collections_user_has_any_permission_for(self, user, actions):
-        """
-        Return a queryset of all collections in which the given user has
-        permission to perform any of the given actions
-        """
-        if user.is_active and user.is_superuser:
-            # active superusers can perform any action (including unrecognised ones)
-            # in any collection
-            return Collection.objects.all()
-
-        elif not user.is_authenticated:
-            return Collection.objects.none()
-
-        else:
-            return self._collections_with_perm(user, actions)
 
 
 class CollectionOwnershipPermissionPolicy(
@@ -370,7 +370,39 @@ class CollectionOwnershipPermissionPolicy(
             return Collection.objects.none()
 
 
-class CollectionMangementPermissionPolicy(CollectionPermissionPolicy):
+class CollectionMangementPermissionPolicy(
+    CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy
+):
+    def user_has_permission(self, user, action):
+        """
+        Return whether the given user has permission to perform the given action
+        on some or all instances of this model
+        """
+        return self.user_has_any_permission(user, [action])
+
+    def user_has_any_permission(self, user, actions):
+        """
+        Return whether the given user has permission to perform any of the given actions
+        on some or all instances of this model.
+        """
+        if not (user.is_active and user.is_authenticated):
+            return False
+
+        if user.is_superuser:
+            return True
+
+        return GroupCollectionPermission.objects.filter(
+            group__user=user,
+            permission__in=self._get_permission_objects_for_actions(actions),
+        ).exists()
+
+    def users_with_any_permission(self, actions):
+        """
+        Return a queryset of users who have permission to perform any of the given actions
+        on some or all instances of this model
+        """
+        return self._users_with_perm(actions)
+
     def user_has_permission_for_instance(self, user, action, instance):
         """
         Return whether the given user has permission to perform the given action on the
@@ -385,12 +417,31 @@ class CollectionMangementPermissionPolicy(CollectionPermissionPolicy):
         """
         return self._check_perm(user, actions, collection=instance)
 
+    def user_has_any_permission_directly_on_instance(self, user, actions, instance):
+        """
+        Return whether the given user has any permission assigned directly to the instance.
+
+        When editing collections, we do not allow users to move nodes used to assign their
+        permissions as that might have unexpected effects on the permission cascade.
+        """
+        return GroupCollectionPermission.objects.filter(
+            group__user=user,
+            permission__in=self._get_permission_objects_for_actions(actions),
+            collection=instance,
+        ).exists()
+
     def users_with_any_permission_for_instance(self, actions, instance):
         """
         Return a queryset of all users who have permission to perform any of the given
         actions on the given model instance
         """
         return self._users_with_perm(actions, collection=instance)
+
+    def instances_user_has_permission_for(self, user, action):
+        return self.collections_user_has_permission_for(user, action)
+
+    def instances_user_has_any_permission_for(self, user, actions):
+        return self.collections_user_has_any_permission_for(user, actions)
 
     def descendants_of_collections_with_user_perm(self, user, actions):
         """

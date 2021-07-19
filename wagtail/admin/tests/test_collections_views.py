@@ -11,7 +11,9 @@ from wagtail.tests.utils import WagtailTestUtils
 
 class CollectionInstanceTestUtils:
     def setUp(self):
-        """Common setup for testing collection views with per-instance permissions"""
+        """
+        Common setup for testing collection views with per-instance permissions
+        """
         collection_content_type = ContentType.objects.get_for_model(Collection)
         self.add_permission = Permission.objects.get(
             content_type=collection_content_type, codename='add_collection'
@@ -28,6 +30,7 @@ class CollectionInstanceTestUtils:
         self.finance_collection = self.root_collection.add_child(name="Finance")
         self.marketing_collection = self.root_collection.add_child(name="Marketing")
         self.marketing_sub_collection = self.marketing_collection.add_child(name="Digital Marketing")
+        self.marketing_sub_collection_2 = self.marketing_collection.add_child(name="Direct Mail Marketing")
 
         self.marketing_group = Group.objects.create(name="Marketing Group")
         self.marketing_group.permissions.add(admin_permission)
@@ -106,7 +109,7 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         self.assertEqual(response.context['message'], 'Sorry, you do not have permission to access this area.')
 
     def test_marketing_user_with_change_permission(self):
-        # Grant the marketing group permission to manage their collection
+        # Grant the marketing group permission to make changes to their collections
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
@@ -117,12 +120,12 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             [collection.name for collection in response.context['object_list']],
-            ['Marketing', 'Digital Marketing'])
+            ['Marketing', 'Digital Marketing', 'Direct Mail Marketing'])
         self.assertNotContains(response, "Finance")
         self.assertNotContains(response, "Add a collection")
 
     def test_marketing_user_with_add_permission(self):
-        # Grant the marketing group permission to manage their collection
+        # Grant the marketing group permission to add to their collections
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
@@ -133,9 +136,25 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             [collection.name for collection in response.context['object_list']],
-            ['Marketing', 'Digital Marketing'])
+            ['Marketing', 'Digital Marketing', 'Direct Mail Marketing'])
         self.assertNotContains(response, "Finance")
         self.assertContains(response, "Add a collection")
+
+    def test_marketing_user_with_delete_permission(self):
+        # Grant the marketing group permission to add to their collections
+        GroupCollectionPermission.objects.create(
+            group=self.marketing_group,
+            collection=self.marketing_collection,
+            permission=self.delete_permission
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            [collection.name for collection in response.context['object_list']],
+            ['Marketing', 'Digital Marketing', 'Direct Mail Marketing'])
+        self.assertNotContains(response, "Finance")
+        self.assertNotContains(response, "Add a collection")
 
 
 class TestAddCollectionAsSuperuser(TestCase, WagtailTestUtils):
@@ -299,21 +318,17 @@ class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
 class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
     def setUp(self):
         super().setUp()
-        # Grant the marketing group permission to manage their collection
-        self.users_add_permission = GroupCollectionPermission.objects.create(
-            group=self.marketing_group,
-            collection=self.marketing_collection,
-            permission=self.add_permission
-        )
+        # Grant the marketing group permission to edit their collection
         self.users_change_permission = GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
             permission=self.change_permission
         )
-        self.users_delete_permission = GroupCollectionPermission.objects.create(
+        # Grant the marketing group permission to add collections under this collection
+        self.users_add_permission = GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
-            permission=self.delete_permission
+            permission=self.add_permission
         )
         self.login(self.marketing_user, password='password')
 
@@ -329,20 +344,31 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
             post_data
         )
 
-    def test_marketing_user_no_permissions(self):
+    def test_marketing_user_no_change_permission(self):
         self.users_change_permission.delete()
         response = self.get(collection_id=self.marketing_collection.id)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.context['message'], 'Sorry, you do not have permission to access this area.')
 
-    def test_marketing_user_with_change_permission(self):
+    def test_marketing_user_can_move_collection(self):
+        # Retrieve edit form and check fields
         response = self.get(collection_id=self.marketing_sub_collection.id)
         self.assertEqual(response.status_code, 200)
         form_fields = response.context['form'].fields
-        # Can edit the name and move to new parent
         self.assertEqual(type(form_fields['name'].widget).__name__, 'TextInput')
         self.assertEqual(type(form_fields['parent'].widget).__name__, 'SelectWithDisabledOptions')
-        self.assertContains(response, "Delete collection")
+        # Now move the collection and check it did get moved and renamed
+        self.post(self.marketing_sub_collection.pk, {'name': "New Collection Name", 'parent': self.marketing_sub_collection_2.pk})
+        self.assertEqual(Collection.objects.get(pk=self.marketing_sub_collection.pk).name, "New Collection Name")
+        self.assertEqual(Collection.objects.get(pk=self.marketing_sub_collection.pk).get_parent(), self.marketing_sub_collection_2)
+
+    def test_marketing_user_cannot_move_collection_if_no_add_permission(self):
+        self.users_add_permission.delete()
+        response = self.get(collection_id=self.marketing_sub_collection.id)
+        self.assertEqual(response.status_code, 200)
+        form_fields = response.context['form'].fields
+        self.assertEqual(type(form_fields['name'].widget).__name__, 'TextInput')
+        self.assertEqual(type(form_fields['parent'].widget).__name__, 'HiddenInput')
 
     def test_marketing_user_cannot_move_collection_permissions_are_assigned_to(self):
         response = self.get(collection_id=self.marketing_collection.id)
@@ -353,6 +379,19 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         self.assertEqual(type(form_fields['name'].widget).__name__, 'TextInput')
         self.assertEqual(type(form_fields['parent'].widget).__name__, 'HiddenInput')
         self.assertNotContains(response, "Delete collection")
+
+    def test_page_shows_delete_link_only_if_delete_permitted(self):
+        # Retrieve edit form and check fields
+        response = self.get(collection_id=self.marketing_sub_collection.id)
+        self.assertNotContains(response, "Delete collection")
+        # Add delete permission to parent collection an try again
+        GroupCollectionPermission.objects.create(
+            group=self.marketing_group,
+            collection=self.marketing_collection,
+            permission=self.delete_permission
+        )
+        response = self.get(collection_id=self.marketing_sub_collection.id)
+        self.assertContains(response, "Delete collection")
 
 
 class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
@@ -436,17 +475,7 @@ class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
 class TestDeleteCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
     def setUp(self):
         super().setUp()
-        # Grant the marketing group permission to manage their collection
-        self.users_add_permission = GroupCollectionPermission.objects.create(
-            group=self.marketing_group,
-            collection=self.marketing_collection,
-            permission=self.add_permission
-        )
-        self.users_change_permission = GroupCollectionPermission.objects.create(
-            group=self.marketing_group,
-            collection=self.marketing_collection,
-            permission=self.change_permission
-        )
+        # Grant the marketing group permission to delete
         self.users_delete_permission = GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
@@ -472,9 +501,25 @@ class TestDeleteCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUti
         self.assertTemplateUsed(response, 'wagtailadmin/generic/confirm_delete.html')
 
     def test_cannot_delete_someone_elses_collection(self):
-        response = self.get(collection_id=self.finance_collection.id)
+        response = self.get(self.finance_collection.id)
         self.assertEqual(response.status_code, 404)
 
     def test_cannot_delete_their_own_root_collection(self):
-        response = self.get(collection_id=self.marketing_collection.id)
+        response = self.get(self.marketing_collection.id)
         self.assertEqual(response.status_code, 404)
+
+    def test_cannot_delete_collection_with_descendants_get(self):
+        self.marketing_sub_collection.add_child(instance=Collection(name='Another collection'))
+
+        response = self.get(self.marketing_sub_collection.id)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/collections/delete_not_empty.html')
+
+    def test_cannot_delete_collection_with_descendants_post(self):
+        self.marketing_sub_collection.add_child(instance=Collection(name='Another collection'))
+
+        response = self.post(self.marketing_sub_collection.id)
+        self.assertEqual(response.status_code, 403)
+
+        # Check that the collection was not deleted
+        self.assertTrue(Collection.objects.get(id=self.marketing_sub_collection.id))
