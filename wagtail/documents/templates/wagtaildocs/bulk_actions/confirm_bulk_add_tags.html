@@ -1,0 +1,70 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% load wagtailimages_tags wagtailadmin_tags %}
+{% block titletag %}{% blocktrans count counter=documents|length %}Add tags to 1 document {% plural %}Add tags to {{ counter }} documents{% endblocktrans %}{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {{ form.media.js }}
+
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        $(function() {
+            $('#id_tags').tagit({
+                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+
+{% block content %}
+    {% trans "Add tags to documents" as add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
+    <div class="nice-padding">
+        {% if documents %}
+        <p>
+            {% blocktrans count num_docs=documents|length %}
+            Are you sure you want to add the tags to this document?
+            {% plural %}
+            Are you sure you want to add the tags to these documents?
+            {% endblocktrans %}
+        </p>
+        <ul>
+            {% for document in documents %}
+            <li>
+                <a href="{% url 'wagtaildocs:edit' document.document.id %}"  target="_blank" rel="noopener noreferrer">{{document.document.title}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if documents_with_no_access %}
+        <p>{% blocktrans count counter=documents_with_no_access|length %}You don't have permission to add tags to this document{% plural %}
+            You don't have permission to add tags to these documents{% endblocktrans %}</p>
+        <ul>
+            {% for doc in documents_with_no_access %}
+            <li>
+                <a href="{% url 'wagtaildocs:edit' doc.id %}" target="_blank" rel="noopener noreferrer">{{ doc.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if documents %}
+        <form action="{{ submit_url }}" method="POST">
+            {% csrf_token %}
+            <ul class="fields">
+                {% include "wagtailadmin/shared/field_as_li.html" with field=form.tags %}
+            </ul>
+            <input type="submit" value='{% trans "Yes, add" %}' class="button serious" />
+            <a href="{{ next }}" class="button button-secondary">{% trans "No, don't add" %}</a>
+        </form>
+        {% else %}
+        <a href="{{ next }}" class="button button-secondary">{% trans "Go back" %}</a>
+        {% endif %}
+    </div>
+{% endblock %}
