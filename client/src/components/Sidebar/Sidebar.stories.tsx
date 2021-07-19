@@ -11,6 +11,7 @@ import { initFocusOutline } from '../../utils/focus';
 
 import '../../../../wagtail/admin/static/wagtailadmin/css/sidebar.css';
 import { CustomBrandingModuleDefinition } from './modules/CustomBranding';
+import { SidebarPreferences, SidebarPreferencesDefinition } from './SidebarPreferences';
 
 export default { title: 'Sidebar/Sidebar', parameters: { layout: 'fullscreen' } };
 
@@ -28,6 +29,9 @@ function wagtailBrandingModule(): WagtailBrandingModuleDefinition {
     desktopLogoEyeOpen: 'https://wagtail.io/static/wagtailadmin/images/logo-eyeopen.svg',
     desktopLogoEyeClosed: 'https://wagtail.io/static/wagtailadmin/images/logo-eyeclosed.svg'
   });
+}
+function preferencesModule(): SidebarPreferencesDefinition {
+  return new SidebarPreferencesDefinition({ collapsed: false, preferencesUrl: '#' });
 }
 
 function searchModule(): SearchModuleDefinition {
@@ -207,6 +211,8 @@ function renderSidebarStory(
     initFocusOutline();
   }, []);
 
+  const [preferences, setPreferences] = React.useState(preferencesModule());
+
   // Simulate navigation
   const [currentPath, setCurrentPath] = React.useState('/admin/');
 
@@ -237,6 +243,7 @@ function renderSidebarStory(
   return (
     <div className="wrapper">
       <Sidebar
+        preferences={preferences}
         modules={modules}
         currentPath={currentPath}
         strings={strings || STRINGS}
