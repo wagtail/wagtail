@@ -68,6 +68,9 @@ class BaseLogEntryManager(models.Manager):
             **kwargs,
         )
 
+    def viewable_by_user(self, user):
+        return self.all()
+
     def get_for_model(self, model):
         # Return empty queryset if the given object is not valid.
         if not issubclass(model, models.Model):

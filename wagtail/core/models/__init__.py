@@ -3978,6 +3978,23 @@ class PageLogEntryManager(BaseLogEntryManager):
         kwargs.update(page=instance)
         return super().log_action(instance, action, **kwargs)
 
+    def viewable_by_user(self, user):
+        q = Q(
+            page__in=UserPagePermissionsProxy(user).explorable_pages().values_list('pk', flat=True)
+        )
+
+        root_page_permissions = Page.get_first_root_node().permissions_for_user(user)
+        if (
+            user.is_superuser
+            or root_page_permissions.can_add_subpage() or root_page_permissions.can_edit()
+        ):
+            # Include deleted entries
+            q = q | Q(page_id__in=Subquery(
+                PageLogEntry.objects.filter(deleted=True).values('page_id')
+            ))
+
+        return PageLogEntry.objects.filter(q)
+
 
 class PageLogEntry(BaseLogEntry):
     page = models.ForeignKey(
