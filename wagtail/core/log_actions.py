@@ -98,7 +98,10 @@ class LogActionRegistry:
         self.choices = []
 
         # Tracks which LogEntry model should be used for a given object class
-        self.log_entry_models = {}
+        self.log_entry_models_by_type = {}
+
+        # All distinct log entry models registered with register_model
+        self.log_entry_models = set()
 
     def scan_for_actions(self):
         if not self.has_scanned_for_actions:
@@ -108,7 +111,8 @@ class LogActionRegistry:
             self.has_scanned_for_actions = True
 
     def register_model(self, cls, log_entry_model):
-        self.log_entry_models[cls] = log_entry_model
+        self.log_entry_models_by_type[cls] = log_entry_model
+        self.log_entry_models.add(log_entry_model)
 
     def register_action(self, action, *args):
 
@@ -147,6 +151,10 @@ class LogActionRegistry:
         self.scan_for_actions()
         return action in self.formatters
 
+    def get_log_entry_models(self):
+        self.scan_for_actions()
+        return self.log_entry_models
+
     def get_action_label(self, action):
         return self.formatters[action].label
 
@@ -160,7 +168,7 @@ class LogActionRegistry:
         # find the log entry model for the given object type
         log_entry_model = None
         for cls in type(instance).__mro__:
-            log_entry_model = self.log_entry_models.get(cls)
+            log_entry_model = self.log_entry_models_by_type.get(cls)
             if log_entry_model:
                 break
 

@@ -1,15 +1,17 @@
 import datetime
 
+from collections import defaultdict
+
 import django_filters
 
 from django import forms
-from django.db.models import Q, Subquery
+from django.db.models import IntegerField, Value
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.core.log_actions import registry as log_action_registry
-from wagtail.core.models import Page, PageLogEntry, UserPagePermissionsProxy
+from wagtail.core.models import PageLogEntry
 
 from .base import ReportView
 
@@ -73,25 +75,69 @@ class LogEntriesView(ReportView):
             datetime.datetime.today().strftime("%Y-%m-%d")
         )
 
-    def get_queryset(self):
-        q = Q(page__in=UserPagePermissionsProxy(self.request.user).explorable_pages())
+    def get_filtered_queryset(self):
+        """
+        Since this report combines records from multiple log models, the standard pattern of
+        returning a queryset from get_queryset() to be filtered by filter_queryset() is not
+        possible - the subquery for each log model must be filtered separately before joining
+        with union().
 
-        root_page_permissions = Page.get_first_root_node().permissions_for_user(self.request.user)
-        if (
-            self.request.user.is_superuser
-            or root_page_permissions.can_add_subpage() or root_page_permissions.can_edit()
-        ):
-            # Include deleted entries
-            q = q | Q(page_id__in=Subquery(
-                PageLogEntry.objects.filter(deleted=True).values('page_id')
-            ))
+        Additionally, a union() on standard model-based querysets will return a queryset based on
+        the first model in the union, so instances of the other model(s) would be returned as the
+        wrong type. To avoid this, we construct values() querysets as follows:
 
-        # Using prefech_related() on page, as select_related() generates an INNER JOIN,
-        # which filters out entries for deleted pages
-        return PageLogEntry.objects.filter(q).select_related(
-            'user', 'user__wagtail_userprofile'
-        ).prefetch_related('page')
+        1. For each model, construct a values() queryset consisting of id, timestamp and an
+           annotation to indicate which model it is, and filter this with filter_queryset
+        2. Form a union() queryset from these queries, and order it by -timestamp
+           (this is the result returned from get_filtered_queryset)
+        3. Apply pagination (done in MultipleObjectMixin.get_context_data)
+        4. (In decorate_paginated_queryset:) For each model included in the result set, look up
+           the set of model instances by ID. Use these to form a final list of model instances
+           in the same order as the query.
+        """
+        queryset = None
+        filters = None
+
+        # Retrieve the set of registered log models, and cast it to a list so that we assign
+        # an index number to each one; this index number will be used to distinguish models
+        # in the combined results
+        self.log_models = list(log_action_registry.get_log_entry_models())
+
+        for log_model_index, log_model in enumerate(self.log_models):
+            sub_queryset = log_model.objects.viewable_by_user(self.request.user).values(
+                'pk', 'timestamp'
+            ).annotate(
+                log_model_index=Value(log_model_index, output_field=IntegerField())
+            )
+            filters, sub_queryset = self.filter_queryset(sub_queryset)
+            # disable any native ordering on the queryset; we will re-apply it on the combined result
+            sub_queryset = sub_queryset.order_by()
+            if queryset is None:
+                queryset = sub_queryset
+            else:
+                queryset = queryset.union(sub_queryset)
+
+        return filters, queryset.order_by('-timestamp')
+
+    def decorate_paginated_queryset(self, queryset):
+        # build lists of ids from queryset, grouped by log model index
+        pks_by_log_model_index = defaultdict(list)
+        for row in queryset:
+            pks_by_log_model_index[row['log_model_index']].append(row['pk'])
+
+        # for each log model found in the queryset, look up the set of log entries by id
+        # and build a lookup table
+        object_lookup = {}
+        for log_model_index, pks in pks_by_log_model_index.items():
+            log_entries = self.log_models[log_model_index].objects.in_bulk(pks)
+            for pk, log_entry in log_entries.items():
+                object_lookup[(log_model_index, pk)] = log_entry
+
+        # return items from our lookup table in the order of the original queryset
+        return [
+            object_lookup[(row['log_model_index'], row['pk'])]
+            for row in queryset
+        ]
 
     def get_action_label(self, action):
-        from wagtail.core.log_actions import log_action_registry
         return force_str(log_action_registry.get_action_label(action))
