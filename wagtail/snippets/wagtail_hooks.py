@@ -59,5 +59,5 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
             reverse('wagtailsnippets:delete', args=[model._meta.app_label, model._meta.model_name, quote(snippet.pk)]),
             attrs={'aria-label': _("Delete '%(title)s'") % {'title': str(snippet)}},
             priority=20,
-            classes={'no'}
+            classes=['no']
         )
