@@ -129,7 +129,7 @@ class LogEntriesView(ReportView):
         # and build a lookup table
         object_lookup = {}
         for log_model_index, pks in pks_by_log_model_index.items():
-            log_entries = self.log_models[log_model_index].objects.in_bulk(pks)
+            log_entries = self.log_models[log_model_index].objects.prefetch_related('user__wagtail_userprofile').in_bulk(pks)
             for pk, log_entry in log_entries.items():
                 object_lookup[(log_model_index, pk)] = log_entry
 
