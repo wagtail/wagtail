@@ -1,0 +1,10 @@
+{% extends 'wagtailadmin/bulk_actions/confirmation/list_objects_with_no_access.html' %}
+{% load i18n %}
+
+{% block per_object %}
+    {% if object.can_edit %}
+    <a href="{% url 'wagtailadmin_pages:edit' object.page.id %}" target="_blank" rel="noopener noreferrer">{{ object.page.title }}</a>
+    {% else %}
+    {{ object.page.title }}
+    {% endif %}
+{% endblock per_object %}
