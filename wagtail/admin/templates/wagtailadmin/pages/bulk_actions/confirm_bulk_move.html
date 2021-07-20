@@ -1,12 +1,15 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n %}
+
 {% block titletag %}{% blocktrans count counter=pages|length %}Move 1 page{% plural %}Move {{ counter }} pages{% endblocktrans %}
 {% endblock %}
-{% block content %}
-    
+
+{% block header %}
     {% trans "Move" as move_str %}
     {% include "wagtailadmin/shared/header.html" with title=move_str icon="doc-empty-inverse" %}
-    <div class="nice-padding">
+{% endblock header %}
+
+{% block objects_with_access %}
         {% if pages %}
         <p>{% trans "Are you sure you want to move these pages?" %}</p>
         <ul>
@@ -26,43 +29,22 @@
             {% endfor %}
         </ul>
         {% endif %}
-        {% if pages_with_no_access %}
-        <p>{% blocktrans count counter=pages_with_no_access|length %}You don't have permission to move this page{% plural %}You don't have permission to move these pages{% endblocktrans %}</p>
-        <ul>
-            {% for page in pages_with_no_access %}
-            <li>
-                {% if page.can_edit %}
-                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{ page.page.title }}</a>
-                {% else %}
-                {{ page.page.title }}
-                {% endif %}
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+{% endblock objects_with_access %}
 
-        {% if pages_without_destination_access %}
-        <p>{% blocktrans with dest_title=destination.title count counter=pages_with_no_access|length %}The following page cannot be moved to {{dest_title}} {% plural %}The following pages cannot be moved to {{dest_title}}{% endblocktrans %}</p>
-        <ul>
-            {% for page in pages_without_destination_access %}
-            <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+{% block objects_with_no_access %}
 
-        {% if pages_with_duplicate_slugs %}
-        <p>{% blocktrans count counter=pages_with_duplicate_slugs|length %}The following page cannot be moved due to duplicate slug{% plural %}The following pages cannot be moved due to duplicate slugs{% endblocktrans %}</p>
-        <ul>
-            {% for page in pages_with_duplicate_slugs %}
-            <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" target="_blank" rel="noopener noreferrer">{{ page.title }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+{% blocktrans asvar no_access_msg count counter=pages_with_no_access|length %}You don't have permission to move this page{% plural %}You don't have permission to move these pages{% endblocktrans %}
+{% include './list_objects_with_no_access.html' with objects=pages_with_no_access no_access_msg=no_access_msg %}
 
+{% blocktrans asvar no_access_msg with dest_title=destination.title count counter=pages_with_no_access|length %}The following page cannot be moved to {{dest_title}} {% plural %}The following pages cannot be moved to {{dest_title}}{% endblocktrans %}
+{% include './list_objects_with_no_access.html' with objects=pages_without_destination_access no_access_msg=no_access_msg %}
+
+{% blocktrans asvar no_access_msg count counter=pages_with_duplicate_slugs|length %}The following page cannot be moved due to duplicate slug{% plural %}The following pages cannot be moved due to duplicate slugs{% endblocktrans %}
+{% include './list_objects_with_no_access.html' with objects=pages_with_duplicate_slugs no_access_msg=no_access_msg %}
+
+{% endblock objects_with_no_access %}
+
+{% block form_section %}
         {% if pages %}
         <form action="{{ submit_url }}" method="POST">
             {% csrf_token %}
@@ -78,8 +60,7 @@
         {% else %}
         <a href="{{ next }}" class="button button-secondary">{% trans "Go back" %}</a>
         {% endif %}
-    </div>
-{% endblock %}
+{% endblock form_section %}
 
 {% block extra_js %}
     {{ block.super }}
