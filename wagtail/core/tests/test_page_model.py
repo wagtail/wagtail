@@ -18,6 +18,7 @@ from django.test.utils import override_settings
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
+from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.models import (
     Comment, Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site,
     get_page_models, get_translatable_models)
@@ -2225,6 +2226,12 @@ class TestCopyForTranslation(TestCase):
         self.assertFalse(fr_homepage.live)
         self.assertTrue(fr_homepage.has_unpublished_changes)
 
+        # Check log
+        log_entry = PageLogEntry.objects.get(action='wagtail.copy_for_translation')
+        self.assertEqual(log_entry.data['source_locale']['language_code'], 'en')
+        self.assertEqual(log_entry.data['page']['locale']['language_code'], 'fr')
+        self.assertEqual(page_log_action_registry.format_message(log_entry), "Copied for translation from Root (English)")
+
     def test_copy_homepage_slug_exists(self):
         # This test is the same as test_copy_homepage, but we will create another page with
         # the slug "home-fr" before translating. copy_for_translation should pick a different slug
@@ -2253,6 +2260,12 @@ class TestCopyForTranslation(TestCase):
 
         # The slug should be the same when copying to another tree
         self.assertEqual(self.en_eventindex.slug, fr_eventindex.slug)
+
+        # Check log
+        log_entry = PageLogEntry.objects.get(action='wagtail.copy_for_translation')
+        self.assertEqual(log_entry.data['source_locale']['language_code'], 'en')
+        self.assertEqual(log_entry.data['page']['locale']['language_code'], 'fr')
+        self.assertEqual(page_log_action_registry.format_message(log_entry), "Copied for translation from Welcome to the Wagtail test site! (English)")
 
     def test_copy_childpage_without_parent(self):
         # This test is the same as test_copy_childpage but we won't create the parent page first

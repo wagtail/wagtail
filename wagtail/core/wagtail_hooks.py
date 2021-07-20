@@ -9,6 +9,7 @@ from django.utils.translation import ngettext
 from wagtail.core import hooks
 from wagtail.core.models import PageViewRestriction
 from wagtail.core.rich_text.pages import PageLinkHandler
+from wagtail.core.utils import get_content_languages
 
 
 def require_wagtail_login(next):
@@ -126,6 +127,15 @@ def register_core_log_actions(actions):
             }
         except KeyError:
             return _("Copied")
+
+    def copy_for_translation_message(data):
+        try:
+            return _('Copied for translation from %(title)s (%(locale)s)') % {
+                'title': data['source']['title'],
+                'locale': get_content_languages().get(data['source_locale']['language_code']) or '',
+            }
+        except KeyError:
+            return _("Copied for translation")
 
     def create_alias_message(data):
         try:
@@ -312,6 +322,7 @@ def register_core_log_actions(actions):
     actions.register_action('wagtail.rename', _('Rename'), rename_message)
     actions.register_action('wagtail.revert', _('Revert'), revert_message)
     actions.register_action('wagtail.copy', _('Copy'), copy_message)
+    actions.register_action('wagtail.copy_for_translation', _('Copy for translation'), copy_for_translation_message)
     actions.register_action('wagtail.create_alias', _('Create alias'), create_alias_message)
     actions.register_action('wagtail.convert_alias', _('Convert alias into ordinary page'), convert_alias_message)
     actions.register_action('wagtail.move', _('Move'), move_message)
