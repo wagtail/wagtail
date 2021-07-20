@@ -49,7 +49,7 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
     )
     object_type = ContentTypeFilter(
         label=_('Object type'),
-        field_name='content_type', queryset=lambda request: get_content_types_for_filter()
+        method='filter_object_type', queryset=lambda request: get_content_types_for_filter()
     )
 
     def filter_hide_commenting_actions(self, queryset, name, value):
@@ -58,6 +58,9 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
                 action__startswith='wagtail.comments'
             )
         return queryset
+
+    def filter_object_type(self, queryset, name, value):
+        return queryset.filter_on_content_type(value)
 
     class Meta:
         model = PageLogEntry
