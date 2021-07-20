@@ -20,7 +20,7 @@ Other features
 Bug fixes
 ~~~~~~~~~
 
- * ...
+ * Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
 
 Upgrade considerations
 ======================

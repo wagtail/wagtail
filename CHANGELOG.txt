@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~
 
  * Support `min_num` / `max_num` options on ListBlock (Matt Westcott)
+ * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
 
 
 2.14 (xx.xx.xxxx) - IN DEVELOPMENT
