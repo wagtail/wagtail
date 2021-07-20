@@ -5,6 +5,7 @@ from collections import defaultdict
 import django_filters
 
 from django import forms
+from django.contrib.auth import get_user_model
 from django.db.models import IntegerField, Value
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
@@ -16,6 +17,14 @@ from wagtail.core.models import PageLogEntry
 from .base import ReportView
 
 
+def get_users_for_filter():
+    user_ids = set()
+    for log_model in log_action_registry.get_log_entry_models():
+        user_ids.update(log_model.objects.all().get_user_ids())
+
+    User = get_user_model()
+    return User.objects.filter(pk__in=user_ids).order_by(User.USERNAME_FIELD)
+
 class SiteHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(choices=log_action_registry.get_choices)
     hide_commenting_actions = django_filters.BooleanFilter(
@@ -26,7 +35,7 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
     timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
     label = django_filters.CharFilter(label=_('Title'), lookup_expr='icontains')
     user = django_filters.ModelChoiceFilter(
-        field_name='user', queryset=lambda request: PageLogEntry.objects.all().get_users()
+        field_name='user', queryset=lambda request: get_users_for_filter()
     )
 
     def filter_hide_commenting_actions(self, queryset, name, value):
