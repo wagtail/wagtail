@@ -34,6 +34,12 @@ class LogEntryQuerySet(models.QuerySet):
         User = get_user_model()
         return User.objects.filter(pk__in=self.get_user_ids()).order_by(User.USERNAME_FIELD)
 
+    def get_content_type_ids(self):
+        """
+        Returns a set of IDs of content types with logged actions in this QuerySet
+        """
+        return set(self.order_by().values_list('content_type_id', flat=True).distinct())
+
 
 class BaseLogEntryManager(models.Manager):
     def get_queryset(self):
