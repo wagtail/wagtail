@@ -1,0 +1,10 @@
+{% if objects %}
+<p>{{ no_access_msg }}</p>
+<ul>
+    {% for object in objects %}
+    <li>
+        {% block per_object %}{% endblock per_object %}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
