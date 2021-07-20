@@ -19,6 +19,12 @@ from wagtail.core.log_actions import registry as log_action_registry
 
 
 class LogEntryQuerySet(models.QuerySet):
+    def get_user_ids(self):
+        """
+        Returns a set of user IDs of users who have created at least one log entry in this QuerySet
+        """
+        return set(self.order_by().values_list('user_id', flat=True).distinct())
+
     def get_users(self):
         """
         Returns a QuerySet of Users who have created at least one log entry in this QuerySet.
@@ -26,9 +32,7 @@ class LogEntryQuerySet(models.QuerySet):
         The returned queryset is ordered by the username.
         """
         User = get_user_model()
-        return User.objects.filter(
-            pk__in=set(self.values_list('user__pk', flat=True))
-        ).order_by(User.USERNAME_FIELD)
+        return User.objects.filter(pk__in=self.get_user_ids()).order_by(User.USERNAME_FIELD)
 
 
 class BaseLogEntryManager(models.Manager):
