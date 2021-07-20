@@ -494,7 +494,7 @@ ul.listing {
 }
 
 footer.bulk-actions-choices {
-    @include transition(bottom 0.1s ease 0.5s);
+    @include transition(bottom 0.1s ease 0.1s);
 
     &.hidden {
         bottom: -200px;
