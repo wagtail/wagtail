@@ -241,6 +241,12 @@ ul.listing {
         border-color: $color-grey-3;
         background: $color-white;
 
+        &.no:hover {
+            border-color: $color-button-no-hover;
+            background-color: $color-button-no-hover;
+            color: $color-white;
+        }
+
         &:hover {
             border-color: $color-teal;
             background-color: $color-teal;
