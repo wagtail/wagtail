@@ -99,3 +99,21 @@ class WagtailFilterSet(django_filters.FilterSet):
             params.setdefault('widget', BooleanButtonSelect)
 
         return filter_class, params
+
+
+class ContentTypeModelChoiceField(django_filters.fields.ModelChoiceField):
+    """
+    Custom ModelChoiceField for ContentType, to show the model verbose name as the label rather
+    than the default 'wagtailcore | page' representation of a ContentType
+    """
+    def label_from_instance(self, obj):
+        model = obj.model_class()
+        if model:
+            return model._meta.verbose_name.capitalize()
+        else:
+            # no corresponding model class found; fall back on the name field of the ContentType
+            return obj.model
+
+
+class ContentTypeFilter(django_filters.ModelChoiceFilter):
+    field_class = ContentTypeModelChoiceField

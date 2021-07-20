@@ -11,7 +11,7 @@ from django.db.models import IntegerField, Value
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
+from wagtail.admin.filters import ContentTypeFilter, DateRangePickerWidget, WagtailFilterSet
 from wagtail.core.log_actions import registry as log_action_registry
 from wagtail.core.models import PageLogEntry
 
@@ -47,7 +47,7 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
     user = django_filters.ModelChoiceFilter(
         field_name='user', queryset=lambda request: get_users_for_filter()
     )
-    object_type = django_filters.ModelChoiceFilter(
+    object_type = ContentTypeFilter(
         label=_('Object type'),
         field_name='content_type', queryset=lambda request: get_content_types_for_filter()
     )
