@@ -89,7 +89,7 @@ class BaseLogEntry(models.Model):
 
     action = models.CharField(max_length=255, blank=True, db_index=True)
     data_json = models.TextField(blank=True)
-    timestamp = models.DateTimeField(verbose_name=_('timestamp (UTC)'))
+    timestamp = models.DateTimeField(verbose_name=_('timestamp (UTC)'), db_index=True)
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
