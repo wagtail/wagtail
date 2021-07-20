@@ -73,8 +73,14 @@ class MoveBulkAction(PageBulkAction):
                 pages_with_duplicate_slugs.append(page)
         if pages_without_destination_access or pages_with_duplicate_slugs:
             return TemplateResponse(request, self.template_name, {
-                'pages_without_destination_access': pages_without_destination_access,
-                "pages_with_duplicate_slugs": pages_with_duplicate_slugs,
+                'pages_without_destination_access': [
+                    {'page': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
+                    for page in pages_without_destination_access
+                ],
+                "pages_with_duplicate_slugs": [
+                    {'page': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
+                    for page in pages_with_duplicate_slugs
+                ],
                 'destination': destination,
                 **self.get_context_data(destination=destination)
             })
