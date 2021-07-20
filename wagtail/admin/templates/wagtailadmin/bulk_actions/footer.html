@@ -6,7 +6,7 @@
         </div>
         <ul>{% bulk_action_choices bulk_action_register_hook %}</ul>
         <span class="num-objects"></span>
-        {% if select_all_obj_text %}
+        {% if select_all_obj_text and objects.has_other_pages %}
         <a class="num-objects-in-listing u-hidden" href='#'>{{ select_all_obj_text }}</a>
         {% endif %}
     </div>

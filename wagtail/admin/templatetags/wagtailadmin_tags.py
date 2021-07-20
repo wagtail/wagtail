@@ -544,7 +544,7 @@ def bulk_action_choices(context, hook_name):
                 'title': _("View more bulk actions")
             },
             classes={'bulk-actions-more', 'dropup'},
-            btn_classes={'button', 'button-small'},
+            button_classes={'button', 'button-small'},
             buttons_data=[{
                 'label': action.display_name,
                 'url': reverse(corresponding_url, args=[action.action_type]) + '?' + urlencode({'next': action.next_url}),
