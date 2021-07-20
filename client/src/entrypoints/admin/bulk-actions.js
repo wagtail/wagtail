@@ -15,12 +15,19 @@ const checkedState = {
 };
 
 /* Event listener for the `Select All` checkbox */
-function SelectBulkActionsFilter(e) {
+function SelectAllBulkActionsCheckbox(e) {
   const changeEvent = new Event('change');
   for (const el of document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)) {
     if (el.checked === e.target.checked) continue;
     el.checked = e.target.checked;
-    el.dispatchEvent(changeEvent);
+    if (e.target.checked) {
+      el.dispatchEvent(changeEvent);
+    }
+  }
+  if (!e.target.checked) {
+    // when deselecting all checkbox, simply hide the footer for smooth transition
+    checkedState.checkedObjects.clear();
+    document.querySelector(`.${BULK_ACTION_CHOICES_DIV}`).classList.add('hidden');
   }
 }
 
@@ -39,11 +46,13 @@ function SelectBulkActionsCheckboxes(e) {
     checkedState.checkedObjects.delete(+e.target.dataset.objectId);
   }
 
-  if (checkedState.checkedObjects.size === 0) {
+  const numCheckedObjects = checkedState.checkedObjects.size;
+
+  if (numCheckedObjects === 0) {
     /* when all checkboxes are unchecked */
     document.querySelector(`.${BULK_ACTION_CHOICES_DIV}`).classList.add('hidden');
     document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => el.classList.remove('show'));
-  } else if (checkedState.checkedObjects.size === 1 && prevLength === 0) {
+  } else if (numCheckedObjects === 1 && prevLength === 0) {
     /* when 1 checkbox is checked for the first time */
     document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => {
       el.classList.add('show');
@@ -51,7 +60,7 @@ function SelectBulkActionsCheckboxes(e) {
     document.querySelector(`.${BULK_ACTION_CHOICES_DIV}`).classList.remove('hidden');
   }
 
-  if (checkedState.checkedObjects.size === checkedState.numObjects) {
+  if (numCheckedObjects === checkedState.numObjects) {
     /* when all checkboxes in the page are checked */
     document.querySelectorAll(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} input`).forEach(_el => {
       const el = _el;
@@ -66,20 +75,19 @@ function SelectBulkActionsCheckboxes(e) {
     }
   }
 
-  if (checkedState.checkedObjects.size > 0) {
+  if (numCheckedObjects > 0) {
     /* Update text on number of pages */
-    let numPagesSelected = '';
-    const numCheckPages = checkedState.checkedObjects.size;
-    if (numCheckPages === 1) {
-      numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_SINGULAR;
+    let numObjectsSelected = '';
+    if (numCheckedObjects === 1) {
+      numObjectsSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_SINGULAR;
     } else {
-      if (numCheckPages === checkedState.numObjects) {
-        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL.replace('{0}', numCheckPages);
+      if (numCheckedObjects === checkedState.numObjects) {
+        numObjectsSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL.replace('{0}', numCheckedObjects);
       } else {
-        numPagesSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_PLURAL.replace('{0}', numCheckPages);
+        numObjectsSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_PLURAL.replace('{0}', numCheckedObjects);
       }
     }
-    document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_SPAN}`).textContent = numPagesSelected;
+    document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_SPAN}`).textContent = numObjectsSelected;
   }
 }
 
@@ -150,7 +158,7 @@ function addBulkActionListeners() {
       el.addEventListener('change', SelectBulkActionsCheckboxes);
     });
   document.querySelectorAll(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} input`).forEach(el => {
-    el.addEventListener('change', SelectBulkActionsFilter);
+    el.addEventListener('change', SelectAllBulkActionsCheckbox);
   });
   document.querySelectorAll(`.${BULK_ACTION_FILTERS_CLASS}`).forEach(
     elem => elem.addEventListener('click', FilterEventListener)
