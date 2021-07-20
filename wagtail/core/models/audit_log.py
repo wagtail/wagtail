@@ -40,6 +40,12 @@ class LogEntryQuerySet(models.QuerySet):
         """
         return set(self.order_by().values_list('content_type_id', flat=True).distinct())
 
+    def filter_on_content_type(self, content_type):
+        # custom method for filtering by content type, to allow overriding on log entry models
+        # that have a concept of object types that doesn't correspond directly to ContentType
+        # instances (e.g. PageLogEntry, which treats all page types as a single Page type)
+        return self.filter(content_type_id=content_type.id)
+
 
 class BaseLogEntryManager(models.Manager):
     def get_queryset(self):

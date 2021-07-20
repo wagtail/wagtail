@@ -3969,7 +3969,25 @@ class TaskState(models.Model):
         verbose_name_plural = _('Task states')
 
 
+class PageLogEntryQuerySet(LogEntryQuerySet):
+    def get_content_type_ids(self):
+        # for reporting purposes, pages of all types are combined under a single "Page"
+        # object type
+        if self.exists():
+            return set([ContentType.objects.get_for_model(Page).pk])
+        else:
+            return set()
+
+    def filter_on_content_type(self, content_type):
+        if content_type == ContentType.objects.get_for_model(Page):
+            return self
+        else:
+            return self.none()
+
+
 class PageLogEntryManager(BaseLogEntryManager):
+    def get_queryset(self):
+        return PageLogEntryQuerySet(self.model, using=self._db)
 
     def get_instance_title(self, instance):
         return instance.specific_deferred.get_admin_display_title()
