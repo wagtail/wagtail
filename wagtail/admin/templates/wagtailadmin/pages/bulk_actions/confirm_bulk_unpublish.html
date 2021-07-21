@@ -38,18 +38,15 @@
 {% endblock objects_with_no_access %}
 
 {% block form_section %}
-        {% if pages %}
-        <form action="{{ submit_url }}" method="POST">
-            {% csrf_token %}
-            {% if has_live_descendants %}
-            <ul class="fields">
-                {% include "wagtailadmin/shared/field_as_li.html" with field=form.include_descendants %}
-            </ul>                
-            {% endif %}
-            <input type="submit" value="{% trans 'Yes, unpublish' %}" class="button" />
-            <a href="{{ next }}" class="button button-secondary">{% trans "No, don't unpublish" %}</a>
-        </form>
-        {% else %}
-        <a href="{{ next }}" class="button button-secondary">{% trans "Go back" %}</a>
-        {% endif %}
+{% if pages %}
+    {% trans 'Yes, unpublish' as action_button_text %}
+    {% trans "No, don't unpublish" as no_action_button_text %}
+    {% if has_live_descendants %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/form_with_fields.html' %}
+    {% else %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/form.html' %}
+    {% endif %}
+{% else %}
+    {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
+{% endif %}
 {% endblock form_section %}

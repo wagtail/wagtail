@@ -37,14 +37,12 @@
 
 {% endblock objects_with_no_access %}
 
-{% block form %}
-        {% if pages %}
-        <form action="{{ submit_url }}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />
-            <a href="{{ next }}" class="button button-secondary">{% trans "No, don't delete" %}</a>
-        </form>
-        {% else %}
-        <a href="{{ next }}" class="button button-secondary">{% trans "Go back" %}</a>
-        {% endif %}
-{% endblock form %}
+{% block form_section %}
+{% if pages %}
+    {% trans 'Yes, delete' as action_button_text %}
+    {% trans "No, don't delete" as no_action_button_text %}
+    {% include 'wagtailadmin/bulk_actions/confirmation/form.html' with action_button_class="serious" %}
+{% else %}
+    {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
+{% endif %}
+{% endblock form_section %}
