@@ -524,6 +524,7 @@ Contributors
 * Daniel Fairhead
 * Kevin Gutiérrez
 * Brandon Murch
+* Sean Kelly
 
 Translators
 ===========
