@@ -120,7 +120,7 @@ class EditorHTMLConverter:
             rule = feature_registry.get_converter_rule('editorhtml', feature)
             if rule is not None:
                 # rule should be a list of WhitelistRule() instances - append this to
-                # the master converter_rules list
+                # the main converter_rules list
                 self.converter_rules.extend(rule)
 
     @cached_property
