@@ -7,7 +7,10 @@
             <thead>
                 <tr>
                     <th class="title">
-                        {% trans 'Page' %}
+                        {% trans 'Item' %}
+                    </th>
+                    <th>
+                        {% trans 'Object type' %}
                     </th>
                     <th>
                         {% trans 'Action' %}
@@ -34,6 +37,9 @@
                             {% else %}
                                 {{ entry.label }}
                             {% endif %}
+                        </td>
+                        <td>
+                            {{ entry.content_type|format_content_type }}
                         </td>
                         <td>
                             {{ entry.message }}

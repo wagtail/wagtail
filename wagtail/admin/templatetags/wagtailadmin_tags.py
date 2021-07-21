@@ -37,7 +37,7 @@ from wagtail.core.models import (
 from wagtail.core.telepath import JSContext
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
-from wagtail.core.utils import escape_script
+from wagtail.core.utils import escape_script, get_content_type_label
 from wagtail.users.utils import get_gravatar_url
 
 
@@ -657,6 +657,11 @@ def user_display_name(user):
         # we were passed None or something else that isn't a valid user object; return
         # empty string to replicate the behaviour of {{ user.get_full_name|default:user.get_username }}
         return ''
+
+
+@register.filter
+def format_content_type(content_type):
+    return get_content_type_label(content_type)
 
 
 @register.simple_tag
