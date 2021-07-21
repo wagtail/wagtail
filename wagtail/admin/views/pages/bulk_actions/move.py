@@ -1,5 +1,4 @@
 from django import forms
-from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
@@ -32,6 +31,13 @@ class MoveBulkAction(PageBulkAction):
     aria_label = "Move pages"
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_move.html"
     action_priority = 10
+    form_class = MoveForm
+    destination = Page.get_first_root_node()
+
+    def get_form_kwargs(self):
+        ctx = super().get_form_kwargs()
+        ctx['destination'] = self.destination
+        return ctx
 
     def check_perm(self, page):
         return page.permissions_for_user(self.request.user).can_move()
@@ -51,19 +57,12 @@ class MoveBulkAction(PageBulkAction):
         context['child_pages'] = context['page'].get_descendants().count()
         return context
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        destination = kwargs.get('destination', Page.get_first_root_node())
-        context['form'] = MoveForm(destination=destination)
-        return context
-
     def prepare_action(self, pages):
         request = self.request
-        move_applicable = request.POST.dict().get("move_applicable", False)
+        move_applicable = self.cleaned_form.cleaned_data['move_applicable']
         if move_applicable:
             return
-        destination_page_id = request.POST.dict()['chooser']
-        destination = get_object_or_404(Page, id=destination_page_id)
+        destination = self.cleaned_form.cleaned_data['chooser']
         pages_without_destination_access = []
         pages_with_duplicate_slugs = []
         for page in pages:
@@ -72,6 +71,8 @@ class MoveBulkAction(PageBulkAction):
             if not Page._slug_is_available(page.slug, destination, page=page):
                 pages_with_duplicate_slugs.append(page)
         if pages_without_destination_access or pages_with_duplicate_slugs:
+            # this will be picked up by the form
+            self.destination = destination
             return TemplateResponse(request, self.template_name, {
                 'pages_without_destination_access': [
                     {'page': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
@@ -82,12 +83,11 @@ class MoveBulkAction(PageBulkAction):
                     for page in pages_with_duplicate_slugs
                 ],
                 'destination': destination,
-                **self.get_context_data(destination=destination)
+                **self.get_context_data()
             })
 
     def execute_action(cls, pages):
-        destination_page_id = cls.request.POST.dict().pop("chooser")
-        destination = get_object_or_404(Page, id=destination_page_id)
+        destination = cls.cleaned_form.cleaned_data['chooser']
 
         for page in pages:
             if not page.permissions_for_user(cls.request.user).can_move_to(destination):
@@ -96,9 +96,6 @@ class MoveBulkAction(PageBulkAction):
                 continue
             page.move(destination, pos='last-child', user=cls.request.user)
             cls.num_parent_objects += 1
-
-    def post(self, request):
-        return super().post(request)
 
 
 @hooks.register('register_page_bulk_action')
