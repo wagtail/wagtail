@@ -27,6 +27,7 @@ New features
  * Use ``DATETIME_FORMAT`` for localization in templates (Andrew Stone)
  * Added documentation on multi site, multi instance and multi tenancy setups (Coen Van Der Kamp)
  * Updated Facebook / Instagram oEmbed endpoints to v11.0 (Thomas Kremmel)
+ * Performance improvements for admin listing pages (Jake Howard, Dan Braghis, Tom Usher)
 
 Bug fixes
 ~~~~~~~~~

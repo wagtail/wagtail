@@ -27,6 +27,7 @@ Changelog
  * Use `DATETIME_FORMAT` for localization in templates (Andrew Stone)
  * Added documentation on multi site, multi instance and multi tenancy setups (Coen Van Der Kamp)
  * Updated Facebook / Instagram oEmbed endpoints to v11.0 (Thomas Kremmel)
+ * Performance improvements for admin listing pages (Jake Howard, Dan Braghis, Tom Usher)
  * Fix: Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
  * Fix: Ordering specified in `construct_explorer_page_queryset` hook is now taken into account again by the page explorer API (Andre Fonseca)
  * Fix: Deleting a page from its listing view no longer results in a 404 error (Tidjani Dia)
