@@ -432,7 +432,7 @@ class BoundBlock:
 class DeclarativeSubBlocksMetaclass(BaseBlock):
     """
     Metaclass that collects sub-blocks declared on the base classes.
-    (cheerfully stolen from https://github.com/django/django/blob/master/django/forms/forms.py)
+    (cheerfully stolen from https://github.com/django/django/blob/main/django/forms/forms.py)
     """
     def __new__(mcs, name, bases, attrs):
         # Collect sub-blocks declared on the current class.
