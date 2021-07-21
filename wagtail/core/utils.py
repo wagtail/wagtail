@@ -136,6 +136,19 @@ def safe_snake_case(value):
     return snake_case_string
 
 
+def get_content_type_label(content_type):
+    """
+    Return a human-readable label for a content type object, suitable for display in the admin
+    in place of the default 'wagtailcore | page' representation
+    """
+    model = content_type.model_class()
+    if model:
+        return model._meta.verbose_name.capitalize()
+    else:
+        # no corresponding model class found; fall back on the name field of the ContentType
+        return content_type.model.capitalize()
+
+
 def accepts_kwarg(func, kwarg):
     """
     Determine whether the callable `func` has a signature that accepts the keyword argument `kwarg`
