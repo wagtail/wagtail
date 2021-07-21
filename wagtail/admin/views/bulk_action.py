@@ -1,15 +1,16 @@
 from abc import ABC, abstractmethod
 
+from django import forms
 from django.db import transaction
 from django.shortcuts import get_list_or_404, redirect
-from django.views.generic.base import TemplateView
+from django.views.generic import FormView
 
 from wagtail.admin import messages
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core import hooks
 
 
-class BulkAction(ABC, TemplateView):
+class BulkAction(ABC, FormView):
     @property
     @abstractmethod
     def display_name(self):
@@ -33,8 +34,10 @@ class BulkAction(ABC, TemplateView):
     object_key = 'object'
     classes = set()
 
+    form_class = forms.Form
+    cleaned_form = None
+
     def __init__(self, request):
-        self.include_descendants = request.POST.get("include_descendants", False)
         self.request = request
         next_url = get_valid_next_url_from_request(request)
         if not next_url:
@@ -101,16 +104,19 @@ class BulkAction(ABC, TemplateView):
         for obj in objects:
             _objects.append(self.object_context(obj))
         return {
+            **super().get_context_data(**kwargs),
             '{}s'.format(self.object_key): _objects,
             '{}s_with_no_access'.format(self.object_key): objects_with_no_access,
             'next': self.next_url,
-            'submit_url': self.request.path + '?' + self.request.META['QUERY_STRING']
+            'submit_url': self.request.path + '?' + self.request.META['QUERY_STRING'],
         }
 
     def prepare_action(self, objects):
         return
 
-    def post(self, request):
+    def form_valid(self, form):
+        request = self.request
+        self.cleaned_form = form
         objects, _ = self.get_actionable_objects()
         resp = self.prepare_action(objects)
         if hasattr(resp, 'status_code'):
@@ -127,3 +133,6 @@ class BulkAction(ABC, TemplateView):
             if success_message is not None:
                 messages.success(request, success_message)
         return redirect(self.next_url)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
