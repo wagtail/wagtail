@@ -523,6 +523,7 @@ Contributors
 * Andrew Stone
 * Daniel Fairhead
 * Kevin Gutiérrez
+* Sean Kelly
 
 Translators
 ===========
