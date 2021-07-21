@@ -27,19 +27,21 @@ class UnpublishBulkAction(PageBulkAction):
         return context
 
     def execute_action(cls, pages):
+        include_descendants = cls.cleaned_form.cleaned_data['include_descendants']
         for page in pages:
             page.unpublish(user=cls.request.user)
             cls.num_parent_objects += 1
 
-            if cls.include_descendants:
+            if include_descendants:
                 for live_descendant_page in page.get_descendants().live().defer_streamfields().specific():
                     if cls.check_perm(live_descendant_page):
                         live_descendant_page.unpublish()
                         cls.num_child_objects += 1
 
     def get_success_message(self):
+        include_descendants = self.cleaned_form.cleaned_data['include_descendants']
         if self.num_parent_objects == 1:
-            if self.include_descendants:
+            if include_descendants:
                 if self.num_child_objects == 0:
                     success_message = _("1 page has been unpublished")
                 else:
@@ -53,7 +55,7 @@ class UnpublishBulkAction(PageBulkAction):
             else:
                 success_message = _("1 page has been unpublished")
         else:
-            if self.include_descendants:
+            if include_descendants:
                 if self.num_child_objects == 0:
                     success_message = _("%(num_parent_objects)d pages have been unpublished") % {'num_parent_objects': self.num_parent_objects}
                 else:
