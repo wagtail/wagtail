@@ -25,19 +25,19 @@ class PublishBulkAction(PageBulkAction):
         context['has_draft_descendants'] = any(map(lambda x: x['draft_descendant_count'], context['pages']))
         return context
 
-    def execute_action(cls, pages):
-        include_descendants = cls.cleaned_form.cleaned_data['include_descendants']
-        for page in pages:
-            revision = page.save_revision(user=cls.request.user)
-            revision.publish(user=cls.request.user)
-            cls.num_parent_objects += 1
+    def execute_action(self, objects):
+        include_descendants = self.cleaned_form.cleaned_data['include_descendants']
+        for page in objects:
+            revision = page.save_revision(user=self.request.user)
+            revision.publish(user=self.request.user)
+            self.num_parent_objects += 1
 
             if include_descendants:
                 for draft_descendant_page in page.get_descendants().not_live().defer_streamfields().specific():
-                    if draft_descendant_page.permissions_for_user(cls.request.user).can_publish():
-                        revision = draft_descendant_page.save_revision(user=cls.request.user)
-                        revision.publish(user=cls.request.user)
-                        cls.num_child_objects += 1
+                    if draft_descendant_page.permissions_for_user(self.request.user).can_publish():
+                        revision = draft_descendant_page.save_revision(user=self.request.user)
+                        revision.publish(user=self.request.user)
+                        self.num_child_objects += 1
 
     def get_success_message(self):
         include_descendants = self.cleaned_form.cleaned_data['include_descendants']
