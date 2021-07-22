@@ -22,11 +22,11 @@ class DeleteBulkAction(PageBulkAction):
             'descendant_count': page.get_descendant_count(),
         }
 
-    def execute_action(cls, pages):
+    def execute_action(self, pages):
         for page in pages:
-            cls.num_parent_objects += 1
-            cls.num_child_objects += page.get_descendant_count()
-            page.delete(user=cls.request.user)
+            self.num_parent_objects += 1
+            self.num_child_objects += page.get_descendant_count()
+            # page.delete(user=self.request.user)
 
     def get_success_message(self):
         if self.num_parent_objects == 1:

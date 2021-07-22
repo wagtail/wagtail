@@ -53,14 +53,16 @@ class BulkAction(ABC, FormView):
     def check_perm(self, obj):
         return True
 
-    @classmethod
-    def execute_action(cls, objects):
+    def execute_action(self, objects):
         raise NotImplementedError("execute_action needs to be implemented")
 
     @classmethod
     def execute(cls, object_ids):
+        # this method can be called to execute the action without instantiating the class.
+        # However, execute_action may sometimes refer to instance variables such as self.request
+        # or some form data, so these will have to be mocked properly
         objects = cls.get_queryset(object_ids)
-        cls.execute_action(objects)
+        cls.execute_action(cls, objects)
 
     def get_success_message(self):
         pass
