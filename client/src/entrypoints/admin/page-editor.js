@@ -222,7 +222,7 @@ function initErrorDetection() {
 
   // first count up all the errors
   // eslint-disable-next-line func-names
-  $('.error-message').each(function () {
+  $('.error-message,.help-critical').each(function () {
     const parentSection = $(this).closest('section');
 
     if (!errorSections[parentSection.attr('id')]) {
