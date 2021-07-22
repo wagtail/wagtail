@@ -8,8 +8,10 @@
     align-items: center;
     flex-direction: row-reverse;
 
-    .sidebar--slim & {
-        padding: 0;
+    @include media-breakpoint-up(sm) {
+        .sidebar--slim & {
+            padding: 0;
+        }
     }
 
     &__label {
@@ -29,8 +31,10 @@
         color: $color-menu-text;
         -webkit-font-smoothing: auto;
 
-        .sidebar--slim & {
-            display: none;
+        @include media-breakpoint-up(sm) {
+            .sidebar--slim & {
+                display: none;
+            }
         }
 
         &::placeholder {
@@ -47,8 +51,10 @@
         height: 35px;
         transition: opacity 600ms ease-in-out;
 
-        .sidebar--slim & {
-            width: 100%;
+        @include media-breakpoint-up(sm) {
+            .sidebar--slim & {
+                width: 100%;
+            }
         }
 
         &:hover {
@@ -63,9 +69,11 @@
     }
 }
 
-.sidebar-search--slim.sidebar-search--visible {
-    .sidebar-search__submit,
-    input:not([type=submit]) {
-        opacity: 0;
+@include media-breakpoint-up(sm) {
+    .sidebar-search--slim.sidebar-search--visible {
+        .sidebar-search__submit,
+        input:not([type=submit]) {
+            opacity: 0;
+        }
     }
 }

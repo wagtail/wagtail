@@ -11,8 +11,15 @@
 
     @include transition(width $menu-transition-duration ease);
 
-    &--slim {
-        width: $menu-width-slim;
+    @include media-breakpoint-up(sm) {
+        &--slim {
+            width: $menu-width-slim;
+        }
+    }
+
+    // Nav toggle is for small screens only
+    &__nav-toggle {
+        display: none;
     }
 
     &__inner {
@@ -38,11 +45,9 @@
         padding: 0;
         border-radius: 50%;
 
-        @include media-breakpoint-up(sm) {
-            &:hover {
-                background-color: #3a3a3a;
-                color: #ccc;
-            }
+        &:hover {
+            background-color: #3a3a3a;
+            color: #ccc;
         }
 
         svg {
@@ -52,7 +57,58 @@
     }
 }
 
+@include media-breakpoint-down(sm) {
+    .sidebar {
+        transform: translateX(-500px);
+        @include transition(transform $menu-transition-duration ease);
+
+        &--open {
+            transform: translateX(0);
+        }
+
+        &__collapse-toggle {
+            display: none;
+        }
+
+        &__nav-toggle {
+            z-index: 5;
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            color: $color-white;
+            width: 35px;
+            height: 35px;
+            background: transparent;
+            border: 0;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            border-radius: 50%;
+
+            &:hover {
+                background-color: #3a3a3a;
+                color: #ccc;
+            }
+
+            svg {
+                width: 15px;
+                height: 16px;
+            }
+        }
+    }
+
+    .content-wrapper.sidebar--open {
+        // TODO: darken background when sidebar is open on mobile
+        // &::before {
+        //     position: absolute;
+        //     inset: 0 ;
+        //     background: red;
+        // }
+    }
+}
+
 @import 'SidebarPanel';
+@import 'SidebarOverlay';
 @import 'menu/MenuItem';
 @import 'menu/SubMenuItem';
 @import 'modules/CustomBranding';

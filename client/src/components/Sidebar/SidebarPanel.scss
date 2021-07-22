@@ -20,13 +20,28 @@
         box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
     }
 
-    @at-root .sidebar--slim #{&} {
-        left: calc(#{$menu-width-slim} - var(--width));
+    // Only take effect on large screens
+    @include media-breakpoint-up(sm) {
+        @at-root .sidebar--slim #{&} {
+            left: calc(#{$menu-width-slim} - var(--width));
+        }
+        // Don't apply this to nested submenus though
+        @at-root .sidebar--slim .sidebar-panel #{&} {
+            left: 0;
+        }
     }
-    // Don't apply this to nested submenus though
-    @at-root .sidebar--slim .sidebar-panel #{&} {
-        left: 0;
-    }
+
+    // // Only take effect on small screens
+    // @include media-breakpoint-down(sm) {
+    //     @at-root .sidebar--open #{&} {
+    //         left: 0;
+    //         z-index: 0;
+    //     }
+    //     // Don't apply this to nested submenus though
+    //     @at-root .sidebar--open .sidebar-panel #{&} {
+    //         left: 0;
+    //     }
+    // }
 
     &--open {
         left: $menu-width;

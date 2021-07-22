@@ -8,7 +8,9 @@ $menu-footer-height: 50px;
 @import 'PageExplorerItem';
 
 .c-page-explorer {
-    width: 485px;
+    @include media-breakpoint-up(sm) {
+        width: 485px;
+    }
     height: 100vh;
     background: $c-page-explorer-bg;
     overflow: hidden;

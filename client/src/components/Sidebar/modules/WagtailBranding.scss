@@ -30,9 +30,11 @@
     }
 
     // Reduce overall size when in slim mode
-    .sidebar--slim & {
-        width: 40px;
-        height: 40px;
+    @include media-breakpoint-up(sm) {
+        .sidebar--slim & {
+            width: 40px;
+            height: 40px;
+        }
     }
 
     // Remove background on 404 page
@@ -75,9 +77,11 @@
         border-radius: 50%;
         transition: width 150ms ease, height 150ms ease;
 
-        .sidebar--slim & {
-            width: 40px;
-            height: 40px;
+        @include media-breakpoint-up(sm) {
+            .sidebar--slim & {
+                width: 40px;
+                height: 40px;
+            }
         }
 
         .page404__bg & {

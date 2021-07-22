@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import PageExplorer, { initPageExplorerStore } from '../../PageExplorer';
 import { openPageExplorer, closePageExplorer } from '../../PageExplorer/actions';
 import { SidebarPanel } from '../SidebarPanel';
+import { SidebarOverlay } from '../SidebarOverlay';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 
 export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExplorerMenuItemDefinition>> = (
@@ -24,6 +25,21 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
   if (!store.current) {
     store.current = initPageExplorerStore();
   }
+
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth < 800) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    }
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   React.useEffect(() => {
     if (isOpen) {
@@ -81,13 +97,19 @@ export const PageExplorerMenuItem: React.FunctionComponent<MenuItemProps<PageExp
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
       </Button>
       <div>
-        <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={depth} widthPx={485}>
-          {store.current &&
-            <Provider store={store.current}>
-              <PageExplorer isVisible={isVisible} navigate={navigate} />
-            </Provider>
-          }
-        </SidebarPanel>
+        {store.current &&
+          <Provider store={store.current}>
+            {isMobile ? (
+              <SidebarOverlay isVisible={isVisible} isOpen={isOpen}>
+                <PageExplorer isVisible={isVisible} navigate={navigate} />
+              </SidebarOverlay>
+            ) : (
+              <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={depth} widthPx={485}>
+                <PageExplorer isVisible={isVisible} navigate={navigate} />
+              </SidebarPanel>
+            )}
+          </Provider>
+        }
       </div>
     </li>
   );

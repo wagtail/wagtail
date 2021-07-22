@@ -13,7 +13,9 @@
         color: $color-white;
     }
 
-    @at-root .sidebar--slim #{&} {
-        padding: 40px 0;
+    @include media-breakpoint-up(sm) {
+        @at-root .sidebar--slim #{&} {
+            padding: 40px 0;
+        }
     }
 }

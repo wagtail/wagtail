@@ -83,12 +83,14 @@
         box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
     }
 
-    @at-root .sidebar--slim #{&} {
-        transform: translate3d($menu-width-slim - $menu-width, 0, 0);
-    }
-    // Don't apply this to nested submenus though
-    @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
-        transform: translate3d(0, 0, 0);
+    @include media-breakpoint-up(sm) {
+        @at-root .sidebar--slim #{&} {
+            transform: translate3d($menu-width-slim - $menu-width, 0, 0);
+        }
+        // Don't apply this to nested submenus though
+        @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
+            transform: translate3d(0, 0, 0);
+        }
     }
 
     &--open {
@@ -97,12 +99,14 @@
         // If another submenu is opening, display this menu behind it
         z-index: -1;
 
-        @at-root .sidebar--slim #{&} {
-            transform: translate3d($menu-width-slim, 0, 0);
-        }
-        // Don't apply this to nested submenus though
-        @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
-            transform: translate3d($menu-width, 0, 0);
+        @include media-breakpoint-up(sm) {
+            @at-root .sidebar--slim #{&} {
+                transform: translate3d($menu-width-slim, 0, 0);
+            }
+            // Don't apply this to nested submenus though
+            @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
+                transform: translate3d($menu-width, 0, 0);
+            }
         }
     }
 }

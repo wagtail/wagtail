@@ -44,22 +44,26 @@
         }
     }
 
-    @at-root .sidebar--slim #{&} {
-        > ul > li > a {
-            padding: 0.8em 0.8em 0.8em 1.25em;
+    /* stylelint-disable max-nesting-depth */
+    @include media-breakpoint-up(sm) {
+        @at-root .sidebar--slim #{&} {
+            > ul > li > a {
+                padding: 0.8em 0.8em 0.8em 1.25em;
 
-            .menuitem-label {
-                opacity: 0;
-            }
+                .menuitem-label {
+                    opacity: 0;
+                }
 
-            .icon-arrow-right {
-                top: 1em;
-                right: 0.15em;
-                width: 1em;
-                height: 1em;
+                .icon-arrow-right {
+                    top: 1em;
+                    right: 0.15em;
+                    width: 1em;
+                    height: 1em;
+                }
             }
         }
     }
+    /* stylelint-enable max-nesting-depth */
 }
 
 .sidebar-footer {
@@ -152,11 +156,13 @@
         }
     }
 
-    @at-root .sidebar--slim #{&} {
-        width: $menu-width-slim;
+    @include media-breakpoint-up(sm) {
+        @at-root .sidebar--slim #{&} {
+            width: $menu-width-slim;
 
-        &__account em {
-            left: $menu-width-slim - $menu-width;
+            &__account em {
+                left: $menu-width-slim - $menu-width;
+            }
         }
     }
 
