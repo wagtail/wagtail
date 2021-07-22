@@ -26,7 +26,7 @@ class DeleteBulkAction(PageBulkAction):
         for page in pages:
             self.num_parent_objects += 1
             self.num_child_objects += page.get_descendant_count()
-            # page.delete(user=self.request.user)
+            page.delete(user=self.request.user)
 
     def get_success_message(self):
         if self.num_parent_objects == 1:
