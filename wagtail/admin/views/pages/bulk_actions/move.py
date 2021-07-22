@@ -32,11 +32,11 @@ class MoveBulkAction(PageBulkAction):
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_move.html"
     action_priority = 10
     form_class = MoveForm
-    destination = Page.get_first_root_node()
+    destination = None
 
     def get_form_kwargs(self):
         ctx = super().get_form_kwargs()
-        ctx['destination'] = self.destination
+        ctx['destination'] = self.destination or Page.get_first_root_node()
         return ctx
 
     def check_perm(self, page):
