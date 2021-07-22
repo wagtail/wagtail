@@ -86,16 +86,16 @@ class MoveBulkAction(PageBulkAction):
                 **self.get_context_data()
             })
 
-    def execute_action(cls, pages):
-        destination = cls.cleaned_form.cleaned_data['chooser']
+    def execute_action(self, pages):
+        destination = self.cleaned_form.cleaned_data['chooser']
 
         for page in pages:
-            if not page.permissions_for_user(cls.request.user).can_move_to(destination):
+            if not page.permissions_for_user(self.request.user).can_move_to(destination):
                 continue
             if not Page._slug_is_available(page.slug, destination, page=page):
                 continue
-            page.move(destination, pos='last-child', user=cls.request.user)
-            cls.num_parent_objects += 1
+            page.move(destination, pos='last-child', user=self.request.user)
+            self.num_parent_objects += 1
 
 
 @hooks.register('register_page_bulk_action')
