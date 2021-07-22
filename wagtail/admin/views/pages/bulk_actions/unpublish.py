@@ -26,17 +26,17 @@ class UnpublishBulkAction(PageBulkAction):
         context['has_live_descendants'] = any(map(lambda x: x['live_descendant_count'] > 0, context['pages']))
         return context
 
-    def execute_action(cls, pages):
-        include_descendants = cls.cleaned_form.cleaned_data['include_descendants']
+    def execute_action(self, pages):
+        include_descendants = self.cleaned_form.cleaned_data['include_descendants']
         for page in pages:
-            page.unpublish(user=cls.request.user)
-            cls.num_parent_objects += 1
+            page.unpublish(user=self.request.user)
+            self.num_parent_objects += 1
 
             if include_descendants:
                 for live_descendant_page in page.get_descendants().live().defer_streamfields().specific():
-                    if cls.check_perm(live_descendant_page):
+                    if self.check_perm(live_descendant_page):
                         live_descendant_page.unpublish()
-                        cls.num_child_objects += 1
+                        self.num_child_objects += 1
 
     def get_success_message(self):
         include_descendants = self.cleaned_form.cleaned_data['include_descendants']
