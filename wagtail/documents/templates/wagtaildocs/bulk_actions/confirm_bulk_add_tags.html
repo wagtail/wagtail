@@ -1,4 +1,4 @@
-{% extends "wagtailadmin/base.html" %}
+{% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n %}
 {% load wagtailimages_tags wagtailadmin_tags %}
 {% block titletag %}{% blocktrans count counter=documents|length %}Add tags to 1 document {% plural %}Add tags to {{ counter }} documents{% endblocktrans %}{% endblock %}
@@ -23,10 +23,12 @@
     {{ form.media.css }}
 {% endblock %}
 
-{% block content %}
+{% block header %}
     {% trans "Add tags to documents" as add_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
-    <div class="nice-padding">
+{% endblock header %}
+
+{% block objects_with_access %}
         {% if documents %}
         <p>
             {% blocktrans count num_docs=documents|length %}
@@ -43,28 +45,21 @@
             {% endfor %}
         </ul>
         {% endif %}
-        {% if documents_with_no_access %}
-        <p>{% blocktrans count counter=documents_with_no_access|length %}You don't have permission to add tags to this document{% plural %}
-            You don't have permission to add tags to these documents{% endblocktrans %}</p>
-        <ul>
-            {% for doc in documents_with_no_access %}
-            <li>
-                <a href="{% url 'wagtaildocs:edit' doc.id %}" target="_blank" rel="noopener noreferrer">{{ doc.title }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+{% endblock objects_with_access %}
+
+{% block objects_with_no_access %}
+    
+{% blocktrans asvar no_access_msg count counter=documents_with_no_access|length %}You don't have permission to add tags to this document{% plural %}You don't have permission to add tags to these documents{% endblocktrans %}
+{% include './list_objects_with_no_access.html' with objects=documents_with_no_access no_access_msg=no_access_msg %}
+
+{% endblock objects_with_no_access %}
+
+{% block form_section %}
         {% if documents %}
-        <form action="{{ submit_url }}" method="POST">
-            {% csrf_token %}
-            <ul class="fields">
-                {% include "wagtailadmin/shared/field_as_li.html" with field=form.tags %}
-            </ul>
-            <input type="submit" value='{% trans "Yes, add" %}' class="button serious" />
-            <a href="{{ next }}" class="button button-secondary">{% trans "No, don't add" %}</a>
-        </form>
+            {% trans 'Yes, add' as action_button_text %}
+            {% trans "No, don't add" as no_action_button_text %}
+            {% include 'wagtailadmin/bulk_actions/confirmation/form_with_fields.html' %}
         {% else %}
-        <a href="{{ next }}" class="button button-secondary">{% trans "Go back" %}</a>
+            {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
         {% endif %}
-    </div>
-{% endblock %}
+{% endblock form_section %}
