@@ -2,7 +2,6 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.core import hooks
-from wagtail.documents.permissions import permission_policy
 from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
 
 
@@ -15,11 +14,11 @@ class DeleteBulkAction(DocumentBulkAction):
     classes = {'serious'}
 
     def check_perm(self, document):
-        return permission_policy.user_has_permission_for_instance(self.request.user, 'delete', document)
+        return self.permission_policy.user_has_permission_for_instance(self.request.user, 'delete', document)
 
-    def execute_action(cls, documents):
+    def execute_action(self, documents):
         for document in documents:
-            cls.num_parent_objects += 1
+            self.num_parent_objects += 1
             document.delete()
 
     def get_success_message(self):

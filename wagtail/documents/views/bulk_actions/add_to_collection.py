@@ -3,16 +3,15 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.core import hooks
-from wagtail.core.models.collections import Collection
-from wagtail.documents.permissions import permission_policy
 from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
 
 
 class CollectionForm(forms.Form):
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         self.fields['collection'] = forms.ModelChoiceField(
-            queryset=Collection.objects.all()
+            queryset=DocumentBulkAction.permission_policy.collections_user_has_permission_for(user, 'add')
         )
 
 
@@ -22,22 +21,24 @@ class AddToCollectionBulkAction(DocumentBulkAction):
     aria_label = _("Add documents to collection")
     template_name = "wagtaildocs/bulk_actions/confirm_bulk_add_to_collection.html"
     action_priority = 30
+    form_class = CollectionForm
+    collection = None
 
     def check_perm(self, document):
-        return permission_policy.user_has_permission_for_instance(self.request.user, 'change', document)
+        return self.permission_policy.user_has_permission_for_instance(self.request.user, 'change', document)
 
-    def execute_action(cls, documents):
-        collection_id = int(cls.request.POST.get('collection'))
-        cls.collection_name = Collection.objects.get(id=collection_id).name
+    def get_form_kwargs(self):
+        return {
+            **super().get_form_kwargs(),
+            'user': self.request.user
+        }
+
+    def execute_action(self, documents):
+        self.collection = self.cleaned_form.cleaned_data['collection']
         for document in documents:
-            cls.num_parent_objects += 1
-            document.collection_id = collection_id
+            self.num_parent_objects += 1
+            document.collection = self.collection
             document.save()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = CollectionForm()
-        return context
 
     def get_success_message(self):
         return ngettext(
@@ -46,7 +47,7 @@ class AddToCollectionBulkAction(DocumentBulkAction):
             self.num_parent_objects
         ) % {
             'num_parent_objects': self.num_parent_objects,
-            'collection': self.collection_name
+            'collection': self.collection.name
         }
 
 
