@@ -244,12 +244,12 @@ function initCollapsibleBlocks() {
   // eslint-disable-next-line func-names
   $('.object.collapsible').each(function () {
     const $li = $(this);
-    const $fieldset = $li.find('fieldset');
-    const onAnimationComplete = () => $fieldset.get(0).dispatchEvent(
+    const $content = $li.find('.object-layout');
+    const onAnimationComplete = () => $content.get(0).dispatchEvent(
       new CustomEvent('commentAnchorVisibilityChange', { bubbles: true })
     );
     if ($li.hasClass('collapsed') && $li.find('.error-message').length === 0) {
-      $fieldset.hide({
+      $content.hide({
         complete: onAnimationComplete
       });
     }
@@ -257,13 +257,13 @@ function initCollapsibleBlocks() {
     $li.find('> .title-wrapper').on('click', () => {
       if (!$li.hasClass('collapsed')) {
         $li.addClass('collapsed');
-        $fieldset.hide({
+        $content.hide({
           duration: 'slow',
           complete: onAnimationComplete
         });
       } else {
         $li.removeClass('collapsed');
-        $fieldset.show({
+        $content.show({
           duration: 'slow',
           complete: onAnimationComplete
         });
