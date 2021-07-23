@@ -53,16 +53,9 @@ class BulkAction(ABC, FormView):
     def check_perm(self, obj):
         return True
 
-    def execute_action(self, objects):
-        raise NotImplementedError("execute_action needs to be implemented")
-
     @classmethod
-    def execute(cls, object_ids):
-        # this method can be called to execute the action without instantiating the class.
-        # However, execute_action may sometimes refer to instance variables such as self.request
-        # or some form data, so these will have to be mocked properly
-        objects = cls.get_queryset(object_ids)
-        cls.execute_action(cls, objects)
+    def execute_action(cls, objects, **kwargs):
+        raise NotImplementedError("execute_action needs to be implemented")
 
     def get_success_message(self):
         pass
@@ -116,6 +109,9 @@ class BulkAction(ABC, FormView):
     def prepare_action(self, objects):
         return
 
+    def get_execution_context(self):
+        return {}
+
     def form_valid(self, form):
         request = self.request
         self.cleaned_form = form
@@ -127,7 +123,7 @@ class BulkAction(ABC, FormView):
             before_hook_result = self.__run_before_hooks(self.action_type, request, objects)
             if before_hook_result is not None:
                 return before_hook_result
-            self.execute_action(objects)
+            self.execute_action(objects, **self.get_execution_context())
             after_hook_result = self.__run_after_hooks(self.action_type, request, objects)
             if after_hook_result is not None:
                 return after_hook_result
