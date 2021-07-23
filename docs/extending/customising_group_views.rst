@@ -1,7 +1,7 @@
 .. _customising_group_views:
 
-How to customise group edit/create views
-========================================
+Customising group edit/create views
+===================================
 
 The views for managing groups within the app are collected into a 'viewset' class, which acts as a single point of reference for all shared components of those views, such as forms. By subclassing the viewset, it is possible to override those components and customise the behaviour of the group management interface.
 
