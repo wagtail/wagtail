@@ -94,9 +94,9 @@ We have few additional feature identifiers as well. They are not enabled by defa
 
 The process for creating new features is described in the following pages:
 
-* :doc:`./rich_text_internals`
-* :doc:`./extending_draftail`
-* :doc:`./extending_hallo`
+* :doc:`../../extending/rich_text_internals`
+* :doc:`../../extending/extending_draftail`
+* :doc:`../../extending/extending_hallo`
 
 .. _rich_text_image_formats:
 
