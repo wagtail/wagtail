@@ -23,3 +23,8 @@ class PageBulkAction(BulkAction):
             {'page': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()} for page in context['pages_with_no_access']
         ]
         return context
+
+    def get_execution_context(self):
+        return {
+            'user': self.request.user
+        }
