@@ -43,12 +43,12 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
         widget=forms.CheckboxInput,
     )
     timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
-    label = django_filters.CharFilter(label=_('Title'), lookup_expr='icontains')
+    label = django_filters.CharFilter(label=_('Name'), lookup_expr='icontains')
     user = django_filters.ModelChoiceFilter(
         field_name='user', queryset=lambda request: get_users_for_filter()
     )
     object_type = ContentTypeFilter(
-        label=_('Object type'),
+        label=_('Type'),
         method='filter_object_type', queryset=lambda request: get_content_types_for_filter()
     )
 
@@ -75,7 +75,7 @@ class LogEntriesView(ReportView):
 
     export_headings = {
         "object_id": _("ID"),
-        "title": _("Title"),
+        "title": _("Name"),
         "object_verbose_name": _("Type"),
         "action": _("Action type"),
         "timestamp": _("Date/Time")
