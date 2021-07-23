@@ -291,7 +291,7 @@ Use ``classname="title"`` to make Page's built-in title field stand out with mor
 Collapsible
 ~~~~~~~~~~~
 
-By default, panels are expanded and not collapsible. Adding ``collapsible`` to ``classname`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the ``classname`` parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading.
+By default, panels are expanded and not collapsible. Adding ``collapsible`` to ``classname`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the ``classname`` parameter will load the editor page with the panel collapsed under its heading.
 
 .. code-block:: python
 
