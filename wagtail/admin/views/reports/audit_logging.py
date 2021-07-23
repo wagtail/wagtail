@@ -14,6 +14,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.filters import ContentTypeFilter, DateRangePickerWidget, WagtailFilterSet
 from wagtail.core.log_actions import registry as log_action_registry
 from wagtail.core.models import PageLogEntry
+from wagtail.core.utils import get_content_type_label
 
 from .base import ReportView
 
@@ -75,16 +76,18 @@ class LogEntriesView(ReportView):
 
     export_headings = {
         "object_id": _("ID"),
-        "title": _("Name"),
-        "object_verbose_name": _("Type"),
+        "label": _("Name"),
+        "content_type": _("Type"),
         "action": _("Action type"),
+        "user_display_name": _("User"),
         "timestamp": _("Date/Time")
     }
     list_export = [
         "object_id",
         "label",
-        "object_verbose_name",
+        "content_type",
         "action",
+        "user_display_name",
         "timestamp"
     ]
 
@@ -94,6 +97,10 @@ class LogEntriesView(ReportView):
         self.custom_field_preprocess['action'] = {
             self.FORMAT_CSV: self.get_action_label,
             self.FORMAT_XLSX: self.get_action_label
+        }
+        self.custom_field_preprocess['content_type'] = {
+            self.FORMAT_CSV: get_content_type_label,
+            self.FORMAT_XLSX: get_content_type_label
         }
 
     def get_filename(self):
