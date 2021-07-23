@@ -1,4 +1,5 @@
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, override_settings
+from django.urls import reverse
 
 from wagtail.admin.menu import AdminOnlyMenuItem, Menu, MenuItem, SubmenuMenuItem
 from wagtail.admin.ui import sidebar
@@ -17,6 +18,28 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
     def setUp(self):
         self.request = RequestFactory().get('/admin')
         self.request.user = self.create_superuser(username='admin')
+        self.user = self.login()
+
+    @override_settings(WAGTAIL_EXPERIMENTAL_FEATURES={"slim-sidebar"})
+    def test_remember_collapsed(self):
+        '''Sidebar should render with collapsed class applied.'''
+        # Sidebar should not be collapsed
+        self.client.cookies['wagtail_sidebar_collapsed'] = '0'
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertNotContains(response, 'sidebar-collapsed')
+
+        # Sidebar should be collapsed
+        self.client.cookies['wagtail_sidebar_collapsed'] = '1'
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertContains(response, 'sidebar-collapsed')
+
+    @override_settings(WAGTAIL_EXPERIMENTAL_FEATURES={})
+    def test_collapsed_only_with_feature_flag(self):
+        '''Sidebar should only remember its collapsed state with the right feature flag set.'''
+        # Sidebar should not be collapsed because the feature flag is not enabled
+        self.client.cookies['wagtail_sidebar_collapsed'] = '1'
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertNotContains(response, 'sidebar-collapsed')
 
     def test_simple_menu(self):
         # Note: initialise the menu before registering hooks as this is what happens in reality.

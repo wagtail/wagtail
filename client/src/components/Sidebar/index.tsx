@@ -1,7 +1,10 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
+import Cookies from 'js-cookie';
 
 import { Sidebar } from './Sidebar';
+
+export const SIDEBAR_COLLAPSED_COOKIE_NAME = 'wagtail_sidebar_collapsed';
 
 export function initSidebar() {
   const element = document.getElementById('wagtail-sidebar');
@@ -20,11 +23,17 @@ export function initSidebar() {
   if (element instanceof HTMLElement && element.dataset.props) {
     const props = window.telepath.unpack(JSON.parse(element.dataset.props));
 
-    const onExpandCollapse = (collapsed: boolean) => {
-      if (collapsed) {
+    const collapsedCookie: any = Cookies.get(SIDEBAR_COLLAPSED_COOKIE_NAME);
+    // Cast to boolean
+    const collapsed = !((collapsedCookie === undefined || collapsedCookie === '0'));
+
+    const onExpandCollapse = (_collapsed: boolean) => {
+      if (_collapsed) {
         document.body.classList.add('sidebar-collapsed');
+        Cookies.set(SIDEBAR_COLLAPSED_COOKIE_NAME, 1);
       } else {
         document.body.classList.remove('sidebar-collapsed');
+        Cookies.set(SIDEBAR_COLLAPSED_COOKIE_NAME, 0);
       }
     };
 
@@ -32,6 +41,7 @@ export function initSidebar() {
       <Sidebar
         modules={props.modules}
         strings={wagtailConfig.STRINGS}
+        collapsedOnLoad={collapsed}
         currentPath={window.location.pathname}
         navigate={navigate}
         onExpandCollapse={onExpandCollapse}

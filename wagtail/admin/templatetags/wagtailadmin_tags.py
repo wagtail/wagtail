@@ -679,6 +679,15 @@ def slim_sidebar_enabled():
 
 
 @register.simple_tag(takes_context=True)
+def sidebar_collapsed(context):
+    request = context.get('request')
+    collapsed = request.COOKIES.get('wagtail_sidebar_collapsed', '0')
+    if collapsed == '0':
+        return False
+    return True
+
+
+@register.simple_tag(takes_context=True)
 def menu_props(context):
     request = context['request']
     search_areas = admin_search_areas.search_items_for_request(request)

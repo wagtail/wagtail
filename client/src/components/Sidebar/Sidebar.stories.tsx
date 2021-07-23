@@ -237,6 +237,7 @@ function renderSidebarStory(
   return (
     <div className="wrapper">
       <Sidebar
+        collapsedOnLoad={false}
         modules={modules}
         currentPath={currentPath}
         strings={strings || STRINGS}
