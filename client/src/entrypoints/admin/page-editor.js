@@ -263,18 +263,19 @@ function initCollapsibleBlocks() {
   // eslint-disable-next-line func-names
   $('.object.collapsible').each(function () {
     const $li = $(this);
-    const $fieldset = $li.find('fieldset');
+    const $content = $li.find('.object-layout');
+
     if ($li.hasClass('collapsed') && $li.find('.error-message').length === 0) {
-      $fieldset.hide();
+      $content.hide()
     }
 
     $li.find('> .title-wrapper').on('click', () => {
       if (!$li.hasClass('collapsed')) {
         $li.addClass('collapsed');
-        $fieldset.hide('slow');
+        $content.hide('slow');
       } else {
         $li.removeClass('collapsed');
-        $fieldset.show('show');
+        $content.show('show');
       }
     });
   });
