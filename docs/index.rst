@@ -40,6 +40,7 @@ Index
    getting_started/index
    topics/index
    advanced_topics/index
+   extending/index
    reference/index
    support
    editor_manual/index
