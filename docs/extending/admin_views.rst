@@ -53,6 +53,9 @@ Create a ``wagtail_hooks.py`` file within the ``wagtailcalendar`` app containing
 
 The calendar will now be visible at the URL ``/admin/calendar/``.
 
+.. figure:: ../_static/images/adminviews_calendar.png
+   :alt: A calendar, presented in unstyled HTML
+
 
 Adding a template
 -----------------
@@ -110,6 +113,9 @@ Here we are overriding three of the blocks defined in the base template: ``title
 
 Revisiting ``/admin/calendar/`` will now show the calendar within the Wagtail admin page furniture.
 
+.. figure:: ../_static/images/adminviews_calendar_template.png
+   :alt: A calendar, shown within the Wagtail admin interface
+
 
 Adding a menu item
 ------------------
@@ -138,3 +144,6 @@ Our calendar view is now complete, but there's no way to reach it from the rest 
       return MenuItem('Calendar', reverse('calendar'), icon_name='date')
 
 A 'Calendar' item will now appear in the menu.
+
+.. figure:: ../_static/images/adminviews_menu.png
+   :alt: Wagtail admin sidebar menu, showing a "Calendar" menu item with a date icon
