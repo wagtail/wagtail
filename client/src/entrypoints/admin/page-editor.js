@@ -244,7 +244,6 @@ function initCollapsibleBlocks() {
   // eslint-disable-next-line func-names
   $('.object.collapsible').each(function () {
     const $li = $(this);
-
     const $content = $li.find('.object-layout');
     const onAnimationComplete = () => $fieldset.get(0).dispatchEvent(
       new CustomEvent('commentAnchorVisibilityChange', { bubbles: true })
@@ -258,7 +257,6 @@ function initCollapsibleBlocks() {
     $li.find('> .title-wrapper').on('click', () => {
       if (!$li.hasClass('collapsed')) {
         $li.addClass('collapsed');
-
         content.hide({
           duration: 'slow',
           complete: onAnimationComplete
