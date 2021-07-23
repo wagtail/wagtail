@@ -71,23 +71,6 @@ MultiFieldPanel
 
         A heading for the fields
 
-.. topic:: Collapsing MultiFieldPanels to save space
-
-    By default, ``MultiFieldPanel`` s are expanded and not collapsible. Adding ``collapsible`` to ``classname`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the ``classname`` parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading.
-
-    .. code-block:: python
-
-        content_panels = [
-            MultiFieldPanel(
-                [
-                    ImageChooserPanel('cover'),
-                    DocumentChooserPanel('book_file'),
-                    PageChooserPanel('publisher'),
-                ],
-                heading="Collection of Book Fields",
-                classname="collapsible collapsed"
-            ),
-        ]
 
 InlinePanel
 ~~~~~~~~~~~
@@ -299,6 +282,26 @@ Titles
 ~~~~~~
 
 Use ``classname="title"`` to make Page's built-in title field stand out with more vertical padding.
+
+
+Collapsible
+~~~~~~~~~~~
+
+By default, panelss are expanded and not collapsible. Adding ``collapsible`` to ``classname`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the ``classname`` parameter will load the editor page with the ``MultiFieldPanel`` collapsed under its heading.
+
+.. code-block:: python
+
+    content_panels = [
+        MultiFieldPanel(
+            [
+                ImageChooserPanel('cover'),
+                DocumentChooserPanel('book_file'),
+                PageChooserPanel('publisher'),
+            ],
+            heading="Collection of Book Fields",
+            classname="collapsible collapsed"
+        ),
+    ]
 
 
 Placeholder Text

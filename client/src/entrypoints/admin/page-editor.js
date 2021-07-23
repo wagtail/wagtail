@@ -261,7 +261,7 @@ window.initErrorDetection = initErrorDetection;
 
 function initCollapsibleBlocks() {
   // eslint-disable-next-line func-names
-  $('.object.multi-field.collapsible').each(function () {
+  $('.object.collapsible').each(function () {
     const $li = $(this);
     const $fieldset = $li.find('fieldset');
     if ($li.hasClass('collapsed') && $li.find('.error-message').length === 0) {
