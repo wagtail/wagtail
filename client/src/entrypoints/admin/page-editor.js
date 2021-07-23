@@ -249,7 +249,7 @@ function initCollapsibleBlocks() {
       new CustomEvent('commentAnchorVisibilityChange', { bubbles: true })
     );
     if ($li.hasClass('collapsed') && $li.find('.error-message').length === 0) {
-      content.hide({
+      $content.hide({
         complete: onAnimationComplete
       });
     }
@@ -257,13 +257,13 @@ function initCollapsibleBlocks() {
     $li.find('> .title-wrapper').on('click', () => {
       if (!$li.hasClass('collapsed')) {
         $li.addClass('collapsed');
-        content.hide({
+        $content.hide({
           duration: 'slow',
           complete: onAnimationComplete
         });
       } else {
         $li.removeClass('collapsed');
-        content.show({
+        $content.show({
           duration: 'slow',
           complete: onAnimationComplete
         });
