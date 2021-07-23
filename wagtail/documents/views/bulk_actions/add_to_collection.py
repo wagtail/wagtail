@@ -33,11 +33,17 @@ class AddToCollectionBulkAction(DocumentBulkAction):
             'user': self.request.user
         }
 
-    def execute_action(self, documents):
-        self.collection = self.cleaned_form.cleaned_data['collection']
-        for document in documents:
-            self.num_parent_objects += 1
-            document.collection = self.collection
+    def get_execution_context(self):
+        return {
+            'collection': self.cleaned_form.cleaned_data['collection']
+        }
+
+    @classmethod
+    def execute_action(cls, objects, **kwargs):
+        cls.collection = kwargs.get('collection', None)
+        for document in objects:
+            cls.num_parent_objects += 1
+            document.collection = cls.collection
             document.save()
 
     def get_success_message(self):

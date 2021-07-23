@@ -16,9 +16,10 @@ class DeleteBulkAction(DocumentBulkAction):
     def check_perm(self, document):
         return self.permission_policy.user_has_permission_for_instance(self.request.user, 'delete', document)
 
-    def execute_action(self, documents):
-        for document in documents:
-            self.num_parent_objects += 1
+    @classmethod
+    def execute_action(cls, objects, **kwargs):
+        for document in objects:
+            cls.num_parent_objects += 1
             document.delete()
 
     def get_success_message(self):

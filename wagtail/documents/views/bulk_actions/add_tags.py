@@ -26,10 +26,16 @@ class AddTagsBulkAction(DocumentBulkAction):
     def check_perm(self, document):
         return self.permission_policy.user_has_permission_for_instance(self.request.user, 'change', document)
 
-    def execute_action(self, documents):
-        tags = self.cleaned_form.cleaned_data['tags'].split(',')
-        for document in documents:
-            self.num_parent_objects += 1
+    def get_execution_context(self):
+        return {
+            'tags': self.cleaned_form.cleaned_data['tags'].split(',')
+        }
+
+    @classmethod
+    def execute_action(cls, objects, **kwargs):
+        tags = kwargs.get('tags', [])
+        for document in objects:
+            cls.num_parent_objects += 1
             document.tags.add(*tags)
             document.save()
 

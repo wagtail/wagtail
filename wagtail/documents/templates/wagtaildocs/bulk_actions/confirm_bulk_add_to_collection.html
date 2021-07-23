@@ -35,7 +35,7 @@
 {% block objects_with_no_access %}
 
 {% blocktrans asvar no_access_msg count counter=documents_with_no_access|length %}You don't have permission to add this document to a collection{% plural %}You don't have permission to add these documents to a collection{% endblocktrans %}
-{% include './list_objects_with_no_access.html' with objects=documents_with_no_access no_access_msg=no_access_msg %}
+{% include 'wagtaildocs/bulk_actions/list_objects_with_no_access.html' with objects=documents_with_no_access no_access_msg=no_access_msg %}
 
 {% endblock objects_with_no_access %}
 
