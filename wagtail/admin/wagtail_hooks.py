@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.http import urlencode
@@ -7,6 +8,7 @@ from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
+from wagtail import __version__
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
@@ -20,6 +22,8 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler, ListElementHandler, ListItemElementHandler, PageLinkElementHandler)
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import PagesSummaryItem
+from wagtail.admin.ui.sidebar import PageExplorerMenuItem as PageExplorerMenuItemComponent
+from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
@@ -44,6 +48,14 @@ class ExplorerMenuItem(MenuItem):
 
         return context
 
+    def render_component(self, request):
+        start_page = get_explorable_root_page(request.user)
+
+        if start_page:
+            return PageExplorerMenuItemComponent(self.name, self.label, self.url, start_page.id, icon_name=self.icon_name, classnames=self.classnames)
+        else:
+            return super().render_component(request)
+
 
 @hooks.register('register_admin_menu_item')
 def register_explorer_menu_item():
@@ -56,6 +68,16 @@ def register_explorer_menu_item():
 
 class SettingsMenuItem(SubmenuMenuItem):
     template = 'wagtailadmin/shared/menu_settings_menu_item.html'
+
+    def render_component(self, request):
+        return SubMenuItemComponent(
+            self.name,
+            self.label,
+            self.menu.render_component(request),
+            icon_name=self.icon_name,
+            classnames=self.classnames,
+            footer_text="Wagtail v." + __version__
+        )
 
 
 @hooks.register('register_admin_menu_item')
@@ -103,6 +125,9 @@ def register_collections_menu_item():
 
 class WorkflowsMenuItem(MenuItem):
     def is_shown(self, request):
+        if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            return False
+
         return workflow_permission_policy.user_has_any_permission(
             request.user, ['add', 'change', 'delete']
         )
@@ -110,6 +135,9 @@ class WorkflowsMenuItem(MenuItem):
 
 class WorkflowTasksMenuItem(MenuItem):
     def is_shown(self, request):
+        if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+            return False
+
         return task_permission_policy.user_has_any_permission(
             request.user, ['add', 'change', 'delete']
         )
@@ -210,6 +238,11 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
         )
     if page_perms.can_delete():
         url = reverse('wagtailadmin_pages:delete', args=[page.id])
+
+        # After deleting the page, it is impossible to redirect to it.
+        if next_url == reverse('wagtailadmin_explore', args=[page.id]):
+            next_url = None
+
         if next_url:
             url += '?' + urlencode({'next': next_url})
 
@@ -230,7 +263,6 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             attrs={'title': _("Unpublish page '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=40
         )
-
     if page_perms.can_view_revisions():
         yield Button(
             _('History'),
@@ -600,7 +632,7 @@ class LockedPagesMenuItem(MenuItem):
 
 class WorkflowReportMenuItem(MenuItem):
     def is_shown(self, request):
-        return True
+        return getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True)
 
 
 class SiteHistoryReportMenuItem(MenuItem):
@@ -637,6 +669,8 @@ def register_reports_menu():
 @hooks.register('register_icons')
 def register_icons(icons):
     for icon in [
+        'angle-double-left.svg',
+        'angle-double-right.svg',
         'arrow-down-big.svg',
         'arrow-down.svg',
         'arrow-left.svg',
@@ -648,6 +682,7 @@ def register_icons(icons):
         'bold.svg',
         'chain-broken.svg',
         'check.svg',
+        'chevron-down.svg',
         'clipboard-list.svg',
         'code.svg',
         'cog.svg',
@@ -685,6 +720,7 @@ def register_icons(icons):
         'home.svg',
         'horizontalrule.svg',
         'image.svg',  # aka picture
+        'info-circle.svg',
         'italic.svg',
         'link.svg',
         'link-external.svg',

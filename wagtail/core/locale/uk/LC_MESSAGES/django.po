@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,18 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail "
+
+msgid "Move up"
+msgstr "Перемістити нагору"
+
+msgid "Move down"
+msgstr "Перемістити вниз"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Add"
+msgstr "Додати"
 
 msgid "This block has no options."
 msgstr "Для цього блоку немає опцій."
@@ -87,6 +99,9 @@ msgstr "сайт"
 msgid "sites"
 msgstr "сайти"
 
+msgid "default"
+msgstr "за замовчуванням"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -126,16 +141,6 @@ msgstr "рядок URL"
 msgid "owner"
 msgstr "власник"
 
-msgid "page title"
-msgstr "заголовок сторінки"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Необов'язково. Дружній для пошукових систем заголовок, буде розташований "
-"згори вікна браузера."
-
 msgid "show in menus"
 msgstr "показати у меню"
 
@@ -143,9 +148,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Чи буде посилання на цю сторінку з'являтися в автоматично сгенерованих меню"
-
-msgid "search description"
-msgstr "опис для пошукових систем"
 
 msgid "go live date/time"
 msgstr "дата/час початку живої публікації"
@@ -213,9 +215,6 @@ msgstr "ревізія сторінки"
 msgid "page revisions"
 msgstr "ревізії сторінки"
 
-msgid "Add"
-msgstr "Додати"
-
 msgid "Add/edit pages you own"
 msgstr "Додавати/редагувати сторінки, які належать вам"
 
@@ -239,6 +238,9 @@ msgstr "Видаляти сторінки разом з дочірніми"
 
 msgid "Lock"
 msgstr "Блокувати"
+
+msgid "Unlock"
+msgstr "Розблокувати"
 
 msgid "group"
 msgstr "група"
@@ -303,6 +305,9 @@ msgstr "дозвіл"
 msgid "group collection permission"
 msgstr "дозволи для групи колекцій "
 
+msgid "Approve"
+msgstr "Підтвердити"
+
 msgid "Log in"
 msgstr "Увійдіть"
 
@@ -326,3 +331,46 @@ msgstr "Для доступу до цієї сторінки необхідни�
 
 msgid "Continue"
 msgstr "Продовжити"
+
+msgid "English"
+msgstr "Англійська"
+
+msgid "French"
+msgstr "Французька"
+
+msgid "German"
+msgstr "Німецька"
+
+msgid "Save draft"
+msgstr "Зберегти чернетку"
+
+msgid "Draft saved"
+msgstr "Чернетку збережено"
+
+msgid "Published"
+msgstr "Опубліковано"
+
+msgid "Unpublish"
+msgstr "Зняти з публікації"
+
+msgid "Unpublished"
+msgstr "Знято з публікації"
+
+msgid "Locked"
+msgstr "Заблоковано"
+
+msgid "Unlocked"
+msgstr "Розблоковано"
+
+msgid "Reject"
+msgstr "Відхилити"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Перейменовано з '%(old)s' в '%(new)s'"
+
+msgid "Copy"
+msgstr "Копіювати"
+
+msgid "Move"
+msgstr "Перемістити"

@@ -34,10 +34,6 @@ Here's an example:
             'source',
         )
 
-.. versionchanged:: 2.12
-
-    Fields on a custom document model can now be defined as required (``blank=False``).
-
 Then in your settings module:
 
 .. code-block:: python

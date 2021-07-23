@@ -5,11 +5,13 @@ from collections import defaultdict
 
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import CharField, Q
+from django.db.models import CharField, Prefetch, Q
+from django.db.models.expressions import Exists, OuterRef
 from django.db.models.functions import Length, Substr
 from django.db.models.query import BaseIterable, ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
+from wagtail.core.models.sites import Site
 from wagtail.search.queryset import SearchableQuerySetMixin
 
 
@@ -417,6 +419,57 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         from the results.
         """
         return self.exclude(self.translation_of_q(page, inclusive))
+
+    def prefetch_workflow_states(self):
+        """
+        Performance optimisation for listing pages.
+        Prefetches the active workflow states on each page in this queryset.
+        Used by `workflow_in_progress` and `current_workflow_progress` properties on
+        `wagtailcore.models.Page`.
+        """
+        from .models import WorkflowState
+
+        workflow_states = WorkflowState.objects.active().select_related(
+            "current_task_state__task"
+        )
+
+        return self.prefetch_related(
+            Prefetch(
+                "workflow_states",
+                queryset=workflow_states,
+                to_attr="_current_workflow_states",
+            )
+        )
+
+    def annotate_approved_schedule(self):
+        """
+        Performance optimisation for listing pages.
+        Annotates each page with the existence of an approved go live time.
+        Used by `approved_schedule` property on `wagtailcore.models.Page`.
+        """
+        from .models import PageRevision
+
+        return self.annotate(
+            _approved_schedule=Exists(
+                PageRevision.objects.exclude(approved_go_live_at__isnull=True).filter(
+                    page__pk=OuterRef("pk")
+                )
+            )
+        )
+
+    def annotate_site_root_state(self):
+        """
+        Performance optimisation for listing pages.
+        Annotates each object with whether it is a root page of any site.
+        Used by `is_site_root` method on `wagtailcore.models.Page`.
+        """
+        return self.annotate(
+            _is_site_root=Exists(
+                Site.objects.filter(
+                    root_page__translation_key=OuterRef("translation_key")
+                )
+            )
+        )
 
 
 def specific_iterator(qs, defer=False):

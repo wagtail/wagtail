@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,18 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail core"
+
+msgid "Move up"
+msgstr "تقدم إلى فوق "
+
+msgid "Move down"
+msgstr "تقدم إلى تحت"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Add"
+msgstr "أضف"
 
 msgid "This block has no options."
 msgstr "هذه الكتلة لا يوجد لديه خيارات."
@@ -86,6 +98,9 @@ msgstr "موقع"
 msgid "sites"
 msgstr "مواقع"
 
+msgid "default"
+msgstr "الإفتراضي"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -123,14 +138,6 @@ msgstr "مسار عنوان URL"
 msgid "owner"
 msgstr "صاحب"
 
-msgid "page title"
-msgstr "عنوان الصفحة"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr "اختياري. عنوان \"محرك البحث الصديق\". سيظهر هذا في أعلى نافذة المتصفح."
-
 msgid "show in menus"
 msgstr "تظهر في القوائم"
 
@@ -138,9 +145,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "ما إذا كان رابط إلى هذه الصفحة سيظهر في القوائم التي يتم إنشاؤها تلقائيًا"
-
-msgid "search description"
-msgstr "وصف البحث"
 
 msgid "go live date/time"
 msgstr "تاريخ النشر / الوقت"
@@ -208,9 +212,6 @@ msgstr "مراجعة صفحة"
 msgid "page revisions"
 msgstr "مراجعة صفحات"
 
-msgid "Add"
-msgstr "أضف"
-
 msgid "Add/edit pages you own"
 msgstr "أضف أو نقح سفحات أنت الصاحب لها "
 
@@ -234,6 +235,9 @@ msgstr "حذف الصفحات مع التفرعات"
 
 msgid "Lock"
 msgstr "أقفل"
+
+msgid "Unlock"
+msgstr "إزالة القفل"
 
 msgid "group"
 msgstr "مجموعة"
@@ -301,6 +305,9 @@ msgstr "إذن مجموعة المجموعة"
 msgid "group collection permissions"
 msgstr "مجموعة أذونات المجموعة"
 
+msgid "Approve"
+msgstr "موافق"
+
 msgid "Log in"
 msgstr "تسجيل الدخول"
 
@@ -322,3 +329,33 @@ msgstr "هذه الصفحة تتطلب كلمة مرور."
 
 msgid "Continue"
 msgstr "أكمل"
+
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "French"
+msgstr "الفرنسية"
+
+msgid "German"
+msgstr "الألمانية"
+
+msgid "Save draft"
+msgstr "احفظ المسوّد"
+
+msgid "Unpublish"
+msgstr "غير منشور"
+
+msgid "Locked"
+msgstr "مغلق"
+
+msgid "Unlocked"
+msgstr "غير مغلق"
+
+msgid "Reject"
+msgstr "مرفوض"
+
+msgid "Copy"
+msgstr "انسخ"
+
+msgid "Move"
+msgstr "انقل"

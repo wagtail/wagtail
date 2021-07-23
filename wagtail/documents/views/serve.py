@@ -5,6 +5,7 @@ from django.http import Http404, HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.cache import cache_control
 from django.views.decorators.http import etag
 
@@ -15,12 +16,6 @@ from wagtail.documents import get_document_model
 from wagtail.documents.models import document_served
 from wagtail.utils import sendfile_streaming_backend
 from wagtail.utils.sendfile import sendfile
-
-
-try:
-    from django.utils.http import url_has_allowed_host_and_scheme
-except ImportError:  # fallback for Django 2.2
-    from django.utils.http import is_safe_url as url_has_allowed_host_and_scheme
 
 
 def document_etag(request, document_id, document_filename):

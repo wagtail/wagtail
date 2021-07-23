@@ -47,7 +47,7 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
 
 
     class BookPage(Page):
-        book_text = RichTextField()
+        body = RichTextField()
 
         content_panels = Page.content_panels + [
             FieldPanel('body', classname="full"),

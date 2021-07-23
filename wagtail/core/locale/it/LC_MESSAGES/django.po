@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,18 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Base Wagtail"
+
+msgid "Move up"
+msgstr "Sposta su"
+
+msgid "Move down"
+msgstr "Sposta giù"
+
+msgid "Delete"
+msgstr "Elimina"
+
+msgid "Add"
+msgstr "Aggiungi"
 
 msgid "This block has no options."
 msgstr "Questo blocco non ha opzioni"
@@ -86,6 +98,9 @@ msgstr "sito"
 msgid "sites"
 msgstr "siti"
 
+msgid "default"
+msgstr "default"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -125,25 +140,12 @@ msgstr "URL path"
 msgid "owner"
 msgstr "proprietario"
 
-msgid "page title"
-msgstr "titolo pagina"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Optional. Titolo 'Search Engine Friendly'. Questo apparirà nella barra del "
-"titolo del browser."
-
 msgid "show in menus"
 msgstr "mostra nel menu"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Se un link a questa pagina apparirà nei menu generati automaticamente"
-
-msgid "search description"
-msgstr "descrizione della ricerca"
 
 msgid "go live date/time"
 msgstr "vai live data/ora"
@@ -213,9 +215,6 @@ msgstr "revisione pagina"
 
 msgid "page revisions"
 msgstr "revisioni pagina"
-
-msgid "Add"
-msgstr "Aggiungi"
 
 msgid "Add/edit pages you own"
 msgstr "Aggiungi/modifica pagine di tua proprietà"
@@ -310,6 +309,9 @@ msgstr "permesso della collezione del gruppo"
 msgid "group collection permissions"
 msgstr "Permessi gruppo raccolta"
 
+msgid "Approve"
+msgstr "Approva"
+
 msgid "Log in"
 msgstr "Log in"
 
@@ -329,3 +331,33 @@ msgstr "Devi avere una password per accedere a questa pagina."
 
 msgid "Continue"
 msgstr "Continua"
+
+msgid "English"
+msgstr "Inglese"
+
+msgid "French"
+msgstr "Francese"
+
+msgid "German"
+msgstr "Tedesco"
+
+msgid "Save draft"
+msgstr "Salva bozza"
+
+msgid "Unpublish"
+msgstr "Annulla pubblicazione"
+
+msgid "Locked"
+msgstr "Bloccato"
+
+msgid "Unlocked"
+msgstr "Sbloccato"
+
+msgid "Reject"
+msgstr "Rigettato"
+
+msgid "Copy"
+msgstr "Copia"
+
+msgid "Move"
+msgstr "Sposta"

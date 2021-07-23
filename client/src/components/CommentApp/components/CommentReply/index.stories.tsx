@@ -9,7 +9,7 @@ import {
   addTestReply,
 } from '../../utils/storybook';
 
-export default { title: 'CommentReply' };
+export default { title: 'Commenting/Comment Reply' };
 
 export function reply() {
   const store: Store = createStore(reducer);

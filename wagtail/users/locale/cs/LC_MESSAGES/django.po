@@ -6,13 +6,13 @@
 # IT Management <hudan@itmanagement.cz>, 2018
 # IT Management <hudan@itmanagement.cz>, 2020
 # Jiri Stepanek <stepiiicz@gmail.com>, 2015
-# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2020
+# Mirek Zvolský <zvolsky@seznam.cz>, 2019-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
-"PO-Revision-Date: 2020-08-03 20:09+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 13:11+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -102,6 +102,16 @@ msgstr "odmítnuté upozornění"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Upozornit, když je vaše stránka zamítnuta"
+
+msgid "updated comments notifications"
+msgstr "notifikace o aktualizovaných komentářích"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Dostávat notifikace, jestliže komentáře byly vytvořeny, odsouhlaseny nebo "
+"zrušeny na stránce, pro níž chcete notifikace o komentářích dostávat"
 
 msgid "preferred language"
 msgstr "preferovaný jazyk"

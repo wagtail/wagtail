@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,18 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail-kjernen"
+
+msgid "Move up"
+msgstr "Flytt opp"
+
+msgid "Move down"
+msgstr "Flytt ned"
+
+msgid "Delete"
+msgstr "Slett"
+
+msgid "Add"
+msgstr "Legg til"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -127,15 +139,6 @@ msgstr "URL-sti"
 msgid "owner"
 msgstr "eier"
 
-msgid "page title"
-msgstr "sidetittel"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Valgfritt. \"Søkemotorvennlig\" tittel. Vises øverst på nettleservinduet."
-
 msgid "show in menus"
 msgstr "vis i menyer"
 
@@ -143,9 +146,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Hvorvidt en lenke til denne siden skal vises i automatisk genererte menyer"
-
-msgid "search description"
-msgstr "søkemotorbeskrivelse"
 
 msgid "go live date/time"
 msgstr "publiseringsdato"
@@ -218,9 +218,6 @@ msgstr "sideutgave"
 
 msgid "page revisions"
 msgstr "sideutgaver"
-
-msgid "Add"
-msgstr "Legg til"
 
 msgid "Add/edit pages you own"
 msgstr "Legg til/rediger sider du eier"
@@ -321,6 +318,9 @@ msgstr "gruppetillatelse for samling"
 msgid "group collection permissions"
 msgstr "gruppetillatelser for samling"
 
+msgid "Approve"
+msgstr "Godkjenn"
+
 msgid "Log in"
 msgstr "Logg inn"
 
@@ -342,3 +342,36 @@ msgstr "Du må oppgi et passord for å se denne siden."
 
 msgid "Continue"
 msgstr "Fortsett"
+
+msgid "English"
+msgstr "engelsk"
+
+msgid "French"
+msgstr "fransk"
+
+msgid "German"
+msgstr "tysk"
+
+msgid "Created"
+msgstr "Opprettet"
+
+msgid "Save draft"
+msgstr "Lagre kladd"
+
+msgid "Unpublish"
+msgstr "Avpublisér"
+
+msgid "Locked"
+msgstr "Låst"
+
+msgid "Unlocked"
+msgstr "Ulåst"
+
+msgid "Reject"
+msgstr "Avslå"
+
+msgid "Copy"
+msgstr "Kopier"
+
+msgid "Move"
+msgstr "Flytt"

@@ -2,23 +2,111 @@
 
 /* global $ */
 
+import EventEmitter from 'events';
 import { escapeHtml as h } from '../../../utils/text';
 
-export class BaseSequenceChild {
-  constructor(blockDef, placeholder, prefix, index, id, initialState, opts) {
+class ActionButton {
+  constructor(sequenceChild) {
+    this.sequenceChild = sequenceChild;
+  }
+
+  render(container) {
+    const label = this.sequenceChild.strings[this.labelIdentifier] || this.labelIdentifier;
+
+    this.dom = $(`
+      <button type="button" class="c-sf-block__actions__single" title="${h(label)}">
+        <i class="icon icon-${h(this.icon)}" aria-hidden="true"></i>
+      </button>
+    `);
+
+    this.dom.on('click', () => {
+      if (this.onClick) this.onClick();
+      return false;  // don't propagate to header's onclick event (which collapses the block)
+    });
+
+    $(container).append(this.dom);
+
+    if (this.enableEvent) {
+      this.sequenceChild.on(this.enableEvent, () => {
+        this.enable();
+      });
+    }
+
+    if (this.disableEvent) {
+      this.sequenceChild.on(this.disableEvent, () => {
+        this.disable();
+      });
+    }
+
+    if (this.initiallyDisabled) {
+      this.disable();
+    }
+  }
+
+  enable() {
+    this.dom.removeAttr('disabled');
+  }
+  disable() {
+    this.dom.attr('disabled', 'true');
+  }
+}
+
+class MoveUpButton extends ActionButton {
+  enableEvent = 'enableMoveUp';
+  disableEvent = 'disableMoveUp';
+  initiallyDisabled = true;
+  icon = 'arrow-up';
+  labelIdentifier = 'MOVE_UP';
+
+  onClick() {
+    this.sequenceChild.moveUp();
+  }
+}
+
+class MoveDownButton extends ActionButton {
+  enableEvent = 'enableMoveDown';
+  disableEvent = 'disableMoveDown';
+  initiallyDisabled = true;
+  icon = 'arrow-down';
+  labelIdentifier = 'MOVE_DOWN';
+
+  onClick() {
+    this.sequenceChild.moveDown();
+  }
+}
+
+class DuplicateButton extends ActionButton {
+  enableEvent = 'enableDuplication';
+  disableEvent = 'disableDuplication';
+  icon = 'duplicate';
+  labelIdentifier = 'DUPLICATE';
+
+  onClick() {
+    this.sequenceChild.duplicate({ animate: true });
+  }
+}
+
+class DeleteButton extends ActionButton {
+  icon = 'bin';
+  labelIdentifier = 'DELETE';
+
+  onClick() {
+    this.sequenceChild.delete({ animate: true });
+  }
+}
+
+export class BaseSequenceChild extends EventEmitter {
+  constructor(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
     this.index = index;
     this.id = id;
+    this.sequence = sequence;
 
     const animate = opts && opts.animate;
-    this.onRequestDuplicate = opts && opts.onRequestDuplicate;
-    this.onRequestDelete = opts && opts.onRequestDelete;
-    this.onRequestMoveUp = opts && opts.onRequestMoveUp;
-    this.onRequestMoveDown = opts && opts.onRequestMoveDown;
     this.collapsed = opts && opts.collapsed;
-    const strings = (opts && opts.strings) || {};
+    this.strings = (opts && opts.strings) || {};
 
     const dom = $(`
       <div aria-hidden="false" ${this.id ? `data-contentpath="${h(this.id)}"` : 'data-contentpath-disabled'}>
@@ -35,24 +123,8 @@ export class BaseSequenceChild {
                   <i class="icon icon-${h(this.blockDef.meta.icon)}"></i>
                 </span>
                 <h3 data-block-title class="c-sf-block__header__title"></h3>
-                <div class="c-sf-block__actions">
+                <div class="c-sf-block__actions" data-block-actions>
                   <span class="c-sf-block__type">${h(this.blockDef.meta.label)}</span>
-                  <button type="button" data-move-up-button class="c-sf-block__actions__single"
-                      disabled title="${h(strings.MOVE_UP)}">
-                    <i class="icon icon-arrow-up" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" data-move-down-button class="c-sf-block__actions__single"
-                      disabled title="${h(strings.MOVE_DOWN)}">
-                    <i class="icon icon-arrow-down" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" data-duplicate-button
-                      class="c-sf-block__actions__single" title="${h(strings.DUPLICATE)}">
-                    <i class="icon icon-duplicate" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" data-delete-button
-                      class="c-sf-block__actions__single" title="${h(strings.DELETE)}">
-                    <i class="icon icon-bin" aria-hidden="true"></i>
-                  </button>
                 </div>
               </div>
               <div data-block-content class="c-sf-block__content" aria-hidden="false">
@@ -69,37 +141,20 @@ export class BaseSequenceChild {
     $(placeholder).replaceWith(dom);
     this.element = dom.get(0);
     const blockElement = dom.find('[data-streamfield-block]').get(0);
-
-    this.duplicateButton = dom.find('button[data-duplicate-button]');
-    this.duplicateButton.click(() => {
-      if (this.onRequestDuplicate) this.onRequestDuplicate(this.index);
-      return false;  // don't propagate to header's onclick event (which collapses the block)
-    });
-
+    this.actionsContainerElement = dom.find('[data-block-actions]').get(0);
     this.titleElement = dom.find('[data-block-title]');
     this.contentElement = dom.find('[data-block-content]');
+    this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
+    this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
+
     dom.find('[data-block-header]').click(() => {
       this.toggleCollapsedState();
     });
 
-    dom.find('button[data-delete-button]').click(() => {
-      if (this.onRequestDelete) this.onRequestDelete(this.index);
-      return false;  // don't propagate to header's onclick event (which collapses the block)
-    });
-
-    this.deletedInput = dom.find(`input[name="${this.prefix}-deleted"]`);
-    this.indexInput = dom.find(`input[name="${this.prefix}-order"]`);
-
-    this.moveUpButton = dom.find('button[data-move-up-button]');
-    this.moveUpButton.click(() => {
-      if (this.onRequestMoveUp) this.onRequestMoveUp(this.index);
-      return false;  // don't propagate to header's onclick event (which collapses the block)
-    });
-    this.moveDownButton = dom.find('button[data-move-down-button]');
-    this.moveDownButton.click(() => {
-      if (this.onRequestMoveDown) this.onRequestMoveDown(this.index);
-      return false;  // don't propagate to header's onclick event (which collapses the block)
-    });
+    this.addActionButton(new MoveUpButton(this));
+    this.addActionButton(new MoveDownButton(this));
+    this.addActionButton(new DuplicateButton(this));
+    this.addActionButton(new DeleteButton(this));
 
     this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
 
@@ -113,6 +168,26 @@ export class BaseSequenceChild {
         dom.slideDown();
       }, 10);
     }
+  }
+
+  addActionButton(button) {
+    button.render(this.actionsContainerElement);
+  }
+
+  moveUp() {
+    this.sequence.moveBlockUp(this.index);
+  }
+
+  moveDown() {
+    this.sequence.moveBlockDown(this.index);
+  }
+
+  duplicate(opts) {
+    this.sequence.duplicateBlock(this.index, opts);
+  }
+
+  delete(opts) {
+    this.sequence.deleteBlock(this.index, opts);
   }
 
   markDeleted({ animate = false }) {
@@ -134,22 +209,22 @@ export class BaseSequenceChild {
   }
 
   enableDuplication() {
-    this.duplicateButton.removeAttr('disabled');
+    this.emit('enableDuplication');
   }
   disableDuplication() {
-    this.duplicateButton.attr('disabled', 'true');
+    this.emit('disableDuplication');
   }
   enableMoveUp() {
-    this.moveUpButton.removeAttr('disabled');
+    this.emit('enableMoveUp');
   }
   disableMoveUp() {
-    this.moveUpButton.attr('disabled', 'true');
+    this.emit('disableMoveUp');
   }
   enableMoveDown() {
-    this.moveDownButton.removeAttr('disabled');
+    this.emit('enableMoveDown');
   }
   disableMoveDown() {
-    this.moveDownButton.attr('disabled', 'true');
+    this.emit('disableMoveDown');
   }
 
   setIndex(newIndex) {
@@ -177,12 +252,14 @@ export class BaseSequenceChild {
     const label = this.getTextLabel({ maxLength: 50 });
     this.titleElement.text(label || '');
     this.collapsed = true;
+    this.contentElement.get(0).dispatchEvent(new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }));
   }
 
   expand() {
     this.contentElement.show().attr('aria-hidden', 'false');
     this.titleElement.text('');
     this.collapsed = false;
+    this.contentElement.get(0).dispatchEvent(new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }));
   }
 
   toggleCollapsedState() {
@@ -221,7 +298,7 @@ export class BaseInsertionControl {
 
 export class BaseSequenceBlock {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _createChild(blockDef, placeholder, prefix, index, id, initialState, opts) {
+  _createChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
     throw new Error('not implemented');
   }
 
@@ -255,6 +332,8 @@ export class BaseSequenceBlock {
         }
       )
     ];
+
+    this.blockCountChanged();
   }
 
   _onRequestInsert(index, opts) {
@@ -265,6 +344,10 @@ export class BaseSequenceBlock {
     newChild.focus({ soft: true });
   }
 
+  blockCountChanged() {
+    /* Called whenever the block count has changed; subclasses can override this to apply
+    checks on max block count and disable insert / duplicate controls accordingly */
+  }
 
   _insert(childBlockDef, initialState, id, index, opts) {
     const prefix = this.prefix + '-' + this.blockCounter;
@@ -293,13 +376,9 @@ export class BaseSequenceBlock {
       this.inserters[i].setIndex(i + 1);
     }
 
-    const child = this._createChild(childBlockDef, blockPlaceholder, prefix, index, id, initialState, {
+    const child = this._createChild(childBlockDef, blockPlaceholder, prefix, index, id, initialState, this, {
       animate,
       collapsed,
-      onRequestDuplicate: (i) => { this.duplicateBlock(i, { animate: true }); },
-      onRequestDelete: (i) => { this.deleteBlock(i, { animate: true }); },
-      onRequestMoveUp: (i) => { this.moveBlock(i, i - 1); },
-      onRequestMoveDown: (i) => { this.moveBlock(i, i + 1); },
       strings: this.blockDef.meta.strings,
     });
     this.children.splice(index, 0, child);
@@ -335,6 +414,8 @@ export class BaseSequenceBlock {
       }
     }
 
+    this.blockCountChanged();
+
     return child;
   }
 
@@ -362,6 +443,8 @@ export class BaseSequenceBlock {
       /* we have removed the last child; the new last child cannot be moved down */
       this.children[this.children.length - 1].disableMoveDown();
     }
+
+    this.blockCountChanged();
   }
 
   moveBlock(oldIndex, newIndex) {
@@ -414,6 +497,14 @@ export class BaseSequenceBlock {
       childToMove.disableMoveDown();
       this.children[maxIndex - 1].enableMoveDown();
     }
+  }
+
+  moveBlockUp(index) {
+    this.moveBlock(index, index - 1);
+  }
+
+  moveBlockDown(index) {
+    this.moveBlock(index, index + 1);
   }
 
   setState(values) {

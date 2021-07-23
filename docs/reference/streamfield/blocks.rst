@@ -67,10 +67,6 @@ Field block types
    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
-   .. versionchanged:: 2.11
-
-       The ``class`` attribute was previously set via the keyword argument ``classname``.
-
 
 .. class:: wagtail.core.blocks.TextBlock
 
@@ -332,6 +328,8 @@ Field block types
    A field for the editor to enter a URL to a media item (such as a YouTube video) to appear as embedded media on the page. The following keyword arguments are accepted in addition to the standard ones:
 
    :param required: If true (the default), the field cannot be left blank.
+   :param max_width: The maximum width of the embed, in pixels; this will be passed to the provider when requesting the embed.
+   :param max_height: The maximum height of the embed, in pixels; this will be passed to the provider when requesting the embed.
    :param max_length: The maximum allowed length of the field.
    :param min_length: The minimum allowed length of the field.
    :param help_text: Help text to display alongside the field.
@@ -442,9 +440,11 @@ Structural block types
            ]))),
        ])
 
-   The following additional option is available as either a keyword argument or a Meta class attribute:
+   The following additional options are available as either keyword arguments or Meta class attributes:
 
    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
+   :param min_num: Minimum number of sub-blocks that the list must have.
+   :param max_num: Maximum number of sub-blocks that the list may have.
 
 
 .. class:: wagtail.core.blocks.StreamBlock

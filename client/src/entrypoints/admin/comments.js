@@ -35,8 +35,8 @@ window.comments = (() => {
   /**
    * Controls the positioning of a field level comment, and the display of the button
    * used to focus and pin the attached comment
-   * `getDesiredPosition` is called by the comments app to determine the height
-   * at which to float the comment.
+   * `getAnchorNode` is called by the comments app to determine which node to
+   * float the comment alongside
    */
   class BasicFieldLevelAnnotation {
     /**
@@ -112,6 +112,7 @@ window.comments = (() => {
     onUnfocus() {
       this.node.classList.add('button-secondary');
       this.node.ariaLabel = STRINGS.FOCUS_COMMENT;
+      // eslint-disable-next-line no-warning-comments
       // TODO: ensure comment is focused accessibly when this is clicked,
       // and that screenreader users can return to the annotation point when desired
     }
@@ -131,11 +132,8 @@ window.comments = (() => {
     getTab() {
       return this.fieldNode.closest('section[data-tab]')?.getAttribute('data-tab');
     }
-    getDesiredPosition() {
-      return (
-        this.fieldNode.getBoundingClientRect().top +
-        document.documentElement.scrollTop
-      );
+    getAnchorNode() {
+      return this.fieldNode;
     }
   }
 
@@ -216,6 +214,7 @@ window.comments = (() => {
           }
         }
       });
+      // eslint-disable-next-line no-warning-comments
       return unsubscribeWidget; // TODO: listen for widget deletion and use this
     }
     updateVisibility(newShown) {
@@ -274,24 +273,34 @@ window.comments = (() => {
     }
 
     // Comments toggle
+    const commentToggleWrapper = formElement.querySelector('.comments-toggle');
     const commentToggle = formElement.querySelector('.comments-toggle input[type=checkbox]');
-    const commentNotificationsToggle = formElement.querySelector('.comment-notifications-toggle');
     const tabContentElement = formElement.querySelector('.tab-content');
+    const commentNotificationsToggleButton = formElement.querySelector('.comment-notifications-toggle-button');
+    const commentNotificationsDropdown = formElement.querySelector('.comment-notifications-dropdown');
 
     const updateCommentVisibility = (visible) => {
       // Show/hide comments
       commentApp.setVisible(visible);
 
-      // Show/hide comment notifications toggle
       // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
       if (visible) {
-        $(commentNotificationsToggle).show();
         tabContentElement.classList.add('tab-content--comments-enabled');
+        commentToggleWrapper.classList.add('comments-toggle--active');
+        commentNotificationsToggleButton.classList.add('comment-notifications-toggle-button--active');
       } else {
-        $(commentNotificationsToggle).hide();
         tabContentElement.classList.remove('tab-content--comments-enabled');
+        commentToggleWrapper.classList.remove('comments-toggle--active');
+        commentNotificationsToggleButton.classList.remove('comment-notifications-toggle-button--active');
+        commentNotificationsDropdown.classList.remove('comment-notifications-dropdown--active');
+        commentNotificationsToggleButton.classList.remove('comment-notifications-toggle-button--icon-toggle');
       }
     };
+
+    commentNotificationsToggleButton.addEventListener('click', () => {
+      commentNotificationsDropdown.classList.toggle('comment-notifications-dropdown--active');
+      commentNotificationsToggleButton.classList.toggle('comment-notifications-toggle-button--icon-toggle');
+    });
 
     commentToggle.addEventListener('change', (e) => {
       updateCommentVisibility(e.target.checked);

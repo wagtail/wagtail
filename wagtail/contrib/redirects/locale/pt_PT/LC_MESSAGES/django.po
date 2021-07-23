@@ -5,6 +5,7 @@
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2015-2016
 # Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -13,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-27 18:25+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 17:06+0000\n"
 "Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -26,6 +27,18 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Redirecionamentos do Wagtail"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Permanent"
+msgstr "Permanente"
+
+msgid "Temporary"
+msgstr "Temporário"
+
+msgid "All"
+msgstr "Todos"
 
 msgid "From site"
 msgstr "Do site"
@@ -167,14 +180,17 @@ msgstr "Erro"
 msgid "Continue"
 msgstr "Continuar"
 
+msgid "Export redirects"
+msgstr "Exportar redirecionamentos"
+
 msgid "Site"
 msgstr "Site"
 
-msgid "Type"
-msgstr "Tipo"
-
 msgid "Edit this redirect"
 msgstr "Alterar este redirecionamento"
+
+msgid "No redirects found."
+msgstr "Nenhum redirecionamento encontrado."
 
 #, python-format
 msgid ""
@@ -244,3 +260,6 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Importado no total %(total)d redirecionamento"
 msgstr[1] "Importados no total %(total)d redirecionamentos"
+
+msgid "Export Redirects"
+msgstr "Exportar Redirecionamentos"

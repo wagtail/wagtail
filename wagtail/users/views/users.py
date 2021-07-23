@@ -98,7 +98,7 @@ def index(request, *args):
     else:
         ordering = 'name'
 
-    paginator = Paginator(users, per_page=20)
+    paginator = Paginator(users.select_related('wagtail_userprofile'), per_page=20)
     users = paginator.get_page(request.GET.get('p'))
 
     if request.is_ajax():

@@ -1,0 +1,28 @@
+===========================================
+Wagtail 2.15 release notes - IN DEVELOPMENT
+===========================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+Wagtail 2.15 is designated a Long Term Support (LTS) release. Long Term Support releases will continue to receive maintenance updates as necessary to address security and data-loss related issues, up until the next LTS release (typically a period of 12 months).
+
+
+What's new
+==========
+
+Other features
+~~~~~~~~~~~~~~
+
+ * Support ``min_num`` / ``max_num`` options on ListBlock (Matt Westcott)
+ * Added a distinct ``wagtail.copy_for_translation`` log action type (Karl Hobley)
+
+Bug fixes
+~~~~~~~~~
+
+ * Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
+ * Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
+
+Upgrade considerations
+======================

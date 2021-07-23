@@ -1,0 +1,116 @@
+.sidebar-sub-menu-trigger-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+
+    @include transition(transform $menu-transition-duration ease, width $menu-transition-duration ease, height $menu-transition-duration ease);
+
+    &--open {
+        transform-origin: 50% 50%;
+        transform: rotate(180deg);
+    }
+
+    .sidebar--slim & {
+        width: 16px;
+        height: 16px;
+        transform: translate3d(13px, 0, 0);
+    }
+}
+
+
+.sidebar-sub-menu-panel {
+    display: flex;
+    flex-direction: column;
+    background: $nav-submenu-bg;
+    width: $menu-width;
+    height: 100vh;
+
+    > h2,
+    &__list {
+        width: $menu-width;
+    }
+
+    > h2 {
+        display: block;
+        padding: 0.2em 0;
+        font-size: 1.2em;
+        font-weight: 500;
+        text-transform: none;
+        text-align: center;
+        color: $color-menu-text;
+
+        &:before {
+            font-size: 4em;
+            display: block;
+            text-align: center;
+            margin: 0 0 0.2em;
+            width: 100%;
+            opacity: 0.15;
+        }
+    }
+
+
+    ul > li {
+        position: relative;
+
+        @include transition(border-color $menu-transition-duration ease);
+    }
+
+    > ul {
+        flex-grow: 1;
+        padding: 0;
+        margin: 0;
+    }
+
+    > ul > li {
+        border: 0;
+    }
+
+    &__footer {
+        margin: 0;
+        padding: 0.9em 1.7em;
+        text-align: center;
+        color: $color-menu-text;
+    }
+
+    &--visible {
+        visibility: visible;
+        box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
+    }
+
+    @at-root .sidebar--slim #{&} {
+        transform: translate3d($menu-width-slim - $menu-width, 0, 0);
+    }
+    // Don't apply this to nested submenus though
+    @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
+        transform: translate3d(0, 0, 0);
+    }
+
+    &--open {
+        transform: translate3d($menu-width, 0, 0);
+
+        // If another submenu is opening, display this menu behind it
+        z-index: -1;
+
+        @at-root .sidebar--slim #{&} {
+            transform: translate3d($menu-width-slim, 0, 0);
+        }
+        // Don't apply this to nested submenus though
+        @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
+            transform: translate3d($menu-width, 0, 0);
+        }
+    }
+}
+
+.sidebar-sub-menu-item {
+    &--open {
+        > a {
+            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+        }
+    }
+}

@@ -56,11 +56,13 @@
 {% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/report.css' %}" type="text/css" />
 
     {{ filters.form.media.css }}
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     {{ filters.form.media.js }}
 {% endblock %}

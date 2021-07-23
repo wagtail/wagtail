@@ -17,16 +17,26 @@ __all__ = ['ListBlock', 'ListBlockValidationError']
 
 
 class ListBlockValidationError(ValidationError):
-    def __init__(self, block_errors):
-        self.block_errors = block_errors
-        super().__init__('Validation error in ListBlock', params=block_errors)
+    def __init__(self, block_errors=None, non_block_errors=None):
+        self.non_block_errors = non_block_errors or ErrorList()
+        self.block_errors = block_errors or []
+
+        params = {}
+        if block_errors:
+            params['block_errors'] = block_errors
+        if non_block_errors:
+            params['non_block_errors'] = non_block_errors
+        super().__init__('Validation error in ListBlock', params=params)
 
 
 class ListBlockValidationErrorAdapter(Adapter):
     js_constructor = 'wagtail.blocks.ListBlockValidationError'
 
     def js_args(self, error):
-        return [[elist.as_data() if elist is not None else elist for elist in error.block_errors]]
+        return [
+            [elist.as_data() if elist is not None else elist for elist in error.block_errors],
+            error.non_block_errors.as_data(),
+        ]
 
     @cached_property
     def media(self):
@@ -79,6 +89,7 @@ class ListBlock(Block):
     def clean(self, value):
         result = []
         errors = []
+        non_block_errors = ErrorList()
         for child_val in value:
             try:
                 result.append(self.child_block.clean(child_val))
@@ -87,8 +98,18 @@ class ListBlock(Block):
             else:
                 errors.append(None)
 
-        if any(errors):
-            raise ListBlockValidationError(errors)
+        if self.meta.min_num is not None and self.meta.min_num > len(value):
+            non_block_errors.append(ValidationError(
+                _('The minimum number of items is %d') % self.meta.min_num
+            ))
+
+        if self.meta.max_num is not None and self.meta.max_num < len(value):
+            non_block_errors.append(ValidationError(
+                _('The maximum number of items is %d') % self.meta.max_num
+            ))
+
+        if any(errors) or non_block_errors:
+            raise ListBlockValidationError(block_errors=errors, non_block_errors=non_block_errors)
 
         return result
 
@@ -161,6 +182,10 @@ class ListBlock(Block):
         # descendant block type
         icon = "placeholder"
         form_classname = None
+        min_num = None
+        max_num = None
+
+    MUTABLE_META_ATTRIBUTES = ['min_num', 'max_num']
 
 
 class ListBlockAdapter(Adapter):
@@ -181,6 +206,12 @@ class ListBlockAdapter(Adapter):
         if help_text:
             meta['helpText'] = help_text
             meta['helpIcon'] = get_help_icon()
+
+        if block.meta.min_num is not None:
+            meta['minNum'] = block.meta.min_num
+
+        if block.meta.max_num is not None:
+            meta['maxNum'] = block.meta.max_num
 
         return [
             block.name,

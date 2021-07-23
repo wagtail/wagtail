@@ -84,3 +84,57 @@ class TestSubmitPageTranslation(WagtailTestUtils, TestCase):
         form = SubmitTranslationForm(instance=self.en_blog_index)
         # Blog post can be translated to `de` and `fr`.
         self.assertIsInstance(form.fields["select_all"].widget, CheckboxInput)
+
+    def test_locale_disabled(self):
+        form = SubmitTranslationForm(instance=self.en_blog_post)
+        # The parent (blog_index) is translated to English.
+        # German and French are disabled.
+        self.assertEqual(
+            list(form.fields["locales"].widget.disabled_values),
+            [self.de_locale.id, self.fr_locale.id],
+        )
+        label = f"""
+        <label class="disabled">
+            <input type="checkbox" name="None" value="{self.de_locale.id}" disabled>
+            German
+        </label>
+        """
+        self.assertInHTML(label, form.fields["locales"].widget.render(None, None))
+
+    def test_locale_help_text(self):
+        # German and French are disabled.
+        # The help_text is plural
+        form = SubmitTranslationForm(instance=self.en_blog_post)
+        help_text = f"""
+            Some locales are disabled because some parent pages are not translated.
+            <br>
+            <a href="/admin/translation/submit/page/{self.en_blog_index.id}/">
+                Translate the parent pages.
+            </a>
+        """
+        self.assertHTMLEqual(form.fields["locales"].help_text, help_text)
+
+        # Add German translation
+        self.en_blog_index.copy_for_translation(self.de_locale)
+        # French is disabled.
+        # The help_text is singular.
+        form = SubmitTranslationForm(instance=self.en_blog_post)
+        help_text = f"""
+            A locale is disabled because a parent page is not translated.
+            <br>
+            <a href="/admin/translation/submit/page/{self.en_blog_index.id}/">
+                Translate the parent page.
+            </a>
+        """
+        self.assertHTMLEqual(form.fields["locales"].help_text, help_text)
+
+    def test_hide_submit(self):
+        # German and French are disabled.
+        # There are no other pages to be translated.
+        # Submit is hidden.
+        form = SubmitTranslationForm(instance=self.en_blog_post)
+        self.assertFalse(form.show_submit)
+        # A parent is translated
+        self.en_blog_index.copy_for_translation(self.de_locale)
+        form = SubmitTranslationForm(instance=self.en_blog_post)
+        self.assertTrue(form.show_submit)

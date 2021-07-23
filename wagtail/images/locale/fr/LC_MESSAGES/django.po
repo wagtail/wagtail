@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-02-01 18:44+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-22 06:18+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -78,6 +78,22 @@ msgstr "Aligné à gauche"
 
 msgid "Right-aligned"
 msgstr "Aligné à droite"
+
+msgid "Collection"
+msgstr "Collection"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Image is decorative"
+msgstr "L'image est décorative"
+
+msgid "Alt text"
+msgstr "Texte alternatif"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Veuillez ajouter un texte alternatif ou marquer l'image comme décorative"
 
 msgid "Filter"
 msgstr "Filtre"

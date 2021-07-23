@@ -1,6 +1,5 @@
 from datetime import timedelta
 
-from django import VERSION as DJANGO_VERSION
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -85,30 +84,17 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         self.assertContains(response, "Page scheduled for publishing", 1)
         self.assertContains(response, "Published", 1)
 
-        if DJANGO_VERSION >= (3, 0):
-            self.assertContains(
-                response, "Added the &#x27;Private, accessible to logged-in users&#x27; view restriction"
-            )
-            self.assertContains(
-                response,
-                "Updated the view restriction to &#x27;Private, accessible with the following password&#x27;"
-            )
-            self.assertContains(
-                response,
-                "Removed the &#x27;Private, accessible with the following password&#x27; view restriction"
-            )
-        else:
-            self.assertContains(
-                response, "Added the &#39;Private, accessible to logged-in users&#39; view restriction"
-            )
-            self.assertContains(
-                response,
-                "Updated the view restriction to &#39;Private, accessible with the following password&#39;"
-            )
-            self.assertContains(
-                response,
-                "Removed the &#39;Private, accessible with the following password&#39; view restriction"
-            )
+        self.assertContains(
+            response, "Added the &#x27;Private, accessible to logged-in users&#x27; view restriction"
+        )
+        self.assertContains(
+            response,
+            "Updated the view restriction to &#x27;Private, accessible with the following password&#x27;"
+        )
+        self.assertContains(
+            response,
+            "Removed the &#x27;Private, accessible with the following password&#x27; view restriction"
+        )
 
         self.assertContains(response, 'system', 2)  # create without a user + remove restriction
         self.assertContains(response, 'the_editor', 9)  # 7 entries by editor + 1 in sidebar menu + 1 in filter

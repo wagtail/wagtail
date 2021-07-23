@@ -321,6 +321,15 @@ class TestEmailBlock(unittest.TestCase):
             block.clean("foo@example.net")
 
 
+class TestBooleanBlock(unittest.TestCase):
+    def test_get_form_state(self):
+        block = blocks.BooleanBlock(required=False)
+        form_state = block.get_form_state(True)
+        self.assertEqual(form_state, True)
+        form_state = block.get_form_state(False)
+        self.assertEqual(form_state, False)
+
+
 class TestBlockQuoteBlock(unittest.TestCase):
     def test_render(self):
         block = blocks.BlockQuoteBlock()
@@ -2170,6 +2179,34 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             },
         })
 
+    def test_adapt_with_min_num_max_num(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = blocks.ListBlock(LinkBlock, min_num=2, max_num=5)
+
+        block.set_name('test_listblock')
+        js_args = ListBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_listblock')
+        self.assertIsInstance(js_args[1], LinkBlock)
+        self.assertEqual(js_args[2], {'title': None, 'link': None})
+        self.assertEqual(js_args[3], {
+            'label': 'Test listblock',
+            'icon': 'placeholder',
+            'classname': None,
+            'minNum': 2,
+            'maxNum': 5,
+            'strings': {
+                'DELETE': 'Delete',
+                'DUPLICATE': 'Duplicate',
+                'MOVE_DOWN': 'Move down',
+                'MOVE_UP': 'Move up',
+                'ADD': 'Add',
+            },
+        })
+
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -2322,6 +2359,32 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 'ADD': 'Add',
             },
         })
+
+    def test_min_num_validation_errors(self):
+        block = blocks.ListBlock(blocks.CharBlock(), min_num=2)
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(['foo'])
+        self.assertEqual(catcher.exception.params, {
+            'block_errors': [None],
+            'non_block_errors': ['The minimum number of items is 2']
+        })
+
+        # a value with >= 2 blocks should pass validation
+        self.assertTrue(block.clean(['foo', 'bar']))
+
+    def test_max_num_validation_errors(self):
+        block = blocks.ListBlock(blocks.CharBlock(), max_num=2)
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(['foo', 'bar', 'baz'])
+        self.assertEqual(catcher.exception.params, {
+            'block_errors': [None, None, None],
+            'non_block_errors': ['The maximum number of items is 2']
+        })
+
+        # a value with <= 2 blocks should pass validation
+        self.assertTrue(block.clean(['foo', 'bar']))
 
 
 class TestListBlockWithFixtures(TestCase):
@@ -4010,6 +4073,54 @@ class TestIncludeBlockTag(TestCase):
             'language': 'fr',
         })
         self.assertIn('<body><h1 class="important">bonjour</h1></body>', result)
+
+    def test_include_block_html_escaping(self):
+        """
+        Output of include_block should be escaped as per Django autoescaping rules
+        """
+        block = blocks.CharBlock()
+        bound_block = block.bind(block.to_python('some <em>evil</em> HTML'))
+
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': bound_block,
+        })
+        self.assertIn('<body>some &lt;em&gt;evil&lt;/em&gt; HTML</body>', result)
+
+        # {% autoescape off %} should be respected
+        result = render_to_string('tests/blocks/include_block_autoescape_off_test.html', {
+            'test_block': bound_block,
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
+
+        # The same escaping should be applied when passed a plain value rather than a BoundBlock -
+        # a typical situation where this would occur would be rendering an item of a StructBlock,
+        # e.g. {% include_block person_block.first_name %} as opposed to
+        # {% include_block person_block.bound_blocks.first_name %}
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': 'some <em>evil</em> HTML',
+        })
+        self.assertIn('<body>some &lt;em&gt;evil&lt;/em&gt; HTML</body>', result)
+
+        result = render_to_string('tests/blocks/include_block_autoescape_off_test.html', {
+            'test_block': 'some <em>evil</em> HTML',
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
+
+        # Blocks that explicitly return 'safe HTML'-marked values (such as RawHTMLBlock) should
+        # continue to produce unescaped output
+        block = blocks.RawHTMLBlock()
+        bound_block = block.bind(block.to_python('some <em>evil</em> HTML'))
+
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': bound_block,
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
+
+        # likewise when applied to a plain 'safe HTML' value rather than a BoundBlock
+        result = render_to_string('tests/blocks/include_block_test.html', {
+            'test_block': mark_safe('some <em>evil</em> HTML'),
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
 
 
 class BlockUsingGetTemplateMethod(blocks.Block):

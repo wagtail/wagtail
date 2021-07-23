@@ -1,0 +1,165 @@
+/* =============================================================================
+/*  Wagtail CMS main stylesheet
+/* =============================================================================
+
+REFERENCE
+
+  * We organize our styles based on a combination of ITCSS and
+    the Sass 7-1 pattern.
+  * Classes should be written using BEM, which we modify to include a prefix.
+  * Every BEM block should have its own file.
+
+┌────────────┬────────────────────────┬──────────────┬────────┐
+│ Folder     │ Contents               │ ITCSS level  │ Prefix │
+├────────────┼────────────────────────┼──────────────┼────────┤
+│ settings   │ variables, maps, fonts │ 1 Settings   │        │
+│ tools      │ mixins, functions      │ 2 Tools      │        │
+│ generic    │ resets                 │ 3 Generic    │        │
+│ elements   │ elements, no classes   │ 4 Elements   │        │
+│ objects    │ classes                │ 5 Objects    │ o-     │
+│            │   layout               │              │        │
+│ components │ classes                │ 6 Components │ c-     │
+│            │   BEM blocks           │              │        │
+│ overrides  │ classes                │ 7 Trumps     │ u-     │
+│            │   overrides, utilities │              │        │
+└────────────┴────────────────────────┴──────────────┴────────┘
+
+SCSS: https://sass-lang.com/guide
+ITCSS: https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
+Sass 7-1 pattern: https://gist.github.com/rveitch/84cea9650092119527bc
+BEM: http://getbem.com/
+
+
+OTHER PREFIXES
+
+┌────────┬─────────┐
+│ Prefix │ Purpose │
+├────────┼─────────┤
+│ t-     │ theme   │
+│ is-    │ state   │
+└────────┴─────────┘
+
+==============================================================================*/
+
+
+/* SETTINGS
+These are variables, maps, and fonts.
+* No CSS should be produced by these files
+*/
+
+@import 'settings';
+
+
+/* TOOLS
+These are functions and mixins.
+* No CSS should be produced by these files.
+*/
+
+@import 'tools';
+
+
+/* GENERIC
+This is for resets and other rules that affect large collections of bare elements.
+* Changes to them should be very rare.
+*/
+
+// @import 'generic/generic';
+
+
+/* ELEMENTS
+These are base styles for bare HTML elements.
+* Changes to them should be very rare.
+*/
+
+@import 'elements/elements';
+@import 'elements/typography';
+@import 'elements/forms';
+@import 'elements/root';
+
+
+/* OBJECTS
+These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
+* This is for grids, wrappers, and other non-consmetic layout utilities.
+* These classes are prefixed with `.o-`.
+*/
+
+@import 'objects/objects';
+@import 'objects/avatar';
+
+
+/* COMPONENTS
+These are classes for components.
+* These classes (unless legacy) are prefixed with `.c-`.
+* React component styles live in the same folders as their React components,
+  which is the preferred pattern over housing them in the scss folder.
+*/
+
+@import '../src/components/Transition/Transition';
+@import '../src/components/LoadingSpinner/LoadingSpinner';
+@import '../src/components/PublicationStatus/PublicationStatus';
+@import '../src/components/Explorer/Explorer';
+@import '../src/components/CommentApp/main';
+
+// Legacy
+@import 'components/icons';
+@import 'components/tabs';
+@import 'components/dropdown';
+@import 'components/dropdown.legacy';
+@import 'components/help-block';
+@import 'components/modals';
+@import 'components/forms';
+@import 'components/button';
+@import 'components/chooser';
+@import 'components/tag';
+@import 'components/listing';
+@import 'components/messages';
+@import 'components/messages.capability';
+@import 'components/messages.status';
+@import 'components/header';
+@import 'components/progressbar';
+@import 'components/main-nav';
+@import 'components/indicator';
+@import 'components/tooltips';
+@import 'components/logo';
+@import 'components/grid.legacy';
+@import 'components/breadcrumb';
+@import 'components/footer';
+@import 'components/loading-mask';
+@import 'components/media-placeholder';
+@import 'components/human-readable-date';
+@import 'components/link.legacy';
+@import 'components/privacy-indicator';
+@import 'components/status-tag';
+@import 'components/button-select';
+@import 'components/skiplink';
+@import 'components/workflow-tasks';
+@import 'components/switch';
+@import 'components/comments-controls';
+@import 'components/comments-notification-dropdown';
+
+
+/* OVERRIDES
+These are classes that provide overrides.
+* Higher specificity is allowed here because these are overrides and imported last.
+*/
+
+// VENDOR: overrides of vendor styles.
+@import 'overrides/vendor.datetimepicker';
+@import 'overrides/vendor.tagit';
+
+
+// UTILITIES: classes that do one simple thing.
+@import 'overrides/utilities.hidden';
+@import 'overrides/utilities.text';
+@import 'overrides/utilities.dropdowns';
+@import 'overrides/utilities.focus';
+@import 'overrides/utilities.visuallyhidden';
+
+// Legacy utilities
+@import 'overrides/utilities.text.legacy';
+@import 'overrides/utilities.legacy';
+
+
+// PAGES: page-specific overrides
+@import 'overrides/pages.homepage';
+@import 'overrides/pages.page-explorer';

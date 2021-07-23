@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Stevo Backor\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -60,6 +60,9 @@ msgstr "Doľava zarovnané"
 msgid "Right-aligned"
 msgstr "Doprava zarovnané"
 
+msgid "Collection"
+msgstr "Kolekcie"
+
 msgid "Filter"
 msgstr "Filter"
 
@@ -102,6 +105,9 @@ msgstr "Upraviť"
 msgid "Edit any image"
 msgstr "Upraviť obrázok"
 
+msgid "Choose"
+msgstr "Zvoliť"
+
 msgid "title"
 msgstr "titulok"
 
@@ -122,6 +128,9 @@ msgstr "nahral používateľ"
 
 msgid "tags"
 msgstr "tagy"
+
+msgid "image"
+msgstr "obrázok"
 
 msgid "Choose an image"
 msgstr "Vybrať obrázok"
@@ -195,6 +204,9 @@ msgstr "Súbor nebol nájdený"
 
 msgid "Images"
 msgstr "Obrázky"
+
+msgid "Clear choice"
+msgstr "Zmazať voľbu"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

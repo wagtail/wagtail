@@ -10,10 +10,19 @@ from wagtail.core.rich_text import get_text_for_indexing
 
 class RichTextField(models.TextField):
     def __init__(self, *args, **kwargs):
+        # 'editor' and 'features' are popped before super().__init__ has chance to capture them
+        # for use in deconstruct(). This is intentional - they would not be useful in migrations
+        # and retrospectively adding them would generate unwanted migration noise
         self.editor = kwargs.pop('editor', 'default')
         self.features = kwargs.pop('features', None)
-        # TODO: preserve 'editor' and 'features' when deconstructing for migrations
         super().__init__(*args, **kwargs)
+
+    def clone(self):
+        name, path, args, kwargs = self.deconstruct()
+        # add back the 'features' and 'editor' kwargs that were not preserved by deconstruct()
+        kwargs["features"] = self.features
+        kwargs["editor"] = self.editor
+        return self.__class__(*args, **kwargs)
 
     def formfield(self, **kwargs):
         from wagtail.admin.rich_text import get_rich_text_editor_widget

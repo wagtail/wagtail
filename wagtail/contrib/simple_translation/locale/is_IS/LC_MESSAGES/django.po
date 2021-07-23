@@ -1,0 +1,65 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2021
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-21 09:32+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2021\n"
+"Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
+"teams/8009/is_IS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: is_IS\n"
+"Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Wagtail einfaldar þýðingar"
+
+msgid "Select all"
+msgstr "Velja allt"
+
+msgid "Locales"
+msgstr "Þýðingar"
+
+msgid "All child pages will be created."
+msgstr "Allar undirsíður verða búnar til"
+
+msgid "Include subtree ({} page)"
+msgid_plural "Include subtree ({} pages)"
+msgstr[0] "Innifela undirsíður ({} pages)"
+msgstr[1] "Ásamt undirsíðum ({} síður)"
+
+msgid "Submit"
+msgstr "Senda"
+
+msgid "Translate"
+msgstr "Þýða"
+
+msgid "{} locales"
+msgstr "{} þýðingar"
+
+msgid "Translate page"
+msgstr "Þýða síðu"
+
+msgid "The page '{page_title}' was successfully created in {locales}"
+msgstr "Tókst að búa til síðuna '{page_title}' í {locales}"
+
+msgid "Translate {model_name}"
+msgstr "Þýða {model_name}"
+
+msgid "Successfully created {locales} for {model_name} '{object}'"
+msgstr "Tókst að búa til {locales} fyrir {model_name} '{object}'"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Þýða '%(title)s'"

@@ -1,0 +1,71 @@
+// stylelint-disable declaration-no-important
+.sidebar-search {
+    $root: &;
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+
+    .sidebar--slim & {
+        padding: 0;
+    }
+
+    &__label {
+        @include visuallyhidden;
+    }
+
+    // Beat specificity
+    input:not([type='submit']) {
+        // Need !important to override body.ready class
+        transition: background-color 0.2s ease, opacity 600ms ease-in-out !important;
+        visibility: hidden;
+        font-size: 13px;
+        font-weight: 400;
+        background-color: transparent;
+        border: 0;
+        padding: 12px 0;
+        color: $color-menu-text;
+        -webkit-font-smoothing: auto;
+
+        .sidebar--slim & {
+            display: none;
+        }
+
+        &::placeholder {
+            color: $color-menu-text;
+        }
+    }
+
+    &__submit {
+        background-color: transparent;
+        border: 0;
+        color: #ccc;
+        padding: 0;
+        width: 35px;
+        height: 35px;
+        transition: opacity 600ms ease-in-out;
+
+        .sidebar--slim & {
+            width: 100%;
+        }
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    &--visible {
+        input:not([type='submit']) {
+            visibility: visible;
+        }
+    }
+}
+
+.sidebar-search--slim.sidebar-search--visible {
+    .sidebar-search__submit,
+    input:not([type=submit]) {
+        opacity: 0;
+    }
+}

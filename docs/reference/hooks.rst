@@ -78,6 +78,24 @@ And here's an example of registering a hook function for a single block of code:
 
   # Hook is unregistered here
 
+If you need to register multiple hooks in a ``with`` block, you can pass the hooks in as a list of tuples:
+
+.. code-block:: python
+
+    def my_hook(...):
+        pass
+
+    def my_other_hook(...):
+        pass
+
+    with hooks.register_temporarily([
+        ('hook_name', my_hook),
+        ('hook_name', my_other_hook),
+    ]):
+        # All hooks are registered here
+        ..
+
+    # All hooks are unregistered here
 
 The available hooks are listed below.
 
@@ -799,7 +817,7 @@ Hooks for customising the way users are directed through the process of creating
     class UserbarPuppyLinkItem:
         def render(self, request):
             return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
-                + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
+                + 'target="_parent" role="menuitem" class="action icon icon-wagtail">Puppies!</a></li>'
 
     @hooks.register('construct_wagtail_userbar')
     def add_puppy_link_item(request, items):

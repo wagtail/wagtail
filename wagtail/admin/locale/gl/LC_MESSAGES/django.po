@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-26 11:07+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -82,9 +82,6 @@ msgstr "Publicazón programada"
 msgid "Privacy"
 msgstr "Privacidade"
 
-msgid "Common page configuration"
-msgstr "Configuración común de páxina"
-
 msgid "Content"
 msgstr "Contido"
 
@@ -137,6 +134,9 @@ msgstr "Escribe a túa dirección de correo para restaurar o teu contrasinal"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Padre"
+
 msgid ""
 "Select hierarchical position. Note: a collection cannot become a child of "
 "itself or one of its descendants."
@@ -146,6 +146,9 @@ msgstr ""
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
+
+msgid "Collection"
+msgstr "Colección"
 
 msgid "New title"
 msgstr "Novo título"
@@ -244,17 +247,26 @@ msgstr "Esta páxina xa ten o fluxo de traballo '{0}' asignado."
 msgid "Edit"
 msgstr "Editar"
 
+msgid "Page"
+msgstr "Páxina"
+
 msgid "Pages"
 msgstr "Páxinas"
+
+msgid "Server Error"
+msgstr "Erro do Servidor"
+
+msgid "Save"
+msgstr "Gardar"
+
+msgid "Saving..."
+msgstr "Gardando..."
 
 msgid "Go to Wagtail admin"
 msgstr "Ir ao administrador de Wagtail"
 
 msgid "Account"
 msgstr "Conta"
-
-msgid "Update"
-msgstr "Actualizar"
 
 msgid "Change password"
 msgstr "Cambiar contrasinal"
@@ -264,9 +276,6 @@ msgid ""
 msgstr ""
 "O teu contrasinal non pode cambiarse aquí. Por favor, contacta co "
 "administrador."
-
-msgid "Notification preferences"
-msgstr "Preferencias de notificacións"
 
 msgid "Reset password"
 msgstr "Restablecer contrasinal"
@@ -300,12 +309,6 @@ msgstr "Panel de control"
 
 msgid "Menu"
 msgstr "Menú"
-
-msgid "Move up"
-msgstr "Subir"
-
-msgid "Move down"
-msgstr "Baixar"
 
 msgid "Explorer"
 msgstr "Explorador"
@@ -359,9 +362,6 @@ msgstr "Engade unha ligazón externa"
 msgid "You can edit the privacy settings on:"
 msgstr "Podes editar a configuración de privacidade en:"
 
-msgid "Save"
-msgstr "Gardar"
-
 msgid "Public"
 msgstr "Público"
 
@@ -384,8 +384,17 @@ msgstr ""
 "Ningunha colección foi creada. ¿Por que non <a href=\"%(add_collection_url)s"
 "\">engadir unha</a>?"
 
+msgid "Move up"
+msgstr "Subir"
+
+msgid "Move down"
+msgstr "Baixar"
+
 msgid "Yes, delete"
 msgstr "Si, eliminar"
+
+msgid "Update"
+msgstr "Actualizar"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -409,9 +418,6 @@ msgstr "En vivo"
 
 msgid "Pages awaiting moderation"
 msgstr "Páxinas en espera de ser moderadas"
-
-msgid "Parent"
-msgstr "Padre"
 
 msgid "Type"
 msgstr "Tipo"
@@ -501,6 +507,9 @@ msgstr "Esta páxina foi feita privada por unha páxina pai."
 msgid "Privacy changes apply to all children of this page too."
 msgstr ""
 "Os cambios de privacidade aplícanse a todas as fillas desta páxina tamén."
+
+msgid "Saving…"
+msgstr "Gardando…"
 
 msgid "Replace current draft"
 msgstr "Substituír borrador actual"
@@ -600,6 +609,9 @@ msgstr "Nova %(page_type)s"
 
 msgid "New"
 msgstr "Nova"
+
+msgid "Actions"
+msgstr "Accións"
 
 msgid "This page has unsaved changes."
 msgstr "Esta páxina ten cambios sen gardar."
@@ -790,8 +802,11 @@ msgstr "Introduce o termo de procura arriba"
 msgid "No pages use"
 msgstr "Non hay uso de páxinas"
 
-msgid "Collection"
-msgstr "Colección"
+msgid "Download CSV"
+msgstr "Descargar CSV"
+
+msgid "Filter"
+msgstr "Filtro"
 
 msgid "Locked"
 msgstr "Bloqueada"
@@ -808,6 +823,9 @@ msgstr "Todas as coleccións"
 
 msgid "Edit your account"
 msgstr "Editar a túa conta"
+
+msgid "Account settings"
+msgstr "Axustes de conta"
 
 msgid "Log out"
 msgstr "Pechar sesión"
@@ -828,11 +846,20 @@ msgstr "Mostrar no Navegador"
 msgid "by %(modified_by)s"
 msgstr "por %(modified_by)s"
 
+msgid "live"
+msgstr "en vivo"
+
+msgid "live + draft"
+msgstr "en vivo + borrador"
+
+msgid "draft"
+msgstr "borrador"
+
 msgid "Test"
 msgstr "Test"
 
-msgid "Your password has been changed successfully!"
-msgstr "¡O teu contrasinal foi cambiado correctamente!"
+msgid "Password"
+msgstr "Contrasinal"
 
 msgid "You have been successfully logged out."
 msgstr "Fuches desconectado correctamente."
@@ -942,36 +969,12 @@ msgstr "Páxina '{0}' movida."
 msgid "Page '{0}' unpublished."
 msgstr "Páxina '{0}' non publicada."
 
+msgid "Report this error to your webmaster with the following information:"
+msgstr ""
+"Informar deste erro ao teu administrador da web coa seguinte información:"
+
 msgid "More"
 msgstr "Máis"
-
-msgid "Change the password you use to log in."
-msgstr "Cambia a contrasinal que utilizas para iniciar sesión."
-
-msgid "Choose which email notifications to receive."
-msgstr "Selecciona que notificacións de correo electrónico recibir."
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "'%(workflow)s' en '%(task)s' cancelado"
-
-msgid "Workflow cancelled"
-msgstr "Fluxo de traballo cancelado"
-
-msgid "Workflow: start"
-msgstr "Fluxo de traballo: comezar"
-
-msgid "Workflow: approve task"
-msgstr "Fluxo de traballo: aprobar tarefa"
-
-msgid "Workflow: reject task"
-msgstr "Fluxo de traballo: rexeitar tarefa"
-
-msgid "Workflow: resume task"
-msgstr "Fluxo de traballo: renovar tarefa"
-
-msgid "Workflow: cancel"
-msgstr "Fluxo de traballo: cancelar"
 
 msgid "Yes"
 msgstr "Si"

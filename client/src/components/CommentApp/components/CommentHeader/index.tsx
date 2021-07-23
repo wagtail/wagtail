@@ -11,21 +11,23 @@ import { Author } from '../../state/comments';
 
 // Details/Summary components that just become <details>/<summary> tags
 // except for IE11 where they become <div> tags to allow us to style them
-const Details: React.FunctionComponent<React.ComponentPropsWithoutRef<'details'>> = ({ children, open, ...extraProps }) => {
-  if (IS_IE11) {
+const Details: React.FunctionComponent<React.ComponentPropsWithoutRef<'details'>> = (
+  ({ children, open, ...extraProps }) => {
+    if (IS_IE11) {
+      return (
+        <div className={'details-fallback' + (open ? ' details-fallback--open' : '')} {...extraProps}>
+          {children}
+        </div>
+      );
+    }
+
     return (
-      <div className={'details-fallback' + (open ? ' details-fallback--open' : '')} {...extraProps}>
+      <details open={open} {...extraProps}>
         {children}
-      </div>
+      </details>
     );
   }
-
-  return (
-    <details {...extraProps}>
-      {children}
-    </details>
-  );
-};
+);
 
 const Summary: React.FunctionComponent<React.ComponentPropsWithoutRef<'summary'>> = ({ children, ...extraProps }) => {
   if (IS_IE11) {
@@ -98,29 +100,38 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
     }
   }, [focused]);
   const menuRef = useRef<HTMLDivElement>(null);
+  const menuContainerRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     setMenuOpen(!menuOpen);
   };
+
   useEffect(() => {
     if (menuOpen) {
       setTimeout(() => menuRef.current?.focus(), 1);
     }
   }, [menuOpen]);
 
+  const handleClickOutside = (e: MouseEvent) => {
+    if (menuContainerRef.current && e.target instanceof Node && !menuContainerRef.current.contains(e.target)) {
+      setMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, []);
+
   return (
     <div className="comment-header">
       <div className="comment-header__actions">
-        {onResolve &&
-          <div className="comment-header__action comment-header__action--resolve">
-            <button type="button" aria-label={strings.RESOLVE} onClick={onClickResolve}>
-              <Icon name="check" />
-            </button>
-          </div>
-        }
-        {(onEdit || onDelete) &&
-          <div className="comment-header__action comment-header__action--more">
+        {(onEdit || onDelete || onResolve) &&
+          <div className="comment-header__action comment-header__action--more" ref={menuContainerRef}>
             <Details open={menuOpen} onClick={toggleMenu}>
               <Summary
                 aria-label={strings.MORE_ACTIONS}
@@ -135,6 +146,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
               <div className="comment-header__more-actions" role="menu" ref={menuRef}>
                 {onEdit && <button type="button" role="menuitem" onClick={onClickEdit}>{strings.EDIT}</button>}
                 {onDelete && <button type="button" role="menuitem" onClick={onClickDelete}>{strings.DELETE}</button>}
+                {onResolve && <button type="button" role="menuitem" onClick={onClickResolve}>{strings.RESOLVE}</button>}
               </div>
             </Details>
           </div>

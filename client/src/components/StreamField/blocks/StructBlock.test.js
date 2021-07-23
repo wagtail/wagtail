@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { FieldBlockDefinition } from './FieldBlock';
-import { StructBlockDefinition } from './StructBlock';
+import { StructBlockDefinition, StructBlockValidationError } from './StructBlock';
 
 import $ from 'jquery';
 window.$ = $;
@@ -34,6 +34,12 @@ class DummyWidgetDefinition {
       focus() { focus(widgetName); },
       idForLabel: id,
     };
+  }
+}
+
+class ValidationError {
+  constructor(messages) {
+    this.messages = messages;
   }
 }
 
@@ -151,6 +157,15 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
     boundBlock.focus();
     expect(focus.mock.calls.length).toBe(1);
     expect(focus.mock.calls[0][0]).toBe('Heading widget');
+  });
+
+  test('setError passes error messages to children', () => {
+    boundBlock.setError([
+      new StructBlockValidationError({
+        size: [new ValidationError(['This is too big'])],
+      }),
+    ]);
+    expect(document.body.innerHTML).toMatchSnapshot();
   });
 });
 

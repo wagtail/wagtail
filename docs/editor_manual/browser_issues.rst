@@ -26,3 +26,8 @@ If this affects you or your organisation, consider which alternative browsers yo
 Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its `IE mode <https://docs.microsoft.com/en-us/deployedge/edge-ie-mode>`_ to keep access to IE11-only sites, while other sites and apps like Wagtail can leverage modern browser capabilities.
 
 We are looking for feedback on this change to our support policy, please `get in touch <https://github.com/wagtail/wagtail/issues/6170>`_ if it affects you and there are no clear alternatives.
+
+Assistive technologies
+______________________
+
+We want Wagtail to be accessible for users of a wide range of assistive technologies, but are aware of many blockers currently. For an overview, see our `public accessibility audit <https://docs.google.com/spreadsheets/d/1l7tnpEyJiC5BWE_JX0XCkknyrjxYA5T2aee5JgPnmi4/edit>`_.

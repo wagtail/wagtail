@@ -1,0 +1,18 @@
+============================
+Wagtail 2.13.1 release notes
+============================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Ensure comment notification checkbox is fully hidden when commenting is disabled (Karl Hobley)
+ * Prevent commenting from failing for user models with UUID primary keys (Jacob Topp-Mugglestone)
+ * Fix incorrect link in comment notification HTML email (Matt Westcott)

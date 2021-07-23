@@ -1,0 +1,61 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    width: $menu-width;
+    float: left;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: $nav-grey-3;
+    z-index: 3;
+
+    @include transition(width $menu-transition-duration ease);
+
+    &--slim {
+        width: $menu-width-slim;
+    }
+
+    &__inner {
+        height: 100%;
+        background: $nav-grey-3;
+        // On medium, make it possible for the nav links to scroll.
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    &__collapse-toggle {
+        @include transition(background-color $menu-transition-duration ease);
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        color: #ccc;
+        width: 35px;
+        height: 35px;
+        background: transparent;
+        border: 0;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border-radius: 50%;
+
+        @include media-breakpoint-up(sm) {
+            &:hover {
+                background-color: #3a3a3a;
+                color: #ccc;
+            }
+        }
+
+        svg {
+            width: 15px;
+            height: 16px;
+        }
+    }
+}
+
+@import 'SidebarPanel';
+@import 'menu/MenuItem';
+@import 'menu/SubMenuItem';
+@import 'modules/CustomBranding';
+@import 'modules/MainMenu';
+@import 'modules/Search';
+@import 'modules/WagtailBranding';

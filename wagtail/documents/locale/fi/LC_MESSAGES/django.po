@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Aarni Koskela\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,9 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtailin dokumentit"
+
+msgid "Collection"
+msgstr "Kokoelma"
 
 msgid "Add"
 msgstr "Lisää"
@@ -39,6 +42,9 @@ msgstr "Muokkaa"
 
 msgid "Edit any document"
 msgstr "Muokkaa mitä vain dokumenttia"
+
+msgid "Choose"
+msgstr "Valitse"
 
 msgid "title"
 msgstr "otsikko"
@@ -173,9 +179,6 @@ msgstr "Otsikko"
 
 msgid "File"
 msgstr "Tiedosto"
-
-msgid "Collection"
-msgstr "Kokoelma"
 
 msgid "Created"
 msgstr "Luotu"

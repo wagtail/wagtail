@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { cleanForSlug } from '../../utils/cleanForSlug';
 
 window.halloPlugins = {};
 
@@ -184,26 +185,6 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
 }
 window.InlinePanel = InlinePanel;
 
-function cleanForSlug(val, useURLify) {
-  if (useURLify) {
-    // URLify performs extra processing on the string (e.g. removing stopwords) and is more suitable
-    // for creating a slug from the title, rather than sanitising a slug entered manually
-    // eslint-disable-next-line no-undef, new-cap
-    const cleaned = URLify(val, 255, window.unicodeSlugsEnabled);
-
-    // if the result is blank (e.g. because the title consisted entirely of stopwords),
-    // fall through to the non-URLify method
-    if (cleaned) {
-      return cleaned;
-    }
-  }
-
-  // just do the "replace"
-  if (window.unicodeSlugsEnabled) {
-    return val.replace(/\s/g, '-').replace(/[&/\\#,+()$~%.'":`@^!*?<>{}]/g, '').toLowerCase();
-  }
-  return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-_]/g, '').toLowerCase();
-}
 window.cleanForSlug = cleanForSlug;
 
 function initSlugAutoPopulate() {
@@ -241,7 +222,7 @@ function initErrorDetection() {
 
   // first count up all the errors
   // eslint-disable-next-line func-names
-  $('.error-message').each(function () {
+  $('.error-message,.help-critical').each(function () {
     const parentSection = $(this).closest('section');
 
     if (!errorSections[parentSection.attr('id')]) {
@@ -263,19 +244,31 @@ function initCollapsibleBlocks() {
   // eslint-disable-next-line func-names
   $('.object.collapsible').each(function () {
     const $li = $(this);
-    const $content = $li.find('.object-layout');
 
+    const $content = $li.find('.object-layout');
+    const onAnimationComplete = () => $fieldset.get(0).dispatchEvent(
+      new CustomEvent('commentAnchorVisibilityChange', { bubbles: true })
+    );
     if ($li.hasClass('collapsed') && $li.find('.error-message').length === 0) {
-      $content.hide()
+      content.hide({
+        complete: onAnimationComplete
+      });
     }
 
     $li.find('> .title-wrapper').on('click', () => {
       if (!$li.hasClass('collapsed')) {
         $li.addClass('collapsed');
-        $content.hide('slow');
+
+        content.hide({
+          duration: 'slow',
+          complete: onAnimationComplete
+        });
       } else {
         $li.removeClass('collapsed');
-        $content.show('show');
+        content.show({
+          duration: 'slow',
+          complete: onAnimationComplete
+        });
       }
     });
   });
@@ -415,7 +408,3 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
     updateWarnings();
   }
 };
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports.cleanForSlug = cleanForSlug;
-}

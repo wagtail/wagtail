@@ -8,10 +8,13 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Min, QuerySet
+from django.forms import Media
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.html import avoid_wrapping, format_html, format_html_join
@@ -24,11 +27,12 @@ from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
+from wagtail.admin.ui import sidebar
 from wagtail.core import hooks
-from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.models import (
-    Collection, CollectionViewRestriction, Locale, Page, PageLogEntry, PageViewRestriction,
+    Collection, CollectionViewRestriction, Locale, Page, PageViewRestriction,
     UserPagePermissionsProxy)
+from wagtail.core.telepath import JSContext
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import escape_script
@@ -92,7 +96,36 @@ def search_other(context, current=None):
 
 @register.simple_tag
 def main_nav_js():
-    return admin_menu.media['js']
+    if slim_sidebar_enabled():
+        return Media(
+            js=[
+                versioned_static('wagtailadmin/js/telepath/telepath.js'),
+                versioned_static('wagtailadmin/js/sidebar.js'),
+            ]
+        )
+
+    else:
+        return Media(
+            js=[
+                versioned_static('wagtailadmin/js/sidebar-legacy.js')
+            ]
+        ) + admin_menu.media['js']
+
+
+@register.simple_tag
+def main_nav_css():
+    if slim_sidebar_enabled():
+        return Media(
+            css={
+                'all': [
+                    versioned_static('wagtailadmin/css/sidebar.css')
+                ]
+            }
+        )
+
+    else:
+        # Legacy sidebar CSS in core.css
+        return admin_menu.media['css']
 
 
 @register.filter("ellipsistrim")
@@ -171,17 +204,17 @@ def test_page_is_public(context, page):
     Usage: {% test_page_is_public page as is_public %}
     Sets 'is_public' to True iff there are no page view restrictions in place on
     this page.
-    Caches the list of page view restrictions in the context, to avoid repeated
+    Caches the list of page view restrictions on the request, to avoid repeated
     DB queries on repeated calls.
     """
-    if 'all_page_view_restriction_paths' not in context:
-        context['all_page_view_restriction_paths'] = PageViewRestriction.objects.select_related('page').values_list(
+    if not hasattr(context["request"], "all_page_view_restriction_paths"):
+        context['request'].all_page_view_restriction_paths = PageViewRestriction.objects.select_related('page').values_list(
             'page__path', flat=True
         )
 
     is_private = any([
         page.path.startswith(restricted_path)
-        for restricted_path in context['all_page_view_restriction_paths']
+        for restricted_path in context["request"].all_page_view_restriction_paths
     ])
 
     return not is_private
@@ -579,13 +612,6 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
         return _("%(time_period)s ago") % {'time_period': timesince(last_update)}
 
 
-@register.filter
-def format_action_log_message(log_entry):
-    if not isinstance(log_entry, PageLogEntry):
-        return ''
-    return page_log_action_registry.format_message(log_entry)
-
-
 @register.simple_tag
 def format_collection(coll: Collection, min_depth: int = 2) -> str:
     """
@@ -645,3 +671,48 @@ def locales():
         }
         for locale in Locale.objects.all()
     ])
+
+
+@register.simple_tag()
+def slim_sidebar_enabled():
+    return 'slim-sidebar' in getattr(settings, 'WAGTAIL_EXPERIMENTAL_FEATURES', [])
+
+
+@register.simple_tag(takes_context=True)
+def sidebar_collapsed(context):
+    request = context.get('request')
+    collapsed = request.COOKIES.get('wagtail_sidebar_collapsed', '0')
+    if collapsed == '0':
+        return False
+    return True
+
+
+@register.simple_tag(takes_context=True)
+def menu_props(context):
+    request = context['request']
+    search_areas = admin_search_areas.search_items_for_request(request)
+    if search_areas:
+        search_area = search_areas[0]
+    else:
+        search_area = None
+
+    account_menu = [
+        sidebar.LinkMenuItem('account', _("Account"), reverse('wagtailadmin_account'), icon_name='user'),
+        sidebar.LinkMenuItem('logout', _("Log out"), reverse('wagtailadmin_logout'), icon_name='logout'),
+    ]
+
+    modules = [
+        sidebar.WagtailBrandingModule(),
+        sidebar.SearchModule(search_area) if search_area else None,
+        sidebar.MainMenuModule(admin_menu.render_component(request), account_menu, request.user),
+    ]
+    modules = [module for module in modules if module is not None]
+
+    return json.dumps({
+        'modules': JSContext().pack(modules),
+    }, cls=DjangoJSONEncoder)
+
+
+@register.simple_tag
+def get_comments_enabled():
+    return getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True)

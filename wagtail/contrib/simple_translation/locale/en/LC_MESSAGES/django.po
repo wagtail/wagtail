@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-21 09:32+0100\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,25 +22,38 @@ msgstr ""
 msgid "Wagtail simple translation"
 msgstr ""
 
-#: forms.py:10
+#: forms.py:23
 msgid "Select all"
 msgstr ""
 
-#: forms.py:12
+#: forms.py:25
 msgid "Locales"
 msgstr ""
 
-#: forms.py:17
+#: forms.py:30
 msgid "All child pages will be created."
 msgstr ""
 
-#: forms.py:31
+#: forms.py:45
 msgid "Include subtree ({} page)"
 msgid_plural "Include subtree ({} pages)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/simple_translation/admin/submit_translation.html:25
+#: forms.py:92
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+msgstr[1] ""
+
+#: forms.py:99
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/simple_translation/admin/submit_translation.html:26
 msgid "Submit"
 msgstr ""
 

@@ -126,7 +126,7 @@ class ModelAdmin(WagtailRegisterable):
             self.model, self.inspect_view_enabled)
         self.url_helper = self.get_url_helper_class()(self.model)
 
-        # Needed to support RelatedFieldListFilter in Django 2.2+
+        # Needed to support RelatedFieldListFilter
         # See: https://github.com/wagtail/wagtail/issues/5105
         self.admin_site = default_django_admin_site
 
@@ -240,6 +240,9 @@ class ModelAdmin(WagtailRegisterable):
         ordering = self.get_ordering(request)
         if ordering:
             qs = qs.order_by(*ordering)
+        if self.is_pagemodel:
+            # If we're listing pages, exclude the root page
+            qs = qs.exclude(depth=1)
         return qs
 
     def get_search_fields(self, request):

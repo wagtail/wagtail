@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-03-11 14:50+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
 "Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -21,6 +21,18 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Move up"
+msgstr "Perkelti aukštyn"
+
+msgid "Move down"
+msgstr "Perkelti žemyn"
+
+msgid "Delete"
+msgstr "Ištrinti"
+
+msgid "Add"
+msgstr "Pridėti"
 
 msgid "This block has no options."
 msgstr "Šis blokas neturi jokių nustatymų."
@@ -85,6 +97,9 @@ msgstr "tinklalapis"
 msgid "sites"
 msgstr "tinklalapiai"
 
+msgid "default"
+msgstr "numatytasis"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -124,16 +139,6 @@ msgstr "URL kelias"
 msgid "owner"
 msgstr "valdytojas"
 
-msgid "page title"
-msgstr "puslapio pavadinimas"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Nebūtina. 'Paieškos varikliams draugiškas' pavadinimas. Tai bus "
-"atvaizduojama naršyklės lango viršuje."
-
 msgid "show in menus"
 msgstr "rodyti meniu elementuose"
 
@@ -141,9 +146,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Ar nuoroda į šį puslapį bus atvaizduojama automatiškai sugeneruotose meniu"
-
-msgid "search description"
-msgstr "paieškos apibūdinimas"
 
 msgid "go live date/time"
 msgstr "veikimo įjungimo data/laikas"
@@ -210,9 +212,6 @@ msgstr "puslapio revizija"
 
 msgid "page revisions"
 msgstr "puslapio revizijos"
-
-msgid "Add"
-msgstr "Pridėti"
 
 msgid "Add/edit pages you own"
 msgstr "Pridėti/redaguoti puslapius kurie jums priklauso"
@@ -307,6 +306,9 @@ msgstr "leidimai"
 msgid "group collection permission"
 msgstr "grupės kolekcijos leidimas"
 
+msgid "Approve"
+msgstr "Patvirtinti"
+
 #, python-format
 msgid "user %(id)d (deleted)"
 msgstr "vartotojas %(id)d (ištrintas)"
@@ -333,3 +335,36 @@ msgstr "Jums reikia slaptažodžio kad pasiekti šį puslapį."
 
 msgid "Continue"
 msgstr "Tęsti"
+
+msgid "English"
+msgstr "Anglų"
+
+msgid "French"
+msgstr "Prancūzų"
+
+msgid "German"
+msgstr "Vokiečių"
+
+msgid "Save draft"
+msgstr "Išsaugoti juodraštį"
+
+msgid "Published"
+msgstr "Publikuotas"
+
+msgid "Unpublish"
+msgstr "Nebepublikuoti"
+
+msgid "Locked"
+msgstr "Užrakinta"
+
+msgid "Unlocked"
+msgstr "Atrakinta"
+
+msgid "Reject"
+msgstr "Atmesti"
+
+msgid "Copy"
+msgstr "Kopijuoti"
+
+msgid "Move"
+msgstr "Perkelti"

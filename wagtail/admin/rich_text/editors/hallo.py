@@ -9,6 +9,8 @@ from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import features
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
 
 
 class HalloPlugin:
@@ -162,3 +164,10 @@ class HalloRichTextArea(widgets.Textarea):
             media += plugin.media
 
         return media
+
+
+class HalloRichTextAreaAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.HalloRichTextArea'
+
+
+register(HalloRichTextAreaAdapter(), HalloRichTextArea)

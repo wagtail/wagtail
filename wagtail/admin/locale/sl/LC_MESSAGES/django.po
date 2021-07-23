@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,9 @@ msgstr "Umakni iz objave"
 msgid "Delete"
 msgstr "Izbriši"
 
+msgid "Lock"
+msgstr "Zakleni"
+
 msgid "Page locked"
 msgstr "Stran je zaklenjena"
 
@@ -53,9 +56,6 @@ msgstr "Načrtovanje objave"
 
 msgid "Privacy"
 msgstr "Zasebnost"
-
-msgid "Common page configuration"
-msgstr "Splošne nastavitve strani"
 
 msgid "Content"
 msgstr "Vsebina"
@@ -82,8 +82,17 @@ msgstr "Vnesite vaše %s"
 msgid "Enter your email address to reset your password"
 msgstr "Vnesite vaš e-naslov za ponastavitev gesla"
 
+msgid "URL"
+msgstr "URL"
+
+msgid "Parent"
+msgstr "Nadrejeni"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Za isto zbirko ne morate imeti več kot enega zapisa dovoljenj."
+
+msgid "Collection"
+msgstr "Zbirka"
 
 msgid "New title"
 msgstr "Nov naziv"
@@ -194,6 +203,12 @@ msgstr "Poglej vse"
 msgid "Close explorer"
 msgstr "Zapri raziskovalca"
 
+msgid "Save"
+msgstr "Shrani"
+
+msgid "Saving..."
+msgstr "Shranjevanje..."
+
 msgid "Error 404: Page not found"
 msgstr "Napaka 404: strani ni bilo mogoče najti"
 
@@ -209,18 +224,6 @@ msgstr "Pojdite v Wagtail admin"
 msgid "Account"
 msgstr "Račun"
 
-msgid "Change profile picture"
-msgstr "Spremeni profilno sliko"
-
-msgid "Your current profile picture:"
-msgstr "Trenutna profilna slika:"
-
-msgid "Update"
-msgstr "Posodbi"
-
-msgid "Change email"
-msgstr "Spremeni e-naslov"
-
 msgid "Change password"
 msgstr "Spremeni geslo"
 
@@ -229,15 +232,6 @@ msgid ""
 msgstr ""
 "Vaše gesla tu ni mogoče spremeniti. Prosimo vzpostavite kontakt z "
 "administratorjem strani.  "
-
-msgid "Set Time Zone"
-msgstr "Nastavi časovni pas"
-
-msgid "Language Preferences"
-msgstr "Jezikovne nastavitve"
-
-msgid "Notification preferences"
-msgstr "Nastavitve obveščanja"
 
 msgid "Reset password"
 msgstr "Ponastavi geslo"
@@ -292,12 +286,6 @@ msgstr "Nadzorna plošča"
 msgid "Menu"
 msgstr "Meni"
 
-msgid "Move up"
-msgstr "Premakni navzgor"
-
-msgid "Move down"
-msgstr "Premakni navzdol"
-
 msgid "Explorer"
 msgstr "Raziskovalec"
 
@@ -328,9 +316,6 @@ msgstr "Dodaj zunanjo povezavo"
 msgid "You can edit the privacy settings on:"
 msgstr "Nastavitve zasebnosti lahko uredite tukaj:"
 
-msgid "Save"
-msgstr "Shrani"
-
 msgid "Public"
 msgstr "Javno"
 
@@ -352,8 +337,17 @@ msgstr ""
 "Dodana ni še nobena zbirka. Zakaj je ne bi <a href=\"%(add_collection_url)s"
 "\">dodali</a>?"
 
+msgid "Move up"
+msgstr "Premakni navzgor"
+
+msgid "Move down"
+msgstr "Premakni navzdol"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
+
+msgid "Update"
+msgstr "Posodbi"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -377,9 +371,6 @@ msgstr "V živo"
 
 msgid "Pages awaiting moderation"
 msgstr "Strani čakajoč potrditev"
-
-msgid "Parent"
-msgstr "Nadrejeni"
 
 msgid "Type"
 msgstr "Tip"
@@ -468,6 +459,9 @@ msgstr "Stran je zasebna, ker je kot zasebna označena nadrejena stran."
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavitve zasebnosti veljajo tudi za vse podrejene strani."
 
+msgid "Saving…"
+msgstr "Shranjevanje ..."
+
 msgid "Replace current draft"
 msgstr "Nadomesti trenutni osnutek"
 
@@ -546,6 +540,9 @@ msgstr "Nov %(page_type)s"
 
 msgid "New"
 msgstr "Nov"
+
+msgid "Actions"
+msgstr "Dejanja"
 
 msgid "This page has unsaved changes."
 msgstr "Na strani so ne shranjene spremembe."
@@ -681,8 +678,11 @@ msgstr "Vnesite iskalni niz v zgornje polje"
 msgid "No pages use"
 msgstr "Nobena stran ne uporablja"
 
-msgid "Collection"
-msgstr "Zbirka"
+msgid "Download CSV"
+msgstr "Prenesi CSV"
+
+msgid "Filter"
+msgstr "Filter"
 
 msgid "Locked"
 msgstr "Zaklenjeno"
@@ -719,14 +719,26 @@ msgstr "Prikaži v Raziskovalcu"
 msgid "by %(modified_by)s"
 msgstr "avtor %(modified_by)s"
 
+msgid "live"
+msgstr "v živo"
+
+msgid "live + draft"
+msgstr "objavljeno + osnutek"
+
+msgid "draft"
+msgstr "osnutek"
+
 msgid "Test"
 msgstr "Test"
 
-msgid "Your password has been changed successfully!"
-msgstr "Vaše geslo je bil uspešno spremenjeno!"
+msgid "Password"
+msgstr "Geslo"
 
 msgid "Collections"
 msgstr "Zbirke"
+
+msgid "Editing"
+msgstr "Urejanje"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stran '{0}' in {1} podstrani kopiranih."
@@ -797,11 +809,8 @@ msgstr "Stran '{0}' premaknjena."
 msgid "Page '{0}' unpublished."
 msgstr "Stran '{0}' umaknjena iz objave."
 
-msgid "Change the password you use to log in."
-msgstr "Spremenite geslo za prijavo."
-
-msgid "Choose which email notifications to receive."
-msgstr "Izberite katera obvestila želite prejemati na vaš e-naslov."
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Javite napako skrbniku strani, skupaj s sledečimi informacijami:"
 
 msgid "Choose an item"
 msgstr "Izberite element"

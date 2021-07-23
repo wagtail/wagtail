@@ -4,13 +4,14 @@
 #
 # Translators:
 # Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2021
 # Tiago Henriques <trinosauro@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-07 23:05+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 17:23+0000\n"
 "Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -44,3 +45,6 @@ msgid ""
 msgstr ""
 "Um cabeçalho que identifica o tema geral da tabela, e que é útil para "
 "utilizadores de leitores de ecrã"
+
+msgid "Table"
+msgstr "Tabela"

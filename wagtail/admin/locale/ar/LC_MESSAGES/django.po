@@ -8,6 +8,7 @@
 # Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
 # Amr Awad <amro.khir@gmail.com>, 2020
+# HossamElDin Mohamed <garo5070@gmail.com>, 2021
 # Mohamed Mayla <mohamed.mayla@gmail.com>, 2015
 # Mohammed Abdul gadir <weekmo@aol.com>, 2019
 # ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-12-01 19:06+0000\n"
-"Last-Translator: Amr Awad <amro.khir@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-06-22 14:05+0000\n"
+"Last-Translator: HossamElDin Mohamed <garo5070@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -55,6 +56,10 @@ msgstr "حفظ مسودة"
 msgid "Page locked"
 msgstr "الصفحة مغلقة"
 
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s و إنشر"
+
 msgid "Wagtail admin"
 msgstr "مشرف Wagtail"
 
@@ -73,9 +78,6 @@ msgstr "نشر مجدول زمنيا"
 msgid "Privacy"
 msgstr "نظام السرية"
 
-msgid "Common page configuration"
-msgstr "تهيئة الصفحات المشتركة"
-
 msgid "Content"
 msgstr "محتوى"
 
@@ -84,6 +86,12 @@ msgstr "ترويج"
 
 msgid "Settings"
 msgstr "إعدادات"
+
+msgid "Date from"
+msgstr "التاريخ من"
+
+msgid "Date to"
+msgstr "تاريخ لـ"
 
 msgid "Date"
 msgstr "تاريخ"
@@ -104,8 +112,14 @@ msgstr "ادخل البريد الإلكتروني الخاص بك لإرجاع 
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "والد"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "لا يوجد لديك العديد من الصلاحيات المسجلة في نفس المجموعة"
+
+msgid "Collection"
+msgstr "مجموعة"
 
 msgid "New title"
 msgstr "عنوان جديد"
@@ -191,102 +205,6 @@ msgstr "هذا الحقل مقتضى"
 msgid "Please select at least one group."
 msgstr "نرجوا اختيار على الاقل مجموعة واحدة"
 
-msgid "Arabic"
-msgstr "عربي"
-
-msgid "Catalan"
-msgstr "الكاتالونية"
-
-msgid "German"
-msgstr "الألمانية"
-
-msgid "Greek"
-msgstr "اليونانية"
-
-msgid "English"
-msgstr "الإنجليزية"
-
-msgid "Spanish"
-msgstr "الأسبانية"
-
-msgid "Finnish"
-msgstr "الفنلندية"
-
-msgid "French"
-msgstr "الفرنسية"
-
-msgid "Galician"
-msgstr "الجاليكية"
-
-msgid "Hungarian"
-msgstr "الهنغارية"
-
-msgid "Indonesian"
-msgstr "الأندونيسية"
-
-msgid "Icelandic"
-msgstr "أيسلندي"
-
-msgid "Italian"
-msgstr "الإيطالي"
-
-msgid "Japanese"
-msgstr "اليابانية"
-
-msgid "Korean"
-msgstr "الكورية"
-
-msgid "Lithuanian"
-msgstr "اللتوانية"
-
-msgid "Mongolian"
-msgstr "المنغولية"
-
-msgid "Norwegian Bokmål"
-msgstr "النرويجية بوكمال"
-
-msgid "Netherlands Dutch"
-msgstr "الهولندية"
-
-msgid "Persian"
-msgstr "الفارسية"
-
-msgid "Polish"
-msgstr "البولندي"
-
-msgid "Brazilian Portuguese"
-msgstr "البرتغالية البرازيلية"
-
-msgid "Portuguese"
-msgstr "البرتغالية"
-
-msgid "Romanian"
-msgstr "روماني"
-
-msgid "Russian"
-msgstr "الروسية"
-
-msgid "Swedish"
-msgstr "السويدية"
-
-msgid "Slovak"
-msgstr "السلوفاكية"
-
-msgid "Turkish"
-msgstr "التركية"
-
-msgid "Turkish (Turkey)"
-msgstr "التركية (تركيا)"
-
-msgid "Ukrainian"
-msgstr "الأوكراني"
-
-msgid "Chinese (Simplified)"
-msgstr "الصينية (مبسطة)"
-
-msgid "Chinese (Traditional)"
-msgstr "الصينية (تقليدية)"
-
 msgid "Edit"
 msgstr "تحرير"
 
@@ -363,6 +281,12 @@ msgstr "أعرض الصفحات التابعة ل '{title}'"
 msgid "Page explorer"
 msgstr "مستكشف الصفحة"
 
+msgid "Save"
+msgstr "احفظ"
+
+msgid "Saving..."
+msgstr "يتم الحفظ..."
+
 msgid "Error 404: Page not found"
 msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
 
@@ -378,36 +302,12 @@ msgstr "اذهب الى لوحة تحكم Wagtail"
 msgid "Account"
 msgstr "حساب"
 
-msgid "Change profile picture"
-msgstr "غير الصورة التعريفية"
-
-msgid "Your current profile picture:"
-msgstr "الصورة التعريفية الحالية:"
-
-msgid "Update"
-msgstr "حدث"
-
-msgid "Change email"
-msgstr "تغير البريد الالكتروني"
-
-msgid "Change name"
-msgstr "تغيير الإسم"
-
 msgid "Change password"
 msgstr "غير كلمة السر"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "من غير ممكن أن تغير كلمتك السرية هنا , من فضلك اتصل بمدير الموقع"
-
-msgid "Set Time Zone"
-msgstr "اضبط التوقيت المحلي"
-
-msgid "Language Preferences"
-msgstr "إعدادات اللغة"
-
-msgid "Notification preferences"
-msgstr "أفضليات الأبلاغ"
 
 msgid "Reset password"
 msgstr "غير كلمة السر"
@@ -460,12 +360,6 @@ msgstr "لوحة التحكم"
 
 msgid "Menu"
 msgstr "قائمة المحتويات"
-
-msgid "Move up"
-msgstr "تقدم إلى فوق "
-
-msgid "Move down"
-msgstr "تقدم إلى تحت"
 
 msgid "Explorer"
 msgstr "مستكشف"
@@ -538,9 +432,6 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "تحدد إعدادات الخصوصية من يمكنه عرض المستندات في هذه المجموعة."
 
-msgid "Save"
-msgstr "احفظ"
-
 msgid "Public"
 msgstr "عمومي"
 
@@ -566,8 +457,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "اضف %(label)s"
 
+msgid "Move up"
+msgstr "تقدم إلى فوق "
+
+msgid "Move down"
+msgstr "تقدم إلى تحت"
+
 msgid "Yes, delete"
 msgstr "نعم احذف"
+
+msgid "Update"
+msgstr "حدث"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -591,9 +491,6 @@ msgstr "مباشر"
 
 msgid "Pages awaiting moderation"
 msgstr "صفحات في انتظار الاشراف عليها"
-
-msgid "Parent"
-msgstr "والد"
 
 msgid "Type"
 msgstr "نوع"
@@ -802,6 +699,9 @@ msgstr " لم يتم حفظ التعديلات على هذه الصحفه"
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "قيد التعديل %(page_type)s :%(title)s"
+
+msgid "User"
+msgstr "مستعمل"
 
 msgid "Live version"
 msgstr "نسخة حية"
@@ -1027,8 +927,11 @@ msgstr "أدخل مصطلح البحث أعلاه"
 msgid "No pages use"
 msgstr "لا توجد صفحات تستخدم"
 
-msgid "Collection"
-msgstr "مجموعة"
+msgid "Download CSV"
+msgstr "تنزيل ملف CSV"
+
+msgid "Filter"
+msgstr "فلتر"
 
 msgid "Locked"
 msgstr "مغلق"
@@ -1074,20 +977,20 @@ msgstr "بواسطة %(modified_by)s"
 msgid "Compare with live version"
 msgstr "مقارنة مع النسخة الحية"
 
+msgid "live"
+msgstr "حي"
+
+msgid "live + draft"
+msgstr "حي + مسودة"
+
+msgid "draft"
+msgstr "مسود"
+
 msgid "Test"
 msgstr "اختبار"
 
-msgid "Your password has been changed successfully!"
-msgstr "تم تغيير كلمة المرور الخاصة بك بنجاح!"
-
-msgid "Your email has been changed successfully!"
-msgstr "لقد تم تغيير بريدك الالكتروني بنجاح!"
-
-msgid "Your preferences have been updated."
-msgstr "تم تحديث تفضيلاتك."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "تم تحديث تفضيلاتك بنجاح!"
+msgid "Password"
+msgstr "كلمة السر"
 
 msgid "You have been successfully logged out."
 msgstr "لقد تم تسجيل بنجاح."
@@ -1206,42 +1109,15 @@ msgstr "مراجعة {0} من \"{1}\""
 msgid "Page '{0}' unpublished."
 msgstr "الصفحة '{0}' غير منشورة."
 
+msgid "Report this error to your webmaster with the following information:"
+msgstr "الإبلاغ عن هذا الخطأ إلى مشرف الموقع الخاص بك بالمعلومات التالية:"
+
 msgid "More"
 msgstr "المزيد"
 
 #, python-format
 msgid "Delete page '%(title)s'"
 msgstr "حذف الصفحة '%(title)s'"
-
-msgid "Set profile picture"
-msgstr "اضبط صورة الملف الشخصي"
-
-msgid "Change your profile picture."
-msgstr "غير صورة ملفك الشخصي."
-
-msgid "Change the email address linked to your account."
-msgstr "قم بتغيير عنوان البريد الإلكتروني المرتبط بحسابك."
-
-msgid "Change the password you use to log in."
-msgstr "غير كلمة السر التي تستعملها للدخول"
-
-msgid "Choose which email notifications to receive."
-msgstr "اختر وسيلة الإبلاغ التي تفضلها للاستلام"
-
-msgid "Language preferences"
-msgstr "تفضيلات اللغة"
-
-msgid "Choose the language you want to use here."
-msgstr "اختر اللغة التي تريد استخدامها هنا."
-
-msgid "Current Time Zone"
-msgstr "الوقت الزمني الحالي"
-
-msgid "Choose your current time zone."
-msgstr "اختر منطقتك الزمنية الحالية."
-
-msgid "Change your first and last name on your account."
-msgstr "غير إسك ولقبك على حسابك."
 
 msgid "Bulleted list"
 msgstr "قائمة ذات تعداد نقطي"

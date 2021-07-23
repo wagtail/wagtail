@@ -34,7 +34,7 @@ Here is an example of how to add a new form that operates on the user model:
 
     from wagtail.admin.views.account import BaseSettingsPanel
     from wagtail.core import hooks
-    from .forms import CustomProfileSettingsForm
+    from .forms import CustomSettingsForm
 
     @hooks.register('register_account_settings_panel')
     class CustomSettingsPanel(BaseSettingsPanel):

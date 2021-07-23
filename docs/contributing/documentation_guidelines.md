@@ -224,11 +224,11 @@ Safari         Windows
 Sphinx offers release-metadata directives to generate this information consistently. Use as appropriate.
 
     ```eval_rst
-    .. versionadded:: 2.11
+    .. versionadded:: 2.15
     ```
 
     ```eval_rst
-    .. versionchanged:: 2.11
+    .. versionchanged:: 2.15
     ```
 
 <details>
@@ -236,11 +236,11 @@ Sphinx offers release-metadata directives to generate this information consisten
 <summary>Rendered output</summary>
 
 ```eval_rst
-.. versionadded:: 2.11
+.. versionadded:: 2.15
 ```
 
 ```eval_rst
-.. versionchanged:: 2.11
+.. versionchanged:: 2.15
 ```
 
 </details>

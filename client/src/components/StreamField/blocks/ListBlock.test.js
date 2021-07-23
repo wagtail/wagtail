@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { FieldBlockDefinition } from './FieldBlock';
-import { ListBlockDefinition } from './ListBlock';
+import { FieldBlock, FieldBlockDefinition } from './FieldBlock';
+import { ListBlockDefinition, ListBlockValidationError } from './ListBlock';
 
 import $ from 'jquery';
 window.$ = $;
@@ -37,6 +37,32 @@ class DummyWidgetDefinition {
   }
 }
 
+class ValidationError {
+  constructor(messages) {
+    this.messages = messages;
+  }
+}
+
+
+/* ListBlock should not call setError on its children with a null value; FieldBlock handles this
+gracefully, so define a custom one that doesn't
+*/
+
+class ParanoidFieldBlock extends FieldBlock {
+  setError(errorList) {
+    if (!errorList) {
+      throw new Error('ParanoidFieldBlock.setError was passed a null errorList');
+    }
+    return super.setError(errorList);
+  }
+}
+
+class ParanoidFieldBlockDefinition extends FieldBlockDefinition {
+  render(placeholder, prefix, initialState, initialError) {
+    return new ParanoidFieldBlock(this, placeholder, prefix, initialState, initialError);
+  }
+}
+
 describe('telepath: wagtail.blocks.ListBlock', () => {
   let boundBlock;
 
@@ -51,7 +77,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     // Define a test block
     const blockDef = new ListBlockDefinition(
       'test_listblock',
-      new FieldBlockDefinition(
+      new ParanoidFieldBlockDefinition(
         '',
         new DummyWidgetDefinition('The widget'),
         {
@@ -201,5 +227,131 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     });
 
     expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('setError passes error messages to children', () => {
+    boundBlock.setError([
+      new ListBlockValidationError(
+        [
+          null,
+          [new ValidationError(['Not as good as the first one'])],
+        ],
+        []
+      ),
+    ]);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
+  test('setError renders non-block errors', () => {
+    boundBlock.setError([
+      new ListBlockValidationError(
+        [null, null],
+        [
+          new ValidationError(['At least three blocks are required']),
+        ]
+      ),
+    ]);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+});
+
+describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
+  // Define a test block
+  const blockDef = new ListBlockDefinition(
+    'test_listblock',
+    new ParanoidFieldBlockDefinition(
+      '',
+      new DummyWidgetDefinition('The widget'),
+      {
+        label: '',
+        required: true,
+        icon: 'pilcrow',
+        classname: 'field char_field widget-admin_auto_height_text_input fieldname-'
+      }
+    ),
+    null,
+    {
+      label: 'Test listblock',
+      icon: 'placeholder',
+      classname: null,
+      helpText: 'use <strong>a few</strong> of these',
+      helpIcon: '<div class="icon-help">?</div>',
+      maxNum: 3,
+      strings: {
+        MOVE_UP: 'Move up',
+        MOVE_DOWN: 'Move down',
+        DELETE: 'Delete',
+        DUPLICATE: 'Duplicate',
+        ADD: 'Add',
+      },
+    }
+  );
+
+  const assertCanAddBlock = () => {
+    // Test duplicate button
+    // querySelector always returns the first element it sees so this only checks the first block
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toBe(null);
+
+    // Test menu
+    expect(document.querySelector('button[data-streamfield-list-add]').getAttribute('disabled')).toBe(null);
+  };
+
+  const assertCannotAddBlock = () => {
+    // Test duplicate button
+    // querySelector always returns the first element it sees so this only checks the first block
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toEqual('disabled');
+
+    // Test menu
+    expect(document.querySelector('button[data-streamfield-list-add]').getAttribute('disabled')).toEqual('disabled');
+  };
+
+  test('test can add block when under limit', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      'First value',
+      'Second value',
+    ]);
+
+    assertCanAddBlock();
+  });
+
+  test('initialising at maxNum disables adding new block and duplication', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      'First value',
+      'Second value',
+      'Third value',
+    ]);
+
+    assertCannotAddBlock();
+  });
+
+  test('insert disables new block', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      'First value',
+      'Second value',
+    ]);
+
+    assertCanAddBlock();
+
+    boundBlock.insert('Third value', 2);
+
+    assertCannotAddBlock();
+  });
+
+  test('delete enables new block', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      'First value',
+      'Second value',
+      'Third value',
+    ]);
+
+    assertCannotAddBlock();
+
+    boundBlock.deleteBlock(2);
+
+    assertCanAddBlock();
   });
 });

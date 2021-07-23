@@ -61,7 +61,10 @@ global.wagtailConfig = {
     SAVE_ERROR: 'Save error',
     SAVE_COMMENT_WARNING: 'This will be saved when the page is saved',
     FOCUS_COMMENT: 'Focus comment',
-    UNFOCUS_COMMENT: 'Unfocus comment'
+    UNFOCUS_COMMENT: 'Unfocus comment',
+    SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
+    SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save this comment',
+    SAVE_PAGE_TO_SAVE_REPLY: 'Save the page to save this reply',
   },
   WAGTAIL_I18N_ENABLED: true,
   LOCALES: [
@@ -96,10 +99,3 @@ global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'image' };
 global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'page' };
 global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'embed' };
 global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'document' };
-
-const jQueryObj = {
-  on: jest.fn(),
-  off: jest.fn(),
-};
-
-global.jQuery = () => jQueryObj;

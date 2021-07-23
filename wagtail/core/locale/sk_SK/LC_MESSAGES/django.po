@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Martin Janšto <mato@jansto.sk>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,18 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Move up"
+msgstr "Posunúť vyššie"
+
+msgid "Move down"
+msgstr "Posunúť nižšie"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Add"
+msgstr "Pridať"
 
 msgid "This block has no options."
 msgstr "Tento odstavec nemá žiadne voľby."
@@ -83,6 +95,9 @@ msgstr "stránka"
 msgid "sites"
 msgstr "stránky"
 
+msgid "default"
+msgstr "predvolené"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -122,24 +137,12 @@ msgstr "URL cesta"
 msgid "owner"
 msgstr "vlastník"
 
-msgid "page title"
-msgstr "titulok stránky"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Voliteľné. Titulok pre vyhľadávače. Toto sa zobrazí navrchu okna prehliadača."
-
 msgid "show in menus"
 msgstr "zobraziť v menu"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Odkaz na túto stránku sa zobrazí v navigácií"
-
-msgid "search description"
-msgstr "popis hľadania"
 
 msgid "go live date/time"
 msgstr "dátum a čas publikácie"
@@ -203,9 +206,6 @@ msgstr "revízia stránky"
 
 msgid "page revisions"
 msgstr "revízie stránky"
-
-msgid "Add"
-msgstr "Pridať"
 
 msgid "Add/edit pages you own"
 msgstr "Pridať/upraviť stránky ktoré vlastníte"
@@ -294,6 +294,9 @@ msgstr "oprávnenie"
 msgid "group collection permission"
 msgstr "oprávnenia skupiny ku kolekcii"
 
+msgid "Approve"
+msgstr "Schváliť"
+
 msgid "Log in"
 msgstr "Prihlásiť"
 
@@ -315,3 +318,33 @@ msgstr "K prístupu na túto stránku potrebujete heslo."
 
 msgid "Continue"
 msgstr "Pokračovať"
+
+msgid "English"
+msgstr "Anglicky"
+
+msgid "French"
+msgstr "Francúzsky"
+
+msgid "German"
+msgstr "Nemecky"
+
+msgid "Save draft"
+msgstr "Uložiť koncept"
+
+msgid "Unpublish"
+msgstr "Odpublikovať"
+
+msgid "Locked"
+msgstr "Zamknuté"
+
+msgid "Unlocked"
+msgstr "Odomknuté"
+
+msgid "Reject"
+msgstr "Odmietnuť"
+
+msgid "Copy"
+msgstr "Kopírovať"
+
+msgid "Move"
+msgstr "Presunúť"

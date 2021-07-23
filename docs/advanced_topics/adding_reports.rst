@@ -117,7 +117,7 @@ For this example "pages with unpublished changes" report, we'll add an extra col
 publication date for each page. To do this, we'll extend two templates: ``wagtailadmin/reports/base_page_report.html``, and
 ``wagtailadmin/reports/listing/_list_page_report.html``.
 
-.. code-block:: html
+.. code-block:: html+django
 
     {# <project>/templates/reports/unpublished_changes_report.html #}
 
@@ -132,7 +132,7 @@ publication date for each page. To do this, we'll extend two templates: ``wagtai
     {% endblock %}
 
 
-.. code-block:: html
+.. code-block:: html+django
 
     {# <project>/templates/reports/include/_list_unpublished_changes.html #}
 
@@ -226,7 +226,7 @@ The full code
             path('reports/unpublished-changes/', UnpublishedChangesReportView.as_view(), name='unpublished_changes_report'),
         ]
 
-.. code-block:: html
+.. code-block:: html+django
 
     {# <project>/templates/reports/unpublished_changes_report.html #}
 
@@ -241,7 +241,7 @@ The full code
     {% endblock %}
 
 
-.. code-block:: html
+.. code-block:: html+django
 
     {# <project>/templates/reports/include/_list_unpublished_changes.html #}
 

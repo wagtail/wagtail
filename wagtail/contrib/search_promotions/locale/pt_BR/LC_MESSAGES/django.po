@@ -7,14 +7,14 @@
 # Daniel Carvalho <dnc331@gmail.com>, 2019
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016,2018
+# Luiz Boaretto <lboaretto@gmail.com>, 2016,2018,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 13:43+0000\n"
+"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -123,11 +123,23 @@ msgstr "Adicionar um novo resultado promovido"
 msgid "Search term(s)"
 msgstr "Procurar termo(s)"
 
+msgid "Order by search term alphabetically"
+msgstr "Ordenar por termo de pesquisa em ordem alfabética"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Prdenar por termo de pesquisa em ordem alfabética reversa"
+
 msgid "Promoted results"
 msgstr "Resultados promovidos"
 
 msgid "Views (past week)"
 msgstr "Visualizações (última semana)"
+
+msgid "Order by views (lowest first)"
+msgstr "Ordenar por visualizações (as mais baixas primeiro)"
+
+msgid "Order by views (highest first)"
+msgstr "Ordem por visualizações (mais alta primeiro)"
 
 msgid "Edit this promotion"
 msgstr "Editar esta promoção"

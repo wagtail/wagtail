@@ -93,11 +93,24 @@ urlpatterns += [
 
     # Password reset
     path('password_reset/', include(wagtailadmin_password_reset_urls)),
-
-    # Default view (will show 404 page)
-    # This must be the last URL in this file!
-    re_path(r'^', home.default),
 ]
+
+
+# Default view (will show 404 page)
+# This must be the last URL in this file!
+
+if settings.APPEND_SLASH:
+    # Only catch unrecognized patterns with a trailing slash
+    # and let CommonMiddleware handle adding a slash to every other pattern
+    urlpatterns += [
+        re_path(r'^.*/$', home.default),
+    ]
+
+else:
+    # Catch all unrecognized patterns
+    urlpatterns += [
+        re_path(r'^', home.default),
+    ]
 
 
 # Hook in our own 404 handler

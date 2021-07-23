@@ -1,0 +1,39 @@
+.sidebar-panel {
+    // With CSS variable allows panels with different widths to animate properly
+    --width: #{$menu-width};
+
+    visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    position: fixed;
+    height: 100vh;
+    padding: 0;
+    top: 0;
+    left: calc(#{$menu-width} - var(--width));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    @include transition(left $menu-transition-duration ease);
+
+    &--visible {
+        visibility: visible;
+        box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
+    }
+
+    @at-root .sidebar--slim #{&} {
+        left: calc(#{$menu-width-slim} - var(--width));
+    }
+    // Don't apply this to nested submenus though
+    @at-root .sidebar--slim .sidebar-panel #{&} {
+        left: 0;
+    }
+
+    &--open {
+        left: $menu-width;
+
+        // Don't apply this to nested submenus though
+        @at-root .sidebar--slim .sidebar-panel #{&} {
+            left: $menu-width;
+        }
+    }
+}

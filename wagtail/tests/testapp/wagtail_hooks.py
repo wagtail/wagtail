@@ -9,8 +9,11 @@ from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
+from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.core import hooks
+
+from .forms import FavouriteColourForm
 
 
 # Register one hook using decorators...
@@ -177,3 +180,12 @@ def register_snippet_listing_button_item(buttons, snippet, user, context=None):
         priority=10,
     )
     buttons.append(item)
+
+
+@hooks.register('register_account_settings_panel')
+class FavouriteColourPanel(BaseSettingsPanel):
+    name = 'favourite_colour'
+    title = "Favourite colour"
+    order = 500
+    form_class = FavouriteColourForm
+    form_object = 'user'

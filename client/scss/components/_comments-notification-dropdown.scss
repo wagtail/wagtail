@@ -1,0 +1,65 @@
+.comment-notifications-toggle-button {
+    $root: &;
+    padding: 0 17px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    border: 0;
+    background-color: transparent;
+
+    &--active,
+    &:hover {
+        #{$root}__icon {
+            color: $color-white;
+        }
+    }
+
+    &--icon-toggle {
+        #{$root}__icon {
+            transform: rotate(180deg) translate3d(3px, 10px, 0);
+        }
+    }
+
+    &__icon {
+        width: 15px;
+        height: 18px;
+        color: $color-teal-dark;
+        transition: color 100ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
+.comment-notifications-dropdown {
+    position: absolute;
+    display: none;
+    bottom: -92px;
+    z-index: 51;
+    background-color: $color-text-base;
+    padding: 20px;
+    border-radius: 6px;
+    width: 260px;
+    box-sizing: border-box;
+
+    &__title {
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: $color-white;
+    }
+
+    &--active {
+        display: block;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        width: 0;
+        height: 0;
+        z-index: 2;
+        right: 18px;
+        border-style: solid;
+        border-width: 0 8px 8px 8px;
+        border-color: transparent transparent $color-text-base transparent;
+    }
+}

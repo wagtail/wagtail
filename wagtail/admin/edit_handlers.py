@@ -2,9 +2,13 @@ import functools
 import re
 
 from django import forms
+from django.apps import apps
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.core.signals import setting_changed
 from django.db.models.fields import CharField, TextField
+from django.dispatch import receiver
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
@@ -363,10 +367,25 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
 class TabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/edit_handlers/tabbed_interface.html"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, show_comments_toggle=None, **kwargs):
         self.base_form_class = kwargs.pop('base_form_class', None)
-        self.show_comments_toggle = kwargs.pop('show_comments_toggle', False)
         super().__init__(*args, **kwargs)
+        if show_comments_toggle is not None:
+            self.show_comments_toggle = show_comments_toggle
+        else:
+            self.show_comments_toggle = 'comment_notifications' in self.required_fields()
+
+    def get_form_class(self):
+        form_class = super().get_form_class()
+
+        # Set show_comments_toggle attibute on form class
+        return type(
+            form_class.__name__,
+            (form_class, ),
+            {
+                'show_comments_toggle': self.show_comments_toggle
+            }
+        )
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
@@ -848,7 +867,6 @@ class CommentPanel(EditHandler):
             }
 
         user = getattr(self.request, 'user', None)
-        authors = {user.pk: user_data(user)} if user else {}
         user_pks = {user.pk}
         serialized_comments = []
         bound = self.form.is_bound
@@ -869,7 +887,10 @@ class CommentPanel(EditHandler):
             data['replies'] = replies
             serialized_comments.append(data)
 
-        authors = {user.pk: user_data(user) for user in get_user_model().objects.filter(pk__in=user_pks)}
+        authors = {
+            str(user.pk): user_data(user)
+            for user in get_user_model().objects.filter(pk__in=user_pks).select_related('wagtail_userprofile')
+        }
 
         comments_data = {
             'comments': serialized_comments,
@@ -887,30 +908,34 @@ class CommentPanel(EditHandler):
 
 
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
+def set_default_page_edit_handlers(cls):
+    cls.content_panels = [
+        FieldPanel('title', classname="full title"),
+    ]
+
+    cls.promote_panels = [
+        MultiFieldPanel([
+            FieldPanel('slug'),
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+        ], gettext_lazy('For search engines')),
+        MultiFieldPanel([
+            FieldPanel('show_in_menus'),
+        ], gettext_lazy('For site menus')),
+    ]
+
+    cls.settings_panels = [
+        PublishingPanel(),
+        PrivacyModalPanel(),
+    ]
+
+    if getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True):
+        cls.settings_panels.append(CommentPanel())
+
+    cls.base_form_class = WagtailAdminPageForm
 
 
-Page.content_panels = [
-    FieldPanel('title', classname="full title"),
-]
-
-Page.promote_panels = [
-    MultiFieldPanel([
-        FieldPanel('slug'),
-        FieldPanel('seo_title'),
-        FieldPanel('search_description'),
-    ], gettext_lazy('For search engines')),
-    MultiFieldPanel([
-        FieldPanel('show_in_menus'),
-    ], gettext_lazy('For site menus')),
-]
-
-Page.settings_panels = [
-    PublishingPanel(),
-    PrivacyModalPanel(),
-    CommentPanel(),
-]
-
-Page.base_form_class = WagtailAdminPageForm
+set_default_page_edit_handlers(Page)
 
 
 @cached_classmethod
@@ -936,12 +961,24 @@ def get_edit_handler(cls):
                                    heading=gettext_lazy('Settings'),
                                    classname='settings'))
 
-        edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class, show_comments_toggle=True)
+        edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
 
     return edit_handler.bind_to(model=cls)
 
 
 Page.get_edit_handler = get_edit_handler
+
+
+@receiver(setting_changed)
+def reset_page_edit_handler_cache(**kwargs):
+    """
+    Clear page edit handler cache when global WAGTAILADMIN_COMMENTS_ENABLED settings are changed
+    """
+    if kwargs["setting"] == 'WAGTAILADMIN_COMMENTS_ENABLED':
+        set_default_page_edit_handlers(Page)
+        for model in apps.get_models():
+            if issubclass(model, Page):
+                model.get_edit_handler.cache_clear()
 
 
 class StreamFieldPanel(FieldPanel):

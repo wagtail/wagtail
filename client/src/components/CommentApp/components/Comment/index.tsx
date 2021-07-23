@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import FocusTrap from 'focus-trap-react';
 
+import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
 import { Author, Comment, newCommentReply } from '../../state/comments';
 import {
@@ -185,9 +186,13 @@ export default class CommentComponent extends React.Component<CommentProps> {
               {strings.CANCEL}
             </button>
           </div>
-
         </form>
       );
+    } else if (replies.length === 0) {
+      // If there is no form, or replies, don't add any elements to the dom
+      // This is in case there is a warning after the comment, some special styling
+      // is added if that element is that last child so we can't have any hidden elements here.
+      return <></>;
     }
 
     return (
@@ -407,17 +412,17 @@ export default class CommentComponent extends React.Component<CommentProps> {
           {strings.CONFIRM_DELETE_COMMENT}
           <button
             type="button"
-            className="comment__button comment__button--red"
-            onClick={onClickDelete}
-          >
-            {strings.DELETE}
-          </button>
-          <button
-            type="button"
             className="comment__button"
             onClick={onClickCancel}
           >
             {strings.CANCEL}
+          </button>
+          <button
+            type="button"
+            className="comment__button comment__button--primary"
+            onClick={onClickDelete}
+          >
+            {strings.DELETE}
           </button>
         </div>
         {this.renderReplies({ hideNewReply: true })}
@@ -508,6 +513,15 @@ export default class CommentComponent extends React.Component<CommentProps> {
       };
     }
 
+    let notice = '';
+    if (!comment.remoteId) {
+      // Save the page to add this comment
+      notice = strings.SAVE_PAGE_TO_ADD_COMMENT;
+    } else if (comment.text !== comment.originalText) {
+      // Save the page to save this comment
+      notice = strings.SAVE_PAGE_TO_SAVE_COMMENT_CHANGES;
+    }
+
     return (
       <>
         <CommentHeader
@@ -520,6 +534,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
           focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
+        {notice &&
+          <div className="comment__notice-placeholder">
+            <div className="comment__notice" role="status">
+              <Icon name="info-circle" />
+              {notice}
+            </div>
+          </div>
+        }
         {this.renderReplies()}
       </>
     );
@@ -579,7 +601,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
     const top = this.props.layout.getCommentPosition(
       this.props.comment.localId
     );
-    const right = this.props.isFocused ? 50 : 0;
+
     return (
       <FocusTrap
         focusTrapOptions={{
@@ -604,7 +626,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
           style={{
             position: 'absolute',
             top: `${top}px`,
-            right: `${right}px`,
             display: this.props.isVisible ? 'block' : 'none',
           }}
           data-comment-id={this.props.comment.localId}

@@ -5,7 +5,7 @@
 
 Wagtail provides the `wagtail start` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 2.2, 3.0, 3.1 and 3.2. First, install the `wagtail` package from PyPI:
+Wagtail is currently compatible with Django 3.0, 3.1 and 3.2. First, install the `wagtail` package from PyPI:
 
 ```sh
 $ pip install wagtail
@@ -66,7 +66,7 @@ Various other settings are available to configure Wagtail's behaviour - see [Set
 Now make the following additions to your `urls.py` file:
 
 ```python
-from django.urls import path, re_path, include
+from django.urls import path, include
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
@@ -90,7 +90,7 @@ The URL paths here can be altered as necessary to fit your project's URL scheme.
 `wagtail_urls` is the base location from where the pages of your Wagtail site will be served. In the above example, Wagtail will handle URLs under `/pages/`, leaving the root URL and other paths to be handled as normal by your Django project. If you want Wagtail to handle the entire URL space including the root URL, this can be replaced with:
 
 ```python
-re_path(r'', include(wagtail_urls)),
+path('', include(wagtail_urls)),
 ```
 
 In this case, this should be placed at the end of the `urlpatterns` list, so that it does not override more specific URL patterns.

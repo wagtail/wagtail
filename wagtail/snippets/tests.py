@@ -1051,15 +1051,19 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.login()
+        self.url_args = ['tests', 'advert']
 
     def get(self, params=None):
         return self.client.get(reverse('wagtailsnippets:choose',
-                                       args=('tests', 'advert')),
+                                       args=self.url_args),
                                params or {})
 
     def test_simple(self):
         response = self.get()
         self.assertTemplateUsed(response, 'wagtailsnippets/chooser/choose.html')
+
+        # Check locale filter doesn't exist normally
+        self.assertNotIn('<select id="snippet-chooser-locale" name="lang">', response.json()['html'])
 
     def test_ordering(self):
         """
@@ -1082,6 +1086,30 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
 
     def test_not_searchable(self):
         self.assertFalse(self.get().context['is_searchable'])
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_filter_by_locale(self):
+        self.url_args = ['snippetstests', 'translatablesnippet']
+        fr_locale = Locale.objects.create(language_code="fr")
+
+        TranslatableSnippet.objects.create(text="English snippet")
+        TranslatableSnippet.objects.create(text="French snippet", locale=fr_locale)
+
+        response = self.get()
+
+        # Check the filter is added
+        self.assertIn('<select id="snippet-chooser-locale" name="lang">', response.json()['html'])
+
+        # Check both snippets are shown
+        self.assertEqual(len(response.context['items']), 2)
+        self.assertEqual(response.context['items'][0].text, "English snippet")
+        self.assertEqual(response.context['items'][1].text, "French snippet")
+
+        # Now test with a locale selected
+        response = self.get({'locale': 'en'})
+
+        self.assertEqual(len(response.context['items']), 1)
+        self.assertEqual(response.context['items'][0].text, "English snippet")
 
 
 class TestSnippetChooseWithSearchableSnippet(TestCase, WagtailTestUtils):
@@ -1498,6 +1526,19 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/confirm_delete.html')
         self.assertContains(response, 'Used 0 times')
         self.assertContains(response, self.snippet_a.usage_url())
+
+    def test_redirect_to_edit(self):
+        response = self.client.get('/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/')
+        self.assertRedirects(response, '/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/edit/snippet_2F01/', status_code=301)
+
+    def test_redirect_to_delete(self):
+        response = self.client.get('/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/delete/')
+        self.assertRedirects(response, '/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/delete/snippet_2F01/', status_code=301)
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_redirect_to_usage(self):
+        response = self.client.get('/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/usage/')
+        self.assertRedirects(response, '/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/usage/snippet_2F01/', status_code=301)
 
 
 class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):

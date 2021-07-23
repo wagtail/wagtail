@@ -270,5 +270,9 @@ Pages containing rich text editors also have access to:
     // Wagtail’s Draftail-related APIs and components.
     window.draftail;
     window.draftail.ModalWorkflowSource;
+    window.draftail.ImageModalWorkflowSource;
+    window.draftail.EmbedModalWorkflowSource;
+    window.draftail.LinkModalWorkflowSource;
+    window.draftail.DocumentModalWorkflowSource;
     window.draftail.Tooltip;
     window.draftail.TooltipEntity;

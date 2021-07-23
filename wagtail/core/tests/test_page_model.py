@@ -18,6 +18,7 @@ from django.test.utils import override_settings
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
+from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.models import (
     Comment, Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site,
     get_page_models, get_translatable_models)
@@ -28,7 +29,7 @@ from wagtail.tests.testapp.models import (
     CustomPageQuerySet, EventCategory, EventIndex, EventPage, EventPageSpeaker, GenericSnippetPage,
     ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
     PageWithExcludedCopyField, SimpleChildPage, SimplePage, SimpleParentPage, SingleEventPage,
-    SingletonPage, StandardIndex, StreamPage, TaggedPage)
+    SingletonPage, StandardIndex, StreamPage, TaggedGrandchildPage, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -1534,6 +1535,36 @@ class TestCopyPage(TestCase):
             for item_id in new_tagged_item_ids
         ]))
 
+    def test_copy_subclassed_page_copies_tags(self):
+        # create and publish a TaggedGrandchildPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        sub_tagged_page = TaggedGrandchildPage(title='My very special tagged page', slug='my-special-tagged-page')
+        sub_tagged_page.tags.add('wagtail', 'bird')
+        event_index.add_child(instance=sub_tagged_page)
+        sub_tagged_page.save_revision().publish()
+
+        old_tagged_item_ids = [item.id for item in sub_tagged_page.tagged_items.all()]
+        # there should be two items here, with defined (truthy) IDs
+        self.assertEqual(len(old_tagged_item_ids), 2)
+        self.assertTrue(all(old_tagged_item_ids))
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_sub_tagged_page = sub_tagged_page.copy(to=homepage)
+
+        self.assertNotEqual(sub_tagged_page.id, new_sub_tagged_page.id)
+
+        # new page should also have two tags
+        new_tagged_item_ids = [item.id for item in new_sub_tagged_page.tagged_items.all()]
+        self.assertEqual(len(new_tagged_item_ids), 2)
+        self.assertTrue(all(new_tagged_item_ids))
+
+        # new tagged_item IDs should differ from old ones
+        self.assertTrue(all([
+            item_id not in old_tagged_item_ids
+            for item_id in new_tagged_item_ids
+        ]))
+
     def test_copy_page_with_m2m_relations(self):
         # create and publish a ManyToManyBlogPage under Events
         event_index = Page.objects.get(url_path='/home/events/')
@@ -2195,6 +2226,12 @@ class TestCopyForTranslation(TestCase):
         self.assertFalse(fr_homepage.live)
         self.assertTrue(fr_homepage.has_unpublished_changes)
 
+        # Check log
+        log_entry = PageLogEntry.objects.get(action='wagtail.copy_for_translation')
+        self.assertEqual(log_entry.data['source_locale']['language_code'], 'en')
+        self.assertEqual(log_entry.data['page']['locale']['language_code'], 'fr')
+        self.assertEqual(page_log_action_registry.format_message(log_entry), "Copied for translation from Root (English)")
+
     def test_copy_homepage_slug_exists(self):
         # This test is the same as test_copy_homepage, but we will create another page with
         # the slug "home-fr" before translating. copy_for_translation should pick a different slug
@@ -2223,6 +2260,12 @@ class TestCopyForTranslation(TestCase):
 
         # The slug should be the same when copying to another tree
         self.assertEqual(self.en_eventindex.slug, fr_eventindex.slug)
+
+        # Check log
+        log_entry = PageLogEntry.objects.get(action='wagtail.copy_for_translation')
+        self.assertEqual(log_entry.data['source_locale']['language_code'], 'en')
+        self.assertEqual(log_entry.data['page']['locale']['language_code'], 'fr')
+        self.assertEqual(page_log_action_registry.format_message(log_entry), "Copied for translation from Welcome to the Wagtail test site! (English)")
 
     def test_copy_childpage_without_parent(self):
         # This test is the same as test_copy_childpage but we won't create the parent page first

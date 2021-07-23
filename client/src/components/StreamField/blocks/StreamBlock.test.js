@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { FieldBlockDefinition } from './FieldBlock';
-import { StreamBlockDefinition } from './StreamBlock';
+import { StreamBlockDefinition, StreamBlockValidationError } from './StreamBlock';
 
 import $ from 'jquery';
 window.$ = $;
@@ -34,6 +34,12 @@ class DummyWidgetDefinition {
       focus() { focus(widgetName); },
       idForLabel: id,
     };
+  }
+}
+
+class ValidationError {
+  constructor(messages) {
+    this.messages = messages;
   }
 }
 
@@ -272,6 +278,21 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
 
     expect(document.body.innerHTML).toMatchSnapshot();
   });
+
+  test('setError renders error messages', () => {
+    boundBlock.setError([
+      new StreamBlockValidationError(
+        [
+          /* non-block error */
+          new ValidationError(['At least three blocks are required']),
+        ],
+        {
+          /* block error */
+          1: [new ValidationError(['Not as good as the first one'])],
+        }),
+    ]);
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
 });
 
 describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', () => {
@@ -413,7 +434,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
   const assertCanAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toBe(null);
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toBe(null);
 
     // Test menu
     expect(document.querySelector('button[data-streamblock-menu-open]').getAttribute('disabled')).toBe(null);
@@ -422,7 +443,7 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
   const assertCannotAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toEqual('disabled');
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toEqual('disabled');
 
     // Test menu
     expect(document.querySelector('button[data-streamblock-menu-open]').getAttribute('disabled')).toEqual('disabled');
@@ -586,7 +607,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
   const assertCanAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toBe(null);
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toBe(null);
 
     // Test menu item
     expect(document.querySelector('button.action-add-block-test_block_a').getAttribute('disabled')).toBe(null);
@@ -595,7 +616,7 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
   const assertCannotAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[data-duplicate-button]').getAttribute('disabled')).toEqual('disabled');
+    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toEqual('disabled');
 
     // Test menu item
     expect(document.querySelector('button.action-add-block-test_block_a').getAttribute('disabled')).toEqual('disabled');

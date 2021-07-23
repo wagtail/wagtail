@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,18 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Nucli de Wagtail"
+
+msgid "Move up"
+msgstr "Puja"
+
+msgid "Move down"
+msgstr "Baixa"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Add"
+msgstr "Afegir"
 
 msgid "This block has no options."
 msgstr "Aquest bloc no té opcions."
@@ -38,6 +50,10 @@ msgstr "La contrasenya que heu introduït no és correcta. Torneu a provar."
 
 msgid "Comment"
 msgstr "Commentari"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Desconegut/da %(action)s"
 
 msgid "hostname"
 msgstr "hostname"
@@ -121,16 +137,6 @@ msgstr "ruta URL"
 msgid "owner"
 msgstr "propietari"
 
-msgid "page title"
-msgstr "títol de la pàgina"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Opcional. Títol de 'Motor de cerca amigable'. Això apareixerà al cap damunt "
-"de la finetra del navegador"
-
 msgid "show in menus"
 msgstr "mostrar als menús"
 
@@ -138,9 +144,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Si s'enllaça cap aquesta pàgina apareixerà automàticament als menús generats"
-
-msgid "search description"
-msgstr "cercar la descripció"
 
 msgid "go live date/time"
 msgstr "data/hora de pas a en viu"
@@ -222,9 +225,6 @@ msgstr "revisió de pàgina"
 
 msgid "page revisions"
 msgstr "revisions de pàgines"
-
-msgid "Add"
-msgstr "Afegir"
 
 msgid "Add/edit pages you own"
 msgstr "Afegir/editar pàgines pròpies"
@@ -458,3 +458,85 @@ msgstr "Necessiteu una contrasenya per accedir a aquesta pàgina."
 
 msgid "Continue"
 msgstr "Continuar"
+
+msgid "English"
+msgstr "Anglès"
+
+msgid "French"
+msgstr "Francès"
+
+msgid "German"
+msgstr "Alemany"
+
+msgid "Create"
+msgstr "Crear"
+
+msgid "Created"
+msgstr "Creada"
+
+msgid "Save draft"
+msgstr "Desa esborrany"
+
+msgid "Draft saved"
+msgstr "S'ha desat l'esborrany"
+
+msgid "Deleted"
+msgstr "Suprimida"
+
+msgid "Published"
+msgstr "Publicada"
+
+msgid "Unpublish"
+msgstr "Despublicar"
+
+msgid "Unpublished"
+msgstr "Despublicada"
+
+msgid "Locked"
+msgstr "Bloquejada"
+
+msgid "Unlocked"
+msgstr "Desbloquejat"
+
+msgid "Reject"
+msgstr "Rebutjar"
+
+msgid "Reverted to previous revision"
+msgstr "S'ha revertit a la revisió anterior"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "S'ha copiat de %(title)s"
+
+msgid "Copied"
+msgstr "Copiat"
+
+msgid "Added view restriction"
+msgstr "S'ha afegit una restricció de visualització"
+
+msgid "Copy"
+msgstr "Copiar"
+
+msgid "Move"
+msgstr "Mou"
+
+msgid "Add view restrictions"
+msgstr "Afegir restriccions de visualització"
+
+msgid "Workflow cancelled"
+msgstr "El fluxe de treballa està cancel·lat"
+
+msgid "Workflow: start"
+msgstr "Fluxe de treball: inicia"
+
+msgid "Workflow: approve task"
+msgstr "Fluxe de treball: aprova la tasca"
+
+msgid "Workflow: reject task"
+msgstr "Fluxe de treball: rebutja la tasca"
+
+msgid "Workflow: resume task"
+msgstr "Fluxe de treball: reprèn la tasca"
+
+msgid "Workflow: cancel"
+msgstr "Fluxe de treball: cancel·la"

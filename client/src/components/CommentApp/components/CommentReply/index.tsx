@@ -8,6 +8,7 @@ import { updateReply, deleteReply } from '../../actions/comments';
 import type { TranslatableStrings } from '../../main';
 import { CommentHeader }  from '../CommentHeader';
 import TextArea from '../TextArea';
+import Icon from '../../../Icon/Icon';
 
 export async function saveCommentReply(
   comment: Comment,
@@ -199,17 +200,17 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
           {strings.CONFIRM_DELETE_COMMENT}
           <button
             type="button"
-            className="comment-reply__button comment-reply__button--red"
-            onClick={onClickDelete}
-          >
-            {strings.DELETE}
-          </button>
-          <button
-            type="button"
             className="comment-reply__button"
             onClick={onClickCancel}
           >
             {strings.CANCEL}
+          </button>
+          <button
+            type="button"
+            className="comment-reply__button comment-reply__button--primary"
+            onClick={onClickDelete}
+          >
+            {strings.DELETE}
           </button>
         </div>
       </>
@@ -297,6 +298,12 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
       };
     }
 
+    let notice = '';
+    if (!reply.remoteId || reply.text !== reply.originalText) {
+      // Save the page to save this reply
+      notice = strings.SAVE_PAGE_TO_SAVE_REPLY;
+    }
+
     return (
       <>
         <CommentHeader
@@ -308,6 +315,14 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
           focused={isFocused}
         />
         <p className="comment-reply__text">{reply.text}</p>
+        {notice &&
+          <div className="comment__notice-placeholder">
+            <div className="comment__notice" role="status">
+              <Icon name="info-circle" />
+              {notice}
+            </div>
+          </div>
+        }
       </>
     );
   }

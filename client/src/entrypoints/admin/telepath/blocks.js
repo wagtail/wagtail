@@ -1,8 +1,36 @@
-import { FieldBlockDefinition } from '../../../components/StreamField/blocks/FieldBlock';
-import { StaticBlockDefinition } from '../../../components/StreamField/blocks/StaticBlock';
-import { StructBlockDefinition, StructBlockValidationError } from '../../../components/StreamField/blocks/StructBlock';
-import { ListBlockDefinition, ListBlockValidationError } from '../../../components/StreamField/blocks/ListBlock';
-import { StreamBlockDefinition, StreamBlockValidationError } from '../../../components/StreamField/blocks/StreamBlock';
+import { FieldBlock, FieldBlockDefinition } from '../../../components/StreamField/blocks/FieldBlock';
+import { StaticBlock, StaticBlockDefinition } from '../../../components/StreamField/blocks/StaticBlock';
+import {
+  StructBlock, StructBlockDefinition, StructBlockValidationError
+} from '../../../components/StreamField/blocks/StructBlock';
+import {
+  ListBlock, ListBlockDefinition, ListBlockValidationError
+} from '../../../components/StreamField/blocks/ListBlock';
+import {
+  StreamBlock, StreamBlockDefinition, StreamBlockValidationError
+} from '../../../components/StreamField/blocks/StreamBlock';
+
+const wagtailStreamField = window.wagtailStreamField || {};
+
+wagtailStreamField.blocks = {
+  FieldBlock,
+  FieldBlockDefinition,
+
+  StaticBlock,
+  StaticBlockDefinition,
+
+  StructBlock,
+  StructBlockDefinition,
+  StructBlockValidationError,
+
+  ListBlock,
+  ListBlockDefinition,
+  ListBlockValidationError,
+
+  StreamBlock,
+  StreamBlockDefinition,
+  StreamBlockValidationError,
+};
 
 function initBlockWidget(id) {
   /*
@@ -15,7 +43,7 @@ function initBlockWidget(id) {
     data-value: JSON-encoded value for this block
   */
 
-  const body = document.getElementById(id);
+  const body = document.querySelector('#' + id + '[data-block]');
 
   // unpack the block definition and value
   const blockDefData = JSON.parse(body.dataset.block);
@@ -36,3 +64,5 @@ window.telepath.register('wagtail.blocks.ListBlock', ListBlockDefinition);
 window.telepath.register('wagtail.blocks.ListBlockValidationError', ListBlockValidationError);
 window.telepath.register('wagtail.blocks.StreamBlock', StreamBlockDefinition);
 window.telepath.register('wagtail.blocks.StreamBlockValidationError', StreamBlockValidationError);
+
+window.wagtailStreamField = wagtailStreamField;

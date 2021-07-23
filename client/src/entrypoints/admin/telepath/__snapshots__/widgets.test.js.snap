@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`telepath: wagtail.widgets.CheckboxInput it renders correctly 1`] = `"<input type=\\"checkbox\\" name=\\"sugar\\" id=\\"id-sugar\\" checked=\\"checked\\">"`;
+
 exports[`telepath: wagtail.widgets.PageChooser it renders correctly 1`] = `
 "<div id=\\"the-id-chooser\\" class=\\"chooser page-chooser\\" data-chooser-url=\\"/admin/choose-page/\\">
           <div class=\\"chosen\\">

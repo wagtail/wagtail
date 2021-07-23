@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-02-01 19:06+0000\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-21 21:05+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -66,6 +66,21 @@ msgstr "Aliniat la stânga"
 
 msgid "Right-aligned"
 msgstr "Aliniat la dreapta"
+
+msgid "Collection"
+msgstr "Colecție"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Image is decorative"
+msgstr "Imagine decorativă"
+
+msgid "Alt text"
+msgstr "Text alternativ"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr "Adaugați text alternativ sau marcați imaginea ca decorativă"
 
 msgid "Filter"
 msgstr "Filtrează"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,15 @@ msgstr ""
 msgid "Wagtail redirects"
 msgstr "Reindirizzi Wagtail"
 
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Permanent"
+msgstr "Permanente"
+
+msgid "All"
+msgstr "Tutto"
+
 msgid "From site"
 msgstr "Dal sito"
 
@@ -32,6 +41,10 @@ msgstr "Tutti i siti"
 
 msgid "A redirect with this path already exists."
 msgstr "Un redirect con questa path è già esistente."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formati supportati: %(supported_formats)s."
 
 msgid "redirect from"
 msgstr "redirect da"
@@ -84,6 +97,9 @@ msgstr "Sei sicuro di voler eliminare questo redirect?"
 msgid "Yes, delete"
 msgstr "Si, elimina"
 
+msgid "Preview"
+msgstr "Anteprima"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Modifica %(title)s"
@@ -100,11 +116,11 @@ msgstr "Da"
 msgid "To"
 msgstr "A"
 
+msgid "Continue"
+msgstr "Continua"
+
 msgid "Site"
 msgstr "Sito"
-
-msgid "Type"
-msgstr "Tipo"
 
 msgid "Edit this redirect"
 msgstr "Modifica questo redirect"

@@ -1,0 +1,19 @@
+.sidebar-custom-branding {
+    display: block;
+    align-items: center;
+    color: #aaa;
+    -webkit-font-smoothing: auto;
+    position: relative;
+    margin: 2em auto;
+    text-align: center;
+    padding: 10px 0;
+    transition: padding $menu-transition-duration ease;
+
+    &:hover {
+        color: $color-white;
+    }
+
+    @at-root .sidebar--slim #{&} {
+        padding: 40px 0;
+    }
+}

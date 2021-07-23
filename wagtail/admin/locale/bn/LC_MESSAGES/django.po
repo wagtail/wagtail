@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-17 15:41+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"Last-Translator: MA Rahman <ugikot@gmail.com>\n"
 "Language-Team: Bengali (http://www.transifex.com/torchbox/wagtail/language/"
 "bn/)\n"
 "MIME-Version: 1.0\n"
@@ -45,3 +45,15 @@ msgstr "মুছে ফেলুন "
 
 msgid "Lock"
 msgstr "লক করুন "
+
+msgid "Settings"
+msgstr "সেটিংস "
+
+msgid "Save"
+msgstr "সংরক্ষণ"
+
+msgid "Saving…"
+msgstr "সংরক্ষিত হচ্ছে..."
+
+msgid "Editing"
+msgstr "সম্পাদিত হচ্ছে"

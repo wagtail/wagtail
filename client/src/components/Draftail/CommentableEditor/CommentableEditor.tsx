@@ -48,8 +48,8 @@ type BlockKey = string;
 
 /**
  * Controls the positioning of a comment that has been added to Draftail.
- * `getDesiredPosition` is called by the comments app to determine the height
- * at which to float the comment.
+ * `getAnchorNode` is called by the comments app to determine which node
+ * to float the comment alongside
  */
 export class DraftailInlineAnnotation implements Annotation {
   /**
@@ -101,7 +101,7 @@ export class DraftailInlineAnnotation implements Annotation {
   getTab() {
     return this.field.closest('section[data-tab]')?.getAttribute('data-tab');
   }
-  getDesiredPosition(focused = false) {
+  getAnchorNode(focused = false) {
     // The comment should always aim to float by an annotation, rather than between them
     // so calculate which annotation is the median one by height and float the comment by that
     let medianRef: null | DecoratorRef = null;
@@ -125,23 +125,8 @@ export class DraftailInlineAnnotation implements Annotation {
       medianRef = this.cachedMedianRef;
     }
 
-    if (medianRef) {
-      // We have a median ref - calculate its height
-      return (
-        DraftailInlineAnnotation.getHeightForRef(medianRef) +
-        document.documentElement.scrollTop
-      );
-    }
-
-    const fieldNode = this.field;
-    if (fieldNode) {
-      // Fallback to the field node, if the comment has no decorator refs
-      return (
-        fieldNode.getBoundingClientRect().top +
-        document.documentElement.scrollTop
-      );
-    }
-    return 0;
+    // Fallback to the field node, if the comment has no decorator refs
+    return medianRef?.current || this.field;
   }
 }
 
@@ -368,6 +353,8 @@ function getCommentDecorator(commentApp: CommentApp) {
     if (!children) {
       return null;
     }
+
+    const enabled = useSelector(commentApp.selectors.selectEnabled);
     const blockKey: BlockKey = children[0].props.block.getKey();
     const start: number = children[0].props.start;
 
@@ -390,6 +377,13 @@ function getCommentDecorator(commentApp: CommentApp) {
       }
       return undefined; // eslint demands an explicit return here
     }, [commentId, annotationNode, blockKey]);
+
+    if (!enabled) {
+      return <>
+        {children}
+      </>;
+    }
+
     const onClick = () => {
       // Ensure the comment will appear alongside the current block
       if (!commentId) {
@@ -413,6 +407,7 @@ function getCommentDecorator(commentApp: CommentApp) {
         role="button"
         ref={annotationNode}
         onClick={onClick}
+        aria-label={STRINGS.FOCUS_COMMENT}
         data-annotation
       >
         {children}
@@ -422,7 +417,7 @@ function getCommentDecorator(commentApp: CommentApp) {
   return CommentDecorator;
 }
 
-function forceResetEditorState(editorState: EditorState, replacementContent: ContentState) {
+function forceResetEditorState(editorState: EditorState, replacementContent?: ContentState) {
   const content = replacementContent || editorState.getCurrentContent();
   const state = EditorState.set(
     EditorState.createWithContent(content, editorState.getDecorator()),
@@ -430,6 +425,7 @@ function forceResetEditorState(editorState: EditorState, replacementContent: Con
       selection: editorState.getSelection(),
       undoStack: editorState.getUndoStack(),
       redoStack: editorState.getRedoStack(),
+      inlineStyleOverride: editorState.getInlineStyleOverride()
     }
   );
   return EditorState.acceptSelection(state, state.getSelection());
@@ -464,6 +460,36 @@ export function addCommentsToEditor(
     }
   });
   return newContentState;
+}
+
+type Direction = 'RTL' | 'LTR'
+
+function handleArrowAtContentEnd(
+  state: EditorState,
+  setEditorState: (newState: EditorState) => void,
+  direction: Direction
+) {
+  // If at the end of content and pressing in the same direction as the text, remove the comment style from
+  // further typing
+  const newState = state;
+  const selection = newState.getSelection();
+  const lastBlock = newState.getCurrentContent().getLastBlock();
+  const textDirection = newState.getDirectionMap().get(lastBlock.getKey());
+
+  if (!(
+    textDirection === direction
+    && selection.isCollapsed()
+    && selection.getAnchorKey() === lastBlock.getKey()
+    && selection.getAnchorOffset() === lastBlock.getLength()
+  )) {
+    return;
+  }
+  setEditorState(
+    EditorState.setInlineStyleOverride(
+      newState,
+      newState.getCurrentInlineStyle().filter(style => !styleIsComment(style)) as DraftInlineStyle
+    )
+  );
 }
 
 interface InlineStyle {
@@ -553,8 +579,11 @@ function CommentableEditor({
 
     if (
       !validFocusChange &&
-      previousIds === ids &&
-      previousEnabled === enabled
+      previousEnabled === enabled &&
+      (
+        previousIds === ids ||
+        (previousIds.length === ids.length && previousIds.every((value, index) => value === ids[index]))
+      )
     ) {
       return;
     }
@@ -635,13 +664,25 @@ function CommentableEditor({
             state.getCurrentContent()
           );
           newEditorState = forceResetEditorState(state, filteredContent);
+        } else if (state.getLastChangeType() === 'split-block') {
+          const content = newEditorState.getCurrentContent();
+          const selection = newEditorState.getSelection();
+          const style = content.getBlockForKey(selection.getAnchorKey()).getInlineStyleAt(selection.getAnchorOffset());
+          // If starting a new paragraph (and not splitting an existing comment)
+          // ensure any new text entered doesn't get a comment style
+          if (!style.some(styleName => styleIsComment(styleName))) {
+            newEditorState = EditorState.setInlineStyleOverride(
+              newEditorState,
+              newEditorState.getCurrentInlineStyle().filter(styleName => !styleIsComment(styleName)) as DraftInlineStyle
+            );
+          }
         }
         setEditorState(newEditorState);
       }}
       editorState={editorState}
       controls={enabled ? controls.concat([CommentControl]) : controls}
       inlineStyles={inlineStyles.concat(commentStyles)}
-      plugins={enabled ? plugins.concat([{
+      plugins={plugins.concat([{
         decorators: [{
           strategy: (
             block: ContentBlock, callback: (start: number, end: number) => void
@@ -653,6 +694,18 @@ function CommentableEditor({
             return 'comment';
           }
           return undefined;
+        },
+        onRightArrow: (_: React.KeyboardEvent, { getEditorState }) => {
+          // In later versions of draft-js, this is deprecated and can be handled via handleKeyCommand instead
+          // when draftail upgrades, this logic can be moved there
+
+          handleArrowAtContentEnd(getEditorState(), setEditorState, 'LTR');
+        },
+        onLeftArrow: (_: React.KeyboardEvent, { getEditorState }) => {
+          // In later versions of draft-js, this is deprecated and can be handled via handleKeyCommand instead
+          // when draftail upgrades, this logic can be moved there
+
+          handleArrowAtContentEnd(getEditorState(), setEditorState, 'RTL');
         },
         handleKeyCommand: (command: string, state: EditorState) => {
           if (enabled && command === 'comment') {
@@ -679,6 +732,9 @@ function CommentableEditor({
           return 'not-handled';
         },
         customStyleFn: (styleSet: DraftInlineStyle) => {
+          if (!enabled) {
+            return undefined;
+          }
           // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
           // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
           // this casting should be removed
@@ -708,8 +764,7 @@ function CommentableEditor({
           }
           return undefined;
         }
-      }]) : plugins
-      }
+      }])}
       {...options}
     />
   );

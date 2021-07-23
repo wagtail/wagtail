@@ -20,7 +20,7 @@ class InstagramOEmbedFinder(EmbedFinder):
     An embed finder that supports the authenticated Instagram oEmbed Endpoint.
     https://developers.facebook.com/docs/instagram/oembed
     '''
-    INSTAGRAM_ENDPOINT = 'https://graph.facebook.com/v9.0/instagram_oembed'
+    INSTAGRAM_ENDPOINT = 'https://graph.facebook.com/v11.0/instagram_oembed'
     INSTAGRAM_URL_PATTERNS = [r'^https?://(?:www\.)?instagram\.com/p/.+$',
                               r'^https?://(?:www\.)?instagram\.com/tv/.+$',
                               ]
@@ -37,10 +37,12 @@ class InstagramOEmbedFinder(EmbedFinder):
                 return True
         return False
 
-    def find_embed(self, url, max_width=None):
+    def find_embed(self, url, max_width=None, max_height=None):
         params = {'url': url, 'format': 'json'}
         if max_width:
             params['maxwidth'] = max_width
+        if max_height:
+            params['maxheight'] = max_height
         if self.omitscript:
             params['omitscript'] = 'true'
 

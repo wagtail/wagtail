@@ -223,7 +223,7 @@ Using a different page template when AMP mode is active
 -------------------------------------------------------
 
 You're probably not going to want to use the same templates on the AMP site as
-you do on the regular web site. Let's add some logic in to make Wagtail use a
+you do on the normal web site. Let's add some logic in to make Wagtail use a
 separate template whenever a page is served with AMP enabled.
 
 We can use a mixin, which allows us to re-use the logic on different page types.

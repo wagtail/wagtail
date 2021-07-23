@@ -44,3 +44,12 @@ task_submitted = Signal()
 
 # provides args: instance, user
 task_cancelled = Signal()
+
+
+# Locale signals
+
+# Like pre_delete, but sent on deletion before on_delete validation is applied.
+# Currently only sent by the Locale model.
+# Required as a workaround for https://code.djangoproject.com/ticket/6870
+# provides args: sender, instance
+pre_validate_delete = Signal()

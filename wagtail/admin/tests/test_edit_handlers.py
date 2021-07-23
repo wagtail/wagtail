@@ -9,6 +9,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
+from django.utils.html import json_script
 from freezegun import freeze_time
 from pytz import utc
 
@@ -23,8 +24,8 @@ from wagtail.core.models import Comment, CommentReply, Page, Site
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
-    EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, RestaurantPage,
-    RestaurantTag, SimplePage, ValidatedPage)
+    DefaultStreamPage, EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel,
+    RestaurantPage, RestaurantTag, SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -216,6 +217,28 @@ class TestPageEditHandlers(TestCase):
 
             self.assertEqual(errors, [invalid_base_form, invalid_edit_handler])
 
+    @clear_edit_handler(DefaultStreamPage)
+    def test_check_invalid_streamfield_edit_handler(self):
+        """
+        Set the edit handler for body (a StreamField) to be
+        a FieldPanel instead of a StreamFieldPanel.
+        Check that the correct warning is raised.
+        """
+
+        invalid_edit_handler = checks.Warning(
+            "DefaultStreamPage.body is a StreamField, but uses FieldPanel",
+            hint="Ensure that it uses a StreamFieldPanel, or change the field type",
+            obj=DefaultStreamPage,
+            id='wagtailadmin.W003')
+
+        with mock.patch.object(DefaultStreamPage, 'content_panels', new=[FieldPanel('body')]):
+            checks_result = checks.run_checks(tags=['panels'])
+
+            # Only look at warnings for DefaultStreamPage
+            warning = [warning for warning in checks_result if warning.obj == DefaultStreamPage]
+
+            self.assertEqual(warning, [invalid_edit_handler])
+
     @clear_edit_handler(ValidatedPage)
     def test_custom_edit_handler_form_class(self):
         """
@@ -315,7 +338,7 @@ class TestTabbedInterface(TestCase):
         self.assertIn('<a href="#tab-speakers" class="" data-tab="speakers">Speakers</a>', result)
 
         # result should contain tab panels
-        self.assertIn('<div class="tab-content tab-content--comments-enabled">', result)
+        self.assertIn('<div class="tab-content">', result)
         self.assertIn('<section id="tab-event-details" class="shiny active" role="tabpanel" aria-labelledby="tab-label-event-details" data-tab="event-details">', result)
         self.assertIn('<section id="tab-speakers" class=" " role="tabpanel" aria-labelledby="tab-label-speakers" data-tab="speakers">', result)
 
@@ -1031,9 +1054,9 @@ There are no tabs on non-Page model editing within InlinePanels.""",
         """Checks should NOT warn if InlinePanel models use tabbed panels AND edit_handler"""
 
         EventPageSpeaker.content_panels = [FieldPanel('first_name')]
-        EventPageSpeaker.edit_handler = TabbedInterface(
+        EventPageSpeaker.edit_handler = TabbedInterface([
             ObjectList([FieldPanel('last_name')], heading='test')
-        )
+        ])
 
         # should not be any errors
         self.assertEqual(self.get_checks_result(), [])
@@ -1054,11 +1077,34 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.object_list = ObjectList([
             CommentPanel()
         ]).bind_to(model=EventPage, request=self.request)
+        self.tabbed_interface = TabbedInterface([self.object_list])
         self.EventPageForm = self.object_list.get_form_class()
         self.event_page = EventPage.objects.get(slug='christmas')
         self.comment = Comment.objects.create(page=self.event_page, text='test', user=self.other_user, contentpath='test_contentpath')
         self.reply_1 = CommentReply.objects.create(comment=self.comment, text='reply_1', user=self.other_user)
         self.reply_2 = CommentReply.objects.create(comment=self.comment, text='reply_2', user=self.commenting_user)
+
+    def test_comments_toggle_enabled(self):
+        """
+        Test that the comments toggle is enabled for a TabbedInterface containing CommentPanel, and disabled otherwise
+        """
+        self.assertTrue(self.tabbed_interface.show_comments_toggle)
+        self.assertFalse(TabbedInterface([ObjectList(self.event_page.content_panels)]).show_comments_toggle)
+
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
+    def test_comments_disabled_setting(self):
+        """
+        Test that the comment panel is missing if WAGTAILADMIN_COMMENTS_ENABLED=False
+        """
+        self.assertFalse(any(isinstance(panel, CommentPanel) for panel in Page.settings_panels))
+        self.assertFalse(Page.get_edit_handler().show_comments_toggle)
+
+    def test_comments_enabled_setting(self):
+        """
+        Test that the comment panel is present by default
+        """
+        self.assertTrue(any(isinstance(panel, CommentPanel) for panel in Page.settings_panels))
+        self.assertTrue(Page.get_edit_handler().show_comments_toggle)
 
     def test_context(self):
         """
@@ -1077,8 +1123,13 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.assertEqual(data['comments'][0]['replies'][0]['user'], self.reply_1.user.pk)
         self.assertEqual(data['comments'][0]['replies'][1]['user'], self.reply_2.user.pk)
 
-        self.assertIn(self.commenting_user.pk, data['authors'])
-        self.assertIn(self.other_user.pk, data['authors'])
+        self.assertIn(str(self.commenting_user.pk), data['authors'])
+        self.assertIn(str(self.other_user.pk), data['authors'])
+
+        try:
+            json_script(data, 'comments-data')
+        except TypeError:
+            self.fail("Failed to serialize comments data. This is likely due to a custom user model using an unsupported field.")
 
     def test_form(self):
         """
@@ -1151,6 +1202,30 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         comment_form = form.formsets['comments'].forms[0]
         self.assertFalse(comment_form.is_valid())
         # Users cannot delete comments from other users
+
+    def test_users_can_edit_comment_positions(self):
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-position': 'a_new_position',  # Try to change the position of a comment
+            'comments-0-DELETE': 0,
+            'comments-0-replies-TOTAL_FORMS': 0,
+            'comments-0-replies-INITIAL_FORMS': 0,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+        self.assertTrue(comment_form.is_valid())
+        # Users can change the positions of other users' comments within a field
+        # eg by editing a rich text field
 
     @freeze_time("2017-01-01 12:00:00")
     def test_comment_resolve(self):

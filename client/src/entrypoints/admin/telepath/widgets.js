@@ -52,6 +52,26 @@ class Widget {
 window.telepath.register('wagtail.widgets.Widget', Widget);
 
 
+class BoundCheckboxInput extends BoundWidget {
+    getValue() {
+        return this.input.is(':checked');
+    }
+    getState() {
+        return this.input.is(':checked');
+    }
+    setState(state) {
+        // if false, set attribute value to null to remove it
+        this.input.attr('checked', state || null);
+    }
+}
+
+
+class CheckboxInput extends Widget {
+    boundWidgetClass = BoundCheckboxInput;
+}
+window.telepath.register('wagtail.widgets.CheckboxInput', CheckboxInput);
+
+
 class BoundRadioSelect {
     constructor(element, name, idForLabel, initialState) {
         this.element = element;
@@ -165,6 +185,22 @@ class DraftailRichTextArea {
 window.telepath.register('wagtail.widgets.DraftailRichTextArea', DraftailRichTextArea);
 
 
+class BoundHalloRichTextArea extends BoundWidget {
+    setState(state) {
+        this.input.val(state);
+        this.input.siblings('[data-hallo-editor]').html(state);
+    }
+    focus() {
+        /* not implemented (leave blank so we don't try to focus the hidden field) */
+    }
+}
+
+class HalloRichTextArea extends Widget {
+    boundWidgetClass = BoundHalloRichTextArea;
+}
+window.telepath.register('wagtail.widgets.HalloRichTextArea', HalloRichTextArea);
+
+
 class BaseDateTimeWidget extends Widget {
     constructor(options) {
         this.options = options;
@@ -215,3 +251,10 @@ class AdminDateTimeInput extends BaseDateTimeWidget {
     initChooserFn = window.initDateTimeChooser;
 }
 window.telepath.register('wagtail.widgets.AdminDateTimeInput', AdminDateTimeInput);
+
+class ValidationError {
+    constructor(messages) {
+        this.messages = messages;
+    }
+}
+window.telepath.register('wagtail.errors.ValidationError', ValidationError);
