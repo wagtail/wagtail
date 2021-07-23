@@ -9,6 +9,7 @@ This section describes the various mechanisms that can be used to integrate your
 .. toctree::
     :maxdepth: 2
 
+    admin_views
     adding_reports
     custom_tasks
     audit_log
