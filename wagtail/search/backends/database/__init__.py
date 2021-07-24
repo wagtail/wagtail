@@ -8,6 +8,9 @@ def SearchBackend(params):
     if connection.vendor == 'postgresql':
         from .postgres.postgres import PostgresSearchBackend
         return PostgresSearchBackend(params)
+    if connection.vendor == 'sqlite':
+        from .sqlite.sqlite import SQLiteSearchBackend
+        return SQLiteSearchBackend(params)
     else:
         from .fallback import DatabaseSearchBackend
         return DatabaseSearchBackend(params)

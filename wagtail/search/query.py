@@ -1,4 +1,5 @@
 from __future__ import absolute_import, unicode_literals
+from typing import Match, Union
 
 
 #
@@ -18,6 +19,7 @@ class SearchQuery:
 
     def __repr__(self):
         raise NotImplementedError
+
 
 #
 # Basic query classes

@@ -1,1 +1,4 @@
-# Nothing is exported by default
+from .postgres import PostgresSearchBackend
+
+
+SearchBackend = PostgresSearchBackend
