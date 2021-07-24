@@ -8,6 +8,7 @@ Changelog
  * Added a distinct `wagtail.copy_for_translation` log action type (Karl Hobley)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
+ * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
 
 
 2.14 (xx.xx.xxxx) - IN DEVELOPMENT
