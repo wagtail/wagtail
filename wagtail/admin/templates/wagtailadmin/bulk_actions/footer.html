@@ -2,12 +2,12 @@
 <footer class="footer bulk-actions-choices hidden">
     <div class="footer__container">
         <div class="bulk-actions-filter-checkbox">
-            <input type="checkbox" aria-label='{% trans "Bulk action checkbox" %}' />
+            <input type="checkbox" aria-label='{% trans "Select all" %}' />
         </div>
         <ul>{% bulk_action_choices bulk_action_register_hook %}</ul>
         <span class="num-objects"></span>
         {% if select_all_obj_text and objects.has_other_pages %}
-        <a class="num-objects-in-listing u-hidden" href='#'>{{ select_all_obj_text }}</a>
+        <button class="num-objects-in-listing u-hidden">{{ select_all_obj_text }}</button>
         {% endif %}
     </div>
 </footer>
