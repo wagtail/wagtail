@@ -42,7 +42,7 @@
     </thead>
     <tbody>
         {% if pages %}
-            {% trans "Page select checkbox" as checkbox_aria_label %}
+            {% trans "Select page" as checkbox_aria_label %}
             {% for page in pages %}
                 {% page_permissions page as page_perms %}
                 <tr {% if ordering == "ord" %}id="page_{{ page.id|unlocalize }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">

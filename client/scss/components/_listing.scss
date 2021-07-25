@@ -493,14 +493,15 @@ ul.listing {
     }
 }
 
-footer.bulk-actions-choices {
-    @include transition(bottom 0.1s ease 0.1s);
+.bulk-actions-choices {
+    @include transition(transform 0.1s ease 0.1s);
 
     &.hidden {
-        bottom: -200px;
+        transform: translateY(200px);
+        visibility: hidden;
     }
 
-    a.button {
+    .button {
         font-weight: 700;
     }
 
@@ -514,14 +515,13 @@ footer.bulk-actions-choices {
         }
 
         &.is-open {
-            ul.u-toggle {
+            .c-dropdown__menu.u-toggle {
                 display: flex;
             }
         }
 
-        ul {
+        .c-dropdown__menu {
             bottom: 50px;
-            left: 30px;
             flex-direction: column;
         }
     }
@@ -539,13 +539,17 @@ footer.bulk-actions-choices {
         border-right: 1px solid darken($color-white, 50);
     }
 
-    > span {
+    .num-objects {
         text-transform: none;
         margin: 0 5px;
     }
 
     .num-objects-in-listing {
         color: $color-teal-light;
+        background-color: transparent;
+        border: 0;
+        font-family: 'Open Sans';
+        align-self: baseline;
     }
 
     .button:not(:hover) {

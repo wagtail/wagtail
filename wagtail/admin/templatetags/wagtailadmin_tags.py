@@ -540,7 +540,6 @@ def bulk_action_choices(context, hook_name):
         more_button = ButtonWithDropdown(
             label=_("More"),
             attrs={
-                'target': '_blank', 'rel': 'noopener noreferrer',
                 'title': _("View more bulk actions")
             },
             classes={'bulk-actions-more', 'dropup'},
