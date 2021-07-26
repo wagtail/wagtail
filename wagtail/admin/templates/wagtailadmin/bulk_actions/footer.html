@@ -1,13 +1,11 @@
 {% load wagtailadmin_tags i18n %}
-<footer class="footer bulk-actions-choices hidden">
+<footer class="footer bulk-actions-choices hidden" data-bulk-actions-footer>
     <div class="footer__container">
-        <div class="bulk-actions-filter-checkbox">
-            <input type="checkbox" aria-label='{% trans "Select all" %}' />
-        </div>
+        <input data-bulk-action-select-all-checkbox type="checkbox" aria-label='{% trans "Select all" %}' />
         <ul>{% bulk_action_choices bulk_action_register_hook %}</ul>
-        <span class="num-objects"></span>
+        <span data-num-objects class="num-objects"></span>
         {% if select_all_obj_text and objects.has_other_pages %}
-        <button class="num-objects-in-listing u-hidden">{{ select_all_obj_text }}</button>
+        <button data-num-objects-in-listing class="num-objects-in-listing u-hidden">{{ select_all_obj_text }}</button>
         {% endif %}
     </div>
 </footer>
