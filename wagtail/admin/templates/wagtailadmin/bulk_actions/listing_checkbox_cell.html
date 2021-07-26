@@ -4,5 +4,5 @@
     {% if obj_type == 'page' %}
     data-page-status="{% if obj.live %}live{% else %}draft{% endif %}" 
     {% endif %}
-    data-object-id="{{obj.id}}" class="bulk-action-checkbox" aria-label="{{checkbox_aria_label}}" type="checkbox" />
+    data-object-id="{{obj.id}}" data-bulk-action-checkbox class="bulk-action-checkbox" aria-label="{{checkbox_aria_label}}" type="checkbox" />
 </td>
