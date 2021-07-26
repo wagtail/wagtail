@@ -441,7 +441,7 @@ class PagesAPIViewSet(BaseAPIViewSet):
         parent pages when using the child_of and descendant_of filters as well.
         """
         # Get live pages that are not in a private section
-        queryset = Page.objects.all().public().live()
+        queryset = self.model.objects.all().public().live()
 
         # Filter by site
         site = Site.find_for_request(self.request)
@@ -465,7 +465,8 @@ class PagesAPIViewSet(BaseAPIViewSet):
 
         # Allow pages to be filtered to a specific type
         try:
-            models = page_models_from_string(request.GET.get('type', 'wagtailcore.Page'))
+            models_type = request.GET.get('type', None)
+            models = models_type and page_models_from_string(models_type) or []
         except (LookupError, ValueError):
             raise BadRequestError("type doesn't exist")
 
