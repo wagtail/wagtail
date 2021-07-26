@@ -2,7 +2,7 @@
 <th class="bulk-actions-filter-checkbox" data-parent-id="{{ parent.id }}">
     <div>
         {% trans "Select all" as aria_label %}
-        <input type="checkbox" aria-label="{{aria_label}}" />
+        <input data-bulk-action-select-all-checkbox type="checkbox" aria-label="{{aria_label}}" />
         {% bulk_action_filters %}
     </div>
 </th>

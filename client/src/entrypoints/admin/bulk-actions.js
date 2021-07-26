@@ -1,11 +1,12 @@
 /* global wagtailConfig */
 
-const BULK_ACTION_PAGE_CHECKBOX_INPUT = 'bulk-action-checkbox';
-const BULK_ACTION_SELECT_ALL_CHECKBOX_TH = 'bulk-actions-filter-checkbox';
-const BULK_ACTION_FILTERS_CLASS = `${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} .c-dropdown__item a`;
-const BULK_ACTION_CHOICES_DIV = 'bulk-actions-choices';
-const BULK_ACTION_NUM_OBJECTS_SPAN = 'num-objects';
-const BULK_ACTION_NUM_OBJECTS_IN_LISTING = 'num-objects-in-listing';
+const BULK_ACTION_PAGE_CHECKBOX_INPUT = '[data-bulk-action-checkbox]';
+const BULK_ACTION_SELECT_ALL_CHECKBOX = '[data-bulk-action-select-all-checkbox]';
+const BULK_ACTIONS_CHECKBOX_PARENT = '[data-parent-id]';
+const BULK_ACTION_FILTERS_CLASS = '[data-filter]';
+const BULK_ACTION_CHOICES_DIV = '[data-bulk-actions-footer]';
+const BULK_ACTION_NUM_OBJECTS_SPAN = '[data-num-objects]';
+const BULK_ACTION_NUM_OBJECTS_IN_LISTING = '[data-num-objects-in-listing]';
 
 const checkedState = {
   checkedObjects: new Set(),
@@ -14,10 +15,15 @@ const checkedState = {
   shouldShowAllInListingText: true
 };
 
-/* Event listener for the `Select All` checkbox */
-function SelectAllBulkActionsCheckbox(e) {
+/**
+ * Event listener for the `Select All` checkbox
+ */
+function onSelectAllChange(e) {
+  document.querySelectorAll(`${BULK_ACTION_SELECT_ALL_CHECKBOX}`).forEach(el => {
+    el.checked = e.target.checked; // eslint-disable-line no-param-reassign
+  });
   const changeEvent = new Event('change');
-  for (const el of document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)) {
+  for (const el of document.querySelectorAll(`${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)) {
     if (el.checked === e.target.checked) continue;
     el.checked = e.target.checked;
     if (e.target.checked) {
@@ -27,21 +33,23 @@ function SelectAllBulkActionsCheckbox(e) {
   if (!e.target.checked) {
     // when deselecting all checkbox, simply hide the footer for smooth transition
     checkedState.checkedObjects.clear();
-    document.querySelector(`.${BULK_ACTION_CHOICES_DIV}`).classList.add('hidden');
+    document.querySelector(`${BULK_ACTION_CHOICES_DIV}`).classList.add('hidden');
   }
 }
 
 
-/* Event listener for individual page checkbox */
-function SelectBulkActionsCheckboxes(e) {
+/**
+ * Event listener for individual checkbox
+ */
+function onSelectIndividualCheckbox(e) {
   if (checkedState.selectAllInListing) checkedState.selectAllInListing = false;
   const prevLength = checkedState.checkedObjects.size;
-  if (e.target.checked) checkedState.checkedObjects.add(+e.target.dataset.objectId);
-  else {
+  if (e.target.checked) {
+    checkedState.checkedObjects.add(Number(e.target.dataset.objectId));
+  } else {
     /* unchecks `Select all` checkbox as soon as one page is unchecked */
-    document.querySelectorAll(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} input`).forEach(_el => {
-      const el = _el;
-      el.checked = false;
+    document.querySelectorAll(`${BULK_ACTION_SELECT_ALL_CHECKBOX}`).forEach(el => {
+      el.checked = false; // eslint-disable-line no-param-reassign
     });
     checkedState.checkedObjects.delete(+e.target.dataset.objectId);
   }
@@ -50,29 +58,26 @@ function SelectBulkActionsCheckboxes(e) {
 
   if (numCheckedObjects === 0) {
     /* when all checkboxes are unchecked */
-    document.querySelector(`.${BULK_ACTION_CHOICES_DIV}`).classList.add('hidden');
-    document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => el.classList.remove('show'));
+    document.querySelector(`${BULK_ACTION_CHOICES_DIV}`).classList.add('hidden');
+    document.querySelectorAll(`${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => el.classList.remove('show'));
   } else if (numCheckedObjects === 1 && prevLength === 0) {
     /* when 1 checkbox is checked for the first time */
-    document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => {
+    document.querySelectorAll(`${BULK_ACTION_PAGE_CHECKBOX_INPUT}`).forEach(el => {
       el.classList.add('show');
     });
-    document.querySelector(`.${BULK_ACTION_CHOICES_DIV}`).classList.remove('hidden');
+    document.querySelector(`${BULK_ACTION_CHOICES_DIV}`).classList.remove('hidden');
   }
 
   if (numCheckedObjects === checkedState.numObjects) {
     /* when all checkboxes in the page are checked */
-    document.querySelectorAll(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} input`).forEach(_el => {
-      const el = _el;
-      el.checked = true;
+    document.querySelectorAll(`${BULK_ACTION_SELECT_ALL_CHECKBOX}`).forEach(el => {
+      el.checked = true; // eslint-disable-line no-param-reassign
     });
     if (checkedState.shouldShowAllInListingText) {
-      document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`).classList.remove('u-hidden');
+      document.querySelector(`${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`).classList.remove('u-hidden');
     }
-  } else {
-    if (checkedState.shouldShowAllInListingText) {
-      document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`).classList.add('u-hidden');
-    }
+  } else if (checkedState.shouldShowAllInListingText) {
+    document.querySelector(`${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`).classList.add('u-hidden');
   }
 
   if (numCheckedObjects > 0) {
@@ -87,19 +92,25 @@ function SelectBulkActionsCheckboxes(e) {
         numObjectsSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_PLURAL.replace('{0}', numCheckedObjects);
       }
     }
-    document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_SPAN}`).textContent = numObjectsSelected;
+    document.querySelector(`${BULK_ACTION_NUM_OBJECTS_SPAN}`).textContent = numObjectsSelected;
   }
 }
 
-function selectAllPageIdsInListing() {
+/**
+ * Event listener to select all objects in listing
+ */
+function onClickSelectAllInListing(e) {
+  e.preventDefault();
   checkedState.selectAllInListing = true;
-  document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_SPAN}`).
+  document.querySelector(`${BULK_ACTION_NUM_OBJECTS_SPAN}`).
     textContent = `${wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL_IN_LISTING}.`;
-  document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`).classList.add('u-hidden');
+  document.querySelector(`${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`).classList.add('u-hidden');
 }
 
-/* Event listener for filter dropdown options */
-function FilterEventListener(e) {
+/**
+ * Event listener for filter dropdown options
+ */
+function onClickFilter(e) {
   e.preventDefault();
   const filter = e.target.dataset.filter || '';
   const changeEvent = new Event('change');
@@ -108,7 +119,7 @@ function FilterEventListener(e) {
         BULK_ACTION_PAGE_CHECKBOX_INPUT dataset */
     const [_key, value] = filter.split(':');
     const key = `${_key[0].toUpperCase()}${_key.slice(1)}`;
-    for (const el of document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)) {
+    for (const el of document.querySelectorAll(`${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)) {
       if (`page${key}` in el.dataset) {
         if (el.dataset[`page${key}`] === value) {
           if (!el.checked) {
@@ -125,49 +136,54 @@ function FilterEventListener(e) {
     }
   } else {
     /* If filter string is empty, select all checkboxes */
-    document.querySelectorAll(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH}`).forEach(_el => {
-      const el = _el;
-      el.checked = true;
+    document.querySelectorAll(`.${BULK_ACTION_SELECT_ALL_CHECKBOX}`).forEach(el => {
+      el.checked = true; // eslint-disable-line no-param-reassign
     });
-    document.querySelector(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH}`).dispatchEvent(changeEvent);
+    document.querySelector(`.${BULK_ACTION_SELECT_ALL_CHECKBOX}`).dispatchEvent(changeEvent);
   }
 }
 
-/* Event listener for bulk actions which appends selected page ids to the corresponding action url */
-function BulkActionEventListeners(e) {
+/**
+ * Event listener for bulk actions which appends selected ids to the corresponding action url
+ */
+function onClickActionButton(e) {
   e.preventDefault();
   const url = e.target.getAttribute('href');
-  let queryString = '';
-  if (checkedState.selectAllInListing) {
-    const parentPageId = document.querySelector(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH}`).dataset.parentId;
-    queryString += `&id=all&childOf=${parentPageId}`;
+  const urlParams = new URLSearchParams();
+  const parentElement = document.querySelector(`${BULK_ACTIONS_CHECKBOX_PARENT}`);
+  if (checkedState.selectAllInListing && parentElement) {
+    const parentPageId = parentElement.dataset.parentId;
+    urlParams.append('id', 'all');
+    urlParams.append('childOf', parentPageId);
   } else {
     checkedState.checkedObjects.forEach(objectId => {
-      queryString += `&id=${objectId}`;
+      urlParams.append('id', objectId);
     });
   }
-  window.location.href = `${url}${queryString}`;
+  window.location.href = `${url}&${urlParams.toString()}`;
 }
 
 
-/* Adds all event listeners */
+/**
+ * Adds all event listeners
+ */
 function addBulkActionListeners() {
-  document.querySelectorAll(`.${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)
+  document.querySelectorAll(`${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)
     .forEach(el => {
       checkedState.numObjects++;
-      el.addEventListener('change', SelectBulkActionsCheckboxes);
+      el.addEventListener('change', onSelectIndividualCheckbox);
     });
-  document.querySelectorAll(`.${BULK_ACTION_SELECT_ALL_CHECKBOX_TH} input`).forEach(el => {
-    el.addEventListener('change', SelectAllBulkActionsCheckbox);
+  document.querySelectorAll(`${BULK_ACTION_SELECT_ALL_CHECKBOX}`).forEach(el => {
+    el.addEventListener('change', onSelectAllChange);
   });
-  document.querySelectorAll(`.${BULK_ACTION_FILTERS_CLASS}`).forEach(
-    elem => elem.addEventListener('click', FilterEventListener)
+  document.querySelectorAll(`${BULK_ACTION_FILTERS_CLASS}`).forEach(
+    elem => elem.addEventListener('click', onClickFilter)
   );
-  document.querySelectorAll(`.${BULK_ACTION_CHOICES_DIV} .bulk-action-btn`).forEach(
-    elem => elem.addEventListener('click', BulkActionEventListeners)
+  document.querySelectorAll(`${BULK_ACTION_CHOICES_DIV} .bulk-action-btn`).forEach(
+    elem => elem.addEventListener('click', onClickActionButton)
   );
-  const selectAllInListingText = document.querySelector(`.${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`);
-  if (selectAllInListingText) selectAllInListingText.addEventListener('click', selectAllPageIdsInListing);
+  const selectAllInListingText = document.querySelector(`${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`);
+  if (selectAllInListingText) selectAllInListingText.addEventListener('click', onClickSelectAllInListing);
   else checkedState.shouldShowAllInListingText = false;
 }
 
