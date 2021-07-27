@@ -36,6 +36,7 @@ Changelog
  * Fix: Add handling of invalid inline styles submitted to `RichText` so `ConfigException` is not thrown (Alex Tomkins)
  * Fix: Ensure comment notifications dropdown handles longer translations without overflowing content (Krzysztof Jeziorny)
  * Fix: Set `default_auto_field` in `postgres_search` `AppConfig` (Nick Moreton)
+ * Fix: Ensure admin tab JS events are handled on page load (Andrew Stone)
 
 
 2.14.1 (12.08.2021)
