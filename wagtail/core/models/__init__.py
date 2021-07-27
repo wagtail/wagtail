@@ -1681,11 +1681,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 data={
                     'page': {
                         'id': page_copy.id,
-                        'title': page_copy.get_admin_display_title()
+                        'title': page_copy.get_admin_display_title(),
+                        'locale': {
+                            'id': page_copy.locale_id,
+                            'language_code': page_copy.locale.language_code
+                        }
                     },
                     'source': {'id': parent.id, 'title': parent.specific_deferred.get_admin_display_title()} if parent else None,
                     'destination': {'id': to.id, 'title': to.specific_deferred.get_admin_display_title()} if to else None,
-                    'keep_live': page_copy.live and keep_live
+                    'keep_live': page_copy.live and keep_live,
+                    'source_locale': {
+                        'id': self.locale_id,
+                        'language_code': self.locale.language_code
+                    }
                 },
             )
             if page_copy.live and keep_live:
@@ -1942,6 +1950,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 reset_translation_key=False,
                 process_child_object=process_child_object,
                 exclude_fields=exclude_fields,
+                log_action='wagtail.copy_for_translation',
             )
 
     copy_for_translation.alters_data = True

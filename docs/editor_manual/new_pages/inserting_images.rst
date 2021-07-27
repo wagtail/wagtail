@@ -1,7 +1,7 @@
 .. _inserting_images:
 
-Inserting images and videos in a page
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Inserting images in a page
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There will obviously be many instances in which you will want to add images to a page. There are two main ways to add images to pages, either via a specific image chooser field, or via the rich text field image button. Which of these you use will be dependent on the individual setup of your site.
 

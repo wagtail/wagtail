@@ -168,7 +168,7 @@ These are used for structuring fields in the interface.
 The page editor can be customised further. See [Customising the editing interface](/advanced_topics/customisation/page_editing_interface).
 
 ```eval_rst
-.. page_type_business_rules:
+.. _page_type_business_rules:
 ```
 ### Parent page / subpage type rules
 
@@ -184,7 +184,7 @@ By default, any page type can be created under any page type and it is not neces
 Setting `parent_page_types` to an empty list is a good way of preventing a particular page type from being created in the editor interface.
 
 ```eval_rst
-.. page_urls:
+.. _page_urls:
 ```
 ### Page URLs
 
@@ -464,7 +464,7 @@ news_items = NewsItemPage.objects.live().order_by('-publication_date')
 ```
 
 ```eval_rst
-.. custom_page_managers:
+.. _custom_page_managers:
 ```
 ### Custom Page managers
 

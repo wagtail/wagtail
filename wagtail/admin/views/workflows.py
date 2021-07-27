@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
@@ -269,7 +269,7 @@ def enable_workflow(request, pk):
 
     # Redirect
     redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+    if redirect_to and url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_workflows:edit', workflow.id)
@@ -294,7 +294,7 @@ def remove_workflow(request, page_pk, workflow_pk=None):
 
     # Redirect
     redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+    if redirect_to and url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.id)
@@ -482,7 +482,7 @@ def enable_task(request, pk):
 
     # Redirect
     redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+    if redirect_to and url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_workflows:edit_task', task.id)

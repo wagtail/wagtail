@@ -332,6 +332,8 @@ export class BaseSequenceBlock {
         }
       )
     ];
+
+    this.blockCountChanged();
   }
 
   _onRequestInsert(index, opts) {
@@ -342,6 +344,10 @@ export class BaseSequenceBlock {
     newChild.focus({ soft: true });
   }
 
+  blockCountChanged() {
+    /* Called whenever the block count has changed; subclasses can override this to apply
+    checks on max block count and disable insert / duplicate controls accordingly */
+  }
 
   _insert(childBlockDef, initialState, id, index, opts) {
     const prefix = this.prefix + '-' + this.blockCounter;
@@ -408,6 +414,8 @@ export class BaseSequenceBlock {
       }
     }
 
+    this.blockCountChanged();
+
     return child;
   }
 
@@ -435,6 +443,8 @@ export class BaseSequenceBlock {
       /* we have removed the last child; the new last child cannot be moved down */
       this.children[this.children.length - 1].disableMoveDown();
     }
+
+    this.blockCountChanged();
   }
 
   moveBlock(oldIndex, newIndex) {

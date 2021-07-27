@@ -221,4 +221,4 @@ As ``connection_class`` needs to be passed through to the Elasticsearch connecto
         }
     }
 
-.. _connector: https://elasticsearch-py.readthedocs.io/en/master/api.html#elasticsearch
+.. _connector: https://elasticsearch-py.readthedocs.io/en/5.0.0/api.html#elasticsearch

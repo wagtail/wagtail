@@ -4,7 +4,11 @@ Changelog
 2.15 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
- * ...
+ * Support `min_num` / `max_num` options on ListBlock (Matt Westcott)
+ * Added a distinct `wagtail.copy_for_translation` log action type (Karl Hobley)
+ * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
+ * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
+ * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
 
 
 2.14 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -25,6 +29,7 @@ Changelog
  * Use `DATETIME_FORMAT` for localization in templates (Andrew Stone)
  * Added documentation on multi site, multi instance and multi tenancy setups (Coen Van Der Kamp)
  * Updated Facebook / Instagram oEmbed endpoints to v11.0 (Thomas Kremmel)
+ * Performance improvements for admin listing pages (Jake Howard, Dan Braghis, Tom Usher)
  * Fix: Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
  * Fix: Ordering specified in `construct_explorer_page_queryset` hook is now taken into account again by the page explorer API (Andre Fonseca)
  * Fix: Deleting a page from its listing view no longer results in a 404 error (Tidjani Dia)

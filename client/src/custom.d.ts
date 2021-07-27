@@ -26,7 +26,6 @@ declare global {
             /* eslint-disable-next-line camelcase */
             display_name: string;
         }[];
-
         STRINGS: any;
     }
     const wagtailConfig: WagtailConfig;

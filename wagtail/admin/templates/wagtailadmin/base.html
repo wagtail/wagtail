@@ -3,32 +3,32 @@
 
 {% block furniture %}
     {% slim_sidebar_enabled as slim_sidebar_enabled %}
-    <aside id="wagtail-sidebar" class="nav-wrapper" {% if slim_sidebar_enabled %}data-props="{% menu_props %}"{% else %}data-nav-primary{% endif %}>
+    {% if slim_sidebar_enabled %}
+    <aside id="wagtail-sidebar" data-props="{% menu_props %}"></aside>
+    {% else %}
+    <aside id="wagtail-sidebar" class="nav-wrapper" data-nav-primary>
         <div class="inner">
             <a href="{% url 'wagtailadmin_home' %}" class="logo" aria-label="{% trans 'Dashboard' %}">
                 {% block branding_logo %}
-                    {% if not slim_sidebar_enabled %}
-                        {# Mobile-only logo: #}
-                        <div class="wagtail-logo-container__mobile u-hidden@sm">
-                            <img class="wagtail-logo wagtail-logo__full" src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="" width="80" />
-                        </div>
+                    {# Mobile-only logo: #}
+                    <div class="wagtail-logo-container__mobile u-hidden@sm">
+                        <img class="wagtail-logo wagtail-logo__full" src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="" width="80" />
+                    </div>
 
-                        {# Desktop logo (animated): #}
-                        {% include "wagtailadmin/shared/animated_logo.html" %}
-                    {% endif %}
+                    {# Desktop logo (animated): #}
+                    {% include "wagtailadmin/shared/animated_logo.html" %}
                 {% endblock %}
                 <span class="u-hidden@sm">{% trans "Dashboard" %}</span>
             </a>
 
-            {% if not slim_sidebar_enabled %}
-                {% menu_search %}
-                {% main_nav %}
-            {% endif %}
+            {% menu_search %}
+            {% main_nav %}
         </div>
         <div class="explorer__wrapper" data-explorer-menu></div>
     </aside>
+    {% endif %}
 
-    <main class="content-wrapper" role="main" id="main">
+    <main class="content-wrapper {% if slim_sidebar_enabled %}sidebar--open{% endif %}" role="main" id="main">
         <div class="content">
             {# Always show messages div so it can be appended to by JS #}
             <div class="messages">

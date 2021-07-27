@@ -2179,6 +2179,34 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             },
         })
 
+    def test_adapt_with_min_num_max_num(self):
+        class LinkBlock(blocks.StructBlock):
+            title = blocks.CharBlock()
+            link = blocks.URLBlock()
+
+        block = blocks.ListBlock(LinkBlock, min_num=2, max_num=5)
+
+        block.set_name('test_listblock')
+        js_args = ListBlockAdapter().js_args(block)
+
+        self.assertEqual(js_args[0], 'test_listblock')
+        self.assertIsInstance(js_args[1], LinkBlock)
+        self.assertEqual(js_args[2], {'title': None, 'link': None})
+        self.assertEqual(js_args[3], {
+            'label': 'Test listblock',
+            'icon': 'placeholder',
+            'classname': None,
+            'minNum': 2,
+            'maxNum': 5,
+            'strings': {
+                'DELETE': 'Delete',
+                'DUPLICATE': 'Duplicate',
+                'MOVE_DOWN': 'Move down',
+                'MOVE_UP': 'Move up',
+                'ADD': 'Add',
+            },
+        })
+
     def test_searchable_content(self):
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
@@ -2331,6 +2359,32 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
                 'ADD': 'Add',
             },
         })
+
+    def test_min_num_validation_errors(self):
+        block = blocks.ListBlock(blocks.CharBlock(), min_num=2)
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(['foo'])
+        self.assertEqual(catcher.exception.params, {
+            'block_errors': [None],
+            'non_block_errors': ['The minimum number of items is 2']
+        })
+
+        # a value with >= 2 blocks should pass validation
+        self.assertTrue(block.clean(['foo', 'bar']))
+
+    def test_max_num_validation_errors(self):
+        block = blocks.ListBlock(blocks.CharBlock(), max_num=2)
+
+        with self.assertRaises(ValidationError) as catcher:
+            block.clean(['foo', 'bar', 'baz'])
+        self.assertEqual(catcher.exception.params, {
+            'block_errors': [None, None, None],
+            'non_block_errors': ['The maximum number of items is 2']
+        })
+
+        # a value with <= 2 blocks should pass validation
+        self.assertTrue(block.clean(['foo', 'bar']))
 
 
 class TestListBlockWithFixtures(TestCase):

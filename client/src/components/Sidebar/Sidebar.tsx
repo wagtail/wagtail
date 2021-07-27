@@ -30,17 +30,23 @@ export interface SidebarProps {
   modules: ModuleDefinition[];
   currentPath: string;
   strings: Strings;
+  collapsedOnLoad: boolean;
   navigate(url: string): Promise<void>;
   onExpandCollapse?(collapsed: boolean);
 }
 
 export const Sidebar: React.FunctionComponent<SidebarProps> = (
-  { modules, currentPath, strings, navigate, onExpandCollapse }) => {
+  { modules, currentPath, collapsedOnLoad, strings, navigate, onExpandCollapse }) => {
   // 'collapsed' is a persistent state that is controlled by the arrow icon at the top
   // It records the user's general preference for a collapsed/uncollapsed menu
   // This is just a hint though, and we may still collapse the menu if the screen is too small
   // Also, we may display the full menu temporarily in collapsed mode (see 'peeking' below)
-  const [collapsed, setCollapsed] = React.useState(window.innerWidth < 800);
+  const [collapsed, setCollapsed] = React.useState((): boolean => {
+    if (window.innerWidth < 800 || collapsedOnLoad) {
+      return true;
+    }
+    return false;
+  });
 
   // Call onExpandCollapse(true) if menu is initialised in collapsed state
   React.useEffect(() => {

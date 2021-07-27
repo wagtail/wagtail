@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_GET
 from django.views.generic import View
@@ -24,7 +24,7 @@ class BaseWorkflowFormView(View):
         self.action_name = action_name
 
         self.redirect_to = request.POST.get('next', None)
-        if not self.redirect_to or not is_safe_url(url=self.redirect_to, allowed_hosts={request.get_host()}):
+        if not self.redirect_to or not url_has_allowed_host_and_scheme(url=self.redirect_to, allowed_hosts={request.get_host()}):
             self.redirect_to = reverse('wagtailadmin_pages:edit', args=[page_id])
 
         if not self.page.workflow_in_progress:

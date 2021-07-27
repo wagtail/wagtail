@@ -1,0 +1,10 @@
+{
+    "version": "2.13.4",
+    "url":     "https://docs.wagtail.io/en/stable/releases/2.13.4.html",
+    "majorUrl": "https://docs.wagtail.io/en/stable/releases/2.13.html",
+    "lts": {
+        "version": "2.11.8",
+        "url": "https://docs.wagtail.io/en/stable/releases/2.11.8.html",
+        "majorUrl": "https://docs.wagtail.io/en/stable/releases/2.11.html"
+    }
+}
