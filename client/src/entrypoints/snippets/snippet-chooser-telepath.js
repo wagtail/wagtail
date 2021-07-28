@@ -1,8 +1,7 @@
 class SnippetChooser {
-  constructor(html, idPattern, model) {
+  constructor(html, idPattern) {
     this.html = html;
     this.idPattern = idPattern;
-    this.model = model;
   }
 
   render(placeholder, name, id, initialState) {
@@ -11,7 +10,7 @@ class SnippetChooser {
     placeholder.outerHTML = html;
     /* the chooser object returned by createImageChooser also serves as the JS widget representation */
     // eslint-disable-next-line no-undef
-    const chooser = createSnippetChooser(id, this.model);
+    const chooser = createSnippetChooser(id);
     chooser.setState(initialState);
     return chooser;
   }
