@@ -9,6 +9,7 @@
         <span class="avatar small" data-wagtail-tooltip="{{ latest_log_entry.user_display_name }}"><img src="{% avatar_url latest_log_entry.user size=25 %}" alt="" /></span>
         {% trans "Last updated" %}
         {% include "wagtailadmin/shared/last_updated.html" with last_updated=latest_log_entry.timestamp time_prefix="at" %}
+        - <a href="{% url 'wagtailsnippets:history' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}">History</a>
     {% endif %}
 
     <div class="row row-flush">

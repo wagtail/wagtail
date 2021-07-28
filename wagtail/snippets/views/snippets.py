@@ -12,12 +12,14 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
-from django.utils.translation import ngettext
+from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
+from wagtail.admin.views.generic.models import IndexView
 from wagtail.core import hooks
 from wagtail.core.log_actions import log
 from wagtail.core.log_actions import registry as log_registry
@@ -441,3 +443,32 @@ def redirect_to_delete(request, app_label, model_name, pk):
 
 def redirect_to_usage(request, app_label, model_name, pk):
     return redirect('wagtailsnippets:usage', app_label, model_name, pk, permanent=True)
+
+
+class HistoryView(IndexView):
+    template_name = 'wagtailadmin/generic/index.html'
+    page_title = gettext_lazy('Snippet history')
+    header_icon = 'history'
+    paginate_by = 50
+    columns = [
+        Column('message', label=gettext_lazy("Action")),
+        UserColumn('user', blank_display_name='system'),
+        DateColumn('timestamp', label=gettext_lazy("Date")),
+    ]
+
+    def dispatch(self, request, app_label, model_name, pk):
+        self.app_label = app_label
+        self.model_name = model_name
+        self.model = get_snippet_model_from_url_params(app_label, model_name)
+        self.object = get_object_or_404(self.model, pk=unquote(pk))
+
+        return super().dispatch(request)
+
+    def get_page_subtitle(self):
+        return str(self.object)
+
+    def get_index_url(self):
+        return reverse('wagtailsnippets:history', args=(self.app_label, self.model_name, quote(self.object.pk)))
+
+    def get_queryset(self):
+        return log_registry.get_logs_for_instance(self.object).prefetch_related('user__wagtail_userprofile')
