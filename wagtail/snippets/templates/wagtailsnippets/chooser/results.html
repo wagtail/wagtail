@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags wagtailsnippets_admin_tags %}
 {% if items %}
     {% if is_searching %}
         <h2 role="alert">
@@ -10,7 +10,23 @@
         </h2>
     {% endif %}
 
-    {% include "wagtailsnippets/snippets/list.html" with choosing=1 %}
+    <table class="listing">
+        <col />
+        <thead>
+            <tr class="table-headers">
+                <th>{% trans "Title" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for snippet in items %}
+                <tr id="snippet-row-{{ snippet.pk }}">
+                    <td class="title">
+                        <div class="title-wrapper"><a class="snippet-choice" href="{% url 'wagtailsnippets:chosen' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}">{{ snippet }}</a></div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=items %}
 {% else %}
