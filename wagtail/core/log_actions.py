@@ -158,20 +158,26 @@ class LogActionRegistry:
     def get_action_label(self, action):
         return self.formatters[action].label
 
-    def log(self, instance, action, user=None, uuid=None, **kwargs):
+    def get_log_model_for_model(self, model):
         self.scan_for_actions()
 
+        for cls in model.__mro__:
+            log_entry_model = self.log_entry_models_by_type.get(cls)
+            if log_entry_model:
+                return log_entry_model
+
+    def get_log_model_for_instance(self, instance):
         if isinstance(instance, LazyObject):
             # for LazyObject instances such as request.user, ensure we're looking up the real type
             instance = instance._wrapped
 
-        # find the log entry model for the given object type
-        log_entry_model = None
-        for cls in type(instance).__mro__:
-            log_entry_model = self.log_entry_models_by_type.get(cls)
-            if log_entry_model:
-                break
+        return self.get_log_model_for_model(type(instance))
 
+    def log(self, instance, action, user=None, uuid=None, **kwargs):
+        self.scan_for_actions()
+
+        # find the log entry model for the given object type
+        log_entry_model = self.get_log_model_for_instance(instance)
         if log_entry_model is None:
             # no logger registered for this object type - silently bail
             return
@@ -179,6 +185,15 @@ class LogActionRegistry:
         user = user or get_active_log_context().user
         uuid = uuid or get_active_log_context().uuid
         return log_entry_model.objects.log_action(instance, action, user=user, uuid=uuid, **kwargs)
+
+    def get_logs_for_instance(self, instance):
+        log_entry_model = self.get_log_model_for_instance(instance)
+        if log_entry_model is None:
+            # this model has no logs; return an empty queryset of the basic log model
+            from wagtail.core.models import ModelLogEntry
+            return ModelLogEntry.objects.none()
+
+        return log_entry_model.objects.for_instance(instance)
 
 
 registry = LogActionRegistry()
