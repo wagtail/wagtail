@@ -2,23 +2,18 @@
 {% load wagtailadmin_tags %}
 
 {% comment %}
-    HACK: This template expects to be passed a 'linkurl' parameter, containing a URL name
-    that can be reverse-resolved by the {% url %} tag with no further parameters.
-    Views that have parameters in their URL can work around this by omitting linkurl,
-    which will produce a final URL of the form "?q=123", implicitly preserving the current URL path.
-    Using the {% url ... as ... %} form of the tag ensures that this fails silently,
-    rather than throwing a NoReverseMatch exception.
+    Expects a 'linkurl' parameter to use as the base URL, which may be a URL route name (must be
+    reverse-resolvable with no arguments) or a direct URL path. If omitted, links will be given
+    an href of the form "?p=123", implicitly preserving the current URL path.
 {% endcomment %}
-{% if linkurl %}
-    {% url linkurl as url_to_use %}
-{% endif %}
+{% resolve_url_if_not_absolute linkurl as url_path %}
 
 <nav class="pagination" aria-label="{% trans 'Pagination' %}">
     <p>{% blocktrans with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
     <ul>
         <li class="prev">
             {% if items.has_previous %}
-                <a href="{{ url_to_use }}{% querystring p=items.previous_page_number %}">
+                <a href="{{ url_path }}{% querystring p=items.previous_page_number %}">
                     {% icon name="arrow-left" class_name="default" %}
                     {% trans 'Previous' %}
                 </a>
@@ -26,7 +21,7 @@
         </li>
         <li class="next">
             {% if items.has_next %}
-                <a href="{{ url_to_use }}{% querystring p=items.next_page_number %}">
+                <a href="{{ url_path }}{% querystring p=items.next_page_number %}">
                     {% trans 'Next' %}
                     {% icon name="arrow-right" class_name="default" %}
                 </a>
