@@ -1,0 +1,50 @@
+{% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
+{% load i18n %}
+{% load wagtailimages_tags wagtailadmin_tags %}
+{% block titletag %}{% blocktrans count counter=images|length %}Add 1 image to new collection {% plural %}Add {{ counter }} images to new collection{% endblocktrans %}{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+
+{% block header %}
+    {% trans "Add images to collection" as add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
+{% endblock header %}
+
+{% block objects_with_access %}
+        {% if images %}
+        <p>
+            {% blocktrans count counter=images|length %}
+            Are you sure you want to add the image to this collection?
+            {% plural %}
+            Are you sure you want to add the images to this collection?
+            {% endblocktrans %}
+        </p>
+        <ul>
+            {% for image in images %}
+            <li>
+                <a href="{% url 'wagtailimages:edit' image.image.id %}"  target="_blank" rel="noopener noreferrer">{{image.image.title}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+{% endblock objects_with_access %}
+
+{% block objects_with_no_access %}
+
+{% blocktrans asvar no_access_msg count counter=images_with_no_access|length %}You don't have permission to add this image to a collection{% plural %}You don't have permission to add these images to a collection{% endblocktrans %}
+{% include 'wagtailimages/bulk_actions/list_objects_with_no_access.html' with objects=images_with_no_access no_access_msg=no_access_msg %}
+
+{% endblock objects_with_no_access %}
+
+{% block form_section %}
+        {% if images %}
+            {% trans 'Yes, add' as action_button_text %}
+            {% trans "No, don't add" as no_action_button_text %}
+            {% include 'wagtailadmin/bulk_actions/confirmation/form_with_fields.html' %}
+        {% else %}
+            {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
+        {% endif %}
+{% endblock form_section %}
