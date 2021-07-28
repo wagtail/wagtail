@@ -28,7 +28,8 @@
         </tbody>
     </table>
 
-    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=items %}
+    {% url 'wagtailsnippets:choose_results' model_opts.app_label model_opts.model_name as pagination_base_url %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=items linkurl=pagination_base_url %}
 {% else %}
     {% if is_searching %}
          <p role="alert">{% blocktrans %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
