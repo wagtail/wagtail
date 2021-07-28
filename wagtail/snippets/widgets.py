@@ -62,16 +62,8 @@ class AdminSnippetChooser(AdminChooser):
             'chooser_url': chooser_url,
         })
 
-    @property
-    def model_string(self):
-        model = self.target_model
-        return '{app}/{model}'.format(app=model._meta.app_label, model=model._meta.model_name)
-
     def render_js_init(self, id_, name, value_data):
-        return "createSnippetChooser({id}, {model});".format(
-            id=json.dumps(id_),
-            model=json.dumps(self.model_string)
-        )
+        return "createSnippetChooser({id});".format(id=json.dumps(id_))
 
     @cached_property
     def media(self):
@@ -87,7 +79,7 @@ class SnippetChooserAdapter(WidgetAdapter):
     def js_args(self, widget):
         return [
             widget.render_html('__NAME__', None, attrs={'id': '__ID__'}),
-            widget.id_for_label('__ID__'), widget.model_string
+            widget.id_for_label('__ID__')
         ]
 
     @cached_property
