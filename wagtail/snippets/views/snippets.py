@@ -20,6 +20,7 @@ from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_fr
 from wagtail.admin.forms.search import SearchForm
 from wagtail.core import hooks
 from wagtail.core.log_actions import log
+from wagtail.core.log_actions import registry as log_registry
 from wagtail.core.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
@@ -325,6 +326,7 @@ def edit(request, app_label, model_name, pk):
         form = form_class(instance=instance)
 
     edit_handler = edit_handler.bind_to(form=form)
+    latest_log_entry = log_registry.get_logs_for_instance(instance).first()
 
     context = {
         'model_opts': model._meta,
@@ -334,6 +336,7 @@ def edit(request, app_label, model_name, pk):
         'action_menu': SnippetActionMenu(request, view='edit', instance=instance),
         'locale': None,
         'translations': [],
+        'latest_log_entry': latest_log_entry,
     }
 
     if getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and issubclass(model, TranslatableMixin):

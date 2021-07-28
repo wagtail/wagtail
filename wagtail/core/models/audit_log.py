@@ -124,6 +124,12 @@ class BaseLogEntryManager(models.Manager):
     def get_for_user(self, user_id):
         return self.filter(user=user_id)
 
+    def for_instance(self, instance):
+        """
+        Return a queryset of log entries from this log model that relate to the given object instance
+        """
+        raise NotImplementedError  # must be implemented by subclass
+
 
 class BaseLogEntry(models.Model):
     content_type = models.ForeignKey(
@@ -243,6 +249,12 @@ class ModelLogEntryManager(BaseLogEntryManager):
     def log_action(self, instance, action, **kwargs):
         kwargs.update(object_id=str(instance.pk))
         return super().log_action(instance, action, **kwargs)
+
+    def for_instance(self, instance):
+        return self.filter(
+            content_type=ContentType.objects.get_for_model(instance, for_concrete_model=False),
+            object_id=str(instance.pk)
+        )
 
 
 class ModelLogEntry(BaseLogEntry):
