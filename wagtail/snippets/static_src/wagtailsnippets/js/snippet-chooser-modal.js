@@ -18,7 +18,7 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         var request;
 
         function search() {
-            var data = {q: $('#id_q').val(), results: 'true'};
+            var data = {q: $('#id_q').val()};
 
             if (searchForm$.has('input[name="locale"]')) {
                 data['locale'] = $('input[name="locale"]', searchForm$).val();
@@ -44,7 +44,7 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         function setPage(page) {
-            var dataObj = {p: page, results: 'true'};
+            var dataObj = {p: page};
 
             if ($('#id_q').length && $('#id_q').val().length) {
                 dataObj.q = $('#id_q').val();

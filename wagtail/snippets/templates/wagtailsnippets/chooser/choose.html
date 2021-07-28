@@ -5,7 +5,7 @@
 <div class="nice-padding">
     {# Need to keep the form in the HTML, even if the snippet is not searchable #}
     {# This is to allow pagination links to be generated from the form action URL #}
-    <form class="snippet-search search-bar" action="{% url 'wagtailsnippets:choose' model_opts.app_label model_opts.model_name %}" method="GET" novalidate>
+    <form class="snippet-search search-bar" action="{% url 'wagtailsnippets:choose_results' model_opts.app_label model_opts.model_name %}" method="GET" novalidate>
         {% if locale %}
             <input type="hidden" name="locale" value="{{ locale.language_code }}">
         {% endif %}
