@@ -14,7 +14,7 @@ from wagtail.search.index import class_is_indexed
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
 
-class ChooseView(View):
+class BaseChooseView(View):
     def get(self, request, app_label, model_name):
         self.model = get_snippet_model_from_url_params(app_label, model_name)
 
@@ -71,32 +71,39 @@ class ChooseView(View):
         return self.render_to_response()
 
     def render_to_response(self):
-        # If paginating or searching, render "results.html"
-        if self.request.GET.get('results', None) == 'true':
-            return TemplateResponse(self.request, "wagtailsnippets/chooser/results.html", {
+        raise NotImplementedError()
+
+
+class ChooseView(BaseChooseView):
+    # Return the choose view as a ModalWorkflow response
+    def render_to_response(self):
+        return render_modal_workflow(
+            self.request,
+            'wagtailsnippets/chooser/choose.html', None,
+            {
                 'model_opts': self.model._meta,
                 'items': self.paginated_items,
+                'is_searchable': self.is_searchable,
+                'search_form': self.search_form,
                 'query_string': self.search_query,
                 'is_searching': self.is_searching,
-            })
+                'locale': self.locale,
+                'locale_filter': self.locale_filter,
+                'selected_locale': self.selected_locale,
+                'locale_options': Locale.objects.all() if issubclass(self.model, TranslatableMixin) else [],
+            }, json_data={'step': 'choose'}
+        )
 
-        else:
-            return render_modal_workflow(
-                self.request,
-                'wagtailsnippets/chooser/choose.html', None,
-                {
-                    'model_opts': self.model._meta,
-                    'items': self.paginated_items,
-                    'is_searchable': self.is_searchable,
-                    'search_form': self.search_form,
-                    'query_string': self.search_query,
-                    'is_searching': self.is_searching,
-                    'locale': self.locale,
-                    'locale_filter': self.locale_filter,
-                    'selected_locale': self.selected_locale,
-                    'locale_options': Locale.objects.all() if issubclass(self.model, TranslatableMixin) else [],
-                }, json_data={'step': 'choose'}
-            )
+
+class ChooseResultsView(BaseChooseView):
+    # Return just the HTML fragment for the results
+    def render_to_response(self):
+        return TemplateResponse(self.request, "wagtailsnippets/chooser/results.html", {
+            'model_opts': self.model._meta,
+            'items': self.paginated_items,
+            'query_string': self.search_query,
+            'is_searching': self.is_searching,
+        })
 
 
 def chosen(request, app_label, model_name, pk):

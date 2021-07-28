@@ -8,7 +8,8 @@ urlpatterns = [
     path('', snippets.index, name='index'),
 
     path('choose/<slug:app_label>/<slug:model_name>/', chooser.ChooseView.as_view(), name='choose'),
-    path('choose/<slug:app_label>/<slug:model_name>/<str:pk>/', chooser.chosen, name='chosen'),
+    path('choose/<slug:app_label>/<slug:model_name>/results/', chooser.ChooseResultsView.as_view(), name='choose_results'),
+    path('choose/<slug:app_label>/<slug:model_name>/chosen/<str:pk>/', chooser.chosen, name='chosen'),
 
     path('<slug:app_label>/<slug:model_name>/', snippets.ListView.as_view(), name='list'),
     path(
