@@ -1,6 +1,6 @@
 from django.urls import path
 
-from wagtail.images.views import chooser, images, multiple
+from wagtail.images.views import bulk_actions, chooser, images, multiple
 
 
 app_name = 'wagtailimages'
@@ -26,4 +26,6 @@ urlpatterns = [
     path('chooser/<int:image_id>/', chooser.image_chosen, name='image_chosen'),
     path('chooser/upload/', chooser.chooser_upload, name='chooser_upload'),
     path('chooser/<int:image_id>/select_format/', chooser.chooser_select_format, name='chooser_select_format'),
+
+    path('multiple/<str:action>/', bulk_actions.index, name='image_bulk_action'),
 ]
