@@ -15,6 +15,7 @@ from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.urls import reverse
+from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.html import avoid_wrapping, format_html, format_html_join
@@ -716,3 +717,19 @@ def menu_props(context):
 @register.simple_tag
 def get_comments_enabled():
     return getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True)
+
+
+@register.simple_tag
+def resolve_url_if_not_absolute(url):
+    # Used by wagtailadmin/shared/pagination_nav.html - given an input that may be a URL route
+    # name, or a direct URL path, return it as a direct URL path. On failure (or being passed
+    # an empty / None value), return empty string
+    if not url:
+        return ''
+    elif url.startswith('/'):
+        return url
+    else:
+        try:
+            return reverse(url)
+        except NoReverseMatch:
+            return ''
