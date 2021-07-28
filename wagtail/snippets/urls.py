@@ -7,7 +7,6 @@ app_name = 'wagtailsnippets'
 urlpatterns = [
     path('', snippets.index, name='index'),
 
-    path('choose/', chooser.choose, name='choose_generic'),
     path('choose/<slug:app_label>/<slug:model_name>/', chooser.choose, name='choose'),
     path('choose/<slug:app_label>/<slug:model_name>/<str:pk>/', chooser.chosen, name='chosen'),
 

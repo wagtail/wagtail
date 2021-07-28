@@ -7,7 +7,7 @@ function createSnippetChooser(id, modelString) {
   const docTitle = chooserElement.find('.title');
   const input = $('#' + id);
   const editLink = chooserElement.find('.edit-link');
-  const chooserBaseUrl = chooserElement.data('chooserUrl') + modelString + '/';
+  const chooserBaseUrl = chooserElement.data('chooserUrl');
 
   /*
   Construct initial state of the chooser from the rendered (static) HTML and arguments passed to

@@ -48,6 +48,9 @@ class AdminSnippetChooser(AdminChooser):
         value_data = value_data or {}
 
         original_field_html = super().render_html(name, value_data.get('id'), attrs)
+        chooser_url = reverse(
+            'wagtailsnippets:choose', args=[self.target_model._meta.app_label, self.target_model._meta.model_name]
+        )
 
         return render_to_string("wagtailsnippets/widgets/snippet_chooser.html", {
             'widget': self,
@@ -56,6 +59,7 @@ class AdminSnippetChooser(AdminChooser):
             'value': bool(value_data),  # only used by chooser.html to identify blank values
             'display_title': value_data.get('string', ''),
             'edit_url': value_data.get('edit_url', ''),
+            'chooser_url': chooser_url,
         })
 
     @property
