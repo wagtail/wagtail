@@ -73,9 +73,6 @@ def choose(request, app_label, model_name):
             'items': paginated_items,
             'query_string': search_query,
             'is_searching': is_searching,
-            'locale': locale,
-            'locale_filter': locale_filter,
-            'selected_locale': selected_locale,
         })
 
     return render_modal_workflow(
