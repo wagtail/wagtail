@@ -1,0 +1,65 @@
+{% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
+{% load i18n %}
+{% load wagtailimages_tags wagtailadmin_tags %}
+{% block titletag %}{% blocktrans count counter=images|length %}Add tags to 1 image {% plural %}Add tags to {{ counter }} images{% endblocktrans %}{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+
+    {{ form.media.js }}
+
+    {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
+    <script>
+        $(function() {
+            $('#id_tags').tagit({
+                autocomplete: {source: "{{ autocomplete_url|addslashes }}"}
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}
+
+{% block header %}
+    {% trans "Add tags to images" as add_str %}
+    {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
+{% endblock header %}
+
+{% block objects_with_access %}
+        {% if images %}
+        <p>
+            {% blocktrans count counter=images|length %}
+            Are you sure you want to add the tags to this image?
+            {% plural %}
+            Are you sure you want to add the tags to these images?
+            {% endblocktrans %}
+        </p>
+        <ul>
+            {% for image in images %}
+            <li>
+                <a href="{% url 'wagtailimages:edit' image.image.id %}"  target="_blank" rel="noopener noreferrer">{{image.image.title}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+{% endblock objects_with_access %}
+
+{% block objects_with_no_access %}
+    
+{% blocktrans asvar no_access_msg count counter=images_with_no_access|length %}You don't have permission to add tags to this image{% plural %}You don't have permission to add tags to these images{% endblocktrans %}
+{% include 'wagtailimages/bulk_actions/list_objects_with_no_access.html' with objects=images_with_no_access no_access_msg=no_access_msg %}
+
+{% endblock objects_with_no_access %}
+
+{% block form_section %}
+        {% if images %}
+            {% trans 'Yes, add' as action_button_text %}
+            {% trans "No, don't add" as no_action_button_text %}
+            {% include 'wagtailadmin/bulk_actions/confirmation/form_with_fields.html' %}
+        {% else %}
+            {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
+        {% endif %}
+{% endblock form_section %}
