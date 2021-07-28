@@ -491,6 +491,10 @@ ul.listing {
         @include transition(border-color 0.2s ease);
         border: 3px solid $color-white;
     }
+
+    &.images .bulk-action-checkbox-container {
+        text-align: left;
+    }
 }
 
 .bulk-actions-choices {
@@ -787,7 +791,8 @@ table.listing {
             }
         }
 
-        tr:hover {
+        tr:hover,
+        li:hover {
             .no-children a,
             .bulk-action-checkbox {
                 opacity: 1;

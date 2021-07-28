@@ -16,8 +16,12 @@
     {% endif %}
 
     <ul class="listing horiz images">
+        {% trans "Select image" as checkbox_aria_label %}
         {% for image in images %}
             <li>
+                <div class="bulk-action-checkbox-container">
+                    {% include 'wagtailadmin/bulk_actions/listing_checkbox_cell.html' with obj_type='image' obj=image aria_label=checkbox_aria_label %}
+                </div>
                 <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% url 'wagtailimages:edit' image.id %}">
                     <figure>
                         {% include "wagtailimages/images/results_image.html" %}
