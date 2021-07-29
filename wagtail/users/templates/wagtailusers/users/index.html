@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% block titletag %}{% trans "Users" %}{% endblock %}
 {% block extra_js %}
     {{ block.super }}
@@ -14,6 +14,7 @@
             targetOutput: "#user-results"
         }
     </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -27,5 +28,7 @@
         <div id="user-results" class="users">
             {% include "wagtailusers/users/results.html" %}
         </div>
+        {% trans "Select all users in listing" as select_all_text %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text bulk_action_register_hook='register_user_bulk_action' objects=users %}
     </div>
 {% endblock %}
