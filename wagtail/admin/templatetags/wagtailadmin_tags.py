@@ -509,6 +509,7 @@ def bulk_action_choices(context, hook_name):
         'register_page_bulk_action': 'wagtailadmin_page_bulk_action',
         'register_document_bulk_action': 'wagtaildocs:document_bulk_action',
         'register_image_bulk_action': 'wagtailimages:image_bulk_action',
+        'register_user_bulk_action': 'wagtailusers_users:user_bulk_action',
     }
     if hook_name not in corresponding_urls:
         return {'buttons': []}
