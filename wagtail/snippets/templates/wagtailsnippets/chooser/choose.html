@@ -3,43 +3,43 @@
 {% include "wagtailadmin/shared/header.html" with title=choose_str subtitle=model_opts.verbose_name icon="snippet" %}
 
 <div class="nice-padding">
-    {# Need to keep the form in the HTML, even if the snippet is not searchable #}
-    {# This is to allow pagination links to be generated from the form action URL #}
-    <form class="snippet-search search-bar" action="{% url 'wagtailsnippets:choose_results' model_opts.app_label model_opts.model_name %}" method="GET" novalidate>
-        {% if locale %}
-            <input type="hidden" name="locale" value="{{ locale.language_code }}">
-        {% endif %}
+    {% if is_searchable or locale or locale_options %}
+        <form class="snippet-search search-bar" action="{% url 'wagtailsnippets:choose_results' model_opts.app_label model_opts.model_name %}" method="GET" novalidate>
+            {% if locale %}
+                <input type="hidden" name="locale" value="{{ locale.language_code }}">
+            {% endif %}
 
-        {% if is_searchable %}
-            <ul class="fields">
-                {% for field in search_form %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-                {% endfor %}
-                <li class="submit"><input type="submit" value="{% trans 'Search' %}" class="button" /></li>
-            </ul>
-        {% endif %}
+            {% if is_searchable %}
+                <ul class="fields">
+                    {% for field in search_form %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                    {% endfor %}
+                    <li class="submit"><input type="submit" value="{% trans 'Search' %}" class="button" /></li>
+                </ul>
+            {% endif %}
 
-        {% if locale_options %}
-            <ul class="fields">
-                <li class="col">
-                    <div class="field field-small">
-                        <select id="snippet-chooser-locale" name="lang">
-                            {% for locale_option in locale_options %}
-                                <option value="{{ locale_option.language_code }}"{% if locale_option == selected_locale %} selected{% endif %}>{{ locale_option.get_display_name }}</option>
-                            {% endfor %}
-                        </select>
-                        <script type="text/javascript">
-                            $(function() {
-                                $('#snippet-chooser-locale').change(function() {
-                                    $('form.snippet-search').submit();
+            {% if locale_options %}
+                <ul class="fields">
+                    <li class="col">
+                        <div class="field field-small">
+                            <select id="snippet-chooser-locale" name="lang">
+                                {% for locale_option in locale_options %}
+                                    <option value="{{ locale_option.language_code }}"{% if locale_option == selected_locale %} selected{% endif %}>{{ locale_option.get_display_name }}</option>
+                                {% endfor %}
+                            </select>
+                            <script type="text/javascript">
+                                $(function() {
+                                    $('#snippet-chooser-locale').change(function() {
+                                        $('form.snippet-search').submit();
+                                    });
                                 });
-                            });
-                        </script>
-                    </div>
-                </li>
-            </ul>
-        {% endif %}
-    </form>
+                            </script>
+                        </div>
+                    </li>
+                </ul>
+            {% endif %}
+        </form>
+    {% endif %}
 
     <div id="search-results" class="listing snippets">
         {% include "wagtailsnippets/chooser/results.html" %}
