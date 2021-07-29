@@ -50,6 +50,7 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         $('form.snippet-search', modal.body).on('submit', search);
+        $('#snippet-chooser-locale', modal.body).on('change', search);
 
         $('#id_q').on('input', function() {
             if (request) {
