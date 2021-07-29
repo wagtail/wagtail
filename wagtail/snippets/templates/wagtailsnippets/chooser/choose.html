@@ -27,13 +27,6 @@
                                     <option value="{{ locale_option.language_code }}"{% if locale_option == selected_locale %} selected{% endif %}>{{ locale_option.get_display_name }}</option>
                                 {% endfor %}
                             </select>
-                            <script type="text/javascript">
-                                $(function() {
-                                    $('#snippet-chooser-locale').change(function() {
-                                        $('form.snippet-search').submit();
-                                    });
-                                });
-                            </script>
                         </div>
                     </li>
                 </ul>
