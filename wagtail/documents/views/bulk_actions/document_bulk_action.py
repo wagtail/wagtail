@@ -9,11 +9,11 @@ class DocumentBulkAction(BulkAction):
     object_key = 'document'
 
     def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['documents_with_no_access'] = [
+        context = super().get_context_data(**kwargs)
+        context['documents_with_no_access'] = [
             {
                 'document': document,
-                'can_edit': self.permission_policy.user_has_permission_for_instance(self.request.user, 'delete', document)
-            } for document in ctx['documents_with_no_access']
+                'can_edit': self.permission_policy.user_has_permission_for_instance(self.request.user, 'change', document)
+            } for document in context['documents_with_no_access']
         ]
-        return ctx
+        return context
