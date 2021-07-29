@@ -17,17 +17,7 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         var request;
 
         function search() {
-            var data = {q: $('#id_q').val()};
-
-            if (searchForm$.has('input[name="locale"]')) {
-                data['locale'] = $('input[name="locale"]', searchForm$).val();
-            }
-
-            if (searchForm$.has('#snippet-chooser-locale')) {
-                data['locale_filter'] = $('#snippet-chooser-locale', searchForm$).val();
-            }
-
-            loadResults(searchUrl, data);
+            loadResults(searchUrl, searchForm$.serialize());
             return false;
         }
 
