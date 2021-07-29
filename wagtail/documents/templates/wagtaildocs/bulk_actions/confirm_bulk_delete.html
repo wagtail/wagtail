@@ -10,7 +10,7 @@
 {% block objects_with_access %}
         {% if documents %}
         <p>
-            {% blocktrans count num_docs=documents|length %}
+            {% blocktrans count counter=documents|length %}
             Are you sure you want to delete this document?
             {% plural %}
             Are you sure you want to delete these documents?

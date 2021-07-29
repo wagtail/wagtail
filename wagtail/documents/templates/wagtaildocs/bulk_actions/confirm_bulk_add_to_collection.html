@@ -16,7 +16,7 @@
 {% block objects_with_access %}
         {% if documents %}
         <p>
-            {% blocktrans count num_docs=documents|length %}
+            {% blocktrans count counter=documents|length %}
             Are you sure you want to add the document to this collection?
             {% plural %}
             Are you sure you want to add the documents to this collection?
