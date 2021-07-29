@@ -1098,7 +1098,7 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
         response = self.get()
 
         # Check the filter is added
-        self.assertIn('<select id="snippet-chooser-locale" name="lang">', response.json()['html'])
+        self.assertIn('<select id="snippet-chooser-locale" name="locale_filter">', response.json()['html'])
 
         # Check both snippets are shown
         self.assertEqual(len(response.context['items']), 2)

@@ -22,7 +22,7 @@
                 <ul class="fields">
                     <li class="col">
                         <div class="field field-small">
-                            <select id="snippet-chooser-locale" name="lang">
+                            <select id="snippet-chooser-locale" name="locale_filter">
                                 {% for locale_option in locale_options %}
                                     <option value="{{ locale_option.language_code }}"{% if locale_option == selected_locale %} selected{% endif %}>{{ locale_option.get_display_name }}</option>
                                 {% endfor %}
