@@ -49,7 +49,7 @@ class BulkAction(ABC, FormView):
     def get_queryset(cls, object_ids):
         if cls.model is None:
             raise Exception("model should be provided")
-        return get_list_or_404(cls.model, id__in=object_ids)
+        return get_list_or_404(cls.model, pk__in=object_ids)
 
     def check_perm(self, obj):
         return True
