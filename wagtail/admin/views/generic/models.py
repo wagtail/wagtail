@@ -2,24 +2,22 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
-from django.views.generic.base import TemplateResponseMixin
 from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdateView
 from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
 
+from .base import WagtailAdminTemplateMixin
 from .permissions import PermissionCheckedMixin
 
 
-class IndexView(PermissionCheckedMixin, TemplateResponseMixin, BaseListView):
+class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView):
     model = None
-    header_icon = ''
     index_url_name = None
     add_url_name = None
     edit_url_name = None
     context_object_name = None
     any_permission_required = ['add', 'change', 'delete']
-    template_name = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,10 +28,9 @@ class IndexView(PermissionCheckedMixin, TemplateResponseMixin, BaseListView):
         return context
 
 
-class CreateView(PermissionCheckedMixin, TemplateResponseMixin, BaseCreateView):
+class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateView):
     model = None
     form_class = None
-    header_icon = ''
     index_url_name = None
     add_url_name = None
     edit_url_name = None
@@ -83,10 +80,9 @@ class CreateView(PermissionCheckedMixin, TemplateResponseMixin, BaseCreateView):
         return super().form_invalid(form)
 
 
-class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
+class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView):
     model = None
     form_class = None
-    header_icon = ''
     index_url_name = None
     edit_url_name = None
     delete_url_name = None
@@ -158,9 +154,8 @@ class EditView(PermissionCheckedMixin, TemplateResponseMixin, BaseUpdateView):
         return context
 
 
-class DeleteView(PermissionCheckedMixin, TemplateResponseMixin, BaseDeleteView):
+class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteView):
     model = None
-    header_icon = ''
     index_url_name = None
     delete_url_name = None
     template_name = 'wagtailadmin/generic/confirm_delete.html'
