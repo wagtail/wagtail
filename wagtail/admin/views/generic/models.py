@@ -55,6 +55,11 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
             return None
         return self.error_message
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action_url'] = self.get_add_url()
+        return context
+
     def save_instance(self):
         """
         Called after the form is successfully validated - saves the object to the db
@@ -147,6 +152,9 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['action_url'] = self.get_edit_url()
+        context['delete_url'] = self.get_delete_url()
+        context['delete_item_label'] = self.delete_item_label
         context['can_delete'] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, 'delete')
