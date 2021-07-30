@@ -6,6 +6,8 @@ This is used by the ``fill`` filter to focus the cropping on the subject, and av
 
 Focal points can be defined manually by a Wagtail user, or automatically by using face or feature detection.
 
+.. _rendition_background_position_style:
+
 Setting the ``background-position`` inline style based on the focal point
 -------------------------------------------------------------------------
 
