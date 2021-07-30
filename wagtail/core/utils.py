@@ -7,7 +7,7 @@ from anyascii import anyascii
 from django.apps import apps
 from django.conf import settings
 from django.conf.locale import LANG_INFO
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.core.signals import setting_changed
 from django.db.models import Model
 from django.dispatch import receiver
@@ -294,3 +294,52 @@ def reset_cache(**kwargs):
     if kwargs["setting"] in ("WAGTAIL_CONTENT_LANGUAGES", "LANGUAGES", "LANGUAGE_CODE"):
         get_content_languages.cache_clear()
         get_supported_content_language_variant.cache_clear()
+
+
+def multigetattr(item, accessor):
+    """
+    Like getattr, but accepts a dotted path as the accessor to be followed to any depth.
+    At each step, the lookup on the object can be a dictionary lookup (foo['bar']) or an attribute
+    lookup (foo.bar), and if it results in a callable, will be called (provided we can do so with
+    no arguments, and it does not have an 'alters_data' property).
+
+    Modelled on the variable resolution logic in Django templates:
+    https://github.com/django/django/blob/f331eba6d576752dd79c4b37c41d981daa537fe6/django/template/base.py#L838
+    """
+
+    current = item
+
+    for bit in accessor.split('.'):
+        try:  # dictionary lookup
+            current = current[bit]
+        # ValueError/IndexError are for numpy.array lookup on
+        # numpy < 1.9 and 1.9+ respectively
+        except (TypeError, AttributeError, KeyError, ValueError, IndexError):
+            try:  # attribute lookup
+                current = getattr(current, bit)
+            except (TypeError, AttributeError):
+                # Reraise if the exception was raised by a @property
+                if bit in dir(current):
+                    raise
+                try:  # list-index lookup
+                    current = current[int(bit)]
+                except (
+                    IndexError,  # list index out of range
+                    ValueError,  # invalid literal for int()
+                    KeyError,  # current is a dict without `int(bit)` key
+                    TypeError,  # unsubscriptable object
+                ):
+                    raise AttributeError(
+                        "Failed lookup for key [%s] in %r" % (bit, current)
+                    )
+
+        if callable(current):
+            if getattr(current, 'alters_data', False):
+                raise SuspiciousOperation(
+                    "Cannot call %r from multigetattr" % (current,)
+                )
+
+            # if calling without arguments is invalid, let the exception bubble up
+            current = current()
+
+    return current
