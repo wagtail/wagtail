@@ -16,6 +16,7 @@ Changelog
  * Removed `request.is_ajax()` usage in Documents, Image and Snippet views (Matt Westcott)
  * Simplify generic admin view templates plus ensure `page_title` and `page_subtitle` are used consistently (Matt Westcott)
  * Extend support for collapsing edit panels from just MultiFieldPanels to all kinds of panels (Fabien Le Frapper, Robbie Mackay)
+ * Add object count to header within modeladmin listing view (Jonathan "Yoni" Knoll)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)

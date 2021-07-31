@@ -4,6 +4,23 @@
     margin-bottom: 0;
 }
 
+.result-count {
+    display: block;
+    font-weight: 500;
+
+    &:before {
+        content: '(';
+    }
+
+    &:after {
+        content: ')';
+    }
+
+    @include media-breakpoint-up(lg) {
+        display: inline-block;
+        margin-left: 0.25em;
+    }
+}
 
 .result-list {
     margin-bottom: 0;

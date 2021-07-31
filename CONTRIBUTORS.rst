@@ -532,6 +532,7 @@ Contributors
 * Stefan Hammer
 * Chakita Muttaraju
 * Fabien Le Frapper
+* Jonathan "Yoni" Knoll
 
 Translators
 ===========

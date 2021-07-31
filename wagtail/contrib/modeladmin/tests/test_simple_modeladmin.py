@@ -41,6 +41,9 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         # There are four books in the test data
         self.assertEqual(response.context['result_count'], 4)
 
+        # The result count content is shown in the header
+        self.assertContains(response, '<span class="result-count">4 out of 4</span>', html=True)
+
         # User has add permission
         self.assertEqual(response.context['user_can_create'], True)
 
@@ -101,6 +104,9 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         # JRR Tolkien has two books in the test data
         self.assertEqual(response.context['result_count'], 2)
 
+        # The result count content is shown in the header
+        self.assertContains(response, '<span class="result-count">2 out of 4</span>', html=True)
+
         for book in response.context['object_list']:
             self.assertEqual(book.author_id, 1)
 
@@ -123,6 +129,9 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
 
         # There are two books where the title contains 'of'
         self.assertEqual(response.context['result_count'], 2)
+
+        # The result count content is shown in the header
+        self.assertContains(response, '<span class="result-count">2 out of 4</span>', html=True)
 
     def test_search_form_present(self):
         # Test the backend search handler allows the search form to render
@@ -179,6 +188,9 @@ class TestAuthorIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         self.assertEqual(response.context['result_count'], 2)
+
+        # The result count content is shown in the header
+        self.assertContains(response, '<span class="result-count">2 out of 5</span>', html=True)
 
     def test_col_extra_class_names(self):
         response = self.get()
