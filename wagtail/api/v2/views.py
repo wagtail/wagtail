@@ -5,6 +5,7 @@ from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import path, reverse
+from django.db.models import Q
 from modelcluster.fields import ParentalKey
 from rest_framework import status
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
@@ -12,7 +13,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Page, Site, PageViewRestriction
 
 from .filters import (
     AncestorOfFilter, ChildOfFilter, DescendantOfFilter, FieldsFilter, LocaleFilter, OrderingFilter,
@@ -440,8 +441,16 @@ class PagesAPIViewSet(BaseAPIViewSet):
         This is used as the base for get_queryset and is also used to find the
         parent pages when using the child_of and descendant_of filters as well.
         """
-        # Get live pages that are not in a private section
-        queryset = Page.objects.all().public().live()
+        # Get all live pages
+        queryset = Page.objects.all().live()
+        # if user is not authenticated return only public pages
+        if not self.request.user.is_authenticated:
+            queryset &= queryset.public()
+        else:  # get pages that are accessible to logged-in users or users in specific groups
+            queryset &= queryset.filter(Q(view_restrictions__restriction_type=PageViewRestriction.LOGIN) |
+                                        Q(view_restrictions__groups__in=self.request.user.groups.all()) |
+                                        Q(view_restrictions__restriction_type=None))
+        # TODO: handle "Private, accessible with the following password" privacy option
 
         # Filter by site
         site = Site.find_for_request(self.request)
