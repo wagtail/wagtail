@@ -5,14 +5,19 @@
 }
 
 .result-count {
+    display: block;
     font-weight: 500;
-    margin-left: 0.25em;
 
     &:before {
         content: "(";
     }
     &:after {
         content: ")";
+    }
+    
+    @include media-breakpoint-up(lg) {
+        display: inline-block;
+        margin-left: 0.25em;        
     }
 }
 
