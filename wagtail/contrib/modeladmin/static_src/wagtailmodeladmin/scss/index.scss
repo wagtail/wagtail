@@ -9,15 +9,16 @@
     font-weight: 500;
 
     &:before {
-        content: "(";
+        content: '(';
     }
+
     &:after {
-        content: ")";
+        content: ')';
     }
-    
+
     @include media-breakpoint-up(lg) {
         display: inline-block;
-        margin-left: 0.25em;        
+        margin-left: 0.25em;
     }
 }
 
