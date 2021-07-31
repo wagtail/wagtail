@@ -5,7 +5,6 @@ from django.core.exceptions import FieldDoesNotExist
 from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import path, reverse
-from django.db.models import Q
 from modelcluster.fields import ParentalKey
 from rest_framework import status
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
@@ -13,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.core.models import Page, Site, PageViewRestriction
+from wagtail.core.models import Page, Site
 
 from .filters import (
     AncestorOfFilter, ChildOfFilter, DescendantOfFilter, FieldsFilter, LocaleFilter, OrderingFilter,
@@ -447,9 +446,13 @@ class PagesAPIViewSet(BaseAPIViewSet):
         if not self.request.user.is_authenticated:
             queryset &= queryset.public()
         else:  # get pages that are accessible to logged-in users or users in specific groups
-            queryset &= queryset.filter(Q(view_restrictions__restriction_type=PageViewRestriction.LOGIN) |
-                                        Q(view_restrictions__groups__in=self.request.user.groups.all()) |
-                                        Q(view_restrictions__restriction_type=None))
+            for page in queryset:
+                restrictions = page.get_view_restrictions().order_by('page__depth')
+                if restrictions:
+                    if restrictions[0].restriction_type == "groups":
+                        if not restrictions[0].groups.filter(id__in=self.request.user.groups.all()).exists():
+                            queryset &= queryset.exclude(id=page.id)
+                    # if restriction_type is login, nothing to do since user is_authenticated
         # TODO: handle "Private, accessible with the following password" privacy option
 
         # Filter by site
