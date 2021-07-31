@@ -2,11 +2,11 @@
 
 const BULK_ACTION_PAGE_CHECKBOX_INPUT = '[data-bulk-action-checkbox]';
 const BULK_ACTION_SELECT_ALL_CHECKBOX = '[data-bulk-action-select-all-checkbox]';
-const BULK_ACTIONS_CHECKBOX_PARENT = '[data-parent-id]';
-const BULK_ACTION_FILTERS_CLASS = '[data-filter]';
+const BULK_ACTIONS_CHECKBOX_PARENT = '[data-bulk-action-parent-id]';
+const BULK_ACTION_FILTERS_CLASS = '[data-bulk-action-filter]';
 const BULK_ACTION_CHOICES_DIV = '[data-bulk-actions-footer]';
-const BULK_ACTION_NUM_OBJECTS_SPAN = '[data-num-objects]';
-const BULK_ACTION_NUM_OBJECTS_IN_LISTING = '[data-num-objects-in-listing]';
+const BULK_ACTION_NUM_OBJECTS_SPAN = '[data-bulk-action-num-objects]';
+const BULK_ACTION_NUM_OBJECTS_IN_LISTING = '[data-bulk-action-num-objects-in-listing]';
 
 const checkedState = {
   checkedObjects: new Set(),
@@ -112,7 +112,7 @@ function onClickSelectAllInListing(e) {
  */
 function onClickFilter(e) {
   e.preventDefault();
-  const filter = e.target.dataset.filter || '';
+  const filter = e.target.dataset.bulkActionFilter || '';
   const changeEvent = new Event('change');
   if (filter.length) {
     /* split the filter string into [key,value] pairs and check for the values in the
@@ -152,7 +152,7 @@ function onClickActionButton(e) {
   const urlParams = new URLSearchParams();
   const parentElement = document.querySelector(`${BULK_ACTIONS_CHECKBOX_PARENT}`);
   if (checkedState.selectAllInListing && parentElement) {
-    const parentPageId = parentElement.dataset.parentId;
+    const parentPageId = parentElement.dataset.bulkActionParentId;
     urlParams.append('id', 'all');
     urlParams.append('childOf', parentPageId);
   } else {
