@@ -168,6 +168,7 @@ function onClickActionButton(e) {
  * Adds all event listeners
  */
 function addBulkActionListeners() {
+  const changeEvent = new Event('change');
   document.querySelectorAll(`${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)
     .forEach(el => {
       checkedState.numObjects++;
@@ -185,6 +186,12 @@ function addBulkActionListeners() {
   const selectAllInListingText = document.querySelector(`${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`);
   if (selectAllInListingText) selectAllInListingText.addEventListener('click', onClickSelectAllInListing);
   else checkedState.shouldShowAllInListingText = false;
+  document.querySelectorAll(`${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)
+    .forEach(el => {
+      if (el.checked) {
+        el.dispatchEvent(changeEvent);
+      }
+    });
 }
 
-addBulkActionListeners();
+window.addEventListener('load', addBulkActionListeners);
