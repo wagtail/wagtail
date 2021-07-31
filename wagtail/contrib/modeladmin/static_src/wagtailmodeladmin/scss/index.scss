@@ -4,6 +4,16 @@
     margin-bottom: 0;
 }
 
+.result-count {
+    font-weight: 500;
+    
+    &:before {
+        content: "(";
+    }
+    &:after {
+        content: ")";
+    }
+}
 
 .result-list {
     margin-bottom: 0;
