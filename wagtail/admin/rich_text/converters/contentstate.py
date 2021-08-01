@@ -47,6 +47,12 @@ def entity_fallback(props):
     return None
 
 
+def style_fallback(props):
+    type_ = props['inline_style_range']['style']
+    logging.warn('Missing config for "%s". Deleting style.' % type_)
+    return props['children']
+
+
 def persist_key_for_block(config):
     # For any block level element config for draft js exporter, return a config that retains the
     # block key in a data attribute
@@ -90,7 +96,9 @@ class ContentstateConverter():
                 'atomic': render_children,
                 'fallback': block_fallback,
             },
-            'style_map': {},
+            'style_map': {
+                'FALLBACK': style_fallback,
+            },
             'entity_decorators': {
                 'FALLBACK': entity_fallback,
             },

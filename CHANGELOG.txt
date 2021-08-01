@@ -29,6 +29,7 @@ Changelog
  * Fix: `blocks.MultipleChoiceBlock`, `forms.CheckboxSelectMultiple` and `ArrayField` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
  * Fix: Screen readers can now access login screen field labels (Amy Chan)
  * Fix: Admin breadcrumbs home icon now shows for users with access to a subtree only (Stefan Hammer)
+ * Fix: Add handling of invalid inline styles submitted to `RichText` so `ConfigException` is not thrown (Alex Tomkins)
 
 
 2.14.1 (12.08.2021)
