@@ -530,6 +530,13 @@ ul.listing {
     justify-content: space-around;
     width: 100%;
     align-items: center;
+    padding: 1.5em 2em;
+    border-radius: 0.5em 0.5em 0 0;
+
+    .bulk-actions-buttons {
+        border-left: 1px solid $color-grey-2;
+        padding-left: 1.5em;
+    }
 
     .num-objects {
         text-transform: none;
@@ -541,7 +548,7 @@ ul.listing {
         background-color: transparent;
         border: 0;
         font-family: 'Open Sans';
-        align-self: baseline;
+        padding: 0;
     }
 
     .button:not(:hover) {
