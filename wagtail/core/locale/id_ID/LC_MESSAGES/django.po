@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -58,58 +58,6 @@ msgstr "Kata sandi yang dimasukkan salah. Harap coba lagi."
 
 msgid "Comment"
 msgstr "Komentar"
-
-msgid "hostname"
-msgstr "hostname"
-
-msgid "port"
-msgstr "port"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Aturlah ke selain 80 bila Anda perlu menampilkan nomor port dalam URL "
-"(contoh: pengembangan menggunakan port 8000). Hal ini tidak mempengaruhi "
-"penanganan permintaan (sehingga port forwarding tetap berfungsi)."
-
-msgid "site name"
-msgstr "Nama Situs"
-
-msgid "Human-readable name for the site."
-msgstr "Nama situs yang mudah dibaca manusia."
-
-msgid "root page"
-msgstr "halaman akar"
-
-msgid "is default site"
-msgstr "adalah situs utama"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Bila dipilih, situs ini akan menangani semua permintaan untuk hostname lain "
-"yang tidak memiliki pintu masuk sendiri."
-
-msgid "site"
-msgstr "situs"
-
-msgid "sites"
-msgstr "situs-situs"
-
-msgid "default"
-msgstr "default"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s telah diatur sebagai situs utama. Anda harus menghilangkan "
-"pengaturan tersebut sebelum Anda dapat menyimpan situs ini sebagai yang "
-"utama."
 
 msgid "title"
 msgstr "judul"
@@ -265,6 +213,91 @@ msgstr "izin grup halaman"
 msgid "group page permissions"
 msgstr "izin-izin grup halaman"
 
+msgid "page view restriction"
+msgstr "batasan penampilan halaman"
+
+msgid "page view restrictions"
+msgstr "semua batasan penampilan halaman"
+
+msgid "name"
+msgstr "nama"
+
+msgid "groups"
+msgstr "grup"
+
+msgid "Approve"
+msgstr "Menyetujui"
+
+msgid "collection"
+msgstr "koleksi"
+
+msgid "collection view restriction"
+msgstr "batasan penampilan koleksi"
+
+msgid "collection view restrictions"
+msgstr "semua batasan penampilan koleksi"
+
+msgid "collections"
+msgstr "koleksi-koleksi"
+
+msgid "permission"
+msgstr "izin"
+
+msgid "group collection permission"
+msgstr "izin grup koleksi"
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Aturlah ke selain 80 bila Anda perlu menampilkan nomor port dalam URL "
+"(contoh: pengembangan menggunakan port 8000). Hal ini tidak mempengaruhi "
+"penanganan permintaan (sehingga port forwarding tetap berfungsi)."
+
+msgid "site name"
+msgstr "Nama Situs"
+
+msgid "Human-readable name for the site."
+msgstr "Nama situs yang mudah dibaca manusia."
+
+msgid "root page"
+msgstr "halaman akar"
+
+msgid "is default site"
+msgstr "adalah situs utama"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Bila dipilih, situs ini akan menangani semua permintaan untuk hostname lain "
+"yang tidak memiliki pintu masuk sendiri."
+
+msgid "site"
+msgstr "situs"
+
+msgid "sites"
+msgstr "situs-situs"
+
+msgid "default"
+msgstr "default"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s telah diatur sebagai situs utama. Anda harus menghilangkan "
+"pengaturan tersebut sebelum Anda dapat menyimpan situs ini sebagai yang "
+"utama."
+
 msgid "Public"
 msgstr "Publik"
 
@@ -280,44 +313,11 @@ msgstr "Pribadi, dapat diakses oleh pengguna dalam grup tertentu"
 msgid "password"
 msgstr "kata sandi"
 
-msgid "groups"
-msgstr "grup"
-
 msgid "view restriction"
 msgstr "tampilkan batasan"
 
 msgid "view restrictions"
 msgstr "tampilkan semua batasan"
-
-msgid "page view restriction"
-msgstr "batasan penampilan halaman"
-
-msgid "page view restrictions"
-msgstr "semua batasan penampilan halaman"
-
-msgid "collection"
-msgstr "koleksi"
-
-msgid "collection view restriction"
-msgstr "batasan penampilan koleksi"
-
-msgid "collection view restrictions"
-msgstr "semua batasan penampilan koleksi"
-
-msgid "name"
-msgstr "nama"
-
-msgid "collections"
-msgstr "koleksi-koleksi"
-
-msgid "permission"
-msgstr "izin"
-
-msgid "group collection permission"
-msgstr "izin grup koleksi"
-
-msgid "Approve"
-msgstr "Menyetujui"
 
 msgid "Log in"
 msgstr "Masuk"

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 06:06+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-15 06:08+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -109,26 +109,23 @@ msgstr "Dátumig"
 msgid "All"
 msgstr "Összes"
 
-msgid "Started at"
-msgstr "Elindítva: "
+msgid "Preferred language"
+msgstr "Alapértelmezett nyelv"
 
-msgid "Show"
-msgstr "Megtekintés"
+msgid "Current time zone"
+msgstr "Jelenlegi időzóna"
 
-msgid "Awaiting my review"
-msgstr "Átnézésre vár"
+msgid "First Name"
+msgstr "Keresztnév"
 
-msgid "Completed at"
-msgstr "Befejezve: "
+msgid "Last Name"
+msgstr "Vezetéknév"
 
-msgid "Workflow"
-msgstr "Munkamenet"
+msgid "Email"
+msgstr "Email"
 
-msgid "Date"
-msgstr "Dátum"
-
-msgid "Title"
-msgstr "Cím"
+msgid "Upload a profile picture"
+msgstr "Profilkép feltöltése"
 
 msgid "Enter password"
 msgstr "Adja meg a jelszavát"
@@ -397,6 +394,21 @@ msgstr "Megjegyzés"
 msgid "More actions"
 msgstr "További akciók"
 
+msgid "Save the page to add this comment"
+msgstr "Mentse el az oldalt a megjegyzés hozzáadásához"
+
+msgid "Save the page to save this comment"
+msgstr "Mentse el az oldalt a megjegyzés rögzítéséhez"
+
+msgid "Save the page to save this reply"
+msgstr "Mentse el az oldalt a válasz rögzítéséhez"
+
+msgid "Dashboard"
+msgstr "Műszerfal"
+
+msgid "Edit your account"
+msgstr "Fiók szerkesztése"
+
 msgid "Error 404: Page not found"
 msgstr "404-es hiba: az oldal nem található"
 
@@ -474,9 +486,6 @@ msgstr "Profilkép feltöltése:"
 
 msgid "Reset to default"
 msgstr "Visszaállítás alapértelmezettre"
-
-msgid "Dashboard"
-msgstr "Műszerfal"
 
 msgid "Menu"
 msgstr "Menü"
@@ -614,6 +623,15 @@ msgstr "Mozgatás le"
 msgid "Add comment"
 msgstr "Megjegyzés hozzáadása"
 
+msgid "Comments"
+msgstr "Megjegyzések"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr "Megjegyzés értesítés legördülő láthatóságának kapcsolása"
+
+msgid "Commenting on this page"
+msgstr "Megjegyzések ezen az oldalon"
+
 msgid "Comment notifications"
 msgstr "Értesítések megjegyzésekről"
 
@@ -636,6 +654,9 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Zárolt oldalai"
+
+msgid "Title"
+msgstr "Cím"
 
 msgid "Locked at"
 msgstr "Zárolva ekkor: "
@@ -679,6 +700,9 @@ msgstr "A legutóbbi szerkesztések"
 
 msgid "Status"
 msgstr "Állapot"
+
+msgid "Date"
+msgstr "Dátum"
 
 msgid "Site summary"
 msgstr "Oldal összegzés"
@@ -739,8 +763,8 @@ msgstr "Bejelentkezés a Wagtail-be"
 msgid "Signing in…"
 msgstr "Belépés..."
 
-msgid "Forgotten it?"
-msgstr "Elfelejtette?"
+msgid "Forgotten password?"
+msgstr "Elfelejtette jelszavát?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1001,8 +1025,8 @@ msgstr "%(title)s kapcsolt példány konvertálása"
 msgid "Convert alias"
 msgstr "Kapcsolt példány konvertálása"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr "Biztosan átkonvertálja a kapcsolt példányt hagyományos oldallá?"
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "Biztosan átkonvertálja ezt a kapcsolt példányt hagyományos oldallá?"
 
 msgid "This action cannot be undone."
 msgstr "Ezt az akciót nem lehet visszavonni."
@@ -1184,8 +1208,8 @@ msgstr "Ez az oldal egy másik oldalhoz kapcsolt példány."
 msgid "Edit original page"
 msgstr "Eredeti oldal szerkesztése"
 
-msgid "Convert this alias into a regular page"
-msgstr "Példány konvertálása hagyományos oldallá"
+msgid "Convert this alias into an ordinary page"
+msgstr "Kapcsolt példány konvertálása hagyományos oldallá"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1588,6 +1612,9 @@ msgstr "Oldal szerkesztése"
 msgid "Requested by"
 msgstr "Kérelmező"
 
+msgid "Started at"
+msgstr "Elindítva: "
+
 msgid "Approved task"
 msgstr "Jóváhagyott feladat"
 
@@ -1656,11 +1683,17 @@ msgstr "Nincs zárolt oldal."
 msgid "By Task"
 msgstr "Feladat szerint"
 
+msgid "Workflow"
+msgstr "Munkamenet"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Még nem lett oldal beküldve moderálásra"
 
 msgid "By Workflow"
 msgstr "Munkafolyamat szerint"
+
+msgid "Completed at"
+msgstr "Befejezve: "
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1677,9 +1710,6 @@ msgstr "Nyitólap"
 
 msgid "All collections"
 msgstr "Összes gyűjtemény"
-
-msgid "Edit your account"
-msgstr "Fiók szerkesztése"
 
 msgid "Account settings"
 msgstr "Fiók beállítások"
@@ -1742,8 +1772,8 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Előre a fő tartalomig"
 
-msgid "Go to Wagtail admin interface"
-msgstr "Wagtail admin felület megnyitása"
+msgid "View Wagtail quick actions"
+msgstr "Gyors akciók megtekintése"
 
 msgid "Add a child page"
 msgstr "Gyermek oldal hozzáadása"
@@ -2043,7 +2073,7 @@ msgstr "Biztosan törli a gyűjteményt?"
 msgid "Editing"
 msgstr "Szerkesztés"
 
-msgid "Page '{0}' has been converted into a regular page."
+msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "A(z) '{0}' oldal hagyományos oldallá lett konvertálva."
 
 msgid "Page '{0}' and {1} subpages copied."
@@ -2140,6 +2170,9 @@ msgstr "Az oldal mentése nem sikerült, mert zárolva van."
 msgid "The page could not be saved due to validation errors"
 msgstr "Az oldal mentése nem sikerült az űrlapon található hibák miatt"
 
+msgid "Hide commenting actions"
+msgstr "Megjegyzés akciók elrejtése"
+
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' oldal zárolása fel lett oldva."
 
@@ -2194,8 +2227,26 @@ msgstr "'{0}' oldal visszavonva."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "A(z) '{0}' oldal jelenleg nem vár moderációra a(z) '{1}' feladatban."
 
+msgid "Site history"
+msgstr "Weboldal történet"
+
+msgid "ID"
+msgstr "Azonosító"
+
+msgid "Action type"
+msgstr "Akció típusa"
+
+msgid "Date/Time"
+msgstr "Dátum/idő"
+
 msgid "Locked pages"
 msgstr "Zárolt oldalak"
+
+msgid "Show"
+msgstr "Megtekintés"
+
+msgid "Awaiting my review"
+msgstr "Átnézésre vár"
 
 msgid "Workflows"
 msgstr "Munkafolyamatok"
@@ -2214,18 +2265,6 @@ msgstr "Munkafolyamat feladatok"
 
 msgid "Requested By"
 msgstr "Kérelmezte: "
-
-msgid "Site history"
-msgstr "Weboldal történet"
-
-msgid "ID"
-msgstr "Azonosító"
-
-msgid "Action type"
-msgstr "Akció típusa"
-
-msgid "Date/Time"
-msgstr "Dátum/idő"
 
 msgid "Add a workflow"
 msgstr "Munkafolyamat hozzáadása"

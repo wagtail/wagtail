@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-30 09:54+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-15 09:17+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -107,26 +107,23 @@ msgstr "Dagsetning til"
 msgid "All"
 msgstr "Allt"
 
-msgid "Started at"
-msgstr "Byrjaði"
+msgid "Preferred language"
+msgstr "Valið tungumál"
 
-msgid "Show"
-msgstr "Sýna"
+msgid "Current time zone"
+msgstr "Núverandi tímabelti"
 
-msgid "Awaiting my review"
-msgstr "Bíður yfirferðar"
+msgid "First Name"
+msgstr "Fornafn"
 
-msgid "Completed at"
-msgstr "Lokið"
+msgid "Last Name"
+msgstr "Eftirnafn"
 
-msgid "Workflow"
-msgstr "Vinnuflæði"
+msgid "Email"
+msgstr "Netfang"
 
-msgid "Date"
-msgstr "Dagsetning"
-
-msgid "Title"
-msgstr "Titill"
+msgid "Upload a profile picture"
+msgstr "Hlaða upp prófílmynd"
 
 msgid "Enter password"
 msgstr "Sláðu inn lykilorð"
@@ -398,6 +395,21 @@ msgstr "Athugasemd"
 msgid "More actions"
 msgstr "Fleiri aðgerðir"
 
+msgid "Save the page to add this comment"
+msgstr "Vistaðu síðuna til að bæta þessari athugasemd við"
+
+msgid "Save the page to save this comment"
+msgstr "Vistaðu síðuna til að vista þessa athugasemd"
+
+msgid "Save the page to save this reply"
+msgstr "Vistaðu síðuna til að vista þetta svar"
+
+msgid "Dashboard"
+msgstr "Yfirlitssíða"
+
+msgid "Edit your account"
+msgstr "Breyta reikningnum þínum"
+
 msgid "Error 404: Page not found"
 msgstr "404: Síðan fannst ekki"
 
@@ -479,9 +491,6 @@ msgstr "Hlaða upp prófílmynd:"
 
 msgid "Reset to default"
 msgstr "Endursetja sjálfgefnar stillingar"
-
-msgid "Dashboard"
-msgstr "Yfirlitssíða"
 
 msgid "Menu"
 msgstr "Valmynd"
@@ -619,6 +628,15 @@ msgstr "Færa niður"
 msgid "Add comment"
 msgstr "Bæta við athugasemd"
 
+msgid "Comments"
+msgstr "Athugasemdir"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr "Sýna/fela athugasemda fellilista"
+
+msgid "Commenting on this page"
+msgstr "Skrifa athugasemd við síðuna"
+
 msgid "Comment notifications"
 msgstr "Athugasemda tilkynningar"
 
@@ -641,6 +659,9 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Þínar læstu síður"
+
+msgid "Title"
+msgstr "Titill"
 
 msgid "Locked at"
 msgstr "Læst"
@@ -684,6 +705,9 @@ msgstr "Síðustu breytingar sem þú hefur gert"
 
 msgid "Status"
 msgstr "Staða"
+
+msgid "Date"
+msgstr "Dagsetning"
 
 msgid "Site summary"
 msgstr "Upplýsingar um vef"
@@ -745,8 +769,8 @@ msgstr "Skrá inn í Wagtail"
 msgid "Signing in…"
 msgstr "Skrái inn..."
 
-msgid "Forgotten it?"
-msgstr "Búin(n) að gleyma því?"
+msgid "Forgotten password?"
+msgstr "Gleymt lykilorð?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1000,7 +1024,7 @@ msgstr "Breyta spegilsíðu %(title)s"
 msgid "Convert alias"
 msgstr "Breyta spegilsíðu"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
+msgid "Are you sure you want to convert this alias into an ordinary page?"
 msgstr "Ertu viss um að þú viljir breyta þessari spegilsíðu í venjulega síðu?"
 
 msgid "This action cannot be undone."
@@ -1189,7 +1213,7 @@ msgstr "Þessi síða speglar aðra síðu"
 msgid "Edit original page"
 msgstr "Breyta upprunalegri síðu"
 
-msgid "Convert this alias into a regular page"
+msgid "Convert this alias into an ordinary page"
 msgstr "Breyta þessari spegilsíðu í venjulega síðu"
 
 #, python-format
@@ -1609,6 +1633,9 @@ msgstr "Breyta síðu"
 msgid "Requested by"
 msgstr "Umbeðið af"
 
+msgid "Started at"
+msgstr "Byrjaði"
+
 msgid "Approved task"
 msgstr "Samþykkt skref"
 
@@ -1682,11 +1709,17 @@ msgstr "Engar læstar síður fundust"
 msgid "By Task"
 msgstr "Eftir skrefi"
 
+msgid "Workflow"
+msgstr "Vinnuflæði"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Engin síða hefur verið send inn til yfirferðar ennþá"
 
 msgid "By Workflow"
 msgstr "Eftir vinnuflæði"
+
+msgid "Completed at"
+msgstr "Lokið"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1703,9 +1736,6 @@ msgstr "Heim"
 
 msgid "All collections"
 msgstr "Öll söfn"
-
-msgid "Edit your account"
-msgstr "Breyta reikningnum þínum"
 
 msgid "Account settings"
 msgstr "Stillingar reiknings"
@@ -1769,8 +1799,8 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Hoppa yfir í aðal efni"
 
-msgid "Go to Wagtail admin interface"
-msgstr "Fara á Wagtail stjórnborð"
+msgid "View Wagtail quick actions"
+msgstr "Skoða flýtivalmynd Wagtail"
 
 msgid "Add a child page"
 msgstr "Bæta við undirsíðu"
@@ -2070,7 +2100,7 @@ msgstr "Ertu viss um að þú viljir eyða þessu safni?"
 msgid "Editing"
 msgstr "Breyti"
 
-msgid "Page '{0}' has been converted into a regular page."
+msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Síðu '{0}' hefur verið breytt í venjulega síðu."
 
 msgid "Page '{0}' and {1} subpages copied."
@@ -2165,6 +2195,9 @@ msgstr "Ekki var hægt að vista síðuna, hún er læst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Ekki var hægt að vista síðuna þar sem hún stóðst ekki villuprófanir"
 
+msgid "Hide commenting actions"
+msgstr "Fela athugasemdaaðgerðir"
+
 msgid "Page '{0}' is now unlocked."
 msgstr "Síða '{0}' er nú ólæst."
 
@@ -2219,8 +2252,26 @@ msgstr "Síða '{0}' tekin úr birtingu."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Síðan '{0}' er ekki að bíða eftir yfirferð í skrefi '{1}'."
 
+msgid "Site history"
+msgstr "Saga síðu"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Tegund aðgerðar"
+
+msgid "Date/Time"
+msgstr "Dagsetning/Tími"
+
 msgid "Locked pages"
 msgstr "Læstar síður"
+
+msgid "Show"
+msgstr "Sýna"
+
+msgid "Awaiting my review"
+msgstr "Bíður yfirferðar"
 
 msgid "Workflows"
 msgstr "Vinnuflæði"
@@ -2239,18 +2290,6 @@ msgstr "Skref vinnuflæðis"
 
 msgid "Requested By"
 msgstr "Umbeðið af"
-
-msgid "Site history"
-msgstr "Saga síðu"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Tegund aðgerðar"
-
-msgid "Date/Time"
-msgstr "Dagsetning/Tími"
 
 msgid "Add a workflow"
 msgstr "Bæta við vinnuflæði"

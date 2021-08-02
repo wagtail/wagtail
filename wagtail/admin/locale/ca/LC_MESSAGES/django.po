@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -100,26 +100,23 @@ msgstr "Data de fi"
 msgid "All"
 msgstr "Tot"
 
-msgid "Started at"
-msgstr "Iniciat el"
+msgid "Preferred language"
+msgstr "Llengua preferida"
 
-msgid "Show"
-msgstr "Mostra"
+msgid "Current time zone"
+msgstr "Zona horària actual"
 
-msgid "Awaiting my review"
-msgstr "En espera de revisió"
+msgid "First Name"
+msgstr "Nom"
 
-msgid "Completed at"
-msgstr "Completat el"
+msgid "Last Name"
+msgstr "Cognoms"
 
-msgid "Workflow"
-msgstr "Fluxe de treball"
+msgid "Email"
+msgstr "Correu electrònic"
 
-msgid "Date"
-msgstr "Data"
-
-msgid "Title"
-msgstr "Títol"
+msgid "Upload a profile picture"
+msgstr "Carregar una imatge de perfil"
 
 msgid "Enter password"
 msgstr "Introdueix la contrassenya"
@@ -343,6 +340,12 @@ msgstr "Cancel·lar"
 msgid "Comment"
 msgstr "Comentari"
 
+msgid "Dashboard"
+msgstr "Tauler de control"
+
+msgid "Edit your account"
+msgstr "Modifica el teu compte d'usuari"
+
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pàgina no trobada"
 
@@ -413,9 +416,6 @@ msgstr "Contrasenya reiniciada"
 
 msgid "Reset your password"
 msgstr "Reinicia la teva contrasenya "
-
-msgid "Dashboard"
-msgstr "Tauler de control"
 
 msgid "Menu"
 msgstr "Menú"
@@ -565,6 +565,9 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Les vostres pàgines bloquejades"
 
+msgid "Title"
+msgstr "Títol"
+
 msgid "Locked at"
 msgstr "Bloquejat el"
 
@@ -607,6 +610,9 @@ msgstr "Edicions més recents"
 
 msgid "Status"
 msgstr "Estat"
+
+msgid "Date"
+msgstr "Data"
 
 msgid "Site summary"
 msgstr "Resum del lloc"
@@ -667,9 +673,6 @@ msgstr "Connecta't a Wagtail"
 
 msgid "Signing in…"
 msgstr "Iniciant la sessió..."
-
-msgid "Forgotten it?"
-msgstr "Oblidar?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1189,6 +1192,9 @@ msgstr "Edita la pàgina"
 msgid "Requested by"
 msgstr "Sol·licitat per"
 
+msgid "Started at"
+msgstr "Iniciat el"
+
 msgid "Approved task"
 msgstr "La tasca està aprovada"
 
@@ -1225,8 +1231,14 @@ msgstr "No s'ha trobat cap pàgina bloquejada."
 msgid "By Task"
 msgstr "Per tasca"
 
+msgid "Workflow"
+msgstr "Fluxe de treball"
+
 msgid "By Workflow"
 msgstr "Per fluxe de treball"
+
+msgid "Completed at"
+msgstr "Completat el"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1240,9 +1252,6 @@ msgstr "Inici"
 
 msgid "All collections"
 msgstr "Totes les col·leccions"
-
-msgid "Edit your account"
-msgstr "Modifica el teu compte d'usuari"
 
 msgid "Account settings"
 msgstr "Configuració del compte"
@@ -1261,9 +1270,6 @@ msgstr "Publicada"
 
 msgid "Draft saved"
 msgstr "S'ha desat l'esborrany"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Anar a la interfície d'administració de Wagtail"
 
 msgid "Add a child page"
 msgstr "Afegir una pàgina filla"
@@ -1463,6 +1469,12 @@ msgstr "Pàgina '{0}' despublicada."
 
 msgid "Locked pages"
 msgstr "Pàgines bloquejades"
+
+msgid "Show"
+msgstr "Mostra"
+
+msgid "Awaiting my review"
+msgstr "En espera de revisió"
 
 msgid "Workflows"
 msgstr "Fluxes de treball"

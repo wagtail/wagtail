@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -104,26 +104,23 @@ msgstr "Tanggal akhir"
 msgid "All"
 msgstr "Semua"
 
-msgid "Started at"
-msgstr "Dimulai pada"
+msgid "Preferred language"
+msgstr "Bahasa pilihan"
 
-msgid "Show"
-msgstr "Tampilkan"
+msgid "Current time zone"
+msgstr "Zona waktu saat ini"
 
-msgid "Awaiting my review"
-msgstr "Menunggu ulasan saya"
+msgid "First Name"
+msgstr "Nama Depan"
 
-msgid "Completed at"
-msgstr "Diselesaikan pada"
+msgid "Last Name"
+msgstr "Nama Belakang"
 
-msgid "Workflow"
-msgstr "Alur Kerja"
+msgid "Email"
+msgstr "Email/Surel"
 
-msgid "Date"
-msgstr "Tanggal"
-
-msgid "Title"
-msgstr "Judul"
+msgid "Upload a profile picture"
+msgstr "Unggah gambar profil"
 
 msgid "Enter password"
 msgstr "Masukkan kata sandi"
@@ -311,6 +308,12 @@ msgstr "Menyimpan..."
 msgid "Comment"
 msgstr "Komentar"
 
+msgid "Dashboard"
+msgstr "Dasbor"
+
+msgid "Edit your account"
+msgstr "Ubah akun Anda"
+
 msgid "Error 404: Page not found"
 msgstr "Galat 404: Halaman tidak ditemukan"
 
@@ -380,9 +383,6 @@ msgstr "Pengaturan ulang kata sandi"
 
 msgid "Reset your password"
 msgstr "Atur ulang kata sandi Anda"
-
-msgid "Dashboard"
-msgstr "Dasbor"
 
 msgid "Menu"
 msgstr "Menu"
@@ -509,6 +509,9 @@ msgstr ""
 "Ini adalah dasbor Anda. Di sini akan ditampilkan informasi yang berguna "
 "mengenai konten yang Anda buat,"
 
+msgid "Title"
+msgstr "Judul"
+
 msgid "Edit this page"
 msgstr "Ubah halaman ini"
 
@@ -545,6 +548,9 @@ msgstr "Perubahan terakhir yang anda lakukan"
 msgid "Status"
 msgstr "Status"
 
+msgid "Date"
+msgstr "Tanggal"
+
 msgid "Site summary"
 msgstr "Ringkasan situs"
 
@@ -567,9 +573,6 @@ msgstr "Masuk ke Wagtail"
 
 msgid "Signing in…"
 msgstr "Melakukan Sign In..."
-
-msgid "Forgotten it?"
-msgstr "Apakah anda lupa?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1048,6 +1051,9 @@ msgstr "Masukkan kata kunci pencarian di atas"
 msgid "No pages use"
 msgstr "Tidak ada halaman yang menggunakan"
 
+msgid "Started at"
+msgstr "Dimulai pada"
+
 msgid "Download CSV"
 msgstr "Unduh CSV"
 
@@ -1056,6 +1062,12 @@ msgstr "Saring"
 
 msgid "Locked"
 msgstr "Terkunci"
+
+msgid "Workflow"
+msgstr "Alur Kerja"
+
+msgid "Completed at"
+msgstr "Diselesaikan pada"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1070,9 +1082,6 @@ msgstr "Beranda"
 msgid "All collections"
 msgstr "Semua koleksi"
 
-msgid "Edit your account"
-msgstr "Ubah akun Anda"
-
 msgid "Account settings"
 msgstr "Pengaturan Akun"
 
@@ -1081,9 +1090,6 @@ msgstr "Keluar"
 
 msgid "Other searches"
 msgstr "Pencarian yang lain"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Pergi ke antarmuka pengeloaan Wagtail"
 
 msgid "Add a child page"
 msgstr "Tambah turunan halaman"
@@ -1229,6 +1235,12 @@ msgstr "revisi {0} dari \"{1}\""
 
 msgid "Page '{0}' unpublished."
 msgstr "Halaman '{0}' ditarik dari publikasi."
+
+msgid "Show"
+msgstr "Tampilkan"
+
+msgid "Awaiting my review"
+msgstr "Menunggu ulasan saya"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"

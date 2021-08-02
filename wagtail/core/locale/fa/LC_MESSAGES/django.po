@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -44,57 +44,6 @@ msgstr "رمزعبور"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "رمزعبور وارد شده درست نیست. لطفا مجددا سعی کنید."
-
-msgid "hostname"
-msgstr "نام میزبان"
-
-msgid "port"
-msgstr "پورت"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"این مقدار را به چیزی غیر از 80 تغییر دهید اگر میخواهید شماره پورت در نشانی "
-"بیاید. (برای مثال پورت 8000). تاثیری بر روی رفتار با درخواست ها نخواهد داشت "
-"(در نتیجه port forwarding همچنان کار خواهد کرد)."
-
-msgid "site name"
-msgstr "نام سایت"
-
-msgid "Human-readable name for the site."
-msgstr "نام قابل فهم برای این سایت."
-
-msgid "root page"
-msgstr "صفحه ریشه"
-
-msgid "is default site"
-msgstr "سایت پیش فرض"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"اگر مثبت باشد، این سایت درخواست های متعلق به همه نام های میزبانی را که سایت "
-"خودشان را ندارند اداره می‌کند"
-
-msgid "site"
-msgstr "سایت"
-
-msgid "sites"
-msgstr "سایت ها"
-
-msgid "default"
-msgstr "پیشفرض"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s به عنوان نام پیشفرض سایت تنظیم شده. شما باید ابتدا آن را پیش از "
-"ذخیره این سایت به عنوان پیشفرض حذف کنید."
 
 msgid "title"
 msgstr "عنوان"
@@ -237,6 +186,93 @@ msgstr "مجوز گروه صفحه"
 msgid "group page permissions"
 msgstr "مجوزهای صفحه گروه"
 
+msgid "page view restriction"
+msgstr "نمایش محدودیت صفحه"
+
+msgid "page view restrictions"
+msgstr "محدودیت های نمایش صفحه"
+
+msgid "name"
+msgstr "نام"
+
+msgid "groups"
+msgstr "گروه ها"
+
+msgid "Approve"
+msgstr "تایید"
+
+msgid "Not started"
+msgstr "شروع نشده"
+
+msgid "collection"
+msgstr "مجموعه"
+
+msgid "collection view restriction"
+msgstr "محدودیت دیدن مجموعه"
+
+msgid "collection view restrictions"
+msgstr "محدودیت‌های دیدن مجموعه"
+
+msgid "collections"
+msgstr "مجموعه ها"
+
+msgid "permission"
+msgstr "مجوز"
+
+msgid "group collection permission"
+msgstr "مجوز مجموعه گروه"
+
+msgid "hostname"
+msgstr "نام میزبان"
+
+msgid "port"
+msgstr "پورت"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"این مقدار را به چیزی غیر از 80 تغییر دهید اگر میخواهید شماره پورت در نشانی "
+"بیاید. (برای مثال پورت 8000). تاثیری بر روی رفتار با درخواست ها نخواهد داشت "
+"(در نتیجه port forwarding همچنان کار خواهد کرد)."
+
+msgid "site name"
+msgstr "نام سایت"
+
+msgid "Human-readable name for the site."
+msgstr "نام قابل فهم برای این سایت."
+
+msgid "root page"
+msgstr "صفحه ریشه"
+
+msgid "is default site"
+msgstr "سایت پیش فرض"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"اگر مثبت باشد، این سایت درخواست های متعلق به همه نام های میزبانی را که سایت "
+"خودشان را ندارند اداره می‌کند"
+
+msgid "site"
+msgstr "سایت"
+
+msgid "sites"
+msgstr "سایت ها"
+
+msgid "default"
+msgstr "پیشفرض"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s به عنوان نام پیشفرض سایت تنظیم شده. شما باید ابتدا آن را پیش از "
+"ذخیره این سایت به عنوان پیشفرض حذف کنید."
+
 msgid "Public"
 msgstr "عمومی"
 
@@ -252,47 +288,11 @@ msgstr "خصوصی، تنها برای اعضای گروه های خاصی قا�
 msgid "password"
 msgstr "رمزعبور"
 
-msgid "groups"
-msgstr "گروه ها"
-
 msgid "view restriction"
 msgstr "دیدن محدودیت"
 
 msgid "view restrictions"
 msgstr "دیدن محدودیت‌ها"
-
-msgid "page view restriction"
-msgstr "نمایش محدودیت صفحه"
-
-msgid "page view restrictions"
-msgstr "محدودیت های نمایش صفحه"
-
-msgid "collection"
-msgstr "مجموعه"
-
-msgid "collection view restriction"
-msgstr "محدودیت دیدن مجموعه"
-
-msgid "collection view restrictions"
-msgstr "محدودیت‌های دیدن مجموعه"
-
-msgid "name"
-msgstr "نام"
-
-msgid "collections"
-msgstr "مجموعه ها"
-
-msgid "permission"
-msgstr "مجوز"
-
-msgid "group collection permission"
-msgstr "مجوز مجموعه گروه"
-
-msgid "Approve"
-msgstr "تایید"
-
-msgid "Not started"
-msgstr "شروع نشده"
 
 msgid "Log in"
 msgstr "ورود"

@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-10 10:48+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -115,26 +115,23 @@ msgstr "Data até"
 msgid "All"
 msgstr "Todos"
 
-msgid "Started at"
-msgstr "Começou às"
+msgid "Preferred language"
+msgstr "Idioma preferido"
 
-msgid "Show"
-msgstr "Mostrar"
+msgid "Current time zone"
+msgstr "Fuso horário atual"
 
-msgid "Awaiting my review"
-msgstr "Aguardando minha revisão"
+msgid "First Name"
+msgstr "Primeiro nome"
 
-msgid "Completed at"
-msgstr "Concluído em"
+msgid "Last Name"
+msgstr "Último nome"
 
-msgid "Workflow"
-msgstr "Fluxo de trabalho"
+msgid "Email"
+msgstr "E-mail"
 
-msgid "Date"
-msgstr "Data"
-
-msgid "Title"
-msgstr "Título"
+msgid "Upload a profile picture"
+msgstr "Carregar uma foto do perfil"
 
 msgid "Enter password"
 msgstr "Digite sua senha"
@@ -402,6 +399,12 @@ msgstr "Comentário"
 msgid "More actions"
 msgstr "Mais ações"
 
+msgid "Dashboard"
+msgstr "Painel"
+
+msgid "Edit your account"
+msgstr "Edite sua conta"
+
 msgid "Error 404: Page not found"
 msgstr "Erro 404: Página não encontrada"
 
@@ -478,9 +481,6 @@ msgstr "Faça upload de uma foto de perfil:"
 
 msgid "Reset to default"
 msgstr "Restaurar ao padrão"
-
-msgid "Dashboard"
-msgstr "Painel"
 
 msgid "Menu"
 msgstr "Menu"
@@ -646,6 +646,9 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Suas páginas bloqueadas"
 
+msgid "Title"
+msgstr "Título"
+
 msgid "Locked at"
 msgstr "Bloqueado em"
 
@@ -688,6 +691,9 @@ msgstr "Suas alterações recentes"
 
 msgid "Status"
 msgstr "Status"
+
+msgid "Date"
+msgstr "Data"
 
 msgid "Site summary"
 msgstr "Resumo do site"
@@ -748,9 +754,6 @@ msgstr "Entrar no Wagtail"
 
 msgid "Signing in…"
 msgstr "Entrando..."
-
-msgid "Forgotten it?"
-msgstr "Esqueceu a senha?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1004,9 +1007,6 @@ msgstr "Converter alias %(title)s"
 msgid "Convert alias"
 msgstr "Converter alias"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr "Tem certeza de que deseja converter este alias em uma página normal?"
-
 msgid "This action cannot be undone."
 msgstr "Essa ação não pode ser desfeita."
 
@@ -1192,9 +1192,6 @@ msgstr "Esta página é um alias de outra página."
 
 msgid "Edit original page"
 msgstr "Editar página original"
-
-msgid "Convert this alias into a regular page"
-msgstr "Converta este alias em uma página normal"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1617,6 +1614,9 @@ msgstr "Editar página"
 msgid "Requested by"
 msgstr "Solicitado por"
 
+msgid "Started at"
+msgstr "Começou às"
+
 msgid "Approved task"
 msgstr "Tarefa aprovada"
 
@@ -1690,11 +1690,17 @@ msgstr "Nenhuma página bloqueada encontrada."
 msgid "By Task"
 msgstr "Por tarefa"
 
+msgid "Workflow"
+msgstr "Fluxo de trabalho"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Nenhuma página foi enviada para moderação ainda"
 
 msgid "By Workflow"
 msgstr "Por fluxo de trabalho"
+
+msgid "Completed at"
+msgstr "Concluído em"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1711,9 +1717,6 @@ msgstr "Página inicial"
 
 msgid "All collections"
 msgstr "Todas as coleções"
-
-msgid "Edit your account"
-msgstr "Edite sua conta"
 
 msgid "Account settings"
 msgstr "Configurações da Conta"
@@ -1750,9 +1753,6 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Ir para o conteúdo principal"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Ir para administração Wagtail"
 
 msgid "Add a child page"
 msgstr "Adicionar subpágina"
@@ -2046,9 +2046,6 @@ msgstr "Tem certeza de que deseja excluir esta coleção?"
 msgid "Editing"
 msgstr "Editando"
 
-msgid "Page '{0}' has been converted into a regular page."
-msgstr "Página '{0}' foi convertida em uma página normal."
-
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Página '{0}' e {1} subpáginas copiadas."
 
@@ -2194,8 +2191,26 @@ msgstr "Página '{0}' despublicada."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "A página '{0}' não está aguardando moderação na tarefa '{1}'."
 
+msgid "Site history"
+msgstr "Histórico do site"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Tipo de ação"
+
+msgid "Date/Time"
+msgstr "Data/Hora"
+
 msgid "Locked pages"
 msgstr "Páginas bloqueadas"
+
+msgid "Show"
+msgstr "Mostrar"
+
+msgid "Awaiting my review"
+msgstr "Aguardando minha revisão"
 
 msgid "Workflows"
 msgstr "Fluxos de trabalho"
@@ -2214,18 +2229,6 @@ msgstr "Tarefas de fluxo de trabalho"
 
 msgid "Requested By"
 msgstr "Solicitado por"
-
-msgid "Site history"
-msgstr "Histórico do site"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Tipo de ação"
-
-msgid "Date/Time"
-msgstr "Data/Hora"
 
 msgid "Add a workflow"
 msgstr "Adicionar um fluxo de trabalho"

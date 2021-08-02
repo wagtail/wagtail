@@ -5,7 +5,7 @@
 # Translators:
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-18 06:32+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +80,12 @@ msgstr "Ajastettu julkistus"
 msgid "Privacy"
 msgstr "Yksityisyys"
 
+msgid "For search engines"
+msgstr "Hakukoneille"
+
+msgid "For site menus"
+msgstr "Sivustovalikoille"
+
 msgid "Content"
 msgstr "Sisältö"
 
@@ -98,14 +104,23 @@ msgstr "Asti"
 msgid "All"
 msgstr "Kaikki"
 
-msgid "Workflow"
-msgstr "Työnkulku"
+msgid "Preferred language"
+msgstr "Ensisijainen kieli"
 
-msgid "Date"
-msgstr "Pvm"
+msgid "Current time zone"
+msgstr "Nykyinen aikavyöhyke"
 
-msgid "Title"
-msgstr "Otsikko"
+msgid "First Name"
+msgstr "Etunimi"
+
+msgid "Last Name"
+msgstr "Sukunimi"
+
+msgid "Email"
+msgstr "Sähköposti"
+
+msgid "Upload a profile picture"
+msgstr "Lähetä profiilikuva"
 
 msgid "Enter password"
 msgstr "Syötä salasana"
@@ -129,6 +144,9 @@ msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
 msgid "Collection"
 msgstr "Kokoelma"
 
+msgid "You cannot edit another user's comment."
+msgstr "Et voi muokata toisen käyttäjän kommenttia."
+
 msgid "New title"
 msgstr "Uusi otsikko"
 
@@ -151,7 +169,7 @@ msgstr[0] "Tämä kopioi %(count)s alasivun."
 msgstr[1] "Tämä kopioi %(count)s alasivua."
 
 msgid "Publish copied page"
-msgstr "Julkaise kopioitu siv"
+msgstr "Julkaise kopioitu sivu"
 
 msgid "This page is live. Would you like to publish its copy as well?"
 msgstr "Tämä sivu on julkinen. Haluatko julkaista myös sen kopion?"
@@ -251,6 +269,9 @@ msgstr "Sulje selaus"
 msgid "Alt text"
 msgstr "Vaihtoehtoinen teksti"
 
+msgid "Decorative image"
+msgstr "Koristeellinen kuva"
+
 msgid "Write here…"
 msgstr "Kirjoita tähän…"
 
@@ -311,8 +332,62 @@ msgstr "Tallennetaan..."
 msgid "Cancel"
 msgstr "Peruuta"
 
+msgid "Deleting..."
+msgstr "Poistetaan..."
+
+msgid "Add a comment"
+msgstr "Lisää kommentti"
+
+msgid "Show comments"
+msgstr "Näytä kommentit"
+
+msgid "Reply"
+msgstr "Vastaa"
+
+msgid "Resolve"
+msgstr "Selvitä"
+
+msgid "Retry"
+msgstr "Yritä uudelleen"
+
+msgid "Delete error"
+msgstr "Poistamisvirhe"
+
+msgid "Are you sure?"
+msgstr "Oletko varma?"
+
+msgid "Save error"
+msgstr "Tallennusvirhe"
+
+msgid "This will be saved when the page is saved"
+msgstr "Tämä tallennetaan kun sivu tallennetaan"
+
+msgid "Focus comment"
+msgstr "Kohdista kommentti"
+
+msgid "Unfocus comment"
+msgstr "Poista kommentin kohdistus"
+
 msgid "Comment"
 msgstr "Kommentti"
+
+msgid "More actions"
+msgstr "Lisää toimintoja"
+
+msgid "Save the page to add this comment"
+msgstr "Tallenna sivu lisätäksesi tämän kommentin"
+
+msgid "Save the page to save this comment"
+msgstr "Tallenna sivu tallentaaksesi tämän kommentin"
+
+msgid "Save the page to save this reply"
+msgstr "Tallenna sivu tallentaaksesi tämän vastauksen"
+
+msgid "Dashboard"
+msgstr "Kojelauta"
+
+msgid "Edit your account"
+msgstr "Muokkaa tiliäsi"
 
 msgid "Error 404: Page not found"
 msgstr "Virhe 404: Sivua ei löytynyt"
@@ -328,6 +403,9 @@ msgstr "Siirry Wagtailin hallintaan"
 
 msgid "Account"
 msgstr "Tili"
+
+msgid "Save account details"
+msgstr "Tallenna tilin tiedot"
 
 msgid "Change password"
 msgstr "Vaihda salasana"
@@ -383,8 +461,11 @@ msgstr "Salasanan palautus"
 msgid "Reset your password"
 msgstr "Palauta salasanasi"
 
-msgid "Dashboard"
-msgstr "Kojelauta"
+msgid "Upload a profile picture:"
+msgstr "Lähetä profiilikuva:"
+
+msgid "Reset to default"
+msgstr "Palauta oletusarvoon"
 
 msgid "Menu"
 msgstr "Valikko"
@@ -520,6 +601,15 @@ msgstr "Siirrä ylös"
 msgid "Move down"
 msgstr "Siirrä alas"
 
+msgid "Add comment"
+msgstr "Lisää kommentti"
+
+msgid "Comments"
+msgstr "Kommentit"
+
+msgid "Comment notifications"
+msgstr "Kommentti-ilmoitukset"
+
 msgid "Yes, delete"
 msgstr "Kyllä, poista"
 
@@ -539,6 +629,9 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Lukitut sivusi"
+
+msgid "Title"
+msgstr "Otsikko"
 
 msgid "Locked at"
 msgstr "Lukittu"
@@ -579,6 +672,9 @@ msgstr "Tuoreimmat muokkauksesi"
 msgid "Status"
 msgstr "Tila"
 
+msgid "Date"
+msgstr "Pvm"
+
 msgid "Site summary"
 msgstr "Sivuston yhteenveto"
 
@@ -605,6 +701,15 @@ msgstr[1] ""
 msgid "Task"
 msgstr "Tehtävä"
 
+msgid "Task started"
+msgstr "Tehtävä aloitettu"
+
+msgid "Awaiting"
+msgstr "Odottaa"
+
+msgid "Awaiting your review"
+msgstr "Odottaa tarkastustasi"
+
 msgid "Tasks"
 msgstr "Tehtävät"
 
@@ -622,8 +727,8 @@ msgstr "Kirjaudu sisään Wagtailiin"
 msgid "Signing in…"
 msgstr "Kirjaudutaan…"
 
-msgid "Forgotten it?"
-msgstr "Unohtui?"
+msgid "Forgotten password?"
+msgstr "Unohtuiko salasana?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -665,6 +770,54 @@ msgstr "Voit esikatsella sivua täältä:"
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Sivu \"%(page)s\" on lähetetty hyväksyttäväksi"
 
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "Sivu \"%(title)s\" on hyväksytty tehtävässä \"%(task)s\"."
+
+msgid "New comments"
+msgstr "Uudet kommentit"
+
+msgid "Resolved comments"
+msgstr "Selvitetyt kommentit"
+
+msgid "Deleted comments"
+msgstr "Poistetut kommentit"
+
+msgid "New replies"
+msgstr "Uudet vastaukset"
+
+msgid "New comments:"
+msgstr "Uudet kommentit:"
+
+msgid "Resolved comments:"
+msgstr "Selvitetyt kommentit:"
+
+msgid "Deleted comments:"
+msgstr "Poistetut kommentit:"
+
+msgid "New replies:"
+msgstr "Uudet vastaukset:"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr "Sivu \"%(title)s\" on hyväksytty työnkulussa \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "Sivu \"%(title)s\" on hyväksytty työnkulussa \"%(workflow)s\"."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "Seuraava kommentti jätettiin: \"%(comment)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "Sivu \"%(title)s\" on hylätty työnkulussa \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
+msgstr "Sivu \"%(title)s\" on lähetetty työnkulkuun \"%(workflow)s\" "
+
 msgid "Page privacy"
 msgstr "Sivun yksityisyys"
 
@@ -678,6 +831,9 @@ msgstr ""
 
 msgid "Visit the live page"
 msgstr "Vieraile sivulla"
+
+msgid "This page is live but only available to certain users"
+msgstr "Sivu on julkinen, mutta saatavilla vain tietyille käyttäjille"
 
 msgid "restricted"
 msgstr "rajoitettu"
@@ -693,6 +849,20 @@ msgstr "Sivun yksityisyys. Nyt: Julkinen"
 
 msgid "Page privacy. Current status: Private"
 msgstr "Sivun yksityisyys. Nyt: Yksityinen"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Sinulla on <span>tallentamattomia muokkauksia</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "Sinulla on <span>tallentamattomia kommentteja</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr ""
+"Sinulla on <span>tallentamattomia muokkauksia</span> ja <span>kommentteja</"
+"span>"
+
+msgid "Save the page before leaving"
+msgstr "Tallenna sivu ennen poistumista"
 
 msgid "Publishing…"
 msgstr "Julkaistaan…"
@@ -722,6 +892,25 @@ msgstr "Valitse minkätyyppisen sivun haluat luoda."
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "SIvut tyyppiä %(page_type)s"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "Muunna alias %(title)s"
+
+msgid "Convert alias"
+msgstr "Muunna alias"
+
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "Haluatko varmasti muuntaa tämän aliaksen tavalliseksi sivuksi?"
+
+msgid "This action cannot be undone."
+msgstr "Tätä toimintoa ei voi perua."
+
+msgid "Yes, convert it"
+msgstr "Kyllä, muunna se"
+
+msgid "No, leave it as an alias"
+msgstr "Ei, jätä se aliakseksi"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -818,6 +1007,18 @@ msgstr "Ei, älä piilota"
 msgid "Publish page"
 msgstr "Julkaise sivu"
 
+#, python-format
+msgid ""
+"\n"
+"            This page is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"            Tämä sivu on tehtävässä <strong>%(task)s</strong> työnkulussa "
+"<strong>%(workflow)s</strong>.\n"
+"        "
+
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Tämän sivun julkaisu peruuttaa nykyisen työnkulun."
 
@@ -865,8 +1066,17 @@ msgstr "Muokataan %(page_type)s"
 msgid "History"
 msgstr "Historia"
 
+msgid "This page is an alias of another page."
+msgstr "Tämä sivu on alias toisesta sivusta."
+
 msgid "Edit original page"
 msgstr "Muokkaa alkuperäistä sivua"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "Muunna tämä alias tavalliseksi sivuksi"
+
+msgid "Action"
+msgstr "Toiminto"
 
 msgid "User"
 msgstr "Käyttäjä"
@@ -1042,6 +1252,12 @@ msgstr ""
 msgid "Current status:"
 msgstr "Nykyinen tila:"
 
+msgid "Set page privacy"
+msgstr "Aseta sivun yksityisyys"
+
+msgid "Review this version"
+msgstr "Tarkasta tämä versio"
+
 msgid "Compare with previous version"
 msgstr "Vertaa edelliseen versioon"
 
@@ -1177,8 +1393,19 @@ msgstr "Yhtään sivua ei käytä"
 msgid "Workflow progress"
 msgstr "Työnkulun edistyminen"
 
+msgid "Edit / Review"
+msgstr "Muokkaa / tarkasta"
+
 msgid "Workflow history"
 msgstr "Työnkulun historia"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "Pyytänyt <b>%(modified_by)s</b>"
+
+#, python-format
+msgid "Started at <b>%(started_at)s</b>"
+msgstr "Aloitettu <b>%(started_at)s</b>"
 
 #, python-format
 msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
@@ -1187,8 +1414,14 @@ msgstr "Tila <span class=\"status-tag primary\"> %(status)s</span>"
 msgid "Timeline"
 msgstr "Aikajana"
 
+msgid "Initial Revision"
+msgstr "Ensiversio"
+
 msgid "Page edited"
 msgstr "Sivua muokattu"
+
+msgid "with comment:"
+msgstr "kommentilla:"
 
 msgid "Workflow started"
 msgstr "Työnkulku aloitettu"
@@ -1196,8 +1429,24 @@ msgstr "Työnkulku aloitettu"
 msgid "Workflow completed"
 msgstr "Työnkulku valmistunut"
 
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Työnkulun historia sivulle %(title)s"
+
 msgid "Edit page"
 msgstr "Muokkaa sivua"
+
+msgid "Requested by"
+msgstr "Pyytänyt"
+
+msgid "Started at"
+msgstr "Aloitettu"
+
+msgid "Approved task"
+msgstr "Hyväksytty tehtävä"
+
+msgid "Incomplete task"
+msgstr "Keskeneräinen tehtävä"
 
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Tätä sivua ei ole lähetetty tarkastettavaksi vielä"
@@ -1258,6 +1507,9 @@ msgstr "Lukittu"
 msgid "No locked pages found."
 msgstr "Lukittuja sivuja ei löytynyt."
 
+msgid "Workflow"
+msgstr "Työnkulku"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Yhtäkään sivua ei ole lähetetty tarkastettavaksi vielä"
 
@@ -1277,9 +1529,6 @@ msgstr "Koti"
 msgid "All collections"
 msgstr "Kaikki kokoelmat"
 
-msgid "Edit your account"
-msgstr "Muokkaa tiliäsi"
-
 msgid "Account settings"
 msgstr "Tiliasetukset"
 
@@ -1291,6 +1540,9 @@ msgstr "Sivun tila nyt:"
 
 msgid "Other searches"
 msgstr "Muut haut"
+
+msgid "Changes requested"
+msgstr "Muutoksia pyydetty"
 
 msgid "Published"
 msgstr "Julkaistu"
@@ -1306,11 +1558,28 @@ msgstr ""
 "Tämä ohjelmisto ei tue käyttämääsi <strong>vanhentunutta</strong> selainta. "
 "Ole hyvä ja <a href=\"https://browsehappy.com/\">päivitä selaimesi</a>."
 
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            JavaScript vaaditaan Wagtailin käyttämiseksi, mutta se on pois "
+"käytöstä.<br />\n"
+"            Tässä <a href=\"https://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">ohjeet JavaScriptin ottamiseksi "
+"käyttöön selaimessasi</a>.\n"
+"        "
+
 msgid "Skip to main content"
 msgstr "Siirry pääsisältöön"
 
-msgid "Go to Wagtail admin interface"
-msgstr "Siirry Wagtailin hallintaan"
+msgid "View Wagtail quick actions"
+msgstr "Näytä Wagtailin pikatoiminnot"
 
 msgid "Add a child page"
 msgstr "Lisää alasivu"
@@ -1366,6 +1635,13 @@ msgid_plural "+%(counter)s more"
 msgstr[0] "+%(counter)s lisää"
 msgstr[1] "+%(counter)s lisää"
 
+#, python-format
+msgid ""
+"No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Työnkulkuja ei ole luotu. Haluatko <a href=\"%(add_url)s\">luoda työnkulun</"
+"a>?"
+
 msgid "Choose which type of task you'd like to create."
 msgstr "Valitse minkä tyyppisen tehtävän haluat luoda."
 
@@ -1378,6 +1654,10 @@ msgstr "Valitse eri tehtävätyyppi"
 msgid "Task type"
 msgstr "Tehtävän tyyppi"
 
+#, python-format
+msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
+msgstr "Ei tuloksia haulle \"<em>%(query_string)s</em>\""
+
 msgid "You haven't created any tasks."
 msgstr "Et ole luonut yhtäkään tehtävää."
 
@@ -1386,6 +1666,12 @@ msgstr "Piilota käytöstä poistetut tehtävät"
 
 msgid "Show disabled tasks"
 msgstr "Näytä käytöstä poistetut tehtävät"
+
+#, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Tehtäviä ei ole luotu. Haluatko <a href=\"%(add_url)s\">luoda tehtävän</a>?"
 
 #, python-format
 msgid "Pages that use workflow '%(name)s'"
@@ -1400,6 +1686,14 @@ msgstr "tekijänä %(modified_by)s"
 
 msgid "Not started"
 msgstr "Ei aloitettu"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "Muutoksia pyytänyt %(requested_by)s"
+
+#, python-format
+msgid "Approved by %(approved_by)s"
+msgstr "Hyväksynyt %(approved_by)s"
 
 msgid "See full history"
 msgstr "Näytä koko historia"
@@ -1439,8 +1733,26 @@ msgstr "luonnos"
 msgid "Test"
 msgstr "Testi"
 
+msgid "Profile"
+msgstr "Profiili"
+
+msgid "Notifications"
+msgstr "Ilmoitukset"
+
+msgid "Name and Email"
+msgstr "Nimi ja sähköposti"
+
+msgid "Profile picture"
+msgstr "Profiilikuva"
+
+msgid "Locale"
+msgstr "Maa-asetusto"
+
 msgid "Password"
 msgstr "Salasana"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Tilisi asetukset on muutettu onnistuneesti!"
 
 msgid "You have been successfully logged out."
 msgstr "Olet kirjautunut ulos."
@@ -1466,6 +1778,9 @@ msgstr "Kokoelmaa ei voitu päivittää virheiden takia."
 msgid "Delete collection"
 msgstr "Poista kokoelma"
 
+msgid "Please select another parent"
+msgstr "Valitse toinen isäntä"
+
 msgid "Collection '{0}' deleted."
 msgstr "Kokoelma '{0}' poistettu."
 
@@ -1474,6 +1789,9 @@ msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 
 msgid "Editing"
 msgstr "Muokataan"
+
+msgid "Page '{0}' has been converted into an ordinary page."
+msgstr "Sivu '{0}' on muunnettu tavalliseksi sivuksi."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Sivu '{0}' ja {1} alasivua kopioitu."
@@ -1526,6 +1844,9 @@ msgstr "<b>Sivu '{}' on lukittu.</b>"
 msgid "This page is currently awaiting moderation."
 msgstr "Tämä sivu odottaa parhaillaan tarkastusta."
 
+msgid "Only reviewers for this task can edit the page."
+msgstr "Vain tämän tehtävän tarkastajat voivat muokata sivua."
+
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sivu '{0}' on ajastettu julkaistavaksi."
 
@@ -1535,11 +1856,17 @@ msgstr "Sivu '{0}' julkaistu."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sivu '{0}' on lähetetty tarkastettavaksi."
 
+msgid "Workflow on page '{0}' has been restarted."
+msgstr "Työnkulku sivulla '{0}' on käynnistetty uudelleen."
+
 msgid "The page could not be saved as it is locked"
 msgstr "Sivua ei voitu tallentaa, sillä se on lukittu"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Sivua ei voitu tallentaa validointivirheiden vuoksi"
+
+msgid "Hide commenting actions"
+msgstr "Piilota kommentointitoiminnot"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Sivu '{0}' ei ole enää lukittu."
@@ -1581,14 +1908,38 @@ msgstr "sivun \"{1}\" revisio {0}"
 msgid "Page '{0}' unpublished."
 msgstr "Sivu '{0}' piilotettu"
 
+msgid "Site history"
+msgstr "Sivuston historia"
+
+msgid "Action type"
+msgstr "Toiminnon tyyppi"
+
+msgid "Date/Time"
+msgstr "Päivä/aika"
+
+msgid "Locked pages"
+msgstr "Lukitut sivut"
+
+msgid "Show"
+msgstr "Näytä"
+
+msgid "Awaiting my review"
+msgstr "Odottaa tarkastustani"
+
 msgid "Workflows"
 msgstr "Työnkulut"
+
+msgid "Page Type"
+msgstr "Sivun tyyppi"
+
+msgid "Page Title"
+msgstr "Sivun otsikko"
 
 msgid "Workflow tasks"
 msgstr "Työnkulun tehtävät"
 
-msgid "Date/Time"
-msgstr "Päivä/aika"
+msgid "Requested By"
+msgstr "Pyytänyt"
 
 msgid "Add a workflow"
 msgstr "Lisää työnkulku"
@@ -1598,6 +1949,9 @@ msgstr "Uusi työnkulku"
 
 msgid "Workflow '{0}' created."
 msgstr "Työnkulku '{0}' luotu."
+
+msgid "Editing workflow"
+msgstr "Muokataan työnkulkua"
 
 msgid "Workflow '{0}' updated."
 msgstr "Työnkulku '{0}' päivitetty."
@@ -1625,6 +1979,9 @@ msgstr "Uusi työnkulun tehtävä"
 
 msgid "Task '{0}' created."
 msgstr "Tehtävä '{0}' luotu."
+
+msgid "Editing workflow task"
+msgstr "Muokataan työnkulun tehtävää"
 
 msgid "Task '{0}' updated."
 msgstr "Tehtävä '{0}' päivitetty."

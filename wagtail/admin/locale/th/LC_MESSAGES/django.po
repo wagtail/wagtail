@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Jon Combe <jon@naremit.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -72,11 +72,23 @@ msgstr "จากวันที่"
 msgid "Date to"
 msgstr "ถึงวันที่"
 
-msgid "Date"
-msgstr "วันที่"
+msgid "Preferred language"
+msgstr "ภาษาที่ต้องการใช้"
 
-msgid "Title"
-msgstr "หัวข้อ,หัวเรื่อง"
+msgid "Current time zone"
+msgstr "โซนเวลาปัจจุบัน"
+
+msgid "First Name"
+msgstr "ชื่อจริง"
+
+msgid "Last Name"
+msgstr "นามสกุล"
+
+msgid "Email"
+msgstr "อีเมล"
+
+msgid "Upload a profile picture"
+msgstr "อัพโหลดรูปภาพข้อมูลส่วนตัว"
 
 msgid "Enter password"
 msgstr "ใส่รหัสผ่าน"
@@ -241,6 +253,12 @@ msgstr "แก้ไข'{title}'"
 msgid "Save"
 msgstr "เซฟ , เก็บรักษาข้อมูล"
 
+msgid "Dashboard"
+msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
+
+msgid "Edit your account"
+msgstr "แก้ไขบัญชีของคุณ"
+
 msgid "Error 404: Page not found"
 msgstr "Error 404 : ไม่พบเนื้อหา"
 
@@ -305,9 +323,6 @@ msgstr "ตั้งรหัสใหม่"
 
 msgid "Reset your password"
 msgstr "ตั้งรหัสใหม่"
-
-msgid "Dashboard"
-msgstr "แผงควบคุม , หน้าจอที่ควบคุม"
 
 msgid "Menu"
 msgstr "เมนู"
@@ -429,6 +444,9 @@ msgid ""
 "created will be displayed."
 msgstr "นี่คือหน้าจอที่ช่วยในการให้ข้อมูลเกี่ยวกับการแสดงเนื้อหาที่คุณสร้าง"
 
+msgid "Title"
+msgstr "หัวข้อ,หัวเรื่อง"
+
 msgid "Edit this page"
 msgstr "แก้ไขหน้านี้"
 
@@ -465,6 +483,9 @@ msgstr "ที่คุณแก้ไขล่าสุด"
 msgid "Status"
 msgstr "สถานะ"
 
+msgid "Date"
+msgstr "วันที่"
+
 msgid "Site summary"
 msgstr "สรุป,หน้าหลักของเว็บไซด์"
 
@@ -480,9 +501,6 @@ msgstr "ลงชื่อเข้าใช้ในWagtail"
 
 msgid "Signing in…"
 msgstr "กำลังลงชื่อเข้าใช้"
-
-msgid "Forgotten it?"
-msgstr "คุณลืมมั้ย?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -968,9 +986,6 @@ msgstr "หน้าหลัก"
 msgid "All collections"
 msgstr "ทุกชุด"
 
-msgid "Edit your account"
-msgstr "แก้ไขบัญชีของคุณ"
-
 msgid "Account settings"
 msgstr "การตั้งค่าบัญชีของคุณ"
 
@@ -979,9 +994,6 @@ msgstr "ออกจากระบบ"
 
 msgid "Other searches"
 msgstr "ค้นหาอย่างอื่น"
-
-msgid "Go to Wagtail admin interface"
-msgstr "ไปยังหน้าWagtail admin"
 
 msgid "Add a child page"
 msgstr "เพิ่มหน้ารองลงมา"

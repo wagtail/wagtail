@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -70,15 +70,6 @@ msgstr "En gruppe med det navnet eksisterer allerede."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme side."
-
-msgid "Preferred language"
-msgstr "Foretrukket språk"
-
-msgid "Current time zone"
-msgstr "Nåværende tidssone"
-
-msgid "Upload a profile picture"
-msgstr "Last opp profilbilde"
 
 msgid "submitted notifications"
 msgstr "innsendingsvarsel"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-30 12:24+0000\n"
 "Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -21,6 +21,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Add Comment"
+msgstr "Pridėti komentarą"
 
 msgid "Move up"
 msgstr "Perkelti aukštyn"
@@ -56,57 +59,6 @@ msgstr "Slaptažodis kurį suvedėte yra neteisingas. Bandykite dar kartą."
 
 msgid "Comment"
 msgstr "Komentaras"
-
-msgid "hostname"
-msgstr "svetainės kompiuterio vardas"
-
-msgid "port"
-msgstr "prievadas"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Nustatykite į ką nors kitko nei 80 jei reikia specifinio prievado numerio, "
-"kuris būtų atvaizduojamas URLs (pvz. vystymas 8000 prievade). Neįtakoja "
-"užklausų apdorojimo (prievadų peradresavimas vis dar veikia)."
-
-msgid "site name"
-msgstr "tinklalapio pavadinimas"
-
-msgid "Human-readable name for the site."
-msgstr "Skaitymui/atvaizdavimui skirtas tinklalapio pavadinimas."
-
-msgid "root page"
-msgstr "šakninis puslapis"
-
-msgid "is default site"
-msgstr "yra numatytasis tinklalapis"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Jei taip, šis tinklalapis apdoros visų kitų svetainės kompiuterio vardų "
-"užklausas kurios turi suvestus tinklalapius"
-
-msgid "site"
-msgstr "tinklalapis"
-
-msgid "sites"
-msgstr "tinklalapiai"
-
-msgid "default"
-msgstr "numatytasis"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s jau nustatytas kaip numatytasis tinklalapis. Reikia panaikinti "
-"tą nustatymą kad galėtumėte išsaugoti ši tinklalapį kaip numatytąjį."
 
 msgid "title"
 msgstr "pavadinimas"
@@ -255,6 +207,100 @@ msgstr "grupės puslapio leidimas"
 msgid "group page permissions"
 msgstr "grupės puslapio leidimai"
 
+msgid "page view restriction"
+msgstr "puslapio peržiūros apribojimas"
+
+msgid "page view restrictions"
+msgstr "puslapio peržiūros apribojimai"
+
+msgid "name"
+msgstr "pavadinimas"
+
+msgid "groups"
+msgstr "grupės"
+
+msgid "Approve"
+msgstr "Patvirtinti"
+
+msgid "comment"
+msgstr "komentaras"
+
+msgid "comments"
+msgstr "komentarai"
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "vartotojas %(id)d (ištrintas)"
+
+msgid "collection"
+msgstr "kolekcija"
+
+msgid "collection view restriction"
+msgstr "žiūrėti kolekcijos apribojimą"
+
+msgid "collection view restrictions"
+msgstr "žiūrėti kolekcijos apribojimus"
+
+msgid "collections"
+msgstr "kolekcijos"
+
+msgid "permission"
+msgstr "leidimai"
+
+msgid "group collection permission"
+msgstr "grupės kolekcijos leidimas"
+
+msgid "hostname"
+msgstr "svetainės kompiuterio vardas"
+
+msgid "port"
+msgstr "prievadas"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Nustatykite į ką nors kitko nei 80 jei reikia specifinio prievado numerio, "
+"kuris būtų atvaizduojamas URLs (pvz. vystymas 8000 prievade). Neįtakoja "
+"užklausų apdorojimo (prievadų peradresavimas vis dar veikia)."
+
+msgid "site name"
+msgstr "tinklalapio pavadinimas"
+
+msgid "Human-readable name for the site."
+msgstr "Skaitymui/atvaizdavimui skirtas tinklalapio pavadinimas."
+
+msgid "root page"
+msgstr "šakninis puslapis"
+
+msgid "is default site"
+msgstr "yra numatytasis tinklalapis"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Jei taip, šis tinklalapis apdoros visų kitų svetainės kompiuterio vardų "
+"užklausas kurios turi suvestus tinklalapius"
+
+msgid "site"
+msgstr "tinklalapis"
+
+msgid "sites"
+msgstr "tinklalapiai"
+
+msgid "default"
+msgstr "numatytasis"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s jau nustatytas kaip numatytasis tinklalapis. Reikia panaikinti "
+"tą nustatymą kad galėtumėte išsaugoti ši tinklalapį kaip numatytąjį."
+
 msgid "Public"
 msgstr "Viešas"
 
@@ -270,48 +316,11 @@ msgstr "Privatu, pasiekiama specifinėse grupėse esantiems vartotojams"
 msgid "password"
 msgstr "slaptažodis"
 
-msgid "groups"
-msgstr "grupės"
-
 msgid "view restriction"
 msgstr "žiūrėti apribojimą"
 
 msgid "view restrictions"
 msgstr "žiūrėti apribojimus"
-
-msgid "page view restriction"
-msgstr "puslapio peržiūros apribojimas"
-
-msgid "page view restrictions"
-msgstr "puslapio peržiūros apribojimai"
-
-msgid "collection"
-msgstr "kolekcija"
-
-msgid "collection view restriction"
-msgstr "žiūrėti kolekcijos apribojimą"
-
-msgid "collection view restrictions"
-msgstr "žiūrėti kolekcijos apribojimus"
-
-msgid "name"
-msgstr "pavadinimas"
-
-msgid "collections"
-msgstr "kolekcijos"
-
-msgid "permission"
-msgstr "leidimai"
-
-msgid "group collection permission"
-msgstr "grupės kolekcijos leidimas"
-
-msgid "Approve"
-msgstr "Patvirtinti"
-
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "vartotojas %(id)d (ištrintas)"
 
 msgid "Log in"
 msgstr "Prisijungti"
@@ -363,8 +372,21 @@ msgstr "Atrakinta"
 msgid "Reject"
 msgstr "Atmesti"
 
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Išsprendė „%(field)s“ laukelio komentarą: „%(text)s“"
+
+msgid "Resolved a comment"
+msgstr "Išsprendė komentarą"
+
 msgid "Copy"
 msgstr "Kopijuoti"
 
 msgid "Move"
 msgstr "Perkelti"
+
+msgid "Add comment"
+msgstr "Pridėti komentarą"
+
+msgid "Resolve comment"
+msgstr "Išspręsti komentarą"

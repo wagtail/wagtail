@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: George Giannoulopoulos <vdotoree@yahoo.gr>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -66,11 +66,14 @@ msgstr "Προωθηση"
 msgid "Settings"
 msgstr "Ρυθμισεις"
 
-msgid "Date"
-msgstr "Ημερομηνία"
+msgid "First Name"
+msgstr "Όνομα"
 
-msgid "Title"
-msgstr "Τίτλος"
+msgid "Last Name"
+msgstr "Επίθετο"
+
+msgid "Email"
+msgstr "Email"
 
 msgid "Enter password"
 msgstr "Εισάγετε τον κωδικό σας"
@@ -189,6 +192,12 @@ msgstr "Αποθηκευση"
 msgid "Saving..."
 msgstr "Αποθήκευση..."
 
+msgid "Dashboard"
+msgstr "Πίνακας ελέγχου"
+
+msgid "Edit your account"
+msgstr "Επεξεργαστείτε το λογαριασμό σας"
+
 msgid "Go to Wagtail admin"
 msgstr "Πηγαίνετε στη διαχείριση του Wagtail"
 
@@ -230,9 +239,6 @@ msgstr "Ανανέωση κωδικού"
 
 msgid "Reset your password"
 msgstr "Ανανεώστε τον κωδικό σας"
-
-msgid "Dashboard"
-msgstr "Πίνακας ελέγχου"
 
 msgid "Menu"
 msgstr "Μενού"
@@ -335,6 +341,9 @@ msgstr ""
 "Αυτός είναι ο πίνακας ελέγχου στον οποίο εμφανίζονται πληροφορίες σχετικές "
 "με το περιεχόμενου που έχετε δημιουργήσει."
 
+msgid "Title"
+msgstr "Τίτλος"
+
 msgid "Edit this page"
 msgstr "Διόρθωση της σελίδας"
 
@@ -368,6 +377,9 @@ msgstr "Οι πιο πρόσφατες διορθώσεις σας"
 msgid "Status"
 msgstr "Κατάσταση"
 
+msgid "Date"
+msgstr "Ημερομηνία"
+
 msgid "Site summary"
 msgstr "Κατάσταση site"
 
@@ -382,9 +394,6 @@ msgstr ""
 
 msgid "Sign in to Wagtail"
 msgstr "Είσοδος στο Wagtail"
-
-msgid "Forgotten it?"
-msgstr "Ξέχασα τον κωδικό μου"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -848,9 +857,6 @@ msgstr "Αρχή"
 msgid "All collections"
 msgstr "Όλες οι συλλογές"
 
-msgid "Edit your account"
-msgstr "Επεξεργαστείτε το λογαριασμό σας"
-
 msgid "Account settings"
 msgstr "Ρυθμίσεις λογαριασμού"
 
@@ -859,9 +865,6 @@ msgstr "Αποσύνδεση"
 
 msgid "Other searches"
 msgstr "Άλλες αναζητήσεις"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Πηγαίνετε στο Wagtail περιβάλλον του διαχειριστή"
 
 msgid "Add a child page"
 msgstr "Προσθέστε μια υποσελίδα"

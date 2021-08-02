@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -55,51 +55,6 @@ msgstr "รหัสผ่าน"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "พาสเวิร์ดที่คุณกรอกไม่ถูกต้อง กรุณาลองอีกครั้ง"
-
-msgid "hostname"
-msgstr "ชื่อเจ้าของ"
-
-msgid "port"
-msgstr "พอร์ท,รหัสเครื่องคอมพิวเตอร์"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"ติดตั้งอย่างอื่นที่ไม่ใช่  80 ถ้าคุณต้องการเจาะจงรหัสเครื่องคอมพิวเตอร์ที่ขึ้นใร URL (เช่น "
-"การพัฒนาที่รหัสเครื่อง 8000) มันไม่มีผลกระทบถึงการขอ (ดังนั้นพอร์ทยังสามารถส่งต่อได้)"
-
-msgid "site name"
-msgstr "ชื่อเว็บไซต์"
-
-msgid "Human-readable name for the site."
-msgstr "ชื่อของเว็บไซด์ที่มนุษย์อ่านได้"
-
-msgid "root page"
-msgstr "ต้นฉบับ"
-
-msgid "is default site"
-msgstr "คือเว็บไซด์ต้นแบบ"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr "ถ้าใช่,เว็บไซด์นี้จะเปิดรับการขอสำหรับชื่อจากเจ้าของอื่นที่ยังไม่มีเว็บไซด์"
-
-msgid "site"
-msgstr "เว็บไซด์"
-
-msgid "sites"
-msgstr "หลายเว็บไซด์"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s โครงสร้างนี้ถูกตั้งค่าเริ่มต้นในเว็บไซด์เรียบร้อยแล้ว "
-"คุณต้องการยกเลิกโครงสร้างนี้ก่อนที่คุณจะทำการเซฟ เหมือนตอนตั้งค่าเริ่มต้น"
 
 msgid "title"
 msgstr "หัวข้อ"
@@ -239,6 +194,87 @@ msgstr "การอนุญาตหลายๆหน้า"
 msgid "group page permissions"
 msgstr "การอนุญาตหลายๆหน้า"
 
+msgid "page view restriction"
+msgstr "การเปิดดูหน้ามีข้อจำกัด"
+
+msgid "page view restrictions"
+msgstr "การเปิดดูหน้ามีข้อจำกัด"
+
+msgid "name"
+msgstr "ชื่อ"
+
+msgid "groups"
+msgstr "กลุ่ม"
+
+msgid "Approve"
+msgstr "ยืนยัน"
+
+msgid "collection"
+msgstr "ของสะสม"
+
+msgid "collection view restriction"
+msgstr "การดูชุดมีข้อจำกัด"
+
+msgid "collection view restrictions"
+msgstr "การดูชุดมีข้อจำกัด"
+
+msgid "collections"
+msgstr "ของสะสมต่างๆ"
+
+msgid "permission"
+msgstr "การอนุญาต"
+
+msgid "group collection permission"
+msgstr "การสะสมกลุ่มที่จะอนุญาต"
+
+msgid "group collection permissions"
+msgstr "การสะสมกลุ่มที่จะอนุญาต"
+
+msgid "hostname"
+msgstr "ชื่อเจ้าของ"
+
+msgid "port"
+msgstr "พอร์ท,รหัสเครื่องคอมพิวเตอร์"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"ติดตั้งอย่างอื่นที่ไม่ใช่  80 ถ้าคุณต้องการเจาะจงรหัสเครื่องคอมพิวเตอร์ที่ขึ้นใร URL (เช่น "
+"การพัฒนาที่รหัสเครื่อง 8000) มันไม่มีผลกระทบถึงการขอ (ดังนั้นพอร์ทยังสามารถส่งต่อได้)"
+
+msgid "site name"
+msgstr "ชื่อเว็บไซต์"
+
+msgid "Human-readable name for the site."
+msgstr "ชื่อของเว็บไซด์ที่มนุษย์อ่านได้"
+
+msgid "root page"
+msgstr "ต้นฉบับ"
+
+msgid "is default site"
+msgstr "คือเว็บไซด์ต้นแบบ"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "ถ้าใช่,เว็บไซด์นี้จะเปิดรับการขอสำหรับชื่อจากเจ้าของอื่นที่ยังไม่มีเว็บไซด์"
+
+msgid "site"
+msgstr "เว็บไซด์"
+
+msgid "sites"
+msgstr "หลายเว็บไซด์"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s โครงสร้างนี้ถูกตั้งค่าเริ่มต้นในเว็บไซด์เรียบร้อยแล้ว "
+"คุณต้องการยกเลิกโครงสร้างนี้ก่อนที่คุณจะทำการเซฟ เหมือนตอนตั้งค่าเริ่มต้น"
+
 msgid "Public"
 msgstr "สาธารณะ"
 
@@ -254,47 +290,11 @@ msgstr "ส่วนตัว,สำหรับผู้ใช้ที่เ�
 msgid "password"
 msgstr "รหัสผ่าน"
 
-msgid "groups"
-msgstr "กลุ่ม"
-
 msgid "view restriction"
 msgstr "ดูข้อจำกัด"
 
 msgid "view restrictions"
 msgstr "ดูข้อจำกัดต่างๆ"
-
-msgid "page view restriction"
-msgstr "การเปิดดูหน้ามีข้อจำกัด"
-
-msgid "page view restrictions"
-msgstr "การเปิดดูหน้ามีข้อจำกัด"
-
-msgid "collection"
-msgstr "ของสะสม"
-
-msgid "collection view restriction"
-msgstr "การดูชุดมีข้อจำกัด"
-
-msgid "collection view restrictions"
-msgstr "การดูชุดมีข้อจำกัด"
-
-msgid "name"
-msgstr "ชื่อ"
-
-msgid "collections"
-msgstr "ของสะสมต่างๆ"
-
-msgid "permission"
-msgstr "การอนุญาต"
-
-msgid "group collection permission"
-msgstr "การสะสมกลุ่มที่จะอนุญาต"
-
-msgid "group collection permissions"
-msgstr "การสะสมกลุ่มที่จะอนุญาต"
-
-msgid "Approve"
-msgstr "ยืนยัน"
 
 msgid "Log in"
 msgstr "เข้าสู่ระบบ"

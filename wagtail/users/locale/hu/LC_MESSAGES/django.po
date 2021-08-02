@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 06:17+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -71,15 +71,6 @@ msgstr "Már létezik csoport ezzel a névvel."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Nem lehet több engedély bejegyzés ugyanahhoz az oldalhoz."
-
-msgid "Preferred language"
-msgstr "Alapértelmezett nyelv"
-
-msgid "Current time zone"
-msgstr "Jelenlegi időzóna"
-
-msgid "Upload a profile picture"
-msgstr "Profilkép feltöltése"
 
 msgid "submitted notifications"
 msgstr "beküldött értesítések"

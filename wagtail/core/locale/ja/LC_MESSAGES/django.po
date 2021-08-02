@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-07-02 13:40+0000\n"
-"Last-Translator: Goto Hayato <habita.gh@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:38+0000\n"
+"Last-Translator: kojikojikojikoji\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -69,57 +69,6 @@ msgstr "入力されたパスワードは正しくありませんでした。再
 
 msgid "Comment"
 msgstr "コメント"
-
-msgid "hostname"
-msgstr "ホスト名"
-
-msgid "port"
-msgstr "ポート番号"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"URL欄に特定のポート番号を表示したい場合は、80以外の番号を設定してください"
-"（例：ポート8000に開設）。これは要求処理には影響しません（ポートフォワーディ"
-"ングはこれまで通り機能します）。"
-
-msgid "site name"
-msgstr "サイト名"
-
-msgid "Human-readable name for the site."
-msgstr "わかりやすいサイト名"
-
-msgid "root page"
-msgstr "ルートページ"
-
-msgid "is default site"
-msgstr "デフォルトのサイトです"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"はい >> このサイトはサイトエントリーのないホスト名のもとでのリクエストをも処"
-"理します。"
-
-msgid "site"
-msgstr "サイト"
-
-msgid "sites"
-msgstr "サイト一覧"
-
-msgid "default"
-msgstr "デフォルト"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"現在、%(hostname)sがデフォルトのサイトに設定されています。設定を解除してから"
-"このサイトをデフォルトに設定してください。"
 
 msgid "title"
 msgstr "タイトル"
@@ -276,59 +225,11 @@ msgstr "グループページの権限"
 msgid "group page permissions"
 msgstr "グループページの権限"
 
-msgid "Public"
-msgstr "公開"
-
-msgid "Private, accessible to logged-in users"
-msgstr "限定公開、ログインユーザのみアクセス可能"
-
-msgid "Private, accessible with the following password"
-msgstr "限定公開、次のパスワードによりアクセス可能"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "限定公開、特定のグループに属するユーザのみアクセス可能"
-
-msgid "password"
-msgstr "パスワード"
-
-msgid "groups"
-msgstr "グループ"
-
-msgid "view restriction"
-msgstr "閲覧権限"
-
-msgid "view restrictions"
-msgstr "閲覧権限"
-
 msgid "page view restriction"
 msgstr "ページ閲覧の権限"
 
 msgid "page view restrictions"
 msgstr "ページ閲覧の権限"
-
-msgid "collection"
-msgstr "コレクション"
-
-msgid "collection view restriction"
-msgstr "コレクションページ閲覧の権限"
-
-msgid "collection view restrictions"
-msgstr "コレクションページ閲覧の権限"
-
-msgid "name"
-msgstr "名前"
-
-msgid "collections"
-msgstr "コレクション"
-
-msgid "permission"
-msgstr "権限"
-
-msgid "group collection permission"
-msgstr "グループコレクションの権限"
-
-msgid "group collection permissions"
-msgstr "グループコレクションの権限"
 
 msgid "workflow"
 msgstr "ワークフロー"
@@ -342,11 +243,17 @@ msgstr "ワークフローページ"
 msgid "task"
 msgstr "タスク"
 
+msgid "name"
+msgstr "名前"
+
 msgid "tasks"
 msgstr "タスク"
 
 msgid "workflows"
 msgstr "ワークフロー"
+
+msgid "groups"
+msgstr "グループ"
 
 msgid "Request changes"
 msgstr "変更をリクエスト"
@@ -390,18 +297,6 @@ msgstr "タスクの状態"
 msgid "Task states"
 msgstr "タスクの状態"
 
-msgid "timestamp (UTC)"
-msgstr "タイムスタンプ（ UTC ）"
-
-msgid "log entry"
-msgstr "ログエントリー"
-
-msgid "log entries"
-msgstr "ログエントリー"
-
-msgid "system"
-msgstr "システム"
-
 msgid "page log entry"
 msgstr "ページログエントリー"
 
@@ -419,6 +314,111 @@ msgstr "コメント返信"
 
 msgid "comment replies"
 msgstr "コメント返信"
+
+msgid "timestamp (UTC)"
+msgstr "タイムスタンプ（ UTC ）"
+
+msgid "log entry"
+msgstr "ログエントリー"
+
+msgid "log entries"
+msgstr "ログエントリー"
+
+msgid "system"
+msgstr "システム"
+
+msgid "collection"
+msgstr "コレクション"
+
+msgid "collection view restriction"
+msgstr "コレクションページ閲覧の権限"
+
+msgid "collection view restrictions"
+msgstr "コレクションページ閲覧の権限"
+
+msgid "collections"
+msgstr "コレクション"
+
+msgid "permission"
+msgstr "権限"
+
+msgid "group collection permission"
+msgstr "グループコレクションの権限"
+
+msgid "group collection permissions"
+msgstr "グループコレクションの権限"
+
+msgid "hostname"
+msgstr "ホスト名"
+
+msgid "port"
+msgstr "ポート番号"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"URL欄に特定のポート番号を表示したい場合は、80以外の番号を設定してください"
+"（例：ポート8000に開設）。これは要求処理には影響しません（ポートフォワーディ"
+"ングはこれまで通り機能します）。"
+
+msgid "site name"
+msgstr "サイト名"
+
+msgid "Human-readable name for the site."
+msgstr "わかりやすいサイト名"
+
+msgid "root page"
+msgstr "ルートページ"
+
+msgid "is default site"
+msgstr "デフォルトのサイトです"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"はい >> このサイトはサイトエントリーのないホスト名のもとでのリクエストをも処"
+"理します。"
+
+msgid "site"
+msgstr "サイト"
+
+msgid "sites"
+msgstr "サイト一覧"
+
+msgid "default"
+msgstr "デフォルト"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"現在、%(hostname)sがデフォルトのサイトに設定されています。設定を解除してから"
+"このサイトをデフォルトに設定してください。"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Private, accessible to logged-in users"
+msgstr "限定公開、ログインユーザのみアクセス可能"
+
+msgid "Private, accessible with the following password"
+msgstr "限定公開、次のパスワードによりアクセス可能"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "限定公開、特定のグループに属するユーザのみアクセス可能"
+
+msgid "password"
+msgstr "パスワード"
+
+msgid "view restriction"
+msgstr "閲覧権限"
+
+msgid "view restrictions"
+msgstr "閲覧権限"
 
 msgid "Log in"
 msgstr "ログイン"
@@ -484,9 +484,6 @@ msgstr "複製"
 msgid "Create alias"
 msgstr "エイリアスを作成"
 
-msgid "Convert alias into regular page"
-msgstr "エイリアスを通常のページに変換"
-
 msgid "Move"
 msgstr "移動"
 
@@ -498,3 +495,6 @@ msgstr "公開をスケジュール"
 
 msgid "Unschedule publication"
 msgstr "公開スケジュールを解除"
+
+msgid "Add comment"
+msgstr "コメントを追加"
