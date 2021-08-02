@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Thomas Kunambi <kunambi@gmail.com>, 2021
 # Martin Sandström <martin@marteinn.se>, 2021
+# Thomas Kunambi <kunambi@gmail.com>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-21 09:32+0100\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>, 2021\n"
+"Last-Translator: Thomas Kunambi <kunambi@gmail.com>, 2021\n"
 "Language-Team: Swedish (https://www.transifex.com/torchbox/teams/8009/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,6 +38,17 @@ msgid "Include subtree ({} page)"
 msgid_plural "Include subtree ({} pages)"
 msgstr[0] "Inkludera underträd ({} sida)"
 msgstr[1] "Inkludera underträd ({} sidor)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] "Ett språk är avstängt pga en föräldrasida är inte översatt."
+msgstr[1] "Några språk är avstängda pga några föräldrasidor är inte översatta."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Översätt föräldrasidan."
+msgstr[1] "Översätt föräldrasidorna."
 
 msgid "Submit"
 msgstr "Skicka"

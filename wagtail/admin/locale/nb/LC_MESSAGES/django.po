@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -85,11 +85,23 @@ msgstr "Til-dato"
 msgid "All"
 msgstr "Alle"
 
-msgid "Date"
-msgstr "Dato"
+msgid "Preferred language"
+msgstr "Foretrukket språk"
 
-msgid "Title"
-msgstr "Tittel"
+msgid "Current time zone"
+msgstr "Nåværende tidssone"
+
+msgid "First Name"
+msgstr "Fornavn"
+
+msgid "Last Name"
+msgstr "Etternavn"
+
+msgid "Email"
+msgstr "E-post"
+
+msgid "Upload a profile picture"
+msgstr "Last opp profilbilde"
 
 msgid "Enter password"
 msgstr "Skriv inn passord"
@@ -276,6 +288,12 @@ msgstr "Lagre"
 msgid "Saving..."
 msgstr "Lagrer..."
 
+msgid "Dashboard"
+msgstr "Kontrollpanel"
+
+msgid "Edit your account"
+msgstr "Endre din konto"
+
 msgid "Error 404: Page not found"
 msgstr "404 Feil: Fant ikke siden"
 
@@ -345,9 +363,6 @@ msgstr "Passordnullstilling"
 
 msgid "Reset your password"
 msgstr "Nullstill ditt passord"
-
-msgid "Dashboard"
-msgstr "Kontrollpanel"
 
 msgid "Menu"
 msgstr "Meny"
@@ -504,6 +519,9 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Dine låste sider"
 
+msgid "Title"
+msgstr "Tittel"
+
 msgid "Locked at"
 msgstr "Låst den"
 
@@ -543,6 +561,9 @@ msgstr "Dine siste endringer"
 msgid "Status"
 msgstr "Status"
 
+msgid "Date"
+msgstr "Dato"
+
 msgid "Site summary"
 msgstr "Oppsummering for nettstedet"
 
@@ -581,9 +602,6 @@ msgstr "Logg inn på Wagtail"
 
 msgid "Signing in…"
 msgstr "Logger inn..."
-
-msgid "Forgotten it?"
-msgstr "Glemt?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1172,9 +1190,6 @@ msgstr "Hjem"
 msgid "All collections"
 msgstr "Alle samlinger"
 
-msgid "Edit your account"
-msgstr "Endre din konto"
-
 msgid "Account settings"
 msgstr "Kontoinnstillinger"
 
@@ -1194,9 +1209,6 @@ msgid ""
 msgstr ""
 "Du bruker en <strong>utdatert</strong> nettleser som ikke støttes. Vennligst "
 "<a href=\"https://browsehappy.com/\">oppgrader nettleseren din</a>."
-
-msgid "Go to Wagtail admin interface"
-msgstr "Gå til Wagtail administrasjonsgrensesnitt"
 
 msgid "Add a child page"
 msgstr "Legg til en underside"

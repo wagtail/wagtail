@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: ongchi <ihcgno@icloud.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -64,54 +64,6 @@ msgstr "評論"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "未知 %(action)s"
-
-msgid "hostname"
-msgstr "主機名稱"
-
-msgid "port"
-msgstr "埠號"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"將此處設置為一個非80的值，如果你需要指定顯示在URL中的埠（如8000）。不影響請求"
-"處理（埠轉發依舊有效）。"
-
-msgid "site name"
-msgstr "站點名稱"
-
-msgid "Human-readable name for the site."
-msgstr "此站點的可讀名稱"
-
-msgid "root page"
-msgstr "根頁面"
-
-msgid "is default site"
-msgstr "是預設站點"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr "如果勾選，此站點將處理通過其它主機名訪問的，尚沒有站點內容的請求。"
-
-msgid "site"
-msgstr "站點"
-
-msgid "sites"
-msgstr "站點"
-
-msgid "default"
-msgstr "預設"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s已被配置為預設站點。在您將此站點設置為預設前，您必須取消原來的預"
-"設站點。"
 
 msgid "title"
 msgstr "標題"
@@ -269,59 +221,11 @@ msgstr "群組頁面權限"
 msgid "group page permissions"
 msgstr "群組頁面權限"
 
-msgid "Public"
-msgstr "公開"
-
-msgid "Private, accessible to logged-in users"
-msgstr "私有，登錄用戶可訪問"
-
-msgid "Private, accessible with the following password"
-msgstr "私有，使用下列的密碼訪問："
-
-msgid "Private, accessible to users in specific groups"
-msgstr "私有，特定用戶組中的用戶可訪問"
-
-msgid "password"
-msgstr "密碼"
-
-msgid "groups"
-msgstr "組"
-
-msgid "view restriction"
-msgstr "查看限制"
-
-msgid "view restrictions"
-msgstr "查看限制"
-
 msgid "page view restriction"
 msgstr "查看頁面限制"
 
 msgid "page view restrictions"
 msgstr "查看頁面限制"
-
-msgid "collection"
-msgstr "集合"
-
-msgid "collection view restriction"
-msgstr "集合檢視限制"
-
-msgid "collection view restrictions"
-msgstr "集合檢視限制"
-
-msgid "name"
-msgstr "名稱"
-
-msgid "collections"
-msgstr "集合"
-
-msgid "permission"
-msgstr "權限"
-
-msgid "group collection permission"
-msgstr "群組集合權限"
-
-msgid "group collection permissions"
-msgstr "群組集合權限"
 
 msgid "workflow"
 msgstr "工作流程"
@@ -344,6 +248,9 @@ msgstr "工作流程作業順序"
 msgid "workflow task orders"
 msgstr "工作流程作業順序"
 
+msgid "name"
+msgstr "名稱"
+
 msgid "active"
 msgstr "啟用"
 
@@ -362,6 +269,9 @@ msgstr "啟用中的工作流程可增加至頁面。停用工作流程不會將
 
 msgid "workflows"
 msgstr "工作流程"
+
+msgid "groups"
+msgstr "組"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -444,6 +354,96 @@ msgstr "使用者 %(id)d (已刪除)"
 msgid "system"
 msgstr "系統"
 
+msgid "collection"
+msgstr "集合"
+
+msgid "collection view restriction"
+msgstr "集合檢視限制"
+
+msgid "collection view restrictions"
+msgstr "集合檢視限制"
+
+msgid "collections"
+msgstr "集合"
+
+msgid "permission"
+msgstr "權限"
+
+msgid "group collection permission"
+msgstr "群組集合權限"
+
+msgid "group collection permissions"
+msgstr "群組集合權限"
+
+msgid "hostname"
+msgstr "主機名稱"
+
+msgid "port"
+msgstr "埠號"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"將此處設置為一個非80的值，如果你需要指定顯示在URL中的埠（如8000）。不影響請求"
+"處理（埠轉發依舊有效）。"
+
+msgid "site name"
+msgstr "站點名稱"
+
+msgid "Human-readable name for the site."
+msgstr "此站點的可讀名稱"
+
+msgid "root page"
+msgstr "根頁面"
+
+msgid "is default site"
+msgstr "是預設站點"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "如果勾選，此站點將處理通過其它主機名訪問的，尚沒有站點內容的請求。"
+
+msgid "site"
+msgstr "站點"
+
+msgid "sites"
+msgstr "站點"
+
+msgid "default"
+msgstr "預設"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s已被配置為預設站點。在您將此站點設置為預設前，您必須取消原來的預"
+"設站點。"
+
+msgid "Public"
+msgstr "公開"
+
+msgid "Private, accessible to logged-in users"
+msgstr "私有，登錄用戶可訪問"
+
+msgid "Private, accessible with the following password"
+msgstr "私有，使用下列的密碼訪問："
+
+msgid "Private, accessible to users in specific groups"
+msgstr "私有，特定用戶組中的用戶可訪問"
+
+msgid "password"
+msgstr "密碼"
+
+msgid "view restriction"
+msgstr "查看限制"
+
+msgid "view restrictions"
+msgstr "查看限制"
+
 msgid "Log in"
 msgstr "登入"
 
@@ -515,9 +515,6 @@ msgstr "已複製"
 msgid "Created an alias"
 msgstr "建立別名"
 
-msgid "Converted an alias into a regular page"
-msgstr "轉換別名為一般頁面"
-
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "由 '%(old_parent)s' 移動至 '%(new_parent)s'"
@@ -553,9 +550,6 @@ msgstr "複製"
 
 msgid "Create alias"
 msgstr "建立別名"
-
-msgid "Convert alias into regular page"
-msgstr "轉換別名為一般頁面"
 
 msgid "Move"
 msgstr "移動"

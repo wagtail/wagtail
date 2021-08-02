@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-06-04 20:23+0000\n"
-"Last-Translator: Adam Hughes <adamhughes31@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,6 @@ msgstr "Ychwanegu"
 msgid "Comment"
 msgstr "Sylw"
 
-msgid "default"
-msgstr "diofyn"
-
 msgid "title"
 msgstr "teitl"
 
@@ -48,6 +45,9 @@ msgstr "Clo"
 
 msgid "Unlock"
 msgstr "Datgloi"
+
+msgid "default"
+msgstr "diofyn"
 
 msgid "Unpublish"
 msgstr "Anghyhoedd"

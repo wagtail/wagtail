@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -58,52 +58,6 @@ msgstr "Seña"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Seña ladiak! Favor koko ida tan."
-
-msgid "hostname"
-msgstr "naranhost"
-
-msgid "port"
-msgstr "portu"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Se ita boot presiza portu specifiku iha URL hatama nee (ezemplu portu 8000)"
-
-msgid "site name"
-msgstr "naran situs"
-
-msgid "Human-readable name for the site."
-msgstr "naran situs lee fasil"
-
-msgid "root page"
-msgstr "pajina fuan"
-
-msgid "is default site"
-msgstr "Ne'e situs detallu"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Se karik loos, situs ida ne'e sei liga ho rekerimentu hotu-hotu hostname "
-"seluk katak la iha situs ida ho sira an rasik."
-
-msgid "site"
-msgstr "situs"
-
-msgid "sites"
-msgstr "situs sira"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"Agora  situs onorárius. Ita tenki halo %(hostname)s la onorárius antes xavi "
-"situs nee onorárius."
 
 msgid "title"
 msgstr "titlu"
@@ -237,20 +191,17 @@ msgstr "Grupu pajina permisaun"
 msgid "group page permissions"
 msgstr "Grupu pajina permisaun sira"
 
-msgid "Public"
-msgstr "Publiku"
-
-msgid "password"
-msgstr "Sena"
+msgid "name"
+msgstr "Naran"
 
 msgid "groups"
 msgstr "Grupu sira"
 
+msgid "Approve"
+msgstr "Aprova"
+
 msgid "collection"
 msgstr "Koleksaun"
-
-msgid "name"
-msgstr "Naran"
 
 msgid "collections"
 msgstr "Koleksaun sira"
@@ -258,8 +209,57 @@ msgstr "Koleksaun sira"
 msgid "permission"
 msgstr "Permisaun"
 
-msgid "Approve"
-msgstr "Aprova"
+msgid "hostname"
+msgstr "naranhost"
+
+msgid "port"
+msgstr "portu"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Se ita boot presiza portu specifiku iha URL hatama nee (ezemplu portu 8000)"
+
+msgid "site name"
+msgstr "naran situs"
+
+msgid "Human-readable name for the site."
+msgstr "naran situs lee fasil"
+
+msgid "root page"
+msgstr "pajina fuan"
+
+msgid "is default site"
+msgstr "Ne'e situs detallu"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Se karik loos, situs ida ne'e sei liga ho rekerimentu hotu-hotu hostname "
+"seluk katak la iha situs ida ho sira an rasik."
+
+msgid "site"
+msgstr "situs"
+
+msgid "sites"
+msgstr "situs sira"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"Agora  situs onorárius. Ita tenki halo %(hostname)s la onorárius antes xavi "
+"situs nee onorárius."
+
+msgid "Public"
+msgstr "Publiku"
+
+msgid "password"
+msgstr "Sena"
 
 msgid "Log in"
 msgstr "Tama"

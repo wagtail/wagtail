@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -58,57 +58,6 @@ msgstr "Пароль"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Пароль. який ви ввели, не є коректним. Будь ласка, спробуйте ще."
-
-msgid "hostname"
-msgstr "им'я хоста"
-
-msgid "port"
-msgstr "порт"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Задайте порт, відмінний від 80, якщо потрібно, щоб його було вказано у URL "
-"(наприклад, для розробки на порту 8000). Не впливає на обробку запитів "
-"(перенаправлення портів буде працювати)."
-
-msgid "site name"
-msgstr "Имя сайта"
-
-msgid "Human-readable name for the site."
-msgstr "Ім'я сайту, зручне для людини"
-
-msgid "root page"
-msgstr "коренева сторінка"
-
-msgid "is default site"
-msgstr "є типовим сайтом"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Якщо true (істина), цей сайт буде обробляти запити для всіх імен хостів, що "
-"не мають своїх окремих налаштувань"
-
-msgid "site"
-msgstr "сайт"
-
-msgid "sites"
-msgstr "сайти"
-
-msgid "default"
-msgstr "за замовчуванням"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s вже налаштовано, як типовий сайт. Якщо хочете зберегти цей сайт "
-"як типовий, спочатку приберіть цей атрибут."
 
 msgid "title"
 msgstr "заголовок"
@@ -254,6 +203,90 @@ msgstr "дозвіл для групи сторінок "
 msgid "group page permissions"
 msgstr "дозволи для групи сторінок "
 
+msgid "page view restriction"
+msgstr "обмеження показу сторінки"
+
+msgid "page view restrictions"
+msgstr "обмеження показу сторінки"
+
+msgid "name"
+msgstr "ім'я"
+
+msgid "groups"
+msgstr "групи"
+
+msgid "Approve"
+msgstr "Підтвердити"
+
+msgid "collection"
+msgstr "колекція"
+
+msgid "collection view restriction"
+msgstr "обмеження показу колекції"
+
+msgid "collection view restrictions"
+msgstr "обмеження показу колекції"
+
+msgid "collections"
+msgstr "колекції"
+
+msgid "permission"
+msgstr "дозвіл"
+
+msgid "group collection permission"
+msgstr "дозволи для групи колекцій "
+
+msgid "hostname"
+msgstr "им'я хоста"
+
+msgid "port"
+msgstr "порт"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Задайте порт, відмінний від 80, якщо потрібно, щоб його було вказано у URL "
+"(наприклад, для розробки на порту 8000). Не впливає на обробку запитів "
+"(перенаправлення портів буде працювати)."
+
+msgid "site name"
+msgstr "Имя сайта"
+
+msgid "Human-readable name for the site."
+msgstr "Ім'я сайту, зручне для людини"
+
+msgid "root page"
+msgstr "коренева сторінка"
+
+msgid "is default site"
+msgstr "є типовим сайтом"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Якщо true (істина), цей сайт буде обробляти запити для всіх імен хостів, що "
+"не мають своїх окремих налаштувань"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "sites"
+msgstr "сайти"
+
+msgid "default"
+msgstr "за замовчуванням"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s вже налаштовано, як типовий сайт. Якщо хочете зберегти цей сайт "
+"як типовий, спочатку приберіть цей атрибут."
+
 msgid "Public"
 msgstr "Загальнодоступний"
 
@@ -269,44 +302,11 @@ msgstr "Приватний, доступний для користувачів �
 msgid "password"
 msgstr "пароль"
 
-msgid "groups"
-msgstr "групи"
-
 msgid "view restriction"
 msgstr "обмеження показу"
 
 msgid "view restrictions"
 msgstr "обмеження показу"
-
-msgid "page view restriction"
-msgstr "обмеження показу сторінки"
-
-msgid "page view restrictions"
-msgstr "обмеження показу сторінки"
-
-msgid "collection"
-msgstr "колекція"
-
-msgid "collection view restriction"
-msgstr "обмеження показу колекції"
-
-msgid "collection view restrictions"
-msgstr "обмеження показу колекції"
-
-msgid "name"
-msgstr "ім'я"
-
-msgid "collections"
-msgstr "колекції"
-
-msgid "permission"
-msgstr "дозвіл"
-
-msgid "group collection permission"
-msgstr "дозволи для групи колекцій "
-
-msgid "Approve"
-msgstr "Підтвердити"
 
 msgid "Log in"
 msgstr "Увійдіть"

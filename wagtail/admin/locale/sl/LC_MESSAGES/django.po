@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -66,11 +66,14 @@ msgstr "Promocija"
 msgid "Settings"
 msgstr "Nastavitve"
 
-msgid "Date"
-msgstr "Datum"
+msgid "First Name"
+msgstr "Ime"
 
-msgid "Title"
-msgstr "Naziv"
+msgid "Last Name"
+msgstr "Priimek"
+
+msgid "Email"
+msgstr "E-pošta"
 
 msgid "Enter password"
 msgstr "Vnesite geslo"
@@ -209,6 +212,12 @@ msgstr "Shrani"
 msgid "Saving..."
 msgstr "Shranjevanje..."
 
+msgid "Dashboard"
+msgstr "Nadzorna plošča"
+
+msgid "Edit your account"
+msgstr "Uredite vaš račun"
+
 msgid "Error 404: Page not found"
 msgstr "Napaka 404: strani ni bilo mogoče najti"
 
@@ -279,9 +288,6 @@ msgstr "Geslo ponastavljeno"
 
 msgid "Reset your password"
 msgstr "Ponastavi geslo"
-
-msgid "Dashboard"
-msgstr "Nadzorna plošča"
 
 msgid "Menu"
 msgstr "Meni"
@@ -360,6 +366,9 @@ msgstr ""
 "To je vaša nadzorna plošča, kjer boste našli prikazane koristne informacije "
 "o vaših vsebinah."
 
+msgid "Title"
+msgstr "Naziv"
+
 msgid "Edit this page"
 msgstr "Uredi stran"
 
@@ -393,6 +402,9 @@ msgstr "Zadnja urejanja vsebine"
 msgid "Status"
 msgstr "Status"
 
+msgid "Date"
+msgstr "Datum"
+
 msgid "Site summary"
 msgstr "Povzetek spletnega mesta"
 
@@ -406,9 +418,6 @@ msgstr ""
 
 msgid "Sign in to Wagtail"
 msgstr "Prijava v Wagtail"
-
-msgid "Forgotten it?"
-msgstr "Pozabljeno geslo?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -697,17 +706,11 @@ msgstr "Domov"
 msgid "All collections"
 msgstr "Vse zbirke"
 
-msgid "Edit your account"
-msgstr "Uredite vaš račun"
-
 msgid "Log out"
 msgstr "Odjava"
 
 msgid "Other searches"
 msgstr "Ostala iskanja"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Pojdite v Wagtail admin vmesnik"
 
 msgid "Add a child page"
 msgstr "Dodaj podrejeno stran"

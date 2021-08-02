@@ -20,9 +20,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-27 17:01+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -82,15 +82,6 @@ msgstr "Ya existe un grupo con este nombre."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "No puedes tener múltiples permisos de registro para una misma página."
-
-msgid "Preferred language"
-msgstr "Idioma preferido"
-
-msgid "Current time zone"
-msgstr "Zona horaria actual"
-
-msgid "Upload a profile picture"
-msgstr "Cargar una foto de perfil"
 
 msgid "submitted notifications"
 msgstr "Notificaciones enviadas"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -69,15 +69,6 @@ msgstr "Ийм нэртэй бүлэг өмнө нь оруулсан байна
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Нэг хуудсанд олон хандалтын эрхийн бичлэг тохируулах боломжгүй."
-
-msgid "Preferred language"
-msgstr "Сонгосон хэл"
-
-msgid "Current time zone"
-msgstr "Одоогийн цагийн бүс"
-
-msgid "Upload a profile picture"
-msgstr "Профайл зураг оруулах"
 
 msgid "submitted notifications"
 msgstr "илгээсэн мэдэгдлүүд"

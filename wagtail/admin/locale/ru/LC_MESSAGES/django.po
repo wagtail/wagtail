@@ -32,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-06-22 22:06+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -130,26 +130,23 @@ msgstr "До"
 msgid "All"
 msgstr "Все"
 
-msgid "Started at"
-msgstr "Запущен в"
+msgid "Preferred language"
+msgstr "Предпочтительный язык"
 
-msgid "Show"
-msgstr "Показать"
+msgid "Current time zone"
+msgstr "Текущий часовой пояс"
 
-msgid "Awaiting my review"
-msgstr "В ожидании моего отзыва"
+msgid "First Name"
+msgstr "Имя"
 
-msgid "Completed at"
-msgstr "Завершен в"
+msgid "Last Name"
+msgstr "Фамилия"
 
-msgid "Workflow"
-msgstr "Рабочий процесс"
+msgid "Email"
+msgstr "Адрес электронной почты"
 
-msgid "Date"
-msgstr "Дата"
-
-msgid "Title"
-msgstr "Заголовок"
+msgid "Upload a profile picture"
+msgstr "Загрузить изображение профиля"
 
 msgid "Enter password"
 msgstr "Введите пароль"
@@ -425,6 +422,12 @@ msgstr "Оставить комментарий"
 msgid "More actions"
 msgstr "Больше действий"
 
+msgid "Dashboard"
+msgstr "Панель управления"
+
+msgid "Edit your account"
+msgstr "Редактировать ваш аккаунт"
+
 msgid "Error 404: Page not found"
 msgstr "Ошибка 404: Страница не найдена"
 
@@ -503,9 +506,6 @@ msgstr "Изображение профиля:"
 
 msgid "Reset to default"
 msgstr "Восстановление значений по умолчанию"
-
-msgid "Dashboard"
-msgstr "Панель управления"
 
 msgid "Menu"
 msgstr "Меню"
@@ -684,6 +684,9 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Ваши заблокированные страницы"
 
+msgid "Title"
+msgstr "Заголовок"
+
 msgid "Locked at"
 msgstr "Заблокирован в"
 
@@ -726,6 +729,9 @@ msgstr "Ваши последние правки"
 
 msgid "Status"
 msgstr "Статус"
+
+msgid "Date"
+msgstr "Дата"
 
 msgid "Site summary"
 msgstr "Общая информация"
@@ -796,9 +802,6 @@ msgstr "Войти в Wagtail"
 
 msgid "Signing in…"
 msgstr "Выполняется вход..."
-
-msgid "Forgotten it?"
-msgstr "Забыли его?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1049,11 +1052,6 @@ msgstr "Сконвертировать псевдоним %(title)s"
 msgid "Convert alias"
 msgstr "Сконвертировать  псевдоним"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr ""
-"Вы уверены в том что хотите сконвертировать этот псевдоним в обычную "
-"страницу?"
-
 msgid "This action cannot be undone."
 msgstr "Это действие не может быть отменено."
 
@@ -1248,9 +1246,6 @@ msgstr "Эта страница псевдоним другой страницы
 
 msgid "Edit original page"
 msgstr "Редактировать оригинальную страницу"
-
-msgid "Convert this alias into a regular page"
-msgstr "Сконвертировать этот псевдоним в обычную страницу"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1696,6 +1691,9 @@ msgstr "Редактировать страницу"
 msgid "Requested by"
 msgstr "Запрошен"
 
+msgid "Started at"
+msgstr "Запущен в"
+
 msgid "Approved task"
 msgstr "Утвержденная задача"
 
@@ -1764,11 +1762,17 @@ msgstr "Не найдены заблокированные страницы."
 msgid "By Task"
 msgstr "По Задаче"
 
+msgid "Workflow"
+msgstr "Рабочий процесс"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Ни одна страница еще не была отправлена на модерацию"
 
 msgid "By Workflow"
 msgstr "По рабочему процессу"
+
+msgid "Completed at"
+msgstr "Завершен в"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1785,9 +1789,6 @@ msgstr "Главная"
 
 msgid "All collections"
 msgstr "Все коллекции"
-
-msgid "Edit your account"
-msgstr "Редактировать ваш аккаунт"
 
 msgid "Account settings"
 msgstr "Настройки аккаунта"
@@ -1850,9 +1851,6 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Пропустить главный контент"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Идти в интерфейс управления Wagtail"
 
 msgid "Add a child page"
 msgstr "Добавить дочернюю страницу"
@@ -2174,9 +2172,6 @@ msgstr "Вы уверены что хотите удалить эту колле
 msgid "Editing"
 msgstr "Редактирование"
 
-msgid "Page '{0}' has been converted into a regular page."
-msgstr "Страница '{0}'  была сконвертирована в обычную страницу."
-
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Страница '{0}' и {1} подстраниц скопировано."
 
@@ -2321,8 +2316,26 @@ msgstr "Страница '{0}' снята с публикации."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Страница '{0}' в данный момент не ожидает модерации по задаче '{1}'."
 
+msgid "Site history"
+msgstr "История действий на сайте"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Тип действия"
+
+msgid "Date/Time"
+msgstr "Дата/Время"
+
 msgid "Locked pages"
 msgstr "Заблокированные страницы"
+
+msgid "Show"
+msgstr "Показать"
+
+msgid "Awaiting my review"
+msgstr "В ожидании моего отзыва"
 
 msgid "Workflows"
 msgstr "Рабочие процессы"
@@ -2341,18 +2354,6 @@ msgstr "Задачи рабочего процесса"
 
 msgid "Requested By"
 msgstr "Запросил"
-
-msgid "Site history"
-msgstr "История действий на сайте"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Тип действия"
-
-msgid "Date/Time"
-msgstr "Дата/Время"
 
 msgid "Add a workflow"
 msgstr "Добавить рабочий процесс"

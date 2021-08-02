@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 06:49+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-15 06:16+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -73,57 +73,6 @@ msgstr "Megjegyzés"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Ismeretlen %(action)s"
-
-msgid "hostname"
-msgstr "hosztnév"
-
-msgid "port"
-msgstr "port"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"A port száma, amely a webhely URL nevében fog szerepelni (pl. fejlesztéshez "
-"állítsa 80-ról 8000-re). Az oldal betöltését nem befolyásolja (a port "
-"továbbítás automatikusan működik)."
-
-msgid "site name"
-msgstr "webhely neve"
-
-msgid "Human-readable name for the site."
-msgstr "A webhely neve emberi nyelven"
-
-msgid "root page"
-msgstr "főoldal"
-
-msgid "is default site"
-msgstr "az alapértelmezett webhely"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Ha igazra van állítva, ez a webhely fogja az összes olyan hosztnév kéréseit "
-"lekezelni, amelyhez nem tartozik saját webhely."
-
-msgid "site"
-msgstr "webhely"
-
-msgid "sites"
-msgstr "webhelyek"
-
-msgid "default"
-msgstr "alapértelmezett"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"A %(hostname)s az alapértelmezett webhely. Először törölje azt a beállítást "
-"és utána teheti a jelenlegi webhelyet alapértelmezetté."
 
 msgid "title"
 msgstr "cím"
@@ -305,59 +254,11 @@ msgstr "csoport hozzáférés"
 msgid "group page permissions"
 msgstr "csoport hozzáférések"
 
-msgid "Public"
-msgstr "Publikus"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Privát, csak bejelentkezett felhasználók érik el"
-
-msgid "Private, accessible with the following password"
-msgstr "Privát, csak a következő jelszó megadávásal érhető el"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Privát, csak a megadott csoportba tartozó felhasználók látják"
-
-msgid "password"
-msgstr "jelszó"
-
-msgid "groups"
-msgstr "csoportok"
-
-msgid "view restriction"
-msgstr "elérési korlátozás"
-
-msgid "view restrictions"
-msgstr "elérési korlátozások"
-
 msgid "page view restriction"
 msgstr "az oldal megtekintésének korlátozása"
 
 msgid "page view restrictions"
 msgstr "az oldal megtekintésének korlátozásai"
-
-msgid "collection"
-msgstr "gyűjtemény"
-
-msgid "collection view restriction"
-msgstr "gyűjtemény elérési korlátozás"
-
-msgid "collection view restrictions"
-msgstr "gyűjtemény elérési korlátozások"
-
-msgid "name"
-msgstr "név"
-
-msgid "collections"
-msgstr "gyűjtemények"
-
-msgid "permission"
-msgstr "hozzáférés"
-
-msgid "group collection permission"
-msgstr "csoportos gyűjtemény engedély"
-
-msgid "group collection permissions"
-msgstr "csoportos gyűjtemény engedélyek"
 
 msgid "workflow"
 msgstr "munkafolyamat"
@@ -379,6 +280,9 @@ msgstr "munkafolyamat feladat sorrend"
 
 msgid "workflow task orders"
 msgstr "munkafolyamat feladat sorrendek"
+
+msgid "name"
+msgstr "név"
 
 msgid "active"
 msgstr "aktív"
@@ -402,6 +306,9 @@ msgstr ""
 
 msgid "workflows"
 msgstr "munkafolyamatok"
+
+msgid "groups"
+msgstr "csoportok"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -494,6 +401,24 @@ msgstr "Feladat állapot"
 msgid "Task states"
 msgstr "Feladat állapotok"
 
+msgid "page log entry"
+msgstr "oldal naplóbejegyzés"
+
+msgid "page log entries"
+msgstr "oldal naplóbejegyzések"
+
+msgid "comment"
+msgstr "megjegyzés"
+
+msgid "comments"
+msgstr "megjegyzések"
+
+msgid "comment reply"
+msgstr "megjegyzés válasz"
+
+msgid "comment replies"
+msgstr "megjegyzés válaszok"
+
 msgid "timestamp (UTC)"
 msgstr "Időbélyeg (UTC)"
 
@@ -513,23 +438,98 @@ msgstr "%(id)d felhasználó (törölt)"
 msgid "system"
 msgstr "rendszer"
 
-msgid "page log entry"
-msgstr "oldal naplóbejegyzés"
+msgid "collection"
+msgstr "gyűjtemény"
 
-msgid "page log entries"
-msgstr "oldal naplóbejegyzések"
+msgid "collection view restriction"
+msgstr "gyűjtemény elérési korlátozás"
 
-msgid "comment"
-msgstr "megjegyzés"
+msgid "collection view restrictions"
+msgstr "gyűjtemény elérési korlátozások"
 
-msgid "comments"
-msgstr "megjegyzések"
+msgid "collections"
+msgstr "gyűjtemények"
 
-msgid "comment reply"
-msgstr "megjegyzés válasz"
+msgid "permission"
+msgstr "hozzáférés"
 
-msgid "comment replies"
-msgstr "megjegyzés válaszok"
+msgid "group collection permission"
+msgstr "csoportos gyűjtemény engedély"
+
+msgid "group collection permissions"
+msgstr "csoportos gyűjtemény engedélyek"
+
+msgid "hostname"
+msgstr "hosztnév"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"A port száma, amely a webhely URL nevében fog szerepelni (pl. fejlesztéshez "
+"állítsa 80-ról 8000-re). Az oldal betöltését nem befolyásolja (a port "
+"továbbítás automatikusan működik)."
+
+msgid "site name"
+msgstr "webhely neve"
+
+msgid "Human-readable name for the site."
+msgstr "A webhely neve emberi nyelven"
+
+msgid "root page"
+msgstr "főoldal"
+
+msgid "is default site"
+msgstr "az alapértelmezett webhely"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Ha igazra van állítva, ez a webhely fogja az összes olyan hosztnév kéréseit "
+"lekezelni, amelyhez nem tartozik saját webhely."
+
+msgid "site"
+msgstr "webhely"
+
+msgid "sites"
+msgstr "webhelyek"
+
+msgid "default"
+msgstr "alapértelmezett"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"A %(hostname)s az alapértelmezett webhely. Először törölje azt a beállítást "
+"és utána teheti a jelenlegi webhelyet alapértelmezetté."
+
+msgid "Public"
+msgstr "Publikus"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privát, csak bejelentkezett felhasználók érik el"
+
+msgid "Private, accessible with the following password"
+msgstr "Privát, csak a következő jelszó megadávásal érhető el"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privát, csak a megadott csoportba tartozó felhasználók látják"
+
+msgid "password"
+msgstr "jelszó"
+
+msgid "view restriction"
+msgstr "elérési korlátozás"
+
+msgid "view restrictions"
+msgstr "elérési korlátozások"
 
 msgid "Log in"
 msgstr "Bejelentkezés"
@@ -638,10 +638,10 @@ msgid "Created an alias"
 msgstr "Kapcsolt példány létrehozva"
 
 #, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
+msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "'%(title)s' kapcsolt példány konvertálva rendes oldallá"
 
-msgid "Converted an alias into a regular page"
+msgid "Converted an alias into an ordinary page"
 msgstr "Kapcsolt példány rendes oldallá konvertálva"
 
 #, python-format
@@ -716,6 +716,55 @@ msgstr "Átnevezve erről: '%(old)s' erre: '%(new)s'"
 msgid "Renamed"
 msgstr "Átnevezve"
 
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "%(field)s mezőhöz megjegyzés hozzáadva: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Megjegyzés hozzáadva"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "%(field)s mező megjegyzése módosítva: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Megjegyzés módosítva"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "%(field)s mező megjegyzése törölve: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Megjegyzés törölve"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "%(field)s mező megjegyzése készre jelölve: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "Megjegyzés készre jelölve"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "%(field)s mező megjegyzésére válasz: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Válasz megjegyzésre"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "%(field)s mező megjegyzés válasz módosítva: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Válasz módosítva"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "%(field)s mező megjegyzés válasz törölve: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Vákasz törölve"
+
 msgid "Rename"
 msgstr "Átnevezés"
 
@@ -728,8 +777,8 @@ msgstr "Másolás"
 msgid "Create alias"
 msgstr "Kapcsolt példény létrehozása"
 
-msgid "Convert alias into regular page"
-msgstr "Kapcsolt példány rendes oldallá alakítása"
+msgid "Convert alias into ordinary page"
+msgstr "Kpacsolt példány rendes oldallá alakítása"
 
 msgid "Move"
 msgstr "Mozgatás"
@@ -751,6 +800,27 @@ msgstr "Elérési korlátozás frissítése"
 
 msgid "Remove view restrictions"
 msgstr "Elérési korlátozás eltávolítása"
+
+msgid "Add comment"
+msgstr "Megjegyzés hozzáadása"
+
+msgid "Edit comment"
+msgstr "Megjegyzés szerkesztése"
+
+msgid "Delete comment"
+msgstr "Megjegyzés törlése"
+
+msgid "Resolve comment"
+msgstr "Megjegyzés készre jelölése"
+
+msgid "Reply to comment"
+msgstr "Válasz a megjegyzésre"
+
+msgid "Edit reply to comment"
+msgstr "Válasz szerkesztése"
+
+msgid "Delete reply to comment"
+msgstr "Válasz törlése"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"

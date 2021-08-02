@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -37,38 +37,6 @@ msgstr "Polje je obvezno."
 
 msgid "Password"
 msgstr "Geslo"
-
-msgid "hostname"
-msgstr "ime strežnika"
-
-msgid "port"
-msgstr "vrata"
-
-msgid "site name"
-msgstr "ime spletnega mesta"
-
-msgid "Human-readable name for the site."
-msgstr "Berljiva oblika imena spletnega mesta."
-
-msgid "root page"
-msgstr "začetna stran"
-
-msgid "is default site"
-msgstr "privzeto spletno mesto"
-
-msgid "site"
-msgstr "spletno mesto"
-
-msgid "sites"
-msgstr "spletna mesta"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s je že vklopljeno kot privzeto spletno mesto. Preden lahko to "
-"spletno mesto določite kot privzeto, morate najprej izklopiti obstoječega."
 
 msgid "title"
 msgstr "naziv"
@@ -185,6 +153,56 @@ msgstr "skupina"
 msgid "permission type"
 msgstr "tip dovoljenja"
 
+msgid "name"
+msgstr "ime"
+
+msgid "groups"
+msgstr "skupine"
+
+msgid "Approve"
+msgstr "Potrdi"
+
+msgid "collection"
+msgstr "zbirka"
+
+msgid "collections"
+msgstr "zbirke"
+
+msgid "permission"
+msgstr "dovoljenje"
+
+msgid "hostname"
+msgstr "ime strežnika"
+
+msgid "port"
+msgstr "vrata"
+
+msgid "site name"
+msgstr "ime spletnega mesta"
+
+msgid "Human-readable name for the site."
+msgstr "Berljiva oblika imena spletnega mesta."
+
+msgid "root page"
+msgstr "začetna stran"
+
+msgid "is default site"
+msgstr "privzeto spletno mesto"
+
+msgid "site"
+msgstr "spletno mesto"
+
+msgid "sites"
+msgstr "spletna mesta"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s je že vklopljeno kot privzeto spletno mesto. Preden lahko to "
+"spletno mesto določite kot privzeto, morate najprej izklopiti obstoječega."
+
 msgid "Public"
 msgstr "Javno"
 
@@ -193,24 +211,6 @@ msgstr "Privatno, dostopno z sledečim geslom"
 
 msgid "password"
 msgstr "geslo"
-
-msgid "groups"
-msgstr "skupine"
-
-msgid "collection"
-msgstr "zbirka"
-
-msgid "name"
-msgstr "ime"
-
-msgid "collections"
-msgstr "zbirke"
-
-msgid "permission"
-msgstr "dovoljenje"
-
-msgid "Approve"
-msgstr "Potrdi"
 
 msgid "Save draft"
 msgstr "Shrani osnutek"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-30 09:25+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -70,15 +70,6 @@ msgstr "Hópur með þessu nafni er þegar til."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Þú getur ekki haft margar heimildafærslur fyrir sömu síðuna."
-
-msgid "Preferred language"
-msgstr "Valið tungumál"
-
-msgid "Current time zone"
-msgstr "Núverandi tímabelti"
-
-msgid "Upload a profile picture"
-msgstr "Hlaða upp prófílmynd"
 
 msgid "submitted notifications"
 msgstr "innsendar tilkynningar"

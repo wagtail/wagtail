@@ -8,6 +8,7 @@
 # Ed <724195301@qq.com>, 2018
 # Ed <724195301@qq.com>, 2018
 # Fan Hei <weijiacc@gmail.com>, 2020
+# Favo Yang <favoyang@gmail.com>, 2021
 # First Last <abc+github@mynook.info>, 2019
 # Ford Guo <agile.guo@gmail.com>, 2020
 # Fred Zeng <979738295@qq.com>, 2016
@@ -24,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-03 03:58+0000\n"
-"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-23 09:39+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -120,26 +121,23 @@ msgstr "结束日期"
 msgid "All"
 msgstr "所有"
 
-msgid "Started at"
-msgstr "开始于"
+msgid "Preferred language"
+msgstr "首选语言"
 
-msgid "Show"
-msgstr "显示"
+msgid "Current time zone"
+msgstr "当前时区"
 
-msgid "Awaiting my review"
-msgstr "等待我的审核"
+msgid "First Name"
+msgstr "名"
 
-msgid "Completed at"
-msgstr "完成于"
+msgid "Last Name"
+msgstr "姓"
 
-msgid "Workflow"
-msgstr "工作流"
+msgid "Email"
+msgstr "电子邮件"
 
-msgid "Date"
-msgstr "日期"
-
-msgid "Title"
-msgstr "标题"
+msgid "Upload a profile picture"
+msgstr "上传新的头像"
 
 msgid "Enter password"
 msgstr "输入密码"
@@ -396,6 +394,21 @@ msgstr "评论"
 msgid "More actions"
 msgstr "更多动作"
 
+msgid "Save the page to add this comment"
+msgstr "保存页面来添加此条评论。"
+
+msgid "Save the page to save this comment"
+msgstr "保存页面来保存此条评论。"
+
+msgid "Save the page to save this reply"
+msgstr "保存页面来保存此条回复。"
+
+msgid "Dashboard"
+msgstr "控制面板"
+
+msgid "Edit your account"
+msgstr "编辑账户"
+
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"
 
@@ -469,9 +482,6 @@ msgstr "上传头像图片"
 
 msgid "Reset to default"
 msgstr "重置为默认值"
-
-msgid "Dashboard"
-msgstr "控制面板"
 
 msgid "Menu"
 msgstr "菜单"
@@ -599,6 +609,15 @@ msgstr "下移"
 msgid "Add comment"
 msgstr "添加评论"
 
+msgid "Comments"
+msgstr "评论"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr "切换评论通知下拉菜单是否可见"
+
+msgid "Commenting on this page"
+msgstr "为页面添加评论"
+
 msgid "Comment notifications"
 msgstr "评论通知"
 
@@ -619,6 +638,9 @@ msgstr "这是您的主控台，将会显示您创建的内容的帮助信息。
 
 msgid "Your locked pages"
 msgstr "你锁定的页面"
+
+msgid "Title"
+msgstr "标题"
 
 msgid "Locked at"
 msgstr "锁定于"
@@ -662,6 +684,9 @@ msgstr "最近编辑"
 
 msgid "Status"
 msgstr "状态"
+
+msgid "Date"
+msgstr "日期"
 
 msgid "Site summary"
 msgstr "网站摘要"
@@ -716,8 +741,8 @@ msgstr "登录Wagtail"
 msgid "Signing in…"
 msgstr "正在登录..."
 
-msgid "Forgotten it?"
-msgstr "不记得了？"
+msgid "Forgotten password?"
+msgstr "忘记密码？"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -953,7 +978,7 @@ msgstr "转换别名%(title)s"
 msgid "Convert alias"
 msgstr "转换别名"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
+msgid "Are you sure you want to convert this alias into an ordinary page?"
 msgstr "你确定要将这个别名转换为常规页面吗？"
 
 msgid "This action cannot be undone."
@@ -1130,7 +1155,7 @@ msgstr "这个页面是另一个页面的别名。"
 msgid "Edit original page"
 msgstr "编辑原始页面"
 
-msgid "Convert this alias into a regular page"
+msgid "Convert this alias into an ordinary page"
 msgstr "将这个别名转换成常规页面"
 
 #, python-format
@@ -1525,6 +1550,9 @@ msgstr "编辑页面"
 msgid "Requested by"
 msgstr "请求人"
 
+msgid "Started at"
+msgstr "开始于"
+
 msgid "Approved task"
 msgstr "已批准的任务"
 
@@ -1597,11 +1625,17 @@ msgstr "找不到已锁定的页面。"
 msgid "By Task"
 msgstr "按任务"
 
+msgid "Workflow"
+msgstr "工作流"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "尚未提交任何页面进行审核"
 
 msgid "By Workflow"
 msgstr "按工作流"
+
+msgid "Completed at"
+msgstr "完成于"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1618,9 +1652,6 @@ msgstr "主页"
 
 msgid "All collections"
 msgstr "所有集合"
-
-msgid "Edit your account"
-msgstr "编辑账户"
 
 msgid "Account settings"
 msgstr "帐号设置"
@@ -1682,8 +1713,8 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "跳到主要内容"
 
-msgid "Go to Wagtail admin interface"
-msgstr "转到管理界面"
+msgid "View Wagtail quick actions"
+msgstr "查看Wagtail快捷动作"
 
 msgid "Add a child page"
 msgstr "添加子页面"
@@ -1963,7 +1994,7 @@ msgstr "确定删除此集合？"
 msgid "Editing"
 msgstr "正在编辑"
 
-msgid "Page '{0}' has been converted into a regular page."
+msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "页面“{0}”已经被转换成一个常规页面。"
 
 msgid "Page '{0}' and {1} subpages copied."
@@ -2056,6 +2087,9 @@ msgstr "页面无法保存，已被锁定。"
 msgid "The page could not be saved due to validation errors"
 msgstr "页面无法保存。出现验证错误。"
 
+msgid "Hide commenting actions"
+msgstr "隐藏评论动作"
+
 msgid "Page '{0}' is now unlocked."
 msgstr "页面 '{0}'已解锁。"
 
@@ -2107,8 +2141,26 @@ msgstr "页面'{0}'已取消发布。"
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "页面 '{0}'目前不在任务'{1}'中等待审核。"
 
+msgid "Site history"
+msgstr "网站历史"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "动作类型"
+
+msgid "Date/Time"
+msgstr "日期/时间"
+
 msgid "Locked pages"
 msgstr "已锁定的页面"
+
+msgid "Show"
+msgstr "显示"
+
+msgid "Awaiting my review"
+msgstr "等待我的审核"
 
 msgid "Workflows"
 msgstr "工作流"
@@ -2127,18 +2179,6 @@ msgstr "工作流任务"
 
 msgid "Requested By"
 msgstr "请求人"
-
-msgid "Site history"
-msgstr "网站历史"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "动作类型"
-
-msgid "Date/Time"
-msgstr "日期/时间"
 
 msgid "Add a workflow"
 msgstr "添加一个工作流"

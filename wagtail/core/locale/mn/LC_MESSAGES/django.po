@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -51,38 +51,6 @@ msgstr "Нууц үг"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Таны оруулсан нууц үг буруу байна. Дахин оролдоно уу."
-
-msgid "hostname"
-msgstr "хост"
-
-msgid "port"
-msgstr "порт"
-
-msgid "site name"
-msgstr "сайтын нэр"
-
-msgid "Human-readable name for the site."
-msgstr "Хүмүүст харагдах сайтын нэр."
-
-msgid "root page"
-msgstr "үндэс хуудас"
-
-msgid "is default site"
-msgstr "өгөгдмөл сайт уу"
-
-msgid "site"
-msgstr "сайт"
-
-msgid "sites"
-msgstr "сайтууд"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s өгөгдмөл сайтаар тохируулагдсан байна. Энэ сайтыг өгөгдмөл сайт "
-"болгохоос урьтаж өгөгдмөл сайтыг хасах хэрэгтэй."
 
 msgid "title"
 msgstr "гарчиг"
@@ -207,6 +175,74 @@ msgstr "бүлэг"
 msgid "permission type"
 msgstr "эрхийн төрөл"
 
+msgid "page view restriction"
+msgstr "хуудас харах хязгаарлалт"
+
+msgid "page view restrictions"
+msgstr "хуудас харах хязгаарлалтууд"
+
+msgid "name"
+msgstr "нэр"
+
+msgid "groups"
+msgstr "бүлгүүд"
+
+msgid "Approve"
+msgstr "Зөвшөөрөх"
+
+msgid "collection"
+msgstr "цуглуулга"
+
+msgid "collection view restriction"
+msgstr "цуглуулга харах хязгаарлалт"
+
+msgid "collection view restrictions"
+msgstr "цуглуулга харах хязгаарлалтууд"
+
+msgid "collections"
+msgstr "цуглуулгууд"
+
+msgid "permission"
+msgstr "эрх"
+
+msgid "group collection permission"
+msgstr "бүлэг цуглуулгын эрх"
+
+msgid "group collection permissions"
+msgstr "бүлэг цуглуулгын эрх"
+
+msgid "hostname"
+msgstr "хост"
+
+msgid "port"
+msgstr "порт"
+
+msgid "site name"
+msgstr "сайтын нэр"
+
+msgid "Human-readable name for the site."
+msgstr "Хүмүүст харагдах сайтын нэр."
+
+msgid "root page"
+msgstr "үндэс хуудас"
+
+msgid "is default site"
+msgstr "өгөгдмөл сайт уу"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "sites"
+msgstr "сайтууд"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s өгөгдмөл сайтаар тохируулагдсан байна. Энэ сайтыг өгөгдмөл сайт "
+"болгохоос урьтаж өгөгдмөл сайтыг хасах хэрэгтэй."
+
 msgid "Public"
 msgstr "Нийтэд нээлттэй"
 
@@ -222,47 +258,11 @@ msgstr "Хувийн, тодорхой бүлгийн гишүүд хандах 
 msgid "password"
 msgstr "нууц үг"
 
-msgid "groups"
-msgstr "бүлгүүд"
-
 msgid "view restriction"
 msgstr "хязгаарлалтуудыг харах"
 
 msgid "view restrictions"
 msgstr "хязгаарлалтуудыг харах"
-
-msgid "page view restriction"
-msgstr "хуудас харах хязгаарлалт"
-
-msgid "page view restrictions"
-msgstr "хуудас харах хязгаарлалтууд"
-
-msgid "collection"
-msgstr "цуглуулга"
-
-msgid "collection view restriction"
-msgstr "цуглуулга харах хязгаарлалт"
-
-msgid "collection view restrictions"
-msgstr "цуглуулга харах хязгаарлалтууд"
-
-msgid "name"
-msgstr "нэр"
-
-msgid "collections"
-msgstr "цуглуулгууд"
-
-msgid "permission"
-msgstr "эрх"
-
-msgid "group collection permission"
-msgstr "бүлэг цуглуулгын эрх"
-
-msgid "group collection permissions"
-msgstr "бүлэг цуглуулгын эрх"
-
-msgid "Approve"
-msgstr "Зөвшөөрөх"
 
 msgid "Log in"
 msgstr "Нэвтрэх"

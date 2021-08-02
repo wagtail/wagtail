@@ -5,15 +5,16 @@
 #
 # Translators:
 # Storm Heg <storm@stormbase.digital>, 2021
+# Maarten Kling <kling.maarten@gmail.com>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-21 09:32+0100\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>, 2021\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>, 2021\n"
 "Language-Team: Dutch (Netherlands) (https://www.transifex.com/torchbox/"
 "teams/8009/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +39,21 @@ msgid "Include subtree ({} page)"
 msgid_plural "Include subtree ({} pages)"
 msgstr[0] "Neem onderliggende boomstructuur mee ({} pagina)"
 msgstr[1] "Neem onderliggende boomstructuur mee ({} pagina's)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+"Een taalregio is uitgeschakeld omdat een bovenliggende pagina niet vertaald "
+"is."
+msgstr[1] ""
+"Sommige taalregio's zijn uitgeschakeld omdat bovenliggende pagina's niet "
+"vertaald zijn."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Vertaal de bovenliggende pagina."
+msgstr[1] "Vertaal de bovenliggende paginas."
 
 msgid "Submit"
 msgstr "Verzenden"
