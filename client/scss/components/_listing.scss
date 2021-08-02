@@ -491,7 +491,7 @@ ul.listing {
     }
 }
 
-.bulk-actions-choices {
+.footer.bulk-actions-choices {
     @include transition(transform 0.1s ease 0.1s);
 
     &.hidden {
