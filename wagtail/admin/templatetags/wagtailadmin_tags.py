@@ -11,6 +11,7 @@ from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Min, QuerySet
 from django.forms import Media
+from django.shortcuts import resolve_url as resolve_url_func
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
@@ -720,16 +721,11 @@ def get_comments_enabled():
 
 
 @register.simple_tag
-def resolve_url_if_not_absolute(url):
+def resolve_url(url):
     # Used by wagtailadmin/shared/pagination_nav.html - given an input that may be a URL route
     # name, or a direct URL path, return it as a direct URL path. On failure (or being passed
     # an empty / None value), return empty string
-    if not url:
+    try:
+        return resolve_url_func(url)
+    except NoReverseMatch:
         return ''
-    elif url.startswith('/'):
-        return url
-    else:
-        try:
-            return reverse(url)
-        except NoReverseMatch:
-            return ''
