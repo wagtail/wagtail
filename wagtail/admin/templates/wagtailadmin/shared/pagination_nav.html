@@ -6,7 +6,7 @@
     reverse-resolvable with no arguments) or a direct URL path. If omitted, links will be given
     an href of the form "?p=123", implicitly preserving the current URL path.
 {% endcomment %}
-{% resolve_url_if_not_absolute linkurl as url_path %}
+{% resolve_url linkurl as url_path %}
 
 <nav class="pagination" aria-label="{% trans 'Pagination' %}">
     <p>{% blocktrans with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
