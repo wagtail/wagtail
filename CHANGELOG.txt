@@ -12,7 +12,7 @@ Changelog
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
 
 
-2.14 (xx.xx.xxxx) - IN DEVELOPMENT
+2.14 (02.08.2021)
 ~~~~~~~~~~~~~~~~~
 
  * Removed support for Django 2.2
