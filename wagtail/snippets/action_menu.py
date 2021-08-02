@@ -3,17 +3,18 @@
 from functools import lru_cache
 
 from django.contrib.admin.utils import quote
-from django.forms import Media, MediaDefiningClass
+from django.forms import Media
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.components import Component
 from wagtail.core import hooks
 from wagtail.snippets.permissions import get_permission_name
 
 
-class ActionMenuItem(metaclass=MediaDefiningClass):
+class ActionMenuItem(Component):
     """Defines an item in the actions drop-up on the snippet creation/edit view"""
     order = 100  # default order index if one is not specified on init
     template = 'wagtailsnippets/snippets/action_menu/menu_item.html'
@@ -42,7 +43,7 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
 
     def get_context(self, request, parent_context):
         """Defines context for the template, overridable to use more data"""
-        context = parent_context.copy()
+        context = super().get_context(request, parent_context)
         context.update({
             'label': self.label,
             'url': self.get_url(request, context),
@@ -54,10 +55,6 @@ class ActionMenuItem(metaclass=MediaDefiningClass):
 
     def get_url(self, request, context):
         return None
-
-    def render_html(self, request, parent_context):
-        context = self.get_context(request, parent_context)
-        return render_to_string(self.template, context, request=request)
 
 
 class DeleteMenuItem(ActionMenuItem):
