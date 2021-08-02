@@ -1,5 +1,7 @@
 import itertools
 
+from warnings import warn
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
@@ -9,11 +11,13 @@ from django.http import Http404, HttpResponse
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 
+from wagtail.admin.components import Component
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.core import hooks
 from wagtail.core.models import (
     Page, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState)
+from wagtail.utils.deprecation import RemovedInWagtail217Warning
 
 
 User = get_user_model()
@@ -21,45 +25,43 @@ User = get_user_model()
 
 # Panels for the homepage
 
-class UpgradeNotificationPanel:
+class UpgradeNotificationPanel(Component):
+    template = 'wagtailadmin/home/upgrade_notification.html'
     name = 'upgrade_notification'
     order = 100
 
-    def __init__(self, request):
-        self.request = request
-
-    def render(self):
-        if self.request.user.is_superuser and getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True):
-            return render_to_string('wagtailadmin/home/upgrade_notification.html', {}, request=self.request)
+    def render_html(self, request, parent_context):
+        if request.user.is_superuser and getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True):
+            return super().render_html(request, parent_context)
         else:
             return ""
 
 
-class PagesForModerationPanel:
+class PagesForModerationPanel(Component):
+    template = 'wagtailadmin/home/pages_for_moderation.html'
     name = 'pages_for_moderation'
     order = 200
 
-    def __init__(self, request):
-        self.request = request
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
         user_perms = UserPagePermissionsProxy(request.user)
-        self.page_revisions_for_moderation = (user_perms.revisions_for_moderation()
-                                              .select_related('page', 'user').order_by('-created_at'))
-
-    def render(self):
-        return render_to_string('wagtailadmin/home/pages_for_moderation.html', {
-            'page_revisions_for_moderation': self.page_revisions_for_moderation,
-        }, request=self.request)
+        context['page_revisions_for_moderation'] = (
+            user_perms.revisions_for_moderation().select_related('page', 'user').order_by('-created_at')
+        )
+        return context
 
 
-class UserPagesInWorkflowModerationPanel:
+class UserPagesInWorkflowModerationPanel(Component):
+    template = 'wagtailadmin/home/user_pages_in_workflow_moderation.html'
     name = 'user_pages_in_workflow_moderation'
     order = 210
 
-    def __init__(self, request):
-        self.request = request
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+
         if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             # Find in progress workflow states which are either requested by the user or on pages owned by the user
-            self.workflow_states = (
+            context['workflow_states'] = (
                 WorkflowState.objects.active()
                 .filter(Q(page__owner=request.user) | Q(requested_by=request.user))
                 .select_related(
@@ -68,62 +70,59 @@ class UserPagesInWorkflowModerationPanel:
                 .order_by('-current_task_state__started_at')
             )
         else:
-            self.workflow_states = WorkflowState.objects.none()
+            context['workflow_states'] = WorkflowState.objects.none()
 
-    def render(self):
-        return render_to_string('wagtailadmin/home/user_pages_in_workflow_moderation.html', {
-            'workflow_states': self.workflow_states
-        }, request=self.request)
+        return context
 
 
-class WorkflowPagesToModeratePanel:
+class WorkflowPagesToModeratePanel(Component):
+    template = 'wagtailadmin/home/workflow_pages_to_moderate.html'
     name = 'workflow_pages_to_moderate'
     order = 220
 
-    def __init__(self, request):
-        self.request = request
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+
         if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             states = (
                 TaskState.objects.reviewable_by(request.user)
                 .select_related('page_revision', 'task', 'page_revision__page')
                 .order_by('-started_at')
             )
-            self.states = [
+            context['states'] = [
                 (state, state.task.specific.get_actions(page=state.page_revision.page, user=request.user), state.workflow_state.all_tasks_with_status())
                 for state in states
             ]
         else:
-            self.states = []
+            context['states'] = []
 
-    def render(self):
-        return render_to_string('wagtailadmin/home/workflow_pages_to_moderate.html', {
-            'states': self.states
-        }, request=self.request)
+        return context
 
 
-class LockedPagesPanel:
+class LockedPagesPanel(Component):
+    template = 'wagtailadmin/home/locked_pages.html'
     name = 'locked_pages'
     order = 300
 
-    def __init__(self, request):
-        self.request = request
-
-    def render(self):
-        return render_to_string('wagtailadmin/home/locked_pages.html', {
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        context.update({
             'locked_pages': Page.objects.filter(
                 locked=True,
-                locked_by=self.request.user,
+                locked_by=request.user,
             ),
-            'can_remove_locks': UserPagePermissionsProxy(self.request.user).can_remove_locks()
-        }, request=self.request)
+            'can_remove_locks': UserPagePermissionsProxy(request.user).can_remove_locks()
+        })
+        return context
 
 
-class RecentEditsPanel:
+class RecentEditsPanel(Component):
+    template = 'wagtailadmin/home/recent_edits.html'
     name = 'recent_edits'
     order = 250
 
-    def __init__(self, request):
-        self.request = request
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
 
         # Last n edited pages
         edit_count = getattr(settings, 'WAGTAILADMIN_RECENT_EDITS_LIMIT', 5)
@@ -138,42 +137,48 @@ class RecentEditsPanel:
                             wagtailcore_pagerevision WHERE user_id = %s GROUP BY page_id ORDER BY max_created_at DESC LIMIT %s
                     ) AS max_rev ON max_rev.max_created_at = wp.created_at ORDER BY wp.created_at DESC
                  """, [
-                    User._meta.pk.get_db_prep_value(self.request.user.pk, connection),
+                    User._meta.pk.get_db_prep_value(request.user.pk, connection),
                     edit_count
                 ]
             )
         else:
-            last_edits_dates = (PageRevision.objects.filter(user=self.request.user)
+            last_edits_dates = (PageRevision.objects.filter(user=request.user)
                                 .values('page_id').annotate(latest_date=Max('created_at'))
                                 .order_by('-latest_date').values('latest_date')[:edit_count])
             last_edits = PageRevision.objects.filter(created_at__in=last_edits_dates).order_by('-created_at')
 
         page_keys = [pr.page_id for pr in last_edits]
         pages = Page.objects.specific().in_bulk(page_keys)
-        self.last_edits = [
+        context['last_edits'] = [
             [revision, pages.get(revision.page_id)] for revision in last_edits
         ]
-
-    def render(self):
-        return render_to_string('wagtailadmin/home/recent_edits.html', {
-            'last_edits': list(self.last_edits),
-        }, request=self.request)
+        return context
 
 
 def home(request):
 
     panels = [
         SiteSummaryPanel(request),
-        UpgradeNotificationPanel(request),
-        WorkflowPagesToModeratePanel(request),
-        PagesForModerationPanel(request),
-        UserPagesInWorkflowModerationPanel(request),
-        RecentEditsPanel(request),
-        LockedPagesPanel(request),
+        UpgradeNotificationPanel(),
+        WorkflowPagesToModeratePanel(),
+        PagesForModerationPanel(),
+        UserPagesInWorkflowModerationPanel(),
+        RecentEditsPanel(),
+        LockedPagesPanel(),
     ]
 
     for fn in hooks.get_hooks('construct_homepage_panels'):
         fn(request, panels)
+
+    for panel in panels:
+        if hasattr(panel, 'render') and not hasattr(panel, 'render_html'):
+            # NOTE: when this deprecation warning is removed the 'fallback_render_method=True' in
+            # wagtailadmin/home.html should be removed too
+            message = (
+                "Panel %r registered with construct_homepage_panels must be updated to provide a render_html method"
+                % panel
+            )
+            warn(message, category=RemovedInWagtail217Warning)
 
     site_details = get_site_for_user(request.user)
 
