@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/home.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/page-editor.css' %}" />
+    {{ media.css }}
 {% endblock %}
 
 {% block content %}
@@ -55,4 +56,5 @@ $(function() {
     });
 });
 </script>
+{{ media.js }}
 {% endblock %}
