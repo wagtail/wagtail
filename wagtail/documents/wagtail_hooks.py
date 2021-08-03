@@ -103,8 +103,8 @@ class DocumentsSummaryItem(SummaryItem):
     order = 300
     template = 'wagtaildocs/homepage/site_summary_documents.html'
 
-    def get_context(self):
-        site_name = get_site_for_user(self.request.user)['site_name']
+    def get_context(self, request, parent_context):
+        site_name = get_site_for_user(request.user)['site_name']
 
         return {
             'total_docs': get_document_model().objects.count(),

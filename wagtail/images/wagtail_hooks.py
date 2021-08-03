@@ -128,8 +128,8 @@ class ImagesSummaryItem(SummaryItem):
     order = 200
     template = 'wagtailimages/homepage/site_summary_images.html'
 
-    def get_context(self):
-        site_name = get_site_for_user(self.request.user)['site_name']
+    def get_context(self, request, parent_context):
+        site_name = get_site_for_user(request.user)['site_name']
 
         return {
             'total_images': get_image_model().objects.count(),
