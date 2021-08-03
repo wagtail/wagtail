@@ -15,9 +15,11 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
                 username=f'testuser-{i}',
                 email=f'testuser{i}@email.com',
                 password=f'password-{i}',
-                is_active=(i & 1)  # odd numbered users will be active
             ) for i in range(1, 6)
         ]
+        for i, user in enumerate(self.test_users):
+            user.is_active = (i & 1)  # odd numbered users will be active
+            user.save()
         self.current_user = self.login()
         self.url = reverse('wagtailusers_users:user_bulk_action', args=('toggle_activity',)) + '?'
         self.self_toggle_url = self.url + f'id={self.current_user.pk}'
