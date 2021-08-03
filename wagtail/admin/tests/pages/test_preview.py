@@ -112,6 +112,10 @@ class TestPreview(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content.decode(), {'is_valid': True})
 
+        # Check the user can refresh the preview
+        preview_session_key = 'wagtail-preview-tests-eventpage-{}'.format(self.home_page.id)
+        self.assertTrue(preview_session_key in self.client.session)
+
         response = self.client.get(preview_url)
 
         # Check the HTML response
@@ -129,6 +133,10 @@ class TestPreview(TestCase, WagtailTestUtils):
         # Check the JSON response
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content.decode(), {'is_valid': True})
+
+        # Check the user can refresh the preview
+        preview_session_key = 'wagtail-preview-{}'.format(self.event_page.id)
+        self.assertTrue(preview_session_key in self.client.session)
 
         response = self.client.get(preview_url)
 
