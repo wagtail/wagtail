@@ -170,6 +170,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: get_url
 
+    .. automethod:: get_full_url
+
     .. autoattribute:: full_url
 
     .. automethod:: relative_url

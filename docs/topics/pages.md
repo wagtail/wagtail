@@ -1,6 +1,8 @@
 # Page models
 
-Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the [`wagtail.core.models.Page`](/reference/pages/model_reference.html#wagtail.core.models.Page) class.
+```eval_rst
+Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the :class:`wagtail.core.models.Page` class.
+```
 
 As all page types are Django models, you can use any field type that Django provides. See [Model field reference](https://docs.djangoproject.com/en/3.1/ref/models/fields/) for a complete list of field types you can use. Wagtail also provides `wagtail.core.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
 
@@ -134,27 +136,31 @@ Here's a summary of the `EditHandler` classes that Wagtail provides out of the b
 
 These allow editing of model fields. The `FieldPanel` class will choose the correct widget based on the type of the field, though `StreamField` fields need to use a specialised panel class.
 
--   [`FieldPanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.FieldPanel)
--   [`StreamFieldPanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.StreamFieldPanel)
+```eval_rst
+-   :class:`~wagtail.admin.edit_handlers.FieldPanel`
+-   :class:`~wagtail.admin.edit_handlers.StreamFieldPanel`
+```
 
 **Structural**
 
 These are used for structuring fields in the interface.
 
--   [`MultiFieldPanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.MultiFieldPanel) - For grouping similar fields together
--   [`InlinePanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.InlinePanel) - For inlining child models
--   [`FieldRowPanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.FieldRowPanel) - For organising multiple fields into a single row
+```eval_rst
+-   :class:`~wagtail.admin.edit_handlers.MultiFieldPanel`
+-   :class:`~wagtail.admin.edit_handlers.InlinePanel`
+-   :class:`~wagtail.admin.edit_handlers.FieldRowPanel`
+```
 
 **Chooser**
 
 `ForeignKey` fields to certain models can use one of the below `ChooserPanel` classes. These add a nice modal chooser interface, and the image/document choosers also allow uploading new files without leaving the page editor.
 
--   [`PageChooserPanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.PageChooserPanel)
--   [`ImageChooserPanel`](/reference/pages/panels.html#wagtail.images.edit_handlers.ImageChooserPanel)
--   [`DocumentChooserPanel`](/reference/pages/panels.html#wagtail.documents.edit_handlers.DocumentChooserPanel)
--   [`SnippetChooserPanel`](/reference/pages/panels.html#wagtail.snippets.edit_handlers.SnippetChooserPanel)
-
 ```eval_rst
+-   :class:`~wagtail.admin.edit_handlers.PageChooserPanel`
+-   :class:`~wagtail.images.edit_handlers.ImageChooserPanel`
+-   :class:`~wagtail.documents.edit_handlers.DocumentChooserPanel`
+-   :class:`~wagtail.snippets.edit_handlers.SnippetChooserPanel`
+
 .. note::
 
     In order to use one of these choosers, the model being linked to must either be a page, image, document or snippet.
@@ -211,7 +217,9 @@ super().get_url_parts(*args, **kwargs)
 While you could pass only the `request` keyword argument, passing all arguments as-is ensures compatibility with any
 future changes to these method signatures.
 
-For more information, please see [`wagtail.core.models.Page.get_url_parts`](/reference/pages/model_reference.html#wagtail.core.models.Page.get_url_parts).
+```eval_rst
+For more information, please see :meth:`wagtail.core.models.Page.get_url_parts`.
+```
 
 #### Obtaining URLs for page instances
 
@@ -220,9 +228,15 @@ The `Page.get_url(request)` method can be called whenever a page URL is needed. 
 A common use case for `get_url(request)` is in any custom template tag your project may include for generating navigation menus. When writing such a custom template tag, ensure that it includes `takes_context=True` and use `context.get('request')` to safely pass the
 request or `None` if no request exists in the context.
 
-For more information, please see [`wagtail.core.models.Page.get_url`](/reference/pages/model_reference.html#wagtail.core.models.Page.get_url).
+```eval_rst
+For more information, please see :meth:`wagtail.core.models.Page.get_url`.
+```
 
-In the event a full URL (including the protocol and domain) is needed, `Page.get_full_url(request)` can be used instead. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information. For more information, please see [`wagtail.core.models.Page.get_full_url`](/reference/pages/model_reference.html#wagtail.core.models.Page.get_full_url).
+In the event a full URL (including the protocol and domain) is needed, `Page.get_full_url(request)` can be used instead. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information.
+
+```eval_rst
+For more information, please see :meth:`wagtail.core.models.Page.get_full_url`.
+```
 
 ## Template rendering
 
@@ -344,10 +358,10 @@ Wagtail can nest the content of other models within the page. This is useful for
 
 Each inline model requires the following:
 
--   It must inherit from [`wagtail.core.models.Orderable`](/reference/pages/model_reference.html#wagtail.core.models.Orderable)
+```eval_rst
+-   It must inherit from :class:`wagtail.core.models.Orderable`
 -   It must have a `ParentalKey` to the parent model
 
-```eval_rst
 .. note:: django-modelcluster and ParentalKey
 
     The model inlining feature is provided by `django-modelcluster <https://github.com/torchbox/django-modelcluster>`_ and the ``ParentalKey`` field type must be imported from there:
@@ -378,7 +392,9 @@ class BlogPageRelatedLink(Orderable):
     ]
 ```
 
-To add this to the admin interface, use the [`InlinePanel`](/reference/pages/panels.html#wagtail.admin.edit_handlers.InlinePanel) edit panel class:
+```eval_rst
+To add this to the admin interface, use the :class:`~wagtail.admin.edit_handlers.InlinePanel` edit panel class:
+```
 
 ```python
 content_panels = [
@@ -394,11 +410,13 @@ The first argument must match the value of the `related_name` attribute of the `
 
 Wagtail uses Django's [multi-table inheritance](https://docs.djangoproject.com/en/3.1/topics/db/models/#multi-table-inheritance) feature to allow multiple page models to be used in the same tree.
 
-Each page is added to both Wagtail's builtin [`Page`](/reference/pages/model_reference.html#wagtail.core.models.Page) model as well as its user-defined model (such as the `BlogPage` model created earlier).
+```eval_rst
+Each page is added to both Wagtail's builtin :class:`~wagtail.core.models.Page` model as well as its user-defined model (such as the `BlogPage` model created earlier).
+```
 
-Pages can exist in Python code in two forms, an instance of [`Page`](/reference/pages/model_reference.html#wagtail.core.models.Page) or an instance of the page model.
+Pages can exist in Python code in two forms, an instance of `Page` or an instance of the page model.
 
-> When working with multiple page types together, you will typically use instances of Wagtail's [`Page`](/reference/pages/model_reference.html#wagtail.core.models.Page) model, which don't give you access to any fields specific to their type.
+When working with multiple page types together, you will typically use instances of Wagtail's `Page` model, which don't give you access to any fields specific to their type.
 
 ```python
 # Get all pages in the database
