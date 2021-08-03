@@ -85,7 +85,6 @@ class BulkAction(ABC, FormView):
         if 'all' in object_ids:
             parent_page_id = int(self.request.GET.get('childOf'))
             object_ids = self.model.objects.get(id=parent_page_id).get_children().values_list('id', flat=True)
-        object_ids = list(map(int, object_ids))
 
         for obj in self.get_queryset(object_ids):
             if not self.check_perm(obj):
