@@ -1,7 +1,7 @@
 import json
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -602,6 +602,45 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['step'], 'external_link_chosen')
         self.assertEqual(response_json['result']['url'], "/about/")
         self.assertEqual(response_json['result']['id'], self.internal_page.pk)
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION='')
+    def test_no_conversion_external_to_internal_link_when_disabled(self):
+        url = 'http://localhost/about/'
+        title = 'about'
+        response = self.post({'external-link-chooser-url': url, 'external-link-chooser-link_text': title})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'external_link_chosen')
+
+        self.assertEqual(response_json['result']['url'], url)
+        self.assertEqual(response_json['result']['title'], title)
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION='exact')
+    def test_no_confirm_external_to_internal_link_when_exact(self):
+        url = 'http://localhost/about?test=1'
+        title = 'about'
+        response = self.post({'external-link-chooser-url': url, 'external-link-chooser-link_text': title})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        # Query parameters will get stripped, so this link should be left as an external url with the 'exact' setting
+        self.assertEqual(response_json['step'], 'external_link_chosen')
+
+        self.assertEqual(response_json['result']['url'], url)
+        self.assertEqual(response_json['result']['title'], title)
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION='confirm')
+    def test_convert_external_link_to_internal_link_with_confirm_setting(self):
+        url = 'http://localhost/about/'
+        response = self.post({'external-link-chooser-url': url, 'external-link-chooser-link_text': 'about'})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # The url is identical, but the conversion setting is set to 'confirm'
+        # so the user should get asked to confirm the conversion
+        self.assertEqual(response_json['step'], 'confirm_external_to_internal')
+
+        self.assertEqual(response_json['external']['url'], url)
+        self.assertEqual(response_json['internal']['id'], self.internal_page.pk)
 
 
 class TestChooserAnchorLink(TestCase, WagtailTestUtils):

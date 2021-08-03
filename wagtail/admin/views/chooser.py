@@ -1,5 +1,6 @@
 import re
 
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404
@@ -183,6 +184,11 @@ def search(request, parent_page_id=None):
     )
 
 
+LINK_CONVERSION_ALL = 'all'
+LINK_CONVERSION_EXACT = 'exact'
+LINK_CONVERSION_CONFIRM = 'confirm'
+
+
 def external_link(request):
     initial_data = {
         'url': request.GET.get('link_url', ''),
@@ -205,12 +211,23 @@ def external_link(request):
                 'prefer_this_title_as_link_text': ('link_text' in form.changed_data),
             }
 
+            link_conversion = getattr(settings, 'WAGTAILADMIN_EXTERNAL_LINK_CONVERSION', LINK_CONVERSION_ALL).lower()
+
+            if link_conversion not in [LINK_CONVERSION_ALL, LINK_CONVERSION_EXACT, LINK_CONVERSION_CONFIRM]:
+                # We should not attempt to convert external urls to page links
+                return render_modal_workflow(
+                    request, None, None,
+                    None, json_data={'step': 'external_link_chosen', 'result': result}
+                )
+
             # Next, we should check if the url matches an internal page
             # Strip the url of its query/fragment link parameters - these won't match a page
             url_without_query = re.split(r"\?|#", submitted_url)[0]
 
             # Start by finding any sites the url could potentially match
-            sites = getattr(request, '_wagtail_cached_site_root_paths', Site.get_site_root_paths())
+            sites = getattr(request, '_wagtail_cached_site_root_paths', None)
+            if sites is None:
+                sites = Site.get_site_root_paths()
 
             match_relative_paths = submitted_url.startswith('/') and len(sites) == 1
             # We should only match relative urls if there's only a single site
@@ -253,8 +270,9 @@ def external_link(request):
                     normal_url = matched_page.get_url_parts(request=request)[-1] if match_relative_paths else matched_page.get_full_url(request=request)
 
                     # If that's what the user provided, great. Let's just convert the external
-                    # url to an internal link automatically
-                    if normal_url == submitted_url:
+                    # url to an internal link automatically unless we're set up tp manually check
+                    # all conversions
+                    if normal_url == submitted_url and link_conversion != LINK_CONVERSION_CONFIRM:
                         return render_modal_workflow(
                             request,
                             None,
@@ -263,6 +281,11 @@ def external_link(request):
                             json_data={'step': 'external_link_chosen', 'result': internal_data}
                         )
                     # If not, they might lose query parameters or routable page information
+
+                    if link_conversion == LINK_CONVERSION_EXACT:
+                        # We should only convert exact matches
+                        continue
+
                     # Let's confirm the conversion with them explicitly
                     else:
                         return render_modal_workflow(
