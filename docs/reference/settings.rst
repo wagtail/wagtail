@@ -826,6 +826,19 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
 
 If a ``'default'`` editor is not specified, rich text fields that do not specify an ``editor`` argument will use the Draftail editor with the default feature set enabled.
 
+``WAGTAILADMIN_EXTERNAL_LINK_CONVERSION``
+-----------------------------------------
+
+.. code-block:: python
+
+    WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
+
+Customise Wagtail's behaviour when an internal page url is entered in the external link chooser. Possible values for this setting are
+``'all'``, ``'exact'``, ``'confirm``, or ``''``. The default, ``'all'``, means that Wagtail will automatically convert submitted urls that exactly match
+page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then
+Wagtail will confirm the conversion with the user. ``'exact'`` means that any inexact matches will be left as external urls, and the confirmation
+step will be skipped. ``'confirm'`` means that every link conversion will be confirmed with the user, even if the match is exact. ``''``  means
+that Wagtail will not attempt to convert any urls entered to internal page links.
 
 .. _WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK:
 
