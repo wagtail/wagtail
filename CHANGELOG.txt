@@ -4,6 +4,7 @@ Changelog
 2.15 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Added "Extending Wagtail" section to documentation (Matt Westcott)
  * Support `min_num` / `max_num` options on ListBlock (Matt Westcott)
  * Added a `background_position_style` property to renditions (Karl Hobley)
  * Added a distinct `wagtail.copy_for_translation` log action type (Karl Hobley)
