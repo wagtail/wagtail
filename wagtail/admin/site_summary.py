@@ -2,6 +2,7 @@ import inspect
 
 from warnings import warn
 
+from django.forms import Media
 from django.template.loader import render_to_string
 
 from wagtail.admin.auth import user_has_any_page_permission
@@ -104,21 +105,27 @@ class PagesSummaryItem(SummaryItem):
         return user_has_any_page_permission(self.request.user)
 
 
-class SiteSummaryPanel:
+class SiteSummaryPanel(Component):
+    template = 'wagtailadmin/home/site_summary.html'
     name = 'site_summary'
     order = 100
 
     def __init__(self, request):
         self.request = request
-        self.summary_items = []
+        summary_items = []
         for fn in hooks.get_hooks('construct_homepage_summary_items'):
-            fn(request, self.summary_items)
+            fn(request, summary_items)
+        self.summary_items = [s for s in summary_items if s.is_shown()]
+        self.summary_items.sort(key=lambda p: p.order)
 
-    def render(self):
-        summary_items = [s for s in self.summary_items if s.is_shown()]
-        if not summary_items:
-            return ''
+    def get_context(self, request, parent_context):
+        context = super().get_context(request, parent_context)
+        context['summary_items'] = self.summary_items
+        return context
 
-        return render_to_string('wagtailadmin/home/site_summary.html', {
-            'summary_items': sorted(summary_items, key=lambda p: p.order),
-        }, request=self.request)
+    @property
+    def media(self):
+        media = Media()
+        for item in self.summary_items:
+            media += item.media
+        return media

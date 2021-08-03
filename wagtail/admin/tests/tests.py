@@ -87,6 +87,18 @@ class TestHome(TestCase, WagtailTestUtils):
                 html=True
             )
 
+    def test_summary_items(self):
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<p>0 broken links</p>")
+
+        # check that media attached to summary items is correctly pulled in
+        self.assertContains(
+            response,
+            '<link href="/static/testapp/css/broken-links.css" type="text/css" media="all" rel="stylesheet">',
+            html=True
+        )
+
     def test_never_cache_header(self):
         # This tests that wagtailadmins global cache settings have been applied correctly
         response = self.client.get(reverse('wagtailadmin_home'))
