@@ -68,6 +68,25 @@ class TestHome(TestCase, WagtailTestUtils):
             '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
         )
 
+    def test_dashboard_panels(self):
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<p>It looks like you're making a website. Would you like some help?</p>")
+
+        # check that media attached to dashboard panels is correctly pulled in
+        if DJANGO_VERSION >= (3, 1):
+            self.assertContains(
+                response,
+                '<script src="/static/testapp/js/clippy.js"></script>',
+                html=True
+            )
+        else:
+            self.assertContains(
+                response,
+                '<script type="text/javascript" src="/static/testapp/js/clippy.js"></script>',
+                html=True
+            )
+
     def test_never_cache_header(self):
         # This tests that wagtailadmins global cache settings have been applied correctly
         response = self.client.get(reverse('wagtailadmin_home'))
