@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
 from django.db import connection
 from django.db.models import Max, Q
+from django.forms import Media
 from django.http import Http404, HttpResponse
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
@@ -170,6 +171,8 @@ def home(request):
     for fn in hooks.get_hooks('construct_homepage_panels'):
         fn(request, panels)
 
+    media = Media()
+
     for panel in panels:
         if hasattr(panel, 'render') and not hasattr(panel, 'render_html'):
             # NOTE: when this deprecation warning is removed the 'fallback_render_method=True' in
@@ -180,6 +183,9 @@ def home(request):
             )
             warn(message, category=RemovedInWagtail217Warning)
 
+        if hasattr(panel, 'media'):
+            media += panel.media
+
     site_details = get_site_for_user(request.user)
 
     return TemplateResponse(request, "wagtailadmin/home.html", {
@@ -187,7 +193,8 @@ def home(request):
         'root_site': site_details['root_site'],
         'site_name': site_details['site_name'],
         'panels': sorted(panels, key=lambda p: p.order),
-        'user': request.user
+        'user': request.user,
+        'media': media,
     })
 
 
