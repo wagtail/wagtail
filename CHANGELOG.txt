@@ -15,6 +15,7 @@ Changelog
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
  * Fix: Remove redundant 'clear' button from site root page chooser (Matt Westcott)
  * Fix: Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
+ * Fix: Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
 
 
 2.14.1 (12.08.2021)
