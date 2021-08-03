@@ -1,22 +1,67 @@
+import inspect
+
+from warnings import warn
+
 from django.template.loader import render_to_string
 
 from wagtail.admin.auth import user_has_any_page_permission
+from wagtail.admin.components import Component
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.core import hooks
 from wagtail.core.models import Page, Site
+from wagtail.utils.deprecation import RemovedInWagtail217Warning
 
 
-class SummaryItem:
+class SummaryItem(Component):
     order = 100
 
     def __init__(self, request):
         self.request = request
 
-    def get_context(self):
-        return {}
+    # RemovedInWagtail217Warning:
+    # For Component.get_context, request and parent_context are required arguments,
+    # but we need this wrapper to account for the possibility of a pre-2.15 render() method
+    # or an overridden get_context() method calling it without arguments
+    def get_context(self, request=None, parent_context=None):
+        if request is None and parent_context is None:
+            return {}
+        else:
+            return super().get_context(request, parent_context)
 
+    # RemovedInWagtail217Warning:
+    # old render method deprecated in 2.15; provided here in case subclasses call it via super()
     def render(self):
         return render_to_string(self.template, self.get_context(), request=self.request)
+    render.is_base_method = True
+
+    def render_html(self, request, parent_context):
+        use_old_render_method = False
+        if not getattr(self.render, 'is_base_method', False):
+            # this SummaryItem subclass has overridden render() - use their implementation in
+            # preference to following the Component.render_html path
+            message = (
+                "Summary item %r registered with construct_homepage_summary_items must be updated "
+                "to override render_html(self, request, parent_context) rather than render(self)"
+                % self
+            )
+            warn(message, category=RemovedInWagtail217Warning)
+            use_old_render_method = True
+
+        if not inspect.signature(self.get_context).parameters:
+            # get_context has been overridden with a version that doesn't accept the
+            # request / parent_context arguments passed by Component.render_html
+            message = (
+                "%s.get_context() (on summary item %r registered with construct_homepage_summary_items) "
+                "must be updated to accept parameters 'request' and 'parent_context'"
+                % (type(self).__name__, self)
+            )
+            warn(message, category=RemovedInWagtail217Warning)
+            use_old_render_method = True
+
+        if use_old_render_method:
+            return self.render()
+        else:
+            return super().render_html(request, parent_context)
 
     def is_shown(self):
         return True
