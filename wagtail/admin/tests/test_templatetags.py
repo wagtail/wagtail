@@ -2,14 +2,17 @@ from datetime import timedelta
 from unittest import mock
 
 from django.conf import settings
+from django.template import Context, Template
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
+from django.utils.html import format_html
 from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
     avatar_url, notification_static, timesince_last_update, timesince_simple)
+from wagtail.admin.ui.components import Component
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
@@ -122,3 +125,27 @@ class TestTimesinceTags(TestCase):
 
         timesince = timesince_last_update(dt)
         self.assertEqual(timesince, '1\xa0week ago')
+
+
+class TestComponentTag(TestCase):
+    def test_passing_context_to_component(self):
+        class MyComponent(Component):
+            def render_html(self, parent_context):
+                return format_html("<h1>{} was here</h1>", parent_context.get('first_name'))
+
+        template = Template(
+            "{% load wagtailadmin_tags %}{% with first_name='Kilroy' %}{% component my_component %}{% endwith %}"
+        )
+        html = template.render(Context({'my_component': MyComponent()}))
+        self.assertEqual(html, "<h1>Kilroy was here</h1>")
+
+    def test_component_escapes_unsafe_strings(self):
+        class MyComponent(Component):
+            def render_html(self, parent_context):
+                return "Look, I'm running with scissors! 8< 8< 8<"
+
+        template = Template(
+            "{% load wagtailadmin_tags %}<h1>{% component my_component %}</h1>"
+        )
+        html = template.render(Context({'my_component': MyComponent()}))
+        self.assertEqual(html, "<h1>Look, I&#x27;m running with scissors! 8&lt; 8&lt; 8&lt;</h1>")
