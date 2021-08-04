@@ -10,11 +10,9 @@ from wagtail.users.views.users import change_user_perm
 
 
 class RoleForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['role'] = forms.ModelChoiceField(
-            queryset=Group.objects.all()
-        )
+    role = forms.ModelChoiceField(
+        queryset=Group.objects.all()
+    )
 
 
 class AssignRoleBulkAction(UserBulkAction):
