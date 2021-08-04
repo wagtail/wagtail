@@ -730,7 +730,7 @@ Hooks for customising the way users are directed through the process of creating
 ``register_page_action_menu_item``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. The following attributes and methods are available to be overridden on subclasses of ``ActionMenuItem``:
+  Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. ``ActionMenuItem`` is a subclass of :ref:`Component <creating_template_components>` and so the rendering of the menu item can be customised through ``template``, ``get_context``, ``render_html`` and ``Media``. In addition, the following attributes and methods are available to be overridden:
 
   :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
   :label: the displayed text of the menu item
@@ -739,10 +739,6 @@ Hooks for customising the way users are directed through the process of creating
   :icon_name: icon to display against the menu item
   :classname: a ``class`` attribute value to add to the button element
   :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
-  :template: path to a template to render to produce the menu item HTML
-  :get_context: a method that returns a context dictionary to pass to the template
-  :render_html: a method that returns the menu item HTML; by default, renders ``template`` with the context returned from ``get_context``
-  :Media: an inner class defining JavaScript and CSS to import when this menu item is shown - see `Django form media <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_
 
   The ``get_url``, ``is_shown``, ``get_context`` and ``render_html`` methods all accept a request object and a context dictionary containing the following fields:
 
@@ -1247,8 +1243,7 @@ Hooks for working with registered Snippets.
 
   Add an item to the popup menu of actions on the snippet creation and edit views.
   The callable passed to this hook must return an instance of
-  ``wagtail.snippets.action_menu.ActionMenuItem``. The following attributes and
-  methods are available to be overridden on subclasses of ``ActionMenuItem``:
+  ``wagtail.snippets.action_menu.ActionMenuItem``. ``ActionMenuItem`` is a subclass of :ref:`Component <creating_template_components>` and so the rendering of the menu item can be customised through ``template``, ``get_context``, ``render_html`` and ``Media``. In addition, the following attributes and methods are available to be overridden:
 
   :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
   :label: the displayed text of the menu item
@@ -1257,10 +1252,6 @@ Hooks for working with registered Snippets.
   :icon_name: icon to display against the menu item
   :classname: a ``class`` attribute value to add to the button element
   :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
-  :template: the path to a template to render to produce the menu item HTML
-  :get_context: a method that returns a context dictionary to pass to the template
-  :render_html: a method that returns the menu item HTML; by default, renders ``template`` with the context returned from ``get_context``
-  :Media: an inner class defining Javascript and CSS to import when this menu item is shown - see `Django form media <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_
 
   The ``get_url``, ``is_shown``, ``get_context`` and ``render_html`` methods all accept a request object and a context dictionary containing the following fields:
 
