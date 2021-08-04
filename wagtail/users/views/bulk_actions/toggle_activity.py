@@ -53,10 +53,7 @@ class ToggleActivityBulkAction(UserBulkAction):
         user = kwargs.get('user', None)
         if user is not None:
             objects = list(filter(lambda x: x.pk != user.pk, objects))
-        for user in objects:
-            user.is_active = mark_as_active
-            user.save()
-            cls.num_parent_objects += 1
+        cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(is_active=mark_as_active)
 
     def get_success_message(self):
         activity_status = "active" if self.cleaned_form.cleaned_data['mark_as_active'] else "inactive"
