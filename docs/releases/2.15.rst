@@ -40,16 +40,29 @@ Bug fixes
 Upgrade considerations
 ======================
 
-Admin homepage panels and summary items now use components
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Admin homepage panels, summary items and action menu items now use components
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. _template_components_2_15:
 
-Admin homepage panels (as registered with the :ref:`construct_homepage_panels` hook) and summary items (as registered with :ref:`construct_homepage_summary_items`) have been updated to adopt the :doc:`template components </extending/template_components>` pattern. User code that creates these object should be updated to ensure that they follow the component API. This will typically require the following changes:
+Several Wagtail hooks provide a mechanism for passing Python objects to be rendered as HTML inside admin views, and the APIs for these objects have been updated to adopt a common :doc:`template components </extending/template_components>` pattern. The affected objects are:
 
- * Classes defined for use as homepage panels should be made subclasses of ``wagtail.admin.components.Component``, and the ``render(self)`` method should be changed to ``render_html(self, parent_context)``. (Alternatively, rather than defining ``render_html``, it may be more convenient to reimplement it with a template, as per :ref:`creating_template_components`.)
+ * Homepage panels (as registered with the :ref:`construct_homepage_panels` hook)
+ * Homepage summary items (as registered with the :ref:`construct_homepage_summary_items` hook)
+ * Page action menu items (as registered with the :ref:`register_page_action_menu_item` and :ref:`construct_page_action_menu` hooks)
+ * Snippet action menu items (as registered with the :ref:`register_snippet_action_menu_item` and :ref:`construct_snippet_action_menu` hooks)
+
+User code that creates these objects should be updated to follow the component API. This will typically require the following changes:
+
+ * Homepage panels should be made subclasses of ``wagtail.admin.ui.components.Component``, and the ``render(self)`` method should be changed to ``render_html(self, parent_context)``. (Alternatively, rather than defining ``render_html``, it may be more convenient to reimplement it with a template, as per :ref:`creating_template_components`.)
  * Summary item classes can continue to inherit from ``wagtail.admin.site_summary.SummaryItem`` (which is now a subclass of ``Component``) as before, but:
 
    * Any ``template`` attribute should be changed to ``template_name``;
    * Any place where the ``render(self)`` method is overridden should be changed to ``render_html(self, parent_context)``;
    * Any place where the ``get_context(self)`` method is overridden should be changed to ``get_context_data(self, parent_context)``.
+
+ * Action menu items for pages and snippets can continue to inherit from ``wagtail.admin.action_menu.ActionMenuItem`` and ``wagtail.snippets.action_menu.ActionMenuItem`` respectively - these are now subclasses of ``Component`` - but:
+
+   * Any ``template`` attribute should be changed to ``template_name``;
+   * Any ``get_context`` method should be renamed to ``get_context_data``;
+   * The ``get_url``, ``is_shown``, ``get_context_data`` and ``render_html`` methods no longer accept a ``request`` parameter. The request object is available in the context dictionary as ``context['request']``.
