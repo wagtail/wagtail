@@ -183,6 +183,8 @@ def home(request):
             )
             warn(message, category=RemovedInWagtail217Warning)
 
+        # RemovedInWagtail217Warning: this hasattr check can be removed when support for
+        # non-component-based panels ends
         if hasattr(panel, 'media'):
             media += panel.media
 
