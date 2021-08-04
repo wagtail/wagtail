@@ -44,7 +44,7 @@ class AssignRoleBulkAction(UserBulkAction):
 
     @classmethod
     def execute_action(cls, objects, **kwargs):
-        cls.role = role = kwargs.get('role', None)
+        role = kwargs.get('role', None)
         if role is None:
             return
         for user in objects:
@@ -59,7 +59,7 @@ class AssignRoleBulkAction(UserBulkAction):
             self.num_parent_objects
         ) % {
             'num_parent_objects': self.num_parent_objects,
-            'role': self.role
+            'role': self.cleaned_form.cleaned_data['role'].name
         }
 
 
