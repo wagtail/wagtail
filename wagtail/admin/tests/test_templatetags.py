@@ -149,3 +149,12 @@ class TestComponentTag(TestCase):
         )
         html = template.render(Context({'my_component': MyComponent()}))
         self.assertEqual(html, "<h1>Look, I&#x27;m running with scissors! 8&lt; 8&lt; 8&lt;</h1>")
+
+    def test_error_on_rendering_non_component(self):
+        template = Template(
+            "{% load wagtailadmin_tags %}<h1>{% component my_component %}</h1>"
+        )
+
+        with self.assertRaises(ValueError) as cm:
+            template.render(Context({'my_component': "hello"}))
+        self.assertEqual(str(cm.exception), "Cannot render 'hello' as a component")
