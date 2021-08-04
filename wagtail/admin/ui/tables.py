@@ -5,6 +5,7 @@ from collections.abc import Mapping
 
 from django.forms import MediaDefiningClass
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.text import capfirst
 
 from wagtail.admin.ui.components import Component
@@ -100,6 +101,23 @@ class Column(metaclass=MediaDefiningClass):
 
     def __repr__(self):
         return "<%s.%s: %s>" % (self.__class__.__module__, self.__class__.__qualname__, self.name)
+
+
+class TitleColumn(Column):
+    """A column where data is styled as a title and wrapped in a link"""
+    cell_template_name = "wagtailadmin/tables/title_cell.html"
+
+    def __init__(self, name, url_name=None, **kwargs):
+        super().__init__(name, **kwargs)
+        self.url_name = url_name
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context['link_url'] = self.get_link_url(instance, parent_context)
+        return context
+
+    def get_link_url(self, instance, parent_context):
+        return reverse(self.url_name, args=(instance.pk,))
 
 
 class Table(Component):
