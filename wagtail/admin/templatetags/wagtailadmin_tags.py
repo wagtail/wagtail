@@ -739,7 +739,10 @@ def component(context, obj, fallback_render_method=False):
     # called instead (with no arguments) - this is to provide deprecation path for things that have
     # been newly upgraded to use the component pattern.
 
-    if fallback_render_method and not hasattr(obj, 'render_html') and hasattr(obj, 'render'):
+    has_render_html_method = hasattr(obj, 'render_html')
+    if fallback_render_method and not has_render_html_method and hasattr(obj, 'render'):
         return obj.render()
+    elif not has_render_html_method:
+        raise ValueError("Cannot render %r as a component" % (obj,))
 
     return obj.render_html(context)
