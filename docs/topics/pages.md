@@ -252,8 +252,8 @@ To add more variables to the template context, you can override this method:
 class BlogIndexPage(Page):
     ...
 
-    def get_context(self, request):
-        context = super().get_context(request)
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
 
         # Add extra variables and return the updated context
         context['blog_entries'] = BlogPage.objects.child_of(self).live()
@@ -291,7 +291,7 @@ class BlogPage(Page):
 
     use_other_template = models.BooleanField()
 
-    def get_template(self, request):
+    def get_template(self, request, *args, **kwargs):
         if self.use_other_template:
             return 'blog/other_blog_page.html'
 
