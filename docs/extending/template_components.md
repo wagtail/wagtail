@@ -17,7 +17,9 @@ A (possibly empty) :doc:`form media <django:topics/forms/media>` object defining
    Any object implementing this API can be considered a valid component; it does not necessarily have to inherit from the ``Component`` class described below, and user code that works with components should not assume this (for example, it must not use ``isinstance`` to check whether a given value is a component).
 ```
 
-
+```eval_rst
+.. _creating_template_components:
+```
 ## Creating components
 
 The simplest way to create a component is to define a subclass of `wagtail.admin.ui.components.Component` and specify a `template_name` attribute on it. The rendered template will then be used as the component's HTML representation:
