@@ -37,9 +37,8 @@ class ToggleActivityBulkAction(UserBulkAction):
     def prepare_action(self, objects):
         if self.cleaned_form.cleaned_data['apply_on_applicable']:
             return
-        if not self.request.user.is_superuser:
-            return
         if not self.cleaned_form.cleaned_data['mark_as_active']:
+            # if user has marked themselves as inactive, return an error
             for user in objects:
                 if user == self.request.user:
                     context = self.get_context_data()
