@@ -5,11 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.core import hooks
-from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
-
-
-change_user_perm = "{0}.change_{1}".format(AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME.lower())
+from wagtail.users.views.users import change_user_perm
 
 
 class RoleForm(forms.Form):
