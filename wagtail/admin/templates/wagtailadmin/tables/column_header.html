@@ -1,0 +1,15 @@
+<th {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if column.sort_key %}
+        {% if ordering == column.sort_key %}
+            <a href="?ordering=-{{ column.sort_key }}" class="icon icon-arrow-down-after teal">
+                {{ column.label }}
+            </a>
+        {% else %}
+            <a href="?ordering={{ column.sort_key }}" class="icon icon-arrow-down-after">
+                {{ column.label }}
+            </a>
+        {% endif %}
+    {% else %}
+        {{ column.label }}
+    {% endif %}
+</th>
