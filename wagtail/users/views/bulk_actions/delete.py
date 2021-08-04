@@ -19,9 +19,8 @@ class DeleteBulkAction(UserBulkAction):
 
     @classmethod
     def execute_action(cls, objects, **kwargs):
-        for user in objects:
-            user.delete()
-            cls.num_parent_objects += 1
+        cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).delete()
+        cls.num_parent_objects = len(objects)
 
     def get_success_message(self):
         return ngettext(
