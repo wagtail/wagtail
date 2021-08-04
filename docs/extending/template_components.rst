@@ -14,7 +14,7 @@ Given a request object and a dict of context variables from the calling template
 A (possibly empty) :doc:`form media <django:topics/forms/media>` object defining JavaScript and CSS resources used by the component.
 
 .. note::
-   Any object implementing this API can be considered a valid component; it does not necessarily have to inherit from the ``Component`` class described below, and user code that works with components should not assume this (for example, it must not use ``instanceof`` to check whether a given value is a component).
+   Any object implementing this API can be considered a valid component; it does not necessarily have to inherit from the ``Component`` class described below, and user code that works with components should not assume this (for example, it must not use ``isinstance`` to check whether a given value is a component).
 
 
 .. _creating_template_components:
