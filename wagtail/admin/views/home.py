@@ -178,7 +178,8 @@ def home(request):
             # NOTE: when this deprecation warning is removed the 'fallback_render_method=True' in
             # wagtailadmin/home.html should be removed too
             message = (
-                "Panel %r registered with construct_homepage_panels must be updated to provide a render_html method"
+                "Homepage panel %r should provide a render_html method. "
+                "See https://docs.wagtail.io/en/stable/releases/2.15.html#admin-homepage-panels-and-summary-items-now-use-components"
                 % panel
             )
             warn(message, category=RemovedInWagtail217Warning)

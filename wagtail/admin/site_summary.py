@@ -41,8 +41,8 @@ class SummaryItem(Component):
             # this SummaryItem subclass has overridden render() - use their implementation in
             # preference to following the Component.render_html path
             message = (
-                "Summary item %r registered with construct_homepage_summary_items must be updated "
-                "to override render_html(self, request, parent_context) rather than render(self)"
+                "Summary item %r should provide render_html(self, request, parent_context) rather than render(self). "
+                "See https://docs.wagtail.io/en/stable/releases/2.15.html#admin-homepage-panels-and-summary-items-now-use-components"
                 % self
             )
             warn(message, category=RemovedInWagtail217Warning)
@@ -52,8 +52,8 @@ class SummaryItem(Component):
             # get_context has been overridden with a version that doesn't accept the
             # request / parent_context arguments passed by Component.render_html
             message = (
-                "%s.get_context() (on summary item %r registered with construct_homepage_summary_items) "
-                "must be updated to accept parameters 'request' and 'parent_context'"
+                "%s.get_context() (on summary item %r) should accept parameters 'request' and 'parent_context'. "
+                "See https://docs.wagtail.io/en/stable/releases/2.15.html#admin-homepage-panels-and-summary-items-now-use-components"
                 % (type(self).__name__, self)
             )
             warn(message, category=RemovedInWagtail217Warning)
