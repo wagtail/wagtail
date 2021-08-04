@@ -47,10 +47,8 @@ class AssignRoleBulkAction(UserBulkAction):
         role = kwargs.get('role', None)
         if role is None:
             return
-        for user in objects:
-            user.groups.add(role)
-            user.save()
-            cls.num_parent_objects += 1
+        role.user_set.add(*objects)
+        cls.num_parent_objects = len(objects)
 
     def get_success_message(self):
         return ngettext(
