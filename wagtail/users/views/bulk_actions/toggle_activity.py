@@ -49,17 +49,17 @@ class ToggleActivityBulkAction(UserBulkAction):
 
     @classmethod
     def execute_action(cls, objects, **kwargs):
-        cls.mark_as_active = kwargs.get('mark_as_active', False)
+        mark_as_active = kwargs.get('mark_as_active', False)
         user = kwargs.get('user', None)
         if user is not None:
             objects = list(filter(lambda x: x.pk != user.pk, objects))
         for user in objects:
-            user.is_active = cls.mark_as_active
+            user.is_active = mark_as_active
             user.save()
             cls.num_parent_objects += 1
 
     def get_success_message(self):
-        activity_status = "active" if self.mark_as_active else "inactive"
+        activity_status = "active" if self.cleaned_form.cleaned_data['mark_as_active'] else "inactive"
         return ngettext(
             "%(num_parent_objects)d user has been marked as %(activity_status)s",
             "%(num_parent_objects)d users have been marked as %(activity_status)s",
