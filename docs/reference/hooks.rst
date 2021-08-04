@@ -113,18 +113,19 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_panels``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``. Hook functions should modify the ``panels`` list in-place as required.
+  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of panel objects, and should modify this list in-place as required. Panel objects are :doc:`components </extending/template_components>` with an additional ``order`` property, an integer that determines the panel's position in the final ordered list. The default panels use integers between ``100`` and ``300``.
 
   .. code-block:: python
 
     from django.utils.safestring import mark_safe
 
+    from wagtail.admin.ui.components import Component
     from wagtail.core import hooks
 
-    class WelcomePanel:
+    class WelcomePanel(Component):
         order = 50
 
-        def render(self):
+        def render_html(self, parent_context):
             return mark_safe("""
             <section class="panel summary nice-padding">
               <h3>No, but seriously -- welcome to the admin homepage.</h3>
@@ -141,7 +142,19 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_summary_items``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of ``SummaryItem`` objects to be modified as required. These objects have a ``render()`` method, which returns an HTML string, and an ``order`` property, which is an integer that specifies the order in which the items will appear.
+  Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of summary item objects, and should modify this list in-place as required. Summary item objects are instances of ``wagtail.admin.site_summary.SummaryItem``, which extends :ref:`the Component class <creating_template_components>` with the following additional methods and properties:
+
+  .. method:: SummaryItem(request)
+
+    Constructor; receives the request object its argument
+
+  .. attribute:: order
+
+    An integer that specifies the item's position in the sequence.
+
+  .. method:: is_shown()
+
+    Returns a boolean indicating whether the summary item should be shown on this request.
 
 
 .. _construct_main_menu:
