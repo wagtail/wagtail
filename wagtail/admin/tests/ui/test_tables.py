@@ -1,10 +1,13 @@
-from wagtail.admin.ui.tables import Column, Table
-
 from django.template import Context, Template
 from django.test import RequestFactory, TestCase
 
+from wagtail.admin.ui.tables import Column, Table, TitleColumn
+from wagtail.core.models import Page, Site
+
 
 class TestTable(TestCase):
+    fixtures = ['test.json']
+
     def setUp(self):
         self.rf = RequestFactory()
 
@@ -36,3 +39,41 @@ class TestTable(TestCase):
                 </tbody>
             </table>
         ''')
+
+    def test_title_column(self):
+        root_page = Page.objects.filter(depth=2).first()
+        blog = Site.objects.create(hostname='blog.example.com', site_name='My blog', root_page=root_page)
+        gallery = Site.objects.create(hostname='gallery.example.com', site_name='My gallery', root_page=root_page)
+        data = [blog, gallery]
+
+        table = Table([
+            TitleColumn('hostname', url_name='wagtailsites:edit'),
+            Column('site_name', label="Site name"),
+        ], data)
+
+        html = self.render_component(table)
+        self.assertHTMLEqual(html, '''
+            <table class="listing">
+                <thead>
+                    <tr><th>Hostname</th><th>Site name</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="title">
+                            <div class="title-wrapper">
+                                <a href="/admin/sites/%d/">blog.example.com</a>
+                            </div>
+                        </td>
+                        <td>My blog</td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <div class="title-wrapper">
+                                <a href="/admin/sites/%d/">gallery.example.com</a>
+                            </div>
+                        </td>
+                        <td>My gallery</td>
+                    </tr>
+                </tbody>
+            </table>
+        ''' % (blog.pk, gallery.pk))
