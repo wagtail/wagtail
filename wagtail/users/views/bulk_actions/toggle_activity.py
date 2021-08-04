@@ -9,14 +9,12 @@ from wagtail.users.views.users import change_user_perm
 
 
 class ActivityForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['mark_as_active'] = forms.BooleanField(
-            required=False
-        )
-        self.fields['apply_on_applicable'] = forms.BooleanField(
-            required=False
-        )
+    mark_as_active = forms.BooleanField(
+        required=False
+    )
+    apply_on_applicable = forms.BooleanField(
+        required=False
+    )
 
 
 class ToggleActivityBulkAction(UserBulkAction):
