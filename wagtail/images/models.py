@@ -31,7 +31,7 @@ from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
 
 
-LOGGER = logging.getLogger("wagtail.images")
+logger = logging.getLogger("wagtail.images")
 
 
 class SourceImageIOError(IOError):
@@ -309,7 +309,7 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
         except Rendition.DoesNotExist:
             # Generate the rendition image
             try:
-                LOGGER.debug("Generating '%s' rendition for image %d", (
+                logger.debug("Generating '%s' rendition for image %d", (
                     filter.spec,
                     self.pk,
                 ))
@@ -317,13 +317,13 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
                 start_time = time.time()
                 generated_image = filter.run(self, BytesIO())
 
-                LOGGER.debug("Generated '%s' rendition for image %d in %.1fms", (
+                logger.debug("Generated '%s' rendition for image %d in %.1fms", (
                     filter.spec,
                     self.pk,
                     (time.time() - start_time) * 1000
                 ))
             except:  # noqa:B901,E722
-                LOGGER.debug("Failed to generate '%s' rendition for image %d: %s", filter.spec, self.pk)
+                logger.debug("Failed to generate '%s' rendition for image %d: %s", filter.spec, self.pk)
                 raise
 
             # Generate filename
