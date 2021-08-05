@@ -1,7 +1,7 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% if groups %}
-    {% include "wagtailusers/groups/list.html" %}
+    {% component table %}
 
     {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl="wagtailusers_groups:index" %}
 {% elif is_searching %}
