@@ -26,7 +26,9 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
             return self.columns
         except AttributeError:
             return [
-                TitleColumn('name', accessor=str, get_url=lambda obj: self.get_edit_url(obj)),
+                TitleColumn(
+                    'name', label=gettext_lazy("Name"), accessor=str, get_url=lambda obj: self.get_edit_url(obj)
+                ),
             ]
 
     def get_edit_url(self, instance):
