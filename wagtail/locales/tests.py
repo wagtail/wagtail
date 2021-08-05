@@ -17,7 +17,7 @@ class TestLocaleIndexView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaillocales/index.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/index.html')
 
 
 class TestLocaleCreateView(TestCase, WagtailTestUtils):
