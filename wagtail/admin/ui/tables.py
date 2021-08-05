@@ -50,9 +50,13 @@ class Column(metaclass=MediaDefiningClass):
         """
         Compiles the context dictionary to pass to the header template when rendering the column header
         """
+        table = parent_context['table']
         return {
             'column': self,
-            'ordering': parent_context.get('ordering'),
+            'table': table,
+            'is_orderable': bool(self.sort_key),
+            'is_ascending': self.sort_key and table.ordering == self.sort_key,
+            'is_descending': self.sort_key and table.ordering == ('-' + self.sort_key),
             'request': parent_context.get('request'),
         }
 
@@ -138,7 +142,7 @@ class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = 'listing'
 
-    def __init__(self, columns, data, template_name=None):
+    def __init__(self, columns, data, template_name=None, base_url=None, ordering=None):
         self.columns = OrderedDict([
             (column.name, column)
             for column in columns
@@ -146,10 +150,13 @@ class Table(Component):
         self.data = data
         if template_name:
             self.template_name = template_name
+        self.base_url = base_url
+        self.ordering = ordering
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
         context['table'] = self
+        context['request'] = parent_context.get('request')
         return context
 
     @property

@@ -33,10 +33,11 @@ class IndexView(generic.IndexView):
     add_item_label = gettext_lazy("Add a locale")
     context_object_name = 'locales'
     queryset = Locale.all_objects.all()
+    default_ordering = 'language_code'
 
     columns = [
         LanguageTitleColumn(
-            'language', label=gettext_lazy("Language"), sort_key='language', url_name='wagtaillocales:edit'
+            'language', label=gettext_lazy("Language"), sort_key='language_code', url_name='wagtaillocales:edit'
         ),
         UsageColumn('usage', label=gettext_lazy("Usage")),
     ]
