@@ -40,7 +40,8 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
             ]
 
     def get_index_url(self):
-        return reverse(self.index_url_name)
+        if self.index_url_name:
+            return reverse(self.index_url_name)
 
     def get_edit_url(self, instance):
         return reverse(self.edit_url_name, args=(instance.pk,))
