@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{{ page_title }} {{ page_subtitle }}{% endblock %}
 
@@ -12,5 +12,8 @@
     {% endif %}
 
     {% block listing %}
+        <div class="nice-padding">
+            {% component table %}
+        </div>
     {% endblock %}
 {% endblock %}
