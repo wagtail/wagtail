@@ -36,6 +36,7 @@ class Index(IndexView):
     template_name = 'wagtailadmin/workflows/index.html'
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
+    index_url_name = 'wagtailadmin_workflows:index'
     page_title = _("Workflows")
     add_item_label = _("Add a workflow")
     header_icon = 'tasks'
@@ -307,6 +308,7 @@ class TaskIndex(IndexView):
     template_name = 'wagtailadmin/workflows/task_index.html'
     add_url_name = 'wagtailadmin_workflows:select_task_type'
     edit_url_name = 'wagtailadmin_workflows:edit_task'
+    index_url_name = 'wagtailadmin_workflows:task_index'
     page_title = _("Workflow tasks")
     add_item_label = _("New workflow task")
     header_icon = 'thumbtack'
