@@ -46,7 +46,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         html = response.content.decode()
-        self.assertInHTML("<p>A superuser cannot change his/her role</p>", html)
+        self.assertInHTML("<p>A superuser cannot change their role</p>", html)
 
         needle = '<ul>'
         needle += '<li>{user_email}</li>'.format(user_email=self.current_user.email)
