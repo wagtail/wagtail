@@ -77,3 +77,20 @@ class TestTable(TestCase):
                 </tbody>
             </table>
         ''' % (blog.pk, gallery.pk))
+
+    def test_column_media(self):
+        class FancyColumn(Column):
+            class Media:
+                js = ['js/gradient-fill.js']
+
+        data = [
+            {'first_name': 'Paul', 'last_name': 'Simon'},
+            {'first_name': 'Art', 'last_name': 'Garfunkel'},
+        ]
+
+        table = Table([
+            FancyColumn('first_name'),
+            Column('last_name'),
+        ], data)
+
+        self.assertIn('src="/static/js/gradient-fill.js"', str(table.media['js']))

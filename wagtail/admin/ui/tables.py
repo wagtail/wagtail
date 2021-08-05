@@ -149,6 +149,13 @@ class Table(Component):
         return context
 
     @property
+    def media(self):
+        media = super().media
+        for col in self.columns.values():
+            media += col.media
+        return media
+
+    @property
     def rows(self):
         for instance in self.data:
             yield Table.Row(self.columns, instance)
