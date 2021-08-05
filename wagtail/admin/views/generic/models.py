@@ -21,6 +21,13 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
     context_object_name = None
     any_permission_required = ['add', 'change', 'delete']
     page_kwarg = 'p'
+    default_ordering = None
+
+    def get(self, request, *args, **kwargs):
+        if not hasattr(self, 'columns'):
+            self.columns = self.get_columns()
+
+        return super().get(request, *args, **kwargs)
 
     def get_columns(self):
         try:
@@ -38,16 +45,34 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
     def get_edit_url(self, instance):
         return reverse(self.edit_url_name, args=(instance.pk,))
 
+    def get_valid_orderings(self):
+        orderings = []
+        for col in self.columns:
+            if col.sort_key:
+                orderings.append(col.sort_key)
+                orderings.append('-%s' % col.sort_key)
+        return orderings
+
+    def get_ordering(self):
+        ordering = self.request.GET.get('ordering', self.default_ordering)
+        if ordering not in self.get_valid_orderings():
+            ordering = self.default_ordering
+        return ordering
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        table = Table(self.get_columns(), context['object_list'])
+        index_url = self.get_index_url()
+        table = Table(
+            self.columns, context['object_list'], base_url=index_url, ordering=self.get_ordering()
+        )
+
         context['can_add'] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, 'add')
         )
         context['table'] = table
         context['media'] = table.media
-        context['index_url'] = self.get_index_url()
+        context['index_url'] = index_url
         context['is_paginated'] = bool(self.paginate_by)
         return context
 
