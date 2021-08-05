@@ -120,6 +120,16 @@ class TitleColumn(Column):
         return reverse(self.url_name, args=(instance.pk,))
 
 
+class StatusFlagColumn(Column):
+    """Represents a boolean value as a status tag (or lack thereof, if the corresponding label is None)"""
+    cell_template_name = "wagtailadmin/tables/status_flag_cell.html"
+
+    def __init__(self, name, true_label=None, false_label=None, **kwargs):
+        super().__init__(name, **kwargs)
+        self.true_label = true_label
+        self.false_label = false_label
+
+
 class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = 'listing'

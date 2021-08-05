@@ -18,7 +18,7 @@ class TestSiteIndexView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsites/index.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/index.html')
 
     def test_pagination(self):
         pages = ['0', '1', '-1', '9999', 'Not a page']
@@ -276,7 +276,7 @@ class TestLimitedPermissions(TestCase, WagtailTestUtils):
     def test_get_index(self):
         response = self.client.get(reverse('wagtailsites:index'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsites/index.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/index.html')
 
     def test_get_create_view(self):
         response = self.client.get(reverse('wagtailsites:add'))
