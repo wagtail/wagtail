@@ -1,6 +1,7 @@
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
+from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.core.models import Locale
@@ -10,20 +11,35 @@ from .forms import LocaleForm
 from .utils import get_locale_usage
 
 
+class LanguageTitleColumn(TitleColumn):
+    cell_template_name = "wagtaillocales/_language_title_cell.html"
+
+    def get_value(self, locale):
+        return locale
+
+
+class UsageColumn(Column):
+    def get_value(self, locale):
+        num_pages, num_others = get_locale_usage(locale)
+        # TODO: make this translatable
+        val = "%d pages" % num_pages
+        if num_others:
+            val += (" + %d others" % num_others)
+        return val
+
+
 class IndexView(generic.IndexView):
-    template_name = 'wagtaillocales/index.html'
     page_title = gettext_lazy("Locales")
     add_item_label = gettext_lazy("Add a locale")
     context_object_name = 'locales'
     queryset = Locale.all_objects.all()
 
-    def get_context_data(self):
-        context = super().get_context_data()
-
-        for locale in context['locales']:
-            locale.num_pages, locale.num_others = get_locale_usage(locale)
-
-        return context
+    columns = [
+        LanguageTitleColumn(
+            'language', label=gettext_lazy("Language"), sort_key='language', url_name='wagtaillocales:edit'
+        ),
+        UsageColumn('usage', label=gettext_lazy("Usage")),
+    ]
 
 
 class CreateView(generic.CreateView):
