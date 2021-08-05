@@ -107,9 +107,10 @@ class TitleColumn(Column):
     """A column where data is styled as a title and wrapped in a link"""
     cell_template_name = "wagtailadmin/tables/title_cell.html"
 
-    def __init__(self, name, url_name=None, **kwargs):
+    def __init__(self, name, url_name=None, get_url=None, **kwargs):
         super().__init__(name, **kwargs)
         self.url_name = url_name
+        self._get_url_func = get_url
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
@@ -117,7 +118,10 @@ class TitleColumn(Column):
         return context
 
     def get_link_url(self, instance, parent_context):
-        return reverse(self.url_name, args=(instance.pk,))
+        if self._get_url_func:
+            return self._get_url_func(instance)
+        else:
+            return reverse(self.url_name, args=(instance.pk,))
 
 
 class StatusFlagColumn(Column):
