@@ -31,11 +31,13 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        table = Table(self.get_columns(), context['object_list'])
         context['can_add'] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, 'add')
         )
-        context['table'] = Table(self.get_columns(), context['object_list'])
+        context['table'] = table
+        context['media'] = table.media
         return context
 
 
