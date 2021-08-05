@@ -159,21 +159,21 @@ def bulk_action_filters():
     yield Button(
         _('All'),
         '?filters=',
-        attrs={'title': _("All pages"), 'filter': _("")},
+        attrs={'title': _("All pages"), 'data': {'bulk-action-filter': _("")}},
         priority=10
     )
 
     yield Button(
         _('Status: Draft'),
         '?filters=status:draft',
-        attrs={'title': _("Draft pages"), 'filter': _("status:draft")},
+        attrs={'title': _("Draft pages"), 'data': {'bulk-action-filter': _("status:draft")}},
         priority=20
     )
 
     yield Button(
         _('Status: Live'),
         '?filters=status:live',
-        attrs={'title': _("Live pages"), 'filter': _("status:live")},
+        attrs={'title': _("Live pages"), 'data': {'bulk-action-filter': _("status:live")}},
         priority=30
     )
 
