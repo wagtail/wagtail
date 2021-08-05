@@ -11,6 +11,7 @@ Changelog
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
+ * Fix: Remove redundant 'clear' button from site root page chooser (Matt Westcott)
 
 
 2.14 (02.08.2021)
