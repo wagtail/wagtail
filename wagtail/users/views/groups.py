@@ -57,7 +57,6 @@ class IndexView(mixins.SearchableListMixin, generic.IndexView):
     search_fields = ['name']
     context_object_name = 'groups'
     paginate_by = 20
-    page_kwarg = 'p'
     ordering = ['name']
 
     def get_template_names(self):
