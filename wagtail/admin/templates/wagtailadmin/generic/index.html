@@ -14,6 +14,10 @@
     {% block listing %}
         <div class="nice-padding">
             {% component table %}
+
+            {% if is_paginated %}
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+            {% endif %}
         </div>
     {% endblock %}
 {% endblock %}

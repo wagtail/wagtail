@@ -20,6 +20,7 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
     template_name = 'wagtailadmin/generic/index.html'
     context_object_name = None
     any_permission_required = ['add', 'change', 'delete']
+    page_kwarg = 'p'
 
     def get_columns(self):
         try:
@@ -30,6 +31,9 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
                     'name', label=gettext_lazy("Name"), accessor=str, get_url=lambda obj: self.get_edit_url(obj)
                 ),
             ]
+
+    def get_index_url(self):
+        return reverse(self.index_url_name)
 
     def get_edit_url(self, instance):
         return reverse(self.edit_url_name, args=(instance.pk,))
@@ -43,6 +47,8 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
         )
         context['table'] = table
         context['media'] = table.media
+        context['index_url'] = self.get_index_url()
+        context['is_paginated'] = bool(self.paginate_by)
         return context
 
 
