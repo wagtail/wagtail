@@ -8,6 +8,7 @@ from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdate
 from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
+from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.core.log_actions import log
 
 from .base import WagtailAdminTemplateMixin
@@ -19,8 +20,17 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
     index_url_name = None
     add_url_name = None
     edit_url_name = None
+    template_name = 'wagtailadmin/generic/index.html'
     context_object_name = None
     any_permission_required = ['add', 'change', 'delete']
+
+    def get_columns(self):
+        try:
+            return self.columns
+        except AttributeError:
+            return [
+                TitleColumn('name', accessor=str, url_name=self.edit_url_name),
+            ]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -28,6 +38,7 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, 'add')
         )
+        context['table'] = Table(self.get_columns(), context['object_list'])
         return context
 
 
