@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load wagtailadmin_tags i18n %}
 {% block titletag %}Documents{% endblock %}
 {% block extra_js %}
     {{ block.super }}
@@ -16,6 +16,7 @@
             })
         });
     </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -42,4 +43,6 @@
             {% include "wagtaildocs/documents/results.html" %}
         </div>
     </div>
+    {% trans "Select all documents in listing" as select_all_text %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text bulk_action_register_hook='register_document_bulk_action' %}
 {% endblock %}

@@ -1,5 +1,6 @@
 {% load i18n %}
 <table class="listing">
+    <col width="10px" />
     <col />
     <col  />
     {% if collections %}
@@ -8,6 +9,7 @@
     <col width="16%" />
     <thead>
         <tr class="table-headers">
+            {% include 'wagtailadmin/bulk_actions/select_all_checkbox_cell.html' %}
             <th>
                 {% if not is_searching %}
                     <a href="{% url 'wagtaildocs:index' %}{% if not ordering == "title" %}?ordering=title{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "title" %}teal{% endif %}">
@@ -33,8 +35,10 @@
         </tr>
     </thead>
     <tbody>
+        {% trans "Select document" as checkbox_aria_label %}
         {% for doc in documents %}
             <tr>
+                {% include 'wagtailadmin/bulk_actions/listing_checkbox_cell.html' with obj_type='document' obj=doc aria_label=checkbox_aria_label %}
                 <td class="title">
                     <div class="title-wrapper"><a href="{% url 'wagtaildocs:edit' doc.id %}">{{ doc.title }}</a></div>
                 </td>
