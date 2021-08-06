@@ -1,4 +1,4 @@
-.PHONY: clean-pyc develop lint test coverage
+.PHONY: clean-pyc develop spelling lint test coverage
 
 help:
 	@echo "clean-pyc - remove Python file artifacts"
@@ -16,7 +16,10 @@ develop: clean-pyc
 	pip install -e .[testing,docs]
 	npm install --no-save && npm run build
 
-lint:
+spelling:
+	codespell -S *.po,*.map,*/vendor/*,*vendor.js*,./node_modules/*,./docs/_build/*,./storybook-static/*,./wagtail/admin/static/wagtailadmin/js/*,./package-lock.json
+
+lint: spelling
 	flake8
 	isort --check-only --diff .
 	# Filter out known false positives, while preserving normal output and error codes.
