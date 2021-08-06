@@ -146,7 +146,7 @@ class TestTranslatableMixin(TestCase):
         self.assertNotEqual(copy_translatable_child, instance_translatable_child)
         self.assertEqual(copy_translatable_child.field, "A translatable child object")
 
-        # Check the translatable childs locale was updated but translation key is the same
+        # Check the translatable child's locale was updated but translation key is the same
         self.assertEqual(copy_translatable_child.translation_key, instance_translatable_child.translation_key)
         self.assertEqual(copy_translatable_child.locale, self.another_locale)
 

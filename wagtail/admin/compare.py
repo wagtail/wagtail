@@ -608,7 +608,7 @@ def diff_text(a, b):
     """
     def tokenise(text):
         """
-        Tokenises a string by spliting it into individual characters
+        Tokenises a string by splitting it into individual characters
         and grouping the alphanumeric ones together.
 
         This means that punctuation, whitespace, CJK characters, etc
@@ -658,7 +658,7 @@ def diff_text(a, b):
             for token in a_tok[i1:i2]:
                 changes.append(('equal', token))
 
-    # Merge ajacent changes which have the same type. This just cleans up the HTML a bit
+    # Merge adjacent changes which have the same type. This just cleans up the HTML a bit
     merged_changes = []
     current_value = []
     current_change_type = None

@@ -3831,7 +3831,7 @@ class TestSystemCheck(TestCase):
         errors = block.check()
         self.assertEqual(len(errors), 1)
         self.assertEqual(errors[0].id, 'wagtailcore.E001')
-        self.assertEqual(errors[0].hint, "Block names should follow standard Python conventions for variable names: alpha-numeric and underscores, and cannot begin with a digit")
+        self.assertEqual(errors[0].hint, "Block names should follow standard Python conventions for variable names: alphanumeric and underscores, and cannot begin with a digit")
         self.assertEqual(errors[0].obj, block.child_blocks['rich+text'])
 
     def test_name_must_be_nonempty(self):
@@ -4132,7 +4132,7 @@ class BlockUsingGetTemplateMethod(blocks.Block):
 
 
 class TestOverriddenGetTemplateBlockTag(TestCase):
-    def test_template_is_overriden_by_get_template(self):
+    def test_template_is_overridden_by_get_template(self):
 
         block = BlockUsingGetTemplateMethod(template='tests/blocks/this_shouldnt_be_used.html')
         template = block.get_template()

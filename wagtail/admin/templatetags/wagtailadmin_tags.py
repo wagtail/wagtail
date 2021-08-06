@@ -513,7 +513,7 @@ def admin_urlquote(value):
 def avatar_url(user, size=50, gravatar_only=False):
     """
     A template tag that receives a user and size and return
-    the appropiate avatar url for that user.
+    the appropriate avatar url for that user.
     Example usage: {% avatar_url request.user 50 %}
     """
 
@@ -596,7 +596,7 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
     """
     Returns:
          - the time of update if last_update is today, if any prefix is supplied, the output will use it
-         - time since last update othewise. Defaults to the simplified timesince,
+         - time since last update otherwise. Defaults to the simplified timesince,
            but can return the full string if needed
     """
     if last_update.date() == datetime.today().date():

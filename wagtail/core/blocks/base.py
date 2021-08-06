@@ -289,7 +289,7 @@ class Block(metaclass=BaseBlock):
             errors.append(checks.Error(
                 "Block name %r is invalid" % self.name,
                 "Block names should follow standard Python conventions for "
-                "variable names: alpha-numeric and underscores, and cannot "
+                "variable names: alphanumeric and underscores, and cannot "
                 "begin with a digit",
                 obj=kwargs.get('field', self),
                 id='wagtailcore.E001',

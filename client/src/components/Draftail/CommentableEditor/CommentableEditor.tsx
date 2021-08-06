@@ -107,7 +107,7 @@ export class DraftailInlineAnnotation implements Annotation {
     let medianRef: null | DecoratorRef = null;
     if (focused) {
       // If the comment is focused, calculate the median of refs only
-      // within the focused block, to ensure the comment is visisble
+      // within the focused block, to ensure the comment is visible
       // if the highlight has somehow been split up
       medianRef = DraftailInlineAnnotation.getMedianRef(
         Array.from(this.decoratorRefs.keys()).filter(

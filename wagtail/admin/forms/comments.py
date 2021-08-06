@@ -28,7 +28,7 @@ class CommentReplyForm(WagtailAdminModelForm):
 
 class CommentForm(WagtailAdminModelForm):
     """
-    This is designed to be subclassed and have the user overidden to enable user-based validation within the edit handler system
+    This is designed to be subclassed and have the user overridden to enable user-based validation within the edit handler system
     """
     user = None
 

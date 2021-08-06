@@ -33,7 +33,7 @@
     }
 
     // TODO: Remove these references to classes that are styled by core Wagtail CSS. The best
-    // opportunity for this is propably as part of Wagtails general CSS overhaul. -@jonnyscholes
+    // opportunity for this is probably as part of Wagtails general CSS overhaul. -@jonnyscholes
     .field {
         + .field {
             padding-top: $grid-gutter-width / 2;

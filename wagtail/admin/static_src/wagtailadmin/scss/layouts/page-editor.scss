@@ -335,7 +335,7 @@
             border-bottom: 1px solid $color-white;
         }
 
-        // wrapper around add button for mutliple objects. Default version is wordless plus button for contracted groups of fields
+        // wrapper around add button for multiple objects. Default version is wordless plus button for contracted groups of fields
         .add {
             @include transition(background-color 0.2s ease);
             position: relative;
@@ -420,7 +420,7 @@
     }
 }
 
-// Footer control bar for perfoming actions on the page
+// Footer control bar for performing actions on the page
 footer .actions {
     .button {
         font-weight: 600;

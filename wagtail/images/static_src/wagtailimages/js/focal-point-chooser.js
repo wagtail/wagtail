@@ -72,7 +72,7 @@ $(function() {
     $(window).on('resize', $.debounce(300, function() {
         // jcrop doesn't support responsive images so to cater for resizing the browser
         // we have to destroy() it, which doesn't properly do it,
-        // so destory it some more, then re-apply it
+        // so destroy it some more, then re-apply it
         jcropapi.destroy();
         $image.removeAttr('style');
         $('.jcrop-holder').remove();
