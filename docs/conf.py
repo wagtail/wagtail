@@ -64,9 +64,6 @@ extensions = [
     'sphinx_wagtail_theme',
 ]
 
-if not on_rtd:
-    extensions.append('sphinxcontrib.spelling')
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -129,11 +126,6 @@ pygments_style = 'default'
 
 # If true, keep warnings as "system message" paragraphs in the built documents.
 # keep_warnings = False
-
-# splhinxcontrib.spelling settings
-
-spelling_lang = 'en_GB'
-spelling_word_list_filename = 'spelling_wordlist.txt'
 
 # sphinx.ext.intersphinx settings
 intersphinx_mapping = {
