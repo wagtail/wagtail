@@ -16,7 +16,7 @@ def set_page_position(request, page_to_move_id):
         # Get position parameter
         position = request.GET.get('position', None)
 
-        # Find page thats already in this position
+        # Find page that's already in this position
         position_page = None
         if position is not None:
             try:

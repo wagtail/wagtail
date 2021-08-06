@@ -451,7 +451,7 @@ Changelog
  * FieldPanel now accepts a 'heading' argument (Jacob Topp-Mugglestone)
  * Replaced deprecated `ugettext` / `ungettext` calls with `gettext` / `ngettext` (Mohamed Feddad)
  * ListBlocks now call child block `bulk_to_python` if defined (Andy Chosak)
- * Site settings are now identifiable/cachable by request as well as site (Andy Babic)
+ * Site settings are now identifiable/cacheable by request as well as site (Andy Babic)
  * Added `select_related` attribute to site settings to enable more efficient fetching of foreign key values (Andy Babic)
  * Add caching of image renditions (Tom Dyson, Tim Kamanin)
  * Add documentation for reporting security issues and internationalisation (Matt Westcott)
@@ -669,7 +669,7 @@ Changelog
  * Fix: Revised test decorator to ensure TestPageEditHandlers test cases run correctly (Alex Tomkins)
  * Fix: Wagtail bird animation in admin now ends correctly on all browsers (Deniz Dogan)
  * Fix: Explorer menu no longer shows sibling pages for which the user does not have access (Mike Hearn)
- * Fix: Fixed occurences of invalid HTML across the CMS admin (Thibaud Colas)
+ * Fix: Fixed occurrences of invalid HTML across the CMS admin (Thibaud Colas)
  * Fix: Admin HTML now includes the correct `dir` attribute for the active language (Andreas Bernacca)
  * Fix: Fix type error when using `--chunk_size` argument on `./manage.py update_index` (Seb Brown)
  * Fix: Avoid rendering entire form in EditHandler's `repr` method (Alex Tomkins)
@@ -688,7 +688,7 @@ Changelog
  * Fix: Ensure the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
  * Fix: Remove tab order customisations in CMS admin (Jordan Bauer)
  * Fix: Add labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
- * Fix: Page.copy() no longer copies child objects when the accesssor name is included in `exclude_fields_in_copy` (Karl Hobley)
+ * Fix: Page.copy() no longer copies child objects when the accessor name is included in `exclude_fields_in_copy` (Karl Hobley)
  * Fix: Move focus to the pages explorer menu when open (Helen Chapman)
  * Fix: Clicking the privacy toggle while the page is still loading no longer loads the wrong data in the page (Helen Chapman)
  * Fix: Added missing `is_stored_locally` method to `AbstractDocument` (jonny5532)
@@ -1765,7 +1765,7 @@ Changelog
  * Added classnames to Wagtail rich text editor buttons to aid custom styling (Rob Shelton)
  * Simplified body_class in default homepage template (Josh Barr)
  * page_published signal now called with the revision object that was published (Josh Barr)
- * Added an overrideable favicon to the admin interface
+ * Added an overridable favicon to the admin interface
  * Added spinner animations to long-running form submissions
  * The EMBEDLY_KEY setting has been renamed to WAGTAILEMBEDS_EMBEDLY_KEY (Anurag Sharma)
  * StreamField blocks are now added automatically, without showing the block types menu, if only one block type exists (Alex Gleason)

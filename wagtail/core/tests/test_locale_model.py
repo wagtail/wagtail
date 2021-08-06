@@ -40,7 +40,7 @@ class TestLocaleModel(TestCase):
         locale = Locale.objects.get(language_code="en")
         self.assertEqual(locale.get_display_name(), "English")
 
-    def test_get_display_name_for_unconfigured_langauge(self):
+    def test_get_display_name_for_unconfigured_language(self):
         # This language is not in LANGUAGES so it should just return the language code
         locale = Locale.objects.create(language_code="foo")
         self.assertIsNone(locale.get_display_name())
@@ -49,7 +49,7 @@ class TestLocaleModel(TestCase):
         locale = Locale.objects.get(language_code="en")
         self.assertEqual(str(locale), "English")
 
-    def test_str_for_unconfigured_langauge(self):
+    def test_str_for_unconfigured_language(self):
         # This language is not in LANGUAGES so it should just return the language code
         locale = Locale.objects.create(language_code="foo")
         self.assertEqual(str(locale), "foo")

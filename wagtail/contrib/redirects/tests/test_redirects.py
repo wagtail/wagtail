@@ -18,7 +18,7 @@ class TestRedirects(TestCase):
         # Create a path
         path = normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')
 
-        # Test against equivalant paths
+        # Test against equivalent paths
         self.assertEqual(path, normalise_path(  # The exact same URL
             '/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'
         ))

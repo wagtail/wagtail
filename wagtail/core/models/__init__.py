@@ -1742,7 +1742,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         An alias is like a copy, but an alias remains in sync with the original page. They
         are not directly editable and do not have revisions.
 
-        You can convert an alias into a regular page by setting the .alias_of attibute to None
+        You can convert an alias into a regular page by setting the .alias_of attribute to None
         and creating an initial revision.
 
         :param recursive: create aliases of the page's subtree, defaults to False

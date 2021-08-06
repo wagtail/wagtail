@@ -111,7 +111,7 @@ MIDDLEWARE = (
 
 INSTALLED_APPS = [
     # Install wagtailredirects with its appconfig
-    # Theres nothing special about wagtailredirects, we just need to have one
+    # There's nothing special about wagtailredirects, we just need to have one
     # app which uses AppConfigs to test that hooks load properly
     'wagtail.contrib.redirects.apps.WagtailRedirectsAppConfig',
 
