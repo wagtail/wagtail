@@ -12,6 +12,7 @@ Changelog
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
  * Fix: Remove redundant 'clear' button from site root page chooser (Matt Westcott)
+ * Fix: Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
 
 
 2.14 (02.08.2021)
