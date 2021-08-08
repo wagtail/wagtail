@@ -3,11 +3,6 @@
 {% load wagtailimages_tags wagtailadmin_tags %}
 {% block titletag %}{% blocktrans count counter=images|length %}Add 1 image to new collection {% plural %}Add {{ counter }} images to new collection{% endblocktrans %}{% endblock %}
 
-{% block extra_css %}
-    {{ block.super }}
-    {{ form.media.css }}
-{% endblock %}
-
 {% block header %}
     {% trans "Add images to collection" as add_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
