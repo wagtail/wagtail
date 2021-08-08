@@ -16,7 +16,7 @@ class TagForm(forms.Form):
 
 
 class AddTagsBulkAction(ImageBulkAction):
-    display_name = _("Add tags")
+    display_name = _("Tag")
     action_type = "add_tags"
     aria_label = _("Add tags to images")
     template_name = "wagtailimages/bulk_actions/confirm_bulk_add_tags.html"
