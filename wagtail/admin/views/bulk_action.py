@@ -43,6 +43,7 @@ class BulkAction(ABC, FormView):
         if not next_url:
             next_url = request.path
         self.next_url = next_url
+        self.num_parent_objects = self.num_child_objects = 0
 
     @classmethod
     def get_queryset(cls, object_ids):
