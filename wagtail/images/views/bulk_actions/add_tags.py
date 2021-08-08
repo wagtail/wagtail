@@ -37,7 +37,6 @@ class AddTagsBulkAction(ImageBulkAction):
         for image in images:
             cls.num_parent_objects += 1
             image.tags.add(*tags)
-            image.save()
 
     def get_success_message(self):
         return ngettext(
