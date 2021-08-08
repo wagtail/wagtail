@@ -10,7 +10,7 @@ class DeleteBulkAction(ImageBulkAction):
     action_type = "delete"
     aria_label = _("Delete images")
     template_name = "wagtailimages/bulk_actions/confirm_bulk_delete.html"
-    action_priority = 10
+    action_priority = 100
     classes = {'serious'}
 
     def check_perm(self, document):
