@@ -22,9 +22,7 @@
         <li>
             <a href="{% url 'wagtailimages:edit' image.image.id %}"  target="_blank" rel="noopener noreferrer">{{image.image.title}}</a>
             {% if uc_enabled %}
-            <p>
-                <a href="{{ image.image.usage_url }}">{% blocktrans count usage_count=image.image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-            </p>
+            (<a href="{{ image.image.usage_url }}">{% blocktrans count usage_count=image.image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
             {% endif %}
         </li>
     {% endfor %}
