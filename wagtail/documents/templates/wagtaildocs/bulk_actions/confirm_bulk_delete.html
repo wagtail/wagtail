@@ -22,9 +22,7 @@
             <a href="{% url 'wagtaildocs:edit' document.document.id %}"  target="_blank" rel="noopener noreferrer">{{document.document.title}}</a>
             {% usage_count_enabled as uc_enabled %}
             {% if uc_enabled %}
-            <p>
-                <a href="{{ document.document.usage_url }}">{% blocktrans count usage_count=document.document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
-            </p>
+            (<a href="{{ document.document.usage_url }}">{% blocktrans count usage_count=document.document.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
             {% endif %}
         </li>
     {% endfor %}
