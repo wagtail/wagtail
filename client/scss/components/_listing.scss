@@ -530,8 +530,9 @@ ul.listing {
     justify-content: space-around;
     width: 100%;
     align-items: center;
-    padding: 1.5em 2em;
-    border-radius: 0.5em 0.5em 0 0;
+    padding: 1.25em;
+    border-radius: 4px 4px 0 0;
+    margin-left: 30px;
 
     .bulk-actions-buttons {
         border-left: 1px solid $color-grey-2;
@@ -541,6 +542,7 @@ ul.listing {
             max-width: 150px;
             overflow-x: hidden;
             text-overflow: ellipsis;
+            border: 0;
         }
     }
 
