@@ -180,3 +180,8 @@ def get_search_fields(search_fields):
         elif isinstance(search_field, RelatedFields):
             for sub_field in get_search_fields(search_field.fields):
                 yield sub_field
+
+
+def get_postgresql_connections():
+    return [connection for connection in connections.all()
+            if connection.vendor == 'postgresql']
