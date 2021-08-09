@@ -9,22 +9,22 @@
 {% endblock header %}
 
 {% block objects_with_access %}
-        {% if documents %}
-        <p>
-            {% blocktrans count counter=documents|length %}
-            Are you sure you want to add the document to this collection?
-            {% plural %}
-            Are you sure you want to add the documents to this collection?
-            {% endblocktrans %}
-        </p>
-        <ul>
-            {% for document in documents %}
-            <li>
-                <a href="{% url 'wagtaildocs:edit' document.document.id %}"  target="_blank" rel="noopener noreferrer">{{document.document.title}}</a>
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+    {% if documents %}
+    <p>
+        {% blocktrans count counter=documents|length %}
+        Are you sure you want to add the document to this collection?
+        {% plural %}
+        Are you sure you want to add the documents to this collection?
+        {% endblocktrans %}
+    </p>
+    <ul>
+        {% for document in documents %}
+        <li>
+            <a href="{% url 'wagtaildocs:edit' document.document.id %}"  target="_blank" rel="noopener noreferrer">{{document.document.title}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 {% endblock objects_with_access %}
 
 {% block objects_with_no_access %}
@@ -35,11 +35,11 @@
 {% endblock objects_with_no_access %}
 
 {% block form_section %}
-        {% if documents %}
-            {% trans 'Yes, add' as action_button_text %}
-            {% trans "No, don't add" as no_action_button_text %}
-            {% include 'wagtailadmin/bulk_actions/confirmation/form_with_fields.html' %}
-        {% else %}
-            {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
-        {% endif %}
+    {% if documents %}
+        {% trans 'Yes, add' as action_button_text %}
+        {% trans "No, don't add" as no_action_button_text %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/form_with_fields.html' %}
+    {% else %}
+        {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
+    {% endif %}
 {% endblock form_section %}
