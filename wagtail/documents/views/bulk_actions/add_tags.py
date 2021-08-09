@@ -37,7 +37,6 @@ class AddTagsBulkAction(DocumentBulkAction):
         for document in objects:
             cls.num_parent_objects += 1
             document.tags.add(*tags)
-            document.save()
 
     def get_success_message(self):
         return ngettext(
