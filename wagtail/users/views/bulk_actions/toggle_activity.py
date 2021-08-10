@@ -47,8 +47,7 @@ class ToggleActivityBulkAction(UserBulkAction):
                     return TemplateResponse(self.request, self.template_name, context)
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        mark_as_active = kwargs.get('mark_as_active', False)
+    def execute_action(cls, objects, mark_as_active=False, **kwargs):
         user = kwargs.get('user', None)
         if user is not None:
             objects = list(filter(lambda x: x.pk != user.pk, objects))
