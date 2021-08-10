@@ -25,7 +25,7 @@
 
     {% if panels %}
         {% for panel in panels %}
-            {{ panel.render }}
+            {% component panel fallback_render_method=True %}
         {% endfor %}
     {% else %}
         <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
