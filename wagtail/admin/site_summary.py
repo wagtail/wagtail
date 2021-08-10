@@ -72,9 +72,9 @@ class SummaryItem(Component):
 
 class PagesSummaryItem(SummaryItem):
     order = 100
-    template = 'wagtailadmin/home/site_summary_pages.html'
+    template_name = 'wagtailadmin/home/site_summary_pages.html'
 
-    def get_context(self):
+    def get_context_data(self, parent_context):
         site_details = get_site_for_user(self.request.user)
         root_page = site_details['root_page']
         site_name = site_details['site_name']
