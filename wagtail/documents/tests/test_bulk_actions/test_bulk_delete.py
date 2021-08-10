@@ -35,11 +35,8 @@ class TestDocumentBulkDeleteView(TestCase, WagtailTestUtils):
         html = response.content.decode()
         self.assertInHTML("<p>You don't have permission to delete these documents</p>", html)
 
-        needle = '<ul>'
         for document in self.documents:
-            needle += '<li>{document_title}</li>'.format(document_title=document.title)
-        needle += '</ul>'
-        self.assertInHTML(needle, html)
+            self.assertInHTML('<li>{document_title}</li>'.format(document_title=document.title), html)
 
         response = self.client.post(self.url)
         # User should be redirected back to the index

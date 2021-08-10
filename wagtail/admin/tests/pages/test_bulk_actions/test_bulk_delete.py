@@ -105,12 +105,9 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
 
         self.assertInHTML("<p>You don't have permission to delete these pages</p>", html)
 
-        needle = '<ul>'
         for child_page in self.pages_to_be_deleted:
-            needle += '<li>{page_title}</li>'.format(page_title=child_page.title)
-        needle += '</ul>'
+            self.assertInHTML('<li>{page_title}</li>'.format(page_title=child_page.title), html)
 
-        self.assertInHTML(needle, html)
         self.assertTagInHTML('''<form action="{}" method="POST"></form>'''.format(self.url), html, count=0)
 
     def test_bulk_delete_post(self):

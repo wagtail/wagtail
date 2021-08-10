@@ -38,13 +38,8 @@ class TestBulkAddTags(TestCase, WagtailTestUtils):
         html = response.content.decode()
         self.assertInHTML("<p>You don't have permission to add tags to these documents</p>", html)
 
-        print(html)
-
-        needle = '<ul>'
         for document in self.documents:
-            needle += '<li>{document_title}</li>'.format(document_title=document.title)
-        needle += '</ul>'
-        self.assertInHTML(needle, html)
+            self.assertInHTML('<li>{document_title}</li>'.format(document_title=document.title), html)
 
         response = self.client.post(self.url, self.post_data)
 
