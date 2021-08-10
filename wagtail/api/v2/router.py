@@ -2,6 +2,7 @@ import functools
 
 from django.urls import include, re_path
 
+from wagtai.core.utils import WAGTAIL_APPEND_SLASH
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 
@@ -68,8 +69,12 @@ class WagtailAPIRouter:
         urlpatterns = []
 
         for name, class_ in self._endpoints.items():
+            if WAGTAIL_APPEND_SLASH:
+                path_regex = r'^{}/'.format(name)
+            else:
+                path_regex = r'^{}'.format(name)
             pattern = re_path(
-                r'^{}/'.format(name),
+                path_regex,
                 include((class_.get_urlpatterns(), name), namespace=name)
             )
             urlpatterns.append(pattern)
