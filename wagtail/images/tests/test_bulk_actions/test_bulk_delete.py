@@ -37,11 +37,8 @@ class TestImageBulkDeleteView(TestCase, WagtailTestUtils):
         html = response.content.decode()
         self.assertInHTML("<p>You don't have permission to delete these images</p>", html)
 
-        needle = '<ul>'
         for image in self.images:
-            needle += '<li>{image_title}</li>'.format(image_title=image.title)
-        needle += '</ul>'
-        self.assertInHTML(needle, html)
+            self.assertInHTML('<li>{image_title}</li>'.format(image_title=image.title), html)
 
         response = self.client.post(self.url)
         # User should be redirected back to the index
