@@ -10,6 +10,7 @@ from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
+from wagtail.admin.site_summary import SummaryItem
 from wagtail.admin.ui.components import Component
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
@@ -206,3 +207,18 @@ class ClippyPanel(Component):
 @hooks.register('construct_homepage_panels')
 def add_clippy_panel(request, panels):
     panels.append(ClippyPanel())
+
+
+class BrokenLinksSummaryItem(SummaryItem):
+    order = 100
+
+    def render_html(self, parent_context):
+        return mark_safe("<p>0 broken links</p>")
+
+    class Media:
+        css = {'all': ['testapp/css/broken-links.css']}
+
+
+@hooks.register('construct_homepage_summary_items')
+def add_broken_links_summary_item(request, items):
+    items.append(BrokenLinksSummaryItem(request))
