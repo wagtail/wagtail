@@ -36,8 +36,8 @@ class SummaryItem(Component):
             # this SummaryItem subclass has overridden render() - use their implementation in
             # preference to following the Component.render_html path
             message = (
-                "Summary item %r registered with construct_homepage_summary_items must be updated "
-                "to override render_html(self, parent_context) rather than render(self)"
+                "Summary item %r should provide render_html(self, parent_context) rather than render(self). "
+                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15"
                 % self
             )
             warn(message, category=RemovedInWagtail217Warning)
@@ -46,8 +46,8 @@ class SummaryItem(Component):
             # this SummaryItem subclass has overridden get_context() - use their implementation in
             # preference to Component.get_context_data
             message = (
-                "Summary item %r registered with construct_homepage_summary_items must be updated "
-                "to override get_context_data(self, parent_context) rather than get_context(self)"
+                "Summary item %r should provide get_context_data(self, parent_context) rather than get_context(self). "
+                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15"
                 % self
             )
             warn(message, category=RemovedInWagtail217Warning)
@@ -57,7 +57,8 @@ class SummaryItem(Component):
 
         if self.template is not None:
             warn(
-                "%s should define template_name instead of template" % type(self).__name__,
+                "%s should define template_name instead of template. "
+                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15" % type(self).__name__,
                 category=RemovedInWagtail217Warning
             )
             template_name = self.template
