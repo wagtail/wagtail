@@ -13,6 +13,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
 from wagtail.core.models import Page, Site
+from wagtail.core.utils import WAGTAIL_APPEND_SLASH
 
 from .filters import (
     AncestorOfFilter, ChildOfFilter, DescendantOfFilter, FieldsFilter, LocaleFilter, OrderingFilter,
@@ -336,10 +337,16 @@ class BaseAPIViewSet(GenericViewSet):
         """
         This returns a list of URL patterns for the endpoint
         """
+        if WAGTAIL_APPEND_SLASH:
+            detail_path = '<int:pk>/'
+            find_path = 'find/'
+        else:
+            detail_path = '/<int:pk>'
+            find_path = '/find'
         return [
             path('', cls.as_view({'get': 'listing_view'}), name='listing'),
-            path('<int:pk>/', cls.as_view({'get': 'detail_view'}), name='detail'),
-            path('find/', cls.as_view({'get': 'find_view'}), name='find'),
+            path(detail_path, cls.as_view({'get': 'detail_view'}), name='detail'),
+            path(find_path, cls.as_view({'get': 'find_view'}), name='find'),
         ]
 
     @classmethod
