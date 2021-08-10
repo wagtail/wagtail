@@ -1,11 +1,22 @@
+import unittest
+
 from unittest import skip
+from django.db import connection
+
+from django.test.utils import override_settings
 from wagtail.tests.search import models
 from django.test.testcases import TestCase
 from wagtail.search.tests.test_backends import BackendTests
 
 
+@unittest.skipUnless(connection.vendor == 'sqlite', "The current database is not SQLite")
+@override_settings(WAGTAILSEARCH_BACKENDS={
+    'default': {
+        'BACKEND': 'wagtail.search.backends.database.sqlite.sqlite',
+    }
+})
 class TestSQLiteSearchBackend(BackendTests, TestCase):
-    backend_path = 'wagtail.search.backends.database.sqlite'
+    backend_path = 'wagtail.search.backends.database.sqlite.sqlite'
 
     @skip("The SQLite backend doesn't support boosting.")
     def test_search_boosting_on_related_fields(self):

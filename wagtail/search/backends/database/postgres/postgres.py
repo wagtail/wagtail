@@ -698,3 +698,6 @@ class PostgresSearchBackend(BaseSearchBackend):
 
     def delete(self, obj):
         self.get_index_for_object(obj).delete_item(obj)
+
+
+SearchBackend = PostgresSearchBackend
