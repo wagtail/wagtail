@@ -2,7 +2,7 @@ import functools
 
 from django.urls import include, re_path
 
-from wagtai.core.utils import WAGTAIL_APPEND_SLASH
+from wagtail.core.utils import WAGTAIL_APPEND_SLASH
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 

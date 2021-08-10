@@ -30,6 +30,14 @@ class TestPageListing(TestCase):
 
     # BASIC TESTS
 
+    def test_slashes(self):
+        self.assertEqual(reverse('wagtailapi_v2:pages:listing'), '/api/main/pages/')
+        self.assertEqual(self.client.get('/api/main/pages').status_code, 404)
+
+    @override_settings(WAGTAIL_APPEND_SLASH=False)
+    def test_no_slashes(self):
+        self.assertEqual(self.client.get('/api/main/pages').status_code, 301)
+
     def test_basic(self):
         response = self.get_response()
 
