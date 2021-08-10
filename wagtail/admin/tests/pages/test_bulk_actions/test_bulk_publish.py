@@ -76,12 +76,8 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
 
         self.assertInHTML("<p>You don't have permission to publish these pages</p>", html)
 
-        needle = '<ul>'
         for child_page in self.pages_to_be_published:
-            needle += '<li>{page_title}</li>'.format(page_title=child_page.title)
-        needle += '</ul>'
-
-        self.assertInHTML(needle, html)
+            self.assertInHTML('<li>{page_title}</li>'.format(page_title=child_page.title), html)
 
     def test_publish_view_post(self):
         """
