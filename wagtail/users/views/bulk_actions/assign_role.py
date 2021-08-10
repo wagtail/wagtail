@@ -43,8 +43,7 @@ class AssignRoleBulkAction(UserBulkAction):
                 return TemplateResponse(self.request, self.template_name, ctx)
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        role = kwargs.get('role', None)
+    def execute_action(cls, objects, role=None, **kwargs):
         if role is None:
             return
         role.user_set.add(*objects)
