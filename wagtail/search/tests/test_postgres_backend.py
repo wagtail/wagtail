@@ -1,7 +1,8 @@
 import unittest
-from django.test.utils import override_settings
+
 from django.db import connection
 from django.test import TestCase
+from django.test.utils import override_settings
 
 from wagtail.search.tests.test_backends import BackendTests
 from wagtail.tests.search import models

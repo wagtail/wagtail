@@ -1,5 +1,5 @@
 # coding: utf-8
-
+import sqlite3
 import unittest
 
 from collections import OrderedDict
@@ -737,21 +737,39 @@ class TestBackendLoader(TestCase):
 
     @unittest.skipIf(connection.vendor != 'sqlite', 'Only applicable to SQLite database systems')
     def test_import_by_name_sqlite_db_vendor(self):
-        from wagtail.search.backends.database.sqlite.sqlite import SQLiteSearchBackend
-        db = get_search_backend(backend='default')
-        self.assertIsInstance(db, SQLiteSearchBackend)
+        # This should return the fallback backend, because the SQLite backend doesn't support versions less than 3.19.0
+        if sqlite3.sqlite_version_info < (3, 19, 0):
+            from wagtail.search.backends.database.fallback import DatabaseSearchBackend
+            db = get_search_backend(backend='default')
+            self.assertIsInstance(db, DatabaseSearchBackend)
+        else:
+            from wagtail.search.backends.database.sqlite.sqlite import SQLiteSearchBackend
+            db = get_search_backend(backend='default')
+            self.assertIsInstance(db, SQLiteSearchBackend)
 
     @unittest.skipIf(connection.vendor != 'sqlite', 'Only applicable to SQLite database systems')
     def test_import_by_path_sqlite_db_vendor(self):
-        from wagtail.search.backends.database.sqlite.sqlite import SQLiteSearchBackend
-        db = get_search_backend(backend='wagtail.search.backends.database')
-        self.assertIsInstance(db, SQLiteSearchBackend)
+        # Same as above
+        if sqlite3.sqlite_version_info < (3, 19, 0):
+            from wagtail.search.backends.database.fallback import DatabaseSearchBackend
+            db = get_search_backend(backend='wagtail.search.backends.database')
+            self.assertIsInstance(db, DatabaseSearchBackend)
+        else:
+            from wagtail.search.backends.database.sqlite.sqlite import SQLiteSearchBackend
+            db = get_search_backend(backend='wagtail.search.backends.database')
+            self.assertIsInstance(db, SQLiteSearchBackend)
 
     @unittest.skipIf(connection.vendor != 'sqlite', 'Only applicable to SQLite database systems')
     def test_import_by_full_path_sqlite_db_vendor(self):
-        from wagtail.search.backends.database.sqlite.sqlite import SQLiteSearchBackend
-        db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
-        self.assertIsInstance(db, SQLiteSearchBackend)
+        # Same as above
+        if sqlite3.sqlite_version_info < (3, 19, 0):
+            from wagtail.search.backends.database.fallback import DatabaseSearchBackend
+            db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
+            self.assertIsInstance(db, DatabaseSearchBackend)
+        else:
+            from wagtail.search.backends.database.sqlite.sqlite import SQLiteSearchBackend
+            db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
+            self.assertIsInstance(db, SQLiteSearchBackend)
 
     def test_nonexistent_backend_import(self):
         self.assertRaises(

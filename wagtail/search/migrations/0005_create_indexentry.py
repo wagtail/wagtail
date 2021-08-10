@@ -2,7 +2,7 @@
 
 import django.db.models.deletion  # noqa
 
-from django.db import connection, migrations, models
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):

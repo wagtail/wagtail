@@ -1,5 +1,3 @@
-import warnings
-
 from collections import OrderedDict
 from functools import reduce
 
@@ -7,17 +5,16 @@ from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transact
 from django.db.models import Avg, Count, F, Manager, Q, TextField
 from django.db.models.constants import LOOKUP_SEP
 from django.db.models.functions import Cast, Length
-from django.db.models.sql.subqueries import InsertQuery
+from django.db.utils import OperationalError
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 
 from ....index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
 from ....models import IndexEntry, SQLiteFTSIndexEntry
 from ....query import And, MatchAll, Not, Or, Phrase, PlainText
-from ....utils import (
-    ADD, MUL, OR, get_content_type_pk, get_descendants_content_types_pks)
+from ....utils import ADD, MUL, OR, get_content_type_pk, get_descendants_content_types_pks
 from ...base import BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError
-from .query import AndNot, BM25, Lexeme, MatchExpression, SearchQuery, normalize
+from .query import BM25, AndNot, Lexeme, MatchExpression, SearchQuery, normalize
 
 
 class ObjectIndexer:
@@ -249,7 +246,6 @@ class SQLiteSearchRebuilder:
 
     def start(self):
         self.index.delete_stale_entries()
-        #IndexEntry.objects.all().delete()
         return self.index
 
     def finish(self):
@@ -337,7 +333,7 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
 
             last_term = terms.pop()
 
-            lexemes = Lexeme(last_term, prefix=self.LAST_TERM_IS_PREFIX) # Combine all terms into a single lexeme.
+            lexemes = Lexeme(last_term, prefix=self.LAST_TERM_IS_PREFIX)  # Combine all terms into a single lexeme.
             for term in terms:
                 new_lexeme = Lexeme(term)
 
@@ -380,7 +376,7 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
             return query
         if isinstance(query, Not):
             unwrapped_query = query.subquery
-            built_query = Not(self.build_search_query(unwrapped_query, config=config)) # We don't take the Not operator into account.
+            built_query = Not(self.build_search_query(unwrapped_query, config=config))  # We don't take the Not operator into account.
         else:
             built_query = self.build_search_query_content(query, config=config)
         return built_query
@@ -442,23 +438,23 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
 
         elif isinstance(normalized_query, Not) and isinstance(normalized_query.subquery, MatchAll):
             return self.queryset.none()
-        
+
         if isinstance(normalized_query, Not):
             normalized_query = normalized_query.subquery
             negated = True
         else:
             negated = False
 
-        search_query = self.build_search_query(normalized_query, config=config) # We build a search query here, for example: "%s MATCH '(hello AND world)'"
+        search_query = self.build_search_query(normalized_query, config=config)  # We build a search query here, for example: "%s MATCH '(hello AND world)'"
         vectors = self.get_search_vectors()
         rank_expression = self._build_rank_expression(vectors, config)
 
-        combined_vector = vectors[0][0] # We create a combined vector for the search results queryset. We start with the first vector and build from there.
+        combined_vector = vectors[0][0]  # We create a combined vector for the search results queryset. We start with the first vector and build from there.
         for vector, boost in vectors[1:]:
-            combined_vector = combined_vector._combine(vector, ' ', False) # We add the subsequent vectors to the combined vector.
+            combined_vector = combined_vector._combine(vector, ' ', False)  # We add the subsequent vectors to the combined vector.
 
-        expr = MatchExpression(self.fields or ['title', 'body'], search_query) # Build the FTS match expression.
-        objs = SQLiteFTSIndexEntry.objects.filter(expr).select_related('index_entry') # Perform the FTS search. We'll get entries in the SQLiteFTSIndexEntry model.
+        expr = MatchExpression(self.fields or ['title', 'body'], search_query)  # Build the FTS match expression.
+        objs = SQLiteFTSIndexEntry.objects.filter(expr).select_related('index_entry')  # Perform the FTS search. We'll get entries in the SQLiteFTSIndexEntry model.
 
         if self.order_by_relevance:
             objs = objs.order_by(BM25().desc())
@@ -467,12 +463,19 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
             queryset = objs.order_by('-pk')
             rank_expression = F('pk')
 
-        obj_ids = [obj.index_entry.object_id for obj in objs] # Get the IDs of the objects that matched. They're stored in the IndexEntry model, so we need to get that first.
+        from django.db import connection
+        from django.db.models.sql.subqueries import InsertQuery
+        compiler = InsertQuery(IndexEntry).get_compiler(connection=connection)
+
+        try:
+            obj_ids = [obj.index_entry.object_id for obj in objs]  # Get the IDs of the objects that matched. They're stored in the IndexEntry model, so we need to get that first.
+        except OperationalError:
+            raise OperationalError('The original query was' + compiler.compile(objs.query)[0] + str(compiler.compile(objs.query)[1]))
 
         if not negated:
-            queryset = self.queryset.filter(id__in=obj_ids) # We need to filter the source queryset to get the objects that matched the search query.
+            queryset = self.queryset.filter(id__in=obj_ids)  # We need to filter the source queryset to get the objects that matched the search query.
         else:
-            queryset = self.queryset.exclude(id__in=obj_ids) # We exclude the objects that matched the search query from the source queryset, if the query is negated.
+            queryset = self.queryset.exclude(id__in=obj_ids)  # We exclude the objects that matched the search query from the source queryset, if the query is negated.
 
         if score_field is not None:
             queryset = queryset.annotate(**{score_field: rank_expression})
@@ -513,14 +516,7 @@ class SQLiteAutocompleteQueryCompiler(SQLiteSearchQueryCompiler):
         return [(F('index_entries__autocomplete'), 1.0)]
 
     def get_fields_vectors(self, search_query):
-        return [
-            (SearchVector(
-                field_lookup,
-                config=search_query.config,
-                weight='D',
-            ), 1.0)
-            for field_lookup, search_field in self.search_fields.items()
-        ]
+        raise NotImplementedError()
 
 
 class SQLiteSearchResults(BaseSearchResults):

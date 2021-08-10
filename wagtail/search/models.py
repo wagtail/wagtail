@@ -198,13 +198,12 @@ elif connection.vendor == 'sqlite':
 
     class AbstractSQLiteIndexEntry(BaseIndexEntry):
         """
-        This class is the specific IndexEntry model for SQLite database systems. The autocomplete, title, and body fields store additional 
+        This class is the specific IndexEntry model for SQLite database systems. The autocomplete, title, and body fields store additional
         """
 
         autocomplete = TextField(null=True)
         title = TextField(null=False)
         body = TextField(null=True)
-
 
         class Meta(BaseIndexEntry.Meta):
             abstract = True
@@ -216,7 +215,7 @@ elif connection.vendor == 'sqlite':
         title = TextField(null=False)
         body = TextField(null=True)
         index_entry = OneToOneField(primary_key=True, to='wagtailsearch.indexentry', on_delete=models.CASCADE, db_column='rowid')
-    
+
         class Meta:
             db_table = "wagtailsearch_indexentry_fts"
 
