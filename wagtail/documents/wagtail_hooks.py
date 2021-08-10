@@ -101,9 +101,9 @@ def register_document_feature(features):
 
 class DocumentsSummaryItem(SummaryItem):
     order = 300
-    template = 'wagtaildocs/homepage/site_summary_documents.html'
+    template_name = 'wagtaildocs/homepage/site_summary_documents.html'
 
-    def get_context(self):
+    def get_context_data(self, parent_context):
         site_name = get_site_for_user(self.request.user)['site_name']
 
         return {
