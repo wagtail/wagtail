@@ -54,15 +54,22 @@ class ToggleActivityBulkAction(UserBulkAction):
         cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(is_active=mark_as_active)
 
     def get_success_message(self):
-        activity_status = "active" if self.cleaned_form.cleaned_data['mark_as_active'] else "inactive"
-        return ngettext(
-            "%(num_parent_objects)d user has been marked as %(activity_status)s",
-            "%(num_parent_objects)d users have been marked as %(activity_status)s",
-            self.num_parent_objects
-        ) % {
-            'num_parent_objects': self.num_parent_objects,
-            'activity_status': activity_status
-        }
+        if self.cleaned_form.cleaned_data['mark_as_active']:
+            return ngettext(
+                "%(num_parent_objects)d user has been marked as active",
+                "%(num_parent_objects)d users have been marked as active",
+                self.num_parent_objects
+            ) % {
+                'num_parent_objects': self.num_parent_objects,
+            }
+        else:
+            return ngettext(
+                "%(num_parent_objects)d user has been marked as inactive",
+                "%(num_parent_objects)d users have been marked as inactive",
+                self.num_parent_objects
+            ) % {
+                'num_parent_objects': self.num_parent_objects,
+            }
 
 
 @hooks.register('register_user_bulk_action')
