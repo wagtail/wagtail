@@ -143,6 +143,22 @@ class DateColumn(Column):
     cell_template_name = "wagtailadmin/tables/date_cell.html"
 
 
+class UserColumn(Column):
+    """Outputs the username and avatar for a user"""
+    cell_template_name = "wagtailadmin/tables/user_cell.html"
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+
+        user = context['value']
+        try:
+            full_name = user.get_full_name().strip()
+        except AttributeError:
+            full_name = ''
+        context['display_name'] = full_name or user.get_username()
+        return context
+
+
 class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = 'listing'
