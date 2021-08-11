@@ -219,6 +219,22 @@ elif connection.vendor == 'sqlite':
         class Meta:
             db_table = "wagtailsearch_indexentry_fts"
 
+elif connection.vendor == 'mysql':
+
+    class AbstractMySQLIndexEntry(BaseIndexEntry):
+        """
+        This class is the specific IndexEntry model for MySQL database systems.
+        """
+
+        autocomplete = TextField(null=True)
+        title = TextField(null=False)
+        body = TextField(null=True)
+
+        class Meta(BaseIndexEntry.Meta):
+            abstract = True
+
+    AbstractIndexEntry = AbstractMySQLIndexEntry
+
 else:
     AbstractIndexEntry = BaseIndexEntry
 
