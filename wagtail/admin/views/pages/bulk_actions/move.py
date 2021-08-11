@@ -5,7 +5,6 @@ from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
-from wagtail.core import hooks
 from wagtail.core.models import Page
 
 
@@ -26,7 +25,6 @@ class MoveForm(forms.Form):
         )
 
 
-@hooks.register('register_bulk_action')
 class MoveBulkAction(PageBulkAction):
     display_name = _("Move")
     action_type = "move"

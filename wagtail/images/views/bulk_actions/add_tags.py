@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
-from wagtail.core import hooks
 from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 
 
@@ -11,7 +10,6 @@ class TagForm(forms.Form):
     tags = forms.Field(widget=widgets.AdminTagWidget)
 
 
-@hooks.register('register_bulk_action')
 class AddTagsBulkAction(ImageBulkAction):
     display_name = _("Tag")
     action_type = "add_tags"

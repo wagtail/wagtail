@@ -2,7 +2,6 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
-from wagtail.core import hooks
 from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 
 
@@ -15,7 +14,6 @@ class CollectionForm(forms.Form):
         )
 
 
-@hooks.register('register_bulk_action')
 class AddToCollectionBulkAction(ImageBulkAction):
     display_name = _("Add to collection")
     action_type = "add_to_collection"

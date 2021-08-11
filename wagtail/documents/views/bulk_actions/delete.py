@@ -1,11 +1,9 @@
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
-from wagtail.core import hooks
 from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
 
 
-@hooks.register('register_bulk_action')
 class DeleteBulkAction(DocumentBulkAction):
     display_name = _("Delete")
     action_type = "delete"
