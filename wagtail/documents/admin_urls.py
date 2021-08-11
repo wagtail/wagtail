@@ -1,6 +1,6 @@
 from django.urls import path
 
-from wagtail.documents.views import bulk_actions, chooser, documents, multiple
+from wagtail.documents.views import chooser, documents, multiple
 
 
 app_name = 'wagtaildocs'
@@ -20,6 +20,4 @@ urlpatterns = [
     path('chooser/<int:document_id>/', chooser.document_chosen, name='document_chosen'),
     path('chooser/upload/', chooser.chooser_upload, name='chooser_upload'),
     path('usage/<int:document_id>/', documents.usage, name='document_usage'),
-
-    path('multiple/<str:action>/', bulk_actions.index, name='document_bulk_action'),
 ]
