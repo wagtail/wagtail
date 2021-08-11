@@ -5,7 +5,8 @@ from wagtail.images.permissions import permission_policy as images_permission_po
 
 class ImageBulkAction(BulkAction):
     permission_policy = images_permission_policy
-    model = get_image_model()
+    models = [get_image_model()]
+    object_key = 'image'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
