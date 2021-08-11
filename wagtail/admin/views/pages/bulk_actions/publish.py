@@ -5,6 +5,7 @@ from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkActi
 from wagtail.core import hooks
 
 
+@hooks.register('register_bulk_action')
 class PublishBulkAction(PageBulkAction):
     display_name = _("Publish")
     action_type = "publish"
@@ -79,8 +80,3 @@ class PublishBulkAction(PageBulkAction):
             else:
                 success_message = _("%(num_parent_objects)d pages have been published") % {'num_parent_objects': num_parent_objects}
         return success_message
-
-
-@hooks.register('register_page_bulk_action')
-def publish(request):
-    return PublishBulkAction(request)

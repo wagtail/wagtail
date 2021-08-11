@@ -5,6 +5,7 @@ from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkActi
 from wagtail.core import hooks
 
 
+@hooks.register('register_bulk_action')
 class UnpublishBulkAction(PageBulkAction):
     display_name = _("Unpublish")
     action_type = "unpublish"
@@ -79,8 +80,3 @@ class UnpublishBulkAction(PageBulkAction):
             else:
                 success_message = _("%(num_parent_objects)d pages have been unpublished") % {'num_parent_objects': num_parent_objects}
         return success_message
-
-
-@hooks.register('register_page_bulk_action')
-def unpublish(request):
-    return UnpublishBulkAction(request)

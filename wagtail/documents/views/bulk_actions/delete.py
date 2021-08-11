@@ -5,6 +5,7 @@ from wagtail.core import hooks
 from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
 
 
+@hooks.register('register_bulk_action')
 class DeleteBulkAction(DocumentBulkAction):
     display_name = _("Delete")
     action_type = "delete"
@@ -30,8 +31,3 @@ class DeleteBulkAction(DocumentBulkAction):
         ) % {
             'num_parent_objects': num_parent_objects
         }
-
-
-@hooks.register('register_document_bulk_action')
-def delete(request):
-    return DeleteBulkAction(request)

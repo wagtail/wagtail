@@ -5,6 +5,7 @@ from wagtail.core import hooks
 from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 
 
+@hooks.register('register_bulk_action')
 class DeleteBulkAction(ImageBulkAction):
     display_name = _("Delete")
     action_type = "delete"
@@ -30,8 +31,3 @@ class DeleteBulkAction(ImageBulkAction):
         ) % {
             'num_parent_objects': num_parent_objects
         }
-
-
-@hooks.register('register_image_bulk_action')
-def delete(request):
-    return DeleteBulkAction(request)

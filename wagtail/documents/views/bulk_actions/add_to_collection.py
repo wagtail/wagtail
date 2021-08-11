@@ -15,6 +15,7 @@ class CollectionForm(forms.Form):
         )
 
 
+@hooks.register('register_bulk_action')
 class AddToCollectionBulkAction(DocumentBulkAction):
     display_name = _("Add to collection")
     action_type = "add_to_collection"
@@ -55,8 +56,3 @@ class AddToCollectionBulkAction(DocumentBulkAction):
             'num_parent_objects': num_parent_objects,
             'collection': collection
         }
-
-
-@hooks.register('register_document_bulk_action')
-def add_to_collection(request):
-    return AddToCollectionBulkAction(request)

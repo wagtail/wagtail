@@ -11,6 +11,7 @@ class TagForm(forms.Form):
     tags = forms.Field(widget=widgets.AdminTagWidget)
 
 
+@hooks.register('register_bulk_action')
 class AddTagsBulkAction(ImageBulkAction):
     display_name = _("Tag")
     action_type = "add_tags"
@@ -45,8 +46,3 @@ class AddTagsBulkAction(ImageBulkAction):
         ) % {
             'num_parent_objects': num_parent_objects
         }
-
-
-@hooks.register('register_image_bulk_action')
-def add_tags(request):
-    return AddTagsBulkAction(request)

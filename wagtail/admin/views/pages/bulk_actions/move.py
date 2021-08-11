@@ -26,6 +26,7 @@ class MoveForm(forms.Form):
         )
 
 
+@hooks.register('register_bulk_action')
 class MoveBulkAction(PageBulkAction):
     display_name = _("Move")
     action_type = "move"
@@ -113,8 +114,3 @@ class MoveBulkAction(PageBulkAction):
             page.move(destination, pos='last-child', user=user)
             num_parent_objects += 1
         return num_parent_objects, 0
-
-
-@hooks.register('register_page_bulk_action')
-def move(request):
-    return MoveBulkAction(request)
