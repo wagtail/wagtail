@@ -10,10 +10,8 @@ from wagtail.users.views.users import change_user_perm
 
 class ActivityForm(forms.Form):
     mark_as_active = forms.BooleanField(
-        required=False
-    )
-    apply_on_applicable = forms.BooleanField(
-        required=False
+        required=False,
+        label=_('Activate / Deactivate')
     )
 
 
@@ -35,8 +33,6 @@ class ToggleActivityBulkAction(UserBulkAction):
         }
 
     def prepare_action(self, objects):
-        if self.cleaned_form.cleaned_data['apply_on_applicable']:
-            return
         if not self.cleaned_form.cleaned_data['mark_as_active']:
             # if user has marked themselves as inactive, return an error
             for user in objects:
