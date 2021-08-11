@@ -725,6 +725,9 @@ def resolve_url(url):
     # Used by wagtailadmin/shared/pagination_nav.html - given an input that may be a URL route
     # name, or a direct URL path, return it as a direct URL path. On failure (or being passed
     # an empty / None value), return empty string
+    if not url:
+        return ''
+
     try:
         return resolve_url_func(url)
     except NoReverseMatch:

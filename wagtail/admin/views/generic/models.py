@@ -44,7 +44,8 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
             return reverse(self.index_url_name)
 
     def get_edit_url(self, instance):
-        return reverse(self.edit_url_name, args=(instance.pk,))
+        if self.edit_url_name:
+            return reverse(self.edit_url_name, args=(instance.pk,))
 
     def get_valid_orderings(self):
         orderings = []
