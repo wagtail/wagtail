@@ -826,6 +826,8 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
 
 If a ``'default'`` editor is not specified, rich text fields that do not specify an ``editor`` argument will use the Draftail editor with the default feature set enabled.
 
+.. _WAGTAILADMIN_EXTERNAL_LINK_CONVERSION:
+
 ``WAGTAILADMIN_EXTERNAL_LINK_CONVERSION``
 -----------------------------------------
 

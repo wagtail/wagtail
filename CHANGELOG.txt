@@ -4,6 +4,7 @@ Changelog
 2.15 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Add the ability for the page chooser to convert external urls that match a page to internal links (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
  * Added "Extending Wagtail" section to documentation (Matt Westcott)
  * Support `min_num` / `max_num` options on ListBlock (Matt Westcott)
  * Added a `background_position_style` property to renditions (Karl Hobley)
