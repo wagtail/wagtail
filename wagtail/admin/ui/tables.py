@@ -138,6 +138,11 @@ class StatusFlagColumn(Column):
         self.false_label = false_label
 
 
+class DateColumn(Column):
+    """Outputs a date in human-readable format"""
+    cell_template_name = "wagtailadmin/tables/date_cell.html"
+
+
 class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = 'listing'
