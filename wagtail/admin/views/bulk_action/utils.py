@@ -1,4 +1,5 @@
 from django.apps import apps
+
 from wagtail.core import hooks
 
 

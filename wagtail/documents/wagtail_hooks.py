@@ -23,7 +23,8 @@ from wagtail.documents.permissions import permission_policy
 from wagtail.documents.rich_text import DocumentLinkHandler
 from wagtail.documents.rich_text.contentstate import ContentstateDocumentLinkConversionRule
 from wagtail.documents.rich_text.editor_html import EditorHTMLDocumentLinkConversionRule
-from wagtail.documents.views.bulk_actions import AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction
+from wagtail.documents.views.bulk_actions import (
+    AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction)
 
 
 @hooks.register('register_admin_urls')
@@ -187,7 +188,6 @@ def check_view_restrictions(document, request):
 
             elif restriction.restriction_type in [BaseViewRestriction.LOGIN, BaseViewRestriction.GROUPS]:
                 return require_wagtail_login(next=request.get_full_path())
-
 
 
 for action_class in [AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction]:

@@ -16,8 +16,8 @@ from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_url
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
 from wagtail.admin.views import account, chooser, home, tags, userbar
-from wagtail.admin.views.pages import listing
 from wagtail.admin.views.bulk_action import index as bulk_actions
+from wagtail.admin.views.pages import listing
 from wagtail.core import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 

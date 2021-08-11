@@ -19,7 +19,8 @@ from wagtail.images.permissions import permission_policy
 from wagtail.images.rich_text import ImageEmbedHandler
 from wagtail.images.rich_text.contentstate import ContentstateImageConversionRule
 from wagtail.images.rich_text.editor_html import EditorHTMLImageConversionRule
-from wagtail.images.views.bulk_actions import AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction
+from wagtail.images.views.bulk_actions import (
+    AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction)
 
 
 @hooks.register('register_admin_urls')
