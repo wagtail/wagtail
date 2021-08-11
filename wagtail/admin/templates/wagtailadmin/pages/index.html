@@ -21,7 +21,7 @@
             {% paginate pages base_url=pagination_base_url %}
         {% endif %}
         {% trans "Select all pages in listing" as select_all_text %}
-        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text bulk_action_register_hook='register_page_bulk_action' objects=pages %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label='wagtailcore' model_name='page' objects=pages %}
     </form>
 {% endblock %}
 

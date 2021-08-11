@@ -1,7 +1,9 @@
 from abc import ABC, abstractmethod
 
 from django import forms
+from django.apps import apps
 from django.db import transaction
+from django.http.response import Http404
 from django.shortcuts import get_list_or_404, redirect
 from django.views.generic import FormView
 
@@ -136,3 +138,12 @@ class BulkAction(ABC, FormView):
 
     def form_invalid(self, form):
         return super().form_invalid(form)
+
+
+
+def index(request, app_label, model_name, action):
+    model = apps.get_model(app_label, model_name)
+    for bulk_action_class in hooks.get_hooks('register_bulk_action'):
+        if bulk_action_class.action_type == action and model in bulk_action_class.models:
+            return bulk_action_class(request, model).dispatch(request)
+    return Http404()
