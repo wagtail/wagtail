@@ -14,3 +14,4 @@ Bug fixes
 ~~~~~~~~~
 
  * Prevent failure on Twitter embeds and others which return cache_age as a string (Matt Westcott)
+ * Fix Uncaught ReferenceError when editing links in Hallo (Cynthia Kiser)
