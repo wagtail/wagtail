@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.shortcuts import get_object_or_404
 from rest_framework.filters import BaseFilterBackend
+from rest_framework.filters import OrderingFilter as BaseOrderingFilter
 from taggit.managers import TaggableManager
 
 from wagtail.core.models import Locale, Page
@@ -59,48 +60,31 @@ class FieldsFilter(BaseFilterBackend):
         return queryset
 
 
-class OrderingFilter(BaseFilterBackend):
-    def filter_queryset(self, request, queryset, view):
-        """
-        This applies ordering to the result set
-        Eg: ?order=title
+class OrderingFilter(BaseOrderingFilter):
+    ordering_param = 'order'
 
-        It also supports reverse ordering
-        Eg: ?order=-title
+    def get_valid_fields(self, queryset, view, context):
+        return [
+            (item, item)
+            for item in view.get_available_fields(queryset.model)
+        ]
 
-        And random ordering
-        Eg: ?order=random
-        """
-        if 'order' in request.GET:
-            order_by = request.GET['order']
+    def remove_invalid_fields(self, queryset, fields, view, request):
+        if 'random' in fields:
+            if 'offset' in request.GET:
+                raise BadRequestError("random ordering with offset is not supported")
+            return ["?"]  # When randomly ordering, it's the only option
 
-            # Random ordering
-            if order_by == 'random':
-                # Prevent ordering by random with offset
-                if 'offset' in request.GET:
-                    raise BadRequestError("random ordering with offset is not supported")
+        valid_fields = [item[0] for item in self.get_valid_fields(queryset, view, {'request': request})]
 
-                return queryset.order_by('?')
+        for term in fields:
+            if term.startswith("-"):
+                term = term[1:]
 
-            # Check if reverse ordering is set
-            if order_by.startswith('-'):
-                reverse_order = True
-                order_by = order_by[1:]
-            else:
-                reverse_order = False
+            if term not in valid_fields:
+                raise BadRequestError("cannot order by '%s' (unknown field)" % term)
 
-            # Add ordering
-            if order_by in view.get_available_fields(queryset.model):
-                queryset = queryset.order_by(order_by)
-            else:
-                # Unknown field
-                raise BadRequestError("cannot order by '%s' (unknown field)" % order_by)
-
-            # Reverse order
-            if reverse_order:
-                queryset = queryset.reverse()
-
-        return queryset
+        return fields
 
 
 class SearchFilter(BaseFilterBackend):

@@ -671,6 +671,19 @@ class TestPageListing(TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [21, 22, 19, 23, 5, 16, 18, 12, 14, 8, 9, 4, 2, 13, 20, 17, 6, 10, 15])
 
+    def test_ordering_by_title_and_other(self):
+        Page.objects.update(title="All the same")
+
+        response = self.get_response(order='title,search_description')
+        content = json.loads(response.content.decode('UTF-8'))
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [2, 4, 5, 6, 17, 20, 21, 8, 14, 13, 16, 22, 23, 12, 15, 9, 19, 18, 10])
+
+        response = self.get_response(order='search_description')
+        content = json.loads(response.content.decode('UTF-8'))
+        page_id_list_2 = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, page_id_list_2)
+
     def test_ordering_by_title_backwards(self):
         response = self.get_response(order='-title')
         content = json.loads(response.content.decode('UTF-8'))
@@ -684,6 +697,17 @@ class TestPageListing(TestCase):
         page_id_list_1 = self.get_page_id_list(content_1)
 
         response_2 = self.get_response(order='random')
+        content_2 = json.loads(response_2.content.decode('UTF-8'))
+        page_id_list_2 = self.get_page_id_list(content_2)
+
+        self.assertNotEqual(page_id_list_1, page_id_list_2)
+
+    def test_ordering_by_random_and_other(self):
+        response_1 = self.get_response(order='random,title')
+        content_1 = json.loads(response_1.content.decode('UTF-8'))
+        page_id_list_1 = self.get_page_id_list(content_1)
+
+        response_2 = self.get_response(order='random,title')
         content_2 = json.loads(response_2.content.decode('UTF-8'))
         page_id_list_2 = self.get_page_id_list(content_2)
 
