@@ -19,7 +19,8 @@ Changelog
 2.14.1 (xx.xx.2021)
 ~~~~~~~~~~~~~~~~~~~
 
- * Prevent failure on Twitter embeds and others which return cache_age as a string (Matt Westcott)
+ * Fix: Prevent failure on Twitter embeds and others which return cache_age as a string (Matt Westcott)
+ * Fix: Fix Uncaught ReferenceError when editing links in Hallo (Cynthia Kiser)
 
 
 2.14 (02.08.2021)
