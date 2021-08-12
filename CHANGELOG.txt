@@ -16,6 +16,12 @@ Changelog
  * Fix: Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
 
 
+2.14.1 (xx.xx.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Prevent failure on Twitter embeds and others which return cache_age as a string (Matt Westcott)
+
+
 2.14 (02.08.2021)
 ~~~~~~~~~~~~~~~~~
 
