@@ -272,8 +272,7 @@ Note the `pageurl` tag, which is similar to Django's `url` tag but
 takes a Wagtail Page object as an argument.
 
 In the Wagtail admin, create a `BlogIndexPage` as a child of the Homepage,
-make sure it has the slug "blog" on the Promote tab, and publish it.
-You should now be able to access the url `/blog` on your site
+make sure it has the slug "blog" on the Promote tab, and publish it. Make sure you specify 'PUBLISH' when making new child pages instead of 'SAVE DRAFT' for this tutorial. You should now be able to access the url `/blog` on your site
 (note how the slug from the Promote tab defines the page URL).
 
 Now we need a model and template for our blog posts. In `blog/models.py`:
