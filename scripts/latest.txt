@@ -1,6 +1,6 @@
 {
-    "version": "2.14",
-    "url":     "https://docs.wagtail.io/en/stable/releases/2.14.html",
+    "version": "2.14.1",
+    "url":     "https://docs.wagtail.io/en/stable/releases/2.14.1.html",
     "majorUrl": "https://docs.wagtail.io/en/stable/releases/2.14.html",
     "lts": {
         "version": "2.11.8",
