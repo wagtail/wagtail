@@ -15,6 +15,17 @@ const checkedState = {
   shouldShowAllInListingText: true
 };
 
+
+/**
+ * Utility function to get the appropriate string for display in action bar
+ */
+function getAppropriateStringForListing(key) {
+  if (wagtailConfig.BULK_ACTION_ITEM_TYPE in wagtailConfig.STRINGS.BULK_ACTIONS) {
+    return wagtailConfig.STRINGS.BULK_ACTIONS[wagtailConfig.BULK_ACTION_ITEM_TYPE][key];
+  }
+  return wagtailConfig.STRINGS.BULK_ACTIONS.item[key];
+}
+
 /**
  * Event listener for the `Select All` checkbox
  */
@@ -84,12 +95,12 @@ function onSelectIndividualCheckbox(e) {
     /* Update text on number of pages */
     let numObjectsSelected = '';
     if (numCheckedObjects === 1) {
-      numObjectsSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_SINGULAR;
+      numObjectsSelected = getAppropriateStringForListing('SINGULAR');
     } else {
       if (numCheckedObjects === checkedState.numObjects) {
-        numObjectsSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL.replace('{0}', numCheckedObjects);
+        numObjectsSelected = getAppropriateStringForListing('ALL').replace('{0}', numCheckedObjects);
       } else {
-        numObjectsSelected = wagtailConfig.STRINGS.NUM_PAGES_SELECTED_PLURAL.replace('{0}', numCheckedObjects);
+        numObjectsSelected = getAppropriateStringForListing('PLURAL').replace('{0}', numCheckedObjects);
       }
     }
     document.querySelector(`${BULK_ACTION_NUM_OBJECTS_SPAN}`).textContent = numObjectsSelected;
@@ -103,7 +114,7 @@ function onClickSelectAllInListing(e) {
   e.preventDefault();
   checkedState.selectAllInListing = true;
   document.querySelector(`${BULK_ACTION_NUM_OBJECTS_SPAN}`).
-    textContent = `${wagtailConfig.STRINGS.NUM_PAGES_SELECTED_ALL_IN_LISTING}.`;
+    textContent = `${getAppropriateStringForListing('ALL_IN_LISTING')}.`;
   document.querySelector(`${BULK_ACTION_NUM_OBJECTS_IN_LISTING}`).classList.add('u-hidden');
 }
 
