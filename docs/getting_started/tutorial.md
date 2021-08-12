@@ -349,6 +349,9 @@ other page type.
 
 ![](../_static/images/tutorial/tutorial_5.png)
 
+Make sure you specify 'PUBLISH' when making new blog posts instead of
+'SAVE DRAFT' for this tutorial at the bottom of the page.
+
 You should now have the very beginnings of a working blog.
 Access the `/blog` URL and you should see something like this:
 
