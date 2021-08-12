@@ -525,6 +525,7 @@ Contributors
 * Kevin Gutiérrez
 * Brandon Murch
 * Sean Kelly
+* Himesh Samarasekera
 
 Translators
 ===========
