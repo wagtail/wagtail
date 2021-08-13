@@ -364,7 +364,7 @@ msgid "status"
 msgstr "статус"
 
 msgid "requested by"
-msgstr "запрощен"
+msgstr "запрошен"
 
 msgid "current task state"
 msgstr "текущее состояние задачи"
