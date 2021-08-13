@@ -8,11 +8,7 @@ from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 
 
 class TagForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['tags'] = forms.Field(
-            widget=widgets.AdminTagWidget
-        )
+    tags = forms.Field(widget=widgets.AdminTagWidget)
 
 
 class AddTagsBulkAction(ImageBulkAction):

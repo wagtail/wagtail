@@ -10,6 +10,11 @@ from wagtail.core.models import Page
 
 
 class MoveForm(forms.Form):
+    move_applicable = forms.BooleanField(
+        label=_("Move only applicable pages"),
+        required=False
+    )
+
     def __init__(self, *args, **kwargs):
         destination = kwargs.pop('destination')
         super().__init__(*args, **kwargs)
@@ -18,10 +23,6 @@ class MoveForm(forms.Form):
             queryset=Page.objects.all(),
             widget=widgets.AdminPageChooser(can_choose_root=True, user_perms='move_to'),
             label=_("Select a new parent page"),
-        )
-        self.fields['move_applicable'] = forms.BooleanField(
-            label=_("Move only applicable pages"),
-            required=False
         )
 
 
