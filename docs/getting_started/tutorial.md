@@ -159,7 +159,7 @@ Run `python manage.py makemigrations` (this will create the migrations file), th
 changes). You must run the above commands each time you make changes to
 the model definition.
 
-You can now edit the homepage within the Wagtail admin area (go to Pages, Homepage, then Edit) to see the new body field. Enter some text into the body field, and publish the page.
+You can now edit the homepage within the Wagtail admin area (go to Pages, Homepage, then Edit) to see the new body field. Enter some text into the body field, and publish the page by selecting *Publish* at the bottom of the page editor, rather than *Save Draft*.
 
 The page template now needs to be updated to reflect the changes made
 to the model. Wagtail uses normal Django templates to render each page
@@ -349,8 +349,7 @@ other page type.
 
 ![](../_static/images/tutorial/tutorial_5.png)
 
-Make sure you specify 'PUBLISH' when making new blog posts instead of
-'SAVE DRAFT' for this tutorial at the bottom of the page.
+Be sure to *Publish* the blog post after you are done.
 
 You should now have the very beginnings of a working blog.
 Access the `/blog` URL and you should see something like this:
