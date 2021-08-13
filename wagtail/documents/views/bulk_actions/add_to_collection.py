@@ -41,10 +41,7 @@ class AddToCollectionBulkAction(DocumentBulkAction):
     @classmethod
     def execute_action(cls, objects, **kwargs):
         cls.collection = kwargs.get('collection', None)
-        for document in objects:
-            cls.num_parent_objects += 1
-            document.collection = cls.collection
-            document.save()
+        cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(collection=cls.collection)
 
     def get_success_message(self):
         return ngettext(

@@ -43,10 +43,7 @@ class AddToCollectionBulkAction(ImageBulkAction):
         cls.collection = kwargs.get('collection', None)
         if cls.collection is None:
             return
-        for image in images:
-            cls.num_parent_objects += 1
-            image.collection = cls.collection
-            image.save()
+        cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in images]).update(collection=cls.collection)
 
     def get_success_message(self):
         return ngettext(

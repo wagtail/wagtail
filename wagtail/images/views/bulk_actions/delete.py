@@ -18,9 +18,8 @@ class DeleteBulkAction(ImageBulkAction):
 
     @classmethod
     def execute_action(cls, objects, **kwargs):
-        for image in objects:
-            cls.num_parent_objects += 1
-            image.delete()
+        cls.num_parent_objects = len(objects)
+        cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).delete()
 
     def get_success_message(self):
         return ngettext(
