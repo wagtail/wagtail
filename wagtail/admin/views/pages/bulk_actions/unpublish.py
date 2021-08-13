@@ -34,10 +34,7 @@ class UnpublishBulkAction(PageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        include_descendants = kwargs.get('include_descendants', False)
-        user = kwargs.get('user', None)
-        permission_checker = kwargs.get('permission_checker', None)
+    def execute_action(cls, objects, include_descendants=False, user=None, permission_checker=None):
         for page in objects:
             page.unpublish(user=user)
             cls.num_parent_objects += 1

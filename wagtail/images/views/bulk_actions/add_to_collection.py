@@ -39,8 +39,8 @@ class AddToCollectionBulkAction(ImageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, images, **kwargs):
-        cls.collection = kwargs.get('collection', None)
+    def execute_action(cls, images, collection=None):
+        cls.collection = collection
         if cls.collection is None:
             return
         cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in images]).update(collection=cls.collection)

@@ -32,9 +32,7 @@ class PublishBulkAction(PageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        include_descendants = kwargs.get('include_descendants', False)
-        user = kwargs.get('user', None)
+    def execute_action(cls, objects, include_descendants=False, user=None):
         for page in objects:
             revision = page.save_revision(user=user)
             revision.publish(user=user)

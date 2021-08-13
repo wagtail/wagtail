@@ -28,8 +28,7 @@ class AddTagsBulkAction(DocumentBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        tags = kwargs.get('tags', [])
+    def execute_action(cls, objects, tags=[]):
         for document in objects:
             cls.num_parent_objects += 1
             document.tags.add(*tags)

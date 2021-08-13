@@ -94,11 +94,9 @@ class MoveBulkAction(PageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        destination = kwargs.get('destination', None)
+    def execute_action(cls, objects, destination=None, user=None):
         if destination is None:
             return
-        user = kwargs.get('user', None)
         for page in objects:
             if not page.permissions_for_user(user).can_move_to(destination):
                 continue

@@ -29,7 +29,6 @@ class AssignRoleBulkAction(UserBulkAction):
     def get_execution_context(self):
         return {
             'role': self.cleaned_form.cleaned_data['role'],
-            'user': self.request.user
         }
 
     def prepare_action(self, objects):
@@ -43,7 +42,7 @@ class AssignRoleBulkAction(UserBulkAction):
                 return TemplateResponse(self.request, self.template_name, ctx)
 
     @classmethod
-    def execute_action(cls, objects, role=None, **kwargs):
+    def execute_action(cls, objects, role=None):
         if role is None:
             return
         role.user_set.add(*objects)
