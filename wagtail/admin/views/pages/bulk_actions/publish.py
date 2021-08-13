@@ -35,8 +35,6 @@ class PublishBulkAction(PageBulkAction):
     def execute_action(cls, objects, **kwargs):
         include_descendants = kwargs.get('include_descendants', False)
         user = kwargs.get('user', None)
-        if user is None:
-            return
         for page in objects:
             revision = page.save_revision(user=user)
             revision.publish(user=user)
@@ -44,7 +42,7 @@ class PublishBulkAction(PageBulkAction):
 
             if include_descendants:
                 for draft_descendant_page in page.get_descendants().not_live().defer_streamfields().specific():
-                    if draft_descendant_page.permissions_for_user(user).can_publish():
+                    if user is None or draft_descendant_page.permissions_for_user(user).can_publish():
                         revision = draft_descendant_page.save_revision(user=user)
                         revision.publish(user=user)
                         cls.num_child_objects += 1

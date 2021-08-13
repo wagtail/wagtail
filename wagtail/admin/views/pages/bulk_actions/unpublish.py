@@ -37,18 +37,14 @@ class UnpublishBulkAction(PageBulkAction):
     def execute_action(cls, objects, **kwargs):
         include_descendants = kwargs.get('include_descendants', False)
         user = kwargs.get('user', None)
-        if user is None:
-            return
         permission_checker = kwargs.get('permission_checker', None)
-        if permission_checker is None:
-            return
         for page in objects:
             page.unpublish(user=user)
             cls.num_parent_objects += 1
 
             if include_descendants:
                 for live_descendant_page in page.get_descendants().live().defer_streamfields().specific():
-                    if permission_checker(live_descendant_page):
+                    if user is None or permission_checker(live_descendant_page):
                         live_descendant_page.unpublish()
                         cls.num_child_objects += 1
 

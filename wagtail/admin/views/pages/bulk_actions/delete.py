@@ -25,8 +25,6 @@ class DeleteBulkAction(PageBulkAction):
     @classmethod
     def execute_action(cls, objects, **kwargs):
         user = kwargs.get('user', None)
-        if user is None:
-            return
         for page in objects:
             cls.num_parent_objects += 1
             cls.num_child_objects += page.get_descendant_count()
