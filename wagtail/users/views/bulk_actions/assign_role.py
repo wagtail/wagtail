@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.models import Group
-from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
