@@ -28,7 +28,7 @@ class AddTagsBulkAction(DocumentBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, tags=[]):
+    def execute_action(cls, objects, tags=[], **kwargs):
         if not tags:
             return
         for document in objects:

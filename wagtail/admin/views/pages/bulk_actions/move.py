@@ -94,7 +94,7 @@ class MoveBulkAction(PageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, destination=None, user=None):
+    def execute_action(cls, objects, destination=None, user=None, **kwargs):
         if destination is None:
             return
         for page in objects:

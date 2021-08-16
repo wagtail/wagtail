@@ -39,7 +39,7 @@ class AddToCollectionBulkAction(DocumentBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, collection=None):
+    def execute_action(cls, objects, collection=None, **kwargs):
         cls.collection = collection
         cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(collection=cls.collection)
 

@@ -39,7 +39,7 @@ class AddToCollectionBulkAction(ImageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, images, collection=None):
+    def execute_action(cls, images, collection=None, **kwargs):
         cls.collection = collection
         if cls.collection is None:
             return

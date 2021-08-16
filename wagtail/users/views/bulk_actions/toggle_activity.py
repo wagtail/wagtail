@@ -43,7 +43,7 @@ class ToggleActivityBulkAction(UserBulkAction):
                     return TemplateResponse(self.request, self.template_name, context)
 
     @classmethod
-    def execute_action(cls, objects, mark_as_active=False, user=None):
+    def execute_action(cls, objects, mark_as_active=False, user=None, **kwargs):
         if user is not None:
             objects = list(filter(lambda x: x.pk != user.pk, objects))
         cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(is_active=mark_as_active)

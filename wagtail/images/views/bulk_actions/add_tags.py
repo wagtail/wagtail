@@ -28,7 +28,7 @@ class AddTagsBulkAction(ImageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, images, tags=[]):
+    def execute_action(cls, images, tags=[], **kwargs):
         if not tags:
             return
         for image in images:
