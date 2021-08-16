@@ -1,7 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
-from wagtail.core import hooks
 from wagtail.users.utils import user_can_delete_user
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 
@@ -31,8 +30,3 @@ class DeleteBulkAction(UserBulkAction):
         ) % {
             'num_parent_objects': num_parent_objects
         }
-
-
-@hooks.register('register_user_bulk_action')
-def delete(request):
-    return DeleteBulkAction(request)

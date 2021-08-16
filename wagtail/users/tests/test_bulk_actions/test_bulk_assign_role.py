@@ -8,6 +8,9 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 
 
+User = get_user_model()
+
+
 class TestUserToggleActivityView(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a set of test users
@@ -20,7 +23,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
         ]
         self.new_group = Group.objects.create(name='group')
         self.current_user = self.login()
-        self.url = reverse('wagtailusers_users:user_bulk_action', args=('assign_role',)) + '?'
+        self.url = reverse('wagtail_bulk_action', args=(User._meta.app_label, User._meta.model_name, 'assign_role',)) + '?'
         self.self_toggle_url = self.url + f'id={self.current_user.pk}'
         for user in self.test_users:
             self.url += f'id={user.pk}&'
@@ -39,7 +42,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
 
         # Check that the users were added to the new group
         for user in self.test_users:
-            self.assertTrue(get_user_model().objects.get(email=user.email).groups.filter(name=self.new_group).exists())
+            self.assertTrue(User.objects.get(email=user.email).groups.filter(name=self.new_group).exists())
 
     def test_user_cannot_mark_self_as_not_admin(self):
         response = self.client.get(self.self_toggle_url)
@@ -54,7 +57,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
         self.assertInHTML(needle, html)
 
         # Check user was not added to the group
-        self.assertFalse(get_user_model().objects.get(email=self.current_user.email).groups.filter(name=self.new_group).exists())
+        self.assertFalse(User.objects.get(email=self.current_user.email).groups.filter(name=self.new_group).exists())
 
     def test_before_toggle_user_hook_post(self):
         def hook_func(request, action_type, users, action_class_instance):
@@ -72,7 +75,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
         self.assertEqual(response.content, b"Overridden!")
 
         for user in self.test_users:
-            self.assertFalse(get_user_model().objects.get(email=user.email).groups.filter(name=self.new_group).exists())
+            self.assertFalse(User.objects.get(email=user.email).groups.filter(name=self.new_group).exists())
 
     def test_after_toggle_user_hook(self):
         def hook_func(request, action_type, users, action_class_instance):
@@ -90,4 +93,4 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
         self.assertEqual(response.content, b"Overridden!")
 
         for user in self.test_users:
-            self.assertTrue(get_user_model().objects.get(email=user.email).groups.filter(name=self.new_group).exists())
+            self.assertTrue(User.objects.get(email=user.email).groups.filter(name=self.new_group).exists())

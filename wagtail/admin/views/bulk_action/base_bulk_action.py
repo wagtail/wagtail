@@ -49,7 +49,7 @@ class BulkAction(ABC, FormView):
 
     @classmethod
     def get_queryset(cls, model, object_ids):
-        return get_list_or_404(model, id__in=object_ids)
+        return get_list_or_404(model, pk__in=object_ids)
 
     def check_perm(self, obj):
         return True

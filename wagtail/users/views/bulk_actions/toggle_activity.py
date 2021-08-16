@@ -2,7 +2,6 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
-from wagtail.core import hooks
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 from wagtail.users.views.users import change_user_perm
 
@@ -63,8 +62,3 @@ class ToggleActivityBulkAction(UserBulkAction):
             ) % {
                 'num_parent_objects': num_parent_objects,
             }
-
-
-@hooks.register('register_user_bulk_action')
-def toggle_activity(request):
-    return ToggleActivityBulkAction(request)
