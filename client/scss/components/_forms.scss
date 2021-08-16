@@ -254,8 +254,9 @@ label.required:after {
     }
 }
 
-// This is specifically for model that are a generated set of checkboxes/radios
+// This is specifically for list of radios/checkboxes
 .model_multiple_choice_field .input li,
+.multiple_choice_field .input li,
 .choice_field .input li {
     label {
         display: block;
