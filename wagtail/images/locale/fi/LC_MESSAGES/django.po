@@ -6,6 +6,7 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016-2017
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
 # Rauli Laine <rauli.laine@iki.fi>, 2016
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-16 07:30+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -76,8 +77,18 @@ msgstr "Tasattu oikealle"
 msgid "Collection"
 msgstr "Kokoelma"
 
+msgid "Format"
+msgstr "Muoto"
+
+msgid "Image is decorative"
+msgstr "Kuva on vain koristeellinen"
+
 msgid "Alt text"
 msgstr "Vaihtoehtoinen teksti"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Lisää kuvalle vaihtoehtoinen teksti tai merkitse se vain koristeelliseksi."
 
 msgid "Filter"
 msgstr "Suodatin"

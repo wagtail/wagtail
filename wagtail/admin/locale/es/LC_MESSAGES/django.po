@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-27 16:28+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-15 09:18+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -116,26 +116,23 @@ msgstr "Fecha a"
 msgid "All"
 msgstr "Todo"
 
-msgid "Started at"
-msgstr "Iniciado el"
+msgid "Preferred language"
+msgstr "Idioma preferido"
 
-msgid "Show"
-msgstr "Mostrar"
+msgid "Current time zone"
+msgstr "Zona horaria actual"
 
-msgid "Awaiting my review"
-msgstr "Esperando mi revisión"
+msgid "First Name"
+msgstr "Nombre"
 
-msgid "Completed at"
-msgstr "Completado el"
+msgid "Last Name"
+msgstr "Apellidos"
 
-msgid "Workflow"
-msgstr "Flujo de trabajo"
+msgid "Email"
+msgstr "Correo electrónico"
 
-msgid "Date"
-msgstr "Fecha"
-
-msgid "Title"
-msgstr "Título"
+msgid "Upload a profile picture"
+msgstr "Cargar una foto de perfil"
 
 msgid "Enter password"
 msgstr "Introduce contraseña"
@@ -405,6 +402,21 @@ msgstr "Comentario"
 msgid "More actions"
 msgstr "Más acciones"
 
+msgid "Save the page to add this comment"
+msgstr "Guarda la página para añadir este comentario"
+
+msgid "Save the page to save this comment"
+msgstr "Guarda la página para guardar este comentario"
+
+msgid "Save the page to save this reply"
+msgstr "Guarda la página para guardar esta respuesta"
+
+msgid "Dashboard"
+msgstr "Panel de control"
+
+msgid "Edit your account"
+msgstr "Editar tu cuenta"
+
 msgid "Error 404: Page not found"
 msgstr "Error 404: Página no encontrada."
 
@@ -484,9 +496,6 @@ msgstr "Cargar una foto de perfil:"
 
 msgid "Reset to default"
 msgstr "Restablecer por defecto"
-
-msgid "Dashboard"
-msgstr "Panel de control"
 
 msgid "Menu"
 msgstr "Menú"
@@ -626,6 +635,16 @@ msgstr "Bajar"
 msgid "Add comment"
 msgstr "Añadir comentario"
 
+msgid "Comments"
+msgstr "Comentarios"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr ""
+"Alternar la visibilidad del menú desplegable de notificaciones de comentarios"
+
+msgid "Commenting on this page"
+msgstr "Comentar en esta página"
+
 msgid "Comment notifications"
 msgstr "Notificaciones de comentario"
 
@@ -648,6 +667,9 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Tus páginas bloqueadas"
+
+msgid "Title"
+msgstr "Título"
 
 msgid "Locked at"
 msgstr "Bloqueado el"
@@ -691,6 +713,9 @@ msgstr "Tus ediciones más recientes"
 
 msgid "Status"
 msgstr "Estado"
+
+msgid "Date"
+msgstr "Fecha"
 
 msgid "Site summary"
 msgstr "Resumen del sitio"
@@ -753,8 +778,8 @@ msgstr "Iniciar sesión en Wagtail"
 msgid "Signing in…"
 msgstr "Iniciando sesión..."
 
-msgid "Forgotten it?"
-msgstr "¿La has olvidado?"
+msgid "Forgotten password?"
+msgstr "¿Olvidaste la contraseña?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1010,8 +1035,9 @@ msgstr "Convertir alias %(title)s"
 msgid "Convert alias"
 msgstr "Convertir alias"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr "¿Seguro que quieres convertir este alias en una página normal?"
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr ""
+"¿Estás seguro/a que quieres convertir este alias en una página ordinaria?"
 
 msgid "This action cannot be undone."
 msgstr "Esta acción no puede ser deshecha."
@@ -1200,8 +1226,8 @@ msgstr "Esta página es una alias de otra página."
 msgid "Edit original page"
 msgstr "Editar página original"
 
-msgid "Convert this alias into a regular page"
-msgstr "Convertir este alias en una página normal"
+msgid "Convert this alias into an ordinary page"
+msgstr "Convertir este alias en una página ordinaria"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1613,6 +1639,9 @@ msgstr "Editar página"
 msgid "Requested by"
 msgstr "Solicitado por"
 
+msgid "Started at"
+msgstr "Iniciado el"
+
 msgid "Approved task"
 msgstr "Tarea aprobada"
 
@@ -1686,11 +1715,17 @@ msgstr "Ninguna página bloqueada encontrada."
 msgid "By Task"
 msgstr "Por Tarea"
 
+msgid "Workflow"
+msgstr "Flujo de trabajo"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Ninguna página ha sido enviada aún para moderación"
 
 msgid "By Workflow"
 msgstr "Por Flujo de Trabajo"
+
+msgid "Completed at"
+msgstr "Completado el"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1707,9 +1742,6 @@ msgstr "Inicio"
 
 msgid "All collections"
 msgstr "Todas las colecciones"
-
-msgid "Edit your account"
-msgstr "Editar tu cuenta"
 
 msgid "Account settings"
 msgstr "Configuraciones de cuenta"
@@ -1774,8 +1806,8 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Saltar al contenido principal"
 
-msgid "Go to Wagtail admin interface"
-msgstr "Ir a la interface de admin Wagtail"
+msgid "View Wagtail quick actions"
+msgstr "Ver acciones rápidas de Wagtail"
 
 msgid "Add a child page"
 msgstr "Añadir página hija"
@@ -2080,8 +2112,8 @@ msgstr "Estás seguro de que deseas eliminar esta colección?"
 msgid "Editing"
 msgstr "Editando"
 
-msgid "Page '{0}' has been converted into a regular page."
-msgstr "Página '{0}' ha sido convertida en una página normal."
+msgid "Page '{0}' has been converted into an ordinary page."
+msgstr "Página '{0}' ha sido convertida en una página ordinaria."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Página '{0}' y '{1}' subpáginas copiadas."
@@ -2176,6 +2208,9 @@ msgstr "La página no pudo ser guardada debido a que se encuentra bloqueada"
 msgid "The page could not be saved due to validation errors"
 msgstr "La página no ha podido ser guardada debido a errores de validación"
 
+msgid "Hide commenting actions"
+msgstr "Ocultar acciones de comentario"
+
 msgid "Page '{0}' is now unlocked."
 msgstr "Página '{0}' se encuentra desbloqueada."
 
@@ -2231,8 +2266,26 @@ msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr ""
 "La página '{0}' no está actualmente esperando moderación en tarea '{1}'."
 
+msgid "Site history"
+msgstr "Historial del sitio"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Tipo de acción"
+
+msgid "Date/Time"
+msgstr "Fecha/Hora"
+
 msgid "Locked pages"
 msgstr "Páginas bloqueadas"
+
+msgid "Show"
+msgstr "Mostrar"
+
+msgid "Awaiting my review"
+msgstr "Esperando mi revisión"
 
 msgid "Workflows"
 msgstr "Flujos de trabajo"
@@ -2251,18 +2304,6 @@ msgstr "Tareas del flujo de trabajo"
 
 msgid "Requested By"
 msgstr "Solicitado por"
-
-msgid "Site history"
-msgstr "Historial del sitio"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Tipo de acción"
-
-msgid "Date/Time"
-msgstr "Fecha/Hora"
 
 msgid "Add a workflow"
 msgstr "Añadir un flujo de trabajo"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:40+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
@@ -98,26 +98,23 @@ msgstr "Te rā ki"
 msgid "All"
 msgstr "Katoa"
 
-msgid "Started at"
-msgstr "Tīmata ki"
+msgid "Preferred language"
+msgstr "Te reo mariu"
 
-msgid "Show"
-msgstr "Whakakite"
+msgid "Current time zone"
+msgstr "Te rohe wā o nāianei"
 
-msgid "Awaiting my review"
-msgstr "E tatari ana mō tōku arotake"
+msgid "First Name"
+msgstr "Ingoa tuatahi"
 
-msgid "Completed at"
-msgstr "I whakatutuki ki"
+msgid "Last Name"
+msgstr "Ingoa tuarua"
 
-msgid "Workflow"
-msgstr "Mahi pūheke"
+msgid "Email"
+msgstr "Īmera"
 
-msgid "Date"
-msgstr "Rā"
-
-msgid "Title"
-msgstr "Taitara"
+msgid "Upload a profile picture"
+msgstr "Tukuatu he whakaahua kōtaha"
 
 msgid "Enter password"
 msgstr "Tāuru tō kupu muna"
@@ -340,6 +337,9 @@ msgstr "Puritia"
 msgid "Comment"
 msgstr "Tākupu"
 
+msgid "Dashboard"
+msgstr "Papatohu"
+
 msgid "Error 404: Page not found"
 msgstr "Hē 404: Kua ngaro te whārangi"
 
@@ -408,9 +408,6 @@ msgstr "Kupu muna kia tautuhi anō"
 
 msgid "Reset your password"
 msgstr "Tautuhi anō tō kupu muna"
-
-msgid "Dashboard"
-msgstr "Papatohu"
 
 msgid "Menu"
 msgstr "Tahua"
@@ -539,6 +536,9 @@ msgid ""
 msgstr ""
 "Koinei tō papatohu. I konei ka taea e koe te tirohia ki ngā pārongo āwhina."
 
+msgid "Title"
+msgstr "Taitara"
+
 msgid "Edit this page"
 msgstr "Whakarerekē i tēnei whārangi"
 
@@ -565,6 +565,9 @@ msgstr "Ou whakarerekē hou"
 
 msgid "Status"
 msgstr "Tūnga"
+
+msgid "Date"
+msgstr "Rā"
 
 msgid "Site summary"
 msgstr "Te pae whakarāpopototanga"
@@ -637,8 +640,17 @@ msgstr "Hohenga"
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s mai rā anō"
 
+msgid "Started at"
+msgstr "Tīmata ki"
+
 msgid "Filter"
 msgstr "Tātari"
+
+msgid "Workflow"
+msgstr "Mahi pūheke"
+
+msgid "Completed at"
+msgstr "I whakatutuki ki"
 
 msgid "Home"
 msgstr "Kainga"
@@ -663,6 +675,12 @@ msgstr "Whakarerekē"
 
 msgid "View live"
 msgstr "Mātaki mataora"
+
+msgid "Show"
+msgstr "Whakakite"
+
+msgid "Awaiting my review"
+msgstr "E tatari ana mō tōku arotake"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Pūrongorongo tēnei hapa ki to māhita ipurangi mē ngā pārongo nei: "

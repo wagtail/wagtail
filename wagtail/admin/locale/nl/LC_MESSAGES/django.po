@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -110,23 +110,14 @@ msgstr "Datum tot"
 msgid "All"
 msgstr "Alles"
 
-msgid "Started at"
-msgstr "Gestart op"
+msgid "First Name"
+msgstr "Voornaam"
 
-msgid "Show"
-msgstr "Toon"
+msgid "Last Name"
+msgstr "Achternaam"
 
-msgid "Awaiting my review"
-msgstr "In afwachting van mijn beoordeling"
-
-msgid "Completed at"
-msgstr "Voltooid op"
-
-msgid "Date"
-msgstr "Datum"
-
-msgid "Title"
-msgstr "Titel"
+msgid "Email"
+msgstr "E-mail"
 
 msgid "Enter password"
 msgstr "Voer wachtwoord in"
@@ -244,6 +235,12 @@ msgstr "Opslaan"
 msgid "Saving..."
 msgstr "Bezig met opslaan..."
 
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Edit your account"
+msgstr "Bewerk uw account"
+
 msgid "Account"
 msgstr "Account"
 
@@ -276,9 +273,6 @@ msgstr "Wachtwoord herstel"
 
 msgid "Reset your password"
 msgstr "Herstel uw wachtwoord"
-
-msgid "Dashboard"
-msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
@@ -367,6 +361,9 @@ msgstr ""
 "Dit is uw dashboard waarop nuttige informatie zal worden getoond over "
 "content die u gemaakt heeft."
 
+msgid "Title"
+msgstr "Titel"
+
 msgid "Edit this page"
 msgstr "Wijzig deze pagina"
 
@@ -400,6 +397,9 @@ msgstr "Uw meest recente wijzigingen"
 msgid "Status"
 msgstr "Status"
 
+msgid "Date"
+msgstr "Datum"
+
 msgid "Site summary"
 msgstr "Site samenvatting"
 
@@ -413,9 +413,6 @@ msgstr ""
 
 msgid "Sign in to Wagtail"
 msgstr "Log in op Wagtail"
-
-msgid "Forgotten it?"
-msgstr "Wachtwoord vergeten?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -685,6 +682,9 @@ msgstr "Voer hierboven een zoekterm in"
 msgid "No pages use"
 msgstr "Geen enkele pagina maakt gebruik van"
 
+msgid "Started at"
+msgstr "Gestart op"
+
 msgid "Download CSV"
 msgstr "Download CSV"
 
@@ -693,6 +693,9 @@ msgstr "Filter"
 
 msgid "Locked"
 msgstr "Vergrendeld"
+
+msgid "Completed at"
+msgstr "Voltooid op"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -704,9 +707,6 @@ msgstr "Home"
 msgid "All collections"
 msgstr "Alle collecties"
 
-msgid "Edit your account"
-msgstr "Bewerk uw account"
-
 msgid "Account settings"
 msgstr "Account instellingen"
 
@@ -715,9 +715,6 @@ msgstr "Uitloggen"
 
 msgid "Other searches"
 msgstr "Andere zoekresultaten"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Ga naar de Wagtail beheer interface"
 
 msgid "Add a child page"
 msgstr "Voeg een onderliggende pagina toe"
@@ -797,6 +794,12 @@ msgstr "Pagina '{0}' verplaatst."
 
 msgid "Page '{0}' unpublished."
 msgstr "Page '{0}' publicatie ongedaan gemaakt."
+
+msgid "Show"
+msgstr "Toon"
+
+msgid "Awaiting my review"
+msgstr "In afwachting van mijn beoordeling"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Rapporteer dit aan uw webmaster met de volgende informatie:"

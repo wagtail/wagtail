@@ -20,7 +20,7 @@ class LogActionRegistry:
         # Holds a list of action, action label tuples for use in filters
         self.choices = []
 
-        # Holds the action messsages, keyed by action
+        # Holds the action messages, keyed by action
         self.messages = {}
 
         # Holds the comments, keyed by action

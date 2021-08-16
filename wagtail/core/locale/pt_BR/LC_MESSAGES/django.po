@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:38+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -78,58 +78,6 @@ msgstr "Comentário"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "%(action)s desconhecida"
-
-msgid "hostname"
-msgstr "nome do host"
-
-msgid "port"
-msgstr "porta"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Ajuste para um valor diferente de 80 se você precisar de um número de porta "
-"específico para aparecer nas URLs (ex. desenvolvimento na porta 8000). Não "
-"afeta o gerenciamento de requisições (então o redirecionamento de portas "
-"continua funcionando)."
-
-msgid "site name"
-msgstr "nome do site"
-
-msgid "Human-readable name for the site."
-msgstr "nome legível para o site."
-
-msgid "root page"
-msgstr "página raiz"
-
-msgid "is default site"
-msgstr "é o site padrão"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Se verdadeiro, este site irá gerenciar requisições de todos os outros "
-"hostnames que não tem um site próprio"
-
-msgid "site"
-msgstr "site"
-
-msgid "sites"
-msgstr "sites"
-
-msgid "default"
-msgstr "padrão"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s já está configurado como padrão no site. Você deve "
-"desconfigurar antes que você possa salvar este como padrão."
 
 msgid "title"
 msgstr "título"
@@ -316,59 +264,11 @@ msgstr "grupo de permissão da página"
 msgid "group page permissions"
 msgstr "grupo de permissões da página"
 
-msgid "Public"
-msgstr "Público"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Privado, acessível a usuários logados"
-
-msgid "Private, accessible with the following password"
-msgstr "Privado, acessível com a seguinte senha"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Privado, acessível a usuários em grupos específicos"
-
-msgid "password"
-msgstr "senha"
-
-msgid "groups"
-msgstr "grupos"
-
-msgid "view restriction"
-msgstr "visualizar restrição"
-
-msgid "view restrictions"
-msgstr "visualizar restrições"
-
 msgid "page view restriction"
 msgstr "restrição de visualização de página"
 
 msgid "page view restrictions"
 msgstr "restrições de visualização da página"
-
-msgid "collection"
-msgstr "coleção"
-
-msgid "collection view restriction"
-msgstr "visualizar restrição na coleção"
-
-msgid "collection view restrictions"
-msgstr "visualizar restrições nas coleções"
-
-msgid "name"
-msgstr "nome"
-
-msgid "collections"
-msgstr "coleções"
-
-msgid "permission"
-msgstr "permissão"
-
-msgid "group collection permission"
-msgstr "grupo de permissão de coleção"
-
-msgid "group collection permissions"
-msgstr "grupo de permissões de coleção"
 
 msgid "workflow"
 msgstr "fluxo de trabalho"
@@ -382,6 +282,9 @@ msgstr "páginas de fluxo de trabalho"
 msgid "task"
 msgstr "tarefa"
 
+msgid "name"
+msgstr "nome"
+
 msgid "active"
 msgstr "ativo"
 
@@ -390,6 +293,9 @@ msgstr "tarefas"
 
 msgid "workflows"
 msgstr "fluxos de trabalho"
+
+msgid "groups"
+msgstr "grupos"
 
 msgid "Request changes"
 msgstr "Solicitar mudanças"
@@ -442,9 +348,6 @@ msgstr "terminou às"
 msgid "finished by"
 msgstr "terminado por"
 
-msgid "system"
-msgstr "sistema"
-
 msgid "comment"
 msgstr "comentário"
 
@@ -456,6 +359,103 @@ msgstr "resposta de comentário"
 
 msgid "comment replies"
 msgstr "respostas de comentários"
+
+msgid "system"
+msgstr "sistema"
+
+msgid "collection"
+msgstr "coleção"
+
+msgid "collection view restriction"
+msgstr "visualizar restrição na coleção"
+
+msgid "collection view restrictions"
+msgstr "visualizar restrições nas coleções"
+
+msgid "collections"
+msgstr "coleções"
+
+msgid "permission"
+msgstr "permissão"
+
+msgid "group collection permission"
+msgstr "grupo de permissão de coleção"
+
+msgid "group collection permissions"
+msgstr "grupo de permissões de coleção"
+
+msgid "hostname"
+msgstr "nome do host"
+
+msgid "port"
+msgstr "porta"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Ajuste para um valor diferente de 80 se você precisar de um número de porta "
+"específico para aparecer nas URLs (ex. desenvolvimento na porta 8000). Não "
+"afeta o gerenciamento de requisições (então o redirecionamento de portas "
+"continua funcionando)."
+
+msgid "site name"
+msgstr "nome do site"
+
+msgid "Human-readable name for the site."
+msgstr "nome legível para o site."
+
+msgid "root page"
+msgstr "página raiz"
+
+msgid "is default site"
+msgstr "é o site padrão"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Se verdadeiro, este site irá gerenciar requisições de todos os outros "
+"hostnames que não tem um site próprio"
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
+
+msgid "default"
+msgstr "padrão"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s já está configurado como padrão no site. Você deve "
+"desconfigurar antes que você possa salvar este como padrão."
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privado, acessível a usuários logados"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, acessível com a seguinte senha"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privado, acessível a usuários em grupos específicos"
+
+msgid "password"
+msgstr "senha"
+
+msgid "view restriction"
+msgstr "visualizar restrição"
+
+msgid "view restrictions"
+msgstr "visualizar restrições"
 
 msgid "Log in"
 msgstr "Entrar"
@@ -557,13 +557,6 @@ msgid "Created an alias"
 msgstr "Criado um alias"
 
 #, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "Convertido o alias '%(title)s' em uma página normal"
-
-msgid "Converted an alias into a regular page"
-msgstr "Convertido um alias em uma página normal"
-
-#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Movido de '%(old_parent)s' para '%(new_parent)s'"
 
@@ -618,9 +611,6 @@ msgstr "Copiar"
 msgid "Create alias"
 msgstr "Criar alias"
 
-msgid "Convert alias into regular page"
-msgstr "Converta o alias em uma página normal"
-
 msgid "Move"
 msgstr "Mover"
 
@@ -635,6 +625,9 @@ msgstr "Atualizar restrições de visualização"
 
 msgid "Remove view restrictions"
 msgstr "Remover restrições de visualização"
+
+msgid "Add comment"
+msgstr "Adicionar comentário"
 
 msgid "Workflow started"
 msgstr "Fluxo de trabalho iniciado"

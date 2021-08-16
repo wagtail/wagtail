@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:38+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -61,57 +61,6 @@ msgstr "Unesena lozinka nije ispravna. Molimo probajte ponovno."
 
 msgid "Comment"
 msgstr "Komentar"
-
-msgid "hostname"
-msgstr "naziv domaćina"
-
-msgid "port"
-msgstr "vrata"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Postavite ovo na vrijednost različitu od 80 ako su vam potrebna specifična "
-"vrata unutar URL-a (npr. razvoj na vratima 8000). Ovo ne utječe na rukovanje "
-"zahtjevima (prosljeđivanje na vrata i dalje funkcionira)."
-
-msgid "site name"
-msgstr "naziv sjedišta"
-
-msgid "Human-readable name for the site."
-msgstr "Naziv sjedišta čitljiv ljudima"
-
-msgid "root page"
-msgstr "korijenska stranica"
-
-msgid "is default site"
-msgstr "zadana stranica"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Ako je postavljeno, sjedište će obrađivati zahtjeve za sve domaćine koji "
-"nemaju definirano vlastito sjedište."
-
-msgid "site"
-msgstr "sjedište"
-
-msgid "sites"
-msgstr "sjedišta"
-
-msgid "default"
-msgstr "zadano"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s je već postavljeno kao zadano sjedište. Morate otkloniti to "
-"sjedište prije nego li postavite ovo sjedište kao zadano."
 
 msgid "title"
 msgstr "naslov"
@@ -278,59 +227,11 @@ msgstr "Grupna dozvola stranice"
 msgid "group page permissions"
 msgstr "Grupne dozvole stranice"
 
-msgid "Public"
-msgstr "Javno"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Privatno, pristup prijavljenim korisnicima."
-
-msgid "Private, accessible with the following password"
-msgstr "Privatno, pristup sa sljedećom lozinkom"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Privatno, pristup korisnicima u određenim grupama"
-
-msgid "password"
-msgstr "lozinka"
-
-msgid "groups"
-msgstr "grupe"
-
-msgid "view restriction"
-msgstr "ograničenje pogleda"
-
-msgid "view restrictions"
-msgstr "ograničenja pogleda"
-
 msgid "page view restriction"
 msgstr "ograničenje pogleda stranice"
 
 msgid "page view restrictions"
 msgstr "ograničenja pogleda stranice"
-
-msgid "collection"
-msgstr "zbirka"
-
-msgid "collection view restriction"
-msgstr "ograničenje pogleda zbirke"
-
-msgid "collection view restrictions"
-msgstr "ograničenje pogleda zbirki"
-
-msgid "name"
-msgstr "naziv"
-
-msgid "collections"
-msgstr "zbirke"
-
-msgid "permission"
-msgstr "dozvole"
-
-msgid "group collection permission"
-msgstr "Grupna dozvola zbirke"
-
-msgid "group collection permissions"
-msgstr "Grupne dozvole zbirke"
 
 msgid "workflow"
 msgstr "Tijek rada"
@@ -352,6 +253,9 @@ msgstr "redoslijed zadatka radnog tijeka"
 
 msgid "workflow task orders"
 msgstr "redoslijedi zadataka radnog tijeka"
+
+msgid "name"
+msgstr "naziv"
 
 msgid "active"
 msgstr "aktivno"
@@ -375,6 +279,9 @@ msgstr ""
 
 msgid "workflows"
 msgstr "tijekovi rada"
+
+msgid "groups"
+msgstr "grupe"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -467,6 +374,12 @@ msgstr "Stanje zadatka"
 msgid "Task states"
 msgstr "Stanja zadataka"
 
+msgid "page log entry"
+msgstr "zapis stranice"
+
+msgid "page log entries"
+msgstr "zapisi stranice"
+
 msgid "timestamp (UTC)"
 msgstr "vremenska oznaka (UTC)"
 
@@ -483,11 +396,98 @@ msgstr "korisnik %(id)d (izbrisan)"
 msgid "system"
 msgstr "sustav"
 
-msgid "page log entry"
-msgstr "zapis stranice"
+msgid "collection"
+msgstr "zbirka"
 
-msgid "page log entries"
-msgstr "zapisi stranice"
+msgid "collection view restriction"
+msgstr "ograničenje pogleda zbirke"
+
+msgid "collection view restrictions"
+msgstr "ograničenje pogleda zbirki"
+
+msgid "collections"
+msgstr "zbirke"
+
+msgid "permission"
+msgstr "dozvole"
+
+msgid "group collection permission"
+msgstr "Grupna dozvola zbirke"
+
+msgid "group collection permissions"
+msgstr "Grupne dozvole zbirke"
+
+msgid "hostname"
+msgstr "naziv domaćina"
+
+msgid "port"
+msgstr "vrata"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Postavite ovo na vrijednost različitu od 80 ako su vam potrebna specifična "
+"vrata unutar URL-a (npr. razvoj na vratima 8000). Ovo ne utječe na rukovanje "
+"zahtjevima (prosljeđivanje na vrata i dalje funkcionira)."
+
+msgid "site name"
+msgstr "naziv sjedišta"
+
+msgid "Human-readable name for the site."
+msgstr "Naziv sjedišta čitljiv ljudima"
+
+msgid "root page"
+msgstr "korijenska stranica"
+
+msgid "is default site"
+msgstr "zadana stranica"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Ako je postavljeno, sjedište će obrađivati zahtjeve za sve domaćine koji "
+"nemaju definirano vlastito sjedište."
+
+msgid "site"
+msgstr "sjedište"
+
+msgid "sites"
+msgstr "sjedišta"
+
+msgid "default"
+msgstr "zadano"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s je već postavljeno kao zadano sjedište. Morate otkloniti to "
+"sjedište prije nego li postavite ovo sjedište kao zadano."
+
+msgid "Public"
+msgstr "Javno"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privatno, pristup prijavljenim korisnicima."
+
+msgid "Private, accessible with the following password"
+msgstr "Privatno, pristup sa sljedećom lozinkom"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privatno, pristup korisnicima u određenim grupama"
+
+msgid "password"
+msgstr "lozinka"
+
+msgid "view restriction"
+msgstr "ograničenje pogleda"
+
+msgid "view restrictions"
+msgstr "ograničenja pogleda"
 
 msgid "Log in"
 msgstr "Prijava"
@@ -590,13 +590,6 @@ msgid "Created an alias"
 msgstr "Stvoren je alias"
 
 #, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "Alias '%(title)s' je pretvoren u običnu stranicu"
-
-msgid "Converted an alias into a regular page"
-msgstr "Alias je pretvoren u običnu stranicu"
-
-#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Premješteno iz '%(old_parent)s' u '%(new_parent)s'"
 
@@ -657,9 +650,6 @@ msgstr "Kopiraj"
 msgid "Create alias"
 msgstr "Stvori alias"
 
-msgid "Convert alias into regular page"
-msgstr "Alias je pretvoren u običnu stranicu"
-
 msgid "Move"
 msgstr "Premjesti"
 
@@ -674,6 +664,9 @@ msgstr "Ažuriraj ograničenja pogleda"
 
 msgid "Remove view restrictions"
 msgstr "Ukloni ograničenja pogleda"
+
+msgid "Add comment"
+msgstr "Dodaj komentar"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"

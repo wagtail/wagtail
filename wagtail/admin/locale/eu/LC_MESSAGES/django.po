@@ -8,10 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: 67feb0cba3962a6c9f09eb0e43697461_528661a "
-"<cbde1c637170da616adcdde6daca673c_96059>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Basque (http://www.transifex.com/torchbox/wagtail/language/"
 "eu/)\n"
 "MIME-Version: 1.0\n"
@@ -22,12 +21,6 @@ msgstr ""
 
 msgid "Delete"
 msgstr "Ezabatu"
-
-msgid "Date"
-msgstr "Data"
-
-msgid "Title"
-msgstr "Izenburua"
 
 msgid "Enter your email address to reset your password"
 msgstr "Idatzi zure eposta helbidea zure pasahitza berrezartzeko"
@@ -40,6 +33,9 @@ msgstr "Bilatu"
 
 msgid "Search term"
 msgstr "Bilaketa terminoa"
+
+msgid "Dashboard"
+msgstr "Kontrol panela"
 
 msgid "Account"
 msgstr "Kontua"
@@ -72,9 +68,6 @@ msgstr "Pasahitzaren berrezarpena"
 
 msgid "Reset your password"
 msgstr "Zure pasahitza berrezarri"
-
-msgid "Dashboard"
-msgstr "Kontrol panela"
 
 msgid "Explorer"
 msgstr "Arakatzailea"
@@ -117,6 +110,9 @@ msgstr ""
 "Kontrol panel honetan sortu duzun edukiekin erlazionaturiko informazio "
 "baliagarria agertuko da."
 
+msgid "Title"
+msgstr "Izenburua"
+
 msgid "Edit this page"
 msgstr "Orrialde hau editatu"
 
@@ -137,6 +133,9 @@ msgstr "Zure edizio berrienak"
 
 msgid "Status"
 msgstr "Egoera"
+
+msgid "Date"
+msgstr "Data"
 
 msgid "Home"
 msgstr "Etxea"

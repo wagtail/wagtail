@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -38,57 +38,6 @@ msgstr "Este campo é requirido."
 
 msgid "Password"
 msgstr "Contrasinal"
-
-msgid "hostname"
-msgstr "Nome do equipo"
-
-msgid "port"
-msgstr "porto"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Cambia isto a algo que non sexa o 80 se necesitas que un porto específico "
-"apareza nas URLs (p.e. desenvolvemento no porto 8000). Isto non afecta ao "
-"manexo de solicitudes (así que a redirección de portos segue funcionando)."
-
-msgid "site name"
-msgstr "Nome do sitio web"
-
-msgid "Human-readable name for the site."
-msgstr "Nome do sitio web lexible por humáns"
-
-msgid "root page"
-msgstr "páxina raíz"
-
-msgid "is default site"
-msgstr "é sitio web por defecto"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Se é afirmativo, este sitio manexará solicitudes para todos os demais nomes "
-"de host que non teñan unha entrada por si mesmos"
-
-msgid "site"
-msgstr "sitio web"
-
-msgid "sites"
-msgstr "sitios web"
-
-msgid "default"
-msgstr "por defecto"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s está xa configurado como sitio web por defecto. Debes "
-"desactivar iso antes de que podas establecer este sitio web por defecto."
 
 msgid "title"
 msgstr "título"
@@ -221,29 +170,23 @@ msgstr "permiso de grupo da páxina"
 msgid "group page permissions"
 msgstr "Permisos de grupo da páxina"
 
-msgid "Public"
-msgstr "Público"
-
-msgid "Private, accessible with the following password"
-msgstr "Privado, accesible co seguinte contrasinal"
-
-msgid "password"
-msgstr "contrasinal"
-
-msgid "groups"
-msgstr "grupos"
-
 msgid "page view restriction"
 msgstr "restrición da vista da páxina"
 
 msgid "page view restrictions"
 msgstr "restición da vista da páxina"
 
-msgid "collection"
-msgstr "colección"
-
 msgid "name"
 msgstr "nome"
+
+msgid "groups"
+msgstr "grupos"
+
+msgid "Approve"
+msgstr "Aprobar"
+
+msgid "collection"
+msgstr "colección"
 
 msgid "collections"
 msgstr "coleccións"
@@ -254,8 +197,65 @@ msgstr "permiso"
 msgid "group collection permission"
 msgstr "permiso de grupo da colección"
 
-msgid "Approve"
-msgstr "Aprobar"
+msgid "hostname"
+msgstr "Nome do equipo"
+
+msgid "port"
+msgstr "porto"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Cambia isto a algo que non sexa o 80 se necesitas que un porto específico "
+"apareza nas URLs (p.e. desenvolvemento no porto 8000). Isto non afecta ao "
+"manexo de solicitudes (así que a redirección de portos segue funcionando)."
+
+msgid "site name"
+msgstr "Nome do sitio web"
+
+msgid "Human-readable name for the site."
+msgstr "Nome do sitio web lexible por humáns"
+
+msgid "root page"
+msgstr "páxina raíz"
+
+msgid "is default site"
+msgstr "é sitio web por defecto"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Se é afirmativo, este sitio manexará solicitudes para todos os demais nomes "
+"de host que non teñan unha entrada por si mesmos"
+
+msgid "site"
+msgstr "sitio web"
+
+msgid "sites"
+msgstr "sitios web"
+
+msgid "default"
+msgstr "por defecto"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s está xa configurado como sitio web por defecto. Debes "
+"desactivar iso antes de que podas establecer este sitio web por defecto."
+
+msgid "Public"
+msgstr "Público"
+
+msgid "Private, accessible with the following password"
+msgstr "Privado, accesible co seguinte contrasinal"
+
+msgid "password"
+msgstr "contrasinal"
 
 msgid "Your username and password didn't match. Please try again."
 msgstr "O teu usuario e contrasinal non coinciden. Por favor, téntao de novo."

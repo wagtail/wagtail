@@ -191,7 +191,7 @@ class TestSiteRouting(TestCase):
 
     def test_unrecognised_port_and_unrecognised_host_routes_to_default_site(self):
         # requests with an unrecognised Host: header _and_ an unrecognised port
-        # hould be directed to the default site
+        # should be directed to the default site
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
@@ -2219,7 +2219,7 @@ class TestCopyForTranslation(TestCase):
         self.assertEqual(fr_homepage.locale, self.fr_locale)
         self.assertEqual(fr_homepage.translation_key, self.en_homepage.translation_key)
 
-        # At the top level, the langauge code should be appended to the slug
+        # At the top level, the language code should be appended to the slug
         self.assertEqual(fr_homepage.slug, "home-fr")
 
         # Translation must be in draft
@@ -2421,7 +2421,7 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
         parent1.add_child(instance=SimpleChildPage(title='simple child', slug='simple-child'))
 
         # We already have a `SimpleChildPage` as a child of `parent1`, and since it is limited
-        # to have only 1 child page, we cannot create anoter one. However, we should still be able
+        # to have only 1 child page, we cannot create another one. However, we should still be able
         # to create an instance for this page at a different location (as child of `parent2`)
         self.assertFalse(SimpleChildPage.can_create_at(parent1))
         self.assertTrue(SimpleChildPage.can_create_at(parent2))

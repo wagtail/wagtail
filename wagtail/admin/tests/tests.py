@@ -170,7 +170,7 @@ class TestSendMail(TestCase):
         email_message = mail.outbox[0]
         self.assertEqual(email_message.subject, "Test HTML subject")
         self.assertEqual(email_message.alternatives, [('<h2>Test HTML content</h2>', 'text/html')])
-        self.assertEqual(email_message.body, "TEXT content")  # note: plain text will alwasy be added to body, even with alternatives
+        self.assertEqual(email_message.body, "TEXT content")  # note: plain text will always be added to body, even with alternatives
         self.assertEqual(email_message.to, ["has.html@email.com"])
 
         # confirm that without html_message kwarg we do not get 'alternatives'

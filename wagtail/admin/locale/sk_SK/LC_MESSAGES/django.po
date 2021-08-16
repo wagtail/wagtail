@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Martin Janšto <mato@jansto.sk>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: dellax <michalnebbia@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -73,11 +73,14 @@ msgstr "Dátum od"
 msgid "Date to"
 msgstr "Dátum do"
 
-msgid "Date"
-msgstr "Dátum"
+msgid "First Name"
+msgstr "Krstné meno"
 
-msgid "Title"
-msgstr "Titulok"
+msgid "Last Name"
+msgstr "Priezvisko"
+
+msgid "Email"
+msgstr "Email"
 
 msgid "Enter password"
 msgstr "Zadajte heslo"
@@ -222,6 +225,12 @@ msgstr "Uložiť"
 msgid "Saving..."
 msgstr "Ukladám..."
 
+msgid "Dashboard"
+msgstr "Nástenka"
+
+msgid "Edit your account"
+msgstr "Upraviť váš účet"
+
 msgid "Error 404: Page not found"
 msgstr "Chyba 404: Stránka nebola nájdená"
 
@@ -271,9 +280,6 @@ msgstr "Obnova hesla"
 
 msgid "Reset your password"
 msgstr "Resetovanie vášho hesla"
-
-msgid "Dashboard"
-msgstr "Nástenka"
 
 msgid "Menu"
 msgstr "Menu"
@@ -395,6 +401,9 @@ msgstr ""
 "Toto je vaša nástenka, na ktorej sa budú zobrazovať informácie o obsahu, "
 "ktorý ste vytvorili."
 
+msgid "Title"
+msgstr "Titulok"
+
 msgid "Edit this page"
 msgstr "Upraviť túto stránku"
 
@@ -428,6 +437,9 @@ msgstr "Vaše posledné úpravy"
 msgid "Status"
 msgstr "Stav"
 
+msgid "Date"
+msgstr "Dátum"
+
 msgid "Site summary"
 msgstr "Prehľad sídla"
 
@@ -440,9 +452,6 @@ msgstr "Vaše %(username_field)s a heslo sú nesprávne. Prosím skúste znovu."
 
 msgid "Sign in to Wagtail"
 msgstr "Prihlásiť sa do Wagtail"
-
-msgid "Forgotten it?"
-msgstr "Zabudli ste heslo?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -970,9 +979,6 @@ msgstr "Domov"
 msgid "All collections"
 msgstr "Všetky kolekcie"
 
-msgid "Edit your account"
-msgstr "Upraviť váš účet"
-
 msgid "Account settings"
 msgstr "Nastavenia účtu"
 
@@ -981,9 +987,6 @@ msgstr "Odhlásiť sa"
 
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Pokračovať do administrátorskej časti"
 
 msgid "Add a child page"
 msgstr "Pridať podstránku"

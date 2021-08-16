@@ -1,57 +1,62 @@
 from io import BytesIO
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 from django.test import TestCase, override_settings
 
 from wagtail.core import hooks
 from wagtail.images import image_operations
 from wagtail.images.exceptions import InvalidFilterSpecError
+from wagtail.images.image_operations import TransformOperation
 from wagtail.images.models import Filter, Image
 from wagtail.images.tests.utils import (
     get_test_image_file, get_test_image_file_jpeg, get_test_image_file_webp)
 
 
-class WillowOperationRecorder:
+class DummyImageTransform:
     """
-    This class pretends to be a Willow image but instead, it records
-    the operations that have been performed on the image for testing
+    This class pretends to be a ImageTransform but instead, it records
+    the operations that have been performed on it
     """
-    format_name = 'jpeg'
+    def __init__(self, size):
+        self._check_size(size)
+        self.size = size
+        self.operations = []
 
-    def __init__(self, start_size):
-        self.ran_operations = []
-        self.start_size = start_size
+    def clone(self):
+        clone = DummyImageTransform(self.size)
+        clone.operations = self.operations.copy()
+        return clone
 
-    def __getattr__(self, attr):
-        def operation(*args, **kwargs):
-            self.validate_operation(attr, args, kwargs)
-            self.ran_operations.append((attr, args, kwargs))
-            return self
+    def resize(self, size):
+        """
+        Change the image size, stretching the transform to make it fit the new size.
+        """
+        self._check_size(size)
+        clone = self.clone()
+        clone.operations.append(('resize', size))
+        clone.size = size
+        return clone
 
-        return operation
+    def crop(self, rect):
+        """
+        Crop the image to the specified rect.
+        """
+        self._check_size(tuple(rect.size))
+        clone = self.clone()
+        clone.operations.append(('crop', tuple(rect)))
+        clone.size = tuple(rect.size)
+        return clone
 
-    def validate_operation(self, operation, args, kwargs):
-        """Check if the requested operation is sane and raise an exception if not."""
-        # The Willow docs say resize must take integral dimensions.
-        if operation == "resize":
-            x, y = args[0]
-            if x != int(x) or y != int(y):
-                raise ValueError
+    @staticmethod
+    def _check_size(size):
+        if not isinstance(size, tuple) or len(size) != 2 or int(size[0]) != size[0] or int(size[1]) != size[1]:
+            raise TypeError("Image size must be a 2-tuple of integers")
 
-    def get_size(self):
-        size = self.start_size
-
-        for operation in self.ran_operations:
-            if operation[0] == 'resize':
-                size = operation[1][0]
-            elif operation[0] == 'crop':
-                crop = operation[1][0]
-                size = crop[2] - crop[0], crop[3] - crop[1]
-
-        return size
+        if size[0] < 1 or size[1] < 1:
+            raise ValueError("Image width and height must both be 1 or greater")
 
 
-class ImageOperationTestCase(TestCase):
+class ImageTransformOperationTestCase(TestCase):
     operation_class = None
     filter_spec_tests = []
     filter_spec_error_tests = []
@@ -87,14 +92,14 @@ class ImageOperationTestCase(TestCase):
             # Make operation
             operation = self.operation_class(*filter_spec.split('-'))
 
-            # Make operation recorder
-            operation_recorder = WillowOperationRecorder((image.width, image.height))
+            # Make context
+            context = DummyImageTransform((image.width, image.height))
 
             # Run
-            operation.run(operation_recorder, image, {})
+            context = operation.run(context, image)
 
             # Check
-            self.assertEqual(operation_recorder.ran_operations, expected_output)
+            self.assertEqual(context.operations, expected_output)
 
         test_run.__name__ = str('test_run_%s' % filter_spec)
         return test_run
@@ -108,11 +113,11 @@ class ImageOperationTestCase(TestCase):
             operation = self.operation_class(*filter_spec.split('-'))
 
             # Make operation recorder
-            operation_recorder = WillowOperationRecorder((image.width, image.height))
+            context = DummyImageTransform((image.width, image.height))
 
             # Attempt (and hopefully fail) to run
             with self.assertRaises(ValueError):
-                operation.run(operation_recorder, image, {})
+                operation.run(context, image)
 
         test_norun.__name__ = str('test_norun_%s' % filter_spec)
         return test_norun
@@ -143,28 +148,7 @@ class ImageOperationTestCase(TestCase):
             setattr(cls, norun_test.__name__, norun_test)
 
 
-class TestDoNothingOperation(ImageOperationTestCase):
-    operation_class = image_operations.DoNothingOperation
-
-    filter_spec_tests = [
-        ('original', dict()),
-        ('blahblahblah', dict()),
-        ('123456', dict()),
-    ]
-
-    filter_spec_error_tests = [
-        'cannot-take-multiple-parameters',
-    ]
-
-    run_tests = [
-        ('original', dict(width=1000, height=1000), []),
-    ]
-
-
-TestDoNothingOperation.setup_test_methods()
-
-
-class TestFillOperation(ImageOperationTestCase):
+class TestFillOperation(ImageTransformOperationTestCase):
     operation_class = image_operations.FillOperation
 
     filter_spec_tests = [
@@ -190,21 +174,21 @@ class TestFillOperation(ImageOperationTestCase):
     run_tests = [
         # Basic usage
         ('fill-800x600', dict(width=1000, height=1000), [
-            ('crop', ((0, 125, 1000, 875), ), {}),
-            ('resize', ((800, 600), ), {}),
+            ('crop', (0, 125, 1000, 875)),
+            ('resize', (800, 600)),
         ]),
 
         # Basic usage with an oddly-sized original image
         # This checks for a rounding precision issue (#968)
         ('fill-200x200', dict(width=539, height=720), [
-            ('crop', ((0, 90, 539, 630), ), {}),
-            ('resize', ((200, 200), ), {}),
+            ('crop', (0, 90, 539, 630)),
+            ('resize', (200, 200)),
         ]),
 
         # Closeness shouldn't have any effect when used without a focal point
         ('fill-800x600-c100', dict(width=1000, height=1000), [
-            ('crop', ((0, 125, 1000, 875), ), {}),
-            ('resize', ((800, 600), ), {}),
+            ('crop', (0, 125, 1000, 875)),
+            ('resize', (800, 600)),
         ]),
 
         # Should always crop towards focal point. Even if no closeness is set
@@ -217,10 +201,10 @@ class TestFillOperation(ImageOperationTestCase):
             focal_point_height=0,
         ), [
             # Crop the largest possible crop box towards the focal point
-            ('crop', ((0, 125, 1000, 875), ), {}),
+            ('crop', (0, 125, 1000, 875)),
 
             # Resize it down to final size
-            ('resize', ((80, 60), ), {}),
+            ('resize', (80, 60)),
         ]),
 
         # Should crop as close as possible without upscaling
@@ -233,7 +217,7 @@ class TestFillOperation(ImageOperationTestCase):
             focal_point_height=0,
         ), [
             # Crop as close as possible to the focal point
-            ('crop', ((920, 470, 1000, 530), ), {}),
+            ('crop', (920, 470, 1000, 530)),
 
             # No need to resize, crop should've created an 80x60 image
         ]),
@@ -249,7 +233,7 @@ class TestFillOperation(ImageOperationTestCase):
             focal_point_height=0,
         ), [
             # Crop to the right hand side
-            ('crop', ((1900, 470, 2000, 530), ), {}),
+            ('crop', (1900, 470, 2000, 530)),
         ]),
 
         # Make sure that the crop box never enters the focal point
@@ -262,15 +246,15 @@ class TestFillOperation(ImageOperationTestCase):
             focal_point_height=20,
         ), [
             # Crop a 100x100 box around the entire focal point
-            ('crop', ((950, 450, 1050, 550), ), {}),
+            ('crop', (950, 450, 1050, 550)),
 
             # Resize it down to 50x50
-            ('resize', ((50, 50), ), {}),
+            ('resize', (50, 50)),
         ]),
 
         # Test that the image is never upscaled
         ('fill-1000x800', dict(width=100, height=100), [
-            ('crop', ((0, 10, 100, 90), ), {}),
+            ('crop', (0, 10, 100, 90)),
         ]),
 
         # Test that the crop closeness gets capped to prevent upscaling
@@ -285,7 +269,7 @@ class TestFillOperation(ImageOperationTestCase):
             # Crop a 1000x800 square out of the image as close to the
             # focal point as possible. Will not zoom too far in to
             # prevent upscaling
-            ('crop', ((250, 100, 1250, 900), ), {}),
+            ('crop', (250, 100, 1250, 900)),
         ]),
 
         # Test for an issue where a ZeroDivisionError would occur when the
@@ -300,7 +284,7 @@ class TestFillOperation(ImageOperationTestCase):
             focal_point_height=1500,
         ), [
             # This operation could probably be optimised out
-            ('crop', ((0, 0, 1500, 1500), ), {}),
+            ('crop', (0, 0, 1500, 1500)),
         ]),
 
 
@@ -310,7 +294,7 @@ class TestFillOperation(ImageOperationTestCase):
             width=1,
             height=1,
         ), [
-            ('crop', ((0, 0, 1, 1), ), {}),
+            ('crop', (0, 0, 1, 1)),
         ]),
 
         # This one once gave a ZeroDivisionError
@@ -318,14 +302,14 @@ class TestFillOperation(ImageOperationTestCase):
             width=1,
             height=1,
         ), [
-            ('crop', ((0, 0, 1, 1), ), {}),
+            ('crop', (0, 0, 1, 1)),
         ]),
 
         ('fill-150x100', dict(
             width=1,
             height=1,
         ), [
-            ('crop', ((0, 0, 1, 1), ), {}),
+            ('crop', (0, 0, 1, 1)),
         ]),
     ]
 
@@ -333,7 +317,7 @@ class TestFillOperation(ImageOperationTestCase):
 TestFillOperation.setup_test_methods()
 
 
-class TestMinMaxOperation(ImageOperationTestCase):
+class TestMinMaxOperation(ImageTransformOperationTestCase):
     operation_class = image_operations.MinMaxOperation
 
     filter_spec_tests = [
@@ -354,19 +338,19 @@ class TestMinMaxOperation(ImageOperationTestCase):
     run_tests = [
         # Basic usage of min
         ('min-800x600', dict(width=1000, height=1000), [
-            ('resize', ((800, 800), ), {}),
+            ('resize', (800, 800)),
         ]),
         # Basic usage of max
         ('max-800x600', dict(width=1000, height=1000), [
-            ('resize', ((600, 600), ), {}),
+            ('resize', (600, 600)),
         ]),
         # Resize doesn't try to set zero height
         ('max-400x400', dict(width=1000, height=1), [
-            ('resize', ((400, 1), ), {}),
+            ('resize', (400, 1)),
         ]),
         # Resize doesn't try to set zero width
         ('max-400x400', dict(width=1, height=1000), [
-            ('resize', ((1, 400), ), {}),
+            ('resize', (1, 400)),
         ]),
     ]
 
@@ -374,7 +358,7 @@ class TestMinMaxOperation(ImageOperationTestCase):
 TestMinMaxOperation.setup_test_methods()
 
 
-class TestWidthHeightOperation(ImageOperationTestCase):
+class TestWidthHeightOperation(ImageTransformOperationTestCase):
     operation_class = image_operations.WidthHeightOperation
 
     filter_spec_tests = [
@@ -392,19 +376,19 @@ class TestWidthHeightOperation(ImageOperationTestCase):
     run_tests = [
         # Basic usage of width
         ('width-400', dict(width=1000, height=500), [
-            ('resize', ((400, 200), ), {}),
+            ('resize', (400, 200)),
         ]),
         # Basic usage of height
         ('height-400', dict(width=1000, height=500), [
-            ('resize', ((800, 400), ), {}),
+            ('resize', (800, 400)),
         ]),
         # Resize doesn't try to set zero height
         ('width-400', dict(width=1000, height=1), [
-            ('resize', ((400, 1), ), {}),
+            ('resize', (400, 1)),
         ]),
         # Resize doesn't try to set zero width
         ('height-400', dict(width=1, height=800), [
-            ('resize', ((1, 400), ), {}),
+            ('resize', (1, 400)),
         ]),
     ]
 
@@ -412,7 +396,7 @@ class TestWidthHeightOperation(ImageOperationTestCase):
 TestWidthHeightOperation.setup_test_methods()
 
 
-class TestScaleOperation(ImageOperationTestCase):
+class TestScaleOperation(ImageTransformOperationTestCase):
     operation_class = image_operations.ScaleOperation
 
     filter_spec_tests = [
@@ -430,23 +414,23 @@ class TestScaleOperation(ImageOperationTestCase):
     run_tests = [
         # Basic almost a no-op of scale
         ('scale-100', dict(width=1000, height=500), [
-            ('resize', ((1000, 500), ), {}),
+            ('resize', (1000, 500)),
         ]),
         # Basic usage of scale
         ('scale-50', dict(width=1000, height=500), [
-            ('resize', ((500, 250), ), {}),
+            ('resize', (500, 250)),
         ]),
         # Rounded usage of scale
         ('scale-83.0322', dict(width=1000, height=500), [
-            ('resize', ((int(1000 * 0.830322), int(500 * 0.830322)), ), {}),
+            ('resize', (int(1000 * 0.830322), int(500 * 0.830322))),
         ]),
         # Resize doesn't try to set zero height
         ('scale-50', dict(width=1000, height=1), [
-            ('resize', ((500, 1), ), {}),
+            ('resize', (500, 1)),
         ]),
         # Resize doesn't try to set zero width
         ('scale-50', dict(width=1, height=500), [
-            ('resize', ((1, 250), ), {}),
+            ('resize', (1, 250)),
         ]),
     ]
 
@@ -484,26 +468,30 @@ class TestCacheKey(TestCase):
         self.assertEqual(cache_key, '0bbe3b2f')
 
 
+class DummyOperation(TransformOperation):
+    def construct(self):
+        pass
+
+    def run_mock(self, context, image):
+        pass
+
+    def run(self, context, image):
+        self.run_mock(context, image)
+        return context
+
+
 def register_image_operations_hook():
     return [
-        ('operation1', Mock(return_value=TestFilter.operation_instance)),
-        ('operation2', Mock(return_value=TestFilter.operation_instance))
+        ('operation1', DummyOperation),
+        ('operation2', DummyOperation)
     ]
 
 
 class TestFilter(TestCase):
 
-    operation_instance = Mock()
-
+    @patch.object(DummyOperation, 'run_mock')
     @hooks.register_temporarily('register_image_operations', register_image_operations_hook)
-    def test_runs_operations(self):
-        run_mock = Mock()
-
-        def run(willow, image, env):
-            run_mock(willow, image, env)
-
-        self.operation_instance.run = run
-
+    def test_runs_operations(self, run_mock):
         fil = Filter(spec='operation1|operation2')
         image = Image.objects.create(
             title="Test image",

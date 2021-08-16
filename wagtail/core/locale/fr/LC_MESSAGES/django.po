@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-24 09:34+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-28 11:55+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -82,58 +82,6 @@ msgstr "Commentaire"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "%(action)s inconnu(e)"
-
-msgid "hostname"
-msgstr "nom d'hôte"
-
-msgid "port"
-msgstr "port"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Définissez cette valeur à autre chose que 80 si vous avez besoin qu'un port "
-"spécifique apparaisse dans les URLs (e.g. développement sur le port 8000). "
-"Ceci n'affecte pas la prise en charge des requêtes (les redirections de port "
-"continuent de fonctionner)."
-
-msgid "site name"
-msgstr "nom du site"
-
-msgid "Human-readable name for the site."
-msgstr "Nom compréhensible par un humain pour le site."
-
-msgid "root page"
-msgstr "page racine"
-
-msgid "is default site"
-msgstr "site par défaut"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Si oui, ce site gérera toutes les requêtes des autres noms d'hôtes qui n'ont "
-"pas de site défini."
-
-msgid "site"
-msgstr "site"
-
-msgid "sites"
-msgstr "sites"
-
-msgid "default"
-msgstr "défaut"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s est déjà configuré comme site par défaut. Vous devez modifier "
-"ce dernier avant de pouvoir sauvegarder ce site comme site par défaut."
 
 msgid "title"
 msgstr "Titre"
@@ -321,59 +269,11 @@ msgstr "permission de page par groupe"
 msgid "group page permissions"
 msgstr "permissions de page par groupe"
 
-msgid "Public"
-msgstr "Publique"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Privée, accessible aux utilisateurs connectés"
-
-msgid "Private, accessible with the following password"
-msgstr "Privée, accessible avec le mot de passe suivant"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Privée, accessible aux utilisateurs dans des groupes spécifiques"
-
-msgid "password"
-msgstr "mot de passe"
-
-msgid "groups"
-msgstr "groupes"
-
-msgid "view restriction"
-msgstr "confidentialité"
-
-msgid "view restrictions"
-msgstr "confidentialités"
-
 msgid "page view restriction"
 msgstr "confidentialité de page"
 
 msgid "page view restrictions"
 msgstr "confidentialités de page"
-
-msgid "collection"
-msgstr "collection"
-
-msgid "collection view restriction"
-msgstr "confidentialité de collection"
-
-msgid "collection view restrictions"
-msgstr "confidentialités de collection"
-
-msgid "name"
-msgstr "nom"
-
-msgid "collections"
-msgstr "collections"
-
-msgid "permission"
-msgstr "permission"
-
-msgid "group collection permission"
-msgstr "permission de collection de groupe"
-
-msgid "group collection permissions"
-msgstr "permission de collection de groupe"
 
 msgid "workflow"
 msgstr "workflow"
@@ -395,6 +295,9 @@ msgstr "ordre de tâche de workflow"
 
 msgid "workflow task orders"
 msgstr "ordres de tâche de workflow"
+
+msgid "name"
+msgstr "nom"
 
 msgid "active"
 msgstr "actif"
@@ -418,6 +321,9 @@ msgstr ""
 
 msgid "workflows"
 msgstr "workflows"
+
+msgid "groups"
+msgstr "groupes"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -511,6 +417,24 @@ msgstr "État de tâche"
 msgid "Task states"
 msgstr "États de tâche"
 
+msgid "page log entry"
+msgstr "entrée de journal de page"
+
+msgid "page log entries"
+msgstr "entrées de journal de page"
+
+msgid "comment"
+msgstr "commentaire"
+
+msgid "comments"
+msgstr "commentaires"
+
+msgid "comment reply"
+msgstr "Réponse de commentaire"
+
+msgid "comment replies"
+msgstr "Réponses de commentaire"
+
 msgid "timestamp (UTC)"
 msgstr "horodatage (UTC)"
 
@@ -530,23 +454,99 @@ msgstr "utilisateur %(id)d (supprimé)"
 msgid "system"
 msgstr "système"
 
-msgid "page log entry"
-msgstr "entrée de journal de page"
+msgid "collection"
+msgstr "collection"
 
-msgid "page log entries"
-msgstr "entrées de journal de page"
+msgid "collection view restriction"
+msgstr "confidentialité de collection"
 
-msgid "comment"
-msgstr "commentaire"
+msgid "collection view restrictions"
+msgstr "confidentialités de collection"
 
-msgid "comments"
-msgstr "commentaires"
+msgid "collections"
+msgstr "collections"
 
-msgid "comment reply"
-msgstr "Réponse de commentaire"
+msgid "permission"
+msgstr "permission"
 
-msgid "comment replies"
-msgstr "Réponses de commentaire"
+msgid "group collection permission"
+msgstr "permission de collection de groupe"
+
+msgid "group collection permissions"
+msgstr "permission de collection de groupe"
+
+msgid "hostname"
+msgstr "nom d'hôte"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Définissez cette valeur à autre chose que 80 si vous avez besoin qu'un port "
+"spécifique apparaisse dans les URLs (e.g. développement sur le port 8000). "
+"Ceci n'affecte pas la prise en charge des requêtes (les redirections de port "
+"continuent de fonctionner)."
+
+msgid "site name"
+msgstr "nom du site"
+
+msgid "Human-readable name for the site."
+msgstr "Nom compréhensible par un humain pour le site."
+
+msgid "root page"
+msgstr "page racine"
+
+msgid "is default site"
+msgstr "site par défaut"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Si oui, ce site gérera toutes les requêtes des autres noms d'hôtes qui n'ont "
+"pas de site défini."
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
+
+msgid "default"
+msgstr "défaut"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s est déjà configuré comme site par défaut. Vous devez modifier "
+"ce dernier avant de pouvoir sauvegarder ce site comme site par défaut."
+
+msgid "Public"
+msgstr "Publique"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privée, accessible aux utilisateurs connectés"
+
+msgid "Private, accessible with the following password"
+msgstr "Privée, accessible avec le mot de passe suivant"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privée, accessible aux utilisateurs dans des groupes spécifiques"
+
+msgid "password"
+msgstr "mot de passe"
+
+msgid "view restriction"
+msgstr "confidentialité"
+
+msgid "view restrictions"
+msgstr "confidentialités"
 
 msgid "Log in"
 msgstr "Connexion"
@@ -657,11 +657,11 @@ msgid "Created an alias"
 msgstr "Alias créé"
 
 #, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "L'alias « %(title)s » a été converti en une page normale"
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "L'alias « %(title)s » a été converti en une page ordinaire"
 
-msgid "Converted an alias into a regular page"
-msgstr "Un alias a été converti en une page normale"
+msgid "Converted an alias into an ordinary page"
+msgstr "Convertir cet alias en une page ordinaire"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -735,6 +735,61 @@ msgstr "Renommé de « %(old)s » à « %(new)s »"
 msgid "Renamed"
 msgstr "Renommé(e)"
 
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Le commentaire « %(text)s »  a été ajouté sur le champ « %(field)s »"
+
+msgid "Added a comment"
+msgstr "Un commentaire a été ajouté"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Le commentaire « %(text)s »  a été modifié sur le champ « %(field)s »"
+
+msgid "Edited a comment"
+msgstr "Un commentaire a été modifié"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Le commentaire « %(text)s »  a été supprimé sur le champ « %(field)s »"
+
+msgid "Deleted a comment"
+msgstr "Un commentaire a été supprimé"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Le commentaire « %(text)s »  a été archivé sur le champ « %(field)s »"
+
+msgid "Resolved a comment"
+msgstr "Un commentaire a été archivé"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr ""
+"Une réponse au commentaire « %(text)s »  a été ajoutée sur le champ "
+"« %(field)s »"
+
+msgid "Replied to a comment"
+msgstr "Un réponse a été ajoutée pour un commentaire"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr ""
+"Une réponse de commentaire « %(text)s »  a été modifiée sur le champ "
+"« %(field)s »"
+
+msgid "Edited a reply"
+msgstr "Une réponse de commentaire a été modifiée"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr ""
+"Une réponse de commentaire « %(text)s »  a été supprimée sur le champ "
+"« %(field)s »"
+
+msgid "Deleted a reply"
+msgstr "Une réponse de commentaire a été supprimée"
+
 msgid "Rename"
 msgstr "Renommer"
 
@@ -747,8 +802,8 @@ msgstr "Copier"
 msgid "Create alias"
 msgstr "Créer un alias"
 
-msgid "Convert alias into regular page"
-msgstr "Convertir un alias en page normale"
+msgid "Convert alias into ordinary page"
+msgstr "Convertir un alias en page ordinaire"
 
 msgid "Move"
 msgstr "Déplacer"
@@ -770,6 +825,27 @@ msgstr "Mettre à jour les règles de confidentialité"
 
 msgid "Remove view restrictions"
 msgstr "Supprimer les règles de confidentialité"
+
+msgid "Add comment"
+msgstr "Ajouter un commentaire"
+
+msgid "Edit comment"
+msgstr "Modifier le commentaire"
+
+msgid "Delete comment"
+msgstr "Supprimer le commentaire"
+
+msgid "Resolve comment"
+msgstr "Archiver le commentaire"
+
+msgid "Reply to comment"
+msgstr "Répondre au commentaire"
+
+msgid "Edit reply to comment"
+msgstr "Modifier la réponse au commentaire"
+
+msgid "Delete reply to comment"
+msgstr "Supprimer la réponse au commentaire"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"

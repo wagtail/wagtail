@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 11:55+0000\n"
-"Last-Translator: Julian C <jcuotpc@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-08-02 08:32+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -107,26 +107,23 @@ msgstr "Data la"
 msgid "All"
 msgstr "Toate"
 
-msgid "Started at"
-msgstr "Început la"
+msgid "Preferred language"
+msgstr "Limba preferată"
 
-msgid "Show"
-msgstr "Arată"
+msgid "Current time zone"
+msgstr "Fus orar curent"
 
-msgid "Awaiting my review"
-msgstr "Așteaptă recenzia mea"
+msgid "First Name"
+msgstr "Prenume"
 
-msgid "Completed at"
-msgstr "Completat la"
+msgid "Last Name"
+msgstr "Nume"
 
-msgid "Workflow"
-msgstr "Flux de lucru"
+msgid "Email"
+msgstr "E-mail"
 
-msgid "Date"
-msgstr "Dată"
-
-msgid "Title"
-msgstr "Titlu"
+msgid "Upload a profile picture"
+msgstr "Încarcă poza profil"
 
 msgid "Enter password"
 msgstr "Introduceți parola"
@@ -399,6 +396,21 @@ msgstr "Comentariu"
 msgid "More actions"
 msgstr "Mai multe acțiuni"
 
+msgid "Save the page to add this comment"
+msgstr "Salvează pagina pentru a adăuga acest comentariu"
+
+msgid "Save the page to save this comment"
+msgstr "Salvează pagina pentru a păstra acest comentariu"
+
+msgid "Save the page to save this reply"
+msgstr "Salvează pagina pentru a păstra acest răspuns"
+
+msgid "Dashboard"
+msgstr "Bord"
+
+msgid "Edit your account"
+msgstr "Editează contul utilizator"
+
 msgid "Error 404: Page not found"
 msgstr "Eroare 404: Pagina nu a fost găsită"
 
@@ -477,9 +489,6 @@ msgstr "Încarca poza profil"
 
 msgid "Reset to default"
 msgstr "Resetează la starea implicită"
-
-msgid "Dashboard"
-msgstr "Bord"
 
 msgid "Menu"
 msgstr "Meniu"
@@ -627,6 +636,16 @@ msgstr "Deplasează în jos"
 msgid "Add comment"
 msgstr "Adaugă comentariu"
 
+msgid "Comments"
+msgstr "Comentarii"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr ""
+"Comutați vizibilitatea meniului derulant al notificărilor de comentarii "
+
+msgid "Commenting on this page"
+msgstr "Comentarii la această pagină"
+
 msgid "Comment notifications"
 msgstr "Notificări comentarii"
 
@@ -647,6 +666,9 @@ msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs.
 
 msgid "Your locked pages"
 msgstr "Paginile Dvs. blocate"
+
+msgid "Title"
+msgstr "Titlu"
 
 msgid "Locked at"
 msgstr "Blocat la"
@@ -690,6 +712,9 @@ msgstr "Modificările cele mai recente"
 
 msgid "Status"
 msgstr "Status"
+
+msgid "Date"
+msgstr "Dată"
 
 msgid "Site summary"
 msgstr "Rezumat sait"
@@ -756,8 +781,8 @@ msgstr "Conectați-vă la Wagtail"
 msgid "Signing in…"
 msgstr "În curs de conectare…"
 
-msgid "Forgotten it?"
-msgstr "Ați uitat?"
+msgid "Forgotten password?"
+msgstr "Ați uitat parola?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1013,7 +1038,7 @@ msgstr "Convertează aliasul %(title)s"
 msgid "Convert alias"
 msgstr "Convertează alias"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
+msgid "Are you sure you want to convert this alias into an ordinary page?"
 msgstr "Sigur doriți să convertiți acest alias în pagină obișnuită?"
 
 msgid "This action cannot be undone."
@@ -1204,7 +1229,7 @@ msgstr "Această pagină este un alias al altei pagini."
 msgid "Edit original page"
 msgstr "Editează pagina originală"
 
-msgid "Convert this alias into a regular page"
+msgid "Convert this alias into an ordinary page"
 msgstr "Convertează acest alias în pagină obișnuită"
 
 #, python-format
@@ -1636,6 +1661,9 @@ msgstr "Editează pagină"
 msgid "Requested by"
 msgstr "Solicitat de"
 
+msgid "Started at"
+msgstr "Început la"
+
 msgid "Approved task"
 msgstr "Sarcină approbată"
 
@@ -1709,11 +1737,17 @@ msgstr "Nu s-au găsit pagini blocate."
 msgid "By Task"
 msgstr "După sarcină"
 
+msgid "Workflow"
+msgstr "Flux de lucru"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Nici o pagină nu a fost trimisă pentru moderarare"
 
 msgid "By Workflow"
 msgstr "După flux de lucru"
+
+msgid "Completed at"
+msgstr "Completat la"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1730,9 +1764,6 @@ msgstr "Acasă"
 
 msgid "All collections"
 msgstr "Toate colecțiile"
-
-msgid "Edit your account"
-msgstr "Editează contul utilizator"
 
 msgid "Account settings"
 msgstr "Setări cont"
@@ -1797,8 +1828,8 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Săriți la conținutul principal"
 
-msgid "Go to Wagtail admin interface"
-msgstr "Spre interfața de administrare Wagtail"
+msgid "View Wagtail quick actions"
+msgstr "Vezi acțiunile Wagtail rapide"
 
 msgid "Add a child page"
 msgstr "Adaugă o pagină dependentă"
@@ -2112,7 +2143,7 @@ msgstr "Sigur doriți să ștergeți această colecție?"
 msgid "Editing"
 msgstr "Editare"
 
-msgid "Page '{0}' has been converted into a regular page."
+msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Pagina '{0}' a fost convertită în pagină obișnuită."
 
 msgid "Page '{0}' and {1} subpages copied."
@@ -2206,6 +2237,9 @@ msgstr "Pagina nu a fost salvată pentru că este blocată"
 msgid "The page could not be saved due to validation errors"
 msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
 
+msgid "Hide commenting actions"
+msgstr "Ascunde acțiunile de comentare"
+
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is fost deblocată."
 
@@ -2260,8 +2294,26 @@ msgstr "Publicare anulată pentru pagina '{0}'."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Pagina '{0}' nu este în moderare la sarcina '{1}' în acest moment."
 
+msgid "Site history"
+msgstr "Istorie sait"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Tip acțiune"
+
+msgid "Date/Time"
+msgstr "Dată/Timp"
+
 msgid "Locked pages"
 msgstr "Pagini blocate"
+
+msgid "Show"
+msgstr "Arată"
+
+msgid "Awaiting my review"
+msgstr "Așteaptă recenzia mea"
 
 msgid "Workflows"
 msgstr "Fluxuri de lucru"
@@ -2280,18 +2332,6 @@ msgstr "Sarcini flux de lucru"
 
 msgid "Requested By"
 msgstr "Solicitat de"
-
-msgid "Site history"
-msgstr "Istorie sait"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Tip acțiune"
-
-msgid "Date/Time"
-msgstr "Dată/Timp"
 
 msgid "Add a workflow"
 msgstr "Adăugați flux de lucru"

@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -58,56 +58,6 @@ msgstr "Password"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "La password inserita non è corretta. Riprovare."
-
-msgid "hostname"
-msgstr "hostname"
-
-msgid "port"
-msgstr "porta"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Imposta questo a qualcosa di diverso da 80 se hai necessità di un numero di "
-"porta da far apparire nelle URL (es. sviluppo sulla porta 8000). Non "
-"influisce sulla gestione delle richieste (il port forwarding continua a "
-"funzionare)."
-
-msgid "site name"
-msgstr "nome sito"
-
-msgid "Human-readable name for the site."
-msgstr "Nome leggibile per il sito."
-
-msgid "root page"
-msgstr "pagina radice"
-
-msgid "is default site"
-msgstr "è sito di default"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr "Se true, questo sito gestirà le richieste di tutti gli altri hostname"
-
-msgid "site"
-msgstr "sito"
-
-msgid "sites"
-msgstr "siti"
-
-msgid "default"
-msgstr "default"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s è già configurato come sito di default. Devi togliere questa "
-"impostazione prima di poterlo salvare come sito di default."
 
 msgid "title"
 msgstr "titolo"
@@ -255,6 +205,92 @@ msgstr "permesso della pagina del gruppo"
 msgid "group page permissions"
 msgstr "permessi delle pagine del gruppo"
 
+msgid "page view restriction"
+msgstr "restrizione per la visualizzazione della pagina"
+
+msgid "page view restrictions"
+msgstr "restrizioni per la visualizzazione della pagina"
+
+msgid "name"
+msgstr "nome"
+
+msgid "groups"
+msgstr "gruppi"
+
+msgid "Approve"
+msgstr "Approva"
+
+msgid "collection"
+msgstr "raccolta"
+
+msgid "collection view restriction"
+msgstr "limitazione per la vista della raccolta"
+
+msgid "collection view restrictions"
+msgstr "limitazioni per la vista della raccolta"
+
+msgid "collections"
+msgstr "raccolte"
+
+msgid "permission"
+msgstr "permesso"
+
+msgid "group collection permission"
+msgstr "permesso della collezione del gruppo"
+
+msgid "group collection permissions"
+msgstr "Permessi gruppo raccolta"
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "porta"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Imposta questo a qualcosa di diverso da 80 se hai necessità di un numero di "
+"porta da far apparire nelle URL (es. sviluppo sulla porta 8000). Non "
+"influisce sulla gestione delle richieste (il port forwarding continua a "
+"funzionare)."
+
+msgid "site name"
+msgstr "nome sito"
+
+msgid "Human-readable name for the site."
+msgstr "Nome leggibile per il sito."
+
+msgid "root page"
+msgstr "pagina radice"
+
+msgid "is default site"
+msgstr "è sito di default"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "Se true, questo sito gestirà le richieste di tutti gli altri hostname"
+
+msgid "site"
+msgstr "sito"
+
+msgid "sites"
+msgstr "siti"
+
+msgid "default"
+msgstr "default"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s è già configurato come sito di default. Devi togliere questa "
+"impostazione prima di poterlo salvare come sito di default."
+
 msgid "Public"
 msgstr "Pubblico"
 
@@ -270,47 +306,11 @@ msgstr "Privato, accessibile a utenti di gruppi specifici"
 msgid "password"
 msgstr "password"
 
-msgid "groups"
-msgstr "gruppi"
-
 msgid "view restriction"
 msgstr "limitazione visualizzazioni"
 
 msgid "view restrictions"
 msgstr "limitazioni visualizzazione"
-
-msgid "page view restriction"
-msgstr "restrizione per la visualizzazione della pagina"
-
-msgid "page view restrictions"
-msgstr "restrizioni per la visualizzazione della pagina"
-
-msgid "collection"
-msgstr "raccolta"
-
-msgid "collection view restriction"
-msgstr "limitazione per la vista della raccolta"
-
-msgid "collection view restrictions"
-msgstr "limitazioni per la vista della raccolta"
-
-msgid "name"
-msgstr "nome"
-
-msgid "collections"
-msgstr "raccolte"
-
-msgid "permission"
-msgstr "permesso"
-
-msgid "group collection permission"
-msgstr "permesso della collezione del gruppo"
-
-msgid "group collection permissions"
-msgstr "Permessi gruppo raccolta"
-
-msgid "Approve"
-msgstr "Approva"
 
 msgid "Log in"
 msgstr "Log in"

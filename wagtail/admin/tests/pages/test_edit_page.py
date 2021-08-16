@@ -661,7 +661,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.child_page = SimplePage(title="Hello world 2", slug="hello-world2", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
-        # Attempt to change the slug to one thats already in use
+        # Attempt to change the slug to one that's already in use
         post_data = {
             'title': "Hello world 2",
             'slug': 'hello-world',

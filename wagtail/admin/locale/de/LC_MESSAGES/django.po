@@ -11,8 +11,9 @@
 # Daniel Manser <me@danielmanser.com>, 2015
 # Ettore Atalan <atalanttore@googlemail.com>, 2015-2017,2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016,2018
-# hpoul <herbert.transifex@m.poul.at>, 2015
+# Herbert Poul, 2015,2021
 # oliverengel <codeangel@posteo.de>, 2021
+# unicode_it <info@unicode-it.de>, 2021
 # Jannis Vajen, 2016
 # Bohreromir, 2020
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
@@ -39,9 +40,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-06-25 10:56+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-22 10:12+0000\n"
+"Last-Translator: unicode_it <info@unicode-it.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -112,7 +113,7 @@ msgid "Privacy"
 msgstr "Privatsphäre"
 
 msgid "For search engines"
-msgstr "Für Suchmaschine"
+msgstr "Für Suchmaschinen"
 
 msgid "For site menus"
 msgstr "Für Seitenmenü"
@@ -135,26 +136,23 @@ msgstr "Datum bis"
 msgid "All"
 msgstr "Alle"
 
-msgid "Started at"
-msgstr "Erstellt am"
+msgid "Preferred language"
+msgstr "Bevorzugte Sprache"
 
-msgid "Show"
-msgstr "Anzeigen"
+msgid "Current time zone"
+msgstr "Aktuelle Zeitzone"
 
-msgid "Awaiting my review"
-msgstr "Überprüfung erwartet"
+msgid "First Name"
+msgstr "Vorname"
 
-msgid "Completed at"
-msgstr "Vervollständigt am"
+msgid "Last Name"
+msgstr "Nachname"
 
-msgid "Workflow"
-msgstr "Arbeitsablauf"
+msgid "Email"
+msgstr "E-Mail"
 
-msgid "Date"
-msgstr "Datum"
-
-msgid "Title"
-msgstr "Titel"
+msgid "Upload a profile picture"
+msgstr "Ein Profilbild hochladen"
 
 msgid "Enter password"
 msgstr "Bitte geben Sie Ihr Passwort ein"
@@ -432,6 +430,21 @@ msgstr "Kommentar"
 msgid "More actions"
 msgstr "Mehr Aktionen"
 
+msgid "Save the page to add this comment"
+msgstr "Speichere die Seite um den Kommentar hinzuzufügen"
+
+msgid "Save the page to save this comment"
+msgstr "Speichere die Seite um den Kommentar zu speichern"
+
+msgid "Save the page to save this reply"
+msgstr "Speichere die Seite um diese Antwort zu speichern"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Edit your account"
+msgstr "Bearbeiten Sie Ihr Konto"
+
 msgid "Error 404: Page not found"
 msgstr "Fehler 404: Seite nicht gefunden"
 
@@ -512,9 +525,6 @@ msgstr "Ein Profilbild hochladen:"
 
 msgid "Reset to default"
 msgstr "Auf Standard zurücksetzen"
-
-msgid "Dashboard"
-msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menü"
@@ -658,6 +668,15 @@ msgstr "Nach unten"
 msgid "Add comment"
 msgstr "Kommentar hinzufügen"
 
+msgid "Comments"
+msgstr "Kommentare"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr "Sichtbarkeit der Kommentar-Benachrichtigungen umschalten"
+
+msgid "Commenting on this page"
+msgstr "Auf dieser Seite kommentieren"
+
 msgid "Comment notifications"
 msgstr "Kommentarbenachichtigungen"
 
@@ -680,6 +699,9 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Ihre gesperrte Seiten"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Locked at"
 msgstr "Gesperrt um"
@@ -723,6 +745,9 @@ msgstr "Ihre letzten Änderungen"
 
 msgid "Status"
 msgstr "Status"
+
+msgid "Date"
+msgstr "Datum"
 
 msgid "Site summary"
 msgstr "Seitenzusammenfassung"
@@ -785,8 +810,8 @@ msgstr "Bei Wagtail anmelden"
 msgid "Signing in…"
 msgstr "Anmelden..."
 
-msgid "Forgotten it?"
-msgstr "Vergessen?"
+msgid "Forgotten password?"
+msgstr "Passwort vergessen?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1043,10 +1068,9 @@ msgstr "Pseudonym %(title)s konvertieren"
 msgid "Convert alias"
 msgstr "Pseudonym konvertieren"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
+msgid "Are you sure you want to convert this alias into an ordinary page?"
 msgstr ""
-"Sind Sie sicher, dass Sie diesen Alias in eine reguläre Seite umwandeln "
-"wollen?"
+"Sind Sie sicher diesen Alias in eine reguläre Seite konvertieren zu wollen?"
 
 msgid "This action cannot be undone."
 msgstr "Diese Aktion kann nicht rückgängig gemacht werden."
@@ -1238,7 +1262,7 @@ msgstr "Diese Seite is ein Alias einer anderen Seite."
 msgid "Edit original page"
 msgstr "Originale Seite bearbeiten"
 
-msgid "Convert this alias into a regular page"
+msgid "Convert this alias into an ordinary page"
 msgstr "Diesen Alias in eine reguläre Seite konvertieren"
 
 #, python-format
@@ -1661,6 +1685,9 @@ msgstr "Seite bearbeiten"
 msgid "Requested by"
 msgstr "Angefordert von"
 
+msgid "Started at"
+msgstr "Erstellt am"
+
 msgid "Approved task"
 msgstr "Freigegebene Aufgabe"
 
@@ -1729,11 +1756,17 @@ msgstr "Keine gesperrten Seiten gefunden"
 msgid "By Task"
 msgstr "Nach Aufgabe"
 
+msgid "Workflow"
+msgstr "Arbeitsablauf"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Es wurden noch keine Seiten zur Moderation eingereicht"
 
 msgid "By Workflow"
 msgstr "Von Arbeitsablauf"
+
+msgid "Completed at"
+msgstr "Vervollständigt am"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1750,9 +1783,6 @@ msgstr "Home"
 
 msgid "All collections"
 msgstr "Alle Sammlungen"
-
-msgid "Edit your account"
-msgstr "Bearbeiten Sie Ihr Konto"
 
 msgid "Account settings"
 msgstr "Kontoeinstellungen"
@@ -1817,8 +1847,8 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Zum Hauptinhalt springen"
 
-msgid "Go to Wagtail admin interface"
-msgstr "Zum Wagtail Admin-Interface"
+msgid "View Wagtail quick actions"
+msgstr "Wagtails Schnellaktionen ansehen"
 
 msgid "Add a child page"
 msgstr "Unterseite hinzufügen"
@@ -2124,7 +2154,7 @@ msgstr "Sind Sie sicher, dass Sie diese Sammlung löschen möchten?"
 msgid "Editing"
 msgstr "Bearbeiten"
 
-msgid "Page '{0}' has been converted into a regular page."
+msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Die Seite '{0}' wurde in eine reguläre Seite umgewandelt."
 
 msgid "Page '{0}' and {1} subpages copied."
@@ -2223,6 +2253,9 @@ msgstr ""
 "Aufgrund von Fehlern bei der Validierung konnte die Seite nicht gespeichert "
 "werden."
 
+msgid "Hide commenting actions"
+msgstr "Kommentaraktionen verbergen"
+
 msgid "Page '{0}' is now unlocked."
 msgstr "Die Seite ‚{0}‘ ist jetzt entsperrt."
 
@@ -2279,8 +2312,26 @@ msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr ""
 "Die Seite'{0}' wartet derzeit nicht auf Moderation in der Aufgabe '{1}'."
 
+msgid "Site history"
+msgstr "Seitenhistorie"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Aktionstyp"
+
+msgid "Date/Time"
+msgstr "Datum/Zeit"
+
 msgid "Locked pages"
 msgstr "Gesperrte Seiten"
+
+msgid "Show"
+msgstr "Anzeigen"
+
+msgid "Awaiting my review"
+msgstr "Überprüfung erwartet"
 
 msgid "Workflows"
 msgstr "Arbeitsabläufe"
@@ -2299,18 +2350,6 @@ msgstr "Aufgaben des Arbeitsablaufes"
 
 msgid "Requested By"
 msgstr "Angefordert von"
-
-msgid "Site history"
-msgstr "Seitenhistorie"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Aktionstyp"
-
-msgid "Date/Time"
-msgstr "Datum/Zeit"
 
 msgid "Add a workflow"
 msgstr "Arbeitsablauf hinzufügen"

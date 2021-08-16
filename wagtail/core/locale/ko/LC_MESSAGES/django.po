@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Jihan Chung <jihanchung20@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -59,54 +59,6 @@ msgstr "비밀번호"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "입력한 비밀번호가 올바르지 않습니다. 다시 시도해 주세요."
-
-msgid "hostname"
-msgstr "호스트명"
-
-msgid "port"
-msgstr "포트"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-" URL에 80 포트 넘버가 아닌 다른 포트 넘버를 적용하려면(예: 개발 목적의 8000 "
-"포트), 여기에 값을 설정하여 주세요. 요청 핸들링엔 영향을 주지 않습니다(그러므"
-"로 포트 포워딩은 계속 유효합니다)."
-
-msgid "site name"
-msgstr "사이트 이름"
-
-msgid "Human-readable name for the site."
-msgstr "사람이 읽을 수 있는 사이트명"
-
-msgid "root page"
-msgstr "기본 페이지"
-
-msgid "is default site"
-msgstr "기본 사이트임"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"만약 값이 'true'라면, 이 사이트는 사이트 목록에 등록되지 않은 모든 호스트명으"
-"로의 요청을 맡아 처리하게 됩니다."
-
-msgid "site"
-msgstr "사이트"
-
-msgid "sites"
-msgstr "사이트"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s 항목이 이미 기본 사이트로 설정되어 있습니다. 이 사이트를 기본값"
-"으로 지정하기 위해서는 먼저 이를 해제해야 합니다."
 
 msgid "title"
 msgstr "제목"
@@ -263,6 +215,90 @@ msgstr "그룹 페이지 권한"
 msgid "group page permissions"
 msgstr "그룹 페이지 권한"
 
+msgid "page view restriction"
+msgstr "페이지 보기 제한"
+
+msgid "page view restrictions"
+msgstr "페이지 보기 제한"
+
+msgid "name"
+msgstr "이름"
+
+msgid "groups"
+msgstr "그룹"
+
+msgid "Approve"
+msgstr "승인"
+
+msgid "collection"
+msgstr "모음"
+
+msgid "collection view restriction"
+msgstr "모음 보기 제한 사항"
+
+msgid "collection view restrictions"
+msgstr "모음 보기 제한 사항"
+
+msgid "collections"
+msgstr "모음"
+
+msgid "permission"
+msgstr "권한"
+
+msgid "group collection permission"
+msgstr "그룹 모음 권한"
+
+msgid "group collection permissions"
+msgstr "그룹 모음 권한"
+
+msgid "hostname"
+msgstr "호스트명"
+
+msgid "port"
+msgstr "포트"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+" URL에 80 포트 넘버가 아닌 다른 포트 넘버를 적용하려면(예: 개발 목적의 8000 "
+"포트), 여기에 값을 설정하여 주세요. 요청 핸들링엔 영향을 주지 않습니다(그러므"
+"로 포트 포워딩은 계속 유효합니다)."
+
+msgid "site name"
+msgstr "사이트 이름"
+
+msgid "Human-readable name for the site."
+msgstr "사람이 읽을 수 있는 사이트명"
+
+msgid "root page"
+msgstr "기본 페이지"
+
+msgid "is default site"
+msgstr "기본 사이트임"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"만약 값이 'true'라면, 이 사이트는 사이트 목록에 등록되지 않은 모든 호스트명으"
+"로의 요청을 맡아 처리하게 됩니다."
+
+msgid "site"
+msgstr "사이트"
+
+msgid "sites"
+msgstr "사이트"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s 항목이 이미 기본 사이트로 설정되어 있습니다. 이 사이트를 기본값"
+"으로 지정하기 위해서는 먼저 이를 해제해야 합니다."
+
 msgid "Public"
 msgstr "공개"
 
@@ -278,47 +314,11 @@ msgstr "비공개, 특정한 그룹 안의 사용자들이 접근 가능"
 msgid "password"
 msgstr "비밀번호"
 
-msgid "groups"
-msgstr "그룹"
-
 msgid "view restriction"
 msgstr "제한 사항 보기"
 
 msgid "view restrictions"
 msgstr "제한 사항 보기"
-
-msgid "page view restriction"
-msgstr "페이지 보기 제한"
-
-msgid "page view restrictions"
-msgstr "페이지 보기 제한"
-
-msgid "collection"
-msgstr "모음"
-
-msgid "collection view restriction"
-msgstr "모음 보기 제한 사항"
-
-msgid "collection view restrictions"
-msgstr "모음 보기 제한 사항"
-
-msgid "name"
-msgstr "이름"
-
-msgid "collections"
-msgstr "모음"
-
-msgid "permission"
-msgstr "권한"
-
-msgid "group collection permission"
-msgstr "그룹 모음 권한"
-
-msgid "group collection permissions"
-msgstr "그룹 모음 권한"
-
-msgid "Approve"
-msgstr "승인"
 
 msgid "Log in"
 msgstr "로그인"

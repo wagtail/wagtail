@@ -153,11 +153,11 @@ They want to write articles about the stock market, refer to specific stocks any
 
 The editor toolbar could contain a "stock chooser" that displays a list of available stocks, then inserts the user’s selection as a textual token. For our example, we will just pick a stock at random:
 
-.. image:: ../../_static/images/draftail_entity_stock_source.gif
+.. image:: ../_static/images/draftail_entity_stock_source.gif
 
 Those tokens are then saved in the rich text on publish. When the news article is displayed on the site, we then insert live market data coming from an API next to each token:
 
-.. image:: ../../_static/images/draftail_entity_stock_rendering.png
+.. image:: ../_static/images/draftail_entity_stock_rendering.png
 
 In order to achieve this, we start with registering the rich text feature like for inline styles and blocks:
 

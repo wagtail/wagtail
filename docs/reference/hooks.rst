@@ -214,7 +214,7 @@ Alternatively, it can also be added to a function. For example, this function is
     def register_custom_settings_panel(request, user, profile):
         return CustomSettingsPanel(request, user, profile)
 
-More details about the options that are available can be found at :doc:`/advanced_topics/customisation/custom_account_settings`.
+More details about the options that are available can be found at :doc:`/extending/custom_account_settings`.
 
 
 .. _register_account_menu_item:

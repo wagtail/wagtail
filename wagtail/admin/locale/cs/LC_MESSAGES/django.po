@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 13:54+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: IT Management <hudan@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -116,26 +116,23 @@ msgstr "Datum do"
 msgid "All"
 msgstr "Vše"
 
-msgid "Started at"
-msgstr "Spuštěno v"
+msgid "Preferred language"
+msgstr "Preferovaný jazyk"
 
-msgid "Show"
-msgstr "Zobrazit"
+msgid "Current time zone"
+msgstr "Aktuální časové pásmo"
 
-msgid "Awaiting my review"
-msgstr "Očekává se moje kontrola"
+msgid "First Name"
+msgstr "Jméno"
 
-msgid "Completed at"
-msgstr "Dokončeno v"
+msgid "Last Name"
+msgstr "Příjmení"
 
-msgid "Workflow"
-msgstr "Zpracování"
+msgid "Email"
+msgstr "E-mail"
 
-msgid "Date"
-msgstr "Datum"
-
-msgid "Title"
-msgstr "Název"
+msgid "Upload a profile picture"
+msgstr "Nahrát profilovou fotografii"
 
 msgid "Enter password"
 msgstr "Zadejte heslo"
@@ -409,6 +406,12 @@ msgstr "Komentář"
 msgid "More actions"
 msgstr "Další akce"
 
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Edit your account"
+msgstr "Upravte svůj účet"
+
 msgid "Error 404: Page not found"
 msgstr "Error 404: Stránka nebyla nalezena"
 
@@ -486,9 +489,6 @@ msgstr "Nahrát profilový obrázek:"
 
 msgid "Reset to default"
 msgstr "Zpět na původní hodnoty"
-
-msgid "Dashboard"
-msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
@@ -663,6 +663,9 @@ msgstr "Na tomto dashboardu najdete základní přehled spravovaného obsahu."
 msgid "Your locked pages"
 msgstr "Vámi uzamčené stránky"
 
+msgid "Title"
+msgstr "Název"
+
 msgid "Locked at"
 msgstr "Uzamčeno: "
 
@@ -705,6 +708,9 @@ msgstr "Vaše poslední úpravy"
 
 msgid "Status"
 msgstr "Stav"
+
+msgid "Date"
+msgstr "Datum"
 
 msgid "Site summary"
 msgstr "Přehled obsahu"
@@ -774,9 +780,6 @@ msgstr "Přihlášení do redakčního systému"
 
 msgid "Signing in…"
 msgstr "Přihlašování..."
-
-msgid "Forgotten it?"
-msgstr "Zapomněli jste heslo?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1021,9 +1024,6 @@ msgstr "Změnit alias %(title)s"
 msgid "Convert alias"
 msgstr "Změnit alias"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr "Jste si jist(a), že chcete změnit tento alias na regulérní stránku?"
-
 msgid "This action cannot be undone."
 msgstr "Tato akce nemůže být odvolána."
 
@@ -1219,9 +1219,6 @@ msgstr "Tato stránka je aliasem od jiné stránky."
 
 msgid "Edit original page"
 msgstr "Editovat původní stránku"
-
-msgid "Convert this alias into a regular page"
-msgstr "Změnit tento alias na regulérní stránku"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1648,6 +1645,9 @@ msgstr "Upravit stránku"
 msgid "Requested by"
 msgstr "Požadováno (kým)"
 
+msgid "Started at"
+msgstr "Spuštěno v"
+
 msgid "Approved task"
 msgstr "Schválená úloha"
 
@@ -1719,11 +1719,17 @@ msgstr "Nebyly nalezeny žádné uzamčené stránky"
 msgid "By Task"
 msgstr "Úlohou"
 
+msgid "Workflow"
+msgstr "Zpracování"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "K posouzení zatím nebyly předloženy žádné stránky."
 
 msgid "By Workflow"
 msgstr "Podle postupu"
+
+msgid "Completed at"
+msgstr "Dokončeno v"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1740,9 +1746,6 @@ msgstr "Domů"
 
 msgid "All collections"
 msgstr "Všechny kolekce"
-
-msgid "Edit your account"
-msgstr "Upravte svůj účet"
 
 msgid "Account settings"
 msgstr "Nastavení účtu"
@@ -1805,9 +1808,6 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Přeskočit na hlavní obsah"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Přejít do redakčního systému"
 
 msgid "Add a child page"
 msgstr "Přidat podstránku"
@@ -2121,9 +2121,6 @@ msgstr "Opravdu chcete smazat tuto kolekci?"
 msgid "Editing"
 msgstr "Úprava"
 
-msgid "Page '{0}' has been converted into a regular page."
-msgstr "Stránka '{0}' byla změněna na regulérní stránku."
-
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stránka '{0}' a {1} podstránek bylo zkopírováno."
 
@@ -2268,8 +2265,26 @@ msgstr "Stránce '{0}' byla zrušena publikace."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Stránka '{0}' nyní neočekává posouzení v rámci úlohy '{1}'."
 
+msgid "Site history"
+msgstr "Historie webu"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Typ akce"
+
+msgid "Date/Time"
+msgstr "Datum/Čas"
+
 msgid "Locked pages"
 msgstr "Uzamčené stránky"
+
+msgid "Show"
+msgstr "Zobrazit"
+
+msgid "Awaiting my review"
+msgstr "Očekává se moje kontrola"
 
 msgid "Workflows"
 msgstr "Postupy"
@@ -2288,18 +2303,6 @@ msgstr "Úlohy v rámci postupu"
 
 msgid "Requested By"
 msgstr "Požadováno (kým)"
-
-msgid "Site history"
-msgstr "Historie webu"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Typ akce"
-
-msgid "Date/Time"
-msgstr "Datum/Čas"
 
 msgid "Add a workflow"
 msgstr "Přidat postup"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -59,58 +59,6 @@ msgstr "Пароль"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Уведзены вамі пароль няправільны. Паспрабуйце яшчэ раз."
-
-msgid "hostname"
-msgstr "імя хаста"
-
-msgid "port"
-msgstr "порт"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Пакажыце які-небудзь выдатны ад 80 порт, калі вам патрэбны канкрэтны нумар "
-"порта ў URL-адрасе (напрыклад, распрацоўка на порце 8000). Не ўплывае на "
-"апрацоўку запыту (так што форвардинг партоў працягвае працаваць)."
-
-msgid "site name"
-msgstr "імя сайта"
-
-msgid "Human-readable name for the site."
-msgstr "Чалавека-зразумелая імя для сайта."
-
-msgid "root page"
-msgstr "каранёвая старонка"
-
-msgid "is default site"
-msgstr "сайт па змаўчанні"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Калі выбрана, гэты сайт будзе апрацоўваць запыты для ўсіх наяўных імёнаў "
-"хастоў, ня замацаваных за іншымі сайтамі"
-
-msgid "site"
-msgstr "сайт"
-
-msgid "sites"
-msgstr "сайты"
-
-msgid "default"
-msgstr "па змаўчанні"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)sўжо наладжаны як сайт па змаўчанні. Вы павінны спачатку "
-"адключыць гэтую наладу ў яго, перш, чым вы можаце захаваць гэты сайт па "
-"змаўчанні."
 
 msgid "title"
 msgstr "загаловак"
@@ -269,6 +217,94 @@ msgstr "права на старонку ў гурта"
 msgid "group page permissions"
 msgstr "правы на старонку ў гурта"
 
+msgid "page view restriction"
+msgstr "абмежаванне на прагляд старонкі"
+
+msgid "page view restrictions"
+msgstr "абмежаванні на прагляд старонак"
+
+msgid "name"
+msgstr "імя"
+
+msgid "groups"
+msgstr "групы"
+
+msgid "Approve"
+msgstr "Пацвярдзіць"
+
+msgid "collection"
+msgstr "калекцыя"
+
+msgid "collection view restriction"
+msgstr "абмежаванне на прагляд калекцыі"
+
+msgid "collection view restrictions"
+msgstr "абмежаванні на прагляд калекцыі"
+
+msgid "collections"
+msgstr "калекцыі"
+
+msgid "permission"
+msgstr "права доступу"
+
+msgid "group collection permission"
+msgstr "права доступу да калекцыі ў гурта"
+
+msgid "group collection permissions"
+msgstr "правы доступу да калекцыі ў гурта"
+
+msgid "hostname"
+msgstr "імя хаста"
+
+msgid "port"
+msgstr "порт"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Пакажыце які-небудзь выдатны ад 80 порт, калі вам патрэбны канкрэтны нумар "
+"порта ў URL-адрасе (напрыклад, распрацоўка на порце 8000). Не ўплывае на "
+"апрацоўку запыту (так што форвардинг партоў працягвае працаваць)."
+
+msgid "site name"
+msgstr "імя сайта"
+
+msgid "Human-readable name for the site."
+msgstr "Чалавека-зразумелая імя для сайта."
+
+msgid "root page"
+msgstr "каранёвая старонка"
+
+msgid "is default site"
+msgstr "сайт па змаўчанні"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Калі выбрана, гэты сайт будзе апрацоўваць запыты для ўсіх наяўных імёнаў "
+"хастоў, ня замацаваных за іншымі сайтамі"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "sites"
+msgstr "сайты"
+
+msgid "default"
+msgstr "па змаўчанні"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)sўжо наладжаны як сайт па змаўчанні. Вы павінны спачатку "
+"адключыць гэтую наладу ў яго, перш, чым вы можаце захаваць гэты сайт па "
+"змаўчанні."
+
 msgid "Public"
 msgstr "Публічна"
 
@@ -284,47 +320,11 @@ msgstr "Прыватна, даступна для карыстальнікаў �
 msgid "password"
 msgstr "пароль"
 
-msgid "groups"
-msgstr "групы"
-
 msgid "view restriction"
 msgstr "абмежаванне на прагляд"
 
 msgid "view restrictions"
 msgstr "абмежаванні на прагляд"
-
-msgid "page view restriction"
-msgstr "абмежаванне на прагляд старонкі"
-
-msgid "page view restrictions"
-msgstr "абмежаванні на прагляд старонак"
-
-msgid "collection"
-msgstr "калекцыя"
-
-msgid "collection view restriction"
-msgstr "абмежаванне на прагляд калекцыі"
-
-msgid "collection view restrictions"
-msgstr "абмежаванні на прагляд калекцыі"
-
-msgid "name"
-msgstr "імя"
-
-msgid "collections"
-msgstr "калекцыі"
-
-msgid "permission"
-msgstr "права доступу"
-
-msgid "group collection permission"
-msgstr "права доступу да калекцыі ў гурта"
-
-msgid "group collection permissions"
-msgstr "правы доступу да калекцыі ў гурта"
-
-msgid "Approve"
-msgstr "Пацвярдзіць"
 
 msgid "Log in"
 msgstr "Увайсці"

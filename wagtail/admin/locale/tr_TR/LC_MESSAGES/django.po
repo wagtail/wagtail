@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: José Luis <alagunajs@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -88,11 +88,23 @@ msgstr "Bitiş tarihi"
 msgid "All"
 msgstr "Hepsi"
 
-msgid "Date"
-msgstr "Tarih"
+msgid "Preferred language"
+msgstr "Tercih edilen dil"
 
-msgid "Title"
-msgstr "Başlık"
+msgid "Current time zone"
+msgstr "Şimdiki zaman dilimi"
+
+msgid "First Name"
+msgstr "Ad"
+
+msgid "Last Name"
+msgstr "Soyad"
+
+msgid "Email"
+msgstr "Eposta"
+
+msgid "Upload a profile picture"
+msgstr "Profil resmi yükle"
 
 msgid "Enter password"
 msgstr "Şifre girin"
@@ -278,6 +290,12 @@ msgstr "Kaydet"
 msgid "Saving..."
 msgstr "Kaydediyor..."
 
+msgid "Dashboard"
+msgstr "Kontrol paneli"
+
+msgid "Edit your account"
+msgstr "Hesabını düzenle"
+
 msgid "Error 404: Page not found"
 msgstr "Hata 404: Sayfa bulunamadı"
 
@@ -344,9 +362,6 @@ msgstr "Şifreyi sıfırla"
 
 msgid "Reset your password"
 msgstr "Şifreni sıfırla"
-
-msgid "Dashboard"
-msgstr "Kontrol paneli"
 
 msgid "Menu"
 msgstr "Menü"
@@ -502,6 +517,9 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Kilitli sayfalarınız"
 
+msgid "Title"
+msgstr "Başlık"
+
 msgid "Locked at"
 msgstr "Kilitli"
 
@@ -541,6 +559,9 @@ msgstr "En son düzenlemeleriniz"
 msgid "Status"
 msgstr "Durum"
 
+msgid "Date"
+msgstr "Tarih"
+
 msgid "Site summary"
 msgstr "Site özeti"
 
@@ -578,9 +599,6 @@ msgstr "Wagtail'de oturumu aç"
 
 msgid "Signing in…"
 msgstr "Giriş yapılıyor…"
-
-msgid "Forgotten it?"
-msgstr "Unuttun mu?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1165,9 +1183,6 @@ msgstr "Ana Sayfa"
 msgid "All collections"
 msgstr "Tüm koleksiyonlar"
 
-msgid "Edit your account"
-msgstr "Hesabını düzenle"
-
 msgid "Account settings"
 msgstr "Hesap ayarları"
 
@@ -1179,9 +1194,6 @@ msgstr "Şimdiki sayfa durumu:"
 
 msgid "Other searches"
 msgstr "Diğer aramalar"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Wagtail yönetici arayüzüne git"
 
 msgid "Add a child page"
 msgstr "Alt sayfa ekle"

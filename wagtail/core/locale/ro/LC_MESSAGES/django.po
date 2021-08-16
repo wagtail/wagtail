@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 21:56+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-08-02 08:51+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -72,58 +72,6 @@ msgstr "Comentariu"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Acțiune necunoscută %(action)s"
-
-msgid "hostname"
-msgstr "nume gazdă"
-
-msgid "port"
-msgstr "port"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Dacă aveți nevoie ca un număr de port specific să apară în adrese de "
-"internet (de exemplu, dezvoltare pe portul 8000)  setați aceasta la altceva "
-"decât 80. Nu influențează gestionarea solicitărilor și transmiterile de port "
-"vor continua să funcționeze."
-
-msgid "site name"
-msgstr "nume sait"
-
-msgid "Human-readable name for the site."
-msgstr "Titlu sait lizibil pentru om"
-
-msgid "root page"
-msgstr "pagină de bază"
-
-msgid "is default site"
-msgstr "sait implicit"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Dacă e 'true', acest sait va gestiona solicitări pentru toate hostname-urile "
-"fără setări separate"
-
-msgid "site"
-msgstr "Sait"
-
-msgid "sites"
-msgstr "saituri"
-
-msgid "default"
-msgstr "implicit"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s este definit deja ca sait implicit și trebuie schimbat pentru a "
-"putea seta acest sit ca implicit "
 
 msgid "title"
 msgstr "titlu"
@@ -310,59 +258,11 @@ msgstr "permisie grup pagină"
 msgid "group page permissions"
 msgstr "permisiuni grup pagină"
 
-msgid "Public"
-msgstr "Public"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Privat. accesibil utlizatorilor autentificați"
-
-msgid "Private, accessible with the following password"
-msgstr "Privat, accesibil cu parola următoare"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Privat, accesibil utilizatorilor în grupuri specifice"
-
-msgid "password"
-msgstr "parolă"
-
-msgid "groups"
-msgstr "grupuri"
-
-msgid "view restriction"
-msgstr "vezi restricție"
-
-msgid "view restrictions"
-msgstr "vezi restricții"
-
 msgid "page view restriction"
 msgstr "restricție de vizualizare pagină"
 
 msgid "page view restrictions"
 msgstr "restricții de vizualizare pagină"
-
-msgid "collection"
-msgstr "colecție"
-
-msgid "collection view restriction"
-msgstr "restricție de vizualizare colecție"
-
-msgid "collection view restrictions"
-msgstr "restricție de vizualizare colecții"
-
-msgid "name"
-msgstr "nume"
-
-msgid "collections"
-msgstr "colecții"
-
-msgid "permission"
-msgstr "permisiune"
-
-msgid "group collection permission"
-msgstr "permisiune grup colecție"
-
-msgid "group collection permissions"
-msgstr "permisiuni grup colecție"
 
 msgid "workflow"
 msgstr "flux de lucru"
@@ -384,6 +284,9 @@ msgstr "ordine sarcini flux de lucru"
 
 msgid "workflow task orders"
 msgstr "ordini sarcini flux de lucru"
+
+msgid "name"
+msgstr "nume"
 
 msgid "active"
 msgstr "activ"
@@ -407,6 +310,9 @@ msgstr ""
 
 msgid "workflows"
 msgstr "fluxuri de lucru"
+
+msgid "groups"
+msgstr "grupuri"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -499,6 +405,24 @@ msgstr "Stare sarcină"
 msgid "Task states"
 msgstr "Stări de sarcină"
 
+msgid "page log entry"
+msgstr "intrare jurnal de pagină"
+
+msgid "page log entries"
+msgstr "intrări jurnal de pagină"
+
+msgid "comment"
+msgstr "comentariu"
+
+msgid "comments"
+msgstr "comentarii"
+
+msgid "comment reply"
+msgstr "comentariu răspuns "
+
+msgid "comment replies"
+msgstr "comentarii răspuns"
+
 msgid "timestamp (UTC)"
 msgstr "timestamp (UTC)"
 
@@ -518,23 +442,99 @@ msgstr "Utilizator %(id)d(șters)"
 msgid "system"
 msgstr "sistem"
 
-msgid "page log entry"
-msgstr "intrare jurnal de pagină"
+msgid "collection"
+msgstr "colecție"
 
-msgid "page log entries"
-msgstr "intrări jurnal de pagină"
+msgid "collection view restriction"
+msgstr "restricție de vizualizare colecție"
 
-msgid "comment"
-msgstr "comentariu"
+msgid "collection view restrictions"
+msgstr "restricție de vizualizare colecții"
 
-msgid "comments"
-msgstr "comentarii"
+msgid "collections"
+msgstr "colecții"
 
-msgid "comment reply"
-msgstr "comentariu răspuns "
+msgid "permission"
+msgstr "permisiune"
 
-msgid "comment replies"
-msgstr "comentarii răspuns"
+msgid "group collection permission"
+msgstr "permisiune grup colecție"
+
+msgid "group collection permissions"
+msgstr "permisiuni grup colecție"
+
+msgid "hostname"
+msgstr "nume gazdă"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Dacă aveți nevoie ca un număr de port specific să apară în adrese de "
+"internet (de exemplu, dezvoltare pe portul 8000)  setați aceasta la altceva "
+"decât 80. Nu influențează gestionarea solicitărilor și transmiterile de port "
+"vor continua să funcționeze."
+
+msgid "site name"
+msgstr "nume sait"
+
+msgid "Human-readable name for the site."
+msgstr "Titlu sait lizibil pentru om"
+
+msgid "root page"
+msgstr "pagină de bază"
+
+msgid "is default site"
+msgstr "sait implicit"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Dacă e 'true', acest sait va gestiona solicitări pentru toate hostname-urile "
+"fără setări separate"
+
+msgid "site"
+msgstr "Sait"
+
+msgid "sites"
+msgstr "saituri"
+
+msgid "default"
+msgstr "implicit"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s este definit deja ca sait implicit și trebuie schimbat pentru a "
+"putea seta acest sit ca implicit "
+
+msgid "Public"
+msgstr "Public"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privat. accesibil utlizatorilor autentificați"
+
+msgid "Private, accessible with the following password"
+msgstr "Privat, accesibil cu parola următoare"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privat, accesibil utilizatorilor în grupuri specifice"
+
+msgid "password"
+msgstr "parolă"
+
+msgid "view restriction"
+msgstr "vezi restricție"
+
+msgid "view restrictions"
+msgstr "vezi restricții"
 
 msgid "Log in"
 msgstr "Logare"
@@ -644,10 +644,10 @@ msgid "Created an alias"
 msgstr "A creat un alias"
 
 #, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
+msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "A convertit alias-ul '%(title)s' în pagină obișnuită"
 
-msgid "Converted an alias into a regular page"
+msgid "Converted an alias into an ordinary page"
 msgstr "A convertit un alias în pagină obișnuită"
 
 #, python-format
@@ -722,6 +722,55 @@ msgstr "A redenumit din '%(old)s' în '%(new)s'"
 msgid "Renamed"
 msgstr "A redenumit"
 
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "A adăugat un comentariu pe câmpul %(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "A adăugat un comentariu"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "A editat un comentariu pe câmpul %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "A editat un comentariu"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "A șters un comentariu pe câmpul %(field)s: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "A șters un comentariu"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "A rezolvat un comentariu pe câmpul %(field)s: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "A rezolvat un comentariu"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "A răspuns la un comentariu pe câmpul %(field)s: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "A răspuns la un comentariu"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "A editat un răspuns la un comentariu pe câmpul %(field)s: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "A editat un răspuns"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "A șters un răspuns la un comentariu pe câmpul %(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "A șters un răspuns"
+
 msgid "Rename"
 msgstr "Redenumire"
 
@@ -734,8 +783,8 @@ msgstr "Copiere"
 msgid "Create alias"
 msgstr "Creare alias"
 
-msgid "Convert alias into regular page"
-msgstr "Convertire alias în pagină obișnuită"
+msgid "Convert alias into ordinary page"
+msgstr "A convertit un alias în pagină obișnuită"
 
 msgid "Move"
 msgstr "Mutare"
@@ -757,6 +806,27 @@ msgstr "Actualizare restricții de vizualizare"
 
 msgid "Remove view restrictions"
 msgstr "Eliminare restricții de vizualizare"
+
+msgid "Add comment"
+msgstr "Adaugă comentariu"
+
+msgid "Edit comment"
+msgstr "Editează comentariu"
+
+msgid "Delete comment"
+msgstr "Șterge comentariu"
+
+msgid "Resolve comment"
+msgstr "Rezolvă comentariu"
+
+msgid "Reply to comment"
+msgstr "Răspunde la comentariu"
+
+msgid "Edit reply to comment"
+msgstr "Editează răspuns la comentariu"
+
+msgid "Delete reply to comment"
+msgstr "Șterge răspuns la comentariu"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"

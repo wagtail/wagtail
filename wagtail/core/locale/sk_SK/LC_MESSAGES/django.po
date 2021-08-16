@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Martin Janšto <mato@jansto.sk>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -54,57 +54,6 @@ msgstr "Heslo"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Heslo, ktoré ste zadali, nie je správne. Prosím skúste znovu."
-
-msgid "hostname"
-msgstr "hostname"
-
-msgid "port"
-msgstr "port"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Nastavte na niečo iné ako 80, ak potrebujete špecifický port v URL (napr. "
-"8000 pre vývoj). Neovplyvní request handling (port forwarding bude fungovať "
-"aj naďalej)."
-
-msgid "site name"
-msgstr "názov sídla"
-
-msgid "Human-readable name for the site."
-msgstr "Názov sídla viditeľný pre verejnosť."
-
-msgid "root page"
-msgstr "koreňová stránka"
-
-msgid "is default site"
-msgstr "je predvolené sídlo"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Ak áno, toto sídlo bude spracovávať žiadosti pre všetky ostatné hostiteľské "
-"názvy, ktoré nemajú vlastný záznam o lokalite."
-
-msgid "site"
-msgstr "stránka"
-
-msgid "sites"
-msgstr "stránky"
-
-msgid "default"
-msgstr "predvolené"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s je už nastavené ako predvolené sídlo. Toto nastavenie musíte "
-"zrušiť predtým, než nastavíte toto sídlo ako predvolené."
 
 msgid "title"
 msgstr "titulok"
@@ -243,6 +192,90 @@ msgstr "skupinové oprávnenie stránky"
 msgid "group page permissions"
 msgstr "skupinové oprávnenia stránky"
 
+msgid "page view restriction"
+msgstr "obmedzenie zobrazenia stránky"
+
+msgid "page view restrictions"
+msgstr "obmedzenia zobrazenia stránky"
+
+msgid "name"
+msgstr "názov"
+
+msgid "groups"
+msgstr "skupiny"
+
+msgid "Approve"
+msgstr "Schváliť"
+
+msgid "collection"
+msgstr "kolekcia"
+
+msgid "collection view restriction"
+msgstr "obmedzenie zobrazenia kolekcie"
+
+msgid "collection view restrictions"
+msgstr "obmedzenia zobrazenia kolekcie"
+
+msgid "collections"
+msgstr "kolekcie"
+
+msgid "permission"
+msgstr "oprávnenie"
+
+msgid "group collection permission"
+msgstr "oprávnenia skupiny ku kolekcii"
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Nastavte na niečo iné ako 80, ak potrebujete špecifický port v URL (napr. "
+"8000 pre vývoj). Neovplyvní request handling (port forwarding bude fungovať "
+"aj naďalej)."
+
+msgid "site name"
+msgstr "názov sídla"
+
+msgid "Human-readable name for the site."
+msgstr "Názov sídla viditeľný pre verejnosť."
+
+msgid "root page"
+msgstr "koreňová stránka"
+
+msgid "is default site"
+msgstr "je predvolené sídlo"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Ak áno, toto sídlo bude spracovávať žiadosti pre všetky ostatné hostiteľské "
+"názvy, ktoré nemajú vlastný záznam o lokalite."
+
+msgid "site"
+msgstr "stránka"
+
+msgid "sites"
+msgstr "stránky"
+
+msgid "default"
+msgstr "predvolené"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s je už nastavené ako predvolené sídlo. Toto nastavenie musíte "
+"zrušiť predtým, než nastavíte toto sídlo ako predvolené."
+
 msgid "Public"
 msgstr "Verejná"
 
@@ -258,44 +291,11 @@ msgstr "Súkromné, prístupné používateľom v špecifických skupinách"
 msgid "password"
 msgstr "heslo"
 
-msgid "groups"
-msgstr "skupiny"
-
 msgid "view restriction"
 msgstr "zobraziť obmedzenie"
 
 msgid "view restrictions"
 msgstr "zobraziť obmedzenia"
-
-msgid "page view restriction"
-msgstr "obmedzenie zobrazenia stránky"
-
-msgid "page view restrictions"
-msgstr "obmedzenia zobrazenia stránky"
-
-msgid "collection"
-msgstr "kolekcia"
-
-msgid "collection view restriction"
-msgstr "obmedzenie zobrazenia kolekcie"
-
-msgid "collection view restrictions"
-msgstr "obmedzenia zobrazenia kolekcie"
-
-msgid "name"
-msgstr "názov"
-
-msgid "collections"
-msgstr "kolekcie"
-
-msgid "permission"
-msgstr "oprávnenie"
-
-msgid "group collection permission"
-msgstr "oprávnenia skupiny ku kolekcii"
-
-msgid "Approve"
-msgstr "Schváliť"
 
 msgid "Log in"
 msgstr "Prihlásiť"
