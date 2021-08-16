@@ -29,6 +29,8 @@ class AddTagsBulkAction(ImageBulkAction):
 
     @classmethod
     def execute_action(cls, images, tags=[]):
+        if not tags:
+            return
         for image in images:
             cls.num_parent_objects += 1
             image.tags.add(*tags)

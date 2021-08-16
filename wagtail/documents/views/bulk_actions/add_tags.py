@@ -29,6 +29,8 @@ class AddTagsBulkAction(DocumentBulkAction):
 
     @classmethod
     def execute_action(cls, objects, tags=[]):
+        if not tags:
+            return
         for document in objects:
             cls.num_parent_objects += 1
             document.tags.add(*tags)
