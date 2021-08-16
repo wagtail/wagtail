@@ -16,11 +16,18 @@ class DeleteBulkAction(UserBulkAction):
     def check_perm(self, obj):
         return user_can_delete_user(self.request.user, obj)
 
+    def get_execution_context(self):
+        return {
+            **super().get_execution_context(),
+            'model': self.model
+        }
+
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).delete()
-        num_parent_objects = len(objects)
-        return num_parent_objects, 0
+    def execute_action(cls, objects, model=None, **kwargs):
+        if model is None:
+            return
+        model.objects.filter(pk__in=[obj.pk for obj in objects]).delete()
+        cls.num_parent_objects = len(objects)
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         return ngettext(

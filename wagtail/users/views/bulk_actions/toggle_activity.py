@@ -27,7 +27,8 @@ class ToggleActivityBulkAction(UserBulkAction):
     def get_execution_context(self):
         return {
             'mark_as_active': self.cleaned_form.cleaned_data['mark_as_active'],
-            'user': self.request.user
+            'user': self.request.user,
+            'model': self.model
         }
 
     def get_actionable_objects(self):
@@ -39,11 +40,13 @@ class ToggleActivityBulkAction(UserBulkAction):
         return users, objects_without_access
 
     @classmethod
-    def execute_action(cls, objects, mark_as_active=False, user=None, **kwargs):
+    def execute_action(cls, objects, mark_as_active=False, model=None, **kwargs):
+        if model is None:
+            return
+        user = kwargs.get('user', None)
         if user is not None:
             objects = list(filter(lambda x: x.pk != user.pk, objects))
-        num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(is_active=mark_as_active)
-        return num_parent_objects, 0
+        cls.num_parent_objects = model.objects.filter(pk__in=[obj.pk for obj in objects]).update(is_active=mark_as_active)
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         if self.cleaned_form.cleaned_data['mark_as_active']:
