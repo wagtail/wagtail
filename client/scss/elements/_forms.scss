@@ -55,7 +55,9 @@ label,
         padding-left: 0;
 
         .radio_select &,
+        .multiple_choice_field &,
         .model_multiple_choice_field &,
+        .checkbox_select_multiple &,
         .boolean_field &,
         .model_choice_field &,
         .image_field & {
