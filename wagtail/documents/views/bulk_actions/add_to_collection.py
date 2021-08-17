@@ -40,17 +40,19 @@ class AddToCollectionBulkAction(DocumentBulkAction):
 
     @classmethod
     def execute_action(cls, objects, collection=None, **kwargs):
-        cls.collection = collection
-        cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(collection=cls.collection)
+        if collection is None:
+            return
+        cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(collection=collection)
 
     def get_success_message(self):
+        collection = self.cleaned_form.cleaned_data['collection']
         return ngettext(
             "%(num_parent_objects)d document has been added to %(collection)s",
             "%(num_parent_objects)d documents have been added to %(collection)s",
             self.num_parent_objects
         ) % {
             'num_parent_objects': self.num_parent_objects,
-            'collection': self.collection.name
+            'collection': collection
         }
 
 
