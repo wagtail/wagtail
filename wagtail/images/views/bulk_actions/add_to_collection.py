@@ -42,16 +42,17 @@ class AddToCollectionBulkAction(ImageBulkAction):
     def execute_action(cls, images, collection=None, **kwargs):
         if collection is None:
             return
-        cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in images]).update(collection=collection)
+        num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in images]).update(collection=collection)
+        return num_parent_objects, 0
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
         collection = self.cleaned_form.cleaned_data['collection']
         return ngettext(
             "%(num_parent_objects)d image has been added to %(collection)s",
             "%(num_parent_objects)d images have been added to %(collection)s",
-            self.num_parent_objects
+            num_parent_objects
         ) % {
-            'num_parent_objects': self.num_parent_objects,
+            'num_parent_objects': num_parent_objects,
             'collection': collection.name
         }
 

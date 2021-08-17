@@ -43,13 +43,13 @@ class MoveBulkAction(PageBulkAction):
     def check_perm(self, page):
         return page.permissions_for_user(self.request.user).can_move()
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
         success_message = ngettext(
             "%(num_pages)d page has been moved",
             "%(num_pages)d pages have been moved",
-            self.num_parent_objects
+            num_parent_objects
         ) % {
-            'num_pages': self.num_parent_objects
+            'num_pages': num_parent_objects
         }
         return success_message
 
@@ -95,6 +95,7 @@ class MoveBulkAction(PageBulkAction):
 
     @classmethod
     def execute_action(cls, objects, destination=None, user=None, **kwargs):
+        num_parent_objects = 0
         if destination is None:
             return
         for page in objects:
@@ -103,7 +104,8 @@ class MoveBulkAction(PageBulkAction):
             if not Page._slug_is_available(page.slug, destination, page=page):
                 continue
             page.move(destination, pos='last-child', user=user)
-            cls.num_parent_objects += 1
+            num_parent_objects += 1
+        return num_parent_objects, 0
 
 
 @hooks.register('register_page_bulk_action')
