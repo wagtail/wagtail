@@ -110,31 +110,31 @@ def get_js_translation_strings():
 
         # used by bulk actions
         'BULK_ACTIONS': {
-            'page': {
+            'PAGE': {
                 'SINGULAR': _('1 page selected'),
                 'PLURAL': _("{0} pages selected"),
                 'ALL': _("All {0} pages on this screen selected"),
                 'ALL_IN_LISTING': _("All pages in listing selected"),
             },
-            'document': {
+            'DOCUMENT': {
                 'SINGULAR': _('1 document selected'),
                 'PLURAL': _("{0} documents selected"),
                 'ALL': _("All {0} documents on this screen selected"),
                 'ALL_IN_LISTING': _("All documents in listing selected"),
             },
-            'image': {
+            'IMAGE': {
                 'SINGULAR': _('1 image selected'),
                 'PLURAL': _("{0} images selected"),
                 'ALL': _("All {0} images on this screen selected"),
                 'ALL_IN_LISTING': _("All images in listing selected"),
             },
-            'user': {
+            'USER': {
                 'SINGULAR': _('1 user selected'),
                 'PLURAL': _("{0} users selected"),
                 'ALL': _("All {0} users on this screen selected"),
                 'ALL_IN_LISTING': _("All users in listing selected"),
             },
-            'item': {
+            'ITEM': {
                 'SINGULAR': _('1 item selected'),
                 'PLURAL': _("{0} items selected"),
                 'ALL': _("All {0} items on this screen selected"),
