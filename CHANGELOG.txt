@@ -28,6 +28,7 @@ Changelog
  * Add TIDAL support to the list of oEmbed providers (Wout De Puysseleir)
  * Add `label_format` attribute to customise the label shown for a collapsed StructBlock (Matt Westcott)
  * User Group permissions will now show all custom object permissions in one row instead of a separate table (Kamil Marut)User Group permissions editing in the admin will now show all custom object permissions in one row instead of a separate table (Kamil Marut)
+ * Create `ImageFileMixin` to extract shared file handling methods from `AbstractImage` and `AbstractRendition` (Fabien Le Frapper)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
