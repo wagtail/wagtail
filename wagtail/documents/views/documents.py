@@ -7,7 +7,6 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
-from django.views.decorators.vary import vary_on_headers
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
@@ -24,9 +23,8 @@ from wagtail.search import index as search_index
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-class IndexView(TemplateView):
+class BaseListingView(TemplateView):
     @method_decorator(permission_checker.require_any('add', 'change', 'delete'))
-    @method_decorator(vary_on_headers('X-Requested-With'))
     def get(self, request):
         return super().get(request)
 
@@ -46,28 +44,43 @@ class IndexView(TemplateView):
         documents = documents.order_by(ordering)
 
         # Filter by collection
-        current_collection = None
+        self.current_collection = None
         collection_id = self.request.GET.get('collection_id')
         if collection_id:
             try:
-                current_collection = Collection.objects.get(id=collection_id)
-                documents = documents.filter(collection=current_collection)
+                self.current_collection = Collection.objects.get(id=collection_id)
+                documents = documents.filter(collection=self.current_collection)
             except (ValueError, Collection.DoesNotExist):
                 pass
 
         # Search
         query_string = None
         if 'q' in self.request.GET:
-            form = SearchForm(self.request.GET, placeholder=_("Search documents"))
-            if form.is_valid():
-                query_string = form.cleaned_data['q']
+            self.form = SearchForm(self.request.GET, placeholder=_("Search documents"))
+            if self.form.is_valid():
+                query_string = self.form.cleaned_data['q']
                 documents = documents.search(query_string)
         else:
-            form = SearchForm(placeholder=_("Search documents"))
+            self.form = SearchForm(placeholder=_("Search documents"))
 
         # Pagination
         paginator = Paginator(documents, per_page=20)
         documents = paginator.get_page(self.request.GET.get('p'))
+
+        context.update({
+            'ordering': ordering,
+            'documents': documents,
+            'query_string': query_string,
+            'is_searching': bool(query_string),
+        })
+        return context
+
+
+class IndexView(BaseListingView):
+    template_name = 'wagtaildocs/documents/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
         collections = permission_policy.collections_user_has_any_permission_for(
             self.request.user, ['add', 'change']
@@ -75,35 +88,18 @@ class IndexView(TemplateView):
         if len(collections) < 2:
             collections = None
 
-        # Create response
-        if self.request.is_ajax():
-            context.update({
-                'ordering': ordering,
-                'documents': documents,
-                'query_string': query_string,
-                'is_searching': bool(query_string),
-            })
-        else:
-            context.update({
-                'ordering': ordering,
-                'documents': documents,
-                'query_string': query_string,
-                'is_searching': bool(query_string),
-
-                'search_form': form,
-                'popular_tags': popular_tags_for_model(get_document_model()),
-                'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
-                'collections': collections,
-                'current_collection': current_collection,
-            })
-
+        context.update({
+            'search_form': self.form,
+            'popular_tags': popular_tags_for_model(get_document_model()),
+            'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
+            'collections': collections,
+            'current_collection': self.current_collection,
+        })
         return context
 
-    def get_template_names(self):
-        if self.request.is_ajax():
-            return ['wagtaildocs/documents/results.html']
-        else:
-            return ['wagtaildocs/documents/index.html']
+
+class ListingResultsView(BaseListingView):
+    template_name = 'wagtaildocs/documents/results.html'
 
 
 @permission_checker.require('add')
