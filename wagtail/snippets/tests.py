@@ -531,6 +531,13 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def setUp(self):
         super().setUp()
         self.test_snippet = Advert.objects.get(pk=1)
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(Advert),
+            label="Test Advert",
+            action='wagtail.create',
+            timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
+            object_id='1',
+        )
 
     def test_get_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -549,6 +556,11 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertNotContains(response, '<ul data-tab-nav role="tablist" data-current-tab="advert">')
         self.assertNotContains(response, '<a href="#advert" class="active" data-tab="advert">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#other" class="" data-tab="other">Other</a>', html=True)
+
+        # "Last updated" timestamp should be present
+        self.assertContains(response, 'data-wagtail-tooltip="Sept. 30, 2021, 10:01 a.m."')
+        # History link should be present
+        self.assertContains(response, 'href="/admin/snippets/tests/advert/history/%d/"' % self.test_snippet.pk)
 
         url_finder = AdminURLFinder(self.user)
         expected_url = '/admin/snippets/tests/advert/edit/%d/' % self.test_snippet.pk
