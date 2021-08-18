@@ -39,6 +39,7 @@ Other features
  * Add TIDAL support to the list of oEmbed providers (Wout De Puysseleir)
  * Add ``label_format`` attribute to customise the label shown for a collapsed StructBlock (Matt Westcott)
  * User Group permissions editing in the admin will now show all custom object permissions in one row instead of a separate table (Kamil Marut)
+ * Create ``ImageFileMixin`` to extract shared file handling methods from ``AbstractImage`` and ``AbstractRendition`` (Fabien Le Frapper)
 
 Bug fixes
 ~~~~~~~~~
