@@ -5,7 +5,7 @@ from wagtail.documents.views import chooser, documents, multiple
 
 app_name = 'wagtaildocs'
 urlpatterns = [
-    path('', documents.index, name='index'),
+    path('', documents.IndexView.as_view(), name='index'),
     path('add/', documents.add, name='add'),
     path('edit/<int:document_id>/', documents.edit, name='edit'),
     path('delete/<int:document_id>/', documents.delete, name='delete'),
