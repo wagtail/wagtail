@@ -119,3 +119,9 @@
         }
     }
 }
+
+@media (forced-colors: $media-forced-colours) {
+    .wagtail-logo-container__desktop {
+        background-color: $system-color-button-text;
+    }
+}

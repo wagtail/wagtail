@@ -177,3 +177,9 @@ svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
     height: 1.5em;
     color: $color-red;
 }
+
+@media (forced-colors: $media-forced-colours) {
+    .icon {
+        fill: $system-color-link-text;
+    }
+}
