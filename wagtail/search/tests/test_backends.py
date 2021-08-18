@@ -663,7 +663,6 @@ class BackendTests(WagtailTestUtils):
         results = self.backend.search(~PlainText('javascript'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, all_other_titles)
-
         # Tests multiple words
         results = self.backend.search(~PlainText('javascript the'),
                                       models.Book.objects.all())
@@ -734,6 +733,24 @@ class TestBackendLoader(TestCase):
         from wagtail.search.backends.database.postgres.postgres import PostgresSearchBackend
         db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
         self.assertIsInstance(db, PostgresSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'mysql', 'Only applicable to MySQL database systems')
+    def test_import_by_name_mysql_db_vendor(self):
+        from wagtail.search.backends.database.mysql.mysql import MySQLSearchBackend
+        db = get_search_backend(backend='default')
+        self.assertIsInstance(db, MySQLSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'mysql', 'Only applicable to MySQL database systems')
+    def test_import_by_path_mysql_db_vendor(self):
+        from wagtail.search.backends.database.mysql.mysql import MySQLSearchBackend
+        db = get_search_backend(backend='wagtail.search.backends.database')
+        self.assertIsInstance(db, MySQLSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'mysql', 'Only applicable to MySQL database systems')
+    def test_import_by_full_path_mysql_db_vendor(self):
+        from wagtail.search.backends.database.mysql.mysql import MySQLSearchBackend
+        db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
+        self.assertIsInstance(db, MySQLSearchBackend)
 
     @unittest.skipIf(connection.vendor != 'sqlite', 'Only applicable to SQLite database systems')
     def test_import_by_name_sqlite_db_vendor(self):

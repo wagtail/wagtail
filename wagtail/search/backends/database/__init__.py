@@ -8,6 +8,9 @@ def SearchBackend(params):
     if connection.vendor == 'postgresql':
         from .postgres.postgres import PostgresSearchBackend
         return PostgresSearchBackend(params)
+    elif connection.vendor == 'mysql':
+        from .mysql.mysql import MySQLSearchBackend
+        return MySQLSearchBackend(params)
     elif connection.vendor == 'sqlite':
         import sqlite3
         if sqlite3.sqlite_version_info < (3, 19, 0):
