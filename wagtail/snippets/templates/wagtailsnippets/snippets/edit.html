@@ -3,14 +3,7 @@
 {% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header_with_locale_selector.html" with title=editing_str subtitle=instance icon="snippet" tabbed=1 merged=1 %}
-
-    {% if latest_log_entry %}
-        <span class="avatar small" data-wagtail-tooltip="{{ latest_log_entry.user_display_name }}"><img src="{% avatar_url latest_log_entry.user size=25 %}" alt="" /></span>
-        {% trans "Last updated" %}
-        {% include "wagtailadmin/shared/last_updated.html" with last_updated=latest_log_entry.timestamp time_prefix="at" %}
-        - <a href="{% url 'wagtailsnippets:history' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}">History</a>
-    {% endif %}
+    {% include "wagtailsnippets/snippets/_header_with_history.html" with title=editing_str subtitle=instance icon="snippet" tabbed=1 merged=1 %}
 
     <div class="row row-flush">
 
@@ -66,5 +59,16 @@
             window.wagtailConfig = window.wagtailConfig || {};
             window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
         {% endif %}
+
+        $(function() {
+            $('[data-wagtail-tooltip]').tooltip({
+                animation: false,
+                title: function() {
+                    return $(this).attr('data-wagtail-tooltip');
+                },
+                trigger: 'hover',
+                placement: 'bottom',
+            });
+        })
     </script>
 {% endblock %}
