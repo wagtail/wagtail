@@ -85,6 +85,8 @@ InlinePanel
 
     This is a powerful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
 
+
+
 FieldRowPanel
 ~~~~~~~~~~~~~
 
@@ -291,7 +293,13 @@ Use ``classname="title"`` to make Page's built-in title field stand out with mor
 Collapsible
 ~~~~~~~~~~~
 
-By default, panels are expanded and not collapsible. Adding ``collapsible`` to ``classname`` will enable the collapse control. Adding both ``collapsible`` and ``collapsed`` to the ``classname`` parameter will load the editor page with the panel collapsed under its heading.
+By default, panels are expanded and not collapsible.
+Use ``classname="collapsible"`` to enable the collapse control.
+Use ``classname="collapsible collapsed"`` will load the editor page with the panel collapsed under its heading.
+
+
+You must define a ``heading`` when using ``collapsible`` with ``MultiFieldPanel``.
+You must defined a ``heading`` or ``label`` when using ``collapsible`` with ``InlinePanel``.
 
 .. code-block:: python
 
