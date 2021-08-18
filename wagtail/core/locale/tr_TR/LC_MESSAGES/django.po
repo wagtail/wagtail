@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Halim Turan <halim_turan_61@hotmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -63,54 +63,6 @@ msgstr "Parola"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Girmiş olduğunuz şifre doğru degil. Lütfen tekrar deneyin."
-
-msgid "hostname"
-msgstr "ana bilgisayar adı (hostname)"
-
-msgid "port"
-msgstr "port"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Eğer URL'lerde görünmesini istediğiniz, 80 dışında belirli bir port numarası "
-"varsa girin (8000 portunde geliştirme gibi). İstek işlemesini (request "
-"handling) etkilemez (dolayısıyla port yönlendirme çalışmaya devam eder)."
-
-msgid "site name"
-msgstr "site adı"
-
-msgid "Human-readable name for the site."
-msgstr "Okunabilir site adı."
-
-msgid "root page"
-msgstr "root (kök) sayfası"
-
-msgid "is default site"
-msgstr "varsayılan site mi"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Eğer doğru seçilirse bu site, içeriği olmayan tüm diğer hostname'lerin "
-"isteklerini işleyecektir."
-
-msgid "site"
-msgstr "site"
-
-msgid "sites"
-msgstr "siteler"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s zaten varsayılan site olarak ayarlandı. Bu siteyi varsayılan "
-"olarak seçmek için önce onun varsayılan site ayarını kaldırmalısınız."
 
 msgid "title"
 msgstr "başlık"
@@ -255,6 +207,90 @@ msgstr "grup sayfası izni"
 msgid "group page permissions"
 msgstr "grup sayfası izinleri"
 
+msgid "page view restriction"
+msgstr "sayfa izleme kısıtı"
+
+msgid "page view restrictions"
+msgstr "sayfa görme kısıtları"
+
+msgid "name"
+msgstr "isim"
+
+msgid "groups"
+msgstr "gruplar"
+
+msgid "Approve"
+msgstr "Onayla"
+
+msgid "collection"
+msgstr "koleksiyon"
+
+msgid "collection view restriction"
+msgstr "koleksiyon görme kısıtı"
+
+msgid "collection view restrictions"
+msgstr "koleksiyon görme kısıtları"
+
+msgid "collections"
+msgstr "koleksiyonlar"
+
+msgid "permission"
+msgstr "izin"
+
+msgid "group collection permission"
+msgstr "grup koleksiyon izni"
+
+msgid "group collection permissions"
+msgstr "grup koleksiyon izinleri"
+
+msgid "hostname"
+msgstr "ana bilgisayar adı (hostname)"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Eğer URL'lerde görünmesini istediğiniz, 80 dışında belirli bir port numarası "
+"varsa girin (8000 portunde geliştirme gibi). İstek işlemesini (request "
+"handling) etkilemez (dolayısıyla port yönlendirme çalışmaya devam eder)."
+
+msgid "site name"
+msgstr "site adı"
+
+msgid "Human-readable name for the site."
+msgstr "Okunabilir site adı."
+
+msgid "root page"
+msgstr "root (kök) sayfası"
+
+msgid "is default site"
+msgstr "varsayılan site mi"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Eğer doğru seçilirse bu site, içeriği olmayan tüm diğer hostname'lerin "
+"isteklerini işleyecektir."
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "siteler"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s zaten varsayılan site olarak ayarlandı. Bu siteyi varsayılan "
+"olarak seçmek için önce onun varsayılan site ayarını kaldırmalısınız."
+
 msgid "Public"
 msgstr "Genel"
 
@@ -270,47 +306,11 @@ msgstr "Gizli, belirli gruptaki kullanıcılar erişebilir"
 msgid "password"
 msgstr "şifre"
 
-msgid "groups"
-msgstr "gruplar"
-
 msgid "view restriction"
 msgstr "kısıtı gör"
 
 msgid "view restrictions"
 msgstr "kısıtları gör"
-
-msgid "page view restriction"
-msgstr "sayfa izleme kısıtı"
-
-msgid "page view restrictions"
-msgstr "sayfa görme kısıtları"
-
-msgid "collection"
-msgstr "koleksiyon"
-
-msgid "collection view restriction"
-msgstr "koleksiyon görme kısıtı"
-
-msgid "collection view restrictions"
-msgstr "koleksiyon görme kısıtları"
-
-msgid "name"
-msgstr "isim"
-
-msgid "collections"
-msgstr "koleksiyonlar"
-
-msgid "permission"
-msgstr "izin"
-
-msgid "group collection permission"
-msgstr "grup koleksiyon izni"
-
-msgid "group collection permissions"
-msgstr "grup koleksiyon izinleri"
-
-msgid "Approve"
-msgstr "Onayla"
 
 msgid "Log in"
 msgstr "Giriş yap"

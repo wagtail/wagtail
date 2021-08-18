@@ -378,7 +378,7 @@ class TabbedInterface(BaseFormEditHandler):
     def get_form_class(self):
         form_class = super().get_form_class()
 
-        # Set show_comments_toggle attibute on form class
+        # Set show_comments_toggle attribute on form class
         return type(
             form_class.__name__,
             (form_class, ),

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -73,15 +73,6 @@ msgstr "O isimde bir grup zaten var."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Aynı sayfa için birden fazla izin kaydı olamaz."
-
-msgid "Preferred language"
-msgstr "Tercih edilen dil"
-
-msgid "Current time zone"
-msgstr "Şimdiki zaman dilimi"
-
-msgid "Upload a profile picture"
-msgstr "Profil resmi yükle"
 
 msgid "submitted notifications"
 msgstr "gönderilen bildirimler"

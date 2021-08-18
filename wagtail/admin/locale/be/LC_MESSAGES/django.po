@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -101,11 +101,23 @@ msgstr "Да"
 msgid "All"
 msgstr "Усе"
 
-msgid "Date"
-msgstr "Дата"
+msgid "Preferred language"
+msgstr "Пажаданне па мове"
 
-msgid "Title"
-msgstr "Назва"
+msgid "Current time zone"
+msgstr "Існуючы гадзінны пояс"
+
+msgid "First Name"
+msgstr "Імя"
+
+msgid "Last Name"
+msgstr "Прозвішча"
+
+msgid "Email"
+msgstr "Адрас электроннай пошты"
+
+msgid "Upload a profile picture"
+msgstr "Загрузіць фатаздымак"
 
 msgid "Enter password"
 msgstr "Увядзіце пароль"
@@ -295,6 +307,12 @@ msgstr "Агляд старонак"
 msgid "Save"
 msgstr "Захаваць"
 
+msgid "Dashboard"
+msgstr "Панэль кіравання"
+
+msgid "Edit your account"
+msgstr "Рэдагаваць ваш рахунак"
+
 msgid "Error 404: Page not found"
 msgstr "Памылка 404: старонка не знойдзена"
 
@@ -365,9 +383,6 @@ msgstr "Аднаўленне пароля"
 
 msgid "Reset your password"
 msgstr "Скінуць пароль"
-
-msgid "Dashboard"
-msgstr "Панэль кіравання"
 
 msgid "Menu"
 msgstr "Меню"
@@ -537,6 +552,9 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Заблакаваныя старонкі"
 
+msgid "Title"
+msgstr "Назва"
+
 msgid "Locked at"
 msgstr "Зачынены ў"
 
@@ -575,6 +593,9 @@ msgstr "Самыя апошнія змены"
 
 msgid "Status"
 msgstr "Статус"
+
+msgid "Date"
+msgstr "Дата"
 
 msgid "Site summary"
 msgstr "Агульная інфармацыя"
@@ -617,9 +638,6 @@ msgstr "Увайсці у Wagtail"
 
 msgid "Signing in…"
 msgstr "Выконваецца ўваход..."
-
-msgid "Forgotten it?"
-msgstr "Забылі?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1217,9 +1235,6 @@ msgstr "Галоўная"
 msgid "All collections"
 msgstr "Усе калекцыі"
 
-msgid "Edit your account"
-msgstr "Рэдагаваць ваш рахунак"
-
 msgid "Account settings"
 msgstr "Наладкі акаўнта"
 
@@ -1239,9 +1254,6 @@ msgid ""
 msgstr ""
 "Вы карыстаецеся <strong>устаревший</strong> браўзэр. Калі ласка <a href="
 "\"https://browsehappy.com/\">обновите Ваш браузер</a>."
-
-msgid "Go to Wagtail admin interface"
-msgstr "Ісці ў інтэрфейс кіравання Wagtail"
 
 msgid "Add a child page"
 msgstr "Дадаць даччыную старонку"

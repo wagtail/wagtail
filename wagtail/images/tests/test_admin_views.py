@@ -499,10 +499,10 @@ class TestImageEditView(TestCase, WagtailTestUtils):
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_simple_with_external_storage(self):
         # The view calls get_file_size on the image that closes the file if
-        # file_size wasn't prevously populated.
+        # file_size wasn't previously populated.
 
         # The view then attempts to reopen the file when rendering the template
-        # which caused crashes when certian storage backends were in use.
+        # which caused crashes when certain storage backends were in use.
         # See #1397
 
         response = self.get()
@@ -1965,7 +1965,7 @@ class TestURLGeneratorView(TestCase, WagtailTestUtils):
     def test_get_bad_permissions(self):
         """
         This tests that the view returns a "permission denied" redirect if a user without correct
-        permissions attemts to access it
+        permissions attempts to access it
         """
         # Remove privileges from user
         self.user.is_superuser = False
@@ -2019,7 +2019,7 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
 
     def test_get_bad_permissions(self):
         """
-        This tests that the view gives a 403 if a user without correct permissions attemts to access it
+        This tests that the view gives a 403 if a user without correct permissions attempts to access it
         """
         # Remove privileges from user
         self.user.is_superuser = False

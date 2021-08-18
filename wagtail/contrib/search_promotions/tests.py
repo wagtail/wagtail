@@ -178,7 +178,7 @@ class TestSearchPromotionsIndexView(TestCase, WagtailTestUtils):
             query=popularQuery,
             page_id=1,
             sort_order=15,
-            description="An odly popular search term?",
+            description="An oddly popular search term?",
         )
 
         popularQuery = Query.get("suboptimal")

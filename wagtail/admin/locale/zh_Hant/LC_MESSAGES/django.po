@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Yeh Yen-Ke <yyken@outlook.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -95,26 +95,23 @@ msgstr "結束日期"
 msgid "All"
 msgstr "全部"
 
-msgid "Started at"
-msgstr "開始於"
+msgid "Preferred language"
+msgstr "首選語言"
 
-msgid "Show"
-msgstr "顯示"
+msgid "Current time zone"
+msgstr "當前時區"
 
-msgid "Awaiting my review"
-msgstr "待審中"
+msgid "First Name"
+msgstr "名"
 
-msgid "Completed at"
-msgstr "完成時間"
+msgid "Last Name"
+msgstr "姓"
 
-msgid "Workflow"
-msgstr "工作流程"
+msgid "Email"
+msgstr "電子郵件"
 
-msgid "Date"
-msgstr "日期"
-
-msgid "Title"
-msgstr "標題"
+msgid "Upload a profile picture"
+msgstr "上傳新的頭像"
 
 msgid "Enter password"
 msgstr "輸入密碼"
@@ -315,6 +312,12 @@ msgstr "取消"
 msgid "Comment"
 msgstr "評論"
 
+msgid "Dashboard"
+msgstr "控制面板"
+
+msgid "Edit your account"
+msgstr "編輯帳號"
+
 msgid "Error 404: Page not found"
 msgstr "404錯誤：沒有找到頁面"
 
@@ -379,9 +382,6 @@ msgstr "密碼已重置。"
 
 msgid "Reset your password"
 msgstr "重置密碼"
-
-msgid "Dashboard"
-msgstr "控制面板"
 
 msgid "Menu"
 msgstr "選單"
@@ -508,6 +508,9 @@ msgstr "此面版可顯示你所建立內容的相關資訊。"
 msgid "Your locked pages"
 msgstr "你已鎖定的頁面"
 
+msgid "Title"
+msgstr "標題"
+
 msgid "Locked at"
 msgstr "鎖定於"
 
@@ -551,6 +554,9 @@ msgstr "最近編輯"
 msgid "Status"
 msgstr "狀態"
 
+msgid "Date"
+msgstr "日期"
+
 msgid "Site summary"
 msgstr "網站摘要"
 
@@ -581,9 +587,6 @@ msgstr "登錄Wagtail"
 
 msgid "Signing in…"
 msgstr "正在登錄..."
-
-msgid "Forgotten it?"
-msgstr "忘記密碼？"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -764,9 +767,6 @@ msgstr "轉換別名 %(title)s"
 msgid "Convert alias"
 msgstr "轉換別名"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr "確定將此別名轉換為一般頁面？"
-
 msgid "This action cannot be undone."
 msgstr "此操作無法復原"
 
@@ -937,9 +937,6 @@ msgstr "此頁面為其它頁面之別名"
 
 msgid "Edit original page"
 msgstr "編輯原始面頁"
-
-msgid "Convert this alias into a regular page"
-msgstr "將此別名轉換為一般頁面"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1278,6 +1275,9 @@ msgstr "已完成工作流程"
 msgid "Edit page"
 msgstr "編輯頁面"
 
+msgid "Started at"
+msgstr "開始於"
+
 msgid "Approved task"
 msgstr "已核准作業"
 
@@ -1305,6 +1305,12 @@ msgstr "已鎖定"
 msgid "No locked pages found."
 msgstr "沒有已被鎖定頁面"
 
+msgid "Workflow"
+msgstr "工作流程"
+
+msgid "Completed at"
+msgstr "完成時間"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
@@ -1317,9 +1323,6 @@ msgstr "主頁"
 
 msgid "All collections"
 msgstr "所有集合"
-
-msgid "Edit your account"
-msgstr "編輯帳號"
 
 msgid "Account settings"
 msgstr "帳號設置"
@@ -1353,9 +1356,6 @@ msgid ""
 msgstr ""
 "Wagtail 已逐步移除對 IE11 的支援，可能對於你或你的組織造成影響。<a href="
 "\"%(url)s\">查看更多有關 IE11 的支援計畫</a>"
-
-msgid "Go to Wagtail admin interface"
-msgstr "轉到管理界面"
 
 msgid "Add a child page"
 msgstr "新增子頁面"
@@ -1616,8 +1616,23 @@ msgstr " \"{1}\"的修訂版本{0}"
 msgid "Page '{0}' unpublished."
 msgstr "頁面'{0}'已取消發佈。"
 
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "操作類型"
+
+msgid "Date/Time"
+msgstr "日期/時間"
+
 msgid "Locked pages"
 msgstr "已被鎖定頁面"
+
+msgid "Show"
+msgstr "顯示"
+
+msgid "Awaiting my review"
+msgstr "待審中"
 
 msgid "Workflows"
 msgstr "工作流程"
@@ -1633,15 +1648,6 @@ msgstr "頁面標題"
 
 msgid "Workflow tasks"
 msgstr "工作流程作業"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "操作類型"
-
-msgid "Date/Time"
-msgstr "日期/時間"
 
 msgid "Add a workflow"
 msgstr "增加工作流程"

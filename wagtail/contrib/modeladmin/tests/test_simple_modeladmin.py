@@ -184,7 +184,7 @@ class TestAuthorIndexView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         test_html = """
-            <td class="field-first_book for-author-1">The Lord of the Rings</td>
+            <td class="field-first_book for-author-1 title">The Lord of the Rings</td>
         """
         self.assertContains(response, test_html, html=True)
 
@@ -192,7 +192,7 @@ class TestAuthorIndexView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         test_html = """
-            <td class="field-last_book" data-for_author="1">The Hobbit</td>
+            <td class="field-last_book title" data-for_author="1">The Hobbit</td>
         """
         self.assertContains(response, test_html, html=True)
 

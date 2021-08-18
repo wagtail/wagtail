@@ -2,12 +2,12 @@ import $ from 'jquery';
 
 /* global wagtailConfig */
 
-function createSnippetChooser(id, modelString) {
+function createSnippetChooser(id) {
   const chooserElement = $('#' + id + '-chooser');
   const docTitle = chooserElement.find('.title');
   const input = $('#' + id);
   const editLink = chooserElement.find('.edit-link');
-  const chooserBaseUrl = chooserElement.data('chooserUrl') + modelString + '/';
+  const chooserBaseUrl = chooserElement.data('chooserUrl');
 
   /*
   Construct initial state of the chooser from the rendered (static) HTML and arguments passed to

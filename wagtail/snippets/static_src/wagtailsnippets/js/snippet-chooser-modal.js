@@ -7,8 +7,7 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             });
 
             $('.pagination a', context).on('click', function() {
-                var page = this.getAttribute('data-page');
-                setPage(page);
+                loadResults(this.href);
                 return false;
             });
         }
@@ -18,41 +17,13 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         var request;
 
         function search() {
-            var data = {q: $('#id_q').val(), results: 'true'};
-
-            if (searchForm$.has('input[name="locale"]')) {
-                data['locale'] = $('input[name="locale"]', searchForm$).val();
-            }
-
-            if (searchForm$.has('#snippet-chooser-locale')) {
-                data['locale_filter'] = $('#snippet-chooser-locale', searchForm$).val();
-            }
-
-            request = $.ajax({
-                url: searchUrl,
-                data: data,
-                success: function(data, status) {
-                    request = null;
-                    $('#search-results').html(data);
-                    ajaxifyLinks($('#search-results'));
-                },
-                error: function() {
-                    request = null;
-                }
-            });
+            loadResults(searchUrl, searchForm$.serialize());
             return false;
         }
 
-        function setPage(page) {
-            var dataObj = {p: page, results: 'true'};
-
-            if ($('#id_q').length && $('#id_q').val().length) {
-                dataObj.q = $('#id_q').val();
-            }
-
-            request = $.ajax({
-                url: searchUrl,
-                data: dataObj,
+        function loadResults(url, data) {
+            var opts = {
+                url: url,
                 success: function(data, status) {
                     request = null;
                     $('#search-results').html(data);
@@ -61,11 +32,15 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 error: function() {
                     request = null;
                 }
-            });
-            return false;
+            }
+            if (data) {
+                opts.data = data;
+            }
+            request = $.ajax(opts);
         }
 
         $('form.snippet-search', modal.body).on('submit', search);
+        $('#snippet-chooser-locale', modal.body).on('change', search);
 
         $('#id_q').on('input', function() {
             if (request) {

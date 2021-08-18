@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-06-17 08:16+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-30 14:09+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -114,26 +114,23 @@ msgstr "Data do"
 msgid "All"
 msgstr "Wszystkie"
 
-msgid "Started at"
-msgstr "Rozpoczęto dnia"
+msgid "Preferred language"
+msgstr "Preferowany język"
 
-msgid "Show"
-msgstr "Pokaż"
+msgid "Current time zone"
+msgstr "Obecna strefa czasowa"
 
-msgid "Awaiting my review"
-msgstr "Oczekuje mojej weryfikacji"
+msgid "First Name"
+msgstr "Pierwsze imię"
 
-msgid "Completed at"
-msgstr "Zakończono dnia"
+msgid "Last Name"
+msgstr "Nazwisko"
 
-msgid "Workflow"
-msgstr "Workflow"
+msgid "Email"
+msgstr "Email"
 
-msgid "Date"
-msgstr "Data"
-
-msgid "Title"
-msgstr "Tytuł"
+msgid "Upload a profile picture"
+msgstr "Wgraj zdjęcie profilu"
 
 msgid "Enter password"
 msgstr "Wpisz hasło"
@@ -409,6 +406,12 @@ msgstr "Komentarz"
 msgid "More actions"
 msgstr "Więcej akcji"
 
+msgid "Dashboard"
+msgstr "Kokpit"
+
+msgid "Edit your account"
+msgstr "Edytuj swoje konto"
+
 msgid "Error 404: Page not found"
 msgstr "Błąd 404: Strona nie została znaleziona"
 
@@ -488,9 +491,6 @@ msgstr "Wgraj zdjęcie profilowe:"
 
 msgid "Reset to default"
 msgstr "Przywróć domyślne"
-
-msgid "Dashboard"
-msgstr "Kokpit"
 
 msgid "Menu"
 msgstr "Menu"
@@ -669,6 +669,9 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Twoje zablokowane strony"
 
+msgid "Title"
+msgstr "Tytuł"
+
 msgid "Locked at"
 msgstr "Zablokowano"
 
@@ -711,6 +714,9 @@ msgstr "Twoje ostatnie zmiany"
 
 msgid "Status"
 msgstr "Status"
+
+msgid "Date"
+msgstr "Data"
 
 msgid "Site summary"
 msgstr "Streszczenie strony"
@@ -780,9 +786,6 @@ msgstr "Zaloguj się do Wagtaila"
 
 msgid "Signing in…"
 msgstr "Logowanie..."
-
-msgid "Forgotten it?"
-msgstr "Nie pamiętasz?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -964,9 +967,6 @@ msgstr "Konwertuj alias %(title)s"
 msgid "Convert alias"
 msgstr "Konwertuj alias"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr "Czy na pewno chcesz skonwertować ten alias na stronę?"
-
 msgid "This action cannot be undone."
 msgstr "Ta akcja nie może zostać cofnięta."
 
@@ -1147,9 +1147,6 @@ msgstr "Ta strona jest aliasem innej strony."
 msgid "Edit original page"
 msgstr "Edytuj oryginalną stronę"
 
-msgid "Convert this alias into a regular page"
-msgstr "Konwertuj ten alias do strony"
-
 #, python-format
 msgid "Page history for %(subtitle)s"
 msgstr "Historia strony dla %(subtitle)s"
@@ -1184,7 +1181,7 @@ msgid "Drag"
 msgstr "Przeciągnij"
 
 msgid "Updated"
-msgstr "Uaktualnij"
+msgstr "Modyfikacja"
 
 msgid ""
 "\n"
@@ -1577,6 +1574,9 @@ msgstr "Edytuj stronę"
 msgid "Requested by"
 msgstr "Zażądane przez"
 
+msgid "Started at"
+msgstr "Rozpoczęto dnia"
+
 msgid "Approved task"
 msgstr "Zaakceptowane zadanie"
 
@@ -1650,11 +1650,17 @@ msgstr "Nie znaleziono zablokowanych stron."
 msgid "By Task"
 msgstr "Wg. zadania"
 
+msgid "Workflow"
+msgstr "Workflow"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Żadne strony nie zostały jeszcze przekazane do moderacji"
 
 msgid "By Workflow"
 msgstr "Wg. Workflow"
+
+msgid "Completed at"
+msgstr "Zakończono dnia"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1671,9 +1677,6 @@ msgstr "Start"
 
 msgid "All collections"
 msgstr "Wszystkie kolekcje"
-
-msgid "Edit your account"
-msgstr "Edytuj swoje konto"
 
 msgid "Account settings"
 msgstr "Ustawienia konta"
@@ -1736,9 +1739,6 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Pomiń do głównej zawartości"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Idź do panelu administratora Wagtaila"
 
 msgid "Add a child page"
 msgstr "Dodaj podstronę"
@@ -2058,9 +2058,6 @@ msgstr "Czy na pewno chcesz usunąć tą kolekcję?"
 msgid "Editing"
 msgstr "Edytowanie"
 
-msgid "Page '{0}' has been converted into a regular page."
-msgstr "Strona '{0}' została skonwertowana do zwykłej strony."
-
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Strona '{0}' i podstrony {1} zostały skopiowane."
 
@@ -2207,8 +2204,26 @@ msgstr "Cofnięto publikację strony '{0}'."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Strona '{0}' nie oczekuje na moderację w zadaniu '{1}'."
 
+msgid "Site history"
+msgstr "Historia serwisu"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Typ akcji"
+
+msgid "Date/Time"
+msgstr "Data/Czas"
+
 msgid "Locked pages"
 msgstr "Zablokowane strony"
+
+msgid "Show"
+msgstr "Pokaż"
+
+msgid "Awaiting my review"
+msgstr "Oczekuje mojej weryfikacji"
 
 msgid "Workflows"
 msgstr "Workflowy"
@@ -2227,18 +2242,6 @@ msgstr "Zadania workflow"
 
 msgid "Requested By"
 msgstr "Zażądane przez"
-
-msgid "Site history"
-msgstr "Historia serwisu"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Typ akcji"
-
-msgid "Date/Time"
-msgstr "Data/Czas"
 
 msgid "Add a workflow"
 msgstr "Dodaj workflow"

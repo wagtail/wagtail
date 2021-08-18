@@ -12,3 +12,4 @@ Images
     changing_rich_text_representation
     feature_detection
     image_serve_view
+    focal_points

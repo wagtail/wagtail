@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 07:58+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -73,15 +73,6 @@ msgstr "Grupa s danim imenom već postoji."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Nije moguće dodati više skupova dozvola za istu stranicu."
-
-msgid "Preferred language"
-msgstr "Odabrani jezik"
-
-msgid "Current time zone"
-msgstr "Odabrana vremenska zona"
-
-msgid "Upload a profile picture"
-msgstr "Učitajte sliku profila"
 
 msgid "submitted notifications"
 msgstr "obavijesti stranica"

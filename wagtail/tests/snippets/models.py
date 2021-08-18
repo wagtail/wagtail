@@ -13,7 +13,7 @@ from .forms import FancySnippetForm
 
 # AlphaSnippet and ZuluSnippet are for testing ordering of
 # snippets when registering.  They are named as such to ensure
-# thier ordering is clear.  They are registered during testing
+# their ordering is clear.  They are registered during testing
 # to ensure specific [in]correct register ordering
 
 # AlphaSnippet is registered during TestSnippetOrdering

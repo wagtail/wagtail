@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:40+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -35,11 +35,14 @@ msgstr "Изтрий"
 msgid "None"
 msgstr "Нищо"
 
-msgid "Date"
-msgstr "Дата"
+msgid "First Name"
+msgstr "Първо Име"
 
-msgid "Title"
-msgstr "Заглавие"
+msgid "Last Name"
+msgstr "Последно Име"
+
+msgid "Email"
+msgstr "Имейл"
 
 msgid "Enter your email address to reset your password"
 msgstr "Въведете вашият имейл адрес за да си възстановите паролата"
@@ -64,6 +67,9 @@ msgstr "Редакция"
 
 msgid "Save"
 msgstr "Запази"
+
+msgid "Dashboard"
+msgstr "Работно Табло"
 
 msgid "Account"
 msgstr "Профил"
@@ -97,9 +103,6 @@ msgstr "Паролата е възстановена"
 
 msgid "Reset your password"
 msgstr "Възстановете паролата си"
-
-msgid "Dashboard"
-msgstr "Работно Табло"
 
 msgid "Menu"
 msgstr "Меню"
@@ -154,6 +157,9 @@ msgstr ""
 "Това е вашето работно табло, където ще бъде показана полезна информация за "
 "контент, който сте създали."
 
+msgid "Title"
+msgstr "Заглавие"
+
 msgid "Edit this page"
 msgstr "Редактирайте тази страница"
 
@@ -178,6 +184,9 @@ msgstr "Вашите последни редакции"
 msgid "Status"
 msgstr "Статус"
 
+msgid "Date"
+msgstr "Дата"
+
 msgid "Site summary"
 msgstr "Обобщение на Страницата"
 
@@ -186,9 +195,6 @@ msgstr "Влез"
 
 msgid "Sign in to Wagtail"
 msgstr "Влезте в Wagtail"
-
-msgid "Forgotten it?"
-msgstr "Забравихте ли?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."

@@ -121,7 +121,7 @@ def user_has_any_page_permission(user):
     Check if a user has any permission to add, edit, or otherwise manage any
     page.
     """
-    # Can't do nothin if you're not active.
+    # Can't do nothin' if you're not active.
     if not user.is_active:
         return False
 

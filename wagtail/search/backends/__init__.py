@@ -26,7 +26,7 @@ def get_search_backend_config():
 
 def import_backend(dotted_path):
     """
-    Theres two formats for the dotted_path.
+    There's two formats for the dotted_path.
     One with the backend class (old) and one without (new)
     eg:
       old: wagtail.search.backends.elasticsearch.ElasticsearchSearchBackend

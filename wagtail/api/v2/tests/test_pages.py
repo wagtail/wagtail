@@ -611,7 +611,7 @@ class TestPageListing(TestCase):
         self.assertEqual(page_id_list, [10, 15, 17, 21, 22, 23])
 
     def test_descendant_of_root(self):
-        # "root" gets decendants of the homepage of the current site
+        # "root" gets descendants of the homepage of the current site
         # Basically returns every page except the homepage
         response = self.get_response(descendant_of='root')
         content = json.loads(response.content.decode('UTF-8'))

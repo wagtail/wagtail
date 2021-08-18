@@ -681,7 +681,7 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
     ]
 
 
-# FormPage with cutom FormBuilder
+# FormPage with custom FormBuilder
 
 EXTENDED_CHOICES = FORM_FIELD_CHOICES + (('ipaddress', 'IP Address'),)
 

@@ -23,6 +23,7 @@ from wagtail.core import hooks
 from wagtail.core.models import CollectionMember
 from wagtail.core.utils import string_to_ascii
 from wagtail.images.exceptions import InvalidFilterSpecError
+from wagtail.images.image_operations import FilterOperation, ImageTransform, TransformOperation
 from wagtail.images.rect import Rect
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
@@ -410,6 +411,34 @@ class Filter:
             operations.append(op_class(*op_spec_parts))
         return operations
 
+    @property
+    def transform_operations(self):
+        return [
+            operation for operation in self.operations
+            if isinstance(operation, TransformOperation)
+        ]
+
+    @property
+    def filter_operations(self):
+        return [
+            operation for operation in self.operations
+            if isinstance(operation, FilterOperation)
+        ]
+
+    def get_transform(self, image):
+        """
+        Returns an ImageTransform with all the transforms in this filter applied.
+
+        The ImageTransform is an object with two attributes:
+         - .size - The size of the final image
+         - .matrix - An affine transformation matrix that combines any
+           transform/scale/rotation operations that need to be applied to the image
+        """
+        transform = ImageTransform((image.width, image.height))
+        for operation in self.transform_operations:
+            transform = operation.run(transform, image)
+        return transform
+
     def run(self, image, output):
         with image.get_willow_image() as willow:
             original_format = willow.format_name
@@ -417,10 +446,16 @@ class Filter:
             # Fix orientation of image
             willow = willow.auto_orient()
 
+            # Transform the image
+            transform = self.get_transform(image)
+            willow = willow.crop(transform.get_rect().round())
+            willow = willow.resize(transform.size)
+
+            # Apply filters
             env = {
                 'original-format': original_format,
             }
-            for operation in self.operations:
+            for operation in self.filter_operations:
                 willow = operation.run(willow, image, env) or willow
 
             # Find the output format to use
@@ -532,6 +567,39 @@ class AbstractRendition(models.Model):
         if hasattr(settings, 'BASE_URL') and url.startswith("/"):
             url = settings.BASE_URL + url
         return url
+
+    @property
+    def filter(self):
+        return Filter(self.filter_spec)
+
+    @cached_property
+    def focal_point(self):
+        image_focal_point = self.image.get_focal_point()
+        if image_focal_point:
+            transform = self.filter.get_transform(self.image)
+            return image_focal_point.transform(transform)
+
+    @property
+    def background_position_style(self):
+        """
+        Returns a `background-position` rule to be put in the inline style of an element which uses the rendition for its background.
+
+        This positions the rendition according to the value of the focal point. This is helpful for when the element does not have
+        the same aspect ratio as the rendition.
+
+        For example:
+
+            {% image page.image fill-1920x600 as image %}
+            <div style="background-image: url('{{ image.url }}'); {{ image.background_position_style }}">
+            </div>
+        """
+        focal_point = self.focal_point
+        if focal_point:
+            horz = int((focal_point.x * 100) // self.width)
+            vert = int((focal_point.y * 100) // self.height)
+            return 'background-position: {}% {}%;'.format(horz, vert)
+        else:
+            return 'background-position: 50% 50%;'
 
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-30 12:22+0000\n"
+"Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -79,11 +79,14 @@ msgstr "Data nuo"
 msgid "Date to"
 msgstr "Data iki"
 
-msgid "Date"
-msgstr "Data"
+msgid "First Name"
+msgstr "Vardas"
 
-msgid "Title"
-msgstr "Pavadinimas"
+msgid "Last Name"
+msgstr "Pavardė"
+
+msgid "Email"
+msgstr "Elektroninis paštas"
 
 msgid "Enter password"
 msgstr "Įveskite slaptažodį"
@@ -256,8 +259,26 @@ msgstr "Saugojama..."
 msgid "Cancel"
 msgstr "Atšaukti"
 
+msgid "Show comments"
+msgstr "Rodyti komentarus"
+
+msgid "Resolve"
+msgstr "Išspręsti"
+
 msgid "Comment"
 msgstr "Komentaras"
+
+msgid "Save the page to add this comment"
+msgstr "Komentaras bus pridėtas išsaugojus puslapį"
+
+msgid "Save the page to save this comment"
+msgstr "Komentaras bus išsaugotas išsaugojus puslapį"
+
+msgid "Dashboard"
+msgstr "Prietaisų skydas"
+
+msgid "Edit your account"
+msgstr "Redaguoti savo vartotoją"
 
 msgid "Error 404: Page not found"
 msgstr "Klaida 404: Puslapis nerastas"
@@ -309,9 +330,6 @@ msgstr "Slaptažodžio atstatymas"
 
 msgid "Reset your password"
 msgstr "Atstatyti savo slaptažodį"
-
-msgid "Dashboard"
-msgstr "Prietaisų skydas"
 
 msgid "Menu"
 msgstr "Meniu"
@@ -417,6 +435,12 @@ msgstr "Perkelti aukštyn"
 msgid "Move down"
 msgstr "Perkelti žemyn"
 
+msgid "Add comment"
+msgstr "Pridėti komentarą"
+
+msgid "Comments"
+msgstr "Komentarai"
+
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
 
@@ -433,6 +457,9 @@ msgid ""
 msgstr ""
 "Tai yra jūsų valdymo pultas kuriame bus atvaizduojama naudinga informacija "
 "apie jūsų sukurtą turinį."
+
+msgid "Title"
+msgstr "Pavadinimas"
 
 msgid "Edit this page"
 msgstr "Redaguoti šį puslapį"
@@ -467,6 +494,9 @@ msgstr "Jūsų paskutiniai redagavimai"
 msgid "Status"
 msgstr "Statusas"
 
+msgid "Date"
+msgstr "Data"
+
 msgid "Site summary"
 msgstr "Tinklalapio suvestinė"
 
@@ -482,9 +512,6 @@ msgstr "Prisijungti prie Wagtail"
 
 msgid "Signing in…"
 msgstr "Prisijungiama..."
-
-msgid "Forgotten it?"
-msgstr "Pamiršote?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -525,6 +552,24 @@ msgstr "Galite peržiūrėti puslapį čia:"
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "\"%(page)s\" puslapis buvo pateiktas moderavimui."
+
+msgid "New comments"
+msgstr "Nauji komentarai"
+
+msgid "Resolved comments"
+msgstr "Išspręsti komentarai"
+
+msgid "Deleted comments"
+msgstr "Ištrinti komentarai"
+
+msgid "New comments:"
+msgstr "Nauji komentarai:"
+
+msgid "Resolved comments:"
+msgstr "Išspręsti komentarai:"
+
+msgid "Deleted comments:"
+msgstr "Ištrinti komentarai:"
 
 msgid "Page privacy"
 msgstr "Puslapio privatumas"
@@ -1038,9 +1083,6 @@ msgstr "Namai"
 msgid "All collections"
 msgstr "Visos kolekcijos"
 
-msgid "Edit your account"
-msgstr "Redaguoti savo vartotoją"
-
 msgid "Account settings"
 msgstr "Vartotojo nustatymai"
 
@@ -1052,9 +1094,6 @@ msgstr "Kitos paieškos"
 
 msgid "Published"
 msgstr "Publikuotas"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Eiti į Wagtail administravimo sąsają."
 
 msgid "Add a child page"
 msgstr "Pridėti vidinį puslapį"

@@ -87,8 +87,11 @@ class OEmbedFinder(EmbedFinder):
             'html': html,
         }
 
-        cache_age = oembed.get('cache_age')
-        if cache_age is not None:
+        try:
+            cache_age = int(oembed['cache_age'])
+        except (KeyError, TypeError, ValueError):
+            pass
+        else:
             result['cache_until'] = timezone.now() + timedelta(seconds=cache_age)
 
         return result

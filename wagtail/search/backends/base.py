@@ -357,7 +357,7 @@ class BaseSearchBackend:
         if not class_is_indexed(model):
             return EmptySearchResults()
 
-        # Check that theres still a query string after the clean up
+        # Check that there's still a query string after the clean up
         if query == "":
             return EmptySearchResults()
 

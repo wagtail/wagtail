@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-07-02 13:33+0000\n"
-"Last-Translator: Goto Hayato <habita.gh@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: SHIMIZU Taku <shimizu.taku@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -114,26 +114,23 @@ msgstr "まで"
 msgid "All"
 msgstr "全て"
 
-msgid "Started at"
-msgstr "開始時刻"
+msgid "Preferred language"
+msgstr "好みの言語"
 
-msgid "Show"
-msgstr "表示"
+msgid "Current time zone"
+msgstr "現在のタイムゾーン"
 
-msgid "Awaiting my review"
-msgstr "自分のレビュー待ち"
+msgid "First Name"
+msgstr "名"
 
-msgid "Completed at"
-msgstr "完了時刻"
+msgid "Last Name"
+msgstr "姓"
 
-msgid "Workflow"
-msgstr "ワークフロー"
+msgid "Email"
+msgstr "Eメール"
 
-msgid "Date"
-msgstr "日付"
-
-msgid "Title"
-msgstr "タイトル"
+msgid "Upload a profile picture"
+msgstr "プロフィール写真をアップロード"
 
 msgid "Enter password"
 msgstr "パスワードを入力してください"
@@ -386,6 +383,12 @@ msgstr "コメント"
 msgid "More actions"
 msgstr "他のアクション"
 
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+msgid "Edit your account"
+msgstr "アカウント変更"
+
 msgid "Error 404: Page not found"
 msgstr "404エラー：ページが見つかりません"
 
@@ -464,9 +467,6 @@ msgstr "プロフィール画像をアップロード"
 
 msgid "Reset to default"
 msgstr "デフォルトに戻す"
-
-msgid "Dashboard"
-msgstr "ダッシュボード"
 
 msgid "Menu"
 msgstr "メニュー"
@@ -621,6 +621,9 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "あなたのロックされているページ"
 
+msgid "Title"
+msgstr "タイトル"
+
 msgid "Locked at"
 msgstr "ロック時刻"
 
@@ -659,6 +662,9 @@ msgstr "最近の編集"
 
 msgid "Status"
 msgstr "ステータス"
+
+msgid "Date"
+msgstr "日付"
 
 msgid "Site summary"
 msgstr "サイトの概要"
@@ -714,9 +720,6 @@ msgstr "Wagtailへサインイン"
 
 msgid "Signing in…"
 msgstr "サインイン中..."
-
-msgid "Forgotten it?"
-msgstr "パスワードを忘れましたか？"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1254,6 +1257,9 @@ msgstr "検索語を入力"
 msgid "No pages use"
 msgstr "この語を使用するページはありません。"
 
+msgid "Started at"
+msgstr "開始時刻"
+
 msgid "Download CSV"
 msgstr "CSVをダウンロードする"
 
@@ -1262,6 +1268,12 @@ msgstr "フィルター"
 
 msgid "Locked"
 msgstr "ロックあり"
+
+msgid "Workflow"
+msgstr "ワークフロー"
+
+msgid "Completed at"
+msgstr "完了時刻"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1279,9 +1291,6 @@ msgstr "ホーム"
 msgid "All collections"
 msgstr "全部コレクション"
 
-msgid "Edit your account"
-msgstr "アカウント変更"
-
 msgid "Account settings"
 msgstr "アカウント設定"
 
@@ -1293,9 +1302,6 @@ msgstr "現在のページ状況："
 
 msgid "Other searches"
 msgstr "他の検索結果"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Wagtailの管理者インターフェースに移動"
 
 msgid "Add a child page"
 msgstr "子ページを追加"
@@ -1465,6 +1471,12 @@ msgstr "\"{1}\"のリビジョン{0}"
 
 msgid "Page '{0}' unpublished."
 msgstr "ページ：'{0}' が非公開に設定されました。"
+
+msgid "Show"
+msgstr "表示"
+
+msgid "Awaiting my review"
+msgstr "自分のレビュー待ち"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr "次の情報を添えて、このエラーを管理者に報告してください:"

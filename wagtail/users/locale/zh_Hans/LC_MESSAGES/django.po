@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-03 04:32+0000\n"
-"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -80,15 +80,6 @@ msgstr "此组名已被占用。"
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "对于同一个页面你不能设置多重权限"
-
-msgid "Preferred language"
-msgstr "首选语言"
-
-msgid "Current time zone"
-msgstr "当前时区"
-
-msgid "Upload a profile picture"
-msgstr "上传新的头像"
 
 msgid "submitted notifications"
 msgstr "提交通知"

@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -114,26 +114,23 @@ msgstr "Data a"
 msgid "All"
 msgstr "Tutto"
 
-msgid "Started at"
-msgstr "Iniziato alle"
+msgid "Preferred language"
+msgstr "Lingua preferita"
 
-msgid "Show"
-msgstr "Mostra"
+msgid "Current time zone"
+msgstr "Fuso orario corrente"
 
-msgid "Awaiting my review"
-msgstr "In attesa della mia review"
+msgid "First Name"
+msgstr "Nome"
 
-msgid "Completed at"
-msgstr "Completato alle"
+msgid "Last Name"
+msgstr "Cognome"
 
-msgid "Workflow"
-msgstr "Flusso di lavoro"
+msgid "Email"
+msgstr "Email"
 
-msgid "Date"
-msgstr "Data"
-
-msgid "Title"
-msgstr "Titolo"
+msgid "Upload a profile picture"
+msgstr "Carica un'immagine del profilo"
 
 msgid "Enter password"
 msgstr "Inserisci password"
@@ -353,6 +350,12 @@ msgstr "Salva"
 msgid "Saving..."
 msgstr "Salvataggio in corso..."
 
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Edit your account"
+msgstr "Modifica il tuo account"
+
 msgid "Error 404: Page not found"
 msgstr "Errore 404: Pagina non trovata"
 
@@ -426,9 +429,6 @@ msgstr "Resetta password"
 
 msgid "Reset your password"
 msgstr "Inserisci password"
-
-msgid "Dashboard"
-msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
@@ -564,6 +564,9 @@ msgstr ""
 "Questa è la tua dashboard nella quale verranno mostrate informazioni utili "
 "riguardo i contenuti"
 
+msgid "Title"
+msgstr "Titolo"
+
 msgid "Edit this page"
 msgstr "Modifica questa pagina"
 
@@ -600,6 +603,9 @@ msgstr "Le tue modifiche recenti"
 msgid "Status"
 msgstr "Stato"
 
+msgid "Date"
+msgstr "Data"
+
 msgid "Site summary"
 msgstr "Sommario del sito"
 
@@ -617,9 +623,6 @@ msgstr "Loggati in Wagtail"
 
 msgid "Signing in…"
 msgstr "Autenticazione in corso..."
-
-msgid "Forgotten it?"
-msgstr "Dimenticato?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1146,6 +1149,9 @@ msgstr "Inserisce un termine di ricerca sopra"
 msgid "No pages use"
 msgstr "Nessuna pagina usata"
 
+msgid "Started at"
+msgstr "Iniziato alle"
+
 msgid "Download CSV"
 msgstr "Scarica CSV"
 
@@ -1154,6 +1160,12 @@ msgstr "Filtro"
 
 msgid "Locked"
 msgstr "Bloccato"
+
+msgid "Workflow"
+msgstr "Flusso di lavoro"
+
+msgid "Completed at"
+msgstr "Completato alle"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1167,9 +1179,6 @@ msgstr "Home"
 
 msgid "All collections"
 msgstr "Tutte le raccolte"
-
-msgid "Edit your account"
-msgstr "Modifica il tuo account"
 
 msgid "Account settings"
 msgstr "Impostazioni dell 'account"
@@ -1191,9 +1200,6 @@ msgstr ""
 "Stai usando un browser <strong>non aggiornato</strong> che non è compatibile "
 "con questo software. Per favore <a href=\"https://browsehappy.com/"
 "\">aggiorna il tuo browser</a>."
-
-msgid "Go to Wagtail admin interface"
-msgstr "Vai all'interfaccia admin di Wagtail"
 
 msgid "Add a child page"
 msgstr "Aggiungi pagina figlio"
@@ -1346,6 +1352,12 @@ msgstr "revisione {0} di \"{1}\""
 
 msgid "Page '{0}' unpublished."
 msgstr "Pagina '{0}' non pubblicata."
+
+msgid "Show"
+msgstr "Mostra"
+
+msgid "Awaiting my review"
+msgstr "In attesa della mia review"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"

@@ -6,7 +6,7 @@
 # Benjamin VR <benjaaa.vr@gmail.com>, 2020
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2018-2020
 # Franklin Kingma <franklin@statix.net>, 2015
-# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018,2020
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2017-2018,2020-2021
 # Meteor0id, 2019
 # Ramon de Jezus <rdejezus@leukeleu.nl>, 2020
 # Storm Heg <storm@stormbase.digital>, 2021
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-30 09:28+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-15 08:32+0000\n"
+"Last-Translator: Maarten Kling <kling.maarten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/torchbox/"
 "wagtail/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -111,26 +111,23 @@ msgstr "Datum tot"
 msgid "All"
 msgstr "Alle"
 
-msgid "Started at"
-msgstr "Gestart op"
+msgid "Preferred language"
+msgstr "Voorkeurstaal"
 
-msgid "Show"
-msgstr "Toon"
+msgid "Current time zone"
+msgstr "Huidige tijd zone"
 
-msgid "Awaiting my review"
-msgstr "Wachten op mijn beoordeling"
+msgid "First Name"
+msgstr "Voornaam"
 
-msgid "Completed at"
-msgstr "Afgerond op"
+msgid "Last Name"
+msgstr "Achternaam"
 
-msgid "Workflow"
-msgstr "Workflow"
+msgid "Email"
+msgstr "E-mail"
 
-msgid "Date"
-msgstr "Datum"
-
-msgid "Title"
-msgstr "Titel"
+msgid "Upload a profile picture"
+msgstr "Upload een profiel foto"
 
 msgid "Enter password"
 msgstr "Voer wachtwoord in"
@@ -406,6 +403,21 @@ msgstr "Opmerking"
 msgid "More actions"
 msgstr "Meer acties"
 
+msgid "Save the page to add this comment"
+msgstr "Bewaar deze pagina om het document toe te voegen"
+
+msgid "Save the page to save this comment"
+msgstr "Bewaar deze pagina om de opmerking te bewaren"
+
+msgid "Save the page to save this reply"
+msgstr "Bewaar deze pagina om de reactie te bewaren"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Edit your account"
+msgstr "Wijzig uw account"
+
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pagina niet gevonden"
 
@@ -484,9 +496,6 @@ msgstr "Upload een profiel foto:"
 
 msgid "Reset to default"
 msgstr "Reset naar standaard foto"
-
-msgid "Dashboard"
-msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
@@ -628,6 +637,15 @@ msgstr "Verplaats naar beneden"
 msgid "Add comment"
 msgstr "Voeg opmerking toe"
 
+msgid "Comments"
+msgstr "Opmerkingen"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr "Schakel de zichtbaarheid van reactiemeldingen in"
+
+msgid "Commenting on this page"
+msgstr "Opmerkingen op deze pagina"
+
 msgid "Comment notifications"
 msgstr "Opmerkingen notificaties"
 
@@ -650,6 +668,9 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Jouw geblokkeerde pagina's"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Locked at"
 msgstr "Geblokkeerd op"
@@ -693,6 +714,9 @@ msgstr "Laatste wijzigingen"
 
 msgid "Status"
 msgstr "Status"
+
+msgid "Date"
+msgstr "Datum"
 
 msgid "Site summary"
 msgstr "Site samenvatting"
@@ -754,8 +778,8 @@ msgstr "Inloggen in Wagtail"
 msgid "Signing in…"
 msgstr "Bezig met inloggen..."
 
-msgid "Forgotten it?"
-msgstr "Vergeten?"
+msgid "Forgotten password?"
+msgstr "Wachtwoord vergeten?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1008,8 +1032,8 @@ msgstr "Converteer alias %(title)s"
 msgid "Convert alias"
 msgstr "Converteer alias"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr "Weet je zeker dat je de alias naar een normale pagina wil converteren?"
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "Weet u zeker dat u deze alias naar een gewone pagina wilt converteren?"
 
 msgid "This action cannot be undone."
 msgstr "Deze actie kan niet ongedaan gemaakt worden."
@@ -1193,7 +1217,7 @@ msgstr "Deze pagina is een alias van een andere pagina."
 msgid "Edit original page"
 msgstr "Originele pagina bewerken"
 
-msgid "Convert this alias into a regular page"
+msgid "Convert this alias into an ordinary page"
 msgstr "Converteer deze alias naar een normale pagina"
 
 #, python-format
@@ -1606,6 +1630,9 @@ msgstr "Bewerk pagina"
 msgid "Requested by"
 msgstr "Aangevraagd door"
 
+msgid "Started at"
+msgstr "Gestart op"
+
 msgid "Approved task"
 msgstr "Goedgekeurde taak"
 
@@ -1679,11 +1706,17 @@ msgstr "Geen geblokkeerde pagina's gevonden."
 msgid "By Task"
 msgstr "Op taak"
 
+msgid "Workflow"
+msgstr "Workflow"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Er zijn nog geen pagina's ingediend voor beoordeling"
 
 msgid "By Workflow"
 msgstr "Op workflow"
+
+msgid "Completed at"
+msgstr "Afgerond op"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1700,9 +1733,6 @@ msgstr "Home"
 
 msgid "All collections"
 msgstr "Alle collecties"
-
-msgid "Edit your account"
-msgstr "Wijzig uw account"
 
 msgid "Account settings"
 msgstr "Accountinstellingen"
@@ -1767,8 +1797,8 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Ga naar de inhoud"
 
-msgid "Go to Wagtail admin interface"
-msgstr "Ga naar de Wagtail admin interface"
+msgid "View Wagtail quick actions"
+msgstr "Bekijk Wagtail snel acties"
 
 msgid "Add a child page"
 msgstr "Voeg een onderliggende pagina toe"
@@ -2070,7 +2100,7 @@ msgstr "Weet u zeker dat u deze collectie wilt verwijderen?"
 msgid "Editing"
 msgstr "Wijzigen"
 
-msgid "Page '{0}' has been converted into a regular page."
+msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Pagina '{0}' is naar een normale pagina geconverteerd."
 
 msgid "Page '{0}' and {1} subpages copied."
@@ -2164,6 +2194,9 @@ msgstr "De pagina kan niet worden opgeslagen omdat deze is vergrendeld."
 msgid "The page could not be saved due to validation errors"
 msgstr "Deze pagina kon niet opgeslagen worden vanwege validatiefouten."
 
+msgid "Hide commenting actions"
+msgstr "Verberg opmerkingen acties"
+
 msgid "Page '{0}' is now unlocked."
 msgstr "Pagina '{0}' is nu geopend."
 
@@ -2219,8 +2252,26 @@ msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr ""
 "Pagina '{0}' is nu niet in afwachting van content goedkeuring in taak '{1}'."
 
+msgid "Site history"
+msgstr "Site geschiedenis"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Actietype"
+
+msgid "Date/Time"
+msgstr "Datum/tijd"
+
 msgid "Locked pages"
 msgstr "Geblokkeerde pagina's"
+
+msgid "Show"
+msgstr "Toon"
+
+msgid "Awaiting my review"
+msgstr "Wachten op mijn beoordeling"
 
 msgid "Workflows"
 msgstr "Workflows"
@@ -2239,18 +2290,6 @@ msgstr "Workflow taken"
 
 msgid "Requested By"
 msgstr "Aangevraagd door"
-
-msgid "Site history"
-msgstr "Site geschiedenis"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Actietype"
-
-msgid "Date/Time"
-msgstr "Datum/tijd"
 
 msgid "Add a workflow"
 msgstr "Voeg een workflow toe"

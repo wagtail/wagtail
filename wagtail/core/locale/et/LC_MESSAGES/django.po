@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Erlend <debcf78e@opayq.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -65,57 +65,6 @@ msgstr "Kommentaar"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Tundmatu %(action)s"
-
-msgid "hostname"
-msgstr "hostinimi"
-
-msgid "port"
-msgstr "sadam"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Kui vajate URL-ides kuvamiseks konkreetset pordinumbrit (nt pordi 8000 "
-"arendus), määrake see millekski muuks kui 80. See ei mõjuta päringute "
-"käsitlemist (nii et pordi edastamine töötab endiselt)."
-
-msgid "site name"
-msgstr "saidi nimi"
-
-msgid "Human-readable name for the site."
-msgstr "Inimloetav saidi nimi."
-
-msgid "root page"
-msgstr "juurleht"
-
-msgid "is default site"
-msgstr "on vaikesait"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Kui see on tõsi, käsitleb see sait taotlusi kõigi teiste hostinimede kohta, "
-"millel pole oma saidikirjet"
-
-msgid "site"
-msgstr "sait"
-
-msgid "sites"
-msgstr "saite"
-
-msgid "default"
-msgstr "vaikimisi"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s on juba vaikesaidina konfigureeritud. Enne selle saidi "
-"vaikesalvestamist peate selle tühistama."
 
 msgid "title"
 msgstr "pealkiri"
@@ -281,59 +230,11 @@ msgstr "grupilehe luba"
 msgid "group page permissions"
 msgstr "grupilehe load"
 
-msgid "Public"
-msgstr "Avalik"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Privaatne, juurdepääsetav sisseloginud kasutajatele"
-
-msgid "Private, accessible with the following password"
-msgstr "Privaatne, juurdepääsetav järgmise parooliga"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Privaatne, juurdepääsetav teatud gruppide kasutajatele"
-
-msgid "password"
-msgstr "parool"
-
-msgid "groups"
-msgstr "rühmadesse"
-
-msgid "view restriction"
-msgstr "vaatamise piiramine"
-
-msgid "view restrictions"
-msgstr "vaatamise piirangud"
-
 msgid "page view restriction"
 msgstr "lehevaatamise piirang"
 
 msgid "page view restrictions"
 msgstr "lehevaatamise piirangud"
-
-msgid "collection"
-msgstr "kollektsioon"
-
-msgid "collection view restriction"
-msgstr "kogu vaatamise piirang"
-
-msgid "collection view restrictions"
-msgstr "kogu vaatamise piirangud"
-
-msgid "name"
-msgstr "nimi"
-
-msgid "collections"
-msgstr "kollektsioonid"
-
-msgid "permission"
-msgstr "luba"
-
-msgid "group collection permission"
-msgstr "grupi kogumise luba"
-
-msgid "group collection permissions"
-msgstr "grupikogude load"
 
 msgid "workflow"
 msgstr "töövoog"
@@ -355,6 +256,9 @@ msgstr "töövoo ülesannete järjekord"
 
 msgid "workflow task orders"
 msgstr "töövoo ülesannete tellimused"
+
+msgid "name"
+msgstr "nimi"
 
 msgid "active"
 msgstr "aktiivne"
@@ -378,6 +282,9 @@ msgstr ""
 
 msgid "workflows"
 msgstr "töövood"
+
+msgid "groups"
+msgstr "rühmadesse"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -468,6 +375,12 @@ msgstr "Ülesande olek"
 msgid "Task states"
 msgstr "Ülesande seisud"
 
+msgid "page log entry"
+msgstr "lehelogi kirje"
+
+msgid "page log entries"
+msgstr "lehelogi kirjed"
+
 msgid "timestamp (UTC)"
 msgstr "ajatempel (UTC)"
 
@@ -484,11 +397,98 @@ msgstr "kasutaja %(id)d (kustutatud)"
 msgid "system"
 msgstr "süsteemi"
 
-msgid "page log entry"
-msgstr "lehelogi kirje"
+msgid "collection"
+msgstr "kollektsioon"
 
-msgid "page log entries"
-msgstr "lehelogi kirjed"
+msgid "collection view restriction"
+msgstr "kogu vaatamise piirang"
+
+msgid "collection view restrictions"
+msgstr "kogu vaatamise piirangud"
+
+msgid "collections"
+msgstr "kollektsioonid"
+
+msgid "permission"
+msgstr "luba"
+
+msgid "group collection permission"
+msgstr "grupi kogumise luba"
+
+msgid "group collection permissions"
+msgstr "grupikogude load"
+
+msgid "hostname"
+msgstr "hostinimi"
+
+msgid "port"
+msgstr "sadam"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Kui vajate URL-ides kuvamiseks konkreetset pordinumbrit (nt pordi 8000 "
+"arendus), määrake see millekski muuks kui 80. See ei mõjuta päringute "
+"käsitlemist (nii et pordi edastamine töötab endiselt)."
+
+msgid "site name"
+msgstr "saidi nimi"
+
+msgid "Human-readable name for the site."
+msgstr "Inimloetav saidi nimi."
+
+msgid "root page"
+msgstr "juurleht"
+
+msgid "is default site"
+msgstr "on vaikesait"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Kui see on tõsi, käsitleb see sait taotlusi kõigi teiste hostinimede kohta, "
+"millel pole oma saidikirjet"
+
+msgid "site"
+msgstr "sait"
+
+msgid "sites"
+msgstr "saite"
+
+msgid "default"
+msgstr "vaikimisi"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s on juba vaikesaidina konfigureeritud. Enne selle saidi "
+"vaikesalvestamist peate selle tühistama."
+
+msgid "Public"
+msgstr "Avalik"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privaatne, juurdepääsetav sisseloginud kasutajatele"
+
+msgid "Private, accessible with the following password"
+msgstr "Privaatne, juurdepääsetav järgmise parooliga"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privaatne, juurdepääsetav teatud gruppide kasutajatele"
+
+msgid "password"
+msgstr "parool"
+
+msgid "view restriction"
+msgstr "vaatamise piiramine"
+
+msgid "view restrictions"
+msgstr "vaatamise piirangud"
 
 msgid "Log in"
 msgstr "Logi sisse"

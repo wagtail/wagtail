@@ -1,6 +1,6 @@
-=========================
-How to add new Task types
-=========================
+=====================
+Adding new Task types
+=====================
 
 The Workflow system allows users to create tasks, which represent stages of moderation.
 

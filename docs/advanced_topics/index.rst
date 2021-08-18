@@ -18,9 +18,6 @@ Advanced topics
     testing
     api/index
     amp
-    adding_reports
-    custom_tasks
-    audit_log
     accessibility_considerations
     boundblocks_and_values
     multi_site_multi_instance_multi_tenancy

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -42,18 +42,6 @@ msgstr "Parole"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Nezināma %(action)s"
-
-msgid "hostname"
-msgstr " resursdatora nosaukums"
-
-msgid "site"
-msgstr "vietne"
-
-msgid "sites"
-msgstr "vietnes"
-
-msgid "default"
-msgstr "noklusētais"
 
 msgid "expired"
 msgstr "novecojis"
@@ -97,23 +85,35 @@ msgstr "Slēgt"
 msgid "Unlock"
 msgstr "Atslēgt"
 
-msgid "Public"
-msgstr "Publisks"
-
-msgid "Private, accessible with the following password"
-msgstr "Privāts, pieejams ar šādu paroli"
-
-msgid "groups"
-msgstr "grupas"
-
 msgid "page view restriction"
 msgstr "lapu skatījuma ierobežojumi"
 
 msgid "page view restrictions"
 msgstr "Lapu skatīšanas ierobežojumi"
 
+msgid "groups"
+msgstr "grupas"
+
 msgid "Approve"
 msgstr "Apstiprināt"
+
+msgid "hostname"
+msgstr " resursdatora nosaukums"
+
+msgid "site"
+msgstr "vietne"
+
+msgid "sites"
+msgstr "vietnes"
+
+msgid "default"
+msgstr "noklusētais"
+
+msgid "Public"
+msgstr "Publisks"
+
+msgid "Private, accessible with the following password"
+msgstr "Privāts, pieejams ar šādu paroli"
 
 msgid "English"
 msgstr "angļu"
@@ -148,13 +148,6 @@ msgstr "Izveidota %(title)s aizstājējlapa"
 
 msgid "Created an alias"
 msgstr "Izveidota aizstājējlapa"
-
-#, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "Konvertēta aizstājējlapa '%(title)s' par parastu lapu"
-
-msgid "Converted an alias into a regular page"
-msgstr "Konvertēta no aizstājējlapas par parastu lapu"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -232,9 +225,6 @@ msgstr "Kopēt"
 
 msgid "Create alias"
 msgstr "Izveidot aizstājlapu"
-
-msgid "Convert alias into regular page"
-msgstr "Konvertēt aizstājlapu par parastu lapu"
 
 msgid "Move"
 msgstr "Pārvietot"

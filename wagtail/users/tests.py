@@ -1557,7 +1557,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         self.add_non_registered_perm()
         original_permissions = list(self.test_group.permissions.all())  # list() to force evaluation
 
-        # submit the form with no changes (only submitting the exsisting
+        # submit the form with no changes (only submitting the existing
         # permission, as in the self.post function definition)
         self.post()
 

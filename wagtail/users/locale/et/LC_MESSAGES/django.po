@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -69,15 +69,6 @@ msgstr "Sellenimeline rühm on juba olemas."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Samal lehel ei saa olla mitu lubade kirjet."
-
-msgid "Preferred language"
-msgstr "Eelistatud keel"
-
-msgid "Current time zone"
-msgstr "Praegune ajavöönd"
-
-msgid "Upload a profile picture"
-msgstr "Laadige üles profiilipilt"
 
 msgid "submitted notifications"
 msgstr "esitatud teated"
