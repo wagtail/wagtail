@@ -88,7 +88,7 @@ InlinePanel
 .. topic:: Collapsing InlinePanels to save space
 
     Note that you can use ``classname="collapsible collapsed"`` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
-    See :ref:`my-reference-label` for more details on ``collapsible`` usage.
+    See :ref:`collapsible` for more details on ``collapsible`` usage.
 
 
 
