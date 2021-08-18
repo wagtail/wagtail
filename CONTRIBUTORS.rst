@@ -527,6 +527,7 @@ Contributors
 * Sean Kelly
 * Himesh Samarasekera
 * Jannis Vajen
+* Dmitrii Faiazov
 
 Translators
 ===========

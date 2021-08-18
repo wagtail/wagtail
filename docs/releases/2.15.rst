@@ -32,6 +32,7 @@ Bug fixes
  * Remove redundant 'clear' button from site root page chooser (Matt Westcott)
  * Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
  * Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
+ * Admin fields and Icon visibility issues in Windows high contrast mode (Dmitrii Faiazov)
 
 Upgrade considerations
 ======================
