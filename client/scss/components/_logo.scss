@@ -120,8 +120,9 @@
     }
 }
 
+//Media for Windows High Contrast
 @media (forced-colors: $media-forced-colours) {
     .wagtail-logo-container__desktop {
-        background-color: $system-color-button-text;
+        background-color: $system-color-link-text;
     }
 }

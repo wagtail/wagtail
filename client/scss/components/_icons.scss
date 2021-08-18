@@ -178,6 +178,7 @@ svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
     color: $color-red;
 }
 
+//Media for Windows High Contrast
 @media (forced-colors: $media-forced-colours) {
     .icon {
         fill: $system-color-link-text;
