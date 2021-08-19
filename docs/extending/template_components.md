@@ -22,7 +22,7 @@ A (possibly empty) :doc:`form media <django:topics/forms/media>` object defining
 ```
 ## Creating components
 
-The simplest way to create a component is to define a subclass of `wagtail.admin.ui.components.Component` and specify a `template_name` attribute on it. The rendered template will then be used as the component's HTML representation:
+The preferred way to create a component is to define a subclass of `wagtail.admin.ui.components.Component` and specify a `template_name` attribute on it. The rendered template will then be used as the component's HTML representation:
 
 ```python
 from wagtail.admin.ui.components import Component
