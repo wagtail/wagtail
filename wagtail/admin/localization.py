@@ -109,10 +109,38 @@ def get_js_translation_strings():
         'WEEKDAYS_SHORT': [str(WEEKDAYS_ABBR[d % 7]) for d in range(-1, 6)],
 
         # used by bulk actions
-        'NUM_PAGES_SELECTED_SINGULAR': _('1 page selected'),
-        'NUM_PAGES_SELECTED_PLURAL': _("{0} pages selected"),
-        'NUM_PAGES_SELECTED_ALL': _("All {0} pages on this screen selected"),
-        'NUM_PAGES_SELECTED_ALL_IN_LISTING': _("All pages in listing selected"),
+        'BULK_ACTIONS': {
+            'PAGE': {
+                'SINGULAR': _('1 page selected'),
+                'PLURAL': _("{0} pages selected"),
+                'ALL': _("All {0} pages on this screen selected"),
+                'ALL_IN_LISTING': _("All pages in listing selected"),
+            },
+            'DOCUMENT': {
+                'SINGULAR': _('1 document selected'),
+                'PLURAL': _("{0} documents selected"),
+                'ALL': _("All {0} documents on this screen selected"),
+                'ALL_IN_LISTING': _("All documents in listing selected"),
+            },
+            'IMAGE': {
+                'SINGULAR': _('1 image selected'),
+                'PLURAL': _("{0} images selected"),
+                'ALL': _("All {0} images on this screen selected"),
+                'ALL_IN_LISTING': _("All images in listing selected"),
+            },
+            'USER': {
+                'SINGULAR': _('1 user selected'),
+                'PLURAL': _("{0} users selected"),
+                'ALL': _("All {0} users on this screen selected"),
+                'ALL_IN_LISTING': _("All users in listing selected"),
+            },
+            'ITEM': {
+                'SINGULAR': _('1 item selected'),
+                'PLURAL': _("{0} items selected"),
+                'ALL': _("All {0} items on this screen selected"),
+                'ALL_IN_LISTING': _("All items in listing selected"),
+            },
+        },
     }
 
 
