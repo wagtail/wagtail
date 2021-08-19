@@ -241,7 +241,7 @@ Instead, you should define a subclass of ``StructValue`` that implements your cu
     from wagtail.core.blocks import StructValue
 
 
-    class LinkValue(StructValue):
+    class LinkStructValue(StructValue):
         def url(self):
             external_url = self.get('external_url')
             page = self.get('page')
