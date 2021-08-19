@@ -37,6 +37,9 @@
     that column will have the drag and drop buttons to enable ordering
     {% endcomment %}
     {% if not show_ordering_column %}
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'PAGE';
+    </script>
     <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
     {% endif %}
     <script type="text/javascript">
