@@ -526,6 +526,7 @@ Contributors
 * Brandon Murch
 * Sean Kelly
 * Himesh Samarasekera
+* Jannis Vajen
 
 Translators
 ===========
