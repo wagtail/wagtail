@@ -42,7 +42,10 @@ class ToggleActivityBulkAction(UserBulkAction):
     @classmethod
     def execute_action(cls, objects, mark_as_active=False, model=None, **kwargs):
         if model is None:
-            return
+            if len(cls.models) == 1:
+                model = cls.models[0]
+            else:
+                raise Exception("model needs to be a registered Django model, not None")
         user = kwargs.get('user', None)
         if user is not None:
             objects = list(filter(lambda x: x.pk != user.pk, objects))
