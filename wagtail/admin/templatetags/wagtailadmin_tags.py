@@ -29,7 +29,7 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
-from wagtail.admin.views.bulk_action.utils import get_bulk_actions_from_model
+from wagtail.admin.views.bulk_action.utils import get_bulk_actions_for_model
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
 from wagtail.core import hooks
@@ -506,7 +506,7 @@ def bulk_action_filters(context):
                         takes_context=True)
 def bulk_action_choices(context, app_label, model_name):
 
-    bulk_actions_list = get_bulk_actions_from_model(app_label, model_name)
+    bulk_actions_list = get_bulk_actions_for_model(app_label, model_name)
     bulk_actions_list.sort(key=lambda x: x.action_priority)
 
     bulk_action_more_list = []

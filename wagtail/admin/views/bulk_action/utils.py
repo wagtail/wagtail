@@ -4,7 +4,7 @@ from wagtail.admin.views.bulk_action.base_bulk_action import BulkAction
 from wagtail.core import hooks
 
 
-def get_bulk_actions_from_model(app_label, model_name):
+def get_bulk_actions_for_model(app_label, model_name):
     bulk_actions_list = []
     bulk_actions = hooks.get_hooks('register_bulk_action')
     model = apps.get_model(app_label, model_name)
