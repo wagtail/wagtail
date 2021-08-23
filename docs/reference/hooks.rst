@@ -433,7 +433,6 @@ More details about the options that are available can be found at :doc:`/extendi
         return queryset
 
 
-
 Editor interface
 ----------------
 
@@ -1389,6 +1388,81 @@ Hooks for working with registered Snippets.
     @hooks.register('construct_snippet_listing_buttons')
     def remove_snippet_listing_button_item(buttons, snippet, user, context=None):
         buttons.pop()  # Removes the 'delete' button
+
+
+Bulk actions
+------------
+
+Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_actions>` on how to write custom bulk actions.
+
+
+.. _register_bulk_action:
+
+``register_bulk_action``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Registers a new bulk action to add to the list of bulk actions in the explorer
+
+  This hook must be registered with a sub-class of ``BulkAction`` . For example:
+
+  .. code-block:: python
+
+    from wagtail.admin.views.bulk_action import BulkAction
+    from wagtail.core import hooks
+
+
+    @hooks.register('register_bulk_action')
+    class CustomBulkAction(BulkAction):
+        display_name = _("Custom Action")
+        action_type = "action"
+        aria_label = _("Do custom action")
+        template_name = "/path/to/template"
+        models = [...]  # list of models the action should execute upon
+
+
+        @classmethod
+        def execute_action(cls, objects, **kwargs):
+            for object in objects:
+                do_something(object)
+            return num_parent_objects, num_child_objects  # return the count of updated objects
+
+
+.. _before_bulk_action:
+
+``before_bulk_action``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Do something right before a bulk action is executed (before the ``execute_action`` method is called)
+
+  This hook can be used to return an HTTP response. For example:
+
+  .. code-block:: python
+
+    from wagtail.core import hooks
+
+    @hooks.register('before_bulk_action)
+    def hook_func(request, action_type, objects, action_class_instance):
+      ...
+
+
+.. _after_bulk_action:
+
+``after_bulk_action``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Do something right after a bulk action is executed (after the ``execute_action`` method is called)
+
+  This hook can be used to return an HTTP response. For example:
+
+  .. code-block:: python
+
+    from wagtail.core import hooks
+
+    @hooks.register('after_bulk_action)
+    def hook_func(request, action_type, objects, action_class_instance):
+      ...
+
+
 
 Audit log
 ---------
