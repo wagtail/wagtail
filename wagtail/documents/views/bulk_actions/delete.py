@@ -18,17 +18,17 @@ class DeleteBulkAction(DocumentBulkAction):
 
     @classmethod
     def execute_action(cls, objects, **kwargs):
-        for document in objects:
-            cls.num_parent_objects += 1
-            document.delete()
+        num_parent_objects = len(objects)
+        cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).delete()
+        return num_parent_objects, 0
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
         return ngettext(
             "%(num_parent_objects)d document has been deleted",
             "%(num_parent_objects)d documents have been deleted",
-            self.num_parent_objects
+            num_parent_objects
         ) % {
-            'num_parent_objects': self.num_parent_objects
+            'num_parent_objects': num_parent_objects
         }
 
 
