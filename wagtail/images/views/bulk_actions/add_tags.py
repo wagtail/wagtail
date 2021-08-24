@@ -8,11 +8,7 @@ from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 
 
 class TagForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['tags'] = forms.Field(
-            widget=widgets.AdminTagWidget
-        )
+    tags = forms.Field(widget=widgets.AdminTagWidget)
 
 
 class AddTagsBulkAction(ImageBulkAction):
@@ -32,19 +28,22 @@ class AddTagsBulkAction(ImageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, images, **kwargs):
-        tags = kwargs.get('tags', [])
+    def execute_action(cls, images, tags=[], **kwargs):
+        num_parent_objects = 0
+        if not tags:
+            return
         for image in images:
-            cls.num_parent_objects += 1
+            num_parent_objects += 1
             image.tags.add(*tags)
+        return num_parent_objects, 0
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
         return ngettext(
             "New tags have been added to %(num_parent_objects)d image",
             "New tags have been added to %(num_parent_objects)d images",
-            self.num_parent_objects
+            num_parent_objects
         ) % {
-            'num_parent_objects': self.num_parent_objects
+            'num_parent_objects': num_parent_objects
         }
 
 
