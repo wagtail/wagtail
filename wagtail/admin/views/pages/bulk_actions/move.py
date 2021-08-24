@@ -10,6 +10,11 @@ from wagtail.core.models import Page
 
 
 class MoveForm(forms.Form):
+    move_applicable = forms.BooleanField(
+        label=_("Move only applicable pages"),
+        required=False
+    )
+
     def __init__(self, *args, **kwargs):
         destination = kwargs.pop('destination')
         super().__init__(*args, **kwargs)
@@ -18,10 +23,6 @@ class MoveForm(forms.Form):
             queryset=Page.objects.all(),
             widget=widgets.AdminPageChooser(can_choose_root=True, user_perms='move_to'),
             label=_("Select a new parent page"),
-        )
-        self.fields['move_applicable'] = forms.BooleanField(
-            label=_("Move only applicable pages"),
-            required=False
         )
 
 
@@ -42,13 +43,13 @@ class MoveBulkAction(PageBulkAction):
     def check_perm(self, page):
         return page.permissions_for_user(self.request.user).can_move()
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
         success_message = ngettext(
             "%(num_pages)d page has been moved",
             "%(num_pages)d pages have been moved",
-            self.num_parent_objects
+            num_parent_objects
         ) % {
-            'num_pages': self.num_parent_objects
+            'num_pages': num_parent_objects
         }
         return success_message
 
@@ -93,12 +94,9 @@ class MoveBulkAction(PageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        destination = kwargs.get('destination', None)
+    def execute_action(cls, objects, destination=None, user=None, **kwargs):
+        num_parent_objects = 0
         if destination is None:
-            return
-        user = kwargs.get('user', None)
-        if user is None:
             return
         for page in objects:
             if not page.permissions_for_user(user).can_move_to(destination):
@@ -106,7 +104,8 @@ class MoveBulkAction(PageBulkAction):
             if not Page._slug_is_available(page.slug, destination, page=page):
                 continue
             page.move(destination, pos='last-child', user=user)
-            cls.num_parent_objects += 1
+            num_parent_objects += 1
+        return num_parent_objects, 0
 
 
 @hooks.register('register_page_bulk_action')

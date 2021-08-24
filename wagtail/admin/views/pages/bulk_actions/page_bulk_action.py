@@ -5,11 +5,7 @@ from wagtail.core.models import Page
 
 
 class DefaultPageForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['include_descendants'] = forms.BooleanField(
-            required=False
-        )
+    include_descendants = forms.BooleanField(required=False)
 
 
 class PageBulkAction(BulkAction):

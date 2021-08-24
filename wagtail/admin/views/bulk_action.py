@@ -26,8 +26,6 @@ class BulkAction(ABC, FormView):
     def aria_label(self):
         pass
 
-    num_child_objects = 0
-    num_parent_objects = 0
     extras = dict()
     action_priority = 100
     model = None
@@ -43,7 +41,6 @@ class BulkAction(ABC, FormView):
         if not next_url:
             next_url = request.path
         self.next_url = next_url
-        self.num_parent_objects = self.num_child_objects = 0
 
     @classmethod
     def get_queryset(cls, object_ids):
@@ -58,7 +55,7 @@ class BulkAction(ABC, FormView):
     def execute_action(cls, objects, **kwargs):
         raise NotImplementedError("execute_action needs to be implemented")
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
         pass
 
     def object_context(self, obj):
@@ -123,11 +120,11 @@ class BulkAction(ABC, FormView):
             before_hook_result = self.__run_before_hooks(self.action_type, request, objects)
             if before_hook_result is not None:
                 return before_hook_result
-            self.execute_action(objects, **self.get_execution_context())
+            num_parent_objects, num_child_objects = self.execute_action(objects, **self.get_execution_context())
             after_hook_result = self.__run_after_hooks(self.action_type, request, objects)
             if after_hook_result is not None:
                 return after_hook_result
-            success_message = self.get_success_message()
+            success_message = self.get_success_message(num_parent_objects, num_child_objects)
             if success_message is not None:
                 messages.success(request, success_message)
         return redirect(self.next_url)

@@ -39,21 +39,21 @@ class AddToCollectionBulkAction(DocumentBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        cls.collection = kwargs.get('collection', None)
-        for document in objects:
-            cls.num_parent_objects += 1
-            document.collection = cls.collection
-            document.save()
+    def execute_action(cls, objects, collection=None, **kwargs):
+        if collection is None:
+            return
+        num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(collection=collection)
+        return num_parent_objects, 0
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
+        collection = self.cleaned_form.cleaned_data['collection']
         return ngettext(
             "%(num_parent_objects)d document has been added to %(collection)s",
             "%(num_parent_objects)d documents have been added to %(collection)s",
-            self.num_parent_objects
+            num_parent_objects
         ) % {
-            'num_parent_objects': self.num_parent_objects,
-            'collection': self.collection.name
+            'num_parent_objects': num_parent_objects,
+            'collection': collection
         }
 
 

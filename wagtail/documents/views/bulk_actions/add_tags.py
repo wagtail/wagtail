@@ -8,11 +8,7 @@ from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBu
 
 
 class TagForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['tags'] = forms.Field(
-            widget=widgets.AdminTagWidget
-        )
+    tags = forms.Field(widget=widgets.AdminTagWidget)
 
 
 class AddTagsBulkAction(DocumentBulkAction):
@@ -32,19 +28,22 @@ class AddTagsBulkAction(DocumentBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        tags = kwargs.get('tags', [])
+    def execute_action(cls, objects, tags=[], **kwargs):
+        num_parent_objects = 0
+        if not tags:
+            return
         for document in objects:
-            cls.num_parent_objects += 1
+            num_parent_objects += 1
             document.tags.add(*tags)
+        return num_parent_objects, 0
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
         return ngettext(
             "New tags have been added to %(num_parent_objects)d document",
             "New tags have been added to %(num_parent_objects)d documents",
-            self.num_parent_objects
+            num_parent_objects
         ) % {
-            'num_parent_objects': self.num_parent_objects
+            'num_parent_objects': num_parent_objects
         }
 
 
