@@ -1,5 +1,5 @@
-from wagtail.core import hooks
 from wagtail.admin.views.bulk_action import BulkAction
+from wagtail.core import hooks
 
 
 class BulkActionRegistry:
