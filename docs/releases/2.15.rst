@@ -17,6 +17,7 @@ Other features
 
  * Add the ability for the page chooser to convert external urls that match a page to internal links, see :ref:`WAGTAILADMIN_EXTERNAL_LINK_CONVERSION` (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
  * Added "Extending Wagtail" section to documentation (Matt Westcott)
+ * Introduced :doc:`template components </extending/template_components>`, a standard mechanism for renderable objects in the admin (Matt Westcott)
  * Support ``min_num`` / ``max_num`` options on ListBlock (Matt Westcott)
  * Added a `background_position_style` property to renditions. This can be used to crop images using its focal point in the browser. See :ref:`rendition_background_position_style` (Karl Hobley)
  * Added a distinct ``wagtail.copy_for_translation`` log action type (Karl Hobley)
