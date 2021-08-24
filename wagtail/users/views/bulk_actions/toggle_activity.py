@@ -42,14 +42,12 @@ class ToggleActivityBulkAction(UserBulkAction):
     @classmethod
     def execute_action(cls, objects, mark_as_active=False, model=None, **kwargs):
         if model is None:
-            if len(cls.models) == 1:
-                model = cls.models[0]
-            else:
-                raise Exception("model needs to be a registered Django model, not None")
+            model = cls.get_default_model()
         user = kwargs.get('user', None)
         if user is not None:
             objects = list(filter(lambda x: x.pk != user.pk, objects))
-        cls.num_parent_objects = model.objects.filter(pk__in=[obj.pk for obj in objects]).update(is_active=mark_as_active)
+        num_parent_objects = model.objects.filter(pk__in=[obj.pk for obj in objects]).update(is_active=mark_as_active)
+        return num_parent_objects, 0
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         if self.cleaned_form.cleaned_data['mark_as_active']:

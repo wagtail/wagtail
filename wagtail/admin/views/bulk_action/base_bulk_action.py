@@ -66,6 +66,12 @@ class BulkAction(ABC, FormView):
             'item': obj
         }
 
+    @classmethod
+    def get_default_model(cls):
+        if len(cls.models) == 1:
+            return cls.models[0]
+        raise Exception("Cannot get default model if number of models is greater than 1")
+
     def __run_before_hooks(self, action_type, request, objects):
         for hook in hooks.get_hooks('before_bulk_action'):
             result = hook(request, action_type, objects, self)

@@ -25,12 +25,9 @@ class DeleteBulkAction(UserBulkAction):
     @classmethod
     def execute_action(cls, objects, model=None, **kwargs):
         if model is None:
-            if len(cls.models) == 1:
-                model = cls.models[0]
-            else:
-                raise Exception("model needs to be a registered Django model, not None")
+            model = cls.get_default_model()
         model.objects.filter(pk__in=[obj.pk for obj in objects]).delete()
-        cls.num_parent_objects = len(objects)
+        return len(objects), 0
 
     def get_success_message(self, num_parent_objects, num_child_objects):
         return ngettext(

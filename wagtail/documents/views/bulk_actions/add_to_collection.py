@@ -41,7 +41,7 @@ class AddToCollectionBulkAction(DocumentBulkAction):
     def execute_action(cls, objects, collection=None, **kwargs):
         if collection is None:
             return
-        num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(collection=collection)
+        num_parent_objects = cls.get_default_model().objects.filter(pk__in=[obj.pk for obj in objects]).update(collection=collection)
         return num_parent_objects, 0
 
     def get_success_message(self, num_parent_objects, num_child_objects):
