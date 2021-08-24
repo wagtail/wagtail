@@ -23,7 +23,7 @@ Other features
  * Add a debug logger around image rendition generation (Jake Howard)
  * Convert Documents and Images to class based views for easier overriding (Matt Westcott)
  * Isolate admin URLs for Documents and Images search listing results with the name `'listing_results'` (Matt Westcott)
- * Removed `request.is_ajax()` usage in Documents, Image and Snippet views (Matt Westcott)
+ * Removed ``request.is_ajax()`` usage in Documents, Image and Snippet views (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~
@@ -35,7 +35,7 @@ Bug fixes
  * Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
  * Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
  * Admin fields and Icon visibility issues in Windows high contrast mode (Dmitrii Faiazov)
- * `blocks.MultipleChoiceBlock`, `forms.CheckboxSelectMultiple` and `ArrayField` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
+ * ``blocks.MultipleChoiceBlock``, ``forms.CheckboxSelectMultiple`` and ``ArrayField`` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
 
 Upgrade considerations
 ======================
