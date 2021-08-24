@@ -43,28 +43,28 @@ class ToggleActivityBulkAction(UserBulkAction):
                     return TemplateResponse(self.request, self.template_name, context)
 
     @classmethod
-    def execute_action(cls, objects, mark_as_active=False, **kwargs):
-        user = kwargs.get('user', None)
+    def execute_action(cls, objects, mark_as_active=False, user=None, **kwargs):
         if user is not None:
             objects = list(filter(lambda x: x.pk != user.pk, objects))
-        cls.num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(is_active=mark_as_active)
+        num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(is_active=mark_as_active)
+        return num_parent_objects, 0
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
         if self.cleaned_form.cleaned_data['mark_as_active']:
             return ngettext(
                 "%(num_parent_objects)d user has been marked as active",
                 "%(num_parent_objects)d users have been marked as active",
-                self.num_parent_objects
+                num_parent_objects
             ) % {
-                'num_parent_objects': self.num_parent_objects,
+                'num_parent_objects': num_parent_objects,
             }
         else:
             return ngettext(
                 "%(num_parent_objects)d user has been marked as inactive",
                 "%(num_parent_objects)d users have been marked as inactive",
-                self.num_parent_objects
+                num_parent_objects
             ) % {
-                'num_parent_objects': self.num_parent_objects,
+                'num_parent_objects': num_parent_objects,
             }
 
 

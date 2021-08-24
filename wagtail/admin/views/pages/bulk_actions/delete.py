@@ -23,38 +23,37 @@ class DeleteBulkAction(PageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        user = kwargs.get('user', None)
-        if user is None:
-            return
+    def execute_action(cls, objects, user=None, **kwargs):
+        num_parent_objects, num_child_objects = 0, 0
         for page in objects:
-            cls.num_parent_objects += 1
-            cls.num_child_objects += page.get_descendant_count()
+            num_parent_objects += 1
+            num_child_objects += page.get_descendant_count()
             page.delete(user=user)
+        return num_parent_objects, num_child_objects
 
-    def get_success_message(self):
-        if self.num_parent_objects == 1:
-            if self.num_child_objects == 0:
+    def get_success_message(self, num_parent_objects, num_child_objects):
+        if num_parent_objects == 1:
+            if num_child_objects == 0:
                 success_message = _("1 page has been deleted")
             else:
                 success_message = ngettext(
                     "1 page and %(num_child_objects)d child page have been deleted",
                     "1 page and %(num_child_objects)d child pages have been deleted",
-                    self.num_child_objects
+                    num_child_objects
                 ) % {
-                    'num_child_objects': self.num_child_objects
+                    'num_child_objects': num_child_objects
                 }
         else:
-            if self.num_child_objects == 0:
-                success_message = _("%(num_parent_objects)d pages have been deleted") % {'num_parent_objects': self.num_parent_objects}
+            if num_child_objects == 0:
+                success_message = _("%(num_parent_objects)d pages have been deleted") % {'num_parent_objects': num_parent_objects}
             else:
                 success_message = ngettext(
                     "%(num_parent_objects)d pages and %(num_child_objects)d child page have been deleted",
                     "%(num_parent_objects)d pages and %(num_child_objects)d child pages have been deleted",
-                    self.num_child_objects
+                    num_child_objects
                 ) % {
-                    'num_child_objects': self.num_child_objects,
-                    'num_parent_objects': self.num_parent_objects
+                    'num_child_objects': num_child_objects,
+                    'num_parent_objects': num_parent_objects
                 }
         return success_message
 

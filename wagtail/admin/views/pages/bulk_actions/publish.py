@@ -32,54 +32,52 @@ class PublishBulkAction(PageBulkAction):
         }
 
     @classmethod
-    def execute_action(cls, objects, **kwargs):
-        include_descendants = kwargs.get('include_descendants', False)
-        user = kwargs.get('user', None)
-        if user is None:
-            return
+    def execute_action(cls, objects, include_descendants=False, user=None, **kwargs):
+        num_parent_objects, num_child_objects = 0, 0
         for page in objects:
             revision = page.save_revision(user=user)
             revision.publish(user=user)
-            cls.num_parent_objects += 1
+            num_parent_objects += 1
 
             if include_descendants:
                 for draft_descendant_page in page.get_descendants().not_live().defer_streamfields().specific():
-                    if draft_descendant_page.permissions_for_user(user).can_publish():
+                    if user is None or draft_descendant_page.permissions_for_user(user).can_publish():
                         revision = draft_descendant_page.save_revision(user=user)
                         revision.publish(user=user)
-                        cls.num_child_objects += 1
+                        num_child_objects += 1
+        return num_parent_objects, num_child_objects
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
         include_descendants = self.cleaned_form.cleaned_data['include_descendants']
-        if self.num_parent_objects == 1:
+        if num_parent_objects == 1:
             if include_descendants:
-                if self.num_child_objects == 0:
+                if num_child_objects == 0:
                     success_message = _("1 page has been published")
                 else:
                     success_message = ngettext(
                         "1 page and %(num_child_objects)d child page have been published",
                         "1 page and %(num_child_objects)d child pages have been published",
-                        self.num_child_objects
+                        num_child_objects
                     ) % {
-                        'num_child_objects': self.num_child_objects
+                        'num_child_objects': num_child_objects
                     }
             else:
                 success_message = _("1 page has been published")
         else:
             if include_descendants:
-                if self.num_child_objects == 0:
-                    success_message = _("%(num_parent_objects)d pages have been published") % {'num_parent_objects': self.num_parent_objects}
+                if num_child_objects == 0:
+                    success_message = _("%(num_parent_objects)d pages have been published") % {'num_parent_objects': num_parent_objects}
                 else:
                     success_message = ngettext(
                         "%(num_parent_objects)d pages and %(num_child_objects)d child page have been published",
                         "%(num_parent_objects)d pages and %(num_child_objects)d child pages have been published",
-                        self.num_child_objects
+                        num_child_objects
                     ) % {
-                        'num_child_objects': self.num_child_objects,
-                        'num_parent_objects': self.num_parent_objects
+                        'num_child_objects': num_child_objects,
+                        'num_parent_objects': num_parent_objects
                     }
             else:
-                success_message = _("%(num_parent_objects)d pages have been published") % {'num_parent_objects': self.num_parent_objects}
+                success_message = _("%(num_parent_objects)d pages have been published") % {'num_parent_objects': num_parent_objects}
         return success_message
 
 

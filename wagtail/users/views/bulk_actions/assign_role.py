@@ -29,7 +29,6 @@ class AssignRoleBulkAction(UserBulkAction):
     def get_execution_context(self):
         return {
             'role': self.cleaned_form.cleaned_data['role'],
-            'user': self.request.user
         }
 
     def prepare_action(self, objects):
@@ -47,15 +46,16 @@ class AssignRoleBulkAction(UserBulkAction):
         if role is None:
             return
         role.user_set.add(*objects)
-        cls.num_parent_objects = len(objects)
+        num_parent_objects = len(objects)
+        return num_parent_objects, 0
 
-    def get_success_message(self):
+    def get_success_message(self, num_parent_objects, num_child_objects):
         return ngettext(
             "%(num_parent_objects)d user has been assigned as %(role)s",
             "%(num_parent_objects)d users have been assigned as %(role)s",
-            self.num_parent_objects
+            num_parent_objects
         ) % {
-            'num_parent_objects': self.num_parent_objects,
+            'num_parent_objects': num_parent_objects,
             'role': self.cleaned_form.cleaned_data['role'].name
         }
 
