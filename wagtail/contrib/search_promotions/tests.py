@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from io import StringIO
 
 from django.core import management
@@ -549,3 +549,35 @@ class TestGarbageCollectManagementCommand(TestCase):
             ).count(),
             0,
         )
+
+
+class TestCopyDailyHitsFromWagtailSearchManagementCommand(TestCase):
+    def run_command(self, **options):
+        output = StringIO()
+        management.call_command(
+            "copy_daily_hits_from_wagtailsearch", stdout=output, **options
+        )
+        output.seek(0)
+        return output
+
+    def test_copy(self):
+        # Create some daily hits in the wagtailsearch.{Query,QueryDailyHits} models
+        from wagtail.search.models import Query as WSQuery
+
+        query = WSQuery.get("test query")
+        query.add_hit(date(2021, 8, 24))
+        query.add_hit(date(2021, 8, 24))
+        query.add_hit(date(2021, 7, 1))
+
+        # Check that nothing magically got inserted into the new query model
+        self.assertFalse(Query.objects.exists())
+
+        # Run the management command
+        self.run_command()
+
+        # Check that the query now exists in the new model
+        new_query = Query.objects.get()
+        self.assertEqual(new_query.query_string, "test query")
+
+        # Check daily hits
+        self.assertEqual(new_query.hits, 3)
