@@ -14,6 +14,7 @@ Changelog
  * Convert Documents and Images to class based views for easier overriding (Matt Westcott)
  * Isolate admin URLs for Documents and Images search listing results with the name `'listing_results'` (Matt Westcott)
  * Removed `request.is_ajax()` usage in Documents, Image and Snippet views (Matt Westcott)
+ * Simplify generic admin view templates plus ensure `page_title` and `page_subtitle` are used consistently (Matt Westcott)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
