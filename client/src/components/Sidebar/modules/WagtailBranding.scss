@@ -22,7 +22,8 @@
     text-align: center;
     width: 100px;
     height: 100px;
-    transition: transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1), width 150ms ease, height 150ms ease;
+    transition: transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1), width 150ms ease, height 150ms ease, padding-top 150ms ease;
+    box-sizing: border-box;
 
     &:hover {
         color: $color-white;
@@ -32,7 +33,7 @@
     // Reduce overall size when in slim mode
     .sidebar--slim & {
         width: 40px;
-        height: 40px;
+        padding-top: 30px;
     }
 
     // Remove background on 404 page

@@ -46,8 +46,6 @@
 
     @at-root .sidebar--slim #{&} {
         > ul > li > a {
-            padding: 0.8em 0.8em 0.8em 1.25em;
-
             .menuitem-label {
                 opacity: 0;
             }
