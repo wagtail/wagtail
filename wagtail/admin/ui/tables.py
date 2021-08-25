@@ -4,8 +4,9 @@ from collections import OrderedDict
 from collections.abc import Mapping
 
 from django.forms import MediaDefiningClass
-from django.template.loader import render_to_string
+from django.template.loader import get_template
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.text import capfirst
 
 from wagtail.admin.ui.components import Component
@@ -60,12 +61,20 @@ class Column(metaclass=MediaDefiningClass):
             'request': parent_context.get('request'),
         }
 
+    @cached_property
+    def header_template(self):
+        return get_template(self.header_template_name)
+
+    @cached_property
+    def cell_template(self):
+        return get_template(self.cell_template_name)
+
     def render_header_html(self, parent_context):
         """
         Renders the column's header
         """
         context = self.get_header_context_data(parent_context)
-        return render_to_string(self.header_template_name, context)
+        return self.header_template.render(context)
 
     def get_value(self, instance):
         """
@@ -94,7 +103,7 @@ class Column(metaclass=MediaDefiningClass):
         Renders a table cell containing data for the given instance
         """
         context = self.get_cell_context_data(instance, parent_context)
-        return render_to_string(self.cell_template_name, context)
+        return self.cell_template.render(context)
 
     def get_cell(self, instance):
         """
