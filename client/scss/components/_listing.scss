@@ -500,10 +500,14 @@ ul.listing {
     }
 
     .button {
-        font-weight: 700;
+        font-weight: 600;
     }
 
     .bulk-actions-more {
+        .button {
+            border: 0;
+        }
+
         .button:not(:hover) {
             color: $color-teal;
         }
